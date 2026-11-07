@@ -63,6 +63,8 @@ Use `python -m bsa.workflow intake <brief.md> --out <new-intake.json>` to index 
 
 [Network calculations](docs/NETWORKS.md) aggregate prescribed flow through circular tree networks and report friction, fittings, elevation, residual total pressure and the critical path. The `network` workflow adapter has air and water examples with independent formula tests. Loops, operating-point selection, physical routing and domain compliance remain outside this adapter.
 
+[Model/network binding](docs/NETWORK_BINDING.md) derives straight circular route lengths, node elevations and explicit internal diameters from model ports/properties, generates IFC and independently reconciles its saved geometry with the derived pressure input. Physical junction detail and full engineering acceptance remain pending.
+
 ## Shared electrical data
 
 [Coordinated generation](docs/COORDINATION.md) now feeds the same device/circuit data into calculations, DXF and IFC. A geometry companion only adds explicit dimensions, heights and spaces. Reopened artifacts are reconciled; the workflow can send the resulting DXF through native AutoCAD save/reopen/plot. No separate power, PF, XY or circuit copy is maintained in geometry inputs.

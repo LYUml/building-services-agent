@@ -64,15 +64,20 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","lighting","native_cad","manual"):
+        if kind not in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","lighting","native_cad","manual"):
             raise ProjectError("unknown task adapter")
-        if kind in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","lighting"):
+        if kind in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","lighting"):
             inputs.add(local_path(root,t.get("project")))
         if kind=='lighting':
             from .lighting import validate as validate_lighting
             lighting_project=local_path(root,t.get('project'))
             inputs.update(validate_lighting(read_json(lighting_project),lighting_project.parent))
         if kind=='electrical_coordination':inputs.add(local_path(root,t.get('geometry')))
+        if kind=='network_coordination':
+            from .network_binding import prepare
+            model=local_path(root,t.get('model'));binding=local_path(root,t.get('binding'))
+            inputs.update((model,binding))
+            prepare(read_json(local_path(root,t.get('project'))),read_json(model),read_json(binding))
         if kind=='electrical_lighting':
             from .lighting_binding import prepare
             ep=local_path(root,t.get('project'));gp=local_path(root,t.get('geometry'));op=local_path(root,t.get('optical'))
@@ -141,6 +146,11 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                 from .bim import run
                 payload=run(local_path(root,t['project']),folder)
                 status='pass';reason='IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending'
+            elif t['kind']=='network_coordination':
+                from .network_binding import run
+                payload=run(local_path(root,t['project']),local_path(root,t['model']),local_path(root,t['binding']),folder)
+                status='pass' if payload['calculated_checks_pass'] else 'fail'
+                reason='IFC port-derived circular route dimensions and prescribed-flow pressure budget; detailed routing and full acceptance pending'
             elif t['kind']=='network':
                 from .network import run
                 payload=run(local_path(root,t['project']),folder)

@@ -1,0 +1,58 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-binding\\network.json": "3690fc9f63d70acd454add2b33e23406f823811ad3d611c7c89354c862a1a34f",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-binding\\plan.json": "3371ac0dcee5615f2cdd9c84879bb93f6cd09951a7161cb159661c1e7dce6d2d",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-binding\\brief.md": "4b21af368649c581a2e125b6420e32d43d8c1441a0eb147aa5c355bf9848ca96",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-binding\\binding.json": "2c3bd16069d22482bbcd7be1e0cdb8e3a94aec646621d70b1bbbc1363e443835",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-binding\\model.json": "0ad10124775b50301e443b96b890b48713694ace14c02d82b8fdb12ffc34b9a1"
+  },
+  "inputs_unchanged": true,
+  "tasks": {
+    "coordinated": {
+      "kind": "network_coordination",
+      "status": "pass",
+      "scope": "IFC port-derived circular route dimensions and prescribed-flow pressure budget; detailed routing and full acceptance pending"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Use the supplied model's straight DUCT1 inlet/outlet centres to derive MAIN length, its explicit InternalDiameter_m property for internal diameter, and bound node-port elevations for the prescribed-demand pressure budget. Generate and reopen IFC, compare saved model geometry and diameter with derived network input, and retain source hashes and pressure results. All inputs are synthetic; physical routing, junction details, manufacturer geometry and professional acceptance remain pending.",
+      "task": "coordinated",
+      "acceptance": "Derived dimensions match reopened IFC and pressure evidence; professional acceptance remains pending",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 3,
+        "end_line": 3
+      },
+      "execution_scope": "IFC port-derived circular route dimensions and prescribed-flow pressure budget; detailed routing and full acceptance pending",
+      "evidence": [
+        "coordinated/network-binding.json",
+        "coordinated/network-input.json",
+        "coordinated/analysis/manifest.json",
+        "coordinated/analysis/network.json",
+        "coordinated/analysis/report.html",
+        "coordinated/analysis/segments.csv",
+        "coordinated/bim/bim-verification.json",
+        "coordinated/bim/model.ifc",
+        "coordinated/bim/schema-validation.json"
+      ]
+    }
+  ],
+  "artifact_hashes": {
+    "coordinated/network-binding.json": "e4ed701be60bc2c88432212d48c171b4cfd155f63b70d27720697bcd85922274",
+    "coordinated/network-input.json": "ea5beb1db19c0cd7e3c2142e7eee12c8e46fe069ab95733431328b1e6745d508",
+    "coordinated/analysis/manifest.json": "f0994be8ba4f77e021c6c3e88524110ca43b166dbd3035de6fed04af3c40d2de",
+    "coordinated/analysis/network.json": "b43f6d5acad40267a93856378cf8d2da5ea05492b44ff9a23bed5ce242ad2296",
+    "coordinated/analysis/report.html": "2b416e09aff743558e83460974f03a31b04a0838b177e01281483c0180109ef8",
+    "coordinated/analysis/segments.csv": "f5c34286907e10016f42445a000807d64085b7557fe28643dd55b3253b42ab19",
+    "coordinated/bim/bim-verification.json": "3cc646245e728ff0a62df30c355286fe735431f4a86314400ef748ba6d7558b5",
+    "coordinated/bim/model.ifc": "5d789922ef47256cb7ade4e2906361368e47cdcaf21f570d8c2992afa381e975",
+    "coordinated/bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "execution_pass": true,
+  "design_accepted": false,
+  "acceptance_note": "Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance"
+}

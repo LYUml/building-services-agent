@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "4b21af368649c581a2e125b6420e32d43d8c1441a0eb147aa5c355bf9848ca96",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "coordinated",
+      "kind": "network_coordination",
+      "project": "network.json",
+      "model": "model.json",
+      "binding": "binding.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Use the supplied model's straight DUCT1 inlet/outlet centres to derive MAIN length, its explicit InternalDiameter_m property for internal diameter, and bound node-port elevations for the prescribed-demand pressure budget. Generate and reopen IFC, compare saved model geometry and diameter with derived network input, and retain source hashes and pressure results. All inputs are synthetic; physical routing, junction details, manufacturer geometry and professional acceptance remain pending.",
+      "task": "coordinated",
+      "acceptance": "Derived dimensions match reopened IFC and pressure evidence; professional acceptance remains pending"
+    }
+  ]
+}

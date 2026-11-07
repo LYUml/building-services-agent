@@ -1,0 +1,38 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-binding\\network.json": "3690fc9f63d70acd454add2b33e23406f823811ad3d611c7c89354c862a1a34f",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-binding\\model.json": "0ad10124775b50301e443b96b890b48713694ace14c02d82b8fdb12ffc34b9a1",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-binding\\binding.json": "2c3bd16069d22482bbcd7be1e0cdb8e3a94aec646621d70b1bbbc1363e443835"
+  },
+  "inputs_unchanged": true,
+  "binding_source": "Synthetic matching model port and network mapping; not measured",
+  "segments": [
+    {
+      "id": "MAIN",
+      "devices": [
+        "DUCT1"
+      ],
+      "length_m": 3,
+      "diameter_m": 0.4
+    }
+  ],
+  "saved_ifc_geometry_match": true,
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "scope": "Straight axis-aligned circular port-centre routes; derived length/elevation/internal diameter, reopened IFC geometry and pressure budget",
+  "pending": [
+    "junction and fitting physical detail",
+    "K reference and circular-section evidence",
+    "routing/clash and full engineering acceptance"
+  ],
+  "artifacts": {
+    "network-input.json": "ea5beb1db19c0cd7e3c2142e7eee12c8e46fe069ab95733431328b1e6745d508",
+    "analysis/manifest.json": "f0994be8ba4f77e021c6c3e88524110ca43b166dbd3035de6fed04af3c40d2de",
+    "analysis/network.json": "b43f6d5acad40267a93856378cf8d2da5ea05492b44ff9a23bed5ce242ad2296",
+    "analysis/report.html": "2b416e09aff743558e83460974f03a31b04a0838b177e01281483c0180109ef8",
+    "analysis/segments.csv": "f5c34286907e10016f42445a000807d64085b7557fe28643dd55b3253b42ab19",
+    "bim/bim-verification.json": "3cc646245e728ff0a62df30c355286fe735431f4a86314400ef748ba6d7558b5",
+    "bim/model.ifc": "5d789922ef47256cb7ade4e2906361368e47cdcaf21f570d8c2992afa381e975",
+    "bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  }
+}

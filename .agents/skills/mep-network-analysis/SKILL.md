@@ -13,4 +13,6 @@ The pressure contract is total (static plus velocity), common-reference, with el
 
 Review segment calculations and node margins, source-required pressure and critical path. Failed targets must remain failed or trigger a versioned design iteration. A passing budget does not prove passive flow splitting, balancing, a fan/pump operating point, motor electrical power, cavitation, acoustics or code compliance. Keep these gates explicit.
 
-Keep IDs aligned with actual project schedules and models. The synthetic network fixtures are not automatically reconciled with the separate IFC ventilation fixture. Validate geometry binding and routing separately before claiming a coordinated MEP model.
+For geometry-linked work, read docs/NETWORK_BINDING.md and use the `network_coordination` adapter or `bsa.network_binding`. Keep elevations, length and internal diameter out of the network input; derive these from explicitly bound model ports and source-backed diameter properties. Require connected straight axis-aligned port-centre chains and saved IFC reconciliation. Do not derive circular diameter from an envelope width. The standalone synthetic network fixtures remain independent unless explicitly bound.
+
+Keep IDs aligned with actual schedules and models. Geometric binding does not prove circular product solids, junction shape, fitting K, clashes, balancing or professional acceptance. Preserve those gates separately.

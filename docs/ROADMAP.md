@@ -5,7 +5,7 @@ The requested end state is reusable automation from a requirement document and s
 | Workstream | Acceptance evidence | Current state |
 |---|---|---|
 | Requirements intake | brief page/section to deliverable and verification mapping; unresolved data visible | text passage indexing, source-linked host-AI plan validation and tool orchestration implemented; PDF/Word locators and offline OCR/review gates implemented; general semantic coverage and drawing interpretation pending |
-| Shared project data | validated identities, units, references and input provenance | shared electrical data now generates/reconciles calculations, DXF and IFC; other domain contracts and universal binding pending |
+| Shared project data | validated identities, units, references and input provenance | shared electrical data generates/reconciles calculations, DXF, IFC and optical origins; straight port-derived network geometry now binds IFC and pressure input; universal binding pending |
 | Electrical | counts reconcile, independent formula examples, cable/protection and fault checks | basic conditional checks; fault checks pending |
 | Native CAD | preserve supplied base, units/sample proof, native DWG reopen and inspected PDF | synthetic overlay native save/reopen/plot verified; existing base and fixed-scale sheets pending |
 | BIM | semantically valid systems/components and schedules, editable IFC/RVT | IFC4 envelope geometry, spaces, systems and directed port topology generated/reopened/checked; detailed models, schedules and RVT pending |
