@@ -1,0 +1,2759 @@
+{
+  "candidate_count": 125,
+  "evaluated_count": 125,
+  "feasible_count": 18,
+  "search_complete": true,
+  "candidates": [
+    {
+      "id": "C000001",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D160",
+        "MAIN": "D200"
+      },
+      "material_score": 38.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 734.4568129097131,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000002",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D160",
+        "MAIN": "D250"
+      },
+      "material_score": 42.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 569.1946375904176,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000003",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D160",
+        "MAIN": "D300"
+      },
+      "material_score": 46.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 515.121289068378,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000004",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D160",
+        "MAIN": "D350"
+      },
+      "material_score": 50.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 493.41170579151094,
+      "failed_velocity_segments": [
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000005",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D160",
+        "MAIN": "D400"
+      },
+      "material_score": 54.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 483.3759170685796,
+      "failed_velocity_segments": [
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000006",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D200",
+        "MAIN": "D200"
+      },
+      "material_score": 42.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 664.0645671525981,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000007",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D200",
+        "MAIN": "D250"
+      },
+      "material_score": 46.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 498.80239183330264,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000008",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D200",
+        "MAIN": "D300"
+      },
+      "material_score": 50.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 444.729043311263,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "A"
+      ]
+    },
+    {
+      "id": "C000009",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D200",
+        "MAIN": "D350"
+      },
+      "material_score": 54.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 423.019460034396,
+      "failed_velocity_segments": [
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "A"
+      ]
+    },
+    {
+      "id": "C000010",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D200",
+        "MAIN": "D400"
+      },
+      "material_score": 58.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 412.98367131146466,
+      "failed_velocity_segments": [
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "A"
+      ]
+    },
+    {
+      "id": "C000011",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D250",
+        "MAIN": "D200"
+      },
+      "material_score": 47.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 664.0645671525981,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000012",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D250",
+        "MAIN": "D250"
+      },
+      "material_score": 51.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 498.80239183330264,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "A"
+      ]
+    },
+    {
+      "id": "C000013",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D250",
+        "MAIN": "D300"
+      },
+      "material_score": 55.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 444.729043311263,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "A"
+      ]
+    },
+    {
+      "id": "C000014",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D250",
+        "MAIN": "D350"
+      },
+      "material_score": 59.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 423.019460034396,
+      "failed_velocity_segments": [
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "A"
+      ]
+    },
+    {
+      "id": "C000015",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D250",
+        "MAIN": "D400"
+      },
+      "material_score": 63.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 412.98367131146466,
+      "failed_velocity_segments": [
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "A"
+      ]
+    },
+    {
+      "id": "C000016",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D300",
+        "MAIN": "D200"
+      },
+      "material_score": 52.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 664.0645671525981,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000017",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D300",
+        "MAIN": "D250"
+      },
+      "material_score": 56.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 498.80239183330264,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "A"
+      ]
+    },
+    {
+      "id": "C000018",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D300",
+        "MAIN": "D300"
+      },
+      "material_score": 60.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 444.729043311263,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "A"
+      ]
+    },
+    {
+      "id": "C000019",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D300",
+        "MAIN": "D350"
+      },
+      "material_score": 64.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 423.019460034396,
+      "failed_velocity_segments": [
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "A"
+      ]
+    },
+    {
+      "id": "C000020",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D300",
+        "MAIN": "D400"
+      },
+      "material_score": 68.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 412.98367131146466,
+      "failed_velocity_segments": [
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "A"
+      ]
+    },
+    {
+      "id": "C000021",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D350",
+        "MAIN": "D200"
+      },
+      "material_score": 57.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 664.0645671525981,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000022",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D350",
+        "MAIN": "D250"
+      },
+      "material_score": 61.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 498.80239183330264,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "A"
+      ]
+    },
+    {
+      "id": "C000023",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D350",
+        "MAIN": "D300"
+      },
+      "material_score": 65.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 444.729043311263,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "A"
+      ]
+    },
+    {
+      "id": "C000024",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D350",
+        "MAIN": "D350"
+      },
+      "material_score": 69.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 423.019460034396,
+      "failed_velocity_segments": [
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "A"
+      ]
+    },
+    {
+      "id": "C000025",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D350",
+        "MAIN": "D400"
+      },
+      "material_score": 73.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 412.98367131146466,
+      "failed_velocity_segments": [
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "A"
+      ]
+    },
+    {
+      "id": "C000026",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D160",
+        "MAIN": "D200"
+      },
+      "material_score": 40.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 734.4568129097131,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000027",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D160",
+        "MAIN": "D250"
+      },
+      "material_score": 44.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 569.1946375904176,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B"
+      ]
+    },
+    {
+      "id": "C000028",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D160",
+        "MAIN": "D300"
+      },
+      "material_score": 48.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 515.121289068378,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B"
+      ]
+    },
+    {
+      "id": "C000029",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D160",
+        "MAIN": "D350"
+      },
+      "material_score": 52.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 493.41170579151094,
+      "failed_velocity_segments": [
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B"
+      ]
+    },
+    {
+      "id": "C000030",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D160",
+        "MAIN": "D400"
+      },
+      "material_score": 56.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 483.3759170685796,
+      "failed_velocity_segments": [
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B"
+      ]
+    },
+    {
+      "id": "C000031",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D200",
+        "MAIN": "D200"
+      },
+      "material_score": 44.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 466.95552609355155,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000032",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D200",
+        "MAIN": "D250"
+      },
+      "material_score": 48.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 301.69335077425615,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B"
+      ]
+    },
+    {
+      "id": "C000033",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D200",
+        "MAIN": "D300"
+      },
+      "material_score": 52.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 247.6200022522165,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000034",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D200",
+        "MAIN": "D350"
+      },
+      "material_score": 56.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 225.91041897534944,
+      "failed_velocity_segments": [
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000035",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D200",
+        "MAIN": "D400"
+      },
+      "material_score": 60.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 215.87463025241811,
+      "failed_velocity_segments": [
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000036",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D250",
+        "MAIN": "D200"
+      },
+      "material_score": 49.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 421.1305854318581,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000037",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D250",
+        "MAIN": "D250"
+      },
+      "material_score": 53.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 255.86841011256266,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000038",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D250",
+        "MAIN": "D300"
+      },
+      "material_score": 57.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 201.79506159052303,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000039",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D250",
+        "MAIN": "D350"
+      },
+      "material_score": 61.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 180.08547831365598,
+      "failed_velocity_segments": [
+        "BR-A"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000040",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D250",
+        "MAIN": "D400"
+      },
+      "material_score": 65.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 170.04968959072465,
+      "failed_velocity_segments": [
+        "BR-A"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000041",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D300",
+        "MAIN": "D200"
+      },
+      "material_score": 54.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 421.1305854318581,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000042",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D300",
+        "MAIN": "D250"
+      },
+      "material_score": 58.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 255.86841011256266,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000043",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D300",
+        "MAIN": "D300"
+      },
+      "material_score": 62.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 201.79506159052303,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000044",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D300",
+        "MAIN": "D350"
+      },
+      "material_score": 66.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 180.08547831365598,
+      "failed_velocity_segments": [
+        "BR-A"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000045",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D300",
+        "MAIN": "D400"
+      },
+      "material_score": 70.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 170.04968959072465,
+      "failed_velocity_segments": [
+        "BR-A"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000046",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D350",
+        "MAIN": "D200"
+      },
+      "material_score": 59.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 421.1305854318581,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000047",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D350",
+        "MAIN": "D250"
+      },
+      "material_score": 63.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 255.86841011256266,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000048",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D350",
+        "MAIN": "D300"
+      },
+      "material_score": 67.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 201.79506159052303,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000049",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D350",
+        "MAIN": "D350"
+      },
+      "material_score": 71.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 180.08547831365598,
+      "failed_velocity_segments": [
+        "BR-A"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000050",
+      "choices": {
+        "BR-A": "D160",
+        "BR-B": "D350",
+        "MAIN": "D400"
+      },
+      "material_score": 75.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 170.04968959072465,
+      "failed_velocity_segments": [
+        "BR-A"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000051",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D160",
+        "MAIN": "D200"
+      },
+      "material_score": 42.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 734.4568129097131,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000052",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D160",
+        "MAIN": "D250"
+      },
+      "material_score": 46.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 569.1946375904176,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B"
+      ]
+    },
+    {
+      "id": "C000053",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D160",
+        "MAIN": "D300"
+      },
+      "material_score": 50.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 515.121289068378,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B"
+      ]
+    },
+    {
+      "id": "C000054",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D160",
+        "MAIN": "D350"
+      },
+      "material_score": 54.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 493.41170579151094,
+      "failed_velocity_segments": [
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B"
+      ]
+    },
+    {
+      "id": "C000055",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D160",
+        "MAIN": "D400"
+      },
+      "material_score": 58.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 483.3759170685796,
+      "failed_velocity_segments": [
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B"
+      ]
+    },
+    {
+      "id": "C000056",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D200",
+        "MAIN": "D200"
+      },
+      "material_score": 46.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 466.95552609355155,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000057",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D200",
+        "MAIN": "D250"
+      },
+      "material_score": 50.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 301.69335077425615,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B"
+      ]
+    },
+    {
+      "id": "C000058",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D200",
+        "MAIN": "D300"
+      },
+      "material_score": 54.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 247.6200022522165,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000059",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D200",
+        "MAIN": "D350"
+      },
+      "material_score": 58.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 225.91041897534944,
+      "failed_velocity_segments": [
+        "BR-B"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000060",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D200",
+        "MAIN": "D400"
+      },
+      "material_score": 62.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 215.87463025241811,
+      "failed_velocity_segments": [
+        "BR-B"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000061",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D250",
+        "MAIN": "D200"
+      },
+      "material_score": 51.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 366.6429675092582,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000062",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D250",
+        "MAIN": "D250"
+      },
+      "material_score": 55.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 201.38079218996273,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000063",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D250",
+        "MAIN": "D300"
+      },
+      "material_score": 59.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 147.3074436679231,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000064",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D250",
+        "MAIN": "D350"
+      },
+      "material_score": 63.0,
+      "feasible": true,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 125.59786039105609,
+      "failed_velocity_segments": [],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000065",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D250",
+        "MAIN": "D400"
+      },
+      "material_score": 67.0,
+      "feasible": true,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 115.56207166812474,
+      "failed_velocity_segments": [],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000066",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D300",
+        "MAIN": "D200"
+      },
+      "material_score": 56.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 343.17052275566493,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000067",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D300",
+        "MAIN": "D250"
+      },
+      "material_score": 60.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 177.90834743636947,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000068",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D300",
+        "MAIN": "D300"
+      },
+      "material_score": 64.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 123.83499891432986,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000069",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D300",
+        "MAIN": "D350"
+      },
+      "material_score": 68.0,
+      "feasible": true,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 102.12541563746282,
+      "failed_velocity_segments": [],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000070",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D300",
+        "MAIN": "D400"
+      },
+      "material_score": 72.0,
+      "feasible": true,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 92.0896269145315,
+      "failed_velocity_segments": [],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000071",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D350",
+        "MAIN": "D200"
+      },
+      "material_score": 61.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 343.17052275566493,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000072",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D350",
+        "MAIN": "D250"
+      },
+      "material_score": 65.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 177.90834743636947,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000073",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D350",
+        "MAIN": "D300"
+      },
+      "material_score": 69.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 123.83499891432986,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000074",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D350",
+        "MAIN": "D350"
+      },
+      "material_score": 73.0,
+      "feasible": true,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 102.12541563746282,
+      "failed_velocity_segments": [],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000075",
+      "choices": {
+        "BR-A": "D200",
+        "BR-B": "D350",
+        "MAIN": "D400"
+      },
+      "material_score": 77.0,
+      "feasible": true,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 92.0896269145315,
+      "failed_velocity_segments": [],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000076",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D160",
+        "MAIN": "D200"
+      },
+      "material_score": 44.5,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 734.4568129097131,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000077",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D160",
+        "MAIN": "D250"
+      },
+      "material_score": 48.5,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 569.1946375904176,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B"
+      ]
+    },
+    {
+      "id": "C000078",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D160",
+        "MAIN": "D300"
+      },
+      "material_score": 52.5,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 515.121289068378,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B"
+      ]
+    },
+    {
+      "id": "C000079",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D160",
+        "MAIN": "D350"
+      },
+      "material_score": 56.5,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 493.41170579151094,
+      "failed_velocity_segments": [
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B"
+      ]
+    },
+    {
+      "id": "C000080",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D160",
+        "MAIN": "D400"
+      },
+      "material_score": 60.5,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 483.3759170685796,
+      "failed_velocity_segments": [
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B"
+      ]
+    },
+    {
+      "id": "C000081",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D200",
+        "MAIN": "D200"
+      },
+      "material_score": 48.5,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 466.95552609355155,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000082",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D200",
+        "MAIN": "D250"
+      },
+      "material_score": 52.5,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 301.69335077425615,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B"
+      ]
+    },
+    {
+      "id": "C000083",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D200",
+        "MAIN": "D300"
+      },
+      "material_score": 56.5,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 247.6200022522165,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000084",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D200",
+        "MAIN": "D350"
+      },
+      "material_score": 60.5,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 225.91041897534944,
+      "failed_velocity_segments": [
+        "BR-B"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000085",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D200",
+        "MAIN": "D400"
+      },
+      "material_score": 64.5,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 215.87463025241811,
+      "failed_velocity_segments": [
+        "BR-B"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000086",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D250",
+        "MAIN": "D200"
+      },
+      "material_score": 53.5,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 366.6429675092582,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000087",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D250",
+        "MAIN": "D250"
+      },
+      "material_score": 57.5,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 201.38079218996273,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000088",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D250",
+        "MAIN": "D300"
+      },
+      "material_score": 61.5,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 147.3074436679231,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000089",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D250",
+        "MAIN": "D350"
+      },
+      "material_score": 65.5,
+      "feasible": true,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 125.59786039105609,
+      "failed_velocity_segments": [],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000090",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D250",
+        "MAIN": "D400"
+      },
+      "material_score": 69.5,
+      "feasible": true,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 115.56207166812474,
+      "failed_velocity_segments": [],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000091",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D300",
+        "MAIN": "D200"
+      },
+      "material_score": 58.5,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 332.9912714051293,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000092",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D300",
+        "MAIN": "D250"
+      },
+      "material_score": 62.5,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 167.72909608583387,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000093",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D300",
+        "MAIN": "D300"
+      },
+      "material_score": 66.5,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 113.65574756379425,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000094",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D300",
+        "MAIN": "D350"
+      },
+      "material_score": 70.5,
+      "feasible": true,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 91.94616428692721,
+      "failed_velocity_segments": [],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000095",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D300",
+        "MAIN": "D400"
+      },
+      "material_score": 74.5,
+      "feasible": true,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 81.91037556399587,
+      "failed_velocity_segments": [],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000096",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D350",
+        "MAIN": "D200"
+      },
+      "material_score": 63.5,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 319.23385285784667,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000097",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D350",
+        "MAIN": "D250"
+      },
+      "material_score": 67.5,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 153.97167753855123,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000098",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D350",
+        "MAIN": "D300"
+      },
+      "material_score": 71.5,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 99.89832901651161,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000099",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D350",
+        "MAIN": "D350"
+      },
+      "material_score": 75.5,
+      "feasible": true,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 78.18874573964459,
+      "failed_velocity_segments": [],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000100",
+      "choices": {
+        "BR-A": "D250",
+        "BR-B": "D350",
+        "MAIN": "D400"
+      },
+      "material_score": 79.5,
+      "feasible": true,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 68.15295701671324,
+      "failed_velocity_segments": [],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000101",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D160",
+        "MAIN": "D200"
+      },
+      "material_score": 47.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 734.4568129097131,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000102",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D160",
+        "MAIN": "D250"
+      },
+      "material_score": 51.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 569.1946375904176,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B"
+      ]
+    },
+    {
+      "id": "C000103",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D160",
+        "MAIN": "D300"
+      },
+      "material_score": 55.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 515.121289068378,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B"
+      ]
+    },
+    {
+      "id": "C000104",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D160",
+        "MAIN": "D350"
+      },
+      "material_score": 59.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 493.41170579151094,
+      "failed_velocity_segments": [
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B"
+      ]
+    },
+    {
+      "id": "C000105",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D160",
+        "MAIN": "D400"
+      },
+      "material_score": 63.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 483.3759170685796,
+      "failed_velocity_segments": [
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B"
+      ]
+    },
+    {
+      "id": "C000106",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D200",
+        "MAIN": "D200"
+      },
+      "material_score": 51.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 466.95552609355155,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000107",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D200",
+        "MAIN": "D250"
+      },
+      "material_score": 55.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 301.69335077425615,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B"
+      ],
+      "failed_pressure_nodes": [
+        "B"
+      ]
+    },
+    {
+      "id": "C000108",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D200",
+        "MAIN": "D300"
+      },
+      "material_score": 59.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 247.6200022522165,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000109",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D200",
+        "MAIN": "D350"
+      },
+      "material_score": 63.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 225.91041897534944,
+      "failed_velocity_segments": [
+        "BR-B"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000110",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D200",
+        "MAIN": "D400"
+      },
+      "material_score": 67.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 215.87463025241811,
+      "failed_velocity_segments": [
+        "BR-B"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000111",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D250",
+        "MAIN": "D200"
+      },
+      "material_score": 56.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 366.6429675092582,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000112",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D250",
+        "MAIN": "D250"
+      },
+      "material_score": 60.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 201.38079218996273,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000113",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D250",
+        "MAIN": "D300"
+      },
+      "material_score": 64.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 147.3074436679231,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000114",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D250",
+        "MAIN": "D350"
+      },
+      "material_score": 68.0,
+      "feasible": true,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 125.59786039105609,
+      "failed_velocity_segments": [],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000115",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D250",
+        "MAIN": "D400"
+      },
+      "material_score": 72.0,
+      "feasible": true,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 115.56207166812474,
+      "failed_velocity_segments": [],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000116",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D300",
+        "MAIN": "D200"
+      },
+      "material_score": 61.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 332.9912714051293,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000117",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D300",
+        "MAIN": "D250"
+      },
+      "material_score": 65.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 167.72909608583387,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000118",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D300",
+        "MAIN": "D300"
+      },
+      "material_score": 69.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 113.65574756379425,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000119",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D300",
+        "MAIN": "D350"
+      },
+      "material_score": 73.0,
+      "feasible": true,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 91.94616428692721,
+      "failed_velocity_segments": [],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000120",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D300",
+        "MAIN": "D400"
+      },
+      "material_score": 77.0,
+      "feasible": true,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 81.91037556399587,
+      "failed_velocity_segments": [],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000121",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D350",
+        "MAIN": "D200"
+      },
+      "material_score": 66.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 319.23385285784667,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    },
+    {
+      "id": "C000122",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D350",
+        "MAIN": "D250"
+      },
+      "material_score": 70.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 153.97167753855123,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000123",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D350",
+        "MAIN": "D300"
+      },
+      "material_score": 74.0,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 99.89832901651161,
+      "failed_velocity_segments": [
+        "MAIN"
+      ],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000124",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D350",
+        "MAIN": "D350"
+      },
+      "material_score": 78.0,
+      "feasible": true,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 78.18874573964459,
+      "failed_velocity_segments": [],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000125",
+      "choices": {
+        "BR-A": "D300",
+        "BR-B": "D350",
+        "MAIN": "D400"
+      },
+      "material_score": 82.0,
+      "feasible": true,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 68.15295701671324,
+      "failed_velocity_segments": [],
+      "failed_pressure_nodes": []
+    }
+  ],
+  "selected": {
+    "id": "C000064",
+    "choices": {
+      "BR-A": "D200",
+      "BR-B": "D250",
+      "MAIN": "D350"
+    },
+    "material_score": 63.0,
+    "feasible": true,
+    "calculated_checks": {
+      "velocity": true,
+      "pressure": true,
+      "flow_continuity": true
+    },
+    "required_source_total_pressure_pa": 125.59786039105609,
+    "failed_velocity_segments": [],
+    "failed_pressure_nodes": []
+  },
+  "feasible_design_found": true,
+  "objective": "minimise sum(length_m * material_score_per_m)",
+  "tie_break": "lowest required source total pressure, then lexical option IDs by sorted segment ID",
+  "design_accepted": false,
+  "scope": "Global optimum only in the supplied finite catalogue under the existing prescribed-flow tree method",
+  "pending": [
+    "catalogue and invariant K/route applicability",
+    "update/reconcile authored BIM after sizing",
+    "fan/pump curve, balancing and all domain/code acceptance"
+  ],
+  "baseline": {
+    "calculated_checks": {
+      "velocity": false,
+      "pressure": false,
+      "flow_continuity": true
+    },
+    "calculated_checks_pass": false,
+    "required_source_total_pressure_pa": 734.4568129097131
+  },
+  "selected_rerun_pass": true,
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-design\\project.json": "528f9d97e34282b8f205dbf4d9ec60e78cdac4057eb0e1df9445192ed39b00d0",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-design\\catalogue.json": "2a10138cdfa93e61408e1a2a55a48c60c6854602b45edee444b97191102697fb"
+  },
+  "inputs_unchanged": true,
+  "catalogue_sources": {
+    "demo": "Synthetic internal diameters, roughness and material points per metre; not manufacturer data, currency or a commercial cost estimate. Constant K across sizes is an explicit scenario assumption."
+  },
+  "artifacts": {
+    "candidates.csv": "279e2572d11a125b4af0762726500889f7a0f3bb34a6b6a2671f0da4db557b51",
+    "report.html": "59967391103fc4cf6a292df359f66dddd0bc05439ea0bffa48db7d636c4ff0ff",
+    "selected-network.json": "a5696f848afe54e70f3328228e11c70dbc8f45eae5110ff40563961ef04de0df",
+    "baseline/manifest.json": "ae2ded69979d50ebde3548659ebdd6c83c99e89cc1ee950edabfe6aa9219dd9d",
+    "baseline/network.json": "77fafa22de7142b8231864b2033f2a7857df0688ee4626c9c8aed4426c0490eb",
+    "baseline/report.html": "f3f6cc0305aae22258a8f23e4b0debed6ae765951d88beeac010917bf853d35b",
+    "baseline/segments.csv": "6fb7f2b26e0ec93ad47281622a6f4d419dcb81395e949284f3b182a92b584b87",
+    "selected/manifest.json": "88b817c0762f79d39f05a57b817dc5a0eccb4d2eda871593d23faff73e032e2b",
+    "selected/network.json": "8f9dedd47dec2d7d6ac468a3568b0c12d12b09993b7ce73b9f1d9eaa2ef214c6",
+    "selected/report.html": "bfeb6bf0ab134c78f9635f4ceceb7732da813d2e0eca5bb533bbaa055d94dcbc",
+    "selected/segments.csv": "f1268ecb59ea69e216c4b292d14d5e6d9746c180c993d04437638a023276a8bb"
+  }
+}

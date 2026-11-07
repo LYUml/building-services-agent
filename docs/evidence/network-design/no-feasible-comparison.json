@@ -1,0 +1,70 @@
+{
+  "candidate_count": 1,
+  "evaluated_count": 1,
+  "feasible_count": 0,
+  "search_complete": true,
+  "candidates": [
+    {
+      "id": "C000001",
+      "choices": {
+        "BR-A": "D125",
+        "BR-B": "D160",
+        "MAIN": "D200"
+      },
+      "material_score": 38.25,
+      "feasible": false,
+      "calculated_checks": {
+        "velocity": false,
+        "pressure": false,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 734.4568129097131,
+      "failed_velocity_segments": [
+        "MAIN",
+        "BR-B",
+        "BR-A"
+      ],
+      "failed_pressure_nodes": [
+        "B",
+        "A"
+      ]
+    }
+  ],
+  "selected": null,
+  "feasible_design_found": false,
+  "objective": "minimise sum(length_m * material_score_per_m)",
+  "tie_break": "lowest required source total pressure, then lexical option IDs by sorted segment ID",
+  "design_accepted": false,
+  "scope": "Global optimum only in the supplied finite catalogue under the existing prescribed-flow tree method",
+  "pending": [
+    "catalogue and invariant K/route applicability",
+    "update/reconcile authored BIM after sizing",
+    "fan/pump curve, balancing and all domain/code acceptance"
+  ],
+  "baseline": {
+    "calculated_checks": {
+      "velocity": false,
+      "pressure": false,
+      "flow_continuity": true
+    },
+    "calculated_checks_pass": false,
+    "required_source_total_pressure_pa": 734.4568129097131
+  },
+  "selected_rerun_pass": false,
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-design\\project.json": "528f9d97e34282b8f205dbf4d9ec60e78cdac4057eb0e1df9445192ed39b00d0",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\network-design-no-feasible-input\\catalogue.json": "d71d1306aef01555dfccbacc8c48350643ef29f225094a4f924d1ccf1402a55b"
+  },
+  "inputs_unchanged": true,
+  "catalogue_sources": {
+    "demo": "Synthetic internal diameters, roughness and material points per metre; not manufacturer data, currency or a commercial cost estimate. Constant K across sizes is an explicit scenario assumption. Explicit infeasibility scenario: only the initial undersized choices are permitted."
+  },
+  "artifacts": {
+    "candidates.csv": "883b53081ea10a1c3b2bbdafc51dc44efb26a58a331ea6dead1e12948aadadc5",
+    "report.html": "46ace9e0f9952d7158a3e0084dc46d2bee4cb48d2121b7a6e6ffa56b47e01217",
+    "baseline/manifest.json": "ae2ded69979d50ebde3548659ebdd6c83c99e89cc1ee950edabfe6aa9219dd9d",
+    "baseline/network.json": "77fafa22de7142b8231864b2033f2a7857df0688ee4626c9c8aed4426c0490eb",
+    "baseline/report.html": "f3f6cc0305aae22258a8f23e4b0debed6ae765951d88beeac010917bf853d35b",
+    "baseline/segments.csv": "6fb7f2b26e0ec93ad47281622a6f4d419dcb81395e949284f3b182a92b584b87"
+  }
+}

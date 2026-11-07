@@ -1,0 +1,73 @@
+{
+  "sources": {
+    "demo": "Synthetic internal diameters, roughness and material points per metre; not manufacturer data, currency or a commercial cost estimate. Constant K across sizes is an explicit scenario assumption. Explicit infeasibility scenario: only the initial undersized choices are permitted."
+  },
+  "options": [
+    {
+      "id": "D125",
+      "diameter_m": 0.125,
+      "roughness_m": 9e-05,
+      "material_score_per_m": 1.25,
+      "source": "demo"
+    },
+    {
+      "id": "D160",
+      "diameter_m": 0.16,
+      "roughness_m": 9e-05,
+      "material_score_per_m": 1.6,
+      "source": "demo"
+    },
+    {
+      "id": "D200",
+      "diameter_m": 0.2,
+      "roughness_m": 9e-05,
+      "material_score_per_m": 2.0,
+      "source": "demo"
+    },
+    {
+      "id": "D250",
+      "diameter_m": 0.25,
+      "roughness_m": 9e-05,
+      "material_score_per_m": 2.5,
+      "source": "demo"
+    },
+    {
+      "id": "D300",
+      "diameter_m": 0.3,
+      "roughness_m": 9e-05,
+      "material_score_per_m": 3.0,
+      "source": "demo"
+    },
+    {
+      "id": "D350",
+      "diameter_m": 0.35,
+      "roughness_m": 9e-05,
+      "material_score_per_m": 3.5,
+      "source": "demo"
+    },
+    {
+      "id": "D400",
+      "diameter_m": 0.4,
+      "roughness_m": 9e-05,
+      "material_score_per_m": 4.0,
+      "source": "demo"
+    }
+  ],
+  "allowed_options": {
+    "MAIN": [
+      "D200"
+    ],
+    "BR-A": [
+      "D125"
+    ],
+    "BR-B": [
+      "D160"
+    ]
+  },
+  "objective": "minimise sum(length_m * material_score_per_m)",
+  "max_evaluations": 500,
+  "hydraulic_basis": {
+    "assumption": "prescribed demands; route and local K unchanged across sizes",
+    "source": "demo"
+  }
+}

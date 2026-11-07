@@ -67,6 +67,8 @@ Use `python -m bsa.workflow intake <brief.md> --out <new-intake.json>` to index 
 
 [Model/network binding](docs/NETWORK_BINDING.md) derives straight circular route lengths, node elevations and explicit internal diameters from model ports/properties, generates IFC and independently reconciles its saved geometry with the derived pressure input. Physical junction detail and full engineering acceptance remain pending.
 
+[Conditional sizing and iteration](docs/NETWORK_DESIGN.md) retains an undersized baseline, evaluates every permitted finite-catalogue size combination, preserves failures and reruns the selected feasible network. It optimises the supplied length-weighted material score under fixed demand/route/K assumptions; it does not invent product data, prices or a fan/pump operating point.
+
 ## Shared electrical data
 
 [Coordinated generation](docs/COORDINATION.md) now feeds the same device/circuit data into calculations, DXF and IFC. A geometry companion only adds explicit dimensions, heights and spaces. Reopened artifacts are reconciled; the workflow can send the resulting DXF through native AutoCAD save/reopen/plot. No separate power, PF, XY or circuit copy is maintained in geometry inputs.

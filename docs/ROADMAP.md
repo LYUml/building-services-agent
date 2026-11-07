@@ -12,6 +12,7 @@ The requested end state is reusable automation from a requirement document and s
 | HVAC/energy | actual engine execution, geometry/inputs QA, heat/electric outputs separate | OpenStudio/EnergyPlus synthetic two-zone design-day comparison executed; MCP read queries verified; circular level-air tree pressure budgets implemented; annual/weather and broad HVAC authoring pending |
 | Lighting | photometry and calculation grid with target checks | actual Radiance IES direct/reflected points and numerical stability verified; shared electrical/CAD/IFC origins bound to Radiance; arbitrary scenes, glare/daylight and final acceptance pending |
 | Plumbing/fire | hydraulic calculations and domain-specific applicable rules | circular prescribed-demand water tree pressure budgets implemented; loops, drainage, fire demand methods and domain rules pending |
+| Design iteration | retained baseline/failed candidates, explicit objective/constraints and selected rerun | exhaustive supplied-catalogue circular tree sizing implemented; cross-domain iteration, model update and full acceptance pending |
 | Delivery | input hashes unchanged, output counts match, visual checks with evidence | workflow input/output integrity, source locators and task evidence matrix implemented; full acceptance gates pending |
 | Reuse | second independent brief run, evidence of adaptation without copied assumptions | pending |
 

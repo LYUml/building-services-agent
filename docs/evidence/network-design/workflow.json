@@ -1,0 +1,91 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-design\\brief.md": "0f586986a58b21984c07f1de63f39c1bf79cd6aeaae54fb1149273bf309c91d3",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-design\\project.json": "528f9d97e34282b8f205dbf4d9ec60e78cdac4057eb0e1df9445192ed39b00d0",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-design\\plan.json": "0e9bd970ff21cdffae9b3f4db9e887673803552dc8e8fe97487e556d95235308",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-design\\catalogue.json": "2a10138cdfa93e61408e1a2a55a48c60c6854602b45edee444b97191102697fb"
+  },
+  "inputs_unchanged": true,
+  "tasks": {
+    "design": {
+      "kind": "network_design",
+      "status": "pass",
+      "scope": "exhaustive supplied-catalogue circular tree sizing; failed candidates retained; optimum conditional on fixed route/K/demand and full design acceptance pending"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Retain the initially undersized baseline and evaluate every permitted combination of supplied catalogue internal diameters and roughnesses. Keep prescribed withdrawals, route lengths, elevations, local K values, source pressure and acceptance targets fixed under the explicit scenario assumption. Select the feasible combination with minimum supplied length-weighted material score, preserve failed candidates and reasons, and rerun the selected network into separate source-linked calculation artifacts. These material points are synthetic and are not prices or embodied-carbon data.",
+      "task": "design",
+      "acceptance": "Complete conditional catalogue evaluation with baseline, failure evidence, selected rerun and explicit pending gates",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 3,
+        "end_line": 3
+      },
+      "execution_scope": "exhaustive supplied-catalogue circular tree sizing; failed candidates retained; optimum conditional on fixed route/K/demand and full design acceptance pending",
+      "evidence": [
+        "design/candidates.csv",
+        "design/design-comparison.json",
+        "design/report.html",
+        "design/selected-network.json",
+        "design/baseline/manifest.json",
+        "design/baseline/network.json",
+        "design/baseline/report.html",
+        "design/baseline/segments.csv",
+        "design/selected/manifest.json",
+        "design/selected/network.json",
+        "design/selected/report.html",
+        "design/selected/segments.csv"
+      ]
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Report explicitly if there is no feasible design or a candidate lies in the unsupported transitional Reynolds regime. Keep manufacturer/catalogue applicability, size-invariant K assumptions, authored-model reconciliation, fan operating point, balancing, physical layout and full engineering acceptance pending.",
+      "task": "design",
+      "acceptance": "Complete conditional catalogue evaluation with baseline, failure evidence, selected rerun and explicit pending gates",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 5,
+        "end_line": 5
+      },
+      "execution_scope": "exhaustive supplied-catalogue circular tree sizing; failed candidates retained; optimum conditional on fixed route/K/demand and full design acceptance pending",
+      "evidence": [
+        "design/candidates.csv",
+        "design/design-comparison.json",
+        "design/report.html",
+        "design/selected-network.json",
+        "design/baseline/manifest.json",
+        "design/baseline/network.json",
+        "design/baseline/report.html",
+        "design/baseline/segments.csv",
+        "design/selected/manifest.json",
+        "design/selected/network.json",
+        "design/selected/report.html",
+        "design/selected/segments.csv"
+      ]
+    }
+  ],
+  "artifact_hashes": {
+    "design/candidates.csv": "279e2572d11a125b4af0762726500889f7a0f3bb34a6b6a2671f0da4db557b51",
+    "design/design-comparison.json": "2af78a385b0c33da1656432698eed201b349ca9e07fd72e3d2e6090a2db959e5",
+    "design/report.html": "59967391103fc4cf6a292df359f66dddd0bc05439ea0bffa48db7d636c4ff0ff",
+    "design/selected-network.json": "a5696f848afe54e70f3328228e11c70dbc8f45eae5110ff40563961ef04de0df",
+    "design/baseline/manifest.json": "ae2ded69979d50ebde3548659ebdd6c83c99e89cc1ee950edabfe6aa9219dd9d",
+    "design/baseline/network.json": "77fafa22de7142b8231864b2033f2a7857df0688ee4626c9c8aed4426c0490eb",
+    "design/baseline/report.html": "f3f6cc0305aae22258a8f23e4b0debed6ae765951d88beeac010917bf853d35b",
+    "design/baseline/segments.csv": "6fb7f2b26e0ec93ad47281622a6f4d419dcb81395e949284f3b182a92b584b87",
+    "design/selected/manifest.json": "88b817c0762f79d39f05a57b817dc5a0eccb4d2eda871593d23faff73e032e2b",
+    "design/selected/network.json": "8f9dedd47dec2d7d6ac468a3568b0c12d12b09993b7ce73b9f1d9eaa2ef214c6",
+    "design/selected/report.html": "bfeb6bf0ab134c78f9635f4ceceb7732da813d2e0eca5bb533bbaa055d94dcbc",
+    "design/selected/segments.csv": "f1268ecb59ea69e216c4b292d14d5e6d9746c180c993d04437638a023276a8bb"
+  },
+  "execution_pass": true,
+  "design_accepted": false,
+  "acceptance_note": "Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance"
+}

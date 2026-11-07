@@ -64,15 +64,19 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","lighting","drawing_intake","base_overlay","native_cad","manual"):
+        if kind not in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","lighting","drawing_intake","base_overlay","native_cad","manual"):
             raise ProjectError("unknown task adapter")
-        if kind in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","lighting"):
+        if kind in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","lighting"):
             inputs.add(local_path(root,t.get("project")))
         if kind=='lighting':
             from .lighting import validate as validate_lighting
             lighting_project=local_path(root,t.get('project'))
             inputs.update(validate_lighting(read_json(lighting_project),lighting_project.parent))
         if kind=='electrical_coordination':inputs.add(local_path(root,t.get('geometry')))
+        if kind=='network_design':
+            from .network_design import validate_catalogue
+            catalogue=local_path(root,t.get('catalogue'));inputs.add(catalogue)
+            validate_catalogue(read_json(local_path(root,t['project'])),read_json(catalogue))
         if kind=='drawing_intake':
             drawing=local_path(root,t.get('drawing'));inputs.add(drawing)
             if drawing.suffix.lower() not in ('.dwg','.dxf'):raise ProjectError('drawing intake requires DWG or DXF')
@@ -171,6 +175,11 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                 from .bim import run
                 payload=run(local_path(root,t['project']),folder)
                 status='pass';reason='IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending'
+            elif t['kind']=='network_design':
+                from .network_design import run
+                payload=run(local_path(root,t['project']),local_path(root,t['catalogue']),folder)
+                status='pass' if payload['feasible_design_found'] and payload['selected_rerun_pass'] else 'fail'
+                reason='exhaustive supplied-catalogue circular tree sizing; failed candidates retained; optimum conditional on fixed route/K/demand and full design acceptance pending'
             elif t['kind']=='network_coordination':
                 from .network_binding import run
                 payload=run(local_path(root,t['project']),local_path(root,t['model']),local_path(root,t['binding']),folder)

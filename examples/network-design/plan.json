@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "0f586986a58b21984c07f1de63f39c1bf79cd6aeaae54fb1149273bf309c91d3",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "design",
+      "kind": "network_design",
+      "project": "project.json",
+      "catalogue": "catalogue.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Retain the initially undersized baseline and evaluate every permitted combination of supplied catalogue internal diameters and roughnesses. Keep prescribed withdrawals, route lengths, elevations, local K values, source pressure and acceptance targets fixed under the explicit scenario assumption. Select the feasible combination with minimum supplied length-weighted material score, preserve failed candidates and reasons, and rerun the selected network into separate source-linked calculation artifacts. These material points are synthetic and are not prices or embodied-carbon data.",
+      "task": "design",
+      "acceptance": "Complete conditional catalogue evaluation with baseline, failure evidence, selected rerun and explicit pending gates"
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Report explicitly if there is no feasible design or a candidate lies in the unsupported transitional Reynolds regime. Keep manufacturer/catalogue applicability, size-invariant K assumptions, authored-model reconciliation, fan operating point, balancing, physical layout and full engineering acceptance pending.",
+      "task": "design",
+      "acceptance": "Complete conditional catalogue evaluation with baseline, failure evidence, selected rerun and explicit pending gates"
+    }
+  ]
+}

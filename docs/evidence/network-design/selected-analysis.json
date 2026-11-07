@@ -1,0 +1,147 @@
+{
+  "name": "Synthetic initially undersized air tree for discrete design iteration",
+  "supply_flow_m3_s": 0.5,
+  "segments": [
+    {
+      "id": "MAIN",
+      "from_node": "FAN",
+      "to_node": "J",
+      "flow_m3_s": 0.5,
+      "area_m2": 0.0962112750161874,
+      "velocity_m_s": 5.196896100959849,
+      "reynolds": 121260.90902239646,
+      "darcy_friction_factor": 0.01870463347353522,
+      "regime": "turbulent Colebrook Darcy",
+      "friction_pa": 6.928041236186994,
+      "minor_pa": 16.204637450503007,
+      "dissipative_loss_pa": 23.13267868669,
+      "elevation_pressure_pa": 0.0,
+      "downstream_total_pressure_pa": 276.86732131331,
+      "velocity_pass": true,
+      "source": "sizing/segment/MAIN"
+    },
+    {
+      "id": "BR-B",
+      "from_node": "J",
+      "to_node": "B",
+      "flow_m3_s": 0.3,
+      "area_m2": 0.04908738521234052,
+      "velocity_m_s": 6.111549814728781,
+      "reynolds": 101859.16357881301,
+      "darcy_friction_factor": 0.019682553017426458,
+      "regime": "turbulent Colebrook Darcy",
+      "friction_pa": 17.64393233887242,
+      "minor_pa": 44.82124936549367,
+      "dissipative_loss_pa": 62.46518170436609,
+      "elevation_pressure_pa": 0.0,
+      "downstream_total_pressure_pa": 214.4021396089439,
+      "velocity_pass": true,
+      "source": "sizing/segment/BR-B"
+    },
+    {
+      "id": "BR-A",
+      "from_node": "J",
+      "to_node": "A",
+      "flow_m3_s": 0.2,
+      "area_m2": 0.031415926535897934,
+      "velocity_m_s": 6.366197723675813,
+      "reynolds": 84882.6363156775,
+      "darcy_friction_factor": 0.020589822038460128,
+      "regime": "turbulent Colebrook Darcy",
+      "friction_pa": 12.517110839531231,
+      "minor_pa": 36.475626111241596,
+      "dissipative_loss_pa": 48.99273695077282,
+      "elevation_pressure_pa": 0.0,
+      "downstream_total_pressure_pa": 227.87458436253718,
+      "velocity_pass": true,
+      "source": "sizing/segment/BR-A"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "FAN",
+      "demand_m3_s": 0,
+      "total_pressure_pa": 300,
+      "required_total_pressure_pa": 0,
+      "pressure_margin_pa": 300,
+      "pressure_pass": true,
+      "path": [],
+      "source": "demo"
+    },
+    {
+      "id": "J",
+      "demand_m3_s": 0,
+      "total_pressure_pa": 276.86732131331,
+      "required_total_pressure_pa": 0,
+      "pressure_margin_pa": 276.86732131331,
+      "pressure_pass": true,
+      "path": [
+        "MAIN"
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "B",
+      "demand_m3_s": 0.3,
+      "total_pressure_pa": 214.4021396089439,
+      "required_total_pressure_pa": 40,
+      "pressure_margin_pa": 174.4021396089439,
+      "pressure_pass": true,
+      "path": [
+        "MAIN",
+        "BR-B"
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "A",
+      "demand_m3_s": 0.2,
+      "total_pressure_pa": 227.87458436253718,
+      "required_total_pressure_pa": 30,
+      "pressure_margin_pa": 197.87458436253718,
+      "pressure_pass": true,
+      "path": [
+        "MAIN",
+        "BR-A"
+      ],
+      "source": "demo"
+    }
+  ],
+  "critical_node": "B",
+  "critical_path": [
+    "MAIN",
+    "BR-B"
+  ],
+  "required_source_total_pressure_pa": 125.59786039105609,
+  "calculated_checks": {
+    "velocity": true,
+    "pressure": true,
+    "flow_continuity": true
+  },
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "pressure_basis": "Total pressure (static + velocity), with elevation potential handled separately; common reference. Not an ambient-referenced vertical air pressure model.",
+  "scope": "Prescribed withdrawals in a constant-density, fully filled circular tree; no loops or pressure-dependent flow solution",
+  "pending": [
+    "source demand and route evidence",
+    "component K/reference velocity validation",
+    "fan/pump curve and operating-point selection",
+    "noise, cavitation, compressibility and domain/code checks",
+    "physical routing and clash review"
+  ],
+  "input_sha256": "a5696f848afe54e70f3328228e11c70dbc8f45eae5110ff40563961ef04de0df",
+  "fluids_version": "1.3.1",
+  "sources": {
+    "demo": "Explicit synthetic constant flow, route, local-K and pressure/velocity assumptions. Initial diameters deliberately undersized for search verification; not measured or code/product data.",
+    "sizing/demo": "Synthetic internal diameters, roughness and material points per metre; not manufacturer data, currency or a commercial cost estimate. Constant K across sizes is an explicit scenario assumption.",
+    "sizing/segment/MAIN": "Explicit synthetic constant flow, route, local-K and pressure/velocity assumptions. Initial diameters deliberately undersized for search verification; not measured or code/product data.; size/roughness: Synthetic internal diameters, roughness and material points per metre; not manufacturer data, currency or a commercial cost estimate. Constant K across sizes is an explicit scenario assumption.; sizing assumption: Synthetic internal diameters, roughness and material points per metre; not manufacturer data, currency or a commercial cost estimate. Constant K across sizes is an explicit scenario assumption.",
+    "sizing/segment/BR-A": "Explicit synthetic constant flow, route, local-K and pressure/velocity assumptions. Initial diameters deliberately undersized for search verification; not measured or code/product data.; size/roughness: Synthetic internal diameters, roughness and material points per metre; not manufacturer data, currency or a commercial cost estimate. Constant K across sizes is an explicit scenario assumption.; sizing assumption: Synthetic internal diameters, roughness and material points per metre; not manufacturer data, currency or a commercial cost estimate. Constant K across sizes is an explicit scenario assumption.",
+    "sizing/segment/BR-B": "Explicit synthetic constant flow, route, local-K and pressure/velocity assumptions. Initial diameters deliberately undersized for search verification; not measured or code/product data.; size/roughness: Synthetic internal diameters, roughness and material points per metre; not manufacturer data, currency or a commercial cost estimate. Constant K across sizes is an explicit scenario assumption.; sizing assumption: Synthetic internal diameters, roughness and material points per metre; not manufacturer data, currency or a commercial cost estimate. Constant K across sizes is an explicit scenario assumption."
+  },
+  "methods": [
+    "Darcy-Weisbach: f_D L/D rho v^2/2",
+    "Fittings: K rho v^2/2 using local segment velocity",
+    "Elevation: rho g dz, g=9.80665 m/s2",
+    "https://fluids.readthedocs.io/fluids.friction.html"
+  ]
+}
