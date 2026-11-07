@@ -20,7 +20,7 @@ See examples/workflow-plan.json. Version 1 requires:
 - `brief`: relative source path and `brief_sha256`: digest of the interpreted bytes.
 - `passage_dispositions`: every source paragraph classified as requirement or context. The AI must review context classifications; validation cannot prove that a requirement was not misclassified.
 - `requirements`: unique id, source passage id, exact source quote, task id and a complete acceptance description. Multiple requirements may cite a paragraph. Partial quotation alone is not evidence that the complete paragraph has been interpreted correctly.
-- `tasks`: unique path-safe ids and one of electrical, electrical_coordination, energy, bim, network, native_cad or manual. Electrical/energy/BIM/network tasks specify relative project JSON inside the plan directory. Native tasks depend on an earlier electrical task. No arbitrary shell commands or executable paths can be supplied in plan data; optional engine paths are explicit CLI arguments.
+- `tasks`: unique path-safe ids and one of electrical, electrical_coordination, energy, bim, network, lighting, native_cad or manual. Electrical/energy/BIM/network tasks specify relative project JSON inside the plan directory. Native tasks depend on an earlier electrical task. No arbitrary shell commands or executable paths can be supplied in plan data; optional engine paths are explicit CLI arguments.
 
 Source changes invalidate the brief digest. Escaping input paths, unknown adapters, uncovered paragraphs, fabricated quotations and unreferenced tasks are rejected before execution. Missing optional tools remain pending. Adapter exceptions are recorded as failures; later independent tasks can still run.
 
@@ -37,3 +37,7 @@ The `bim` adapter uses the explicit IFC envelope input contract in IFC_MODELS.md
 The `network` adapter calculates prescribed-demand circular tree pressure budgets using NETWORKS.md. It preserves failed targets as task failures and does not claim loop solving, passive branch balancing or fan/pump selection.
 
 `electrical_coordination` takes both project and geometry relative input paths (COORDINATION.md). Its saved calculation/DXF/IFC outputs are reconciled. A later native_cad task may depend on this adapter as well as the standalone electrical adapter. Its additional geometry input is included in source-hash checks.
+
+The lighting adapter uses LIGHTING.md and an explicit --radiance-bin CLI argument; IES inputs are added to plan integrity records. It checks supplied sample-grid targets and two numerical parameter settings, not all lighting design criteria.
+
+Hashed examples and recorded evidence use .gitattributes -text to preserve their exact bytes across checkout platforms. Do not normalize/reformat an input after hashing it; update its version and re-interpret/rebind the plan instead.

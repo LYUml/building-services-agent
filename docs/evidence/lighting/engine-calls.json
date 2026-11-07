@@ -1,0 +1,121 @@
+[
+  {
+    "command": [
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\tools\\radiance-6\\bin\\ies2rad.exe",
+      "-t",
+      "default",
+      "-m",
+      "0.8",
+      "-o",
+      "fixture_0000",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\lighting\\synthetic-1000cd.ies"
+    ],
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\tools\\radiance-6\\bin\\xform.exe",
+      "-rz",
+      "0",
+      "-t",
+      "3",
+      "2",
+      "2.7",
+      "fixture_0000.rad"
+    ],
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\tools\\radiance-6\\bin\\oconv.exe",
+      "scene.rad"
+    ],
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\tools\\radiance-6\\bin\\rtrace.exe",
+      "-I+",
+      "-h",
+      "-u-",
+      "-ab",
+      "0",
+      "-ad",
+      "2048",
+      "-aa",
+      "0.1",
+      "-ar",
+      "64",
+      "-dj",
+      "0",
+      "-dt",
+      "0",
+      "-dc",
+      "1",
+      "scene.oct"
+    ],
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\tools\\radiance-6\\bin\\rtrace.exe",
+      "-I+",
+      "-h",
+      "-u-",
+      "-ab",
+      "3",
+      "-ad",
+      "2048",
+      "-aa",
+      "0.1",
+      "-ar",
+      "64",
+      "-dj",
+      "0",
+      "-dt",
+      "0",
+      "-dc",
+      "1",
+      "scene.oct"
+    ],
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\tools\\radiance-6\\bin\\rtrace.exe",
+      "-I+",
+      "-h",
+      "-u-",
+      "-ab",
+      "4",
+      "-ad",
+      "4096",
+      "-aa",
+      "0.1",
+      "-ar",
+      "64",
+      "-dj",
+      "0",
+      "-dt",
+      "0",
+      "-dc",
+      "1",
+      "scene.oct"
+    ],
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\tools\\radiance-6\\bin\\rtrace.exe",
+      "-version"
+    ],
+    "returncode": 0,
+    "stderr": ""
+  }
+]

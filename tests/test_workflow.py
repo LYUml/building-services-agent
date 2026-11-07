@@ -9,6 +9,15 @@ from bsa.engine import ProjectError
 ROOT=Path(__file__).resolve().parents[1]
 
 class WorkflowTests(unittest.TestCase):
+    def test_tracked_example_plans_keep_source_hashes(self):
+        count=0
+        for path in (ROOT/'examples').rglob('*.json'):
+            data=json.loads(path.read_text(encoding='utf-8-sig'))
+            if isinstance(data,dict) and data.get('version')==1 and 'brief_sha256' in data:
+                self.assertEqual(digest(path.parent/data['brief']),data['brief_sha256'],str(path))
+                validate_plan(path);count+=1
+        self.assertGreaterEqual(count,5)
+
     def fixture(self,folder):
         root=Path(folder)
         brief=root/"brief.md";brief.write_text("# Test\n\nCalculate and draw the three-light circuit.\n",encoding="utf-8")

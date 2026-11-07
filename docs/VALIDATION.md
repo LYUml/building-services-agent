@@ -73,3 +73,17 @@ The coordinated native workflow ran on actual AutoCAD 2027, saved/reopened the n
 Tests verify missing/duplicate geometry fields rejected, corrected coordinate-reference handling, saved-calculation and IFC-power tamper detection, and propagation of a revised dotted equipment ID, XY, power/PF and circuit phase/breaker values. Full local regression with AutoCAD, EnergyPlus and OCR enabled: **33 tests passed, no skips**. Subsequent stricter saved-check/source/circuit validation passed all 4 targeted coordination tests; all 7 skills passed the host skill validator. No new upstream implementation is copied by this bridge: it reuses the already attributed ezdxf/IfcOpenShell dependencies.
 
 This is an electrical cross-artifact bridge, not a universal building-services data model. Other discipline geometry/analysis binding, supplied-bottom-drawing integration, professional performance and complete acceptance remain unfinished.
+
+## Radiance lighting milestone
+
+Official pinned Radiance Windows archive was downloaded, SHA256-verified and extracted inside tools. Its ies2rad/xform/oconv/rtrace executables ran actual IES-backed optical simulations. Black-room tests matched 1000 cd inverse-square/cosine illuminance on- and off-axis within 0.3 lux; halving maintenance factor halved direct illuminance while IES input-watts metadata stayed unchanged. Invalid tilt/scene/input data is rejected; missing engine stays pending and IES files join workflow source hashes.
+
+A 15-point synthetic rectangular reflective-room example executed through its quoted workflow. Direct and reflected results were computed with increased-bounce/division verification, and its maximum relative change was about 3.5%, below the explicit synthetic 10% tolerance. These are arithmetic sensor statistics, not a regulatory task-area result. Recorded outputs under docs/evidence/lighting preserve scene, points, raw command diagnostics, illuminance and integrity metadata. Actual manufacturer's photometry, exact building geometry, grid coverage, glare/daylight, native coordination and final acceptance remain pending.
+
+Full local regression with actual AutoCAD, EnergyPlus, OCR, IFC, network and Radiance branches: **37 tests passed, no skips**. Later explicit header/unsupported-field hardening passed all 4 targeted lighting tests. Pinned Radiance setup was executed and verified extracted files against archive contents. GitHub Actions lighting job was added; no remote job result is inferred from local success.
+
+### Fixture byte preservation
+
+Found and corrected a cross-platform reproducibility defect: Windows working-tree CRLF bytes differed from the prior Git index's normalized LF bytes, invalidating source-linked brief hashes after non-Windows checkout. .gitattributes now preserves exact example/evidence bytes, and tracked files were re-indexed without changing their working input contents. An independent checkout-index snapshot validated all 5 source-linked example plans with their recorded brief hashes. A regression test now validates every tracked example plan. The line-ending-only index changes also preserve archived artifact hash bindings; no completed coursework file was touched.
+
+Final combined local regression after adding fixture-byte preservation: **38 tests passed with no skips**, with AutoCAD, EnergyPlus, OCR, IFC, network and Radiance enabled. Raw machine evidence is exempt from whitespace rewriting; example sources retain CRLF-aware whitespace checks while preserving exact bytes.

@@ -44,3 +44,9 @@ Observed upstream runtime diagnostic: EXPRESS rule loading emits a Python Resour
 
 - **fluids 1.3.1**, MIT, Caleb Bell and contributors, https://github.com/CalebBell/fluids — installed optional library used for the turbulent Colebrook Darcy factor. License from the selected wheel retained at third_party/licenses/fluids.txt. Method documentation: https://fluids.readthedocs.io/fluids.friction.html. The original project code implements prescribed-demand tree aggregation, source/elevation budgets and reporting; no upstream network solver is implied.
 - Installed SciPy version for this milestone: 1.18.1 (transitive dependency). Neither library implementation nor binary dependencies are vendored. A full multi-platform transitive lock is not claimed.
+
+## Executed Radiance integration
+
+- **Radiance 6.0.2**, official release rad6R0P2 / binary c1700d56cc, https://github.com/LBNL-ETA/Radiance — original adapter calls ies2rad, xform, oconv and rtrace. Windows archive SHA256 `c4f02efcb4a33f4a43b7ce0ba58100544abc317a1be61f7b0425a64a66eb8a09` matched the GitHub release asset digest. Bootstrap checks installed bytes against that archive. No binary or engine source is vendored.
+- Radiance Software License v2.0 from the selected c1700d56 upstream revision is retained at third_party/licenses/radiance.txt. Its upstream header is retained unchanged. This project is not endorsed by the Radiance authors or LBNL.
+- All IES files currently committed under examples/lighting are original synthetic verification distributions, not manufacturer data. No electrical watt-to-photometry conversion or general photometry certification is claimed.

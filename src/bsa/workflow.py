@@ -64,10 +64,14 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("electrical","electrical_coordination","energy","bim","network","native_cad","manual"):
+        if kind not in ("electrical","electrical_coordination","energy","bim","network","lighting","native_cad","manual"):
             raise ProjectError("unknown task adapter")
-        if kind in ("electrical","electrical_coordination","energy","bim","network"):
+        if kind in ("electrical","electrical_coordination","energy","bim","network","lighting"):
             inputs.add(local_path(root,t.get("project")))
+        if kind=='lighting':
+            from .lighting import validate as validate_lighting
+            lighting_project=local_path(root,t.get('project'))
+            inputs.update(validate_lighting(read_json(lighting_project),lighting_project.parent))
         if kind=='electrical_coordination':inputs.add(local_path(root,t.get('geometry')))
         if kind=="native_cad" and t.get("depends_on") not in ids:
             raise ProjectError("native task must depend on an earlier electrical task")
@@ -92,7 +96,7 @@ def validate_plan(path):
     return p,inputs
 
 
-def execute(plan,out,energyplus=None,autocad=None):
+def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
     plan,out=plan.resolve(),out.resolve()
     p,inputs=validate_plan(plan);inputs.add(plan)
     if any(out==f or out in f.parents for f in inputs):raise ProjectError("run output must not contain inputs")
@@ -129,6 +133,13 @@ def execute(plan,out,energyplus=None,autocad=None):
                 payload=run(local_path(root,t['project']),folder)
                 status='pass' if payload['calculated_checks_pass'] else 'fail'
                 reason='prescribed-demand circular tree flow/pressure budget only; operating point, physical routing and domain acceptance pending'
+            elif t['kind']=='lighting':
+                if radiance_bin:
+                    from .lighting import run
+                    payload=run(local_path(root,t['project']),folder,radiance_bin)
+                    status='pass' if payload['calculated_checks_pass'] else 'fail'
+                    reason='IES-backed Radiance direct/reflected sensor illuminance; source evidence, grid convergence, actual geometry and full lighting acceptance pending'
+                else:reason='Radiance binary directory not supplied'
             elif t["kind"]=="native_cad":
                 upstream=tasks[t["depends_on"]]
                 if upstream["status"]=="fail":reason="upstream electrical task failed"
@@ -189,6 +200,7 @@ def main():
     v=sub.add_parser("validate");v.add_argument("plan",type=Path)
     e=sub.add_parser("execute");e.add_argument("plan",type=Path);e.add_argument("--out",required=True,type=Path)
     e.add_argument("--energyplus",type=Path);e.add_argument("--autocad",type=Path)
+    e.add_argument('--radiance-bin',type=Path)
     v=sub.add_parser("verify");v.add_argument("run_directory",type=Path)
     a=p.parse_args()
     try:
@@ -201,7 +213,7 @@ def main():
             r=verify(a.run_directory);print(json.dumps(r,indent=2))
             if not r["integrity_pass"]:return 2
         else:
-            r=execute(a.plan,a.out,a.energyplus,a.autocad)
+            r=execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin)
             print(json.dumps({"tasks":r["tasks"],"design_accepted":False},indent=2))
             if not r["execution_pass"]:return 2
     except (ProjectError,OSError,ValueError) as exc:p.exit(2,str(exc)+"\n")

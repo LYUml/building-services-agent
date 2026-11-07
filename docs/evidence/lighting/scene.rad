@@ -1,0 +1,70 @@
+# C:\Users\lyuml-win\Desktop\building-services-agent\tools\radiance-6\bin\xform.exe -rz 0 -t 3 2 2.7
+# C:\Users\lyuml-win\Desktop\building-services-agent\tools\radiance-6\bin\ies2rad.exe -t default -m 0.8 -o fixture_0000
+# Dimensions in meters
+#<IESNA:LM-63-2002
+#<[TEST] SYNTHETIC-1000CD-DOWNWARD
+#<[MANUFAC] Synthetic verification only
+#<[LUMINAIRE] Zero-size analytical point approximation
+# 40 watt luminaire, lamp*ballast factor = 1
+# IES file shape = point
+# Radiance geometry shape = sphere
+
+void brightdata fixture_0000_dist
+12 corr fixture_0000.dat source.cal src_theta -i 1 -rz 0 -t 3 2 2.7
+0
+1            1018590
+
+fixture_0000_dist light fixture_0000_light
+0
+0
+3                  1                  1                  1
+
+fixture_0000_light sphere fixture_0000.s
+0
+0
+4                  3                  2                2.7             0.0005
+
+void plastic wall_mat
+0
+0
+5 0.5 0.5 0.5 0 0
+
+void plastic floor_mat
+0
+0
+5 0.2 0.2 0.2 0 0
+
+void plastic ceiling_mat
+0
+0
+5 0.7 0.7 0.7 0 0
+
+floor_mat polygon floor
+0
+0
+12 0 0 0 6 0 0 6 4 0 0 4 0
+
+ceiling_mat polygon ceiling
+0
+0
+12 0 4 3 6 4 3 6 0 3 0 0 3
+
+wall_mat polygon south
+0
+0
+12 0 0 3 6 0 3 6 0 0 0 0 0
+
+wall_mat polygon north
+0
+0
+12 0 4 0 6 4 0 6 4 3 0 4 3
+
+wall_mat polygon west
+0
+0
+12 0 0 0 0 4 0 0 4 3 0 0 3
+
+wall_mat polygon east
+0
+0
+12 6 0 3 6 4 3 6 4 0 6 0 0

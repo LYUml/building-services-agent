@@ -1,0 +1,5 @@
+# Source-linked fixtures and recorded artifacts must keep their exact hashed bytes
+# on every checkout, regardless of the user's core.autocrlf setting.
+examples/** -text whitespace=cr-at-eol
+# Raw engine evidence may contain meaningful trailing tabs/CRLF; never reformat it.
+docs/evidence/** -text -whitespace
