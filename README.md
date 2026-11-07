@@ -73,6 +73,8 @@ Use `python -m bsa.workflow intake <brief.md> --out <new-intake.json>` to index 
 
 [Straight circular wall solids](docs/CIRCULAR_GEOMETRY.md) opt into actual hollow IFC profile extrusions with independent inner/outside diameters. Native mesh topology, bore, annular wall volume, bounds and outward port axes are checked, including after sizing. Other equipment remains explicit envelopes; fittings, materials, clashes and full acceptance are pending.
 
+[Saved IFC coordination](docs/CLASH.md) adds triangle clearance queries and Manifold3D Mesh64 solid intersections. It detects aligned overlap/full containment and distinguishes a tube's empty bore from its bounding box. Sourced contact exceptions remain visible and cannot waive solid overlaps; incomplete geometry and broader product/engineering acceptance stay pending.
+
 ## Shared electrical data
 
 [Coordinated generation](docs/COORDINATION.md) now feeds the same device/circuit data into calculations, DXF and IFC. A geometry companion only adds explicit dimensions, heights and spaces. Reopened artifacts are reconciled; the workflow can send the resulting DXF through native AutoCAD save/reopen/plot. No separate power, PF, XY or circuit copy is maintained in geometry inputs.

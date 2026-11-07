@@ -12,3 +12,5 @@ The initial CLI manifest proves only its JSON input remained unchanged and its e
 Create an acceptance record with pass/fail/pending and evidence paths. Pending required checks mean the delivery is incomplete; never erase them to obtain a green status.
 
 For orchestrated projects, run `python -m bsa.workflow verify <run-directory>` before interpreting results. It checks recorded source and task-artifact hashes, not report authenticity or engineering correctness. Compare every acceptance description in workflow.json against its actual artifacts and source paragraph; do not use execution_status as acceptance_status. Record visual and domain reviews separately with artifact hashes.
+
+When IFC coordination is required, inspect docs/CLASH.md and the saved clash.json. Confirm geometry coverage, units, policy sources/tolerances, Boolean checks and all accepted pair-level contact exceptions. A source-connected pair is not exempt from solid overlap. Keep unverified product geometry and non-interface clearances on exception pairs pending; an empty findings table alone is insufficient.

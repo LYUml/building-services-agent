@@ -1,0 +1,148 @@
+{
+  "ifcopenshell_version": "0.8.5",
+  "manifold3d_version": "3.5.4",
+  "numpy_version": "2.5.4",
+  "scope": "all represented non-feature non-virtual IfcElements",
+  "source_length_unit_to_m": 1,
+  "elements": [
+    {
+      "guid": "2q8kiqmbH5l8tcEQV1Utq0",
+      "name": "A",
+      "ifc_class": "IfcFan",
+      "declared_body_shape": "bounding envelope"
+    },
+    {
+      "guid": "1B_jdTqNf8Mvfm$Y0Pjr7i",
+      "name": "B",
+      "ifc_class": "IfcFan",
+      "declared_body_shape": "bounding envelope"
+    }
+  ],
+  "physical_element_count": 2,
+  "represented_element_count": 2,
+  "loaded_geometry_count": 2,
+  "valid_geometry_count": 2,
+  "potential_pair_count": 1,
+  "missing_geometry_guids": [],
+  "invalid_geometry": [],
+  "unrepresented_elements": [],
+  "intersections": [
+    {
+      "pair": [
+        "1B_jdTqNf8Mvfm$Y0Pjr7i",
+        "2q8kiqmbH5l8tcEQV1Utq0"
+      ],
+      "names": [
+        "B",
+        "A"
+      ],
+      "type": "manifold_mesh_overlap",
+      "overlap_volume_m3": 0.20000000000000018,
+      "engine_distance_m": null,
+      "p1_world_m": null,
+      "p2_world_m": null
+    }
+  ],
+  "clearance_findings": [
+    {
+      "pair": [
+        "1B_jdTqNf8Mvfm$Y0Pjr7i",
+        "2q8kiqmbH5l8tcEQV1Utq0"
+      ],
+      "names": [
+        "B",
+        "A"
+      ],
+      "type": "clearance",
+      "engine_distance_m": 0.0,
+      "p1_world_m": [
+        0.7999999999999998,
+        1.0,
+        0.0
+      ],
+      "p2_world_m": [
+        0.7999999999999998,
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "clearance_violations": [
+    {
+      "pair": [
+        "1B_jdTqNf8Mvfm$Y0Pjr7i",
+        "2q8kiqmbH5l8tcEQV1Utq0"
+      ],
+      "names": [
+        "B",
+        "A"
+      ],
+      "type": "clearance",
+      "engine_distance_m": 0.0,
+      "p1_world_m": [
+        0.7999999999999998,
+        1.0,
+        0.0
+      ],
+      "p2_world_m": [
+        0.7999999999999998,
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "accepted_contacts": [],
+  "intersection_pair_count": 1,
+  "clearance_violation_pair_count": 1,
+  "boolean_candidate_count": 1,
+  "solid_pair_checks": [
+    {
+      "pair": [
+        "1B_jdTqNf8Mvfm$Y0Pjr7i",
+        "2q8kiqmbH5l8tcEQV1Utq0"
+      ],
+      "mesh_common_volume_m3": 0.20000000000000018,
+      "method": "Manifold3D Mesh64 intersection"
+    }
+  ],
+  "unverified_solid_pairs": [],
+  "checks": {
+    "geometry_coverage": true,
+    "no_intersections": false,
+    "clearance": false
+  },
+  "calculated_checks_pass": false,
+  "design_accepted": false,
+  "mesh_settings": {
+    "linear_deflection_m": 1e-05,
+    "angular_deflection": 0.02
+  },
+  "pending": [
+    "triangle approximation and supplied tolerance applicability",
+    "non-interface clearances on contact-exempt pairs",
+    "envelope versus actual product/insulation fidelity",
+    "clearance policy/source review",
+    "BIM viewer and complete engineering acceptance"
+  ],
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\clash-evidence-cases\\overlap\\model\\model.ifc": "f686002cba4e2047371d284c38eb6f205dc3ec3ab652ea65d394cadd2ab105dc",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\clash-evidence-cases\\overlap\\policy.json": "48b0aaa921dcff4975b9ea168da5125342aecfd2cfa8fc50344403f7409d2119"
+  },
+  "policy": {
+    "scope": "all represented non-feature non-virtual IfcElements",
+    "sources": {
+      "demo": "Synthetic 50 mm clearance, 0.1 mm intersection/contact tolerances; not a regulation or maintenance requirement"
+    },
+    "source": "demo",
+    "minimum_clearance_m": 0.05,
+    "intersection_tolerance_m": 0.0001,
+    "contact_tolerance_m": 0.0001,
+    "overlap_volume_tolerance_m3": 1e-10,
+    "maximum_boolean_pairs": 1000,
+    "allowed_contacts": []
+  },
+  "inputs_unchanged": true,
+  "artifacts": {
+    "report.html": "0c3b781921ac6b2d5895319846922095e186200f667e0feeccc3c9b245542aac"
+  }
+}

@@ -27,6 +27,12 @@ Model-aware sizing/revision uses the existing pinned IfcOpenShell/fluids librari
 
 Straight circular wall authoring uses the same pinned IfcOpenShell 0.8.5 runtime and the normative IFC4 [IfcCircleHollowProfileDef](https://standards.buildingsmart.org/IFC/RELEASE/IFC4/FINAL/HTML/schema/ifcprofileresource/lexical/ifccirclehollowprofiledef.htm) schema contract. Original QA code checks the native profile, topology, signed mesh volume and port axes. Mesher settings were verified against the installed runtime and referenced in [official documentation](https://docs.ifcopenshell.org/ifcopenshell/geometry_settings); no newer runtime or copied source is bundled. Standard mathematical annular-volume and manifold checks do not certify materials, fabrication or professional compliance.
 
+## Geometry coordination integration
+
+- **Manifold3D 3.5.4**, Apache-2.0, [source tag](https://github.com/elalish/manifold/tree/v3.5.4), [package release](https://pypi.org/project/manifold3d/3.5.4/) — installed as a pinned optional `clash` dependency, not vendored. Its double-precision Mesh64 Boolean intersections supplement a demonstrated aligned/coplanar overlap blind spot in the installed IfcOpenShell 0.8.5 triangle intersection queries. Arbitrary accepted closed meshes, including rotated tessellated bodies and hollow walls, use the same backend; bounding boxes only screen candidates.
+- The installed distribution's unmodified LICENSE and AUTHORS are retained at third_party/licenses/manifold3d.txt and manifold3d-authors.txt, with exact byte preservation in .gitattributes. Their SHA256 values are recorded in docs/evidence/ifc-clash/runtime.json alongside the installed module hash/runtime versions. This is package provenance and top-level attribution, not a full transitive native-binary license audit.
+- Original policy/contact/coverage/orchestration code uses the existing pinned IfcOpenShell geometry iterator and clearance interface, plus Manifold3D. No upstream source is copied or renamed. Product geometry accuracy, threshold applicability and professional acceptance remain independent gates.
+
 ## Executed energy integrations
 
 - **OpenStudio(R) SDK 3.11.0** installed as an optional Python library. Original two-zone authoring code calls the official SDK and its ForwardTranslator. It targets EnergyPlus 25.2.0; matching was checked at runtime. This project is not an endorsed or renamed version of OpenStudio.

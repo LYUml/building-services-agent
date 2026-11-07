@@ -3,3 +3,5 @@
 examples/** -text whitespace=cr-at-eol
 # Raw engine evidence may contain meaningful trailing tabs/CRLF; never reformat it.
 docs/evidence/** -text -whitespace
+# Preserve the exact upstream notice bytes copied from the installed package.
+third_party/licenses/manifold3d*.txt -text -whitespace

@@ -1,0 +1,20 @@
+{
+  "manifold3d_version": "3.5.4",
+  "source_tag": "https://github.com/elalish/manifold/tree/v3.5.4",
+  "package": "https://pypi.org/project/manifold3d/3.5.4/",
+  "declared_license": "Apache-2.0",
+  "module_sha256": "d0749adfdce3544071a3add8cad9eeb9bcc1054b2a62bea652433cbdda36b9ae",
+  "module_file": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\.venv\\Lib\\site-packages\\manifold3d.cp312-win_amd64.pyd",
+  "ifcopenshell_version": "0.8.5",
+  "notices": {
+    "LICENSE": {
+      "installed_sha256": "1eb85fc97224598dad1852b5d6483bbcf0aa8608790dcc657a5a2a761ae9c8c6",
+      "retained_path": "third_party/licenses/manifold3d.txt"
+    },
+    "AUTHORS": {
+      "installed_sha256": "9e6e21c75344afd433233c5162511fed9891726f45274c535adfedbb39e43bc8",
+      "retained_path": "third_party/licenses/manifold3d-authors.txt"
+    }
+  },
+  "scope": "Installed package and copied top-level notices; no source or binary vendoring and no complete transitive native-license audit claimed"
+}

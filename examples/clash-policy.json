@@ -1,0 +1,26 @@
+{
+  "scope": "all represented non-feature non-virtual IfcElements",
+  "sources": {
+    "demo": "Synthetic 50 mm clearance, 0.1 mm intersection/contact tolerances; not a regulation or maintenance requirement Intended synthetic end-face contact witness region radius 0.15 m; pair-level exception only, no other-zone clearance claim."
+  },
+  "source": "demo",
+  "minimum_clearance_m": 0.05,
+  "intersection_tolerance_m": 0.0001,
+  "contact_tolerance_m": 0.0001,
+  "overlap_volume_tolerance_m3": 1e-10,
+  "maximum_boolean_pairs": 1000,
+  "allowed_contacts": [
+    {
+      "from_port_guid": "36umOfTgvTL9vliefAHslX",
+      "to_port_guid": "2vc$708SbOkhV7alwF4Kkg",
+      "region_radius_m": 0.15,
+      "source": "demo"
+    },
+    {
+      "from_port_guid": "3VnZuS3e9M6xf1ZC$41cUh",
+      "to_port_guid": "2LkbwVpKrQ$fSYc42bl1AA",
+      "region_radius_m": 0.15,
+      "source": "demo"
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+<!doctype html><meta charset="utf-8"><title>IFC clash evidence</title><h1>IFC clash evidence</h1><p>{&#x27;geometry_coverage&#x27;: True, &#x27;no_intersections&#x27;: True, &#x27;clearance&#x27;: True}</p><p>Supplied policy and triangle geometry only; full design acceptance pending.</p><table border="1"><tr><th>Elements</th><th>Type</th><th>Engine distance m</th><th>Mesh overlap m3</th><th>P1 m</th><th>P2 m</th></tr></table><h2>Pair-level contact exceptions</h2><pre>[
+  {
+    &quot;pair&quot;: [
+      &quot;0W3lNmxFPNbfaDOocb3wmC&quot;,
+      &quot;2_MFqkx75UluPaevYMytDC&quot;
+    ],
+    &quot;names&quot;: [
+      &quot;FAN1&quot;,
+      &quot;DUCT1&quot;
+    ],
+    &quot;type&quot;: &quot;clearance&quot;,
+    &quot;engine_distance_m&quot;: 0.0,
+    &quot;p1_world_m&quot;: [
+      1.0,
+      2.1722186785187976,
+      2.3277813214812024
+    ],
+    &quot;p2_world_m&quot;: [
+      1.0,
+      2.1722186785187976,
+      2.3277813214812024
+    ],
+    &quot;allowed_contacts&quot;: [
+      {
+        &quot;from_port_guid&quot;: &quot;36umOfTgvTL9vliefAHslX&quot;,
+        &quot;to_port_guid&quot;: &quot;2vc$708SbOkhV7alwF4Kkg&quot;,
+        &quot;region_radius_m&quot;: 0.15,
+        &quot;source&quot;: &quot;demo&quot;,
+        &quot;port_separation_m&quot;: 0.0,
+        &quot;centre_world_m&quot;: [
+          1.0,
+          2.25,
+          2.25
+        ]
+      }
+    ],
+    &quot;waiver_scope&quot;: &quot;pair minimum-clearance exception with witness in sourced region; other pair zones not exhaustively measured&quot;
+  },
+  {
+    &quot;pair&quot;: [
+      &quot;0nYWb1ZsrIggrppBraO6Zz&quot;,
+      &quot;2_MFqkx75UluPaevYMytDC&quot;
+    ],
+    &quot;names&quot;: [
+      &quot;AT1&quot;,
+      &quot;DUCT1&quot;
+    ],
+    &quot;type&quot;: &quot;clearance&quot;,
+    &quot;engine_distance_m&quot;: 0.0,
+    &quot;p1_world_m&quot;: [
+      4.0,
+      2.1722186785187976,
+      2.1722186785187976
+    ],
+    &quot;p2_world_m&quot;: [
+      4.0,
+      2.1722186785187976,
+      2.1722186785187976
+    ],
+    &quot;allowed_contacts&quot;: [
+      {
+        &quot;from_port_guid&quot;: &quot;3VnZuS3e9M6xf1ZC$41cUh&quot;,
+        &quot;to_port_guid&quot;: &quot;2LkbwVpKrQ$fSYc42bl1AA&quot;,
+        &quot;region_radius_m&quot;: 0.15,
+        &quot;source&quot;: &quot;demo&quot;,
+        &quot;port_separation_m&quot;: 0.0,
+        &quot;centre_world_m&quot;: [
+          4.0,
+          2.25,
+          2.25
+        ]
+      }
+    ],
+    &quot;waiver_scope&quot;: &quot;pair minimum-clearance exception with witness in sourced region; other pair zones not exhaustively measured&quot;
+  }
+]</pre><h2>Coverage issues</h2><pre>{
+  &quot;missing_geometry_guids&quot;: [],
+  &quot;invalid_geometry&quot;: [],
+  &quot;unrepresented_elements&quot;: [],
+  &quot;unverified_solid_pairs&quot;: []
+}</pre><h2>Policy</h2><pre>{
+  &quot;scope&quot;: &quot;all represented non-feature non-virtual IfcElements&quot;,
+  &quot;sources&quot;: {
+    &quot;demo&quot;: &quot;Synthetic 50 mm clearance, 0.1 mm intersection/contact tolerances; not a regulation or maintenance requirement Intended synthetic end-face contact witness region radius 0.15 m; pair-level exception only, no other-zone clearance claim.&quot;
+  },
+  &quot;source&quot;: &quot;demo&quot;,
+  &quot;minimum_clearance_m&quot;: 0.05,
+  &quot;intersection_tolerance_m&quot;: 0.0001,
+  &quot;contact_tolerance_m&quot;: 0.0001,
+  &quot;overlap_volume_tolerance_m3&quot;: 1e-10,
+  &quot;maximum_boolean_pairs&quot;: 1000,
+  &quot;allowed_contacts&quot;: [
+    {
+      &quot;from_port_guid&quot;: &quot;36umOfTgvTL9vliefAHslX&quot;,
+      &quot;to_port_guid&quot;: &quot;2vc$708SbOkhV7alwF4Kkg&quot;,
+      &quot;region_radius_m&quot;: 0.15,
+      &quot;source&quot;: &quot;demo&quot;
+    },
+    {
+      &quot;from_port_guid&quot;: &quot;3VnZuS3e9M6xf1ZC$41cUh&quot;,
+      &quot;to_port_guid&quot;: &quot;2LkbwVpKrQ$fSYc42bl1AA&quot;,
+      &quot;region_radius_m&quot;: 0.15,
+      &quot;source&quot;: &quot;demo&quot;
+    }
+  ]
+}</pre><h2>Pending</h2><ul><li>triangle approximation and supplied tolerance applicability</li><li>non-interface clearances on contact-exempt pairs</li><li>envelope versus actual product/insulation fidelity</li><li>clearance policy/source review</li><li>BIM viewer and complete engineering acceptance</li></ul>

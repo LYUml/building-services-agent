@@ -1,0 +1,216 @@
+{
+  "ifcopenshell_version": "0.8.5",
+  "manifold3d_version": "3.5.4",
+  "numpy_version": "2.5.4",
+  "scope": "all represented non-feature non-virtual IfcElements",
+  "source_length_unit_to_m": 1,
+  "elements": [
+    {
+      "guid": "0W3lNmxFPNbfaDOocb3wmC",
+      "name": "FAN1",
+      "ifc_class": "IfcFan",
+      "declared_body_shape": "bounding envelope"
+    },
+    {
+      "guid": "2_MFqkx75UluPaevYMytDC",
+      "name": "DUCT1",
+      "ifc_class": "IfcDuctSegment",
+      "declared_body_shape": "straight circular wall"
+    },
+    {
+      "guid": "0nYWb1ZsrIggrppBraO6Zz",
+      "name": "AT1",
+      "ifc_class": "IfcAirTerminal",
+      "declared_body_shape": "bounding envelope"
+    }
+  ],
+  "physical_element_count": 3,
+  "represented_element_count": 3,
+  "loaded_geometry_count": 3,
+  "valid_geometry_count": 3,
+  "potential_pair_count": 3,
+  "missing_geometry_guids": [],
+  "invalid_geometry": [],
+  "unrepresented_elements": [],
+  "intersections": [],
+  "clearance_findings": [
+    {
+      "pair": [
+        "0W3lNmxFPNbfaDOocb3wmC",
+        "2_MFqkx75UluPaevYMytDC"
+      ],
+      "names": [
+        "FAN1",
+        "DUCT1"
+      ],
+      "type": "clearance",
+      "engine_distance_m": 0.0,
+      "p1_world_m": [
+        1.0,
+        2.1722186785187976,
+        2.3277813214812024
+      ],
+      "p2_world_m": [
+        1.0,
+        2.1722186785187976,
+        2.3277813214812024
+      ]
+    },
+    {
+      "pair": [
+        "0nYWb1ZsrIggrppBraO6Zz",
+        "2_MFqkx75UluPaevYMytDC"
+      ],
+      "names": [
+        "AT1",
+        "DUCT1"
+      ],
+      "type": "clearance",
+      "engine_distance_m": 0.0,
+      "p1_world_m": [
+        4.0,
+        2.1722186785187976,
+        2.1722186785187976
+      ],
+      "p2_world_m": [
+        4.0,
+        2.1722186785187976,
+        2.1722186785187976
+      ]
+    }
+  ],
+  "clearance_violations": [],
+  "accepted_contacts": [
+    {
+      "pair": [
+        "0W3lNmxFPNbfaDOocb3wmC",
+        "2_MFqkx75UluPaevYMytDC"
+      ],
+      "names": [
+        "FAN1",
+        "DUCT1"
+      ],
+      "type": "clearance",
+      "engine_distance_m": 0.0,
+      "p1_world_m": [
+        1.0,
+        2.1722186785187976,
+        2.3277813214812024
+      ],
+      "p2_world_m": [
+        1.0,
+        2.1722186785187976,
+        2.3277813214812024
+      ],
+      "allowed_contacts": [
+        {
+          "from_port_guid": "36umOfTgvTL9vliefAHslX",
+          "to_port_guid": "2vc$708SbOkhV7alwF4Kkg",
+          "region_radius_m": 0.15,
+          "source": "demo",
+          "port_separation_m": 0.0,
+          "centre_world_m": [
+            1.0,
+            2.25,
+            2.25
+          ]
+        }
+      ],
+      "waiver_scope": "pair minimum-clearance exception with witness in sourced region; other pair zones not exhaustively measured"
+    },
+    {
+      "pair": [
+        "0nYWb1ZsrIggrppBraO6Zz",
+        "2_MFqkx75UluPaevYMytDC"
+      ],
+      "names": [
+        "AT1",
+        "DUCT1"
+      ],
+      "type": "clearance",
+      "engine_distance_m": 0.0,
+      "p1_world_m": [
+        4.0,
+        2.1722186785187976,
+        2.1722186785187976
+      ],
+      "p2_world_m": [
+        4.0,
+        2.1722186785187976,
+        2.1722186785187976
+      ],
+      "allowed_contacts": [
+        {
+          "from_port_guid": "3VnZuS3e9M6xf1ZC$41cUh",
+          "to_port_guid": "2LkbwVpKrQ$fSYc42bl1AA",
+          "region_radius_m": 0.15,
+          "source": "demo",
+          "port_separation_m": 0.0,
+          "centre_world_m": [
+            4.0,
+            2.25,
+            2.25
+          ]
+        }
+      ],
+      "waiver_scope": "pair minimum-clearance exception with witness in sourced region; other pair zones not exhaustively measured"
+    }
+  ],
+  "intersection_pair_count": 0,
+  "clearance_violation_pair_count": 0,
+  "boolean_candidate_count": 0,
+  "solid_pair_checks": [],
+  "unverified_solid_pairs": [],
+  "checks": {
+    "geometry_coverage": true,
+    "no_intersections": true,
+    "clearance": true
+  },
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "mesh_settings": {
+    "linear_deflection_m": 1e-05,
+    "angular_deflection": 0.02
+  },
+  "pending": [
+    "triangle approximation and supplied tolerance applicability",
+    "non-interface clearances on contact-exempt pairs",
+    "envelope versus actual product/insulation fidelity",
+    "clearance policy/source review",
+    "BIM viewer and complete engineering acceptance"
+  ],
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\clash-release\\model\\selected-coordination\\bim\\model.ifc": "46d3c89d60c48d510b332ce37762b95538e5127e0c72adb72b06fec0e49967e8",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\clash-policy.json": "c704417dee5e5aaa0e04fdb1aa4a7e5b4f525bea8a3b951319b4c5b2f275cf0c"
+  },
+  "policy": {
+    "scope": "all represented non-feature non-virtual IfcElements",
+    "sources": {
+      "demo": "Synthetic 50 mm clearance, 0.1 mm intersection/contact tolerances; not a regulation or maintenance requirement Intended synthetic end-face contact witness region radius 0.15 m; pair-level exception only, no other-zone clearance claim."
+    },
+    "source": "demo",
+    "minimum_clearance_m": 0.05,
+    "intersection_tolerance_m": 0.0001,
+    "contact_tolerance_m": 0.0001,
+    "overlap_volume_tolerance_m3": 1e-10,
+    "maximum_boolean_pairs": 1000,
+    "allowed_contacts": [
+      {
+        "from_port_guid": "36umOfTgvTL9vliefAHslX",
+        "to_port_guid": "2vc$708SbOkhV7alwF4Kkg",
+        "region_radius_m": 0.15,
+        "source": "demo"
+      },
+      {
+        "from_port_guid": "3VnZuS3e9M6xf1ZC$41cUh",
+        "to_port_guid": "2LkbwVpKrQ$fSYc42bl1AA",
+        "region_radius_m": 0.15,
+        "source": "demo"
+      }
+    ]
+  },
+  "inputs_unchanged": true,
+  "artifacts": {
+    "report.html": "80a3c7eb09d1b762b44c5251b1acd6060aacae83bb3f0cbe4ed70ed8f9d24620"
+  }
+}

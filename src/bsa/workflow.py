@@ -11,6 +11,10 @@ from pathlib import Path
 from .cli import digest
 from .engine import ProjectError
 
+IFC_ARTIFACTS={'bim':'model.ifc','network_coordination':'bim/model.ifc',
+               'network_model_design':'selected-coordination/bim/model.ifc',
+               'electrical_coordination':'bim/model.ifc','electrical_lighting':'shared/bim/model.ifc'}
+
 
 def read_json(path):
     return json.loads(path.read_text(encoding="utf-8-sig"))
@@ -64,7 +68,7 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","network_model_design","lighting","drawing_intake","base_overlay","native_cad","manual"):
+        if kind not in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","network_model_design","lighting","drawing_intake","base_overlay","ifc_clash","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","network_model_design","lighting"):
             inputs.add(local_path(root,t.get("project")))
@@ -73,6 +77,17 @@ def validate_plan(path):
             lighting_project=local_path(root,t.get('project'))
             inputs.update(validate_lighting(read_json(lighting_project),lighting_project.parent))
         if kind=='electrical_coordination':inputs.add(local_path(root,t.get('geometry')))
+        if kind=='ifc_clash':
+            from .clash import validate_policy
+            policy=local_path(root,t.get('policy'));inputs.add(policy);validate_policy(read_json(policy))
+            if bool(t.get('ifc'))==bool(t.get('depends_on')):raise ProjectError('clash task requires exactly one source IFC or earlier model dependency')
+            if t.get('depends_on'):
+                dependency=t['depends_on']
+                if dependency not in ids or next(x for x in tasks if x['id']==dependency)['kind'] not in IFC_ARTIFACTS:
+                    raise ProjectError('clash dependency must be an earlier supported IFC producer')
+            else:
+                source=local_path(root,t.get('ifc'));inputs.add(source)
+                if source.suffix.lower()!='.ifc':raise ProjectError('clash task source must be IFC')
         if kind=='network_design':
             from .network_design import validate_catalogue
             catalogue=local_path(root,t.get('catalogue'));inputs.add(catalogue)
@@ -136,7 +151,16 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
         folder=out/t["id"]
         status="pending";reason="";payload=None
         try:
-            if t['kind']=='base_overlay':
+            if t['kind']=='ifc_clash':
+                dependency=t.get('depends_on')
+                if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC producer did not pass; no clash result fabricated'
+                else:
+                    from .clash import run
+                    source=out/dependency/IFC_ARTIFACTS[tasks[dependency]['kind']] if dependency else local_path(root,t['ifc'])
+                    payload=run(source,local_path(root,t['policy']),folder)
+                    status='pass' if payload['calculated_checks_pass'] else 'fail'
+                    reason='saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending'
+            elif t['kind']=='base_overlay':
                 drawing=local_path(root,t['drawing'])
                 if (drawing.suffix.lower()=='.dwg' or t.get('sheet')) and not autocad:reason='AutoCAD required for source DWG or requested fixed-scale sheet'
                 else:

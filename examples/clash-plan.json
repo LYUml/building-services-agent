@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "brief": "clash-brief.md",
+  "brief_sha256": "dc49972a9367b6c8d4f086cc35ee36457666fc5bc5e1d591ca7f759ed8968e48",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "model",
+      "kind": "network_model_design",
+      "project": "circular-network/network.json",
+      "model": "circular-network/model.json",
+      "binding": "circular-network/binding.json",
+      "catalogue": "circular-network/catalogue.json",
+      "geometry": "circular-network/geometry.json"
+    },
+    {
+      "id": "qa",
+      "kind": "ifc_clash",
+      "depends_on": "model",
+      "policy": "clash-policy.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Generate the supplied circular network's selected IFC revision using the common source inputs and catalogue, preserving original hashes, endpoints and project object identities. Keep product, material, operating-point and engineering acceptance gates pending.",
+      "task": "model",
+      "acceptance": "Source model and policy-scoped saved-geometry evidence; complete engineering acceptance pending"
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Check the saved selected IFC against the supplied all-element geometry policy. Use 50 mm minimum clearance, 0.1 mm intersection/contact tolerances and a 1e-10 m3 overlap-volume threshold, with the stated Boolean search budget. Preserve intersections, failed clearances and unverified/missing geometry evidence. Only the explicitly supplied coincident connected-port contacts may receive the sourced witness-region exception; never use it to waive a solid overlap. Other-zone clearance on contact-exempt pairs and BIM-viewer review remain pending. These are synthetic QA settings, not regulation clauses or installed-equipment clearances.",
+      "task": "qa",
+      "acceptance": "Source model and policy-scoped saved-geometry evidence; complete engineering acceptance pending"
+    }
+  ]
+}
