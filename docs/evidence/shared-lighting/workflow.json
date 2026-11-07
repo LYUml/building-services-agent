@@ -1,0 +1,170 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\shared-lighting-plan.json": "74ef2ccbb87754ea3bbcac05390a8b3b1b8478c0b3b8ff602322e237c5ba5b68",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\office-electrical\\geometry.json": "3d8f4cfd0e599d14e9e9dc2bd61548a983750de0f7ccf08388c68934a1e35808",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\shared-lighting-brief.md": "7e9bc98343a3326b78b976690376f6860b1958c0a287016c25c7f8d51690fc59",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\lighting\\synthetic-1000cd.ies": "e98b3d9644e71c99c2af92b18f63edcebed76f435bf54a9d24bf4981b4d5a47e",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\office-electrical\\project.json": "34e1fba15d2ec9dacbdf256cf996d2de772873d720374f1ac55fd6b64ac4f34a",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\shared-lighting.json": "c009861d6095fbd88d9e0897ea9731e4e098defdfb9ba202650d05e946eea91f"
+  },
+  "inputs_unchanged": true,
+  "tasks": {
+    "shared": {
+      "kind": "electrical_lighting",
+      "status": "pass",
+      "scope": "shared electrical/CAD/IFC light positions bound to explicit IES origins and Radiance calculation; complete physical/domain acceptance pending"
+    },
+    "native": {
+      "kind": "native_cad",
+      "status": "pass",
+      "scope": "native reopen/geometry checks and PDF generation; visual acceptance pending"
+    },
+    "review": {
+      "kind": "manual",
+      "status": "pending",
+      "scope": "Review physical optical origins and complete visual/domain acceptance independently"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Use office-electrical/project.json and office-electrical/geometry.json as the shared electrical and spatial sources. Bind exactly their light fixtures in the selected Office space to shared-lighting.json. Derive optical world positions from electrical XY centres, explicit envelope bottom Z and explicit photometric offsets, then transform to the selected room local frame. Check IES nominal power metadata against the electrical input using the supplied tolerance; do not derive brightness from watts. Generate and reconcile calculations, DXF and IFC, then run the prescribed Radiance illuminance and parameter-stability checks.",
+      "task": "shared",
+      "acceptance": "Use office-electrical/project.json and office-electrical/geometry.json as the shared electrical and spatial sources. Bind exactly their light fixtures in the selected Office space to shared-lighting.json. Derive optical world positions from electrical XY centres, explicit envelope bottom Z and explicit photometric offsets, then transform to the selected room local frame. Check IES nominal power metadata against the electrical input using the supplied tolerance; do not derive brightness from watts. Generate and reconcile calculations, DXF and IFC, then run the prescribed Radiance illuminance and parameter-stability checks.",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 3,
+        "end_line": 3
+      },
+      "execution_scope": "shared electrical/CAD/IFC light positions bound to explicit IES origins and Radiance calculation; complete physical/domain acceptance pending",
+      "evidence": [
+        "shared/lighting-binding.json",
+        "shared/lighting-input.json",
+        "shared/lighting/direct-rgb.txt",
+        "shared/lighting/engine-calls.json",
+        "shared/lighting/fixture_0000.dat",
+        "shared/lighting/fixture_0000.rad",
+        "shared/lighting/fixture_0001.dat",
+        "shared/lighting/fixture_0001.rad",
+        "shared/lighting/fixture_0002.dat",
+        "shared/lighting/fixture_0002.rad",
+        "shared/lighting/illuminance.csv",
+        "shared/lighting/initial-rgb.txt",
+        "shared/lighting/lighting.json",
+        "shared/lighting/scene.oct",
+        "shared/lighting/scene.rad",
+        "shared/lighting/sensors.pts",
+        "shared/lighting/total-rgb.txt",
+        "shared/photometry/fixture-0000.ies",
+        "shared/photometry/fixture-0001.ies",
+        "shared/photometry/fixture-0002.ies",
+        "shared/shared/coordinated-devices.csv",
+        "shared/shared/coordination.json",
+        "shared/shared/ifc-input.json",
+        "shared/shared/bim/bim-verification.json",
+        "shared/shared/bim/model.ifc",
+        "shared/shared/bim/schema-validation.json",
+        "shared/shared/electrical/calculations.json",
+        "shared/shared/electrical/devices.dxf",
+        "shared/shared/electrical/manifest.json",
+        "shared/shared/electrical/preview.svg",
+        "shared/shared/electrical/report.html"
+      ]
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Convert the generated shared DXF to native DWG in AutoCAD 2027, reopen it and verify device geometry/labels, then plot a padded schematic PDF. Existing drawings are not modified by this synthetic example.",
+      "task": "native",
+      "acceptance": "Convert the generated shared DXF to native DWG in AutoCAD 2027, reopen it and verify device geometry/labels, then plot a padded schematic PDF. Existing drawings are not modified by this synthetic example.",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 5,
+        "end_line": 5
+      },
+      "execution_scope": "native reopen/geometry checks and PDF generation; visual acceptance pending",
+      "evidence": [
+        "native/convert.log",
+        "native/convert.scr",
+        "native/devices.dwg",
+        "native/devices.log",
+        "native/devices.pdf",
+        "native/devices.scr",
+        "native/input.dxf",
+        "native/inspect.log",
+        "native/inspect.scr",
+        "native/native-entities.csv",
+        "native/native-verification.json",
+        "native/plot.log",
+        "native/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log"
+      ]
+    },
+    {
+      "id": "R3",
+      "passage": "P004",
+      "quote": "Review physical photometric origins, model/plot appearance and the full acceptance matrix. Source photometry, reflectances, offsets and targets are synthetic assumptions; these outputs do not certify actual manufacturer geometry, obstruction, glare, daylight, fault protection or code compliance.",
+      "task": "review",
+      "acceptance": "Review physical photometric origins, model/plot appearance and the full acceptance matrix. Source photometry, reflectances, offsets and targets are synthetic assumptions; these outputs do not certify actual manufacturer geometry, obstruction, glare, daylight, fault protection or code compliance.",
+      "execution_status": "pending",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 7,
+        "end_line": 7
+      },
+      "execution_scope": "Review physical optical origins and complete visual/domain acceptance independently",
+      "evidence": []
+    }
+  ],
+  "artifact_hashes": {
+    "native/convert.log": "2bdf5d2f12d79f2b0049801bde38966db08eb70ee953c1181ef627eebb910fdb",
+    "native/convert.scr": "a56f9001452588dac4cbbf5a453c9ada8ea1699b232c787e2ecc68cc36e2e295",
+    "native/devices.dwg": "745fa1f3ada12962bbc5deac532541b1f331c8657b80c7f48151c660a85ad19e",
+    "native/devices.log": "cc7c24683e1e25d37d329836b1bcb653bcf6d8b61879019b7d248ed31204f4ea",
+    "native/devices.pdf": "386083f55f0bd1c567a058f079ded15d15699d4becd82aff7f523bdf901e453a",
+    "native/devices.scr": "c02fa7080a126dea72e537535e44f473486f69c53a8dd59f62c05d78155fd001",
+    "native/input.dxf": "b2fc026e3a0ccc27206745f8692d67c224a7f76a83d810adf064b2472b49b925",
+    "native/inspect.log": "7ced9d2ad495255a3197c8fd9a82df4cc61bd58a8ad7b47f105d3dde1781c1bf",
+    "native/inspect.scr": "bbd3416e712ea216a32d37f4c6741df1b572ea691b5a9668bea4fb8b9644b210",
+    "native/native-entities.csv": "a9f0f3a765a962c95428f6231f30fa5e729cab8fa5ed122cf9843f9455ee69c2",
+    "native/native-verification.json": "87aab97c9f920e78e097353cee95305cd603ad7bf541ea701a13d3b011458319",
+    "native/plot.log": "5fe912b26ba90bf701304710ec56d2ec6c634acece615a01a0d21b972942f6f0",
+    "shared/lighting-binding.json": "2e87e7c8c5b79f4b34d1487151b8f5363b4c5bfa90cc9a2820d8af3b320ad52a",
+    "shared/lighting-input.json": "1c3fe2cf7a904687c3a4f8c611f4f81ad519c336b9caf07128beb27da54f0998",
+    "native/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "1f9ffe1d4b80fa38024d1be638c057fd779328e858aff4273b3b86e2f1d76875",
+    "shared/lighting/direct-rgb.txt": "8b9f0a626fbbff980efe29dec9c60446f05aedf7a42af04199b4221aea0e2ee8",
+    "shared/lighting/engine-calls.json": "51dc39501df83ada7ef8481fab527bc34398d9b66b2e70070e2de63c1648f4d3",
+    "shared/lighting/fixture_0000.dat": "c16a7a6b4323011692c736c5a59000b245ba1cb794a83083d697b9c5d88bd03b",
+    "shared/lighting/fixture_0000.rad": "a55f0b5da6030f833324910211e495e04df7020cdc86b3bf14e608d09a13cdf3",
+    "shared/lighting/fixture_0001.dat": "c16a7a6b4323011692c736c5a59000b245ba1cb794a83083d697b9c5d88bd03b",
+    "shared/lighting/fixture_0001.rad": "1bcfd082d94f945580265851a72095d3900655f816e030ecced33e66780dc1ef",
+    "shared/lighting/fixture_0002.dat": "c16a7a6b4323011692c736c5a59000b245ba1cb794a83083d697b9c5d88bd03b",
+    "shared/lighting/fixture_0002.rad": "7c3f9c7ebf3f9d27fe5cf66c13b4a719de2a0dac3122839d060441db18d9fe16",
+    "shared/lighting/illuminance.csv": "b377d44eaafa11247cfd6173121dbf357332a49e3d667e123cc94756a5b67d4b",
+    "shared/lighting/initial-rgb.txt": "d426fab733f7a1675e662b5c41610243d216c058245c9c58b0f6543ca348cb40",
+    "shared/lighting/lighting.json": "7e66679b063d1d5fa77dce0f9be9bc1d156b989da3a6dc308be71d3ab08cb46e",
+    "shared/lighting/scene.oct": "55553cadd50a9b775535c3a762427029395ba9c91d9c61cb3e19b039ba58a05d",
+    "shared/lighting/scene.rad": "359ae5aebfee35aaa638ed5a86c454a825c1b0c66ac66764c321ca8d886958d0",
+    "shared/lighting/sensors.pts": "2ba40469c3ed987bc5799a6e6e4ad5a8047e7b824d77e8045ba1f985780571cc",
+    "shared/lighting/total-rgb.txt": "95b2cd8f4dec7a7600a712a044c3e7b4c604e10c6400aa71ca009779c287800f",
+    "shared/photometry/fixture-0000.ies": "e98b3d9644e71c99c2af92b18f63edcebed76f435bf54a9d24bf4981b4d5a47e",
+    "shared/photometry/fixture-0001.ies": "e98b3d9644e71c99c2af92b18f63edcebed76f435bf54a9d24bf4981b4d5a47e",
+    "shared/photometry/fixture-0002.ies": "e98b3d9644e71c99c2af92b18f63edcebed76f435bf54a9d24bf4981b4d5a47e",
+    "shared/shared/coordinated-devices.csv": "193d2c33905a2e8c525daeb4446cb6db95dab5e22122647a4996dbb0f5da7726",
+    "shared/shared/coordination.json": "dbab5ca967d75466ec326210f4bc3b2504d3e9b2b8ebbd84ebc35d327abac64f",
+    "shared/shared/ifc-input.json": "fa45f2f31fabecbdb3f99a8ec457e43081f2ddb41c3b4ae6e9a098e24ae9a97e",
+    "shared/shared/bim/bim-verification.json": "2497b020393a2595f49b448e086ce27d46830c1069d002d496c203489c229c1d",
+    "shared/shared/bim/model.ifc": "f266c8f4d37a8697c9a1045310fd6061ddea3b0f3a3328656e7c699b3977751a",
+    "shared/shared/bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "shared/shared/electrical/calculations.json": "87c8230a5a5a8ae521a2677d332753106e79d8d909eaba31e5da0602fad0ca5e",
+    "shared/shared/electrical/devices.dxf": "b2fc026e3a0ccc27206745f8692d67c224a7f76a83d810adf064b2472b49b925",
+    "shared/shared/electrical/manifest.json": "61f83675f160e6dd834157ed3fea2a795a502e147588050626c1e24ae306b749",
+    "shared/shared/electrical/preview.svg": "96aab302c3820d8bd1ce04ba1356de32734d3fa291cfa57111c39d2cffa3cef2",
+    "shared/shared/electrical/report.html": "ea329bfc4dce45c18b8f3e7117c6eaf169cf37db64ac25fa89d64c2e906bcd21"
+  },
+  "execution_pass": false,
+  "design_accepted": false,
+  "acceptance_note": "Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance"
+}

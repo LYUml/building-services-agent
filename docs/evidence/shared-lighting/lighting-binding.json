@@ -1,0 +1,115 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\office-electrical\\project.json": "34e1fba15d2ec9dacbdf256cf996d2de772873d720374f1ac55fd6b64ac4f34a",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\office-electrical\\geometry.json": "3d8f4cfd0e599d14e9e9dc2bd61548a983750de0f7ccf08388c68934a1e35808",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\shared-lighting.json": "c009861d6095fbd88d9e0897ea9731e4e098defdfb9ba202650d05e946eea91f",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\lighting\\synthetic-1000cd.ies": "e98b3d9644e71c99c2af92b18f63edcebed76f435bf54a9d24bf4981b4d5a47e"
+  },
+  "inputs_unchanged": true,
+  "bindings": [
+    {
+      "id": "L1",
+      "circuit": "LGT-1",
+      "electrical_kw": 0.04,
+      "photometric_origin_world_m": [
+        2,
+        3,
+        2.725
+      ],
+      "offset_world_m": [
+        0,
+        0,
+        0.025
+      ],
+      "envelope_z_m": 2.7,
+      "ies_sha256": "e98b3d9644e71c99c2af92b18f63edcebed76f435bf54a9d24bf4981b4d5a47e",
+      "ies_input_watts": 40.0,
+      "power_tolerance_w": 0.01
+    },
+    {
+      "id": "L2",
+      "circuit": "LGT-1",
+      "electrical_kw": 0.04,
+      "photometric_origin_world_m": [
+        4,
+        3,
+        2.725
+      ],
+      "offset_world_m": [
+        0,
+        0,
+        0.025
+      ],
+      "envelope_z_m": 2.7,
+      "ies_sha256": "e98b3d9644e71c99c2af92b18f63edcebed76f435bf54a9d24bf4981b4d5a47e",
+      "ies_input_watts": 40.0,
+      "power_tolerance_w": 0.01
+    },
+    {
+      "id": "L3",
+      "circuit": "LGT-1",
+      "electrical_kw": 0.04,
+      "photometric_origin_world_m": [
+        6,
+        3,
+        2.725
+      ],
+      "offset_world_m": [
+        0,
+        0,
+        0.025
+      ],
+      "envelope_z_m": 2.7,
+      "ies_sha256": "e98b3d9644e71c99c2af92b18f63edcebed76f435bf54a9d24bf4981b4d5a47e",
+      "ies_input_watts": 40.0,
+      "power_tolerance_w": 0.01
+    }
+  ],
+  "room_origin_world_m": [
+    0,
+    0,
+    0
+  ],
+  "common_coordination_checks_pass": true,
+  "lighting_checks_pass": true,
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "scope": "Shared electrical/CAD/IFC light IDs and positions with explicit photometric origin offsets, IES power metadata checks and local-room Radiance transform",
+  "pending": [
+    "physical photometric reference and manufacturer data review",
+    "actual obstructions and room fidelity",
+    "full photometric/electrical/code acceptance"
+  ],
+  "artifacts": {
+    "lighting-input.json": "1c3fe2cf7a904687c3a4f8c611f4f81ad519c336b9caf07128beb27da54f0998",
+    "lighting/direct-rgb.txt": "8b9f0a626fbbff980efe29dec9c60446f05aedf7a42af04199b4221aea0e2ee8",
+    "lighting/engine-calls.json": "51dc39501df83ada7ef8481fab527bc34398d9b66b2e70070e2de63c1648f4d3",
+    "lighting/fixture_0000.dat": "c16a7a6b4323011692c736c5a59000b245ba1cb794a83083d697b9c5d88bd03b",
+    "lighting/fixture_0000.rad": "a55f0b5da6030f833324910211e495e04df7020cdc86b3bf14e608d09a13cdf3",
+    "lighting/fixture_0001.dat": "c16a7a6b4323011692c736c5a59000b245ba1cb794a83083d697b9c5d88bd03b",
+    "lighting/fixture_0001.rad": "1bcfd082d94f945580265851a72095d3900655f816e030ecced33e66780dc1ef",
+    "lighting/fixture_0002.dat": "c16a7a6b4323011692c736c5a59000b245ba1cb794a83083d697b9c5d88bd03b",
+    "lighting/fixture_0002.rad": "7c3f9c7ebf3f9d27fe5cf66c13b4a719de2a0dac3122839d060441db18d9fe16",
+    "lighting/illuminance.csv": "b377d44eaafa11247cfd6173121dbf357332a49e3d667e123cc94756a5b67d4b",
+    "lighting/initial-rgb.txt": "d426fab733f7a1675e662b5c41610243d216c058245c9c58b0f6543ca348cb40",
+    "lighting/lighting.json": "7e66679b063d1d5fa77dce0f9be9bc1d156b989da3a6dc308be71d3ab08cb46e",
+    "lighting/scene.oct": "55553cadd50a9b775535c3a762427029395ba9c91d9c61cb3e19b039ba58a05d",
+    "lighting/scene.rad": "359ae5aebfee35aaa638ed5a86c454a825c1b0c66ac66764c321ca8d886958d0",
+    "lighting/sensors.pts": "2ba40469c3ed987bc5799a6e6e4ad5a8047e7b824d77e8045ba1f985780571cc",
+    "lighting/total-rgb.txt": "95b2cd8f4dec7a7600a712a044c3e7b4c604e10c6400aa71ca009779c287800f",
+    "photometry/fixture-0000.ies": "e98b3d9644e71c99c2af92b18f63edcebed76f435bf54a9d24bf4981b4d5a47e",
+    "photometry/fixture-0001.ies": "e98b3d9644e71c99c2af92b18f63edcebed76f435bf54a9d24bf4981b4d5a47e",
+    "photometry/fixture-0002.ies": "e98b3d9644e71c99c2af92b18f63edcebed76f435bf54a9d24bf4981b4d5a47e",
+    "shared/coordinated-devices.csv": "193d2c33905a2e8c525daeb4446cb6db95dab5e22122647a4996dbb0f5da7726",
+    "shared/coordination.json": "dbab5ca967d75466ec326210f4bc3b2504d3e9b2b8ebbd84ebc35d327abac64f",
+    "shared/ifc-input.json": "fa45f2f31fabecbdb3f99a8ec457e43081f2ddb41c3b4ae6e9a098e24ae9a97e",
+    "shared/bim/bim-verification.json": "2497b020393a2595f49b448e086ce27d46830c1069d002d496c203489c229c1d",
+    "shared/bim/model.ifc": "f266c8f4d37a8697c9a1045310fd6061ddea3b0f3a3328656e7c699b3977751a",
+    "shared/bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "shared/electrical/calculations.json": "87c8230a5a5a8ae521a2677d332753106e79d8d909eaba31e5da0602fad0ca5e",
+    "shared/electrical/devices.dxf": "b2fc026e3a0ccc27206745f8692d67c224a7f76a83d810adf064b2472b49b925",
+    "shared/electrical/manifest.json": "61f83675f160e6dd834157ed3fea2a795a502e147588050626c1e24ae306b749",
+    "shared/electrical/preview.svg": "96aab302c3820d8bd1ce04ba1356de32734d3fa291cfa57111c39d2cffa3cef2",
+    "shared/electrical/report.html": "ea329bfc4dce45c18b8f3e7117c6eaf169cf37db64ac25fa89d64c2e906bcd21"
+  }
+}

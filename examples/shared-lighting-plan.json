@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "brief": "shared-lighting-brief.md",
+  "brief_sha256": "7e9bc98343a3326b78b976690376f6860b1958c0a287016c25c7f8d51690fc59",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement",
+    "P004": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "shared",
+      "kind": "electrical_lighting",
+      "project": "office-electrical/project.json",
+      "geometry": "office-electrical/geometry.json",
+      "optical": "shared-lighting.json"
+    },
+    {
+      "id": "native",
+      "kind": "native_cad",
+      "depends_on": "shared"
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "description": "Review physical optical origins and complete visual/domain acceptance independently"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Use office-electrical/project.json and office-electrical/geometry.json as the shared electrical and spatial sources. Bind exactly their light fixtures in the selected Office space to shared-lighting.json. Derive optical world positions from electrical XY centres, explicit envelope bottom Z and explicit photometric offsets, then transform to the selected room local frame. Check IES nominal power metadata against the electrical input using the supplied tolerance; do not derive brightness from watts. Generate and reconcile calculations, DXF and IFC, then run the prescribed Radiance illuminance and parameter-stability checks.",
+      "task": "shared",
+      "acceptance": "Use office-electrical/project.json and office-electrical/geometry.json as the shared electrical and spatial sources. Bind exactly their light fixtures in the selected Office space to shared-lighting.json. Derive optical world positions from electrical XY centres, explicit envelope bottom Z and explicit photometric offsets, then transform to the selected room local frame. Check IES nominal power metadata against the electrical input using the supplied tolerance; do not derive brightness from watts. Generate and reconcile calculations, DXF and IFC, then run the prescribed Radiance illuminance and parameter-stability checks."
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Convert the generated shared DXF to native DWG in AutoCAD 2027, reopen it and verify device geometry/labels, then plot a padded schematic PDF. Existing drawings are not modified by this synthetic example.",
+      "task": "native",
+      "acceptance": "Convert the generated shared DXF to native DWG in AutoCAD 2027, reopen it and verify device geometry/labels, then plot a padded schematic PDF. Existing drawings are not modified by this synthetic example."
+    },
+    {
+      "id": "R3",
+      "passage": "P004",
+      "quote": "Review physical photometric origins, model/plot appearance and the full acceptance matrix. Source photometry, reflectances, offsets and targets are synthetic assumptions; these outputs do not certify actual manufacturer geometry, obstruction, glare, daylight, fault protection or code compliance.",
+      "task": "review",
+      "acceptance": "Review physical photometric origins, model/plot appearance and the full acceptance matrix. Source photometry, reflectances, offsets and targets are synthetic assumptions; these outputs do not certify actual manufacturer geometry, obstruction, glare, daylight, fault protection or code compliance."
+    }
+  ]
+}

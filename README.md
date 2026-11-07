@@ -70,3 +70,5 @@ Use `python -m bsa.workflow intake <brief.md> --out <new-intake.json>` to index 
 ## Real photometric engine
 
 [Lighting analysis](docs/LIGHTING.md) runs official Radiance against sourced IES files, computes direct/reflected sensor illuminance and checks a higher-quality verification run. A synthetic fixture has been checked against the inverse-square/cosine law and maintenance scaling. Arbitrary geometry, glare/daylight and full lighting acceptance remain pending.
+
+[Shared lighting binding](docs/LIGHTING_BINDING.md) now reuses electrical/CAD/IFC fixture IDs and positions in Radiance, with explicit photometric offsets and nominal IES/electrical watt checks. The combined synthetic workflow has executed optical analysis and native AutoCAD conversion; physical and visual acceptance remain pending.

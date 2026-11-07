@@ -40,9 +40,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m pip install -e ".[dev]"
+      - run: python -m pip install -e ".[dev,bim]"
       - run: python scripts/setup_radiance.py
       - run: python -m unittest discover -s tests -p test_lighting.py -v
         env:
           BSA_TEST_RADIANCE_BIN: ${{ github.workspace }}/tools/radiance-6/bin
+      - run: python -m unittest discover -s tests -p test_lighting_binding.py -v
+        env:
+          BSA_TEST_RADIANCE_BIN: ${{ github.workspace }}/tools/radiance-6/bin
       - run: python -m bsa.workflow execute examples/lighting/plan.json --out runs/lighting --radiance-bin tools/radiance-6/bin
+      - run: python -m bsa.lighting_binding examples/office-electrical/project.json --geometry examples/office-electrical/geometry.json --optical examples/shared-lighting.json --out runs/bound-lighting --radiance-bin tools/radiance-6/bin
