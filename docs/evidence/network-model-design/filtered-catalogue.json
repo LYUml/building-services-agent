@@ -1,0 +1,40 @@
+{
+  "sources": {
+    "demo": "Synthetic size choices and material scores with explicit size-invariant K; not manufacturer data"
+  },
+  "options": [
+    {
+      "id": "A",
+      "diameter_m": 0.2,
+      "roughness_m": 9e-05,
+      "material_score_per_m": 1,
+      "source": "demo"
+    },
+    {
+      "id": "B",
+      "diameter_m": 0.4,
+      "roughness_m": 9e-05,
+      "material_score_per_m": 2,
+      "source": "demo"
+    },
+    {
+      "id": "C",
+      "diameter_m": 0.25,
+      "roughness_m": 9e-05,
+      "material_score_per_m": 0.1,
+      "source": "demo"
+    }
+  ],
+  "allowed_options": {
+    "MAIN": [
+      "A",
+      "B"
+    ]
+  },
+  "objective": "minimise sum(length_m * material_score_per_m)",
+  "max_evaluations": 10,
+  "hydraulic_basis": {
+    "assumption": "prescribed demands; route and local K unchanged across sizes",
+    "source": "demo"
+  }
+}

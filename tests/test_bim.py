@@ -21,7 +21,8 @@ class BIMTests(unittest.TestCase):
                        lambda p:p['devices'][0].update(ifc_class='IfcWall'),
                        lambda p:p['devices'][0].update(source='unknown'),
                        lambda p:p['connections'][0].update(to='missing.port'),
-                       lambda p:p['devices'][1]['ports'][0].update(direction='SOURCE')):
+                       lambda p:p['devices'][1]['ports'][0].update(direction='SOURCE'),
+                       lambda p:p.update(project_uuid='not-a-uuid')):
             p=copy.deepcopy(source);change(p)
             with self.assertRaises(ProjectError):validate(p)
 

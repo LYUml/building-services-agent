@@ -2,6 +2,7 @@
 import argparse
 import json
 import math
+import uuid
 from pathlib import Path
 from .cli import digest
 from .engine import ProjectError
@@ -15,6 +16,10 @@ def validate(p):
     if not isinstance(p,dict) or p.get('geometry_scope')!='axis-aligned bounding envelopes':
         raise ProjectError('explicit bounding-envelope geometry scope required')
     if not isinstance(p.get('name'),str) or not p['name'].strip():raise ProjectError('name required')
+    if 'project_uuid' in p:
+        try:
+            if not isinstance(p['project_uuid'],str) or str(uuid.UUID(p['project_uuid']))!=p['project_uuid']:raise ValueError()
+        except (ValueError,AttributeError):raise ProjectError('project_uuid must be a canonical project namespace UUID')
     sources=p.get('sources')
     if not isinstance(sources,dict) or not sources or any(not isinstance(v,str) or not v.strip() for v in sources.values()):
         raise ProjectError('source descriptions required')
@@ -95,7 +100,13 @@ def run(project,out):
     before=digest(project);p=validate(json.loads(project.read_text(encoding='utf-8-sig')))
     out.mkdir(parents=True,exist_ok=False)
     model=api.run('project.create_file',version='IFC4')
-    def create(cls,name,**kw):return api.run('root.create_entity',model,ifc_class=cls,name=name,**kw)
+    namespace=uuid.UUID(p['project_uuid']) if p.get('project_uuid') else None
+    def stable_guid(cls,*keys):
+        return ifcopenshell.guid.compress(uuid.uuid5(namespace,json.dumps([cls,*keys],ensure_ascii=False,separators=(',',':'))).hex)
+    def create(cls,name,**kw):
+        obj=api.run('root.create_entity',model,ifc_class=cls,name=name,**kw)
+        if namespace:obj.GlobalId=stable_guid(cls,'Project' if cls=='IfcProject' else name)
+        return obj
     pr=create('IfcProject',p['name'])
     unit=api.run('unit.add_si_unit',model,unit_type='LENGTHUNIT')
     api.run('unit.assign_unit',model,units=[unit])
@@ -136,6 +147,7 @@ def run(project,out):
         for port in d.get('ports',[]):
             objport=api.run('system.add_port',model,element=obj)
             objport.Name=port['id'];objport.FlowDirection=port['direction']
+            if namespace:objport.GlobalId=stable_guid('IfcDistributionPort',d['id'],port['id'])
             matrix=np.eye(4);matrix[:3,3]=np.array(d['origin_m'])+np.array(port['offset_m'])
             api.run('geometry.edit_object_placement',model,product=objport,matrix=matrix,is_si=True)
             props(objport,dict(Source=p['sources'][port['source']]))
@@ -155,6 +167,7 @@ def run(project,out):
         matches=[x for x in reopened.by_type(d['ifc_class']) if x.Name==d['id']]
         if len(matches)!=1:raise ProjectError('IFC device identity mismatch')
         obj=matches[0]
+        if namespace and obj.GlobalId!=stable_guid(d['ifc_class'],d['id']):raise ProjectError('IFC stable device identity mismatch')
         shape=ifcopenshell.geom.create_shape(settings,obj)
         verts=np.array(shape.geometry.verts).reshape(-1,3)
         bounds=np.array([verts.min(axis=0),verts.max(axis=0)])
@@ -174,6 +187,7 @@ def run(project,out):
             matches=[x for x in actual_ports if x.Name==port['id']]
             if len(matches)!=1:raise ProjectError('IFC port identity mismatch')
             native=matches[0];native_ports[d['id']+'.'+port['id']]=native
+            if namespace and native.GlobalId!=stable_guid('IfcDistributionPort',d['id'],port['id']):raise ProjectError('IFC stable port identity mismatch')
             origin=placement.get_local_placement(native.ObjectPlacement)[:3,3]
             if native.FlowDirection!=port['direction'] or not np.allclose(origin,np.array(d['origin_m'])+port['offset_m'],atol=1e-7,rtol=0):
                 raise ProjectError('IFC port direction/coordinate mismatch')
@@ -195,6 +209,8 @@ def run(project,out):
                 checks=checks,devices=records,model_checks_pass=all(checks.values()),design_accepted=False,
                 geometry_scope=p['geometry_scope'],pending=['visual BIM review','manufacturer shape fidelity','physical route/clash checks','domain performance and code acceptance'])
     result['connection_scope']='logical topology only; no physical route is inferred between separated ports'
+    result['identity_scope']='stable namespace/class/input-ID object and port GUIDs' if namespace else 'generated GUIDs; no stable namespace supplied'
+    result['project_uuid']=p.get('project_uuid')
     (out/'bim-verification.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
     if not result['model_checks_pass']:raise ProjectError('IFC verification failed; inspect run evidence')
     return result

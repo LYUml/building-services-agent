@@ -1,0 +1,20 @@
+{
+  "sources": {
+    "demo": "Synthetic explicit outside envelopes; C intentionally exceeds containing space; no inferred wall/clearance Explicit no-contained-choice scenario: every outside envelope is 2 m."
+  },
+  "basis": "circular outside-diameter envelopes; fixed centrelines and endpoints",
+  "options": {
+    "A": {
+      "outside_diameter_m": 2,
+      "source": "demo"
+    },
+    "B": {
+      "outside_diameter_m": 2,
+      "source": "demo"
+    },
+    "C": {
+      "outside_diameter_m": 2,
+      "source": "demo"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "807803861d042c7fb9e91122ad5df203206a15de9308b1004c4ae70a38315377",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "revision",
+      "kind": "network_model_design",
+      "project": "network.json",
+      "model": "model.json",
+      "binding": "binding.json",
+      "catalogue": "catalogue.json",
+      "geometry": "geometry.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Retain the original source model and baseline calculations. Derive the straight route geometry from the bound ports, compare all supplied feasible size choices, reject outside envelopes that leave the containing space, and generate a new IFC model for the selected design. Internal diameter and outside envelope diameter have separate explicit sources; preserve original route endpoints, centrelines, connections and unaffected devices. Reopen IFC, verify its actual bounds and catalogue properties, and reconcile the model-derived pressure budget with the selected calculation.",
+      "task": "revision",
+      "acceptance": "Source-preserving bounded sizing and stable-identity model/pressure reconciliation; separate full acceptance pending"
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Keep a shared project UUID and stable device/port identities between baseline and resized versions. Preserve original file hashes and all geometry/hydraulic rejection evidence. Detailed circular product solids, junctions, clearance/clashes, operating point and full engineering acceptance remain pending. All catalogue and model values in this exercise are synthetic.",
+      "task": "revision",
+      "acceptance": "Source-preserving bounded sizing and stable-identity model/pressure reconciliation; separate full acceptance pending"
+    }
+  ]
+}

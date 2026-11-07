@@ -36,9 +36,11 @@ jobs:
       - run: python -m unittest discover -s tests -p test_network.py -v
       - run: python -m unittest discover -s tests -p test_network_binding.py -v
       - run: python -m unittest discover -s tests -p test_network_design.py -v
+      - run: python -m unittest discover -s tests -p test_network_model_design.py -v
       - run: python -m bsa.workflow execute examples/network/plan.json --out runs/network
       - run: python -m bsa.workflow execute examples/network-binding/plan.json --out runs/network-binding
       - run: python -m bsa.workflow execute examples/network-design/plan.json --out runs/network-design
+      - run: python -m bsa.workflow execute examples/network-model-design/plan.json --out runs/network-model-design
   lighting:
     runs-on: windows-latest
     steps:

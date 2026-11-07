@@ -69,6 +69,8 @@ Use `python -m bsa.workflow intake <brief.md> --out <new-intake.json>` to index 
 
 [Conditional sizing and iteration](docs/NETWORK_DESIGN.md) retains an undersized baseline, evaluates every permitted finite-catalogue size combination, preserves failures and reruns the selected feasible network. It optimises the supplied length-weighted material score under fixed demand/route/K assumptions; it does not invent product data, prices or a fan/pump operating point.
 
+[Model-aware sizing](docs/NETWORK_MODEL_DESIGN.md) now applies explicit outside-envelope sizes to a new IFC revision while preserving source endpoints. Space-contained choices feed sizing; saved model bounds, stable device/port identities and model-derived pressure are checked. Product geometry, clashes and complete engineering acceptance remain pending.
+
 ## Shared electrical data
 
 [Coordinated generation](docs/COORDINATION.md) now feeds the same device/circuit data into calculations, DXF and IFC. A geometry companion only adds explicit dimensions, heights and spaces. Reopened artifacts are reconciled; the workflow can send the resulting DXF through native AutoCAD save/reopen/plot. No separate power, PF, XY or circuit copy is maintained in geometry inputs.

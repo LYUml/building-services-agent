@@ -1,0 +1,20 @@
+{
+  "sources": {
+    "demo": "Synthetic explicit outside envelopes; C intentionally exceeds containing space; no inferred wall/clearance"
+  },
+  "basis": "circular outside-diameter envelopes; fixed centrelines and endpoints",
+  "options": {
+    "A": {
+      "outside_diameter_m": 0.22,
+      "source": "demo"
+    },
+    "B": {
+      "outside_diameter_m": 0.45,
+      "source": "demo"
+    },
+    "C": {
+      "outside_diameter_m": 2.0,
+      "source": "demo"
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "original_candidate_count": 3,
+  "geometry_feasible_candidate_count": 2,
+  "rejected_geometry_options": [
+    {
+      "segment": "MAIN",
+      "option": "C",
+      "reason": "device DUCT1 lies outside its space"
+    }
+  ],
+  "calculated_checks_pass": true,
+  "saved_ifc_resize_checks_pass": true,
+  "stable_object_port_ids_match": true,
+  "design_accepted": false,
+  "selected": {
+    "id": "C000001",
+    "choices": {
+      "MAIN": "A"
+    },
+    "material_score": 3.0,
+    "feasible": true,
+    "calculated_checks": {
+      "velocity": true,
+      "pressure": true,
+      "flow_continuity": true
+    },
+    "required_source_total_pressure_pa": 61.8273505778798,
+    "failed_velocity_segments": [],
+    "failed_pressure_nodes": []
+  },
+  "pending": [
+    "actual circular product/fitting geometry",
+    "clearance and clash checks",
+    "K applicability, operating point and full professional acceptance"
+  ],
+  "baseline_analysis": {
+    "calculated_checks_pass": true,
+    "required_source_total_pressure_pa": 31.775104837184813
+  },
+  "sizing_feasible": true,
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-model-design\\network.json": "3690fc9f63d70acd454add2b33e23406f823811ad3d611c7c89354c862a1a34f",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-model-design\\model.json": "fd767a1f5736367d9f2e7e3241c2d197b256e060384985ca492ee4499d1fb541",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-model-design\\binding.json": "2c3bd16069d22482bbcd7be1e0cdb8e3a94aec646621d70b1bbbc1363e443835",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-model-design\\catalogue.json": "e24b68f86a136d897ca4534635d114193453cb47e94e72e7d1383b4382895e8a",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-model-design\\geometry.json": "325654fd292fc82675533ac58fdcfa389af63e22a3f644c7941b8eabddb5622c"
+  },
+  "inputs_unchanged": true,
+  "scope": "Fixed-endpoint circular sizing, source-backed outside envelopes, space containment and independent saved IFC/pressure reconciliation",
+  "artifacts": {
+    "baseline-network.json": "ea5beb1db19c0cd7e3c2142e7eee12c8e46fe069ab95733431328b1e6745d508",
+    "filtered-catalogue.json": "c7c686000f3b77d9811e89595798eac640bd7261de609385ecbd2263acc3f6f7",
+    "selected-model.json": "1fbe35a90d56e9a25d9d72e0862df99488f75cd303392cde9003ba88b9fc4c5b",
+    "selected-skeleton.json": "dd2d8a0ac0852dd50e840234a834a20fb2310c4f5901675d9fb4d08a91f14cea",
+    "baseline-analysis/manifest.json": "f0994be8ba4f77e021c6c3e88524110ca43b166dbd3035de6fed04af3c40d2de",
+    "baseline-analysis/network.json": "b43f6d5acad40267a93856378cf8d2da5ea05492b44ff9a23bed5ce242ad2296",
+    "baseline-analysis/report.html": "2b416e09aff743558e83460974f03a31b04a0838b177e01281483c0180109ef8",
+    "baseline-analysis/segments.csv": "f5c34286907e10016f42445a000807d64085b7557fe28643dd55b3253b42ab19",
+    "baseline-bim/bim-verification.json": "cb8d6b1270c69716589ef1b087462d8e665b080931310f78c08c17700c9e7bf3",
+    "baseline-bim/model.ifc": "f95543e1776aa6bf2143693e4e9bae8278b436ef79e368a9ba267fbf69340d0d",
+    "baseline-bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "selected-coordination/network-binding.json": "0571006d07cd810e906367622bf8ec61f41ef87dd5e81b93b69d72fceed4a62c",
+    "selected-coordination/network-input.json": "63b924ce9990e48b607e3ad8f91174565eff507cb6c507d1bbf53adcb2faa99c",
+    "sizing/candidates.csv": "68f9be4225933128e2836e6a87687d3c724c521a908ffe79b4b8e7c0aaf9978c",
+    "sizing/design-comparison.json": "e51111f44f51bb5acd98b5f69c34c14a39bef06a78c00092f3f53bc209f4c26f",
+    "sizing/report.html": "63083d3a745e181caa62c6b1addce312c07c258a0ced155604db9127ab0121fd",
+    "sizing/selected-network.json": "63b924ce9990e48b607e3ad8f91174565eff507cb6c507d1bbf53adcb2faa99c",
+    "selected-coordination/analysis/manifest.json": "dd2a51988bb9714f5b891eadd2f2251afdc74c0bc68d30a1ebdae4cd215d1ec4",
+    "selected-coordination/analysis/network.json": "e02235c75f60814de6747f70076817e0921d1dfaface48c2063e59107b247907",
+    "selected-coordination/analysis/report.html": "9eedb6ed73ee41a392cc4154644ed5bc222578fb2ac6f1b1174f29fe10483f35",
+    "selected-coordination/analysis/segments.csv": "996b5175c22058fee3733b55c1fe6d31f8ad07c490d70388e3ec416b51cd0981",
+    "selected-coordination/bim/bim-verification.json": "55b94abe3ab38db01cf6ab4a47cf7b214521de6fc00239eeea69a107bd5e2ae1",
+    "selected-coordination/bim/model.ifc": "7b3b67b1749e5a98743a7e72dae3c9a5083c50addd32299c0c03f22771024bfa",
+    "selected-coordination/bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "sizing/baseline/manifest.json": "f0994be8ba4f77e021c6c3e88524110ca43b166dbd3035de6fed04af3c40d2de",
+    "sizing/baseline/network.json": "b43f6d5acad40267a93856378cf8d2da5ea05492b44ff9a23bed5ce242ad2296",
+    "sizing/baseline/report.html": "2b416e09aff743558e83460974f03a31b04a0838b177e01281483c0180109ef8",
+    "sizing/baseline/segments.csv": "f5c34286907e10016f42445a000807d64085b7557fe28643dd55b3253b42ab19",
+    "sizing/selected/manifest.json": "dd2a51988bb9714f5b891eadd2f2251afdc74c0bc68d30a1ebdae4cd215d1ec4",
+    "sizing/selected/network.json": "e02235c75f60814de6747f70076817e0921d1dfaface48c2063e59107b247907",
+    "sizing/selected/report.html": "9eedb6ed73ee41a392cc4154644ed5bc222578fb2ac6f1b1174f29fe10483f35",
+    "sizing/selected/segments.csv": "996b5175c22058fee3733b55c1fe6d31f8ad07c490d70388e3ec416b51cd0981"
+  }
+}

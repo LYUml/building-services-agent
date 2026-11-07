@@ -23,6 +23,8 @@ Base-overlay preservation and physical PDF-scale verification are original adapt
 
 Finite-catalogue network design search is original orchestration around the existing fluids-backed pressure solver. It enumerates supplied options and retains conditional comparison evidence; no new solver source is copied. Existing fluids attribution and pinned runtime apply. Independent laminar and velocity-bound tests are method checks, not upstream product or code certification.
 
+Model-aware sizing/revision uses the existing pinned IfcOpenShell/fluids libraries plus original fixed-centreline envelope and reconciliation code. Stable IFC object/port identities use Python's standard UUID namespace mechanism and IfcOpenShell's GUID compression API; no new dependency or upstream source is vendored. The stability contract covers declared objects/ports, not every IFC relationship or file bytes.
+
 ## Executed energy integrations
 
 - **OpenStudio(R) SDK 3.11.0** installed as an optional Python library. Original two-zone authoring code calls the official SDK and its ForwardTranslator. It targets EnergyPlus 25.2.0; matching was checked at runtime. This project is not an endorsed or renamed version of OpenStudio.

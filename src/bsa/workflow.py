@@ -64,9 +64,9 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","lighting","drawing_intake","base_overlay","native_cad","manual"):
+        if kind not in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","network_model_design","lighting","drawing_intake","base_overlay","native_cad","manual"):
             raise ProjectError("unknown task adapter")
-        if kind in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","lighting"):
+        if kind in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","network_model_design","lighting"):
             inputs.add(local_path(root,t.get("project")))
         if kind=='lighting':
             from .lighting import validate as validate_lighting
@@ -77,6 +77,10 @@ def validate_plan(path):
             from .network_design import validate_catalogue
             catalogue=local_path(root,t.get('catalogue'));inputs.add(catalogue)
             validate_catalogue(read_json(local_path(root,t['project'])),read_json(catalogue))
+        if kind=='network_model_design':
+            from .network_model_design import prepare
+            files=[local_path(root,t.get(key)) for key in ('project','model','binding','catalogue','geometry')]
+            inputs.update(files);prepare(*(read_json(f) for f in files))
         if kind=='drawing_intake':
             drawing=local_path(root,t.get('drawing'));inputs.add(drawing)
             if drawing.suffix.lower() not in ('.dwg','.dxf'):raise ProjectError('drawing intake requires DWG or DXF')
@@ -175,6 +179,12 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                 from .bim import run
                 payload=run(local_path(root,t['project']),folder)
                 status='pass';reason='IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending'
+            elif t['kind']=='network_model_design':
+                from .network_model_design import run
+                files=[local_path(root,t[key]) for key in ('project','model','binding','catalogue','geometry')]
+                payload=run(*files,folder)
+                status='pass' if payload['calculated_checks_pass'] else 'fail'
+                reason='source-backed outside envelopes resized on fixed endpoints; saved IFC dimensions and derived pressure reconciled; actual products/clashes/full acceptance pending'
             elif t['kind']=='network_design':
                 from .network_design import run
                 payload=run(local_path(root,t['project']),local_path(root,t['catalogue']),folder)

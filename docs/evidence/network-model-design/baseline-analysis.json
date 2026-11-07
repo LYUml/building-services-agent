@@ -1,0 +1,80 @@
+{
+  "name": "Synthetic circular air supply tree",
+  "supply_flow_m3_s": 0.2,
+  "segments": [
+    {
+      "id": "MAIN",
+      "from_node": "FAN",
+      "to_node": "A",
+      "flow_m3_s": 0.2,
+      "area_m2": 0.12566370614359174,
+      "velocity_m_s": 1.5915494309189533,
+      "reynolds": 42441.31815783875,
+      "darcy_friction_factor": 0.022396289008659823,
+      "regime": "turbulent Colebrook Darcy",
+      "friction_pa": 0.25528708254974536,
+      "minor_pa": 1.5198177546350664,
+      "dissipative_loss_pa": 1.7751048371848117,
+      "elevation_pressure_pa": 0.0,
+      "downstream_total_pressure_pa": 298.2248951628152,
+      "velocity_pass": true,
+      "source": "demo"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "FAN",
+      "demand_m3_s": 0,
+      "total_pressure_pa": 300,
+      "required_total_pressure_pa": 0,
+      "pressure_margin_pa": 300,
+      "pressure_pass": true,
+      "path": [],
+      "source": "demo"
+    },
+    {
+      "id": "A",
+      "demand_m3_s": 0.2,
+      "total_pressure_pa": 298.2248951628152,
+      "required_total_pressure_pa": 30,
+      "pressure_margin_pa": 268.2248951628152,
+      "pressure_pass": true,
+      "path": [
+        "MAIN"
+      ],
+      "source": "demo"
+    }
+  ],
+  "critical_node": "A",
+  "critical_path": [
+    "MAIN"
+  ],
+  "required_source_total_pressure_pa": 31.775104837184813,
+  "calculated_checks": {
+    "velocity": true,
+    "pressure": true,
+    "flow_continuity": true
+  },
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "pressure_basis": "Total pressure (static + velocity), with elevation potential handled separately; common reference. Not an ambient-referenced vertical air pressure model.",
+  "scope": "Prescribed withdrawals in a constant-density, fully filled circular tree; no loops or pressure-dependent flow solution",
+  "pending": [
+    "source demand and route evidence",
+    "component K/reference velocity validation",
+    "fan/pump curve and operating-point selection",
+    "noise, cavitation, compressibility and domain/code checks",
+    "physical routing and clash review"
+  ],
+  "input_sha256": "ea5beb1db19c0cd7e3c2142e7eee12c8e46fe069ab95733431328b1e6745d508",
+  "fluids_version": "1.3.1",
+  "sources": {
+    "demo": "Explicit synthetic flow, geometry, fluid properties, K and pressure/velocity targets; not measured or code-derived"
+  },
+  "methods": [
+    "Darcy-Weisbach: f_D L/D rho v^2/2",
+    "Fittings: K rho v^2/2 using local segment velocity",
+    "Elevation: rho g dz, g=9.80665 m/s2",
+    "https://fluids.readthedocs.io/fluids.friction.html"
+  ]
+}

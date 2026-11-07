@@ -1,0 +1,57 @@
+{
+  "original_candidate_count": 3,
+  "geometry_feasible_candidate_count": 0,
+  "rejected_geometry_options": [
+    {
+      "segment": "MAIN",
+      "option": "A",
+      "reason": "device DUCT1 lies outside its space"
+    },
+    {
+      "segment": "MAIN",
+      "option": "B",
+      "reason": "device DUCT1 lies outside its space"
+    },
+    {
+      "segment": "MAIN",
+      "option": "C",
+      "reason": "device DUCT1 lies outside its space"
+    }
+  ],
+  "calculated_checks_pass": false,
+  "saved_ifc_resize_checks_pass": false,
+  "stable_object_port_ids_match": false,
+  "design_accepted": false,
+  "selected": null,
+  "pending": [
+    "actual circular product/fitting geometry",
+    "clearance and clash checks",
+    "K applicability, operating point and full professional acceptance"
+  ],
+  "baseline_analysis": {
+    "calculated_checks_pass": true,
+    "required_source_total_pressure_pa": 31.775104837184813
+  },
+  "sizing_feasible": false,
+  "failure": "at least one segment has no space-contained envelope option",
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-model-design\\network.json": "3690fc9f63d70acd454add2b33e23406f823811ad3d611c7c89354c862a1a34f",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-model-design\\model.json": "fd767a1f5736367d9f2e7e3241c2d197b256e060384985ca492ee4499d1fb541",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-model-design\\binding.json": "2c3bd16069d22482bbcd7be1e0cdb8e3a94aec646621d70b1bbbc1363e443835",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-model-design\\catalogue.json": "e24b68f86a136d897ca4534635d114193453cb47e94e72e7d1383b4382895e8a",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\network-model-no-space-input\\geometry.json": "6c0d78bf62f310620d7dd39c024d75bc08b67919bac3621a26281247f4049569"
+  },
+  "inputs_unchanged": true,
+  "scope": "Fixed-endpoint circular sizing, source-backed outside envelopes, space containment and independent saved IFC/pressure reconciliation",
+  "artifacts": {
+    "baseline-network.json": "ea5beb1db19c0cd7e3c2142e7eee12c8e46fe069ab95733431328b1e6745d508",
+    "filtered-catalogue.json": "031d17536090461e0ef3e405ed5b369cefc63b1c87ee42732914be00364f02ac",
+    "baseline-analysis/manifest.json": "f0994be8ba4f77e021c6c3e88524110ca43b166dbd3035de6fed04af3c40d2de",
+    "baseline-analysis/network.json": "b43f6d5acad40267a93856378cf8d2da5ea05492b44ff9a23bed5ce242ad2296",
+    "baseline-analysis/report.html": "2b416e09aff743558e83460974f03a31b04a0838b177e01281483c0180109ef8",
+    "baseline-analysis/segments.csv": "f5c34286907e10016f42445a000807d64085b7557fe28643dd55b3253b42ab19",
+    "baseline-bim/bim-verification.json": "104ceade277a71395f52daea7c7f97c8c2af7389408aff44e4455b3b0d3ec196",
+    "baseline-bim/model.ifc": "1c2896fc45676e16483545a0bb30ba8c91aff70ffe9a9aa23c0b010c714babce",
+    "baseline-bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  }
+}

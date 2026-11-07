@@ -1,0 +1,91 @@
+{
+  "ifcopenshell_version": "0.8.5",
+  "input_sha256": "1fbe35a90d56e9a25d9d72e0862df99488f75cd303392cde9003ba88b9fc4c5b",
+  "ifc_sha256": "7b3b67b1749e5a98743a7e72dae3c9a5083c50addd32299c0c03f22771024bfa",
+  "checks": {
+    "schema_valid": true,
+    "device_count_match": true,
+    "connection_count_match": true,
+    "connection_endpoints_match": true,
+    "metre_units": true,
+    "space_count_match": true,
+    "source_unchanged": true
+  },
+  "devices": [
+    {
+      "id": "FAN1",
+      "ifc_class": "IfcFan",
+      "global_id": "0W3lNmxFPNbfaDOocb3wmC",
+      "space": "PlantRoom",
+      "systems": [
+        "SUPPLY-AIR"
+      ],
+      "bounds_m": [
+        [
+          0.5,
+          2.0,
+          2.0
+        ],
+        [
+          1.0,
+          2.5,
+          2.5
+        ]
+      ]
+    },
+    {
+      "id": "DUCT1",
+      "ifc_class": "IfcDuctSegment",
+      "global_id": "2_MFqkx75UluPaevYMytDC",
+      "space": "PlantRoom",
+      "systems": [
+        "SUPPLY-AIR"
+      ],
+      "bounds_m": [
+        [
+          1.0,
+          2.14,
+          2.14
+        ],
+        [
+          4.0,
+          2.3600000000000003,
+          2.3600000000000003
+        ]
+      ]
+    },
+    {
+      "id": "AT1",
+      "ifc_class": "IfcAirTerminal",
+      "global_id": "0nYWb1ZsrIggrppBraO6Zz",
+      "space": "PlantRoom",
+      "systems": [
+        "SUPPLY-AIR"
+      ],
+      "bounds_m": [
+        [
+          4.0,
+          2.0,
+          2.0
+        ],
+        [
+          4.4,
+          2.5,
+          2.5
+        ]
+      ]
+    }
+  ],
+  "model_checks_pass": true,
+  "design_accepted": false,
+  "geometry_scope": "axis-aligned bounding envelopes",
+  "pending": [
+    "visual BIM review",
+    "manufacturer shape fidelity",
+    "physical route/clash checks",
+    "domain performance and code acceptance"
+  ],
+  "connection_scope": "logical topology only; no physical route is inferred between separated ports",
+  "identity_scope": "stable namespace/class/input-ID object and port GUIDs",
+  "project_uuid": "c85f0082-89e6-47e6-8497-d49eb928b533"
+}

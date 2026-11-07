@@ -1,0 +1,97 @@
+{
+  "candidate_count": 2,
+  "evaluated_count": 2,
+  "feasible_count": 2,
+  "search_complete": true,
+  "candidates": [
+    {
+      "id": "C000001",
+      "choices": {
+        "MAIN": "A"
+      },
+      "material_score": 3.0,
+      "feasible": true,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 61.8273505778798,
+      "failed_velocity_segments": [],
+      "failed_pressure_nodes": []
+    },
+    {
+      "id": "C000002",
+      "choices": {
+        "MAIN": "B"
+      },
+      "material_score": 6.0,
+      "feasible": true,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "required_source_total_pressure_pa": 31.775104837184813,
+      "failed_velocity_segments": [],
+      "failed_pressure_nodes": []
+    }
+  ],
+  "selected": {
+    "id": "C000001",
+    "choices": {
+      "MAIN": "A"
+    },
+    "material_score": 3.0,
+    "feasible": true,
+    "calculated_checks": {
+      "velocity": true,
+      "pressure": true,
+      "flow_continuity": true
+    },
+    "required_source_total_pressure_pa": 61.8273505778798,
+    "failed_velocity_segments": [],
+    "failed_pressure_nodes": []
+  },
+  "feasible_design_found": true,
+  "objective": "minimise sum(length_m * material_score_per_m)",
+  "tie_break": "lowest required source total pressure, then lexical option IDs by sorted segment ID",
+  "design_accepted": false,
+  "scope": "Global optimum only in the supplied finite catalogue under the existing prescribed-flow tree method",
+  "pending": [
+    "catalogue and invariant K/route applicability",
+    "update/reconcile authored BIM after sizing",
+    "fan/pump curve, balancing and all domain/code acceptance"
+  ],
+  "baseline": {
+    "calculated_checks": {
+      "velocity": true,
+      "pressure": true,
+      "flow_continuity": true
+    },
+    "calculated_checks_pass": true,
+    "required_source_total_pressure_pa": 31.775104837184813
+  },
+  "selected_rerun_pass": true,
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\network-model-design-release\\revision\\baseline-network.json": "ea5beb1db19c0cd7e3c2142e7eee12c8e46fe069ab95733431328b1e6745d508",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\network-model-design-release\\revision\\filtered-catalogue.json": "c7c686000f3b77d9811e89595798eac640bd7261de609385ecbd2263acc3f6f7"
+  },
+  "inputs_unchanged": true,
+  "catalogue_sources": {
+    "demo": "Synthetic size choices and material scores with explicit size-invariant K; not manufacturer data"
+  },
+  "artifacts": {
+    "candidates.csv": "68f9be4225933128e2836e6a87687d3c724c521a908ffe79b4b8e7c0aaf9978c",
+    "report.html": "63083d3a745e181caa62c6b1addce312c07c258a0ced155604db9127ab0121fd",
+    "selected-network.json": "63b924ce9990e48b607e3ad8f91174565eff507cb6c507d1bbf53adcb2faa99c",
+    "baseline/manifest.json": "f0994be8ba4f77e021c6c3e88524110ca43b166dbd3035de6fed04af3c40d2de",
+    "baseline/network.json": "b43f6d5acad40267a93856378cf8d2da5ea05492b44ff9a23bed5ce242ad2296",
+    "baseline/report.html": "2b416e09aff743558e83460974f03a31b04a0838b177e01281483c0180109ef8",
+    "baseline/segments.csv": "f5c34286907e10016f42445a000807d64085b7557fe28643dd55b3253b42ab19",
+    "selected/manifest.json": "dd2a51988bb9714f5b891eadd2f2251afdc74c0bc68d30a1ebdae4cd215d1ec4",
+    "selected/network.json": "e02235c75f60814de6747f70076817e0921d1dfaface48c2063e59107b247907",
+    "selected/report.html": "9eedb6ed73ee41a392cc4154644ed5bc222578fb2ac6f1b1174f29fe10483f35",
+    "selected/segments.csv": "996b5175c22058fee3733b55c1fe6d31f8ad07c490d70388e3ec416b51cd0981"
+  }
+}
