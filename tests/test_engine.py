@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+import ezdxf
 from bsa.engine import validate, calculate, ProjectError
 from bsa.cli import run
 
@@ -47,6 +48,12 @@ class ElectricalTests(unittest.TestCase):
             self.assertEqual(m["dxf_circle_count"],3)
             self.assertEqual(EXAMPLE.read_bytes(),before)
             self.assertIn("report.html",m["outputs"])
+            doc=ezdxf.readfile(out/"devices.dxf")
+            self.assertEqual(doc.units,6)
+            self.assertIn("BSA_DEVICES",doc.layers)
+            self.assertEqual(len(doc.modelspace().query("CIRCLE")),3)
+            self.assertEqual(len(doc.modelspace().query("TEXT")),3)
+            self.assertEqual(len(doc.audit().errors),0)
             with self.assertRaises(FileExistsError):run(EXAMPLE,out)
 
 if __name__=="__main__":unittest.main()

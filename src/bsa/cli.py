@@ -11,20 +11,22 @@ def digest(path):
 
 
 def dxf(p):
-    # ASCII R12; original, deliberately limited entity writer. Not a DWG converter.
-    lines = []
-    def emit(*pairs):
-        for code, value in pairs:
-            lines.extend((str(code), str(value)))
-    emit((0,"SECTION"),(2,"HEADER"),(9,"$ACADVER"),(1,"AC1009"),(0,"ENDSEC"),
-         (0,"SECTION"),(2,"ENTITIES"))
+    import io
+    import ezdxf
+    doc = ezdxf.new("R2010")
+    doc.units = 6  # metres, DXF $INSUNITS
+    doc.layers.new("BSA_DEVICES", dxfattribs={"color": 2})
+    doc.layers.new("BSA_LABELS", dxfattribs={"color": 7})
+    msp = doc.modelspace()
     for d in p["devices"]:
-        layer = "BSA_DEVICES"
-        emit((0,"CIRCLE"),(8,layer),(10,d["x_m"]),(20,d["y_m"]),(30,0),(40,0.12))
-        emit((0,"TEXT"),(8,"BSA_LABELS"),(10,d["x_m"]+0.2),(20,d["y_m"]),
-             (30,0),(40,0.12),(1,d["id"]+" / "+d["circuit"]))
-    emit((0,"ENDSEC"),(0,"EOF"))
-    return "\n".join(lines)+"\n"
+        msp.add_circle((d["x_m"], d["y_m"]), 0.12,
+                       dxfattribs={"layer": "BSA_DEVICES"})
+        msp.add_text(d["id"] + " / " + d["circuit"], dxfattribs={
+            "layer": "BSA_LABELS", "height": 0.12,
+            "insert": (d["x_m"] + 0.2, d["y_m"])})
+    stream = io.StringIO()
+    doc.write(stream)
+    return stream.getvalue()
 
 
 def run(project, out):
