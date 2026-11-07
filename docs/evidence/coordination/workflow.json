@@ -1,0 +1,128 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\office-electrical\\coordination-plan.json": "a87e8f131914a8c0d680d9b5ad69a584b3a7ec043919461e42422d461a88396a",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\office-electrical\\coordination-brief.md": "81064ebe2d83a30870c6d080146f5ead1cdcc9b432655610f182b90b1950ff71",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\office-electrical\\project.json": "34e1fba15d2ec9dacbdf256cf996d2de772873d720374f1ac55fd6b64ac4f34a",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\office-electrical\\geometry.json": "3d8f4cfd0e599d14e9e9dc2bd61548a983750de0f7ccf08388c68934a1e35808"
+  },
+  "inputs_unchanged": true,
+  "tasks": {
+    "shared": {
+      "kind": "electrical_coordination",
+      "status": "pass",
+      "scope": "same electrical IDs/XY/power/PF/circuits reconciled across saved calculations, DXF and IFC envelopes; final design acceptance pending"
+    },
+    "native": {
+      "kind": "native_cad",
+      "status": "pass",
+      "scope": "native reopen/geometry checks and PDF generation; visual acceptance pending"
+    },
+    "review": {
+      "kind": "manual",
+      "status": "pending",
+      "scope": "Review plotted PDF and complete engineering/visual acceptance separately"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Use project.json as the single source of electrical device IDs, XY centres, input kW, power factors and circuit assignments. Use geometry.json only for the explicit synthetic space, device classes, dimensions and elevations. Generate calculations, a DXF overlay and IFC4 envelopes. Reopen the artifacts and reconcile their device/circuit identities, coordinates and electrical values; do not maintain separate copies of those electrical fields in the geometry data.",
+      "task": "shared",
+      "acceptance": "Use project.json as the single source of electrical device IDs, XY centres, input kW, power factors and circuit assignments. Use geometry.json only for the explicit synthetic space, device classes, dimensions and elevations. Generate calculations, a DXF overlay and IFC4 envelopes. Reopen the artifacts and reconcile their device/circuit identities, coordinates and electrical values; do not maintain separate copies of those electrical fields in the geometry data.",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 3,
+        "end_line": 3
+      },
+      "execution_scope": "same electrical IDs/XY/power/PF/circuits reconciled across saved calculations, DXF and IFC envelopes; final design acceptance pending",
+      "evidence": [
+        "shared/coordinated-devices.csv",
+        "shared/coordination.json",
+        "shared/ifc-input.json",
+        "shared/bim/bim-verification.json",
+        "shared/bim/model.ifc",
+        "shared/bim/schema-validation.json",
+        "shared/electrical/calculations.json",
+        "shared/electrical/devices.dxf",
+        "shared/electrical/manifest.json",
+        "shared/electrical/preview.svg",
+        "shared/electrical/report.html"
+      ]
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Convert the generated DXF overlay to native DWG in AutoCAD 2027, reopen it and verify the device geometry and labels. Plot a padded schematic PDF. The example requires no fixed-scale architectural sheet and no existing building drawing is modified.",
+      "task": "native",
+      "acceptance": "Convert the generated DXF overlay to native DWG in AutoCAD 2027, reopen it and verify the device geometry and labels. Plot a padded schematic PDF. The example requires no fixed-scale architectural sheet and no existing building drawing is modified.",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 5,
+        "end_line": 5
+      },
+      "execution_scope": "native reopen/geometry checks and PDF generation; visual acceptance pending",
+      "evidence": [
+        "native/convert.log",
+        "native/convert.scr",
+        "native/devices.dwg",
+        "native/devices.log",
+        "native/devices.pdf",
+        "native/devices.scr",
+        "native/input.dxf",
+        "native/inspect.log",
+        "native/inspect.scr",
+        "native/native-entities.csv",
+        "native/native-verification.json",
+        "native/plot.log",
+        "native/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log"
+      ]
+    },
+    {
+      "id": "R3",
+      "passage": "P004",
+      "quote": "Inspect the plotted PDF and preserve unresolved engineering acceptance. These synthetic scenarios do not establish real photometry, fault protection, manufacturer geometry, routing or code compliance.",
+      "task": "review",
+      "acceptance": "Inspect the plotted PDF and preserve unresolved engineering acceptance. These synthetic scenarios do not establish real photometry, fault protection, manufacturer geometry, routing or code compliance.",
+      "execution_status": "pending",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 7,
+        "end_line": 7
+      },
+      "execution_scope": "Review plotted PDF and complete engineering/visual acceptance separately",
+      "evidence": []
+    }
+  ],
+  "artifact_hashes": {
+    "native/convert.log": "78e6c476c765035189b4a44faf255142264fd7ba8c642444f76fe439a1ed8d88",
+    "native/convert.scr": "8d4c873ca505193f978991c29cd656a750c9d00723106515600e9c954fd9a336",
+    "native/devices.dwg": "00fcbe3bfa1af7b1a94f82214981db18aaf5d861c679947a2dbb848b936dddf6",
+    "native/devices.log": "4fe6f2b3c0eebf0bd69a966156c00a5ffefb520b12a855509b51501d206ca11e",
+    "native/devices.pdf": "05d478e31e8887b4b445f4344965a64bf47614c82ef0a8350d08c0f6eb1fb46a",
+    "native/devices.scr": "9180256b8b685a0da2b7186e95dcf41c3d767f3a4119ae919f09ef14b88c5c25",
+    "native/input.dxf": "513d796ec0c2ca7f9ac2fd57d64a38b62a34d6097321601398604911730248df",
+    "native/inspect.log": "f063566410b6aba99f523888f152d7703e4deb72defce140023fe93a6fa587ca",
+    "native/inspect.scr": "ed5db719d0eeade31d8096d3a900de8229b2b1440829a2197505c5819d6edce3",
+    "native/native-entities.csv": "a9f0f3a765a962c95428f6231f30fa5e729cab8fa5ed122cf9843f9455ee69c2",
+    "native/native-verification.json": "9f747cad6071225ab217ef262a13f9a68fdff220f4cd4ea821ffe4c8064c9b21",
+    "native/plot.log": "8379db0dcb20af4ba743121dcff07b04936cb58c3b6201dd277b87fedd93fe7d",
+    "shared/coordinated-devices.csv": "f6792f4aeb29bdb17d4b6ef8758931aaf057b6be739461102644f215a97e4d42",
+    "shared/coordination.json": "5ba6181ae1dfc5432699e0e087127e839758ef18a604a0777c12d5d6a7958e1f",
+    "shared/ifc-input.json": "fa45f2f31fabecbdb3f99a8ec457e43081f2ddb41c3b4ae6e9a098e24ae9a97e",
+    "native/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "b24b5617da34777fcace0915d463e201217c062567178e7d2e418ca37ed9c451",
+    "shared/bim/bim-verification.json": "5848061e44bf5c6f54b96742977987bc4bba9f6eb6de6c3851112bea49ef547e",
+    "shared/bim/model.ifc": "c2942cb85b3aabc78f69b7606c9493940f3cc537ab1fb2e435d1af1825946436",
+    "shared/bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "shared/electrical/calculations.json": "87c8230a5a5a8ae521a2677d332753106e79d8d909eaba31e5da0602fad0ca5e",
+    "shared/electrical/devices.dxf": "513d796ec0c2ca7f9ac2fd57d64a38b62a34d6097321601398604911730248df",
+    "shared/electrical/manifest.json": "ae6d5c3d1a4b8d69a2a81ceeda106dcccd554780d02f9b48a8fa644ab23ca4f4",
+    "shared/electrical/preview.svg": "96aab302c3820d8bd1ce04ba1356de32734d3fa291cfa57111c39d2cffa3cef2",
+    "shared/electrical/report.html": "ea329bfc4dce45c18b8f3e7117c6eaf169cf37db64ac25fa89d64c2e906bcd21"
+  },
+  "execution_pass": false,
+  "design_accepted": false,
+  "acceptance_note": "Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance"
+}

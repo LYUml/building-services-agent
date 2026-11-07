@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "brief": "coordination-brief.md",
+  "brief_sha256": "81064ebe2d83a30870c6d080146f5ead1cdcc9b432655610f182b90b1950ff71",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement",
+    "P004": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "shared",
+      "kind": "electrical_coordination",
+      "project": "project.json",
+      "geometry": "geometry.json"
+    },
+    {
+      "id": "native",
+      "kind": "native_cad",
+      "depends_on": "shared"
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "description": "Review plotted PDF and complete engineering/visual acceptance separately"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Use project.json as the single source of electrical device IDs, XY centres, input kW, power factors and circuit assignments. Use geometry.json only for the explicit synthetic space, device classes, dimensions and elevations. Generate calculations, a DXF overlay and IFC4 envelopes. Reopen the artifacts and reconcile their device/circuit identities, coordinates and electrical values; do not maintain separate copies of those electrical fields in the geometry data.",
+      "task": "shared",
+      "acceptance": "Use project.json as the single source of electrical device IDs, XY centres, input kW, power factors and circuit assignments. Use geometry.json only for the explicit synthetic space, device classes, dimensions and elevations. Generate calculations, a DXF overlay and IFC4 envelopes. Reopen the artifacts and reconcile their device/circuit identities, coordinates and electrical values; do not maintain separate copies of those electrical fields in the geometry data."
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Convert the generated DXF overlay to native DWG in AutoCAD 2027, reopen it and verify the device geometry and labels. Plot a padded schematic PDF. The example requires no fixed-scale architectural sheet and no existing building drawing is modified.",
+      "task": "native",
+      "acceptance": "Convert the generated DXF overlay to native DWG in AutoCAD 2027, reopen it and verify the device geometry and labels. Plot a padded schematic PDF. The example requires no fixed-scale architectural sheet and no existing building drawing is modified."
+    },
+    {
+      "id": "R3",
+      "passage": "P004",
+      "quote": "Inspect the plotted PDF and preserve unresolved engineering acceptance. These synthetic scenarios do not establish real photometry, fault protection, manufacturer geometry, routing or code compliance.",
+      "task": "review",
+      "acceptance": "Inspect the plotted PDF and preserve unresolved engineering acceptance. These synthetic scenarios do not establish real photometry, fault protection, manufacturer geometry, routing or code compliance."
+    }
+  ]
+}

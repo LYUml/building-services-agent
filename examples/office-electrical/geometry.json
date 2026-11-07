@@ -1,0 +1,60 @@
+{
+  "xy_reference": "electrical device centre",
+  "sources": {
+    "geometry": "Synthetic office and luminaire envelope assumptions; minimum z=2.7 m, no measured or manufacturer geometry"
+  },
+  "spaces": [
+    {
+      "id": "Office",
+      "origin_m": [
+        0,
+        0,
+        0
+      ],
+      "size_m": [
+        8,
+        6,
+        3
+      ],
+      "source": "geometry"
+    }
+  ],
+  "devices": [
+    {
+      "id": "L1",
+      "space": "Office",
+      "z_m": 2.7,
+      "size_m": [
+        0.6,
+        0.6,
+        0.05
+      ],
+      "ifc_class": "IfcLightFixture",
+      "source": "geometry"
+    },
+    {
+      "id": "L2",
+      "space": "Office",
+      "z_m": 2.7,
+      "size_m": [
+        0.6,
+        0.6,
+        0.05
+      ],
+      "ifc_class": "IfcLightFixture",
+      "source": "geometry"
+    },
+    {
+      "id": "L3",
+      "space": "Office",
+      "z_m": 2.7,
+      "size_m": [
+        0.6,
+        0.6,
+        0.05
+      ],
+      "ifc_class": "IfcLightFixture",
+      "source": "geometry"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "engine": "C:\\Program Files\\Autodesk\\AutoCAD 2027\\accoreconsole.exe",
+  "source_sha256": "513d796ec0c2ca7f9ac2fd57d64a38b62a34d6097321601398604911730248df",
+  "dwg_sha256": "00fcbe3bfa1af7b1a94f82214981db18aaf5d861c679947a2dbb848b936dddf6",
+  "checks": {
+    "circles_match": true,
+    "labels_match": true,
+    "metre_units": true,
+    "source_unchanged": true
+  },
+  "native_reopen_pass": true,
+  "plot_visual_review": "pending",
+  "design_accepted": false,
+  "plot": {
+    "pdf_sha256": "05d478e31e8887b4b445f4344965a64bf47614c82ef0a8350d08c0f6eb1fb46a",
+    "scale": "fit-to-page schematic",
+    "visual_review": "pending"
+  }
+}

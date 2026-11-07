@@ -64,14 +64,15 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("electrical","energy","bim","network","native_cad","manual"):
+        if kind not in ("electrical","electrical_coordination","energy","bim","network","native_cad","manual"):
             raise ProjectError("unknown task adapter")
-        if kind in ("electrical","energy","bim","network"):
+        if kind in ("electrical","electrical_coordination","energy","bim","network"):
             inputs.add(local_path(root,t.get("project")))
+        if kind=='electrical_coordination':inputs.add(local_path(root,t.get('geometry')))
         if kind=="native_cad" and t.get("depends_on") not in ids:
             raise ProjectError("native task must depend on an earlier electrical task")
-        if kind=="native_cad" and next(x for x in tasks if x["id"]==t["depends_on"])["kind"]!="electrical":
-            raise ProjectError("native task requires electrical overlay")
+        if kind=="native_cad" and next(x for x in tasks if x["id"]==t["depends_on"])["kind"] not in ('electrical','electrical_coordination'):
+            raise ProjectError("native task requires electrical or coordinated electrical overlay")
         ids.add(t["id"])
     seen=set();cited=set()
     for r in requirements:
@@ -108,6 +109,11 @@ def execute(plan,out,energyplus=None,autocad=None):
                 payload=run(local_path(root,t["project"]),folder)
                 status="pass" if payload["calculated_checks_pass"] else "fail"
                 reason="conditional electrical checks only; remaining design checks are in calculations.json"
+            elif t['kind']=='electrical_coordination':
+                from .coordination import run
+                payload=run(local_path(root,t['project']),local_path(root,t['geometry']),folder)
+                status='pass' if payload['calculated_checks_pass'] else 'fail'
+                reason='same electrical IDs/XY/power/PF/circuits reconciled across saved calculations, DXF and IFC envelopes; final design acceptance pending'
             elif t["kind"]=="energy":
                 if energyplus:
                     from .energy import run
@@ -128,7 +134,9 @@ def execute(plan,out,energyplus=None,autocad=None):
                 if upstream["status"]=="fail":reason="upstream electrical task failed"
                 elif autocad:
                     from .native_cad import convert,plot
-                    dxf=out/t["depends_on"]/"devices.dxf"
+                    base=out/t['depends_on']
+                    if upstream['kind']=='electrical_coordination':base=base/'electrical'
+                    dxf=base/'devices.dxf'
                     payload=convert(dxf,folder,autocad)
                     payload["plot"]=plot(folder/"devices.dwg",dxf,folder/"devices.pdf",autocad)
                     (folder/"native-verification.json").write_text(json.dumps(payload,indent=2),encoding="utf-8")

@@ -1,0 +1,59 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\office-electrical\\project.json": "34e1fba15d2ec9dacbdf256cf996d2de772873d720374f1ac55fd6b64ac4f34a",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\office-electrical\\geometry.json": "3d8f4cfd0e599d14e9e9dc2bd61548a983750de0f7ccf08388c68934a1e35808"
+  },
+  "inputs_unchanged": true,
+  "coordination_checks_pass": true,
+  "electrical_checks_pass": true,
+  "bim_checks_pass": true,
+  "calculated_checks_pass": true,
+  "devices": [
+    {
+      "id": "L1",
+      "global_id": "0iP7e4ekLFkQwEq2i3Rqab",
+      "circuit": "LGT-1",
+      "x_m": 2.0,
+      "y_m": 3.0,
+      "electrical_kw": 0.04,
+      "power_factor": 0.9
+    },
+    {
+      "id": "L2",
+      "global_id": "3oidUCLK9DufecsnBHFYLY",
+      "circuit": "LGT-1",
+      "x_m": 4.0,
+      "y_m": 3.0,
+      "electrical_kw": 0.04,
+      "power_factor": 0.9
+    },
+    {
+      "id": "L3",
+      "global_id": "3deKrfWsTC0x2P6h1jeY9l",
+      "circuit": "LGT-1",
+      "x_m": 6.0,
+      "y_m": 3.0,
+      "electrical_kw": 0.04,
+      "power_factor": 0.9
+    }
+  ],
+  "design_accepted": false,
+  "scope": "Same electrical IDs/XY/power/PF/circuits feed calculations, DXF and IFC envelopes. DWG uses the existing native adapter separately.",
+  "pending": [
+    "full electrical protection and photometry",
+    "physical geometry and routing",
+    "native DWG/plot and visual acceptance"
+  ],
+  "artifacts": {
+    "coordinated-devices.csv": "f6792f4aeb29bdb17d4b6ef8758931aaf057b6be739461102644f215a97e4d42",
+    "ifc-input.json": "fa45f2f31fabecbdb3f99a8ec457e43081f2ddb41c3b4ae6e9a098e24ae9a97e",
+    "bim/bim-verification.json": "5848061e44bf5c6f54b96742977987bc4bba9f6eb6de6c3851112bea49ef547e",
+    "bim/model.ifc": "c2942cb85b3aabc78f69b7606c9493940f3cc537ab1fb2e435d1af1825946436",
+    "bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "electrical/calculations.json": "87c8230a5a5a8ae521a2677d332753106e79d8d909eaba31e5da0602fad0ca5e",
+    "electrical/devices.dxf": "513d796ec0c2ca7f9ac2fd57d64a38b62a34d6097321601398604911730248df",
+    "electrical/manifest.json": "ae6d5c3d1a4b8d69a2a81ceeda106dcccd554780d02f9b48a8fa644ab23ca4f4",
+    "electrical/preview.svg": "96aab302c3820d8bd1ce04ba1356de32734d3fa291cfa57111c39d2cffa3cef2",
+    "electrical/report.html": "ea329bfc4dce45c18b8f3e7117c6eaf169cf37db64ac25fa89d64c2e906bcd21"
+  }
+}

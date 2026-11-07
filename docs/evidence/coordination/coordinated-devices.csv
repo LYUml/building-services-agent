@@ -1,0 +1,4 @@
+id,global_id,circuit,x_m,y_m,electrical_kw,power_factor
+L1,0iP7e4ekLFkQwEq2i3Rqab,LGT-1,2.0,3.0,0.04,0.9
+L2,3oidUCLK9DufecsnBHFYLY,LGT-1,4.0,3.0,0.04,0.9
+L3,3deKrfWsTC0x2P6h1jeY9l,LGT-1,6.0,3.0,0.04,0.9

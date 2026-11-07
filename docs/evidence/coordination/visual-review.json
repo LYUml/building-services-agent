@@ -1,0 +1,7 @@
+{
+  "pdf_sha256": "05d478e31e8887b4b445f4344965a64bf47614c82ef0a8350d08c0f6eb1fb46a",
+  "method": "Poppler rendering plus agent image inspection",
+  "scope": "three-light fit-to-page schematic only",
+  "visual_result": "all three circles and labels visible, adequate margins and no overlap",
+  "design_accepted": false
+}

@@ -1,0 +1,43 @@
+{
+  "name": "Synthetic three-luminaire office demonstration",
+  "circuits": [
+    {
+      "id": "LGT-1",
+      "phase": "L1",
+      "device_ids": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "connected_electrical_kw": 0.12,
+      "connected_va": 133.33333333333331,
+      "demand_va": 133.33333333333331,
+      "design_current_a": 0.5797101449275361,
+      "effective_ampacity_a": 14.4,
+      "voltage_drop_v": 0.33623188405797094,
+      "voltage_drop_percent": 0.14618777567737867,
+      "checks": {
+        "ib_le_in": true,
+        "in_le_iz": true,
+        "voltage_drop": true
+      },
+      "source": "demo"
+    }
+  ],
+  "phase_demand_va": {
+    "L1": 133.33333333333331,
+    "L2": 0.0,
+    "L3": 0.0
+  },
+  "device_count": 3,
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "pending": [
+    "fault disconnection and breaking capacity",
+    "protective coordination",
+    "lighting photometry where applicable",
+    "native DWG reopen and drawing count reconciliation",
+    "visual PDF review",
+    "source/assumption review"
+  ]
+}

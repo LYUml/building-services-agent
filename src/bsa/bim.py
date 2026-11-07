@@ -21,6 +21,13 @@ def validate(p):
     def sourced(row):
         if not isinstance(row,dict) or not isinstance(row.get('source'),str) or row['source'] not in sources:
             raise ProjectError('every space/system/device/port/connection needs a known source')
+        properties=row.get('properties',{})
+        if not isinstance(properties,dict):raise ProjectError('additional properties must be a dictionary')
+        for key,value in properties.items():
+            if not isinstance(key,str) or not key or key in ('Source','InputID','GeometryScope','ElectricalInput_kW'):
+                raise ProjectError('invalid or reserved property name')
+            if type(value) not in (str,int,float,bool) or (type(value) in (int,float) and not math.isfinite(value)):
+                raise ProjectError('properties must be finite scalar values')
     def vector(row,key,positive=False):
         v=row.get(key)
         if not isinstance(v,list) or len(v)!=3 or any(type(x) not in (int,float) or not math.isfinite(x) or (positive and x<=0) for x in v):
@@ -31,8 +38,8 @@ def validate(p):
         ids=set()
         for r in rows:
             sourced(r)
-            if not isinstance(r.get('id'),str) or not r['id'].strip() or '.' in r['id'] or r['id'] in ids:
-                raise ProjectError(f'unique {key} IDs without dots required')
+            if not isinstance(r.get('id'),str) or not r['id'].strip() or r['id'] in ids:
+                raise ProjectError(f'unique {key} IDs required')
             ids.add(r['id'])
         return {r['id']:r for r in rows}
     spaces,systems,devices=(collection(k) for k in ('spaces','systems','devices'))
@@ -116,13 +123,14 @@ def run(project,out):
         props(obj,dict(Source=p['sources'][s['source']],GeometryScope=p['geometry_scope']))
     for s in p['systems']:
         obj=create('IfcDistributionSystem',s['id'],predefined_type=s['predefined_type']);systems[s['id']]=obj
-        props(obj,dict(Source=p['sources'][s['source']]))
+        props(obj,dict(Source=p['sources'][s['source']],**s.get('properties',{})))
     for d in p['devices']:
         obj=create(d['ifc_class'],d['id']);obj.Tag=d['id'];devices[d['id']]=obj
         api.run('spatial.assign_container',model,products=[obj],relating_structure=spaces[d['space']])
         api.run('system.assign_system',model,products=[obj],system=systems[d['system']])
         box(obj,d['origin_m'],d['size_m'])
         values=dict(Source=p['sources'][d['source']],GeometryScope=p['geometry_scope'],InputID=d['id'])
+        values.update(d.get('properties',{}))
         if 'electrical_kw' in d:values['ElectricalInput_kW']=float(d['electrical_kw'])
         props(obj,values)
         for port in d.get('ports',[]):

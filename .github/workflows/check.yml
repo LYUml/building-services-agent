@@ -21,6 +21,7 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install -e ".[dev,bim]"
       - run: python -m unittest discover -s tests -p test_bim.py -v
+      - run: python -m unittest discover -s tests -p test_coordination.py -v
       - run: python -m bsa.workflow execute examples/mep-ifc/plan.json --out runs/ifc
   network:
     runs-on: ubuntu-latest
