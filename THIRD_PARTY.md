@@ -12,6 +12,8 @@ Research checked 2026-11-08. These are integration candidates, not bundled imple
 
 The Python engine, DXF integration wrapper and skills are original code authored for this project; DXF serialization uses ezdxf as credited below. The completed BSE3124 workflow informed provenance, common device/circuit data, native CAD verification, and visual acceptance practices; no coursework assets are redistributed.
 
+Saved-IFC segment schedule/projection code is original integration using the already pinned IfcOpenShell 0.8.5 placement/system/unit APIs and ezdxf 1.4.5. No additional dependency or upstream source is bundled. The optional recorded preview was rendered by a local isolated headless Microsoft Edge process; Edge is not redistributed and SVG inspection does not establish native CAD acceptance.
+
 ## Installed runtime dependency
 
 - **ezdxf 1.4.5**, MIT, https://github.com/mozman/ezdxf — used as an installed library for DXF document writing and independent reload checks; not vendored. Its distribution retains upstream license notices. The initial handwritten R12 writer was replaced after inspection showed missing explicit metre units/layer table declarations. No DWG fidelity claim is inferred.

@@ -6,6 +6,7 @@ This is a new synthetic test project, not a copy of the finished coursework. Inp
 python -m pip install -e ".[dev,network,bim,clash]"
 python -m bsa.workflow execute examples/water-riser/plan.json --out runs/water-riser
 python -m bsa.workflow verify runs/water-riser
+python -m bsa.workflow execute examples/water-riser/delivery-plan.json --out runs/water-delivery
 python -m unittest discover -s tests -p test_water_riser.py -v
 ```
 
@@ -22,4 +23,6 @@ The objective minimises abstract length-weighted material score, so D32 wins ove
 
 The selected IFC has four physical bodies and three explicitly sourced joint regions. Both conservative outside-to-full checks pass for each connected pair under the synthetic 50 mm general clearance policy. Regions are QA assumptions, not manufacturer fitting or access requirements. The electrical drawing contains three generic device symbols on two circuits, in metre units; it is an editable schematic overlay, not a water-riser drawing or an accepted installation plan.
 
-Remaining gates include demand/route evidence, pump curve and electrical/hydraulic coupling, starting/fault protection, real fittings and insulation, water-service rules, water-riser drawing/schedules, native DWG/PDF and BIM-viewer inspection. This run exercises reusable numeric/model adapters; it does not establish full cross-domain project acceptance. See `docs/evidence/water-riser` for retained actual outputs.
+The separate delivery-plan adds a saved-IFC pipe schedule and X/Z projected centreline DXF. Both 2.5 m segments retain their model GUIDs, 32 mm bore and 40 mm outside diameter; this diagram is not an installation drawing. See `docs/IFC_DRAWINGS.md` for extraction scope and `docs/evidence/ifc-drawing` for the rendered preview and actual output evidence.
+
+Remaining gates include demand/route evidence, pump curve and electrical/hydraulic coupling, starting/fault protection, real fittings and insulation, water-service rules, full installation drawings/schedules, native DWG/PDF and BIM-viewer inspection. This run exercises reusable numeric/model adapters; it does not establish full cross-domain project acceptance. See `docs/evidence/water-riser` for retained actual outputs.

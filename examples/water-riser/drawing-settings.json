@@ -1,0 +1,8 @@
+{
+  "projection_axes": [
+    "X",
+    "Z"
+  ],
+  "annotation_height_m": 0.12,
+  "source": "Synthetic X/Z projected centreline schematic; coordinates and text height in metres, no printed scale or installation representation implied."
+}

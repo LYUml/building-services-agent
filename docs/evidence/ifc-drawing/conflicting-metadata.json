@@ -1,0 +1,54 @@
+{
+  "ifcopenshell_version": "0.8.5",
+  "source_length_unit_to_m": 1,
+  "segment_count": 2,
+  "segments": [],
+  "unsupported_segments": [
+    {
+      "guid": "14_Pcn3dHIEx82hnR2Z_vq",
+      "name": "RISE-LOW",
+      "reason": "saved metre diameter metadata differs from actual profile"
+    },
+    {
+      "guid": "19uC5wvzbIexOWydoQSx0y",
+      "name": "RISE-HIGH",
+      "reason": "saved metre diameter metadata differs from actual profile"
+    }
+  ],
+  "excluded_non_segment_elements": [
+    {
+      "guid": "2H47DrX1HQH8FfeRHY$hU5",
+      "name": "BOOSTER",
+      "ifc_class": "IfcPump"
+    },
+    {
+      "guid": "1p9zCELIrUOxISTXL$jK9N",
+      "name": "OUTLET",
+      "ifc_class": "IfcSanitaryTerminal"
+    }
+  ],
+  "calculated_checks_pass": false,
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifc-drawing-conflicting.ifc": "27858cdbe202044b0516d0cd3c055f0fa5290c8f79b6257bc3f07973f581727d",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\water-riser\\drawing-settings.json": "726092d1785151fbb97ed6c4195ef4853fdbfdfbbfcf4c03afb5d542f61b5942"
+  },
+  "settings": {
+    "projection_axes": [
+      "X",
+      "Z"
+    ],
+    "annotation_height_m": 0.12,
+    "source": "Synthetic X/Z projected centreline schematic; coordinates and text height in metres, no printed scale or installation representation implied."
+  },
+  "inputs_unchanged": true,
+  "design_accepted": false,
+  "scope": "saved direct hollow pipe/duct profiles and directed ports; projected centreline schematic only",
+  "pending": [
+    "native DWG reopen and printed scale/visual acceptance",
+    "equipment, fittings, insulation and installation drawings",
+    "product provenance and complete engineering acceptance"
+  ],
+  "artifacts": {
+    "segments.csv": "4588417223a26a0768e344d5302170b9574f967295f834bc94054caaf4ef8df4"
+  }
+}

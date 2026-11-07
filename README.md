@@ -77,6 +77,8 @@ Use `python -m bsa.workflow intake <brief.md> --out <new-intake.json>` to index 
 
 [Independent water-riser reuse](examples/water-riser/README.md) runs a new synthetic source-linked brief through unchanged electrical, IFC sizing and clearance adapters: two vertical hollow pipe bodies, gravity pressure, four catalogue choices, retained failures and an editable electrical overlay. The separate water/electrical assumptions and pending drawing/product/engineering gates remain explicit.
 
+[Saved IFC schedules and diagrams](docs/IFC_DRAWINGS.md) derive hollow-segment dimensions, true lengths and directed endpoints from saved native profiles/ports, then generate a GUID-linked CSV and projected centreline DXF. Unsupported segments fail coverage; omitted equipment and native/installation drawing gates remain explicit. The water-riser delivery plan includes this adapter.
+
 ## Shared electrical data
 
 [Coordinated generation](docs/COORDINATION.md) now feeds the same device/circuit data into calculations, DXF and IFC. A geometry companion only adds explicit dimensions, heights and spaces. Reopened artifacts are reconciled; the workflow can send the resulting DXF through native AutoCAD save/reopen/plot. No separate power, PF, XY or circuit copy is maintained in geometry inputs.

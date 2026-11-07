@@ -1,0 +1,16 @@
+{
+  "scope": "SVG schematic preview only; not native DXF/DWG, PDF or BIM viewer acceptance",
+  "artifacts": {
+    "preview.png": "3eeda8c5c5f281f2300d2a130e46f961a7b408c142d87fcba928ad9954f27fb4",
+    "preview.svg": "fbcabd1b7d2396e8a16a6ab3aaa240652ea4ff9f4ce3ec11db33e2bd2b96ef87",
+    "segments.dxf": "27c22c275fc8a6dddbfc20e2a5ce08c207ee1f2f4449ad7ab24a371a4da25d95"
+  },
+  "observations": [
+    "Both vertical segment labels legible and separated",
+    "32 mm inside / 40 mm outside diameters and 2.5 m lengths readable",
+    "Scope legend visible within screenshot margins"
+  ],
+  "native_acceptance": false,
+  "design_accepted": false,
+  "final_svg_byte_identical_to_inspected_render": true
+}
