@@ -1,0 +1,9 @@
+{
+  "input_sha256": "2581091ffb39f671a4dccfcf3c3bd76bede752ee16a290e5276d14fe55119f13",
+  "input_unchanged": true,
+  "artifacts": {
+    "network.json": "09894ba06312fefd4cf8d312dabf9cb2e21f7b1ff67db7729c52e821ebb9e7cd",
+    "report.html": "6ab73d7e2c7246a437fd883c8de9e0ca93d8e3f481a6e767f32962d88259f761",
+    "segments.csv": "5636b7336f8f2232157e5282a2b3dd4fe23ac915b83032fb744d525b62f0f58a"
+  }
+}

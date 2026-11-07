@@ -58,3 +58,7 @@ Use `python -m bsa.workflow intake <brief.md> --out <new-intake.json>` to index 
 ## Editable IFC MEP models
 
 [IFC authoring](docs/IFC_MODELS.md) creates source-linked IFC4 spaces, device envelopes, distribution-system membership and directed port connections. Electrical and ventilation examples have been generated, reopened and checked through the geometry engine and schema/EXPRESS validator. Use the `bim` workflow adapter or `python -m bsa.bim`. Detailed product geometry, physical routing and engineering acceptance remain pending.
+
+## Duct and pipe pressure analysis
+
+[Network calculations](docs/NETWORKS.md) aggregate prescribed flow through circular tree networks and report friction, fittings, elevation, residual total pressure and the critical path. The `network` workflow adapter has air and water examples with independent formula tests. Loops, operating-point selection, physical routing and domain compliance remain outside this adapter.

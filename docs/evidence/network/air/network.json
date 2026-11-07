@@ -1,0 +1,143 @@
+{
+  "name": "Synthetic circular air supply tree",
+  "supply_flow_m3_s": 0.5,
+  "segments": [
+    {
+      "id": "MAIN",
+      "from_node": "FAN",
+      "to_node": "J",
+      "flow_m3_s": 0.5,
+      "area_m2": 0.12566370614359174,
+      "velocity_m_s": 3.9788735772973833,
+      "reynolds": 106103.29539459689,
+      "darcy_friction_factor": 0.018939265507677626,
+      "regime": "turbulent Colebrook Darcy",
+      "friction_pa": 3.598028997289496,
+      "minor_pa": 9.498860966469165,
+      "dissipative_loss_pa": 13.096889963758661,
+      "elevation_pressure_pa": 0.0,
+      "downstream_total_pressure_pa": 286.90311003624134,
+      "velocity_pass": true,
+      "source": "demo"
+    },
+    {
+      "id": "BR-B",
+      "from_node": "J",
+      "to_node": "B",
+      "flow_m3_s": 0.3,
+      "area_m2": 0.07068583470577035,
+      "velocity_m_s": 4.244131815783875,
+      "reynolds": 84882.63631567749,
+      "darcy_friction_factor": 0.019981229331794838,
+      "regime": "turbulent Colebrook Darcy",
+      "friction_pa": 7.198299756538491,
+      "minor_pa": 21.615185843698722,
+      "dissipative_loss_pa": 28.813485600237215,
+      "elevation_pressure_pa": 0.0,
+      "downstream_total_pressure_pa": 258.0896244360041,
+      "velocity_pass": true,
+      "source": "demo"
+    },
+    {
+      "id": "BR-A",
+      "from_node": "J",
+      "to_node": "A",
+      "flow_m3_s": 0.2,
+      "area_m2": 0.04908738521234052,
+      "velocity_m_s": 4.074366543152521,
+      "reynolds": 67906.109052542,
+      "darcy_friction_factor": 0.020970136756061065,
+      "regime": "turbulent Colebrook Darcy",
+      "friction_pa": 4.177367683430745,
+      "minor_pa": 14.94041645516456,
+      "dissipative_loss_pa": 19.117784138595304,
+      "elevation_pressure_pa": 0.0,
+      "downstream_total_pressure_pa": 267.78532589764603,
+      "velocity_pass": true,
+      "source": "demo"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "FAN",
+      "demand_m3_s": 0,
+      "total_pressure_pa": 300,
+      "required_total_pressure_pa": 0,
+      "pressure_margin_pa": 300,
+      "pressure_pass": true,
+      "path": [],
+      "source": "demo"
+    },
+    {
+      "id": "J",
+      "demand_m3_s": 0,
+      "total_pressure_pa": 286.90311003624134,
+      "required_total_pressure_pa": 0,
+      "pressure_margin_pa": 286.90311003624134,
+      "pressure_pass": true,
+      "path": [
+        "MAIN"
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "B",
+      "demand_m3_s": 0.3,
+      "total_pressure_pa": 258.0896244360041,
+      "required_total_pressure_pa": 40,
+      "pressure_margin_pa": 218.0896244360041,
+      "pressure_pass": true,
+      "path": [
+        "MAIN",
+        "BR-B"
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "A",
+      "demand_m3_s": 0.2,
+      "total_pressure_pa": 267.78532589764603,
+      "required_total_pressure_pa": 30,
+      "pressure_margin_pa": 237.78532589764603,
+      "pressure_pass": true,
+      "path": [
+        "MAIN",
+        "BR-A"
+      ],
+      "source": "demo"
+    }
+  ],
+  "critical_node": "B",
+  "critical_path": [
+    "MAIN",
+    "BR-B"
+  ],
+  "required_source_total_pressure_pa": 81.91037556399587,
+  "calculated_checks": {
+    "velocity": true,
+    "pressure": true,
+    "flow_continuity": true
+  },
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "pressure_basis": "Total pressure (static + velocity), with elevation potential handled separately; common reference. Not an ambient-referenced vertical air pressure model.",
+  "scope": "Prescribed withdrawals in a constant-density, fully filled circular tree; no loops or pressure-dependent flow solution",
+  "pending": [
+    "source demand and route evidence",
+    "component K/reference velocity validation",
+    "fan/pump curve and operating-point selection",
+    "noise, cavitation, compressibility and domain/code checks",
+    "physical routing and clash review"
+  ],
+  "input_sha256": "2effcdba427800c192a0a55f0158155c18b4c04b18f85f83ae335a07c483ecfb",
+  "fluids_version": "1.3.1",
+  "sources": {
+    "demo": "Explicit synthetic flow, geometry, fluid properties, K and pressure/velocity targets; not measured or code-derived"
+  },
+  "methods": [
+    "Darcy-Weisbach: f_D L/D rho v^2/2",
+    "Fittings: K rho v^2/2 using local segment velocity",
+    "Elevation: rho g dz, g=9.80665 m/s2",
+    "https://fluids.readthedocs.io/fluids.friction.html"
+  ]
+}

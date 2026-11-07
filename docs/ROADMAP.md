@@ -9,9 +9,9 @@ The requested end state is reusable automation from a requirement document and s
 | Electrical | counts reconcile, independent formula examples, cable/protection and fault checks | basic conditional checks; fault checks pending |
 | Native CAD | preserve supplied base, units/sample proof, native DWG reopen and inspected PDF | synthetic overlay native save/reopen/plot verified; existing base and fixed-scale sheets pending |
 | BIM | semantically valid systems/components and schedules, editable IFC/RVT | IFC4 envelope geometry, spaces, systems and directed port topology generated/reopened/checked; detailed models, schedules and RVT pending |
-| HVAC/energy | actual engine execution, geometry/inputs QA, heat/electric outputs separate | OpenStudio/EnergyPlus synthetic two-zone design-day comparison executed; MCP read queries verified; annual/weather and broad HVAC authoring pending |
+| HVAC/energy | actual engine execution, geometry/inputs QA, heat/electric outputs separate | OpenStudio/EnergyPlus synthetic two-zone design-day comparison executed; MCP read queries verified; circular level-air tree pressure budgets implemented; annual/weather and broad HVAC authoring pending |
 | Lighting | photometry and calculation grid with target checks | Radiance/Honeybee candidate; not executed |
-| Plumbing/fire | hydraulic calculations and domain-specific applicable rules | pending |
+| Plumbing/fire | hydraulic calculations and domain-specific applicable rules | circular prescribed-demand water tree pressure budgets implemented; loops, drainage, fire demand methods and domain rules pending |
 | Delivery | input hashes unchanged, output counts match, visual checks with evidence | workflow input/output integrity, source locators and task evidence matrix implemented; full acceptance gates pending |
 | Reuse | second independent brief run, evidence of adaptation without copied assumptions | pending |
 

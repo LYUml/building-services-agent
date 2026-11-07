@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "c515ae22e9e4eb5ceed151ae89dcbd80faf6180ca4da6e8f8a7719558d85f5c6",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "air",
+      "kind": "network",
+      "project": "air.json"
+    },
+    {
+      "id": "water",
+      "kind": "network",
+      "project": "water.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Using air.json, aggregate the prescribed terminal flows in the circular air tree. Calculate Darcy friction and local losses, check the specified velocity and total-pressure targets, and identify the critical path. The scenario has no elevation change and does not ask for a fan operating-point solution.",
+      "task": "air",
+      "acceptance": "Using air.json, aggregate the prescribed terminal flows in the circular air tree. Calculate Darcy friction and local losses, check the specified velocity and total-pressure targets, and identify the critical path. The scenario has no elevation change and does not ask for a fan operating-point solution."
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Using water.json, calculate the prescribed 1 L/s flow through the given 40 mm internal diameter pipe including its 20 m route, local K value and 5 m rise. Determine the source total-pressure budget needed to retain 100 kPa total pressure at the outlet. Treat all inputs as explicit synthetic assumptions and do not claim a pump or code-approved design.",
+      "task": "water",
+      "acceptance": "Using water.json, calculate the prescribed 1 L/s flow through the given 40 mm internal diameter pipe including its 20 m route, local K value and 5 m rise. Determine the source total-pressure budget needed to retain 100 kPa total pressure at the outlet. Treat all inputs as explicit synthetic assumptions and do not claim a pump or code-approved design."
+    }
+  ]
+}

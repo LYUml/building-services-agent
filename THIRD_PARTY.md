@@ -39,3 +39,8 @@ RapidOCR legacy package was selected for bundled local models, avoiding implicit
 - **pytest 9.2.0**, MIT, https://github.com/pytest-dev/pytest — required by the selected IfcOpenShell EXPRESS rule executor; it is part of the optional BIM dependencies even when unittest runs the project's tests.
 
 Observed upstream runtime diagnostic: EXPRESS rule loading emits a Python ResourceWarning for an unclosed rules source file. The generated IFC schema/EXPRESS diagnostics themselves were empty for both fixtures. Upstream code was not modified to suppress the warning.
+
+## Network calculation library
+
+- **fluids 1.3.1**, MIT, Caleb Bell and contributors, https://github.com/CalebBell/fluids — installed optional library used for the turbulent Colebrook Darcy factor. License from the selected wheel retained at third_party/licenses/fluids.txt. Method documentation: https://fluids.readthedocs.io/fluids.friction.html. The original project code implements prescribed-demand tree aggregation, source/elevation budgets and reporting; no upstream network solver is implied.
+- Installed SciPy version for this milestone: 1.18.1 (transitive dependency). Neither library implementation nor binary dependencies are vendored. A full multi-platform transitive lock is not claimed.

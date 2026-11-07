@@ -1,0 +1,76 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network\\water.json": "2581091ffb39f671a4dccfcf3c3bd76bede752ee16a290e5276d14fe55119f13",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network\\air.json": "2effcdba427800c192a0a55f0158155c18b4c04b18f85f83ae335a07c483ecfb",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network\\brief.md": "c515ae22e9e4eb5ceed151ae89dcbd80faf6180ca4da6e8f8a7719558d85f5c6",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network\\plan.json": "1448ee5cd6335248ede353237f6a1e609f34955fa49ef43a2db3eeaf709fe045"
+  },
+  "inputs_unchanged": true,
+  "tasks": {
+    "air": {
+      "kind": "network",
+      "status": "pass",
+      "scope": "prescribed-demand circular tree flow/pressure budget only; operating point, physical routing and domain acceptance pending"
+    },
+    "water": {
+      "kind": "network",
+      "status": "pass",
+      "scope": "prescribed-demand circular tree flow/pressure budget only; operating point, physical routing and domain acceptance pending"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Using air.json, aggregate the prescribed terminal flows in the circular air tree. Calculate Darcy friction and local losses, check the specified velocity and total-pressure targets, and identify the critical path. The scenario has no elevation change and does not ask for a fan operating-point solution.",
+      "task": "air",
+      "acceptance": "Using air.json, aggregate the prescribed terminal flows in the circular air tree. Calculate Darcy friction and local losses, check the specified velocity and total-pressure targets, and identify the critical path. The scenario has no elevation change and does not ask for a fan operating-point solution.",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 3,
+        "end_line": 3
+      },
+      "execution_scope": "prescribed-demand circular tree flow/pressure budget only; operating point, physical routing and domain acceptance pending",
+      "evidence": [
+        "air/manifest.json",
+        "air/network.json",
+        "air/report.html",
+        "air/segments.csv"
+      ]
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Using water.json, calculate the prescribed 1 L/s flow through the given 40 mm internal diameter pipe including its 20 m route, local K value and 5 m rise. Determine the source total-pressure budget needed to retain 100 kPa total pressure at the outlet. Treat all inputs as explicit synthetic assumptions and do not claim a pump or code-approved design.",
+      "task": "water",
+      "acceptance": "Using water.json, calculate the prescribed 1 L/s flow through the given 40 mm internal diameter pipe including its 20 m route, local K value and 5 m rise. Determine the source total-pressure budget needed to retain 100 kPa total pressure at the outlet. Treat all inputs as explicit synthetic assumptions and do not claim a pump or code-approved design.",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 5,
+        "end_line": 5
+      },
+      "execution_scope": "prescribed-demand circular tree flow/pressure budget only; operating point, physical routing and domain acceptance pending",
+      "evidence": [
+        "water/manifest.json",
+        "water/network.json",
+        "water/report.html",
+        "water/segments.csv"
+      ]
+    }
+  ],
+  "artifact_hashes": {
+    "air/manifest.json": "1c86b1f500b3b481860562a29d0d866f1af80baa47c7c00a98be17352aba439a",
+    "air/network.json": "6268b0ef153c9ac2bd9ef242a2c6111662c889b36a08eee39b02867cc04253f3",
+    "air/report.html": "aac7282f30bfc31d27b299090e1527cb8c7463b77bc0d096a020b3523e29a525",
+    "air/segments.csv": "42e2f765e292c5f4f68d4467b4d262775870464a317bb5f44ebe3a96181e3cd3",
+    "water/manifest.json": "7a1d3a724bad72ee251128a130f21eb250523169f1efff626dcf673a65a01932",
+    "water/network.json": "09894ba06312fefd4cf8d312dabf9cb2e21f7b1ff67db7729c52e821ebb9e7cd",
+    "water/report.html": "6ab73d7e2c7246a437fd883c8de9e0ca93d8e3f481a6e767f32962d88259f761",
+    "water/segments.csv": "5636b7336f8f2232157e5282a2b3dd4fe23ac915b83032fb744d525b62f0f58a"
+  },
+  "execution_pass": true,
+  "design_accepted": false,
+  "acceptance_note": "Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance"
+}

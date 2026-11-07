@@ -64,9 +64,9 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("electrical","energy","bim","native_cad","manual"):
+        if kind not in ("electrical","energy","bim","network","native_cad","manual"):
             raise ProjectError("unknown task adapter")
-        if kind in ("electrical","energy","bim"):
+        if kind in ("electrical","energy","bim","network"):
             inputs.add(local_path(root,t.get("project")))
         if kind=="native_cad" and t.get("depends_on") not in ids:
             raise ProjectError("native task must depend on an earlier electrical task")
@@ -118,6 +118,11 @@ def execute(plan,out,energyplus=None,autocad=None):
                 from .bim import run
                 payload=run(local_path(root,t['project']),folder)
                 status='pass';reason='IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending'
+            elif t['kind']=='network':
+                from .network import run
+                payload=run(local_path(root,t['project']),folder)
+                status='pass' if payload['calculated_checks_pass'] else 'fail'
+                reason='prescribed-demand circular tree flow/pressure budget only; operating point, physical routing and domain acceptance pending'
             elif t["kind"]=="native_cad":
                 upstream=tasks[t["depends_on"]]
                 if upstream["status"]=="fail":reason="upstream electrical task failed"

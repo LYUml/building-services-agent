@@ -1,0 +1,2 @@
+id,from_node,to_node,flow_m3_s,area_m2,velocity_m_s,reynolds,darcy_friction_factor,regime,friction_pa,minor_pa,dissipative_loss_pa,elevation_pressure_pa,downstream_total_pressure_pa,velocity_pass,source
+PIPE1,PUMP,OUTLET,0.001,0.0012566370614359172,0.7957747154594768,31767.326641142314,0.02601119097382408,turbulent Colebrook Darcy,4109.708887656125,947.986324453623,5057.695212109747,48935.18349999999,126007.12128789026,True,demo

@@ -1,0 +1,82 @@
+{
+  "name": "Synthetic circular air supply tree",
+  "model": "steady incompressible circular tree",
+  "sources": {
+    "demo": "Explicit synthetic flow, geometry, fluid properties, K and pressure/velocity targets; not measured or code-derived"
+  },
+  "fluid": {
+    "density_kg_m3": 1.2,
+    "dynamic_viscosity_pa_s": 1.8e-05,
+    "source": "demo"
+  },
+  "supply": {
+    "node": "FAN",
+    "total_pressure_pa": 300,
+    "source": "demo"
+  },
+  "nodes": [
+    {
+      "id": "FAN",
+      "elevation_m": 0,
+      "demand_m3_s": 0,
+      "required_total_pressure_pa": 0,
+      "source": "demo"
+    },
+    {
+      "id": "J",
+      "elevation_m": 0,
+      "demand_m3_s": 0,
+      "required_total_pressure_pa": 0,
+      "source": "demo"
+    },
+    {
+      "id": "A",
+      "elevation_m": 0,
+      "demand_m3_s": 0.2,
+      "required_total_pressure_pa": 30,
+      "source": "demo"
+    },
+    {
+      "id": "B",
+      "elevation_m": 0,
+      "demand_m3_s": 0.3,
+      "required_total_pressure_pa": 40,
+      "source": "demo"
+    }
+  ],
+  "segments": [
+    {
+      "id": "MAIN",
+      "from": "FAN",
+      "to": "J",
+      "diameter_m": 0.4,
+      "length_m": 8,
+      "roughness_m": 9e-05,
+      "minor_k": 1,
+      "max_velocity_m_s": 7,
+      "source": "demo"
+    },
+    {
+      "id": "BR-A",
+      "from": "J",
+      "to": "A",
+      "diameter_m": 0.25,
+      "length_m": 5,
+      "roughness_m": 9e-05,
+      "minor_k": 1.5,
+      "max_velocity_m_s": 7,
+      "source": "demo"
+    },
+    {
+      "id": "BR-B",
+      "from": "J",
+      "to": "B",
+      "diameter_m": 0.3,
+      "length_m": 10,
+      "roughness_m": 9e-05,
+      "minor_k": 2,
+      "max_velocity_m_s": 7,
+      "source": "demo"
+    }
+  ]
+}
