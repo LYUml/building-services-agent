@@ -1,0 +1,384 @@
+{
+  "ifcopenshell_version": "0.8.5",
+  "manifold3d_version": "3.5.4",
+  "numpy_version": "2.5.4",
+  "scope": "all represented non-feature non-virtual IfcElements",
+  "source_length_unit_to_m": 1,
+  "elements": [
+    {
+      "guid": "0W3lNmxFPNbfaDOocb3wmC",
+      "name": "FAN1",
+      "ifc_class": "IfcFan",
+      "declared_body_shape": "bounding envelope"
+    },
+    {
+      "guid": "2_MFqkx75UluPaevYMytDC",
+      "name": "DUCT1",
+      "ifc_class": "IfcDuctSegment",
+      "declared_body_shape": "straight circular wall"
+    },
+    {
+      "guid": "0nYWb1ZsrIggrppBraO6Zz",
+      "name": "AT1",
+      "ifc_class": "IfcAirTerminal",
+      "declared_body_shape": "bounding envelope"
+    }
+  ],
+  "physical_element_count": 3,
+  "represented_element_count": 3,
+  "loaded_geometry_count": 3,
+  "valid_geometry_count": 3,
+  "potential_pair_count": 3,
+  "missing_geometry_guids": [],
+  "invalid_geometry": [],
+  "unrepresented_elements": [],
+  "intersections": [],
+  "clearance_findings": [
+    {
+      "pair": [
+        "0W3lNmxFPNbfaDOocb3wmC",
+        "2_MFqkx75UluPaevYMytDC"
+      ],
+      "names": [
+        "FAN1",
+        "DUCT1"
+      ],
+      "type": "clearance",
+      "engine_distance_m": 0.0,
+      "p1_world_m": [
+        1.0,
+        2.1722186785187976,
+        2.3277813214812024
+      ],
+      "p2_world_m": [
+        1.0,
+        2.1722186785187976,
+        2.3277813214812024
+      ]
+    },
+    {
+      "pair": [
+        "0nYWb1ZsrIggrppBraO6Zz",
+        "2_MFqkx75UluPaevYMytDC"
+      ],
+      "names": [
+        "AT1",
+        "DUCT1"
+      ],
+      "type": "clearance",
+      "engine_distance_m": 0.0,
+      "p1_world_m": [
+        4.0,
+        2.1722186785187976,
+        2.1722186785187976
+      ],
+      "p2_world_m": [
+        4.0,
+        2.1722186785187976,
+        2.1722186785187976
+      ]
+    }
+  ],
+  "clearance_violations": [],
+  "accepted_contacts": [
+    {
+      "pair": [
+        "0W3lNmxFPNbfaDOocb3wmC",
+        "2_MFqkx75UluPaevYMytDC"
+      ],
+      "names": [
+        "FAN1",
+        "DUCT1"
+      ],
+      "type": "clearance",
+      "engine_distance_m": 0.0,
+      "p1_world_m": [
+        1.0,
+        2.1722186785187976,
+        2.3277813214812024
+      ],
+      "p2_world_m": [
+        1.0,
+        2.1722186785187976,
+        2.3277813214812024
+      ],
+      "allowed_contacts": [
+        {
+          "from_port_guid": "36umOfTgvTL9vliefAHslX",
+          "to_port_guid": "2vc$708SbOkhV7alwF4Kkg",
+          "region_radius_m": 0.18,
+          "source": "demo",
+          "port_separation_m": 0.0,
+          "centre_world_m": [
+            1.0,
+            2.25,
+            2.25
+          ]
+        }
+      ],
+      "outside_region_check": {
+        "pair": [
+          "0W3lNmxFPNbfaDOocb3wmC",
+          "2_MFqkx75UluPaevYMytDC"
+        ],
+        "pass_check": true,
+        "status": "pass",
+        "sphere_segments": 64,
+        "mask_radius_shrink_m": 1e-05,
+        "gap_guard_m": 2e-05,
+        "required_clearance_m": 0.05,
+        "proof_threshold_m": 0.05002,
+        "scope": "both outside-region material parts versus the other full body; conservative clipped-solid lower bounds",
+        "regions": [
+          {
+            "centre_world_m": [
+              1.0,
+              2.25,
+              2.25
+            ],
+            "sourced_radius_m": 0.18,
+            "mask_max_vertex_radius_m": 0.17999
+          }
+        ],
+        "directions": [
+          {
+            "outside_guid": "0W3lNmxFPNbfaDOocb3wmC",
+            "full_guid": "2_MFqkx75UluPaevYMytDC",
+            "outside_empty": false,
+            "conservative_gap_lower_bound_m": 0.05002,
+            "pass_check": true
+          },
+          {
+            "outside_guid": "2_MFqkx75UluPaevYMytDC",
+            "full_guid": "0W3lNmxFPNbfaDOocb3wmC",
+            "outside_empty": false,
+            "conservative_gap_lower_bound_m": 0.05002,
+            "pass_check": true
+          }
+        ]
+      },
+      "waiver_scope": "sourced spherical joint regions only; both conservative outside-to-full clearance checks passed"
+    },
+    {
+      "pair": [
+        "0nYWb1ZsrIggrppBraO6Zz",
+        "2_MFqkx75UluPaevYMytDC"
+      ],
+      "names": [
+        "AT1",
+        "DUCT1"
+      ],
+      "type": "clearance",
+      "engine_distance_m": 0.0,
+      "p1_world_m": [
+        4.0,
+        2.1722186785187976,
+        2.1722186785187976
+      ],
+      "p2_world_m": [
+        4.0,
+        2.1722186785187976,
+        2.1722186785187976
+      ],
+      "allowed_contacts": [
+        {
+          "from_port_guid": "3VnZuS3e9M6xf1ZC$41cUh",
+          "to_port_guid": "2LkbwVpKrQ$fSYc42bl1AA",
+          "region_radius_m": 0.18,
+          "source": "demo",
+          "port_separation_m": 0.0,
+          "centre_world_m": [
+            4.0,
+            2.25,
+            2.25
+          ]
+        }
+      ],
+      "outside_region_check": {
+        "pair": [
+          "0nYWb1ZsrIggrppBraO6Zz",
+          "2_MFqkx75UluPaevYMytDC"
+        ],
+        "pass_check": true,
+        "status": "pass",
+        "sphere_segments": 64,
+        "mask_radius_shrink_m": 1e-05,
+        "gap_guard_m": 2e-05,
+        "required_clearance_m": 0.05,
+        "proof_threshold_m": 0.05002,
+        "scope": "both outside-region material parts versus the other full body; conservative clipped-solid lower bounds",
+        "regions": [
+          {
+            "centre_world_m": [
+              4.0,
+              2.25,
+              2.25
+            ],
+            "sourced_radius_m": 0.18,
+            "mask_max_vertex_radius_m": 0.17999
+          }
+        ],
+        "directions": [
+          {
+            "outside_guid": "0nYWb1ZsrIggrppBraO6Zz",
+            "full_guid": "2_MFqkx75UluPaevYMytDC",
+            "outside_empty": false,
+            "conservative_gap_lower_bound_m": 0.05002,
+            "pass_check": true
+          },
+          {
+            "outside_guid": "2_MFqkx75UluPaevYMytDC",
+            "full_guid": "0nYWb1ZsrIggrppBraO6Zz",
+            "outside_empty": false,
+            "conservative_gap_lower_bound_m": 0.05002,
+            "pass_check": true
+          }
+        ]
+      },
+      "waiver_scope": "sourced spherical joint regions only; both conservative outside-to-full clearance checks passed"
+    }
+  ],
+  "intersection_pair_count": 0,
+  "clearance_violation_pair_count": 0,
+  "boolean_candidate_count": 0,
+  "solid_pair_checks": [],
+  "unverified_solid_pairs": [],
+  "contact_clearance_mode": "outside_regions",
+  "outside_region_checks": [
+    {
+      "pair": [
+        "0W3lNmxFPNbfaDOocb3wmC",
+        "2_MFqkx75UluPaevYMytDC"
+      ],
+      "pass_check": true,
+      "status": "pass",
+      "sphere_segments": 64,
+      "mask_radius_shrink_m": 1e-05,
+      "gap_guard_m": 2e-05,
+      "required_clearance_m": 0.05,
+      "proof_threshold_m": 0.05002,
+      "scope": "both outside-region material parts versus the other full body; conservative clipped-solid lower bounds",
+      "regions": [
+        {
+          "centre_world_m": [
+            1.0,
+            2.25,
+            2.25
+          ],
+          "sourced_radius_m": 0.18,
+          "mask_max_vertex_radius_m": 0.17999
+        }
+      ],
+      "directions": [
+        {
+          "outside_guid": "0W3lNmxFPNbfaDOocb3wmC",
+          "full_guid": "2_MFqkx75UluPaevYMytDC",
+          "outside_empty": false,
+          "conservative_gap_lower_bound_m": 0.05002,
+          "pass_check": true
+        },
+        {
+          "outside_guid": "2_MFqkx75UluPaevYMytDC",
+          "full_guid": "0W3lNmxFPNbfaDOocb3wmC",
+          "outside_empty": false,
+          "conservative_gap_lower_bound_m": 0.05002,
+          "pass_check": true
+        }
+      ]
+    },
+    {
+      "pair": [
+        "0nYWb1ZsrIggrppBraO6Zz",
+        "2_MFqkx75UluPaevYMytDC"
+      ],
+      "pass_check": true,
+      "status": "pass",
+      "sphere_segments": 64,
+      "mask_radius_shrink_m": 1e-05,
+      "gap_guard_m": 2e-05,
+      "required_clearance_m": 0.05,
+      "proof_threshold_m": 0.05002,
+      "scope": "both outside-region material parts versus the other full body; conservative clipped-solid lower bounds",
+      "regions": [
+        {
+          "centre_world_m": [
+            4.0,
+            2.25,
+            2.25
+          ],
+          "sourced_radius_m": 0.18,
+          "mask_max_vertex_radius_m": 0.17999
+        }
+      ],
+      "directions": [
+        {
+          "outside_guid": "0nYWb1ZsrIggrppBraO6Zz",
+          "full_guid": "2_MFqkx75UluPaevYMytDC",
+          "outside_empty": false,
+          "conservative_gap_lower_bound_m": 0.05002,
+          "pass_check": true
+        },
+        {
+          "outside_guid": "2_MFqkx75UluPaevYMytDC",
+          "full_guid": "0nYWb1ZsrIggrppBraO6Zz",
+          "outside_empty": false,
+          "conservative_gap_lower_bound_m": 0.05002,
+          "pass_check": true
+        }
+      ]
+    }
+  ],
+  "checks": {
+    "geometry_coverage": true,
+    "no_intersections": true,
+    "clearance": true
+  },
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "mesh_settings": {
+    "linear_deflection_m": 1e-05,
+    "angular_deflection": 0.02
+  },
+  "pending": [
+    "triangle approximation and supplied tolerance applicability",
+    "envelope versus actual product/insulation fidelity",
+    "clearance policy/source review",
+    "BIM viewer and complete engineering acceptance"
+  ],
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\contact-local-release\\model\\selected-coordination\\bim\\model.ifc": "d8539195da8b14eddfb26625ca23addc8b70caeb9ef964e3e174165a8ef6be5f",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\clash-local-policy.json": "79d6f9d81e809432cc57123262147216bd65434070f7b32b195a7683710dec82"
+  },
+  "policy": {
+    "scope": "all represented non-feature non-virtual IfcElements",
+    "sources": {
+      "demo": "Synthetic strict QA revision: 50 mm clearance unchanged; explicitly selected 0.18 m spherical joint regions with 64-segment inscribed masks. Not regulation or product clearance. Original 0.15 m policy preserved and fails outside-region proof."
+    },
+    "source": "demo",
+    "minimum_clearance_m": 0.05,
+    "intersection_tolerance_m": 0.0001,
+    "contact_tolerance_m": 0.0001,
+    "overlap_volume_tolerance_m3": 1e-10,
+    "maximum_boolean_pairs": 1000,
+    "allowed_contacts": [
+      {
+        "from_port_guid": "36umOfTgvTL9vliefAHslX",
+        "to_port_guid": "2vc$708SbOkhV7alwF4Kkg",
+        "region_radius_m": 0.18,
+        "source": "demo"
+      },
+      {
+        "from_port_guid": "3VnZuS3e9M6xf1ZC$41cUh",
+        "to_port_guid": "2LkbwVpKrQ$fSYc42bl1AA",
+        "region_radius_m": 0.18,
+        "source": "demo"
+      }
+    ],
+    "contact_clearance_mode": "outside_regions",
+    "contact_region_segments": 64
+  },
+  "inputs_unchanged": true,
+  "artifacts": {
+    "report.html": "11c71062794a73f861cf7ff8e56e99922ad622dbd90dd62c7af9fa5037b228df"
+  }
+}

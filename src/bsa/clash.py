@@ -15,7 +15,14 @@ SCOPE='all represented non-feature non-virtual IfcElements'
 
 def validate_policy(policy):
     fields={'scope','sources','source','minimum_clearance_m','intersection_tolerance_m','contact_tolerance_m','overlap_volume_tolerance_m3','maximum_boolean_pairs','allowed_contacts'}
-    if not isinstance(policy,dict) or set(policy)!=fields or policy['scope']!=SCOPE:raise ProjectError('explicit IFC clash policy/scope required')
+    optional={'contact_clearance_mode','contact_region_segments'}
+    if not isinstance(policy,dict) or not fields<=set(policy) or set(policy)-fields-optional or policy['scope']!=SCOPE:raise ProjectError('explicit IFC clash policy/scope required')
+    mode=policy.get('contact_clearance_mode','minimum_witness_only')
+    if mode not in ('minimum_witness_only','outside_regions'):raise ProjectError('unknown contact clearance mode')
+    if mode=='outside_regions':
+        segments=policy.get('contact_region_segments')
+        if type(segments) is not int or not 16<=segments<=256 or segments%4:raise ProjectError('explicit contact mask segments: multiple of four from 16 to 256 required')
+    elif 'contact_region_segments' in policy:raise ProjectError('contact mask settings require outside_regions mode')
     sources=policy['sources']
     if not isinstance(sources,dict) or not sources or any(not isinstance(k,str) or not k or not isinstance(v,str) or not v.strip() for k,v in sources.items()):
         raise ProjectError('clash policy provenance required')
@@ -36,6 +43,7 @@ def validate_policy(policy):
         sourced(row)
         radius=row['region_radius_m']
         if type(radius) not in (int,float) or not math.isfinite(radius) or radius<=0:raise ProjectError('positive finite contact region radius required')
+        if mode=='outside_regions' and radius<=4*LINEAR_DEFLECTION_M:raise ProjectError('contact region is too small for the declared mesh resolution')
         a,b=row['from_port_guid'],row['to_port_guid']
         if not isinstance(a,str) or not a or not isinstance(b,str) or not b or a==b:raise ProjectError('distinct port GUIDs required')
         pair=tuple(sorted((a,b)))
@@ -113,12 +121,21 @@ def inspect(ifc_path,policy):
     solid_hits,unverified,boolean_count,solid_checks=overlaps(checked,meshes,policy['intersection_tolerance_m'],policy['overlap_volume_tolerance_m3'],policy['maximum_boolean_pairs'])
     hard.extend(solid_hits)
     hard_pairs={tuple(r['pair']) for r in hard};unverified_pairs={tuple(r['pair']) for r in unverified if 'pair' in r}
-    unverified_guids={r['guid'] for r in unverified if 'guid' in r};violations=[];accepted=[]
+    unverified_guids={r['guid'] for r in unverified if 'guid' in r};violations=[];accepted=[];region_checks=[]
+    mode=policy.get('contact_clearance_mode','minimum_witness_only')
+    if mode=='outside_regions' and len(allowed)+boolean_count>policy['maximum_boolean_pairs']:raise ProjectError('solid/contact pair checks exceed explicit budget')
     for row in near:
         pair=tuple(row['pair'])
         scoped=[contact for contact in allowed.get(pair,[]) if all(math.dist(point,contact['centre_world_m'])<=contact['region_radius_m'] for point in (row['p1_world_m'],row['p2_world_m']))]
         if scoped and pair not in hard_pairs and pair not in unverified_pairs and not set(pair)&unverified_guids and row['engine_distance_m']<=policy['contact_tolerance_m']:
-            accepted.append(dict(**row,allowed_contacts=scoped,waiver_scope='pair minimum-clearance exception with witness in sourced region; other pair zones not exhaustively measured'))
+            if mode=='outside_regions':
+                from .contact_clearance import prove
+                proof=prove(pair,meshes,allowed[pair],policy['minimum_clearance_m'],policy['contact_region_segments']);region_checks.append(proof)
+                if proof['pass_check']:
+                    accepted.append(dict(**row,allowed_contacts=allowed[pair],outside_region_check=proof,
+                                         waiver_scope='sourced spherical joint regions only; both conservative outside-to-full clearance checks passed'))
+                else:violations.append(dict(**row,outside_region_check=proof,reason='outside-region clearance not proven'))
+            else:accepted.append(dict(**row,allowed_contacts=scoped,waiver_scope='pair minimum-clearance exception with witness in sourced region; other pair zones not exhaustively measured'))
         else:violations.append(row)
     coverage=not missing and not invalid and not unverified and len(elements)==len(physical)
     checks=dict(geometry_coverage=coverage,no_intersections=not hard,clearance=not violations)
@@ -136,9 +153,11 @@ def inspect(ifc_path,policy):
         intersections=hard,clearance_findings=near,clearance_violations=violations,accepted_contacts=accepted,
         intersection_pair_count=len(hard_pairs),clearance_violation_pair_count=len({tuple(row['pair']) for row in violations}),
         boolean_candidate_count=boolean_count,solid_pair_checks=solid_checks,unverified_solid_pairs=unverified,
+        contact_clearance_mode=mode,outside_region_checks=region_checks,
         checks=checks,calculated_checks_pass=all(checks.values()),design_accepted=False,
         mesh_settings=dict(linear_deflection_m=LINEAR_DEFLECTION_M,angular_deflection=ANGULAR_DEFLECTION),
-        pending=['triangle approximation and supplied tolerance applicability','non-interface clearances on contact-exempt pairs','envelope versus actual product/insulation fidelity','clearance policy/source review','BIM viewer and complete engineering acceptance'])
+        pending=['triangle approximation and supplied tolerance applicability']+(['non-interface clearances on contact-exempt pairs'] if mode=='minimum_witness_only' and accepted else [])+
+                ['envelope versus actual product/insulation fidelity','clearance policy/source review','BIM viewer and complete engineering acceptance'])
 
 
 def run(ifc_path,policy_path,out):
@@ -150,7 +169,7 @@ def run(ifc_path,policy_path,out):
     result.update(inputs=before,policy=policy,inputs_unchanged=all(digest(Path(p))==h for p,h in before.items()))
     if not result['inputs_unchanged']:raise ProjectError('source changed during IFC clash analysis')
     rows=''.join('<tr>'+''.join('<td>'+html.escape(str(row.get(key,'')))+'</td>' for key in ('names','type','engine_distance_m','overlap_volume_m3','p1_world_m','p2_world_m'))+'</tr>' for row in result['intersections']+result['clearance_violations'])
-    (out/'report.html').write_text('<!doctype html><meta charset="utf-8"><title>IFC clash evidence</title><h1>IFC clash evidence</h1><p>'+html.escape(str(result['checks']))+'</p><p>Supplied policy and triangle geometry only; full design acceptance pending.</p><table border="1"><tr><th>Elements</th><th>Type</th><th>Engine distance m</th><th>Mesh overlap m3</th><th>P1 m</th><th>P2 m</th></tr>'+rows+'</table><h2>Pair-level contact exceptions</h2><pre>'+html.escape(json.dumps(result['accepted_contacts'],indent=2))+'</pre><h2>Coverage issues</h2><pre>'+html.escape(json.dumps({k:result[k] for k in ('missing_geometry_guids','invalid_geometry','unrepresented_elements','unverified_solid_pairs')},indent=2))+'</pre><h2>Policy</h2><pre>'+html.escape(json.dumps(policy,indent=2))+'</pre><h2>Pending</h2><ul>'+''.join('<li>'+html.escape(s)+'</li>' for s in result['pending'])+'</ul>',encoding='utf-8')
+    (out/'report.html').write_text('<!doctype html><meta charset="utf-8"><title>IFC clash evidence</title><h1>IFC clash evidence</h1><p>'+html.escape(str(result['checks']))+'</p><p>Supplied policy and triangle geometry only; full design acceptance pending.</p><table border="1"><tr><th>Elements</th><th>Type</th><th>Engine distance m</th><th>Mesh overlap m3</th><th>P1 m</th><th>P2 m</th></tr>'+rows+'</table><h2>Accepted contact exceptions</h2><pre>'+html.escape(json.dumps(result['accepted_contacts'],indent=2))+'</pre><h2>Outside-region checks</h2><pre>'+html.escape(json.dumps(result['outside_region_checks'],indent=2))+'</pre><h2>Coverage issues</h2><pre>'+html.escape(json.dumps({k:result[k] for k in ('missing_geometry_guids','invalid_geometry','unrepresented_elements','unverified_solid_pairs')},indent=2))+'</pre><h2>Policy</h2><pre>'+html.escape(json.dumps(policy,indent=2))+'</pre><h2>Pending</h2><ul>'+''.join('<li>'+html.escape(s)+'</li>' for s in result['pending'])+'</ul>',encoding='utf-8')
     result['artifacts']={p.name:digest(p) for p in out.iterdir() if p.is_file()}
     (out/'clash.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
     return result

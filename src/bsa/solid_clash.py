@@ -3,6 +3,17 @@ import math
 from .engine import ProjectError
 
 
+def from_mesh(mesh):
+    import numpy as np
+    import manifold3d as manifold
+    verts,faces=mesh
+    solid=manifold.Manifold(manifold.Mesh64(vert_properties=np.asarray(verts,dtype=np.float64).reshape(-1,3),
+                                         tri_verts=np.asarray(faces,dtype=np.uint64).reshape(-1,3)))
+    if solid.status()!=manifold.Error.NoError or not math.isfinite(solid.volume()) or solid.volume()<=0:
+        raise ProjectError('mesh is not a positive-volume accepted Manifold solid: '+str(solid.status()))
+    return solid
+
+
 def overlaps(elements,meshes,linear_tolerance,volume_tolerance,maximum_pairs):
     import numpy as np
     import manifold3d as manifold
@@ -10,12 +21,9 @@ def overlaps(elements,meshes,linear_tolerance,volume_tolerance,maximum_pairs):
     for element in elements:
         id=element.GlobalId;verts,faces=meshes[id]
         points=np.asarray(verts,dtype=np.float64).reshape(-1,3)
-        triangles=np.asarray(faces,dtype=np.uint64).reshape(-1,3)
         bounds[id]=(points.min(axis=0),points.max(axis=0))
         try:
-            solid=manifold.Manifold(manifold.Mesh64(vert_properties=points,tri_verts=triangles))
-            if solid.status()!=manifold.Error.NoError or not math.isfinite(solid.volume()) or solid.volume()<=0:
-                raise ProjectError('mesh is not a positive-volume accepted Manifold solid: '+str(solid.status()))
+            solid=from_mesh((verts,faces))
             solids[id]=solid
         except (RuntimeError,ValueError,ProjectError) as exc:errors[id]=str(exc)
     for i,a in enumerate(elements):

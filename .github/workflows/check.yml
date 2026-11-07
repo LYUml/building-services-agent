@@ -25,6 +25,7 @@ jobs:
       - run: python -m unittest discover -s tests -p test_bim.py -v
       - run: python -m unittest discover -s tests -p test_circular_geometry.py -v
       - run: python -m unittest discover -s tests -p test_clash.py -v
+      - run: python -m unittest discover -s tests -p test_contact_clearance.py -v
       - run: python -m unittest discover -s tests -p test_coordination.py -v
       - run: python -m bsa.workflow execute examples/mep-ifc/plan.json --out runs/ifc
   network:
@@ -46,6 +47,7 @@ jobs:
       - run: python -m bsa.workflow execute examples/network-model-design/plan.json --out runs/network-model-design
       - run: python -m bsa.workflow execute examples/circular-network/plan.json --out runs/circular-network
       - run: python -m bsa.workflow execute examples/clash-plan.json --out runs/ifc-clash
+      - run: python -m bsa.workflow execute examples/clash-local-plan.json --out runs/ifc-clash-local
   lighting:
     runs-on: windows-latest
     steps:

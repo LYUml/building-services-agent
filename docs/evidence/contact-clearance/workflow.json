@@ -1,0 +1,134 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\circular-network\\binding.json": "2c3bd16069d22482bbcd7be1e0cdb8e3a94aec646621d70b1bbbc1363e443835",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\clash-local-brief.md": "f2f13fe02ec5957641a3e8bd0c73895d174e1b5ab1d1acb4d202e01d3147251e",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\circular-network\\model.json": "6f310da0c6741cfc2bfd15e2f9ea94bcc2e2ed9515e782d977417eefd6e39c0a",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\circular-network\\network.json": "3690fc9f63d70acd454add2b33e23406f823811ad3d611c7c89354c862a1a34f",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\clash-local-plan.json": "2f3f67bb62a64f3a7e9cb5520acac15fdd7a6aaee2bf82139607dd39f8cf56d9",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\circular-network\\geometry.json": "325654fd292fc82675533ac58fdcfa389af63e22a3f644c7941b8eabddb5622c",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\clash-local-policy.json": "79d6f9d81e809432cc57123262147216bd65434070f7b32b195a7683710dec82",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\circular-network\\catalogue.json": "e24b68f86a136d897ca4534635d114193453cb47e94e72e7d1383b4382895e8a"
+  },
+  "inputs_unchanged": true,
+  "tasks": {
+    "model": {
+      "kind": "network_model_design",
+      "status": "pass",
+      "scope": "source-backed envelopes/explicit walls resized on fixed endpoints; saved IFC dimensions and derived pressure reconciled; actual products/clashes/full acceptance pending"
+    },
+    "qa": {
+      "kind": "ifc_clash",
+      "status": "pass",
+      "scope": "saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Generate the supplied circular network's selected IFC revision using the common source inputs and catalogue, preserving original hashes, endpoints and project object identities. Keep product, material, operating-point and engineering acceptance gates pending.",
+      "task": "model",
+      "acceptance": "Source model and policy-scoped saved-geometry evidence; complete engineering acceptance pending",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 3,
+        "end_line": 3
+      },
+      "execution_scope": "source-backed envelopes/explicit walls resized on fixed endpoints; saved IFC dimensions and derived pressure reconciled; actual products/clashes/full acceptance pending",
+      "evidence": [
+        "model/baseline-network.json",
+        "model/filtered-catalogue.json",
+        "model/model-design.json",
+        "model/selected-model.json",
+        "model/selected-skeleton.json",
+        "model/baseline-analysis/manifest.json",
+        "model/baseline-analysis/network.json",
+        "model/baseline-analysis/report.html",
+        "model/baseline-analysis/segments.csv",
+        "model/baseline-bim/bim-verification.json",
+        "model/baseline-bim/model.ifc",
+        "model/baseline-bim/schema-validation.json",
+        "model/selected-coordination/network-binding.json",
+        "model/selected-coordination/network-input.json",
+        "model/sizing/candidates.csv",
+        "model/sizing/design-comparison.json",
+        "model/sizing/report.html",
+        "model/sizing/selected-network.json",
+        "model/selected-coordination/analysis/manifest.json",
+        "model/selected-coordination/analysis/network.json",
+        "model/selected-coordination/analysis/report.html",
+        "model/selected-coordination/analysis/segments.csv",
+        "model/selected-coordination/bim/bim-verification.json",
+        "model/selected-coordination/bim/model.ifc",
+        "model/selected-coordination/bim/schema-validation.json",
+        "model/sizing/baseline/manifest.json",
+        "model/sizing/baseline/network.json",
+        "model/sizing/baseline/report.html",
+        "model/sizing/baseline/segments.csv",
+        "model/sizing/selected/manifest.json",
+        "model/sizing/selected/network.json",
+        "model/sizing/selected/report.html",
+        "model/sizing/selected/segments.csv"
+      ]
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Check the saved selected IFC with the supplied outside_regions policy: 50 mm clearance and explicitly sourced 0.18 m joint regions. Prove both outside-to-full mesh clearances with conservative masks; retain failures and never waive solid overlap. Product fidelity and BIM-viewer acceptance remain pending. These settings are synthetic, not regulation clauses.",
+      "task": "qa",
+      "acceptance": "Source model and policy-scoped saved-geometry evidence; complete engineering acceptance pending",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 5,
+        "end_line": 5
+      },
+      "execution_scope": "saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending",
+      "evidence": [
+        "qa/clash.json",
+        "qa/report.html"
+      ]
+    }
+  ],
+  "artifact_hashes": {
+    "model/baseline-network.json": "ea5beb1db19c0cd7e3c2142e7eee12c8e46fe069ab95733431328b1e6745d508",
+    "model/filtered-catalogue.json": "c7c686000f3b77d9811e89595798eac640bd7261de609385ecbd2263acc3f6f7",
+    "model/model-design.json": "93ae692517dd2c1218976f29374684cc77df59f9069483323bdf719e33bb69f9",
+    "model/selected-model.json": "9751d7ebbff885d971ed3a1ce7c58e2e597e3b491504aa8e4e7a8c8440cf716b",
+    "model/selected-skeleton.json": "dd2d8a0ac0852dd50e840234a834a20fb2310c4f5901675d9fb4d08a91f14cea",
+    "qa/clash.json": "038dddad6cd6c4720fd6e96521b0f8aeaff26dac408740af3556827a2ae5d4e0",
+    "qa/report.html": "11c71062794a73f861cf7ff8e56e99922ad622dbd90dd62c7af9fa5037b228df",
+    "model/baseline-analysis/manifest.json": "f0994be8ba4f77e021c6c3e88524110ca43b166dbd3035de6fed04af3c40d2de",
+    "model/baseline-analysis/network.json": "b43f6d5acad40267a93856378cf8d2da5ea05492b44ff9a23bed5ce242ad2296",
+    "model/baseline-analysis/report.html": "2b416e09aff743558e83460974f03a31b04a0838b177e01281483c0180109ef8",
+    "model/baseline-analysis/segments.csv": "f5c34286907e10016f42445a000807d64085b7557fe28643dd55b3253b42ab19",
+    "model/baseline-bim/bim-verification.json": "c65cd264e540bc673538145d6d016e1387eb999e5f9a52bdd62755b4ee29f083",
+    "model/baseline-bim/model.ifc": "eccdb2319013dfac0de0ecd38d192425b2bb08c278081929ef99dac6da88ddca",
+    "model/baseline-bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "model/selected-coordination/network-binding.json": "8db1a53cd9fc57e8078a21b39183b5be51f8e2c8d8a78f96851603e0abf8c75f",
+    "model/selected-coordination/network-input.json": "63b924ce9990e48b607e3ad8f91174565eff507cb6c507d1bbf53adcb2faa99c",
+    "model/sizing/candidates.csv": "68f9be4225933128e2836e6a87687d3c724c521a908ffe79b4b8e7c0aaf9978c",
+    "model/sizing/design-comparison.json": "04973bf458c083f91a081b6940d671d230f8ded8253c5fecb57ed6d0c3c3bbd9",
+    "model/sizing/report.html": "63083d3a745e181caa62c6b1addce312c07c258a0ced155604db9127ab0121fd",
+    "model/sizing/selected-network.json": "63b924ce9990e48b607e3ad8f91174565eff507cb6c507d1bbf53adcb2faa99c",
+    "model/selected-coordination/analysis/manifest.json": "dd2a51988bb9714f5b891eadd2f2251afdc74c0bc68d30a1ebdae4cd215d1ec4",
+    "model/selected-coordination/analysis/network.json": "e02235c75f60814de6747f70076817e0921d1dfaface48c2063e59107b247907",
+    "model/selected-coordination/analysis/report.html": "9eedb6ed73ee41a392cc4154644ed5bc222578fb2ac6f1b1174f29fe10483f35",
+    "model/selected-coordination/analysis/segments.csv": "996b5175c22058fee3733b55c1fe6d31f8ad07c490d70388e3ec416b51cd0981",
+    "model/selected-coordination/bim/bim-verification.json": "865d654ee61e656fd9540d39e857227b2ee70d632bf7d63a1d9939bf6fc5796e",
+    "model/selected-coordination/bim/model.ifc": "d8539195da8b14eddfb26625ca23addc8b70caeb9ef964e3e174165a8ef6be5f",
+    "model/selected-coordination/bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "model/sizing/baseline/manifest.json": "f0994be8ba4f77e021c6c3e88524110ca43b166dbd3035de6fed04af3c40d2de",
+    "model/sizing/baseline/network.json": "b43f6d5acad40267a93856378cf8d2da5ea05492b44ff9a23bed5ce242ad2296",
+    "model/sizing/baseline/report.html": "2b416e09aff743558e83460974f03a31b04a0838b177e01281483c0180109ef8",
+    "model/sizing/baseline/segments.csv": "f5c34286907e10016f42445a000807d64085b7557fe28643dd55b3253b42ab19",
+    "model/sizing/selected/manifest.json": "dd2a51988bb9714f5b891eadd2f2251afdc74c0bc68d30a1ebdae4cd215d1ec4",
+    "model/sizing/selected/network.json": "e02235c75f60814de6747f70076817e0921d1dfaface48c2063e59107b247907",
+    "model/sizing/selected/report.html": "9eedb6ed73ee41a392cc4154644ed5bc222578fb2ac6f1b1174f29fe10483f35",
+    "model/sizing/selected/segments.csv": "996b5175c22058fee3733b55c1fe6d31f8ad07c490d70388e3ec416b51cd0981"
+  },
+  "execution_pass": true,
+  "design_accepted": false,
+  "acceptance_note": "Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance"
+}

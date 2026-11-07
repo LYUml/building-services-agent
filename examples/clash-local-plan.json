@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "brief": "clash-local-brief.md",
+  "brief_sha256": "f2f13fe02ec5957641a3e8bd0c73895d174e1b5ab1d1acb4d202e01d3147251e",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "model",
+      "kind": "network_model_design",
+      "project": "circular-network/network.json",
+      "model": "circular-network/model.json",
+      "binding": "circular-network/binding.json",
+      "catalogue": "circular-network/catalogue.json",
+      "geometry": "circular-network/geometry.json"
+    },
+    {
+      "id": "qa",
+      "kind": "ifc_clash",
+      "depends_on": "model",
+      "policy": "clash-local-policy.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Generate the supplied circular network's selected IFC revision using the common source inputs and catalogue, preserving original hashes, endpoints and project object identities. Keep product, material, operating-point and engineering acceptance gates pending.",
+      "task": "model",
+      "acceptance": "Source model and policy-scoped saved-geometry evidence; complete engineering acceptance pending"
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Check the saved selected IFC with the supplied outside_regions policy: 50 mm clearance and explicitly sourced 0.18 m joint regions. Prove both outside-to-full mesh clearances with conservative masks; retain failures and never waive solid overlap. Product fidelity and BIM-viewer acceptance remain pending. These settings are synthetic, not regulation clauses.",
+      "task": "qa",
+      "acceptance": "Source model and policy-scoped saved-geometry evidence; complete engineering acceptance pending"
+    }
+  ]
+}

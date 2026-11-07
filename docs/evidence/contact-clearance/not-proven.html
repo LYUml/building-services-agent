@@ -1,0 +1,116 @@
+<!doctype html><meta charset="utf-8"><title>IFC clash evidence</title><h1>IFC clash evidence</h1><p>{&#x27;geometry_coverage&#x27;: True, &#x27;no_intersections&#x27;: True, &#x27;clearance&#x27;: False}</p><p>Supplied policy and triangle geometry only; full design acceptance pending.</p><table border="1"><tr><th>Elements</th><th>Type</th><th>Engine distance m</th><th>Mesh overlap m3</th><th>P1 m</th><th>P2 m</th></tr><tr><td>[&#x27;FAN1&#x27;, &#x27;DUCT1&#x27;]</td><td>clearance</td><td>0.0</td><td></td><td>[1.0, 2.1722186785187976, 2.3277813214812024]</td><td>[1.0, 2.1722186785187976, 2.3277813214812024]</td></tr><tr><td>[&#x27;AT1&#x27;, &#x27;DUCT1&#x27;]</td><td>clearance</td><td>0.0</td><td></td><td>[4.0, 2.1722186785187976, 2.1722186785187976]</td><td>[4.0, 2.1722186785187976, 2.1722186785187976]</td></tr></table><h2>Accepted contact exceptions</h2><pre>[]</pre><h2>Outside-region checks</h2><pre>[
+  {
+    &quot;pair&quot;: [
+      &quot;0W3lNmxFPNbfaDOocb3wmC&quot;,
+      &quot;2_MFqkx75UluPaevYMytDC&quot;
+    ],
+    &quot;pass_check&quot;: false,
+    &quot;status&quot;: &quot;not_proven&quot;,
+    &quot;sphere_segments&quot;: 64,
+    &quot;mask_radius_shrink_m&quot;: 1e-05,
+    &quot;gap_guard_m&quot;: 2e-05,
+    &quot;required_clearance_m&quot;: 0.05,
+    &quot;proof_threshold_m&quot;: 0.05002,
+    &quot;scope&quot;: &quot;both outside-region material parts versus the other full body; conservative clipped-solid lower bounds&quot;,
+    &quot;regions&quot;: [
+      {
+        &quot;centre_world_m&quot;: [
+          1.0,
+          2.25,
+          2.25
+        ],
+        &quot;sourced_radius_m&quot;: 0.15,
+        &quot;mask_max_vertex_radius_m&quot;: 0.14999
+      }
+    ],
+    &quot;directions&quot;: [
+      {
+        &quot;outside_guid&quot;: &quot;0W3lNmxFPNbfaDOocb3wmC&quot;,
+        &quot;full_guid&quot;: &quot;2_MFqkx75UluPaevYMytDC&quot;,
+        &quot;outside_empty&quot;: false,
+        &quot;conservative_gap_lower_bound_m&quot;: 0.03976153411961241,
+        &quot;pass_check&quot;: false
+      },
+      {
+        &quot;outside_guid&quot;: &quot;2_MFqkx75UluPaevYMytDC&quot;,
+        &quot;full_guid&quot;: &quot;0W3lNmxFPNbfaDOocb3wmC&quot;,
+        &quot;outside_empty&quot;: false,
+        &quot;conservative_gap_lower_bound_m&quot;: 0.05002,
+        &quot;pass_check&quot;: true
+      }
+    ]
+  },
+  {
+    &quot;pair&quot;: [
+      &quot;0nYWb1ZsrIggrppBraO6Zz&quot;,
+      &quot;2_MFqkx75UluPaevYMytDC&quot;
+    ],
+    &quot;pass_check&quot;: false,
+    &quot;status&quot;: &quot;not_proven&quot;,
+    &quot;sphere_segments&quot;: 64,
+    &quot;mask_radius_shrink_m&quot;: 1e-05,
+    &quot;gap_guard_m&quot;: 2e-05,
+    &quot;required_clearance_m&quot;: 0.05,
+    &quot;proof_threshold_m&quot;: 0.05002,
+    &quot;scope&quot;: &quot;both outside-region material parts versus the other full body; conservative clipped-solid lower bounds&quot;,
+    &quot;regions&quot;: [
+      {
+        &quot;centre_world_m&quot;: [
+          4.0,
+          2.25,
+          2.25
+        ],
+        &quot;sourced_radius_m&quot;: 0.15,
+        &quot;mask_max_vertex_radius_m&quot;: 0.14999
+      }
+    ],
+    &quot;directions&quot;: [
+      {
+        &quot;outside_guid&quot;: &quot;0nYWb1ZsrIggrppBraO6Zz&quot;,
+        &quot;full_guid&quot;: &quot;2_MFqkx75UluPaevYMytDC&quot;,
+        &quot;outside_empty&quot;: false,
+        &quot;conservative_gap_lower_bound_m&quot;: 0.039761534119612425,
+        &quot;pass_check&quot;: false
+      },
+      {
+        &quot;outside_guid&quot;: &quot;2_MFqkx75UluPaevYMytDC&quot;,
+        &quot;full_guid&quot;: &quot;0nYWb1ZsrIggrppBraO6Zz&quot;,
+        &quot;outside_empty&quot;: false,
+        &quot;conservative_gap_lower_bound_m&quot;: 0.05002,
+        &quot;pass_check&quot;: true
+      }
+    ]
+  }
+]</pre><h2>Coverage issues</h2><pre>{
+  &quot;missing_geometry_guids&quot;: [],
+  &quot;invalid_geometry&quot;: [],
+  &quot;unrepresented_elements&quot;: [],
+  &quot;unverified_solid_pairs&quot;: []
+}</pre><h2>Policy</h2><pre>{
+  &quot;scope&quot;: &quot;all represented non-feature non-virtual IfcElements&quot;,
+  &quot;sources&quot;: {
+    &quot;demo&quot;: &quot;Synthetic strict regression with original 0.15 m radius; expected not_proven. No source policy changed.&quot;
+  },
+  &quot;source&quot;: &quot;demo&quot;,
+  &quot;minimum_clearance_m&quot;: 0.05,
+  &quot;intersection_tolerance_m&quot;: 0.0001,
+  &quot;contact_tolerance_m&quot;: 0.0001,
+  &quot;overlap_volume_tolerance_m3&quot;: 1e-10,
+  &quot;maximum_boolean_pairs&quot;: 1000,
+  &quot;allowed_contacts&quot;: [
+    {
+      &quot;from_port_guid&quot;: &quot;36umOfTgvTL9vliefAHslX&quot;,
+      &quot;to_port_guid&quot;: &quot;2vc$708SbOkhV7alwF4Kkg&quot;,
+      &quot;region_radius_m&quot;: 0.15,
+      &quot;source&quot;: &quot;demo&quot;
+    },
+    {
+      &quot;from_port_guid&quot;: &quot;3VnZuS3e9M6xf1ZC$41cUh&quot;,
+      &quot;to_port_guid&quot;: &quot;2LkbwVpKrQ$fSYc42bl1AA&quot;,
+      &quot;region_radius_m&quot;: 0.15,
+      &quot;source&quot;: &quot;demo&quot;
+    }
+  ],
+  &quot;contact_clearance_mode&quot;: &quot;outside_regions&quot;,
+  &quot;contact_region_segments&quot;: 64
+}</pre><h2>Pending</h2><ul><li>triangle approximation and supplied tolerance applicability</li><li>envelope versus actual product/insulation fidelity</li><li>clearance policy/source review</li><li>BIM viewer and complete engineering acceptance</li></ul>

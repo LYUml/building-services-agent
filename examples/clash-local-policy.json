@@ -1,0 +1,28 @@
+{
+  "scope": "all represented non-feature non-virtual IfcElements",
+  "sources": {
+    "demo": "Synthetic strict QA revision: 50 mm clearance unchanged; explicitly selected 0.18 m spherical joint regions with 64-segment inscribed masks. Not regulation or product clearance. Original 0.15 m policy preserved and fails outside-region proof."
+  },
+  "source": "demo",
+  "minimum_clearance_m": 0.05,
+  "intersection_tolerance_m": 0.0001,
+  "contact_tolerance_m": 0.0001,
+  "overlap_volume_tolerance_m3": 1e-10,
+  "maximum_boolean_pairs": 1000,
+  "allowed_contacts": [
+    {
+      "from_port_guid": "36umOfTgvTL9vliefAHslX",
+      "to_port_guid": "2vc$708SbOkhV7alwF4Kkg",
+      "region_radius_m": 0.18,
+      "source": "demo"
+    },
+    {
+      "from_port_guid": "3VnZuS3e9M6xf1ZC$41cUh",
+      "to_port_guid": "2LkbwVpKrQ$fSYc42bl1AA",
+      "region_radius_m": 0.18,
+      "source": "demo"
+    }
+  ],
+  "contact_clearance_mode": "outside_regions",
+  "contact_region_segments": 64
+}
