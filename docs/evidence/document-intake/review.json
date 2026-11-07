@@ -1,0 +1,9 @@
+{
+  "source_sha256": "7c0e3832516f1895adf9723751e7ea5e23134fd73ed0c3dfe7acfdccd74bc6cb",
+  "page_image_sha256": "ab4197aa0dc1a597423f6883dfd5e1b0a2fccda3998766f062f6b7b22d851498",
+  "method": "agent inspected rendered page against raw OCR",
+  "observation": "OCR found all three labels. Second line incorrectly includes the circle symbol; some slash characters are fullwidth. Raw OCR retained without normalization.",
+  "acceptance": "not accepted as equipment IDs or design input; transcription review/correction required",
+  "license_source": "https://raw.githubusercontent.com/RapidAI/RapidOCR/main/LICENSE",
+  "license_sha256": "3e0af25fdd06aa9586ae97adb00ea927ebe5a3805ac77d2d3a81ce5f55693333"
+}

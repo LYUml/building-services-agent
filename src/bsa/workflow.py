@@ -16,27 +16,17 @@ def read_json(path):
     return json.loads(path.read_text(encoding="utf-8-sig"))
 
 
-def passages(brief):
-    text=brief.read_text(encoding="utf-8-sig")
-    rows=[];start=None;parts=[]
-    for line_no,line in enumerate(text.splitlines()+[""],1):
-        if line.strip():
-            if start is None:start=line_no
-            parts.append(line)
-        elif start is not None:
-            value="\n".join(parts)
-            rows.append(dict(id=f"P{len(rows)+1:03}",start_line=start,end_line=line_no-1,text=value))
-            start=None;parts=[]
-    return rows
+def passages(brief,ocr=None):
+    from .documents import extract
+    return extract(brief,ocr)["passages"]
 
 
-def intake(brief,out):
+def intake(brief,out,ocr=None):
     brief,out=brief.resolve(),out.resolve()
-    if brief.suffix.lower() not in (".md",".txt"):
-        raise ProjectError("intake currently accepts UTF-8 Markdown/text; extract other formats with page provenance first")
     if out==brief:raise ProjectError("cannot overwrite brief")
     if out.exists():raise ProjectError("refusing to overwrite intake")
-    result=dict(brief=str(brief),brief_sha256=digest(brief),passages=passages(brief),
+    from .documents import extract
+    result=dict(brief=str(brief),brief_sha256=digest(brief),**extract(brief,ocr),
         interpretation_status="pending host-agent interpretation",requirements=[])
     out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
@@ -55,7 +45,12 @@ def validate_plan(path):
     if not isinstance(p,dict) or type(p.get("version")) is not int or p.get("version")!=1:raise ProjectError("plan version 1 required")
     brief=local_path(root,p.get("brief"))
     if digest(brief)!=p.get("brief_sha256"):raise ProjectError("brief hash differs; re-interpret current source")
-    source={x["id"]:x for x in passages(brief)}
+    from .documents import extract,check_review
+    ocr=local_path(root,p['ocr']) if p.get('ocr') else None
+    if ocr and digest(ocr)!=p.get('ocr_sha256'):raise ProjectError('OCR sidecar changed; re-review transcription')
+    document=extract(brief,ocr)
+    check_review(document,p.get("document_review",{}))
+    source={x["id"]:x for x in document["passages"]}
     dispositions=p.get("passage_dispositions")
     if not isinstance(dispositions,dict) or set(dispositions)!=set(source):
         raise ProjectError("every brief passage needs an explicit requirement/context disposition")
@@ -64,6 +59,7 @@ def validate_plan(path):
     if not isinstance(tasks,list) or not tasks or not isinstance(requirements,list) or not requirements:
         raise ProjectError("nonempty tasks and requirements required")
     ids=set();inputs={brief}
+    inputs.update(Path(f) for f in document.get('supporting_files',[]))
     for t in tasks:
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
@@ -136,12 +132,12 @@ def execute(plan,out,energyplus=None,autocad=None):
         # An executed adapter is evidence for its narrow scope, not every interpreted requirement.
         evidence[t["id"]]=[f.relative_to(out).as_posix() for f in folder.rglob("*") if f.is_file()] if folder.exists() else []
     unchanged=all(f.is_file() and digest(f)==before[str(f)] for f in inputs)
-    source_rows={x["id"]:x for x in passages(local_path(root,p["brief"]))}
+    source_rows={x["id"]:x for x in passages(local_path(root,p["brief"]),local_path(root,p['ocr']) if p.get('ocr') else None)}
     matrix=[]
     for r in p["requirements"]:
         task=tasks[r["task"]]
         matrix.append(dict(**r,execution_status=task["status"],acceptance_status="pending review",
-                           source_locator={k:source_rows[r["passage"]][k] for k in ("start_line","end_line")},
+                           source_locator={k:v for k,v in source_rows[r["passage"]].items() if k not in ("id","text")},
                            execution_scope=task["scope"],evidence=evidence[r["task"]]))
     result=dict(inputs=before,inputs_unchanged=unchanged,tasks=tasks,requirements=matrix,
         artifact_hashes={f.relative_to(out).as_posix():digest(f) for f in out.rglob("*") if f.is_file()},
@@ -172,13 +168,17 @@ def verify(run_directory):
 def main():
     p=argparse.ArgumentParser(description=__doc__);sub=p.add_subparsers(dest="command",required=True)
     i=sub.add_parser("intake");i.add_argument("brief",type=Path);i.add_argument("--out",type=Path,required=True)
+    i.add_argument('--ocr',type=Path)
     v=sub.add_parser("validate");v.add_argument("plan",type=Path)
     e=sub.add_parser("execute");e.add_argument("plan",type=Path);e.add_argument("--out",required=True,type=Path)
     e.add_argument("--energyplus",type=Path);e.add_argument("--autocad",type=Path)
     v=sub.add_parser("verify");v.add_argument("run_directory",type=Path)
     a=p.parse_args()
     try:
-        if a.command=="intake":r=intake(a.brief,a.out);print(f"Indexed {len(r['passages'])} source passages; interpretation pending")
+        if a.command=="intake":
+            r=intake(a.brief,a.out,a.ocr)
+            print(f"Indexed {len(r['passages'])} source passages; coverage: {r['coverage_status']}; interpretation pending")
+            if r["coverage_status"]=="blocked":return 2
         elif a.command=="validate":validate_plan(a.plan);print("Source-linked plan valid; interpretation accuracy still requires review")
         elif a.command=="verify":
             r=verify(a.run_directory);print(json.dumps(r,indent=2))

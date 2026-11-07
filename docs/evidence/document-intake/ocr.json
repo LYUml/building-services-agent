@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "source_sha256": "7c0e3832516f1895adf9723751e7ea5e23134fd73ed0c3dfe7acfdccd74bc6cb",
+  "source_name": "devices.pdf",
+  "dpi": 180,
+  "engine": "rapidocr_onnxruntime",
+  "engine_version": "1.4.4",
+  "onnxruntime_version": "1.31.1",
+  "model_sha256": {
+    "ch_PP-OCRv4_det_infer.onnx": "d2a7720d45a54257208b1e13e36a8479894cb74155a5efe29462512d42f49da9",
+    "ch_PP-OCRv4_rec_infer.onnx": "48fc40f24f6d2a207a2b1091d3437eb3cc3eb6b676dc3ef9c37384005483683b",
+    "ch_ppocr_mobile_v2.0_cls_infer.onnx": "e47acedf663230f8863ff1ab0e64dd2d82b838fceb5957146dab185a89d6215c"
+  },
+  "renderer_sha256": "dbc52d6438fb9fe6afca0709b0139060e9e89ead3fc25d61fbe2b9b59767dfa0",
+  "text_score_threshold": 0.1,
+  "pages": [
+    {
+      "page": 1,
+      "image": "page-0001.png",
+      "image_sha256": "ab4197aa0dc1a597423f6883dfd5e1b0a2fccda3998766f062f6b7b22d851498",
+      "lines": [
+        {
+          "box": [
+            [
+              147.47732543945312,
+              697.4999389648438
+            ],
+            [
+              629.1658325195312,
+              661.5681762695312
+            ],
+            [
+              636.5927734375,
+              764.0795288085938
+            ],
+            [
+              154.90423583984375,
+              800.0113525390625
+            ]
+          ],
+          "text": "L1 / LGT-1",
+          "confidence": 0.9205698192119598
+        },
+        {
+          "box": [
+            [
+              793.6189575195312,
+              697.4999389648438
+            ],
+            [
+              1289.100341796875,
+              660.5113525390625
+            ],
+            [
+              1296.5272216796875,
+              760.9090576171875
+            ],
+            [
+              801.0458984375,
+              797.897705078125
+            ]
+          ],
+          "text": "○L2／LGT-1",
+          "confidence": 0.9068564739492204
+        },
+        {
+          "box": [
+            [
+              1440.8216552734375,
+              699.6135864257812
+            ],
+            [
+              1932.05908203125,
+              663.6817626953125
+            ],
+            [
+              1939.4859619140625,
+              759.8522338867188
+            ],
+            [
+              1448.24853515625,
+              795.7840576171875
+            ]
+          ],
+          "text": "L3 ／ LGT-1",
+          "confidence": 0.8858991265296936
+        }
+      ]
+    }
+  ],
+  "acceptance": "pending visual transcription review; confidence is not correctness"
+}

@@ -39,3 +39,13 @@ Executed examples/workflow-plan.json from a new synthetic brief: electrical calc
 Combined test run with both native and energy engine flags: **12 tests passed**. Tests cover exact-source quote enforcement, stale brief detection, paragraph coverage, path traversal rejection, task identity restrictions, missing engine handling and source locators, in addition to previous native/energy behavior. Subsequent integrity-verifier tests passed (10 passed, 2 engine tests skipped in that focused invocation); changing a generated DXF was detected. `verify runs/workflow-demo-v2` passed input and task-artifact hash checks. Archived workflow report: docs/evidence/workflow/workflow.json.
 
 The plan was authored by this agent from the synthetic brief. No general autonomous PDF/Word/OCR interpretation or arbitrary MEP design is claimed. The generated PDF from this workflow run has not been separately visually reviewed; earlier plot inspections do not count for this file's visual gate.
+
+## Document intake milestone
+
+Added read-only PDF/DOCX extraction and source locators. Parser fixtures cover Chinese Word text, table cells, headers/footnotes, tracked changes, two-page PDF text, unreadable pages, empty briefs and a Word requirement driving electrical execution. Explicit document review is required; blockers cannot be cleared merely by supplying a note.
+
+Actual offline OCR ran on the prior synthetic AutoCAD PDF: three regions recognized; rendered image was inspected and OCR symbol/slash errors retained. Source PDF and page image bindings were verified; changed image/source hashes were rejected. The OCR sidecar, image and review observation are retained at docs/evidence/document-intake. Uncorrected OCR is not accepted as equipment IDs.
+
+Test invocation with BSA_TEST_OCR_INPUT enabled: 19 discovered, 17 passed, 2 CAD/energy engine tests skipped. Prior real engine evidence remains independent. No broad Chinese OCR, handwriting, equation or arbitrary drawing-understanding claim is made.
+
+Combined regression after the final OCR-plan bindings: BSA_TEST_AUTOCAD, BSA_TEST_ENERGYPLUS and BSA_TEST_OCR_INPUT enabled together; all **19 tests passed, no skips**. Updated intake skill passed the host skill validator. Source PDF is retained alongside the OCR evidence for independent read-only reproduction.

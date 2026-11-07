@@ -1,0 +1,126 @@
+{
+  "brief": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\native-office-v3\\devices.pdf",
+  "brief_sha256": "7c0e3832516f1895adf9723751e7ea5e23134fd73ed0c3dfe7acfdccd74bc6cb",
+  "format": "pdf",
+  "extractor_version": "1",
+  "passages": [
+    {
+      "text": "L1 / LGT-1",
+      "page": 1,
+      "ocr_line": 1,
+      "confidence": 0.9205698192119598,
+      "pixel_box": [
+        [
+          147.47732543945312,
+          697.4999389648438
+        ],
+        [
+          629.1658325195312,
+          661.5681762695312
+        ],
+        [
+          636.5927734375,
+          764.0795288085938
+        ],
+        [
+          154.90423583984375,
+          800.0113525390625
+        ]
+      ],
+      "image_sha256": "ab4197aa0dc1a597423f6883dfd5e1b0a2fccda3998766f062f6b7b22d851498",
+      "ocr_sidecar_sha256": "65fecc03134051aedbe688a52c65dc36bd76591d94cd15df607ca364047c9143",
+      "id": "P001"
+    },
+    {
+      "text": "○L2／LGT-1",
+      "page": 1,
+      "ocr_line": 2,
+      "confidence": 0.9068564739492204,
+      "pixel_box": [
+        [
+          793.6189575195312,
+          697.4999389648438
+        ],
+        [
+          1289.100341796875,
+          660.5113525390625
+        ],
+        [
+          1296.5272216796875,
+          760.9090576171875
+        ],
+        [
+          801.0458984375,
+          797.897705078125
+        ]
+      ],
+      "image_sha256": "ab4197aa0dc1a597423f6883dfd5e1b0a2fccda3998766f062f6b7b22d851498",
+      "ocr_sidecar_sha256": "65fecc03134051aedbe688a52c65dc36bd76591d94cd15df607ca364047c9143",
+      "id": "P002"
+    },
+    {
+      "text": "L3 ／ LGT-1",
+      "page": 1,
+      "ocr_line": 3,
+      "confidence": 0.8858991265296936,
+      "pixel_box": [
+        [
+          1440.8216552734375,
+          699.6135864257812
+        ],
+        [
+          1932.05908203125,
+          663.6817626953125
+        ],
+        [
+          1939.4859619140625,
+          759.8522338867188
+        ],
+        [
+          1448.24853515625,
+          795.7840576171875
+        ]
+      ],
+      "image_sha256": "ab4197aa0dc1a597423f6883dfd5e1b0a2fccda3998766f062f6b7b22d851498",
+      "ocr_sidecar_sha256": "65fecc03134051aedbe688a52c65dc36bd76591d94cd15df607ca364047c9143",
+      "id": "P003"
+    }
+  ],
+  "issues": [
+    {
+      "id": "I001",
+      "code": "pdf_layout",
+      "severity": "review",
+      "message": "Review rendering for reading order, tables, equations, figures and drawing notes",
+      "locator": {
+        "page": 1
+      }
+    },
+    {
+      "id": "I002",
+      "code": "pdf_annotations",
+      "severity": "review",
+      "message": "Annotations or form widgets may contain additional requirements",
+      "locator": {
+        "page": 1
+      }
+    },
+    {
+      "code": "ocr_review",
+      "severity": "review",
+      "locator": {
+        "page": 1
+      },
+      "message": "Check each OCR line, symbol, decimal and unit against the rendered page; confidence is not correctness",
+      "id": "I003"
+    }
+  ],
+  "coverage_status": "needs review",
+  "page_count": 1,
+  "supporting_files": [
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\document-ocr\\ocr.json",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\document-ocr\\page-0001.png"
+  ],
+  "interpretation_status": "pending host-agent interpretation",
+  "requirements": []
+}

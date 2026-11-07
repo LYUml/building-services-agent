@@ -10,7 +10,9 @@ requires-python = ">=3.11"
 dependencies = ["ezdxf==1.4.5"]
 
 [project.optional-dependencies]
-dev = ["PyYAML==6.0.3"]
+dev = ["PyYAML==6.0.3", "pypdf==7.0.0"]
+documents = ["pypdf==7.0.0"]
+ocr = ["pypdf==7.0.0", "rapidocr_onnxruntime==1.4.4", "onnxruntime==1.31.1", "opencv-python==5.0.0.93"]
 energy = ["openstudio==3.11.0"]
 
 [project.scripts]
