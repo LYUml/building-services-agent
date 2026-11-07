@@ -1,0 +1,280 @@
+{
+  "comparison": [
+    {
+      "environment": "SYNTHETIC SUMMER",
+      "variable": "Lights Electricity Rate",
+      "peak_change_kw": -0.24,
+      "period_change_kwh": -5.76
+    },
+    {
+      "environment": "SYNTHETIC SUMMER",
+      "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+      "peak_change_kw": -0.24000000000619925,
+      "period_change_kwh": -5.7600000007938945
+    },
+    {
+      "environment": "SYNTHETIC SUMMER",
+      "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+      "peak_change_kw": 0.0,
+      "period_change_kwh": 2.2026824808563106e-16
+    },
+    {
+      "environment": "SYNTHETIC WINTER",
+      "variable": "Lights Electricity Rate",
+      "peak_change_kw": -0.24,
+      "period_change_kwh": -5.76
+    },
+    {
+      "environment": "SYNTHETIC WINTER",
+      "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+      "peak_change_kw": -0.26645079905561886,
+      "period_change_kwh": -2.2531507556311037
+    },
+    {
+      "environment": "SYNTHETIC WINTER",
+      "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+      "peak_change_kw": 0.27195994907150445,
+      "period_change_kwh": 2.801146181077633
+    }
+  ],
+  "engine": "EnergyPlus, Version 25.2.0-cf7368216c",
+  "engine_sha256": "51715987663666eaff1c8d3bd6ac2d7fe0486d8bc93673eea87c6912a79103f0",
+  "input_sha256": "89d32de7b21d56de54c99f6c9435c12ea582d25d7e0a14b97ac6af7983d3b294",
+  "input_unchanged": true,
+  "analysis_scope": "Two synthetic design days, not annual energy; ideal loads are thermal demand, not plant electricity",
+  "assumptions": [
+    "All inputs explicitly synthetic for integration verification, not Hong Kong design weather or compliance",
+    "No windows, occupants, equipment, ventilation or infiltration; adiabatic floors; always-on lights; 101325 Pa, wind 3 m/s, clear sky; added 0.1 m mass layer k=0.5 W/mK, rho=800 kg/m3, cp=1000 J/kgK"
+  ],
+  "design_accepted": false,
+  "results": {
+    "baseline": {
+      "metadata": {
+        "openstudio_version": "3.11.0",
+        "energyplus_version": "25.2.0",
+        "floor_area_m2": 40.0,
+        "thermal_zones": 2,
+        "matched_surface_count": 2,
+        "lighting_w_m2": 12,
+        "translation_warnings": [
+          "Both surfaces 'Surface 8', and 'Surface 4' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy."
+        ]
+      },
+      "metrics": [
+        {
+          "variable": "Lights Electricity Rate",
+          "key": "LIGHTS 1",
+          "units": "W",
+          "peak": 240.0,
+          "integral_j": 41472000.0,
+          "samples": 48
+        },
+        {
+          "variable": "Lights Electricity Rate",
+          "key": "LIGHTS 2",
+          "units": "W",
+          "peak": 240.0,
+          "integral_j": 41472000.0,
+          "samples": 48
+        },
+        {
+          "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+          "key": "ZONE 1 IDEAL LOADS AIR SYSTEM",
+          "units": "W",
+          "peak": 151.81049151809316,
+          "integral_j": 3093567.2629163656,
+          "samples": 48
+        },
+        {
+          "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+          "key": "ZONE 1 IDEAL LOADS AIR SYSTEM",
+          "units": "W",
+          "peak": 874.0819091181186,
+          "integral_j": 54524650.95367601,
+          "samples": 48
+        },
+        {
+          "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+          "key": "ZONE 2 IDEAL LOADS AIR SYSTEM",
+          "units": "W",
+          "peak": 94.91597124378063,
+          "integral_j": 1096072.5148964918,
+          "samples": 48
+        },
+        {
+          "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+          "key": "ZONE 2 IDEAL LOADS AIR SYSTEM",
+          "units": "W",
+          "peak": 802.8811955986911,
+          "integral_j": 52044568.343767494,
+          "samples": 48
+        }
+      ],
+      "whole_building": [
+        {
+          "environment": "SYNTHETIC SUMMER",
+          "variable": "Lights Electricity Rate",
+          "coincident_peak_kw": 0.48,
+          "simulated_period_kwh": 11.52,
+          "samples": 24
+        },
+        {
+          "environment": "SYNTHETIC SUMMER",
+          "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+          "coincident_peak_kw": 1.6726573574320738,
+          "simulated_period_kwh": 25.69562997142691,
+          "samples": 24
+        },
+        {
+          "environment": "SYNTHETIC SUMMER",
+          "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+          "coincident_peak_kw": 8.526512829121202e-17,
+          "simulated_period_kwh": 2.2737367544323206e-16,
+          "samples": 24
+        },
+        {
+          "environment": "SYNTHETIC WINTER",
+          "variable": "Lights Electricity Rate",
+          "coincident_peak_kw": 0.48,
+          "simulated_period_kwh": 11.52,
+          "samples": 24
+        },
+        {
+          "environment": "SYNTHETIC WINTER",
+          "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+          "coincident_peak_kw": 0.6504541220104393,
+          "simulated_period_kwh": 3.906930944529617,
+          "samples": 24
+        },
+        {
+          "environment": "SYNTHETIC WINTER",
+          "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+          "coincident_peak_kw": 0.2467264627618738,
+          "simulated_period_kwh": 1.163788827170238,
+          "samples": 24
+        }
+      ],
+      "error_log_sha256": "a0c4e4a302d00944ed9c6a0a0487f2fedaaac08be5e6ed475701a3852ab8e746",
+      "warnings": "Program Version,EnergyPlus, Version 25.2.0-cf7368216c, YMD=2026.11.08 03:49,\n   ************* Beginning Zone Sizing Calculations\n   ************* Testing Individual Branch Integrity\n   ************* All Branches passed integrity testing\n   ************* Testing Individual Supply Air Path Integrity\n   ************* All Supply Air Paths passed integrity testing\n   ************* Testing Individual Return Air Path Integrity\n   ************* All Return Air Paths passed integrity testing\n   ************* No node connection errors were found.\n   ************* Beginning Simulation\n   ************* Simulation Error Summary *************\n   ************* There are 3 unused schedules in input.\n   ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.\n   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.\n   ************* EnergyPlus Sizing Error Summary. During Sizing: 0 Warning; 0 Severe Errors.\n   ************* EnergyPlus Completed Successfully-- 0 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  0.10sec\n",
+      "artifacts": {
+        "eplusout.sql": "3846c8a1a2e8a19e547b4b09d1e411761c066609f27102aa352678863aceaf89",
+        "model.idf": "e8506fa0468c96011577ce288e8132ea7eaf68e56fd96487e66768573a295ed2",
+        "model.osm": "903bbba19877d17136e77dccff9c65688cb7cbc7a2f3daf1d353a20e51d9030e"
+      }
+    },
+    "variant": {
+      "metadata": {
+        "openstudio_version": "3.11.0",
+        "energyplus_version": "25.2.0",
+        "floor_area_m2": 40.0,
+        "thermal_zones": 2,
+        "matched_surface_count": 2,
+        "lighting_w_m2": 6,
+        "translation_warnings": [
+          "Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy."
+        ]
+      },
+      "metrics": [
+        {
+          "variable": "Lights Electricity Rate",
+          "key": "LIGHTS 1",
+          "units": "W",
+          "peak": 120.0,
+          "integral_j": 20736000.0,
+          "samples": 48
+        },
+        {
+          "variable": "Lights Electricity Rate",
+          "key": "LIGHTS 2",
+          "units": "W",
+          "peak": 120.0,
+          "integral_j": 20736000.0,
+          "samples": 48
+        },
+        {
+          "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+          "key": "ZONE 1 IDEAL LOADS AIR SYSTEM",
+          "units": "W",
+          "peak": 276.43034404912964,
+          "integral_j": 8406332.045128692,
+          "samples": 48
+        },
+        {
+          "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+          "key": "ZONE 1 IDEAL LOADS AIR SYSTEM",
+          "units": "W",
+          "peak": 754.0819091175956,
+          "integral_j": 40091081.562835515,
+          "samples": 48
+        },
+        {
+          "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+          "key": "ZONE 2 IDEAL LOADS AIR SYSTEM",
+          "units": "W",
+          "peak": 242.25606778424861,
+          "integral_j": 5867433.984563643,
+          "samples": 48
+        },
+        {
+          "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+          "key": "ZONE 2 IDEAL LOADS AIR SYSTEM",
+          "units": "W",
+          "peak": 682.8811955931488,
+          "integral_j": 37630795.01147798,
+          "samples": 48
+        }
+      ],
+      "whole_building": [
+        {
+          "environment": "SYNTHETIC SUMMER",
+          "variable": "Lights Electricity Rate",
+          "coincident_peak_kw": 0.24,
+          "simulated_period_kwh": 5.76,
+          "samples": 24
+        },
+        {
+          "environment": "SYNTHETIC SUMMER",
+          "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+          "coincident_peak_kw": 1.4326573574258745,
+          "simulated_period_kwh": 19.935629970633016,
+          "samples": 24
+        },
+        {
+          "environment": "SYNTHETIC SUMMER",
+          "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+          "coincident_peak_kw": 8.526512829121202e-17,
+          "simulated_period_kwh": 4.476419235288631e-16,
+          "samples": 24
+        },
+        {
+          "environment": "SYNTHETIC WINTER",
+          "variable": "Lights Electricity Rate",
+          "coincident_peak_kw": 0.24,
+          "simulated_period_kwh": 5.76,
+          "samples": 24
+        },
+        {
+          "environment": "SYNTHETIC WINTER",
+          "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+          "coincident_peak_kw": 0.3840033229548204,
+          "simulated_period_kwh": 1.6537801888985135,
+          "samples": 24
+        },
+        {
+          "environment": "SYNTHETIC WINTER",
+          "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+          "coincident_peak_kw": 0.5186864118333783,
+          "simulated_period_kwh": 3.964935008247871,
+          "samples": 24
+        }
+      ],
+      "error_log_sha256": "a0c4e4a302d00944ed9c6a0a0487f2fedaaac08be5e6ed475701a3852ab8e746",
+      "warnings": "Program Version,EnergyPlus, Version 25.2.0-cf7368216c, YMD=2026.11.08 03:49,\n   ************* Beginning Zone Sizing Calculations\n   ************* Testing Individual Branch Integrity\n   ************* All Branches passed integrity testing\n   ************* Testing Individual Supply Air Path Integrity\n   ************* All Supply Air Paths passed integrity testing\n   ************* Testing Individual Return Air Path Integrity\n   ************* All Return Air Paths passed integrity testing\n   ************* No node connection errors were found.\n   ************* Beginning Simulation\n   ************* Simulation Error Summary *************\n   ************* There are 3 unused schedules in input.\n   ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.\n   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.\n   ************* EnergyPlus Sizing Error Summary. During Sizing: 0 Warning; 0 Severe Errors.\n   ************* EnergyPlus Completed Successfully-- 0 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  0.10sec\n",
+      "artifacts": {
+        "eplusout.sql": "33addb6a4b5fa59ab22bbe42167359f6456f70bdeefb881188949d7cdf10c1dc",
+        "model.idf": "ee7bf6ecceed244740e5e2ca275750e95d830e70fbea171c9eb90da4aff0f9d2",
+        "model.osm": "daaa18ebd8ae293e98e50fd3ceecdf82767a0e1fc539dab9b2eda0888b72a018"
+      }
+    }
+  }
+}

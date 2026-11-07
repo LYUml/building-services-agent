@@ -16,3 +16,10 @@ The Python engine, DXF integration wrapper and skills are original code authored
 
 - **ezdxf 1.4.5**, MIT, https://github.com/mozman/ezdxf — used as an installed library for DXF document writing and independent reload checks; not vendored. Its distribution retains upstream license notices. The initial handwritten R12 writer was replaced after inspection showed missing explicit metre units/layer table declarations. No DWG fidelity claim is inferred.
 - **PyYAML 6.0.3**, MIT, https://github.com/yaml/pyyaml — development-only prerequisite for the host skill validator, not used by runtime calculations.
+
+## Executed energy integrations
+
+- **OpenStudio(R) SDK 3.11.0** installed as an optional Python library. Original two-zone authoring code calls the official SDK and its ForwardTranslator. It targets EnergyPlus 25.2.0; matching was checked at runtime. This project is not an endorsed or renamed version of OpenStudio.
+- **EnergyPlus 25.2.0-cf7368216c**, official Windows x64 portable release, SHA256 `4136901f7e1708f6536d84278e26ad88b414c7efc905febf6d49c2539a36f3cd` (archive, verified against GitHub asset digest). Actual engine executes translated IDFs with ExpandObjects; binary package stays ignored under tools. License retained at third_party/licenses/energyplus.txt.
+- **openstudio-mcp**, commit `9f8b6bd0b5a58fd4f97cfd8b9f7393f222a1bb43`, installed from its unmodified checkout; its OpenStudio license is retained at third_party/licenses/openstudio-mcp.txt. Stdio MCP initialization, tool discovery, model loading, space and zone queries were executed against our generated model. Simulation in this milestone uses our SDK/engine adapter, not the upstream simulation tool.
+- Observed upstream limitation: get_building_info returns structured `ok:false` for this unoccupied model (division by zero in floorAreaPerPerson). We do not insert artificial people to hide it; the probe uses space/zone queries and treats structured failures as failures. Windows native execution does not provide the upstream Linux sandbox; generated-code tools are disabled for this read-only probe.

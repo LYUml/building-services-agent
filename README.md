@@ -34,3 +34,15 @@ $env:BSA_TEST_AUTOCAD='1'
 ```
 
 Requires a licensed local AutoCAD 2027 installation at the default path (or pass `--exe`). Core Console runs on generated copies in isolated processes, never attaching to the GUI session. The adapter saves DWG, reopens it in a second process, checks CIRCLE/TEXT geometry, layers, labels and metre units, then plots a padded fit-to-page PDF. It refuses output overwrite. `native-verification.json` keeps visual review pending until a separate actual image inspection is recorded. This restricted overlay workflow does not yet merge existing base drawings, produce fixed-scale sheets or validate all CAD entity types.
+
+## Real energy-engine example
+
+```powershell
+.venv/Scripts/python scripts/setup_energy.py
+.venv/Scripts/python -m bsa.energy examples/two-zone-energy/project.json --out runs/energy --energyplus tools/energyplus-25.2/EnergyPlus-25.2.0-cf7368216c-Windows-x86_64/energyplus.exe
+.venv/Scripts/python scripts/probe_openstudio_mcp.py runs/energy/baseline/model.osm
+```
+
+Bootstrap is Windows x64 only, verifies the portable engine archive checksum and uses an inspected upstream MCP commit. It changes only this workspace. `pip install -e ".[energy]"` installs the optional SDK when an engine is already available.
+
+The current energy adapter is a two-zone design-day workflow: OSM + IDF creation, shared-wall matching, real EnergyPlus execution, SQL results and baseline/variant comparison. All example inputs are synthetic. It reports coincident thermal peaks and simulated-period quantities separately from lighting electricity. It does **not** report annual kWh, EUI, plant electricity or a finished HVAC layout. Original input and engine/artifact hashes, translation warnings and simulation logs are retained. The MCP probe exercises upstream model reading; it does not claim upstream simulation execution.

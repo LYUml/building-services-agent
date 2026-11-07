@@ -1,0 +1,89 @@
+{
+  "tools": [
+    "get_building_info",
+    "load_osm_model",
+    "list_spaces",
+    "list_thermal_zones"
+  ],
+  "load_osm_model": {
+    "meta": null,
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"ok\":true,\"osm_path\":\"C:\\\\Users\\\\lyuml-win\\\\Desktop\\\\building-services-agent\\\\runs\\\\energy-two-zone-v6\\\\baseline\\\\model.osm\",\"building_name\":\"Synthetic two-zone design-day lighting comparison\",\"spaces\":2,\"thermal_zones\":2,\"openstudio_version\":\"3.11.0\",\"message\":\"Model loaded successfully: Synthetic two-zone design-day lighting comparison\"}",
+        "annotations": null,
+        "meta": null
+      }
+    ],
+    "structuredContent": {
+      "ok": true,
+      "osm_path": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\energy-two-zone-v6\\baseline\\model.osm",
+      "building_name": "Synthetic two-zone design-day lighting comparison",
+      "spaces": 2,
+      "thermal_zones": 2,
+      "openstudio_version": "3.11.0",
+      "message": "Model loaded successfully: Synthetic two-zone design-day lighting comparison"
+    },
+    "isError": false
+  },
+  "list_spaces": {
+    "meta": null,
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"ok\":true,\"count\":2,\"spaces\":[{\"handle\":\"{9c36f911-6606-49b8-a6c9-222f53549c40}\",\"name\":\"Zone 1 space\",\"floor_area_m2\":20.0,\"thermal_zone\":\"Zone 1\"},{\"handle\":\"{b69e435e-692d-4314-ab47-c6c995b04acb}\",\"name\":\"Zone 2 space\",\"floor_area_m2\":20.0,\"thermal_zone\":\"Zone 2\"}]}",
+        "annotations": null,
+        "meta": null
+      }
+    ],
+    "structuredContent": {
+      "ok": true,
+      "count": 2,
+      "spaces": [
+        {
+          "handle": "{9c36f911-6606-49b8-a6c9-222f53549c40}",
+          "name": "Zone 1 space",
+          "floor_area_m2": 20.0,
+          "thermal_zone": "Zone 1"
+        },
+        {
+          "handle": "{b69e435e-692d-4314-ab47-c6c995b04acb}",
+          "name": "Zone 2 space",
+          "floor_area_m2": 20.0,
+          "thermal_zone": "Zone 2"
+        }
+      ]
+    },
+    "isError": false
+  },
+  "list_thermal_zones": {
+    "meta": null,
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"ok\":true,\"count\":2,\"thermal_zones\":[{\"handle\":\"{565ed708-7d19-473c-bbcd-519c3b36393f}\",\"name\":\"Zone 1\",\"floor_area_m2\":20.0,\"num_equipment\":0},{\"handle\":\"{b8b425f4-bf6c-49b1-9e87-dda8dcf39b61}\",\"name\":\"Zone 2\",\"floor_area_m2\":20.0,\"num_equipment\":0}]}",
+        "annotations": null,
+        "meta": null
+      }
+    ],
+    "structuredContent": {
+      "ok": true,
+      "count": 2,
+      "thermal_zones": [
+        {
+          "handle": "{565ed708-7d19-473c-bbcd-519c3b36393f}",
+          "name": "Zone 1",
+          "floor_area_m2": 20.0,
+          "num_equipment": 0
+        },
+        {
+          "handle": "{b8b425f4-bf6c-49b1-9e87-dda8dcf39b61}",
+          "name": "Zone 2",
+          "floor_area_m2": 20.0,
+          "num_equipment": 0
+        }
+      ]
+    },
+    "isError": false
+  }
+}

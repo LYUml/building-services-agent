@@ -11,6 +11,7 @@ dependencies = ["ezdxf==1.4.5"]
 
 [project.optional-dependencies]
 dev = ["PyYAML==6.0.3"]
+energy = ["openstudio==3.11.0"]
 
 [project.scripts]
 bsa = "bsa.cli:main"
