@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "brief": "workflow-brief.md",
+  "brief_sha256": "82787cf52ef9dda5e1db3d85a680690937ad400186e34c3f821af4766fd50f4c",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement",
+    "P004": "requirement",
+    "P005": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "electrical",
+      "kind": "electrical",
+      "project": "office-electrical/project.json"
+    },
+    {
+      "id": "native",
+      "kind": "native_cad",
+      "depends_on": "electrical"
+    },
+    {
+      "id": "thermal",
+      "kind": "energy",
+      "project": "two-zone-energy/project.json"
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "description": "Inspect the generated PDF and verify requirement-to-artifact coverage; do not infer acceptance from engine success"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R001",
+      "passage": "P002",
+      "quote": "Use office-electrical/project.json as the explicitly synthetic electrical scenario. Calculate the circuit design current and conditional ampacity/voltage-drop checks, and create an editable device overlay and calculation report.",
+      "task": "electrical",
+      "acceptance": "Use office-electrical/project.json as the explicitly synthetic electrical scenario. Calculate the circuit design current and conditional ampacity/voltage-drop checks, and create an editable device overlay and calculation report."
+    },
+    {
+      "id": "R002",
+      "passage": "P003",
+      "quote": "Convert that overlay to native DWG in AutoCAD 2027, independently reopen it and reconcile the three device circles and labels. Generate a padded schematic PDF; this example does not require a fixed engineering scale.",
+      "task": "native",
+      "acceptance": "Convert that overlay to native DWG in AutoCAD 2027, independently reopen it and reconcile the three device circles and labels. Generate a padded schematic PDF; this example does not require a fixed engineering scale."
+    },
+    {
+      "id": "R003",
+      "passage": "P004",
+      "quote": "Use two-zone-energy/project.json for the synthetic thermal scenario. Build two adjacent 20 m2 thermal zones, run the two given design days in EnergyPlus and compare the baseline 12 W/m2 lighting with the 6 W/m2 variant. Keep thermal loads separate from lighting electricity; do not report annual energy.",
+      "task": "thermal",
+      "acceptance": "Use two-zone-energy/project.json for the synthetic thermal scenario. Build two adjacent 20 m2 thermal zones, run the two given design days in EnergyPlus and compare the baseline 12 W/m2 lighting with the 6 W/m2 variant. Keep thermal loads separate from lighting electricity; do not report annual energy."
+    },
+    {
+      "id": "R004",
+      "passage": "P005",
+      "quote": "Review the PDF visually and check the complete requirement-to-artifact matrix. Electrical fault protection, real project code compliance and physical HVAC routing are outside this synthetic integration brief and must not be claimed as verified.",
+      "task": "review",
+      "acceptance": "Review the PDF visually and check the complete requirement-to-artifact matrix. Electrical fault protection, real project code compliance and physical HVAC routing are outside this synthetic integration brief and must not be claimed as verified."
+    }
+  ]
+}

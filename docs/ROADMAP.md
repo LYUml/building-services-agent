@@ -4,7 +4,7 @@ The requested end state is reusable automation from a requirement document and s
 
 | Workstream | Acceptance evidence | Current state |
 |---|---|---|
-| Requirements intake | brief page/section to deliverable and verification mapping; unresolved data visible | skill procedure; automatic parsing pending |
+| Requirements intake | brief page/section to deliverable and verification mapping; unresolved data visible | text passage indexing, source-linked host-AI plan validation and tool orchestration implemented; PDF/Word/OCR and semantic extraction coverage pending |
 | Shared project data | validated identities, units, references and input provenance | electrical JSON implemented |
 | Electrical | counts reconcile, independent formula examples, cable/protection and fault checks | basic conditional checks; fault checks pending |
 | Native CAD | preserve supplied base, units/sample proof, native DWG reopen and inspected PDF | synthetic overlay native save/reopen/plot verified; existing base and fixed-scale sheets pending |
@@ -12,7 +12,7 @@ The requested end state is reusable automation from a requirement document and s
 | HVAC/energy | actual engine execution, geometry/inputs QA, heat/electric outputs separate | OpenStudio/EnergyPlus synthetic two-zone design-day comparison executed; MCP read queries verified; annual/weather and broad HVAC authoring pending |
 | Lighting | photometry and calculation grid with target checks | Radiance/Honeybee candidate; not executed |
 | Plumbing/fire | hydraulic calculations and domain-specific applicable rules | pending |
-| Delivery | input hashes unchanged, output counts match, visual checks with evidence | hashes and device count check implemented; visual gate pending |
+| Delivery | input hashes unchanged, output counts match, visual checks with evidence | workflow input/output integrity, source locators and task evidence matrix implemented; full acceptance gates pending |
 | Reuse | second independent brief run, evidence of adaptation without copied assumptions | pending |
 
 ## Next sequence

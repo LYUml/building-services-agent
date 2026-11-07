@@ -31,3 +31,11 @@ Test run: 8 discovered; 7 passed (including actual engine baseline/variant test)
 Annual weather simulation, broad HVAC system selection, existing-building input fidelity, lighting photometry, hydraulic design, brief-to-data automation and final engineering acceptance remain incomplete.
 
 Combined verification: both BSA_TEST_AUTOCAD and BSA_TEST_ENERGYPLUS enabled; all **8 tests passed with no skips**. The pinned setup script was executed against existing local artifacts and confirmed archive checksum and clean upstream commit before reinstalling the local MCP package. A fresh-machine download path is implemented but not independently tested on another machine.
+
+## Requirement orchestration milestone
+
+Executed examples/workflow-plan.json from a new synthetic brief: electrical calculations/overlay, actual AutoCAD native conversion/reopen/PDF generation and actual EnergyPlus baseline/variant all succeeded. The required manual review remained pending. Every requirement acceptance remains pending review; no claim is made that tool success proves the natural-language acceptance text. The CLI returns nonzero for the pending manual task, preserving the report.
+
+Combined test run with both native and energy engine flags: **12 tests passed**. Tests cover exact-source quote enforcement, stale brief detection, paragraph coverage, path traversal rejection, task identity restrictions, missing engine handling and source locators, in addition to previous native/energy behavior. Subsequent integrity-verifier tests passed (10 passed, 2 engine tests skipped in that focused invocation); changing a generated DXF was detected. `verify runs/workflow-demo-v2` passed input and task-artifact hash checks. Archived workflow report: docs/evidence/workflow/workflow.json.
+
+The plan was authored by this agent from the synthetic brief. No general autonomous PDF/Word/OCR interpretation or arbitrary MEP design is claimed. The generated PDF from this workflow run has not been separately visually reviewed; earlier plot inspections do not count for this file's visual gate.
