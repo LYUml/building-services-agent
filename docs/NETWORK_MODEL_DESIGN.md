@@ -2,6 +2,8 @@
 
 This adapter connects NETWORK_BINDING.md and NETWORK_DESIGN.md. It derives baseline geometry from a source model, applies explicit outside-envelope constraints, runs conditional sizing, authors a new model and verifies saved IFC against the original endpoints and selected pressure calculation.
 
+When source segments explicitly opt into CIRCULAR_GEOMETRY.md, their straight hollow wall bodies are preserved and rebuilt from the chosen inner/outside dimensions. Unmarked equipment stays envelopes. Circular profiles, mesh volumes/topology and outward port axes are then additionally verified by IFC authoring; catalogue geometry is still used for space containment. The older envelope-only fixture below retains its declared scope.
+
 ```powershell
 python -m pip install -e ".[network,bim]"
 python -m bsa.workflow execute examples/network-model-design/plan.json --out runs/model-design

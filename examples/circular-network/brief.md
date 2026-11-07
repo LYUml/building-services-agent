@@ -1,0 +1,5 @@
+# Synthetic hollow circular network geometry
+
+Refine the supplied synthetic straight duct into an explicit hollow circular wall using its independently supplied 0.40 m internal and 0.50 m outside diameters. Preserve original world endpoints, connections and project object identities. Generate baseline IFC4, select a space-contained size from the supplied catalogue, and rebuild the chosen 0.20 m internal / 0.22 m outside wall in a separate model version. Reopen IFC and check the hollow profile, wall length, outward port axes, closed wall mesh with a through bore, and wall volume against an independent annular-cylinder formula; reconcile the saved model with the pressure calculation.
+
+Keep source hashes unchanged and retain failed size/geometry choices. Other equipment remains explicitly modelled as envelopes. Material certification, fittings, supports, insulation, clearance/clashes, BIM-viewer visual acceptance and complete engineering acceptance remain pending; these are synthetic geometric and prescribed-flow checks.

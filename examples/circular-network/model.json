@@ -1,0 +1,148 @@
+{
+  "name": "Synthetic explicit circular wall refinement",
+  "geometry_scope": "axis-aligned envelopes and explicit straight circular walls",
+  "sources": {
+    "demo": "Synthetic ventilation topology and dimensions for adapter verification; not calculated duct sizing or a manufacturer model",
+    "wall": "Synthetic independently specified 0.40 m bore and 0.50 m outside diameter; uniform straight wall only, no manufacturer/material certification"
+  },
+  "spaces": [
+    {
+      "id": "PlantRoom",
+      "origin_m": [
+        0,
+        0,
+        0
+      ],
+      "size_m": [
+        8,
+        6,
+        3
+      ],
+      "source": "demo"
+    }
+  ],
+  "systems": [
+    {
+      "id": "SUPPLY-AIR",
+      "predefined_type": "VENTILATION",
+      "source": "demo"
+    }
+  ],
+  "devices": [
+    {
+      "id": "FAN1",
+      "ifc_class": "IfcFan",
+      "origin_m": [
+        0.5,
+        2,
+        2
+      ],
+      "size_m": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "space": "PlantRoom",
+      "system": "SUPPLY-AIR",
+      "source": "demo",
+      "ports": [
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            0.5,
+            0.25,
+            0.25
+          ],
+          "source": "demo"
+        }
+      ]
+    },
+    {
+      "id": "DUCT1",
+      "ifc_class": "IfcDuctSegment",
+      "origin_m": [
+        1,
+        2,
+        2
+      ],
+      "size_m": [
+        3,
+        0.5,
+        0.5
+      ],
+      "space": "PlantRoom",
+      "system": "SUPPLY-AIR",
+      "source": "wall",
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0,
+            0.25,
+            0.25
+          ],
+          "source": "demo"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            3,
+            0.25,
+            0.25
+          ],
+          "source": "demo"
+        }
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.4,
+        "OutsideDiameter_m": 0.5
+      },
+      "body_shape": "straight circular wall"
+    },
+    {
+      "id": "AT1",
+      "ifc_class": "IfcAirTerminal",
+      "origin_m": [
+        4,
+        2,
+        2
+      ],
+      "size_m": [
+        0.4,
+        0.5,
+        0.5
+      ],
+      "space": "PlantRoom",
+      "system": "SUPPLY-AIR",
+      "source": "demo",
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0,
+            0.25,
+            0.25
+          ],
+          "source": "demo"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "FAN1.out",
+      "to": "DUCT1.in",
+      "source": "demo"
+    },
+    {
+      "from": "DUCT1.out",
+      "to": "AT1.in",
+      "source": "demo"
+    }
+  ],
+  "project_uuid": "c85f0082-89e6-47e6-8497-d49eb928b533"
+}

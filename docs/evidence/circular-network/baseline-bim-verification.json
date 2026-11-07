@@ -1,0 +1,114 @@
+{
+  "ifcopenshell_version": "0.8.5",
+  "input_sha256": "6f310da0c6741cfc2bfd15e2f9ea94bcc2e2ed9515e782d977417eefd6e39c0a",
+  "ifc_sha256": "2738141788fb7e7fa9e893f01974acc402bae1356d50098f90c7e68883e99144",
+  "checks": {
+    "schema_valid": true,
+    "device_count_match": true,
+    "connection_count_match": true,
+    "connection_endpoints_match": true,
+    "metre_units": true,
+    "space_count_match": true,
+    "source_unchanged": true
+  },
+  "devices": [
+    {
+      "id": "FAN1",
+      "ifc_class": "IfcFan",
+      "global_id": "0W3lNmxFPNbfaDOocb3wmC",
+      "space": "PlantRoom",
+      "systems": [
+        "SUPPLY-AIR"
+      ],
+      "bounds_m": [
+        [
+          0.5,
+          2.0,
+          2.0
+        ],
+        [
+          1.0,
+          2.5,
+          2.5
+        ]
+      ],
+      "body_shape": "bounding envelope",
+      "circular_checks": null
+    },
+    {
+      "id": "DUCT1",
+      "ifc_class": "IfcDuctSegment",
+      "global_id": "2_MFqkx75UluPaevYMytDC",
+      "space": "PlantRoom",
+      "systems": [
+        "SUPPLY-AIR"
+      ],
+      "bounds_m": [
+        [
+          1.0,
+          2.0000031182258295,
+          2.0000007795576726
+        ],
+        [
+          4.0,
+          2.5,
+          2.4999992204423274
+        ]
+      ],
+      "body_shape": "straight circular wall",
+      "circular_checks": {
+        "analytic_wall_volume_m3": 0.21205750411731095,
+        "mesh_wall_volume_m3": 0.21205397749724553,
+        "relative_volume_error": 1.6630489357586864e-05,
+        "saved_inner_diameter_m": 0.4,
+        "saved_outside_diameter_m": 0.5,
+        "saved_wall_thickness_m": 0.04999999999999999,
+        "saved_length_m": 3.0,
+        "volume_relative_tolerance": 0.001,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "saved_diameter_metadata_pass": true,
+        "body_shape": "straight circular wall",
+        "linear_deflection_m": 1e-05,
+        "angular_deflection": 0.02,
+        "bounds_tolerance_m": 2e-05,
+        "outward_port_axes_pass": true
+      }
+    },
+    {
+      "id": "AT1",
+      "ifc_class": "IfcAirTerminal",
+      "global_id": "0nYWb1ZsrIggrppBraO6Zz",
+      "space": "PlantRoom",
+      "systems": [
+        "SUPPLY-AIR"
+      ],
+      "bounds_m": [
+        [
+          4.0,
+          2.0,
+          2.0
+        ],
+        [
+          4.4,
+          2.5,
+          2.5
+        ]
+      ],
+      "body_shape": "bounding envelope",
+      "circular_checks": null
+    }
+  ],
+  "model_checks_pass": true,
+  "design_accepted": false,
+  "geometry_scope": "axis-aligned envelopes and explicit straight circular walls",
+  "pending": [
+    "visual BIM review",
+    "manufacturer shape fidelity",
+    "physical route/clash checks",
+    "domain performance and code acceptance"
+  ],
+  "connection_scope": "logical topology only; no physical route is inferred between separated ports",
+  "identity_scope": "stable namespace/class/input-ID object and port GUIDs",
+  "project_uuid": "c85f0082-89e6-47e6-8497-d49eb928b533"
+}

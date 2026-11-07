@@ -1,4 +1,4 @@
-"""Size a bound network and author a new source-backed IFC envelope model."""
+"""Size a bound network and author new source-backed IFC envelope/wall bodies."""
 import argparse
 import copy
 import json
@@ -83,9 +83,11 @@ def verify_saved(original,ifc_path,binding,choices,catalogue,geometry):
     import ifcopenshell.util.system as system
     import ifcopenshell.util.placement as placement
     import numpy as np
+    from . import circular_geometry as circular
     native=ifcopenshell.open(str(ifc_path));by_id={d.Name:d for d in native.by_type('IfcDistributionElement')}
     original_devices={d['id']:d for d in original['devices']};options={o['id']:o for o in catalogue['options']}
     settings=ifcopenshell.geom.settings();settings.set(settings.USE_WORLD_COORDS,True)
+    circular.configure(settings)
     for segment,option_id in choices.items():
         outside=geometry['options'][option_id]['outside_diameter_m']
         for id in binding['segments'][segment]:
@@ -103,7 +105,8 @@ def verify_saved(original,ifc_path,binding,choices,catalogue,geometry):
             for i in range(3):
                 expected_low=min(world[0][i],world[1][i]) if i==axis else world[0][i]-outside/2
                 expected_high=max(world[0][i],world[1][i]) if i==axis else world[0][i]+outside/2
-                if not np.allclose([low[i],high[i]],[expected_low,expected_high],atol=1e-8,rtol=0):raise ProjectError('saved IFC outside envelope/centreline mismatch')
+                tolerance=circular.BOUNDS_TOLERANCE_M if old.get('body_shape')==circular.WALL else 1e-8
+                if not np.allclose([low[i],high[i]],[expected_low,expected_high],atol=tolerance,rtol=0):raise ProjectError('saved IFC outside envelope/centreline mismatch')
     return True
 
 
@@ -135,7 +138,7 @@ def run(network,model,binding,catalogue,geometry,out):
     filtered_path=out/'filtered-catalogue.json';filtered_path.write_text(json.dumps(filtered,indent=2),encoding='utf-8')
     result=dict(original_candidate_count=original_count,geometry_feasible_candidate_count=math.prod(len(v) for v in filtered['allowed_options'].values()),
                 rejected_geometry_options=rejected,calculated_checks_pass=False,saved_ifc_resize_checks_pass=False,stable_object_port_ids_match=False,
-                design_accepted=False,selected=None,pending=['actual circular product/fitting geometry','clearance and clash checks','K applicability, operating point and full professional acceptance'])
+                design_accepted=False,selected=None,pending=['manufacturer-specific product/fitting geometry','clearance and clash checks','K applicability, operating point and full professional acceptance'])
     from .network import run as analyse
     try:
         base_result=analyse(baseline_path,out/'baseline-analysis')
@@ -160,7 +163,7 @@ def run(network,model,binding,catalogue,geometry,out):
             result.update(selected=sizing['selected'],calculated_checks_pass=coordinated['calculated_checks_pass'],saved_ifc_resize_checks_pass=True,stable_object_port_ids_match=True)
     else:result['sizing_feasible']=False;result['failure']='at least one segment has no space-contained envelope option'
     if any(digest(Path(p))!=h for p,h in before.items()):raise ProjectError('source changed during model iteration')
-    result.update(inputs=before,inputs_unchanged=True,scope='Fixed-endpoint circular sizing, source-backed outside envelopes, space containment and independent saved IFC/pressure reconciliation')
+    result.update(inputs=before,inputs_unchanged=True,scope='Fixed-endpoint circular sizing, explicit envelope/wall bodies, space containment and independent saved IFC/pressure reconciliation')
     result['artifacts']={p.relative_to(out).as_posix():digest(p) for p in out.rglob('*') if p.is_file()}
     (out/'model-design.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
     return result

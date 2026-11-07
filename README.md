@@ -71,6 +71,8 @@ Use `python -m bsa.workflow intake <brief.md> --out <new-intake.json>` to index 
 
 [Model-aware sizing](docs/NETWORK_MODEL_DESIGN.md) now applies explicit outside-envelope sizes to a new IFC revision while preserving source endpoints. Space-contained choices feed sizing; saved model bounds, stable device/port identities and model-derived pressure are checked. Product geometry, clashes and complete engineering acceptance remain pending.
 
+[Straight circular wall solids](docs/CIRCULAR_GEOMETRY.md) opt into actual hollow IFC profile extrusions with independent inner/outside diameters. Native mesh topology, bore, annular wall volume, bounds and outward port axes are checked, including after sizing. Other equipment remains explicit envelopes; fittings, materials, clashes and full acceptance are pending.
+
 ## Shared electrical data
 
 [Coordinated generation](docs/COORDINATION.md) now feeds the same device/circuit data into calculations, DXF and IFC. A geometry companion only adds explicit dimensions, heights and spaces. Reopened artifacts are reconciled; the workflow can send the resulting DXF through native AutoCAD save/reopen/plot. No separate power, PF, XY or circuit copy is maintained in geometry inputs.

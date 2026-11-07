@@ -1,0 +1,12 @@
+{
+  "source": "Synthetic matching model port and network mapping; not measured",
+  "nodes": {
+    "FAN": "FAN1.out",
+    "A": "AT1.in"
+  },
+  "segments": {
+    "MAIN": [
+      "DUCT1"
+    ]
+  }
+}

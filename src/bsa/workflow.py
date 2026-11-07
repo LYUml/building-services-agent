@@ -184,7 +184,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                 files=[local_path(root,t[key]) for key in ('project','model','binding','catalogue','geometry')]
                 payload=run(*files,folder)
                 status='pass' if payload['calculated_checks_pass'] else 'fail'
-                reason='source-backed outside envelopes resized on fixed endpoints; saved IFC dimensions and derived pressure reconciled; actual products/clashes/full acceptance pending'
+                reason='source-backed envelopes/explicit walls resized on fixed endpoints; saved IFC dimensions and derived pressure reconciled; actual products/clashes/full acceptance pending'
             elif t['kind']=='network_design':
                 from .network_design import run
                 payload=run(local_path(root,t['project']),local_path(root,t['catalogue']),folder)

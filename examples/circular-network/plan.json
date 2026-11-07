@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "2e5c6847cba1f4b68597bc15902a788b61869677ed3cc66e38f058deea77e61e",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "wall",
+      "kind": "network_model_design",
+      "project": "network.json",
+      "model": "model.json",
+      "binding": "binding.json",
+      "catalogue": "catalogue.json",
+      "geometry": "geometry.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Refine the supplied synthetic straight duct into an explicit hollow circular wall using its independently supplied 0.40 m internal and 0.50 m outside diameters. Preserve original world endpoints, connections and project object identities. Generate baseline IFC4, select a space-contained size from the supplied catalogue, and rebuild the chosen 0.20 m internal / 0.22 m outside wall in a separate model version. Reopen IFC and check the hollow profile, wall length, outward port axes, closed wall mesh with a through bore, and wall volume against an independent annular-cylinder formula; reconcile the saved model with the pressure calculation.",
+      "task": "wall",
+      "acceptance": "Explicit hollow wall/native geometry/port/identity and pressure evidence; physical product and visual acceptance pending"
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Keep source hashes unchanged and retain failed size/geometry choices. Other equipment remains explicitly modelled as envelopes. Material certification, fittings, supports, insulation, clearance/clashes, BIM-viewer visual acceptance and complete engineering acceptance remain pending; these are synthetic geometric and prescribed-flow checks.",
+      "task": "wall",
+      "acceptance": "Explicit hollow wall/native geometry/port/identity and pressure evidence; physical product and visual acceptance pending"
+    }
+  ]
+}

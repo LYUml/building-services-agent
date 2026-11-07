@@ -1,4 +1,4 @@
-"""Source-backed IFC4 MEP envelope authoring with spatial/system/port semantics."""
+"""Source-backed IFC4 MEP envelopes and explicit straight circular wall solids."""
 import argparse
 import json
 import math
@@ -6,6 +6,7 @@ import uuid
 from pathlib import Path
 from .cli import digest
 from .engine import ProjectError
+from . import circular_geometry as circular
 
 CLASSES={'IfcLightFixture','IfcOutlet','IfcElectricDistributionBoard','IfcAirTerminal',
          'IfcFan','IfcPump','IfcPipeSegment','IfcDuctSegment','IfcSensor',
@@ -13,7 +14,7 @@ CLASSES={'IfcLightFixture','IfcOutlet','IfcElectricDistributionBoard','IfcAirTer
 
 
 def validate(p):
-    if not isinstance(p,dict) or p.get('geometry_scope')!='axis-aligned bounding envelopes':
+    if not isinstance(p,dict) or p.get('geometry_scope') not in ('axis-aligned bounding envelopes',circular.MIXED_SCOPE):
         raise ProjectError('explicit bounding-envelope geometry scope required')
     if not isinstance(p.get('name'),str) or not p['name'].strip():raise ProjectError('name required')
     if 'project_uuid' in p:
@@ -29,7 +30,7 @@ def validate(p):
         properties=row.get('properties',{})
         if not isinstance(properties,dict):raise ProjectError('additional properties must be a dictionary')
         for key,value in properties.items():
-            if not isinstance(key,str) or not key or key in ('Source','InputID','GeometryScope','ElectricalInput_kW'):
+            if not isinstance(key,str) or not key or key in ('Source','InputID','GeometryScope','BodyShape','ElectricalInput_kW'):
                 raise ProjectError('invalid or reserved property name')
             if type(value) not in (str,int,float,bool) or (type(value) in (int,float) and not math.isfinite(value)):
                 raise ProjectError('properties must be finite scalar values')
@@ -71,6 +72,11 @@ def validate(p):
             key=d['id']+'.'+port['id']
             if key in ports or port.get('direction') not in ('SOURCE','SINK'):raise ProjectError('unique directed ports required')
             ports[key]=(d,port)
+        shape=d.get('body_shape','bounding envelope')
+        if shape not in ('bounding envelope',circular.WALL):raise ProjectError('unsupported explicit body_shape')
+        if shape==circular.WALL:
+            if p['geometry_scope']!=circular.MIXED_SCOPE:raise ProjectError('circular bodies require explicit mixed geometry scope')
+            circular.specification(d)
     connections=p.get('connections',[])
     if not isinstance(connections,list):raise ProjectError('connections must be list')
     used=set()
@@ -139,8 +145,9 @@ def run(project,out):
         obj=create(d['ifc_class'],d['id']);obj.Tag=d['id'];devices[d['id']]=obj
         api.run('spatial.assign_container',model,products=[obj],relating_structure=spaces[d['space']])
         api.run('system.assign_system',model,products=[obj],system=systems[d['system']])
-        box(obj,d['origin_m'],d['size_m'])
-        values=dict(Source=p['sources'][d['source']],GeometryScope=p['geometry_scope'],InputID=d['id'])
+        if d.get('body_shape')==circular.WALL:circular.author(model,body,obj,d)
+        else:box(obj,d['origin_m'],d['size_m'])
+        values=dict(Source=p['sources'][d['source']],GeometryScope=p['geometry_scope'],InputID=d['id'],BodyShape=d.get('body_shape','bounding envelope'))
         values.update(d.get('properties',{}))
         if 'electrical_kw' in d:values['ElectricalInput_kW']=float(d['electrical_kw'])
         props(obj,values)
@@ -148,7 +155,8 @@ def run(project,out):
             objport=api.run('system.add_port',model,element=obj)
             objport.Name=port['id'];objport.FlowDirection=port['direction']
             if namespace:objport.GlobalId=stable_guid('IfcDistributionPort',d['id'],port['id'])
-            matrix=np.eye(4);matrix[:3,3]=np.array(d['origin_m'])+np.array(port['offset_m'])
+            matrix=circular.frame(circular.specification(d)['normals'][port['id']]) if d.get('body_shape')==circular.WALL else np.eye(4)
+            matrix[:3,3]=np.array(d['origin_m'])+np.array(port['offset_m'])
             api.run('geometry.edit_object_placement',model,product=objport,matrix=matrix,is_si=True)
             props(objport,dict(Source=p['sources'][port['source']]))
             ports[d['id']+'.'+port['id']]=objport
@@ -162,6 +170,7 @@ def run(project,out):
     ifcopenshell.validate.validate(reopened,logger,express_rules=True)
     (out/'schema-validation.json').write_text(json.dumps(logger.statements,default=str,indent=2),encoding='utf-8')
     settings=ifcopenshell.geom.settings();settings.set(settings.USE_WORLD_COORDS,True)
+    circular.configure(settings)
     records=[];native_ports={}
     for d in p['devices']:
         matches=[x for x in reopened.by_type(d['ifc_class']) if x.Name==d['id']]
@@ -174,11 +183,14 @@ def run(project,out):
         expected=np.array([d['origin_m'],np.array(d['origin_m'])+np.array(d['size_m'])])
         container=element.get_container(obj)
         groups={r.RelatingGroup.Name for r in obj.HasAssignments if r.is_a('IfcRelAssignsToGroup')}
-        if not np.allclose(bounds,expected,atol=1e-7,rtol=0) or container.Name!=d['space'] or groups!={d['system']}:
+        bounds_tolerance=circular.BOUNDS_TOLERANCE_M if d.get('body_shape')==circular.WALL else 1e-7
+        if not np.allclose(bounds,expected,atol=bounds_tolerance,rtol=0) or container.Name!=d['space'] or groups!={d['system']}:
             raise ProjectError('IFC geometry/space/system mismatch')
         properties=element.get_psets(obj)['BSA_DesignInputs']
         if properties.get('Source')!=p['sources'][d['source']] or properties.get('InputID')!=d['id']:
             raise ProjectError('IFC provenance mismatch')
+        if properties.get('BodyShape')!=d.get('body_shape','bounding envelope'):raise ProjectError('IFC body-shape metadata mismatch')
+        circular_checks=circular.verify(obj,d,shape) if d.get('body_shape')==circular.WALL else None
         if 'electrical_kw' in d and not math.isclose(properties.get('ElectricalInput_kW',-1),d['electrical_kw']):
             raise ProjectError('IFC electrical input mismatch')
         actual_ports=system_util.get_ports(obj)
@@ -191,8 +203,11 @@ def run(project,out):
             origin=placement.get_local_placement(native.ObjectPlacement)[:3,3]
             if native.FlowDirection!=port['direction'] or not np.allclose(origin,np.array(d['origin_m'])+port['offset_m'],atol=1e-7,rtol=0):
                 raise ProjectError('IFC port direction/coordinate mismatch')
+            if d.get('body_shape')==circular.WALL and not np.allclose(placement.get_local_placement(native.ObjectPlacement)[:3,2],circular.specification(d)['normals'][port['id']],atol=1e-8,rtol=0):
+                raise ProjectError('IFC circular port outward axis mismatch')
+        if circular_checks:circular_checks['outward_port_axes_pass']=True
         records.append(dict(id=d['id'],ifc_class=obj.is_a(),global_id=obj.GlobalId,space=container.Name,
-                            systems=sorted(groups),bounds_m=bounds.tolist()))
+                            systems=sorted(groups),bounds_m=bounds.tolist(),body_shape=d.get('body_shape','bounding envelope'),circular_checks=circular_checks))
     expected_links={(c['from'],c['to']) for c in p.get('connections',[])}
     actual_links=set()
     for relation in reopened.by_type('IfcRelConnectsPorts'):

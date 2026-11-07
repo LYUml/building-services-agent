@@ -25,6 +25,8 @@ Finite-catalogue network design search is original orchestration around the exis
 
 Model-aware sizing/revision uses the existing pinned IfcOpenShell/fluids libraries plus original fixed-centreline envelope and reconciliation code. Stable IFC object/port identities use Python's standard UUID namespace mechanism and IfcOpenShell's GUID compression API; no new dependency or upstream source is vendored. The stability contract covers declared objects/ports, not every IFC relationship or file bytes.
 
+Straight circular wall authoring uses the same pinned IfcOpenShell 0.8.5 runtime and the normative IFC4 [IfcCircleHollowProfileDef](https://standards.buildingsmart.org/IFC/RELEASE/IFC4/FINAL/HTML/schema/ifcprofileresource/lexical/ifccirclehollowprofiledef.htm) schema contract. Original QA code checks the native profile, topology, signed mesh volume and port axes. Mesher settings were verified against the installed runtime and referenced in [official documentation](https://docs.ifcopenshell.org/ifcopenshell/geometry_settings); no newer runtime or copied source is bundled. Standard mathematical annular-volume and manifold checks do not certify materials, fabrication or professional compliance.
+
 ## Executed energy integrations
 
 - **OpenStudio(R) SDK 3.11.0** installed as an optional Python library. Original two-zone authoring code calls the official SDK and its ForwardTranslator. It targets EnergyPlus 25.2.0; matching was checked at runtime. This project is not an endorsed or renamed version of OpenStudio.

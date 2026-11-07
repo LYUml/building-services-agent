@@ -1,6 +1,6 @@
 ---
 name: mep-ifc-authoring
-description: Create source-linked IFC4 MEP envelope models with spaces, distribution systems and explicit port topology, and verify their native geometry and relationships. Use for open BIM authoring and IFC model checks.
+description: Create and revise source-linked IFC4 MEP envelopes or explicit straight circular wall solids with spaces, systems, ports and native geometry verification. Use for open BIM authoring and IFC model checks.
 ---
 
 # IFC MEP authoring
@@ -8,6 +8,8 @@ description: Create source-linked IFC4 MEP envelope models with spaces, distribu
 Read docs/IFC_MODELS.md. Use `python -m bsa.bim <project.json> --out <new-run>` or the `bim` workflow adapter. Install the optional `bim` dependencies first. Input examples are under examples/mep-ifc.
 
 Every dimension, origin, device class, containing space, system and connection must come from source data or an explicit scenario assumption. The adapter uses SI metres and axis-aligned bounding envelopes at minimum-corner origins; do not pass centre coordinates or assume actual manufacturer shape. Device rotations, arbitrary routing, multi-system equipment and bidirectional ports are unsupported. Do not synthesize their results through this adapter.
+
+For actual straight round wall bodies, read docs/CIRCULAR_GEOMETRY.md. Opt into the explicit mixed geometry scope and `body_shape: straight circular wall`, with separately sourced internal/outside diameters and opposite end-face-centre ports. The saved IFC must pass hollow-profile, oriented connected mesh/bore, annular volume, bounds and outward-port-axis checks. Preserve the distinction between an analytic IFC wall and its approximate QA mesh, and between this generic straight body and manufacturer/fitting geometry. Never infer a circular body or wall parameter from electrical ratings or a single bounding dimension.
 
 Keep equipment IDs consistent with the calculations and CAD used in the same actual project. The separate synthetic IFC examples are not automatically reconciled with the earlier three-light CAD dataset. Preserve source descriptions and electrical input kW; never label thermal capacity as electrical input.
 

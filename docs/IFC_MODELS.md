@@ -1,5 +1,7 @@
 # IFC MEP models
 
+Explicit [straight circular walls](CIRCULAR_GEOMETRY.md) are now available as an opt-in body contract alongside the envelope-only workflow below. Input minimum-corner bounds remain source data; circular native placements/profile geometry and outward port axes are authored and verified separately. Unmarked equipment remains envelopes, and detailed fitting/manufacturer/visual acceptance is not implied.
+
 ```powershell
 .venv/Scripts/python -m pip install -e ".[bim]"
 .venv/Scripts/python -m bsa.bim examples/mep-ifc/project.json --out runs/ifc-electrical
