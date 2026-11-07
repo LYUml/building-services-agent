@@ -1,0 +1,67 @@
+{
+  "ifcopenshell_version": "0.8.5",
+  "input_sha256": "ab316bbadcd3844014d6cb937e32f83e0b6c4952b0854701ed25db6779271924",
+  "ifc_sha256": "287ea153c7145bc60c2e969a07400e3c5d50da871bce6156bad9c6ecb430b916",
+  "checks": {
+    "schema_valid": true,
+    "device_count_match": true,
+    "connection_count_match": true,
+    "connection_endpoints_match": true,
+    "metre_units": true,
+    "space_count_match": true,
+    "source_unchanged": true
+  },
+  "devices": [
+    {
+      "id": "DB1",
+      "ifc_class": "IfcElectricDistributionBoard",
+      "global_id": "2uqRBrP6T4rAbYIiHepz63",
+      "space": "Office",
+      "systems": [
+        "LGT-1"
+      ],
+      "bounds_m": [
+        [
+          0.2,
+          0.2,
+          1.0
+        ],
+        [
+          0.6000000000000001,
+          0.35,
+          1.6
+        ]
+      ]
+    },
+    {
+      "id": "L1",
+      "ifc_class": "IfcLightFixture",
+      "global_id": "0pOV8BGgT6lgJ_XJvsG6YB",
+      "space": "Office",
+      "systems": [
+        "LGT-1"
+      ],
+      "bounds_m": [
+        [
+          2.0,
+          3.0,
+          2.7
+        ],
+        [
+          2.6,
+          3.6,
+          2.75
+        ]
+      ]
+    }
+  ],
+  "model_checks_pass": true,
+  "design_accepted": false,
+  "geometry_scope": "axis-aligned bounding envelopes",
+  "pending": [
+    "visual BIM review",
+    "manufacturer shape fidelity",
+    "physical route/clash checks",
+    "domain performance and code acceptance"
+  ]
+}

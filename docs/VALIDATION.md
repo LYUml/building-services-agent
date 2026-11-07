@@ -49,3 +49,9 @@ Actual offline OCR ran on the prior synthetic AutoCAD PDF: three regions recogni
 Test invocation with BSA_TEST_OCR_INPUT enabled: 19 discovered, 17 passed, 2 CAD/energy engine tests skipped. Prior real engine evidence remains independent. No broad Chinese OCR, handwriting, equation or arbitrary drawing-understanding claim is made.
 
 Combined regression after the final OCR-plan bindings: BSA_TEST_AUTOCAD, BSA_TEST_ENERGYPLUS and BSA_TEST_OCR_INPUT enabled together; all **19 tests passed, no skips**. Updated intake skill passed the host skill validator. Source PDF is retained alongside the OCR evidence for independent read-only reproduction.
+
+## IFC MEP milestone
+
+IfcOpenShell 0.8.5 generated/reopened IFC4 electrical (board and luminaire) and ventilation (fan, duct envelope, terminal) fixtures. Both passed schema/EXPRESS validation, geometry-engine bounds, exact spatial/system membership, port coordinates/directions, connection endpoint and unit checks; source input hashes unchanged. Both also executed through a source-linked BIM workflow and its integrity verification. Evidence: docs/evidence/ifc-models.
+
+Combined regression with AutoCAD, EnergyPlus and OCR enabled plus the new IFC tests: **22 tests passed with no skips**. This includes negative BIM input/topology cases and a BIM task in a requirement workflow. The IFC files have not had BIM-viewer visual acceptance or physical clash/routing checks. Example dimensions are synthetic bounding envelopes, not measured or manufacturer-certified models. No complete electrical, ventilation, hydraulic, photometric or code acceptance is inferred.

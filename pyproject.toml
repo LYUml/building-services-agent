@@ -14,6 +14,7 @@ dev = ["PyYAML==6.0.3", "pypdf==7.0.0"]
 documents = ["pypdf==7.0.0"]
 ocr = ["pypdf==7.0.0", "rapidocr_onnxruntime==1.4.4", "onnxruntime==1.31.1", "opencv-python==5.0.0.93"]
 energy = ["openstudio==3.11.0"]
+bim = ["ifcopenshell==0.8.5", "pytest==9.2.0"]
 
 [project.scripts]
 bsa = "bsa.cli:main"

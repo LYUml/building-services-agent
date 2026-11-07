@@ -1,0 +1,72 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\mep-ifc\\project.json": "ab316bbadcd3844014d6cb937e32f83e0b6c4952b0854701ed25db6779271924",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\mep-ifc\\plan.json": "7210c242ef0d50ebf4ddff56d16067627f7ab4b0d49ae80ffcbf37092e84494b",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\mep-ifc\\ventilation.json": "c25ed14cd4156598433284931f9f32e80520acfe1273d37c8fa8a56f43c3eb85",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\mep-ifc\\brief.md": "ffa91eea118469f0e3834d089746381ab100181e049dc6ffa79663ad3ad34470"
+  },
+  "inputs_unchanged": true,
+  "tasks": {
+    "electrical_bim": {
+      "kind": "bim",
+      "status": "pass",
+      "scope": "IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending"
+    },
+    "ventilation_bim": {
+      "kind": "bim",
+      "status": "pass",
+      "scope": "IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Use project.json to create an IFC4 office space with the given distribution board and luminaire envelopes. Preserve their explicit electrical system membership, equipment IDs, electrical input and source descriptions. Create the given logical source-to-sink port relationship; do not claim it is a physically routed cable.",
+      "task": "electrical_bim",
+      "acceptance": "Use project.json to create an IFC4 office space with the given distribution board and luminaire envelopes. Preserve their explicit electrical system membership, equipment IDs, electrical input and source descriptions. Create the given logical source-to-sink port relationship; do not claim it is a physically routed cable.",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 3,
+        "end_line": 3
+      },
+      "execution_scope": "IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending",
+      "evidence": [
+        "electrical_bim/bim-verification.json",
+        "electrical_bim/model.ifc",
+        "electrical_bim/schema-validation.json"
+      ]
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Use ventilation.json to create the synthetic fan, straight duct envelope and air terminal in the plant-room space. Preserve the supply-air system and two explicit directed connections. Reopen and check geometry, containment, topology and IFC4 schema. Do not infer calculated duct sizing or operating performance.",
+      "task": "ventilation_bim",
+      "acceptance": "Use ventilation.json to create the synthetic fan, straight duct envelope and air terminal in the plant-room space. Preserve the supply-air system and two explicit directed connections. Reopen and check geometry, containment, topology and IFC4 schema. Do not infer calculated duct sizing or operating performance.",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 5,
+        "end_line": 5
+      },
+      "execution_scope": "IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending",
+      "evidence": [
+        "ventilation_bim/bim-verification.json",
+        "ventilation_bim/model.ifc",
+        "ventilation_bim/schema-validation.json"
+      ]
+    }
+  ],
+  "artifact_hashes": {
+    "electrical_bim/bim-verification.json": "c21813440d463f9d4077e8ea1072039f08c529831b062f4319f7df7559458e4b",
+    "electrical_bim/model.ifc": "287ea153c7145bc60c2e969a07400e3c5d50da871bce6156bad9c6ecb430b916",
+    "electrical_bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "ventilation_bim/bim-verification.json": "bc92f91cbbf6764a86e7ba3531636875a05b944eb49f142b43b1da8e71fd6d3b",
+    "ventilation_bim/model.ifc": "1329b971d8b99d551ae0dea07f47c1af08bb13a94a25b5272f6ff48ec0486091",
+    "ventilation_bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "execution_pass": true,
+  "design_accepted": false,
+  "acceptance_note": "Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance"
+}

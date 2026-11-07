@@ -1,0 +1,88 @@
+{
+  "ifcopenshell_version": "0.8.5",
+  "input_sha256": "c25ed14cd4156598433284931f9f32e80520acfe1273d37c8fa8a56f43c3eb85",
+  "ifc_sha256": "1329b971d8b99d551ae0dea07f47c1af08bb13a94a25b5272f6ff48ec0486091",
+  "checks": {
+    "schema_valid": true,
+    "device_count_match": true,
+    "connection_count_match": true,
+    "connection_endpoints_match": true,
+    "metre_units": true,
+    "space_count_match": true,
+    "source_unchanged": true
+  },
+  "devices": [
+    {
+      "id": "FAN1",
+      "ifc_class": "IfcFan",
+      "global_id": "3MY8pT$AnFh8ZN9wboZ7zR",
+      "space": "PlantRoom",
+      "systems": [
+        "SUPPLY-AIR"
+      ],
+      "bounds_m": [
+        [
+          0.5,
+          2.0,
+          2.0
+        ],
+        [
+          1.0,
+          2.5,
+          2.5
+        ]
+      ]
+    },
+    {
+      "id": "DUCT1",
+      "ifc_class": "IfcDuctSegment",
+      "global_id": "2rNhCCfk50NRPZCmzjsOsT",
+      "space": "PlantRoom",
+      "systems": [
+        "SUPPLY-AIR"
+      ],
+      "bounds_m": [
+        [
+          1.0,
+          2.0,
+          2.0
+        ],
+        [
+          4.0,
+          2.5,
+          2.5
+        ]
+      ]
+    },
+    {
+      "id": "AT1",
+      "ifc_class": "IfcAirTerminal",
+      "global_id": "1By10wWlD9TfgwnJ7nLPIX",
+      "space": "PlantRoom",
+      "systems": [
+        "SUPPLY-AIR"
+      ],
+      "bounds_m": [
+        [
+          4.0,
+          2.0,
+          2.0
+        ],
+        [
+          4.4,
+          2.5,
+          2.5
+        ]
+      ]
+    }
+  ],
+  "model_checks_pass": true,
+  "design_accepted": false,
+  "geometry_scope": "axis-aligned bounding envelopes",
+  "pending": [
+    "visual BIM review",
+    "manufacturer shape fidelity",
+    "physical route/clash checks",
+    "domain performance and code acceptance"
+  ]
+}

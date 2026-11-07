@@ -20,7 +20,7 @@ See examples/workflow-plan.json. Version 1 requires:
 - `brief`: relative source path and `brief_sha256`: digest of the interpreted bytes.
 - `passage_dispositions`: every source paragraph classified as requirement or context. The AI must review context classifications; validation cannot prove that a requirement was not misclassified.
 - `requirements`: unique id, source passage id, exact source quote, task id and a complete acceptance description. Multiple requirements may cite a paragraph. Partial quotation alone is not evidence that the complete paragraph has been interpreted correctly.
-- `tasks`: unique path-safe ids and one of electrical, energy, native_cad or manual. Electrical/energy tasks specify relative project JSON inside the plan directory. Native tasks depend on an earlier electrical task. No arbitrary shell commands or executable paths can be supplied in plan data; optional engine paths are explicit CLI arguments.
+- `tasks`: unique path-safe ids and one of electrical, energy, bim, native_cad or manual. Electrical/energy/BIM tasks specify relative project JSON inside the plan directory. Native tasks depend on an earlier electrical task. No arbitrary shell commands or executable paths can be supplied in plan data; optional engine paths are explicit CLI arguments.
 
 Source changes invalidate the brief digest. Escaping input paths, unknown adapters, uncovered paragraphs, fabricated quotations and unreferenced tasks are rejected before execution. Missing optional tools remain pending. Adapter exceptions are recorded as failures; later independent tasks can still run.
 
@@ -31,3 +31,5 @@ Source changes invalidate the brief digest. Escaping input paths, unknown adapte
 Task execution statuses pass/fail/pending are separate from requirement acceptance, which remains pending review. A task's success proves only the named adapter scope. For example, native conversion verifies circle/text entities and emits a PDF, but cannot prove arbitrary quoted layout requirements, print scale, visual quality or all electrical safety conditions.
 
 Intake now reads UTF-8 Markdown/text, PDF and DOCX with explicit coverage/review gates; optional offline OCR supplies page-bound text for otherwise unreadable PDF pages. See DOCUMENT_INTAKE.md. General drawing-note semantics remain pending. CAD is limited to the supported overlay, energy to two synthetic thermal zones/design days. Broad MEP authoring, hydraulic analysis and full engineering acceptance remain outstanding.
+
+The `bim` adapter uses the explicit IFC envelope input contract in IFC_MODELS.md. Its success covers native IFC geometry and relationships, not physical routing, manufacturer fidelity, visual appearance or a finished building-services design.

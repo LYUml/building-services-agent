@@ -1,0 +1,98 @@
+{
+  "name": "Synthetic MEP envelopes and electrical connectivity",
+  "geometry_scope": "axis-aligned bounding envelopes",
+  "sources": {
+    "demo": "Explicit synthetic assumptions for API verification; not measured geometry, certified equipment or a complete design"
+  },
+  "spaces": [
+    {
+      "id": "Office",
+      "origin_m": [
+        0,
+        0,
+        0
+      ],
+      "size_m": [
+        8,
+        6,
+        3
+      ],
+      "source": "demo"
+    }
+  ],
+  "systems": [
+    {
+      "id": "LGT-1",
+      "predefined_type": "ELECTRICAL",
+      "source": "demo"
+    }
+  ],
+  "devices": [
+    {
+      "id": "DB1",
+      "ifc_class": "IfcElectricDistributionBoard",
+      "origin_m": [
+        0.2,
+        0.2,
+        1
+      ],
+      "size_m": [
+        0.4,
+        0.15,
+        0.6
+      ],
+      "space": "Office",
+      "system": "LGT-1",
+      "source": "demo",
+      "ports": [
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            0.4,
+            0.075,
+            0.3
+          ],
+          "source": "demo"
+        }
+      ]
+    },
+    {
+      "id": "L1",
+      "ifc_class": "IfcLightFixture",
+      "origin_m": [
+        2,
+        3,
+        2.7
+      ],
+      "size_m": [
+        0.6,
+        0.6,
+        0.05
+      ],
+      "space": "Office",
+      "system": "LGT-1",
+      "source": "demo",
+      "electrical_kw": 0.04,
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0,
+            0.3,
+            0.025
+          ],
+          "source": "demo"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "DB1.out",
+      "to": "L1.in",
+      "source": "demo"
+    }
+  ]
+}

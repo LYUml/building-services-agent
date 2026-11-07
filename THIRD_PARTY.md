@@ -32,3 +32,10 @@ The Python engine, DXF integration wrapper and skills are original code authored
 - **Poppler pdftoppm**, https://poppler.freedesktop.org/ — external local PDF renderer, not redistributed here; record executable checksum in OCR evidence and supply your own compatible binary.
 
 RapidOCR legacy package was selected for bundled local models, avoiding implicit runtime downloads and making model checksums available. It is not asserted to be the latest RapidOCR API or a general engineering-document understanding model.
+
+## Executed IFC integration
+
+- **IfcOpenShell 0.8.5**, LGPL-3.0-or-later as declared by installed wheel metadata, https://github.com/IfcOpenShell/IfcOpenShell — used as an optional installed library for IFC4 authoring, geometry evaluation and schema/EXPRESS checking. No source or native binary is vendored. Original project code calls documented APIs (https://docs.ifcopenshell.org/). The repository does not expose a v0.8.5 source tag; no claim is made to have audited a matching source revision. Upstream v0.9.0 COPYING and COPYING.LESSER texts are retained as license reference copies, not represented as exact wheel-source provenance.
+- **pytest 9.2.0**, MIT, https://github.com/pytest-dev/pytest — required by the selected IfcOpenShell EXPRESS rule executor; it is part of the optional BIM dependencies even when unittest runs the project's tests.
+
+Observed upstream runtime diagnostic: EXPRESS rule loading emits a Python ResourceWarning for an unclosed rules source file. The generated IFC schema/EXPRESS diagnostics themselves were empty for both fixtures. Upstream code was not modified to suppress the warning.

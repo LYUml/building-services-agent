@@ -54,3 +54,7 @@ Use `python -m bsa.workflow intake <brief.md> --out <new-intake.json>` to index 
 ## PDF and Word requirements
 
 [Document intake](docs/DOCUMENT_INTAKE.md) supports PDF page locators, Word body/table/header/note locators and optional offline OCR. Extraction gaps remain visible and require source review. Scanned/outlined text can be OCR-indexed, but recognition is never silently accepted as engineering data.
+
+## Editable IFC MEP models
+
+[IFC authoring](docs/IFC_MODELS.md) creates source-linked IFC4 spaces, device envelopes, distribution-system membership and directed port connections. Electrical and ventilation examples have been generated, reopened and checked through the geometry engine and schema/EXPRESS validator. Use the `bim` workflow adapter or `python -m bsa.bim`. Detailed product geometry, physical routing and engineering acceptance remain pending.

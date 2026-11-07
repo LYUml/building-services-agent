@@ -8,7 +8,7 @@ The requested end state is reusable automation from a requirement document and s
 | Shared project data | validated identities, units, references and input provenance | electrical JSON implemented |
 | Electrical | counts reconcile, independent formula examples, cable/protection and fault checks | basic conditional checks; fault checks pending |
 | Native CAD | preserve supplied base, units/sample proof, native DWG reopen and inspected PDF | synthetic overlay native save/reopen/plot verified; existing base and fixed-scale sheets pending |
-| BIM | semantically valid systems/components and schedules, editable IFC/RVT | integration pending |
+| BIM | semantically valid systems/components and schedules, editable IFC/RVT | IFC4 envelope geometry, spaces, systems and directed port topology generated/reopened/checked; detailed models, schedules and RVT pending |
 | HVAC/energy | actual engine execution, geometry/inputs QA, heat/electric outputs separate | OpenStudio/EnergyPlus synthetic two-zone design-day comparison executed; MCP read queries verified; annual/weather and broad HVAC authoring pending |
 | Lighting | photometry and calculation grid with target checks | Radiance/Honeybee candidate; not executed |
 | Plumbing/fire | hydraulic calculations and domain-specific applicable rules | pending |

@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "ffa91eea118469f0e3834d089746381ab100181e049dc6ffa79663ad3ad34470",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "electrical_bim",
+      "kind": "bim",
+      "project": "project.json"
+    },
+    {
+      "id": "ventilation_bim",
+      "kind": "bim",
+      "project": "ventilation.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Use project.json to create an IFC4 office space with the given distribution board and luminaire envelopes. Preserve their explicit electrical system membership, equipment IDs, electrical input and source descriptions. Create the given logical source-to-sink port relationship; do not claim it is a physically routed cable.",
+      "task": "electrical_bim",
+      "acceptance": "Use project.json to create an IFC4 office space with the given distribution board and luminaire envelopes. Preserve their explicit electrical system membership, equipment IDs, electrical input and source descriptions. Create the given logical source-to-sink port relationship; do not claim it is a physically routed cable."
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Use ventilation.json to create the synthetic fan, straight duct envelope and air terminal in the plant-room space. Preserve the supply-air system and two explicit directed connections. Reopen and check geometry, containment, topology and IFC4 schema. Do not infer calculated duct sizing or operating performance.",
+      "task": "ventilation_bim",
+      "acceptance": "Use ventilation.json to create the synthetic fan, straight duct envelope and air terminal in the plant-room space. Preserve the supply-air system and two explicit directed connections. Reopen and check geometry, containment, topology and IFC4 schema. Do not infer calculated duct sizing or operating performance."
+    }
+  ]
+}
