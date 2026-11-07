@@ -7,7 +7,7 @@ The requested end state is reusable automation from a requirement document and s
 | Requirements intake | brief page/section to deliverable and verification mapping; unresolved data visible | skill procedure; automatic parsing pending |
 | Shared project data | validated identities, units, references and input provenance | electrical JSON implemented |
 | Electrical | counts reconcile, independent formula examples, cable/protection and fault checks | basic conditional checks; fault checks pending |
-| Native CAD | preserve supplied base, units/sample proof, native DWG reopen and inspected PDF | DXF overlay only |
+| Native CAD | preserve supplied base, units/sample proof, native DWG reopen and inspected PDF | synthetic overlay native save/reopen/plot verified; existing base and fixed-scale sheets pending |
 | BIM | semantically valid systems/components and schedules, editable IFC/RVT | integration pending |
 | HVAC/energy | actual engine execution, geometry/inputs QA, heat/electric outputs separate | OpenStudio-MCP candidate; not executed |
 | Lighting | photometry and calculation grid with target checks | Radiance/Honeybee candidate; not executed |

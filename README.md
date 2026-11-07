@@ -23,4 +23,14 @@ Open this repository as the workspace. Ask the agent to use `$building-services-
 
 The first slice implements electrical load aggregation, design current and conditional cable/protection/voltage-drop checks, plus a DXF overlay. Cable ampacity, factors, mV/A/m and limits are explicit sourced inputs, not embedded regulation tables. Fault disconnection, breaking capacity, selectivity and lighting photometry are not yet calculated. Reports keep these pending; a successful CLI run is not full design acceptance.
 
-Native DWG production, existing-bottom-drawing integration, BIM authoring, energy simulation and other MEP domains remain work in progress. See [roadmap](docs/ROADMAP.md), [project format](docs/PROJECT_FORMAT.md), and [upstream attribution](THIRD_PARTY.md). No upstream implementation has been copied into this initial milestone.
+Native conversion of synthetic CIRCLE/TEXT overlays now has a tested AutoCAD 2027 adapter; existing-bottom-drawing integration, BIM authoring, energy simulation and other MEP domains remain work in progress. See [roadmap](docs/ROADMAP.md), [project format](docs/PROJECT_FORMAT.md), and [upstream attribution](THIRD_PARTY.md). No upstream implementation has been copied into this initial milestone.
+
+## Native AutoCAD example
+
+```powershell
+.venv/Scripts/python -m bsa.native_cad runs/office/devices.dxf --out runs/native-office
+$env:BSA_TEST_AUTOCAD='1'
+.venv/Scripts/python -m unittest discover -s tests -v
+```
+
+Requires a licensed local AutoCAD 2027 installation at the default path (or pass `--exe`). Core Console runs on generated copies in isolated processes, never attaching to the GUI session. The adapter saves DWG, reopens it in a second process, checks CIRCLE/TEXT geometry, layers, labels and metre units, then plots a padded fit-to-page PDF. It refuses output overwrite. `native-verification.json` keeps visual review pending until a separate actual image inspection is recorded. This restricted overlay workflow does not yet merge existing base drawings, produce fixed-scale sheets or validate all CAD entity types.
