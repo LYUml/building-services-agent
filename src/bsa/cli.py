@@ -39,7 +39,7 @@ def run(project, out):
     result = calculate(p)
     if any(not d["id"].isascii() or not d["circuit"].isascii() or
            any(x in d["id"]+d["circuit"] for x in "\r\n") for d in p["devices"]):
-        raise ProjectError("DXF R12 labels require ASCII IDs without line breaks")
+        raise ProjectError("DXF labels currently require ASCII IDs without line breaks")
     # Never silently overwrite a previous run or unrelated files.
     out.mkdir(parents=True, exist_ok=False)
     (out/"calculations.json").write_text(json.dumps(result,indent=2),encoding="utf-8")
