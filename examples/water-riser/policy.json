@@ -1,0 +1,34 @@
+{
+  "scope": "all represented non-feature non-virtual IfcElements",
+  "sources": {
+    "test": "Synthetic water-riser QA: 50 mm general clearance, 0.1 mm linear tolerances and 1e-10 m3 volume threshold. Explicit joint spheres: pump 0.36 m, inline pipe 0.08 m, outlet 0.15 m. Not product/service access or regulation requirements."
+  },
+  "source": "test",
+  "minimum_clearance_m": 0.05,
+  "intersection_tolerance_m": 0.0001,
+  "contact_tolerance_m": 0.0001,
+  "overlap_volume_tolerance_m3": 1e-10,
+  "maximum_boolean_pairs": 1000,
+  "contact_clearance_mode": "outside_regions",
+  "contact_region_segments": 64,
+  "allowed_contacts": [
+    {
+      "from_port_guid": "1EJ$TpRUnV7RZ90W$yl5XS",
+      "to_port_guid": "2paArO4kzLBvJnkjAEX$BW",
+      "region_radius_m": 0.36,
+      "source": "test"
+    },
+    {
+      "from_port_guid": "32OMxUGdTKXfUO2CVwNvsw",
+      "to_port_guid": "2SniO0RInNsB5dobEbry_9",
+      "region_radius_m": 0.08,
+      "source": "test"
+    },
+    {
+      "from_port_guid": "2Ii$4RJlTUkuSrZSOEiDbG",
+      "to_port_guid": "2IWI7eM4PLL8A7Zpcb3sMq",
+      "region_radius_m": 0.15,
+      "source": "test"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "name": "Independent vertical water riser",
+  "model": "steady incompressible circular tree",
+  "sources": {
+    "test": "Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data. Negative test revision: source total pressure is 140 kPa."
+  },
+  "fluid": {
+    "density_kg_m3": 998,
+    "dynamic_viscosity_pa_s": 0.001,
+    "source": "test"
+  },
+  "supply": {
+    "node": "BASE",
+    "total_pressure_pa": 140000,
+    "source": "test"
+  },
+  "nodes": [
+    {
+      "id": "BASE",
+      "demand_m3_s": 0,
+      "required_total_pressure_pa": 0,
+      "source": "test"
+    },
+    {
+      "id": "TOP",
+      "demand_m3_s": 0.001,
+      "required_total_pressure_pa": 100000,
+      "source": "test"
+    }
+  ],
+  "segments": [
+    {
+      "id": "RISER",
+      "roughness_m": 4.5e-05,
+      "minor_k": 3,
+      "max_velocity_m_s": 2,
+      "source": "test",
+      "from": "BASE",
+      "to": "TOP"
+    }
+  ]
+}

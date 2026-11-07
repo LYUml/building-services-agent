@@ -15,7 +15,7 @@ The requested end state is reusable automation from a requirement document and s
 | Design iteration | retained baseline/failed candidates, explicit objective/constraints and selected rerun | finite-catalogue circular sizing and fixed-endpoint IFC envelope revision with stable object/port IDs implemented; cross-domain iteration, detailed geometry and full acceptance pending |
 | Geometry coordination | saved geometry intersections, clearances, scope/exception and coverage evidence | IFC triangle queries plus Manifold3D Mesh64 overlap checks; optional conservative bidirectional outside-joint clearance proofs implemented; product/visual acceptance pending |
 | Delivery | input hashes unchanged, output counts match, visual checks with evidence | workflow input/output integrity, source locators and task evidence matrix implemented; full acceptance gates pending |
-| Reuse | second independent brief run, evidence of adaptation without copied assumptions | pending |
+| Reuse | second independent brief run, evidence of adaptation without copied assumptions | independent synthetic vertical water-riser/electrical brief executed through unchanged adapters; gravity, four-size selection, saved hollow IFC, clearance and electrical DXF checked; full multi-project deliverable/visual acceptance pending |
 
 ## Next sequence
 

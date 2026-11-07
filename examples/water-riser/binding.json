@@ -1,0 +1,13 @@
+{
+  "source": "Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data.",
+  "nodes": {
+    "BASE": "BOOSTER.out",
+    "TOP": "OUTLET.in"
+  },
+  "segments": {
+    "RISER": [
+      "RISE-LOW",
+      "RISE-HIGH"
+    ]
+  }
+}

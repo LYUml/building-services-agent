@@ -1,0 +1,24 @@
+{
+  "sources": {
+    "test": "Synthetic independent outside diameters for wall verification; no product or insulation certification."
+  },
+  "basis": "circular outside-diameter envelopes; fixed centrelines and endpoints",
+  "options": {
+    "D15": {
+      "outside_diameter_m": 0.022,
+      "source": "test"
+    },
+    "D25": {
+      "outside_diameter_m": 0.032,
+      "source": "test"
+    },
+    "D32": {
+      "outside_diameter_m": 0.04,
+      "source": "test"
+    },
+    "D40": {
+      "outside_diameter_m": 0.05,
+      "source": "test"
+    }
+  }
+}

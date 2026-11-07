@@ -1,0 +1,78 @@
+{
+  "original_candidate_count": 4,
+  "geometry_feasible_candidate_count": 4,
+  "rejected_geometry_options": [],
+  "calculated_checks_pass": true,
+  "saved_ifc_resize_checks_pass": true,
+  "stable_object_port_ids_match": true,
+  "design_accepted": false,
+  "selected": {
+    "id": "C000003",
+    "choices": {
+      "RISER": "D32"
+    },
+    "material_score": 15.0,
+    "feasible": true,
+    "calculated_checks": {
+      "velocity": true,
+      "pressure": true,
+      "flow_continuity": true
+    },
+    "required_source_total_pressure_pa": 154362.17501336496,
+    "failed_velocity_segments": [],
+    "failed_pressure_nodes": []
+  },
+  "pending": [
+    "manufacturer-specific product/fitting geometry",
+    "clearance and clash checks",
+    "K applicability, operating point and full professional acceptance"
+  ],
+  "baseline_analysis": {
+    "calculated_checks_pass": false,
+    "required_source_total_pressure_pa": 344350.6144378637
+  },
+  "sizing_feasible": true,
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\water-riser\\network.json": "1b92011e79d780dc51880aac18cedb52f4bb354302a092d23e9cc6433d895690",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\water-riser\\model.json": "8f2672e78e7b681f20dada0e6121317635af1184023117c8cf0159e1e794b487",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\water-riser\\binding.json": "dbf25c95094e960f3702a9148e55eeaff758ea68f372720f176acb62166e0ab7",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\water-riser\\catalogue.json": "bfe4f4a2297a3f6b5a7316fc86c290dde34d72fc592b25ae84e4422fa8d66931",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\water-riser\\geometry.json": "0c613f318c72e4c4aed93cc4384f8a0edfdae02d65f1a7d3a36fd0c49c233b06"
+  },
+  "inputs_unchanged": true,
+  "scope": "Fixed-endpoint circular sizing, explicit envelope/wall bodies, space containment and independent saved IFC/pressure reconciliation",
+  "artifacts": {
+    "baseline-network.json": "27780e6ba9e69da1fde8c0984a0cf3a404bd4d1a8d37b4786772f6e8f88c3e42",
+    "filtered-catalogue.json": "1c4c278283725c296a3b663149a1c3fa0fc06c4a7203882cc784de797c70bd9f",
+    "selected-model.json": "349058c206c862b1af5c662195aeb8e731f018d61f20d8cd2c6ea4b7294cb23d",
+    "selected-skeleton.json": "33b6e709aaef1027e9d01a26fe07064c5a7f005d4ad7adf1a10734a9823c6365",
+    "baseline-analysis/manifest.json": "653e4ed07b81a8e05f7a9a360d846e3d4390180c6025fd31714e09f8d845e7b0",
+    "baseline-analysis/network.json": "9d0a78f3e8fd5c16a6e60d18e4de9af64ae1fb40091624fcb8d81a71b76e5565",
+    "baseline-analysis/report.html": "f7ed6d164d3069dae4abde4a68f2f063a8450b6ea66bfd482d24dbd80555ca85",
+    "baseline-analysis/segments.csv": "dea98a3359b3e6e32d5bbd181d0fae7c86b0602bfa5e62a8d6c5dda6983a49f6",
+    "baseline-bim/bim-verification.json": "34543bfd34fb59f2e95a71fea4755d23a6937346b78e14e1eb0b0f391c4e436e",
+    "baseline-bim/model.ifc": "8a275299f0041c136e095f4ae7acc357024669b0e04c67674eac52465678b339",
+    "baseline-bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "selected-coordination/network-binding.json": "962575c684e81a98c1037eb9ec744f6bae62383904bde7188ddf2c0c96abfd31",
+    "selected-coordination/network-input.json": "42f500bd11ef8b9e34a22440d88702c6235c55cf92dc173820e9bdf66ea3688f",
+    "sizing/candidates.csv": "cca6b5b5602ba3be0342dcc69e5a2240c8c49c692d81bc8450809a600bcca0e1",
+    "sizing/design-comparison.json": "b07dc0e43c931fdce218f8cb78e2114fcc061d4fdd7787e96458d1d1e73f1db9",
+    "sizing/report.html": "07ad6f97d9fb27a9ad8f9f7d7aff371c805c09d451be888d3eb2324681fd663f",
+    "sizing/selected-network.json": "42f500bd11ef8b9e34a22440d88702c6235c55cf92dc173820e9bdf66ea3688f",
+    "selected-coordination/analysis/manifest.json": "5a3adec5522c1e1428546aa2b99cec27d4aeff0ad7d55ee42c315435aa91bd49",
+    "selected-coordination/analysis/network.json": "c443321383d954da85123714f17d5df905ab6f502c90d8eb4c7811005e1912d0",
+    "selected-coordination/analysis/report.html": "501cefbde138ba6138648f65d6b351ecebbf8199c0b789294640fed0ae9d734a",
+    "selected-coordination/analysis/segments.csv": "0cf8c1dc5380d5e49c5d3e21430b6ea9aff0a8400a0e15f907015a58e53bd930",
+    "selected-coordination/bim/bim-verification.json": "c0ba33744e13f78d187687c68edfa9242765e0c6d514ecbbf4429854c2344e2d",
+    "selected-coordination/bim/model.ifc": "c1cff8fd07fab6eaea3cccfb371b542a0b6ad8b7b414eb34992c20b2a27c6eaa",
+    "selected-coordination/bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "sizing/baseline/manifest.json": "653e4ed07b81a8e05f7a9a360d846e3d4390180c6025fd31714e09f8d845e7b0",
+    "sizing/baseline/network.json": "9d0a78f3e8fd5c16a6e60d18e4de9af64ae1fb40091624fcb8d81a71b76e5565",
+    "sizing/baseline/report.html": "f7ed6d164d3069dae4abde4a68f2f063a8450b6ea66bfd482d24dbd80555ca85",
+    "sizing/baseline/segments.csv": "dea98a3359b3e6e32d5bbd181d0fae7c86b0602bfa5e62a8d6c5dda6983a49f6",
+    "sizing/selected/manifest.json": "5a3adec5522c1e1428546aa2b99cec27d4aeff0ad7d55ee42c315435aa91bd49",
+    "sizing/selected/network.json": "c443321383d954da85123714f17d5df905ab6f502c90d8eb4c7811005e1912d0",
+    "sizing/selected/report.html": "501cefbde138ba6138648f65d6b351ecebbf8199c0b789294640fed0ae9d734a",
+    "sizing/selected/segments.csv": "0cf8c1dc5380d5e49c5d3e21430b6ea9aff0a8400a0e15f907015a58e53bd930"
+  }
+}

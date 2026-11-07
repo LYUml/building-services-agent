@@ -75,6 +75,8 @@ Use `python -m bsa.workflow intake <brief.md> --out <new-intake.json>` to index 
 
 [Saved IFC coordination](docs/CLASH.md) adds triangle clearance queries and Manifold3D Mesh64 solid intersections. It detects aligned overlap/full containment and distinguishes a tube's empty bore from its bounding box. Sourced contact exceptions remain visible and cannot waive solid overlaps; incomplete geometry and broader product/engineering acceptance stay pending.
 
+[Independent water-riser reuse](examples/water-riser/README.md) runs a new synthetic source-linked brief through unchanged electrical, IFC sizing and clearance adapters: two vertical hollow pipe bodies, gravity pressure, four catalogue choices, retained failures and an editable electrical overlay. The separate water/electrical assumptions and pending drawing/product/engineering gates remain explicit.
+
 ## Shared electrical data
 
 [Coordinated generation](docs/COORDINATION.md) now feeds the same device/circuit data into calculations, DXF and IFC. A geometry companion only adds explicit dimensions, heights and spaces. Reopened artifacts are reconciled; the workflow can send the resulting DXF through native AutoCAD save/reopen/plot. No separate power, PF, XY or circuit copy is maintained in geometry inputs.

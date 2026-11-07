@@ -40,6 +40,7 @@ jobs:
       - run: python -m unittest discover -s tests -p test_network_binding.py -v
       - run: python -m unittest discover -s tests -p test_network_design.py -v
       - run: python -m unittest discover -s tests -p test_network_model_design.py -v
+      - run: python -m unittest discover -s tests -p test_water_riser.py -v
       - run: python -m unittest discover -s tests -p test_circular_geometry.py -v
       - run: python -m bsa.workflow execute examples/network/plan.json --out runs/network
       - run: python -m bsa.workflow execute examples/network-binding/plan.json --out runs/network-binding
@@ -48,6 +49,7 @@ jobs:
       - run: python -m bsa.workflow execute examples/circular-network/plan.json --out runs/circular-network
       - run: python -m bsa.workflow execute examples/clash-plan.json --out runs/ifc-clash
       - run: python -m bsa.workflow execute examples/clash-local-plan.json --out runs/ifc-clash-local
+      - run: python -m bsa.workflow execute examples/water-riser/plan.json --out runs/water-riser
   lighting:
     runs-on: windows-latest
     steps:

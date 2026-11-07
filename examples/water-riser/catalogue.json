@@ -1,0 +1,49 @@
+{
+  "sources": {
+    "test": "Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data. Material scores are abstract points per metre; fixed-K comparative assumption."
+  },
+  "options": [
+    {
+      "id": "D15",
+      "diameter_m": 0.015,
+      "roughness_m": 4.5e-05,
+      "material_score_per_m": 1,
+      "source": "test"
+    },
+    {
+      "id": "D25",
+      "diameter_m": 0.025,
+      "roughness_m": 4.5e-05,
+      "material_score_per_m": 2,
+      "source": "test"
+    },
+    {
+      "id": "D32",
+      "diameter_m": 0.032,
+      "roughness_m": 4.5e-05,
+      "material_score_per_m": 3,
+      "source": "test"
+    },
+    {
+      "id": "D40",
+      "diameter_m": 0.04,
+      "roughness_m": 4.5e-05,
+      "material_score_per_m": 4,
+      "source": "test"
+    }
+  ],
+  "allowed_options": {
+    "RISER": [
+      "D15",
+      "D25",
+      "D32",
+      "D40"
+    ]
+  },
+  "objective": "minimise sum(length_m * material_score_per_m)",
+  "max_evaluations": 4,
+  "hydraulic_basis": {
+    "assumption": "prescribed demands; route and local K unchanged across sizes",
+    "source": "test"
+  }
+}

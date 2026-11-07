@@ -1,0 +1,47 @@
+{
+  "original_candidate_count": 4,
+  "geometry_feasible_candidate_count": 4,
+  "rejected_geometry_options": [],
+  "calculated_checks_pass": false,
+  "saved_ifc_resize_checks_pass": false,
+  "stable_object_port_ids_match": false,
+  "design_accepted": false,
+  "selected": null,
+  "pending": [
+    "manufacturer-specific product/fitting geometry",
+    "clearance and clash checks",
+    "K applicability, operating point and full professional acceptance"
+  ],
+  "baseline_analysis": {
+    "calculated_checks_pass": false,
+    "required_source_total_pressure_pa": 344350.6144378637
+  },
+  "sizing_feasible": false,
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\water-riser-negative-inputs\\network.json": "686f5c164cf60230f48ea93c5ff9090bd5d9139f74e5a9728ebc6d7a1f24c5c6",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\water-riser-negative-inputs\\model.json": "8f2672e78e7b681f20dada0e6121317635af1184023117c8cf0159e1e794b487",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\water-riser-negative-inputs\\binding.json": "dbf25c95094e960f3702a9148e55eeaff758ea68f372720f176acb62166e0ab7",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\water-riser-negative-inputs\\catalogue.json": "bfe4f4a2297a3f6b5a7316fc86c290dde34d72fc592b25ae84e4422fa8d66931",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\water-riser-negative-inputs\\geometry.json": "0c613f318c72e4c4aed93cc4384f8a0edfdae02d65f1a7d3a36fd0c49c233b06"
+  },
+  "inputs_unchanged": true,
+  "scope": "Fixed-endpoint circular sizing, explicit envelope/wall bodies, space containment and independent saved IFC/pressure reconciliation",
+  "artifacts": {
+    "baseline-network.json": "b9c42c4381d04ba3756b5d96a7a272d11a538aeeeec313617d5aaa0cb1f1f609",
+    "filtered-catalogue.json": "1c4c278283725c296a3b663149a1c3fa0fc06c4a7203882cc784de797c70bd9f",
+    "baseline-analysis/manifest.json": "c70eae8ef098496400b3a7ae2968bef5d9f50d88e22d725f63e9fddae9c2bfe9",
+    "baseline-analysis/network.json": "ed390029a1936a959d2bf02fd0b62b845b359025d47fb0d535b4c6f33d637af1",
+    "baseline-analysis/report.html": "ad2a486c32623d8b3184414dc302c45bd46e8edc79c47fe652999e17410797ed",
+    "baseline-analysis/segments.csv": "1c83c5c2accd5580fcfdda0910da9ce1c34cabcede3fc493efd0bb02bf2d6421",
+    "baseline-bim/bim-verification.json": "2af2f8353d37909bb60363eb788081f60bc09d385ae02c8aedcfb1d33842f379",
+    "baseline-bim/model.ifc": "9845f1e1470d40aad24ca408823c83352ee7373ac0c2da3ee5389f6a24de076c",
+    "baseline-bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "sizing/candidates.csv": "54db7bfb9d079031436b5e1243c114c44ce076aa598cc9452ea4ab1f0d2d10d5",
+    "sizing/design-comparison.json": "2518f47a97d03289648ae6509ddad3c7fb0fe1c1954fa7e628ac723d7df5cb6a",
+    "sizing/report.html": "8accbeedec1d5983ec45166ba8982eb784cff24b2864e59945826f911765678f",
+    "sizing/baseline/manifest.json": "c70eae8ef098496400b3a7ae2968bef5d9f50d88e22d725f63e9fddae9c2bfe9",
+    "sizing/baseline/network.json": "ed390029a1936a959d2bf02fd0b62b845b359025d47fb0d535b4c6f33d637af1",
+    "sizing/baseline/report.html": "ad2a486c32623d8b3184414dc302c45bd46e8edc79c47fe652999e17410797ed",
+    "sizing/baseline/segments.csv": "1c83c5c2accd5580fcfdda0910da9ce1c34cabcede3fc493efd0bb02bf2d6421"
+  }
+}

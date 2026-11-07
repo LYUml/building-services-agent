@@ -1,0 +1,5 @@
+id,material_score,feasible,required_source_total_pressure_pa,choices,analysis_error
+C000001,5.0,False,344350.6144378637,"{""RISER"": ""D15""}",
+C000002,10.0,False,165916.6346945964,"{""RISER"": ""D25""}",
+C000003,15.0,True,154362.17501336496,"{""RISER"": ""D32""}",
+C000004,20.0,True,150910.59704636765,"{""RISER"": ""D40""}",

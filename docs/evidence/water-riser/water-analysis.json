@@ -1,0 +1,82 @@
+{
+  "name": "Independent vertical water riser",
+  "supply_flow_m3_s": 0.001,
+  "segments": [
+    {
+      "id": "RISER",
+      "from_node": "BASE",
+      "to_node": "TOP",
+      "flow_m3_s": 0.001,
+      "area_m2": 0.000804247719318987,
+      "velocity_m_s": 1.2433979929054324,
+      "reynolds": 39709.15830142789,
+      "darcy_friction_factor": 0.025821322351865142,
+      "regime": "turbulent Colebrook Darcy",
+      "friction_pa": 3112.5717759293634,
+      "minor_pa": 2314.4197374356027,
+      "dissipative_loss_pa": 5426.9915133649665,
+      "elevation_pressure_pa": 48935.18349999999,
+      "downstream_total_pressure_pa": 125637.82498663504,
+      "velocity_pass": true,
+      "source": "sizing/segment/RISER"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "BASE",
+      "demand_m3_s": 0,
+      "total_pressure_pa": 180000,
+      "required_total_pressure_pa": 0,
+      "pressure_margin_pa": 180000,
+      "pressure_pass": true,
+      "path": [],
+      "source": "test"
+    },
+    {
+      "id": "TOP",
+      "demand_m3_s": 0.001,
+      "total_pressure_pa": 125637.82498663504,
+      "required_total_pressure_pa": 100000,
+      "pressure_margin_pa": 25637.824986635038,
+      "pressure_pass": true,
+      "path": [
+        "RISER"
+      ],
+      "source": "test"
+    }
+  ],
+  "critical_node": "TOP",
+  "critical_path": [
+    "RISER"
+  ],
+  "required_source_total_pressure_pa": 154362.17501336496,
+  "calculated_checks": {
+    "velocity": true,
+    "pressure": true,
+    "flow_continuity": true
+  },
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "pressure_basis": "Total pressure (static + velocity), with elevation potential handled separately; common reference. Not an ambient-referenced vertical air pressure model.",
+  "scope": "Prescribed withdrawals in a constant-density, fully filled circular tree; no loops or pressure-dependent flow solution",
+  "pending": [
+    "source demand and route evidence",
+    "component K/reference velocity validation",
+    "fan/pump curve and operating-point selection",
+    "noise, cavitation, compressibility and domain/code checks",
+    "physical routing and clash review"
+  ],
+  "input_sha256": "42f500bd11ef8b9e34a22440d88702c6235c55cf92dc173820e9bdf66ea3688f",
+  "fluids_version": "1.3.1",
+  "sources": {
+    "test": "Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data.",
+    "sizing/test": "Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data. Material scores are abstract points per metre; fixed-K comparative assumption.",
+    "sizing/segment/RISER": "Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data.; size/roughness: Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data. Material scores are abstract points per metre; fixed-K comparative assumption.; sizing assumption: Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data. Material scores are abstract points per metre; fixed-K comparative assumption."
+  },
+  "methods": [
+    "Darcy-Weisbach: f_D L/D rho v^2/2",
+    "Fittings: K rho v^2/2 using local segment velocity",
+    "Elevation: rho g dz, g=9.80665 m/s2",
+    "https://fluids.readthedocs.io/fluids.friction.html"
+  ]
+}
