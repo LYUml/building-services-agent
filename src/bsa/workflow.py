@@ -14,6 +14,8 @@ from .engine import ProjectError
 IFC_ARTIFACTS={'bim':'model.ifc','network_coordination':'bim/model.ifc',
                'network_model_design':'selected-coordination/bim/model.ifc',
                'electrical_coordination':'bim/model.ifc','electrical_lighting':'shared/bim/model.ifc'}
+NETWORK_ARTIFACTS={'network_coordination':'network-input.json','network_design':'selected-network.json',
+                   'network_model_design':'selected-coordination/network-input.json'}
 
 
 def read_json(path):
@@ -68,7 +70,7 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","network_model_design","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_native","native_cad","manual"):
+        if kind not in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","network_model_design","pump_operating_point","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","network_model_design","lighting"):
             inputs.add(local_path(root,t.get("project")))
@@ -102,6 +104,15 @@ def validate_plan(path):
             else:
                 diagram_source=local_path(root,t.get('dxf'));inputs.add(diagram_source)
                 if diagram_source.suffix.lower()!='.dxf':raise ProjectError('native diagram source must be DXF')
+        if kind=='pump_operating_point':
+            from .pump import validate_curve,prepare
+            curve=local_path(root,t.get('curve'));inputs.add(curve);validate_curve(read_json(curve))
+            if bool(t.get('project'))==bool(t.get('depends_on')):raise ProjectError('pump task requires exactly one network input or earlier network producer')
+            if t.get('depends_on'):
+                if t['depends_on'] not in ids or next(x for x in tasks if x['id']==t['depends_on'])['kind'] not in NETWORK_ARTIFACTS:
+                    raise ProjectError('pump dependency must be an earlier supported network producer')
+            else:
+                pump_network=local_path(root,t.get('project'));inputs.add(pump_network);prepare(read_json(pump_network),read_json(curve))
         if kind=='network_design':
             from .network_design import validate_catalogue
             catalogue=local_path(root,t.get('catalogue'));inputs.add(catalogue)
@@ -165,7 +176,16 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
         folder=out/t["id"]
         status="pending";reason="";payload=None
         try:
-            if t['kind']=='ifc_native':
+            if t['kind']=='pump_operating_point':
+                dependency=t.get('depends_on')
+                if dependency and tasks[dependency]['status']!='pass':reason='upstream network producer did not pass; no pump operating point fabricated'
+                else:
+                    from .pump import run
+                    network_source=out/dependency/NETWORK_ARTIFACTS[tasks[dependency]['kind']] if dependency else local_path(root,t['project'])
+                    payload=run(network_source,local_path(root,t['curve']),folder)
+                    status='pass' if payload['calculated_checks_pass'] else 'fail'
+                    reason='source-bounded single-terminal pump/system intersection and selected pressure rerun; efficiency, motor, NPSH and full engineering acceptance pending'
+            elif t['kind']=='ifc_native':
                 dependency=t.get('depends_on')
                 if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC drawing did not pass; no native drawing fabricated'
                 elif not autocad:reason='AutoCAD executable not supplied for native IFC diagram'

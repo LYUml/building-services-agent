@@ -1,0 +1,11 @@
+# Pump/system operating-point evidence
+
+Actual source-linked execution of `examples/water-riser/pump-plan.json` in `runs/pump-release`. The workflow consumes the selected IFC-reconciled pipe network, with the separate sourced synthetic pump curve. Original run source/artifact integrity verification passed before archiving this selected evidence. Completed coursework is not used or modified.
+
+`design-network.json` is the selected geometry-derived input: 32 mm bore, 5 m route/rise and a 1 L/s design-flow target. `curve.json` retains all source points, including shutoff, plus the explicit positive solver bracket. The new operating assumption fixes terminal total pressure at 100 kPa and frees terminal flow; pump inlet/outlet elevation equality is an explicit assumption, not inferred from the pump envelope.
+
+`pump.json`, `iterations.csv` and `report.html` retain the evaluated sign bracket, tolerances and checks. `operating-network.json` is the source-linked revised flow/pressure input; `rerun-network.json` is its actual independent pressure-engine rerun. Results are approximately 1.253485 L/s, 157.32574 kPa pump-added total pressure, 0.197205 kW hydraulic and 0.437828 kW estimated electrical input with explicitly combined wire-to-water efficiency. The existing 0.75 kW electrical scenario remains unchanged and unreconciled. These are synthetic curve points, not manufacturer performance or a motor rating.
+
+`no-bracket.json` and its curve retain an actual insufficient-pressure case: no sign bracket in the declared interval, no extrapolated state and no selected network. `capacity-failed.json` and its curve retain an actual converged intersection below the 1 L/s design-flow target; the state is retained but the capacity/overall checks fail. Tests additionally cover an independent analytic Poiseuille intersection, inlet-pressure power accounting, absent efficiency, branches, fluid mismatch, transition rejection, iteration exhaustion and artifact tampering.
+
+`regression.log` records full enabled local adapter tests. Report paths/hashes refer to original ignored run directories; this is a selected evidence archive, not a complete portable run bundle. Product/curve applicability, NPSH and absolute suction conditions, BEP/operating region, motor/electrical reconciliation, controls and complete professional acceptance remain pending.

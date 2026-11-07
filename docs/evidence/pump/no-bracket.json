@@ -1,0 +1,99 @@
+{
+  "status": "not_bracketed",
+  "operating_point": null,
+  "calculated_checks_pass": false,
+  "design_accepted": false,
+  "design_flow_m3_s": 0.001,
+  "terminal_node": "TOP",
+  "trace": [
+    {
+      "flow_m3_s": 0.0005,
+      "pump_total_pressure_rise_pa": 115000.0,
+      "system_required_rise_pa": 150380.31834719673,
+      "residual_pa": -35380.318347196735
+    },
+    {
+      "flow_m3_s": 0.002,
+      "pump_total_pressure_rise_pa": 100000.0,
+      "system_required_rise_pa": 169723.67045404296,
+      "residual_pa": -69723.67045404296
+    }
+  ],
+  "pending": [
+    "curve and wire-to-water efficiency/product applicability",
+    "NPSH, suction absolute pressure, cavitation and operating-region limits",
+    "motor rating/starting and electrical circuit reconciliation",
+    "controls, branches/loops and full engineering acceptance"
+  ],
+  "reason": "No sign bracket in the declared operating-flow interval; no flow extrapolated",
+  "selected_rerun_pass": false,
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-release\\water\\selected-coordination\\network-input.json": "42f500bd11ef8b9e34a22440d88702c6235c55cf92dc173820e9bdf66ea3688f",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-no-bracket-curve.json": "ec00db37799ea9d36dbbde95c630e70338dabc9cbb091cebdb9ff70639d85b6d"
+  },
+  "inputs_unchanged": true,
+  "curve": {
+    "model": "fixed-speed liquid pump; single fixed-total-pressure terminal; free flow",
+    "sources": {
+      "test": "Synthetic fixed-speed 2900 rpm liquid pump pressure-rise and wire-to-water efficiency points for algorithm verification only; not manufacturer, product selection or motor nameplate data. Fixed route/local K and fixed 100 kPa terminal total-pressure boundary; flow is free. Equal pump inlet/outlet elevations at the network source are an explicit assumption; no suction geometry is bound. Explicit synthetic negative revision: pressure points no-bracket; efficiency held as a separate synthetic assumption."
+    },
+    "source": "test",
+    "speed_rpm": 2900,
+    "fluid": {
+      "density_kg_m3": 998,
+      "dynamic_viscosity_pa_s": 0.001
+    },
+    "inlet_total_pressure_pa": 0,
+    "efficiency_basis": "wire to water",
+    "points": [
+      {
+        "flow_m3_s": 0,
+        "total_pressure_rise_pa": 120000.0,
+        "wire_to_water_efficiency": 0
+      },
+      {
+        "flow_m3_s": 0.0005,
+        "total_pressure_rise_pa": 115000.0,
+        "wire_to_water_efficiency": 0.3
+      },
+      {
+        "flow_m3_s": 0.001,
+        "total_pressure_rise_pa": 110000.0,
+        "wire_to_water_efficiency": 0.42
+      },
+      {
+        "flow_m3_s": 0.0015,
+        "total_pressure_rise_pa": 105000.0,
+        "wire_to_water_efficiency": 0.48
+      },
+      {
+        "flow_m3_s": 0.002,
+        "total_pressure_rise_pa": 100000.0,
+        "wire_to_water_efficiency": 0.44
+      }
+    ],
+    "flow_tolerance_m3_s": 1e-10,
+    "pressure_tolerance_pa": 0.01,
+    "max_iterations": 100,
+    "flow_bracket_m3_s": [
+      0.0005,
+      0.002
+    ]
+  },
+  "network_sources": {
+    "test": "Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data.",
+    "sizing/test": "Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data. Material scores are abstract points per metre; fixed-K comparative assumption.",
+    "sizing/segment/RISER": "Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data.; size/roughness: Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data. Material scores are abstract points per metre; fixed-K comparative assumption.; sizing assumption: Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data. Material scores are abstract points per metre; fixed-K comparative assumption."
+  },
+  "fluids_version": "1.3.1",
+  "scope": "Single-terminal fixed-pressure boundary, constant-density liquid, supplied fixed-speed piecewise-linear pump curve; fixed route/K",
+  "methods": [
+    "https://datatool.pumps.org/pump-fundamentals/combined.html",
+    "https://datatool.pumps.org/pump-fundamentals/pump-curves",
+    "Existing fluids 1.3.1 Colebrook/laminar pressure engine; source-bounded bisection; P_hydraulic = Q * total pressure rise"
+  ],
+  "artifacts": {
+    "iterations.csv": "3c19f5b435aecd06c25c25788c954fe5e4cb6543f64c10c679ae7e71b3b12aa6",
+    "report.html": "736babc66ad5fd4f4766e8ffe8ca3ad51736445c5eef9425d5ac95f56e908cdb"
+  }
+}

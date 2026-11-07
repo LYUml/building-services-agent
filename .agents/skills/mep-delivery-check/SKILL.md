@@ -8,6 +8,8 @@ description: Audit building services models, drawings, calculations and reports 
 Re-read the requirement matrix and inspect evidence for each deliverable. Check source hashes and provenance, unknown assumptions, code editions, IDs and counts across equipment, circuits, model, diagrams and report.
 Run calculations and review failures. Validate units and native model semantics. For DWG, reopen in AutoCAD and inspect native entities; separately export and visually review every PDF sheet for scale, clipped content, lineweights and legibility. A successful command or DXF validator cannot stand in for either gate.
 For simulations inspect actual engine logs, version, model/weather inputs and result units. Distinguish reproducibility, numerical checks and engineering acceptance.
+
+For pump operating points, inspect the explicit fixed terminal-pressure/free-flow boundary, original curve and positive bracket, fluid/regime applicability, signed root residuals, both convergence tolerances, conservative minimum-flow/velocity checks and saved-state rerun. Verify power uses pump-added pressure and explicitly combined wire-to-water efficiency. A converged point can fail capacity; an electrical estimate does not update or validate the electrical project. See docs/PUMPS.md for limits.
 The initial CLI manifest proves only its JSON input remained unchanged and its emitted CIRCLE count matches device count. It does not prove all source documents unchanged, correct native geometry, print quality or complete protection design.
 Create an acceptance record with pass/fail/pending and evidence paths. Pending required checks mean the delivery is incomplete; never erase them to obtain a green status.
 

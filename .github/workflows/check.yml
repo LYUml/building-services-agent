@@ -41,6 +41,7 @@ jobs:
       - run: python -m unittest discover -s tests -p test_network.py -v
       - run: python -m unittest discover -s tests -p test_network_binding.py -v
       - run: python -m unittest discover -s tests -p test_network_design.py -v
+      - run: python -m unittest discover -s tests -p test_pump.py -v
       - run: python -m unittest discover -s tests -p test_network_model_design.py -v
       - run: python -m unittest discover -s tests -p test_water_riser.py -v
       - run: python -m unittest discover -s tests -p test_circular_geometry.py -v
@@ -53,6 +54,7 @@ jobs:
       - run: python -m bsa.workflow execute examples/clash-local-plan.json --out runs/ifc-clash-local
       - run: python -m bsa.workflow execute examples/water-riser/plan.json --out runs/water-riser
       - run: python -m bsa.workflow execute examples/water-riser/delivery-plan.json --out runs/water-delivery
+      - run: python -m bsa.workflow execute examples/water-riser/pump-plan.json --out runs/water-pump
   lighting:
     runs-on: windows-latest
     steps:

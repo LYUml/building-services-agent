@@ -81,6 +81,8 @@ Use `python -m bsa.workflow intake <brief.md> --out <new-intake.json>` to index 
 
 The water-riser `native-plan.json` adds isolated AutoCAD save/reopen, complete model entity/IFC GUID reconciliation and an actual 1:50 A4 PDF reference check. The synthetic PDF has been rendered and visually reviewed; this verifies the diagram's scoped native delivery, with equipment/fittings and complete installation drawing standards still pending.
 
+[Pump operating points](docs/PUMPS.md) now solve a supplied fixed-speed curve against a single fixed-pressure terminal line, using model-derived pipe dimensions and recomputed friction. Source curve/bracket limits, convergence, design-flow/velocity checks and a selected rerun are retained. Explicit combined wire-to-water efficiency permits an electrical-input estimate; the electrical project is not automatically revised or accepted. Real product/NPSH/control and branched/looped systems remain pending.
+
 ## Shared electrical data
 
 [Coordinated generation](docs/COORDINATION.md) now feeds the same device/circuit data into calculations, DXF and IFC. A geometry companion only adds explicit dimensions, heights and spaces. Reopened artifacts are reconciled; the workflow can send the resulting DXF through native AutoCAD save/reopen/plot. No separate power, PF, XY or circuit copy is maintained in geometry inputs.

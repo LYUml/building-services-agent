@@ -1,0 +1,336 @@
+{
+  "status": "converged",
+  "operating_point": {
+    "flow_m3_s": 0.001253485172986984,
+    "pump_total_pressure_rise_pa": 157325.7413506508,
+    "system_required_rise_pa": 157325.73692220883,
+    "residual_pa": 0.004428441956406459,
+    "supply_total_pressure_pa": 157325.7413506508,
+    "hydraulic_power_kw": 0.197205484112226,
+    "wire_to_water_efficiency": 0.45041822075843807,
+    "estimated_electrical_kw": 0.43782750125019576
+  },
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "design_flow_m3_s": 0.001,
+  "terminal_node": "TOP",
+  "trace": [
+    {
+      "flow_m3_s": 0.0005,
+      "pump_total_pressure_rise_pa": 185000.0,
+      "system_required_rise_pa": 150380.31834719673,
+      "residual_pa": 34619.681652803265
+    },
+    {
+      "flow_m3_s": 0.002,
+      "pump_total_pressure_rise_pa": 110000.0,
+      "system_required_rise_pa": 169723.67045404296,
+      "residual_pa": -59723.670454042964
+    },
+    {
+      "flow_m3_s": 0.00125,
+      "pump_total_pressure_rise_pa": 157500.0,
+      "system_required_rise_pa": 157280.69895687245,
+      "residual_pa": 219.30104312754702
+    },
+    {
+      "flow_m3_s": 0.0016250000000000001,
+      "pump_total_pressure_rise_pa": 136250.0,
+      "system_required_rise_pa": 162811.72612156218,
+      "residual_pa": -26561.726121562184
+    },
+    {
+      "flow_m3_s": 0.0014375,
+      "pump_total_pressure_rise_pa": 148125.0,
+      "system_required_rise_pa": 159873.4305767243,
+      "residual_pa": -11748.430576724291
+    },
+    {
+      "flow_m3_s": 0.00134375,
+      "pump_total_pressure_rise_pa": 152812.5,
+      "system_required_rise_pa": 158533.8418672331,
+      "residual_pa": -5721.341867233103
+    },
+    {
+      "flow_m3_s": 0.0012968749999999999,
+      "pump_total_pressure_rise_pa": 155156.25,
+      "system_required_rise_pa": 157896.46071245155,
+      "residual_pa": -2740.210712451546
+    },
+    {
+      "flow_m3_s": 0.0012734374999999998,
+      "pump_total_pressure_rise_pa": 156328.125,
+      "system_required_rise_pa": 157585.8768724819,
+      "residual_pa": -1257.7518724818947
+    },
+    {
+      "flow_m3_s": 0.0012617187499999998,
+      "pump_total_pressure_rise_pa": 156914.0625,
+      "system_required_rise_pa": 157432.61210421516,
+      "residual_pa": -518.5496042151644
+    },
+    {
+      "flow_m3_s": 0.001255859375,
+      "pump_total_pressure_rise_pa": 157207.03125,
+      "system_required_rise_pa": 157356.4865690085,
+      "residual_pa": -149.45531900849892
+    },
+    {
+      "flow_m3_s": 0.0012529296875,
+      "pump_total_pressure_rise_pa": 157353.515625,
+      "system_required_rise_pa": 157318.55052143015,
+      "residual_pa": 34.965103569848
+    },
+    {
+      "flow_m3_s": 0.00125439453125,
+      "pump_total_pressure_rise_pa": 157280.2734375,
+      "system_required_rise_pa": 157337.5079849831,
+      "residual_pa": -57.2345474830945
+    },
+    {
+      "flow_m3_s": 0.001253662109375,
+      "pump_total_pressure_rise_pa": 157316.89453125,
+      "system_required_rise_pa": 157328.02661312994,
+      "residual_pa": -11.132081879943144
+    },
+    {
+      "flow_m3_s": 0.0012532958984375,
+      "pump_total_pressure_rise_pa": 157335.205078125,
+      "system_required_rise_pa": 157323.28790725867,
+      "residual_pa": 11.917170866334345
+    },
+    {
+      "flow_m3_s": 0.00125347900390625,
+      "pump_total_pressure_rise_pa": 157326.0498046875,
+      "system_required_rise_pa": 157325.65709518924,
+      "residual_pa": 0.392709498264594
+    },
+    {
+      "flow_m3_s": 0.001253570556640625,
+      "pump_total_pressure_rise_pa": 157321.47216796875,
+      "system_required_rise_pa": 157326.84181290836,
+      "residual_pa": -5.369644939608406
+    },
+    {
+      "flow_m3_s": 0.0012535247802734374,
+      "pump_total_pressure_rise_pa": 157323.76098632812,
+      "system_required_rise_pa": 157326.249443736,
+      "residual_pa": -2.488457407860551
+    },
+    {
+      "flow_m3_s": 0.0012535018920898436,
+      "pump_total_pressure_rise_pa": 157324.9053955078,
+      "system_required_rise_pa": 157325.95326688437,
+      "residual_pa": -1.047871376562398
+    },
+    {
+      "flow_m3_s": 0.0012534904479980468,
+      "pump_total_pressure_rise_pa": 157325.47760009766,
+      "system_required_rise_pa": 157325.80518039226,
+      "residual_pa": -0.32758029460092075
+    },
+    {
+      "flow_m3_s": 0.0012534847259521482,
+      "pump_total_pressure_rise_pa": 157325.76370239258,
+      "system_required_rise_pa": 157325.7311376296,
+      "residual_pa": 0.032564762979745865
+    },
+    {
+      "flow_m3_s": 0.0012534875869750976,
+      "pump_total_pressure_rise_pa": 157325.62065124512,
+      "system_required_rise_pa": 157325.76815897063,
+      "residual_pa": -0.14750772551633418
+    },
+    {
+      "flow_m3_s": 0.001253486156463623,
+      "pump_total_pressure_rise_pa": 157325.69217681885,
+      "system_required_rise_pa": 157325.74964829005,
+      "residual_pa": -0.05747147119836882
+    },
+    {
+      "flow_m3_s": 0.0012534854412078857,
+      "pump_total_pressure_rise_pa": 157325.7279396057,
+      "system_required_rise_pa": 157325.74039295732,
+      "residual_pa": -0.012453351606382057
+    },
+    {
+      "flow_m3_s": 0.001253485083580017,
+      "pump_total_pressure_rise_pa": 157325.74582099915,
+      "system_required_rise_pa": 157325.73576529283,
+      "residual_pa": 0.010055706312414259
+    },
+    {
+      "flow_m3_s": 0.0012534852623939513,
+      "pump_total_pressure_rise_pa": 157325.73688030243,
+      "system_required_rise_pa": 157325.73807912492,
+      "residual_pa": -0.0011988224869128317
+    },
+    {
+      "flow_m3_s": 0.001253485172986984,
+      "pump_total_pressure_rise_pa": 157325.7413506508,
+      "system_required_rise_pa": 157325.73692220883,
+      "residual_pa": 0.004428441956406459
+    }
+  ],
+  "pending": [
+    "curve and wire-to-water efficiency/product applicability",
+    "NPSH, suction absolute pressure, cavitation and operating-region limits",
+    "motor rating/starting and electrical circuit reconciliation",
+    "controls, branches/loops and full engineering acceptance"
+  ],
+  "flow_bracket_m3_s": [
+    0.001253485172986984,
+    0.0012534852623939513
+  ],
+  "checks": {
+    "balance": true,
+    "flow_bracket": true,
+    "minimum_design_flow": true,
+    "velocity_through_bracket": true,
+    "node_pressure_requirements": true
+  },
+  "network_analysis": {
+    "name": "Independent vertical water riser",
+    "supply_flow_m3_s": 0.001253485172986984,
+    "segments": [
+      {
+        "id": "RISER",
+        "from_node": "BASE",
+        "to_node": "TOP",
+        "flow_m3_s": 0.001253485172986984,
+        "area_m2": 0.000804247719318987,
+        "velocity_m_s": 1.5585809482287347,
+        "reynolds": 49774.841162632874,
+        "darcy_friction_factor": 0.025100773464990466,
+        "regime": "turbulent Colebrook Darcy",
+        "friction_pa": 4754.07908765301,
+        "minor_pa": 3636.474334555828,
+        "dissipative_loss_pa": 8390.553422208839,
+        "elevation_pressure_pa": 48935.18349999999,
+        "downstream_total_pressure_pa": 100000.00442844196,
+        "velocity_pass": true,
+        "source": "sizing/segment/RISER"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "BASE",
+        "demand_m3_s": 0,
+        "total_pressure_pa": 157325.7413506508,
+        "required_total_pressure_pa": 0,
+        "pressure_margin_pa": 157325.7413506508,
+        "pressure_pass": true,
+        "path": [],
+        "source": "test"
+      },
+      {
+        "id": "TOP",
+        "demand_m3_s": 0.001253485172986984,
+        "total_pressure_pa": 100000.00442844196,
+        "required_total_pressure_pa": 100000,
+        "pressure_margin_pa": 0.004428441956406459,
+        "pressure_pass": true,
+        "path": [
+          "RISER"
+        ],
+        "source": "pump/operating_point"
+      }
+    ],
+    "critical_node": "TOP",
+    "critical_path": [
+      "RISER"
+    ],
+    "required_source_total_pressure_pa": 157325.73692220883,
+    "calculated_checks": {
+      "velocity": true,
+      "pressure": true,
+      "flow_continuity": true
+    },
+    "calculated_checks_pass": true,
+    "design_accepted": false,
+    "pressure_basis": "Total pressure (static + velocity), with elevation potential handled separately; common reference. Not an ambient-referenced vertical air pressure model.",
+    "scope": "Prescribed withdrawals in a constant-density, fully filled circular tree; no loops or pressure-dependent flow solution",
+    "pending": [
+      "source demand and route evidence",
+      "component K/reference velocity validation",
+      "fan/pump curve and operating-point selection",
+      "noise, cavitation, compressibility and domain/code checks",
+      "physical routing and clash review"
+    ]
+  },
+  "selected_rerun_pass": true,
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-release\\water\\selected-coordination\\network-input.json": "42f500bd11ef8b9e34a22440d88702c6235c55cf92dc173820e9bdf66ea3688f",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\water-riser\\pump-curve.json": "869439e44e745b2aaf0ccc79d3a4b808995e63dcae0b510f608a86d9891f6272"
+  },
+  "inputs_unchanged": true,
+  "curve": {
+    "model": "fixed-speed liquid pump; single fixed-total-pressure terminal; free flow",
+    "sources": {
+      "test": "Synthetic fixed-speed 2900 rpm liquid pump pressure-rise and wire-to-water efficiency points for algorithm verification only; not manufacturer, product selection or motor nameplate data. Fixed route/local K and fixed 100 kPa terminal total-pressure boundary; flow is free. Equal pump inlet/outlet elevations at the network source are an explicit assumption; no suction geometry is bound."
+    },
+    "source": "test",
+    "speed_rpm": 2900,
+    "fluid": {
+      "density_kg_m3": 998,
+      "dynamic_viscosity_pa_s": 0.001
+    },
+    "inlet_total_pressure_pa": 0,
+    "efficiency_basis": "wire to water",
+    "points": [
+      {
+        "flow_m3_s": 0,
+        "total_pressure_rise_pa": 200000,
+        "wire_to_water_efficiency": 0
+      },
+      {
+        "flow_m3_s": 0.0005,
+        "total_pressure_rise_pa": 185000,
+        "wire_to_water_efficiency": 0.3
+      },
+      {
+        "flow_m3_s": 0.001,
+        "total_pressure_rise_pa": 170000,
+        "wire_to_water_efficiency": 0.42
+      },
+      {
+        "flow_m3_s": 0.0015,
+        "total_pressure_rise_pa": 145000,
+        "wire_to_water_efficiency": 0.48
+      },
+      {
+        "flow_m3_s": 0.002,
+        "total_pressure_rise_pa": 110000,
+        "wire_to_water_efficiency": 0.44
+      }
+    ],
+    "flow_tolerance_m3_s": 1e-10,
+    "pressure_tolerance_pa": 0.01,
+    "max_iterations": 100,
+    "flow_bracket_m3_s": [
+      0.0005,
+      0.002
+    ]
+  },
+  "network_sources": {
+    "test": "Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data.",
+    "sizing/test": "Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data. Material scores are abstract points per metre; fixed-K comparative assumption.",
+    "sizing/segment/RISER": "Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data.; size/roughness: Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data. Material scores are abstract points per metre; fixed-K comparative assumption.; sizing assumption: Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data. Material scores are abstract points per metre; fixed-K comparative assumption."
+  },
+  "fluids_version": "1.3.1",
+  "scope": "Single-terminal fixed-pressure boundary, constant-density liquid, supplied fixed-speed piecewise-linear pump curve; fixed route/K",
+  "methods": [
+    "https://datatool.pumps.org/pump-fundamentals/combined.html",
+    "https://datatool.pumps.org/pump-fundamentals/pump-curves",
+    "Existing fluids 1.3.1 Colebrook/laminar pressure engine; source-bounded bisection; P_hydraulic = Q * total pressure rise"
+  ],
+  "artifacts": {
+    "iterations.csv": "c267971d78580437a915afe7ece6cc9a6fce4c3aa02eaea87fef48047c805c2d",
+    "operating-network.json": "d0913ce14bd33d110be0c1ac41edc33774781f4e67d3e624900f2e5461fa571a",
+    "report.html": "7a65555271631d9f3748869fd024b132231b568af036781dd5147220ec66f074",
+    "analysis/manifest.json": "a3a881b3e8d1a03d25cfaf426c5635c78862d54698c18fb77c00119135dfeafc",
+    "analysis/network.json": "35e9ac77a322e1c3f3c7a5632b24d54d1c005242c582ab5fde0cec22654c2e10",
+    "analysis/report.html": "c8fa71675484101a000adc0413490afac6bb7e7ce42d7be68ecae7c250207524",
+    "analysis/segments.csv": "a56d1db06352fa580b50b4f12eec614347d559f1e9b613c07e1919ddc80020ed"
+  }
+}

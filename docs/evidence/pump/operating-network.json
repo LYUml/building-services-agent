@@ -1,0 +1,49 @@
+{
+  "name": "Independent vertical water riser",
+  "model": "steady incompressible circular tree",
+  "sources": {
+    "test": "Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data.",
+    "sizing/test": "Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data. Material scores are abstract points per metre; fixed-K comparative assumption.",
+    "sizing/segment/RISER": "Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data.; size/roughness: Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data. Material scores are abstract points per metre; fixed-K comparative assumption.; sizing assumption: Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data. Material scores are abstract points per metre; fixed-K comparative assumption.",
+    "pump/operating_point": "Solved free flow at fixed terminal total-pressure boundary; curve: Synthetic fixed-speed 2900 rpm liquid pump pressure-rise and wire-to-water efficiency points for algorithm verification only; not manufacturer, product selection or motor nameplate data. Fixed route/local K and fixed 100 kPa terminal total-pressure boundary; flow is free. Equal pump inlet/outlet elevations at the network source are an explicit assumption; no suction geometry is bound.; original terminal basis: Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data."
+  },
+  "fluid": {
+    "density_kg_m3": 998,
+    "dynamic_viscosity_pa_s": 0.001,
+    "source": "test"
+  },
+  "supply": {
+    "node": "BASE",
+    "total_pressure_pa": 157325.7413506508,
+    "source": "pump/operating_point"
+  },
+  "nodes": [
+    {
+      "id": "BASE",
+      "demand_m3_s": 0,
+      "required_total_pressure_pa": 0,
+      "source": "test",
+      "elevation_m": 0.4
+    },
+    {
+      "id": "TOP",
+      "demand_m3_s": 0.001253485172986984,
+      "required_total_pressure_pa": 100000,
+      "source": "pump/operating_point",
+      "elevation_m": 5.4
+    }
+  ],
+  "segments": [
+    {
+      "id": "RISER",
+      "roughness_m": 4.5e-05,
+      "minor_k": 3,
+      "max_velocity_m_s": 2,
+      "source": "sizing/segment/RISER",
+      "from": "BASE",
+      "to": "TOP",
+      "length_m": 5.0,
+      "diameter_m": 0.032
+    }
+  ]
+}
