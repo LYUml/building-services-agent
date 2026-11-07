@@ -1,0 +1,2 @@
+# Synthetic brief
+Place three 40 W electrical input luminaires at (2,3), (4,3), (6,3) metres on circuit LGT-1. Use 230 V, PF 0.9, full demand. The circuit is single phase L1 with a 6 A breaker, synthetic tabulated cable rating 18 A, correction 0.8, 20 m route and single-phase voltage-drop coefficient 29 mV/A/m. Check against a demonstration 3% voltage-drop target. Produce a device overlay, conditional calculation and source list. All values are synthetic; no lighting performance or regulatory compliance is asserted.

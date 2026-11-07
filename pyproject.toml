@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "building-services-agent"
+version = "0.1.0"
+description = "Source-backed MEP workflows from requirements to drawings and analysis"
+requires-python = ">=3.11"
+
+[project.scripts]
+bsa = "bsa.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

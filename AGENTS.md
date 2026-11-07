@@ -1,0 +1,6 @@
+# Building Services Agent
+All development and generated artifacts belong in this repository. The completed polyu_bse3124 project is read-only historical context; never configure, run generators in, or modify it.
+Read README.md and docs/ROADMAP.md before implementation. Preserve the full goal: requirements intake, CAD/BIM authoring, professional analysis, iteration and verified deliverables across building services.
+Keep measured values, assumptions and design targets distinguishable and source-linked. Never invent regulation clauses, equipment ratings, areas or route lengths. Never confuse thermal kW with electrical kW or kVA.
+Native DWG acceptance requires AutoCAD reopening and visual plot review; DXF or script success is insufficient. Verify active document path before every live CAD write; do not close unsaved documents or restart user applications.
+Do not call a preview, synthetic example or unexecuted integration a completed engineering design. Incomplete checks remain explicit. Preserve upstream attribution and licenses; pin any reused dependencies. Push coherent verified milestones to the configured origin. Do not commit credentials, private coursework or generated environments.
