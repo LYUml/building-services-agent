@@ -1,0 +1,47 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\drawing-intake\\brief.md": "fa3f2c825b5cc3525c9e2e577c5b17ccc46bbda9f6648a3a51d753635b3c898f",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\drawing-intake\\selection.json": "c358fc54bb64fd4a671982842b61b261c42ac50f5a77da5657467d51d6759512",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\drawing-intake\\base.dxf": "e85a39947dfb0fa9adf7563a54a547251c8fdf627ce91e9d093e9b7ec4583703",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\drawing-intake\\plan.json": "762c9c1a82b885bfadd96f0f98c9d5928fd0b252ecd79401e8682cf7b88442fc"
+  },
+  "inputs_unchanged": true,
+  "tasks": {
+    "source": {
+      "kind": "drawing_intake",
+      "status": "pass",
+      "scope": "read-only drawing inventory and explicitly selected unit-checked geometry; semantic, DWG fidelity and visual acceptance pending"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Inventory the supplied drawing without changing it. Confirm its millimetre unit declaration against the independently supplied 6 m reference line, then measure only the explicitly selected closed L-shaped floor boundary. Preserve source hashes and entity handles; report nested block and unsupported geometry as unresolved. The synthetic reference area is 18 square metres, and this exercise does not establish full drawing or engineering acceptance.",
+      "task": "source",
+      "acceptance": "Unchanged source, explicit inventory and unit-checked 18 m2 synthetic boundary; full acceptance pending",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 3,
+        "end_line": 3
+      },
+      "execution_scope": "read-only drawing inventory and explicitly selected unit-checked geometry; semantic, DWG fidelity and visual acceptance pending",
+      "evidence": [
+        "source/cad-intake.json",
+        "source/inventory.json",
+        "source/measurements.json",
+        "source/source-copy.dxf"
+      ]
+    }
+  ],
+  "artifact_hashes": {
+    "source/cad-intake.json": "4d3e2e04547cbae74dd1e8ff9c18a79908aae3a7103492f7e828f124a6faa8e4",
+    "source/inventory.json": "524b8271269b931c25ed7a5c533dd0c5ffe8c5eb041dd76286733a898b77fab3",
+    "source/measurements.json": "42defc8736f2769ba5c230643ac934931832171da051304829e54862be0a809b",
+    "source/source-copy.dxf": "e85a39947dfb0fa9adf7563a54a547251c8fdf627ce91e9d093e9b7ec4583703"
+  },
+  "execution_pass": true,
+  "design_accepted": false,
+  "acceptance_note": "Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance"
+}

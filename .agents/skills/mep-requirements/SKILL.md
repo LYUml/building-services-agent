@@ -10,6 +10,8 @@ Create a project data file using docs/PROJECT_FORMAT.md for supported electrical
 Before geometry, prove source units and scale using a known dimension and identify WCS/local coordinate transformation. Before simulation, collect climate/weather, constructions, infiltration, occupancy/load schedules and HVAC control assumptions. Missing inputs may permit an explicitly labelled scenario, but not an asserted measured answer.
 Keep supplied files unchanged and record hashes. Do not upload private source documents to external services without task authorization.
 
+For DWG/DXF input, read docs/DRAWING_INTAKE.md and use `bsa.cad_intake` or a `drawing_intake` workflow task. Inventory first, then review and hash-bind an explicit selection of boundary handles plus a known independent LINE dimension. Do not infer room meaning from a closed outline, derive scale from labels alone, or silently ignore nested blocks/xrefs. Unitless, curved or unsupported geometry remains unresolved. Native export and polygon measurements do not prove DWG fidelity or plot quality.
+
 ## Executable intake and planning
 Read docs/WORKFLOWS.md and docs/DOCUMENT_INTAKE.md. Run `python -m bsa.workflow intake <brief> --out <new-intake.json>` for Markdown, text, PDF or DOCX. Interpret every indexed passage, classify requirement/context with care, author a plan following examples/workflow-plan.json, and populate the appropriate source-backed project JSON. Quotes must match the actual extracted source. `python -m bsa.workflow validate <plan.json>` checks source linkage and coverage, not semantic correctness. Keep missing inputs explicit; do not silently discard drawing notes, tables or pages.
 

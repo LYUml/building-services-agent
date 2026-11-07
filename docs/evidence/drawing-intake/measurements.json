@@ -1,0 +1,55 @@
+{
+  "source": "Synthetic author-selected L-shaped room boundary; no coursework data",
+  "unit_check": {
+    "handle": "32",
+    "known_length_m": 6,
+    "absolute_tolerance_m": 1e-09,
+    "source": "Synthetic fixture dimension: 6000 mm = 6 m",
+    "measured_length_m": 6.0,
+    "pass_check": true
+  },
+  "areas": [
+    {
+      "id": "L_ROOM",
+      "handle": "31",
+      "source": "Explicit synthetic floor boundary without holes; not inferred from labels",
+      "area_m2": 18.0,
+      "vertices_world_m": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          6.0,
+          0.0,
+          0.0
+        ],
+        [
+          6.0,
+          2.0,
+          0.0
+        ],
+        [
+          3.0,
+          2.0,
+          0.0
+        ],
+        [
+          3.0,
+          4.0,
+          0.0
+        ],
+        [
+          0.0,
+          4.0,
+          0.0
+        ]
+      ],
+      "layer": "ROOM_BOUNDARY",
+      "evidence_dxf_sha256": "4add58908347ce93c67ec9abdf40e796ed49bdbb188bf905cfede9d322957398"
+    }
+  ],
+  "scope": "Selected model-space horizontal polygon geometry only; boundary meaning requires source review",
+  "design_accepted": false
+}

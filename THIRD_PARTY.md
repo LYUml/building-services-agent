@@ -17,6 +17,8 @@ The Python engine, DXF integration wrapper and skills are original code authored
 - **ezdxf 1.4.5**, MIT, https://github.com/mozman/ezdxf — used as an installed library for DXF document writing and independent reload checks; not vendored. Its distribution retains upstream license notices. The initial handwritten R12 writer was replaced after inspection showed missing explicit metre units/layer table declarations. No DWG fidelity claim is inferred.
 - **PyYAML 6.0.3**, MIT, https://github.com/yaml/pyyaml — development-only prerequisite for the host skill validator, not used by runtime calculations.
 
+Drawing intake also uses the pinned ezdxf library for read-only entity inventory and OCS-to-WCS coordinates. Original selection/hash/unit-proof and straight-polygon area code is provided in bsa.cad_intake. Native DWG export requires the user's licensed AutoCAD installation and runs on isolated copies; AutoCAD is not redistributed.
+
 ## Executed energy integrations
 
 - **OpenStudio(R) SDK 3.11.0** installed as an optional Python library. Original two-zone authoring code calls the official SDK and its ForwardTranslator. It targets EnergyPlus 25.2.0; matching was checked at runtime. This project is not an endorsed or renamed version of OpenStudio.

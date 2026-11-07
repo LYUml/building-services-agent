@@ -64,7 +64,7 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","lighting","native_cad","manual"):
+        if kind not in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","lighting","drawing_intake","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","lighting"):
             inputs.add(local_path(root,t.get("project")))
@@ -73,6 +73,10 @@ def validate_plan(path):
             lighting_project=local_path(root,t.get('project'))
             inputs.update(validate_lighting(read_json(lighting_project),lighting_project.parent))
         if kind=='electrical_coordination':inputs.add(local_path(root,t.get('geometry')))
+        if kind=='drawing_intake':
+            drawing=local_path(root,t.get('drawing'));inputs.add(drawing)
+            if drawing.suffix.lower() not in ('.dwg','.dxf'):raise ProjectError('drawing intake requires DWG or DXF')
+            if t.get('selection'):inputs.add(local_path(root,t['selection']))
         if kind=='network_coordination':
             from .network_binding import prepare
             model=local_path(root,t.get('model'));binding=local_path(root,t.get('binding'))
@@ -119,7 +123,15 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
         folder=out/t["id"]
         status="pending";reason="";payload=None
         try:
-            if t["kind"]=="electrical":
+            if t['kind']=='drawing_intake':
+                drawing=local_path(root,t['drawing'])
+                if drawing.suffix.lower()=='.dwg' and not autocad:reason='AutoCAD executable not supplied for source DWG extraction'
+                else:
+                    from .cad_intake import run
+                    selected=local_path(root,t['selection']) if t.get('selection') else None
+                    payload=run(drawing,folder,selected,autocad)
+                    status='pass';reason='read-only drawing inventory and explicitly selected unit-checked geometry; semantic, DWG fidelity and visual acceptance pending'
+            elif t["kind"]=="electrical":
                 from .cli import run
                 payload=run(local_path(root,t["project"]),folder)
                 status="pass" if payload["calculated_checks_pass"] else "fail"

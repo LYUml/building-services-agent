@@ -1,0 +1,151 @@
+{
+  "dxf_sha256": "4add58908347ce93c67ec9abdf40e796ed49bdbb188bf905cfede9d322957398",
+  "drawing_sha256": "ecc7b1fe6dc5ae2c50a154bc2adeea1ecc6e3fdec2f308a83bb8b1fb352eb506",
+  "dxf_version": "AC1032",
+  "insunits": 4,
+  "metres_per_unit": 0.001,
+  "counts": {
+    "LWPOLYLINE": 1,
+    "LINE": 1,
+    "TEXT": 1,
+    "INSERT": 1,
+    "POINT": 1
+  },
+  "layers": [
+    {
+      "name": "0",
+      "off": false,
+      "frozen": false,
+      "locked": false
+    },
+    {
+      "name": "Defpoints",
+      "off": false,
+      "frozen": false,
+      "locked": false
+    },
+    {
+      "name": "ROOM_BOUNDARY",
+      "off": false,
+      "frozen": false,
+      "locked": false
+    },
+    {
+      "name": "DIM_CHECK",
+      "off": false,
+      "frozen": false,
+      "locked": false
+    }
+  ],
+  "entities": [
+    {
+      "handle": "31",
+      "type": "LWPOLYLINE",
+      "layer": "ROOM_BOUNDARY",
+      "layout": "Model",
+      "vertices": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          6000.0,
+          0.0,
+          0.0
+        ],
+        [
+          6000.0,
+          2000.0,
+          0.0
+        ],
+        [
+          3000.0,
+          2000.0,
+          0.0
+        ],
+        [
+          3000.0,
+          4000.0,
+          0.0
+        ],
+        [
+          0.0,
+          4000.0,
+          0.0
+        ]
+      ],
+      "closed": true,
+      "bulges": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "has_width": false
+    },
+    {
+      "handle": "32",
+      "type": "LINE",
+      "layer": "DIM_CHECK",
+      "layout": "Model",
+      "start": [
+        0.0,
+        -1000.0,
+        0.0
+      ],
+      "end": [
+        6000.0,
+        -1000.0,
+        0.0
+      ]
+    },
+    {
+      "handle": "33",
+      "type": "TEXT",
+      "layer": "0",
+      "layout": "Model",
+      "text": "Synthetic L room",
+      "insert": [
+        1000.0,
+        1000.0,
+        0.0
+      ]
+    },
+    {
+      "handle": "38",
+      "type": "INSERT",
+      "layer": "0",
+      "layout": "Model",
+      "block": "UNRESOLVED_SYMBOL",
+      "insert": [
+        2000.0,
+        2000.0,
+        0.0
+      ],
+      "rotation_deg": 30.0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "attributes": [],
+      "geometry_status": "unexpanded block; nested geometry not measured"
+    },
+    {
+      "handle": "3A",
+      "type": "POINT",
+      "layer": "0",
+      "layout": "Model",
+      "geometry_status": "unsupported; retained in inventory only"
+    }
+  ],
+  "external_references": [],
+  "pending": [
+    "block/xref/proxy/nested geometry interpretation",
+    "paper-space and viewport scale review",
+    "original drawing visual review"
+  ]
+}

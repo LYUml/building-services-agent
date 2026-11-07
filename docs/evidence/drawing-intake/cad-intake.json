@@ -1,0 +1,20 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\drawing-intake-native-fixture\\synthetic-base.dwg": "ecc7b1fe6dc5ae2c50a154bc2adeea1ecc6e3fdec2f308a83bb8b1fb352eb506",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\drawing-intake-native-fixture\\selection.json": "50264ee47ea734ba0ea295dc9b0695c993e3a66e8ca7f990e7fe3ec715dd40c1"
+  },
+  "inputs_unchanged": true,
+  "drawing_inventory_pass": true,
+  "measurements_pass": true,
+  "design_accepted": false,
+  "scope": "Read-only drawing extraction; no DWG fidelity, semantic or plot acceptance",
+  "artifacts": {
+    "inventory.json": "233146c8621dfbe4e0313afa5a217a722e0e7d602822992c25fa26ca85b89e59",
+    "measurements.json": "890e5b2534722ec5d49341fb1295895c508ea154530ddfd8897fc2b75dfb5403",
+    "native/export.log": "4c7a5b947d62316175214edc6a2e264efe215925eb0f21aef551909354845f71",
+    "native/export.scr": "8ac5cb9a8e21657d0148b3ab619b941f3289fb70eb0571101ce6ef59e8e675b7",
+    "native/source-copy.dwg": "ecc7b1fe6dc5ae2c50a154bc2adeea1ecc6e3fdec2f308a83bb8b1fb352eb506",
+    "native/source-export.dxf": "4add58908347ce93c67ec9abdf40e796ed49bdbb188bf905cfede9d322957398",
+    "native/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "6ce819be4886508250782fbb09d0886b9ecb916d9722df3faf0f4679ac6abbbe"
+  }
+}

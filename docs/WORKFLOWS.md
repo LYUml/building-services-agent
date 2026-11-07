@@ -41,3 +41,5 @@ The `network` adapter calculates prescribed-demand circular tree pressure budget
 The lighting adapter uses LIGHTING.md and an explicit --radiance-bin CLI argument; IES inputs are added to plan integrity records. It checks supplied sample-grid targets and two numerical parameter settings, not all lighting design criteria.
 
 Hashed examples and recorded evidence use .gitattributes -text to preserve their exact bytes across checkout platforms. Do not normalize/reformat an input after hashing it; update its version and re-interpret/rebind the plan instead.
+
+The `drawing_intake` adapter uses `drawing` and optional `selection` paths. It inventories source DXF directly or exports an isolated DWG copy via the explicit AutoCAD executable. Selections bind source SHA256, dimension proof and area handles. See DRAWING_INTAKE.md; extraction success does not establish semantic or full drawing acceptance.

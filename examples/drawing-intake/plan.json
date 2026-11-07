@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "fa3f2c825b5cc3525c9e2e577c5b17ccc46bbda9f6648a3a51d753635b3c898f",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "source",
+      "kind": "drawing_intake",
+      "drawing": "base.dxf",
+      "selection": "selection.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Inventory the supplied drawing without changing it. Confirm its millimetre unit declaration against the independently supplied 6 m reference line, then measure only the explicitly selected closed L-shaped floor boundary. Preserve source hashes and entity handles; report nested block and unsupported geometry as unresolved. The synthetic reference area is 18 square metres, and this exercise does not establish full drawing or engineering acceptance.",
+      "task": "source",
+      "acceptance": "Unchanged source, explicit inventory and unit-checked 18 m2 synthetic boundary; full acceptance pending"
+    }
+  ]
+}

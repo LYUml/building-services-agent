@@ -21,9 +21,9 @@ Open this repository as the workspace. Ask the agent to use `$building-services-
 
 ## Current evidence and limits
 
-The first slice implements electrical load aggregation, design current and conditional cable/protection/voltage-drop checks, plus a DXF overlay. Cable ampacity, factors, mV/A/m and limits are explicit sourced inputs, not embedded regulation tables. Fault disconnection, breaking capacity, selectivity and lighting photometry are not yet calculated. Reports keep these pending; a successful CLI run is not full design acceptance.
+The electrical slice implements load aggregation, design current and conditional cable/protection/voltage-drop checks, plus a DXF overlay. Cable ampacity, factors, mV/A/m and limits are explicit sourced inputs, not embedded regulation tables. Fault disconnection, breaking capacity and selectivity remain pending. Separate adapters below provide IES photometry, IFC, energy and network analysis; a successful tool run is not full design acceptance.
 
-Native conversion of synthetic CIRCLE/TEXT overlays now has a tested AutoCAD 2027 adapter; existing-bottom-drawing integration, BIM authoring, energy simulation and other MEP domains remain work in progress. See [roadmap](docs/ROADMAP.md), [project format](docs/PROJECT_FORMAT.md), and [upstream attribution](THIRD_PARTY.md). No upstream implementation has been copied into this initial milestone.
+Native conversion of synthetic CIRCLE/TEXT overlays has a tested AutoCAD 2027 adapter. Source-drawing intake is available; preserving an existing base while authoring coordinated overlays and fixed-scale sheets remains pending. See [roadmap](docs/ROADMAP.md), [project format](docs/PROJECT_FORMAT.md), and [upstream attribution](THIRD_PARTY.md) for the implemented scope and remaining work.
 
 ## Native AutoCAD example
 
@@ -54,6 +54,8 @@ Use `python -m bsa.workflow intake <brief.md> --out <new-intake.json>` to index 
 ## PDF and Word requirements
 
 [Document intake](docs/DOCUMENT_INTAKE.md) supports PDF page locators, Word body/table/header/note locators and optional offline OCR. Extraction gaps remain visible and require source review. Scanned/outlined text can be OCR-indexed, but recognition is never silently accepted as engineering data.
+
+[Drawing intake](docs/DRAWING_INTAKE.md) inventories source DXF or isolated AutoCAD DWG exports without changing source bytes. Explicit hash-bound selections can measure straight horizontal polygons after an independent dimension check. Nested/unsupported geometry and semantic or visual acceptance remain unresolved.
 
 ## Editable IFC MEP models
 

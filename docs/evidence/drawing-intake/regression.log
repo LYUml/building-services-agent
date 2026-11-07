@@ -1,0 +1,68 @@
+test_bim_adapter_in_source_linked_workflow (test_bim.BIMTests.test_bim_adapter_in_source_linked_workflow) ... C:\Users\lyuml-win\Desktop\building-services-agent\.venv\Lib\site-packages\ifcopenshell\express\rule_executor.py:95: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\.venv\\Lib\\site-packages\\ifcopenshell\\express\\rules\\IFC4.py' mode='r' encoding='cp1252'>
+  source = open(fn, "r").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_real_ifc_schema_geometry_and_connectivity (test_bim.BIMTests.test_real_ifc_schema_geometry_and_connectivity) ... ok
+test_rejects_geometry_identity_and_topology_errors (test_bim.BIMTests.test_rejects_geometry_identity_and_topology_errors) ... ok
+test_actual_dwg_export_preserves_source_and_mm_measurement (test_cad_intake.CADIntakeTests.test_actual_dwg_export_preserves_source_and_mm_measurement) ... ok
+test_missing_engine_and_output_source_overlap_rejected (test_cad_intake.CADIntakeTests.test_missing_engine_and_output_source_overlap_rejected) ... ok
+test_mm_l_shaped_area_inventory_and_source_hash (test_cad_intake.CADIntakeTests.test_mm_l_shaped_area_inventory_and_source_hash) ... ok
+test_polygon_self_intersection_nonplanarity_and_clockwise (test_cad_intake.CADIntakeTests.test_polygon_self_intersection_nonplanarity_and_clockwise) ... ok
+test_unit_mismatch_unitless_and_curved_or_open_boundary_rejected (test_cad_intake.CADIntakeTests.test_unit_mismatch_unitless_and_curved_or_open_boundary_rejected) ... ok
+test_workflow_tracks_selection_and_missing_dwg_engine_stays_pending (test_cad_intake.CADIntakeTests.test_workflow_tracks_selection_and_missing_dwg_engine_stays_pending) ... ok
+test_bridge_uses_shared_values_and_centre_reference (test_coordination.CoordinationTests.test_bridge_uses_shared_values_and_centre_reference) ... ok
+test_missing_envelope_and_duplicate_engineering_fields_rejected (test_coordination.CoordinationTests.test_missing_envelope_and_duplicate_engineering_fields_rejected) ... ok
+test_revised_electrical_input_propagates_to_all_outputs (test_coordination.CoordinationTests.test_revised_electrical_input_propagates_to_all_outputs) ... ok
+test_saved_artifacts_reconcile_and_tampering_is_detected (test_coordination.CoordinationTests.test_saved_artifacts_reconcile_and_tampering_is_detected) ... ok
+test_empty_text_is_not_a_valid_covered_brief (test_documents.DocumentTests.test_empty_text_is_not_a_valid_covered_brief) ... ok
+test_ocr_source_and_image_hashes_and_review_gate (test_documents.DocumentTests.test_ocr_source_and_image_hashes_and_review_gate) ... ok
+test_pdf_page_locator_and_missing_text_gate (test_documents.DocumentTests.test_pdf_page_locator_and_missing_text_gate) ... ok
+test_real_offline_ocr_preserves_raw_lines (test_documents.DocumentTests.test_real_offline_ocr_preserves_raw_lines) ... Multiple definitions in dictionary at byte 0x8eb for key /PageMode
+Multiple definitions in dictionary at byte 0x8eb for key /PageMode
+ok
+test_word_requirement_can_drive_electrical_with_review_note (test_documents.DocumentTests.test_word_requirement_can_drive_electrical_with_review_note) ... ok
+test_word_table_header_and_note_locators (test_documents.DocumentTests.test_word_table_header_and_note_locators) ... ok
+test_word_tracked_changes_block_planning (test_documents.DocumentTests.test_word_tracked_changes_block_planning) ... ok
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 8', and 'Surface 4' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+test_real_engine_geometry_and_lighting_balance (test_energy.EnergyTests.test_real_engine_geometry_and_lighting_balance) ... ok
+test_rejects_invalid_physics (test_energy.EnergyTests.test_rejects_invalid_physics) ... ok
+test_artifacts_and_source_preservation (test_engine.ElectricalTests.test_artifacts_and_source_preservation) ... ok
+test_failed_cable_checks_are_visible (test_engine.ElectricalTests.test_failed_cable_checks_are_visible) ... ok
+test_independent_hand_calculation (test_engine.ElectricalTests.test_independent_hand_calculation) ... ok
+test_rejects_invalid_provenance_and_topology (test_engine.ElectricalTests.test_rejects_invalid_provenance_and_topology) ... ok
+test_invalid_spatial_and_photometry_inputs_rejected (test_lighting.LightingTests.test_invalid_spatial_and_photometry_inputs_rejected) ... ok
+test_photometry_is_not_inferred_from_watts (test_lighting.LightingTests.test_photometry_is_not_inferred_from_watts) ... ok
+test_real_engine_matches_analytical_lux_and_maintenance_scaling (test_lighting.LightingTests.test_real_engine_matches_analytical_lux_and_maintenance_scaling) ... ok
+test_workflow_hashes_ies_and_marks_missing_engine_pending (test_lighting.LightingTests.test_workflow_hashes_ies_and_marks_missing_engine_pending) ... ok
+test_bound_workflow_keeps_all_original_sources_and_missing_engine_pending (test_lighting_binding.BoundLightingTests.test_bound_workflow_keeps_all_original_sources_and_missing_engine_pending) ... ok
+test_missing_mapping_duplicated_values_and_power_mismatch_rejected (test_lighting_binding.BoundLightingTests.test_missing_mapping_duplicated_values_and_power_mismatch_rejected) ... ok
+test_real_bound_generation_and_simulation (test_lighting_binding.BoundLightingTests.test_real_bound_generation_and_simulation) ... ok
+test_shared_origins_and_translated_room_frame (test_lighting_binding.BoundLightingTests.test_shared_origins_and_translated_room_frame) ... ok
+test_missing_executable_does_not_create_outputs (test_native_cad.NativeCADTests.test_missing_executable_does_not_create_outputs) ... ok
+test_real_native_save_reopen_and_plot (test_native_cad.NativeCADTests.test_real_native_save_reopen_and_plot) ... ok
+test_branch_balance_pressure_and_failure_visibility (test_network.NetworkTests.test_branch_balance_pressure_and_failure_visibility) ... ok
+test_failed_pressure_budget_marks_workflow_failed (test_network.NetworkTests.test_failed_pressure_budget_marks_workflow_failed) ... ok
+test_invalid_topology_and_inputs_rejected (test_network.NetworkTests.test_invalid_topology_and_inputs_rejected) ... ok
+test_laminar_pressure_matches_poiseuille (test_network.NetworkTests.test_laminar_pressure_matches_poiseuille) ... ok
+test_transitional_flow_requires_explicit_other_model (test_network.NetworkTests.test_transitional_flow_requires_explicit_other_model) ... ok
+test_turbulent_factor_satisfies_implicit_colebrook (test_network.NetworkTests.test_turbulent_factor_satisfies_implicit_colebrook) ... ok
+test_water_static_pressure_and_saved_manifest (test_network.NetworkTests.test_water_static_pressure_and_saved_manifest) ... ok
+test_connected_chain_and_disconnected_or_reused_piece_rejected (test_network_binding.NetworkBindingTests.test_connected_chain_and_disconnected_or_reused_piece_rejected) ... ok
+test_geometry_change_propagates_and_endpoint_mismatch_rejected (test_network_binding.NetworkBindingTests.test_geometry_change_propagates_and_endpoint_mismatch_rejected) ... ok
+test_model_geometry_derives_lengths_diameter_elevation (test_network_binding.NetworkBindingTests.test_model_geometry_derives_lengths_diameter_elevation) ... ok
+test_real_ifc_and_pressure_execution (test_network_binding.NetworkBindingTests.test_real_ifc_and_pressure_execution) ... C:\Users\lyuml-win\Desktop\building-services-agent\.venv\Lib\site-packages\ifcopenshell\express\rule_executor.py:95: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\.venv\\Lib\\site-packages\\ifcopenshell\\express\\rules\\IFC4.py' mode='r' encoding='cp1252'>
+  source = open(fn, "r").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_repeated_dimensions_missing_mapping_and_offset_ports_rejected (test_network_binding.NetworkBindingTests.test_repeated_dimensions_missing_mapping_and_offset_ports_rejected) ... ok
+test_execution_does_not_claim_acceptance (test_workflow.WorkflowTests.test_execution_does_not_claim_acceptance) ... ok
+test_intake_preserves_line_evidence (test_workflow.WorkflowTests.test_intake_preserves_line_evidence) ... ok
+test_missing_native_tool_stays_pending (test_workflow.WorkflowTests.test_missing_native_tool_stays_pending) ... ok
+test_stale_source_missing_coverage_and_fabricated_quote_rejected (test_workflow.WorkflowTests.test_stale_source_missing_coverage_and_fabricated_quote_rejected) ... ok
+test_tracked_example_plans_keep_source_hashes (test_workflow.WorkflowTests.test_tracked_example_plans_keep_source_hashes) ... ok
+
+----------------------------------------------------------------------
+Ran 53 tests in 22.616s
+
+OK
