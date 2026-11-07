@@ -68,7 +68,7 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","network_model_design","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","native_cad","manual"):
+        if kind not in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","network_model_design","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","network_model_design","lighting"):
             inputs.add(local_path(root,t.get("project")))
@@ -90,8 +90,18 @@ def validate_plan(path):
                 if dependency not in ids or next(x for x in tasks if x['id']==dependency)['kind'] not in IFC_ARTIFACTS:
                     raise ProjectError('IFC dependency must be an earlier supported IFC producer')
             else:
-                source=local_path(root,t.get('ifc'));inputs.add(source)
-                if source.suffix.lower()!='.ifc':raise ProjectError('task source must be IFC')
+                ifc_source=local_path(root,t.get('ifc'));inputs.add(ifc_source)
+                if ifc_source.suffix.lower()!='.ifc':raise ProjectError('task source must be IFC')
+        if kind=='ifc_native':
+            from .ifc_native import validate_settings
+            settings=local_path(root,t.get('settings'));inputs.add(settings);validate_settings(read_json(settings))
+            if bool(t.get('dxf'))==bool(t.get('depends_on')):raise ProjectError('native IFC diagram requires exactly one DXF or earlier drawing dependency')
+            if t.get('depends_on'):
+                if t['depends_on'] not in ids or next(x for x in tasks if x['id']==t['depends_on'])['kind']!='ifc_drawing':
+                    raise ProjectError('native IFC dependency must be an earlier ifc_drawing task')
+            else:
+                diagram_source=local_path(root,t.get('dxf'));inputs.add(diagram_source)
+                if diagram_source.suffix.lower()!='.dxf':raise ProjectError('native diagram source must be DXF')
         if kind=='network_design':
             from .network_design import validate_catalogue
             catalogue=local_path(root,t.get('catalogue'));inputs.add(catalogue)
@@ -155,7 +165,17 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
         folder=out/t["id"]
         status="pending";reason="";payload=None
         try:
-            if t['kind']=='ifc_drawing':
+            if t['kind']=='ifc_native':
+                dependency=t.get('depends_on')
+                if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC drawing did not pass; no native drawing fabricated'
+                elif not autocad:reason='AutoCAD executable not supplied for native IFC diagram'
+                else:
+                    from .ifc_native import run
+                    source=out/dependency/'segments.dxf' if dependency else local_path(root,t['dxf'])
+                    payload=run(source,local_path(root,t['settings']),folder,autocad)
+                    status='pass' if payload['native_reopen_pass'] and payload['plot']['pdf_reference_pass'] else 'fail'
+                    reason='isolated native DWG reopen, geometry/IFC XDATA reconciliation and physical PDF reference verified; visual/installation acceptance pending'
+            elif t['kind']=='ifc_drawing':
                 dependency=t.get('depends_on')
                 if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC producer did not pass; no drawing fabricated'
                 else:

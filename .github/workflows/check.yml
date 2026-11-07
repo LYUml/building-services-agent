@@ -25,6 +25,7 @@ jobs:
       - run: python -m unittest discover -s tests -p test_bim.py -v
       - run: python -m unittest discover -s tests -p test_circular_geometry.py -v
       - run: python -m unittest discover -s tests -p test_ifc_drawing.py -v
+      - run: python -m unittest discover -s tests -p test_ifc_native.py -v
       - run: python -m unittest discover -s tests -p test_clash.py -v
       - run: python -m unittest discover -s tests -p test_contact_clearance.py -v
       - run: python -m unittest discover -s tests -p test_coordination.py -v

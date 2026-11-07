@@ -23,6 +23,22 @@ class DrawingSettingsTests(unittest.TestCase):
 
 @unittest.skipUnless(importlib.util.find_spec('ifcopenshell'),'requires IFC runtime')
 class SavedIFCDrawingTests(unittest.TestCase):
+    def test_workflow_direct_ifc_sources_preserve_requirement_passage_mapping(self):
+        from bsa.workflow import execute,verify
+        from bsa.cli import digest
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);(root/'source.ifc').write_bytes(SOURCE.read_bytes())
+            (root/'settings.json').write_text(json.dumps(dict(projection_axes=['X','Z'],annotation_height_m=.12,source='synthetic direct IFC test')))
+            brief=root/'brief.md';brief.write_text('Read the existing saved IFC and retain source-linked evidence.\n')
+            tasks=[dict(id='drawing',kind='ifc_drawing',ifc='source.ifc',settings='settings.json')]
+            if importlib.util.find_spec('manifold3d'):
+                (root/'policy.json').write_bytes((ROOT/'examples/water-riser/policy.json').read_bytes())
+                tasks.append(dict(id='qa',kind='ifc_clash',ifc='source.ifc',policy='policy.json'))
+            plan=dict(version=1,brief='brief.md',brief_sha256=digest(brief),passage_dispositions={'P001':'requirement'},tasks=tasks,
+                      requirements=[dict(id='R'+str(i),passage='P001',quote='Read the existing saved IFC and retain source-linked evidence.',task=t['id'],acceptance='Scoped source extraction/checks only') for i,t in enumerate(tasks)])
+            path=root/'plan.json';path.write_text(json.dumps(plan));result=execute(path,root/'run')
+            self.assertTrue(result['execution_pass']);self.assertTrue(verify(root/'run')['integrity_pass'])
+
     def test_saved_profiles_drive_schedule_and_reopened_dxf(self):
         import ezdxf
         before=SOURCE.read_bytes()

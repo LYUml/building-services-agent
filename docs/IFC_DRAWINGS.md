@@ -20,4 +20,19 @@ Outputs are `segments.csv`, `drawing.json`, `segments.dxf` and `preview.svg` whe
 
 The synthetic vertical-water delivery plan executes electrical calculations, model-aware water sizing, saved-IFC clearance and this drawing task. The selected two 2.5 m hollow pipe bodies produce two schedule rows and two model-linked axis lines, with 32 mm bore and 40 mm outside diameter. Tests also cover native millimetres, rotated placements, end-on projection failure, unsupported segment geometry, conflicting metadata and artifact tampering.
 
-Native AutoCAD reopen/plotting, print scale, equipment/fitting symbols, details, fabrication quantities, product suitability, BIM-viewer review and complete professional acceptance remain separate pending gates. The broader agent objective is not complete at this diagram milestone.
+The optional native stage below checks AutoCAD reopen and a physical print reference. Equipment/fitting symbols, installation details, fabrication quantities, product suitability, BIM-viewer review and complete professional acceptance remain separate pending gates. The broader agent objective is not complete at this diagram milestone.
+
+## Native diagram delivery
+
+`ifc_native` now converts the generated LINE/TEXT metre diagram through isolated AutoCAD 2027 Core Console processes. It accepts either an earlier `ifc_drawing` dependency or an explicit generated `dxf`, plus a sourced sheet configuration. An unavailable AutoCAD engine or failed/pending drawing producer leaves the task pending. It never attaches to the user's GUI session or closes their drawings.
+
+```powershell
+python -m bsa.workflow execute examples/water-riser/native-plan.json --out runs/water-native --autocad "C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe"
+python -m bsa.workflow verify runs/water-native
+```
+
+`native-sheet.json` requires the explicit metre-coordinate window, scale denominator, PDF tolerance (at most 1 mm), provenance and an existing reference IFC GUID. Exactly one BSA_PIPE_AXIS line must carry that GUID. The supplied window must fit A4 landscape at the requested scale. In the synthetic example a 2.5 m pipe axis is independently found in the PDF at approximately 49.996 mm at 1:50, against a 50 mm expected length and 0.2 mm tolerance.
+
+The adapter copies the input DXF, checks the active drawing's exact path before SAVEAS, then reopens a copy of the saved DWG in another Core Console process and exports a read-only DXF audit. Reconciliation checks native geometry, rendering attributes, layers, text/positions, metre units, the complete set of model entity handles/counts and every BSA_IFC XDATA value. Unexpected entities or lost GUID data fail verification. The plot also checks its active path; the saved DWG and source input bytes must remain unchanged during export/plot. Generated export/script/log files remain available as evidence.
+
+The PDF verifier reads actual vector paths and page transforms; command success alone is insufficient. `native-verification.json` records physical reference evidence and leaves actual visual review pending. Render the real output and record a separate artifact-hash-bound review of label legibility, overlaps, clipping, margins and linework. `docs/evidence/ifc-native` retains such a scoped review of the synthetic example. It is still a centreline diagram: equipment, fittings, insulation, installation details, complete sheet standards and engineering acceptance remain pending.

@@ -1,0 +1,16 @@
+{
+  "scope": "Actual synthetic A4 diagram PDF only; not full installation or BIM model acceptance",
+  "pdf_sha256": "3c6b1ee7c5c5fb2eec3092ac64cf50058d9b3b62ff2dd36e6f84c91563afbae3",
+  "render_sha256": "fe2bb7a4c3c2fad1fc51fd849f19cd97d415bdc5dc9bf5cae662ec78d4644002",
+  "renderer": "Poppler pdftoppm, 1800 pixel long edge",
+  "observations": [
+    "Both 2.5 m segment labels readable with ID 32 / OD 40 mm",
+    "Axis and leader linework visible; labels separated",
+    "Two scope legend lines readable and inside margins",
+    "No visible clipping or label/legend overlap"
+  ],
+  "physical_reference_expected_mm": 50,
+  "physical_reference_measured_mm": 49.995666666666665,
+  "design_accepted": false,
+  "run": "staged-file snapshot native delivery; actual final rendered PDF inspected"
+}

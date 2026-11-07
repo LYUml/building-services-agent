@@ -79,6 +79,8 @@ Use `python -m bsa.workflow intake <brief.md> --out <new-intake.json>` to index 
 
 [Saved IFC schedules and diagrams](docs/IFC_DRAWINGS.md) derive hollow-segment dimensions, true lengths and directed endpoints from saved native profiles/ports, then generate a GUID-linked CSV and projected centreline DXF. Unsupported segments fail coverage; omitted equipment and native/installation drawing gates remain explicit. The water-riser delivery plan includes this adapter.
 
+The water-riser `native-plan.json` adds isolated AutoCAD save/reopen, complete model entity/IFC GUID reconciliation and an actual 1:50 A4 PDF reference check. The synthetic PDF has been rendered and visually reviewed; this verifies the diagram's scoped native delivery, with equipment/fittings and complete installation drawing standards still pending.
+
 ## Shared electrical data
 
 [Coordinated generation](docs/COORDINATION.md) now feeds the same device/circuit data into calculations, DXF and IFC. A geometry companion only adds explicit dimensions, heights and spaces. Reopened artifacts are reconciled; the workflow can send the resulting DXF through native AutoCAD save/reopen/plot. No separate power, PF, XY or circuit copy is maintained in geometry inputs.

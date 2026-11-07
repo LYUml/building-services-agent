@@ -1,0 +1,250 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifc-native-index\\examples\\water-riser\\network.json": "1b92011e79d780dc51880aac18cedb52f4bb354302a092d23e9cc6433d895690",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifc-native-index\\examples\\water-riser\\native-sheet.json": "ff0d8180f23a8a066ea89388339a1e9ce01667d5463241a45e0da36b4b6cc95d",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifc-native-index\\examples\\water-riser\\catalogue.json": "bfe4f4a2297a3f6b5a7316fc86c290dde34d72fc592b25ae84e4422fa8d66931",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifc-native-index\\examples\\water-riser\\drawing-settings.json": "726092d1785151fbb97ed6c4195ef4853fdbfdfbbfcf4c03afb5d542f61b5942",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifc-native-index\\examples\\water-riser\\model.json": "8f2672e78e7b681f20dada0e6121317635af1184023117c8cf0159e1e794b487",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifc-native-index\\examples\\water-riser\\electrical.json": "feeda257a5741dbc71c5d6ff676e3ce1592c69a0806f01896cfcdf664c8136c5",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifc-native-index\\examples\\water-riser\\geometry.json": "0c613f318c72e4c4aed93cc4384f8a0edfdae02d65f1a7d3a36fd0c49c233b06",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifc-native-index\\examples\\water-riser\\policy.json": "4a498b42f11b634942cabc16f874747df538011ac39f3dec2a6f44a33090fed3",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifc-native-index\\examples\\water-riser\\binding.json": "dbf25c95094e960f3702a9148e55eeaff758ea68f372720f176acb62166e0ab7",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifc-native-index\\examples\\water-riser\\native-brief.md": "e60bcc0a1e1bab25f266484944fa6d33a8168a00f4b818bae58aceb003cf970e",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifc-native-index\\examples\\water-riser\\native-plan.json": "cd7029a7d52072cf5397ebc6133d0aa9bcae09c0b21d35b95d7afc458f88e93d"
+  },
+  "inputs_unchanged": true,
+  "tasks": {
+    "electrical": {
+      "kind": "electrical",
+      "status": "pass",
+      "scope": "conditional electrical checks only; remaining design checks are in calculations.json"
+    },
+    "water": {
+      "kind": "network_model_design",
+      "status": "pass",
+      "scope": "source-backed envelopes/explicit walls resized on fixed endpoints; saved IFC dimensions and derived pressure reconciled; actual products/clashes/full acceptance pending"
+    },
+    "qa": {
+      "kind": "ifc_clash",
+      "status": "pass",
+      "scope": "saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending"
+    },
+    "drawing": {
+      "kind": "ifc_drawing",
+      "status": "pass",
+      "scope": "saved hollow profiles and ports reconciled to schedule/projected centreline DXF; native and installation drawing acceptance pending"
+    },
+    "native": {
+      "kind": "ifc_native",
+      "status": "pass",
+      "scope": "isolated native DWG reopen, geometry/IFC XDATA reconciliation and physical PDF reference verified; visual/installation acceptance pending"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Calculate the synthetic service-shaft electrical steady loads from electrical.json: one 0.75 kW single-phase booster input and two 18 W lights on two circuits at 230 V. Generate the editable metre DXF and calculation report. Keep motor starting, fault protection, pump operating point, native DWG and visual drawing acceptance pending.",
+      "task": "electrical",
+      "acceptance": "Synthetic scoped artifact/numeric evidence only; remaining gates in the quoted requirement stay pending",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 3,
+        "end_line": 3
+      },
+      "execution_scope": "conditional electrical checks only; remaining design checks are in calculations.json",
+      "evidence": [
+        "electrical/calculations.json",
+        "electrical/devices.dxf",
+        "electrical/manifest.json",
+        "electrical/preview.svg",
+        "electrical/report.html"
+      ]
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Use model.json, network.json, binding.json, catalogue.json and geometry.json to size the 5 m vertical water riser at a prescribed 1 L/s. Evaluate all four inside-diameter options 15, 25, 32 and 40 mm, with independently specified outside diameters, a 2 m/s velocity limit, 180 kPa source total pressure and 100 kPa outlet total-pressure requirement. Retain failed candidates and the baseline, preserve endpoints and object/port identities, and independently check the saved hollow IFC against the selected pressure calculation. Material scores are abstract points, not prices.",
+      "task": "water",
+      "acceptance": "Synthetic scoped artifact/numeric evidence only; remaining gates in the quoted requirement stay pending",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 5,
+        "end_line": 5
+      },
+      "execution_scope": "source-backed envelopes/explicit walls resized on fixed endpoints; saved IFC dimensions and derived pressure reconciled; actual products/clashes/full acceptance pending",
+      "evidence": [
+        "water/baseline-network.json",
+        "water/filtered-catalogue.json",
+        "water/model-design.json",
+        "water/selected-model.json",
+        "water/selected-skeleton.json",
+        "water/baseline-analysis/manifest.json",
+        "water/baseline-analysis/network.json",
+        "water/baseline-analysis/report.html",
+        "water/baseline-analysis/segments.csv",
+        "water/baseline-bim/bim-verification.json",
+        "water/baseline-bim/model.ifc",
+        "water/baseline-bim/schema-validation.json",
+        "water/selected-coordination/network-binding.json",
+        "water/selected-coordination/network-input.json",
+        "water/sizing/candidates.csv",
+        "water/sizing/design-comparison.json",
+        "water/sizing/report.html",
+        "water/sizing/selected-network.json",
+        "water/selected-coordination/analysis/manifest.json",
+        "water/selected-coordination/analysis/network.json",
+        "water/selected-coordination/analysis/report.html",
+        "water/selected-coordination/analysis/segments.csv",
+        "water/selected-coordination/bim/bim-verification.json",
+        "water/selected-coordination/bim/model.ifc",
+        "water/selected-coordination/bim/schema-validation.json",
+        "water/sizing/baseline/manifest.json",
+        "water/sizing/baseline/network.json",
+        "water/sizing/baseline/report.html",
+        "water/sizing/baseline/segments.csv",
+        "water/sizing/selected/manifest.json",
+        "water/sizing/selected/network.json",
+        "water/sizing/selected/report.html",
+        "water/sizing/selected/segments.csv"
+      ]
+    },
+    {
+      "id": "R3",
+      "passage": "P004",
+      "quote": "Check all represented physical elements in the selected saved water IFC with policy.json, including both outside-to-full clearance directions beyond explicitly sourced joint spheres. Retain overlap, missing geometry and failed clearance evidence. Do not claim product fit, insulation, applicable-code compliance, BIM-viewer approval or complete engineering acceptance.",
+      "task": "qa",
+      "acceptance": "Synthetic scoped artifact/numeric evidence only; remaining gates in the quoted requirement stay pending",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 7,
+        "end_line": 7
+      },
+      "execution_scope": "saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending",
+      "evidence": [
+        "qa/clash.json",
+        "qa/report.html"
+      ]
+    },
+    {
+      "id": "R4",
+      "passage": "P005",
+      "quote": "Extract a pipe-segment schedule and editable X/Z projected centreline DXF directly from the selected saved IFC, using drawing-settings.json. Independently reconcile saved hollow profile diameters, true lengths and directed port endpoints. Preserve IFC GUID links in drawing entities and show omitted equipment explicitly in the evidence. The result is a schematic: water installation drawing details, native DWG, print scale and visual acceptance remain pending.",
+      "task": "drawing",
+      "acceptance": "Source-linked schedule and DXF geometry/identity reconciliation; omitted classes and native/visual/installation acceptance explicit",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 9,
+        "end_line": 9
+      },
+      "execution_scope": "saved hollow profiles and ports reconciled to schedule/projected centreline DXF; native and installation drawing acceptance pending",
+      "evidence": [
+        "drawing/drawing.json",
+        "drawing/preview.svg",
+        "drawing/segments.csv",
+        "drawing/segments.dxf"
+      ]
+    },
+    {
+      "id": "R5",
+      "passage": "P006",
+      "quote": "Save the generated IFC centreline diagram as native DWG using isolated AutoCAD 2027 processes, then independently reopen and reconcile all model entities, layers, labels and IFC GUID XDATA. Plot the supplied native-sheet.json A4 landscape window at 1:50 and independently measure the 2.5 m reference segment as 50 mm in the PDF. Keep actual PDF visual inspection and complete installation/engineering acceptance separate from numerical checks.",
+      "task": "native",
+      "acceptance": "Native reopen/identity and physical reference evidence; visual inspection separate; not a complete installation design",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 11,
+        "end_line": 11
+      },
+      "execution_scope": "isolated native DWG reopen, geometry/IFC XDATA reconciliation and physical PDF reference verified; visual/installation acceptance pending",
+      "evidence": [
+        "native/input.dxf",
+        "native/native-verification.json",
+        "native/plot.log",
+        "native/save.log",
+        "native/save.scr",
+        "native/segments.dwg",
+        "native/sheet.json",
+        "native/sheet.log",
+        "native/sheet.pdf",
+        "native/sheet.scr",
+        "native/native-reopen/export.log",
+        "native/native-reopen/export.scr",
+        "native/native-reopen/source-copy.dwg",
+        "native/native-reopen/source-export.dxf",
+        "native/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log",
+        "native/native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log"
+      ]
+    }
+  ],
+  "artifact_hashes": {
+    "drawing/drawing.json": "6b6e92d98568573b875ee88cc3d6bf9a01f1977ccca7aa4553e5078cee968a91",
+    "drawing/preview.svg": "fbcabd1b7d2396e8a16a6ab3aaa240652ea4ff9f4ce3ec11db33e2bd2b96ef87",
+    "drawing/segments.csv": "fdbec0b0ee07b826e8e1321d22def602001b151958a924dd8b4c30b338880cb3",
+    "drawing/segments.dxf": "1212504e6e7d13548a4731dce4ef1786af39638a457647388cf86618eaf181fc",
+    "electrical/calculations.json": "390d143bc936fcaf998f13e16f64ee6d4d9579f380aac528e4fe02e09d3e595b",
+    "electrical/devices.dxf": "58e084a74c933e52b3ba1de0c56144db9b989c9ffe039284bfd595850027b40e",
+    "electrical/manifest.json": "9c847d92feb8e0678780c50cdb12f05b8238a4f3ef71fae6cc48cf933769fddb",
+    "electrical/preview.svg": "8c0cf4d1cddd42f605c75753d628f422e05b034d5c465e86c10d9f017236314f",
+    "electrical/report.html": "8456a6996d359012f47efa52f0cb49fdd544ec99fdb4e54e9f73f4fb154e0bed",
+    "native/input.dxf": "1212504e6e7d13548a4731dce4ef1786af39638a457647388cf86618eaf181fc",
+    "native/native-verification.json": "fffafb9ad1c0000d6b3a7c44dfcd6e669787c58404e98d5a8ddb4f23877ebf7d",
+    "native/plot.log": "69b6f87bf74a4ade3b778fd6d0b1f01d399402523032e6f9b46c057a5bb1f0e4",
+    "native/save.log": "c3082325d668797fee0a83cbb688749da2302511c3d7a3572b559b7d4a7c8ec8",
+    "native/save.scr": "b47f6531337ab9f9105b9196b1b2b65b1165d33a161feb9096861ee6949bd3f0",
+    "native/segments.dwg": "79d56f2cbdb4f4ca419ba7445092535bc968e6cbbe8d24dd384691d2f1c78421",
+    "native/sheet.json": "fd5c7a1b74fac9099c918463c805a864d905ec92d32eb7fe74641c23d1dd642c",
+    "native/sheet.log": "3fb161d5497ce55882314c7cea6fc29bdbc82da18ab231d81f3794ede2ca28bd",
+    "native/sheet.pdf": "3c6b1ee7c5c5fb2eec3092ac64cf50058d9b3b62ff2dd36e6f84c91563afbae3",
+    "native/sheet.scr": "728433c2176f61f996048bae49b96130236a48daaf0002487667d44303ba24d3",
+    "qa/clash.json": "6eb8fbfe77d579e9e2bb01d53d24b66052fbe75d66170273613b5306fb311e20",
+    "qa/report.html": "d9ec3c8ac0f841562cf9bc74d4dfcb5dc7cab1382266094c455f06899b5dcb42",
+    "water/baseline-network.json": "27780e6ba9e69da1fde8c0984a0cf3a404bd4d1a8d37b4786772f6e8f88c3e42",
+    "water/filtered-catalogue.json": "1c4c278283725c296a3b663149a1c3fa0fc06c4a7203882cc784de797c70bd9f",
+    "water/model-design.json": "91dfe579169636f86a55776d00fcf49d7c4d309393ccf0c69f0de95ef03dcabf",
+    "water/selected-model.json": "349058c206c862b1af5c662195aeb8e731f018d61f20d8cd2c6ea4b7294cb23d",
+    "water/selected-skeleton.json": "33b6e709aaef1027e9d01a26fe07064c5a7f005d4ad7adf1a10734a9823c6365",
+    "native/native-reopen/export.log": "1b2d4a5e4ee2edfea51c34aa03996f30f07534cb0109ea2529b1ca1ab9b21f16",
+    "native/native-reopen/export.scr": "de13a817a0ae9b7c1d5e00f6bc0e570aacf7ff95b7b26fd406e6b6e552a88dac",
+    "native/native-reopen/source-copy.dwg": "79d56f2cbdb4f4ca419ba7445092535bc968e6cbbe8d24dd384691d2f1c78421",
+    "native/native-reopen/source-export.dxf": "3f791aba991190a69b86f55cc89cb8f63ea16029a087ba69bf7025248e16a45c",
+    "native/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "3a1304de0f4a7ffbffd90aee72e7ff676422a9a92ff63bd98f46bba66cc83c42",
+    "native/native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "c6a125e95720069bc7cd3b54fe8cbc94a86929e0d3bd116eee425ddbaab92ac2",
+    "water/baseline-analysis/manifest.json": "653e4ed07b81a8e05f7a9a360d846e3d4390180c6025fd31714e09f8d845e7b0",
+    "water/baseline-analysis/network.json": "9d0a78f3e8fd5c16a6e60d18e4de9af64ae1fb40091624fcb8d81a71b76e5565",
+    "water/baseline-analysis/report.html": "f7ed6d164d3069dae4abde4a68f2f063a8450b6ea66bfd482d24dbd80555ca85",
+    "water/baseline-analysis/segments.csv": "dea98a3359b3e6e32d5bbd181d0fae7c86b0602bfa5e62a8d6c5dda6983a49f6",
+    "water/baseline-bim/bim-verification.json": "05c59545ee533a282c8b29de1918b782b307fa9b7740e63f7f67c7898c5e5ae3",
+    "water/baseline-bim/model.ifc": "9225f2a026eef0fd1a02b74a14fa3160f3e97017f66fabfaf03c27bab2fc65b5",
+    "water/baseline-bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "water/selected-coordination/network-binding.json": "20038001cdc99359bdc2b6fe397a3455fa1a05517782b86d0ca2a7af3b1462d3",
+    "water/selected-coordination/network-input.json": "42f500bd11ef8b9e34a22440d88702c6235c55cf92dc173820e9bdf66ea3688f",
+    "water/sizing/candidates.csv": "cca6b5b5602ba3be0342dcc69e5a2240c8c49c692d81bc8450809a600bcca0e1",
+    "water/sizing/design-comparison.json": "e15c3179e8da1fd0b672e23efdc9336591ceb569d94dff322790120c2ae801e2",
+    "water/sizing/report.html": "07ad6f97d9fb27a9ad8f9f7d7aff371c805c09d451be888d3eb2324681fd663f",
+    "water/sizing/selected-network.json": "42f500bd11ef8b9e34a22440d88702c6235c55cf92dc173820e9bdf66ea3688f",
+    "water/selected-coordination/analysis/manifest.json": "5a3adec5522c1e1428546aa2b99cec27d4aeff0ad7d55ee42c315435aa91bd49",
+    "water/selected-coordination/analysis/network.json": "c443321383d954da85123714f17d5df905ab6f502c90d8eb4c7811005e1912d0",
+    "water/selected-coordination/analysis/report.html": "501cefbde138ba6138648f65d6b351ecebbf8199c0b789294640fed0ae9d734a",
+    "water/selected-coordination/analysis/segments.csv": "0cf8c1dc5380d5e49c5d3e21430b6ea9aff0a8400a0e15f907015a58e53bd930",
+    "water/selected-coordination/bim/bim-verification.json": "75c97e9a53ae41c7d7549df0c4ca7f9276beaafed925b6f74120c24a1cbb482c",
+    "water/selected-coordination/bim/model.ifc": "5281856b043870059fc885d7070e3e4cb7113ffb9d9ee7e310df35e92c13fc91",
+    "water/selected-coordination/bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "water/sizing/baseline/manifest.json": "653e4ed07b81a8e05f7a9a360d846e3d4390180c6025fd31714e09f8d845e7b0",
+    "water/sizing/baseline/network.json": "9d0a78f3e8fd5c16a6e60d18e4de9af64ae1fb40091624fcb8d81a71b76e5565",
+    "water/sizing/baseline/report.html": "f7ed6d164d3069dae4abde4a68f2f063a8450b6ea66bfd482d24dbd80555ca85",
+    "water/sizing/baseline/segments.csv": "dea98a3359b3e6e32d5bbd181d0fae7c86b0602bfa5e62a8d6c5dda6983a49f6",
+    "water/sizing/selected/manifest.json": "5a3adec5522c1e1428546aa2b99cec27d4aeff0ad7d55ee42c315435aa91bd49",
+    "water/sizing/selected/network.json": "c443321383d954da85123714f17d5df905ab6f502c90d8eb4c7811005e1912d0",
+    "water/sizing/selected/report.html": "501cefbde138ba6138648f65d6b351ecebbf8199c0b789294640fed0ae9d734a",
+    "water/sizing/selected/segments.csv": "0cf8c1dc5380d5e49c5d3e21430b6ea9aff0a8400a0e15f907015a58e53bd930"
+  },
+  "execution_pass": true,
+  "design_accepted": false,
+  "acceptance_note": "Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance"
+}

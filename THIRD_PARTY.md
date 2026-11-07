@@ -14,6 +14,8 @@ The Python engine, DXF integration wrapper and skills are original code authored
 
 Saved-IFC segment schedule/projection code is original integration using the already pinned IfcOpenShell 0.8.5 placement/system/unit APIs and ezdxf 1.4.5. No additional dependency or upstream source is bundled. The optional recorded preview was rendered by a local isolated headless Microsoft Edge process; Edge is not redistributed and SVG inspection does not establish native CAD acceptance.
 
+Native IFC-diagram delivery reuses the original isolated AutoCAD export and ezdxf reconciliation adapters, with additional complete model/XDATA identity checks and the existing pypdf physical-reference verifier. AutoCAD 2027 is the user's licensed local engine, not redistributed. Actual PDF previews use the already credited Poppler runtime; no new dependency or third-party source is vendored.
+
 ## Installed runtime dependency
 
 - **ezdxf 1.4.5**, MIT, https://github.com/mozman/ezdxf — used as an installed library for DXF document writing and independent reload checks; not vendored. Its distribution retains upstream license notices. The initial handwritten R12 writer was replaced after inspection showed missing explicit metre units/layer table declarations. No DWG fidelity claim is inferred.

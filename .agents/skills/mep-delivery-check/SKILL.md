@@ -13,6 +13,8 @@ Create an acceptance record with pass/fail/pending and evidence paths. Pending r
 
 For saved-IFC schedules/diagrams, inspect drawing.json coverage, excluded classes, profile/port/metadata consistency and DXF GUID/count reconciliation. Compare true and projected lengths, then inspect preview legibility. IFC_DRAWINGS.md documents the limited centreline scope; native plots, equipment/fittings and installation acceptance remain separate gates.
 
+For `ifc_native`, inspect native-verification.json and the reopened DWG export: model handles/counts, IFC XDATA, supported geometry, source hashes and physical PDF reference must pass. Render that run's actual PDF; store its hash and image hash with the visual observations separately, preserving workflow artifact integrity. Equipment/fittings and full installation acceptance remain pending for centreline diagrams.
+
 For orchestrated projects, run `python -m bsa.workflow verify <run-directory>` before interpreting results. It checks recorded source and task-artifact hashes, not report authenticity or engineering correctness. Compare every acceptance description in workflow.json against its actual artifacts and source paragraph; do not use execution_status as acceptance_status. Record visual and domain reviews separately with artifact hashes.
 
 When IFC coordination is required, inspect docs/CLASH.md and the saved clash.json. Confirm geometry coverage, units, policy sources/tolerances, Boolean checks and all accepted contact exceptions. A source-connected pair is not exempt from solid overlap. For outside_regions mode inspect both directional proofs; legacy pair-minimum exceptions leave non-interface clearances pending. Keep unverified product geometry pending; an empty findings table alone is insufficient.
