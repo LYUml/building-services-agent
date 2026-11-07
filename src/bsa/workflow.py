@@ -64,7 +64,7 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","lighting","drawing_intake","native_cad","manual"):
+        if kind not in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","lighting","drawing_intake","base_overlay","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","lighting"):
             inputs.add(local_path(root,t.get("project")))
@@ -77,6 +77,11 @@ def validate_plan(path):
             drawing=local_path(root,t.get('drawing'));inputs.add(drawing)
             if drawing.suffix.lower() not in ('.dwg','.dxf'):raise ProjectError('drawing intake requires DWG or DXF')
             if t.get('selection'):inputs.add(local_path(root,t['selection']))
+        if kind=='base_overlay':
+            from .cad_overlay import validate_settings
+            for field in ('project','drawing','selection','settings'):inputs.add(local_path(root,t.get(field)))
+            validate_settings(read_json(local_path(root,t['settings'])))
+            if t.get('sheet'):inputs.add(local_path(root,t['sheet']))
         if kind=='network_coordination':
             from .network_binding import prepare
             model=local_path(root,t.get('model'));binding=local_path(root,t.get('binding'))
@@ -123,7 +128,15 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
         folder=out/t["id"]
         status="pending";reason="";payload=None
         try:
-            if t['kind']=='drawing_intake':
+            if t['kind']=='base_overlay':
+                drawing=local_path(root,t['drawing'])
+                if (drawing.suffix.lower()=='.dwg' or t.get('sheet')) and not autocad:reason='AutoCAD required for source DWG or requested fixed-scale sheet'
+                else:
+                    from .cad_overlay import run
+                    payload=run(local_path(root,t['project']),drawing,local_path(root,t['selection']),local_path(root,t['settings']),folder,autocad,
+                                local_path(root,t['sheet']) if t.get('sheet') else None)
+                    status='pass';reason='supported base entities preserved and electrical devices placed; native/physical PDF checks recorded when requested; full design and visual acceptance pending'
+            elif t['kind']=='drawing_intake':
                 drawing=local_path(root,t['drawing'])
                 if drawing.suffix.lower()=='.dwg' and not autocad:reason='AutoCAD executable not supplied for source DWG extraction'
                 else:

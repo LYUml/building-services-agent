@@ -19,6 +19,8 @@ The Python engine, DXF integration wrapper and skills are original code authored
 
 Drawing intake also uses the pinned ezdxf library for read-only entity inventory and OCS-to-WCS coordinates. Original selection/hash/unit-proof and straight-polygon area code is provided in bsa.cad_intake. Native DWG export requires the user's licensed AutoCAD installation and runs on isolated copies; AutoCAD is not redistributed.
 
+Base-overlay preservation and physical PDF-scale verification are original adapters using the same pinned ezdxf/pypdf packages. The PDF verifier interprets stroked paths and transformation matrices; no upstream implementation is copied. AutoCAD handles native save/reopen/export and plotting locally; generated PDFs are independently rendered with the already credited Poppler installation.
+
 ## Executed energy integrations
 
 - **OpenStudio(R) SDK 3.11.0** installed as an optional Python library. Original two-zone authoring code calls the official SDK and its ForwardTranslator. It targets EnergyPlus 25.2.0; matching was checked at runtime. This project is not an endorsed or renamed version of OpenStudio.

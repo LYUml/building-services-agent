@@ -1,0 +1,50 @@
+{
+  "name": "Synthetic devices on an existing millimetre L-shaped base",
+  "supply_voltage_v": 230,
+  "sources": {
+    "demo": "Explicit synthetic demonstration assumptions, not measured or regulatory data"
+  },
+  "circuits": [
+    {
+      "id": "LGT-1",
+      "phase": "L1",
+      "demand_factor": 1,
+      "breaker_a": 6,
+      "tabulated_ampacity_a": 18,
+      "correction_factor": 0.8,
+      "route_length_m": 20,
+      "vd_mv_a_m": 29,
+      "max_vd_percent": 3,
+      "source": "demo"
+    }
+  ],
+  "devices": [
+    {
+      "id": "L1",
+      "circuit": "LGT-1",
+      "electrical_kw": 0.04,
+      "power_factor": 0.9,
+      "x_m": 1,
+      "y_m": 0.4,
+      "source": "demo"
+    },
+    {
+      "id": "L2",
+      "circuit": "LGT-1",
+      "electrical_kw": 0.04,
+      "power_factor": 0.9,
+      "x_m": 3,
+      "y_m": 0.4,
+      "source": "demo"
+    },
+    {
+      "id": "L3",
+      "circuit": "LGT-1",
+      "electrical_kw": 0.04,
+      "power_factor": 0.9,
+      "x_m": 5,
+      "y_m": 0.4,
+      "source": "demo"
+    }
+  ]
+}

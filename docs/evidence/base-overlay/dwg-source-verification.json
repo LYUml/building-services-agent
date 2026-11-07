@@ -1,0 +1,93 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\base-overlay\\project.json": "581eb3484e48fabe3a47cf8546f51bd49325b859c660f743e03f66e9e44bc453",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\docs\\evidence\\drawing-intake\\synthetic-base.dwg": "ecc7b1fe6dc5ae2c50a154bc2adeea1ecc6e3fdec2f308a83bb8b1fb352eb506",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\docs\\evidence\\drawing-intake\\selection.json": "50264ee47ea734ba0ea295dc9b0695c993e3a66e8ca7f990e7fe3ec715dd40c1",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\base-overlay\\settings.json": "efdc507d69b104511ecabfb70133da6c640ea529cfd8a2cfd0c3b10ed74add72",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\base-overlay\\sheet.json": "018af1778b6721dfdfbc4e969f7b12e9ef6a0e1556207ba41d1597299c290d0c"
+  },
+  "inputs_unchanged": true,
+  "base_entities_preserved": true,
+  "preserved_entity_count": 10,
+  "device_count": 3,
+  "placements": [
+    {
+      "id": "L1",
+      "circle_handle": "8B",
+      "text_handle": "8C",
+      "centre_drawing_units": [
+        1000.0,
+        400.0,
+        0.0
+      ]
+    },
+    {
+      "id": "L2",
+      "circle_handle": "8D",
+      "text_handle": "8E",
+      "centre_drawing_units": [
+        3000.0,
+        400.0,
+        0.0
+      ]
+    },
+    {
+      "id": "L3",
+      "circle_handle": "8F",
+      "text_handle": "90",
+      "centre_drawing_units": [
+        5000.0,
+        400.0,
+        0.0
+      ]
+    }
+  ],
+  "native_reopen_pass": true,
+  "plot": {
+    "pdf_sha256": "8a10ccdf95302ada2a07bf9cf25bd8629d6a409f95b09627504222b88659a278",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 50,
+    "reference_handle": "32",
+    "reference_expected_mm": 120.0,
+    "reference_measured_mm": 119.97266666666664,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "design_accepted": false,
+  "scope": "Supported source entity geometry/render attributes and block contents retained; electrical rigid transform; native checks only when executed",
+  "pending": [
+    "font/style/table and arbitrary object fidelity",
+    "source and coordinated drawing visual review",
+    "device containment/clashes and full engineering acceptance"
+  ],
+  "artifacts": {
+    "coordinated.dwg": "2cc302ef3b5c1d2447d09f6b20cb87d0ec77b7ca7c390ac53fecc0bd2cd8e864",
+    "coordinated.dxf": "b3815b37e3fe6bdbc211e33096f02b30f097ef1d9ade2c22a827b828f92cce17",
+    "plot.log": "4da9d7111547ce855b494bb3f905e7758486cb64654e210da5b06d4ff0096bc6",
+    "save.log": "713a7b6f2358e1c68537bdd7a2fde0f95d7b4b2037f2440d6955f0e29c0d9582",
+    "save.scr": "69e3125cd35682b9982d445b93ba1c4bf0f882a979cea4a2753f7f8d99379f09",
+    "sheet.json": "9785148c27595e4c9a07277847a2a65c25a92ab531315269d5e587ac95495dc2",
+    "sheet.log": "4d370a6808ca3559c5b734d413303764204d28da73653c00b9c9937fedacc211",
+    "sheet.pdf": "8a10ccdf95302ada2a07bf9cf25bd8629d6a409f95b09627504222b88659a278",
+    "sheet.scr": "6bac415951e01fd8d9c2da1b135f400c740bebe32f00654b02d842e67b2bb41e",
+    "intake/cad-intake.json": "df782faf2486ae47df2552fdb034b2248dfd8cec357b53266605ab76fd8b3ac7",
+    "intake/inventory.json": "233146c8621dfbe4e0313afa5a217a722e0e7d602822992c25fa26ca85b89e59",
+    "intake/measurements.json": "890e5b2534722ec5d49341fb1295895c508ea154530ddfd8897fc2b75dfb5403",
+    "native-reopen/export.log": "97f76168ad8663ef332b624d0c8b079fff7ba3e9b45e3fb85b477876e0f60eff",
+    "native-reopen/export.scr": "10fe29d6c2e1afce1837369419c1779b9271668bc35510c2d0ee5ae7f80a65ba",
+    "native-reopen/source-copy.dwg": "2cc302ef3b5c1d2447d09f6b20cb87d0ec77b7ca7c390ac53fecc0bd2cd8e864",
+    "native-reopen/source-export.dxf": "8edf02f9e8fb8d1345f2e0decdd553dd62ba2619ad820fba8015a6466b186e11",
+    "ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "f71d48e1ec2be70e99b0d60fdc8de29d8fca5c557cb706f7749c9ae5b8df767c",
+    "intake/native/export.log": "470f0add1798179da112d2f8ac1b98a44839ee4308937fd4971856903807407e",
+    "intake/native/export.scr": "bc998bd96eed5c1ec06c8d9ca2919baeed233215311727122f25e5e8dfdbdade",
+    "intake/native/source-copy.dwg": "ecc7b1fe6dc5ae2c50a154bc2adeea1ecc6e3fdec2f308a83bb8b1fb352eb506",
+    "intake/native/source-export.dxf": "4add58908347ce93c67ec9abdf40e796ed49bdbb188bf905cfede9d322957398",
+    "intake/native/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "667826bc30d82c8973ce4e27844aff004723e8bb43c658bdd8b0ceb0764ec8e6",
+    "native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "bc3d01209b3c597a20c3f1b9b7fcdbfbf98943266fd889677a816ff107d50812"
+  }
+}

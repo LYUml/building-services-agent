@@ -1,0 +1,82 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\base-overlay\\base.dxf": "71b19e6e623acdca2dcd739445dc29f03e4ce85f8f01fa92dcdf7cd49ac61528",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\base-overlay\\plan.json": "49f5e4a70aa615fb8aec17c688dbf2746d106d435f56d1decdd09d0a95aa5fbd",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\base-overlay\\project.json": "581eb3484e48fabe3a47cf8546f51bd49325b859c660f743e03f66e9e44bc453",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\base-overlay\\brief.md": "d4ece6b30a9295f8484c0af5acd33a4104e5c6198f1f1db3db1f8b7e839f0181",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\base-overlay\\sheet.json": "018af1778b6721dfdfbc4e969f7b12e9ef6a0e1556207ba41d1597299c290d0c",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\base-overlay\\selection.json": "ad2d76bbb6a08c087ce1c28c7395a8c57d250adae09615211306e031887dcf96",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\base-overlay\\settings.json": "efdc507d69b104511ecabfb70133da6c640ea529cfd8a2cfd0c3b10ed74add72"
+  },
+  "inputs_unchanged": true,
+  "tasks": {
+    "layout": {
+      "kind": "base_overlay",
+      "status": "pass",
+      "scope": "supported base entities preserved and electrical devices placed; native/physical PDF checks recorded when requested; full design and visual acceptance pending"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Preserve the supplied millimetre L-shaped base and its existing symbols and text. Place three synthetic light fixtures from the common electrical project using the explicit coordinate mapping and separate device/label layers. Produce an editable DXF in portable mode; when AutoCAD is supplied, save and reopen native DWG and produce an A4 landscape PDF at 1:50. Verify the six-metre reference line measures 120 mm in the PDF, then review actual labels, boundaries and margins visually. Source files must remain unchanged; protection, physical placement and complete engineering acceptance remain pending.",
+      "task": "layout",
+      "acceptance": "Preserved supported geometry and source hashes; native reopen/120 mm reference when native mode is requested; separate visual/domain review pending",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 3,
+        "end_line": 3
+      },
+      "execution_scope": "supported base entities preserved and electrical devices placed; native/physical PDF checks recorded when requested; full design and visual acceptance pending",
+      "evidence": [
+        "layout/coordinated.dwg",
+        "layout/coordinated.dxf",
+        "layout/overlay-verification.json",
+        "layout/plot.log",
+        "layout/save.log",
+        "layout/save.scr",
+        "layout/sheet.json",
+        "layout/sheet.log",
+        "layout/sheet.pdf",
+        "layout/sheet.scr",
+        "layout/intake/cad-intake.json",
+        "layout/intake/inventory.json",
+        "layout/intake/measurements.json",
+        "layout/intake/source-copy.dxf",
+        "layout/native-reopen/export.log",
+        "layout/native-reopen/export.scr",
+        "layout/native-reopen/source-copy.dwg",
+        "layout/native-reopen/source-export.dxf",
+        "layout/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log",
+        "layout/native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log"
+      ]
+    }
+  ],
+  "artifact_hashes": {
+    "layout/coordinated.dwg": "38e19b6a45358fd2ddaae450869f9e4d73a8e5deb1b8d82d00b0a5f2ce237759",
+    "layout/coordinated.dxf": "ce1ef47d1c74889edb110c792ff85ef7ea78e7bef2af58632198cdce4dd2b234",
+    "layout/overlay-verification.json": "096eabb50c163dbc2a66646dc98b731823a1cc9bec6fd269cbad079d98824f54",
+    "layout/plot.log": "64655520cb6631add30245fd7eeb7f4b8f6fe14d231c6401b8ec10da0d2dec66",
+    "layout/save.log": "649d18ba8ebf3d04165fe1ea4109993ef55862e3b3df88ceb4719f128b91f61d",
+    "layout/save.scr": "31ae8be15d541d0bada3aa4b326da06780af63c9cc7ca418c68904c8ffab0b17",
+    "layout/sheet.json": "7e73962f550ce9bada8653fec3cd0f686ea9fe0516c5b42160da2af41b7a25a4",
+    "layout/sheet.log": "5dbf5e0b36bd170c3ded5200d70b43943d48005f643faf084910035366f52b35",
+    "layout/sheet.pdf": "65d781bc5f5819c0bd6ab7a5fab5c9fb5f66e5184b570fa899b95b54097bd002",
+    "layout/sheet.scr": "7dc736f4743e80d27a078187b20064f34d68c8be9b4fec395606ae0ef1bc4ad3",
+    "layout/intake/cad-intake.json": "11bb59f289b723b63610ef442123612aed90101adfd6812da6b70d32edffe620",
+    "layout/intake/inventory.json": "6b944e72c1d4edbbd3c2ba10726f46195fedcd892a144002a7c2fc6f0f0071ae",
+    "layout/intake/measurements.json": "df98ab4028d9e5957880b7dde5dff309b226b5d9464f360bb8988392a911a2ac",
+    "layout/intake/source-copy.dxf": "71b19e6e623acdca2dcd739445dc29f03e4ce85f8f01fa92dcdf7cd49ac61528",
+    "layout/native-reopen/export.log": "2657925b136e7aa545e3fb8a648325de285a13ebf7d2e665dcc1cdac8ec03f86",
+    "layout/native-reopen/export.scr": "81c0d14f2d277fc417199478e1580dabdd5e9fadc579367d4d326452bd89104a",
+    "layout/native-reopen/source-copy.dwg": "38e19b6a45358fd2ddaae450869f9e4d73a8e5deb1b8d82d00b0a5f2ce237759",
+    "layout/native-reopen/source-export.dxf": "4a9611b262009f6f68b4c1c2d1ee960eb8b6462727e0819d54d3086c8599c625",
+    "layout/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "c80400681fc005be0635b594145f0646071ed8b9469b7ca4ed59bc968b380d94",
+    "layout/native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "3fd8eea13b39238fad73252eab8867098c1c37ac83f612c77c66c050250dd81b"
+  },
+  "execution_pass": true,
+  "design_accepted": false,
+  "acceptance_note": "Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance"
+}

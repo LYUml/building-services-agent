@@ -1,0 +1,12 @@
+{
+  "source": "Synthetic A4 landscape 1:50 window with independent six-metre reference line",
+  "window_drawing_units": [
+    -1000,
+    -2000,
+    7000,
+    5000
+  ],
+  "scale_denominator": 50,
+  "reference_handle": "32",
+  "pdf_tolerance_mm": 0.2
+}

@@ -1,0 +1,90 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\base-overlay\\project.json": "581eb3484e48fabe3a47cf8546f51bd49325b859c660f743e03f66e9e44bc453",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\base-overlay\\base.dxf": "71b19e6e623acdca2dcd739445dc29f03e4ce85f8f01fa92dcdf7cd49ac61528",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\base-overlay\\selection.json": "ad2d76bbb6a08c087ce1c28c7395a8c57d250adae09615211306e031887dcf96",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\base-overlay\\settings.json": "efdc507d69b104511ecabfb70133da6c640ea529cfd8a2cfd0c3b10ed74add72",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\base-overlay\\sheet.json": "018af1778b6721dfdfbc4e969f7b12e9ef6a0e1556207ba41d1597299c290d0c"
+  },
+  "inputs_unchanged": true,
+  "base_entities_preserved": true,
+  "preserved_entity_count": 6,
+  "preserved_layer_count": 4,
+  "device_count": 3,
+  "placements": [
+    {
+      "id": "L1",
+      "circle_handle": "41",
+      "text_handle": "42",
+      "centre_drawing_units": [
+        1000.0,
+        400.0,
+        0.0
+      ]
+    },
+    {
+      "id": "L2",
+      "circle_handle": "43",
+      "text_handle": "44",
+      "centre_drawing_units": [
+        3000.0,
+        400.0,
+        0.0
+      ]
+    },
+    {
+      "id": "L3",
+      "circle_handle": "45",
+      "text_handle": "46",
+      "centre_drawing_units": [
+        5000.0,
+        400.0,
+        0.0
+      ]
+    }
+  ],
+  "native_reopen_pass": true,
+  "plot": {
+    "pdf_sha256": "65d781bc5f5819c0bd6ab7a5fab5c9fb5f66e5184b570fa899b95b54097bd002",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 50,
+    "reference_handle": "32",
+    "reference_expected_mm": 120.0,
+    "reference_measured_mm": 119.97266666666664,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "design_accepted": false,
+  "scope": "Supported source entity geometry/render attributes and block contents retained; electrical rigid transform; native checks only when executed",
+  "pending": [
+    "font/style/table and arbitrary object fidelity",
+    "source and coordinated drawing visual review",
+    "device containment/clashes and full engineering acceptance"
+  ],
+  "artifacts": {
+    "coordinated.dwg": "38e19b6a45358fd2ddaae450869f9e4d73a8e5deb1b8d82d00b0a5f2ce237759",
+    "coordinated.dxf": "ce1ef47d1c74889edb110c792ff85ef7ea78e7bef2af58632198cdce4dd2b234",
+    "plot.log": "64655520cb6631add30245fd7eeb7f4b8f6fe14d231c6401b8ec10da0d2dec66",
+    "save.log": "649d18ba8ebf3d04165fe1ea4109993ef55862e3b3df88ceb4719f128b91f61d",
+    "save.scr": "31ae8be15d541d0bada3aa4b326da06780af63c9cc7ca418c68904c8ffab0b17",
+    "sheet.json": "7e73962f550ce9bada8653fec3cd0f686ea9fe0516c5b42160da2af41b7a25a4",
+    "sheet.log": "5dbf5e0b36bd170c3ded5200d70b43943d48005f643faf084910035366f52b35",
+    "sheet.pdf": "65d781bc5f5819c0bd6ab7a5fab5c9fb5f66e5184b570fa899b95b54097bd002",
+    "sheet.scr": "7dc736f4743e80d27a078187b20064f34d68c8be9b4fec395606ae0ef1bc4ad3",
+    "intake/cad-intake.json": "11bb59f289b723b63610ef442123612aed90101adfd6812da6b70d32edffe620",
+    "intake/inventory.json": "6b944e72c1d4edbbd3c2ba10726f46195fedcd892a144002a7c2fc6f0f0071ae",
+    "intake/measurements.json": "df98ab4028d9e5957880b7dde5dff309b226b5d9464f360bb8988392a911a2ac",
+    "intake/source-copy.dxf": "71b19e6e623acdca2dcd739445dc29f03e4ce85f8f01fa92dcdf7cd49ac61528",
+    "native-reopen/export.log": "2657925b136e7aa545e3fb8a648325de285a13ebf7d2e665dcc1cdac8ec03f86",
+    "native-reopen/export.scr": "81c0d14f2d277fc417199478e1580dabdd5e9fadc579367d4d326452bd89104a",
+    "native-reopen/source-copy.dwg": "38e19b6a45358fd2ddaae450869f9e4d73a8e5deb1b8d82d00b0a5f2ce237759",
+    "native-reopen/source-export.dxf": "4a9611b262009f6f68b4c1c2d1ee960eb8b6462727e0819d54d3086c8599c625",
+    "ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "c80400681fc005be0635b594145f0646071ed8b9469b7ca4ed59bc968b380d94",
+    "native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "3fd8eea13b39238fad73252eab8867098c1c37ac83f612c77c66c050250dd81b"
+  }
+}

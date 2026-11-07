@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "d4ece6b30a9295f8484c0af5acd33a4104e5c6198f1f1db3db1f8b7e839f0181",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "layout",
+      "kind": "base_overlay",
+      "project": "project.json",
+      "drawing": "base.dxf",
+      "selection": "selection.json",
+      "settings": "settings.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Preserve the supplied millimetre L-shaped base and its existing symbols and text. Place three synthetic light fixtures from the common electrical project using the explicit coordinate mapping and separate device/label layers. Produce an editable DXF in portable mode; when AutoCAD is supplied, save and reopen native DWG and produce an A4 landscape PDF at 1:50. Verify the six-metre reference line measures 120 mm in the PDF, then review actual labels, boundaries and margins visually. Source files must remain unchanged; protection, physical placement and complete engineering acceptance remain pending.",
+      "task": "layout",
+      "acceptance": "Preserved supported geometry and source hashes; native reopen/120 mm reference when native mode is requested; separate visual/domain review pending"
+    }
+  ]
+}

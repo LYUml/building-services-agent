@@ -23,7 +23,7 @@ Open this repository as the workspace. Ask the agent to use `$building-services-
 
 The electrical slice implements load aggregation, design current and conditional cable/protection/voltage-drop checks, plus a DXF overlay. Cable ampacity, factors, mV/A/m and limits are explicit sourced inputs, not embedded regulation tables. Fault disconnection, breaking capacity and selectivity remain pending. Separate adapters below provide IES photometry, IFC, energy and network analysis; a successful tool run is not full design acceptance.
 
-Native conversion of synthetic CIRCLE/TEXT overlays has a tested AutoCAD 2027 adapter. Source-drawing intake is available; preserving an existing base while authoring coordinated overlays and fixed-scale sheets remains pending. See [roadmap](docs/ROADMAP.md), [project format](docs/PROJECT_FORMAT.md), and [upstream attribution](THIRD_PARTY.md) for the implemented scope and remaining work.
+Native conversion and source-drawing intake use tested AutoCAD 2027 adapters. [Supported base overlays and fixed-scale A4 plots](docs/CAD_OVERLAY.md) now preserve checked source geometry and verify a reference line's physical PDF scale. Arbitrary drawing fidelity, full sheet standards and engineering acceptance remain pending. See [roadmap](docs/ROADMAP.md), [project format](docs/PROJECT_FORMAT.md), and [upstream attribution](THIRD_PARTY.md).
 
 ## Native AutoCAD example
 

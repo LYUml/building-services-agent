@@ -1,0 +1,15 @@
+{
+  "pdf_sha256": "65d781bc5f5819c0bd6ab7a5fab5c9fb5f66e5184b570fa899b95b54097bd002",
+  "render_sha256": "4e69fc70f9ab8b01650eebfab8412a242d79cf7e89adb599a6fb45292a293e09",
+  "inspected_image_sha256": "4e69fc70f9ab8b01650eebfab8412a242d79cf7e89adb599a6fb45292a293e09",
+  "render_matches_inspected_image": true,
+  "scope": "Synthetic schematic page only: all three symbols/labels and original boundary/text/reference line visible with margins; revised symbols and labels do not overlap the original text",
+  "observation": "Earlier iteration collided with original text. Revised synthetic device Y and label offset corrected the observed issue while retaining base geometry. Final DXF-base and DWG-base renders are byte-identical.",
+  "visual_check_pass": true,
+  "design_accepted": false,
+  "pending": [
+    "full professional sheet/title-block requirements",
+    "arbitrary source/font/style fidelity",
+    "physical device suitability and electrical/code acceptance"
+  ]
+}

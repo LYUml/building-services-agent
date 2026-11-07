@@ -1,0 +1,3 @@
+# Synthetic electrical layout on a supplied base
+
+Preserve the supplied millimetre L-shaped base and its existing symbols and text. Place three synthetic light fixtures from the common electrical project using the explicit coordinate mapping and separate device/label layers. Produce an editable DXF in portable mode; when AutoCAD is supplied, save and reopen native DWG and produce an A4 landscape PDF at 1:50. Verify the six-metre reference line measures 120 mm in the PDF, then review actual labels, boundaries and margins visually. Source files must remain unchanged; protection, physical placement and complete engineering acceptance remain pending.
