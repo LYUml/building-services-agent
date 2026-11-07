@@ -18,6 +18,8 @@ Native IFC-diagram delivery reuses the original isolated AutoCAD export and ezdx
 
 The fixed-speed single-line pump intersection/bisection and power accounting are original orchestration around the pinned fluids 1.3.1 pressure engine. No new dependency or upstream source is copied. Method references are the [Hydraulic Institute combined pump/system curves](https://datatool.pumps.org/pump-fundamentals/combined.html), [pump curve definitions](https://datatool.pumps.org/pump-fundamentals/pump-curves) and [US DOE pumping sourcebook](https://www.energy.gov/sites/prod/files/2014/05/f16/pump.pdf). Combined wire-to-water efficiency is an explicit input assumption, distinct from pump-only shaft efficiency. References do not certify synthetic curve points or manufacturer suitability.
 
+Pump/electrical/IFC property binding is original integration using the same pinned fluids, IfcOpenShell and ezdxf libraries. No upstream source or new dependency is vendored. [DOE motor load/efficiency guidance](https://www.energy.gov/sites/prod/files/2014/04/f15/10097517.pdf) supports keeping operating estimates, load-dependent PF and rated motor data distinct; it supplies no embedded motor defaults or regulation tables.
+
 ## Installed runtime dependency
 
 - **ezdxf 1.4.5**, MIT, https://github.com/mozman/ezdxf — used as an installed library for DXF document writing and independent reload checks; not vendored. Its distribution retains upstream license notices. The initial handwritten R12 writer was replaced after inspection showed missing explicit metre units/layer table declarations. No DWG fidelity claim is inferred.

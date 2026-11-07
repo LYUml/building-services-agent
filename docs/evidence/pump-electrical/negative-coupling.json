@@ -1,0 +1,71 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative\\pump\\analysis\\manifest.json": "a3a881b3e8d1a03d25cfaf426c5635c78862d54698c18fb77c00119135dfeafc",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative\\pump\\report.html": "7a65555271631d9f3748869fd024b132231b568af036781dd5147220ec66f074",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative\\pump\\iterations.csv": "c267971d78580437a915afe7ece6cc9a6fce4c3aa02eaea87fef48047c805c2d",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative\\pump\\analysis\\network.json": "35e9ac77a322e1c3f3c7a5632b24d54d1c005242c582ab5fde0cec22654c2e10",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative\\pump\\operating-network.json": "d0913ce14bd33d110be0c1ac41edc33774781f4e67d3e624900f2e5461fa571a",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative\\pump\\pump.json": "07bca522f8200d494af125373a4b59f88cef393b443909e8fa40e73020f3254d",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative-inputs\\electrical.json": "29cf2732ce5a7208ec4c307020e2c99cf0b2b7670d2da6dfd723209e1b7e3d56",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative\\pump\\analysis\\segments.csv": "a56d1db06352fa580b50b4f12eec614347d559f1e9b613c07e1919ddc80020ed",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative\\pump\\analysis\\report.html": "c8fa71675484101a000adc0413490afac6bb7e7ce42d7be68ecae7c250207524",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative-inputs\\binding.json": "dbf25c95094e960f3702a9148e55eeaff758ea68f372720f176acb62166e0ab7",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative\\water\\selected-coordination\\network-input.json": "42f500bd11ef8b9e34a22440d88702c6235c55cf92dc173820e9bdf66ea3688f",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative\\water\\selected-coordination\\bim\\model.ifc": "f6cf99440d2589f62f98c90ac45a6f52f73e5ed77a7de35eb9679f60aa6c56a4",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative-inputs\\pump-electrical-link.json": "6c1c6ab9865a8508962175e316414794b24df230e19457dc065e7d0e6ccf10a7",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative-inputs\\pump-curve.json": "869439e44e745b2aaf0ccc79d3a4b808995e63dcae0b510f608a86d9891f6272"
+  },
+  "inputs_unchanged": true,
+  "record": {
+    "electrical_device_id": "BOOSTER",
+    "pump_guid": "2H47DrX1HQH8FfeRHY$hU5",
+    "source_port_guid": "1EJ$TpRUnV7RZ90W$yl5XS",
+    "circuit_id": "PUMP-SUPPLY",
+    "baseline_electrical_kw": 0.75,
+    "operating_electrical_kw": 0.43782750125019576,
+    "operating_power_factor": 0.85,
+    "bound_device_operating_current_a": 2.2395268606148124,
+    "operating_circuit_current_a": 2.2395268606148124,
+    "pump_body_centre_m": [
+      1.0,
+      1.0,
+      0.2
+    ]
+  },
+  "pump_replayed": true,
+  "existing_ifc_entities_unchanged": true,
+  "saved_ifc_properties_match": true,
+  "schema_valid": true,
+  "baseline_hardware_retained": true,
+  "baseline_checks_pass": false,
+  "operating_checks_pass": true,
+  "unbound_electrical_device_ids": [
+    "SHAFT-L1",
+    "SHAFT-L2"
+  ],
+  "calculated_checks_pass": false,
+  "design_accepted": false,
+  "pending": [
+    "nameplate/design rating, motor starting, fault protection and full electrical acceptance",
+    "operating PF and curve/efficiency/product evidence",
+    "other electrical devices and circuit topology in IFC",
+    "native CAD/plot and BIM-viewer review",
+    "NPSH, controls and complete engineering acceptance"
+  ],
+  "artifacts": {
+    "model.ifc": "e46bc0daa81aadf481d3165eb589ca04cd1557f1056976550acc75755d02cde8",
+    "operating-electrical.json": "29a7de4691ec773d9617b55d86421479029c348903159a2735d176e035c61aef",
+    "report.html": "142a58e5410c5119891f7bd0f664c69200f40d2ad07ab722ed0cdcff7579741f",
+    "schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "baseline-electrical/calculations.json": "c0dc6c276bfa6e291f51c6e283d997302b282e28a08702cb3b00b48e274472fc",
+    "baseline-electrical/devices.dxf": "aa83beab168e3ca36902b625f2321124c2e3b780c91f47df025c13959f91ffb5",
+    "baseline-electrical/manifest.json": "f2cbd0e5928f94b6a054e8d3b9addd76a14df79576f226222eb53be0cafeaddc",
+    "baseline-electrical/preview.svg": "8c0cf4d1cddd42f605c75753d628f422e05b034d5c465e86c10d9f017236314f",
+    "baseline-electrical/report.html": "39047fff2e04226e5369a9ad33af331be9430ea174b86abae76416ed6a898d33",
+    "operating-electrical/calculations.json": "ba8388510ecca0556607e90d2dfb6e2b680ab1b215efb889ffebeb6c639700fe",
+    "operating-electrical/devices.dxf": "2a62c8a2c6b1eff265629a5d4ff002fdf18696fe89c7c17c9ec63b68f1cd891c",
+    "operating-electrical/manifest.json": "e0b07b76a446ef2ef6b10c4fdbed79dea4845d22eaa39c674ea27165f7c22910",
+    "operating-electrical/preview.svg": "8c0cf4d1cddd42f605c75753d628f422e05b034d5c465e86c10d9f017236314f",
+    "operating-electrical/report.html": "16d8ed33f6a8483df19e46e60564a417bef34ca18c8c8287b662134420ddc482"
+  }
+}

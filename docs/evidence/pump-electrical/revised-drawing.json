@@ -1,0 +1,100 @@
+{
+  "ifcopenshell_version": "0.8.5",
+  "source_length_unit_to_m": 1,
+  "segment_count": 2,
+  "segments": [
+    {
+      "guid": "14_Pcn3dHIEx82hnR2Z_vq",
+      "name": "RISE-LOW",
+      "ifc_class": "IfcPipeSegment",
+      "system_guids": [
+        "0U_R6hQ5vNwBpa8WcBPN8F"
+      ],
+      "source": "Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data.; selected size: Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data. Material scores are abstract points per metre; fixed-K comparative assumption.; outside envelope: Synthetic independent outside diameters for wall verification; no product or insulation certification.",
+      "missing_diameter_metadata": [],
+      "inner_diameter_m": 0.032,
+      "outside_diameter_m": 0.04,
+      "length_m": 2.5,
+      "start_world_m": [
+        1.0,
+        1.0,
+        0.4
+      ],
+      "end_world_m": [
+        1.0,
+        1.0,
+        2.9
+      ],
+      "sink_port_guid": "2paArO4kzLBvJnkjAEX$BW",
+      "source_port_guid": "32OMxUGdTKXfUO2CVwNvsw",
+      "analytic_wall_volume_m3": 0.0011309733552923257,
+      "projected_length_m": 2.5
+    },
+    {
+      "guid": "19uC5wvzbIexOWydoQSx0y",
+      "name": "RISE-HIGH",
+      "ifc_class": "IfcPipeSegment",
+      "system_guids": [
+        "0U_R6hQ5vNwBpa8WcBPN8F"
+      ],
+      "source": "Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data.; selected size: Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data. Material scores are abstract points per metre; fixed-K comparative assumption.; outside envelope: Synthetic independent outside diameters for wall verification; no product or insulation certification.",
+      "missing_diameter_metadata": [],
+      "inner_diameter_m": 0.032,
+      "outside_diameter_m": 0.04,
+      "length_m": 2.5,
+      "start_world_m": [
+        1.0,
+        1.0,
+        2.9
+      ],
+      "end_world_m": [
+        1.0,
+        1.0,
+        5.4
+      ],
+      "sink_port_guid": "2SniO0RInNsB5dobEbry_9",
+      "source_port_guid": "2Ii$4RJlTUkuSrZSOEiDbG",
+      "analytic_wall_volume_m3": 0.0011309733552923257,
+      "projected_length_m": 2.5000000000000004
+    }
+  ],
+  "unsupported_segments": [],
+  "excluded_non_segment_elements": [
+    {
+      "guid": "2H47DrX1HQH8FfeRHY$hU5",
+      "name": "BOOSTER",
+      "ifc_class": "IfcPump"
+    },
+    {
+      "guid": "1p9zCELIrUOxISTXL$jK9N",
+      "name": "OUTLET",
+      "ifc_class": "IfcSanitaryTerminal"
+    }
+  ],
+  "calculated_checks_pass": true,
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-final\\coupled\\model.ifc": "0cf37108e6699838f4b520772863b5abbd7c03def22d26ec650ebab13982852d",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\water-riser\\drawing-settings.json": "726092d1785151fbb97ed6c4195ef4853fdbfdfbbfcf4c03afb5d542f61b5942"
+  },
+  "settings": {
+    "projection_axes": [
+      "X",
+      "Z"
+    ],
+    "annotation_height_m": 0.12,
+    "source": "Synthetic X/Z projected centreline schematic; coordinates and text height in metres, no printed scale or installation representation implied."
+  },
+  "inputs_unchanged": true,
+  "design_accepted": false,
+  "scope": "saved direct hollow pipe/duct profiles and directed ports; projected centreline schematic only",
+  "pending": [
+    "native DWG reopen and printed scale/visual acceptance",
+    "equipment, fittings, insulation and installation drawings",
+    "product provenance and complete engineering acceptance"
+  ],
+  "artifacts": {
+    "preview.svg": "fbcabd1b7d2396e8a16a6ab3aaa240652ea4ff9f4ce3ec11db33e2bd2b96ef87",
+    "segments.csv": "fdbec0b0ee07b826e8e1321d22def602001b151958a924dd8b4c30b338880cb3",
+    "segments.dxf": "b9db2205aad759badb8ea0ea24f4951464f34fbca975da82ac710ed9b61d6ab6"
+  }
+}

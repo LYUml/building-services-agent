@@ -13,7 +13,7 @@ from .engine import ProjectError
 
 IFC_ARTIFACTS={'bim':'model.ifc','network_coordination':'bim/model.ifc',
                'network_model_design':'selected-coordination/bim/model.ifc',
-               'electrical_coordination':'bim/model.ifc','electrical_lighting':'shared/bim/model.ifc'}
+               'electrical_coordination':'bim/model.ifc','electrical_lighting':'shared/bim/model.ifc','pump_electrical':'model.ifc'}
 NETWORK_ARTIFACTS={'network_coordination':'network-input.json','network_design':'selected-network.json',
                    'network_model_design':'selected-coordination/network-input.json'}
 
@@ -70,7 +70,7 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","network_model_design","pump_operating_point","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_native","native_cad","manual"):
+        if kind not in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","network_model_design","lighting"):
             inputs.add(local_path(root,t.get("project")))
@@ -113,6 +113,14 @@ def validate_plan(path):
                     raise ProjectError('pump dependency must be an earlier supported network producer')
             else:
                 pump_network=local_path(root,t.get('project'));inputs.add(pump_network);prepare(read_json(pump_network),read_json(curve))
+        if kind=='pump_electrical':
+            from .pump_electrical import validate_link
+            for key in ('project','network_binding','link'):inputs.add(local_path(root,t.get(key)))
+            validate_link(read_json(local_path(root,t['link'])))
+            if t.get('depends_on') not in ids or next(x for x in tasks if x['id']==t['depends_on'])['kind']!='pump_operating_point':
+                raise ProjectError('pump electrical binding requires an earlier pump operating-point task')
+            if t.get('ifc_from') not in ids or next(x for x in tasks if x['id']==t['ifc_from'])['kind'] not in IFC_ARTIFACTS:
+                raise ProjectError('pump electrical binding requires an earlier supported IFC producer')
         if kind=='network_design':
             from .network_design import validate_catalogue
             catalogue=local_path(root,t.get('catalogue'));inputs.add(catalogue)
@@ -176,7 +184,16 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
         folder=out/t["id"]
         status="pending";reason="";payload=None
         try:
-            if t['kind']=='pump_operating_point':
+            if t['kind']=='pump_electrical':
+                pump_task=t['depends_on'];model_task=t['ifc_from']
+                if any(tasks[id]['status']!='pass' for id in (pump_task,model_task)):reason='upstream pump/model did not pass; no electrical operating scenario fabricated'
+                else:
+                    from .pump_electrical import run
+                    source_ifc=out/model_task/IFC_ARTIFACTS[tasks[model_task]['kind']]
+                    payload=run(local_path(root,t['project']),out/pump_task/'pump.json',source_ifc,local_path(root,t['network_binding']),local_path(root,t['link']),folder)
+                    status='pass' if payload['calculated_checks_pass'] else 'fail'
+                    reason='replayed pump estimate explicitly bound to electrical device/IFC source port; baseline hardware retained; steady scenario and property-only IFC checked; motor/fault/full acceptance pending'
+            elif t['kind']=='pump_operating_point':
                 dependency=t.get('depends_on')
                 if dependency and tasks[dependency]['status']!='pass':reason='upstream network producer did not pass; no pump operating point fabricated'
                 else:

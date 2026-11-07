@@ -1,0 +1,326 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative-inputs\\coupled-plan.json": "f4fa0f274c1feefb3d62919feee4d79672f5ba3a8e70b9d1016109f5e0c4bd0d",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative-inputs\\catalogue.json": "bfe4f4a2297a3f6b5a7316fc86c290dde34d72fc592b25ae84e4422fa8d66931",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative-inputs\\drawing-settings.json": "726092d1785151fbb97ed6c4195ef4853fdbfdfbbfcf4c03afb5d542f61b5942",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative-inputs\\electrical.json": "29cf2732ce5a7208ec4c307020e2c99cf0b2b7670d2da6dfd723209e1b7e3d56",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative-inputs\\coupled-brief.md": "1f18ccdf46162b6d8956f6551ce433b9ed0bc2015da444a2328bc7de7de7a4a8",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative-inputs\\network.json": "1b92011e79d780dc51880aac18cedb52f4bb354302a092d23e9cc6433d895690",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative-inputs\\binding.json": "dbf25c95094e960f3702a9148e55eeaff758ea68f372720f176acb62166e0ab7",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative-inputs\\model.json": "8f2672e78e7b681f20dada0e6121317635af1184023117c8cf0159e1e794b487",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative-inputs\\pump-electrical-link.json": "6c1c6ab9865a8508962175e316414794b24df230e19457dc065e7d0e6ccf10a7",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative-inputs\\geometry.json": "0c613f318c72e4c4aed93cc4384f8a0edfdae02d65f1a7d3a36fd0c49c233b06",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative-inputs\\pump-curve.json": "869439e44e745b2aaf0ccc79d3a4b808995e63dcae0b510f608a86d9891f6272",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\pump-electrical-negative-inputs\\policy.json": "4a498b42f11b634942cabc16f874747df538011ac39f3dec2a6f44a33090fed3"
+  },
+  "inputs_unchanged": true,
+  "tasks": {
+    "electrical": {
+      "kind": "electrical",
+      "status": "fail",
+      "scope": "conditional electrical checks only; remaining design checks are in calculations.json"
+    },
+    "water": {
+      "kind": "network_model_design",
+      "status": "pass",
+      "scope": "source-backed envelopes/explicit walls resized on fixed endpoints; saved IFC dimensions and derived pressure reconciled; actual products/clashes/full acceptance pending"
+    },
+    "qa": {
+      "kind": "ifc_clash",
+      "status": "pass",
+      "scope": "saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending"
+    },
+    "drawing": {
+      "kind": "ifc_drawing",
+      "status": "pass",
+      "scope": "saved hollow profiles and ports reconciled to schedule/projected centreline DXF; native and installation drawing acceptance pending"
+    },
+    "pump": {
+      "kind": "pump_operating_point",
+      "status": "pass",
+      "scope": "source-bounded single-terminal pump/system intersection and selected pressure rerun; efficiency, motor, NPSH and full engineering acceptance pending"
+    },
+    "coupled": {
+      "kind": "pump_electrical",
+      "status": "fail",
+      "scope": "replayed pump estimate explicitly bound to electrical device/IFC source port; baseline hardware retained; steady scenario and property-only IFC checked; motor/fault/full acceptance pending"
+    },
+    "coupled-qa": {
+      "kind": "ifc_clash",
+      "status": "pending",
+      "scope": "upstream IFC producer did not pass; no clash result fabricated"
+    },
+    "coupled-drawing": {
+      "kind": "ifc_drawing",
+      "status": "pending",
+      "scope": "upstream IFC producer did not pass; no drawing fabricated"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Calculate the synthetic service-shaft electrical steady loads from electrical.json: one 0.75 kW single-phase booster input and two 18 W lights on two circuits at 230 V. Generate the editable metre DXF and calculation report. Keep motor starting, fault protection, pump operating point, native DWG and visual drawing acceptance pending.",
+      "task": "electrical",
+      "acceptance": "Synthetic scoped artifact/numeric evidence only; remaining gates in the quoted requirement stay pending",
+      "execution_status": "fail",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 3,
+        "end_line": 3
+      },
+      "execution_scope": "conditional electrical checks only; remaining design checks are in calculations.json",
+      "evidence": [
+        "electrical/calculations.json",
+        "electrical/devices.dxf",
+        "electrical/manifest.json",
+        "electrical/preview.svg",
+        "electrical/report.html"
+      ]
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Use model.json, network.json, binding.json, catalogue.json and geometry.json to size the 5 m vertical water riser at a prescribed 1 L/s. Evaluate all four inside-diameter options 15, 25, 32 and 40 mm, with independently specified outside diameters, a 2 m/s velocity limit, 180 kPa source total pressure and 100 kPa outlet total-pressure requirement. Retain failed candidates and the baseline, preserve endpoints and object/port identities, and independently check the saved hollow IFC against the selected pressure calculation. Material scores are abstract points, not prices.",
+      "task": "water",
+      "acceptance": "Synthetic scoped artifact/numeric evidence only; remaining gates in the quoted requirement stay pending",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 5,
+        "end_line": 5
+      },
+      "execution_scope": "source-backed envelopes/explicit walls resized on fixed endpoints; saved IFC dimensions and derived pressure reconciled; actual products/clashes/full acceptance pending",
+      "evidence": [
+        "water/baseline-network.json",
+        "water/filtered-catalogue.json",
+        "water/model-design.json",
+        "water/selected-model.json",
+        "water/selected-skeleton.json",
+        "water/baseline-analysis/manifest.json",
+        "water/baseline-analysis/network.json",
+        "water/baseline-analysis/report.html",
+        "water/baseline-analysis/segments.csv",
+        "water/baseline-bim/bim-verification.json",
+        "water/baseline-bim/model.ifc",
+        "water/baseline-bim/schema-validation.json",
+        "water/selected-coordination/network-binding.json",
+        "water/selected-coordination/network-input.json",
+        "water/sizing/candidates.csv",
+        "water/sizing/design-comparison.json",
+        "water/sizing/report.html",
+        "water/sizing/selected-network.json",
+        "water/selected-coordination/analysis/manifest.json",
+        "water/selected-coordination/analysis/network.json",
+        "water/selected-coordination/analysis/report.html",
+        "water/selected-coordination/analysis/segments.csv",
+        "water/selected-coordination/bim/bim-verification.json",
+        "water/selected-coordination/bim/model.ifc",
+        "water/selected-coordination/bim/schema-validation.json",
+        "water/sizing/baseline/manifest.json",
+        "water/sizing/baseline/network.json",
+        "water/sizing/baseline/report.html",
+        "water/sizing/baseline/segments.csv",
+        "water/sizing/selected/manifest.json",
+        "water/sizing/selected/network.json",
+        "water/sizing/selected/report.html",
+        "water/sizing/selected/segments.csv"
+      ]
+    },
+    {
+      "id": "R3",
+      "passage": "P004",
+      "quote": "Check all represented physical elements in the selected saved water IFC with policy.json, including both outside-to-full clearance directions beyond explicitly sourced joint spheres. Retain overlap, missing geometry and failed clearance evidence. Do not claim product fit, insulation, applicable-code compliance, BIM-viewer approval or complete engineering acceptance.",
+      "task": "qa",
+      "acceptance": "Synthetic scoped artifact/numeric evidence only; remaining gates in the quoted requirement stay pending",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 7,
+        "end_line": 7
+      },
+      "execution_scope": "saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending",
+      "evidence": [
+        "qa/clash.json",
+        "qa/report.html"
+      ]
+    },
+    {
+      "id": "R4",
+      "passage": "P005",
+      "quote": "Extract a pipe-segment schedule and editable X/Z projected centreline DXF directly from the selected saved IFC, using drawing-settings.json. Independently reconcile saved hollow profile diameters, true lengths and directed port endpoints. Preserve IFC GUID links in drawing entities and show omitted equipment explicitly in the evidence. The result is a schematic: water installation drawing details, native DWG, print scale and visual acceptance remain pending.",
+      "task": "drawing",
+      "acceptance": "Source-linked schedule and DXF geometry/identity reconciliation; omitted classes and native/visual/installation acceptance explicit",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 9,
+        "end_line": 9
+      },
+      "execution_scope": "saved hollow profiles and ports reconciled to schedule/projected centreline DXF; native and installation drawing acceptance pending",
+      "evidence": [
+        "drawing/drawing.json",
+        "drawing/preview.svg",
+        "drawing/segments.csv",
+        "drawing/segments.dxf"
+      ]
+    },
+    {
+      "id": "R5",
+      "passage": "P006",
+      "quote": "Use pump-curve.json and the selected model-derived water network to solve the fixed-speed pump/system intersection within the supplied flow domain, with free flow at a fixed 100 kPa terminal total-pressure boundary. Retain the iteration bracket/residuals, recompute friction at each flow and rerun the selected state. Check the conservative design-flow and velocity bounds. Estimate hydraulic and electrical kW only using the supplied total-pressure rise and explicitly wire-to-water efficiency; do not overwrite the separate 0.75 kW electrical assumption or claim motor/NPSH/product acceptance.",
+      "task": "pump",
+      "acceptance": "Sourced-domain root bracket and rerun, no extrapolation, explicit free-flow boundary; no installed equipment or electrical acceptance",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 11,
+        "end_line": 11
+      },
+      "execution_scope": "source-bounded single-terminal pump/system intersection and selected pressure rerun; efficiency, motor, NPSH and full engineering acceptance pending",
+      "evidence": [
+        "pump/iterations.csv",
+        "pump/operating-network.json",
+        "pump/pump.json",
+        "pump/report.html",
+        "pump/analysis/manifest.json",
+        "pump/analysis/network.json",
+        "pump/analysis/report.html",
+        "pump/analysis/segments.csv"
+      ]
+    },
+    {
+      "id": "R6",
+      "passage": "P007",
+      "quote": "Bind the passing pump result to the explicit BOOSTER electrical device, pump IFC GUID and actual connected source port using pump-electrical-link.json and binding.json. Verify input/artifact hashes and independently replay the pump calculation. Retain the original 0.75 kW electrical project and all circuit hardware, then create a separate steady operating electrical scenario with the derived estimate and explicit operating PF. Add clearly separate baseline/operating properties to a new IFC without changing existing entities; verify saved properties, network geometry and schema. Do not treat operating current as nameplate or starting current, or claim full electrical design acceptance.",
+      "task": "coupled",
+      "acceptance": "Explicit identity/geometry and replayed operating-power consistency; baseline scenario/hardware preserved; full motor/protection acceptance pending",
+      "execution_status": "fail",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 13,
+        "end_line": 13
+      },
+      "execution_scope": "replayed pump estimate explicitly bound to electrical device/IFC source port; baseline hardware retained; steady scenario and property-only IFC checked; motor/fault/full acceptance pending",
+      "evidence": [
+        "coupled/model.ifc",
+        "coupled/operating-electrical.json",
+        "coupled/pump-electrical.json",
+        "coupled/report.html",
+        "coupled/schema-validation.json",
+        "coupled/baseline-electrical/calculations.json",
+        "coupled/baseline-electrical/devices.dxf",
+        "coupled/baseline-electrical/manifest.json",
+        "coupled/baseline-electrical/preview.svg",
+        "coupled/baseline-electrical/report.html",
+        "coupled/operating-electrical/calculations.json",
+        "coupled/operating-electrical/devices.dxf",
+        "coupled/operating-electrical/manifest.json",
+        "coupled/operating-electrical/preview.svg",
+        "coupled/operating-electrical/report.html"
+      ]
+    },
+    {
+      "id": "R7",
+      "passage": "P008",
+      "quote": "Recheck the property-only coupled IFC using the unchanged sourced clearance policy and regenerate its saved-profile pipe schedule and projected DXF. Require unchanged physical identities/geometry, full supported segment coverage and source/artifact integrity; equipment details, electrical circuit topology, native plots and complete engineering acceptance remain pending.",
+      "task": "coupled-qa",
+      "acceptance": "Revised saved-model geometry and downstream adapter evidence; physical/electrical/full acceptance remain pending",
+      "execution_status": "pending",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 15,
+        "end_line": 15
+      },
+      "execution_scope": "upstream IFC producer did not pass; no clash result fabricated",
+      "evidence": []
+    },
+    {
+      "id": "R8",
+      "passage": "P008",
+      "quote": "Recheck the property-only coupled IFC using the unchanged sourced clearance policy and regenerate its saved-profile pipe schedule and projected DXF. Require unchanged physical identities/geometry, full supported segment coverage and source/artifact integrity; equipment details, electrical circuit topology, native plots and complete engineering acceptance remain pending.",
+      "task": "coupled-drawing",
+      "acceptance": "Revised saved-model geometry and downstream adapter evidence; physical/electrical/full acceptance remain pending",
+      "execution_status": "pending",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 15,
+        "end_line": 15
+      },
+      "execution_scope": "upstream IFC producer did not pass; no drawing fabricated",
+      "evidence": []
+    }
+  ],
+  "artifact_hashes": {
+    "coupled/model.ifc": "e46bc0daa81aadf481d3165eb589ca04cd1557f1056976550acc75755d02cde8",
+    "coupled/operating-electrical.json": "29a7de4691ec773d9617b55d86421479029c348903159a2735d176e035c61aef",
+    "coupled/pump-electrical.json": "62d13f61d89f3edfd1516ae75d20e5253993668676b6347e8a39b9673e2a8906",
+    "coupled/report.html": "142a58e5410c5119891f7bd0f664c69200f40d2ad07ab722ed0cdcff7579741f",
+    "coupled/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "drawing/drawing.json": "02acd48da7d2650bd6898e61c6cefab592c189db1e91f2ea31885acfba718d0e",
+    "drawing/preview.svg": "fbcabd1b7d2396e8a16a6ab3aaa240652ea4ff9f4ce3ec11db33e2bd2b96ef87",
+    "drawing/segments.csv": "fdbec0b0ee07b826e8e1321d22def602001b151958a924dd8b4c30b338880cb3",
+    "drawing/segments.dxf": "5b2716fb4fca0d7ab84033b555e4650d267c68fef59844cc7284bd60e7ff0563",
+    "electrical/calculations.json": "c0dc6c276bfa6e291f51c6e283d997302b282e28a08702cb3b00b48e274472fc",
+    "electrical/devices.dxf": "8ec9e42fd504317b0b8f591cc2bbe82ae33d43561a5b40e3aacfaccf6f75a8a8",
+    "electrical/manifest.json": "f2213d570edb3c6461743b2934e816db066828c37bfee10d38152875abb1e270",
+    "electrical/preview.svg": "8c0cf4d1cddd42f605c75753d628f422e05b034d5c465e86c10d9f017236314f",
+    "electrical/report.html": "39047fff2e04226e5369a9ad33af331be9430ea174b86abae76416ed6a898d33",
+    "pump/iterations.csv": "c267971d78580437a915afe7ece6cc9a6fce4c3aa02eaea87fef48047c805c2d",
+    "pump/operating-network.json": "d0913ce14bd33d110be0c1ac41edc33774781f4e67d3e624900f2e5461fa571a",
+    "pump/pump.json": "07bca522f8200d494af125373a4b59f88cef393b443909e8fa40e73020f3254d",
+    "pump/report.html": "7a65555271631d9f3748869fd024b132231b568af036781dd5147220ec66f074",
+    "qa/clash.json": "98bdecadc0717accec3c52a1e760a236c19f89afc3972750c623eddfb3a168fb",
+    "qa/report.html": "d9ec3c8ac0f841562cf9bc74d4dfcb5dc7cab1382266094c455f06899b5dcb42",
+    "water/baseline-network.json": "27780e6ba9e69da1fde8c0984a0cf3a404bd4d1a8d37b4786772f6e8f88c3e42",
+    "water/filtered-catalogue.json": "1c4c278283725c296a3b663149a1c3fa0fc06c4a7203882cc784de797c70bd9f",
+    "water/model-design.json": "9d8e3c3ee6b8895c14181c636b0c2ec2d4869dfb700d8743466b2c88c0c974e4",
+    "water/selected-model.json": "349058c206c862b1af5c662195aeb8e731f018d61f20d8cd2c6ea4b7294cb23d",
+    "water/selected-skeleton.json": "33b6e709aaef1027e9d01a26fe07064c5a7f005d4ad7adf1a10734a9823c6365",
+    "coupled/baseline-electrical/calculations.json": "c0dc6c276bfa6e291f51c6e283d997302b282e28a08702cb3b00b48e274472fc",
+    "coupled/baseline-electrical/devices.dxf": "aa83beab168e3ca36902b625f2321124c2e3b780c91f47df025c13959f91ffb5",
+    "coupled/baseline-electrical/manifest.json": "f2cbd0e5928f94b6a054e8d3b9addd76a14df79576f226222eb53be0cafeaddc",
+    "coupled/baseline-electrical/preview.svg": "8c0cf4d1cddd42f605c75753d628f422e05b034d5c465e86c10d9f017236314f",
+    "coupled/baseline-electrical/report.html": "39047fff2e04226e5369a9ad33af331be9430ea174b86abae76416ed6a898d33",
+    "coupled/operating-electrical/calculations.json": "ba8388510ecca0556607e90d2dfb6e2b680ab1b215efb889ffebeb6c639700fe",
+    "coupled/operating-electrical/devices.dxf": "2a62c8a2c6b1eff265629a5d4ff002fdf18696fe89c7c17c9ec63b68f1cd891c",
+    "coupled/operating-electrical/manifest.json": "e0b07b76a446ef2ef6b10c4fdbed79dea4845d22eaa39c674ea27165f7c22910",
+    "coupled/operating-electrical/preview.svg": "8c0cf4d1cddd42f605c75753d628f422e05b034d5c465e86c10d9f017236314f",
+    "coupled/operating-electrical/report.html": "16d8ed33f6a8483df19e46e60564a417bef34ca18c8c8287b662134420ddc482",
+    "pump/analysis/manifest.json": "a3a881b3e8d1a03d25cfaf426c5635c78862d54698c18fb77c00119135dfeafc",
+    "pump/analysis/network.json": "35e9ac77a322e1c3f3c7a5632b24d54d1c005242c582ab5fde0cec22654c2e10",
+    "pump/analysis/report.html": "c8fa71675484101a000adc0413490afac6bb7e7ce42d7be68ecae7c250207524",
+    "pump/analysis/segments.csv": "a56d1db06352fa580b50b4f12eec614347d559f1e9b613c07e1919ddc80020ed",
+    "water/baseline-analysis/manifest.json": "653e4ed07b81a8e05f7a9a360d846e3d4390180c6025fd31714e09f8d845e7b0",
+    "water/baseline-analysis/network.json": "9d0a78f3e8fd5c16a6e60d18e4de9af64ae1fb40091624fcb8d81a71b76e5565",
+    "water/baseline-analysis/report.html": "f7ed6d164d3069dae4abde4a68f2f063a8450b6ea66bfd482d24dbd80555ca85",
+    "water/baseline-analysis/segments.csv": "dea98a3359b3e6e32d5bbd181d0fae7c86b0602bfa5e62a8d6c5dda6983a49f6",
+    "water/baseline-bim/bim-verification.json": "807f9203b35692f060c0a8156a3c9dee55cd90546258e453ca2075db32fd5a34",
+    "water/baseline-bim/model.ifc": "1cbaa1d717f380a220b1e79cd13deaa5a8a6f58556fbba8632514a9965b1abf9",
+    "water/baseline-bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "water/selected-coordination/network-binding.json": "06807b4f829e3fa9efb43422b2dfdb8105dd90ff7a51450d4370ef8080b7ab60",
+    "water/selected-coordination/network-input.json": "42f500bd11ef8b9e34a22440d88702c6235c55cf92dc173820e9bdf66ea3688f",
+    "water/sizing/candidates.csv": "cca6b5b5602ba3be0342dcc69e5a2240c8c49c692d81bc8450809a600bcca0e1",
+    "water/sizing/design-comparison.json": "5811f9ba9d548832af6672850b072066db7116102cd109692e8159d91e104e84",
+    "water/sizing/report.html": "07ad6f97d9fb27a9ad8f9f7d7aff371c805c09d451be888d3eb2324681fd663f",
+    "water/sizing/selected-network.json": "42f500bd11ef8b9e34a22440d88702c6235c55cf92dc173820e9bdf66ea3688f",
+    "water/selected-coordination/analysis/manifest.json": "5a3adec5522c1e1428546aa2b99cec27d4aeff0ad7d55ee42c315435aa91bd49",
+    "water/selected-coordination/analysis/network.json": "c443321383d954da85123714f17d5df905ab6f502c90d8eb4c7811005e1912d0",
+    "water/selected-coordination/analysis/report.html": "501cefbde138ba6138648f65d6b351ecebbf8199c0b789294640fed0ae9d734a",
+    "water/selected-coordination/analysis/segments.csv": "0cf8c1dc5380d5e49c5d3e21430b6ea9aff0a8400a0e15f907015a58e53bd930",
+    "water/selected-coordination/bim/bim-verification.json": "0c58acf54078cfb53afb8973802069e460f1bb6f12fde463acb4c07424b116be",
+    "water/selected-coordination/bim/model.ifc": "f6cf99440d2589f62f98c90ac45a6f52f73e5ed77a7de35eb9679f60aa6c56a4",
+    "water/selected-coordination/bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "water/sizing/baseline/manifest.json": "653e4ed07b81a8e05f7a9a360d846e3d4390180c6025fd31714e09f8d845e7b0",
+    "water/sizing/baseline/network.json": "9d0a78f3e8fd5c16a6e60d18e4de9af64ae1fb40091624fcb8d81a71b76e5565",
+    "water/sizing/baseline/report.html": "f7ed6d164d3069dae4abde4a68f2f063a8450b6ea66bfd482d24dbd80555ca85",
+    "water/sizing/baseline/segments.csv": "dea98a3359b3e6e32d5bbd181d0fae7c86b0602bfa5e62a8d6c5dda6983a49f6",
+    "water/sizing/selected/manifest.json": "5a3adec5522c1e1428546aa2b99cec27d4aeff0ad7d55ee42c315435aa91bd49",
+    "water/sizing/selected/network.json": "c443321383d954da85123714f17d5df905ab6f502c90d8eb4c7811005e1912d0",
+    "water/sizing/selected/report.html": "501cefbde138ba6138648f65d6b351ecebbf8199c0b789294640fed0ae9d734a",
+    "water/sizing/selected/segments.csv": "0cf8c1dc5380d5e49c5d3e21430b6ea9aff0a8400a0e15f907015a58e53bd930"
+  },
+  "execution_pass": false,
+  "design_accepted": false,
+  "acceptance_note": "Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance"
+}

@@ -42,6 +42,7 @@ jobs:
       - run: python -m unittest discover -s tests -p test_network_binding.py -v
       - run: python -m unittest discover -s tests -p test_network_design.py -v
       - run: python -m unittest discover -s tests -p test_pump.py -v
+      - run: python -m unittest discover -s tests -p test_pump_electrical.py -v
       - run: python -m unittest discover -s tests -p test_network_model_design.py -v
       - run: python -m unittest discover -s tests -p test_water_riser.py -v
       - run: python -m unittest discover -s tests -p test_circular_geometry.py -v
@@ -55,6 +56,7 @@ jobs:
       - run: python -m bsa.workflow execute examples/water-riser/plan.json --out runs/water-riser
       - run: python -m bsa.workflow execute examples/water-riser/delivery-plan.json --out runs/water-delivery
       - run: python -m bsa.workflow execute examples/water-riser/pump-plan.json --out runs/water-pump
+      - run: python -m bsa.workflow execute examples/water-riser/coupled-plan.json --out runs/water-coupled
   lighting:
     runs-on: windows-latest
     steps:

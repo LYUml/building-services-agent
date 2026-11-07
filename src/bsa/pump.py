@@ -148,7 +148,7 @@ def run(project,curve_path,out):
     else:result['selected_rerun_pass']=False
     with (out/'iterations.csv').open('w',newline='',encoding='utf-8') as stream:
         writer=csv.DictWriter(stream,fieldnames=list(result['trace'][0]));writer.writeheader();writer.writerows(result['trace'])
-    result.update(inputs=before,inputs_unchanged=all(digest(Path(p))==h for p,h in before.items()),curve=curve,network_sources=network['sources'],fluids_version=importlib.metadata.version('fluids'),
+    result.update(inputs=before,input_roles=dict(network=str(project),curve=str(curve_path)),inputs_unchanged=all(digest(Path(p))==h for p,h in before.items()),curve=curve,network_sources=network['sources'],fluids_version=importlib.metadata.version('fluids'),
                   scope='Single-terminal fixed-pressure boundary, constant-density liquid, supplied fixed-speed piecewise-linear pump curve; fixed route/K',
                   methods=['https://datatool.pumps.org/pump-fundamentals/combined.html','https://datatool.pumps.org/pump-fundamentals/pump-curves',
                            'Existing fluids 1.3.1 Colebrook/laminar pressure engine; source-bounded bisection; P_hydraulic = Q * total pressure rise'])

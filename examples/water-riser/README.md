@@ -9,6 +9,7 @@ python -m bsa.workflow verify runs/water-riser
 python -m bsa.workflow execute examples/water-riser/delivery-plan.json --out runs/water-delivery
 python -m bsa.workflow execute examples/water-riser/native-plan.json --out runs/water-native --autocad "C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe"
 python -m bsa.workflow execute examples/water-riser/pump-plan.json --out runs/water-pump
+python -m bsa.workflow execute examples/water-riser/coupled-plan.json --out runs/water-coupled
 python -m unittest discover -s tests -p test_water_riser.py -v
 ```
 
@@ -30,5 +31,7 @@ The separate delivery-plan adds a saved-IFC pipe schedule and X/Z projected cent
 The native-plan additionally saves/reopens the diagram in AutoCAD, preserves all eight model entities and six GUID-linked entities, and plots A4 landscape at 1:50. Its 2.5 m reference measures approximately 49.996 mm. Actual native-PDF visual evidence is in `docs/evidence/ifc-native`; the numerical adapter continues to require a separate visual review record for each run.
 
 The pump-plan adds a separately sourced synthetic fixed-speed pump curve, retains its zero-flow point and declares a positive operating bracket. It explicitly treats the terminal's 100 kPa total pressure as a fixed boundary with free flow and assumes equal pump inlet/outlet elevations. The selected pipe geometry gives approximately 1.253485 L/s, 157.326 kPa pump rise, 0.197205 kW hydraulic and 0.437828 kW estimated electrical input using the supplied combined efficiency. Original 0.75 kW electrical data is unchanged and unreconciled. See `docs/PUMPS.md`; this is not a real pump or motor selection.
+
+The coupled-plan explicitly binds BOOSTER through electrical ID, pump/outlet GUIDs and network mapping. It retains the 0.75 kW baseline and all hardware, and separately calculates the 0.437828 kW operating scenario at an explicitly assumed PF 0.85 (approximately 2.239527 A). A new IFC carries clearly separate baseline/operating properties with all original entities unchanged, then passes saved-model clearance and pipe-diagram extraction again. Other electrical devices/topology and full motor/protection design remain unbound/pending; see `docs/PUMP_ELECTRICAL.md`.
 
 Remaining gates include demand/route evidence, pump curve and electrical/hydraulic coupling, starting/fault protection, real fittings and insulation, water-service rules, full installation drawings/schedules and their native plots, and BIM-viewer inspection. This run exercises reusable numeric/model adapters; it does not establish full cross-domain project acceptance. See `docs/evidence/water-riser` for retained actual outputs.

@@ -1,0 +1,62 @@
+{
+  "name": "Synthetic independent service shaft auxiliary supplies",
+  "supply_voltage_v": 230,
+  "sources": {
+    "test": "Synthetic 230 V single-phase steady loads; explicit input cable factors and limits for calculation testing, no product or regulation basis. Pump input electrical power is prescribed independently of hydraulic output; starting and operating-point checks pending. Negative fixture: pump circuit breaker explicitly revised to 3 A; no automatic hardware sizing."
+  },
+  "circuits": [
+    {
+      "id": "PUMP-SUPPLY",
+      "phase": "L1",
+      "demand_factor": 1,
+      "breaker_a": 3,
+      "tabulated_ampacity_a": 20,
+      "correction_factor": 0.8,
+      "route_length_m": 12,
+      "vd_mv_a_m": 18,
+      "max_vd_percent": 3,
+      "source": "test"
+    },
+    {
+      "id": "SERVICE-LIGHTS",
+      "phase": "L2",
+      "demand_factor": 1,
+      "breaker_a": 6,
+      "tabulated_ampacity_a": 16,
+      "correction_factor": 0.8,
+      "route_length_m": 18,
+      "vd_mv_a_m": 18,
+      "max_vd_percent": 3,
+      "source": "test"
+    }
+  ],
+  "devices": [
+    {
+      "id": "BOOSTER",
+      "circuit": "PUMP-SUPPLY",
+      "electrical_kw": 0.75,
+      "power_factor": 0.85,
+      "x_m": 1,
+      "y_m": 1,
+      "source": "test"
+    },
+    {
+      "id": "SHAFT-L1",
+      "circuit": "SERVICE-LIGHTS",
+      "electrical_kw": 0.018,
+      "power_factor": 0.9,
+      "x_m": 0.5,
+      "y_m": 2,
+      "source": "test"
+    },
+    {
+      "id": "SHAFT-L2",
+      "circuit": "SERVICE-LIGHTS",
+      "electrical_kw": 0.018,
+      "power_factor": 0.9,
+      "x_m": 2.5,
+      "y_m": 2,
+      "source": "test"
+    }
+  ]
+}

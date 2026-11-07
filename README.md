@@ -83,6 +83,8 @@ The water-riser `native-plan.json` adds isolated AutoCAD save/reopen, complete m
 
 [Pump operating points](docs/PUMPS.md) now solve a supplied fixed-speed curve against a single fixed-pressure terminal line, using model-derived pipe dimensions and recomputed friction. Source curve/bracket limits, convergence, design-flow/velocity checks and a selected rerun are retained. Explicit combined wire-to-water efficiency permits an electrical-input estimate; the electrical project is not automatically revised or accepted. Real product/NPSH/control and branched/looped systems remain pending.
 
+[Pump/electrical binding](docs/PUMP_ELECTRICAL.md) now carries that estimate into an explicitly bound operating scenario and saved pump IFC properties. Source replay, actual pump/connected-port identity, body-centre XY, unchanged baseline hardware/original IFC entities and saved properties/schema are checked. The eight-task coupled example rechecks/draws the revised model; baseline loads, other devices and motor/protection acceptance remain distinct.
+
 ## Shared electrical data
 
 [Coordinated generation](docs/COORDINATION.md) now feeds the same device/circuit data into calculations, DXF and IFC. A geometry companion only adds explicit dimensions, heights and spaces. Reopened artifacts are reconciled; the workflow can send the resulting DXF through native AutoCAD save/reopen/plot. No separate power, PF, XY or circuit copy is maintained in geometry inputs.

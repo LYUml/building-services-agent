@@ -10,6 +10,8 @@ Run calculations and review failures. Validate units and native model semantics.
 For simulations inspect actual engine logs, version, model/weather inputs and result units. Distinguish reproducibility, numerical checks and engineering acceptance.
 
 For pump operating points, inspect the explicit fixed terminal-pressure/free-flow boundary, original curve and positive bracket, fluid/regime applicability, signed root residuals, both convergence tolerances, conservative minimum-flow/velocity checks and saved-state rerun. Verify power uses pump-added pressure and explicitly combined wire-to-water efficiency. A converged point can fail capacity; an electrical estimate does not update or validate the electrical project. See docs/PUMPS.md for limits.
+
+For `pump_electrical`, verify explicit electrical/pump/outlet identity, connected source geometry, source/artifact hashes and replay. Compare baseline and operating scenarios, unchanged hardware/other devices, unchanged original IFC entities and saved new properties. Require baseline checks as well as operating checks; keep nameplate/starting/protection, electrical topology and unbound devices pending. See docs/PUMP_ELECTRICAL.md.
 The initial CLI manifest proves only its JSON input remained unchanged and its emitted CIRCLE count matches device count. It does not prove all source documents unchanged, correct native geometry, print quality or complete protection design.
 Create an acceptance record with pass/fail/pending and evidence paths. Pending required checks mean the delivery is incomplete; never erase them to obtain a green status.
 

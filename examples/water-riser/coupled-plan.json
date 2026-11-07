@@ -1,0 +1,128 @@
+{
+  "version": 1,
+  "brief": "coupled-brief.md",
+  "brief_sha256": "1f18ccdf46162b6d8956f6551ce433b9ed0bc2015da444a2328bc7de7de7a4a8",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement",
+    "P004": "requirement",
+    "P005": "requirement",
+    "P006": "requirement",
+    "P007": "requirement",
+    "P008": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "electrical",
+      "kind": "electrical",
+      "project": "electrical.json"
+    },
+    {
+      "id": "water",
+      "kind": "network_model_design",
+      "project": "network.json",
+      "model": "model.json",
+      "binding": "binding.json",
+      "catalogue": "catalogue.json",
+      "geometry": "geometry.json"
+    },
+    {
+      "id": "qa",
+      "kind": "ifc_clash",
+      "depends_on": "water",
+      "policy": "policy.json"
+    },
+    {
+      "id": "drawing",
+      "kind": "ifc_drawing",
+      "depends_on": "water",
+      "settings": "drawing-settings.json"
+    },
+    {
+      "id": "pump",
+      "kind": "pump_operating_point",
+      "depends_on": "water",
+      "curve": "pump-curve.json"
+    },
+    {
+      "id": "coupled",
+      "kind": "pump_electrical",
+      "depends_on": "pump",
+      "ifc_from": "water",
+      "project": "electrical.json",
+      "network_binding": "binding.json",
+      "link": "pump-electrical-link.json"
+    },
+    {
+      "id": "coupled-qa",
+      "kind": "ifc_clash",
+      "depends_on": "coupled",
+      "policy": "policy.json"
+    },
+    {
+      "id": "coupled-drawing",
+      "kind": "ifc_drawing",
+      "depends_on": "coupled",
+      "settings": "drawing-settings.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Calculate the synthetic service-shaft electrical steady loads from electrical.json: one 0.75 kW single-phase booster input and two 18 W lights on two circuits at 230 V. Generate the editable metre DXF and calculation report. Keep motor starting, fault protection, pump operating point, native DWG and visual drawing acceptance pending.",
+      "task": "electrical",
+      "acceptance": "Synthetic scoped artifact/numeric evidence only; remaining gates in the quoted requirement stay pending"
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Use model.json, network.json, binding.json, catalogue.json and geometry.json to size the 5 m vertical water riser at a prescribed 1 L/s. Evaluate all four inside-diameter options 15, 25, 32 and 40 mm, with independently specified outside diameters, a 2 m/s velocity limit, 180 kPa source total pressure and 100 kPa outlet total-pressure requirement. Retain failed candidates and the baseline, preserve endpoints and object/port identities, and independently check the saved hollow IFC against the selected pressure calculation. Material scores are abstract points, not prices.",
+      "task": "water",
+      "acceptance": "Synthetic scoped artifact/numeric evidence only; remaining gates in the quoted requirement stay pending"
+    },
+    {
+      "id": "R3",
+      "passage": "P004",
+      "quote": "Check all represented physical elements in the selected saved water IFC with policy.json, including both outside-to-full clearance directions beyond explicitly sourced joint spheres. Retain overlap, missing geometry and failed clearance evidence. Do not claim product fit, insulation, applicable-code compliance, BIM-viewer approval or complete engineering acceptance.",
+      "task": "qa",
+      "acceptance": "Synthetic scoped artifact/numeric evidence only; remaining gates in the quoted requirement stay pending"
+    },
+    {
+      "id": "R4",
+      "passage": "P005",
+      "quote": "Extract a pipe-segment schedule and editable X/Z projected centreline DXF directly from the selected saved IFC, using drawing-settings.json. Independently reconcile saved hollow profile diameters, true lengths and directed port endpoints. Preserve IFC GUID links in drawing entities and show omitted equipment explicitly in the evidence. The result is a schematic: water installation drawing details, native DWG, print scale and visual acceptance remain pending.",
+      "task": "drawing",
+      "acceptance": "Source-linked schedule and DXF geometry/identity reconciliation; omitted classes and native/visual/installation acceptance explicit"
+    },
+    {
+      "id": "R5",
+      "passage": "P006",
+      "quote": "Use pump-curve.json and the selected model-derived water network to solve the fixed-speed pump/system intersection within the supplied flow domain, with free flow at a fixed 100 kPa terminal total-pressure boundary. Retain the iteration bracket/residuals, recompute friction at each flow and rerun the selected state. Check the conservative design-flow and velocity bounds. Estimate hydraulic and electrical kW only using the supplied total-pressure rise and explicitly wire-to-water efficiency; do not overwrite the separate 0.75 kW electrical assumption or claim motor/NPSH/product acceptance.",
+      "task": "pump",
+      "acceptance": "Sourced-domain root bracket and rerun, no extrapolation, explicit free-flow boundary; no installed equipment or electrical acceptance"
+    },
+    {
+      "id": "R6",
+      "passage": "P007",
+      "quote": "Bind the passing pump result to the explicit BOOSTER electrical device, pump IFC GUID and actual connected source port using pump-electrical-link.json and binding.json. Verify input/artifact hashes and independently replay the pump calculation. Retain the original 0.75 kW electrical project and all circuit hardware, then create a separate steady operating electrical scenario with the derived estimate and explicit operating PF. Add clearly separate baseline/operating properties to a new IFC without changing existing entities; verify saved properties, network geometry and schema. Do not treat operating current as nameplate or starting current, or claim full electrical design acceptance.",
+      "task": "coupled",
+      "acceptance": "Explicit identity/geometry and replayed operating-power consistency; baseline scenario/hardware preserved; full motor/protection acceptance pending"
+    },
+    {
+      "id": "R7",
+      "passage": "P008",
+      "quote": "Recheck the property-only coupled IFC using the unchanged sourced clearance policy and regenerate its saved-profile pipe schedule and projected DXF. Require unchanged physical identities/geometry, full supported segment coverage and source/artifact integrity; equipment details, electrical circuit topology, native plots and complete engineering acceptance remain pending.",
+      "task": "coupled-qa",
+      "acceptance": "Revised saved-model geometry and downstream adapter evidence; physical/electrical/full acceptance remain pending"
+    },
+    {
+      "id": "R8",
+      "passage": "P008",
+      "quote": "Recheck the property-only coupled IFC using the unchanged sourced clearance policy and regenerate its saved-profile pipe schedule and projected DXF. Require unchanged physical identities/geometry, full supported segment coverage and source/artifact integrity; equipment details, electrical circuit topology, native plots and complete engineering acceptance remain pending.",
+      "task": "coupled-drawing",
+      "acceptance": "Revised saved-model geometry and downstream adapter evidence; physical/electrical/full acceptance remain pending"
+    }
+  ]
+}

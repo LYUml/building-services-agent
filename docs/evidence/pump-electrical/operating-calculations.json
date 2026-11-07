@@ -1,0 +1,62 @@
+{
+  "name": "Synthetic independent service shaft auxiliary supplies / pump steady operating scenario",
+  "circuits": [
+    {
+      "id": "PUMP-SUPPLY",
+      "phase": "L1",
+      "device_ids": [
+        "BOOSTER"
+      ],
+      "connected_electrical_kw": 0.43782750125019576,
+      "connected_va": 515.0911779414068,
+      "demand_va": 515.0911779414068,
+      "design_current_a": 2.2395268606148124,
+      "effective_ampacity_a": 16.0,
+      "voltage_drop_v": 0.48373780189279947,
+      "voltage_drop_percent": 0.21032078343165192,
+      "checks": {
+        "ib_le_in": true,
+        "in_le_iz": true,
+        "voltage_drop": true
+      },
+      "source": "test"
+    },
+    {
+      "id": "SERVICE-LIGHTS",
+      "phase": "L2",
+      "device_ids": [
+        "SHAFT-L1",
+        "SHAFT-L2"
+      ],
+      "connected_electrical_kw": 0.036,
+      "connected_va": 40.0,
+      "demand_va": 40.0,
+      "design_current_a": 0.17391304347826086,
+      "effective_ampacity_a": 12.8,
+      "voltage_drop_v": 0.056347826086956515,
+      "voltage_drop_percent": 0.024499054820415877,
+      "checks": {
+        "ib_le_in": true,
+        "in_le_iz": true,
+        "voltage_drop": true
+      },
+      "source": "test"
+    }
+  ],
+  "phase_demand_va": {
+    "L1": 515.0911779414068,
+    "L2": 40.0,
+    "L3": 0.0
+  },
+  "device_count": 3,
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "pending": [
+    "fault disconnection and breaking capacity",
+    "protective coordination",
+    "lighting photometry where applicable",
+    "native DWG reopen and drawing count reconciliation",
+    "visual PDF review",
+    "source/assumption review"
+  ]
+}
