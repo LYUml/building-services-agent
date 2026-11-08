@@ -1,0 +1,41 @@
+{
+  "sources": {
+    "synthetic": "Synthetic pipe sizes and material points for algorithm testing only; constant route and K assumed; not manufacturer data or costs"
+  },
+  "options": [
+    {
+      "id": "D25",
+      "diameter_m": 0.025,
+      "roughness_m": 4.5e-05,
+      "material_score_per_m": 25,
+      "source": "synthetic"
+    },
+    {
+      "id": "D32",
+      "diameter_m": 0.032,
+      "roughness_m": 4.5e-05,
+      "material_score_per_m": 32,
+      "source": "synthetic"
+    },
+    {
+      "id": "D40",
+      "diameter_m": 0.04,
+      "roughness_m": 4.5e-05,
+      "material_score_per_m": 40,
+      "source": "synthetic"
+    }
+  ],
+  "allowed_options": {
+    "PIPE1": [
+      "D25",
+      "D32",
+      "D40"
+    ]
+  },
+  "objective": "minimise sum(length_m * material_score_per_m)",
+  "max_evaluations": 100,
+  "hydraulic_basis": {
+    "assumption": "prescribed demands; route and local K unchanged across sizes",
+    "source": "synthetic"
+  }
+}
