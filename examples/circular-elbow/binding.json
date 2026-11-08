@@ -1,0 +1,14 @@
+{
+  "source": "Explicit synthetic directed three-piece route; K is excess over Darcy friction along actual centreline.",
+  "nodes": {
+    "SOURCE": "IN.in",
+    "END": "OUT.out"
+  },
+  "segments": {
+    "MAIN": [
+      "IN",
+      "BEND",
+      "OUT"
+    ]
+  }
+}

@@ -6,6 +6,7 @@ import math
 from pathlib import Path
 from .engine import ProjectError
 from .cli import digest
+from . import circular_elbow as elbow
 
 
 def prepare(network, model, binding):
@@ -39,14 +40,20 @@ def prepare(network, model, binding):
         if 'length_m' in s or 'diameter_m' in s: raise ProjectError('network must not repeat bound length or diameter')
         chain = binding['segments'][s['id']]
         if not isinstance(chain,list) or not chain: raise ProjectError('nonempty ordered segment device chain required')
+        if any(not isinstance(name,str) for name in chain):raise ProjectError('route device IDs must be strings')
+        has_elbow=any(devices.get(name,{}).get('body_shape')==elbow.WALL for name in chain)
+        if has_elbow and 'minor_k' in s:raise ProjectError('fitting routes derive explicit excess K; omit aggregate minor_k to prevent double counting')
+        local_k=[]
         lengths=[]; diameters=[]; previous=None; start=None; end=None; system=None; route_class=None; first_port=None
         for identifier in chain:
             if not isinstance(identifier,str) or identifier not in devices or identifier in used:
                 raise ProjectError('unique known route devices required')
             used.add(identifier); d=devices[identifier]
-            if d['ifc_class'] not in ('IfcDuctSegment','IfcPipeSegment'): raise ProjectError('route must use duct or pipe segments')
-            if route_class is None: route_class=d['ifc_class']
-            if route_class!=d['ifc_class']:raise ProjectError('route mixes pipe and duct classes')
+            if d['ifc_class'] not in ('IfcDuctSegment','IfcPipeSegment','IfcPipeFitting','IfcDuctFitting'):raise ProjectError('route must use supported pipe/duct pieces')
+            family='pipe' if d['ifc_class'] in ('IfcPipeSegment','IfcPipeFitting') else 'duct'
+            if route_class is None:route_class=family
+            if route_class!=family:raise ProjectError('route mixes pipe and duct classes')
+            if d['ifc_class'] in ('IfcPipeFitting','IfcDuctFitting') and d.get('body_shape')!=elbow.WALL:raise ProjectError('unsupported finite fitting geometry')
             if system is None: system=d['system']
             if d['system'] != system: raise ProjectError('route changes distribution system')
             ps=d.get('ports',[])
@@ -54,25 +61,33 @@ def prepare(network, model, binding):
             if len(ps)!=2 or len(incoming)!=1 or len(outgoing)!=1: raise ProjectError('each route piece requires one inlet and one outlet')
             inlet=identifier+'.'+incoming[0]['id']; outlet=identifier+'.'+outgoing[0]['id']
             a,b=point(inlet),point(outlet)
-            axes=[i for i in range(3) if abs(a[i]-b[i])>1e-8]
-            if len(axes)!=1: raise ProjectError('only straight axis-aligned port-centre routes supported')
-            axis=axes[0]
-            # Opposite end-face centres prevent a box diagonal or arbitrary offset becoming route length.
-            for xyz in (a,b):
-                for i in range(3):
-                    if i!=axis and abs(xyz[i]-(d['origin_m'][i]+d['size_m'][i]/2))>1e-8:
-                        raise ProjectError('route ports must be end-face centres')
-            if abs(min(a[axis],b[axis])-d['origin_m'][axis])>1e-8 or abs(max(a[axis],b[axis])-(d['origin_m'][axis]+d['size_m'][axis]))>1e-8:
-                raise ProjectError('route ports must span the full envelope axis')
+            if d.get('body_shape')==elbow.WALL:
+                length=elbow.specification(d)['length_m']
+            else:
+                axes=[i for i in range(3) if abs(a[i]-b[i])>1e-8]
+                if len(axes)!=1: raise ProjectError('only straight axis-aligned port-centre routes supported')
+                axis=axes[0]
+                # Opposite end-face centres prevent a box diagonal or arbitrary offset becoming route length.
+                for xyz in (a,b):
+                    for i in range(3):
+                        if i!=axis and abs(xyz[i]-(d['origin_m'][i]+d['size_m'][i]/2))>1e-8:
+                            raise ProjectError('route ports must be end-face centres')
+                if abs(min(a[axis],b[axis])-d['origin_m'][axis])>1e-8 or abs(max(a[axis],b[axis])-(d['origin_m'][axis]+d['size_m'][axis]))>1e-8:
+                    raise ProjectError('route ports must span the full envelope axis')
+                length=abs(b[axis]-a[axis])
             diameter=d.get('properties',{}).get('InternalDiameter_m')
             if type(diameter) not in (int,float) or not math.isfinite(diameter) or diameter<=0:
                 raise ProjectError('explicit source-backed internal diameter property required')
-            if any(diameter>d['size_m'][i]+1e-8 for i in range(3) if i!=axis):
+            if d.get('body_shape')!=elbow.WALL and any(diameter>d['size_m'][i]+1e-8 for i in range(3) if i!=axis):
                 raise ProjectError('internal diameter exceeds transverse envelope')
+            if has_elbow:
+                props=d.get('properties',{});k=props.get('LocalLossCoefficient')
+                if type(k) not in (int,float) or not math.isfinite(k) or k<0 or props.get('LocalLossBasis')!=elbow.LOSS_BASIS:raise ProjectError('every fitting-route piece needs sourced excess K and explicit centreline-friction basis')
+                local_k.append(k)
             if previous and ((previous,inlet) not in links or not same(point(previous),a)):
                 raise ProjectError('route pieces require connected coincident ports')
             if start is None: start=a;first_port=inlet
-            end=b; previous=outlet; lengths.append(abs(b[axis]-a[axis])); diameters.append(diameter)
+            end=b; previous=outlet; lengths.append(length); diameters.append(diameter)
         if any(abs(v-diameters[0])>1e-10 for v in diameters): raise ProjectError('split hydraulic segments where internal diameter changes')
         if not same(start,point(binding['nodes'][s['from']])) or not same(end,point(binding['nodes'][s['to']])):
             raise ProjectError('network endpoints differ from bound model node coordinates')
@@ -84,13 +99,15 @@ def prepare(network, model, binding):
                         if device['id']==node_device['id'] and same(xyz,point(node_ref))]
             if node_ref!=route_ref and not any((ref,route_ref) in links if is_start else (route_ref,ref) in links for ref in candidates):
                 raise ProjectError('bound node requires a coincident model connection to route')
+        if has_elbow:s['minor_k']=math.fsum(local_k)
+        elif 'minor_k' not in s:raise ProjectError('explicit sourced network aggregate minor_k required')
         s['length_m']=sum(lengths); s['diameter_m']=diameters[0]
-        evidence.append(dict(id=s['id'],devices=chain,length_m=s['length_m'],diameter_m=s['diameter_m']))
+        evidence.append(dict(id=s['id'],devices=chain,length_m=s['length_m'],diameter_m=s['diameter_m'],minor_k=s['minor_k'],length_basis='straight lengths plus finite quarter-circle arc lengths' if has_elbow else 'straight port distances',minor_k_basis=elbow.LOSS_BASIS if has_elbow else 'sourced network aggregate'))
     validate_network(result)
     return result,evidence
 
 
-def reconcile(model_path, derived_path, binding):
+def reconcile(model_path, derived_path, binding, source_model=None):
     """Read saved IFC port positions/diameters, rather than trusting generated JSON."""
     import ifcopenshell
     import ifcopenshell.util.element as element
@@ -108,19 +125,34 @@ def reconcile(model_path, derived_path, binding):
     for n in derived['nodes']:
         if abs(ports[binding['nodes'][n['id']]][1][2]-n['elevation_m'])>1e-8:
             raise ProjectError('saved IFC/network elevation mismatch')
+    originals={d['id']:d for d in source_model['devices']} if source_model else {}
     for s in derived['segments']:
+        has_elbow=any(element.get_psets(devices[name]).get('BSA_DesignInputs',{}).get('BodyShape')==elbow.WALL for name in binding['segments'][s['id']])
+        if has_elbow and not source_model:raise ProjectError('source model required for independent fitting K reconciliation')
+        minor_k=0
         length=0;first=None;last=None
         for identifier in binding['segments'][s['id']]:
             obj=devices[identifier]
             ps=[value for key,value in ports.items() if system.get_port_element(value[0])==obj]
             inlet=next(xyz for p,xyz in ps if p.FlowDirection=='SINK')
             outlet=next(xyz for p,xyz in ps if p.FlowDirection=='SOURCE')
-            length+=math.dist(inlet,outlet)
+            props=element.get_psets(obj)['BSA_DesignInputs']
+            if props.get('BodyShape')==elbow.WALL:
+                arc_length,ends,radius=elbow.saved_arc_length(obj)
+                if not ((math.dist(inlet,ends[0])<1e-8 and math.dist(outlet,ends[1])<1e-8) or (math.dist(inlet,ends[1])<1e-8 and math.dist(outlet,ends[0])<1e-8)):raise ProjectError('saved elbow ports do not span actual arc')
+                if not math.isclose(props.get('CenterlineRadius_m',-1),radius,abs_tol=1e-9):raise ProjectError('saved elbow radius metadata differs from arc')
+                length+=arc_length
+            else:length+=math.dist(inlet,outlet)
+            if has_elbow:
+                k=props.get('LocalLossCoefficient');original=originals[identifier]['properties']
+                if type(k) not in (int,float) or not math.isfinite(k) or k<0 or props.get('LocalLossBasis')!=elbow.LOSS_BASIS or not math.isclose(k,original['LocalLossCoefficient'],abs_tol=1e-10,rel_tol=0):raise ProjectError('saved fitting-route K/basis differs from source')
+                minor_k+=k
             if first is None:first=inlet
             last=outlet
             diameter=element.get_psets(obj)['BSA_DesignInputs'].get('InternalDiameter_m')
             if type(diameter) not in (int,float) or not math.isclose(diameter,s['diameter_m'],rel_tol=0,abs_tol=1e-10):
                 raise ProjectError('saved IFC/network internal diameter mismatch')
+        if has_elbow and not math.isclose(minor_k,s['minor_k'],abs_tol=1e-10,rel_tol=0):raise ProjectError('saved fitting-route aggregate K mismatch')
         if not math.isclose(length,s['length_m'],rel_tol=0,abs_tol=1e-8):raise ProjectError('saved IFC/network route length mismatch')
         for xyz,node in ((first,s['from']),(last,s['to'])):
             if math.dist(xyz,ports[binding['nodes'][node]][1])>1e-8:raise ProjectError('saved IFC/network endpoint mismatch')
@@ -138,11 +170,11 @@ def run(network,model,binding,out):
     out.mkdir(parents=True,exist_ok=False)
     generated=out/'network-input.json';generated.write_text(json.dumps(derived,indent=2),encoding='utf-8')
     author(paths[1],out/'bim');calculation=analyse(generated,out/'analysis')
-    saved_match=reconcile(out/'bim/model.ifc',generated,data[2])
+    saved_match=reconcile(out/'bim/model.ifc',generated,data[2],data[1])
     if any(digest(Path(p))!=h for p,h in before.items()):raise ProjectError('bound source changed')
     result=dict(inputs=before,inputs_unchanged=True,binding_source=data[2]['source'],segments=evidence,
         saved_ifc_geometry_match=saved_match,calculated_checks_pass=saved_match and calculation['calculated_checks_pass'],design_accepted=False,
-        scope='Straight axis-aligned circular port-centre routes; derived length/elevation/internal diameter, reopened IFC geometry and pressure budget',
+        scope='Source-bound circular routes with straight pieces and explicit finite elbows; centreline arc length, declared excess K, saved IFC and pressure budget',
         pending=['junction and fitting physical detail','K reference and circular-section evidence','routing/clash and full engineering acceptance'])
     result['artifacts']={p.relative_to(out).as_posix():digest(p) for p in out.rglob('*') if p.is_file()}
     (out/'network-binding.json').write_text(json.dumps(result,indent=2),encoding='utf-8')

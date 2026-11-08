@@ -1,0 +1,193 @@
+{
+  "name": "Synthetic finite circular elbow with two straight walls",
+  "project_uuid": "15c136b4-f4aa-46fb-a1ed-1dc015434134",
+  "geometry_scope": "axis-aligned envelopes, straight circular walls and explicit 90-degree elbows",
+  "sources": {
+    "demo": "Explicit synthetic geometry, water properties and excess K assumptions for a numerical demonstration; no manufacturer or code applicability."
+  },
+  "spaces": [
+    {
+      "id": "Room",
+      "origin_m": [
+        0,
+        0,
+        0
+      ],
+      "size_m": [
+        4,
+        4,
+        3
+      ],
+      "source": "demo"
+    }
+  ],
+  "systems": [
+    {
+      "id": "WATER",
+      "predefined_type": "DOMESTICCOLDWATER",
+      "source": "demo"
+    }
+  ],
+  "devices": [
+    {
+      "id": "IN",
+      "ifc_class": "IfcPipeSegment",
+      "space": "Room",
+      "system": "WATER",
+      "source": "demo",
+      "body_shape": "straight circular wall",
+      "origin_m": [
+        2.25,
+        0.5,
+        0.95
+      ],
+      "size_m": [
+        0.1,
+        1.5,
+        0.1
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.08,
+        "OutsideDiameter_m": 0.1,
+        "LocalLossCoefficient": 0.0,
+        "LocalLossBasis": "excess over centreline Darcy friction"
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0.05,
+            0,
+            0.05
+          ],
+          "source": "demo"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            0.05,
+            1.5,
+            0.05
+          ],
+          "source": "demo"
+        }
+      ]
+    },
+    {
+      "id": "BEND",
+      "ifc_class": "IfcPipeFitting",
+      "space": "Room",
+      "system": "WATER",
+      "source": "demo",
+      "body_shape": "circular 90-degree elbow wall",
+      "origin_m": [
+        2,
+        2,
+        0.95
+      ],
+      "size_m": [
+        0.35,
+        0.35,
+        0.1
+      ],
+      "arc_center_m": [
+        2,
+        2,
+        1
+      ],
+      "bend_axes": [
+        "+X",
+        "+Y"
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.08,
+        "OutsideDiameter_m": 0.1,
+        "CenterlineRadius_m": 0.3,
+        "LocalLossCoefficient": 0.4,
+        "LocalLossBasis": "excess over centreline Darcy friction"
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0.3,
+            0,
+            0.05
+          ],
+          "source": "demo"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            0,
+            0.3,
+            0.05
+          ],
+          "source": "demo"
+        }
+      ]
+    },
+    {
+      "id": "OUT",
+      "ifc_class": "IfcPipeSegment",
+      "space": "Room",
+      "system": "WATER",
+      "source": "demo",
+      "body_shape": "straight circular wall",
+      "origin_m": [
+        0.5,
+        2.25,
+        0.95
+      ],
+      "size_m": [
+        1.5,
+        0.1,
+        0.1
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.08,
+        "OutsideDiameter_m": 0.1,
+        "LocalLossCoefficient": 0.0,
+        "LocalLossBasis": "excess over centreline Darcy friction"
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            1.5,
+            0.05,
+            0.05
+          ],
+          "source": "demo"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            0,
+            0.05,
+            0.05
+          ],
+          "source": "demo"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "IN.out",
+      "to": "BEND.in",
+      "source": "demo"
+    },
+    {
+      "from": "BEND.out",
+      "to": "OUT.in",
+      "source": "demo"
+    }
+  ]
+}

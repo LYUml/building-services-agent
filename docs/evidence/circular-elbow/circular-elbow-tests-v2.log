@@ -1,0 +1,12 @@
+C:\Users\lyuml-win\Desktop\building-services-agent\.venv\Lib\site-packages\ifcopenshell\express\rule_executor.py:95: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\.venv\\Lib\\site-packages\\ifcopenshell\\express\\rules\\IFC4.py' mode='r' encoding='cp1252'>
+  source = open(fn, "r").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+test_all_signed_cardinal_arc_frames (test_circular_elbow.CircularElbowTests.test_all_signed_cardinal_arc_frames) ... ok
+test_invalid_source_geometry_and_loss_basis (test_circular_elbow.CircularElbowTests.test_invalid_source_geometry_and_loss_basis) ... ok
+test_native_bore_and_independent_laminar_pressure (test_circular_elbow.CircularElbowTests.test_native_bore_and_independent_laminar_pressure) ... ok
+test_saved_axis_and_loss_tampering_rejected (test_circular_elbow.CircularElbowTests.test_saved_axis_and_loss_tampering_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 37.792s
+
+OK

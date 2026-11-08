@@ -1,0 +1,46 @@
+{
+  "scope": "Retained source-linked native IFC and directed tree numerical workflow; no viewer/clash/product/design acceptance",
+  "design_accepted": false,
+  "workflow_archive_sha256": "612687d3b02628e000ba3fa948e0d56c301a7098eac1d1a76bc94e6e09e1f529",
+  "archive_entries": {
+    "index.html": "1b71827bc91440147b72e313a85b2d9a5115ed1bde41d4bba28f413c505e274e",
+    "model/analysis/manifest.json": "a22fe13b0cf4c2b2bc7cee9a96e382661bf9f40402881fbd5fb04dc28877c966",
+    "model/analysis/network.json": "2ead48978e8ee9317787b288ae25649fd35bce1454fea8883c317d588f774d89",
+    "model/analysis/report.html": "6c0b94b8d775a40784f695b7491077e6e68293bb0d4f29b120b6d01f9dbd1c41",
+    "model/analysis/segments.csv": "11038ba501ffc9345331a4a22426559d981e671fa20a9c3cf463edc61687d6ac",
+    "model/bim/bim-verification.json": "69a045bbb05d2dd4224493483aeb69d9f67d30271d4229e6352e239efd4c180f",
+    "model/bim/model.ifc": "a7e163bd806465d780aaee9c0a2fa23b4e678547ba766c40f0972972bef86c5b",
+    "model/bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "model/network-binding.json": "ab2cfe6b83c331cfb3115d6dd30b8f31d96d3f0920de85eab53445bd4cb7b99c",
+    "model/network-input.json": "fadbf7d718c51671a02278c426a7869bf05dd714a6ea5459d29b35ba58da8e3f",
+    "workflow.json": "b8d8b1336d3774b156e4fdc69085e47dd12a22d97347c21078241aef8a04bb71"
+  },
+  "sources": {
+    "examples/circular-elbow/binding.json": "eacfd05ed18f970aaa137c4150deadd940ca5515b2e0c4dc6e575f4b10d10966",
+    "examples/circular-elbow/brief.md": "25dbf752b9eaf8a5245e11d3bc3cc9f0043dde1a0965a61bd57586b1587aa081",
+    "examples/circular-elbow/network.json": "ddcf2fde34ddd74dacfed7a35b05f5bf66c632668cb977fa0263f4aa28dfe541",
+    "examples/circular-elbow/plan.json": "1adc97d8c39c63a5eb8c97b39f953bc0e625971f9c8fa56524ce9955e286ef6f",
+    "examples/circular-elbow/project.json": "440852dec5cd4e4fe51271f9fccea763ab9e0ae11007e65e60de9c14694e3cf9"
+  },
+  "validation": {
+    "full_regression": {
+      "tests": 219,
+      "passed": 218,
+      "errors": 1,
+      "reason": "New test had misplaced variable reference; all 215 pre-existing cases passed. Original failure log retained."
+    },
+    "after_test_only_correction": {
+      "targeted_tests": 4,
+      "passed": 4,
+      "errors": 0
+    },
+    "workflow_integrity_pass": true
+  },
+  "pending": [
+    "BIM viewer review",
+    "native route clash proof",
+    "product applicability and connector details",
+    "EPANET finite fitting integration",
+    "full installation drawings and engineering acceptance"
+  ]
+}

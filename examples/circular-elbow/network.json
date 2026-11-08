@@ -1,0 +1,41 @@
+{
+  "name": "Synthetic finite elbow water route",
+  "model": "steady incompressible circular tree",
+  "sources": {
+    "demo": "Explicit synthetic geometry, water properties and excess K assumptions for a numerical demonstration; no manufacturer or code applicability."
+  },
+  "fluid": {
+    "density_kg_m3": 998,
+    "dynamic_viscosity_pa_s": 0.001,
+    "source": "demo"
+  },
+  "supply": {
+    "node": "SOURCE",
+    "total_pressure_pa": 10,
+    "source": "demo"
+  },
+  "nodes": [
+    {
+      "id": "SOURCE",
+      "demand_m3_s": 0,
+      "required_total_pressure_pa": 0,
+      "source": "demo"
+    },
+    {
+      "id": "END",
+      "demand_m3_s": 0.0001,
+      "required_total_pressure_pa": 1,
+      "source": "demo"
+    }
+  ],
+  "segments": [
+    {
+      "id": "MAIN",
+      "from": "SOURCE",
+      "to": "END",
+      "roughness_m": 9e-05,
+      "max_velocity_m_s": 1,
+      "source": "demo"
+    }
+  ]
+}

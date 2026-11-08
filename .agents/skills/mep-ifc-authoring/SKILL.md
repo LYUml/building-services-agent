@@ -5,6 +5,8 @@ description: Create and revise source-linked IFC4 MEP envelopes or explicit stra
 
 # IFC MEP authoring
 
+For finite circular 90-degree elbows read docs/CIRCULAR_ELBOWS.md. Require explicit bore/outside/radius/centre/signed axes and actual end-face ports. The Body is a source-parametric tessellated wall with a separate exact circular Axis, not an analytic swept Body. Keep native oriented-mesh, bore, independent volume and source-index checks. Constant-density directed tree routes may derive physical arc length and explicitly sourced excess-over-centreline-friction K per piece; reject aggregate K duplication. EPANET finite-fitting, product, clash and viewer acceptance remain separate unresolved gates.
+
 Read docs/IFC_MODELS.md. Use `python -m bsa.bim <project.json> --out <new-run>` or the `bim` workflow adapter. Install the optional `bim` dependencies first. Input examples are under examples/mep-ifc.
 
 Every dimension, origin, device class, containing space, system and connection must come from source data or an explicit scenario assumption. The adapter uses SI metres and axis-aligned bounding envelopes at minimum-corner origins; do not pass centre coordinates or assume actual manufacturer shape. Device rotations, arbitrary routing and multi-system equipment are unsupported. Do not synthesize their results through this adapter. Reversible water pipes may explicitly use SOURCEANDSINK on both connected ports; require both saved relationship arcs and preserve the separate pump inlet/outlet directions. Mixed directed/bidirectional connection pairs remain unsupported.

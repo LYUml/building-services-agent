@@ -87,6 +87,22 @@ def verify(obj,device,shape):
         if type(value) not in (int,float) or not math.isclose(value,expected,abs_tol=1e-10):
             raise ProjectError('saved circular diameter metadata differs from profile/source')
     verts=np.array(shape.geometry.verts).reshape(-1,3);faces=np.array(shape.geometry.faces).reshape(-1,3)
+    mesh_volume,relative,euler=verify_closed_wall(verts,faces,spec['volume_m3'])
+    radial_axes=[i for i in range(3) if i!=spec['axis']]
+    radial=np.linalg.norm((verts-np.array(spec['start_centre_m']))[:,radial_axes],axis=1)
+    if radial.min()<spec['inner_m']/2-BOUNDS_TOLERANCE_M or radial.max()>spec['outer_m']/2+BOUNDS_TOLERANCE_M:
+        raise ProjectError('native wall vertices exceed explicit bore/outside radii')
+    if not np.any(abs(radial-spec['inner_m']/2)<1e-7) or not np.any(abs(radial-spec['outer_m']/2)<1e-7):
+        raise ProjectError('native wall geometry lacks explicit inner/outer surfaces')
+    return dict(analytic_wall_volume_m3=spec['volume_m3'],mesh_wall_volume_m3=mesh_volume,relative_volume_error=relative,
+                saved_inner_diameter_m=2*(profile.Radius-profile.WallThickness),saved_outside_diameter_m=2*profile.Radius,
+                saved_wall_thickness_m=profile.WallThickness,saved_length_m=solid.Depth,
+                volume_relative_tolerance=VOLUME_RELATIVE_TOLERANCE,closed_mesh=True,euler_characteristic=euler,saved_diameter_metadata_pass=True,body_shape=WALL,
+                linear_deflection_m=LINEAR_DEFLECTION_M,angular_deflection=ANGULAR_DEFLECTION,bounds_tolerance_m=BOUNDS_TOLERANCE_M)
+
+
+def verify_closed_wall(verts,faces,expected_volume):
+    import numpy as np
     edges=Counter(tuple(sorted((int(a),int(b)))) for face in faces for a,b in zip(face,[face[1],face[2],face[0]]))
     if not edges or any(count!=2 for count in edges.values()):raise ProjectError('circular wall triangulation is not a closed two-manifold')
     directions=Counter();links=defaultdict(lambda:defaultdict(set));adjacency=defaultdict(set)
@@ -107,16 +123,6 @@ def verify(obj,device,shape):
     if euler!=0:raise ProjectError('wall mesh lost the through-bore topology')
     local=verts-(verts.min(axis=0)+verts.max(axis=0))/2
     mesh_volume=abs(math.fsum(float(np.dot(local[a],np.cross(local[b],local[c])))/6 for a,b,c in faces))
-    relative=abs(mesh_volume-spec['volume_m3'])/spec['volume_m3']
-    if relative>VOLUME_RELATIVE_TOLERANCE:raise ProjectError('native wall mesh volume differs from independent annular-cylinder volume')
-    radial_axes=[i for i in range(3) if i!=spec['axis']]
-    radial=np.linalg.norm((verts-np.array(spec['start_centre_m']))[:,radial_axes],axis=1)
-    if radial.min()<spec['inner_m']/2-BOUNDS_TOLERANCE_M or radial.max()>spec['outer_m']/2+BOUNDS_TOLERANCE_M:
-        raise ProjectError('native wall vertices exceed explicit bore/outside radii')
-    if not np.any(abs(radial-spec['inner_m']/2)<1e-7) or not np.any(abs(radial-spec['outer_m']/2)<1e-7):
-        raise ProjectError('native wall geometry lacks explicit inner/outer surfaces')
-    return dict(analytic_wall_volume_m3=spec['volume_m3'],mesh_wall_volume_m3=mesh_volume,relative_volume_error=relative,
-                saved_inner_diameter_m=2*(profile.Radius-profile.WallThickness),saved_outside_diameter_m=2*profile.Radius,
-                saved_wall_thickness_m=profile.WallThickness,saved_length_m=solid.Depth,
-                volume_relative_tolerance=VOLUME_RELATIVE_TOLERANCE,closed_mesh=True,euler_characteristic=euler,saved_diameter_metadata_pass=True,body_shape=WALL,
-                linear_deflection_m=LINEAR_DEFLECTION_M,angular_deflection=ANGULAR_DEFLECTION,bounds_tolerance_m=BOUNDS_TOLERANCE_M)
+    relative=abs(mesh_volume-expected_volume)/expected_volume
+    if relative>VOLUME_RELATIVE_TOLERANCE:raise ProjectError('native wall mesh volume differs from independent wall volume')
+    return mesh_volume,relative,euler
