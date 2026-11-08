@@ -13,7 +13,7 @@ from .annual_energy import MULTIZONE_MODEL,validate
 
 
 def validate_contract(project,binding):
-    if not isinstance(binding,dict) or set(binding)!={'source','spaces','north_axis_deg'} or not isinstance(binding['source'],str) or not binding['source'].strip():
+    if not isinstance(binding,dict) or set(binding) not in ({'source','spaces','north_axis_deg'},{'source','spaces','north_axis_deg','hvac_devices'}) or not isinstance(binding['source'],str) or not binding['source'].strip():
         raise ProjectError('explicit sourced thermal IFC binding required')
     north=binding['north_axis_deg']
     if type(north) not in (int,float) or not math.isfinite(north) or not 0<=north<360:raise ProjectError('explicit EnergyPlus north axis 0..<360 degrees required')
@@ -31,6 +31,8 @@ def validate_contract(project,binding):
     candidate['building']['north_axis_deg']=north
     candidate['building']['spaces']=[dict(id=r['id'],source=r['source'],origin_m=[i*2,0,0],size_m=[1,1,1]) for i,r in enumerate(rows)]
     validate(candidate)
+    from .hvac_devices import validate as validate_devices
+    validate_devices(project,binding)
     return binding
 
 
@@ -102,13 +104,24 @@ def run(project,binding,ifc,weather,out,exe):
     p=json.loads(project.read_text(encoding='utf-8-sig'));b=json.loads(binding.read_text(encoding='utf-8-sig'));validate_contract(p,b)
     rows,audit=extract(ifc,b);p['building']['spaces']=rows;p['building']['north_axis_deg']=b['north_axis_deg'];validate(p)
     audit.update(north_axis_deg=b['north_axis_deg'],orientation_source=b['source'],orientation_scope='explicit EnergyPlus Building North Axis; not inferred from IFC TrueNorth/georeferencing')
+    device_audit=None
+    if 'hvac_devices' in b:
+        from .hvac_devices import bind
+        device_audit=bind(ifc,p,b,audit)
+        validate(p)
     out.mkdir(parents=True,exist_ok=False)
     shutil.copyfile(ifc,out/'model.ifc')
     (out/'bound-project.json').write_text(json.dumps(p,indent=2),encoding='utf-8')
     (out/'geometry-binding.json').write_text(json.dumps(audit,indent=2),encoding='utf-8')
     annual=run_annual(out/'bound-project.json',weather,out/'annual',exe)
     if any(digest(Path(path))!=sha for path,sha in inputs.items()) or digest(out/'model.ifc')!=audit['ifc_sha256']:raise ProjectError('thermal binding source changed')
+    derived=None
+    if device_audit:
+        from .hvac_devices import append_results
+        derived=append_results(out/'model.ifc',out/'analysis.ifc',annual,out/'annual/annual.json',device_audit)
+    else:shutil.copyfile(out/'model.ifc',out/'analysis.ifc')
     result=dict(inputs=inputs,inputs_unchanged=True,geometry=audit,calculated_checks_pass=annual['calculated_checks_pass'],design_accepted=False,pending=['actual thermal boundary/material/gain/weather applicability','detailed HVAC/plant and engineering acceptance'])
+    if device_audit:result.update(hvac_device_binding=device_audit,annotated_ifc=derived)
     result['artifacts']={p.relative_to(out).as_posix():digest(p) for p in out.rglob('*') if p.is_file()}
     (out/'thermal-binding.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
     return result

@@ -1,0 +1,220 @@
+{
+  "name": "Synthetic IFC thermal space binding",
+  "geometry_scope": "axis-aligned bounding envelopes",
+  "sources": {
+    "demo": "Explicit synthetic assumptions for API verification; not measured geometry, certified equipment or a complete design",
+    "ptac": "Explicit synthetic PTAC envelope placement and parameter mapping from hvac-equipment/project.json, not measured product geometry or electrical nameplate power"
+  },
+  "spaces": [
+    {
+      "id": "Office",
+      "origin_m": [
+        0,
+        0,
+        0
+      ],
+      "size_m": [
+        8,
+        6,
+        3
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "East",
+      "origin_m": [
+        8,
+        0,
+        0
+      ],
+      "size_m": [
+        5,
+        6,
+        3
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "Annex",
+      "origin_m": [
+        13,
+        0,
+        0
+      ],
+      "size_m": [
+        4,
+        6,
+        3
+      ],
+      "source": "demo"
+    }
+  ],
+  "systems": [
+    {
+      "id": "LGT-1",
+      "predefined_type": "ELECTRICAL",
+      "source": "demo"
+    },
+    {
+      "id": "HVAC-PTAC",
+      "predefined_type": "AIRCONDITIONING",
+      "source": "ptac"
+    }
+  ],
+  "devices": [
+    {
+      "id": "DB1",
+      "ifc_class": "IfcElectricDistributionBoard",
+      "origin_m": [
+        0.2,
+        0.2,
+        1
+      ],
+      "size_m": [
+        0.4,
+        0.15,
+        0.6
+      ],
+      "space": "Office",
+      "system": "LGT-1",
+      "source": "demo",
+      "ports": [
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            0.4,
+            0.075,
+            0.3
+          ],
+          "source": "demo"
+        }
+      ]
+    },
+    {
+      "id": "L1",
+      "ifc_class": "IfcLightFixture",
+      "origin_m": [
+        2,
+        3,
+        2.7
+      ],
+      "size_m": [
+        0.6,
+        0.6,
+        0.05
+      ],
+      "space": "Office",
+      "system": "LGT-1",
+      "source": "demo",
+      "electrical_kw": 0.04,
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0,
+            0.3,
+            0.025
+          ],
+          "source": "demo"
+        }
+      ]
+    },
+    {
+      "id": "PTAC-Office",
+      "ifc_class": "IfcUnitaryEquipment",
+      "space": "Office",
+      "system": "HVAC-PTAC",
+      "source": "ptac",
+      "origin_m": [
+        0.2,
+        5.4,
+        2.1
+      ],
+      "size_m": [
+        0.9,
+        0.3,
+        0.6
+      ],
+      "properties": {
+        "PTAC_CoolingCapacity_thermal_W": 4000,
+        "PTAC_GrossCoolingCOP": 3.2,
+        "PTAC_GrossCoolingSHR": 0.75,
+        "PTAC_SupplyFlow_m3_s": 0.2,
+        "PTAC_HeatingCapacity_thermal_W": 5000,
+        "PTAC_HeatingEfficiency": 0.98,
+        "PTAC_FanPressure_Pa": 200,
+        "PTAC_FanTotalEfficiency": 0.6,
+        "PTAC_MotorEfficiency": 0.9,
+        "PTAC_MotorInAirFraction": 1
+      }
+    },
+    {
+      "id": "PTAC-East",
+      "ifc_class": "IfcUnitaryEquipment",
+      "space": "East",
+      "system": "HVAC-PTAC",
+      "source": "ptac",
+      "origin_m": [
+        8.2,
+        5.4,
+        2.1
+      ],
+      "size_m": [
+        0.9,
+        0.3,
+        0.6
+      ],
+      "properties": {
+        "PTAC_CoolingCapacity_thermal_W": 2500,
+        "PTAC_GrossCoolingCOP": 3.2,
+        "PTAC_GrossCoolingSHR": 0.75,
+        "PTAC_SupplyFlow_m3_s": 0.125,
+        "PTAC_HeatingCapacity_thermal_W": 3200,
+        "PTAC_HeatingEfficiency": 0.98,
+        "PTAC_FanPressure_Pa": 200,
+        "PTAC_FanTotalEfficiency": 0.6,
+        "PTAC_MotorEfficiency": 0.9,
+        "PTAC_MotorInAirFraction": 1
+      }
+    },
+    {
+      "id": "PTAC-Annex",
+      "ifc_class": "IfcUnitaryEquipment",
+      "space": "Annex",
+      "system": "HVAC-PTAC",
+      "source": "ptac",
+      "origin_m": [
+        13.2,
+        5.4,
+        2.1
+      ],
+      "size_m": [
+        0.9,
+        0.3,
+        0.6
+      ],
+      "properties": {
+        "PTAC_CoolingCapacity_thermal_W": 2000,
+        "PTAC_GrossCoolingCOP": 3.2,
+        "PTAC_GrossCoolingSHR": 0.75,
+        "PTAC_SupplyFlow_m3_s": 0.1,
+        "PTAC_HeatingCapacity_thermal_W": 2600,
+        "PTAC_HeatingEfficiency": 0.98,
+        "PTAC_FanPressure_Pa": 200,
+        "PTAC_FanTotalEfficiency": 0.6,
+        "PTAC_MotorEfficiency": 0.9,
+        "PTAC_MotorInAirFraction": 1
+      }
+    }
+  ],
+  "connections": [
+    {
+      "from": "DB1.out",
+      "to": "L1.in",
+      "source": "demo"
+    }
+  ],
+  "project_uuid": "82385a55-d2a0-4461-8a22-1b88d8f580ca"
+}

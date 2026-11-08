@@ -1,5 +1,6 @@
 """Explicit fixed-size single-speed DX PTACs; electric heat and cycling fans."""
 import math
+import re
 from .engine import ProjectError
 
 MODEL='single-speed DX PTAC; electric heat; cycling fixed-speed fan'
@@ -54,7 +55,10 @@ def validate(p,spaces):
     if not isinstance(zones,list) or len(zones)!=len(spaces):raise ProjectError('one PTAC specification per thermal zone required')
     names=[]
     for zone in zones:
-        if not isinstance(zone,dict) or set(zone)!={'id','source'}|set(FIELDS) or not isinstance(zone['source'],str) or not zone['source'].strip() or not isinstance(zone['id'],str):raise ProjectError('exact sourced PTAC zone inputs required')
+        optional={'ifc_device_guid','ifc_space_guid'} if isinstance(zone,dict) and any(k in zone for k in ('ifc_device_guid','ifc_space_guid')) else set()
+        if not isinstance(zone,dict) or set(zone)!=({'id','source'}|set(FIELDS)|optional) or not isinstance(zone['source'],str) or not zone['source'].strip() or not isinstance(zone['id'],str):raise ProjectError('exact sourced PTAC zone inputs required')
+        for key in optional:
+            if not isinstance(zone[key],str) or not re.fullmatch(r'[0-3][0-9A-Za-z_$]{21}',zone[key]):raise ProjectError('valid linked IFC device/space GUID required')
         names.append(zone['id'])
         for key in FIELDS:
             v=zone[key]
@@ -103,6 +107,8 @@ def author(model,p):
         for method in ('setOutdoorAirFlowRateDuringCoolingOperation','setOutdoorAirFlowRateDuringHeatingOperation','setOutdoorAirFlowRateWhenNoCoolingorHeatingisNeeded'):getattr(ptac,method)(0)
         if not ptac.addToThermalZone(zone):raise ProjectError('SDK rejected PTAC zone link')
         for obj in (ptac,fan,heat,cool):obj.additionalProperties().setFeature('Source',spec['source'])
+        for key,feature in (('ifc_device_guid','IFCDeviceGUID'),('ifc_space_guid','IFCSpaceGUID')):
+            if key in spec:ptac.additionalProperties().setFeature(feature,spec[key])
     limits=os.model.ScheduleTypeLimits(model);limits.setName('BSA PTAC mode limits');limits.setLowerLimitValue(0);limits.setUpperLimitValue(1);limits.setNumericType('Discrete');limits.setUnitType('Dimensionless');off.setScheduleTypeLimits(limits)
     for name in COMPONENTS:
         v=os.model.OutputVariable(name,model);v.setReportingFrequency('Hourly');v.setKeyValue('*')
@@ -126,6 +132,8 @@ def audit(model,p):
         equipment=[q for q in zone.equipment() if q.to_ZoneVentilationDesignFlowRate().empty()]
         if name not in specs or zone.useIdealAirLoads() or len(equipment)!=1 or equipment[0].handle()!=unit.handle():raise ProjectError('saved PTAC zone equipment topology differs')
         spec=specs[name];same(unit.nameString(),name+' PTAC')
+        for key,feature in (('ifc_device_guid','IFCDeviceGUID'),('ifc_space_guid','IFCSpaceGUID')):
+            if key in spec:same(unit.additionalProperties().getFeatureAsString(feature),spec[key])
         fan=unit.supplyAirFan().to_FanOnOff();heat=unit.heatingCoil().to_CoilHeatingElectric();cool=unit.coolingCoil().to_CoilCoolingDXSingleSpeed()
         if any(obj.empty() for obj in (fan,heat,cool)):raise ProjectError('saved PTAC component class differs')
         fan,heat,cool=[obj.get() for obj in (fan,heat,cool)]
@@ -165,7 +173,7 @@ def audit(model,p):
             actual=actual.get()
             for getter,v in (('coefficient1Constant',1),('coefficient2x',0),('coefficient3xPOW2',0),('minimumValueofx',0),('maximumValueofx',1),('minimumCurveOutput',.01),('maximumCurveOutput',2),('inputUnitTypeforX','Dimensionless'),('outputUnitType','Dimensionless')):same(getattr(actual,getter)(),v)
             same(actual.additionalProperties().getFeatureAsString('Source'),p['source'])
-        records.append(dict(zone=name,ptac=unit.nameString(),source=spec['source'],cooling_capacity_w=spec['cooling_capacity_w'],heating_capacity_w=spec['heating_capacity_w'],supply_flow_m3_s=spec['supply_flow_m3_s']))
+        records.append(dict(zone=name,ifc_device_guid=spec.get('ifc_device_guid'),ifc_space_guid=spec.get('ifc_space_guid'),ptac=unit.nameString(),source=spec['source'],cooling_capacity_w=spec['cooling_capacity_w'],heating_capacity_w=spec['heating_capacity_w'],supply_flow_m3_s=spec['supply_flow_m3_s']))
     return dict(saved_hvac_matches=True,records=records,curve_extrema={k:extrema(c['coefficients'],c['x_range'],c.get('y_range')) for k,c in p['curves'].items()},pending=['real product, rated normalization and operating-domain applicability','native ancillary/rating defaults; no SEER/EER acceptance','detailed routed HVAC/controls/plant and engineering acceptance'])
 
 
@@ -197,5 +205,5 @@ def extract(sql,p,geometry,year,solver):
         checks['electric_heater_efficiency'] &= all(abs(q-w*spec['heating_efficiency'])<=solver['rate_tolerance_w'] for q,w in zip(values('Heating Coil Heating Rate'),heat))
         nominal=spec['supply_flow_m3_s']*spec['fan_pressure_pa']/spec['fan_efficiency']
         checks['cycling_fan_power'] &= all(abs(w-nominal*f)<=solver['rate_tolerance_w'] for w,f in zip(fan,values('Zone Packaged Terminal Air Conditioner Fan Part Load Ratio')))
-        records.append(dict(zone=zone,cooling_electricity_kwh=math.fsum(coil)/1000,heating_electricity_kwh=math.fsum(heat)/1000,fan_electricity_kwh=math.fsum(fan)/1000,ptac_electricity_kwh=math.fsum(total)/1000))
+        records.append(dict(zone=zone,cooling_electricity_kwh=math.fsum(coil)/1000,heating_electricity_kwh=math.fsum(heat)/1000,fan_electricity_kwh=math.fsum(fan)/1000,ptac_electricity_kwh=math.fsum(total)/1000,ptac_peak_electricity_kw=max(total)/1000))
     return dict(checks=checks,calculated_checks_pass=all(checks.values()),zones=records,scope='component accounting; PTAC total already includes these coils/fan; simple ventilation fan is separate; gross coil cooling and net zone delivery differ')

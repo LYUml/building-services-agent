@@ -1,0 +1,5 @@
+# Synthetic saved HVAC equipment and annual results
+
+Author hvac-equipment/bim.json as editable IFC, retaining source-linked thermal spaces and three generic PTAC envelopes with explicit ratings, placement and air-conditioning system membership. Preserve original identities and all source bytes; these envelopes are not manufacturer geometry.
+
+Bind saved spaces and HVAC equipment with hvac-equipment/binding.json and hvac-equipment/project.json. Require exact device/system/space GUID coverage, containment, body bounds and matching thermal/flow/efficiency inputs before annual simulation. Run actual PTAC baseline/variant analysis with attributed Chicago weather. Carry device and space GUIDs into saved OSM, and append simulated annual electricity/peak and source hashes to a separate analysis IFC while proving original entities and design/electrical inputs unchanged. Keep modeled operating quantities distinct from nameplate/feeder values. Detailed products, ports/ducts, clash/visual and engineering acceptance remain pending.

@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "brief": "hvac-equipment/brief.md",
+  "brief_sha256": "3eaa683e01621221985eb0fcc8f3ddb59317e98b962e460eda53cfccbf4218ab",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "model",
+      "kind": "bim",
+      "project": "hvac-equipment/bim.json"
+    },
+    {
+      "id": "thermal",
+      "kind": "annual_energy_ifc",
+      "project": "hvac-equipment/project.json",
+      "binding": "hvac-equipment/binding.json",
+      "depends_on": "model",
+      "weather": "annual-energy/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw.gz"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Author hvac-equipment/bim.json as editable IFC, retaining source-linked thermal spaces and three generic PTAC envelopes with explicit ratings, placement and air-conditioning system membership. Preserve original identities and all source bytes; these envelopes are not manufacturer geometry.",
+      "task": "model",
+      "acceptance": "Source-linked synthetic execution; real engineering acceptance pending"
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Bind saved spaces and HVAC equipment with hvac-equipment/binding.json and hvac-equipment/project.json. Require exact device/system/space GUID coverage, containment, body bounds and matching thermal/flow/efficiency inputs before annual simulation. Run actual PTAC baseline/variant analysis with attributed Chicago weather. Carry device and space GUIDs into saved OSM, and append simulated annual electricity/peak and source hashes to a separate analysis IFC while proving original entities and design/electrical inputs unchanged. Keep modeled operating quantities distinct from nameplate/feeder values. Detailed products, ports/ducts, clash/visual and engineering acceptance remain pending.",
+      "task": "thermal",
+      "acceptance": "Source-linked synthetic execution; real engineering acceptance pending"
+    }
+  ]
+}

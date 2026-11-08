@@ -11,7 +11,7 @@ from pathlib import Path
 from .cli import digest
 from .engine import ProjectError
 
-IFC_ARTIFACTS={'annual_energy_ifc':'model.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
+IFC_ARTIFACTS={'annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
                'network_model_design':'selected-coordination/bim/model.ifc',
                'electrical_coordination':'bim/model.ifc','electrical_lighting':'shared/bim/model.ifc','pump_electrical':'model.ifc','water_coordination':'model.ifc'}
 NETWORK_ARTIFACTS={'network_coordination':'network-input.json','network_design':'selected-network.json',

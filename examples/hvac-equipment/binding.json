@@ -1,0 +1,41 @@
+{
+  "source": "Explicit synthetic IFC-space to thermal-zone mapping; synthetic EnergyPlus Building North Axis 30 degrees, not inferred from georeferencing",
+  "spaces": [
+    {
+      "id": "Office",
+      "guid": "05Q4lNZvfMjRB3$ExNimBH",
+      "source": "Synthetic space identity mapping; saved IFC geometry is authoritative"
+    },
+    {
+      "id": "East",
+      "guid": "2XcneOpvjTTuGBPHTpB5KV",
+      "source": "Synthetic space identity mapping; saved IFC geometry is authoritative"
+    },
+    {
+      "id": "Annex",
+      "guid": "0CWbJCzJzH9wlEfBdo1lqM",
+      "source": "Synthetic space identity mapping; saved IFC geometry is authoritative"
+    }
+  ],
+  "north_axis_deg": 30,
+  "hvac_devices": [
+    {
+      "zone_id": "Office",
+      "device_guid": "01F$V8YE5PTA2lVo2dbpHv",
+      "system_guid": "0UpDeY211NZR9EtKAcgfXH",
+      "source": "Explicit synthetic saved device/system GUID to PTAC thermal-zone mapping"
+    },
+    {
+      "zone_id": "East",
+      "device_guid": "3j0V2tXWjUoOebmL0LjvSN",
+      "system_guid": "0UpDeY211NZR9EtKAcgfXH",
+      "source": "Explicit synthetic saved device/system GUID to PTAC thermal-zone mapping"
+    },
+    {
+      "zone_id": "Annex",
+      "device_guid": "1afHCyfuPO9Bpp2NA3ynIU",
+      "system_guid": "0UpDeY211NZR9EtKAcgfXH",
+      "source": "Explicit synthetic saved device/system GUID to PTAC thermal-zone mapping"
+    }
+  ]
+}

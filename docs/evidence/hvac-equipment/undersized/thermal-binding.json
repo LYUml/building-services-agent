@@ -1,0 +1,267 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hvac-equipment-undersized-v1\\project.json": "5af34148f24cb6b18dd4b02291343b9ff608bffe694f8fd0c8aa1d120b775eba",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\hvac-equipment\\binding.json": "597900238880ebfb72888b6c94704b0291ddf1271e176e104afe90cee3e6d5e0",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hvac-equipment-undersized-v1\\model\\model.ifc": "954fb618abc142894096ef64670fd25c57526094b197d34e993213e121d10446",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\annual-energy\\USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw.gz": "d14d55b3122fadc6607ca80e76993f555545b5c01df24a7c7912995dfcc1992c"
+  },
+  "inputs_unchanged": true,
+  "geometry": {
+    "ifc_sha256": "954fb618abc142894096ef64670fd25c57526094b197d34e993213e121d10446",
+    "length_unit_scale_to_m": 1,
+    "geometry_coordinates": "IfcOpenShell world-coordinate SI metres",
+    "spaces": [
+      {
+        "guid": "05Q4lNZvfMjRB3$ExNimBH",
+        "thermal_id": "Office",
+        "saved_name": "Office",
+        "origin_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          8.0,
+          6.0,
+          3.0
+        ],
+        "floor_area_m2": 48.0,
+        "volume_m3": 144.0,
+        "triangles": 12
+      },
+      {
+        "guid": "2XcneOpvjTTuGBPHTpB5KV",
+        "thermal_id": "East",
+        "saved_name": "East",
+        "origin_m": [
+          8.0,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          5.0,
+          6.0,
+          3.0
+        ],
+        "floor_area_m2": 30.0,
+        "volume_m3": 90.0,
+        "triangles": 12
+      },
+      {
+        "guid": "0CWbJCzJzH9wlEfBdo1lqM",
+        "thermal_id": "Annex",
+        "saved_name": "Annex",
+        "origin_m": [
+          13.0,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          4.0,
+          6.0,
+          3.0
+        ],
+        "floor_area_m2": 24.0,
+        "volume_m3": 72.0,
+        "triangles": 12
+      }
+    ],
+    "complete_space_coverage": true,
+    "north_axis_deg": 30,
+    "orientation_source": "Explicit synthetic IFC-space to thermal-zone mapping; synthetic EnergyPlus Building North Axis 30 degrees, not inferred from georeferencing",
+    "orientation_scope": "explicit EnergyPlus Building North Axis; not inferred from IFC TrueNorth/georeferencing"
+  },
+  "calculated_checks_pass": false,
+  "design_accepted": false,
+  "pending": [
+    "actual thermal boundary/material/gain/weather applicability",
+    "detailed HVAC/plant and engineering acceptance"
+  ],
+  "hvac_device_binding": {
+    "source_ifc_sha256": "954fb618abc142894096ef64670fd25c57526094b197d34e993213e121d10446",
+    "devices": [
+      {
+        "zone_id": "Office",
+        "device_guid": "01F$V8YE5PTA2lVo2dbpHv",
+        "space_guid": "05Q4lNZvfMjRB3$ExNimBH",
+        "system_guid": "0UpDeY211NZR9EtKAcgfXH",
+        "device_name": "PTAC-Office",
+        "source": "Explicit synthetic saved device/system GUID to PTAC thermal-zone mapping",
+        "saved_source": "Explicit synthetic PTAC envelope placement and parameter mapping from hvac-equipment/project.json, not measured product geometry or electrical nameplate power",
+        "body_bounds_m": [
+          [
+            0.2,
+            5.4,
+            2.1
+          ],
+          [
+            1.1,
+            5.7,
+            2.7
+          ]
+        ],
+        "ratings_match": true
+      },
+      {
+        "zone_id": "East",
+        "device_guid": "3j0V2tXWjUoOebmL0LjvSN",
+        "space_guid": "2XcneOpvjTTuGBPHTpB5KV",
+        "system_guid": "0UpDeY211NZR9EtKAcgfXH",
+        "device_name": "PTAC-East",
+        "source": "Explicit synthetic saved device/system GUID to PTAC thermal-zone mapping",
+        "saved_source": "Explicit synthetic PTAC envelope placement and parameter mapping from hvac-equipment/project.json, not measured product geometry or electrical nameplate power",
+        "body_bounds_m": [
+          [
+            8.2,
+            5.4,
+            2.1
+          ],
+          [
+            9.1,
+            5.7,
+            2.7
+          ]
+        ],
+        "ratings_match": true
+      },
+      {
+        "zone_id": "Annex",
+        "device_guid": "1afHCyfuPO9Bpp2NA3ynIU",
+        "space_guid": "0CWbJCzJzH9wlEfBdo1lqM",
+        "system_guid": "0UpDeY211NZR9EtKAcgfXH",
+        "device_name": "PTAC-Annex",
+        "source": "Explicit synthetic saved device/system GUID to PTAC thermal-zone mapping",
+        "saved_source": "Explicit synthetic PTAC envelope placement and parameter mapping from hvac-equipment/project.json, not measured product geometry or electrical nameplate power",
+        "body_bounds_m": [
+          [
+            13.2,
+            5.4,
+            2.1
+          ],
+          [
+            14.1,
+            5.7,
+            2.7
+          ]
+        ],
+        "ratings_match": true
+      }
+    ],
+    "complete_selected_unitary_equipment_coverage": true,
+    "scope": "identity, ratings, containment and bounds; no product, clash, duct/port or visual acceptance"
+  },
+  "annotated_ifc": {
+    "path": "analysis.ifc",
+    "sha256": "536fa63ea90e2adb6764d00002c2b327210da57635f1a8f275fb60c4fe59cfe3",
+    "original_entities_unchanged": true,
+    "original_entity_count": 251,
+    "schema_issues": 0,
+    "devices": [
+      {
+        "device_guid": "01F$V8YE5PTA2lVo2dbpHv",
+        "properties": {
+          "ThermalZoneID": "Office",
+          "SourceDeviceGUID": "01F$V8YE5PTA2lVo2dbpHv",
+          "SourceSpaceGUID": "05Q4lNZvfMjRB3$ExNimBH",
+          "SourceIFCSHA256": "954fb618abc142894096ef64670fd25c57526094b197d34e993213e121d10446",
+          "AnnualReportSHA256": "da90ae7aa6672c8d3ed3d38f0c5421f67f88cf652b7dcda3f56ff6d167792d54",
+          "Engine": "EnergyPlus, Version 25.2.0-cf7368216c",
+          "CalculatedChecksPass": false,
+          "DesignAccepted": false,
+          "Scope": "Simulated annual operating quantities; not nameplate/feeder design values",
+          "BaselineAnnualElectricity_kWh": 883.0529623990642,
+          "BaselinePeakElectricity_kW": 0.8967296042638113,
+          "VariantAnnualElectricity_kWh": 787.276502563773,
+          "VariantPeakElectricity_kW": 0.8037660099380048
+        }
+      },
+      {
+        "device_guid": "3j0V2tXWjUoOebmL0LjvSN",
+        "properties": {
+          "ThermalZoneID": "East",
+          "SourceDeviceGUID": "3j0V2tXWjUoOebmL0LjvSN",
+          "SourceSpaceGUID": "2XcneOpvjTTuGBPHTpB5KV",
+          "SourceIFCSHA256": "954fb618abc142894096ef64670fd25c57526094b197d34e993213e121d10446",
+          "AnnualReportSHA256": "da90ae7aa6672c8d3ed3d38f0c5421f67f88cf652b7dcda3f56ff6d167792d54",
+          "Engine": "EnergyPlus, Version 25.2.0-cf7368216c",
+          "CalculatedChecksPass": false,
+          "DesignAccepted": false,
+          "Scope": "Simulated annual operating quantities; not nameplate/feeder design values",
+          "BaselineAnnualElectricity_kWh": 546.6796139716106,
+          "BaselinePeakElectricity_kW": 0.5396828523216863,
+          "VariantAnnualElectricity_kWh": 486.76270621113,
+          "VariantPeakElectricity_kW": 0.48102249330022206
+        }
+      },
+      {
+        "device_guid": "1afHCyfuPO9Bpp2NA3ynIU",
+        "properties": {
+          "ThermalZoneID": "Annex",
+          "SourceDeviceGUID": "1afHCyfuPO9Bpp2NA3ynIU",
+          "SourceSpaceGUID": "0CWbJCzJzH9wlEfBdo1lqM",
+          "SourceIFCSHA256": "954fb618abc142894096ef64670fd25c57526094b197d34e993213e121d10446",
+          "AnnualReportSHA256": "da90ae7aa6672c8d3ed3d38f0c5421f67f88cf652b7dcda3f56ff6d167792d54",
+          "Engine": "EnergyPlus, Version 25.2.0-cf7368216c",
+          "CalculatedChecksPass": false,
+          "DesignAccepted": false,
+          "Scope": "Simulated annual operating quantities; not nameplate/feeder design values",
+          "BaselineAnnualElectricity_kWh": 462.02503452541237,
+          "BaselinePeakElectricity_kW": 0.46674942845586354,
+          "VariantAnnualElectricity_kWh": 414.811312658359,
+          "VariantPeakElectricity_kW": 0.42014909430041425
+        }
+      }
+    ],
+    "design_accepted": false
+  },
+  "artifacts": {
+    "analysis.ifc": "536fa63ea90e2adb6764d00002c2b327210da57635f1a8f275fb60c4fe59cfe3",
+    "bound-project.json": "ca38740117070ed7ef4899cee65309f1df88ed469b52b2d4bee6b303ed937315",
+    "geometry-binding.json": "9734aa9a9811f1c71ed4ea1872abf6e21ca9287c3399d0c18e9001d4f7bb2806",
+    "model.ifc": "954fb618abc142894096ef64670fd25c57526094b197d34e993213e121d10446",
+    "annual/annual.json": "da90ae7aa6672c8d3ed3d38f0c5421f67f88cf652b7dcda3f56ff6d167792d54",
+    "annual/report.html": "5b19b57e02c4d725830c7363956d2d7f8689c2d68ce62fa735863702bf07c4fe",
+    "annual/weather-input.json": "0a8f9780965459067b7d894201c622b70d66e83a5ce3ff13189ae6729f338cb6",
+    "annual/weather.epw": "c7d4efcf93ba316a1d874352e743df5cf137ba5c0e3459eb2dc4b5442d5b7f5c",
+    "annual/baseline/completion.json": "1fe623a65628517fa788d5c864025a78724d9060244ab7d305cc05244dcf9bd2",
+    "annual/baseline/engine.log": "f5452d771196edad077cf68b4cbbf68e46133c1a9bd5d580fbc6e6c849e0a304",
+    "annual/baseline/eplusout.audit": "bd2c0ca109ca17778e52914be90bcf4bafad918c23fbd2a0a64839dd63cd27cc",
+    "annual/baseline/eplusout.bnd": "b9ec000268e52d92da57ef0d8c73dac7d52fa515dfe914b977386bd231c27a3e",
+    "annual/baseline/eplusout.eio": "7e23960bb2d816b3006fd861cdc4a206f2d97f7bd0304a78899d25c9dce9c688",
+    "annual/baseline/eplusout.end": "6f547395ac95d8106b56ecb843933137020fd30340619183402fd57267c5e1cb",
+    "annual/baseline/eplusout.err": "5b3fb57e571ab9c03fd45e8902f15b2b6cf34d7b7c2efb7a2b3c8353e0933ca7",
+    "annual/baseline/eplusout.eso": "685ae1077f9d5798edf0c4bba9396726652f7ad796771da59498e7269fab2eec",
+    "annual/baseline/eplusout.mdd": "d7155287e8e5c41f160da09f3f8291246ac574346d89a7368d5b93c25e36e66b",
+    "annual/baseline/eplusout.mtd": "f28c9b3e1643a07881b75e6db0a16f733a0ce01e766ad129782f14a7b8fd1d85",
+    "annual/baseline/eplusout.rdd": "4e34daac85adf37fb5041d4ae03bd1226dbc8ae57ee139b0a7446e777d957d1d",
+    "annual/baseline/eplusout.shd": "0228ed7f15a1f582394b09e49ec8967b8c46693a4a14d667a226fae99b8d9352",
+    "annual/baseline/eplusout.sql": "c0d06fe02a5d78e1023fd765314fc3a67310411c5f38b1ac9364b9c5dacb0a4e",
+    "annual/baseline/eplustbl.htm": "1d8c8821e847c5c8caa6d98590df99ccd38231c715f3c5e9b7ce45475dc4e0e0",
+    "annual/baseline/hourly-building-rates.csv": "9183ab0f1a352945cedb4ef2a4fe207bc4b4d4d0b99b98d23b994af0d594e3eb",
+    "annual/baseline/model.idf": "bd85d162a10fb30fedac727c0a335fe8daf514542f5a4ae84d4eedb416612154",
+    "annual/baseline/model.osm": "390a4e9d23ecb6ccf02fdaa8a756dde88b074502b2914fa76b2e8fc732e5eea4",
+    "annual/baseline/operation-hourly.csv": "1f42d7527624438c886be2a7e7f4905ec639fb8f855529871a41823171b9b30c",
+    "annual/baseline/sqlite.err": "738b0715d409eee222523fa738749a9193b856527e28dad2cd25ef2e777944e1",
+    "annual/baseline/summary.json": "bbc2cf75c099bc5ad7c24e34635e3300ee905ed69e9a23682fda94b314b7a798",
+    "annual/variant/completion.json": "b6bfcdd845fdb3ae095864e8954ef4da534053ecf1673d42af9c544b85dcbeb7",
+    "annual/variant/engine.log": "5d074694da6c513c85983bfb9dd45ccf88b046b5d8bc8db9d6ecd5a427418fa7",
+    "annual/variant/eplusout.audit": "bd2c0ca109ca17778e52914be90bcf4bafad918c23fbd2a0a64839dd63cd27cc",
+    "annual/variant/eplusout.bnd": "b9ec000268e52d92da57ef0d8c73dac7d52fa515dfe914b977386bd231c27a3e",
+    "annual/variant/eplusout.eio": "a02d922f04a0e55ba165b298a87c55540940580edabc12e0c8bd8cb938feb056",
+    "annual/variant/eplusout.end": "6f547395ac95d8106b56ecb843933137020fd30340619183402fd57267c5e1cb",
+    "annual/variant/eplusout.err": "5b3fb57e571ab9c03fd45e8902f15b2b6cf34d7b7c2efb7a2b3c8353e0933ca7",
+    "annual/variant/eplusout.eso": "d5964570257121e82f4c6a5dc27db5b614ed304ca4708d43517cf94e6a93d7c8",
+    "annual/variant/eplusout.mdd": "d7155287e8e5c41f160da09f3f8291246ac574346d89a7368d5b93c25e36e66b",
+    "annual/variant/eplusout.mtd": "f28c9b3e1643a07881b75e6db0a16f733a0ce01e766ad129782f14a7b8fd1d85",
+    "annual/variant/eplusout.rdd": "4e34daac85adf37fb5041d4ae03bd1226dbc8ae57ee139b0a7446e777d957d1d",
+    "annual/variant/eplusout.shd": "0228ed7f15a1f582394b09e49ec8967b8c46693a4a14d667a226fae99b8d9352",
+    "annual/variant/eplusout.sql": "c50a2b3fba0bf993cf74358c4e6f2134d3a5ece4a34d42287b48b0b5deb70b76",
+    "annual/variant/eplustbl.htm": "ea9d76f653c890893210b771dee0bbc4b5cd5c4330ad6c6e738354630e0433d2",
+    "annual/variant/hourly-building-rates.csv": "db735c80d7a39a7522d4c607b77b3fe67cf315bcf3db02ad0b21b036ab3e1a3e",
+    "annual/variant/model.idf": "d7f3ad843de8845f354be1cf696f68eac626463be826e6e1b5175388f2b2d649",
+    "annual/variant/model.osm": "ac5a10fc08edbd231fb0ab7fe51b612a56af2a1ac13b23e74646def22b334368",
+    "annual/variant/operation-hourly.csv": "a41e78440e428ef6d68fa89d457077ab23262684a2569c1e448d7a267a968a02",
+    "annual/variant/sqlite.err": "ff8bdb44eb7d834aa6751dbbc058f8bd15309724ba9a4770d9f559f6a08866fc",
+    "annual/variant/summary.json": "c532c6890a639672be0129a50f40451f3e2ceb20a4496c56ee13e1088458bff9"
+  }
+}
