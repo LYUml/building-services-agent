@@ -42,3 +42,5 @@ The three-space synthetic chain has widths 3/5/4 m, depth 4 m and height 3 m: 48
 For sourced role-specific opaque layers replacing the legacy uniform construction, see [THERMAL_MATERIALS.md](THERMAL_MATERIALS.md). All other weather, geometry, internal-gain/schedule, plant and acceptance limitations above still apply.
 
 For sourced weekly lighting, people, equipment and fixed scheduled simple infiltration/ventilation replacing the legacy absent-gain/always-on assumptions, see [THERMAL_OPERATION.md](THERMAL_OPERATION.md). The example includes independently checked equipment/occupancy/fan quantities and native density-dependent outdoor-air mass flows. Full HVAC/plant and real applicability remain pending.
+
+For explicitly sized actual DX PTAC/electric-heat/fan components replacing ideal loads, see [THERMAL_HVAC.md](THERMAL_HVAC.md). This optional branch adds real native equipment electricity and component balances; existing examples still use ideal loads. Equipment capacity/curve/product applicability, other HVAC/plant types and full acceptance remain separate gates.

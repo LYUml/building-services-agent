@@ -61,7 +61,7 @@ def build(p, lighting, out):
         thermostat.setHeatingSetpointTemperatureSchedule(heat)
         thermostat.setCoolingSetpointTemperatureSchedule(cool)
         zone.setThermostatSetpointDualSetpoint(thermostat)
-        zone.setUseIdealAirLoads(True)
+        zone.setUseIdealAirLoads("hvac" not in p)
         definition=os.model.LightsDefinition(m)
         definition.setWattsperSpaceFloorArea(lighting)
         lights=os.model.Lights(definition);lights.setName(spec["id"]+" lights");lights.setSpace(space);lights.setSchedule(on)
@@ -71,6 +71,9 @@ def build(p, lighting, out):
     if 'operation' in p:
         from .thermal_operation import author as author_operation
         author_operation(m,p['operation'],spaces)
+    if 'hvac' in p:
+        from .thermal_hvac import author as author_hvac
+        author_hvac(m,p['hvac'])
     sv=os.model.SpaceVector()
     for space in spaces:sv.append(space)
     os.model.matchSurfaces(sv)
@@ -86,7 +89,10 @@ def build(p, lighting, out):
         day.setWetBulbOrDewPointAtMaximumDryBulb(dd["wet_bulb_c"])
         day.setBarometricPressure(101325);day.setWindSpeed(3);day.setWindDirection(0)
         day.setSolarModelIndicator("ASHRAEClearSky");day.setSkyClearness(1)
-    for variable in ("Zone Ideal Loads Supply Air Total Cooling Rate","Zone Ideal Loads Supply Air Total Heating Rate","Lights Electricity Rate"):
+    output_rates=("Zone Ideal Loads Supply Air Total Cooling Rate","Zone Ideal Loads Supply Air Total Heating Rate","Lights Electricity Rate")
+    if 'hvac' in p:
+        from .thermal_hvac import RATES as output_rates
+    for variable in output_rates:
         v=os.model.OutputVariable(variable,m);v.setReportingFrequency("Hourly");v.setKeyValue("*")
     m.getOutputSQLite().setOptionType("SimpleAndTabular")
     osm=out/"model.osm";m.save(os.path(str(osm)),True)
@@ -162,6 +168,10 @@ def validate(p,require_design_days=True):
             raise ProjectError(f"finite number required: {label}")
         if (low is not None and value<low) or (high is not None and value>high):
             raise ProjectError(f"out of range: {label}")
+    if 'hvac' in p:
+        if require_design_days:raise ProjectError('explicit PTAC equipment is supported for annual weather models only')
+        from .thermal_hvac import validate as validate_hvac
+        validate_hvac(p['hvac'],boxes(p))
     if 'operation' in p:
         if require_design_days:raise ProjectError('weekly operation is supported for annual weather models only')
         from .thermal_operation import validate as validate_operation

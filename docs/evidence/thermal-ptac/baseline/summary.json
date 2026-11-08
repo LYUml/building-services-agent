@@ -1,0 +1,537 @@
+{
+  "checks": {
+    "full_weather_calendar": true,
+    "complete_hourly_variable_coverage": true,
+    "lighting_analytic_energy": true,
+    "lighting_hourly_profile": true,
+    "monthly_annual_reconciliation": true,
+    "zone_unmet_time_target": true,
+    "lighting_per_zone_hourly_profile": true,
+    "equipment_hourly_balance": true,
+    "equipment_per_zone_hourly_balance": true,
+    "equipment_annual_integral": true,
+    "people_hourly_balance": true,
+    "people_per_zone_hourly_balance": true,
+    "people_annual_integral": true,
+    "ventilation_hourly_balance": true,
+    "ventilation_per_zone_hourly_balance": true,
+    "ventilation_annual_integral": true,
+    "infiltration_scheduled_mass_flow": true,
+    "ventilation_scheduled_mass_flow": true,
+    "component_coverage": true,
+    "hourly_electricity_sum": true,
+    "annual_electricity_sum": true,
+    "electric_heater_efficiency": true,
+    "cycling_fan_power": true
+  },
+  "calculated_checks_pass": true,
+  "environments": [
+    [
+      1,
+      "ANNUAL EPW",
+      3
+    ]
+  ],
+  "annual": [
+    {
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "quantity": "PTAC supplied cooling thermal",
+      "annual_kwh": 3885.6640820154607,
+      "coincident_peak_kw": 5.685394998351712,
+      "hours": 8760
+    },
+    {
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "quantity": "PTAC supplied heating thermal",
+      "annual_kwh": 4989.067324883373,
+      "coincident_peak_kw": 5.228899760297737,
+      "hours": 8760
+    },
+    {
+      "variable": "Lights Electricity Rate",
+      "quantity": "lighting electricity",
+      "annual_kwh": 3321.936,
+      "coincident_peak_kw": 1.224,
+      "hours": 8760
+    },
+    {
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "quantity": "PTAC electricity",
+      "annual_kwh": 6390.276624136554,
+      "coincident_peak_kw": 5.334230492822038,
+      "hours": 8760
+    }
+  ],
+  "monthly": [
+    {
+      "month": 1,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 0.0,
+      "coincident_peak_kw": 0.0,
+      "hours": 744
+    },
+    {
+      "month": 2,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 0.0,
+      "coincident_peak_kw": 0.0,
+      "hours": 672
+    },
+    {
+      "month": 3,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 1.3034536404140094,
+      "coincident_peak_kw": 0.4435103539669068,
+      "hours": 744
+    },
+    {
+      "month": 4,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 178.48533606588512,
+      "coincident_peak_kw": 4.026475372523087,
+      "hours": 720
+    },
+    {
+      "month": 5,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 334.8367293075312,
+      "coincident_peak_kw": 3.8946504062632243,
+      "hours": 744
+    },
+    {
+      "month": 6,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 748.9713444833832,
+      "coincident_peak_kw": 4.830011514195353,
+      "hours": 720
+    },
+    {
+      "month": 7,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 1173.9190527794956,
+      "coincident_peak_kw": 5.685394998351712,
+      "hours": 744
+    },
+    {
+      "month": 8,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 878.0282660210679,
+      "coincident_peak_kw": 5.562711556509856,
+      "hours": 744
+    },
+    {
+      "month": 9,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 510.3917559973973,
+      "coincident_peak_kw": 3.759462687556837,
+      "hours": 720
+    },
+    {
+      "month": 10,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 56.323602336382216,
+      "coincident_peak_kw": 1.6701231711507714,
+      "hours": 744
+    },
+    {
+      "month": 11,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 3.404541383904583,
+      "coincident_peak_kw": 0.7828773049607397,
+      "hours": 720
+    },
+    {
+      "month": 12,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 0.0,
+      "coincident_peak_kw": 0.0,
+      "hours": 744
+    },
+    {
+      "month": 1,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 1301.875538939402,
+      "coincident_peak_kw": 5.228899760297737,
+      "hours": 744
+    },
+    {
+      "month": 2,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 978.7851366282641,
+      "coincident_peak_kw": 4.995593707320291,
+      "hours": 672
+    },
+    {
+      "month": 3,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 550.5388388342009,
+      "coincident_peak_kw": 2.178834633563933,
+      "hours": 744
+    },
+    {
+      "month": 4,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 234.3648591054148,
+      "coincident_peak_kw": 1.5275285233083629,
+      "hours": 720
+    },
+    {
+      "month": 5,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 0.39758096425033546,
+      "coincident_peak_kw": 0.1156975199642395,
+      "hours": 744
+    },
+    {
+      "month": 6,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 0.0,
+      "coincident_peak_kw": 0.0,
+      "hours": 720
+    },
+    {
+      "month": 7,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 0.0,
+      "coincident_peak_kw": 0.0,
+      "hours": 744
+    },
+    {
+      "month": 8,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 0.0,
+      "coincident_peak_kw": 0.0,
+      "hours": 744
+    },
+    {
+      "month": 9,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 0.2990998552755318,
+      "coincident_peak_kw": 0.09680403783212957,
+      "hours": 720
+    },
+    {
+      "month": 10,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 95.87678402030315,
+      "coincident_peak_kw": 0.974922608502494,
+      "hours": 744
+    },
+    {
+      "month": 11,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 591.567276615764,
+      "coincident_peak_kw": 4.049302714185135,
+      "hours": 720
+    },
+    {
+      "month": 12,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 1235.3622099204977,
+      "coincident_peak_kw": 4.233052693969064,
+      "hours": 744
+    },
+    {
+      "month": 1,
+      "variable": "Lights Electricity Rate",
+      "kwh": 291.312,
+      "coincident_peak_kw": 1.224,
+      "hours": 744
+    },
+    {
+      "month": 2,
+      "variable": "Lights Electricity Rate",
+      "kwh": 254.592,
+      "coincident_peak_kw": 1.224,
+      "hours": 672
+    },
+    {
+      "month": 3,
+      "variable": "Lights Electricity Rate",
+      "kwh": 269.28,
+      "coincident_peak_kw": 1.224,
+      "hours": 744
+    },
+    {
+      "month": 4,
+      "variable": "Lights Electricity Rate",
+      "kwh": 279.072,
+      "coincident_peak_kw": 1.224,
+      "hours": 720
+    },
+    {
+      "month": 5,
+      "variable": "Lights Electricity Rate",
+      "kwh": 281.52,
+      "coincident_peak_kw": 1.224,
+      "hours": 744
+    },
+    {
+      "month": 6,
+      "variable": "Lights Electricity Rate",
+      "kwh": 266.832,
+      "coincident_peak_kw": 1.224,
+      "hours": 720
+    },
+    {
+      "month": 7,
+      "variable": "Lights Electricity Rate",
+      "kwh": 291.312,
+      "coincident_peak_kw": 1.224,
+      "hours": 744
+    },
+    {
+      "month": 8,
+      "variable": "Lights Electricity Rate",
+      "kwh": 269.28,
+      "coincident_peak_kw": 1.224,
+      "hours": 744
+    },
+    {
+      "month": 9,
+      "variable": "Lights Electricity Rate",
+      "kwh": 279.072,
+      "coincident_peak_kw": 1.224,
+      "hours": 720
+    },
+    {
+      "month": 10,
+      "variable": "Lights Electricity Rate",
+      "kwh": 291.312,
+      "coincident_peak_kw": 1.224,
+      "hours": 744
+    },
+    {
+      "month": 11,
+      "variable": "Lights Electricity Rate",
+      "kwh": 257.04,
+      "coincident_peak_kw": 1.224,
+      "hours": 720
+    },
+    {
+      "month": 12,
+      "variable": "Lights Electricity Rate",
+      "kwh": 291.312,
+      "coincident_peak_kw": 1.224,
+      "hours": 744
+    },
+    {
+      "month": 1,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 1328.1005036655577,
+      "coincident_peak_kw": 5.334230492822038,
+      "hours": 744
+    },
+    {
+      "month": 2,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 998.5017702525504,
+      "coincident_peak_kw": 5.096224715738804,
+      "hours": 672
+    },
+    {
+      "month": 3,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 562.0652142789132,
+      "coincident_peak_kw": 2.2227250439155855,
+      "hours": 744
+    },
+    {
+      "month": 4,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 298.83312336995516,
+      "coincident_peak_kw": 1.5582991000662816,
+      "hours": 720
+    },
+    {
+      "month": 5,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 112.49076693094966,
+      "coincident_peak_kw": 1.3037177207406554,
+      "hours": 744
+    },
+    {
+      "month": 6,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 250.71498395842067,
+      "coincident_peak_kw": 1.61682588822641,
+      "hours": 720
+    },
+    {
+      "month": 7,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 392.9644286846616,
+      "coincident_peak_kw": 1.9031618850414624,
+      "hours": 744
+    },
+    {
+      "month": 8,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 293.91624159179815,
+      "coincident_peak_kw": 1.862094122729994,
+      "hours": 744
+    },
+    {
+      "month": 9,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 171.15660256819768,
+      "coincident_peak_kw": 1.258464204733009,
+      "hours": 720
+    },
+    {
+      "month": 10,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 116.66220589379573,
+      "coincident_peak_kw": 0.9945614373776223,
+      "hours": 744
+    },
+    {
+      "month": 11,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 604.6234568804994,
+      "coincident_peak_kw": 4.1308716971239114,
+      "hours": 720
+    },
+    {
+      "month": 12,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 1260.2473260612553,
+      "coincident_peak_kw": 4.31832313778053,
+      "hours": 744
+    }
+  ],
+  "zone_unmet": [
+    {
+      "variable": "Zone Cooling Setpoint Not Met Time",
+      "zone": "ANNEX",
+      "zone_hours": 0.0
+    },
+    {
+      "variable": "Zone Cooling Setpoint Not Met Time",
+      "zone": "EAST",
+      "zone_hours": 0.0
+    },
+    {
+      "variable": "Zone Cooling Setpoint Not Met Time",
+      "zone": "OFFICE",
+      "zone_hours": 0.0
+    },
+    {
+      "variable": "Zone Heating Setpoint Not Met Time",
+      "zone": "ANNEX",
+      "zone_hours": 0.0
+    },
+    {
+      "variable": "Zone Heating Setpoint Not Met Time",
+      "zone": "EAST",
+      "zone_hours": 0.0
+    },
+    {
+      "variable": "Zone Heating Setpoint Not Met Time",
+      "zone": "OFFICE",
+      "zone_hours": 0.0
+    }
+  ],
+  "analytic_lighting_kwh": 3321.936,
+  "sql_completion_flags": [
+    [
+      "FALSE",
+      "FALSE"
+    ]
+  ],
+  "sql_completion_flags_true": false,
+  "operation": {
+    "checks": {
+      "equipment_hourly_balance": true,
+      "equipment_per_zone_hourly_balance": true,
+      "equipment_annual_integral": true,
+      "people_hourly_balance": true,
+      "people_per_zone_hourly_balance": true,
+      "people_annual_integral": true,
+      "ventilation_hourly_balance": true,
+      "ventilation_per_zone_hourly_balance": true,
+      "ventilation_annual_integral": true,
+      "infiltration_scheduled_mass_flow": true,
+      "ventilation_scheduled_mass_flow": true
+    },
+    "calculated_checks_pass": true,
+    "annual": [
+      {
+        "variable": "Electric Equipment Electricity Rate",
+        "units": "W",
+        "quantity": "equipment electricity kWh",
+        "annual_integral": 2214.6240000000003,
+        "analytic_integral": 2214.6240000000003,
+        "hours": 8760
+      },
+      {
+        "variable": "Zone People Occupant Count",
+        "units": "",
+        "quantity": "person-hours",
+        "annual_integral": 22146.24,
+        "analytic_integral": 22146.24,
+        "hours": 8760
+      },
+      {
+        "variable": "Zone Ventilation Fan Electricity Energy",
+        "units": "J",
+        "quantity": "simple ventilation fan electricity kWh",
+        "annual_integral": 69.207,
+        "analytic_integral": 69.20700000000001,
+        "hours": 8760
+      },
+      {
+        "variable": "Zone Infiltration Mass Flow Rate",
+        "units": "kg/s",
+        "quantity": "infiltration outdoor-air mass kg",
+        "annual_integral": 199495.0111943959,
+        "analytic_integral": null,
+        "hours": 8760,
+        "scope": "scheduled on/off checked; mass depends on engine air density, no fixed-density equality asserted"
+      },
+      {
+        "variable": "Zone Ventilation Mass Flow Rate",
+        "units": "kg/s",
+        "quantity": "ventilation outdoor-air mass kg",
+        "annual_integral": 598485.0335831877,
+        "analytic_integral": null,
+        "hours": 8760,
+        "scope": "scheduled on/off checked; mass depends on engine air density, no fixed-density equality asserted"
+      }
+    ]
+  },
+  "hvac": {
+    "checks": {
+      "component_coverage": true,
+      "hourly_electricity_sum": true,
+      "annual_electricity_sum": true,
+      "electric_heater_efficiency": true,
+      "cycling_fan_power": true
+    },
+    "calculated_checks_pass": true,
+    "zones": [
+      {
+        "zone": "Office",
+        "cooling_electricity_kwh": 574.458878472053,
+        "heating_electricity_kwh": 2390.1954151189157,
+        "fan_electricity_kwh": 61.869693609396656,
+        "ptac_electricity_kwh": 3026.5239872003654
+      },
+      {
+        "zone": "East",
+        "cooling_electricity_kwh": 356.71753976937754,
+        "heating_electricity_kwh": 1251.8323502244875,
+        "fan_electricity_kwh": 34.99883784004386,
+        "ptac_electricity_kwh": 1643.548727833909
+      },
+      {
+        "zone": "Annex",
+        "cooling_electricity_kwh": 303.67445528043186,
+        "heating_electricity_kwh": 1382.9578584975636,
+        "fan_electricity_kwh": 33.57159532428472,
+        "ptac_electricity_kwh": 1720.20390910228
+      }
+    ],
+    "scope": "component accounting; PTAC total already includes these coils/fan; simple ventilation fan is separate; gross coil cooling and net zone delivery differ"
+  }
+}

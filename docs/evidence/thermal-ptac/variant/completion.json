@@ -1,0 +1,59 @@
+{
+  "status": "verified_with_known_unwritten_sql_flags",
+  "completion_verified": true,
+  "checks": {
+    "process_exit_zero": true,
+    "stdout_success": true,
+    "end_report_success": true,
+    "no_severe_fatal": true,
+    "sql_engine_version_match": true,
+    "sql_flags_compatible": true,
+    "native_files_complete": true,
+    "one_readable_sql_record": true
+  },
+  "process_returncode": 0,
+  "sql_flags_raw": [
+    "FALSE",
+    "FALSE"
+  ],
+  "sql_flags_decoded": [
+    false,
+    false
+  ],
+  "native_sql_success_flags_true": false,
+  "known_unwritten_initial_flags": true,
+  "engine_version": "EnergyPlus, Version 25.2.0-cf7368216c",
+  "engine_sha256": "51715987663666eaff1c8d3bd6ac2d7fe0486d8bc93673eea87c6912a79103f0",
+  "source_inference": {
+    "commit": "cf7368216c73c43181e057fa33b479c4e0c86df0",
+    "facts": {
+      "api/EnergyPlusPgm.cc": {
+        "sha256": "d230aa32b5acc6bdcb8c55d95022f1ecca351719b9b2d43f53a8270e7b1214d2",
+        "fact": "normal wrapUpEnergyPlus releases the SQLite object before calling EndEnergyPlus",
+        "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/api/EnergyPlusPgm.cc"
+      },
+      "UtilityRoutines.cc": {
+        "sha256": "bf0c2e9175b374ce100b0b262523d8d6c507baaf3922f5cc84fb6a3651152a3d",
+        "fact": "EndEnergyPlus updates success flags only when the SQLite object still exists",
+        "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/UtilityRoutines.cc"
+      },
+      "SQLiteProcedures.cc": {
+        "sha256": "b324324996a62c6fc5cf93a3039a2ea2d5788292faf77b07030b55debfa9c1a1",
+        "fact": "Simulations completion columns initially contain text FALSE/FALSE",
+        "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/SQLiteProcedures.cc"
+      }
+    },
+    "scope": "pinned source ordering plus observed official executable reproduction; not instruction tracing"
+  },
+  "scope": "Native process/log/end/error/SQL-version completion evidence only; period coverage, numerical/model validity and engineering acceptance remain separate",
+  "design_accepted": false,
+  "artifacts": {
+    "engine.log": "68afb3f08bd61f30524836462732e473b2e01a5bcec1d697cbcabd92eb7f2647",
+    "eplusout.end": "9a3d29d01a6eff5b82a3bbce9a5e39ffdcc640d90ff88e69b6ae0f4c3361092f",
+    "eplusout.err": "13f88bb16854424581dd2716405a0c36e767c295e1475664b2ebebfa832b4a23",
+    "eplusout.sql": "c77ae725afd6051a946b379cbd429689cdcca58674f3532ba421574ae79b966f"
+  },
+  "missing_artifacts": [],
+  "sql_parse_error": null,
+  "source_files_unchanged": true
+}

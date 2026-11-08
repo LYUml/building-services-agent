@@ -1,0 +1,65 @@
+{
+  "ifc_sha256": "47df5310da8a76afbea34791979079c02506140c87b0d8330f1bb506a5961edf",
+  "length_unit_scale_to_m": 1,
+  "geometry_coordinates": "IfcOpenShell world-coordinate SI metres",
+  "spaces": [
+    {
+      "guid": "05Q4lNZvfMjRB3$ExNimBH",
+      "thermal_id": "Office",
+      "saved_name": "Office",
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "size_m": [
+        8.0,
+        6.0,
+        3.0
+      ],
+      "floor_area_m2": 48.0,
+      "volume_m3": 144.0,
+      "triangles": 12
+    },
+    {
+      "guid": "2XcneOpvjTTuGBPHTpB5KV",
+      "thermal_id": "East",
+      "saved_name": "East",
+      "origin_m": [
+        8.0,
+        0.0,
+        0.0
+      ],
+      "size_m": [
+        5.0,
+        6.0,
+        3.0
+      ],
+      "floor_area_m2": 30.0,
+      "volume_m3": 90.0,
+      "triangles": 12
+    },
+    {
+      "guid": "0CWbJCzJzH9wlEfBdo1lqM",
+      "thermal_id": "Annex",
+      "saved_name": "Annex",
+      "origin_m": [
+        13.0,
+        0.0,
+        0.0
+      ],
+      "size_m": [
+        4.0,
+        6.0,
+        3.0
+      ],
+      "floor_area_m2": 24.0,
+      "volume_m3": 72.0,
+      "triangles": 12
+    }
+  ],
+  "complete_space_coverage": true,
+  "north_axis_deg": 30,
+  "orientation_source": "Explicit synthetic IFC-space to thermal-zone mapping; synthetic EnergyPlus Building North Axis 30 degrees, not inferred from georeferencing",
+  "orientation_scope": "explicit EnergyPlus Building North Axis; not inferred from IFC TrueNorth/georeferencing"
+}

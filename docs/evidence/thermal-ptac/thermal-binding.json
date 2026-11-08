@@ -1,0 +1,129 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\thermal-ptac\\project.json": "c608d3ef96d686394409e3fd4d3a4f90793218988c630dfa61f7f89d92cc7488",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\thermal-ifc\\binding.json": "c1263f36fffdce3a2b8a7cbacb811af6527b7c0c196f0fbfaef06687fc2efbdb",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\thermal-ptac-v4\\model\\model.ifc": "47df5310da8a76afbea34791979079c02506140c87b0d8330f1bb506a5961edf",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\annual-energy\\USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw.gz": "d14d55b3122fadc6607ca80e76993f555545b5c01df24a7c7912995dfcc1992c"
+  },
+  "inputs_unchanged": true,
+  "geometry": {
+    "ifc_sha256": "47df5310da8a76afbea34791979079c02506140c87b0d8330f1bb506a5961edf",
+    "length_unit_scale_to_m": 1,
+    "geometry_coordinates": "IfcOpenShell world-coordinate SI metres",
+    "spaces": [
+      {
+        "guid": "05Q4lNZvfMjRB3$ExNimBH",
+        "thermal_id": "Office",
+        "saved_name": "Office",
+        "origin_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          8.0,
+          6.0,
+          3.0
+        ],
+        "floor_area_m2": 48.0,
+        "volume_m3": 144.0,
+        "triangles": 12
+      },
+      {
+        "guid": "2XcneOpvjTTuGBPHTpB5KV",
+        "thermal_id": "East",
+        "saved_name": "East",
+        "origin_m": [
+          8.0,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          5.0,
+          6.0,
+          3.0
+        ],
+        "floor_area_m2": 30.0,
+        "volume_m3": 90.0,
+        "triangles": 12
+      },
+      {
+        "guid": "0CWbJCzJzH9wlEfBdo1lqM",
+        "thermal_id": "Annex",
+        "saved_name": "Annex",
+        "origin_m": [
+          13.0,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          4.0,
+          6.0,
+          3.0
+        ],
+        "floor_area_m2": 24.0,
+        "volume_m3": 72.0,
+        "triangles": 12
+      }
+    ],
+    "complete_space_coverage": true,
+    "north_axis_deg": 30,
+    "orientation_source": "Explicit synthetic IFC-space to thermal-zone mapping; synthetic EnergyPlus Building North Axis 30 degrees, not inferred from georeferencing",
+    "orientation_scope": "explicit EnergyPlus Building North Axis; not inferred from IFC TrueNorth/georeferencing"
+  },
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "pending": [
+    "actual thermal boundary/material/gain/weather applicability",
+    "detailed HVAC/plant and engineering acceptance"
+  ],
+  "artifacts": {
+    "bound-project.json": "6e27e7a203c8230e11e0b4db3667e98a918e2a6521fc43caa11f52bb342ceb02",
+    "geometry-binding.json": "8e1b2df01f7cf4a7c14885b2559a958b4e3514ff2d397583b6c981a745e97810",
+    "model.ifc": "47df5310da8a76afbea34791979079c02506140c87b0d8330f1bb506a5961edf",
+    "annual/annual.json": "df38855926746d81a7de31ef03be3595df79a668883e2878f681b1de26c80763",
+    "annual/report.html": "cd3525688a7e2b767626fe5831d61bd85e52bfb484f58c8eece9e0453dde66a4",
+    "annual/weather-input.json": "0a8f9780965459067b7d894201c622b70d66e83a5ce3ff13189ae6729f338cb6",
+    "annual/weather.epw": "c7d4efcf93ba316a1d874352e743df5cf137ba5c0e3459eb2dc4b5442d5b7f5c",
+    "annual/baseline/completion.json": "740cebfe18173c07033da6601b0b3bee8bb74f8db96b5d94787b8bb5aceee577",
+    "annual/baseline/engine.log": "8c02c790fd491961b756c06957164f0a8fd09e97281645976e310c83e01b022f",
+    "annual/baseline/eplusout.audit": "bd2c0ca109ca17778e52914be90bcf4bafad918c23fbd2a0a64839dd63cd27cc",
+    "annual/baseline/eplusout.bnd": "267c8d667b8e0598fb3b3694a3ee44941bca639e92669196f3c7d639e318bf75",
+    "annual/baseline/eplusout.eio": "216aca188651e7b3b2aa61434808475d4bbc9d6d9ddcfda5a3a5b23794a984d6",
+    "annual/baseline/eplusout.end": "0a8ea69493b8412431a019e819f14d4d6450bcc6d02eaf0f28e491dd7a911c0e",
+    "annual/baseline/eplusout.err": "4d79f12fdb78dacfa13febb39aa67c61ebbcf1ae2db388822d009a8d66c94188",
+    "annual/baseline/eplusout.eso": "08ebb5b064e13f195630f118b4e0c4e02d2a1382576a2bb2b6240e3ff2005d1b",
+    "annual/baseline/eplusout.mdd": "b3c33ae366f7ef3c32df122e647dfba5cdf6bcb5087d58963940501a05f71888",
+    "annual/baseline/eplusout.mtd": "f28c9b3e1643a07881b75e6db0a16f733a0ce01e766ad129782f14a7b8fd1d85",
+    "annual/baseline/eplusout.rdd": "f40d916401c0c1c1a09ea87abb85929b842043103112be41113ca6f10607e94d",
+    "annual/baseline/eplusout.shd": "0228ed7f15a1f582394b09e49ec8967b8c46693a4a14d667a226fae99b8d9352",
+    "annual/baseline/eplusout.sql": "57af817dcc7eb07570b6286bb430d1b79b4988ce0c0952aee0e1dd3c328a08ce",
+    "annual/baseline/eplustbl.htm": "a8694fdef3cfa1bc31bab7c178494ceacfbb018be8813965341bccfbeeee0152",
+    "annual/baseline/hourly-building-rates.csv": "2caec50e19febf29ff0d7a9b1fff2b7b8175bd9065b9052ed48ba31d77ef0302",
+    "annual/baseline/model.idf": "a25eda684631cb9256eb9d1963164eb8ad875f03c860c298f82255b4e631b6ff",
+    "annual/baseline/model.osm": "922902c779d201eb6a3b124a28b99289a77003b7fe535a464b0f07a52a25ffa9",
+    "annual/baseline/operation-hourly.csv": "d1f2f2ba33b5d1ffa75160353f3493b1c05c6f5ed1d97bd2821b30054b089a0d",
+    "annual/baseline/sqlite.err": "31a9c20802a73fb799105d56ef7f67452420b1ac48180c26c8dacf8b651c6e5c",
+    "annual/baseline/summary.json": "c36abd935346122163cbdba475ce53fe594f16cb5021a8ff5b0b9c0c22be3bbc",
+    "annual/variant/completion.json": "0d5be59b1e006e05aa9ebcaec87fce54902e9bd48be9c59fca9105256ecfbd1d",
+    "annual/variant/engine.log": "68afb3f08bd61f30524836462732e473b2e01a5bcec1d697cbcabd92eb7f2647",
+    "annual/variant/eplusout.audit": "bd2c0ca109ca17778e52914be90bcf4bafad918c23fbd2a0a64839dd63cd27cc",
+    "annual/variant/eplusout.bnd": "267c8d667b8e0598fb3b3694a3ee44941bca639e92669196f3c7d639e318bf75",
+    "annual/variant/eplusout.eio": "5f405c923f64705fee24df3e883a977d7fc84c75754400189e71705c09dfa1b5",
+    "annual/variant/eplusout.end": "9a3d29d01a6eff5b82a3bbce9a5e39ffdcc640d90ff88e69b6ae0f4c3361092f",
+    "annual/variant/eplusout.err": "13f88bb16854424581dd2716405a0c36e767c295e1475664b2ebebfa832b4a23",
+    "annual/variant/eplusout.eso": "9109f1aa0c9a250d65409c793bfec8abe3f5d55146e28f2cf492a4d1b1893eee",
+    "annual/variant/eplusout.mdd": "b3c33ae366f7ef3c32df122e647dfba5cdf6bcb5087d58963940501a05f71888",
+    "annual/variant/eplusout.mtd": "f28c9b3e1643a07881b75e6db0a16f733a0ce01e766ad129782f14a7b8fd1d85",
+    "annual/variant/eplusout.rdd": "f40d916401c0c1c1a09ea87abb85929b842043103112be41113ca6f10607e94d",
+    "annual/variant/eplusout.shd": "0228ed7f15a1f582394b09e49ec8967b8c46693a4a14d667a226fae99b8d9352",
+    "annual/variant/eplusout.sql": "c77ae725afd6051a946b379cbd429689cdcca58674f3532ba421574ae79b966f",
+    "annual/variant/eplustbl.htm": "51fa65f3ae2394caab132b919f7ac2d0f6ee6cd7f7bc67b451fd20fcdce121ed",
+    "annual/variant/hourly-building-rates.csv": "c8e476f9b00de0542dd6bf37647d1e62e9b551086a6e70545fe327fcd66bb36f",
+    "annual/variant/model.idf": "00abd8bd7185b9c81752291c04b6234b1d27c1e1b6574a59dae57cc67870ebc3",
+    "annual/variant/model.osm": "5f154840c03cf75ab4ab65d2411ce8f7a84506e141866a920ef249d50b23150f",
+    "annual/variant/operation-hourly.csv": "a991ac038a42be595f751b2c1cec7c5969ac1ebe0b3c9814d825192204eebea4",
+    "annual/variant/sqlite.err": "fb3f95d12bef38adb2277e29f222d56aa746b119ea764547bbf84afa13e2cb28",
+    "annual/variant/summary.json": "6542602fa3e7c7f06052e6d5883bb50cc8adfd52a73411e8739efbd6df99c4ab"
+  }
+}

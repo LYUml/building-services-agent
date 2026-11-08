@@ -1,4 +1,4 @@
-"""Verified hourly EPW annual ideal-load/lighting comparisons using actual EnergyPlus."""
+"""Verified hourly EPW annual thermal/electrical comparisons using actual EnergyPlus."""
 import argparse
 import calendar
 import copy
@@ -32,7 +32,7 @@ def calendar_hours(year):
 
 
 def validate(p):
-    if not isinstance(p,dict) or set(p)!={'model','source','building','weather','calendar_year','solver','targets'} or p['model'] not in (MODEL,MULTIZONE_MODEL):raise ProjectError('explicit annual ideal-load EPW model required')
+    if not isinstance(p,dict) or set(p)!={'model','source','building','weather','calendar_year','solver','targets'} or p['model'] not in (MODEL,MULTIZONE_MODEL):raise ProjectError('explicit annual thermal EPW model required')
     if not isinstance(p['source'],str) or not p['source'].strip():raise ProjectError('annual model source required')
     if type(p['calendar_year']) is not int or not 1901<=p['calendar_year']<=2099:raise ProjectError('explicit Gregorian calendar year 1901..2099 required')
     building=p['building']
@@ -40,6 +40,9 @@ def validate(p):
     if p['model']==MULTIZONE_MODEL:building_fields=(building_fields-{'zone_width_m','zone_depth_m','height_m'})|{'spaces'}
     if isinstance(building,dict) and 'north_axis_deg' in building:building_fields.add('north_axis_deg')
     if isinstance(building,dict) and 'operation' in building:building_fields.add('operation')
+    if isinstance(building,dict) and 'hvac' in building:
+        if p['model']!=MULTIZONE_MODEL:raise ProjectError('explicit HVAC requires explicit thermal spaces')
+        building_fields.add('hvac')
     if isinstance(building,dict) and 'opaque_constructions' in building:building_fields=(building_fields-{'envelope_r_m2k_w'})|{'opaque_constructions'}
     if not isinstance(building,dict) or set(building)!=building_fields:raise ProjectError('exact building fields required; site comes from EPW and design days are omitted')
     from .energy import validate as validate_building
@@ -124,11 +127,19 @@ def build(project,weather,weather_meta,lighting,out):
         saved=os.model.Model.load(os.path(str(out/'model.osm')))
         if saved.empty():raise ProjectError('saved operation model could not be reopened')
         metadata['operation_audit']=audit_operation(saved.get(),building['operation'])
+    if 'hvac' in building:
+        from .thermal_hvac import audit as audit_hvac
+        saved=os.model.Model.load(os.path(str(out/'model.osm')))
+        if saved.empty():raise ProjectError('saved HVAC model could not be reopened')
+        metadata['hvac_audit']=audit_hvac(saved.get(),building['hvac'])
     metadata.update(calendar_year=project['calendar_year'],design_day_count=len(model.getDesignDays()),weather_sha256=weather_meta['sha256'],translation_warnings=[str(v.logMessage()) for v in ft.warnings()])
     return metadata
 
 
-def extract(sql,year,lighting_w_m2,area,solver,targets,geometry=None,operation=None):
+def extract(sql,year,lighting_w_m2,area,solver,targets,geometry=None,operation=None,hvac=None):
+    rates=RATES
+    if hvac:
+        from .thermal_hvac import RATES as rates
     con=sqlite3.connect(Path(sql).resolve().as_uri()+'?mode=ro',uri=True)
     try:
         completed=con.execute('SELECT Completed,CompletedSuccessfully FROM Simulations').fetchall()
@@ -143,29 +154,32 @@ def extract(sql,year,lighting_w_m2,area,solver,targets,geometry=None,operation=N
     finally:con.close()
     series={};expected=list(calendar_hours(year))
     for name,key,units,freq,ti,actual_year,month,day,hour,minute,interval,value in records:
-        if name not in RATES+UNMET:continue
-        if units!=('W' if name in RATES else 'hr') or freq!='Hourly' or interval!=60 or actual_year!=year or minute!=0 or not math.isfinite(value) or value<0 or name in UNMET and value>1:raise ProjectError('invalid annual reporting units/frequency/interval/year/value')
+        if name not in rates+UNMET:continue
+        if units!=('W' if name in rates else 'hr') or freq!='Hourly' or interval!=60 or actual_year!=year or minute!=0 or not math.isfinite(value) or value<0 or name in UNMET and value>1:raise ProjectError('invalid annual reporting units/frequency/interval/year/value')
         series.setdefault((name,key),[]).append(dict(time_index=ti,month=month,day=day,hour=hour,value=value))
-    for name in RATES+UNMET:
+    for name in rates+UNMET:
         selected=[rows for (variable,key),rows in series.items() if variable==name]
         count=len(geometry['zone_keys']) if geometry else 2
         if geometry:
-            expected_keys=geometry['lighting_keys'] if name==RATES[2] else geometry['zone_keys']
-            if name in RATES[:2]:expected_keys=[key+' IDEAL LOADS AIR SYSTEM' for key in expected_keys]
+            expected_keys=geometry['lighting_keys'] if name==rates[2] else geometry['zone_keys']
+            if name in rates and name!=rates[2]:expected_keys=[key+(' PTAC' if hvac else ' IDEAL LOADS AIR SYSTEM') for key in expected_keys]
             if {key.upper() for variable,key in series if variable==name}!=set(expected_keys):raise ProjectError('annual variable keys differ from authored thermal geometry')
         if len(selected)!=count or any([(r['month'],r['day'],r['hour']) for r in rows]!=expected for rows in selected):raise ProjectError('each annual variable requires complete unique hourly series for every authored zone')
     hours=[];monthly=[];totals=[]
     for index,(month,day,hour) in enumerate(expected):
-        values={name:sum(rows[index]['value'] for (variable,key),rows in series.items() if variable==name) for name in RATES}
+        values={name:sum(rows[index]['value'] for (variable,key),rows in series.items() if variable==name) for name in rates}
         hours.append(dict(month=month,day=day,hour=hour,**values))
-    for name in RATES:
+    prefix='PTAC supplied' if hvac else 'ideal supplied'
+    quantities={rates[0]:prefix+' cooling thermal',rates[1]:prefix+' heating thermal',rates[2]:'lighting electricity'}
+    if hvac:quantities[rates[3]]='PTAC electricity'
+    for name in rates:
         values=[r[name] for r in hours];annual=math.fsum(values)/1000
-        totals.append(dict(variable=name,quantity='lighting electricity' if name==RATES[2] else 'ideal supplied cooling thermal' if name==RATES[0] else 'ideal supplied heating thermal',annual_kwh=annual,coincident_peak_kw=max(values)/1000,hours=len(values)))
+        totals.append(dict(variable=name,quantity=quantities[name],annual_kwh=annual,coincident_peak_kw=max(values)/1000,hours=len(values)))
         for month in range(1,13):
             values=[r[name] for r in hours if r['month']==month]
             monthly.append(dict(month=month,variable=name,kwh=math.fsum(values)/1000,coincident_peak_kw=max(values)/1000,hours=len(values)))
     unmet=[dict(variable=name,zone=key,zone_hours=math.fsum(r['value'] for r in rows)) for (name,key),rows in series.items() if name in UNMET]
-    expected_w=lighting_w_m2*area;actual=next(t for t in totals if t['variable']==RATES[2]);expected_kwh=expected_w*len(expected)/1000
+    expected_w=lighting_w_m2*area;actual=next(t for t in totals if t['variable']==rates[2]);expected_kwh=expected_w*len(expected)/1000
     lighting_profile=[1]*len(expected)
     if operation:
         from .thermal_operation import fractions
@@ -173,11 +187,11 @@ def extract(sql,year,lighting_w_m2,area,solver,targets,geometry=None,operation=N
         expected_kwh=expected_w*math.fsum(lighting_profile)/1000
     checks=dict(full_weather_calendar=True,complete_hourly_variable_coverage=True,
                 lighting_analytic_energy=abs(actual['annual_kwh']-expected_kwh)<=solver['energy_tolerance_kwh'],
-                lighting_hourly_profile=all(abs(r[RATES[2]]-expected_w*f)<=solver['rate_tolerance_w'] for r,f in zip(hours,lighting_profile)),
+                lighting_hourly_profile=all(abs(r[rates[2]]-expected_w*f)<=solver['rate_tolerance_w'] for r,f in zip(hours,lighting_profile)),
                 monthly_annual_reconciliation=all(abs(math.fsum(r['kwh'] for r in monthly if r['variable']==t['variable'])-t['annual_kwh'])<=solver['energy_tolerance_kwh'] for t in totals),
                 zone_unmet_time_target=all(r['zone_hours']<=targets['maximum_zone_unmet_hours'] for r in unmet))
     if operation and geometry:
-        checks['lighting_per_zone_hourly_profile']=all(abs(row['value']-lighting_w_m2*s['size_m'][0]*s['size_m'][1]*f)<=solver['rate_tolerance_w'] for s in geometry['spaces'] for row,f in zip(series[(RATES[2],(s['id']+' lights').upper())],lighting_profile))
+        checks['lighting_per_zone_hourly_profile']=all(abs(row['value']-lighting_w_m2*s['size_m'][0]*s['size_m'][1]*f)<=solver['rate_tolerance_w'] for s in geometry['spaces'] for row,f in zip(series[(rates[2],(s['id']+' lights').upper())],lighting_profile))
     if not operation:checks['lighting_constant_power']=checks['lighting_hourly_profile']
     return dict(checks=checks,calculated_checks_pass=all(checks.values()),environments=environments,annual=totals,monthly=monthly,zone_unmet=unmet,analytic_lighting_kwh=expected_kwh,
                 sql_completion_flags=[list(row) for row in completed],sql_completion_flags_true=all(v in (1,'TRUE') for v in completed[0])),hours
@@ -203,7 +217,7 @@ def run(project,weather,out,exe):
         (folder/'completion.json').write_text(json.dumps(completion,indent=2),encoding='utf-8')
         if not completion['completion_verified']:raise ProjectError('annual native completion evidence is unverified; inspect completion.json')
         diagnostics=(folder/'eplusout.err').read_text(errors='replace');end=(folder/'eplusout.end').read_text(errors='replace')
-        summary,hourly=extract(folder/'eplusout.sql',p['calendar_year'],p['building'][key],meta['floor_area_m2'],p['solver'],p['targets'],meta,p['building'].get('operation'))
+        summary,hourly=extract(folder/'eplusout.sql',p['calendar_year'],p['building'][key],meta['floor_area_m2'],p['solver'],p['targets'],meta,p['building'].get('operation'),p['building'].get('hvac'))
         if 'operation' in p['building']:
             from .thermal_operation import extract as extract_operation
             operation_summary,operation_hourly=extract_operation(folder/'eplusout.sql',p['building']['operation'],meta,p['calendar_year'],p['solver'])
@@ -211,19 +225,23 @@ def run(project,weather,out,exe):
             summary['checks'].update(operation_summary['checks']);summary['calculated_checks_pass']=all(summary['checks'].values())
             with (folder/'operation-hourly.csv').open('w',newline='',encoding='utf-8') as stream:
                 writer=csv.DictWriter(stream,fieldnames=['variable','month','day','hour','value','analytic','units']);writer.writeheader();writer.writerows(operation_hourly)
+        if 'hvac' in p['building']:
+            from .thermal_hvac import extract as extract_hvac
+            summary['hvac']=extract_hvac(folder/'eplusout.sql',p['building']['hvac'],meta,p['calendar_year'],p['solver'])
+            summary['checks'].update(summary['hvac']['checks']);summary['calculated_checks_pass']=all(summary['checks'].values())
         with (folder/'hourly-building-rates.csv').open('w',newline='',encoding='utf-8') as stream:
-            writer=csv.DictWriter(stream,fieldnames=['month','day','hour']+list(RATES));writer.writeheader();writer.writerows(hourly)
+            writer=csv.DictWriter(stream,fieldnames=list(hourly[0]));writer.writeheader();writer.writerows(hourly)
         (folder/'summary.json').write_text(json.dumps(summary,indent=2),encoding='utf-8');results[kind]=dict(metadata=meta,summary=summary,diagnostics=diagnostics,completion=completion,sql_sha256=digest(folder/'eplusout.sql'),engine_success_evidence=dict(returncode=proc.returncode,end_report=end,end_report_sha256=digest(folder/'eplusout.end'),stdout_success_marker=True))
     comparison=[]
     for base,variant in zip(results['baseline']['summary']['annual'],results['variant']['summary']['annual']):comparison.append(dict(variable=base['variable'],quantity=base['quantity'],change_kwh=variant['annual_kwh']-base['annual_kwh'],change_coincident_peak_kw=variant['coincident_peak_kw']-base['coincident_peak_kw']))
     if any(digest(Path(v))!=sha for v,sha in before.items()):raise ProjectError('annual source input changed')
     result=dict(inputs=before,inputs_unchanged=True,source_data=p,weather=weather_meta,engine=version,engine_sha256=digest(exe),results=results,comparison=comparison,
                 calculated_checks_pass=all(v['summary']['calculated_checks_pass'] for v in results.values()),design_accepted=False,
-                scope='Full-calendar hourly EPW simulation of source-declared ideal-load spaces; heating/cooling thermal demand and lighting electricity reported separately',
-                assumptions=['Sourced weekly lighting/equipment/people and fixed scheduled simple infiltration/ventilation; no windows; adiabatic floors and constant setpoints' if 'operation' in p['building'] else 'No windows, people, equipment, ventilation/infiltration; adiabatic floors; always-on lights and constant setpoints','Ideal air loads are supplied thermal demand, not HVAC electricity; no plant/COP or whole-building EUI inferred','Source-declared role-specific opaque layers; layer R excludes surface films/bridges/moisture' if 'opaque_constructions' in p['building'] else 'Legacy synthetic uniform R layer plus fixed 0.1 m mass layer: conductivity 0.5 W/mK, density 800 kg/m3, specific heat 1000 J/kgK','Weather calendar remapped to declared simulation year; DST/holidays/rain/snow indicators disabled; no design-day/sizing runs'],
+                scope='Full-calendar hourly EPW simulation; supplied heating/cooling thermal energy and electrical end uses reported separately',
+                assumptions=['Sourced weekly lighting/equipment/people and fixed scheduled simple infiltration/ventilation; no windows; adiabatic floors and constant setpoints' if 'operation' in p['building'] else 'No windows, people, equipment, ventilation/infiltration; adiabatic floors; always-on lights and constant setpoints','Explicit fixed-size DX PTAC/electric heat/fans; source-declared ratings/curves; PTAC electricity includes its fan/coils, separate from simple ventilation electricity' if 'hvac' in p['building'] else 'Ideal air loads are supplied thermal demand, not HVAC electricity; no plant/COP or whole-building EUI inferred','Source-declared role-specific opaque layers; layer R excludes surface films/bridges/moisture' if 'opaque_constructions' in p['building'] else 'Legacy synthetic uniform R layer plus fixed 0.1 m mass layer: conductivity 0.5 W/mK, density 800 kg/m3, specific heat 1000 J/kgK','Weather calendar remapped to declared simulation year; DST/holidays/rain/snow indicators disabled; no design-day/sizing runs'],
                 pending=['actual building geometry/construction/gain/schedule and meteorological applicability','detailed HVAC, ventilation/moisture, plant electricity and code acceptance','real-project calibration and full engineering acceptance'])
     result['completion_limitations']=[dict(case=kind,status=v['completion']['status'],native_sql_flags_preserved=True,source_commit=v['completion']['source_inference']['commit']) for kind,v in results.items() if v['completion']['known_unwritten_initial_flags']]
-    (out/'report.html').write_text('<!doctype html><meta charset="utf-8"><h1>Annual ideal-load and lighting comparison</h1><p>'+html.escape(result['scope'])+'</p><pre>'+html.escape(json.dumps(dict(comparison=comparison,results=results),indent=2))+'</pre><p>'+html.escape('; '.join(result['pending']))+'</p>',encoding='utf-8')
+    (out/'report.html').write_text('<!doctype html><meta charset="utf-8"><h1>Annual energy and lighting comparison</h1><p>'+html.escape(result['scope'])+'</p><pre>'+html.escape(json.dumps(dict(comparison=comparison,results=results),indent=2))+'</pre><p>'+html.escape('; '.join(result['pending']))+'</p>',encoding='utf-8')
     result['artifacts']={v.relative_to(out).as_posix():digest(v) for v in out.rglob('*') if v.is_file()}
     (out/'annual.json').write_text(json.dumps(result,indent=2),encoding='utf-8');return result
 
