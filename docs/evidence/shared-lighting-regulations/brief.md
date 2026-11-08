@@ -1,0 +1,1 @@
+Check each shared lighting space against the selected Hong Kong office LPD rule before generating coordinated electrical CAD and IFC. Keep complete engineering and visual review pending.

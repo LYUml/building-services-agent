@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "5e80193f90a52fd0961748cdc8ae999410c4e42a0a02a70d533c5eafd729c053",
+  "passage_dispositions": {
+    "P001": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "rules",
+      "kind": "lighting_regulations",
+      "project": "project.json",
+      "geometry": "geometry.json",
+      "basis": "basis.json",
+      "pack": "pack.json",
+      "sources": "."
+    },
+    {
+      "id": "model",
+      "kind": "electrical_coordination",
+      "project": "project.json",
+      "geometry": "geometry.json",
+      "requires_pass": [
+        "rules"
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "requires_pass": [
+        "model"
+      ],
+      "description": "Full source, native drawing, visual, photometric and regulatory acceptance pending"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R0",
+      "passage": "P001",
+      "quote": "Check each shared lighting space against the selected Hong Kong office LPD rule before generating coordinated electrical CAD and IFC. Keep complete engineering and visual review pending.",
+      "task": "rules",
+      "acceptance": "Check each shared lighting space against the selected Hong Kong office LPD rule before generating coordinated electrical CAD and IFC. Keep complete engineering and visual review pending."
+    },
+    {
+      "id": "R1",
+      "passage": "P001",
+      "quote": "Check each shared lighting space against the selected Hong Kong office LPD rule before generating coordinated electrical CAD and IFC. Keep complete engineering and visual review pending.",
+      "task": "model",
+      "acceptance": "Check each shared lighting space against the selected Hong Kong office LPD rule before generating coordinated electrical CAD and IFC. Keep complete engineering and visual review pending."
+    },
+    {
+      "id": "R2",
+      "passage": "P001",
+      "quote": "Check each shared lighting space against the selected Hong Kong office LPD rule before generating coordinated electrical CAD and IFC. Keep complete engineering and visual review pending.",
+      "task": "review",
+      "acceptance": "Check each shared lighting space against the selected Hong Kong office LPD rule before generating coordinated electrical CAD and IFC. Keep complete engineering and visual review pending."
+    }
+  ]
+}

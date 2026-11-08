@@ -1,0 +1,73 @@
+{
+  "plan_sha256": "60ffb476e50f66a720bab5024498df096170d74e6d96d54a68bbacefd2387ed8",
+  "workflow_sha256": "cff3d3f3587fe1bc09ec0fccf93b6d809bb76c2c69f47276f13c42d28ec5d2f1",
+  "integrity_pass": true,
+  "tasks": [
+    {
+      "id": "rules",
+      "kind": "lighting_regulations",
+      "status": "pass",
+      "recorded_scope": "Shared source rectangular space areas and full electrical fixture watts; actual saved IFC not reopened; whole-project regulatory compliance not established",
+      "dependencies": [],
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R0"
+      ],
+      "evidence": [
+        "rules/bound-space-projects.json",
+        "rules/lighting-regulation-checks.json"
+      ]
+    },
+    {
+      "id": "model",
+      "kind": "electrical_coordination",
+      "status": "pass",
+      "recorded_scope": "same electrical IDs/XY/power/PF/circuits reconciled across saved calculations, DXF and IFC envelopes; final design acceptance pending",
+      "dependencies": [
+        "rules"
+      ],
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R1"
+      ],
+      "evidence": [
+        "model/bim/bim-verification.json",
+        "model/bim/model.ifc",
+        "model/bim/schema-validation.json",
+        "model/coordinated-devices.csv",
+        "model/coordination.json",
+        "model/electrical/calculations.json",
+        "model/electrical/devices.dxf",
+        "model/electrical/manifest.json",
+        "model/electrical/preview.svg",
+        "model/electrical/report.html",
+        "model/ifc-input.json"
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "Full source, native drawing, visual, photometric and regulatory acceptance pending",
+      "dependencies": [
+        "model"
+      ],
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "review"
+      ],
+      "next_action": "perform the specified review and record evidence separately",
+      "requirement_ids": [
+        "R2"
+      ],
+      "evidence": []
+    }
+  ],
+  "execution_pass": false,
+  "design_accepted": false,
+  "scope": "Recorded execution and declared dependency graph only; no engine invocation, automatic repair, or engineering acceptance"
+}

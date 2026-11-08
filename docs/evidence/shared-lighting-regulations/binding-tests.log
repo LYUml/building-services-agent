@@ -1,0 +1,9 @@
+test_area_and_power_derive_from_shared_sources_without_demand_factor (test_lighting_regulations.LightingBindingTests.test_area_and_power_derive_from_shared_sources_without_demand_factor) ... ok
+test_missing_envelope_or_space_basis_cannot_drop_fixture (test_lighting_regulations.LightingBindingTests.test_missing_envelope_or_space_basis_cannot_drop_fixture) ... ok
+test_power_override_rejected_and_nonlight_identity_reported (test_lighting_regulations.LightingBindingTests.test_power_override_rejected_and_nonlight_identity_reported) ... ok
+test_separate_rooms_keep_individual_areas_and_inventory (test_lighting_regulations.LightingBindingTests.test_separate_rooms_keep_individual_areas_and_inventory) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.004s
+
+OK

@@ -1,0 +1,115 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\shared-lighting-regulations-v1\\project.json": "34e1fba15d2ec9dacbdf256cf996d2de772873d720374f1ac55fd6b64ac4f34a",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\shared-lighting-regulations-v1\\geometry.json": "3d8f4cfd0e599d14e9e9dc2bd61548a983750de0f7ccf08388c68934a1e35808",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\shared-lighting-regulations-v1\\basis.json": "00535700b9bb84bcacdaf608951bd2604f534955cfae1996568ba9c664e4f169",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\shared-lighting-regulations-v1\\pack.json": "97b7be1ea891b575bdd239e200ce41120ed09a509914ebd74394135decc9997c",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\shared-lighting-regulations-v1\\emsd-bec-2024.pdf": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7"
+  },
+  "inputs_unchanged": true,
+  "missing_sources": [],
+  "space_checks": {
+    "Office": {
+      "rule_pack": "hk-lighting-2026.11.08",
+      "jurisdiction": "HK",
+      "checks": [
+        {
+          "id": "HK.EMSD.BEC2024.office_lpd",
+          "status": "pass",
+          "scope": "Single-function office LPD prescriptive check only; all listed lighting in scope, no exclusions or trade-offs",
+          "source_url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+          "source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+          "edition": "2024",
+          "clause": "5.4.1 and Table 5.4; definitions Section 2; 5.4.2-5.4.3",
+          "pdf_page_1_based": 22,
+          "value": 2.5,
+          "unit": "W/m2",
+          "maximum": 8.5,
+          "evidence": "Computed from lighting_space full-output luminaire inventory and internal floor area; no demand/dimming factor",
+          "reasons": [
+            "selected prescriptive limit met"
+          ],
+          "total_full_output_circuit_w": 120.0,
+          "computed_lpd_w_m2": 2.5,
+          "selected_area_band": {
+            "lower_exclusive_m2": 15,
+            "upper_inclusive_m2": 200,
+            "maximum_w_m2": 8.5
+          },
+          "calculation_scope": "All listed luminaires counted at full circuit watts; exclusions/multifunction spaces unsupported"
+        }
+      ],
+      "supported_checks_pass": true,
+      "coverage": {
+        "complete": false,
+        "implemented": [
+          "Office full-output LPD with sourced area bands and 70 W exception"
+        ],
+        "pending": [
+          "statutory applicability and edition decision verification",
+          "other space categories and exclusions",
+          "lighting control points and automatic/daylight controls",
+          "illuminance/glare and complete lighting design",
+          "other Hong Kong requirements"
+        ]
+      },
+      "regulatory_compliance": "not_established",
+      "design_accepted": false,
+      "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+    }
+  },
+  "omitted_non_light_devices": [],
+  "branch_calculation": {
+    "name": "Synthetic three-luminaire office demonstration",
+    "circuits": [
+      {
+        "id": "LGT-1",
+        "phase": "L1",
+        "device_ids": [
+          "L1",
+          "L2",
+          "L3"
+        ],
+        "connected_electrical_kw": 0.12,
+        "connected_va": 133.33333333333331,
+        "demand_va": 133.33333333333331,
+        "design_current_a": 0.5797101449275361,
+        "effective_ampacity_a": 14.4,
+        "voltage_drop_v": 0.33623188405797094,
+        "voltage_drop_percent": 0.14618777567737867,
+        "checks": {
+          "ib_le_in": true,
+          "in_le_iz": true,
+          "voltage_drop": true
+        },
+        "source": "demo"
+      }
+    ],
+    "phase_demand_va": {
+      "L1": 133.33333333333331,
+      "L2": 0.0,
+      "L3": 0.0
+    },
+    "device_count": 3,
+    "calculated_checks_pass": true,
+    "design_accepted": false,
+    "pending": [
+      "fault disconnection and breaking capacity",
+      "protective coordination",
+      "lighting photometry where applicable",
+      "native DWG reopen and drawing count reconciliation",
+      "visual PDF review",
+      "source/assumption review"
+    ]
+  },
+  "status": "pass",
+  "design_accepted": false,
+  "regulatory_compliance": "not_established",
+  "scope": "Shared source rectangular space areas and full electrical fixture watts; actual saved IFC not reopened",
+  "pending": [
+    "actual space/internal-area/classification applicability",
+    "circuit watts including driver/controlgear loss",
+    "saved IFC geometry binding",
+    "other lighting controls, photometry and full engineering acceptance"
+  ]
+}
