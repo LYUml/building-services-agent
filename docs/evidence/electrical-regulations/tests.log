@@ -1,0 +1,10 @@
+test_branch_failure_is_not_cleared_by_passing_rule (test_electrical_regulations.ElectricalRegulationTests.test_branch_failure_is_not_cleared_by_passing_rule) ... ok
+test_fresh_calculation_replaces_supplied_metric (test_electrical_regulations.ElectricalRegulationTests.test_fresh_calculation_replaces_supplied_metric) ... ok
+test_long_upstream_path_requires_review (test_electrical_regulations.ElectricalRegulationTests.test_long_upstream_path_requires_review) ... ok
+test_missing_source_stays_pending (test_electrical_regulations.ElectricalRegulationTests.test_missing_source_stays_pending) ... ok
+test_workflow_tracks_topology_and_blocks_false_execution_pass (test_electrical_regulations.ElectricalRegulationTests.test_workflow_tracks_topology_and_blocks_false_execution_pass) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.059s
+
+OK
