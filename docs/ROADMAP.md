@@ -50,3 +50,5 @@ An independent saved CHILLEDWATER circulation IFC now derives hollow bore, route
 Saved IFC circulation now has a standalone combined thermal/pipe-rule adapter that rechecks native artifacts and rederives the exact network before fresh checks. Modified derived geometry is rejected even after its manifest hash is rewritten. Workflow inheritance and full physical/regulatory acceptance remain pending.
 
 Saved circulation combined checks now inherit water_coordination in the workflow, inventory official sources and thermal/rule bases, reject replacement inputs and block dependent delivery on failure. Actual official-BEC-backed IFC-to-checks execution passes with final manual engineering acceptance pending.
+
+The circulation IFC physical audit now explicitly fails on confirmed pump/node, pipe/node and corner material overlaps while hydraulic checks pass. A committed coordination plan gates drawings on clash success; native negative evidence proves no drawing is released. Real finite fitting interfaces and corresponding hydraulic binding are required next, not contact waivers.

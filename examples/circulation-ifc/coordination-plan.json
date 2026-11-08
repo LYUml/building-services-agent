@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "brief": "coordination-brief.md",
+  "brief_sha256": "88bab61d059df66567049847d7712923d7eb34a944487e3dd8a1742543c2c93c",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement",
+    "P004": "requirement",
+    "P005": "requirement",
+    "P006": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "model",
+      "kind": "bim",
+      "project": "model.json"
+    },
+    {
+      "id": "water",
+      "kind": "water_coordination",
+      "project": "project.json",
+      "binding": "binding.json",
+      "depends_on": "model"
+    },
+    {
+      "id": "clash",
+      "kind": "ifc_clash",
+      "depends_on": "water",
+      "policy": "clash-policy.json"
+    },
+    {
+      "id": "drawing",
+      "kind": "ifc_drawing",
+      "depends_on": "water",
+      "settings": "drawing-settings.json",
+      "requires_pass": [
+        "clash"
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "description": "Engineering and installation acceptance unresolved",
+      "requires_pass": [
+        "drawing"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Author and verify the hollow IFC model.",
+      "task": "model",
+      "acceptance": "Author and verify the hollow IFC model."
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Derive and solve circulation from the saved IFC.",
+      "task": "water",
+      "acceptance": "Derive and solve circulation from the saved IFC."
+    },
+    {
+      "id": "R3",
+      "passage": "P004",
+      "quote": "Audit all represented solids and 50 mm synthetic clearance; preserve material overlaps without exceptions.",
+      "task": "clash",
+      "acceptance": "Audit all represented solids and 50 mm synthetic clearance; preserve material overlaps without exceptions."
+    },
+    {
+      "id": "R4",
+      "passage": "P005",
+      "quote": "Generate a drawing only after saved-model hydraulic and clash checks pass.",
+      "task": "drawing",
+      "acceptance": "Generate a drawing only after saved-model hydraulic and clash checks pass."
+    },
+    {
+      "id": "R5",
+      "passage": "P006",
+      "quote": "Retain actual products, fittings, thermal/regulatory coverage, visual and full engineering acceptance as unresolved.",
+      "task": "review",
+      "acceptance": "Retain actual products, fittings, thermal/regulatory coverage, visual and full engineering acceptance as unresolved."
+    }
+  ]
+}

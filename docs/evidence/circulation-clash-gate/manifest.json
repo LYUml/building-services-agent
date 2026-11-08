@@ -1,0 +1,6 @@
+{
+  "scope": "Expected physical clash failure blocks drawing despite passing hydraulics",
+  "sha256": "a9e4b62421ff4063e56bf3d8f8f3e15b1bd1be6d271a66fee693e28b93416e2b",
+  "observed_integrity_pass": true,
+  "design_accepted": false
+}
