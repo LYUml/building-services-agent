@@ -88,3 +88,7 @@ The `electrical_fault` adapter takes a common electrical `project` and sourced `
 ### Native HVAC regulatory prerequisite
 
 `hvac_regulations` takes `depends_on` (earlier `energy` task), `basis`, `pack` and `sources`. It reads both actual producer variants, verifies saved IDF/OSM/SQL and native completion artifacts, then evaluates supported design conditions. It forbids replacement project/IDF inputs or checking only one variant. Downstream tasks declare `requires_pass: [check-task-id]`; unresolved conditions retain blocking causes. See [native HVAC checks](HVAC_IDF_RULES.md). Full regulatory and engineering acceptance remains separate.
+
+### HVAC water-pipe regulatory prerequisite
+
+`water_pipe_regulations` takes `project`, `basis`, `pack`, `sources` and returns scoped per-segment rules plus fresh hydraulic results. A downstream `network` task uses `requires_pass`; the checked and consumed network input bytes must match. Failure or pending checks skip the downstream task. CAD/BIM and optimized-model correspondence is not established by this adapter. See [water piping](HK_WATER_PIPING.md).

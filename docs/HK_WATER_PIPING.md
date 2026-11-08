@@ -1,6 +1,6 @@
 # Hong Kong air-conditioning water piping
 
-The `hk-hvac-water-2026.11.08` pack implements selected conditions from [EMSD BEC 2024](https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf), clauses 6.9.1–6.9.3, printed pages 26–27 / PDF pages 32–33. The official PDF SHA256 matches the existing BEC source cache. Scope, edition and prescriptive-route selection need explicit sourced project decisions. These are air-conditioning water-piping checks, not general domestic water rules.
+The `hk-hvac-water-2026.11.08` pack implements selected conditions from [EMSD BEC 2024](https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf), clauses 6.9.1Ã¢â‚¬â€œ6.9.3, printed pages 26Ã¢â‚¬â€œ27 / PDF pages 32Ã¢â‚¬â€œ33. The official PDF SHA256 matches the existing BEC source cache. Scope, edition and prescriptive-route selection need explicit sourced project decisions. These are air-conditioning water-piping checks, not general domestic water rules.
 
 The pack separates the diameter bands, fixed/variable flow velocity limits, distributed friction limit and required variable-flow pump control alternatives. Small-pipe checks do not silently apply the large-pipe friction limit. Unsupported/missing input units, values, control evidence or source files cannot pass.
 
@@ -14,4 +14,9 @@ The adapter recomputes the original circular-tree network with the existing pinn
 
 All examples are synthetic. `docs/evidence/hk-water-piping` retains a passing baseline, a high-flow failure and a low-pressure case where selected rules pass but hydraulics fail. Tests cover the exact diameter and numerical boundaries, both pump-control alternatives, invalid/missing data, source changes and attempts to override computed metrics.
 
-This is a standalone binding; workflow registration and automatic downstream source matching are not yet implemented. Looped hydronic circuits, operating-point/control performance, 6.8 variable-flow applicability, complete HVAC clauses and full regulatory conformity remain pending. The updated planning catalog `regulations/hk/coverage-2026.11.09.json` lists this additional HVAC module; its predecessor remains unchanged for reproducible historical evidence.
+Workflow kind `water_pipe_regulations` takes `project`, `basis`, `pack` and `sources`. A downstream `network` task can declare `requires_pass` on it; preflight requires identical network input bytes, including through intermediate prerequisites. Coverage review recognizes this scheduled adapter. Other network authoring/optimization consumers are not automatically bound to checked geometry or revised dimensions. Looped hydronic circuits, operating-point/control performance, 6.8 variable-flow applicability, complete HVAC clauses and full regulatory conformity remain pending. The updated planning catalog `regulations/hk/coverage-2026.11.09.json` lists this additional HVAC module; its predecessor remains unchanged for reproducible historical evidence.
+
+
+## Workflow evidence
+
+`docs/evidence/water-pipe-workflow` contains official-source positive and low-pressure synthetic plans and runs. The latter retains a failed rule-adapter task and skips its downstream network task. Each archive excludes the official PDF; restore the pinned source beside its plan before rerunning with `python -m bsa.workflow execute plan.json --out new-run` (see the CLI help for the execution subcommand). Input identity and native/visual acceptance remain separate: this milestone does not bind CAD/BIM authoring to water-rule results.
