@@ -1,0 +1,333 @@
+{
+  "name": "Synthetic branched HVAC water model",
+  "project_uuid": "85f0c3aa-86c2-4df9-bc01-f2f4ae8671be",
+  "geometry_scope": "axis-aligned envelopes and explicit straight circular walls",
+  "sources": {
+    "geometry": "Synthetic planar HVAC water distribution model at z=2 m: 8 m trunk, 6/9 m branches; explicit coincident junction ports in a placeholder envelope; no manufactured tee, return circuit, equipment rating or installation claim"
+  },
+  "spaces": [
+    {
+      "id": "ServiceZone",
+      "origin_m": [
+        0,
+        0,
+        0
+      ],
+      "size_m": [
+        21,
+        20,
+        4
+      ],
+      "source": "geometry"
+    }
+  ],
+  "systems": [
+    {
+      "id": "HVAC-WATER",
+      "predefined_type": "CHILLEDWATER",
+      "source": "geometry"
+    }
+  ],
+  "devices": [
+    {
+      "id": "PUMP",
+      "ifc_class": "IfcPump",
+      "origin_m": [
+        0.9,
+        9.9,
+        1.9
+      ],
+      "size_m": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "space": "ServiceZone",
+      "system": "HVAC-WATER",
+      "source": "geometry",
+      "ports": [
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "geometry"
+        }
+      ]
+    },
+    {
+      "id": "JUNCTION",
+      "ifc_class": "IfcPipeFitting",
+      "origin_m": [
+        8.9,
+        9.9,
+        1.9
+      ],
+      "size_m": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "space": "ServiceZone",
+      "system": "HVAC-WATER",
+      "source": "geometry",
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "geometry"
+        },
+        {
+          "id": "a",
+          "direction": "SOURCE",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "geometry"
+        },
+        {
+          "id": "b",
+          "direction": "SOURCE",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "geometry"
+        }
+      ]
+    },
+    {
+      "id": "TERMINAL-A",
+      "ifc_class": "IfcUnitaryEquipment",
+      "origin_m": [
+        8.9,
+        15.9,
+        1.9
+      ],
+      "size_m": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "space": "ServiceZone",
+      "system": "HVAC-WATER",
+      "source": "geometry",
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "geometry"
+        }
+      ]
+    },
+    {
+      "id": "TERMINAL-B",
+      "ifc_class": "IfcUnitaryEquipment",
+      "origin_m": [
+        17.9,
+        9.9,
+        1.9
+      ],
+      "size_m": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "space": "ServiceZone",
+      "system": "HVAC-WATER",
+      "source": "geometry",
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "geometry"
+        }
+      ]
+    },
+    {
+      "id": "TRUNK-PIPE",
+      "ifc_class": "IfcPipeSegment",
+      "origin_m": [
+        1,
+        9.984,
+        1.984
+      ],
+      "size_m": [
+        8,
+        0.032,
+        0.032
+      ],
+      "space": "ServiceZone",
+      "system": "HVAC-WATER",
+      "source": "geometry",
+      "body_shape": "straight circular wall",
+      "properties": {
+        "InternalDiameter_m": 0.025,
+        "OutsideDiameter_m": 0.032
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0,
+            0.016000000000000014,
+            0.016000000000000014
+          ],
+          "source": "geometry"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            8,
+            0.016000000000000014,
+            0.016000000000000014
+          ],
+          "source": "geometry"
+        }
+      ]
+    },
+    {
+      "id": "A-PIPE",
+      "ifc_class": "IfcPipeSegment",
+      "origin_m": [
+        8.984,
+        10,
+        1.984
+      ],
+      "size_m": [
+        0.032,
+        6,
+        0.032
+      ],
+      "space": "ServiceZone",
+      "system": "HVAC-WATER",
+      "source": "geometry",
+      "body_shape": "straight circular wall",
+      "properties": {
+        "InternalDiameter_m": 0.025,
+        "OutsideDiameter_m": 0.032
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0.016000000000000014,
+            0,
+            0.016000000000000014
+          ],
+          "source": "geometry"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            0.016000000000000014,
+            6,
+            0.016000000000000014
+          ],
+          "source": "geometry"
+        }
+      ]
+    },
+    {
+      "id": "B-PIPE",
+      "ifc_class": "IfcPipeSegment",
+      "origin_m": [
+        9,
+        9.984,
+        1.984
+      ],
+      "size_m": [
+        9,
+        0.032,
+        0.032
+      ],
+      "space": "ServiceZone",
+      "system": "HVAC-WATER",
+      "source": "geometry",
+      "body_shape": "straight circular wall",
+      "properties": {
+        "InternalDiameter_m": 0.025,
+        "OutsideDiameter_m": 0.032
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0,
+            0.016000000000000014,
+            0.016000000000000014
+          ],
+          "source": "geometry"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            9,
+            0.016000000000000014,
+            0.016000000000000014
+          ],
+          "source": "geometry"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "PUMP.out",
+      "to": "TRUNK-PIPE.in",
+      "source": "geometry"
+    },
+    {
+      "from": "TRUNK-PIPE.out",
+      "to": "JUNCTION.in",
+      "source": "geometry"
+    },
+    {
+      "from": "JUNCTION.a",
+      "to": "A-PIPE.in",
+      "source": "geometry"
+    },
+    {
+      "from": "A-PIPE.out",
+      "to": "TERMINAL-A.in",
+      "source": "geometry"
+    },
+    {
+      "from": "JUNCTION.b",
+      "to": "B-PIPE.in",
+      "source": "geometry"
+    },
+    {
+      "from": "B-PIPE.out",
+      "to": "TERMINAL-B.in",
+      "source": "geometry"
+    }
+  ]
+}

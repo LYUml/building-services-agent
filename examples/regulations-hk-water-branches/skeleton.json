@@ -1,0 +1,72 @@
+{
+  "name": "Synthetic planar branch skeleton; elevations and lengths from model",
+  "model": "steady incompressible circular tree",
+  "sources": {
+    "demo": "Synthetic planar HVAC water distribution model at z=2 m: 8 m trunk, 6/9 m branches; explicit coincident junction ports in a placeholder envelope; no manufactured tee, return circuit, equipment rating or installation claim; prescribed terminal flows 0.4/0.8 L/s, constant K=2 and fluid properties retained as synthetic assumptions"
+  },
+  "fluid": {
+    "density_kg_m3": 998,
+    "dynamic_viscosity_pa_s": 0.001,
+    "source": "demo"
+  },
+  "supply": {
+    "node": "SOURCE",
+    "total_pressure_pa": 300000,
+    "source": "demo"
+  },
+  "nodes": [
+    {
+      "id": "SOURCE",
+      "demand_m3_s": 0,
+      "required_total_pressure_pa": 0,
+      "source": "demo"
+    },
+    {
+      "id": "TEE",
+      "demand_m3_s": 0,
+      "required_total_pressure_pa": 0,
+      "source": "demo"
+    },
+    {
+      "id": "A",
+      "demand_m3_s": 0.0004,
+      "required_total_pressure_pa": 20000,
+      "source": "demo"
+    },
+    {
+      "id": "B",
+      "demand_m3_s": 0.0008,
+      "required_total_pressure_pa": 20000,
+      "source": "demo"
+    }
+  ],
+  "segments": [
+    {
+      "id": "TRUNK",
+      "from": "SOURCE",
+      "to": "TEE",
+      "roughness_m": 4.5e-05,
+      "minor_k": 2,
+      "max_velocity_m_s": 3,
+      "source": "demo"
+    },
+    {
+      "id": "BRANCH-A",
+      "from": "TEE",
+      "to": "A",
+      "roughness_m": 4.5e-05,
+      "minor_k": 2,
+      "max_velocity_m_s": 3,
+      "source": "demo"
+    },
+    {
+      "id": "BRANCH-B",
+      "from": "TEE",
+      "to": "B",
+      "roughness_m": 4.5e-05,
+      "minor_k": 2,
+      "max_velocity_m_s": 3,
+      "source": "demo"
+    }
+  ]
+}

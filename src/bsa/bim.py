@@ -52,7 +52,7 @@ def validate(p):
     spaces,systems,devices=(collection(k) for k in ('spaces','systems','devices'))
     for row in spaces.values():vector(row,'origin_m');vector(row,'size_m',True)
     for row in systems.values():
-        if row.get('predefined_type') not in ('ELECTRICAL','LIGHTING','VENTILATION','AIRCONDITIONING','HEATING','DOMESTICCOLDWATER','DOMESTICHOTWATER','DRAINAGE','FIREPROTECTION'):
+        if row.get('predefined_type') not in ('ELECTRICAL','LIGHTING','VENTILATION','AIRCONDITIONING','CHILLEDWATER','CONDENSERWATER','HEATING','DOMESTICCOLDWATER','DOMESTICHOTWATER','DRAINAGE','FIREPROTECTION'):
             raise ProjectError('unsupported distribution system type')
     ports={}
     for d in devices.values():

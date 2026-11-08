@@ -1,0 +1,20 @@
+{
+  "source": "Synthetic planar HVAC water distribution model at z=2 m: 8 m trunk, 6/9 m branches; explicit coincident junction ports in a placeholder envelope; no manufactured tee, return circuit, equipment rating or installation claim",
+  "nodes": {
+    "SOURCE": "PUMP.out",
+    "TEE": "JUNCTION.in",
+    "A": "TERMINAL-A.in",
+    "B": "TERMINAL-B.in"
+  },
+  "segments": {
+    "TRUNK": [
+      "TRUNK-PIPE"
+    ],
+    "BRANCH-A": [
+      "A-PIPE"
+    ],
+    "BRANCH-B": [
+      "B-PIPE"
+    ]
+  }
+}
