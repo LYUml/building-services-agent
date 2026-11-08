@@ -1,0 +1,18 @@
+{
+  "source": "Synthetic equipment callouts and 0.22 m model annotation height for a 1:100 demonstration sheet",
+  "annotation_height_m": 0.22,
+  "tags": [
+    {
+      "guid": "01F$V8YE5PTA2lVo2dbpHv",
+      "tag": "U01"
+    },
+    {
+      "guid": "3j0V2tXWjUoOebmL0LjvSN",
+      "tag": "U02"
+    },
+    {
+      "guid": "1afHCyfuPO9Bpp2NA3ynIU",
+      "tag": "U03"
+    }
+  ]
+}

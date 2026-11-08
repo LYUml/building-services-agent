@@ -1,4 +1,4 @@
-"""Isolated native AutoCAD delivery of saved-IFC centreline diagrams."""
+"""Isolated native AutoCAD delivery of GUID-linked IFC line/text diagrams."""
 import argparse
 import json
 import math
@@ -13,7 +13,7 @@ from .cad_intake import export_dwg
 
 def validate_settings(settings):
     fields={'source','window_drawing_units','scale_denominator','reference_ifc_guid','pdf_tolerance_mm'}
-    if not isinstance(settings,dict) or set(settings)!=fields:
+    if not isinstance(settings,dict) or not fields<=set(settings) or set(settings)-fields-{'reference_layer','drawing_name'}:
         raise ProjectError('explicit sourced sheet window, scale, IFC reference and PDF tolerance required')
     if not isinstance(settings['source'],str) or not settings['source'].strip():raise ProjectError('sheet source required')
     window=settings['window_drawing_units']
@@ -26,6 +26,7 @@ def validate_settings(settings):
         raise ProjectError('fixed-scale window exceeds A4 landscape')
     if not isinstance(settings['reference_ifc_guid'],str) or not settings['reference_ifc_guid']:
         raise ProjectError('explicit IFC reference GUID required')
+    if settings.get('reference_layer','BSA_PIPE_AXIS') not in ('BSA_PIPE_AXIS','BSA_EQUIPMENT_REFERENCE') or settings.get('drawing_name','segments') not in ('segments','equipment'):raise ProjectError('supported native reference layer/drawing name required')
     return settings
 
 
@@ -57,10 +58,11 @@ def run(source, settings_path, out, exe=DEFAULT_EXE):
     if any(e.dxftype() not in ('LINE','TEXT') for e in doc.modelspace()):raise ProjectError('native IFC diagram supports LINE/TEXT only')
     if any(not math.isfinite(v) for e in doc.modelspace().query('LINE') for pt in (e.dxf.start,e.dxf.end) for v in pt):
         raise ProjectError('finite diagram geometry required')
-    references=[e for e in doc.modelspace().query('LINE[layer=="BSA_PIPE_AXIS"]')
+    reference_layer=settings.get('reference_layer','BSA_PIPE_AXIS')
+    references=[e for e in doc.modelspace().query(f'LINE[layer=="{reference_layer}"]')
                 if e.has_xdata('BSA_IFC') and [(t.code,t.value) for t in e.get_xdata('BSA_IFC')]==[(1000,settings['reference_ifc_guid'])]]
-    if len(references)!=1:raise ProjectError('one pipe-axis LINE for supplied IFC reference GUID required')
-    sheet={key:value for key,value in settings.items() if key!='reference_ifc_guid'}
+    if len(references)!=1:raise ProjectError('one reference-layer LINE for supplied IFC GUID required')
+    sheet={key:value for key,value in settings.items() if key not in ('reference_ifc_guid','reference_layer','drawing_name')}
     sheet['reference_handle']=references[0].dxf.handle
     # Reference geometry is checked before any AutoCAD writes.
     window=settings['window_drawing_units']
@@ -69,8 +71,12 @@ def run(source, settings_path, out, exe=DEFAULT_EXE):
         raise ProjectError('nonzero reference in WCS XY required')
     if any(not window[0]<=pt.x<=window[2] or not window[1]<=pt.y<=window[3] for pt in (ref.dxf.start,ref.dxf.end)):
         raise ProjectError('reference outside sheet window')
+    if reference_layer=='BSA_EQUIPMENT_REFERENCE':
+        from ezdxf import bbox
+        bounds=bbox.extents(doc.modelspace(),fast=True)
+        if not bounds.has_data or bounds.extmin.x<window[0] or bounds.extmin.y<window[1] or bounds.extmax.x>window[2] or bounds.extmax.y>window[3]:raise ProjectError('equipment geometry/annotation extents exceed sheet window')
     out.mkdir(parents=True,exist_ok=False);copied=out/'input.dxf';shutil.copyfile(source,copied)
-    dwg=out/'segments.dwg';script=out/'save.scr'
+    dwg=out/(settings.get('drawing_name','segments')+'.dwg');script=out/'save.scr'
     condition=f'(= (strcase (vl-string-translate (chr 92) "/" (strcat (getvar "DWGPREFIX") (getvar "DWGNAME")))) (strcase {lisp_string(copied)}))'
     script.write_text(f'(if {condition} (progn (setvar "FILEDIA" 0) (setvar "CMDDIA" 0) (command "_.SAVEAS" "2018" {lisp_string(dwg)})) (princ "BSA WRONG DOCUMENT"))\n_.QUIT\n_Y\n',encoding='ascii')
     execute(exe,copied,script,out/'save.log',120)

@@ -1,0 +1,14 @@
+{
+  "source": "Explicit synthetic A4 landscape 1:100 equipment plan window; IFC reference is actual 0.9 m box edge",
+  "window_drawing_units": [
+    -1,
+    -6,
+    26,
+    10
+  ],
+  "scale_denominator": 100,
+  "reference_ifc_guid": "01F$V8YE5PTA2lVo2dbpHv",
+  "pdf_tolerance_mm": 0.1,
+  "reference_layer": "BSA_EQUIPMENT_REFERENCE",
+  "drawing_name": "equipment"
+}

@@ -1,0 +1,3978 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hvac-drawing-v2\\thermal\\bound-project.json": "40030b0fa77064c9f114c98f09d1a305862b64749ccf6b9292527d475dd72b23",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\annual-energy\\USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw.gz": "d14d55b3122fadc6607ca80e76993f555545b5c01df24a7c7912995dfcc1992c"
+  },
+  "inputs_unchanged": true,
+  "source_data": {
+    "model": "annual hourly EPW; explicit thermal spaces",
+    "source": "Independent annual engine integration example, calendar 2025 with installed official Chicago TMY3 data; weather is not Hong Kong design weather or an actual 2025 historical year.",
+    "building": {
+      "name": "Synthetic sourced opaque layers from saved IFC spaces",
+      "source": "Synthetic 40 m2 two-zone annual verification: no windows/people/equipment/ventilation/infiltration, adiabatic floors, always-on lights/constant setpoints, ideal supplied loads; uniform R=2 plus fixed 0.1 m mass layer k=0.5 W/mK, density=800 kg/m3, cp=1000 J/kgK. Not a real building or Hong Kong compliance model.",
+      "heating_setpoint_c": 20,
+      "cooling_setpoint_c": 24,
+      "baseline_lighting_w_m2": 12,
+      "variant_lighting_w_m2": 6,
+      "opaque_constructions": {
+        "exterior_wall": {
+          "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed; outside-to-inside sequence",
+          "layers": [
+            {
+              "name": "Exterior mass",
+              "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+              "type": "massive",
+              "roughness": "MediumRough",
+              "thermal_absorptance": 0.9,
+              "solar_absorptance": 0.63,
+              "visible_absorptance": 0.61,
+              "thickness_m": 0.1,
+              "conductivity_w_mk": 0.5,
+              "density_kg_m3": 800,
+              "specific_heat_j_kgk": 1000
+            },
+            {
+              "name": "Wall resistance",
+              "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+              "type": "resistance",
+              "roughness": "MediumRough",
+              "thermal_absorptance": 0.9,
+              "solar_absorptance": 0.63,
+              "visible_absorptance": 0.61,
+              "resistance_m2k_w": 2
+            },
+            {
+              "name": "Interior finish",
+              "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+              "type": "massive",
+              "roughness": "MediumRough",
+              "thermal_absorptance": 0.9,
+              "solar_absorptance": 0.63,
+              "visible_absorptance": 0.61,
+              "thickness_m": 0.02,
+              "conductivity_w_mk": 0.2,
+              "density_kg_m3": 600,
+              "specific_heat_j_kgk": 1000
+            }
+          ]
+        },
+        "roof": {
+          "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed; outside-to-inside sequence",
+          "layers": [
+            {
+              "name": "Roof deck",
+              "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+              "type": "massive",
+              "roughness": "MediumRough",
+              "thermal_absorptance": 0.9,
+              "solar_absorptance": 0.63,
+              "visible_absorptance": 0.61,
+              "thickness_m": 0.15,
+              "conductivity_w_mk": 1.5,
+              "density_kg_m3": 2200,
+              "specific_heat_j_kgk": 900
+            },
+            {
+              "name": "Roof resistance",
+              "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+              "type": "resistance",
+              "roughness": "MediumRough",
+              "thermal_absorptance": 0.9,
+              "solar_absorptance": 0.63,
+              "visible_absorptance": 0.61,
+              "resistance_m2k_w": 3
+            },
+            {
+              "name": "Roof finish",
+              "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+              "type": "massive",
+              "roughness": "MediumRough",
+              "thermal_absorptance": 0.9,
+              "solar_absorptance": 0.63,
+              "visible_absorptance": 0.61,
+              "thickness_m": 0.02,
+              "conductivity_w_mk": 0.2,
+              "density_kg_m3": 600,
+              "specific_heat_j_kgk": 1000
+            }
+          ]
+        },
+        "floor": {
+          "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed; outside-to-inside sequence",
+          "layers": [
+            {
+              "name": "Adiabatic slab",
+              "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+              "type": "massive",
+              "roughness": "MediumRough",
+              "thermal_absorptance": 0.9,
+              "solar_absorptance": 0.63,
+              "visible_absorptance": 0.61,
+              "thickness_m": 0.2,
+              "conductivity_w_mk": 1.4,
+              "density_kg_m3": 2200,
+              "specific_heat_j_kgk": 900
+            }
+          ]
+        },
+        "interzone": {
+          "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed; outside-to-inside sequence",
+          "layers": [
+            {
+              "name": "First face finish",
+              "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+              "type": "massive",
+              "roughness": "MediumRough",
+              "thermal_absorptance": 0.9,
+              "solar_absorptance": 0.63,
+              "visible_absorptance": 0.61,
+              "thickness_m": 0.02,
+              "conductivity_w_mk": 0.2,
+              "density_kg_m3": 600,
+              "specific_heat_j_kgk": 1000
+            },
+            {
+              "name": "Partition core",
+              "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+              "type": "massive",
+              "roughness": "MediumRough",
+              "thermal_absorptance": 0.9,
+              "solar_absorptance": 0.63,
+              "visible_absorptance": 0.61,
+              "thickness_m": 0.1,
+              "conductivity_w_mk": 0.5,
+              "density_kg_m3": 800,
+              "specific_heat_j_kgk": 1000
+            },
+            {
+              "name": "Second face finish",
+              "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+              "type": "massive",
+              "roughness": "MediumRough",
+              "thermal_absorptance": 0.9,
+              "solar_absorptance": 0.63,
+              "visible_absorptance": 0.61,
+              "thickness_m": 0.03,
+              "conductivity_w_mk": 0.25,
+              "density_kg_m3": 650,
+              "specific_heat_j_kgk": 1000
+            }
+          ]
+        }
+      },
+      "operation": {
+        "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+        "outdoor_air_model": "fixed scheduled design flow; no wind/stack",
+        "lighting": {
+          "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+          "weekly_fraction": {
+            "monday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "tuesday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "wednesday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "thursday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "friday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "saturday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0.5,
+              0.5,
+              0.5,
+              0.5,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sunday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "fraction_radiant": 0.4,
+          "fraction_visible": 0.2
+        },
+        "equipment": {
+          "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+          "weekly_fraction": {
+            "monday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "tuesday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "wednesday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "thursday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "friday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "saturday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0.5,
+              0.5,
+              0.5,
+              0.5,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sunday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "watts_per_m2": 8,
+          "fraction_radiant": 0.3,
+          "fraction_latent": 0.1,
+          "fraction_lost": 0.1
+        },
+        "people": {
+          "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+          "weekly_fraction": {
+            "monday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "tuesday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "wednesday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "thursday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "friday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "saturday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0.5,
+              0.5,
+              0.5,
+              0.5,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sunday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "people_per_m2": 0.08,
+          "activity_w_per_person": 120,
+          "fraction_radiant": 0.3,
+          "sensible_heat_fraction": 0.6
+        },
+        "infiltration": {
+          "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+          "weekly_fraction": {
+            "monday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "tuesday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "wednesday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "thursday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "friday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "saturday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0.5,
+              0.5,
+              0.5,
+              0.5,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sunday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "air_changes_per_hour": 0.2
+        },
+        "ventilation": {
+          "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+          "weekly_fraction": {
+            "monday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "tuesday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "wednesday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "thursday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "friday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "saturday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0.5,
+              0.5,
+              0.5,
+              0.5,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sunday": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "flow_m3_s_per_m2": 0.0005,
+          "type": "Balanced",
+          "fan_pressure_rise_pa": 150,
+          "fan_total_efficiency": 0.6
+        }
+      },
+      "hvac": {
+        "model": "single-speed DX PTAC; electric heat; cycling fixed-speed fan",
+        "source": "Explicit synthetic fixed PTAC ratings and unity modifiers for engine integration, not selected equipment or calibrated performance",
+        "curves": {
+          "capacity_temperature": {
+            "source": "Explicit synthetic fixed PTAC ratings and unity modifiers for engine integration, not selected equipment or calibrated performance",
+            "coefficients": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "x_range": [
+              0,
+              30
+            ],
+            "output_range": [
+              0.01,
+              2
+            ],
+            "y_range": [
+              -40,
+              50
+            ]
+          },
+          "capacity_flow": {
+            "source": "Explicit synthetic fixed PTAC ratings and unity modifiers for engine integration, not selected equipment or calibrated performance",
+            "coefficients": [
+              1,
+              0,
+              0
+            ],
+            "x_range": [
+              0.5,
+              1.5
+            ],
+            "output_range": [
+              0.01,
+              2
+            ]
+          },
+          "eir_temperature": {
+            "source": "Explicit synthetic fixed PTAC ratings and unity modifiers for engine integration, not selected equipment or calibrated performance",
+            "coefficients": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "x_range": [
+              0,
+              30
+            ],
+            "output_range": [
+              0.01,
+              2
+            ],
+            "y_range": [
+              -40,
+              50
+            ]
+          },
+          "eir_flow": {
+            "source": "Explicit synthetic fixed PTAC ratings and unity modifiers for engine integration, not selected equipment or calibrated performance",
+            "coefficients": [
+              1,
+              0,
+              0
+            ],
+            "x_range": [
+              0.5,
+              1.5
+            ],
+            "output_range": [
+              0.01,
+              2
+            ]
+          },
+          "part_load": {
+            "source": "Explicit synthetic fixed PTAC ratings and unity modifiers for engine integration, not selected equipment or calibrated performance",
+            "coefficients": [
+              1,
+              0,
+              0
+            ],
+            "x_range": [
+              0,
+              1
+            ],
+            "output_range": [
+              0.7,
+              1
+            ]
+          }
+        },
+        "zones": [
+          {
+            "id": "Office",
+            "source": "Explicit synthetic fixed PTAC ratings and unity modifiers for engine integration, not selected equipment or calibrated performance",
+            "cooling_capacity_w": 4000,
+            "cooling_cop": 3.2,
+            "cooling_shr": 0.75,
+            "supply_flow_m3_s": 0.2,
+            "heating_capacity_w": 5000,
+            "heating_efficiency": 0.98,
+            "fan_pressure_pa": 200,
+            "fan_efficiency": 0.6,
+            "motor_efficiency": 0.9,
+            "motor_in_air_fraction": 1,
+            "ifc_device_guid": "01F$V8YE5PTA2lVo2dbpHv",
+            "ifc_space_guid": "05Q4lNZvfMjRB3$ExNimBH"
+          },
+          {
+            "id": "East",
+            "source": "Explicit synthetic fixed PTAC ratings and unity modifiers for engine integration, not selected equipment or calibrated performance",
+            "cooling_capacity_w": 2500,
+            "cooling_cop": 3.2,
+            "cooling_shr": 0.75,
+            "supply_flow_m3_s": 0.125,
+            "heating_capacity_w": 3200,
+            "heating_efficiency": 0.98,
+            "fan_pressure_pa": 200,
+            "fan_efficiency": 0.6,
+            "motor_efficiency": 0.9,
+            "motor_in_air_fraction": 1,
+            "ifc_device_guid": "3j0V2tXWjUoOebmL0LjvSN",
+            "ifc_space_guid": "2XcneOpvjTTuGBPHTpB5KV"
+          },
+          {
+            "id": "Annex",
+            "source": "Explicit synthetic fixed PTAC ratings and unity modifiers for engine integration, not selected equipment or calibrated performance",
+            "cooling_capacity_w": 2000,
+            "cooling_cop": 3.2,
+            "cooling_shr": 0.75,
+            "supply_flow_m3_s": 0.1,
+            "heating_capacity_w": 2600,
+            "heating_efficiency": 0.98,
+            "fan_pressure_pa": 200,
+            "fan_efficiency": 0.6,
+            "motor_efficiency": 0.9,
+            "motor_in_air_fraction": 1,
+            "ifc_device_guid": "1afHCyfuPO9Bpp2NA3ynIU",
+            "ifc_space_guid": "0CWbJCzJzH9wlEfBdo1lqM"
+          }
+        ]
+      },
+      "spaces": [
+        {
+          "id": "Office",
+          "source": "Synthetic space identity mapping; saved IFC geometry is authoritative; saved IFC 05Q4lNZvfMjRB3$ExNimBH SHA256 f777ab3e974e2216d583a6f4b8b2d681313d359cf9fad5b3827c56d622155f29",
+          "origin_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_m": [
+            8.0,
+            6.0,
+            3.0
+          ]
+        },
+        {
+          "id": "East",
+          "source": "Synthetic space identity mapping; saved IFC geometry is authoritative; saved IFC 2XcneOpvjTTuGBPHTpB5KV SHA256 f777ab3e974e2216d583a6f4b8b2d681313d359cf9fad5b3827c56d622155f29",
+          "origin_m": [
+            8.0,
+            0.0,
+            0.0
+          ],
+          "size_m": [
+            5.0,
+            6.0,
+            3.0
+          ]
+        },
+        {
+          "id": "Annex",
+          "source": "Synthetic space identity mapping; saved IFC geometry is authoritative; saved IFC 0CWbJCzJzH9wlEfBdo1lqM SHA256 f777ab3e974e2216d583a6f4b8b2d681313d359cf9fad5b3827c56d622155f29",
+          "origin_m": [
+            13.0,
+            0.0,
+            0.0
+          ],
+          "size_m": [
+            4.0,
+            6.0,
+            3.0
+          ]
+        }
+      ],
+      "north_axis_deg": 30
+    },
+    "weather": {
+      "source": "Unmodified Chicago TMY3 EPW bundled with verified official EnergyPlus 25.2.0-cf7368216c Windows archive (archive SHA256 4136901f7e1708f6536d84278e26ad88b414c7efc905febf6d49c2539a36f3cd). https://github.com/NatLabRockies/EnergyPlus/releases/tag/v25.2.0 ; exact EPW bytes are retained as a deterministic gzip example asset with original header/source flags; EnergyPlus distribution notice retained at third_party/licenses/energyplus.txt.",
+      "sha256": "c7d4efcf93ba316a1d874352e743df5cf137ba5c0e3459eb2dc4b5442d5b7f5c",
+      "station_id": "725300"
+    },
+    "calendar_year": 2025,
+    "solver": {
+      "source": "Declared numerical QA and process budget for synthetic annual verification; no code or physical tolerance implied.",
+      "max_runtime_s": 600,
+      "energy_tolerance_kwh": 0.01,
+      "rate_tolerance_w": 0.01
+    },
+    "targets": {
+      "source": "Synthetic finite-capacity PTAC demonstration target, not a comfort or regulatory criterion",
+      "maximum_zone_unmet_hours": 20
+    }
+  },
+  "weather": {
+    "sha256": "c7d4efcf93ba316a1d874352e743df5cf137ba5c0e3459eb2dc4b5442d5b7f5c",
+    "asset_sha256": "d14d55b3122fadc6607ca80e76993f555545b5c01df24a7c7912995dfcc1992c",
+    "source": "Unmodified Chicago TMY3 EPW bundled with verified official EnergyPlus 25.2.0-cf7368216c Windows archive (archive SHA256 4136901f7e1708f6536d84278e26ad88b414c7efc905febf6d49c2539a36f3cd). https://github.com/NatLabRockies/EnergyPlus/releases/tag/v25.2.0 ; exact EPW bytes are retained as a deterministic gzip example asset with original header/source flags; EnergyPlus distribution notice retained at third_party/licenses/energyplus.txt.",
+    "station_id": "725300",
+    "station_name": "Chicago Ohare Intl Ap",
+    "region": "IL",
+    "country": "USA",
+    "data_source": "TMY3",
+    "site": {
+      "latitude_deg": 41.98,
+      "longitude_deg": -87.92,
+      "timezone_h": -6.0,
+      "elevation_m": 201.0
+    },
+    "calendar_year": 2025,
+    "hours": 8760,
+    "source_years": [
+      1977,
+      1978,
+      1979,
+      1980,
+      1981,
+      1985,
+      1986,
+      1987,
+      1989,
+      2002
+    ],
+    "minute_field": 0,
+    "required_field_ranges": {
+      "dry_bulb_c": [
+        -22.8,
+        35.0
+      ],
+      "dew_point_c": [
+        -28.3,
+        25.6
+      ],
+      "relative_humidity_percent": [
+        17.0,
+        100.0
+      ],
+      "station_pressure_pa": [
+        96200.0,
+        101800.0
+      ],
+      "horizontal_infrared_wh_m2": [
+        157.0,
+        476.0
+      ],
+      "global_horizontal_wh_m2": [
+        0.0,
+        969.0
+      ],
+      "direct_normal_wh_m2": [
+        0.0,
+        942.0
+      ],
+      "diffuse_horizontal_wh_m2": [
+        0.0,
+        465.0
+      ],
+      "wind_direction_deg": [
+        0.0,
+        360.0
+      ],
+      "wind_speed_m_s": [
+        0.0,
+        15.4
+      ],
+      "total_sky_cover_tenths": [
+        0.0,
+        10.0
+      ],
+      "opaque_sky_cover_tenths": [
+        0.0,
+        10.0
+      ]
+    },
+    "distinct_uncertainty_flags": 4,
+    "scope": "complete hourly calendar and required thermal/solar/wind fields; original uncertainty flags retained in source; not meteorological certification"
+  },
+  "engine": "EnergyPlus, Version 25.2.0-cf7368216c",
+  "engine_sha256": "51715987663666eaff1c8d3bd6ac2d7fe0486d8bc93673eea87c6912a79103f0",
+  "results": {
+    "baseline": {
+      "metadata": {
+        "material_audit": {
+          "validation_basis": {
+            "engine": "EnergyPlus 25.2.0-cf7368216c",
+            "file": "Energy+.idd",
+            "sha256": "5f71380fdeb7d2456dbfb71913b90c40f87e109051c62c44f08577451974f44f",
+            "objects": [
+              "Material",
+              "Material:NoMass"
+            ],
+            "scope": "input syntax/ranges only; not measured material or regulatory applicability"
+          },
+          "saved_layer_properties_match": true,
+          "assemblies": {
+            "exterior_wall": {
+              "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed; outside-to-inside sequence",
+              "layers": [
+                {
+                  "name": "Exterior mass",
+                  "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+                  "type": "massive",
+                  "roughness": "MediumRough",
+                  "thermal_absorptance": 0.9,
+                  "solar_absorptance": 0.63,
+                  "visible_absorptance": 0.61,
+                  "thickness_m": 0.1,
+                  "conductivity_w_mk": 0.5,
+                  "density_kg_m3": 800,
+                  "specific_heat_j_kgk": 1000
+                },
+                {
+                  "name": "Wall resistance",
+                  "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+                  "type": "resistance",
+                  "roughness": "MediumRough",
+                  "thermal_absorptance": 0.9,
+                  "solar_absorptance": 0.63,
+                  "visible_absorptance": 0.61,
+                  "resistance_m2k_w": 2
+                },
+                {
+                  "name": "Interior finish",
+                  "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+                  "type": "massive",
+                  "roughness": "MediumRough",
+                  "thermal_absorptance": 0.9,
+                  "solar_absorptance": 0.63,
+                  "visible_absorptance": 0.61,
+                  "thickness_m": 0.02,
+                  "conductivity_w_mk": 0.2,
+                  "density_kg_m3": 600,
+                  "specific_heat_j_kgk": 1000
+                }
+              ],
+              "layer_resistance_m2k_w": 2.3,
+              "layer_conductance_w_m2k": 0.4347826086956522,
+              "areal_heat_capacity_j_m2k": 92000.0,
+              "scope": "layers only; excludes surface films, thermal bridges and moisture"
+            },
+            "roof": {
+              "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed; outside-to-inside sequence",
+              "layers": [
+                {
+                  "name": "Roof deck",
+                  "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+                  "type": "massive",
+                  "roughness": "MediumRough",
+                  "thermal_absorptance": 0.9,
+                  "solar_absorptance": 0.63,
+                  "visible_absorptance": 0.61,
+                  "thickness_m": 0.15,
+                  "conductivity_w_mk": 1.5,
+                  "density_kg_m3": 2200,
+                  "specific_heat_j_kgk": 900
+                },
+                {
+                  "name": "Roof resistance",
+                  "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+                  "type": "resistance",
+                  "roughness": "MediumRough",
+                  "thermal_absorptance": 0.9,
+                  "solar_absorptance": 0.63,
+                  "visible_absorptance": 0.61,
+                  "resistance_m2k_w": 3
+                },
+                {
+                  "name": "Roof finish",
+                  "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+                  "type": "massive",
+                  "roughness": "MediumRough",
+                  "thermal_absorptance": 0.9,
+                  "solar_absorptance": 0.63,
+                  "visible_absorptance": 0.61,
+                  "thickness_m": 0.02,
+                  "conductivity_w_mk": 0.2,
+                  "density_kg_m3": 600,
+                  "specific_heat_j_kgk": 1000
+                }
+              ],
+              "layer_resistance_m2k_w": 3.2,
+              "layer_conductance_w_m2k": 0.3125,
+              "areal_heat_capacity_j_m2k": 309000.0,
+              "scope": "layers only; excludes surface films, thermal bridges and moisture"
+            },
+            "floor": {
+              "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed; outside-to-inside sequence",
+              "layers": [
+                {
+                  "name": "Adiabatic slab",
+                  "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+                  "type": "massive",
+                  "roughness": "MediumRough",
+                  "thermal_absorptance": 0.9,
+                  "solar_absorptance": 0.63,
+                  "visible_absorptance": 0.61,
+                  "thickness_m": 0.2,
+                  "conductivity_w_mk": 1.4,
+                  "density_kg_m3": 2200,
+                  "specific_heat_j_kgk": 900
+                }
+              ],
+              "layer_resistance_m2k_w": 0.14285714285714288,
+              "layer_conductance_w_m2k": 6.999999999999999,
+              "areal_heat_capacity_j_m2k": 396000.0,
+              "scope": "layers only; excludes surface films, thermal bridges and moisture"
+            },
+            "interzone": {
+              "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed; outside-to-inside sequence",
+              "layers": [
+                {
+                  "name": "First face finish",
+                  "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+                  "type": "massive",
+                  "roughness": "MediumRough",
+                  "thermal_absorptance": 0.9,
+                  "solar_absorptance": 0.63,
+                  "visible_absorptance": 0.61,
+                  "thickness_m": 0.02,
+                  "conductivity_w_mk": 0.2,
+                  "density_kg_m3": 600,
+                  "specific_heat_j_kgk": 1000
+                },
+                {
+                  "name": "Partition core",
+                  "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+                  "type": "massive",
+                  "roughness": "MediumRough",
+                  "thermal_absorptance": 0.9,
+                  "solar_absorptance": 0.63,
+                  "visible_absorptance": 0.61,
+                  "thickness_m": 0.1,
+                  "conductivity_w_mk": 0.5,
+                  "density_kg_m3": 800,
+                  "specific_heat_j_kgk": 1000
+                },
+                {
+                  "name": "Second face finish",
+                  "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+                  "type": "massive",
+                  "roughness": "MediumRough",
+                  "thermal_absorptance": 0.9,
+                  "solar_absorptance": 0.63,
+                  "visible_absorptance": 0.61,
+                  "thickness_m": 0.03,
+                  "conductivity_w_mk": 0.25,
+                  "density_kg_m3": 650,
+                  "specific_heat_j_kgk": 1000
+                }
+              ],
+              "layer_resistance_m2k_w": 0.42,
+              "layer_conductance_w_m2k": 2.380952380952381,
+              "areal_heat_capacity_j_m2k": 111500.0,
+              "scope": "layers only; excludes surface films, thermal bridges and moisture"
+            }
+          },
+          "surfaces": [
+            {
+              "surface": "Surface 15",
+              "zone": "Annex",
+              "surface_type": "Wall",
+              "boundary": "Outdoors",
+              "area_m2": 12.0,
+              "role": "exterior_wall",
+              "reversed_layers": false,
+              "construction": "BSA exterior_wall"
+            },
+            {
+              "surface": "Surface 6",
+              "zone": "Office",
+              "surface_type": "RoofCeiling",
+              "boundary": "Outdoors",
+              "area_m2": 48.0,
+              "role": "roof",
+              "reversed_layers": false,
+              "construction": "BSA roof"
+            },
+            {
+              "surface": "Surface 14",
+              "zone": "Annex",
+              "surface_type": "Wall",
+              "boundary": "Surface",
+              "area_m2": 18.0,
+              "role": "interzone",
+              "reversed_layers": false,
+              "construction": "BSA interzone"
+            },
+            {
+              "surface": "Surface 11",
+              "zone": "East",
+              "surface_type": "Wall",
+              "boundary": "Outdoors",
+              "area_m2": 15.0,
+              "role": "exterior_wall",
+              "reversed_layers": false,
+              "construction": "BSA exterior_wall"
+            },
+            {
+              "surface": "Surface 1",
+              "zone": "Office",
+              "surface_type": "Floor",
+              "boundary": "Adiabatic",
+              "area_m2": 48.0,
+              "role": "floor",
+              "reversed_layers": false,
+              "construction": "BSA floor"
+            },
+            {
+              "surface": "Surface 9",
+              "zone": "East",
+              "surface_type": "Wall",
+              "boundary": "Outdoors",
+              "area_m2": 15.0,
+              "role": "exterior_wall",
+              "reversed_layers": false,
+              "construction": "BSA exterior_wall"
+            },
+            {
+              "surface": "Surface 2",
+              "zone": "Office",
+              "surface_type": "Wall",
+              "boundary": "Outdoors",
+              "area_m2": 18.0,
+              "role": "exterior_wall",
+              "reversed_layers": false,
+              "construction": "BSA exterior_wall"
+            },
+            {
+              "surface": "Surface 4",
+              "zone": "Office",
+              "surface_type": "Wall",
+              "boundary": "Surface",
+              "area_m2": 18.0,
+              "role": "interzone",
+              "reversed_layers": true,
+              "construction": "BSA interzone reverse"
+            },
+            {
+              "surface": "Surface 12",
+              "zone": "East",
+              "surface_type": "RoofCeiling",
+              "boundary": "Outdoors",
+              "area_m2": 30.0,
+              "role": "roof",
+              "reversed_layers": false,
+              "construction": "BSA roof"
+            },
+            {
+              "surface": "Surface 3",
+              "zone": "Office",
+              "surface_type": "Wall",
+              "boundary": "Outdoors",
+              "area_m2": 24.0,
+              "role": "exterior_wall",
+              "reversed_layers": false,
+              "construction": "BSA exterior_wall"
+            },
+            {
+              "surface": "Surface 5",
+              "zone": "Office",
+              "surface_type": "Wall",
+              "boundary": "Outdoors",
+              "area_m2": 24.0,
+              "role": "exterior_wall",
+              "reversed_layers": false,
+              "construction": "BSA exterior_wall"
+            },
+            {
+              "surface": "Surface 8",
+              "zone": "East",
+              "surface_type": "Wall",
+              "boundary": "Surface",
+              "area_m2": 18.0,
+              "role": "interzone",
+              "reversed_layers": false,
+              "construction": "BSA interzone"
+            },
+            {
+              "surface": "Surface 7",
+              "zone": "East",
+              "surface_type": "Floor",
+              "boundary": "Adiabatic",
+              "area_m2": 30.0,
+              "role": "floor",
+              "reversed_layers": false,
+              "construction": "BSA floor"
+            },
+            {
+              "surface": "Surface 10",
+              "zone": "East",
+              "surface_type": "Wall",
+              "boundary": "Surface",
+              "area_m2": 18.0,
+              "role": "interzone",
+              "reversed_layers": true,
+              "construction": "BSA interzone reverse"
+            },
+            {
+              "surface": "Surface 13",
+              "zone": "Annex",
+              "surface_type": "Floor",
+              "boundary": "Adiabatic",
+              "area_m2": 24.0,
+              "role": "floor",
+              "reversed_layers": false,
+              "construction": "BSA floor"
+            },
+            {
+              "surface": "Surface 16",
+              "zone": "Annex",
+              "surface_type": "Wall",
+              "boundary": "Outdoors",
+              "area_m2": 18.0,
+              "role": "exterior_wall",
+              "reversed_layers": false,
+              "construction": "BSA exterior_wall"
+            },
+            {
+              "surface": "Surface 17",
+              "zone": "Annex",
+              "surface_type": "Wall",
+              "boundary": "Outdoors",
+              "area_m2": 12.0,
+              "role": "exterior_wall",
+              "reversed_layers": false,
+              "construction": "BSA exterior_wall"
+            },
+            {
+              "surface": "Surface 18",
+              "zone": "Annex",
+              "surface_type": "RoofCeiling",
+              "boundary": "Outdoors",
+              "area_m2": 24.0,
+              "role": "roof",
+              "reversed_layers": false,
+              "construction": "BSA roof"
+            }
+          ],
+          "role_area_m2": {
+            "exterior_wall": 138.0,
+            "roof": 102.0,
+            "floor": 102.0,
+            "interzone": 72.0
+          },
+          "interzone_scope": "original layer order assigned to lexically first zone; reversed on peer; pair areas counted twice"
+        },
+        "openstudio_version": "3.11.0",
+        "energyplus_version": "25.2.0",
+        "north_axis_deg": 30.0,
+        "floor_area_m2": 102.0,
+        "thermal_zones": 3,
+        "matched_surface_count": 4,
+        "spaces": [
+          {
+            "id": "Office",
+            "source": "Synthetic space identity mapping; saved IFC geometry is authoritative; saved IFC 05Q4lNZvfMjRB3$ExNimBH SHA256 f777ab3e974e2216d583a6f4b8b2d681313d359cf9fad5b3827c56d622155f29",
+            "origin_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              8.0,
+              6.0,
+              3.0
+            ]
+          },
+          {
+            "id": "East",
+            "source": "Synthetic space identity mapping; saved IFC geometry is authoritative; saved IFC 2XcneOpvjTTuGBPHTpB5KV SHA256 f777ab3e974e2216d583a6f4b8b2d681313d359cf9fad5b3827c56d622155f29",
+            "origin_m": [
+              8.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              5.0,
+              6.0,
+              3.0
+            ]
+          },
+          {
+            "id": "Annex",
+            "source": "Synthetic space identity mapping; saved IFC geometry is authoritative; saved IFC 0CWbJCzJzH9wlEfBdo1lqM SHA256 f777ab3e974e2216d583a6f4b8b2d681313d359cf9fad5b3827c56d622155f29",
+            "origin_m": [
+              13.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              4.0,
+              6.0,
+              3.0
+            ]
+          }
+        ],
+        "adjacency": [
+          {
+            "spaces": [
+              "Office",
+              "East"
+            ],
+            "axis": 0,
+            "area_m2": 18.0
+          },
+          {
+            "spaces": [
+              "East",
+              "Annex"
+            ],
+            "axis": 0,
+            "area_m2": 18.0
+          }
+        ],
+        "zone_keys": [
+          "OFFICE",
+          "EAST",
+          "ANNEX"
+        ],
+        "lighting_keys": [
+          "OFFICE LIGHTS",
+          "EAST LIGHTS",
+          "ANNEX LIGHTS"
+        ],
+        "lighting_w_m2": 12,
+        "translation_warnings": [],
+        "operation_audit": {
+          "saved_operation_matches": true,
+          "records": [
+            {
+              "zone": "Annex",
+              "category": "lighting",
+              "object": "Annex lights",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "Annex",
+              "category": "equipment",
+              "object": "Annex equipment",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "Annex",
+              "category": "people",
+              "object": "Annex people",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "Annex",
+              "category": "infiltration",
+              "object": "Annex infiltration",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "East",
+              "category": "lighting",
+              "object": "East lights",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "East",
+              "category": "equipment",
+              "object": "East equipment",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "East",
+              "category": "people",
+              "object": "East people",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "East",
+              "category": "infiltration",
+              "object": "East infiltration",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "Office",
+              "category": "lighting",
+              "object": "Office lights",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "Office",
+              "category": "equipment",
+              "object": "Office equipment",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "Office",
+              "category": "people",
+              "object": "Office people",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "Office",
+              "category": "infiltration",
+              "object": "Office infiltration",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "Office",
+              "category": "ventilation",
+              "object": "Office ventilation",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "Annex",
+              "category": "ventilation",
+              "object": "Annex ventilation",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "East",
+              "category": "ventilation",
+              "object": "East ventilation",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            }
+          ],
+          "scope": "all seven weekdays and saved physical settings; fixed simple airflow, no duct network/heat recovery/plant"
+        },
+        "hvac_audit": {
+          "saved_hvac_matches": true,
+          "records": [
+            {
+              "zone": "Office",
+              "ifc_device_guid": "01F$V8YE5PTA2lVo2dbpHv",
+              "ifc_space_guid": "05Q4lNZvfMjRB3$ExNimBH",
+              "ptac": "Office PTAC",
+              "source": "Explicit synthetic fixed PTAC ratings and unity modifiers for engine integration, not selected equipment or calibrated performance",
+              "cooling_capacity_w": 4000,
+              "heating_capacity_w": 5000,
+              "supply_flow_m3_s": 0.2
+            },
+            {
+              "zone": "Annex",
+              "ifc_device_guid": "1afHCyfuPO9Bpp2NA3ynIU",
+              "ifc_space_guid": "0CWbJCzJzH9wlEfBdo1lqM",
+              "ptac": "Annex PTAC",
+              "source": "Explicit synthetic fixed PTAC ratings and unity modifiers for engine integration, not selected equipment or calibrated performance",
+              "cooling_capacity_w": 2000,
+              "heating_capacity_w": 2600,
+              "supply_flow_m3_s": 0.1
+            },
+            {
+              "zone": "East",
+              "ifc_device_guid": "3j0V2tXWjUoOebmL0LjvSN",
+              "ifc_space_guid": "2XcneOpvjTTuGBPHTpB5KV",
+              "ptac": "East PTAC",
+              "source": "Explicit synthetic fixed PTAC ratings and unity modifiers for engine integration, not selected equipment or calibrated performance",
+              "cooling_capacity_w": 2500,
+              "heating_capacity_w": 3200,
+              "supply_flow_m3_s": 0.125
+            }
+          ],
+          "curve_extrema": {
+            "capacity_temperature": [
+              1,
+              1
+            ],
+            "capacity_flow": [
+              1.0,
+              1.0
+            ],
+            "eir_temperature": [
+              1,
+              1
+            ],
+            "eir_flow": [
+              1.0,
+              1.0
+            ],
+            "part_load": [
+              1,
+              1
+            ]
+          },
+          "pending": [
+            "real product, rated normalization and operating-domain applicability",
+            "native ancillary/rating defaults; no SEER/EER acceptance",
+            "detailed routed HVAC/controls/plant and engineering acceptance"
+          ]
+        },
+        "calendar_year": 2025,
+        "design_day_count": 0,
+        "weather_sha256": "c7d4efcf93ba316a1d874352e743df5cf137ba5c0e3459eb2dc4b5442d5b7f5c"
+      },
+      "summary": {
+        "checks": {
+          "full_weather_calendar": true,
+          "complete_hourly_variable_coverage": true,
+          "lighting_analytic_energy": true,
+          "lighting_hourly_profile": true,
+          "monthly_annual_reconciliation": true,
+          "zone_unmet_time_target": true,
+          "lighting_per_zone_hourly_profile": true,
+          "equipment_hourly_balance": true,
+          "equipment_per_zone_hourly_balance": true,
+          "equipment_annual_integral": true,
+          "people_hourly_balance": true,
+          "people_per_zone_hourly_balance": true,
+          "people_annual_integral": true,
+          "ventilation_hourly_balance": true,
+          "ventilation_per_zone_hourly_balance": true,
+          "ventilation_annual_integral": true,
+          "infiltration_scheduled_mass_flow": true,
+          "ventilation_scheduled_mass_flow": true,
+          "component_coverage": true,
+          "hourly_electricity_sum": true,
+          "annual_electricity_sum": true,
+          "electric_heater_efficiency": true,
+          "cycling_fan_power": true
+        },
+        "calculated_checks_pass": true,
+        "environments": [
+          [
+            1,
+            "ANNUAL EPW",
+            3
+          ]
+        ],
+        "annual": [
+          {
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "quantity": "PTAC supplied cooling thermal",
+            "annual_kwh": 3885.6640820154607,
+            "coincident_peak_kw": 5.685394998351712,
+            "hours": 8760
+          },
+          {
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "quantity": "PTAC supplied heating thermal",
+            "annual_kwh": 4989.067324883373,
+            "coincident_peak_kw": 5.228899760297737,
+            "hours": 8760
+          },
+          {
+            "variable": "Lights Electricity Rate",
+            "quantity": "lighting electricity",
+            "annual_kwh": 3321.936,
+            "coincident_peak_kw": 1.224,
+            "hours": 8760
+          },
+          {
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "quantity": "PTAC electricity",
+            "annual_kwh": 6390.276624136554,
+            "coincident_peak_kw": 5.334230492822038,
+            "hours": 8760
+          }
+        ],
+        "monthly": [
+          {
+            "month": 1,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 744
+          },
+          {
+            "month": 2,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 672
+          },
+          {
+            "month": 3,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 1.3034536404140094,
+            "coincident_peak_kw": 0.4435103539669068,
+            "hours": 744
+          },
+          {
+            "month": 4,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 178.48533606588512,
+            "coincident_peak_kw": 4.026475372523087,
+            "hours": 720
+          },
+          {
+            "month": 5,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 334.8367293075312,
+            "coincident_peak_kw": 3.8946504062632243,
+            "hours": 744
+          },
+          {
+            "month": 6,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 748.9713444833832,
+            "coincident_peak_kw": 4.830011514195353,
+            "hours": 720
+          },
+          {
+            "month": 7,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 1173.9190527794956,
+            "coincident_peak_kw": 5.685394998351712,
+            "hours": 744
+          },
+          {
+            "month": 8,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 878.0282660210679,
+            "coincident_peak_kw": 5.562711556509856,
+            "hours": 744
+          },
+          {
+            "month": 9,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 510.3917559973973,
+            "coincident_peak_kw": 3.759462687556837,
+            "hours": 720
+          },
+          {
+            "month": 10,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 56.323602336382216,
+            "coincident_peak_kw": 1.6701231711507714,
+            "hours": 744
+          },
+          {
+            "month": 11,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 3.404541383904583,
+            "coincident_peak_kw": 0.7828773049607397,
+            "hours": 720
+          },
+          {
+            "month": 12,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 744
+          },
+          {
+            "month": 1,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 1301.875538939402,
+            "coincident_peak_kw": 5.228899760297737,
+            "hours": 744
+          },
+          {
+            "month": 2,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 978.7851366282641,
+            "coincident_peak_kw": 4.995593707320291,
+            "hours": 672
+          },
+          {
+            "month": 3,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 550.5388388342009,
+            "coincident_peak_kw": 2.178834633563933,
+            "hours": 744
+          },
+          {
+            "month": 4,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 234.3648591054148,
+            "coincident_peak_kw": 1.5275285233083629,
+            "hours": 720
+          },
+          {
+            "month": 5,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 0.39758096425033546,
+            "coincident_peak_kw": 0.1156975199642395,
+            "hours": 744
+          },
+          {
+            "month": 6,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 720
+          },
+          {
+            "month": 7,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 744
+          },
+          {
+            "month": 8,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 744
+          },
+          {
+            "month": 9,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 0.2990998552755318,
+            "coincident_peak_kw": 0.09680403783212957,
+            "hours": 720
+          },
+          {
+            "month": 10,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 95.87678402030315,
+            "coincident_peak_kw": 0.974922608502494,
+            "hours": 744
+          },
+          {
+            "month": 11,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 591.567276615764,
+            "coincident_peak_kw": 4.049302714185135,
+            "hours": 720
+          },
+          {
+            "month": 12,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 1235.3622099204977,
+            "coincident_peak_kw": 4.233052693969064,
+            "hours": 744
+          },
+          {
+            "month": 1,
+            "variable": "Lights Electricity Rate",
+            "kwh": 291.312,
+            "coincident_peak_kw": 1.224,
+            "hours": 744
+          },
+          {
+            "month": 2,
+            "variable": "Lights Electricity Rate",
+            "kwh": 254.592,
+            "coincident_peak_kw": 1.224,
+            "hours": 672
+          },
+          {
+            "month": 3,
+            "variable": "Lights Electricity Rate",
+            "kwh": 269.28,
+            "coincident_peak_kw": 1.224,
+            "hours": 744
+          },
+          {
+            "month": 4,
+            "variable": "Lights Electricity Rate",
+            "kwh": 279.072,
+            "coincident_peak_kw": 1.224,
+            "hours": 720
+          },
+          {
+            "month": 5,
+            "variable": "Lights Electricity Rate",
+            "kwh": 281.52,
+            "coincident_peak_kw": 1.224,
+            "hours": 744
+          },
+          {
+            "month": 6,
+            "variable": "Lights Electricity Rate",
+            "kwh": 266.832,
+            "coincident_peak_kw": 1.224,
+            "hours": 720
+          },
+          {
+            "month": 7,
+            "variable": "Lights Electricity Rate",
+            "kwh": 291.312,
+            "coincident_peak_kw": 1.224,
+            "hours": 744
+          },
+          {
+            "month": 8,
+            "variable": "Lights Electricity Rate",
+            "kwh": 269.28,
+            "coincident_peak_kw": 1.224,
+            "hours": 744
+          },
+          {
+            "month": 9,
+            "variable": "Lights Electricity Rate",
+            "kwh": 279.072,
+            "coincident_peak_kw": 1.224,
+            "hours": 720
+          },
+          {
+            "month": 10,
+            "variable": "Lights Electricity Rate",
+            "kwh": 291.312,
+            "coincident_peak_kw": 1.224,
+            "hours": 744
+          },
+          {
+            "month": 11,
+            "variable": "Lights Electricity Rate",
+            "kwh": 257.04,
+            "coincident_peak_kw": 1.224,
+            "hours": 720
+          },
+          {
+            "month": 12,
+            "variable": "Lights Electricity Rate",
+            "kwh": 291.312,
+            "coincident_peak_kw": 1.224,
+            "hours": 744
+          },
+          {
+            "month": 1,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 1328.1005036655577,
+            "coincident_peak_kw": 5.334230492822038,
+            "hours": 744
+          },
+          {
+            "month": 2,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 998.5017702525504,
+            "coincident_peak_kw": 5.096224715738804,
+            "hours": 672
+          },
+          {
+            "month": 3,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 562.0652142789132,
+            "coincident_peak_kw": 2.2227250439155855,
+            "hours": 744
+          },
+          {
+            "month": 4,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 298.83312336995516,
+            "coincident_peak_kw": 1.5582991000662816,
+            "hours": 720
+          },
+          {
+            "month": 5,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 112.49076693094966,
+            "coincident_peak_kw": 1.3037177207406554,
+            "hours": 744
+          },
+          {
+            "month": 6,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 250.71498395842067,
+            "coincident_peak_kw": 1.61682588822641,
+            "hours": 720
+          },
+          {
+            "month": 7,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 392.9644286846616,
+            "coincident_peak_kw": 1.9031618850414624,
+            "hours": 744
+          },
+          {
+            "month": 8,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 293.91624159179815,
+            "coincident_peak_kw": 1.862094122729994,
+            "hours": 744
+          },
+          {
+            "month": 9,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 171.15660256819768,
+            "coincident_peak_kw": 1.258464204733009,
+            "hours": 720
+          },
+          {
+            "month": 10,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 116.66220589379573,
+            "coincident_peak_kw": 0.9945614373776223,
+            "hours": 744
+          },
+          {
+            "month": 11,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 604.6234568804994,
+            "coincident_peak_kw": 4.1308716971239114,
+            "hours": 720
+          },
+          {
+            "month": 12,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 1260.2473260612553,
+            "coincident_peak_kw": 4.31832313778053,
+            "hours": 744
+          }
+        ],
+        "zone_unmet": [
+          {
+            "variable": "Zone Cooling Setpoint Not Met Time",
+            "zone": "ANNEX",
+            "zone_hours": 0.0
+          },
+          {
+            "variable": "Zone Cooling Setpoint Not Met Time",
+            "zone": "EAST",
+            "zone_hours": 0.0
+          },
+          {
+            "variable": "Zone Cooling Setpoint Not Met Time",
+            "zone": "OFFICE",
+            "zone_hours": 0.0
+          },
+          {
+            "variable": "Zone Heating Setpoint Not Met Time",
+            "zone": "ANNEX",
+            "zone_hours": 0.0
+          },
+          {
+            "variable": "Zone Heating Setpoint Not Met Time",
+            "zone": "EAST",
+            "zone_hours": 0.0
+          },
+          {
+            "variable": "Zone Heating Setpoint Not Met Time",
+            "zone": "OFFICE",
+            "zone_hours": 0.0
+          }
+        ],
+        "analytic_lighting_kwh": 3321.936,
+        "sql_completion_flags": [
+          [
+            "FALSE",
+            "FALSE"
+          ]
+        ],
+        "sql_completion_flags_true": false,
+        "operation": {
+          "checks": {
+            "equipment_hourly_balance": true,
+            "equipment_per_zone_hourly_balance": true,
+            "equipment_annual_integral": true,
+            "people_hourly_balance": true,
+            "people_per_zone_hourly_balance": true,
+            "people_annual_integral": true,
+            "ventilation_hourly_balance": true,
+            "ventilation_per_zone_hourly_balance": true,
+            "ventilation_annual_integral": true,
+            "infiltration_scheduled_mass_flow": true,
+            "ventilation_scheduled_mass_flow": true
+          },
+          "calculated_checks_pass": true,
+          "annual": [
+            {
+              "variable": "Electric Equipment Electricity Rate",
+              "units": "W",
+              "quantity": "equipment electricity kWh",
+              "annual_integral": 2214.6240000000003,
+              "analytic_integral": 2214.6240000000003,
+              "hours": 8760
+            },
+            {
+              "variable": "Zone People Occupant Count",
+              "units": "",
+              "quantity": "person-hours",
+              "annual_integral": 22146.24,
+              "analytic_integral": 22146.24,
+              "hours": 8760
+            },
+            {
+              "variable": "Zone Ventilation Fan Electricity Energy",
+              "units": "J",
+              "quantity": "simple ventilation fan electricity kWh",
+              "annual_integral": 69.207,
+              "analytic_integral": 69.20700000000001,
+              "hours": 8760
+            },
+            {
+              "variable": "Zone Infiltration Mass Flow Rate",
+              "units": "kg/s",
+              "quantity": "infiltration outdoor-air mass kg",
+              "annual_integral": 199495.0111943959,
+              "analytic_integral": null,
+              "hours": 8760,
+              "scope": "scheduled on/off checked; mass depends on engine air density, no fixed-density equality asserted"
+            },
+            {
+              "variable": "Zone Ventilation Mass Flow Rate",
+              "units": "kg/s",
+              "quantity": "ventilation outdoor-air mass kg",
+              "annual_integral": 598485.0335831877,
+              "analytic_integral": null,
+              "hours": 8760,
+              "scope": "scheduled on/off checked; mass depends on engine air density, no fixed-density equality asserted"
+            }
+          ]
+        },
+        "hvac": {
+          "checks": {
+            "component_coverage": true,
+            "hourly_electricity_sum": true,
+            "annual_electricity_sum": true,
+            "electric_heater_efficiency": true,
+            "cycling_fan_power": true
+          },
+          "calculated_checks_pass": true,
+          "zones": [
+            {
+              "zone": "Office",
+              "cooling_electricity_kwh": 574.458878472053,
+              "heating_electricity_kwh": 2390.1954151189157,
+              "fan_electricity_kwh": 61.869693609396656,
+              "ptac_electricity_kwh": 3026.5239872003654,
+              "ptac_peak_electricity_kw": 2.508920934279312
+            },
+            {
+              "zone": "East",
+              "cooling_electricity_kwh": 356.71753976937754,
+              "heating_electricity_kwh": 1251.8323502244875,
+              "fan_electricity_kwh": 34.99883784004386,
+              "ptac_electricity_kwh": 1643.548727833909,
+              "ptac_peak_electricity_kw": 1.4441238233843452
+            },
+            {
+              "zone": "Annex",
+              "cooling_electricity_kwh": 303.67445528043186,
+              "heating_electricity_kwh": 1382.9578584975636,
+              "fan_electricity_kwh": 33.57159532428472,
+              "ptac_electricity_kwh": 1720.20390910228,
+              "ptac_peak_electricity_kw": 1.3811857351583807
+            }
+          ],
+          "scope": "component accounting; PTAC total already includes these coils/fan; simple ventilation fan is separate; gross coil cooling and net zone delivery differ"
+        }
+      },
+      "diagnostics": "Program Version,EnergyPlus, Version 25.2.0-cf7368216c, YMD=2026.11.08 11:44,\n   ************* Testing Individual Branch Integrity\n   ************* All Branches passed integrity testing\n   ************* Testing Individual Supply Air Path Integrity\n   ************* All Supply Air Paths passed integrity testing\n   ************* Testing Individual Return Air Path Integrity\n   ************* All Return Air Paths passed integrity testing\n   ************* No node connection errors were found.\n   ************* Beginning Simulation\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-ELECTRICITY\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-DISTILLATE OIL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-RESIDUAL OIL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-NATURAL GAS\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-COAL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ************* Simulation Error Summary *************\n   ************* There are 3 unused schedules in input.\n   ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.\n   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.\n   ************* EnergyPlus Sizing Error Summary. During Sizing: 0 Warning; 0 Severe Errors.\n   ************* EnergyPlus Completed Successfully-- 5 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  1.30sec\n",
+      "completion": {
+        "status": "verified_with_known_unwritten_sql_flags",
+        "completion_verified": true,
+        "checks": {
+          "process_exit_zero": true,
+          "stdout_success": true,
+          "end_report_success": true,
+          "no_severe_fatal": true,
+          "sql_engine_version_match": true,
+          "sql_flags_compatible": true,
+          "native_files_complete": true,
+          "one_readable_sql_record": true
+        },
+        "process_returncode": 0,
+        "sql_flags_raw": [
+          "FALSE",
+          "FALSE"
+        ],
+        "sql_flags_decoded": [
+          false,
+          false
+        ],
+        "native_sql_success_flags_true": false,
+        "known_unwritten_initial_flags": true,
+        "engine_version": "EnergyPlus, Version 25.2.0-cf7368216c",
+        "engine_sha256": "51715987663666eaff1c8d3bd6ac2d7fe0486d8bc93673eea87c6912a79103f0",
+        "source_inference": {
+          "commit": "cf7368216c73c43181e057fa33b479c4e0c86df0",
+          "facts": {
+            "api/EnergyPlusPgm.cc": {
+              "sha256": "d230aa32b5acc6bdcb8c55d95022f1ecca351719b9b2d43f53a8270e7b1214d2",
+              "fact": "normal wrapUpEnergyPlus releases the SQLite object before calling EndEnergyPlus",
+              "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/api/EnergyPlusPgm.cc"
+            },
+            "UtilityRoutines.cc": {
+              "sha256": "bf0c2e9175b374ce100b0b262523d8d6c507baaf3922f5cc84fb6a3651152a3d",
+              "fact": "EndEnergyPlus updates success flags only when the SQLite object still exists",
+              "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/UtilityRoutines.cc"
+            },
+            "SQLiteProcedures.cc": {
+              "sha256": "b324324996a62c6fc5cf93a3039a2ea2d5788292faf77b07030b55debfa9c1a1",
+              "fact": "Simulations completion columns initially contain text FALSE/FALSE",
+              "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/SQLiteProcedures.cc"
+            }
+          },
+          "scope": "pinned source ordering plus observed official executable reproduction; not instruction tracing"
+        },
+        "scope": "Native process/log/end/error/SQL-version completion evidence only; period coverage, numerical/model validity and engineering acceptance remain separate",
+        "design_accepted": false,
+        "artifacts": {
+          "engine.log": "e6d10d9a2ad07f885c4adf3d3fa5ab6426cb1cb99dd8deff03fb6736687a753f",
+          "eplusout.end": "ea624a82af493cc509046ff8cf39861541286fe616bc52dba4dc2387c5273e83",
+          "eplusout.err": "1091437bcffdfb126554c7e851a5ddce8f2069850b71d3eed76e7d9dec287c96",
+          "eplusout.sql": "bc8f51510c91c47aabd6dd83fd54208ac99adcac571b9ed54e0cbb472b162c6c"
+        },
+        "missing_artifacts": [],
+        "sql_parse_error": null,
+        "source_files_unchanged": true
+      },
+      "sql_sha256": "bc8f51510c91c47aabd6dd83fd54208ac99adcac571b9ed54e0cbb472b162c6c",
+      "engine_success_evidence": {
+        "returncode": 0,
+        "end_report": "EnergyPlus Completed Successfully-- 5 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  1.30sec\n",
+        "end_report_sha256": "ea624a82af493cc509046ff8cf39861541286fe616bc52dba4dc2387c5273e83",
+        "stdout_success_marker": true
+      }
+    },
+    "variant": {
+      "metadata": {
+        "material_audit": {
+          "validation_basis": {
+            "engine": "EnergyPlus 25.2.0-cf7368216c",
+            "file": "Energy+.idd",
+            "sha256": "5f71380fdeb7d2456dbfb71913b90c40f87e109051c62c44f08577451974f44f",
+            "objects": [
+              "Material",
+              "Material:NoMass"
+            ],
+            "scope": "input syntax/ranges only; not measured material or regulatory applicability"
+          },
+          "saved_layer_properties_match": true,
+          "assemblies": {
+            "exterior_wall": {
+              "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed; outside-to-inside sequence",
+              "layers": [
+                {
+                  "name": "Exterior mass",
+                  "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+                  "type": "massive",
+                  "roughness": "MediumRough",
+                  "thermal_absorptance": 0.9,
+                  "solar_absorptance": 0.63,
+                  "visible_absorptance": 0.61,
+                  "thickness_m": 0.1,
+                  "conductivity_w_mk": 0.5,
+                  "density_kg_m3": 800,
+                  "specific_heat_j_kgk": 1000
+                },
+                {
+                  "name": "Wall resistance",
+                  "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+                  "type": "resistance",
+                  "roughness": "MediumRough",
+                  "thermal_absorptance": 0.9,
+                  "solar_absorptance": 0.63,
+                  "visible_absorptance": 0.61,
+                  "resistance_m2k_w": 2
+                },
+                {
+                  "name": "Interior finish",
+                  "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+                  "type": "massive",
+                  "roughness": "MediumRough",
+                  "thermal_absorptance": 0.9,
+                  "solar_absorptance": 0.63,
+                  "visible_absorptance": 0.61,
+                  "thickness_m": 0.02,
+                  "conductivity_w_mk": 0.2,
+                  "density_kg_m3": 600,
+                  "specific_heat_j_kgk": 1000
+                }
+              ],
+              "layer_resistance_m2k_w": 2.3,
+              "layer_conductance_w_m2k": 0.4347826086956522,
+              "areal_heat_capacity_j_m2k": 92000.0,
+              "scope": "layers only; excludes surface films, thermal bridges and moisture"
+            },
+            "roof": {
+              "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed; outside-to-inside sequence",
+              "layers": [
+                {
+                  "name": "Roof deck",
+                  "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+                  "type": "massive",
+                  "roughness": "MediumRough",
+                  "thermal_absorptance": 0.9,
+                  "solar_absorptance": 0.63,
+                  "visible_absorptance": 0.61,
+                  "thickness_m": 0.15,
+                  "conductivity_w_mk": 1.5,
+                  "density_kg_m3": 2200,
+                  "specific_heat_j_kgk": 900
+                },
+                {
+                  "name": "Roof resistance",
+                  "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+                  "type": "resistance",
+                  "roughness": "MediumRough",
+                  "thermal_absorptance": 0.9,
+                  "solar_absorptance": 0.63,
+                  "visible_absorptance": 0.61,
+                  "resistance_m2k_w": 3
+                },
+                {
+                  "name": "Roof finish",
+                  "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+                  "type": "massive",
+                  "roughness": "MediumRough",
+                  "thermal_absorptance": 0.9,
+                  "solar_absorptance": 0.63,
+                  "visible_absorptance": 0.61,
+                  "thickness_m": 0.02,
+                  "conductivity_w_mk": 0.2,
+                  "density_kg_m3": 600,
+                  "specific_heat_j_kgk": 1000
+                }
+              ],
+              "layer_resistance_m2k_w": 3.2,
+              "layer_conductance_w_m2k": 0.3125,
+              "areal_heat_capacity_j_m2k": 309000.0,
+              "scope": "layers only; excludes surface films, thermal bridges and moisture"
+            },
+            "floor": {
+              "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed; outside-to-inside sequence",
+              "layers": [
+                {
+                  "name": "Adiabatic slab",
+                  "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+                  "type": "massive",
+                  "roughness": "MediumRough",
+                  "thermal_absorptance": 0.9,
+                  "solar_absorptance": 0.63,
+                  "visible_absorptance": 0.61,
+                  "thickness_m": 0.2,
+                  "conductivity_w_mk": 1.4,
+                  "density_kg_m3": 2200,
+                  "specific_heat_j_kgk": 900
+                }
+              ],
+              "layer_resistance_m2k_w": 0.14285714285714288,
+              "layer_conductance_w_m2k": 6.999999999999999,
+              "areal_heat_capacity_j_m2k": 396000.0,
+              "scope": "layers only; excludes surface films, thermal bridges and moisture"
+            },
+            "interzone": {
+              "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed; outside-to-inside sequence",
+              "layers": [
+                {
+                  "name": "First face finish",
+                  "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+                  "type": "massive",
+                  "roughness": "MediumRough",
+                  "thermal_absorptance": 0.9,
+                  "solar_absorptance": 0.63,
+                  "visible_absorptance": 0.61,
+                  "thickness_m": 0.02,
+                  "conductivity_w_mk": 0.2,
+                  "density_kg_m3": 600,
+                  "specific_heat_j_kgk": 1000
+                },
+                {
+                  "name": "Partition core",
+                  "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+                  "type": "massive",
+                  "roughness": "MediumRough",
+                  "thermal_absorptance": 0.9,
+                  "solar_absorptance": 0.63,
+                  "visible_absorptance": 0.61,
+                  "thickness_m": 0.1,
+                  "conductivity_w_mk": 0.5,
+                  "density_kg_m3": 800,
+                  "specific_heat_j_kgk": 1000
+                },
+                {
+                  "name": "Second face finish",
+                  "source": "Explicit synthetic material properties for integration verification; no measured product or code compliance claimed",
+                  "type": "massive",
+                  "roughness": "MediumRough",
+                  "thermal_absorptance": 0.9,
+                  "solar_absorptance": 0.63,
+                  "visible_absorptance": 0.61,
+                  "thickness_m": 0.03,
+                  "conductivity_w_mk": 0.25,
+                  "density_kg_m3": 650,
+                  "specific_heat_j_kgk": 1000
+                }
+              ],
+              "layer_resistance_m2k_w": 0.42,
+              "layer_conductance_w_m2k": 2.380952380952381,
+              "areal_heat_capacity_j_m2k": 111500.0,
+              "scope": "layers only; excludes surface films, thermal bridges and moisture"
+            }
+          },
+          "surfaces": [
+            {
+              "surface": "Surface 1",
+              "zone": "Office",
+              "surface_type": "Floor",
+              "boundary": "Adiabatic",
+              "area_m2": 48.0,
+              "role": "floor",
+              "reversed_layers": false,
+              "construction": "BSA floor"
+            },
+            {
+              "surface": "Surface 2",
+              "zone": "Office",
+              "surface_type": "Wall",
+              "boundary": "Outdoors",
+              "area_m2": 18.0,
+              "role": "exterior_wall",
+              "reversed_layers": false,
+              "construction": "BSA exterior_wall"
+            },
+            {
+              "surface": "Surface 3",
+              "zone": "Office",
+              "surface_type": "Wall",
+              "boundary": "Outdoors",
+              "area_m2": 24.0,
+              "role": "exterior_wall",
+              "reversed_layers": false,
+              "construction": "BSA exterior_wall"
+            },
+            {
+              "surface": "Surface 8",
+              "zone": "East",
+              "surface_type": "Wall",
+              "boundary": "Surface",
+              "area_m2": 18.0,
+              "role": "interzone",
+              "reversed_layers": false,
+              "construction": "BSA interzone"
+            },
+            {
+              "surface": "Surface 12",
+              "zone": "East",
+              "surface_type": "RoofCeiling",
+              "boundary": "Outdoors",
+              "area_m2": 30.0,
+              "role": "roof",
+              "reversed_layers": false,
+              "construction": "BSA roof"
+            },
+            {
+              "surface": "Surface 4",
+              "zone": "Office",
+              "surface_type": "Wall",
+              "boundary": "Surface",
+              "area_m2": 18.0,
+              "role": "interzone",
+              "reversed_layers": true,
+              "construction": "BSA interzone reverse"
+            },
+            {
+              "surface": "Surface 5",
+              "zone": "Office",
+              "surface_type": "Wall",
+              "boundary": "Outdoors",
+              "area_m2": 24.0,
+              "role": "exterior_wall",
+              "reversed_layers": false,
+              "construction": "BSA exterior_wall"
+            },
+            {
+              "surface": "Surface 6",
+              "zone": "Office",
+              "surface_type": "RoofCeiling",
+              "boundary": "Outdoors",
+              "area_m2": 48.0,
+              "role": "roof",
+              "reversed_layers": false,
+              "construction": "BSA roof"
+            },
+            {
+              "surface": "Surface 7",
+              "zone": "East",
+              "surface_type": "Floor",
+              "boundary": "Adiabatic",
+              "area_m2": 30.0,
+              "role": "floor",
+              "reversed_layers": false,
+              "construction": "BSA floor"
+            },
+            {
+              "surface": "Surface 9",
+              "zone": "East",
+              "surface_type": "Wall",
+              "boundary": "Outdoors",
+              "area_m2": 15.0,
+              "role": "exterior_wall",
+              "reversed_layers": false,
+              "construction": "BSA exterior_wall"
+            },
+            {
+              "surface": "Surface 16",
+              "zone": "Annex",
+              "surface_type": "Wall",
+              "boundary": "Outdoors",
+              "area_m2": 18.0,
+              "role": "exterior_wall",
+              "reversed_layers": false,
+              "construction": "BSA exterior_wall"
+            },
+            {
+              "surface": "Surface 10",
+              "zone": "East",
+              "surface_type": "Wall",
+              "boundary": "Surface",
+              "area_m2": 18.0,
+              "role": "interzone",
+              "reversed_layers": true,
+              "construction": "BSA interzone reverse"
+            },
+            {
+              "surface": "Surface 11",
+              "zone": "East",
+              "surface_type": "Wall",
+              "boundary": "Outdoors",
+              "area_m2": 15.0,
+              "role": "exterior_wall",
+              "reversed_layers": false,
+              "construction": "BSA exterior_wall"
+            },
+            {
+              "surface": "Surface 13",
+              "zone": "Annex",
+              "surface_type": "Floor",
+              "boundary": "Adiabatic",
+              "area_m2": 24.0,
+              "role": "floor",
+              "reversed_layers": false,
+              "construction": "BSA floor"
+            },
+            {
+              "surface": "Surface 14",
+              "zone": "Annex",
+              "surface_type": "Wall",
+              "boundary": "Surface",
+              "area_m2": 18.0,
+              "role": "interzone",
+              "reversed_layers": false,
+              "construction": "BSA interzone"
+            },
+            {
+              "surface": "Surface 15",
+              "zone": "Annex",
+              "surface_type": "Wall",
+              "boundary": "Outdoors",
+              "area_m2": 12.0,
+              "role": "exterior_wall",
+              "reversed_layers": false,
+              "construction": "BSA exterior_wall"
+            },
+            {
+              "surface": "Surface 17",
+              "zone": "Annex",
+              "surface_type": "Wall",
+              "boundary": "Outdoors",
+              "area_m2": 12.0,
+              "role": "exterior_wall",
+              "reversed_layers": false,
+              "construction": "BSA exterior_wall"
+            },
+            {
+              "surface": "Surface 18",
+              "zone": "Annex",
+              "surface_type": "RoofCeiling",
+              "boundary": "Outdoors",
+              "area_m2": 24.0,
+              "role": "roof",
+              "reversed_layers": false,
+              "construction": "BSA roof"
+            }
+          ],
+          "role_area_m2": {
+            "exterior_wall": 138.0,
+            "roof": 102.0,
+            "floor": 102.0,
+            "interzone": 72.0
+          },
+          "interzone_scope": "original layer order assigned to lexically first zone; reversed on peer; pair areas counted twice"
+        },
+        "openstudio_version": "3.11.0",
+        "energyplus_version": "25.2.0",
+        "north_axis_deg": 30.0,
+        "floor_area_m2": 102.0,
+        "thermal_zones": 3,
+        "matched_surface_count": 4,
+        "spaces": [
+          {
+            "id": "Office",
+            "source": "Synthetic space identity mapping; saved IFC geometry is authoritative; saved IFC 05Q4lNZvfMjRB3$ExNimBH SHA256 f777ab3e974e2216d583a6f4b8b2d681313d359cf9fad5b3827c56d622155f29",
+            "origin_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              8.0,
+              6.0,
+              3.0
+            ]
+          },
+          {
+            "id": "East",
+            "source": "Synthetic space identity mapping; saved IFC geometry is authoritative; saved IFC 2XcneOpvjTTuGBPHTpB5KV SHA256 f777ab3e974e2216d583a6f4b8b2d681313d359cf9fad5b3827c56d622155f29",
+            "origin_m": [
+              8.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              5.0,
+              6.0,
+              3.0
+            ]
+          },
+          {
+            "id": "Annex",
+            "source": "Synthetic space identity mapping; saved IFC geometry is authoritative; saved IFC 0CWbJCzJzH9wlEfBdo1lqM SHA256 f777ab3e974e2216d583a6f4b8b2d681313d359cf9fad5b3827c56d622155f29",
+            "origin_m": [
+              13.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              4.0,
+              6.0,
+              3.0
+            ]
+          }
+        ],
+        "adjacency": [
+          {
+            "spaces": [
+              "Office",
+              "East"
+            ],
+            "axis": 0,
+            "area_m2": 18.0
+          },
+          {
+            "spaces": [
+              "East",
+              "Annex"
+            ],
+            "axis": 0,
+            "area_m2": 18.0
+          }
+        ],
+        "zone_keys": [
+          "OFFICE",
+          "EAST",
+          "ANNEX"
+        ],
+        "lighting_keys": [
+          "OFFICE LIGHTS",
+          "EAST LIGHTS",
+          "ANNEX LIGHTS"
+        ],
+        "lighting_w_m2": 6,
+        "translation_warnings": [],
+        "operation_audit": {
+          "saved_operation_matches": true,
+          "records": [
+            {
+              "zone": "Office",
+              "category": "lighting",
+              "object": "Office lights",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "Office",
+              "category": "equipment",
+              "object": "Office equipment",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "Office",
+              "category": "people",
+              "object": "Office people",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "Office",
+              "category": "infiltration",
+              "object": "Office infiltration",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "East",
+              "category": "lighting",
+              "object": "East lights",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "East",
+              "category": "equipment",
+              "object": "East equipment",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "East",
+              "category": "people",
+              "object": "East people",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "East",
+              "category": "infiltration",
+              "object": "East infiltration",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "Annex",
+              "category": "lighting",
+              "object": "Annex lights",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "Annex",
+              "category": "equipment",
+              "object": "Annex equipment",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "Annex",
+              "category": "people",
+              "object": "Annex people",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "Annex",
+              "category": "infiltration",
+              "object": "Annex infiltration",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "Office",
+              "category": "ventilation",
+              "object": "Office ventilation",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "East",
+              "category": "ventilation",
+              "object": "East ventilation",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            },
+            {
+              "zone": "Annex",
+              "category": "ventilation",
+              "object": "Annex ventilation",
+              "source": "Explicit synthetic operation profile, not surveyed occupancy, equipment, air leakage or ventilation compliance",
+              "weekly_profile_match": true
+            }
+          ],
+          "scope": "all seven weekdays and saved physical settings; fixed simple airflow, no duct network/heat recovery/plant"
+        },
+        "hvac_audit": {
+          "saved_hvac_matches": true,
+          "records": [
+            {
+              "zone": "Office",
+              "ifc_device_guid": "01F$V8YE5PTA2lVo2dbpHv",
+              "ifc_space_guid": "05Q4lNZvfMjRB3$ExNimBH",
+              "ptac": "Office PTAC",
+              "source": "Explicit synthetic fixed PTAC ratings and unity modifiers for engine integration, not selected equipment or calibrated performance",
+              "cooling_capacity_w": 4000,
+              "heating_capacity_w": 5000,
+              "supply_flow_m3_s": 0.2
+            },
+            {
+              "zone": "Annex",
+              "ifc_device_guid": "1afHCyfuPO9Bpp2NA3ynIU",
+              "ifc_space_guid": "0CWbJCzJzH9wlEfBdo1lqM",
+              "ptac": "Annex PTAC",
+              "source": "Explicit synthetic fixed PTAC ratings and unity modifiers for engine integration, not selected equipment or calibrated performance",
+              "cooling_capacity_w": 2000,
+              "heating_capacity_w": 2600,
+              "supply_flow_m3_s": 0.1
+            },
+            {
+              "zone": "East",
+              "ifc_device_guid": "3j0V2tXWjUoOebmL0LjvSN",
+              "ifc_space_guid": "2XcneOpvjTTuGBPHTpB5KV",
+              "ptac": "East PTAC",
+              "source": "Explicit synthetic fixed PTAC ratings and unity modifiers for engine integration, not selected equipment or calibrated performance",
+              "cooling_capacity_w": 2500,
+              "heating_capacity_w": 3200,
+              "supply_flow_m3_s": 0.125
+            }
+          ],
+          "curve_extrema": {
+            "capacity_temperature": [
+              1,
+              1
+            ],
+            "capacity_flow": [
+              1.0,
+              1.0
+            ],
+            "eir_temperature": [
+              1,
+              1
+            ],
+            "eir_flow": [
+              1.0,
+              1.0
+            ],
+            "part_load": [
+              1,
+              1
+            ]
+          },
+          "pending": [
+            "real product, rated normalization and operating-domain applicability",
+            "native ancillary/rating defaults; no SEER/EER acceptance",
+            "detailed routed HVAC/controls/plant and engineering acceptance"
+          ]
+        },
+        "calendar_year": 2025,
+        "design_day_count": 0,
+        "weather_sha256": "c7d4efcf93ba316a1d874352e743df5cf137ba5c0e3459eb2dc4b5442d5b7f5c"
+      },
+      "summary": {
+        "checks": {
+          "full_weather_calendar": true,
+          "complete_hourly_variable_coverage": true,
+          "lighting_analytic_energy": true,
+          "lighting_hourly_profile": true,
+          "monthly_annual_reconciliation": true,
+          "zone_unmet_time_target": true,
+          "lighting_per_zone_hourly_profile": true,
+          "equipment_hourly_balance": true,
+          "equipment_per_zone_hourly_balance": true,
+          "equipment_annual_integral": true,
+          "people_hourly_balance": true,
+          "people_per_zone_hourly_balance": true,
+          "people_annual_integral": true,
+          "ventilation_hourly_balance": true,
+          "ventilation_per_zone_hourly_balance": true,
+          "ventilation_annual_integral": true,
+          "infiltration_scheduled_mass_flow": true,
+          "ventilation_scheduled_mass_flow": true,
+          "component_coverage": true,
+          "hourly_electricity_sum": true,
+          "annual_electricity_sum": true,
+          "electric_heater_efficiency": true,
+          "cycling_fan_power": true
+        },
+        "calculated_checks_pass": true,
+        "environments": [
+          [
+            1,
+            "ANNUAL EPW",
+            3
+          ]
+        ],
+        "annual": [
+          {
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "quantity": "PTAC supplied cooling thermal",
+            "annual_kwh": 3129.855696323559,
+            "coincident_peak_kw": 5.092720298788527,
+            "hours": 8760
+          },
+          {
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "quantity": "PTAC supplied heating thermal",
+            "annual_kwh": 5736.820710626443,
+            "coincident_peak_kw": 5.564090227578042,
+            "hours": 8760
+          },
+          {
+            "variable": "Lights Electricity Rate",
+            "quantity": "lighting electricity",
+            "annual_kwh": 1660.968,
+            "coincident_peak_kw": 0.612,
+            "hours": 8760
+          },
+          {
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "quantity": "PTAC electricity",
+            "annual_kwh": 6900.089022403503,
+            "coincident_peak_kw": 5.676172987746913,
+            "hours": 8760
+          }
+        ],
+        "monthly": [
+          {
+            "month": 1,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 744
+          },
+          {
+            "month": 2,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 672
+          },
+          {
+            "month": 3,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 744
+          },
+          {
+            "month": 4,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 137.92785775433242,
+            "coincident_peak_kw": 3.4743953383782817,
+            "hours": 720
+          },
+          {
+            "month": 5,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 228.54543539191022,
+            "coincident_peak_kw": 3.3045497779606494,
+            "hours": 744
+          },
+          {
+            "month": 6,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 612.3451479754935,
+            "coincident_peak_kw": 4.243034875915938,
+            "hours": 720
+          },
+          {
+            "month": 7,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 1019.5706036193417,
+            "coincident_peak_kw": 5.092720298788527,
+            "hours": 744
+          },
+          {
+            "month": 8,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 734.7367771164405,
+            "coincident_peak_kw": 4.9974783100373115,
+            "hours": 744
+          },
+          {
+            "month": 9,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 374.0963440185257,
+            "coincident_peak_kw": 3.1792474859551056,
+            "hours": 720
+          },
+          {
+            "month": 10,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 22.63353044751487,
+            "coincident_peak_kw": 1.1200531888381637,
+            "hours": 744
+          },
+          {
+            "month": 11,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 720
+          },
+          {
+            "month": 12,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 744
+          },
+          {
+            "month": 1,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 1438.6091827939217,
+            "coincident_peak_kw": 5.564090227578042,
+            "hours": 744
+          },
+          {
+            "month": 2,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 1097.722643839934,
+            "coincident_peak_kw": 5.371957012375925,
+            "hours": 672
+          },
+          {
+            "month": 3,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 664.3073717299172,
+            "coincident_peak_kw": 2.548933779274977,
+            "hours": 744
+          },
+          {
+            "month": 4,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 305.68027024723006,
+            "coincident_peak_kw": 1.75252275615541,
+            "hours": 720
+          },
+          {
+            "month": 5,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 4.610938363787082,
+            "coincident_peak_kw": 0.36187694809549137,
+            "hours": 744
+          },
+          {
+            "month": 6,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 720
+          },
+          {
+            "month": 7,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 744
+          },
+          {
+            "month": 8,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 744
+          },
+          {
+            "month": 9,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 0.7819304157101336,
+            "coincident_peak_kw": 0.1506165550144492,
+            "hours": 720
+          },
+          {
+            "month": 10,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 157.57949789436913,
+            "coincident_peak_kw": 1.1303387445969222,
+            "hours": 744
+          },
+          {
+            "month": 11,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 695.7467083993872,
+            "coincident_peak_kw": 4.423643106402801,
+            "hours": 720
+          },
+          {
+            "month": 12,
+            "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+            "kwh": 1371.7821669421858,
+            "coincident_peak_kw": 4.596999164094572,
+            "hours": 744
+          },
+          {
+            "month": 1,
+            "variable": "Lights Electricity Rate",
+            "kwh": 145.656,
+            "coincident_peak_kw": 0.612,
+            "hours": 744
+          },
+          {
+            "month": 2,
+            "variable": "Lights Electricity Rate",
+            "kwh": 127.296,
+            "coincident_peak_kw": 0.612,
+            "hours": 672
+          },
+          {
+            "month": 3,
+            "variable": "Lights Electricity Rate",
+            "kwh": 134.64,
+            "coincident_peak_kw": 0.612,
+            "hours": 744
+          },
+          {
+            "month": 4,
+            "variable": "Lights Electricity Rate",
+            "kwh": 139.536,
+            "coincident_peak_kw": 0.612,
+            "hours": 720
+          },
+          {
+            "month": 5,
+            "variable": "Lights Electricity Rate",
+            "kwh": 140.76,
+            "coincident_peak_kw": 0.612,
+            "hours": 744
+          },
+          {
+            "month": 6,
+            "variable": "Lights Electricity Rate",
+            "kwh": 133.416,
+            "coincident_peak_kw": 0.612,
+            "hours": 720
+          },
+          {
+            "month": 7,
+            "variable": "Lights Electricity Rate",
+            "kwh": 145.656,
+            "coincident_peak_kw": 0.612,
+            "hours": 744
+          },
+          {
+            "month": 8,
+            "variable": "Lights Electricity Rate",
+            "kwh": 134.64,
+            "coincident_peak_kw": 0.612,
+            "hours": 744
+          },
+          {
+            "month": 9,
+            "variable": "Lights Electricity Rate",
+            "kwh": 139.536,
+            "coincident_peak_kw": 0.612,
+            "hours": 720
+          },
+          {
+            "month": 10,
+            "variable": "Lights Electricity Rate",
+            "kwh": 145.656,
+            "coincident_peak_kw": 0.612,
+            "hours": 744
+          },
+          {
+            "month": 11,
+            "variable": "Lights Electricity Rate",
+            "kwh": 128.52,
+            "coincident_peak_kw": 0.612,
+            "hours": 720
+          },
+          {
+            "month": 12,
+            "variable": "Lights Electricity Rate",
+            "kwh": 145.656,
+            "coincident_peak_kw": 0.612,
+            "hours": 744
+          },
+          {
+            "month": 1,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 1467.5884939433636,
+            "coincident_peak_kw": 5.676172987746913,
+            "hours": 744
+          },
+          {
+            "month": 2,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 1119.8351407940986,
+            "coincident_peak_kw": 5.480169428208608,
+            "hours": 672
+          },
+          {
+            "month": 3,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 677.6891635121738,
+            "coincident_peak_kw": 2.600279412691615,
+            "hours": 744
+          },
+          {
+            "month": 4,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 358.00866109753804,
+            "coincident_peak_kw": 1.7878255093638642,
+            "hours": 720
+          },
+          {
+            "month": 5,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 81.20843891974322,
+            "coincident_peak_kw": 1.1061840358427595,
+            "hours": 744
+          },
+          {
+            "month": 6,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 204.97994360196606,
+            "coincident_peak_kw": 1.420337945751521,
+            "hours": 720
+          },
+          {
+            "month": 7,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 341.2969393471525,
+            "coincident_peak_kw": 1.7047665406961596,
+            "hours": 744
+          },
+          {
+            "month": 8,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 245.95002284829997,
+            "coincident_peak_kw": 1.6728846885294386,
+            "hours": 744
+          },
+          {
+            "month": 9,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 126.02484741375072,
+            "coincident_peak_kw": 1.0642396245358192,
+            "hours": 720
+          },
+          {
+            "month": 10,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 168.3302447820222,
+            "coincident_peak_kw": 1.1531083429368685,
+            "hours": 744
+          },
+          {
+            "month": 11,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 709.7618153180653,
+            "coincident_peak_kw": 4.512752747471718,
+            "hours": 720
+          },
+          {
+            "month": 12,
+            "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+            "kwh": 1399.4153108253288,
+            "coincident_peak_kw": 4.689600876952269,
+            "hours": 744
+          }
+        ],
+        "zone_unmet": [
+          {
+            "variable": "Zone Cooling Setpoint Not Met Time",
+            "zone": "ANNEX",
+            "zone_hours": 0.0
+          },
+          {
+            "variable": "Zone Cooling Setpoint Not Met Time",
+            "zone": "EAST",
+            "zone_hours": 0.0
+          },
+          {
+            "variable": "Zone Cooling Setpoint Not Met Time",
+            "zone": "OFFICE",
+            "zone_hours": 0.0
+          },
+          {
+            "variable": "Zone Heating Setpoint Not Met Time",
+            "zone": "ANNEX",
+            "zone_hours": 0.0
+          },
+          {
+            "variable": "Zone Heating Setpoint Not Met Time",
+            "zone": "EAST",
+            "zone_hours": 0.0
+          },
+          {
+            "variable": "Zone Heating Setpoint Not Met Time",
+            "zone": "OFFICE",
+            "zone_hours": 0.0
+          }
+        ],
+        "analytic_lighting_kwh": 1660.968,
+        "sql_completion_flags": [
+          [
+            "FALSE",
+            "FALSE"
+          ]
+        ],
+        "sql_completion_flags_true": false,
+        "operation": {
+          "checks": {
+            "equipment_hourly_balance": true,
+            "equipment_per_zone_hourly_balance": true,
+            "equipment_annual_integral": true,
+            "people_hourly_balance": true,
+            "people_per_zone_hourly_balance": true,
+            "people_annual_integral": true,
+            "ventilation_hourly_balance": true,
+            "ventilation_per_zone_hourly_balance": true,
+            "ventilation_annual_integral": true,
+            "infiltration_scheduled_mass_flow": true,
+            "ventilation_scheduled_mass_flow": true
+          },
+          "calculated_checks_pass": true,
+          "annual": [
+            {
+              "variable": "Electric Equipment Electricity Rate",
+              "units": "W",
+              "quantity": "equipment electricity kWh",
+              "annual_integral": 2214.6240000000003,
+              "analytic_integral": 2214.6240000000003,
+              "hours": 8760
+            },
+            {
+              "variable": "Zone People Occupant Count",
+              "units": "",
+              "quantity": "person-hours",
+              "annual_integral": 22146.24,
+              "analytic_integral": 22146.24,
+              "hours": 8760
+            },
+            {
+              "variable": "Zone Ventilation Fan Electricity Energy",
+              "units": "J",
+              "quantity": "simple ventilation fan electricity kWh",
+              "annual_integral": 69.207,
+              "analytic_integral": 69.20700000000001,
+              "hours": 8760
+            },
+            {
+              "variable": "Zone Infiltration Mass Flow Rate",
+              "units": "kg/s",
+              "quantity": "infiltration outdoor-air mass kg",
+              "annual_integral": 199495.0111943959,
+              "analytic_integral": null,
+              "hours": 8760,
+              "scope": "scheduled on/off checked; mass depends on engine air density, no fixed-density equality asserted"
+            },
+            {
+              "variable": "Zone Ventilation Mass Flow Rate",
+              "units": "kg/s",
+              "quantity": "ventilation outdoor-air mass kg",
+              "annual_integral": 598485.0335831877,
+              "analytic_integral": null,
+              "hours": 8760,
+              "scope": "scheduled on/off checked; mass depends on engine air density, no fixed-density equality asserted"
+            }
+          ]
+        },
+        "hvac": {
+          "checks": {
+            "component_coverage": true,
+            "hourly_electricity_sum": true,
+            "annual_electricity_sum": true,
+            "electric_heater_efficiency": true,
+            "cycling_fan_power": true
+          },
+          "calculated_checks_pass": true,
+          "zones": [
+            {
+              "zone": "Office",
+              "cooling_electricity_kwh": 461.844005067544,
+              "heating_electricity_kwh": 2743.8464295086374,
+              "fan_electricity_kwh": 60.484606949181874,
+              "ptac_electricity_kwh": 3266.175041525363,
+              "ptac_peak_electricity_kw": 2.6707875775750463
+            },
+            {
+              "zone": "East",
+              "cooling_electricity_kwh": 285.0382779543494,
+              "heating_electricity_kwh": 1468.4392476426606,
+              "fan_electricity_kwh": 33.9399381405055,
+              "ptac_electricity_kwh": 1787.4174637375152,
+              "ptac_peak_electricity_kw": 1.5429430608632138
+            },
+            {
+              "zone": "Annex",
+              "cooling_electricity_kwh": 247.775247589407,
+              "heating_electricity_kwh": 1565.8332995064955,
+              "fan_electricity_kwh": 32.887970044721776,
+              "ptac_electricity_kwh": 1846.4965171406243,
+              "ptac_peak_electricity_kw": 1.462442349308653
+            }
+          ],
+          "scope": "component accounting; PTAC total already includes these coils/fan; simple ventilation fan is separate; gross coil cooling and net zone delivery differ"
+        }
+      },
+      "diagnostics": "Program Version,EnergyPlus, Version 25.2.0-cf7368216c, YMD=2026.11.08 11:44,\n   ************* Testing Individual Branch Integrity\n   ************* All Branches passed integrity testing\n   ************* Testing Individual Supply Air Path Integrity\n   ************* All Supply Air Paths passed integrity testing\n   ************* Testing Individual Return Air Path Integrity\n   ************* All Return Air Paths passed integrity testing\n   ************* No node connection errors were found.\n   ************* Beginning Simulation\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-ELECTRICITY\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-DISTILLATE OIL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-RESIDUAL OIL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-NATURAL GAS\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-COAL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ************* Simulation Error Summary *************\n   ************* There are 3 unused schedules in input.\n   ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.\n   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.\n   ************* EnergyPlus Sizing Error Summary. During Sizing: 0 Warning; 0 Severe Errors.\n   ************* EnergyPlus Completed Successfully-- 5 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  1.24sec\n",
+      "completion": {
+        "status": "verified_with_known_unwritten_sql_flags",
+        "completion_verified": true,
+        "checks": {
+          "process_exit_zero": true,
+          "stdout_success": true,
+          "end_report_success": true,
+          "no_severe_fatal": true,
+          "sql_engine_version_match": true,
+          "sql_flags_compatible": true,
+          "native_files_complete": true,
+          "one_readable_sql_record": true
+        },
+        "process_returncode": 0,
+        "sql_flags_raw": [
+          "FALSE",
+          "FALSE"
+        ],
+        "sql_flags_decoded": [
+          false,
+          false
+        ],
+        "native_sql_success_flags_true": false,
+        "known_unwritten_initial_flags": true,
+        "engine_version": "EnergyPlus, Version 25.2.0-cf7368216c",
+        "engine_sha256": "51715987663666eaff1c8d3bd6ac2d7fe0486d8bc93673eea87c6912a79103f0",
+        "source_inference": {
+          "commit": "cf7368216c73c43181e057fa33b479c4e0c86df0",
+          "facts": {
+            "api/EnergyPlusPgm.cc": {
+              "sha256": "d230aa32b5acc6bdcb8c55d95022f1ecca351719b9b2d43f53a8270e7b1214d2",
+              "fact": "normal wrapUpEnergyPlus releases the SQLite object before calling EndEnergyPlus",
+              "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/api/EnergyPlusPgm.cc"
+            },
+            "UtilityRoutines.cc": {
+              "sha256": "bf0c2e9175b374ce100b0b262523d8d6c507baaf3922f5cc84fb6a3651152a3d",
+              "fact": "EndEnergyPlus updates success flags only when the SQLite object still exists",
+              "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/UtilityRoutines.cc"
+            },
+            "SQLiteProcedures.cc": {
+              "sha256": "b324324996a62c6fc5cf93a3039a2ea2d5788292faf77b07030b55debfa9c1a1",
+              "fact": "Simulations completion columns initially contain text FALSE/FALSE",
+              "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/SQLiteProcedures.cc"
+            }
+          },
+          "scope": "pinned source ordering plus observed official executable reproduction; not instruction tracing"
+        },
+        "scope": "Native process/log/end/error/SQL-version completion evidence only; period coverage, numerical/model validity and engineering acceptance remain separate",
+        "design_accepted": false,
+        "artifacts": {
+          "engine.log": "73f3c3cae8c6406b85b60fb3dc0f055566338a5bab3c36cd16ce6bac5c994871",
+          "eplusout.end": "56ae3926b84ca82cc7d8481ffdee00366d425be8c4c0d569814c06fae0622ce2",
+          "eplusout.err": "5e578225841b5c6a20ba24a569d4be5fbe5c72f8b44fde72edf5f8d4c911cec7",
+          "eplusout.sql": "fa389c9fa3fade6ba862cdaaeaca14a98b005e74a355c016cb28b8f4b0213054"
+        },
+        "missing_artifacts": [],
+        "sql_parse_error": null,
+        "source_files_unchanged": true
+      },
+      "sql_sha256": "fa389c9fa3fade6ba862cdaaeaca14a98b005e74a355c016cb28b8f4b0213054",
+      "engine_success_evidence": {
+        "returncode": 0,
+        "end_report": "EnergyPlus Completed Successfully-- 5 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  1.24sec\n",
+        "end_report_sha256": "56ae3926b84ca82cc7d8481ffdee00366d425be8c4c0d569814c06fae0622ce2",
+        "stdout_success_marker": true
+      }
+    }
+  },
+  "comparison": [
+    {
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "quantity": "PTAC supplied cooling thermal",
+      "change_kwh": -755.8083856919015,
+      "change_coincident_peak_kw": -0.5926746995631849
+    },
+    {
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "quantity": "PTAC supplied heating thermal",
+      "change_kwh": 747.7533857430699,
+      "change_coincident_peak_kw": 0.335190467280305
+    },
+    {
+      "variable": "Lights Electricity Rate",
+      "quantity": "lighting electricity",
+      "change_kwh": -1660.968,
+      "change_coincident_peak_kw": -0.612
+    },
+    {
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "quantity": "PTAC electricity",
+      "change_kwh": 509.81239826694855,
+      "change_coincident_peak_kw": 0.34194249492487483
+    }
+  ],
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "scope": "Full-calendar hourly EPW simulation; supplied heating/cooling thermal energy and electrical end uses reported separately",
+  "assumptions": [
+    "Sourced weekly lighting/equipment/people and fixed scheduled simple infiltration/ventilation; no windows; adiabatic floors and constant setpoints",
+    "Explicit fixed-size DX PTAC/electric heat/fans; source-declared ratings/curves; PTAC electricity includes its fan/coils, separate from simple ventilation electricity",
+    "Source-declared role-specific opaque layers; layer R excludes surface films/bridges/moisture",
+    "Weather calendar remapped to declared simulation year; DST/holidays/rain/snow indicators disabled; no design-day/sizing runs"
+  ],
+  "pending": [
+    "actual building geometry/construction/gain/schedule and meteorological applicability",
+    "detailed HVAC, ventilation/moisture, plant electricity and code acceptance",
+    "real-project calibration and full engineering acceptance"
+  ],
+  "completion_limitations": [
+    {
+      "case": "baseline",
+      "status": "verified_with_known_unwritten_sql_flags",
+      "native_sql_flags_preserved": true,
+      "source_commit": "cf7368216c73c43181e057fa33b479c4e0c86df0"
+    },
+    {
+      "case": "variant",
+      "status": "verified_with_known_unwritten_sql_flags",
+      "native_sql_flags_preserved": true,
+      "source_commit": "cf7368216c73c43181e057fa33b479c4e0c86df0"
+    }
+  ],
+  "artifacts": {
+    "report.html": "17e1f8916454493fed64827cec4daa0b2f4c433d73e653c1dcf89d4caa7a33c8",
+    "weather-input.json": "0a8f9780965459067b7d894201c622b70d66e83a5ce3ff13189ae6729f338cb6",
+    "weather.epw": "c7d4efcf93ba316a1d874352e743df5cf137ba5c0e3459eb2dc4b5442d5b7f5c",
+    "baseline/completion.json": "8ab883f6ad744167800130a625f9e0a65a200b5accf0d16fd45423943024c3a1",
+    "baseline/engine.log": "e6d10d9a2ad07f885c4adf3d3fa5ab6426cb1cb99dd8deff03fb6736687a753f",
+    "baseline/eplusout.audit": "bd2c0ca109ca17778e52914be90bcf4bafad918c23fbd2a0a64839dd63cd27cc",
+    "baseline/eplusout.bnd": "f7c1834c5f8a76309d5bfd7029c80a7e8cb46286fa8be1a30d76e1c861c30f72",
+    "baseline/eplusout.eio": "304516ed116c1133d8a37802f996a6760299933ebe6a4611a316054a4be5c580",
+    "baseline/eplusout.end": "ea624a82af493cc509046ff8cf39861541286fe616bc52dba4dc2387c5273e83",
+    "baseline/eplusout.err": "1091437bcffdfb126554c7e851a5ddce8f2069850b71d3eed76e7d9dec287c96",
+    "baseline/eplusout.eso": "f1bdc1bc7b2503fc6d2bc02c4b98219de330779559fdcd3da7d061514502bf4d",
+    "baseline/eplusout.mdd": "1c98216e72d6c048218e7ca7f51ee348ba1581b86a376b89da1f3c90f117abd2",
+    "baseline/eplusout.mtd": "f28c9b3e1643a07881b75e6db0a16f733a0ce01e766ad129782f14a7b8fd1d85",
+    "baseline/eplusout.rdd": "785ea3225fa9ca394f36c14f109bab63af2e3f34495f10c8421e8f3d89cbcc2a",
+    "baseline/eplusout.shd": "0228ed7f15a1f582394b09e49ec8967b8c46693a4a14d667a226fae99b8d9352",
+    "baseline/eplusout.sql": "bc8f51510c91c47aabd6dd83fd54208ac99adcac571b9ed54e0cbb472b162c6c",
+    "baseline/eplustbl.htm": "ef4198ba48a2d550f4edbd7156cb7cb273540ecf68f98f2cb461200170c76d0c",
+    "baseline/hourly-building-rates.csv": "2caec50e19febf29ff0d7a9b1fff2b7b8175bd9065b9052ed48ba31d77ef0302",
+    "baseline/model.idf": "a25eda684631cb9256eb9d1963164eb8ad875f03c860c298f82255b4e631b6ff",
+    "baseline/model.osm": "b76732805601bdc0bd88f4856780734ed620480f6fb6a9b083cc7255d68649aa",
+    "baseline/operation-hourly.csv": "d1f2f2ba33b5d1ffa75160353f3493b1c05c6f5ed1d97bd2821b30054b089a0d",
+    "baseline/sqlite.err": "3e925a1d0dffc88c67eb27d478a9c861d07df9f52c172bb2f5b55faf102396e2",
+    "baseline/summary.json": "50a561df67b76411944b333edc581f24a4fb531300899cdc56634336c9bc422e",
+    "variant/completion.json": "0f5aa0d88966df31303f143d4123021f472a360f09a0421756017bc097d29e2c",
+    "variant/engine.log": "73f3c3cae8c6406b85b60fb3dc0f055566338a5bab3c36cd16ce6bac5c994871",
+    "variant/eplusout.audit": "bd2c0ca109ca17778e52914be90bcf4bafad918c23fbd2a0a64839dd63cd27cc",
+    "variant/eplusout.bnd": "f7c1834c5f8a76309d5bfd7029c80a7e8cb46286fa8be1a30d76e1c861c30f72",
+    "variant/eplusout.eio": "4b5b14fb350834cb79a2075c0961fb92352adecffc163209c82a7e2a03cdb545",
+    "variant/eplusout.end": "56ae3926b84ca82cc7d8481ffdee00366d425be8c4c0d569814c06fae0622ce2",
+    "variant/eplusout.err": "5e578225841b5c6a20ba24a569d4be5fbe5c72f8b44fde72edf5f8d4c911cec7",
+    "variant/eplusout.eso": "31840268511f80fdbfe4c8ae880d23d94138588305596420ed33e16413a46878",
+    "variant/eplusout.mdd": "1c98216e72d6c048218e7ca7f51ee348ba1581b86a376b89da1f3c90f117abd2",
+    "variant/eplusout.mtd": "f28c9b3e1643a07881b75e6db0a16f733a0ce01e766ad129782f14a7b8fd1d85",
+    "variant/eplusout.rdd": "785ea3225fa9ca394f36c14f109bab63af2e3f34495f10c8421e8f3d89cbcc2a",
+    "variant/eplusout.shd": "0228ed7f15a1f582394b09e49ec8967b8c46693a4a14d667a226fae99b8d9352",
+    "variant/eplusout.sql": "fa389c9fa3fade6ba862cdaaeaca14a98b005e74a355c016cb28b8f4b0213054",
+    "variant/eplustbl.htm": "a603f17109a8996461134e07a42446bc404cffe4aaf61dcec7d05e6f555adba9",
+    "variant/hourly-building-rates.csv": "c8e476f9b00de0542dd6bf37647d1e62e9b551086a6e70545fe327fcd66bb36f",
+    "variant/model.idf": "00abd8bd7185b9c81752291c04b6234b1d27c1e1b6574a59dae57cc67870ebc3",
+    "variant/model.osm": "012432140a45b62174fe5a8cb54f84241486ef3c1a146ad323ca9cea562b0775",
+    "variant/operation-hourly.csv": "a991ac038a42be595f751b2c1cec7c5969ac1ebe0b3c9814d825192204eebea4",
+    "variant/sqlite.err": "9e500341da4c475ae5fa8de76bd56e45438732b33938af08b39b247042c40950",
+    "variant/summary.json": "6bdd41df189ffb3d2e98a8f9c9cc478c3f0083b212c8b623b988cd8e6435080c"
+  }
+}

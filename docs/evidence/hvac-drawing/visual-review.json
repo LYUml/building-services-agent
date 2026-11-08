@@ -1,0 +1,28 @@
+{
+  "reviewer": "Codex visual inspection of actual Poppler-rendered AutoCAD PDF",
+  "pdf_sha256": "0aa6c1a6a25fd0d7792e2d9b841a18d87a271ef3554186b8c90b3d99c04e4fb2",
+  "render_sha256": "3a9e0fff89c6fc7713d90d79082feeefd1cfe172e4f4c683c241f223fbac1753",
+  "dwg_sha256": "0646e2033d09f7350f9749a0f6d241bb0ba9b5009b50b9281a51cffa9660eec0",
+  "dxf_sha256": "df6064711daf97947344d8d6696d21668055a50a2932dc2a98188427c7a42eae",
+  "ifc_sha256": "5eb502e834cfc8bdfe349f8623702c88035b0823ed672ab0d56827dd1672979d",
+  "pages_reviewed": [
+    1
+  ],
+  "scope": "this synthetic sheet layout/readability only",
+  "checks": {
+    "no_observed_clipping": true,
+    "header_and_callouts_separated": true,
+    "three_equipment_tags_legible": true,
+    "full_guid_reference_list_legible": true,
+    "room_names_legible": true,
+    "table_units_and_values_legible": true,
+    "no_crossing_equipment_leaders": true
+  },
+  "visual_layout_review_pass": true,
+  "design_accepted": false,
+  "pending": [
+    "manufacturer/detail geometry, ports/ducts and installation design",
+    "arbitrary-data automatic label layout and multi-sheet pagination",
+    "code/product and full engineering acceptance"
+  ]
+}

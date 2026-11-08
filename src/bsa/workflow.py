@@ -70,7 +70,7 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             inputs.add(local_path(root,t.get("project")))
@@ -127,13 +127,21 @@ def validate_plan(path):
                 from .ifc_views import verify_manifest
                 manifest=local_path(root,t['manifest']);data=verify_manifest(manifest);inputs.add(manifest)
                 inputs.update((manifest.parent/name).resolve() for name in data['artifacts'])
+        if kind=='ifc_equipment':
+            from .ifc_equipment import validate_settings
+            settings=local_path(root,t.get('settings'));inputs.add(settings);validate_settings(read_json(settings))
+            dependency=t.get('depends_on')
+            if dependency:
+                if t.get('ifc') or t.get('report') or dependency not in ids or next(x for x in tasks if x['id']==dependency)['kind']!='annual_energy_ifc':raise ProjectError('equipment drawing dependency must be an earlier IFC annual producer')
+            else:
+                inputs.add(local_path(root,t.get('ifc')));inputs.add(local_path(root,t.get('report')))
         if kind=='ifc_native':
             from .ifc_native import validate_settings
             settings=local_path(root,t.get('settings'));inputs.add(settings);validate_settings(read_json(settings))
             if bool(t.get('dxf'))==bool(t.get('depends_on')):raise ProjectError('native IFC diagram requires exactly one DXF or earlier drawing dependency')
             if t.get('depends_on'):
-                if t['depends_on'] not in ids or next(x for x in tasks if x['id']==t['depends_on'])['kind']!='ifc_drawing':
-                    raise ProjectError('native IFC dependency must be an earlier ifc_drawing task')
+                if t['depends_on'] not in ids or next(x for x in tasks if x['id']==t['depends_on'])['kind'] not in ('ifc_drawing','ifc_equipment'):
+                    raise ProjectError('native IFC dependency must be an earlier supported drawing task')
             else:
                 diagram_source=local_path(root,t.get('dxf'));inputs.add(diagram_source)
                 if diagram_source.suffix.lower()!='.dxf':raise ProjectError('native diagram source must be DXF')
@@ -252,13 +260,23 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                     source=out/dependency/IFC_ARTIFACTS[tasks[dependency]['kind']] if dependency else local_path(root,t['ifc'])
                     payload=run(source,local_path(root,t['settings']),folder);status='pass' if payload['calculated_checks_pass'] else 'fail'
                     reason='complete per-view segment/end-on symbols and combined axis coverage; true/projected lengths and GUIDs retained; native/physical/visual acceptance separate'
+            elif t['kind']=='ifc_equipment':
+                dependency=t.get('depends_on')
+                if dependency and tasks[dependency]['status']!='pass':reason='upstream HVAC analysis did not pass; no equipment drawing fabricated'
+                else:
+                    from .ifc_equipment import run
+                    source=out/dependency/IFC_ARTIFACTS[tasks[dependency]['kind']] if dependency else local_path(root,t['ifc'])
+                    report=out/dependency/'thermal-binding.json' if dependency else local_path(root,t['report'])
+                    payload=run(source,report,local_path(root,t['settings']),folder)
+                    status='pass' if payload['calculated_checks_pass'] else 'fail'
+                    reason='saved HVAC identity/box geometry/results to plan and equipment schedule; native and installation acceptance separate'
             elif t['kind']=='ifc_native':
                 dependency=t.get('depends_on')
                 if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC drawing did not pass; no native drawing fabricated'
                 elif not autocad:reason='AutoCAD executable not supplied for native IFC diagram'
                 else:
                     from .ifc_native import run
-                    source=out/dependency/'segments.dxf' if dependency else local_path(root,t['dxf'])
+                    source=out/dependency/('equipment.dxf' if tasks[dependency]['kind']=='ifc_equipment' else 'segments.dxf') if dependency else local_path(root,t['dxf'])
                     payload=run(source,local_path(root,t['settings']),folder,autocad)
                     status='pass' if payload['native_reopen_pass'] and payload['plot']['pdf_reference_pass'] else 'fail'
                     reason='isolated native DWG reopen, geometry/IFC XDATA reconciliation and physical PDF reference verified; visual/installation acceptance pending'

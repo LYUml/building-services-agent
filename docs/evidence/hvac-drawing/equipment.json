@@ -1,0 +1,179 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hvac-drawing-v2\\thermal\\analysis.ifc": "5eb502e834cfc8bdfe349f8623702c88035b0823ed672ab0d56827dd1672979d",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hvac-drawing-v2\\thermal\\thermal-binding.json": "864f65781ea51834bd4bcd9ce788d0d6c8d01510c324abd60699fccf29ef7f38",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\hvac-drawing\\settings.json": "ddaa5fe5d887e40ec51d2ca2bd78b5bd19de91e5122af217698dbac0a62e5f0b"
+  },
+  "inputs_unchanged": true,
+  "settings": {
+    "source": "Synthetic equipment callouts and 0.22 m model annotation height for a 1:100 demonstration sheet",
+    "annotation_height_m": 0.22,
+    "tags": [
+      {
+        "guid": "01F$V8YE5PTA2lVo2dbpHv",
+        "tag": "U01"
+      },
+      {
+        "guid": "3j0V2tXWjUoOebmL0LjvSN",
+        "tag": "U02"
+      },
+      {
+        "guid": "1afHCyfuPO9Bpp2NA3ynIU",
+        "tag": "U03"
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "tag": "U01",
+      "guid": "01F$V8YE5PTA2lVo2dbpHv",
+      "name": "PTAC-Office",
+      "zone": "Office",
+      "space_guid": "05Q4lNZvfMjRB3$ExNimBH",
+      "system_guid": "0UpDeY211NZR9EtKAcgfXH",
+      "origin_m": [
+        0.2,
+        5.4,
+        2.1
+      ],
+      "size_m": [
+        0.9000000000000001,
+        0.2999999999999998,
+        0.6000000000000001
+      ],
+      "cooling_capacity_thermal_kw": 4.0,
+      "heating_capacity_thermal_kw": 5.0,
+      "supply_flow_l_s": 200.0,
+      "baseline_simulated_electricity_kwh": 3026.5239872003654,
+      "variant_simulated_electricity_kwh": 3266.175041525363,
+      "baseline_simulated_peak_electricity_kw": 2.508920934279312,
+      "source": "Explicit synthetic saved device/system GUID to PTAC thermal-zone mapping"
+    },
+    {
+      "tag": "U02",
+      "guid": "3j0V2tXWjUoOebmL0LjvSN",
+      "name": "PTAC-East",
+      "zone": "East",
+      "space_guid": "2XcneOpvjTTuGBPHTpB5KV",
+      "system_guid": "0UpDeY211NZR9EtKAcgfXH",
+      "origin_m": [
+        8.2,
+        5.4,
+        2.1
+      ],
+      "size_m": [
+        0.9000000000000004,
+        0.2999999999999998,
+        0.6000000000000001
+      ],
+      "cooling_capacity_thermal_kw": 2.5,
+      "heating_capacity_thermal_kw": 3.2,
+      "supply_flow_l_s": 125.0,
+      "baseline_simulated_electricity_kwh": 1643.548727833909,
+      "variant_simulated_electricity_kwh": 1787.4174637375152,
+      "baseline_simulated_peak_electricity_kw": 1.4441238233843452,
+      "source": "Explicit synthetic saved device/system GUID to PTAC thermal-zone mapping"
+    },
+    {
+      "tag": "U03",
+      "guid": "1afHCyfuPO9Bpp2NA3ynIU",
+      "name": "PTAC-Annex",
+      "zone": "Annex",
+      "space_guid": "0CWbJCzJzH9wlEfBdo1lqM",
+      "system_guid": "0UpDeY211NZR9EtKAcgfXH",
+      "origin_m": [
+        13.2,
+        5.4,
+        2.1
+      ],
+      "size_m": [
+        0.9000000000000004,
+        0.2999999999999998,
+        0.6000000000000001
+      ],
+      "cooling_capacity_thermal_kw": 2.0,
+      "heating_capacity_thermal_kw": 2.6,
+      "supply_flow_l_s": 100.0,
+      "baseline_simulated_electricity_kwh": 1720.20390910228,
+      "variant_simulated_electricity_kwh": 1846.4965171406243,
+      "baseline_simulated_peak_electricity_kw": 1.3811857351583807,
+      "source": "Explicit synthetic saved device/system GUID to PTAC thermal-zone mapping"
+    }
+  ],
+  "spaces": [
+    {
+      "guid": "05Q4lNZvfMjRB3$ExNimBH",
+      "name": "Office",
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "size_m": [
+        8.0,
+        6.0,
+        3.0
+      ]
+    },
+    {
+      "guid": "2XcneOpvjTTuGBPHTpB5KV",
+      "name": "East",
+      "origin_m": [
+        8.0,
+        0.0,
+        0.0
+      ],
+      "size_m": [
+        5.0,
+        6.0,
+        3.0
+      ]
+    },
+    {
+      "guid": "0CWbJCzJzH9wlEfBdo1lqM",
+      "name": "Annex",
+      "origin_m": [
+        13.0,
+        0.0,
+        0.0
+      ],
+      "size_m": [
+        4.0,
+        6.0,
+        3.0
+      ]
+    }
+  ],
+  "excluded_elements": [
+    {
+      "guid": "3LSR47jGHRWAD3PhQgr_e6",
+      "name": "DB1",
+      "ifc_class": "IfcElectricDistributionBoard"
+    },
+    {
+      "guid": "0QYfTnVlvT1Bw4LO3_9cm6",
+      "name": "L1",
+      "ifc_class": "IfcLightFixture"
+    }
+  ],
+  "drawing": {
+    "device_count": 3,
+    "space_count": 3,
+    "checks": {
+      "geometry_layers_annotations_match": true,
+      "ifc_xdata_match": true,
+      "equipment_reference_count": 3,
+      "metre_units": true
+    }
+  },
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "pending": [
+    "native DWG/PDF reopen/scale/visual review",
+    "actual products, installation access, duct/port topology and engineering acceptance"
+  ],
+  "artifacts": {
+    "equipment.csv": "99661168f8af46cb345d1c49a0545882ea8a092bdd50d6ca5f67ac227e118882",
+    "equipment.dxf": "df6064711daf97947344d8d6696d21668055a50a2932dc2a98188427c7a42eae"
+  }
+}

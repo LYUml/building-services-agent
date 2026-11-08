@@ -1,0 +1,70 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hvac-drawing-v2\\drawing\\equipment.dxf": "df6064711daf97947344d8d6696d21668055a50a2932dc2a98188427c7a42eae",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\hvac-drawing\\sheet.json": "c9d845e96b7bcdaa1b3fc92f1c757b82fc3acd456323707231a6bf27cce21988"
+  },
+  "inputs_unchanged": true,
+  "engine": "C:\\Program Files\\Autodesk\\AutoCAD 2027\\accoreconsole.exe",
+  "engine_sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2",
+  "dwg_sha256": "0646e2033d09f7350f9749a0f6d241bb0ba9b5009b50b9281a51cffa9660eec0",
+  "native_reopen_pass": true,
+  "checks": {
+    "model_entity_count": 75,
+    "linked_entity_count": 63,
+    "model_entities_and_ifc_xdata_match": true,
+    "geometry_layers_and_annotations_match": true,
+    "metre_units": true
+  },
+  "plot": {
+    "pdf_sha256": "0aa6c1a6a25fd0d7792e2d9b841a18d87a271ef3554186b8c90b3d99c04e4fb2",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 100,
+    "reference_handle": "45",
+    "reference_expected_mm": 9.0,
+    "reference_measured_mm": 8.974666666666664,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "settings": {
+    "source": "Explicit synthetic A4 landscape 1:100 equipment plan window; IFC reference is actual 0.9 m box edge",
+    "window_drawing_units": [
+      -1,
+      -6,
+      26,
+      10
+    ],
+    "scale_denominator": 100,
+    "reference_ifc_guid": "01F$V8YE5PTA2lVo2dbpHv",
+    "pdf_tolerance_mm": 0.1,
+    "reference_layer": "BSA_EQUIPMENT_REFERENCE",
+    "drawing_name": "equipment"
+  },
+  "design_accepted": false,
+  "pending": [
+    "actual PDF visual review",
+    "equipment/fittings/insulation and installation drawing detail",
+    "complete engineering acceptance"
+  ],
+  "artifacts": {
+    "equipment.dwg": "0646e2033d09f7350f9749a0f6d241bb0ba9b5009b50b9281a51cffa9660eec0",
+    "input.dxf": "df6064711daf97947344d8d6696d21668055a50a2932dc2a98188427c7a42eae",
+    "plot.log": "7adfb358d139c01e220e3e8f66e7e89dba4c075566816f67e4f44d9c0bb1132b",
+    "save.log": "8b89eb050251727648b653de87029ec1916765e6dd2dfbe22f46dcff3fe85fd2",
+    "save.scr": "99f75689c49881a5b91009c06a2ad5b4511dca09b1f5353cf5efed66d364ba09",
+    "sheet.json": "84c8d499babc2c1a25afd853d0fc163aea1550e32491da39d3bb2f5dc1e973f0",
+    "sheet.log": "9014175168579bb955cbac4a37ab474cb1c82a18d721c1c79191f231557e6223",
+    "sheet.pdf": "0aa6c1a6a25fd0d7792e2d9b841a18d87a271ef3554186b8c90b3d99c04e4fb2",
+    "sheet.scr": "e0f0f3fc7e890443425436477de6a0a0620f00af857f09cff2a734e05f8650cc",
+    "native-reopen/export.log": "4ffef91d129a2167df533b32a1534f61328862b86a323ab54c8752f474b02089",
+    "native-reopen/export.scr": "92047b2fbbf2a2e23478616115746bfcfc879ce0cd8056b6fc4bead86025d1c7",
+    "native-reopen/source-copy.dwg": "0646e2033d09f7350f9749a0f6d241bb0ba9b5009b50b9281a51cffa9660eec0",
+    "native-reopen/source-export.dxf": "3dcf4e4b8064456c78a0ba2e22b08c4e5e2b51079b74626d78230f93a4bff69f",
+    "ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "3e4fcd77a48535dd3d1af23f92a97ff86c8cfd0e594bbaee00933199aa124ee5",
+    "native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "03a9b2e061e0c802dbd7e7da399a67a5520d91ac552881f06c42a6e20d002a2f"
+  }
+}

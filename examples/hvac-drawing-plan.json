@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "brief": "hvac-drawing/brief.md",
+  "brief_sha256": "07631f643b9a5ba53a439e6a7705c22637f5384f5a1898952f6ac749e0fbbc51",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement",
+    "P004": "requirement",
+    "P005": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "model",
+      "kind": "bim",
+      "project": "hvac-equipment/bim.json"
+    },
+    {
+      "id": "thermal",
+      "kind": "annual_energy_ifc",
+      "project": "hvac-equipment/project.json",
+      "binding": "hvac-equipment/binding.json",
+      "depends_on": "model",
+      "weather": "annual-energy/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw.gz"
+    },
+    {
+      "id": "drawing",
+      "kind": "ifc_equipment",
+      "depends_on": "thermal",
+      "settings": "hvac-drawing/settings.json"
+    },
+    {
+      "id": "native",
+      "kind": "ifc_native",
+      "depends_on": "drawing",
+      "settings": "hvac-drawing/sheet.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Author hvac-equipment/bim.json with stable thermal-space and generic PTAC equipment identities. Preserve source geometry/rating assumptions and all source bytes.",
+      "task": "model",
+      "acceptance": "Source/native numerical checks; actual visual/engineering acceptance remains separately evidenced"
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Run actual annual PTAC baseline/variant analysis using hvac-equipment/project.json, hvac-equipment/binding.json and the attributed Chicago weather. Require saved device/space/system GUID and rating binding and preserve property-only analysis IFC results with false engineering acceptance.",
+      "task": "thermal",
+      "acceptance": "Source/native numerical checks; actual visual/engineering acceptance remains separately evidenced"
+    },
+    {
+      "id": "R3",
+      "passage": "P004",
+      "quote": "Read that checked analysis IFC and the complete producer artifact inventory. Use hvac-drawing/settings.json to produce a complete selected HVAC equipment table and GUID-linked metre DXF plan from verified rectangular device/space solids. Keep thermal capacities, volume flow, simulated electricity and modeled hourly peaks separately labelled; list omitted IFC elements. Installation/product details remain pending.",
+      "task": "drawing",
+      "acceptance": "Source/native numerical checks; actual visual/engineering acceptance remains separately evidenced"
+    },
+    {
+      "id": "R4",
+      "passage": "P005",
+      "quote": "Use hvac-drawing/sheet.json and isolated AutoCAD 2027 to save/reopen the equipment DWG, reconcile all geometry/text/layers/GUIDs, and plot the fixed-scale A4 PDF. Verify the physical 0.9 m source edge and inspect the actual rendered PDF separately before claiming any visual acceptance. This synthetic envelope plan is not a complete installation design.",
+      "task": "native",
+      "acceptance": "Source/native numerical checks; actual visual/engineering acceptance remains separately evidenced"
+    }
+  ]
+}
