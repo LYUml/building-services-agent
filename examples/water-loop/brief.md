@@ -1,0 +1,3 @@
+Synthetic steady pumped water-loop demonstration. All dimensions, withdrawals, heads and curves are declared test assumptions, not measured geometry, manufacturer data or code requirements.
+
+Use project.json to solve the connected diamond water loop with EPANET 2.2, Darcy-Weisbach friction and the explicit global pressure-driven demand law. Retain signed flows, static pressure heads, delivered withdrawals, the pump curve intersection and native solver artifacts. Check flow continuity, pressure and delivery targets, velocity limits and serialized input values; retain failures. Keep source applicability, independent general pipe energy residuals, BIM routes, pump power, NPSH and full engineering acceptance pending.

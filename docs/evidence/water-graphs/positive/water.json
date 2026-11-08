@@ -1,0 +1,348 @@
+{
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "scope": "Steady EPANET 2.2 water graph, D-W friction, fixed head sources and fixed-speed sourced head curves; static pressure head only",
+  "pending": [
+    "source fluid/roughness/demand and device-curve applicability",
+    "BIM/route binding, independent general pipe energy residuals and physical acceptance",
+    "pump efficiency/power, NPSH, controls, tanks/time variation and water quality",
+    "domain-specific water/fire rules and full engineering acceptance"
+  ],
+  "checks": {
+    "engine_clean": true,
+    "serialized_input_match": true,
+    "finite_results": true,
+    "mass_balance": true,
+    "head_pressure_identity": true,
+    "demand_law": true,
+    "pressure_targets": true,
+    "delivery_targets": true,
+    "velocity_limits": true,
+    "pump_curves": true
+  },
+  "junctions": [
+    {
+      "id": "J0",
+      "head_m": 46.999691009521484,
+      "static_pressure_head_m": 46.999691009521484,
+      "delivered_m3_s": 0.0,
+      "design_demand_m3_s": 0,
+      "delivered_fraction": null,
+      "mass_residual_m3_s": 0.0,
+      "head_pressure_identity_pass": true,
+      "pressure_pass": true,
+      "delivery_pass": true,
+      "demand_law_expected_m3_s": 0,
+      "demand_law_pass": true
+    },
+    {
+      "id": "A",
+      "head_m": 44.55875778198242,
+      "static_pressure_head_m": 39.55875778198242,
+      "delivered_m3_s": 0.0010000183247029781,
+      "design_demand_m3_s": 0.001,
+      "delivered_fraction": 1.0000183247029781,
+      "mass_residual_m3_s": -3.4924596548080444e-10,
+      "head_pressure_identity_pass": true,
+      "pressure_pass": true,
+      "delivery_pass": true,
+      "demand_law_expected_m3_s": 0.001,
+      "demand_law_pass": true
+    },
+    {
+      "id": "B",
+      "head_m": 44.55875778198242,
+      "static_pressure_head_m": 39.55875778198242,
+      "delivered_m3_s": 0.0010000183247029781,
+      "design_demand_m3_s": 0.001,
+      "delivered_fraction": 1.0000183247029781,
+      "mass_residual_m3_s": -3.4924596548080444e-10,
+      "head_pressure_identity_pass": true,
+      "pressure_pass": true,
+      "delivery_pass": true,
+      "demand_law_expected_m3_s": 0.001,
+      "demand_law_pass": true
+    },
+    {
+      "id": "C",
+      "head_m": 44.10272216796875,
+      "static_pressure_head_m": 34.10272216796875,
+      "delivered_m3_s": 0.0020000131335109472,
+      "design_demand_m3_s": 0.002,
+      "delivered_fraction": 1.0000065667554736,
+      "mass_residual_m3_s": 0.0,
+      "head_pressure_identity_pass": true,
+      "pressure_pass": true,
+      "delivery_pass": true,
+      "demand_law_expected_m3_s": 0.002,
+      "demand_law_pass": true
+    }
+  ],
+  "pipes": [
+    {
+      "id": "JA",
+      "flow_m3_s": 0.0020000245422124863,
+      "velocity_m_s": 1.5915689609911114,
+      "native_velocity_m_s": 1.5915603637695312,
+      "velocity_difference_m_s": 8.597221580197711e-06,
+      "velocity_pass": true,
+      "native_velocity_match": true
+    },
+    {
+      "id": "JB",
+      "flow_m3_s": 0.0020000245422124863,
+      "velocity_m_s": 1.5915689609911114,
+      "native_velocity_m_s": 1.5915603637695312,
+      "velocity_difference_m_s": 8.597221580197711e-06,
+      "velocity_pass": true,
+      "native_velocity_match": true
+    },
+    {
+      "id": "AC",
+      "flow_m3_s": 0.0010000065667554736,
+      "velocity_m_s": 0.7957799411174452,
+      "native_velocity_m_s": 0.7957755923271179,
+      "velocity_difference_m_s": 4.348790327290963e-06,
+      "velocity_pass": true,
+      "native_velocity_match": true
+    },
+    {
+      "id": "CB",
+      "flow_m3_s": -0.0010000065667554736,
+      "velocity_m_s": 0.7957799411174452,
+      "native_velocity_m_s": 0.7957755923271179,
+      "velocity_difference_m_s": 4.348790327290963e-06,
+      "velocity_pass": true,
+      "native_velocity_match": true
+    }
+  ],
+  "pumps": [
+    {
+      "id": "PUMP",
+      "flow_m3_s": 0.0040000490844249725,
+      "head_gain_m": 44.999691009521484,
+      "source_curve_head_m": 44.99969322234392,
+      "curve_domain_pass": true,
+      "curve_head_pass": true,
+      "open_pass": true,
+      "electrical_power_kw": null
+    }
+  ],
+  "reservoir_demands_m3_s": {
+    "R": -0.0040000490844249725
+  },
+  "mass_residuals_m3_s": {
+    "J0": 0.0,
+    "A": -3.4924596548080444e-10,
+    "B": -3.4924596548080444e-10,
+    "C": 0.0,
+    "R": 0.0
+  },
+  "independent_cycle_count": 1,
+  "runtime": {
+    "engine_version": 20200,
+    "library": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\.venv\\Lib\\site-packages\\wntr\\epanet\\libepanet\\windows-x64\\epanet22.dll",
+    "library_sha256": "87fd7456a0b3ada99938e3e581b487248d9312f87a0e00eef56575169159e01d",
+    "versions": {
+      "wntr": "1.5.0",
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "pandas": "3.1.1"
+    },
+    "engine_codes": [],
+    "error_code": null,
+    "energy_analysis_performed": false,
+    "unused_engine_default_efficiency_percent": null
+  },
+  "input_sha256": "49a98dfa7a37e99a093a680f4f28d2ce3477d6a41644b7e2d7c9e60adedef4c1",
+  "input_unchanged": true,
+  "source_data": {
+    "model": "EPANET steady water graph",
+    "name": "Synthetic pumped diamond water loop",
+    "pressure_basis": "static pressure head in metres of water; head is elevation plus static pressure head",
+    "coordinate_basis": "schematic diagram coordinates; not physical routes",
+    "sources": {
+      "test": "Synthetic connected water loop for EPANET verification; explicit route dimensions, boundary heads, design withdrawals, global pressure law and limits. Not measured building geometry or code/product data.",
+      "pump": "Synthetic fixed-speed two-or-multi-point head curve in metres at given m3/s; no manufacturer, efficiency, operating-region or NPSH claim.",
+      "solver": "Explicit numerical convergence/QA tolerances and runtime budget for this synthetic model. Velocity cross-check tolerance 0.0001 m/s accounts for EPANET legacy LPSperCFS=28.317 versus exact SI conversion and binary output precision; it does not relax the physical velocity limit. Reference: https://github.com/OpenWaterAnalytics/EPANET/blob/v2.2/src/types.h"
+    },
+    "fluid": {
+      "source": "test",
+      "relative_viscosity": 1,
+      "specific_gravity": 1
+    },
+    "hydraulics": {
+      "source": "test",
+      "demand_model": "PDA",
+      "minimum_pressure_head_m": 5,
+      "required_pressure_head_m": 20,
+      "pressure_exponent": 0.5
+    },
+    "solver": {
+      "source": "solver",
+      "max_trials": 100,
+      "accuracy": 1e-06,
+      "head_tolerance_m": 0.0001,
+      "flow_tolerance_m3_s": 1e-08,
+      "velocity_tolerance_m_s": 0.0001,
+      "mass_tolerance_m3_s": 1e-07,
+      "demand_tolerance_m3_s": 1e-07,
+      "max_runtime_s": 120
+    },
+    "reservoirs": [
+      {
+        "id": "R",
+        "source": "test",
+        "head_m": 2,
+        "connection_elevation_m": 0,
+        "diagram_xy": [
+          0,
+          0
+        ]
+      }
+    ],
+    "junctions": [
+      {
+        "id": "J0",
+        "elevation_m": 0,
+        "demand_m3_s": 0,
+        "diagram_xy": [
+          5,
+          0
+        ],
+        "minimum_acceptable_pressure_head_m": 0,
+        "minimum_delivered_fraction": 0.99,
+        "source": "test"
+      },
+      {
+        "id": "A",
+        "elevation_m": 5,
+        "demand_m3_s": 0.001,
+        "diagram_xy": [
+          15,
+          10
+        ],
+        "minimum_acceptable_pressure_head_m": 20,
+        "minimum_delivered_fraction": 0.99,
+        "source": "test"
+      },
+      {
+        "id": "B",
+        "elevation_m": 5,
+        "demand_m3_s": 0.001,
+        "diagram_xy": [
+          15,
+          -10
+        ],
+        "minimum_acceptable_pressure_head_m": 20,
+        "minimum_delivered_fraction": 0.99,
+        "source": "test"
+      },
+      {
+        "id": "C",
+        "elevation_m": 10,
+        "demand_m3_s": 0.002,
+        "diagram_xy": [
+          25,
+          0
+        ],
+        "minimum_acceptable_pressure_head_m": 20,
+        "minimum_delivered_fraction": 0.99,
+        "source": "test"
+      }
+    ],
+    "pipes": [
+      {
+        "id": "JA",
+        "source": "test",
+        "length_m": 30,
+        "diameter_m": 0.04,
+        "roughness_m": 4.5e-05,
+        "minor_k": 1,
+        "maximum_velocity_m_s": 2.5,
+        "from": "J0",
+        "to": "A"
+      },
+      {
+        "id": "JB",
+        "source": "test",
+        "length_m": 30,
+        "diameter_m": 0.04,
+        "roughness_m": 4.5e-05,
+        "minor_k": 1,
+        "maximum_velocity_m_s": 2.5,
+        "from": "J0",
+        "to": "B"
+      },
+      {
+        "id": "AC",
+        "source": "test",
+        "length_m": 20,
+        "diameter_m": 0.04,
+        "roughness_m": 4.5e-05,
+        "minor_k": 1,
+        "maximum_velocity_m_s": 2.5,
+        "from": "A",
+        "to": "C"
+      },
+      {
+        "id": "CB",
+        "source": "test",
+        "length_m": 20,
+        "diameter_m": 0.04,
+        "roughness_m": 4.5e-05,
+        "minor_k": 1,
+        "maximum_velocity_m_s": 2.5,
+        "from": "C",
+        "to": "B"
+      }
+    ],
+    "pumps": [
+      {
+        "id": "PUMP",
+        "source": "pump",
+        "head_curve": [
+          [
+            0,
+            60
+          ],
+          [
+            0.002,
+            55
+          ],
+          [
+            0.004,
+            45
+          ],
+          [
+            0.008,
+            20
+          ]
+        ],
+        "from": "R",
+        "to": "J0"
+      }
+    ]
+  },
+  "artifacts": {
+    "link-flowrate.csv": "0fa1e1f900343dd922bde4c131ffae7f19b2b10ef2d980ca0f8a6a65ba764903",
+    "link-friction_factor.csv": "a4135b0c67e62fa736739085d45716edb23bb7475e40da51e04cd1b336cbda79",
+    "link-headloss.csv": "13c5e8570fc327ed896226bbd65b1fe9fb611be54ce32b9ad97ed3c255f4b318",
+    "link-quality.csv": "0f7df73149f7881bb966e57bbcdfea9fa1d7f27b38ee537f5a98237483b073f2",
+    "link-reaction_rate.csv": "0f7df73149f7881bb966e57bbcdfea9fa1d7f27b38ee537f5a98237483b073f2",
+    "link-setting.csv": "f448edc368636ba07c7832a12c34dadc598144f5cd73d111992bff73b5cd2fd7",
+    "link-status.csv": "94f27cf033b9d251063c01e44b675fd2a51e01b887707004a12a56256fd91e2d",
+    "link-velocity.csv": "6565fecb534d0950b787bf728e745425fdd50232e10de33185dac5065817440a",
+    "network.bin": "4abf55e00a21137421fcf7e987e68176999fd565d41231a36fa0eb74a2561457",
+    "network.inp": "6e27e0b303882e8317327d6a6230efeb188f218dd45e36dd82149c6c4fad1ee3",
+    "network.rpt": "d334886256604807693bec92e6b5f67bc92b0de10915b35e6876c02ca218b458",
+    "node-demand.csv": "8c30bc8406baa4d5e1307815abaa53ca0dc57982307fe8d3333c32f745de7186",
+    "node-head.csv": "cb79792dc0bcb167e9b815e34b3c460238eb7b98d19aec54e9b24bcc5fe1c7ad",
+    "node-pressure.csv": "e73d7d90b37e2b87d5fad29487dc0fd918a359cec2b73c12964ec780f2f5b6ec",
+    "node-quality.csv": "e3e65eef5c72a0cac9e0a4a82b4298d5888539aeb94e914c00e62945de319922",
+    "raw.json": "78a989b31688df86053a75037fedc907569454a2bb8c717edcd8e6a2379510c5",
+    "report.html": "33ea2b737b86546a9c5e75b7d20a8f507a7ea2e5ab184644542a01471d6fada0",
+    "source-copy.json": "49a98dfa7a37e99a093a680f4f28d2ce3477d6a41644b7e2d7c9e60adedef4c1",
+    "worker.log": "41071403909fdb0d05947c4459b2b5755eccf0a36ba91e338d87e19b84b011fe"
+  }
+}

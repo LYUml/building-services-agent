@@ -1,9 +1,11 @@
 ---
 name: mep-network-analysis
-description: Calculate source-linked circular air/water tree pressure budgets and single-line fixed-speed liquid pump operating points. Use for supported duct/pipe pressure, sizing and sourced pump-curve checks.
+description: Calculate source-linked air/water tree budgets, single-line pump operating points and EPANET water graphs. Use for supported duct/pipe pressure, sizing, loops and sourced pump-curve checks.
 ---
 
 # Network pressure analysis
+
+For branching water flow, parallel pipes, loops or pressure-dependent demand, read docs/WATER_GRAPHS.md and use `water_network`/`bsa.epanet` with the pinned optional water runtime. Keep static head metres distinct from old total-pressure Pa. Source routes independently from schematic coordinates; require explicit global PDA law, numerical budgets and full fixed-speed curves. Review native artifacts, reopened active input, signed flows, continuity and pressure/delivery/velocity/pump targets. Preserve converged-but-failing cases. Never infer electricity from native default efficiency or claim these graphs are IFC-bound. Independent general pipe energy residuals, actual products/routes and domain acceptance stay pending.
 
 Read docs/NETWORKS.md before interpreting pressures. Use `python -m bsa.network <project.json> --out <new-run>` or the `network` workflow adapter. Install the optional network dependency. Source every flow, internal diameter, route length, roughness, fitting K, fluid property and allowable velocity/pressure. Do not derive a route length from unrelated coordinates or manufacture a regulation table value.
 

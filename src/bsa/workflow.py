@@ -70,10 +70,13 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_native","native_cad","manual"):
+        if kind not in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","bim","network","water_network","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
-        if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","network_model_design","lighting"):
+        if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","bim","network","water_network","network_coordination","network_design","network_model_design","lighting"):
             inputs.add(local_path(root,t.get("project")))
+        if kind=='water_network':
+            from .epanet import validate
+            validate(read_json(local_path(root,t['project'])))
         if kind=='lighting':
             from .lighting import validate as validate_lighting
             lighting_project=local_path(root,t.get('project'))
@@ -297,6 +300,11 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                 payload=run(local_path(root,t['project']),local_path(root,t['model']),local_path(root,t['binding']),folder)
                 status='pass' if payload['calculated_checks_pass'] else 'fail'
                 reason='IFC port-derived circular route dimensions and prescribed-flow pressure budget; detailed routing and full acceptance pending'
+            elif t['kind']=='water_network':
+                from .epanet import run
+                payload=run(local_path(root,t['project']),folder)
+                status='pass' if payload['calculated_checks_pass'] else 'fail'
+                reason='steady EPANET water graph, static head, sourced numerical/target checks; route binding, power and full acceptance pending'
             elif t['kind']=='network':
                 from .network import run
                 payload=run(local_path(root,t['project']),folder)

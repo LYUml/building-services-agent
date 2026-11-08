@@ -5,3 +5,5 @@ examples/** -text whitespace=cr-at-eol
 docs/evidence/** -text -whitespace
 # Preserve the exact upstream notice bytes copied from the installed package.
 third_party/licenses/manifold3d*.txt -text -whitespace
+third_party/licenses/wntr-1.5.0.txt -text -whitespace
+third_party/licenses/epanet-2.2-authors.txt -text -whitespace

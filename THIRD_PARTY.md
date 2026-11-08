@@ -1,5 +1,9 @@
 # Attribution and upstream integration register
 
+## Executed EPANET water graphs
+
+**WNTR 1.5.0**, revised BSD, [USEPA source tag](https://github.com/USEPA/WNTR/tree/1.5.0), is a pinned optional `water` dependency. Original orchestration calls its EpanetSimulator with EPANET 2.2 and retains native inputs/results; no upstream source or binaries are vendored. The installed distribution's exact license text is preserved at `third_party/licenses/wntr-1.5.0.txt`, including its EPANET MIT and NumPy notices. The EPANET 2.2 [AUTHORS](https://github.com/OpenWaterAnalytics/EPANET/blob/v2.2/AUTHORS) notice is preserved at `third_party/licenses/epanet-2.2-authors.txt`. These reference notices do not establish an exact source commit for the wheel's bundled native library. Actual engine version/DLL SHA256 and WNTR/NumPy/SciPy/pandas versions are recorded in each run. Dependencies remain installed packages; a full transitive lock/license audit is not claimed.
+
 Research checked 2026-11-08. These are integration candidates, not bundled implementations. A link is not a license audit, compatibility test or evidence of an executed integration. Before vendoring or installing, record exact commit/version, inspect its license and preserve required notices. Papers are methodology references, not proof of a runnable tool.
 
 | Upstream | Intended use | Initial license observation / status |

@@ -1,0 +1,40 @@
+  Page 1                                    Sun Nov 08 08:47:52 2026
+
+  ******************************************************************
+  *                           E P A N E T                          *
+  *                   Hydraulic and Water Quality                  *
+  *                   Analysis for Pipe Networks                   *
+  *                         Version 2.2                            *
+  ******************************************************************
+  
+   
+      Input Data File ................... C:\Users\lyuml-win\Desktop\building-services-agent\runs\epanet-evidence-v1\positive\water\network.inp
+      Number of Junctions................ 4
+      Number of Reservoirs............... 1
+      Number of Tanks ................... 0
+      Number of Pipes ................... 4
+      Number of Pumps ................... 1
+      Number of Valves .................. 0
+      Headloss Formula .................. Darcy-Weisbach
+      Nodal Demand Model ................ PDA
+      Hydraulic Timestep ................ 1.00 hrs
+      Hydraulic Accuracy ................ 0.000010
+      Headloss Error Limit .............. 0.000100 m
+      Flow Change Limit ................. 0.000000 L/s
+      Status Check Frequency ............ 2
+      Maximum Trials Checked ............ 10
+      Damping Limit Threshold ........... 0.000000
+      Maximum Trials .................... 100
+      Quality Analysis .................. None
+      Specific Gravity .................. 1.00
+      Relative Kinematic Viscosity ...... 1.00
+      Relative Chemical Diffusivity ..... 1.00
+      Demand Multiplier ................. 1.00
+      Total Duration .................... 0.00 hrs
+      Reporting Criteria:
+         No Nodes
+         No Links
+   
+  Analysis begun Sun Nov 08 08:47:52 2026
+
+  Analysis ended Sun Nov 08 08:47:52 2026
