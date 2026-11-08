@@ -40,6 +40,7 @@ def validate(p):
     if p['model']==MULTIZONE_MODEL:building_fields=(building_fields-{'zone_width_m','zone_depth_m','height_m'})|{'spaces'}
     if isinstance(building,dict) and 'north_axis_deg' in building:building_fields.add('north_axis_deg')
     if isinstance(building,dict) and 'operation' in building:building_fields.add('operation')
+    if isinstance(building,dict) and 'windows' in building:building_fields.add('windows')
     if isinstance(building,dict) and 'hvac' in building:
         if p['model']!=MULTIZONE_MODEL:raise ProjectError('explicit HVAC requires explicit thermal spaces')
         building_fields.add('hvac')
@@ -132,6 +133,11 @@ def build(project,weather,weather_meta,lighting,out):
         saved=os.model.Model.load(os.path(str(out/'model.osm')))
         if saved.empty():raise ProjectError('saved HVAC model could not be reopened')
         metadata['hvac_audit']=audit_hvac(saved.get(),building['hvac'])
+    if 'windows' in building:
+        from .thermal_windows import audit as audit_windows
+        saved=os.model.Model.load(os.path(str(out/'model.osm')))
+        if saved.empty():raise ProjectError('saved window model could not be reopened')
+        metadata['window_audit']=audit_windows(saved.get(),building['windows'],metadata['spaces'])
     metadata.update(calendar_year=project['calendar_year'],design_day_count=len(model.getDesignDays()),weather_sha256=weather_meta['sha256'],translation_warnings=[str(v.logMessage()) for v in ft.warnings()])
     return metadata
 
@@ -229,6 +235,12 @@ def run(project,weather,out,exe):
             from .thermal_hvac import extract as extract_hvac
             summary['hvac']=extract_hvac(folder/'eplusout.sql',p['building']['hvac'],meta,p['calendar_year'],p['solver'])
             summary['checks'].update(summary['hvac']['checks']);summary['calculated_checks_pass']=all(summary['checks'].values())
+        if 'windows' in p['building']:
+            from .thermal_windows import extract as extract_windows
+            summary['windows'],window_hourly=extract_windows(folder/'eplusout.sql',meta['window_audit'],p['calendar_year'],p['solver'])
+            summary['checks'].update(summary['windows']['checks']);summary['calculated_checks_pass']=all(summary['checks'].values())
+            with (folder/'window-hourly.csv').open('w',newline='',encoding='utf-8') as stream:
+                writer=csv.DictWriter(stream,fieldnames=['window','key','variable','month','day','hour','value','units']);writer.writeheader();writer.writerows(window_hourly)
         with (folder/'hourly-building-rates.csv').open('w',newline='',encoding='utf-8') as stream:
             writer=csv.DictWriter(stream,fieldnames=list(hourly[0]));writer.writeheader();writer.writerows(hourly)
         (folder/'summary.json').write_text(json.dumps(summary,indent=2),encoding='utf-8');results[kind]=dict(metadata=meta,summary=summary,diagnostics=diagnostics,completion=completion,sql_sha256=digest(folder/'eplusout.sql'),engine_success_evidence=dict(returncode=proc.returncode,end_report=end,end_report_sha256=digest(folder/'eplusout.end'),stdout_success_marker=True))
@@ -240,6 +252,9 @@ def run(project,weather,out,exe):
                 scope='Full-calendar hourly EPW simulation; supplied heating/cooling thermal energy and electrical end uses reported separately',
                 assumptions=['Sourced weekly lighting/equipment/people and fixed scheduled simple infiltration/ventilation; no windows; adiabatic floors and constant setpoints' if 'operation' in p['building'] else 'No windows, people, equipment, ventilation/infiltration; adiabatic floors; always-on lights and constant setpoints','Explicit fixed-size DX PTAC/electric heat/fans; source-declared ratings/curves; PTAC electricity includes its fan/coils, separate from simple ventilation electricity' if 'hvac' in p['building'] else 'Ideal air loads are supplied thermal demand, not HVAC electricity; no plant/COP or whole-building EUI inferred','Source-declared role-specific opaque layers; layer R excludes surface films/bridges/moisture' if 'opaque_constructions' in p['building'] else 'Legacy synthetic uniform R layer plus fixed 0.1 m mass layer: conductivity 0.5 W/mK, density 800 kg/m3, specific heat 1000 J/kgK','Weather calendar remapped to declared simulation year; DST/holidays/rain/snow indicators disabled; no design-day/sizing runs'],
                 pending=['actual building geometry/construction/gain/schedule and meteorological applicability','detailed HVAC, ventilation/moisture, plant electricity and code acceptance','real-project calibration and full engineering acceptance'])
+    if 'windows' in p['building']:
+        result['assumptions'][0]=result['assumptions'][0].replace('no windows; ','') if 'operation' in p['building'] else 'No people, equipment, ventilation/infiltration; adiabatic floors; always-on lights and constant setpoints'
+        result['assumptions'].append('Source-declared thermal windows and simple glazing including film coefficients; no frame/divider/shading/daylight control or IFC architectural window authoring')
     result['completion_limitations']=[dict(case=kind,status=v['completion']['status'],native_sql_flags_preserved=True,source_commit=v['completion']['source_inference']['commit']) for kind,v in results.items() if v['completion']['known_unwritten_initial_flags']]
     (out/'report.html').write_text('<!doctype html><meta charset="utf-8"><h1>Annual energy and lighting comparison</h1><p>'+html.escape(result['scope'])+'</p><pre>'+html.escape(json.dumps(dict(comparison=comparison,results=results),indent=2))+'</pre><p>'+html.escape('; '.join(result['pending']))+'</p>',encoding='utf-8')
     result['artifacts']={v.relative_to(out).as_posix():digest(v) for v in out.rglob('*') if v.is_file()}

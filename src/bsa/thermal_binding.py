@@ -28,7 +28,11 @@ def validate_contract(project,binding):
     candidate=copy.deepcopy(project)
     candidate['building']['north_axis_deg']=north
     candidate['building']['spaces']=[dict(id=r['id'],source=r['source'],origin_m=[i*2,0,0],size_m=[1,1,1]) for i,r in enumerate(rows)]
+    windows=candidate['building'].pop('windows',None)
     validate(candidate)
+    if 'windows' in project['building']:
+        from .thermal_windows import validate as validate_windows
+        validate_windows(windows,zone_ids=[r['id'] for r in rows])
     from .hvac_devices import validate as validate_devices
     validate_devices(project,binding)
     return binding

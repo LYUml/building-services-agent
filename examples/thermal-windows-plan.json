@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "brief": "thermal-windows/brief.md",
+  "brief_sha256": "2641adc1c7fcb9b7da232e323f17900cbf57b2165ed667f2c5fa447411c9908c",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "model",
+      "kind": "bim",
+      "project": "thermal-ifc/bim.json"
+    },
+    {
+      "id": "thermal",
+      "kind": "annual_energy_ifc",
+      "project": "thermal-windows/project.json",
+      "binding": "thermal-ifc/binding.json",
+      "depends_on": "model",
+      "weather": "annual-energy/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw.gz"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Author thermal-ifc/bim.json with stable thermal-space envelopes. Preserve synthetic scope and source bytes; this source IFC has no architectural walls/window products.",
+      "task": "model",
+      "acceptance": "Source-linked synthetic execution; real engineering acceptance pending"
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Bind saved spaces using thermal-ifc/binding.json and thermal-windows/project.json. Add the declared exterior-wall window rectangles and sourced simple glazing U/SHGC/visible transmittance to the thermal model. Verify actual parent/outward face, world vertices, area, opaque net-area subtraction and saved optical/thermal/source properties. Reject overlaps, out-of-wall and interzone windows. Run actual complete-calendar PTAC baseline/variant analysis with attributed Chicago weather and retain exact hourly window solar/heat-gain/loss identities and monthly/annual reconciliation. Keep window heat terms separate from HVAC electricity; verify transmitted solar does not exceed actual incident solar on the window. Manufacturer glazing, architectural IFC windows, frames/shades, daylight controls and engineering acceptance remain pending.",
+      "task": "thermal",
+      "acceptance": "Source-linked synthetic execution; real engineering acceptance pending"
+    }
+  ]
+}

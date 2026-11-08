@@ -1,0 +1,1836 @@
+{
+  "checks": {
+    "full_weather_calendar": true,
+    "complete_hourly_variable_coverage": true,
+    "lighting_analytic_energy": true,
+    "lighting_hourly_profile": true,
+    "monthly_annual_reconciliation": true,
+    "zone_unmet_time_target": true,
+    "lighting_per_zone_hourly_profile": true,
+    "equipment_hourly_balance": true,
+    "equipment_per_zone_hourly_balance": true,
+    "equipment_annual_integral": true,
+    "people_hourly_balance": true,
+    "people_per_zone_hourly_balance": true,
+    "people_annual_integral": true,
+    "ventilation_hourly_balance": true,
+    "ventilation_per_zone_hourly_balance": true,
+    "ventilation_annual_integral": true,
+    "infiltration_scheduled_mass_flow": true,
+    "ventilation_scheduled_mass_flow": true,
+    "component_coverage": true,
+    "hourly_electricity_sum": true,
+    "annual_electricity_sum": true,
+    "electric_heater_efficiency": true,
+    "cycling_fan_power": true,
+    "window_hourly_coverage": true,
+    "transmitted_solar_incident_bound": true,
+    "window_monthly_annual_reconciliation": true
+  },
+  "calculated_checks_pass": true,
+  "environments": [
+    [
+      1,
+      "ANNUAL EPW",
+      3
+    ]
+  ],
+  "annual": [
+    {
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "quantity": "PTAC supplied cooling thermal",
+      "annual_kwh": 3829.731766210188,
+      "coincident_peak_kw": 5.685487352248835,
+      "hours": 8760
+    },
+    {
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "quantity": "PTAC supplied heating thermal",
+      "annual_kwh": 6070.030160744301,
+      "coincident_peak_kw": 5.843082351278083,
+      "hours": 8760
+    },
+    {
+      "variable": "Lights Electricity Rate",
+      "quantity": "lighting electricity",
+      "annual_kwh": 1660.968,
+      "coincident_peak_kw": 0.612,
+      "hours": 8760
+    },
+    {
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "quantity": "PTAC electricity",
+      "annual_kwh": 7474.291093779373,
+      "coincident_peak_kw": 5.960784276504283,
+      "hours": 8760
+    }
+  ],
+  "monthly": [
+    {
+      "month": 1,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 0.0,
+      "coincident_peak_kw": 0.0,
+      "hours": 744
+    },
+    {
+      "month": 2,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 0.0,
+      "coincident_peak_kw": 0.0,
+      "hours": 672
+    },
+    {
+      "month": 3,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 0.2644167222674462,
+      "coincident_peak_kw": 0.1163535058854652,
+      "hours": 744
+    },
+    {
+      "month": 4,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 178.43788190451193,
+      "coincident_peak_kw": 4.07351572344355,
+      "hours": 720
+    },
+    {
+      "month": 5,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 310.6193110980487,
+      "coincident_peak_kw": 3.701488417612857,
+      "hours": 744
+    },
+    {
+      "month": 6,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 757.1160752687839,
+      "coincident_peak_kw": 4.801297180455286,
+      "hours": 720
+    },
+    {
+      "month": 7,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 1198.446246983657,
+      "coincident_peak_kw": 5.685487352248835,
+      "hours": 744
+    },
+    {
+      "month": 8,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 876.1594110837585,
+      "coincident_peak_kw": 5.524004742440681,
+      "hours": 744
+    },
+    {
+      "month": 9,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 471.741740812647,
+      "coincident_peak_kw": 3.780956603139436,
+      "hours": 720
+    },
+    {
+      "month": 10,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 36.53312740762663,
+      "coincident_peak_kw": 1.4026466493260734,
+      "hours": 744
+    },
+    {
+      "month": 11,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 0.4135549288871567,
+      "coincident_peak_kw": 0.13143238309312225,
+      "hours": 720
+    },
+    {
+      "month": 12,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Cooling Rate",
+      "kwh": 0.0,
+      "coincident_peak_kw": 0.0,
+      "hours": 744
+    },
+    {
+      "month": 1,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 1546.960328090976,
+      "coincident_peak_kw": 5.843082351278083,
+      "hours": 744
+    },
+    {
+      "month": 2,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 1163.975311729836,
+      "coincident_peak_kw": 5.552778036957659,
+      "hours": 672
+    },
+    {
+      "month": 3,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 676.5743566670852,
+      "coincident_peak_kw": 2.7134429095783603,
+      "hours": 744
+    },
+    {
+      "month": 4,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 311.5654062387351,
+      "coincident_peak_kw": 1.744527910789968,
+      "hours": 720
+    },
+    {
+      "month": 5,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 2.234682361755737,
+      "coincident_peak_kw": 0.29006930062388253,
+      "hours": 744
+    },
+    {
+      "month": 6,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 0.0,
+      "coincident_peak_kw": 0.0,
+      "hours": 720
+    },
+    {
+      "month": 7,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 0.0,
+      "coincident_peak_kw": 0.0,
+      "hours": 744
+    },
+    {
+      "month": 8,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 0.0,
+      "coincident_peak_kw": 0.0,
+      "hours": 744
+    },
+    {
+      "month": 9,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 0.9584540260186163,
+      "coincident_peak_kw": 0.15379382842182324,
+      "hours": 720
+    },
+    {
+      "month": 10,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 150.26049305307768,
+      "coincident_peak_kw": 1.1857426681727774,
+      "hours": 744
+    },
+    {
+      "month": 11,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 738.618290261994,
+      "coincident_peak_kw": 4.591136241589504,
+      "hours": 720
+    },
+    {
+      "month": 12,
+      "variable": "Zone Packaged Terminal Air Conditioner Total Heating Rate",
+      "kwh": 1478.8828383148225,
+      "coincident_peak_kw": 4.761251556296911,
+      "hours": 744
+    },
+    {
+      "month": 1,
+      "variable": "Lights Electricity Rate",
+      "kwh": 145.656,
+      "coincident_peak_kw": 0.612,
+      "hours": 744
+    },
+    {
+      "month": 2,
+      "variable": "Lights Electricity Rate",
+      "kwh": 127.296,
+      "coincident_peak_kw": 0.612,
+      "hours": 672
+    },
+    {
+      "month": 3,
+      "variable": "Lights Electricity Rate",
+      "kwh": 134.64,
+      "coincident_peak_kw": 0.612,
+      "hours": 744
+    },
+    {
+      "month": 4,
+      "variable": "Lights Electricity Rate",
+      "kwh": 139.536,
+      "coincident_peak_kw": 0.612,
+      "hours": 720
+    },
+    {
+      "month": 5,
+      "variable": "Lights Electricity Rate",
+      "kwh": 140.76,
+      "coincident_peak_kw": 0.612,
+      "hours": 744
+    },
+    {
+      "month": 6,
+      "variable": "Lights Electricity Rate",
+      "kwh": 133.416,
+      "coincident_peak_kw": 0.612,
+      "hours": 720
+    },
+    {
+      "month": 7,
+      "variable": "Lights Electricity Rate",
+      "kwh": 145.656,
+      "coincident_peak_kw": 0.612,
+      "hours": 744
+    },
+    {
+      "month": 8,
+      "variable": "Lights Electricity Rate",
+      "kwh": 134.64,
+      "coincident_peak_kw": 0.612,
+      "hours": 744
+    },
+    {
+      "month": 9,
+      "variable": "Lights Electricity Rate",
+      "kwh": 139.536,
+      "coincident_peak_kw": 0.612,
+      "hours": 720
+    },
+    {
+      "month": 10,
+      "variable": "Lights Electricity Rate",
+      "kwh": 145.656,
+      "coincident_peak_kw": 0.612,
+      "hours": 744
+    },
+    {
+      "month": 11,
+      "variable": "Lights Electricity Rate",
+      "kwh": 128.52,
+      "coincident_peak_kw": 0.612,
+      "hours": 720
+    },
+    {
+      "month": 12,
+      "variable": "Lights Electricity Rate",
+      "kwh": 145.656,
+      "coincident_peak_kw": 0.612,
+      "hours": 744
+    },
+    {
+      "month": 1,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 1578.1222406579593,
+      "coincident_peak_kw": 5.960784276504283,
+      "hours": 744
+    },
+    {
+      "month": 2,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 1187.4223935348853,
+      "coincident_peak_kw": 5.664632230115475,
+      "hours": 672
+    },
+    {
+      "month": 3,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 690.29176274513,
+      "coincident_peak_kw": 2.7681022822809953,
+      "hours": 744
+    },
+    {
+      "month": 4,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 377.5728914185034,
+      "coincident_peak_kw": 1.7796695229945898,
+      "hours": 720
+    },
+    {
+      "month": 5,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 106.25819610494842,
+      "coincident_peak_kw": 1.2390575635229477,
+      "hours": 744
+    },
+    {
+      "month": 6,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 253.44139807726242,
+      "coincident_peak_kw": 1.6072138866778285,
+      "hours": 720
+    },
+    {
+      "month": 7,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 401.17480301571555,
+      "coincident_peak_kw": 1.9031928001171945,
+      "hours": 744
+    },
+    {
+      "month": 8,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 293.2906503204107,
+      "coincident_peak_kw": 1.8491371807322614,
+      "hours": 744
+    },
+    {
+      "month": 9,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 158.89130880656762,
+      "coincident_peak_kw": 1.2656592018983703,
+      "hours": 720
+    },
+    {
+      "month": 10,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 165.51663491512608,
+      "coincident_peak_kw": 1.2096282534162865,
+      "hours": 744
+    },
+    {
+      "month": 11,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 753.6354306279096,
+      "coincident_peak_kw": 4.683619204040921,
+      "hours": 720
+    },
+    {
+      "month": 12,
+      "variable": "Zone Packaged Terminal Air Conditioner Electricity Rate",
+      "kwh": 1508.6733835549549,
+      "coincident_peak_kw": 4.857161344098185,
+      "hours": 744
+    }
+  ],
+  "zone_unmet": [
+    {
+      "variable": "Zone Cooling Setpoint Not Met Time",
+      "zone": "ANNEX",
+      "zone_hours": 0.0
+    },
+    {
+      "variable": "Zone Cooling Setpoint Not Met Time",
+      "zone": "EAST",
+      "zone_hours": 0.0
+    },
+    {
+      "variable": "Zone Cooling Setpoint Not Met Time",
+      "zone": "OFFICE",
+      "zone_hours": 0.0
+    },
+    {
+      "variable": "Zone Heating Setpoint Not Met Time",
+      "zone": "ANNEX",
+      "zone_hours": 0.0
+    },
+    {
+      "variable": "Zone Heating Setpoint Not Met Time",
+      "zone": "EAST",
+      "zone_hours": 0.0
+    },
+    {
+      "variable": "Zone Heating Setpoint Not Met Time",
+      "zone": "OFFICE",
+      "zone_hours": 0.0
+    }
+  ],
+  "analytic_lighting_kwh": 1660.968,
+  "sql_completion_flags": [
+    [
+      "FALSE",
+      "FALSE"
+    ]
+  ],
+  "sql_completion_flags_true": false,
+  "operation": {
+    "checks": {
+      "equipment_hourly_balance": true,
+      "equipment_per_zone_hourly_balance": true,
+      "equipment_annual_integral": true,
+      "people_hourly_balance": true,
+      "people_per_zone_hourly_balance": true,
+      "people_annual_integral": true,
+      "ventilation_hourly_balance": true,
+      "ventilation_per_zone_hourly_balance": true,
+      "ventilation_annual_integral": true,
+      "infiltration_scheduled_mass_flow": true,
+      "ventilation_scheduled_mass_flow": true
+    },
+    "calculated_checks_pass": true,
+    "annual": [
+      {
+        "variable": "Electric Equipment Electricity Rate",
+        "units": "W",
+        "quantity": "equipment electricity kWh",
+        "annual_integral": 2214.6240000000003,
+        "analytic_integral": 2214.6240000000003,
+        "hours": 8760
+      },
+      {
+        "variable": "Zone People Occupant Count",
+        "units": "",
+        "quantity": "person-hours",
+        "annual_integral": 22146.24,
+        "analytic_integral": 22146.24,
+        "hours": 8760
+      },
+      {
+        "variable": "Zone Ventilation Fan Electricity Energy",
+        "units": "J",
+        "quantity": "simple ventilation fan electricity kWh",
+        "annual_integral": 69.207,
+        "analytic_integral": 69.20700000000001,
+        "hours": 8760
+      },
+      {
+        "variable": "Zone Infiltration Mass Flow Rate",
+        "units": "kg/s",
+        "quantity": "infiltration outdoor-air mass kg",
+        "annual_integral": 199495.0111943959,
+        "analytic_integral": null,
+        "hours": 8760,
+        "scope": "scheduled on/off checked; mass depends on engine air density, no fixed-density equality asserted"
+      },
+      {
+        "variable": "Zone Ventilation Mass Flow Rate",
+        "units": "kg/s",
+        "quantity": "ventilation outdoor-air mass kg",
+        "annual_integral": 598485.0335831877,
+        "analytic_integral": null,
+        "hours": 8760,
+        "scope": "scheduled on/off checked; mass depends on engine air density, no fixed-density equality asserted"
+      }
+    ]
+  },
+  "hvac": {
+    "checks": {
+      "component_coverage": true,
+      "hourly_electricity_sum": true,
+      "annual_electricity_sum": true,
+      "electric_heater_efficiency": true,
+      "cycling_fan_power": true
+    },
+    "calculated_checks_pass": true,
+    "zones": [
+      {
+        "zone": "Office",
+        "cooling_electricity_kwh": 585.5143074425264,
+        "heating_electricity_kwh": 2892.39015725708,
+        "fan_electricity_kwh": 69.02132778509392,
+        "ptac_electricity_kwh": 3546.9257924847,
+        "ptac_peak_electricity_kw": 2.8785420249829268
+      },
+      {
+        "zone": "East",
+        "cooling_electricity_kwh": 324.8828598999236,
+        "heating_electricity_kwh": 1604.3922081229794,
+        "fan_electricity_kwh": 37.79979893373186,
+        "ptac_electricity_kwh": 1967.0748669566347,
+        "ptac_peak_electricity_kw": 1.646039881287625
+      },
+      {
+        "zone": "Annex",
+        "cooling_electricity_kwh": 306.6786058175674,
+        "heating_electricity_kwh": 1616.9402332792558,
+        "fan_electricity_kwh": 36.67159524121476,
+        "ptac_electricity_kwh": 1960.290434338038,
+        "ptac_peak_electricity_kw": 1.4362023702337319
+      }
+    ],
+    "scope": "component accounting; PTAC total already includes these coils/fan; simple ventilation fan is separate; gross coil cooling and net zone delivery differ"
+  },
+  "windows": {
+    "checks": {
+      "window_hourly_coverage": true,
+      "transmitted_solar_incident_bound": true,
+      "window_monthly_annual_reconciliation": true
+    },
+    "calculated_checks_pass": true,
+    "annual": [
+      {
+        "window": "W01",
+        "key": "WIN W01",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "kwh": 579.593474156712,
+        "quantity": "transmitted solar",
+        "hours": 8760
+      },
+      {
+        "window": "W01",
+        "key": "WIN W01",
+        "variable": "Surface Window Heat Gain Energy",
+        "kwh": 644.91945052462,
+        "quantity": "window heat gain",
+        "hours": 8760
+      },
+      {
+        "window": "W01",
+        "key": "WIN W01",
+        "variable": "Surface Window Heat Loss Energy",
+        "kwh": 372.5837067904081,
+        "quantity": "window heat loss",
+        "hours": 8760
+      },
+      {
+        "window": "W01",
+        "key": "WIN W01",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "kwh": 2271.9235734279587,
+        "quantity": "incident solar on window",
+        "hours": 8760
+      },
+      {
+        "window": "W02",
+        "key": "WIN W02",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "kwh": 236.92551440876596,
+        "quantity": "transmitted solar",
+        "hours": 8760
+      },
+      {
+        "window": "W02",
+        "key": "WIN W02",
+        "variable": "Surface Window Heat Gain Energy",
+        "kwh": 237.02429506647516,
+        "quantity": "window heat gain",
+        "hours": 8760
+      },
+      {
+        "window": "W02",
+        "key": "WIN W02",
+        "variable": "Surface Window Heat Loss Energy",
+        "kwh": 268.9823305229901,
+        "quantity": "window heat loss",
+        "hours": 8760
+      },
+      {
+        "window": "W02",
+        "key": "WIN W02",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "kwh": 932.3564614432728,
+        "quantity": "incident solar on window",
+        "hours": 8760
+      },
+      {
+        "window": "W03",
+        "key": "WIN W03",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "kwh": 179.4617314471345,
+        "quantity": "transmitted solar",
+        "hours": 8760
+      },
+      {
+        "window": "W03",
+        "key": "WIN W03",
+        "variable": "Surface Window Heat Gain Energy",
+        "kwh": 164.60759602166897,
+        "quantity": "window heat gain",
+        "hours": 8760
+      },
+      {
+        "window": "W03",
+        "key": "WIN W03",
+        "variable": "Surface Window Heat Loss Energy",
+        "kwh": 274.68739901691185,
+        "quantity": "window heat loss",
+        "hours": 8760
+      },
+      {
+        "window": "W03",
+        "key": "WIN W03",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "kwh": 719.5783957767816,
+        "quantity": "incident solar on window",
+        "hours": 8760
+      },
+      {
+        "window": "W04",
+        "key": "WIN W04",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "kwh": 375.0274529919039,
+        "quantity": "transmitted solar",
+        "hours": 8760
+      },
+      {
+        "window": "W04",
+        "key": "WIN W04",
+        "variable": "Surface Window Heat Gain Energy",
+        "kwh": 411.65092068694065,
+        "quantity": "window heat gain",
+        "hours": 8760
+      },
+      {
+        "window": "W04",
+        "key": "WIN W04",
+        "variable": "Surface Window Heat Loss Energy",
+        "kwh": 251.4541939089917,
+        "quantity": "window heat loss",
+        "hours": 8760
+      },
+      {
+        "window": "W04",
+        "key": "WIN W04",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "kwh": 1428.4294086197506,
+        "quantity": "incident solar on window",
+        "hours": 8760
+      }
+    ],
+    "monthly": [
+      {
+        "window": "W01",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 1,
+        "kwh": 47.50080766933416
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 2,
+        "kwh": 47.82850219164244
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 3,
+        "kwh": 51.76788106953216
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 4,
+        "kwh": 47.27190619654441
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 5,
+        "kwh": 49.54636572609456
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 6,
+        "kwh": 44.6813176076271
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 7,
+        "kwh": 49.95682655568159
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 8,
+        "kwh": 50.224316008203054
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 9,
+        "kwh": 53.91416666551597
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 10,
+        "kwh": 54.5752192976279
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 11,
+        "kwh": 39.22564836104419
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 12,
+        "kwh": 43.10051680786438
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 1,
+        "kwh": 40.00611940216307
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 2,
+        "kwh": 42.004815932745124
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 3,
+        "kwh": 50.347967476918306
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 4,
+        "kwh": 50.46171348464584
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 5,
+        "kwh": 59.73191773961239
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 6,
+        "kwh": 59.057466290133945
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 7,
+        "kwh": 71.67148344304555
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 8,
+        "kwh": 67.668095724928
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 9,
+        "kwh": 68.30677498325788
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 10,
+        "kwh": 62.483740655702164
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 11,
+        "kwh": 37.05590786705462
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 12,
+        "kwh": 36.12344752441302
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 1,
+        "kwh": 62.65852846858842
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 2,
+        "kwh": 49.52358566423543
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 3,
+        "kwh": 39.3729618675535
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 4,
+        "kwh": 25.880038415082733
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 5,
+        "kwh": 21.081979939412502
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 6,
+        "kwh": 11.824661392983073
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 7,
+        "kwh": 7.450857183728165
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 8,
+        "kwh": 11.270785914926048
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 9,
+        "kwh": 17.170333709283266
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 10,
+        "kwh": 27.593663594513476
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 11,
+        "kwh": 38.3147539879604
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 12,
+        "kwh": 60.44155665214109
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 1,
+        "kwh": 172.55188996969508
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 2,
+        "kwh": 176.37972111143466
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 3,
+        "kwh": 197.26740983055058
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 4,
+        "kwh": 188.35539142573668
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 5,
+        "kwh": 209.9818823880154
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 6,
+        "kwh": 193.33359417318024
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 7,
+        "kwh": 212.8557510305889
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 8,
+        "kwh": 205.59687213329582
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 9,
+        "kwh": 209.4464513604032
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 10,
+        "kwh": 204.71913540300892
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 11,
+        "kwh": 144.8794980765617
+      },
+      {
+        "window": "W01",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 12,
+        "kwh": 156.55597652548755
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 1,
+        "kwh": 7.807362075935818
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 2,
+        "kwh": 10.603364199972278
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 3,
+        "kwh": 16.62981607147133
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 4,
+        "kwh": 22.88566116738679
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 5,
+        "kwh": 32.783070285554544
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 6,
+        "kwh": 34.384281205099605
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 7,
+        "kwh": 34.894823873421856
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 8,
+        "kwh": 28.53797086065028
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 9,
+        "kwh": 20.411926083772286
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 10,
+        "kwh": 13.504710523833111
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 11,
+        "kwh": 7.9841261620866515
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 12,
+        "kwh": 6.4984018995814
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 1,
+        "kwh": 0.29053692086604477
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 2,
+        "kwh": 2.2447061922730045
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 3,
+        "kwh": 9.309450588226518
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 4,
+        "kwh": 21.236666135409248
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 5,
+        "kwh": 37.54909977897484
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 6,
+        "kwh": 43.83024330053889
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 7,
+        "kwh": 48.23384404938222
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 8,
+        "kwh": 37.08023691723068
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 9,
+        "kwh": 23.776991841659616
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 10,
+        "kwh": 10.739229767262163
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 11,
+        "kwh": 2.6229424660233964
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 12,
+        "kwh": 0.11034710862855332
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 1,
+        "kwh": 48.46486750102459
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 2,
+        "kwh": 36.523480451910615
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 3,
+        "kwh": 26.759546185574816
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 4,
+        "kwh": 17.451562170442386
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 5,
+        "kwh": 13.914182645674591
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 6,
+        "kwh": 7.7845448777610855
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 7,
+        "kwh": 4.927993650601126
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 8,
+        "kwh": 7.502949772053963
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 9,
+        "kwh": 11.524536919927561
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 10,
+        "kwh": 18.679049759291644
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 11,
+        "kwh": 28.323561008963335
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 12,
+        "kwh": 47.12605557976439
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 1,
+        "kwh": 32.50461991661774
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 2,
+        "kwh": 43.59642091169408
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 3,
+        "kwh": 66.55959288769559
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 4,
+        "kwh": 89.89871770641652
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 5,
+        "kwh": 126.79312926946825
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 6,
+        "kwh": 132.1613495152448
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 7,
+        "kwh": 134.74688025749347
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 8,
+        "kwh": 110.5304977461493
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 9,
+        "kwh": 81.00656967630789
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 10,
+        "kwh": 55.08876745239675
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 11,
+        "kwh": 32.39434380825346
+      },
+      {
+        "window": "W02",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 12,
+        "kwh": 27.075572295534972
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 1,
+        "kwh": 6.601931225091222
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 2,
+        "kwh": 8.292345982681823
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 3,
+        "kwh": 12.620632920228285
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 4,
+        "kwh": 16.527976109692684
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 5,
+        "kwh": 24.413342984429327
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 6,
+        "kwh": 26.884767974126177
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 7,
+        "kwh": 25.791394269024863
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 8,
+        "kwh": 20.815287011359878
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 9,
+        "kwh": 14.606239173729723
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 10,
+        "kwh": 10.294937713474026
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 11,
+        "kwh": 6.983717588589109
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 12,
+        "kwh": 5.629158494707369
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 1,
+        "kwh": 0.10005349061015965
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 2,
+        "kwh": 0.7008062979666501
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 3,
+        "kwh": 4.1096019836399105
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 4,
+        "kwh": 12.587696870133584
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 5,
+        "kwh": 25.98453882841909
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 6,
+        "kwh": 33.91406520795678
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 7,
+        "kwh": 36.377618451912255
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 8,
+        "kwh": 26.69711666048249
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 9,
+        "kwh": 15.5698591771346
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 10,
+        "kwh": 6.502652443612679
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 11,
+        "kwh": 2.0437384920230035
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 12,
+        "kwh": 0.019848117777793117
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 1,
+        "kwh": 50.56529587852936
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 2,
+        "kwh": 38.64033892565342
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 3,
+        "kwh": 27.294461010719427
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 4,
+        "kwh": 17.335298755167507
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 5,
+        "kwh": 13.44820034649953
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 6,
+        "kwh": 7.390962783135833
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 7,
+        "kwh": 4.671045212946414
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 8,
+        "kwh": 7.094553524360839
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 9,
+        "kwh": 11.128320127041478
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 10,
+        "kwh": 18.89098297939086
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 11,
+        "kwh": 29.35778070025435
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 12,
+        "kwh": 48.87015877321281
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 1,
+        "kwh": 25.62078231411751
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 2,
+        "kwh": 32.419568529777074
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 3,
+        "kwh": 50.745619392879995
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 4,
+        "kwh": 66.94420028386068
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 5,
+        "kwh": 98.66196789215927
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 6,
+        "kwh": 107.9411196553433
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 7,
+        "kwh": 103.4323043812802
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 8,
+        "kwh": 84.19642763571396
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 9,
+        "kwh": 59.63471674934758
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 10,
+        "kwh": 40.99806413060582
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 11,
+        "kwh": 27.142638337868952
+      },
+      {
+        "window": "W03",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 12,
+        "kwh": 21.840986473827243
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 1,
+        "kwh": 21.36154000016343
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 2,
+        "kwh": 23.93866075009438
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 3,
+        "kwh": 31.476971094350507
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 4,
+        "kwh": 32.68670279433979
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 5,
+        "kwh": 40.18239587484054
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 6,
+        "kwh": 39.71800310784754
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 7,
+        "kwh": 39.42492802026672
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 8,
+        "kwh": 37.94400111801385
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 9,
+        "kwh": 36.372960923739484
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 10,
+        "kwh": 31.823074386462807
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 11,
+        "kwh": 19.725738066949685
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Transmitted Solar Radiation Energy",
+        "month": 12,
+        "kwh": 20.37247685483513
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 1,
+        "kwh": 14.862895321766816
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 2,
+        "kwh": 18.002544825533086
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 3,
+        "kwh": 28.792428186225415
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 4,
+        "kwh": 34.25673544881158
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 5,
+        "kwh": 47.70543689339935
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 6,
+        "kwh": 51.56905485965864
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 7,
+        "kwh": 55.12447227912342
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 8,
+        "kwh": 50.11209010264725
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 9,
+        "kwh": 45.14327303637728
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 10,
+        "kwh": 34.7538400640927
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 11,
+        "kwh": 16.787468956496284
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Gain Energy",
+        "month": 12,
+        "kwh": 14.540680712808808
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 1,
+        "kwh": 44.214439551326805
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 2,
+        "kwh": 33.990954150784674
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 3,
+        "kwh": 26.199741796815108
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 4,
+        "kwh": 17.001668112971117
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 5,
+        "kwh": 13.269156461165785
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 6,
+        "kwh": 7.344944076978873
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 7,
+        "kwh": 4.676885308645447
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 8,
+        "kwh": 7.076256832159247
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 9,
+        "kwh": 10.9764806148377
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 10,
+        "kwh": 17.92421962686258
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 11,
+        "kwh": 26.317371460295075
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Window Heat Loss Energy",
+        "month": 12,
+        "kwh": 42.462075916149274
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 1,
+        "kwh": 80.85855492034946
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 2,
+        "kwh": 90.2597103680739
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 3,
+        "kwh": 118.24375087418915
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 4,
+        "kwh": 124.41529669070495
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 5,
+        "kwh": 155.5123348942294
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 6,
+        "kwh": 154.68245371097726
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 7,
+        "kwh": 153.5058947667194
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 8,
+        "kwh": 145.17307805647346
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 9,
+        "kwh": 136.25683573550654
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 10,
+        "kwh": 118.43126282867219
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 11,
+        "kwh": 74.59571266164001
+      },
+      {
+        "window": "W04",
+        "variable": "Surface Outside Face Incident Solar Radiation Rate per Area",
+        "month": 12,
+        "kwh": 76.49452311221475
+      }
+    ],
+    "scope": "window solar and net-gain/loss terms; not HVAC electricity or daylight illuminance"
+  }
+}

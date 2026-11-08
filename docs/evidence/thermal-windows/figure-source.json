@@ -1,0 +1,37 @@
+{
+  "matplotlib_version": "3.11.2",
+  "license_expression": null,
+  "source_reports": {
+    "shgc_0_4": "bbd571777785653936cf7139fa0b5e89d4c48781437fd1e901731664d53b22b9",
+    "shgc_0_2": "5bed88075a1e94e061f9338773c510852f4f83076f34cfbd7f70a89a4b0932ae"
+  },
+  "figure_sha256": "b7dab0de0d7264bbe969cb6b01096d9f02e8a058b2e04ef5dad228d57dc56e74",
+  "variable": "Surface Window Transmitted Solar Radiation Energy",
+  "selected_case": "baseline",
+  "quantity": "annual transmitted solar kWh; not electrical energy",
+  "values": [
+    {
+      "window": "W01",
+      "shgc_0_4_kwh": 579.593474156712,
+      "shgc_0_2_kwh": 207.2235800104648
+    },
+    {
+      "window": "W02",
+      "shgc_0_4_kwh": 236.92551440876596,
+      "shgc_0_2_kwh": 84.67170042072057
+    },
+    {
+      "window": "W03",
+      "shgc_0_4_kwh": 179.4617314471345,
+      "shgc_0_2_kwh": 64.1718930368905
+    },
+    {
+      "window": "W04",
+      "shgc_0_4_kwh": 375.0274529919039,
+      "shgc_0_2_kwh": 133.9490886805447
+    }
+  ],
+  "design_accepted": false,
+  "local_license_sha256": "822e8e528147569a41975592aee19c11992ab667ba50451cd929031d5fc74491",
+  "local_license_file": "matplotlib-3.11.2.dist-info/LICENSE"
+}

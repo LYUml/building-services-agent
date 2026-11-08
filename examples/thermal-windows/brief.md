@@ -1,0 +1,5 @@
+# Synthetic sourced thermal windows
+
+Author thermal-ifc/bim.json with stable thermal-space envelopes. Preserve synthetic scope and source bytes; this source IFC has no architectural walls/window products.
+
+Bind saved spaces using thermal-ifc/binding.json and thermal-windows/project.json. Add the declared exterior-wall window rectangles and sourced simple glazing U/SHGC/visible transmittance to the thermal model. Verify actual parent/outward face, world vertices, area, opaque net-area subtraction and saved optical/thermal/source properties. Reject overlaps, out-of-wall and interzone windows. Run actual complete-calendar PTAC baseline/variant analysis with attributed Chicago weather and retain exact hourly window solar/heat-gain/loss identities and monthly/annual reconciliation. Keep window heat terms separate from HVAC electricity; verify transmitted solar does not exceed actual incident solar on the window. Manufacturer glazing, architectural IFC windows, frames/shades, daylight controls and engineering acceptance remain pending.

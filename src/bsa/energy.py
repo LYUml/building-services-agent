@@ -80,6 +80,9 @@ def build(p, lighting, out):
     if constructions is not None:
         from .thermal_materials import assign
         assign(m,constructions)
+    if 'windows' in p:
+        from .thermal_windows import author as author_windows
+        author_windows(m,p['windows'],geometry)
     for dd in p["design_days"]:
         day=os.model.DesignDay(m);day.setName(dd["name"]);day.setMonth(dd["month"])
         day.setDayOfMonth(dd["day"]);day.setDayType(dd["type"])
@@ -124,7 +127,13 @@ def build(p, lighting, out):
         saved=os.model.Model.load(os.path(str(osm)))
         if saved.empty():raise ProjectError('saved material model could not be reopened')
         material_audit=audit(saved.get(),explicit_materials)
-    return dict(material_audit=material_audit,openstudio_version=os.openStudioVersion(),energyplus_version=os.energyPlusVersion(),
+    window_audit=None
+    if 'windows' in p:
+        from .thermal_windows import audit as audit_windows
+        saved=os.model.Model.load(os.path(str(osm)))
+        if saved.empty():raise ProjectError('saved window model could not be reopened')
+        window_audit=audit_windows(saved.get(),p['windows'],geometry)
+    return dict(window_audit=window_audit,material_audit=material_audit,openstudio_version=os.openStudioVersion(),energyplus_version=os.energyPlusVersion(),
         north_axis_deg=m.getBuilding().northAxis(),floor_area_m2=area,thermal_zones=len(m.getThermalZones()),matched_surface_count=matched,
         spaces=geometry,adjacency=expected_adjacency,zone_keys=[s["id"].upper() for s in geometry],lighting_keys=[(s["id"]+" lights").upper() for s in geometry],lighting_w_m2=lighting,translation_warnings=[str(x.logMessage()) for x in ft.warnings()])
 
@@ -215,6 +224,9 @@ def validate(p,require_design_days=True):
         number(d.get("range_c"),"daily range",0,50)
         number(d.get("wet_bulb_c"),"wet bulb",-60,70)
         if d["wet_bulb_c"]>d["max_dry_bulb_c"]:raise ProjectError("wet bulb exceeds dry bulb")
+    if 'windows' in p:
+        from .thermal_windows import validate as validate_windows
+        validate_windows(p['windows'],boxes(p))
     return p
 
 
