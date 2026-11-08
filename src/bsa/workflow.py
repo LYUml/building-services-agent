@@ -65,7 +65,7 @@ def regulatory_source_bindings(tasks,root):
         for parent in parents:upstream.update(ancestors[parent])
         ancestors[name]=upstream
         current={}
-        if kind in ('circulation_duty','water_network'):
+        if kind in ('epanet_pipe_regulations','circulation_duty','water_network'):
             current['circulation']=local_path(root,task.get('project'))
         elif kind in ('water_pipe_regulations','network') and not task.get('depends_on'):
             current['network']=local_path(root,task.get('project'))
@@ -75,7 +75,7 @@ def regulatory_source_bindings(tasks,root):
         elif isinstance(task.get('depends_on'),str):
             current=dict(sources.get(task['depends_on'],{}))
         for parent in sorted(upstream):
-            if known[parent]['kind'] not in ('circulation_duty','electrical_regulations','lighting_regulations','water_pipe_regulations'):continue
+            if known[parent]['kind'] not in ('epanet_pipe_regulations','circulation_duty','electrical_regulations','lighting_regulations','water_pipe_regulations'):continue
             for field in current.keys() & sources[parent].keys():
                 checked=sources[parent][field];consumed=current[field]
                 if hashed(checked)!=hashed(consumed):
@@ -112,7 +112,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             inputs.add(local_path(root,t.get("project")))
@@ -122,7 +122,7 @@ def validate_plan(path):
                 raise ProjectError('HVAC regulations require an earlier design-day energy producer')
             if any(k in t for k in ('idf','project','variant')):
                 raise ProjectError('HVAC regulations read both producer variants; replacement inputs forbidden')
-        if kind in ('regulations','electrical_regulations','lighting_regulations','hvac_regulations','water_pipe_regulations','regulated_water_model'):
+        if kind in ('epanet_pipe_regulations','regulations','electrical_regulations','lighting_regulations','hvac_regulations','water_pipe_regulations','regulated_water_model'):
             from .regulations import source_paths
             pack=local_path(root,t.get('pack'));project=local_path(root,t.get('basis' if kind=='hvac_regulations' or kind=='water_pipe_regulations' and t.get('depends_on') else 'project'))
             directory=t.get('sources')
@@ -134,6 +134,11 @@ def validate_plan(path):
             inputs.update({pack,project}|official)
             if kind in ('electrical_regulations','lighting_regulations'):
                 inputs.update(local_path(root,t.get(key)) for key in (('topology' if kind=='electrical_regulations' else 'geometry'),'basis'))
+        if kind=='epanet_pipe_regulations':
+            from .epanet import validate as validate_water
+            validate_water(read_json(local_path(root,t['project'])))
+            inputs.add(local_path(root,t.get('basis')))
+            if t.get('depends_on'):raise ProjectError('EPANET rules require explicit project; depends_on unsupported')
         if kind=='water_pipe_regulations':
             if t.get('depends_on'):
                 parent=t['depends_on']
@@ -535,6 +540,11 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                 payload=run(local_path(root,t['project']),local_path(root,t['model']),local_path(root,t['binding']),folder)
                 status='pass' if payload['calculated_checks_pass'] else 'fail'
                 reason='IFC port-derived circular route dimensions and prescribed-flow pressure budget; detailed routing and full acceptance pending'
+            elif t['kind']=='epanet_pipe_regulations':
+                from .epanet_pipe_regulations import run
+                payload=run(local_path(root,t['project']),local_path(root,t['basis']),local_path(root,t['pack']),(root/t['sources']).resolve(),folder)
+                status=payload['status']
+                reason='fresh EPANET speed and distributed friction bound to scoped rules; fluid applicability and full conformity pending'
             elif t['kind']=='circulation_duty':
                 from .circulation_duty import run
                 payload=run(local_path(root,t['project']),local_path(root,t['basis']),folder)

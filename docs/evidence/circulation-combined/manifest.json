@@ -1,0 +1,11 @@
+{
+  "scope": "Synthetic thermal/regulatory/hydraulic workflow; full engineering acceptance unresolved",
+  "sha256": "90369bd63c041a6ea84c5c24b08bb69a60c424776882fac29206aae165edaf9c",
+  "official_pdf_omitted": true,
+  "observed_statuses": {
+    "duty": "pass",
+    "rules": "pass",
+    "water": "pass"
+  },
+  "observed_integrity_pass": true
+}
