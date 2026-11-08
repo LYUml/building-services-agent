@@ -11,9 +11,12 @@ The host AI reads and interprets the user's brief. The deterministic workflow ru
 .venv/Scripts/python -m bsa.workflow validate examples/workflow-plan.json
 .venv/Scripts/python -m bsa.workflow execute examples/workflow-plan.json --out runs/workflow --autocad 'C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe' --energyplus tools/energyplus-25.2/EnergyPlus-25.2.0-cf7368216c-Windows-x86_64/energyplus.exe
 .venv/Scripts/python -m bsa.workflow verify runs/workflow
+.venv/Scripts/python -m bsa.workflow_status examples/workflow-plan.json runs/workflow
 ```
 
 The sample contains an explicit manual review task. Execute therefore returns exit code 2 with a durable workflow report: three technical tasks succeeded but manual review remains pending. This is intentional. Do not suppress the pending task to obtain a successful exit code.
+
+`bsa.workflow_status` supplies a read-only, source-bound handoff for the host agent. It validates plan/run correspondence and all recorded input/artifact hashes, then lists task statuses, original scope messages, direct blockers, transitive upstream action tasks, requirement IDs and evidence paths. It rejects stale evidence and a passing child with nonpassing parents. Exit 2 means unresolved execution or invalid evidence; a JSON result is printed only for valid evidence. Resolve the recorded condition and execute into a new run directory; this command does not resume, rerun, repair, or approve tasks. Pending conditions remain verbatim rather than being guessed from error keywords. Successful execution still requires a separate full-requirement review.
 
 ## Plan contract
 

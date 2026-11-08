@@ -1,0 +1,62 @@
+{
+  "plan_sha256": "74ef2ccbb87754ea3bbcac05390a8b3b1b8478c0b3b8ff602322e237c5ba5b68",
+  "workflow_sha256": "7c3ea4ad118b2601286578f83c6ae3149314240050c99187f44609661751a7b9",
+  "integrity_pass": true,
+  "tasks": [
+    {
+      "id": "shared",
+      "kind": "electrical_lighting",
+      "status": "pending",
+      "recorded_scope": "Radiance binary directory not supplied for bound lighting",
+      "dependencies": [],
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "shared"
+      ],
+      "next_action": "resolve the recorded pending condition before a new run",
+      "requirement_ids": [
+        "R1"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "native",
+      "kind": "native_cad",
+      "status": "pending",
+      "recorded_scope": "upstream electrical producer shared is pending; native conversion waits for passing source evidence",
+      "dependencies": [
+        "shared"
+      ],
+      "blocked_by": [
+        "shared"
+      ],
+      "upstream_action_tasks": [
+        "shared"
+      ],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R2"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "Review physical optical origins and complete visual/domain acceptance independently",
+      "dependencies": [],
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "review"
+      ],
+      "next_action": "perform the specified review and record evidence separately",
+      "requirement_ids": [
+        "R3"
+      ],
+      "evidence": []
+    }
+  ],
+  "execution_pass": false,
+  "design_accepted": false,
+  "scope": "Recorded execution and declared dependency graph only; no engine invocation, automatic repair, or engineering acceptance"
+}
