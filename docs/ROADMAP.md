@@ -42,3 +42,5 @@ Fresh EPANET circulation/graph pipe results now feed the existing jurisdiction r
 The EPANET pipe-rule workflow adapter now chains thermal duty, scoped HK rules and hydraulic release with identical-input gates and official-source integrity. A real official-PDF-backed 65 mm sequence passes; thermal failure, 50 mm regulatory review and source tampering controls remain explicit. Cross-domain fluid assumptions, IFC and full conformity remain pending.
 
 Workflow fluid binding now rejects conflicting density declarations for identical hydraulic scenarios across thermal and regulatory tasks, including convergent sibling prerequisites and per-target conflicts. Evidence/source and physical temperature-property applicability remain unresolved by numeric equality.
+
+A repeatable circulation demonstration runner now stages source-hashed briefs and inputs, executes three native thermal/regulatory scenarios and retains integrity/blocker summaries. All observed expected behaviors pass, while manual engineering acceptance remains pending.
