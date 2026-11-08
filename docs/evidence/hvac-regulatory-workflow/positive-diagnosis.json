@@ -1,0 +1,106 @@
+{
+  "plan_sha256": "b4238fcfc67cb73c46cc9b1b88710163759643261f38c223a97dad7684f37ce9",
+  "workflow_sha256": "b8085979a7c8d9550d99a26d812aed2aa5cc8da59ea76afdf1629ea72709d1c7",
+  "integrity_pass": true,
+  "tasks": [
+    {
+      "id": "energy",
+      "kind": "energy",
+      "status": "pass",
+      "recorded_scope": "design-day engine execution; no annual energy or physical HVAC routing asserted",
+      "dependencies": [],
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R1"
+      ],
+      "evidence": [
+        "energy/analysis.json",
+        "energy/baseline/completion.json",
+        "energy/baseline/diagnostics.txt",
+        "energy/baseline/engine.log",
+        "energy/baseline/eplusout.audit",
+        "energy/baseline/eplusout.bnd",
+        "energy/baseline/eplusout.eio",
+        "energy/baseline/eplusout.end",
+        "energy/baseline/eplusout.err",
+        "energy/baseline/eplusout.eso",
+        "energy/baseline/eplusout.expidf",
+        "energy/baseline/eplusout.mdd",
+        "energy/baseline/eplusout.mtd",
+        "energy/baseline/eplusout.rdd",
+        "energy/baseline/eplusout.shd",
+        "energy/baseline/eplusout.sql",
+        "energy/baseline/eplustbl.htm",
+        "energy/baseline/epluszsz.csv",
+        "energy/baseline/model.idf",
+        "energy/baseline/model.osm",
+        "energy/baseline/sqlite.err",
+        "energy/variant/completion.json",
+        "energy/variant/diagnostics.txt",
+        "energy/variant/engine.log",
+        "energy/variant/eplusout.audit",
+        "energy/variant/eplusout.bnd",
+        "energy/variant/eplusout.eio",
+        "energy/variant/eplusout.end",
+        "energy/variant/eplusout.err",
+        "energy/variant/eplusout.eso",
+        "energy/variant/eplusout.expidf",
+        "energy/variant/eplusout.mdd",
+        "energy/variant/eplusout.mtd",
+        "energy/variant/eplusout.rdd",
+        "energy/variant/eplusout.shd",
+        "energy/variant/eplusout.sql",
+        "energy/variant/eplustbl.htm",
+        "energy/variant/epluszsz.csv",
+        "energy/variant/model.idf",
+        "energy/variant/model.osm",
+        "energy/variant/sqlite.err"
+      ]
+    },
+    {
+      "id": "hk",
+      "kind": "hvac_regulations",
+      "status": "pass",
+      "recorded_scope": "Both executed design-day variants, native completion and artifact identity, supported static sizing input limits only; whole-project conformity not established",
+      "dependencies": [
+        "energy"
+      ],
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R2"
+      ],
+      "evidence": [
+        "hk/baseline/bound-design-projects.json",
+        "hk/baseline/hvac-idf-checks.json",
+        "hk/energy-regulation-checks.json",
+        "hk/variant/bound-design-projects.json",
+        "hk/variant/hvac-idf-checks.json"
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "Remaining HVAC clauses, maintained states and actual project acceptance need review",
+      "dependencies": [
+        "hk"
+      ],
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "review"
+      ],
+      "next_action": "perform the specified review and record evidence separately",
+      "requirement_ids": [
+        "R3"
+      ],
+      "evidence": []
+    }
+  ],
+  "execution_pass": false,
+  "design_accepted": false,
+  "scope": "Recorded execution and declared dependency graph only; no engine invocation, automatic repair, or engineering acceptance"
+}

@@ -108,13 +108,19 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             inputs.add(local_path(root,t.get("project")))
-        if kind in ('regulations','electrical_regulations','lighting_regulations'):
+        if kind=='hvac_regulations':
+            dependency=t.get('depends_on')
+            if dependency not in ids or next(x for x in tasks if x['id']==dependency)['kind']!='energy':
+                raise ProjectError('HVAC regulations require an earlier design-day energy producer')
+            if any(k in t for k in ('idf','project','variant')):
+                raise ProjectError('HVAC regulations read both producer variants; replacement inputs forbidden')
+        if kind in ('regulations','electrical_regulations','lighting_regulations','hvac_regulations'):
             from .regulations import source_paths
-            pack=local_path(root,t.get('pack'));project=local_path(root,t.get('project'))
+            pack=local_path(root,t.get('pack'));project=local_path(root,t.get('basis' if kind=='hvac_regulations' else 'project'))
             directory=t.get('sources')
             if not isinstance(directory,str) or Path(directory).is_absolute():raise ProjectError('relative regulation source directory required')
             directory=(root/directory).resolve()
@@ -293,6 +299,13 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
             blocked=[g for g in t.get('requires_pass',[]) if tasks[g]['status']!='pass']
             if blocked:
                 reason='required checks unresolved: '+', '.join(g+' ('+tasks[g]['status']+')' for g in blocked)+'; adapter not executed'
+            elif t['kind']=='hvac_regulations':
+                parent=t['depends_on']
+                if tasks[parent]['status']!='pass':reason='upstream energy producer '+parent+' did not pass; native regulatory checks not executed'
+                else:
+                    from .hvac_energy_rules import run
+                    payload=run(out/parent,local_path(root,t['basis']),local_path(root,t['pack']),root/t['sources'],folder)
+                    status=payload['status'];reason=payload['scope']+'; whole-project conformity not established'
             elif t['kind']=='lighting_regulations':
                 from .lighting_regulations import run
                 payload=run(*(local_path(root,t[key]) for key in ('project','geometry','basis','pack')),root/t['sources'],folder)

@@ -1,0 +1,9 @@
+{
+  "scope": "Synthetic actual EnergyPlus baseline/variant and regulatory integration; manual/full conformity review remains pending; official PDF deliberately excluded",
+  "files": {
+    "negative-diagnosis.json": "603100c37fa7e5db2bd1f4e5b6165d1d4f0ac8fe73132dd84c3b6b1f56d8d6a8",
+    "negative-workflow.zip": "6690b433fa80037461c87983372c57fbd90dd8f8e9dab19d75d1eaf4332f78e6",
+    "positive-diagnosis.json": "acb24c9aebff56ad4dfa23b01a87f48f32df6df9d986526787456896e9e4677f",
+    "positive-workflow.zip": "86e927368f8b96bf64cb0190ec841be74a6462253deda99c8c9078621be8376d"
+  }
+}
