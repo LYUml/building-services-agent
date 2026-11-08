@@ -1,0 +1,8 @@
+{
+  "length_m": 5.313274122871834,
+  "velocity_m_s": 0.019894367886486918,
+  "friction_pa": 0.5285211504108168,
+  "minor_pa": 0.631990882969082,
+  "formula": "laminar 32 mu L v / D^2; minor K rho v^2/2",
+  "matches": true
+}

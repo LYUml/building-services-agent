@@ -1,0 +1,20 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\route-search\\route-input.json": "551f1e0b79959ffa8998e609d768d744a9d062ddc18b3446a896676b9284cd7b",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\route-search\\model-settings.json": "fe9292f3538fe4ba9bbbbfe0e253fb07cdc0769d090fc54b7814db5c0a7c9eb5",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\route-search\\network.json": "f7a6313416f591fd75267e3230a048732b0a8c066e67f13e7813be27848c203a"
+  },
+  "inputs_unchanged": true,
+  "route_length_m": 5.313274122871834,
+  "bend_count": 8,
+  "saved_ifc_geometry_match": true,
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "pending": [
+    "saved-model clash and route self-clearance",
+    "obstacle IFC correspondence",
+    "hydraulic route optimisation",
+    "native drawing and visual review",
+    "product and engineering acceptance"
+  ]
+}

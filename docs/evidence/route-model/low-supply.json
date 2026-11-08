@@ -1,0 +1,80 @@
+{
+  "name": "Synthetic searched route pressure budget",
+  "supply_flow_m3_s": 0.0001,
+  "segments": [
+    {
+      "id": "MAIN",
+      "from_node": "SOURCE",
+      "to_node": "END",
+      "flow_m3_s": 0.0001,
+      "area_m2": 0.005026548245743669,
+      "velocity_m_s": 0.019894367886486918,
+      "reynolds": 1588.3663320571156,
+      "darcy_friction_factor": 0.04029297190976889,
+      "regime": "laminar 64/Re",
+      "friction_pa": 0.5285211504108168,
+      "minor_pa": 0.631990882969082,
+      "dissipative_loss_pa": 1.1605120333798988,
+      "elevation_pressure_pa": 0.0,
+      "downstream_total_pressure_pa": -0.16051203337989883,
+      "velocity_pass": true,
+      "source": "demo"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "SOURCE",
+      "demand_m3_s": 0,
+      "total_pressure_pa": 1,
+      "required_total_pressure_pa": 0,
+      "pressure_margin_pa": 1,
+      "pressure_pass": true,
+      "path": [],
+      "source": "demo"
+    },
+    {
+      "id": "END",
+      "demand_m3_s": 0.0001,
+      "total_pressure_pa": -0.16051203337989883,
+      "required_total_pressure_pa": 1,
+      "pressure_margin_pa": -1.1605120333798988,
+      "pressure_pass": false,
+      "path": [
+        "MAIN"
+      ],
+      "source": "demo"
+    }
+  ],
+  "critical_node": "END",
+  "critical_path": [
+    "MAIN"
+  ],
+  "required_source_total_pressure_pa": 2.1605120333798986,
+  "calculated_checks": {
+    "velocity": true,
+    "pressure": false,
+    "flow_continuity": true
+  },
+  "calculated_checks_pass": false,
+  "design_accepted": false,
+  "pressure_basis": "Total pressure (static + velocity), with elevation potential handled separately; common reference. Not an ambient-referenced vertical air pressure model.",
+  "scope": "Prescribed withdrawals in a constant-density, fully filled circular tree; no loops or pressure-dependent flow solution",
+  "pending": [
+    "source demand and route evidence",
+    "component K/reference velocity validation",
+    "fan/pump curve and operating-point selection",
+    "noise, cavitation, compressibility and domain/code checks",
+    "physical routing and clash review"
+  ],
+  "input_sha256": "b632a8efebc7f9aa8286ceaa9446571d61cbf41b491ecb2b36480857a00725c9",
+  "fluids_version": "1.3.1",
+  "sources": {
+    "demo": "Explicit synthetic water density 998 kg/m3, viscosity .001 Pa s, flow .0001 m3/s, roughness .00009 m, supply 10 Pa and outlet target 1 Pa for numerical demonstration only."
+  },
+  "methods": [
+    "Darcy-Weisbach: f_D L/D rho v^2/2",
+    "Fittings: K rho v^2/2 using local segment velocity",
+    "Elevation: rho g dz, g=9.80665 m/s2",
+    "https://fluids.readthedocs.io/fluids.friction.html"
+  ]
+}

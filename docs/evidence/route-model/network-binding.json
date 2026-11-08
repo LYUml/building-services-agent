@@ -1,0 +1,57 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\searched-route-model-v1\\network-source.json": "f7a6313416f591fd75267e3230a048732b0a8c066e67f13e7813be27848c203a",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\searched-route-model-v1\\model-input.json": "721170165a5d5835816c684d59f67a5de3f7a5e97350bd507c55d8dc14ebbb75",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\searched-route-model-v1\\binding-input.json": "7e2d61a161331450e4363ed447c553775316f6defd29e023ba8a98f4fcb72968"
+  },
+  "inputs_unchanged": true,
+  "binding_source": "Explicit synthetic room, bore, elevation and excess-loss assumptions; no measured building or manufacturer data.; searched geometry: Synthetic planar pipe routing demonstration. All dimensions, clearance and radius are declared assumptions, not measured building data or product specifications.",
+  "segments": [
+    {
+      "id": "MAIN",
+      "devices": [
+        "ROUTE_001",
+        "ROUTE_002",
+        "ROUTE_003",
+        "ROUTE_004",
+        "ROUTE_005",
+        "ROUTE_006",
+        "ROUTE_007",
+        "ROUTE_008",
+        "ROUTE_009",
+        "ROUTE_010",
+        "ROUTE_011",
+        "ROUTE_012",
+        "ROUTE_013",
+        "ROUTE_014",
+        "ROUTE_015",
+        "ROUTE_016",
+        "ROUTE_017"
+      ],
+      "length_m": 5.313274122871834,
+      "diameter_m": 0.08,
+      "minor_k": 3.2,
+      "length_basis": "straight lengths plus finite quarter-circle arc lengths",
+      "minor_k_basis": "excess over centreline Darcy friction"
+    }
+  ],
+  "saved_ifc_geometry_match": true,
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "scope": "Source-bound circular routes with straight pieces and explicit finite elbows; centreline arc length, declared excess K, saved IFC and pressure budget",
+  "pending": [
+    "junction and fitting physical detail",
+    "K reference and circular-section evidence",
+    "routing/clash and full engineering acceptance"
+  ],
+  "artifacts": {
+    "network-input.json": "a272771603993ec1ebb6ed6b7e919e4465d8335ba31fa08027cc9a708dfc8c02",
+    "analysis/manifest.json": "a8f0950bd6490e452f51fe9e2acb0dd9e4f902f66f271778aab118c2d0cbfc64",
+    "analysis/network.json": "06d04744b2548143aa7b37527fc04bf9be2c1c3ddb3439bdbbbd39cecae7405f",
+    "analysis/report.html": "9d83013ff2525660383a4602907e0408815618daabc314f454954279d0924289",
+    "analysis/segments.csv": "b2da718d9ae127d05f982a603dd930f128f2a8a3eb2169ff84befca56f0cd420",
+    "bim/bim-verification.json": "572ca11822c2f748e5fcb5b40b76918e4363cf3da7b48683aac28259dd8245ee",
+    "bim/model.ifc": "3f61ad4870c61b6b60697e34dc77b0dd77cb45267e711eec4fbf209e02773803",
+    "bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  }
+}

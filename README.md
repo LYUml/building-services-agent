@@ -21,7 +21,7 @@ Open this repository as the workspace. Ask the agent to use `$building-services-
 
 ## Current evidence and limits
 
-[Candidate route search](docs/ROUTE_SEARCH.md) now derives planar finite-grid pipe paths around sourced rectangular obstacles, with explicit finite-radius bends, conservative outside-wall clearance and reconciled physical centreline lengths. It retains blocked searches; IFC/pressure integration and full spatial/engineering acceptance remain pending.
+[Candidate route search](docs/ROUTE_SEARCH.md) now derives planar finite-grid pipe paths around sourced rectangular obstacles, with explicit finite-radius bends and conservative outside-wall clearance. A separate compiler carries the searched route into source-bound hollow IFC/ports and pressure calculations, with actual saved-geometry reconciliation and retained low-supply failure evidence. Full spatial coordination, route optimisation, native drawings and engineering acceptance remain pending.
 
 [Saved route annotation auditing](docs/SAVED_ROUTE_AUDIT.md) now checks actual DXF leaders and source-linked labels independently of the planner's status claims. Injected false-success plans, crossings, self-intersections, changed labels, coverage gaps and hidden/nonplotting annotation flags are rejected, including raw paper-space markers that the reader would normalize; native pipe and printed/visual gates remain separate.
 

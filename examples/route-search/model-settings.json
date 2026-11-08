@@ -1,0 +1,27 @@
+{
+  "name": "Synthetic searched water pipe around column",
+  "project_uuid": "6791eb2c-a902-4f57-a42a-1d7623aee0f4",
+  "source": "Explicit synthetic room, bore, elevation and excess-loss assumptions; no measured building or manufacturer data.",
+  "elevation_m": 1,
+  "inside_diameter_m": 0.08,
+  "elbow_excess_k": 0.4,
+  "straight_excess_k": 0,
+  "loss_basis": "excess over centreline Darcy friction",
+  "space": {
+    "id": "ROOM",
+    "origin_m": [
+      -0.2,
+      -0.2,
+      0
+    ],
+    "size_m": [
+      4.4,
+      3.4,
+      2
+    ]
+  },
+  "system": {
+    "id": "WATER",
+    "predefined_type": "DOMESTICCOLDWATER"
+  }
+}

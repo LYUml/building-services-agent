@@ -1,0 +1,740 @@
+{
+  "ifcopenshell_version": "0.8.5",
+  "input_sha256": "721170165a5d5835816c684d59f67a5de3f7a5e97350bd507c55d8dc14ebbb75",
+  "ifc_sha256": "3f61ad4870c61b6b60697e34dc77b0dd77cb45267e711eec4fbf209e02773803",
+  "checks": {
+    "schema_valid": true,
+    "device_count_match": true,
+    "connection_count_match": true,
+    "connection_endpoints_match": true,
+    "metre_units": true,
+    "space_count_match": true,
+    "source_unchanged": true
+  },
+  "devices": [
+    {
+      "id": "ROUTE_001",
+      "ifc_class": "IfcPipeSegment",
+      "global_id": "0Ayr2QH65L7RE3vIHUacMe",
+      "space": "ROOM",
+      "systems": [
+        "WATER"
+      ],
+      "bounds_m": [
+        [
+          0.0,
+          1.450000623645166,
+          0.9500001559115345
+        ],
+        [
+          0.3,
+          1.55,
+          1.0499998440884655
+        ]
+      ],
+      "body_shape": "straight circular wall",
+      "circular_checks": {
+        "analytic_wall_volume_m3": 0.0008482300164692444,
+        "mesh_wall_volume_m3": 0.0008482159099889823,
+        "relative_volume_error": 1.663048935809813e-05,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "saved_wall_thickness_m": 0.010000000000000002,
+        "saved_length_m": 0.3,
+        "volume_relative_tolerance": 0.001,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "saved_diameter_metadata_pass": true,
+        "body_shape": "straight circular wall",
+        "linear_deflection_m": 1e-05,
+        "angular_deflection": 0.02,
+        "bounds_tolerance_m": 2e-05,
+        "outward_port_axes_pass": true
+      }
+    },
+    {
+      "id": "ROUTE_002",
+      "ifc_class": "IfcPipeFitting",
+      "global_id": "1tYN_91xvUaP$nlmpMBcIM",
+      "space": "ROOM",
+      "systems": [
+        "WATER"
+      ],
+      "bounds_m": [
+        [
+          0.3,
+          1.3,
+          0.95
+        ],
+        [
+          0.55,
+          1.55,
+          1.05
+        ]
+      ],
+      "body_shape": "circular 90-degree elbow wall",
+      "circular_checks": {
+        "body_representation": "source-parametric tessellated annular wall; exact circular Axis reference",
+        "tessellation": {
+          "arc_intervals": 88,
+          "circumference_intervals": 316,
+          "linear_deflection_bound_m": 9.956840464647732e-06
+        },
+        "body_shape": "circular 90-degree elbow wall",
+        "analytic_wall_volume_m3": 0.0008882643960980425,
+        "mesh_wall_volume_m3": 0.0008881587014272542,
+        "relative_volume_error": 0.00011899010165516237,
+        "volume_relative_tolerance": 0.001,
+        "centreline_arc_length_m": 0.3141592653589793,
+        "centreline_radius_m": 0.2,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "explicit_circular_arc": true,
+        "through_bore_pass": true,
+        "outward_port_axes_pass": true
+      }
+    },
+    {
+      "id": "ROUTE_003",
+      "ifc_class": "IfcPipeSegment",
+      "global_id": "3iL45M9A9HOO4$ZVBavJ2Q",
+      "space": "ROOM",
+      "systems": [
+        "WATER"
+      ],
+      "bounds_m": [
+        [
+          0.4500006236451659,
+          1.2,
+          0.9500001559115345
+        ],
+        [
+          0.5499999999999999,
+          1.3,
+          1.0499998440884655
+        ]
+      ],
+      "body_shape": "straight circular wall",
+      "circular_checks": {
+        "analytic_wall_volume_m3": 0.00028274333882308175,
+        "mesh_wall_volume_m3": 0.00028273863666299445,
+        "relative_volume_error": 1.6630489357842475e-05,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "saved_wall_thickness_m": 0.010000000000000002,
+        "saved_length_m": 0.10000000000000009,
+        "volume_relative_tolerance": 0.001,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "saved_diameter_metadata_pass": true,
+        "body_shape": "straight circular wall",
+        "linear_deflection_m": 1e-05,
+        "angular_deflection": 0.02,
+        "bounds_tolerance_m": 2e-05,
+        "outward_port_axes_pass": true
+      }
+    },
+    {
+      "id": "ROUTE_004",
+      "ifc_class": "IfcPipeFitting",
+      "global_id": "0xxDwXhVjJZu3SrjuHkecX",
+      "space": "ROOM",
+      "systems": [
+        "WATER"
+      ],
+      "bounds_m": [
+        [
+          0.44999999999999996,
+          0.95,
+          0.95
+        ],
+        [
+          0.7,
+          1.2,
+          1.05
+        ]
+      ],
+      "body_shape": "circular 90-degree elbow wall",
+      "circular_checks": {
+        "body_representation": "source-parametric tessellated annular wall; exact circular Axis reference",
+        "tessellation": {
+          "arc_intervals": 88,
+          "circumference_intervals": 316,
+          "linear_deflection_bound_m": 9.956840464647732e-06
+        },
+        "body_shape": "circular 90-degree elbow wall",
+        "analytic_wall_volume_m3": 0.0008882643960980425,
+        "mesh_wall_volume_m3": 0.0008881587014272536,
+        "relative_volume_error": 0.00011899010165577265,
+        "volume_relative_tolerance": 0.001,
+        "centreline_arc_length_m": 0.3141592653589793,
+        "centreline_radius_m": 0.2,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "explicit_circular_arc": true,
+        "through_bore_pass": true,
+        "outward_port_axes_pass": true
+      }
+    },
+    {
+      "id": "ROUTE_005",
+      "ifc_class": "IfcPipeSegment",
+      "global_id": "2f1sWWZt1MTg6OQjzbHjcF",
+      "space": "ROOM",
+      "systems": [
+        "WATER"
+      ],
+      "bounds_m": [
+        [
+          0.7,
+          0.9500006236451659,
+          0.9500001559115345
+        ],
+        [
+          0.8,
+          1.05,
+          1.0499998440884655
+        ]
+      ],
+      "body_shape": "straight circular wall",
+      "circular_checks": {
+        "analytic_wall_volume_m3": 0.00028274333882308175,
+        "mesh_wall_volume_m3": 0.00028273863666299445,
+        "relative_volume_error": 1.6630489357842475e-05,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "saved_wall_thickness_m": 0.010000000000000002,
+        "saved_length_m": 0.10000000000000009,
+        "volume_relative_tolerance": 0.001,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "saved_diameter_metadata_pass": true,
+        "body_shape": "straight circular wall",
+        "linear_deflection_m": 1e-05,
+        "angular_deflection": 0.02,
+        "bounds_tolerance_m": 2e-05,
+        "outward_port_axes_pass": true
+      }
+    },
+    {
+      "id": "ROUTE_006",
+      "ifc_class": "IfcPipeFitting",
+      "global_id": "0X0phvqL9S2vHB222iz9qV",
+      "space": "ROOM",
+      "systems": [
+        "WATER"
+      ],
+      "bounds_m": [
+        [
+          0.8,
+          0.8,
+          0.95
+        ],
+        [
+          1.05,
+          1.05,
+          1.05
+        ]
+      ],
+      "body_shape": "circular 90-degree elbow wall",
+      "circular_checks": {
+        "body_representation": "source-parametric tessellated annular wall; exact circular Axis reference",
+        "tessellation": {
+          "arc_intervals": 88,
+          "circumference_intervals": 316,
+          "linear_deflection_bound_m": 9.956840464647732e-06
+        },
+        "body_shape": "circular 90-degree elbow wall",
+        "analytic_wall_volume_m3": 0.0008882643960980425,
+        "mesh_wall_volume_m3": 0.0008881587014272538,
+        "relative_volume_error": 0.00011899010165552854,
+        "volume_relative_tolerance": 0.001,
+        "centreline_arc_length_m": 0.3141592653589793,
+        "centreline_radius_m": 0.2,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "explicit_circular_arc": true,
+        "through_bore_pass": true,
+        "outward_port_axes_pass": true
+      }
+    },
+    {
+      "id": "ROUTE_007",
+      "ifc_class": "IfcPipeSegment",
+      "global_id": "2aPr9e5V9PAgOGk8c7_7Mw",
+      "space": "ROOM",
+      "systems": [
+        "WATER"
+      ],
+      "bounds_m": [
+        [
+          0.9500006236451659,
+          0.7,
+          0.9500001559115345
+        ],
+        [
+          1.05,
+          0.8,
+          1.0499998440884655
+        ]
+      ],
+      "body_shape": "straight circular wall",
+      "circular_checks": {
+        "analytic_wall_volume_m3": 0.00028274333882308175,
+        "mesh_wall_volume_m3": 0.00028273863666299456,
+        "relative_volume_error": 1.6630489357459016e-05,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "saved_wall_thickness_m": 0.010000000000000002,
+        "saved_length_m": 0.10000000000000009,
+        "volume_relative_tolerance": 0.001,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "saved_diameter_metadata_pass": true,
+        "body_shape": "straight circular wall",
+        "linear_deflection_m": 1e-05,
+        "angular_deflection": 0.02,
+        "bounds_tolerance_m": 2e-05,
+        "outward_port_axes_pass": true
+      }
+    },
+    {
+      "id": "ROUTE_008",
+      "ifc_class": "IfcPipeFitting",
+      "global_id": "1LGWanPwjIwfOM3IcdFmhx",
+      "space": "ROOM",
+      "systems": [
+        "WATER"
+      ],
+      "bounds_m": [
+        [
+          0.95,
+          0.44999999999999996,
+          0.95
+        ],
+        [
+          1.2,
+          0.7,
+          1.05
+        ]
+      ],
+      "body_shape": "circular 90-degree elbow wall",
+      "circular_checks": {
+        "body_representation": "source-parametric tessellated annular wall; exact circular Axis reference",
+        "tessellation": {
+          "arc_intervals": 88,
+          "circumference_intervals": 316,
+          "linear_deflection_bound_m": 9.956840464647732e-06
+        },
+        "body_shape": "circular 90-degree elbow wall",
+        "analytic_wall_volume_m3": 0.0008882643960980425,
+        "mesh_wall_volume_m3": 0.0008881587014272537,
+        "relative_volume_error": 0.0001189901016556506,
+        "volume_relative_tolerance": 0.001,
+        "centreline_arc_length_m": 0.3141592653589793,
+        "centreline_radius_m": 0.2,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "explicit_circular_arc": true,
+        "through_bore_pass": true,
+        "outward_port_axes_pass": true
+      }
+    },
+    {
+      "id": "ROUTE_009",
+      "ifc_class": "IfcPipeSegment",
+      "global_id": "2RiuvcGL5NRheVSJbQDaek",
+      "space": "ROOM",
+      "systems": [
+        "WATER"
+      ],
+      "bounds_m": [
+        [
+          1.2,
+          0.4500006236451659,
+          0.9500001559115345
+        ],
+        [
+          2.3,
+          0.5499999999999999,
+          1.0499998440884655
+        ]
+      ],
+      "body_shape": "straight circular wall",
+      "circular_checks": {
+        "analytic_wall_volume_m3": 0.003110176727053896,
+        "mesh_wall_volume_m3": 0.0031101250032929367,
+        "relative_volume_error": 1.6630489357493894e-05,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "saved_wall_thickness_m": 0.010000000000000002,
+        "saved_length_m": 1.0999999999999999,
+        "volume_relative_tolerance": 0.001,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "saved_diameter_metadata_pass": true,
+        "body_shape": "straight circular wall",
+        "linear_deflection_m": 1e-05,
+        "angular_deflection": 0.02,
+        "bounds_tolerance_m": 2e-05,
+        "outward_port_axes_pass": true
+      }
+    },
+    {
+      "id": "ROUTE_010",
+      "ifc_class": "IfcPipeFitting",
+      "global_id": "2cbVzxY1rGFhFFHZLyG_EP",
+      "space": "ROOM",
+      "systems": [
+        "WATER"
+      ],
+      "bounds_m": [
+        [
+          2.3,
+          0.44999999999999996,
+          0.95
+        ],
+        [
+          2.55,
+          0.7,
+          1.05
+        ]
+      ],
+      "body_shape": "circular 90-degree elbow wall",
+      "circular_checks": {
+        "body_representation": "source-parametric tessellated annular wall; exact circular Axis reference",
+        "tessellation": {
+          "arc_intervals": 88,
+          "circumference_intervals": 316,
+          "linear_deflection_bound_m": 9.956840464647732e-06
+        },
+        "body_shape": "circular 90-degree elbow wall",
+        "analytic_wall_volume_m3": 0.0008882643960980425,
+        "mesh_wall_volume_m3": 0.0008881587014272537,
+        "relative_volume_error": 0.0001189901016556506,
+        "volume_relative_tolerance": 0.001,
+        "centreline_arc_length_m": 0.3141592653589793,
+        "centreline_radius_m": 0.2,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "explicit_circular_arc": true,
+        "through_bore_pass": true,
+        "outward_port_axes_pass": true
+      }
+    },
+    {
+      "id": "ROUTE_011",
+      "ifc_class": "IfcPipeSegment",
+      "global_id": "1NmfnyRZLJWxyxHsn26k78",
+      "space": "ROOM",
+      "systems": [
+        "WATER"
+      ],
+      "bounds_m": [
+        [
+          2.450000623645166,
+          0.7,
+          0.9500001559115345
+        ],
+        [
+          2.55,
+          0.8,
+          1.0499998440884655
+        ]
+      ],
+      "body_shape": "straight circular wall",
+      "circular_checks": {
+        "analytic_wall_volume_m3": 0.00028274333882308175,
+        "mesh_wall_volume_m3": 0.00028273863666299467,
+        "relative_volume_error": 1.6630489357075558e-05,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "saved_wall_thickness_m": 0.010000000000000002,
+        "saved_length_m": 0.10000000000000009,
+        "volume_relative_tolerance": 0.001,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "saved_diameter_metadata_pass": true,
+        "body_shape": "straight circular wall",
+        "linear_deflection_m": 1e-05,
+        "angular_deflection": 0.02,
+        "bounds_tolerance_m": 2e-05,
+        "outward_port_axes_pass": true
+      }
+    },
+    {
+      "id": "ROUTE_012",
+      "ifc_class": "IfcPipeFitting",
+      "global_id": "0dD2qjECzUYu88471jb0Bg",
+      "space": "ROOM",
+      "systems": [
+        "WATER"
+      ],
+      "bounds_m": [
+        [
+          2.45,
+          0.8,
+          0.95
+        ],
+        [
+          2.7,
+          1.05,
+          1.05
+        ]
+      ],
+      "body_shape": "circular 90-degree elbow wall",
+      "circular_checks": {
+        "body_representation": "source-parametric tessellated annular wall; exact circular Axis reference",
+        "tessellation": {
+          "arc_intervals": 88,
+          "circumference_intervals": 316,
+          "linear_deflection_bound_m": 9.956840464647732e-06
+        },
+        "body_shape": "circular 90-degree elbow wall",
+        "analytic_wall_volume_m3": 0.0008882643960980425,
+        "mesh_wall_volume_m3": 0.0008881587014272541,
+        "relative_volume_error": 0.00011899010165528442,
+        "volume_relative_tolerance": 0.001,
+        "centreline_arc_length_m": 0.3141592653589793,
+        "centreline_radius_m": 0.2,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "explicit_circular_arc": true,
+        "through_bore_pass": true,
+        "outward_port_axes_pass": true
+      }
+    },
+    {
+      "id": "ROUTE_013",
+      "ifc_class": "IfcPipeSegment",
+      "global_id": "0eNd2OIJjT9B6mV5oABK1Z",
+      "space": "ROOM",
+      "systems": [
+        "WATER"
+      ],
+      "bounds_m": [
+        [
+          2.7,
+          0.9500006236451659,
+          0.9500001559115345
+        ],
+        [
+          2.8,
+          1.05,
+          1.0499998440884655
+        ]
+      ],
+      "body_shape": "straight circular wall",
+      "circular_checks": {
+        "analytic_wall_volume_m3": 0.0002827433388230805,
+        "mesh_wall_volume_m3": 0.00028273863666299315,
+        "relative_volume_error": 1.6630489358034277e-05,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "saved_wall_thickness_m": 0.010000000000000002,
+        "saved_length_m": 0.09999999999999964,
+        "volume_relative_tolerance": 0.001,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "saved_diameter_metadata_pass": true,
+        "body_shape": "straight circular wall",
+        "linear_deflection_m": 1e-05,
+        "angular_deflection": 0.02,
+        "bounds_tolerance_m": 2e-05,
+        "outward_port_axes_pass": true
+      }
+    },
+    {
+      "id": "ROUTE_014",
+      "ifc_class": "IfcPipeFitting",
+      "global_id": "3p8G6YSVrHjRIatnQEv89J",
+      "space": "ROOM",
+      "systems": [
+        "WATER"
+      ],
+      "bounds_m": [
+        [
+          2.8,
+          0.95,
+          0.95
+        ],
+        [
+          3.05,
+          1.2,
+          1.05
+        ]
+      ],
+      "body_shape": "circular 90-degree elbow wall",
+      "circular_checks": {
+        "body_representation": "source-parametric tessellated annular wall; exact circular Axis reference",
+        "tessellation": {
+          "arc_intervals": 88,
+          "circumference_intervals": 316,
+          "linear_deflection_bound_m": 9.956840464647732e-06
+        },
+        "body_shape": "circular 90-degree elbow wall",
+        "analytic_wall_volume_m3": 0.0008882643960980425,
+        "mesh_wall_volume_m3": 0.000888158701427254,
+        "relative_volume_error": 0.00011899010165540647,
+        "volume_relative_tolerance": 0.001,
+        "centreline_arc_length_m": 0.3141592653589793,
+        "centreline_radius_m": 0.2,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "explicit_circular_arc": true,
+        "through_bore_pass": true,
+        "outward_port_axes_pass": true
+      }
+    },
+    {
+      "id": "ROUTE_015",
+      "ifc_class": "IfcPipeSegment",
+      "global_id": "1tdG_6uS5TTR$W2XTr5kWw",
+      "space": "ROOM",
+      "systems": [
+        "WATER"
+      ],
+      "bounds_m": [
+        [
+          2.950000623645166,
+          1.2,
+          0.9500001559115345
+        ],
+        [
+          3.05,
+          1.3,
+          1.0499998440884655
+        ]
+      ],
+      "body_shape": "straight circular wall",
+      "circular_checks": {
+        "analytic_wall_volume_m3": 0.00028274333882308175,
+        "mesh_wall_volume_m3": 0.00028273863666299467,
+        "relative_volume_error": 1.6630489357075558e-05,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "saved_wall_thickness_m": 0.010000000000000002,
+        "saved_length_m": 0.10000000000000009,
+        "volume_relative_tolerance": 0.001,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "saved_diameter_metadata_pass": true,
+        "body_shape": "straight circular wall",
+        "linear_deflection_m": 1e-05,
+        "angular_deflection": 0.02,
+        "bounds_tolerance_m": 2e-05,
+        "outward_port_axes_pass": true
+      }
+    },
+    {
+      "id": "ROUTE_016",
+      "ifc_class": "IfcPipeFitting",
+      "global_id": "2L6AZXmefIohAdB4voiIyu",
+      "space": "ROOM",
+      "systems": [
+        "WATER"
+      ],
+      "bounds_m": [
+        [
+          2.95,
+          1.3,
+          0.95
+        ],
+        [
+          3.2,
+          1.55,
+          1.05
+        ]
+      ],
+      "body_shape": "circular 90-degree elbow wall",
+      "circular_checks": {
+        "body_representation": "source-parametric tessellated annular wall; exact circular Axis reference",
+        "tessellation": {
+          "arc_intervals": 88,
+          "circumference_intervals": 316,
+          "linear_deflection_bound_m": 9.956840464647732e-06
+        },
+        "body_shape": "circular 90-degree elbow wall",
+        "analytic_wall_volume_m3": 0.0008882643960980425,
+        "mesh_wall_volume_m3": 0.0008881587014272542,
+        "relative_volume_error": 0.00011899010165516237,
+        "volume_relative_tolerance": 0.001,
+        "centreline_arc_length_m": 0.3141592653589793,
+        "centreline_radius_m": 0.2,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "explicit_circular_arc": true,
+        "through_bore_pass": true,
+        "outward_port_axes_pass": true
+      }
+    },
+    {
+      "id": "ROUTE_017",
+      "ifc_class": "IfcPipeSegment",
+      "global_id": "0Pawa_mGHPvwQfzWJRy1db",
+      "space": "ROOM",
+      "systems": [
+        "WATER"
+      ],
+      "bounds_m": [
+        [
+          3.2,
+          1.450000623645166,
+          0.9500001559115345
+        ],
+        [
+          4.0,
+          1.55,
+          1.0499998440884655
+        ]
+      ],
+      "body_shape": "straight circular wall",
+      "circular_checks": {
+        "analytic_wall_volume_m3": 0.0022619467105846514,
+        "mesh_wall_volume_m3": 0.0022619090933039517,
+        "relative_volume_error": 1.663048935841768e-05,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "saved_wall_thickness_m": 0.010000000000000002,
+        "saved_length_m": 0.7999999999999998,
+        "volume_relative_tolerance": 0.001,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "saved_diameter_metadata_pass": true,
+        "body_shape": "straight circular wall",
+        "linear_deflection_m": 1e-05,
+        "angular_deflection": 0.02,
+        "bounds_tolerance_m": 2e-05,
+        "outward_port_axes_pass": true
+      }
+    }
+  ],
+  "model_checks_pass": true,
+  "design_accepted": false,
+  "geometry_scope": "axis-aligned envelopes, straight circular walls and explicit 90-degree elbows",
+  "pending": [
+    "visual BIM review",
+    "manufacturer shape fidelity",
+    "physical route/clash checks",
+    "domain performance and code acceptance"
+  ],
+  "connection_scope": "logical topology only; no physical route is inferred between separated ports",
+  "identity_scope": "stable namespace/class/input-ID object and port GUIDs",
+  "project_uuid": "6791eb2c-a902-4f57-a42a-1d7623aee0f4"
+}

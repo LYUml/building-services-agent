@@ -1,0 +1,5 @@
+# Searched route to saved IFC and pressure
+
+Actual bsa.route_model execution used the three tracked examples/route-search JSON inputs. It generated 17 route devices (9 straight walls, 8 finite elbows) and 16 connections, ran IFC schema/geometry/port verification, reopened the saved model and reconciled geometry to pressure input. Scoped checks passed; design acceptance remains false. The approximately 85 MB tessellated IFC is retained locally at runs/searched-route-model-v1/bound/bim/model.ifc, not duplicated in Git. Its digest is in bim-verification.json; all source settings needed to reproduce it are tracked.
+
+Independent laminar and local-loss formulas reproduce the pressure components. A separate derived-network calculation at 1 Pa supply fails its target; it does not rerun IFC authoring or change the passing baseline. Thirteen route-related tests passed (including annotation routing tests selected by the filename pattern). No saved-model clash, obstacle IFC binding, native CAD or visual review was performed for this route.
