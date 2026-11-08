@@ -1,0 +1,7 @@
+{
+  "COLUMN": {
+    "min_z_m": 0,
+    "max_z_m": 2,
+    "source": "Explicit synthetic column spanning 0 to 2 m elevation; no measured building data."
+  }
+}

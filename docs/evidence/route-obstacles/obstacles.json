@@ -1,0 +1,37 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\searched-route-coordination-v1\\route\\selected\\bound\\bim\\model.ifc": "db5e05cff799f50b59c004bc6b531899d3b88abf1e4482611f42eb82bccd680a",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\route-search\\route-input.json": "551f1e0b79959ffa8998e609d768d744a9d062ddc18b3446a896676b9284cd7b",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\route-search\\obstacle-heights.json": "f5fdfc309bb1a32719223a8c1a98dc742bb1609ba2dc776c11bdd114b2e18888"
+  },
+  "inputs_unchanged": true,
+  "original_entities_unchanged": true,
+  "original_entity_count": 225250,
+  "obstacles": [
+    {
+      "id": "COLUMN",
+      "origin_m": [
+        1.8,
+        1,
+        0
+      ],
+      "size_m": [
+        0.40000000000000013,
+        1,
+        2
+      ],
+      "source": "Synthetic rectangular obstruction footprint; extends through the routing plane; height: Explicit synthetic column spanning 0 to 2 m elevation; no measured building data.",
+      "guid": "2klNgTpNfPoB1yNXwp1MFN",
+      "saved_volume_m3": 0.8000000000000004
+    }
+  ],
+  "saved_ifc_sha256": "9fcd2ae09b32029ecf1a68f3de50198ad541a4491b0e0f306eb10ebc6465ffc4",
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "scope": "explicit rectangular routing footprint plus sourced height to saved closed IFC box; source entities preserved",
+  "pending": [
+    "source obstacle applicability/completeness",
+    "route-to-obstacle clearance/clash",
+    "BIM viewer and full engineering acceptance"
+  ]
+}

@@ -1,0 +1,7 @@
+# Searched-route obstacle correspondence
+
+Actual route_obstacles appended the tracked COLUMN footprint and its explicit 0–2 m height to a separate copy of the pressure-selected saved IFC. Native schema and closed-box geometry checks passed; all original entity records and source bytes were preserved. The result contains five pipe pieces and one obstacle proxy. Source IFC came from runs/searched-route-coordination-v1/route/selected/bound/bim/model.ifc; the new model remains locally in runs/route-obstacles-v1/model.ifc. Reports retain their SHA256 identities and all source inputs are tracked.
+
+Actual bsa.clash checked all six represented elements against the new synthetic 100 mm clearance policy and 180 mm spherical joint exclusions. Coverage, material intersection and outside-region clearance checks passed. In a separate controlled copy, the column was moved to [1.8, 0.45, 0] m, intersecting the central pipe. The same check then failed and reported positive Manifold material overlap. This was an intentional fault, not a change to the passing source model. Large native IFC files are not duplicated in Git.
+
+Twenty-one related route tests passed, including actual native obstacle append, unchanged original entities, independently expected 0.8 m3 box volume, duplicate-identity rejection and exact sourced height coverage. These demonstrate explicit envelope correspondence, not surveyed building completeness, product applicability, BIM-viewer or engineering acceptance. Full native drawings remain outstanding.
