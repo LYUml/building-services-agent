@@ -21,6 +21,9 @@ def search(data):
     origin=data.get('grid_origin_m');counts=data.get('grid_counts')
     step=data.get('grid_step_m');radius=data.get('bend_radius_m')
     outer=data.get('outside_diameter_m');clearance=data.get('clearance_m')
+    penalty=data.get('bend_penalty_m',0.)
+    if not number(penalty) or penalty<0 or ('bend_penalty_m' in data and (not isinstance(data.get('objective_source'),str) or not data['objective_source'].strip())):
+        raise ProjectError('nonnegative bend penalty and explicit objective provenance required')
     if not all(point(v) for v in (start,end,origin)) or not isinstance(counts,list) or len(counts)!=2 or any(type(v)!=int or v<2 for v in counts):
         raise ProjectError('finite planar endpoints/origin and integer grid counts required')
     if not all(number(v) for v in (step,radius,outer,clearance)) or not 0<outer/2<radius or step<=2*radius or clearance<0:
@@ -81,13 +84,14 @@ def search(data):
             if turning:
                 piece=bend(a,directions[heading],v)
                 if not clear(piece['min_m'],piece['max_m']):continue
-            increment=step+(radius*(math.pi/2-2) if turning else 0.)
+            increment=step+(radius*(math.pi/2-2)+penalty if turning else 0.)
             target=(*node,direction);candidate=cost+increment
             if candidate<dist.get(target,math.inf)-1e-12:
                 dist[target]=candidate;previous[target]=state
                 heapq.heappush(queue,(candidate,target))
     base=dict(source=data['source'],design_accepted=False,visited_states=len(dist),
-              scope='shortest physical centreline among accepted finite-grid paths; conservative rectangle clearance; no BIM, hydraulic, product or installation acceptance')
+              bend_penalty_m=penalty,objective_source=data.get('objective_source','physical centreline length only'),
+              scope='minimum centreline length plus declared per-bend penalty among accepted finite-grid paths; conservative rectangle clearance; no BIM, hydraulic, product or installation acceptance')
     if goal is None:return dict(**base,route_found=False,reason='no path on the declared grid under conservative clearance checks')
     chain=[];state=goal
     while state!=initial:chain.append(world(state[:2]));state=previous[state]
@@ -109,10 +113,11 @@ def search(data):
         piece=bend(b,u,v);pieces.extend((straight(cursor,piece['start_m']),piece));cursor=piece['end_m']
     pieces.append(straight(cursor,end))
     length=sum(p['length_m'] for p in pieces)
-    if not math.isclose(length,dist[goal],abs_tol=1e-8,rel_tol=1e-12):raise ProjectError('search cost differs from finite bend geometry')
+    bends=sum(p['kind']=='elbow' for p in pieces)
+    if not math.isclose(length+bends*penalty,dist[goal],abs_tol=1e-8,rel_tol=1e-12):raise ProjectError('search cost differs from finite bend geometry and declared penalty')
     if any(not clear(p['min_m'],p['max_m']) for p in pieces):raise ProjectError('compiled route violates obstacle clearance')
     return dict(**base,route_found=True,vertices_m=vertices,pieces=pieces,length_m=length,
-                bend_count=sum(p['kind']=='elbow' for p in pieces),obstacle_ids=sorted(ids))
+                bend_count=bends,objective_cost_m=dist[goal],obstacle_ids=sorted(ids))
 
 
 def run(source,out):
