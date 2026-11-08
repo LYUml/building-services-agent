@@ -31,6 +31,26 @@ class WorkflowStatusTests(unittest.TestCase):
         self.assertFalse(result['execution_pass'])
         self.assertFalse(result['design_accepted'])
 
+    def test_failed_water_producer_traces_shared_roots_through_multiple_levels(self):
+        from unittest.mock import patch
+        plan = ROOT/'examples/water-riser/coupled-plan.json'
+        run = Path(self.temp.name)/'coupled'
+        # Only the water producer is fault-injected. Electrical calculations,
+        # source validation, dependency dispatch and integrity checks execute.
+        with patch('bsa.network_model_design.run',side_effect=ProjectError('controlled water design failure')):
+            execute(plan,run)
+        rows = {r['id']:r for r in diagnose(plan,run)['tasks']}
+        self.assertEqual(rows['electrical']['status'],'pass')
+        self.assertEqual(rows['electrical']['upstream_action_tasks'],[])
+        self.assertTrue(rows['electrical']['evidence'])
+        self.assertEqual(rows['coupled']['blocked_by'],['pump','water'])
+        self.assertEqual(rows['coupled']['upstream_action_tasks'],['water'])
+        self.assertEqual(rows['coupled-drawing']['blocked_by'],['coupled'])
+        self.assertEqual(rows['coupled-drawing']['upstream_action_tasks'],['water'])
+        self.assertEqual(rows['water']['status'],'fail')
+        self.assertIn('controlled water design failure',rows['water']['recorded_scope'])
+        self.assertEqual(rows['coupled-drawing']['evidence'],[])
+
     def test_passing_child_with_pending_parent_is_rejected(self):
         path = self.run/'workflow.json'
         report = json.loads(path.read_text())

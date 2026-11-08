@@ -1,0 +1,168 @@
+{
+  "plan_sha256": "f4fa0f274c1feefb3d62919feee4d79672f5ba3a8e70b9d1016109f5e0c4bd0d",
+  "workflow_sha256": "926e379771c356ec7767f3c091f3abf4ac35f1a615b4d820855bee75212b480f",
+  "integrity_pass": true,
+  "tasks": [
+    {
+      "id": "electrical",
+      "kind": "electrical",
+      "status": "pass",
+      "recorded_scope": "conditional electrical checks only; remaining design checks are in calculations.json",
+      "dependencies": [],
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R1"
+      ],
+      "evidence": [
+        "electrical/calculations.json",
+        "electrical/devices.dxf",
+        "electrical/manifest.json",
+        "electrical/preview.svg",
+        "electrical/report.html"
+      ]
+    },
+    {
+      "id": "water",
+      "kind": "network_model_design",
+      "status": "fail",
+      "recorded_scope": "ProjectError: controlled water design failure",
+      "dependencies": [],
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "water"
+      ],
+      "next_action": "inspect retained failure evidence and correct source or adapter before a new run",
+      "requirement_ids": [
+        "R2"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "qa",
+      "kind": "ifc_clash",
+      "status": "pending",
+      "recorded_scope": "upstream IFC producer did not pass; no clash result fabricated",
+      "dependencies": [
+        "water"
+      ],
+      "blocked_by": [
+        "water"
+      ],
+      "upstream_action_tasks": [
+        "water"
+      ],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R3"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "drawing",
+      "kind": "ifc_drawing",
+      "status": "pending",
+      "recorded_scope": "upstream IFC producer did not pass; no drawing fabricated",
+      "dependencies": [
+        "water"
+      ],
+      "blocked_by": [
+        "water"
+      ],
+      "upstream_action_tasks": [
+        "water"
+      ],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R4"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "pump",
+      "kind": "pump_operating_point",
+      "status": "pending",
+      "recorded_scope": "upstream network producer did not pass; no pump operating point fabricated",
+      "dependencies": [
+        "water"
+      ],
+      "blocked_by": [
+        "water"
+      ],
+      "upstream_action_tasks": [
+        "water"
+      ],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R5"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "coupled",
+      "kind": "pump_electrical",
+      "status": "pending",
+      "recorded_scope": "upstream pump/model did not pass; no electrical operating scenario fabricated",
+      "dependencies": [
+        "pump",
+        "water"
+      ],
+      "blocked_by": [
+        "pump",
+        "water"
+      ],
+      "upstream_action_tasks": [
+        "water"
+      ],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R6"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "coupled-qa",
+      "kind": "ifc_clash",
+      "status": "pending",
+      "recorded_scope": "upstream IFC producer did not pass; no clash result fabricated",
+      "dependencies": [
+        "coupled"
+      ],
+      "blocked_by": [
+        "coupled"
+      ],
+      "upstream_action_tasks": [
+        "water"
+      ],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R7"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "coupled-drawing",
+      "kind": "ifc_drawing",
+      "status": "pending",
+      "recorded_scope": "upstream IFC producer did not pass; no drawing fabricated",
+      "dependencies": [
+        "coupled"
+      ],
+      "blocked_by": [
+        "coupled"
+      ],
+      "upstream_action_tasks": [
+        "water"
+      ],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R8"
+      ],
+      "evidence": []
+    }
+  ],
+  "execution_pass": false,
+  "design_accepted": false,
+  "scope": "Recorded execution and declared dependency graph only; no engine invocation, automatic repair, or engineering acceptance"
+}
