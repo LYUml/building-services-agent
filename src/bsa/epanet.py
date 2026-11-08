@@ -11,6 +11,7 @@ import subprocess
 import sys
 from .cli import digest
 from .engine import ProjectError
+from .epanet_energy import audit_pipe
 
 MODEL='EPANET steady water graph'
 PRESSURE='static pressure head in metres of water; head is elevation plus static pressure head'
@@ -29,15 +30,16 @@ def validate(p):
         if type(value) not in (int,float) or not math.isfinite(value) or minimum is not None and (value<minimum or positive and value==minimum):raise ProjectError('finite water data within declared domain required')
     group(p['fluid'],{'relative_viscosity','specific_gravity'})
     number(p['fluid']['relative_viscosity'],0,True)
+    if p['fluid']['relative_viscosity']<=.001:raise ProjectError('relative viscosity must exceed 0.001; smaller INP values are interpreted as actual viscosity by EPANET')
     if p['fluid']['specific_gravity']!=1 or type(p['fluid']['specific_gravity']) not in (int,float):raise ProjectError('this adapter requires explicit water specific gravity 1')
     h=p['hydraulics'];group(h,{'demand_model','minimum_pressure_head_m','required_pressure_head_m','pressure_exponent'})
     if h['demand_model'] not in ('DDA','PDA'):raise ProjectError('explicit DDA or PDA required')
     for key in ('minimum_pressure_head_m','required_pressure_head_m'):number(h[key],0)
     number(h['pressure_exponent'],0,True)
     if h['required_pressure_head_m']<=h['minimum_pressure_head_m']:raise ProjectError('required pressure head must exceed minimum')
-    s=p['solver'];group(s,{'max_trials','accuracy','head_tolerance_m','flow_tolerance_m3_s','velocity_tolerance_m_s','mass_tolerance_m3_s','demand_tolerance_m3_s','max_runtime_s'})
+    s=p['solver'];group(s,{'max_trials','accuracy','head_tolerance_m','flow_tolerance_m3_s','velocity_tolerance_m_s','mass_tolerance_m3_s','demand_tolerance_m3_s','energy_absolute_tolerance_m','energy_relative_tolerance','max_runtime_s'})
     if type(s['max_trials']) is not int or not 1<=s['max_trials']<=10000 or type(s['max_runtime_s']) is not int or not 1<=s['max_runtime_s']<=600:raise ProjectError('explicit bounded engine trial/runtime budgets required')
-    for key in ('accuracy','head_tolerance_m','flow_tolerance_m3_s','velocity_tolerance_m_s','mass_tolerance_m3_s','demand_tolerance_m3_s'):number(s[key],0,True)
+    for key in ('accuracy','head_tolerance_m','flow_tolerance_m3_s','velocity_tolerance_m_s','mass_tolerance_m3_s','demand_tolerance_m3_s','energy_absolute_tolerance_m','energy_relative_tolerance'):number(s[key],0,True)
     nodes={};links={}
     def identity(row,mapped):
         id=row['id']
@@ -124,6 +126,7 @@ def worker(project,out):
                    not reopened.tank_name_list,not reopened.valve_name_list,
                    reopened.options.time.duration==0,reopened.options.quality.parameter=='NONE'])
     original=wn.options.hydraulic;actual=reopened.options.hydraulic
+    checks.append(actual.viscosity>.001)
     keys=['headloss','demand_model','viscosity','specific_gravity','demand_multiplier','trials','accuracy','headerror','flowchange','unbalanced','inpfile_units']
     # EPANET does not serialize the inactive pressure-demand law for DDA.
     if p['hydraulics']['demand_model']=='PDA':keys+=['minimum_pressure','required_pressure','pressure_exponent']
@@ -167,7 +170,8 @@ def evaluate(p,raw):
         native=link['velocity'][id]
         pipes.append(dict(id=id,flow_m3_s=q,velocity_m_s=v,native_velocity_m_s=native,
                           velocity_difference_m_s=abs(v-native),velocity_pass=v<=pipe['maximum_velocity_m_s'],
-                          native_velocity_match=abs(v-native)<=s['velocity_tolerance_m_s']))
+                          native_velocity_match=abs(v-native)<=s['velocity_tolerance_m_s'],
+                          energy=audit_pipe(pipe,q,node['head'][pipe['from']],node['head'][pipe['to']],p['fluid'],s)))
     for pump in p['pumps']:
         id=pump['id'];q=link['flowrate'][id];gain=node['head'][pump['to']]-node['head'][pump['from']];expected=None
         for a,b in zip(pump['head_curve'],pump['head_curve'][1:]):
@@ -177,10 +181,12 @@ def evaluate(p,raw):
                           open_pass=link['status'][id]>0,electrical_power_kw=None))
     finite=all(math.isfinite(v) for group in (node,link) for field in group.values() for v in field.values())
     checks=dict(engine_clean=raw['error_code'] is None and not raw['engine_codes'],serialized_input_match=raw['serialized_input_match'],finite_results=finite,
+                reservoir_heads=all(abs(node['head'][r['id']]-r['head_m'])<=s['head_tolerance_m'] for r in p['reservoirs']),
                 mass_balance=all(abs(v)<=s['mass_tolerance_m3_s'] for v in balance.values()),
                 head_pressure_identity=all(j['head_pressure_identity_pass'] for j in junctions),demand_law=all(j['demand_law_pass'] for j in junctions),
                 pressure_targets=all(j['pressure_pass'] for j in junctions),delivery_targets=all(j['delivery_pass'] for j in junctions),
                 velocity_limits=all(r['velocity_pass'] and r['native_velocity_match'] for r in pipes),
+                pipe_energy=all(r['energy']['energy_pass'] for r in pipes),
                 pump_curves=all(r['curve_domain_pass'] and r['curve_head_pass'] and r['open_pass'] for r in pumps))
     return dict(checks=checks,calculated_checks_pass=all(checks.values()),junctions=junctions,pipes=pipes,pumps=pumps,
                 reservoir_demands_m3_s={r['id']:node['demand'][r['id']] for r in p['reservoirs']},mass_residuals_m3_s=balance,
@@ -194,7 +200,7 @@ def run(project,out):
     if importlib.metadata.version('wntr')!='1.5.0':raise ProjectError('pinned WNTR 1.5.0 required')
     out.mkdir(parents=True,exist_ok=False);copied=out/'source-copy.json';copied.write_bytes(project.read_bytes())
     result=dict(calculated_checks_pass=False,design_accepted=False,scope='Steady EPANET 2.2 water graph, D-W friction, fixed head sources and fixed-speed sourced head curves; static pressure head only',
-                pending=['source fluid/roughness/demand and device-curve applicability','BIM/route binding, independent general pipe energy residuals and physical acceptance',
+                pending=['source fluid/roughness/demand and device-curve applicability','BIM/route binding, physical acceptance and actual fluid applicability of engine conventions',
                          'pump efficiency/power, NPSH, controls, tanks/time variation and water quality','domain-specific water/fire rules and full engineering acceptance'])
     with (out/'worker.log').open('wb') as log:
         try:

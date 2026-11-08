@@ -1,7 +1,7 @@
 {
   "version": 1,
   "brief": "brief.md",
-  "brief_sha256": "05922da2f668bdd6837a82d05e7c7f5d2312e88d09162e03b058af2c993b9158",
+  "brief_sha256": "c0375fdc79495f2a4b1c4dab6c03a0202f5c6d0ed9d5c6b395b3769e57c2aae7",
   "passage_dispositions": {
     "P001": "context",
     "P002": "requirement"
@@ -17,7 +17,7 @@
     {
       "id": "R1",
       "passage": "P002",
-      "quote": "Use project.json to solve the connected diamond water loop with EPANET 2.2, Darcy-Weisbach friction and the explicit global pressure-driven demand law. Retain signed flows, static pressure heads, delivered withdrawals, the pump curve intersection and native solver artifacts. Check flow continuity, pressure and delivery targets, velocity limits and serialized input values; retain failures. Keep source applicability, independent general pipe energy residuals, BIM routes, pump power, NPSH and full engineering acceptance pending.",
+      "quote": "Use project.json to solve the connected diamond water loop with EPANET 2.2, Darcy-Weisbach friction and the explicit global pressure-driven demand law. Retain signed flows, static pressure heads, delivered withdrawals, the pump curve intersection and native solver artifacts. Check flow continuity, reservoir boundaries, pressure and delivery targets, velocity limits, serialized input values and independently recalculated pipe friction/minor head-loss residuals; retain failures. Keep source applicability, BIM routes, pump power, NPSH and full engineering acceptance pending.",
       "task": "water",
       "acceptance": "Conditional numerical/source integrity checks; all listed domain and engineering gates remain pending"
     }

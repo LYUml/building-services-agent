@@ -7,6 +7,8 @@ import unittest
 from bsa.cli import digest
 from bsa.engine import ProjectError
 from bsa.epanet import validate,run,evaluate
+from bsa.epanet_energy import darcy_factor,pipe_loss
+import math
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -19,6 +21,7 @@ class WaterInputTests(unittest.TestCase):
     def test_rejects_unsupported_assumptions_and_unbounded_inputs(self):
         for change in (lambda p:p.update(pressure_basis='total pressure Pa'),
                        lambda p:p['fluid'].update(specific_gravity=.8),
+                       lambda p:p['fluid'].update(relative_viscosity=.001),
                        lambda p:p['solver'].update(max_runtime_s=True),
                        lambda p:p['solver'].update(velocity_tolerance_m_s=0),
                        lambda p:p['pipes'][0].update(length_m=1),
@@ -27,6 +30,16 @@ class WaterInputTests(unittest.TestCase):
                        lambda p:p['junctions'].append(dict(p['junctions'][0],id='DISCONNECTED'))):
             p=case();change(p)
             with self.assertRaises(ProjectError):validate(p)
+
+    def test_zero_flow_and_friction_regime_boundaries(self):
+        result=pipe_loss(case()['pipes'][0],0,1)
+        self.assertEqual(result['regime'],'stagnant');self.assertIsNone(result['darcy_factor'])
+        self.assertEqual(result['model_head_loss_m'],0)
+        self.assertEqual(darcy_factor(1000,.001),(.064,'laminar'))
+        for boundary in (2000,4000):
+            left=darcy_factor(boundary-1e-5,.001)[0]
+            right=darcy_factor(boundary+1e-5,.001)[0]
+            self.assertAlmostEqual(left,right,places=8)
 
 
 @unittest.skipUnless(importlib.util.find_spec('wntr'),'requires optional water runtime')
@@ -91,6 +104,66 @@ class WaterEngineTests(unittest.TestCase):
         r,_=self.execute(p)
         self.assertTrue(all(v['native_velocity_match'] for v in r['pipes']))
         self.assertFalse(r['checks']['velocity_limits']);self.assertFalse(r['calculated_checks_pass'])
+
+    def test_circulation_error_passes_mass_balance_but_fails_energy(self):
+        p=case();r,out=self.execute(p);raw=json.loads((out/'raw.json').read_text())
+        # Add circulation around the ring, preserving every nodal mass balance.
+        # Also update velocity so Q/A consistency cannot detect the corruption.
+        for pipe in p['pipes']:
+            id=pipe['id'];raw['links']['flowrate'][id]+=-.0001 if id=='JB' else .0001
+            raw['links']['velocity'][id]=abs(raw['links']['flowrate'][id])/(math.pi*pipe['diameter_m']**2/4)
+        failed=evaluate(p,raw)
+        for key in ('mass_balance','head_pressure_identity','demand_law','velocity_limits','pump_curves'):
+            self.assertTrue(failed['checks'][key],key)
+        self.assertFalse(failed['checks']['pipe_energy']);self.assertFalse(failed['calculated_checks_pass'])
+        # Uniform head/pressure shift preserves pipe drops but violates reservoir boundary.
+        raw=json.loads((out/'raw.json').read_text())
+        for field in ('head','pressure'):
+            for id in raw['nodes'][field]:raw['nodes'][field][id]+=1
+        failed=evaluate(p,raw)
+        self.assertTrue(failed['checks']['pipe_energy']);self.assertTrue(failed['checks']['head_pressure_identity'])
+        self.assertFalse(failed['checks']['reservoir_heads'])
+
+    def single_pipe(self,demand,viscosity=1):
+        p=case();p['hydraulics']['demand_model']='DDA';p['pumps']=[]
+        p['fluid']['relative_viscosity']=viscosity;p['reservoirs'][0]['head_m']=50
+        p['junctions']=[dict(p['junctions'][-1],id='END',elevation_m=0,demand_m3_s=demand)]
+        p['pipes']=[dict(p['pipes'][0],id='LINE',length_m=10,diameter_m=.04,minor_k=0,**{'from':'R','to':'END'})]
+        return p
+
+    def test_native_laminar_loss_matches_independent_poiseuille_calculation(self):
+        p=self.single_pipe(1e-5,1000);pipe=p['pipes'][0]
+        r,_=self.execute(p);self.assertTrue(r['calculated_checks_pass'],r)
+        e=r['pipes'][0]['energy'];self.assertEqual(e['regime'],'laminar')
+        # Independent SI Poiseuille solution, with explicitly documented engine
+        # gravity/viscosity and its legacy cubic-foot flow convention.
+        expected=128*10*(1000*1.1e-5*.3048**2)*(1e-5*.3048**3/.028317)/(math.pi*(32.2*.3048)*.04**4)
+        self.assertAlmostEqual(e['observed_head_drop_m'],expected,delta=1e-5)
+        # The linear laminar resistance predicts doubling flow doubles friction head.
+        self.assertAlmostEqual(pipe_loss(pipe,2e-5,1000)['friction_head_m'],2*e['model_head_loss_m'],delta=1e-7)
+
+    def test_native_transition_loss_and_reversed_orientation(self):
+        # Choose native Re=3000, rather than relying on ambiguous approximate SI conversion.
+        q=3000*math.pi*(.04/.3048)*1.1e-5/4*.028317
+        p=self.single_pipe(q);p['pipes'][0].update(minor_k=3)
+        r,_=self.execute(p);self.assertTrue(r['calculated_checks_pass'],r)
+        energy=r['pipes'][0]['energy'];self.assertEqual(energy['regime'],'transition')
+        self.assertAlmostEqual(energy['reynolds'],3000,delta=.001)
+        p['pipes'][0].update(**{'from':'END','to':'R'})
+        reversed_result,_=self.execute(p)
+        self.assertTrue(reversed_result['calculated_checks_pass'],reversed_result)
+        self.assertLess(reversed_result['pipes'][0]['energy']['model_head_loss_m'],0)
+        self.assertAlmostEqual(reversed_result['pipes'][0]['energy']['model_head_loss_m'],-energy['model_head_loss_m'],places=6)
+
+    def test_native_zero_withdrawal_dead_end_has_no_singular_energy_check(self):
+        p=self.single_pipe(.001)
+        p['junctions'].append(dict(p['junctions'][0],id='DEAD',demand_m3_s=0))
+        p['pipes'].append(dict(p['pipes'][0],id='DEADLEG',**{'from':'END','to':'DEAD'}))
+        r,_=self.execute(p)
+        self.assertTrue(r['calculated_checks_pass'],r)
+        dead=next(pipe for pipe in r['pipes'] if pipe['id']=='DEADLEG')
+        self.assertAlmostEqual(dead['flow_m3_s'],0,delta=1e-10)
+        self.assertTrue(dead['energy']['energy_pass'])
 
     def test_workflow_runs_and_integrity_detects_native_input_tamper(self):
         from bsa.workflow import execute,verify
