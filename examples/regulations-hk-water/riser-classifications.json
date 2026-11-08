@@ -1,0 +1,22 @@
+{
+  "D15": {
+    "value": 15.0,
+    "unit": "mm",
+    "source": "Synthetic explicit classification for D15, not a real product assertion"
+  },
+  "D25": {
+    "value": 25.0,
+    "unit": "mm",
+    "source": "Synthetic explicit classification for D25, not a real product assertion"
+  },
+  "D32": {
+    "value": 32.0,
+    "unit": "mm",
+    "source": "Synthetic explicit classification for D32, not a real product assertion"
+  },
+  "D40": {
+    "value": 40.0,
+    "unit": "mm",
+    "source": "Synthetic explicit classification for D40, not a real product assertion"
+  }
+}
