@@ -1,0 +1,127 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\regulatory-source-controls-v1\\geometry.json": "3d8f4cfd0e599d14e9e9dc2bd61548a983750de0f7ccf08388c68934a1e35808",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\regulatory-source-controls-v1\\brief.md": "5e80193f90a52fd0961748cdc8ae999410c4e42a0a02a70d533c5eafd729c053",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\regulatory-source-controls-v1\\pack.json": "97b7be1ea891b575bdd239e200ce41120ed09a509914ebd74394135decc9997c",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\regulatory-source-controls-v1\\emsd-bec-2024.pdf": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\regulatory-source-controls-v1\\basis.json": "00535700b9bb84bcacdaf608951bd2604f534955cfae1996568ba9c664e4f169",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\regulatory-source-controls-v1\\plan.json": "60ffb476e50f66a720bab5024498df096170d74e6d96d54a68bbacefd2387ed8",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\regulatory-source-controls-v1\\project.json": "34e1fba15d2ec9dacbdf256cf996d2de772873d720374f1ac55fd6b64ac4f34a"
+  },
+  "inputs_unchanged": true,
+  "tasks": {
+    "rules": {
+      "kind": "lighting_regulations",
+      "status": "pass",
+      "scope": "Shared source rectangular space areas and full electrical fixture watts; actual saved IFC not reopened; whole-project regulatory compliance not established"
+    },
+    "model": {
+      "kind": "electrical_coordination",
+      "status": "pass",
+      "scope": "same electrical IDs/XY/power/PF/circuits reconciled across saved calculations, DXF and IFC envelopes; final design acceptance pending"
+    },
+    "review": {
+      "kind": "manual",
+      "status": "pending",
+      "scope": "Full source, native drawing, visual, photometric and regulatory acceptance pending"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R0",
+      "passage": "P001",
+      "quote": "Check each shared lighting space against the selected Hong Kong office LPD rule before generating coordinated electrical CAD and IFC. Keep complete engineering and visual review pending.",
+      "task": "rules",
+      "acceptance": "Check each shared lighting space against the selected Hong Kong office LPD rule before generating coordinated electrical CAD and IFC. Keep complete engineering and visual review pending.",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 1,
+        "end_line": 1
+      },
+      "execution_scope": "Shared source rectangular space areas and full electrical fixture watts; actual saved IFC not reopened; whole-project regulatory compliance not established",
+      "evidence": [
+        "rules/bound-space-projects.json",
+        "rules/lighting-regulation-checks.json"
+      ]
+    },
+    {
+      "id": "R1",
+      "passage": "P001",
+      "quote": "Check each shared lighting space against the selected Hong Kong office LPD rule before generating coordinated electrical CAD and IFC. Keep complete engineering and visual review pending.",
+      "task": "model",
+      "acceptance": "Check each shared lighting space against the selected Hong Kong office LPD rule before generating coordinated electrical CAD and IFC. Keep complete engineering and visual review pending.",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 1,
+        "end_line": 1
+      },
+      "execution_scope": "same electrical IDs/XY/power/PF/circuits reconciled across saved calculations, DXF and IFC envelopes; final design acceptance pending",
+      "evidence": [
+        "model/coordinated-devices.csv",
+        "model/coordination.json",
+        "model/ifc-input.json",
+        "model/bim/bim-verification.json",
+        "model/bim/model.ifc",
+        "model/bim/schema-validation.json",
+        "model/electrical/calculations.json",
+        "model/electrical/devices.dxf",
+        "model/electrical/manifest.json",
+        "model/electrical/preview.svg",
+        "model/electrical/report.html"
+      ]
+    },
+    {
+      "id": "R2",
+      "passage": "P001",
+      "quote": "Check each shared lighting space against the selected Hong Kong office LPD rule before generating coordinated electrical CAD and IFC. Keep complete engineering and visual review pending.",
+      "task": "review",
+      "acceptance": "Check each shared lighting space against the selected Hong Kong office LPD rule before generating coordinated electrical CAD and IFC. Keep complete engineering and visual review pending.",
+      "execution_status": "pending",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 1,
+        "end_line": 1
+      },
+      "execution_scope": "Full source, native drawing, visual, photometric and regulatory acceptance pending",
+      "evidence": []
+    }
+  ],
+  "regulatory_source_bindings": [
+    {
+      "check": "rules",
+      "consumer": "model",
+      "field": "geometry",
+      "checked": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\regulatory-source-controls-v1\\geometry.json",
+      "consumed": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\regulatory-source-controls-v1\\geometry.json",
+      "sha256": "3d8f4cfd0e599d14e9e9dc2bd61548a983750de0f7ccf08388c68934a1e35808"
+    },
+    {
+      "check": "rules",
+      "consumer": "model",
+      "field": "project",
+      "checked": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\regulatory-source-controls-v1\\project.json",
+      "consumed": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\regulatory-source-controls-v1\\project.json",
+      "sha256": "34e1fba15d2ec9dacbdf256cf996d2de772873d720374f1ac55fd6b64ac4f34a"
+    }
+  ],
+  "artifact_hashes": {
+    "model/coordinated-devices.csv": "b4014387fba5c27b015a9a4e4d7b75b270ccdda0dc2e27672c0d2f58ca844cdc",
+    "model/coordination.json": "5650c6726e23d8d9f691f1ee95abf2fd67b3a457a313f577b981503f9f0e552a",
+    "model/ifc-input.json": "fa45f2f31fabecbdb3f99a8ec457e43081f2ddb41c3b4ae6e9a098e24ae9a97e",
+    "rules/bound-space-projects.json": "bfd6ab3e33bbb0c0db51f07f0ea49ea4c4af81d34716737deceeae11439634c6",
+    "rules/lighting-regulation-checks.json": "4421bda124eb72dd3bd31589d3a3d2a8b36e1ceaf23b247a5f3f3f5c9561674f",
+    "model/bim/bim-verification.json": "9409b144a1008f3588792251510a0545a739f47fcff8d42abb6c875f3138cf46",
+    "model/bim/model.ifc": "31e2a11f76d3f52d2be1ee70cd0c218882a0520810c89bba1551a6a8ec78d720",
+    "model/bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "model/electrical/calculations.json": "87c8230a5a5a8ae521a2677d332753106e79d8d909eaba31e5da0602fad0ca5e",
+    "model/electrical/devices.dxf": "1a53f0dd6eced4da6dbd459106b99d997a16b033bcb14b95e3666d8dcc8011da",
+    "model/electrical/manifest.json": "e961ce34e0b7aad0d36118a44ed5f038fb88094689c521f532b074c1ceeb987a",
+    "model/electrical/preview.svg": "96aab302c3820d8bd1ce04ba1356de32734d3fa291cfa57111c39d2cffa3cef2",
+    "model/electrical/report.html": "ea329bfc4dce45c18b8f3e7117c6eaf169cf37db64ac25fa89d64c2e906bcd21"
+  },
+  "execution_pass": false,
+  "design_accepted": false,
+  "acceptance_note": "Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance"
+}

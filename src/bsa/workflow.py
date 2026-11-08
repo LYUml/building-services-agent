@@ -47,6 +47,40 @@ def local_path(root,value):
     return path
 
 
+def regulatory_source_bindings(tasks,root):
+    """Match known shared-source consumers, including inherited producer inputs."""
+    shared={'electrical','electrical_fault','electrical_coordination','electrical_lighting',
+            'electrical_regulations','lighting_regulations'}
+    geometric={'electrical_coordination','electrical_lighting','lighting_regulations'}
+    known={};ancestors={};sources={};bindings=[]
+    hashes={}
+    def hashed(path):
+        if path not in hashes:hashes[path]=digest(path)
+        return hashes[path]
+    for task in tasks:
+        name=task['id'];kind=task['kind']
+        parents=[p for p in task.get('requires_pass',[]) if p in known]
+        parents += [task[k] for k in ('depends_on','ifc_from') if isinstance(task.get(k),str) and task[k] in known]
+        upstream=set(parents)
+        for parent in parents:upstream.update(ancestors[parent])
+        ancestors[name]=upstream
+        current={}
+        if kind in shared:
+            current['project']=local_path(root,task.get('project'))
+            if kind in geometric:current['geometry']=local_path(root,task.get('geometry'))
+        elif isinstance(task.get('depends_on'),str):
+            current=dict(sources.get(task['depends_on'],{}))
+        for parent in sorted(upstream):
+            if known[parent]['kind'] not in ('electrical_regulations','lighting_regulations'):continue
+            for field in current.keys() & sources[parent].keys():
+                checked=sources[parent][field];consumed=current[field]
+                if hashed(checked)!=hashed(consumed):
+                    raise ProjectError(f'regulatory gate {parent} checks different {field} bytes from consumer {name}')
+                bindings.append(dict(check=parent,consumer=name,field=field,checked=str(checked),consumed=str(consumed),sha256=hashed(checked)))
+        known[name]=task;sources[name]=current
+    return bindings
+
+
 def validate_plan(path):
     root=path.resolve().parent;p=read_json(path)
     if not isinstance(p,dict) or type(p.get("version")) is not int or p.get("version")!=1:raise ProjectError("plan version 1 required")
@@ -238,6 +272,7 @@ def validate_plan(path):
     if cited!={k for k,v in dispositions.items() if v=="requirement"}:
         raise ProjectError("requirement passage omitted from matrix")
     if {r["task"] for r in requirements}!=ids:raise ProjectError("every task must map to a requirement")
+    regulatory_source_bindings(tasks,root)
     return p,inputs
 
 
@@ -253,6 +288,8 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
         folder=out/t["id"]
         status="pending";reason="";payload=None
         try:
+            if any(not f.is_file() or digest(f)!=before[str(f)] for f in inputs):
+                raise ProjectError('workflow source changed before task execution; adapter not executed')
             blocked=[g for g in t.get('requires_pass',[]) if tasks[g]['status']!='pass']
             if blocked:
                 reason='required checks unresolved: '+', '.join(g+' ('+tasks[g]['status']+')' for g in blocked)+'; adapter not executed'
@@ -496,6 +533,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                            source_locator={k:v for k,v in source_rows[r["passage"]].items() if k not in ("id","text")},
                            execution_scope=task["scope"],evidence=evidence[r["task"]]))
     result=dict(inputs=before,inputs_unchanged=unchanged,tasks=tasks,requirements=matrix,
+        regulatory_source_bindings=regulatory_source_bindings(p['tasks'],root) if unchanged else [],
         artifact_hashes={f.relative_to(out).as_posix():digest(f) for f in out.rglob("*") if f.is_file()},
         execution_pass=unchanged and all(x["status"]=="pass" for x in tasks.values()),
         design_accepted=False,acceptance_note="Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance")

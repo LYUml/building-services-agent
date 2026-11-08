@@ -1,0 +1,10 @@
+test_gate_through_manual_checkpoint_still_matches_original_sources (test_regulatory_source_bindings.RegulatorySourceBindingTests.test_gate_through_manual_checkpoint_still_matches_original_sources) ... ok
+test_known_shared_fields_record_hashes_and_allow_identical_copy (test_regulatory_source_bindings.RegulatorySourceBindingTests.test_known_shared_fields_record_hashes_and_allow_identical_copy) ... ok
+test_mismatched_project_or_geometry_rejected (test_regulatory_source_bindings.RegulatorySourceBindingTests.test_mismatched_project_or_geometry_rejected) ... ok
+test_native_consumer_uses_its_actual_producer_inputs (test_regulatory_source_bindings.RegulatorySourceBindingTests.test_native_consumer_uses_its_actual_producer_inputs) ... ok
+test_unrelated_independent_task_is_not_implicitly_gated (test_regulatory_source_bindings.RegulatorySourceBindingTests.test_unrelated_independent_task_is_not_implicitly_gated) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.018s
+
+OK

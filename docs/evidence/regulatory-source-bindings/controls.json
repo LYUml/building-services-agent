@@ -1,0 +1,39 @@
+{
+  "valid_bindings": [
+    {
+      "check": "rules",
+      "consumer": "model",
+      "field": "geometry",
+      "checked": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\regulatory-source-controls-v1\\geometry.json",
+      "consumed": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\regulatory-source-controls-v1\\geometry.json",
+      "sha256": "3d8f4cfd0e599d14e9e9dc2bd61548a983750de0f7ccf08388c68934a1e35808"
+    },
+    {
+      "check": "rules",
+      "consumer": "model",
+      "field": "project",
+      "checked": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\regulatory-source-controls-v1\\project.json",
+      "consumed": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\regulatory-source-controls-v1\\project.json",
+      "sha256": "34e1fba15d2ec9dacbdf256cf996d2de772873d720374f1ac55fd6b64ac4f34a"
+    }
+  ],
+  "mismatch_rejected": "regulatory gate rules checks different project bytes from consumer model",
+  "execution_bindings": [
+    {
+      "check": "rules",
+      "consumer": "model",
+      "field": "geometry",
+      "checked": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\regulatory-source-controls-v1\\geometry.json",
+      "consumed": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\regulatory-source-controls-v1\\geometry.json",
+      "sha256": "3d8f4cfd0e599d14e9e9dc2bd61548a983750de0f7ccf08388c68934a1e35808"
+    },
+    {
+      "check": "rules",
+      "consumer": "model",
+      "field": "project",
+      "checked": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\regulatory-source-controls-v1\\project.json",
+      "consumed": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\regulatory-source-controls-v1\\project.json",
+      "sha256": "34e1fba15d2ec9dacbdf256cf996d2de772873d720374f1ac55fd6b64ac4f34a"
+    }
+  ]
+}

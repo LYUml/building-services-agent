@@ -58,6 +58,22 @@ class WorkflowGateTests(unittest.TestCase):
         self.assertEqual(r['tasks']['drawing']['status'],'pending')
         self.assertFalse((self.root/'run/drawing').exists())
 
+    def test_source_change_between_tasks_prevents_later_adapter_calls(self):
+        self.plan['tasks'][0]=dict(id='check',kind='electrical',project='project.json')
+        self.save()
+        from bsa.cli import run
+        def changed(*args,**kwargs):
+            result=run(*args,**kwargs)
+            path=self.root/'project.json';path.write_bytes(path.read_bytes()+b' ')
+            return result
+        with patch('bsa.cli.run',side_effect=changed) as adapter:
+            with self.assertRaisesRegex(ProjectError,'source inputs changed'):execute(self.path,self.root/'run')
+        self.assertEqual(adapter.call_count,1)
+        report=json.loads((self.root/'run/workflow.json').read_text())
+        self.assertFalse(report['inputs_unchanged'])
+        self.assertIn('before task execution',report['tasks']['drawing']['scope'])
+        self.assertFalse((self.root/'run/drawing').exists())
+
     def test_unknown_future_self_duplicate_and_nonlist_gates_rejected(self):
         for gates in (['unknown'],['review'],['drawing'],['check','check'],'check',[{}]):
             self.plan['tasks'][2]['requires_pass']=gates;self.save()
