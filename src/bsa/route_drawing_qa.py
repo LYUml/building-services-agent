@@ -11,6 +11,27 @@ from .route_annotations import geometry, expand
 TOL = 1e-8
 
 
+def raw_space_markers(path):
+    """Keep entity group 67 before ezdxf repairs it from layout ownership."""
+    from io import StringIO
+    from ezdxf.lldxf.tagger import ascii_tags_loader, binary_tags_loader
+    from ezdxf.lldxf.tags import group_tags
+    data=Path(path).read_bytes()
+    # Only ASCII handles, section names and numeric flags are inspected. Latin-1
+    # preserves all bytes without guessing legacy text encodings.
+    tags=binary_tags_loader(data) if data.startswith(b'AutoCAD Binary DXF') else ascii_tags_loader(StringIO(data.decode('latin1').replace('\r\n','\n')))
+    result={};section=None
+    for group in group_tags(tags):
+        kind=group[0].value
+        if kind=='SECTION':section=next((t.value for t in group if t.code==2),None)
+        elif kind=='ENDSEC':section=None
+        elif section in ('ENTITIES','BLOCKS'):
+            handles=[str(t.value).upper() for t in group if t.code==5]
+            if len(handles)==1:
+                result.setdefault(handles[0],[]).append([str(t.value).strip() for t in group if t.code==67])
+    return result
+
+
 def precise(points):
     if any(not math.isfinite(v) or math.ulp(v)>TOL for p in points for v in p):
         raise ProjectError('annotation coordinates cannot support the saved audit precision')
@@ -98,8 +119,19 @@ def audit_saved(dxf, rows, axes, height, report):
                 for c,d in zip(other,other[1:]):
                     gap=distance(a,b,c,d);minimum=gap if minimum is None else min(minimum,gap)
                     if gap<margin-TOL:raise ProjectError('saved leader pair crosses or violates graphic margin')
+    raw_markers=raw_space_markers(dxf)
     doc=ezdxf.readfile(dxf)
     if doc.header.get('$INSUNITS')!=6:raise ProjectError('saved annotation drawing must use metres')
+    def visible_flags(entity):
+        records=raw_markers.get(entity.dxf.handle.upper(),[])
+        if len(records)!=1 or records[0] not in ([],['0']):
+            raise ProjectError('linked annotation raw paper-space marker must be absent or uniquely zero')
+        if entity.dxf.invisible!=0 or entity.dxf.paperspace!=0:
+            raise ProjectError('linked annotation must not be hidden or marked as paper space')
+        if not doc.layers.has_entry(entity.dxf.layer):raise ProjectError('linked annotation layer definition required')
+        layer=doc.layers.get(entity.dxf.layer)
+        if layer.is_off() or layer.is_frozen() or layer.dxf.plot!=1:
+            raise ProjectError('linked annotation layer must be on, thawed and enabled for plotting')
     def linked(e):
         tags=[(t.code,t.value) for t in e.get_xdata('BSA_IFC')] if e.has_xdata('BSA_IFC') else []
         if len(tags)!=1 or tags[0][0]!=1000 or tags[0][1] not in expected:raise ProjectError('saved annotation has missing/unknown IFC identity')
@@ -112,11 +144,13 @@ def audit_saved(dxf, rows, axes, height, report):
     for entity in doc.modelspace():
         if entity.dxf.layer=='BSA_LEADER':
             guid=linked(entity)
+            visible_flags(entity)
             if entity.dxftype()!='LINE' or any(not math.isfinite(v) for v in (*entity.dxf.start,*entity.dxf.end)) or abs(entity.dxf.start.z)>TOL or abs(entity.dxf.end.z)>TOL:
                 raise ProjectError('finite WCS XY saved leader LINE required')
             found[key(guid,list(entity.dxf.start)[:2],list(entity.dxf.end)[:2])]+=1
         elif entity.dxf.layer=='BSA_LABEL' and entity.has_xdata('BSA_IFC'):
             guid=linked(entity)
+            visible_flags(entity)
             if guid in text or entity.dxftype()!='TEXT':raise ProjectError('one saved linked TEXT per source piece required')
             position=entity.dxf.insert
             if any(not math.isfinite(v) for v in (*position,entity.dxf.height,entity.dxf.rotation,entity.dxf.width,entity.dxf.oblique)) or abs(position.z)>TOL or math.dist(list(position)[:2],labels[guid])>TOL or abs(entity.dxf.height-height)>TOL or abs(entity.dxf.rotation)>TOL or abs(entity.dxf.width-1)>TOL or abs(entity.dxf.oblique)>TOL or entity.dxf.halign or entity.dxf.valign or not entity.dxf.extrusion.isclose((0,0,1),abs_tol=TOL):
@@ -129,6 +163,8 @@ def audit_saved(dxf, rows, axes, height, report):
                 dxf_sha256=digest(Path(dxf)),piece_count=len(rows),leader_segment_count=sum(found.values()),graphic_margin_m=margin,coordinate_tolerance_m=TOL,
                 minimum_leader_pair_gap_m=minimum,leader_body_checks_pass=True,leader_pair_checks_pass=True,
                 saved_paths_match=True,saved_labels_match=True,calculated_checks_pass=True,design_accepted=False,
+                linked_annotation_visibility_flags_pass=True,
+                checked_visibility_flags=['entity invisible','raw and loaded entity paper-space marker','layer off','layer frozen','layer plot'],
                 pending=['unlinked legends and font glyph extents','native pipe geometry/print/BIM viewer and complete engineering acceptance'])
 
 

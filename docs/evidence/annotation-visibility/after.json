@@ -1,0 +1,27 @@
+{
+  "entity_hidden.dxf": {
+    "rejected": true,
+    "reason": "linked annotation must not be hidden or marked as paper space",
+    "sha256": "beca06bd6e6bbc785aa874e28ee31c397bc68c3de2b0c93a55154a94ab031d61"
+  },
+  "layer_frozen.dxf": {
+    "rejected": true,
+    "reason": "linked annotation layer must be on, thawed and enabled for plotting",
+    "sha256": "68c250770527eb954c868cb789f851776ea305e00f62f7c63f31fe27961105b6"
+  },
+  "layer_nonplot.dxf": {
+    "rejected": true,
+    "reason": "linked annotation layer must be on, thawed and enabled for plotting",
+    "sha256": "3ebb8fce81d713fbe2587cdbc8686a12da983de861d7fa753afaa0eb33284b38"
+  },
+  "layer_off.dxf": {
+    "rejected": true,
+    "reason": "linked annotation layer must be on, thawed and enabled for plotting",
+    "sha256": "79cfae01fde959fc6e1c838a3f57c9b5018bb70e51b79286123e8ea1079f5a29"
+  },
+  "annotation-paperspace-control.dxf": {
+    "rejected": true,
+    "reason": "linked annotation raw paper-space marker must be absent or uniquely zero",
+    "sha256": "5d0eebea9b5ef3b9b7de59346653de9309344f2d859a0dc9ff4c74cf22fdb2a9"
+  }
+}

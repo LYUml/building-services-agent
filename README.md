@@ -21,7 +21,7 @@ Open this repository as the workspace. Ask the agent to use `$building-services-
 
 ## Current evidence and limits
 
-[Saved route annotation auditing](docs/SAVED_ROUTE_AUDIT.md) now checks actual DXF leaders and source-linked labels independently of the planner's status claims. Injected false-success plans, crossings, self-intersections, changed labels and coverage gaps are rejected; native pipe and printed/visual gates remain separate.
+[Saved route annotation auditing](docs/SAVED_ROUTE_AUDIT.md) now checks actual DXF leaders and source-linked labels independently of the planner's status claims. Injected false-success plans, crossings, self-intersections, changed labels, coverage gaps and hidden/nonplotting annotation flags are rejected, including raw paper-space markers that the reader would normalize; native pipe and printed/visual gates remain separate.
 
 [An independent vertical elbow riser](docs/ELBOW_RISER.md) now reuses the source-linked geometry/pressure/clash/native pipeline with different dimensions, coordinates, gravity and namespace. It exposed a leader crossing missed by the first example; conservative annotation routing now checks OD/prior-leader avoidance and saved DXF paths. Actual insufficient-supply failures block downstream output. Product and full installation acceptance remain pending.
 

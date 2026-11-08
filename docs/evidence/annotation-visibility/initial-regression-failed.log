@@ -1,0 +1,45 @@
+test_actual_native_saved_geometry_passes_without_planner_or_boolean_claims (test_saved_route_qa.SavedRouteAuditTests.test_actual_native_saved_geometry_passes_without_planner_or_boolean_claims) ... ok
+test_adjacent_tail_overlap_is_rejected_without_nonadjacent_crossing (test_saved_route_qa.SavedRouteAuditTests.test_adjacent_tail_overlap_is_rejected_without_nonadjacent_crossing) ... ok
+test_changed_actual_labels_or_leader_coverage_are_rejected (test_saved_route_qa.SavedRouteAuditTests.test_changed_actual_labels_or_leader_coverage_are_rejected) ... ok
+test_faulty_planner_claims_cannot_authorize_intrusion_or_crossing (test_saved_route_qa.SavedRouteAuditTests.test_faulty_planner_claims_cannot_authorize_intrusion_or_crossing) ... ok
+test_hidden_or_nonplotting_linked_annotations_are_rejected (test_saved_route_qa.SavedRouteAuditTests.test_hidden_or_nonplotting_linked_annotations_are_rejected) ... 
+  test_hidden_or_nonplotting_linked_annotations_are_rejected (test_saved_route_qa.SavedRouteAuditTests.test_hidden_or_nonplotting_linked_annotations_are_rejected) (kind='label', fault='paperspace') ... FAIL
+  test_hidden_or_nonplotting_linked_annotations_are_rejected (test_saved_route_qa.SavedRouteAuditTests.test_hidden_or_nonplotting_linked_annotations_are_rejected) (kind='leader', fault='paperspace') ... FAIL
+test_locked_visible_annotation_layers_are_accepted (test_saved_route_qa.SavedRouteAuditTests.test_locked_visible_annotation_layers_are_accepted) ... ok
+test_saved_line_endpoint_reversal_is_geometrically_equivalent (test_saved_route_qa.SavedRouteAuditTests.test_saved_line_endpoint_reversal_is_geometrically_equivalent) ... ok
+test_segment_distance_detects_crossing_overlap_and_clear_gap (test_saved_route_qa.SavedRouteAuditTests.test_segment_distance_detects_crossing_overlap_and_clear_gap) ... ok
+test_self_crossing_tail_is_rejected_before_saved_path_matching (test_saved_route_qa.SavedRouteAuditTests.test_self_crossing_tail_is_rejected_before_saved_path_matching) ... ok
+test_small_physical_overlap_on_long_segment_is_not_lost_to_parameter_cutoff (test_saved_route_qa.SavedRouteAuditTests.test_small_physical_overlap_on_long_segment_is_not_lost_to_parameter_cutoff) ... ok
+test_source_anchor_and_complete_layout_coverage_cannot_be_forged (test_saved_route_qa.SavedRouteAuditTests.test_source_anchor_and_complete_layout_coverage_cannot_be_forged) ... ok
+test_standalone_audit_reopens_actual_ifc_and_native_export (test_saved_route_qa.SavedRouteAuditTests.test_standalone_audit_reopens_actual_ifc_and_native_export) ... ok
+test_actual_native_arc_reopen_identity_and_physical_pdf_scale (test_ifc_route_drawing.RouteDrawingTests.test_actual_native_arc_reopen_identity_and_physical_pdf_scale) ... ok
+test_axially_shifted_wall_with_unchanged_ports_rejected (test_ifc_route_drawing.RouteDrawingTests.test_axially_shifted_wall_with_unchanged_ports_rejected) ... ok
+test_body_axis_units_and_coverage_tampering_rejected (test_ifc_route_drawing.RouteDrawingTests.test_body_axis_units_and_coverage_tampering_rejected) ... ok
+test_clipped_annotation_or_nonplanar_arc_rejected_before_native_writes (test_ifc_route_drawing.RouteDrawingTests.test_clipped_annotation_or_nonplanar_arc_rejected_before_native_writes) ... ok
+test_complete_identity_true_arc_od_outlines_and_schedule (test_ifc_route_drawing.RouteDrawingTests.test_complete_identity_true_arc_od_outlines_and_schedule) ... ok
+test_failed_route_drawing_blocks_native_workflow (test_ifc_route_drawing.RouteDrawingTests.test_failed_route_drawing_blocks_native_workflow) ... ok
+test_native_reconciliation_rejects_arc_or_guid_change (test_ifc_route_drawing.RouteDrawingTests.test_native_reconciliation_rejects_arc_or_guid_change) ... ok
+test_reversed_plane_axes_preserve_arc_and_wrong_plane_rejected (test_ifc_route_drawing.RouteDrawingTests.test_reversed_plane_axes_preserve_arc_and_wrong_plane_rejected) ... ok
+
+======================================================================
+FAIL: test_hidden_or_nonplotting_linked_annotations_are_rejected (test_saved_route_qa.SavedRouteAuditTests.test_hidden_or_nonplotting_linked_annotations_are_rejected) (kind='label', fault='paperspace')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\lyuml-win\Desktop\building-services-agent\tests\test_saved_route_qa.py", line 88, in test_hidden_or_nonplotting_linked_annotations_are_rejected
+    with self.subTest(kind=kind,fault=fault),self.assertRaises(ProjectError):
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ProjectError not raised
+
+======================================================================
+FAIL: test_hidden_or_nonplotting_linked_annotations_are_rejected (test_saved_route_qa.SavedRouteAuditTests.test_hidden_or_nonplotting_linked_annotations_are_rejected) (kind='leader', fault='paperspace')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\lyuml-win\Desktop\building-services-agent\tests\test_saved_route_qa.py", line 88, in test_hidden_or_nonplotting_linked_annotations_are_rejected
+    with self.subTest(kind=kind,fault=fault),self.assertRaises(ProjectError):
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ProjectError not raised
+
+----------------------------------------------------------------------
+Ran 20 tests in 131.211s
+
+FAILED (failures=2)

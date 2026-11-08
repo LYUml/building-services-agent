@@ -1,0 +1,10 @@
+{
+  "actual-native-audit.json": "fedd79f77a93fc267088fb1ff3753654c58794055d934c951f8c76273794d414",
+  "after.json": "aea5de6b4a0c1ee4ca61305cc1666a898f4818cba5282756dee103411c0c4d00",
+  "before.json": "c67f1f655523d17bcbb675682ab5c54eaafd17d3fb59e1271dc02efd30bbcad0",
+  "controls.zip": "98adc956b38bd3721033e5f3d831298891a7a81f14bda89351693f438e90424c",
+  "initial-regression-failed.log": "eccda331dfaac546b7eda1017f35ecbbecad33d691b3f6c3295eb01c7ca51442",
+  "native-regression-passed.log": "96527cba51047c8dd229aedd40671e116ca88b996c4d40e55c075cff0f2c05f0",
+  "README.md": "295f245226b611cd79ca2d378d8d06aa2624cd3d96fa64a3e081baddc042b54b",
+  "saved-audit-passed.log": "60883bd9c29ebb4d91b5f82e22d851f8f3de907dd9c0a1d0b9dbc045f3a44af5"
+}

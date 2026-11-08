@@ -73,6 +73,50 @@ class SavedRouteAuditTests(unittest.TestCase):
         target=self.root/'reversed.dxf';doc.saveas(target)
         self.assertTrue(audit_saved(target,self.rows,[0,2],.06,self.layout)['calculated_checks_pass'])
 
+    def test_hidden_or_nonplotting_linked_annotations_are_rejected(self):
+        for kind in ('label','leader'):
+            for fault in ('invisible','paperspace','off','frozen','nonplot'):
+                doc=ezdxf.readfile(self.dxf)
+                entity=next(e for e in doc.modelspace() if e.dxf.layer==('BSA_LABEL' if kind=='label' else 'BSA_LEADER') and e.has_xdata('BSA_IFC'))
+                layer=doc.layers.get(entity.dxf.layer)
+                if fault=='invisible':entity.dxf.invisible=1
+                elif fault=='paperspace':entity.dxf.paperspace=1
+                elif fault=='off':layer.off()
+                elif fault=='frozen':layer.freeze()
+                else:layer.dxf.plot=0
+                path=self.root/(kind+'-'+fault+'.dxf');doc.saveas(path)
+                if fault=='paperspace':
+                    # Both save and load repair this field. Inject into actual
+                    # serialized tags, then prove the bad raw marker survives.
+                    from ezdxf.lldxf.tagger import ascii_tags_loader
+                    from ezdxf.lldxf.types import DXFTag
+                    from bsa.route_drawing_qa import raw_space_markers
+                    with path.open(encoding='utf-8') as stream:tags=list(ascii_tags_loader(stream))
+                    start=next(i for i,t in enumerate(tags) if t.code==5 and t.value==entity.dxf.handle)
+                    end=next(i for i in range(start+1,len(tags)) if tags[i].code==0)
+                    index=next((i for i in range(start,end) if tags[i].code==67),None)
+                    if index is None:tags.insert(start+1,DXFTag(67,'1'))
+                    else:tags[index]=DXFTag(67,'1')
+                    path.write_text(''.join(f'{t.code:3}\n{t.value}\n' for t in tags),encoding='utf-8')
+                    self.assertEqual(raw_space_markers(path)[entity.dxf.handle],[['1']])
+                with self.subTest(kind=kind,fault=fault),self.assertRaises(ProjectError):
+                    audit_saved(path,self.rows,[0,2],.06,self.layout)
+
+    def test_locked_visible_annotation_layers_are_accepted(self):
+        doc=ezdxf.readfile(self.dxf)
+        for name in ('BSA_LABEL','BSA_LEADER'):doc.layers.get(name).lock()
+        path=self.root/'locked.dxf';doc.saveas(path)
+        result=audit_saved(path,self.rows,[0,2],.06,self.layout)
+        self.assertTrue(result['linked_annotation_visibility_flags_pass'])
+
+    def test_unrelated_paper_space_and_binary_serialization_are_accepted(self):
+        doc=ezdxf.readfile(self.dxf)
+        doc.layout().add_text('Unlinked paper-space legend')
+        for fmt in ('asc','bin'):
+            path=self.root/('paper-'+fmt+'.dxf');doc.saveas(path,fmt=fmt)
+            with self.subTest(fmt=fmt):
+                self.assertTrue(audit_saved(path,self.rows,[0,2],.06,self.layout)['calculated_checks_pass'])
+
     def test_source_anchor_and_complete_layout_coverage_cannot_be_forged(self):
         for fault in ('anchor','coverage','nonfinite'):
             report=copy.deepcopy(self.layout)

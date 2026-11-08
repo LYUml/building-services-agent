@@ -1,0 +1,10 @@
+{
+  "scope": "Controlled visibility mutations, not normal generated output",
+  "incorrectly_accepted_before": {
+    "entity_hidden": true,
+    "layer_off": true,
+    "layer_frozen": true,
+    "layer_nonplot": true
+  },
+  "design_accepted": false
+}

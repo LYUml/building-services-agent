@@ -20,6 +20,10 @@ The producer retains its separate serialization/identity checks, then runs this 
 
 ## Evidence and limits
 
+The saved audit also rejects hidden linked entities and off, frozen or nonplotting annotation layers. Layer locking is permitted. Raw entity group 67 is checked before ezdxf can normalize inconsistent paper-space markers from ownership; the check accepts ASCII and binary DXF and ignores unrelated paper-space legends. The initial paper-space mutation test failed because the writer repaired the intended fault before serialization. Corrected controls inject and verify the actual raw tag, rather than claiming that an in-memory mutation survived saving.
+
+These are explicit visibility flags, not proof of visible pixels: transparency, colour/plot styles, font glyphs and viewport clipping still require rendering and review. Visibility controls and scoped regression evidence are retained in `docs/evidence/annotation-visibility`.
+
 `docs/evidence/saved-route-audit` retains actual native-export audit evidence, before/after injected-fault records and related regression logs. Tests also cover crossings outside all pipe rectangles, self-crossing tails, label/content/coverage edits, false planner flags, endpoint reversal and numeric clipping boundaries. The standalone test reopens the actual saved IFC and AutoCAD export while the planner is patched to raise if called.
 
 The final related regression passed 33 cases without skips with local AutoCAD enabled: ten saved-audit cases, eight route drawing cases, five annotation routing cases, four independent-riser cases and six workflow cases. This is a scoped related regression, not a new full-repository run. No printed layout was changed by the added audit; native physical-reference tests still execute and actual image inspection remains its own requirement.
