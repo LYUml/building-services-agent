@@ -39,6 +39,7 @@ def validate(p):
     building_fields={'name','source','zone_width_m','zone_depth_m','height_m','envelope_r_m2k_w','heating_setpoint_c','cooling_setpoint_c','baseline_lighting_w_m2','variant_lighting_w_m2'}
     if p['model']==MULTIZONE_MODEL:building_fields=(building_fields-{'zone_width_m','zone_depth_m','height_m'})|{'spaces'}
     if isinstance(building,dict) and 'north_axis_deg' in building:building_fields.add('north_axis_deg')
+    if isinstance(building,dict) and 'opaque_constructions' in building:building_fields=(building_fields-{'envelope_r_m2k_w'})|{'opaque_constructions'}
     if not isinstance(building,dict) or set(building)!=building_fields:raise ProjectError('exact building fields required; site comes from EPW and design days are omitted')
     from .energy import validate as validate_building
     validate_building(dict(building,site=dict(latitude_deg=0,longitude_deg=0,timezone_h=0,elevation_m=0),design_days=[]),require_design_days=False)
@@ -112,6 +113,11 @@ def build(project,weather,weather_meta,lighting,out):
     model.save(os.path(str(out/'model.osm')),True)
     ft=os.energyplus.ForwardTranslator();workspace=ft.translateModel(model);workspace.save(os.path(str(out/'model.idf')),True)
     if ft.errors():raise ProjectError('annual model translation errors')
+    if 'opaque_constructions' in building:
+        from .thermal_materials import audit
+        saved=os.model.Model.load(os.path(str(out/'model.osm')))
+        if saved.empty():raise ProjectError('final annual model could not be reopened')
+        metadata['material_audit']=audit(saved.get(),building['opaque_constructions'])
     metadata.update(calendar_year=project['calendar_year'],design_day_count=len(model.getDesignDays()),weather_sha256=weather_meta['sha256'],translation_warnings=[str(v.logMessage()) for v in ft.warnings()])
     return metadata
 
@@ -193,7 +199,7 @@ def run(project,weather,out,exe):
     result=dict(inputs=before,inputs_unchanged=True,source_data=p,weather=weather_meta,engine=version,engine_sha256=digest(exe),results=results,comparison=comparison,
                 calculated_checks_pass=all(v['summary']['calculated_checks_pass'] for v in results.values()),design_accepted=False,
                 scope='Full-calendar hourly EPW simulation of source-declared ideal-load spaces; heating/cooling thermal demand and lighting electricity reported separately',
-                assumptions=['No windows, people, equipment, ventilation/infiltration; adiabatic floors; always-on lights and constant setpoints','Ideal air loads are supplied thermal demand, not HVAC electricity; no plant/COP or whole-building EUI inferred','Uniform R layer plus source-declared fixed 0.1 m mass layer: conductivity 0.5 W/mK, density 800 kg/m3, specific heat 1000 J/kgK','Weather calendar remapped to declared simulation year; DST/holidays/rain/snow indicators disabled; no design-day/sizing runs'],
+                assumptions=['No windows, people, equipment, ventilation/infiltration; adiabatic floors; always-on lights and constant setpoints','Ideal air loads are supplied thermal demand, not HVAC electricity; no plant/COP or whole-building EUI inferred','Source-declared role-specific opaque layers; layer R excludes surface films/bridges/moisture' if 'opaque_constructions' in p['building'] else 'Legacy synthetic uniform R layer plus fixed 0.1 m mass layer: conductivity 0.5 W/mK, density 800 kg/m3, specific heat 1000 J/kgK','Weather calendar remapped to declared simulation year; DST/holidays/rain/snow indicators disabled; no design-day/sizing runs'],
                 pending=['actual building geometry/construction/gain/schedule and meteorological applicability','detailed HVAC, ventilation/moisture, plant electricity and code acceptance','real-project calibration and full engineering acceptance'])
     result['completion_limitations']=[dict(case=kind,status=v['completion']['status'],native_sql_flags_preserved=True,source_commit=v['completion']['source_inference']['commit']) for kind,v in results.items() if v['completion']['known_unwritten_initial_flags']]
     (out/'report.html').write_text('<!doctype html><meta charset="utf-8"><h1>Annual ideal-load and lighting comparison</h1><p>'+html.escape(result['scope'])+'</p><pre>'+html.escape(json.dumps(dict(comparison=comparison,results=results),indent=2))+'</pre><p>'+html.escape('; '.join(result['pending']))+'</p>',encoding='utf-8')

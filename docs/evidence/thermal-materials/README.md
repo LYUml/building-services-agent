@@ -1,0 +1,11 @@
+# Explicit opaque layer evidence
+
+Source plan: examples/thermal-materials-plan.json. Fresh actual execution: runs/thermal-materials-v3; workflow verify returned integrity_pass true, design_accepted false. The plan reuses saved IFC space authoring and explicit GUID/orientation mapping; the annual template replaces fixed synthetic mass/insulation with sourced role-specific layers. All materials remain explicitly synthetic.
+
+Selected prepared source data, geometry/source audits, annual results, OSM/IDF and native completion/diagnostics are retained. Full saved IFC, raw SQL/hourly files and other workflow artifacts remain in the ignored run and are hash-listed by manifests. This selection is not a complete portable replay archive. Annual native completion flags remain unmodified under the pinned source/binary diagnosis.
+
+Reopened OSM audits cover every assigned physical/optical property, roughness, layer count/order and source/name features. They verify reciprocal interzone reversed layer order. Areas are 138 m² exterior wall, 102 m² roof, 102 m² adiabatic floor and 72 m² shared surfaces counting both sides. Source-derived wall/roof layer resistances are 2.3/3.2 m²K/W; shared areal capacity is 111500 J/m²K. These are not whole-assembly U-values with films or manufacturer verification. Lighting remains 10722.24/5361.12 kWh for the complete 2025 baseline/variant calendar. Material values and ideal thermal loads do not infer HVAC electricity.
+
+Full local regression: 186 tests in 178.401 s, no skips, with native AutoCAD, EnergyPlus, Radiance and OCR enabled. New tests check malformed/ambiguous inputs, independent hand values and stacked surface areas/order, saved property/order/source tampering, and actual IFC-to-layered-annual execution. The current explicit-layer example has no forward-translation warnings; native diagnostics are retained without suppression. Source plan passages/hashes and all other tracked plans passed validation.
+
+No actual product/material/boundary/weather applicability, moisture/thermal-bridge/ground model, detailed HVAC/plant, visual or engineering acceptance is claimed. The completed coursework remains untouched. See docs/THERMAL_MATERIALS.md and THIRD_PARTY.md.

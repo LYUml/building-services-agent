@@ -25,17 +25,23 @@ def build(p, lighting, out):
     control.setRunSimulationforWeatherFileRunPeriods(False)
     control.setDoZoneSizingCalculation(True)
     m.getTimestep().setNumberOfTimestepsPerHour(4)
-    material=os.model.MasslessOpaqueMaterial(m)
-    material.setName("Synthetic uniform insulation")
-    material.setThermalResistance(p["envelope_r_m2k_w"])
-    material.setRoughness("MediumRough")
-    construction=os.model.Construction(m)
-    mass=os.model.StandardOpaqueMaterial(m)
-    mass.setName("Synthetic thermal mass")
-    mass.setThickness(0.1);mass.setConductivity(0.5)
-    mass.setDensity(800);mass.setSpecificHeat(1000)
-    layers=os.model.MaterialVector();layers.append(mass);layers.append(material)
-    construction.setLayers(layers)
+    explicit_materials=p.get('opaque_constructions')
+    constructions=None
+    if explicit_materials is not None:
+        from .thermal_materials import author
+        constructions=author(m,explicit_materials)
+    else:
+        material=os.model.MasslessOpaqueMaterial(m)
+        material.setName("Synthetic uniform insulation")
+        material.setThermalResistance(p["envelope_r_m2k_w"])
+        material.setRoughness("MediumRough")
+        construction=os.model.Construction(m)
+        mass=os.model.StandardOpaqueMaterial(m)
+        mass.setName("Synthetic thermal mass")
+        mass.setThickness(0.1);mass.setConductivity(0.5)
+        mass.setDensity(800);mass.setSpecificHeat(1000)
+        layers=os.model.MaterialVector();layers.append(mass);layers.append(material)
+        construction.setLayers(layers)
     on=os.model.ScheduleConstant(m);on.setValue(1)
     heat=os.model.ScheduleConstant(m);heat.setValue(p["heating_setpoint_c"])
     cool=os.model.ScheduleConstant(m);cool.setValue(p["cooling_setpoint_c"])
@@ -60,11 +66,14 @@ def build(p, lighting, out):
         definition.setWattsperSpaceFloorArea(lighting)
         lights=os.model.Lights(definition);lights.setName(spec["id"]+" lights");lights.setSpace(space);lights.setSchedule(on)
         for surface in space.surfaces():
-            surface.setConstruction(construction)
+            if constructions is None:surface.setConstruction(construction)
             if surface.surfaceType()=="Floor":surface.setOutsideBoundaryCondition("Adiabatic")
     sv=os.model.SpaceVector()
     for space in spaces:sv.append(space)
     os.model.matchSurfaces(sv)
+    if constructions is not None:
+        from .thermal_materials import assign
+        assign(m,constructions)
     for dd in p["design_days"]:
         day=os.model.DesignDay(m);day.setName(dd["name"]);day.setMonth(dd["month"])
         day.setDayOfMonth(dd["day"]);day.setDayType(dd["type"])
@@ -100,7 +109,13 @@ def build(p, lighting, out):
             raise ProjectError("thermal shared-face area mismatch")
     if not math.isclose(area,sum(s["size_m"][0]*s["size_m"][1] for s in geometry)) or matched!=2*len(expected_adjacency):
         raise ProjectError(f"geometry mismatch: area={area}, matched surfaces={matched}")
-    return dict(openstudio_version=os.openStudioVersion(),energyplus_version=os.energyPlusVersion(),
+    material_audit=None
+    if explicit_materials is not None:
+        from .thermal_materials import audit
+        saved=os.model.Model.load(os.path(str(osm)))
+        if saved.empty():raise ProjectError('saved material model could not be reopened')
+        material_audit=audit(saved.get(),explicit_materials)
+    return dict(material_audit=material_audit,openstudio_version=os.openStudioVersion(),energyplus_version=os.energyPlusVersion(),
         north_axis_deg=m.getBuilding().northAxis(),floor_area_m2=area,thermal_zones=len(m.getThermalZones()),matched_surface_count=matched,
         spaces=geometry,adjacency=expected_adjacency,zone_keys=[s["id"].upper() for s in geometry],lighting_keys=[(s["id"]+" lights").upper() for s in geometry],lighting_w_m2=lighting,translation_warnings=[str(x.logMessage()) for x in ft.warnings()])
 
@@ -150,8 +165,13 @@ def validate(p,require_design_days=True):
     if "spaces" in p:
         if any(k in p for k in ("zone_width_m","zone_depth_m","height_m")):raise ProjectError("mixed thermal geometry schemas")
         boxes(p)
-    for key in (("envelope_r_m2k_w",) if "spaces" in p else ("zone_width_m","zone_depth_m","height_m","envelope_r_m2k_w")):
-        number(p.get(key),key,0.001)
+    if 'opaque_constructions' in p:
+        if 'envelope_r_m2k_w' in p:raise ProjectError('choose explicit opaque constructions or legacy envelope resistance')
+        from .thermal_materials import validate as validate_materials
+        validate_materials(p['opaque_constructions'])
+    else:number(p.get('envelope_r_m2k_w'),'envelope_r_m2k_w',.001)
+    if 'spaces' not in p:
+        for key in ('zone_width_m','zone_depth_m','height_m'):number(p.get(key),key,.001)
     for key in ("baseline_lighting_w_m2","variant_lighting_w_m2"):
         number(p.get(key),key,0)
     for key in ("heating_setpoint_c","cooling_setpoint_c"):

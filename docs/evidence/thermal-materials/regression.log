@@ -1,0 +1,244 @@
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+test_actual_8760_hours_and_independent_monthly_lighting_balance (test_annual_energy.AnnualEngineTests.test_actual_8760_hours_and_independent_monthly_lighting_balance) ... ok
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+test_actual_leap_calendar_with_explicit_synthetic_weather_derivative (test_annual_energy.AnnualEngineTests.test_actual_leap_calendar_with_explicit_synthetic_weather_derivative) ... ok
+test_explicit_failed_unmet_target_is_not_turned_into_a_pass (test_annual_energy.AnnualEngineTests.test_explicit_failed_unmet_target_is_not_turned_into_a_pass) ... ok
+test_truncated_wrong_interval_and_wrong_environment_sql_rejected (test_annual_energy.AnnualEngineTests.test_truncated_wrong_interval_and_wrong_environment_sql_rejected) ... ok
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 8', and 'Surface 4' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 8', and 'Surface 4' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+test_workflow_and_weather_asset_integrity (test_annual_energy.AnnualEngineTests.test_workflow_and_weather_asset_integrity) ... ok
+test_complete_leap_calendar_requires_explicit_weather_permission (test_annual_energy.AnnualInputTests.test_complete_leap_calendar_requires_explicit_weather_permission) ... ok
+test_packaged_weather_bytes_identity_calendar_and_missing_fields (test_annual_energy.AnnualInputTests.test_packaged_weather_bytes_identity_calendar_and_missing_fields) ... ok
+test_repeated_site_missing_sources_and_invalid_budgets_rejected (test_annual_energy.AnnualInputTests.test_repeated_site_missing_sources_and_invalid_budgets_rejected) ... ok
+test_bim_adapter_in_source_linked_workflow (test_bim.BIMTests.test_bim_adapter_in_source_linked_workflow) ... C:\Users\lyuml-win\Desktop\building-services-agent\.venv\Lib\site-packages\ifcopenshell\express\rule_executor.py:95: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\.venv\\Lib\\site-packages\\ifcopenshell\\express\\rules\\IFC4.py' mode='r' encoding='cp1252'>
+  source = open(fn, "r").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_real_ifc_schema_geometry_and_connectivity (test_bim.BIMTests.test_real_ifc_schema_geometry_and_connectivity) ... ok
+test_rejects_geometry_identity_and_topology_errors (test_bim.BIMTests.test_rejects_geometry_identity_and_topology_errors) ... ok
+test_actual_dwg_export_preserves_source_and_mm_measurement (test_cad_intake.CADIntakeTests.test_actual_dwg_export_preserves_source_and_mm_measurement) ... ok
+test_missing_engine_and_output_source_overlap_rejected (test_cad_intake.CADIntakeTests.test_missing_engine_and_output_source_overlap_rejected) ... ok
+test_mm_l_shaped_area_inventory_and_source_hash (test_cad_intake.CADIntakeTests.test_mm_l_shaped_area_inventory_and_source_hash) ... ok
+test_polygon_self_intersection_nonplanarity_and_clockwise (test_cad_intake.CADIntakeTests.test_polygon_self_intersection_nonplanarity_and_clockwise) ... ok
+test_unit_mismatch_unitless_and_curved_or_open_boundary_rejected (test_cad_intake.CADIntakeTests.test_unit_mismatch_unitless_and_curved_or_open_boundary_rejected) ... ok
+test_workflow_tracks_selection_and_missing_dwg_engine_stays_pending (test_cad_intake.CADIntakeTests.test_workflow_tracks_selection_and_missing_dwg_engine_stays_pending) ... ok
+test_actual_native_base_and_devices_reopen (test_cad_overlay.CADOverlayTests.test_actual_native_base_and_devices_reopen) ... Multiple definitions in dictionary at byte 0xc62 for key /PageMode
+ok
+test_bad_settings_and_unsupported_base_rejected (test_cad_overlay.CADOverlayTests.test_bad_settings_and_unsupported_base_rejected) ... ok
+test_explicit_rotation_and_annotation_scale (test_cad_overlay.CADOverlayTests.test_explicit_rotation_and_annotation_scale) ... ok
+test_mm_base_preserved_three_devices_and_tamper_detected (test_cad_overlay.CADOverlayTests.test_mm_base_preserved_three_devices_and_tamper_detected) ... ok
+test_workflow_input_tracking_and_missing_sheet_engine_pending (test_cad_overlay.CADOverlayTests.test_workflow_input_tracking_and_missing_sheet_engine_pending) ... ok
+test_oversized_window_and_unsafe_scale_rejected_before_engine (test_cad_sheet.CADSheetTests.test_oversized_window_and_unsafe_scale_rejected_before_engine) ... ok
+test_pdf_ctm_stack_and_nonpainted_clip_path (test_cad_sheet.CADSheetTests.test_pdf_ctm_stack_and_nonpainted_clip_path) ... ok
+test_actual_hollow_profiles_mesh_volumes_axes_and_reverse_ports (test_circular_geometry.CircularGeometryTests.test_actual_hollow_profiles_mesh_volumes_axes_and_reverse_ports) ... ok
+test_changed_native_hollow_profile_is_rejected (test_circular_geometry.CircularGeometryTests.test_changed_native_hollow_profile_is_rejected) ... ok
+test_explicit_diameters_and_boundary_ports_required (test_circular_geometry.CircularGeometryTests.test_explicit_diameters_and_boundary_ports_required) ... ok
+test_reverse_flow_keeps_outward_normals_and_analytic_volume (test_circular_geometry.CircularGeometryTests.test_reverse_flow_keeps_outward_normals_and_analytic_volume) ... ok
+test_sizing_rebuilds_wall_and_reconciles_pressure (test_circular_geometry.CircularGeometryTests.test_sizing_rebuilds_wall_and_reconciles_pressure) ... C:\Users\lyuml-win\Desktop\building-services-agent\.venv\Lib\site-packages\ifcopenshell\express\rule_executor.py:95: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\.venv\\Lib\\site-packages\\ifcopenshell\\express\\rules\\IFC4.py' mode='r' encoding='cp1252'>
+  source = open(fn, "r").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_actual_hollow_bore_avoids_bbox_false_collision (test_clash.ClashGeometryTests.test_actual_hollow_bore_avoids_bbox_false_collision) ... ok
+test_coincident_reverse_tubes_cannot_be_waived_as_a_connection (test_clash.ClashGeometryTests.test_coincident_reverse_tubes_cannot_be_waived_as_a_connection) ... ok
+test_connected_contact_policy_does_not_hide_hard_intersection (test_clash.ClashGeometryTests.test_connected_contact_policy_does_not_hide_hard_intersection) ... ok
+test_full_containment_is_not_missed_by_surface_clearance (test_clash.ClashGeometryTests.test_full_containment_is_not_missed_by_surface_clearance) ... ok
+test_known_gap_clearance_and_intersection (test_clash.ClashGeometryTests.test_known_gap_clearance_and_intersection) ... ok
+test_native_millimetre_units_normalise_to_metre_clearance (test_clash.ClashGeometryTests.test_native_millimetre_units_normalise_to_metre_clearance) ... ok
+test_rotated_mesh_and_missing_geometry_coverage (test_clash.ClashGeometryTests.test_rotated_mesh_and_missing_geometry_coverage) ... ok
+test_workflow_dependency_and_saved_ifc_integrity (test_clash.ClashGeometryTests.test_workflow_dependency_and_saved_ifc_integrity) ... ok
+test_invalid_policy_distances_sources_and_waivers (test_clash.ClashPolicyTests.test_invalid_policy_distances_sources_and_waivers) ... ok
+test_mask_settings_are_explicit_and_bounded (test_contact_clearance.OutsideRegionTests.test_mask_settings_are_explicit_and_bounded) ... ok
+test_saved_circular_model_small_region_fails_larger_explicit_region_passes (test_contact_clearance.OutsideRegionTests.test_saved_circular_model_small_region_fails_larger_explicit_region_passes) ... ok
+test_secondary_close_zone_is_not_hidden_by_intended_contact (test_contact_clearance.OutsideRegionTests.test_secondary_close_zone_is_not_hidden_by_intended_contact) ... ok
+test_bridge_uses_shared_values_and_centre_reference (test_coordination.CoordinationTests.test_bridge_uses_shared_values_and_centre_reference) ... ok
+test_missing_envelope_and_duplicate_engineering_fields_rejected (test_coordination.CoordinationTests.test_missing_envelope_and_duplicate_engineering_fields_rejected) ... ok
+test_revised_electrical_input_propagates_to_all_outputs (test_coordination.CoordinationTests.test_revised_electrical_input_propagates_to_all_outputs) ... ok
+test_saved_artifacts_reconcile_and_tampering_is_detected (test_coordination.CoordinationTests.test_saved_artifacts_reconcile_and_tampering_is_detected) ... ok
+test_artifact_and_attachment_changes_are_not_hidden (test_delivery.DeliveryReviewTests.test_artifact_and_attachment_changes_are_not_hidden) ... ok
+test_failed_boolean_fact_overrides_recorded_pass (test_delivery.DeliveryReviewTests.test_failed_boolean_fact_overrides_recorded_pass) ... ok
+test_failed_task_cannot_be_cleared_and_outputs_do_not_overwrite_inputs (test_delivery.DeliveryReviewTests.test_failed_task_cannot_be_cleared_and_outputs_do_not_overwrite_inputs) ... ok
+test_json_pointer_array_and_escape_rules (test_delivery.DeliveryReviewTests.test_json_pointer_array_and_escape_rules) ... ok
+test_missing_engine_cannot_be_cleared_by_review_assertion (test_delivery.DeliveryReviewTests.test_missing_engine_cannot_be_cleared_by_review_assertion) ... ok
+test_missing_review_source_text_change_and_edited_run_matrix_fail (test_delivery.DeliveryReviewTests.test_missing_review_source_text_change_and_edited_run_matrix_fail) ... ok
+test_template_pending_and_complete_scoped_assertions_never_certify_design (test_delivery.DeliveryReviewTests.test_template_pending_and_complete_scoped_assertions_never_certify_design) ... ok
+test_versioned_example_keeps_missing_engineering_evidence_pending (test_delivery.DeliveryReviewTests.test_versioned_example_keeps_missing_engineering_evidence_pending) ... ok
+test_empty_text_is_not_a_valid_covered_brief (test_documents.DocumentTests.test_empty_text_is_not_a_valid_covered_brief) ... ok
+test_ocr_source_and_image_hashes_and_review_gate (test_documents.DocumentTests.test_ocr_source_and_image_hashes_and_review_gate) ... ok
+test_pdf_page_locator_and_missing_text_gate (test_documents.DocumentTests.test_pdf_page_locator_and_missing_text_gate) ... ok
+test_real_offline_ocr_preserves_raw_lines (test_documents.DocumentTests.test_real_offline_ocr_preserves_raw_lines) ... Multiple definitions in dictionary at byte 0x8eb for key /PageMode
+Multiple definitions in dictionary at byte 0x8eb for key /PageMode
+ok
+test_word_requirement_can_drive_electrical_with_review_note (test_documents.DocumentTests.test_word_requirement_can_drive_electrical_with_review_note) ... ok
+test_word_table_header_and_note_locators (test_documents.DocumentTests.test_word_table_header_and_note_locators) ... ok
+test_word_tracked_changes_block_planning (test_documents.DocumentTests.test_word_tracked_changes_block_planning) ... ok
+test_bad_sources_rating_coverage_and_nonfinite_data_rejected (test_electrical_fault.FaultVerificationTests.test_bad_sources_rating_coverage_and_nonfinite_data_rejected) ... ok
+test_each_missing_group_stays_pending_without_default_data (test_electrical_fault.FaultVerificationTests.test_each_missing_group_stays_pending_without_default_data) ... ok
+test_independent_complex_loop_and_adiabatic_values (test_electrical_fault.FaultVerificationTests.test_independent_complex_loop_and_adiabatic_values) ... ok
+test_insufficient_breaking_capacity_cpc_and_inconsistent_case_fail (test_electrical_fault.FaultVerificationTests.test_insufficient_breaking_capacity_cpc_and_inconsistent_case_fail) ... ok
+test_resistive_case_and_exact_source_boundaries (test_electrical_fault.FaultVerificationTests.test_resistive_case_and_exact_source_boundaries) ... ok
+test_source_hashes_and_pending_workflow_cannot_be_cleared_by_review (test_electrical_fault.FaultVerificationTests.test_source_hashes_and_pending_workflow_cannot_be_cleared_by_review) ... ok
+test_uncovered_curve_energy_voltage_time_remain_unverified (test_electrical_fault.FaultVerificationTests.test_uncovered_curve_energy_voltage_time_remain_unverified) ... ok
+test_versioned_workflow_and_artifact_tampering (test_electrical_fault.FaultVerificationTests.test_versioned_workflow_and_artifact_tampering) ... ok
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+test_real_engine_geometry_and_lighting_balance (test_energy.EnergyTests.test_real_engine_geometry_and_lighting_balance) ... ok
+test_rejects_invalid_physics (test_energy.EnergyTests.test_rejects_invalid_physics) ... ok
+test_initial_flags_never_clear_failed_process_end_or_diagnostics (test_energy_completion.CompletionClassificationTests.test_initial_flags_never_clear_failed_process_end_or_diagnostics) ... ok
+test_official_initial_flags_explained_but_never_rewritten (test_energy_completion.CompletionClassificationTests.test_official_initial_flags_explained_but_never_rewritten) ... ok
+test_readonly_audit_pins_native_files_and_preserves_sql_defaults (test_energy_completion.CompletionClassificationTests.test_readonly_audit_pins_native_files_and_preserves_sql_defaults) ... ok
+test_success_markers_without_native_sql_cannot_prove_completion (test_energy_completion.CompletionClassificationTests.test_success_markers_without_native_sql_cannot_prove_completion) ... ok
+test_unknown_binary_version_malformed_and_impossible_flags_need_review (test_energy_completion.CompletionClassificationTests.test_unknown_binary_version_malformed_and_impossible_flags_need_review) ... ok
+test_actual_fatal_run_is_not_cleared_by_known_engine_policy (test_energy_completion.NativeCompletionTests.test_actual_fatal_run_is_not_cleared_by_known_engine_policy) ... ok
+test_artifacts_and_source_preservation (test_engine.ElectricalTests.test_artifacts_and_source_preservation) ... ok
+test_failed_cable_checks_are_visible (test_engine.ElectricalTests.test_failed_cable_checks_are_visible) ... ok
+test_independent_hand_calculation (test_engine.ElectricalTests.test_independent_hand_calculation) ... ok
+test_rejects_invalid_provenance_and_topology (test_engine.ElectricalTests.test_rejects_invalid_provenance_and_topology) ... ok
+test_circulation_error_passes_mass_balance_but_fails_energy (test_epanet.WaterEngineTests.test_circulation_error_passes_mass_balance_but_fails_energy) ... ok
+test_demand_driven_parallel_pipes_split_known_withdrawal (test_epanet.WaterEngineTests.test_demand_driven_parallel_pipes_split_known_withdrawal) ... ok
+test_native_laminar_loss_matches_independent_poiseuille_calculation (test_epanet.WaterEngineTests.test_native_laminar_loss_matches_independent_poiseuille_calculation) ... ok
+test_native_transition_loss_and_reversed_orientation (test_epanet.WaterEngineTests.test_native_transition_loss_and_reversed_orientation) ... ok
+test_native_zero_withdrawal_dead_end_has_no_singular_energy_check (test_epanet.WaterEngineTests.test_native_zero_withdrawal_dead_end_has_no_singular_energy_check) ... ok
+test_pressure_driven_shortfall_is_retained_as_failed_design (test_epanet.WaterEngineTests.test_pressure_driven_shortfall_is_retained_as_failed_design) ... ok
+test_real_loop_symmetry_reverse_flow_and_native_artifacts (test_epanet.WaterEngineTests.test_real_loop_symmetry_reverse_flow_and_native_artifacts) ... ok
+test_velocity_crosscheck_does_not_relax_physical_limit (test_epanet.WaterEngineTests.test_velocity_crosscheck_does_not_relax_physical_limit) ... ok
+test_workflow_runs_and_integrity_detects_native_input_tamper (test_epanet.WaterEngineTests.test_workflow_runs_and_integrity_detects_native_input_tamper) ... ok
+test_rejects_unsupported_assumptions_and_unbounded_inputs (test_epanet.WaterInputTests.test_rejects_unsupported_assumptions_and_unbounded_inputs) ... ok
+test_zero_flow_and_friction_regime_boundaries (test_epanet.WaterInputTests.test_zero_flow_and_friction_regime_boundaries) ... ok
+test_invalid_axes_height_and_source (test_ifc_drawing.DrawingSettingsTests.test_invalid_axes_height_and_source) ... ok
+test_native_millimetres_and_unsupported_or_inconsistent_geometry (test_ifc_drawing.SavedIFCDrawingTests.test_native_millimetres_and_unsupported_or_inconsistent_geometry) ... ok
+test_plain_ifc_profiles_do_not_require_project_specific_properties (test_ifc_drawing.SavedIFCDrawingTests.test_plain_ifc_profiles_do_not_require_project_specific_properties) ... ok
+test_rotated_product_placement_preserves_true_length_and_port_world_points (test_ifc_drawing.SavedIFCDrawingTests.test_rotated_product_placement_preserves_true_length_and_port_world_points) ... ok
+test_saved_profiles_drive_schedule_and_reopened_dxf (test_ifc_drawing.SavedIFCDrawingTests.test_saved_profiles_drive_schedule_and_reopened_dxf) ... ok
+test_workflow_dependency_and_drawing_artifact_integrity (test_ifc_drawing.SavedIFCDrawingTests.test_workflow_dependency_and_drawing_artifact_integrity) ... ok
+test_workflow_direct_ifc_sources_preserve_requirement_passage_mapping (test_ifc_drawing.SavedIFCDrawingTests.test_workflow_direct_ifc_sources_preserve_requirement_passage_mapping) ... ok
+test_actual_native_reopen_xdata_and_fixed_scale_pdf (test_ifc_native.NativeDiagramTests.test_actual_native_reopen_xdata_and_fixed_scale_pdf) ... Multiple definitions in dictionary at byte 0x15a0 for key /PageMode
+ok
+test_explicit_sheet_contract (test_ifc_native.NativeDiagramTests.test_explicit_sheet_contract) ... ok
+test_failed_drawing_producer_leaves_native_pending_without_starting_engine (test_ifc_native.NativeDiagramTests.test_failed_drawing_producer_leaves_native_pending_without_starting_engine) ... Exception ignored in: <function file.__del__ at 0x000001C33DFDC720>
+Traceback (most recent call last):
+  File "C:\Users\lyuml-win\Desktop\building-services-agent\.venv\Lib\site-packages\ifcopenshell\file.py", line 649, in __del__
+    del file_dict[self.file_pointer()]
+        ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 1939039856432
+ok
+test_reconciliation_detects_lost_ifc_identity_extra_entities_and_geometry_changes (test_ifc_native.NativeDiagramTests.test_reconciliation_detects_lost_ifc_identity_extra_entities_and_geometry_changes) ... ok
+test_workflow_missing_engine_pending_and_source_integrity (test_ifc_native.NativeDiagramTests.test_workflow_missing_engine_pending_and_source_integrity) ... ok
+test_actual_three_native_reopens_and_merged_pdf_references (test_ifc_views.IFCViewsTests.test_actual_three_native_reopens_and_merged_pdf_references) ... Multiple definitions in dictionary at byte 0x2911 for key /PageMode
+Multiple definitions in dictionary at byte 0x2911 for key /PageMode
+Multiple definitions in dictionary at byte 0x291a for key /PageMode
+Multiple definitions in dictionary at byte 0x291a for key /PageMode
+Multiple definitions in dictionary at byte 0x292f for key /PageMode
+Multiple definitions in dictionary at byte 0x292f for key /PageMode
+ok
+test_all_three_views_cover_every_pipe_with_correct_end_on_lengths (test_ifc_views.IFCViewsTests.test_all_three_views_cover_every_pipe_with_correct_end_on_lengths) ... ok
+test_end_on_print_reference_and_clipped_window_rejected (test_ifc_views.IFCViewsTests.test_end_on_print_reference_and_clipped_window_rejected) ... ok
+test_updated_file_hash_cannot_hide_wrong_projection_or_missing_symbol (test_ifc_views.IFCViewsTests.test_updated_file_hash_cannot_hide_wrong_projection_or_missing_symbol) ... ok
+test_workflow_preserves_missing_native_engine_as_pending (test_ifc_views.IFCViewsTests.test_workflow_preserves_missing_native_engine_as_pending) ... ok
+test_explicit_distinct_planes_symbols_callouts_and_print_contract (test_ifc_views.ViewSettingsTests.test_explicit_distinct_planes_symbols_callouts_and_print_contract) ... ok
+test_invalid_spatial_and_photometry_inputs_rejected (test_lighting.LightingTests.test_invalid_spatial_and_photometry_inputs_rejected) ... ok
+test_photometry_is_not_inferred_from_watts (test_lighting.LightingTests.test_photometry_is_not_inferred_from_watts) ... ok
+test_real_engine_matches_analytical_lux_and_maintenance_scaling (test_lighting.LightingTests.test_real_engine_matches_analytical_lux_and_maintenance_scaling) ... ok
+test_workflow_hashes_ies_and_marks_missing_engine_pending (test_lighting.LightingTests.test_workflow_hashes_ies_and_marks_missing_engine_pending) ... ok
+test_bound_workflow_keeps_all_original_sources_and_missing_engine_pending (test_lighting_binding.BoundLightingTests.test_bound_workflow_keeps_all_original_sources_and_missing_engine_pending) ... ok
+test_missing_mapping_duplicated_values_and_power_mismatch_rejected (test_lighting_binding.BoundLightingTests.test_missing_mapping_duplicated_values_and_power_mismatch_rejected) ... ok
+test_real_bound_generation_and_simulation (test_lighting_binding.BoundLightingTests.test_real_bound_generation_and_simulation) ... ok
+test_shared_origins_and_translated_room_frame (test_lighting_binding.BoundLightingTests.test_shared_origins_and_translated_room_frame) ... ok
+test_missing_executable_does_not_create_outputs (test_native_cad.NativeCADTests.test_missing_executable_does_not_create_outputs) ... ok
+test_real_native_save_reopen_and_plot (test_native_cad.NativeCADTests.test_real_native_save_reopen_and_plot) ... ok
+test_branch_balance_pressure_and_failure_visibility (test_network.NetworkTests.test_branch_balance_pressure_and_failure_visibility) ... ok
+test_failed_pressure_budget_marks_workflow_failed (test_network.NetworkTests.test_failed_pressure_budget_marks_workflow_failed) ... ok
+test_invalid_topology_and_inputs_rejected (test_network.NetworkTests.test_invalid_topology_and_inputs_rejected) ... ok
+test_laminar_pressure_matches_poiseuille (test_network.NetworkTests.test_laminar_pressure_matches_poiseuille) ... ok
+test_transitional_flow_requires_explicit_other_model (test_network.NetworkTests.test_transitional_flow_requires_explicit_other_model) ... ok
+test_turbulent_factor_satisfies_implicit_colebrook (test_network.NetworkTests.test_turbulent_factor_satisfies_implicit_colebrook) ... ok
+test_water_static_pressure_and_saved_manifest (test_network.NetworkTests.test_water_static_pressure_and_saved_manifest) ... ok
+test_connected_chain_and_disconnected_or_reused_piece_rejected (test_network_binding.NetworkBindingTests.test_connected_chain_and_disconnected_or_reused_piece_rejected) ... ok
+test_geometry_change_propagates_and_endpoint_mismatch_rejected (test_network_binding.NetworkBindingTests.test_geometry_change_propagates_and_endpoint_mismatch_rejected) ... ok
+test_model_geometry_derives_lengths_diameter_elevation (test_network_binding.NetworkBindingTests.test_model_geometry_derives_lengths_diameter_elevation) ... ok
+test_real_ifc_and_pressure_execution (test_network_binding.NetworkBindingTests.test_real_ifc_and_pressure_execution) ... ok
+test_repeated_dimensions_missing_mapping_and_offset_ports_rejected (test_network_binding.NetworkBindingTests.test_repeated_dimensions_missing_mapping_and_offset_ports_rejected) ... ok
+test_actual_baseline_failure_selected_rerun_and_source_preservation (test_network_design.NetworkDesignTests.test_actual_baseline_failure_selected_rerun_and_source_preservation) ... ok
+test_branched_catalogue_choice_matches_independent_velocity_lower_bound (test_network_design.NetworkDesignTests.test_branched_catalogue_choice_matches_independent_velocity_lower_bound) ... ok
+test_deterministic_ties_and_search_limits (test_network_design.NetworkDesignTests.test_deterministic_ties_and_search_limits) ... ok
+test_independent_poiseuille_feasibility_and_minimum_score (test_network_design.NetworkDesignTests.test_independent_poiseuille_feasibility_and_minimum_score) ... ok
+test_invalid_catalogues_rejected (test_network_design.NetworkDesignTests.test_invalid_catalogues_rejected) ... ok
+test_no_feasible_design_and_transitional_candidate_retained (test_network_design.NetworkDesignTests.test_no_feasible_design_and_transitional_candidate_retained) ... ok
+test_workflow_success_failure_and_integrity (test_network_design.NetworkDesignTests.test_workflow_success_failure_and_integrity) ... ok
+test_actual_selected_ifc_pressure_and_tamper_detection (test_network_model_design.NetworkModelDesignTests.test_actual_selected_ifc_pressure_and_tamper_detection) ... ok
+test_multi_piece_chain_and_axis_permutation_keep_world_endpoints (test_network_model_design.NetworkModelDesignTests.test_multi_piece_chain_and_axis_permutation_keep_world_endpoints) ... ok
+test_no_contained_geometry_keeps_baseline_and_no_selected_model (test_network_model_design.NetworkModelDesignTests.test_no_contained_geometry_keeps_baseline_and_no_selected_model) ... ok
+test_outside_dimensions_required_and_geometric_rejections_retained (test_network_model_design.NetworkModelDesignTests.test_outside_dimensions_required_and_geometric_rejections_retained) ... ok
+test_resize_preserves_endpoints_other_devices_and_source (test_network_model_design.NetworkModelDesignTests.test_resize_preserves_endpoints_other_devices_and_source) ... ok
+test_workflow_sources_and_changed_selected_ifc_detected (test_network_model_design.NetworkModelDesignTests.test_workflow_sources_and_changed_selected_ifc_detected) ... ok
+test_curve_contract_and_no_extrapolation (test_pump.PumpInputTests.test_curve_contract_and_no_extrapolation) ... ok
+test_fluid_branches_and_transition_are_not_silently_approximated (test_pump.PumpInputTests.test_fluid_branches_and_transition_are_not_silently_approximated) ... ok
+test_direct_workflow_and_failed_producer_do_not_fabricate_pump_state (test_pump.PumpOperatingTests.test_direct_workflow_and_failed_producer_do_not_fabricate_pump_state) ... ok
+test_insufficient_capacity_velocity_and_missing_efficiency_remain_explicit (test_pump.PumpOperatingTests.test_insufficient_capacity_velocity_and_missing_efficiency_remain_explicit) ... ok
+test_intersection_matches_independent_laminar_solution_and_power_units (test_pump.PumpOperatingTests.test_intersection_matches_independent_laminar_solution_and_power_units) ... ok
+test_missing_bracket_and_iteration_exhaustion_preserve_failure_evidence (test_pump.PumpOperatingTests.test_missing_bracket_and_iteration_exhaustion_preserve_failure_evidence) ... ok
+test_model_derived_workflow_and_pump_artifact_integrity (test_pump.PumpOperatingTests.test_model_derived_workflow_and_pump_artifact_integrity) ... ok
+test_nonzero_inlet_pressure_is_not_counted_as_pump_added_power (test_pump.PumpOperatingTests.test_nonzero_inlet_pressure_is_not_counted_as_pump_added_power) ... ok
+test_shutoff_point_is_retained_but_solver_uses_explicit_positive_bracket (test_pump.PumpOperatingTests.test_shutoff_point_is_retained_but_solver_uses_explicit_positive_bracket) ... ok
+test_full_workflow_revised_ifc_consumers_and_integrity (test_pump_electrical.PumpElectricalTests.test_full_workflow_revised_ifc_consumers_and_integrity) ... ok
+test_missing_combined_efficiency_does_not_create_an_electrical_estimate (test_pump_electrical.PumpElectricalTests.test_missing_combined_efficiency_does_not_create_an_electrical_estimate) ... ok
+test_operating_scenario_and_saved_ifc_preserve_baseline_hardware_and_other_devices (test_pump_electrical.PumpElectricalTests.test_operating_scenario_and_saved_ifc_preserve_baseline_hardware_and_other_devices) ... ok
+test_report_scalar_and_artifact_tampering_are_rejected (test_pump_electrical.PumpElectricalTests.test_report_scalar_and_artifact_tampering_are_rejected) ... ok
+test_small_operating_current_does_not_approve_failed_baseline_design_check (test_pump_electrical.PumpElectricalTests.test_small_operating_current_does_not_approve_failed_baseline_design_check) ... ok
+test_wrong_identity_disconnected_pump_and_wrong_xy_are_rejected (test_pump_electrical.PumpElectricalTests.test_wrong_identity_disconnected_pump_and_wrong_xy_are_rejected) ... ok
+test_explicit_load_position_pf_and_identity_contract (test_pump_electrical.PumpLinkTests.test_explicit_load_position_pf_and_identity_contract) ... ok
+test_actual_geometry_and_millimetre_units (test_thermal_binding.ThermalBindingTests.test_actual_geometry_and_millimetre_units) ... ok
+test_mapping_coverage_and_duplicate_geometry_rejected (test_thermal_binding.ThermalBindingTests.test_mapping_coverage_and_duplicate_geometry_rejected) ... ok
+test_missing_engine_keeps_task_pending (test_thermal_binding.ThermalBindingTests.test_missing_engine_keeps_task_pending) ... ok
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 8', and 'Surface 4' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 14', and 'Surface 10' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 8', and 'Surface 4' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 14', and 'Surface 10' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 10', and 'Surface 14' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 10', and 'Surface 14' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+test_saved_bim_to_annual_workflow (test_thermal_binding.ThermalBindingTests.test_saved_bim_to_annual_workflow) ... ok
+test_solid_not_just_bounds_and_saved_placement (test_thermal_binding.ThermalBindingTests.test_solid_not_just_bounds_and_saved_placement) ... ok
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 8', and 'Surface 4' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 10', and 'Surface 14' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 8', and 'Surface 4' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 10', and 'Surface 14' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 10', and 'Surface 14' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 10', and 'Surface 14' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+test_actual_three_zone_year_and_key_tamper (test_thermal_geometry.ThermalGeometryTests.test_actual_three_zone_year_and_key_tamper) ... ok
+test_invalid_geometry (test_thermal_geometry.ThermalGeometryTests.test_invalid_geometry) ... ok
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 6', and 'Surface 7' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+test_stacked_saved_geometry (test_thermal_geometry.ThermalGeometryTests.test_stacked_saved_geometry) ... ok
+test_invalid_properties_and_ambiguous_sources (test_thermal_materials.ThermalMaterialTests.test_invalid_properties_and_ambiguous_sources) ... ok
+test_saved_ifc_layered_annual_engine (test_thermal_materials.ThermalMaterialTests.test_saved_ifc_layered_annual_engine) ... ok
+test_saved_layers_area_capacity_and_stacked_reverse_order (test_thermal_materials.ThermalMaterialTests.test_saved_layers_area_capacity_and_stacked_reverse_order) ... ok
+test_saved_property_order_and_source_tampering_rejected (test_thermal_materials.ThermalMaterialTests.test_saved_property_order_and_source_tampering_rejected) ... ok
+test_actual_workflow_and_direct_saved_ifc_input_keep_integrity (test_water_binding.SavedWaterBindingTests.test_actual_workflow_and_direct_saved_ifc_input_keep_integrity) ... ok
+test_disconnection_noncoincident_node_and_extra_system_device_fail (test_water_binding.SavedWaterBindingTests.test_disconnection_noncoincident_node_and_extra_system_device_fail) ... ok
+test_millimetre_ifc_converts_actual_profile_and_port_units (test_water_binding.SavedWaterBindingTests.test_millimetre_ifc_converts_actual_profile_and_port_units) ... ok
+test_profile_metadata_and_oneway_pipe_contradictions_fail (test_water_binding.SavedWaterBindingTests.test_profile_metadata_and_oneway_pipe_contradictions_fail) ... ok
+test_real_profiles_chains_elevations_and_reverse_flow (test_water_binding.SavedWaterBindingTests.test_real_profiles_chains_elevations_and_reverse_flow) ... ok
+test_renamed_elements_are_bound_by_guid_not_name (test_water_binding.SavedWaterBindingTests.test_renamed_elements_are_bound_by_guid_not_name) ... ok
+test_duplicate_geometry_missing_coverage_and_reused_guid_rejected (test_water_binding.WaterBindingContractTests.test_duplicate_geometry_missing_coverage_and_reused_guid_rejected) ... ok
+test_inadequate_supply_retains_failed_model_and_blocks_dependent_qa (test_water_riser.IndependentWaterRiserTests.test_inadequate_supply_retains_failed_model_and_blocks_dependent_qa) ... ok
+test_independent_brief_to_selected_saved_model_and_electrical_drawing (test_water_riser.IndependentWaterRiserTests.test_independent_brief_to_selected_saved_model_and_electrical_drawing) ... ok
+test_execution_does_not_claim_acceptance (test_workflow.WorkflowTests.test_execution_does_not_claim_acceptance) ... ok
+test_intake_preserves_line_evidence (test_workflow.WorkflowTests.test_intake_preserves_line_evidence) ... ok
+test_missing_native_tool_stays_pending (test_workflow.WorkflowTests.test_missing_native_tool_stays_pending) ... ok
+test_stale_source_missing_coverage_and_fabricated_quote_rejected (test_workflow.WorkflowTests.test_stale_source_missing_coverage_and_fabricated_quote_rejected) ... ok
+test_tracked_example_plans_keep_source_hashes (test_workflow.WorkflowTests.test_tracked_example_plans_keep_source_hashes) ... ok
+
+----------------------------------------------------------------------
+Ran 186 tests in 178.401s
+
+OK
