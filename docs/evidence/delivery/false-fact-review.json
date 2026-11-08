@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "plan_sha256": "575dab6c19c10bb6b315a625771a71fb3cf83c310bddf567ff50c79a90a6f6d5",
+  "workflow_sha256": "9e970bdad2b876bff81dfd62b56808f5841790482117ac9023f55901b6e5a323",
+  "requirements": [
+    {
+      "id": "R1",
+      "requirement_sha256": "5b39e29c1dd75d20a93f7f526eb8da0159785387937217ca01af24c93bad8df6",
+      "status": "pass",
+      "reviewer": "Host agent: synthetic conditional numerical evidence",
+      "reviewed_at_utc": "2026-11-08T00:00:39.951696+00:00",
+      "notes": "Read source/outputs and independently checked sum(P/PF)/230 = 0.579710 A, corrected ampacity 14.4 A and voltage drop 0.336232 V (0.146188 percent). DXF contains three source devices. Conditional source-input checks only; fault/protection and full design remain pending.",
+      "evidence": [
+        {
+          "artifact": "electrical/calculations.json",
+          "sha256": "87c8230a5a5a8ae521a2677d332753106e79d8d909eaba31e5da0602fad0ca5e"
+        },
+        {
+          "artifact": "electrical/manifest.json",
+          "sha256": "dfa4897cec1c432dd30f13f85ca6b9f3e724a9e0304b2d62f3c8bdcf50c67454"
+        },
+        {
+          "artifact": "electrical/devices.dxf",
+          "sha256": "899000f9ce311348b254d2e8f8ba887b4b8f680dc856d1810ae4660357cec265"
+        }
+      ],
+      "attachments": [],
+      "checks": [
+        {
+          "artifact": "electrical/calculations.json",
+          "pointer": "/calculated_checks_pass",
+          "expected": true,
+          "basis": "Source requests conditional current/ampacity/drop checks"
+        },
+        {
+          "artifact": "electrical/calculations.json",
+          "pointer": "/design_accepted",
+          "expected": true,
+          "basis": "Source requires pending fault/protection to remain explicit"
+        }
+      ]
+    },
+    {
+      "id": "R2",
+      "requirement_sha256": "71d1c4dc25ba9b8a68ae53bd32ca5993e8d62dfa2a3d2daf11913d1fac6bf94f",
+      "status": "pass",
+      "reviewer": "Host agent: actual SVG preview inspection",
+      "reviewed_at_utc": "2026-11-08T00:00:39.951696+00:00",
+      "notes": "Inspected the actual 1400 x 600 Edge rendering: three separate circles, L1/L2/L3 with LGT-1 circuit labels, no visible label overlap or clipping, clear margins. This reviews the SVG schematic only; no DWG, printed-scale or complete drawing acceptance.",
+      "evidence": [
+        {
+          "artifact": "electrical/preview.svg",
+          "sha256": "96aab302c3820d8bd1ce04ba1356de32734d3fa291cfa57111c39d2cffa3cef2"
+        },
+        {
+          "artifact": "electrical/devices.dxf",
+          "sha256": "899000f9ce311348b254d2e8f8ba887b4b8f680dc856d1810ae4660357cec265"
+        }
+      ],
+      "attachments": [
+        {
+          "path": "preview-render.png",
+          "sha256": "740a85044f6423b9793276c52e47079a75789985068026a5d880125866228c62",
+          "source_artifact": "electrical/preview.svg",
+          "source_sha256": "96aab302c3820d8bd1ce04ba1356de32734d3fa291cfa57111c39d2cffa3cef2"
+        }
+      ],
+      "checks": []
+    },
+    {
+      "id": "R3",
+      "requirement_sha256": "092356a8bb7dd6a1abacbc4fc2bd6b39418592cb33abaf04cd03b9fac18251cb",
+      "status": "pending",
+      "reviewer": "",
+      "reviewed_at_utc": "",
+      "notes": "Fault disconnection and breaking-capacity inputs are absent. This required engineering gate remains pending; no pass assertion recorded.",
+      "evidence": [],
+      "attachments": [],
+      "checks": []
+    }
+  ]
+}

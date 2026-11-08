@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "brief": "delivery-brief.md",
+  "brief_sha256": "8e955a7d006736bd92d00210bd5227f9003f8d00f414cd2df4415b31312bc53f",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement",
+    "P004": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "electrical",
+      "kind": "electrical",
+      "project": "office-electrical/project.json"
+    },
+    {
+      "id": "visual",
+      "kind": "manual",
+      "description": "Inspect actual schematic preview and bind observations to source/image hashes"
+    },
+    {
+      "id": "faults",
+      "kind": "manual",
+      "description": "Fault/protection source inputs missing; keep required gate pending"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Run office-electrical/project.json to create the editable three-device metre overlay and traceable conditional current, ampacity and voltage-drop results. Preserve source input bytes and retain pending fault/protection checks.",
+      "task": "electrical",
+      "acceptance": "Run office-electrical/project.json to create the editable three-device metre overlay and traceable conditional current, ampacity and voltage-drop results. Preserve source input bytes and retain pending fault/protection checks."
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Render the generated SVG preview and inspect the three device IDs/circuit labels, symbol count and margins. Record image/source hashes and observations. This is schematic preview review; native DWG, print quality and complete drawing acceptance remain pending.",
+      "task": "visual",
+      "acceptance": "Render the generated SVG preview and inspect the three device IDs/circuit labels, symbol count and margins. Record image/source hashes and observations. This is schematic preview review; native DWG, print quality and complete drawing acceptance remain pending."
+    },
+    {
+      "id": "R3",
+      "passage": "P004",
+      "quote": "Verify fault disconnection and breaker breaking capacity before accepting the electrical design. Required fault/protection source inputs are not supplied in this synthetic brief; retain this gate pending.",
+      "task": "faults",
+      "acceptance": "Verify fault disconnection and breaker breaking capacity before accepting the electrical design. Required fault/protection source inputs are not supplied in this synthetic brief; retain this gate pending."
+    }
+  ]
+}

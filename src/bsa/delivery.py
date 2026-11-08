@@ -1,0 +1,183 @@
+"""Source-bound delivery review records; execution and engineering acceptance stay separate."""
+import argparse
+from datetime import datetime,timezone
+import hashlib
+import html
+import json
+import re
+from pathlib import Path
+from .cli import digest
+from .engine import ProjectError
+from .workflow import validate_plan,verify,passages,local_path
+
+
+def fingerprint(requirement):
+    return hashlib.sha256(json.dumps(requirement,sort_keys=True,separators=(',',':'),ensure_ascii=False).encode()).hexdigest()
+
+
+def context(plan,root):
+    plan,root=Path(plan).resolve(),Path(root).resolve()
+    source,inputs=validate_plan(plan);inputs.add(plan)
+    report=json.loads((root/'workflow.json').read_text(encoding='utf-8-sig'))
+    if not isinstance(report,dict) or report.get('inputs')!={str(p):digest(p) for p in inputs}:
+        raise ProjectError('run input set/hashes differ from the current source-linked plan')
+    tasks={t['id']:t for t in source['tasks']}
+    if set(report.get('tasks',{}))!=set(tasks):raise ProjectError('run task set differs from plan')
+    for id,task in report['tasks'].items():
+        if task.get('kind')!=tasks[id]['kind'] or task.get('status') not in ('pass','fail','pending'):
+            raise ProjectError('run task metadata differs from plan or has unknown status')
+    recorded=report.get('requirements',[])
+    if not isinstance(recorded,list) or len(recorded)!=len(source['requirements']):raise ProjectError('run requirement coverage differs from plan')
+    by_id={r['id']:r for r in recorded}
+    if len(by_id)!=len(recorded) or set(by_id)!={r['id'] for r in source['requirements']}:raise ProjectError('run requirement identities differ from plan')
+    artifacts=report.get('artifact_hashes')
+    if not isinstance(artifacts,dict):raise ProjectError('recorded artifact hashes required')
+    source_rows={r['id']:r for r in passages(local_path(plan.parent,source['brief']),local_path(plan.parent,source['ocr']) if source.get('ocr') else None)}
+    for requirement in source['requirements']:
+        row=by_id[requirement['id']]
+        if any(row.get(key)!=value for key,value in requirement.items()):raise ProjectError('run requirement text/task differs from source plan')
+        if row.get('execution_status')!=report['tasks'][requirement['task']]['status']:raise ProjectError('run execution matrix contradicts task status')
+        locator=json.loads(json.dumps({k:v for k,v in source_rows[requirement['passage']].items() if k not in ('id','text')}))
+        if row.get('source_locator')!=locator:raise ProjectError('run source locator differs from current brief passage')
+        expected={name for name in artifacts if name.startswith(requirement['task']+'/')}
+        if set(row.get('evidence',[]))!=expected:raise ProjectError('run requirement artifact inventory differs from task evidence')
+    return source,report,verify(root)
+
+
+def template(plan,root,out):
+    plan,root,out=Path(plan).resolve(),Path(root).resolve(),Path(out).resolve()
+    if out==plan or out.is_relative_to(root):raise ProjectError('store review separately from plan/run artifacts')
+    source,_,integrity=context(plan,root)
+    if not integrity['integrity_pass']:raise ProjectError('repair or rerun stale evidence before creating a review')
+    result=dict(version=1,plan_sha256=digest(plan),workflow_sha256=digest(root/'workflow.json'),requirements=[
+        dict(id=r['id'],requirement_sha256=fingerprint(r),status='pending',reviewer='',reviewed_at_utc='',notes='',evidence=[],attachments=[],checks=[])
+        for r in source['requirements']])
+    out.parent.mkdir(parents=True,exist_ok=True)
+    with out.open('x',encoding='utf-8') as stream:stream.write(json.dumps(result,ensure_ascii=False,indent=2))
+    return result
+
+
+def relative_file(root,name):
+    if not isinstance(name,str) or not name or Path(name).is_absolute():raise ProjectError('relative evidence path required')
+    path=(root/name).resolve()
+    if not path.is_relative_to(root) or not path.is_file():raise ProjectError('evidence path missing or outside run')
+    return path
+
+
+def pointer(value,path):
+    if not isinstance(path,str) or not path.startswith('/'):raise ProjectError('explicit JSON pointer required')
+    for token in path[1:].split('/'):
+        if re.search(r'~(?![01])',token):raise ProjectError('invalid JSON pointer escape')
+        token=token.replace('~1','/').replace('~0','~')
+        if isinstance(value,list):
+            if re.fullmatch(r'0|[1-9][0-9]*',token) is None:raise ProjectError('invalid JSON array pointer')
+            value=value[int(token)]
+        else:value=value[token]
+    return value
+
+
+def assess(plan,root,review_path):
+    plan,root,review_path=Path(plan).resolve(),Path(root).resolve(),Path(review_path).resolve()
+    before={str(p):digest(p) for p in (plan,root/'workflow.json',review_path)}
+    result=dict(design_accepted=False,review_checks_pass=False,source_integrity_pass=False,requirements=[],issues=[],
+                scope='Source/byte consistency, recorded reviewer assertions and optional adapter-reported Boolean facts; not reviewer authentication, semantic completeness or engineering certification')
+    context_loaded=False;attachments_seen={}
+    try:
+        source,report,integrity=context(plan,root);result['source_integrity_pass']=integrity['integrity_pass']
+        context_loaded=True
+        result['issues'].extend(integrity['issues'])
+        review=json.loads(review_path.read_text(encoding='utf-8-sig'))
+        if not isinstance(review,dict) or set(review)!={'version','plan_sha256','workflow_sha256','requirements'} or type(review['version']) is not int or review['version']!=1:
+            raise ProjectError('review version 1 and exact source/report hashes required')
+        if review['plan_sha256']!=digest(plan) or review['workflow_sha256']!=digest(root/'workflow.json'):
+            raise ProjectError('review is stale for this exact source plan or run report')
+        rows=review['requirements']
+        if not isinstance(rows,list) or len(rows)!=len(source['requirements']):raise ProjectError('review must cover every source requirement exactly once')
+        by_id={r['id']:r for r in rows}
+        if len(by_id)!=len(rows) or set(by_id)!={r['id'] for r in source['requirements']}:raise ProjectError('missing/duplicate/unknown review requirement')
+        for requirement in source['requirements']:
+            row=by_id[requirement['id']];issues=[];facts=[]
+            fields={'id','requirement_sha256','status','reviewer','reviewed_at_utc','notes','evidence','attachments','checks'}
+            if set(row)!=fields or row['requirement_sha256']!=fingerprint(requirement):raise ProjectError('review requirement text binding changed')
+            status=row['status']
+            if status not in ('pass','fail','pending'):raise ProjectError('review status must be pass/fail/pending')
+            for key in ('reviewer','reviewed_at_utc','notes'):
+                if not isinstance(row[key],str):raise ProjectError('review metadata must be text')
+            if status!='pending':
+                if not row['reviewer'].strip() or not row['notes'].strip():raise ProjectError('nonpending review requires reviewer and substantive observations')
+                stamp=datetime.fromisoformat(row['reviewed_at_utc'].replace('Z','+00:00'))
+                if stamp.tzinfo is None or stamp.utcoffset()!=timezone.utc.utcoffset(stamp):raise ProjectError('review timestamp must be UTC')
+                if not row['evidence']:raise ProjectError('nonpending review requires cited original artifacts')
+            if not all(isinstance(row[k],list) for k in ('evidence','attachments','checks')):raise ProjectError('evidence/attachments/checks must be lists')
+            cited=set()
+            for evidence in row['evidence']:
+                if not isinstance(evidence,dict) or set(evidence)!={'artifact','sha256'}:raise ProjectError('artifact path/hash required')
+                name=evidence['artifact'];path=relative_file(root,name)
+                if name not in report['artifact_hashes'] or evidence['sha256']!=report['artifact_hashes'][name] or digest(path)!=evidence['sha256']:
+                    issues.append('cited artifact hash mismatch: '+name)
+                cited.add(name)
+            for attachment in row['attachments']:
+                if not isinstance(attachment,dict) or set(attachment)!={'path','sha256','source_artifact','source_sha256'}:raise ProjectError('supplemental evidence requires attachment/source hashes')
+                path=relative_file(root,attachment['path']);name=attachment['source_artifact']
+                attachments_seen[path]=attachment['sha256']
+                if name not in cited or report['artifact_hashes'].get(name)!=attachment['source_sha256'] or digest(path)!=attachment['sha256']:
+                    issues.append('attachment/source binding mismatch: '+attachment['path'])
+            for check in row['checks']:
+                if not isinstance(check,dict) or set(check)!={'artifact','pointer','expected','basis'} or type(check['expected']) is not bool or not isinstance(check['basis'],str) or not check['basis'].strip():
+                    raise ProjectError('Boolean fact check requires artifact/pointer/expected/basis')
+                if check['artifact'] not in cited:raise ProjectError('fact check must cite its source artifact')
+                value=pointer(json.loads(relative_file(root,check['artifact']).read_text(encoding='utf-8-sig')),check['pointer'])
+                passed=type(value) is bool and value is check['expected']
+                facts.append(dict(**check,actual=value,pass_check=passed))
+                if not passed:issues.append('adapter Boolean fact failed: '+check['artifact']+check['pointer'])
+            task=report['tasks'][requirement['task']]
+            if not integrity['integrity_pass']:issues.append('run source/artifact integrity failed')
+            if task['status']=='fail':issues.append('upstream task failed; review cannot clear it')
+            effective='fail' if issues or status=='fail' else status
+            if effective=='pass' and task['status']=='pending' and task['kind']!='manual':effective='pending'
+            result['requirements'].append(dict(id=requirement['id'],task=requirement['task'],quote=requirement['quote'],acceptance=requirement['acceptance'],
+                execution_status=task['status'],recorded_review_status=status,effective_review_status=effective,
+                reviewer=row['reviewer'],reviewed_at_utc=row['reviewed_at_utc'],notes=row['notes'],evidence=row['evidence'],attachments=row['attachments'],facts=facts,issues=issues))
+        result['review_checks_pass']=integrity['integrity_pass'] and all(r['effective_review_status']=='pass' for r in result['requirements'])
+    except (ProjectError,ValueError,TypeError,KeyError,IndexError,AttributeError,OSError) as exc:
+        result['issues'].append(str(exc));result['review_checks_pass']=False
+    if context_loaded:
+        try:
+            end=verify(root)
+            if not end['integrity_pass']:
+                result['issues'].extend(end['issues']);result['source_integrity_pass']=False;result['review_checks_pass']=False
+        except (ValueError,TypeError,KeyError,AttributeError,OSError) as exc:
+            result['issues'].append('run integrity changed during review: '+str(exc));result['source_integrity_pass']=False;result['review_checks_pass']=False
+    if any(not p.is_file() or digest(p)!=sha for p,sha in attachments_seen.items()):
+        result['issues'].append('supplemental evidence changed during review');result['review_checks_pass']=False
+    result['inputs']=before
+    result['inputs_unchanged']=all(Path(p).is_file() and digest(Path(p))==sha for p,sha in before.items())
+    if not result['inputs_unchanged']:result['issues'].append('source plan/report/review changed during audit');result['review_checks_pass']=False
+    result['status']='failed' if result['issues'] or any(r['effective_review_status']=='fail' for r in result['requirements']) else 'review_complete' if result['review_checks_pass'] else 'needs_review'
+    return result
+
+
+def run(plan,root,review,out):
+    plan,root,review,out=[Path(p).resolve() for p in (plan,root,review,out)]
+    if out.is_relative_to(root) or any(out==p or out in p.parents for p in (plan,review,root/'workflow.json')):
+        raise ProjectError('store audit separately; output must not contain source/run/review')
+    result=assess(plan,root,review);out.mkdir(parents=True,exist_ok=False)
+    (out/'audit.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+    rows=''.join('<tr>'+''.join('<td>'+html.escape(str(r[k]))+'</td>' for k in ('id','quote','execution_status','effective_review_status','notes'))+'</tr>' for r in result['requirements'])
+    (out/'report.html').write_text('<!doctype html><meta charset="utf-8"><title>Delivery review evidence</title><h1>Delivery review evidence</h1><p>'+html.escape(result['status'])+'</p><p>'+html.escape(result['scope'])+'</p><p>Design accepted: false. Reviewer assertions are not authenticated or independently certified.</p><table border="1"><tr><th>Requirement</th><th>Source quote</th><th>Execution</th><th>Recorded review result</th><th>Observations</th></tr>'+rows+'</table><pre>'+html.escape(json.dumps(result['issues'],ensure_ascii=False,indent=2))+'</pre>',encoding='utf-8')
+    return result
+
+
+def main():
+    parser=argparse.ArgumentParser(description=__doc__);sub=parser.add_subparsers(dest='command',required=True)
+    for name in ('template','audit'):
+        command=sub.add_parser(name);command.add_argument('plan',type=Path);command.add_argument('run',type=Path);command.add_argument('--out',type=Path,required=True)
+        if name=='audit':command.add_argument('--review',type=Path,required=True)
+    args=parser.parse_args()
+    if args.command=='template':template(args.plan,args.run,args.out);print('Pending review template created; no requirement automatically accepted');return 0
+    result=run(args.plan,args.run,args.review,args.out)
+    print(json.dumps({k:result[k] for k in ('status','review_checks_pass','design_accepted')},indent=2))
+    return 0 if result['review_checks_pass'] else 2
+
+
+if __name__=='__main__':raise SystemExit(main())

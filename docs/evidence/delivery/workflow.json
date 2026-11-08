@@ -1,0 +1,88 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\delivery-plan.json": "575dab6c19c10bb6b315a625771a71fb3cf83c310bddf567ff50c79a90a6f6d5",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\delivery-brief.md": "8e955a7d006736bd92d00210bd5227f9003f8d00f414cd2df4415b31312bc53f",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\office-electrical\\project.json": "34e1fba15d2ec9dacbdf256cf996d2de772873d720374f1ac55fd6b64ac4f34a"
+  },
+  "inputs_unchanged": true,
+  "tasks": {
+    "electrical": {
+      "kind": "electrical",
+      "status": "pass",
+      "scope": "conditional electrical checks only; remaining design checks are in calculations.json"
+    },
+    "visual": {
+      "kind": "manual",
+      "status": "pending",
+      "scope": "Inspect actual schematic preview and bind observations to source/image hashes"
+    },
+    "faults": {
+      "kind": "manual",
+      "status": "pending",
+      "scope": "Fault/protection source inputs missing; keep required gate pending"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Run office-electrical/project.json to create the editable three-device metre overlay and traceable conditional current, ampacity and voltage-drop results. Preserve source input bytes and retain pending fault/protection checks.",
+      "task": "electrical",
+      "acceptance": "Run office-electrical/project.json to create the editable three-device metre overlay and traceable conditional current, ampacity and voltage-drop results. Preserve source input bytes and retain pending fault/protection checks.",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 3,
+        "end_line": 3
+      },
+      "execution_scope": "conditional electrical checks only; remaining design checks are in calculations.json",
+      "evidence": [
+        "electrical/calculations.json",
+        "electrical/devices.dxf",
+        "electrical/manifest.json",
+        "electrical/preview.svg",
+        "electrical/report.html"
+      ]
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Render the generated SVG preview and inspect the three device IDs/circuit labels, symbol count and margins. Record image/source hashes and observations. This is schematic preview review; native DWG, print quality and complete drawing acceptance remain pending.",
+      "task": "visual",
+      "acceptance": "Render the generated SVG preview and inspect the three device IDs/circuit labels, symbol count and margins. Record image/source hashes and observations. This is schematic preview review; native DWG, print quality and complete drawing acceptance remain pending.",
+      "execution_status": "pending",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 5,
+        "end_line": 5
+      },
+      "execution_scope": "Inspect actual schematic preview and bind observations to source/image hashes",
+      "evidence": []
+    },
+    {
+      "id": "R3",
+      "passage": "P004",
+      "quote": "Verify fault disconnection and breaker breaking capacity before accepting the electrical design. Required fault/protection source inputs are not supplied in this synthetic brief; retain this gate pending.",
+      "task": "faults",
+      "acceptance": "Verify fault disconnection and breaker breaking capacity before accepting the electrical design. Required fault/protection source inputs are not supplied in this synthetic brief; retain this gate pending.",
+      "execution_status": "pending",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 7,
+        "end_line": 7
+      },
+      "execution_scope": "Fault/protection source inputs missing; keep required gate pending",
+      "evidence": []
+    }
+  ],
+  "artifact_hashes": {
+    "electrical/calculations.json": "87c8230a5a5a8ae521a2677d332753106e79d8d909eaba31e5da0602fad0ca5e",
+    "electrical/devices.dxf": "899000f9ce311348b254d2e8f8ba887b4b8f680dc856d1810ae4660357cec265",
+    "electrical/manifest.json": "dfa4897cec1c432dd30f13f85ca6b9f3e724a9e0304b2d62f3c8bdcf50c67454",
+    "electrical/preview.svg": "96aab302c3820d8bd1ce04ba1356de32734d3fa291cfa57111c39d2cffa3cef2",
+    "electrical/report.html": "ea329bfc4dce45c18b8f3e7117c6eaf169cf37db64ac25fa89d64c2e906bcd21"
+  },
+  "execution_pass": false,
+  "design_accepted": false,
+  "acceptance_note": "Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance"
+}

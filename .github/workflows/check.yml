@@ -12,6 +12,7 @@ jobs:
       - run: python -m unittest discover -s tests -v
       - run: bsa run examples/office-electrical/project.json --out runs/office
       - run: python -m bsa.workflow validate examples/workflow-plan.json
+      - run: python -m bsa.workflow validate examples/delivery-plan.json
       - run: python -m bsa.workflow execute examples/drawing-intake/plan.json --out runs/drawing-intake
       - run: python -m bsa.workflow execute examples/base-overlay/portable-plan.json --out runs/base-overlay
   ifc:

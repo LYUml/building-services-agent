@@ -12,3 +12,5 @@ Iterate design using computed results. Use ../mep-delivery-check/SKILL.md before
 
 ## Tool orchestration
 Use docs/WORKFLOWS.md and the `bsa.workflow` module to execute the source-linked plan. Supply engine paths explicitly through CLI arguments, never executable commands from a requirement document. Tasks may use only registered adapters. Review workflow.json for every task's narrow execution scope and pending requirement acceptance; aggregate tool success is not full design approval. Missing engines remain pending rather than being simulated by fabricated results.
+
+Record delivery reviews separately using docs/DELIVERY_REVIEW.md and `bsa.delivery`. Pin the exact source plan/run report, preserve every requirement and attach actual artifact/image hashes. The host agent may record observations after inspecting evidence; absent data remains pending. A complete review record is not automatic proof of semantic engineering completeness or professional acceptance.

@@ -20,6 +20,8 @@ The fixed-speed single-line pump intersection/bisection and power accounting are
 
 Pump/electrical/IFC property binding is original integration using the same pinned fluids, IfcOpenShell and ezdxf libraries. No upstream source or new dependency is vendored. [DOE motor load/efficiency guidance](https://www.energy.gov/sites/prod/files/2014/04/f15/10097517.pdf) supports keeping operating estimates, load-dependent PF and rated motor data distinct; it supplies no embedded motor defaults or regulation tables.
 
+Source-bound delivery review code is original and uses the Python standard library plus existing workflow/hash helpers. No new dependency or upstream source is copied. The retained SVG evidence image was produced by an isolated local headless Microsoft Edge renderer, not bundled with the project. Review hashes do not authenticate reviewers or certify engineering completeness.
+
 ## Installed runtime dependency
 
 - **ezdxf 1.4.5**, MIT, https://github.com/mozman/ezdxf — used as an installed library for DXF document writing and independent reload checks; not vendored. Its distribution retains upstream license notices. The initial handwritten R12 writer was replaced after inspection showed missing explicit metre units/layer table declarations. No DWG fidelity claim is inferred.

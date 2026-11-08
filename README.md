@@ -51,6 +51,8 @@ The current energy adapter is a two-zone design-day workflow: OSM + IDF creation
 
 Use `python -m bsa.workflow intake <brief.md> --out <new-intake.json>` to index source passages. The host AI then creates a quoted, source-linked plan and project data. `validate` checks the handoff; `execute` dispatches electrical/native-CAD/energy tasks and creates an evidence matrix; `verify` detects changed inputs or task artifacts. See [workflow contract and runnable combined example](docs/WORKFLOWS.md). The combined example has been executed against actual AutoCAD and EnergyPlus. Manual review remains pending, so it is not an accepted final design.
 
+[Delivery review records](docs/DELIVERY_REVIEW.md) now pin every source requirement and the exact run, cite original artifacts/render attachments, and keep pass/fail/pending findings separate from execution. Stale data, omitted requirements and false Boolean facts fail the audit. The synthetic demonstration retains actual numerical/SVG review evidence while missing fault-protection inputs remain pending; review consistency is not engineering certification.
+
 ## PDF and Word requirements
 
 [Document intake](docs/DOCUMENT_INTAKE.md) supports PDF page locators, Word body/table/header/note locators and optional offline OCR. Extraction gaps remain visible and require source review. Scanned/outlined text can be OCR-indexed, but recognition is never silently accepted as engineering data.

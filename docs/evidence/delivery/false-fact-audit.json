@@ -1,0 +1,112 @@
+{
+  "design_accepted": false,
+  "review_checks_pass": false,
+  "source_integrity_pass": true,
+  "requirements": [
+    {
+      "id": "R1",
+      "task": "electrical",
+      "quote": "Run office-electrical/project.json to create the editable three-device metre overlay and traceable conditional current, ampacity and voltage-drop results. Preserve source input bytes and retain pending fault/protection checks.",
+      "acceptance": "Run office-electrical/project.json to create the editable three-device metre overlay and traceable conditional current, ampacity and voltage-drop results. Preserve source input bytes and retain pending fault/protection checks.",
+      "execution_status": "pass",
+      "recorded_review_status": "pass",
+      "effective_review_status": "fail",
+      "reviewer": "Host agent: synthetic conditional numerical evidence",
+      "reviewed_at_utc": "2026-11-08T00:00:39.951696+00:00",
+      "notes": "Read source/outputs and independently checked sum(P/PF)/230 = 0.579710 A, corrected ampacity 14.4 A and voltage drop 0.336232 V (0.146188 percent). DXF contains three source devices. Conditional source-input checks only; fault/protection and full design remain pending.",
+      "evidence": [
+        {
+          "artifact": "electrical/calculations.json",
+          "sha256": "87c8230a5a5a8ae521a2677d332753106e79d8d909eaba31e5da0602fad0ca5e"
+        },
+        {
+          "artifact": "electrical/manifest.json",
+          "sha256": "dfa4897cec1c432dd30f13f85ca6b9f3e724a9e0304b2d62f3c8bdcf50c67454"
+        },
+        {
+          "artifact": "electrical/devices.dxf",
+          "sha256": "899000f9ce311348b254d2e8f8ba887b4b8f680dc856d1810ae4660357cec265"
+        }
+      ],
+      "attachments": [],
+      "facts": [
+        {
+          "artifact": "electrical/calculations.json",
+          "pointer": "/calculated_checks_pass",
+          "expected": true,
+          "basis": "Source requests conditional current/ampacity/drop checks",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "electrical/calculations.json",
+          "pointer": "/design_accepted",
+          "expected": true,
+          "basis": "Source requires pending fault/protection to remain explicit",
+          "actual": false,
+          "pass_check": false
+        }
+      ],
+      "issues": [
+        "adapter Boolean fact failed: electrical/calculations.json/design_accepted"
+      ]
+    },
+    {
+      "id": "R2",
+      "task": "visual",
+      "quote": "Render the generated SVG preview and inspect the three device IDs/circuit labels, symbol count and margins. Record image/source hashes and observations. This is schematic preview review; native DWG, print quality and complete drawing acceptance remain pending.",
+      "acceptance": "Render the generated SVG preview and inspect the three device IDs/circuit labels, symbol count and margins. Record image/source hashes and observations. This is schematic preview review; native DWG, print quality and complete drawing acceptance remain pending.",
+      "execution_status": "pending",
+      "recorded_review_status": "pass",
+      "effective_review_status": "pass",
+      "reviewer": "Host agent: actual SVG preview inspection",
+      "reviewed_at_utc": "2026-11-08T00:00:39.951696+00:00",
+      "notes": "Inspected the actual 1400 x 600 Edge rendering: three separate circles, L1/L2/L3 with LGT-1 circuit labels, no visible label overlap or clipping, clear margins. This reviews the SVG schematic only; no DWG, printed-scale or complete drawing acceptance.",
+      "evidence": [
+        {
+          "artifact": "electrical/preview.svg",
+          "sha256": "96aab302c3820d8bd1ce04ba1356de32734d3fa291cfa57111c39d2cffa3cef2"
+        },
+        {
+          "artifact": "electrical/devices.dxf",
+          "sha256": "899000f9ce311348b254d2e8f8ba887b4b8f680dc856d1810ae4660357cec265"
+        }
+      ],
+      "attachments": [
+        {
+          "path": "preview-render.png",
+          "sha256": "740a85044f6423b9793276c52e47079a75789985068026a5d880125866228c62",
+          "source_artifact": "electrical/preview.svg",
+          "source_sha256": "96aab302c3820d8bd1ce04ba1356de32734d3fa291cfa57111c39d2cffa3cef2"
+        }
+      ],
+      "facts": [],
+      "issues": []
+    },
+    {
+      "id": "R3",
+      "task": "faults",
+      "quote": "Verify fault disconnection and breaker breaking capacity before accepting the electrical design. Required fault/protection source inputs are not supplied in this synthetic brief; retain this gate pending.",
+      "acceptance": "Verify fault disconnection and breaker breaking capacity before accepting the electrical design. Required fault/protection source inputs are not supplied in this synthetic brief; retain this gate pending.",
+      "execution_status": "pending",
+      "recorded_review_status": "pending",
+      "effective_review_status": "pending",
+      "reviewer": "",
+      "reviewed_at_utc": "",
+      "notes": "Fault disconnection and breaking-capacity inputs are absent. This required engineering gate remains pending; no pass assertion recorded.",
+      "evidence": [],
+      "attachments": [],
+      "facts": [],
+      "issues": []
+    }
+  ],
+  "issues": [],
+  "scope": "Source/byte consistency, recorded reviewer assertions and optional adapter-reported Boolean facts; not reviewer authentication, semantic completeness or engineering certification",
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\delivery-plan.json": "575dab6c19c10bb6b315a625771a71fb3cf83c310bddf567ff50c79a90a6f6d5",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\delivery-release\\workflow.json": "9e970bdad2b876bff81dfd62b56808f5841790482117ac9023f55901b6e5a323",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\delivery-false-fact-review.json": "c7cf7b1e78358e39fe148e4cf2704169e2d68a043510b9269f5500f78ac510cc"
+  },
+  "inputs_unchanged": true,
+  "status": "failed"
+}
