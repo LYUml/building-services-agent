@@ -1,0 +1,25 @@
+{
+  "scope": "Independent synthetic unequal-branch sizing verification; no actual HVAC product or installation acceptance",
+  "candidate_count": 27,
+  "selected": {
+    "id": "candidate-6",
+    "choices": {
+      "BRANCH-A": "D25",
+      "BRANCH-B": "D32",
+      "TRUNK": "D40"
+    },
+    "material_score": 758.0,
+    "status": "pass",
+    "hydraulic_checks_pass": true,
+    "supported_checks_pass": true,
+    "checks_sha256": "98682ebe2838043d94477730ba1d4dfdefd6258c099a1abf8442be7c79a05ed0"
+  },
+  "flows_m3_s": {
+    "TRUNK": 0.0012000000000000001,
+    "BRANCH-B": 0.0008,
+    "BRANCH-A": 0.0004
+  },
+  "supply_flow_m3_s": 0.0012000000000000001,
+  "selected_rerun_pass": true,
+  "design_accepted": false
+}

@@ -1,0 +1,82 @@
+{
+  "name": "Synthetic independent unequal-flow HVAC water tree",
+  "model": "steady incompressible circular tree",
+  "sources": {
+    "demo": "Explicit synthetic branches 0.4 and 0.8 L/s, elevations 0/2/3/4 m, lengths 8/6/9 m, supply 300 kPa; no actual project, product or regulatory applicability assertion"
+  },
+  "fluid": {
+    "density_kg_m3": 998,
+    "dynamic_viscosity_pa_s": 0.001,
+    "source": "demo"
+  },
+  "supply": {
+    "node": "SOURCE",
+    "total_pressure_pa": 300000,
+    "source": "demo"
+  },
+  "nodes": [
+    {
+      "id": "SOURCE",
+      "elevation_m": 0,
+      "demand_m3_s": 0,
+      "required_total_pressure_pa": 0,
+      "source": "demo"
+    },
+    {
+      "id": "TEE",
+      "elevation_m": 2,
+      "demand_m3_s": 0,
+      "required_total_pressure_pa": 0,
+      "source": "demo"
+    },
+    {
+      "id": "A",
+      "elevation_m": 3,
+      "demand_m3_s": 0.0004,
+      "required_total_pressure_pa": 20000,
+      "source": "demo"
+    },
+    {
+      "id": "B",
+      "elevation_m": 4,
+      "demand_m3_s": 0.0008,
+      "required_total_pressure_pa": 20000,
+      "source": "demo"
+    }
+  ],
+  "segments": [
+    {
+      "id": "TRUNK",
+      "from": "SOURCE",
+      "to": "TEE",
+      "diameter_m": 0.025,
+      "length_m": 8,
+      "roughness_m": 4.5e-05,
+      "minor_k": 2,
+      "max_velocity_m_s": 3,
+      "source": "demo"
+    },
+    {
+      "id": "BRANCH-A",
+      "from": "TEE",
+      "to": "A",
+      "diameter_m": 0.025,
+      "length_m": 6,
+      "roughness_m": 4.5e-05,
+      "minor_k": 2,
+      "max_velocity_m_s": 3,
+      "source": "demo"
+    },
+    {
+      "id": "BRANCH-B",
+      "from": "TEE",
+      "to": "B",
+      "diameter_m": 0.025,
+      "length_m": 9,
+      "roughness_m": 4.5e-05,
+      "minor_k": 2,
+      "max_velocity_m_s": 3,
+      "source": "demo"
+    }
+  ]
+}
