@@ -65,7 +65,9 @@ def regulatory_source_bindings(tasks,root):
         for parent in parents:upstream.update(ancestors[parent])
         ancestors[name]=upstream
         current={}
-        if kind in ('water_pipe_regulations','network') and not task.get('depends_on'):
+        if kind in ('circulation_duty','water_network'):
+            current['circulation']=local_path(root,task.get('project'))
+        elif kind in ('water_pipe_regulations','network') and not task.get('depends_on'):
             current['network']=local_path(root,task.get('project'))
         elif kind in shared:
             current['project']=local_path(root,task.get('project'))
@@ -73,7 +75,7 @@ def regulatory_source_bindings(tasks,root):
         elif isinstance(task.get('depends_on'),str):
             current=dict(sources.get(task['depends_on'],{}))
         for parent in sorted(upstream):
-            if known[parent]['kind'] not in ('electrical_regulations','lighting_regulations','water_pipe_regulations'):continue
+            if known[parent]['kind'] not in ('circulation_duty','electrical_regulations','lighting_regulations','water_pipe_regulations'):continue
             for field in current.keys() & sources[parent].keys():
                 checked=sources[parent][field];consumed=current[field]
                 if hashed(checked)!=hashed(consumed):
@@ -110,7 +112,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             inputs.add(local_path(root,t.get("project")))
@@ -137,6 +139,13 @@ def validate_plan(path):
                 parent=t['depends_on']
                 if t.get('project') or parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='network_coordination':raise ProjectError('derived water rules require earlier network_coordination and no replacement project')
             inputs.add(local_path(root,t.get('basis')))
+        if kind=='circulation_duty':
+            from .circulation_duty import validate as validate_duty
+            from .epanet import validate as validate_water
+            project=local_path(root,t.get('project'));basis=local_path(root,t.get('basis'))
+            if t.get('depends_on'):raise ProjectError('circulation duty executes fresh project; depends_on not supported')
+            inputs.update((project,basis))
+            validate_duty(read_json(basis),validate_water(read_json(project)))
         if kind=='water_network':
             from .epanet import validate
             validate(read_json(local_path(root,t['project'])))
@@ -526,6 +535,11 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                 payload=run(local_path(root,t['project']),local_path(root,t['model']),local_path(root,t['binding']),folder)
                 status='pass' if payload['calculated_checks_pass'] else 'fail'
                 reason='IFC port-derived circular route dimensions and prescribed-flow pressure budget; detailed routing and full acceptance pending'
+            elif t['kind']=='circulation_duty':
+                from .circulation_duty import run
+                payload=run(local_path(root,t['project']),local_path(root,t['basis']),folder)
+                status='pass' if payload['calculated_checks_pass'] else 'fail'
+                reason='fresh circulation flow and sourced thermal transport targets; heat transfer, load coverage and full acceptance pending'
             elif t['kind']=='water_network':
                 from .epanet import run
                 payload=run(local_path(root,t['project']),folder)

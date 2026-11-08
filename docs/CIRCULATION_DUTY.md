@@ -10,4 +10,10 @@ Targets name unique non-reference pipes and explicitly declare forward or revers
 
 The two synthetic basis files use identical hydraulics: 40 kW requires approximately 1.914 L/s and passes the approximately 3.037 L/s circulation; 100 kW requires approximately 4.785 L/s and fails. Both retain the passing hydraulic checks. These are mathematical demonstrations with approximate constant water properties, not equipment sizing or validated operating-temperature properties.
 
-The output retains copied basis, input hashes, fresh native INP/RPT/BIN and a hash of the hydraulic report. This standalone adapter does not yet bind actual heat exchangers, IFC, EnergyPlus loads or regulation workflow gates. It does not solve heat transfer, temperatures, thermal losses or controls and cannot establish full hydronic design acceptance.
+The output retains copied basis, input hashes, fresh native INP/RPT/BIN and a hash of the hydraulic report. The adapter does not yet bind actual heat exchangers, IFC, EnergyPlus loads or regulatory checks. It does not solve heat transfer, temperatures, thermal losses or controls and cannot establish full hydronic design acceptance.
+
+## Source-linked workflow
+
+Use task kind `circulation_duty` with `project` and `basis` paths relative to the workflow plan. It validates both inputs before execution, reruns native hydraulics and records both files in the workflow integrity inventory. Add `requires_pass: ["duty"]` to downstream tasks to block them when duty fails. A downstream `water_network` or another `circulation_duty` sharing that gate must consume identical hydraulic project bytes, including through transitive prerequisites. Other artifact correspondences are not inferred.
+
+Example task: `{"id":"duty","kind":"circulation_duty","project":"project.json","basis":"thermal-duty.json"}`. This task executes its own fresh hydraulics; `depends_on` input inheritance is not supported. A passing task is a scoped thermal transport result and leaves design acceptance unresolved. Use the usual `bsa.workflow verify` command to detect changed basis, network or output evidence.
