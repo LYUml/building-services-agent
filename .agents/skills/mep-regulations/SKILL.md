@@ -5,6 +5,8 @@ description: Select source-pinned jurisdiction rule packs and bind supported MEP
 
 # MEP jurisdiction checks
 
+At intake and before delivery, read docs/REGULATORY_COVERAGE.md and run `bsa.regulation_coverage` with the selected jurisdiction catalog, sourced per-topic decisions and optional workflow plan. For Hong Kong use regulations/hk/coverage-2026.11.08.json. Resolve every missing applicability decision; retain unimplemented and unscheduled checks in the requirement matrix. A scheduled module is not an executed or complete check. The catalog is a planning aid, not an exhaustive legal determination; exclusions require project evidence and rationale.
+
 Read repository-relative docs/REGULATION_PACKS.md. Establish the project's jurisdiction, building/works scope, relevant dates and required disciplines from the brief and official sources. Select explicit pack IDs and edition decisions; do not choose the latest edition merely from today's date. Distinguish legislation, codes, utility conditions, guidance and contract specifications. Missing statutory/application facts remain pending. The current Hong Kong modules cover selected electrical voltage-drop, office LPD and HVAC load-design condition paths, not full conformity.
 
 Use the pack's official index/publication links to review amendments and transition provisions for the actual project. Fetch the required cached sources with scripts/fetch_regulation_sources.py; a hash mismatch needs source/version review and a new deliberately pinned pack rather than rewriting old evidence. Preserve source attribution and keep original official PDFs in the local ignored cache. A source catalog is not an executable rule set.

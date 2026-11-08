@@ -1,0 +1,7 @@
+{
+  "scope": "Synthetic scope planning against an existing HVAC workflow; no execution or legal compliance determination",
+  "files": {
+    "coverage.json": "81e3888f1999c931cdc427f0716e62764145d55a8c56f9b055c25419abf4fef3",
+    "coverage.md": "050a7c3afd5f9b0f116aee12c8f98f9eca4b4571865b2bdd851e72d18b489465"
+  }
+}

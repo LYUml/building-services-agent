@@ -21,7 +21,7 @@ Results separate `supported_checks_pass`, `regulatory_compliance: not_establishe
 
 A separate [office lighting pack](HK_LIGHTING_RULES.md) now implements sourced BEC 2024 office LPD. It preserves the original electrical pack unchanged and uses the same workflow adapter; select the appropriate pack per task. Broader lighting and Hong Kong conformity remain incomplete.
 
-The [HVAC design-condition pack](HK_HVAC_RULES.md) separately covers Table 6.4 human-comfort load-design limits. Actual EnergyPlus sizing-input binding and the remaining HVAC clauses are pending.
+The [HVAC design-condition pack](HK_HVAC_RULES.md) separately covers Table 6.4 human-comfort load-design limits. Supported static native sizing-input binding and both-variant execution gates are described in [HVAC native checks](HVAC_IDF_RULES.md); remaining HVAC clauses are pending.
 
 ## Workflow adapter
 
@@ -43,3 +43,5 @@ Both standalone and workflow reports track the actual official source bytes alon
 | [ArchSD general specification](https://www.archsd.gov.hk/en/publications-publicity/general-specification-for-building-services.html) | 2022 edition with corrigenda listed through GSBS05-2022. This is a government-project specification; apply the actual contract edition, not a blanket statutory rule for every Hong Kong building. |
 
 Next integration requires source-linked statutory scope decisions, clause-level rules across those disciplines, explicit applicable amendments, project-data adapters and dependency gates that retain pending compliance checks. Do not copy BS/IEC tables from memory or conflate utility requirements, statutory rules, project specifications and course assumptions.
+
+Use the [project coverage review](REGULATORY_COVERAGE.md) at intake and delivery to expose unresolved applicability, unimplemented modules, unscheduled checks and partial rule coverage. Scheduling does not establish execution or compliance.
