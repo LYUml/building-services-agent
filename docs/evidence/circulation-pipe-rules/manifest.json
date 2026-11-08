@@ -1,0 +1,6 @@
+{
+  "scope": "Synthetic fresh EPANET pipe checks with pinned official BEC source; not full conformity",
+  "archive_sha256": "587acf136221f2699dbb61e44468e7472c5ea34357ac76cc259321beb0f35bfd",
+  "review_case": "circulation-hk-rules-v1",
+  "passing_case": "circulation-hk-rules-65mm-v1"
+}

@@ -36,3 +36,5 @@ A separately declared zero-withdrawal EPANET circulation mode now demonstrates a
 A sourced constant-property thermal transport adapter now compares explicit directed pipe targets with freshly executed circulation flows, retaining hydraulic-pass/thermal-fail cases. Actual heat transfer, operating temperatures, full load coverage and IFC/regulatory integration remain pending; see CIRCULATION_DUTY.md.
 
 Circulation thermal transport now has a workflow adapter with source inventory, downstream pass gates and hydraulic-input correspondence checks. Native positive/negative runs and post-run basis tampering tests exercise the gate; full hydronic integration remains pending.
+
+Fresh EPANET circulation/graph pipe results now feed the existing jurisdiction rule evaluator through an explicit density and exact per-pipe basis adapter. Official BEC-backed 50 mm velocity rejection and separate 65 mm scoped pass are retained. Workflow/thermal/IFC correspondence and full HVAC conformity remain pending; see EPANET_PIPE_RULES.md.
