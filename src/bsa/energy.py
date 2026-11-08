@@ -15,6 +15,7 @@ def build(p, lighting, out):
     import openstudio as os
     m=os.model.Model()
     m.getBuilding().setName(p["name"])
+    m.getBuilding().setNorthAxis(p.get('north_axis_deg',0))
     m.getYearDescription().setCalendarYear(2025)
     site=m.getSite()
     for method,key in (("setLatitude","latitude_deg"),("setLongitude","longitude_deg"),("setTimeZone","timezone_h"),("setElevation","elevation_m")):
@@ -100,7 +101,7 @@ def build(p, lighting, out):
     if not math.isclose(area,sum(s["size_m"][0]*s["size_m"][1] for s in geometry)) or matched!=2*len(expected_adjacency):
         raise ProjectError(f"geometry mismatch: area={area}, matched surfaces={matched}")
     return dict(openstudio_version=os.openStudioVersion(),energyplus_version=os.energyPlusVersion(),
-        floor_area_m2=area,thermal_zones=len(m.getThermalZones()),matched_surface_count=matched,
+        north_axis_deg=m.getBuilding().northAxis(),floor_area_m2=area,thermal_zones=len(m.getThermalZones()),matched_surface_count=matched,
         spaces=geometry,adjacency=expected_adjacency,zone_keys=[s["id"].upper() for s in geometry],lighting_keys=[(s["id"]+" lights").upper() for s in geometry],lighting_w_m2=lighting,translation_warnings=[str(x.logMessage()) for x in ft.warnings()])
 
 
@@ -143,6 +144,9 @@ def validate(p,require_design_days=True):
             raise ProjectError(f"finite number required: {label}")
         if (low is not None and value<low) or (high is not None and value>high):
             raise ProjectError(f"out of range: {label}")
+    if 'north_axis_deg' in p:
+        number(p['north_axis_deg'],'north axis',0,360)
+        if p['north_axis_deg']==360:raise ProjectError('north axis must be less than 360 degrees')
     if "spaces" in p:
         if any(k in p for k in ("zone_width_m","zone_depth_m","height_m")):raise ProjectError("mixed thermal geometry schemas")
         boxes(p)

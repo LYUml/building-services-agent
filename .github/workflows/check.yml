@@ -13,7 +13,7 @@ jobs:
           path: tools/downloads/energyplus.zip
           key: energyplus-25.2.0-cf7368216c-windows-x64
       - run: python -m venv .venv
-      - run: .venv/Scripts/python -m pip install -e ".[dev,energy]"
+      - run: .venv/Scripts/python -m pip install -e ".[dev,energy,bim]"
       - run: .venv/Scripts/python scripts/setup_energy.py
       - run: .venv/Scripts/python -m unittest discover -s tests -p test_energy.py -v
         env:
@@ -22,6 +22,9 @@ jobs:
         env:
           BSA_TEST_ENERGYPLUS: ${{ github.workspace }}/tools/energyplus-25.2/EnergyPlus-25.2.0-cf7368216c-Windows-x86_64/energyplus.exe
       - run: .venv/Scripts/python -m unittest discover -s tests -p test_thermal_geometry.py -v
+        env:
+          BSA_TEST_ENERGYPLUS: ${{ github.workspace }}/tools/energyplus-25.2/EnergyPlus-25.2.0-cf7368216c-Windows-x86_64/energyplus.exe
+      - run: .venv/Scripts/python -m unittest discover -s tests -p test_thermal_binding.py -v
         env:
           BSA_TEST_ENERGYPLUS: ${{ github.workspace }}/tools/energyplus-25.2/EnergyPlus-25.2.0-cf7368216c-Windows-x86_64/energyplus.exe
       - run: .venv/Scripts/python -m unittest discover -s tests -p test_annual_energy.py -v

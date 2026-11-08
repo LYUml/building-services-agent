@@ -1,0 +1,1245 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\thermal-ifc-v2\\thermal\\bound-project.json": "6524eba2856127f10fbf9ba81a13b56eb92e62a9bc69fe047f55706695eb3978",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\annual-energy\\USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw.gz": "d14d55b3122fadc6607ca80e76993f555545b5c01df24a7c7912995dfcc1992c"
+  },
+  "inputs_unchanged": true,
+  "source_data": {
+    "model": "annual hourly EPW; explicit thermal spaces",
+    "source": "Independent annual engine integration example, calendar 2025 with installed official Chicago TMY3 data; weather is not Hong Kong design weather or an actual 2025 historical year.",
+    "building": {
+      "name": "Saved IFC three-zone demonstration",
+      "source": "Synthetic 40 m2 two-zone annual verification: no windows/people/equipment/ventilation/infiltration, adiabatic floors, always-on lights/constant setpoints, ideal supplied loads; uniform R=2 plus fixed 0.1 m mass layer k=0.5 W/mK, density=800 kg/m3, cp=1000 J/kgK. Not a real building or Hong Kong compliance model.",
+      "envelope_r_m2k_w": 2,
+      "heating_setpoint_c": 20,
+      "cooling_setpoint_c": 24,
+      "baseline_lighting_w_m2": 12,
+      "variant_lighting_w_m2": 6,
+      "spaces": [
+        {
+          "id": "Office",
+          "source": "Synthetic space identity mapping; saved IFC geometry is authoritative; saved IFC 05Q4lNZvfMjRB3$ExNimBH SHA256 a37eb7587aaa291853fe34a49d6cbcc055c4d5664ae026882b76b7e4904aa0a0",
+          "origin_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_m": [
+            8.0,
+            6.0,
+            3.0
+          ]
+        },
+        {
+          "id": "East",
+          "source": "Synthetic space identity mapping; saved IFC geometry is authoritative; saved IFC 2XcneOpvjTTuGBPHTpB5KV SHA256 a37eb7587aaa291853fe34a49d6cbcc055c4d5664ae026882b76b7e4904aa0a0",
+          "origin_m": [
+            8.0,
+            0.0,
+            0.0
+          ],
+          "size_m": [
+            5.0,
+            6.0,
+            3.0
+          ]
+        },
+        {
+          "id": "Annex",
+          "source": "Synthetic space identity mapping; saved IFC geometry is authoritative; saved IFC 0CWbJCzJzH9wlEfBdo1lqM SHA256 a37eb7587aaa291853fe34a49d6cbcc055c4d5664ae026882b76b7e4904aa0a0",
+          "origin_m": [
+            13.0,
+            0.0,
+            0.0
+          ],
+          "size_m": [
+            4.0,
+            6.0,
+            3.0
+          ]
+        }
+      ],
+      "north_axis_deg": 30
+    },
+    "weather": {
+      "source": "Unmodified Chicago TMY3 EPW bundled with verified official EnergyPlus 25.2.0-cf7368216c Windows archive (archive SHA256 4136901f7e1708f6536d84278e26ad88b414c7efc905febf6d49c2539a36f3cd). https://github.com/NatLabRockies/EnergyPlus/releases/tag/v25.2.0 ; exact EPW bytes are retained as a deterministic gzip example asset with original header/source flags; EnergyPlus distribution notice retained at third_party/licenses/energyplus.txt.",
+      "sha256": "c7d4efcf93ba316a1d874352e743df5cf137ba5c0e3459eb2dc4b5442d5b7f5c",
+      "station_id": "725300"
+    },
+    "calendar_year": 2025,
+    "solver": {
+      "source": "Declared numerical QA and process budget for synthetic annual verification; no code or physical tolerance implied.",
+      "max_runtime_s": 600,
+      "energy_tolerance_kwh": 0.01,
+      "rate_tolerance_w": 0.01
+    },
+    "targets": {
+      "source": "Synthetic constant-thermostat ideal-load target, each heating/cooling zone series <=1 unmet zone-hour annually; not a code criterion or occupied-hours claim.",
+      "maximum_zone_unmet_hours": 1
+    }
+  },
+  "weather": {
+    "sha256": "c7d4efcf93ba316a1d874352e743df5cf137ba5c0e3459eb2dc4b5442d5b7f5c",
+    "asset_sha256": "d14d55b3122fadc6607ca80e76993f555545b5c01df24a7c7912995dfcc1992c",
+    "source": "Unmodified Chicago TMY3 EPW bundled with verified official EnergyPlus 25.2.0-cf7368216c Windows archive (archive SHA256 4136901f7e1708f6536d84278e26ad88b414c7efc905febf6d49c2539a36f3cd). https://github.com/NatLabRockies/EnergyPlus/releases/tag/v25.2.0 ; exact EPW bytes are retained as a deterministic gzip example asset with original header/source flags; EnergyPlus distribution notice retained at third_party/licenses/energyplus.txt.",
+    "station_id": "725300",
+    "station_name": "Chicago Ohare Intl Ap",
+    "region": "IL",
+    "country": "USA",
+    "data_source": "TMY3",
+    "site": {
+      "latitude_deg": 41.98,
+      "longitude_deg": -87.92,
+      "timezone_h": -6.0,
+      "elevation_m": 201.0
+    },
+    "calendar_year": 2025,
+    "hours": 8760,
+    "source_years": [
+      1977,
+      1978,
+      1979,
+      1980,
+      1981,
+      1985,
+      1986,
+      1987,
+      1989,
+      2002
+    ],
+    "minute_field": 0,
+    "required_field_ranges": {
+      "dry_bulb_c": [
+        -22.8,
+        35.0
+      ],
+      "dew_point_c": [
+        -28.3,
+        25.6
+      ],
+      "relative_humidity_percent": [
+        17.0,
+        100.0
+      ],
+      "station_pressure_pa": [
+        96200.0,
+        101800.0
+      ],
+      "horizontal_infrared_wh_m2": [
+        157.0,
+        476.0
+      ],
+      "global_horizontal_wh_m2": [
+        0.0,
+        969.0
+      ],
+      "direct_normal_wh_m2": [
+        0.0,
+        942.0
+      ],
+      "diffuse_horizontal_wh_m2": [
+        0.0,
+        465.0
+      ],
+      "wind_direction_deg": [
+        0.0,
+        360.0
+      ],
+      "wind_speed_m_s": [
+        0.0,
+        15.4
+      ],
+      "total_sky_cover_tenths": [
+        0.0,
+        10.0
+      ],
+      "opaque_sky_cover_tenths": [
+        0.0,
+        10.0
+      ]
+    },
+    "distinct_uncertainty_flags": 4,
+    "scope": "complete hourly calendar and required thermal/solar/wind fields; original uncertainty flags retained in source; not meteorological certification"
+  },
+  "engine": "EnergyPlus, Version 25.2.0-cf7368216c",
+  "engine_sha256": "51715987663666eaff1c8d3bd6ac2d7fe0486d8bc93673eea87c6912a79103f0",
+  "results": {
+    "baseline": {
+      "metadata": {
+        "openstudio_version": "3.11.0",
+        "energyplus_version": "25.2.0",
+        "north_axis_deg": 30.0,
+        "floor_area_m2": 102.0,
+        "thermal_zones": 3,
+        "matched_surface_count": 4,
+        "spaces": [
+          {
+            "id": "Office",
+            "source": "Synthetic space identity mapping; saved IFC geometry is authoritative; saved IFC 05Q4lNZvfMjRB3$ExNimBH SHA256 a37eb7587aaa291853fe34a49d6cbcc055c4d5664ae026882b76b7e4904aa0a0",
+            "origin_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              8.0,
+              6.0,
+              3.0
+            ]
+          },
+          {
+            "id": "East",
+            "source": "Synthetic space identity mapping; saved IFC geometry is authoritative; saved IFC 2XcneOpvjTTuGBPHTpB5KV SHA256 a37eb7587aaa291853fe34a49d6cbcc055c4d5664ae026882b76b7e4904aa0a0",
+            "origin_m": [
+              8.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              5.0,
+              6.0,
+              3.0
+            ]
+          },
+          {
+            "id": "Annex",
+            "source": "Synthetic space identity mapping; saved IFC geometry is authoritative; saved IFC 0CWbJCzJzH9wlEfBdo1lqM SHA256 a37eb7587aaa291853fe34a49d6cbcc055c4d5664ae026882b76b7e4904aa0a0",
+            "origin_m": [
+              13.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              4.0,
+              6.0,
+              3.0
+            ]
+          }
+        ],
+        "adjacency": [
+          {
+            "spaces": [
+              "Office",
+              "East"
+            ],
+            "axis": 0,
+            "area_m2": 18.0
+          },
+          {
+            "spaces": [
+              "East",
+              "Annex"
+            ],
+            "axis": 0,
+            "area_m2": 18.0
+          }
+        ],
+        "zone_keys": [
+          "OFFICE",
+          "EAST",
+          "ANNEX"
+        ],
+        "lighting_keys": [
+          "OFFICE LIGHTS",
+          "EAST LIGHTS",
+          "ANNEX LIGHTS"
+        ],
+        "lighting_w_m2": 12,
+        "translation_warnings": [
+          "Both surfaces 'Surface 10', and 'Surface 14' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.",
+          "Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy."
+        ],
+        "calendar_year": 2025,
+        "design_day_count": 0,
+        "weather_sha256": "c7d4efcf93ba316a1d874352e743df5cf137ba5c0e3459eb2dc4b5442d5b7f5c"
+      },
+      "summary": {
+        "checks": {
+          "full_weather_calendar": true,
+          "complete_hourly_variable_coverage": true,
+          "lighting_analytic_energy": true,
+          "lighting_constant_power": true,
+          "monthly_annual_reconciliation": true,
+          "zone_unmet_time_target": true
+        },
+        "calculated_checks_pass": true,
+        "environments": [
+          [
+            1,
+            "ANNUAL EPW",
+            3
+          ]
+        ],
+        "annual": [
+          {
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "quantity": "ideal supplied cooling thermal",
+            "annual_kwh": 6112.524129483736,
+            "coincident_peak_kw": 3.447972784109247,
+            "hours": 8760
+          },
+          {
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "quantity": "ideal supplied heating thermal",
+            "annual_kwh": 2193.2121446393567,
+            "coincident_peak_kw": 2.8509098140697064,
+            "hours": 8760
+          },
+          {
+            "variable": "Lights Electricity Rate",
+            "quantity": "lighting electricity",
+            "annual_kwh": 10722.24,
+            "coincident_peak_kw": 1.224,
+            "hours": 8760
+          }
+        ],
+        "monthly": [
+          {
+            "month": 1,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 1.4068086798300623,
+            "coincident_peak_kw": 0.2551647297407585,
+            "hours": 744
+          },
+          {
+            "month": 2,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 10.405463750806444,
+            "coincident_peak_kw": 0.7972514647090813,
+            "hours": 672
+          },
+          {
+            "month": 3,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 91.70876597614615,
+            "coincident_peak_kw": 1.4012375037535612,
+            "hours": 744
+          },
+          {
+            "month": 4,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 393.2557054107254,
+            "coincident_peak_kw": 3.0360065524801128,
+            "hours": 720
+          },
+          {
+            "month": 5,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 782.7195765974376,
+            "coincident_peak_kw": 3.1750769943383217,
+            "hours": 744
+          },
+          {
+            "month": 6,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 1104.2179002153862,
+            "coincident_peak_kw": 3.24387187803878,
+            "hours": 720
+          },
+          {
+            "month": 7,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 1346.2650373073805,
+            "coincident_peak_kw": 3.447972784109247,
+            "hours": 744
+          },
+          {
+            "month": 8,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 1141.1248967303602,
+            "coincident_peak_kw": 3.281441511877335,
+            "hours": 744
+          },
+          {
+            "month": 9,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 813.5513486671313,
+            "coincident_peak_kw": 3.199852282380242,
+            "hours": 720
+          },
+          {
+            "month": 10,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 302.4934504453513,
+            "coincident_peak_kw": 2.123431413922443,
+            "hours": 744
+          },
+          {
+            "month": 11,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 124.88911878626124,
+            "coincident_peak_kw": 1.5300039997536596,
+            "hours": 720
+          },
+          {
+            "month": 12,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 0.48605691692036723,
+            "coincident_peak_kw": 0.13172222103561854,
+            "hours": 744
+          },
+          {
+            "month": 1,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 677.0234691881683,
+            "coincident_peak_kw": 2.8509098140697064,
+            "hours": 744
+          },
+          {
+            "month": 2,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 449.9370251218775,
+            "coincident_peak_kw": 2.7607821977194638,
+            "hours": 672
+          },
+          {
+            "month": 3,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 148.39728568091834,
+            "coincident_peak_kw": 1.488944821310019,
+            "hours": 744
+          },
+          {
+            "month": 4,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 45.20406191741118,
+            "coincident_peak_kw": 1.050326042140827,
+            "hours": 720
+          },
+          {
+            "month": 5,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 0.18066006634200585,
+            "coincident_peak_kw": 0.08979313800434646,
+            "hours": 744
+          },
+          {
+            "month": 6,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 720
+          },
+          {
+            "month": 7,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 744
+          },
+          {
+            "month": 8,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 744
+          },
+          {
+            "month": 9,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 720
+          },
+          {
+            "month": 10,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 14.075228383915391,
+            "coincident_peak_kw": 0.5231683818528993,
+            "hours": 744
+          },
+          {
+            "month": 11,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 242.0430838050162,
+            "coincident_peak_kw": 2.200113528535835,
+            "hours": 720
+          },
+          {
+            "month": 12,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 616.3513304757074,
+            "coincident_peak_kw": 2.486769000216502,
+            "hours": 744
+          },
+          {
+            "month": 1,
+            "variable": "Lights Electricity Rate",
+            "kwh": 910.656,
+            "coincident_peak_kw": 1.224,
+            "hours": 744
+          },
+          {
+            "month": 2,
+            "variable": "Lights Electricity Rate",
+            "kwh": 822.528,
+            "coincident_peak_kw": 1.224,
+            "hours": 672
+          },
+          {
+            "month": 3,
+            "variable": "Lights Electricity Rate",
+            "kwh": 910.656,
+            "coincident_peak_kw": 1.224,
+            "hours": 744
+          },
+          {
+            "month": 4,
+            "variable": "Lights Electricity Rate",
+            "kwh": 881.28,
+            "coincident_peak_kw": 1.224,
+            "hours": 720
+          },
+          {
+            "month": 5,
+            "variable": "Lights Electricity Rate",
+            "kwh": 910.656,
+            "coincident_peak_kw": 1.224,
+            "hours": 744
+          },
+          {
+            "month": 6,
+            "variable": "Lights Electricity Rate",
+            "kwh": 881.28,
+            "coincident_peak_kw": 1.224,
+            "hours": 720
+          },
+          {
+            "month": 7,
+            "variable": "Lights Electricity Rate",
+            "kwh": 910.656,
+            "coincident_peak_kw": 1.224,
+            "hours": 744
+          },
+          {
+            "month": 8,
+            "variable": "Lights Electricity Rate",
+            "kwh": 910.656,
+            "coincident_peak_kw": 1.224,
+            "hours": 744
+          },
+          {
+            "month": 9,
+            "variable": "Lights Electricity Rate",
+            "kwh": 881.28,
+            "coincident_peak_kw": 1.224,
+            "hours": 720
+          },
+          {
+            "month": 10,
+            "variable": "Lights Electricity Rate",
+            "kwh": 910.656,
+            "coincident_peak_kw": 1.224,
+            "hours": 744
+          },
+          {
+            "month": 11,
+            "variable": "Lights Electricity Rate",
+            "kwh": 881.28,
+            "coincident_peak_kw": 1.224,
+            "hours": 720
+          },
+          {
+            "month": 12,
+            "variable": "Lights Electricity Rate",
+            "kwh": 910.656,
+            "coincident_peak_kw": 1.224,
+            "hours": 744
+          }
+        ],
+        "zone_unmet": [
+          {
+            "variable": "Zone Cooling Setpoint Not Met Time",
+            "zone": "ANNEX",
+            "zone_hours": 0.0
+          },
+          {
+            "variable": "Zone Cooling Setpoint Not Met Time",
+            "zone": "EAST",
+            "zone_hours": 0.0
+          },
+          {
+            "variable": "Zone Cooling Setpoint Not Met Time",
+            "zone": "OFFICE",
+            "zone_hours": 0.0
+          },
+          {
+            "variable": "Zone Heating Setpoint Not Met Time",
+            "zone": "ANNEX",
+            "zone_hours": 0.0
+          },
+          {
+            "variable": "Zone Heating Setpoint Not Met Time",
+            "zone": "EAST",
+            "zone_hours": 0.0
+          },
+          {
+            "variable": "Zone Heating Setpoint Not Met Time",
+            "zone": "OFFICE",
+            "zone_hours": 0.0
+          }
+        ],
+        "analytic_lighting_kwh": 10722.24,
+        "sql_completion_flags": [
+          [
+            "FALSE",
+            "FALSE"
+          ]
+        ],
+        "sql_completion_flags_true": false
+      },
+      "diagnostics": "Program Version,EnergyPlus, Version 25.2.0-cf7368216c, YMD=2026.11.08 10:29,\n   ************* Testing Individual Branch Integrity\n   ************* All Branches passed integrity testing\n   ************* Testing Individual Supply Air Path Integrity\n   ************* All Supply Air Paths passed integrity testing\n   ************* Testing Individual Return Air Path Integrity\n   ************* All Return Air Paths passed integrity testing\n   ************* No node connection errors were found.\n   ************* Beginning Simulation\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-ELECTRICITY\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-DISTILLATE OIL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-RESIDUAL OIL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-NATURAL GAS\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-COAL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ************* Simulation Error Summary *************\n   ************* There are 3 unused schedules in input.\n   ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.\n   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.\n   ************* EnergyPlus Sizing Error Summary. During Sizing: 0 Warning; 0 Severe Errors.\n   ************* EnergyPlus Completed Successfully-- 5 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  0.64sec\n",
+      "completion": {
+        "status": "verified_with_known_unwritten_sql_flags",
+        "completion_verified": true,
+        "checks": {
+          "process_exit_zero": true,
+          "stdout_success": true,
+          "end_report_success": true,
+          "no_severe_fatal": true,
+          "sql_engine_version_match": true,
+          "sql_flags_compatible": true,
+          "native_files_complete": true,
+          "one_readable_sql_record": true
+        },
+        "process_returncode": 0,
+        "sql_flags_raw": [
+          "FALSE",
+          "FALSE"
+        ],
+        "sql_flags_decoded": [
+          false,
+          false
+        ],
+        "native_sql_success_flags_true": false,
+        "known_unwritten_initial_flags": true,
+        "engine_version": "EnergyPlus, Version 25.2.0-cf7368216c",
+        "engine_sha256": "51715987663666eaff1c8d3bd6ac2d7fe0486d8bc93673eea87c6912a79103f0",
+        "source_inference": {
+          "commit": "cf7368216c73c43181e057fa33b479c4e0c86df0",
+          "facts": {
+            "api/EnergyPlusPgm.cc": {
+              "sha256": "d230aa32b5acc6bdcb8c55d95022f1ecca351719b9b2d43f53a8270e7b1214d2",
+              "fact": "normal wrapUpEnergyPlus releases the SQLite object before calling EndEnergyPlus",
+              "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/api/EnergyPlusPgm.cc"
+            },
+            "UtilityRoutines.cc": {
+              "sha256": "bf0c2e9175b374ce100b0b262523d8d6c507baaf3922f5cc84fb6a3651152a3d",
+              "fact": "EndEnergyPlus updates success flags only when the SQLite object still exists",
+              "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/UtilityRoutines.cc"
+            },
+            "SQLiteProcedures.cc": {
+              "sha256": "b324324996a62c6fc5cf93a3039a2ea2d5788292faf77b07030b55debfa9c1a1",
+              "fact": "Simulations completion columns initially contain text FALSE/FALSE",
+              "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/SQLiteProcedures.cc"
+            }
+          },
+          "scope": "pinned source ordering plus observed official executable reproduction; not instruction tracing"
+        },
+        "scope": "Native process/log/end/error/SQL-version completion evidence only; period coverage, numerical/model validity and engineering acceptance remain separate",
+        "design_accepted": false,
+        "artifacts": {
+          "engine.log": "d4173a1cb28c2149429a7d2321da661c4ccf1e543d746801e03476acea742cc9",
+          "eplusout.end": "de244b83ad8f699b2a0682f73e5ddef4f45fc042d8c9bf2a33313930d433e118",
+          "eplusout.err": "5d107addbce925d5b9c9325871f589418eede32cf1730ccc52da81283495de28",
+          "eplusout.sql": "8cebe58a27b03e6c92f8788f4b7b7f06f48e6613d41c82c22c875641d9ce4f0a"
+        },
+        "missing_artifacts": [],
+        "sql_parse_error": null,
+        "source_files_unchanged": true
+      },
+      "sql_sha256": "8cebe58a27b03e6c92f8788f4b7b7f06f48e6613d41c82c22c875641d9ce4f0a",
+      "engine_success_evidence": {
+        "returncode": 0,
+        "end_report": "EnergyPlus Completed Successfully-- 5 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  0.64sec\n",
+        "end_report_sha256": "de244b83ad8f699b2a0682f73e5ddef4f45fc042d8c9bf2a33313930d433e118",
+        "stdout_success_marker": true
+      }
+    },
+    "variant": {
+      "metadata": {
+        "openstudio_version": "3.11.0",
+        "energyplus_version": "25.2.0",
+        "north_axis_deg": 30.0,
+        "floor_area_m2": 102.0,
+        "thermal_zones": 3,
+        "matched_surface_count": 4,
+        "spaces": [
+          {
+            "id": "Office",
+            "source": "Synthetic space identity mapping; saved IFC geometry is authoritative; saved IFC 05Q4lNZvfMjRB3$ExNimBH SHA256 a37eb7587aaa291853fe34a49d6cbcc055c4d5664ae026882b76b7e4904aa0a0",
+            "origin_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              8.0,
+              6.0,
+              3.0
+            ]
+          },
+          {
+            "id": "East",
+            "source": "Synthetic space identity mapping; saved IFC geometry is authoritative; saved IFC 2XcneOpvjTTuGBPHTpB5KV SHA256 a37eb7587aaa291853fe34a49d6cbcc055c4d5664ae026882b76b7e4904aa0a0",
+            "origin_m": [
+              8.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              5.0,
+              6.0,
+              3.0
+            ]
+          },
+          {
+            "id": "Annex",
+            "source": "Synthetic space identity mapping; saved IFC geometry is authoritative; saved IFC 0CWbJCzJzH9wlEfBdo1lqM SHA256 a37eb7587aaa291853fe34a49d6cbcc055c4d5664ae026882b76b7e4904aa0a0",
+            "origin_m": [
+              13.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              4.0,
+              6.0,
+              3.0
+            ]
+          }
+        ],
+        "adjacency": [
+          {
+            "spaces": [
+              "Office",
+              "East"
+            ],
+            "axis": 0,
+            "area_m2": 18.0
+          },
+          {
+            "spaces": [
+              "East",
+              "Annex"
+            ],
+            "axis": 0,
+            "area_m2": 18.0
+          }
+        ],
+        "zone_keys": [
+          "OFFICE",
+          "EAST",
+          "ANNEX"
+        ],
+        "lighting_keys": [
+          "OFFICE LIGHTS",
+          "EAST LIGHTS",
+          "ANNEX LIGHTS"
+        ],
+        "lighting_w_m2": 6,
+        "translation_warnings": [
+          "Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.",
+          "Both surfaces 'Surface 10', and 'Surface 14' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy."
+        ],
+        "calendar_year": 2025,
+        "design_day_count": 0,
+        "weather_sha256": "c7d4efcf93ba316a1d874352e743df5cf137ba5c0e3459eb2dc4b5442d5b7f5c"
+      },
+      "summary": {
+        "checks": {
+          "full_weather_calendar": true,
+          "complete_hourly_variable_coverage": true,
+          "lighting_analytic_energy": true,
+          "lighting_constant_power": true,
+          "monthly_annual_reconciliation": true,
+          "zone_unmet_time_target": true
+        },
+        "calculated_checks_pass": true,
+        "environments": [
+          [
+            1,
+            "ANNUAL EPW",
+            3
+          ]
+        ],
+        "annual": [
+          {
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "quantity": "ideal supplied cooling thermal",
+            "annual_kwh": 3383.7328600739875,
+            "coincident_peak_kw": 2.8359727767256917,
+            "hours": 8760
+          },
+          {
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "quantity": "ideal supplied heating thermal",
+            "annual_kwh": 4364.928264466598,
+            "coincident_peak_kw": 3.462909814069707,
+            "hours": 8760
+          },
+          {
+            "variable": "Lights Electricity Rate",
+            "quantity": "lighting electricity",
+            "annual_kwh": 5361.12,
+            "coincident_peak_kw": 0.612,
+            "hours": 8760
+          }
+        ],
+        "monthly": [
+          {
+            "month": 1,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 744
+          },
+          {
+            "month": 2,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 0.4387729241812572,
+            "coincident_peak_kw": 0.17686159494205822,
+            "hours": 672
+          },
+          {
+            "month": 3,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 15.316882104111857,
+            "coincident_peak_kw": 0.6917102831962714,
+            "hours": 744
+          },
+          {
+            "month": 4,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 194.13430593276476,
+            "coincident_peak_kw": 2.424006199400627,
+            "hours": 720
+          },
+          {
+            "month": 5,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 405.7345962657702,
+            "coincident_peak_kw": 2.5198272276607137,
+            "hours": 744
+          },
+          {
+            "month": 6,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 677.1318143062002,
+            "coincident_peak_kw": 2.631868640184499,
+            "hours": 720
+          },
+          {
+            "month": 7,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 892.5227329662387,
+            "coincident_peak_kw": 2.8359727767256917,
+            "hours": 744
+          },
+          {
+            "month": 8,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 692.8383381837696,
+            "coincident_peak_kw": 2.6693715744462825,
+            "hours": 744
+          },
+          {
+            "month": 9,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 417.50184423118304,
+            "coincident_peak_kw": 2.5851611623829447,
+            "hours": 720
+          },
+          {
+            "month": 10,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 69.24060335752571,
+            "coincident_peak_kw": 1.3693315355001232,
+            "hours": 744
+          },
+          {
+            "month": 11,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 18.87296980224208,
+            "coincident_peak_kw": 0.7451891480859308,
+            "hours": 720
+          },
+          {
+            "month": 12,
+            "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 744
+          },
+          {
+            "month": 1,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 1115.6463192961967,
+            "coincident_peak_kw": 3.462909814069707,
+            "hours": 744
+          },
+          {
+            "month": 2,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 824.6100722084742,
+            "coincident_peak_kw": 3.372782203846881,
+            "hours": 672
+          },
+          {
+            "month": 3,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 459.3626378894554,
+            "coincident_peak_kw": 2.1320452970076276,
+            "hours": 744
+          },
+          {
+            "month": 4,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 218.84326897547365,
+            "coincident_peak_kw": 1.6880418782267257,
+            "hours": 720
+          },
+          {
+            "month": 5,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 21.50848691811469,
+            "coincident_peak_kw": 0.731311036301604,
+            "hours": 744
+          },
+          {
+            "month": 6,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 0.8817982921208922,
+            "coincident_peak_kw": 0.21691178200750028,
+            "hours": 720
+          },
+          {
+            "month": 7,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 0.0,
+            "coincident_peak_kw": 0.0,
+            "hours": 744
+          },
+          {
+            "month": 8,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 0.07230983378265955,
+            "coincident_peak_kw": 0.05263960227930147,
+            "hours": 744
+          },
+          {
+            "month": 9,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 7.565477538381759,
+            "coincident_peak_kw": 0.36237766094187757,
+            "hours": 720
+          },
+          {
+            "month": 10,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 134.69561729711862,
+            "coincident_peak_kw": 1.3069853919757968,
+            "hours": 744
+          },
+          {
+            "month": 11,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 517.2082465062581,
+            "coincident_peak_kw": 2.81225290004548,
+            "hours": 720
+          },
+          {
+            "month": 12,
+            "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+            "kwh": 1064.534029711222,
+            "coincident_peak_kw": 3.0987690002165107,
+            "hours": 744
+          },
+          {
+            "month": 1,
+            "variable": "Lights Electricity Rate",
+            "kwh": 455.328,
+            "coincident_peak_kw": 0.612,
+            "hours": 744
+          },
+          {
+            "month": 2,
+            "variable": "Lights Electricity Rate",
+            "kwh": 411.264,
+            "coincident_peak_kw": 0.612,
+            "hours": 672
+          },
+          {
+            "month": 3,
+            "variable": "Lights Electricity Rate",
+            "kwh": 455.328,
+            "coincident_peak_kw": 0.612,
+            "hours": 744
+          },
+          {
+            "month": 4,
+            "variable": "Lights Electricity Rate",
+            "kwh": 440.64,
+            "coincident_peak_kw": 0.612,
+            "hours": 720
+          },
+          {
+            "month": 5,
+            "variable": "Lights Electricity Rate",
+            "kwh": 455.328,
+            "coincident_peak_kw": 0.612,
+            "hours": 744
+          },
+          {
+            "month": 6,
+            "variable": "Lights Electricity Rate",
+            "kwh": 440.64,
+            "coincident_peak_kw": 0.612,
+            "hours": 720
+          },
+          {
+            "month": 7,
+            "variable": "Lights Electricity Rate",
+            "kwh": 455.328,
+            "coincident_peak_kw": 0.612,
+            "hours": 744
+          },
+          {
+            "month": 8,
+            "variable": "Lights Electricity Rate",
+            "kwh": 455.328,
+            "coincident_peak_kw": 0.612,
+            "hours": 744
+          },
+          {
+            "month": 9,
+            "variable": "Lights Electricity Rate",
+            "kwh": 440.64,
+            "coincident_peak_kw": 0.612,
+            "hours": 720
+          },
+          {
+            "month": 10,
+            "variable": "Lights Electricity Rate",
+            "kwh": 455.328,
+            "coincident_peak_kw": 0.612,
+            "hours": 744
+          },
+          {
+            "month": 11,
+            "variable": "Lights Electricity Rate",
+            "kwh": 440.64,
+            "coincident_peak_kw": 0.612,
+            "hours": 720
+          },
+          {
+            "month": 12,
+            "variable": "Lights Electricity Rate",
+            "kwh": 455.328,
+            "coincident_peak_kw": 0.612,
+            "hours": 744
+          }
+        ],
+        "zone_unmet": [
+          {
+            "variable": "Zone Cooling Setpoint Not Met Time",
+            "zone": "ANNEX",
+            "zone_hours": 0.0
+          },
+          {
+            "variable": "Zone Cooling Setpoint Not Met Time",
+            "zone": "EAST",
+            "zone_hours": 0.0
+          },
+          {
+            "variable": "Zone Cooling Setpoint Not Met Time",
+            "zone": "OFFICE",
+            "zone_hours": 0.0
+          },
+          {
+            "variable": "Zone Heating Setpoint Not Met Time",
+            "zone": "ANNEX",
+            "zone_hours": 0.0
+          },
+          {
+            "variable": "Zone Heating Setpoint Not Met Time",
+            "zone": "EAST",
+            "zone_hours": 0.0
+          },
+          {
+            "variable": "Zone Heating Setpoint Not Met Time",
+            "zone": "OFFICE",
+            "zone_hours": 0.0
+          }
+        ],
+        "analytic_lighting_kwh": 5361.12,
+        "sql_completion_flags": [
+          [
+            "FALSE",
+            "FALSE"
+          ]
+        ],
+        "sql_completion_flags_true": false
+      },
+      "diagnostics": "Program Version,EnergyPlus, Version 25.2.0-cf7368216c, YMD=2026.11.08 10:29,\n   ************* Testing Individual Branch Integrity\n   ************* All Branches passed integrity testing\n   ************* Testing Individual Supply Air Path Integrity\n   ************* All Supply Air Paths passed integrity testing\n   ************* Testing Individual Return Air Path Integrity\n   ************* All Return Air Paths passed integrity testing\n   ************* No node connection errors were found.\n   ************* Beginning Simulation\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-ELECTRICITY\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-DISTILLATE OIL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-RESIDUAL OIL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-NATURAL GAS\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ** Warning ** The resource referenced by LifeCycleCost:UsePriceEscalation= \"U.S. AVG  COMMERCIAL-COAL\" has no energy cost. \n   **   ~~~   ** ... It is likely that the wrong resource is used. The resource should match the meter used in Utility:Tariff.\n   ************* Simulation Error Summary *************\n   ************* There are 3 unused schedules in input.\n   ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.\n   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.\n   ************* EnergyPlus Sizing Error Summary. During Sizing: 0 Warning; 0 Severe Errors.\n   ************* EnergyPlus Completed Successfully-- 5 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  0.63sec\n",
+      "completion": {
+        "status": "verified_with_known_unwritten_sql_flags",
+        "completion_verified": true,
+        "checks": {
+          "process_exit_zero": true,
+          "stdout_success": true,
+          "end_report_success": true,
+          "no_severe_fatal": true,
+          "sql_engine_version_match": true,
+          "sql_flags_compatible": true,
+          "native_files_complete": true,
+          "one_readable_sql_record": true
+        },
+        "process_returncode": 0,
+        "sql_flags_raw": [
+          "FALSE",
+          "FALSE"
+        ],
+        "sql_flags_decoded": [
+          false,
+          false
+        ],
+        "native_sql_success_flags_true": false,
+        "known_unwritten_initial_flags": true,
+        "engine_version": "EnergyPlus, Version 25.2.0-cf7368216c",
+        "engine_sha256": "51715987663666eaff1c8d3bd6ac2d7fe0486d8bc93673eea87c6912a79103f0",
+        "source_inference": {
+          "commit": "cf7368216c73c43181e057fa33b479c4e0c86df0",
+          "facts": {
+            "api/EnergyPlusPgm.cc": {
+              "sha256": "d230aa32b5acc6bdcb8c55d95022f1ecca351719b9b2d43f53a8270e7b1214d2",
+              "fact": "normal wrapUpEnergyPlus releases the SQLite object before calling EndEnergyPlus",
+              "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/api/EnergyPlusPgm.cc"
+            },
+            "UtilityRoutines.cc": {
+              "sha256": "bf0c2e9175b374ce100b0b262523d8d6c507baaf3922f5cc84fb6a3651152a3d",
+              "fact": "EndEnergyPlus updates success flags only when the SQLite object still exists",
+              "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/UtilityRoutines.cc"
+            },
+            "SQLiteProcedures.cc": {
+              "sha256": "b324324996a62c6fc5cf93a3039a2ea2d5788292faf77b07030b55debfa9c1a1",
+              "fact": "Simulations completion columns initially contain text FALSE/FALSE",
+              "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/SQLiteProcedures.cc"
+            }
+          },
+          "scope": "pinned source ordering plus observed official executable reproduction; not instruction tracing"
+        },
+        "scope": "Native process/log/end/error/SQL-version completion evidence only; period coverage, numerical/model validity and engineering acceptance remain separate",
+        "design_accepted": false,
+        "artifacts": {
+          "engine.log": "379db1e6ebd6e43916fe33a8193dd9924dca25bbc5a792770772975be157120d",
+          "eplusout.end": "68ea3a2991c5c0540a557c8913b74453148e0fc1a8230a1a40e0272e6203b040",
+          "eplusout.err": "127d1848c60d0ae16c2690973c5f0b8d30bc976a73ea8f54cef76c2f097bf2d5",
+          "eplusout.sql": "142493ac725358ea10a52d1e5bc5571de16170c25fc8d0a05c3bc24fc2f7efaf"
+        },
+        "missing_artifacts": [],
+        "sql_parse_error": null,
+        "source_files_unchanged": true
+      },
+      "sql_sha256": "142493ac725358ea10a52d1e5bc5571de16170c25fc8d0a05c3bc24fc2f7efaf",
+      "engine_success_evidence": {
+        "returncode": 0,
+        "end_report": "EnergyPlus Completed Successfully-- 5 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  0.63sec\n",
+        "end_report_sha256": "68ea3a2991c5c0540a557c8913b74453148e0fc1a8230a1a40e0272e6203b040",
+        "stdout_success_marker": true
+      }
+    }
+  },
+  "comparison": [
+    {
+      "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+      "quantity": "ideal supplied cooling thermal",
+      "change_kwh": -2728.7912694097486,
+      "change_coincident_peak_kw": -0.6120000073835552
+    },
+    {
+      "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+      "quantity": "ideal supplied heating thermal",
+      "change_kwh": 2171.7161198272415,
+      "change_coincident_peak_kw": 0.6120000000000005
+    },
+    {
+      "variable": "Lights Electricity Rate",
+      "quantity": "lighting electricity",
+      "change_kwh": -5361.12,
+      "change_coincident_peak_kw": -0.612
+    }
+  ],
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "scope": "Full-calendar hourly EPW simulation of source-declared ideal-load spaces; heating/cooling thermal demand and lighting electricity reported separately",
+  "assumptions": [
+    "No windows, people, equipment, ventilation/infiltration; adiabatic floors; always-on lights and constant setpoints",
+    "Ideal air loads are supplied thermal demand, not HVAC electricity; no plant/COP or whole-building EUI inferred",
+    "Uniform R layer plus source-declared fixed 0.1 m mass layer: conductivity 0.5 W/mK, density 800 kg/m3, specific heat 1000 J/kgK",
+    "Weather calendar remapped to declared simulation year; DST/holidays/rain/snow indicators disabled; no design-day/sizing runs"
+  ],
+  "pending": [
+    "actual building geometry/construction/gain/schedule and meteorological applicability",
+    "detailed HVAC, ventilation/moisture, plant electricity and code acceptance",
+    "real-project calibration and full engineering acceptance"
+  ],
+  "completion_limitations": [
+    {
+      "case": "baseline",
+      "status": "verified_with_known_unwritten_sql_flags",
+      "native_sql_flags_preserved": true,
+      "source_commit": "cf7368216c73c43181e057fa33b479c4e0c86df0"
+    },
+    {
+      "case": "variant",
+      "status": "verified_with_known_unwritten_sql_flags",
+      "native_sql_flags_preserved": true,
+      "source_commit": "cf7368216c73c43181e057fa33b479c4e0c86df0"
+    }
+  ],
+  "artifacts": {
+    "report.html": "d294ac4876812e0f5e1f58f089b9b4aa0e38a0ad2434b80f561436ff7feae82d",
+    "weather-input.json": "0a8f9780965459067b7d894201c622b70d66e83a5ce3ff13189ae6729f338cb6",
+    "weather.epw": "c7d4efcf93ba316a1d874352e743df5cf137ba5c0e3459eb2dc4b5442d5b7f5c",
+    "baseline/completion.json": "5ebcd821cd269928517d939eaf174853aa2e4d430807e0426c29b3f63c3111f9",
+    "baseline/engine.log": "d4173a1cb28c2149429a7d2321da661c4ccf1e543d746801e03476acea742cc9",
+    "baseline/eplusout.audit": "8e59566cceb1ef83e75ed162c7b8f62e174987732493b8e555644b385659097c",
+    "baseline/eplusout.bnd": "b35f51c4cab8132df9505ec650fa547b1e4a64b099fed2dbcfc6bf3966d23d3e",
+    "baseline/eplusout.eio": "e2fd12f4b256dace1fff78dee7940d598c13bd44d56b93c2f3bb78a50cbac4a9",
+    "baseline/eplusout.end": "de244b83ad8f699b2a0682f73e5ddef4f45fc042d8c9bf2a33313930d433e118",
+    "baseline/eplusout.err": "5d107addbce925d5b9c9325871f589418eede32cf1730ccc52da81283495de28",
+    "baseline/eplusout.eso": "869fc19d068ca19e6fb52bf5cf608a88192a0c4c7f9a85b2cacd1d45850f1099",
+    "baseline/eplusout.expidf": "aa3583c663ffcd4af47fcb2277584ec7858c10d73c652c93918e2147b4ab51a2",
+    "baseline/eplusout.mdd": "534411c6f01b82938b8491d496ed90dce4f18746195cc1bb399e1d134721a263",
+    "baseline/eplusout.mtd": "d5e3b229e03e71cd9f7932e711d6b079db1454af138bab76b927af3f55c80fd5",
+    "baseline/eplusout.rdd": "57f84e258b448f337a6e791302d3f87bd399e5757be6de34aa39a88b34e58528",
+    "baseline/eplusout.shd": "0228ed7f15a1f582394b09e49ec8967b8c46693a4a14d667a226fae99b8d9352",
+    "baseline/eplusout.sql": "8cebe58a27b03e6c92f8788f4b7b7f06f48e6613d41c82c22c875641d9ce4f0a",
+    "baseline/eplustbl.htm": "873ce1a34c13fb54619a60432978ac987ee987a6f568a3d2f019318dce3464fd",
+    "baseline/hourly-building-rates.csv": "7f29ec2622d3fd3cb14dcea87ab649eb5ae76a57c3f17aa20ea7891c9c0de053",
+    "baseline/model.idf": "c0b244de52789e8c967344762183a860185ea5815cb5225dcf7c18ae4a02a9d0",
+    "baseline/model.osm": "035bc97e2fce5747511c26f3d90e4b43d644486299d9fee11a2aca45548efe99",
+    "baseline/sqlite.err": "de1f01bd6f715ddbd386d5c937a7ccb001da6e1d5eae44149f594fc4ca3fc77d",
+    "baseline/summary.json": "be0f4b24fd83509ec45258eb86afb8f86dc52f9c82694caa4e0f98129b2e58b0",
+    "variant/completion.json": "1d0ab1fd57a488039d408c4005e81f0fa851303b6b1c687034b4d69a67f771d5",
+    "variant/engine.log": "379db1e6ebd6e43916fe33a8193dd9924dca25bbc5a792770772975be157120d",
+    "variant/eplusout.audit": "8e59566cceb1ef83e75ed162c7b8f62e174987732493b8e555644b385659097c",
+    "variant/eplusout.bnd": "b35f51c4cab8132df9505ec650fa547b1e4a64b099fed2dbcfc6bf3966d23d3e",
+    "variant/eplusout.eio": "cfb821bc48545a75aa4be9696400b658afacd5506cfd778d00195db22ab7941c",
+    "variant/eplusout.end": "68ea3a2991c5c0540a557c8913b74453148e0fc1a8230a1a40e0272e6203b040",
+    "variant/eplusout.err": "127d1848c60d0ae16c2690973c5f0b8d30bc976a73ea8f54cef76c2f097bf2d5",
+    "variant/eplusout.eso": "e2f24c0b75b41a469eed05215f834630b7df091edb5649471eb37b2d1945386f",
+    "variant/eplusout.expidf": "20c3f0bcf3ac7ee6352531100e1c81f91e818ce876ada562bb7e7adc0484adcc",
+    "variant/eplusout.mdd": "534411c6f01b82938b8491d496ed90dce4f18746195cc1bb399e1d134721a263",
+    "variant/eplusout.mtd": "d5e3b229e03e71cd9f7932e711d6b079db1454af138bab76b927af3f55c80fd5",
+    "variant/eplusout.rdd": "57f84e258b448f337a6e791302d3f87bd399e5757be6de34aa39a88b34e58528",
+    "variant/eplusout.shd": "0228ed7f15a1f582394b09e49ec8967b8c46693a4a14d667a226fae99b8d9352",
+    "variant/eplusout.sql": "142493ac725358ea10a52d1e5bc5571de16170c25fc8d0a05c3bc24fc2f7efaf",
+    "variant/eplustbl.htm": "21623861122d945be0df107a55e7b70cc741c9954c107b36bd07446880f82b40",
+    "variant/hourly-building-rates.csv": "9f8b97dbf14b8dc849b1c96df66404b52663969415171630b38aefc5abbd2a74",
+    "variant/model.idf": "e0968beea76bfd8e60fa31e9599ff27df055854bc974c4095c2e3afe8d479121",
+    "variant/model.osm": "d475445f4f579011e168f047893e8738f4888bf71f576e159f46d2c440ff2767",
+    "variant/sqlite.err": "7ad3440998682dfebadf7f5e636a894a19863349d0abf149312a4c2d756d9b11",
+    "variant/summary.json": "432e325c091f1591369ae7e5336f04ff50e7a91b526ded6a9c72e030539ab3f0"
+  }
+}

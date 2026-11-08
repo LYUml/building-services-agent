@@ -1,0 +1,21 @@
+{
+  "source": "Explicit synthetic IFC-space to thermal-zone mapping; synthetic EnergyPlus Building North Axis 30 degrees, not inferred from georeferencing",
+  "spaces": [
+    {
+      "id": "Office",
+      "guid": "05Q4lNZvfMjRB3$ExNimBH",
+      "source": "Synthetic space identity mapping; saved IFC geometry is authoritative"
+    },
+    {
+      "id": "East",
+      "guid": "2XcneOpvjTTuGBPHTpB5KV",
+      "source": "Synthetic space identity mapping; saved IFC geometry is authoritative"
+    },
+    {
+      "id": "Annex",
+      "guid": "0CWbJCzJzH9wlEfBdo1lqM",
+      "source": "Synthetic space identity mapping; saved IFC geometry is authoritative"
+    }
+  ],
+  "north_axis_deg": 30
+}

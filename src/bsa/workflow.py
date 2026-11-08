@@ -11,7 +11,7 @@ from pathlib import Path
 from .cli import digest
 from .engine import ProjectError
 
-IFC_ARTIFACTS={'bim':'model.ifc','network_coordination':'bim/model.ifc',
+IFC_ARTIFACTS={'annual_energy_ifc':'model.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
                'network_model_design':'selected-coordination/bim/model.ifc',
                'electrical_coordination':'bim/model.ifc','electrical_lighting':'shared/bim/model.ifc','pump_electrical':'model.ifc','water_coordination':'model.ifc'}
 NETWORK_ARTIFACTS={'network_coordination':'network-input.json','network_design':'selected-network.json',
@@ -70,9 +70,9 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
-        if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
+        if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             inputs.add(local_path(root,t.get("project")))
         if kind=='water_network':
             from .epanet import validate
@@ -90,7 +90,7 @@ def validate_plan(path):
             from .electrical_fault import prepare
             faults=local_path(root,t.get('faults'));inputs.add(faults)
             prepare(read_json(local_path(root,t['project'])),read_json(faults))
-        if kind in ('ifc_clash','ifc_drawing','ifc_views','water_coordination'):
+        if kind in ('ifc_clash','ifc_drawing','ifc_views','water_coordination','annual_energy_ifc'):
             if kind=='ifc_clash':
                 from .clash import validate_policy
                 policy=local_path(root,t.get('policy'));inputs.add(policy);validate_policy(read_json(policy))
@@ -100,6 +100,13 @@ def validate_plan(path):
             elif kind=='ifc_views':
                 from .ifc_views import validate_settings
                 settings=local_path(root,t.get('settings'));inputs.add(settings);validate_settings(read_json(settings))
+            elif kind=='annual_energy_ifc':
+                from .thermal_binding import validate_contract
+                from .annual_energy import read_weather
+                binding=local_path(root,t.get('binding'));inputs.add(binding)
+                data=read_json(local_path(root,t['project']));validate_contract(data,read_json(binding))
+                weather=local_path(root,t.get('weather'));inputs.add(weather)
+                read_weather(weather,data['weather'],data['calendar_year'])
             else:
                 from .water_binding import validate_contract
                 binding=local_path(root,t.get('binding'));inputs.add(binding)
@@ -319,6 +326,16 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                     status='pass' if payload['calculated_checks_pass'] else 'fail'
                     reason='shared electrical/CAD/IFC light positions bound to explicit IES origins and Radiance calculation; complete physical/domain acceptance pending'
                 else:reason='Radiance binary directory not supplied for bound lighting'
+            elif t['kind']=='annual_energy_ifc':
+                dependency=t.get('depends_on')
+                if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC producer did not pass'
+                elif not energyplus:reason='EnergyPlus executable not supplied for IFC-bound annual analysis'
+                else:
+                    from .thermal_binding import run
+                    source=out/dependency/IFC_ARTIFACTS[tasks[dependency]['kind']] if dependency else local_path(root,t['ifc'])
+                    payload=run(local_path(root,t['project']),local_path(root,t['binding']),source,local_path(root,t['weather']),folder,energyplus)
+                    status='pass' if payload['calculated_checks_pass'] else 'fail'
+                    reason='saved IFC space geometry/GUID coverage bound to actual annual simulation; boundary/material/HVAC/domain acceptance pending'
             elif t['kind']=='annual_energy':
                 if energyplus:
                     from .annual_energy import run

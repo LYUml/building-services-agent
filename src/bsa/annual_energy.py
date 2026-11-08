@@ -38,6 +38,7 @@ def validate(p):
     building=p['building']
     building_fields={'name','source','zone_width_m','zone_depth_m','height_m','envelope_r_m2k_w','heating_setpoint_c','cooling_setpoint_c','baseline_lighting_w_m2','variant_lighting_w_m2'}
     if p['model']==MULTIZONE_MODEL:building_fields=(building_fields-{'zone_width_m','zone_depth_m','height_m'})|{'spaces'}
+    if isinstance(building,dict) and 'north_axis_deg' in building:building_fields.add('north_axis_deg')
     if not isinstance(building,dict) or set(building)!=building_fields:raise ProjectError('exact building fields required; site comes from EPW and design days are omitted')
     from .energy import validate as validate_building
     validate_building(dict(building,site=dict(latitude_deg=0,longitude_deg=0,timezone_h=0,elevation_m=0),design_days=[]),require_design_days=False)

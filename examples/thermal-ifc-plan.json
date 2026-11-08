@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "brief": "thermal-ifc/brief.md",
+  "brief_sha256": "c09fdba66eeaaab25cf369591035b67f66dc9d5685d007d2493e35012ba1ebd3",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "model",
+      "kind": "bim",
+      "project": "thermal-ifc/bim.json"
+    },
+    {
+      "id": "thermal",
+      "kind": "annual_energy_ifc",
+      "project": "thermal-ifc/project.json",
+      "binding": "thermal-ifc/binding.json",
+      "depends_on": "model",
+      "weather": "annual-energy/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw.gz"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Author the supplied bim.json as editable IFC with stable identities. This is synthetic geometry and equipment, not a measured building.",
+      "task": "model",
+      "acceptance": "Source-linked synthetic execution; real engineering acceptance pending"
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Bind every saved IFC space using binding.json, deriving metre-valued box geometry from actual saved solids and placements without copying dimensions into project.json. Run both lighting cases with project.json and the attributed Chicago EPW through a complete 2025 calendar. Reconcile lighting energy, hourly zone identities and shared faces; preserve source bytes and native evidence. Actual boundary/material/gain/weather applicability, detailed HVAC/plant electricity and engineering acceptance remain pending.",
+      "task": "thermal",
+      "acceptance": "Source-linked synthetic execution; real engineering acceptance pending"
+    }
+  ]
+}
