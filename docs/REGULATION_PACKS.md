@@ -19,6 +19,8 @@ The first executable rule is EMSD Wiring CoP 2025, **13A(3)(v), printed page 115
 
 Results separate `supported_checks_pass`, `regulatory_compliance: not_established` and `design_accepted: false`. A successful command only means this supported check passed. It never establishes all electrical checks or whole-building compliance. Existing electrical/network/thermal examples remain synthetic and are not retroactively certified by installing this pack.
 
+A separate [office lighting pack](HK_LIGHTING_RULES.md) now implements sourced BEC 2024 office LPD. It preserves the original electrical pack unchanged and uses the same workflow adapter; select the appropriate pack per task. Broader lighting and Hong Kong conformity remain incomplete.
+
 ## Workflow adapter
 
 For computed full-path electrical metrics, see [electrical path binding](ELECTRICAL_PATHS.md). It supplies per-circuit total feeder/branch drops and report hashes while retaining explicit applicability assertions. Generated numeric inputs do not establish full building topology or complete regulatory conformity.

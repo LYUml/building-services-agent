@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "id": "hk-lighting-2026.11.08",
+  "jurisdiction": "HK",
+  "version": "lighting-2026.11.08",
+  "sources": {
+    "emsd_bec_2024": {
+      "authority": "EMSD",
+      "title": "Code of Practice for Energy Efficiency of Building Services Installation",
+      "edition": "2024",
+      "kind": "code_of_practice",
+      "url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+      "index_url": "https://www.emsd.gov.hk/beeo/en/mibec_beeo_codtechguidelines.html",
+      "cache_filename": "emsd-bec-2024.pdf",
+      "sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+      "reviewed_on": "2026-11-08",
+      "review_scope": "Section 2 circuit wattage and LPD definitions; 5.1, 5.4.1-5.4.3 and Table 5.4 office rows; table PDF page 22 visually inspected",
+      "applicability_note": "Project statutory scope, edition dates under Technical Circular 1/2024 and selected prescriptive route require explicit decisions; lighting controls remain separate"
+    }
+  },
+  "rules": [
+    {
+      "id": "HK.EMSD.BEC2024.office_lpd",
+      "source_id": "emsd_bec_2024",
+      "method": "office_lighting_power_density",
+      "clause": "5.4.1 and Table 5.4; definitions Section 2; 5.4.2-5.4.3",
+      "pdf_page_1_based": 22,
+      "printed_page": "16",
+      "related_pdf_pages": [
+        9,
+        12,
+        20,
+        21,
+        23
+      ],
+      "scope": "Single-function office LPD prescriptive check only; all listed lighting in scope, no exclusions or trade-offs",
+      "metric": "office_full_output_lpd",
+      "unit": "W/m2",
+      "low_power_exception_w": 70,
+      "area_bands": [
+        {
+          "lower_exclusive_m2": 0,
+          "upper_inclusive_m2": 15,
+          "maximum_w_m2": 9,
+          "requires_enclosed": true
+        },
+        {
+          "lower_exclusive_m2": 15,
+          "upper_inclusive_m2": 200,
+          "maximum_w_m2": 8.5
+        },
+        {
+          "lower_exclusive_m2": 200,
+          "upper_inclusive_m2": null,
+          "maximum_w_m2": 7.2
+        }
+      ],
+      "applicability": [
+        {
+          "fact": "bec_lighting_scope_confirmed",
+          "equals": true
+        },
+        {
+          "fact": "prescriptive_lpd_route_selected",
+          "equals": true
+        },
+        {
+          "fact": "single_function_office",
+          "equals": true
+        },
+        {
+          "fact": "complete_fixed_lighting_inventory",
+          "equals": true
+        },
+        {
+          "fact": "all_listed_lighting_in_scope",
+          "equals": true
+        },
+        {
+          "fact": "circuit_watts_include_controlgear_and_drivers",
+          "equals": true
+        },
+        {
+          "fact": "internal_floor_area_and_space_boundaries_confirmed",
+          "equals": true
+        },
+        {
+          "fact": "above_lpd_low_power_exception",
+          "equals": true
+        }
+      ],
+      "alternative_path_note": "Selected prescriptive office LPD limit exceeded; revise design or review applicable alternative compliance route. Whole-project statutory compliance is not determined."
+    }
+  ],
+  "coverage": {
+    "complete": false,
+    "implemented": [
+      "Office full-output LPD with sourced area bands and 70 W exception"
+    ],
+    "pending": [
+      "statutory applicability and edition decision verification",
+      "other space categories and exclusions",
+      "lighting control points and automatic/daylight controls",
+      "illuminance/glare and complete lighting design",
+      "other Hong Kong requirements"
+    ]
+  }
+}

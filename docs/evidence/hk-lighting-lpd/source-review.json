@@ -1,0 +1,17 @@
+{
+  "official_url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+  "sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+  "table_pdf_page": 22,
+  "table_visually_inspected": true,
+  "table_render_sha256": "c760f1020122c2b8ed31f6142e808138a52ed7e14050c65ea6d2ef6bc948be3b",
+  "definitions_text_checked_pdf_pages": [
+    9,
+    12
+  ],
+  "scope_text_checked_pdf_pages": [
+    20,
+    21,
+    23
+  ],
+  "note": "Renderer warned about Symbol font; office numeric values and boundaries were readable. Original PDF and table render retained locally, not redistributed."
+}

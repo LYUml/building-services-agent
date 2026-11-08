@@ -1,0 +1,55 @@
+{
+  "rule_pack": "hk-lighting-2026.11.08",
+  "jurisdiction": "HK",
+  "checks": [
+    {
+      "id": "HK.EMSD.BEC2024.office_lpd",
+      "status": "pass",
+      "scope": "Single-function office LPD prescriptive check only; all listed lighting in scope, no exclusions or trade-offs",
+      "source_url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+      "source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+      "edition": "2024",
+      "clause": "5.4.1 and Table 5.4; definitions Section 2; 5.4.2-5.4.3",
+      "pdf_page_1_based": 22,
+      "value": 6.0,
+      "unit": "W/m2",
+      "maximum": 8.5,
+      "evidence": "Computed from lighting_space full-output luminaire inventory and internal floor area; no demand/dimming factor",
+      "reasons": [
+        "selected prescriptive limit met"
+      ],
+      "total_full_output_circuit_w": 120.0,
+      "computed_lpd_w_m2": 6.0,
+      "selected_area_band": {
+        "lower_exclusive_m2": 15,
+        "upper_inclusive_m2": 200,
+        "maximum_w_m2": 8.5
+      },
+      "calculation_scope": "All listed luminaires counted at full circuit watts; exclusions/multifunction spaces unsupported"
+    }
+  ],
+  "supported_checks_pass": true,
+  "coverage": {
+    "complete": false,
+    "implemented": [
+      "Office full-output LPD with sourced area bands and 70 W exception"
+    ],
+    "pending": [
+      "statutory applicability and edition decision verification",
+      "other space categories and exclusions",
+      "lighting control points and automatic/daylight controls",
+      "illuminance/glare and complete lighting design",
+      "other Hong Kong requirements"
+    ]
+  },
+  "regulatory_compliance": "not_established",
+  "design_accepted": false,
+  "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination",
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\regulations\\hk\\lighting-2026.11.08\\pack.json": "97b7be1ea891b575bdd239e200ce41120ed09a509914ebd74394135decc9997c",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\regulations-hk-lighting\\project.json": "40af39ac6e0612e97f6c27bcf8bc70bbc25db6d0e5f913b72435caedcae49218",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-regulation-sources\\emsd-bec-2024.pdf": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7"
+  },
+  "inputs_unchanged": true,
+  "missing_sources": []
+}

@@ -1,0 +1,3 @@
+# Hong Kong office LPD evidence
+
+The actual hash-pinned EMSD BEC 2024 PDF supplied the office area bands in Table 5.4, Section 2 wattage/LPD definitions and clause 5.4.1 low-power exception. Office table page 22 was rendered and inspected; related scope/definition text was checked. The synthetic 20 m2 / 120 W scenario computes 6 W/m2 and passes only the selected 8.5 W/m2 office limit. Six tests cover boundaries, the 70 W exception, full-output inventory arithmetic, missing/duplicate source data, unsupported small non-enclosed offices and source mutation. Eight existing regulation tests pass. Full lighting control, photometric, source applicability and building compliance remain unresolved.

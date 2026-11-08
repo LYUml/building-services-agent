@@ -1,0 +1,11 @@
+test_changed_official_source_pending (test_lighting_rules.LightingRuleTests.test_changed_official_source_pending) ... ok
+test_exact_area_bands_and_limit_boundaries (test_lighting_rules.LightingRuleTests.test_exact_area_bands_and_limit_boundaries) ... ok
+test_inventory_full_watts_not_claimed_metric_or_dimming (test_lighting_rules.LightingRuleTests.test_inventory_full_watts_not_claimed_metric_or_dimming) ... ok
+test_low_power_exception_is_not_whole_compliance (test_lighting_rules.LightingRuleTests.test_low_power_exception_is_not_whole_compliance) ... ok
+test_missing_inventory_source_and_duplicate_ids_pending (test_lighting_rules.LightingRuleTests.test_missing_inventory_source_and_duplicate_ids_pending) ... ok
+test_scope_and_enclosed_classification_not_invented (test_lighting_rules.LightingRuleTests.test_scope_and_enclosed_classification_not_invented) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.016s
+
+OK

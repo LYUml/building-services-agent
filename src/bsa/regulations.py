@@ -21,7 +21,10 @@ def evaluate(pack,project,source_directory):
     for rule in pack['rules']:
         if rule['id'] in seen:raise ProjectError('unique rule ids required')
         seen.add(rule['id'])
-        if rule['method']!='deemed_to_satisfy_maximum':raise ProjectError('unsupported rule method')
+        if rule['method']=='office_lighting_power_density':
+            from .lighting_rules import office_check
+            checks.append(office_check(pack,rule,project,root));continue
+        if rule['method'] not in ('deemed_to_satisfy_maximum','prescriptive_maximum'):raise ProjectError('unsupported rule method')
         if type(rule.get('maximum')) not in (int,float) or not math.isfinite(rule['maximum']) or rule['maximum']<0:raise ProjectError('finite nonnegative rule maximum required')
         if not isinstance(rule.get('applicability'),list) or not rule['applicability'] or any(type(c.get('equals')) is not bool for c in rule['applicability']):raise ProjectError('explicit Boolean applicability conditions required')
         source=sources[rule['source_id']]
@@ -48,7 +51,7 @@ def evaluate(pack,project,source_directory):
         else:
             passed=value['value']<=rule['maximum']
             row.update(status='pass' if passed else 'review_required',value=value['value'],unit=rule['unit'],maximum=rule['maximum'],evidence=value['source'],
-                       reasons=['selected deemed-to-satisfy path met'] if passed else [rule['alternative_path_note']])
+                       reasons=['selected '+('prescriptive limit' if rule['method']=='prescriptive_maximum' else 'deemed-to-satisfy path')+' met'] if passed else [rule['alternative_path_note']])
         checks.append(row)
     applicable=[r for r in checks if r['status']!='not_applicable']
     return dict(rule_pack=pack['id'],jurisdiction=pack['jurisdiction'],checks=checks,

@@ -1,0 +1,77 @@
+{
+  "jurisdiction": "HK",
+  "rule_pack": "hk-lighting-2026.11.08",
+  "edition_decisions": {
+    "emsd_bec_2024": {
+      "edition": "2024",
+      "basis": "Synthetic exercise explicitly selects BEC 2024; not a real statutory scope decision"
+    }
+  },
+  "facts": {
+    "bec_lighting_scope_confirmed": {
+      "value": true,
+      "source": "Explicit synthetic office scenario; actual applicability review required"
+    },
+    "prescriptive_lpd_route_selected": {
+      "value": true,
+      "source": "Explicit synthetic office scenario; actual applicability review required"
+    },
+    "single_function_office": {
+      "value": true,
+      "source": "Explicit synthetic office scenario; actual applicability review required"
+    },
+    "complete_fixed_lighting_inventory": {
+      "value": true,
+      "source": "Explicit synthetic office scenario; actual applicability review required"
+    },
+    "all_listed_lighting_in_scope": {
+      "value": true,
+      "source": "Explicit synthetic office scenario; actual applicability review required"
+    },
+    "circuit_watts_include_controlgear_and_drivers": {
+      "value": true,
+      "source": "Explicit synthetic office scenario; actual applicability review required"
+    },
+    "internal_floor_area_and_space_boundaries_confirmed": {
+      "value": true,
+      "source": "Explicit synthetic office scenario; actual applicability review required"
+    },
+    "enclosed_office": {
+      "value": true,
+      "source": "Synthetic enclosed room"
+    }
+  },
+  "lighting_space": {
+    "internal_floor_area": {
+      "value": 20,
+      "unit": "m2",
+      "source": "Explicit synthetic internal floor area, not measured"
+    },
+    "luminaires": [
+      {
+        "id": "L1",
+        "full_output_circuit_power": {
+          "value": 40,
+          "unit": "W",
+          "source": "Synthetic full-output lamp and driver combined watts, not product data"
+        }
+      },
+      {
+        "id": "L2",
+        "full_output_circuit_power": {
+          "value": 40,
+          "unit": "W",
+          "source": "Synthetic full-output lamp and driver combined watts, not product data"
+        }
+      },
+      {
+        "id": "L3",
+        "full_output_circuit_power": {
+          "value": 40,
+          "unit": "W",
+          "source": "Synthetic full-output lamp and driver combined watts, not product data"
+        }
+      }
+    ]
+  }
+}
