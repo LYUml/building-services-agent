@@ -1,6 +1,6 @@
 # Hong Kong air-conditioning water piping
 
-The `hk-hvac-water-2026.11.08` pack implements selected conditions from [EMSD BEC 2024](https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf), clauses 6.9.1Ã¢â‚¬â€œ6.9.3, printed pages 26Ã¢â‚¬â€œ27 / PDF pages 32Ã¢â‚¬â€œ33. The official PDF SHA256 matches the existing BEC source cache. Scope, edition and prescriptive-route selection need explicit sourced project decisions. These are air-conditioning water-piping checks, not general domestic water rules.
+The `hk-hvac-water-2026.11.08` pack implements selected conditions from [EMSD BEC 2024](https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf), clauses 6.9.1ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“6.9.3, printed pages 26ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“27 / PDF pages 32ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“33. The official PDF SHA256 matches the existing BEC source cache. Scope, edition and prescriptive-route selection need explicit sourced project decisions. These are air-conditioning water-piping checks, not general domestic water rules.
 
 The pack separates the diameter bands, fixed/variable flow velocity limits, distributed friction limit and required variable-flow pump control alternatives. Small-pipe checks do not silently apply the large-pipe friction limit. Unsupported/missing input units, values, control evidence or source files cannot pass.
 
@@ -20,3 +20,10 @@ Workflow kind `water_pipe_regulations` takes `project`, `basis`, `pack` and `sou
 ## Workflow evidence
 
 `docs/evidence/water-pipe-workflow` contains official-source positive and low-pressure synthetic plans and runs. The latter retains a failed rule-adapter task and skips its downstream network task. Each archive excludes the official PDF; restore the pinned source beside its plan before rerunning with `python -m bsa.workflow execute plan.json --out new-run` (see the CLI help for the execution subcommand). Input identity and native/visual acceptance remain separate: this milestone does not bind CAD/BIM authoring to water-rule results.
+
+
+### Saved IFC producer
+
+A `water_pipe_regulations` task may instead specify `depends_on` on an earlier `network_coordination` task, omitting `project`. It verifies the producer's saved artifact hashes and original model/binding identities, reopens and reconciles IFC ports/route length/internal diameter, then recomputes the derived hydraulic network for the rule checks. An unsuccessful producer blocks execution; replacement project inputs are rejected. This supports the existing circular-tree geometry subset, not arbitrary IFC or optimized-network producers. Code-diameter classification and pump-control evidence remain separate sourced inputs. Further CAD/plotting and modified downstream geometry still need their own correspondence checks.
+
+`docs/evidence/ifc-water-regulations` retains an actual saved-IFC negative high-flow example and a separately staged synthetic 0.1 L/s positive example. The negative producer fails hydraulics and its regulatory task remains pending. The positive producer and scoped rules pass; complete engineering and legal acceptance remain unresolved.

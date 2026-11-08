@@ -1,0 +1,7 @@
+{
+  "scope": "Synthetic saved-IFC regulatory workflow; negative high-flow source retained; positive flow explicitly reduced to 0.1 L/s; no full acceptance; PDF excluded",
+  "files": {
+    "negative.zip": "9613df6d9b0b78eeccbcca36dec2409d1ca2afa2323cbd20610dc352b5db60e9",
+    "positive.zip": "8c42423e77bb2b75ef9f84dc8439093264885d8e0892ae948bebcb4a44fbd366"
+  }
+}

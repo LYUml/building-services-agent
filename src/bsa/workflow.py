@@ -65,7 +65,7 @@ def regulatory_source_bindings(tasks,root):
         for parent in parents:upstream.update(ancestors[parent])
         ancestors[name]=upstream
         current={}
-        if kind in ('water_pipe_regulations','network'):
+        if kind in ('water_pipe_regulations','network') and not task.get('depends_on'):
             current['network']=local_path(root,task.get('project'))
         elif kind in shared:
             current['project']=local_path(root,task.get('project'))
@@ -122,7 +122,7 @@ def validate_plan(path):
                 raise ProjectError('HVAC regulations read both producer variants; replacement inputs forbidden')
         if kind in ('regulations','electrical_regulations','lighting_regulations','hvac_regulations','water_pipe_regulations'):
             from .regulations import source_paths
-            pack=local_path(root,t.get('pack'));project=local_path(root,t.get('basis' if kind=='hvac_regulations' else 'project'))
+            pack=local_path(root,t.get('pack'));project=local_path(root,t.get('basis' if kind=='hvac_regulations' or kind=='water_pipe_regulations' and t.get('depends_on') else 'project'))
             directory=t.get('sources')
             if not isinstance(directory,str) or Path(directory).is_absolute():raise ProjectError('relative regulation source directory required')
             directory=(root/directory).resolve()
@@ -133,6 +133,9 @@ def validate_plan(path):
             if kind in ('electrical_regulations','lighting_regulations'):
                 inputs.update(local_path(root,t.get(key)) for key in (('topology' if kind=='electrical_regulations' else 'geometry'),'basis'))
         if kind=='water_pipe_regulations':
+            if t.get('depends_on'):
+                parent=t['depends_on']
+                if t.get('project') or parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='network_coordination':raise ProjectError('derived water rules require earlier network_coordination and no replacement project')
             inputs.add(local_path(root,t.get('basis')))
         if kind=='water_network':
             from .epanet import validate
@@ -304,9 +307,17 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
             if blocked:
                 reason='required checks unresolved: '+', '.join(g+' ('+tasks[g]['status']+')' for g in blocked)+'; adapter not executed'
             elif t['kind']=='water_pipe_regulations':
-                from .water_pipe_regulations import run
-                payload=run(*(local_path(root,t[key]) for key in ('project','basis','pack')),root/t['sources'],folder)
-                status=payload['status'];reason=payload['scope']
+                if t.get('depends_on'):
+                    parent=t['depends_on']
+                    if tasks[parent]['status']!='pass':reason='upstream coordinated network did not pass; regulatory check not executed'
+                    else:
+                        from .ifc_water_rules import run
+                        producer=next(x for x in p['tasks'] if x['id']==parent)
+                        payload=run(out/parent,local_path(root,producer['model']),local_path(root,producer['binding']),local_path(root,t['basis']),local_path(root,t['pack']),root/t['sources'],folder)
+                else:
+                    from .water_pipe_regulations import run
+                    payload=run(*(local_path(root,t[key]) for key in ('project','basis','pack')),root/t['sources'],folder)
+                if payload is not None:status=payload['status'];reason=payload['scope']
             elif t['kind']=='hvac_regulations':
                 parent=t['depends_on']
                 if tasks[parent]['status']!='pass':reason='upstream energy producer '+parent+' did not pass; native regulatory checks not executed'
