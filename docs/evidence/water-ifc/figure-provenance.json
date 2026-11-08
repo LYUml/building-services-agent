@@ -1,0 +1,7 @@
+{
+  "method": "Matplotlib 3D lines from saved IFC binding geometry and native EPANET signed route flows; illustrative, not a BIM viewer",
+  "geometry_sha256": "c9fc4fa31afaee5ada952cee0cc5ec99116ba8fe3304a78ece439524ddcc39c3",
+  "analysis_sha256": "63f6243560d9f92beb66b4af8ab6d8b4ae66569570b6557a24b9714b3289f9a1",
+  "image_sha256": "03d3cb5bb364c63394debe932e7100400c8431ed2a0af614197a6467777e2cba",
+  "matplotlib_version": "3.11.2"
+}

@@ -1,5 +1,7 @@
 # Saved IFC segment schedules and projected diagrams
 
+Two explicit SOURCEANDSINK end ports are now supported as well as directed sink/source ends. Bidirectional drawing endpoints use deterministic GUID ordering; their labels do not imply flow direction. Legacy sink/source GUID fields are null for reversible segments, while explicit start/end port GUIDs retain identity. Hydraulic chain orientation comes from the separate water binding, not this drawing order.
+
 The `ifc_drawing` workflow task reads a source IFC, or the registered output of an earlier supported IFC producer, with sourced drawing settings. It extracts **every IfcPipeSegment and IfcDuctSegment**; other element classes are listed explicitly as excluded. It generates a pipe/duct schedule and an editable projected centreline DXF from the saved model rather than retyping hydraulic dimensions.
 
 ```powershell

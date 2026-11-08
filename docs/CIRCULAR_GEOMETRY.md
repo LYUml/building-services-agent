@@ -1,5 +1,7 @@
 # Explicit straight circular wall solids
 
+Two explicit SOURCEANDSINK ports are now allowed instead of one SOURCE and one SINK. Both alternatives retain the same opposite end-face centres and outward geometric axes. Reversible connections are checked in both relationship directions; older directed tree adapters retain their own inlet/outlet restrictions. See WATER_BINDING.md for saved water graphs.
+
 IFC authoring now supports an opt-in hollow round pipe/duct body alongside existing envelopes. This is an actual swept wall solid with a through bore, not a box with diameter labels. It uses the IFC4 [IfcCircleHollowProfileDef](https://standards.buildingsmart.org/IFC/RELEASE/IFC4/FINAL/HTML/schema/ifcprofileresource/lexical/ifccirclehollowprofiledef.htm) in an IfcExtrudedAreaSolid. The wall parameter is calculated from independently supplied outside and inside diameters.
 
 ```powershell

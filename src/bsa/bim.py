@@ -70,7 +70,7 @@ def validate(p):
             sourced(port);vector(port,'offset_m')
             if not isinstance(port.get('id'),str) or not port['id'] or '.' in port['id']:raise ProjectError('port id required without dot')
             key=d['id']+'.'+port['id']
-            if key in ports or port.get('direction') not in ('SOURCE','SINK'):raise ProjectError('unique directed ports required')
+            if key in ports or port.get('direction') not in ('SOURCE','SINK','SOURCEANDSINK'):raise ProjectError('unique directed or explicit bidirectional ports required')
             ports[key]=(d,port)
         shape=d.get('body_shape','bounding envelope')
         if shape not in ('bounding envelope',circular.WALL):raise ProjectError('unsupported explicit body_shape')
@@ -84,8 +84,8 @@ def validate(p):
         sourced(c)
         if not isinstance(c.get('from'),str) or not isinstance(c.get('to'),str) or c['from'] not in ports or c['to'] not in ports:raise ProjectError('unknown connection endpoint')
         a,ap=ports[c['from']];b,bp=ports[c['to']]
-        if a['id']==b['id'] or a['system']!=b['system'] or ap['direction']!='SOURCE' or bp['direction']!='SINK':
-            raise ProjectError('connections require source-to-sink between distinct devices in the same system')
+        if a['id']==b['id'] or a['system']!=b['system'] or (ap['direction'],bp['direction']) not in (('SOURCE','SINK'),('SOURCEANDSINK','SOURCEANDSINK')):
+            raise ProjectError('connections require source-to-sink or two bidirectional ports between distinct devices in the same system')
         if c['from'] in used or c['to'] in used:raise ProjectError('port connected more than once')
         used.update((c['from'],c['to']))
     return p
@@ -161,9 +161,11 @@ def run(project,out):
             props(objport,dict(Source=p['sources'][port['source']]))
             ports[d['id']+'.'+port['id']]=objport
     for c in p.get('connections',[]):
-        api.run('system.connect_port',model,port1=ports[c['from']],port2=ports[c['to']],direction='SOURCE')
-        for relation in ports[c['from']].ConnectedTo:
-            if relation.RelatedPort == ports[c['to']]:relation.Description=p['sources'][c['source']]
+        direction='SOURCEANDSINK' if ports[c['from']].FlowDirection=='SOURCEANDSINK' else 'SOURCE'
+        api.run('system.connect_port',model,port1=ports[c['from']],port2=ports[c['to']],direction=direction)
+        for port,other in ((ports[c['from']],ports[c['to']]),(ports[c['to']],ports[c['from']])):
+            for relation in port.ConnectedTo:
+                if relation.RelatedPort==other:relation.Description=p['sources'][c['source']]
     path=out/'model.ifc';model.write(str(path))
     reopened=ifcopenshell.open(path)
     logger=ifcopenshell.validate.json_logger()
@@ -209,13 +211,14 @@ def run(project,out):
         records.append(dict(id=d['id'],ifc_class=obj.is_a(),global_id=obj.GlobalId,space=container.Name,
                             systems=sorted(groups),bounds_m=bounds.tolist(),body_shape=d.get('body_shape','bounding envelope'),circular_checks=circular_checks))
     expected_links={(c['from'],c['to']) for c in p.get('connections',[])}
+    expected_links.update((c['to'],c['from']) for c in p.get('connections',[]) if ports[c['from']].FlowDirection=='SOURCEANDSINK')
     actual_links=set()
     for relation in reopened.by_type('IfcRelConnectsPorts'):
         a,b=relation.RelatingPort,relation.RelatedPort
         actual_links.add((system_util.get_port_element(a).Name+'.'+a.Name,
                           system_util.get_port_element(b).Name+'.'+b.Name))
     checks=dict(schema_valid=not logger.statements,device_count_match=len(reopened.by_type('IfcDistributionElement'))==len(p['devices']),
-                connection_count_match=len(reopened.by_type('IfcRelConnectsPorts'))==len(p.get('connections',[])),
+                connection_count_match=len(reopened.by_type('IfcRelConnectsPorts'))==len(expected_links),
                 connection_endpoints_match=actual_links==expected_links,
                 metre_units=math.isclose(unit_util.calculate_unit_scale(reopened),1),
                 space_count_match=len(reopened.by_type('IfcSpace'))==len(p['spaces']),

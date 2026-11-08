@@ -1,5 +1,7 @@
 # Steady water graphs: EPANET 2.2 / WNTR 1.5.0
 
+[Saved IFC binding](WATER_BINDING.md) now supplies actual hollow pipe dimensions, route lengths and node elevations through explicit GUID/topology mappings. The standalone adapter below remains valid for independently sourced geometry; never mix its static-head schema with older total-pressure tree bindings.
+
 The optional adapter solves connected water graphs, including parallel pipes, branches, loops and reverse flow. It extends the prescribed-flow tree tools with an actual hydraulic solver.
 
 ```powershell
@@ -30,4 +32,4 @@ Both energy tolerances are mandatory source-linked solver fields. Allowance is `
 
 The synthetic diamond predicts symmetric 2 L/s JA/JB branches, 1 L/s AC and -1 L/s CB. The supplied pump meets the system near 4 L/s and 45 m head rise. Tests also exercise weak-pump pressure/delivery failure, a separate DDA parallel-pipe equal split, corrupted output, physical velocity failure and workflow tampering. All example values are synthetic, not manufacturer/code data. [Retained evidence](evidence/water-graphs/README.md).
 
-Pending: actual source, route and IFC binding; fittings/products and physical correlation applicability; efficiency, electrical coupling and NPSH; tanks, valves, controls, schedules, quality; drainage/fire rules and full professional acceptance. Execution success does not establish a finished engineering design. Earlier water-graphs evidence remains unchanged as historical evidence of the pre-energy-audit implementation.
+Pending: actual source applicability and general route import beyond the supported saved hollow-profile binding; fittings/products and physical correlation applicability; efficiency, electrical coupling and NPSH; tanks, valves, controls, schedules, quality; drainage/fire rules and full professional acceptance. Execution success does not establish a finished engineering design. Earlier water-graphs evidence remains unchanged as historical evidence of the pre-energy-audit implementation.

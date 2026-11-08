@@ -8,10 +8,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m pip install -e ".[dev,water]"
+      - run: python -m pip install -e ".[dev,water,bim]"
       - run: python -m unittest discover -s tests -p test_epanet.py -v
+      - run: python -m unittest discover -s tests -p test_water_binding.py -v
       - run: python -m bsa.workflow execute examples/water-loop/plan.json --out runs/water-loop
       - run: python -m bsa.workflow verify runs/water-loop
+      - run: python -m bsa.workflow execute examples/water-loop-ifc/plan.json --out runs/water-loop-ifc
+      - run: python -m bsa.workflow verify runs/water-loop-ifc
   electrical:
     runs-on: ubuntu-latest
     steps:

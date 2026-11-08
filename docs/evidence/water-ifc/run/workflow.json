@@ -1,0 +1,117 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\water-loop-ifc\\plan.json": "3d291d50dfe8c6bd06f9940370d32b7a553d63c85c579fa0bc02ec76bf3201d0",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\water-loop-ifc\\model.json": "d38c00422879397280ef8122ed335a5a673300ba771efd20bfddda0b78b7cc41",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\water-loop-ifc\\binding.json": "aac441dd515cfd0c024cec131582542c0ca6e19ed1c615b1dba468d799e84a02",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\water-loop-ifc\\project.json": "d9b63ba465a140c9974dca8628dce47be9d22cc81a096122cab82e2dc2b9f9d5",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\water-loop-ifc\\brief.md": "f2ae6cadfb61bfc930ca55cc3a6d1cb435dffece6e19e4b35b4dada842e45ef0"
+  },
+  "inputs_unchanged": true,
+  "tasks": {
+    "model": {
+      "kind": "bim",
+      "status": "pass",
+      "scope": "IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending"
+    },
+    "water": {
+      "kind": "water_coordination",
+      "status": "pass",
+      "scope": "saved IFC GUID/profile/connected reversible routes bound to EPANET; source copy unchanged; physical fittings, product/visual/domain acceptance pending"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Author model.json as editable IFC with explicit hollow pipe profiles and bidirectional water ports, preserving stable object/port GUIDs and verifying schema, native geometry and both connection directions.",
+      "task": "model",
+      "acceptance": "Scoped synthetic geometry/numerical evidence; full engineering and visual acceptance pending",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 3,
+        "end_line": 3
+      },
+      "execution_scope": "IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending",
+      "evidence": [
+        "model/bim-verification.json",
+        "model/model.ifc",
+        "model/schema-validation.json"
+      ]
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Use project.json and binding.json with that saved IFC. Derive pipe lengths, bore diameters and node elevations from saved profiles/ports, require exact selected-system device/connection coverage, preserve source bytes and reverse flow, and execute EPANET with continuity, pipe-energy, boundary, pressure/delivery and pump checks. Retain the geometry-GUID trace and per-piece result schedule; keep product/fitting, K applicability, physical coordination, visual and full engineering gates pending.",
+      "task": "water",
+      "acceptance": "Scoped synthetic geometry/numerical evidence; full engineering and visual acceptance pending",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 5,
+        "end_line": 5
+      },
+      "execution_scope": "saved IFC GUID/profile/connected reversible routes bound to EPANET; source copy unchanged; physical fittings, product/visual/domain acceptance pending",
+      "evidence": [
+        "water/geometry-binding.json",
+        "water/model.ifc",
+        "water/network-input.json",
+        "water/pipe-results.csv",
+        "water/water-binding.json",
+        "water/analysis/link-flowrate.csv",
+        "water/analysis/link-friction_factor.csv",
+        "water/analysis/link-headloss.csv",
+        "water/analysis/link-quality.csv",
+        "water/analysis/link-reaction_rate.csv",
+        "water/analysis/link-setting.csv",
+        "water/analysis/link-status.csv",
+        "water/analysis/link-velocity.csv",
+        "water/analysis/network.bin",
+        "water/analysis/network.inp",
+        "water/analysis/network.rpt",
+        "water/analysis/node-demand.csv",
+        "water/analysis/node-head.csv",
+        "water/analysis/node-pressure.csv",
+        "water/analysis/node-quality.csv",
+        "water/analysis/raw.json",
+        "water/analysis/report.html",
+        "water/analysis/source-copy.json",
+        "water/analysis/water.json",
+        "water/analysis/worker.log"
+      ]
+    }
+  ],
+  "artifact_hashes": {
+    "model/bim-verification.json": "38abd664a129e61e96f0c49ed4a47439317ce3f1ba157fdaa9a258bf4d891e00",
+    "model/model.ifc": "1d25e92a121c8c00fe2e64134c1f6b36a858519131993341e27c7595249e0d5f",
+    "model/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "water/geometry-binding.json": "c9fc4fa31afaee5ada952cee0cc5ec99116ba8fe3304a78ece439524ddcc39c3",
+    "water/model.ifc": "1d25e92a121c8c00fe2e64134c1f6b36a858519131993341e27c7595249e0d5f",
+    "water/network-input.json": "585fec67be6eaf65ac3431a4c0e109caf20ce2b8d6540797f9572566bee10a7e",
+    "water/pipe-results.csv": "47769a7bd86abd4945c4f534e2c248b7d7695a99a10f555258fa8ab89d26f97e",
+    "water/water-binding.json": "1d5d575433efbeff9a79ef50dbf6ced79e1064d8402bc2d47ede498d06f8d2ac",
+    "water/analysis/link-flowrate.csv": "0a42bd291a24c0a4e83c6d7c1a3b033ac61c39529e614b452179ab688f773b85",
+    "water/analysis/link-friction_factor.csv": "512c3d26609d0d6a437878fcb495b33a692af66089bb93ec8a133d1414cb44db",
+    "water/analysis/link-headloss.csv": "4ded7781dabb9e575e11b6e768648a47c2d6517aaa804cbbaa72007fb267543f",
+    "water/analysis/link-quality.csv": "0f7df73149f7881bb966e57bbcdfea9fa1d7f27b38ee537f5a98237483b073f2",
+    "water/analysis/link-reaction_rate.csv": "0f7df73149f7881bb966e57bbcdfea9fa1d7f27b38ee537f5a98237483b073f2",
+    "water/analysis/link-setting.csv": "f448edc368636ba07c7832a12c34dadc598144f5cd73d111992bff73b5cd2fd7",
+    "water/analysis/link-status.csv": "94f27cf033b9d251063c01e44b675fd2a51e01b887707004a12a56256fd91e2d",
+    "water/analysis/link-velocity.csv": "c416044ad8a0cad343fafabe537a1fa658c2d6fc1693d45d4b755e59c0973710",
+    "water/analysis/network.bin": "7baaa2d4f14944467c566f86989d32a58e2029785fda99ab533e7e0b8ae6fa5c",
+    "water/analysis/network.inp": "62cf92799c7b13af184b721ca9d9523ffcd5f5ebd5df57b3604806e8d06a219f",
+    "water/analysis/network.rpt": "d99b1dceb4b956b756ceef68fd26ce35cd7fb534647eccde0722c9e5d9b575f7",
+    "water/analysis/node-demand.csv": "b1c34ed310eaec2f856536dd87299762b54100c2053872609b3364188b4a51b5",
+    "water/analysis/node-head.csv": "6205bc62715930827315a245414207a45332790857915b8ebfa40c1eb9f6bbc9",
+    "water/analysis/node-pressure.csv": "7134ae458d585251c2a613142689bddbb17e3ccbf90daed5d52a6849ed5660d8",
+    "water/analysis/node-quality.csv": "e3e65eef5c72a0cac9e0a4a82b4298d5888539aeb94e914c00e62945de319922",
+    "water/analysis/raw.json": "b5c42069dc18627be70bd07505176085bbd831b1faa3b76761dc28cea259aaf8",
+    "water/analysis/report.html": "145d6fbe6353e9957f02b8066168aae46fcbf5dcd545b967da55529dce54b0c2",
+    "water/analysis/source-copy.json": "585fec67be6eaf65ac3431a4c0e109caf20ce2b8d6540797f9572566bee10a7e",
+    "water/analysis/water.json": "63f6243560d9f92beb66b4af8ab6d8b4ae66569570b6557a24b9714b3289f9a1",
+    "water/analysis/worker.log": "41071403909fdb0d05947c4459b2b5755eccf0a36ba91e338d87e19b84b011fe"
+  },
+  "execution_pass": true,
+  "design_accepted": false,
+  "acceptance_note": "Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance"
+}

@@ -89,10 +89,12 @@ def extract(path):
             ports = system.get_ports(obj)
             sinks = [p for p in ports if p.FlowDirection == 'SINK']
             sources = [p for p in ports if p.FlowDirection == 'SOURCE']
-            if len(ports) != 2 or len(sinks) != 1 or len(sources) != 1:
-                raise ProjectError('one placed sink and source port required')
+            bidirectional=len(ports)==2 and all(p.FlowDirection=='SOURCEANDSINK' for p in ports)
+            if len(ports) != 2 or not bidirectional and (len(sinks) != 1 or len(sources) != 1):
+                raise ProjectError('placed directed ends or two explicit bidirectional ports required')
+            ordered=sorted(ports,key=lambda p:p.GlobalId) if bidirectional else (sinks[0],sources[0])
             points = []
-            for port in (sinks[0], sources[0]):
+            for port in ordered:
                 if not port.ObjectPlacement:
                     raise ProjectError('explicit port placement required')
                 points.append(placement.get_local_placement(port.ObjectPlacement)[:3,3]*factor)
@@ -114,7 +116,10 @@ def extract(path):
                              missing_diameter_metadata=[key for key in ('InternalDiameter_m','OutsideDiameter_m') if key not in props],
                              inner_diameter_m=inner, outside_diameter_m=outer,
                              length_m=length, start_world_m=points[0].tolist(), end_world_m=points[1].tolist(),
-                             sink_port_guid=sinks[0].GlobalId, source_port_guid=sources[0].GlobalId,
+                             sink_port_guid=None if bidirectional else sinks[0].GlobalId,
+                             source_port_guid=None if bidirectional else sources[0].GlobalId,
+                             start_port_guid=ordered[0].GlobalId,end_port_guid=ordered[1].GlobalId,
+                             port_direction_scope='bidirectional; GUID-ordered drawing endpoints' if bidirectional else 'sink to source',
                              analytic_wall_volume_m3=math.pi*(outer**2-inner**2)*length/4))
         except (ProjectError, ValueError, AttributeError, TypeError, RuntimeError) as exc:
             errors.append(dict(guid=obj.GlobalId, name=obj.Name, reason=str(exc)))

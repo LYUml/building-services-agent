@@ -19,8 +19,8 @@ def specification(device):
     if any(type(v) not in (int,float) or not math.isfinite(v) for v in (inner,outer)) or not 0<inner<outer:
         raise ProjectError('circular wall needs independently sourced 0 < internal < outside diameter')
     ports=device.get('ports',[])
-    if len(ports)!=2 or {p['direction'] for p in ports}!={'SOURCE','SINK'}:
-        raise ProjectError('circular wall requires one inlet and one outlet')
+    if len(ports)!=2 or {p['direction'] for p in ports} not in ({'SOURCE','SINK'},{'SOURCEANDSINK'}):
+        raise ProjectError('circular wall requires directed ends or two explicit bidirectional ports')
     a,b=[p['offset_m'] for p in ports]
     axes=[i for i in range(3) if abs(a[i]-b[i])>1e-8]
     if len(axes)!=1:raise ProjectError('circular wall requires straight axis-aligned ports')

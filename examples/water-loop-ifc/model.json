@@ -1,0 +1,593 @@
+{
+  "name": "Synthetic spatial reversible water ring",
+  "project_uuid": "7d8dd288-530b-42e7-ab9b-6abe22c14f99",
+  "geometry_scope": "axis-aligned envelopes and explicit straight circular walls",
+  "sources": {
+    "test": "Synthetic IFC ring: independently declared metre coordinates, 40 mm bore / 50 mm outside wall, reversible pipe ports, generic junction envelopes, one source-head boundary and pump. Bend/junction product geometry, clashes and code applicability are unresolved."
+  },
+  "spaces": [
+    {
+      "id": "Plant",
+      "origin_m": [
+        0,
+        0,
+        0
+      ],
+      "size_m": [
+        10,
+        10,
+        5
+      ],
+      "source": "test"
+    }
+  ],
+  "systems": [
+    {
+      "id": "WATER",
+      "predefined_type": "DOMESTICCOLDWATER",
+      "source": "test"
+    }
+  ],
+  "devices": [
+    {
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER",
+      "id": "N_R",
+      "ifc_class": "IfcUnitaryEquipment",
+      "origin_m": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "size_m": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "ports": [
+        {
+          "id": "P",
+          "direction": "SOURCE",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "test"
+        }
+      ]
+    },
+    {
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER",
+      "id": "N_J0",
+      "ifc_class": "IfcUnitaryEquipment",
+      "origin_m": [
+        1.9,
+        0.9,
+        0.9
+      ],
+      "size_m": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "ports": [
+        {
+          "id": "P",
+          "direction": "SINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "test"
+        },
+        {
+          "id": "JA",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "test"
+        },
+        {
+          "id": "JB",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "test"
+        }
+      ]
+    },
+    {
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER",
+      "id": "N_A",
+      "ifc_class": "IfcUnitaryEquipment",
+      "origin_m": [
+        1.9,
+        5.9,
+        0.9
+      ],
+      "size_m": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "ports": [
+        {
+          "id": "JA",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "test"
+        },
+        {
+          "id": "AC",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "test"
+        }
+      ]
+    },
+    {
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER",
+      "id": "N_B",
+      "ifc_class": "IfcUnitaryEquipment",
+      "origin_m": [
+        6.9,
+        0.9,
+        2.9
+      ],
+      "size_m": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "ports": [
+        {
+          "id": "JB",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "test"
+        },
+        {
+          "id": "CB",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "test"
+        }
+      ]
+    },
+    {
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER",
+      "id": "N_C",
+      "ifc_class": "IfcUnitaryEquipment",
+      "origin_m": [
+        6.9,
+        5.9,
+        2.9
+      ],
+      "size_m": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "ports": [
+        {
+          "id": "AC",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "test"
+        },
+        {
+          "id": "CB",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "test"
+        }
+      ]
+    },
+    {
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER",
+      "id": "PUMP",
+      "ifc_class": "IfcPump",
+      "origin_m": [
+        1,
+        0.8,
+        0.8
+      ],
+      "size_m": [
+        1,
+        0.4,
+        0.4
+      ],
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0,
+            0.2,
+            0.2
+          ],
+          "source": "test"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            1,
+            0.2,
+            0.2
+          ],
+          "source": "test"
+        }
+      ]
+    },
+    {
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER",
+      "id": "JA",
+      "ifc_class": "IfcPipeSegment",
+      "body_shape": "straight circular wall",
+      "origin_m": [
+        1.975,
+        1,
+        0.975
+      ],
+      "size_m": [
+        0.05,
+        5,
+        0.05
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.04,
+        "OutsideDiameter_m": 0.05
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.02499999999999991,
+            0,
+            0.025000000000000022
+          ],
+          "source": "test"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.02499999999999991,
+            5,
+            0.025000000000000022
+          ],
+          "source": "test"
+        }
+      ]
+    },
+    {
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER",
+      "id": "JB0",
+      "ifc_class": "IfcPipeSegment",
+      "body_shape": "straight circular wall",
+      "origin_m": [
+        2,
+        0.975,
+        0.975
+      ],
+      "size_m": [
+        5,
+        0.05,
+        0.05
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.04,
+        "OutsideDiameter_m": 0.05
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0,
+            0.025000000000000022,
+            0.025000000000000022
+          ],
+          "source": "test"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            5,
+            0.025000000000000022,
+            0.025000000000000022
+          ],
+          "source": "test"
+        }
+      ]
+    },
+    {
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER",
+      "id": "JB1",
+      "ifc_class": "IfcPipeSegment",
+      "body_shape": "straight circular wall",
+      "origin_m": [
+        6.975,
+        0.975,
+        1
+      ],
+      "size_m": [
+        0.05,
+        0.05,
+        2
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.04,
+        "OutsideDiameter_m": 0.05
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.025000000000000355,
+            0.025000000000000022,
+            0
+          ],
+          "source": "test"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.025000000000000355,
+            0.025000000000000022,
+            2
+          ],
+          "source": "test"
+        }
+      ]
+    },
+    {
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER",
+      "id": "AC0",
+      "ifc_class": "IfcPipeSegment",
+      "body_shape": "straight circular wall",
+      "origin_m": [
+        1.975,
+        5.975,
+        1
+      ],
+      "size_m": [
+        0.05,
+        0.05,
+        2
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.04,
+        "OutsideDiameter_m": 0.05
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.02499999999999991,
+            0.025000000000000355,
+            0
+          ],
+          "source": "test"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.02499999999999991,
+            0.025000000000000355,
+            2
+          ],
+          "source": "test"
+        }
+      ]
+    },
+    {
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER",
+      "id": "AC1",
+      "ifc_class": "IfcPipeSegment",
+      "body_shape": "straight circular wall",
+      "origin_m": [
+        2,
+        5.975,
+        2.975
+      ],
+      "size_m": [
+        5,
+        0.05,
+        0.05
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.04,
+        "OutsideDiameter_m": 0.05
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0,
+            0.025000000000000355,
+            0.02499999999999991
+          ],
+          "source": "test"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            5,
+            0.025000000000000355,
+            0.02499999999999991
+          ],
+          "source": "test"
+        }
+      ]
+    },
+    {
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER",
+      "id": "CB",
+      "ifc_class": "IfcPipeSegment",
+      "body_shape": "straight circular wall",
+      "origin_m": [
+        6.975,
+        1,
+        2.975
+      ],
+      "size_m": [
+        0.05,
+        5,
+        0.05
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.04,
+        "OutsideDiameter_m": 0.05
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.025000000000000355,
+            5,
+            0.02499999999999991
+          ],
+          "source": "test"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.025000000000000355,
+            0,
+            0.02499999999999991
+          ],
+          "source": "test"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "source": "test",
+      "from": "N_R.P",
+      "to": "PUMP.in"
+    },
+    {
+      "source": "test",
+      "from": "PUMP.out",
+      "to": "N_J0.P"
+    },
+    {
+      "source": "test",
+      "from": "N_J0.JA",
+      "to": "JA.in"
+    },
+    {
+      "source": "test",
+      "from": "JA.out",
+      "to": "N_A.JA"
+    },
+    {
+      "source": "test",
+      "from": "N_J0.JB",
+      "to": "JB0.in"
+    },
+    {
+      "source": "test",
+      "from": "JB0.out",
+      "to": "JB1.in"
+    },
+    {
+      "source": "test",
+      "from": "JB1.out",
+      "to": "N_B.JB"
+    },
+    {
+      "source": "test",
+      "from": "N_A.AC",
+      "to": "AC0.in"
+    },
+    {
+      "source": "test",
+      "from": "AC0.out",
+      "to": "AC1.in"
+    },
+    {
+      "source": "test",
+      "from": "AC1.out",
+      "to": "N_C.AC"
+    },
+    {
+      "source": "test",
+      "from": "N_C.CB",
+      "to": "CB.in"
+    },
+    {
+      "source": "test",
+      "from": "CB.out",
+      "to": "N_B.CB"
+    }
+  ]
+}
