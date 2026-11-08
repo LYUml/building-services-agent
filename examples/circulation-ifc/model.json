@@ -1,0 +1,495 @@
+{
+  "name": "Synthetic saved IFC chilled-water circulation",
+  "project_uuid": "6a41a7bb-20af-4763-9366-57186728cc5e",
+  "geometry_scope": "axis-aligned envelopes and explicit straight circular walls",
+  "sources": {
+    "test": "Synthetic axis-aligned closed circulation, 65 mm bore and 80 mm OD; independently declared 1/2 m routes at z=1 m. Coincident zero-loss nodes and aggregate K are explicit test assumptions. No actual product, clash or design acceptance."
+  },
+  "spaces": [
+    {
+      "id": "Plant",
+      "origin_m": [
+        0,
+        0,
+        0
+      ],
+      "size_m": [
+        10,
+        10,
+        5
+      ],
+      "source": "test"
+    }
+  ],
+  "systems": [
+    {
+      "id": "WATER",
+      "predefined_type": "CHILLEDWATER",
+      "source": "test"
+    }
+  ],
+  "devices": [
+    {
+      "id": "REFERENCE",
+      "ifc_class": "IfcPipeSegment",
+      "origin_m": [
+        1,
+        0.96,
+        0.96
+      ],
+      "size_m": [
+        1,
+        0.08,
+        0.08
+      ],
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0,
+            0.040000000000000036,
+            0.040000000000000036
+          ],
+          "source": "test"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            1,
+            0.040000000000000036,
+            0.040000000000000036
+          ],
+          "source": "test"
+        }
+      ],
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER",
+      "body_shape": "straight circular wall",
+      "properties": {
+        "InternalDiameter_m": 0.065,
+        "OutsideDiameter_m": 0.08
+      }
+    },
+    {
+      "id": "OUTBOUND",
+      "ifc_class": "IfcPipeSegment",
+      "origin_m": [
+        2.96,
+        1,
+        0.96
+      ],
+      "size_m": [
+        0.08,
+        2,
+        0.08
+      ],
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.040000000000000036,
+            0,
+            0.040000000000000036
+          ],
+          "source": "test"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.040000000000000036,
+            2,
+            0.040000000000000036
+          ],
+          "source": "test"
+        }
+      ],
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER",
+      "body_shape": "straight circular wall",
+      "properties": {
+        "InternalDiameter_m": 0.065,
+        "OutsideDiameter_m": 0.08
+      }
+    },
+    {
+      "id": "CROSS",
+      "ifc_class": "IfcPipeSegment",
+      "origin_m": [
+        2,
+        2.96,
+        0.96
+      ],
+      "size_m": [
+        1,
+        0.08,
+        0.08
+      ],
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            1,
+            0.040000000000000036,
+            0.040000000000000036
+          ],
+          "source": "test"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0,
+            0.040000000000000036,
+            0.040000000000000036
+          ],
+          "source": "test"
+        }
+      ],
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER",
+      "body_shape": "straight circular wall",
+      "properties": {
+        "InternalDiameter_m": 0.065,
+        "OutsideDiameter_m": 0.08
+      }
+    },
+    {
+      "id": "RETURN",
+      "ifc_class": "IfcPipeSegment",
+      "origin_m": [
+        1.96,
+        1,
+        0.96
+      ],
+      "size_m": [
+        0.08,
+        2,
+        0.08
+      ],
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.040000000000000036,
+            2,
+            0.040000000000000036
+          ],
+          "source": "test"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.040000000000000036,
+            0,
+            0.040000000000000036
+          ],
+          "source": "test"
+        }
+      ],
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER",
+      "body_shape": "straight circular wall",
+      "properties": {
+        "InternalDiameter_m": 0.065,
+        "OutsideDiameter_m": 0.08
+      }
+    },
+    {
+      "id": "PUMP",
+      "ifc_class": "IfcPump",
+      "origin_m": [
+        2,
+        0.8,
+        0.8
+      ],
+      "size_m": [
+        1,
+        0.4,
+        0.4
+      ],
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0,
+            0.2,
+            0.2
+          ],
+          "source": "test"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            1,
+            0.2,
+            0.2
+          ],
+          "source": "test"
+        }
+      ],
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER"
+    },
+    {
+      "id": "N_REF",
+      "ifc_class": "IfcUnitaryEquipment",
+      "origin_m": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "size_m": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "ports": [
+        {
+          "id": "REFERENCE",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "test"
+        }
+      ],
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER"
+    },
+    {
+      "id": "N_SUCTION",
+      "ifc_class": "IfcUnitaryEquipment",
+      "origin_m": [
+        1.9,
+        0.9,
+        0.9
+      ],
+      "size_m": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "ports": [
+        {
+          "id": "REFERENCE",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "test"
+        },
+        {
+          "id": "RETURN",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "test"
+        },
+        {
+          "id": "pump",
+          "direction": "SOURCE",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "test"
+        }
+      ],
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER"
+    },
+    {
+      "id": "N_SUPPLY",
+      "ifc_class": "IfcUnitaryEquipment",
+      "origin_m": [
+        2.9,
+        0.9,
+        0.9
+      ],
+      "size_m": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "ports": [
+        {
+          "id": "OUTBOUND",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "test"
+        },
+        {
+          "id": "pump",
+          "direction": "SINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "test"
+        }
+      ],
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER"
+    },
+    {
+      "id": "N_A",
+      "ifc_class": "IfcUnitaryEquipment",
+      "origin_m": [
+        2.9,
+        2.9,
+        0.9
+      ],
+      "size_m": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "ports": [
+        {
+          "id": "OUTBOUND",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "test"
+        },
+        {
+          "id": "CROSS",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "test"
+        }
+      ],
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER"
+    },
+    {
+      "id": "N_B",
+      "ifc_class": "IfcUnitaryEquipment",
+      "origin_m": [
+        1.9,
+        2.9,
+        0.9
+      ],
+      "size_m": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "ports": [
+        {
+          "id": "CROSS",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "test"
+        },
+        {
+          "id": "RETURN",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "test"
+        }
+      ],
+      "source": "test",
+      "space": "Plant",
+      "system": "WATER"
+    }
+  ],
+  "connections": [
+    {
+      "source": "test",
+      "from": "N_REF.REFERENCE",
+      "to": "REFERENCE.in"
+    },
+    {
+      "source": "test",
+      "from": "N_SUCTION.REFERENCE",
+      "to": "REFERENCE.out"
+    },
+    {
+      "source": "test",
+      "from": "N_SUPPLY.OUTBOUND",
+      "to": "OUTBOUND.in"
+    },
+    {
+      "source": "test",
+      "from": "N_A.OUTBOUND",
+      "to": "OUTBOUND.out"
+    },
+    {
+      "source": "test",
+      "from": "N_A.CROSS",
+      "to": "CROSS.in"
+    },
+    {
+      "source": "test",
+      "from": "N_B.CROSS",
+      "to": "CROSS.out"
+    },
+    {
+      "source": "test",
+      "from": "N_B.RETURN",
+      "to": "RETURN.in"
+    },
+    {
+      "source": "test",
+      "from": "N_SUCTION.RETURN",
+      "to": "RETURN.out"
+    },
+    {
+      "source": "test",
+      "from": "N_SUCTION.pump",
+      "to": "PUMP.in"
+    },
+    {
+      "source": "test",
+      "from": "PUMP.out",
+      "to": "N_SUPPLY.pump"
+    }
+  ]
+}

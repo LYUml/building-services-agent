@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "source": "Synthetic axis-aligned closed circulation, 65 mm bore and 80 mm OD; independently declared 1/2 m routes at z=1 m. Coincident zero-loss nodes and aggregate K are explicit test assumptions. No actual product, clash or design acceptance.",
+  "project_guid": "17Fw3MaeHJKxULN$tt3Z_V",
+  "system_guid": "09xiCFwrTHTfN14JDXlP3U",
+  "node_idealization": "coincident node ports form a zero-loss hydraulic node; withdrawals and boundary heads are separately sourced",
+  "nodes": {
+    "REF": {
+      "element_guid": "2eHW$XKI9JrPdH0gS14kB0",
+      "port_guids": [
+        "0rNctfmrXHKRMP8zd$is2p"
+      ]
+    },
+    "SUCTION": {
+      "element_guid": "06nTnz5czVqR_mInU51RUZ",
+      "port_guids": [
+        "12ctXHz5TJ9wznY$UKw9jf",
+        "22YbpX6LLUihIgYr1NQ$Yv",
+        "1dwuVc$0bIQR0L26YC_Hl1"
+      ]
+    },
+    "SUPPLY": {
+      "element_guid": "2uW9fIHuLIEhYh9$LvmvZJ",
+      "port_guids": [
+        "1NXVDTPg1PBuoPwZzKx_p0",
+        "1z7YZB9JHIDO1YtNM0MTh$"
+      ]
+    },
+    "A": {
+      "element_guid": "3633zlmzzO$ghw2_x7zGWG",
+      "port_guids": [
+        "1GSwlVonLKIuGPQCEyfKqb",
+        "3Gihtxv5rJ298VxMn_VE5s"
+      ]
+    },
+    "B": {
+      "element_guid": "2kNPyKZUTUd9BqJKiJxF$H",
+      "port_guids": [
+        "3F3mkBICLTUfYK1sfHHRgQ",
+        "2bhE5SMFbTivyVwUCKV1yu"
+      ]
+    }
+  },
+  "pipes": {
+    "REFERENCE": [
+      {
+        "element_guid": "3MEDeSiSbVew8STY4kq$Zs",
+        "start_port_guid": "1YXHE7IR9NlPDysCnOCm1E",
+        "end_port_guid": "1D5DI8f41MbBkl0w5Q5G2r"
+      }
+    ],
+    "OUTBOUND": [
+      {
+        "element_guid": "2Ahi2LTNbPLRjDnTrkCfHv",
+        "start_port_guid": "1c3j9pm7nGthNpGJ$uaCUl",
+        "end_port_guid": "0sP5fGXkfQ792gutZ8eopO"
+      }
+    ],
+    "CROSS": [
+      {
+        "element_guid": "0BTDsWeIDLcOm5pGkZrfzy",
+        "start_port_guid": "2SUwP$gafUqQgSN1U_2lk2",
+        "end_port_guid": "25EwAY6lPS2fK04lldMVdO"
+      }
+    ],
+    "RETURN": [
+      {
+        "element_guid": "0pk6ypS9rPiQEtiKgKEiGH",
+        "start_port_guid": "2BznKhQF5I8Qnwfa2uQ7mE",
+        "end_port_guid": "1zIPHBDtTGzvuejCXoaB8Z"
+      }
+    ]
+  },
+  "pumps": {
+    "PUMP": {
+      "element_guid": "049w1p5q1GVgrzSb8bUvi5",
+      "start_port_guid": "1Rl_M$uQLSYgX64otq1jO9",
+      "end_port_guid": "0b4RjaA3LV09Ir1N_ZuKCl"
+    }
+  }
+}

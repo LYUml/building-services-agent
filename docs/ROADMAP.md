@@ -44,3 +44,5 @@ The EPANET pipe-rule workflow adapter now chains thermal duty, scoped HK rules a
 Workflow fluid binding now rejects conflicting density declarations for identical hydraulic scenarios across thermal and regulatory tasks, including convergent sibling prerequisites and per-target conflicts. Evidence/source and physical temperature-property applicability remain unresolved by numeric equality.
 
 A repeatable circulation demonstration runner now stages source-hashed briefs and inputs, executes three native thermal/regulatory scenarios and retains integrity/blocker summaries. All observed expected behaviors pass, while manual engineering acceptance remains pending.
+
+An independent saved CHILLEDWATER circulation IFC now derives hollow bore, route lengths and node elevations into real EPANET circulation. A missing-reverse-link control exposed and fixed native relationship deduplication; IFC-to-thermal/regulatory workflow inheritance and physical fitting/clash acceptance remain pending.

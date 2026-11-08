@@ -29,3 +29,11 @@ The adapter retains an unchanged `model.ifc`, geometry/GUID evidence, derived `n
 The synthetic spatial example has twelve distribution elements and six physical pipe pieces forming four hydraulic routes: lengths 5, 7, 7 and 5 m, all with 40 mm bore and 50 mm outside diameter. Node elevations are 1 or 3 m. It demonstrates unequal branch splitting and reverse flow; values are declared assumptions, not measured building data. [Execution evidence](evidence/water-ifc/README.md).
 
 The saved model can now feed [orthographic drawing sets](IFC_VIEWS.md), including explicit end-on symbols and native/printed verification for the three-axis example. The older single-view adapter retains its end-on rejection. Pending: general source IFC schema/visual/product applicability, finite fittings and K validation, clashes/clearances, detailed installation drawings, pump efficiency/NPSH, regulations and full engineering acceptance. No BIM-viewer visual acceptance is claimed by geometry checks.
+
+## Closed chilled-water circulation fixture
+
+`examples/circulation-ifc` supplies an independent CHILLEDWATER model, GUID binding and zero-withdrawal circulation template. Author model.json with bsa.bim, then run bsa.water_binding with project.json, the saved model.ifc and binding.json. Saved hollow profiles produce 65 mm bore and four physical lengths of 1, 2, 1 and 2 m; actual node ports produce elevation 1 m. The pressure reference connects on a side branch; a pump and explicit three-pipe return form the circulating loop. All geometry and hydraulic values are synthetic assumptions.
+
+Native IFC and EPANET checks pass with positive circulation and zero reference exchange within declared numerical tolerances. A negative test exposed loss of one native direction being hidden by undirected connection deduplication. The binding now rejects missing reverse relationships for reversible ports and duplicate directed relationships, while preserving one SOURCE-to-SINK relationship for pump connections.
+
+Evidence is retained in docs/evidence/circulation-ifc. Junction envelopes are coincident zero-loss idealizations, not physical fitting products; no clash, viewer, installation or engineering acceptance is claimed. The derived network can be inspected independently, but thermal/regulatory workflow inheritance from this saved IFC remains to be integrated.

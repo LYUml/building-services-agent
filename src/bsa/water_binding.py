@@ -91,7 +91,7 @@ def derive(ifc,project,binding):
     def owned(row,ids):
         actual={g for g,o in owners.items() if o==row['element_guid']}
         if actual!=set(ids):raise ProjectError('binding must cover exactly the actual element ports')
-    actual_links=set();neighbours={g:set() for g in ports}
+    actual_links=set();directed_links=set();neighbours={g:set() for g in ports}
     for relation in model.by_type('IfcRelConnectsPorts'):
         a,b=relation.RelatingPort.GlobalId,relation.RelatedPort.GlobalId
         if a not in ports and b not in ports:continue
@@ -99,7 +99,12 @@ def derive(ifc,project,binding):
         directions=(ports[a][0].FlowDirection,ports[b][0].FlowDirection)
         if directions not in (('SOURCE','SINK'),('SOURCEANDSINK','SOURCEANDSINK')):raise ProjectError('IFC connection direction contradicts declared water ports')
         if relation.RealizingElement is not None:raise ProjectError('implicit realizing-element links require explicit hydraulic decomposition')
+        if (a,b) in directed_links:raise ProjectError('duplicate native water port relationship')
+        directed_links.add((a,b))
         actual_links.add(frozenset((a,b)));neighbours[a].add(b);neighbours[b].add(a)
+    for a,b in directed_links:
+        if ports[a][0].FlowDirection=='SOURCEANDSINK' and (b,a) not in directed_links:
+            raise ProjectError('reversible water connection requires both native relationship directions')
     if any(len(peers)!=1 for peers in neighbours.values()):raise ProjectError('each selected water port needs exactly one connected peer')
     expected=set();node_points={};evidence=dict(ifc_sha256=sha,project_guid=binding['project_guid'],system_guid=binding['system_guid'],length_unit_to_m=factor,nodes={},pipes={},pumps={})
     for id,row in binding['nodes'].items():
