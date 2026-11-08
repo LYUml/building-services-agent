@@ -1,0 +1,407 @@
+{
+  "checks": {
+    "full_weather_calendar": true,
+    "complete_hourly_variable_coverage": true,
+    "lighting_analytic_energy": true,
+    "lighting_hourly_profile": true,
+    "monthly_annual_reconciliation": true,
+    "zone_unmet_time_target": true,
+    "lighting_per_zone_hourly_profile": true,
+    "equipment_hourly_balance": true,
+    "equipment_per_zone_hourly_balance": true,
+    "equipment_annual_integral": true,
+    "people_hourly_balance": true,
+    "people_per_zone_hourly_balance": true,
+    "people_annual_integral": true,
+    "ventilation_hourly_balance": true,
+    "ventilation_per_zone_hourly_balance": true,
+    "ventilation_annual_integral": true,
+    "infiltration_scheduled_mass_flow": true,
+    "ventilation_scheduled_mass_flow": true
+  },
+  "calculated_checks_pass": true,
+  "environments": [
+    [
+      1,
+      "ANNUAL EPW",
+      3
+    ]
+  ],
+  "annual": [
+    {
+      "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+      "quantity": "ideal supplied cooling thermal",
+      "annual_kwh": 3117.9991416167586,
+      "coincident_peak_kw": 5.0338819954442595,
+      "hours": 8760
+    },
+    {
+      "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+      "quantity": "ideal supplied heating thermal",
+      "annual_kwh": 5736.821986292775,
+      "coincident_peak_kw": 5.564090227571173,
+      "hours": 8760
+    },
+    {
+      "variable": "Lights Electricity Rate",
+      "quantity": "lighting electricity",
+      "annual_kwh": 1660.968,
+      "coincident_peak_kw": 0.612,
+      "hours": 8760
+    }
+  ],
+  "monthly": [
+    {
+      "month": 1,
+      "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+      "kwh": 0.0,
+      "coincident_peak_kw": 0.0,
+      "hours": 744
+    },
+    {
+      "month": 2,
+      "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+      "kwh": 0.0,
+      "coincident_peak_kw": 0.0,
+      "hours": 672
+    },
+    {
+      "month": 3,
+      "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+      "kwh": 0.0,
+      "coincident_peak_kw": 0.0,
+      "hours": 744
+    },
+    {
+      "month": 4,
+      "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+      "kwh": 137.26234116633876,
+      "coincident_peak_kw": 3.6762927063350577,
+      "hours": 720
+    },
+    {
+      "month": 5,
+      "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+      "kwh": 224.41409369738295,
+      "coincident_peak_kw": 3.2212848483262926,
+      "hours": 744
+    },
+    {
+      "month": 6,
+      "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+      "kwh": 611.0694794193971,
+      "coincident_peak_kw": 4.146247706944008,
+      "hours": 720
+    },
+    {
+      "month": 7,
+      "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+      "kwh": 1013.8433224278141,
+      "coincident_peak_kw": 5.0338819954442595,
+      "hours": 744
+    },
+    {
+      "month": 8,
+      "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+      "kwh": 733.6086701018774,
+      "coincident_peak_kw": 4.977626273782757,
+      "hours": 744
+    },
+    {
+      "month": 9,
+      "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+      "kwh": 374.86210488519157,
+      "coincident_peak_kw": 3.218231001306521,
+      "hours": 720
+    },
+    {
+      "month": 10,
+      "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+      "kwh": 22.939129918756418,
+      "coincident_peak_kw": 1.1766316403978112,
+      "hours": 744
+    },
+    {
+      "month": 11,
+      "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+      "kwh": 0.0,
+      "coincident_peak_kw": 0.0,
+      "hours": 720
+    },
+    {
+      "month": 12,
+      "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+      "kwh": 0.0,
+      "coincident_peak_kw": 0.0,
+      "hours": 744
+    },
+    {
+      "month": 1,
+      "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+      "kwh": 1438.6092764785208,
+      "coincident_peak_kw": 5.564090227571173,
+      "hours": 744
+    },
+    {
+      "month": 2,
+      "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+      "kwh": 1097.7226535126035,
+      "coincident_peak_kw": 5.371957012376024,
+      "hours": 672
+    },
+    {
+      "month": 3,
+      "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+      "kwh": 664.307489952973,
+      "coincident_peak_kw": 2.548933779274831,
+      "hours": 744
+    },
+    {
+      "month": 4,
+      "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+      "kwh": 305.6805194293612,
+      "coincident_peak_kw": 1.7525227559891738,
+      "hours": 720
+    },
+    {
+      "month": 5,
+      "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+      "kwh": 4.610822979404039,
+      "coincident_peak_kw": 0.361876884276463,
+      "hours": 744
+    },
+    {
+      "month": 6,
+      "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+      "kwh": 0.0,
+      "coincident_peak_kw": 0.0,
+      "hours": 720
+    },
+    {
+      "month": 7,
+      "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+      "kwh": 0.0,
+      "coincident_peak_kw": 0.0,
+      "hours": 744
+    },
+    {
+      "month": 8,
+      "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+      "kwh": 0.0,
+      "coincident_peak_kw": 0.0,
+      "hours": 744
+    },
+    {
+      "month": 9,
+      "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+      "kwh": 0.781940788079608,
+      "coincident_peak_kw": 0.1506178028070253,
+      "hours": 720
+    },
+    {
+      "month": 10,
+      "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+      "kwh": 157.58001140710894,
+      "coincident_peak_kw": 1.1303386872120622,
+      "hours": 744
+    },
+    {
+      "month": 11,
+      "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+      "kwh": 695.7471048025355,
+      "coincident_peak_kw": 4.423643106432324,
+      "hours": 720
+    },
+    {
+      "month": 12,
+      "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+      "kwh": 1371.7821669421887,
+      "coincident_peak_kw": 4.59699916409476,
+      "hours": 744
+    },
+    {
+      "month": 1,
+      "variable": "Lights Electricity Rate",
+      "kwh": 145.656,
+      "coincident_peak_kw": 0.612,
+      "hours": 744
+    },
+    {
+      "month": 2,
+      "variable": "Lights Electricity Rate",
+      "kwh": 127.296,
+      "coincident_peak_kw": 0.612,
+      "hours": 672
+    },
+    {
+      "month": 3,
+      "variable": "Lights Electricity Rate",
+      "kwh": 134.64,
+      "coincident_peak_kw": 0.612,
+      "hours": 744
+    },
+    {
+      "month": 4,
+      "variable": "Lights Electricity Rate",
+      "kwh": 139.536,
+      "coincident_peak_kw": 0.612,
+      "hours": 720
+    },
+    {
+      "month": 5,
+      "variable": "Lights Electricity Rate",
+      "kwh": 140.76,
+      "coincident_peak_kw": 0.612,
+      "hours": 744
+    },
+    {
+      "month": 6,
+      "variable": "Lights Electricity Rate",
+      "kwh": 133.416,
+      "coincident_peak_kw": 0.612,
+      "hours": 720
+    },
+    {
+      "month": 7,
+      "variable": "Lights Electricity Rate",
+      "kwh": 145.656,
+      "coincident_peak_kw": 0.612,
+      "hours": 744
+    },
+    {
+      "month": 8,
+      "variable": "Lights Electricity Rate",
+      "kwh": 134.64,
+      "coincident_peak_kw": 0.612,
+      "hours": 744
+    },
+    {
+      "month": 9,
+      "variable": "Lights Electricity Rate",
+      "kwh": 139.536,
+      "coincident_peak_kw": 0.612,
+      "hours": 720
+    },
+    {
+      "month": 10,
+      "variable": "Lights Electricity Rate",
+      "kwh": 145.656,
+      "coincident_peak_kw": 0.612,
+      "hours": 744
+    },
+    {
+      "month": 11,
+      "variable": "Lights Electricity Rate",
+      "kwh": 128.52,
+      "coincident_peak_kw": 0.612,
+      "hours": 720
+    },
+    {
+      "month": 12,
+      "variable": "Lights Electricity Rate",
+      "kwh": 145.656,
+      "coincident_peak_kw": 0.612,
+      "hours": 744
+    }
+  ],
+  "zone_unmet": [
+    {
+      "variable": "Zone Cooling Setpoint Not Met Time",
+      "zone": "ANNEX",
+      "zone_hours": 0.0
+    },
+    {
+      "variable": "Zone Cooling Setpoint Not Met Time",
+      "zone": "EAST",
+      "zone_hours": 0.0
+    },
+    {
+      "variable": "Zone Cooling Setpoint Not Met Time",
+      "zone": "OFFICE",
+      "zone_hours": 0.0
+    },
+    {
+      "variable": "Zone Heating Setpoint Not Met Time",
+      "zone": "ANNEX",
+      "zone_hours": 0.0
+    },
+    {
+      "variable": "Zone Heating Setpoint Not Met Time",
+      "zone": "EAST",
+      "zone_hours": 0.0
+    },
+    {
+      "variable": "Zone Heating Setpoint Not Met Time",
+      "zone": "OFFICE",
+      "zone_hours": 0.0
+    }
+  ],
+  "analytic_lighting_kwh": 1660.968,
+  "sql_completion_flags": [
+    [
+      "FALSE",
+      "FALSE"
+    ]
+  ],
+  "sql_completion_flags_true": false,
+  "operation": {
+    "checks": {
+      "equipment_hourly_balance": true,
+      "equipment_per_zone_hourly_balance": true,
+      "equipment_annual_integral": true,
+      "people_hourly_balance": true,
+      "people_per_zone_hourly_balance": true,
+      "people_annual_integral": true,
+      "ventilation_hourly_balance": true,
+      "ventilation_per_zone_hourly_balance": true,
+      "ventilation_annual_integral": true,
+      "infiltration_scheduled_mass_flow": true,
+      "ventilation_scheduled_mass_flow": true
+    },
+    "calculated_checks_pass": true,
+    "annual": [
+      {
+        "variable": "Electric Equipment Electricity Rate",
+        "units": "W",
+        "quantity": "equipment electricity kWh",
+        "annual_integral": 2214.6240000000003,
+        "analytic_integral": 2214.6240000000003,
+        "hours": 8760
+      },
+      {
+        "variable": "Zone People Occupant Count",
+        "units": "",
+        "quantity": "person-hours",
+        "annual_integral": 22146.24,
+        "analytic_integral": 22146.24,
+        "hours": 8760
+      },
+      {
+        "variable": "Zone Ventilation Fan Electricity Energy",
+        "units": "J",
+        "quantity": "simple ventilation fan electricity kWh",
+        "annual_integral": 69.207,
+        "analytic_integral": 69.20700000000001,
+        "hours": 8760
+      },
+      {
+        "variable": "Zone Infiltration Mass Flow Rate",
+        "units": "kg/s",
+        "quantity": "infiltration outdoor-air mass kg",
+        "annual_integral": 199495.0111943959,
+        "analytic_integral": null,
+        "hours": 8760,
+        "scope": "scheduled on/off checked; mass depends on engine air density, no fixed-density equality asserted"
+      },
+      {
+        "variable": "Zone Ventilation Mass Flow Rate",
+        "units": "kg/s",
+        "quantity": "ventilation outdoor-air mass kg",
+        "annual_integral": 598485.0335831877,
+        "analytic_integral": null,
+        "hours": 8760,
+        "scope": "scheduled on/off checked; mass depends on engine air density, no fixed-density equality asserted"
+      }
+    ]
+  }
+}

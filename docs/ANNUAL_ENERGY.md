@@ -40,3 +40,5 @@ The builder checks up to 100 axis-aligned boxes, rejects volume overlap and part
 The three-space synthetic chain has widths 3/5/4 m, depth 4 m and height 3 m: 48 m², three thermal zones and two shared-face pairs. Actual 8760-hour baseline/variant execution gives independently expected lighting electricity 5045.76 / 2522.88 kWh. Tests reopen stacked OSM geometry and reject renamed SQL zone keys even when sample counts still match. All inputs retain per-space sources; the example is not a measured or accepted building design.
 
 For sourced role-specific opaque layers replacing the legacy uniform construction, see [THERMAL_MATERIALS.md](THERMAL_MATERIALS.md). All other weather, geometry, internal-gain/schedule, plant and acceptance limitations above still apply.
+
+For sourced weekly lighting, people, equipment and fixed scheduled simple infiltration/ventilation replacing the legacy absent-gain/always-on assumptions, see [THERMAL_OPERATION.md](THERMAL_OPERATION.md). The example includes independently checked equipment/occupancy/fan quantities and native density-dependent outdoor-air mass flows. Full HVAC/plant and real applicability remain pending.

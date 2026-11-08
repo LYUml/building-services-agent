@@ -24,6 +24,9 @@ jobs:
       - run: .venv/Scripts/python -m unittest discover -s tests -p test_thermal_geometry.py -v
         env:
           BSA_TEST_ENERGYPLUS: ${{ github.workspace }}/tools/energyplus-25.2/EnergyPlus-25.2.0-cf7368216c-Windows-x86_64/energyplus.exe
+      - run: .venv/Scripts/python -m unittest discover -s tests -p test_thermal_operation.py -v
+        env:
+          BSA_TEST_ENERGYPLUS: ${{ github.workspace }}/tools/energyplus-25.2/EnergyPlus-25.2.0-cf7368216c-Windows-x86_64/energyplus.exe
       - run: .venv/Scripts/python -m unittest discover -s tests -p test_thermal_materials.py -v
         env:
           BSA_TEST_ENERGYPLUS: ${{ github.workspace }}/tools/energyplus-25.2/EnergyPlus-25.2.0-cf7368216c-Windows-x86_64/energyplus.exe

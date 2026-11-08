@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "brief": "thermal-operation/brief.md",
+  "brief_sha256": "1f58e094fb23dae9ff80e96e6c11ea174ecda1e51ce6b28ef7543933f90e23d2",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "model",
+      "kind": "bim",
+      "project": "thermal-ifc/bim.json"
+    },
+    {
+      "id": "thermal",
+      "kind": "annual_energy_ifc",
+      "project": "thermal-operation/project.json",
+      "binding": "thermal-ifc/binding.json",
+      "depends_on": "model",
+      "weather": "annual-energy/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw.gz"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Author thermal-ifc/bim.json as editable IFC, preserving space identities and source bytes. All geometry, construction and operating inputs are synthetic.",
+      "task": "model",
+      "acceptance": "Source-linked synthetic execution; real engineering acceptance pending"
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Bind every saved space with thermal-ifc/binding.json and use thermal-operation/project.json to apply declared weekday/weekend lighting, equipment, occupancy and fixed scheduled infiltration/ventilation. Run the full 2025 calendar with actual EnergyPlus and attributed Chicago weather. Check hourly lighting/equipment electricity, occupant counts and simple ventilation fan energy against independent schedule integrals, retaining native logs and input hashes. Keep supplied thermal loads, lighting, equipment and fan electricity separate. No surveyed occupancy, leakage or ventilation compliance, detailed duct/HVAC/plant or engineering acceptance is claimed.",
+      "task": "thermal",
+      "acceptance": "Source-linked synthetic execution; real engineering acceptance pending"
+    }
+  ]
+}

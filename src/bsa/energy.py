@@ -68,6 +68,9 @@ def build(p, lighting, out):
         for surface in space.surfaces():
             if constructions is None:surface.setConstruction(construction)
             if surface.surfaceType()=="Floor":surface.setOutsideBoundaryCondition("Adiabatic")
+    if 'operation' in p:
+        from .thermal_operation import author as author_operation
+        author_operation(m,p['operation'],spaces)
     sv=os.model.SpaceVector()
     for space in spaces:sv.append(space)
     os.model.matchSurfaces(sv)
@@ -159,6 +162,10 @@ def validate(p,require_design_days=True):
             raise ProjectError(f"finite number required: {label}")
         if (low is not None and value<low) or (high is not None and value>high):
             raise ProjectError(f"out of range: {label}")
+    if 'operation' in p:
+        if require_design_days:raise ProjectError('weekly operation is supported for annual weather models only')
+        from .thermal_operation import validate as validate_operation
+        validate_operation(p['operation'])
     if 'north_axis_deg' in p:
         number(p['north_axis_deg'],'north axis',0,360)
         if p['north_axis_deg']==360:raise ProjectError('north axis must be less than 360 degrees')

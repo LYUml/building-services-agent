@@ -1,0 +1,11 @@
+# Scheduled operation evidence
+
+Source plan: examples/thermal-operation-plan.json. Fresh actual execution: runs/thermal-operation-v4; workflow verify returned integrity_pass true, design_accepted false. Reused saved IFC spaces, explicit GUID/north-axis mapping and sourced opaque layers feed actual OpenStudio 3.11.0 / EnergyPlus 25.2.0 annual runs. Operating values are explicitly synthetic.
+
+Retained evidence includes prepared project, geometry/source audits, full annual summaries and saved OSM/IDF/native completion/diagnostics. Large SQL, hourly CSV and other workflow artifacts remain in the ignored run, hash-listed in manifests. This selected archive is not a complete portable replay archive. Native SQL flags remain unmodified under the exact source/binary completion diagnosis.
+
+2025 has 2714 equivalent full-load profile hours. Independent results: lighting 3321.936 / 1660.968 kWh, equipment 2214.624 kWh, occupant count integral 22146.24 person-hours, balanced simple ventilation fans 69.207 kWh. Native infiltration/ventilation mass flow is retained with scheduled on/off checks; no guessed constant-density equality is asserted. Thermal ideal supplied heating/cooling, lighting, equipment, fans and people remain separate quantities.
+
+Final saved-OSM audits check all seven weekday profiles, object/zone links, physical settings and source features for lighting, equipment, people, infiltration and ventilation. Hourly/annual SQL checks require exact zone identities and units. Full local regression: 194 tests in 203.461 s, no skips, with native AutoCAD, EnergyPlus, Radiance and OCR enabled. New tests include actual leap-year weather-derivative and zero-load/no-fan runs, independent calendar integrals, preserved-annual-total hourly tampering, saved schedule/physical/source tampering, missing records/wrong units/keys, and malformed inputs. Synthetic leap weather is a test derivative, not actual meteorology.
+
+No surveyed occupancy/leakage, ventilation compliance, measured airflow, detailed duct/AHU/heat-recovery/plant, visual or engineering acceptance is claimed. The completed coursework remains untouched. See docs/THERMAL_OPERATION.md and THIRD_PARTY.md for model semantics, limits and attribution.

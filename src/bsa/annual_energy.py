@@ -39,6 +39,7 @@ def validate(p):
     building_fields={'name','source','zone_width_m','zone_depth_m','height_m','envelope_r_m2k_w','heating_setpoint_c','cooling_setpoint_c','baseline_lighting_w_m2','variant_lighting_w_m2'}
     if p['model']==MULTIZONE_MODEL:building_fields=(building_fields-{'zone_width_m','zone_depth_m','height_m'})|{'spaces'}
     if isinstance(building,dict) and 'north_axis_deg' in building:building_fields.add('north_axis_deg')
+    if isinstance(building,dict) and 'operation' in building:building_fields.add('operation')
     if isinstance(building,dict) and 'opaque_constructions' in building:building_fields=(building_fields-{'envelope_r_m2k_w'})|{'opaque_constructions'}
     if not isinstance(building,dict) or set(building)!=building_fields:raise ProjectError('exact building fields required; site comes from EPW and design days are omitted')
     from .energy import validate as validate_building
@@ -118,11 +119,16 @@ def build(project,weather,weather_meta,lighting,out):
         saved=os.model.Model.load(os.path(str(out/'model.osm')))
         if saved.empty():raise ProjectError('final annual model could not be reopened')
         metadata['material_audit']=audit(saved.get(),building['opaque_constructions'])
+    if 'operation' in building:
+        from .thermal_operation import audit as audit_operation
+        saved=os.model.Model.load(os.path(str(out/'model.osm')))
+        if saved.empty():raise ProjectError('saved operation model could not be reopened')
+        metadata['operation_audit']=audit_operation(saved.get(),building['operation'])
     metadata.update(calendar_year=project['calendar_year'],design_day_count=len(model.getDesignDays()),weather_sha256=weather_meta['sha256'],translation_warnings=[str(v.logMessage()) for v in ft.warnings()])
     return metadata
 
 
-def extract(sql,year,lighting_w_m2,area,solver,targets,geometry=None):
+def extract(sql,year,lighting_w_m2,area,solver,targets,geometry=None,operation=None):
     con=sqlite3.connect(Path(sql).resolve().as_uri()+'?mode=ro',uri=True)
     try:
         completed=con.execute('SELECT Completed,CompletedSuccessfully FROM Simulations').fetchall()
@@ -160,11 +166,19 @@ def extract(sql,year,lighting_w_m2,area,solver,targets,geometry=None):
             monthly.append(dict(month=month,variable=name,kwh=math.fsum(values)/1000,coincident_peak_kw=max(values)/1000,hours=len(values)))
     unmet=[dict(variable=name,zone=key,zone_hours=math.fsum(r['value'] for r in rows)) for (name,key),rows in series.items() if name in UNMET]
     expected_w=lighting_w_m2*area;actual=next(t for t in totals if t['variable']==RATES[2]);expected_kwh=expected_w*len(expected)/1000
+    lighting_profile=[1]*len(expected)
+    if operation:
+        from .thermal_operation import fractions
+        lighting_profile=fractions(operation['lighting']['weekly_fraction'],year)
+        expected_kwh=expected_w*math.fsum(lighting_profile)/1000
     checks=dict(full_weather_calendar=True,complete_hourly_variable_coverage=True,
                 lighting_analytic_energy=abs(actual['annual_kwh']-expected_kwh)<=solver['energy_tolerance_kwh'],
-                lighting_constant_power=all(abs(r[RATES[2]]-expected_w)<=solver['rate_tolerance_w'] for r in hours),
+                lighting_hourly_profile=all(abs(r[RATES[2]]-expected_w*f)<=solver['rate_tolerance_w'] for r,f in zip(hours,lighting_profile)),
                 monthly_annual_reconciliation=all(abs(math.fsum(r['kwh'] for r in monthly if r['variable']==t['variable'])-t['annual_kwh'])<=solver['energy_tolerance_kwh'] for t in totals),
                 zone_unmet_time_target=all(r['zone_hours']<=targets['maximum_zone_unmet_hours'] for r in unmet))
+    if operation and geometry:
+        checks['lighting_per_zone_hourly_profile']=all(abs(row['value']-lighting_w_m2*s['size_m'][0]*s['size_m'][1]*f)<=solver['rate_tolerance_w'] for s in geometry['spaces'] for row,f in zip(series[(RATES[2],(s['id']+' lights').upper())],lighting_profile))
+    if not operation:checks['lighting_constant_power']=checks['lighting_hourly_profile']
     return dict(checks=checks,calculated_checks_pass=all(checks.values()),environments=environments,annual=totals,monthly=monthly,zone_unmet=unmet,analytic_lighting_kwh=expected_kwh,
                 sql_completion_flags=[list(row) for row in completed],sql_completion_flags_true=all(v in (1,'TRUE') for v in completed[0])),hours
 
@@ -189,7 +203,14 @@ def run(project,weather,out,exe):
         (folder/'completion.json').write_text(json.dumps(completion,indent=2),encoding='utf-8')
         if not completion['completion_verified']:raise ProjectError('annual native completion evidence is unverified; inspect completion.json')
         diagnostics=(folder/'eplusout.err').read_text(errors='replace');end=(folder/'eplusout.end').read_text(errors='replace')
-        summary,hourly=extract(folder/'eplusout.sql',p['calendar_year'],p['building'][key],meta['floor_area_m2'],p['solver'],p['targets'],meta)
+        summary,hourly=extract(folder/'eplusout.sql',p['calendar_year'],p['building'][key],meta['floor_area_m2'],p['solver'],p['targets'],meta,p['building'].get('operation'))
+        if 'operation' in p['building']:
+            from .thermal_operation import extract as extract_operation
+            operation_summary,operation_hourly=extract_operation(folder/'eplusout.sql',p['building']['operation'],meta,p['calendar_year'],p['solver'])
+            summary['operation']=operation_summary
+            summary['checks'].update(operation_summary['checks']);summary['calculated_checks_pass']=all(summary['checks'].values())
+            with (folder/'operation-hourly.csv').open('w',newline='',encoding='utf-8') as stream:
+                writer=csv.DictWriter(stream,fieldnames=['variable','month','day','hour','value','analytic','units']);writer.writeheader();writer.writerows(operation_hourly)
         with (folder/'hourly-building-rates.csv').open('w',newline='',encoding='utf-8') as stream:
             writer=csv.DictWriter(stream,fieldnames=['month','day','hour']+list(RATES));writer.writeheader();writer.writerows(hourly)
         (folder/'summary.json').write_text(json.dumps(summary,indent=2),encoding='utf-8');results[kind]=dict(metadata=meta,summary=summary,diagnostics=diagnostics,completion=completion,sql_sha256=digest(folder/'eplusout.sql'),engine_success_evidence=dict(returncode=proc.returncode,end_report=end,end_report_sha256=digest(folder/'eplusout.end'),stdout_success_marker=True))
@@ -199,7 +220,7 @@ def run(project,weather,out,exe):
     result=dict(inputs=before,inputs_unchanged=True,source_data=p,weather=weather_meta,engine=version,engine_sha256=digest(exe),results=results,comparison=comparison,
                 calculated_checks_pass=all(v['summary']['calculated_checks_pass'] for v in results.values()),design_accepted=False,
                 scope='Full-calendar hourly EPW simulation of source-declared ideal-load spaces; heating/cooling thermal demand and lighting electricity reported separately',
-                assumptions=['No windows, people, equipment, ventilation/infiltration; adiabatic floors; always-on lights and constant setpoints','Ideal air loads are supplied thermal demand, not HVAC electricity; no plant/COP or whole-building EUI inferred','Source-declared role-specific opaque layers; layer R excludes surface films/bridges/moisture' if 'opaque_constructions' in p['building'] else 'Legacy synthetic uniform R layer plus fixed 0.1 m mass layer: conductivity 0.5 W/mK, density 800 kg/m3, specific heat 1000 J/kgK','Weather calendar remapped to declared simulation year; DST/holidays/rain/snow indicators disabled; no design-day/sizing runs'],
+                assumptions=['Sourced weekly lighting/equipment/people and fixed scheduled simple infiltration/ventilation; no windows; adiabatic floors and constant setpoints' if 'operation' in p['building'] else 'No windows, people, equipment, ventilation/infiltration; adiabatic floors; always-on lights and constant setpoints','Ideal air loads are supplied thermal demand, not HVAC electricity; no plant/COP or whole-building EUI inferred','Source-declared role-specific opaque layers; layer R excludes surface films/bridges/moisture' if 'opaque_constructions' in p['building'] else 'Legacy synthetic uniform R layer plus fixed 0.1 m mass layer: conductivity 0.5 W/mK, density 800 kg/m3, specific heat 1000 J/kgK','Weather calendar remapped to declared simulation year; DST/holidays/rain/snow indicators disabled; no design-day/sizing runs'],
                 pending=['actual building geometry/construction/gain/schedule and meteorological applicability','detailed HVAC, ventilation/moisture, plant electricity and code acceptance','real-project calibration and full engineering acceptance'])
     result['completion_limitations']=[dict(case=kind,status=v['completion']['status'],native_sql_flags_preserved=True,source_commit=v['completion']['source_inference']['commit']) for kind,v in results.items() if v['completion']['known_unwritten_initial_flags']]
     (out/'report.html').write_text('<!doctype html><meta charset="utf-8"><h1>Annual ideal-load and lighting comparison</h1><p>'+html.escape(result['scope'])+'</p><pre>'+html.escape(json.dumps(dict(comparison=comparison,results=results),indent=2))+'</pre><p>'+html.escape('; '.join(result['pending']))+'</p>',encoding='utf-8')
