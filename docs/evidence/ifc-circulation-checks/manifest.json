@@ -1,0 +1,5 @@
+{
+  "scope": "Synthetic saved IFC to thermal and scoped HK pipe checks; full acceptance pending",
+  "sha256": "147dc990ed11e07622d85335cc13e9e6e4418b6593f4562d2dc9f93c507fa527",
+  "upstream_evidence": "../circulation-ifc/native-runs.zip"
+}

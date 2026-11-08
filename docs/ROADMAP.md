@@ -46,3 +46,5 @@ Workflow fluid binding now rejects conflicting density declarations for identica
 A repeatable circulation demonstration runner now stages source-hashed briefs and inputs, executes three native thermal/regulatory scenarios and retains integrity/blocker summaries. All observed expected behaviors pass, while manual engineering acceptance remains pending.
 
 An independent saved CHILLEDWATER circulation IFC now derives hollow bore, route lengths and node elevations into real EPANET circulation. A missing-reverse-link control exposed and fixed native relationship deduplication; IFC-to-thermal/regulatory workflow inheritance and physical fitting/clash acceptance remain pending.
+
+Saved IFC circulation now has a standalone combined thermal/pipe-rule adapter that rechecks native artifacts and rederives the exact network before fresh checks. Modified derived geometry is rejected even after its manifest hash is rewritten. Workflow inheritance and full physical/regulatory acceptance remain pending.

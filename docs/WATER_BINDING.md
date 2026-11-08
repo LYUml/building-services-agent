@@ -37,3 +37,11 @@ The saved model can now feed [orthographic drawing sets](IFC_VIEWS.md), includin
 Native IFC and EPANET checks pass with positive circulation and zero reference exchange within declared numerical tolerances. A negative test exposed loss of one native direction being hidden by undirected connection deduplication. The binding now rejects missing reverse relationships for reversible ports and duplicate directed relationships, while preserving one SOURCE-to-SINK relationship for pump connections.
 
 Evidence is retained in docs/evidence/circulation-ifc. Junction envelopes are coincident zero-loss idealizations, not physical fitting products; no clash, viewer, installation or engineering acceptance is claimed. The derived network can be inspected independently, but thermal/regulatory workflow inheritance from this saved IFC remains to be integrated.
+
+## Saved circulation to thermal and jurisdiction checks
+
+`bsa.ifc_circulation_checks` accepts `--producer` (water_binding output), `--template`, `--binding`, `--thermal-basis`, `--rule-basis`, `--pack`, `--sources` and a new `--out` directory. It verifies original input identities and all inventoried native files, rederives geometry from the saved IFC and compares the complete hydraulic input. It checks density consistency, then freshly reruns thermal transport and scoped pipe rules on that exact derived input. Both results remain visible even when one fails. Combined status cannot pass a thermal or hydraulic failure, missing rule evidence or unresolved rule review.
+
+The source template and binding must be the originals referenced by the producer. The adapter accepts no replacement hydraulic project. Geometry reconciliation detects changed derived dimensions even if the caller rewrites that artifact's recorded hash. Hashes are integrity records, not signatures authenticating engineering truth.
+
+The real synthetic run in docs/evidence/ifc-circulation-checks uses examples/circulation-ifc/regulatory-bases.json, the 40 kW synthetic thermal basis and the pinned official BEC pack. It passes scoped thermal/rule checks while retaining full engineering acceptance as false. This adapter is currently standalone; workflow inheritance, detailed fittings/clashes, native drawings and full regulatory coverage are not established by it.
