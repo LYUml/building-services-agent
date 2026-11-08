@@ -1,0 +1,39 @@
+{
+  "status": "failed",
+  "completion_verified": false,
+  "checks": {
+    "process_exit_zero": false,
+    "stdout_success": false,
+    "end_report_success": false,
+    "no_severe_fatal": false,
+    "sql_engine_version_match": true,
+    "sql_flags_compatible": false,
+    "native_files_complete": true,
+    "one_readable_sql_record": true
+  },
+  "process_returncode": 1,
+  "sql_flags_raw": [
+    1,
+    0
+  ],
+  "sql_flags_decoded": [
+    true,
+    false
+  ],
+  "native_sql_success_flags_true": false,
+  "known_unwritten_initial_flags": false,
+  "engine_version": "EnergyPlus, Version 25.2.0-cf7368216c",
+  "engine_sha256": "51715987663666eaff1c8d3bd6ac2d7fe0486d8bc93673eea87c6912a79103f0",
+  "source_inference": null,
+  "scope": "Native process/log/end/error/SQL-version completion evidence only; period coverage, numerical/model validity and engineering acceptance remain separate",
+  "design_accepted": false,
+  "artifacts": {
+    "engine.log": "7d78cc24488d634dbcd789e9b6378513d151597401561f795148e6e2a04be629",
+    "eplusout.end": "76c3bbc688db4e882ea0a0902cc66cfd5a3d491aecbf27e14848331f3a9eac8d",
+    "eplusout.err": "4d2c8206434e390ab4243efa95650ae417db1ceb840c3a49327554645708065d",
+    "eplusout.sql": "5112df5acb4a31c444efdb10781de80ab4b5ff4eed856c1c96bfa1627bec7c9a"
+  },
+  "missing_artifacts": [],
+  "sql_parse_error": null,
+  "source_files_unchanged": true
+}

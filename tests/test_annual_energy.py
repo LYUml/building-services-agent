@@ -84,11 +84,17 @@ class AnnualEngineTests(unittest.TestCase):
             c=sqlite3.connect(str(self.root/'annual'/kind/'eplusout.sql'));flags=c.execute('SELECT Completed,CompletedSuccessfully FROM Simulations').fetchall();c.close()
             self.assertEqual(summary['sql_completion_flags'],[list(row) for row in flags])
             self.assertTrue(r['results'][kind]['engine_success_evidence']['stdout_success_marker'])
+            self.assertTrue(r['results'][kind]['completion']['completion_verified'])
+            self.assertEqual(r['results'][kind]['completion']['sql_flags_raw'],list(flags[0]))
         self.assertLess(r['comparison'][0]['change_kwh'],0);self.assertGreater(r['comparison'][1]['change_kwh'],0)
         self.assertAlmostEqual(r['comparison'][2]['change_kwh'],-2102.4)
 
     def test_truncated_wrong_interval_and_wrong_environment_sql_rejected(self):
         p=project();source=self.root/'annual/baseline/eplusout.sql';before=digest(source)
+        with tempfile.TemporaryDirectory() as f:
+            folder=Path(f)/'annual # source';folder.mkdir();path=folder/'copied.sql';shutil.copyfile(source,path)
+            summary,_=extract(path,2025,12,40,p['solver'],p['targets'])
+            self.assertTrue(summary['calculated_checks_pass']);self.assertEqual(list(Path(f).iterdir()),[folder])
         for command in ('DELETE FROM ReportData WHERE ReportDataIndex=(SELECT MIN(ReportDataIndex) FROM ReportData)',
                         'UPDATE Time SET Interval=30 WHERE TimeIndex=(SELECT MIN(TimeIndex) FROM Time)',
                         'UPDATE EnvironmentPeriods SET EnvironmentType=1'):

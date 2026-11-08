@@ -23,7 +23,7 @@ class EnergyTests(unittest.TestCase):
     def test_real_engine_geometry_and_lighting_balance(self):
         root=ROOT/"runs";root.mkdir(exist_ok=True)
         with tempfile.TemporaryDirectory(dir=root) as folder:
-            r=run(PROJECT,Path(folder)/"energy",Path(os.environ["BSA_TEST_ENERGYPLUS"]))
+            r=run(PROJECT,Path(folder)/"energy # source",Path(os.environ["BSA_TEST_ENERGYPLUS"]))
             self.assertTrue(r["input_unchanged"])
             self.assertFalse(r["design_accepted"])
             for variant,power in (("baseline",0.48),("variant",0.24)):

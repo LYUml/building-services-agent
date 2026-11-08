@@ -16,6 +16,7 @@ import sqlite3
 import subprocess
 from .cli import digest
 from .engine import ProjectError
+from .energy_completion import inspect as inspect_completion
 
 MODEL='annual hourly EPW; two adjacent ideal-load zones'
 RATES=('Zone Ideal Loads Supply Air Total Cooling Rate','Zone Ideal Loads Supply Air Total Heating Rate','Lights Electricity Rate')
@@ -111,7 +112,7 @@ def build(project,weather,weather_meta,lighting,out):
 
 
 def extract(sql,year,lighting_w_m2,area,solver,targets):
-    con=sqlite3.connect(f'file:{Path(sql).as_posix()}?mode=ro',uri=True)
+    con=sqlite3.connect(Path(sql).resolve().as_uri()+'?mode=ro',uri=True)
     try:
         completed=con.execute('SELECT Completed,CompletedSuccessfully FROM Simulations').fetchall()
         if len(completed)!=1:raise ProjectError('one SQL simulation record required')
@@ -168,13 +169,14 @@ def run(project,weather,out,exe):
     for kind,key in (('baseline','baseline_lighting_w_m2'),('variant','variant_lighting_w_m2')):
         folder=out/kind;folder.mkdir();meta=build(p,engine_weather,weather_meta,p['building'][key],folder)
         with (folder/'engine.log').open('wb') as stream:proc=subprocess.run([str(exe),'-x','-w',str(engine_weather),'-d',str(folder),str(folder/'model.idf')],cwd=folder,stdout=stream,stderr=subprocess.STDOUT,timeout=p['solver']['max_runtime_s'])
-        diagnostics=(folder/'eplusout.err').read_text(errors='replace')
-        end=(folder/'eplusout.end').read_text(errors='replace');log=(folder/'engine.log').read_text(errors='replace')
-        if proc.returncode or '** Severe  **' in diagnostics or '**  Fatal  **' in diagnostics or not end.startswith('EnergyPlus Completed Successfully') or 'EnergyPlus Completed Successfully.' not in log:raise ProjectError('annual EnergyPlus failed; inspect retained engine logs/end report')
+        completion=inspect_completion(folder,proc.returncode,version,digest(exe))
+        (folder/'completion.json').write_text(json.dumps(completion,indent=2),encoding='utf-8')
+        if not completion['completion_verified']:raise ProjectError('annual native completion evidence is unverified; inspect completion.json')
+        diagnostics=(folder/'eplusout.err').read_text(errors='replace');end=(folder/'eplusout.end').read_text(errors='replace')
         summary,hourly=extract(folder/'eplusout.sql',p['calendar_year'],p['building'][key],meta['floor_area_m2'],p['solver'],p['targets'])
         with (folder/'hourly-building-rates.csv').open('w',newline='',encoding='utf-8') as stream:
             writer=csv.DictWriter(stream,fieldnames=['month','day','hour']+list(RATES));writer.writeheader();writer.writerows(hourly)
-        (folder/'summary.json').write_text(json.dumps(summary,indent=2),encoding='utf-8');results[kind]=dict(metadata=meta,summary=summary,diagnostics=diagnostics,sql_sha256=digest(folder/'eplusout.sql'),engine_success_evidence=dict(returncode=proc.returncode,end_report=end,end_report_sha256=digest(folder/'eplusout.end'),stdout_success_marker=True))
+        (folder/'summary.json').write_text(json.dumps(summary,indent=2),encoding='utf-8');results[kind]=dict(metadata=meta,summary=summary,diagnostics=diagnostics,completion=completion,sql_sha256=digest(folder/'eplusout.sql'),engine_success_evidence=dict(returncode=proc.returncode,end_report=end,end_report_sha256=digest(folder/'eplusout.end'),stdout_success_marker=True))
     comparison=[]
     for base,variant in zip(results['baseline']['summary']['annual'],results['variant']['summary']['annual']):comparison.append(dict(variable=base['variable'],quantity=base['quantity'],change_kwh=variant['annual_kwh']-base['annual_kwh'],change_coincident_peak_kw=variant['coincident_peak_kw']-base['coincident_peak_kw']))
     if any(digest(Path(v))!=sha for v,sha in before.items()):raise ProjectError('annual source input changed')
@@ -183,7 +185,7 @@ def run(project,weather,out,exe):
                 scope='Full-calendar hourly EPW simulation of two adjacent ideal-load zones; heating/cooling thermal demand and lighting electricity reported separately',
                 assumptions=['No windows, people, equipment, ventilation/infiltration; adiabatic floors; always-on lights and constant setpoints','Ideal air loads are supplied thermal demand, not HVAC electricity; no plant/COP or whole-building EUI inferred','Uniform R layer plus source-declared fixed 0.1 m mass layer: conductivity 0.5 W/mK, density 800 kg/m3, specific heat 1000 J/kgK','Weather calendar remapped to declared simulation year; DST/holidays/rain/snow indicators disabled; no design-day/sizing runs'],
                 pending=['actual building geometry/construction/gain/schedule and meteorological applicability','detailed HVAC, ventilation/moisture, plant electricity and code acceptance','real-project calibration and full engineering acceptance'])
-    if any(not v['summary']['sql_completion_flags_true'] for v in results.values()):result['pending'].append('SQL completion flags disagree with retained successful process/end/log and complete-period evidence; native flags are preserved, not certified true')
+    result['completion_limitations']=[dict(case=kind,status=v['completion']['status'],native_sql_flags_preserved=True,source_commit=v['completion']['source_inference']['commit']) for kind,v in results.items() if v['completion']['known_unwritten_initial_flags']]
     (out/'report.html').write_text('<!doctype html><meta charset="utf-8"><h1>Annual ideal-load and lighting comparison</h1><p>'+html.escape(result['scope'])+'</p><pre>'+html.escape(json.dumps(dict(comparison=comparison,results=results),indent=2))+'</pre><p>'+html.escape('; '.join(result['pending']))+'</p>',encoding='utf-8')
     result['artifacts']={v.relative_to(out).as_posix():digest(v) for v in out.rglob('*') if v.is_file()}
     (out/'annual.json').write_text(json.dumps(result,indent=2),encoding='utf-8');return result

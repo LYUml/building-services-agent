@@ -7,6 +7,7 @@ import subprocess
 from pathlib import Path
 from .cli import digest
 from .engine import ProjectError
+from .energy_completion import inspect as inspect_completion
 
 
 def build(p, lighting, out):
@@ -87,7 +88,7 @@ def build(p, lighting, out):
 
 
 def extract(sql):
-    con=sqlite3.connect(f"file:{sql.as_posix()}?mode=ro",uri=True)
+    con=sqlite3.connect(Path(sql).resolve().as_uri()+'?mode=ro',uri=True)
     try:
         rows=con.execute("""SELECT d.Name,d.KeyValue,d.Units, MAX(r.Value),SUM(r.Value*t.Interval*60),COUNT(*)
           FROM ReportData r JOIN ReportDataDictionary d ON r.ReportDataDictionaryIndex=d.ReportDataDictionaryIndex
@@ -100,7 +101,7 @@ def extract(sql):
 
 def totals(sql):
     """Coincident whole-building peaks, grouped by simulated environment."""
-    con=sqlite3.connect(f"file:{sql.as_posix()}?mode=ro",uri=True)
+    con=sqlite3.connect(Path(sql).resolve().as_uri()+'?mode=ro',uri=True)
     try:
         rows=con.execute("""WITH whole_building AS (
           SELECT e.EnvironmentName AS environment, d.Name AS variable,d.Units AS units,
@@ -173,14 +174,15 @@ def run(project,out,exe):
         with (folder/"engine.log").open("wb") as log:
             process=subprocess.run([str(exe),"-x","-D","-d",str(folder),str(folder/"model.idf")],
                 cwd=folder,stdout=log,stderr=subprocess.STDOUT,timeout=180)
+        completion=inspect_completion(folder,process.returncode,version,digest(exe))
+        (folder/'completion.json').write_text(json.dumps(completion,indent=2),encoding='utf-8')
+        if not completion['completion_verified']:raise ProjectError('design-day native completion evidence unverified; inspect completion.json')
         err=(folder/"eplusout.err").read_text(errors="replace")
         (folder/"diagnostics.txt").write_text(err,encoding="utf-8")
-        if process.returncode or "** Severe  **" in err or "**  Fatal  **" in err:
-            raise ProjectError(f"EnergyPlus failed; inspect {folder}")
         metrics=extract(folder/"eplusout.sql")
         if not any("Total Cooling Rate" in r["variable"] and r["peak"]>0 for r in metrics):
             raise ProjectError("missing cooling output")
-        results[variant]=dict(metadata=metadata,metrics=metrics,whole_building=totals(folder/"eplusout.sql"),error_log_sha256=digest(folder/"eplusout.err"),
+        results[variant]=dict(metadata=metadata,metrics=metrics,completion=completion,whole_building=totals(folder/"eplusout.sql"),error_log_sha256=digest(folder/"eplusout.err"),
             warnings=err,artifacts={f.name:digest(f) for f in folder.iterdir() if f.suffix in (".osm",".idf",".sql")})
     if digest(project)!=before:raise ProjectError("input changed")
     base={(r["environment"],r["variable"]):r for r in results["baseline"]["whole_building"]}

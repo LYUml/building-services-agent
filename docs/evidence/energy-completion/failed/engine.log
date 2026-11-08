@@ -1,0 +1,10 @@
+ExpandObjects Started.
+ Begin reading Energy+.idd file.
+ Done reading Energy+.idd file.
+ExpandObjects Finished. Time:     0.094
+EnergyPlus Starting
+EnergyPlus, Version 25.2.0-cf7368216c, YMD=2026.11.08 10:01
+Adjusting Air System Sizing
+Adjusting Standard 62.1 Ventilation Sizing
+Initializing Simulation
+Program terminated: EnergyPlus Terminated--Error(s) Detected.
