@@ -1,0 +1,23 @@
+{
+  "scope": "Synthetic clipping primitive, not a project route or measured distance",
+  "segment_m": [
+    [
+      0,
+      0
+    ],
+    [
+      20000000,
+      0
+    ]
+  ],
+  "box_m": [
+    4,
+    -0.001,
+    4.001,
+    0.001
+  ],
+  "legacy_fixed_parameter_predicate": false,
+  "independent_physical_interval_predicate": true,
+  "physical_box_width_m": 0.001,
+  "design_accepted": false
+}

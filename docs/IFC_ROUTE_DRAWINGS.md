@@ -1,5 +1,7 @@
 # Source-checked planar route drawings
 
+[Saved annotation auditing](SAVED_ROUTE_AUDIT.md) now independently checks actual reopened DXF paths and linked labels without invoking the planner. The same read-only tool can inspect an AutoCAD reopen/export DXF; planner success flags alone cannot authorize geometry.
+
 `ifc_route_drawing` extends the drawing pipeline to finite circular 90-degree elbows and tangent straight walls. The original `ifc_drawing` remains a straight-segment schematic reader and still lists fittings as omitted. Use this separate adapter when the original source-model JSON is available and every physical route element is an explicitly supported straight circular wall or finite elbow.
 
 ```powershell

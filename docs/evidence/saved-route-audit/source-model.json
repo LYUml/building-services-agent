@@ -1,0 +1,193 @@
+{
+  "name": "Independent negative-X vertical elbow riser",
+  "project_uuid": "485f3efd-f692-4d4f-9bf6-d17ce1c50179",
+  "geometry_scope": "axis-aligned envelopes, straight circular walls and explicit 90-degree elbows",
+  "sources": {
+    "demo": "Independent synthetic vertical water route: all geometry, fluid values, excess K, demand and targets explicitly declared here; no measured building, manufacturer or regulation applicability."
+  },
+  "spaces": [
+    {
+      "id": "ServiceZone",
+      "origin_m": [
+        3,
+        0,
+        0.2
+      ],
+      "size_m": [
+        3,
+        3,
+        3.3
+      ],
+      "source": "demo"
+    }
+  ],
+  "systems": [
+    {
+      "id": "RISER_WATER",
+      "predefined_type": "DOMESTICCOLDWATER",
+      "source": "demo"
+    }
+  ],
+  "devices": [
+    {
+      "id": "RISER",
+      "ifc_class": "IfcPipeSegment",
+      "space": "ServiceZone",
+      "system": "RISER_WATER",
+      "source": "demo",
+      "body_shape": "straight circular wall",
+      "origin_m": [
+        3.7225,
+        1.1625,
+        0.7
+      ],
+      "size_m": [
+        0.075,
+        0.075,
+        1.8
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.06,
+        "OutsideDiameter_m": 0.075,
+        "LocalLossCoefficient": 0,
+        "LocalLossBasis": "excess over centreline Darcy friction"
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0.0375,
+            0.0375,
+            0
+          ],
+          "source": "demo"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            0.0375,
+            0.0375,
+            1.8
+          ],
+          "source": "demo"
+        }
+      ]
+    },
+    {
+      "id": "TURN",
+      "ifc_class": "IfcPipeFitting",
+      "space": "ServiceZone",
+      "system": "RISER_WATER",
+      "source": "demo",
+      "body_shape": "circular 90-degree elbow wall",
+      "origin_m": [
+        3.7225,
+        1.1625,
+        2.5
+      ],
+      "size_m": [
+        0.2775,
+        0.075,
+        0.2775
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.06,
+        "OutsideDiameter_m": 0.075,
+        "LocalLossCoefficient": 0.6,
+        "LocalLossBasis": "excess over centreline Darcy friction",
+        "CenterlineRadius_m": 0.24
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0.0375,
+            0.0375,
+            0
+          ],
+          "source": "demo"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            0.2775,
+            0.0375,
+            0.24
+          ],
+          "source": "demo"
+        }
+      ],
+      "arc_center_m": [
+        4,
+        1.2,
+        2.5
+      ],
+      "bend_axes": [
+        "-X",
+        "+Z"
+      ]
+    },
+    {
+      "id": "BRANCH",
+      "ifc_class": "IfcPipeSegment",
+      "space": "ServiceZone",
+      "system": "RISER_WATER",
+      "source": "demo",
+      "body_shape": "straight circular wall",
+      "origin_m": [
+        4,
+        1.1625,
+        2.7025
+      ],
+      "size_m": [
+        1.2,
+        0.075,
+        0.075
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.06,
+        "OutsideDiameter_m": 0.075,
+        "LocalLossCoefficient": 0,
+        "LocalLossBasis": "excess over centreline Darcy friction"
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0,
+            0.0375,
+            0.0375
+          ],
+          "source": "demo"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            1.2,
+            0.0375,
+            0.0375
+          ],
+          "source": "demo"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "source": "demo",
+      "from": "RISER.out",
+      "to": "TURN.in"
+    },
+    {
+      "source": "demo",
+      "from": "TURN.out",
+      "to": "BRANCH.in"
+    }
+  ]
+}

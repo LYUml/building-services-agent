@@ -92,6 +92,7 @@ jobs:
       - run: python -m unittest discover -s tests -p test_ifc_drawing.py -v
       - run: python -m unittest discover -s tests -p test_ifc_route_drawing.py -v
       - run: python -m unittest discover -s tests -p test_route_annotations.py -v
+      - run: python -m unittest discover -s tests -p test_saved_route_qa.py -v
       - run: python -m unittest discover -s tests -p test_ifc_views.py -v
       - run: python -m unittest discover -s tests -p test_ifc_native.py -v
       - run: python -m unittest discover -s tests -p test_clash.py -v

@@ -1,0 +1,27 @@
+{
+  "scope": "actual GUID-linked DXF leaders and labels; source OD stub/obstacle geometry, segment distances and row placement; no planner invocation",
+  "dxf_sha256": "762db7a9e63a5ad09b03926de1e12209b5eb2d7546207e7bac42af526419a878",
+  "piece_count": 3,
+  "leader_segment_count": 7,
+  "graphic_margin_m": 0.03,
+  "coordinate_tolerance_m": 1e-08,
+  "minimum_leader_pair_gap_m": 0.13200000000000012,
+  "leader_body_checks_pass": true,
+  "leader_pair_checks_pass": true,
+  "saved_paths_match": true,
+  "saved_labels_match": true,
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "pending": [
+    "unlinked legends and font glyph extents",
+    "native pipe geometry/print/BIM viewer and complete engineering acceptance"
+  ],
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\elbow-riser-delivery-v2\\model\\bim\\model.ifc": "e27583791e17c15351aecb90fad67832ce27494bfe35c2e525bb75420575c574",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\elbow-riser\\project.json": "6de325f3e751a52c8c53ddc97f8ccd373f0ea9524af0a6604d0285e87c5a4ff4",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\elbow-riser\\drawing-settings.json": "599ddec9490bd35d421b7d07dd61c846003af4efb83b49efbac933fe5c1d6a25",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\elbow-riser-delivery-v2\\native\\native-reopen\\source-export.dxf": "762db7a9e63a5ad09b03926de1e12209b5eb2d7546207e7bac42af526419a878",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\elbow-riser-delivery-v2\\drawing\\annotation-layout.json": "4a7fa37fe8de3c7b9dd0a2b027b0b836b1a6b02937cd466eaaff1af9f51d8200"
+  },
+  "inputs_unchanged": true
+}

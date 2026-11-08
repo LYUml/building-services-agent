@@ -1,0 +1,14 @@
+{
+  "scope": "Read-only actual native-export audit; IFC and native export come from the retained independent riser workflow",
+  "archive": "docs/evidence/elbow-riser/workflow.zip",
+  "archive_sha256": "732de44b06de7d7fc435769152f5be973e0be42e51c7d94adf7cd3ab920a8d4a",
+  "members": {
+    "model/bim/model.ifc": "e27583791e17c15351aecb90fad67832ce27494bfe35c2e525bb75420575c574",
+    "source-snapshots/project.json": "6de325f3e751a52c8c53ddc97f8ccd373f0ea9524af0a6604d0285e87c5a4ff4",
+    "source-snapshots/drawing-settings.json": "599ddec9490bd35d421b7d07dd61c846003af4efb83b49efbac933fe5c1d6a25",
+    "native/native-reopen/source-export.dxf": "762db7a9e63a5ad09b03926de1e12209b5eb2d7546207e7bac42af526419a878",
+    "drawing/annotation-layout.json": "4a7fa37fe8de3c7b9dd0a2b027b0b836b1a6b02937cd466eaaff1af9f51d8200"
+  },
+  "ifc_binary_not_duplicated": true,
+  "new_cad_or_visual_acceptance_claimed": false
+}

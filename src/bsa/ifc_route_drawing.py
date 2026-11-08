@@ -124,6 +124,7 @@ def draw(rows, settings, out):
     from collections import Counter
     from .cad_overlay import snapshot, reconcile
     from .route_annotations import layout
+    from .route_drawing_qa import audit_saved, label_text
     axes = [{'X':0,'Y':1,'Z':2}[a] for a in settings['projection_axes']]
     height = settings['annotation_height_m']
     annotation = layout(rows, axes, height)
@@ -132,10 +133,7 @@ def draw(rows, settings, out):
     doc.appids.new('BSA_IFC')
     for name, color in (('BSA_PIPE_AXIS',4),('BSA_PIPE_OUTLINE',7),('BSA_LABEL',7),('BSA_LEADER',8)):
         doc.layers.new(name, dxfattribs={'color':color})
-    ms = doc.modelspace(); projected = []; svg = []
-    for row in rows:
-        a,b = [[p[i] for i in axes] for p in (row['start_world_m'],row['end_world_m'])]
-        projected.extend([a,b])
+    ms = doc.modelspace(); svg = []
     def add(entity, row):
         entity.set_xdata('BSA_IFC', [(1000,row['guid'])])
         return entity
@@ -150,20 +148,16 @@ def draw(rows, settings, out):
             for sign in (-1,1):
                 offset = [sign*row['outside_diameter_m']/2*n for n in normal]
                 line([x+y for x,y in zip(a,offset)],[x+y for x,y in zip(b,offset)],'BSA_PIPE_OUTLINE',row)
-            middle = [(x+y)/2 for x,y in zip(a,b)];detail = ''
         else:
             c = row['projected_centre_m'];radius = row['centreline_radius_m']
             start,end = row['start_angle_deg'],row['end_angle_deg']
-            theta = math.radians(start+45)
-            middle = [c[0]+radius*math.cos(theta),c[1]+radius*math.sin(theta)]
             for r, layer in ((radius,'BSA_PIPE_AXIS'),(radius-row['outside_diameter_m']/2,'BSA_PIPE_OUTLINE'),(radius+row['outside_diameter_m']/2,'BSA_PIPE_OUTLINE')):
                 add(ms.add_arc(c,r,start,end,dxfattribs={'layer':layer}),row)
                 p,q = [[c[0]+r*math.cos(math.radians(t)),c[1]+r*math.sin(math.radians(t))] for t in (start,end)]
                 svg.append(f'<path d="M {p[0]} {-p[1]} A {r} {r} 0 0 0 {q[0]} {-q[1]}" fill="none" stroke="black" stroke-width="{height/12}"/>')
-            detail = f"; R {radius*1000:g} mm; 90 deg"
         plan = plans[row['guid']]
         label_x, label_y = plan['label_position_m']
-        label = f"{row['name']} ID {row['inner_diameter_m']*1000:g}/OD {row['outside_diameter_m']*1000:g} mm; L {row['length_m']:.6f} m"+detail
+        label = label_text(row)
         for p,q in zip(plan['leader_points_m'],plan['leader_points_m'][1:]):
             line(p,q,'BSA_LEADER',row)
         add(ms.add_text(label,dxfattribs={'height':height,'insert':(label_x,label_y),'layer':'BSA_LABEL'}),row)
@@ -187,6 +181,7 @@ def draw(rows, settings, out):
     actual = Counter(key(e.get_xdata('BSA_IFC')[0].value,list(e.dxf.start),list(e.dxf.end)) for e in saved.modelspace().query('LINE[layer=="BSA_LEADER"]'))
     if expected != actual:raise ProjectError('saved annotation leaders differ from proven layout')
     annotation['saved_leader_paths_match'] = True
+    annotation['independent_saved_audit'] = audit_saved(path,rows,axes,height,annotation)
     (out/'annotation-layout.json').write_text(json.dumps(annotation,indent=2),encoding='utf-8')
     from ezdxf import bbox
     bounds = bbox.extents(saved.modelspace());margin = 2*height

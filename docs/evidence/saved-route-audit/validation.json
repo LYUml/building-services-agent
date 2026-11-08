@@ -1,0 +1,60 @@
+{
+  "scope": "Source-bound actual saved DXF annotation auditing; not pipe/print/full engineering acceptance",
+  "design_accepted": false,
+  "tests": {
+    "related_regression": {
+      "tests": 33,
+      "passed": 33,
+      "skipped": 0,
+      "seconds": 240.586,
+      "actual_autocad_enabled": true,
+      "scope": "10 saved QA + 8 route drawing + 5 routing + 4 independent riser + 6 workflow; no full-suite claim"
+    }
+  },
+  "native_export_audit": {
+    "scope": "actual GUID-linked DXF leaders and labels; source OD stub/obstacle geometry, segment distances and row placement; no planner invocation",
+    "dxf_sha256": "762db7a9e63a5ad09b03926de1e12209b5eb2d7546207e7bac42af526419a878",
+    "piece_count": 3,
+    "leader_segment_count": 7,
+    "graphic_margin_m": 0.03,
+    "coordinate_tolerance_m": 1e-08,
+    "minimum_leader_pair_gap_m": 0.13200000000000012,
+    "leader_body_checks_pass": true,
+    "leader_pair_checks_pass": true,
+    "saved_paths_match": true,
+    "saved_labels_match": true,
+    "calculated_checks_pass": true,
+    "design_accepted": false,
+    "pending": [
+      "unlinked legends and font glyph extents",
+      "native pipe geometry/print/BIM viewer and complete engineering acceptance"
+    ],
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\elbow-riser-delivery-v2\\model\\bim\\model.ifc": "e27583791e17c15351aecb90fad67832ce27494bfe35c2e525bb75420575c574",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\elbow-riser\\project.json": "6de325f3e751a52c8c53ddc97f8ccd373f0ea9524af0a6604d0285e87c5a4ff4",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\elbow-riser\\drawing-settings.json": "599ddec9490bd35d421b7d07dd61c846003af4efb83b49efbac933fe5c1d6a25",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\elbow-riser-delivery-v2\\native\\native-reopen\\source-export.dxf": "762db7a9e63a5ad09b03926de1e12209b5eb2d7546207e7bac42af526419a878",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\elbow-riser-delivery-v2\\drawing\\annotation-layout.json": "4a7fa37fe8de3c7b9dd0a2b027b0b836b1a6b02937cd466eaaff1af9f51d8200"
+    },
+    "inputs_unchanged": true
+  },
+  "controls": {
+    "injected_fault": "Before: deliberately forged success flags and path through BRANCH accepted by serialization-only check. After: independent audit rejects; successful layout report not emitted. Not a naturally observed normal-planner result.",
+    "numeric_primitive": "Physical small-box overlap must not vanish under a fixed t-interval cutoff; coordinates below required precision are unverified."
+  },
+  "pending": [
+    "unlinked legends and font glyph extents",
+    "native pipe geometry/print/BIM viewer and complete engineering acceptance"
+  ],
+  "retained_files": {
+    "annotation-audit.json": "aa5b032510a9419621b3943cc75d9df9c0b73da14a211ec2fffaa07e44855236",
+    "injected-fault-controls.zip": "1c15b1ab4cb3b49de6818c88e8aa8c745b8fe6313ee9c6bff1f8dd4b45b8ca43",
+    "native-export.dxf": "762db7a9e63a5ad09b03926de1e12209b5eb2d7546207e7bac42af526419a878",
+    "numeric-control.json": "76bd3df88a1cf88ddcd5d27190de7b360669ed568bb19bbed0b08d145abd5436",
+    "related-regression.log": "d8418c1dc31536b8922bbe88562da6e363fc620b3e756e0c04d7170713558efd",
+    "settings.json": "599ddec9490bd35d421b7d07dd61c846003af4efb83b49efbac933fe5c1d6a25",
+    "source-layout.json": "4a7fa37fe8de3c7b9dd0a2b027b0b836b1a6b02937cd466eaaff1af9f51d8200",
+    "source-model.json": "6de325f3e751a52c8c53ddc97f8ccd373f0ea9524af0a6604d0285e87c5a4ff4",
+    "source-provenance.json": "d6470f23882660455dd2ce5ad63b639363f13d3707dec4d526e9f30e22b27580"
+  }
+}
