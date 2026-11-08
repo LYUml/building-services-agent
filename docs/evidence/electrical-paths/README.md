@@ -1,0 +1,3 @@
+# Electrical path evidence
+
+Synthetic single-phase radial calculation and actual evaluation against the cached, hash-pinned official EMSD source. Baseline full-path drops are 4.4 V and 2.3 V. Explicit 300 m shared-feeder control preserves passing branch checks but makes both selected regulatory checks review_required. It does not establish statutory failure or full compliance. Five tests cover independent arithmetic, load/topology coverage, unsupported phases/invalid coefficients, preservation of applicability facts and branch protection failures. See ../../ELECTRICAL_PATHS.md for scope and reproduction.

@@ -21,6 +21,8 @@ Results separate `supported_checks_pass`, `regulatory_compliance: not_establishe
 
 ## Workflow adapter
 
+For computed full-path electrical metrics, see [electrical path binding](ELECTRICAL_PATHS.md). It supplies per-circuit total feeder/branch drops and report hashes while retaining explicit applicability assertions. Generated numeric inputs do not establish full building topology or complete regulatory conformity.
+
 Register a task such as `{"id":"hk-rules","kind":"regulations","project":"project.json","pack":"pack.json","sources":"official-sources"}` in a source-linked workflow plan. Paths are relative to and contained within the plan directory. Download required official files before workflow execution; missing files fail workflow preflight. Standalone evaluation can instead record missing files as pending. Only sources referenced by executable rules require cached files; index-only catalog entries do not.
 
 Both standalone and workflow reports track the actual official source bytes alongside pack/project inputs. A later source change invalidates workflow integrity; a source that differs from the pack hash leaves the check pending. Unsupported paths, missing evidence and alternative-path reviews cannot pass the task. A passing task concerns only its supported checks: requirement acceptance remains pending and whole-project regulatory compliance is not established. The adapter does not yet bind facts to upstream calculation outputs or impose a regulatory dependency gate on every authoring task. Actual official-file workflow evidence is in `docs/evidence/hk-regulation-workflow`.

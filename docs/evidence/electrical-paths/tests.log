@@ -1,0 +1,10 @@
+test_binding_replaces_metric_without_inventing_applicability (test_electrical_paths.ElectricalPathTests.test_binding_replaces_metric_without_inventing_applicability) ... ok
+test_failed_branch_protection_survives_path_calculation (test_electrical_paths.ElectricalPathTests.test_failed_branch_protection_survives_path_calculation) ... ok
+test_multiphase_and_invalid_coefficients_rejected (test_electrical_paths.ElectricalPathTests.test_multiphase_and_invalid_coefficients_rejected) ... ok
+test_shared_feeder_uses_all_downstream_loads_once (test_electrical_paths.ElectricalPathTests.test_shared_feeder_uses_all_downstream_loads_once) ... ok
+test_topology_cannot_omit_or_double_count_loads (test_electrical_paths.ElectricalPathTests.test_topology_cannot_omit_or_double_count_loads) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.002s
+
+OK

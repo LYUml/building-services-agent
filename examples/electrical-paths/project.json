@@ -1,0 +1,53 @@
+{
+  "name": "Synthetic single-phase radial feeder example",
+  "supply_voltage_v": 230,
+  "sources": {
+    "demo": "Explicit synthetic scalar scenario; no cable table, measured route or product rating claimed"
+  },
+  "circuits": [
+    {
+      "id": "C1",
+      "phase": "L1",
+      "demand_factor": 1,
+      "breaker_a": 16,
+      "tabulated_ampacity_a": 20,
+      "correction_factor": 1,
+      "route_length_m": 20,
+      "vd_mv_a_m": 10,
+      "max_vd_percent": 3,
+      "source": "demo"
+    },
+    {
+      "id": "C2",
+      "phase": "L1",
+      "demand_factor": 1,
+      "breaker_a": 16,
+      "tabulated_ampacity_a": 20,
+      "correction_factor": 1,
+      "route_length_m": 10,
+      "vd_mv_a_m": 10,
+      "max_vd_percent": 3,
+      "source": "demo"
+    }
+  ],
+  "devices": [
+    {
+      "id": "DC1",
+      "circuit": "C1",
+      "electrical_kw": 2.3,
+      "power_factor": 1,
+      "x_m": 0,
+      "y_m": 0,
+      "source": "demo"
+    },
+    {
+      "id": "DC2",
+      "circuit": "C2",
+      "electrical_kw": 1.15,
+      "power_factor": 1,
+      "x_m": 0,
+      "y_m": 0,
+      "source": "demo"
+    }
+  ]
+}

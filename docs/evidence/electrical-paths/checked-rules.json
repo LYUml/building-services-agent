@@ -1,0 +1,345 @@
+{
+  "inputs": {
+    "regulations\\hk\\2026.11.08\\pack.json": "e39191cab144ccdd9a405996613d5fcd48efd154bef36c1717fbd00e022e9dfb",
+    "runs\\hk-regulation-sources\\emsd-wiring-2025.pdf": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+    "runs\\electrical-paths-v1\\electrical-paths.json": "90ad9c92e9ccb77532034410b69ce9cbdfd999abb84477af7e8f9e0afbfd69c1",
+    "runs\\electrical-paths-v1\\regulation-projects.json": "cb6988c9b812d00cca98e2ee8bf17c0e58bb99a12e36b08d3f6003902f043ecf"
+  },
+  "baseline": {
+    "C1": {
+      "rule_pack": "hk-2026.11.08",
+      "jurisdiction": "HK",
+      "checks": [
+        {
+          "id": "HK.EMSD.COP2025.13A3v.voltage_drop",
+          "status": "pass",
+          "scope": "Normal-service voltage drop from installation origin to fixed current-using equipment, selected deemed-to-satisfy path only; not a branch-circuit-only or starting-transient limit.",
+          "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+          "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+          "edition": "2025",
+          "clause": "13A(3)(v)",
+          "pdf_page_1_based": 116,
+          "value": 1.9130434782608698,
+          "unit": "percent_of_nominal_supply_voltage",
+          "maximum": 4,
+          "evidence": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\electrical-paths-v1\\electrical-paths.json SHA256 90ad9c92e9ccb77532034410b69ce9cbdfd999abb84477af7e8f9e0afbfd69c1; circuit C1; devices DC1",
+          "reasons": [
+            "selected deemed-to-satisfy path met"
+          ]
+        }
+      ],
+      "supported_checks_pass": true,
+      "coverage": {
+        "complete": false,
+        "implemented": [
+          "One normal-service electrical voltage-drop deemed-to-satisfy check"
+        ],
+        "pending": [
+          "statutory scope and applicability",
+          "remaining electrical protection/cable/earthing rules",
+          "BEC HVAC/lighting/electrical/lifts clauses",
+          "WSD plumbing clauses",
+          "FSD premises and installation rules",
+          "BD drainage rules",
+          "ArchSD contract applicability",
+          "utility requirements and referenced standards"
+        ]
+      },
+      "regulatory_compliance": "not_established",
+      "design_accepted": false,
+      "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+    },
+    "C2": {
+      "rule_pack": "hk-2026.11.08",
+      "jurisdiction": "HK",
+      "checks": [
+        {
+          "id": "HK.EMSD.COP2025.13A3v.voltage_drop",
+          "status": "pass",
+          "scope": "Normal-service voltage drop from installation origin to fixed current-using equipment, selected deemed-to-satisfy path only; not a branch-circuit-only or starting-transient limit.",
+          "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+          "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+          "edition": "2025",
+          "clause": "13A(3)(v)",
+          "pdf_page_1_based": 116,
+          "value": 0.9999999999999999,
+          "unit": "percent_of_nominal_supply_voltage",
+          "maximum": 4,
+          "evidence": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\electrical-paths-v1\\electrical-paths.json SHA256 90ad9c92e9ccb77532034410b69ce9cbdfd999abb84477af7e8f9e0afbfd69c1; circuit C2; devices DC2",
+          "reasons": [
+            "selected deemed-to-satisfy path met"
+          ]
+        }
+      ],
+      "supported_checks_pass": true,
+      "coverage": {
+        "complete": false,
+        "implemented": [
+          "One normal-service electrical voltage-drop deemed-to-satisfy check"
+        ],
+        "pending": [
+          "statutory scope and applicability",
+          "remaining electrical protection/cable/earthing rules",
+          "BEC HVAC/lighting/electrical/lifts clauses",
+          "WSD plumbing clauses",
+          "FSD premises and installation rules",
+          "BD drainage rules",
+          "ArchSD contract applicability",
+          "utility requirements and referenced standards"
+        ]
+      },
+      "regulatory_compliance": "not_established",
+      "design_accepted": false,
+      "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+    }
+  },
+  "long_feeder_control": {
+    "topology": {
+      "schema_version": 1,
+      "method": "single_phase_scalar_radial",
+      "source": "Synthetic origin/board connections; all loads simultaneously at declared branch demand, each branch lumped at its terminal",
+      "installation_origin": "ORIGIN",
+      "feeders": [
+        {
+          "id": "F0",
+          "from_node": "ORIGIN",
+          "to_node": "DB",
+          "route_length_m": 300,
+          "vd_mv_a_m": 4,
+          "source": "Synthetic length and full single-phase mV/A/m coefficient, includes return path"
+        },
+        {
+          "id": "F1",
+          "from_node": "DB",
+          "to_node": "SUB",
+          "route_length_m": 20,
+          "vd_mv_a_m": 3,
+          "source": "Synthetic length and full single-phase mV/A/m coefficient, includes return path"
+        }
+      ],
+      "circuit_from_node": {
+        "C1": "SUB",
+        "C2": "DB"
+      }
+    },
+    "calculation": {
+      "branch_calculation": {
+        "name": "Synthetic single-phase radial feeder example",
+        "circuits": [
+          {
+            "id": "C1",
+            "phase": "L1",
+            "device_ids": [
+              "DC1"
+            ],
+            "connected_electrical_kw": 2.3,
+            "connected_va": 2300.0,
+            "demand_va": 2300.0,
+            "design_current_a": 10.0,
+            "effective_ampacity_a": 20,
+            "voltage_drop_v": 2.0,
+            "voltage_drop_percent": 0.8695652173913043,
+            "checks": {
+              "ib_le_in": true,
+              "in_le_iz": true,
+              "voltage_drop": true
+            },
+            "source": "demo"
+          },
+          {
+            "id": "C2",
+            "phase": "L1",
+            "device_ids": [
+              "DC2"
+            ],
+            "connected_electrical_kw": 1.15,
+            "connected_va": 1150.0,
+            "demand_va": 1150.0,
+            "design_current_a": 5.0,
+            "effective_ampacity_a": 20,
+            "voltage_drop_v": 0.5,
+            "voltage_drop_percent": 0.21739130434782608,
+            "checks": {
+              "ib_le_in": true,
+              "in_le_iz": true,
+              "voltage_drop": true
+            },
+            "source": "demo"
+          }
+        ],
+        "phase_demand_va": {
+          "L1": 3450.0,
+          "L2": 0.0,
+          "L3": 0.0
+        },
+        "device_count": 2,
+        "calculated_checks_pass": true,
+        "design_accepted": false,
+        "pending": [
+          "fault disconnection and breaking capacity",
+          "protective coordination",
+          "lighting photometry where applicable",
+          "native DWG reopen and drawing count reconciliation",
+          "visual PDF review",
+          "source/assumption review"
+        ]
+      },
+      "feeders": [
+        {
+          "id": "F0",
+          "from_node": "ORIGIN",
+          "to_node": "DB",
+          "route_length_m": 300,
+          "vd_mv_a_m": 4,
+          "source": "Synthetic length and full single-phase mV/A/m coefficient, includes return path",
+          "downstream_circuits": [
+            "C1",
+            "C2"
+          ],
+          "design_current_a": 15.0,
+          "voltage_drop_v": 18.0
+        },
+        {
+          "id": "F1",
+          "from_node": "DB",
+          "to_node": "SUB",
+          "route_length_m": 20,
+          "vd_mv_a_m": 3,
+          "source": "Synthetic length and full single-phase mV/A/m coefficient, includes return path",
+          "downstream_circuits": [
+            "C1"
+          ],
+          "design_current_a": 10.0,
+          "voltage_drop_v": 0.6
+        }
+      ],
+      "paths": [
+        {
+          "circuit": "C1",
+          "device_ids": [
+            "DC1"
+          ],
+          "feeder_ids": [
+            "F0",
+            "F1"
+          ],
+          "branch_voltage_drop_v": 2.0,
+          "total_voltage_drop_v": 20.6,
+          "total_voltage_drop_percent": 8.956521739130435
+        },
+        {
+          "circuit": "C2",
+          "device_ids": [
+            "DC2"
+          ],
+          "feeder_ids": [
+            "F0"
+          ],
+          "branch_voltage_drop_v": 0.5,
+          "total_voltage_drop_v": 18.5,
+          "total_voltage_drop_percent": 8.043478260869565
+        }
+      ],
+      "installation_origin": "ORIGIN",
+      "topology_source": "Synthetic origin/board connections; all loads simultaneously at declared branch demand, each branch lumped at its terminal",
+      "design_accepted": false,
+      "scope": "Sourced single-phase scalar radial path budget at nominal voltage; branch demand factors apply simultaneously, no extra feeder diversity",
+      "pending": [
+        "actual route lengths and coefficient applicability",
+        "load simultaneity and topology completeness",
+        "feeder protection/ampacity",
+        "three-phase, neutral and phasor effects",
+        "regulatory and engineering acceptance"
+      ]
+    },
+    "regulatory_checks": {
+      "C1": {
+        "rule_pack": "hk-2026.11.08",
+        "jurisdiction": "HK",
+        "checks": [
+          {
+            "id": "HK.EMSD.COP2025.13A3v.voltage_drop",
+            "status": "review_required",
+            "scope": "Normal-service voltage drop from installation origin to fixed current-using equipment, selected deemed-to-satisfy path only; not a branch-circuit-only or starting-transient limit.",
+            "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+            "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+            "edition": "2025",
+            "clause": "13A(3)(v)",
+            "pdf_page_1_based": 116,
+            "value": 8.956521739130435,
+            "unit": "percent_of_nominal_supply_voltage",
+            "maximum": 4,
+            "evidence": "Explicit synthetic 300 m upstream control; circuit C1; devices DC1",
+            "reasons": [
+              "The 4 percent deemed-to-satisfy path is not met. Assess applicable equipment standards, safe function and any relevant exception; this result alone does not establish statutory noncompliance."
+            ]
+          }
+        ],
+        "supported_checks_pass": false,
+        "coverage": {
+          "complete": false,
+          "implemented": [
+            "One normal-service electrical voltage-drop deemed-to-satisfy check"
+          ],
+          "pending": [
+            "statutory scope and applicability",
+            "remaining electrical protection/cable/earthing rules",
+            "BEC HVAC/lighting/electrical/lifts clauses",
+            "WSD plumbing clauses",
+            "FSD premises and installation rules",
+            "BD drainage rules",
+            "ArchSD contract applicability",
+            "utility requirements and referenced standards"
+          ]
+        },
+        "regulatory_compliance": "not_established",
+        "design_accepted": false,
+        "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+      },
+      "C2": {
+        "rule_pack": "hk-2026.11.08",
+        "jurisdiction": "HK",
+        "checks": [
+          {
+            "id": "HK.EMSD.COP2025.13A3v.voltage_drop",
+            "status": "review_required",
+            "scope": "Normal-service voltage drop from installation origin to fixed current-using equipment, selected deemed-to-satisfy path only; not a branch-circuit-only or starting-transient limit.",
+            "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+            "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+            "edition": "2025",
+            "clause": "13A(3)(v)",
+            "pdf_page_1_based": 116,
+            "value": 8.043478260869565,
+            "unit": "percent_of_nominal_supply_voltage",
+            "maximum": 4,
+            "evidence": "Explicit synthetic 300 m upstream control; circuit C2; devices DC2",
+            "reasons": [
+              "The 4 percent deemed-to-satisfy path is not met. Assess applicable equipment standards, safe function and any relevant exception; this result alone does not establish statutory noncompliance."
+            ]
+          }
+        ],
+        "supported_checks_pass": false,
+        "coverage": {
+          "complete": false,
+          "implemented": [
+            "One normal-service electrical voltage-drop deemed-to-satisfy check"
+          ],
+          "pending": [
+            "statutory scope and applicability",
+            "remaining electrical protection/cable/earthing rules",
+            "BEC HVAC/lighting/electrical/lifts clauses",
+            "WSD plumbing clauses",
+            "FSD premises and installation rules",
+            "BD drainage rules",
+            "ArchSD contract applicability",
+            "utility requirements and referenced standards"
+          ]
+        },
+        "regulatory_compliance": "not_established",
+        "design_accepted": false,
+        "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+      }
+    }
+  },
+  "design_accepted": false
+}

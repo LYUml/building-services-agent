@@ -1,0 +1,60 @@
+{
+  "C1": {
+    "jurisdiction": "HK",
+    "rule_pack": "hk-2026.11.08",
+    "edition_decisions": {
+      "emsd_wiring_2025": {
+        "edition": "2025",
+        "basis": "Synthetic demonstration explicitly choosing the 2025 code; not an existing-project applicability determination."
+      }
+    },
+    "facts": {
+      "normal_service": {
+        "value": true,
+        "source": "Explicit synthetic demonstration scope, not measured project evidence."
+      },
+      "fixed_current_using_equipment": {
+        "value": true,
+        "source": "Explicit synthetic demonstration scope, not measured project evidence."
+      },
+      "includes_entire_installation_origin_to_equipment_path": {
+        "value": true,
+        "source": "Explicit synthetic demonstration scope, not measured project evidence."
+      },
+      "installation_origin_to_fixed_equipment_voltage_drop": {
+        "value": 1.9130434782608698,
+        "unit": "percent_of_nominal_supply_voltage",
+        "source": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\electrical-paths-v1\\electrical-paths.json SHA256 90ad9c92e9ccb77532034410b69ce9cbdfd999abb84477af7e8f9e0afbfd69c1; circuit C1; devices DC1"
+      }
+    }
+  },
+  "C2": {
+    "jurisdiction": "HK",
+    "rule_pack": "hk-2026.11.08",
+    "edition_decisions": {
+      "emsd_wiring_2025": {
+        "edition": "2025",
+        "basis": "Synthetic demonstration explicitly choosing the 2025 code; not an existing-project applicability determination."
+      }
+    },
+    "facts": {
+      "normal_service": {
+        "value": true,
+        "source": "Explicit synthetic demonstration scope, not measured project evidence."
+      },
+      "fixed_current_using_equipment": {
+        "value": true,
+        "source": "Explicit synthetic demonstration scope, not measured project evidence."
+      },
+      "includes_entire_installation_origin_to_equipment_path": {
+        "value": true,
+        "source": "Explicit synthetic demonstration scope, not measured project evidence."
+      },
+      "installation_origin_to_fixed_equipment_voltage_drop": {
+        "value": 0.9999999999999999,
+        "unit": "percent_of_nominal_supply_voltage",
+        "source": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\electrical-paths-v1\\electrical-paths.json SHA256 90ad9c92e9ccb77532034410b69ce9cbdfd999abb84477af7e8f9e0afbfd69c1; circuit C2; devices DC2"
+      }
+    }
+  }
+}
