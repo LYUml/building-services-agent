@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "12411cc34e0f9471a883205cba464e33eb0379e1386e3a036c4afe19bb9e1d6b",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "annual",
+      "kind": "annual_energy",
+      "project": "project.json",
+      "weather": "USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw.gz"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Use project.json and the exact compressed USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw.gz source. Validate its raw SHA256/station identity and complete hourly calendar; derive site from the weather. Run both lighting cases for the declared full 2025 calendar with actual OpenStudio/EnergyPlus, excluding design days and warmup from annual totals. Reconcile monthly/hourly/annual quantities and the independent always-on lighting balance. Keep ideal supplied cooling/heating thermal energy separate from lighting electricity; preserve unmet-zone-time targets, native logs/completion discrepancies and unchanged source bytes. Actual geometry, gains, schedules, weather applicability, detailed HVAC/plant electricity, calibration and engineering acceptance remain pending.",
+      "task": "annual",
+      "acceptance": "Complete annual numerical/source checks under explicit synthetic assumptions; native completion discrepancies and all real-project/domain gates remain visible"
+    }
+  ]
+}

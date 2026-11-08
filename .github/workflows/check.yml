@@ -1,6 +1,28 @@
 name: checks
 on: [push, pull_request]
 jobs:
+  energy:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/cache@v4
+        with:
+          path: tools/downloads/energyplus.zip
+          key: energyplus-25.2.0-cf7368216c-windows-x64
+      - run: python -m venv .venv
+      - run: .venv/Scripts/python -m pip install -e ".[dev,energy]"
+      - run: .venv/Scripts/python scripts/setup_energy.py
+      - run: .venv/Scripts/python -m unittest discover -s tests -p test_energy.py -v
+        env:
+          BSA_TEST_ENERGYPLUS: ${{ github.workspace }}/tools/energyplus-25.2/EnergyPlus-25.2.0-cf7368216c-Windows-x86_64/energyplus.exe
+      - run: .venv/Scripts/python -m unittest discover -s tests -p test_annual_energy.py -v
+        env:
+          BSA_TEST_ENERGYPLUS: ${{ github.workspace }}/tools/energyplus-25.2/EnergyPlus-25.2.0-cf7368216c-Windows-x86_64/energyplus.exe
+      - run: .venv/Scripts/python -m bsa.workflow execute examples/annual-energy/plan.json --out runs/annual --energyplus tools/energyplus-25.2/EnergyPlus-25.2.0-cf7368216c-Windows-x86_64/energyplus.exe
+      - run: .venv/Scripts/python -m bsa.workflow verify runs/annual
   water:
     runs-on: ubuntu-latest
     steps:

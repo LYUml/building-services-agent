@@ -1,5 +1,7 @@
 # Attribution and upstream integration register
 
+Annual weather integration reuses pinned OpenStudio 3.11.0 / EnergyPlus 25.2.0 and original hourly-calendar/SQLite accounting code. The exact Chicago TMY3 EPW distributed in the verified official EnergyPlus Windows archive is retained as a lossless gzip verification asset, with full raw/asset/archive hashes and source details in [WEATHER_SOURCE.md](examples/annual-energy/WEATHER_SOURCE.md). Its original header/source flags and the existing EnergyPlus distribution notice are preserved. No engine binary or replacement meteorological data were vendored. Typical-year weather is not relabelled historical 2025 or Hong Kong design weather. [SQLite reference source](https://github.com/NatLabRockies/EnergyPlus/blob/v25.2.0/src/EnergyPlus/SQLiteProcedures.cc) and [EPW format documentation](https://energyplus.readthedocs.io/en/stable/auxiliary-programs/auxiliary-programs.html) inform the accounting/validation; observed native completion-flag discrepancies remain pending.
+
 Orthographic IFC views use original projection/end-on/coverage/orchestration code around the already pinned IfcOpenShell, ezdxf, AutoCAD and pypdf adapters. pypdf 7.0.0 merges verified individual sheets; its existing BSD notice applies. AutoCAD remains an external licensed local engine, not redistributed. No new dependency, vendor source or binary was added for this feature. Reference scale/geometry checks and actual visual reviews are separate.
 
 ## Executed EPANET water graphs

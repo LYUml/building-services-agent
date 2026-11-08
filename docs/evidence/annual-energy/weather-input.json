@@ -1,0 +1,83 @@
+{
+  "sha256": "c7d4efcf93ba316a1d874352e743df5cf137ba5c0e3459eb2dc4b5442d5b7f5c",
+  "asset_sha256": "d14d55b3122fadc6607ca80e76993f555545b5c01df24a7c7912995dfcc1992c",
+  "source": "Unmodified Chicago TMY3 EPW bundled with verified official EnergyPlus 25.2.0-cf7368216c Windows archive (archive SHA256 4136901f7e1708f6536d84278e26ad88b414c7efc905febf6d49c2539a36f3cd). https://github.com/NatLabRockies/EnergyPlus/releases/tag/v25.2.0 ; exact EPW bytes are retained as a deterministic gzip example asset with original header/source flags; EnergyPlus distribution notice retained at third_party/licenses/energyplus.txt.",
+  "station_id": "725300",
+  "station_name": "Chicago Ohare Intl Ap",
+  "region": "IL",
+  "country": "USA",
+  "data_source": "TMY3",
+  "site": {
+    "latitude_deg": 41.98,
+    "longitude_deg": -87.92,
+    "timezone_h": -6.0,
+    "elevation_m": 201.0
+  },
+  "calendar_year": 2025,
+  "hours": 8760,
+  "source_years": [
+    1977,
+    1978,
+    1979,
+    1980,
+    1981,
+    1985,
+    1986,
+    1987,
+    1989,
+    2002
+  ],
+  "minute_field": 0,
+  "required_field_ranges": {
+    "dry_bulb_c": [
+      -22.8,
+      35.0
+    ],
+    "dew_point_c": [
+      -28.3,
+      25.6
+    ],
+    "relative_humidity_percent": [
+      17.0,
+      100.0
+    ],
+    "station_pressure_pa": [
+      96200.0,
+      101800.0
+    ],
+    "horizontal_infrared_wh_m2": [
+      157.0,
+      476.0
+    ],
+    "global_horizontal_wh_m2": [
+      0.0,
+      969.0
+    ],
+    "direct_normal_wh_m2": [
+      0.0,
+      942.0
+    ],
+    "diffuse_horizontal_wh_m2": [
+      0.0,
+      465.0
+    ],
+    "wind_direction_deg": [
+      0.0,
+      360.0
+    ],
+    "wind_speed_m_s": [
+      0.0,
+      15.4
+    ],
+    "total_sky_cover_tenths": [
+      0.0,
+      10.0
+    ],
+    "opaque_sky_cover_tenths": [
+      0.0,
+      10.0
+    ]
+  },
+  "distinct_uncertainty_flags": 4,
+  "scope": "complete hourly calendar and required thermal/solar/wind fields; original uncertainty flags retained in source; not meteorological certification"
+}

@@ -70,13 +70,17 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
-        if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","lighting"):
+        if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             inputs.add(local_path(root,t.get("project")))
         if kind=='water_network':
             from .epanet import validate
             validate(read_json(local_path(root,t['project'])))
+        if kind=='annual_energy':
+            from .annual_energy import validate,read_weather
+            data=validate(read_json(local_path(root,t['project'])));weather=local_path(root,t.get('weather'));inputs.add(weather)
+            read_weather(weather,data['weather'],data['calendar_year'])
         if kind=='lighting':
             from .lighting import validate as validate_lighting
             lighting_project=local_path(root,t.get('project'))
@@ -315,6 +319,13 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                     status='pass' if payload['calculated_checks_pass'] else 'fail'
                     reason='shared electrical/CAD/IFC light positions bound to explicit IES origins and Radiance calculation; complete physical/domain acceptance pending'
                 else:reason='Radiance binary directory not supplied for bound lighting'
+            elif t['kind']=='annual_energy':
+                if energyplus:
+                    from .annual_energy import run
+                    payload=run(local_path(root,t['project']),local_path(root,t['weather']),folder,energyplus)
+                    status='pass' if payload['calculated_checks_pass'] else 'fail'
+                    reason='complete hourly EPW calendar and weather-only annual SQL checks; thermal supply and lighting electricity separated; native completion-flag discrepancies retained; real building/plant/domain acceptance pending'
+                else:reason='EnergyPlus executable not supplied for annual weather analysis'
             elif t["kind"]=="energy":
                 if energyplus:
                     from .energy import run

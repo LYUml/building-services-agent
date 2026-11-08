@@ -117,7 +117,7 @@ def totals(sql):
     finally:con.close()
 
 
-def validate(p):
+def validate(p,require_design_days=True):
     if not isinstance(p,dict) or not isinstance(p.get("source"),str) or not p["source"].strip():
         raise ProjectError("source statement required")
     def number(value,label,low=None,high=None):
@@ -138,7 +138,7 @@ def validate(p):
     for key,lo,hi in (("latitude_deg",-90,90),("longitude_deg",-180,180),("timezone_h",-12,14),("elevation_m",-500,9000)):
         number(site.get(key),key,lo,hi)
     days=p.get("design_days")
-    if not isinstance(days,list) or not days:raise ProjectError("design days required")
+    if not isinstance(days,list) or require_design_days and not days:raise ProjectError("design days required")
     names=set()
     import datetime
     for d in days:

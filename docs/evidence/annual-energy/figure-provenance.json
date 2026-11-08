@@ -1,0 +1,7 @@
+{
+  "source_artifact": "annual.json",
+  "source_sha256": "9117406a7c39494a8459e947cd7b1e6833d9eb569f78411d334630e95da2095a",
+  "image_sha256": "b11544708b2477266d04e381bfd28ca3e95dd7207b872a8254ab7acf951563bc",
+  "renderer": "Matplotlib 3.11.2",
+  "scope": "Monthly energy comparison; independent axes/thermal versus electric units, no plant conversion"
+}
