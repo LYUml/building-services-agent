@@ -14,13 +14,14 @@ from .engine import ProjectError
 from .epanet_energy import audit_pipe
 
 MODEL='EPANET steady water graph'
+CIRCULATION_MODEL='EPANET steady circulation graph'
 PRESSURE='static pressure head in metres of water; head is elevation plus static pressure head'
 COORDINATES='schematic diagram coordinates; not physical routes'
 
 
 def validate(p):
     fields={'model','name','pressure_basis','coordinate_basis','sources','fluid','hydraulics','solver','reservoirs','junctions','pipes','pumps'}
-    if not isinstance(p,dict) or set(p)!=fields or p['model']!=MODEL or p['pressure_basis']!=PRESSURE or p['coordinate_basis']!=COORDINATES:
+    if not isinstance(p,dict) or set(p)!=fields or p['model'] not in (MODEL,CIRCULATION_MODEL) or p['pressure_basis']!=PRESSURE or p['coordinate_basis']!=COORDINATES:
         raise ProjectError('explicit steady water/static-head/schematic-coordinate model required')
     sources=p['sources']
     if not isinstance(p['name'],str) or not p['name'].strip() or not isinstance(sources,dict) or not sources or any(not isinstance(k,str) or not k.strip() or not isinstance(v,str) or not v.strip() for k,v in sources.items()):raise ProjectError('network name and source descriptions required')
@@ -56,7 +57,10 @@ def validate(p):
                 number(row['elevation_m'])
                 for key in ('demand_m3_s','minimum_acceptable_pressure_head_m','minimum_delivered_fraction'):number(row[key],0)
                 if row['minimum_delivered_fraction']>1:raise ProjectError('delivery target fraction must be <=1')
-    if sum(j['demand_m3_s'] for j in p['junctions'])<=0:raise ProjectError('positive total design withdrawal required')
+    circulation=p['model']==CIRCULATION_MODEL
+    if circulation:
+        if any(j['demand_m3_s']!=0 for j in p['junctions']) or len(p['reservoirs'])!=1 or h['demand_model']!='DDA':raise ProjectError('circulation requires zero withdrawals, one pressure reference and DDA')
+    elif sum(j['demand_m3_s'] for j in p['junctions'])<=0:raise ProjectError('positive total design withdrawal required')
     adjacency={id:set() for id in nodes}
     for kind,keys in [('pipes',{'id','from','to','length_m','diameter_m','roughness_m','minor_k','maximum_velocity_m_s'}),('pumps',{'id','from','to','head_curve'})]:
         if not isinstance(p[kind],list):raise ProjectError('explicit pipe/pump lists required')
@@ -83,6 +87,17 @@ def validate(p):
         id=stack.pop()
         if id not in seen:seen.add(id);stack.extend(adjacency[id]-seen)
     if seen!=set(nodes):raise ProjectError('one reservoir-connected graph required; loops/parallel pipes are allowed')
+    if circulation:
+        reference=p['reservoirs'][0]['id']
+        reference_links=sum(reference in (link['from'],link['to']) for link in p['pipes']+p['pumps'])
+        if len(p['pumps'])!=1 or reference_links!=1:raise ProjectError('circulation requires one pump and a single-connection pressure reference')
+        pump=p['pumps'][0];routes={id:set() for id in nodes}
+        for pipe in p['pipes']:routes[pipe['from']].add(pipe['to']);routes[pipe['to']].add(pipe['from'])
+        visited=set();stack=[pump['to']]
+        while stack:
+            id=stack.pop()
+            if id not in visited:visited.add(id);stack.extend(routes[id]-visited)
+        if pump['from'] not in visited:raise ProjectError('circulation pump requires an explicit pipe return path')
     return p
 
 
@@ -188,6 +203,9 @@ def evaluate(p,raw):
                 velocity_limits=all(r['velocity_pass'] and r['native_velocity_match'] for r in pipes),
                 pipe_energy=all(r['energy']['energy_pass'] for r in pipes),
                 pump_curves=all(r['curve_domain_pass'] and r['curve_head_pass'] and r['open_pass'] for r in pumps))
+    if p['model']==CIRCULATION_MODEL:
+        checks['zero_reference_exchange']=all(abs(node['demand'][r['id']])<=s['mass_tolerance_m3_s'] for r in p['reservoirs'])
+        checks['positive_circulation']=all(r['flow_m3_s']>s['flow_tolerance_m3_s'] for r in pumps)
     return dict(checks=checks,calculated_checks_pass=all(checks.values()),junctions=junctions,pipes=pipes,pumps=pumps,
                 reservoir_demands_m3_s={r['id']:node['demand'][r['id']] for r in p['reservoirs']},mass_residuals_m3_s=balance,
                 independent_cycle_count=len(p['pipes'])+len(p['pumps'])-len(p['reservoirs'])-len(p['junctions'])+1)

@@ -30,3 +30,5 @@ Hong Kong regulatory conformity is an explicit end-state requirement: interchang
 6. Run two independent requirement documents end to end and audit every promised deliverable.
 
 Do not mark the overall objective complete at a foundation milestone.
+
+A separately declared zero-withdrawal EPANET circulation mode now demonstrates a closed pumped return path, zero net pressure-reference exchange and static-pressure-offset invariance. Thermal duty, controls, IFC/regulatory binding and complete hydronic design remain pending; see HVAC_CIRCULATION.md.
