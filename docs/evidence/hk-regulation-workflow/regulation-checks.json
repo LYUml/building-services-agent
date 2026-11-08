@@ -1,0 +1,50 @@
+{
+  "rule_pack": "hk-2026.11.08",
+  "jurisdiction": "HK",
+  "checks": [
+    {
+      "id": "HK.EMSD.COP2025.13A3v.voltage_drop",
+      "status": "pass",
+      "scope": "Normal-service voltage drop from installation origin to fixed current-using equipment, selected deemed-to-satisfy path only; not a branch-circuit-only or starting-transient limit.",
+      "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+      "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+      "edition": "2025",
+      "clause": "13A(3)(v)",
+      "pdf_page_1_based": 116,
+      "value": 3.5,
+      "unit": "percent_of_nominal_supply_voltage",
+      "maximum": 4,
+      "evidence": "Synthetic total installation voltage-drop scenario; not the previous coursework or a branch-only result.",
+      "reasons": [
+        "selected deemed-to-satisfy path met"
+      ]
+    }
+  ],
+  "supported_checks_pass": true,
+  "coverage": {
+    "complete": false,
+    "implemented": [
+      "One normal-service electrical voltage-drop deemed-to-satisfy check"
+    ],
+    "pending": [
+      "statutory scope and applicability",
+      "remaining electrical protection/cable/earthing rules",
+      "BEC HVAC/lighting/electrical/lifts clauses",
+      "WSD plumbing clauses",
+      "FSD premises and installation rules",
+      "BD drainage rules",
+      "ArchSD contract applicability",
+      "utility requirements and referenced standards"
+    ]
+  },
+  "regulatory_compliance": "not_established",
+  "design_accepted": false,
+  "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination",
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-workflow-v1\\pack.json": "e39191cab144ccdd9a405996613d5fcd48efd154bef36c1717fbd00e022e9dfb",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-workflow-v1\\project.json": "b1bf94f5b0394fdb58c8ae6f896c93cdac0dffd8d8de22fa7d616c194ac64cc6",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-workflow-v1\\emsd-wiring-2025.pdf": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b"
+  },
+  "inputs_unchanged": true,
+  "missing_sources": []
+}

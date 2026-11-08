@@ -57,13 +57,29 @@ def evaluate(pack,project,source_directory):
                 scope='Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination')
 
 
+def source_paths(pack, directory):
+    """Only sources used by executable rules; catalog entries need no cached PDF."""
+    root=Path(directory).resolve();paths=set()
+    for rule in pack['rules']:
+        path=(root/pack['sources'][rule['source_id']]['cache_filename']).resolve()
+        if not path.is_relative_to(root):raise ProjectError('source cache path escapes root')
+        paths.add(path)
+    return paths
+
+
 def run(pack,project,sources,out):
     pack,project,out=Path(pack).resolve(),Path(project).resolve(),Path(out).resolve()
     if any(out==p or out in p.parents for p in (pack,project)):raise ProjectError('output must not contain inputs')
     before={str(p):digest(p) for p in (pack,project)}
-    result=evaluate(json.loads(pack.read_text(encoding='utf-8-sig')),json.loads(project.read_text(encoding='utf-8-sig')),sources)
+    data=json.loads(pack.read_text(encoding='utf-8-sig'))
+    official=source_paths(data,sources)
+    if any(out==p or out in p.parents for p in official):raise ProjectError('output must not contain official sources')
+    source_before={str(p):digest(p) if p.is_file() else None for p in official}
+    result=evaluate(data,json.loads(project.read_text(encoding='utf-8-sig')),sources)
+    if any((digest(Path(p)) if Path(p).is_file() else None)!=h for p,h in source_before.items()):raise ProjectError('official source changed during evaluation')
+    before.update({p:h for p,h in source_before.items() if h is not None})
     if any(digest(Path(p))!=h for p,h in before.items()):raise ProjectError('regulation evaluation input changed')
-    result.update(inputs=before,inputs_unchanged=True)
+    result.update(inputs=before,inputs_unchanged=True,missing_sources=[p for p,h in source_before.items() if h is None])
     out.mkdir(parents=True,exist_ok=False);(out/'regulation-checks.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
     return result
 

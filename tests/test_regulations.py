@@ -22,6 +22,39 @@ class RegulationPackTests(unittest.TestCase):
 
     def status(self):return evaluate(self.pack,self.project,self.root)['checks'][0]['status']
 
+    def test_workflow_tracks_official_bytes_and_keeps_review_pending(self):
+        from bsa.workflow import execute, verify, passages
+        brief=self.root/'brief.md';brief.write_text('Check the selected synthetic jurisdiction rule; full compliance remains pending.')
+        passage=passages(brief)[0]
+        for name,data in [('pack.json',self.pack),('project.json',self.project)]:
+            (self.root/name).write_text(json.dumps(data))
+        plan=dict(version=1,brief='brief.md',brief_sha256=digest(brief),
+                  passage_dispositions={passage['id']:'requirement'},
+                  tasks=[dict(id='rules',kind='regulations',pack='pack.json',project='project.json',sources='.')],
+                  requirements=[dict(id='R1',passage=passage['id'],quote=passage['text'],task='rules',acceptance=passage['text'])])
+        path=self.root/'plan.json';path.write_text(json.dumps(plan))
+        first=execute(path,self.root/'first')
+        self.assertEqual(first['tasks']['rules']['status'],'pass')
+        self.assertIn(str(self.file.resolve()),first['inputs'])
+        self.assertFalse(first['design_accepted'])
+        self.assertTrue(verify(self.root/'first')['integrity_pass'])
+        self.file.write_bytes(b'changed source')
+        self.assertFalse(verify(self.root/'first')['integrity_pass'])
+        second=execute(path,self.root/'second')
+        self.assertEqual(second['tasks']['rules']['status'],'pending')
+        self.assertFalse(second['execution_pass'])
+
+    def test_standalone_records_official_sources_and_missing_files(self):
+        from bsa.regulations import run
+        for name,data in [('pack.json',self.pack),('project.json',self.project)]:
+            (self.root/name).write_text(json.dumps(data))
+        result=run(self.root/'pack.json',self.root/'project.json',self.root,self.root/'first')
+        self.assertEqual(result['inputs'][str(self.file.resolve())],digest(self.file))
+        self.file.unlink()
+        result=run(self.root/'pack.json',self.root/'project.json',self.root,self.root/'second')
+        self.assertEqual(result['missing_sources'],[str(self.file.resolve())])
+        self.assertFalse(result['supported_checks_pass'])
+
     def test_boundary_and_alternative_path_do_not_claim_compliance(self):
         metric=self.project['facts']['installation_origin_to_fixed_equipment_voltage_drop']
         metric['value']=4;self.assertEqual(self.status(),'pass')

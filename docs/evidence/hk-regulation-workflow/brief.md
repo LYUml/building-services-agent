@@ -1,0 +1,1 @@
+Evaluate the sourced Hong Kong voltage-drop check for the synthetic scenario. Preserve unresolved whole-project compliance.

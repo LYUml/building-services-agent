@@ -19,6 +19,12 @@ The first executable rule is EMSD Wiring CoP 2025, **13A(3)(v), printed page 115
 
 Results separate `supported_checks_pass`, `regulatory_compliance: not_established` and `design_accepted: false`. A successful command only means this supported check passed. It never establishes all electrical checks or whole-building compliance. Existing electrical/network/thermal examples remain synthetic and are not retroactively certified by installing this pack.
 
+## Workflow adapter
+
+Register a task such as `{"id":"hk-rules","kind":"regulations","project":"project.json","pack":"pack.json","sources":"official-sources"}` in a source-linked workflow plan. Paths are relative to and contained within the plan directory. Download required official files before workflow execution; missing files fail workflow preflight. Standalone evaluation can instead record missing files as pending. Only sources referenced by executable rules require cached files; index-only catalog entries do not.
+
+Both standalone and workflow reports track the actual official source bytes alongside pack/project inputs. A later source change invalidates workflow integrity; a source that differs from the pack hash leaves the check pending. Unsupported paths, missing evidence and alternative-path reviews cannot pass the task. A passing task concerns only its supported checks: requirement acceptance remains pending and whole-project regulatory compliance is not established. The adapter does not yet bind facts to upstream calculation outputs or impose a regulatory dependency gate on every authoring task. Actual official-file workflow evidence is in `docs/evidence/hk-regulation-workflow`.
+
 ## Hong Kong source coverage and applicability
 
 | Source | Snapshot and current implementation |

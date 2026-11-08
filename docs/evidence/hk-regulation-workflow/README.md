@@ -1,0 +1,5 @@
+# Hong Kong rule workflow evidence
+
+Executed with the actual hash-pinned EMSD PDF in the local ignored cache. The scenario metric remains a sourced synthetic assumption, not an extracted calculation. The rule task passed only its selected check; requirement acceptance remains pending and design_accepted is false. Workflow input hashes now include the actual official PDF as well as the pack and project. The original PDF is not redistributed. Plan and brief are retained for inspection; relative source paths refer to the original run directory recorded in workflow.json and require staging the pack/project/cache there for reproduction.
+
+Eight regulation tests cover source mutation invalidating previous workflow integrity, changed official bytes remaining pending, missing source recording and existing applicability/threshold cases. Eight existing workflow tests passed. This integration does not yet derive regulatory facts from calculation outputs or enforce jurisdiction checks across all design tasks.

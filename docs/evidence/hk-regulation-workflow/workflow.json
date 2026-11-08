@@ -1,0 +1,42 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-workflow-v1\\plan.json": "91a206f1abecdf34f78f73f2fc3dce7db77583067d3ec70669c6e6c7fd050e5d",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-workflow-v1\\project.json": "b1bf94f5b0394fdb58c8ae6f896c93cdac0dffd8d8de22fa7d616c194ac64cc6",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-workflow-v1\\brief.md": "5989a3b02653c1e78a3ed646b85610ddfe3b3324f711d9c1182eb11e5c7577e4",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-workflow-v1\\emsd-wiring-2025.pdf": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-workflow-v1\\pack.json": "e39191cab144ccdd9a405996613d5fcd48efd154bef36c1717fbd00e022e9dfb"
+  },
+  "inputs_unchanged": true,
+  "tasks": {
+    "hk-rules": {
+      "kind": "regulations",
+      "status": "pass",
+      "scope": "Selected jurisdiction checks only; whole-project regulatory compliance not established. HK.EMSD.COP2025.13A3v.voltage_drop: pass"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P001",
+      "quote": "Evaluate the sourced Hong Kong voltage-drop check for the synthetic scenario. Preserve unresolved whole-project compliance.",
+      "task": "hk-rules",
+      "acceptance": "Evaluate the sourced Hong Kong voltage-drop check for the synthetic scenario. Preserve unresolved whole-project compliance.",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 1,
+        "end_line": 1
+      },
+      "execution_scope": "Selected jurisdiction checks only; whole-project regulatory compliance not established. HK.EMSD.COP2025.13A3v.voltage_drop: pass",
+      "evidence": [
+        "hk-rules/regulation-checks.json"
+      ]
+    }
+  ],
+  "artifact_hashes": {
+    "hk-rules/regulation-checks.json": "ea22e9e9245a301ee4d62dd56fa2f23fc619ad39b2c9dc1b9391f02d8003a38a"
+  },
+  "execution_pass": true,
+  "design_accepted": false,
+  "acceptance_note": "Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance"
+}

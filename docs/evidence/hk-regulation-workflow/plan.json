@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "5989a3b02653c1e78a3ed646b85610ddfe3b3324f711d9c1182eb11e5c7577e4",
+  "passage_dispositions": {
+    "P001": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "hk-rules",
+      "kind": "regulations",
+      "pack": "pack.json",
+      "project": "project.json",
+      "sources": "."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P001",
+      "quote": "Evaluate the sourced Hong Kong voltage-drop check for the synthetic scenario. Preserve unresolved whole-project compliance.",
+      "task": "hk-rules",
+      "acceptance": "Evaluate the sourced Hong Kong voltage-drop check for the synthetic scenario. Preserve unresolved whole-project compliance."
+    }
+  ]
+}

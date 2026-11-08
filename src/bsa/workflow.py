@@ -71,10 +71,20 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             inputs.add(local_path(root,t.get("project")))
+        if kind=='regulations':
+            from .regulations import source_paths
+            pack=local_path(root,t.get('pack'));project=local_path(root,t.get('project'))
+            directory=t.get('sources')
+            if not isinstance(directory,str) or Path(directory).is_absolute():raise ProjectError('relative regulation source directory required')
+            directory=(root/directory).resolve()
+            if not directory.is_relative_to(root):raise ProjectError('regulation sources escape plan root')
+            official=source_paths(read_json(pack),directory)
+            if any(not f.is_file() for f in official):raise ProjectError('download required official sources before workflow execution')
+            inputs.update({pack,project}|official)
         if kind=='water_network':
             from .epanet import validate
             validate(read_json(local_path(root,t['project'])))
@@ -238,7 +248,12 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
         folder=out/t["id"]
         status="pending";reason="";payload=None
         try:
-            if t['kind'] in ('route_model','route_optimize'):
+            if t['kind']=='regulations':
+                from .regulations import run
+                payload=run(local_path(root,t['pack']),local_path(root,t['project']),root/t['sources'],folder)
+                status='pass' if payload['supported_checks_pass'] else 'pending'
+                reason='Selected jurisdiction checks only; whole-project regulatory compliance not established. '+', '.join(r['id']+': '+r['status'] for r in payload['checks'])
+            elif t['kind'] in ('route_model','route_optimize'):
                 if t['kind']=='route_model':
                     from .route_model import run
                 else:
