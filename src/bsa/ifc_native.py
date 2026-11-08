@@ -74,10 +74,9 @@ def run(source, settings_path, out, exe=DEFAULT_EXE):
         raise ProjectError('nonzero reference in WCS XY required')
     if any(not window[0]<=pt.x<=window[2] or not window[1]<=pt.y<=window[3] for pt in (ref.dxf.start,ref.dxf.end)):
         raise ProjectError('reference outside sheet window')
-    if reference_layer=='BSA_EQUIPMENT_REFERENCE' or bool(doc.modelspace().query('ARC')):
-        from ezdxf import bbox
-        bounds=bbox.extents(doc.modelspace(),fast=True)
-        if not bounds.has_data or bounds.extmin.x<window[0] or bounds.extmin.y<window[1] or bounds.extmax.x>window[2] or bounds.extmax.y>window[3]:raise ProjectError('equipment/arc geometry or annotation extents exceed sheet window')
+    from ezdxf import bbox
+    bounds=bbox.extents(doc.modelspace(),fast=True)
+    if not bounds.has_data or bounds.extmin.x<window[0] or bounds.extmin.y<window[1] or bounds.extmax.x>window[2] or bounds.extmax.y>window[3]:raise ProjectError('geometry or annotation extents exceed sheet window')
     out.mkdir(parents=True,exist_ok=False);copied=out/'input.dxf';shutil.copyfile(source,copied)
     dwg=out/(settings.get('drawing_name','segments')+'.dwg');script=out/'save.scr'
     condition=f'(= (strcase (vl-string-translate (chr 92) "/" (strcat (getvar "DWGPREFIX") (getvar "DWGNAME")))) (strcase {lisp_string(copied)}))'

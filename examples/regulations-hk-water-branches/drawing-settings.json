@@ -1,0 +1,8 @@
+{
+  "projection_axes": [
+    "X",
+    "Y"
+  ],
+  "annotation_height_m": 0.3,
+  "source": "Synthetic XY centreline schematic from saved planar branch IFC, no installation fidelity claim"
+}

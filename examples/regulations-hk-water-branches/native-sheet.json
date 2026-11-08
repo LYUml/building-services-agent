@@ -1,0 +1,12 @@
+{
+  "source": "Synthetic revised A4 landscape 1:125 window enclosing all text; 7.9 m reference expected at 63.2 mm; prior clipped plot retained",
+  "window_drawing_units": [
+    -1,
+    7,
+    33,
+    19
+  ],
+  "scale_denominator": 125,
+  "reference_ifc_guid": "1g_wQJJa1HUv6MFZqiXKQf",
+  "pdf_tolerance_mm": 0.2
+}

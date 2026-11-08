@@ -1,0 +1,20 @@
+{
+  "scope": "Synthetic XY centreline diagram visual review only",
+  "pdf_sha256": "2ecc975a4240a2922a059ba259bc30a07ca9f8c8f99e6fc463f675aa685750c4",
+  "render_sha256": "ff9dff2d98a535b93e73208cece3c2bc4ab73586049d64681457139706a87e71",
+  "dwg_sha256": "e007f29559036c46ce3ee1656f6e7384164bb461d290f9bbce3ea6c20f98e04c",
+  "visual_schematic_check_pass": true,
+  "observations": [
+    "Three complete legible segment callouts, no cropped label or text overlap observed",
+    "A: ID25/OD32 mm, 5.9m; B: ID32/OD40 mm, 8.9m; trunk: ID40/OD50 mm, 7.9m",
+    "Projection/unit and NOT installation geometry disclaimer visible"
+  ],
+  "reference_expected_mm": 63.2,
+  "reference_measured_mm": 63.20366666666666,
+  "design_accepted": false,
+  "pending": [
+    "real fitting and equipment representation",
+    "installation annotations and engineering review",
+    "actual project regulatory and product applicability"
+  ]
+}
