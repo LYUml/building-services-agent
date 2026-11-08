@@ -21,6 +21,9 @@ def evaluate(pack,project,source_directory):
     for rule in pack['rules']:
         if rule['id'] in seen:raise ProjectError('unique rule ids required')
         seen.add(rule['id'])
+        if rule['method']=='hvac_water_piping':
+            from .water_pipe_rules import check
+            checks.append(check(pack,rule,project,root));continue
         if rule['method']=='hvac_load_design_conditions':
             from .hvac_rules import design_conditions_check
             checks.append(design_conditions_check(pack,rule,project,root));continue

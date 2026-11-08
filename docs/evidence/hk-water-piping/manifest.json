@@ -1,0 +1,16 @@
+{
+  "scope": "Synthetic actual hydraulic calculations with pinned BEC source; no complete acceptance",
+  "files": {
+    "high-flow-input.json": "cf0cc7506204497d9f6e8779a124df6aacfa8a6814e4510c651c8604b296c2bb",
+    "low-pressure-input.json": "2f5174c58899fcd3dc95ac569faaad8b7701b08af02eebbb662685876876aa26",
+    "baseline\\bound-pipe-projects.json": "cdb9c2352f78fc5210accba13b2c93789c4a712f30702793c059084fdaa791e9",
+    "baseline\\water-pipe-checks.json": "0529c48e5a865ec5174ad4711cfb165a239b11cceade29cbd8ba948f605a0803",
+    "high-flow\\bound-pipe-projects.json": "44bfc93d14532427581ea8fd8faadac5544c395ff586d6afed79c479834b5636",
+    "high-flow\\water-pipe-checks.json": "91406e6e7b186b44afd17deb6bb4d7ccbd0f6396f1fb712d9770ea777c72e322",
+    "low-pressure\\bound-pipe-projects.json": "3d5aa6508a398efd4046e349018f18038a9e7aaa518ada9292815b899d89fe08",
+    "low-pressure\\water-pipe-checks.json": "beaa7c7f7221d8fd9e271ec332f5af7017c9c46b00698d237bb5da6c66c33f07",
+    "baseline\\network\\network.json": "e3de385b20fb6b718c0da6d1c5768c64806663acf6839abc3a66fa49c17939a4",
+    "high-flow\\network\\network.json": "1b7eaa84e4626daacce2733a5c784c3449f4ee101cc6e4abfbade012095e0561",
+    "low-pressure\\network\\network.json": "6c62ab3f4d5ac99cb77ebeca26cba8b50482c8c6fffac816571ed2e19a013a37"
+  }
+}

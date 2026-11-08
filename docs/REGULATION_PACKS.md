@@ -45,3 +45,5 @@ Both standalone and workflow reports track the actual official source bytes alon
 Next integration requires source-linked statutory scope decisions, clause-level rules across those disciplines, explicit applicable amendments, project-data adapters and dependency gates that retain pending compliance checks. Do not copy BS/IEC tables from memory or conflate utility requirements, statutory rules, project specifications and course assumptions.
 
 Use the [project coverage review](REGULATORY_COVERAGE.md) at intake and delivery to expose unresolved applicability, unimplemented modules, unscheduled checks and partial rule coverage. Scheduling does not establish execution or compliance.
+
+[HVAC water piping](HK_WATER_PIPING.md) adds a separate BEC 6.9 module with fresh per-segment hydraulic binding, explicit diameter/control classification and retained pressure failures. Select coverage catalog `hk-coverage-2026.11.09` when including this module.

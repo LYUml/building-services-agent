@@ -1,0 +1,46 @@
+{
+  "name": "Synthetic prescribed-demand water rise",
+  "model": "steady incompressible circular tree",
+  "sources": {
+    "demo": "Explicit synthetic flow, geometry, fluid properties, K and pressure/velocity targets; not measured or code-derived"
+  },
+  "fluid": {
+    "density_kg_m3": 998,
+    "dynamic_viscosity_pa_s": 0.001,
+    "source": "demo"
+  },
+  "supply": {
+    "node": "PUMP",
+    "total_pressure_pa": 180000,
+    "source": "demo"
+  },
+  "nodes": [
+    {
+      "id": "PUMP",
+      "elevation_m": 0,
+      "demand_m3_s": 0,
+      "required_total_pressure_pa": 0,
+      "source": "demo"
+    },
+    {
+      "id": "OUTLET",
+      "elevation_m": 5,
+      "demand_m3_s": 0.004,
+      "required_total_pressure_pa": 100000,
+      "source": "demo"
+    }
+  ],
+  "segments": [
+    {
+      "id": "PIPE1",
+      "from": "PUMP",
+      "to": "OUTLET",
+      "diameter_m": 0.04,
+      "length_m": 20,
+      "roughness_m": 4.5e-05,
+      "minor_k": 3,
+      "max_velocity_m_s": 2,
+      "source": "demo"
+    }
+  ]
+}

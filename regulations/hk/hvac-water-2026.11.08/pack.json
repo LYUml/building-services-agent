@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "id": "hk-hvac-water-2026.11.08",
+  "jurisdiction": "HK",
+  "version": "hvac-water-2026.11.08",
+  "sources": {
+    "emsd_bec_2024": {
+      "authority": "EMSD",
+      "title": "Code of Practice for Energy Efficiency of Building Services Installation",
+      "edition": "2024",
+      "kind": "code_of_practice",
+      "url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+      "index_url": "https://www.emsd.gov.hk/beeo/en/mibec_beeo_codtechguidelines.html",
+      "cache_filename": "emsd-bec-2024.pdf",
+      "sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+      "reviewed_on": "2026-11-08",
+      "review_scope": "BEC 2024 clauses 6.9.1-6.9.3, printed pages 26-27 / PDF pages 32-33; official PDF text checked",
+      "applicability_note": "Explicit BEC air-conditioning and works/edition applicability required; not a domestic-water rule or complete HVAC assessment."
+    }
+  },
+  "rules": [
+    {
+      "id": "HK.EMSD.BEC2024.water_piping",
+      "source_id": "emsd_bec_2024",
+      "method": "hvac_water_piping",
+      "clause": "6.9.1-6.9.3",
+      "pdf_page_1_based": 32,
+      "printed_page": "26-27",
+      "scope": "Air-conditioning water piping velocity, linear friction and variable-flow pump control requirement",
+      "metric": "water_piping_limit_violations",
+      "unit": "count",
+      "limits": {
+        "small_diameter_max_mm": 50,
+        "small_velocity_max_m_s": 1.2,
+        "large_friction_max_pa_m": 400,
+        "large_fixed_velocity_max_m_s": 2.5,
+        "large_variable_velocity_max_m_s": 3.0
+      },
+      "allowed_variable_pump_controls": [
+        "variable_speed",
+        "multiple_duty_fixed_speed_staged_by_demand"
+      ],
+      "applicability": [
+        {
+          "fact": "bec_air_conditioning_scope_confirmed",
+          "equals": true
+        },
+        {
+          "fact": "water_piping_scope_confirmed",
+          "equals": true
+        },
+        {
+          "fact": "prescriptive_route_selected",
+          "equals": true
+        }
+      ],
+      "alternative_path_note": "Selected water-piping requirement not met; review scope, design and applicable compliance route."
+    }
+  ],
+  "coverage": {
+    "complete": false,
+    "implemented": [
+      "Selected 6.9.1-6.9.3 water-piping conditions"
+    ],
+    "pending": [
+      "actual statutory scope, edition and works applicability",
+      "diameter classification and hydraulic input/product evidence",
+      "full network topology and actual design flows",
+      "variable-flow requirements under 6.8 and remaining HVAC clauses",
+      "full engineering and regulatory acceptance"
+    ]
+  }
+}

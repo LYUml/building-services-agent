@@ -1,0 +1,67 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-water-controls-v1\\high-flow.json": "cf0cc7506204497d9f6e8779a124df6aacfa8a6814e4510c651c8604b296c2bb",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\regulations-hk-water\\bases.json": "d4bb33b302faad67781ee0552e8f612931a90a7cab50fd930e50e36d5e9bdbab",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\regulations\\hk\\hvac-water-2026.11.08\\pack.json": "de85187d63c45e59827f268e2d3fe923231106ae676ef12f0d0baf41084fad12",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-regulation-sources\\emsd-bec-2024.pdf": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7"
+  },
+  "inputs_unchanged": true,
+  "network_report_sha256": "1b7eaa84e4626daacce2733a5c784c3449f4ee101cc6e4abfbade012095e0561",
+  "missing_sources": [],
+  "segment_checks": {
+    "PIPE1": {
+      "rule_pack": "hk-hvac-water-2026.11.08",
+      "jurisdiction": "HK",
+      "checks": [
+        {
+          "id": "HK.EMSD.BEC2024.water_piping",
+          "status": "review_required",
+          "scope": "Air-conditioning water piping velocity, linear friction and variable-flow pump control requirement",
+          "source_url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+          "source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+          "edition": "2024",
+          "clause": "6.9.1-6.9.3",
+          "pdf_page_1_based": 32,
+          "value": 1,
+          "unit": "count",
+          "maximum": 0,
+          "evidence": "Derived from sourced water_pipe conditions; diameter classification remains explicit",
+          "reasons": [
+            "Selected water-piping requirement not met; review scope, design and applicable compliance route."
+          ],
+          "condition_checks": [
+            {
+              "input": "velocity",
+              "value": 3.183098861837907,
+              "maximum": 1.2,
+              "passed": false
+            }
+          ]
+        }
+      ],
+      "supported_checks_pass": false,
+      "coverage": {
+        "complete": false,
+        "implemented": [
+          "Selected 6.9.1-6.9.3 water-piping conditions"
+        ],
+        "pending": [
+          "actual statutory scope, edition and works applicability",
+          "diameter classification and hydraulic input/product evidence",
+          "full network topology and actual design flows",
+          "variable-flow requirements under 6.8 and remaining HVAC clauses",
+          "full engineering and regulatory acceptance"
+        ]
+      },
+      "regulatory_compliance": "not_established",
+      "design_accepted": false,
+      "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+    }
+  },
+  "supported_checks_pass": false,
+  "hydraulic_checks_pass": false,
+  "status": "fail",
+  "design_accepted": false,
+  "regulatory_compliance": "not_established",
+  "scope": "Fresh prescribed-flow circular-tree velocities and distributed friction; sourced code-diameter and flow/control classification; complete HVAC compliance not established"
+}
