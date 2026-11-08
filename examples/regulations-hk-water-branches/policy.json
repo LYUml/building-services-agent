@@ -1,0 +1,52 @@
+{
+  "scope": "all represented non-feature non-virtual IfcElements",
+  "sources": {
+    "test": "Synthetic branch-model QA: 50 mm general clearance, 0.20 m spherical regions only at six declared connected port pairs; no universal pair waivers and no code/product acceptance"
+  },
+  "source": "test",
+  "minimum_clearance_m": 0.05,
+  "intersection_tolerance_m": 0.0001,
+  "contact_tolerance_m": 0.0001,
+  "overlap_volume_tolerance_m3": 1e-10,
+  "maximum_boolean_pairs": 1000,
+  "contact_clearance_mode": "outside_regions",
+  "contact_region_segments": 64,
+  "allowed_contacts": [
+    {
+      "from_port_guid": "3oPKUDeiHUXBsq8j$4745N",
+      "to_port_guid": "02VxS3an5TaeWm52abpQ0w",
+      "region_radius_m": 0.2,
+      "source": "test"
+    },
+    {
+      "from_port_guid": "0LnBpnGe1QhxMF3SNH7At1",
+      "to_port_guid": "21k8YCF9XUMuiEOub8nMWV",
+      "region_radius_m": 0.2,
+      "source": "test"
+    },
+    {
+      "from_port_guid": "0b0BATw89Ttgr_DenuRxae",
+      "to_port_guid": "0bi$KRnCrJcQ1mloiiyDf$",
+      "region_radius_m": 0.2,
+      "source": "test"
+    },
+    {
+      "from_port_guid": "3iW4VacfbGM9wABOapAwHG",
+      "to_port_guid": "2r1V4JaoLSJBvjJUazzoM_",
+      "region_radius_m": 0.2,
+      "source": "test"
+    },
+    {
+      "from_port_guid": "3aC$Wu7lfNWf1rW76xajG2",
+      "to_port_guid": "0zsme8AY5JCf26UU53FKcD",
+      "region_radius_m": 0.2,
+      "source": "test"
+    },
+    {
+      "from_port_guid": "2NzFG8WQ5Ufhjy2bb2KQM1",
+      "to_port_guid": "1lJ9ZUD0zOPxreEORaRdot",
+      "region_radius_m": 0.2,
+      "source": "test"
+    }
+  ]
+}

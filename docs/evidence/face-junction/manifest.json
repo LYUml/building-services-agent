@@ -1,0 +1,9 @@
+{
+  "scope": "Synthetic face-port adaptation with distinct clearance policies; 120 mm allowance is not product evidence; previous failures retained",
+  "files": {
+    "centre-clash.zip": "83cb12d5c01964924c5460af733f66440d9984484674d2f654ba1dcb040d5fd0",
+    "face-120mm-synthetic.zip": "feae05a31ca467dd9cfe5ae9725e93e77e9bf8218a986a04d2ea7d0279f2c110",
+    "face-60mm-failed.zip": "9d87c4e46208f15c07a29b56cc18904a3bac0afd844d10a035dcebc03759191a",
+    "face-model.zip": "f6e05029e79d51c4193d3f537dfd3da0a1500e56e786d1794835c17a8d504de0"
+  }
+}

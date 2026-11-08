@@ -1,0 +1,21 @@
+{
+  "source": "Synthetic finite junction envelope with three separated face ports at z=2 m; straight pipe endpoints at equipment/junction faces. Not a manufactured or hollow tee; aggregate minor K is a synthetic supplied allowance, no internal-junction friction solution",
+  "nodes": {
+    "SOURCE": "PUMP.out",
+    "TEE": "JUNCTION.in",
+    "A": "TERMINAL-A.in",
+    "B": "TERMINAL-B.in"
+  },
+  "segments": {
+    "TRUNK": [
+      "TRUNK-PIPE"
+    ],
+    "BRANCH-A": [
+      "A-PIPE"
+    ],
+    "BRANCH-B": [
+      "B-PIPE"
+    ]
+  },
+  "node_port_mode": "same_elevation_connected_ports"
+}

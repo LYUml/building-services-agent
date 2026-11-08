@@ -13,8 +13,10 @@ def prepare(network, model, binding):
     from .bim import validate as validate_bim
     from .network import validate as validate_network
     validate_bim(model)
-    if not isinstance(binding, dict) or set(binding) != {'source', 'nodes', 'segments'}:
+    if not isinstance(binding, dict) or not {'source', 'nodes', 'segments'}<=set(binding) or set(binding)-{'source','nodes','segments','node_port_mode'}:
         raise ProjectError('binding requires source, node ports and segment device chains')
+    mode=binding.get('node_port_mode','coincident')
+    if mode not in ('coincident','same_elevation_connected_ports'):raise ProjectError('unsupported node port mode')
     if not isinstance(binding['source'], str) or not binding['source'].strip():
         raise ProjectError('binding provenance required')
     result = copy.deepcopy(network)
@@ -89,14 +91,14 @@ def prepare(network, model, binding):
             if start is None: start=a;first_port=inlet
             end=b; previous=outlet; lengths.append(length); diameters.append(diameter)
         if any(abs(v-diameters[0])>1e-10 for v in diameters): raise ProjectError('split hydraulic segments where internal diameter changes')
-        if not same(start,point(binding['nodes'][s['from']])) or not same(end,point(binding['nodes'][s['to']])):
+        if mode=='coincident' and (not same(start,point(binding['nodes'][s['from']])) or not same(end,point(binding['nodes'][s['to']]))):
             raise ProjectError('network endpoints differ from bound model node coordinates')
         for node_ref,route_ref,is_start in ((binding['nodes'][s['from']],first_port,True),(binding['nodes'][s['to']],previous,False)):
             node_device=ports[node_ref][0]
             if node_device['system']!=system:raise ProjectError('bound node changes distribution system')
             # A junction may have multiple coincident ports; all must belong to the bound node device.
             candidates=[ref for ref,(device,port,xyz) in ports.items()
-                        if device['id']==node_device['id'] and same(xyz,point(node_ref))]
+                        if device['id']==node_device['id'] and same(xyz,point(route_ref)) and abs(xyz[2]-point(node_ref)[2])<=1e-8]
             if node_ref!=route_ref and not any((ref,route_ref) in links if is_start else (route_ref,ref) in links for ref in candidates):
                 raise ProjectError('bound node requires a coincident model connection to route')
         if has_elbow:s['minor_k']=math.fsum(local_k)
@@ -165,11 +167,13 @@ def reconcile(model_path, derived_path, binding, source_model=None):
         if has_elbow and not math.isclose(minor_k,s['minor_k'],abs_tol=1e-10,rel_tol=0):raise ProjectError('saved fitting-route aggregate K mismatch')
         if not math.isclose(length,s['length_m'],rel_tol=0,abs_tol=1e-8):raise ProjectError('saved IFC/network route length mismatch')
         for xyz,node in ((first,s['from']),(last,s['to'])):
-            if math.dist(xyz,ports[binding['nodes'][node]][1])>1e-8:raise ProjectError('saved IFC/network endpoint mismatch')
+            anchor=ports[binding['nodes'][node]][1]
+            if abs(xyz[2]-anchor[2])>1e-8 or binding.get('node_port_mode','coincident')=='coincident' and math.dist(xyz,anchor)>1e-8:raise ProjectError('saved IFC/network endpoint mismatch')
         for node,route_port,is_start in ((s['from'],first_port,True),(s['to'],last_port,False)):
             node_port,xyz=ports[binding['nodes'][node]]
             owner=system.get_port_element(node_port)
-            candidates=[p for p,position in ports.values() if system.get_port_element(p)==owner and math.dist(position,xyz)<1e-8]
+            route_xyz=placement.get_local_placement(route_port.ObjectPlacement)[:3,3]
+            candidates=[p for p,position in ports.values() if system.get_port_element(p)==owner and math.dist(position,route_xyz)<1e-8 and abs(position[2]-xyz[2])<1e-8]
             if node_port!=route_port and not any((p.id(),route_port.id()) in links if is_start else (route_port.id(),p.id()) in links for p in candidates):
                 raise ProjectError('saved node lacks directed coincident route connection')
     return True
