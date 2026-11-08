@@ -27,6 +27,8 @@ The electrical slice implements load aggregation, design current and conditional
 
 Native conversion and source-drawing intake use tested AutoCAD 2027 adapters. [Supported base overlays and fixed-scale A4 plots](docs/CAD_OVERLAY.md) now preserve checked source geometry and verify a reference line's physical PDF scale. Arbitrary drawing fidelity, full sheet standards and engineering acceptance remain pending. See [roadmap](docs/ROADMAP.md), [project format](docs/PROJECT_FORMAT.md), and [upstream attribution](THIRD_PARTY.md).
 
+[Orthographic IFC drawing sets](docs/IFC_VIEWS.md) now combine plan/elevation views with explicit end-on pipe symbols, preserving true/projected lengths and GUIDs. The water-ring workflow extends through three reopened native DWGs and fixed-scale PDF sheets; complete installation detail and engineering acceptance remain pending.
+
 ## Native AutoCAD example
 
 ```powershell

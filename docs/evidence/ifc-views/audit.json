@@ -1,0 +1,155 @@
+{
+  "design_accepted": false,
+  "review_checks_pass": false,
+  "source_integrity_pass": true,
+  "requirements": [
+    {
+      "id": "R1",
+      "task": "model",
+      "quote": "Author model.json as editable IFC with explicit hollow pipe profiles and bidirectional water ports, preserving stable object/port GUIDs and verifying schema, native geometry and both connection directions.",
+      "acceptance": "Scoped model/analysis/drawing/native checks; actual visual review and full installation/engineering acceptance separate",
+      "execution_status": "pass",
+      "recorded_review_status": "pending",
+      "effective_review_status": "pending",
+      "reviewer": "",
+      "reviewed_at_utc": "",
+      "notes": "Domain/source applicability and full engineering/BIM visual review remain pending.",
+      "evidence": [],
+      "attachments": [],
+      "facts": [],
+      "issues": []
+    },
+    {
+      "id": "R2",
+      "task": "water",
+      "quote": "Use project.json and binding.json with that saved IFC. Derive pipe lengths, bore diameters and node elevations from saved profiles/ports, require exact selected-system device/connection coverage, preserve source bytes and reverse flow, and execute EPANET with continuity, pipe-energy, boundary, pressure/delivery and pump checks. Retain the geometry-GUID trace and per-piece result schedule; keep product/fitting, K applicability, physical coordination, visual and full engineering gates pending.",
+      "acceptance": "Scoped model/analysis/drawing/native checks; actual visual review and full installation/engineering acceptance separate",
+      "execution_status": "pass",
+      "recorded_review_status": "pending",
+      "effective_review_status": "pending",
+      "reviewer": "",
+      "reviewed_at_utc": "",
+      "notes": "Domain/source applicability and full engineering/BIM visual review remain pending.",
+      "evidence": [],
+      "attachments": [],
+      "facts": [],
+      "issues": []
+    },
+    {
+      "id": "R3",
+      "task": "views",
+      "quote": "Generate plan, front and side pipe views from the saved water-model IFC using views-settings.json. Preserve every pipe GUID and its true/profile dimensions in the schedule; explicitly symbolize end-on pipes and require every pipe to have a nonzero axis in at least one view. Keep projection length distinct from true length and preserve model/source bytes.",
+      "acceptance": "Scoped model/analysis/drawing/native checks; actual visual review and full installation/engineering acceptance separate",
+      "execution_status": "pass",
+      "recorded_review_status": "pass",
+      "effective_review_status": "pass",
+      "reviewer": "Codex scoped artifact review",
+      "reviewed_at_utc": "2026-11-08T01:24:49.006903+00:00",
+      "notes": "Read six GUID schedule rows (40 mm bore, 50 mm OD, true lengths 2 or 5 m) and the XY/XZ/YZ coverage matrix. Every view has four nonzero axes and two explicit end-on symbols; every pipe has nonzero axes in two views. Actual native renders show AC0/JB1 end-on in plan, JA/CB in front, AC1/JB0 in side. This accepts the scoped projection/symbol/schedule result only; no hidden-line, fitting, equipment or complete installation acceptance.",
+      "evidence": [
+        {
+          "artifact": "views/views.json",
+          "sha256": "2942fbd335d57a915ccd8c34d5da67c9305e28c2835b7c27b0b744b75a4aa86a"
+        },
+        {
+          "artifact": "views/segments.csv",
+          "sha256": "1cfbe2b984a9ce3bbcc3deb7a32609fd35615c3d731e72287b89eeab9867e97e"
+        }
+      ],
+      "attachments": [],
+      "facts": [
+        {
+          "artifact": "views/views.json",
+          "pointer": "/calculated_checks_pass",
+          "expected": true,
+          "basis": "Recorded adapter scope; independent coverage/native numerical tests and actual rendered-page observations are separately retained.",
+          "actual": true,
+          "pass_check": true
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "R4",
+      "task": "native",
+      "quote": "Save and reopen each view as native DWG using isolated AutoCAD 2027, reconcile complete geometry/entity/GUID identity, plot the supplied A4 windows at 1:50 and verify each declared 5 m reference measures 100 mm within 0.2 mm. Retain three individual sheets and a merged three-page PDF; actual visual review, finite fittings, equipment, hidden lines and full installation/engineering acceptance remain separate gates.",
+      "acceptance": "Scoped model/analysis/drawing/native checks; actual visual review and full installation/engineering acceptance separate",
+      "execution_status": "pass",
+      "recorded_review_status": "pass",
+      "effective_review_status": "pass",
+      "reviewer": "Codex scoped artifact review",
+      "reviewed_at_utc": "2026-11-08T01:24:49.006903+00:00",
+      "notes": "Inspected all three actual merged PDF pages rendered by Poppler at 1800-pixel long edge. Headers/1:50 units, six label/leader rows per page, ID40/OD50 mm, true L2/L5 m labels and END-ON crosses are readable, within page bounds, with axes heavier than leaders. Leaders cross parts of projected linework but do not obscure the labels; this is a schematic set. Three independent native DWG reopen/GUID audits pass; each 5 m projected reference is 100 mm within 0.2 mm. Complete sheet borders, hidden lines, finite fittings/equipment, physical clash and engineering acceptance remain pending.",
+      "evidence": [
+        {
+          "artifact": "native/native-views.json",
+          "sha256": "166637461a4e8d91179cb8b2dfce0da69a8d64bfcb4d26e17543fbb4061f11d4"
+        },
+        {
+          "artifact": "native/drawing-set.pdf",
+          "sha256": "ab8f2a579089fb07633ad28ac7fd01b5db78e5898bb592bc022b615c812ec593"
+        },
+        {
+          "artifact": "native/plan/native-verification.json",
+          "sha256": "b2b030096cd08bbd0303040293d632f798932e8cfd1accb9e5907b847257cc3e"
+        },
+        {
+          "artifact": "native/front/native-verification.json",
+          "sha256": "e100751efb1e4655400daa0acd3a3c85ac9b5769b339d6d513ef104ffc26cba4"
+        },
+        {
+          "artifact": "native/side/native-verification.json",
+          "sha256": "6dd1ee6f607d17d9de4a5fb4e4a3829a1cbe264cb48218dd859cd8b6f41657eb"
+        }
+      ],
+      "attachments": [
+        {
+          "path": "review-rendered/sheet-1.png",
+          "sha256": "88f2560b3fb9a71f9fe430f1c3672585e0e9cb5aecbc8f76fef01ae16469c105",
+          "source_artifact": "native/drawing-set.pdf",
+          "source_sha256": "ab8f2a579089fb07633ad28ac7fd01b5db78e5898bb592bc022b615c812ec593"
+        },
+        {
+          "path": "review-rendered/sheet-2.png",
+          "sha256": "801ca38359b021b9ab056c4c8ab5731e962c3f79cac84d0849edb7a45cc81a0e",
+          "source_artifact": "native/drawing-set.pdf",
+          "source_sha256": "ab8f2a579089fb07633ad28ac7fd01b5db78e5898bb592bc022b615c812ec593"
+        },
+        {
+          "path": "review-rendered/sheet-3.png",
+          "sha256": "454da768bc703e260f2321fc9a2da27c250effb02ebe6ad359614b3289835572",
+          "source_artifact": "native/drawing-set.pdf",
+          "source_sha256": "ab8f2a579089fb07633ad28ac7fd01b5db78e5898bb592bc022b615c812ec593"
+        }
+      ],
+      "facts": [
+        {
+          "artifact": "native/native-views.json",
+          "pointer": "/calculated_checks_pass",
+          "expected": true,
+          "basis": "Recorded adapter scope; independent coverage/native numerical tests and actual rendered-page observations are separately retained.",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "native/native-views.json",
+          "pointer": "/merged_page_content_match",
+          "expected": true,
+          "basis": "Merged page count/content streams match the three individually verified native sheets; actual merged renders were inspected.",
+          "actual": true,
+          "pass_check": true
+        }
+      ],
+      "issues": []
+    }
+  ],
+  "issues": [],
+  "scope": "Source/byte consistency, recorded reviewer assertions and optional adapter-reported Boolean facts; not reviewer authentication, semantic completeness or engineering certification",
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\water-loop-ifc\\views-plan.json": "1e06102e08916667404ea89f4f19265cd74548360461f280b2cc3089056741eb",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifc-views-evidence-v1\\workflow.json": "1efe83de6cf60c76dd2a5bf257aa385d45beede3cc6a6391dc3be41148a796d7",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifc-views-review-v1.json": "1c802bf344d75a9edb6aeed48b9f14ceedd4a2d11f782bd49b0e346fedc54840"
+  },
+  "inputs_unchanged": true,
+  "status": "needs_review"
+}

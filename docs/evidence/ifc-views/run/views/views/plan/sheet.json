@@ -1,0 +1,12 @@
+{
+  "source": "Explicit synthetic A4 landscape orthographic sheet; 1:50, 0.2 mm reference tolerance. End-on symbols are schematic, not physical bore sizes.",
+  "window_drawing_units": [
+    0,
+    -1,
+    12,
+    8
+  ],
+  "scale_denominator": 50,
+  "reference_ifc_guid": "0MP6u19G5RWx_Z2b5IB4Jl",
+  "pdf_tolerance_mm": 0.2
+}

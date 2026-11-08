@@ -1,0 +1,3 @@
+(if (= (strcase (vl-string-translate (chr 92) "/" (strcat (getvar "DWGPREFIX") (getvar "DWGNAME")))) (strcase "C:/Users/lyuml-win/Desktop/building-services-agent/runs/ifc-views-evidence-v1/native/side/native-reopen/source-copy.dwg")) (progn (setvar "FILEDIA" 0) (setvar "CMDDIA" 0) (command "_.DXFOUT" "C:/Users/lyuml-win/Desktop/building-services-agent/runs/ifc-views-evidence-v1/native/side/native-reopen/source-export.dxf" "16")) (princ "BSA WRONG DOCUMENT"))
+_.QUIT
+_Y

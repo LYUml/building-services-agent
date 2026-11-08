@@ -1,0 +1,68 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifc-views-evidence-v1\\views\\views\\front\\segments.dxf": "c8b0c3076ba5ed99eff2e0176e408dc0d2eb5fb1c04458484edaf6ea6aafa8de",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifc-views-evidence-v1\\views\\views\\front\\sheet.json": "7e4772513fc868e326352152e821c815e2950466983b5ced48ec67b866f108b0"
+  },
+  "inputs_unchanged": true,
+  "engine": "C:\\Program Files\\Autodesk\\AutoCAD 2027\\accoreconsole.exe",
+  "engine_sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2",
+  "dwg_sha256": "1a177c95ece11fa0b42bd19b2621e8425d1fd20c0a85bc2d352e309c4d66a0e9",
+  "native_reopen_pass": true,
+  "checks": {
+    "model_entity_count": 23,
+    "linked_entity_count": 20,
+    "model_entities_and_ifc_xdata_match": true,
+    "geometry_layers_and_annotations_match": true,
+    "metre_units": true
+  },
+  "plot": {
+    "pdf_sha256": "4b58ffa7bab8408f16539bb984873e91e225727877b714afbef6e5e5de699868",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 50,
+    "reference_handle": "45",
+    "reference_expected_mm": 100.0,
+    "reference_measured_mm": 99.99133333333332,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "settings": {
+    "source": "Explicit synthetic A4 landscape orthographic sheet; 1:50, 0.2 mm reference tolerance. End-on symbols are schematic, not physical bore sizes.",
+    "window_drawing_units": [
+      0,
+      -1,
+      12,
+      5.5
+    ],
+    "scale_denominator": 50,
+    "reference_ifc_guid": "3hBuqpG_LUHOvOU8L52b5A",
+    "pdf_tolerance_mm": 0.2
+  },
+  "design_accepted": false,
+  "pending": [
+    "actual PDF visual review",
+    "equipment/fittings/insulation and installation drawing detail",
+    "complete engineering acceptance"
+  ],
+  "artifacts": {
+    "input.dxf": "c8b0c3076ba5ed99eff2e0176e408dc0d2eb5fb1c04458484edaf6ea6aafa8de",
+    "plot.log": "9600ffc75975ff20abc7ce417b5de2c8145870ecb00b8d20df3d63fe8c7588c0",
+    "save.log": "f7902982fdb17f87ed59e19a2baf6f3976d8ff4f2b59d25c09340034c7b24b42",
+    "save.scr": "f94b20da35d11b8277e59a4da3fd64dcac092532932c297dd8b829a948a2b878",
+    "segments.dwg": "1a177c95ece11fa0b42bd19b2621e8425d1fd20c0a85bc2d352e309c4d66a0e9",
+    "sheet.json": "2f1765fd87e78cf99b1874da16ee003aa36daa86cfee3cb23f76946fba1ad8b5",
+    "sheet.log": "54f011545dc907650e18199b61e04b330a3a80016cc0d7083e087e7167b65162",
+    "sheet.pdf": "4b58ffa7bab8408f16539bb984873e91e225727877b714afbef6e5e5de699868",
+    "sheet.scr": "633e3fda699e1b3d8414b0ea57435b1ffdffd203b3bfe228bad65c5df5d4232e",
+    "native-reopen/export.log": "82bddd2d5e7ebe6e7528b04429618d4bf52037db28c8fc19aa8bef124b2054a3",
+    "native-reopen/export.scr": "c1ecb3cab68b1cfa13659f9277866dab4bea4fb6aa3a188673d4a8b8f9693486",
+    "native-reopen/source-copy.dwg": "1a177c95ece11fa0b42bd19b2621e8425d1fd20c0a85bc2d352e309c4d66a0e9",
+    "native-reopen/source-export.dxf": "fc360d8da19549a2d643ce2b0b03e60690284013de108bb80227a8f19f53e572",
+    "ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "a109b0ee791e1a878a640d41419025c7c01902d4bae1210ba93ca0512a7c8861",
+    "native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "01077d5823c7e3a451302eb68e74d3d3595ee8de292d42c869245433eb6ec056"
+  }
+}

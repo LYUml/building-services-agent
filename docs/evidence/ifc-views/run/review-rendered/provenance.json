@@ -1,0 +1,6 @@
+{
+  "renderer": "C:\\Users\\lyuml-win\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\poppler\\Library\\bin\\pdftoppm.EXE",
+  "renderer_sha256": "dbc52d6438fb9fe6afca0709b0139060e9e89ead3fc25d61fbe2b9b59767dfa0",
+  "method": "pdftoppm -png -scale-to 1800, all pages of native/drawing-set.pdf",
+  "source_pdf_sha256": "ab8f2a579089fb07633ad28ac7fd01b5db78e5898bb592bc022b615c812ec593"
+}

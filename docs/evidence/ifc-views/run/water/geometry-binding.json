@@ -1,0 +1,200 @@
+{
+  "ifc_sha256": "8df55059bfa6acaf51b456e685c6457dcb83baa0bd6ad5ba4415b6f5b0871754",
+  "project_guid": "241oNv5lrMxhKFVy1dem7c",
+  "system_guid": "2F8ZT9HJDHU88cIclrquzq",
+  "length_unit_to_m": 1,
+  "nodes": {
+    "R": {
+      "element_guid": "360kiKczvUOg77DRqvx94J",
+      "port_guids": [
+        "3mlSre0cXTugpmhdruZt5B"
+      ],
+      "world_m": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "J0": {
+      "element_guid": "2fi93tlETIwPRRKuWTu6ih",
+      "port_guids": [
+        "0sJ_d7$LTT$Og2tHyo$qSo",
+        "3ChXh8j2vNkRSbqEzxDo6u",
+        "3TbApOxkDTV8uFC27$R2md"
+      ],
+      "world_m": [
+        2.0,
+        1.0,
+        1.0
+      ]
+    },
+    "A": {
+      "element_guid": "0d96EZ$FPTHeSvo765kM3p",
+      "port_guids": [
+        "20rsNvGwvHVvQtPyGiJw8K",
+        "2DZon3ybfNix_4K4wFBRXo"
+      ],
+      "world_m": [
+        2.0,
+        6.0,
+        1.0
+      ]
+    },
+    "B": {
+      "element_guid": "3ndYElfRPKjOpi2FiRhOaq",
+      "port_guids": [
+        "2d6P18CnvRUeXMN4tF_jvO",
+        "147QUNYZTLA96SnQw8kWQt"
+      ],
+      "world_m": [
+        7.0,
+        1.0,
+        3.0
+      ]
+    },
+    "C": {
+      "element_guid": "3z6pUcKVjSS9eXmRSTfIkD",
+      "port_guids": [
+        "1t$TtrfBXRk8uMkWKzEx4_",
+        "36swEXqojSbe7JG5uqnL4u"
+      ],
+      "world_m": [
+        7.0,
+        6.0,
+        3.0
+      ]
+    }
+  },
+  "pipes": {
+    "JA": [
+      {
+        "element_guid": "0MP6u19G5RWx_Z2b5IB4Jl",
+        "start_port_guid": "28J873AHfHLBucxgnuSh2_",
+        "end_port_guid": "3gJQqoXsbUn9RN914zPIoP",
+        "length_m": 5.0,
+        "diameter_m": 0.04,
+        "start_world_m": [
+          2.0,
+          1.0,
+          1.0
+        ],
+        "end_world_m": [
+          2.0,
+          6.0,
+          1.0
+        ]
+      }
+    ],
+    "JB": [
+      {
+        "element_guid": "3hBuqpG_LUHOvOU8L52b5A",
+        "start_port_guid": "2N7PKeQGvR487OteVbphcB",
+        "end_port_guid": "3a9MBXXFnKff5A5bC18cSV",
+        "length_m": 5.0,
+        "diameter_m": 0.04,
+        "start_world_m": [
+          2.0,
+          1.0,
+          1.0
+        ],
+        "end_world_m": [
+          7.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "element_guid": "0NWV6q7GrSvw1HVhfhhXoY",
+        "start_port_guid": "1WMa1I0vTRbf$TvxV9IFO4",
+        "end_port_guid": "3IJleRe09Tk9v0x1lu$QgR",
+        "length_m": 2.0,
+        "diameter_m": 0.04,
+        "start_world_m": [
+          7.0,
+          1.0,
+          1.0
+        ],
+        "end_world_m": [
+          7.0,
+          1.0,
+          3.0
+        ]
+      }
+    ],
+    "AC": [
+      {
+        "element_guid": "2mB_ixG1rO0g4mlsVufCjz",
+        "start_port_guid": "0czNiVCWfI8BfVRX0$OJbD",
+        "end_port_guid": "0GYPCIGPDMjxwYfL1tFkrR",
+        "length_m": 2.0,
+        "diameter_m": 0.04,
+        "start_world_m": [
+          2.0,
+          6.0,
+          1.0
+        ],
+        "end_world_m": [
+          2.0,
+          6.0,
+          3.0
+        ]
+      },
+      {
+        "element_guid": "3mXi0LoKvT4PF9bDZe$Dxv",
+        "start_port_guid": "0AK0nBB3jMeh0tS$HwYuEf",
+        "end_port_guid": "3f8RDR5tbQqB3$xmS$dNu1",
+        "length_m": 5.0,
+        "diameter_m": 0.04,
+        "start_world_m": [
+          2.0,
+          6.0,
+          3.0
+        ],
+        "end_world_m": [
+          7.0,
+          6.0,
+          3.0
+        ]
+      }
+    ],
+    "CB": [
+      {
+        "element_guid": "2KDpod8S1LleRFa0KMj9iZ",
+        "start_port_guid": "0tTzvWd$nK7gUiIGbJZhAD",
+        "end_port_guid": "0M5nPdOHHJVB1kU0bBAWE0",
+        "length_m": 5.0,
+        "diameter_m": 0.04,
+        "start_world_m": [
+          7.0,
+          6.0,
+          3.0
+        ],
+        "end_world_m": [
+          7.0,
+          1.0,
+          3.0
+        ]
+      }
+    ]
+  },
+  "pumps": {
+    "PUMP": {
+      "element_guid": "0CWgi3RUfPJANCCBSez6RR",
+      "start_port_guid": "3hCEkBcSvK7A9oTb8O8v22",
+      "end_port_guid": "2Pv20zEqnTbeI9ubzbS2Sb",
+      "start_world_m": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "end_world_m": [
+        2.0,
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "selected_element_count": 12,
+  "connection_pair_count": 12,
+  "excluded_other_system_elements": []
+}

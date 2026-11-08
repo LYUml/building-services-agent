@@ -70,7 +70,7 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_native","native_cad","manual"):
+        if kind not in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","lighting"):
             inputs.add(local_path(root,t.get("project")))
@@ -86,12 +86,15 @@ def validate_plan(path):
             from .electrical_fault import prepare
             faults=local_path(root,t.get('faults'));inputs.add(faults)
             prepare(read_json(local_path(root,t['project'])),read_json(faults))
-        if kind in ('ifc_clash','ifc_drawing','water_coordination'):
+        if kind in ('ifc_clash','ifc_drawing','ifc_views','water_coordination'):
             if kind=='ifc_clash':
                 from .clash import validate_policy
                 policy=local_path(root,t.get('policy'));inputs.add(policy);validate_policy(read_json(policy))
             elif kind=='ifc_drawing':
                 from .ifc_drawing import validate_settings
+                settings=local_path(root,t.get('settings'));inputs.add(settings);validate_settings(read_json(settings))
+            elif kind=='ifc_views':
+                from .ifc_views import validate_settings
                 settings=local_path(root,t.get('settings'));inputs.add(settings);validate_settings(read_json(settings))
             else:
                 from .water_binding import validate_contract
@@ -105,6 +108,14 @@ def validate_plan(path):
             else:
                 ifc_source=local_path(root,t.get('ifc'));inputs.add(ifc_source)
                 if ifc_source.suffix.lower()!='.ifc':raise ProjectError('task source must be IFC')
+        if kind=='ifc_views_native':
+            if bool(t.get('manifest'))==bool(t.get('depends_on')):raise ProjectError('native views require exactly one multiview manifest or earlier producer')
+            if t.get('depends_on'):
+                if t['depends_on'] not in ids or next(x for x in tasks if x['id']==t['depends_on'])['kind']!='ifc_views':raise ProjectError('native multiview dependency must be an earlier ifc_views task')
+            else:
+                from .ifc_views import verify_manifest
+                manifest=local_path(root,t['manifest']);data=verify_manifest(manifest);inputs.add(manifest)
+                inputs.update((manifest.parent/name).resolve() for name in data['artifacts'])
         if kind=='ifc_native':
             from .ifc_native import validate_settings
             settings=local_path(root,t.get('settings'));inputs.add(settings);validate_settings(read_json(settings))
@@ -213,6 +224,23 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                     payload=run(network_source,local_path(root,t['curve']),folder)
                     status='pass' if payload['calculated_checks_pass'] else 'fail'
                     reason='source-bounded single-terminal pump/system intersection and selected pressure rerun; efficiency, motor, NPSH and full engineering acceptance pending'
+            elif t['kind']=='ifc_views_native':
+                dependency=t.get('depends_on')
+                if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC multiview producer did not pass; no native sheets fabricated'
+                elif not autocad:reason='AutoCAD executable not supplied for native IFC multiview set'
+                else:
+                    from .ifc_views import run_native
+                    manifest=out/dependency/'views.json' if dependency else local_path(root,t['manifest'])
+                    payload=run_native(manifest,folder,autocad);status='pass' if payload['calculated_checks_pass'] else 'fail'
+                    reason='per-view DWG reopen/GUID audits and fixed-scale PDF references; merged pages retained; actual visual and installation acceptance pending'
+            elif t['kind']=='ifc_views':
+                dependency=t.get('depends_on')
+                if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC producer did not pass; no multiview drawing fabricated'
+                else:
+                    from .ifc_views import run
+                    source=out/dependency/IFC_ARTIFACTS[tasks[dependency]['kind']] if dependency else local_path(root,t['ifc'])
+                    payload=run(source,local_path(root,t['settings']),folder);status='pass' if payload['calculated_checks_pass'] else 'fail'
+                    reason='complete per-view segment/end-on symbols and combined axis coverage; true/projected lengths and GUIDs retained; native/physical/visual acceptance separate'
             elif t['kind']=='ifc_native':
                 dependency=t.get('depends_on')
                 if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC drawing did not pass; no native drawing fabricated'

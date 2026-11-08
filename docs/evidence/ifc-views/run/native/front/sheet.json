@@ -1,0 +1,15 @@
+{
+  "pdf_sha256": "4b58ffa7bab8408f16539bb984873e91e225727877b714afbef6e5e5de699868",
+  "dwg_unchanged": true,
+  "paper_mm": [
+    297.03888888888883,
+    209.90277777777777
+  ],
+  "scale_denominator": 50,
+  "reference_handle": "45",
+  "reference_expected_mm": 100.0,
+  "reference_measured_mm": 99.99133333333332,
+  "pdf_reference_pass": true,
+  "visual_review": "pending",
+  "design_accepted": false
+}

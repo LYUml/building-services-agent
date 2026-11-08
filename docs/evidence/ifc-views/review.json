@@ -1,0 +1,120 @@
+{
+  "version": 1,
+  "plan_sha256": "1e06102e08916667404ea89f4f19265cd74548360461f280b2cc3089056741eb",
+  "workflow_sha256": "1efe83de6cf60c76dd2a5bf257aa385d45beede3cc6a6391dc3be41148a796d7",
+  "requirements": [
+    {
+      "id": "R1",
+      "requirement_sha256": "d724e1ab5531fb840648927769b8f9f76150c329b3f8fa089f0f0adc9c4595eb",
+      "status": "pending",
+      "reviewer": "",
+      "reviewed_at_utc": "",
+      "notes": "Domain/source applicability and full engineering/BIM visual review remain pending.",
+      "evidence": [],
+      "attachments": [],
+      "checks": []
+    },
+    {
+      "id": "R2",
+      "requirement_sha256": "eb9924c6e659d474f7dea7c6e6b78f2eaafb57f721206bba69ffbc8785a26a29",
+      "status": "pending",
+      "reviewer": "",
+      "reviewed_at_utc": "",
+      "notes": "Domain/source applicability and full engineering/BIM visual review remain pending.",
+      "evidence": [],
+      "attachments": [],
+      "checks": []
+    },
+    {
+      "id": "R3",
+      "requirement_sha256": "79baf33c9b80fda109740a803869a9a4f327f045cdcc80ffb8468bb449a6c9e5",
+      "status": "pass",
+      "reviewer": "Codex scoped artifact review",
+      "reviewed_at_utc": "2026-11-08T01:24:49.006903+00:00",
+      "notes": "Read six GUID schedule rows (40 mm bore, 50 mm OD, true lengths 2 or 5 m) and the XY/XZ/YZ coverage matrix. Every view has four nonzero axes and two explicit end-on symbols; every pipe has nonzero axes in two views. Actual native renders show AC0/JB1 end-on in plan, JA/CB in front, AC1/JB0 in side. This accepts the scoped projection/symbol/schedule result only; no hidden-line, fitting, equipment or complete installation acceptance.",
+      "evidence": [
+        {
+          "artifact": "views/views.json",
+          "sha256": "2942fbd335d57a915ccd8c34d5da67c9305e28c2835b7c27b0b744b75a4aa86a"
+        },
+        {
+          "artifact": "views/segments.csv",
+          "sha256": "1cfbe2b984a9ce3bbcc3deb7a32609fd35615c3d731e72287b89eeab9867e97e"
+        }
+      ],
+      "attachments": [],
+      "checks": [
+        {
+          "artifact": "views/views.json",
+          "pointer": "/calculated_checks_pass",
+          "expected": true,
+          "basis": "Recorded adapter scope; independent coverage/native numerical tests and actual rendered-page observations are separately retained."
+        }
+      ]
+    },
+    {
+      "id": "R4",
+      "requirement_sha256": "ac5509bf2229b6d752546783c7349b511c043f34c1eec35f38aceb173ba48e86",
+      "status": "pass",
+      "reviewer": "Codex scoped artifact review",
+      "reviewed_at_utc": "2026-11-08T01:24:49.006903+00:00",
+      "notes": "Inspected all three actual merged PDF pages rendered by Poppler at 1800-pixel long edge. Headers/1:50 units, six label/leader rows per page, ID40/OD50 mm, true L2/L5 m labels and END-ON crosses are readable, within page bounds, with axes heavier than leaders. Leaders cross parts of projected linework but do not obscure the labels; this is a schematic set. Three independent native DWG reopen/GUID audits pass; each 5 m projected reference is 100 mm within 0.2 mm. Complete sheet borders, hidden lines, finite fittings/equipment, physical clash and engineering acceptance remain pending.",
+      "evidence": [
+        {
+          "artifact": "native/native-views.json",
+          "sha256": "166637461a4e8d91179cb8b2dfce0da69a8d64bfcb4d26e17543fbb4061f11d4"
+        },
+        {
+          "artifact": "native/drawing-set.pdf",
+          "sha256": "ab8f2a579089fb07633ad28ac7fd01b5db78e5898bb592bc022b615c812ec593"
+        },
+        {
+          "artifact": "native/plan/native-verification.json",
+          "sha256": "b2b030096cd08bbd0303040293d632f798932e8cfd1accb9e5907b847257cc3e"
+        },
+        {
+          "artifact": "native/front/native-verification.json",
+          "sha256": "e100751efb1e4655400daa0acd3a3c85ac9b5769b339d6d513ef104ffc26cba4"
+        },
+        {
+          "artifact": "native/side/native-verification.json",
+          "sha256": "6dd1ee6f607d17d9de4a5fb4e4a3829a1cbe264cb48218dd859cd8b6f41657eb"
+        }
+      ],
+      "attachments": [
+        {
+          "path": "review-rendered/sheet-1.png",
+          "sha256": "88f2560b3fb9a71f9fe430f1c3672585e0e9cb5aecbc8f76fef01ae16469c105",
+          "source_artifact": "native/drawing-set.pdf",
+          "source_sha256": "ab8f2a579089fb07633ad28ac7fd01b5db78e5898bb592bc022b615c812ec593"
+        },
+        {
+          "path": "review-rendered/sheet-2.png",
+          "sha256": "801ca38359b021b9ab056c4c8ab5731e962c3f79cac84d0849edb7a45cc81a0e",
+          "source_artifact": "native/drawing-set.pdf",
+          "source_sha256": "ab8f2a579089fb07633ad28ac7fd01b5db78e5898bb592bc022b615c812ec593"
+        },
+        {
+          "path": "review-rendered/sheet-3.png",
+          "sha256": "454da768bc703e260f2321fc9a2da27c250effb02ebe6ad359614b3289835572",
+          "source_artifact": "native/drawing-set.pdf",
+          "source_sha256": "ab8f2a579089fb07633ad28ac7fd01b5db78e5898bb592bc022b615c812ec593"
+        }
+      ],
+      "checks": [
+        {
+          "artifact": "native/native-views.json",
+          "pointer": "/calculated_checks_pass",
+          "expected": true,
+          "basis": "Recorded adapter scope; independent coverage/native numerical tests and actual rendered-page observations are separately retained."
+        },
+        {
+          "artifact": "native/native-views.json",
+          "pointer": "/merged_page_content_match",
+          "expected": true,
+          "basis": "Merged page count/content streams match the three individually verified native sheets; actual merged renders were inspected."
+        }
+      ]
+    }
+  ]
+}

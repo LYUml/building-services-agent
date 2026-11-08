@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "brief": "views-brief.md",
+  "brief_sha256": "9f05bc7657f9067f656934c8ef44af4edc75832f9c3376ba186ac13a4ec47afb",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement",
+    "P004": "requirement",
+    "P005": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "model",
+      "kind": "bim",
+      "project": "model.json"
+    },
+    {
+      "id": "water",
+      "kind": "water_coordination",
+      "project": "project.json",
+      "binding": "binding.json",
+      "depends_on": "model"
+    },
+    {
+      "id": "views",
+      "kind": "ifc_views",
+      "depends_on": "water",
+      "settings": "views-settings.json"
+    },
+    {
+      "id": "native",
+      "kind": "ifc_views_native",
+      "depends_on": "views"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Author model.json as editable IFC with explicit hollow pipe profiles and bidirectional water ports, preserving stable object/port GUIDs and verifying schema, native geometry and both connection directions.",
+      "task": "model",
+      "acceptance": "Scoped model/analysis/drawing/native checks; actual visual review and full installation/engineering acceptance separate"
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Use project.json and binding.json with that saved IFC. Derive pipe lengths, bore diameters and node elevations from saved profiles/ports, require exact selected-system device/connection coverage, preserve source bytes and reverse flow, and execute EPANET with continuity, pipe-energy, boundary, pressure/delivery and pump checks. Retain the geometry-GUID trace and per-piece result schedule; keep product/fitting, K applicability, physical coordination, visual and full engineering gates pending.",
+      "task": "water",
+      "acceptance": "Scoped model/analysis/drawing/native checks; actual visual review and full installation/engineering acceptance separate"
+    },
+    {
+      "id": "R3",
+      "passage": "P004",
+      "quote": "Generate plan, front and side pipe views from the saved water-model IFC using views-settings.json. Preserve every pipe GUID and its true/profile dimensions in the schedule; explicitly symbolize end-on pipes and require every pipe to have a nonzero axis in at least one view. Keep projection length distinct from true length and preserve model/source bytes.",
+      "task": "views",
+      "acceptance": "Scoped model/analysis/drawing/native checks; actual visual review and full installation/engineering acceptance separate"
+    },
+    {
+      "id": "R4",
+      "passage": "P005",
+      "quote": "Save and reopen each view as native DWG using isolated AutoCAD 2027, reconcile complete geometry/entity/GUID identity, plot the supplied A4 windows at 1:50 and verify each declared 5 m reference measures 100 mm within 0.2 mm. Retain three individual sheets and a merged three-page PDF; actual visual review, finite fittings, equipment, hidden lines and full installation/engineering acceptance remain separate gates.",
+      "task": "native",
+      "acceptance": "Scoped model/analysis/drawing/native checks; actual visual review and full installation/engineering acceptance separate"
+    }
+  ]
+}

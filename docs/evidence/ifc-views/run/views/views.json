@@ -1,0 +1,743 @@
+{
+  "version": 1,
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifc-views-evidence-v1\\water\\model.ifc": "8df55059bfa6acaf51b456e685c6457dcb83baa0bd6ad5ba4415b6f5b0871754",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\water-loop-ifc\\views-settings.json": "1253e579114d364f5899acc0144adf346ac3484695be13513d4fe1d59e4958ca"
+  },
+  "inputs_unchanged": true,
+  "settings": {
+    "version": 1,
+    "source": "Explicit plan/front/side views of the saved synthetic IFC ring; 0.12 m text prints 2.4 mm at 1:50. Full segment names remain in the GUID schedule.",
+    "annotation_height_m": 0.12,
+    "end_on_marker_half_size_m": 0.08,
+    "labels": {
+      "0MP6u19G5RWx_Z2b5IB4Jl": "JA",
+      "3hBuqpG_LUHOvOU8L52b5A": "JB0",
+      "0NWV6q7GrSvw1HVhfhhXoY": "JB1",
+      "2mB_ixG1rO0g4mlsVufCjz": "AC0",
+      "3mXi0LoKvT4PF9bDZe$Dxv": "AC1",
+      "2KDpod8S1LleRFa0KMj9iZ": "CB"
+    },
+    "views": [
+      {
+        "id": "plan",
+        "projection_axes": [
+          "X",
+          "Y"
+        ],
+        "sheet": {
+          "source": "Explicit synthetic A4 landscape orthographic sheet; 1:50, 0.2 mm reference tolerance. End-on symbols are schematic, not physical bore sizes.",
+          "window_drawing_units": [
+            0,
+            -1,
+            12,
+            8
+          ],
+          "scale_denominator": 50,
+          "reference_ifc_guid": "0MP6u19G5RWx_Z2b5IB4Jl",
+          "pdf_tolerance_mm": 0.2
+        }
+      },
+      {
+        "id": "front",
+        "projection_axes": [
+          "X",
+          "Z"
+        ],
+        "sheet": {
+          "source": "Explicit synthetic A4 landscape orthographic sheet; 1:50, 0.2 mm reference tolerance. End-on symbols are schematic, not physical bore sizes.",
+          "window_drawing_units": [
+            0,
+            -1,
+            12,
+            5.5
+          ],
+          "scale_denominator": 50,
+          "reference_ifc_guid": "3hBuqpG_LUHOvOU8L52b5A",
+          "pdf_tolerance_mm": 0.2
+        }
+      },
+      {
+        "id": "side",
+        "projection_axes": [
+          "Y",
+          "Z"
+        ],
+        "sheet": {
+          "source": "Explicit synthetic A4 landscape orthographic sheet; 1:50, 0.2 mm reference tolerance. End-on symbols are schematic, not physical bore sizes.",
+          "window_drawing_units": [
+            -0.5,
+            -1,
+            11.5,
+            5.5
+          ],
+          "scale_denominator": 50,
+          "reference_ifc_guid": "2KDpod8S1LleRFa0KMj9iZ",
+          "pdf_tolerance_mm": 0.2
+        }
+      }
+    ]
+  },
+  "source_geometry": {
+    "ifcopenshell_version": "0.8.5",
+    "source_length_unit_to_m": 1,
+    "segment_count": 6,
+    "segments": [
+      {
+        "guid": "0MP6u19G5RWx_Z2b5IB4Jl",
+        "name": "JA",
+        "ifc_class": "IfcPipeSegment",
+        "system_guids": [
+          "2F8ZT9HJDHU88cIclrquzq"
+        ],
+        "source": "Synthetic IFC ring: independently declared metre coordinates, 40 mm bore / 50 mm outside wall, reversible pipe ports, generic junction envelopes, one source-head boundary and pump. Bend/junction product geometry, clashes and code applicability are unresolved.",
+        "missing_diameter_metadata": [],
+        "inner_diameter_m": 0.04,
+        "outside_diameter_m": 0.05,
+        "length_m": 5.0,
+        "start_world_m": [
+          2.0,
+          1.0,
+          1.0
+        ],
+        "end_world_m": [
+          2.0,
+          6.0,
+          1.0
+        ],
+        "sink_port_guid": null,
+        "source_port_guid": null,
+        "start_port_guid": "28J873AHfHLBucxgnuSh2_",
+        "end_port_guid": "3gJQqoXsbUn9RN914zPIoP",
+        "port_direction_scope": "bidirectional; GUID-ordered drawing endpoints",
+        "analytic_wall_volume_m3": 0.0035342917352885186
+      },
+      {
+        "guid": "0NWV6q7GrSvw1HVhfhhXoY",
+        "name": "JB1",
+        "ifc_class": "IfcPipeSegment",
+        "system_guids": [
+          "2F8ZT9HJDHU88cIclrquzq"
+        ],
+        "source": "Synthetic IFC ring: independently declared metre coordinates, 40 mm bore / 50 mm outside wall, reversible pipe ports, generic junction envelopes, one source-head boundary and pump. Bend/junction product geometry, clashes and code applicability are unresolved.",
+        "missing_diameter_metadata": [],
+        "inner_diameter_m": 0.04,
+        "outside_diameter_m": 0.05,
+        "length_m": 2.0,
+        "start_world_m": [
+          7.0,
+          1.0,
+          1.0
+        ],
+        "end_world_m": [
+          7.0,
+          1.0,
+          3.0
+        ],
+        "sink_port_guid": null,
+        "source_port_guid": null,
+        "start_port_guid": "1WMa1I0vTRbf$TvxV9IFO4",
+        "end_port_guid": "3IJleRe09Tk9v0x1lu$QgR",
+        "port_direction_scope": "bidirectional; GUID-ordered drawing endpoints",
+        "analytic_wall_volume_m3": 0.0014137166941154075
+      },
+      {
+        "guid": "2KDpod8S1LleRFa0KMj9iZ",
+        "name": "CB",
+        "ifc_class": "IfcPipeSegment",
+        "system_guids": [
+          "2F8ZT9HJDHU88cIclrquzq"
+        ],
+        "source": "Synthetic IFC ring: independently declared metre coordinates, 40 mm bore / 50 mm outside wall, reversible pipe ports, generic junction envelopes, one source-head boundary and pump. Bend/junction product geometry, clashes and code applicability are unresolved.",
+        "missing_diameter_metadata": [],
+        "inner_diameter_m": 0.04,
+        "outside_diameter_m": 0.05,
+        "length_m": 5.0,
+        "start_world_m": [
+          7.0,
+          1.0,
+          3.0
+        ],
+        "end_world_m": [
+          7.0,
+          6.0,
+          3.0
+        ],
+        "sink_port_guid": null,
+        "source_port_guid": null,
+        "start_port_guid": "0M5nPdOHHJVB1kU0bBAWE0",
+        "end_port_guid": "0tTzvWd$nK7gUiIGbJZhAD",
+        "port_direction_scope": "bidirectional; GUID-ordered drawing endpoints",
+        "analytic_wall_volume_m3": 0.0035342917352885186
+      },
+      {
+        "guid": "2mB_ixG1rO0g4mlsVufCjz",
+        "name": "AC0",
+        "ifc_class": "IfcPipeSegment",
+        "system_guids": [
+          "2F8ZT9HJDHU88cIclrquzq"
+        ],
+        "source": "Synthetic IFC ring: independently declared metre coordinates, 40 mm bore / 50 mm outside wall, reversible pipe ports, generic junction envelopes, one source-head boundary and pump. Bend/junction product geometry, clashes and code applicability are unresolved.",
+        "missing_diameter_metadata": [],
+        "inner_diameter_m": 0.04,
+        "outside_diameter_m": 0.05,
+        "length_m": 2.0,
+        "start_world_m": [
+          2.0,
+          6.0,
+          3.0
+        ],
+        "end_world_m": [
+          2.0,
+          6.0,
+          1.0
+        ],
+        "sink_port_guid": null,
+        "source_port_guid": null,
+        "start_port_guid": "0GYPCIGPDMjxwYfL1tFkrR",
+        "end_port_guid": "0czNiVCWfI8BfVRX0$OJbD",
+        "port_direction_scope": "bidirectional; GUID-ordered drawing endpoints",
+        "analytic_wall_volume_m3": 0.0014137166941154075
+      },
+      {
+        "guid": "3hBuqpG_LUHOvOU8L52b5A",
+        "name": "JB0",
+        "ifc_class": "IfcPipeSegment",
+        "system_guids": [
+          "2F8ZT9HJDHU88cIclrquzq"
+        ],
+        "source": "Synthetic IFC ring: independently declared metre coordinates, 40 mm bore / 50 mm outside wall, reversible pipe ports, generic junction envelopes, one source-head boundary and pump. Bend/junction product geometry, clashes and code applicability are unresolved.",
+        "missing_diameter_metadata": [],
+        "inner_diameter_m": 0.04,
+        "outside_diameter_m": 0.05,
+        "length_m": 5.0,
+        "start_world_m": [
+          2.0,
+          1.0,
+          1.0
+        ],
+        "end_world_m": [
+          7.0,
+          1.0,
+          1.0
+        ],
+        "sink_port_guid": null,
+        "source_port_guid": null,
+        "start_port_guid": "2N7PKeQGvR487OteVbphcB",
+        "end_port_guid": "3a9MBXXFnKff5A5bC18cSV",
+        "port_direction_scope": "bidirectional; GUID-ordered drawing endpoints",
+        "analytic_wall_volume_m3": 0.0035342917352885186
+      },
+      {
+        "guid": "3mXi0LoKvT4PF9bDZe$Dxv",
+        "name": "AC1",
+        "ifc_class": "IfcPipeSegment",
+        "system_guids": [
+          "2F8ZT9HJDHU88cIclrquzq"
+        ],
+        "source": "Synthetic IFC ring: independently declared metre coordinates, 40 mm bore / 50 mm outside wall, reversible pipe ports, generic junction envelopes, one source-head boundary and pump. Bend/junction product geometry, clashes and code applicability are unresolved.",
+        "missing_diameter_metadata": [],
+        "inner_diameter_m": 0.04,
+        "outside_diameter_m": 0.05,
+        "length_m": 5.0,
+        "start_world_m": [
+          2.0,
+          6.0,
+          3.0
+        ],
+        "end_world_m": [
+          7.0,
+          6.0,
+          3.0
+        ],
+        "sink_port_guid": null,
+        "source_port_guid": null,
+        "start_port_guid": "0AK0nBB3jMeh0tS$HwYuEf",
+        "end_port_guid": "3f8RDR5tbQqB3$xmS$dNu1",
+        "port_direction_scope": "bidirectional; GUID-ordered drawing endpoints",
+        "analytic_wall_volume_m3": 0.0035342917352885186
+      }
+    ],
+    "unsupported_segments": [],
+    "excluded_non_segment_elements": [
+      {
+        "guid": "360kiKczvUOg77DRqvx94J",
+        "name": "N_R",
+        "ifc_class": "IfcUnitaryEquipment"
+      },
+      {
+        "guid": "2fi93tlETIwPRRKuWTu6ih",
+        "name": "N_J0",
+        "ifc_class": "IfcUnitaryEquipment"
+      },
+      {
+        "guid": "0d96EZ$FPTHeSvo765kM3p",
+        "name": "N_A",
+        "ifc_class": "IfcUnitaryEquipment"
+      },
+      {
+        "guid": "3ndYElfRPKjOpi2FiRhOaq",
+        "name": "N_B",
+        "ifc_class": "IfcUnitaryEquipment"
+      },
+      {
+        "guid": "3z6pUcKVjSS9eXmRSTfIkD",
+        "name": "N_C",
+        "ifc_class": "IfcUnitaryEquipment"
+      },
+      {
+        "guid": "0CWgi3RUfPJANCCBSez6RR",
+        "name": "PUMP",
+        "ifc_class": "IfcPump"
+      }
+    ],
+    "calculated_checks_pass": true
+  },
+  "views": [
+    {
+      "id": "plan",
+      "projection_axes": [
+        "X",
+        "Y"
+      ],
+      "segments": [
+        {
+          "guid": "2mB_ixG1rO0g4mlsVufCjz",
+          "label": "AC0",
+          "mode": "end_on",
+          "projected_start_m": [
+            2.0,
+            6.0
+          ],
+          "projected_end_m": [
+            2.0,
+            6.0
+          ],
+          "projected_length_m": 0.0,
+          "true_length_m": 2.0,
+          "handles": [
+            "34",
+            "35",
+            "36",
+            "37"
+          ]
+        },
+        {
+          "guid": "3mXi0LoKvT4PF9bDZe$Dxv",
+          "label": "AC1",
+          "mode": "axis",
+          "projected_start_m": [
+            2.0,
+            6.0
+          ],
+          "projected_end_m": [
+            7.0,
+            6.0
+          ],
+          "projected_length_m": 5.0,
+          "true_length_m": 5.0,
+          "handles": [
+            "38",
+            "39",
+            "3A"
+          ]
+        },
+        {
+          "guid": "0MP6u19G5RWx_Z2b5IB4Jl",
+          "label": "JA",
+          "mode": "axis",
+          "projected_start_m": [
+            2.0,
+            1.0
+          ],
+          "projected_end_m": [
+            2.0,
+            6.0
+          ],
+          "projected_length_m": 5.0,
+          "true_length_m": 5.0,
+          "handles": [
+            "3B",
+            "3C",
+            "3D"
+          ]
+        },
+        {
+          "guid": "2KDpod8S1LleRFa0KMj9iZ",
+          "label": "CB",
+          "mode": "axis",
+          "projected_start_m": [
+            7.0,
+            1.0
+          ],
+          "projected_end_m": [
+            7.0,
+            6.0
+          ],
+          "projected_length_m": 5.0,
+          "true_length_m": 5.0,
+          "handles": [
+            "3E",
+            "3F",
+            "40"
+          ]
+        },
+        {
+          "guid": "0NWV6q7GrSvw1HVhfhhXoY",
+          "label": "JB1",
+          "mode": "end_on",
+          "projected_start_m": [
+            7.0,
+            1.0
+          ],
+          "projected_end_m": [
+            7.0,
+            1.0
+          ],
+          "projected_length_m": 0.0,
+          "true_length_m": 2.0,
+          "handles": [
+            "41",
+            "42",
+            "43",
+            "44"
+          ]
+        },
+        {
+          "guid": "3hBuqpG_LUHOvOU8L52b5A",
+          "label": "JB0",
+          "mode": "axis",
+          "projected_start_m": [
+            2.0,
+            1.0
+          ],
+          "projected_end_m": [
+            7.0,
+            1.0
+          ],
+          "projected_length_m": 5.0,
+          "true_length_m": 5.0,
+          "handles": [
+            "45",
+            "46",
+            "47"
+          ]
+        }
+      ],
+      "dxf": "views/plan/segments.dxf",
+      "sheet": "views/plan/sheet.json"
+    },
+    {
+      "id": "front",
+      "projection_axes": [
+        "X",
+        "Z"
+      ],
+      "segments": [
+        {
+          "guid": "2KDpod8S1LleRFa0KMj9iZ",
+          "label": "CB",
+          "mode": "end_on",
+          "projected_start_m": [
+            7.0,
+            3.0
+          ],
+          "projected_end_m": [
+            7.0,
+            3.0
+          ],
+          "projected_length_m": 0.0,
+          "true_length_m": 5.0,
+          "handles": [
+            "34",
+            "35",
+            "36",
+            "37"
+          ]
+        },
+        {
+          "guid": "3mXi0LoKvT4PF9bDZe$Dxv",
+          "label": "AC1",
+          "mode": "axis",
+          "projected_start_m": [
+            2.0,
+            3.0
+          ],
+          "projected_end_m": [
+            7.0,
+            3.0
+          ],
+          "projected_length_m": 5.0,
+          "true_length_m": 5.0,
+          "handles": [
+            "38",
+            "39",
+            "3A"
+          ]
+        },
+        {
+          "guid": "0NWV6q7GrSvw1HVhfhhXoY",
+          "label": "JB1",
+          "mode": "axis",
+          "projected_start_m": [
+            7.0,
+            1.0
+          ],
+          "projected_end_m": [
+            7.0,
+            3.0
+          ],
+          "projected_length_m": 2.0,
+          "true_length_m": 2.0,
+          "handles": [
+            "3B",
+            "3C",
+            "3D"
+          ]
+        },
+        {
+          "guid": "2mB_ixG1rO0g4mlsVufCjz",
+          "label": "AC0",
+          "mode": "axis",
+          "projected_start_m": [
+            2.0,
+            3.0
+          ],
+          "projected_end_m": [
+            2.0,
+            1.0
+          ],
+          "projected_length_m": 2.0,
+          "true_length_m": 2.0,
+          "handles": [
+            "3E",
+            "3F",
+            "40"
+          ]
+        },
+        {
+          "guid": "0MP6u19G5RWx_Z2b5IB4Jl",
+          "label": "JA",
+          "mode": "end_on",
+          "projected_start_m": [
+            2.0,
+            1.0
+          ],
+          "projected_end_m": [
+            2.0,
+            1.0
+          ],
+          "projected_length_m": 0.0,
+          "true_length_m": 5.0,
+          "handles": [
+            "41",
+            "42",
+            "43",
+            "44"
+          ]
+        },
+        {
+          "guid": "3hBuqpG_LUHOvOU8L52b5A",
+          "label": "JB0",
+          "mode": "axis",
+          "projected_start_m": [
+            2.0,
+            1.0
+          ],
+          "projected_end_m": [
+            7.0,
+            1.0
+          ],
+          "projected_length_m": 5.0,
+          "true_length_m": 5.0,
+          "handles": [
+            "45",
+            "46",
+            "47"
+          ]
+        }
+      ],
+      "dxf": "views/front/segments.dxf",
+      "sheet": "views/front/sheet.json"
+    },
+    {
+      "id": "side",
+      "projection_axes": [
+        "Y",
+        "Z"
+      ],
+      "segments": [
+        {
+          "guid": "2KDpod8S1LleRFa0KMj9iZ",
+          "label": "CB",
+          "mode": "axis",
+          "projected_start_m": [
+            1.0,
+            3.0
+          ],
+          "projected_end_m": [
+            6.0,
+            3.0
+          ],
+          "projected_length_m": 5.0,
+          "true_length_m": 5.0,
+          "handles": [
+            "34",
+            "35",
+            "36"
+          ]
+        },
+        {
+          "guid": "3mXi0LoKvT4PF9bDZe$Dxv",
+          "label": "AC1",
+          "mode": "end_on",
+          "projected_start_m": [
+            6.0,
+            3.0
+          ],
+          "projected_end_m": [
+            6.0,
+            3.0
+          ],
+          "projected_length_m": 0.0,
+          "true_length_m": 5.0,
+          "handles": [
+            "37",
+            "38",
+            "39",
+            "3A"
+          ]
+        },
+        {
+          "guid": "0NWV6q7GrSvw1HVhfhhXoY",
+          "label": "JB1",
+          "mode": "axis",
+          "projected_start_m": [
+            1.0,
+            1.0
+          ],
+          "projected_end_m": [
+            1.0,
+            3.0
+          ],
+          "projected_length_m": 2.0,
+          "true_length_m": 2.0,
+          "handles": [
+            "3B",
+            "3C",
+            "3D"
+          ]
+        },
+        {
+          "guid": "2mB_ixG1rO0g4mlsVufCjz",
+          "label": "AC0",
+          "mode": "axis",
+          "projected_start_m": [
+            6.0,
+            3.0
+          ],
+          "projected_end_m": [
+            6.0,
+            1.0
+          ],
+          "projected_length_m": 2.0,
+          "true_length_m": 2.0,
+          "handles": [
+            "3E",
+            "3F",
+            "40"
+          ]
+        },
+        {
+          "guid": "0MP6u19G5RWx_Z2b5IB4Jl",
+          "label": "JA",
+          "mode": "axis",
+          "projected_start_m": [
+            1.0,
+            1.0
+          ],
+          "projected_end_m": [
+            6.0,
+            1.0
+          ],
+          "projected_length_m": 5.0,
+          "true_length_m": 5.0,
+          "handles": [
+            "41",
+            "42",
+            "43"
+          ]
+        },
+        {
+          "guid": "3hBuqpG_LUHOvOU8L52b5A",
+          "label": "JB0",
+          "mode": "end_on",
+          "projected_start_m": [
+            1.0,
+            1.0
+          ],
+          "projected_end_m": [
+            1.0,
+            1.0
+          ],
+          "projected_length_m": 0.0,
+          "true_length_m": 5.0,
+          "handles": [
+            "44",
+            "45",
+            "46",
+            "47"
+          ]
+        }
+      ],
+      "dxf": "views/side/segments.dxf",
+      "sheet": "views/side/sheet.json"
+    }
+  ],
+  "axis_coverage": {
+    "0MP6u19G5RWx_Z2b5IB4Jl": [
+      "plan",
+      "side"
+    ],
+    "0NWV6q7GrSvw1HVhfhhXoY": [
+      "front",
+      "side"
+    ],
+    "2KDpod8S1LleRFa0KMj9iZ": [
+      "plan",
+      "side"
+    ],
+    "2mB_ixG1rO0g4mlsVufCjz": [
+      "front",
+      "side"
+    ],
+    "3hBuqpG_LUHOvOU8L52b5A": [
+      "plan",
+      "front"
+    ],
+    "3mXi0LoKvT4PF9bDZe$Dxv": [
+      "plan",
+      "front"
+    ]
+  },
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "scope": "orthographic pipe/duct centreline views with explicit symbolic end-on representation; projected and true lengths distinct",
+  "pending": [
+    "native DWG reopen and actual PDF visual review",
+    "hidden-line treatment, finite fittings/equipment and installation detail",
+    "full engineering acceptance"
+  ],
+  "artifacts": {
+    "segments.csv": "1cfbe2b984a9ce3bbcc3deb7a32609fd35615c3d731e72287b89eeab9867e97e",
+    "views/front/preview.svg": "109bda3a1f8c81c893b57389db8a40df26d2a11eab1dc4e5ee1564c8da118c25",
+    "views/front/segments.dxf": "c8b0c3076ba5ed99eff2e0176e408dc0d2eb5fb1c04458484edaf6ea6aafa8de",
+    "views/front/sheet.json": "7e4772513fc868e326352152e821c815e2950466983b5ced48ec67b866f108b0",
+    "views/plan/preview.svg": "c7c0a879529951e3d43859e41697c8b66fde26b40e7397b15e5d125cb4c3269e",
+    "views/plan/segments.dxf": "11c0d2773d127cbbbceb8871e78fb8f73bb26ac4414dc3d92e991f965b62c803",
+    "views/plan/sheet.json": "dd4c015eaff14f6740fc1ac267c63e9ddee00fcfdea5d41b3fa7bcd29a713973",
+    "views/side/preview.svg": "ae56a3edf92acf77b5778c8fc82fbacf1d42bdf9bd6c885df99c867390901c0e",
+    "views/side/segments.dxf": "6d59ade4562fce7f3b014241a66a23424c8b32f898f03f70dd6ba69904e40282",
+    "views/side/sheet.json": "0a0e5460fa5ca051b0e6ea01bc2e71fbbebef8d902e558e60240a99e83f346a1"
+  }
+}

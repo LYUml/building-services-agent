@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "source": "Explicit plan/front/side views of the saved synthetic IFC ring; 0.12 m text prints 2.4 mm at 1:50. Full segment names remain in the GUID schedule.",
+  "annotation_height_m": 0.12,
+  "end_on_marker_half_size_m": 0.08,
+  "labels": {
+    "0MP6u19G5RWx_Z2b5IB4Jl": "JA",
+    "3hBuqpG_LUHOvOU8L52b5A": "JB0",
+    "0NWV6q7GrSvw1HVhfhhXoY": "JB1",
+    "2mB_ixG1rO0g4mlsVufCjz": "AC0",
+    "3mXi0LoKvT4PF9bDZe$Dxv": "AC1",
+    "2KDpod8S1LleRFa0KMj9iZ": "CB"
+  },
+  "views": [
+    {
+      "id": "plan",
+      "projection_axes": [
+        "X",
+        "Y"
+      ],
+      "sheet": {
+        "source": "Explicit synthetic A4 landscape orthographic sheet; 1:50, 0.2 mm reference tolerance. End-on symbols are schematic, not physical bore sizes.",
+        "window_drawing_units": [
+          0,
+          -1,
+          12,
+          8
+        ],
+        "scale_denominator": 50,
+        "reference_ifc_guid": "0MP6u19G5RWx_Z2b5IB4Jl",
+        "pdf_tolerance_mm": 0.2
+      }
+    },
+    {
+      "id": "front",
+      "projection_axes": [
+        "X",
+        "Z"
+      ],
+      "sheet": {
+        "source": "Explicit synthetic A4 landscape orthographic sheet; 1:50, 0.2 mm reference tolerance. End-on symbols are schematic, not physical bore sizes.",
+        "window_drawing_units": [
+          0,
+          -1,
+          12,
+          5.5
+        ],
+        "scale_denominator": 50,
+        "reference_ifc_guid": "3hBuqpG_LUHOvOU8L52b5A",
+        "pdf_tolerance_mm": 0.2
+      }
+    },
+    {
+      "id": "side",
+      "projection_axes": [
+        "Y",
+        "Z"
+      ],
+      "sheet": {
+        "source": "Explicit synthetic A4 landscape orthographic sheet; 1:50, 0.2 mm reference tolerance. End-on symbols are schematic, not physical bore sizes.",
+        "window_drawing_units": [
+          -0.5,
+          -1,
+          11.5,
+          5.5
+        ],
+        "scale_denominator": 50,
+        "reference_ifc_guid": "2KDpod8S1LleRFa0KMj9iZ",
+        "pdf_tolerance_mm": 0.2
+      }
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 # Attribution and upstream integration register
 
+Orthographic IFC views use original projection/end-on/coverage/orchestration code around the already pinned IfcOpenShell, ezdxf, AutoCAD and pypdf adapters. pypdf 7.0.0 merges verified individual sheets; its existing BSD notice applies. AutoCAD remains an external licensed local engine, not redistributed. No new dependency, vendor source or binary was added for this feature. Reference scale/geometry checks and actual visual reviews are separate.
+
 ## Executed EPANET water graphs
 
 Saved IFC water binding and bidirectional port authoring use the existing pinned IfcOpenShell 0.8.5 API, with original profile/topology/GUID reconciliation and WNTR orchestration code. The upstream [connect_port API](https://docs.ifcopenshell.org/autoapi/ifcopenshell/api/system/connect_port/index.html) documents SOURCEANDSINK connectivity; its installed implementation and two saved relationship arcs were inspected/tested. The newer documentation does not imply a runtime upgrade. Unit conversion tests call the installed `convert_file_length_units`; no upstream function bodies or new binaries are vendored. Existing IfcOpenShell, WNTR and EPANET attribution/notices apply.

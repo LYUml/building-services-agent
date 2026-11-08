@@ -1,0 +1,3 @@
+(if (= (strcase (vl-string-translate (chr 92) "/" (strcat (getvar "DWGPREFIX") (getvar "DWGNAME")))) (strcase "C:/Users/lyuml-win/Desktop/building-services-agent/runs/ifc-views-evidence-v1/native/front/segments.dwg")) (progn (setvar "FILEDIA" 0) (setvar "CMDDIA" 0) (setvar "BACKGROUNDPLOT" 0) (command "_.UCS" "_World") (command "_.PLAN" "_World") (command "_.-PLOT" "_Y" "Model" "DWG To PDF.pc3" "ISO full bleed A4 (297.00 x 210.00 MM)" "_M" "_L" "_N" "_W" "0,-1" "12,5.5" "1=0.05" "_C" "_Y" "monochrome.ctb" "_Y" "_A" "C:/Users/lyuml-win/Desktop/building-services-agent/runs/ifc-views-evidence-v1/native/front/sheet.pdf" "_N" "_Y")))
+_.QUIT
+_Y

@@ -1,0 +1,3 @@
+(if (= (strcase (vl-string-translate (chr 92) "/" (strcat (getvar "DWGPREFIX") (getvar "DWGNAME")))) (strcase "C:/Users/lyuml-win/Desktop/building-services-agent/runs/ifc-views-evidence-v1/native/plan/input.dxf")) (progn (setvar "FILEDIA" 0) (setvar "CMDDIA" 0) (command "_.SAVEAS" "2018" "C:/Users/lyuml-win/Desktop/building-services-agent/runs/ifc-views-evidence-v1/native/plan/segments.dwg")) (princ "BSA WRONG DOCUMENT"))
+_.QUIT
+_Y
