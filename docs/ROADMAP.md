@@ -40,3 +40,5 @@ Circulation thermal transport now has a workflow adapter with source inventory, 
 Fresh EPANET circulation/graph pipe results now feed the existing jurisdiction rule evaluator through an explicit density and exact per-pipe basis adapter. Official BEC-backed 50 mm velocity rejection and separate 65 mm scoped pass are retained. Workflow/thermal/IFC correspondence and full HVAC conformity remain pending; see EPANET_PIPE_RULES.md.
 
 The EPANET pipe-rule workflow adapter now chains thermal duty, scoped HK rules and hydraulic release with identical-input gates and official-source integrity. A real official-PDF-backed 65 mm sequence passes; thermal failure, 50 mm regulatory review and source tampering controls remain explicit. Cross-domain fluid assumptions, IFC and full conformity remain pending.
+
+Workflow fluid binding now rejects conflicting density declarations for identical hydraulic scenarios across thermal and regulatory tasks, including convergent sibling prerequisites and per-target conflicts. Evidence/source and physical temperature-property applicability remain unresolved by numeric equality.

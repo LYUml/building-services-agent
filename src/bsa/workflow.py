@@ -53,7 +53,7 @@ def regulatory_source_bindings(tasks,root):
             'electrical_regulations','lighting_regulations'}
     geometric={'electrical_coordination','electrical_lighting','lighting_regulations'}
     known={};ancestors={};sources={};bindings=[]
-    hashes={}
+    hashes={};fluid_declarations={}
     def hashed(path):
         if path not in hashes:hashes[path]=digest(path)
         return hashes[path]
@@ -81,6 +81,22 @@ def regulatory_source_bindings(tasks,root):
                 if hashed(checked)!=hashed(consumed):
                     raise ProjectError(f'regulatory gate {parent} checks different {field} bytes from consumer {name}')
                 bindings.append(dict(check=parent,consumer=name,field=field,checked=str(checked),consumed=str(consumed),sha256=hashed(checked)))
+        if kind in ('circulation_duty','epanet_pipe_regulations'):
+            from .fluid_bindings import density_declarations,check_density_consistency
+            fluid_declarations[name]=density_declarations(task,local_path(root,task.get('basis')))
+            check_density_consistency(fluid_declarations[name])
+        # Include sibling prerequisites converging on a consumer, not only a chain.
+        participants=(upstream|{name}) & fluid_declarations.keys()
+        groups={}
+        for participant in sorted(participants):
+            scenario=current.get('circulation') if participant==name else sources[participant].get('circulation')
+            if scenario is not None:groups.setdefault(hashed(scenario),[]).extend(fluid_declarations[participant])
+        for scenario_hash,declarations in groups.items():
+            from .fluid_bindings import check_density_consistency
+            check_density_consistency(declarations)
+            if len({q['task'] for q in declarations})>1:
+                bindings.append(dict(consumer=name,field='density_consistency',hydraulic_sha256=scenario_hash,declarations=declarations,
+                                     basis_hashes={q['basis']:hashed(Path(q['basis'])) for q in declarations}))
         known[name]=task;sources[name]=current
     return bindings
 
