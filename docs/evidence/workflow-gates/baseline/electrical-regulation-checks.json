@@ -1,0 +1,113 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\electrical-gates-v1\\baseline\\project.json": "29e3982075cf6bc85c1c2361bf421a20045390348ee5b8f8df2f3559772198d9",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\electrical-gates-v1\\baseline\\topology.json": "97f0d1b176dd438a91889899523bcf5a1d228a840c2e0840dcc37764d945c672",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\electrical-gates-v1\\baseline\\basis.json": "b1bf94f5b0394fdb58c8ae6f896c93cdac0dffd8d8de22fa7d616c194ac64cc6",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\electrical-gates-v1\\baseline\\pack.json": "e39191cab144ccdd9a405996613d5fcd48efd154bef36c1717fbd00e022e9dfb",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\electrical-gates-v1\\baseline\\emsd-wiring-2025.pdf": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b"
+  },
+  "inputs_unchanged": true,
+  "missing_sources": [],
+  "calculation_sha256": "26f76b34b96139d161a2021ae5968b8184845482c279f581ed3cb26abbadee1e",
+  "circuit_checks": {
+    "C1": {
+      "rule_pack": "hk-2026.11.08",
+      "jurisdiction": "HK",
+      "checks": [
+        {
+          "id": "HK.EMSD.COP2025.13A3v.voltage_drop",
+          "status": "pass",
+          "scope": "Normal-service voltage drop from installation origin to fixed current-using equipment, selected deemed-to-satisfy path only; not a branch-circuit-only or starting-transient limit.",
+          "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+          "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+          "edition": "2025",
+          "clause": "13A(3)(v)",
+          "pdf_page_1_based": 116,
+          "value": 1.9130434782608698,
+          "unit": "percent_of_nominal_supply_voltage",
+          "maximum": 4,
+          "evidence": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\electrical-gates-v1\\baseline\\run\\rules\\calculation\\electrical-paths.json SHA256 26f76b34b96139d161a2021ae5968b8184845482c279f581ed3cb26abbadee1e; circuit C1; devices DC1",
+          "reasons": [
+            "selected deemed-to-satisfy path met"
+          ]
+        }
+      ],
+      "supported_checks_pass": true,
+      "coverage": {
+        "complete": false,
+        "implemented": [
+          "One normal-service electrical voltage-drop deemed-to-satisfy check"
+        ],
+        "pending": [
+          "statutory scope and applicability",
+          "remaining electrical protection/cable/earthing rules",
+          "BEC HVAC/lighting/electrical/lifts clauses",
+          "WSD plumbing clauses",
+          "FSD premises and installation rules",
+          "BD drainage rules",
+          "ArchSD contract applicability",
+          "utility requirements and referenced standards"
+        ]
+      },
+      "regulatory_compliance": "not_established",
+      "design_accepted": false,
+      "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+    },
+    "C2": {
+      "rule_pack": "hk-2026.11.08",
+      "jurisdiction": "HK",
+      "checks": [
+        {
+          "id": "HK.EMSD.COP2025.13A3v.voltage_drop",
+          "status": "pass",
+          "scope": "Normal-service voltage drop from installation origin to fixed current-using equipment, selected deemed-to-satisfy path only; not a branch-circuit-only or starting-transient limit.",
+          "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+          "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+          "edition": "2025",
+          "clause": "13A(3)(v)",
+          "pdf_page_1_based": 116,
+          "value": 0.9999999999999999,
+          "unit": "percent_of_nominal_supply_voltage",
+          "maximum": 4,
+          "evidence": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\electrical-gates-v1\\baseline\\run\\rules\\calculation\\electrical-paths.json SHA256 26f76b34b96139d161a2021ae5968b8184845482c279f581ed3cb26abbadee1e; circuit C2; devices DC2",
+          "reasons": [
+            "selected deemed-to-satisfy path met"
+          ]
+        }
+      ],
+      "supported_checks_pass": true,
+      "coverage": {
+        "complete": false,
+        "implemented": [
+          "One normal-service electrical voltage-drop deemed-to-satisfy check"
+        ],
+        "pending": [
+          "statutory scope and applicability",
+          "remaining electrical protection/cable/earthing rules",
+          "BEC HVAC/lighting/electrical/lifts clauses",
+          "WSD plumbing clauses",
+          "FSD premises and installation rules",
+          "BD drainage rules",
+          "ArchSD contract applicability",
+          "utility requirements and referenced standards"
+        ]
+      },
+      "regulatory_compliance": "not_established",
+      "design_accepted": false,
+      "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+    }
+  },
+  "branch_checks_pass": true,
+  "supported_regulation_checks_pass": true,
+  "status": "pass",
+  "design_accepted": false,
+  "regulatory_compliance": "not_established",
+  "scope": "Fresh single-phase radial calculation and selected per-circuit rules; passing voltage drop cannot clear failed branch checks",
+  "pending": [
+    "actual route lengths and coefficient applicability",
+    "load simultaneity and topology completeness",
+    "feeder protection/ampacity",
+    "three-phase, neutral and phasor effects",
+    "regulatory and engineering acceptance"
+  ]
+}

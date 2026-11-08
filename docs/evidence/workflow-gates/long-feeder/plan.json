@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "20a98a537bf119c88829c970cff3610720d4710afa768b6156f9a72f01c03797",
+  "passage_dispositions": {
+    "P001": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "rules",
+      "kind": "electrical_regulations",
+      "project": "project.json",
+      "topology": "topology.json",
+      "basis": "basis.json",
+      "pack": "pack.json",
+      "sources": "."
+    },
+    {
+      "id": "drawing",
+      "kind": "electrical",
+      "project": "project.json",
+      "requires_pass": [
+        "rules"
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "requires_pass": [
+        "drawing"
+      ],
+      "description": "Actual visual and complete engineering acceptance pending"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R0",
+      "passage": "P001",
+      "quote": "Check full-path electrical voltage drop and selected Hong Kong rules before generating the synthetic electrical overlay. Retain separate engineering and visual review.",
+      "task": "rules",
+      "acceptance": "Check full-path electrical voltage drop and selected Hong Kong rules before generating the synthetic electrical overlay. Retain separate engineering and visual review."
+    },
+    {
+      "id": "R1",
+      "passage": "P001",
+      "quote": "Check full-path electrical voltage drop and selected Hong Kong rules before generating the synthetic electrical overlay. Retain separate engineering and visual review.",
+      "task": "drawing",
+      "acceptance": "Check full-path electrical voltage drop and selected Hong Kong rules before generating the synthetic electrical overlay. Retain separate engineering and visual review."
+    },
+    {
+      "id": "R2",
+      "passage": "P001",
+      "quote": "Check full-path electrical voltage drop and selected Hong Kong rules before generating the synthetic electrical overlay. Retain separate engineering and visual review.",
+      "task": "review",
+      "acceptance": "Check full-path electrical voltage drop and selected Hong Kong rules before generating the synthetic electrical overlay. Retain separate engineering and visual review."
+    }
+  ]
+}

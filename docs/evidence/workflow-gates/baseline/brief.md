@@ -1,0 +1,1 @@
+Check full-path electrical voltage drop and selected Hong Kong rules before generating the synthetic electrical overlay. Retain separate engineering and visual review.

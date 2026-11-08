@@ -1,0 +1,99 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\electrical-gates-v1\\baseline\\plan.json": "9b2e569cb492e581991d0ebbe1e6c7cc3025658106b25d68003a538437f73ba3",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\electrical-gates-v1\\baseline\\basis.json": "b1bf94f5b0394fdb58c8ae6f896c93cdac0dffd8d8de22fa7d616c194ac64cc6",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\electrical-gates-v1\\baseline\\project.json": "29e3982075cf6bc85c1c2361bf421a20045390348ee5b8f8df2f3559772198d9",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\electrical-gates-v1\\baseline\\emsd-wiring-2025.pdf": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\electrical-gates-v1\\baseline\\pack.json": "e39191cab144ccdd9a405996613d5fcd48efd154bef36c1717fbd00e022e9dfb",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\electrical-gates-v1\\baseline\\brief.md": "20a98a537bf119c88829c970cff3610720d4710afa768b6156f9a72f01c03797",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\electrical-gates-v1\\baseline\\topology.json": "97f0d1b176dd438a91889899523bcf5a1d228a840c2e0840dcc37764d945c672"
+  },
+  "inputs_unchanged": true,
+  "tasks": {
+    "rules": {
+      "kind": "electrical_regulations",
+      "status": "pass",
+      "scope": "Fresh single-phase radial calculation and selected per-circuit rules; passing voltage drop cannot clear failed branch checks; whole-project regulatory compliance not established"
+    },
+    "drawing": {
+      "kind": "electrical",
+      "status": "pass",
+      "scope": "conditional electrical checks only; remaining design checks are in calculations.json"
+    },
+    "review": {
+      "kind": "manual",
+      "status": "pending",
+      "scope": "Actual visual and complete engineering acceptance pending"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R0",
+      "passage": "P001",
+      "quote": "Check full-path electrical voltage drop and selected Hong Kong rules before generating the synthetic electrical overlay. Retain separate engineering and visual review.",
+      "task": "rules",
+      "acceptance": "Check full-path electrical voltage drop and selected Hong Kong rules before generating the synthetic electrical overlay. Retain separate engineering and visual review.",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 1,
+        "end_line": 1
+      },
+      "execution_scope": "Fresh single-phase radial calculation and selected per-circuit rules; passing voltage drop cannot clear failed branch checks; whole-project regulatory compliance not established",
+      "evidence": [
+        "rules/electrical-regulation-checks.json",
+        "rules/calculation/electrical-paths.json",
+        "rules/calculation/regulation-projects.json"
+      ]
+    },
+    {
+      "id": "R1",
+      "passage": "P001",
+      "quote": "Check full-path electrical voltage drop and selected Hong Kong rules before generating the synthetic electrical overlay. Retain separate engineering and visual review.",
+      "task": "drawing",
+      "acceptance": "Check full-path electrical voltage drop and selected Hong Kong rules before generating the synthetic electrical overlay. Retain separate engineering and visual review.",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 1,
+        "end_line": 1
+      },
+      "execution_scope": "conditional electrical checks only; remaining design checks are in calculations.json",
+      "evidence": [
+        "drawing/calculations.json",
+        "drawing/devices.dxf",
+        "drawing/manifest.json",
+        "drawing/preview.svg",
+        "drawing/report.html"
+      ]
+    },
+    {
+      "id": "R2",
+      "passage": "P001",
+      "quote": "Check full-path electrical voltage drop and selected Hong Kong rules before generating the synthetic electrical overlay. Retain separate engineering and visual review.",
+      "task": "review",
+      "acceptance": "Check full-path electrical voltage drop and selected Hong Kong rules before generating the synthetic electrical overlay. Retain separate engineering and visual review.",
+      "execution_status": "pending",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 1,
+        "end_line": 1
+      },
+      "execution_scope": "Actual visual and complete engineering acceptance pending",
+      "evidence": []
+    }
+  ],
+  "artifact_hashes": {
+    "drawing/calculations.json": "ccbad4855a0d81892b797c637596999e08f991d94530c38a0e0d52e895239036",
+    "drawing/devices.dxf": "451acb459005b59f839cdc3f676991d4d6ef06a08f6a0dc093da2f8423e525f3",
+    "drawing/manifest.json": "f465af46b5303096e16b04871945a279a8e0f15b80f8af1d79b1feb67bca3c9b",
+    "drawing/preview.svg": "069ebff582ab7bf91a5850dfcaf66af3b8cbae69352b06357e5e82ea3a34cd30",
+    "drawing/report.html": "609e2ea440210ab4cd2cbd9bc57e6419bb8fa90696a2bc1e1bab3c3a034a6faf",
+    "rules/electrical-regulation-checks.json": "2b32b7b84cee09de0e77255535e45211218dbebdcf0bb5dbad707de62d7a9036",
+    "rules/calculation/electrical-paths.json": "26f76b34b96139d161a2021ae5968b8184845482c279f581ed3cb26abbadee1e",
+    "rules/calculation/regulation-projects.json": "efb3fd6094d97d449200c92e146c1564faeba63fbe85cc476ec37c98f80caf09"
+  },
+  "execution_pass": false,
+  "design_accepted": false,
+  "acceptance_note": "Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance"
+}

@@ -1,0 +1,16 @@
+{
+  "baseline/brief.md": "20a98a537bf119c88829c970cff3610720d4710afa768b6156f9a72f01c03797",
+  "baseline/diagnosis.json": "2a5affb4cb6487fcbf3ad2c3288a00cb7bf2299bfc7b0ce4d9450c37bb3d65ce",
+  "baseline/electrical-regulation-checks.json": "2b32b7b84cee09de0e77255535e45211218dbebdcf0bb5dbad707de62d7a9036",
+  "baseline/plan.json": "9b2e569cb492e581991d0ebbe1e6c7cc3025658106b25d68003a538437f73ba3",
+  "baseline/topology.json": "97f0d1b176dd438a91889899523bcf5a1d228a840c2e0840dcc37764d945c672",
+  "baseline/workflow.json": "8c4e132089e6e3afadd7597ccb2452a6c7becae0574ddfd5e22239cac77359f8",
+  "long-feeder/brief.md": "20a98a537bf119c88829c970cff3610720d4710afa768b6156f9a72f01c03797",
+  "long-feeder/diagnosis.json": "f1a88c3e8670c2bbebe8e6d2261f7dc3b615fddeb783e5bf5056efdb13c6fbb9",
+  "long-feeder/electrical-regulation-checks.json": "6db6656daf2bad0bdb874af929a5b74b8ef237322d90cf47dd35bf76be72d6e4",
+  "long-feeder/plan.json": "9b2e569cb492e581991d0ebbe1e6c7cc3025658106b25d68003a538437f73ba3",
+  "long-feeder/topology.json": "62137d6efe3f5b16e4beaa535d2cefe2e26b3ab4486a0b446af75c908aba1a00",
+  "long-feeder/workflow.json": "6d11fccbe1fe7ff5abe2f96b4161ac4458d33875655442a2fb3bc5e8a9e2cd4e",
+  "README.md": "66d3f0da5cbf992abe3ff179a4b54a06f90354bc6acc2f2f659b637334f89b42",
+  "tests.log": "691bae2635150634bd2a6439f408b30be5bc15eb7fe35a733b362a8e6b39a850"
+}

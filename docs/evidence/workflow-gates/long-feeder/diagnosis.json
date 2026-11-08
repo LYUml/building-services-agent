@@ -1,0 +1,70 @@
+{
+  "plan_sha256": "9b2e569cb492e581991d0ebbe1e6c7cc3025658106b25d68003a538437f73ba3",
+  "workflow_sha256": "6d11fccbe1fe7ff5abe2f96b4161ac4458d33875655442a2fb3bc5e8a9e2cd4e",
+  "integrity_pass": true,
+  "tasks": [
+    {
+      "id": "rules",
+      "kind": "electrical_regulations",
+      "status": "pending",
+      "recorded_scope": "Fresh single-phase radial calculation and selected per-circuit rules; passing voltage drop cannot clear failed branch checks; whole-project regulatory compliance not established",
+      "dependencies": [],
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "rules"
+      ],
+      "next_action": "resolve the recorded pending condition before a new run",
+      "requirement_ids": [
+        "R0"
+      ],
+      "evidence": [
+        "rules/calculation/electrical-paths.json",
+        "rules/calculation/regulation-projects.json",
+        "rules/electrical-regulation-checks.json"
+      ]
+    },
+    {
+      "id": "drawing",
+      "kind": "electrical",
+      "status": "pending",
+      "recorded_scope": "required checks unresolved: rules (pending); adapter not executed",
+      "dependencies": [
+        "rules"
+      ],
+      "blocked_by": [
+        "rules"
+      ],
+      "upstream_action_tasks": [
+        "rules"
+      ],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R1"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "required checks unresolved: drawing (pending); adapter not executed",
+      "dependencies": [
+        "drawing"
+      ],
+      "blocked_by": [
+        "drawing"
+      ],
+      "upstream_action_tasks": [
+        "rules"
+      ],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R2"
+      ],
+      "evidence": []
+    }
+  ],
+  "execution_pass": false,
+  "design_accepted": false,
+  "scope": "Recorded execution and declared dependency graph only; no engine invocation, automatic repair, or engineering acceptance"
+}

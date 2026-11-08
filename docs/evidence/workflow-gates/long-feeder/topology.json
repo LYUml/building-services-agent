@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "method": "single_phase_scalar_radial",
+  "source": "Synthetic origin/board connections; all loads simultaneously at declared branch demand, each branch lumped at its terminal",
+  "installation_origin": "ORIGIN",
+  "feeders": [
+    {
+      "id": "F0",
+      "from_node": "ORIGIN",
+      "to_node": "DB",
+      "route_length_m": 300,
+      "vd_mv_a_m": 4,
+      "source": "Synthetic length and full single-phase mV/A/m coefficient, includes return path"
+    },
+    {
+      "id": "F1",
+      "from_node": "DB",
+      "to_node": "SUB",
+      "route_length_m": 20,
+      "vd_mv_a_m": 3,
+      "source": "Synthetic length and full single-phase mV/A/m coefficient, includes return path"
+    }
+  ],
+  "circuit_from_node": {
+    "C1": "SUB",
+    "C2": "DB"
+  }
+}
