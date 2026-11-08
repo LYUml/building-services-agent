@@ -1,0 +1,13 @@
+test_actual_8760_hours_and_independent_monthly_lighting_balance (test_annual_energy.AnnualEngineTests.test_actual_8760_hours_and_independent_monthly_lighting_balance) ... skipped 'requires actual EnergyPlus'
+test_actual_leap_calendar_with_explicit_synthetic_weather_derivative (test_annual_energy.AnnualEngineTests.test_actual_leap_calendar_with_explicit_synthetic_weather_derivative) ... skipped 'requires actual EnergyPlus'
+test_explicit_failed_unmet_target_is_not_turned_into_a_pass (test_annual_energy.AnnualEngineTests.test_explicit_failed_unmet_target_is_not_turned_into_a_pass) ... skipped 'requires actual EnergyPlus'
+test_truncated_wrong_interval_and_wrong_environment_sql_rejected (test_annual_energy.AnnualEngineTests.test_truncated_wrong_interval_and_wrong_environment_sql_rejected) ... skipped 'requires actual EnergyPlus'
+test_workflow_and_weather_asset_integrity (test_annual_energy.AnnualEngineTests.test_workflow_and_weather_asset_integrity) ... skipped 'requires actual EnergyPlus'
+test_complete_leap_calendar_requires_explicit_weather_permission (test_annual_energy.AnnualInputTests.test_complete_leap_calendar_requires_explicit_weather_permission) ... ok
+test_packaged_weather_bytes_identity_calendar_and_missing_fields (test_annual_energy.AnnualInputTests.test_packaged_weather_bytes_identity_calendar_and_missing_fields) ... ok
+test_repeated_site_missing_sources_and_invalid_budgets_rejected (test_annual_energy.AnnualInputTests.test_repeated_site_missing_sources_and_invalid_budgets_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.290s
+
+OK (skipped=5)

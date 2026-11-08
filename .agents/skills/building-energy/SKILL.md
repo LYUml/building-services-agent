@@ -12,6 +12,8 @@ Keep cooling/heating kW, electrical kW, annual kWh and COP distinct. Simulation 
 
 For Hong Kong load-design conditions use ../mep-regulations/SKILL.md and docs/HK_HVAC_RULES.md. Keep sourced indoor dry-bulb/humidity and outdoor design conditions separate from annual weather and operating thermostats. The Table 6.4 rule pack does not yet bind actual EnergyPlus sizing objects; a passing standalone check cannot certify the simulation.
 
+For design-day sizing humidity read docs/SIZING_HUMIDITY.md. The explicit optional input writes and audits constant RH sizing schedules and sensible/latent sizing mode in both saved OSM and IDF. It does not add operating humidistats or prove maintained timestep RH; inspect native sizing output and preserve deviations. Annual/PTAC use and complete Hong Kong rule-to-model binding remain pending.
+
 ## Repository engine adapter
 For the supported synthetic two-adjacent-zone design-day comparison, use `python -m bsa.energy <project.json> --out <new-run> --energyplus <engine.exe>`. Schema example: examples/two-zone-energy/project.json. Restore the pinned Windows x64 tools with scripts/setup_energy.py; see README.md and THIRD_PARTY.md. Inspect analysis.json, OSM/IDF and eplusout.err. This adapter is not a general arbitrary-building or annual-weather pipeline.
 The read-only upstream probe is `python scripts/probe_openstudio_mcp.py <generated-model.osm>`. It tests MCP model load and space/zone queries; no upstream simulation execution is claimed. A tool may return isError=false but structured ok=false; treat either failure as failure.

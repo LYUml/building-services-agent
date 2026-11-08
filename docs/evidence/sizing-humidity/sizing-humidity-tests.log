@@ -1,0 +1,13 @@
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 8', and 'Surface 4' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+test_changed_schedule_and_operating_override_rejected (test_sizing_humidity.SizingHumidityTests.test_changed_schedule_and_operating_override_rejected) ... ok
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+test_invalid_percent_deadband_and_annual_use_rejected (test_sizing_humidity.SizingHumidityTests.test_invalid_percent_deadband_and_annual_use_rejected) ... ok
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 8', and 'Surface 4' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+test_native_method_tampering_rejected (test_sizing_humidity.SizingHumidityTests.test_native_method_tampering_rejected) ... ok
+[openstudio.energyplus.ForwardTranslator] <0> Both surfaces 'Surface 8', and 'Surface 4' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy.
+test_saved_osm_and_idf_cover_all_zones (test_sizing_humidity.SizingHumidityTests.test_saved_osm_and_idf_cover_all_zones) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.479s
+
+OK

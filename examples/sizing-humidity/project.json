@@ -1,0 +1,43 @@
+{
+  "name": "Synthetic explicit sizing humidity integration",
+  "source": "All inputs explicitly synthetic for integration verification, not Hong Kong design weather or compliance",
+  "zone_width_m": 5,
+  "zone_depth_m": 4,
+  "height_m": 3,
+  "envelope_r_m2k_w": 2,
+  "heating_setpoint_c": 20,
+  "cooling_setpoint_c": 24,
+  "baseline_lighting_w_m2": 12,
+  "variant_lighting_w_m2": 6,
+  "site": {
+    "latitude_deg": 22.3,
+    "longitude_deg": 114.2,
+    "timezone_h": 8,
+    "elevation_m": 0
+  },
+  "design_days": [
+    {
+      "name": "Synthetic summer",
+      "month": 7,
+      "day": 21,
+      "type": "SummerDesignDay",
+      "max_dry_bulb_c": 35,
+      "range_c": 8,
+      "wet_bulb_c": 24
+    },
+    {
+      "name": "Synthetic winter",
+      "month": 1,
+      "day": 21,
+      "type": "WinterDesignDay",
+      "max_dry_bulb_c": 10,
+      "range_c": 5,
+      "wet_bulb_c": 5
+    }
+  ],
+  "sizing_humidity": {
+    "source": "Synthetic equal 50 percent sizing humidification/dehumidification limits, not operating controls or accepted HVAC design",
+    "humidification_rh_percent": 50,
+    "dehumidification_rh_percent": 50
+  }
+}

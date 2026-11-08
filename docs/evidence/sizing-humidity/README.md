@@ -1,0 +1,5 @@
+# Explicit sizing humidity native evidence
+
+The optional source input selected sensible-and-latent zone sizing with 50 percent lower/upper sizing humidity schedules. Both saved OSM and translated IDF were reopened and checked for all zones, schedule identities/values and absence of overriding operating humidistats. EnergyPlus 25.2 ran baseline and changed-lighting design days successfully with zero warnings/severe errors; raw native files are in each ZIP. Default latent supply humidity-ratio-difference fields remain engine defaults, not product specifications.
+
+Native ZoneSizes reports nonzero latent heating loads. Native CSV also shows some timestep humidity deviation; input binding does not establish maintained humidity or full HVAC performance. No Hong Kong rule-to-engine adapter or whole-project conformity is claimed. Four new saved-model/mutation tests passed. Legacy regressions: one energy input test passed and one engine test was skipped by its environment gate; three annual input tests passed and five were skipped. The actual native runs here are separate evidence, not counted as skipped-test passes.

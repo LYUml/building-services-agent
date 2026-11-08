@@ -1,0 +1,548 @@
+{
+  "comparison": [
+    {
+      "environment": "SYNTHETIC SUMMER",
+      "variable": "Lights Electricity Rate",
+      "peak_change_kw": -0.24,
+      "period_change_kwh": -5.76
+    },
+    {
+      "environment": "SYNTHETIC SUMMER",
+      "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+      "peak_change_kw": -0.24000000000619925,
+      "period_change_kwh": -5.7600000007938945
+    },
+    {
+      "environment": "SYNTHETIC SUMMER",
+      "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+      "peak_change_kw": 0.0,
+      "period_change_kwh": 2.2026824808563106e-16
+    },
+    {
+      "environment": "SYNTHETIC WINTER",
+      "variable": "Lights Electricity Rate",
+      "peak_change_kw": -0.24,
+      "period_change_kwh": -5.76
+    },
+    {
+      "environment": "SYNTHETIC WINTER",
+      "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+      "peak_change_kw": -0.26645079905561886,
+      "period_change_kwh": -2.2531507556311037
+    },
+    {
+      "environment": "SYNTHETIC WINTER",
+      "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+      "peak_change_kw": 0.27195994907150445,
+      "period_change_kwh": 2.801146181077633
+    }
+  ],
+  "engine": "EnergyPlus, Version 25.2.0-cf7368216c",
+  "engine_sha256": "51715987663666eaff1c8d3bd6ac2d7fe0486d8bc93673eea87c6912a79103f0",
+  "input_sha256": "785c2c2f3101e421d2b1cddce8c0d55170d6e488706968229d0d80d5ed5c75cc",
+  "input_unchanged": true,
+  "analysis_scope": "Two synthetic design days, not annual energy; ideal loads are thermal demand, not plant electricity",
+  "assumptions": [
+    "All inputs explicitly synthetic for integration verification, not Hong Kong design weather or compliance",
+    "No windows, occupants, equipment, ventilation or infiltration; adiabatic floors; always-on lights; 101325 Pa, wind 3 m/s, clear sky; added 0.1 m mass layer k=0.5 W/mK, rho=800 kg/m3, cp=1000 J/kgK"
+  ],
+  "design_accepted": false,
+  "results": {
+    "baseline": {
+      "metadata": {
+        "sizing_humidity_audit": {
+          "zones": [
+            {
+              "zone": "Zone 1",
+              "method": "Sensible And Latent Load",
+              "humidification_rh_percent": 50.0,
+              "humidification_rh_percent_schedule": "Zone 1 sizing humidification_rh_percent",
+              "dehumidification_rh_percent": 50.0,
+              "dehumidification_rh_percent_schedule": "Zone 1 sizing dehumidification_rh_percent"
+            },
+            {
+              "zone": "Zone 2",
+              "method": "Sensible And Latent Load",
+              "humidification_rh_percent": 50.0,
+              "humidification_rh_percent_schedule": "Zone 2 sizing humidification_rh_percent",
+              "dehumidification_rh_percent": 50.0,
+              "dehumidification_rh_percent_schedule": "Zone 2 sizing dehumidification_rh_percent"
+            }
+          ],
+          "saved_osm_checks_pass": true,
+          "scope": "Sizing-only RH schedules and sensible/latent sizing mode; operating humidistat and equipment performance not established",
+          "saved_idf_checks_pass": true,
+          "zone_count": 2
+        },
+        "window_audit": null,
+        "material_audit": null,
+        "openstudio_version": "3.11.0",
+        "energyplus_version": "25.2.0",
+        "north_axis_deg": 0.0,
+        "floor_area_m2": 40.0,
+        "thermal_zones": 2,
+        "matched_surface_count": 2,
+        "spaces": [
+          {
+            "id": "Zone 1",
+            "source": "All inputs explicitly synthetic for integration verification, not Hong Kong design weather or compliance",
+            "origin_m": [
+              0,
+              0,
+              0
+            ],
+            "size_m": [
+              5,
+              4,
+              3
+            ]
+          },
+          {
+            "id": "Zone 2",
+            "source": "All inputs explicitly synthetic for integration verification, not Hong Kong design weather or compliance",
+            "origin_m": [
+              5,
+              0,
+              0
+            ],
+            "size_m": [
+              5,
+              4,
+              3
+            ]
+          }
+        ],
+        "adjacency": [
+          {
+            "spaces": [
+              "Zone 1",
+              "Zone 2"
+            ],
+            "axis": 0,
+            "area_m2": 12
+          }
+        ],
+        "zone_keys": [
+          "ZONE 1",
+          "ZONE 2"
+        ],
+        "lighting_keys": [
+          "ZONE 1 LIGHTS",
+          "ZONE 2 LIGHTS"
+        ],
+        "lighting_w_m2": 12,
+        "translation_warnings": [
+          "Both surfaces 'Surface 4', and 'Surface 8' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy."
+        ]
+      },
+      "metrics": [
+        {
+          "variable": "Lights Electricity Rate",
+          "key": "ZONE 1 LIGHTS",
+          "units": "W",
+          "peak": 240.0,
+          "integral_j": 41472000.0,
+          "samples": 48
+        },
+        {
+          "variable": "Lights Electricity Rate",
+          "key": "ZONE 2 LIGHTS",
+          "units": "W",
+          "peak": 240.0,
+          "integral_j": 41472000.0,
+          "samples": 48
+        },
+        {
+          "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+          "key": "ZONE 1 IDEAL LOADS AIR SYSTEM",
+          "units": "W",
+          "peak": 151.81049151809316,
+          "integral_j": 3093567.2629163656,
+          "samples": 48
+        },
+        {
+          "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+          "key": "ZONE 1 IDEAL LOADS AIR SYSTEM",
+          "units": "W",
+          "peak": 874.0819091181186,
+          "integral_j": 54524650.95367601,
+          "samples": 48
+        },
+        {
+          "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+          "key": "ZONE 2 IDEAL LOADS AIR SYSTEM",
+          "units": "W",
+          "peak": 94.91597124378063,
+          "integral_j": 1096072.5148964918,
+          "samples": 48
+        },
+        {
+          "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+          "key": "ZONE 2 IDEAL LOADS AIR SYSTEM",
+          "units": "W",
+          "peak": 802.8811955986911,
+          "integral_j": 52044568.343767494,
+          "samples": 48
+        }
+      ],
+      "completion": {
+        "status": "verified_with_known_unwritten_sql_flags",
+        "completion_verified": true,
+        "checks": {
+          "process_exit_zero": true,
+          "stdout_success": true,
+          "end_report_success": true,
+          "no_severe_fatal": true,
+          "sql_engine_version_match": true,
+          "sql_flags_compatible": true,
+          "native_files_complete": true,
+          "one_readable_sql_record": true
+        },
+        "process_returncode": 0,
+        "sql_flags_raw": [
+          "FALSE",
+          "FALSE"
+        ],
+        "sql_flags_decoded": [
+          false,
+          false
+        ],
+        "native_sql_success_flags_true": false,
+        "known_unwritten_initial_flags": true,
+        "engine_version": "EnergyPlus, Version 25.2.0-cf7368216c",
+        "engine_sha256": "51715987663666eaff1c8d3bd6ac2d7fe0486d8bc93673eea87c6912a79103f0",
+        "source_inference": {
+          "commit": "cf7368216c73c43181e057fa33b479c4e0c86df0",
+          "facts": {
+            "api/EnergyPlusPgm.cc": {
+              "sha256": "d230aa32b5acc6bdcb8c55d95022f1ecca351719b9b2d43f53a8270e7b1214d2",
+              "fact": "normal wrapUpEnergyPlus releases the SQLite object before calling EndEnergyPlus",
+              "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/api/EnergyPlusPgm.cc"
+            },
+            "UtilityRoutines.cc": {
+              "sha256": "bf0c2e9175b374ce100b0b262523d8d6c507baaf3922f5cc84fb6a3651152a3d",
+              "fact": "EndEnergyPlus updates success flags only when the SQLite object still exists",
+              "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/UtilityRoutines.cc"
+            },
+            "SQLiteProcedures.cc": {
+              "sha256": "b324324996a62c6fc5cf93a3039a2ea2d5788292faf77b07030b55debfa9c1a1",
+              "fact": "Simulations completion columns initially contain text FALSE/FALSE",
+              "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/SQLiteProcedures.cc"
+            }
+          },
+          "scope": "pinned source ordering plus observed official executable reproduction; not instruction tracing"
+        },
+        "scope": "Native process/log/end/error/SQL-version completion evidence only; period coverage, numerical/model validity and engineering acceptance remain separate",
+        "design_accepted": false,
+        "artifacts": {
+          "engine.log": "1aec5ad83701dec34cacb3e5969e299954ca413e626863386f43237c04bda27e",
+          "eplusout.end": "bbe27d63bbba5a0156c23b920f4b16750415399bdc18ff667a31b22c91ac3ed8",
+          "eplusout.err": "fd097955666c59721b5f67cfa9ac0cdca1e2a46eade8eb670fa5199f6f425c64",
+          "eplusout.sql": "0e021a64d9a3a0d091e617abc2f2e7be7bf4f405d0e2ed28a30d1936a0a2cb50"
+        },
+        "missing_artifacts": [],
+        "sql_parse_error": null,
+        "source_files_unchanged": true
+      },
+      "whole_building": [
+        {
+          "environment": "SYNTHETIC SUMMER",
+          "variable": "Lights Electricity Rate",
+          "coincident_peak_kw": 0.48,
+          "simulated_period_kwh": 11.52,
+          "samples": 24
+        },
+        {
+          "environment": "SYNTHETIC SUMMER",
+          "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+          "coincident_peak_kw": 1.6726573574320738,
+          "simulated_period_kwh": 25.69562997142691,
+          "samples": 24
+        },
+        {
+          "environment": "SYNTHETIC SUMMER",
+          "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+          "coincident_peak_kw": 8.526512829121202e-17,
+          "simulated_period_kwh": 2.2737367544323206e-16,
+          "samples": 24
+        },
+        {
+          "environment": "SYNTHETIC WINTER",
+          "variable": "Lights Electricity Rate",
+          "coincident_peak_kw": 0.48,
+          "simulated_period_kwh": 11.52,
+          "samples": 24
+        },
+        {
+          "environment": "SYNTHETIC WINTER",
+          "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+          "coincident_peak_kw": 0.6504541220104393,
+          "simulated_period_kwh": 3.906930944529617,
+          "samples": 24
+        },
+        {
+          "environment": "SYNTHETIC WINTER",
+          "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+          "coincident_peak_kw": 0.2467264627618738,
+          "simulated_period_kwh": 1.163788827170238,
+          "samples": 24
+        }
+      ],
+      "error_log_sha256": "fd097955666c59721b5f67cfa9ac0cdca1e2a46eade8eb670fa5199f6f425c64",
+      "warnings": "Program Version,EnergyPlus, Version 25.2.0-cf7368216c, YMD=2026.11.08 18:54,\n   ************* Beginning Zone Sizing Calculations\n   ************* Testing Individual Branch Integrity\n   ************* All Branches passed integrity testing\n   ************* Testing Individual Supply Air Path Integrity\n   ************* All Supply Air Paths passed integrity testing\n   ************* Testing Individual Return Air Path Integrity\n   ************* All Return Air Paths passed integrity testing\n   ************* No node connection errors were found.\n   ************* Beginning Simulation\n   ************* Simulation Error Summary *************\n   ************* There are 3 unused schedules in input.\n   ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.\n   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.\n   ************* EnergyPlus Sizing Error Summary. During Sizing: 0 Warning; 0 Severe Errors.\n   ************* EnergyPlus Completed Successfully-- 0 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  0.15sec\n",
+      "artifacts": {
+        "eplusout.sql": "0e021a64d9a3a0d091e617abc2f2e7be7bf4f405d0e2ed28a30d1936a0a2cb50",
+        "model.idf": "5f6854a5a37163aa239098ae6281163bc0be5e94bc3850f47b91bc53784196c2",
+        "model.osm": "6b8a6724665d7569319f11d38b23603bb91dabee65742f42e20e48fab1c7ac9e"
+      }
+    },
+    "variant": {
+      "metadata": {
+        "sizing_humidity_audit": {
+          "zones": [
+            {
+              "zone": "Zone 1",
+              "method": "Sensible And Latent Load",
+              "humidification_rh_percent": 50.0,
+              "humidification_rh_percent_schedule": "Zone 1 sizing humidification_rh_percent",
+              "dehumidification_rh_percent": 50.0,
+              "dehumidification_rh_percent_schedule": "Zone 1 sizing dehumidification_rh_percent"
+            },
+            {
+              "zone": "Zone 2",
+              "method": "Sensible And Latent Load",
+              "humidification_rh_percent": 50.0,
+              "humidification_rh_percent_schedule": "Zone 2 sizing humidification_rh_percent",
+              "dehumidification_rh_percent": 50.0,
+              "dehumidification_rh_percent_schedule": "Zone 2 sizing dehumidification_rh_percent"
+            }
+          ],
+          "saved_osm_checks_pass": true,
+          "scope": "Sizing-only RH schedules and sensible/latent sizing mode; operating humidistat and equipment performance not established",
+          "saved_idf_checks_pass": true,
+          "zone_count": 2
+        },
+        "window_audit": null,
+        "material_audit": null,
+        "openstudio_version": "3.11.0",
+        "energyplus_version": "25.2.0",
+        "north_axis_deg": 0.0,
+        "floor_area_m2": 40.0,
+        "thermal_zones": 2,
+        "matched_surface_count": 2,
+        "spaces": [
+          {
+            "id": "Zone 1",
+            "source": "All inputs explicitly synthetic for integration verification, not Hong Kong design weather or compliance",
+            "origin_m": [
+              0,
+              0,
+              0
+            ],
+            "size_m": [
+              5,
+              4,
+              3
+            ]
+          },
+          {
+            "id": "Zone 2",
+            "source": "All inputs explicitly synthetic for integration verification, not Hong Kong design weather or compliance",
+            "origin_m": [
+              5,
+              0,
+              0
+            ],
+            "size_m": [
+              5,
+              4,
+              3
+            ]
+          }
+        ],
+        "adjacency": [
+          {
+            "spaces": [
+              "Zone 1",
+              "Zone 2"
+            ],
+            "axis": 0,
+            "area_m2": 12
+          }
+        ],
+        "zone_keys": [
+          "ZONE 1",
+          "ZONE 2"
+        ],
+        "lighting_keys": [
+          "ZONE 1 LIGHTS",
+          "ZONE 2 LIGHTS"
+        ],
+        "lighting_w_m2": 6,
+        "translation_warnings": [
+          "Both surfaces 'Surface 8', and 'Surface 4' reference the same construction 'Construction 1' but it is not symmetric, creating a reversed copy."
+        ]
+      },
+      "metrics": [
+        {
+          "variable": "Lights Electricity Rate",
+          "key": "ZONE 1 LIGHTS",
+          "units": "W",
+          "peak": 120.0,
+          "integral_j": 20736000.0,
+          "samples": 48
+        },
+        {
+          "variable": "Lights Electricity Rate",
+          "key": "ZONE 2 LIGHTS",
+          "units": "W",
+          "peak": 120.0,
+          "integral_j": 20736000.0,
+          "samples": 48
+        },
+        {
+          "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+          "key": "ZONE 1 IDEAL LOADS AIR SYSTEM",
+          "units": "W",
+          "peak": 276.43034404912964,
+          "integral_j": 8406332.045128692,
+          "samples": 48
+        },
+        {
+          "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+          "key": "ZONE 1 IDEAL LOADS AIR SYSTEM",
+          "units": "W",
+          "peak": 754.0819091175956,
+          "integral_j": 40091081.562835515,
+          "samples": 48
+        },
+        {
+          "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+          "key": "ZONE 2 IDEAL LOADS AIR SYSTEM",
+          "units": "W",
+          "peak": 242.25606778424861,
+          "integral_j": 5867433.984563643,
+          "samples": 48
+        },
+        {
+          "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+          "key": "ZONE 2 IDEAL LOADS AIR SYSTEM",
+          "units": "W",
+          "peak": 682.8811955931488,
+          "integral_j": 37630795.01147798,
+          "samples": 48
+        }
+      ],
+      "completion": {
+        "status": "verified_with_known_unwritten_sql_flags",
+        "completion_verified": true,
+        "checks": {
+          "process_exit_zero": true,
+          "stdout_success": true,
+          "end_report_success": true,
+          "no_severe_fatal": true,
+          "sql_engine_version_match": true,
+          "sql_flags_compatible": true,
+          "native_files_complete": true,
+          "one_readable_sql_record": true
+        },
+        "process_returncode": 0,
+        "sql_flags_raw": [
+          "FALSE",
+          "FALSE"
+        ],
+        "sql_flags_decoded": [
+          false,
+          false
+        ],
+        "native_sql_success_flags_true": false,
+        "known_unwritten_initial_flags": true,
+        "engine_version": "EnergyPlus, Version 25.2.0-cf7368216c",
+        "engine_sha256": "51715987663666eaff1c8d3bd6ac2d7fe0486d8bc93673eea87c6912a79103f0",
+        "source_inference": {
+          "commit": "cf7368216c73c43181e057fa33b479c4e0c86df0",
+          "facts": {
+            "api/EnergyPlusPgm.cc": {
+              "sha256": "d230aa32b5acc6bdcb8c55d95022f1ecca351719b9b2d43f53a8270e7b1214d2",
+              "fact": "normal wrapUpEnergyPlus releases the SQLite object before calling EndEnergyPlus",
+              "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/api/EnergyPlusPgm.cc"
+            },
+            "UtilityRoutines.cc": {
+              "sha256": "bf0c2e9175b374ce100b0b262523d8d6c507baaf3922f5cc84fb6a3651152a3d",
+              "fact": "EndEnergyPlus updates success flags only when the SQLite object still exists",
+              "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/UtilityRoutines.cc"
+            },
+            "SQLiteProcedures.cc": {
+              "sha256": "b324324996a62c6fc5cf93a3039a2ea2d5788292faf77b07030b55debfa9c1a1",
+              "fact": "Simulations completion columns initially contain text FALSE/FALSE",
+              "url": "https://github.com/NatLabRockies/EnergyPlus/blob/cf7368216c73c43181e057fa33b479c4e0c86df0/src/EnergyPlus/SQLiteProcedures.cc"
+            }
+          },
+          "scope": "pinned source ordering plus observed official executable reproduction; not instruction tracing"
+        },
+        "scope": "Native process/log/end/error/SQL-version completion evidence only; period coverage, numerical/model validity and engineering acceptance remain separate",
+        "design_accepted": false,
+        "artifacts": {
+          "engine.log": "315a7bd1a1bb4d4c07a874da9c73ac43b3d5adcbdf62a0492c3f955816b37ca4",
+          "eplusout.end": "655e8ed5aa2fc65a3b3b62154bbb7d577d4b8aae7e4de35e1a71103746a67472",
+          "eplusout.err": "ee129de96d8fe17cea7e699501c3c0f29f07aad333b5f4d43537ac30859a7533",
+          "eplusout.sql": "2731c5d9a714f45222be8dbb21c19e936b90a21702e46a598879e8618a7dd6b0"
+        },
+        "missing_artifacts": [],
+        "sql_parse_error": null,
+        "source_files_unchanged": true
+      },
+      "whole_building": [
+        {
+          "environment": "SYNTHETIC SUMMER",
+          "variable": "Lights Electricity Rate",
+          "coincident_peak_kw": 0.24,
+          "simulated_period_kwh": 5.76,
+          "samples": 24
+        },
+        {
+          "environment": "SYNTHETIC SUMMER",
+          "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+          "coincident_peak_kw": 1.4326573574258745,
+          "simulated_period_kwh": 19.935629970633016,
+          "samples": 24
+        },
+        {
+          "environment": "SYNTHETIC SUMMER",
+          "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+          "coincident_peak_kw": 8.526512829121202e-17,
+          "simulated_period_kwh": 4.476419235288631e-16,
+          "samples": 24
+        },
+        {
+          "environment": "SYNTHETIC WINTER",
+          "variable": "Lights Electricity Rate",
+          "coincident_peak_kw": 0.24,
+          "simulated_period_kwh": 5.76,
+          "samples": 24
+        },
+        {
+          "environment": "SYNTHETIC WINTER",
+          "variable": "Zone Ideal Loads Supply Air Total Cooling Rate",
+          "coincident_peak_kw": 0.3840033229548204,
+          "simulated_period_kwh": 1.6537801888985135,
+          "samples": 24
+        },
+        {
+          "environment": "SYNTHETIC WINTER",
+          "variable": "Zone Ideal Loads Supply Air Total Heating Rate",
+          "coincident_peak_kw": 0.5186864118333783,
+          "simulated_period_kwh": 3.964935008247871,
+          "samples": 24
+        }
+      ],
+      "error_log_sha256": "ee129de96d8fe17cea7e699501c3c0f29f07aad333b5f4d43537ac30859a7533",
+      "warnings": "Program Version,EnergyPlus, Version 25.2.0-cf7368216c, YMD=2026.11.08 18:54,\n   ************* Beginning Zone Sizing Calculations\n   ************* Testing Individual Branch Integrity\n   ************* All Branches passed integrity testing\n   ************* Testing Individual Supply Air Path Integrity\n   ************* All Supply Air Paths passed integrity testing\n   ************* Testing Individual Return Air Path Integrity\n   ************* All Return Air Paths passed integrity testing\n   ************* No node connection errors were found.\n   ************* Beginning Simulation\n   ************* Simulation Error Summary *************\n   ************* There are 3 unused schedules in input.\n   ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.\n   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.\n   ************* EnergyPlus Sizing Error Summary. During Sizing: 0 Warning; 0 Severe Errors.\n   ************* EnergyPlus Completed Successfully-- 0 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  0.12sec\n",
+      "artifacts": {
+        "eplusout.sql": "2731c5d9a714f45222be8dbb21c19e936b90a21702e46a598879e8618a7dd6b0",
+        "model.idf": "90dab80c20a770e54d3010c0fec446cd50ea9775dc59d9daf8bd816143072153",
+        "model.osm": "0f959b8d41b5b41fca5c1623b1115febcd856c9aad8f28e29428ec38d69a8dae"
+      }
+    }
+  }
+}

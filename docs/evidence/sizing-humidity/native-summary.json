@@ -1,0 +1,90 @@
+{
+  "baseline": {
+    "sizing_timesteps": 96,
+    "reported_rh_ranges": {
+      "ZONE 1:SYNTHETIC WINTER:Heating Zone Relative Humidity [%]": [
+        49.85757,
+        50.83851
+      ],
+      "ZONE 1:SYNTHETIC SUMMER:Cooling Zone Relative Humidity [%]": [
+        50.0,
+        50.0
+      ],
+      "ZONE 2:SYNTHETIC WINTER:Heating Zone Relative Humidity [%]": [
+        49.3143,
+        50.47927
+      ],
+      "ZONE 2:SYNTHETIC SUMMER:Cooling Zone Relative Humidity [%]": [
+        50.0,
+        50.0
+      ]
+    },
+    "zone_sizing_loads_w": [
+      [
+        "ZONE 1",
+        "Cooling",
+        876.0393051828989
+      ],
+      [
+        "ZONE 1",
+        "Latent Heating",
+        177.25881838598136
+      ],
+      [
+        "ZONE 2",
+        "Cooling",
+        804.7409369233483
+      ],
+      [
+        "ZONE 2",
+        "Latent Heating",
+        131.69691704496032
+      ]
+    ],
+    "all_timestep_RH_acceptance": "not_established; input schedules are not proof of maintained state"
+  },
+  "variant": {
+    "sizing_timesteps": 96,
+    "reported_rh_ranges": {
+      "ZONE 1:SYNTHETIC WINTER:Heating Zone Relative Humidity [%]": [
+        49.93892,
+        50.76402
+      ],
+      "ZONE 1:SYNTHETIC SUMMER:Cooling Zone Relative Humidity [%]": [
+        50.0,
+        50.0
+      ],
+      "ZONE 2:SYNTHETIC WINTER:Heating Zone Relative Humidity [%]": [
+        49.25208,
+        50.66689
+      ],
+      "ZONE 2:SYNTHETIC SUMMER:Cooling Zone Relative Humidity [%]": [
+        50.0,
+        50.0
+      ]
+    },
+    "zone_sizing_loads_w": [
+      [
+        "ZONE 1",
+        "Cooling",
+        756.0393318639021
+      ],
+      [
+        "ZONE 1",
+        "Heating",
+        276.41365786632355
+      ],
+      [
+        "ZONE 2",
+        "Cooling",
+        684.7412327019008
+      ],
+      [
+        "ZONE 2",
+        "Heating",
+        242.20679803849134
+      ]
+    ],
+    "all_timestep_RH_acceptance": "not_established; input schedules are not proof of maintained state"
+  }
+}

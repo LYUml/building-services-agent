@@ -1,0 +1,7 @@
+test_real_engine_geometry_and_lighting_balance (test_energy.EnergyTests.test_real_engine_geometry_and_lighting_balance) ... skipped 'requires explicit EnergyPlus executable'
+test_rejects_invalid_physics (test_energy.EnergyTests.test_rejects_invalid_physics) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+OK (skipped=1)

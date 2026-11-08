@@ -1,0 +1,10 @@
+{
+  "analysis.json": "fc07a2c2bdcf83dba44d25dcd173f369df98fa488fecde5986d46e3ad3f30c7e",
+  "baseline-native.zip": "1b15196f3cf69ae8da31246774807772bf9a45126a2e40d5db9877b64c7f67c8",
+  "native-summary.json": "30188675458dbdf3d80414de5271cc1256311fb82b97ac46c0d794ace2560f53",
+  "README.md": "6626a0d5f97db589f0330dbf641510804a790141e589127ffca09e42522f9ce0",
+  "sizing-humidity-annual-regression.log": "a4bd6637c56c6dd96bb209a25e755ec8bee18330993e85c090a5af611d778c51",
+  "sizing-humidity-energy-regression.log": "ccc23dea1027fd3ed65c6ab31830727262c24bf14d6413fc08c86818496ac358",
+  "sizing-humidity-tests.log": "0e97335e6fa0689d5d7ddbdb3aebcd1f6b46b8f6b87672a49c43569c7e38ace1",
+  "variant-native.zip": "4122f48043555e170b9680c1184def49f530565cb29904a238dfa3274b812f38"
+}

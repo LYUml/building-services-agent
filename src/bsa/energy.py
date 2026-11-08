@@ -83,6 +83,9 @@ def build(p, lighting, out):
     if 'windows' in p:
         from .thermal_windows import author as author_windows
         author_windows(m,p['windows'],geometry)
+    if 'sizing_humidity' in p:
+        from .sizing_humidity import author as author_sizing_humidity
+        author_sizing_humidity(m,p['sizing_humidity'])
     for dd in p["design_days"]:
         day=os.model.DesignDay(m);day.setName(dd["name"]);day.setMonth(dd["month"])
         day.setDayOfMonth(dd["day"]);day.setDayType(dd["type"])
@@ -133,7 +136,14 @@ def build(p, lighting, out):
         saved=os.model.Model.load(os.path(str(osm)))
         if saved.empty():raise ProjectError('saved window model could not be reopened')
         window_audit=audit_windows(saved.get(),p['windows'],geometry)
-    return dict(window_audit=window_audit,material_audit=material_audit,openstudio_version=os.openStudioVersion(),energyplus_version=os.energyPlusVersion(),
+    humidity_audit=None
+    if 'sizing_humidity' in p:
+        from .sizing_humidity import audit as audit_sizing_humidity, audit_idf
+        saved=os.model.Model.load(os.path(str(osm)))
+        if saved.empty():raise ProjectError('saved sizing humidity model could not be reopened')
+        humidity_audit=audit_sizing_humidity(saved.get(),p['sizing_humidity'])
+        humidity_audit.update(audit_idf(out/'model.idf',humidity_audit['zones'],p['sizing_humidity']))
+    return dict(sizing_humidity_audit=humidity_audit,window_audit=window_audit,material_audit=material_audit,openstudio_version=os.openStudioVersion(),energyplus_version=os.energyPlusVersion(),
         north_axis_deg=m.getBuilding().northAxis(),floor_area_m2=area,thermal_zones=len(m.getThermalZones()),matched_surface_count=matched,
         spaces=geometry,adjacency=expected_adjacency,zone_keys=[s["id"].upper() for s in geometry],lighting_keys=[(s["id"]+" lights").upper() for s in geometry],lighting_w_m2=lighting,translation_warnings=[str(x.logMessage()) for x in ft.warnings()])
 
@@ -172,6 +182,10 @@ def totals(sql):
 def validate(p,require_design_days=True):
     if not isinstance(p,dict) or not isinstance(p.get("source"),str) or not p["source"].strip():
         raise ProjectError("source statement required")
+    if 'sizing_humidity' in p:
+        if not require_design_days:raise ProjectError('sizing humidity currently supported for design-day workflows only')
+        from .sizing_humidity import validate as validate_sizing_humidity
+        validate_sizing_humidity(p['sizing_humidity'])
     def number(value,label,low=None,high=None):
         if isinstance(value,bool) or not isinstance(value,(int,float)) or not math.isfinite(value):
             raise ProjectError(f"finite number required: {label}")
