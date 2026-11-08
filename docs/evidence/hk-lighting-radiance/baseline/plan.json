@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "9b4e48ef4eddd8032d497f846b9c6e382bdb65e55ec586c0ac2bd13d12bc18f6",
+  "passage_dispositions": {
+    "P001": "requirement",
+    "P002": "requirement",
+    "P003": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "lpd",
+      "kind": "lighting_regulations",
+      "project": "project.json",
+      "geometry": "geometry.json",
+      "basis": "basis.json",
+      "pack": "pack.json",
+      "sources": "."
+    },
+    {
+      "id": "lighting",
+      "kind": "electrical_lighting",
+      "project": "project.json",
+      "geometry": "geometry.json",
+      "optical": "optical.json",
+      "requires_pass": [
+        "lpd"
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "requires_pass": [
+        "lighting"
+      ],
+      "description": "Actual geometry/photometry/controls/glare and full engineering acceptance pending"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P001",
+      "quote": "Check the shared office lighting power density with the pinned Hong Kong pack.",
+      "task": "lpd",
+      "acceptance": "Check the shared office lighting power density with the pinned Hong Kong pack."
+    },
+    {
+      "id": "R2",
+      "passage": "P002",
+      "quote": "Run shared CAD/IFC and real IES-backed Radiance checks only after the selected LPD check passes.",
+      "task": "lighting",
+      "acceptance": "Run shared CAD/IFC and real IES-backed Radiance checks only after the selected LPD check passes."
+    },
+    {
+      "id": "R3",
+      "passage": "P003",
+      "quote": "Review actual geometry, photometry, daylight, glare, controls and full engineering acceptance separately.",
+      "task": "review",
+      "acceptance": "Review actual geometry, photometry, daylight, glare, controls and full engineering acceptance separately."
+    }
+  ]
+}

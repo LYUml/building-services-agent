@@ -1,0 +1,16 @@
+{
+  "baseline/brief.md": "9b4e48ef4eddd8032d497f846b9c6e382bdb65e55ec586c0ac2bd13d12bc18f6",
+  "baseline/diagnosis.json": "18ce464ddeb836a45e88fe7fcddd84eaab2f5963857e1d0115c59b7e731bd290",
+  "baseline/optical.json": "c009861d6095fbd88d9e0897ea9731e4e098defdfb9ba202650d05e946eea91f",
+  "baseline/plan.json": "2df06d313c77de06daba1d1de908a7508a7fbf5cc531cbebb58280419c2ade66",
+  "baseline/run-artifacts.zip": "29ce89227b86a71e152c9e4775218d91d7d716d74fb7f84b1bde372400699d82",
+  "baseline/staging.json": "aa1fa05203428d29c4a493be293a6b6fbacd4510f82f3fe6139e9f6ee8c345d9",
+  "high-target/brief.md": "9b4e48ef4eddd8032d497f846b9c6e382bdb65e55ec586c0ac2bd13d12bc18f6",
+  "high-target/diagnosis.json": "e73f4ce0ef4db87687eb7ffb8face9a4173fe97ec61a22de96bd9c62dcb24c12",
+  "high-target/optical.json": "b6f5350093b5208f40816601816ccae8723c3959d56bb1879fd20ef97365b9d9",
+  "high-target/plan.json": "2df06d313c77de06daba1d1de908a7508a7fbf5cc531cbebb58280419c2ade66",
+  "high-target/run-artifacts.zip": "e8801f1ec3a2220798605490678da0284230eeeee3f6c87bb54cdb0c063e6dbf",
+  "high-target/staging.json": "a686535edb1d21e1d547053c69eb6c32673ca6393c3600cd67f9cc10ef0c7aaa",
+  "README.md": "39f996794853d8e4d9b0a93ec237462cd9764337a9bfad32ccbf1c4d368af48b",
+  "summary.json": "b84bd95877e797c76f29f182ccb883000c03af0e3466ab862b1296cea157c68d"
+}

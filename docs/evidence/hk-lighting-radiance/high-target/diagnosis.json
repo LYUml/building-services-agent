@@ -1,0 +1,97 @@
+{
+  "plan_sha256": "2df06d313c77de06daba1d1de908a7508a7fbf5cc531cbebb58280419c2ade66",
+  "workflow_sha256": "5f156509ebcbaa2011130d9dd871fee4c77fcde2995158c8398a055c77f87bf0",
+  "integrity_pass": true,
+  "tasks": [
+    {
+      "id": "lpd",
+      "kind": "lighting_regulations",
+      "status": "pass",
+      "recorded_scope": "Shared source rectangular space areas and full electrical fixture watts; actual saved IFC not reopened; whole-project regulatory compliance not established",
+      "dependencies": [],
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R1"
+      ],
+      "evidence": [
+        "lpd/bound-space-projects.json",
+        "lpd/lighting-regulation-checks.json"
+      ]
+    },
+    {
+      "id": "lighting",
+      "kind": "electrical_lighting",
+      "status": "fail",
+      "recorded_scope": "shared electrical/CAD/IFC light positions bound to explicit IES origins and Radiance calculation; complete physical/domain acceptance pending",
+      "dependencies": [
+        "lpd"
+      ],
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "lighting"
+      ],
+      "next_action": "inspect retained failure evidence and correct source or adapter before a new run",
+      "requirement_ids": [
+        "R2"
+      ],
+      "evidence": [
+        "lighting/lighting-binding.json",
+        "lighting/lighting-input.json",
+        "lighting/lighting/direct-rgb.txt",
+        "lighting/lighting/engine-calls.json",
+        "lighting/lighting/fixture_0000.dat",
+        "lighting/lighting/fixture_0000.rad",
+        "lighting/lighting/fixture_0001.dat",
+        "lighting/lighting/fixture_0001.rad",
+        "lighting/lighting/fixture_0002.dat",
+        "lighting/lighting/fixture_0002.rad",
+        "lighting/lighting/illuminance.csv",
+        "lighting/lighting/initial-rgb.txt",
+        "lighting/lighting/lighting.json",
+        "lighting/lighting/scene.oct",
+        "lighting/lighting/scene.rad",
+        "lighting/lighting/sensors.pts",
+        "lighting/lighting/total-rgb.txt",
+        "lighting/photometry/fixture-0000.ies",
+        "lighting/photometry/fixture-0001.ies",
+        "lighting/photometry/fixture-0002.ies",
+        "lighting/shared/bim/bim-verification.json",
+        "lighting/shared/bim/model.ifc",
+        "lighting/shared/bim/schema-validation.json",
+        "lighting/shared/coordinated-devices.csv",
+        "lighting/shared/coordination.json",
+        "lighting/shared/electrical/calculations.json",
+        "lighting/shared/electrical/devices.dxf",
+        "lighting/shared/electrical/manifest.json",
+        "lighting/shared/electrical/preview.svg",
+        "lighting/shared/electrical/report.html",
+        "lighting/shared/ifc-input.json"
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "required checks unresolved: lighting (fail); adapter not executed",
+      "dependencies": [
+        "lighting"
+      ],
+      "blocked_by": [
+        "lighting"
+      ],
+      "upstream_action_tasks": [
+        "lighting"
+      ],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R3"
+      ],
+      "evidence": []
+    }
+  ],
+  "execution_pass": false,
+  "design_accepted": false,
+  "scope": "Recorded execution and declared dependency graph only; no engine invocation, automatic repair, or engineering acceptance"
+}

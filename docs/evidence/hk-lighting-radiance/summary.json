@@ -1,0 +1,54 @@
+{
+  "baseline": {
+    "average_lux": 282.4183144533334,
+    "minimum_lux": 170.0776376,
+    "minimum_over_average": 0.6022188678847297,
+    "numerical_stability": {
+      "maximum_relative_change": 0.03643549612174286,
+      "tolerance": 0.15,
+      "denominator_floor_lux": 1,
+      "initial_bounces": 2,
+      "verification_bounces": 3,
+      "initial_divisions": 512,
+      "verification_divisions": 1024
+    },
+    "checks": {
+      "average": true,
+      "minimum": true,
+      "uniformity": true,
+      "numerical_stability": true
+    },
+    "calculated_checks_pass": true,
+    "task_statuses": {
+      "lpd": "pass",
+      "lighting": "pass",
+      "review": "pending"
+    }
+  },
+  "high-target": {
+    "average_lux": 282.4183144533334,
+    "minimum_lux": 170.0776376,
+    "minimum_over_average": 0.6022188678847297,
+    "numerical_stability": {
+      "maximum_relative_change": 0.03643549612174286,
+      "tolerance": 0.15,
+      "denominator_floor_lux": 1,
+      "initial_bounces": 2,
+      "verification_bounces": 3,
+      "initial_divisions": 512,
+      "verification_divisions": 1024
+    },
+    "checks": {
+      "average": false,
+      "minimum": true,
+      "uniformity": true,
+      "numerical_stability": true
+    },
+    "calculated_checks_pass": false,
+    "task_statuses": {
+      "lpd": "pass",
+      "lighting": "fail",
+      "review": "pending"
+    }
+  }
+}

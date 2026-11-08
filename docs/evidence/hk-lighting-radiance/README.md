@@ -1,0 +1,5 @@
+# Hong Kong LPD and actual Radiance workflow
+
+Two isolated runs staged original shared electrical/geometry/IES inputs and the pinned official BEC source using scripts/run_hk_lighting_demo.py. Both LPD checks passed. Actual Radiance ran direct/reflected illumination and numerical-stability checks; the baseline synthetic target passed, while an explicitly raised 1000 lx sensor-mean target failed. The latter did not lose its failure when LPD passed and its dependent review was blocked. The baseline review remains pending too.
+
+Each ZIP retains the complete workflow execution bundle (shared DXF/IFC, reconciliation, photometry, engine commands/results/hashes and checks). The official PDF is not redistributed; staging.json records its hash with every original source. The copied optical.json identifies the sole control change. Targets and IES are synthetic and are not office regulatory illuminance requirements. No native DWG, final drawing inspection, glare/daylight/control or full engineering acceptance is established by these runs.

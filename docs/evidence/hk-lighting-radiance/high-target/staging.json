@@ -1,0 +1,22 @@
+{
+  "original_inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\office-electrical\\project.json": "34e1fba15d2ec9dacbdf256cf996d2de772873d720374f1ac55fd6b64ac4f34a",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\office-electrical\\geometry.json": "3d8f4cfd0e599d14e9e9dc2bd61548a983750de0f7ccf08388c68934a1e35808",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\regulations-hk-lighting\\shared-space-basis.json": "00535700b9bb84bcacdaf608951bd2604f534955cfae1996568ba9c664e4f169",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\regulations\\hk\\lighting-2026.11.08\\pack.json": "97b7be1ea891b575bdd239e200ce41120ed09a509914ebd74394135decc9997c",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\shared-lighting.json": "c009861d6095fbd88d9e0897ea9731e4e098defdfb9ba202650d05e946eea91f",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\lighting\\synthetic-1000cd.ies": "e98b3d9644e71c99c2af92b18f63edcebed76f435bf54a9d24bf4981b4d5a47e",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-regulation-sources\\emsd-bec-2024.pdf": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7"
+  },
+  "inputs_unchanged": true,
+  "high_target_control": true,
+  "staged_files": {
+    "project.json": "34e1fba15d2ec9dacbdf256cf996d2de772873d720374f1ac55fd6b64ac4f34a",
+    "geometry.json": "3d8f4cfd0e599d14e9e9dc2bd61548a983750de0f7ccf08388c68934a1e35808",
+    "basis.json": "00535700b9bb84bcacdaf608951bd2604f534955cfae1996568ba9c664e4f169",
+    "pack.json": "97b7be1ea891b575bdd239e200ce41120ed09a509914ebd74394135decc9997c",
+    "optical.json": "b6f5350093b5208f40816601816ccae8723c3959d56bb1879fd20ef97365b9d9",
+    "lighting/synthetic-1000cd.ies": "e98b3d9644e71c99c2af92b18f63edcebed76f435bf54a9d24bf4981b4d5a47e",
+    "emsd-bec-2024.pdf": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7"
+  }
+}
