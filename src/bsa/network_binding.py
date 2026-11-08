@@ -118,10 +118,18 @@ def reconcile(model_path, derived_path, binding, source_model=None):
     if not math.isclose(unit.calculate_unit_scale(model),1):raise ProjectError('bound IFC metre units required')
     derived=json.loads(Path(derived_path).read_text(encoding='utf-8-sig'))
     devices={d.Name:d for d in model.by_type('IfcDistributionElement')}
+    if len(devices)!=len(model.by_type('IfcDistributionElement')):raise ProjectError('duplicate saved IFC device names')
     ports={}
     for d in devices.values():
         for p in system.get_ports(d):
-            ports[d.Name+'.'+p.Name]=(p,placement.get_local_placement(p.ObjectPlacement)[:3,3])
+            key=d.Name+'.'+p.Name
+            if key in ports:raise ProjectError('duplicate saved IFC port names')
+            ports[key]=(p,placement.get_local_placement(p.ObjectPlacement)[:3,3])
+    links={(r.RelatingPort.id(),r.RelatedPort.id()) for r in model.by_type('IfcRelConnectsPorts')}
+    if source_model:
+        expected={(ports[c['from']][0].id(),ports[c['to']][0].id()) for c in source_model['connections']}
+        if links!=expected or len(links)!=len(model.by_type('IfcRelConnectsPorts')):
+            raise ProjectError('saved directed port connections differ from source model')
     for n in derived['nodes']:
         if abs(ports[binding['nodes'][n['id']]][1][2]-n['elevation_m'])>1e-8:
             raise ProjectError('saved IFC/network elevation mismatch')
@@ -130,12 +138,14 @@ def reconcile(model_path, derived_path, binding, source_model=None):
         has_elbow=any(element.get_psets(devices[name]).get('BSA_DesignInputs',{}).get('BodyShape')==elbow.WALL for name in binding['segments'][s['id']])
         if has_elbow and not source_model:raise ProjectError('source model required for independent fitting K reconciliation')
         minor_k=0
-        length=0;first=None;last=None
+        length=0;first=None;last=None;first_port=None;last_port=None
         for identifier in binding['segments'][s['id']]:
             obj=devices[identifier]
             ps=[value for key,value in ports.items() if system.get_port_element(value[0])==obj]
-            inlet=next(xyz for p,xyz in ps if p.FlowDirection=='SINK')
-            outlet=next(xyz for p,xyz in ps if p.FlowDirection=='SOURCE')
+            ins=[(p,xyz) for p,xyz in ps if p.FlowDirection=='SINK'];outs=[(p,xyz) for p,xyz in ps if p.FlowDirection=='SOURCE']
+            if len(ins)!=1 or len(outs)!=1:raise ProjectError('saved route requires one inlet and outlet')
+            inlet_port,inlet=ins[0];outlet_port,outlet=outs[0]
+            if last_port is not None and ((last_port.id(),inlet_port.id()) not in links or math.dist(last,inlet)>1e-8):raise ProjectError('saved route pieces lack directed coincident connection')
             props=element.get_psets(obj)['BSA_DesignInputs']
             if props.get('BodyShape')==elbow.WALL:
                 arc_length,ends,radius=elbow.saved_arc_length(obj)
@@ -147,8 +157,8 @@ def reconcile(model_path, derived_path, binding, source_model=None):
                 k=props.get('LocalLossCoefficient');original=originals[identifier]['properties']
                 if type(k) not in (int,float) or not math.isfinite(k) or k<0 or props.get('LocalLossBasis')!=elbow.LOSS_BASIS or not math.isclose(k,original['LocalLossCoefficient'],abs_tol=1e-10,rel_tol=0):raise ProjectError('saved fitting-route K/basis differs from source')
                 minor_k+=k
-            if first is None:first=inlet
-            last=outlet
+            if first is None:first=inlet;first_port=inlet_port
+            last=outlet;last_port=outlet_port
             diameter=element.get_psets(obj)['BSA_DesignInputs'].get('InternalDiameter_m')
             if type(diameter) not in (int,float) or not math.isclose(diameter,s['diameter_m'],rel_tol=0,abs_tol=1e-10):
                 raise ProjectError('saved IFC/network internal diameter mismatch')
@@ -156,6 +166,12 @@ def reconcile(model_path, derived_path, binding, source_model=None):
         if not math.isclose(length,s['length_m'],rel_tol=0,abs_tol=1e-8):raise ProjectError('saved IFC/network route length mismatch')
         for xyz,node in ((first,s['from']),(last,s['to'])):
             if math.dist(xyz,ports[binding['nodes'][node]][1])>1e-8:raise ProjectError('saved IFC/network endpoint mismatch')
+        for node,route_port,is_start in ((s['from'],first_port,True),(s['to'],last_port,False)):
+            node_port,xyz=ports[binding['nodes'][node]]
+            owner=system.get_port_element(node_port)
+            candidates=[p for p,position in ports.values() if system.get_port_element(p)==owner and math.dist(position,xyz)<1e-8]
+            if node_port!=route_port and not any((p.id(),route_port.id()) in links if is_start else (route_port.id(),p.id()) in links for p in candidates):
+                raise ProjectError('saved node lacks directed coincident route connection')
     return True
 
 
