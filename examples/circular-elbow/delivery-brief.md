@@ -1,0 +1,13 @@
+# Synthetic finite 90-degree elbow body
+
+Author project.json as editable IFC4 with stable device/port identities, explicit straight hollow segments and a finite circular 90-degree elbow. Preserve supplied positions, inside/outside diameters, radius, end-face centres, logical directions and all source bytes.
+
+Reopen and validate the exact circular Axis reference and source-parametric tessellated annular wall, native closed/oriented connected mesh and through-bore topology, independent arc-length wall volume, envelope bounds and outward tangent port axes. Keep source connectivity and schema checks. Do not replace this elbow with a point, chord or box, infer a pressure-loss coefficient, or claim manufacturer/installation/visual/hydraulic acceptance.
+
+Use network.json and binding.json to derive total-pressure tree route length from actual straight pieces plus the finite circular arc, derive aggregate excess K from all source pieces, and independently reconcile saved IFC axis geometry, end ports, diameters and loss properties. Retain calculation results and unchanged source hashes. Synthetic excess K and water properties do not establish manufacturer or engineering applicability.
+
+Check the saved route IFC using clash-policy.json. Cover every represented physical element; retain native mesh and solid coverage. Require no material intersections and prove 10 mm clearance outside the two explicitly sourced 0.10 m spherical connection regions in both outside-to-full directions. Never waive positive solid overlap for connected ports. Preserve input hashes and report all failures; these synthetic thresholds do not establish product, regulation or visual acceptance.
+
+Produce a complete source-checked coplanar route drawing from the saved model IFC and original project.json using drawing-settings.json. Include both straight hollow pieces and the finite elbow as true circular axis and outside-diameter outlines, with saved IFC GUIDs, actual lengths, radius and bore/outside dimensions in the editable DXF and schedule. Reject missing pieces, body/axis/source contradictions, wrong units and unsupported projections; do not substitute the elbow chord or claim manufacturer installation detail.
+
+Save the route DXF as native DWG with isolated AutoCAD 2027, reopen it independently and reconcile every line, arc, annotation and IFC GUID. Plot A4 at the declared 1:25 scale using native-sheet.json; the 1.5 m incoming straight reference must measure 60 mm within the sourced tolerance. Reject clipped arc/annotation extents before native writes. Inspect the actual rendered PDF and retain its hash-bound visual review separately; product, BIM-viewer and complete engineering acceptance remain pending.

@@ -1,6 +1,6 @@
 ---
 name: mep-ifc-authoring
-description: Create and revise source-linked IFC4 MEP envelopes or explicit straight circular wall solids with spaces, systems, ports and native geometry verification. Use for open BIM authoring and IFC model checks.
+description: Create and revise source-linked IFC4 MEP envelopes, straight circular walls or finite elbows with spaces, systems, ports, native geometry checks and scoped CAD drawings. Use for open BIM authoring and saved IFC drawing workflows.
 ---
 
 # IFC MEP authoring
@@ -26,6 +26,8 @@ For saved-model coordination read docs/CLASH.md and use `ifc_clash`/`bsa.clash` 
 For revisions, supply a canonical `project_uuid` to keep class/input-ID object and device/port GUIDs stable. Retain that namespace for the same project and use a new UUID for an independent project. Do not promise stable relationship/representation IDs or byte-identical IFC files. For geometry-linked network sizing, use docs/NETWORK_MODEL_DESIGN.md with explicit outside dimensions; it preserves source endpoints and checks the new saved IFC against selected calculations while keeping product and visual gates pending.
 
 For segment schedules or projected pipe/duct diagrams, read docs/IFC_DRAWINGS.md and use `ifc_drawing` on the saved producer IFC. The adapter checks direct hollow profiles against metre metadata and directed ports, preserves GUID links in the DXF and lists omitted equipment classes. Inspect unsupported-segment errors and the preview; do not present centreline projection, analytic wall volume or successful DXF reload as an installation drawing, material takeoff or native/printed acceptance.
+
+For coplanar routes containing finite elbows, read docs/IFC_ROUTE_DRAWINGS.md and use `ifc_route_drawing` with saved IFC, original source model and drawing settings. Require full physical-piece coverage, actual world bounds alongside hollow-wall/port checks, and true circular arcs with OD outlines. The old straight-only adapter does not acquire fitting coverage. Reject unsupported units/planes rather than flattening geometry. Use `ifc_native` with a sourced straight reference and a window enclosing all arcs/labels, then inspect the actual PDF separately. Generic OD outlines do not establish manufacturer, support/joint, BIM-viewer or full installation acceptance.
 
 For native delivery of that diagram, use `ifc_native` with an explicit sheet window/scale and reference IFC GUID, supplying the local AutoCAD path through the workflow CLI. Check the independent DWG reopen geometry and complete model/XDATA identity audit, then inspect the actual PDF and keep a hash-bound visual record. A numerically correct reference length does not establish equipment/fitting detail or complete sheet acceptance.
 

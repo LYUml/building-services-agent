@@ -1,0 +1,20 @@
+test_actual_native_arc_reopen_identity_and_physical_pdf_scale (test_ifc_route_drawing.RouteDrawingTests.test_actual_native_arc_reopen_identity_and_physical_pdf_scale) ... Multiple definitions in dictionary at byte 0x1df9 for key /PageMode
+ok
+test_axially_shifted_wall_with_unchanged_ports_rejected (test_ifc_route_drawing.RouteDrawingTests.test_axially_shifted_wall_with_unchanged_ports_rejected) ... ok
+test_body_axis_units_and_coverage_tampering_rejected (test_ifc_route_drawing.RouteDrawingTests.test_body_axis_units_and_coverage_tampering_rejected) ... ok
+test_clipped_annotation_or_nonplanar_arc_rejected_before_native_writes (test_ifc_route_drawing.RouteDrawingTests.test_clipped_annotation_or_nonplanar_arc_rejected_before_native_writes) ... ok
+test_complete_identity_true_arc_od_outlines_and_schedule (test_ifc_route_drawing.RouteDrawingTests.test_complete_identity_true_arc_od_outlines_and_schedule) ... ok
+test_failed_route_drawing_blocks_native_workflow (test_ifc_route_drawing.RouteDrawingTests.test_failed_route_drawing_blocks_native_workflow) ... Exception ignored in: <function file.__del__ at 0x0000016160DF89A0>
+Traceback (most recent call last):
+  File "C:\Users\lyuml-win\Desktop\building-services-agent\.venv\Lib\site-packages\ifcopenshell\file.py", line 649, in __del__
+    del file_dict[self.file_pointer()]
+        ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 1518032645520
+ok
+test_native_reconciliation_rejects_arc_or_guid_change (test_ifc_route_drawing.RouteDrawingTests.test_native_reconciliation_rejects_arc_or_guid_change) ... ok
+test_reversed_plane_axes_preserve_arc_and_wrong_plane_rejected (test_ifc_route_drawing.RouteDrawingTests.test_reversed_plane_axes_preserve_arc_and_wrong_plane_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 104.929s
+
+OK

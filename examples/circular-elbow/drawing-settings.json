@@ -1,0 +1,8 @@
+{
+  "projection_axes": [
+    "X",
+    "Y"
+  ],
+  "annotation_height_m": 0.06,
+  "source": "Synthetic plan on the explicitly sourced horizontal route plane; true circular axes and OD outlines in metres. No product detail inferred."
+}

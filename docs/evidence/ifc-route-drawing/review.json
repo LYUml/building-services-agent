@@ -1,0 +1,234 @@
+{
+  "version": 1,
+  "plan_sha256": "fa037602bcc4672d2814b4f01dd1007fd8281a6930b69218296a25265fa400c7",
+  "workflow_sha256": "d1ff55a452eedd41e24565a47dec9024f662ba624cef89f5391bb047607c4645",
+  "requirements": [
+    {
+      "id": "R1",
+      "requirement_sha256": "302a380bd99c13161c0fdaf1be0c5c5012b5433822d5e4c49e6fa9b16bf5bf41",
+      "status": "pass",
+      "reviewer": "Codex host agent: source/numerical evidence and actual sheet image inspection",
+      "reviewed_at_utc": "2026-11-08T05:25:57.624952+00:00",
+      "notes": "Saved IFC has all three source devices, stable namespaced object/port identities, metre geometry and two matching connections. Source inputs remained unchanged; generic synthetic contract only.",
+      "evidence": [
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "sha256": "ebc68cbb2cbdca1fdc83854d820184d701fb6a2ac98769f755407bce9dd48698"
+        }
+      ],
+      "attachments": [],
+      "checks": [
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "pointer": "/checks/schema_valid",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending"
+        },
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "pointer": "/checks/device_count_match",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending"
+        },
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "pointer": "/checks/connection_endpoints_match",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending"
+        },
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "pointer": "/checks/source_unchanged",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending"
+        }
+      ]
+    },
+    {
+      "id": "R2",
+      "requirement_sha256": "7fd23394ea8f564206e636fcbc9e89ce21fd3cd3ea2e0175330ef016312ec1f7",
+      "status": "pass",
+      "reviewer": "Codex host agent: source/numerical evidence and actual sheet image inspection",
+      "reviewed_at_utc": "2026-11-08T05:25:57.624952+00:00",
+      "notes": "Native bend wall and exact Axis retain source radius/diameters, bounds, bore topology, volume and outward tangent axes. No analytic Body or product acceptance is claimed.",
+      "evidence": [
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "sha256": "ebc68cbb2cbdca1fdc83854d820184d701fb6a2ac98769f755407bce9dd48698"
+        }
+      ],
+      "attachments": [],
+      "checks": [
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "pointer": "/devices/1/circular_checks/closed_mesh",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending"
+        },
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "pointer": "/devices/1/circular_checks/through_bore_pass",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending"
+        },
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "pointer": "/devices/1/circular_checks/outward_port_axes_pass",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending"
+        }
+      ]
+    },
+    {
+      "id": "R3",
+      "requirement_sha256": "39cc692c3147401a253de137c999c3472d2790c2dd2dcdbf57b103d13b491a4e",
+      "status": "pass",
+      "reviewer": "Codex host agent: source/numerical evidence and actual sheet image inspection",
+      "reviewed_at_utc": "2026-11-08T05:25:57.625960+00:00",
+      "notes": "Saved arc and straight pieces reconcile to 3.471238898 m; explicit synthetic excess K totals 0.4. Independent laminar test and native source reconciliation pass. No product K applicability claimed.",
+      "evidence": [
+        {
+          "artifact": "model/network-binding.json",
+          "sha256": "5ecf6fcbc1e788709911a9075c4fedb9a109c94db17672ff64cc5b8f05ec5708"
+        }
+      ],
+      "attachments": [],
+      "checks": [
+        {
+          "artifact": "model/network-binding.json",
+          "pointer": "/inputs_unchanged",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending"
+        },
+        {
+          "artifact": "model/network-binding.json",
+          "pointer": "/saved_ifc_geometry_match",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending"
+        },
+        {
+          "artifact": "model/network-binding.json",
+          "pointer": "/calculated_checks_pass",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending"
+        }
+      ]
+    },
+    {
+      "id": "R4",
+      "requirement_sha256": "c8b10f6f865f27e60f84eb2993dde7d795b7e65f30c45bd690aa7bec2461a84e",
+      "status": "pass",
+      "reviewer": "Codex host agent: source/numerical evidence and actual sheet image inspection",
+      "reviewed_at_utc": "2026-11-08T05:25:57.625960+00:00",
+      "notes": "All three physical elements have accepted solid coverage. Both nonempty outside-to-full directions pass for each of two source joint regions under the stated synthetic tolerances. This is policy-scoped numerical acceptance.",
+      "evidence": [
+        {
+          "artifact": "qa/clash.json",
+          "sha256": "9a08434c82717da647aa4ce8728f82f38791de3d9a44b05cce05d9b4919a5973"
+        }
+      ],
+      "attachments": [],
+      "checks": [
+        {
+          "artifact": "qa/clash.json",
+          "pointer": "/checks/geometry_coverage",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending"
+        },
+        {
+          "artifact": "qa/clash.json",
+          "pointer": "/checks/no_intersections",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending"
+        },
+        {
+          "artifact": "qa/clash.json",
+          "pointer": "/checks/clearance",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending"
+        }
+      ]
+    },
+    {
+      "id": "R5",
+      "requirement_sha256": "fe1a065bd31be6b969490ae18bc097f5ff6ccbe5a9397dd66a60e182de66b091",
+      "status": "pass",
+      "reviewer": "Codex host agent: source/numerical evidence and actual sheet image inspection",
+      "reviewed_at_utc": "2026-11-08T05:25:57.625960+00:00",
+      "notes": "All three saved pieces reach editable true-arc axes and OD outlines, GUID-linked callouts and CSV. Bounds catch axial shifts with unchanged ports. Generic coplanar drawing only; no manufacturer/install detail inferred.",
+      "evidence": [
+        {
+          "artifact": "drawing/drawing.json",
+          "sha256": "a41eaa321631b7ee6d048bfdcb64bc5e621d7758521579162b4b2de641c5f4f0"
+        }
+      ],
+      "attachments": [],
+      "checks": [
+        {
+          "artifact": "drawing/drawing.json",
+          "pointer": "/inputs_unchanged",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending"
+        },
+        {
+          "artifact": "drawing/drawing.json",
+          "pointer": "/calculated_checks_pass",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending"
+        },
+        {
+          "artifact": "drawing/drawing.json",
+          "pointer": "/pieces/1/native_wall_checks/through_bore_pass",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending"
+        }
+      ]
+    },
+    {
+      "id": "R6",
+      "requirement_sha256": "fa85db2edd98e99983835e16057557ac465c343471e84dcaa8589af38472ea08",
+      "status": "pass",
+      "reviewer": "Codex host agent: source/numerical evidence and actual sheet image inspection",
+      "reviewed_at_utc": "2026-11-08T05:25:57.625960+00:00",
+      "notes": "Independent AutoCAD 2027 reopen preserves 20 entities and 18 linked identities. The 1.5 m reference measures 59.986333 mm at 1:25. Actual final A4 PDF rendered at 1700 px: smooth bend/OD curves, separated readable IN/BEND/OUT labels and legend, no clipping or outgoing leader/axis overlap. Product, BIM-viewer and complete engineering acceptance remain pending.",
+      "evidence": [
+        {
+          "artifact": "native/native-verification.json",
+          "sha256": "bf71b0e4f2c0c0d1fa5af606298f140cc5a3ac7ef7e94bb80222fa734ea0d11e"
+        },
+        {
+          "artifact": "native/sheet.pdf",
+          "sha256": "8f3d0bdb6c8e420a7d86c2b42917285295c08092f1e5d6dda5fe783007934c6f"
+        }
+      ],
+      "attachments": [
+        {
+          "path": "sheet-review.png",
+          "sha256": "d3e28af804754699a44453cdc795aa91de6dc3f956869304d9ae10d7fb14992b",
+          "source_artifact": "native/sheet.pdf",
+          "source_sha256": "8f3d0bdb6c8e420a7d86c2b42917285295c08092f1e5d6dda5fe783007934c6f"
+        }
+      ],
+      "checks": [
+        {
+          "artifact": "native/native-verification.json",
+          "pointer": "/native_reopen_pass",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending"
+        },
+        {
+          "artifact": "native/native-verification.json",
+          "pointer": "/checks/model_entities_and_ifc_xdata_match",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending"
+        },
+        {
+          "artifact": "native/native-verification.json",
+          "pointer": "/plot/pdf_reference_pass",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending"
+        }
+      ]
+    }
+  ]
+}

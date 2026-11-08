@@ -1,4 +1,4 @@
-"""Isolated native AutoCAD delivery of GUID-linked IFC line/text diagrams."""
+"""Isolated native AutoCAD delivery of GUID-linked IFC line/arc/text diagrams."""
 import argparse
 import json
 import math
@@ -55,7 +55,10 @@ def run(source, settings_path, out, exe=DEFAULT_EXE):
     before={str(p):digest(p) for p in (source,settings_path)}
     doc=ezdxf.readfile(source)
     if doc.header.get('$INSUNITS')!=6 or not list(doc.modelspace()):raise ProjectError('nonempty metre diagram required')
-    if any(e.dxftype() not in ('LINE','TEXT') for e in doc.modelspace()):raise ProjectError('native IFC diagram supports LINE/TEXT only')
+    if any(e.dxftype() not in ('LINE','ARC','TEXT') for e in doc.modelspace()):raise ProjectError('native IFC diagram supports LINE/ARC/TEXT only')
+    for arc in doc.modelspace().query('ARC'):
+        if any(not math.isfinite(v) for v in (*arc.dxf.center,arc.dxf.radius,arc.dxf.start_angle,arc.dxf.end_angle)) or arc.dxf.radius<=0 or (arc.dxf.end_angle-arc.dxf.start_angle)%360<=1e-9 or not arc.dxf.extrusion.isclose((0,0,1),rel_tol=0,abs_tol=1e-9) or abs(arc.dxf.center.z)>1e-9:
+            raise ProjectError('finite nonzero positive-radius WCS XY arc required')
     if any(not math.isfinite(v) for e in doc.modelspace().query('LINE') for pt in (e.dxf.start,e.dxf.end) for v in pt):
         raise ProjectError('finite diagram geometry required')
     reference_layer=settings.get('reference_layer','BSA_PIPE_AXIS')
@@ -71,10 +74,10 @@ def run(source, settings_path, out, exe=DEFAULT_EXE):
         raise ProjectError('nonzero reference in WCS XY required')
     if any(not window[0]<=pt.x<=window[2] or not window[1]<=pt.y<=window[3] for pt in (ref.dxf.start,ref.dxf.end)):
         raise ProjectError('reference outside sheet window')
-    if reference_layer=='BSA_EQUIPMENT_REFERENCE':
+    if reference_layer=='BSA_EQUIPMENT_REFERENCE' or bool(doc.modelspace().query('ARC')):
         from ezdxf import bbox
         bounds=bbox.extents(doc.modelspace(),fast=True)
-        if not bounds.has_data or bounds.extmin.x<window[0] or bounds.extmin.y<window[1] or bounds.extmax.x>window[2] or bounds.extmax.y>window[3]:raise ProjectError('equipment geometry/annotation extents exceed sheet window')
+        if not bounds.has_data or bounds.extmin.x<window[0] or bounds.extmin.y<window[1] or bounds.extmax.x>window[2] or bounds.extmax.y>window[3]:raise ProjectError('equipment/arc geometry or annotation extents exceed sheet window')
     out.mkdir(parents=True,exist_ok=False);copied=out/'input.dxf';shutil.copyfile(source,copied)
     dwg=out/(settings.get('drawing_name','segments')+'.dwg');script=out/'save.scr'
     condition=f'(= (strcase (vl-string-translate (chr 92) "/" (strcat (getvar "DWGPREFIX") (getvar "DWGNAME")))) (strcase {lisp_string(copied)}))'

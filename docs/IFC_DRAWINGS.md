@@ -1,5 +1,7 @@
 # Saved IFC segment schedules and projected diagrams
 
+For source-checked finite elbows and planar OD outlines, use the separate [route drawing adapter](IFC_ROUTE_DRAWINGS.md). It includes true circular arcs and native DWG/PDF checks; the original straight-only contract below remains unchanged.
+
 For three-axis models use the separate [multiview drawing-set adapter](IFC_VIEWS.md): it represents end-on segments explicitly and combines orthographic views, then verifies native DWGs and per-sheet PDF references. The original single-view contract below still rejects end-on axes.
 
 Two explicit SOURCEANDSINK end ports are now supported as well as directed sink/source ends. Bidirectional drawing endpoints use deterministic GUID ordering; their labels do not imply flow direction. Legacy sink/source GUID fields are null for reversible segments, while explicit start/end port GUIDs retain identity. Hydraulic chain orientation comes from the separate water binding, not this drawing order.

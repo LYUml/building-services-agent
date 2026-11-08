@@ -1,5 +1,7 @@
 # Finite circular elbows
 
+[Source-checked planar route drawings](IFC_ROUTE_DRAWINGS.md) now include the finite elbow as editable circular axes and OD outlines, with native DWG reopen, PDF-scale and inspected-sheet evidence. Product/installation detail and BIM-viewer acceptance remain pending.
+
 `examples/circular-elbow` adds explicit constant-bore 90-degree pipe/duct fittings to the existing straight-wall contract. These are generic numerical geometry, not manufacturer fittings. Supply inside/outside diameters, centreline radius, arc centre, two perpendicular signed cardinal axes, bounding origin/size, two actual end-face ports and provenance. The radius must exceed the outside radius. Opt into `axis-aligned envelopes, straight circular walls and explicit 90-degree elbows` and `body_shape: circular 90-degree elbow wall`.
 
 The IFC4 Body is a parameter-derived closed `IfcPolygonalFaceSet`; the separate Axis is an exact three-point circular `IfcIndexedPolyCurve` with `IfcArcIndex`. Body faces approximate the circular surfaces. This deliberately does not claim an analytic swept Body. Sampling respects the existing 10 micrometre chord and 0.02 radian angular limits, with a size budget. Reopening checks source coordinates/face indices, schema, placements, tangent port axes, bounds, diameter/radius properties, connected oriented closed wall, through-bore Euler characteristic zero and independent quarter-torus volume within the unchanged 0.1% tolerance.

@@ -1,0 +1,16 @@
+{
+  "scope": "Actual final native AutoCAD A4 PDF inspection only; not BIM viewer, product or installation acceptance",
+  "pdf_sha256": "8f3d0bdb6c8e420a7d86c2b42917285295c08092f1e5d6dda5fe783007934c6f",
+  "render_sha256": "d3e28af804754699a44453cdc795aa91de6dc3f956869304d9ae10d7fb14992b",
+  "render": "Poppler -png -scale-to 1700 -singlefile; entire page inspected",
+  "observations": [
+    "Three route axes and six OD outline curves visible; the elbow remains a smooth finite circular turn",
+    "IN/OUT labels show ID80/OD100 and L1.500000 m; bend label shows L0.471239 m, R300 mm and 90 degrees",
+    "Outgoing leader is outside its pipe outline instead of overlapping the axis; labels and scope/plane legend are legible and unclipped"
+  ],
+  "physical_reference_expected_mm": 60.0,
+  "physical_reference_measured_mm": 59.98633333333331,
+  "native_geometry_identity_pass": true,
+  "visual_review_of_this_sheet": "pass within stated generic drawing scope",
+  "design_accepted": false
+}

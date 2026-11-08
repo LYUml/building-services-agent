@@ -1,0 +1,12 @@
+{
+  "source": "Synthetic A4 landscape plan window and 1:25 scale; incoming 1.5 m axis is the independent 60 mm PDF reference. Full arc/annotation bounds must fit.",
+  "window_drawing_units": [
+    0.2,
+    0,
+    5.5,
+    3.1
+  ],
+  "scale_denominator": 25,
+  "reference_ifc_guid": "1kvxqxb45GbxxXyjuZZbwq",
+  "pdf_tolerance_mm": 0.2
+}

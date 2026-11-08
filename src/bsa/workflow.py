@@ -70,7 +70,7 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             inputs.add(local_path(root,t.get("project")))
@@ -90,13 +90,16 @@ def validate_plan(path):
             from .electrical_fault import prepare
             faults=local_path(root,t.get('faults'));inputs.add(faults)
             prepare(read_json(local_path(root,t['project'])),read_json(faults))
-        if kind in ('ifc_clash','ifc_drawing','ifc_views','water_coordination','annual_energy_ifc'):
+        if kind in ('ifc_clash','ifc_drawing','ifc_route_drawing','ifc_views','water_coordination','annual_energy_ifc'):
             if kind=='ifc_clash':
                 from .clash import validate_policy
                 policy=local_path(root,t.get('policy'));inputs.add(policy);validate_policy(read_json(policy))
-            elif kind=='ifc_drawing':
+            elif kind in ('ifc_drawing','ifc_route_drawing'):
                 from .ifc_drawing import validate_settings
                 settings=local_path(root,t.get('settings'));inputs.add(settings);validate_settings(read_json(settings))
+                if kind=='ifc_route_drawing':
+                    from .bim import validate as validate_bim
+                    source_model=local_path(root,t.get('model'));inputs.add(source_model);validate_bim(read_json(source_model))
             elif kind=='ifc_views':
                 from .ifc_views import validate_settings
                 settings=local_path(root,t.get('settings'));inputs.add(settings);validate_settings(read_json(settings))
@@ -140,7 +143,7 @@ def validate_plan(path):
             settings=local_path(root,t.get('settings'));inputs.add(settings);validate_settings(read_json(settings))
             if bool(t.get('dxf'))==bool(t.get('depends_on')):raise ProjectError('native IFC diagram requires exactly one DXF or earlier drawing dependency')
             if t.get('depends_on'):
-                if t['depends_on'] not in ids or next(x for x in tasks if x['id']==t['depends_on'])['kind'] not in ('ifc_drawing','ifc_equipment'):
+                if t['depends_on'] not in ids or next(x for x in tasks if x['id']==t['depends_on'])['kind'] not in ('ifc_drawing','ifc_route_drawing','ifc_equipment'):
                     raise ProjectError('native IFC dependency must be an earlier supported drawing task')
             else:
                 diagram_source=local_path(root,t.get('dxf'));inputs.add(diagram_source)
@@ -289,6 +292,15 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                     payload=run(local_path(root,t['project']),source,local_path(root,t['binding']),folder)
                     status='pass' if payload['calculated_checks_pass'] else 'fail'
                     reason='saved IFC GUID/profile/connected reversible routes bound to EPANET; source copy unchanged; physical fittings, product/visual/domain acceptance pending'
+            elif t['kind']=='ifc_route_drawing':
+                dependency=t.get('depends_on')
+                if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC producer did not pass; no route drawing fabricated'
+                else:
+                    from .ifc_route_drawing import run
+                    source=out/dependency/IFC_ARTIFACTS[tasks[dependency]['kind']] if dependency else local_path(root,t['ifc'])
+                    payload=run(source,local_path(root,t['model']),local_path(root,t['settings']),folder)
+                    status='pass' if payload['calculated_checks_pass'] else 'fail'
+                    reason='source-checked saved circular walls and finite arcs to GUID-linked planar axes/OD outlines; product and installation acceptance pending'
             elif t['kind']=='ifc_drawing':
                 dependency=t.get('depends_on')
                 if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC producer did not pass; no drawing fabricated'

@@ -1,5 +1,7 @@
 # Requirements-to-tools orchestration
 
+For finite circular elbows use `ifc_route_drawing` with original source `model`, drawing `settings`, and exactly one saved `ifc` or registered IFC producer `depends_on`. It checks complete coplanar circular-wall geometry and emits true arcs, OD outlines and GUID-linked schedules. `ifc_native` can depend on that drawing producer and reconciles native arcs as well as lines/text; full arc/annotation bounds must fit the sourced sheet window. See [route drawings](IFC_ROUTE_DRAWINGS.md) and `examples/circular-elbow/delivery-plan.json`. Source/geometry/scale and actual visual review stay separate from complete installation acceptance.
+
 The host AI reads and interprets the user's brief. The deterministic workflow runner checks that the interpretation quotes the actual source and calls known engineering adapters. It does not invoke a hidden model API or claim arbitrary engineering language can be understood by keyword matching.
 
 ## Commands

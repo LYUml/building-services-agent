@@ -1,0 +1,4 @@
+guid,name,ifc_class,inner_diameter_m,outside_diameter_m,length_m,centreline_radius_m,analytic_wall_volume_m3,source
+1kvxqxb45GbxxXyjuZZbwq,IN,IfcPipeSegment,0.08,0.1,1.5,,0.004241150082346223,"Explicit synthetic geometry, water properties and excess K assumptions for a numerical demonstration; no manufacturer or code applicability."
+0_g0Bw3TnTWPNohWTw6BwI,BEND,IfcPipeFitting,0.08,0.1,0.47123889803846897,0.30000000000000004,0.0013323965941470638,"Explicit synthetic geometry, water properties and excess K assumptions for a numerical demonstration; no manufacturer or code applicability."
+1LMYIGJ9LJ7QXOab_2p5er,OUT,IfcPipeSegment,0.08,0.1,1.5,,0.004241150082346223,"Explicit synthetic geometry, water properties and excess K assumptions for a numerical demonstration; no manufacturer or code applicability."

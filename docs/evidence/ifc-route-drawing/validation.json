@@ -1,0 +1,143 @@
+{
+  "scope": "Source-linked synthetic IFC/pressure/clash/true-arc native drawing and inspected PDF; full agent goal and engineering acceptance remain incomplete",
+  "design_accepted": false,
+  "source_inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\circular-elbow\\native-sheet.json": "7d0e132febc9bef9cbf42ae3be2a7a0404715b954d0d46d369c95d9dfccfd3b4",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\circular-elbow\\delivery-brief.md": "5a43aedd4aa39bb49d31f6a6e602421d9c78d13f9517967a116982b2c8f1f9bc",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\circular-elbow\\binding.json": "eacfd05ed18f970aaa137c4150deadd940ca5515b2e0c4dc6e575f4b10d10966",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\circular-elbow\\project.json": "440852dec5cd4e4fe51271f9fccea763ab9e0ae11007e65e60de9c14694e3cf9",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\circular-elbow\\drawing-settings.json": "98491a1d667b44cef355375ee59594429a13e9d9af0e6a2d38a07668f0873c78",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\circular-elbow\\network.json": "ddcf2fde34ddd74dacfed7a35b05f5bf66c632668cb977fa0263f4aa28dfe541",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\circular-elbow\\clash-policy.json": "1e490e77ce8e566a4af95a5046177d85ddf93a43c24790efb8bc7cce4b0b5d1b",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\circular-elbow\\delivery-plan.json": "fa037602bcc4672d2814b4f01dd1007fd8281a6930b69218296a25265fa400c7"
+  },
+  "test_runs": {
+    "full_suite_before_final_bounds_refinement": {
+      "tests": 231,
+      "passed": 231,
+      "skipped": 0,
+      "seconds": 586.696
+    },
+    "route_tests_after_bounds_refinement": {
+      "tests": 8,
+      "passed": 8,
+      "skipped": 0,
+      "seconds": 104.929,
+      "actual_autocad_enabled": true
+    }
+  },
+  "final_workflow_tasks": {
+    "model": {
+      "kind": "network_coordination",
+      "status": "pass",
+      "scope": "IFC port-derived circular route dimensions and prescribed-flow pressure budget; detailed routing and full acceptance pending"
+    },
+    "qa": {
+      "kind": "ifc_clash",
+      "status": "pass",
+      "scope": "saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending"
+    },
+    "drawing": {
+      "kind": "ifc_route_drawing",
+      "status": "pass",
+      "scope": "source-checked saved circular walls and finite arcs to GUID-linked planar axes/OD outlines; product and installation acceptance pending"
+    },
+    "native": {
+      "kind": "ifc_native",
+      "status": "pass",
+      "scope": "isolated native DWG reopen, geometry/IFC XDATA reconciliation and physical PDF reference verified; visual/installation acceptance pending"
+    }
+  },
+  "native_checks": {
+    "model_entity_count": 20,
+    "linked_entity_count": 18,
+    "model_entities_and_ifc_xdata_match": true,
+    "geometry_layers_and_annotations_match": true,
+    "metre_units": true
+  },
+  "plot": {
+    "pdf_sha256": "8f3d0bdb6c8e420a7d86c2b42917285295c08092f1e5d6dda5fe783007934c6f",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 25,
+    "reference_handle": "34",
+    "reference_expected_mm": 60.0,
+    "reference_measured_mm": 59.98633333333331,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "piece_count": 3,
+  "source_model_length_m": 3.471238898038469,
+  "drawn_piece_length_sum_m": 3.471238898038469,
+  "pending": [
+    "actual product/joint/support/insulation detail",
+    "automatic arbitrary-route annotation and formal sheet standards",
+    "oblique/multilevel projections",
+    "BIM viewer and complete installation/engineering acceptance"
+  ],
+  "archive_entries": {
+    "drawing/drawing.json": "a41eaa321631b7ee6d048bfdcb64bc5e621d7758521579162b4b2de641c5f4f0",
+    "drawing/preview.svg": "b85358ef9a49f5e8f386cb932d8b8ba3b96936b9a082b6399c86c7da3099621c",
+    "drawing/segments.csv": "21fbabd23c22eceb50f6ad807c3b2b19ba0a71224f99877b345d9ba0837bde6b",
+    "drawing/segments.dxf": "f1176aaec15c2f636b65806874ee3671b7035804917a671d5b80e3e1707dcf73",
+    "index.html": "90cc002b9113982057c2e4f8643faac86f718bf916c0f919ab6a23967ed27b84",
+    "model/analysis/manifest.json": "a22fe13b0cf4c2b2bc7cee9a96e382661bf9f40402881fbd5fb04dc28877c966",
+    "model/analysis/network.json": "2ead48978e8ee9317787b288ae25649fd35bce1454fea8883c317d588f774d89",
+    "model/analysis/report.html": "6c0b94b8d775a40784f695b7491077e6e68293bb0d4f29b120b6d01f9dbd1c41",
+    "model/analysis/segments.csv": "11038ba501ffc9345331a4a22426559d981e671fa20a9c3cf463edc61687d6ac",
+    "model/bim/bim-verification.json": "ebc68cbb2cbdca1fdc83854d820184d701fb6a2ac98769f755407bce9dd48698",
+    "model/bim/model.ifc": "b6a2995d6f89eb6a93f0dbb05b1f953973da8b74e546d1e0db00b1a19cc1a590",
+    "model/bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "model/network-binding.json": "5ecf6fcbc1e788709911a9075c4fedb9a109c94db17672ff64cc5b8f05ec5708",
+    "model/network-input.json": "fadbf7d718c51671a02278c426a7869bf05dd714a6ea5459d29b35ba58da8e3f",
+    "native/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "43fcc4ebbeacc3cd5b263212a14fd5419cd221dd20148f1d7bc1dcc9ed0232dc",
+    "native/input.dxf": "f1176aaec15c2f636b65806874ee3671b7035804917a671d5b80e3e1707dcf73",
+    "native/native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "9f4b29a368ae436a17a7ffe03975119a4ba34d8b2533250444202f6d9eeb8b04",
+    "native/native-reopen/export.log": "ff690ef7338865f891e41a0df8960c743944c4aaa1a256357dada98293ed0bf2",
+    "native/native-reopen/export.scr": "2e6583f246b0f807a8e671811be8bb4792bf1454f57d2e86442845590b1d0d70",
+    "native/native-reopen/source-copy.dwg": "2c4b7ef8dde7522148a64d56f61080e1170070a0467d3dc419f6f3434f993105",
+    "native/native-reopen/source-export.dxf": "7f068b229b330a504950c4a08bc7d8ecc906e9717a8c7a41e88958835e5c0bf0",
+    "native/native-verification.json": "bf71b0e4f2c0c0d1fa5af606298f140cc5a3ac7ef7e94bb80222fa734ea0d11e",
+    "native/plot.log": "3f6ae6c5983231f5dc397213f9033ae726ddf05d151994786298d77319a47a63",
+    "native/save.log": "7fef5c4e1f37feb7e80c2d5fcf75d15c1c733ad1987d1bc2b9244d46ba39d4e8",
+    "native/save.scr": "d3c468c90c5aaeee316e6821c8fe69a34b1d7fefc36415f818ded4162afa62fc",
+    "native/segments.dwg": "2c4b7ef8dde7522148a64d56f61080e1170070a0467d3dc419f6f3434f993105",
+    "native/sheet.json": "9c764ef8c3ffa176485164e8a0368dc82c676db7f7a1157f53504a82767342c5",
+    "native/sheet.log": "4d4ba7d8934f811ec3e3b659579352085b5ec30aa3074ad7ff500957e6afbae0",
+    "native/sheet.pdf": "8f3d0bdb6c8e420a7d86c2b42917285295c08092f1e5d6dda5fe783007934c6f",
+    "native/sheet.scr": "b0dcbb1c7d65243c4e53b0d91cb9aba3687bd7d4c51406410e047fb303a15fd5",
+    "qa/clash.json": "9a08434c82717da647aa4ce8728f82f38791de3d9a44b05cce05d9b4919a5973",
+    "qa/report.html": "1218e9c2b582308c666ae90735897f6d1b5a9499d6b924b0715e439b81c470fa",
+    "sheet-preview.png": "105c1a3a040c3280a6f114363bacb1c9eb82f581309e0ab591127a76332e1abd",
+    "sheet-review.png": "d3e28af804754699a44453cdc795aa91de6dc3f956869304d9ae10d7fb14992b",
+    "workflow.json": "d1ff55a452eedd41e24565a47dec9024f662ba624cef89f5391bb047607c4645",
+    "source-snapshots/native-sheet.json": "7d0e132febc9bef9cbf42ae3be2a7a0404715b954d0d46d369c95d9dfccfd3b4",
+    "source-snapshots/delivery-brief.md": "5a43aedd4aa39bb49d31f6a6e602421d9c78d13f9517967a116982b2c8f1f9bc",
+    "source-snapshots/binding.json": "eacfd05ed18f970aaa137c4150deadd940ca5515b2e0c4dc6e575f4b10d10966",
+    "source-snapshots/project.json": "440852dec5cd4e4fe51271f9fccea763ab9e0ae11007e65e60de9c14694e3cf9",
+    "source-snapshots/drawing-settings.json": "98491a1d667b44cef355375ee59594429a13e9d9af0e6a2d38a07668f0873c78",
+    "source-snapshots/network.json": "ddcf2fde34ddd74dacfed7a35b05f5bf66c632668cb977fa0263f4aa28dfe541",
+    "source-snapshots/clash-policy.json": "1e490e77ce8e566a4af95a5046177d85ddf93a43c24790efb8bc7cce4b0b5d1b",
+    "source-snapshots/delivery-plan.json": "fa037602bcc4672d2814b4f01dd1007fd8281a6930b69218296a25265fa400c7",
+    "controls/after-fix.json": "b5c3cfdc7cf3280594c4e9c190ad8683aee9e6bd6de37da912712eee7dd1a4cc",
+    "controls/observed-gap.json": "5b9f3e76a262ab02ffa598e2404db047fc381ef4ec0b5c68875113afc0e76bea",
+    "controls/shifted.ifc": "1d4bfb77ae1a56e6a26efb260badb67660e7097605f911b55da2ea8cea031d6b"
+  },
+  "retained_files": {
+    "assessment.json": "87732fa60175ddf952e0891d83de7de926251cb369782269f7c88f1f9fbd2df7",
+    "regression-before-bounds-refinement.log": "a5bc8b20d3da78bafe896be23d049a8fe2f5c8208c88f4fc025ebd7e6e3385c7",
+    "review.json": "5808b31e2370c55128b4930120faa0c2002cc0d289c6a7ba76553873ddf20673",
+    "route-tests-after-bounds-refinement.log": "fb8dbe4cfec8965f88edcb1f3a200bb3c2f28fe918f5e9ddd8c00af8b396259b",
+    "segments.csv": "21fbabd23c22eceb50f6ad807c3b2b19ba0a71224f99877b345d9ba0837bde6b",
+    "segments.dwg": "2c4b7ef8dde7522148a64d56f61080e1170070a0467d3dc419f6f3434f993105",
+    "segments.dxf": "f1176aaec15c2f636b65806874ee3671b7035804917a671d5b80e3e1707dcf73",
+    "sheet-preview.png": "d3e28af804754699a44453cdc795aa91de6dc3f956869304d9ae10d7fb14992b",
+    "sheet.pdf": "8f3d0bdb6c8e420a7d86c2b42917285295c08092f1e5d6dda5fe783007934c6f",
+    "visual-review.json": "e1120d080b5a0630dfc921f525f06d00a3892f743478c2eb715b1f54bad195fc",
+    "workflow.zip": "00a40898113b65c7494fe2aa424c306b491bba396df25c06f763687046769180"
+  }
+}

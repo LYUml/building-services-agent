@@ -1,0 +1,311 @@
+{
+  "design_accepted": false,
+  "review_checks_pass": true,
+  "source_integrity_pass": true,
+  "requirements": [
+    {
+      "id": "R1",
+      "task": "model",
+      "quote": "Author project.json as editable IFC4 with stable device/port identities, explicit straight hollow segments and a finite circular 90-degree elbow. Preserve supplied positions, inside/outside diameters, radius, end-face centres, logical directions and all source bytes.",
+      "acceptance": "Source/native/schema geometry checks; product/visual/hydraulic acceptance remains pending",
+      "execution_status": "pass",
+      "recorded_review_status": "pass",
+      "effective_review_status": "pass",
+      "reviewer": "Codex host agent: source/numerical evidence and actual sheet image inspection",
+      "reviewed_at_utc": "2026-11-08T05:25:57.624952+00:00",
+      "notes": "Saved IFC has all three source devices, stable namespaced object/port identities, metre geometry and two matching connections. Source inputs remained unchanged; generic synthetic contract only.",
+      "evidence": [
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "sha256": "ebc68cbb2cbdca1fdc83854d820184d701fb6a2ac98769f755407bce9dd48698"
+        }
+      ],
+      "attachments": [],
+      "facts": [
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "pointer": "/checks/schema_valid",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "pointer": "/checks/device_count_match",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "pointer": "/checks/connection_endpoints_match",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "pointer": "/checks/source_unchanged",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending",
+          "actual": true,
+          "pass_check": true
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "R2",
+      "task": "model",
+      "quote": "Reopen and validate the exact circular Axis reference and source-parametric tessellated annular wall, native closed/oriented connected mesh and through-bore topology, independent arc-length wall volume, envelope bounds and outward tangent port axes. Keep source connectivity and schema checks. Do not replace this elbow with a point, chord or box, infer a pressure-loss coefficient, or claim manufacturer/installation/visual/hydraulic acceptance.",
+      "acceptance": "Source/native/schema geometry checks; product/visual/hydraulic acceptance remains pending",
+      "execution_status": "pass",
+      "recorded_review_status": "pass",
+      "effective_review_status": "pass",
+      "reviewer": "Codex host agent: source/numerical evidence and actual sheet image inspection",
+      "reviewed_at_utc": "2026-11-08T05:25:57.624952+00:00",
+      "notes": "Native bend wall and exact Axis retain source radius/diameters, bounds, bore topology, volume and outward tangent axes. No analytic Body or product acceptance is claimed.",
+      "evidence": [
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "sha256": "ebc68cbb2cbdca1fdc83854d820184d701fb6a2ac98769f755407bce9dd48698"
+        }
+      ],
+      "attachments": [],
+      "facts": [
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "pointer": "/devices/1/circular_checks/closed_mesh",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "pointer": "/devices/1/circular_checks/through_bore_pass",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "pointer": "/devices/1/circular_checks/outward_port_axes_pass",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending",
+          "actual": true,
+          "pass_check": true
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "R3",
+      "task": "model",
+      "quote": "Use network.json and binding.json to derive total-pressure tree route length from actual straight pieces plus the finite circular arc, derive aggregate excess K from all source pieces, and independently reconcile saved IFC axis geometry, end ports, diameters and loss properties. Retain calculation results and unchanged source hashes. Synthetic excess K and water properties do not establish manufacturer or engineering applicability.",
+      "acceptance": "Saved IFC reconciliation and numerical pressure checks; source applicability and full acceptance pending",
+      "execution_status": "pass",
+      "recorded_review_status": "pass",
+      "effective_review_status": "pass",
+      "reviewer": "Codex host agent: source/numerical evidence and actual sheet image inspection",
+      "reviewed_at_utc": "2026-11-08T05:25:57.625960+00:00",
+      "notes": "Saved arc and straight pieces reconcile to 3.471238898 m; explicit synthetic excess K totals 0.4. Independent laminar test and native source reconciliation pass. No product K applicability claimed.",
+      "evidence": [
+        {
+          "artifact": "model/network-binding.json",
+          "sha256": "5ecf6fcbc1e788709911a9075c4fedb9a109c94db17672ff64cc5b8f05ec5708"
+        }
+      ],
+      "attachments": [],
+      "facts": [
+        {
+          "artifact": "model/network-binding.json",
+          "pointer": "/inputs_unchanged",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "model/network-binding.json",
+          "pointer": "/saved_ifc_geometry_match",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "model/network-binding.json",
+          "pointer": "/calculated_checks_pass",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending",
+          "actual": true,
+          "pass_check": true
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "R4",
+      "task": "qa",
+      "quote": "Check the saved route IFC using clash-policy.json. Cover every represented physical element; retain native mesh and solid coverage. Require no material intersections and prove 10 mm clearance outside the two explicitly sourced 0.10 m spherical connection regions in both outside-to-full directions. Never waive positive solid overlap for connected ports. Preserve input hashes and report all failures; these synthetic thresholds do not establish product, regulation or visual acceptance.",
+      "acceptance": "All physical geometry covered; no intersections; conservative bidirectional outside-region clearance proof; product and full acceptance pending",
+      "execution_status": "pass",
+      "recorded_review_status": "pass",
+      "effective_review_status": "pass",
+      "reviewer": "Codex host agent: source/numerical evidence and actual sheet image inspection",
+      "reviewed_at_utc": "2026-11-08T05:25:57.625960+00:00",
+      "notes": "All three physical elements have accepted solid coverage. Both nonempty outside-to-full directions pass for each of two source joint regions under the stated synthetic tolerances. This is policy-scoped numerical acceptance.",
+      "evidence": [
+        {
+          "artifact": "qa/clash.json",
+          "sha256": "9a08434c82717da647aa4ce8728f82f38791de3d9a44b05cce05d9b4919a5973"
+        }
+      ],
+      "attachments": [],
+      "facts": [
+        {
+          "artifact": "qa/clash.json",
+          "pointer": "/checks/geometry_coverage",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "qa/clash.json",
+          "pointer": "/checks/no_intersections",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "qa/clash.json",
+          "pointer": "/checks/clearance",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending",
+          "actual": true,
+          "pass_check": true
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "R5",
+      "task": "drawing",
+      "quote": "Produce a complete source-checked coplanar route drawing from the saved model IFC and original project.json using drawing-settings.json. Include both straight hollow pieces and the finite elbow as true circular axis and outside-diameter outlines, with saved IFC GUIDs, actual lengths, radius and bore/outside dimensions in the editable DXF and schedule. Reject missing pieces, body/axis/source contradictions, wrong units and unsupported projections; do not substitute the elbow chord or claim manufacturer installation detail.",
+      "acceptance": "Source/native geometry and physical scale checks; actual visual review separate; complete engineering acceptance pending",
+      "execution_status": "pass",
+      "recorded_review_status": "pass",
+      "effective_review_status": "pass",
+      "reviewer": "Codex host agent: source/numerical evidence and actual sheet image inspection",
+      "reviewed_at_utc": "2026-11-08T05:25:57.625960+00:00",
+      "notes": "All three saved pieces reach editable true-arc axes and OD outlines, GUID-linked callouts and CSV. Bounds catch axial shifts with unchanged ports. Generic coplanar drawing only; no manufacturer/install detail inferred.",
+      "evidence": [
+        {
+          "artifact": "drawing/drawing.json",
+          "sha256": "a41eaa321631b7ee6d048bfdcb64bc5e621d7758521579162b4b2de641c5f4f0"
+        }
+      ],
+      "attachments": [],
+      "facts": [
+        {
+          "artifact": "drawing/drawing.json",
+          "pointer": "/inputs_unchanged",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "drawing/drawing.json",
+          "pointer": "/calculated_checks_pass",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "drawing/drawing.json",
+          "pointer": "/pieces/1/native_wall_checks/through_bore_pass",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending",
+          "actual": true,
+          "pass_check": true
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "R6",
+      "task": "native",
+      "quote": "Save the route DXF as native DWG with isolated AutoCAD 2027, reopen it independently and reconcile every line, arc, annotation and IFC GUID. Plot A4 at the declared 1:25 scale using native-sheet.json; the 1.5 m incoming straight reference must measure 60 mm within the sourced tolerance. Reject clipped arc/annotation extents before native writes. Inspect the actual rendered PDF and retain its hash-bound visual review separately; product, BIM-viewer and complete engineering acceptance remain pending.",
+      "acceptance": "Source/native geometry and physical scale checks; actual visual review separate; complete engineering acceptance pending",
+      "execution_status": "pass",
+      "recorded_review_status": "pass",
+      "effective_review_status": "pass",
+      "reviewer": "Codex host agent: source/numerical evidence and actual sheet image inspection",
+      "reviewed_at_utc": "2026-11-08T05:25:57.625960+00:00",
+      "notes": "Independent AutoCAD 2027 reopen preserves 20 entities and 18 linked identities. The 1.5 m reference measures 59.986333 mm at 1:25. Actual final A4 PDF rendered at 1700 px: smooth bend/OD curves, separated readable IN/BEND/OUT labels and legend, no clipping or outgoing leader/axis overlap. Product, BIM-viewer and complete engineering acceptance remain pending.",
+      "evidence": [
+        {
+          "artifact": "native/native-verification.json",
+          "sha256": "bf71b0e4f2c0c0d1fa5af606298f140cc5a3ac7ef7e94bb80222fa734ea0d11e"
+        },
+        {
+          "artifact": "native/sheet.pdf",
+          "sha256": "8f3d0bdb6c8e420a7d86c2b42917285295c08092f1e5d6dda5fe783007934c6f"
+        }
+      ],
+      "attachments": [
+        {
+          "path": "sheet-review.png",
+          "sha256": "d3e28af804754699a44453cdc795aa91de6dc3f956869304d9ae10d7fb14992b",
+          "source_artifact": "native/sheet.pdf",
+          "source_sha256": "8f3d0bdb6c8e420a7d86c2b42917285295c08092f1e5d6dda5fe783007934c6f"
+        }
+      ],
+      "facts": [
+        {
+          "artifact": "native/native-verification.json",
+          "pointer": "/native_reopen_pass",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "native/native-verification.json",
+          "pointer": "/checks/model_entities_and_ifc_xdata_match",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "native/native-verification.json",
+          "pointer": "/plot/pdf_reference_pass",
+          "expected": true,
+          "basis": "Inspected native producer result for the quoted synthetic requirement; wider acceptance remains pending",
+          "actual": true,
+          "pass_check": true
+        }
+      ],
+      "issues": []
+    }
+  ],
+  "issues": [],
+  "scope": "Source/byte consistency, recorded reviewer assertions and optional adapter-reported Boolean facts; not reviewer authentication, semantic completeness or engineering certification",
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\circular-elbow\\delivery-plan.json": "fa037602bcc4672d2814b4f01dd1007fd8281a6930b69218296a25265fa400c7",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\elbow-route-delivery-v2\\workflow.json": "d1ff55a452eedd41e24565a47dec9024f662ba624cef89f5391bb047607c4645",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\elbow-route-delivery-review-v2.json": "5808b31e2370c55128b4930120faa0c2002cc0d289c6a7ba76553873ddf20673"
+  },
+  "inputs_unchanged": true,
+  "status": "review_complete"
+}
