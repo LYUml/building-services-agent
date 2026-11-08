@@ -1,0 +1,40 @@
+{
+  "scope": "all represented non-feature non-virtual IfcElements",
+  "sources": {
+    "scenario": "Explicit synthetic searched-route self-coordination assumptions: 10 mm nonjoint clearance, 100 mm spherical connection exclusions, 0.1 mm contact/intersection tolerance and 1e-10 m3 overlap tolerance. These are test assumptions, not code or product requirements."
+  },
+  "source": "scenario",
+  "minimum_clearance_m": 0.01,
+  "intersection_tolerance_m": 0.0001,
+  "contact_tolerance_m": 0.0001,
+  "overlap_volume_tolerance_m3": 1e-10,
+  "maximum_boolean_pairs": 1000,
+  "contact_clearance_mode": "outside_regions",
+  "contact_region_segments": 64,
+  "allowed_contacts": [
+    {
+      "from_port_guid": "1TjIUpS2bGLuBHXxHCKvmx",
+      "to_port_guid": "3HqsFUTZDTegimHa7aTEBj",
+      "region_radius_m": 0.1,
+      "source": "scenario"
+    },
+    {
+      "from_port_guid": "2tDKHsku5ONf79cOz0f8lI",
+      "to_port_guid": "3C6gDyvazJCQO$VrAkeOZH",
+      "region_radius_m": 0.1,
+      "source": "scenario"
+    },
+    {
+      "from_port_guid": "2ev_fBVjzJ1OkfZZrELqQE",
+      "to_port_guid": "3LwXu5lSfKFPWGRMIh4g7t",
+      "region_radius_m": 0.1,
+      "source": "scenario"
+    },
+    {
+      "from_port_guid": "3c7NdMrQjJWR6lcKdn_nmL",
+      "to_port_guid": "2J1rnoFJLVeuyosaoHODIG",
+      "region_radius_m": 0.1,
+      "source": "scenario"
+    }
+  ]
+}

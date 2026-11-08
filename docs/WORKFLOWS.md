@@ -6,6 +6,8 @@ The host AI reads and interprets the user's brief. The deterministic workflow ru
 
 ## Commands
 
+`route_model` and `route_optimize` accept relative `routing`, `settings` and `network` files under the contract in ROUTE_SEARCH.md. All three sources enter integrity tracking. The first compiles the requested finite-grid route; the second retains the length baseline and selects the fixed-bore prescribed-flow pressure objective. Both run native IFC author/reopen and geometry/pressure reconciliation. Their IFC outputs are registered for downstream `ifc_clash` and other compatible IFC consumers. Failed calculated checks leave dependent tasks pending. `examples/route-search/coordination-plan.json` exercises pressure-selected route self-coordination with an explicit synthetic contact policy and a separate pending full review. Its obstacle column is not in the IFC and must not be claimed as checked by self-coordination.
+
 ```powershell
 .venv/Scripts/python -m bsa.workflow intake examples/workflow-brief.md --out runs/intake.json
 .venv/Scripts/python -m bsa.workflow validate examples/workflow-plan.json

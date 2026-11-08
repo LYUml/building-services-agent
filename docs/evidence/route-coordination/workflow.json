@@ -1,0 +1,120 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\route-search\\model-settings.json": "fe9292f3538fe4ba9bbbbfe0e253fb07cdc0769d090fc54b7814db5c0a7c9eb5",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\route-search\\network.json": "f7a6313416f591fd75267e3230a048732b0a8c066e67f13e7813be27848c203a",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\route-search\\coordination-brief.md": "80fd4426de43ddbd9dd7368114b433ceab79d87f0b88729f1bcfc3faa6e3dea5",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\route-search\\self-clash-policy.json": "6faa78597df7749096cd8abaa5ccd5c82d0072993c1296cddc7140203dd2fb44",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\route-search\\route-input.json": "551f1e0b79959ffa8998e609d768d744a9d062ddc18b3446a896676b9284cd7b",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\route-search\\coordination-plan.json": "113a6ae36602d64d4267fa982affccc02e17a37b4e1e575f8fad3d44c828a1b8"
+  },
+  "inputs_unchanged": true,
+  "tasks": {
+    "route": {
+      "kind": "route_optimize",
+      "status": "pass",
+      "scope": "searched finite-radius pipe route, actual saved IFC and prescribed-flow pressure checks; obstacle correspondence, self-clash and complete engineering acceptance remain separate"
+    },
+    "self-qa": {
+      "kind": "ifc_clash",
+      "status": "pass",
+      "scope": "saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending"
+    },
+    "review": {
+      "kind": "manual",
+      "status": "pending",
+      "scope": "Review full obstacle/product/native drawing/visual and engineering applicability"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Search the declared planar grid around the column using route-input.json. Minimise fixed-bore prescribed-flow dissipative pressure using model-settings.json and network.json. Retain the length-only baseline and generate/reopen the selected hollow pipe IFC. This is a synthetic scenario, not measured building data.",
+      "task": "route",
+      "acceptance": "Search the declared planar grid around the column using route-input.json. Minimise fixed-bore prescribed-flow dissipative pressure using model-settings.json and network.json. Retain the length-only baseline and generate/reopen the selected hollow pipe IFC. This is a synthetic scenario, not measured building data.",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 3,
+        "end_line": 3
+      },
+      "execution_scope": "searched finite-radius pipe route, actual saved IFC and prescribed-flow pressure checks; obstacle correspondence, self-clash and complete engineering acceptance remain separate",
+      "evidence": [
+        "route/route-optimisation.json",
+        "route/selected-routing.json",
+        "route/selection.json",
+        "route/selected/binding-input.json",
+        "route/selected/model-input.json",
+        "route/selected/network-source.json",
+        "route/selected/route-model.json",
+        "route/selected/route.json",
+        "route/selected/bound/network-binding.json",
+        "route/selected/bound/network-input.json",
+        "route/selected/bound/analysis/manifest.json",
+        "route/selected/bound/analysis/network.json",
+        "route/selected/bound/analysis/report.html",
+        "route/selected/bound/analysis/segments.csv",
+        "route/selected/bound/bim/bim-verification.json",
+        "route/selected/bound/bim/model.ifc",
+        "route/selected/bound/bim/schema-validation.json"
+      ]
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Check every represented pipe piece in the selected saved IFC for material overlap and self-clearance using self-clash-policy.json. Connected ports have explicitly sourced spherical regions; prove both outside-to-full directions and never waive solid overlap. The column is not represented in this IFC, so obstacle correspondence remains pending.",
+      "task": "self-qa",
+      "acceptance": "Check every represented pipe piece in the selected saved IFC for material overlap and self-clearance using self-clash-policy.json. Connected ports have explicitly sourced spherical regions; prove both outside-to-full directions and never waive solid overlap. The column is not represented in this IFC, so obstacle correspondence remains pending.",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 5,
+        "end_line": 5
+      },
+      "execution_scope": "saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending",
+      "evidence": [
+        "self-qa/clash.json",
+        "self-qa/report.html"
+      ]
+    },
+    {
+      "id": "R3",
+      "passage": "P004",
+      "quote": "Review full source applicability, route self-clearance policy, actual obstacles, products, native drawings and visual output before engineering acceptance. Automated pass statuses do not clear these requirements.",
+      "task": "review",
+      "acceptance": "Review full source applicability, route self-clearance policy, actual obstacles, products, native drawings and visual output before engineering acceptance. Automated pass statuses do not clear these requirements.",
+      "execution_status": "pending",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 7,
+        "end_line": 7
+      },
+      "execution_scope": "Review full obstacle/product/native drawing/visual and engineering applicability",
+      "evidence": []
+    }
+  ],
+  "artifact_hashes": {
+    "route/route-optimisation.json": "831b64647bb8f0a3bd9850717b00fdb0d43ee8f4b67653e8a6e88898157cc6a4",
+    "route/selected-routing.json": "b93f7e4b76f50c74555055ecb1bc2a02ceac7bd4e425a91641fe060d69dfcf6a",
+    "route/selection.json": "4e4dc469ea6a81361b7c5f5617305038392ee2f8907bb4af23d7ab9d9342eaec",
+    "self-qa/clash.json": "6453c4a16d586c07e1467ac9f83fd9375d810732737b3f587caa0a0de1175aa2",
+    "self-qa/report.html": "2b8030263d3d05390368d169f78c4e765d1ef3d6fba9851150de5b6919f1a5cb",
+    "route/selected/binding-input.json": "cf3f4dfaff96bba7b18ddac50213f9818c80091f68cb0c3eb9b2655a4df2bea0",
+    "route/selected/model-input.json": "50f4840b3c9c61effe8c4a043e69e26b26168d1df8b4dd0f133b08b115aa2d3f",
+    "route/selected/network-source.json": "f7a6313416f591fd75267e3230a048732b0a8c066e67f13e7813be27848c203a",
+    "route/selected/route-model.json": "26337fa5a604b949c07ddbba23ea5761ea152041e3f7e8a3820e50b906b4d6d4",
+    "route/selected/route.json": "3bb848232049bc065c191daf89e51557da94f8dbd137a5aee4f93eb6034a534d",
+    "route/selected/bound/network-binding.json": "0e1944d2eafc2fb6851557e348fb198daef49024f1d72b123f8db9ce602c8bbd",
+    "route/selected/bound/network-input.json": "c81c4e68fb93fe5272dc4eb124afa391ac304c26047123290d0808c8c603b472",
+    "route/selected/bound/analysis/manifest.json": "0aeb2de1071d8da3b72ccbf8ea55c728c5a3b7b9918a45f08e31761ac0cdafea",
+    "route/selected/bound/analysis/network.json": "e34ebf61e2710016fc1cce96645f01af43d0e4cec2b94b7cc15305e6bd0996dd",
+    "route/selected/bound/analysis/report.html": "c20dea2a5a96b57eaf5ae8deccc4f839487721183c3c667ac980a76844253aa2",
+    "route/selected/bound/analysis/segments.csv": "72aa50e48e24498fec741ae7626d5f856f17de4851786a30aee36272dde94722",
+    "route/selected/bound/bim/bim-verification.json": "dbaddcc04c761b635c1f21edcdd722981b510cdf47834eaf145d944ce6021f68",
+    "route/selected/bound/bim/model.ifc": "db5e05cff799f50b59c004bc6b531899d3b88abf1e4482611f42eb82bccd680a",
+    "route/selected/bound/bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "execution_pass": false,
+  "design_accepted": false,
+  "acceptance_note": "Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance"
+}

@@ -12,6 +12,7 @@ from .cli import digest
 from .engine import ProjectError
 
 IFC_ARTIFACTS={'annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
+               'route_model':'bound/bim/model.ifc','route_optimize':'selected/bound/bim/model.ifc',
                'network_model_design':'selected-coordination/bim/model.ifc',
                'electrical_coordination':'bim/model.ifc','electrical_lighting':'shared/bim/model.ifc','pump_electrical':'model.ifc','water_coordination':'model.ifc'}
 NETWORK_ARTIFACTS={'network_coordination':'network-input.json','network_design':'selected-network.json',
@@ -70,13 +71,22 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             inputs.add(local_path(root,t.get("project")))
         if kind=='water_network':
             from .epanet import validate
             validate(read_json(local_path(root,t['project'])))
+        if kind in ('route_model','route_optimize'):
+            files=[local_path(root,t.get(key)) for key in ('routing','settings','network')]
+            inputs.update(files)
+            if kind=='route_model':
+                from .route_model import compile_route
+                compile_route(*(read_json(f) for f in files))
+            else:
+                from .route_optimize import select
+                select(*(read_json(f) for f in files))
         if kind=='annual_energy':
             from .annual_energy import validate,read_weather
             data=validate(read_json(local_path(root,t['project'])));weather=local_path(root,t.get('weather'));inputs.add(weather)
@@ -228,7 +238,15 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
         folder=out/t["id"]
         status="pending";reason="";payload=None
         try:
-            if t['kind']=='pump_electrical':
+            if t['kind'] in ('route_model','route_optimize'):
+                if t['kind']=='route_model':
+                    from .route_model import run
+                else:
+                    from .route_optimize import run
+                payload=run(*(local_path(root,t[key]) for key in ('routing','settings','network')),folder)
+                status='pass' if payload['calculated_checks_pass'] else 'fail'
+                reason='searched finite-radius pipe route, actual saved IFC and prescribed-flow pressure checks; obstacle correspondence, self-clash and complete engineering acceptance remain separate'
+            elif t['kind']=='pump_electrical':
                 pump_task=t['depends_on'];model_task=t['ifc_from']
                 if any(tasks[id]['status']!='pass' for id in (pump_task,model_task)):reason='upstream pump/model did not pass; no electrical operating scenario fabricated'
                 else:

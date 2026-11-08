@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "brief": "coordination-brief.md",
+  "brief_sha256": "80fd4426de43ddbd9dd7368114b433ceab79d87f0b88729f1bcfc3faa6e3dea5",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement",
+    "P004": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "route",
+      "kind": "route_optimize",
+      "routing": "route-input.json",
+      "settings": "model-settings.json",
+      "network": "network.json"
+    },
+    {
+      "id": "self-qa",
+      "kind": "ifc_clash",
+      "depends_on": "route",
+      "policy": "self-clash-policy.json"
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "description": "Review full obstacle/product/native drawing/visual and engineering applicability"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Search the declared planar grid around the column using route-input.json. Minimise fixed-bore prescribed-flow dissipative pressure using model-settings.json and network.json. Retain the length-only baseline and generate/reopen the selected hollow pipe IFC. This is a synthetic scenario, not measured building data.",
+      "task": "route",
+      "acceptance": "Search the declared planar grid around the column using route-input.json. Minimise fixed-bore prescribed-flow dissipative pressure using model-settings.json and network.json. Retain the length-only baseline and generate/reopen the selected hollow pipe IFC. This is a synthetic scenario, not measured building data."
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Check every represented pipe piece in the selected saved IFC for material overlap and self-clearance using self-clash-policy.json. Connected ports have explicitly sourced spherical regions; prove both outside-to-full directions and never waive solid overlap. The column is not represented in this IFC, so obstacle correspondence remains pending.",
+      "task": "self-qa",
+      "acceptance": "Check every represented pipe piece in the selected saved IFC for material overlap and self-clearance using self-clash-policy.json. Connected ports have explicitly sourced spherical regions; prove both outside-to-full directions and never waive solid overlap. The column is not represented in this IFC, so obstacle correspondence remains pending."
+    },
+    {
+      "id": "R3",
+      "passage": "P004",
+      "quote": "Review full source applicability, route self-clearance policy, actual obstacles, products, native drawings and visual output before engineering acceptance. Automated pass statuses do not clear these requirements.",
+      "task": "review",
+      "acceptance": "Review full source applicability, route self-clearance policy, actual obstacles, products, native drawings and visual output before engineering acceptance. Automated pass statuses do not clear these requirements."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+test_blocked_escape_fails_instead_of_drawing_through_obstacles (test_route_annotations.RouteAnnotationTests.test_blocked_escape_fails_instead_of_drawing_through_obstacles) ... ok
+test_both_independent_projects_have_no_leader_samples_inside_any_pipe (test_route_annotations.RouteAnnotationTests.test_both_independent_projects_have_no_leader_samples_inside_any_pipe) ... ok
+test_historical_negative_quadrant_leader_really_crossed_branch (test_route_annotations.RouteAnnotationTests.test_historical_negative_quadrant_leader_really_crossed_branch) ... ok
+test_outward_stubs_in_all_four_arc_quadrants (test_route_annotations.RouteAnnotationTests.test_outward_stubs_in_all_four_arc_quadrants) ... ok
+test_visibility_grid_detours_and_budget_is_enforced (test_route_annotations.RouteAnnotationTests.test_visibility_grid_detours_and_budget_is_enforced) ... ok
+test_compiled_chain_preserves_search_length_bore_and_each_loss (test_route_model.RouteModelTests.test_compiled_chain_preserves_search_length_bore_and_each_loss) ... ok
+test_loss_duplication_and_uncontained_route_are_rejected (test_route_model.RouteModelTests.test_loss_duplication_and_uncontained_route_are_rejected) ... ok
+test_straight_route_uses_explicit_straight_loss (test_route_model.RouteModelTests.test_straight_route_uses_explicit_straight_loss) ... ok
+test_additional_straight_piece_loss_is_included_in_objective (test_route_optimize.PressureRouteTests.test_additional_straight_piece_loss_is_included_in_objective) ... ok
+test_conflicting_objective_is_rejected (test_route_optimize.PressureRouteTests.test_conflicting_objective_is_rejected) ... ok
+test_lower_loss_route_has_two_bends_despite_longer_length (test_route_optimize.PressureRouteTests.test_lower_loss_route_has_two_bends_despite_longer_length) ... ok
+test_lower_pressure_does_not_turn_failed_target_into_acceptance (test_route_optimize.PressureRouteTests.test_lower_pressure_does_not_turn_failed_target_into_acceptance) ... ok
+test_bad_inputs_and_infeasible_bend_spacing_are_rejected (test_route_search.RouteSearchTests.test_bad_inputs_and_infeasible_bend_spacing_are_rejected) ... ok
+test_blocked_grid_retains_failure_instead_of_fabricating_route (test_route_search.RouteSearchTests.test_blocked_grid_retains_failure_instead_of_fabricating_route) ... ok
+test_detour_uses_finite_bends_and_independent_length_formula (test_route_search.RouteSearchTests.test_detour_uses_finite_bends_and_independent_length_formula) ... ok
+test_end_inside_clearance_zone_is_rejected (test_route_search.RouteSearchTests.test_end_inside_clearance_zone_is_rejected) ... ok
+test_unobstructed_route_preserves_endpoints_and_true_length (test_route_search.RouteSearchTests.test_unobstructed_route_preserves_endpoints_and_true_length) ... ok
+test_passing_producer_uses_registered_selected_ifc_path (test_route_workflow.RouteWorkflowTests.test_passing_producer_uses_registered_selected_ifc_path) ... ok
+test_route_inputs_are_tracked_and_failed_pressure_blocks_clash (test_route_workflow.RouteWorkflowTests.test_route_inputs_are_tracked_and_failed_pressure_blocks_clash) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.143s
+
+OK

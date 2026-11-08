@@ -1,0 +1,7 @@
+# Requirement-linked searched-route self-coordination
+
+Actual execution of examples/route-search/coordination-plan.json regenerated the pressure-selected route, authored and reopened its native IFC, calculated/reconciled pressure, then ran IfcOpenShell triangle queries and Manifold3D material-overlap and outside-region clearance proofs. Both technical tasks pass. Full manual applicability/obstacle/native drawing/visual review remains pending; workflow execution is intentionally incomplete and design acceptance false.
+
+All five represented pipe pieces were covered. No material intersections or clearance violations were detected under the explicit synthetic policy. Four connected pairs each received both outside-to-full proofs. The obstacle column exists only as a search rectangle, not an IFC element, so this is self-coordination rather than building obstacle coordination. The source IFC and input files remained unchanged; complete workflow integrity verification passed after execution. Large IFC meshes stay in runs/searched-route-coordination-v1; retained reports bind their hashes and source inputs for reproduction.
+
+Nineteen route-related plus twelve workflow/status tests passed. Dispatch controls verify all three route input hashes, the registered selected IFC path and that a failed pressure producer blocks dependent clash execution. These mocked dispatch controls are separate from the actual full pipeline run above. The updated network skill passed structural validation.
