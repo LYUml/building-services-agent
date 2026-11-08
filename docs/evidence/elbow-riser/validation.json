@@ -1,0 +1,183 @@
+{
+  "scope": "Independent synthetic finite elbow riser; source/native/pressure/clash/conservative graphic layout and actual PDF inspection; overall agent and engineering goal remains incomplete",
+  "design_accepted": false,
+  "source_inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\elbow-riser\\plan.json": "03804331c0ecdbe01fe48da18ea05589a8dc8502b4903c90b24d0684e5d6f1f4",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\elbow-riser\\project.json": "6de325f3e751a52c8c53ddc97f8ccd373f0ea9524af0a6604d0285e87c5a4ff4",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\elbow-riser\\brief.md": "a77504e66c2e00051941e2db1de5ab386e3ec34c1e41856588d2405346c2c9f4",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\elbow-riser\\drawing-settings.json": "599ddec9490bd35d421b7d07dd61c846003af4efb83b49efbac933fe5c1d6a25",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\elbow-riser\\network.json": "1ab895732dccabff9fcd9d13d1e16d7e626c28bc471c5625b63237654f7db8e8",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\elbow-riser\\binding.json": "c70041f4c1d4e994bb94e5d3a19ce291e010c3c0d96f0b20c72c99471d36d75b",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\elbow-riser\\clash-policy.json": "5650ff7e6567f2555200298a4c7934b75b5652746aa1593661ac69846564f3d9",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\elbow-riser\\native-sheet.json": "533eee83dfbea52fe88ad5e75117cf339c40764e66469cc5d07906f4d62585c4"
+  },
+  "test_runs": {
+    "independent_riser": {
+      "tests": 4,
+      "passed": 4,
+      "skipped": 0,
+      "seconds": 111.969,
+      "actual_autocad": true
+    },
+    "related_regression": {
+      "tests": 19,
+      "passed": 19,
+      "skipped": 0,
+      "seconds": 107.261,
+      "scope": "Original route drawing with actual AutoCAD, five geometric annotation cases and six workflow cases; no new full-suite claim"
+    }
+  },
+  "final_tasks": {
+    "model": {
+      "kind": "network_coordination",
+      "status": "pass",
+      "scope": "IFC port-derived circular route dimensions and prescribed-flow pressure budget; detailed routing and full acceptance pending"
+    },
+    "qa": {
+      "kind": "ifc_clash",
+      "status": "pass",
+      "scope": "saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending"
+    },
+    "drawing": {
+      "kind": "ifc_route_drawing",
+      "status": "pass",
+      "scope": "source-checked saved circular walls and finite arcs to GUID-linked planar axes/OD outlines; product and installation acceptance pending"
+    },
+    "native": {
+      "kind": "ifc_native",
+      "status": "pass",
+      "scope": "isolated native DWG reopen, geometry/IFC XDATA reconciliation and physical PDF reference verified; visual/installation acceptance pending"
+    }
+  },
+  "native_checks": {
+    "model_entity_count": 21,
+    "linked_entity_count": 19,
+    "model_entities_and_ifc_xdata_match": true,
+    "geometry_layers_and_annotations_match": true,
+    "metre_units": true
+  },
+  "plot": {
+    "pdf_sha256": "4b12600a25c9f4f68536b7bb68ce682e314c0c93c08d024433fc87d9c5c14b03",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 25,
+    "reference_handle": "34",
+    "reference_expected_mm": 72.0,
+    "reference_measured_mm": 71.96666666666667,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "layout_checks": {
+    "leader_body_checks_pass": true,
+    "leader_pair_checks_pass": true,
+    "saved_leader_paths_match": true,
+    "candidate_assignments_tested": 2
+  },
+  "low_supply": {
+    "supply_total_pressure_pa": 20000,
+    "required_end_total_pressure_pa": 2000,
+    "actual_end_total_pressure_pa": 53.55161394935203,
+    "model_failure_retained": true,
+    "dependent_tasks_pending": true,
+    "design_accepted": false
+  },
+  "failed_baseline_retention": "Selected original drawing/native/workflow records and actual bad PDF/render; not a complete baseline run archive",
+  "pending": [
+    "product/joint/support/insulation detail",
+    "unproven dense annotation layouts and formal sheet standards",
+    "source/code applicability",
+    "BIM viewer and full installation/engineering acceptance"
+  ],
+  "archive_entries": {
+    "drawing/annotation-layout.json": "4a7fa37fe8de3c7b9dd0a2b027b0b836b1a6b02937cd466eaaff1af9f51d8200",
+    "drawing/drawing.json": "bf9ee453b19c020b403f53092caa1d5bd0c8d12c61f28c9c2d41a6b8771ab525",
+    "drawing/preview.svg": "7bc912e921ee9d9f3064e7f2c6811ab723724d5e03f810b4e8d05c80d05c334e",
+    "drawing/segments.csv": "8c304fd97cbbbc3c0f783c0097cb1e3abcc06c4a39a82a159f28c87354e2d380",
+    "drawing/segments.dxf": "e88b563d0cb3a0b43881f7dc35ad49ecd90f00c1aedaf4694bb63416f99f740d",
+    "index.html": "18fa2cf1909b0d0a857356b677e8d6788644aaab956c441d36b17ca50ec07306",
+    "low-supply-control.json": "0901a742538552d7b2834087286b7cf01b6c3c6e376625bcc3fc5518ee14b731",
+    "model/analysis/manifest.json": "89957b096b5927b3b3553c1f85a5ab639fe230c8e8c4a8020afdb0ecf9fe0059",
+    "model/analysis/network.json": "3155bbcfcd9eb5fd403d34ee9d1bdbb86f32239dae1d0fba874a00a6aab82158",
+    "model/analysis/report.html": "66323b823c3f61212f3a928878388d6dbabc2dff2417ce0b3fa21942ae9a6a32",
+    "model/analysis/segments.csv": "5c736cf7e7d9fdd0d51f1b265d720bcc148ab50cffe7e295d5fe085d383b8091",
+    "model/bim/bim-verification.json": "755392f59a2074d93f888e036ebab11efc333566bbd054c052b898b6eb09d482",
+    "model/bim/model.ifc": "e27583791e17c15351aecb90fad67832ce27494bfe35c2e525bb75420575c574",
+    "model/bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "model/network-binding.json": "5c7980d780dd8d31b9fa0c3265dd8698dae4e4957c5b6d04acdad3d7bf619260",
+    "model/network-input.json": "a33872bc7c35027239676e2f738046a192cc2dc1afcb38ebe9c769bc3a976ee4",
+    "native/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "5d038757789b4db3912bae18e14e92da33a0493592c6a0084096db05766d067f",
+    "native/input.dxf": "e88b563d0cb3a0b43881f7dc35ad49ecd90f00c1aedaf4694bb63416f99f740d",
+    "native/native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "53d97c6b1a5efa1311e798139e2e6ee84a2c9d80450b67c3a5d795296e3d8160",
+    "native/native-reopen/export.log": "3b90ec24f5f37fad70de0ecb56508fbf86aa7d6bb1bfafbf8dbc1d695974a161",
+    "native/native-reopen/export.scr": "7dd692d3993375d1926782ffbd5876ad3bf45a3d90b6490b3ee05edeb6638d48",
+    "native/native-reopen/source-copy.dwg": "4f9d185b661e9856827e253dfc38b0af8efd76e1480f7960df11fb51c874120d",
+    "native/native-reopen/source-export.dxf": "762db7a9e63a5ad09b03926de1e12209b5eb2d7546207e7bac42af526419a878",
+    "native/native-verification.json": "ab2a1ba356c0e6e0e6b30131e9c0af9024e7b63a10fa6ea17e9f0d831b65c479",
+    "native/plot.log": "e9393400b0932641cd4975b998f4e433ff800673d31b052cf575790e10964004",
+    "native/save.log": "046651de9e161efc6306711904e5da0e874dbd87fe180a5798613263ef89c7cf",
+    "native/save.scr": "0a6163aa435a886caed11e7a4357b6dfb4e196b635295d9fa76a14f432d932ad",
+    "native/segments.dwg": "4f9d185b661e9856827e253dfc38b0af8efd76e1480f7960df11fb51c874120d",
+    "native/sheet.json": "e621e516b7de144336310269b6bfc6c5404d7c03a569a46385cd6ed45dd3baae",
+    "native/sheet.log": "427f1f09d7508579a963b66038f6bda3b2b27b0995083f497b62c5e42913a64e",
+    "native/sheet.pdf": "4b12600a25c9f4f68536b7bb68ce682e314c0c93c08d024433fc87d9c5c14b03",
+    "native/sheet.scr": "56317b5fd11d921e78fe8f947eb9abcd4be986df96eefaaffbbcc85d4d51e3ed",
+    "qa/clash.json": "a3374880e25c18065b8fbe3fd5505e10001ebc97c3be37c1477128fcb18cac8b",
+    "qa/report.html": "d9300bd8e89da54c1d4eb8b0697a33edf1ced6176d482dd46ddd477d3df2c2f9",
+    "sheet-review.png": "e318a965600047e93a9404dfcbeac112dc059dd40127cd09ecb001577130807d",
+    "workflow.json": "0d65108aa4d0f079e186b36db83e038c66615f3c2d5ab9cf78710257e71c77f8",
+    "source-snapshots/plan.json": "03804331c0ecdbe01fe48da18ea05589a8dc8502b4903c90b24d0684e5d6f1f4",
+    "source-snapshots/project.json": "6de325f3e751a52c8c53ddc97f8ccd373f0ea9524af0a6604d0285e87c5a4ff4",
+    "source-snapshots/brief.md": "a77504e66c2e00051941e2db1de5ab386e3ec34c1e41856588d2405346c2c9f4",
+    "source-snapshots/drawing-settings.json": "599ddec9490bd35d421b7d07dd61c846003af4efb83b49efbac933fe5c1d6a25",
+    "source-snapshots/network.json": "1ab895732dccabff9fcd9d13d1e16d7e626c28bc471c5625b63237654f7db8e8",
+    "source-snapshots/binding.json": "c70041f4c1d4e994bb94e5d3a19ce291e010c3c0d96f0b20c72c99471d36d75b",
+    "source-snapshots/clash-policy.json": "5650ff7e6567f2555200298a4c7934b75b5652746aa1593661ac69846564f3d9",
+    "source-snapshots/native-sheet.json": "533eee83dfbea52fe88ad5e75117cf339c40764e66469cc5d07906f4d62585c4",
+    "low-supply/control.json": "dc1fa97d3e0ddbcd05b0aafdf33278eb2adabc3eaa587bfa44cdf7ae33309094",
+    "low-supply/inputs/binding.json": "c70041f4c1d4e994bb94e5d3a19ce291e010c3c0d96f0b20c72c99471d36d75b",
+    "low-supply/inputs/brief.md": "a77504e66c2e00051941e2db1de5ab386e3ec34c1e41856588d2405346c2c9f4",
+    "low-supply/inputs/clash-policy.json": "5650ff7e6567f2555200298a4c7934b75b5652746aa1593661ac69846564f3d9",
+    "low-supply/inputs/drawing-settings.json": "599ddec9490bd35d421b7d07dd61c846003af4efb83b49efbac933fe5c1d6a25",
+    "low-supply/inputs/native-sheet.json": "533eee83dfbea52fe88ad5e75117cf339c40764e66469cc5d07906f4d62585c4",
+    "low-supply/inputs/network.json": "34eecef921b3986272a87d31b4510e48b77f4fd371139aaae8f69163304c4f94",
+    "low-supply/inputs/plan.json": "03804331c0ecdbe01fe48da18ea05589a8dc8502b4903c90b24d0684e5d6f1f4",
+    "low-supply/inputs/project.json": "6de325f3e751a52c8c53ddc97f8ccd373f0ea9524af0a6604d0285e87c5a4ff4",
+    "low-supply/run/index.html": "b8aceda651e3d89c44df62c733526dd5f28041b1490c09fedb47a0237818cb76",
+    "low-supply/run/model/analysis/manifest.json": "54158e6d3d098a338320d321f39ff1a65743c2b74d0d254546e7da0ff48c9de4",
+    "low-supply/run/model/analysis/network.json": "5efcf02a527158fe5145f29464ba83dab6caa496430d19b32dec5621b675f7e3",
+    "low-supply/run/model/analysis/report.html": "50a0e568e9311c2ab34e2253cdfef36103aa90862fbbf95450cd46415d4772ea",
+    "low-supply/run/model/analysis/segments.csv": "7d5e13ef751c66896a65308d63b639752d85b20600d2e52677f8f6fd5f200105",
+    "low-supply/run/model/bim/bim-verification.json": "b350020de986dee243a6ee3e35741e396ecdb514dce4b9d41722519a2d96866f",
+    "low-supply/run/model/bim/model.ifc": "372c6fb9c85a897cbbef9e54da8da4de52c00c5b3029fc3f76a3707e2445f579",
+    "low-supply/run/model/bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "low-supply/run/model/network-binding.json": "8c6e65723dc21eb1dedb7ec1dfca0b7ae5496b681d427e80a6affc4d7c20d36e",
+    "low-supply/run/model/network-input.json": "914f75b8ba01d68024708a546f0b4f1f6126dd607b9269237e3e957a9378a07a",
+    "low-supply/run/workflow.json": "5dcfe473c7fde7e8cf09d0f860d41917d9bfd8983a18b320842c4256dc38c1f5",
+    "failed-visual-baseline/workflow.json": "e4e6ae9bdd9aa29e7ab2badcac5fa88bf19ebd2c33be5e3f90dd9ad604d55566",
+    "failed-visual-baseline/drawing/drawing.json": "c3d27dfb42b079b81f337bac33d94ad8123a46ba6859b415432b1e13d3575f30",
+    "failed-visual-baseline/drawing/segments.dxf": "758bd2ac1b1cd4cca50934bc5142895f2f68ef8c548eda4b5b4db7cf19f28e3f",
+    "failed-visual-baseline/native/native-verification.json": "8c286e15e371517113ab8baff9890379258a86053b5e531645fe8eb36b2e490e",
+    "failed-visual-baseline/native/sheet.pdf": "ae1de5731070b771af1ef3295db60e74c8b8c7a94254241c6232fd7b50603195",
+    "failed-visual-baseline/sheet-preview.png": "46a34ab91778af6a0a3c81f5a1c2587eb1d92335ffa1a43e3cd90bda205bc135"
+  },
+  "retained_files": {
+    "annotation-layout.json": "4a7fa37fe8de3c7b9dd0a2b027b0b836b1a6b02937cd466eaaff1af9f51d8200",
+    "assessment.json": "d8550c83c870c79706a34810d73d7554ae1cde39d802bd9aad14934d3cd5b673",
+    "failed-baseline.pdf": "ae1de5731070b771af1ef3295db60e74c8b8c7a94254241c6232fd7b50603195",
+    "failed-baseline.png": "46a34ab91778af6a0a3c81f5a1c2587eb1d92335ffa1a43e3cd90bda205bc135",
+    "independent-tests.log": "209440b9b025b8ed05ca321affdce25db6893ce5cdc93700f376acc6efcbb409",
+    "low-supply-control.json": "dc1fa97d3e0ddbcd05b0aafdf33278eb2adabc3eaa587bfa44cdf7ae33309094",
+    "related-regression.log": "a3e73357cb154c7f95ff867c2495d85e9b54d95fb3cc195211d1766b4926be42",
+    "review.json": "5dfd4cc51d104b13a7c0e8873b446b0912eacc616cac6c3f6abba8dee60b558a",
+    "segments.dwg": "4f9d185b661e9856827e253dfc38b0af8efd76e1480f7960df11fb51c874120d",
+    "segments.dxf": "e88b563d0cb3a0b43881f7dc35ad49ecd90f00c1aedaf4694bb63416f99f740d",
+    "sheet-preview.png": "e318a965600047e93a9404dfcbeac112dc059dd40127cd09ecb001577130807d",
+    "sheet.pdf": "4b12600a25c9f4f68536b7bb68ce682e314c0c93c08d024433fc87d9c5c14b03",
+    "visual-review.json": "fb367fea26cd10f526c93bb7b4473940c4354e47a95834e9623e75b9575d4538",
+    "workflow.zip": "732de44b06de7d7fc435769152f5be973e0be42e51c7d94adf7cd3ab920a8d4a"
+  }
+}

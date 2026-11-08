@@ -1,0 +1,24 @@
+test_actual_native_arc_reopen_identity_and_physical_pdf_scale (test_ifc_route_drawing.RouteDrawingTests.test_actual_native_arc_reopen_identity_and_physical_pdf_scale) ... ok
+test_axially_shifted_wall_with_unchanged_ports_rejected (test_ifc_route_drawing.RouteDrawingTests.test_axially_shifted_wall_with_unchanged_ports_rejected) ... ok
+test_body_axis_units_and_coverage_tampering_rejected (test_ifc_route_drawing.RouteDrawingTests.test_body_axis_units_and_coverage_tampering_rejected) ... ok
+test_clipped_annotation_or_nonplanar_arc_rejected_before_native_writes (test_ifc_route_drawing.RouteDrawingTests.test_clipped_annotation_or_nonplanar_arc_rejected_before_native_writes) ... ok
+test_complete_identity_true_arc_od_outlines_and_schedule (test_ifc_route_drawing.RouteDrawingTests.test_complete_identity_true_arc_od_outlines_and_schedule) ... ok
+test_failed_route_drawing_blocks_native_workflow (test_ifc_route_drawing.RouteDrawingTests.test_failed_route_drawing_blocks_native_workflow) ... ok
+test_native_reconciliation_rejects_arc_or_guid_change (test_ifc_route_drawing.RouteDrawingTests.test_native_reconciliation_rejects_arc_or_guid_change) ... ok
+test_reversed_plane_axes_preserve_arc_and_wrong_plane_rejected (test_ifc_route_drawing.RouteDrawingTests.test_reversed_plane_axes_preserve_arc_and_wrong_plane_rejected) ... ok
+test_blocked_escape_fails_instead_of_drawing_through_obstacles (test_route_annotations.RouteAnnotationTests.test_blocked_escape_fails_instead_of_drawing_through_obstacles) ... ok
+test_both_independent_projects_have_no_leader_samples_inside_any_pipe (test_route_annotations.RouteAnnotationTests.test_both_independent_projects_have_no_leader_samples_inside_any_pipe) ... ok
+test_historical_negative_quadrant_leader_really_crossed_branch (test_route_annotations.RouteAnnotationTests.test_historical_negative_quadrant_leader_really_crossed_branch) ... ok
+test_outward_stubs_in_all_four_arc_quadrants (test_route_annotations.RouteAnnotationTests.test_outward_stubs_in_all_four_arc_quadrants) ... ok
+test_visibility_grid_detours_and_budget_is_enforced (test_route_annotations.RouteAnnotationTests.test_visibility_grid_detours_and_budget_is_enforced) ... ok
+test_execution_does_not_claim_acceptance (test_workflow.WorkflowTests.test_execution_does_not_claim_acceptance) ... ok
+test_intake_preserves_line_evidence (test_workflow.WorkflowTests.test_intake_preserves_line_evidence) ... ok
+test_missing_native_tool_stays_pending (test_workflow.WorkflowTests.test_missing_native_tool_stays_pending) ... ok
+test_network_coordination_tracks_network_source_and_detects_later_edit (test_workflow.WorkflowTests.test_network_coordination_tracks_network_source_and_detects_later_edit) ... ok
+test_stale_source_missing_coverage_and_fabricated_quote_rejected (test_workflow.WorkflowTests.test_stale_source_missing_coverage_and_fabricated_quote_rejected) ... ok
+test_tracked_example_plans_keep_source_hashes (test_workflow.WorkflowTests.test_tracked_example_plans_keep_source_hashes) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 107.261s
+
+OK

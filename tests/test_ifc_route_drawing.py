@@ -59,7 +59,8 @@ class RouteDrawingTests(unittest.TestCase):
         self.assertAlmostEqual((arc.dxf.end_angle-arc.dxf.start_angle)%360, 90)
         self.assertEqual(arc.get_xdata('BSA_IFC')[0].value, bend['guid'])
         self.assertEqual(sorted(round(e.dxf.radius, 9) for e in doc.modelspace().query('ARC')), [.25,.3,.35])
-        self.assertEqual(len(doc.modelspace()), 20)
+        self.assertGreaterEqual(len(doc.modelspace()), 20)
+        self.assertTrue(self.result['annotation_layout']['saved_leader_paths_match'])
         self.assertIn('BEND', (self.root/'drawing/segments.csv').read_text())
         self.assertFalse(self.result['design_accepted'])
 
@@ -137,8 +138,9 @@ class RouteDrawingTests(unittest.TestCase):
     def test_actual_native_arc_reopen_identity_and_physical_pdf_scale(self):
         result = native_run(self.dxf,self.sheet_path,self.root/'native',DEFAULT_EXE)
         self.assertTrue(result['native_reopen_pass'])
-        self.assertEqual(result['checks']['model_entity_count'],20)
-        self.assertEqual(result['checks']['linked_entity_count'],18)
+        source = ezdxf.readfile(self.dxf)
+        self.assertEqual(result['checks']['model_entity_count'],len(source.modelspace()))
+        self.assertEqual(result['checks']['linked_entity_count'],sum(e.has_xdata('BSA_IFC') for e in source.modelspace()))
         self.assertAlmostEqual(result['plot']['reference_expected_mm'],60)
         self.assertAlmostEqual(result['plot']['reference_measured_mm'],60,delta=.2)
         self.assertEqual(result['plot']['visual_review'],'pending')

@@ -1,0 +1,8 @@
+{
+  "supply_total_pressure_pa": 20000,
+  "required_end_total_pressure_pa": 2000,
+  "actual_end_total_pressure_pa": 53.55161394935203,
+  "model_failure_retained": true,
+  "dependent_tasks_pending": true,
+  "design_accepted": false
+}

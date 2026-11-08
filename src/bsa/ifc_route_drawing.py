@@ -121,9 +121,13 @@ def extract(ifc, source_model, settings):
 
 def draw(rows, settings, out):
     import ezdxf
+    from collections import Counter
     from .cad_overlay import snapshot, reconcile
+    from .route_annotations import layout
     axes = [{'X':0,'Y':1,'Z':2}[a] for a in settings['projection_axes']]
     height = settings['annotation_height_m']
+    annotation = layout(rows, axes, height)
+    plans = {p['guid']:p for p in annotation['pieces']}
     doc = ezdxf.new('R2018'); doc.header['$INSUNITS'] = 6
     doc.appids.new('BSA_IFC')
     for name, color in (('BSA_PIPE_AXIS',4),('BSA_PIPE_OUTLINE',7),('BSA_LABEL',7),('BSA_LEADER',8)):
@@ -132,15 +136,13 @@ def draw(rows, settings, out):
     for row in rows:
         a,b = [[p[i] for i in axes] for p in (row['start_world_m'],row['end_world_m'])]
         projected.extend([a,b])
-    label_x = max(p[0] for p in projected)+4*height
     def add(entity, row):
         entity.set_xdata('BSA_IFC', [(1000,row['guid'])])
         return entity
     def line(a,b,layer,row):
         add(ms.add_line(a,b,dxfattribs={'layer':layer}),row)
         svg.append(f'<line x1="{a[0]}" y1="{-a[1]}" x2="{b[0]}" y2="{-b[1]}" stroke="black" stroke-width="{height/12}"/>')
-    label_y = -math.inf
-    for row in sorted(rows, key=lambda r:sum(p[axes[1]] for p in (r['start_world_m'],r['end_world_m']))/2):
+    for row in sorted(rows, key=lambda r:plans[r['guid']]['label_position_m'][1]):
         a,b = [[p[i] for i in axes] for p in (row['start_world_m'],row['end_world_m'])]
         if row['centreline_radius_m'] is None:
             line(a,b,'BSA_PIPE_AXIS',row)
@@ -149,8 +151,6 @@ def draw(rows, settings, out):
                 offset = [sign*row['outside_diameter_m']/2*n for n in normal]
                 line([x+y for x,y in zip(a,offset)],[x+y for x,y in zip(b,offset)],'BSA_PIPE_OUTLINE',row)
             middle = [(x+y)/2 for x,y in zip(a,b)];detail = ''
-            if normal[0] < -1e-9 or abs(normal[0]) < 1e-9 and normal[1] < 0:
-                normal = [-n for n in normal]
         else:
             c = row['projected_centre_m'];radius = row['centreline_radius_m']
             start,end = row['start_angle_deg'],row['end_angle_deg']
@@ -161,19 +161,17 @@ def draw(rows, settings, out):
                 p,q = [[c[0]+r*math.cos(math.radians(t)),c[1]+r*math.sin(math.radians(t))] for t in (start,end)]
                 svg.append(f'<path d="M {p[0]} {-p[1]} A {r} {r} 0 0 0 {q[0]} {-q[1]}" fill="none" stroke="black" stroke-width="{height/12}"/>')
             detail = f"; R {radius*1000:g} mm; 90 deg"
-            normal = [math.cos(theta),math.sin(theta)]
-        anchor = [middle[i]+row['outside_diameter_m']/2*normal[i] for i in (0,1)]
-        exit_point = [anchor[i]+height*normal[i] for i in (0,1)]
-        label_y = max(exit_point[1],label_y+2.2*height)
+        plan = plans[row['guid']]
+        label_x, label_y = plan['label_position_m']
         label = f"{row['name']} ID {row['inner_diameter_m']*1000:g}/OD {row['outside_diameter_m']*1000:g} mm; L {row['length_m']:.6f} m"+detail
-        line(anchor,exit_point,'BSA_LEADER',row)
-        line(exit_point,[label_x-height,label_y],'BSA_LEADER',row)
+        for p,q in zip(plan['leader_points_m'],plan['leader_points_m'][1:]):
+            line(p,q,'BSA_LEADER',row)
         add(ms.add_text(label,dxfattribs={'height':height,'insert':(label_x,label_y),'layer':'BSA_LABEL'}),row)
         svg.append(f'<text x="{label_x}" y="{-label_y}" font-size="{height}">{html.escape(label)}</text>')
     titles = [' / '.join(settings['projection_axes'])+f" route plane {rows[0]['plane_coordinate_m']:g} m; coordinates m",
               'Axis and OD outlines; generic geometry; product/installation acceptance pending']
     for i,title in enumerate(titles):
-        x = min(p[0] for p in projected);y = min(p[1] for p in projected)-(3+i*1.8)*height
+        x = min(p['bounds_m'][0] for p in plans.values());y = min(p['bounds_m'][1] for p in plans.values())-(3+i*1.8)*height
         ms.add_text(title,dxfattribs={'height':height,'insert':(x,y),'layer':'BSA_LABEL'})
         svg.append(f'<text x="{x}" y="{-y}" font-size="{height}">{html.escape(title)}</text>')
     path = out/'segments.dxf';doc.saveas(path)
@@ -184,10 +182,17 @@ def draw(rows, settings, out):
     from .ifc_native import identity
     if identity(doc) != identity(saved):
         raise ProjectError('saved route IFC identity mismatch')
+    def key(guid,a,b):return (guid,tuple(round(v,9) for v in a[:2]),tuple(round(v,9) for v in b[:2]))
+    expected = Counter(key(p['guid'],a,b) for p in plans.values() for a,b in zip(p['leader_points_m'],p['leader_points_m'][1:]))
+    actual = Counter(key(e.get_xdata('BSA_IFC')[0].value,list(e.dxf.start),list(e.dxf.end)) for e in saved.modelspace().query('LINE[layer=="BSA_LEADER"]'))
+    if expected != actual:raise ProjectError('saved annotation leaders differ from proven layout')
+    annotation['saved_leader_paths_match'] = True
+    (out/'annotation-layout.json').write_text(json.dumps(annotation,indent=2),encoding='utf-8')
     from ezdxf import bbox
     bounds = bbox.extents(saved.modelspace());margin = 2*height
     lo,hi = bounds.extmin,bounds.extmax
     (out/'preview.svg').write_text(f'<svg xmlns="http://www.w3.org/2000/svg" font-family="monospace" viewBox="{lo.x-margin} {-hi.y-margin} {hi.x-lo.x+2*margin} {hi.y-lo.y+2*margin}">'+''.join(svg)+'</svg>',encoding='utf-8')
+    return annotation
 
 
 def run(ifc, source_model, settings_path, out):
@@ -198,13 +203,13 @@ def run(ifc, source_model, settings_path, out):
     data = json.loads(paths[1].read_text(encoding='utf-8-sig'))
     settings = validate_settings(json.loads(paths[2].read_text(encoding='utf-8-sig')))
     rows = extract(paths[0], data, settings)
-    out.mkdir(parents=True,exist_ok=False);draw(rows,settings,out)
+    out.mkdir(parents=True,exist_ok=False);annotation=draw(rows,settings,out)
     with (out/'segments.csv').open('w',newline='',encoding='utf-8') as f:
         fields = ['guid','name','ifc_class','inner_diameter_m','outside_diameter_m','length_m','centreline_radius_m','analytic_wall_volume_m3','source']
         writer = csv.DictWriter(f,fieldnames=fields,extrasaction='ignore');writer.writeheader();writer.writerows(rows)
     if any(digest(Path(p)) != h for p,h in before.items()):
         raise ProjectError('route drawing source changed')
-    result = dict(inputs=before,inputs_unchanged=True,settings=settings,pieces=rows,piece_count=len(rows),
+    result = dict(inputs=before,inputs_unchanged=True,settings=settings,pieces=rows,piece_count=len(rows),annotation_layout=annotation,
                   calculated_checks_pass=True,design_accepted=False,
                   scope='source-checked coplanar circular route axes, true arcs and OD outlines; no manufacturer detail',
                   pending=['native DWG reopen and actual PDF visual review','product/joint/insulation/support detail','complete installation and engineering acceptance'])

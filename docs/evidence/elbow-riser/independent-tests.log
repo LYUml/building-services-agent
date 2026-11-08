@@ -1,0 +1,13 @@
+C:\Users\lyuml-win\Desktop\building-services-agent\.venv\Lib\site-packages\ifcopenshell\express\rule_executor.py:95: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\.venv\\Lib\\site-packages\\ifcopenshell\\express\\rules\\IFC4.py' mode='r' encoding='cp1252'>
+  source = open(fn, "r").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+Multiple definitions in dictionary at byte 0x1e9a for key /PageMode
+test_actual_elevation_native_reopen_and_72_mm_reference (test_elbow_riser.IndependentElbowRiserTests.test_actual_elevation_native_reopen_and_72_mm_reference) ... ok
+test_clockwise_flow_keeps_true_ccw_dxf_geometry_and_proven_leaders (test_elbow_riser.IndependentElbowRiserTests.test_clockwise_flow_keeps_true_ccw_dxf_geometry_and_proven_leaders) ... ok
+test_inadequate_supply_retains_failure_and_blocks_all_dependents (test_elbow_riser.IndependentElbowRiserTests.test_inadequate_supply_retains_failure_and_blocks_all_dependents) ... ok
+test_independent_gravity_friction_minor_loss_and_complete_geometry (test_elbow_riser.IndependentElbowRiserTests.test_independent_gravity_friction_minor_loss_and_complete_geometry) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 111.969s
+
+OK

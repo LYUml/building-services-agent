@@ -21,6 +21,8 @@ Open this repository as the workspace. Ask the agent to use `$building-services-
 
 ## Current evidence and limits
 
+[An independent vertical elbow riser](docs/ELBOW_RISER.md) now reuses the source-linked geometry/pressure/clash/native pipeline with different dimensions, coordinates, gravity and namespace. It exposed a leader crossing missed by the first example; conservative annotation routing now checks OD/prior-leader avoidance and saved DXF paths. Actual insufficient-supply failures block downstream output. Product and full installation acceptance remain pending.
+
 [Planar route drawings](docs/IFC_ROUTE_DRAWINGS.md) now carry source-checked finite elbows and straight walls into true-arc/OD-outline DXF, GUID-linked schedules, independently reopened AutoCAD DWG and fixed-scale A4 PDF. Actual world bounds catch shifted solids with unchanged ports; inspected-sheet evidence remains separate from full installation acceptance.
 
 [Finite circular elbows](docs/CIRCULAR_ELBOWS.md) now connect source-parametric hollow IFC4 walls and exact arc references to directed tree pressure calculations. Saved geometry and excess-K reconciliation preserve physical bend length; independent laminar pressure and tamper checks cover the synthetic route. A source-linked coordination workflow also checks the same saved IFC, both outside-joint clearances and unwaivable material overlaps, with curved-bore and intrusion regression controls. Product, viewer and installation acceptance remain pending.

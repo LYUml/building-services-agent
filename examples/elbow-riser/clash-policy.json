@@ -1,0 +1,28 @@
+{
+  "scope": "all represented non-feature non-virtual IfcElements",
+  "sources": {
+    "demo": "Independent synthetic 15 mm clearance outside 0.085 m spherical joint regions; 0.1 mm contact/intersection and 1e-10 m3 overlap tolerances, not a code or product requirement."
+  },
+  "source": "demo",
+  "minimum_clearance_m": 0.015,
+  "intersection_tolerance_m": 0.0001,
+  "contact_tolerance_m": 0.0001,
+  "overlap_volume_tolerance_m3": 1e-10,
+  "maximum_boolean_pairs": 1000,
+  "allowed_contacts": [
+    {
+      "from_port_guid": "1T4orDl$zJ6gx_$YEdioZg",
+      "to_port_guid": "3KDSxM48LRRB4spBF1_apz",
+      "region_radius_m": 0.085,
+      "source": "demo"
+    },
+    {
+      "from_port_guid": "1K$9TrVjPSw8XxT$it5IvK",
+      "to_port_guid": "0y$XROuUHIyPXjW2YPr4z1",
+      "region_radius_m": 0.085,
+      "source": "demo"
+    }
+  ],
+  "contact_clearance_mode": "outside_regions",
+  "contact_region_segments": 64
+}

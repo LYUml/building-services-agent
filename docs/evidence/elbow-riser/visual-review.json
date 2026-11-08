@@ -1,0 +1,21 @@
+{
+  "scope": "Actual final independent elevation PDF only; no BIM viewer, product or full installation acceptance",
+  "pdf_sha256": "4b12600a25c9f4f68536b7bb68ce682e314c0c93c08d024433fc87d9c5c14b03",
+  "render_sha256": "e318a965600047e93a9404dfcbeac112dc059dd40127cd09ecb001577130807d",
+  "render": "Poppler -png -scale-to 1670 -singlefile; entire final page inspected",
+  "observations": [
+    "TURN leader leaves the outer bend normal and travels above the pipe; no crossing of the branch or BRANCH leader",
+    "TURN, BRANCH and RISER callouts show 60/75 mm sizes and separate actual lengths; turn R240 mm / 90 degrees legible",
+    "Full X/Z route at Y=1.2 m and scope legend visible without clipping"
+  ],
+  "native_reopen_pass": true,
+  "reference_expected_mm": 72,
+  "reference_measured_mm": 71.96666666666667,
+  "failed_baseline": {
+    "pdf_sha256": "ae1de5731070b771af1ef3295db60e74c8b8c7a94254241c6232fd7b50603195",
+    "render_sha256": "46a34ab91778af6a0a3c81f5a1c2587eb1d92335ffa1a43e3cd90bda205bc135",
+    "visual_status": "fail",
+    "reason": "Old TURN leader crosses the bend and lies over the BRANCH silhouette despite nominal geometry/scale task passes"
+  },
+  "design_accepted": false
+}

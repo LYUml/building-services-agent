@@ -91,6 +91,7 @@ jobs:
       - run: python -m unittest discover -s tests -p test_circular_geometry.py -v
       - run: python -m unittest discover -s tests -p test_ifc_drawing.py -v
       - run: python -m unittest discover -s tests -p test_ifc_route_drawing.py -v
+      - run: python -m unittest discover -s tests -p test_route_annotations.py -v
       - run: python -m unittest discover -s tests -p test_ifc_views.py -v
       - run: python -m unittest discover -s tests -p test_ifc_native.py -v
       - run: python -m unittest discover -s tests -p test_clash.py -v
@@ -109,6 +110,7 @@ jobs:
       - run: python -m unittest discover -s tests -p test_network_binding.py -v
       - run: python -m unittest discover -s tests -p test_circular_elbow.py -v
       - run: python -m unittest discover -s tests -p test_elbow_clash.py -v
+      - run: python -m unittest discover -s tests -p test_elbow_riser.py -v
       - run: python -m unittest discover -s tests -p test_network_design.py -v
       - run: python -m unittest discover -s tests -p test_pump.py -v
       - run: python -m unittest discover -s tests -p test_pump_electrical.py -v

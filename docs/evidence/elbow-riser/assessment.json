@@ -1,0 +1,303 @@
+{
+  "design_accepted": false,
+  "review_checks_pass": true,
+  "source_integrity_pass": true,
+  "requirements": [
+    {
+      "id": "R1",
+      "task": "model",
+      "quote": "Author project.json with its independent namespace, 60 mm bore, 75 mm outside diameter, 0.24 m radius and negative-X/positive-Z elbow. Preserve the 1.8 m vertical RISER, 1.2 m BRANCH, 2.04 m endpoint rise, exact ports and source bytes. Verify saved native walls, source bounds, circular arc, topology, identities and tangent ports. These are explicit synthetic assumptions, not measured or manufacturer data.",
+      "acceptance": "Independent synthetic source/native/numerical/visual contract; complete engineering acceptance remains pending",
+      "execution_status": "pass",
+      "recorded_review_status": "pass",
+      "effective_review_status": "pass",
+      "reviewer": "Codex host agent: actual source/numerical evidence and rendered sheet inspection",
+      "reviewed_at_utc": "2026-11-08T05:53:34.276580+00:00",
+      "notes": "Independent namespace, source 60/75 mm walls and negative-X/positive-Z arc retain all three devices, source bounds, stable object/port IDs and two exact connections.",
+      "evidence": [
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "sha256": "755392f59a2074d93f888e036ebab11efc333566bbd054c052b898b6eb09d482"
+        }
+      ],
+      "attachments": [],
+      "facts": [
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "pointer": "/checks/schema_valid",
+          "expected": true,
+          "basis": "Quoted independent synthetic contract only; no wider engineering approval",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "pointer": "/checks/source_unchanged",
+          "expected": true,
+          "basis": "Quoted independent synthetic contract only; no wider engineering approval",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "pointer": "/checks/connection_endpoints_match",
+          "expected": true,
+          "basis": "Quoted independent synthetic contract only; no wider engineering approval",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "model/bim/bim-verification.json",
+          "pointer": "/devices/1/circular_checks/through_bore_pass",
+          "expected": true,
+          "basis": "Quoted independent synthetic contract only; no wider engineering approval",
+          "actual": true,
+          "pass_check": true
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "R2",
+      "task": "model",
+      "quote": "Use network.json and binding.json to derive straight-plus-arc length, per-piece excess K and saved elevations. Execute and retain the prescribed-flow total-pressure budget with explicit fluid/demand/target inputs. Independently reconcile Poiseuille friction, excess minor loss and rho*g*delta_z. An inadequate-supply control must fail targets and leave dependent deliverables pending; do not fabricate accepted output.",
+      "acceptance": "Independent synthetic source/native/numerical/visual contract; complete engineering acceptance remains pending",
+      "execution_status": "pass",
+      "recorded_review_status": "pass",
+      "effective_review_status": "pass",
+      "reviewer": "Codex host agent: actual source/numerical evidence and rendered sheet inspection",
+      "reviewed_at_utc": "2026-11-08T05:53:34.276580+00:00",
+      "notes": "Independent Poiseuille/excess-K/gravity checks agree: length 3.376991118 m, friction 0.764394424 Pa, minor 0.134689627 Pa, elevation 19945.549302 Pa; terminal total pressure 5053.551614 Pa. The separate real 20000 Pa supply control leaves 53.551614 Pa and blocks qa/drawing/native. Attached experiment pins its actual input/calculation/workflow and explicitly checks that only name/supply change from the cited baseline network input.",
+      "evidence": [
+        {
+          "artifact": "model/network-binding.json",
+          "sha256": "5c7980d780dd8d31b9fa0c3265dd8698dae4e4957c5b6d04acdad3d7bf619260"
+        },
+        {
+          "artifact": "model/network-input.json",
+          "sha256": "a33872bc7c35027239676e2f738046a192cc2dc1afcb38ebe9c769bc3a976ee4"
+        }
+      ],
+      "attachments": [
+        {
+          "path": "low-supply-control.json",
+          "sha256": "0901a742538552d7b2834087286b7cf01b6c3c6e376625bcc3fc5518ee14b731",
+          "source_artifact": "model/network-input.json",
+          "source_sha256": "a33872bc7c35027239676e2f738046a192cc2dc1afcb38ebe9c769bc3a976ee4"
+        }
+      ],
+      "facts": [
+        {
+          "artifact": "model/network-binding.json",
+          "pointer": "/inputs_unchanged",
+          "expected": true,
+          "basis": "Quoted independent synthetic contract only; no wider engineering approval",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "model/network-binding.json",
+          "pointer": "/saved_ifc_geometry_match",
+          "expected": true,
+          "basis": "Quoted independent synthetic contract only; no wider engineering approval",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "model/network-binding.json",
+          "pointer": "/calculated_checks_pass",
+          "expected": true,
+          "basis": "Quoted independent synthetic contract only; no wider engineering approval",
+          "actual": true,
+          "pass_check": true
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "R3",
+      "task": "qa",
+      "quote": "Check all saved physical route elements using clash-policy.json. Require accepted solid coverage, no intersections and both conservative outside-to-full 15 mm clearance proofs around the two declared 0.085 m contact regions. Do not waive overlap for connected ports or inherit thresholds from another project.",
+      "acceptance": "Independent synthetic source/native/numerical/visual contract; complete engineering acceptance remains pending",
+      "execution_status": "pass",
+      "recorded_review_status": "pass",
+      "effective_review_status": "pass",
+      "reviewer": "Codex host agent: actual source/numerical evidence and rendered sheet inspection",
+      "reviewed_at_utc": "2026-11-08T05:53:34.276580+00:00",
+      "notes": "Three accepted physical solids and both nonempty outside-to-full directions at each of two joints pass the independent synthetic 15 mm / 0.085 m region policy. No product or code clearance acceptance.",
+      "evidence": [
+        {
+          "artifact": "qa/clash.json",
+          "sha256": "a3374880e25c18065b8fbe3fd5505e10001ebc97c3be37c1477128fcb18cac8b"
+        }
+      ],
+      "attachments": [],
+      "facts": [
+        {
+          "artifact": "qa/clash.json",
+          "pointer": "/checks/geometry_coverage",
+          "expected": true,
+          "basis": "Quoted independent synthetic contract only; no wider engineering approval",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "qa/clash.json",
+          "pointer": "/checks/no_intersections",
+          "expected": true,
+          "basis": "Quoted independent synthetic contract only; no wider engineering approval",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "qa/clash.json",
+          "pointer": "/checks/clearance",
+          "expected": true,
+          "basis": "Quoted independent synthetic contract only; no wider engineering approval",
+          "actual": true,
+          "pass_check": true
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "R4",
+      "task": "drawing",
+      "quote": "Produce a source-checked X/Z elevation at Y=1.2 m with both straight axes and the true finite elbow arc, OD outlines, lengths, radius and GUID-linked schedule. Verify clockwise flow geometry despite the DXF counterclockwise arc convention. Keep leaders outside route silhouettes and separate from one another; an unproven layout must not silently pass.",
+      "acceptance": "Independent synthetic source/native/numerical/visual contract; complete engineering acceptance remains pending",
+      "execution_status": "pass",
+      "recorded_review_status": "pass",
+      "effective_review_status": "pass",
+      "reviewer": "Codex host agent: actual source/numerical evidence and rendered sheet inspection",
+      "reviewed_at_utc": "2026-11-08T05:53:34.277580+00:00",
+      "notes": "True 90-to-180 degree DXF arc preserves the actual clockwise source flow endpoints and 0.24 m radius in X/Z at Y=1.2 m. Numeric bounded-layout checks match reopened DXF. Actual final PDF shows TURN above BRANCH; neither leader crosses a pipe or the other leader. The earlier crossing sheet is retained as failed visual evidence.",
+      "evidence": [
+        {
+          "artifact": "drawing/drawing.json",
+          "sha256": "bf9ee453b19c020b403f53092caa1d5bd0c8d12c61f28c9c2d41a6b8771ab525"
+        },
+        {
+          "artifact": "native/sheet.pdf",
+          "sha256": "4b12600a25c9f4f68536b7bb68ce682e314c0c93c08d024433fc87d9c5c14b03"
+        }
+      ],
+      "attachments": [
+        {
+          "path": "sheet-review.png",
+          "sha256": "e318a965600047e93a9404dfcbeac112dc059dd40127cd09ecb001577130807d",
+          "source_artifact": "native/sheet.pdf",
+          "source_sha256": "4b12600a25c9f4f68536b7bb68ce682e314c0c93c08d024433fc87d9c5c14b03"
+        }
+      ],
+      "facts": [
+        {
+          "artifact": "drawing/drawing.json",
+          "pointer": "/inputs_unchanged",
+          "expected": true,
+          "basis": "Quoted independent synthetic contract only; no wider engineering approval",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "drawing/drawing.json",
+          "pointer": "/calculated_checks_pass",
+          "expected": true,
+          "basis": "Quoted independent synthetic contract only; no wider engineering approval",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "drawing/drawing.json",
+          "pointer": "/annotation_layout/leader_body_checks_pass",
+          "expected": true,
+          "basis": "Quoted independent synthetic contract only; no wider engineering approval",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "drawing/drawing.json",
+          "pointer": "/annotation_layout/leader_pair_checks_pass",
+          "expected": true,
+          "basis": "Quoted independent synthetic contract only; no wider engineering approval",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "drawing/drawing.json",
+          "pointer": "/annotation_layout/saved_leader_paths_match",
+          "expected": true,
+          "basis": "Quoted independent synthetic contract only; no wider engineering approval",
+          "actual": true,
+          "pass_check": true
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "R5",
+      "task": "native",
+      "quote": "Use isolated AutoCAD 2027 to save and independently reopen native DWG, reconcile geometry and all IFC identities, and plot A4 at 1:25 with native-sheet.json. The 1.8 m source-linked reference must measure 72 mm within 0.2 mm. Inspect the actual rendered PDF and retain source/hash-bound evidence. Product, BIM-viewer and full installation/engineering acceptance stay pending.",
+      "acceptance": "Independent synthetic source/native/numerical/visual contract; complete engineering acceptance remains pending",
+      "execution_status": "pass",
+      "recorded_review_status": "pass",
+      "effective_review_status": "pass",
+      "reviewer": "Codex host agent: actual source/numerical evidence and rendered sheet inspection",
+      "reviewed_at_utc": "2026-11-08T05:53:34.277580+00:00",
+      "notes": "Actual independent AutoCAD 2027 reopen preserves 21 entities and 19 GUID-linked entities. A4 reference measures 71.966667 mm against 72 mm at 1:25. Entire final 1670 px PDF render inspected: smooth turn/OD curves, separated readable labels and plane/scope legend, no clipping. Product/support/joint, BIM-viewer and full engineering acceptance remain pending.",
+      "evidence": [
+        {
+          "artifact": "native/native-verification.json",
+          "sha256": "ab2a1ba356c0e6e0e6b30131e9c0af9024e7b63a10fa6ea17e9f0d831b65c479"
+        },
+        {
+          "artifact": "native/sheet.pdf",
+          "sha256": "4b12600a25c9f4f68536b7bb68ce682e314c0c93c08d024433fc87d9c5c14b03"
+        }
+      ],
+      "attachments": [
+        {
+          "path": "sheet-review.png",
+          "sha256": "e318a965600047e93a9404dfcbeac112dc059dd40127cd09ecb001577130807d",
+          "source_artifact": "native/sheet.pdf",
+          "source_sha256": "4b12600a25c9f4f68536b7bb68ce682e314c0c93c08d024433fc87d9c5c14b03"
+        }
+      ],
+      "facts": [
+        {
+          "artifact": "native/native-verification.json",
+          "pointer": "/native_reopen_pass",
+          "expected": true,
+          "basis": "Quoted independent synthetic contract only; no wider engineering approval",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "native/native-verification.json",
+          "pointer": "/checks/model_entities_and_ifc_xdata_match",
+          "expected": true,
+          "basis": "Quoted independent synthetic contract only; no wider engineering approval",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "native/native-verification.json",
+          "pointer": "/plot/pdf_reference_pass",
+          "expected": true,
+          "basis": "Quoted independent synthetic contract only; no wider engineering approval",
+          "actual": true,
+          "pass_check": true
+        }
+      ],
+      "issues": []
+    }
+  ],
+  "issues": [],
+  "scope": "Source/byte consistency, recorded reviewer assertions and optional adapter-reported Boolean facts; not reviewer authentication, semantic completeness or engineering certification",
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\elbow-riser\\plan.json": "03804331c0ecdbe01fe48da18ea05589a8dc8502b4903c90b24d0684e5d6f1f4",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\elbow-riser-delivery-v2\\workflow.json": "0d65108aa4d0f079e186b36db83e038c66615f3c2d5ab9cf78710257e71c77f8",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\elbow-riser-review-v2.json": "5dfd4cc51d104b13a7c0e8873b446b0912eacc616cac6c3f6abba8dee60b558a"
+  },
+  "inputs_unchanged": true,
+  "status": "review_complete"
+}

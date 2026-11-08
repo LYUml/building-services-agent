@@ -1,0 +1,12 @@
+{
+  "source": "Independent synthetic A4 landscape elevation, 1:25; RISER 1.8 m vertical axis must measure 72 mm on paper; all geometry and callouts inside explicit window.",
+  "window_drawing_units": [
+    3.3,
+    0.2,
+    8.9,
+    3.6
+  ],
+  "scale_denominator": 25,
+  "reference_ifc_guid": "3Pk2O22V9SDgP6GLE5Rlc2",
+  "pdf_tolerance_mm": 0.2
+}

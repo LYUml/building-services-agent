@@ -1,0 +1,14 @@
+{
+  "source": "Independent explicit directed RISER -> TURN -> BRANCH chain; physical arc length and per-piece excess K, endpoints carry actual elevation.",
+  "nodes": {
+    "BASE": "RISER.in",
+    "END": "BRANCH.out"
+  },
+  "segments": {
+    "ROUTE": [
+      "RISER",
+      "TURN",
+      "BRANCH"
+    ]
+  }
+}
