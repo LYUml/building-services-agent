@@ -92,3 +92,7 @@ The `electrical_fault` adapter takes a common electrical `project` and sourced `
 ### HVAC water-pipe regulatory prerequisite
 
 `water_pipe_regulations` takes `project`, `basis`, `pack`, `sources` and returns scoped per-segment rules plus fresh hydraulic results. A downstream `network` task uses `requires_pass`; the checked and consumed network input bytes must match. Failure or pending checks skip the downstream task. CAD/BIM and optimized-model correspondence is not established by this adapter. See [water piping](HK_WATER_PIPING.md).
+
+### Regulatory water-model selection
+
+`regulated_water_model` uses project/model/binding/catalogue/geometry/basis/classifications/pack/sources and exposes the saved selected IFC plus derived network to existing consumers. Selection must pass before dependent consumers execute; downstream clash checks and drawing prerequisites remain explicit. See [water-piping selection](HK_WATER_PIPING.md).

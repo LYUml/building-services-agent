@@ -11,11 +11,11 @@ from pathlib import Path
 from .cli import digest
 from .engine import ProjectError
 
-IFC_ARTIFACTS={'annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
+IFC_ARTIFACTS={'regulated_water_model':'selected-coordination/bim/model.ifc','annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
                'route_model':'bound/bim/model.ifc','route_optimize':'selected/bound/bim/model.ifc',
                'network_model_design':'selected-coordination/bim/model.ifc',
                'electrical_coordination':'bim/model.ifc','electrical_lighting':'shared/bim/model.ifc','pump_electrical':'model.ifc','water_coordination':'model.ifc'}
-NETWORK_ARTIFACTS={'network_coordination':'network-input.json','network_design':'selected-network.json',
+NETWORK_ARTIFACTS={'regulated_water_model':'selected-coordination/network-input.json','network_coordination':'network-input.json','network_design':'selected-network.json',
                    'network_model_design':'selected-coordination/network-input.json'}
 
 
@@ -110,7 +110,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             inputs.add(local_path(root,t.get("project")))
@@ -120,7 +120,7 @@ def validate_plan(path):
                 raise ProjectError('HVAC regulations require an earlier design-day energy producer')
             if any(k in t for k in ('idf','project','variant')):
                 raise ProjectError('HVAC regulations read both producer variants; replacement inputs forbidden')
-        if kind in ('regulations','electrical_regulations','lighting_regulations','hvac_regulations','water_pipe_regulations'):
+        if kind in ('regulations','electrical_regulations','lighting_regulations','hvac_regulations','water_pipe_regulations','regulated_water_model'):
             from .regulations import source_paths
             pack=local_path(root,t.get('pack'));project=local_path(root,t.get('basis' if kind=='hvac_regulations' or kind=='water_pipe_regulations' and t.get('depends_on') else 'project'))
             directory=t.get('sources')
@@ -241,7 +241,9 @@ def validate_plan(path):
             from .network_design import validate_catalogue
             catalogue=local_path(root,t.get('catalogue'));inputs.add(catalogue)
             validate_catalogue(read_json(local_path(root,t['project'])),read_json(catalogue))
-        if kind=='network_model_design':
+        if kind=='regulated_water_model':
+            inputs.update(local_path(root,t.get(key)) for key in ('basis','classifications'))
+        if kind in ('network_model_design','regulated_water_model'):
             from .network_model_design import prepare
             files=[local_path(root,t.get(key)) for key in ('project','model','binding','catalogue','geometry')]
             inputs.update(files);prepare(*(read_json(f) for f in files))
@@ -503,6 +505,11 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                 from .bim import run
                 payload=run(local_path(root,t['project']),folder)
                 status='pass';reason='IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending'
+            elif t['kind']=='regulated_water_model':
+                from .regulated_water_model import run
+                files=[local_path(root,t[key]) for key in ('project','model','binding','catalogue','geometry','basis','classifications','pack')]
+                payload=run(*files,root/t['sources'],folder)
+                status='pass' if payload['calculated_checks_pass'] else 'fail';reason=payload['scope']
             elif t['kind']=='network_model_design':
                 from .network_model_design import run
                 files=[local_path(root,t[key]) for key in ('project','model','binding','catalogue','geometry')]
