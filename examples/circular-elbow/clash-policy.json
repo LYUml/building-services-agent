@@ -1,0 +1,28 @@
+{
+  "scope": "all represented non-feature non-virtual IfcElements",
+  "sources": {
+    "demo": "Explicit synthetic elbow route QA policy: 10 mm clearance outside sourced 0.10 m spherical joint regions, 0.1 mm contact/intersection tolerances and 1e-10 m3 material overlap tolerance. Port GUIDs from the canonical project namespace; not product or regulation clearances."
+  },
+  "source": "demo",
+  "minimum_clearance_m": 0.01,
+  "intersection_tolerance_m": 0.0001,
+  "contact_tolerance_m": 0.0001,
+  "overlap_volume_tolerance_m3": 1e-10,
+  "maximum_boolean_pairs": 1000,
+  "allowed_contacts": [
+    {
+      "from_port_guid": "2UGOcQOz5VV8kvROaYPfKr",
+      "to_port_guid": "19dOxHpDbQIOMVZYOaje6H",
+      "region_radius_m": 0.1,
+      "source": "demo"
+    },
+    {
+      "from_port_guid": "281zrJzG5MDB7Aip1d6yG2",
+      "to_port_guid": "1ya1lhTDvGfPwo0KK5eviG",
+      "region_radius_m": 0.1,
+      "source": "demo"
+    }
+  ],
+  "contact_clearance_mode": "outside_regions",
+  "contact_region_segments": 64
+}

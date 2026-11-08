@@ -107,6 +107,7 @@ jobs:
       - run: python -m unittest discover -s tests -p test_network.py -v
       - run: python -m unittest discover -s tests -p test_network_binding.py -v
       - run: python -m unittest discover -s tests -p test_circular_elbow.py -v
+      - run: python -m unittest discover -s tests -p test_elbow_clash.py -v
       - run: python -m unittest discover -s tests -p test_network_design.py -v
       - run: python -m unittest discover -s tests -p test_pump.py -v
       - run: python -m unittest discover -s tests -p test_pump_electrical.py -v
@@ -118,6 +119,8 @@ jobs:
       - run: python -m bsa.workflow execute examples/network-design/plan.json --out runs/network-design
       - run: python -m bsa.workflow execute examples/network-model-design/plan.json --out runs/network-model-design
       - run: python -m bsa.workflow execute examples/circular-network/plan.json --out runs/circular-network
+      - run: python -m bsa.workflow execute examples/circular-elbow/coordination-plan.json --out runs/elbow-coordination
+      - run: python -m bsa.workflow verify runs/elbow-coordination
       - run: python -m bsa.workflow execute examples/clash-plan.json --out runs/ifc-clash
       - run: python -m bsa.workflow execute examples/clash-local-plan.json --out runs/ifc-clash-local
       - run: python -m bsa.workflow execute examples/water-riser/plan.json --out runs/water-riser

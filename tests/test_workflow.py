@@ -15,8 +15,31 @@ class WorkflowTests(unittest.TestCase):
             data=json.loads(path.read_text(encoding='utf-8-sig'))
             if isinstance(data,dict) and data.get('version')==1 and 'brief_sha256' in data:
                 self.assertEqual(digest(path.parent/data['brief']),data['brief_sha256'],str(path))
-                validate_plan(path);count+=1
+                plan,inputs=validate_plan(path)
+                for task in plan['tasks']:
+                    if task.get('project'):
+                        self.assertIn((path.parent/task['project']).resolve(),inputs,str(path))
+                count+=1
         self.assertGreaterEqual(count,5)
+
+    def test_network_coordination_tracks_network_source_and_detects_later_edit(self):
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)
+            example=ROOT/'examples/network-binding'
+            for name in ('plan.json','brief.md','network.json','model.json','binding.json'):
+                (root/name).write_bytes((example/name).read_bytes())
+            # Exercise actual workflow input collection and verification without invoking native engines.
+            with patch('bsa.network_binding.run',return_value={'calculated_checks_pass':True}):
+                result=execute(root/'plan.json',root/'run')
+            self.assertIn(str((root/'network.json').resolve()),result['inputs'])
+            self.assertTrue(verify(root/'run')['integrity_pass'])
+            data=json.loads((root/'network.json').read_text())
+            data['supply']['total_pressure_pa']+=1
+            (root/'network.json').write_text(json.dumps(data))
+            checked=verify(root/'run')
+            self.assertFalse(checked['integrity_pass'])
+            self.assertTrue(any('network.json' in issue and 'input changed' in issue for issue in checked['issues']))
 
     def fixture(self,folder):
         root=Path(folder)

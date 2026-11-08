@@ -1,0 +1,71 @@
+{
+  "scope": "Synthetic finite elbow saved-geometry coordination and bound network source tracking; no product/viewer/installation acceptance",
+  "design_accepted": false,
+  "tests": {
+    "native_elbow_clash": {
+      "tests": 4,
+      "passed": 4,
+      "seconds": 120.315
+    },
+    "workflow_after_test_correction": {
+      "tests": 6,
+      "passed": 6,
+      "seconds": 0.881
+    },
+    "initial_workflow_test_error": "Misplaced count assertion in newly added test; corrected before passing rerun. Both logs retained."
+  },
+  "observed_source_tracking_gap": "Before-fix top-level report omitted network.json while nested adapter tracked it. Fixed workflow records the file; mutation regression requires verification to fail.",
+  "saved_ifc_sha256": "3506b95b0ce44a9479f577b56febe8755e04185591eb3a14ec622e1d1225caed",
+  "checks": {
+    "geometry_coverage": true,
+    "no_intersections": true,
+    "clearance": true
+  },
+  "physical_element_count": 3,
+  "accepted_contacts": 2,
+  "outside_region_proofs": 2,
+  "workflow_input_hashes": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\circular-elbow\\project.json": "440852dec5cd4e4fe51271f9fccea763ab9e0ae11007e65e60de9c14694e3cf9",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\circular-elbow\\coordination-plan.json": "737a52abcc58a1a038f2bbb7aa21b9c952f5c23d3d14f4a460da1c58e7ca20ff",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\circular-elbow\\coordination-brief.md": "658b0ab08c017cba2023e88a78a346bc07ea5b3b0d1282d923b4a4c71bcba3e8",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\circular-elbow\\binding.json": "eacfd05ed18f970aaa137c4150deadd940ca5515b2e0c4dc6e575f4b10d10966",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\circular-elbow\\clash-policy.json": "1e490e77ce8e566a4af95a5046177d85ddf93a43c24790efb8bc7cce4b0b5d1b",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\circular-elbow\\network.json": "ddcf2fde34ddd74dacfed7a35b05f5bf66c632668cb977fa0263f4aa28dfe541"
+  },
+  "pending": [
+    "triangle approximation and supplied tolerance applicability",
+    "envelope versus actual product/insulation fidelity",
+    "clearance policy/source review",
+    "BIM viewer and complete engineering acceptance",
+    "finite fitting installation drawings",
+    "manufacturer connector and K applicability"
+  ],
+  "archive_entries": {
+    "index.html": "4a2405a69fe3dece47ba5fd7f44fefcd8b0486ebc62cda2d497764c91e60d37f",
+    "model/analysis/manifest.json": "a22fe13b0cf4c2b2bc7cee9a96e382661bf9f40402881fbd5fb04dc28877c966",
+    "model/analysis/network.json": "2ead48978e8ee9317787b288ae25649fd35bce1454fea8883c317d588f774d89",
+    "model/analysis/report.html": "6c0b94b8d775a40784f695b7491077e6e68293bb0d4f29b120b6d01f9dbd1c41",
+    "model/analysis/segments.csv": "11038ba501ffc9345331a4a22426559d981e671fa20a9c3cf463edc61687d6ac",
+    "model/bim/bim-verification.json": "b4c85677b11a655ea28b524ca59c9f9ac0d2e14c325473d3a676807d27adde25",
+    "model/bim/model.ifc": "3506b95b0ce44a9479f577b56febe8755e04185591eb3a14ec622e1d1225caed",
+    "model/bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "model/network-binding.json": "f82938bebdb72026e5b16a5fba4d9a0209b307f5319a49ce39a7f0718c35e5b1",
+    "model/network-input.json": "fadbf7d718c51671a02278c426a7869bf05dd714a6ea5459d29b35ba58da8e3f",
+    "qa/clash.json": "63044dc8a6dd6a6cba68a63f56a3a188d62241f87ca784812e150c763cf0fe8a",
+    "qa/report.html": "1218e9c2b582308c666ae90735897f6d1b5a9499d6b924b0715e439b81c470fa",
+    "workflow.json": "c16893c5d690190abddd446df3ba54c1b7b6d75958a7470c2a3e48cae9af38a3",
+    "source-snapshots/project.json": "440852dec5cd4e4fe51271f9fccea763ab9e0ae11007e65e60de9c14694e3cf9",
+    "source-snapshots/network.json": "ddcf2fde34ddd74dacfed7a35b05f5bf66c632668cb977fa0263f4aa28dfe541",
+    "source-snapshots/binding.json": "eacfd05ed18f970aaa137c4150deadd940ca5515b2e0c4dc6e575f4b10d10966",
+    "source-snapshots/coordination-plan.json": "737a52abcc58a1a038f2bbb7aa21b9c952f5c23d3d14f4a460da1c58e7ca20ff",
+    "source-snapshots/coordination-brief.md": "658b0ab08c017cba2023e88a78a346bc07ea5b3b0d1282d923b4a4c71bcba3e8",
+    "source-snapshots/clash-policy.json": "1e490e77ce8e566a4af95a5046177d85ddf93a43c24790efb8bc7cce4b0b5d1b"
+  },
+  "retained_files": {
+    "elbow-clash-tests-v1.log": "6db47f741102dd22bd936afb5f07a3ffb10b58c12b888f1bd56dc5f987fe0da2",
+    "elbow-workflow-tests-v1.log": "adbdcf55c27518f74e1ffcd461330e9cab2b2e78d249be20a929cbc854a71005",
+    "elbow-workflow-tests-v2.log": "cfe029e350e629b4301653733556cd67f2fb55c4ace1b48b09e01ddfac1e35d4",
+    "top-level-workflow-before-fix.json": "906a595e44b15bd860f3f5da498256ae8ff04ab1161796f755a8924c79799543",
+    "workflow.zip": "85b6af13bfe090bbff3cb5b9401e4953fe90f8cf63d3036170848e67bf299f33"
+  }
+}

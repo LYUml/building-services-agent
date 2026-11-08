@@ -182,7 +182,7 @@ def validate_plan(path):
         if kind=='network_coordination':
             from .network_binding import prepare
             model=local_path(root,t.get('model'));binding=local_path(root,t.get('binding'))
-            inputs.update((model,binding))
+            inputs.update((local_path(root,t.get('project')),model,binding))
             prepare(read_json(local_path(root,t.get('project'))),read_json(model),read_json(binding))
         if kind=='electrical_lighting':
             from .lighting_binding import prepare

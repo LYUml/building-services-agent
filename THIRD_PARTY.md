@@ -111,3 +111,5 @@ The retained thermal-window solar comparison figure was rendered with local Matp
 # Finite elbow geometry references
 
 The finite 90-degree annular-wall tessellator and independent saved-circle reconstruction are original repository code. They reuse the already pinned/attributed IfcOpenShell and NumPy runtime; no new upstream code or dependency was added. Concept references: buildingSMART [IfcArcIndex](https://technical.buildingsmart.org/projects/2024tunnel/schema/ifcgeometryresource/lexical/ifcarcindex.htm) and [IfcSweptDiskSolid](https://standards.buildingsmart.org/IFC/RELEASE/IFC4_1/FINAL/HTML/schema/ifcgeometricmodelresource/lexical/ifcsweptdisksolid.htm). The actual accepted Body is tessellated, with an exact Axis reference; these references do not imply an IFC4.1/4.3 output-file claim.
+
+Finite elbow coordination reuses the already attributed pinned IfcOpenShell 0.8.5 and Manifold3D 3.5.4 adapters without vendor-source changes or new dependencies. The synthetic contact policy, regression controls and workflow source-tracking correction are original repository work. Existing upstream licenses and the geometry references above remain applicable.

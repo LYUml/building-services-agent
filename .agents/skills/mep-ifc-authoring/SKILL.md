@@ -5,7 +5,9 @@ description: Create and revise source-linked IFC4 MEP envelopes or explicit stra
 
 # IFC MEP authoring
 
-For finite circular 90-degree elbows read docs/CIRCULAR_ELBOWS.md. Require explicit bore/outside/radius/centre/signed axes and actual end-face ports. The Body is a source-parametric tessellated wall with a separate exact circular Axis, not an analytic swept Body. Keep native oriented-mesh, bore, independent volume and source-index checks. Constant-density directed tree routes may derive physical arc length and explicitly sourced excess-over-centreline-friction K per piece; reject aggregate K duplication. EPANET finite-fitting, product, clash and viewer acceptance remain separate unresolved gates.
+For finite circular 90-degree elbows read docs/CIRCULAR_ELBOWS.md. Require explicit bore/outside/radius/centre/signed axes and actual end-face ports. The Body is a source-parametric tessellated wall with a separate exact circular Axis, not an analytic swept Body. Keep native oriented-mesh, bore, independent volume and source-index checks. Constant-density directed tree routes may derive physical arc length and explicitly sourced excess-over-centreline-friction K per piece; reject aggregate K duplication. EPANET finite-fitting, product and viewer acceptance remain unresolved; require a separate saved-model clash check.
+
+The finite elbow `examples/circular-elbow/coordination-plan.json` now runs saved-IFC clash checking after the pressure binding. Source new contact regions and clearances for each actual project; never inherit this synthetic policy as a code rule. Require full geometry/solid coverage and both nonempty outside-to-full clearance proofs for the two example joints. Regression controls must reject unchanged-port wall intrusion and a close bore obstacle while accepting a small object inside the empty curved bore. The numerical example does not establish product, viewer or installation acceptance.
 
 Read docs/IFC_MODELS.md. Use `python -m bsa.bim <project.json> --out <new-run>` or the `bim` workflow adapter. Install the optional `bim` dependencies first. Input examples are under examples/mep-ifc.
 

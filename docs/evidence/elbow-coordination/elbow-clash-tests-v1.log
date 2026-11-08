@@ -1,0 +1,9 @@
+test_connected_ports_cannot_waive_straight_wall_intrusion_into_elbow (test_elbow_clash.ElbowClashTests.test_connected_ports_cannot_waive_straight_wall_intrusion_into_elbow) ... ok
+test_curved_bore_is_empty_despite_overlapping_bounds (test_elbow_clash.ElbowClashTests.test_curved_bore_is_empty_despite_overlapping_bounds) ... ok
+test_finite_contacts_and_both_outside_clearance_directions (test_elbow_clash.ElbowClashTests.test_finite_contacts_and_both_outside_clearance_directions) ... ok
+test_mid_arc_wall_overlap_and_close_bore_obstacle_fail (test_elbow_clash.ElbowClashTests.test_mid_arc_wall_overlap_and_close_bore_obstacle_fail) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 120.315s
+
+OK
