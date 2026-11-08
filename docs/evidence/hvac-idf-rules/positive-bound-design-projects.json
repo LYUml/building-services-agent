@@ -1,0 +1,228 @@
+{
+  "Zone 1": {
+    "Synthetic summer": {
+      "jurisdiction": "HK",
+      "rule_pack": "hk-hvac-design-2026.11.08",
+      "edition_decisions": {
+        "emsd_bec_2024": {
+          "edition": "2024",
+          "basis": "Synthetic exercise selects BEC 2024, not an actual statutory applicability decision"
+        }
+      },
+      "facts": {
+        "bec_air_conditioning_scope_confirmed": {
+          "value": true,
+          "source": "Explicit synthetic summer office load-design scenario; actual applicability not established"
+        },
+        "human_comfort_application": {
+          "value": true,
+          "source": "Explicit synthetic summer office load-design scenario; actual applicability not established"
+        },
+        "prescriptive_design_condition_route_selected": {
+          "value": true,
+          "source": "Explicit synthetic summer office load-design scenario; actual applicability not established"
+        },
+        "inputs_are_load_calculation_design_conditions": {
+          "value": true,
+          "source": "Explicit synthetic summer office load-design scenario; actual applicability not established"
+        }
+      },
+      "load_design_conditions": {
+        "application": {
+          "value": "office",
+          "source": "Explicit synthetic load-design condition"
+        },
+        "season": {
+          "value": "summer",
+          "source": "Saved IDF C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-design-energy-v1\\baseline\\model.idf SHA256 fd80920ea1fe1b14a3abb97a4c336f3c82e5b97d03c9f48ad27cdb0e9ddaa341"
+        },
+        "indoor_dry_bulb": {
+          "value": 24.0,
+          "source": "Saved IDF C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-design-energy-v1\\baseline\\model.idf SHA256 fd80920ea1fe1b14a3abb97a4c336f3c82e5b97d03c9f48ad27cdb0e9ddaa341",
+          "unit": "degC"
+        },
+        "indoor_relative_humidity": {
+          "value": 50.0,
+          "source": "Saved IDF C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-design-energy-v1\\baseline\\model.idf SHA256 fd80920ea1fe1b14a3abb97a4c336f3c82e5b97d03c9f48ad27cdb0e9ddaa341",
+          "unit": "percent"
+        },
+        "outdoor_dry_bulb": {
+          "value": 35.0,
+          "source": "Saved IDF C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-design-energy-v1\\baseline\\model.idf SHA256 fd80920ea1fe1b14a3abb97a4c336f3c82e5b97d03c9f48ad27cdb0e9ddaa341",
+          "unit": "degC"
+        },
+        "outdoor_wet_bulb": {
+          "value": 24.0,
+          "source": "Saved IDF C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-design-energy-v1\\baseline\\model.idf SHA256 fd80920ea1fe1b14a3abb97a4c336f3c82e5b97d03c9f48ad27cdb0e9ddaa341",
+          "unit": "degC"
+        }
+      }
+    },
+    "Synthetic winter": {
+      "jurisdiction": "HK",
+      "rule_pack": "hk-hvac-design-2026.11.08",
+      "edition_decisions": {
+        "emsd_bec_2024": {
+          "edition": "2024",
+          "basis": "Synthetic exercise selects BEC 2024, not an actual statutory applicability decision"
+        }
+      },
+      "facts": {
+        "bec_air_conditioning_scope_confirmed": {
+          "value": true,
+          "source": "Explicit synthetic summer office load-design scenario; actual applicability not established"
+        },
+        "human_comfort_application": {
+          "value": true,
+          "source": "Explicit synthetic summer office load-design scenario; actual applicability not established"
+        },
+        "prescriptive_design_condition_route_selected": {
+          "value": true,
+          "source": "Explicit synthetic summer office load-design scenario; actual applicability not established"
+        },
+        "inputs_are_load_calculation_design_conditions": {
+          "value": true,
+          "source": "Explicit synthetic summer office load-design scenario; actual applicability not established"
+        }
+      },
+      "load_design_conditions": {
+        "application": {
+          "value": "office",
+          "source": "Explicit synthetic load-design condition"
+        },
+        "season": {
+          "value": "winter",
+          "source": "Saved IDF C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-design-energy-v1\\baseline\\model.idf SHA256 fd80920ea1fe1b14a3abb97a4c336f3c82e5b97d03c9f48ad27cdb0e9ddaa341"
+        },
+        "indoor_dry_bulb": {
+          "value": 20.0,
+          "source": "Saved IDF C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-design-energy-v1\\baseline\\model.idf SHA256 fd80920ea1fe1b14a3abb97a4c336f3c82e5b97d03c9f48ad27cdb0e9ddaa341",
+          "unit": "degC"
+        },
+        "indoor_relative_humidity": {
+          "value": 50.0,
+          "source": "Saved IDF C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-design-energy-v1\\baseline\\model.idf SHA256 fd80920ea1fe1b14a3abb97a4c336f3c82e5b97d03c9f48ad27cdb0e9ddaa341",
+          "unit": "percent"
+        },
+        "outdoor_dry_bulb": {
+          "value": 7.0,
+          "source": "Saved IDF C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-design-energy-v1\\baseline\\model.idf SHA256 fd80920ea1fe1b14a3abb97a4c336f3c82e5b97d03c9f48ad27cdb0e9ddaa341",
+          "unit": "degC"
+        }
+      }
+    }
+  },
+  "Zone 2": {
+    "Synthetic summer": {
+      "jurisdiction": "HK",
+      "rule_pack": "hk-hvac-design-2026.11.08",
+      "edition_decisions": {
+        "emsd_bec_2024": {
+          "edition": "2024",
+          "basis": "Synthetic exercise selects BEC 2024, not an actual statutory applicability decision"
+        }
+      },
+      "facts": {
+        "bec_air_conditioning_scope_confirmed": {
+          "value": true,
+          "source": "Explicit synthetic summer office load-design scenario; actual applicability not established"
+        },
+        "human_comfort_application": {
+          "value": true,
+          "source": "Explicit synthetic summer office load-design scenario; actual applicability not established"
+        },
+        "prescriptive_design_condition_route_selected": {
+          "value": true,
+          "source": "Explicit synthetic summer office load-design scenario; actual applicability not established"
+        },
+        "inputs_are_load_calculation_design_conditions": {
+          "value": true,
+          "source": "Explicit synthetic summer office load-design scenario; actual applicability not established"
+        }
+      },
+      "load_design_conditions": {
+        "application": {
+          "value": "office",
+          "source": "Explicit synthetic load-design condition"
+        },
+        "season": {
+          "value": "summer",
+          "source": "Saved IDF C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-design-energy-v1\\baseline\\model.idf SHA256 fd80920ea1fe1b14a3abb97a4c336f3c82e5b97d03c9f48ad27cdb0e9ddaa341"
+        },
+        "indoor_dry_bulb": {
+          "value": 24.0,
+          "source": "Saved IDF C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-design-energy-v1\\baseline\\model.idf SHA256 fd80920ea1fe1b14a3abb97a4c336f3c82e5b97d03c9f48ad27cdb0e9ddaa341",
+          "unit": "degC"
+        },
+        "indoor_relative_humidity": {
+          "value": 50.0,
+          "source": "Saved IDF C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-design-energy-v1\\baseline\\model.idf SHA256 fd80920ea1fe1b14a3abb97a4c336f3c82e5b97d03c9f48ad27cdb0e9ddaa341",
+          "unit": "percent"
+        },
+        "outdoor_dry_bulb": {
+          "value": 35.0,
+          "source": "Saved IDF C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-design-energy-v1\\baseline\\model.idf SHA256 fd80920ea1fe1b14a3abb97a4c336f3c82e5b97d03c9f48ad27cdb0e9ddaa341",
+          "unit": "degC"
+        },
+        "outdoor_wet_bulb": {
+          "value": 24.0,
+          "source": "Saved IDF C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-design-energy-v1\\baseline\\model.idf SHA256 fd80920ea1fe1b14a3abb97a4c336f3c82e5b97d03c9f48ad27cdb0e9ddaa341",
+          "unit": "degC"
+        }
+      }
+    },
+    "Synthetic winter": {
+      "jurisdiction": "HK",
+      "rule_pack": "hk-hvac-design-2026.11.08",
+      "edition_decisions": {
+        "emsd_bec_2024": {
+          "edition": "2024",
+          "basis": "Synthetic exercise selects BEC 2024, not an actual statutory applicability decision"
+        }
+      },
+      "facts": {
+        "bec_air_conditioning_scope_confirmed": {
+          "value": true,
+          "source": "Explicit synthetic summer office load-design scenario; actual applicability not established"
+        },
+        "human_comfort_application": {
+          "value": true,
+          "source": "Explicit synthetic summer office load-design scenario; actual applicability not established"
+        },
+        "prescriptive_design_condition_route_selected": {
+          "value": true,
+          "source": "Explicit synthetic summer office load-design scenario; actual applicability not established"
+        },
+        "inputs_are_load_calculation_design_conditions": {
+          "value": true,
+          "source": "Explicit synthetic summer office load-design scenario; actual applicability not established"
+        }
+      },
+      "load_design_conditions": {
+        "application": {
+          "value": "office",
+          "source": "Explicit synthetic load-design condition"
+        },
+        "season": {
+          "value": "winter",
+          "source": "Saved IDF C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-design-energy-v1\\baseline\\model.idf SHA256 fd80920ea1fe1b14a3abb97a4c336f3c82e5b97d03c9f48ad27cdb0e9ddaa341"
+        },
+        "indoor_dry_bulb": {
+          "value": 20.0,
+          "source": "Saved IDF C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-design-energy-v1\\baseline\\model.idf SHA256 fd80920ea1fe1b14a3abb97a4c336f3c82e5b97d03c9f48ad27cdb0e9ddaa341",
+          "unit": "degC"
+        },
+        "indoor_relative_humidity": {
+          "value": 50.0,
+          "source": "Saved IDF C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-design-energy-v1\\baseline\\model.idf SHA256 fd80920ea1fe1b14a3abb97a4c336f3c82e5b97d03c9f48ad27cdb0e9ddaa341",
+          "unit": "percent"
+        },
+        "outdoor_dry_bulb": {
+          "value": 7.0,
+          "source": "Saved IDF C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-design-energy-v1\\baseline\\model.idf SHA256 fd80920ea1fe1b14a3abb97a4c336f3c82e5b97d03c9f48ad27cdb0e9ddaa341",
+          "unit": "degC"
+        }
+      }
+    }
+  }
+}

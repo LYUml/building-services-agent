@@ -1,0 +1,14 @@
+{
+  "scope": "Synthetic integration evidence; no full conformity or actual project acceptance",
+  "checked_idf_matches_executed_baseline": true,
+  "files": {
+    "analysis.json": "f1530194744eb0a516a13e11808df15665f5fc0b3b712dd718feb6869dc5fb48",
+    "negative-bound-design-projects.json": "144d1b891348474f9c7abf8f2721bb6bf8b693d0d93433994650c72a38a0eff3",
+    "negative-hvac-idf-checks.json": "905aae4a6331033666b4d8859f38318601d22491d79139691f2d940d977a1fb1",
+    "negative-native.zip": "8a45b88932b06ab6ef6bf3ab62ddaeec0695fd6b79d4a7747f506818c8e6d798",
+    "positive-bound-design-projects.json": "a01ac71d43644199c8ab81c1fec9d90463aaa1a526b26593f6a264b78c9c232a",
+    "positive-hvac-idf-checks.json": "caf409b9cd9c9523ec74409bcea64b30a4a709e7a860ada775e246792ce25d0d",
+    "positive-native.zip": "7701a30d20aa2674510d401365a6c90a384c24c4c34cc29dca11939d76ba5cf6",
+    "variant-native.zip": "843d7d86a8a696349421bf17b80936400b7f3c0d2895dd7d8e1912d2b9ee12e1"
+  }
+}
