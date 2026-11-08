@@ -48,7 +48,7 @@ def run(catalog,scope,out,plan=None):
                 raise ProjectError('coverage module identity or rule list differs from pack')
             matching=[]
             for task in tasks:
-                if task['kind'] in ('epanet_pipe_regulations','regulations','electrical_regulations','lighting_regulations','hvac_regulations','water_pipe_regulations','regulated_water_model'):
+                if task['kind'] in ('ifc_circulation_checks','epanet_pipe_regulations','regulations','electrical_regulations','lighting_regulations','hvac_regulations','water_pipe_regulations','regulated_water_model'):
                     consumed=(plan_root/task['pack']).resolve()
                     if digest(consumed)==snapshots[str(path)]:matching.append(task['id'])
             available.append(dict(pack=pack['id'],sha256=snapshots[str(path)],rule_ids=module['rules'],

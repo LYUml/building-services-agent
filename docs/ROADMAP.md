@@ -48,3 +48,5 @@ A repeatable circulation demonstration runner now stages source-hashed briefs an
 An independent saved CHILLEDWATER circulation IFC now derives hollow bore, route lengths and node elevations into real EPANET circulation. A missing-reverse-link control exposed and fixed native relationship deduplication; IFC-to-thermal/regulatory workflow inheritance and physical fitting/clash acceptance remain pending.
 
 Saved IFC circulation now has a standalone combined thermal/pipe-rule adapter that rechecks native artifacts and rederives the exact network before fresh checks. Modified derived geometry is rejected even after its manifest hash is rewritten. Workflow inheritance and full physical/regulatory acceptance remain pending.
+
+Saved circulation combined checks now inherit water_coordination in the workflow, inventory official sources and thermal/rule bases, reject replacement inputs and block dependent delivery on failure. Actual official-BEC-backed IFC-to-checks execution passes with final manual engineering acceptance pending.
