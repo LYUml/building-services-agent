@@ -1,0 +1,29 @@
+<!doctype html><meta charset="utf-8"><title>Conditional fault verification</title><h1>Conditional fault verification</h1><p>Sourced TN hot phase/CPC loop, standalone device capacity and total-clearing/let-through envelopes; conditional verification only</p><p>Uncovered source guarantees stay unverified. No B/C/D trip multiples, disconnection times or material constants are embedded.</p><pre>[
+  {
+    &quot;id&quot;: &quot;LGT-1&quot;,
+    &quot;status&quot;: &quot;pass&quot;,
+    &quot;source&quot;: &quot;scenario&quot;,
+    &quot;values&quot;: {
+      &quot;loop_r_ohm_hot&quot;: 0.8,
+      &quot;loop_x_ohm&quot;: 0.054000000000000006,
+      &quot;loop_z_ohm&quot;: 0.8018204287744234,
+      &quot;minimum_earth_fault_a&quot;: 272.50490528655604,
+      &quot;maximum_loop_z_for_source_trip_ohm&quot;: 3.6416666666666666,
+      &quot;cpc_energy_capacity_a2s&quot;: 29756.25,
+      &quot;minimum_cpc_section_from_source_bound_mm2&quot;: 1.2297509238026914
+    },
+    &quot;source_coverage&quot;: {
+      &quot;device_voltage&quot;: true,
+      &quot;device_fault_interval&quot;: true,
+      &quot;energy_fault_interval&quot;: true,
+      &quot;adiabatic_time&quot;: true
+    },
+    &quot;checks&quot;: {
+      &quot;fault_envelope_consistent&quot;: true,
+      &quot;standalone_breaking_capacity&quot;: true,
+      &quot;automatic_disconnection_proven&quot;: true,
+      &quot;cpc_adiabatic_energy&quot;: true
+    },
+    &quot;unverified&quot;: []
+  }
+]</pre><h2>Pending</h2><ul><li>actual source/code-edition/clause and device curve/energy applicability review</li><li>TT/IT/RCD, selectivity/cascading and overload coordination</li><li>phase/neutral thermal protection, touch-voltage/earthing and complete electrical acceptance</li></ul>

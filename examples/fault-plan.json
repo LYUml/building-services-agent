@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "brief": "fault-brief.md",
+  "brief_sha256": "e60ec8518aa48283af8837b57c3d326915a99bf40bddeb43e45b5018347bb898",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "electrical",
+      "kind": "electrical",
+      "project": "office-electrical/project.json"
+    },
+    {
+      "id": "faults",
+      "kind": "electrical_fault",
+      "project": "office-electrical/project.json",
+      "faults": "fault-data.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Run the existing explicit office-electrical/project.json conditional load/ampacity/voltage-drop example, preserving source bytes and editable three-device output. Full design acceptance remains pending.",
+      "task": "electrical",
+      "acceptance": "Source-based conditional numerical evidence; actual sources, code and complete engineering acceptance pending"
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Use fault-data.json with the same common circuit IDs, breaker rating, voltage and one-way route length. Calculate the hot complex phase/CPC loop and minimum bolted earth-fault current, compare the independently supplied maximum fault case with standalone breaking capacity, prove disconnection only within the sourced total-clearing envelope and verify CPC adiabatic capacity against the sourced let-through integral. Preserve unknown or uncovered guarantees as pending; do not invent B/C/D multipliers, code times, material factors or a manufacturer curve. Retain actual-source/code-edition, selectivity, other fault modes and full engineering gates.",
+      "task": "faults",
+      "acceptance": "Source-based conditional numerical evidence; actual sources, code and complete engineering acceptance pending"
+    }
+  ]
+}

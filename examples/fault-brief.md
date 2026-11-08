@@ -1,0 +1,5 @@
+Synthetic TN source-envelope verification demonstration; every numerical protection input is an explicit test assumption, not a real device or a certified design.
+
+Run the existing explicit office-electrical/project.json conditional load/ampacity/voltage-drop example, preserving source bytes and editable three-device output. Full design acceptance remains pending.
+
+Use fault-data.json with the same common circuit IDs, breaker rating, voltage and one-way route length. Calculate the hot complex phase/CPC loop and minimum bolted earth-fault current, compare the independently supplied maximum fault case with standalone breaking capacity, prove disconnection only within the sourced total-clearing envelope and verify CPC adiabatic capacity against the sourced let-through integral. Preserve unknown or uncovered guarantees as pending; do not invent B/C/D multipliers, code times, material factors or a manufacturer curve. Retain actual-source/code-edition, selectivity, other fault modes and full engineering gates.

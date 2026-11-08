@@ -22,6 +22,8 @@ Pump/electrical/IFC property binding is original integration using the same pinn
 
 Source-bound delivery review code is original and uses the Python standard library plus existing workflow/hash helpers. No new dependency or upstream source is copied. The retained SVG evidence image was produced by an isolated local headless Microsoft Edge renderer, not bundled with the project. Review hashes do not authenticate reviewers or certify engineering completeness.
 
+Conditional TN fault-envelope verification is original Python standard-library code; no upstream implementation or regulation table is copied. Method references are Schneider Electric's [TN protection](https://www.electrical-installation.org/enwiki/TN_system_-_Principle), [breaker capacity](https://www.electrical-installation.org/enwiki/Other_characteristics_of_a_circuit-breaker), [thermal withstand](https://www.electrical-installation.org/enwiki/Verification_of_the_withstand_capabilities_of_cables_under_short-circuit_conditions), and Siemens' [MCB primer](https://cache.industry.siemens.com/dl/files/304/109482304/att_866617/v1/MiniatureCircuitBreakers_primer_EN_201601250852395217.pdf). All numerical guarantees/limits in the fixture are synthetic inputs, not imported manufacturer data or a local compliance decision.
+
 ## Installed runtime dependency
 
 - **ezdxf 1.4.5**, MIT, https://github.com/mozman/ezdxf — used as an installed library for DXF document writing and independent reload checks; not vendored. Its distribution retains upstream license notices. The initial handwritten R12 writer was replaced after inspection showed missing explicit metre units/layer table declarations. No DWG fidelity claim is inferred.

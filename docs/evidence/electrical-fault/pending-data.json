@@ -1,0 +1,49 @@
+{
+  "model": "TN bolted-fault final-circuit source-envelope verification",
+  "voltage_basis": "project supply voltage is phase-to-earth U0",
+  "loop_route_basis": "phase and CPC each follow project one-way route length",
+  "sources": {
+    "scenario": "Explicit synthetic TN bolted L-PE loop, hot impedance and minimum-voltage assumptions; common source one-way route for phase/CPC. Not measured, course or regulation values.",
+    "device": "No accepted device/capacity/clearing guarantee supplied in this pending fixture.",
+    "limit": "Synthetic 0.4 s required disconnection time for verification fixture only; not a supplied code clause.",
+    "cpc": "Synthetic 1.5 mm2 CPC, k=115 A sqrt(s)/mm2 and adiabatic applicability up to 5 s. Material/insulation/initial-final temperatures require actual source review.",
+    "energy": "Synthetic guaranteed maximum complete let-through integral 20000 A2s for all faults 60..6000 A; not prospective current squared times trip time and not manufacturer data.",
+    "maximum": "Synthetic maximum prospective RMS fault 4000 A at the protective device covering all relevant fault modes; independently supplied from the minimum L-PE loop case."
+  },
+  "circuits": [
+    {
+      "id": "LGT-1",
+      "source": "scenario",
+      "loop": {
+        "source": "scenario",
+        "external_r_ohm_hot": 0.2,
+        "external_x_ohm_hot": 0.05,
+        "phase_r_ohm_per_m_hot": 0.012,
+        "cpc_r_ohm_per_m_hot": 0.018,
+        "loop_x_ohm_per_m": 0.0002,
+        "minimum_voltage_factor": 0.95
+      },
+      "device": null,
+      "limits": {
+        "source": "limit",
+        "maximum_disconnection_time_s": 0.4
+      },
+      "max_fault": {
+        "source": "maximum",
+        "prospective_max_fault_a": 4000
+      },
+      "cpc": {
+        "source": "cpc",
+        "section_mm2": 1.5,
+        "adiabatic_k_a_sqrt_s_per_mm2": 115,
+        "maximum_adiabatic_time_s": 5
+      },
+      "energy": {
+        "source": "energy",
+        "maximum_let_through_a2s": 20000,
+        "fault_current_min_a": 60,
+        "fault_current_max_a": 6000
+      }
+    }
+  ]
+}

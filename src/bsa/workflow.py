@@ -70,15 +70,19 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
-        if kind not in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_native","native_cad","manual"):
+        if kind not in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
-        if kind in ("electrical","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","network_model_design","lighting"):
+        if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","bim","network","network_coordination","network_design","network_model_design","lighting"):
             inputs.add(local_path(root,t.get("project")))
         if kind=='lighting':
             from .lighting import validate as validate_lighting
             lighting_project=local_path(root,t.get('project'))
             inputs.update(validate_lighting(read_json(lighting_project),lighting_project.parent))
         if kind=='electrical_coordination':inputs.add(local_path(root,t.get('geometry')))
+        if kind=='electrical_fault':
+            from .electrical_fault import prepare
+            faults=local_path(root,t.get('faults'));inputs.add(faults)
+            prepare(read_json(local_path(root,t['project'])),read_json(faults))
         if kind in ('ifc_clash','ifc_drawing'):
             if kind=='ifc_clash':
                 from .clash import validate_policy
@@ -246,6 +250,10 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                     selected=local_path(root,t['selection']) if t.get('selection') else None
                     payload=run(drawing,folder,selected,autocad)
                     status='pass';reason='read-only drawing inventory and explicitly selected unit-checked geometry; semantic, DWG fidelity and visual acceptance pending'
+            elif t['kind']=='electrical_fault':
+                from .electrical_fault import run
+                payload=run(local_path(root,t['project']),local_path(root,t['faults']),folder)
+                status=payload['status'];reason='sourced TN loop/device/energy proof criteria; missing or uncovered guarantees pending; actual code/product/full protection acceptance pending'
             elif t["kind"]=="electrical":
                 from .cli import run
                 payload=run(local_path(root,t["project"]),folder)

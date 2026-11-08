@@ -1,0 +1,76 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\fault-pending-inputs\\fault-brief.md": "e60ec8518aa48283af8837b57c3d326915a99bf40bddeb43e45b5018347bb898",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\fault-pending-inputs\\office-electrical\\project.json": "34e1fba15d2ec9dacbdf256cf996d2de772873d720374f1ac55fd6b64ac4f34a",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\fault-pending-inputs\\fault-plan.json": "d678eb93a9d93805eeb9edc309ace7cdc2f1df4b47269bfeb65dd4feacb4cefb",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\fault-pending-inputs\\fault-data.json": "b84a847524071d6e19b6919cb2345fdfed4bc7e9dbbb6ffa603bfc59debc3bda"
+  },
+  "inputs_unchanged": true,
+  "tasks": {
+    "electrical": {
+      "kind": "electrical",
+      "status": "pass",
+      "scope": "conditional electrical checks only; remaining design checks are in calculations.json"
+    },
+    "faults": {
+      "kind": "electrical_fault",
+      "status": "pending",
+      "scope": "sourced TN loop/device/energy proof criteria; missing or uncovered guarantees pending; actual code/product/full protection acceptance pending"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Run the existing explicit office-electrical/project.json conditional load/ampacity/voltage-drop example, preserving source bytes and editable three-device output. Full design acceptance remains pending.",
+      "task": "electrical",
+      "acceptance": "Source-based conditional numerical evidence; actual sources, code and complete engineering acceptance pending",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 3,
+        "end_line": 3
+      },
+      "execution_scope": "conditional electrical checks only; remaining design checks are in calculations.json",
+      "evidence": [
+        "electrical/calculations.json",
+        "electrical/devices.dxf",
+        "electrical/manifest.json",
+        "electrical/preview.svg",
+        "electrical/report.html"
+      ]
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Use fault-data.json with the same common circuit IDs, breaker rating, voltage and one-way route length. Calculate the hot complex phase/CPC loop and minimum bolted earth-fault current, compare the independently supplied maximum fault case with standalone breaking capacity, prove disconnection only within the sourced total-clearing envelope and verify CPC adiabatic capacity against the sourced let-through integral. Preserve unknown or uncovered guarantees as pending; do not invent B/C/D multipliers, code times, material factors or a manufacturer curve. Retain actual-source/code-edition, selectivity, other fault modes and full engineering gates.",
+      "task": "faults",
+      "acceptance": "Source-based conditional numerical evidence; actual sources, code and complete engineering acceptance pending",
+      "execution_status": "pending",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 5,
+        "end_line": 5
+      },
+      "execution_scope": "sourced TN loop/device/energy proof criteria; missing or uncovered guarantees pending; actual code/product/full protection acceptance pending",
+      "evidence": [
+        "faults/checks.csv",
+        "faults/faults.json",
+        "faults/report.html"
+      ]
+    }
+  ],
+  "artifact_hashes": {
+    "electrical/calculations.json": "87c8230a5a5a8ae521a2677d332753106e79d8d909eaba31e5da0602fad0ca5e",
+    "electrical/devices.dxf": "c483717b9cad6d6103d42b79fef65faa78dd7de87a55e4f686a90204ceacd4f7",
+    "electrical/manifest.json": "5ff06e6f147ed3ac0dff8baa4c5c814e3a4f85991d7b6ab60c77b187c8f454b2",
+    "electrical/preview.svg": "96aab302c3820d8bd1ce04ba1356de32734d3fa291cfa57111c39d2cffa3cef2",
+    "electrical/report.html": "ea329bfc4dce45c18b8f3e7117c6eaf169cf37db64ac25fa89d64c2e906bcd21",
+    "faults/checks.csv": "1680eb6fa1b3e7ad4971d00f4bb0f651cb840b8557b817bb3cfd1104f4580d58",
+    "faults/faults.json": "2d3f8d60d20ce7d4c440ce73af89045bc78b485e63c70c265f0dabd1f22b6a58",
+    "faults/report.html": "6bf920aa267b3577293674832209b1f20d70d9292b65e53b5f6a32ee32ba1f59"
+  },
+  "execution_pass": false,
+  "design_accepted": false,
+  "acceptance_note": "Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance"
+}

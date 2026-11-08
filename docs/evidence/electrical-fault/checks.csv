@@ -1,0 +1,2 @@
+id,status,minimum_earth_fault_a,loop_z_ohm,standalone_breaking_capacity,automatic_disconnection_proven,cpc_adiabatic_energy
+LGT-1,pass,272.50490528655604,0.8018204287744234,True,True,True
