@@ -8,6 +8,7 @@ from pathlib import Path
 from .cli import digest
 from .engine import ProjectError
 from .energy_completion import inspect as inspect_completion
+from .thermal_geometry import boxes, adjacency
 
 
 def build(p, lighting, out):
@@ -38,14 +39,16 @@ def build(p, lighting, out):
     heat=os.model.ScheduleConstant(m);heat.setValue(p["heating_setpoint_c"])
     cool=os.model.ScheduleConstant(m);cool.setValue(p["cooling_setpoint_c"])
     spaces=[]
-    for i in range(2):
-        x=i*p["zone_width_m"];w=p["zone_width_m"];d=p["zone_depth_m"]
+    geometry=boxes(p)
+    expected_adjacency=adjacency(geometry)
+    for spec in geometry:
+        x,y,z=spec["origin_m"];w,d,h=spec["size_m"]
         points=os.Point3dVector()
-        for a,b in ((x,0),(x,d),(x+w,d),(x+w,0)):
-            points.append(os.Point3d(a,b,0))
-        space=os.model.Space.fromFloorPrint(points,p["height_m"],m).get()
-        space.setName(f"Zone {i+1} space");spaces.append(space)
-        zone=os.model.ThermalZone(m);zone.setName(f"Zone {i+1}")
+        for a,b in ((x,y),(x,y+d),(x+w,y+d),(x+w,y)):
+            points.append(os.Point3d(a,b,z))
+        space=os.model.Space.fromFloorPrint(points,h,m).get()
+        space.setName(spec["id"]+" space");spaces.append(space)
+        zone=os.model.ThermalZone(m);zone.setName(spec["id"])
         space.setThermalZone(zone)
         thermostat=os.model.ThermostatSetpointDualSetpoint(m)
         thermostat.setHeatingSetpointTemperatureSchedule(heat)
@@ -54,7 +57,7 @@ def build(p, lighting, out):
         zone.setUseIdealAirLoads(True)
         definition=os.model.LightsDefinition(m)
         definition.setWattsperSpaceFloorArea(lighting)
-        lights=os.model.Lights(definition);lights.setSpace(space);lights.setSchedule(on)
+        lights=os.model.Lights(definition);lights.setName(spec["id"]+" lights");lights.setSpace(space);lights.setSchedule(on)
         for surface in space.surfaces():
             surface.setConstruction(construction)
             if surface.surfaceType()=="Floor":surface.setOutsideBoundaryCondition("Adiabatic")
@@ -80,11 +83,25 @@ def build(p, lighting, out):
     if errors:raise ProjectError("translation errors: "+str(errors))
     area=sum(s.floorArea() for s in spaces)
     matched=sum(s.outsideBoundaryCondition()=="Surface" for s in m.getSurfaces())
-    if not math.isclose(area,2*w*d) or matched!=2:
+    actual_pairs={}
+    for surface in m.getSurfaces():
+        if surface.outsideBoundaryCondition()!="Surface":continue
+        peer=surface.adjacentSurface()
+        if peer.empty() or peer.get().adjacentSurface().empty() or peer.get().adjacentSurface().get().handle()!=surface.handle():
+            raise ProjectError("nonreciprocal thermal surface adjacency")
+        names=tuple(sorted((surface.space().get().thermalZone().get().nameString(),peer.get().space().get().thermalZone().get().nameString())))
+        actual_pairs.setdefault(names,[]).append(surface.grossArea())
+    if set(actual_pairs)!={tuple(sorted(pair['spaces'])) for pair in expected_adjacency}:
+        raise ProjectError("thermal adjacency identities differ from source geometry")
+    for pair in expected_adjacency:
+        areas=actual_pairs[tuple(sorted(pair['spaces']))]
+        if len(areas)!=2 or any(not math.isclose(area,pair['area_m2'],abs_tol=1e-7) for area in areas):
+            raise ProjectError("thermal shared-face area mismatch")
+    if not math.isclose(area,sum(s["size_m"][0]*s["size_m"][1] for s in geometry)) or matched!=2*len(expected_adjacency):
         raise ProjectError(f"geometry mismatch: area={area}, matched surfaces={matched}")
     return dict(openstudio_version=os.openStudioVersion(),energyplus_version=os.energyPlusVersion(),
         floor_area_m2=area,thermal_zones=len(m.getThermalZones()),matched_surface_count=matched,
-        lighting_w_m2=lighting,translation_warnings=[str(x.logMessage()) for x in ft.warnings()])
+        spaces=geometry,adjacency=expected_adjacency,zone_keys=[s["id"].upper() for s in geometry],lighting_keys=[(s["id"]+" lights").upper() for s in geometry],lighting_w_m2=lighting,translation_warnings=[str(x.logMessage()) for x in ft.warnings()])
 
 
 def extract(sql):
@@ -126,7 +143,10 @@ def validate(p,require_design_days=True):
             raise ProjectError(f"finite number required: {label}")
         if (low is not None and value<low) or (high is not None and value>high):
             raise ProjectError(f"out of range: {label}")
-    for key in ("zone_width_m","zone_depth_m","height_m","envelope_r_m2k_w"):
+    if "spaces" in p:
+        if any(k in p for k in ("zone_width_m","zone_depth_m","height_m")):raise ProjectError("mixed thermal geometry schemas")
+        boxes(p)
+    for key in (("envelope_r_m2k_w",) if "spaces" in p else ("zone_width_m","zone_depth_m","height_m","envelope_r_m2k_w")):
         number(p.get(key),key,0.001)
     for key in ("baseline_lighting_w_m2","variant_lighting_w_m2"):
         number(p.get(key),key,0)

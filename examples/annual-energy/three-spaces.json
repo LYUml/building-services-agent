@@ -1,0 +1,73 @@
+{
+  "model": "annual hourly EPW; explicit thermal spaces",
+  "source": "Independent annual engine integration example, calendar 2025 with installed official Chicago TMY3 data; weather is not Hong Kong design weather or an actual 2025 historical year.",
+  "building": {
+    "name": "Synthetic three-space chain",
+    "source": "Synthetic 40 m2 two-zone annual verification: no windows/people/equipment/ventilation/infiltration, adiabatic floors, always-on lights/constant setpoints, ideal supplied loads; uniform R=2 plus fixed 0.1 m mass layer k=0.5 W/mK, density=800 kg/m3, cp=1000 J/kgK. Not a real building or Hong Kong compliance model.",
+    "envelope_r_m2k_w": 2,
+    "heating_setpoint_c": 20,
+    "cooling_setpoint_c": 24,
+    "baseline_lighting_w_m2": 12,
+    "variant_lighting_w_m2": 6,
+    "spaces": [
+      {
+        "id": "West",
+        "source": "Synthetic demonstration dimensions; not measured building geometry",
+        "origin_m": [
+          0,
+          0,
+          0
+        ],
+        "size_m": [
+          3,
+          4,
+          3
+        ]
+      },
+      {
+        "id": "Central",
+        "source": "Synthetic demonstration dimensions; not measured building geometry",
+        "origin_m": [
+          3,
+          0,
+          0
+        ],
+        "size_m": [
+          5,
+          4,
+          3
+        ]
+      },
+      {
+        "id": "East",
+        "source": "Synthetic demonstration dimensions; not measured building geometry",
+        "origin_m": [
+          8,
+          0,
+          0
+        ],
+        "size_m": [
+          4,
+          4,
+          3
+        ]
+      }
+    ]
+  },
+  "weather": {
+    "source": "Unmodified Chicago TMY3 EPW bundled with verified official EnergyPlus 25.2.0-cf7368216c Windows archive (archive SHA256 4136901f7e1708f6536d84278e26ad88b414c7efc905febf6d49c2539a36f3cd). https://github.com/NatLabRockies/EnergyPlus/releases/tag/v25.2.0 ; exact EPW bytes are retained as a deterministic gzip example asset with original header/source flags; EnergyPlus distribution notice retained at third_party/licenses/energyplus.txt.",
+    "sha256": "c7d4efcf93ba316a1d874352e743df5cf137ba5c0e3459eb2dc4b5442d5b7f5c",
+    "station_id": "725300"
+  },
+  "calendar_year": 2025,
+  "solver": {
+    "source": "Declared numerical QA and process budget for synthetic annual verification; no code or physical tolerance implied.",
+    "max_runtime_s": 600,
+    "energy_tolerance_kwh": 0.01,
+    "rate_tolerance_w": 0.01
+  },
+  "targets": {
+    "source": "Synthetic constant-thermostat ideal-load target, each heating/cooling zone series <=1 unmet zone-hour annually; not a code criterion or occupied-hours claim.",
+    "maximum_zone_unmet_hours": 1
+  }
+}

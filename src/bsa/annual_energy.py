@@ -19,6 +19,7 @@ from .engine import ProjectError
 from .energy_completion import inspect as inspect_completion
 
 MODEL='annual hourly EPW; two adjacent ideal-load zones'
+MULTIZONE_MODEL='annual hourly EPW; explicit thermal spaces'
 RATES=('Zone Ideal Loads Supply Air Total Cooling Rate','Zone Ideal Loads Supply Air Total Heating Rate','Lights Electricity Rate')
 UNMET=('Zone Heating Setpoint Not Met Time','Zone Cooling Setpoint Not Met Time')
 
@@ -31,12 +32,15 @@ def calendar_hours(year):
 
 
 def validate(p):
-    if not isinstance(p,dict) or set(p)!={'model','source','building','weather','calendar_year','solver','targets'} or p['model']!=MODEL:raise ProjectError('explicit annual ideal-load EPW model required')
+    if not isinstance(p,dict) or set(p)!={'model','source','building','weather','calendar_year','solver','targets'} or p['model'] not in (MODEL,MULTIZONE_MODEL):raise ProjectError('explicit annual ideal-load EPW model required')
     if not isinstance(p['source'],str) or not p['source'].strip():raise ProjectError('annual model source required')
     if type(p['calendar_year']) is not int or not 1901<=p['calendar_year']<=2099:raise ProjectError('explicit Gregorian calendar year 1901..2099 required')
     building=p['building']
     building_fields={'name','source','zone_width_m','zone_depth_m','height_m','envelope_r_m2k_w','heating_setpoint_c','cooling_setpoint_c','baseline_lighting_w_m2','variant_lighting_w_m2'}
+    if p['model']==MULTIZONE_MODEL:building_fields=(building_fields-{'zone_width_m','zone_depth_m','height_m'})|{'spaces'}
     if not isinstance(building,dict) or set(building)!=building_fields:raise ProjectError('exact building fields required; site comes from EPW and design days are omitted')
+    from .energy import validate as validate_building
+    validate_building(dict(building,site=dict(latitude_deg=0,longitude_deg=0,timezone_h=0,elevation_m=0),design_days=[]),require_design_days=False)
     weather=p['weather']
     if not isinstance(weather,dict) or set(weather)!={'source','sha256','station_id'} or not isinstance(weather['source'],str) or not weather['source'].strip() or not isinstance(weather['sha256'],str) or not re.fullmatch('[0-9a-f]{64}',weather['sha256']) or not isinstance(weather['station_id'],str) or not weather['station_id'].strip():raise ProjectError('weather source, exact SHA256 and station ID required')
     if not isinstance(p['solver'],dict) or set(p['solver'])!={'source','max_runtime_s','energy_tolerance_kwh','rate_tolerance_w'} or type(p['solver']['max_runtime_s']) is not int or not 1<=p['solver']['max_runtime_s']<=1800:raise ProjectError('sourced bounded annual solver budget required')
@@ -111,7 +115,7 @@ def build(project,weather,weather_meta,lighting,out):
     return metadata
 
 
-def extract(sql,year,lighting_w_m2,area,solver,targets):
+def extract(sql,year,lighting_w_m2,area,solver,targets,geometry=None):
     con=sqlite3.connect(Path(sql).resolve().as_uri()+'?mode=ro',uri=True)
     try:
         completed=con.execute('SELECT Completed,CompletedSuccessfully FROM Simulations').fetchall()
@@ -131,7 +135,12 @@ def extract(sql,year,lighting_w_m2,area,solver,targets):
         series.setdefault((name,key),[]).append(dict(time_index=ti,month=month,day=day,hour=hour,value=value))
     for name in RATES+UNMET:
         selected=[rows for (variable,key),rows in series.items() if variable==name]
-        if len(selected)!=2 or any([(r['month'],r['day'],r['hour']) for r in rows]!=expected for rows in selected):raise ProjectError('each annual variable requires two complete unique hourly series')
+        count=len(geometry['zone_keys']) if geometry else 2
+        if geometry:
+            expected_keys=geometry['lighting_keys'] if name==RATES[2] else geometry['zone_keys']
+            if name in RATES[:2]:expected_keys=[key+' IDEAL LOADS AIR SYSTEM' for key in expected_keys]
+            if {key.upper() for variable,key in series if variable==name}!=set(expected_keys):raise ProjectError('annual variable keys differ from authored thermal geometry')
+        if len(selected)!=count or any([(r['month'],r['day'],r['hour']) for r in rows]!=expected for rows in selected):raise ProjectError('each annual variable requires complete unique hourly series for every authored zone')
     hours=[];monthly=[];totals=[]
     for index,(month,day,hour) in enumerate(expected):
         values={name:sum(rows[index]['value'] for (variable,key),rows in series.items() if variable==name) for name in RATES}
@@ -173,7 +182,7 @@ def run(project,weather,out,exe):
         (folder/'completion.json').write_text(json.dumps(completion,indent=2),encoding='utf-8')
         if not completion['completion_verified']:raise ProjectError('annual native completion evidence is unverified; inspect completion.json')
         diagnostics=(folder/'eplusout.err').read_text(errors='replace');end=(folder/'eplusout.end').read_text(errors='replace')
-        summary,hourly=extract(folder/'eplusout.sql',p['calendar_year'],p['building'][key],meta['floor_area_m2'],p['solver'],p['targets'])
+        summary,hourly=extract(folder/'eplusout.sql',p['calendar_year'],p['building'][key],meta['floor_area_m2'],p['solver'],p['targets'],meta)
         with (folder/'hourly-building-rates.csv').open('w',newline='',encoding='utf-8') as stream:
             writer=csv.DictWriter(stream,fieldnames=['month','day','hour']+list(RATES));writer.writeheader();writer.writerows(hourly)
         (folder/'summary.json').write_text(json.dumps(summary,indent=2),encoding='utf-8');results[kind]=dict(metadata=meta,summary=summary,diagnostics=diagnostics,completion=completion,sql_sha256=digest(folder/'eplusout.sql'),engine_success_evidence=dict(returncode=proc.returncode,end_report=end,end_report_sha256=digest(folder/'eplusout.end'),stdout_success_marker=True))
@@ -182,7 +191,7 @@ def run(project,weather,out,exe):
     if any(digest(Path(v))!=sha for v,sha in before.items()):raise ProjectError('annual source input changed')
     result=dict(inputs=before,inputs_unchanged=True,source_data=p,weather=weather_meta,engine=version,engine_sha256=digest(exe),results=results,comparison=comparison,
                 calculated_checks_pass=all(v['summary']['calculated_checks_pass'] for v in results.values()),design_accepted=False,
-                scope='Full-calendar hourly EPW simulation of two adjacent ideal-load zones; heating/cooling thermal demand and lighting electricity reported separately',
+                scope='Full-calendar hourly EPW simulation of source-declared ideal-load spaces; heating/cooling thermal demand and lighting electricity reported separately',
                 assumptions=['No windows, people, equipment, ventilation/infiltration; adiabatic floors; always-on lights and constant setpoints','Ideal air loads are supplied thermal demand, not HVAC electricity; no plant/COP or whole-building EUI inferred','Uniform R layer plus source-declared fixed 0.1 m mass layer: conductivity 0.5 W/mK, density 800 kg/m3, specific heat 1000 J/kgK','Weather calendar remapped to declared simulation year; DST/holidays/rain/snow indicators disabled; no design-day/sizing runs'],
                 pending=['actual building geometry/construction/gain/schedule and meteorological applicability','detailed HVAC, ventilation/moisture, plant electricity and code acceptance','real-project calibration and full engineering acceptance'])
     result['completion_limitations']=[dict(case=kind,status=v['completion']['status'],native_sql_flags_preserved=True,source_commit=v['completion']['source_inference']['commit']) for kind,v in results.items() if v['completion']['known_unwritten_initial_flags']]
