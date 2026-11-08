@@ -1,0 +1,68 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\regulated-water-workflow-v1\\run\\drawing\\segments.dxf": "e15a0820ae82d1ca68c219b71a9de5406d88e222c76ecfbee853212d9d66ef9d",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\water-riser\\native-sheet.json": "ff0d8180f23a8a066ea89388339a1e9ce01667d5463241a45e0da36b4b6cc95d"
+  },
+  "inputs_unchanged": true,
+  "engine": "C:\\Program Files\\Autodesk\\AutoCAD 2027\\accoreconsole.exe",
+  "engine_sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2",
+  "dwg_sha256": "0ea5bdd435228f4013c23bbdb27c2c32e45e4fc791993cc5789affa8d1c95510",
+  "native_reopen_pass": true,
+  "checks": {
+    "model_entity_count": 8,
+    "linked_entity_count": 6,
+    "model_entities_and_ifc_xdata_match": true,
+    "geometry_layers_and_annotations_match": true,
+    "metre_units": true
+  },
+  "plot": {
+    "pdf_sha256": "01a21809d24fc773dae6a99218cd2b0d109fe2b489fb27e006085d40827d3985",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 50,
+    "reference_handle": "33",
+    "reference_expected_mm": 50.0,
+    "reference_measured_mm": 49.995666666666665,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "settings": {
+    "source": "Synthetic explicit A4 landscape 1:50 sheet window in metre DXF coordinates; 2.5 m RISE-LOW axis must measure 50 mm. Not an installation drawing.",
+    "window_drawing_units": [
+      -1,
+      -0.5,
+      8,
+      6.5
+    ],
+    "scale_denominator": 50,
+    "reference_ifc_guid": "14_Pcn3dHIEx82hnR2Z_vq",
+    "pdf_tolerance_mm": 0.2
+  },
+  "design_accepted": false,
+  "pending": [
+    "actual PDF visual review",
+    "equipment/fittings/insulation and installation drawing detail",
+    "complete engineering acceptance"
+  ],
+  "artifacts": {
+    "input.dxf": "e15a0820ae82d1ca68c219b71a9de5406d88e222c76ecfbee853212d9d66ef9d",
+    "plot.log": "c24109eecc595bee73fd463de4531d738de7ffc0ab624081f0cfe4db8b9d21d7",
+    "save.log": "36afc74058ae0a7e88e31137431d0d4aab1696cf3b01a780bf958d82e2db66ea",
+    "save.scr": "babcaed0914578917cd88fd07f74ac6de9d6316563f60b7d1e012bc0b0fb2a8a",
+    "segments.dwg": "0ea5bdd435228f4013c23bbdb27c2c32e45e4fc791993cc5789affa8d1c95510",
+    "sheet.json": "e43db4f0433e4155f45e2606b85c476755ee41c2f0a5e1bc684b649a10fc78ab",
+    "sheet.log": "988bcc72544a0a2894b879ccc85431f30233d79e7c038033e61dad7199341b14",
+    "sheet.pdf": "01a21809d24fc773dae6a99218cd2b0d109fe2b489fb27e006085d40827d3985",
+    "sheet.scr": "68ca0619c6b08ccb63bc1e1ecc698ebc4bbbaf9b5899562c96d3aa42cad4db8f",
+    "native-reopen/export.log": "5256f57c789076f9a2cb35175613160955e143bac253a19ef7e843d12f3ebadc",
+    "native-reopen/export.scr": "18eb921cc5e1f05a48050778d46bfc107809ce6ccbd6cfa2ae85e7dcf5204801",
+    "native-reopen/source-copy.dwg": "0ea5bdd435228f4013c23bbdb27c2c32e45e4fc791993cc5789affa8d1c95510",
+    "native-reopen/source-export.dxf": "812e7a3b9502d4e5658eb9dc8653075991c580404deb57dac71c8bb6c1c361ce",
+    "ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "d535ab972666de4a42202f4b582a25ab6263419a1615629f97928813f444de3d",
+    "native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "2cbf7c163d6104adf467b1848443e2f6751c7aed9ef255e05c8ad7b7ba8460b9"
+  }
+}

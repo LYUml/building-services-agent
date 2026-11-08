@@ -1,0 +1,10 @@
+{
+  "scope": "Actual native DWG reopen and visually reviewed synthetic schematic PDF; not full acceptance",
+  "files": {
+    "native-artifacts.zip": "f42dd82d10609e27be0532645231032aa8158eb1e58c1b2560e3504860be0219",
+    "native-verification.json": "49a7d215ae32a3881a81bbe6ad6bfe446f5cca0add0a520dbcc2281cd8ed15f1",
+    "sheet-review.png": "81f51c60d26a237de44c4e6102788b2baef767afa14b18a6f91a1a6f13fe5839",
+    "sheet.pdf": "01a21809d24fc773dae6a99218cd2b0d109fe2b489fb27e006085d40827d3985",
+    "visual-review.json": "e761e9b2a6635388a67bab3df4d87e23d319d768f3addc6236272a507d19dfa6"
+  }
+}

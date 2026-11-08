@@ -1,0 +1,27 @@
+{
+  "scope": "One-page synthetic centreline schematic only; not installation drawing or full engineering acceptance",
+  "reviewer": "agent visual inspection of rendered actual AutoCAD PDF",
+  "pdf_sha256": "01a21809d24fc773dae6a99218cd2b0d109fe2b489fb27e006085d40827d3985",
+  "render_sha256": "81f51c60d26a237de44c4e6102788b2baef767afa14b18a6f91a1a6f13fe5839",
+  "dwg_sha256": "0ea5bdd435228f4013c23bbdb27c2c32e45e4fc791993cc5789affa8d1c95510",
+  "workflow_sha256": "4e49e9e91a359055593031acd94b505c36df4dace7bfef5beb9352c75825e747",
+  "source_dxf_sha256": "e15a0820ae82d1ca68c219b71a9de5406d88e222c76ecfbee853212d9d66ef9d",
+  "native_reopen_pass": true,
+  "observations": [
+    "Both RISE-LOW and RISE-HIGH labels are legible and uncropped",
+    "Both labels show ID 40 / OD 50 mm and length 2.5 m",
+    "Leader lines and projected centreline visible",
+    "Projection/unit and NOT installation geometry note visible",
+    "No overlapping labels or clipped linework observed on this sheet"
+  ],
+  "reference_expected_mm": 50.0,
+  "reference_measured_mm": 49.995666666666665,
+  "visual_schematic_check_pass": true,
+  "design_accepted": false,
+  "pending": [
+    "real project and product applicability",
+    "full regulatory coverage",
+    "equipment/fittings/support/insulation installation details",
+    "complete engineering acceptance"
+  ]
+}
