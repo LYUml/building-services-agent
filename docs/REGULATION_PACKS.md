@@ -21,6 +21,8 @@ Results separate `supported_checks_pass`, `regulatory_compliance: not_establishe
 
 A separate [office lighting pack](HK_LIGHTING_RULES.md) now implements sourced BEC 2024 office LPD. It preserves the original electrical pack unchanged and uses the same workflow adapter; select the appropriate pack per task. Broader lighting and Hong Kong conformity remain incomplete.
 
+The [HVAC design-condition pack](HK_HVAC_RULES.md) separately covers Table 6.4 human-comfort load-design limits. Actual EnergyPlus sizing-input binding and the remaining HVAC clauses are pending.
+
 ## Workflow adapter
 
 For computed full-path electrical metrics, see [electrical path binding](ELECTRICAL_PATHS.md). It supplies per-circuit total feeder/branch drops and report hashes while retaining explicit applicability assertions. Generated numeric inputs do not establish full building topology or complete regulatory conformity.

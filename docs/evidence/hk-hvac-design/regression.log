@@ -1,0 +1,13 @@
+test_boundary_and_alternative_path_do_not_claim_compliance (test_regulations.RegulationPackTests.test_boundary_and_alternative_path_do_not_claim_compliance) ... ok
+test_branch_only_and_starting_scope_do_not_reuse_normal_total_limit (test_regulations.RegulationPackTests.test_branch_only_and_starting_scope_do_not_reuse_normal_total_limit) ... ok
+test_changed_official_bytes_block_check (test_regulations.RegulationPackTests.test_changed_official_bytes_block_check) ... ok
+test_missing_fact_or_edition_never_passes (test_regulations.RegulationPackTests.test_missing_fact_or_edition_never_passes) ... ok
+test_packs_are_explicitly_pinned_and_methods_cannot_execute_code (test_regulations.RegulationPackTests.test_packs_are_explicitly_pinned_and_methods_cannot_execute_code) ... ok
+test_standalone_records_official_sources_and_missing_files (test_regulations.RegulationPackTests.test_standalone_records_official_sources_and_missing_files) ... ok
+test_workflow_tracks_official_bytes_and_keeps_review_pending (test_regulations.RegulationPackTests.test_workflow_tracks_official_bytes_and_keeps_review_pending) ... ok
+test_wrong_unit_and_nonfinite_value_are_pending (test_regulations.RegulationPackTests.test_wrong_unit_and_nonfinite_value_are_pending) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.042s
+
+OK

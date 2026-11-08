@@ -1,0 +1,11 @@
+test_changed_source_and_missing_edition_pending (test_hvac_rules.HVACRuleTests.test_changed_source_and_missing_edition_pending) ... ok
+test_missing_design_inputs_cannot_be_replaced_by_thermostat (test_hvac_rules.HVACRuleTests.test_missing_design_inputs_cannot_be_replaced_by_thermostat) ... ok
+test_nonphysical_units_and_unsupported_scope_preserved (test_hvac_rules.HVACRuleTests.test_nonphysical_units_and_unsupported_scope_preserved) ... ok
+test_summer_classification_and_indoor_limits (test_hvac_rules.HVACRuleTests.test_summer_classification_and_indoor_limits) ... ok
+test_summer_outdoor_joint_corner_and_limits (test_hvac_rules.HVACRuleTests.test_summer_outdoor_joint_corner_and_limits) ... ok
+test_winter_hotel_other_and_outdoor_boundary (test_hvac_rules.HVACRuleTests.test_winter_hotel_other_and_outdoor_boundary) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.021s
+
+OK

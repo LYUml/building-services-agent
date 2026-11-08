@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "id": "hk-hvac-design-2026.11.08",
+  "jurisdiction": "HK",
+  "version": "hvac-design-2026.11.08",
+  "sources": {
+    "emsd_bec_2024": {
+      "authority": "EMSD",
+      "title": "Code of Practice for Energy Efficiency of Building Services Installation",
+      "edition": "2024",
+      "kind": "code_of_practice",
+      "url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+      "index_url": "https://www.emsd.gov.hk/beeo/en/mibec_beeo_codtechguidelines.html",
+      "cache_filename": "emsd-bec-2024.pdf",
+      "sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+      "reviewed_on": "2026-11-08",
+      "review_scope": "BEC 2024 6.1, 6.4.1-6.4.2 and Table 6.4; printed page 23 / PDF page 29 visually inspected",
+      "applicability_note": "Project scope and edition effective dates require explicit review under the official circulars. Table 6.4 checks do not establish recognized load-calculation procedure, HVAC equipment or controls compliance."
+    }
+  },
+  "rules": [
+    {
+      "id": "HK.EMSD.BEC2024.load_design_conditions",
+      "source_id": "emsd_bec_2024",
+      "method": "hvac_load_design_conditions",
+      "clause": "6.4.2 and Table 6.4",
+      "pdf_page_1_based": 29,
+      "printed_page": "23",
+      "scope": "Indoor human-comfort and corresponding outdoor summer/winter load design conditions; not thermostat operating limits",
+      "metric": "load_design_condition_limit_violations",
+      "unit": "count",
+      "applications": [
+        "office",
+        "classroom",
+        "hotel",
+        "other"
+      ],
+      "indoor_limits": {
+        "summer": {
+          "office": {
+            "method": "minimum",
+            "dry_bulb_degC": 23,
+            "relative_humidity_percent": 50
+          },
+          "classroom": {
+            "method": "minimum",
+            "dry_bulb_degC": 23,
+            "relative_humidity_percent": 50
+          },
+          "hotel": {
+            "method": "minimum",
+            "dry_bulb_degC": 22,
+            "relative_humidity_percent": 50
+          },
+          "other": {
+            "method": "minimum",
+            "dry_bulb_degC": 22,
+            "relative_humidity_percent": 50
+          }
+        },
+        "winter": {
+          "office": {
+            "method": "maximum",
+            "dry_bulb_degC": 22,
+            "relative_humidity_percent": 50
+          },
+          "classroom": {
+            "method": "maximum",
+            "dry_bulb_degC": 22,
+            "relative_humidity_percent": 50
+          },
+          "hotel": {
+            "method": "maximum",
+            "dry_bulb_degC": 24,
+            "relative_humidity_percent": 50
+          },
+          "other": {
+            "method": "maximum",
+            "dry_bulb_degC": 22,
+            "relative_humidity_percent": 50
+          }
+        }
+      },
+      "outdoor_limits": {
+        "summer": {
+          "dry_bulb_max_degC": 35,
+          "wet_bulb_max_degC": 29
+        },
+        "winter": {
+          "dry_bulb_min_degC": 7
+        }
+      },
+      "applicability": [
+        {
+          "fact": "bec_air_conditioning_scope_confirmed",
+          "equals": true
+        },
+        {
+          "fact": "human_comfort_application",
+          "equals": true
+        },
+        {
+          "fact": "prescriptive_design_condition_route_selected",
+          "equals": true
+        },
+        {
+          "fact": "inputs_are_load_calculation_design_conditions",
+          "equals": true
+        }
+      ],
+      "alternative_path_note": "Selected Table 6.4 condition limits not met; review design basis and applicable compliance route. This is not a whole-project statutory determination."
+    }
+  ],
+  "coverage": {
+    "complete": false,
+    "implemented": [
+      "Human-comfort summer/winter indoor and outdoor Table 6.4 load-design limits"
+    ],
+    "pending": [
+      "actual project scope and edition applicability",
+      "recognized load-calculation method under 6.4.1",
+      "binding design conditions to actual load engine inputs",
+      "process-zone rules",
+      "equipment efficiency, fan/pump limits, leakage, insulation and controls",
+      "full HVAC and Hong Kong conformity"
+    ]
+  }
+}

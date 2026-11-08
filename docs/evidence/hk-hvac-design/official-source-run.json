@@ -1,0 +1,77 @@
+{
+  "rule_pack": "hk-hvac-design-2026.11.08",
+  "jurisdiction": "HK",
+  "checks": [
+    {
+      "id": "HK.EMSD.BEC2024.load_design_conditions",
+      "status": "pass",
+      "scope": "Indoor human-comfort and corresponding outdoor summer/winter load design conditions; not thermostat operating limits",
+      "source_url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+      "source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+      "edition": "2024",
+      "clause": "6.4.2 and Table 6.4",
+      "pdf_page_1_based": 29,
+      "value": 0,
+      "unit": "count",
+      "maximum": 0,
+      "evidence": "Computed only from sourced load_design_conditions; no thermostat or weather-series substitution",
+      "reasons": [
+        "selected prescriptive limit met"
+      ],
+      "condition_checks": [
+        {
+          "input": "indoor_dry_bulb",
+          "value": 23,
+          "method": "minimum",
+          "limit": 23,
+          "passed": true
+        },
+        {
+          "input": "indoor_relative_humidity",
+          "value": 50,
+          "method": "minimum",
+          "limit": 50,
+          "passed": true
+        },
+        {
+          "input": "outdoor_dry_and_wet_bulb",
+          "dry_bulb_degC": 35,
+          "wet_bulb_degC": 28,
+          "limits": {
+            "dry_bulb_max_degC": 35,
+            "wet_bulb_max_degC": 29
+          },
+          "passed": true
+        }
+      ],
+      "season": "summer",
+      "application": "office",
+      "calculation_scope": "Selected human-comfort load-design condition limits only; no load solver or operating thermostat check"
+    }
+  ],
+  "supported_checks_pass": true,
+  "coverage": {
+    "complete": false,
+    "implemented": [
+      "Human-comfort summer/winter indoor and outdoor Table 6.4 load-design limits"
+    ],
+    "pending": [
+      "actual project scope and edition applicability",
+      "recognized load-calculation method under 6.4.1",
+      "binding design conditions to actual load engine inputs",
+      "process-zone rules",
+      "equipment efficiency, fan/pump limits, leakage, insulation and controls",
+      "full HVAC and Hong Kong conformity"
+    ]
+  },
+  "regulatory_compliance": "not_established",
+  "design_accepted": false,
+  "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination",
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\regulations\\hk\\hvac-design-2026.11.08\\pack.json": "5c4b70d054f30bab00cee8203100b17a5ae7a5c146b796a6529f57fa145114c2",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\regulations-hk-hvac\\project.json": "2eb6bdf8a127048853acd8187e063380e5d8a3adcd810a7b01c9e03c66df3a0e",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-regulation-sources\\emsd-bec-2024.pdf": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7"
+  },
+  "inputs_unchanged": true,
+  "missing_sources": []
+}

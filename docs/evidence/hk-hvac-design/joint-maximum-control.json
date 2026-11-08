@@ -1,0 +1,130 @@
+{
+  "project": {
+    "jurisdiction": "HK",
+    "rule_pack": "hk-hvac-design-2026.11.08",
+    "edition_decisions": {
+      "emsd_bec_2024": {
+        "edition": "2024",
+        "basis": "Synthetic exercise selects BEC 2024, not an actual statutory applicability decision"
+      }
+    },
+    "facts": {
+      "bec_air_conditioning_scope_confirmed": {
+        "value": true,
+        "source": "Explicit synthetic summer office load-design scenario; actual applicability not established"
+      },
+      "human_comfort_application": {
+        "value": true,
+        "source": "Explicit synthetic summer office load-design scenario; actual applicability not established"
+      },
+      "prescriptive_design_condition_route_selected": {
+        "value": true,
+        "source": "Explicit synthetic summer office load-design scenario; actual applicability not established"
+      },
+      "inputs_are_load_calculation_design_conditions": {
+        "value": true,
+        "source": "Explicit synthetic summer office load-design scenario; actual applicability not established"
+      }
+    },
+    "load_design_conditions": {
+      "season": {
+        "value": "summer",
+        "source": "Explicit synthetic load-design condition"
+      },
+      "application": {
+        "value": "office",
+        "source": "Explicit synthetic load-design condition"
+      },
+      "indoor_dry_bulb": {
+        "value": 23,
+        "source": "Explicit synthetic load-design condition",
+        "unit": "degC"
+      },
+      "indoor_relative_humidity": {
+        "value": 50,
+        "source": "Explicit synthetic load-design condition",
+        "unit": "percent"
+      },
+      "outdoor_dry_bulb": {
+        "value": 35,
+        "source": "Explicit synthetic load-design condition",
+        "unit": "degC"
+      },
+      "outdoor_wet_bulb": {
+        "value": 29,
+        "source": "Explicit synthetic load-design condition",
+        "unit": "degC"
+      }
+    }
+  },
+  "result": {
+    "rule_pack": "hk-hvac-design-2026.11.08",
+    "jurisdiction": "HK",
+    "checks": [
+      {
+        "id": "HK.EMSD.BEC2024.load_design_conditions",
+        "status": "review_required",
+        "scope": "Indoor human-comfort and corresponding outdoor summer/winter load design conditions; not thermostat operating limits",
+        "source_url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+        "source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+        "edition": "2024",
+        "clause": "6.4.2 and Table 6.4",
+        "pdf_page_1_based": 29,
+        "value": 1,
+        "unit": "count",
+        "maximum": 0,
+        "evidence": "Computed only from sourced load_design_conditions; no thermostat or weather-series substitution",
+        "reasons": [
+          "Selected Table 6.4 condition limits not met; review design basis and applicable compliance route. This is not a whole-project statutory determination."
+        ],
+        "condition_checks": [
+          {
+            "input": "indoor_dry_bulb",
+            "value": 23,
+            "method": "minimum",
+            "limit": 23,
+            "passed": true
+          },
+          {
+            "input": "indoor_relative_humidity",
+            "value": 50,
+            "method": "minimum",
+            "limit": 50,
+            "passed": true
+          },
+          {
+            "input": "outdoor_dry_and_wet_bulb",
+            "dry_bulb_degC": 35,
+            "wet_bulb_degC": 29,
+            "limits": {
+              "dry_bulb_max_degC": 35,
+              "wet_bulb_max_degC": 29
+            },
+            "passed": false
+          }
+        ],
+        "season": "summer",
+        "application": "office",
+        "calculation_scope": "Selected human-comfort load-design condition limits only; no load solver or operating thermostat check"
+      }
+    ],
+    "supported_checks_pass": false,
+    "coverage": {
+      "complete": false,
+      "implemented": [
+        "Human-comfort summer/winter indoor and outdoor Table 6.4 load-design limits"
+      ],
+      "pending": [
+        "actual project scope and edition applicability",
+        "recognized load-calculation method under 6.4.1",
+        "binding design conditions to actual load engine inputs",
+        "process-zone rules",
+        "equipment efficiency, fan/pump limits, leakage, insulation and controls",
+        "full HVAC and Hong Kong conformity"
+      ]
+    },
+    "regulatory_compliance": "not_established",
+    "design_accepted": false,
+    "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+  }
+}
