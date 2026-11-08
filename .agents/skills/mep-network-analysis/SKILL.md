@@ -5,6 +5,8 @@ description: Calculate source-linked air/water tree budgets, single-line pump op
 
 # Network pressure analysis
 
+For sourced thermal transport targets on circulation pipes, read docs/CIRCULATION_DUTY.md and use `bsa.circulation_duty`. Require explicit thermal power, density, specific heat, design temperature difference, flow direction and fluid applicability sources. Preserve native hydraulic and thermal-flow failures independently. Passing flow capacity does not prove heat exchanger performance, achieved temperatures, complete load coverage or regulatory conformity.
+
 For zero-withdrawal pumped circulation read docs/HVAC_CIRCULATION.md and explicitly select `EPANET steady circulation graph`. Require a sourced fixed-head reference on one side connection, one fixed-speed pump and an explicit return path. Check zero net reference exchange and positive circulation along with native mass/energy/curve checks. The reference is not an expansion-vessel model; thermal duty, terminal-flow targets, controls, regulatory/IFC binding and full HVAC acceptance remain pending.
 
 For geometry-bound EPANET graphs, read docs/WATER_BINDING.md and use `water_coordination`/`bsa.water_binding` on the saved IFC. Omit all bound elevations/lengths/diameters from the hydraulic template. Require exact selected-system element, port and connection coverage using GUIDs, actual hollow profiles, reversible pipe ports and directed pump ports. Preserve signed per-piece flows and input/copied-IFC hashes. Coincident zero-loss nodes and aggregate fitting K must be explicit; finite separated ports, unknown pieces and diameter changes cannot be silently collapsed. Whole-building scope, detailed fittings, physical coordination and visual/domain acceptance remain pending.

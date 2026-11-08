@@ -1,0 +1,6 @@
+{
+  "scope": "Synthetic fresh EPANET circulation thermal transport; no equipment or full design acceptance",
+  "archive_sha256": "a386eacbab8a4e9a683e2509b962e1749fd30b8da1d0bc0fa4115e2fecb86035",
+  "passing_case": "thermal-duty-v1",
+  "thermal_failure_with_passing_hydraulics": "thermal-duty-insufficient-v1"
+}

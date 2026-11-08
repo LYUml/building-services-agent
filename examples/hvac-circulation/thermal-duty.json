@@ -1,0 +1,32 @@
+{
+  "sources": {
+    "synthetic": "Synthetic constant-property water demonstration, not product data; rho 1000 kg/m3, cp 4180 J/(kg K), delta T 5 K. Hydraulic specific gravity 1 and relative viscosity 1 are separate approximate test assumptions, not validated operating-temperature properties."
+  },
+  "fluid_applicability": "synthetic",
+  "targets": [
+    {
+      "link": "OUTBOUND",
+      "direction": "from_to",
+      "thermal_power": {
+        "value": 40,
+        "unit": "kW_thermal",
+        "source": "synthetic"
+      },
+      "density": {
+        "value": 1000,
+        "unit": "kg/m3",
+        "source": "synthetic"
+      },
+      "specific_heat": {
+        "value": 4180,
+        "unit": "J/(kg K)",
+        "source": "synthetic"
+      },
+      "temperature_difference": {
+        "value": 5,
+        "unit": "K",
+        "source": "synthetic"
+      }
+    }
+  ]
+}
