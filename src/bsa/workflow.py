@@ -418,7 +418,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                 else:reason='Radiance binary directory not supplied'
             elif t["kind"]=="native_cad":
                 upstream=tasks[t["depends_on"]]
-                if upstream["status"]=="fail":reason="upstream electrical task failed"
+                if upstream["status"]!='pass':reason=f"upstream electrical producer {t['depends_on']} is {upstream['status']}; native conversion waits for passing source evidence"
                 elif autocad:
                     from .native_cad import convert,plot
                     base=out/t['depends_on']

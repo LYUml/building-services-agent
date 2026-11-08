@@ -9,6 +9,38 @@ from bsa.engine import ProjectError
 ROOT=Path(__file__).resolve().parents[1]
 
 class WorkflowTests(unittest.TestCase):
+    def test_missing_lighting_runtime_blocks_native_but_not_independent_tasks(self):
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+            root=Path(folder).resolve()
+            with patch('bsa.native_cad.convert',side_effect=AssertionError('pending source must not reach CAD')) as convert:
+                result=execute(ROOT/'examples/shared-lighting-plan.json',root/'run',autocad=Path('unused.exe'))
+            convert.assert_not_called()
+            self.assertEqual(result['tasks']['shared']['status'],'pending')
+            self.assertEqual(result['tasks']['native']['status'],'pending')
+            self.assertIn('shared is pending',result['tasks']['native']['scope'])
+            self.assertEqual(result['tasks']['review']['status'],'pending')
+            self.assertIn('physical optical origins',result['tasks']['review']['scope'])
+            self.assertFalse((root/'run/native').exists())
+            self.assertTrue(verify(root/'run')['integrity_pass'])
+
+    def test_native_dependency_distinguishes_failed_and_passing_producers(self):
+        from unittest.mock import patch
+        for passed in (False,True):
+            with self.subTest(passed=passed),tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+                root=Path(folder).resolve()
+                def convert(source,out,exe):
+                    self.assertEqual(source,root/'run/shared/shared/electrical/devices.dxf')
+                    out.mkdir()
+                    return {'control':'mock conversion; no native verification claimed'}
+                with patch('bsa.lighting_binding.run',return_value={'calculated_checks_pass':passed}),patch('bsa.native_cad.convert',side_effect=convert) as converter,patch('bsa.native_cad.plot',return_value={'control':'mock plot'}) as plot:
+                    result=execute(ROOT/'examples/shared-lighting-plan.json',root/'run',autocad=Path('unused.exe'),radiance_bin=Path('unused-radiance'))
+                self.assertEqual(result['tasks']['shared']['status'],'pass' if passed else 'fail')
+                self.assertEqual(result['tasks']['native']['status'],'pass' if passed else 'pending',result['tasks']['native']['scope'])
+                self.assertEqual(converter.call_count,int(passed))
+                self.assertEqual(plot.call_count,int(passed))
+                self.assertFalse(result['design_accepted'])
+
     def test_tracked_example_plans_keep_source_hashes(self):
         count=0
         for path in (ROOT/'examples').rglob('*.json'):

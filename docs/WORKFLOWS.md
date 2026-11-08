@@ -26,6 +26,8 @@ See examples/workflow-plan.json. Version 1 requires:
 
 Source changes invalidate the brief digest. Escaping input paths, unknown adapters, uncovered paragraphs, fabricated quotations and unreferenced tasks are rejected before execution. Missing optional tools remain pending. Adapter exceptions are recorded as failures; later independent tasks can still run.
 
+Native electrical conversion requires its producer to pass, including the bound electrical/lighting producer. Missing Radiance leaves both that producer and its native dependent pending even when AutoCAD is supplied; it must not attempt to open a nonexistent DXF. A failed producer likewise blocks conversion. The recorded scope names the producer and status so the agent can resolve the upstream condition before executing a new run. Independent tasks still run. Dispatch regression controls are retained in `docs/evidence/native-dependency`; mocked conversion proves scheduling only, not native drawing fidelity.
+
 ## Evidence and acceptance
 
 `workflow.json` records input hashes, source line locators, task scopes, output evidence paths and task-artifact hashes. `index.html` summarizes the matrix. `verify` rehashes recorded inputs and task outputs, and detects missing or changed files. This is integrity checking, not a signed tamperproof ledger. It does not assess semantic correctness or hash its own report.

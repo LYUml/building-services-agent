@@ -1,0 +1,44 @@
+{
+  "scope": "Actual workflow validation and dispatch; converter deliberately mocked, no CAD execution",
+  "before": {
+    "converter_calls": 1,
+    "tasks": {
+      "shared": {
+        "kind": "electrical_lighting",
+        "status": "pending",
+        "scope": "Radiance binary directory not supplied for bound lighting"
+      },
+      "native": {
+        "kind": "native_cad",
+        "status": "fail",
+        "scope": "RuntimeError: CONTROL: converter should not be called"
+      },
+      "review": {
+        "kind": "manual",
+        "status": "pending",
+        "scope": "Review physical optical origins and complete visual/domain acceptance independently"
+      }
+    }
+  },
+  "after": {
+    "converter_calls": 0,
+    "tasks": {
+      "shared": {
+        "kind": "electrical_lighting",
+        "status": "pending",
+        "scope": "Radiance binary directory not supplied for bound lighting"
+      },
+      "native": {
+        "kind": "native_cad",
+        "status": "pending",
+        "scope": "upstream electrical producer shared is pending; native conversion waits for passing source evidence"
+      },
+      "review": {
+        "kind": "manual",
+        "status": "pending",
+        "scope": "Review physical optical origins and complete visual/domain acceptance independently"
+      }
+    }
+  },
+  "design_accepted": false
+}
