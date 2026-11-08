@@ -34,7 +34,7 @@ def clear(a, b, boxes):
     return not any(crosses(a, b, box) for box in boxes)
 
 
-def path(start, end, boxes, height):
+def path(start, end, boxes, height, maximum_x=None):
     if any(inside(p, box) for p in (start, end) for box in boxes):
         return None
     # Prefer vertical departure so a leader need not run along a horizontal pipe.
@@ -42,6 +42,7 @@ def path(start, end, boxes, height):
         if clear(start, corner, boxes) and clear(corner, end, boxes):
             return simplify([start, corner, end])
     xs = sorted({start[0], end[0]} | {b[i] for b in boxes for i in (0, 2)})
+    if maximum_x is not None:xs=[x for x in xs if x<=maximum_x+EPS]
     ys = sorted({start[1], end[1]} | {b[i] for b in boxes for i in (1, 3)})
     if len(xs)*len(ys) > MAX_NODES:
         raise ProjectError('annotation visibility grid exceeds explicit node budget')
@@ -110,28 +111,33 @@ def geometry(row, axes, height):
     return dict(guid=row['guid'], bounds_m=box, anchor_m=anchor, escape_m=escape, centre_m=centre)
 
 
-def layout(rows, axes, height):
+def layout(rows, axes, height, obstacle_boxes=()):
     items = [geometry(row, axes, height) for row in rows]
     margin = height/2
     ordered = sorted(items, key=lambda item: (item['centre_m'][1], item['guid']))
     slots = []
     for item in ordered:
         slots.append(max(item['escape_m'][1], slots[-1]+2.2*height if slots else -math.inf))
-    label_x = max(item['bounds_m'][2] for item in items)+4*height
+    label_x = max([item['bounds_m'][2] for item in items]+[b[2] for b in obstacle_boxes])+4*height
     if len(items) <= 6:
         orders = sorted(itertools.permutations(ordered), key=lambda order: sum(abs(item['escape_m'][1]-y) for item, y in zip(order, slots)))[:128]
     else:
         orders = [tuple(ordered), tuple(reversed(ordered))]
     actual = {item['guid']: item['bounds_m'] for item in items}
-    for attempt, order in enumerate(orders, 1):
+    all_boxes=list(actual.values())+list(obstacle_boxes)
+    top=max(b[3] for b in all_boxes)+4*height
+    bottom=min(b[1] for b in all_boxes)-4*height-2.2*height*(len(items)-1)
+    slot_sets=[slots,[top+i*2.2*height for i in range(len(items))],[bottom+i*2.2*height for i in range(len(items))]]
+    assignments=((order,candidate_slots) for candidate_slots in slot_sets for order in orders)
+    for attempt, (order,slots) in enumerate(assignments, 1):
         plans = {}; prior = []
         for item, y in zip(order, slots):
             guid = item['guid']; anchor, escape = item['anchor_m'], item['escape_m']
-            other_boxes = [expand(box, margin) for key, box in actual.items() if key != guid]+prior
+            other_boxes = [expand(box, margin) for key, box in actual.items() if key != guid]+[expand(b,margin) for b in obstacle_boxes]+prior
             if not clear(anchor, escape, other_boxes):
                 break
-            boxes = [expand(box, margin) for box in actual.values()]+prior
-            tail = path(escape, [label_x-height, y], boxes, height)
+            boxes = [expand(box, margin) for box in actual.values()]+[expand(b,margin) for b in obstacle_boxes]+prior
+            tail = path(escape, [label_x-height, y], boxes, height,maximum_x=label_x-height)
             if tail is None:
                 break
             points = [anchor]+tail

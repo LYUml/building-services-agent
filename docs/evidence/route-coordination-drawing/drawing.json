@@ -1,0 +1,624 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\route-obstacles-v1\\model.ifc": "9fcd2ae09b32029ecf1a68f3de50198ad541a4491b0e0f306eb10ebc6465ffc4",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\searched-route-coordination-v1\\route\\selected\\model-input.json": "50f4840b3c9c61effe8c4a043e69e26b26168d1df8b4dd0f133b08b115aa2d3f",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\route-search\\route-input.json": "551f1e0b79959ffa8998e609d768d744a9d062ddc18b3446a896676b9284cd7b",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\route-search\\obstacle-heights.json": "f5fdfc309bb1a32719223a8c1a98dc742bb1609ba2dc776c11bdd114b2e18888",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\route-search\\drawing-settings.json": "52d3faf969b13d05899cc1d550022747db024be76acc4a62c0ace413b2864ef5"
+  },
+  "inputs_unchanged": true,
+  "settings": {
+    "projection_axes": [
+      "X",
+      "Y"
+    ],
+    "annotation_height_m": 0.08,
+    "source": "Synthetic XY plan, 80 mm model annotation height intended as 2 mm at 1:40; route and column both required."
+  },
+  "pieces": [
+    {
+      "guid": "0Ayr2QH65L7RE3vIHUacMe",
+      "name": "ROUTE_001",
+      "ifc_class": "IfcPipeSegment",
+      "body_shape": "straight circular wall",
+      "source": "Explicit synthetic room, bore, elevation and excess-loss assumptions; no measured building or manufacturer data.",
+      "inner_diameter_m": 0.08,
+      "outside_diameter_m": 0.1,
+      "length_m": 0.8,
+      "analytic_wall_volume_m3": 0.0022619467105846522,
+      "start_world_m": [
+        0.0,
+        1.5,
+        1.0
+      ],
+      "end_world_m": [
+        0.0,
+        0.7,
+        1.0
+      ],
+      "port_guids": [
+        "2PW8Rv$IDTsgEAiKhXNrg8",
+        "1TjIUpS2bGLuBHXxHCKvmx"
+      ],
+      "native_wall_checks": {
+        "analytic_wall_volume_m3": 0.0022619467105846522,
+        "mesh_wall_volume_m3": 0.0022619090933039543,
+        "relative_volume_error": 1.6630489357650757e-05,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "saved_wall_thickness_m": 0.010000000000000002,
+        "saved_length_m": 0.8,
+        "volume_relative_tolerance": 0.001,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "saved_diameter_metadata_pass": true,
+        "body_shape": "straight circular wall",
+        "linear_deflection_m": 1e-05,
+        "angular_deflection": 0.02,
+        "bounds_tolerance_m": 2e-05
+      },
+      "centreline_radius_m": null,
+      "projected_length_m": 0.8,
+      "plane_coordinate_m": 1.0
+    },
+    {
+      "guid": "1tYN_91xvUaP$nlmpMBcIM",
+      "name": "ROUTE_002",
+      "ifc_class": "IfcPipeFitting",
+      "body_shape": "circular 90-degree elbow wall",
+      "source": "Explicit synthetic room, bore, elevation and excess-loss assumptions; no measured building or manufacturer data.",
+      "inner_diameter_m": 0.08,
+      "outside_diameter_m": 0.1,
+      "length_m": 0.3141592653589793,
+      "analytic_wall_volume_m3": 0.0008882643960980425,
+      "start_world_m": [
+        0.0,
+        0.7,
+        1.0
+      ],
+      "end_world_m": [
+        0.2,
+        0.5,
+        1.0
+      ],
+      "port_guids": [
+        "3HqsFUTZDTegimHa7aTEBj",
+        "2tDKHsku5ONf79cOz0f8lI"
+      ],
+      "native_wall_checks": {
+        "body_representation": "source-parametric tessellated annular wall; exact circular Axis reference",
+        "tessellation": {
+          "arc_intervals": 88,
+          "circumference_intervals": 316,
+          "linear_deflection_bound_m": 9.956840464647732e-06
+        },
+        "body_shape": "circular 90-degree elbow wall",
+        "analytic_wall_volume_m3": 0.0008882643960980425,
+        "mesh_wall_volume_m3": 0.0008881587014272536,
+        "relative_volume_error": 0.00011899010165577265,
+        "volume_relative_tolerance": 0.001,
+        "centreline_arc_length_m": 0.3141592653589793,
+        "centreline_radius_m": 0.2,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "explicit_circular_arc": true,
+        "through_bore_pass": true
+      },
+      "centreline_radius_m": 0.20000000000000007,
+      "centre_world_m": [
+        0.2,
+        0.7,
+        1.0
+      ],
+      "projected_centre_m": [
+        0.2,
+        0.7
+      ],
+      "start_angle_deg": 180.0,
+      "end_angle_deg": 270.0,
+      "projected_length_m": 0.3141592653589794,
+      "plane_coordinate_m": 1.0
+    },
+    {
+      "guid": "3iL45M9A9HOO4$ZVBavJ2Q",
+      "name": "ROUTE_003",
+      "ifc_class": "IfcPipeSegment",
+      "body_shape": "straight circular wall",
+      "source": "Explicit synthetic room, bore, elevation and excess-loss assumptions; no measured building or manufacturer data.",
+      "inner_diameter_m": 0.08,
+      "outside_diameter_m": 0.1,
+      "length_m": 3.5999999999999996,
+      "analytic_wall_volume_m3": 0.010178760197630933,
+      "start_world_m": [
+        0.2,
+        0.5,
+        1.0
+      ],
+      "end_world_m": [
+        3.8,
+        0.5,
+        1.0
+      ],
+      "port_guids": [
+        "3C6gDyvazJCQO$VrAkeOZH",
+        "2ev_fBVjzJ1OkfZZrELqQE"
+      ],
+      "native_wall_checks": {
+        "analytic_wall_volume_m3": 0.010178760197630933,
+        "mesh_wall_volume_m3": 0.010178590919867789,
+        "relative_volume_error": 1.6630489357927703e-05,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "saved_wall_thickness_m": 0.010000000000000002,
+        "saved_length_m": 3.5999999999999996,
+        "volume_relative_tolerance": 0.001,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "saved_diameter_metadata_pass": true,
+        "body_shape": "straight circular wall",
+        "linear_deflection_m": 1e-05,
+        "angular_deflection": 0.02,
+        "bounds_tolerance_m": 2e-05
+      },
+      "centreline_radius_m": null,
+      "projected_length_m": 3.5999999999999996,
+      "plane_coordinate_m": 1.0
+    },
+    {
+      "guid": "0xxDwXhVjJZu3SrjuHkecX",
+      "name": "ROUTE_004",
+      "ifc_class": "IfcPipeFitting",
+      "body_shape": "circular 90-degree elbow wall",
+      "source": "Explicit synthetic room, bore, elevation and excess-loss assumptions; no measured building or manufacturer data.",
+      "inner_diameter_m": 0.08,
+      "outside_diameter_m": 0.1,
+      "length_m": 0.3141592653589793,
+      "analytic_wall_volume_m3": 0.0008882643960980425,
+      "start_world_m": [
+        3.8,
+        0.5,
+        1.0
+      ],
+      "end_world_m": [
+        4.0,
+        0.7,
+        1.0
+      ],
+      "port_guids": [
+        "3LwXu5lSfKFPWGRMIh4g7t",
+        "3c7NdMrQjJWR6lcKdn_nmL"
+      ],
+      "native_wall_checks": {
+        "body_representation": "source-parametric tessellated annular wall; exact circular Axis reference",
+        "tessellation": {
+          "arc_intervals": 88,
+          "circumference_intervals": 316,
+          "linear_deflection_bound_m": 9.956840464647732e-06
+        },
+        "body_shape": "circular 90-degree elbow wall",
+        "analytic_wall_volume_m3": 0.0008882643960980425,
+        "mesh_wall_volume_m3": 0.0008881587014272536,
+        "relative_volume_error": 0.00011899010165577265,
+        "volume_relative_tolerance": 0.001,
+        "centreline_arc_length_m": 0.3141592653589793,
+        "centreline_radius_m": 0.2,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "explicit_circular_arc": true,
+        "through_bore_pass": true
+      },
+      "centreline_radius_m": 0.20000000000000007,
+      "centre_world_m": [
+        3.8,
+        0.7,
+        1.0
+      ],
+      "projected_centre_m": [
+        3.8,
+        0.7
+      ],
+      "start_angle_deg": 270.0,
+      "end_angle_deg": 0.0,
+      "projected_length_m": 0.3141592653589794,
+      "plane_coordinate_m": 1.0
+    },
+    {
+      "guid": "2f1sWWZt1MTg6OQjzbHjcF",
+      "name": "ROUTE_005",
+      "ifc_class": "IfcPipeSegment",
+      "body_shape": "straight circular wall",
+      "source": "Explicit synthetic room, bore, elevation and excess-loss assumptions; no measured building or manufacturer data.",
+      "inner_diameter_m": 0.08,
+      "outside_diameter_m": 0.1,
+      "length_m": 0.8,
+      "analytic_wall_volume_m3": 0.0022619467105846522,
+      "start_world_m": [
+        4.0,
+        0.7,
+        1.0
+      ],
+      "end_world_m": [
+        4.0,
+        1.5,
+        1.0
+      ],
+      "port_guids": [
+        "2J1rnoFJLVeuyosaoHODIG",
+        "0_2$QSgf5L0xDZnXcchPAc"
+      ],
+      "native_wall_checks": {
+        "analytic_wall_volume_m3": 0.0022619467105846522,
+        "mesh_wall_volume_m3": 0.0022619090933039543,
+        "relative_volume_error": 1.6630489357650757e-05,
+        "saved_inner_diameter_m": 0.08,
+        "saved_outside_diameter_m": 0.1,
+        "saved_wall_thickness_m": 0.010000000000000002,
+        "saved_length_m": 0.8,
+        "volume_relative_tolerance": 0.001,
+        "closed_mesh": true,
+        "euler_characteristic": 0,
+        "saved_diameter_metadata_pass": true,
+        "body_shape": "straight circular wall",
+        "linear_deflection_m": 1e-05,
+        "angular_deflection": 0.02,
+        "bounds_tolerance_m": 2e-05
+      },
+      "centreline_radius_m": null,
+      "projected_length_m": 0.8,
+      "plane_coordinate_m": 1.0
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "COLUMN",
+      "origin_m": [
+        1.8,
+        1,
+        0
+      ],
+      "size_m": [
+        0.40000000000000013,
+        1,
+        2
+      ],
+      "source": "Synthetic rectangular obstruction footprint; extends through the routing plane; height: Explicit synthetic column spanning 0 to 2 m elevation; no measured building data.",
+      "guid": "2klNgTpNfPoB1yNXwp1MFN",
+      "bounds_m": [
+        1.8,
+        1.0,
+        2.2,
+        2.0
+      ],
+      "volume_m3": 0.8000000000000004
+    }
+  ],
+  "annotation_layout": {
+    "scope": "conservative OD-rectangle and prior-leader-box avoidance; own initial stub is an outward OD normal ray",
+    "graphic_margin_m": 0.04,
+    "label_spacing_m": 0.17600000000000002,
+    "candidate_assignments_tested": 155,
+    "leader_body_checks_pass": true,
+    "leader_pair_checks_pass": true,
+    "pieces": [
+      {
+        "guid": "1tYN_91xvUaP$nlmpMBcIM",
+        "bounds_m": [
+          -0.050000000000000044,
+          0.4499999999999999,
+          0.19999999999999998,
+          0.7
+        ],
+        "anchor_m": [
+          0.02322330470336304,
+          0.523223304703363
+        ],
+        "escape_m": [
+          -0.13000000000000012,
+          0.3699999999999999
+        ],
+        "centre_m": [
+          0.058578643762690424,
+          0.5585786437626904
+        ],
+        "leader_points_m": [
+          [
+            0.02322330470336304,
+            0.523223304703363
+          ],
+          [
+            -0.13000000000000012,
+            0.3699999999999999
+          ],
+          [
+            -0.13000000000000012,
+            2.32
+          ],
+          [
+            4.29,
+            2.32
+          ]
+        ],
+        "label_position_m": [
+          4.37,
+          2.32
+        ]
+      },
+      {
+        "guid": "0xxDwXhVjJZu3SrjuHkecX",
+        "bounds_m": [
+          3.8,
+          0.4499999999999999,
+          4.05,
+          0.7
+        ],
+        "anchor_m": [
+          3.976776695296637,
+          0.523223304703363
+        ],
+        "escape_m": [
+          4.13,
+          0.36999999999999983
+        ],
+        "centre_m": [
+          3.9414213562373095,
+          0.5585786437626904
+        ],
+        "leader_points_m": [
+          [
+            3.976776695296637,
+            0.523223304703363
+          ],
+          [
+            4.13,
+            0.36999999999999983
+          ],
+          [
+            4.13,
+            0.3299999999999999
+          ],
+          [
+            -0.17000000000000012,
+            0.3299999999999999
+          ],
+          [
+            -0.17000000000000012,
+            2.496
+          ],
+          [
+            4.29,
+            2.496
+          ]
+        ],
+        "label_position_m": [
+          4.37,
+          2.496
+        ]
+      },
+      {
+        "guid": "2f1sWWZt1MTg6OQjzbHjcF",
+        "bounds_m": [
+          3.95,
+          0.7,
+          4.05,
+          1.5
+        ],
+        "anchor_m": [
+          4.05,
+          1.1
+        ],
+        "escape_m": [
+          4.13,
+          1.1
+        ],
+        "centre_m": [
+          4.0,
+          1.1
+        ],
+        "leader_points_m": [
+          [
+            4.05,
+            1.1
+          ],
+          [
+            4.13,
+            1.1
+          ],
+          [
+            4.17,
+            1.1
+          ],
+          [
+            4.17,
+            0.2899999999999999
+          ],
+          [
+            -0.21000000000000013,
+            0.2899999999999999
+          ],
+          [
+            -0.21000000000000013,
+            2.6719999999999997
+          ],
+          [
+            4.29,
+            2.6719999999999997
+          ]
+        ],
+        "label_position_m": [
+          4.37,
+          2.6719999999999997
+        ]
+      },
+      {
+        "guid": "3iL45M9A9HOO4$ZVBavJ2Q",
+        "bounds_m": [
+          0.2,
+          0.45,
+          3.8,
+          0.55
+        ],
+        "anchor_m": [
+          2.0,
+          0.55
+        ],
+        "escape_m": [
+          2.0,
+          0.63
+        ],
+        "centre_m": [
+          2.0,
+          0.5
+        ],
+        "leader_points_m": [
+          [
+            2.0,
+            0.55
+          ],
+          [
+            2.0,
+            0.63
+          ],
+          [
+            3.76,
+            0.63
+          ],
+          [
+            3.76,
+            1.54
+          ],
+          [
+            4.21,
+            1.54
+          ],
+          [
+            4.21,
+            0.24999999999999992
+          ],
+          [
+            -0.2500000000000001,
+            0.24999999999999992
+          ],
+          [
+            -0.2500000000000001,
+            2.848
+          ],
+          [
+            4.29,
+            2.848
+          ]
+        ],
+        "label_position_m": [
+          4.37,
+          2.848
+        ]
+      },
+      {
+        "guid": "0Ayr2QH65L7RE3vIHUacMe",
+        "bounds_m": [
+          -0.05,
+          0.7,
+          0.05,
+          1.5
+        ],
+        "anchor_m": [
+          0.05,
+          1.1
+        ],
+        "escape_m": [
+          0.13,
+          1.1
+        ],
+        "centre_m": [
+          0.0,
+          1.1
+        ],
+        "leader_points_m": [
+          [
+            0.05,
+            1.1
+          ],
+          [
+            0.13,
+            1.1
+          ],
+          [
+            0.13,
+            0.96
+          ],
+          [
+            3.7199999999999998,
+            0.96
+          ],
+          [
+            3.7199999999999998,
+            1.58
+          ],
+          [
+            4.25,
+            1.58
+          ],
+          [
+            4.25,
+            0.2099999999999999
+          ],
+          [
+            -0.2900000000000001,
+            0.2099999999999999
+          ],
+          [
+            -0.2900000000000001,
+            3.024
+          ],
+          [
+            4.29,
+            3.024
+          ]
+        ],
+        "label_position_m": [
+          4.37,
+          3.024
+        ]
+      }
+    ],
+    "saved_leader_paths_match": true,
+    "independent_saved_audit": {
+      "scope": "actual GUID-linked DXF leaders and labels; source OD stub/obstacle geometry, segment distances and row placement; no planner invocation",
+      "dxf_sha256": "7483e74cb7bc90e6c5b28a10a887c692fda6479fc0e007707d033ccdcd9d75b3",
+      "piece_count": 5,
+      "leader_segment_count": 31,
+      "graphic_margin_m": 0.04,
+      "coordinate_tolerance_m": 1e-08,
+      "minimum_leader_pair_gap_m": 0.03999999999999998,
+      "leader_body_checks_pass": true,
+      "leader_pair_checks_pass": true,
+      "saved_paths_match": true,
+      "saved_labels_match": true,
+      "calculated_checks_pass": true,
+      "design_accepted": false,
+      "linked_annotation_visibility_flags_pass": true,
+      "checked_visibility_flags": [
+        "entity invisible",
+        "raw and loaded entity paper-space marker",
+        "layer off",
+        "layer frozen",
+        "layer plot"
+      ],
+      "pending": [
+        "unlinked legends and font glyph extents",
+        "native pipe geometry/print/BIM viewer and complete engineering acceptance"
+      ]
+    }
+  },
+  "calculated_checks_pass": true,
+  "design_accepted": false,
+  "scope": "complete source-checked supported route and obstacle XY projection; linked geometry and obstacle-avoiding leaders",
+  "pending": [
+    "native DWG reopen and PDF scale/visual review",
+    "obstacle label glyph extents",
+    "product and complete engineering acceptance"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "dxf_sha256": "57ed05d61206169a0fb6d12e43042d693662f7360d62e595840a8bbf5b67fd17",
+  "result": {
+    "scope": "actual GUID-linked DXF leaders and labels; source OD stub/obstacle geometry, segment distances and row placement; no planner invocation",
+    "dxf_sha256": "57ed05d61206169a0fb6d12e43042d693662f7360d62e595840a8bbf5b67fd17",
+    "piece_count": 5,
+    "leader_segment_count": 31,
+    "graphic_margin_m": 0.04,
+    "coordinate_tolerance_m": 1e-08,
+    "minimum_leader_pair_gap_m": 0.03999999999999998,
+    "leader_body_checks_pass": true,
+    "leader_pair_checks_pass": true,
+    "saved_paths_match": true,
+    "saved_labels_match": true,
+    "calculated_checks_pass": true,
+    "design_accepted": false,
+    "linked_annotation_visibility_flags_pass": true,
+    "checked_visibility_flags": [
+      "entity invisible",
+      "raw and loaded entity paper-space marker",
+      "layer off",
+      "layer frozen",
+      "layer plot"
+    ],
+    "pending": [
+      "unlinked legends and font glyph extents",
+      "native pipe geometry/print/BIM viewer and complete engineering acceptance"
+    ]
+  }
+}

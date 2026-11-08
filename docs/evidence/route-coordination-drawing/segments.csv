@@ -1,0 +1,6 @@
+guid,name,ifc_class,length_m,inner_diameter_m,outside_diameter_m,centreline_radius_m,source
+0Ayr2QH65L7RE3vIHUacMe,ROUTE_001,IfcPipeSegment,0.8,0.08,0.1,,"Explicit synthetic room, bore, elevation and excess-loss assumptions; no measured building or manufacturer data."
+1tYN_91xvUaP$nlmpMBcIM,ROUTE_002,IfcPipeFitting,0.3141592653589793,0.08,0.1,0.20000000000000007,"Explicit synthetic room, bore, elevation and excess-loss assumptions; no measured building or manufacturer data."
+3iL45M9A9HOO4$ZVBavJ2Q,ROUTE_003,IfcPipeSegment,3.5999999999999996,0.08,0.1,,"Explicit synthetic room, bore, elevation and excess-loss assumptions; no measured building or manufacturer data."
+0xxDwXhVjJZu3SrjuHkecX,ROUTE_004,IfcPipeFitting,0.3141592653589793,0.08,0.1,0.20000000000000007,"Explicit synthetic room, bore, elevation and excess-loss assumptions; no measured building or manufacturer data."
+2f1sWWZt1MTg6OQjzbHjcF,ROUTE_005,IfcPipeSegment,0.8,0.08,0.1,,"Explicit synthetic room, bore, elevation and excess-loss assumptions; no measured building or manufacturer data."

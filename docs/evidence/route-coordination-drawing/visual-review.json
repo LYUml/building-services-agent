@@ -1,0 +1,28 @@
+{
+  "reviewed_on": "2026-11-08",
+  "reviewer": "Codex actual rendered PDF inspection",
+  "artifacts": {
+    "segments.dwg": "955740a12663d24045caac548eb95a6eccbb7f75eb4bae800457877b651869ea",
+    "sheet.pdf": "0ce6aaf8d45e872e7355975a4ab19073ce9cb92c873643bf4052a9d677e49189",
+    "sheet-preview.png": "fd6c98169caabf8e8d1e02a04ccb8cbea1c38013c7bd0d47fdf5e86ff56aba85"
+  },
+  "visual_checks": {
+    "five_route_labels_readable": true,
+    "column_label_inside_box": true,
+    "leaders_clear_of_label_text": true,
+    "footer_clear_of_leaders": true,
+    "visible_geometry_and_text_unclipped": true
+  },
+  "scope": "Synthetic XY route/obstacle diagram only",
+  "rejected_iterations": {
+    "v1": "leaders crossed label text; column label overflow",
+    "v2": "bottom leaders overlapped footer"
+  },
+  "design_accepted": false,
+  "pending": [
+    "complete installation sheet conventions",
+    "real obstacle coverage and product applicability",
+    "BIM viewer review",
+    "Hong Kong regulatory conformity and complete engineering acceptance"
+  ]
+}

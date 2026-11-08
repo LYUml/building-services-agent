@@ -14,7 +14,7 @@ from . import circular_elbow as elbow
 from .ifc_drawing import validate_settings
 
 
-def extract(ifc, source_model, settings):
+def extract(ifc, source_model, settings, obstacle_guids=()):
     import numpy as np
     import ifcopenshell
     import ifcopenshell.geom
@@ -36,6 +36,8 @@ def extract(ifc, source_model, settings):
     if len(roots) != len(set(roots)):
         raise ProjectError('duplicate route IFC identity')
     physical = [o for o in model.by_type('IfcElement') if not o.is_a('IfcFeatureElement') and not o.is_a('IfcVirtualElement')]
+    if not set(obstacle_guids)<={o.GlobalId for o in physical}:raise ProjectError('declared drawing obstacles missing from IFC')
+    physical = [o for o in physical if o.GlobalId not in obstacle_guids]
     source = {d['id']: d for d in source_model['devices']}
     objects = {o.Name: o for o in physical}
     if len(objects) != len(physical) or set(objects) != set(source) or not objects:
@@ -119,7 +121,7 @@ def extract(ifc, source_model, settings):
     return rows
 
 
-def draw(rows, settings, out):
+def draw(rows, settings, out, obstacles=()):
     import ezdxf
     from collections import Counter
     from .cad_overlay import snapshot, reconcile
@@ -127,19 +129,28 @@ def draw(rows, settings, out):
     from .route_drawing_qa import audit_saved, label_text
     axes = [{'X':0,'Y':1,'Z':2}[a] for a in settings['projection_axes']]
     height = settings['annotation_height_m']
-    annotation = layout(rows, axes, height)
+    boxes=[o['bounds_m'] for o in obstacles]
+    annotation = layout(rows, axes, height, boxes) if obstacles else layout(rows, axes, height)
     plans = {p['guid']:p for p in annotation['pieces']}
     doc = ezdxf.new('R2018'); doc.header['$INSUNITS'] = 6
     doc.appids.new('BSA_IFC')
     for name, color in (('BSA_PIPE_AXIS',4),('BSA_PIPE_OUTLINE',7),('BSA_LABEL',7),('BSA_LEADER',8)):
         doc.layers.new(name, dxfattribs={'color':color})
     ms = doc.modelspace(); svg = []
+    if obstacles:doc.layers.new('BSA_OBSTACLE',dxfattribs={'color':3})
     def add(entity, row):
         entity.set_xdata('BSA_IFC', [(1000,row['guid'])])
         return entity
     def line(a,b,layer,row):
         add(ms.add_line(a,b,dxfattribs={'layer':layer}),row)
         svg.append(f'<line x1="{a[0]}" y1="{-a[1]}" x2="{b[0]}" y2="{-b[1]}" stroke="black" stroke-width="{height/12}"/>')
+    for obstacle in obstacles:
+        x0,y0,x1,y1=obstacle['bounds_m'];corners=[[x0,y0],[x1,y0],[x1,y1],[x0,y1]]
+        for a,b in zip(corners,corners[1:]+corners[:1]):line(a,b,'BSA_OBSTACLE',obstacle)
+        label=obstacle['id'];position=(x0+height/2,y0+height)
+        width=max(.01,min(1.,(x1-x0-height)/(height*max(1,len(label)))))
+        add(ms.add_text(label,dxfattribs={'height':height,'width':width,'insert':position,'layer':'BSA_OBSTACLE'}),obstacle)
+        svg.append(f'<text x="{position[0]}" y="{-position[1]}" font-size="{height}" textLength="{height*len(label)*width*.7}" lengthAdjust="spacingAndGlyphs">{html.escape(label)}</text>')
     for row in sorted(rows, key=lambda r:plans[r['guid']]['label_position_m'][1]):
         a,b = [[p[i] for i in axes] for p in (row['start_world_m'],row['end_world_m'])]
         if row['centreline_radius_m'] is None:
@@ -164,8 +175,12 @@ def draw(rows, settings, out):
         svg.append(f'<text x="{label_x}" y="{-label_y}" font-size="{height}">{html.escape(label)}</text>')
     titles = [' / '.join(settings['projection_axes'])+f" route plane {rows[0]['plane_coordinate_m']:g} m; coordinates m",
               'Axis and OD outlines; generic geometry; product/installation acceptance pending']
+    drawing_bottom=min([p['bounds_m'][1] for p in plans.values()]
+                       +[q[1] for p in plans.values() for q in p['leader_points_m']]
+                       +[p['label_position_m'][1] for p in plans.values()]
+                       +[o['bounds_m'][1] for o in obstacles])
     for i,title in enumerate(titles):
-        x = min(p['bounds_m'][0] for p in plans.values());y = min(p['bounds_m'][1] for p in plans.values())-(3+i*1.8)*height
+        x = min(p['bounds_m'][0] for p in plans.values());y = drawing_bottom-(3+i*1.8)*height
         ms.add_text(title,dxfattribs={'height':height,'insert':(x,y),'layer':'BSA_LABEL'})
         svg.append(f'<text x="{x}" y="{-y}" font-size="{height}">{html.escape(title)}</text>')
     path = out/'segments.dxf';doc.saveas(path)
@@ -181,7 +196,7 @@ def draw(rows, settings, out):
     actual = Counter(key(e.get_xdata('BSA_IFC')[0].value,list(e.dxf.start),list(e.dxf.end)) for e in saved.modelspace().query('LINE[layer=="BSA_LEADER"]'))
     if expected != actual:raise ProjectError('saved annotation leaders differ from proven layout')
     annotation['saved_leader_paths_match'] = True
-    annotation['independent_saved_audit'] = audit_saved(path,rows,axes,height,annotation)
+    annotation['independent_saved_audit'] = audit_saved(path,rows,axes,height,annotation,boxes)
     (out/'annotation-layout.json').write_text(json.dumps(annotation,indent=2),encoding='utf-8')
     from ezdxf import bbox
     bounds = bbox.extents(saved.modelspace());margin = 2*height

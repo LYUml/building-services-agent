@@ -130,6 +130,13 @@ class SavedRouteAuditTests(unittest.TestCase):
         self.assertEqual(distance([0,0],[2,0],[1,0],[3,0]),0)
         self.assertAlmostEqual(distance([0,0],[2,0],[0,.04],[2,.04]),.04)
 
+    def test_external_obstacle_cannot_be_ignored_by_saved_leader_audit(self):
+        points=self.layout['pieces'][0]['leader_points_m']
+        a,b=points[-2:];centre=[(a[i]+b[i])/2 for i in (0,1)]
+        box=[centre[0]-.005,centre[1]-.005,centre[0]+.005,centre[1]+.005]
+        with self.assertRaisesRegex(ProjectError,'building obstacle'):
+            audit_saved(self.dxf,self.rows,[0,2],.06,self.layout,[box])
+
     def test_small_physical_overlap_on_long_segment_is_not_lost_to_parameter_cutoff(self):
         self.assertTrue(enters([0,0],[20000000,0],[4,-.001,4.001,.001]))
         self.assertFalse(enters([0,.001],[20000000,.001],[4,-.001,4.001,.001]))

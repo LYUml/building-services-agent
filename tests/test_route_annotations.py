@@ -39,6 +39,38 @@ def occupied(p, row, axes):
 
 
 class RouteAnnotationTests(unittest.TestCase):
+    def test_u_route_with_column_uses_external_label_rows_without_crossing(self):
+        from bsa.route_optimize import select
+        root=ROOT/'examples/route-search'
+        _,selection=select(*(json.loads((root/name).read_text()) for name in ('route-input.json','model-settings.json','network.json')))
+        rows=[]
+        for index,piece in enumerate(selection['selected_route']['pieces']):
+            row=dict(guid=str(index),outside_diameter_m=.1,start_world_m=piece['start_m']+[1],end_world_m=piece['end_m']+[1],centreline_radius_m=None)
+            if piece['kind']=='elbow':
+                c=piece['centre_m'];angles=[math.degrees(math.atan2(p[1]-c[1],p[0]-c[0]))%360 for p in (piece['start_m'],piece['end_m'])]
+                if not math.isclose((angles[1]-angles[0])%360,90):angles.reverse()
+                row.update(centreline_radius_m=.2,projected_centre_m=c,start_angle_deg=angles[0],end_angle_deg=angles[1])
+            rows.append(row)
+        box=[1.8,1,2.2,2];result=layout(rows,[0,1],.08,[box])
+        self.assertGreater(result['candidate_assignments_tested'],120)
+        for item in result['pieces']:
+            self.assertGreater(item['label_position_m'][1],2)
+            self.assertTrue(all(p[0] <= item['label_position_m'][0]-.08+1e-8
+                                for p in item['leader_points_m']))
+            for a,b in zip(item['leader_points_m'],item['leader_points_m'][1:]):
+                self.assertFalse(crosses(a,b,box))
+                for t in range(1,100):
+                    p=[a[i]+t/100*(b[i]-a[i]) for i in (0,1)]
+                    self.assertFalse(any(occupied(p,r,[0,1]) for r in rows))
+
+    def test_external_obstacle_blocks_outward_stub(self):
+        from bsa.route_annotations import geometry
+        rows=source_rows('circular-elbow',[0,1])
+        p=geometry(rows[0],[0,1],.06)['anchor_m']
+        box=[p[0]-.01,p[1]-.01,p[0]+.01,p[1]+.01]
+        with self.assertRaisesRegex(ProjectError,'layout not proven'):
+            layout(rows,[0,1],.06,[box])
+
     def test_both_independent_projects_have_no_leader_samples_inside_any_pipe(self):
         for example,axes in [('circular-elbow',[0,1]),('elbow-riser',[0,2])]:
             rows=source_rows(example,axes);result=layout(rows,axes,.06)

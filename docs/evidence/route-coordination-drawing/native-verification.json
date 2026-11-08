@@ -1,0 +1,68 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\route-coordination-drawing-v4\\segments.dxf": "7483e74cb7bc90e6c5b28a10a887c692fda6479fc0e007707d033ccdcd9d75b3",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\route-search\\native-sheet.json": "8847411afd88302880d18c1ff971b28085fe92993ff2dfe9f056d8092de7d15c"
+  },
+  "inputs_unchanged": true,
+  "engine": "C:\\Program Files\\Autodesk\\AutoCAD 2027\\accoreconsole.exe",
+  "engine_sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2",
+  "dwg_sha256": "955740a12663d24045caac548eb95a6eccbb7f75eb4bae800457877b651869ea",
+  "native_reopen_pass": true,
+  "checks": {
+    "model_entity_count": 58,
+    "linked_entity_count": 56,
+    "model_entities_and_ifc_xdata_match": true,
+    "geometry_layers_and_annotations_match": true,
+    "metre_units": true
+  },
+  "plot": {
+    "pdf_sha256": "0ce6aaf8d45e872e7355975a4ab19073ce9cb92c873643bf4052a9d677e49189",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 40,
+    "reference_handle": "54",
+    "reference_expected_mm": 89.99999999999997,
+    "reference_measured_mm": 90.00066666666666,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "settings": {
+    "source": "Synthetic A4 landscape XY route and obstacle plan at 1:40. Explicit window includes all leaders and labels. ROUTE_003 3.6 m axis must measure 90 mm on paper.",
+    "window_drawing_units": [
+      -0.6,
+      -0.8,
+      9.2,
+      4.0
+    ],
+    "scale_denominator": 40,
+    "reference_ifc_guid": "3iL45M9A9HOO4$ZVBavJ2Q",
+    "pdf_tolerance_mm": 0.2
+  },
+  "design_accepted": false,
+  "pending": [
+    "actual PDF visual review",
+    "equipment/fittings/insulation and installation drawing detail",
+    "complete engineering acceptance"
+  ],
+  "artifacts": {
+    "input.dxf": "7483e74cb7bc90e6c5b28a10a887c692fda6479fc0e007707d033ccdcd9d75b3",
+    "plot.log": "5d6bcb72fe08cd58094d2be650a367a68ba5425746646ec779e1512435ac9b1b",
+    "save.log": "d6ba20b9d8f7b6f19af06c94445b06780c46a638cfc025ec1399bcc46f57e59c",
+    "save.scr": "4f6329337cd1a7317b8d27e0b881c468eabd9d3ceb5038398139026c02e9538a",
+    "segments.dwg": "955740a12663d24045caac548eb95a6eccbb7f75eb4bae800457877b651869ea",
+    "sheet.json": "8698a5fcecb9f90abaeb3df2c5d8fd1854a2c0cc840d933458fdf18cf13696bd",
+    "sheet.log": "de8d999e5309502ef9bd3567f5f10e47c201c7de96bfe5fff93dbe8f642180f2",
+    "sheet.pdf": "0ce6aaf8d45e872e7355975a4ab19073ce9cb92c873643bf4052a9d677e49189",
+    "sheet.scr": "3ce2a85c179e86b12c045d4eb2f4963a5414f5839774cfe2976230fe5ef4a12d",
+    "native-reopen/export.log": "cc8d350bc710c2050037b965f63bee8781d52310f8a0e2160dc3ac6b96574e2c",
+    "native-reopen/export.scr": "7078440a166501008a134d9250271815ed528d99e577b1ef6e745c0322543eb0",
+    "native-reopen/source-copy.dwg": "955740a12663d24045caac548eb95a6eccbb7f75eb4bae800457877b651869ea",
+    "native-reopen/source-export.dxf": "57ed05d61206169a0fb6d12e43042d693662f7360d62e595840a8bbf5b67fd17",
+    "ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "ea871e62a9823c8a2f3757645b49596ddf10ba23c56da57e2f729c35ca9678fe",
+    "native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "cbda592995de2cb773fad18e628b8e258d24b766af658e61528c6d23844d83d7"
+  }
+}

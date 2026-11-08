@@ -73,7 +73,7 @@ def distance(a, b, c, d):
     return min(point(a,c,d),point(b,c,d),point(c,a,b),point(d,a,b))
 
 
-def audit_saved(dxf, rows, axes, height, report):
+def audit_saved(dxf, rows, axes, height, report, obstacle_boxes=()):
     """Rows must already be source-checked; planner Boolean claims are ignored."""
     import ezdxf
     expected={r['guid']:geometry(r,axes,height) for r in rows}
@@ -81,7 +81,7 @@ def audit_saved(dxf, rows, axes, height, report):
     plans=report.get('pieces') if isinstance(report,dict) else None
     if not isinstance(plans,list) or any(not isinstance(p,dict) or not isinstance(p.get('guid'),str) or p.get('guid') not in expected for p in plans) or len(plans)!=len(expected) or len({p['guid'] for p in plans})!=len(expected):
         raise ProjectError('saved annotation audit requires exact piece coverage')
-    margin=height/2;column=max(p['bounds_m'][2] for p in expected.values())+4*height
+    margin=height/2;column=max([p['bounds_m'][2] for p in expected.values()]+[b[2] for b in obstacle_boxes])+4*height
     def vector(p):
         if not isinstance(p,(list,tuple)) or len(p)!=2 or any(type(x) not in (int,float) or not math.isfinite(x) for x in p):raise ProjectError('finite planar annotation coordinates required')
         return list(p)
@@ -97,6 +97,7 @@ def audit_saved(dxf, rows, axes, height, report):
             raise ProjectError('saved leader does not terminate at source label column')
         for index,(a,b) in enumerate(zip(points,points[1:])):
             if math.dist(a,b)<=TOL:raise ProjectError('nonzero saved leader segments required')
+            if any(enters(a,b,expand(box,margin)) for box in obstacle_boxes):raise ProjectError('saved leader enters declared building obstacle')
             for key,piece in expected.items():
                 if index==0 and key==guid:continue  # Recomputed outward OD normal ray proves this one stub.
                 if enters(a,b,expand(piece['bounds_m'],margin)):
@@ -109,6 +110,7 @@ def audit_saved(dxf, rows, axes, height, report):
         for i,(a,b) in enumerate(segments):
             for c,d in segments[i+2:]:
                 if distance(a,b,c,d)<TOL:raise ProjectError('saved leader crosses itself')
+        if any(p[0]>column-height+TOL for p in points):raise ProjectError('saved leader crosses into label column')
         paths[guid]=points;labels[guid]=position
     heights=sorted(p[1] for p in labels.values())
     if any(b-a<2.2*height-TOL for a,b in zip(heights,heights[1:])):raise ProjectError('saved linked labels overlap their required row spacing')

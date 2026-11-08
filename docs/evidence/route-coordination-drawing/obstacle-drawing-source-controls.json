@@ -1,0 +1,10 @@
+{
+  "source": {
+    "accepted": true,
+    "count": 1
+  },
+  "moved_control": {
+    "accepted": false,
+    "reason": "saved obstacle geometry differs from drawing sources"
+  }
+}

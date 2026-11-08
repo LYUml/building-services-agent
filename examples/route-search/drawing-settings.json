@@ -1,0 +1,8 @@
+{
+  "projection_axes": [
+    "X",
+    "Y"
+  ],
+  "annotation_height_m": 0.08,
+  "source": "Synthetic XY plan, 80 mm model annotation height intended as 2 mm at 1:40; route and column both required."
+}

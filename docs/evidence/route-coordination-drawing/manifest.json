@@ -1,0 +1,22 @@
+{
+  "annotation-layout.json": "5ef62793b3897b92795c1e8f2bcc47b7d3f5e6558c35bca96e8a2bfda53141f8",
+  "coordination-drawing-route-final.log": "26eb11d8b098ba5413c7c487c0f016852cd7ec469947cd4a6407ba4c6416ddb3",
+  "coordination-drawing-saved-final.log": "725991986d80609fc1e5646c7093aa65a56b73ca0ad84feeb4ac97e652de8ebe",
+  "coordination-native-saved-audit.json": "8ebecc9a2d271b2a40f92654dd5bf02d3d6780f19f0a1057fbb04daca43afb8c",
+  "drawing.json": "62691dde9cc3b1a1d2beb2ce3e2974a0dec1c8978d357f9fba0e653ce7d7fbf0",
+  "native-export.dxf": "57ed05d61206169a0fb6d12e43042d693662f7360d62e595840a8bbf5b67fd17",
+  "native-verification.json": "a1e819428e223b8c81d0c28e6d9a89b0cd9d6d6137d55650b79e2e735d5fca5b",
+  "obstacle-drawing-source-controls.json": "52274a7ef237f28eccdbdac69bc1adf643d9077bd0fe8e5135a7418c35fb7be0",
+  "obstacles.csv": "e3c07e8d90a848dcd833e0c25d89e77d8acd34af20495b88160dc3dd02ced352",
+  "README.md": "395dbc0c6b4dbe9c61f4eda233284c8cb3cdaa7e9092dcebd470806dc6987459",
+  "rejected-v1.pdf": "7ab9d17acfb3dce934a70e1e5c34d953da2db574be6f1a9f0681dd5d82016210",
+  "rejected-v1.png": "ff8f258cd30b99cf660071885fca6def4f8f267e505ded8072a211841b029bf3",
+  "rejected-v2.pdf": "c7947a2d571b25bd6861479c52f61f13b1020ad4e48c7642bbef065b6c5fde73",
+  "rejected-v2.png": "c41cd330b51c133da667e24e3f39712f8c07f3dbcd39749093bdf48176bab7ce",
+  "segments.csv": "e21cab0188ae5ff4985f54ed162c82513afc05514dba36bfb1567720c491355b",
+  "segments.dwg": "955740a12663d24045caac548eb95a6eccbb7f75eb4bae800457877b651869ea",
+  "segments.dxf": "7483e74cb7bc90e6c5b28a10a887c692fda6479fc0e007707d033ccdcd9d75b3",
+  "sheet-preview.png": "fd6c98169caabf8e8d1e02a04ccb8cbea1c38013c7bd0d47fdf5e86ff56aba85",
+  "sheet.pdf": "0ce6aaf8d45e872e7355975a4ab19073ce9cb92c873643bf4052a9d677e49189",
+  "visual-review.json": "5ec7c15fc02264d74ef45e844ab28e4d6f843d61e8fc5afeb4ea3707a48a7971"
+}

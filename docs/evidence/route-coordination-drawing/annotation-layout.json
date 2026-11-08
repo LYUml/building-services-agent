@@ -1,0 +1,317 @@
+{
+  "scope": "conservative OD-rectangle and prior-leader-box avoidance; own initial stub is an outward OD normal ray",
+  "graphic_margin_m": 0.04,
+  "label_spacing_m": 0.17600000000000002,
+  "candidate_assignments_tested": 155,
+  "leader_body_checks_pass": true,
+  "leader_pair_checks_pass": true,
+  "pieces": [
+    {
+      "guid": "1tYN_91xvUaP$nlmpMBcIM",
+      "bounds_m": [
+        -0.050000000000000044,
+        0.4499999999999999,
+        0.19999999999999998,
+        0.7
+      ],
+      "anchor_m": [
+        0.02322330470336304,
+        0.523223304703363
+      ],
+      "escape_m": [
+        -0.13000000000000012,
+        0.3699999999999999
+      ],
+      "centre_m": [
+        0.058578643762690424,
+        0.5585786437626904
+      ],
+      "leader_points_m": [
+        [
+          0.02322330470336304,
+          0.523223304703363
+        ],
+        [
+          -0.13000000000000012,
+          0.3699999999999999
+        ],
+        [
+          -0.13000000000000012,
+          2.32
+        ],
+        [
+          4.29,
+          2.32
+        ]
+      ],
+      "label_position_m": [
+        4.37,
+        2.32
+      ]
+    },
+    {
+      "guid": "0xxDwXhVjJZu3SrjuHkecX",
+      "bounds_m": [
+        3.8,
+        0.4499999999999999,
+        4.05,
+        0.7
+      ],
+      "anchor_m": [
+        3.976776695296637,
+        0.523223304703363
+      ],
+      "escape_m": [
+        4.13,
+        0.36999999999999983
+      ],
+      "centre_m": [
+        3.9414213562373095,
+        0.5585786437626904
+      ],
+      "leader_points_m": [
+        [
+          3.976776695296637,
+          0.523223304703363
+        ],
+        [
+          4.13,
+          0.36999999999999983
+        ],
+        [
+          4.13,
+          0.3299999999999999
+        ],
+        [
+          -0.17000000000000012,
+          0.3299999999999999
+        ],
+        [
+          -0.17000000000000012,
+          2.496
+        ],
+        [
+          4.29,
+          2.496
+        ]
+      ],
+      "label_position_m": [
+        4.37,
+        2.496
+      ]
+    },
+    {
+      "guid": "2f1sWWZt1MTg6OQjzbHjcF",
+      "bounds_m": [
+        3.95,
+        0.7,
+        4.05,
+        1.5
+      ],
+      "anchor_m": [
+        4.05,
+        1.1
+      ],
+      "escape_m": [
+        4.13,
+        1.1
+      ],
+      "centre_m": [
+        4.0,
+        1.1
+      ],
+      "leader_points_m": [
+        [
+          4.05,
+          1.1
+        ],
+        [
+          4.13,
+          1.1
+        ],
+        [
+          4.17,
+          1.1
+        ],
+        [
+          4.17,
+          0.2899999999999999
+        ],
+        [
+          -0.21000000000000013,
+          0.2899999999999999
+        ],
+        [
+          -0.21000000000000013,
+          2.6719999999999997
+        ],
+        [
+          4.29,
+          2.6719999999999997
+        ]
+      ],
+      "label_position_m": [
+        4.37,
+        2.6719999999999997
+      ]
+    },
+    {
+      "guid": "3iL45M9A9HOO4$ZVBavJ2Q",
+      "bounds_m": [
+        0.2,
+        0.45,
+        3.8,
+        0.55
+      ],
+      "anchor_m": [
+        2.0,
+        0.55
+      ],
+      "escape_m": [
+        2.0,
+        0.63
+      ],
+      "centre_m": [
+        2.0,
+        0.5
+      ],
+      "leader_points_m": [
+        [
+          2.0,
+          0.55
+        ],
+        [
+          2.0,
+          0.63
+        ],
+        [
+          3.76,
+          0.63
+        ],
+        [
+          3.76,
+          1.54
+        ],
+        [
+          4.21,
+          1.54
+        ],
+        [
+          4.21,
+          0.24999999999999992
+        ],
+        [
+          -0.2500000000000001,
+          0.24999999999999992
+        ],
+        [
+          -0.2500000000000001,
+          2.848
+        ],
+        [
+          4.29,
+          2.848
+        ]
+      ],
+      "label_position_m": [
+        4.37,
+        2.848
+      ]
+    },
+    {
+      "guid": "0Ayr2QH65L7RE3vIHUacMe",
+      "bounds_m": [
+        -0.05,
+        0.7,
+        0.05,
+        1.5
+      ],
+      "anchor_m": [
+        0.05,
+        1.1
+      ],
+      "escape_m": [
+        0.13,
+        1.1
+      ],
+      "centre_m": [
+        0.0,
+        1.1
+      ],
+      "leader_points_m": [
+        [
+          0.05,
+          1.1
+        ],
+        [
+          0.13,
+          1.1
+        ],
+        [
+          0.13,
+          0.96
+        ],
+        [
+          3.7199999999999998,
+          0.96
+        ],
+        [
+          3.7199999999999998,
+          1.58
+        ],
+        [
+          4.25,
+          1.58
+        ],
+        [
+          4.25,
+          0.2099999999999999
+        ],
+        [
+          -0.2900000000000001,
+          0.2099999999999999
+        ],
+        [
+          -0.2900000000000001,
+          3.024
+        ],
+        [
+          4.29,
+          3.024
+        ]
+      ],
+      "label_position_m": [
+        4.37,
+        3.024
+      ]
+    }
+  ],
+  "saved_leader_paths_match": true,
+  "independent_saved_audit": {
+    "scope": "actual GUID-linked DXF leaders and labels; source OD stub/obstacle geometry, segment distances and row placement; no planner invocation",
+    "dxf_sha256": "7483e74cb7bc90e6c5b28a10a887c692fda6479fc0e007707d033ccdcd9d75b3",
+    "piece_count": 5,
+    "leader_segment_count": 31,
+    "graphic_margin_m": 0.04,
+    "coordinate_tolerance_m": 1e-08,
+    "minimum_leader_pair_gap_m": 0.03999999999999998,
+    "leader_body_checks_pass": true,
+    "leader_pair_checks_pass": true,
+    "saved_paths_match": true,
+    "saved_labels_match": true,
+    "calculated_checks_pass": true,
+    "design_accepted": false,
+    "linked_annotation_visibility_flags_pass": true,
+    "checked_visibility_flags": [
+      "entity invisible",
+      "raw and loaded entity paper-space marker",
+      "layer off",
+      "layer frozen",
+      "layer plot"
+    ],
+    "pending": [
+      "unlinked legends and font glyph extents",
+      "native pipe geometry/print/BIM viewer and complete engineering acceptance"
+    ]
+  }
+}

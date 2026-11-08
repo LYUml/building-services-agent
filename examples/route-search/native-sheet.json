@@ -1,0 +1,12 @@
+{
+  "source": "Synthetic A4 landscape XY route and obstacle plan at 1:40. Explicit window includes all leaders and labels. ROUTE_003 3.6 m axis must measure 90 mm on paper.",
+  "window_drawing_units": [
+    -0.6,
+    -0.8,
+    9.2,
+    4.0
+  ],
+  "scale_denominator": 40,
+  "reference_ifc_guid": "3iL45M9A9HOO4$ZVBavJ2Q",
+  "pdf_tolerance_mm": 0.2
+}
