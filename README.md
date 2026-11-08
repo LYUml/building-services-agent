@@ -21,6 +21,8 @@ Open this repository as the workspace. Ask the agent to use `$building-services-
 
 ## Current evidence and limits
 
+[Jurisdiction rule packs](docs/REGULATION_PACKS.md) now start with a versioned Hong Kong pack, official source inventory and hash-pinned EMSD Wiring CoP 2025 evidence. The first executable check covers one normal-service voltage-drop deemed-to-satisfy path with explicit applicability, units and edition decisions. The broader Hong Kong regulatory implementation remains incomplete; supported calculation success never implies whole-project compliance.
+
 [Candidate route search](docs/ROUTE_SEARCH.md) now derives planar finite-grid pipe paths around sourced rectangular obstacles, with explicit finite-radius bends and conservative outside-wall clearance. A separate compiler carries the searched route into source-bound hollow IFC/ports and pressure calculations. Fixed-bore prescribed-flow pressure optimisation retains the length baseline, derives a per-bend loss objective and reopens the selected native IFC; low-supply failures remain explicit. Full spatial coordination, broader optimisation, native drawings and engineering acceptance remain pending.
 
 An explicit obstacle stage now appends sourced footprint/height boxes to a separate IFC copy while preserving original entities. The selected synthetic route and obstacle passed actual six-element material/100 mm clearance checks; a deliberately moved obstacle produced a detected solid overlap. Real obstacle completeness, product applicability, native drawings and full acceptance remain pending.

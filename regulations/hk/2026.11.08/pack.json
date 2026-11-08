@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "id": "hk-2026.11.08",
+  "jurisdiction": "HK",
+  "version": "2026.11.08",
+  "sources": {
+    "emsd_wiring_2025": {
+      "authority": "EMSD",
+      "title": "Code of Practice for the Electricity (Wiring) Regulations",
+      "edition": "2025",
+      "kind": "code_of_practice",
+      "url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+      "index_url": "https://www.emsd.gov.hk/en/electricity_safety/publications/codes_of_practice/index.html",
+      "cache_filename": "emsd-wiring-2025.pdf",
+      "sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+      "reviewed_on": "2026-11-08",
+      "review_scope": "Official PDF Code 13A(3)(v), printed page 115, PDF page 116. Index publication and transition note checked.",
+      "applicability_note": "Published 2025-12-31. Official index also permits installations complying with the 2020 edition if completed and connected on or before 2026-12-31. Project edition decision required; do not select solely by present date."
+    },
+    "emsd_bec": {
+      "authority": "EMSD",
+      "edition": "2024",
+      "kind": "code_of_practice",
+      "url": "https://www.emsd.gov.hk/beeo/en/mibec_beeo_codtechguidelines.html",
+      "reviewed_on": "2026-11-08",
+      "review_scope": "Official index only; numerical clauses not yet encoded",
+      "applicability_note": "Technical Circular 1/2024 governs effective dates. BEEO building scope, submission/works dates and amendments require project-specific review."
+    },
+    "emsd_eac": {
+      "authority": "EMSD",
+      "edition": "2024 with Addendum 1/2025",
+      "kind": "code_of_practice",
+      "url": "https://www.emsd.gov.hk/beeo/en/mibec_beeo_codtechguidelines.html",
+      "reviewed_on": "2026-11-08",
+      "review_scope": "Official index only; clauses not encoded",
+      "applicability_note": "Index states addendum effective for audits completed on or after 2026-09-20; review Technical Circular 5/2025."
+    },
+    "wsd_plumbing": {
+      "authority": "WSD",
+      "edition": "April 2026",
+      "kind": "technical_requirements",
+      "url": "https://www.wsd.gov.hk/en/plumbing-engineering/requirements-for-plumbing-installation/technical-requirements-for-plumbing-works-in-bldgs/index.html",
+      "reviewed_on": "2026-11-08",
+      "review_scope": "Official latest-version listing only; amendment/circular/application applicability pending"
+    },
+    "fsd_installations": {
+      "authority": "FSD",
+      "edition": "September 2022",
+      "kind": "code_of_practice",
+      "url": "https://www.hkfsd.gov.hk/eng/fire_protection/notices/code.html",
+      "reviewed_on": "2026-11-08",
+      "review_scope": "Official current-edition index only; premises classification, circulars and existing-building alternative basis pending"
+    },
+    "archsd_general": {
+      "authority": "ArchSD",
+      "edition": "2022 with listed corrigenda through GSBS05-2022",
+      "kind": "government_project_specification",
+      "url": "https://www.archsd.gov.hk/en/publications-publicity/general-specification-for-building-services.html",
+      "reviewed_on": "2026-11-08",
+      "review_scope": "Official index only; applicable contract edition/corrigenda not determined",
+      "applicability_note": "Government building specification; do not automatically treat as universal Hong Kong statutory requirements."
+    },
+    "bd_drainage": {
+      "authority": "Buildings Department",
+      "edition": "project-dependent legislation and guidance",
+      "kind": "official_guidance_index",
+      "url": "https://www.bd.gov.hk/en/resources/codes-and-references/epidemic-prevention-information/index-drainage-systems.html",
+      "reviewed_on": "2026-11-08",
+      "review_scope": "Official guidance inspected; governing subsidiary legislation and clauses not yet encoded"
+    }
+  },
+  "rules": [
+    {
+      "id": "HK.EMSD.COP2025.13A3v.voltage_drop",
+      "source_id": "emsd_wiring_2025",
+      "clause": "13A(3)(v)",
+      "pdf_page_1_based": 116,
+      "printed_page": "115",
+      "method": "deemed_to_satisfy_maximum",
+      "metric": "installation_origin_to_fixed_equipment_voltage_drop",
+      "unit": "percent_of_nominal_supply_voltage",
+      "maximum": 4,
+      "scope": "Normal-service voltage drop from installation origin to fixed current-using equipment, selected deemed-to-satisfy path only; not a branch-circuit-only or starting-transient limit.",
+      "applicability": [
+        {
+          "fact": "normal_service",
+          "equals": true
+        },
+        {
+          "fact": "fixed_current_using_equipment",
+          "equals": true
+        },
+        {
+          "fact": "includes_entire_installation_origin_to_equipment_path",
+          "equals": true
+        }
+      ],
+      "alternative_path_note": "The 4 percent deemed-to-satisfy path is not met. Assess applicable equipment standards, safe function and any relevant exception; this result alone does not establish statutory noncompliance."
+    }
+  ],
+  "coverage": {
+    "complete": false,
+    "implemented": [
+      "One normal-service electrical voltage-drop deemed-to-satisfy check"
+    ],
+    "pending": [
+      "statutory scope and applicability",
+      "remaining electrical protection/cable/earthing rules",
+      "BEC HVAC/lighting/electrical/lifts clauses",
+      "WSD plumbing clauses",
+      "FSD premises and installation rules",
+      "BD drainage rules",
+      "ArchSD contract applicability",
+      "utility requirements and referenced standards"
+    ]
+  }
+}

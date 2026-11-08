@@ -1,0 +1,166 @@
+{
+  "supported_path": {
+    "rule_pack": "hk-2026.11.08",
+    "jurisdiction": "HK",
+    "checks": [
+      {
+        "id": "HK.EMSD.COP2025.13A3v.voltage_drop",
+        "status": "pass",
+        "scope": "Normal-service voltage drop from installation origin to fixed current-using equipment, selected deemed-to-satisfy path only; not a branch-circuit-only or starting-transient limit.",
+        "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+        "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+        "edition": "2025",
+        "clause": "13A(3)(v)",
+        "pdf_page_1_based": 116,
+        "value": 3.5,
+        "unit": "percent_of_nominal_supply_voltage",
+        "maximum": 4,
+        "evidence": "Synthetic total installation voltage-drop scenario; not the previous coursework or a branch-only result.",
+        "reasons": [
+          "selected deemed-to-satisfy path met"
+        ]
+      }
+    ],
+    "supported_checks_pass": true,
+    "coverage": {
+      "complete": false,
+      "implemented": [
+        "One normal-service electrical voltage-drop deemed-to-satisfy check"
+      ],
+      "pending": [
+        "statutory scope and applicability",
+        "remaining electrical protection/cable/earthing rules",
+        "BEC HVAC/lighting/electrical/lifts clauses",
+        "WSD plumbing clauses",
+        "FSD premises and installation rules",
+        "BD drainage rules",
+        "ArchSD contract applicability",
+        "utility requirements and referenced standards"
+      ]
+    },
+    "regulatory_compliance": "not_established",
+    "design_accepted": false,
+    "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+  },
+  "exceeds_path": {
+    "rule_pack": "hk-2026.11.08",
+    "jurisdiction": "HK",
+    "checks": [
+      {
+        "id": "HK.EMSD.COP2025.13A3v.voltage_drop",
+        "status": "review_required",
+        "scope": "Normal-service voltage drop from installation origin to fixed current-using equipment, selected deemed-to-satisfy path only; not a branch-circuit-only or starting-transient limit.",
+        "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+        "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+        "edition": "2025",
+        "clause": "13A(3)(v)",
+        "pdf_page_1_based": 116,
+        "value": 4.1,
+        "unit": "percent_of_nominal_supply_voltage",
+        "maximum": 4,
+        "evidence": "Synthetic total installation voltage-drop scenario; not the previous coursework or a branch-only result.",
+        "reasons": [
+          "The 4 percent deemed-to-satisfy path is not met. Assess applicable equipment standards, safe function and any relevant exception; this result alone does not establish statutory noncompliance."
+        ]
+      }
+    ],
+    "supported_checks_pass": false,
+    "coverage": {
+      "complete": false,
+      "implemented": [
+        "One normal-service electrical voltage-drop deemed-to-satisfy check"
+      ],
+      "pending": [
+        "statutory scope and applicability",
+        "remaining electrical protection/cable/earthing rules",
+        "BEC HVAC/lighting/electrical/lifts clauses",
+        "WSD plumbing clauses",
+        "FSD premises and installation rules",
+        "BD drainage rules",
+        "ArchSD contract applicability",
+        "utility requirements and referenced standards"
+      ]
+    },
+    "regulatory_compliance": "not_established",
+    "design_accepted": false,
+    "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+  },
+  "branch_only": {
+    "rule_pack": "hk-2026.11.08",
+    "jurisdiction": "HK",
+    "checks": [
+      {
+        "id": "HK.EMSD.COP2025.13A3v.voltage_drop",
+        "status": "not_applicable",
+        "scope": "Normal-service voltage drop from installation origin to fixed current-using equipment, selected deemed-to-satisfy path only; not a branch-circuit-only or starting-transient limit.",
+        "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+        "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+        "edition": "2025",
+        "clause": "13A(3)(v)",
+        "pdf_page_1_based": 116,
+        "reasons": [
+          "outside this explicitly supported rule path; other requirements remain unresolved"
+        ]
+      }
+    ],
+    "supported_checks_pass": false,
+    "coverage": {
+      "complete": false,
+      "implemented": [
+        "One normal-service electrical voltage-drop deemed-to-satisfy check"
+      ],
+      "pending": [
+        "statutory scope and applicability",
+        "remaining electrical protection/cable/earthing rules",
+        "BEC HVAC/lighting/electrical/lifts clauses",
+        "WSD plumbing clauses",
+        "FSD premises and installation rules",
+        "BD drainage rules",
+        "ArchSD contract applicability",
+        "utility requirements and referenced standards"
+      ]
+    },
+    "regulatory_compliance": "not_established",
+    "design_accepted": false,
+    "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+  },
+  "missing_edition": {
+    "rule_pack": "hk-2026.11.08",
+    "jurisdiction": "HK",
+    "checks": [
+      {
+        "id": "HK.EMSD.COP2025.13A3v.voltage_drop",
+        "status": "pending",
+        "scope": "Normal-service voltage drop from installation origin to fixed current-using equipment, selected deemed-to-satisfy path only; not a branch-circuit-only or starting-transient limit.",
+        "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+        "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+        "edition": "2025",
+        "clause": "13A(3)(v)",
+        "pdf_page_1_based": 116,
+        "reasons": [
+          "edition applicability decision missing or mismatched"
+        ]
+      }
+    ],
+    "supported_checks_pass": false,
+    "coverage": {
+      "complete": false,
+      "implemented": [
+        "One normal-service electrical voltage-drop deemed-to-satisfy check"
+      ],
+      "pending": [
+        "statutory scope and applicability",
+        "remaining electrical protection/cable/earthing rules",
+        "BEC HVAC/lighting/electrical/lifts clauses",
+        "WSD plumbing clauses",
+        "FSD premises and installation rules",
+        "BD drainage rules",
+        "ArchSD contract applicability",
+        "utility requirements and referenced standards"
+      ]
+    },
+    "regulatory_compliance": "not_established",
+    "design_accepted": false,
+    "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+  }
+}

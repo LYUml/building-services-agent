@@ -19,6 +19,8 @@ The requested end state is reusable automation from a requirement document and s
 
 ## Next sequence
 
+Hong Kong regulatory conformity is an explicit end-state requirement: interchangeable jurisdiction packs, official version/amendment and applicability decisions, clause-level electrical/HVAC-energy/lighting/plumbing/drainage/fire checks, and compliance gates throughout design and delivery. The initial pack implements only one EMSD voltage-drop path; official source inventory is not equivalent to implemented rules or full conformity. Preserve this requirement alongside CAD/BIM, analysis and reuse work.
+
 1. Exercise the electrical slice against malformed inputs and independent hand calculations.
 2. Connect live AutoCAD with scoped writes; create a new synthetic native drawing, reopen and inspect plotted output. Never use the finished coursework as the development sandbox.
 3. Integrate an attributed, pinned OpenStudio-MCP deployment and run a real two-zone energy workflow.

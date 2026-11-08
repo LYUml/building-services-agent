@@ -1,0 +1,29 @@
+{
+  "jurisdiction": "HK",
+  "rule_pack": "hk-2026.11.08",
+  "edition_decisions": {
+    "emsd_wiring_2025": {
+      "edition": "2025",
+      "basis": "Synthetic demonstration explicitly choosing the 2025 code; not an existing-project applicability determination."
+    }
+  },
+  "facts": {
+    "normal_service": {
+      "value": true,
+      "source": "Explicit synthetic demonstration scope, not measured project evidence."
+    },
+    "fixed_current_using_equipment": {
+      "value": true,
+      "source": "Explicit synthetic demonstration scope, not measured project evidence."
+    },
+    "includes_entire_installation_origin_to_equipment_path": {
+      "value": true,
+      "source": "Explicit synthetic demonstration scope, not measured project evidence."
+    },
+    "installation_origin_to_fixed_equipment_voltage_drop": {
+      "value": 3.5,
+      "unit": "percent_of_nominal_supply_voltage",
+      "source": "Synthetic total installation voltage-drop scenario; not the previous coursework or a branch-only result."
+    }
+  }
+}
