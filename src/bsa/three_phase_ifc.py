@@ -14,7 +14,7 @@ from .three_phase import prepare,fields,ROOT
 
 def inputs(project,ifc,binding_path):
     """Preflight source inventory without running native geometry."""
-    from . import circular_geometry,cad_ifc,solid_clash,quarter_cable
+    from . import circular_geometry,cad_ifc,solid_clash,quarter_cable,cable_continuity
     _,files=prepare(project)
     ifc,binding_path=Path(ifc).resolve(),Path(binding_path).resolve()
     binding=json.loads(binding_path.read_text(encoding='utf-8-sig'))
@@ -23,7 +23,7 @@ def inputs(project,ifc,binding_path):
     if not isinstance(source['path'],str) or Path(source['path']).is_absolute():raise ProjectError('relative geometry source required')
     path=(binding_path.parent/source['path']).resolve()
     if not path.is_relative_to(binding_path.parent) or not path.is_file() or digest(path)!=source['sha256']:raise ProjectError('geometry source path/hash mismatch')
-    return files|{ifc,binding_path,path,Path(__file__).resolve(),*(Path(m.__file__).resolve() for m in (circular_geometry,cad_ifc,solid_clash,quarter_cable))}
+    return files|{ifc,binding_path,path,Path(__file__).resolve(),*(Path(m.__file__).resolve() for m in (circular_geometry,cad_ifc,solid_clash,quarter_cable,cable_continuity))}
 
 
 def inspect(project,ifc,binding_path,*,require_length_match=True):
@@ -88,7 +88,11 @@ def inspect(project,ifc,binding_path,*,require_length_match=True):
         if len(axis)!=1 or len(body)!=1 or len(axis[0].Items)!=1 or len(body[0].Items)!=1:raise ProjectError('one explicit Axis and one Body item required')
         solid=body[0].Items[0]
         quarter=None
-        if solid.is_a('IfcRevolvedAreaSolid'):
+        if solid.is_a('IfcBooleanResult'):
+            from .cable_continuity import inspect as inspect_continuity
+            quarter=inspect_continuity(solid,axis[0].Items[0],matrix,factor,unit.calculate_unit_scale(model,'PLANEANGLEUNIT'))
+            ends=quarter['points'][[0,-1]];radius=quarter['radius'];length=quarter['length']
+        elif solid.is_a('IfcRevolvedAreaSolid'):
             from .quarter_cable import inspect as inspect_quarter
             quarter=inspect_quarter(solid,axis[0].Items[0],matrix,factor,unit.calculate_unit_scale(model,'PLANEANGLEUNIT'))
             ends=quarter['points'][[0,-1]];radius=quarter['radius'];length=quarter['length']
@@ -143,12 +147,12 @@ def inspect(project,ifc,binding_path,*,require_length_match=True):
         length_match=math.isclose(length,line['length_m'],rel_tol=0,abs_tol=1e-6)
         if require_length_match and not length_match:raise ProjectError('electrical route length differs from saved IFC geometry')
         rows.append(dict(id=line['id'],element_guid=obj.GlobalId,port_guids=port_ids,observed_length_m=length,project_length_m=line['length_m'],
-            route_length_match=length_match,route_geometry='quarter circle' if quarter else 'straight',bend_radius_m=quarter['bend_radius'] if quarter else None,
+            route_length_match=length_match,route_geometry=('quarter plus tangent straight' if solid.is_a('IfcBooleanResult') else 'quarter circle') if quarter else 'straight',bend_radius_m=quarter['bend_radius'] if quarter else None,
             body_type=solid.is_a(),envelope_radius_m=radius,world_axis_ends_m=ends.tolist(),native_volume_m3=observed['volume'],analytic_volume_m3=expected_volume))
     if any(digest(Path(f))!=h for f,h in before.items()):raise ProjectError('inputs changed during IFC inspection')
     return dict(inputs=before,input_unchanged=True,source_basis=source,ifc_unit_to_m=factor,versions=versions,lines=rows,
         native_geometry_checks_pass=True,geometry_correspondence_pass=all(r['route_length_match'] for r in rows),native_electrical_connectivity_verified=False,design_accepted=False,
-        scope='Selected-system straight or canonical quarter-circle cable envelopes, placed ports, bus anchors and analysis lengths only; physical connections, general bends, conductor selection, protection and regulatory acceptance remain unverified')
+        scope='Selected-system straight, canonical quarter-circle or one quarter plus tangent straight cable envelopes, placed ports, bus anchors and analysis lengths only; physical connections, general bends, conductor selection, protection and regulatory acceptance remain unverified')
 
 
 def run(project,ifc,binding,out):

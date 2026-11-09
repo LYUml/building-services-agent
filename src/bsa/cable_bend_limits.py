@@ -68,7 +68,7 @@ def run(project,ifc,binding,basis,out):
     geometry=inspect_geometry(project,ifc,binding)
     before={**geometry['inputs'],**{str(f):digest(f) for f in files}}
     if not out.is_relative_to(ROOT) or out.exists() or any(out==Path(f) or out in Path(f).parents for f in before):raise ProjectError('new separate repository output required')
-    bends={row['id']:row for row in geometry['lines'] if row['route_geometry']=='quarter circle'}
+    bends={row['id']:row for row in geometry['lines'] if row['route_geometry'] in ('quarter circle','quarter plus tangent straight')}
     if set(p['bends'])!=set(bends):raise ProjectError('exact selected-system supported-bend coverage required')
     model=ifcopenshell.open(str(ifc));rows=[]
     for name,observed in bends.items():
