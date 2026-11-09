@@ -1,0 +1,48 @@
+{
+  "model": "fixed-speed liquid pump; single fixed-total-pressure terminal; free flow",
+  "sources": {
+    "test": "Explicit synthetic fixed-speed curve reused for software testing at equal pump-port elevation; no manufacturer evidence or motor rating."
+  },
+  "source": "test",
+  "speed_rpm": 2900,
+  "fluid": {
+    "density_kg_m3": 998,
+    "dynamic_viscosity_pa_s": 0.001
+  },
+  "inlet_total_pressure_pa": 0,
+  "efficiency_basis": "wire to water",
+  "points": [
+    {
+      "flow_m3_s": 0,
+      "total_pressure_rise_pa": 200000,
+      "wire_to_water_efficiency": 0
+    },
+    {
+      "flow_m3_s": 0.0005,
+      "total_pressure_rise_pa": 185000,
+      "wire_to_water_efficiency": 0.3
+    },
+    {
+      "flow_m3_s": 0.001,
+      "total_pressure_rise_pa": 170000,
+      "wire_to_water_efficiency": 0.42
+    },
+    {
+      "flow_m3_s": 0.0015,
+      "total_pressure_rise_pa": 145000,
+      "wire_to_water_efficiency": 0.48
+    },
+    {
+      "flow_m3_s": 0.002,
+      "total_pressure_rise_pa": 110000,
+      "wire_to_water_efficiency": 0.44
+    }
+  ],
+  "flow_tolerance_m3_s": 1e-10,
+  "pressure_tolerance_pa": 0.01,
+  "max_iterations": 100,
+  "flow_bracket_m3_s": [
+    0.0005,
+    0.002
+  ]
+}

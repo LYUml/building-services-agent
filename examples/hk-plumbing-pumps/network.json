@@ -1,0 +1,46 @@
+{
+  "name": "Synthetic tank-transfer line for WSD capacity binding",
+  "model": "steady incompressible circular tree",
+  "sources": {
+    "test": "Explicit synthetic software-test tank transfer: 5 m rise, 5 m pipe, 32 mm bore, fixed 100 kPa terminal total-pressure boundary and 1 L/s tank outflow. Not measured, product or regulatory dimensions."
+  },
+  "fluid": {
+    "density_kg_m3": 998,
+    "dynamic_viscosity_pa_s": 0.001,
+    "source": "test"
+  },
+  "supply": {
+    "node": "BASE",
+    "total_pressure_pa": 180000,
+    "source": "test"
+  },
+  "nodes": [
+    {
+      "id": "BASE",
+      "demand_m3_s": 0,
+      "required_total_pressure_pa": 0,
+      "source": "test",
+      "elevation_m": 0
+    },
+    {
+      "id": "TOP",
+      "demand_m3_s": 0.001,
+      "required_total_pressure_pa": 100000,
+      "source": "test",
+      "elevation_m": 5
+    }
+  ],
+  "segments": [
+    {
+      "id": "RISER",
+      "roughness_m": 4.5e-05,
+      "minor_k": 3,
+      "max_velocity_m_s": 2,
+      "source": "test",
+      "from": "BASE",
+      "to": "TOP",
+      "length_m": 5,
+      "diameter_m": 0.032
+    }
+  ]
+}

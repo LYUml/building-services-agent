@@ -1,0 +1,48 @@
+{
+  "regulatory_basis": {
+    "jurisdiction": "HK",
+    "rule_pack": "hk-plumbing-pumps-2026.11.09",
+    "edition_decisions": {
+      "wsd_tr_2026_04": {
+        "edition": "April 2026",
+        "basis": "Synthetic example explicitly evaluates this pinned edition; real project applicability unresolved"
+      }
+    },
+    "facts": {
+      "wsd_requirements_apply": {
+        "value": true,
+        "source": "Explicit synthetic software-test assumption, not a product or project source"
+      },
+      "sump_and_pump_system": {
+        "value": true,
+        "source": "Explicit synthetic software-test assumption, not a product or project source"
+      }
+    },
+    "sump_pump": {
+      "duplicate_pumpset_provided": {
+        "value": true,
+        "source": "Explicit synthetic software-test assumption, not a product or project source"
+      },
+      "tank_design_outflow": {
+        "value": 0.001,
+        "source": "Explicit synthetic software-test assumption, not a product or project source",
+        "unit": "m3/s"
+      },
+      "tank_identity": {
+        "value": "SYNTHETIC-TANK-01",
+        "source": "Explicit synthetic software-test assumption, not a product or project source"
+      },
+      "pump_configuration_basis": {
+        "value": "Synthetic declared duplicate set; arrangement and standby adequacy require review",
+        "source": "Explicit synthetic software-test assumption, not a product or project source"
+      }
+    }
+  },
+  "connection": {
+    "terminal_id": "TOP",
+    "tank_id": "SYNTHETIC-TANK-01",
+    "capacity_mode": "one operating pump; standby capacity excluded",
+    "hydraulic_boundary_basis": "Synthetic fixed total-pressure boundary at receiving tank interface; 5 m rise, no dynamic tank levels or suction model",
+    "source": "Explicit synthetic model association for software test only"
+  }
+}

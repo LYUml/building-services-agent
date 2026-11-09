@@ -37,3 +37,6 @@ For thermal and pipe-rule checks on a saved water_binding circulation producer, 
 
 
 For WSD sump-and-pump requirements, read docs/HK_PLUMBING_PUMPS.md and use the existing regulations adapter with hk-plumbing-pumps-2026.11.09. This is a sourced-facts check of duplicate-set provision and capacity versus supplied-tank design outflow, not native pump/IFC verification. Require explicit duty/configuration/tank identity and source-backed applicability. Do not substitute zero-head flow or sum standby capacity without a justified operating basis. Use coverage-2026.11.09-plumbing.json when this partial module is relevant; retain all other plumbing gaps. Do not invent a 60 m limit from WSD 6.5.1.
+
+
+When a sourced single-line pump curve and fixed-terminal system are available, use plumbing_pump_regulations / bsa.plumbing_pump_binding from docs/HK_PLUMBING_PUMPS.md to derive capacity from a fresh operating-point solve. Bind terminal and tank identity, require equal terminal design demand/tank outflow and exclude standby capacity. Omit computed capacity/duty fields. Keep failed hydraulics and absent intersections failed even if other facts pass; duplicate-set controls, product applicability and IFC correspondence remain separate evidence requirements.
