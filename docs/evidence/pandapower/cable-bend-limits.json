@@ -1,0 +1,75 @@
+{
+  "scope": "Read-only real-source counterexample; not a selected product or accepted electrical design",
+  "source": {
+    "url": "https://www.nexans.com.au/en/products/Low-Voltage/Orange-Circulars/PVC/PVC-Circul24464/product~FNHP11AA003OMAA~.html",
+    "sha256": "c4280cf9a2d1094c833cfd1d1df4b5f5f1db12f70b1997a2250efca1f937f25d",
+    "product_reference": "FNHP11AA003OMAA",
+    "nominal_diameter_m": 0.0151,
+    "minimum_installed_radius_m": 0.06,
+    "minimum_pulling_radius_m": 0.091,
+    "radius_reference": "unresolved from product page",
+    "scope": "Research transcription only, not selected for the existing electrical model or Hong Kong applicability"
+  },
+  "result": {
+    "status": "fail",
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_ifc.py": "07b6a809421c29cc4abbbf25681e2eeafdbbdda0d5df661f0a5f65915087eb44",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\circular_geometry.py": "b907345bd2904bf313b017cc1c7e1a07e403ff726bbb8a85e476ae538ea25cb9",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\three-phase-bend\\basis.json": "053c662bad1a6a05e31bb00f8d92e5595a75943d2ef9096afeb66c41d355272c",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\cable-product-bend-mismatch-v1\\binding.json": "c5585f88b7033067338e4ad01bb4ee6c25aab0de54691ff08d36811266cf3cd4",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\quarter_cable.py": "9e8223c6b6ea9efb8cb9397c4db298486659f8520d1a5dcfcb185ee4427f8591",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\solid_clash.py": "ceb782df2bcfffdf799542e56fb89deb2d5a04f9c9a66372030fd3a457366e4d",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cad_ifc.py": "2f6fafbde0711ee7a14fd64170bdb57df4db1afb6666a96d0f23a1a108245a47",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\cable-product-bend-mismatch-v1\\geometry-source.json": "f563f5c7888990547a14b43b499022fcaeaa1be536cdae23eb5ebbbe5973a1c5",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\cable-product-bend-mismatch-v1\\cables.ifc": "7dccf09e79edc0944d7d8c0709f1901b665abe23df5b89178a31baec86086315",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\three-phase-bend\\project.json": "03f2af0645a84eaf5f1c2cea838d6ff52e715525764f0603e8918b7ad18161d7",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\cable-product-bend-mismatch-v1\\nexans-product.html": "c4280cf9a2d1094c833cfd1d1df4b5f5f1db12f70b1997a2250efca1f937f25d",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_bend_limits.py": "24b76c23b0d87901a783e366492540969055e350575cf8f470a520efaead3c00",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\cable-product-bend-mismatch-v1\\limits.json": "ebe89959194a8f1fe89e91c0298a32b22d5965d8f57e08385e4736ed05e7cc2e"
+    },
+    "input_unchanged": true,
+    "geometry_correspondence_pass": true,
+    "bends": [
+      {
+        "id": "feeder",
+        "element_guid": "1l0DiO$wXK7fdgG5dcTJLg",
+        "status": "fail",
+        "product_reference": "FNHP11AA003OMAA",
+        "diameter_basis": "nominal",
+        "condition": "installed",
+        "radius_reference": "unknown",
+        "centreline_radius_m": 0.3,
+        "inside_radius_m": 0.29,
+        "observed_envelope_diameter_m": 0.02,
+        "declared_diameter_m": 0.0151,
+        "diameter_correspondence_pass": false,
+        "evaluated_radius_m": null,
+        "minimum_radius_m": 0.06,
+        "numeric_radius_comparison": null,
+        "source_kind": "manufacturer",
+        "source_record": {
+          "path": "nexans-product.html",
+          "sha256": "c4280cf9a2d1094c833cfd1d1df4b5f5f1db12f70b1997a2250efca1f937f25d",
+          "kind": "manufacturer",
+          "locator": "FNHP11AA003OMAA product page: nominal overall diameter and installed bending radius; radius measurement reference not established"
+        },
+        "failures": [
+          "native envelope does not correspond to declared product diameter"
+        ],
+        "pending": [
+          "minimum-radius measurement reference unresolved"
+        ]
+      }
+    ],
+    "design_accepted": false,
+    "manufacturer_selection_verified": false,
+    "regulatory_compliance": "not established",
+    "scope": "Supported saved bends versus declared product diameter/condition/radius-reference limits only; source interpretation, cable selection, ratings, pulling forces, joints and full engineering/regulatory acceptance remain unverified"
+  },
+  "tests": {
+    "run": 10,
+    "failures": 0,
+    "errors": 0
+  },
+  "design_accepted": false
+}

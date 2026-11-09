@@ -178,3 +178,5 @@ IFC-driven recalculation is now a registered three_phase_ifc_project workflow pr
 Native electrical release now binds both IFC and cable-mapping file hashes to the derived study and drawing prerequisites. Different revisions cannot share a pass even when lengths/graph match; current delivery audit verifies the recorded model bindings. See docs/ELECTRICAL_IFC_TOPOLOGY.md.
 
 [Native quarter-circle cable geometry](docs/CABLE_QUARTER_BENDS.md) now extends saved electrical length checks and derived studies beyond straight segments. Supported 90-degree envelopes use true arc lengths with native solid/Axis/port-normal QA; general bends, routing, manufacturer limits and full installation acceptance remain pending.
+
+[Declared cable bend limits](docs/CABLE_BEND_LIMITS.md) now compare saved bend geometry with source-bound product diameter, installation condition and explicit inside/centreline radius. Missing identity/datum stays pending; an actual manufacturer-data/model mismatch is rejected. Standalone checks do not select a compliant cable or establish full manufacturer/regulatory acceptance.

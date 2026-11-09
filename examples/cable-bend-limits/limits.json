@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "sources": {
+    "synthetic": {
+      "path": "basis.txt",
+      "sha256": "64b93c5ba84c8b59d1a7318799be64b6055822fbfd45d91d360b9ab25e1c0b3b",
+      "locator": "Synthetic nominal diameter, installed condition and inside-radius paragraph",
+      "kind": "assumption"
+    }
+  },
+  "bends": {
+    "feeder": {
+      "product_reference": "synthetic-cable-20",
+      "diameter_m": 0.02,
+      "diameter_basis": "nominal",
+      "condition": "installed",
+      "radius_reference": "inside",
+      "minimum_radius_m": 0.28,
+      "source": "synthetic"
+    }
+  }
+}
