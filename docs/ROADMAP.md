@@ -99,3 +99,5 @@ Official IfcMCP now has an isolated pinned 0.9.0 distribution and verified real 
 Official IfcMCP now supports an executed source-bound pump text-property addition trial: new-file save/reload, original STEP-record preservation, exact target/property checks and overwrite/source-override rejection. Numeric ratings, geometry authoring, host registration and broader mutation remain pending.
 
 Official IfcMCP 0.9.0 plotting was actually attempted and is blocked by host application control on its OpenCascade kernel. Native failure/event evidence is retained; no image or drawing acceptance is claimed. Keep query/property functionality separate and use established verified drawing adapters for supported outputs.
+
+A dedicated mep-ifc-mcp skill now routes existing-model inventory and sourced pump text metadata to verified official MCP commands, with entry points from design/IFC skills. The documented commands were exercised on the saved edited IFC and the real property-edit regression. Blocked geometry/plotting is excluded from tool selection; workflow registration and broader physical integration remain pending.

@@ -21,6 +21,8 @@ Open this repository as the workspace. Ask the agent to use `$building-services-
 
 Use `$mep-regulations` for jurisdiction/edition selection and supported source-bound rule checks. It routes Hong Kong electrical paths and office lighting to the appropriate tools, connects declared workflow prerequisites, and preserves missing regulatory coverage. Electrical and lighting skills use the same shared project sources; the delivery skill keeps supported checks separate from full conformity.
 
+Use `$mep-ifc-mcp` to inspect saved IFC models or add source-backed pump text properties through the verified isolated official server. Its local geometry/plotting path is blocked; use existing authoring/drawing skills for supported physical deliverables. See [IfcMCP trial](docs/IFCMCP_TRIAL.md).
+
 ## Current evidence and limits
 
 [Saved IFC water binding](docs/WATER_BINDING.md) now includes source-verified finite 90-degree hollow elbows with actual arc lengths and per-piece excess losses in EPANET. Closed circulation also reaches thermal and scoped Hong Kong pipe checks, but its current idealized junction geometry fails physical clash inspection and is blocked from drawing release.

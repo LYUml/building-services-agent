@@ -45,3 +45,6 @@ For source-bound HVAC envelope plans/schedules, use docs/HVAC_DRAWINGS.md and ex
 
 
 For selected circulation-pump curve properties, use docs/SELECTED_PUMP_IFC.md and workflow kind selected_pump_ifc depending on inherited circulation_pump_design. Reuse the bound source model; preserve original files and stable pump/port GUIDs. Reopen and rebind the new selected-model.ifc against its selected-template.json; the resulting physical hydraulic input must match the screened selection. This is a property revision, not a manufacturer geometry replacement. Route combined checks and IDS to this new producer, not the pre-selection model. Any geometry or installation drawing still needs the actual saved-model clash/clearance and native/visual gates.
+
+
+For saved-model inventories or a new text property set on an existing pump, ../mep-ifc-mcp/SKILL.md provides the verified official MCP path and source-preservation checks. That isolated runtime is not a geometry-authoring substitute: local OpenCascade loading is blocked, while queries and scoped metadata saves have separate evidence. Do not treat unchanged original entity records as verification of new geometry or equipment truth.
