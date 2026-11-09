@@ -1,0 +1,196 @@
+{
+  "nodes": [
+    {
+      "id": "source",
+      "phase_voltage_v": [
+        230.93657438186426,
+        230.9396023701762,
+        230.9441462761427
+      ],
+      "phase_angle_degree": [
+        8.843875207779306e-05,
+        -119.99998834531819,
+        119.999899909695
+      ],
+      "current_balance_error_a": [
+        3.552713678800501e-15,
+        7.105427357601002e-15,
+        3.972054645195637e-15
+      ],
+      "voltage_target_pass": true
+    },
+    {
+      "id": "DB-A",
+      "phase_voltage_v": [
+        230.71880516715729,
+        230.70089602068623,
+        230.75005931640112
+      ],
+      "phase_angle_degree": [
+        -0.005896397922919687,
+        -120.0160270412924,
+        119.97633170163567
+      ],
+      "current_balance_error_a": [
+        1.1949062315853206e-08,
+        4.986054702516146e-09,
+        7.594970168367545e-09
+      ],
+      "voltage_target_pass": true
+    },
+    {
+      "id": "load-B",
+      "phase_voltage_v": [
+        230.7225575659385,
+        230.64830853585616,
+        230.6636378223522
+      ],
+      "phase_angle_degree": [
+        -0.009131115109827495,
+        -120.01279265868774,
+        119.96664216872576
+      ],
+      "current_balance_error_a": [
+        3.3156584643667715e-09,
+        3.168281499377208e-09,
+        1.0467065407197867e-08
+      ],
+      "voltage_target_pass": true
+    }
+  ],
+  "lines": [
+    {
+      "id": "feeder",
+      "phase_current_a": [
+        26.439060024389892,
+        26.186078012771343,
+        26.01046648023755
+      ],
+      "line_voltage_residual_v": [
+        2.3615469304574648e-14,
+        1.9892558717406004e-13,
+        5.531926447632575e-14
+      ],
+      "end_current_residual_a": [
+        0.0,
+        2.4868995751603507e-14,
+        7.944109290391274e-15
+      ],
+      "current_result_error_a": [
+        7.105427357601002e-15,
+        7.105427357601002e-15,
+        7.105427357601002e-15,
+        1.4210854715202004e-14,
+        0.0,
+        1.0658141036401503e-14
+      ],
+      "complex_loss_error_va": 3.189102294274016e-12,
+      "active_loss_w": 16.566137574005552,
+      "reactive_absorption_var": 6.626455029604585,
+      "current_target_pass": true
+    },
+    {
+      "id": "branch",
+      "phase_current_a": [
+        4.3558270735785385,
+        8.714458547534406,
+        13.070819109998903
+      ],
+      "line_voltage_residual_v": [
+        3.6653979490739884e-14,
+        1.2877004445791236e-13,
+        7.204823819659621e-14
+      ],
+      "end_current_residual_a": [
+        2.288783399261119e-15,
+        7.640399661428378e-15,
+        5.329070518200751e-15
+      ],
+      "current_result_error_a": [
+        2.6645352591003757e-15,
+        1.7763568394002505e-15,
+        7.105427357601002e-15,
+        8.881784197001252e-16,
+        1.7763568394002505e-15,
+        1.7763568394002505e-15
+      ],
+      "complex_loss_error_va": 5.455184063070958e-13,
+      "active_loss_w": 1.5185733506150427,
+      "reactive_absorption_var": 0.6074293402458579,
+      "current_target_pass": true
+    }
+  ],
+  "residuals": {
+    "max_line_voltage_error_v": 1.9892558717406004e-13,
+    "max_end_current_error_a": 2.4868995751603507e-14,
+    "max_current_result_error_a": 1.4210854715202004e-14,
+    "max_node_kcl_error_a": 1.1949062315853206e-08,
+    "max_load_power_error_va": 0.0,
+    "max_line_loss_error_va": 3.189102294274016e-12,
+    "total_power_balance_error_va": 7.519701510452509e-07
+  },
+  "numerical_tolerances": {
+    "max_line_voltage_error_v": 1e-05,
+    "max_end_current_error_a": 1e-05,
+    "max_current_result_error_a": 1e-05,
+    "max_node_kcl_error_a": 1e-05,
+    "max_load_power_error_va": 0.001,
+    "max_line_loss_error_va": 0.001,
+    "total_power_balance_error_va": 0.001
+  },
+  "native_input_issues": [],
+  "total_source_power": {
+    "electrical_kw": 18.018084710175703,
+    "reactive_kvar": 1.9072338844375336
+  },
+  "total_load_power": {
+    "electrical_kw": 18.0,
+    "reactive_kvar": 1.9
+  },
+  "total_line_absorption": {
+    "electrical_kw": 0.018084710924620596,
+    "reactive_kvar": 0.007233884369850443
+  },
+  "verification_checks": {
+    "max_line_voltage_error_v": true,
+    "max_end_current_error_a": true,
+    "max_current_result_error_a": true,
+    "max_node_kcl_error_a": true,
+    "max_load_power_error_va": true,
+    "max_line_loss_error_va": true,
+    "total_power_balance_error_va": true,
+    "native_input_correspondence": true
+  },
+  "verification_pass": true,
+  "study_targets_pass": true,
+  "status": "pass",
+  "design_accepted": false,
+  "scope": "Single-voltage sequence-line constant-PQ wye power flow; numerical checks and declared targets only; no physical neutral, protection, cable selection, CAD/BIM or regulatory acceptance",
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\three-phase-network\\project.json": "45de763da9c817c4a8ac5b4898469f04dbcae083963e88a3c94aa837a46ddbd1",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\three-phase-network\\basis.md": "4bc43b42c9d5ed644b37315d667b4e3f52cabd6a489d2f636543f2ecadd3f375"
+  },
+  "source_records": {
+    "assumed": {
+      "path": "basis.md",
+      "sha256": "4bc43b42c9d5ed644b37315d667b4e3f52cabd6a489d2f636543f2ecadd3f375",
+      "locator": "Supply, line and load paragraphs",
+      "kind": "assumption"
+    },
+    "targets": {
+      "path": "basis.md",
+      "sha256": "4bc43b42c9d5ed644b37315d667b4e3f52cabd6a489d2f636543f2ecadd3f375",
+      "locator": "100 A and voltage study targets",
+      "kind": "design_target"
+    }
+  },
+  "input_unchanged": true,
+  "versions": {
+    "pandapower": "3.5.6",
+    "numpy": "2.4.6",
+    "scipy": "1.18.1",
+    "pandas": "2.3.3"
+  },
+  "network_sha256": "4dd06f7b17e58245d46c65ebd1ad4cf58d1604461d086cfe9520e32fb284c70d",
+  "adapter_sha256": "d1ec41d73d13fa9f882bdde4b746ba84d72184e3ac8ccee27f6bf69f88f2876e"
+}

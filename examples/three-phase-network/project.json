@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "model": "three-phase sequence-line constant-PQ wye",
+  "name": "Synthetic three-bus electrical network, not a completed design",
+  "sources": {
+    "assumed": {
+      "path": "basis.md",
+      "sha256": "4bc43b42c9d5ed644b37315d667b4e3f52cabd6a489d2f636543f2ecadd3f375",
+      "locator": "Supply, line and load paragraphs",
+      "kind": "assumption"
+    },
+    "targets": {
+      "path": "basis.md",
+      "sha256": "4bc43b42c9d5ed644b37315d667b4e3f52cabd6a489d2f636543f2ecadd3f375",
+      "locator": "100 A and voltage study targets",
+      "kind": "design_target"
+    }
+  },
+  "supply": {
+    "bus": "source",
+    "line_line_v": 400,
+    "frequency_hz": 50,
+    "voltage_pu": 1,
+    "angle_degree": 0,
+    "s_sc_max_mva": 100,
+    "rx_max": 0.1,
+    "x0x_max": 1,
+    "r0x0_max": 0.1,
+    "source": "assumed"
+  },
+  "buses": [
+    {
+      "id": "source"
+    },
+    {
+      "id": "DB-A"
+    },
+    {
+      "id": "load-B"
+    }
+  ],
+  "lines": [
+    {
+      "id": "feeder",
+      "from": "source",
+      "to": "DB-A",
+      "length_m": 40,
+      "r1_ohm_per_km": 0.2,
+      "x1_ohm_per_km": 0.08,
+      "r0_ohm_per_km": 0.6,
+      "x0_ohm_per_km": 0.24,
+      "max_current_a": 100,
+      "source": "assumed",
+      "current_limit_source": "targets"
+    },
+    {
+      "id": "branch",
+      "from": "DB-A",
+      "to": "load-B",
+      "length_m": 25,
+      "r1_ohm_per_km": 0.2,
+      "x1_ohm_per_km": 0.08,
+      "r0_ohm_per_km": 0.6,
+      "x0_ohm_per_km": 0.24,
+      "max_current_a": 100,
+      "source": "assumed",
+      "current_limit_source": "targets"
+    }
+  ],
+  "loads": [
+    {
+      "id": "load-a",
+      "bus": "DB-A",
+      "p_kw": [
+        5,
+        4,
+        3
+      ],
+      "q_kvar": [
+        1,
+        0.5,
+        -0.2
+      ],
+      "source": "assumed"
+    },
+    {
+      "id": "load-b",
+      "bus": "load-B",
+      "p_kw": [
+        1,
+        2,
+        3
+      ],
+      "q_kvar": [
+        0.1,
+        0.2,
+        0.3
+      ],
+      "source": "assumed"
+    }
+  ],
+  "voltage_limits": {
+    "minimum_pu": 0.95,
+    "maximum_pu": 1.05,
+    "source": "targets"
+  }
+}

@@ -1,9 +1,11 @@
 ---
 name: mep-electrical
-description: Create source-linked electrical device/circuit data, calculate single-phase loads and conditional cable checks, and author editable CAD overlays for building services designs.
+description: Calculate source-linked single-phase circuits and scoped three-phase PQ networks, and author editable electrical CAD overlays for building services designs.
 ---
 
 # mep-electrical
+
+For a single-voltage three-phase constant-PQ wye network, use docs/THREE_PHASE_NETWORKS.md and the isolated pinned pandapower runtime through `scripts/run_three_phase.py`. Explicit source sequence data, per-phase electrical kW/kvar, line sequence impedances/lengths and current/voltage study targets are required. Inspect independent branch/node/complex-power checks and native input correspondence in study.json. A converged target failure remains fail; source-hash association does not verify interpretation. This standalone path is not yet a workflow adapter or CAD/BIM binding, and does not cover physical neutral/harmonics, transformers, protection, motor starting or Hong Kong conformity. Do not treat its study targets as verified cable ratings or feed its loads into the single-phase project format below.
 
 Use docs/PROJECT_FORMAT.md. Populate equipment and circuit data from the brief, inspected geometry, measured routes and authoritative references. CLI: bsa validate <project.json>; bsa run <project.json> --out <new-run-directory>.
 The calculation engine uses sum(kW/PF)*1000 for connected VA, demand VA / line-neutral V for Ib, tabulated ampacity times correction factor for Iz, and mV/A/m * Ib * route /1000 for voltage drop. Mixed load VA summation is conservative scalar aggregation, not a phasor solution. This slice covers single-phase circuits only; do not map three-phase loads to it.
