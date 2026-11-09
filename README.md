@@ -164,3 +164,5 @@ A repeatable WSD plumbing runner now stages and executes three source-linked sav
 A sourced one-duty/one-standby plumbing set now executes each role separately against the same tank target, with nested input hashes and workflow gates. Actual weak-standby rejection is retained even when duty passes; capacity pooling is not used. Physical redundancy, controls, products and full acceptance remain pending.
 
 Straight cable IFC correspondence is under [active investigation](docs/THREE_PHASE_IFC.md): actual saved swept-disk fixtures pass schema validation but fail mandatory native solid checks. This is not an available workflow integration.
+
+Straight cable IFC follow-up: explicit circular extrusions now pass saved native geometry/port/axis/electrical-length correspondence and tamper tests; the failed swept-disk case remains retained. This standalone check is not connected installation authoring or a registered workflow. See docs/THREE_PHASE_IFC.md.

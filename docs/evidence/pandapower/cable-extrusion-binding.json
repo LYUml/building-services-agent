@@ -1,0 +1,80 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\three-phase-network\\basis.md": "4bc43b42c9d5ed644b37315d667b4e3f52cabd6a489d2f636543f2ecadd3f375",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\three-phase-network\\project.json": "45de763da9c817c4a8ac5b4898469f04dbcae083963e88a3c94aa837a46ddbd1",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\three-phase-cable-extrusion-v1\\binding.json": "6cb1d0e6cb01f4f035bddbd65e72f9e6a8f67927d2c6dc9b501376413ae01bb8",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_ifc.py": "c5d4592f2b0b756328e3742c6fa5e3e557c5313143060e1607d226a24af7a03b",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\three-phase-cable-extrusion-v1\\geometry-source.json": "1bbb5ce5531ae345dc71913caf504c71307e2ca86776db44dadf6195f081cd9e",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\three-phase-cable-extrusion-v1\\cables.ifc": "1539038ead853943ac39e673784c35ff99fbc68492b91e770169d0d140415ee5"
+  },
+  "input_unchanged": true,
+  "source_basis": {
+    "path": "geometry-source.json",
+    "sha256": "1bbb5ce5531ae345dc71913caf504c71307e2ca86776db44dadf6195f081cd9e",
+    "locator": "Synthetic radius and bus coordinates; no real-world survey or equipment claim",
+    "kind": "assumption"
+  },
+  "ifc_unit_to_m": 1,
+  "versions": {
+    "ifcopenshell": "0.8.5",
+    "manifold3d": "3.5.4"
+  },
+  "lines": [
+    {
+      "id": "feeder",
+      "element_guid": "0xYIqGQDTGdxkB7jP4cJsX",
+      "port_guids": [
+        "1DnCe46MTPO8nDHblqPVrR",
+        "1TzNuSi0HIlftErlPSZ$D4"
+      ],
+      "observed_length_m": 40.0,
+      "project_length_m": 40,
+      "body_type": "IfcExtrudedAreaSolid",
+      "envelope_radius_m": 0.01,
+      "world_axis_ends_m": [
+        [
+          0.0,
+          0.0,
+          2.0
+        ],
+        [
+          40.0,
+          0.0,
+          2.0
+        ]
+      ],
+      "native_volume_m3": 0.012566161629466398,
+      "analytic_volume_m3": 0.012566370614359171
+    },
+    {
+      "id": "branch",
+      "element_guid": "2GtuHmgt1LhBrDktaS_FBP",
+      "port_guids": [
+        "1YGBes3OfMjvgnDXp94M1Z",
+        "1XlqnRN9DIoe3V7PbGGO5X"
+      ],
+      "observed_length_m": 25.0,
+      "project_length_m": 25,
+      "body_type": "IfcExtrudedAreaSolid",
+      "envelope_radius_m": 0.01,
+      "world_axis_ends_m": [
+        [
+          40.0,
+          0.0,
+          2.0
+        ],
+        [
+          40.0,
+          25.0,
+          2.0
+        ]
+      ],
+      "native_volume_m3": 0.007853851018416291,
+      "analytic_volume_m3": 0.007853981633974483
+    }
+  ],
+  "geometry_correspondence_pass": true,
+  "native_electrical_connectivity_verified": false,
+  "design_accepted": false,
+  "scope": "Selected-system straight cable envelopes, placed ports, bus anchors and analysis lengths only; physical connections, bends, conductor selection, protection and regulatory acceptance remain unverified"
+}

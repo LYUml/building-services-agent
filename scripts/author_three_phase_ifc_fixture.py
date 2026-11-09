@@ -18,7 +18,8 @@ from bsa.three_phase import prepare,ROOT
 from bsa.tee_geometry import stable_guid
 
 
-def run(project,geometry,out):
+def run(project,geometry,out,body_kind='swept-disk'):
+    if body_kind not in ('swept-disk','extrusion'):raise ProjectError('unsupported fixture body kind')
     project,geometry,out=[Path(v).resolve() for v in (project,geometry,out)]
     p,files=prepare(project);data=json.loads(geometry.read_text(encoding='utf-8-sig'))
     if not out.is_relative_to(ROOT) or out.exists() or any(out==f or out in f.parents for f in files|{geometry}):raise ProjectError('new separate repository fixture output required')
@@ -49,7 +50,14 @@ def run(project,geometry,out):
         api.run('geometry.edit_object_placement',model,product=obj,matrix=np.eye(4),is_si=True)
         points=[[float(v) for v in anchors[id]] for id in (line['from'],line['to'])]
         curve=builder.polyline(points);directrix=builder.polyline(points)
-        solid=builder.create_swept_disk_solid(directrix,radius)
+        if body_kind=='swept-disk':
+            solid=builder.create_swept_disk_solid(directrix,radius)
+        else:
+            direction=np.array(points[1])-points[0];length=float(np.linalg.norm(direction));direction/=length
+            reference=np.array([1.,0.,0.]) if abs(direction[0])<.9 else np.array([0.,1.,0.])
+            x=reference-direction*np.dot(reference,direction);x/=np.linalg.norm(x)
+            profile=model.create_entity('IfcCircleProfileDef',ProfileType='AREA',Radius=float(radius))
+            solid=builder.extrude(profile,magnitude=length,position=points[0],position_z_axis=direction,position_x_axis=x)
         api.run('geometry.assign_representation',model,product=obj,representation=builder.get_representation(body,solid))
         api.run('geometry.assign_representation',model,product=obj,representation=builder.get_representation(axis,curve,representation_type='Curve3D'))
         ps=api.run('pset.add_pset',model,product=obj,name='BSA_DesignInputs')
@@ -70,11 +78,12 @@ def run(project,geometry,out):
     (out/'binding.json').write_text(json.dumps(binding,indent=2),encoding='utf-8')
     if any(digest(Path(f))!=h for f,h in before.items()):raise ProjectError('fixture inputs changed')
     (out/'authoring.json').write_text(json.dumps(dict(inputs=before,ifc_sha256=digest(ifc),schema_checks_pass=True,
-        geometry_scope=data['scope'],native_electrical_connectivity_verified=False,design_accepted=False),indent=2),encoding='utf-8')
+        body_kind=body_kind,geometry_scope=data['scope'],native_electrical_connectivity_verified=False,design_accepted=False),indent=2),encoding='utf-8')
     return binding
 
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('project',type=Path)
     p.add_argument('--geometry',type=Path,required=True);p.add_argument('--out',type=Path,required=True)
-    a=p.parse_args();run(a.project,a.geometry,a.out)
+    p.add_argument('--body-kind',choices=['swept-disk','extrusion'],default='swept-disk')
+    a=p.parse_args();run(a.project,a.geometry,a.out,a.body_kind)

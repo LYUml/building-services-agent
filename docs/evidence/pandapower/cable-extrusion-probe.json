@@ -1,0 +1,225 @@
+{
+  "ifc_sha256": "1539038ead853943ac39e673784c35ff99fbc68492b91e770169d0d140415ee5",
+  "input_unchanged": true,
+  "versions": {
+    "ifcopenshell": "0.8.5",
+    "manifold3d": "3.5.4",
+    "numpy": "2.5.4"
+  },
+  "results": [
+    {
+      "guid": "0xYIqGQDTGdxkB7jP4cJsX",
+      "settings": {},
+      "accepted": true,
+      "vertices": 1258,
+      "triangles": 2512,
+      "edges": 3768,
+      "euler": 2,
+      "non_two_face_edges": 0,
+      "inconsistent_direction_edges": 0,
+      "duplicate_triangles": 0,
+      "bounds_m": [
+        [
+          0.0,
+          -0.009999875270966812,
+          1.990000031182307
+        ],
+        [
+          40.0,
+          0.01,
+          2.0099999688176933
+        ]
+      ],
+      "volume_m3": 0.012566161629466398
+    },
+    {
+      "guid": "2GtuHmgt1LhBrDktaS_FBP",
+      "settings": {},
+      "accepted": true,
+      "vertices": 1258,
+      "triangles": 2512,
+      "edges": 3768,
+      "euler": 2,
+      "non_two_face_edges": 0,
+      "inconsistent_direction_edges": 0,
+      "duplicate_triangles": 0,
+      "bounds_m": [
+        [
+          39.990000124729036,
+          0.0,
+          1.990000031182307
+        ],
+        [
+          40.01,
+          25.0,
+          2.0099999688176933
+        ]
+      ],
+      "volume_m3": 0.007853851018416291
+    },
+    {
+      "guid": "0xYIqGQDTGdxkB7jP4cJsX",
+      "settings": {
+        "reorient-shells": true
+      },
+      "accepted": true,
+      "vertices": 1258,
+      "triangles": 2512,
+      "edges": 3768,
+      "euler": 2,
+      "non_two_face_edges": 0,
+      "inconsistent_direction_edges": 0,
+      "duplicate_triangles": 0,
+      "bounds_m": [
+        [
+          0.0,
+          -0.009999875270966812,
+          1.990000031182307
+        ],
+        [
+          40.0,
+          0.01,
+          2.0099999688176933
+        ]
+      ],
+      "volume_m3": 0.012566161629466398
+    },
+    {
+      "guid": "2GtuHmgt1LhBrDktaS_FBP",
+      "settings": {
+        "reorient-shells": true
+      },
+      "accepted": true,
+      "vertices": 1258,
+      "triangles": 2512,
+      "edges": 3768,
+      "euler": 2,
+      "non_two_face_edges": 0,
+      "inconsistent_direction_edges": 0,
+      "duplicate_triangles": 0,
+      "bounds_m": [
+        [
+          39.990000124729036,
+          0.0,
+          1.990000031182307
+        ],
+        [
+          40.01,
+          25.0,
+          2.0099999688176933
+        ]
+      ],
+      "volume_m3": 0.007853851018416291
+    },
+    {
+      "guid": "0xYIqGQDTGdxkB7jP4cJsX",
+      "settings": {
+        "unify-shapes": true
+      },
+      "accepted": true,
+      "vertices": 1258,
+      "triangles": 2512,
+      "edges": 3768,
+      "euler": 2,
+      "non_two_face_edges": 0,
+      "inconsistent_direction_edges": 0,
+      "duplicate_triangles": 0,
+      "bounds_m": [
+        [
+          0.0,
+          -0.009999875270966812,
+          1.990000031182307
+        ],
+        [
+          40.0,
+          0.01,
+          2.0099999688176933
+        ]
+      ],
+      "volume_m3": 0.012566161629466398
+    },
+    {
+      "guid": "2GtuHmgt1LhBrDktaS_FBP",
+      "settings": {
+        "unify-shapes": true
+      },
+      "accepted": true,
+      "vertices": 1258,
+      "triangles": 2512,
+      "edges": 3768,
+      "euler": 2,
+      "non_two_face_edges": 0,
+      "inconsistent_direction_edges": 0,
+      "duplicate_triangles": 0,
+      "bounds_m": [
+        [
+          39.990000124729036,
+          0.0,
+          1.990000031182307
+        ],
+        [
+          40.01,
+          25.0,
+          2.0099999688176933
+        ]
+      ],
+      "volume_m3": 0.007853851018416291
+    },
+    {
+      "guid": "0xYIqGQDTGdxkB7jP4cJsX",
+      "settings": {
+        "no-clean-triangulation": true
+      },
+      "accepted": true,
+      "vertices": 1258,
+      "triangles": 2512,
+      "edges": 3768,
+      "euler": 2,
+      "non_two_face_edges": 0,
+      "inconsistent_direction_edges": 0,
+      "duplicate_triangles": 0,
+      "bounds_m": [
+        [
+          0.0,
+          -0.009999875270966812,
+          1.990000031182307
+        ],
+        [
+          40.0,
+          0.01,
+          2.0099999688176933
+        ]
+      ],
+      "volume_m3": 0.012566161629466398
+    },
+    {
+      "guid": "2GtuHmgt1LhBrDktaS_FBP",
+      "settings": {
+        "no-clean-triangulation": true
+      },
+      "accepted": true,
+      "vertices": 1258,
+      "triangles": 2512,
+      "edges": 3768,
+      "euler": 2,
+      "non_two_face_edges": 0,
+      "inconsistent_direction_edges": 0,
+      "duplicate_triangles": 0,
+      "bounds_m": [
+        [
+          39.990000124729036,
+          0.0,
+          1.990000031182307
+        ],
+        [
+          40.01,
+          25.0,
+          2.0099999688176933
+        ]
+      ],
+      "volume_m3": 0.007853851018416291
+    }
+  ],
+  "design_accepted": false,
+  "scope": "Read-only diagnostic, not a geometry repair or electrical design acceptance"
+}

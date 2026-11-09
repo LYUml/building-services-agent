@@ -72,11 +72,27 @@ def inspect(project,ifc,binding_path):
         body=[r for r in obj.Representation.Representations if r.RepresentationIdentifier=='Body']
         if len(axis)!=1 or len(body)!=1 or len(axis[0].Items)!=1 or len(body[0].Items)!=1:raise ProjectError('one explicit Axis and one Body item required')
         solid=body[0].Items[0]
-        if not solid.is_a('IfcSweptDiskSolid') or solid.is_a('IfcSweptDiskSolidPolygonal') or solid.InnerRadius is not None or solid.StartParam is not None or solid.EndParam is not None:raise ProjectError('full, solid straight swept-disk cable envelope required')
-        local=line_points(axis[0].Items[0]);body_axis=line_points(solid.Directrix)
+        local=line_points(axis[0].Items[0])
+        if solid.is_a('IfcSweptDiskSolid') and not solid.is_a('IfcSweptDiskSolidPolygonal'):
+            if solid.InnerRadius is not None or solid.StartParam is not None or solid.EndParam is not None:raise ProjectError('full solid cable sweep required')
+            body_axis=line_points(solid.Directrix);radius=float(solid.Radius)*factor
+        elif solid.is_a('IfcExtrudedAreaSolid'):
+            profile=solid.SweptArea
+            if profile.is_a()!='IfcCircleProfileDef' or profile.ProfileType!='AREA' or profile.Position is not None:raise ProjectError('unoffset solid circle extrusion profile required')
+            if not solid.Position or not solid.Position.is_a('IfcAxis2Placement3D'):raise ProjectError('explicit 3D extrusion placement required')
+            frame=placement.get_axis2placement(solid.Position)
+            if not np.isfinite(frame).all() or not np.allclose(frame[:3,:3].T@frame[:3,:3],np.eye(3),atol=1e-10,rtol=0) or not math.isclose(float(np.linalg.det(frame[:3,:3])),1,abs_tol=1e-10):raise ProjectError('rigid extrusion frame required')
+            vector=np.array(solid.ExtrudedDirection.DirectionRatios,dtype=float)
+            depth=float(solid.Depth)
+            if vector.shape!=(3,) or not np.isfinite(vector).all() or np.linalg.norm(vector)<=0 or not math.isfinite(depth) or depth<=0:raise ProjectError('finite nonzero extrusion vector and positive depth required')
+            vector/=np.linalg.norm(vector)
+            if not np.allclose(vector[:2],0,atol=1e-10,rtol=0):raise ProjectError('only perpendicular circular extrusion supported')
+            body_axis=np.array([frame[:3,3],(frame@np.append(vector*depth,1))[:3]])
+            radius=float(profile.Radius)*factor
+        else:raise ProjectError('straight solid circular extrusion or full swept-disk cable required')
         if not (np.allclose(local,body_axis,atol=1e-9,rtol=0) or np.allclose(local,body_axis[::-1],atol=1e-9,rtol=0)):raise ProjectError('body directrix differs from declared Axis')
         ends=np.array([(matrix@np.append(pt,1))[:3]*factor for pt in local])
-        radius=float(solid.Radius)*factor;length=float(np.linalg.norm(ends[1]-ends[0]))
+        length=float(np.linalg.norm(ends[1]-ends[0]))
         if not math.isfinite(radius) or radius<=0:raise ProjectError('positive finite cable envelope radius required')
         ports={port.GlobalId:port for port in system.get_ports(obj)}
         port_ids=[role['from_port_guid'],role['to_port_guid']]
@@ -97,7 +113,7 @@ def inspect(project,ifc,binding_path):
         if not np.allclose(observed['bounds'],expected_bounds,atol=BOUNDS_TOLERANCE_M,rtol=0) or not np.allclose(observed['centroid'],ends.mean(axis=0),atol=BOUNDS_TOLERANCE_M,rtol=0) or not math.isclose(observed['volume'],expected_volume,rel_tol=VOLUME_RELATIVE_TOLERANCE):raise ProjectError('native solid bounds/centroid/volume differ from straight cable axis')
         if not math.isclose(length,line['length_m'],rel_tol=0,abs_tol=1e-6):raise ProjectError('electrical route length differs from saved IFC geometry')
         rows.append(dict(id=line['id'],element_guid=obj.GlobalId,port_guids=port_ids,observed_length_m=length,project_length_m=line['length_m'],
-            envelope_radius_m=radius,world_axis_ends_m=ends.tolist(),native_volume_m3=observed['volume'],analytic_volume_m3=expected_volume))
+            body_type=solid.is_a(),envelope_radius_m=radius,world_axis_ends_m=ends.tolist(),native_volume_m3=observed['volume'],analytic_volume_m3=expected_volume))
     if any(digest(Path(f))!=h for f,h in before.items()):raise ProjectError('inputs changed during IFC inspection')
     return dict(inputs=before,input_unchanged=True,source_basis=source,ifc_unit_to_m=factor,versions=versions,lines=rows,
         geometry_correspondence_pass=True,native_electrical_connectivity_verified=False,design_accepted=False,
