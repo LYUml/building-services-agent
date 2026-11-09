@@ -1,0 +1,117 @@
+{
+  "objective": "lowest declared preference among passing candidates",
+  "source": "Synthetic preference order for finite algorithm testing; no inferred price/efficiency ranking",
+  "candidates": [
+    {
+      "id": "weak",
+      "source": "Explicit synthetic weak candidate, not manufacturer data or certified selection",
+      "preference": 0,
+      "curve": {
+        "model": "fixed-speed air fan; single fixed-total-pressure terminal; free flow",
+        "pressure_basis": "fan total pressure rise",
+        "sources": {
+          "demo": "Synthetic fixed-speed total-pressure curve at stated air density and viscosity, not product data or a stable-region certification; single fixed terminal total-pressure boundary; no installation system effects or electrical power claim"
+        },
+        "source": "demo",
+        "speed_rpm": 1450,
+        "fluid": {
+          "density_kg_m3": 1.2,
+          "dynamic_viscosity_pa_s": 1.8e-05
+        },
+        "inlet_total_pressure_pa": 0,
+        "efficiency_basis": "not supplied",
+        "points": [
+          {
+            "flow_m3_s": 0.3,
+            "total_pressure_rise_pa": 20
+          },
+          {
+            "flow_m3_s": 0.9,
+            "total_pressure_rise_pa": 10
+          }
+        ],
+        "flow_bracket_m3_s": [
+          0.3,
+          0.9
+        ],
+        "flow_tolerance_m3_s": 1e-09,
+        "pressure_tolerance_pa": 1e-05,
+        "max_iterations": 100
+      }
+    },
+    {
+      "id": "wrong-density",
+      "source": "Explicit synthetic density candidate, not manufacturer data or certified selection",
+      "preference": 1,
+      "curve": {
+        "model": "fixed-speed air fan; single fixed-total-pressure terminal; free flow",
+        "pressure_basis": "fan total pressure rise",
+        "sources": {
+          "demo": "Synthetic fixed-speed total-pressure curve at stated air density and viscosity, not product data or a stable-region certification; single fixed terminal total-pressure boundary; no installation system effects or electrical power claim"
+        },
+        "source": "demo",
+        "speed_rpm": 1450,
+        "fluid": {
+          "density_kg_m3": 1.3,
+          "dynamic_viscosity_pa_s": 1.8e-05
+        },
+        "inlet_total_pressure_pa": 0,
+        "efficiency_basis": "not supplied",
+        "points": [
+          {
+            "flow_m3_s": 0.3,
+            "total_pressure_rise_pa": 100
+          },
+          {
+            "flow_m3_s": 0.9,
+            "total_pressure_rise_pa": 10
+          }
+        ],
+        "flow_bracket_m3_s": [
+          0.3,
+          0.9
+        ],
+        "flow_tolerance_m3_s": 1e-09,
+        "pressure_tolerance_pa": 1e-05,
+        "max_iterations": 100
+      }
+    },
+    {
+      "id": "supported",
+      "source": "Explicit synthetic ok candidate, not manufacturer data or certified selection",
+      "preference": 2,
+      "curve": {
+        "model": "fixed-speed air fan; single fixed-total-pressure terminal; free flow",
+        "pressure_basis": "fan total pressure rise",
+        "sources": {
+          "demo": "Synthetic fixed-speed total-pressure curve at stated air density and viscosity, not product data or a stable-region certification; single fixed terminal total-pressure boundary; no installation system effects or electrical power claim"
+        },
+        "source": "demo",
+        "speed_rpm": 1450,
+        "fluid": {
+          "density_kg_m3": 1.2,
+          "dynamic_viscosity_pa_s": 1.8e-05
+        },
+        "inlet_total_pressure_pa": 0,
+        "efficiency_basis": "not supplied",
+        "points": [
+          {
+            "flow_m3_s": 0.3,
+            "total_pressure_rise_pa": 100
+          },
+          {
+            "flow_m3_s": 0.9,
+            "total_pressure_rise_pa": 10
+          }
+        ],
+        "flow_bracket_m3_s": [
+          0.3,
+          0.9
+        ],
+        "flow_tolerance_m3_s": 1e-09,
+        "pressure_tolerance_pa": 1e-05,
+        "max_iterations": 100
+      }
+    }
+  ]
+}

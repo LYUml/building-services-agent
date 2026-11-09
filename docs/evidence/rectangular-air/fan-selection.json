@@ -1,0 +1,128 @@
+{
+  "run": "runs\\rectangular-fan-selection-v1",
+  "workflow_sha256": "be70065732bda27544aa26b01d62d3fd114feae29c83f51d8900c2965fec4e69",
+  "result": {
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-fan-selection-v1\\air\\network-input.json": "2ecebd3b8fbea4d6ed007c1f00a737c38ea391217d3dd102948423079e22d360",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\rectangular-air\\elbow-chain-model.json": "4cb5fad1c40e9c97cf742bc6ffcba2cafb50cce1ebc4f0f2665a78f4eedd3511",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\rectangular-air\\elbow-chain-binding.json": "7b6c05d3c2dc4ee924e66546a04db10c4428faa1665ac61a17057bea5300bc1d",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-fan-selection-v1\\air\\bim\\model.ifc": "220e7ce10eb9fab6c001f6a4846ea578c637e4c15fc03681c6583f2d7de1a286",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-fan-selection-v1\\air\\analysis\\network.json": "1b946c75c8978074b5e40237aba5bbc3b7ec2b21098ebe818eeee01b90197bd5",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\rectangular-air\\fan-catalogue.json": "6d4e7dcf0baf5df54d25e69a49549e608ebf7159a73ed096386c794b26bfc5c2"
+    },
+    "inputs_unchanged": true,
+    "native_path_correspondence_pass": true,
+    "objective": "lowest declared preference among passing candidates",
+    "tie_break": "lexical candidate ID",
+    "candidates": [
+      {
+        "id": "weak",
+        "source": "Explicit synthetic weak candidate, not manufacturer data or certified selection",
+        "preference": 0,
+        "directory": "candidate-000",
+        "status": "not_bracketed",
+        "calculated_checks_pass": false,
+        "checks": null,
+        "operating_point": null,
+        "curve_sha256": "2c73c340657347ed5472ba89bc21bef8e043886c2529ffd73f7fa3c810635c79",
+        "report_sha256": "a5cffab59f3c7d41f056d158d57a6ea77ea249b50793e2fc484cf2ff81cb499f"
+      },
+      {
+        "id": "wrong-density",
+        "source": "Explicit synthetic density candidate, not manufacturer data or certified selection",
+        "preference": 1,
+        "directory": "candidate-001",
+        "status": "unsupported",
+        "calculated_checks_pass": false,
+        "reason": "fan curve and network fluid mismatch; no density correction inferred",
+        "curve_sha256": "ca879d105c94c97ab6bca29c461bad04057d34c9c4ed37b66b3608eb7ec860dd"
+      },
+      {
+        "id": "supported",
+        "source": "Explicit synthetic ok candidate, not manufacturer data or certified selection",
+        "preference": 2,
+        "directory": "candidate-002",
+        "status": "converged",
+        "calculated_checks_pass": true,
+        "checks": {
+          "balance": true,
+          "flow_bracket": true,
+          "minimum_design_flow": true,
+          "velocity_through_bracket": true,
+          "node_pressure_requirements": true
+        },
+        "operating_point": {
+          "flow_m3_s": 0.7236704505980015,
+          "system_required_rise_pa": 36.44943235979599,
+          "residual_pa": 5.050378604209982e-08,
+          "supply_total_pressure_pa": 36.44943241029978,
+          "fan_total_pressure_rise_pa": 36.44943241029978,
+          "air_power_kw": 0.026377377176403042
+        },
+        "curve_sha256": "349c69b59c27ca9eee4876cc1d74adf1c1f2dd366bb44931e15a782fe9cdc4c8",
+        "report_sha256": "69feff30d89677a66b607023a38010a8a2727dafeeb24ccc04c45a4c781a9228"
+      }
+    ],
+    "selected": {
+      "id": "supported",
+      "source": "Explicit synthetic ok candidate, not manufacturer data or certified selection",
+      "preference": 2,
+      "rerun": {
+        "status": "converged",
+        "calculated_checks_pass": true,
+        "checks": {
+          "balance": true,
+          "flow_bracket": true,
+          "minimum_design_flow": true,
+          "velocity_through_bracket": true,
+          "node_pressure_requirements": true
+        },
+        "operating_point": {
+          "flow_m3_s": 0.7236704505980015,
+          "system_required_rise_pa": 36.44943235979599,
+          "residual_pa": 5.050378604209982e-08,
+          "supply_total_pressure_pa": 36.44943241029978,
+          "fan_total_pressure_rise_pa": 36.44943241029978,
+          "air_power_kw": 0.026377377176403042
+        },
+        "curve_sha256": "349c69b59c27ca9eee4876cc1d74adf1c1f2dd366bb44931e15a782fe9cdc4c8",
+        "report_sha256": "791391f385eb9309139a83a330128af030d87e288a809ad680318580095ad024"
+      }
+    },
+    "feasible_candidate_found": true,
+    "selected_rerun_pass": true,
+    "calculated_checks_pass": true,
+    "design_accepted": false,
+    "scope": "Finite sourced fan-curve screening on verified native duct path; no fan hardware authoring, electrical/HK acceptance or authenticity guarantee",
+    "pending": [
+      "Real vendor curve/installation and stable-region applicability",
+      "Native fan equipment/ports and electrical motor evidence",
+      "Full acoustics/control/Hong Kong/installation acceptance"
+    ],
+    "artifacts": {
+      "candidate-000/curve.json": "2c73c340657347ed5472ba89bc21bef8e043886c2529ffd73f7fa3c810635c79",
+      "candidate-001/curve.json": "ca879d105c94c97ab6bca29c461bad04057d34c9c4ed37b66b3608eb7ec860dd",
+      "candidate-002/curve.json": "349c69b59c27ca9eee4876cc1d74adf1c1f2dd366bb44931e15a782fe9cdc4c8",
+      "selected/curve.json": "349c69b59c27ca9eee4876cc1d74adf1c1f2dd366bb44931e15a782fe9cdc4c8",
+      "candidate-000/operating/fan.json": "a5cffab59f3c7d41f056d158d57a6ea77ea249b50793e2fc484cf2ff81cb499f",
+      "candidate-002/operating/fan.json": "69feff30d89677a66b607023a38010a8a2727dafeeb24ccc04c45a4c781a9228",
+      "candidate-002/operating/operating-network.json": "5a457f8903dcda13acee65915eff4e91d92e7921584d5257206bbb53c64fa6fa",
+      "candidate-002/operating/analysis/manifest.json": "a3ff71fd4e44f92724b452ddafd593afc8b056ddb59be416de68138e750e690a",
+      "candidate-002/operating/analysis/network.json": "6cd3c0cda36f98eae05ee53bf6838d21901ee0e9debe24a3172714682dc4b73b",
+      "candidate-002/operating/analysis/report.html": "8d1dd3049cf2e292df66204e2ab96e8b029decbb5629ee4d3b7a2bf4397a8f8c",
+      "candidate-002/operating/analysis/segments.csv": "8a333f5d4be254e8fa895c59efc140e27e73cf88a04d660804677df5a129ad71",
+      "selected/operating/fan.json": "791391f385eb9309139a83a330128af030d87e288a809ad680318580095ad024",
+      "selected/operating/operating-network.json": "5a457f8903dcda13acee65915eff4e91d92e7921584d5257206bbb53c64fa6fa",
+      "selected/operating/analysis/manifest.json": "a3ff71fd4e44f92724b452ddafd593afc8b056ddb59be416de68138e750e690a",
+      "selected/operating/analysis/network.json": "6cd3c0cda36f98eae05ee53bf6838d21901ee0e9debe24a3172714682dc4b73b",
+      "selected/operating/analysis/report.html": "8d1dd3049cf2e292df66204e2ab96e8b029decbb5629ee4d3b7a2bf4397a8f8c",
+      "selected/operating/analysis/segments.csv": "8a333f5d4be254e8fa895c59efc140e27e73cf88a04d660804677df5a129ad71"
+    }
+  },
+  "design_accepted": false,
+  "scope": "Synthetic native duct-path fan curve screening; not authenticated vendor selection or native fan equipment",
+  "tests_passed": {
+    "selection": 5,
+    "all_rectangular_fan_tests": 24
+  }
+}
