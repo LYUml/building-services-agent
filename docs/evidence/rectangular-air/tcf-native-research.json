@@ -1,0 +1,112 @@
+{
+  "research": {
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\tcf-fan-intake-v1\\tcf-m300.pdf": "a50f3202afc6fb0fc42af856d43493dc1079a529de36634d25bef9c9ebdcd18b",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\tcf-calibrated-vectors-v2\\extraction.json": "49a0b80f4d9487100ab797e5cd08e84de8997a2667a7df2eaae4055f46a9dd15",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\tcf-calibrated-vectors-v2\\disjoint-paths.json": "2e03627604131e1e32e4fe206c6e3aae526e22924e44b037f18ad222e6cf9cdf"
+    },
+    "cases": {
+      "within-domain": {
+        "status": "pending",
+        "interpolation_only_checks_pass": true,
+        "operating_flow_envelope_m3_s": [
+          0.5375120831633817,
+          0.5375183961408797
+        ],
+        "endpoint_status": {
+          "lower": "converged",
+          "upper": "converged"
+        },
+        "native_path_correspondence_pass": true,
+        "report_sha256": "987a0ed00ebfc820dc0ea9df6f061e1df832a490372a981a333e1b56252be746"
+      },
+      "outside-domain": {
+        "status": "fail",
+        "interpolation_only_checks_pass": false,
+        "operating_flow_envelope_m3_s": null,
+        "endpoint_status": {
+          "lower": "not_bracketed",
+          "upper": "not_bracketed"
+        },
+        "native_path_correspondence_pass": true,
+        "report_sha256": "d8768d143a9880cbcb31cff20c689488f360dea83f4110dea792ac3a7789bf93"
+      }
+    },
+    "solver_ready": false,
+    "design_accepted": false,
+    "scope": "Real graph representation on synthetic native duct/duty/K/viscosity; interpolation-only sensitivity; no manufacturer-performance or design release"
+  },
+  "basis": {
+    "source": "Native-source interpolation audit SHA256 81f32ba79a2aaed74db4fc44a505b2e43ef7c1b3b5e4b7ba19bfd3993066db1a; graph/manufacturer uncertainty unresolved",
+    "coverage": "native log-log LINE interpolation only",
+    "relative_pressure_excess": 1.9453162169012555e-05,
+    "manufacturer_performance_uncertainty": null
+  },
+  "endpoints": {
+    "within-domain": {
+      "lower": {
+        "status": "converged",
+        "checks": {
+          "balance": true,
+          "flow_bracket": true,
+          "minimum_design_flow": true,
+          "velocity_through_bracket": true,
+          "node_pressure_requirements": true
+        },
+        "operating_point": {
+          "flow_m3_s": 0.5375120831633817,
+          "system_required_rise_pa": 203.61918423252033,
+          "residual_pa": 2.784989305837371e-08,
+          "supply_total_pressure_pa": 203.61918426037022,
+          "fan_total_pressure_rise_pa": 203.61918426037022,
+          "air_power_kw": 0.10944777190382007
+        },
+        "flow_bracket_m3_s": [
+          0.5375120831633817,
+          0.5375120832424025
+        ]
+      },
+      "upper": {
+        "status": "converged",
+        "checks": {
+          "balance": true,
+          "flow_bracket": true,
+          "minimum_design_flow": true,
+          "velocity_through_bracket": true,
+          "node_pressure_requirements": true
+        },
+        "operating_point": {
+          "flow_m3_s": 0.5375183960618588,
+          "system_required_rise_pa": 203.61926666369712,
+          "residual_pa": 3.3904598240042105e-08,
+          "supply_total_pressure_pa": 203.61926669760172,
+          "fan_total_pressure_rise_pa": 203.61926669760172,
+          "air_power_kw": 0.10944910164258674
+        },
+        "flow_bracket_m3_s": [
+          0.5375183960618588,
+          0.5375183961408797
+        ]
+      }
+    },
+    "outside-domain": {
+      "lower": {
+        "status": "not_bracketed",
+        "checks": null,
+        "operating_point": null,
+        "flow_bracket_m3_s": null
+      },
+      "upper": {
+        "status": "not_bracketed",
+        "checks": null,
+        "operating_point": null,
+        "flow_bracket_m3_s": null
+      }
+    }
+  },
+  "tests": {
+    "envelope_and_native_research": 5,
+    "analytic_interpolation": 4
+  },
+  "design_accepted": false
+}
