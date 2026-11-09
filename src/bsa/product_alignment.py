@@ -44,6 +44,27 @@ def load_bundle(folder,kind):
     return f,obj,inputs
 
 
+def overlap_locations(common, port_frame):
+    """Local mesh component bounds; no geometric tolerance or contact exemption."""
+    aligned_placement(port_frame, np.eye(4), 0)  # Validate the reference frame.
+    import manifold3d as m
+    if common.status() != m.Error.NoError:
+        raise ProjectError('material intersection failed')
+    records = []
+    for part in common.decompose():
+        volume = float(part.volume())
+        vertices = np.asarray(part.to_mesh64().vert_properties)[:, :3]
+        if not len(vertices):
+            continue
+        if not np.isfinite(vertices).all() or not math.isfinite(volume) or volume <= 0:
+            raise ProjectError('positive finite overlap component required')
+        local = (vertices-port_frame[:3,3]) @ port_frame[:3,:3]
+        records.append({'volume_m3': volume,
+                        'port_frame_bounds_m': [local.min(axis=0).tolist(), local.max(axis=0).tolist()],
+                        'maximum_radius_from_port_axis_m': float(np.linalg.norm(local[:,:2],axis=1).max())})
+    return sorted(records, key=lambda r: (-r['volume_m3'], r['port_frame_bounds_m'][0]))
+
+
 def run(junction,connector,basis_path,out):
     if {k:importlib.metadata.version(k) for k in ('ifcopenshell','manifold3d')}!={'ifcopenshell':'0.8.5','manifold3d':'3.5.4'}:raise ProjectError('pinned geometry runtimes required')
     junction,connector,basis_path,out=[Path(p).resolve() for p in (junction,connector,basis_path,out)]
@@ -98,6 +119,8 @@ def run(junction,connector,basis_path,out):
     result={'inputs':inputs,'basis':b,'checks':checks,'model_alignment_pass':all(checks.values()),'node_gap_m':gap,'axis_dot':dot,
         'calculated_checks_pass':all(checks.values()) and overlap<=b['overlap_volume_tolerance_m3'],
         'material_overlap_m3':overlap,'material_overlap_above_tolerance':overlap>b['overlap_volume_tolerance_m3'],
+        'overlap_reference_port_guid':b['target_port_guid'],
+        'overlap_components':overlap_locations(common,target_frame),
         'connector_transform':transform.tolist(),'ifc_sha256':digest(path),'design_accepted':False,
         'scope':'Model node alignment and saved material intersection only; overlap is retained without joint-contact exemption',
         'pending':['source node/installed pipe-end correspondence','intended contact and gasket/pipe compatibility','full joint and hydraulic connections','engineering and regulatory acceptance']}

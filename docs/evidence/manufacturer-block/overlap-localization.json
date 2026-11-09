@@ -1,0 +1,27 @@
+{
+  "ifc_sha256": "766f00f0470d237ea814bb90d73a232e08ac1abcbae2f40ed307689e87afed7b",
+  "model_alignment_pass": true,
+  "calculated_checks_pass": false,
+  "material_overlap_m3": 2.6501259276899105e-09,
+  "overlap_reference_port_guid": "3MmX8gbVTVw9kIXstGG8Pv",
+  "overlap_components": [
+    {
+      "volume_m3": 2.6501259276899105e-09,
+      "port_frame_bounds_m": [
+        [
+          -0.024121298980713565,
+          -0.02412782595634354,
+          -0.01587500000000076
+        ],
+        [
+          0.02413000121116629,
+          0.024127828378678707,
+          1.915721475866088e-15
+        ]
+      ],
+      "maximum_radius_from_port_axis_m": 0.024130006093720756
+    }
+  ],
+  "design_accepted": false,
+  "interpretation": "Component bounds relative to target port; local Z follows its outward axis. Mesh localization only; no source-node installation proof or contact waiver."
+}
