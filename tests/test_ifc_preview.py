@@ -4,7 +4,7 @@ import unittest
 import numpy as np
 import ifcopenshell
 import ifcopenshell.api as api
-from bsa.ifc_preview import extract
+from bsa.ifc_preview import extract, run
 from bsa.engine import ProjectError
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -36,6 +36,19 @@ class IFCPreviewTests(unittest.TestCase):
             self.assertEqual(ports[0]['axis'],[0,0,1])
             self.assertEqual(omitted,[other.GlobalId])
             self.assertGreater(len(faces),0)
+            # Two independently placed bodies must both contribute to world bounds.
+            other_rep=api.run('geometry.add_wall_representation',f,context=body,length=1,height=1,thickness=.2)
+            api.run('geometry.assign_representation',f,product=other,representation=other_rep)
+            other_matrix=np.eye(4);other_matrix[:3,3]=[40,50,60]
+            api.run('geometry.edit_object_placement',f,product=other,matrix=other_matrix,is_si=True)
+            f.write(str(path))
+            combined=run(path,obj.GlobalId,Path(tmp)/'preview',[other.GlobalId])
+            self.assertTrue(np.allclose(combined['world_bounds_m'],[[9.7,20,30],[41,50.2,61]]))
+            self.assertEqual(combined['omitted_element_guids'],[])
+            self.assertEqual(len(combined['ports']),1)
+            with self.assertRaisesRegex(ProjectError,'unique'):
+                run(path,obj.GlobalId,Path(tmp)/'duplicate',[obj.GlobalId])
+            other.Representation=None
             p.ObjectPlacement=None;f.write(str(path))
             with self.assertRaisesRegex(ProjectError,'placement missing'):extract(path,obj.GlobalId)
             with self.assertRaisesRegex(ProjectError,'represented'):extract(path,other.GlobalId)

@@ -1,4 +1,4 @@
-"""Saved IFC single-element multi-view preview; never drawing/design acceptance."""
+"""Saved IFC selected-element multi-view preview; never drawing/design acceptance."""
 import argparse
 import importlib.metadata
 import json
@@ -37,13 +37,20 @@ def extract(path, guid):
     return vertices, faces, ports, [e.GlobalId for e in f.by_type('IfcElement') if e.GlobalId != guid]
 
 
-def run(ifc, guid, out):
+def run(ifc, guid, out, additional_guids=None):
     ifc, out = Path(ifc).resolve(), Path(out).resolve()
     if out.exists() or out == ifc or out in ifc.parents: raise ProjectError('new separate output directory required')
     versions = {n: importlib.metadata.version(n) for n in ('ifcopenshell', 'matplotlib', 'numpy')}
     if versions != {'ifcopenshell':'0.8.5','matplotlib':'3.11.2','numpy':'2.5.4'}:
         raise ProjectError('pinned preview dependencies required')
     before = digest(ifc); vertices, faces, ports, omitted = extract(ifc, guid)
+    selected=[guid]+list(additional_guids or [])
+    if len(set(selected))!=len(selected):raise ProjectError('unique preview element GUIDs required')
+    for other in selected[1:]:
+        ov,of,op,_=extract(ifc,other)
+        faces=np.concatenate([faces,of+len(vertices)]);vertices=np.concatenate([vertices,ov]);ports+=op
+    omitted=[g for g in omitted if g not in selected]
+    if len(faces)>200000 or len(ports)>12:raise ProjectError('combined preview exceeds triangle or port budget')
     centre = (vertices.min(axis=0)+vertices.max(axis=0))/2
     span = float(np.ptp(vertices, axis=0).max())
     if span <= 0: raise ProjectError('nonzero model extent required')
@@ -88,16 +95,16 @@ def run(ifc, guid, out):
     try: fig.savefig(out/'preview.png',dpi=150)
     finally: plt.close(fig)
     if digest(ifc) != before: raise ProjectError('source IFC changed during preview')
-    result = dict(ifc=str(ifc), ifc_sha256=before, guid=guid, vertices=len(vertices), triangles=len(faces),
+    result = dict(ifc=str(ifc), ifc_sha256=before, guid=guid, included_element_guids=selected, vertices=len(vertices), triangles=len(faces),
                   ports=ports, omitted_element_guids=omitted, display_origin_m=centre.tolist(),
                   world_bounds_m=[vertices.min(axis=0).tolist(),vertices.max(axis=0).tolist()],
                   arrow_length_m=arrow_length, runtime=versions, preview_sha256=digest(out/'preview.png'),
                   visual_review='pending', design_accepted=False,
-                  scope='Selected saved element only; opaque mesh with overlay port markers, not a hidden-line or installation drawing')
+                  scope='Explicitly selected saved elements only; opaque mesh with overlay port markers, not a hidden-line or installation drawing')
     (out/'preview.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
     return result
 
 
 if __name__ == '__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('ifc');p.add_argument('guid');p.add_argument('--out',required=True)
-    a=p.parse_args();r=run(a.ifc,a.guid,a.out);print(json.dumps(r,indent=2))
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('ifc');p.add_argument('guid');p.add_argument('--out',required=True);p.add_argument('--include',action='append',default=[])
+    a=p.parse_args();r=run(a.ifc,a.guid,a.out,a.include);print(json.dumps(r,indent=2))

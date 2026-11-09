@@ -1,0 +1,51 @@
+{
+  "basis": {
+    "source": "Synthetic model-node alignment trial: connector node-a to tee main-b, zero roll; does not prescribe an installed joint",
+    "target_port_guid": "3MmX8gbVTVw9kIXstGG8Pv",
+    "connector_port_guid": "1TF4tJKYzUJOOdlm4Mp4Kv",
+    "roll_degrees": 0,
+    "alignment_tolerance_m": 1e-08,
+    "overlap_volume_tolerance_m3": 1e-12
+  },
+  "checks": {
+    "element_coverage": true,
+    "port_coverage": true,
+    "connector_tessellation": true,
+    "junction_geometry": true,
+    "connector_world_geometry": true,
+    "no_physical_connection_claim": true,
+    "port_1TF4tJKYzUJOOdlm4Mp4Kv": true,
+    "metadata_1TF4tJKYzUJOOdlm4Mp4Kv": true,
+    "port_2meX6SngTGJQpDG5c4QTmF": true,
+    "metadata_2meX6SngTGJQpDG5c4QTmF": true,
+    "junction_port_06bMgjKGbVZv6JGv4KAlnS": true,
+    "junction_port_13fiTCqoHUGPRKYVHoSrjx": true,
+    "junction_port_3MmX8gbVTVw9kIXstGG8Pv": true,
+    "node_alignment": true
+  },
+  "model_alignment_pass": true,
+  "calculated_checks_pass": false,
+  "node_gap_m": 3.352800008858181e-15,
+  "axis_dot": -1.0000000000000002,
+  "material_overlap_m3": 2.6501259276899105e-09,
+  "material_overlap_above_tolerance": true,
+  "ifc_sha256": "6bf665213dea73329778174c5d307070f32abc679e86aafbeecc74d43a25a06f",
+  "design_accepted": false,
+  "pending": [
+    "source node/installed pipe-end correspondence",
+    "intended contact and gasket/pipe compatibility",
+    "full joint and hydraulic connections",
+    "engineering and regulatory acceptance"
+  ],
+  "schema_express_issues": 0,
+  "source_hashes_verified": true,
+  "preview_sha256": "3fa026c0452affbe074d3cb6d81bb450aa5d5ab32f089428157bf53f8708cd9b",
+  "included_element_guids": [
+    "2Q4jE0K8rUjOk8i3fjJYIc",
+    "3tkGcTaGvM9wS1MY9giI$W"
+  ],
+  "omitted_element_guids": [],
+  "visual_review": "Actual four-view PNG inspected: both bodies visible; almost coincident labels overlap. Diagnostic placement preview only, no installation acceptance.",
+  "geometry_caveat": "STL tessellation and 20 micrometre conversion comparison tolerance do not establish exact physical interference from this small mesh overlap.",
+  "upstream": "IfcOpenShell 0.8.5 project.append_asset and geometry.edit_object_placement; Manifold3D 3.5.4 intersection. No upstream implementation copied."
+}
