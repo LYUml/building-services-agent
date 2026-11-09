@@ -1,0 +1,62 @@
+{
+  "run": "runs/public-concept-workflow-v5",
+  "summary": {
+    "concept_tasks": {
+      "concept-compact": "pass",
+      "concept-slender": "pass",
+      "concept-stacked": "pass",
+      "facade-compact": "pass",
+      "facade-view-compact": "pass",
+      "facade-slender": "pass",
+      "facade-view-slender": "pass",
+      "facade-stacked": "pass",
+      "facade-view-stacked": "pass"
+    },
+    "pending_interpretation_tasks": 34,
+    "design_accepted": false,
+    "scope": "Partial real-brief workflow: concept geometry only; original technical obligations retained"
+  },
+  "integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "facades": {
+    "compact": {
+      "ifc_sha256": "35bab142598343c8678ab3c3fc42216ac8c3f9104eb79f19f27c92b219559104",
+      "preview_ifc_sha256": "35bab142598343c8678ab3c3fc42216ac8c3f9104eb79f19f27c92b219559104",
+      "groups": 8,
+      "original_records_preserved": true,
+      "native_geometry_checks_pass": true
+    },
+    "slender": {
+      "ifc_sha256": "305f07b9943e92ee2969658991a077f1c2ceb023cd6a27f004487844aa7fc21e",
+      "preview_ifc_sha256": "305f07b9943e92ee2969658991a077f1c2ceb023cd6a27f004487844aa7fc21e",
+      "groups": 8,
+      "original_records_preserved": true,
+      "native_geometry_checks_pass": true
+    },
+    "stacked": {
+      "ifc_sha256": "e5235377f3804d57f5aba4ad9cb46098025064e2728e57aee0eabfffb574acf9",
+      "preview_ifc_sha256": "e5235377f3804d57f5aba4ad9cb46098025064e2728e57aee0eabfffb574acf9",
+      "groups": 16,
+      "original_records_preserved": true,
+      "native_geometry_checks_pass": true
+    }
+  },
+  "tests": {
+    "total": 10,
+    "workflow": 4,
+    "cli": 3,
+    "bim": 3,
+    "passed": true
+  },
+  "design_accepted": false,
+  "visual_evidence": {
+    "workflow_preview": "facade-view-stacked/preview.png",
+    "sha256": "e9a7ded05c19694f04f95c6c8e831978d3d5cf6290e2b4168c86a55c9c997e6e",
+    "exact_bytes_match_previously_inspected": "runs/public-facades-v1/stacked/wall-only-preview/preview.png",
+    "scope": "Isolated diagnostic wall only; full native BIM GUI review remains pending"
+  }
+}

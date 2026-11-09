@@ -11,7 +11,7 @@ from pathlib import Path
 from .cli import digest
 from .engine import ProjectError
 
-IFC_ARTIFACTS={'rectangular_model_design':'selected-coordination/bim/model.ifc','rectangular_network_binding':'bim/model.ifc','product_alignment':'alignment.ifc','connector_ports':'placed-connector.ifc','cad_ifc':'fitting.ifc','product_ports':'placed-fitting.ifc','tee_selection':'selected/assembly/assembly.ifc','tee_assembly':'assembly.ifc','ifc_metadata':'native/model.ifc','selected_pump_ifc':'selected-model.ifc','regulated_water_model':'selected-coordination/bim/model.ifc','annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
+IFC_ARTIFACTS={'concept_facade':'facade.ifc','rectangular_model_design':'selected-coordination/bim/model.ifc','rectangular_network_binding':'bim/model.ifc','product_alignment':'alignment.ifc','connector_ports':'placed-connector.ifc','cad_ifc':'fitting.ifc','product_ports':'placed-fitting.ifc','tee_selection':'selected/assembly/assembly.ifc','tee_assembly':'assembly.ifc','ifc_metadata':'native/model.ifc','selected_pump_ifc':'selected-model.ifc','regulated_water_model':'selected-coordination/bim/model.ifc','annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
                'route_model':'bound/bim/model.ifc','route_optimize':'selected/bound/bim/model.ifc',
                'network_model_design':'selected-coordination/bim/model.ifc',
                'electrical_coordination':'bim/model.ifc','electrical_lighting':'shared/bim/model.ifc','pump_electrical':'model.ifc','water_coordination':'model.ifc'}
@@ -298,7 +298,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","rectangular_network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind in ("water_network","rectangular_network") and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
@@ -663,6 +663,15 @@ def validate_plan(path):
             else:
                 diagram_source=local_path(root,t.get('dxf'));inputs.add(diagram_source)
                 if diagram_source.suffix.lower()!='.dxf':raise ProjectError('native diagram source must be DXF')
+        if kind=='concept_facade':
+            from . import concept_facade,concept_layout,concept_spaces,box_geometry,circular_geometry,thermal_binding,thermal_geometry,thermal_windows
+            if set(t)-{'id','kind','depends_on','basis','requires_pass','description'}:raise ProjectError('concept facade inherits exact model/source/layout; replacement fields forbidden')
+            parent=t.get('depends_on')
+            if parent not in ids:raise ProjectError('concept facade requires earlier concept BIM task')
+            producer=next(x for x in tasks if x['id']==parent)
+            if producer['kind']!='bim' or not producer.get('concept_layout'):raise ProjectError('concept facade requires earlier BIM with concept_layout')
+            basis=local_path(root,t.get('basis'));inputs.add(basis);concept_facade.settings(read_json(basis))
+            inputs.update(Path(m.__file__).resolve() for m in (concept_facade,concept_layout,concept_spaces,box_geometry,circular_geometry,thermal_binding,thermal_geometry,thermal_windows))
         if kind=='bim':
             from . import bim,concept_spaces,box_geometry
             inputs.update(Path(m.__file__).resolve() for m in (bim,concept_spaces,box_geometry))
@@ -813,12 +822,13 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
     if any(out==f or out in f.parents for f in inputs):raise ProjectError("run output must not contain inputs")
     before={str(f):digest(f) for f in inputs}
     out.mkdir(parents=True,exist_ok=False)
-    evidence={};tasks={};three_phase_pins={};three_phase_rule_pins={};rectangular_pins={}
+    evidence={};tasks={};three_phase_pins={};three_phase_rule_pins={};rectangular_pins={};concept_pins={}
     root=plan.parent
     for t in p["tasks"]:
         folder=out/t["id"]
         status="pending";reason="";payload=None
         try:
+            if any(not Path(f).is_file() or digest(Path(f))!=sha for pins in concept_pins.values() for f,sha in pins.items()):raise ProjectError('concept producer artifacts changed before downstream execution')
             if any(not f.is_file() or digest(f)!=before[str(f)] for f in inputs):
                 raise ProjectError('workflow source changed before task execution; adapter not executed')
             for parent in [t.get('depends_on'),*t.get('requires_pass',[])]:
@@ -1321,6 +1331,15 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     payload=run(local_path(root,t["project"]),folder,energyplus)
                     status="pass";reason="design-day engine execution; no annual energy or physical HVAC routing asserted"
                 else:reason="EnergyPlus executable not supplied"
+            elif t['kind']=='concept_facade':
+                parent=t['depends_on']
+                if tasks[parent]['status']!='pass':reason='upstream concept model/layout did not pass; facade not executed'
+                else:
+                    from .concept_facade import run as facade
+                    producer=next(x for x in p['tasks'] if x['id']==parent)
+                    payload=facade(out/parent/'model.ifc',local_path(root,producer['project']),local_path(root,producer['concept_layout']),local_path(root,t['basis']),folder)
+                    status='pass' if payload['native_geometry_checks_pass'] else 'fail'
+                    reason='source-inherited concept facade with saved native void/filling/geometry checks; envelope windows only, thermal/performance/full acceptance pending'
             elif t["kind"]=="bim":
                 from .bim import run
                 payload=run(local_path(root,t['project']),folder)
@@ -1523,6 +1542,9 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     status="pass";reason="native reopen/geometry checks and PDF generation; visual acceptance pending"
                 else:reason="AutoCAD executable not supplied"
             else:reason=t.get("description","manual engineering/visual verification required")
+            if any(not Path(f).is_file() or digest(Path(f))!=sha for pins in concept_pins.values() for f,sha in pins.items()):raise ProjectError('concept producer artifacts changed during downstream execution')
+            if status=='pass' and (t['kind']=='concept_facade' or t['kind']=='bim' and t.get('concept_layout')):
+                concept_pins[t['id']]={str(f):digest(f) for f in folder.rglob('*') if f.is_file()}
         except Exception as exc:
             status="fail";reason=f"{type(exc).__name__}: {exc}"
         tasks[t["id"]]=dict(kind=t["kind"],status=status,scope=reason)

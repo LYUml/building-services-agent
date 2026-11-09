@@ -45,6 +45,8 @@ def run_workflow(out,source_cache):
     plan=json.loads(path.read_text(encoding='utf-8'));decision_path=ROOT/'benchmarks/mit-4401-2018/massing-decisions.json';data=json.loads(decision_path.read_text(encoding='utf-8'));before=digest(decision_path)
     passage=next(r for r in plan_documents(out,plan)['passages'] if r['id']=='D002:P001')
     tasks=[]
+    facade_basis=out/'facade-basis.json'
+    facade_basis.write_bytes((ROOT/'benchmarks/mit-4401-2018/facade-decisions.json').read_bytes())
     for variant in data['variants']:
         file=out/(variant['id']+'.json');model=stage(data,variant);model['sources']['design']+=' Decision record SHA256 '+before
         file.write_text(json.dumps(model,indent=2),encoding='utf-8')
@@ -52,6 +54,14 @@ def run_workflow(out,source_cache):
         settings.write_text(json.dumps(dict(source='Course WWR assignment5 page1 SHA256 '+data['source']['sha256']+'; centered equal-fraction rectangles are unapproved design decisions',window_wall_ratio=data['window_wall_ratio']['course_comparison_target'],layout='centered-equal-fraction'),indent=2),encoding='utf-8')
         id='concept-'+variant['id'];tasks.append(dict(id=id,kind='bim',project=file.name,concept_layout=settings.name))
         plan['requirements'].append(dict(id='concept-'+variant['id'],passage=passage['id'],quote=passage['text'],task=id,acceptance='Unapproved source-defined gross concept space/storey geometry only; including sourced draft window layout; full site, facade/daylight/program acceptance remains in retained interpretation requirements'))
+    model_tasks=list(tasks)
+    for task in model_tasks:
+        label=task['id'].removeprefix('concept-');fid='facade-'+label
+        tasks.append(dict(id=fid,kind='concept_facade',depends_on=task['id'],basis=facade_basis.name))
+        guid=__import__('ifcopenshell').guid.compress(uuid.uuid5(uuid.UUID(model['project_uuid']),'IfcWall_Space_Level1_XMinus').hex)
+        tasks.append(dict(id='facade-view-'+label,kind='ifc_preview',depends_on=fid,guid=guid))
+        plan['requirements'].append(dict(id=fid,passage=passage['id'],quote=passage['text'],task=fid,acceptance='Unapproved native facade geometry with explicit thickness decisions; no materials/performance or full architectural acceptance'))
+        plan['requirements'].append(dict(id='facade-view-'+label,passage=passage['id'],quote=passage['text'],task='facade-view-'+label,acceptance='Single-wall saved-IFC diagnostic preview only; not course daylight visualization or approved drawing'))
     plan['tasks']=tasks+plan['tasks'];path.write_text(json.dumps(plan,ensure_ascii=False,indent=2),encoding='utf-8')
     worker=subprocess.run([sys.executable,'-m','bsa.cli','workflow',str(path),'--out',str(out/'workflow')],capture_output=True,text=True)
     (out/'worker.log').write_text(worker.stdout+worker.stderr,encoding='utf-8')
