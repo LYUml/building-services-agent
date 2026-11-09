@@ -76,11 +76,18 @@ def regulatory_source_bindings(tasks,root):
             if kind in geometric:current['geometry']=local_path(root,task.get('geometry'))
         elif isinstance(task.get('depends_on'),str):
             current=dict(sources.get(task['depends_on'],{}))
+        if kind=='plumbing_pump_set':
+            from .plumbing_pump_set import inputs as set_inputs
+            current={'pump_set':local_path(root,task['project']),'plumbing_basis':local_path(root,task['basis'])}
+            for row in set_inputs(current['pump_set'])[1]:
+                for field in ('network','curve'):current[row['role']+'_'+field]=row[field]
         if kind in ('plumbing_pump_regulations','pump_operating_point'):
             current['pump_curve']=local_path(root,task.get('curve'))
         if kind=='plumbing_pump_regulations':current['plumbing_basis']=local_path(root,task.get('basis'))
         for parent in sorted(upstream):
-            if known[parent]['kind'] not in ('plumbing_pump_regulations','epanet_pipe_regulations','circulation_duty','electrical_regulations','lighting_regulations','water_pipe_regulations'):continue
+            if known[parent]['kind'] not in ('plumbing_pump_set','plumbing_pump_regulations','epanet_pipe_regulations','circulation_duty','electrical_regulations','lighting_regulations','water_pipe_regulations'):continue
+            if known[parent]['kind']=='plumbing_pump_set' and kind in ('network','pump_operating_point','plumbing_pump_regulations'):
+                raise ProjectError('pump-set gate needs an explicit per-role downstream binding; single-pump substitution unsupported')
             if (known[parent]['kind']=='plumbing_pump_regulations' and 'network_template' in sources[parent]
                     and kind in ('network','pump_operating_point','plumbing_pump_regulations') and 'network_template' not in current):
                 raise ProjectError('derived plumbing gate requires the same inherited network producer; explicit replacement cannot establish correspondence')
@@ -137,7 +144,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind=="water_network" and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
@@ -147,7 +154,7 @@ def validate_plan(path):
                 raise ProjectError('HVAC regulations require an earlier design-day energy producer')
             if any(k in t for k in ('idf','project','variant')):
                 raise ProjectError('HVAC regulations read both producer variants; replacement inputs forbidden')
-        if kind in ('plumbing_pump_regulations','epanet_pipe_regulations','regulations','electrical_regulations','lighting_regulations','hvac_regulations','water_pipe_regulations','regulated_water_model'):
+        if kind in ('plumbing_pump_set','plumbing_pump_regulations','epanet_pipe_regulations','regulations','electrical_regulations','lighting_regulations','hvac_regulations','water_pipe_regulations','regulated_water_model'):
             from .regulations import source_paths
             pack=local_path(root,t.get('pack'));project=local_path(root,t.get('basis' if kind=='hvac_regulations' or kind in ('water_pipe_regulations','plumbing_pump_regulations') and t.get('depends_on') else 'project'))
             directory=t.get('sources')
@@ -165,6 +172,11 @@ def validate_plan(path):
                 if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='network_coordination':raise ProjectError('derived plumbing capacity requires earlier network_coordination')
                 if any(k in t for k in ('project','model','binding','ifc','producer')):raise ProjectError('derived plumbing capacity inherits original inputs; replacements forbidden')
             inputs.update(local_path(root,t.get(key)) for key in ('curve','basis'))
+        if kind=='plumbing_pump_set':
+            from .plumbing_pump_set import inputs as pump_set_inputs
+            if t.get('depends_on'):raise ProjectError('pump set requires explicit sourced scenarios; inheritance unsupported')
+            inputs.update(pump_set_inputs(local_path(root,t.get('project')))[2])
+            inputs.add(local_path(root,t.get('basis')))
         if kind=='circulation_pump_design':
             from .circulation_pump_design import candidates
             from .regulations import source_paths
@@ -677,6 +689,10 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                         directory=out/parent;template=local_path(root,producer['project']);binding=local_path(root,producer['binding'])
                     payload=run(directory,template,binding,local_path(root,t['thermal_basis']),local_path(root,t['rule_basis']),local_path(root,t['pack']),root/t['sources'],folder)
                     status=payload['status'];reason='saved IFC-derived circulation thermal and scoped pipe rules; full acceptance pending'
+            elif t['kind']=='plumbing_pump_set':
+                from .plumbing_pump_set import run
+                payload=run(*(local_path(root,t[key]) for key in ('project','basis','pack')),root/t['sources'],folder)
+                status=payload['status'];reason=payload['scope']
             elif t['kind']=='plumbing_pump_regulations':
                 parent=t.get('depends_on')
                 if parent and tasks[parent]['status']!='pass':reason='upstream saved network did not pass; plumbing capacity not executed'

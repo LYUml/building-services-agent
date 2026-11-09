@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "source": "Synthetic independently evaluated pump set; no installed equipment or redundancy certification",
+  "operating_mode": "one duty and one standby; each evaluated alone",
+  "pumps": [
+    {
+      "id": "SYNTHETIC-DUTY",
+      "role": "duty",
+      "network": "network.json",
+      "curve": "curve.json",
+      "source": "Explicit synthetic role; identical illustrative curve and route reused for both independent scenarios"
+    },
+    {
+      "id": "SYNTHETIC-STANDBY",
+      "role": "standby",
+      "network": "network.json",
+      "curve": "curve.json",
+      "source": "Explicit synthetic role; identical illustrative curve and route reused for both independent scenarios"
+    }
+  ]
+}

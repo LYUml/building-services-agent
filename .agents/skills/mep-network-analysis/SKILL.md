@@ -47,3 +47,6 @@ To record a screened curve back onto a saved circulation IFC, use bsa.selected_p
 
 
 Inherited screening requires a passing baseline by default. For intentional iteration, set allow_failed_baseline: true only on circulation_pump_design inheriting water_coordination and follow docs/SELECTED_PUMP_IFC.md. The adapter rechecks saved geometry/native hashes and reevaluates raw results; only pressure/delivery/velocity target failures qualify while numerical, engine and curve checks must pass. Original failure and aggregate execution_pass remain false; explicit requires_pass on the baseline still blocks search. A passing revised selection permits new IFC and fresh checks, not retrospective baseline acceptance. For no-feasible results retain every rejection and obtain a justified revised catalogue or design constraint; never extrapolate a curve or relax targets solely to obtain a pass.
+
+
+For a sourced one-duty/one-standby tank-transfer design, use bsa.plumbing_pump_set / workflow kind plumbing_pump_set and docs/HK_PLUMBING_PUMPS.md. Each role solves its own route/curve at the common receiving boundary and must meet the same target alone; do not sum standby flow. Keep each input hash and role failure. This is an explicit sequential-operating design mode, not proof of installed redundancy, controls, parallel operation or IFC identity.

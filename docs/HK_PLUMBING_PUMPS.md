@@ -65,3 +65,18 @@ The runner checks the official PDF against the pinned pack before staging a new 
 Observed task statuses (route / capacity / downstream pump) are pass/pass/pass, pass/fail/pending and pass/pending/pending respectively. The latter two create no downstream pump output. The runner's demonstration_checks_pass means these expected behaviors were observed; it does not convert negative tasks to passes or approve an engineering design. Existing output directories are not overwritten. Evidence is retained in docs/evidence/hk-plumbing-demo with official PDFs excluded from redistribution.
 
 For a real assignment, interpret the actual brief and source drawings into a separate plan. Do not edit the demonstration to masquerade as project data or reuse its flow/dimensions as measured inputs. Native DWG, actual pump/tank identity, standby controls and complete regulatory/engineering acceptance are not supplied by this runner.
+
+
+## One-duty / one-standby capacity scenarios
+
+Use `bsa.plumbing_pump_set` or workflow kind `plumbing_pump_set` for an explicitly sourced **one operating pump at a time** design. This operating mode is a project contract, not a new universal interpretation of WSD redundancy requirements. The two role IDs and source descriptions do not prove that physical duplicate equipment is installed.
+
+```powershell
+.venv/Scripts/python -m bsa.plumbing_pump_set --project examples/hk-plumbing-pumps/pump-set.json --basis examples/hk-plumbing-pumps/binding.json --pack regulations/hk/plumbing-pumps-2026.11.09/pack.json --sources runs/hk-regulation-sources --out runs/new-pump-set
+```
+
+The set contract contains exactly one duty and one standby row, each with a unique ID, source and relative network/curve file paths. Paths must stay in the set directory. Separate routes/curves are permitted, but fluid properties and receiving-terminal identity/elevation/total-pressure boundary must match; each terminal design flow must match the common tank-outflow basis. A physically justified common datum and fixed boundary remain source responsibilities.
+
+Both roles execute the existing fresh pump/pipe/WSD adapter independently. Each must meet the complete design target alone; capacities are never added. A failed standby cannot be masked by a passing duty pump. Missing evidence remains pending, rejected/failed role results remain in the report, and all nested inputs are hash-tracked. Workflow inputs include both networks and both curves. Downstream repeated set checks compare the full role-specific source inputs; single-pump consumers require a future explicit role binding and cannot borrow the set prerequisite.
+
+Official-PDF-backed synthetic positive and weak-standby negative evidence is in docs/evidence/hk-pump-set. The latter retains duty pass / standby fail and overall failure. Tests cover actual separate solves, gated downstream blocking, source modification, duplicate identities and mismatched receiving boundaries. This does not simulate simultaneous parallel pumps, switching/interlocks, isolation valves, common-cause reliability, dynamic tank levels, actual suction/NPSH or physical IFC identity. Full engineering acceptance remains false.
