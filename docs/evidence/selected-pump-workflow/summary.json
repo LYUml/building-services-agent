@@ -1,0 +1,21 @@
+{
+  "tasks": {
+    "model": "pass",
+    "bound": "pass",
+    "screen": "pass",
+    "selected": "pass",
+    "combined": "pass",
+    "information": "pass",
+    "water": "pass"
+  },
+  "integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "execution_pass": true,
+  "design_accepted": false,
+  "archive_sha256": "67c9a540ca6e817cd15d3323f04b48b90f165c664d92e9d8ce6544b0eee9239b",
+  "official_pdf_omitted": true
+}

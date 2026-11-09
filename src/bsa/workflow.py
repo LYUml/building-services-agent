@@ -11,7 +11,7 @@ from pathlib import Path
 from .cli import digest
 from .engine import ProjectError
 
-IFC_ARTIFACTS={'regulated_water_model':'selected-coordination/bim/model.ifc','annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
+IFC_ARTIFACTS={'selected_pump_ifc':'selected-model.ifc','regulated_water_model':'selected-coordination/bim/model.ifc','annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
                'route_model':'bound/bim/model.ifc','route_optimize':'selected/bound/bim/model.ifc',
                'network_model_design':'selected-coordination/bim/model.ifc',
                'electrical_coordination':'bim/model.ifc','electrical_lighting':'shared/bim/model.ifc','pump_electrical':'model.ifc','water_coordination':'model.ifc'}
@@ -128,7 +128,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind=="water_network" and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
@@ -153,9 +153,14 @@ def validate_plan(path):
         if kind=='circulation_pump_design':
             from .circulation_pump_design import candidates
             from .regulations import source_paths
-            project=local_path(root,t.get('project'));catalogue=local_path(root,t.get('catalogue'));pack=local_path(root,t.get('pack'))
-            candidates(read_json(project),read_json(catalogue))
-            if t.get('depends_on'):raise ProjectError('pump screening currently requires explicit standalone project')
+            catalogue=local_path(root,t.get('catalogue'));pack=local_path(root,t.get('pack'))
+            parent=t.get('depends_on')
+            if parent:
+                if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='water_coordination' or 'project' in t:raise ProjectError('inherited pump screening requires earlier water_coordination and no replacement project')
+                producer=next(x for x in tasks if x['id']==parent)
+                project=local_path(root,producer['project'])
+            else:project=local_path(root,t.get('project'))
+            if not parent:candidates(read_json(project),read_json(catalogue))
             directory=t.get('sources')
             if not isinstance(directory,str) or Path(directory).is_absolute():raise ProjectError('relative regulation source directory required')
             directory=(root/directory).resolve()
@@ -163,9 +168,15 @@ def validate_plan(path):
             official=source_paths(read_json(pack),directory)
             if any(not f.is_file() for f in official):raise ProjectError('download required official sources before workflow execution')
             inputs.update({project,catalogue,pack,local_path(root,t.get('thermal_basis')),local_path(root,t.get('rule_basis'))}|official)
+        if kind=='selected_pump_ifc':
+            parent=t.get('depends_on')
+            if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='circulation_pump_design':raise ProjectError('selected IFC requires earlier pump screening')
+            screen=next(x for x in tasks if x['id']==parent)
+            if not screen.get('depends_on'):raise ProjectError('selected IFC requires screening inherited from water_coordination')
+            if any(k in t for k in ('project','ifc','template','binding','catalogue','producer','screening','ifc_from')):raise ProjectError('selected IFC inherits all inputs; replacements forbidden')
         if kind=='ifc_circulation_checks':
             parent=t.get('depends_on')
-            if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='water_coordination':raise ProjectError('IFC circulation checks require earlier water_coordination')
+            if parent not in ids or next(x for x in tasks if x['id']==parent)['kind'] not in ('water_coordination','selected_pump_ifc'):raise ProjectError('IFC circulation checks require earlier water_coordination or selected_pump_ifc')
             if any(k in t for k in ('project','template','binding','ifc','producer')):raise ProjectError('IFC circulation checks inherit producer inputs; replacements forbidden')
             from .regulations import source_paths
             pack=local_path(root,t.get('pack'))
@@ -351,6 +362,16 @@ def validate_plan(path):
     if {r["task"] for r in requirements}!=ids:raise ProjectError("every task must map to a requirement")
     regulatory_source_bindings(tasks,root)
     return p,inputs
+
+
+def screening_project(task,tasks,root,out):
+    """Resolve the exact screening scenario; reconcile inherited saved geometry."""
+    parent=task.get('depends_on')
+    if not parent:return local_path(root,task['project'])
+    from .ifc_circulation_checks import verify_producer
+    producer=next(x for x in tasks if x['id']==parent)
+    verify_producer(out/parent,local_path(root,producer['project']),local_path(root,producer['binding']))
+    return out/parent/'network-input.json'
 
 
 def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
@@ -599,16 +620,37 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                 reason='IFC port-derived circular route dimensions and prescribed-flow pressure budget; detailed routing and full acceptance pending'
             elif t['kind']=='circulation_pump_design':
                 from .circulation_pump_design import run
-                payload=run(*(local_path(root,t[key]) for key in ('project','catalogue','thermal_basis','rule_basis','pack')),root/t['sources'],folder)
-                status='pass' if payload['feasible_candidate_found'] and payload['selected_rerun_pass'] else 'fail'
-                reason='bounded sourced pump screening with hydraulic/thermal/pipe-rule checks and selected rerun; IFC/product/full acceptance pending'
+                parent=t.get('depends_on')
+                if parent and tasks[parent]['status']!='pass':reason='upstream water model unavailable; screening not executed'
+                else:
+                    source=screening_project(t,p['tasks'],root,out)
+                    payload=run(source,*(local_path(root,t[key]) for key in ('catalogue','thermal_basis','rule_basis','pack')),root/t['sources'],folder)
+                    screening_project(t,p['tasks'],root,out)
+                    status='pass' if payload['feasible_candidate_found'] and payload['selected_rerun_pass'] else 'fail'
+                    reason='bounded sourced pump screening with hydraulic/thermal/pipe-rule checks and selected rerun; product/full acceptance pending'
+            elif t['kind']=='selected_pump_ifc':
+                parent=t['depends_on']
+                if tasks[parent]['status']!='pass':reason='upstream pump screening has no passing selection; IFC revision not executed'
+                else:
+                    from .selected_pump_ifc import run
+                    screen=next(x for x in p['tasks'] if x['id']==parent)
+                    bound=next(x for x in p['tasks'] if x['id']==screen['depends_on'])
+                    payload=run(out/bound['id'],out/parent,local_path(root,bound['project']),local_path(root,bound['binding']),local_path(root,screen['catalogue']),folder)
+                    status='pass' if payload['calculated_checks_pass'] else 'fail'
+                    reason='selected curve on new IFC with stable pump/port identity and fresh hydraulic rebind; product geometry and full acceptance pending'
             elif t['kind']=='ifc_circulation_checks':
                 parent=t['depends_on']
                 if tasks[parent]['status']!='pass':reason='upstream saved water coordination did not pass; combined checks not executed'
                 else:
                     from .ifc_circulation_checks import run
                     producer=next(x for x in p['tasks'] if x['id']==parent)
-                    payload=run(out/parent,local_path(root,producer['project']),local_path(root,producer['binding']),local_path(root,t['thermal_basis']),local_path(root,t['rule_basis']),local_path(root,t['pack']),root/t['sources'],folder)
+                    if producer['kind']=='selected_pump_ifc':
+                        screen=next(x for x in p['tasks'] if x['id']==producer['depends_on'])
+                        bound=next(x for x in p['tasks'] if x['id']==screen['depends_on'])
+                        directory=out/parent/'rebound';template=out/parent/'selected-template.json';binding=local_path(root,bound['binding'])
+                    else:
+                        directory=out/parent;template=local_path(root,producer['project']);binding=local_path(root,producer['binding'])
+                    payload=run(directory,template,binding,local_path(root,t['thermal_basis']),local_path(root,t['rule_basis']),local_path(root,t['pack']),root/t['sources'],folder)
                     status=payload['status'];reason='saved IFC-derived circulation thermal and scoped pipe rules; full acceptance pending'
             elif t['kind']=='epanet_pipe_regulations':
                 from .epanet_pipe_regulations import run
@@ -628,7 +670,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                     if parent:
                         from .circulation_pump_design import selected_input
                         producer=next(x for x in p['tasks'] if x['id']==parent)
-                        source=selected_input(out/parent,local_path(root,producer['project']),local_path(root,producer['catalogue']))
+                        source=selected_input(out/parent,screening_project(producer,p['tasks'],root,out),local_path(root,producer['catalogue']))
                     else:source=local_path(root,t['project'])
                     payload=run(source,folder)
                     status='pass' if payload['calculated_checks_pass'] else 'fail'
