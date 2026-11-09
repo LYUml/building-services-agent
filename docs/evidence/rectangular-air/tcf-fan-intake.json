@@ -1,0 +1,19 @@
+{
+  "record": "sources\\products\\tcf-bc-sw-122.json",
+  "record_sha256": "5636f0f33a4b58ba0963e85776886816f85b5e5d43e2e94cf9e63ffc902099e8",
+  "pdf_sha256": "a50f3202afc6fb0fc42af856d43493dc1079a529de36634d25bef9c9ebdcd18b",
+  "pdf_bytes": 6784738,
+  "reviewed_pages": {
+    "12": "e98642c3cb156a14ee7880419561dd8b3c3483d6bc7e5b142eaa22413f113896",
+    "13": "5c340861f43b6c4951bbc44a18581cce88a08e79a5e5dcaeca3f9f045850d817",
+    "17": "75aa317c70079160a3a4295e6efa13b5ba7f08b52282d22d6d930308faad46f3"
+  },
+  "local_source": "runs\\tcf-fan-intake-v1\\tcf-m300.pdf",
+  "result": "research only; no solver curve generated",
+  "next_required": [
+    "Source numeric data or independently validated chart digitization with uncertainty",
+    "Select construction class and enforce maximum speed",
+    "Bind installation/stable region and real motor electrical input"
+  ],
+  "design_accepted": false
+}

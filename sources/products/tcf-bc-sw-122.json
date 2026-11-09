@@ -1,0 +1,73 @@
+{
+  "record_type": "manufacturer_research_not_solver_input",
+  "product": {
+    "manufacturer": "Twin City Fan & Blower",
+    "designation": "BC-SW 122",
+    "construction_class": null
+  },
+  "source": {
+    "url": "https://eu.tcf.com/wp-content/uploads/sites/4/2018/06/BC-Backward-Inclined-Catalogue-M300-Metric-1.pdf",
+    "discovery_page": "https://eu.tcf.com/products/centrifugal-fans/bc-sw/",
+    "publication": "M300",
+    "edition": "August 2012",
+    "retrieved": "2026-11-10",
+    "sha256": "a50f3202afc6fb0fc42af856d43493dc1079a529de36634d25bef9c9ebdcd18b",
+    "rights": "Manufacturer publication; no redistribution license established; PDF/images retained only in ignored runs",
+    "review": "Printed/PDF pages 12,13,17 rendered with Poppler and visually reviewed"
+  },
+  "published_data": {
+    "reference_air": {
+      "printed_page": 12,
+      "density_kg_m3": 1.2,
+      "temperature_c": 21,
+      "barometric_pressure_kpa": 101.325
+    },
+    "maximum_speed_rpm": {
+      "printed_page": 13,
+      "row": "BC SWSI 122",
+      "Class_I": 3167,
+      "Class_II": 4119,
+      "Class_III": 5208,
+      "Class_IV": 5608
+    },
+    "curve": {
+      "printed_page": 17,
+      "pressure": "fan total pressure",
+      "pressure_unit": "Pa",
+      "flow_unit": "m3/s",
+      "speed_lines_rpm": [
+        960,
+        1450,
+        2000,
+        2500,
+        2850,
+        3500
+      ],
+      "installation_types": [
+        "B",
+        "D"
+      ],
+      "transmission_losses_in_power": false,
+      "accessory_effects_in_performance": false,
+      "duct_end_correction_included": false
+    }
+  },
+  "unresolved_for_current_adapters": {
+    "numerical_curve_points": null,
+    "digitization_error_bounds": null,
+    "selected_speed_and_class": null,
+    "dynamic_viscosity_pa_s": null,
+    "application_installation_correspondence": null,
+    "stable_operating_interval": null,
+    "actual_drawn_motor_input_w": null,
+    "motor_transmission_selection": null,
+    "physical_product_ports_and_geometry": null,
+    "current_product_availability_and_project_suitability": null
+  },
+  "assessment": {
+    "solver_ready": false,
+    "design_accepted": false,
+    "mechanical_speed_gate_implemented": false,
+    "note": "Published graph is not a numeric curve; 3500 rpm exceeds Class I maximum; catalogue power cannot substitute for drawn electrical input"
+  }
+}
