@@ -1,0 +1,12 @@
+{
+  "source": "Explicit synthetic port-to-node/route association; no fan or terminal equipment represented",
+  "nodes": {
+    "FAN": "DUCT.in",
+    "A": "DUCT.out"
+  },
+  "segments": {
+    "MAIN": [
+      "DUCT"
+    ]
+  }
+}

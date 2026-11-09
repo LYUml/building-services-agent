@@ -62,6 +62,8 @@ The requested end state is reusable automation from a requirement document and s
 
 ## Next sequence
 
+Source-defined rectangular straight port chains now derive geometry-free pressure input, author/reopen native hollow IFC, independently inspect saved walls and reconcile saved directed ports before fresh pressure analysis. Actual positive and low-pressure gates plus profile mutation controls pass; selected-catalogue automatic revision and full physical/engineering/HK acceptance remain pending (RECTANGULAR_AIR_NETWORKS.md).
+
 Explicit rectangular hollow straight duct authoring now reuses standard IFC profiles plus native saved schema/geometry/port audits. Actual three-axis geometry and saved mutation controls pass; the synthetic 500x300 mm/1 mm/2 m wall has verified 0.003208 m3 material volume. This is not yet selected-network binding, bends/junctions, native drawings or full HVAC/Hong Kong acceptance (RECTANGULAR_AIR_NETWORKS.md).
 
 Rectangular selected-network inheritance now reconstructs original-source candidate identity and verifies producer artifact/source/rerun hashes before fresh consumer analysis. Actual positive handoff passes with manual review pending; replacement/no-feasible and changed selected-file controls reject. Nineteen rectangular plus seven dependency tests pass. This remains geometry-free; fan, spatial and full assignment/Hong Kong acceptance remain pending.

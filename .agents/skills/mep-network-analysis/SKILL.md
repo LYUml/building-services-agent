@@ -5,6 +5,8 @@ description: Calculate source-linked air/water tree budgets, single-line pump op
 
 # Network pressure analysis
 
+For source-model bound rectangular straight routes, use rectangular_network_binding rather than manually copying width/height/length into pressure inputs. Read docs/RECTANGULAR_AIR_NETWORKS.md: omit node elevations and segment dimensions/lengths, require exact source port-chain coverage, retain independent saved wall/port checks and pressure failures. It does not revise the model from a catalogue selection or resolve junction/fan/installation/regulatory acceptance.
+
 After rectangular_network_design, use rectangular_network depends_on on that producer and omit project. The consumer reconstructs and verifies the selected source candidate before fresh pressure analysis; replacement inputs, no-feasible selection and changed artifacts block. See docs/RECTANGULAR_AIR_NETWORKS.md and selected-plan.json. This handoff is geometry-free and does not establish spatial, fan or regulatory acceptance.
 
 For bounded rectangular duct sizing, use bsa.rectangular_design or workflow rectangular_network_design with project/catalogue per docs/RECTANGULAR_AIR_NETWORKS.md. Reuse the existing exhaustive finite search and save/rerun the chosen rectangular input. Require sourced width/height/roughness/options, a declared score and explicit fixed-route/local-K applicability across sizes. Preserve no-feasible and unsupported candidates; do not substitute the old circular network/model-binding tools for selected-network.json. Geometry, fan, acoustics/fire and Hong Kong acceptance remain separate.

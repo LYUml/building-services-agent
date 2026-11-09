@@ -10,8 +10,14 @@ from . import circular_elbow as elbow
 
 
 def prepare(network, model, binding):
+    return _prepare(network,model,binding)
+
+
+def _prepare(network, model, binding, rectangular=False):
     from .bim import validate as validate_bim
     from .network import validate as validate_network
+    if rectangular:
+        from .rectangular_network import prepare as validate_network
     validate_bim(model)
     if not isinstance(binding, dict) or not {'source', 'nodes', 'segments'}<=set(binding) or set(binding)-{'source','nodes','segments','node_port_mode'}:
         raise ProjectError('binding requires source, node ports and segment device chains')
@@ -39,7 +45,7 @@ def prepare(network, model, binding):
     links = {(c['from'], c['to']) for c in model['connections']}
     used = set(); evidence = []
     for s in result['segments']:
-        if 'length_m' in s or 'diameter_m' in s: raise ProjectError('network must not repeat bound length or diameter')
+        if any(key in s for key in ('length_m','diameter_m','width_m','height_m')): raise ProjectError('network must not repeat bound length or diameter')
         chain = binding['segments'][s['id']]
         if not isinstance(chain,list) or not chain: raise ProjectError('nonempty ordered segment device chain required')
         if any(not isinstance(name,str) for name in chain):raise ProjectError('route device IDs must be strings')
@@ -77,10 +83,15 @@ def prepare(network, model, binding):
                 if abs(min(a[axis],b[axis])-d['origin_m'][axis])>1e-8 or abs(max(a[axis],b[axis])-(d['origin_m'][axis]+d['size_m'][axis]))>1e-8:
                     raise ProjectError('route ports must span the full envelope axis')
                 length=abs(b[axis]-a[axis])
-            diameter=d.get('properties',{}).get('InternalDiameter_m')
-            if type(diameter) not in (int,float) or not math.isfinite(diameter) or diameter<=0:
+            if rectangular:
+                from .rectangular_geometry import WALL,specification
+                if d.get('body_shape')!=WALL:raise ProjectError('rectangular routes require explicit straight hollow duct walls')
+                spec=specification(d);diameter=(spec['width'],spec['height'])
+            else:
+                diameter=d.get('properties',{}).get('InternalDiameter_m')
+            if not rectangular and (type(diameter) not in (int,float) or not math.isfinite(diameter) or diameter<=0):
                 raise ProjectError('explicit source-backed internal diameter property required')
-            if d.get('body_shape')!=elbow.WALL and any(diameter>d['size_m'][i]+1e-8 for i in range(3) if i!=axis):
+            if not rectangular and d.get('body_shape')!=elbow.WALL and any(diameter>d['size_m'][i]+1e-8 for i in range(3) if i!=axis):
                 raise ProjectError('internal diameter exceeds transverse envelope')
             if has_elbow:
                 props=d.get('properties',{});k=props.get('LocalLossCoefficient')
@@ -90,7 +101,7 @@ def prepare(network, model, binding):
                 raise ProjectError('route pieces require connected coincident ports')
             if start is None: start=a;first_port=inlet
             end=b; previous=outlet; lengths.append(length); diameters.append(diameter)
-        if any(abs(v-diameters[0])>1e-10 for v in diameters): raise ProjectError('split hydraulic segments where internal diameter changes')
+        if any(v!=diameters[0] if rectangular else abs(v-diameters[0])>1e-10 for v in diameters): raise ProjectError('split hydraulic segments where internal diameter changes')
         if mode=='coincident' and (not same(start,point(binding['nodes'][s['from']])) or not same(end,point(binding['nodes'][s['to']]))):
             raise ProjectError('network endpoints differ from bound model node coordinates')
         for node_ref,route_ref,is_start in ((binding['nodes'][s['from']],first_port,True),(binding['nodes'][s['to']],previous,False)):
@@ -103,13 +114,21 @@ def prepare(network, model, binding):
                 raise ProjectError('bound node requires a coincident model connection to route')
         if has_elbow:s['minor_k']=math.fsum(local_k)
         elif 'minor_k' not in s:raise ProjectError('explicit sourced network aggregate minor_k required')
-        s['length_m']=sum(lengths); s['diameter_m']=diameters[0]
-        evidence.append(dict(id=s['id'],devices=chain,length_m=s['length_m'],diameter_m=s['diameter_m'],minor_k=s['minor_k'],length_basis='straight lengths plus finite quarter-circle arc lengths' if has_elbow else 'straight port distances',minor_k_basis=elbow.LOSS_BASIS if has_elbow else 'sourced network aggregate'))
+        s['length_m']=sum(lengths)
+        if rectangular:s.update(width_m=diameters[0][0],height_m=diameters[0][1])
+        else:s['diameter_m']=diameters[0]
+        evidence.append(dict(id=s['id'],devices=chain,length_m=s['length_m'],section={key:s[key] for key in ('width_m','height_m') if key in s} if rectangular else dict(diameter_m=s['diameter_m']),minor_k=s['minor_k'],length_basis='straight lengths plus finite quarter-circle arc lengths' if has_elbow else 'straight port distances',minor_k_basis=elbow.LOSS_BASIS if has_elbow else 'sourced network aggregate'))
+    if not rectangular:
+        for row in evidence:row.update(row.pop('section'))
     validate_network(result)
     return result,evidence
 
 
 def reconcile(model_path, derived_path, binding, source_model=None):
+    return _reconcile(model_path,derived_path,binding,source_model)
+
+
+def _reconcile(model_path, derived_path, binding, source_model=None,rectangular=False):
     """Read saved IFC port positions/diameters, rather than trusting generated JSON."""
     import ifcopenshell
     import ifcopenshell.util.element as element
@@ -161,9 +180,10 @@ def reconcile(model_path, derived_path, binding, source_model=None):
                 minor_k+=k
             if first is None:first=inlet;first_port=inlet_port
             last=outlet;last_port=outlet_port
-            diameter=element.get_psets(obj)['BSA_DesignInputs'].get('InternalDiameter_m')
-            if type(diameter) not in (int,float) or not math.isclose(diameter,s['diameter_m'],rel_tol=0,abs_tol=1e-10):
-                raise ProjectError('saved IFC/network internal diameter mismatch')
+            pairs=(('InternalWidth_m','width_m'),('InternalHeight_m','height_m')) if rectangular else (('InternalDiameter_m','diameter_m'),)
+            for prop,key in pairs:
+                value=props.get(prop)
+                if type(value) not in (int,float) or not math.isclose(value,s[key],rel_tol=0,abs_tol=1e-10):raise ProjectError('saved IFC/network section mismatch')
         if has_elbow and not math.isclose(minor_k,s['minor_k'],abs_tol=1e-10,rel_tol=0):raise ProjectError('saved fitting-route aggregate K mismatch')
         if not math.isclose(length,s['length_m'],rel_tol=0,abs_tol=1e-8):raise ProjectError('saved IFC/network route length mismatch')
         for xyz,node in ((first,s['from']),(last,s['to'])):

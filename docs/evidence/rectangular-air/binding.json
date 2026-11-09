@@ -1,0 +1,104 @@
+{
+  "scope": "Actual synthetic source-defined hollow rectangular straight chain binding only; not catalogue model revision or full physical/code acceptance",
+  "tasks": [
+    {
+      "id": "air",
+      "kind": "rectangular_network_binding",
+      "status": "pass",
+      "recorded_scope": "Source-bound axis-aligned hollow rectangular straight chains and prescribed level-air pressure budget; no finite bends, junction physics, fabrication or full acceptance",
+      "dependencies": [],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R1"
+      ],
+      "evidence": [
+        "air/analysis/manifest.json",
+        "air/analysis/network.json",
+        "air/analysis/report.html",
+        "air/analysis/segments.csv",
+        "air/bim/bim-verification.json",
+        "air/bim/model.ifc",
+        "air/bim/schema-validation.json",
+        "air/network-binding.json",
+        "air/network-input.json"
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "Independent geometry, fitting, fan, acoustic, fire/smoke and Hong Kong acceptance remains pending",
+      "dependencies": [
+        "air"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "review"
+      ],
+      "input_blockers": [],
+      "next_action": "perform the specified review and record evidence separately",
+      "requirement_ids": [
+        "R2"
+      ],
+      "evidence": []
+    }
+  ],
+  "binding": {
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\rectangular-air\\binding-project.json": "98d088f7dcb0c465713ff6991ed00408fe0f6bdb79e772ad35e0d79932997678",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\rectangular-air\\straight-wall.json": "d17434ff87c3ad6fc22471524799981c7568efaae87c0b1b0f04528cc35fe21a",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\rectangular-air\\binding.json": "2166becf49b6ae6e91a233e51de4c011a78cc81b37aa2ce48cc92d64a3c905a9"
+    },
+    "inputs_unchanged": true,
+    "segments": [
+      {
+        "id": "MAIN",
+        "devices": [
+          "DUCT"
+        ],
+        "length_m": 2,
+        "section": {
+          "width_m": 0.5,
+          "height_m": 0.3
+        },
+        "minor_k": 1,
+        "length_basis": "straight port distances",
+        "minor_k_basis": "sourced network aggregate"
+      }
+    ],
+    "saved_ifc_geometry_match": true,
+    "calculated_checks_pass": true,
+    "design_accepted": false,
+    "regulatory_compliance": "not_established",
+    "scope": "Source-bound axis-aligned hollow rectangular straight chains and prescribed level-air pressure budget; no finite bends, junction physics, fabrication or full acceptance",
+    "artifacts": {
+      "network-input.json": "98b514d93cb0a009e0a89ea6ae2a539ea721ccc765d91d56d10f617f248d154b",
+      "analysis/manifest.json": "18ccbd73f3387dc4f49935f22337769eb13f03fb7b0761e2151b0d89c771464d",
+      "analysis/network.json": "8e943df88503fe097c49e3c8828c8d9c2ed25b4a82f4848d0c4916c825d6cffb",
+      "analysis/report.html": "351bad4dd818d2fb7c7c3b31093c870da11d1f77ff77581a73975363550561e9",
+      "analysis/segments.csv": "cc5e3749ee058a74887ed5856d6194d4670eec1eeee3606d8d44291b57837950",
+      "bim/bim-verification.json": "b6b363b0d9077719c1bb06087689291a911f2e4d6ceead9a40f05e2950e2ada5",
+      "bim/model.ifc": "02f9386bc5ba5e9765c4af0cd505873d872931f64e65d0324993b773e2e87d83",
+      "bim/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  },
+  "integrity_pass": true,
+  "design_accepted": false,
+  "tests": {
+    "rectangular_binding": 4,
+    "circular_binding": 5,
+    "rectangular_geometry": 4,
+    "all_pass": true
+  },
+  "artifacts": {
+    "runs\\rectangular-bound-workflow-v1\\workflow.json": "a7789a6ea9c0ba854a4c1566a18f3a232f347b88f2003a9fd05260db35d35828",
+    "runs\\rectangular-bound-workflow-v1\\air\\network-input.json": "98b514d93cb0a009e0a89ea6ae2a539ea721ccc765d91d56d10f617f248d154b",
+    "runs\\rectangular-bound-workflow-v1\\air\\bim\\model.ifc": "02f9386bc5ba5e9765c4af0cd505873d872931f64e65d0324993b773e2e87d83",
+    "runs\\rectangular-bound-workflow-v1\\air\\analysis\\network.json": "8e943df88503fe097c49e3c8828c8d9c2ed25b4a82f4848d0c4916c825d6cffb"
+  }
+}
