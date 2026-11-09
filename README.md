@@ -25,6 +25,8 @@ Use `$mep-ifc-mcp` to inspect saved IFC models or add source-backed pump text pr
 
 ## Current evidence and limits
 
+[Bounded tee design iteration](docs/IFC_TEE_TRIAL.md) now retains failed size candidates, regenerates/re-solves the selected model and delivers labelled, dimensioned native diagrams through `examples/tee-trial/selection-plan.json`. Source-specific coefficients and fixed-total-flow boundary assumptions are explicit; the synthetic examples do not establish product or regulatory acceptance.
+
 [Source-bound tee assembly](docs/IFC_TEE_TRIAL.md) now has a requirement-linked workflow for saved hollow geometry, stable ports and upstream fluids diverging-coefficient diagnostics. Run `python -m bsa.workflow execute examples/tee-trial/plan.json --out runs/new-tee-workflow`. Signed coefficients are retained; this does not yet solve a complete branched hydraulic network or establish product/code acceptance.
 
 [Saved IFC water binding](docs/WATER_BINDING.md) now includes source-verified finite 90-degree hollow elbows with actual arc lengths and per-piece excess losses in EPANET. Closed circulation also reaches thermal and scoped Hong Kong pipe checks, but its current idealized junction geometry fails physical clash inspection and is blocked from drawing release.

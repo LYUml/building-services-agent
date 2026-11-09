@@ -1,9 +1,11 @@
 ---
 name: mep-network-analysis
-description: Calculate source-linked air/water tree budgets, single-line pump operating points and EPANET water graphs. Use for supported duct/pipe pressure, sizing, loops and sourced pump-curve checks.
+description: Calculate source-linked air/water tree budgets, single-line pump operating points EPANET water graphs and bounded tee split/size selection. Use for supported duct/pipe pressure, sizing, loops and sourced pump-curve checks.
 ---
 
 # Network pressure analysis
+
+For bounded bore/OD iteration, use workflow tee_selection with catalogue and docs/IFC_TEE_TRIAL.md. Each candidate supplies geometry and loss sources; common duty, placement, topology and solver acceptance cannot change to obtain a pass. Keep all candidate failures and require selected regeneration/re-solve. Selection follows declared preference, not inferred cost. No feasible candidate blocks delivery. examples/tee-trial/selection-plan.json hands the selected IFC/specs to tee_drawing and ifc_native; do not draw the original rejected model.
 
 For sourced complete tee-face coefficients, `tee_pressure` budgets prescribed outlet flows and `tee_split` solves an interior split bracket at fixed total flow with adjustable source pressure. Both inherit an earlier tee_assembly and require basis; tee_split additionally requires control. Read docs/IFC_TEE_TRIAL.md. In split mode, the basis inlet pressure is available capacity and outlet target pressures are exact boundary values; original run/branch flow inputs are replaced. Constant coefficients need a declared interval applicability source. Optional coefficient_table supplies sourced, strictly ordered fraction/k_run/k_branch rows; interpolation replaces both constant K values and cannot extrapolate beyond the table. A bracketed table solution does not prove uniqueness; unbracketed endpoints do not prove absence of interior roots. No-root, residual, source-capacity, velocity and net-dissipation failures cannot release declared consumers, and checked consumers must use the same IFC producer. Neither mode automatically adopts Crane diagnostic coefficients or represents a pump-curve solution.
 

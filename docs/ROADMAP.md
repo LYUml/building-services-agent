@@ -147,3 +147,5 @@ A standalone source-bounded tee bore catalogue now retains native candidate geom
 Tee selection now participates in requirement workflows and hands its verified selected IFC/specs to drawings and native delivery. Actual 40 mm selected-model DWG/PDF execution and visual review pass; selected-artifact mutation and no-feasible downstream blocking controls pass. Report integrity is distinct from physical/product/code truth.
 
 Tee diagrams now include source-linked saved-port overall/reach dimensions as audited editable LINE/TEXT. Independent rotated-fixture dimensions and wrong-label rejection pass; actual native 600/500 mm sheet reviewed. These are regenerated geometry references, not associative CAD dimensions or manufacturer/installation allowances.
+
+Network, IFC authoring and delivery skills now route bounded tee size selection through the verified selected-model drawing handoff, callouts and regenerated geometric dimensions. Removed stale paper-callout capability exclusions while preserving product, installation and code acceptance gaps.
