@@ -1,0 +1,17 @@
+{
+  "scope": "Static local workflow report navigation, not engineering acceptance",
+  "execution_pass": true,
+  "index_sha256": "d949c75c29f05c29e576095e7104185dafb0bf4f1c1efa0e67bb2c88f47b2eb5",
+  "index_in_manifest": true,
+  "workflow_sha256": "6e2b659180f2eb5220cc2cd59ffe0e5635ccdf63048c00514e4dc1454a2aafce",
+  "review": {
+    "method": "Actual browser AX state, screenshot and link navigation",
+    "observations": [
+      "Five scoped execution statuses present with pending acceptance",
+      "Requirement text, source locator, acceptance target and executed scope readable",
+      "Expanded preview artifacts and followed preview/preview.png successfully"
+    ],
+    "local_server_stopped": true
+  },
+  "design_accepted": false
+}

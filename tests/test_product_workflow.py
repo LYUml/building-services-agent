@@ -36,6 +36,10 @@ class ProductWorkflowTests(unittest.TestCase):
                 self.assertEqual(r['tasks'][task]['status'], 'pending')
                 self.assertFalse((root/'run'/task).exists())
             self.assertTrue(verify(root/'run')['integrity_pass'])
+            page=root/'run/index.html'
+            original=page.read_bytes();page.write_bytes(original+b'changed')
+            self.assertFalse(verify(root/'run')['integrity_pass'])
+            page.write_bytes(original)
             (root/'probes.json').write_text('{"changed":true}')
             self.assertFalse(verify(root/'run')['integrity_pass'])
 

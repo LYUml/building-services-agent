@@ -967,9 +967,10 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
         artifact_hashes={f.relative_to(out).as_posix():digest(f) for f in out.rglob("*") if f.is_file()},
         execution_pass=unchanged and all(x["status"]=="pass" for x in tasks.values()),
         design_accepted=False,acceptance_note="Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance")
+    from .workflow_report import render
+    (out/"index.html").write_text(render(result),encoding="utf-8")
+    result['artifact_hashes']['index.html']=digest(out/'index.html')
     (out/"workflow.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
-    rows="".join('<tr><td>'+html.escape(r['id'])+'</td><td>'+html.escape(r['quote'])+'</td><td>'+html.escape(r['execution_status'])+'</td><td>'+html.escape(r['execution_scope'])+'</td><td>Pending review</td></tr>' for r in matrix)
-    (out/"index.html").write_text('<!doctype html><meta charset="utf-8"><title>MEP workflow evidence</title><h1>MEP workflow evidence</h1><p>Design acceptance: pending. Source hashes unchanged: '+str(unchanged)+'</p><table border="1"><tr><th>Requirement</th><th>Source quote</th><th>Execution</th><th>Scope</th><th>Acceptance</th></tr>'+rows+'</table>',encoding="utf-8")
     if not unchanged:raise ProjectError("source inputs changed during workflow")
     return result
 
