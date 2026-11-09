@@ -59,5 +59,9 @@
     "solver_ready": false,
     "manufacturer_geometry_reproduced": false,
     "design_accepted": false
-  }
+  },
+  "related_research_records": [
+    "victaulic-style77-dn40.json",
+    "victaulic-ogs-roll-dn40.json"
+  ]
 }

@@ -1,0 +1,66 @@
+{
+  "record_type": "manufacturer_research_not_solver_input",
+  "product": {
+    "manufacturer": "Victaulic",
+    "designation": "OGS roll groove pipe-end specification",
+    "nominal_size": "DN40"
+  },
+  "source": {
+    "url": "https://assets.victaulic.com/assets/uploads/literature/25.01.pdf",
+    "publication": "25.01",
+    "revision": "1687 Rev T",
+    "updated": "2026-03",
+    "retrieved": "2026-11-09",
+    "sha256": "225c21a2a4af7fd0c4a9b7c5618109489d6856c5faa0dac4ec5a25c75468c112",
+    "reviewed_printed_pages": [
+      1,
+      3
+    ],
+    "review_method": "Official PDF downloaded and rendered table/notes visually inspected",
+    "copyright": "2026 Victaulic Company; all rights reserved"
+  },
+  "published_data": {
+    "printed_page": 1,
+    "section": "1.0 roll groove",
+    "row": "DN40 / 1 1/2 inch",
+    "units": "mm",
+    "OD": {
+      "actual": 48.3,
+      "min": 47.8,
+      "max": 48.7
+    },
+    "A": {
+      "basic": 15.9,
+      "min": 15.1,
+      "max": 16.7
+    },
+    "B": {
+      "basic": 7.1,
+      "min": 6.4,
+      "max": 7.9
+    },
+    "C": {
+      "min": 44.7,
+      "max": 45.1
+    },
+    "D_reference_only": 1.6,
+    "T_minimum_nominal_roll_groovable_wall": 1.2,
+    "F_maximum_flare": 51.1
+  },
+  "note_constraints": {
+    "printed_page": 3,
+    "C": "Concentric average groove diameter and uniform circumferential depth",
+    "D": "Trial reference only; C controls",
+    "T": "Grooving eligibility, not pressure design thickness",
+    "coating": "Coating allowances change OD/A/B/C/F; separate applicability review required",
+    "other": "Surface, end squareness, ovality and proper grooving tools remain required"
+  },
+  "unresolved": [
+    "selected pipe and measured groove evidence",
+    "coating applicability",
+    "full groove corner/fillet geometry",
+    "manufacturer fitting-end applicability",
+    "pressure/temperature/service approval"
+  ],
+  "design_accepted": false
+}

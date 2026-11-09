@@ -1,0 +1,69 @@
+{
+  "record_type": "manufacturer_research_not_solver_input",
+  "product": {
+    "manufacturer": "Victaulic",
+    "designation": "Style 77 flexible coupling",
+    "nominal_size": "DN40"
+  },
+  "source": {
+    "url": "https://assets.victaulic.com/assets/uploads/literature/06.04.pdf",
+    "publication": "06.04",
+    "revision": "1469 Rev Y",
+    "updated": "2026-09",
+    "retrieved": "2026-11-09",
+    "sha256": "3f2d6ac988b919bca36b98fba4f2255f4009bb101a968a4f9046ac16e764974b",
+    "reviewed_printed_pages": [
+      3,
+      5
+    ],
+    "review_method": "Official PDF downloaded and rendered table/notes visually inspected",
+    "copyright": "2026 Victaulic Company; all rights reserved"
+  },
+  "published_data": {
+    "dimensions": {
+      "printed_page": 3,
+      "row": "DN40 / 1 1/2 inch",
+      "actual_pipe_od_mm": 48.3,
+      "X_mm": 80,
+      "Y_mm": 136,
+      "Z_mm": 48,
+      "nominal_roll_groove_movement_range_mm": [
+        0,
+        1.5
+      ],
+      "nominal_deflection_degrees_minutes": [
+        1,
+        56
+      ],
+      "note_3_design_reduction_fraction": 0.5,
+      "note_3_cut_groove_multiplier": 2
+    },
+    "performance": {
+      "printed_page": 5,
+      "row": "DN40",
+      "maximum_working_pressure_kpa": 6895,
+      "maximum_end_load_N": 12610,
+      "note_6_basis": "Standard-weight ANSI steel pipe with specified roll/cut grooves; combined internal/external loads"
+    },
+    "connection_reference": {
+      "printed_page": 1,
+      "profile": "OGS",
+      "groove_publication": "25.01",
+      "temperature_basis": "Selected gasket"
+    }
+  },
+  "interpretation": {
+    "movement_is_not_installed_gap": true,
+    "published_dimensions_are_not_detailed_solid_geometry": true,
+    "pressure_is_not_project_approval": true
+  },
+  "unresolved": [
+    "selected pipe material/schedule",
+    "gasket/service/temperature suitability",
+    "actual installed gap and motion demand",
+    "coupling orientation and detailed geometry",
+    "combined loads/supports",
+    "installation instructions and project approval"
+  ],
+  "design_accepted": false
+}
