@@ -15,6 +15,32 @@ from .regulations import source_paths
 OBJECTIVE='lowest declared preference among passing candidates'
 
 
+def selected_input(producer,project,catalogue):
+    """Verify the selected artifact and reconstruct its sourced candidate identity."""
+    producer=Path(producer).resolve();report=producer/'pump-screening.json'
+    result=json.loads(report.read_text(encoding='utf-8-sig'))
+    if not result.get('feasible_candidate_found') or not result.get('selected_rerun_pass') or not result.get('selected'):raise ProjectError('no verified selected pump available')
+    for p in (Path(project).resolve(),Path(catalogue).resolve()):
+        if result.get('inputs',{}).get(str(p))!=digest(p):raise ProjectError('selected pump source identity differs')
+    for name,sha in result['inputs'].items():
+        p=Path(name)
+        if not p.is_file() or digest(p)!=sha:raise ProjectError('pump screening input changed')
+    required={'selected/project.json','selected/thermal/thermal-duty.json','selected/rules/water-pipe-checks.json'}
+    if not required<=set(result.get('artifacts',{})):raise ProjectError('selected pump artifact coverage missing')
+    for name,sha in result['artifacts'].items():
+        p=(producer/name).resolve()
+        if not p.is_relative_to(producer) or not p.is_file() or digest(p)!=sha:raise ProjectError('pump screening artifact changed')
+    options=candidates(json.loads(Path(project).read_text(encoding='utf-8-sig')),json.loads(Path(catalogue).read_text(encoding='utf-8-sig')))
+    matched=[network for row,network in options if row['id']==result['selected']['id']]
+    selected=producer/'selected/project.json'
+    if len(matched)!=1 or json.loads(selected.read_text(encoding='utf-8-sig'))!=matched[0]:raise ProjectError('selected pump differs from source candidate')
+    if digest(selected)!=result['selected']['rerun']['network_sha256']:raise ProjectError('selected rerun network hash differs')
+    thermal=json.loads((producer/'selected/thermal/thermal-duty.json').read_text(encoding='utf-8-sig'))
+    rules=json.loads((producer/'selected/rules/water-pipe-checks.json').read_text(encoding='utf-8-sig'))
+    if not thermal['calculated_checks_pass'] or rules['status']!='pass':raise ProjectError('selected native checks did not pass')
+    return selected
+
+
 def candidates(project,catalogue):
     validate(project)
     if project['model']!=CIRCULATION_MODEL or len(project['pumps'])!=1:raise ProjectError('single-pump circulation required')

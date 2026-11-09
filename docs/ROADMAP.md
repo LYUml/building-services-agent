@@ -60,3 +60,5 @@ An independent closed return now uses two source-verified finite elbows instead 
 A bounded sourced circulation pump catalogue screener now retains baseline/rejected native trials and reruns the lowest declared-preference combined hydraulic/thermal/pipe-rule pass. The ordinary 65 mm example selects a feasible synthetic curve; the finite-elbow loop correctly returns no feasible candidate from that same catalogue. Product data, IFC revision and full acceptance remain pending.
 
 Pump screening now participates in workflows with complete declared input/source inventory and no-feasible/selected-rerun gates. Native positive and all-rejected cases verify downstream review blocking and catalogue tamper detection. Selected-network inheritance and IFC revision remain pending.
+
+Downstream water_network can now inherit a screened selected pump without replacement input, with original-source/artifact checks and candidate reconstruction before fresh execution. Native tests verify selected-input hash correspondence, no-feasible blocking and tamper rejection. IFC equipment revision remains pending.

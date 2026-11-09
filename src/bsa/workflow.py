@@ -65,7 +65,7 @@ def regulatory_source_bindings(tasks,root):
         for parent in parents:upstream.update(ancestors[parent])
         ancestors[name]=upstream
         current={}
-        if kind in ('epanet_pipe_regulations','circulation_duty','water_network'):
+        if kind in ('epanet_pipe_regulations','circulation_duty','water_network') and not task.get('depends_on'):
             current['circulation']=local_path(root,task.get('project'))
         elif kind in ('water_pipe_regulations','network') and not task.get('depends_on'):
             current['network']=local_path(root,task.get('project'))
@@ -131,7 +131,7 @@ def validate_plan(path):
         if kind not in ("circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
-            inputs.add(local_path(root,t.get("project")))
+            if not (kind=="water_network" and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
         if kind=='hvac_regulations':
             dependency=t.get('depends_on')
             if dependency not in ids or next(x for x in tasks if x['id']==dependency)['kind']!='energy':
@@ -194,8 +194,12 @@ def validate_plan(path):
             inputs.update((project,basis))
             validate_duty(read_json(basis),validate_water(read_json(project)))
         if kind=='water_network':
-            from .epanet import validate
-            validate(read_json(local_path(root,t['project'])))
+            if t.get('depends_on'):
+                parent=t['depends_on']
+                if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='circulation_pump_design' or 'project' in t:raise ProjectError('selected water network requires earlier pump screening and no replacement project')
+            else:
+                from .epanet import validate
+                validate(read_json(local_path(root,t['project'])))
         if kind in ('route_model','route_optimize'):
             files=[local_path(root,t.get(key)) for key in ('routing','settings','network')]
             inputs.update(files)
@@ -607,9 +611,17 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                 reason='fresh circulation flow and sourced thermal transport targets; heat transfer, load coverage and full acceptance pending'
             elif t['kind']=='water_network':
                 from .epanet import run
-                payload=run(local_path(root,t['project']),folder)
-                status='pass' if payload['calculated_checks_pass'] else 'fail'
-                reason='steady EPANET water graph, static head, sourced numerical/target checks; route binding, power and full acceptance pending'
+                parent=t.get('depends_on')
+                if parent and tasks[parent]['status']!='pass':reason='upstream pump screening has no passing selection; native water run not executed'
+                else:
+                    if parent:
+                        from .circulation_pump_design import selected_input
+                        producer=next(x for x in p['tasks'] if x['id']==parent)
+                        source=selected_input(out/parent,local_path(root,producer['project']),local_path(root,producer['catalogue']))
+                    else:source=local_path(root,t['project'])
+                    payload=run(source,folder)
+                    status='pass' if payload['calculated_checks_pass'] else 'fail'
+                    reason='steady EPANET water graph, static head, sourced numerical/target checks; route binding, power and full acceptance pending'
             elif t['kind']=='network':
                 from .network import run
                 payload=run(local_path(root,t['project']),folder)
