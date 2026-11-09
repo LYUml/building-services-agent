@@ -102,7 +102,13 @@ def run(project,out,bin_dir):
     calls=[]
     def call(name,args,input=None):
         command=[str(executables[name]),*args]
-        proc=subprocess.run(command,cwd=out,env=env,input=input,capture_output=True,timeout=180)
+        try:
+            proc=subprocess.run(command,cwd=out,env=env,input=input,capture_output=True,timeout=180)
+        except OSError as exc:
+            calls.append(dict(command=command,returncode=None,launch_error=str(exc),
+                              winerror=getattr(exc,'winerror',None)))
+            (out/'engine-calls.json').write_text(json.dumps(calls,indent=2),encoding='utf-8')
+            raise ProjectError(f'{name} could not start; inspect engine-calls.json') from exc
         calls.append(dict(command=command,returncode=proc.returncode,stderr=proc.stderr.decode(errors='replace')))
         (out/'engine-calls.json').write_text(json.dumps(calls,indent=2),encoding='utf-8')
         if proc.returncode:raise ProjectError(f'{name} failed; inspect engine-calls.json')

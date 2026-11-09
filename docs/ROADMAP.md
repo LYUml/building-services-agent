@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Current Radiance availability was rechecked on 2026-11-09: host Application Control blocks rtrace.exe (4551; Code Integrity 3033/3077), including the existing native regression. Launch failures now retain diagnostics without success reports. Exact-floor probe expansion was not released because its native verification could not run; emergency photometric binding remains pending. Other development workstreams remain available.
+
 Emergency-lighting planning now has a separate topic in coverage-2026.11.09-emergency.json without masking broader fire gaps. A repeatable official-PDF-backed three-scenario workflow verifies scheduled partial coverage, assertion pass/review/pending behavior, recorded integrity and downstream blocking. Native photometric/model correspondence and engineering acceptance remain pending.
 
 Hong Kong emergency-lighting review pins twelve FSD PDFs and distinguishes building-plan versus licensed-premises transition dates. A versioned single-accommodation sourced-assertions pack now checks minimum floor illuminance and area-dependent luminaire count with explicit emergency/rated-duration evidence gates. Official-PDF-backed synthetic pass/review/pending runs and boundary controls are executed. See HK_EMERGENCY_LIGHTING.md. Remaining circular/base-standard review, native emergency photometry and full installation acceptance are pending; ordinary lighting results cannot satisfy this scope.

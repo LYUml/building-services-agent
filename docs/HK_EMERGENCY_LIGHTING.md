@@ -43,6 +43,10 @@ Licensed-premises appendices, supply arrangement, rated duration, activation, wi
 
 ## Implementation sequence
 
+Current host constraint (2026-11-09): an actual Radiance trial reaches `ies2rad`, `xform` and `oconv`, but Windows Application Control rejects `rtrace.exe` with WinError 4551; Code Integrity events 3033/3077 confirm the restriction. The existing ordinary-lighting native regression also fails at launch. See `docs/evidence/emergency-lighting/radiance-host-block.json`. No policy bypass was attempted. A trial allowing exact floor probes could not reach its independent inverse-square/cosine check, so that input expansion was not released. The current adapter still requires sensor clearance above the floor; do not relabel those points as an approved floor assessment. Historical executed lighting evidence remains historical, not proof of current engine availability.
+
+Engine launch exceptions now persist the attempted command/error in `engine-calls.json` and produce no successful lighting report. A controlled failure test verifies this behavior. Native emergency photometry requires a policy-permitted engine environment and actual floor/method verification before release.
+
 1. Complete the outstanding circular/edition and licensed-premises review; retain explicit unresolved decisions.
 2. Add a versioned FSD module with source hashes, per-space applicability, numeric units and separate check statuses. Unknown applicability or duration evidence must remain pending.
 3. Bind emergency-mode fixtures, stable space IDs, gross-area evidence and floor sensors to freshly executed photometry. Reuse the existing Radiance engine, with a reviewed method and sourced end-of-duration inputs.

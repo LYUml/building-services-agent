@@ -1,0 +1,19 @@
+{
+  "status": "blocked_by_host_application_control",
+  "engine": "Radiance rtrace",
+  "executable_sha256": "edb01ac56b31ad79263c1f42a686413c0d369829f460e83a170340a6f821b5c9",
+  "winerror": 4551,
+  "code_integrity_events_observed": [
+    3033,
+    3077
+  ],
+  "launch_diagnostic": "[WinError 4551] An Application Control policy has blocked this file",
+  "successful_prior_calls": [
+    "ies2rad.exe",
+    "xform.exe",
+    "oconv.exe"
+  ],
+  "lighting_report_created": false,
+  "floor_sensor_support_released": false,
+  "design_accepted": false
+}

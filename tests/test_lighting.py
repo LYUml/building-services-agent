@@ -5,6 +5,7 @@ from pathlib import Path
 import shutil
 import tempfile
 import unittest
+from unittest.mock import patch
 from bsa.lighting import validate,ies_metadata,run
 from bsa.engine import ProjectError
 from bsa.workflow import execute
@@ -15,6 +16,21 @@ EXAMPLE=ROOT/'examples/lighting/project.json'
 
 
 class LightingTests(unittest.TestCase):
+    def test_launch_failure_is_recorded_without_success_report(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);p,path=self.fixture(root)
+            binaries=root/'bin';binaries.mkdir()
+            suffix='.exe' if os.name=='nt' else ''
+            for name in ('ies2rad','xform','oconv','rtrace'):
+                (binaries/(name+suffix)).write_bytes(b'not executed')
+            with patch('bsa.lighting.subprocess.run',side_effect=OSError('launch blocked')):
+                with self.assertRaisesRegex(ProjectError,'could not start'):
+                    run(path,root/'out',binaries)
+            calls=json.loads((root/'out/engine-calls.json').read_text())
+            self.assertEqual(calls[-1]['launch_error'],'launch blocked')
+            self.assertIsNone(calls[-1]['returncode'])
+            self.assertFalse((root/'out/lighting.json').exists())
+
     def test_photometry_is_not_inferred_from_watts(self):
         meta=ies_metadata(EXAMPLE.parent/'synthetic-1000cd.ies')
         self.assertEqual(meta['input_watts'],40)
