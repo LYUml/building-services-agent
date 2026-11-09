@@ -1,0 +1,51 @@
+{
+  "objective": "lowest declared preference among passing candidates",
+  "source": "Synthetic ranked test catalogue; preference is an explicit test ordering, not efficiency, price or product recommendation",
+  "candidates": [
+    {
+      "id": "insufficient-head",
+      "preference": 0,
+      "source": "Synthetic low-head negative control; no manufacturer data",
+      "head_curve": [
+        [
+          0,
+          0.01
+        ],
+        [
+          0.005,
+          0.001
+        ]
+      ]
+    },
+    {
+      "id": "truncated-domain",
+      "preference": 1,
+      "source": "Synthetic deliberately inadequate curve coverage; no extrapolation acceptance",
+      "head_curve": [
+        [
+          0,
+          10
+        ],
+        [
+          0.001,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "supported-example",
+      "preference": 2,
+      "source": "Synthetic two-point demonstration curve; no real pump applicability",
+      "head_curve": [
+        [
+          0,
+          10
+        ],
+        [
+          0.005,
+          1
+        ]
+      ]
+    }
+  ]
+}
