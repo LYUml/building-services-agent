@@ -80,3 +80,5 @@ The runner authors only synthetic fixture geometry, stages deliberately stale nu
 The non-self-contained IFC plan example is now explicitly named ifc-plan.json.in: instantiate it as ifc-plan.json only after its generated model/binding exist in a staged run directory. Clean-checkout source/plan validation remains mandatory; no missing generated inputs are waived. The Hong Kong runner already stages complete executable plans.
 
 Final related regression: 62 tests pass with zero failures/errors, including clean-checkout executable example checks. The renamed template was additionally staged with generated model/binding inputs and validated as a four-task plan with 14 source inputs. This is a scoped regression result, not a claim that every repository/native-runtime test passes.
+
+For explicit saved cable-to-board relationship checking, see ELECTRICAL_IFC_TOPOLOGY.md and workflow three_phase_topology. It can gate the same derived numerical producer and drawing while preserving the distinction between a logical common-node bus graph and unverified physical electrical installation.

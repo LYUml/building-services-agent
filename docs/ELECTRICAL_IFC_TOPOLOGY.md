@@ -1,0 +1,38 @@
+# Saved electrical IFC connection graph
+
+The read-only `bsa.three_phase_topology` adapter now checks native IFC4 cable-to-board port relationships against the declared numerical bus/line graph. It reuses pinned IfcOpenShell 0.8.5 system/placement APIs and the existing Manifold 3.5.4 cable-solid check. No new graph or geometry engine is introduced. Existing LGPL-3.0-or-later (IfcOpenShell) and Apache-2.0 (Manifold) attribution applies; no external binaries are redistributed.
+
+Primary references: [upstream system API](https://docs.ifcopenshell.org/autoapi/ifcopenshell/api/system/index.html), [IFC4 port nesting](https://standards.buildingsmart.org/IFC/RELEASE/IFC4/FINAL/HTML/schema/ifcsharedbldgserviceelements/lexical/ifcdistributionport.htm), [distribution board](https://standards.buildingsmart.org/IFC/RELEASE/IFC4/FINAL/HTML/schema/ifcelectricaldomain/lexical/ifcelectricdistributionboard.htm) and [electrical system](https://standards.buildingsmart.org/IFC/RELEASE/IFC4/FINAL/HTML/schema/ifcsharedbldgserviceelements/lexical/ifcdistributionsystem.htm). Online API pages may describe newer versions; the installed pinned version and actual saved-file execution are the evidence used here.
+
+## Contract and boundaries
+
+Start with the saved straight cable geometry/binding described in THREE_PHASE_IFC.md. Supply a separate topology JSON with exact fields `version`, `ifc_sha256`, `internal_bus_model`, `source`, and `buses`. Version is 1; internal_bus_model must explicitly be `ideal common electrical node`. Source has relative path, SHA256, locator and kind. Each bus maps to an `element_guid` and `ports` dictionary from every incident analysis line ID to its own board-port GUID.
+
+Every bus must map to a distinct IfcElectricDistributionBoard/DISTRIBUTIONBOARD, and each board belongs solely to the selected electrical system. Every cable and incident board port is covered exactly once. Ports must be CABLE/ELECTRICAL, explicitly bidirectional, and placed at the corresponding saved cable/numerical bus anchor. Each selected port has exactly one declared nesting owner. The selected system must contain exactly the mapped boards and cables.
+
+The saved IfcRelConnectsPorts multiset must match both directed arcs of each declared cable-end/board-port connection. Missing halves, duplicate arcs, crossed connections, implicit realizing elements, wrong ownership, moved ports, wrong system classification and unmapped selected-system elements fail. Native Body/Axis/port/length verification remains mandatory first; nearby endpoints or a matching bounding box alone never establish connectivity.
+
+This verifies a **logical common-node model**, not installed electrical connectivity. Board internals, phases/individual conductors, terminals, protective devices, physical joints, clearances and manufacturer dimensions are not inferred. Numerical PQ loads remain declared aggregate bus loads; actual load devices are not authored or verified. No switched-circuit hierarchy or IfcDistributionCircuit is inferred from the graph. Full installation, viewer, protection and regulatory acceptance remain pending.
+
+## Reproduce the synthetic fixture
+
+The separate fixture author adds only explicit synthetic common-node board envelopes to a copy of a passing cable model. All box sizes and the ideal-bus assumption are declared in examples/three-phase-network/topology-geometry.json. Co-located ports inside these boxes illustrate logical nodes, not physical terminal arrangements. Original IFC/project files remain unchanged. The author requires metre units and writes a new model, updated geometry binding, topology binding and source snapshot; saved schema and topology checks run before its completion report.
+
+```powershell
+.venv/Scripts/python scripts/author_three_phase_topology_fixture.py examples/three-phase-network/project.json --ifc runs/three-phase-cable-extrusion-v1/cables.ifc --binding runs/three-phase-cable-extrusion-v1/binding.json --basis examples/three-phase-network/topology-geometry.json --out runs/new-connected-fixture
+.venv/Scripts/python -m bsa.three_phase_topology examples/three-phase-network/project.json --ifc runs/new-connected-fixture/connected-cables.ifc --binding runs/new-connected-fixture/binding.json --topology runs/new-connected-fixture/topology-binding.json --out runs/new-topology-check
+```
+
+The actual fixture has 3 boards, 2 cable segments, 4 cable/board connection pairs and 8 directed native relationship records. `native_port_relationships_pass` and `logical_graph_correspondence_pass` describe these saved relationships; `physical_installation_verified` and `design_accepted` remain false. A successful author/check does not constitute a BIM-viewer review or completed design.
+
+## Workflow release gate
+
+Workflow task `three_phase_topology` requires `depends_on` on an earlier `three_phase` or `three_phase_ifc_project`, plus explicit `ifc`, `binding`, and `topology` paths. It inherits the producer's project and fresh study; no replacement project/runtime settings are allowed. Input/code/source hashes and the passing study are verified before the adapter. Missing runtime or failed targets block it. Add its ID to a drawing's `requires_pass`; exact-study matching is enforced directly and transitively alongside rule gates. Altered topology result files prevent CAD invocation.
+
+Actual staged execution combines IFC-derived lengths/fresh study, native topology, the selected conditional Hong Kong current-balance rule and independently reopened DWG/PDF. Its diagram is a calculation schematic; physical installation remains unverified. The retained [execution and page evidence](evidence/pandapower/electrical-topology-workflow.json) distinguishes scoped passes from full manual review. Both the topology gate and selected-rule gate must pass for drawing in this staged plan.
+
+Eleven saved-file tests cover positive native execution, wrong board and same-anchor role swaps, missing/duplicate relationships, lost or multiple nesting owners, moved ports, non-electrical ports and changed source/bus-model basis. Five workflow tests cover actual study/topology execution, disconnected-graph blocking, changed-result blocking, missing runtime and another study's borrowed gate. These are synthetic software controls; independent real assignment delivery remains outstanding.
+
+A staged numerical/topology/drawing template is available as examples/three-phase-network/topology-plan.json.in. Copy the example directory into a new repository run-source directory, author the initial cable fixture there, then author connected-fixture from it using the commands above (with the staged project/basis paths). Instantiate topology-plan.json.in as topology-plan.json only after the generated inputs exist. Execute it through bsa.workflow with explicit numerical/Graphviz/AutoCAD runtimes. The template covers scoped numerical/graph/drawing evidence; add the applicable same-study regulation tasks/gates explicitly for the actual project. It is not a complete Hong Kong approval plan.
+
+Validation evidence: 77 related regression tests passed, followed by 16 final topology/workflow tests including the added multiple-owner control (the counts overlap). The final native workflow was rerun with the unique-owner check and its complete recorded-input/artifact integrity passes. Its inspected schematic pixels match the prior reviewed render, and the paper reference measures 49.995667 mm. The four-task staged template validates with 18 source inputs. Full repository/native-runtime health and engineering acceptance are not implied.

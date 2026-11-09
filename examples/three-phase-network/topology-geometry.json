@@ -1,0 +1,6 @@
+{
+  "scope": "Synthetic ideal bus boards only; boxes and co-located ports are not manufacturer geometry, busbar internals or installed terminals",
+  "project_uuid": "1c85ff8b-2921-4a13-8c03-7c8c841e42ac",
+  "board_envelope_size_m": [0.3, 0.2, 0.4],
+  "internal_bus_model": "ideal common electrical node"
+}

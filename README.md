@@ -172,3 +172,5 @@ The straight cable check is now registered as three_phase_ifc with exact-study g
 Saved straight IFC now also drives a new snapshot electrical project and fresh power flow through bsa.three_phase_ifc_project. Actual stale-length correction changes native voltages while preserving unrelated source data and failed targets. Standalone derivation is verified; automatic workflow producer registration and connected installation design remain pending. See docs/THREE_PHASE_IFC.md.
 
 IFC-driven recalculation is now a registered three_phase_ifc_project workflow producer. Actual synthetic execution derives lengths, solves, checks the selected Hong Kong rule, reopens native DWG and produces an inspected PDF; failed/missing-rule cases block drawing. Full design acceptance remains pending. See docs/THREE_PHASE_IFC.md.
+
+[Saved electrical connection graphs](docs/ELECTRICAL_IFC_TOPOLOGY.md) now check exact native cable/board port relationships against the same-study graph and can gate drawings. Explicit ideal common-node assumptions remain separate from physical terminals, busbars, conductors and installation acceptance.

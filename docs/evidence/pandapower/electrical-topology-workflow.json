@@ -1,0 +1,102 @@
+{
+  "scope": "Actual synthetic IFC-derived study, native ideal-node cable/board graph, selected conditional HK rule and schematic drawing",
+  "tasks": {
+    "power-flow": {
+      "kind": "three_phase_ifc_project",
+      "status": "pass",
+      "scope": "New snapshot project with native straight IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+    },
+    "topology": {
+      "kind": "three_phase_topology",
+      "status": "pass",
+      "scope": "Saved cable/board port relationships and ideal common-node numerical graph only; busbar internals, physical terminals/conductors, load devices, protection and installation acceptance remain unverified"
+    },
+    "hk-rule": {
+      "kind": "three_phase_regulations",
+      "status": "pass",
+      "scope": "Selected current-unbalance rule with explicit protective rating, circuit and sinusoidal normal-service RMS design basis; no neutral/harmonic/protection/full conformity acceptance"
+    },
+    "drawing": {
+      "kind": "three_phase_drawing",
+      "status": "pass",
+      "scope": "Source-linked calculation schematic and schedules only; full installation, protection and Hong Kong acceptance pending; actual page visual/engineering review remains pending"
+    },
+    "review": {
+      "kind": "manual",
+      "status": "pending",
+      "scope": "Actual visual and full engineering acceptance remain separate"
+    }
+  },
+  "three_phase_source_bindings": [
+    {
+      "check": "hk-rule",
+      "consumer": "drawing",
+      "study_producer": "power-flow"
+    },
+    {
+      "check": "topology",
+      "consumer": "drawing",
+      "study_producer": "power-flow"
+    }
+  ],
+  "graph_counts": {
+    "bus_count": 3,
+    "cable_count": 2,
+    "directed_relationship_count": 8
+  },
+  "geometry_correspondence_pass": true,
+  "logical_graph_correspondence_pass": true,
+  "native_port_relationships_pass": true,
+  "physical_installation_verified": false,
+  "native_reopen_pass": true,
+  "plot": {
+    "pdf_sha256": "1ff4a699c8270b4da453d6a4c6890fde40c9d75fc1ed9ed4c28a8d8de3bc32a1",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 1,
+    "reference_handle": "7F",
+    "reference_expected_mm": 50.0,
+    "reference_measured_mm": 49.99566666666666,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "page_review": {
+    "pdf_sha256": "1ff4a699c8270b4da453d6a4c6890fde40c9d75fc1ed9ed4c28a8d8de3bc32a1",
+    "png_sha256": "8fbe1d5aa029d469aa34d42b118706032d8a05174b66e78ca0fbb69dccbbaab6",
+    "schematic_page_review_pass": true,
+    "observed": "Readable three-bus schematic, 40/25 m line labels, per-phase voltages/currents, scope notes and 50 mm reference; no visible clipping/overlap. Final pixels equal previously inspected render.",
+    "bim_viewer_review": false,
+    "engineering_acceptance": false
+  },
+  "regression": {
+    "related_run": {
+      "tests": 77,
+      "failures": 0,
+      "errors": 0
+    },
+    "final_topology_run": {
+      "tests": 16,
+      "failures": 0,
+      "errors": 0
+    },
+    "note": "Final topology run includes an additional multiple-nesting-owner test; counts overlap."
+  },
+  "staged_template": {
+    "tasks": 4,
+    "source_inputs": 18,
+    "validation_pass": true
+  },
+  "workflow_integrity_pass": true,
+  "artifacts": {
+    "workflow.json": "4160caa39f896ac33a9ea97f2a0aae4e0594589346bacdaf54857df626325dd7",
+    "topology\\topology.json": "f299674a52e1209d4798bb8ba0f80b4f219146f1367003615273263fbfe77a46",
+    "drawing\\drawing.json": "b998ee25765600adf6cf01f4baba7d077cff43282448fb615b0cb7b024b3c104",
+    "drawing\\native\\electrical-schematic.dwg": "457471cc51531d98264c0a88124dd3675273195198eb8eae62053b3ad74e4e94"
+  },
+  "retained_warning": "Duplicate /PageMode; no PDF conformance claim",
+  "design_accepted": false
+}
