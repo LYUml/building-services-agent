@@ -149,3 +149,5 @@ Tee selection now participates in requirement workflows and hands its verified s
 Tee diagrams now include source-linked saved-port overall/reach dimensions as audited editable LINE/TEXT. Independent rotated-fixture dimensions and wrong-label rejection pass; actual native 600/500 mm sheet reviewed. These are regenerated geometry references, not associative CAD dimensions or manufacturer/installation allowances.
 
 Network, IFC authoring and delivery skills now route bounded tee size selection through the verified selected-model drawing handoff, callouts and regenerated geometric dimensions. Removed stale paper-callout capability exclusions while preserving product, installation and code acceptance gaps.
+
+Manufacturer intake now includes a hash-pinned, visually reviewed real tee record with published dimensions and equivalent pipe lengths. Adapter comparison retains missing bore, physical connection and hydraulic-reference data explicitly; it is not yet a selectable product. See PRODUCT_INTAKE.md. The next real-product step is compatible bore/connection evidence and a justified hydraulic method, rather than promoting synthetic coefficients.

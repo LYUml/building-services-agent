@@ -1,0 +1,63 @@
+{
+  "record_type": "manufacturer_research_not_solver_input",
+  "product": {
+    "manufacturer": "Victaulic",
+    "designation": "No. 20 Tee",
+    "nominal_size": "DN40"
+  },
+  "source": {
+    "url": "https://assets.victaulic.com/assets/uploads/literature/07.01.pdf",
+    "publication": "07.01",
+    "revision": "1449 Rev AP",
+    "updated": "2026-06",
+    "retrieved": "2026-11-09",
+    "sha256": "9e3ee9fbc44e99f820f80ce7a6ab62ef6c3b1accce7044c063864721ab469280",
+    "copyright": "2026 Victaulic Company; all rights reserved",
+    "review_method": "Printed pages 10 and 59 visually inspected from locally rendered official PDF"
+  },
+  "published_data": {
+    "dimensions": {
+      "printed_page": 10,
+      "pdf_page_index": 9,
+      "section": "4.4",
+      "row": "DN40 / 1 1/2 inch",
+      "actual_outside_diameter_mm": 48.3,
+      "centre_to_end_mm": 70,
+      "column_group": "No. 20 Tee"
+    },
+    "friction": {
+      "printed_page": 59,
+      "pdf_page_index": 58,
+      "section": "5.0",
+      "row": "DN40 / 1 1/2 inch",
+      "column_group": "Tees",
+      "quantity": "equivalent_straight_pipe_length",
+      "branch_m": 1.9,
+      "run_m": 0.4
+    },
+    "connection": {
+      "printed_page": 1,
+      "profile": "OGS",
+      "pressure_reference": "Style 77 coupling publication 06.04"
+    }
+  },
+  "unresolved_for_current_adapters": {
+    "internal_diameter_m": null,
+    "maximum_body_envelope": null,
+    "connection_geometry_and_allowances": null,
+    "hydraulic_reference_pipe_and_velocity": null,
+    "pressure_reference_stations": null,
+    "fitting_wall_friction_inclusion": null,
+    "flow_split_and_reynolds_applicability": null,
+    "complete_face_to_face_k_run": null,
+    "complete_face_to_face_k_branch": null,
+    "project_service_pressure_temperature_suitability": null,
+    "hong_kong_project_approval_evidence": null
+  },
+  "assessment": {
+    "basis": "Repository adapter requirements compared with reviewed manufacturer pages; null means not established by this review",
+    "solver_ready": false,
+    "manufacturer_geometry_reproduced": false,
+    "design_accepted": false
+  }
+}
