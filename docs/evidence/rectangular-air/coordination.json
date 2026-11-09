@@ -1,0 +1,237 @@
+{
+  "scope": "Actual synthetic selected rectangular wall versus unconnected context equipment envelope; not product/whole-building or installation acceptance",
+  "scenarios": {
+    "clear": {
+      "tasks": [
+        {
+          "id": "air",
+          "kind": "rectangular_model_design",
+          "status": "pass",
+          "recorded_scope": "Finite rectangular sizing and source-defined straight-wall regeneration only; no physical junction, clash, fabrication, fan or full code acceptance",
+          "dependencies": [],
+          "iteration_baseline": null,
+          "blocked_by": [],
+          "upstream_action_tasks": [],
+          "input_blockers": [],
+          "next_action": "review complete requirement acceptance against retained artifacts",
+          "requirement_ids": [
+            "R1"
+          ],
+          "evidence": [
+            "air/baseline-bim/bim-verification.json",
+            "air/baseline-bim/model.ifc",
+            "air/baseline-bim/schema-validation.json",
+            "air/baseline-network.json",
+            "air/filtered-catalogue.json",
+            "air/model-design.json",
+            "air/selected-coordination/analysis/manifest.json",
+            "air/selected-coordination/analysis/network.json",
+            "air/selected-coordination/analysis/report.html",
+            "air/selected-coordination/analysis/segments.csv",
+            "air/selected-coordination/bim/bim-verification.json",
+            "air/selected-coordination/bim/model.ifc",
+            "air/selected-coordination/bim/schema-validation.json",
+            "air/selected-coordination/network-binding.json",
+            "air/selected-coordination/network-input.json",
+            "air/selected-model.json",
+            "air/selected-skeleton.json",
+            "air/sizing/baseline/manifest.json",
+            "air/sizing/baseline/network.json",
+            "air/sizing/baseline/report.html",
+            "air/sizing/baseline/segments.csv",
+            "air/sizing/candidates.csv",
+            "air/sizing/design-comparison.json",
+            "air/sizing/report.html",
+            "air/sizing/selected-network.json",
+            "air/sizing/selected/manifest.json",
+            "air/sizing/selected/network.json",
+            "air/sizing/selected/report.html",
+            "air/sizing/selected/segments.csv"
+          ]
+        },
+        {
+          "id": "coordination",
+          "kind": "ifc_clash",
+          "status": "pass",
+          "recorded_scope": "saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending",
+          "dependencies": [
+            "air"
+          ],
+          "iteration_baseline": null,
+          "blocked_by": [],
+          "upstream_action_tasks": [],
+          "input_blockers": [],
+          "next_action": "review complete requirement acceptance against retained artifacts",
+          "requirement_ids": [
+            "R3"
+          ],
+          "evidence": [
+            "coordination/clash.json",
+            "coordination/report.html"
+          ]
+        },
+        {
+          "id": "review",
+          "kind": "manual",
+          "status": "pending",
+          "recorded_scope": "Independent geometry, fitting, fan, acoustic, fire/smoke and Hong Kong acceptance remains pending",
+          "dependencies": [
+            "air",
+            "coordination"
+          ],
+          "iteration_baseline": null,
+          "blocked_by": [],
+          "upstream_action_tasks": [
+            "review"
+          ],
+          "input_blockers": [],
+          "next_action": "perform the specified review and record evidence separately",
+          "requirement_ids": [
+            "R2"
+          ],
+          "evidence": []
+        }
+      ],
+      "checks": {
+        "geometry_coverage": true,
+        "no_intersections": true,
+        "clearance": true
+      },
+      "physical_element_count": 2,
+      "geometry_coverage": true,
+      "solid_pair_checks": [],
+      "integrity_pass": true,
+      "artifacts": {
+        "runs\\rectangular-clash-clear-v1\\workflow.json": "e7859e25f9509c7816e0de6eeadf67de7ed39263a828a67ed03a2f11282c1376",
+        "runs\\rectangular-clash-clear-v1\\coordination\\clash.json": "5189802347ba93c57b17cb1090f04ce29aa96122f3d3537f05288e7a2d9b3c8c",
+        "runs\\rectangular-clash-clear-v1\\air\\selected-coordination\\bim\\model.ifc": "9cc2213ab2e11d113ad230958f338533fb54da8e992c5607c94d6d41d3c535b1"
+      }
+    },
+    "intrusion": {
+      "tasks": [
+        {
+          "id": "air",
+          "kind": "rectangular_model_design",
+          "status": "pass",
+          "recorded_scope": "Finite rectangular sizing and source-defined straight-wall regeneration only; no physical junction, clash, fabrication, fan or full code acceptance",
+          "dependencies": [],
+          "iteration_baseline": null,
+          "blocked_by": [],
+          "upstream_action_tasks": [],
+          "input_blockers": [],
+          "next_action": "review complete requirement acceptance against retained artifacts",
+          "requirement_ids": [
+            "R1"
+          ],
+          "evidence": [
+            "air/baseline-bim/bim-verification.json",
+            "air/baseline-bim/model.ifc",
+            "air/baseline-bim/schema-validation.json",
+            "air/baseline-network.json",
+            "air/filtered-catalogue.json",
+            "air/model-design.json",
+            "air/selected-coordination/analysis/manifest.json",
+            "air/selected-coordination/analysis/network.json",
+            "air/selected-coordination/analysis/report.html",
+            "air/selected-coordination/analysis/segments.csv",
+            "air/selected-coordination/bim/bim-verification.json",
+            "air/selected-coordination/bim/model.ifc",
+            "air/selected-coordination/bim/schema-validation.json",
+            "air/selected-coordination/network-binding.json",
+            "air/selected-coordination/network-input.json",
+            "air/selected-model.json",
+            "air/selected-skeleton.json",
+            "air/sizing/baseline/manifest.json",
+            "air/sizing/baseline/network.json",
+            "air/sizing/baseline/report.html",
+            "air/sizing/baseline/segments.csv",
+            "air/sizing/candidates.csv",
+            "air/sizing/design-comparison.json",
+            "air/sizing/report.html",
+            "air/sizing/selected-network.json",
+            "air/sizing/selected/manifest.json",
+            "air/sizing/selected/network.json",
+            "air/sizing/selected/report.html",
+            "air/sizing/selected/segments.csv"
+          ]
+        },
+        {
+          "id": "coordination",
+          "kind": "ifc_clash",
+          "status": "fail",
+          "recorded_scope": "saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending",
+          "dependencies": [
+            "air"
+          ],
+          "iteration_baseline": null,
+          "blocked_by": [],
+          "upstream_action_tasks": [
+            "coordination"
+          ],
+          "input_blockers": [],
+          "next_action": "inspect retained failure evidence and correct source or adapter before a new run",
+          "requirement_ids": [
+            "R3"
+          ],
+          "evidence": [
+            "coordination/clash.json",
+            "coordination/report.html"
+          ]
+        },
+        {
+          "id": "review",
+          "kind": "manual",
+          "status": "pending",
+          "recorded_scope": "required checks unresolved: coordination (fail); adapter not executed",
+          "dependencies": [
+            "air",
+            "coordination"
+          ],
+          "iteration_baseline": null,
+          "blocked_by": [
+            "coordination"
+          ],
+          "upstream_action_tasks": [
+            "coordination"
+          ],
+          "input_blockers": [],
+          "next_action": "resolve upstream tasks before rerunning dependent task",
+          "requirement_ids": [
+            "R2"
+          ],
+          "evidence": []
+        }
+      ],
+      "checks": {
+        "geometry_coverage": true,
+        "no_intersections": false,
+        "clearance": false
+      },
+      "physical_element_count": 2,
+      "geometry_coverage": true,
+      "solid_pair_checks": [
+        {
+          "pair": [
+            "2cUz1$pA9VrwZ3j8IqfWZh",
+            "3jzmgt4rXJROS0ybhlzD_Q"
+          ],
+          "mesh_common_volume_m3": 9.999999999999372e-06,
+          "method": "Manifold3D Mesh64 intersection"
+        }
+      ],
+      "integrity_pass": true,
+      "artifacts": {
+        "runs\\rectangular-clash-intrusion-v1\\workflow.json": "2df7e03ed24d18bdbbf8e619ddf905e829571543ea829c91ef70921a9c7796cc",
+        "runs\\rectangular-clash-intrusion-v1\\coordination\\clash.json": "78f9d18e7672f2e66a21d126fee8b6484dbe568facb667ac3f50433fdb3fe3bb",
+        "runs\\rectangular-clash-intrusion-v1\\air\\selected-coordination\\bim\\model.ifc": "5730dc68b603de5e2e7ccef141a6d56b47c86943c507c221d2a22800faa99b12"
+      }
+    }
+  },
+  "tests": {
+    "rectangular_coordination": 2,
+    "generic_clash": 9,
+    "rectangular_model_design": 4,
+    "all_pass": true
+  },
+  "design_accepted": false
+}

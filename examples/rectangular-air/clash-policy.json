@@ -1,0 +1,13 @@
+{
+  "scope": "all represented non-feature non-virtual IfcElements",
+  "sources": {
+    "demo": "Explicit synthetic 100 mm clearance, 0.1 mm intersection/contact tolerances and 1e-10 m3 positive-overlap threshold; no actual product or code requirement."
+  },
+  "source": "demo",
+  "minimum_clearance_m": 0.1,
+  "intersection_tolerance_m": 0.0001,
+  "contact_tolerance_m": 0.0001,
+  "overlap_volume_tolerance_m3": 1e-10,
+  "maximum_boolean_pairs": 100,
+  "allowed_contacts": []
+}

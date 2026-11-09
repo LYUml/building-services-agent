@@ -1,0 +1,98 @@
+{
+  "name": "Synthetic straight rectangular duct wall",
+  "project_uuid": "f72fd462-b4f8-4ad0-b3bd-0c0dfd09c904",
+  "geometry_scope": "axis-aligned envelopes and explicit rectangular duct walls",
+  "sources": {
+    "demo": "Explicit synthetic initially undersized 100x100 mm/1 mm wall, 2 m straight route, fixed centreline and endpoints; not measured or manufacturer data.",
+    "equipment": "Explicit synthetic unconnected equipment bounding envelope for represented-model coordination only; no manufacturer, fan performance or physical port connection asserted."
+  },
+  "spaces": [
+    {
+      "id": "ROOM",
+      "origin_m": [
+        0,
+        0,
+        0
+      ],
+      "size_m": [
+        5,
+        5,
+        5
+      ],
+      "source": "demo"
+    }
+  ],
+  "systems": [
+    {
+      "id": "AIR",
+      "predefined_type": "VENTILATION",
+      "source": "demo"
+    }
+  ],
+  "devices": [
+    {
+      "id": "DUCT",
+      "ifc_class": "IfcDuctSegment",
+      "space": "ROOM",
+      "system": "AIR",
+      "origin_m": [
+        1,
+        1.2,
+        1.1
+      ],
+      "size_m": [
+        2,
+        0.102,
+        0.102
+      ],
+      "body_shape": "straight rectangular duct wall",
+      "source": "demo",
+      "properties": {
+        "InternalWidth_m": 0.1,
+        "InternalHeight_m": 0.1,
+        "WallThickness_m": 0.001
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0,
+            0.051,
+            0.051
+          ],
+          "source": "demo"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            2,
+            0.051,
+            0.051
+          ],
+          "source": "demo"
+        }
+      ]
+    },
+    {
+      "id": "CONTEXT_FAN",
+      "ifc_class": "IfcFan",
+      "space": "ROOM",
+      "system": "AIR",
+      "origin_m": [
+        1.8,
+        1.49,
+        1.15
+      ],
+      "size_m": [
+        0.1,
+        0.1,
+        0.1
+      ],
+      "source": "equipment",
+      "ports": []
+    }
+  ],
+  "connections": []
+}

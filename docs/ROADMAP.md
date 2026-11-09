@@ -62,6 +62,8 @@ The requested end state is reusable automation from a requirement document and s
 
 ## Next sequence
 
+Rectangular selected/native binding producers now feed generic IFC coordination with artifact pins. Actual synthetic clear and side-wall intrusion cases distinguish passing pressure from failed physical overlap/clearance, blocking required review; byte mutation creates explicit integrity failure. This is represented-model checking, not product/insulation/obstacle completeness, native drawings or full Hong Kong acceptance.
+
 Rectangular catalogue model revision now regenerates source-defined straight walls with separately sourced thickness, fixed endpoints, stable saved object/port GUIDs and fresh native-bound pressure. Baseline, rejected spatial choices and no-feasible failures are retained. Actual synthetic single-duct native workflow passes with final review pending; full routes, bends/junctions, products, clashes/drawings and HK acceptance remain pending.
 
 Source-defined rectangular straight port chains now derive geometry-free pressure input, author/reopen native hollow IFC, independently inspect saved walls and reconcile saved directed ports before fresh pressure analysis. Actual positive and low-pressure gates plus profile mutation controls pass; selected-catalogue automatic revision and full physical/engineering/HK acceptance remain pending (RECTANGULAR_AIR_NETWORKS.md).

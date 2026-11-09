@@ -1,5 +1,13 @@
 # Rectangular air-tree pressure budgets
 
+## Selected-model coordination gates
+
+The existing generic ifc_clash can now inherit rectangular_model_design's selected-coordination/bim/model.ifc or rectangular_network_binding's bim/model.ifc. No replacement IFC is supplied. Producer artifact bytes are pinned and checked before dependent consumers; inherited clash repeats the pin check afterward. A failed producer prevents collision execution; changed artifacts produce explicit integrity failures, including downstream review, instead of a passing or ordinary pending result.
+
+Examples clearance-plan.json and intrusion-plan.json add an explicitly synthetic unconnected IfcFan bounding envelope. It is context geometry, not a selected product, operating fan or physically connected component. Both workflows select and save the same straight-duct dimensions; the first envelope stays outside the wall with the declared 100 mm spacing, while the second crosses the selected duct side wall. No contact waiver is used. Actual runs/rectangular-clash-clear-v1 passes represented-model coordination; runs/rectangular-clash-intrusion-v1 fails both material overlap and clearance despite a passing pressure study, blocking its required review. Whole-building obstacle completeness and actual equipment/insulation fidelity remain unresolved. Evidence: evidence/rectangular-air/coordination.json.
+
+This reuses existing IfcOpenShell triangle clearance and pinned Manifold solid Boolean checks, not a new collision engine. Generic IFC reader availability does not mean each specialised drawing or hydraulic consumer supports rectangular shapes; preserve its own input contract and saved source checks. Native plotted drawings, finite fittings, actual clearances/products and full Hong Kong/engineering acceptance remain pending.
+
 ## Selected dimensions regenerate the source model
 
 Workflow kind rectangular_model_design accepts project/model/binding/catalogue/geometry and optional requires_pass. Standalone: `python -m bsa.rectangular_model_design <geometry-free-project> --model <source-model> --binding <binding> --catalogue <catalogue> --geometry <wall-options> --out <new-run>`. Source model project_uuid is required. The geometry contract has basis `rectangular walls; fixed centrelines and endpoints`, sources, and exactly one positive sourced wall_thickness_m per catalogue option. Width/height and roughness remain catalogue inputs; wall thickness is not inferred from duct size.

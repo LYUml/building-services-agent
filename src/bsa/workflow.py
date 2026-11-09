@@ -11,7 +11,7 @@ from pathlib import Path
 from .cli import digest
 from .engine import ProjectError
 
-IFC_ARTIFACTS={'product_alignment':'alignment.ifc','connector_ports':'placed-connector.ifc','cad_ifc':'fitting.ifc','product_ports':'placed-fitting.ifc','tee_selection':'selected/assembly/assembly.ifc','tee_assembly':'assembly.ifc','ifc_metadata':'native/model.ifc','selected_pump_ifc':'selected-model.ifc','regulated_water_model':'selected-coordination/bim/model.ifc','annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
+IFC_ARTIFACTS={'rectangular_model_design':'selected-coordination/bim/model.ifc','rectangular_network_binding':'bim/model.ifc','product_alignment':'alignment.ifc','connector_ports':'placed-connector.ifc','cad_ifc':'fitting.ifc','product_ports':'placed-fitting.ifc','tee_selection':'selected/assembly/assembly.ifc','tee_assembly':'assembly.ifc','ifc_metadata':'native/model.ifc','selected_pump_ifc':'selected-model.ifc','regulated_water_model':'selected-coordination/bim/model.ifc','annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
                'route_model':'bound/bim/model.ifc','route_optimize':'selected/bound/bim/model.ifc',
                'network_model_design':'selected-coordination/bim/model.ifc',
                'electrical_coordination':'bim/model.ifc','electrical_lighting':'shared/bim/model.ifc','pump_electrical':'model.ifc','water_coordination':'model.ifc'}
@@ -750,6 +750,8 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
         try:
             if any(not f.is_file() or digest(f)!=before[str(f)] for f in inputs):
                 raise ProjectError('workflow source changed before task execution; adapter not executed')
+            for parent in [t.get('depends_on'),*t.get('requires_pass',[])]:
+                if parent in rectangular_pins and any(not Path(f).is_file() or digest(Path(f))!=sha for f,sha in rectangular_pins[parent].items()):raise ProjectError('rectangular producer artifacts changed before consumer execution')
             blocked=[g for g in t.get('requires_pass',[]) if tasks[g]['status']!='pass']
             from .input_issues import blockers
             missing_inputs=blockers(p,t['id'])
@@ -1119,6 +1121,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     from .clash import run
                     source=out/dependency/IFC_ARTIFACTS[tasks[dependency]['kind']] if dependency else local_path(root,t['ifc'])
                     payload=run(source,local_path(root,t['policy']),folder)
+                    if dependency in rectangular_pins and any(not Path(f).is_file() or digest(Path(f))!=sha for f,sha in rectangular_pins[dependency].items()):raise ProjectError('rectangular producer artifacts changed during clash check')
                     status='pass' if payload['calculated_checks_pass'] else 'fail'
                     reason='saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending'
             elif t['kind']=='base_overlay':
@@ -1298,11 +1301,13 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 payload=run(*(local_path(root,t[key]) for key in ('project','model','binding','catalogue','geometry')),folder)
                 status='pass' if payload['calculated_checks_pass'] and payload['stable_object_port_ids_match'] and payload['fixed_endpoints_pass'] else 'fail'
                 reason=payload['scope']
+                rectangular_pins[t['id']]={str(f):digest(f) for f in folder.rglob('*') if f.is_file()}
             elif t['kind']=='rectangular_network_binding':
                 from .rectangular_binding import run
                 payload=run(*(local_path(root,t[key]) for key in ('project','model','binding')),folder)
                 status='pass' if payload['saved_ifc_geometry_match'] and payload['calculated_checks_pass'] else 'fail'
                 reason=payload['scope']
+                rectangular_pins[t['id']]={str(f):digest(f) for f in folder.rglob('*') if f.is_file()}
             elif t['kind']=='rectangular_network_design':
                 from .rectangular_design import run
                 payload=run(local_path(root,t['project']),local_path(root,t['catalogue']),folder)
