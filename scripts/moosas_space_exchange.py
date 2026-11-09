@@ -45,6 +45,24 @@ def check_space_envelopes(model, audit):
     return details
 
 
+def space_contacts(rows, binding):
+    """Whole-face geometric contacts only; no airflow or heat-transfer inference."""
+    from bsa.thermal_geometry import boxes, adjacency
+    boxes({'spaces': rows})
+    by_id = {r['id']:r for r in rows}
+    guids = {r['id']:r['guid'] for r in binding['spaces']}
+    contacts = []
+    # Face suffixes follow the source envelope construction above.
+    negative, positive = (5,2,0), (3,4,1)
+    for pair in adjacency(rows):
+        a,b = pair['spaces']; axis = pair['axis']
+        a_first = by_id[a]['origin_m'][axis] < by_id[b]['origin_m'][axis]
+        contacts.append(dict(spaces=[guids[a],guids[b]],axis=axis,area_m2=pair['area_m2'],
+            surfaces=[guids[a]+'_'+str(positive[axis] if a_first else negative[axis]),
+                      guids[b]+'_'+str(negative[axis] if a_first else positive[axis])]))
+    return contacts
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ('ifc', 'binding', 'upstream', 'deps', 'out'):
@@ -74,6 +92,7 @@ def main():
     rows, audit = extract(paths['ifc'], binding)
     if not rows:
         parser.error('At least one source-verified box space is required')
+    contacts = space_contacts(rows, binding)
     model = MoosasModel()
     model.levelList = sorted({r['origin_m'][2]+v*r['size_m'][2] for r in rows for v in (0,1)})
     for row, basis in zip(rows, binding['spaces']):
@@ -106,16 +125,24 @@ def main():
         return sorted([sorted(set(tuple(round(float(n),9) for n in p) for p in get_coordinates(g.face,include_z=True))) for g in m.geometryList])
     actual = {s.id:s for s in loaded.spaceList}
     boundary_checks = check_space_envelopes(loaded, audit)
+    surfaces = {str(s.Uid):s for s in list(loaded.faceList)+list(loaded.wallList)}
+    def surface_vertices(uid):
+        return sorted(set(tuple(round(float(n),9) for n in p)
+                          for p in get_coordinates(surfaces[uid].face,include_z=True)))
+    contacts_match = all(all(uid in surfaces for uid in c['surfaces'])
+        and surface_vertices(c['surfaces'][0])==surface_vertices(c['surfaces'][1]) for c in contacts)
     checks = dict(space_identity_preserved=len(actual)==len(rows)==len(loaded.spaceList)
                   and set(actual)=={b['guid'] for b in binding['spaces']},
                   per_space_boundaries_preserved=all(r['boundary_ownership_preserved'] for r in boundary_checks),
                   face_vertices_preserved=vertices(model)==vertices(loaded),
+                  geometric_contact_faces_match=contacts_match,
                   dimensions_preserved=all(e['guid'] in actual
                     and math.isclose(actual[e['guid']].area,e['floor_area_m2'],abs_tol=1e-8)
                     and math.isclose(actual[e['guid']].height,e['size_m'][2],abs_tol=1e-8)
                     and not actual[e['guid']].is_open() for e in audit['spaces']),
                   inputs_unchanged=all(digest(Path(p))==sha for p,sha in inputs.items()))
     result = dict(upstream_commit=PIN,dependencies=dependency_versions,inputs=inputs,geometry=audit,checks=checks,boundary_checks=boundary_checks,
+                  geometric_contacts=contacts,contact_scope='Whole-face coordinate contact only; thermal boundary and airflow connection not assigned',
                   geometry_exchange_pass=all(checks.values()),simulation_executed=False,design_accepted=False,
                   scope='Box-space envelopes only; material, shared boundaries, thermal settings, system topology and regulatory acceptance unresolved',
                   compatibility='Explicit empty version-5 catalogue; no template applied',
