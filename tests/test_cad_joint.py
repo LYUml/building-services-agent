@@ -18,3 +18,11 @@ class NativeJointTests(unittest.TestCase):
                                          ([0,0,0], [0,0,0], float('inf'))]:
             with self.assertRaises(ProjectError):
                 insertion(base, translation, angle)
+
+    def test_three_dimensional_rotation_and_invalid_matrices(self):
+        rotation=np.array([[0.,1,0],[0,0,-1],[-1,0,0]])
+        point,observed=insertion([2,3,4],[10,20,30],rotation)
+        np.testing.assert_allclose(point,[13,16,28])
+        np.testing.assert_array_equal(observed,rotation)
+        for invalid in (np.diag([-1.,1,1]),np.diag([2.,1,1]),np.full((3,3),np.nan)):
+            with self.assertRaises(ProjectError):insertion([0,0,0],[0,0,0],invalid)

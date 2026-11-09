@@ -20,9 +20,7 @@ def relative_basis(fixed, moving, unit_scale):
     aligned_placement(fixed,moving,0)  # Require proper rigid input frames.
     if not math.isfinite(unit_scale) or unit_scale<=0:raise ProjectError('positive CAD unit scale required')
     relative=np.linalg.inv(fixed)@moving
-    if not np.allclose(relative[:3,2],[0,0,1],atol=1e-9,rtol=0):
-        raise ProjectError('native adapter requires relative Z-axis rotation')
-    return relative[:3,3]/unit_scale, math.degrees(math.atan2(relative[1,0],relative[0,0]))
+    return relative[:3,3]/unit_scale, relative[:3,:3]
 
 
 def source_dwg(inputs):
@@ -60,10 +58,10 @@ def run(alignment,junction,connector,out,exe=DEFAULT_EXE):
         raise ProjectError('saved product placement differs from alignment')
     fixed,fu=source_dwg(ji);moving,mu=source_dwg(ci)
     if fu!=mu:raise ProjectError('native source units differ')
-    translation,angle=relative_basis(jf,cf,METRES_PER_UNIT[fu])
+    translation,rotation=relative_basis(jf,cf,METRES_PER_UNIT[fu])
     basis={'source':'Derived from hash-bound saved IFC alignment; diagnostic comparison only',
            'fixed_sha256':digest(fixed),'moving_sha256':digest(moving),'insunits':fu,
-           'translation_drawing_units':translation.tolist(),'rotation_z_degrees':angle}
+           'translation_drawing_units':translation.tolist(),'rotation':rotation.tolist()}
     before={str(report_path):digest(report_path),str(path):digest(path),**r['inputs']}
     out.mkdir(parents=True);bp=out/'native-basis.json';bp.write_text(json.dumps(basis,indent=2),encoding='utf-8')
     native=native_joint(fixed,moving,bp,out/'native',exe)

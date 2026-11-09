@@ -1,0 +1,68 @@
+{
+  "trials": [
+    {
+      "basis": {
+        "source": "Synthetic separated arbitrary rigid placement; native transform regression only",
+        "fixed_sha256": "138d2db55989b3bc35339f217a7e7767423a234504cc4f56c5c48902cd4ff45f",
+        "moving_sha256": "a117469a50e2a4ad293ef29fa5b658d14dbb3c3f4365b0485527bbae36efecaa",
+        "insunits": 1,
+        "translation_drawing_units": [
+          20,
+          30,
+          40
+        ],
+        "rotation": [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            -0.7986355100472928,
+            0,
+            -0.6018150231520483
+          ],
+          [
+            -0.6018150231520483,
+            0,
+            0.7986355100472928
+          ]
+        ]
+      },
+      "native_clear": true,
+      "native_transform_and_mass_checks_pass": true,
+      "intersection_volume_m3": null,
+      "design_accepted": false
+    },
+    {
+      "basis": {
+        "source": "Native CAD comparison of verified zero-roll alignment; shifted case is an intentional interference control",
+        "fixed_sha256": "138d2db55989b3bc35339f217a7e7767423a234504cc4f56c5c48902cd4ff45f",
+        "moving_sha256": "a117469a50e2a4ad293ef29fa5b658d14dbb3c3f4365b0485527bbae36efecaa",
+        "insunits": 1,
+        "translation_drawing_units": [
+          2.765,
+          0.01,
+          0
+        ],
+        "rotation_z_degrees": -90
+      },
+      "native_clear": false,
+      "native_transform_and_mass_checks_pass": true,
+      "intersection_volume_m3": 1.9459556564679998e-07,
+      "design_accepted": false
+    }
+  ],
+  "inherited_matrix_comparison": {
+    "native_report_sha256": "db5f5b9f770aba5ef677e231c3afb70b05ff37437f90dfb51c3ffe1aad34b360",
+    "ifc_geometry_and_placement_binding_pass": true,
+    "native_clear": true,
+    "mesh_calculated_checks_pass": false,
+    "mesh_overlap_m3": 2.6501259276899105e-09,
+    "native_intersection_volume_m3": null,
+    "status": "comparison_requires_engineering_review",
+    "design_accepted": false,
+    "scope": "Same source bodies and saved relative placement; native kernel versus tessellated intersection. No mesh waiver or installed-joint approval."
+  },
+  "artifact_integrity_pass": true
+}

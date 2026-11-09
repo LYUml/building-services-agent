@@ -1,4 +1,4 @@
-"""Scoped native two-solid Boolean with sourced translation/Z rotation and INSBASE compensation."""
+"""Scoped native two-solid Boolean with sourced rigid placement and INSBASE compensation."""
 import argparse
 import json
 import math
@@ -16,10 +16,15 @@ from .native_cad import DEFAULT_EXE, execute, lisp_string as q
 def insertion(base, translation, angle):
     if np.shape(base)!=(3,) or np.shape(translation)!=(3,) or not np.isfinite(base).all() or not np.isfinite(translation).all():
         raise ProjectError('finite three-coordinate base and translation required')
-    if type(angle) not in (int,float) or not math.isfinite(angle):
-        raise ProjectError('finite Z rotation required')
-    a=math.radians(angle)
-    rotation=np.array([[math.cos(a),-math.sin(a),0],[math.sin(a),math.cos(a),0],[0,0,1.]])
+    if isinstance(angle,list) or isinstance(angle,np.ndarray):
+        rotation=np.asarray(angle,dtype=float)
+        if rotation.shape!=(3,3) or not np.isfinite(rotation).all() or not np.allclose(rotation.T@rotation,np.eye(3),atol=1e-10,rtol=0) or not math.isclose(np.linalg.det(rotation),1,abs_tol=1e-10,rel_tol=0):
+            raise ProjectError('proper rigid rotation matrix required')
+    else:
+        if type(angle) not in (int,float) or not math.isfinite(angle):
+            raise ProjectError('finite Z rotation required')
+        a=math.radians(angle)
+        rotation=np.array([[math.cos(a),-math.sin(a),0],[math.sin(a),math.cos(a),0],[0,0,1.]])
     return np.array(translation)+rotation@base, rotation
 
 
@@ -40,12 +45,13 @@ def native(exe, copy, script, body):
 def run(fixed, moving, basis_path, out, exe=DEFAULT_EXE):
     fixed,moving,basis_path,out,exe=[Path(p).resolve() for p in (fixed,moving,basis_path,out,exe)]
     b=json.loads(basis_path.read_text(encoding='utf-8-sig'))
-    required={'source','fixed_sha256','moving_sha256','insunits','translation_drawing_units','rotation_z_degrees'}
-    if not isinstance(b,dict) or set(b)!=required or not isinstance(b['source'],str) or not b['source'].strip():
+    required={'source','fixed_sha256','moving_sha256','insunits','translation_drawing_units'}
+    if not isinstance(b,dict) or set(b) not in (required|{'rotation_z_degrees'},required|{'rotation'}) or not isinstance(b['source'],str) or not b['source'].strip():
         raise ProjectError('exact sourced joint basis required')
     if type(b['insunits']) is not int or b['insunits'] not in METRES_PER_UNIT:
         raise ProjectError('declared supported units required')
-    insertion([0,0,0],b['translation_drawing_units'],b['rotation_z_degrees'])
+    orientation=b['rotation'] if 'rotation' in b else b['rotation_z_degrees']
+    insertion([0,0,0],b['translation_drawing_units'],orientation)
     hashes={str(p):digest(p) for p in (fixed,moving,basis_path)}
     if hashes[str(fixed)]!=b['fixed_sha256'] or hashes[str(moving)]!=b['moving_sha256']:
         raise ProjectError('source DWG hash mismatch')
@@ -56,15 +62,16 @@ def run(fixed, moving, basis_path, out, exe=DEFAULT_EXE):
     for doc in docs:
         if len(list(doc.modelspace().query('3DSOLID')))!=1 or list(doc.modelspace().query('INSERT')):
             raise ProjectError('each input must contain one model-space solid and no block references')
-    point,rotation=insertion(list(docs[1].header.get('$INSBASE',(0,0,0))),b['translation_drawing_units'],b['rotation_z_degrees'])
+    point,rotation=insertion(list(docs[1].header.get('$INSBASE',(0,0,0))),b['translation_drawing_units'],orientation)
     # A unique copied name prevents existing block definitions from replacing the import.
     imported=out/'BSA_NATIVE_JOINT_IMPORT.dwg'
     if imported.stem in docs[0].blocks:raise ProjectError('reserved import block already exists')
     shutil.copyfile(moving,imported);copy=out/'fixed-copy.dwg';shutil.copyfile(fixed,copy)
     handle=list(docs[1].modelspace().query('3DSOLID'))[0].dxf.handle
     native(exe,imported,out/'source-mass.scr',f'(command "_.MASSPROP" (handent {q(handle)}) "" "_Y" {q(out/"source.mpr")})')
-    coord=','.join(format(float(x),'.17g') for x in point)
-    body=f'(command "_.-INSERT" {q(imported)} {q(coord)} "1" {q(b["rotation_z_degrees"])}) (setq block (entlast)) '
+    coord=lambda values:q(','.join(format(float(x),'.17g') for x in values))
+    body=f'(command "_.UCS" "_3point" "0,0,0" {coord(rotation[:,0])} {coord(rotation[:,1])}) '
+    body+=f'(command "_.-INSERT" {q(imported)} {coord(rotation.T@point)} "1" "0") (setq block (entlast)) (command "_.UCS" "_World") '
     body+=f'(command "_.DXFOUT" {q(out/"inserted.dxf")} "16") (command "_.EXPLODE" block "") '
     body+='(setq ss (ssget "_X" (list (cons 0 "3DSOLID") (cons 410 "Model")))) '
     fixed_handle=list(docs[0].modelspace().query('3DSOLID'))[0].dxf.handle
@@ -77,8 +84,10 @@ def run(fixed, moving, basis_path, out, exe=DEFAULT_EXE):
     inserted=read_dxf(out/'inserted.dxf',b['insunits']);refs=list(inserted.modelspace().query('INSERT'))
     if len(refs)!=1:raise ProjectError('one inserted block required')
     ref=refs[0]
-    if (not np.allclose(ref.dxf.insert,point,atol=1e-9,rtol=0) or any(abs(getattr(ref.dxf,k)-1)>1e-12 for k in ('xscale','yscale','zscale'))
-            or abs(math.remainder(ref.dxf.rotation-b['rotation_z_degrees'],360))>1e-9):
+    matrix=ref.matrix44()
+    actual_origin=np.array(matrix.transform((0,0,0)))
+    actual_rotation=np.column_stack([np.array(matrix.transform(v))-actual_origin for v in np.eye(3)])
+    if not np.allclose(actual_origin,point,atol=1e-9,rtol=0) or not np.allclose(actual_rotation,rotation,atol=1e-9,rtol=0):
         raise ProjectError('native insertion transform mismatch')
     source=mass_properties((out/'source.mpr').read_text());moved=mass_properties((out/'moved.mpr').read_text())
     if not math.isclose(source['volume'],moved['volume'],rel_tol=1e-7,abs_tol=1e-7) or not np.allclose(moved['centroid'],rotation@source['centroid']+b['translation_drawing_units'],atol=1e-7,rtol=0):
@@ -90,7 +99,7 @@ def run(fixed, moving, basis_path, out, exe=DEFAULT_EXE):
     result={'inputs':hashes,'basis':b,'insertion_point_drawing_units':point.tolist(),'solid_counts_before_after':counts,
             'native_clear':counts[1]==0,'intersection_volume_m3':mass_properties((out/'intersection.mpr').read_text())['volume']*METRES_PER_UNIT[b['insunits']]**3 if counts[1] else None,
             'native_transform_and_mass_checks_pass':True,'design_accepted':False,
-            'scope':'Two native solids, explicit translation/Z rotation; kernel tolerance applies. No IFC equivalence, mesh waiver or installation acceptance.',
+            'scope':'Two native solids, explicit rigid placement; kernel tolerance applies. No IFC equivalence, mesh waiver or installation acceptance.',
             'artifacts':{p.relative_to(out).as_posix():digest(p) for p in out.rglob('*') if p.is_file()}}
     (out/'joint.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
     return result
