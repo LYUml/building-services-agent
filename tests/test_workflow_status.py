@@ -11,6 +11,26 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class WorkflowStatusTests(unittest.TestCase):
+    def test_product_alignment_reports_both_upstream_sources(self):
+        from unittest.mock import patch
+        source={'tasks':[
+            {'id':'tee','kind':'product_ports'},
+            {'id':'coupling','kind':'connector_ports'},
+            {'id':'joint','kind':'product_alignment','junction_from':'tee','connector_from':'coupling'},
+            {'id':'release','kind':'manual','requires_pass':['joint']}],
+            'requirements':[{'id':'R1','task':'joint'}]}
+        report={'tasks':{t['id']:{'status':'pending','scope':'controlled missing input'} for t in source['tasks']},
+                'artifact_hashes':{}}
+        with patch('bsa.workflow_status.context',return_value=(source,report,{'integrity_pass':True})):
+            rows={r['id']:r for r in diagnose(self.plan,self.run)['tasks']}
+        self.assertEqual(rows['joint']['dependencies'],['tee','coupling'])
+        self.assertEqual(rows['joint']['blocked_by'],['tee','coupling'])
+        self.assertEqual(rows['release']['upstream_action_tasks'],['coupling','tee'])
+        report['tasks']['joint']['status']='pass'
+        with patch('bsa.workflow_status.context',return_value=(source,report,{'integrity_pass':True})):
+            with self.assertRaisesRegex(ProjectError,'nonpassing dependencies'):
+                diagnose(self.plan,self.run)
+
     def setUp(self):
         (ROOT/'runs').mkdir(exist_ok=True)
         self.temp = tempfile.TemporaryDirectory(dir=ROOT/'runs')

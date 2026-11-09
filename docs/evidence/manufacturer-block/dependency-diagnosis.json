@@ -1,0 +1,97 @@
+{
+  "scope": "Actual seven-stage product workflow executed without an AutoCAD argument; dependency diagnosis only",
+  "integrity_pass": true,
+  "tasks": [
+    {
+      "id": "tee_convert",
+      "status": "pending",
+      "dependencies": [],
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "tee_convert"
+      ]
+    },
+    {
+      "id": "tee_place",
+      "status": "pending",
+      "dependencies": [
+        "tee_convert"
+      ],
+      "blocked_by": [
+        "tee_convert"
+      ],
+      "upstream_action_tasks": [
+        "tee_convert"
+      ]
+    },
+    {
+      "id": "connector_convert",
+      "status": "pending",
+      "dependencies": [],
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "connector_convert"
+      ]
+    },
+    {
+      "id": "connector_place",
+      "status": "pending",
+      "dependencies": [
+        "connector_convert"
+      ],
+      "blocked_by": [
+        "connector_convert"
+      ],
+      "upstream_action_tasks": [
+        "connector_convert"
+      ]
+    },
+    {
+      "id": "align",
+      "status": "pending",
+      "dependencies": [
+        "tee_place",
+        "connector_place"
+      ],
+      "blocked_by": [
+        "tee_place",
+        "connector_place"
+      ],
+      "upstream_action_tasks": [
+        "connector_convert",
+        "tee_convert"
+      ]
+    },
+    {
+      "id": "native",
+      "status": "pending",
+      "dependencies": [
+        "align"
+      ],
+      "blocked_by": [
+        "align"
+      ],
+      "upstream_action_tasks": [
+        "connector_convert",
+        "tee_convert"
+      ]
+    },
+    {
+      "id": "release",
+      "status": "pending",
+      "dependencies": [
+        "align",
+        "native"
+      ],
+      "blocked_by": [
+        "align",
+        "native"
+      ],
+      "upstream_action_tasks": [
+        "connector_convert",
+        "tee_convert"
+      ]
+    }
+  ],
+  "design_accepted": false
+}

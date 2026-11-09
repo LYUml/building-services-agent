@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Product-joint status diagnosis now includes both junction_from and connector_from dependencies. An actual seven-stage no-engine workflow traces blocked alignment/native/release tasks back to both source conversions and produces no release artifact; fault-injected passing-child claims are rejected. This fixes status/report ancestry, not physical joint acceptance.
+
 Current Radiance availability was rechecked on 2026-11-09: host Application Control blocks rtrace.exe (4551; Code Integrity 3033/3077), including the existing native regression. Launch failures now retain diagnostics without success reports. Exact-floor probe expansion was not released because its native verification could not run; emergency photometric binding remains pending. Other development workstreams remain available.
 
 Emergency-lighting planning now has a separate topic in coverage-2026.11.09-emergency.json without masking broader fire gaps. A repeatable official-PDF-backed three-scenario workflow verifies scheduled partial coverage, assertion pass/review/pending behavior, recorded integrity and downstream blocking. Native photometric/model correspondence and engineering acceptance remain pending.

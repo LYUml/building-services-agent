@@ -19,7 +19,9 @@ def diagnose(plan, run):
     for task in source['tasks']:
         name = task['id']
         state = tasks[name]
-        parents = list(dict.fromkeys([task[key] for key in ('depends_on', 'ifc_from') if task.get(key)]+task.get('requires_pass',[])))
+        parents = list(dict.fromkeys([task[key] for key in
+            ('depends_on', 'ifc_from', 'junction_from', 'connector_from')
+            if task.get(key)]+task.get('requires_pass',[])))
         blocked = [parent for parent in parents if tasks[parent]['status'] != 'pass']
         iteration_baseline = None
         parent = task.get('depends_on')
