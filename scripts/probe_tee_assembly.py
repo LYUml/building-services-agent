@@ -15,7 +15,7 @@ import ifcopenshell.util.system as system
 from ifcopenshell.util.shape_builder import ShapeBuilder
 from bsa.cli import digest
 from bsa.solid_clash import from_mesh
-from probe_ifc_tee import run as tee_trial,verify_geometry
+from probe_ifc_tee import run as tee_trial,verify_geometry,stable_guid,project_namespace
 
 
 def verify(path,spec,lengths):
@@ -26,10 +26,14 @@ def verify(path,spec,lengths):
     ports=[(tee_ports[k].GlobalId,*v) for k,v in anchors.items()]
     tee_checks,*_=verify_geometry(path,spec,tee.GlobalId,ports)
     checks=dict(tee_geometry=all(tee_checks.values()),exact_pipe_names={p.Name for p in f.by_type('IfcPipeSegment')}==set(lengths) and len(f.by_type('IfcPipeSegment'))==3)
+    identities={('IfcPipeFitting','SYNTHETIC-TEE'):tee.GlobalId}
+    for name,port in tee_ports.items():identities[('IfcDistributionPort','SYNTHETIC-TEE',name)]=port.GlobalId
     expected_links=set();pipe_checks={}
     for pipe in f.by_type('IfcPipeSegment'):
         xyz,axis=anchors[pipe.Name];xyz=np.array(xyz);axis=np.array(axis)
         ps={p.Name:p for p in system.get_ports(pipe)}
+        identities[('IfcPipeSegment',pipe.Name)]=pipe.GlobalId
+        for name,port in ps.items():identities[('IfcDistributionPort',pipe.Name,name)]=port.GlobalId
         solid=pipe.Representation.Representations[0].Items[0];profile=solid.SweptArea
         mat=placement.get_local_placement(pipe.ObjectPlacement) @ placement.get_axis2placement(solid.Position)
         start=mat[:3,3];end=start+mat[:3,:3] @ np.array(solid.ExtrudedDirection.DirectionRatios)*solid.Depth
@@ -40,6 +44,7 @@ def verify(path,spec,lengths):
             and profile.is_a('IfcCircleHollowProfileDef') and math.isclose(profile.Radius,R) and math.isclose(profile.WallThickness,R-r))
         a,b=tee_ports[pipe.Name].id(),ps['in'].id();expected_links.update(((a,b),(b,a)))
     links=[(x.RelatingPort.id(),x.RelatedPort.id()) for x in f.by_type('IfcRelConnectsPorts')]
+    checks['stable_identities']=len(identities)==13 and len(set(identities.values()))==13 and all(g==stable_guid(spec,*key) for key,g in identities.items())
     checks['reversible_port_directions']=all(p.FlowDirection=='SOURCEANDSINK' for p in f.by_type('IfcDistributionPort'))
     checks['connections_match']=set(links)==expected_links and len(links)==len(expected_links)
     checks['pipe_geometry_ports_match']=all(pipe_checks.values())
@@ -60,6 +65,7 @@ def run(tee_spec,assembly_spec,out):
     lengths=data['pipe_lengths_m']
     if not isinstance(lengths,dict) or set(lengths)!={'main-a','main-b','branch'} or any(type(v) not in (int,float) or not math.isfinite(v) or v<=0 for v in lengths.values()):raise ValueError('three positive finite lengths required')
     if out.exists() or not out.is_relative_to(Path(__file__).resolve().parents[1]) or any(out==p or out in p.parents for p in (tee_spec,assembly_spec)):raise ValueError('new repository output required')
+    project_namespace(json.loads(tee_spec.read_text(encoding='utf-8-sig')))
     before={str(p):digest(p) for p in (tee_spec,assembly_spec)};out.mkdir(parents=True)
     trial=tee_trial(tee_spec,out/'tee')
     if not trial['geometry_trial_pass']:raise ValueError('tee geometry failed')
@@ -69,6 +75,7 @@ def run(tee_spec,assembly_spec,out):
     for port in list(system.get_ports(tee)):
         mat=placement.get_local_placement(port.ObjectPlacement);xyz=mat[:3,3];axis=mat[:3,2];length=lengths[port.Name]
         pipe=api.run('root.create_entity',f,ifc_class='IfcPipeSegment',name=port.Name)
+        pipe.GlobalId=stable_guid(spec,'IfcPipeSegment',port.Name)
         profile=f.create_entity('IfcCircleHollowProfileDef',ProfileType='AREA',Radius=R,WallThickness=R-r)
         solid=builder.extrude(profile,magnitude=length,position=xyz,position_z_axis=axis,position_x_axis=mat[:3,0])
         rep=builder.get_representation(body,[solid]);api.run('geometry.assign_representation',f,product=pipe,representation=rep)
@@ -76,6 +83,7 @@ def run(tee_spec,assembly_spec,out):
         api.run('spatial.assign_container',f,products=[pipe],relating_structure=storey)
         for name,pos,normal in [('in',xyz,-axis),('out',xyz+axis*length,axis)]:
             p=api.run('system.add_port',f,element=pipe);p.Name=name;p.FlowDirection='SOURCEANDSINK'
+            p.GlobalId=stable_guid(spec,'IfcDistributionPort',pipe.Name,name)
             m=np.eye(4);m[:3,3]=pos;m[:3,2]=normal;m[:3,0]=mat[:3,0];m[:3,1]=np.cross(normal,m[:3,0])
             api.run('geometry.edit_object_placement',f,product=p,matrix=m,is_si=True)
             if name=='in':api.run('system.connect_port',f,port1=port,port2=p,direction='SOURCEANDSINK')

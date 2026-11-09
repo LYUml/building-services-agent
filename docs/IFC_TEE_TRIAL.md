@@ -17,7 +17,7 @@ Saved-model checks use 10 micrometre mesh linear deflection and 0.05 rad angular
 
 A deliberately damaged IFC removes branch-bore subtraction while retaining outer geometry and all ports. It fails both analytic volume and bore-clearance checks while its ports still pass. The positive model separately passed native IFC schema/EXPRESS validation with zero statements. Both models and native reports are retained in docs/evidence/ifc-tee/native-trials.zip.
 
-This trial runs the established geometry runtime used by existing project adapters. It does not load or bypass the blocked FreeCAD or IfcOpenShell 0.9.0 kernels. Next integration work includes stable source identities, placement/rotation support, actual adjoining pipe connections and solid/clearance checks, source-backed directional junction losses, saved-network binding and drawings. Do not substitute it for a standard-compliant product, use a zero-loss junction by implication, or mark a complete engineering design on this evidence.
+This trial runs the established geometry runtime used by existing project adapters. It does not load or bypass the blocked FreeCAD or IfcOpenShell 0.9.0 kernels. The subsequent assembly and identity sections cover adjoining pipes and stable identities. Remaining integration work includes placement/rotation support, source-backed directional junction losses, saved-network binding and drawings. Do not substitute it for a standard-compliant product, use a zero-loss junction by implication, or mark a complete engineering design on this evidence.
 
 
 ## Connected three-pipe assembly trial
@@ -33,4 +33,13 @@ The saved IFC is reopened and the original tee checks rerun. Each pipe's native 
 
 Positive source/geometry/topology checks passed; native IFC schema/EXPRESS validation reported zero statements. Two controls keep all ports and connection relationships unchanged but shift the branch pipe body 10 mm: inward produces material overlap and endpoint mismatch, outward produces a gap and endpoint mismatch despite zero overlap. Both are rejected. Evidence is retained in docs/evidence/tee-assembly/native-trials.zip.
 
-The assembly remains a standalone geometry trial. Random IFC identities are not yet a reusable source-namespace contract; no network loss coefficient, system hydraulic solution, arbitrary placement/rotation, product selection, native drawing or installation acceptance is provided. Future integration must preserve finite fitting lengths and directional losses rather than silently replacing the tee with a zero-loss mathematical junction.
+The assembly remains a standalone geometry trial. A canonical project namespace now preserves the scoped product/port identities described below; no network loss coefficient, system hydraulic solution, arbitrary placement/rotation, product selection, native drawing or installation acceptance is provided. Future integration must preserve finite fitting lengths and directional losses rather than silently replacing the tee with a zero-loss mathematical junction.
+
+
+## Stable identities for iteration
+
+The tee spec now requires a canonical `project_uuid`. Retain it for revisions of the same project; use a different UUID for an independent project. Reusing the existing BIM adapter's UUIDv5 strategy, the trial derives GUIDs from namespace, IFC class and semantic object ID. Port keys additionally include their owning object ID. The fixed single-tee fixture has four physical products and nine ports; it is not a multi-tee authoring schema.
+
+Saved assembly checks require all 13 expected identities to match and be unique. Real regenerate/reopen regression runs verify identical identities across repeat generation and a branch-length revision, disjoint identities under a different namespace, rejection of a substituted saved port GUID, and malformed namespace rejection before output creation. Existing blocked-bore, unchanged-port penetration and gap controls still pass. Relationships, property sets, representations and file bytes are not promised stable. Historical evidence archives predate this required input and retain their original random IDs.
+
+Current positive IFC and checks are archived in `docs/evidence/tee-assembly/stable-identity.zip`. This improves revision correspondence; it does not supply directional hydraulic losses or establish engineering acceptance.

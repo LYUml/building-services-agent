@@ -3,6 +3,7 @@ import argparse
 import json
 import importlib.metadata
 import math
+import uuid
 from pathlib import Path
 import numpy as np
 import ifcopenshell
@@ -15,10 +16,25 @@ from ifcopenshell.util.shape_builder import ShapeBuilder
 from bsa.cli import digest
 
 
+def project_namespace(data):
+    value=data.get('project_uuid')
+    try:
+        namespace=uuid.UUID(value)
+    except (ValueError, TypeError, AttributeError):
+        raise ValueError('canonical project_uuid required') from None
+    if str(namespace)!=value:raise ValueError('canonical project_uuid required')
+    return namespace
+
+
+def stable_guid(data,cls,*keys):
+    return ifcopenshell.guid.compress(uuid.uuid5(project_namespace(data),json.dumps([cls,*keys],ensure_ascii=False,separators=(',',':'))).hex)
+
+
 def run(spec_path,out):
     spec_path,out=Path(spec_path).resolve(),Path(out).resolve()
     data=json.loads(spec_path.read_text(encoding='utf-8-sig'))
-    if set(data)!={'source','outer_radius_m','inner_radius_m','main_half_length_m','branch_length_m'} or not isinstance(data['source'],str) or not data['source'].strip():raise ValueError('exact sourced tee parameters required')
+    if set(data)!={'project_uuid','source','outer_radius_m','inner_radius_m','main_half_length_m','branch_length_m'} or not isinstance(data['source'],str) or not data['source'].strip():raise ValueError('exact sourced tee parameters required')
+    project_namespace(data)
     R,r,L,B=[data[k] for k in ('outer_radius_m','inner_radius_m','main_half_length_m','branch_length_m')]
     if any(type(x) not in (int,float) or not math.isfinite(x) for x in (R,r,L,B)) or not 0<r<R<min(L,B):raise ValueError('finite 0 < bore radius < outer radius < both arm lengths required')
     if out.exists() or not out.is_relative_to(Path(__file__).resolve().parents[1]) or out==spec_path or out in spec_path.parents:raise ValueError('new repository output required')
@@ -32,6 +48,7 @@ def run(spec_path,out):
     storey=api.run('root.create_entity',f,ifc_class='IfcBuildingStorey',name='Synthetic trial')
     api.run('aggregate.assign_object',f,products=[storey],relating_object=project)
     tee=api.run('root.create_entity',f,ifc_class='IfcPipeFitting',predefined_type='JUNCTION',name='SYNTHETIC-TEE')
+    tee.GlobalId=stable_guid(data,'IfcPipeFitting','SYNTHETIC-TEE')
     api.run('spatial.assign_container',f,products=[tee],relating_structure=storey)
     builder=ShapeBuilder(f)
     def cylinders(radius):
@@ -46,6 +63,7 @@ def run(spec_path,out):
     ports=[]
     for name,xyz,axis in [('main-a',(0,0,-L),(0,0,-1)),('main-b',(0,0,L),(0,0,1)),('branch',(B,0,0),(1,0,0))]:
         port=api.run('system.add_port',f,element=tee);port.Name=name;port.FlowDirection='SOURCEANDSINK'
+        port.GlobalId=stable_guid(data,'IfcDistributionPort','SYNTHETIC-TEE',name)
         mat=np.eye(4);mat[:3,3]=xyz;mat[:3,2]=axis
         mat[:3,0]=(0,1,0);mat[:3,1]=np.cross(mat[:3,2],mat[:3,0])
         api.run('geometry.edit_object_placement',f,product=port,matrix=mat,is_si=True);ports.append((port.GlobalId,list(xyz),list(axis)))
@@ -53,6 +71,7 @@ def run(spec_path,out):
     api.run('pset.edit_pset',f,pset=ps,properties=dict(Source=data['source'],OuterRadius_m=R,InnerRadius_m=r,MainHalfLength_m=L,BranchLength_m=B,Scope='Synthetic intersecting-cylinder wall; no manufacturer, K-factor or installation acceptance'))
     path=out/'tee.ifc';f.write(str(path))
     checks,volume,expected,empty_volumes,wall_overlap=verify_geometry(path,data,tee.GlobalId,ports)
+    checks['stable_identities']=ifcopenshell.open(str(path)).by_type('IfcPipeFitting')[0].GlobalId==stable_guid(data,'IfcPipeFitting','SYNTHETIC-TEE') and all(p.GlobalId==stable_guid(data,'IfcDistributionPort','SYNTHETIC-TEE',p.Name) for p in ifcopenshell.open(str(path)).by_type('IfcDistributionPort'))
     checks['source_unchanged']=digest(spec_path)==before
     result=dict(runtime=versions,source_file=str(spec_path),source_sha256=before,ifc_sha256=digest(path),parameters=data,checks=checks,
                 measured_wall_volume_m3=volume,analytic_wall_volume_m3=expected,bore_probe_intersections_m3=empty_volumes,wall_control_intersection_m3=wall_overlap,
