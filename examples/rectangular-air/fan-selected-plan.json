@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "b024b83303a4d8c94f0b8821d8afb6dfe45a5ca74ee1cd64b98a8ba6408bb280",
+  "passage_dispositions": {
+    "P001": "requirement",
+    "P002": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "air",
+      "kind": "rectangular_network_binding",
+      "project": "elbow-chain-project.json",
+      "model": "elbow-chain-model.json",
+      "binding": "elbow-chain-binding.json"
+    },
+    {
+      "id": "fan",
+      "kind": "rectangular_fan_selection",
+      "depends_on": "air",
+      "catalogue": "fan-catalogue.json"
+    },
+    {
+      "id": "selected-operation",
+      "kind": "rectangular_fan_operating_point",
+      "depends_on": "fan"
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "requires_pass": [
+        "air",
+        "fan",
+        "selected-operation"
+      ],
+      "description": "Independent geometry, fitting, fan, acoustic, fire/smoke and Hong Kong acceptance remains pending"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P001",
+      "quote": "Calculate the explicitly synthetic level rectangular duct tree using actual section area and sourced method assumptions. Report branch flows, velocities, total-pressure losses and required source pressure.",
+      "task": "air",
+      "acceptance": "Saved finite rectangular arc length/section and declared excess K with fresh level-air pressure analysis; physical joints and full acceptance separate"
+    },
+    {
+      "id": "R2",
+      "passage": "P002",
+      "quote": "Review actual geometry, fitting applicability, fan selection, acoustics, fire/smoke and Hong Kong requirements before design acceptance.",
+      "task": "review",
+      "acceptance": "Independent actual engineering and regulatory evidence required"
+    },
+    {
+      "id": "R-fan",
+      "passage": "P001",
+      "quote": "Calculate the explicitly synthetic level rectangular duct tree using actual section area and sourced method assumptions. Report branch flows, velocities, total-pressure losses and required source pressure.",
+      "task": "fan",
+      "acceptance": "Retain all candidate failures and source-declared ranking; fresh selected native-path operating rerun; real fan hardware/full acceptance separate"
+    },
+    {
+      "id": "R-selected",
+      "passage": "P001",
+      "quote": "Calculate the explicitly synthetic level rectangular duct tree using actual section area and sourced method assumptions. Report branch flows, velocities, total-pressure losses and required source pressure.",
+      "task": "selected-operation",
+      "acceptance": "Reconstruct original candidate ranking and exact native operating scenario before independent downstream rerun; no replacement curve/network"
+    }
+  ]
+}

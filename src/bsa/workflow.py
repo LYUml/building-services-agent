@@ -671,14 +671,18 @@ def validate_plan(path):
             catalogue=local_path(root,t.get('catalogue'));inputs.add(catalogue);rectangular_fan_selection.candidates(read_json(catalogue))
             inputs.update(Path(m.__file__).resolve() for m in (rectangular_fan_selection,rectangular_fan,rectangular_binding,rectangular_network,pump,network))
         if kind=='rectangular_fan_operating_point':
-            from . import rectangular_fan,rectangular_network,pump,network,rectangular_fan_binding,rectangular_binding
+            from . import rectangular_fan,rectangular_network,pump,network,rectangular_fan_binding,rectangular_binding,rectangular_fan_selection
             if set(t)-{'id','kind','project','depends_on','curve','requires_pass','description'}:raise ProjectError('fan inherits native inputs; replacement model/study forbidden')
-            curve=local_path(root,t.get('curve'));inputs.add(curve);rectangular_fan.validate_curve(read_json(curve))
-            inputs.update(Path(m.__file__).resolve() for m in (rectangular_fan,rectangular_network,pump,network,rectangular_fan_binding,rectangular_binding))
+            inputs.update(Path(m.__file__).resolve() for m in (rectangular_fan,rectangular_network,pump,network,rectangular_fan_binding,rectangular_binding,rectangular_fan_selection))
             if t.get('depends_on'):
                 parent=t['depends_on']
-                if 'project' in t or parent not in ids or next(x for x in tasks if x['id']==parent)['kind'] not in ('rectangular_model_design','rectangular_network_binding'):raise ProjectError('native fan needs earlier rectangular producer and no replacement project')
-            else:
+                if 'project' in t or parent not in ids or next(x for x in tasks if x['id']==parent)['kind'] not in ('rectangular_model_design','rectangular_network_binding','rectangular_fan_selection'):raise ProjectError('native fan needs earlier rectangular producer/selection and no replacement project')
+                selected_parent=next(x for x in tasks if x['id']==parent)['kind']=='rectangular_fan_selection'
+                if selected_parent and 'curve' in t:raise ProjectError('selected fan curve is inherited; replacement forbidden')
+            else:selected_parent=False
+            if not selected_parent:
+                curve=local_path(root,t.get('curve'));inputs.add(curve);rectangular_fan.validate_curve(read_json(curve))
+            if not t.get('depends_on'):
                 project=local_path(root,t.get('project'));inputs.add(project)
                 rectangular_fan.prepare(read_json(project),read_json(curve))
         if kind=='pump_operating_point':
@@ -967,19 +971,27 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     rectangular_pins[t['id']]={str(f):digest(f) for f in folder.rglob('*') if f.is_file()}
             elif t['kind']=='rectangular_fan_operating_point':
                 parent=t.get('depends_on')
-                if parent and tasks[parent]['status']!='pass':reason='upstream rectangular native study did not pass; fan intersection not executed'
+                if parent and tasks[parent]['status']!='pass':reason='upstream rectangular native study/selection did not pass; fan intersection not executed'
                 else:
                     if parent:
                         from .rectangular_fan_binding import run
                         producer=next(x for x in p['tasks'] if x['id']==parent)
-                        base=out/parent/('selected-coordination' if producer['kind']=='rectangular_model_design' else '')
-                        model=out/parent/'selected-model.json' if producer['kind']=='rectangular_model_design' else local_path(root,producer['model'])
-                        payload=run(base/'network-input.json',model,local_path(root,producer['binding']),base/'bim/model.ifc',base/'analysis/network.json',local_path(root,t['curve']),folder)
+                        selection=producer if producer['kind']=='rectangular_fan_selection' else None
+                        native_parent=producer['depends_on'] if selection else parent
+                        producer=next(x for x in p['tasks'] if x['id']==native_parent)
+                        base=out/native_parent/('selected-coordination' if producer['kind']=='rectangular_model_design' else '')
+                        model=out/native_parent/'selected-model.json' if producer['kind']=='rectangular_model_design' else local_path(root,producer['model'])
+                        args=(base/'network-input.json',model,local_path(root,producer['binding']),base/'bim/model.ifc',base/'analysis/network.json')
+                        if selection:
+                            from .rectangular_fan_selection import selected_input
+                            curve=selected_input(out/parent,*args,local_path(root,selection['catalogue']))
+                        else:curve=local_path(root,t['curve'])
+                        payload=run(*args,curve,folder)
                     else:
                         from .rectangular_fan import run
                         payload=run(local_path(root,t['project']),local_path(root,t['curve']),folder)
                     status='pass' if payload['calculated_checks_pass'] else 'fail'
-                    reason='Bounded total-pressure fan/system intersection with saved rectangular rerun; native path verified when inherited; fan equipment, motor/product and full acceptance pending'
+                    reason='Bounded total-pressure fan/system intersection with saved rectangular rerun; inherited selection is source/ranking reconstructed; fan equipment, motor/product and full acceptance pending'
                     if parent and any(not Path(f).is_file() or digest(Path(f))!=sha for f,sha in rectangular_pins[parent].items()):raise ProjectError('rectangular producer artifacts changed during fan intersection')
                     rectangular_pins[t['id']]={str(f):digest(f) for f in folder.rglob('*') if f.is_file()}
             elif t['kind']=='pump_operating_point':

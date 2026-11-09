@@ -62,3 +62,55 @@ def run(project,model,binding,ifc,analysis,catalogue,out):
     result['artifacts']={p.relative_to(out).as_posix():digest(p) for p in out.rglob('*') if p.is_file()}
     (out/'fan-selection.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
     return result
+
+
+def selected_input(producer,project,model,binding,ifc,analysis,catalogue):
+    """Reconstruct candidate ranking and native scenario before selected-curve handoff."""
+    from .rectangular_fan import solve
+    producer=Path(producer).resolve()
+    paths=[Path(p).resolve() for p in (project,model,binding,ifc,analysis,catalogue)]
+    report=producer/'fan-selection.json'
+    before=digest(report);result=json.loads(report.read_text(encoding='utf-8-sig'))
+    expected_inputs={str(p):digest(p) for p in paths}
+    if result.get('inputs')!=expected_inputs:raise ProjectError('selected fan source identity differs')
+    if not all(result.get(k) is True for k in ('feasible_candidate_found','selected_rerun_pass','calculated_checks_pass','native_path_correspondence_pass')) or not isinstance(result.get('selected'),dict):raise ProjectError('no passing selected fan available')
+    artifacts=result.get('artifacts',{})
+    required={'selected/curve.json','selected/operating/fan.json','selected/operating/operating-network.json','selected/operating/analysis/network.json'}
+    if not isinstance(artifacts,dict) or not required<=set(artifacts):raise ProjectError('selected fan artifact coverage missing')
+    for name,sha in artifacts.items():
+        path=(producer/name).resolve()
+        if not path.is_relative_to(producer) or not path.is_file() or digest(path)!=sha:raise ProjectError('selected fan artifact changed')
+    verified_study(*paths[:5])
+    options=candidates(json.loads(paths[-1].read_text(encoding='utf-8-sig')))
+    project_data=json.loads(paths[0].read_text(encoding='utf-8-sig'))
+    records=result.get('candidates')
+    if not isinstance(records,list) or len(records)!=len(options):raise ProjectError('selected fan candidate coverage differs')
+    passing=[];solutions={}
+    for i,(row,record) in enumerate(zip(options,records)):
+        directory=f'candidate-{i:03d}'
+        if any(record.get(k)!=row[k] for k in ('id','source','preference')) or record.get('directory')!=directory:raise ProjectError('selected fan candidate source/ranking differs')
+        curve=producer/directory/'curve.json'
+        if f'{directory}/curve.json' not in artifacts or json.loads(curve.read_text(encoding='utf-8-sig'))!=row['curve']:raise ProjectError('candidate curve differs from original source')
+        try:
+            fresh,data=solve(project_data,row['curve'])
+            expected={k:fresh.get(k) for k in ('status','calculated_checks_pass','checks','operating_point')}
+        except ProjectError as exc:
+            expected=dict(status='unsupported',calculated_checks_pass=False,reason=str(exc));data=None
+        if any(record.get(k)!=v for k,v in expected.items()):raise ProjectError('candidate status differs from fresh fan solve')
+        if record.get('calculated_checks_pass'):
+            passing.append(row);solutions[row['id']]=(fresh,data)
+    if not passing:raise ProjectError('no feasible fan reconstructed')
+    chosen=min(passing,key=lambda r:(r['preference'],r['id']))
+    selection=result['selected']
+    if result.get('objective')!=OBJECTIVE or result.get('tie_break')!='lexical candidate ID' or any(selection.get(k)!=chosen[k] for k in ('id','source','preference')):raise ProjectError('selected fan is not reconstructed preferred candidate')
+    fresh,data=solutions[chosen['id']]
+    curve=producer/'selected/curve.json'
+    if json.loads(curve.read_text(encoding='utf-8-sig'))!=chosen['curve'] or json.loads((producer/'selected/operating/operating-network.json').read_text(encoding='utf-8-sig'))!=data:raise ProjectError('selected curve/operating scenario differs from sourced reconstruction')
+    saved=json.loads((producer/'selected/operating/fan.json').read_text(encoding='utf-8-sig'))
+    for key in ('status','checks','operating_point','calculated_checks_pass'):
+        if saved.get(key)!=fresh.get(key):raise ProjectError('selected operating result differs from fresh solve')
+    if selection.get('rerun',{}).get('operating_point')!=fresh['operating_point'] or selection.get('rerun',{}).get('calculated_checks_pass') is not True:raise ProjectError('selected rerun summary differs')
+    if digest(report)!=before or any(not p.is_file() or digest(p)!=expected_inputs[str(p)] for p in paths):raise ProjectError('selected fan sources changed during handoff')
+    for name,sha in artifacts.items():
+        if digest(producer/name)!=sha:raise ProjectError('selected fan artifacts changed during handoff')
+    return curve
