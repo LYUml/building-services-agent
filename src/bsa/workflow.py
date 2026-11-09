@@ -69,7 +69,7 @@ def regulatory_source_bindings(tasks,root):
             current['circulation']=local_path(root,task.get('project'))
         elif kind in ('plumbing_pump_regulations','pump_operating_point','water_pipe_regulations','network') and not task.get('depends_on'):
             current['network']=local_path(root,task.get('project'))
-        elif kind=='network_coordination':
+        elif kind in ('network_coordination','ifc_network'):
             current={field:local_path(root,task[key]) for field,key in (('network_template','project'),('network_model','model'),('network_binding','binding'))}
         elif kind in shared:
             current['project']=local_path(root,task.get('project'))
@@ -151,15 +151,17 @@ def inventory_source_bindings(tasks,root):
         for parent in upstream:superseded.update(rechecks.get(parent,set()))
         applicable=upstream-(superseded-parents)
         if refresh:rechecks[name]={p for p in upstream if known[p]['kind']=='ifc_query'} | superseded
-        if task['kind'] in readers:
-            if task.get('depends_on'):
+        derived_plumbing=task['kind']=='plumbing_pump_regulations' and task.get('depends_on') in identities
+        if task['kind'] in readers or derived_plumbing:
+            if derived_plumbing:identity=identities[task['depends_on']]
+            elif task.get('depends_on'):
                 identity={'producer':task['depends_on']}
             else:
                 path=local_path(root,task['ifc'])
                 identity={'sha256':digest(path)}
             identities[name]=identity
             for parent in sorted(applicable):
-                if known[parent]['kind'] not in ('ifc_query','ifc_network'):continue
+                if known[parent]['kind'] not in ('ifc_query','ifc_network','plumbing_pump_regulations') or parent not in identities:continue
                 if refresh and known[parent]['kind']=='ifc_query':
                     bindings.append(dict(check=parent,consumer=name,previous_model_identity=identities[parent],model_identity=identity,fresh_inventory_required=True))
                     continue
@@ -224,7 +226,7 @@ def validate_plan(path):
         if kind=='plumbing_pump_regulations':
             if t.get('depends_on'):
                 parent=t['depends_on']
-                if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='network_coordination':raise ProjectError('derived plumbing capacity requires earlier network_coordination')
+                if parent not in ids or next(x for x in tasks if x['id']==parent)['kind'] not in ('network_coordination','ifc_network'):raise ProjectError('derived plumbing capacity requires earlier network_coordination or ifc_network')
                 if any(k in t for k in ('project','model','binding','ifc','producer')):raise ProjectError('derived plumbing capacity inherits original inputs; replacements forbidden')
             inputs.update(local_path(root,t.get(key)) for key in ('curve','basis'))
         if kind=='plumbing_pump_set':
@@ -791,7 +793,11 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     if parent:
                         from .ifc_plumbing_pump import run
                         producer=next(x for x in p['tasks'] if x['id']==parent)
-                        payload=run(out/parent,*(local_path(root,producer[key]) for key in ('project','model','binding')),*(local_path(root,t[key]) for key in ('curve','basis','pack')),root/t['sources'],folder)
+                        saved_ifc=None
+                        if producer['kind']=='ifc_network':
+                            inherited=producer.get('depends_on')
+                            saved_ifc=out/inherited/IFC_ARTIFACTS[tasks[inherited]['kind']] if inherited else local_path(root,producer['ifc'])
+                        payload=run(out/parent,*(local_path(root,producer[key]) for key in ('project','model','binding')),*(local_path(root,t[key]) for key in ('curve','basis','pack')),root/t['sources'],folder,saved_ifc=saved_ifc)
                     else:
                         from .plumbing_pump_binding import run
                         payload=run(*(local_path(root,t[key]) for key in ('project','curve','basis','pack')),root/t['sources'],folder)

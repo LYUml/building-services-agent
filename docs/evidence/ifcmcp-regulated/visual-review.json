@@ -1,0 +1,10 @@
+{
+  "pdf_sha256": "a2f2c0d712d378d880bea7c5f338020e508fdd273b00c85623f46692fde4e1fa",
+  "image_sha256": "011138ed2623619bd188687d63f2acce6c324307ca69d67db60bdf060982e572",
+  "visual_checks_pass": true,
+  "observations": [
+    "Both labels and leaders readable, no observed clipping or overlap; non-installation scope note visible."
+  ],
+  "design_accepted": false,
+  "scope": "Actual positive-scenario centreline sheet; full equipment/installation acceptance remains pending"
+}

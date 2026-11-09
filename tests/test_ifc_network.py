@@ -7,7 +7,7 @@ from bsa.cli import digest
 from bsa.workflow import execute,passages
 import ifcopenshell
 from bsa.bim import run as author
-from bsa.ifc_network import run
+from bsa.ifc_network import run,verify_producer
 from bsa.engine import ProjectError
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -21,6 +21,15 @@ class SavedIFCNetworkTests(unittest.TestCase):
             ifc=root/'author/model.ifc'
             args=(SOURCE/'route-template.json',SOURCE/'route-model.json',SOURCE/'route-binding.json')
             result=run(*args,ifc,root/'positive');self.assertTrue(result['calculated_checks_pass'])
+            proof=verify_producer(root/'positive',*args,ifc)
+            self.assertTrue(proof['saved_geometry_reconciled'])
+            generated=root/'positive/network-input.json'
+            changed=json.loads(generated.read_text());changed['segments'][0]['length_m']+=1
+            generated.write_text(json.dumps(changed))
+            report=root/'positive/ifc-network.json';manifest=json.loads(report.read_text())
+            manifest['artifacts']['network-input.json']=digest(generated);report.write_text(json.dumps(manifest))
+            with self.assertRaisesRegex(ProjectError,'source reconstruction'):
+                verify_producer(root/'positive',*args,ifc)
             low=json.loads(args[0].read_text());low['supply']['total_pressure_pa']=100000
             (root/'low.json').write_text(json.dumps(low))
             result=run(root/'low.json',*args[1:],ifc,root/'low')

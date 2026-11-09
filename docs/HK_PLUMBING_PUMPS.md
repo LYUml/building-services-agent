@@ -100,3 +100,16 @@ This runner reuses the existing workflow, pump-set, role binding, diagnosis and 
 A separate delivery-review template and audit are created for every scenario. Passing calculation tasks do not automatically approve any requirement: the positive and missing-evidence cases remain needs_review, while the failed capacity case remains failed. The runner verifies these states as part of its software demonstration, retaining design_accepted=false. It supplies no IFC geometry, installation drawings, authentic equipment specifications or control verification. Use the saved-IFC runner for that separate supported route demonstration; neither is a complete assignment.
 
 Actual official-source-backed evidence is archived under docs/evidence/hk-pump-set-workflow; the WSD PDF is omitted from redistribution. The included manifests retain original execution paths, so reproduce with the command above for a fresh integrity audit rather than treating the relocated archive as a live run.
+
+
+## Capacity checks after saved-model revisions
+
+plumbing_pump_regulations can also inherit an earlier passing ifc_network task. The workflow resolves that task's actual saved IFC, original project/model/binding and derived network; replacement inputs remain forbidden. Before and after the fresh pump solve, the adapter checks original source identities, producer artifact hashes, reconstructs the network from sources and independently reconciles saved hollow profiles/ports/route coverage. Rewriting a generated network and its artifact hash cannot defeat source reconstruction. Downstream supported IFC readers gated by this capacity check must retain the same saved-model identity.
+
+```powershell
+.venv/Scripts/python scripts/run_ifcmcp_regulated_demo.py --wsd-pdf runs/hk-regulation-sources/wsd-tr-2026-04.pdf --ifcmcp-python tools/ifcmcp-runtime/Scripts/python.exe --autocad "C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe" --out runs/new-ifcmcp-regulated
+```
+
+The runner uses the existing pinned April 2026 WSD pack, checks its official PDF hash, then stages independent synthetic positive/weak-curve scenarios. The positive case passes eight tasks from IFC authoring and MCP metadata revision through fresh hydraulics, pump capacity, DXF and native DWG/PDF. The weak curve fails capacity while earlier prescribed-flow hydraulics remain passing; both drawing stages stay pending and are not run. This distinction prevents a fixed-pressure budget from being mistaken for proof that a supplied pump can achieve it. The positive actual PDF was rendered and visually inspected separately.
+
+Evidence: docs/evidence/ifcmcp-regulated, excluding the official WSD PDF and AutoCAD crash reports. The existing scoped WSD interpretation is unchanged. Duplicate equipment/controls remain source assertions, not newly verified physical redundancy; native drawings remain centreline schematics. Full regulatory compliance and engineering acceptance remain unestablished.

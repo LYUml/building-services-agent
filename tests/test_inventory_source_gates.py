@@ -43,3 +43,13 @@ class InventorySourceGateTests(unittest.TestCase):
         self.assertEqual([r['check'] for r in rows if r['consumer']=='drawing'],['new'])
         tasks[-1]['depends_on']='a'
         with self.assertRaisesRegex(ProjectError,'different model'):inventory_source_bindings(tasks,ROOT)
+
+    def test_derived_plumbing_gate_keeps_saved_model_identity(self):
+        tasks=[dict(id='a',kind='bim'),dict(id='b',kind='bim'),
+               dict(id='hydraulics',kind='ifc_network',depends_on='a'),
+               dict(id='capacity',kind='plumbing_pump_regulations',depends_on='hydraulics'),
+               dict(id='drawing',kind='ifc_drawing',depends_on='a',requires_pass=['capacity'])]
+        rows=inventory_source_bindings(tasks,ROOT)
+        self.assertTrue(any(r['check']=='capacity' and r['consumer']=='drawing' for r in rows))
+        tasks[-1]['depends_on']='b'
+        with self.assertRaisesRegex(ProjectError,'different model'):inventory_source_bindings(tasks,ROOT)
