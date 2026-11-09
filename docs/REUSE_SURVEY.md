@@ -22,6 +22,8 @@ The installed IfcOpenShell 0.8.5 ShapeBuilder bend/transition helpers and geomet
 
 ## Follow-up discovery — 2026-11-09
 
+Latest native execution evidence supersedes the registration-pending notes below: Revit discovered the registered inventory command, but Windows Code Integrity blocked Bsa.Revit.dll at invocation (3077/3033). No inventory or native authoring ran. See [the captured events](evidence/moosas-review/revit-native-policy-block.json). On follow-up inspection, CurrentUser/My contained no code-signing certificates. Microsoft's [Smart App Control signing guidance](https://learn.microsoft.com/en-us/windows/apps/develop/smart-app-control/code-signing-for-smart-app-control) requires a trusted-provider certificate for its signature trust decision; this is guidance, not proof that a particular certificate would satisfy this machine's recorded policy. A self-signed build or alternate loader is not an established deployment fix. No certificates, trust settings or security policies were changed.
+
 ### Executed follow-up and remaining native gaps
 
 Runtime follow-up: installed Autodesk DynamoCLI 4.2.1.5887 was actually invoked on an empty, Python-free graph with process-local analytics/network disabled and repository-local data folders. It emitted an engine-startup assertion despite exit code 0; see `evidence/moosas-review/dynamo-cli-empty-probe.json`. The UI also rejected generated inventory graphs and later crashed after a failed load. Do not select either path as verified Revit inventory execution. The Python/C# inventory implementation itself has not yet run in the host.

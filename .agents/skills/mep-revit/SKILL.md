@@ -9,7 +9,7 @@ Read [the native adapter guide](../../../adapters/revit/README.md) for invocatio
 
 ## Select the actual capability
 
-The C# adapter is compiled against the installed Revit 2027 API. It is not yet a verified installed add-in or MCP service. Revit Home startup, a successful build or a generated manifest does not establish model access. A bridge advertising pipe creation may only generate DirectShape cylinders; inspect actual native Pipe objects and connectors before calling it MEP authoring.
+The C# adapter is compiled against the installed Revit 2027 API. Revit has discovered its registered read-only command, but actual invocation was blocked by Windows Code Integrity (events 3077/3033); no native inventory was produced. See [the load evidence](../../../docs/evidence/moosas-review/revit-native-policy-block.json). Do not repeat registration or switch loaders as a remedy for this policy failure. Revit Home startup, a successful build or a generated manifest does not establish model access. A bridge advertising pipe creation may only generate DirectShape cylinders; inspect actual native Pipe objects and connectors before calling it MEP authoring.
 
 For a saved inventory, use the offline diagnostic directly. For live work, establish an available host entry point and active saved test-model identity first. Check current desktop availability before using UI; a pending desktop handoff is not permission to interrupt another task. Never close unsaved models or restart the user's application to make an integration load. A timeout after a write requires reading actual state before retrying.
 
