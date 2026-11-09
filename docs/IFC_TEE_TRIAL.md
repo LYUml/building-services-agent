@@ -18,3 +18,19 @@ Saved-model checks use 10 micrometre mesh linear deflection and 0.05 rad angular
 A deliberately damaged IFC removes branch-bore subtraction while retaining outer geometry and all ports. It fails both analytic volume and bore-clearance checks while its ports still pass. The positive model separately passed native IFC schema/EXPRESS validation with zero statements. Both models and native reports are retained in docs/evidence/ifc-tee/native-trials.zip.
 
 This trial runs the established geometry runtime used by existing project adapters. It does not load or bypass the blocked FreeCAD or IfcOpenShell 0.9.0 kernels. Next integration work includes stable source identities, placement/rotation support, actual adjoining pipe connections and solid/clearance checks, source-backed directional junction losses, saved-network binding and drawings. Do not substitute it for a standard-compliant product, use a zero-loss junction by implication, or mark a complete engineering design on this evidence.
+
+
+## Connected three-pipe assembly trial
+
+```powershell
+.venv/Scripts/python scripts/probe_tee_assembly.py --tee-spec examples/tee-trial/spec.json --assembly-spec examples/tee-trial/assembly.json --out runs/new-tee-assembly
+.venv/Scripts/python scripts/test_tee_assembly.py
+```
+
+The assembly trial adds three explicitly sourced 200 mm hollow pipe stubs to the tee using unmodified IfcOpenShell profile, representation, placement and system.connect_port APIs. Each stub starts at one tee opening, has the same 32 mm bore/40 mm outside diameter and points outward. The example is butt-ended geometry only: no socket insertion, weld allowance, seal or manufacturer connection is implied. Each pipe has two reversible ports; the three pairs of adjoining tee/pipe ports produce six directed IFC connection relationships.
+
+The saved IFC is reopened and the original tee checks rerun. Each pipe's native hollow profile, solid placement, axis/depth, actual endpoints and outward port axes must match its source dimensions and expected opening. Port flow directions and exact connection arcs are checked independently. Four material bodies are then converted through the established native geometry reader and Manifold closed-mesh adapter; all six material intersections must be below the explicit numerical 1e-12 m3 threshold. The maximum observed residual was 7.3e-23 m3. This is a contact/interpenetration test, not a code-prescribed clearance rule or proof of installation accessibility.
+
+Positive source/geometry/topology checks passed; native IFC schema/EXPRESS validation reported zero statements. Two controls keep all ports and connection relationships unchanged but shift the branch pipe body 10 mm: inward produces material overlap and endpoint mismatch, outward produces a gap and endpoint mismatch despite zero overlap. Both are rejected. Evidence is retained in docs/evidence/tee-assembly/native-trials.zip.
+
+The assembly remains a standalone geometry trial. Random IFC identities are not yet a reusable source-namespace contract; no network loss coefficient, system hydraulic solution, arbitrary placement/rotation, product selection, native drawing or installation acceptance is provided. Future integration must preserve finite fitting lengths and directional losses rather than silently replacing the tee with a zero-loss mathematical junction.
