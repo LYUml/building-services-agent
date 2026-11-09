@@ -124,6 +124,26 @@ def diagnose(inventory, tolerance_m):
                             'Internal fitting connectivity, system traversal and engineering acceptance'])
 
 
+def run(inventory, model, out, tolerance_m):
+    root = Path(__file__).resolve().parents[2]
+    paths = [Path(p).resolve() for p in (inventory, model, out)]
+    if any(not p.is_relative_to(root) for p in paths) or paths[2].exists():
+        raise ProjectError('Use repository-local artifacts and a new output path')
+    raw, model = paths[0].read_bytes(), paths[1].read_bytes()
+    data = json.loads(raw)
+    digest = lambda b: hashlib.sha256(b).hexdigest()
+    if not isinstance(data.get('document_path'), str) or Path(data['document_path']).resolve() != paths[1] or digest(model) != data.get('saved_rvt_sha256'):
+        raise ProjectError('Inventory does not match the selected saved model')
+    result = diagnose(data, tolerance_m)
+    result.update(inventory_sha256=digest(raw), saved_rvt_sha256=digest(model))
+    if paths[0].read_bytes() != raw or paths[1].read_bytes() != model:
+        raise ProjectError('Input changed during diagnosis')
+    paths[2].parent.mkdir(parents=True, exist_ok=True)
+    with paths[2].open('x', encoding='utf-8') as stream:
+        json.dump(result, stream, indent=2)
+    return result
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--inventory', type=Path, required=True)
@@ -131,22 +151,7 @@ def main():
     parser.add_argument('--tolerance-m', type=float, required=True)
     parser.add_argument('--out', type=Path, required=True)
     args = parser.parse_args()
-    root = Path(__file__).resolve().parents[2]
-    paths = [p.resolve() for p in (args.inventory, args.model, args.out)]
-    if any(not p.is_relative_to(root) for p in paths) or paths[2].exists():
-        parser.error('Use repository-local artifacts and a new output path')
-    raw, model = paths[0].read_bytes(), paths[1].read_bytes()
-    data = json.loads(raw)
-    digest = lambda b: hashlib.sha256(b).hexdigest()
-    if Path(data['document_path']).resolve() != paths[1] or digest(model) != data.get('saved_rvt_sha256'):
-        raise ProjectError('Inventory does not match the selected saved model')
-    result = diagnose(data, args.tolerance_m)
-    result.update(inventory_sha256=digest(raw), saved_rvt_sha256=digest(model))
-    if paths[0].read_bytes() != raw or paths[1].read_bytes() != model:
-        raise ProjectError('Input changed during diagnosis')
-    paths[2].parent.mkdir(parents=True, exist_ok=True)
-    with paths[2].open('x', encoding='utf-8') as stream:
-        json.dump(result, stream, indent=2)
+    result = run(args.inventory, args.model, args.out, args.tolerance_m)
     print(json.dumps(result))
     return 2  # A consistent inventory is not complete system acceptance.
 
