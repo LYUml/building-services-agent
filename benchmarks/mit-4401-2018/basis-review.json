@@ -78,8 +78,8 @@
   "gaps": [
     {
       "id": "supplementary-gh",
-      "kind": "uncollected_attachment",
-      "details": "Course Grasshopper definitions, game cost implementation and example result workbook not collected; availability not established"
+      "kind": "absent_from_reviewed_archive",
+      "details": "Pinned official 305-file archive contains none of the referenced GH/model/weather/workbook extensions; availability elsewhere remains unestablished"
     },
     {
       "id": "photometry",
@@ -108,8 +108,13 @@
     },
     {
       "id": "visual-coverage",
-      "kind": "unreviewed_source",
-      "details": "Only five selected source pages visually inspected; all 29 extraction reviews remain unacknowledged"
+      "kind": "source_layout_reviewed",
+      "details": "All 26 pages and annotation destinations inspected; 29 source-specific notes can be applied only to exact pinned source bytes. Semantic interpretation remains pending."
+    },
+    {
+      "id": "game-insulation-units",
+      "kind": "unresolved_unit_basis",
+      "details": "Insulation table R-factor codes do not explicitly label the unit basis; do not treat them as SI values without course-model evidence"
     }
   ],
   "jurisdiction": {

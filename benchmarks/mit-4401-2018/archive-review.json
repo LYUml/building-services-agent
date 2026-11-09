@@ -1,0 +1,58 @@
+{
+  "url": "https://ocw.mit.edu/courses/4-401-environmental-technologies-in-buildings-fall-2018/4.401-fall-2018.zip",
+  "sha256": "7cb3b08f706a36aea3e35b63cb5479426b363da6b775638b2ebf4d8b547ede7a",
+  "bytes": 113027916,
+  "model_data_files": [],
+  "scope": "Inventory only; archive not extracted and absence applies only to this pinned archive",
+  "file_count": 305,
+  "source_pdf_correspondence": [
+    {
+      "source": "sources/course-project.pdf",
+      "matches": [
+        "static_resources/400472d8d9edfcec734dfbf1bfa7a583_MIT4_401f18_course_project.pdf"
+      ],
+      "bytes_match": true
+    },
+    {
+      "source": "sources/assignment5.pdf",
+      "matches": [
+        "static_resources/4a661a066142c53ab84981fa6b000619_MIT4_401f18_assignment5.pdf"
+      ],
+      "bytes_match": true
+    },
+    {
+      "source": "sources/assignment6.pdf",
+      "matches": [
+        "static_resources/112aca2f2f0963ab54544229f6773b27_MIT4_401f18_assignment6.pdf"
+      ],
+      "bytes_match": true
+    },
+    {
+      "source": "sources/assignment7.pdf",
+      "matches": [
+        "static_resources/ea268fdc900bdb9b8e195593363c14bf_MIT4_401f18_assignment7.pdf"
+      ],
+      "bytes_match": true
+    },
+    {
+      "source": "sources/assignment8.pdf",
+      "matches": [
+        "static_resources/ea064154791a4eb5e144e76ceeca60a5_MIT4_401f18_assignment8.pdf"
+      ],
+      "bytes_match": true
+    }
+  ],
+  "requested_but_not_present_extensions": [
+    ".gh",
+    ".ghx",
+    ".3dm",
+    ".xlsx",
+    ".xls",
+    ".epw",
+    ".rvt",
+    ".dwg"
+  ],
+  "license": "CC-BY-NC-SA-4.0",
+  "attribution": "Christoph Reinhart; MIT OpenCourseWare",
+  "availability_scope": "Not present in this pinned archive; no claim of absence elsewhere"
+}

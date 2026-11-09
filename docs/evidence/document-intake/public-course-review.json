@@ -1,0 +1,100 @@
+{
+  "run": "runs\\public-brief-reviewed-v2",
+  "source_review_sha256": "1431088b0f075a50407c003a5a9330e568fa70b9c7d76af27b2b18202df76564",
+  "archive_review": {
+    "url": "https://ocw.mit.edu/courses/4-401-environmental-technologies-in-buildings-fall-2018/4.401-fall-2018.zip",
+    "sha256": "7cb3b08f706a36aea3e35b63cb5479426b363da6b775638b2ebf4d8b547ede7a",
+    "bytes": 113027916,
+    "model_data_files": [],
+    "scope": "Inventory only; archive not extracted and absence applies only to this pinned archive",
+    "file_count": 305,
+    "source_pdf_correspondence": [
+      {
+        "source": "sources/course-project.pdf",
+        "matches": [
+          "static_resources/400472d8d9edfcec734dfbf1bfa7a583_MIT4_401f18_course_project.pdf"
+        ],
+        "bytes_match": true
+      },
+      {
+        "source": "sources/assignment5.pdf",
+        "matches": [
+          "static_resources/4a661a066142c53ab84981fa6b000619_MIT4_401f18_assignment5.pdf"
+        ],
+        "bytes_match": true
+      },
+      {
+        "source": "sources/assignment6.pdf",
+        "matches": [
+          "static_resources/112aca2f2f0963ab54544229f6773b27_MIT4_401f18_assignment6.pdf"
+        ],
+        "bytes_match": true
+      },
+      {
+        "source": "sources/assignment7.pdf",
+        "matches": [
+          "static_resources/ea268fdc900bdb9b8e195593363c14bf_MIT4_401f18_assignment7.pdf"
+        ],
+        "bytes_match": true
+      },
+      {
+        "source": "sources/assignment8.pdf",
+        "matches": [
+          "static_resources/ea064154791a4eb5e144e76ceeca60a5_MIT4_401f18_assignment8.pdf"
+        ],
+        "bytes_match": true
+      }
+    ],
+    "requested_but_not_present_extensions": [
+      ".gh",
+      ".ghx",
+      ".3dm",
+      ".xlsx",
+      ".xls",
+      ".epw",
+      ".rvt",
+      ".dwg"
+    ],
+    "license": "CC-BY-NC-SA-4.0",
+    "attribution": "Christoph Reinhart; MIT OpenCourseWare",
+    "availability_scope": "Not present in this pinned archive; no claim of absence elsewhere"
+  },
+  "staging": {
+    "manifest_sha256": "2dc320427dbe4c60f614df02e54faefcd83ae809123e41f71c7d1b7909060217",
+    "source_hashes": {
+      "sources/course-project.pdf": "5c0185f1180e1b0fcbc0d765c066b1a2ba55c8c73ff2a9a1865f8f380f3b072e",
+      "sources/assignment5.pdf": "a9cb779dea25e462efb197da0556defd0924630fa7a6a28f81de574b0894e82f",
+      "sources/assignment6.pdf": "2163209a9ea35bf81ae9b73a0ae747ffa877ee9a402fb49c0733e71e1324aca4",
+      "sources/assignment7.pdf": "18911144e6c2c69077431fdd68e97a00a835ff4debe3a4863953558f4fb75da0",
+      "sources/assignment8.pdf": "d083ab28c78fd116bf304d21df062a2edbf62a448ea1679cf743a13c4f0b8636"
+    },
+    "passages": 41,
+    "extraction_issue_count": 29,
+    "extraction_issue_codes": [
+      "pdf_annotations",
+      "pdf_layout"
+    ],
+    "license": "CC-BY-NC-SA-4.0",
+    "creator": "Christoph Reinhart; MIT OpenCourseWare",
+    "interpretation_complete": false,
+    "design_accepted": false,
+    "review_notes_applied": 29,
+    "context_passages": 7,
+    "pending_interpretation_tasks": 34
+  },
+  "workflow_sha256": "5e3ee840200700e95b776a64997c280df5b3080a7b6d0c595f34f5021e88b3bd",
+  "diagnosis_sha256": "615fe07bd9f72d6e00b25d6b4003ce950b71466217414656eb36171d6116fab3",
+  "delivery_review_sha256": "920373ca50c8ceec5729d0c2adf416af364c0b4136584d5660042a97eb5077a7",
+  "task_status_counts": {
+    "pass": 0,
+    "fail": 0,
+    "pending": 34
+  },
+  "diagnosis_root_count": 34,
+  "source_pages_visually_inspected": 26,
+  "context_only_passages": 7,
+  "technical_interpretation_blockers_retained": 34,
+  "tests_passed": 2,
+  "independent_designs_completed": 0,
+  "design_accepted": false
+}

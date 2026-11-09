@@ -1,0 +1,246 @@
+{
+  "license": "CC-BY-NC-SA-4.0",
+  "attribution": "Christoph Reinhart; MIT OpenCourseWare",
+  "source_hashes": {
+    "sources/course-project.pdf": "5c0185f1180e1b0fcbc0d765c066b1a2ba55c8c73ff2a9a1865f8f380f3b072e",
+    "sources/assignment5.pdf": "a9cb779dea25e462efb197da0556defd0924630fa7a6a28f81de574b0894e82f",
+    "sources/assignment6.pdf": "2163209a9ea35bf81ae9b73a0ae747ffa877ee9a402fb49c0733e71e1324aca4",
+    "sources/assignment7.pdf": "18911144e6c2c69077431fdd68e97a00a835ff4debe3a4863953558f4fb75da0",
+    "sources/assignment8.pdf": "d083ab28c78fd116bf304d21df062a2edbf62a448ea1679cf743a13c4f0b8636"
+  },
+  "pages": [
+    {
+      "source_document": "sources/course-project.pdf",
+      "page": 1,
+      "note": "Presentation/context table starts here and continues on page2; group context and EUI target are not supplied design results.",
+      "render_sha256": "a6a9f031b86ccbaa3e8ce37a75b44693b539f2ea914cd837cbab7253380cacc6",
+      "evidence_path": "runs\\public-brief-intake-v1\\project-1.png"
+    },
+    {
+      "source_document": "sources/course-project.pdf",
+      "page": 2,
+      "note": "Continuation includes envelope/energy, orientation/units and EUI-basis notes; grading table continues on page3.",
+      "render_sha256": "e9ee5214465000a37adbe53e120276c82117baf0e85380152012cd499ebc89af",
+      "evidence_path": "runs\\public-brief-intake-v1\\project-2.png"
+    },
+    {
+      "source_document": "sources/course-project.pdf",
+      "page": 3,
+      "note": "Only continuation of thermal-analysis grading criterion and page number; retain thermal correctness obligation.",
+      "render_sha256": "1d5a7730b63e8e1c4c7ea1959fdd41b2621c5facf1b70e0873c53edc78f29be5",
+      "evidence_path": "runs\\public-brief-intake-v1\\full-review\\project-3.png"
+    },
+    {
+      "source_document": "sources/course-project.pdf",
+      "page": 4,
+      "note": "Attribution and terms page only; not an engineering deliverable.",
+      "render_sha256": "7f0031570070c12c76bf2fc9057eba813aca1c29b031835abc71f86224f44bea",
+      "evidence_path": "runs\\public-brief-intake-v1\\full-review\\project-4.png"
+    },
+    {
+      "source_document": "sources/assignment5.pdf",
+      "page": 1,
+      "note": "Three study tasks and site-choice context visually checked; Walkscore is a referenced link, not site evidence.",
+      "render_sha256": "a5de9f7f1058bc6369fe7af04c5f2b4857542efa17b3f022da743a37f72c4bbd",
+      "evidence_path": "runs\\public-brief-intake-v1\\a5-page1.png"
+    },
+    {
+      "source_document": "sources/assignment5.pdf",
+      "page": 2,
+      "note": "Material/sensor assumptions and daylight checklist visually checked; checklist ranges are not computed results.",
+      "render_sha256": "6b39c78a094c02bd156115dadbcbafe9eaba7efcfc12701bfc3e3808c5fa62a7",
+      "evidence_path": "runs\\public-brief-intake-v1\\a5-review-2.png"
+    },
+    {
+      "source_document": "sources/assignment5.pdf",
+      "page": 3,
+      "note": "Window insertion, material/shading and sensor/sky checks plus Radiance footnote reviewed; preserve detailed simulation QA.",
+      "render_sha256": "9efc57affac63dec8205d8af652262f2e5e496c03cd01bfda30f604de3888d1e",
+      "evidence_path": "runs\\public-brief-intake-v1\\a5-review-3.png"
+    },
+    {
+      "source_document": "sources/assignment5.pdf",
+      "page": 4,
+      "note": "Attribution and terms page only.",
+      "render_sha256": "7f0031570070c12c76bf2fc9057eba813aca1c29b031835abc71f86224f44bea",
+      "evidence_path": "runs\\public-brief-intake-v1\\a5-review-4.png"
+    },
+    {
+      "source_document": "sources/assignment6.pdf",
+      "page": 1,
+      "note": "Approximate lighting targets, ASE/DGP and luminaire-source instructions reviewed; tutorial/viewer links inventoried, not retrieved.",
+      "render_sha256": "3c2b99e1235049fb6c4ec435f6872a0f67cd20eec68da1574293fa3f2fd2eb2c",
+      "evidence_path": "runs\\public-brief-intake-v1\\a6-page1.png"
+    },
+    {
+      "source_document": "sources/assignment6.pdf",
+      "page": 2,
+      "note": "Luminaire and office-render figures are illustrative examples, not selected product ratings or generated project geometry.",
+      "render_sha256": "d525e9dba4340156e7ff3b0fc68543bc5561359ac03e1ab919b5c6d2c479ed73",
+      "evidence_path": "runs\\public-brief-intake-v1\\a6-review-2.png"
+    },
+    {
+      "source_document": "sources/assignment6.pdf",
+      "page": 3,
+      "note": "Nighttime illuminance/LPD instructions and example contour scale reviewed; contour is not a project simulation result.",
+      "render_sha256": "ffe30d5c0368c386540033802263db3f1f5aa3f817512ac96a922ec00ba76170",
+      "evidence_path": "runs\\public-brief-intake-v1\\a6-review-3.png"
+    },
+    {
+      "source_document": "sources/assignment6.pdf",
+      "page": 4,
+      "note": "Attribution and terms page only.",
+      "render_sha256": "7f0031570070c12c76bf2fc9057eba813aca1c29b031835abc71f86224f44bea",
+      "evidence_path": "runs\\public-brief-intake-v1\\a6-review-4.png"
+    },
+    {
+      "source_document": "sources/assignment7.pdf",
+      "page": 1,
+      "note": "Baseline definition references external DOE data and course GH settings; attachment content not supplied by this page.",
+      "render_sha256": "ae0a43eba3c0f6ab022de35bdbd2110525d5f25a97b2d6b6ff4bf5aad928de72",
+      "evidence_path": "runs\\public-brief-intake-v1\\a7-review-1.png"
+    },
+    {
+      "source_document": "sources/assignment7.pdf",
+      "page": 2,
+      "note": "Illustrative house and zone setup screenshots reviewed; not the actual project shape or zone dimensions.",
+      "render_sha256": "362cf0ee2e34275f85527f0b40a9862ff83fb0bd099aec07def5542510a61bc2",
+      "evidence_path": "runs\\public-brief-intake-v1\\a7-review-2.png"
+    },
+    {
+      "source_document": "sources/assignment7.pdf",
+      "page": 3,
+      "note": "Window/weather/engine/output screenshots and monthly example chart reviewed; screenshots do not supply EPW bytes or calculated results.",
+      "render_sha256": "e37c561f1972636627518238264d09193ad3691d6617538c938a9d73e5bea86e",
+      "evidence_path": "runs\\public-brief-intake-v1\\a7-review-3.png"
+    },
+    {
+      "source_document": "sources/assignment7.pdf",
+      "page": 4,
+      "note": "Upgrade instructions and illustrative comparison chart reviewed; preserve baseline linkage and multiple upgrade cases.",
+      "render_sha256": "6eb1d61b6ea5831b0eb26807decd25ab65234b61d7ce27c2af90d5612ab082cc",
+      "evidence_path": "runs\\public-brief-intake-v1\\a7-review-4.png"
+    },
+    {
+      "source_document": "sources/assignment7.pdf",
+      "page": 5,
+      "note": "Thermal-titled checklist visibly contains daylight/sky-metric language; retain interpretation ambiguity instead of silently correcting.",
+      "render_sha256": "f4a2e92ad9ac0e13f6b0345df6bcf3a47dce8d487918cc7e052ce2d75e135696",
+      "evidence_path": "runs\\public-brief-intake-v1\\a7-review-5.png"
+    },
+    {
+      "source_document": "sources/assignment7.pdf",
+      "page": 6,
+      "note": "Attribution and terms page only.",
+      "render_sha256": "b1c32e68341ded4936adcaf4677fe6c46cf280ff809782f90418fd089ddb9c11",
+      "evidence_path": "runs\\public-brief-intake-v1\\a7-review-6.png"
+    },
+    {
+      "source_document": "sources/assignment8.pdf",
+      "page": 1,
+      "note": "Game objective/budget/time and referenced GH filename reviewed; game currency is not construction cost.",
+      "render_sha256": "b181d5072c49478d321d4e44f7642919cbcfbd2c255b656e6e5fddc1cd7aba8a",
+      "evidence_path": "runs\\public-brief-intake-v1\\a8-page1.png"
+    },
+    {
+      "source_document": "sources/assignment8.pdf",
+      "page": 2,
+      "note": "Height/zoning/planar geometry and insulation tables reviewed; area-dependent relative costs and R-value unit basis remain unresolved.",
+      "render_sha256": "b228daa4e1fb3f17eafaabf56a38dffab9675533ca88e2c6244f986d9ab2c5e2",
+      "evidence_path": "runs\\public-brief-intake-v1\\a8-review-2.png"
+    },
+    {
+      "source_document": "sources/assignment8.pdf",
+      "page": 3,
+      "note": "Glazing/shading/lighting tables reviewed; cost symbols are not numeric prices and depend on areas.",
+      "render_sha256": "f6447fa6f38f83f8ce1c136276ec6343e9f31dbe710a771306d0963c04b25764",
+      "evidence_path": "runs\\public-brief-intake-v1\\a8-review-3.png"
+    },
+    {
+      "source_document": "sources/assignment8.pdf",
+      "page": 4,
+      "note": "Controls/system/fuel-factor/COP tables reviewed as course model rules; not real equipment selections or statutory factors.",
+      "render_sha256": "457c6910400831c02e56ab810a2652a8e481966844f283d1473fadc001978e24",
+      "evidence_path": "runs\\public-brief-intake-v1\\a8-review-4.png"
+    },
+    {
+      "source_document": "sources/assignment8.pdf",
+      "page": 5,
+      "note": "Iteration illustration and bake/save instructions reviewed; illustrative files are not supplied project results.",
+      "render_sha256": "f628f15d6ec201eec4aa981cb2984127fb0bdc58c6d9363eb1ad4876c9ccf54b",
+      "evidence_path": "runs\\public-brief-intake-v1\\a8-review-5.png"
+    },
+    {
+      "source_document": "sources/assignment8.pdf",
+      "page": 6,
+      "note": "Settings and file-directory screenshots reviewed; require editable settings/outputs without treating screenshots as actual data files.",
+      "render_sha256": "062341fb2eb957303381f3476250a5f194143c0dea012ea7ff78709836709536",
+      "evidence_path": "runs\\public-brief-intake-v1\\a8-review-6.png"
+    },
+    {
+      "source_document": "sources/assignment8.pdf",
+      "page": 7,
+      "note": "Design-description requirements include baseline plus at least four important iterations and rationale; retain file and result evidence obligations.",
+      "render_sha256": "c1212ee584ca6cbe22b1fb70a4073706770ebadf8f9532b26505f1088cb54dce",
+      "evidence_path": "runs\\public-brief-intake-v1\\a8-review-7.png"
+    },
+    {
+      "source_document": "sources/assignment8.pdf",
+      "page": 8,
+      "note": "Attribution and terms page only.",
+      "render_sha256": "cb6d742523b30ca691231ebd92bb23dfd9dcfb8f32895794714ce246e1d61ce1",
+      "evidence_path": "runs\\public-brief-intake-v1\\a8-review-8.png"
+    }
+  ],
+  "issue_notes": {
+    "I001": "Presentation/context table starts here and continues on page2; group context and EUI target are not supplied design results. Render SHA256 a6a9f031b86ccbaa3e8ce37a75b44693b539f2ea914cd837cbab7253380cacc6; page layout visually inspected.",
+    "I002": "Continuation includes envelope/energy, orientation/units and EUI-basis notes; grading table continues on page3. Render SHA256 e9ee5214465000a37adbe53e120276c82117baf0e85380152012cd499ebc89af; page layout visually inspected.",
+    "I003": "Only continuation of thermal-analysis grading criterion and page number; retain thermal correctness obligation. Render SHA256 1d5a7730b63e8e1c4c7ea1959fdd41b2621c5facf1b70e0873c53edc78f29be5; page layout visually inspected.",
+    "I004": "Attribution and terms page only; not an engineering deliverable. Render SHA256 7f0031570070c12c76bf2fc9057eba813aca1c29b031835abc71f86224f44bea; page layout visually inspected.",
+    "D002:I001": "Three study tasks and site-choice context visually checked; Walkscore is a referenced link, not site evidence. Render SHA256 a5de9f7f1058bc6369fe7af04c5f2b4857542efa17b3f022da743a37f72c4bbd; page layout visually inspected.",
+    "D002:I002": "Three study tasks and site-choice context visually checked; Walkscore is a referenced link, not site evidence. Render SHA256 a5de9f7f1058bc6369fe7af04c5f2b4857542efa17b3f022da743a37f72c4bbd; linked destinations inventoried; uncollected dependencies remain unresolved.",
+    "D002:I003": "Material/sensor assumptions and daylight checklist visually checked; checklist ranges are not computed results. Render SHA256 6b39c78a094c02bd156115dadbcbafe9eaba7efcfc12701bfc3e3808c5fa62a7; page layout visually inspected.",
+    "D002:I004": "Window insertion, material/shading and sensor/sky checks plus Radiance footnote reviewed; preserve detailed simulation QA. Render SHA256 9efc57affac63dec8205d8af652262f2e5e496c03cd01bfda30f604de3888d1e; page layout visually inspected.",
+    "D002:I005": "Attribution and terms page only. Render SHA256 7f0031570070c12c76bf2fc9057eba813aca1c29b031835abc71f86224f44bea; page layout visually inspected.",
+    "D003:I001": "Approximate lighting targets, ASE/DGP and luminaire-source instructions reviewed; tutorial/viewer links inventoried, not retrieved. Render SHA256 3c2b99e1235049fb6c4ec435f6872a0f67cd20eec68da1574293fa3f2fd2eb2c; page layout visually inspected.",
+    "D003:I002": "Approximate lighting targets, ASE/DGP and luminaire-source instructions reviewed; tutorial/viewer links inventoried, not retrieved. Render SHA256 3c2b99e1235049fb6c4ec435f6872a0f67cd20eec68da1574293fa3f2fd2eb2c; linked destinations inventoried; uncollected dependencies remain unresolved.",
+    "D003:I003": "Luminaire and office-render figures are illustrative examples, not selected product ratings or generated project geometry. Render SHA256 d525e9dba4340156e7ff3b0fc68543bc5561359ac03e1ab919b5c6d2c479ed73; page layout visually inspected.",
+    "D003:I004": "Nighttime illuminance/LPD instructions and example contour scale reviewed; contour is not a project simulation result. Render SHA256 ffe30d5c0368c386540033802263db3f1f5aa3f817512ac96a922ec00ba76170; page layout visually inspected.",
+    "D003:I005": "Attribution and terms page only. Render SHA256 7f0031570070c12c76bf2fc9057eba813aca1c29b031835abc71f86224f44bea; page layout visually inspected.",
+    "D004:I001": "Baseline definition references external DOE data and course GH settings; attachment content not supplied by this page. Render SHA256 ae0a43eba3c0f6ab022de35bdbd2110525d5f25a97b2d6b6ff4bf5aad928de72; page layout visually inspected.",
+    "D004:I002": "Baseline definition references external DOE data and course GH settings; attachment content not supplied by this page. Render SHA256 ae0a43eba3c0f6ab022de35bdbd2110525d5f25a97b2d6b6ff4bf5aad928de72; linked destinations inventoried; uncollected dependencies remain unresolved.",
+    "D004:I003": "Illustrative house and zone setup screenshots reviewed; not the actual project shape or zone dimensions. Render SHA256 362cf0ee2e34275f85527f0b40a9862ff83fb0bd099aec07def5542510a61bc2; page layout visually inspected.",
+    "D004:I004": "Window/weather/engine/output screenshots and monthly example chart reviewed; screenshots do not supply EPW bytes or calculated results. Render SHA256 e37c561f1972636627518238264d09193ad3691d6617538c938a9d73e5bea86e; page layout visually inspected.",
+    "D004:I005": "Upgrade instructions and illustrative comparison chart reviewed; preserve baseline linkage and multiple upgrade cases. Render SHA256 6eb1d61b6ea5831b0eb26807decd25ab65234b61d7ce27c2af90d5612ab082cc; page layout visually inspected.",
+    "D004:I006": "Thermal-titled checklist visibly contains daylight/sky-metric language; retain interpretation ambiguity instead of silently correcting. Render SHA256 f4a2e92ad9ac0e13f6b0345df6bcf3a47dce8d487918cc7e052ce2d75e135696; page layout visually inspected.",
+    "D004:I007": "Attribution and terms page only. Render SHA256 b1c32e68341ded4936adcaf4677fe6c46cf280ff809782f90418fd089ddb9c11; page layout visually inspected.",
+    "D005:I001": "Game objective/budget/time and referenced GH filename reviewed; game currency is not construction cost. Render SHA256 b181d5072c49478d321d4e44f7642919cbcfbd2c255b656e6e5fddc1cd7aba8a; page layout visually inspected.",
+    "D005:I002": "Height/zoning/planar geometry and insulation tables reviewed; area-dependent relative costs and R-value unit basis remain unresolved. Render SHA256 b228daa4e1fb3f17eafaabf56a38dffab9675533ca88e2c6244f986d9ab2c5e2; page layout visually inspected.",
+    "D005:I003": "Glazing/shading/lighting tables reviewed; cost symbols are not numeric prices and depend on areas. Render SHA256 f6447fa6f38f83f8ce1c136276ec6343e9f31dbe710a771306d0963c04b25764; page layout visually inspected.",
+    "D005:I004": "Controls/system/fuel-factor/COP tables reviewed as course model rules; not real equipment selections or statutory factors. Render SHA256 457c6910400831c02e56ab810a2652a8e481966844f283d1473fadc001978e24; page layout visually inspected.",
+    "D005:I005": "Iteration illustration and bake/save instructions reviewed; illustrative files are not supplied project results. Render SHA256 f628f15d6ec201eec4aa981cb2984127fb0bdc58c6d9363eb1ad4876c9ccf54b; page layout visually inspected.",
+    "D005:I006": "Settings and file-directory screenshots reviewed; require editable settings/outputs without treating screenshots as actual data files. Render SHA256 062341fb2eb957303381f3476250a5f194143c0dea012ea7ff78709836709536; page layout visually inspected.",
+    "D005:I007": "Design-description requirements include baseline plus at least four important iterations and rationale; retain file and result evidence obligations. Render SHA256 c1212ee584ca6cbe22b1fb70a4073706770ebadf8f9532b26505f1088cb54dce; page layout visually inspected.",
+    "D005:I008": "Attribution and terms page only. Render SHA256 cb6d742523b30ca691231ebd92bb23dfd9dcfb8f32895794714ce246e1d61ce1; page layout visually inspected."
+  },
+  "context_passages": {
+    "P005": "Attribution/terms only",
+    "D002:P008": "Attribution/terms only",
+    "D003:P009": "Attribution/terms only",
+    "D004:P011": "Attribution/terms only",
+    "D005:P008": "Attribution/terms only",
+    "D002:P007": "Isolated page number",
+    "D004:P005": "Isolated page number"
+  },
+  "scope": "Source reading-order/layout/annotation inspection only; not semantic engineering acceptance",
+  "design_accepted": false,
+  "context_passage_text_sha256": {
+    "P005": "dc951e2720c06929a60d8e9ecc5e8a5952ec23e3b91e74ca4933a3b07ee3daa9",
+    "D002:P008": "dc951e2720c06929a60d8e9ecc5e8a5952ec23e3b91e74ca4933a3b07ee3daa9",
+    "D003:P009": "dc951e2720c06929a60d8e9ecc5e8a5952ec23e3b91e74ca4933a3b07ee3daa9",
+    "D004:P011": "d77bf61cd83b2414e2445cf7e5f23cc3dd2ff70e0b54825e18d3d8dcc5adf91e",
+    "D005:P008": "c61e54991415043c15fe6c40bb6be92834e731ff1009fa4859103d0a59aadd74",
+    "D002:P007": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce",
+    "D004:P005": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+  }
+}
