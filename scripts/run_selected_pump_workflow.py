@@ -10,7 +10,7 @@ from bsa.workflow import execute, passages, verify
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def run(pdf, out):
+def run(pdf, out, target_failure_baseline=False):
     pdf, out = Path(pdf).resolve(), Path(out).resolve()
     pack = ROOT/'regulations/hk/hvac-water-2026.11.08/pack.json'
     expected = json.loads(pack.read_text())['sources']['emsd_bec_2024']['sha256']
@@ -29,6 +29,11 @@ def run(pdf, out):
     catalogue['candidates'][0].update(id='synthetic-revised-curve', head_curve=[[0, 7], [.005, .1]],
                                     source='Explicit synthetic revised curve for workflow demonstration; not a manufacturer product')
     (out/'pump-catalogue.json').write_text(json.dumps(catalogue, indent=2))
+    if target_failure_baseline:
+        network = json.loads((out/'project.json').read_text())
+        for pipe in network['pipes']:pipe['maximum_velocity_m_s'] = 1.3
+        network['sources']['test'] += '; explicit synthetic iteration velocity target 1.3 m/s'
+        (out/'project.json').write_text(json.dumps(network, indent=2))
     brief = out/'brief.md'
     brief.write_text('Synthetic demonstration: author and bind a circulation IFC; screen a declared pump curve, record the selected curve on a new IFC, recheck thermal and scoped pipe rules, and check pump information. Physical installation and full engineering acceptance remain pending.', encoding='utf-8')
     row = passages(brief)[0]
@@ -39,6 +44,7 @@ def run(pdf, out):
              dict(id='combined', kind='ifc_circulation_checks', depends_on='selected', thermal_basis='thermal-duty.json', rule_basis='regulatory-bases.json', pack='pack.json', sources='.'),
              dict(id='information', kind='ids_check', depends_on='selected', ids='pump.ids'),
              dict(id='water', kind='water_network', depends_on='screen', requires_pass=['combined', 'information'])]
+    if target_failure_baseline:tasks[2]['allow_failed_baseline'] = True
     plan = dict(version=1, brief='brief.md', brief_sha256=digest(brief),
                 passage_dispositions={row['id']: 'requirement'}, tasks=tasks,
                 requirements=[dict(id=t['id'], passage=row['id'], quote=row['text'], task=t['id'], acceptance=row['text']) for t in tasks])
@@ -53,6 +59,7 @@ def run(pdf, out):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--bec-pdf', required=True); parser.add_argument('--out', required=True)
-    args = parser.parse_args(); result = run(args.bec_pdf, args.out)
+    parser.add_argument('--target-failure-baseline', action='store_true')
+    args = parser.parse_args(); result = run(args.bec_pdf, args.out, args.target_failure_baseline)
     print(json.dumps(result, indent=2))
     raise SystemExit(0 if result['execution_pass'] and result['integrity']['integrity_pass'] else 2)

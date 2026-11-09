@@ -75,3 +75,5 @@ Saved IFC pump iteration now runs as one source-linked workflow: inherited deriv
 
 
 Agent skill routing now includes inherited circulation selection, new-IFC combined checks and upstream IDS, correcting obsolete standalone-only guidance. Six updated skills pass the skill-format validator and reference existing guides. These instructions reuse executed native capabilities; they do not add missing products, physical fitting geometry or full regulatory coverage.
+
+Explicit circulation iteration can now search from a saved baseline with reverified target-only hydraulic failure. Raw numerical/curve and geometry checks remain mandatory; strict pass gates take precedence. Native 1.3 m/s synthetic-target recovery retains the failed baseline while selection, revised IFC and fresh checks pass; aggregate acceptance remains false. See SELECTED_PUMP_IFC.md.

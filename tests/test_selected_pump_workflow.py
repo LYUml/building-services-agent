@@ -70,3 +70,50 @@ class SelectedPumpWorkflowTests(unittest.TestCase):
             for name in ('selected', 'combined', 'information', 'water'):
                 self.assertEqual(result['tasks'][name]['status'], 'pending')
                 self.assertFalse((root/'negative'/name).exists())
+
+            # Explicit iteration may retain a numerically valid, target-failing baseline.
+            catalogue['candidates'][0]['head_curve'] = [[0, 7], [.005, .1]]
+            (root/'pump-catalogue.json').write_text(json.dumps(catalogue))
+            network = json.loads((root/'project.json').read_text())
+            for pipe in network['pipes']:pipe['maximum_velocity_m_s'] = 1.3
+            network['sources']['test'] += '; synthetic iteration velocity target 1.3 m/s'
+            (root/'project.json').write_text(json.dumps(network))
+            tasks[2]['allow_failed_baseline'] = True
+            file.write_text(json.dumps(plan))
+            result = execute(file, root/'iteration')
+            self.assertEqual(result['tasks']['bound']['status'], 'fail')
+            for name in ('screen', 'selected', 'combined', 'information', 'water'):
+                self.assertEqual(result['tasks'][name]['status'], 'pass', result['tasks'])
+            self.assertFalse(result['execution_pass'])
+            self.assertFalse(diagnose(file, root/'iteration')['execution_pass'])
+            report = json.loads((root/'iteration/screen/pump-screening.json').read_text())
+            self.assertEqual(report['baseline_recovery']['failed_targets'], ['velocity_limits'])
+            self.assertFalse(report['baseline']['hydraulic_checks_pass'])
+            from bsa.iteration_baseline import verify_failed_baseline
+            bound = root/'iteration/bound'
+            proof = verify_failed_baseline(bound, root/'project.json', root/'binding.json')
+            self.assertFalse(proof['baseline_accepted'])
+            # The explicit ordinary release gate still wins over iteration permission.
+            tasks[2]['requires_pass'] = ['bound']; file.write_text(json.dumps(plan))
+            gated = execute(file, root/'strict-gate')
+            self.assertEqual(gated['tasks']['screen']['status'], 'pending')
+            self.assertFalse((root/'strict-gate/screen').exists())
+            del tasks[2]['requires_pass']
+            tasks[2]['allow_failed_baseline'] = 'yes'; file.write_text(json.dumps(plan))
+            with self.assertRaisesRegex(ProjectError, 'boolean'):validate_plan(file)
+            tasks[2]['allow_failed_baseline'] = True; file.write_text(json.dumps(plan))
+            # An edited raw numerical failure must not become an admissible target failure,
+            # even if the recorded assessment and artifact hashes are also refreshed.
+            from bsa.epanet import evaluate
+            raw_file = bound/'analysis/raw.json'
+            raw = json.loads(raw_file.read_text()); raw['engine_codes'] = [110]
+            raw_file.write_text(json.dumps(raw))
+            water_file = bound/'analysis/water.json'
+            water = json.loads(water_file.read_text())
+            water.update(evaluate(json.loads((bound/'network-input.json').read_text()), raw))
+            water_file.write_text(json.dumps(water))
+            binding_file = bound/'water-binding.json'; manifest = json.loads(binding_file.read_text())
+            for name in ('analysis/raw.json', 'analysis/water.json'):manifest['artifacts'][name] = digest(bound/name)
+            binding_file.write_text(json.dumps(manifest))
+            with self.assertRaisesRegex(ProjectError, 'numerical/curve'):
+                verify_failed_baseline(bound, root/'project.json', root/'binding.json')

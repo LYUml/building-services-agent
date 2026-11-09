@@ -125,6 +125,7 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
+        if 'allow_failed_baseline' in t and (kind!='circulation_pump_design' or type(t['allow_failed_baseline']) is not bool or not t.get('depends_on')):raise ProjectError('allow_failed_baseline requires inherited pump screening and a boolean')
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
@@ -621,11 +622,21 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
             elif t['kind']=='circulation_pump_design':
                 from .circulation_pump_design import run
                 parent=t.get('depends_on')
-                if parent and tasks[parent]['status']!='pass':reason='upstream water model unavailable; screening not executed'
+                recovery=None
+                may_iterate=parent and tasks[parent]['status']=='fail' and t.get('allow_failed_baseline') is True
+                if parent and tasks[parent]['status']!='pass' and not may_iterate:reason='upstream water model unavailable; screening not executed'
                 else:
+                    if may_iterate:
+                        from .iteration_baseline import verify_failed_baseline
+                        baseline=next(x for x in p['tasks'] if x['id']==parent)
+                        recovery=verify_failed_baseline(out/parent,local_path(root,baseline['project']),local_path(root,baseline['binding']))
                     source=screening_project(t,p['tasks'],root,out)
                     payload=run(source,*(local_path(root,t[key]) for key in ('catalogue','thermal_basis','rule_basis','pack')),root/t['sources'],folder)
                     screening_project(t,p['tasks'],root,out)
+                    if recovery is not None:
+                        if verify_failed_baseline(out/parent,local_path(root,baseline['project']),local_path(root,baseline['binding']))!=recovery:raise ProjectError('iteration baseline changed')
+                        payload['baseline_recovery']=recovery
+                        (folder/'pump-screening.json').write_text(json.dumps(payload,indent=2),encoding='utf-8')
                     status='pass' if payload['feasible_candidate_found'] and payload['selected_rerun_pass'] else 'fail'
                     reason='bounded sourced pump screening with hydraulic/thermal/pipe-rule checks and selected rerun; product/full acceptance pending'
             elif t['kind']=='selected_pump_ifc':

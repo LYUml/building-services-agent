@@ -100,7 +100,7 @@ The `electrical_fault` adapter takes a common electrical `project` and sourced `
 
 ### Saved IFC circulation pump iteration
 
-For the current contract and executed native example, see [selected pump IFC](SELECTED_PUMP_IFC.md). `circulation_pump_design` accepts a standalone project or inherits the exact derived network from a passing `water_coordination` task. `selected_pump_ifc` inherits that screen and writes a new IFC plus revised template with stable identities. `ifc_circulation_checks` can consume either the original water producer or the selected producer's rebound. Failed baselines still block inherited screening; no-feasible screens block model revision. Keep original attempts and source identity checks.
+For the current contract and executed native example, see [selected pump IFC](SELECTED_PUMP_IFC.md). `circulation_pump_design` accepts a standalone project or inherits the exact derived network from a passing `water_coordination` task. `selected_pump_ifc` inherits that screen and writes a new IFC plus revised template with stable identities. `ifc_circulation_checks` can consume either the original water producer or the selected producer's rebound. Failed baselines block inherited screening by default; explicit allow_failed_baseline accepts only reverified target failures for search, preserves baseline fail status and cannot bypass requires_pass. No-feasible screens block model revision. Keep original attempts and source identity checks.
 
 ### Upstream IDS information checks
 
