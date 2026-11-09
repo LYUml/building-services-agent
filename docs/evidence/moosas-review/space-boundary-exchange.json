@@ -1,0 +1,104 @@
+{
+  "upstream_commit": "dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c",
+  "dependencies": {
+    "rdflib": "7.1.4",
+    "pyparsing": "3.2.3"
+  },
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\moosas-ifc-trial-v1\\source\\model.ifc": "3eb4ad3818103907627f18bac22cef32c3a2d40da0fc63f76a8abcb0ab369e7e",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\thermal-ifc\\binding.json": "c1263f36fffdce3a2b8a7cbacb811af6527b7c0c196f0fbfaef06687fc2efbdb"
+  },
+  "geometry": {
+    "ifc_sha256": "3eb4ad3818103907627f18bac22cef32c3a2d40da0fc63f76a8abcb0ab369e7e",
+    "length_unit_scale_to_m": 1,
+    "geometry_coordinates": "IfcOpenShell world-coordinate SI metres",
+    "spaces": [
+      {
+        "guid": "05Q4lNZvfMjRB3$ExNimBH",
+        "thermal_id": "Office",
+        "saved_name": "Office",
+        "origin_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          8.0,
+          6.0,
+          3.0
+        ],
+        "floor_area_m2": 48.0,
+        "volume_m3": 144.0,
+        "triangles": 12
+      },
+      {
+        "guid": "2XcneOpvjTTuGBPHTpB5KV",
+        "thermal_id": "East",
+        "saved_name": "East",
+        "origin_m": [
+          8.0,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          5.0,
+          6.0,
+          3.0
+        ],
+        "floor_area_m2": 30.0,
+        "volume_m3": 90.0,
+        "triangles": 12
+      },
+      {
+        "guid": "0CWbJCzJzH9wlEfBdo1lqM",
+        "thermal_id": "Annex",
+        "saved_name": "Annex",
+        "origin_m": [
+          13.0,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          4.0,
+          6.0,
+          3.0
+        ],
+        "floor_area_m2": 24.0,
+        "volume_m3": 72.0,
+        "triangles": 12
+      }
+    ],
+    "complete_space_coverage": true
+  },
+  "checks": {
+    "space_identity_preserved": true,
+    "per_space_boundaries_preserved": true,
+    "face_vertices_preserved": true,
+    "dimensions_preserved": true,
+    "inputs_unchanged": true
+  },
+  "boundary_checks": [
+    {
+      "guid": "05Q4lNZvfMjRB3$ExNimBH",
+      "boundary_ownership_preserved": true
+    },
+    {
+      "guid": "2XcneOpvjTTuGBPHTpB5KV",
+      "boundary_ownership_preserved": true
+    },
+    {
+      "guid": "0CWbJCzJzH9wlEfBdo1lqM",
+      "boundary_ownership_preserved": true
+    }
+  ],
+  "geometry_exchange_pass": true,
+  "simulation_executed": false,
+  "design_accepted": false,
+  "scope": "Box-space envelopes only; material, shared boundaries, thermal settings, system topology and regulatory acceptance unresolved",
+  "compatibility": "Explicit empty version-5 catalogue; no template applied",
+  "artifacts": {
+    "envelopes.geo": "13f812220c195e471f08015af3fb1de3aaf3b622a9a178210043b83a668d8f30",
+    "envelopes.xml": "b457db63bf51a3912b1d13651709a9a7ed75506958907687bce964b1271db966",
+    "geometry-only-catalog/library.json": "eb5be2ea75ae1169f11426017d1e58638169e771cbe303dcaf93ca6abb58da54"
+  }
+}

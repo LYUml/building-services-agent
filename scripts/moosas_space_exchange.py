@@ -19,6 +19,32 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def check_space_envelopes(model, audit):
+    """Compare each saved space's boundary ownership against independent IFC facts."""
+    from shapely import get_coordinates
+    actual = {s.id:s for s in model.spaceList}
+    details = []
+    for source in audit['spaces']:
+        guid = source['guid']; space = actual.get(guid)
+        row = dict(guid=guid, boundary_ownership_preserved=False)
+        if space is not None and space.floor is not None and space.ceiling is not None:
+            x,y,z = source['origin_m']; w,d,h = source['size_m']
+            points = [(x,y,z),(x+w,y,z),(x+w,y+d,z),(x,y+d,z),
+                      (x,y,z+h),(x+w,y,z+h),(x+w,y+d,z+h),(x,y+d,z+h)]
+            indices = ((0,3,2,1),(4,5,6,7),(0,1,5,4),(1,2,6,5),(2,3,7,6),(3,0,4,7))
+            def vertices(values):
+                return sorted(set(tuple(round(float(n),9) for n in p) for p in values))
+            expected = {guid+'_'+str(i):vertices([points[j] for j in face]) for i,face in enumerate(indices)}
+            surfaces = list(space.floor.face)+list(space.ceiling.face)+list(space.edge.wall)
+            found = {str(s.Uid):vertices(get_coordinates(s.face,include_z=True)) for s in surfaces}
+            row['boundary_ownership_preserved'] = (
+                len(space.floor.face)==1 and len(space.ceiling.face)==1 and len(space.edge.wall)==4
+                and str(space.floor.face[0].Uid)==guid+'_0' and str(space.ceiling.face[0].Uid)==guid+'_1'
+                and len(found)==len(surfaces)==6 and found==expected)
+        details.append(row)
+    return details
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ('ifc', 'binding', 'upstream', 'deps', 'out'):
@@ -79,15 +105,17 @@ def main():
     def vertices(m):
         return sorted([sorted(set(tuple(round(float(n),9) for n in p) for p in get_coordinates(g.face,include_z=True))) for g in m.geometryList])
     actual = {s.id:s for s in loaded.spaceList}
+    boundary_checks = check_space_envelopes(loaded, audit)
     checks = dict(space_identity_preserved=len(actual)==len(rows)==len(loaded.spaceList)
                   and set(actual)=={b['guid'] for b in binding['spaces']},
+                  per_space_boundaries_preserved=all(r['boundary_ownership_preserved'] for r in boundary_checks),
                   face_vertices_preserved=vertices(model)==vertices(loaded),
                   dimensions_preserved=all(e['guid'] in actual
                     and math.isclose(actual[e['guid']].area,e['floor_area_m2'],abs_tol=1e-8)
                     and math.isclose(actual[e['guid']].height,e['size_m'][2],abs_tol=1e-8)
                     and not actual[e['guid']].is_open() for e in audit['spaces']),
                   inputs_unchanged=all(digest(Path(p))==sha for p,sha in inputs.items()))
-    result = dict(upstream_commit=PIN,dependencies=dependency_versions,inputs=inputs,geometry=audit,checks=checks,
+    result = dict(upstream_commit=PIN,dependencies=dependency_versions,inputs=inputs,geometry=audit,checks=checks,boundary_checks=boundary_checks,
                   geometry_exchange_pass=all(checks.values()),simulation_executed=False,design_accepted=False,
                   scope='Box-space envelopes only; material, shared boundaries, thermal settings, system topology and regulatory acceptance unresolved',
                   compatibility='Explicit empty version-5 catalogue; no template applied',

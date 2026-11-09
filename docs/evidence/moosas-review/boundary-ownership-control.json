@@ -1,0 +1,11 @@
+{
+  "control": "swap one wall reference between two loaded spaces without moving global geometry",
+  "space_identity_area_height_unchanged": true,
+  "rejected_spaces": [
+    "05Q4lNZvfMjRB3$ExNimBH",
+    "2XcneOpvjTTuGBPHTpB5KV"
+  ],
+  "unaffected_space_pass": true,
+  "saved_artifacts_modified": false,
+  "design_accepted": false
+}
