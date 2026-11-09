@@ -1,0 +1,31 @@
+{
+  "source": "Synthetic fixed 4 millilitre/s total-flow reference with adjustable inlet pressure and equal outlet total-pressure boundaries",
+  "coefficient_scope": "Synthetic same analytic table assumed for both candidate bores, not actual fitting data",
+  "total_flow_m3_s": 4e-06,
+  "branch_fraction_bounds": [
+    0.1,
+    0.8
+  ],
+  "pressure_tolerance_pa": 1e-07,
+  "ratio_tolerance": 1e-10,
+  "coefficient_table": {
+    "source": "Explicit software-validation law: K_run=0 and K_branch=2 times branch fraction, complete fitting face-to-face coefficients",
+    "rows": [
+      {
+        "branch_fraction": 0.1,
+        "k_run": 0,
+        "k_branch": 0.2
+      },
+      {
+        "branch_fraction": 0.4,
+        "k_run": 0,
+        "k_branch": 0.8
+      },
+      {
+        "branch_fraction": 0.8,
+        "k_run": 0,
+        "k_branch": 1.6
+      }
+    ]
+  }
+}

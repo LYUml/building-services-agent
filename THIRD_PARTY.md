@@ -155,3 +155,5 @@ The bounded tee split reuses SciPy 1.18.1 optimize.brentq (SciPy contributors, B
 Fraction-dependent tee coefficients use the existing NumPy 2.5.4 interpolation routine (now explicitly pinned in the tee extra) with explicit range validation; SciPy 1.18.1 still supplies the root solver. Table examples are original synthetic mathematical controls, not copied manufacturer or Crane data.
 
 Tee assembly diagrams reuse existing pinned ezdxf 1.4.5, IfcOpenShell 0.8.5 and NumPy plus the established native AutoCAD adapter. Local-frame silhouette/schedule composition is original code; no new dependency or vendor implementation was copied.
+
+Tee candidate selection reuses the existing tee assembly/pressure/split adapters and their pinned IfcOpenShell, Manifold, fluids, NumPy and SciPy dependencies. It follows the existing circulation-pump catalogue pattern of retained trials and selected rerun; catalogue/duty binding is original repository code. No new solver or vendor implementation was introduced.

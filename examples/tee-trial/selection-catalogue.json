@@ -1,0 +1,24 @@
+{
+  "source": "Synthetic two-bore catalogue for conditional iteration validation",
+  "objective": "lowest declared preference among passing candidates",
+  "candidates": [
+    {
+      "id": "bore32",
+      "source": "Original synthetic 32 mm bore candidate",
+      "preference": 0,
+      "tee_spec": "split-spec.json",
+      "assembly_spec": "split-assembly.json",
+      "basis": "selection/basis.json",
+      "control": "selection/control.json"
+    },
+    {
+      "id": "bore40",
+      "source": "Larger synthetic 40 mm bore candidate",
+      "preference": 1,
+      "tee_spec": "selection/larger-spec.json",
+      "assembly_spec": "split-assembly.json",
+      "basis": "selection/basis.json",
+      "control": "selection/control.json"
+    }
+  ]
+}

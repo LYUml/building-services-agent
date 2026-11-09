@@ -1,0 +1,33 @@
+{
+  "source": "Synthetic 40 mm bore / 50 mm OD candidate; not manufacturer geometry",
+  "outer_radius_m": 0.025,
+  "inner_radius_m": 0.02,
+  "main_half_length_m": 0.1,
+  "branch_length_m": 0.1,
+  "project_uuid": "80da3092-7341-45f4-9d70-31c225196f32",
+  "placement": {
+    "source": "Synthetic horizontal split verification fixture, not surveyed",
+    "origin_m": [
+      0,
+      0,
+      0
+    ],
+    "rotation": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        -1
+      ],
+      [
+        0,
+        1,
+        0
+      ]
+    ]
+  }
+}

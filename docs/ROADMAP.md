@@ -141,3 +141,5 @@ A standalone tee_drawing adapter now generates verified local-frame outside outl
 The tee workflow now spans requirement-linked assembly, table-based split, same-model-gated tee_drawing and native AutoCAD delivery. Actual four-stage execution, integrity and PDF inspection passed. Low-capacity controls block DXF/DWG; unrelated-model prerequisite reuse rejects. Complete paper callouts, installation and real-product/code acceptance remain pending.
 
 Tee diagrams now carry four GUID-linked arrow callouts and matching schedule IDs. Saved content/position/visibility/identity and text-overlap checks pass on generated and native-reopened DXF; actual labelled PDF reviewed. Wrong-text/hidden/wrong-GUID controls reject; broader installation detailing remains pending.
+
+A standalone source-bounded tee bore catalogue now retains native candidate geometry/split trials, rejects changed common duty, selects the lowest declared passing preference and independently regenerates/re-solves the selection. Synthetic 32 mm failure/40 mm success, stable IDs, no-feasible and changed-supply controls passed. Workflow/drawing handoff and real product/code acceptance remain pending.
