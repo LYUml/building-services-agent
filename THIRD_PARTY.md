@@ -151,3 +151,5 @@ The directional tee diagnostic calls Caleb Bell and contributors' unmodified flu
 The tee pressure budget reuses the existing bsa.network friction adapter and pinned fluids 1.3.1 Colebrook implementation. Face-to-face coefficients in its example are declared synthetic inputs, not copied Crane/manufacturer data. No new solver dependency or vendor source is introduced.
 
 The bounded tee split reuses SciPy 1.18.1 optimize.brentq (SciPy contributors, BSD-3-Clause), pinned in the tee optional dependency. Reference: https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.brentq.html . Its bracket requires a continuous function and opposing endpoint signs; the adapter retains regime and residual checks. No SciPy implementation is copied.
+
+Fraction-dependent tee coefficients use the existing NumPy 2.5.4 interpolation routine (now explicitly pinned in the tee extra) with explicit range validation; SciPy 1.18.1 still supplies the root solver. Table examples are original synthetic mathematical controls, not copied manufacturer or Crane data.
