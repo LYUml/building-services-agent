@@ -37,7 +37,7 @@ public sealed class InventoryCommand : IExternalCommand
             && File.Exists(Path.Combine(root.FullName, "adapters/revit/Bsa.Revit.csproj")))) root = root.Parent;
         if (root == null) throw new ArgumentException("Request must reside inside the BSA repository");
         var requestBytes = File.ReadAllBytes(requestPath);
-        var request = JsonSerializer.Deserialize<InventoryRequest>(requestBytes)
+        var request = JsonSerializer.Deserialize<InventoryRequest>(System.Text.Encoding.UTF8.GetString(requestBytes).TrimStart('\uFEFF'))
             ?? throw new ArgumentException("Missing inventory request");
         string LocalPath(string value)
         {
