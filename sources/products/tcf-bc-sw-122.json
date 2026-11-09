@@ -67,7 +67,8 @@
   "assessment": {
     "solver_ready": false,
     "design_accepted": false,
-    "mechanical_speed_gate_implemented": false,
-    "note": "Published graph is not a numeric curve; 3500 rpm exceeds Class I maximum; catalogue power cannot substitute for drawn electrical input"
+    "mechanical_speed_gate_implemented": true,
+    "note": "Published graph is not a numeric curve; 3500 rpm exceeds Class I maximum; catalogue power cannot substitute for drawn electrical input",
+    "mechanical_gate_scope": "Independent pinned-PDF maximum-RPM table extraction and selected-curve check only; not mechanical-aware candidate ranking or full product acceptance"
   }
 }

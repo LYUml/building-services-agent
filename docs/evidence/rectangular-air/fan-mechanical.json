@@ -1,0 +1,118 @@
+{
+  "run": "runs\\fan-mechanical-workflow-v1",
+  "demonstration": {
+    "cases": {
+      "within": {
+        "air": "pass",
+        "fan": "pass",
+        "mechanical": "pass",
+        "review": "pending"
+      },
+      "exceeded": {
+        "air": "pass",
+        "fan": "pass",
+        "mechanical": "fail",
+        "review": "pending"
+      },
+      "unknown": {
+        "air": "pass",
+        "fan": "pass",
+        "mechanical": "pending",
+        "review": "pending"
+      }
+    },
+    "design_accepted": false,
+    "scope": "Real pinned speed table with synthetic curve/product association; not real vendor performance/installation selection"
+  },
+  "cases": {
+    "within": {
+      "status": "pass",
+      "speed_rpm": 1450,
+      "construction_class": "Class_I",
+      "maximum_speed_rpm": 3167,
+      "speed_within_maximum": true,
+      "source_page": 13,
+      "source_pdf_sha256": "a50f3202afc6fb0fc42af856d43493dc1079a529de36634d25bef9c9ebdcd18b",
+      "independent_pdf_table_match": true,
+      "scope": "BC-SW 122 declared construction-class maximum speed only; no interpolation, product authentication or design acceptance",
+      "design_accepted": false,
+      "pending": [
+        "Actual supplied construction-class identity and present product suitability",
+        "Validated numeric curve/digitization uncertainty and stable/installation applicability",
+        "Native fan geometry/ports, motor/transmission and drawn electrical input",
+        "Full Hong Kong and engineering acceptance"
+      ],
+      "inputs": {
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\fan-mechanical-workflow-v1\\within\\product.json": "5636f0f33a4b58ba0963e85776886816f85b5e5d43e2e94cf9e63ffc902099e8",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\fan-mechanical-workflow-v1\\within\\manufacturer.pdf": "a50f3202afc6fb0fc42af856d43493dc1079a529de36634d25bef9c9ebdcd18b",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\fan-mechanical-workflow-v1\\within\\workflow\\fan\\selected\\curve.json": "349c69b59c27ca9eee4876cc1d74adf1c1f2dd366bb44931e15a782fe9cdc4c8",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\fan-mechanical-workflow-v1\\within\\mechanical-basis.json": "be655a0d001e3f3b6bb0489a1fb4d1b9c188404b5533ace252ab0d4e09cfed3c"
+      },
+      "inputs_unchanged": true,
+      "product_reference": "BC-SW 122",
+      "association_source": "Explicit synthetic curve/product-class association for speed-gate test only; not manufacturer performance data or installed product identity",
+      "pypdf_version": "7.0.0"
+    },
+    "exceeded": {
+      "status": "fail",
+      "speed_rpm": 3500,
+      "construction_class": "Class_I",
+      "maximum_speed_rpm": 3167,
+      "speed_within_maximum": false,
+      "source_page": 13,
+      "source_pdf_sha256": "a50f3202afc6fb0fc42af856d43493dc1079a529de36634d25bef9c9ebdcd18b",
+      "independent_pdf_table_match": true,
+      "scope": "BC-SW 122 declared construction-class maximum speed only; no interpolation, product authentication or design acceptance",
+      "design_accepted": false,
+      "pending": [
+        "Actual supplied construction-class identity and present product suitability",
+        "Validated numeric curve/digitization uncertainty and stable/installation applicability",
+        "Native fan geometry/ports, motor/transmission and drawn electrical input",
+        "Full Hong Kong and engineering acceptance"
+      ],
+      "inputs": {
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\fan-mechanical-workflow-v1\\exceeded\\product.json": "5636f0f33a4b58ba0963e85776886816f85b5e5d43e2e94cf9e63ffc902099e8",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\fan-mechanical-workflow-v1\\exceeded\\manufacturer.pdf": "a50f3202afc6fb0fc42af856d43493dc1079a529de36634d25bef9c9ebdcd18b",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\fan-mechanical-workflow-v1\\exceeded\\workflow\\fan\\selected\\curve.json": "7b8d3759617f613f6a06473a4ce1be14531d8eba61074f458056b2e8e469eaef",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\fan-mechanical-workflow-v1\\exceeded\\mechanical-basis.json": "be655a0d001e3f3b6bb0489a1fb4d1b9c188404b5533ace252ab0d4e09cfed3c"
+      },
+      "inputs_unchanged": true,
+      "product_reference": "BC-SW 122",
+      "association_source": "Explicit synthetic curve/product-class association for speed-gate test only; not manufacturer performance data or installed product identity",
+      "pypdf_version": "7.0.0"
+    },
+    "unknown": {
+      "status": "pending",
+      "speed_rpm": 1450,
+      "construction_class": null,
+      "maximum_speed_rpm": null,
+      "speed_within_maximum": null,
+      "source_page": 13,
+      "source_pdf_sha256": "a50f3202afc6fb0fc42af856d43493dc1079a529de36634d25bef9c9ebdcd18b",
+      "independent_pdf_table_match": true,
+      "scope": "BC-SW 122 declared construction-class maximum speed only; no interpolation, product authentication or design acceptance",
+      "design_accepted": false,
+      "pending": [
+        "Actual supplied construction-class identity and present product suitability",
+        "Validated numeric curve/digitization uncertainty and stable/installation applicability",
+        "Native fan geometry/ports, motor/transmission and drawn electrical input",
+        "Full Hong Kong and engineering acceptance"
+      ],
+      "inputs": {
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\fan-mechanical-workflow-v1\\unknown\\product.json": "5636f0f33a4b58ba0963e85776886816f85b5e5d43e2e94cf9e63ffc902099e8",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\fan-mechanical-workflow-v1\\unknown\\manufacturer.pdf": "a50f3202afc6fb0fc42af856d43493dc1079a529de36634d25bef9c9ebdcd18b",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\fan-mechanical-workflow-v1\\unknown\\workflow\\fan\\selected\\curve.json": "349c69b59c27ca9eee4876cc1d74adf1c1f2dd366bb44931e15a782fe9cdc4c8",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\fan-mechanical-workflow-v1\\unknown\\mechanical-basis.json": "e7f49df4a0c5cae1f56d8bf0a1c5ed5978b917b8e891513acbf0c0f54112f3c6"
+      },
+      "inputs_unchanged": true,
+      "product_reference": "BC-SW 122",
+      "association_source": "Explicit synthetic curve/product-class association for speed-gate test only; not manufacturer performance data or installed product identity",
+      "pypdf_version": "7.0.0"
+    }
+  },
+  "tests": {
+    "mechanical_limits": 6,
+    "rectangular_fan_regression": 31
+  },
+  "design_accepted": false
+}
