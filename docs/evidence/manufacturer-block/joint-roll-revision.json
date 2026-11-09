@@ -1,0 +1,37 @@
+{
+  "scenario": "Synthetic connector roll revision 0 to 37 degrees about target port axis",
+  "stable_product_guids": [
+    "2Q4jE0K8rUjOk8i3fjJYIc",
+    "3tkGcTaGvM9wS1MY9giI$W"
+  ],
+  "stable_port_guid_count": 5,
+  "world_port_positions_and_Z_axes_unchanged": true,
+  "model_alignment_pass": true,
+  "mesh_overlap_m3": 2.6501054397181738e-09,
+  "mesh_calculated_checks_pass": false,
+  "native_clear": true,
+  "native_report_sha256": "b3ee38f64f7749ae4a1451c595fc84a4ff0b790ed7083d60b3553eb46b7b4fb1",
+  "relative_rotation": [
+    [
+      3.168626028231558e-17,
+      1.0,
+      5.720850064371204e-16
+    ],
+    [
+      -0.7986355100472927,
+      3.59797183219202e-16,
+      -0.6018150231520484
+    ],
+    [
+      -0.6018150231520484,
+      -4.535571901284931e-16,
+      0.7986355100472926
+    ]
+  ],
+  "ifc_sha256": "214f6b3792eea65fd029bfddf349c02819bb80c6291f496d262262726fe1ad73",
+  "preview_sha256": "d9cda73876b06ddf2f938bd6e3e010784f25ac142786e92e5e07172e3730e3b5",
+  "source_hashes_verified": true,
+  "design_accepted": false,
+  "scope": "Revision propagation and geometry comparison only. Model node semantics, gasket contact, installed clearance and hydraulics remain unverified.",
+  "visual_review": "Actual four-view PNG inspected: housing/bolt orientation changed, both products remain visible, almost-coincident port labels overlap. Diagnostic only; no physical clearance assessment."
+}

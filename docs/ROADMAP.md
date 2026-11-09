@@ -24,6 +24,8 @@ Manufacturer junction/connector model-node alignment now reuses upstream asset a
 
 An independent native CAD Boolean at the verified identical alignment returns no overlap solid, while a 0.254 mm radial control detects interference. Source INSBASE compensation was essential and verified by body mass/bounds/centroid. Cross-engine mesh/native reconciliation and real installed joint acceptance remain unresolved; retain both results rather than silently waiving the mesh failure.
 
+The source-product joint chain is now a gated workflow and supports full relative rigid 3D placement in native CAD. A 37-degree joint-roll revision preserved two product/five port identities and world endpoints, rebuilt the IFC, propagated to native diagnostics and produced an inspected combined preview. This verifies revision propagation; it does not resolve installation semantics or authorize a mesh/native discrepancy waiver.
+
 Hong Kong regulatory conformity is an explicit end-state requirement: interchangeable jurisdiction packs, official version/amendment and applicability decisions, clause-level electrical/HVAC-energy/lighting/plumbing/drainage/fire checks, and compliance gates throughout design and delivery. The initial pack implements only one EMSD voltage-drop path; official source inventory is not equivalent to implemented rules or full conformity. Preserve this requirement alongside CAD/BIM, analysis and reuse work.
 
 1. Exercise the electrical slice against malformed inputs and independent hand calculations.
