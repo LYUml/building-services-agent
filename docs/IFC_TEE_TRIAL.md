@@ -54,3 +54,12 @@ This calls unmodified fluids 1.3.1 `K_branch_diverging_Crane` and `K_run_divergi
 The synthetic 0.75/0.25 L/s run/branch split produces K values -0.0625 and 1.0378515625. At assumed density 998 kg/m3, K times inlet dynamic pressure is -48.217 and 800.675 Pa respectively. These are correlation diagnostics, not terminal pressure predictions. Independent numeric anchors, fourfold pressure scaling on doubled flow, reversed main inlet mapping, unsupported branch-inlet rejection and changed saved-body rejection passed.
 
 No general network adapter is enabled: the current segment interface assumes nonnegative local-velocity losses, whereas this diagnostic retains signed combined-velocity coefficients. Reference stations, finite fitting distributed friction and physical correlation applicability need resolution before a complete pressure balance. Prescribed split does not establish passive balancing. Manufacturer, regulatory and engineering acceptance remain false. Evidence: `docs/evidence/tee-assembly/tee-loss.json`, using the IFC in the stable-identity archive.
+
+
+## Requirement-linked workflow
+
+`python -m bsa.workflow execute examples/tee-trial/plan.json --out runs/new-tee-workflow` executes the sourced synthetic brief through `tee_assembly` then `tee_losses`. The geometry, assembly and coefficient implementations now live in `bsa.tee_geometry`, `bsa.tee_assembly`, and `bsa.tee_losses`; original scripts remain compatible CLI/import entry points.
+
+`tee_assembly` requires `tee_spec` and `assembly_spec` and exposes `assembly.ifc` as its IFC artifact. `tee_losses` requires `basis` and `depends_on` pointing to that earlier assembly. It inherits both source specs and the saved IFC; replacement model/spec fields are rejected. It reruns saved geometry/identity verification. Failed upstream generation leaves the diagnostic pending and creates no diagnostic output. General IFC inventory prerequisites also apply to this consumer.
+
+The example executed both tasks with intact source/artifact hashes and design acceptance false. Native geometry and coefficient regressions pass after extraction into package modules; a malformed geometry workflow verifies downstream blocking. Evidence is archived in `docs/evidence/tee-assembly/workflow.zip`. Task pass means only the recorded geometry or coefficient diagnostic scope, not complete pressure balance, actual product/installation or regulatory acceptance.

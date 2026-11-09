@@ -25,6 +25,8 @@ Use `$mep-ifc-mcp` to inspect saved IFC models or add source-backed pump text pr
 
 ## Current evidence and limits
 
+[Source-bound tee assembly](docs/IFC_TEE_TRIAL.md) now has a requirement-linked workflow for saved hollow geometry, stable ports and upstream fluids diverging-coefficient diagnostics. Run `python -m bsa.workflow execute examples/tee-trial/plan.json --out runs/new-tee-workflow`. Signed coefficients are retained; this does not yet solve a complete branched hydraulic network or establish product/code acceptance.
+
 [Saved IFC water binding](docs/WATER_BINDING.md) now includes source-verified finite 90-degree hollow elbows with actual arc lengths and per-piece excess losses in EPANET. Closed circulation also reaches thermal and scoped Hong Kong pipe checks, but its current idealized junction geometry fails physical clash inspection and is blocked from drawing release.
 
 [Jurisdiction rule packs](docs/REGULATION_PACKS.md) now start with a versioned Hong Kong pack, official source inventory and hash-pinned EMSD Wiring CoP 2025 evidence. The first executable check covers one normal-service voltage-drop deemed-to-satisfy path with explicit applicability, units and edition decisions. [Electrical path binding](docs/ELECTRICAL_PATHS.md) now computes source-declared single-phase feeder/branch totals and supplies per-circuit regulatory metrics with report hashes; actual topology and applicability assertions remain review items. [Office lighting LPD](docs/HK_LIGHTING_RULES.md) adds a separately pinned BEC 2024 module with full-output wattage, area bands and the scoped low-power exception. The broader Hong Kong regulatory implementation remains incomplete; supported calculation success never implies whole-project compliance.

@@ -11,7 +11,7 @@ from pathlib import Path
 from .cli import digest
 from .engine import ProjectError
 
-IFC_ARTIFACTS={'ifc_metadata':'native/model.ifc','selected_pump_ifc':'selected-model.ifc','regulated_water_model':'selected-coordination/bim/model.ifc','annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
+IFC_ARTIFACTS={'tee_assembly':'assembly.ifc','ifc_metadata':'native/model.ifc','selected_pump_ifc':'selected-model.ifc','regulated_water_model':'selected-coordination/bim/model.ifc','annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
                'route_model':'bound/bim/model.ifc','route_optimize':'selected/bound/bim/model.ifc',
                'network_model_design':'selected-coordination/bim/model.ifc',
                'electrical_coordination':'bim/model.ifc','electrical_lighting':'shared/bim/model.ifc','pump_electrical':'model.ifc','water_coordination':'model.ifc'}
@@ -133,7 +133,7 @@ def regulatory_source_bindings(tasks,root):
 
 def inventory_source_bindings(tasks,root):
     """Bind supported saved-IFC consumers to upstream inventory checks."""
-    readers={'ifc_network','ifc_metadata','ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing',
+    readers={'tee_losses','ifc_network','ifc_metadata','ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing',
              'ifc_views','water_coordination','annual_energy_ifc'}
     known={};ancestors={};identities={};bindings=[];rechecks={}
     for task in tasks:
@@ -201,10 +201,20 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("tee_assembly","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind=="water_network" and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
+        if kind=='tee_assembly':
+            inputs.update(local_path(root,t.get(k)) for k in ('tee_spec','assembly_spec'))
+            if any(k in t for k in ('depends_on','ifc')):raise ProjectError('tee assembly uses explicit source specs')
+        if kind=='tee_losses':
+            parent=t.get('depends_on')
+            if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='tee_assembly':
+                raise ProjectError('tee losses require an earlier tee_assembly')
+            if any(k in t for k in ('ifc','model','tee_spec','assembly_spec')):
+                raise ProjectError('tee losses inherit producer IFC and specs; replacement inputs forbidden')
+            inputs.add(local_path(root,t.get('basis')))
         if kind=='hvac_regulations':
             dependency=t.get('depends_on')
             if dependency not in ids or next(x for x in tasks if x['id']==dependency)['kind']!='energy':
@@ -609,6 +619,19 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     payload=run(source,local_path(root,t['settings']),folder)
                     status='pass' if payload['calculated_checks_pass'] else 'fail'
                     reason='saved hollow profiles and ports reconciled to schedule/projected centreline DXF; native and installation drawing acceptance pending'
+            elif t['kind']=='tee_assembly':
+                from .tee_assembly import run
+                payload=run(local_path(root,t['tee_spec']),local_path(root,t['assembly_spec']),folder)
+                status='pass' if payload['assembly_checks_pass'] else 'fail';reason=payload['scope']
+            elif t['kind']=='tee_losses':
+                parent=t['depends_on']
+                if tasks[parent]['status']!='pass':reason='upstream tee assembly did not pass; diagnostic not executed'
+                else:
+                    from .tee_losses import run
+                    producer=next(x for x in p['tasks'] if x['id']==parent)
+                    payload=run(out/parent/'assembly.ifc',local_path(root,producer['tee_spec']),local_path(root,producer['assembly_spec']),local_path(root,t['basis']),folder)
+                    status='pass' if payload['diagnostic_executed'] else 'fail'
+                    reason='saved-assembly signed coefficient diagnostic only; full network balance and correlation applicability pending'
             elif t['kind']=='ifc_network':
                 dependency=t.get('depends_on')
                 if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC producer did not pass; hydraulic analysis not executed'
