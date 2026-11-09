@@ -84,7 +84,15 @@ def extract(path, ocr_path=None):
                         nonlocal block
                         if node.tag == W+"p":
                             segments = []
-                            for element in node.iter():
+                            def paragraph_content(element):
+                                # Nested text-box paragraphs get their own source locator.
+                                for child in element:
+                                    if child.tag == W+'p':
+                                        continue
+                                    yield child
+                                    yield from paragraph_content(child)
+
+                            for element in paragraph_content(node):
                                 if element.tag in (W+"t", W+"delText"):
                                     segments.append(element.text or "")
                                 elif element.tag == W+"tab":
@@ -95,7 +103,6 @@ def extract(path, ocr_path=None):
                             if value:
                                 block += 1
                                 rows.append(dict(text=value, part=part, xml_path=location, block_index=block))
-                            return
                         counters = {}
                         for child in node:
                             name = child.tag.rsplit("}", 1)[-1]
@@ -116,7 +123,7 @@ def extract(path, ocr_path=None):
         issue("empty", "No source text extracted", "blocking")
     for i, row in enumerate(rows, 1):
         row["id"] = f"P{i:03}"
-    result = dict(format=suffix.lstrip("."), extractor_version="1", passages=rows,
+    result = dict(format=suffix.lstrip("."), extractor_version="2", passages=rows,
                 issues=issues, coverage_status="blocked" if any(i["severity"] == "blocking" for i in issues)
                 else "needs review" if issues else "text extracted")
     if suffix == '.pdf':result['page_count'] = len(reader.pages)

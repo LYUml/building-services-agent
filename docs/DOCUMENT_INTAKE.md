@@ -12,6 +12,8 @@ Plan `document_review` maps every extraction review issue ID to a specific sourc
 
 ## Offline OCR
 
+Nested Word text-box paragraphs are extracted separately with their actual XML paths, rather than concatenated into the enclosing paragraph. Package traversal order is not rendered reading order; embedded-content and layout review remain required. This correction can change passage IDs/text for previously indexed text-box documents: regenerate intake and re-author/review their source-bound plans instead of reusing old quotes or locators.
+
 ```powershell
 .venv/Scripts/python -m pip install -e ".[ocr]"
 .venv/Scripts/python -m bsa.ocr path/to/brief.pdf --out runs/ocr --pdftoppm path/to/pdftoppm.exe
