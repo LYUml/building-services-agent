@@ -1,0 +1,373 @@
+{
+  "scope": "Actual synthetic single-cable obstacle coordination and native schematic; no complete installation acceptance",
+  "scenarios": [
+    {
+      "scenario": "clear",
+      "tasks": {
+        "study": {
+          "kind": "three_phase_ifc_project",
+          "status": "pass",
+          "scope": "New snapshot project with native straight or canonical quarter-circle IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+        },
+        "coordination": {
+          "kind": "three_phase_coordination",
+          "status": "pass",
+          "scope": "Same saved electrical cable geometry and whole-model represented-element solid intersection/declared clearance checks only; source obstacle completeness, physical joints, product fidelity and full engineering acceptance remain unverified"
+        },
+        "drawing": {
+          "kind": "three_phase_drawing",
+          "status": "pending",
+          "scope": "Graphviz executable not supplied; native three-phase drawing not executed"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: drawing (pending); adapter not executed"
+        }
+      },
+      "model_bindings": [
+        {
+          "producer": "study",
+          "consumer": "coordination",
+          "ifc_sha256": "1cf96e2ac762c98693ffc1405bf3eed96c214ab6be7af8adc90e158cad6452f7",
+          "geometry_binding_sha256": "1ff3825ebca930e1c9a351ecdf31e65fd772b583302c921ac9f9c737caa4d875"
+        },
+        {
+          "producer": "coordination",
+          "consumer": "drawing",
+          "ifc_sha256": "1cf96e2ac762c98693ffc1405bf3eed96c214ab6be7af8adc90e158cad6452f7",
+          "geometry_binding_sha256": "1ff3825ebca930e1c9a351ecdf31e65fd772b583302c921ac9f9c737caa4d875"
+        }
+      ],
+      "inventory_bindings": [],
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "design_accepted": false
+    },
+    {
+      "scenario": "insufficient-clearance",
+      "tasks": {
+        "study": {
+          "kind": "three_phase_ifc_project",
+          "status": "pass",
+          "scope": "New snapshot project with native straight or canonical quarter-circle IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+        },
+        "coordination": {
+          "kind": "three_phase_coordination",
+          "status": "fail",
+          "scope": "Same saved electrical cable geometry and whole-model represented-element solid intersection/declared clearance checks only; source obstacle completeness, physical joints, product fidelity and full engineering acceptance remain unverified"
+        },
+        "drawing": {
+          "kind": "three_phase_drawing",
+          "status": "pending",
+          "scope": "required checks unresolved: coordination (fail); adapter not executed"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: drawing (pending); adapter not executed"
+        }
+      },
+      "model_bindings": [
+        {
+          "producer": "study",
+          "consumer": "coordination",
+          "ifc_sha256": "dcb3201de1f4b28bfa8c243612bab959b483faf4671ff0350fd3d5c5143f15f3",
+          "geometry_binding_sha256": "5e6125ead98f60a76df377b62e2e78c68908f782c34c7b78588a133599677d2c"
+        },
+        {
+          "producer": "coordination",
+          "consumer": "drawing",
+          "ifc_sha256": "dcb3201de1f4b28bfa8c243612bab959b483faf4671ff0350fd3d5c5143f15f3",
+          "geometry_binding_sha256": "5e6125ead98f60a76df377b62e2e78c68908f782c34c7b78588a133599677d2c"
+        }
+      ],
+      "inventory_bindings": [],
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "design_accepted": false
+    },
+    {
+      "scenario": "material-overlap",
+      "tasks": {
+        "study": {
+          "kind": "three_phase_ifc_project",
+          "status": "pass",
+          "scope": "New snapshot project with native straight or canonical quarter-circle IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+        },
+        "coordination": {
+          "kind": "three_phase_coordination",
+          "status": "fail",
+          "scope": "Same saved electrical cable geometry and whole-model represented-element solid intersection/declared clearance checks only; source obstacle completeness, physical joints, product fidelity and full engineering acceptance remain unverified"
+        },
+        "drawing": {
+          "kind": "three_phase_drawing",
+          "status": "pending",
+          "scope": "required checks unresolved: coordination (fail); adapter not executed"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: drawing (pending); adapter not executed"
+        }
+      },
+      "model_bindings": [
+        {
+          "producer": "study",
+          "consumer": "coordination",
+          "ifc_sha256": "13a29b05e5ff59414c0ca55ee989f4be723abc83a50719baaf09c654c093aabe",
+          "geometry_binding_sha256": "8817493550ee139de1c5373fda2b5a2b291ad7a874b783bd801e742d19261096"
+        },
+        {
+          "producer": "coordination",
+          "consumer": "drawing",
+          "ifc_sha256": "13a29b05e5ff59414c0ca55ee989f4be723abc83a50719baaf09c654c093aabe",
+          "geometry_binding_sha256": "8817493550ee139de1c5373fda2b5a2b291ad7a874b783bd801e742d19261096"
+        }
+      ],
+      "inventory_bindings": [],
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "design_accepted": false
+    }
+  ],
+  "native_geometry_cases": {
+    "clear": {
+      "checks": {
+        "geometry_coverage": true,
+        "no_intersections": true,
+        "clearance": true
+      },
+      "intersections": [],
+      "clearance_violations": [],
+      "geometry_counts": {
+        "physical_element_count": 2,
+        "represented_element_count": 2,
+        "valid_geometry_count": 2
+      }
+    },
+    "insufficient-clearance": {
+      "checks": {
+        "geometry_coverage": true,
+        "no_intersections": true,
+        "clearance": false
+      },
+      "intersections": [],
+      "clearance_violations": [
+        {
+          "pair": [
+            "1uGqW$ugzIM9$Bw0m20nFy",
+            "2$66H3PjjSaAGFCsCrY9hx"
+          ],
+          "names": [
+            "feeder",
+            "COORDINATION_OBSTACLE_TEST_BOX"
+          ],
+          "type": "clearance",
+          "engine_distance_m": 0.015000031125439154,
+          "p1_world_m": [
+            0.22638822970568348,
+            0.009999968817693087,
+            1.8031158873663422
+          ],
+          "p2_world_m": [
+            0.22638822970568348,
+            0.02499999994313224,
+            1.8031158873663422
+          ]
+        }
+      ],
+      "geometry_counts": {
+        "physical_element_count": 2,
+        "represented_element_count": 2,
+        "valid_geometry_count": 2
+      }
+    },
+    "material-overlap": {
+      "checks": {
+        "geometry_coverage": true,
+        "no_intersections": false,
+        "clearance": false
+      },
+      "intersections": [
+        {
+          "pair": [
+            "1uGqW$ugzIM9$Bw0m20nFy",
+            "2$66H3PjjSaAGFCsCrY9hx"
+          ],
+          "names": [
+            "feeder",
+            "COORDINATION_OBSTACLE_TEST_BOX"
+          ],
+          "type": "protrusion",
+          "engine_distance_m": 0.014999719360404578,
+          "p1_world_m": [
+            0.20996017658866278,
+            0.009999719360404577,
+            1.7858230193652012
+          ],
+          "p2_world_m": [
+            0.20996017658866278,
+            -0.005,
+            1.7858230193652012
+          ]
+        },
+        {
+          "pair": [
+            "1uGqW$ugzIM9$Bw0m20nFy",
+            "2$66H3PjjSaAGFCsCrY9hx"
+          ],
+          "names": [
+            "feeder",
+            "COORDINATION_OBSTACLE_TEST_BOX"
+          ],
+          "type": "manifold_mesh_overlap",
+          "overlap_volume_m3": 1.4089949666392842e-05,
+          "engine_distance_m": null,
+          "p1_world_m": null,
+          "p2_world_m": null
+        }
+      ],
+      "clearance_violations": [
+        {
+          "pair": [
+            "1uGqW$ugzIM9$Bw0m20nFy",
+            "2$66H3PjjSaAGFCsCrY9hx"
+          ],
+          "names": [
+            "feeder",
+            "COORDINATION_OBSTACLE_TEST_BOX"
+          ],
+          "type": "clearance",
+          "engine_distance_m": 4.189742801416537e-05,
+          "p1_world_m": [
+            0.1899739472242422,
+            0.007949973775437266,
+            1.7600328123048492
+          ],
+          "p2_world_m": [
+            0.19,
+            0.007949973775437266,
+            1.76
+          ]
+        }
+      ],
+      "geometry_counts": {
+        "physical_element_count": 2,
+        "represented_element_count": 2,
+        "valid_geometry_count": 2
+      }
+    }
+  },
+  "positive_native_tasks": {
+    "study": {
+      "kind": "three_phase_ifc_project",
+      "status": "pass",
+      "scope": "New snapshot project with native straight or canonical quarter-circle IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+    },
+    "coordination": {
+      "kind": "three_phase_coordination",
+      "status": "pass",
+      "scope": "Same saved electrical cable geometry and whole-model represented-element solid intersection/declared clearance checks only; source obstacle completeness, physical joints, product fidelity and full engineering acceptance remain unverified"
+    },
+    "drawing": {
+      "kind": "three_phase_drawing",
+      "status": "pass",
+      "scope": "Source-linked calculation schematic and schedules only; full installation, protection and Hong Kong acceptance pending; actual page visual/engineering review remains pending"
+    },
+    "review": {
+      "kind": "manual",
+      "status": "pending",
+      "scope": "manual engineering/visual verification required"
+    }
+  },
+  "model_bindings": [
+    {
+      "producer": "study",
+      "consumer": "coordination",
+      "ifc_sha256": "1cf96e2ac762c98693ffc1405bf3eed96c214ab6be7af8adc90e158cad6452f7",
+      "geometry_binding_sha256": "1ff3825ebca930e1c9a351ecdf31e65fd772b583302c921ac9f9c737caa4d875"
+    },
+    {
+      "producer": "coordination",
+      "consumer": "drawing",
+      "ifc_sha256": "1cf96e2ac762c98693ffc1405bf3eed96c214ab6be7af8adc90e158cad6452f7",
+      "geometry_binding_sha256": "1ff3825ebca930e1c9a351ecdf31e65fd772b583302c921ac9f9c737caa4d875"
+    }
+  ],
+  "legacy_unconnected_joint_case": {
+    "checks": {
+      "geometry_coverage": true,
+      "no_intersections": true,
+      "clearance": false
+    },
+    "calculated_checks_pass": false,
+    "intersection_pair_count": 0,
+    "clearance_violation_pair_count": 1,
+    "allowed_contacts": [],
+    "note": "Earlier ideal-node shared cable endpoint remains an unwaived clearance failure; positive obstacle case is deliberately isolated, not a repaired installation"
+  },
+  "native_reopen_pass": true,
+  "plot": {
+    "pdf_sha256": "e77ae00a6a73f61b3ed3d398a700548de96947164fbdefa112041e201c7a57e6",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 1,
+    "reference_handle": "60",
+    "reference_expected_mm": 50.0,
+    "reference_measured_mm": 49.99566666666666,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "integrity_pass": true,
+  "delivery_context_pass": true,
+  "negative_drawing_directories_absent": true,
+  "page_review": {
+    "pdf_sha256": "e77ae00a6a73f61b3ed3d398a700548de96947164fbdefa112041e201c7a57e6",
+    "png_sha256": "02099a8f1dfc3eb3ed784a46f9e5ca7dcdd70523c71b0e77655c5cd510f54e61",
+    "observed": "Readable two-bus one-line schematic, 0.47 m source-length label, phase values, scope notes and paper reference; no visible clipping or overlap",
+    "schematic_page_review_pass": true,
+    "engineering_acceptance": false
+  },
+  "model_preview": {
+    "ifc_sha256": "1cf96e2ac762c98693ffc1405bf3eed96c214ab6be7af8adc90e158cad6452f7",
+    "preview_sha256": "47361c8ada06bbb62972be8a34f23cf1b7b803d6c2c7d9ae32bfd959eec259f6",
+    "included_guids": [
+      "1uGqW$ugzIM9$Bw0m20nFy",
+      "2$66H3PjjSaAGFCsCrY9hx"
+    ],
+    "omitted_guids": [],
+    "observed": "Quarter-circle and separate box visible in four projections. XZ projections overlap but XY/YZ show lateral separation; no acceptance inferred from projected overlap alone.",
+    "scoped_visual_review_pass": true,
+    "bim_viewer_review": false
+  },
+  "tests": {
+    "new_geometry_and_obstacles": 6,
+    "new_workflow_and_identity": 6,
+    "related_regressions": 49,
+    "distinct_total": 61,
+    "failures": 0,
+    "errors": 0
+  },
+  "retained_warnings": [
+    "Duplicate /PageMode; no PDF-conformance claim",
+    "Upstream EXPRESS executor ResourceWarning while tests completed"
+  ],
+  "design_accepted": false
+}

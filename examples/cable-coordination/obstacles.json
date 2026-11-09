@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "sources": {
+    "assumed": {
+      "path": "basis.json",
+      "sha256": "30ebd15fbfe2fa9bb5804b4c6ec8c7871759da3b09f79694b0e395e866cf1f69",
+      "locator": "obstacle and coordination_targets; explicitly synthetic",
+      "kind": "assumption"
+    }
+  },
+  "obstacles": [
+    {
+      "id": "TEST_BOX",
+      "origin_m": [
+        0.19,
+        0.1,
+        1.76
+      ],
+      "size_m": [
+        0.04,
+        0.04,
+        0.06
+      ],
+      "source": "assumed"
+    }
+  ]
+}

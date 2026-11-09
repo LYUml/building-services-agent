@@ -1,0 +1,13 @@
+{
+  "scope": "all represented non-feature non-virtual IfcElements",
+  "sources": {
+    "assumed": "Synthetic 30 mm clearance target and numerical tolerances in basis.json SHA256 30ebd15fbfe2fa9bb5804b4c6ec8c7871759da3b09f79694b0e395e866cf1f69; no contact waivers or code claim"
+  },
+  "source": "assumed",
+  "minimum_clearance_m": 0.03,
+  "intersection_tolerance_m": 0.0001,
+  "contact_tolerance_m": 5e-05,
+  "overlap_volume_tolerance_m3": 1e-10,
+  "maximum_boolean_pairs": 64,
+  "allowed_contacts": []
+}

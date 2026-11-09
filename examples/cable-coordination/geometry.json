@@ -1,0 +1,44 @@
+{
+  "scope": "Synthetic single quarter-circle cable only; no equipment joints or full physical installation claim",
+  "project_uuid": "39d6f32c-6916-4888-871c-88a3e42677ae",
+  "envelope_radius_m": 0.01,
+  "buses_m": {
+    "source": [
+      0.3,
+      0.0,
+      2.0
+    ],
+    "DB-A": [
+      0.0,
+      0.0,
+      1.7
+    ]
+  },
+  "quarter_bends": {
+    "feeder": {
+      "radius_m": 0.3,
+      "centre_m": [
+        0.0,
+        0.0,
+        2.0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  }
+}
