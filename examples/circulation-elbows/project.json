@@ -1,0 +1,108 @@
+{
+  "model": "EPANET steady circulation graph",
+  "name": "Synthetic circulation with two finite return bends",
+  "pressure_basis": "static pressure head in metres of water; head is elevation plus static pressure head",
+  "coordinate_basis": "schematic diagram coordinates; not physical routes",
+  "sources": {
+    "test": "Synthetic circulation loop with one 20 m fixed-head pressure reference on a zero-flow side branch; no physical expansion vessel, thermal load, product or regulatory claim. All geometry and K explicit scenario assumptions",
+    "pump": "Synthetic fixed-speed two-or-multi-point head curve in metres at given m3/s; no manufacturer, efficiency, operating-region or NPSH claim.",
+    "solver": "Explicit numerical convergence/QA tolerances and runtime budget for this synthetic model. Velocity cross-check tolerance 0.0001 m/s accounts for EPANET legacy LPSperCFS=28.317 versus exact SI conversion and binary output precision; it does not relax the physical velocity limit. Reference: https://github.com/OpenWaterAnalytics/EPANET/blob/v2.2/src/types.h Energy QA allowance is 0.0001 m plus 0.00001 times the greater absolute model/observed drop, for native float output and input serialization; not physical design margin. Independent audit uses EPANET 2.2 engine gravity, reference viscosity, Swamee-Jain/Dunlop and legacy conversion conventions: https://usepa.github.io/EPANET2.2/12_analysis_algorithms.html and https://github.com/OpenWaterAnalytics/EPANET/blob/v2.2/src/hydcoeffs.c"
+  },
+  "fluid": {
+    "source": "test",
+    "relative_viscosity": 1,
+    "specific_gravity": 1
+  },
+  "hydraulics": {
+    "source": "test",
+    "demand_model": "DDA",
+    "minimum_pressure_head_m": 5,
+    "required_pressure_head_m": 20,
+    "pressure_exponent": 0.5
+  },
+  "solver": {
+    "source": "solver",
+    "max_trials": 100,
+    "accuracy": 1e-06,
+    "head_tolerance_m": 0.0001,
+    "flow_tolerance_m3_s": 1e-08,
+    "velocity_tolerance_m_s": 0.0001,
+    "energy_absolute_tolerance_m": 0.0001,
+    "energy_relative_tolerance": 1e-05,
+    "mass_tolerance_m3_s": 1e-07,
+    "demand_tolerance_m3_s": 1e-07,
+    "max_runtime_s": 120
+  },
+  "reservoirs": [
+    {
+      "id": "REF",
+      "head_m": 20,
+      "diagram_xy": [
+        -1,
+        0
+      ],
+      "source": "test"
+    }
+  ],
+  "junctions": [
+    {
+      "id": "SUCTION",
+      "source": "test",
+      "diagram_xy": [
+        2,
+        1
+      ],
+      "demand_m3_s": 0,
+      "minimum_acceptable_pressure_head_m": 5,
+      "minimum_delivered_fraction": 0
+    },
+    {
+      "id": "SUPPLY",
+      "source": "test",
+      "diagram_xy": [
+        3,
+        1
+      ],
+      "demand_m3_s": 0,
+      "minimum_acceptable_pressure_head_m": 5,
+      "minimum_delivered_fraction": 0
+    }
+  ],
+  "pipes": [
+    {
+      "id": "REFERENCE",
+      "source": "test",
+      "roughness_m": 4.5e-05,
+      "minor_k": 0,
+      "maximum_velocity_m_s": 4,
+      "from": "REF",
+      "to": "SUCTION"
+    },
+    {
+      "id": "LOOP",
+      "source": "test",
+      "roughness_m": 4.5e-05,
+      "maximum_velocity_m_s": 4,
+      "from": "SUPPLY",
+      "to": "SUCTION"
+    }
+  ],
+  "pumps": [
+    {
+      "id": "PUMP",
+      "from": "SUCTION",
+      "to": "SUPPLY",
+      "head_curve": [
+        [
+          0,
+          10
+        ],
+        [
+          0.005,
+          1
+        ]
+      ],
+      "source": "pump"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "scope": "all represented non-feature non-virtual IfcElements",
+  "sources": {
+    "test": "Synthetic 50 mm clearance audit of finite-bend circulation; no contact exceptions. Preserve pump/reference-interface overlaps; no regulatory clearance claim."
+  },
+  "source": "test",
+  "minimum_clearance_m": 0.05,
+  "intersection_tolerance_m": 0.0001,
+  "contact_tolerance_m": 0.0001,
+  "overlap_volume_tolerance_m3": 1e-10,
+  "maximum_boolean_pairs": 1000,
+  "contact_clearance_mode": "outside_regions",
+  "contact_region_segments": 64,
+  "allowed_contacts": []
+}

@@ -1,0 +1,214 @@
+{
+  "version": 1,
+  "source": "Synthetic axis-aligned closed circulation, 65 mm bore and 80 mm OD; independently declared 1/2 m routes at z=1 m. Coincident zero-loss nodes and aggregate K are explicit test assumptions. No actual product, clash or design acceptance.",
+  "node_idealization": "coincident node ports form a zero-loss hydraulic node; withdrawals and boundary heads are separately sourced",
+  "project_guid": "082FJ__WbVFfJMpP6PXsg_",
+  "system_guid": "3d9sOMALDH4vENqiWyCG_5",
+  "nodes": {
+    "REF": {
+      "element_guid": "0WXUzEdAjI7O2_BBhNtM3v",
+      "port_guids": [
+        "2jv3Ela1TQw83re$yZH2mP"
+      ]
+    },
+    "SUCTION": {
+      "element_guid": "3xubOTGTjGh8XENzd6SDrq",
+      "port_guids": [
+        "2_V1FTA4XM5we1aeEPjTNb",
+        "1nZx9JJsrNMvMRFT8odZAM",
+        "2g407W7vHJZejqf61$lsb9"
+      ]
+    },
+    "SUPPLY": {
+      "element_guid": "0ii7PSZ15KjwKmd_ZT9U5G",
+      "port_guids": [
+        "3r231ZBpfV$uFFCcfUDqES",
+        "27WANnbRzU0O_du3GpYCL5"
+      ]
+    }
+  },
+  "pipes": {
+    "REFERENCE": [
+      {
+        "element_guid": "2sbTVglBPRiAYSFQs462Zy",
+        "start_port_guid": "1_FqBo$vXLJP_2JTDjvD2r",
+        "end_port_guid": "0tiDBhFq1MK8w7QNYj_kOQ"
+      }
+    ],
+    "LOOP": [
+      {
+        "element_guid": "1aVWZ1XczM8ukEUHVdEOvI",
+        "start_port_guid": "0aOQZ2SgrIjhnCCnIBLCAH",
+        "end_port_guid": "3aAnk6grnR89hx0ZEwVmE0"
+      },
+      {
+        "element_guid": "3jWc_HfJnPZuHAFI$6EXaf",
+        "start_port_guid": "07D9hHKELMPPZMgpb3e12c",
+        "end_port_guid": "3R$QXAkTjHBvZd29SV5ZtT"
+      },
+      {
+        "element_guid": "1Twkt6FD5QTPJiUDNGP$5P",
+        "start_port_guid": "37zbKb1iDPjQlfNWaRtJA7",
+        "end_port_guid": "1tTt8u_gPUve8yl6ZjaYpq"
+      },
+      {
+        "element_guid": "3Y4nmPGFPJEfdOtGm7BO9a",
+        "start_port_guid": "0ux91mhq5P5RyY5liKXarE",
+        "end_port_guid": "1IEgcmb4jJMxAQCSuO7k9b"
+      },
+      {
+        "element_guid": "2WJi6bfHDSjODGCBzoiyTG",
+        "start_port_guid": "272MIZle5RMevxsqzwMKJX",
+        "end_port_guid": "1Z2vpeJGPL_hPozLtx5zJH"
+      }
+    ]
+  },
+  "pumps": {
+    "PUMP": {
+      "element_guid": "125VwiwB9VfxNnWN45QTvC",
+      "start_port_guid": "0dGBtJ$JvUNuF9ln7opdZ6",
+      "end_port_guid": "292cLBLzfSoONCDJW7cuor"
+    }
+  },
+  "fitting_sources": {
+    "3jWc_HfJnPZuHAFI$6EXaf": {
+      "id": "BEND_A",
+      "ifc_class": "IfcPipeFitting",
+      "space": "Plant",
+      "system": "WATER",
+      "source": "test",
+      "body_shape": "circular 90-degree elbow wall",
+      "origin_m": [
+        2.8,
+        2.8,
+        0.96
+      ],
+      "size_m": [
+        0.2400000000000002,
+        0.2400000000000002,
+        0.08000000000000007
+      ],
+      "arc_center_m": [
+        2.8,
+        2.8,
+        1
+      ],
+      "bend_axes": [
+        "+X",
+        "+Y"
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.065,
+        "OutsideDiameter_m": 0.08,
+        "CenterlineRadius_m": 0.2,
+        "LocalLossCoefficient": 0.4,
+        "LocalLossBasis": "excess over centreline Darcy friction"
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.20000000000000018,
+            0.0,
+            0.040000000000000036
+          ],
+          "source": "test"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.0,
+            0.20000000000000018,
+            0.040000000000000036
+          ],
+          "source": "test"
+        }
+      ]
+    },
+    "3Y4nmPGFPJEfdOtGm7BO9a": {
+      "id": "BEND_B",
+      "ifc_class": "IfcPipeFitting",
+      "space": "Plant",
+      "system": "WATER",
+      "source": "test",
+      "body_shape": "circular 90-degree elbow wall",
+      "origin_m": [
+        1.9600000000000002,
+        2.8,
+        0.96
+      ],
+      "size_m": [
+        0.24,
+        0.2400000000000002,
+        0.08000000000000007
+      ],
+      "arc_center_m": [
+        2.2,
+        2.8,
+        1
+      ],
+      "bend_axes": [
+        "+Y",
+        "-X"
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.065,
+        "OutsideDiameter_m": 0.08,
+        "CenterlineRadius_m": 0.2,
+        "LocalLossCoefficient": 0.4,
+        "LocalLossBasis": "excess over centreline Darcy friction"
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.24,
+            0.20000000000000018,
+            0.040000000000000036
+          ],
+          "source": "test"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.039999999999999813,
+            0.0,
+            0.040000000000000036
+          ],
+          "source": "test"
+        }
+      ]
+    }
+  },
+  "piece_losses": {
+    "1aVWZ1XczM8ukEUHVdEOvI": {
+      "value": 0,
+      "basis": "excess over centreline Darcy friction",
+      "source": "Synthetic 65 mm bore/80 mm OD loop with two 0.2 m centreline-radius bends; excess K 0.4 per bend and 0 per straight. Not product loss data; pump/reference interfaces remain idealized and physical acceptance pending."
+    },
+    "3jWc_HfJnPZuHAFI$6EXaf": {
+      "value": 0.4,
+      "basis": "excess over centreline Darcy friction",
+      "source": "Synthetic 65 mm bore/80 mm OD loop with two 0.2 m centreline-radius bends; excess K 0.4 per bend and 0 per straight. Not product loss data; pump/reference interfaces remain idealized and physical acceptance pending."
+    },
+    "1Twkt6FD5QTPJiUDNGP$5P": {
+      "value": 0,
+      "basis": "excess over centreline Darcy friction",
+      "source": "Synthetic 65 mm bore/80 mm OD loop with two 0.2 m centreline-radius bends; excess K 0.4 per bend and 0 per straight. Not product loss data; pump/reference interfaces remain idealized and physical acceptance pending."
+    },
+    "3Y4nmPGFPJEfdOtGm7BO9a": {
+      "value": 0.4,
+      "basis": "excess over centreline Darcy friction",
+      "source": "Synthetic 65 mm bore/80 mm OD loop with two 0.2 m centreline-radius bends; excess K 0.4 per bend and 0 per straight. Not product loss data; pump/reference interfaces remain idealized and physical acceptance pending."
+    },
+    "2WJi6bfHDSjODGCBzoiyTG": {
+      "value": 0,
+      "basis": "excess over centreline Darcy friction",
+      "source": "Synthetic 65 mm bore/80 mm OD loop with two 0.2 m centreline-radius bends; excess K 0.4 per bend and 0 per straight. Not product loss data; pump/reference interfaces remain idealized and physical acceptance pending."
+    }
+  }
+}
