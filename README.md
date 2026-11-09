@@ -25,6 +25,8 @@ Use `$mep-ifc-mcp` to inspect saved IFC models or add source-backed pump text pr
 
 ## Current evidence and limits
 
+[Manufacturer CAD intake](docs/PRODUCT_INTAKE.md) now extracts a selected native product block, measures circular sections and bounded passage clearance, and converts a selected junction solid into a source-bound tessellated IFC. Native/STL/IFC geometry statistics and saved triangles are checked. The actual local vendor trial passed; ports, system placement, hydraulic applicability and engineering acceptance remain pending. Restricted vendor geometry is not redistributed.
+
 [Bounded tee design iteration](docs/IFC_TEE_TRIAL.md) now retains failed size candidates, regenerates/re-solves the selected model and delivers labelled, dimensioned native diagrams through `examples/tee-trial/selection-plan.json`. Source-specific coefficients and fixed-total-flow boundary assumptions are explicit; the synthetic examples do not establish product or regulatory acceptance.
 
 [Source-bound tee assembly](docs/IFC_TEE_TRIAL.md) now has a requirement-linked workflow for saved hollow geometry, stable ports and upstream fluids diverging-coefficient diagnostics. Run `python -m bsa.workflow execute examples/tee-trial/plan.json --out runs/new-tee-workflow`. Signed coefficients are retained; this does not yet solve a complete branched hydraulic network or establish product/code acceptance.

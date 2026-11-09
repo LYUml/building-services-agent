@@ -5,7 +5,9 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
-For supplied manufacturer CAD geometry, read docs/PRODUCT_INTAKE.md. `bsa.cad_block` extracts an explicitly identified named definition using native AutoCAD; `bsa.cad_sections` measures sourced circular annular samples in its local frame. Keep sampled CAD bore measurements separate from manufacturer specifications and hydraulic inputs. End samples do not prove interior connectivity or minimum passage. These tools do not yet convert vendor ACIS bodies into the IFC tee adapter; preserve vendor licensing and keep restricted source/derived geometry local.
+For supplied manufacturer CAD geometry, read docs/PRODUCT_INTAKE.md. `bsa.cad_block` extracts an explicitly identified named definition using native AutoCAD; `bsa.cad_sections` measures sourced circular annular samples in its local frame. Keep sampled CAD bore measurements separate from manufacturer specifications and hydraulic inputs. End samples do not prove interior connectivity or minimum passage. Preserve vendor licensing and keep restricted source/derived geometry local.
+
+`bsa.cad_ifc` converts a selected single CAD junction solid into a separate unconnected tessellated IFC fitting. It explicitly compensates native STL relocation and checks original native volume/bounds/centroid, mesh closure and saved IFC triangles. Supply source units, project namespace and conversion tolerances. This body has no inferred ports or system placement and is not compatible with the source-parametric tee_assembly contract. Saved IFC passage/clash and viewer checks remain required for their respective claims.
 
 For explicitly chosen internal clearance paths, `bsa.cad_passage` checks native solid/cylinder intersections after verifying the actual probe bounds/volume. Require a positive wall-control intersection and preserve blocked passage results. Clear probes alone do not establish that they connect the intended ports, determine minimum bore or validate hydraulic coefficients. Use the local model frame and declared drawing units; read PRODUCT_INTAKE.md for the exact scope and executed controls.
 

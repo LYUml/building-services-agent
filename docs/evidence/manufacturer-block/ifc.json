@@ -1,0 +1,118 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\manufacturer-intake-v2\\adapter-final\\selected-block.dwg": "138d2db55989b3bc35339f217a7e7767423a234504cc4f56c5c48902cd4ff45f",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\manufacturer-ifc-v1\\basis.json": "35f6621b3410467285af83090fb7baf65136b7046c14419c774b828c80a52f2e"
+  },
+  "basis": {
+    "source": "Official Victaulic No20 DN40 CAD definition extracted locally; tessellated model geometry, not manufacturer dimensional guarantee",
+    "drawing_sha256": "138d2db55989b3bc35339f217a7e7767423a234504cc4f56c5c48902cd4ff45f",
+    "solid_handle": "94",
+    "insunits": 1,
+    "project_uuid": "80da3092-7341-45f4-9d70-31c225196f32",
+    "id": "VIC_NO20_DN40_CAD",
+    "linear_tolerance_m": 2e-05,
+    "relative_volume_tolerance": 0.001
+  },
+  "runtime": {
+    "ifcopenshell": "0.8.5",
+    "manifold3d": "3.5.4",
+    "ezdxf": "1.4.5"
+  },
+  "guid": "2Q4jE0K8rUjOk8i3fjJYIc",
+  "native_properties_si": {
+    "volume": 8.78591600619736e-05,
+    "bounds": [
+      [
+        -0.06985,
+        -0.02413,
+        -0.06985
+      ],
+      [
+        0.06985,
+        0.02413,
+        0.02413
+      ]
+    ],
+    "centroid": [
+      0.0,
+      0.0,
+      -0.011065843248
+    ]
+  },
+  "stl_properties_si": {
+    "volume": 8.783429073953129e-05,
+    "bounds": [
+      [
+        -0.06985,
+        -0.02413,
+        -0.06985
+      ],
+      [
+        0.06985,
+        0.024130002422332764,
+        0.02412129898071289
+      ]
+    ],
+    "centroid": [
+      -9.428165234055446e-09,
+      1.0254202807103759e-11,
+      -0.011065119872622549
+    ]
+  },
+  "saved_ifc_properties_si": {
+    "volume": 8.783429073953131e-05,
+    "bounds": [
+      [
+        -0.06985,
+        -0.02413,
+        -0.06985
+      ],
+      [
+        0.06985,
+        0.024130002422332764,
+        0.02412129898071289
+      ]
+    ],
+    "centroid": [
+      -9.428165233975395e-09,
+      1.0254202421500724e-11,
+      -0.01106511987262254
+    ]
+  },
+  "export_translation_drawing_units": [
+    3.75,
+    1.95,
+    3.75
+  ],
+  "vertices": 2379,
+  "triangles": 4762,
+  "stl_checks": {
+    "volume": true,
+    "bounds": true,
+    "centroid": true
+  },
+  "saved_ifc_checks": {
+    "volume": true,
+    "bounds": true,
+    "centroid": true,
+    "source_triangles_preserved": true
+  },
+  "geometry_conversion_pass": true,
+  "pending": [
+    "ports/system/project placement",
+    "saved IFC bore and clash checks",
+    "viewer review",
+    "product/hydraulic/regulatory acceptance"
+  ],
+  "design_accepted": false,
+  "local_run": "runs/manufacturer-ifc-v1/verified",
+  "report_sha256": "b5c512fdef1a7ea7017eaaed72d0cf891775a57d7c20192fad2058ab4a343d3b",
+  "ifc_sha256": "e99e50a56ee34384a34169713e9aa58beece5468abd7a4a4c00c01f00926d6dd",
+  "controls": {
+    "wrong_units": "one selected solid in clean source with matching units required",
+    "strict_tessellation": "native/STL reconciliation failed: {'volume': False, 'bounds': False, 'centroid': False}",
+    "ifc_schema_statements": 0
+  },
+  "unit_tests_passed": 4,
+  "vendor_geometry_redistributed": false
+}

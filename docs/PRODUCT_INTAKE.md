@@ -64,3 +64,19 @@ Probe verification uses eight-decimal native output, an absolute volume toleranc
 The real tee trial found no material intersection for the specified main and branch cylinders and a nonempty intersection for the deliberately offset wall cylinder. Evidence is in [passage trial](evidence/manufacturer-block/passage.json). Their overlapping positions support a bounded clear route in this model; the tool does not automatically prove that arbitrary probe sets connect, reach the intended ports or remain inside the intended fluid space. It does not search maximum radius or establish all interior geometry. The manufacturer bore guarantee and hydraulic inputs therefore remain unresolved.
 
 An independent known filled cylinder fails the passage check. A deliberately misplaced wall control inside the actual tee bore fails the overall check despite the clear passage probes. Unit controls reject wrong or missing native mass properties, bounds, control roles and invalid inputs. Source/derived vendor geometry remains local; the public trial record contains only limited measurements and provenance.
+
+## Native body to IFC
+
+`bsa.cad_ifc` now converts an explicitly identified single CAD junction solid into a separate, unconnected IFC4 `IfcPipeFitting` with an `IfcTriangulatedFaceSet`. It reuses AutoCAD STLOUT, ezdxf's binary STL loader, IfcOpenShell and Manifold3D; install the existing pinned `tee` extra. It preserves the local source-definition coordinates in metres and a namespace-derived product GUID. There are no inferred ports, system connections, hydraulic dimensions or project placement.
+
+```powershell
+.venv/Scripts/python -m bsa.cad_ifc source.dwg conversion-basis.json --out runs/new-cad-ifc
+```
+
+The exact basis fields are `source`, `drawing_sha256`, `solid_handle`, `insunits`, `project_uuid`, `id`, `linear_tolerance_m` and `relative_volume_tolerance`. The source identifies the intended junction; this is not automatic product classification. Supply numerical tessellation tolerances before execution. The real trial used 20 micrometres for bounds/centroid and 0.1% relative volume; these are model-conversion tolerances, not product dimensional tolerances or regulatory limits. A stricter failing comparison remains failed.
+
+The initial negative-coordinate STL trial exposed automatic relocation into positive coordinates. The adapter therefore measures original native volume, bounds and centroid, explicitly moves the isolated solid so its minimum coordinates are one drawing unit, exports at FACETRES 10, and reverses that recorded translation after loading the STL. Original source/copy files remain unchanged. Units, binary STL length, one connected closed positive-volume mesh and all three native geometry statistics must reconcile before writing IFC.
+
+After saving, the actual IFC is reopened through IfcOpenShell's geometry engine. Closed mesh, volume, bounds and centroid are checked again, along with the exact saved coordinate/index correspondence to the imported triangles. These checks establish a bounded tessellated conversion; they do not prove pointwise equivalence to every curved native face or preserve CAD editing history. The emitted IFC cannot be substituted into the source-parametric `tee_assembly` solver contract.
+
+The actual manufacturer trial produced 4,762 triangles and passed native/STL/saved-IFC comparisons; separate IFC schema/EXPRESS validation reported zero statements. Wrong declared units and excessively strict tessellation tolerances rejected before IFC output. Known-cube, translated/wrong-scale, missing native metadata and open-mesh unit controls pass. See [conversion evidence](evidence/manufacturer-block/ifc.json). Source and converted vendor geometry remain local. Saved-IFC passage/clash checks, viewer review, ports and system integration remain separate next steps.
