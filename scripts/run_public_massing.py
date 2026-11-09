@@ -16,6 +16,34 @@ def stage(decisions,variant):
     return dict(name='Unapproved public-brief concept: '+variant['id'],project_uuid=namespace,geometry_scope=CONCEPT_SCOPE,sources=dict(design=source),floor_area_basis='gross concept footprint; no deductions',storeys=rows,spaces=[dict(id='Space_'+r['id'],storey=r['id'],origin_m=[0,0,r['elevation_m']],size_m=[variant['width_m'],variant['depth_m'],height],source='design') for r in rows],systems=[],devices=[],connections=[])
 
 
+def geometry_handoff(ifc,source,wwr):
+    """Reuse saved-solid extraction and adjacency; do not infer thermal boundaries."""
+    import ifcopenshell
+    from bsa.concept_spaces import inspect_spaces
+    from bsa.thermal_binding import extract
+    from bsa.thermal_geometry import boxes,adjacency
+    if not isinstance(wwr,(int,float)) or isinstance(wwr,bool) or not 0<wwr<1:
+        raise ValueError('explicit fractional concept WWR target required')
+    before=digest(ifc)
+    inspected=inspect_spaces(ifcopenshell.open(str(ifc)),source)
+    binding=dict(spaces=[dict(guid=r['guid'],id=r['id'],source='Concept geometry only; not established thermal boundary') for r in inspected])
+    rows,audit=extract(ifc,binding)
+    boxes(dict(spaces=rows));pairs=adjacency(rows)
+    total_walls=sum(2*(r['size_m'][0]+r['size_m'][1])*r['size_m'][2] for r in rows)
+    exterior_walls=total_walls-2*sum(r['area_m2'] for r in pairs if r['axis']!=2)
+    horizontal=sum(r['size_m'][0]*r['size_m'][1] for r in rows)
+    horizontal_contacts=sum(r['area_m2'] for r in pairs if r['axis']==2)
+    if digest(ifc)!=before:raise ValueError('concept source changed during handoff')
+    return dict(ifc_sha256=before,geometry=audit,adjacency=pairs,
+        exterior_vertical_face_area_m2=exterior_walls,
+        exposed_top_face_area_m2=horizontal-horizontal_contacts,
+        exposed_bottom_face_area_m2=horizontal-horizontal_contacts,
+        course_wwr_target=wwr,target_glazed_area_m2=exterior_walls*wwr,
+        modeled_window_area_m2=0,thermal_model_ready=False,design_accepted=False,
+        scope='Geometric exterior faces only; not surveyed facade or validated thermal boundaries. Glazed area is a comparison target, not authored windows.',
+        pending=['site/weather and explicit orientation','actual thermal boundary and clear-height interpretation','window positions and sourced glazing','construction, gains, schedules and HVAC','native annual simulation and deliverable acceptance'])
+
+
 def run(out):
     out=Path(out).resolve();decisions=ROOT/'benchmarks/mit-4401-2018/massing-decisions.json'
     if out.exists() or not out.is_relative_to(ROOT):raise ValueError('new repository-local concept output required')
@@ -25,7 +53,9 @@ def run(out):
         r=author(file,out/variant['id'])
         from bsa.ifc_preview import run as preview
         view=preview(out/variant['id']/'model.ifc',r['spaces'][0]['guid'],out/variant['id']/'preview',[s['guid'] for s in r['spaces'][1:]])
-        results[variant['id']]=dict(model_checks_pass=r['model_checks_pass'],space_count=len(r['spaces']),gross_footprint_area_m2=r['total_gross_footprint_area_m2'],ifc_sha256=r['ifc_sha256'],preview_sha256=view['preview_sha256'])
+        handoff=geometry_handoff(out/variant['id']/'model.ifc',stage(data,variant),data['window_wall_ratio']['course_comparison_target'])
+        (out/variant['id']/'geometry-handoff.json').write_text(json.dumps(handoff,indent=2),encoding='utf-8')
+        results[variant['id']]=dict(model_checks_pass=r['model_checks_pass'],space_count=len(r['spaces']),gross_footprint_area_m2=r['total_gross_footprint_area_m2'],ifc_sha256=r['ifc_sha256'],preview_sha256=view['preview_sha256'],geometry_handoff_sha256=digest(out/variant['id']/'geometry-handoff.json'))
     if digest(decisions)!=before:raise ValueError('concept decisions changed')
     result=dict(decisions_sha256=before,variants=results,design_accepted=False,scope='Native storey/space concept volumes only; no site, facade/window geometry, net usable area, thermal boundary or performance proof')
     (out/'concepts.json').write_text(json.dumps(result,indent=2),encoding='utf-8');return result

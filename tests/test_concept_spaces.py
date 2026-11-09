@@ -57,3 +57,22 @@ class ConceptSpaceTests(unittest.TestCase):
     def test_old_MEP_scope_still_requires_real_system_device_inputs(self):
         p=self.source();p['geometry_scope']='axis-aligned bounding envelopes'
         with self.assertRaisesRegex(ProjectError,'nonempty'):validate(p)
+
+    def test_saved_thermal_geometry_handoff_reconciles_contacts_and_targets(self):
+        expected={'compact':(1190.,1750.,1),'slender':(1330.,1750.,1),'stacked':(1680.,875.,3)}
+        for label,(walls,roof,count) in expected.items():
+            r=json.loads((self.root/'concepts'/label/'geometry-handoff.json').read_text(encoding='utf-8'))
+            self.assertEqual(r['exterior_vertical_face_area_m2'],walls)
+            self.assertEqual(r['exposed_top_face_area_m2'],roof)
+            self.assertEqual(r['exposed_bottom_face_area_m2'],roof)
+            self.assertEqual(len(r['adjacency']),count)
+            self.assertAlmostEqual(r['target_glazed_area_m2'],walls*.4)
+            self.assertEqual(r['modeled_window_area_m2'],0)
+            self.assertFalse(r['thermal_model_ready']);self.assertFalse(r['design_accepted'])
+            self.assertEqual(r['ifc_sha256'],self.result['variants'][label]['ifc_sha256'])
+
+    def test_handoff_rejects_changed_native_geometry(self):
+        m=ifcopenshell.open(str(self.root/'concepts/compact/model.ifc'))
+        m.by_type('IfcSpace')[0].ObjectPlacement.RelativePlacement.Location.Coordinates=(2.,0.,0.)
+        path=self.root/'changed.ifc';m.write(str(path))
+        with self.assertRaises(ProjectError):self.driver['geometry_handoff'](path,self.source(),.4)

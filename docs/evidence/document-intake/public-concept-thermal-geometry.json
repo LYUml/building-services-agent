@@ -1,0 +1,312 @@
+{
+  "run": "runs/public-concepts-v4",
+  "results": {
+    "decisions_sha256": "3a5ff46c46e1709cfe58213c76b1c8477396ce00643815b61c85cf0ceeb37579",
+    "variants": {
+      "compact": {
+        "model_checks_pass": true,
+        "space_count": 2,
+        "gross_footprint_area_m2": 3500.0,
+        "ifc_sha256": "a5d9bbd50693d5f5e6eef002061b0f062ba9bd063097832ee5fdfa81a41c9ab5",
+        "preview_sha256": "0664164b95d7e128181fa70a2e031b0e79f09c9c6947c1ca10fe08579f78a42d",
+        "geometry_handoff_sha256": "6014fc5840ad13355a2b62952c7aa69be36009d0511025a5e6ad6afaceb7fba7"
+      },
+      "slender": {
+        "model_checks_pass": true,
+        "space_count": 2,
+        "gross_footprint_area_m2": 3500.0,
+        "ifc_sha256": "54fff51037af3e2f92b70330981c8f4aec605a5081f12a3d53d57fcff08ae6db",
+        "preview_sha256": "8cdf961b3eb5c236be996b50cea39674416354221e659e8dd96807e5741e2c4a",
+        "geometry_handoff_sha256": "c701a9f5fd4a844b1c95cd64684a282c73b9591d442a7ed8d52c50c144e39a26"
+      },
+      "stacked": {
+        "model_checks_pass": true,
+        "space_count": 4,
+        "gross_footprint_area_m2": 3500.0,
+        "ifc_sha256": "a7d378abe778afb1713674b6e2ee666b3e55dd84cc6a870020bb9cc0a76506e1",
+        "preview_sha256": "87fe522f5987fce51f6fbd411c988398c9f4dace1602b6e26f2a57bf03441b56",
+        "geometry_handoff_sha256": "640ea7e48be66fae9beb37421a58e9e4cdf2812040a00c3dfab3beac49f7e9b1"
+      }
+    },
+    "design_accepted": false,
+    "scope": "Native storey/space concept volumes only; no site, facade/window geometry, net usable area, thermal boundary or performance proof"
+  },
+  "handoffs": {
+    "compact": {
+      "ifc_sha256": "a5d9bbd50693d5f5e6eef002061b0f062ba9bd063097832ee5fdfa81a41c9ab5",
+      "geometry": {
+        "ifc_sha256": "a5d9bbd50693d5f5e6eef002061b0f062ba9bd063097832ee5fdfa81a41c9ab5",
+        "length_unit_scale_to_m": 1,
+        "geometry_coordinates": "IfcOpenShell world-coordinate SI metres",
+        "spaces": [
+          {
+            "guid": "3OaxnegQ9NPe1ethkNAUT$",
+            "thermal_id": "Space_Level1",
+            "saved_name": "Space_Level1",
+            "origin_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              50.0,
+              35.0,
+              3.5
+            ],
+            "floor_area_m2": 1750.0,
+            "volume_m3": 6125.0,
+            "triangles": 12
+          },
+          {
+            "guid": "2bIm9IQq1UUOnbnH4EC_Oy",
+            "thermal_id": "Space_Level2",
+            "saved_name": "Space_Level2",
+            "origin_m": [
+              0.0,
+              0.0,
+              3.5
+            ],
+            "size_m": [
+              50.0,
+              35.0,
+              3.5
+            ],
+            "floor_area_m2": 1750.0,
+            "volume_m3": 6125.0,
+            "triangles": 12
+          }
+        ],
+        "complete_space_coverage": true
+      },
+      "adjacency": [
+        {
+          "spaces": [
+            "Space_Level1",
+            "Space_Level2"
+          ],
+          "axis": 2,
+          "area_m2": 1750.0
+        }
+      ],
+      "exterior_vertical_face_area_m2": 1190.0,
+      "exposed_top_face_area_m2": 1750.0,
+      "exposed_bottom_face_area_m2": 1750.0,
+      "course_wwr_target": 0.4,
+      "target_glazed_area_m2": 476.0,
+      "modeled_window_area_m2": 0,
+      "thermal_model_ready": false,
+      "design_accepted": false,
+      "scope": "Geometric exterior faces only; not surveyed facade or validated thermal boundaries. Glazed area is a comparison target, not authored windows.",
+      "pending": [
+        "site/weather and explicit orientation",
+        "actual thermal boundary and clear-height interpretation",
+        "window positions and sourced glazing",
+        "construction, gains, schedules and HVAC",
+        "native annual simulation and deliverable acceptance"
+      ]
+    },
+    "slender": {
+      "ifc_sha256": "54fff51037af3e2f92b70330981c8f4aec605a5081f12a3d53d57fcff08ae6db",
+      "geometry": {
+        "ifc_sha256": "54fff51037af3e2f92b70330981c8f4aec605a5081f12a3d53d57fcff08ae6db",
+        "length_unit_scale_to_m": 1,
+        "geometry_coordinates": "IfcOpenShell world-coordinate SI metres",
+        "spaces": [
+          {
+            "guid": "3OaxnegQ9NPe1ethkNAUT$",
+            "thermal_id": "Space_Level1",
+            "saved_name": "Space_Level1",
+            "origin_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              70.0,
+              25.0,
+              3.5
+            ],
+            "floor_area_m2": 1750.0,
+            "volume_m3": 6125.0,
+            "triangles": 12
+          },
+          {
+            "guid": "2bIm9IQq1UUOnbnH4EC_Oy",
+            "thermal_id": "Space_Level2",
+            "saved_name": "Space_Level2",
+            "origin_m": [
+              0.0,
+              0.0,
+              3.5
+            ],
+            "size_m": [
+              70.0,
+              25.0,
+              3.5
+            ],
+            "floor_area_m2": 1750.0,
+            "volume_m3": 6125.0,
+            "triangles": 12
+          }
+        ],
+        "complete_space_coverage": true
+      },
+      "adjacency": [
+        {
+          "spaces": [
+            "Space_Level1",
+            "Space_Level2"
+          ],
+          "axis": 2,
+          "area_m2": 1750.0
+        }
+      ],
+      "exterior_vertical_face_area_m2": 1330.0,
+      "exposed_top_face_area_m2": 1750.0,
+      "exposed_bottom_face_area_m2": 1750.0,
+      "course_wwr_target": 0.4,
+      "target_glazed_area_m2": 532.0,
+      "modeled_window_area_m2": 0,
+      "thermal_model_ready": false,
+      "design_accepted": false,
+      "scope": "Geometric exterior faces only; not surveyed facade or validated thermal boundaries. Glazed area is a comparison target, not authored windows.",
+      "pending": [
+        "site/weather and explicit orientation",
+        "actual thermal boundary and clear-height interpretation",
+        "window positions and sourced glazing",
+        "construction, gains, schedules and HVAC",
+        "native annual simulation and deliverable acceptance"
+      ]
+    },
+    "stacked": {
+      "ifc_sha256": "a7d378abe778afb1713674b6e2ee666b3e55dd84cc6a870020bb9cc0a76506e1",
+      "geometry": {
+        "ifc_sha256": "a7d378abe778afb1713674b6e2ee666b3e55dd84cc6a870020bb9cc0a76506e1",
+        "length_unit_scale_to_m": 1,
+        "geometry_coordinates": "IfcOpenShell world-coordinate SI metres",
+        "spaces": [
+          {
+            "guid": "3OaxnegQ9NPe1ethkNAUT$",
+            "thermal_id": "Space_Level1",
+            "saved_name": "Space_Level1",
+            "origin_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              35.0,
+              25.0,
+              3.5
+            ],
+            "floor_area_m2": 875.0,
+            "volume_m3": 3062.5,
+            "triangles": 12
+          },
+          {
+            "guid": "2bIm9IQq1UUOnbnH4EC_Oy",
+            "thermal_id": "Space_Level2",
+            "saved_name": "Space_Level2",
+            "origin_m": [
+              0.0,
+              0.0,
+              3.5
+            ],
+            "size_m": [
+              35.0,
+              25.0,
+              3.5
+            ],
+            "floor_area_m2": 875.0,
+            "volume_m3": 3062.5,
+            "triangles": 12
+          },
+          {
+            "guid": "0XlNOQTcnO$eELBRdZ_qPV",
+            "thermal_id": "Space_Level3",
+            "saved_name": "Space_Level3",
+            "origin_m": [
+              0.0,
+              0.0,
+              7.0
+            ],
+            "size_m": [
+              35.0,
+              25.0,
+              3.5
+            ],
+            "floor_area_m2": 875.0,
+            "volume_m3": 3062.5,
+            "triangles": 12
+          },
+          {
+            "guid": "0gpumgQYvP8hA$fGF5ySzM",
+            "thermal_id": "Space_Level4",
+            "saved_name": "Space_Level4",
+            "origin_m": [
+              0.0,
+              0.0,
+              10.5
+            ],
+            "size_m": [
+              35.0,
+              25.0,
+              3.5
+            ],
+            "floor_area_m2": 875.0,
+            "volume_m3": 3062.5,
+            "triangles": 12
+          }
+        ],
+        "complete_space_coverage": true
+      },
+      "adjacency": [
+        {
+          "spaces": [
+            "Space_Level1",
+            "Space_Level2"
+          ],
+          "axis": 2,
+          "area_m2": 875.0
+        },
+        {
+          "spaces": [
+            "Space_Level2",
+            "Space_Level3"
+          ],
+          "axis": 2,
+          "area_m2": 875.0
+        },
+        {
+          "spaces": [
+            "Space_Level3",
+            "Space_Level4"
+          ],
+          "axis": 2,
+          "area_m2": 875.0
+        }
+      ],
+      "exterior_vertical_face_area_m2": 1680.0,
+      "exposed_top_face_area_m2": 875.0,
+      "exposed_bottom_face_area_m2": 875.0,
+      "course_wwr_target": 0.4,
+      "target_glazed_area_m2": 672.0,
+      "modeled_window_area_m2": 0,
+      "thermal_model_ready": false,
+      "design_accepted": false,
+      "scope": "Geometric exterior faces only; not surveyed facade or validated thermal boundaries. Glazed area is a comparison target, not authored windows.",
+      "pending": [
+        "site/weather and explicit orientation",
+        "actual thermal boundary and clear-height interpretation",
+        "window positions and sourced glazing",
+        "construction, gains, schedules and HVAC",
+        "native annual simulation and deliverable acceptance"
+      ]
+    }
+  },
+  "tests": {
+    "count": 6,
+    "passed": true
+  },
+  "simulation_executed": false
+}
