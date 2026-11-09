@@ -66,3 +66,5 @@ Downstream water_network can now inherit a screened selected pump without replac
 Selected pump curves can now be recorded on a new saved IFC copy with stable pump/port IDs and a revised hydraulic template, then rederived and natively solved against the screened physical scenario. Wrong source identities are rejected and originals retained. Product geometry, final combined delivery and workflow integration remain pending.
 
 Upstream reuse is now an explicit development rule. A fresh CLI/MCP survey prioritizes existing finite-piping tools; official IfcTester 0.8.5 is adopted and actually exercised for IDS information checks through a thin adapter. Physical/code/engineering acceptance remains separate. See REUSE_SURVEY.md.
+
+Upstream IDS checks now participate in source-linked workflows with explicit or inherited saved IFC, source/artifact hashing and downstream pass gates. Real positive, missing-property and no-applicable-pump cases keep information conformance separate from geometry, physics and regulatory acceptance; see [IDS workflow](IDS_WORKFLOW.md).

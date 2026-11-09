@@ -124,3 +124,5 @@ The water-riser `native-plan.json` adds isolated AutoCAD save/reopen, complete m
 [Shared lighting binding](docs/LIGHTING_BINDING.md) now reuses electrical/CAD/IFC fixture IDs and positions in Radiance, with explicit photometric offsets and nominal IES/electrical watt checks. The combined synthetic workflow has executed optical analysis and native AutoCAD conversion; physical and visual acceptance remain pending.
 
 [Saved HVAC regulatory inputs](docs/HVAC_IDF_RULES.md) now derive supported zone sizing temperatures, RH bands and design-day extrema directly from native IDF files. Actual EnergyPlus positive/negative fixtures retain source hashes and scoped rule results; arbitrary controls and full HVAC conformity remain pending.
+
+Upstream IDS checks now participate in source-linked workflows with explicit or inherited saved IFC, source/artifact hashing and downstream pass gates. Real positive, missing-property and no-applicable-pump cases keep information conformance separate from geometry, physics and regulatory acceptance; see [IDS workflow](docs/IDS_WORKFLOW.md).

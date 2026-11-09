@@ -128,7 +128,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind=="water_network" and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
@@ -222,8 +222,10 @@ def validate_plan(path):
             from .electrical_fault import prepare
             faults=local_path(root,t.get('faults'));inputs.add(faults)
             prepare(read_json(local_path(root,t['project'])),read_json(faults))
-        if kind in ('ifc_clash','ifc_drawing','ifc_route_drawing','ifc_views','water_coordination','annual_energy_ifc'):
-            if kind=='ifc_clash':
+        if kind in ('ids_check','ifc_clash','ifc_drawing','ifc_route_drawing','ifc_views','water_coordination','annual_energy_ifc'):
+            if kind=='ids_check':
+                inputs.add(local_path(root,t.get('ids')))
+            elif kind=='ifc_clash':
                 from .clash import validate_policy
                 policy=local_path(root,t.get('policy'));inputs.add(policy);validate_policy(read_json(policy))
             elif kind in ('ifc_drawing','ifc_route_drawing'):
@@ -492,6 +494,15 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                     payload=run(source,local_path(root,t['settings']),folder)
                     status='pass' if payload['calculated_checks_pass'] else 'fail'
                     reason='saved hollow profiles and ports reconciled to schedule/projected centreline DXF; native and installation drawing acceptance pending'
+            elif t['kind']=='ids_check':
+                dependency=t.get('depends_on')
+                if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC producer did not pass; IDS check not executed'
+                else:
+                    from .ids_check import run
+                    source=out/dependency/IFC_ARTIFACTS[tasks[dependency]['kind']] if dependency else local_path(root,t['ifc'])
+                    payload=run(local_path(root,t['ids']),source,folder)
+                    status='pass' if payload['calculated_checks_pass'] else 'fail'
+                    reason=payload['scope']
             elif t['kind']=='ifc_clash':
                 dependency=t.get('depends_on')
                 if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC producer did not pass; no clash result fabricated'
