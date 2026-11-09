@@ -1,0 +1,61 @@
+{
+  "trial_date": "2026-11-09",
+  "source": {
+    "url": "https://assets.victaulic.com/assets/uploads/software-content/Autodesk_AutoCAD_3D_Blocks/Adsk_ACAD_IPS_3D.zip",
+    "zip_sha256": "b165b72d6f2e1bb1a79e7311f583b1e925fa53d547aacb7cc189a0f122f11e42",
+    "member": "Victaulic_IPS_Tee_No 20 (OGS)_[3D].dwg",
+    "dwg_sha256": "fb53b713f8268e20d9cacda3783903cd716ab5a37cb4aeb9bb065fe6721614b9",
+    "download_bytes": 218606231
+  },
+  "license_url": "https://www.victaulic.com/resource-software/",
+  "content_redistributed": false,
+  "selection": {
+    "source": "Official Victaulic IPS No.20 library; explicitly selected DN40 instance by SIZE_MM and STYLENO; local definition extraction only",
+    "drawing_sha256": "fb53b713f8268e20d9cacda3783903cd716ab5a37cb4aeb9bb065fe6721614b9",
+    "insert_handle": "C9",
+    "block_name": "Tee_1.5 (40)_20",
+    "insunits": 1,
+    "attributes": {
+      "SIZE_MM": "40",
+      "STYLENO": "20"
+    }
+  },
+  "engine": "AutoCAD 2027 Core Console",
+  "ezdxf_version": "1.4.5",
+  "checks": {
+    "definition_structure_preserved": true,
+    "units_preserved": true,
+    "source_copy_unchanged": true,
+    "inputs_unchanged": true
+  },
+  "native_extraction_pass": true,
+  "selected_dwg_sha256": "138d2db55989b3bc35339f217a7e7767423a234504cc4f56c5c48902cd4ff45f",
+  "native_report_sha256": "a400f631479d053bbbae408cd74997bafacbe63e7fdda878dfffefe250592afd",
+  "implementation_sha256": "a482323f23fba6661430ef6674a62b50a0cd305f1e28aa5a775499661e927bdb",
+  "local_run": "runs/manufacturer-intake-v2/adapter-final",
+  "preview": {
+    "local_directory": "runs/manufacturer-intake-v2/preview",
+    "reviewed_dwg_sha256": "b546cca1853b0a46bc2478f3df7b0905f56f4b8507c2600c4d6b478beef8be6a",
+    "pdf_sha256": "1446705f94dcf8f99abc3f9061fe3dbee99499d121ea351abcfef51eef699913",
+    "png_sha256": "d7f12a5b6bd3c655afa23b68e23e076bcb83a7a398f91d21d1ef17aea60668e8",
+    "observation": "Complete isometric wireframe visible without clipping; fit-to-page, not installation or bore acceptance",
+    "binding": "Preview is of first adapter extraction, not final rerun; each artifact identified separately"
+  },
+  "mass_properties_probe": {
+    "local_report": "runs/manufacturer-intake-v2/extract/mass.mpr",
+    "report_sha256": "65aeba99eb7514c425e911ad4a338129b8303e335043e43cccb200f6ceefd473",
+    "scope": "Diagnostic on preliminary extracted definition; not a manufacturer dimensional specification"
+  },
+  "tests": {
+    "cad_block_passed": 4,
+    "cad_intake_passed": 5,
+    "cad_intake_native_unit_test_skipped": 1,
+    "actual_manufacturer_native_trial_executed": true
+  },
+  "pending": [
+    "ACIS geometry fidelity and visual plot review",
+    "port/bore identification and hydraulic applicability",
+    "project and regulatory acceptance"
+  ],
+  "design_accepted": false
+}
