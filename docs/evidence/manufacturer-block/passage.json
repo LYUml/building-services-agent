@@ -1,0 +1,156 @@
+{
+  "trial_date": "2026-11-09",
+  "local_run": "runs/manufacturer-passage-v1/run",
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\manufacturer-intake-v2\\adapter-final\\selected-block.dwg": "138d2db55989b3bc35339f217a7e7767423a234504cc4f56c5c48902cd4ff45f",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\manufacturer-passage-v1\\basis.json": "4eafc4d9b4eda86785e016afa1fac321b053df9a342fe7e9f905e77fcaf9c86f"
+  },
+  "basis": {
+    "source": "Diagnostic probes in observed local tee frame; 0.7 inch radius chosen below sampled 0.805 inch inner radius; endpoints beyond observed 2.75 inch faces; no minimum-bore or hydraulic claim",
+    "drawing_sha256": "138d2db55989b3bc35339f217a7e7767423a234504cc4f56c5c48902cd4ff45f",
+    "solid_handle": "94",
+    "insunits": 1,
+    "probes": [
+      {
+        "id": "main",
+        "role": "passage",
+        "source": "Explicit diagnostic geometry; wall control deliberately crosses material",
+        "start": [
+          -2.8,
+          0,
+          0
+        ],
+        "end": [
+          2.8,
+          0,
+          0
+        ],
+        "radius": 0.7
+      },
+      {
+        "id": "branch",
+        "role": "passage",
+        "source": "Explicit diagnostic geometry; wall control deliberately crosses material",
+        "start": [
+          0,
+          0,
+          -2.8
+        ],
+        "end": [
+          0,
+          0,
+          0
+        ],
+        "radius": 0.7
+      },
+      {
+        "id": "wall",
+        "role": "wall_control",
+        "source": "Explicit diagnostic geometry; wall control deliberately crosses material",
+        "start": [
+          -2,
+          0.9,
+          0
+        ],
+        "end": [
+          2,
+          0.9,
+          0
+        ],
+        "radius": 0.1
+      }
+    ]
+  },
+  "probes": [
+    {
+      "id": "main",
+      "role": "passage",
+      "probe_check": {
+        "volume_drawing_units3": 8.62053024,
+        "bounds_drawing_units": {
+          "X": [
+            -2.8,
+            2.8
+          ],
+          "Y": [
+            -0.7,
+            0.7
+          ],
+          "Z": [
+            -0.7,
+            0.7
+          ]
+        }
+      },
+      "intersection_solid_count": 0,
+      "clear": true,
+      "expectation_pass": true
+    },
+    {
+      "id": "branch",
+      "role": "passage",
+      "probe_check": {
+        "volume_drawing_units3": 4.31026512,
+        "bounds_drawing_units": {
+          "X": [
+            -0.7,
+            0.7
+          ],
+          "Y": [
+            -0.7,
+            0.7
+          ],
+          "Z": [
+            -2.8,
+            0.0
+          ]
+        }
+      },
+      "intersection_solid_count": 0,
+      "clear": true,
+      "expectation_pass": true
+    },
+    {
+      "id": "wall",
+      "role": "wall_control",
+      "probe_check": {
+        "volume_drawing_units3": 0.12566371,
+        "bounds_drawing_units": {
+          "X": [
+            -2.0,
+            2.0
+          ],
+          "Y": [
+            0.8,
+            1.0
+          ],
+          "Z": [
+            -0.1,
+            0.1
+          ]
+        }
+      },
+      "intersection_solid_count": 1,
+      "clear": false,
+      "expectation_pass": true
+    }
+  ],
+  "passage_checks_pass": true,
+  "report_sha256": "ba0c019d01574c2eb791c06729d1cde4458ad9e5028f55e124d9469df7e122b8",
+  "native_negative_controls": {
+    "filled_cylinder_rejected": true,
+    "empty_wall_control_rejected": true,
+    "blocked_report_sha256": "a8eccf1b48325f9995ba70da4f426af554f2a79044b564a117cd0e71a95a2ae2",
+    "control_report_sha256": "eeb833864104a1e25688032a8ebb5b3fc770e5a47e840f4751564740e68ebd17"
+  },
+  "unit_tests_passed": 3,
+  "scope": "Specified cylindrical probe clearance with positive wall control; native kernel tolerance applies",
+  "pending": [
+    "probe-to-port/topology applicability",
+    "minimum bore and all interior geometry",
+    "manufacturer dimensional guarantees",
+    "hydraulic and regulatory applicability"
+  ],
+  "design_accepted": false,
+  "vendor_geometry_redistributed": false
+}

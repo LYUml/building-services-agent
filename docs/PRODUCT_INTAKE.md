@@ -48,3 +48,19 @@ An accepted sample must produce exactly one new REGION and exactly two concentri
 Three actual tee samples, each 0.05 drawing inch inward from the observed centreline endpoints, yielded annular sections. See [execution evidence](evidence/manufacturer-block/sections.json). This establishes local model openings only: it does not prove a continuous passage through the junction, the minimum bore, physical tolerances, connection compatibility or a manufacturer-guaranteed internal diameter. Accordingly the product record's unresolved bore field remains null, and the pressure/IFC adapters do not automatically consume these measurements.
 
 Native controls create an independent hollow cylinder with known dimensions, a filled cylinder and a non-intersecting plane. The annulus returns the expected dimensions; the other cases reject for their actual geometry. Separate unit controls cover OCS conversion, nonconcentric circles, wrong planes/units/locations and ambiguous inputs. These checks are not full product or drawing acceptance.
+
+## Native passage clearance probes
+
+`bsa.cad_passage` uses native CYLINDER and INTERSECT on isolated copies of a selected single model-space solid. Each probe's actual native MASSPROP volume and bounding box must agree with the specified cylinder before its Boolean result can be accepted. Before/after DXF exports must contain two solids and then zero or one respectively. Zero means no volumetric material intersection at the native kernel's tolerance; tangential contact and arbitrarily thin defects are not certified.
+
+```powershell
+.venv/Scripts/python -m bsa.cad_passage source.dwg passage-basis.json --out runs/new-passage
+```
+
+The basis has exactly `source`, `drawing_sha256`, `solid_handle`, `insunits` and `probes`. Each probe has `id`, `source`, `role`, `start`, `end`, `radius`; all coordinates/radii use the declared **drawing units**. Role is `passage` (must be clear) or `wall_control` (must intersect). At least one of each is mandatory. Coordinates, direction and radius are source-declared diagnostic choices, not automatically inferred port locations. Output contains native measurement evidence and input/artifact hashes. A blocked passage or ineffective wall control produces `passage_checks_pass: false` and CLI exit 2; source/engine/geometry-evidence errors raise instead. Failed calculated checks remain recorded.
+
+Probe verification uses eight-decimal native output, an absolute volume tolerance of 1e-7 drawing-units cubed plus relative 1e-7, and absolute bound tolerance 1e-7 drawing units. Probe volumes at or below 1e-7 are rejected as unresolved. These are diagnostic numerical checks, not manufacturing tolerances. Native Booleans do not acquire a user-defined defect-detection tolerance from these values.
+
+The real tee trial found no material intersection for the specified main and branch cylinders and a nonempty intersection for the deliberately offset wall cylinder. Evidence is in [passage trial](evidence/manufacturer-block/passage.json). Their overlapping positions support a bounded clear route in this model; the tool does not automatically prove that arbitrary probe sets connect, reach the intended ports or remain inside the intended fluid space. It does not search maximum radius or establish all interior geometry. The manufacturer bore guarantee and hydraulic inputs therefore remain unresolved.
+
+An independent known filled cylinder fails the passage check. A deliberately misplaced wall control inside the actual tee bore fails the overall check despite the clear passage probes. Unit controls reject wrong or missing native mass properties, bounds, control roles and invalid inputs. Source/derived vendor geometry remains local; the public trial record contains only limited measurements and provenance.
