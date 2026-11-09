@@ -243,6 +243,32 @@ def three_phase_rule_bindings(tasks):
     return bindings
 
 
+def three_phase_model_bindings(root,tasks):
+    """Native gates must check one exact saved model and cable-role mapping."""
+    root=Path(root).resolve()
+    known={t['id']:t for t in tasks};native={'three_phase_ifc','three_phase_topology'}
+    identities={};records=[]
+    def identity(task):
+        return dict(ifc_sha256=digest(local_path(root,task['ifc'])),
+                    geometry_binding_sha256=digest(local_path(root,task['binding'])))
+    for task in tasks:
+        if task['kind'] not in native:continue
+        current=identities[task['id']]=identity(task)
+        parent=known[task['depends_on']]
+        if parent['kind']=='three_phase_ifc_project':
+            if current!=identity(parent):raise ProjectError('native electrical check uses a different IFC or cable binding from derived study '+task['id'])
+            records.append(dict(producer=parent['id'],consumer=task['id'],**current))
+    drawing_models={}
+    for link in three_phase_rule_bindings(tasks):
+        if known[link['check']]['kind'] not in native:continue
+        current=identities[link['check']];drawing=link['consumer']
+        if drawing in drawing_models and drawing_models[drawing]!=current:
+            raise ProjectError('electrical drawing prerequisites check different IFC models or cable bindings '+drawing)
+        drawing_models[drawing]=current
+        records.append(dict(producer=link['check'],consumer=drawing,**current))
+    return records
+
+
 def validate_plan(path):
     root=path.resolve().parent;p=read_json(path)
     if not isinstance(p,dict) or type(p.get("version")) is not int or p.get("version")!=1:raise ProjectError("plan version 1 required")
@@ -635,6 +661,7 @@ def validate_plan(path):
     regulatory_source_bindings(tasks,root)
     inventory_source_bindings(tasks,root)
     three_phase_rule_bindings(tasks)
+    three_phase_model_bindings(root,tasks)
     return p,inputs
 
 
@@ -1218,6 +1245,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                            execution_scope=task["scope"],evidence=evidence[r["task"]]))
     result=dict(inputs=before,inputs_unchanged=unchanged,tasks=tasks,requirements=matrix,
         unresolved_inputs=p.get('unresolved_inputs',[]),three_phase_source_bindings=three_phase_rule_bindings(p['tasks']),
+        three_phase_model_bindings=three_phase_model_bindings(root,p['tasks']) if unchanged else [],
         regulatory_source_bindings=regulatory_source_bindings(p['tasks'],root) if unchanged else [],
         inventory_source_bindings=inventory_source_bindings(p['tasks'],root) if unchanged else [],
         artifact_hashes={f.relative_to(out).as_posix():digest(f) for f in out.rglob("*") if f.is_file()},

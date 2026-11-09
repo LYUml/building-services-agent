@@ -174,3 +174,5 @@ Saved straight IFC now also drives a new snapshot electrical project and fresh p
 IFC-driven recalculation is now a registered three_phase_ifc_project workflow producer. Actual synthetic execution derives lengths, solves, checks the selected Hong Kong rule, reopens native DWG and produces an inspected PDF; failed/missing-rule cases block drawing. Full design acceptance remains pending. See docs/THREE_PHASE_IFC.md.
 
 [Saved electrical connection graphs](docs/ELECTRICAL_IFC_TOPOLOGY.md) now check exact native cable/board port relationships against the same-study graph and can gate drawings. Explicit ideal common-node assumptions remain separate from physical terminals, busbars, conductors and installation acceptance.
+
+Native electrical release now binds both IFC and cable-mapping file hashes to the derived study and drawing prerequisites. Different revisions cannot share a pass even when lengths/graph match; current delivery audit verifies the recorded model bindings. See docs/ELECTRICAL_IFC_TOPOLOGY.md.

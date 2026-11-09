@@ -1,0 +1,97 @@
+{
+  "proof": {
+    "both_native_graphs_pass": true,
+    "connection_rows_equal": true,
+    "model_a_sha256": "ad812ded75c5c5b8948ca9af1324c7fb71bceae8192516bd6c8cfb7047f10010",
+    "model_b_sha256": "5b7e65226ff3cb12ce0fa3e68c3b67ca8047d8221ce8e8cf9e93a514024eb263",
+    "matching_records": [
+      {
+        "producer": "study",
+        "consumer": "geometry",
+        "ifc_sha256": "ad812ded75c5c5b8948ca9af1324c7fb71bceae8192516bd6c8cfb7047f10010",
+        "geometry_binding_sha256": "05790304fedf7cacb5256165a37e460395d97ec83314be139f78d3e30008dfb0"
+      },
+      {
+        "producer": "geometry",
+        "consumer": "drawing",
+        "ifc_sha256": "ad812ded75c5c5b8948ca9af1324c7fb71bceae8192516bd6c8cfb7047f10010",
+        "geometry_binding_sha256": "05790304fedf7cacb5256165a37e460395d97ec83314be139f78d3e30008dfb0"
+      }
+    ],
+    "cross_model_plan_rejected": true,
+    "rejection": "native electrical check uses a different IFC or cable binding from derived study geometry",
+    "design_accepted": false,
+    "scope": "Actual valid same-geometry/graph IFC metadata revision cannot borrow original model-derived study"
+  },
+  "actual_workflow_tasks": {
+    "power-flow": {
+      "kind": "three_phase_ifc_project",
+      "status": "pass",
+      "scope": "New snapshot project with native straight IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+    },
+    "topology": {
+      "kind": "three_phase_topology",
+      "status": "pass",
+      "scope": "Saved cable/board port relationships and ideal common-node numerical graph only; busbar internals, physical terminals/conductors, load devices, protection and installation acceptance remain unverified"
+    },
+    "hk-rule": {
+      "kind": "three_phase_regulations",
+      "status": "pass",
+      "scope": "Selected current-unbalance rule with explicit protective rating, circuit and sinusoidal normal-service RMS design basis; no neutral/harmonic/protection/full conformity acceptance"
+    },
+    "drawing": {
+      "kind": "three_phase_drawing",
+      "status": "pass",
+      "scope": "Source-linked calculation schematic and schedules only; full installation, protection and Hong Kong acceptance pending; actual page visual/engineering review remains pending"
+    },
+    "review": {
+      "kind": "manual",
+      "status": "pending",
+      "scope": "Actual visual and full engineering acceptance remain separate"
+    }
+  },
+  "three_phase_model_bindings": [
+    {
+      "producer": "power-flow",
+      "consumer": "topology",
+      "ifc_sha256": "ad812ded75c5c5b8948ca9af1324c7fb71bceae8192516bd6c8cfb7047f10010",
+      "geometry_binding_sha256": "05790304fedf7cacb5256165a37e460395d97ec83314be139f78d3e30008dfb0"
+    },
+    {
+      "producer": "topology",
+      "consumer": "drawing",
+      "ifc_sha256": "ad812ded75c5c5b8948ca9af1324c7fb71bceae8192516bd6c8cfb7047f10010",
+      "geometry_binding_sha256": "05790304fedf7cacb5256165a37e460395d97ec83314be139f78d3e30008dfb0"
+    }
+  ],
+  "workflow_integrity_pass": true,
+  "delivery_context_pass": true,
+  "plot": {
+    "pdf_sha256": "e0da92d04c0659f6395d09ef269f05bf473470ad9a504ecc126a708975cc4ba1",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 1,
+    "reference_handle": "7F",
+    "reference_expected_mm": 50.0,
+    "reference_measured_mm": 49.99566666666666,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "page_review": {
+    "pdf_sha256": "e0da92d04c0659f6395d09ef269f05bf473470ad9a504ecc126a708975cc4ba1",
+    "png_sha256": "8fbe1d5aa029d469aa34d42b118706032d8a05174b66e78ca0fbb69dccbbaab6",
+    "pixels_equal_previously_inspected_page": true,
+    "engineering_acceptance": false
+  },
+  "related_tests": {
+    "run": 83,
+    "failures": 0,
+    "errors": 0
+  },
+  "scope": "Byte-bound native model and cable-role correspondence for derived studies and drawing gates; no additional physical or regulatory acceptance",
+  "design_accepted": false
+}
