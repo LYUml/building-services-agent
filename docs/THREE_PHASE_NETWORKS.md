@@ -7,7 +7,19 @@ tools/pandapower-runtime/Scripts/python scripts/run_three_phase.py examples/thre
 tools/pandapower-runtime/Scripts/python -m unittest discover -s tests -p test_three_phase.py -v
 ```
 
-Set up the isolated runtime with the exact platform-specific lock in THREE_PHASE_TRIAL.md. This adapter is not yet a registered workflow task or a CAD/BIM binding. Do not run it with arbitrary model code from an assignment. Input is JSON only; engine calls remain original repository code.
+Set up the isolated runtime with the exact platform-specific lock in THREE_PHASE_TRIAL.md. The adapter is registered as workflow kind `three_phase`; CAD/BIM binding remains pending. Do not run it with arbitrary model code from an assignment. Input is JSON only; engine calls remain original repository code.
+
+## Requirement workflow
+
+```powershell
+.venv/Scripts/python -m bsa.cli workflow examples/three-phase-network/plan.json --out runs/new-three-phase-workflow --three-phase-python tools/pandapower-runtime/Scripts/python.exe --review runs/new-three-phase-review.json
+```
+
+The source-linked synthetic plan executes `{"id":"power-flow","kind":"three_phase","project":"project.json"}` and preserves full design review as a separate manual requirement. It therefore returns unresolved execution (exit 2) even when the numerical study passes. Use `requires_pass` for downstream consumers that must wait for this narrow study. Current/voltage target failure blocks them; missing `--three-phase-python` leaves the study and dependent tasks pending without creating study artifacts.
+
+The main agent runtime invokes only the fixed repository runner, with a bounded 120-second subprocess, and retains process.log plus the native study/network. It verifies pinned runtime versions, adapter/source/model hashes, expected node/line inventories, the complete numerical checks with fixed tolerances, actual phase values versus targets and exit/status correspondence before recording `three-phase.json`. The report is evidence under a trusted local execution assumption, not authenticated third-party measurements. The plan's input inventory includes source records and repository runner/adapter/bridge bytes. The explicit interpreter hash is retained in the bridge report, not inferred from assignment text or embedded in plan commands.
+
+Actual tests cover a passing study, a converged failed current target with blocked dependent review, absent runtime, exit 0 without artifacts, missing check inventories and contradictory residual/current/source/version reports. This integrates numerical study execution and source integrity; it does not make the manual design, protection, code or drawing review automatic.
 
 ## Input and source contract
 

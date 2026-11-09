@@ -250,10 +250,14 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("three_phase","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind=="water_network" and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
+        if kind=='three_phase':
+            if set(t)-{'id','kind','project','requires_pass','description'}:raise ProjectError('three-phase task requires project only; runtime is an explicit CLI option')
+            from .three_phase_bridge import inputs as three_phase_inputs
+            inputs.update(three_phase_inputs(local_path(root,t.get('project'))))
         if kind=='revit_inventory_check':
             if set(t)-{'id','kind','inventory','model','tolerance_m','requires_pass','description'}:
                 raise ProjectError('Revit check requires explicit saved inventory/model and tolerance')
@@ -587,7 +591,7 @@ def screening_project(task,tasks,root,out):
     return out/parent/'network-input.json'
 
 
-def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_python=None):
+def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_python=None,three_phase_python=None):
     plan,out=plan.resolve(),out.resolve()
     p,inputs=validate_plan(plan);inputs.add(plan)
     if any(out==f or out in f.parents for f in inputs):raise ProjectError("run output must not contain inputs")
@@ -608,6 +612,12 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 reason='unresolved design inputs: '+', '.join(i['id']+' ('+i['kind']+'): '+i['description'] for i in missing_inputs)+'; adapter not executed'
             elif blocked:
                 reason='required checks unresolved: '+', '.join(g+' ('+tasks[g]['status']+')' for g in blocked)+'; adapter not executed'
+            elif t['kind']=='three_phase':
+                if not three_phase_python:reason='Three-phase isolated Python runtime not supplied; adapter not executed'
+                else:
+                    from .three_phase_bridge import run as run_three_phase
+                    payload=run_three_phase(local_path(root,t['project']),folder,three_phase_python)
+                    status=payload['status'];reason=payload['scope']
             elif t['kind']=='revit_inventory_check':
                 from .revit_connectivity import run
                 payload=run(local_path(root,t['inventory']),local_path(root,t['model']),folder/'diagnosis.json',t['tolerance_m'])
@@ -1127,6 +1137,7 @@ def main():
     e.add_argument("--energyplus",type=Path);e.add_argument("--autocad",type=Path)
     e.add_argument('--radiance-bin',type=Path)
     e.add_argument('--ifcmcp-python',type=Path)
+    e.add_argument('--three-phase-python',type=Path)
     v=sub.add_parser("verify");v.add_argument("run_directory",type=Path)
     a=p.parse_args()
     try:
@@ -1139,7 +1150,7 @@ def main():
             r=verify(a.run_directory);print(json.dumps(r,indent=2))
             if not r["integrity_pass"]:return 2
         else:
-            r=execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python)
+            r=execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python,a.three_phase_python)
             print(json.dumps({"tasks":r["tasks"],"design_accepted":False},indent=2))
             if not r["execution_pass"]:return 2
     except (ProjectError,OSError,ValueError) as exc:p.exit(2,str(exc)+"\n")

@@ -1,0 +1,74 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\three-phase-network\\project.json": "45de763da9c817c4a8ac5b4898469f04dbcae083963e88a3c94aa837a46ddbd1",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\three-phase-network\\basis.md": "4bc43b42c9d5ed644b37315d667b4e3f52cabd6a489d2f636543f2ecadd3f375",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\scripts\\run_three_phase.py": "1466546e65e6b3f510512416efe6667a0fce22d57b93684e36c9f1d1e94529dd",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase.py": "d1ec41d73d13fa9f882bdde4b746ba84d72184e3ac8ccee27f6bf69f88f2876e",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_bridge.py": "e2670961ac70dc14085d7c8ecb117bbf74e9138fbc0d1588ed69c928b50c3b04",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\three-phase-network\\brief.md": "2888dc536b3131799af3a2189d52b57f7865cd080e06e10ef79341fd2589cfc3",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\three-phase-network\\plan.json": "82a2c47a2b38f2601a3fd0daa08a9339bde950757ec833c11a1044c7ab8539c6"
+  },
+  "inputs_unchanged": true,
+  "tasks": {
+    "power-flow": {
+      "kind": "three_phase",
+      "status": "pass",
+      "scope": "Single-voltage sequence-line constant-PQ wye power flow; numerical checks and declared targets only; no physical neutral, protection, cable selection, CAD/BIM or regulatory acceptance"
+    },
+    "review": {
+      "kind": "manual",
+      "status": "pending",
+      "scope": "Full source, protection, neutral/harmonics, Hong Kong and CAD/BIM review remains unexecuted"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P001",
+      "quote": "Execute the explicitly synthetic three-phase network study with source-linked supply, line and phase-PQ data, independent numerical checks and declared voltage/current study targets.",
+      "task": "power-flow",
+      "acceptance": "Saved upstream network, actual solver results and independent numerical/target checks; not engineering acceptance",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 1,
+        "end_line": 1
+      },
+      "execution_scope": "Single-voltage sequence-line constant-PQ wye power flow; numerical checks and declared targets only; no physical neutral, protection, cable selection, CAD/BIM or regulatory acceptance",
+      "evidence": [
+        "power-flow/process.log",
+        "power-flow/three-phase.json",
+        "power-flow/native/network.json",
+        "power-flow/native/study.json"
+      ]
+    },
+    {
+      "id": "R2",
+      "passage": "P002",
+      "quote": "Before accepting any design, review source interpretation, actual cable and protection data, physical neutral and harmonics, Hong Kong applicability and required CAD/BIM deliverables; retain unresolved items explicitly.",
+      "task": "review",
+      "acceptance": "Actual engineering and visual review evidence for all required scope; incomplete items stay pending",
+      "execution_status": "pending",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 3,
+        "end_line": 3
+      },
+      "execution_scope": "Full source, protection, neutral/harmonics, Hong Kong and CAD/BIM review remains unexecuted",
+      "evidence": []
+    }
+  ],
+  "unresolved_inputs": [],
+  "regulatory_source_bindings": [],
+  "inventory_source_bindings": [],
+  "artifact_hashes": {
+    "power-flow/process.log": "93c7a2e11cb3a6b97a45e75f3ceee5112d9b4e9f65f25a3e59ff2e1afa0bb0c4",
+    "power-flow/three-phase.json": "b3abeb032a93424a6b34f817e95f9fd54926c40ebc540d467a65bdc121390593",
+    "power-flow/native/network.json": "4dd06f7b17e58245d46c65ebd1ad4cf58d1604461d086cfe9520e32fb284c70d",
+    "power-flow/native/study.json": "e9cb0cdc829b8b2808f2fedcc61a4a0370d00180d7ab2b0c4d11a0b7585ccae4",
+    "index.html": "619be46724503a66fe52164590888d12c55ac606aab3404e2b817df76d4c476e"
+  },
+  "execution_pass": false,
+  "design_accepted": false,
+  "acceptance_note": "Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance"
+}

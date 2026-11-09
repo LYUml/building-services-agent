@@ -4,7 +4,7 @@
 
 An agent workspace and deterministic engineering tools for reusable MEP workflows. The AI reads requirements and orchestrates tools; calculation engines compute results. Unknown inputs stay unknown.
 
-[Three-phase electrical network studies](docs/THREE_PHASE_NETWORKS.md) now use pinned pandapower 3.5.6 through a source-bound standalone adapter. Saved network reload, multi-bus radial/mesh tests, phase-domain node/branch checks, complex-power reconciliation and explicit current/voltage target failures are exercised. Protection, physical neutral/harmonics, Hong Kong conformity, workflow integration and CAD/BIM binding remain pending.
+[Three-phase electrical network studies](docs/THREE_PHASE_NETWORKS.md) now use pinned pandapower 3.5.6 through a source-bound adapter and registered `three_phase` workflow task. Saved network reload, multi-bus radial/mesh tests, phase-domain node/branch checks, complex-power reconciliation and explicit current/voltage target failures are exercised. Missing runtime and failed targets block required downstream tasks. Protection, physical neutral/harmonics, Hong Kong conformity and CAD/BIM binding remain pending.
 
 ## Run the first vertical slice
 

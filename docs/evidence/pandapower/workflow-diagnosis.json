@@ -1,0 +1,51 @@
+{
+  "plan_sha256": "82a2c47a2b38f2601a3fd0daa08a9339bde950757ec833c11a1044c7ab8539c6",
+  "workflow_sha256": "f9082bb8f25a5c67bbff8e08392d60235f28767242ebb5be1bec444f6520413d",
+  "integrity_pass": true,
+  "tasks": [
+    {
+      "id": "power-flow",
+      "kind": "three_phase",
+      "status": "pass",
+      "recorded_scope": "Single-voltage sequence-line constant-PQ wye power flow; numerical checks and declared targets only; no physical neutral, protection, cable selection, CAD/BIM or regulatory acceptance",
+      "dependencies": [],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R1"
+      ],
+      "evidence": [
+        "power-flow/native/network.json",
+        "power-flow/native/study.json",
+        "power-flow/process.log",
+        "power-flow/three-phase.json"
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "Full source, protection, neutral/harmonics, Hong Kong and CAD/BIM review remains unexecuted",
+      "dependencies": [
+        "power-flow"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "review"
+      ],
+      "input_blockers": [],
+      "next_action": "perform the specified review and record evidence separately",
+      "requirement_ids": [
+        "R2"
+      ],
+      "evidence": []
+    }
+  ],
+  "execution_pass": false,
+  "design_accepted": false,
+  "scope": "Recorded execution and declared dependency graph only; no engine invocation, automatic repair, or engineering acceptance"
+}

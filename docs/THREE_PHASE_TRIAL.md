@@ -1,6 +1,6 @@
 # Upstream three-phase power-flow evaluation
 
-Follow-up: a [source-bound standalone network adapter](THREE_PHASE_NETWORKS.md) now executes multi-bus sequence-line studies and independent node/branch/complex-power checks. The two-bus evidence below remains the engine-selection trial, not proof of all later capabilities. Workflow/CAD/BIM/protection/regulatory integration remains pending.
+Follow-up: a [source-bound network adapter and workflow task](THREE_PHASE_NETWORKS.md) now executes multi-bus sequence-line studies and independent node/branch/complex-power checks. The two-bus evidence below remains the engine-selection trial, not proof of all later capabilities. CAD/BIM/protection/regulatory integration remains pending.
 
 The existing electrical adapter calculates conditional single-phase circuit loads and tabulated voltage drop; it does not solve a three-phase network. Before adding an engine, evaluated upstream [pandapower 3.5.6](https://pypi.org/project/pandapower/3.5.6/) and its [sequence-frame three-phase solver](https://pandapower.readthedocs.io/en/v3.5.6/powerflow/ac_3ph.html). The original probe calls upstream network/line/asymmetric-load APIs rather than rebuilding a load-flow solver. BSD-3-Clause LICENSE and AUTHORS are retained in `docs/evidence/pandapower`.
 

@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "2888dc536b3131799af3a2189d52b57f7865cd080e06e10ef79341fd2589cfc3",
+  "passage_dispositions": {
+    "P001": "requirement",
+    "P002": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "power-flow",
+      "kind": "three_phase",
+      "project": "project.json"
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "requires_pass": [
+        "power-flow"
+      ],
+      "description": "Full source, protection, neutral/harmonics, Hong Kong and CAD/BIM review remains unexecuted"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P001",
+      "quote": "Execute the explicitly synthetic three-phase network study with source-linked supply, line and phase-PQ data, independent numerical checks and declared voltage/current study targets.",
+      "task": "power-flow",
+      "acceptance": "Saved upstream network, actual solver results and independent numerical/target checks; not engineering acceptance"
+    },
+    {
+      "id": "R2",
+      "passage": "P002",
+      "quote": "Before accepting any design, review source interpretation, actual cable and protection data, physical neutral and harmonics, Hong Kong applicability and required CAD/BIM deliverables; retain unresolved items explicitly.",
+      "task": "review",
+      "acceptance": "Actual engineering and visual review evidence for all required scope; incomplete items stay pending"
+    }
+  ]
+}
