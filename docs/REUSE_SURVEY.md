@@ -22,6 +22,19 @@ The installed IfcOpenShell 0.8.5 ShapeBuilder bend/transition helpers and geomet
 
 ## Follow-up discovery — 2026-11-09
 
+### Executed follow-up and remaining native gaps
+
+The following supersedes the initial research-only MOOSAS status below. Detailed source hashes and trials are in [Revit/MOOSAS evidence](REVIT_MOOSAS_DIRECTION.md).
+
+| Actual gap | Pinned upstream and reuse decision | Executed evidence and limit |
+|---|---|---|
+| Common spatial model and performance-model exchange | KLEGB/MOOSAS `dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c`, Apache-2.0; reuse MoosasModel/space/surface and XML/GEO APIs with original source-binding glue | Three saved IFC-space envelopes export/reload with GUID, per-space boundary and whole-face contact checks. Ordinary upstream IFC loading lost all three spaces in this trial; do not select it automatically. No thermal readiness or complete MEP acceptance. |
+| Airflow project generation and native solver | Same MOOSAS pin; reuse bundled MoosasAFN adapter and NIST CONTAM rather than write a solver. CONTAM has its own public-domain notice | Synthetic network JSON generated. MoosasAFN.exe launch failed with WinError 4551; CONTAM was not attempted. Keep this provider unavailable for verified simulation. Source geometry contact does not establish an airflow opening. |
+| Revit bridge/API-context execution | rui-branco/revit-mcp `0a99726d2fc95f71c24b373cbd74bda0d5e907d8`, MIT; useful ExternalEvent reference, no source copied or server installed | Source inspection found advertised pipe creation uses DirectShape cylinders, without native Pipe/connectors. It does not satisfy the native MEP authoring gap. Official Revit MCP tool coverage and Dynamo entry constraints are documented separately; installation is not inferred. |
+| Native Revit pipe/fitting authoring | Thaynabarreiro/revit-hydro-designer `c08b5a0f12e40110e230338fce3e55c6781f302b`, MIT; inspect native API pattern, reject whole-project deletion and unverified connection fallback | Upstream not executed or copied. Original thin adapter calls installed Autodesk Pipe.Create and Extensible Storage APIs; it does not rebuild a BIM engine. C# compilation and offline diagnostics pass, but host creation, rollback and saved reopening remain unexecuted. |
+
+Before extending these capabilities, identify the missing operation against this table and the detailed trial rather than repeating a broad tool search. Reuse an already verified path where its scope fits; an unavailable engine or insufficient upstream authoring function remains an explicit integration gap. Reassess newer releases only when they address that gap, and preserve the prior pin/evidence when evaluating an upgrade.
+
 The user's [MOOSAS reference and Revit direction](REVIT_MOOSAS_DIRECTION.md) are now source-reviewed. Pinned MOOSAS standalone Python modules offer geometry/model exchange and explicit simulation-coupling patterns; no installation or runtime acceptance is claimed. Evaluate Autodesk's Revit MCP preview before building a redundant bridge; independent open-source bridges remain alternatives. Actual native MEP objects, connector semantics and saved RVT/sheet acceptance are required.
 
 [SWMM toolkit evaluation](SWMM_TRIAL.md) adds an existing drainage-network engine candidate: upstream swmm-toolkit 0.17.0 / aenum 3.1.17 installed, licenses and native hashes retained. Actual import is blocked by host Application Control on swmm5.dll; no hydraulic simulation is verified. Keep it a candidate, not an available adapter. SWMM network capabilities do not replace building sanitary-stack/vent design or Hong Kong rules.
