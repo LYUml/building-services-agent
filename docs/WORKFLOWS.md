@@ -96,3 +96,14 @@ The `electrical_fault` adapter takes a common electrical `project` and sourced `
 ### Regulatory water-model selection
 
 `regulated_water_model` uses project/model/binding/catalogue/geometry/basis/classifications/pack/sources and exposes the saved selected IFC plus derived network to existing consumers. Selection must pass before dependent consumers execute; downstream clash checks and drawing prerequisites remain explicit. See [water-piping selection](HK_WATER_PIPING.md).
+
+
+### Saved IFC circulation pump iteration
+
+For the current contract and executed native example, see [selected pump IFC](SELECTED_PUMP_IFC.md). `circulation_pump_design` accepts a standalone project or inherits the exact derived network from a passing `water_coordination` task. `selected_pump_ifc` inherits that screen and writes a new IFC plus revised template with stable identities. `ifc_circulation_checks` can consume either the original water producer or the selected producer's rebound. Failed baselines still block inherited screening; no-feasible screens block model revision. Keep original attempts and source identity checks.
+
+### Upstream IDS information checks
+
+Use `ids_check` with `ids` and exactly one of `ifc` or `depends_on` on a supported IFC producer. This calls pinned IfcTester and interprets its JSON audit rather than trusting process exit 0. Declare `requires_pass` on relevant downstream tasks and ensure their model is the checked model. See [IDS workflow](IDS_WORKFLOW.md); information requirements do not replace geometry, performance, source authenticity or regulation checks.
+
+The main agent skill routes these operations through network, IFC, regulations and delivery skills. Existing upstream engines supply computation; consult [reuse survey](REUSE_SURVEY.md) before implementing a missing engine. Trial scripts and researched MCP endpoints are not registered, verified production adapters merely because their names appear in the survey.
