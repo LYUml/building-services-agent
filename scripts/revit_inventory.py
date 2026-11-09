@@ -17,6 +17,8 @@ def inventory(doc, expected_saved_path):
         raise ValueError("Active document does not match expected path")
     if doc.IsFamilyDocument:
         raise ValueError("Expected a project, not a family document")
+    if doc.IsModified:
+        raise ValueError("Save the test project before source-bound inventory")
 
     from Autodesk.Revit.DB import FilteredElementCollector, Level, UnitUtils, UnitTypeId
     from Autodesk.Revit.DB.Plumbing import Pipe, PipeType, PipingSystemType
