@@ -112,3 +112,5 @@ The main agent skill routes these operations through network, IFC, regulations a
 ### Equal-bore tee assembly and directional diagnostics
 
 Use `tee_assembly` with tee_spec and assembly_spec, then `tee_losses` with basis and depends_on on that producer. The latter inherits source specs and IFC; it cannot accept replacement model inputs. See [tee workflow](IFC_TEE_TRIAL.md) and examples/tee-trial/placed-plan.json. Geometry or coefficient task success leaves complete hydraulic, native drawing, product and regulatory acceptance unresolved. The design, IFC, network and delivery skills now route this supported path explicitly.
+
+`tee_pressure` and `tee_split` also inherit tee_assembly with a sourced basis. tee_split adds control for fixed total flow, bracket and tolerances; its source pressure is available capacity, not an independently imposed boundary. Failed/no-root solves block requires_pass consumers, which must share the checked model identity. See examples/tee-trial/split-plan.json and IFC_TEE_TRIAL.md.

@@ -133,7 +133,7 @@ def regulatory_source_bindings(tasks,root):
 
 def inventory_source_bindings(tasks,root):
     """Bind supported saved-IFC consumers to upstream inventory checks."""
-    readers={'tee_pressure','tee_losses','ifc_network','ifc_metadata','ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing',
+    readers={'tee_split','tee_pressure','tee_losses','ifc_network','ifc_metadata','ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing',
              'ifc_views','water_coordination','annual_energy_ifc'}
     known={};ancestors={};identities={};bindings=[];rechecks={}
     for task in tasks:
@@ -161,7 +161,7 @@ def inventory_source_bindings(tasks,root):
                 identity={'sha256':digest(path)}
             identities[name]=identity
             for parent in sorted(applicable):
-                if known[parent]['kind'] not in ('tee_pressure','ifc_query','ifc_network','plumbing_pump_regulations') or parent not in identities:continue
+                if known[parent]['kind'] not in ('tee_split','tee_pressure','ifc_query','ifc_network','plumbing_pump_regulations') or parent not in identities:continue
                 if refresh and known[parent]['kind']=='ifc_query':
                     bindings.append(dict(check=parent,consumer=name,previous_model_identity=identities[parent],model_identity=identity,fresh_inventory_required=True))
                     continue
@@ -201,20 +201,21 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("tee_assembly","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("tee_assembly","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind=="water_network" and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
         if kind=='tee_assembly':
             inputs.update(local_path(root,t.get(k)) for k in ('tee_spec','assembly_spec'))
             if any(k in t for k in ('depends_on','ifc')):raise ProjectError('tee assembly uses explicit source specs')
-        if kind in ('tee_losses','tee_pressure'):
+        if kind in ('tee_losses','tee_pressure','tee_split'):
             parent=t.get('depends_on')
             if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='tee_assembly':
                 raise ProjectError('tee losses require an earlier tee_assembly')
             if any(k in t for k in ('ifc','model','tee_spec','assembly_spec')):
                 raise ProjectError('tee losses inherit producer IFC and specs; replacement inputs forbidden')
             inputs.add(local_path(root,t.get('basis')))
+            if kind=='tee_split':inputs.add(local_path(root,t.get('control')))
         if kind=='hvac_regulations':
             dependency=t.get('depends_on')
             if dependency not in ids or next(x for x in tasks if x['id']==dependency)['kind']!='energy':
@@ -623,16 +624,20 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 from .tee_assembly import run
                 payload=run(local_path(root,t['tee_spec']),local_path(root,t['assembly_spec']),folder)
                 status='pass' if payload['assembly_checks_pass'] else 'fail';reason=payload['scope']
-            elif t['kind'] in ('tee_losses','tee_pressure'):
+            elif t['kind'] in ('tee_losses','tee_pressure','tee_split'):
                 parent=t['depends_on']
                 if tasks[parent]['status']!='pass':reason='upstream tee assembly did not pass; diagnostic not executed'
                 else:
-                    if t['kind']=='tee_pressure':
+                    if t['kind']=='tee_split':
+                        from .tee_split import run
+                    elif t['kind']=='tee_pressure':
                         from .tee_pressure import run
                     else:
                         from .tee_losses import run
                     producer=next(x for x in p['tasks'] if x['id']==parent)
-                    payload=run(out/parent/'assembly.ifc',local_path(root,producer['tee_spec']),local_path(root,producer['assembly_spec']),local_path(root,t['basis']),folder)
+                    arguments=[out/parent/'assembly.ifc',local_path(root,producer['tee_spec']),local_path(root,producer['assembly_spec']),local_path(root,t['basis'])]
+                    if t['kind']=='tee_split':arguments.append(local_path(root,t['control']))
+                    payload=run(*arguments,folder)
                     status='pass' if payload.get('calculated_checks_pass',payload.get('diagnostic_executed',False)) else 'fail'
                     reason=payload.get('scope','saved-assembly signed coefficient diagnostic only; full network balance and correlation applicability pending')
             elif t['kind']=='ifc_network':

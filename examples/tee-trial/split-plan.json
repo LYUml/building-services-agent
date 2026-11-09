@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "brief": "split-brief.md",
+  "brief_sha256": "847ee3706cf178e1eceea65da188957bfcca1a4a869121d52979887b9e401410",
+  "passage_dispositions": {
+    "P001": "requirement",
+    "P002": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "assembly",
+      "kind": "tee_assembly",
+      "tee_spec": "split-spec.json",
+      "assembly_spec": "split-assembly.json"
+    },
+    {
+      "id": "split",
+      "kind": "tee_split",
+      "depends_on": "assembly",
+      "basis": "split-basis.json",
+      "control": "split-control.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "assembly",
+      "task": "assembly",
+      "passage": "P001",
+      "quote": "Generate the explicitly synthetic horizontal tee assembly from split-spec.json and split-assembly.json with saved geometry and stable identity verification.",
+      "acceptance": "Generate the explicitly synthetic horizontal tee assembly from split-spec.json and split-assembly.json with saved geometry and stable identity verification."
+    },
+    {
+      "id": "split",
+      "task": "split",
+      "passage": "P002",
+      "quote": "Solve the fixed-total-flow split using split-basis.json and split-control.json with adjustable source pressure and constant complete face coefficients over the supplied interval. Retain no-root and insufficient-source-capacity failures. This does not establish real coefficient applicability, pump operation or regulatory acceptance.",
+      "acceptance": "Solve the fixed-total-flow split using split-basis.json and split-control.json with adjustable source pressure and constant complete face coefficients over the supplied interval. Retain no-root and insufficient-source-capacity failures. This does not establish real coefficient applicability, pump operation or regulatory acceptance."
+    }
+  ]
+}
