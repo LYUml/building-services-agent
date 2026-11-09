@@ -137,3 +137,5 @@ Bounded tee_split is now a requirement-linked workflow adapter inheriting exact 
 Tee split now supports source-declared fraction-dependent face-coefficient tables with piecewise-linear interpolation and no extrapolation. Actual workflow and independent variable-coefficient laminar reference passed; malformed-table controls reject before output. Constant-mode behavior remains tested; arbitrary-root uniqueness and real table applicability are not claimed.
 
 A standalone tee_drawing adapter now generates verified local-frame outside outlines, axes and four-product GUID schedules from saved placed IFC. Native AutoCAD reopening and actual A4 PDF inspection passed, with 20.024 mm measured for a 20 mm print reference. Paper callouts, workflow registration and full installation detail remain pending.
+
+The tee workflow now spans requirement-linked assembly, table-based split, same-model-gated tee_drawing and native AutoCAD delivery. Actual four-stage execution, integrity and PDF inspection passed. Low-capacity controls block DXF/DWG; unrelated-model prerequisite reuse rejects. Complete paper callouts, installation and real-product/code acceptance remain pending.

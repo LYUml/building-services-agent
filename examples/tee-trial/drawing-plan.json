@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "brief": "drawing-brief.md",
+  "brief_sha256": "f4d3c49e83e770955cef35cddf735a3ee8d906725da34cfc8199f09bb51229af",
+  "passage_dispositions": {
+    "P001": "requirement",
+    "P002": "requirement",
+    "P003": "requirement",
+    "P004": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "assembly",
+      "kind": "tee_assembly",
+      "tee_spec": "split-spec.json",
+      "assembly_spec": "split-assembly.json"
+    },
+    {
+      "id": "split",
+      "kind": "tee_split",
+      "depends_on": "assembly",
+      "basis": "split-basis.json",
+      "control": "split-table-control.json"
+    },
+    {
+      "id": "drawing",
+      "kind": "tee_drawing",
+      "depends_on": "assembly",
+      "requires_pass": [
+        "split"
+      ]
+    },
+    {
+      "id": "native",
+      "kind": "ifc_native",
+      "depends_on": "drawing",
+      "settings": "native-sheet.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "assembly",
+      "task": "assembly",
+      "passage": "P001",
+      "quote": "Generate the explicitly synthetic horizontal tee assembly from split-spec.json and split-assembly.json with saved geometry and stable identity verification.",
+      "acceptance": "Generate the explicitly synthetic horizontal tee assembly from split-spec.json and split-assembly.json with saved geometry and stable identity verification."
+    },
+    {
+      "id": "split",
+      "task": "split",
+      "passage": "P002",
+      "quote": "Solve the fixed-total-flow split using split-basis.json and split-table-control.json with adjustable source pressure and tabulated complete face coefficients with linear interpolation and no extrapolation over the supplied interval. Retain no-root and insufficient-source-capacity failures. This does not establish real coefficient applicability, pump operation or regulatory acceptance.",
+      "acceptance": "Solve the fixed-total-flow split using split-basis.json and split-table-control.json with adjustable source pressure and tabulated complete face coefficients with linear interpolation and no extrapolation over the supplied interval. Retain no-root and insufficient-source-capacity failures. This does not establish real coefficient applicability, pump operation or regulatory acceptance."
+    },
+    {
+      "id": "drawing",
+      "task": "drawing",
+      "passage": "P003",
+      "quote": "Generate a local X/Z tee outline diagram and four-product GUID schedule from the same saved assembly only after the split checks pass. Preserve synthetic scope; full paper callouts and installation details remain pending.",
+      "acceptance": "Generate a local X/Z tee outline diagram and four-product GUID schedule from the same saved assembly only after the split checks pass. Preserve synthetic scope; full paper callouts and installation details remain pending."
+    },
+    {
+      "id": "native",
+      "task": "native",
+      "passage": "P004",
+      "quote": "Save and reopen the diagram as native DWG using isolated AutoCAD, then plot A4 landscape at 1:10 and verify the 200 mm reference prints 20 mm within 0.2 mm. Actual PDF inspection is separate from numerical task success.",
+      "acceptance": "Save and reopen the diagram as native DWG using isolated AutoCAD, then plot A4 landscape at 1:10 and verify the 200 mm reference prints 20 mm within 0.2 mm. Actual PDF inspection is separate from numerical task success."
+    }
+  ]
+}
