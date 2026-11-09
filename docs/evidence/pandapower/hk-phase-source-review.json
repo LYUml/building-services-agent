@@ -1,0 +1,20 @@
+{
+  "reviewed_on": "2026-11-10",
+  "scope": "Selected BEC 2024 current-balance definition and clause only",
+  "primary_url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+  "primary_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+  "visually_reviewed_pdf_pages": [
+    10,
+    56
+  ],
+  "definition_render_sha256": "c66ac2a60f8e0bc99bb4f400ba80f354d1f66b054df8bb903d547f014cd8b7d2",
+  "clause_render_sha256": "98a0ae84b79e65539154fe90fdeaf5ebd64ecf6d4118fc14b38aaa6a73093799",
+  "supporting_guideline_url": "https://www.emsd.gov.hk/beeo/en/pee/TG-BEC_2024.pdf",
+  "supporting_guideline_sha256": "2fce4b30773f1899635ee985876f418972fb3cacfccb176ba0df7283c4e61186",
+  "supporting_guideline_text_pages": [
+    159,
+    160
+  ],
+  "full_statutory_applicability_verified": false,
+  "design_accepted": false
+}

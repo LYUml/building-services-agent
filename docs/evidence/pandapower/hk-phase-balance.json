@@ -1,0 +1,143 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\tools\\pandapower-runtime\\Scripts\\python.exe": "5c438223dea1c7b2c9ecc7759dc0d701fe06696053035bf08c5fdb00ffb2a51b",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase.py": "d1ec41d73d13fa9f882bdde4b746ba84d72184e3ac8ccee27f6bf69f88f2876e",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\three-phase-network\\basis.md": "4bc43b42c9d5ed644b37315d667b4e3f52cabd6a489d2f636543f2ecadd3f375",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\scripts\\run_three_phase.py": "1466546e65e6b3f510512416efe6667a0fce22d57b93684e36c9f1d1e94529dd",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_bridge.py": "e2670961ac70dc14085d7c8ecb117bbf74e9138fbc0d1588ed69c928b50c3b04",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\three-phase-network\\project.json": "45de763da9c817c4a8ac5b4898469f04dbcae083963e88a3c94aa837a46ddbd1",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\three-phase-native-workflow-v1\\power-flow\\three-phase.json": "93555835037af137b1735daeb132b84750fb7d475d25de7060c19e915528f1b5",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\three-phase-native-workflow-v1\\power-flow\\native\\study.json": "e9cb0cdc829b8b2808f2fedcc61a4a0370d00180d7ab2b0c4d11a0b7585ccae4",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\three-phase-native-workflow-v1\\power-flow\\native\\network.json": "4dd06f7b17e58245d46c65ebd1ad4cf58d1604461d086cfe9520e32fb284c70d",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\three-phase-network\\hk-basis.json": "cd4cd3e87ffcb985d1c8186cb4da64bab3b9813280c1e28fab17492eb227a422",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\regulations\\hk\\phase-balance-2026.11.10\\pack.json": "8c8d5ca3b71b77acf2027acbcaef6351c4dc1150540b3610518c767fc086205b",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_regulations.py": "ed5a43400e7d9d0850d848c6f94fb5da48046f14580de11cec392b724289b7ab",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_drawing.py": "e4194d923af3a4619dbf204bbae3383d7ed5e1554f4b80934a1c7f84c77ff50e",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\three-phase-network\\hk-basis.md": "132b423d2d9b6e3f6bf9fc80a1f922d8afc91424b8c1480dbce1db923e1c42c2",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-three-phase-sources\\emsd-bec-2024.pdf": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7"
+  },
+  "inputs_unchanged": true,
+  "missing_sources": [],
+  "circuit_checks": {
+    "feeder": {
+      "rule_pack": "hk-phase-balance-2026.11.10",
+      "jurisdiction": "HK",
+      "checks": [
+        {
+          "id": "HK.EMSD.BEC2024.7_6_3.current_unbalance",
+          "status": "pass",
+          "scope": "Current-balance limit only for explicitly classified three-phase four-wire circuits with single-phase loads at design normal-service RMS current",
+          "source_url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+          "source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+          "edition": "2024",
+          "clause": "7.6.3; Section 2 current unbalance and designed circuit current definitions",
+          "pdf_page_1_based": 56,
+          "value": 0.8667518485472956,
+          "unit": "%",
+          "maximum": 10,
+          "evidence": "Exact study e9cb0cdc829b8b2808f2fedcc61a4a0370d00180d7ab2b0c4d11a0b7585ccae4 circuit feeder; maximum absolute deviation from phase average divided by average",
+          "reasons": [
+            "selected prescriptive limit met"
+          ]
+        }
+      ],
+      "supported_checks_pass": true,
+      "coverage": {
+        "complete": false,
+        "implemented": [
+          "Scoped BEC 2024 clause 7.6.3 current-unbalance percentage with explicit circuit/rating/design-current basis"
+        ],
+        "pending": [
+          "Independent statutory and edition applicability",
+          "Protection and actual cable/neutral selection",
+          "Harmonics, TPF and THD",
+          "Other electrical clauses and complete Hong Kong conformity"
+        ]
+      },
+      "regulatory_compliance": "not_established",
+      "design_accepted": false,
+      "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination",
+      "phase_current_a": [
+        26.439060024389892,
+        26.186078012771343,
+        26.01046648023755
+      ],
+      "computed_unbalance_percent": 0.8667518485472956,
+      "protective_device_rating": {
+        "value": 400,
+        "unit": "A",
+        "source": "scenario"
+      },
+      "basis_sources": {
+        "scenario": {
+          "path": "hk-basis.md",
+          "sha256": "132b423d2d9b6e3f6bf9fc80a1f922d8afc91424b8c1480dbce1db923e1c42c2",
+          "locator": "Synthetic selected-clause assertions and protective-device classification paragraph",
+          "kind": "assumption"
+        }
+      },
+      "model_prerequisites_pending": []
+    },
+    "branch": {
+      "rule_pack": "hk-phase-balance-2026.11.10",
+      "jurisdiction": "HK",
+      "checks": [
+        {
+          "id": "HK.EMSD.BEC2024.7_6_3.current_unbalance",
+          "status": "not_applicable",
+          "scope": "Current-balance limit only for explicitly classified three-phase four-wire circuits with single-phase loads at design normal-service RMS current",
+          "source_url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+          "source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+          "edition": "2024",
+          "clause": "7.6.3; Section 2 current unbalance and designed circuit current definitions",
+          "pdf_page_1_based": 56,
+          "reasons": [
+            "outside this explicitly supported rule path; other requirements remain unresolved"
+          ]
+        }
+      ],
+      "supported_checks_pass": false,
+      "coverage": {
+        "complete": false,
+        "implemented": [
+          "Scoped BEC 2024 clause 7.6.3 current-unbalance percentage with explicit circuit/rating/design-current basis"
+        ],
+        "pending": [
+          "Independent statutory and edition applicability",
+          "Protection and actual cable/neutral selection",
+          "Harmonics, TPF and THD",
+          "Other electrical clauses and complete Hong Kong conformity"
+        ]
+      },
+      "regulatory_compliance": "not_established",
+      "design_accepted": false,
+      "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination",
+      "phase_current_a": [
+        4.3558270735785385,
+        8.714458547534406,
+        13.070819109998903
+      ],
+      "computed_unbalance_percent": 50.01174833600912,
+      "protective_device_rating": {
+        "value": 63,
+        "unit": "A",
+        "source": "scenario"
+      },
+      "basis_sources": {
+        "scenario": {
+          "path": "hk-basis.md",
+          "sha256": "132b423d2d9b6e3f6bf9fc80a1f922d8afc91424b8c1480dbce1db923e1c42c2",
+          "locator": "Synthetic selected-clause assertions and protective-device classification paragraph",
+          "kind": "assumption"
+        }
+      },
+      "model_prerequisites_pending": []
+    }
+  },
+  "supported_checks_pass": true,
+  "study_targets_pass": true,
+  "status": "pass",
+  "regulatory_compliance": "not_established",
+  "design_accepted": false,
+  "scope": "Selected current-unbalance rule with explicit protective rating, circuit and sinusoidal normal-service RMS design basis; no neutral/harmonic/protection/full conformity acceptance"
+}

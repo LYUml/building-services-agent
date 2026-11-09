@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "hk-phase-balance-2026.11.10",
+  "jurisdiction": "HK",
+  "version": "phase-balance-2026.11.10",
+  "sources": {
+    "emsd_bec_2024": {
+      "authority": "EMSD",
+      "title": "Code of Practice for Energy Efficiency of Building Services Installation",
+      "edition": "2024",
+      "kind": "code_of_practice",
+      "url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+      "index_url": "https://www.emsd.gov.hk/beeo/en/mibec_beeo_codtechguidelines.html",
+      "cache_filename": "emsd-bec-2024.pdf",
+      "sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+      "reviewed_on": "2026-11-10",
+      "review_scope": "PDF pages 10 and 56 visually inspected: current-unbalance/designed-current definitions and clause 7.6.3 only",
+      "applicability_note": "Project statutory scope, selected edition, circuit classification and normal-service RMS design current require separate sourced decisions"
+    }
+  },
+  "rules": [{
+    "id": "HK.EMSD.BEC2024.7_6_3.current_unbalance",
+    "source_id": "emsd_bec_2024",
+    "method": "prescriptive_maximum",
+    "clause": "7.6.3; Section 2 current unbalance and designed circuit current definitions",
+    "pdf_page_1_based": 56,
+    "printed_page": "50",
+    "related_pdf_pages": [10],
+    "scope": "Current-balance limit only for explicitly classified three-phase four-wire circuits with single-phase loads at design normal-service RMS current",
+    "metric": "phase_current_unbalance_percent",
+    "unit": "%",
+    "maximum": 10,
+    "minimum_protective_device_rating_a": 400,
+    "applicability": [
+      {"fact": "bec_electrical_scope_confirmed", "equals": true},
+      {"fact": "three_phase_four_wire_circuit", "equals": true},
+      {"fact": "single_phase_loads_present", "equals": true},
+      {"fact": "protective_device_rating_at_threshold", "equals": true}
+    ],
+    "alternative_path_note": "Current unbalance exceeds this selected limit; revise phase loading or obtain a supported applicability/compliance review. No full electrical conformity is established."
+  }],
+  "coverage": {
+    "complete": false,
+    "implemented": ["Scoped BEC 2024 clause 7.6.3 current-unbalance percentage with explicit circuit/rating/design-current basis"],
+    "pending": ["Independent statutory and edition applicability", "Protection and actual cable/neutral selection", "Harmonics, TPF and THD", "Other electrical clauses and complete Hong Kong conformity"]
+  }
+}

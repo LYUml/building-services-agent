@@ -15,7 +15,7 @@ DOT_SHA256='ff1ce5f13caf4ed7dddb7327b94781e751e4a7e693b4655287b6647d959c879a'
 APP='BSA_ELECTRICAL'
 
 
-def context(project,study_root):
+def context(project,study_root,require_targets=True):
     p,files=prepare(project);study_root=Path(study_root).resolve()
     bridge=json.loads((study_root/'three-phase.json').read_text(encoding='utf-8'))
     expected=study_inputs(project)
@@ -27,7 +27,9 @@ def context(project,study_root):
     study=json.loads(study_path.read_text(encoding='utf-8'))
     if digest(study_path)!=bridge['study_sha256'] or digest(network)!=bridge['network_sha256'] or study['network_sha256']!=digest(network):raise ProjectError('study artifacts changed')
     if study['inputs']!={str(f):digest(f) for f in files} or study['source_records']!=p['sources'] or study['versions']!=VERSIONS:raise ProjectError('study/project correspondence differs')
-    if bridge['status']!='pass' or study['status']!='pass' or study['verification_pass'] is not True or study['study_targets_pass'] is not True:
+    if study['verification_pass'] is not True or bridge['status']!=study['status'] or type(study['study_targets_pass']) is not bool or study['status']!=('pass' if study['study_targets_pass'] else 'fail'):
+        raise ProjectError('a verified numerical study is required')
+    if require_targets and (study['status']!='pass' or study['study_targets_pass'] is not True):
         raise ProjectError('a passing numerical and target study is required before drawing')
     if bridge['design_accepted'] is not False or study['design_accepted'] is not False:raise ProjectError('invalid study acceptance claim')
     before={f:h for f,h in recorded.items()}
