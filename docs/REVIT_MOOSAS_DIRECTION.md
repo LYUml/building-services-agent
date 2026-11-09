@@ -8,7 +8,7 @@ Read-only filesystem inspection found `C:/Program Files/Autodesk/Revit 2027/Revi
 
 Autodesk's [September 2026 announcement](https://forums.autodesk.com/t5/revit-api-forum/revit-mcp-server-tech-preview-launch/td-p/14262015) describes Read, Trusted-Write and Experimental MCP capabilities. Evaluate official availability and supported operations first. The independent [rui-branco/revit-mcp](https://github.com/rui-branco/revit-mcp) MIT bridge is another research candidate, not an installed or verified integration. App Store publication alone does not make a third-party bridge Autodesk-authored.
 
-The [Revit External Events API](https://help.autodesk.com/cloudhelp/2026/ENU/Revit-API/files/Revit_API_Developers_Guide/Advanced_Topics/Revit_API_Developers_Guide_Advanced_Topics_External_Events_html.html) describes requests raised for execution in Revit's valid API context. Verify the actual bridge's API-context handling and document identity before writes.
+The [Revit External Events API](https://help.autodesk.com/cloudhelp/2026/ENU/Revit-API/files/Revit_API_Developers_Guide/Advanced_Topics/Revit_API_Revit_API_Developers_Guide_Advanced_Topics_External_Events_html.html) describes requests raised for execution in Revit's valid API context. Verify the actual bridge's API-context handling and document identity before writes.
 
 Implementation acceptance sequence:
 
