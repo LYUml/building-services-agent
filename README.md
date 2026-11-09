@@ -4,6 +4,8 @@
 
 An agent workspace and deterministic engineering tools for reusable MEP workflows. The AI reads requirements and orchestrates tools; calculation engines compute results. Unknown inputs stay unknown.
 
+[Hong Kong cable bend checks](docs/HK_CABLE_BENDS.md) now use the hash-pinned CoP 2025 selected table with native inside-radius binding and explicit cable classification/diameter evidence. A same-model workflow gates native schematics; unknown/HV scope and short-radius controls do not release drawings. This is partial rule coverage, not manufacturer selection or full Hong Kong acceptance.
+
 [Saved cable route drawings](docs/CABLE_ROUTE_DRAWINGS.md) now support a sourced incoming straight, quarter and outgoing straight through same-model study/bend/coordination gates, independently audited DXF and native DWG reopening with inspected fixed-scale PDF. The synthetic three-piece/box example retains failed-bend blocking; general multi-bend routing and complete installation/Hong Kong acceptance remain pending.
 
 [Continuous cable trial](docs/CABLE_CONTINUITY_TRIAL.md) now connects a source-parametric quarter-plus-tangent IFC envelope to a fresh electrical study, same-model bend/coordination gates and an actually reopened/visually inspected native schematic. A failed bend target blocks drawing. This synthetic case does not establish arbitrary routing, manufacturer selection, installation drawings or full Hong Kong conformity.

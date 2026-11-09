@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+The source-pinned HK cable-bend module now binds native internal radius/overall-diameter correspondence and explicit construction/armour facts to selected CoP 2025 25C(1)(h). Actual fresh numerical/rule/native-schematic workflow passes only the scoped positive; short-radius, unknown-class and HV controls block drawing. The explicit coverage catalog preserves other gaps; real product/no-damage and full Hong Kong acceptance remain pending (HK_CABLE_BENDS.md).
+
 An independent 90-degree cable route now verifies whole-text-box dimension placement and independent saved/native-export text/graphic guards. Actual reopened DWG and inspected 1:25 PDF pass; the old left-normal text-crossing control is rejected. Boundary boxes remain approximate and general dense-layout/installation acceptance is pending (CABLE_ROUTE_DRAWINGS.md).
 
 Lead-quarter-tail route delivery now reaches same-model numerical/bend/coordination gates, actual native DWG reopen and an inspected fixed-scale PDF. Independent source and native-export audits cover all 28 entities; omission of the lead is rejected. Actual failed-bend workflow blocks drawing, with 29 distinct related tests passing. General routes, crowded annotation and installation/Hong Kong acceptance remain pending (CABLE_ROUTE_DRAWINGS.md).

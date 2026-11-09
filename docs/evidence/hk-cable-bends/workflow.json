@@ -1,0 +1,1225 @@
+{
+  "scope": "Actual official-source-backed selected HK cable-table workflow with synthetic geometry/classifications; no full conformity",
+  "official_source": {
+    "url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+    "sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+    "pdf_page_1_based": 190,
+    "printed_page": "189",
+    "clause": "25C(1)(h)",
+    "table_visually_inspected": true,
+    "render_sha256": "3eed1520097c645fd3835c6f4d6d758ff3ea1af92a0e9d74b6c5d2a00f6b2135"
+  },
+  "standalone": {
+    "scope": "Synthetic product classifications and geometry against pinned official cable table; no real equipment or full conformity",
+    "scenarios": [
+      {
+        "scenario": "scoped-pass",
+        "expected_status": "pass",
+        "report": {
+          "status": "pass",
+          "inputs": {
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\scoped-pass\\selected-model\\binding.json": "9d04d9ff73ae36e02f02697c5a60bbfa2c2920fe1f9d6e089f20939a213d2e9f",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_ifc.py": "05f216b1da14eaf01cf51b11f8f398b95743d5fc03f6665fa7f2710fc0926505",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\solid_clash.py": "ceb782df2bcfffdf799542e56fb89deb2d5a04f9c9a66372030fd3a457366e4d",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\quarter_cable.py": "9e8223c6b6ea9efb8cb9397c4db298486659f8520d1a5dcfcb185ee4427f8591",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\scoped-pass\\source\\basis.json": "30ebd15fbfe2fa9bb5804b4c6ec8c7871759da3b09f79694b0e395e866cf1f69",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\scoped-pass\\source\\geometry.json": "6d14b9d1d8e1ac8999713412b1bbd9c564479fd20637e9527195bc4b1f764e0a",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\scoped-pass\\selected-model\\geometry-source.json": "6d14b9d1d8e1ac8999713412b1bbd9c564479fd20637e9527195bc4b1f764e0a",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\scoped-pass\\source\\project.json": "48b35ea21940f334266ac46e76f1cb0ca99e94cada95edd26d814a038170ae97",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_continuity.py": "7b76e9e94a7fd62ad759269a443173eac6ad672fe3f1fae9bb5c127e85c15faa",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\scoped-pass\\selected-model\\cables.ifc": "15a02c91be18f2f950a0d170e51f306f9830937230c7de9758060a0a55b18e9a",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\circular_geometry.py": "b907345bd2904bf313b017cc1c7e1a07e403ff726bbb8a85e476ae538ea25cb9",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cad_ifc.py": "2f6fafbde0711ee7a14fd64170bdb57df4db1afb6666a96d0f23a1a108245a47",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\regulations\\hk\\cable-bends-2026.11.10\\pack.json": "f0e931819cd604f757342fbd595f7c17b0f0bdd72ac5f7ba034577844a0c90d7",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\regulations.py": "1005d753ca78f57172450a66d11b25b2712e08c23f2179c1a345bd0f6ffb361e",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\scoped-pass\\source\\rule-basis.json": "3603639bd910fb800f174262619e13f6b3ae72a4c55b5a39ab3cff247beaf278",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_bend_rules.py": "f0ac3c86c512267295f9d5058a37f8a89a4234b012cd1d379546e6986f8ff49b",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\scoped-pass\\source\\classification.txt": "62f67764e2c76e73427e944420fe0bbd2a8ad9c440129717421a67ffb2a2b8c2",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_bend_regulations.py": "986b99f56f2f9baa73adb4bd75070bacb5e86ed9cff99116450511ef884ceb58",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-sources-v1\\emsd-wiring-2025.pdf": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b"
+          },
+          "inputs_unchanged": true,
+          "geometry_correspondence_pass": true,
+          "reports": {
+            "feeder": {
+              "rule_pack": "hk-cable-bends-2026.11.10",
+              "jurisdiction": "HK",
+              "checks": [
+                {
+                  "id": "HK.EMSD.COP2025.25C1h.cable_bend",
+                  "status": "pass",
+                  "scope": "Selected internal bending-radius table only for explicitly classified LV PVC-insulated stranded-copper cables",
+                  "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+                  "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+                  "edition": "2025",
+                  "clause": "25C(1)(h); adjacent 25C(1)(i) HV manufacturer route excluded",
+                  "pdf_page_1_based": 190,
+                  "value": 0,
+                  "unit": "count",
+                  "maximum": 0,
+                  "evidence": "Derived from sourced overall diameter, armour and internal bend radius",
+                  "reasons": [
+                    "selected prescriptive limit met"
+                  ],
+                  "overall_diameter_mm": 20.0,
+                  "internal_bend_radius_mm": 290.0,
+                  "armoured": false,
+                  "multiplier": 4,
+                  "minimum_internal_radius_mm": 80.0,
+                  "numeric_radius_comparison": true,
+                  "numerical_roundoff_mm": 1e-09,
+                  "manufacturer_selection_verified": false
+                }
+              ],
+              "supported_checks_pass": true,
+              "coverage": {
+                "complete": false,
+                "implemented": [
+                  "Selected 25C(1)(h) diameter/armour internal-radius comparison with sourced classification"
+                ],
+                "pending": [
+                  "Statutory and edition applicability authentication",
+                  "Actual product/diameter/classification evidence",
+                  "15G(c) no-damage and manufacturer installation/pulling requirements",
+                  "HV and other cable constructions",
+                  "Supports, terminations, protection and complete electrical/Hong Kong conformity"
+                ]
+              },
+              "regulatory_compliance": "not_established",
+              "design_accepted": false,
+              "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+            }
+          },
+          "derived_inputs": {
+            "feeder": {
+              "jurisdiction": "HK",
+              "rule_pack": "hk-cable-bends-2026.11.10",
+              "edition_decisions": {
+                "emsd_wiring_2025": {
+                  "edition": "2025",
+                  "basis": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"62f67764e2c76e73427e944420fe0bbd2a8ad9c440129717421a67ffb2a2b8c2\"}"
+                }
+              },
+              "facts": {
+                "wiring_scope_confirmed": {
+                  "value": true,
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"62f67764e2c76e73427e944420fe0bbd2a8ad9c440129717421a67ffb2a2b8c2\"}"
+                },
+                "low_voltage": {
+                  "value": true,
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"62f67764e2c76e73427e944420fe0bbd2a8ad9c440129717421a67ffb2a2b8c2\"}"
+                },
+                "pvc_insulated": {
+                  "value": true,
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"62f67764e2c76e73427e944420fe0bbd2a8ad9c440129717421a67ffb2a2b8c2\"}"
+                },
+                "stranded_copper": {
+                  "value": true,
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"62f67764e2c76e73427e944420fe0bbd2a8ad9c440129717421a67ffb2a2b8c2\"}"
+                },
+                "armoured": {
+                  "value": false,
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"62f67764e2c76e73427e944420fe0bbd2a8ad9c440129717421a67ffb2a2b8c2\"}"
+                },
+                "overall_diameter": {
+                  "value": 20.0,
+                  "unit": "mm",
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"62f67764e2c76e73427e944420fe0bbd2a8ad9c440129717421a67ffb2a2b8c2\"}"
+                },
+                "internal_bend_radius": {
+                  "value": 290.0,
+                  "unit": "mm",
+                  "source": "Saved native-checked centreline radius minus verified circular envelope radius; IFC SHA256 15a02c91be18f2f950a0d170e51f306f9830937230c7de9758060a0a55b18e9a"
+                }
+              }
+            }
+          },
+          "manufacturer_selection_verified": false,
+          "regulatory_compliance": "not_established",
+          "design_accepted": false,
+          "scope": "Saved single-quarter cable geometry versus selected HK table with explicitly sourced classifications; evidence assertions, manufacturer/no-damage, numerical-study revision, workflow gates and full installation acceptance remain separate"
+        }
+      },
+      {
+        "scenario": "too-tight",
+        "expected_status": "fail",
+        "report": {
+          "status": "fail",
+          "inputs": {
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_ifc.py": "05f216b1da14eaf01cf51b11f8f398b95743d5fc03f6665fa7f2710fc0926505",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\too-tight\\selected-model\\cables.ifc": "8cd32b64e243dcc4a6cca50bb24fae7fee68f849cb3ebe053b354ed25d0c9eef",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\solid_clash.py": "ceb782df2bcfffdf799542e56fb89deb2d5a04f9c9a66372030fd3a457366e4d",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\quarter_cable.py": "9e8223c6b6ea9efb8cb9397c4db298486659f8520d1a5dcfcb185ee4427f8591",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\too-tight\\source\\geometry.json": "48c26f10a70cb3d6e7971bddab92d1c69971212dd25afb1e40f9f742cd7dad50",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\too-tight\\selected-model\\geometry-source.json": "48c26f10a70cb3d6e7971bddab92d1c69971212dd25afb1e40f9f742cd7dad50",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\too-tight\\source\\project.json": "a30b8286a895fed73bfe22fa4225f06efdb87a90cc33cc281539b7d6c98a0e4d",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\too-tight\\selected-model\\binding.json": "c70b2c451b5e9ae0606001aea956823183bfe8a081f7e90652c6bbcc0602a380",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_continuity.py": "7b76e9e94a7fd62ad759269a443173eac6ad672fe3f1fae9bb5c127e85c15faa",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\too-tight\\source\\basis.json": "30ebd15fbfe2fa9bb5804b4c6ec8c7871759da3b09f79694b0e395e866cf1f69",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\circular_geometry.py": "b907345bd2904bf313b017cc1c7e1a07e403ff726bbb8a85e476ae538ea25cb9",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cad_ifc.py": "2f6fafbde0711ee7a14fd64170bdb57df4db1afb6666a96d0f23a1a108245a47",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\regulations\\hk\\cable-bends-2026.11.10\\pack.json": "f0e931819cd604f757342fbd595f7c17b0f0bdd72ac5f7ba034577844a0c90d7",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\regulations.py": "1005d753ca78f57172450a66d11b25b2712e08c23f2179c1a345bd0f6ffb361e",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\too-tight\\source\\classification.txt": "62f67764e2c76e73427e944420fe0bbd2a8ad9c440129717421a67ffb2a2b8c2",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_bend_rules.py": "f0ac3c86c512267295f9d5058a37f8a89a4234b012cd1d379546e6986f8ff49b",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\too-tight\\source\\rule-basis.json": "3603639bd910fb800f174262619e13f6b3ae72a4c55b5a39ab3cff247beaf278",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_bend_regulations.py": "986b99f56f2f9baa73adb4bd75070bacb5e86ed9cff99116450511ef884ceb58",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-sources-v1\\emsd-wiring-2025.pdf": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b"
+          },
+          "inputs_unchanged": true,
+          "geometry_correspondence_pass": true,
+          "reports": {
+            "feeder": {
+              "rule_pack": "hk-cable-bends-2026.11.10",
+              "jurisdiction": "HK",
+              "checks": [
+                {
+                  "id": "HK.EMSD.COP2025.25C1h.cable_bend",
+                  "status": "review_required",
+                  "scope": "Selected internal bending-radius table only for explicitly classified LV PVC-insulated stranded-copper cables",
+                  "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+                  "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+                  "edition": "2025",
+                  "clause": "25C(1)(h); adjacent 25C(1)(i) HV manufacturer route excluded",
+                  "pdf_page_1_based": 190,
+                  "value": 1,
+                  "unit": "count",
+                  "maximum": 0,
+                  "evidence": "Derived from sourced overall diameter, armour and internal bend radius",
+                  "reasons": [
+                    "Selected internal-radius table not met; revise or obtain applicable engineering review. Product requirements and no-damage assessment remain separate."
+                  ],
+                  "overall_diameter_mm": 20.0,
+                  "internal_bend_radius_mm": 49.99999999999999,
+                  "armoured": false,
+                  "multiplier": 4,
+                  "minimum_internal_radius_mm": 80.0,
+                  "numeric_radius_comparison": false,
+                  "numerical_roundoff_mm": 1e-09,
+                  "manufacturer_selection_verified": false
+                }
+              ],
+              "supported_checks_pass": false,
+              "coverage": {
+                "complete": false,
+                "implemented": [
+                  "Selected 25C(1)(h) diameter/armour internal-radius comparison with sourced classification"
+                ],
+                "pending": [
+                  "Statutory and edition applicability authentication",
+                  "Actual product/diameter/classification evidence",
+                  "15G(c) no-damage and manufacturer installation/pulling requirements",
+                  "HV and other cable constructions",
+                  "Supports, terminations, protection and complete electrical/Hong Kong conformity"
+                ]
+              },
+              "regulatory_compliance": "not_established",
+              "design_accepted": false,
+              "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+            }
+          },
+          "derived_inputs": {
+            "feeder": {
+              "jurisdiction": "HK",
+              "rule_pack": "hk-cable-bends-2026.11.10",
+              "edition_decisions": {
+                "emsd_wiring_2025": {
+                  "edition": "2025",
+                  "basis": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"62f67764e2c76e73427e944420fe0bbd2a8ad9c440129717421a67ffb2a2b8c2\"}"
+                }
+              },
+              "facts": {
+                "wiring_scope_confirmed": {
+                  "value": true,
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"62f67764e2c76e73427e944420fe0bbd2a8ad9c440129717421a67ffb2a2b8c2\"}"
+                },
+                "low_voltage": {
+                  "value": true,
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"62f67764e2c76e73427e944420fe0bbd2a8ad9c440129717421a67ffb2a2b8c2\"}"
+                },
+                "pvc_insulated": {
+                  "value": true,
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"62f67764e2c76e73427e944420fe0bbd2a8ad9c440129717421a67ffb2a2b8c2\"}"
+                },
+                "stranded_copper": {
+                  "value": true,
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"62f67764e2c76e73427e944420fe0bbd2a8ad9c440129717421a67ffb2a2b8c2\"}"
+                },
+                "armoured": {
+                  "value": false,
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"62f67764e2c76e73427e944420fe0bbd2a8ad9c440129717421a67ffb2a2b8c2\"}"
+                },
+                "overall_diameter": {
+                  "value": 20.0,
+                  "unit": "mm",
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"62f67764e2c76e73427e944420fe0bbd2a8ad9c440129717421a67ffb2a2b8c2\"}"
+                },
+                "internal_bend_radius": {
+                  "value": 49.99999999999999,
+                  "unit": "mm",
+                  "source": "Saved native-checked centreline radius minus verified circular envelope radius; IFC SHA256 8cd32b64e243dcc4a6cca50bb24fae7fee68f849cb3ebe053b354ed25d0c9eef"
+                }
+              }
+            }
+          },
+          "manufacturer_selection_verified": false,
+          "regulatory_compliance": "not_established",
+          "design_accepted": false,
+          "scope": "Saved single-quarter cable geometry versus selected HK table with explicitly sourced classifications; evidence assertions, manufacturer/no-damage, numerical-study revision, workflow gates and full installation acceptance remain separate"
+        }
+      },
+      {
+        "scenario": "unknown-construction",
+        "expected_status": "pending",
+        "report": {
+          "status": "pending",
+          "inputs": {
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\unknown-construction\\selected-model\\geometry-source.json": "6d14b9d1d8e1ac8999713412b1bbd9c564479fd20637e9527195bc4b1f764e0a",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\unknown-construction\\source\\geometry.json": "6d14b9d1d8e1ac8999713412b1bbd9c564479fd20637e9527195bc4b1f764e0a",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_ifc.py": "05f216b1da14eaf01cf51b11f8f398b95743d5fc03f6665fa7f2710fc0926505",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\solid_clash.py": "ceb782df2bcfffdf799542e56fb89deb2d5a04f9c9a66372030fd3a457366e4d",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\quarter_cable.py": "9e8223c6b6ea9efb8cb9397c4db298486659f8520d1a5dcfcb185ee4427f8591",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\unknown-construction\\selected-model\\binding.json": "f88454250044439f053cd3c42ad9b86d852d03fe4edbebc6b21c89781cf84923",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_continuity.py": "7b76e9e94a7fd62ad759269a443173eac6ad672fe3f1fae9bb5c127e85c15faa",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\unknown-construction\\selected-model\\cables.ifc": "82edbf87a13023dea9b034d007cfb3c82b2951bc1eedd6861c17b08ac01ffa63",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\unknown-construction\\source\\basis.json": "30ebd15fbfe2fa9bb5804b4c6ec8c7871759da3b09f79694b0e395e866cf1f69",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\circular_geometry.py": "b907345bd2904bf313b017cc1c7e1a07e403ff726bbb8a85e476ae538ea25cb9",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\unknown-construction\\source\\project.json": "48b35ea21940f334266ac46e76f1cb0ca99e94cada95edd26d814a038170ae97",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cad_ifc.py": "2f6fafbde0711ee7a14fd64170bdb57df4db1afb6666a96d0f23a1a108245a47",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\regulations\\hk\\cable-bends-2026.11.10\\pack.json": "f0e931819cd604f757342fbd595f7c17b0f0bdd72ac5f7ba034577844a0c90d7",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\regulations.py": "1005d753ca78f57172450a66d11b25b2712e08c23f2179c1a345bd0f6ffb361e",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_bend_rules.py": "f0ac3c86c512267295f9d5058a37f8a89a4234b012cd1d379546e6986f8ff49b",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\unknown-construction\\source\\rule-basis.json": "90fd4acf15f64054018f32325566c91f599d83152654cfce099e045a07449b86",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\unknown-construction\\source\\classification.txt": "7af1ab01263e99971e9bddbcbe3b91f578c349a8ec5a4aa9202603816f232678",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_bend_regulations.py": "986b99f56f2f9baa73adb4bd75070bacb5e86ed9cff99116450511ef884ceb58",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-sources-v1\\emsd-wiring-2025.pdf": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b"
+          },
+          "inputs_unchanged": true,
+          "geometry_correspondence_pass": true,
+          "reports": {
+            "feeder": {
+              "rule_pack": "hk-cable-bends-2026.11.10",
+              "jurisdiction": "HK",
+              "checks": [
+                {
+                  "id": "HK.EMSD.COP2025.25C1h.cable_bend",
+                  "status": "pending",
+                  "scope": "Selected internal bending-radius table only for explicitly classified LV PVC-insulated stranded-copper cables",
+                  "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+                  "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+                  "edition": "2025",
+                  "clause": "25C(1)(h); adjacent 25C(1)(i) HV manufacturer route excluded",
+                  "pdf_page_1_based": 190,
+                  "reasons": [
+                    "missing sourced applicability fact: pvc_insulated"
+                  ],
+                  "overall_diameter_mm": 20.0,
+                  "internal_bend_radius_mm": 290.0,
+                  "armoured": false,
+                  "multiplier": 4,
+                  "minimum_internal_radius_mm": 80.0,
+                  "numeric_radius_comparison": true,
+                  "numerical_roundoff_mm": 1e-09,
+                  "manufacturer_selection_verified": false
+                }
+              ],
+              "supported_checks_pass": false,
+              "coverage": {
+                "complete": false,
+                "implemented": [
+                  "Selected 25C(1)(h) diameter/armour internal-radius comparison with sourced classification"
+                ],
+                "pending": [
+                  "Statutory and edition applicability authentication",
+                  "Actual product/diameter/classification evidence",
+                  "15G(c) no-damage and manufacturer installation/pulling requirements",
+                  "HV and other cable constructions",
+                  "Supports, terminations, protection and complete electrical/Hong Kong conformity"
+                ]
+              },
+              "regulatory_compliance": "not_established",
+              "design_accepted": false,
+              "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+            }
+          },
+          "derived_inputs": {
+            "feeder": {
+              "jurisdiction": "HK",
+              "rule_pack": "hk-cable-bends-2026.11.10",
+              "edition_decisions": {
+                "emsd_wiring_2025": {
+                  "edition": "2025",
+                  "basis": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"7af1ab01263e99971e9bddbcbe3b91f578c349a8ec5a4aa9202603816f232678\"}"
+                }
+              },
+              "facts": {
+                "wiring_scope_confirmed": {
+                  "value": true,
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"7af1ab01263e99971e9bddbcbe3b91f578c349a8ec5a4aa9202603816f232678\"}"
+                },
+                "low_voltage": {
+                  "value": true,
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"7af1ab01263e99971e9bddbcbe3b91f578c349a8ec5a4aa9202603816f232678\"}"
+                },
+                "pvc_insulated": {
+                  "value": null,
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"7af1ab01263e99971e9bddbcbe3b91f578c349a8ec5a4aa9202603816f232678\"}"
+                },
+                "stranded_copper": {
+                  "value": true,
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"7af1ab01263e99971e9bddbcbe3b91f578c349a8ec5a4aa9202603816f232678\"}"
+                },
+                "armoured": {
+                  "value": false,
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"7af1ab01263e99971e9bddbcbe3b91f578c349a8ec5a4aa9202603816f232678\"}"
+                },
+                "overall_diameter": {
+                  "value": 20.0,
+                  "unit": "mm",
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"7af1ab01263e99971e9bddbcbe3b91f578c349a8ec5a4aa9202603816f232678\"}"
+                },
+                "internal_bend_radius": {
+                  "value": 290.0,
+                  "unit": "mm",
+                  "source": "Saved native-checked centreline radius minus verified circular envelope radius; IFC SHA256 82edbf87a13023dea9b034d007cfb3c82b2951bc1eedd6861c17b08ac01ffa63"
+                }
+              }
+            }
+          },
+          "manufacturer_selection_verified": false,
+          "regulatory_compliance": "not_established",
+          "design_accepted": false,
+          "scope": "Saved single-quarter cable geometry versus selected HK table with explicitly sourced classifications; evidence assertions, manufacturer/no-damage, numerical-study revision, workflow gates and full installation acceptance remain separate"
+        }
+      },
+      {
+        "scenario": "unsupported-hv",
+        "expected_status": "pending",
+        "report": {
+          "status": "pending",
+          "inputs": {
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_ifc.py": "05f216b1da14eaf01cf51b11f8f398b95743d5fc03f6665fa7f2710fc0926505",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\solid_clash.py": "ceb782df2bcfffdf799542e56fb89deb2d5a04f9c9a66372030fd3a457366e4d",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\quarter_cable.py": "9e8223c6b6ea9efb8cb9397c4db298486659f8520d1a5dcfcb185ee4427f8591",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\unsupported-hv\\selected-model\\geometry-source.json": "6d14b9d1d8e1ac8999713412b1bbd9c564479fd20637e9527195bc4b1f764e0a",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\unsupported-hv\\source\\geometry.json": "6d14b9d1d8e1ac8999713412b1bbd9c564479fd20637e9527195bc4b1f764e0a",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\unsupported-hv\\selected-model\\binding.json": "f2911bce8c392bf037bd3e9516aad8003f2a098153a1d25c15223888445bb35d",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\unsupported-hv\\source\\basis.json": "30ebd15fbfe2fa9bb5804b4c6ec8c7871759da3b09f79694b0e395e866cf1f69",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_continuity.py": "7b76e9e94a7fd62ad759269a443173eac6ad672fe3f1fae9bb5c127e85c15faa",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\unsupported-hv\\source\\project.json": "48b35ea21940f334266ac46e76f1cb0ca99e94cada95edd26d814a038170ae97",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\circular_geometry.py": "b907345bd2904bf313b017cc1c7e1a07e403ff726bbb8a85e476ae538ea25cb9",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\unsupported-hv\\selected-model\\cables.ifc": "83043efc43c4480e4928b5af65faaefe6d4d4bc4b355d8e4186f7eb143cf8c4b",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cad_ifc.py": "2f6fafbde0711ee7a14fd64170bdb57df4db1afb6666a96d0f23a1a108245a47",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\unsupported-hv\\source\\rule-basis.json": "8af0c67d5a6b96a573ae52ebe35d72def70d8f84e73bcb705ea6404183c4e6f3",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\regulations\\hk\\cable-bends-2026.11.10\\pack.json": "f0e931819cd604f757342fbd595f7c17b0f0bdd72ac5f7ba034577844a0c90d7",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\regulations.py": "1005d753ca78f57172450a66d11b25b2712e08c23f2179c1a345bd0f6ffb361e",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_bend_rules.py": "f0ac3c86c512267295f9d5058a37f8a89a4234b012cd1d379546e6986f8ff49b",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-v2\\unsupported-hv\\source\\classification.txt": "c4196876f79efefdd16897b1406d6f1478ac6305a042e3431d8e3e8f61b71757",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_bend_regulations.py": "986b99f56f2f9baa73adb4bd75070bacb5e86ed9cff99116450511ef884ceb58",
+            "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-sources-v1\\emsd-wiring-2025.pdf": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b"
+          },
+          "inputs_unchanged": true,
+          "geometry_correspondence_pass": true,
+          "reports": {
+            "feeder": {
+              "rule_pack": "hk-cable-bends-2026.11.10",
+              "jurisdiction": "HK",
+              "checks": [
+                {
+                  "id": "HK.EMSD.COP2025.25C1h.cable_bend",
+                  "status": "not_applicable",
+                  "scope": "Selected internal bending-radius table only for explicitly classified LV PVC-insulated stranded-copper cables",
+                  "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+                  "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+                  "edition": "2025",
+                  "clause": "25C(1)(h); adjacent 25C(1)(i) HV manufacturer route excluded",
+                  "pdf_page_1_based": 190,
+                  "reasons": [
+                    "outside this explicitly supported rule path; other requirements remain unresolved"
+                  ],
+                  "overall_diameter_mm": 20.0,
+                  "internal_bend_radius_mm": 290.0,
+                  "armoured": false,
+                  "multiplier": 4,
+                  "minimum_internal_radius_mm": 80.0,
+                  "numeric_radius_comparison": true,
+                  "numerical_roundoff_mm": 1e-09,
+                  "manufacturer_selection_verified": false
+                }
+              ],
+              "supported_checks_pass": false,
+              "coverage": {
+                "complete": false,
+                "implemented": [
+                  "Selected 25C(1)(h) diameter/armour internal-radius comparison with sourced classification"
+                ],
+                "pending": [
+                  "Statutory and edition applicability authentication",
+                  "Actual product/diameter/classification evidence",
+                  "15G(c) no-damage and manufacturer installation/pulling requirements",
+                  "HV and other cable constructions",
+                  "Supports, terminations, protection and complete electrical/Hong Kong conformity"
+                ]
+              },
+              "regulatory_compliance": "not_established",
+              "design_accepted": false,
+              "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+            }
+          },
+          "derived_inputs": {
+            "feeder": {
+              "jurisdiction": "HK",
+              "rule_pack": "hk-cable-bends-2026.11.10",
+              "edition_decisions": {
+                "emsd_wiring_2025": {
+                  "edition": "2025",
+                  "basis": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"c4196876f79efefdd16897b1406d6f1478ac6305a042e3431d8e3e8f61b71757\"}"
+                }
+              },
+              "facts": {
+                "wiring_scope_confirmed": {
+                  "value": true,
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"c4196876f79efefdd16897b1406d6f1478ac6305a042e3431d8e3e8f61b71757\"}"
+                },
+                "low_voltage": {
+                  "value": false,
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"c4196876f79efefdd16897b1406d6f1478ac6305a042e3431d8e3e8f61b71757\"}"
+                },
+                "pvc_insulated": {
+                  "value": true,
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"c4196876f79efefdd16897b1406d6f1478ac6305a042e3431d8e3e8f61b71757\"}"
+                },
+                "stranded_copper": {
+                  "value": true,
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"c4196876f79efefdd16897b1406d6f1478ac6305a042e3431d8e3e8f61b71757\"}"
+                },
+                "armoured": {
+                  "value": false,
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"c4196876f79efefdd16897b1406d6f1478ac6305a042e3431d8e3e8f61b71757\"}"
+                },
+                "overall_diameter": {
+                  "value": 20.0,
+                  "unit": "mm",
+                  "source": "{\"kind\": \"assumption\", \"locator\": \"Whole explicit synthetic classification and edition decision\", \"path\": \"classification.txt\", \"sha256\": \"c4196876f79efefdd16897b1406d6f1478ac6305a042e3431d8e3e8f61b71757\"}"
+                },
+                "internal_bend_radius": {
+                  "value": 290.0,
+                  "unit": "mm",
+                  "source": "Saved native-checked centreline radius minus verified circular envelope radius; IFC SHA256 83043efc43c4480e4928b5af65faaefe6d4d4bc4b355d8e4186f7eb143cf8c4b"
+                }
+              }
+            }
+          },
+          "manufacturer_selection_verified": false,
+          "regulatory_compliance": "not_established",
+          "design_accepted": false,
+          "scope": "Saved single-quarter cable geometry versus selected HK table with explicitly sourced classifications; evidence assertions, manufacturer/no-damage, numerical-study revision, workflow gates and full installation acceptance remain separate"
+        }
+      }
+    ],
+    "expected_behaviors_pass": true,
+    "design_accepted": false
+  },
+  "workflow": {
+    "tasks": {
+      "scoped-pass-study": {
+        "kind": "three_phase_ifc_project",
+        "status": "pass",
+        "scope": "New snapshot project with supported native straight, quarter-circle or single-quarter tangent-straight IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+      },
+      "scoped-pass-rules": {
+        "kind": "three_phase_cable_regulations",
+        "status": "pass",
+        "scope": "Saved single-quarter cable geometry versus selected HK table with explicitly sourced classifications; evidence assertions, manufacturer/no-damage, numerical-study revision, workflow gates and full installation acceptance remain separate"
+      },
+      "scoped-pass-drawing": {
+        "kind": "three_phase_drawing",
+        "status": "pass",
+        "scope": "Source-linked calculation schematic and schedules only; full installation, protection and Hong Kong acceptance pending; actual page visual/engineering review remains pending"
+      },
+      "scoped-pass-review": {
+        "kind": "manual",
+        "status": "pending",
+        "scope": "manual engineering/visual verification required"
+      },
+      "too-tight-study": {
+        "kind": "three_phase_ifc_project",
+        "status": "pass",
+        "scope": "New snapshot project with supported native straight, quarter-circle or single-quarter tangent-straight IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+      },
+      "too-tight-rules": {
+        "kind": "three_phase_cable_regulations",
+        "status": "fail",
+        "scope": "Saved single-quarter cable geometry versus selected HK table with explicitly sourced classifications; evidence assertions, manufacturer/no-damage, numerical-study revision, workflow gates and full installation acceptance remain separate"
+      },
+      "too-tight-drawing": {
+        "kind": "three_phase_drawing",
+        "status": "pending",
+        "scope": "required checks unresolved: too-tight-rules (fail); adapter not executed"
+      },
+      "too-tight-review": {
+        "kind": "manual",
+        "status": "pending",
+        "scope": "required checks unresolved: too-tight-drawing (pending); adapter not executed"
+      },
+      "unknown-construction-study": {
+        "kind": "three_phase_ifc_project",
+        "status": "pass",
+        "scope": "New snapshot project with supported native straight, quarter-circle or single-quarter tangent-straight IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+      },
+      "unknown-construction-rules": {
+        "kind": "three_phase_cable_regulations",
+        "status": "pending",
+        "scope": "Saved single-quarter cable geometry versus selected HK table with explicitly sourced classifications; evidence assertions, manufacturer/no-damage, numerical-study revision, workflow gates and full installation acceptance remain separate"
+      },
+      "unknown-construction-drawing": {
+        "kind": "three_phase_drawing",
+        "status": "pending",
+        "scope": "required checks unresolved: unknown-construction-rules (pending); adapter not executed"
+      },
+      "unknown-construction-review": {
+        "kind": "manual",
+        "status": "pending",
+        "scope": "required checks unresolved: unknown-construction-drawing (pending); adapter not executed"
+      },
+      "unsupported-hv-study": {
+        "kind": "three_phase_ifc_project",
+        "status": "pass",
+        "scope": "New snapshot project with supported native straight, quarter-circle or single-quarter tangent-straight IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+      },
+      "unsupported-hv-rules": {
+        "kind": "three_phase_cable_regulations",
+        "status": "pending",
+        "scope": "Saved single-quarter cable geometry versus selected HK table with explicitly sourced classifications; evidence assertions, manufacturer/no-damage, numerical-study revision, workflow gates and full installation acceptance remain separate"
+      },
+      "unsupported-hv-drawing": {
+        "kind": "three_phase_drawing",
+        "status": "pending",
+        "scope": "required checks unresolved: unsupported-hv-rules (pending); adapter not executed"
+      },
+      "unsupported-hv-review": {
+        "kind": "manual",
+        "status": "pending",
+        "scope": "required checks unresolved: unsupported-hv-drawing (pending); adapter not executed"
+      }
+    },
+    "model_bindings": [
+      {
+        "producer": "scoped-pass-study",
+        "consumer": "scoped-pass-rules",
+        "ifc_sha256": "937abaa5140842b80976d985846eb3cbc4fc74a97092806a3c9a9d21f49962c4",
+        "geometry_binding_sha256": "b446be5ba0aabab245f4d5ef22669f0f872e851c381eb1d7e122b899e7eec560"
+      },
+      {
+        "producer": "too-tight-study",
+        "consumer": "too-tight-rules",
+        "ifc_sha256": "29d2e0e8e23a47dfacedfdafb2b0e956a41c3199d38aa9ddac37011c83ce3a8b",
+        "geometry_binding_sha256": "2b150eed2e55a3491c6099d7f17a72ad3376dec01720f70ee8f96330798d535c"
+      },
+      {
+        "producer": "unknown-construction-study",
+        "consumer": "unknown-construction-rules",
+        "ifc_sha256": "8afe0e7c50cccee0c6874ad28fe5a87b06aecade0ece1584321408f908f5f4e9",
+        "geometry_binding_sha256": "0622a54ac83f4dd827e6239bb4922d08045b30af859cafc0cd98842dbd382839"
+      },
+      {
+        "producer": "unsupported-hv-study",
+        "consumer": "unsupported-hv-rules",
+        "ifc_sha256": "2d0def83d4b17df9e8f8ac41066540e120258a5ace7a517a440f7d06204ac931",
+        "geometry_binding_sha256": "573b58f68710d9b537ff0690cef6e02975ae08ae15b28e8556e900cbf12ffd76"
+      },
+      {
+        "producer": "scoped-pass-rules",
+        "consumer": "scoped-pass-drawing",
+        "ifc_sha256": "937abaa5140842b80976d985846eb3cbc4fc74a97092806a3c9a9d21f49962c4",
+        "geometry_binding_sha256": "b446be5ba0aabab245f4d5ef22669f0f872e851c381eb1d7e122b899e7eec560"
+      },
+      {
+        "producer": "too-tight-rules",
+        "consumer": "too-tight-drawing",
+        "ifc_sha256": "29d2e0e8e23a47dfacedfdafb2b0e956a41c3199d38aa9ddac37011c83ce3a8b",
+        "geometry_binding_sha256": "2b150eed2e55a3491c6099d7f17a72ad3376dec01720f70ee8f96330798d535c"
+      },
+      {
+        "producer": "unknown-construction-rules",
+        "consumer": "unknown-construction-drawing",
+        "ifc_sha256": "8afe0e7c50cccee0c6874ad28fe5a87b06aecade0ece1584321408f908f5f4e9",
+        "geometry_binding_sha256": "0622a54ac83f4dd827e6239bb4922d08045b30af859cafc0cd98842dbd382839"
+      },
+      {
+        "producer": "unsupported-hv-rules",
+        "consumer": "unsupported-hv-drawing",
+        "ifc_sha256": "2d0def83d4b17df9e8f8ac41066540e120258a5ace7a517a440f7d06204ac931",
+        "geometry_binding_sha256": "573b58f68710d9b537ff0690cef6e02975ae08ae15b28e8556e900cbf12ffd76"
+      }
+    ],
+    "source_bindings": [
+      {
+        "check": "scoped-pass-rules",
+        "consumer": "scoped-pass-drawing",
+        "study_producer": "scoped-pass-study"
+      },
+      {
+        "check": "too-tight-rules",
+        "consumer": "too-tight-drawing",
+        "study_producer": "too-tight-study"
+      },
+      {
+        "check": "unknown-construction-rules",
+        "consumer": "unknown-construction-drawing",
+        "study_producer": "unknown-construction-study"
+      },
+      {
+        "check": "unsupported-hv-rules",
+        "consumer": "unsupported-hv-drawing",
+        "study_producer": "unsupported-hv-study"
+      }
+    ],
+    "integrity": {
+      "integrity_pass": true,
+      "issues": [],
+      "design_accepted": false,
+      "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+    },
+    "expected_behaviors_pass": true,
+    "design_accepted": false,
+    "scope": "Synthetic saved cable classifications against selected official table; calculation schematic only; full manufacturer/engineering/regulatory review pending"
+  },
+  "integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "delivery_context_pass": true,
+  "blocked_drawing_folders_absent": {
+    "too-tight": true,
+    "unknown-construction": true,
+    "unsupported-hv": true
+  },
+  "native": {
+    "native_reopen_pass": true,
+    "dwg_sha256": "4c60a20f78b4133af57cb10317d2b80249e6592bb61828ddfc72f6a0e3810cc6",
+    "engine_sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2",
+    "plot": {
+      "pdf_sha256": "51e1cd212c4fc33c78df2da20503377347ee697dfd81387c5b9a5626dca8215a",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 1,
+      "reference_handle": "60",
+      "reference_expected_mm": 50.0,
+      "reference_measured_mm": 49.99566666666666,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "visual_review": "pending"
+  },
+  "visual_review": {
+    "pdf_sha256": "51e1cd212c4fc33c78df2da20503377347ee697dfd81387c5b9a5626dca8215a",
+    "png_sha256": "02099a8f1dfc3eb3ed784a46f9e5ca7dcdd70523c71b0e77655c5cd510f54e61",
+    "observed": "Readable two-bus calculation schematic, source route L=0.47 m, phase currents/voltages, 50 mm paper reference and full HK/engineering review pending notes.",
+    "scoped_visual_review_pass": true,
+    "full_engineering_acceptance": false
+  },
+  "coverage": {
+    "catalog": "hk-coverage-2026.11.10-cable-bends",
+    "jurisdiction": "HK",
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\regulations\\hk\\coverage-2026.11.10-cable-bends.json": "203efac4d100efa0401813016c8daceecbefead2e102c4cab58617ccb2461f4e",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\regulations-hk\\coverage-scope-cable-bends.json": "ac6b96da962dbeb3cde6c7a564f1411721b1af3293da6cf2137972a8e6249539",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\regulations\\hk\\2026.11.08\\pack.json": "e39191cab144ccdd9a405996613d5fcd48efd154bef36c1717fbd00e022e9dfb",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\plan.json": "94af4fc613fd7ab4771200215378bff5663601072647440a09bc99cd8e39923d",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\too-tight\\selected-model\\binding.json": "2b150eed2e55a3491c6099d7f17a72ad3376dec01720f70ee8f96330798d535c",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\unsupported-hv\\source\\rule-basis.json": "8af0c67d5a6b96a573ae52ebe35d72def70d8f84e73bcb705ea6404183c4e6f3",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\too-tight\\source\\project.json": "a30b8286a895fed73bfe22fa4225f06efdb87a90cc33cc281539b7d6c98a0e4d",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\unsupported-hv\\selected-model\\geometry-source.json": "6d14b9d1d8e1ac8999713412b1bbd9c564479fd20637e9527195bc4b1f764e0a",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_bridge.py": "e2670961ac70dc14085d7c8ecb117bbf74e9138fbc0d1588ed69c928b50c3b04",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cad_ifc.py": "2f6fafbde0711ee7a14fd64170bdb57df4db1afb6666a96d0f23a1a108245a47",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\official-sources\\emsd-wiring-2025.pdf": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\unsupported-hv\\source\\geometry.json": "6d14b9d1d8e1ac8999713412b1bbd9c564479fd20637e9527195bc4b1f764e0a",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\too-tight\\source\\classification.txt": "62f67764e2c76e73427e944420fe0bbd2a8ad9c440129717421a67ffb2a2b8c2",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\unknown-construction\\selected-model\\cables.ifc": "8afe0e7c50cccee0c6874ad28fe5a87b06aecade0ece1584321408f908f5f4e9",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_drawing.py": "e4194d923af3a4619dbf204bbae3383d7ed5e1554f4b80934a1c7f84c77ff50e",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\too-tight\\source\\geometry.json": "48c26f10a70cb3d6e7971bddab92d1c69971212dd25afb1e40f9f742cd7dad50",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\unsupported-hv\\source\\basis.json": "30ebd15fbfe2fa9bb5804b4c6ec8c7871759da3b09f79694b0e395e866cf1f69",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_bend_rules.py": "f0ac3c86c512267295f9d5058a37f8a89a4234b012cd1d379546e6986f8ff49b",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\unknown-construction\\source\\basis.json": "30ebd15fbfe2fa9bb5804b4c6ec8c7871759da3b09f79694b0e395e866cf1f69",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\scoped-pass\\source\\geometry.json": "6d14b9d1d8e1ac8999713412b1bbd9c564479fd20637e9527195bc4b1f764e0a",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\scripts\\run_three_phase.py": "1466546e65e6b3f510512416efe6667a0fce22d57b93684e36c9f1d1e94529dd",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_ifc_project.py": "88c6944ee0d4a3c158459ba05fd2563e92807c52760dafcce43f67d2a888771d",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\unknown-construction\\source\\project.json": "48b35ea21940f334266ac46e76f1cb0ca99e94cada95edd26d814a038170ae97",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\pack.json": "f0e931819cd604f757342fbd595f7c17b0f0bdd72ac5f7ba034577844a0c90d7",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\too-tight\\source\\rule-basis.json": "3603639bd910fb800f174262619e13f6b3ae72a4c55b5a39ab3cff247beaf278",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\regulations.py": "1005d753ca78f57172450a66d11b25b2712e08c23f2179c1a345bd0f6ffb361e",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\circular_geometry.py": "b907345bd2904bf313b017cc1c7e1a07e403ff726bbb8a85e476ae538ea25cb9",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase.py": "b58fe7a49b91906ade65abbd2c312d7a5e3ff0c769eb5ced7ca67b83428a346a",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_bend_regulations.py": "986b99f56f2f9baa73adb4bd75070bacb5e86ed9cff99116450511ef884ceb58",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\unknown-construction\\source\\classification.txt": "7af1ab01263e99971e9bddbcbe3b91f578c349a8ec5a4aa9202603816f232678",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\unknown-construction\\source\\geometry.json": "6d14b9d1d8e1ac8999713412b1bbd9c564479fd20637e9527195bc4b1f764e0a",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\unsupported-hv\\selected-model\\binding.json": "573b58f68710d9b537ff0690cef6e02975ae08ae15b28e8556e900cbf12ffd76",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\too-tight\\source\\basis.json": "30ebd15fbfe2fa9bb5804b4c6ec8c7871759da3b09f79694b0e395e866cf1f69",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\too-tight\\selected-model\\geometry-source.json": "48c26f10a70cb3d6e7971bddab92d1c69971212dd25afb1e40f9f742cd7dad50",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_continuity.py": "7b76e9e94a7fd62ad759269a443173eac6ad672fe3f1fae9bb5c127e85c15faa",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\unknown-construction\\source\\rule-basis.json": "90fd4acf15f64054018f32325566c91f599d83152654cfce099e045a07449b86",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\unsupported-hv\\source\\classification.txt": "c4196876f79efefdd16897b1406d6f1478ac6305a042e3431d8e3e8f61b71757",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\brief.md": "db1b90be9cfc9412f8d1f3f45d91348101a1842ea1bb5934e341d91981e87525",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\scoped-pass\\source\\rule-basis.json": "3603639bd910fb800f174262619e13f6b3ae72a4c55b5a39ab3cff247beaf278",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\scoped-pass\\selected-model\\cables.ifc": "937abaa5140842b80976d985846eb3cbc4fc74a97092806a3c9a9d21f49962c4",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\scoped-pass\\source\\project.json": "48b35ea21940f334266ac46e76f1cb0ca99e94cada95edd26d814a038170ae97",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\unsupported-hv\\selected-model\\cables.ifc": "2d0def83d4b17df9e8f8ac41066540e120258a5ace7a517a440f7d06204ac931",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\scoped-pass\\source\\classification.txt": "62f67764e2c76e73427e944420fe0bbd2a8ad9c440129717421a67ffb2a2b8c2",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\scoped-pass\\selected-model\\binding.json": "b446be5ba0aabab245f4d5ef22669f0f872e851c381eb1d7e122b899e7eec560",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\unknown-construction\\selected-model\\binding.json": "0622a54ac83f4dd827e6239bb4922d08045b30af859cafc0cd98842dbd382839",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_ifc.py": "05f216b1da14eaf01cf51b11f8f398b95743d5fc03f6665fa7f2710fc0926505",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\scoped-pass\\source\\basis.json": "30ebd15fbfe2fa9bb5804b4c6ec8c7871759da3b09f79694b0e395e866cf1f69",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\quarter_cable.py": "9e8223c6b6ea9efb8cb9397c4db298486659f8520d1a5dcfcb185ee4427f8591",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\solid_clash.py": "ceb782df2bcfffdf799542e56fb89deb2d5a04f9c9a66372030fd3a457366e4d",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\unknown-construction\\selected-model\\geometry-source.json": "6d14b9d1d8e1ac8999713412b1bbd9c564479fd20637e9527195bc4b1f764e0a",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\unsupported-hv\\source\\project.json": "48b35ea21940f334266ac46e76f1cb0ca99e94cada95edd26d814a038170ae97",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\scoped-pass\\selected-model\\geometry-source.json": "6d14b9d1d8e1ac8999713412b1bbd9c564479fd20637e9527195bc4b1f764e0a",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-cable-bend-native-workflow-v1\\cases\\too-tight\\selected-model\\cables.ifc": "29d2e0e8e23a47dfacedfdafb2b0e956a41c3199d38aa9ddac37011c83ce3a8b",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\regulations\\hk\\cable-bends-2026.11.10\\pack.json": "f0e931819cd604f757342fbd595f7c17b0f0bdd72ac5f7ba034577844a0c90d7",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\regulations\\hk\\lighting-2026.11.08\\pack.json": "97b7be1ea891b575bdd239e200ce41120ed09a509914ebd74394135decc9997c",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\regulations\\hk\\hvac-design-2026.11.08\\pack.json": "5c4b70d054f30bab00cee8203100b17a5ae7a5c146b796a6529f57fa145114c2",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\regulations\\hk\\hvac-water-2026.11.08\\pack.json": "de85187d63c45e59827f268e2d3fe923231106ae676ef12f0d0baf41084fad12",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\regulations\\hk\\plumbing-pumps-2026.11.09\\pack.json": "e27e4bf0c67026ecf15d73054c3b1850000d548535e16de3991c045d8a58cdc3",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\regulations\\hk\\emergency-accommodation-2026.11.09\\pack.json": "2d305f32be5a89c22ced2735a676793b9725246b35844c8513c984f6649b11d1",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\regulations\\hk\\phase-balance-2026.11.10\\pack.json": "8c8d5ca3b71b77acf2027acbcaef6351c4dc1150540b3610518c767fc086205b"
+    },
+    "inputs_unchanged": true,
+    "topics": [
+      {
+        "id": "electrical",
+        "title": "Electrical installation",
+        "decision": {
+          "decision": "unresolved",
+          "source": "Synthetic coverage example: require review of supported voltage-drop and PVC cable-bend modules; not a real project applicability decision"
+        },
+        "official_source": {
+          "authority": "EMSD",
+          "title": "Code of Practice for the Electricity (Wiring) Regulations",
+          "edition": "2025",
+          "kind": "code_of_practice",
+          "url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+          "index_url": "https://www.emsd.gov.hk/en/electricity_safety/publications/codes_of_practice/index.html",
+          "cache_filename": "emsd-wiring-2025.pdf",
+          "sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+          "reviewed_on": "2026-11-08",
+          "review_scope": "Official PDF Code 13A(3)(v), printed page 115, PDF page 116. Index publication and transition note checked.",
+          "applicability_note": "Published 2025-12-31. Official index also permits installations complying with the 2020 edition if completed and connected on or before 2026-12-31. Project edition decision required; do not select solely by present date."
+        },
+        "modules": [
+          {
+            "pack": "hk-2026.11.08",
+            "sha256": "e39191cab144ccdd9a405996613d5fcd48efd154bef36c1717fbd00e022e9dfb",
+            "rule_ids": [
+              "HK.EMSD.COP2025.13A3v.voltage_drop"
+            ],
+            "scheduled_tasks": [],
+            "execution_status": "not_assessed",
+            "pack_coverage": {
+              "complete": false,
+              "implemented": [
+                "One normal-service electrical voltage-drop deemed-to-satisfy check"
+              ],
+              "pending": [
+                "statutory scope and applicability",
+                "remaining electrical protection/cable/earthing rules",
+                "BEC HVAC/lighting/electrical/lifts clauses",
+                "WSD plumbing clauses",
+                "FSD premises and installation rules",
+                "BD drainage rules",
+                "ArchSD contract applicability",
+                "utility requirements and referenced standards"
+              ]
+            }
+          },
+          {
+            "pack": "hk-cable-bends-2026.11.10",
+            "sha256": "f0e931819cd604f757342fbd595f7c17b0f0bdd72ac5f7ba034577844a0c90d7",
+            "rule_ids": [
+              "HK.EMSD.COP2025.25C1h.cable_bend"
+            ],
+            "scheduled_tasks": [
+              "scoped-pass-rules",
+              "too-tight-rules",
+              "unknown-construction-rules",
+              "unsupported-hv-rules"
+            ],
+            "execution_status": "not_assessed",
+            "pack_coverage": {
+              "complete": false,
+              "implemented": [
+                "Selected 25C(1)(h) diameter/armour internal-radius comparison with sourced classification"
+              ],
+              "pending": [
+                "Statutory and edition applicability authentication",
+                "Actual product/diameter/classification evidence",
+                "15G(c) no-damage and manufacturer installation/pulling requirements",
+                "HV and other cable constructions",
+                "Supports, terminations, protection and complete electrical/Hong Kong conformity"
+              ]
+            }
+          }
+        ],
+        "gaps": [
+          "applicability_unresolved"
+        ]
+      },
+      {
+        "id": "lighting",
+        "title": "Lighting installation",
+        "decision": {
+          "decision": "unresolved",
+          "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+        },
+        "official_source": {
+          "authority": "EMSD",
+          "edition": "2024",
+          "kind": "code_of_practice",
+          "url": "https://www.emsd.gov.hk/beeo/en/mibec_beeo_codtechguidelines.html",
+          "reviewed_on": "2026-11-08",
+          "review_scope": "Official index only; numerical clauses not yet encoded",
+          "applicability_note": "Technical Circular 1/2024 governs effective dates. BEEO building scope, submission/works dates and amendments require project-specific review."
+        },
+        "modules": [
+          {
+            "pack": "hk-lighting-2026.11.08",
+            "sha256": "97b7be1ea891b575bdd239e200ce41120ed09a509914ebd74394135decc9997c",
+            "rule_ids": [
+              "HK.EMSD.BEC2024.office_lpd"
+            ],
+            "scheduled_tasks": [],
+            "execution_status": "not_assessed",
+            "pack_coverage": {
+              "complete": false,
+              "implemented": [
+                "Office full-output LPD with sourced area bands and 70 W exception"
+              ],
+              "pending": [
+                "statutory applicability and edition decision verification",
+                "other space categories and exclusions",
+                "lighting control points and automatic/daylight controls",
+                "illuminance/glare and complete lighting design",
+                "other Hong Kong requirements"
+              ]
+            }
+          }
+        ],
+        "gaps": [
+          "applicability_unresolved"
+        ]
+      },
+      {
+        "id": "hvac",
+        "title": "Air conditioning and energy",
+        "decision": {
+          "decision": "unresolved",
+          "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+        },
+        "official_source": {
+          "authority": "EMSD",
+          "edition": "2024",
+          "kind": "code_of_practice",
+          "url": "https://www.emsd.gov.hk/beeo/en/mibec_beeo_codtechguidelines.html",
+          "reviewed_on": "2026-11-08",
+          "review_scope": "Official index only; numerical clauses not yet encoded",
+          "applicability_note": "Technical Circular 1/2024 governs effective dates. BEEO building scope, submission/works dates and amendments require project-specific review."
+        },
+        "modules": [
+          {
+            "pack": "hk-hvac-design-2026.11.08",
+            "sha256": "5c4b70d054f30bab00cee8203100b17a5ae7a5c146b796a6529f57fa145114c2",
+            "rule_ids": [
+              "HK.EMSD.BEC2024.load_design_conditions"
+            ],
+            "scheduled_tasks": [],
+            "execution_status": "not_assessed",
+            "pack_coverage": {
+              "complete": false,
+              "implemented": [
+                "Human-comfort summer/winter indoor and outdoor Table 6.4 load-design limits"
+              ],
+              "pending": [
+                "actual project scope and edition applicability",
+                "recognized load-calculation method under 6.4.1",
+                "binding design conditions to actual load engine inputs",
+                "process-zone rules",
+                "equipment efficiency, fan/pump limits, leakage, insulation and controls",
+                "full HVAC and Hong Kong conformity"
+              ]
+            }
+          },
+          {
+            "pack": "hk-hvac-water-2026.11.08",
+            "sha256": "de85187d63c45e59827f268e2d3fe923231106ae676ef12f0d0baf41084fad12",
+            "rule_ids": [
+              "HK.EMSD.BEC2024.water_piping"
+            ],
+            "scheduled_tasks": [],
+            "execution_status": "not_assessed",
+            "pack_coverage": {
+              "complete": false,
+              "implemented": [
+                "Selected 6.9.1-6.9.3 water-piping conditions"
+              ],
+              "pending": [
+                "actual statutory scope, edition and works applicability",
+                "diameter classification and hydraulic input/product evidence",
+                "full network topology and actual design flows",
+                "variable-flow requirements under 6.8 and remaining HVAC clauses",
+                "full engineering and regulatory acceptance"
+              ]
+            }
+          }
+        ],
+        "gaps": [
+          "applicability_unresolved"
+        ]
+      },
+      {
+        "id": "plumbing",
+        "title": "Water supply installation",
+        "decision": {
+          "decision": "unresolved",
+          "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+        },
+        "official_source": {
+          "authority": "WSD",
+          "edition": "April 2026",
+          "kind": "technical_requirements",
+          "url": "https://www.wsd.gov.hk/en/plumbing-engineering/requirements-for-plumbing-installation/technical-requirements-for-plumbing-works-in-bldgs/index.html",
+          "reviewed_on": "2026-11-08",
+          "review_scope": "Official latest-version listing only; amendment/circular/application applicability pending"
+        },
+        "modules": [
+          {
+            "pack": "hk-plumbing-pumps-2026.11.09",
+            "sha256": "e27e4bf0c67026ecf15d73054c3b1850000d548535e16de3991c045d8a58cdc3",
+            "rule_ids": [
+              "HK-WSD-SUMP-PUMP-6.3.1"
+            ],
+            "scheduled_tasks": [],
+            "execution_status": "not_assessed",
+            "pack_coverage": {
+              "implemented": [
+                "#6.3.1 sourced duplicate-set and capacity comparison only"
+              ],
+              "pending": [
+                "native pump/system model binding",
+                "tank outflow derivation",
+                "controls, standby arrangement and product approval",
+                "all other plumbing, drainage and fire-service requirements"
+              ],
+              "complete": false
+            }
+          }
+        ],
+        "gaps": [
+          "applicability_unresolved"
+        ]
+      },
+      {
+        "id": "drainage",
+        "title": "Drainage installation",
+        "decision": {
+          "decision": "unresolved",
+          "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+        },
+        "official_source": {
+          "authority": "Buildings Department",
+          "edition": "project-dependent legislation and guidance",
+          "kind": "official_guidance_index",
+          "url": "https://www.bd.gov.hk/en/resources/codes-and-references/epidemic-prevention-information/index-drainage-systems.html",
+          "reviewed_on": "2026-11-08",
+          "review_scope": "Official guidance inspected; governing subsidiary legislation and clauses not yet encoded"
+        },
+        "modules": [],
+        "gaps": [
+          "applicability_unresolved"
+        ]
+      },
+      {
+        "id": "fire",
+        "title": "Fire services installation",
+        "decision": {
+          "decision": "unresolved",
+          "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+        },
+        "official_source": {
+          "authority": "FSD",
+          "edition": "September 2022",
+          "kind": "code_of_practice",
+          "url": "https://www.hkfsd.gov.hk/eng/fire_protection/notices/code.html",
+          "reviewed_on": "2026-11-08",
+          "review_scope": "Official current-edition index only; premises classification, circulars and existing-building alternative basis pending"
+        },
+        "modules": [],
+        "gaps": [
+          "applicability_unresolved"
+        ]
+      },
+      {
+        "id": "emergency_lighting",
+        "title": "Emergency lighting accommodation assessment",
+        "decision": {
+          "decision": "unresolved",
+          "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+        },
+        "official_source": {
+          "authority": "FSD",
+          "edition": "September 2022",
+          "kind": "code_of_practice",
+          "url": "https://www.hkfsd.gov.hk/eng/fire_protection/notices/code.html",
+          "reviewed_on": "2026-11-08",
+          "review_scope": "Official current-edition index only; premises classification, circulars and existing-building alternative basis pending"
+        },
+        "modules": [
+          {
+            "pack": "hk-emergency-accommodation-2026.11.09",
+            "sha256": "2d305f32be5a89c22ced2735a676793b9725246b35844c8513c984f6649b11d1",
+            "rule_ids": [
+              "HK-FSD-EMERGENCY-ACCOMMODATION"
+            ],
+            "scheduled_tasks": [],
+            "execution_status": "not_assessed",
+            "pack_coverage": {
+              "implemented": [
+                "Sourced accommodation 2 lx minimum and >8 m2 two-luminaire condition"
+              ],
+              "pending": [
+                "Native emergency photometry/model binding",
+                "Assessment method and source authentication",
+                "Other standards and licensed-premises paths",
+                "Activation, duration selection, supplies, wiring, commissioning and maintenance"
+              ],
+              "complete": false
+            }
+          }
+        ],
+        "gaps": [
+          "applicability_unresolved"
+        ]
+      },
+      {
+        "id": "energy_audit",
+        "title": "Energy audit",
+        "decision": {
+          "decision": "unresolved",
+          "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+        },
+        "official_source": {
+          "authority": "EMSD",
+          "edition": "2024 with Addendum 1/2025",
+          "kind": "code_of_practice",
+          "url": "https://www.emsd.gov.hk/beeo/en/mibec_beeo_codtechguidelines.html",
+          "reviewed_on": "2026-11-08",
+          "review_scope": "Official index only; clauses not encoded",
+          "applicability_note": "Index states addendum effective for audits completed on or after 2026-09-20; review Technical Circular 5/2025."
+        },
+        "modules": [],
+        "gaps": [
+          "applicability_unresolved"
+        ]
+      },
+      {
+        "id": "government_specification",
+        "title": "Government-project contract specification",
+        "decision": {
+          "decision": "unresolved",
+          "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+        },
+        "official_source": {
+          "authority": "ArchSD",
+          "edition": "2022 with listed corrigenda through GSBS05-2022",
+          "kind": "government_project_specification",
+          "url": "https://www.archsd.gov.hk/en/publications-publicity/general-specification-for-building-services.html",
+          "reviewed_on": "2026-11-08",
+          "review_scope": "Official index only; applicable contract edition/corrigenda not determined",
+          "applicability_note": "Government building specification; do not automatically treat as universal Hong Kong statutory requirements."
+        },
+        "modules": [],
+        "gaps": [
+          "applicability_unresolved"
+        ]
+      },
+      {
+        "id": "utility",
+        "title": "Utility requirements and referenced standards",
+        "decision": {
+          "decision": "unresolved",
+          "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+        },
+        "official_source": null,
+        "modules": [],
+        "gaps": [
+          "applicability_unresolved"
+        ]
+      },
+      {
+        "id": "electrical_current_balance",
+        "title": "Electrical single-phase load balance",
+        "decision": {
+          "decision": "required",
+          "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+        },
+        "official_source": {
+          "authority": "EMSD",
+          "edition": "2024",
+          "kind": "code_of_practice",
+          "url": "https://www.emsd.gov.hk/beeo/en/mibec_beeo_codtechguidelines.html",
+          "reviewed_on": "2026-11-08",
+          "review_scope": "Official index only; numerical clauses not yet encoded",
+          "applicability_note": "Technical Circular 1/2024 governs effective dates. BEEO building scope, submission/works dates and amendments require project-specific review."
+        },
+        "modules": [
+          {
+            "pack": "hk-phase-balance-2026.11.10",
+            "sha256": "8c8d5ca3b71b77acf2027acbcaef6351c4dc1150540b3610518c767fc086205b",
+            "rule_ids": [
+              "HK.EMSD.BEC2024.7_6_3.current_unbalance"
+            ],
+            "scheduled_tasks": [],
+            "execution_status": "not_assessed",
+            "pack_coverage": {
+              "complete": false,
+              "implemented": [
+                "Scoped BEC 2024 clause 7.6.3 current-unbalance percentage with explicit circuit/rating/design-current basis"
+              ],
+              "pending": [
+                "Independent statutory and edition applicability",
+                "Protection and actual cable/neutral selection",
+                "Harmonics, TPF and THD",
+                "Other electrical clauses and complete Hong Kong conformity"
+              ]
+            }
+          }
+        ],
+        "gaps": [
+          "implemented_module_not_scheduled",
+          "partial_rule_coverage"
+        ]
+      }
+    ],
+    "has_declared_gaps": true,
+    "coverage_complete": false,
+    "regulatory_compliance": "not_established",
+    "design_accepted": false,
+    "scope": "Declared planning scope and scheduled pack bytes only; no check execution, legal applicability determination or exhaustive statutory coverage"
+  },
+  "tests": {
+    "table_rule_pass": 8,
+    "official_native_binding_pass": 6,
+    "new_workflow_binding_pass": 4,
+    "generic_rule_regression_pass": 8,
+    "coverage_regression_pass": 7,
+    "physical_route_binding_regression_pass": 7,
+    "total_distinct_pass": 40
+  },
+  "retained_warning": "Duplicate PDF PageMode; no PDF-conformance claim",
+  "design_accepted": false
+}

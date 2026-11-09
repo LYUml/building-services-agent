@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "id": "hk-cable-bends-2026.11.10",
+  "jurisdiction": "HK",
+  "version": "cable-bends-2026.11.10",
+  "sources": {
+    "emsd_wiring_2025": {
+      "authority": "EMSD",
+      "title": "Code of Practice for the Electricity (Wiring) Regulations",
+      "edition": "2025",
+      "kind": "code_of_practice",
+      "url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+      "index_url": "https://www.emsd.gov.hk/en/electricity_safety/new_edition_cop/new_edition_cop_electricity_wiring_regulations/index.html",
+      "cache_filename": "emsd-wiring-2025.pdf",
+      "sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+      "reviewed_on": "2026-11-10",
+      "review_scope": "25C heading on PDF 189; 25C(1)(h) table and adjacent HV statement on PDF 190, printed 189; table rendered and visually inspected",
+      "applicability_note": "Explicit project edition decision required. The official transition permits the 2020 route for qualifying installations completed and connected by 2026-12-31; date alone does not select 2025."
+    }
+  },
+  "rules": [{
+    "id": "HK.EMSD.COP2025.25C1h.cable_bend",
+    "source_id": "emsd_wiring_2025",
+    "method": "pvc_stranded_copper_bend",
+    "clause": "25C(1)(h); adjacent 25C(1)(i) HV manufacturer route excluded",
+    "pdf_page_1_based": 190,
+    "printed_page": "189",
+    "scope": "Selected internal bending-radius table only for explicitly classified LV PVC-insulated stranded-copper cables",
+    "metric": "cable_bend_violation_count",
+    "unit": "count",
+    "limits": {"diameter_boundaries_mm": [10,25], "non_armoured_factors": [3,4,6], "armoured_factor": 6},
+    "applicability": [
+      {"fact": "wiring_scope_confirmed", "equals": true},
+      {"fact": "low_voltage", "equals": true},
+      {"fact": "pvc_insulated", "equals": true},
+      {"fact": "stranded_copper", "equals": true}
+    ],
+    "alternative_path_note": "Selected internal-radius table not met; revise or obtain applicable engineering review. Product requirements and no-damage assessment remain separate."
+  }],
+  "coverage": {
+    "complete": false,
+    "implemented": ["Selected 25C(1)(h) diameter/armour internal-radius comparison with sourced classification"],
+    "pending": ["Statutory and edition applicability authentication", "Actual product/diameter/classification evidence", "15G(c) no-damage and manufacturer installation/pulling requirements", "HV and other cable constructions", "Supports, terminations, protection and complete electrical/Hong Kong conformity"]
+  }
+}

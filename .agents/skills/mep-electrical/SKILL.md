@@ -5,6 +5,8 @@ description: Calculate source-linked single-phase circuits and scoped three-phas
 
 # mep-electrical
 
+For Hong Kong cable bending use ../mep-regulations/SKILL.md and docs/HK_CABLE_BENDS.md. The saved native radius may bind to the selected CoP 2025 table only with explicit source-backed PVC/stranded-copper/LV/armour and actual overall-diameter facts. Native product/source mismatch is not a regulatory pass. Workflow three_phase_cable_regulations must share the drawing's study/model and be a required pass gate when selected; retain independent manufacturer limits, no-damage, coordination and full engineering review.
+
 For rotated cable route sheets require the saved/native-export text_graphics result as well as geometry/identity/scale gates. Dimension labels are placed using whole approximate font boxes, with independent outward-region and interference checks; annotations may fail conservatively. Graphic margins are drafting assumptions, not electrical service clearances or regulations. Inspect the actual PDF and keep installation acceptance separate (docs/CABLE_ROUTE_DRAWINGS.md).
 
 The saved IFC electrical reader also supports an incoming straight plus one quarter plus an outgoing straight, with full true length and mandatory bend coverage (docs/CABLE_CONTINUITY_TRIAL.md). Use explicit sourced lead/tail dimensions and checked endpoints; no intermediate load or physical equipment connection is inferred. Fresh numerical derivation and the same-model native route drawing/audit workflow are verified for the scoped synthetic case (docs/CABLE_ROUTE_DRAWINGS.md). Keep the lead's separate graphics and the tail's unique native scale reference; general routes and installation acceptance remain pending.
