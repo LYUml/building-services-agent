@@ -1,0 +1,11 @@
+{
+  "kind": "synthetic compatibility trial",
+  "source": "Explicit invented geometry fixture for software testing only; not a product, coursework dimension or code rule",
+  "dimensions_mm": {
+    "G": 100, "G1": 100, "G2": 100,
+    "H": 150, "H1": 150, "H2": 150,
+    "M": 100, "M1": 100, "M2": 100,
+    "POD": 80, "POD1": 80, "POD2": 80,
+    "PThk": 7.5, "PThk1": 7.5, "PThk2": 7.5
+  }
+}

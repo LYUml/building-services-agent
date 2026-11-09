@@ -126,3 +126,5 @@ The water-riser `native-plan.json` adds isolated AutoCAD save/reopen, complete m
 [Saved HVAC regulatory inputs](docs/HVAC_IDF_RULES.md) now derive supported zone sizing temperatures, RH bands and design-day extrema directly from native IDF files. Actual EnergyPlus positive/negative fixtures retain source hashes and scoped rule results; arbitrary controls and full HVAC conformity remain pending.
 
 Upstream IDS checks now participate in source-linked workflows with explicit or inherited saved IFC, source/artifact hashing and downstream pass gates. Real positive, missing-property and no-applicable-pump cases keep information conformance separate from geometry, physics and regulatory acceptance; see [IDS workflow](docs/IDS_WORKFLOW.md).
+
+[OSE/FreeCAD evaluation](docs/OSE_FREECAD_TRIAL.md) now pins and inspects an existing socket-tee API and verifies the official portable archive. Windows Code Integrity blocks its native Part module before geometry execution; the prepared probe is not a validated fitting integration. Socket shoulders, IFC/hydraulic binding and physical acceptance remain unresolved.

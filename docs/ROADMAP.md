@@ -68,3 +68,5 @@ Selected pump curves can now be recorded on a new saved IFC copy with stable pum
 Upstream reuse is now an explicit development rule. A fresh CLI/MCP survey prioritizes existing finite-piping tools; official IfcTester 0.8.5 is adopted and actually exercised for IDS information checks through a thin adapter. Physical/code/engineering acceptance remains separate. See REUSE_SURVEY.md.
 
 Upstream IDS checks now participate in source-linked workflows with explicit or inherited saved IFC, source/artifact hashing and downstream pass gates. Real positive, missing-property and no-applicable-pump cases keep information conformance separate from geometry, physics and regulatory acceptance; see [IDS workflow](IDS_WORKFLOW.md).
+
+[OSE/FreeCAD evaluation](OSE_FREECAD_TRIAL.md) now pins and inspects an existing socket-tee API and verifies the official portable archive. Windows Code Integrity blocks its native Part module before geometry execution; the prepared probe is not a validated fitting integration. Socket shoulders, IFC/hydraulic binding and physical acceptance remain unresolved.

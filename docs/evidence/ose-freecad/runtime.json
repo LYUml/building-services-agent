@@ -1,0 +1,32 @@
+{
+  "status": "blocked_by_windows_application_control",
+  "trial_executed": false,
+  "geometry_verified": false,
+  "design_accepted": false,
+  "freecad_release": "1.1.4",
+  "freecad_asset": "FreeCAD_1.1.4-Windows-x86_64-py311.7z",
+  "asset_url": "https://github.com/FreeCAD/FreeCAD/releases/download/1.1.4/FreeCAD_1.1.4-Windows-x86_64-py311.7z",
+  "archive_sha256": "4828741fc91ee37fafcdb97a1abacb18b04ba451ac4372d9ff7a7349b36f4d6d",
+  "upstream": "https://github.com/rkrenzler/ose-piping-workbench",
+  "commit": "690ab65511be2cdbe8ce292cb59e5335d157ac09",
+  "source_files": {
+    "OsePiping/Tee.py": "1b31d34866fc0594f313e1ef58d759f19040bcf3fae7b245a8942835c95188ed",
+    "OsePiping/Piping.py": "bfc5c84d92785e6b30b751e18e25a238aee1ca11f91928ade392b3535e320309",
+    "OsePipingBase.py": "3277fc5ba0609617b68f7d56b4331062a40c969f0ae7b9d7dc058f8fc62249e6",
+    "LICENSE": "99ca28591e357c5d250eed946142897c11a697b9ff1cc030c5205bb3ff5f6976",
+    "README.md": "7a089a370d262986c29eaa9e4e8a794f52dbdedb3ce37c6344f45def1b7ed928"
+  },
+  "blocked_module_sha256": "3f99965d8bac7f0302041ad3760ba5a1c027ac60676dd1db642834d8fd22fb53",
+  "probe": "import FreeCAD; import Part; print(FreeCAD.Version())",
+  "exit_code": 1,
+  "error": "ImportError: DLL load failed while importing Part: An Application Control policy has blocked this file.",
+  "windows_log": "Microsoft-Windows-CodeIntegrity/Operational",
+  "event_ids": [
+    3033,
+    3077,
+    3089
+  ],
+  "event_time_local": "2026-11-09T08:30:33+08:00",
+  "finding": "Part.pyd did not meet Enterprise signing level requirements. No policy changes or bypass attempted.",
+  "license_observation": "LICENSE contains LGPLv3; README says GPLv3; inspected Tee.py/Piping.py author headers have no resolving license statement. Unmodified local checkout only; no vendor implementation redistributed."
+}
