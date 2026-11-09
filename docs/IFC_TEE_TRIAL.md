@@ -72,3 +72,10 @@ An optional `placement` on the tee spec contains `source`, `origin_m` (three coo
 The tee's native product placement carries the transform. World opening positions/axes drive adjoining pipe solids and ports. Saved checks compare the tee placement against the source matrix, reconcile world pipe endpoints and ports, rerun local wall/bore/volume checks, and perform world-coordinate material intersection tests. This is placement in a metre-based project frame, not a map projection/georeferencing implementation.
 
 Run `python -m bsa.workflow execute examples/tee-trial/placed-plan.json --out runs/new-placed-tee`. The synthetic origin [12.3, -4.5, 2.7] m with 30-degree Z followed by 40-degree X rotation passed both workflow tasks and input/artifact integrity verification. Regression independently checks saved world endpoints, unchanged directional coefficients, rejection of a shifted saved tee, and pre-output rejection of scale/reflection. Evidence: `docs/evidence/tee-assembly/placed-workflow.zip`. Real survey coordinates, BIM-viewer inspection, multi-fitting authoring, full hydraulic solution and engineering acceptance remain pending.
+
+
+## Agent routing and delivery state
+
+The design orchestrator routes this workflow through the IFC authoring and network analysis skills; the delivery skill distinguishes geometry evidence from signed-coefficient diagnostics. All four updated skills pass the skill-format validator. This validates structure, not autonomous planning quality.
+
+The actual placed workflow was used to run `python -m bsa.delivery template examples/tee-trial/placed-plan.json runs/tee-placed-workflow-v1 --out runs/tee-placed-review-v1.json` and the corresponding delivery audit. Both requirement rows remain pending; the audit returns needs_review with design_accepted false despite two passing execution tasks. No review was fabricated. The separate review/audit evidence is archived in `docs/evidence/tee-assembly/delivery-pending.zip`; the workflow artifacts remain unchanged.

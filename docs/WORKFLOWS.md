@@ -107,3 +107,8 @@ For the current contract and executed native example, see [selected pump IFC](SE
 Use `ids_check` with `ids` and exactly one of `ifc` or `depends_on` on a supported IFC producer. This calls pinned IfcTester and interprets its JSON audit rather than trusting process exit 0. Declare `requires_pass` on relevant downstream tasks and ensure their model is the checked model. See [IDS workflow](IDS_WORKFLOW.md); information requirements do not replace geometry, performance, source authenticity or regulation checks.
 
 The main agent skill routes these operations through network, IFC, regulations and delivery skills. Existing upstream engines supply computation; consult [reuse survey](REUSE_SURVEY.md) before implementing a missing engine. Trial scripts and researched MCP endpoints are not registered, verified production adapters merely because their names appear in the survey.
+
+
+### Equal-bore tee assembly and directional diagnostics
+
+Use `tee_assembly` with tee_spec and assembly_spec, then `tee_losses` with basis and depends_on on that producer. The latter inherits source specs and IFC; it cannot accept replacement model inputs. See [tee workflow](IFC_TEE_TRIAL.md) and examples/tee-trial/placed-plan.json. Geometry or coefficient task success leaves complete hydraulic, native drawing, product and regulatory acceptance unresolved. The design, IFC, network and delivery skills now route this supported path explicitly.

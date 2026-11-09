@@ -125,3 +125,5 @@ The saved tee assembly now has a source-bound fluids 1.3.1 diverging-coefficient
 Tee geometry/assembly/coefficient implementations now live in reusable bsa modules, with compatible script entry points. Requirement-linked tee_assembly and inherited tee_losses tasks execute the synthetic brief, reject replacement sources, preserve failed-producer blocking and retain integrity evidence. Full hydraulic solution and engineering acceptance remain pending.
 
 Tee assemblies now accept sourced right-handed rigid project placements. A translated, compound-rotated native workflow passes world endpoints/ports, tee placement, material intersections and signed coefficient checks; shifted-model and scale/reflection controls reject invalid cases. This does not establish survey/georeferencing, full hydraulic balance or installation acceptance.
+
+Design, IFC authoring, network analysis and delivery skills now route the executed tee workflow with its signed-coefficient and placement boundaries. Actual delivery template/audit on the placed run retains both requirements pending and needs_review, separating execution success from acceptance.
