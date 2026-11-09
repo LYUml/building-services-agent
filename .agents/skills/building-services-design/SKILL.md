@@ -5,6 +5,8 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For native RVT workflows use ../mep-revit/SKILL.md. It routes installed-host verification, native pipe/fitting inventory, original-request revision checks and workflow gates. Current native creation remains compile-only; preserve connected-system, real analysis, saved-reopen and drawing requirements instead of substituting a synthetic diagnostic report.
+
 For a scoped equal-bore tee assembly, route to ../mep-ifc-authoring/SKILL.md and docs/IFC_TEE_TRIAL.md. Registered workflow kinds tee_assembly and tee_losses provide saved geometry and inherited signed-coefficient diagnostics. They support a sourced rigid placement but do not complete a branched hydraulic design or drawing deliverable. Preserve those remaining assignment requirements explicitly; select other verified tools or implement the missing integration rather than narrowing the brief to the example.
 
 Read the project brief and assignment-specific instructions first. Preserve originals; create a new project and run directory. Do not reuse a previous course's assumptions as measured inputs.

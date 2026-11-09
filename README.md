@@ -19,6 +19,8 @@ The synthetic office example produces traceable circuit calculations, an editabl
 
 Open this repository as the workspace. Ask the agent to use `$building-services-design` with your brief and original drawings. Project skills are in `.agents/skills`. The intake skill creates a requirement matrix before design; domain skills select the appropriate authoring and analysis tools. This repository uses the host agent's reasoning; it does not require or hide a separate paid model API.
 
+Use `$mep-revit` for the developing native Revit path and saved-inventory diagnostics. It distinguishes compiled adapters and synthetic checks from actual host execution, guides source/provenance and revision checks, and preserves unresolved connected-system, calculation, save/reopen and drawing acceptance. See [native Revit adapter](adapters/revit/README.md).
+
 Use `$mep-regulations` for jurisdiction/edition selection and supported source-bound rule checks. It routes Hong Kong electrical paths and office lighting to the appropriate tools, connects declared workflow prerequisites, and preserves missing regulatory coverage. Electrical and lighting skills use the same shared project sources; the delivery skill keeps supported checks separate from full conformity.
 
 Use `$mep-ifc-mcp` to inspect saved IFC models or add source-backed pump text properties through the verified isolated official server. Its local geometry/plotting path is blocked; use existing authoring/drawing skills for supported physical deliverables. See [IfcMCP trial](docs/IFCMCP_TRIAL.md).
