@@ -91,3 +91,5 @@ A repeatable WSD plumbing runner now stages and executes three source-linked sav
 A sourced one-duty/one-standby plumbing set now executes each role separately against the same tank target, with nested input hashes and workflow gates. Actual weak-standby rejection is retained even when duty passes; capacity pooling is not used. Physical redundancy, controls, products and full acceptance remain pending.
 
 Pump-set downstream network/pump/pipe-rule tasks now support explicit duty/standby source binding, including transitive prerequisites, curve/network substitution rejection and full-set failure blocking. Physical equipment identity, inherited IFC role binding and control acceptance remain pending.
+
+A repeatable three-scenario pump-set brief workflow now verifies separate duty/standby handoffs, whole-set blocking, input/artifact integrity, blocker diagnosis and pending/failed delivery review states using the pinned WSD source. Official-source-backed native evidence is retained; no physical installation or complete assignment acceptance is claimed.

@@ -87,3 +87,16 @@ Official-PDF-backed synthetic positive and weak-standby negative evidence is in 
 A downstream `network`, `pump_operating_point`, `plumbing_pump_regulations` or `water_pipe_regulations` task can require the set check (directly or through prerequisite ancestors) and declare `pump_role: "duty"` or `pump_role: "standby"`. Its explicit project must contain identical network bytes to that role. Pump calculations additionally require identical curve bytes; repeated WSD checks also retain the same plumbing basis. The workflow records role-specific source hashes. Copies at different paths are permitted only when their bytes match.
 
 Missing/invalid roles, unrelated source replacements and role declarations without an upstream set gate are rejected before execution. Inherited geometry producers are not yet supported by this role handoff. The complete set must pass before either downstream role runs; a good duty pump cannot bypass a failed standby through an intermediate prerequisite. This is source correspondence, not physical equipment identity or a new regulatory approval.
+
+
+### Repeatable role-handoff and delivery demonstration
+
+```powershell
+.venv/Scripts/python scripts/run_hk_pump_set_demo.py --wsd-pdf runs/hk-regulation-sources/wsd-tr-2026-04.pdf --out runs/new-pump-set-workflow
+```
+
+This runner reuses the existing workflow, pump-set, role binding, diagnosis and delivery-review tools. It pins the official PDF before staging three separate synthetic briefs and source-linked plans. Each requirement maps to its own brief passage. The sufficient-capacity case executes the set, duty rerun and standby rerun; weak standby blocks both reruns; missing duplication evidence leaves the set and both reruns pending. Inputs remain unchanged and all workflow artifacts are checked.
+
+A separate delivery-review template and audit are created for every scenario. Passing calculation tasks do not automatically approve any requirement: the positive and missing-evidence cases remain needs_review, while the failed capacity case remains failed. The runner verifies these states as part of its software demonstration, retaining design_accepted=false. It supplies no IFC geometry, installation drawings, authentic equipment specifications or control verification. Use the saved-IFC runner for that separate supported route demonstration; neither is a complete assignment.
+
+Actual official-source-backed evidence is archived under docs/evidence/hk-pump-set-workflow; the WSD PDF is omitted from redistribution. The included manifests retain original execution paths, so reproduce with the command above for a fresh integrity audit rather than treating the relocated archive as a live run.
