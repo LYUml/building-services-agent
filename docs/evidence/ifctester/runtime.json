@@ -1,0 +1,16 @@
+{
+  "ifctester": "0.8.5",
+  "ifcopenshell": "0.8.5",
+  "ids_module_sha256": "c269d369c6be1461f02ed22dc6dcde6a2680ae2a3be05f06f24fe51c593d2502",
+  "license_reference_commit": "6a5283ac797d2acc5ce2cbbde0fb544fea83f426",
+  "archive_sha256": "fab45287d8a5430fcb90982cb3cc8380512417203bae7aa2a366d21ce106818a",
+  "direct_dependencies": {
+    "xmlschema": "4.3.2",
+    "elementpath": "5.1.4",
+    "numpy": "2.5.4",
+    "odfpy": "1.4.1",
+    "pystache": "0.6.8",
+    "bcf-client": "0.9.0",
+    "flask": "3.1.3"
+  }
+}

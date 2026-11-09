@@ -1,0 +1,65 @@
+[
+  {
+    "repo": "IfcOpenShell/IfcOpenShell",
+    "url": "https://github.com/IfcOpenShell/IfcOpenShell",
+    "commit": "6a5283ac797d2acc5ce2cbbde0fb544fea83f426",
+    "branch": "v0.9.0",
+    "license_detection": "LGPL-3.0",
+    "pushed_at": "2026-11-09T00:11:04Z",
+    "status": "researched, not newly installed"
+  },
+  {
+    "repo": "rkrenzler/ose-piping-workbench",
+    "url": "https://github.com/rkrenzler/ose-piping-workbench",
+    "commit": "690ab65511be2cdbe8ce292cb59e5335d157ac09",
+    "branch": "master",
+    "license_detection": "LGPL-3.0",
+    "pushed_at": "2022-12-11T17:29:47Z",
+    "status": "researched, not newly installed"
+  },
+  {
+    "repo": "oddtopus/dodo",
+    "url": "https://github.com/oddtopus/dodo",
+    "commit": "91b6ee4cd03270bc107512212d1573b913ebc5c3",
+    "branch": "master",
+    "license_detection": "LGPL-3.0",
+    "pushed_at": "2024-06-30T19:21:03Z",
+    "status": "researched, not newly installed"
+  },
+  {
+    "repo": "neka-nat/freecad-mcp",
+    "url": "https://github.com/neka-nat/freecad-mcp",
+    "commit": "ec8abf21fb9e9ed4bbcbba497515e088423ad251",
+    "branch": "main",
+    "license_detection": "MIT",
+    "pushed_at": "2026-11-07T11:15:19Z",
+    "status": "researched, not newly installed"
+  },
+  {
+    "repo": "thewisekape/autocad-mcp",
+    "url": "https://github.com/thewisekape/autocad-mcp",
+    "commit": "7034dc444ba5b5680145a1eff52b4d83a262a75a",
+    "branch": "main",
+    "license_detection": "Apache-2.0",
+    "pushed_at": "2026-04-05T09:23:07Z",
+    "status": "researched, not newly installed"
+  },
+  {
+    "repo": "NatLabRockies/openstudio-mcp",
+    "url": "https://github.com/NatLabRockies/openstudio-mcp",
+    "commit": "c6c2e6213a3e25bb0715fb0ea8eea4ee8759fe60",
+    "branch": "develop",
+    "license_detection": "NOASSERTION",
+    "pushed_at": "2026-11-08T17:16:45Z",
+    "status": "researched, not newly installed"
+  },
+  {
+    "repo": "specklesystems/speckle-server",
+    "url": "https://github.com/specklesystems/speckle-server",
+    "commit": "51d43b91c4681a75bff8b285da7f443a4599da67",
+    "branch": "main",
+    "license_detection": "NOASSERTION",
+    "pushed_at": "2026-11-06T00:19:46Z",
+    "status": "researched, not newly installed"
+  }
+]

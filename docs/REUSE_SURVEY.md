@@ -1,0 +1,19 @@
+# Reuse survey — 2026-11-09
+
+User preference: actively reuse existing CLI/MCP tools and engineering libraries before implementing equivalent engines. GitHub/API snapshots are in research/reuse-candidates-2026-11-09.json. Commit pins identify researched source snapshots, not automatically installed software.
+
+| Tool | Practical role and decision | Verified status |
+|---|---|---|
+| [IfcTester](https://docs.ifcopenshell.org/ifctester.html) / [source](https://github.com/IfcOpenShell/IfcOpenShell/tree/v0.8.0/src/ifctester) | Adopt official IDS information checking rather than invent an equivalent rules engine | Installed 0.8.5 with existing IfcOpenShell 0.8.5; real CLI positive and missing-property negative cases executed. Original thin bsa.ids_check reads JSON audit status because upstream returns exit 0 for both. LGPL-3.0-or-later source notice inspected; attribution retained. |
+| [IfcMCP](https://docs.ifcopenshell.org/ifcmcp.html) | Official query/edit/shape/drawing MCP; prefer evaluating it before another bespoke IFC tool surface | Documentation inspected; PyPI ifcmcp endpoint returned 404 at review. Source-install compatibility and live MCP handshake untested. Do not advertise it as installed. |
+| [FreeCAD MCP](https://github.com/neka-nat/freecad-mcp) | MIT bridge candidate for driving parametric FreeCAD, inspection and existing workbenches | Source snapshot/license detection recorded; not installed or runtime verified. |
+| [Dodo](https://github.com/oddtopus/dodo) and [OSE Piping](https://github.com/rkrenzler/ose-piping-workbench) | Priority next geometry evaluation: pipe/fitting components and connection operations; directly relevant to remaining finite tee and pump-interface gaps | Dodo advertises LGPL-3.0. OSE README says GPLv3 while GitHub detects LGPL-3.0, so inspect file-level notices before copying. OSE default branch last push observed 2022-12-11; current FreeCAD compatibility not established. Tee.py exists; no geometry trial yet. |
+| [OpenStudio MCP](https://github.com/NatLabRockies/openstudio-mcp) | Reuse existing energy authoring/simulation tools and workflow guidance | Existing checkout already installed at 9f8b6bd0b5a58fd4f97cfd8b9f7393f222a1bb43; newer researched default head is separate. Existing energy evidence/notices remain authoritative; no silent upgrade. |
+| [AutoCAD MCP](https://github.com/thewisekape/autocad-mcp) | Candidate live-CAD interface with IPC/COM/headless backends | Apache-2.0 detected; README capabilities not runtime validated. Existing native AutoCAD reopening/plot review gates remain required. No live user document was touched. |
+| [Speckle Server](https://github.com/specklesystems/speckle-server) | Future model versioning, sharing and multi-tool collaboration | Research only; not deployment or proof of simultaneous DWG editing. README default Apache-2.0 has module exceptions and API license detection is inconclusive; review chosen components before deployment. |
+
+## Adopted CLI reproduction
+
+Install optional dependencies with `python -m pip install -e ".[ids]"`. Run `python -m bsa.ids_check examples/ids/pump-selection.ids path/to/model.ifc --out runs/new-ids-check`. This uses upstream IfcTester rather than reimplementing IDS. The example checks presence of four selection-provenance properties on pumps and requires at least one applicable pump. It does not validate curve physics, geometry, authentic source documents or Hong Kong statutory compliance. Empty/vacuous checks cannot pass the wrapper. Evidence: docs/evidence/ifctester.
+
+Priorities: use upstream IDS now; evaluate FreeCAD/Dodo/OSE finite fittings next; evaluate official IfcMCP packaging in a separate environment; retain the already tested OpenStudio/EnergyPlus, WNTR/EPANET, Radiance, IfcOpenShell, ezdxf and Manifold runtimes. Custom code should focus on provenance, jurisdiction applicability, cross-tool data binding and delivery checks where existing tools do not supply the project contract.

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ids xmlns="http://standards.buildingsmart.org/IDS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://standards.buildingsmart.org/IDS http://standards.buildingsmart.org/IDS/1.0/ids.xsd">
+    <info>
+        <title>Synthetic pump selection information contract; not regulatory approval</title>
+    </info>
+    <specifications>
+        <specification name="Pump selection provenance" ifcVersion="IFC4">
+            <applicability minOccurs="1" maxOccurs="unbounded">
+                <entity>
+                    <name>
+                        <simpleValue>IFCPUMP</simpleValue>
+                    </name>
+                </entity>
+            </applicability>
+            <requirements>
+                <property cardinality="required" instructions="Project information requirement, not a claim of manufacturer or statutory conformity">
+                    <propertySet>
+                        <simpleValue>BSA_ScreenedPumpCurve</simpleValue>
+                    </propertySet>
+                    <baseName>
+                        <simpleValue>CandidateId</simpleValue>
+                    </baseName>
+                </property>
+                <property cardinality="required" instructions="Project information requirement, not a claim of manufacturer or statutory conformity">
+                    <propertySet>
+                        <simpleValue>BSA_ScreenedPumpCurve</simpleValue>
+                    </propertySet>
+                    <baseName>
+                        <simpleValue>HeadCurve_m3_s_m</simpleValue>
+                    </baseName>
+                </property>
+                <property cardinality="required" instructions="Project information requirement, not a claim of manufacturer or statutory conformity">
+                    <propertySet>
+                        <simpleValue>BSA_ScreenedPumpCurve</simpleValue>
+                    </propertySet>
+                    <baseName>
+                        <simpleValue>ScreeningReportSHA256</simpleValue>
+                    </baseName>
+                </property>
+                <property cardinality="required" instructions="Project information requirement, not a claim of manufacturer or statutory conformity">
+                    <propertySet>
+                        <simpleValue>BSA_ScreenedPumpCurve</simpleValue>
+                    </propertySet>
+                    <baseName>
+                        <simpleValue>Source</simpleValue>
+                    </baseName>
+                </property>
+            </requirements>
+        </specification>
+    </specifications>
+</ids>

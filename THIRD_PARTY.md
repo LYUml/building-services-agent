@@ -122,3 +122,7 @@ Saved annotation auditing adds original source-contract reconstruction, physical
 # Hong Kong official regulatory sources
 
 The initial jurisdiction pack records official EMSD, WSD, FSD, Buildings Department and ArchSD sources in `regulations/hk/2026.11.08/pack.json`. These are official reference publications, not dependencies licensed as open-source software. Full official documents are linked and hash-verified in local cache rather than redistributed here. Rule interpretations, verified page locators, scope and remaining coverage are documented in `docs/REGULATION_PACKS.md`.
+
+## Adopted IfcTester CLI
+
+IfcTester 0.8.5 is a pinned optional installed dependency, used through its upstream CLI to execute IDS information requirements. The installed ids.py notice identifies Artur Tomczak, Thomas Krijnen and Dion Moult and LGPL-3.0-or-later. No source implementation is vendored or modified. Original bsa.ids_check is a thin process/report/hash adapter. Official COPYING and COPYING.LESSER reference texts are retained as third_party/licenses/ifctester-gpl3.txt and ifctester-lgpl3.txt, fetched from the exact IfcOpenShell commit recorded in docs/evidence/ifctester/runtime.json; that reference commit is not claimed to be the wheel build commit. Runtime module hash, versions and actual positive/negative CLI evidence are retained. Full transitive licensing audit is not claimed. Other researched CLI/MCP options and unverified status are in docs/REUSE_SURVEY.md.
