@@ -1,5 +1,13 @@
 # Rectangular air-tree pressure budgets
 
+## Independent saved-entity audit
+
+The rectangular renderer now calls rectangular_drawing_audit on the actual saved DXF against already source-checked native model records. Workflow repeats this audit on AutoCAD's independently reopened/exported source-export.dxf. It reconstructs exact expected outer rectangles, nonzero duct centreline, inside-size/length and context-envelope notes, positions, layers and GUID coverage without invoking the writer or trusting its success flag. Duct source records carry verified world axis endpoints as well as native bounds/dimensions.
+
+The reader checks metre units, finite planar coordinates, supported LINE/TEXT entities, exact text/style, visibility and plot-enabled layers, and raw group-67 flags before ezdxf can normalize them. Missing/extra/shifted entities, wrong sizes/GUIDs and hidden/nonplotting entities reject. Existing approximate ezdxf text-box/text-graphic guards are reused; these do not certify actual glyphs or arbitrary congested layouts. Expected records must come from the saved-model/source checks, not invented data or an unauthenticated manifest.
+
+Actual runs/rectangular-independent-sheet-v1 passes both saved and native-export independent 11-entity audits, actual DWG reopen and fixed-scale PDF checks. Its actual PDF was rendered and inspected; source size/length and envelope-only notes remain readable. Seven new mutation/audit tests plus five renderer/gate and five text-layout tests pass (17 distinct tests). Evidence: evidence/rectangular-air/independent-sheet.json. This supersedes the earlier snapshot-only audit limitation for this supported sheet contract; full source authentication, hidden lines, installation detail and engineering/Hong Kong acceptance remain pending.
+
 ## Native outer-envelope sheet
 
 Workflow rectangular_drawing inherits a passing rectangular_model_design or rectangular_network_binding, with settings/sheet and requires_pass on an ifc_clash of that exact producer. It forbids replacement model/IFC fields. Missing AutoCAD leaves it unexecuted. Settings specify source, axes (XY/XZ/YZ) and annotation_height_m; sheet uses the existing native A4 fixed-scale/reference contract. See clearance-drawing-plan.json and intrusion-drawing-plan.json. The original circular-profile multiview adapter is not used for rectangular sizes.

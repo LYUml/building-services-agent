@@ -62,6 +62,8 @@ The requested end state is reusable automation from a requirement document and s
 
 ## Next sequence
 
+Rectangular drawing now independently compares saved and native-exported DXF entities with checked model geometry/notes/GUIDs, including raw model-space and plot visibility controls plus approximate text guards. Actual 11-entity native sheet/PDF inspection passes; seven new and ten related tests pass. Full installation and regulatory acceptance remain pending.
+
 Rectangular selected-model drawing now requires same-model clash success, projects checked outer envelopes/centreline and inside-size/length notes, and executes native DWG reopen plus fixed-scale PDF verification. Actual 11-entity positive PDF was inspected; intrusion blocks before drawing. Five new tests pass; four native-adapter tests pass with one skip. Full installation graphics, fittings, products and Hong Kong acceptance remain pending.
 
 Rectangular selected/native binding producers now feed generic IFC coordination with artifact pins. Actual synthetic clear and side-wall intrusion cases distinguish passing pressure from failed physical overlap/clearance, blocking required review; byte mutation creates explicit integrity failure. This is represented-model checking, not product/insulation/obstacle completeness, native drawings or full Hong Kong acceptance.

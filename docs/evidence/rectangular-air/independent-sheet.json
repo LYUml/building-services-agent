@@ -1,0 +1,180 @@
+{
+  "scope": "Actual synthetic saved/native-export independent rectangular diagnostic sheet audit; no full installation acceptance",
+  "tasks": [
+    {
+      "id": "air",
+      "kind": "rectangular_model_design",
+      "status": "pass",
+      "recorded_scope": "Finite rectangular sizing and source-defined straight-wall regeneration only; no physical junction, clash, fabrication, fan or full code acceptance",
+      "dependencies": [],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R1"
+      ],
+      "evidence": [
+        "air/baseline-bim/bim-verification.json",
+        "air/baseline-bim/model.ifc",
+        "air/baseline-bim/schema-validation.json",
+        "air/baseline-network.json",
+        "air/filtered-catalogue.json",
+        "air/model-design.json",
+        "air/selected-coordination/analysis/manifest.json",
+        "air/selected-coordination/analysis/network.json",
+        "air/selected-coordination/analysis/report.html",
+        "air/selected-coordination/analysis/segments.csv",
+        "air/selected-coordination/bim/bim-verification.json",
+        "air/selected-coordination/bim/model.ifc",
+        "air/selected-coordination/bim/schema-validation.json",
+        "air/selected-coordination/network-binding.json",
+        "air/selected-coordination/network-input.json",
+        "air/selected-model.json",
+        "air/selected-skeleton.json",
+        "air/sizing/baseline/manifest.json",
+        "air/sizing/baseline/network.json",
+        "air/sizing/baseline/report.html",
+        "air/sizing/baseline/segments.csv",
+        "air/sizing/candidates.csv",
+        "air/sizing/design-comparison.json",
+        "air/sizing/report.html",
+        "air/sizing/selected-network.json",
+        "air/sizing/selected/manifest.json",
+        "air/sizing/selected/network.json",
+        "air/sizing/selected/report.html",
+        "air/sizing/selected/segments.csv"
+      ]
+    },
+    {
+      "id": "coordination",
+      "kind": "ifc_clash",
+      "status": "pass",
+      "recorded_scope": "saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending",
+      "dependencies": [
+        "air"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R3"
+      ],
+      "evidence": [
+        "coordination/clash.json",
+        "coordination/report.html"
+      ]
+    },
+    {
+      "id": "drawing",
+      "kind": "rectangular_drawing",
+      "status": "pass",
+      "recorded_scope": "Source-checked orthographic outer-envelope outlines, centreline and nonassociative text notes only; not hidden-line, fabrication, insulation or installation drawings; native DWG/scale verified, actual visual and full engineering review separate",
+      "dependencies": [
+        "air",
+        "coordination"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R4"
+      ],
+      "evidence": [
+        "drawing/drawing.json",
+        "drawing/native-source-audit.json",
+        "drawing/native/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log",
+        "drawing/native/input.dxf",
+        "drawing/native/native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log",
+        "drawing/native/native-reopen/export.log",
+        "drawing/native/native-reopen/export.scr",
+        "drawing/native/native-reopen/source-copy.dwg",
+        "drawing/native/native-reopen/source-export.dxf",
+        "drawing/native/native-verification.json",
+        "drawing/native/plot.log",
+        "drawing/native/save.log",
+        "drawing/native/save.scr",
+        "drawing/native/segments.dwg",
+        "drawing/native/sheet.json",
+        "drawing/native/sheet.log",
+        "drawing/native/sheet.pdf",
+        "drawing/native/sheet.scr",
+        "drawing/segments.dxf"
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "Independent geometry, fitting, fan, acoustic, fire/smoke and Hong Kong acceptance remains pending",
+      "dependencies": [
+        "air",
+        "coordination",
+        "drawing"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "review"
+      ],
+      "input_blockers": [],
+      "next_action": "perform the specified review and record evidence separately",
+      "requirement_ids": [
+        "R2"
+      ],
+      "evidence": []
+    }
+  ],
+  "source_saved_audit": {
+    "dxf_sha256": "5a7e7d7ce678a2cb2986c8a1abc4e3240aafa041909d3091ce74232e20faa20c",
+    "entity_count": 11,
+    "saved_geometry_notes_identity_pass": true,
+    "visibility_flags_pass": true,
+    "text_graphics": {
+      "text_count": 2,
+      "graphic_count": 9,
+      "graphic_margin_m": 0.01,
+      "text_graphics_checks_pass": true,
+      "scope": "ezdxf approximate font AABBs, actual LINE clipping and conservative ARC bounds; not exact glyph collision or general layout optimisation"
+    },
+    "design_accepted": false,
+    "scope": "Actual saved entities versus already source-checked model facts, not writer flags; approximate text boxes, native print, source authentication and full installation acceptance separate"
+  },
+  "native_export_audit": {
+    "dxf_sha256": "180e4af34b7c995437b63531256afdce9f081b971c67ae2fed384f8ed8fef9fc",
+    "entity_count": 11,
+    "saved_geometry_notes_identity_pass": true,
+    "visibility_flags_pass": true,
+    "text_graphics": {
+      "text_count": 2,
+      "graphic_count": 9,
+      "graphic_margin_m": 0.01,
+      "text_graphics_checks_pass": true,
+      "scope": "ezdxf approximate font AABBs, actual LINE clipping and conservative ARC bounds; not exact glyph collision or general layout optimisation"
+    },
+    "design_accepted": false,
+    "scope": "Actual saved entities versus already source-checked model facts, not writer flags; approximate text boxes, native print, source authentication and full installation acceptance separate"
+  },
+  "visual_review": "Actual workflow PDF rendered and viewed; inside size/length and envelope-only notes readable without observed clipping",
+  "tests": {
+    "independent_audit": 7,
+    "renderer_gate": 5,
+    "text_layout": 5,
+    "all_pass": true
+  },
+  "integrity_pass": true,
+  "design_accepted": false,
+  "artifacts": {
+    "runs\\rectangular-independent-sheet-v1\\workflow.json": "76fd2f3376a6768a35fc4c09fcd0ee3154d14179d67e4fa97699d1316bd57961",
+    "runs\\rectangular-independent-sheet-v1\\drawing\\drawing.json": "7688892726be56917411dd1e47f1daed72916f7348ebcf2ec7cd1e5c1db2f085",
+    "runs\\rectangular-independent-sheet-v1\\drawing\\native-source-audit.json": "cc3f1ac93d5f19e7d44d4386a33151e30ce5c4562a1aeade27692938df03ceca",
+    "runs\\rectangular-independent-sheet-v1\\drawing\\native\\native-verification.json": "5881fee7fd065e6297ba0d78a509728b08a6c0bbf7d14cb56451f2a5d279b8fe",
+    "runs\\rectangular-independent-sheet-v1\\drawing\\native\\sheet.pdf": "35ebe54bc9e314a7b5064a05f70405944606b7a70cac391d034947e8fb48f45b",
+    "runs\\rectangular-independent-sheet-v1\\sheet-review.png": "1234b1a25eb699acc7638dec63d5c451d8f1d42eb719cfb85de0e1f3672ebe17"
+  }
+}

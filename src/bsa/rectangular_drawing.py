@@ -46,7 +46,7 @@ def run(ifc,model,settings,out):
             if math.dist(a[list(axes)],b[list(axes)])<1e-8:raise ProjectError('end-on rectangular duct view unsupported; choose another orthographic plane')
             line=msp.add_line(tuple(a[list(axes)]),tuple(b[list(axes)]),dxfattribs={'layer':'BSA_PIPE_AXIS'});link(line,obj.GlobalId)
             text=f"{d['id']} {spec['width']*1000:g}x{spec['height']*1000:g} mm INSIDE; L {spec['length']:g} m"
-            row.update(internal_width_m=spec['width'],internal_height_m=spec['height'],length_m=spec['length'],wall_thickness_m=spec['thickness'])
+            row.update(internal_width_m=spec['width'],internal_height_m=spec['height'],length_m=spec['length'],wall_thickness_m=spec['thickness'],axis_start_m=a.tolist(),axis_end_m=b.tolist())
             layer='BSA_DUCT_OUTLINE'
         elif d.get('body_shape','bounding envelope')=='bounding envelope' and d['ifc_class']=='IfcFan':
             box_mesh(v,np.array(shape.geometry.faces).reshape(-1,3));text=d['id']+' ENVELOPE ONLY';layer='BSA_CONTEXT_OUTLINE'
@@ -60,7 +60,9 @@ def run(ifc,model,settings,out):
     out.mkdir(parents=True);path=out/'segments.dxf';doc.saveas(path)
     reconcile(snapshot(doc),path)
     if identity(doc)!=identity(ezdxf.readfile(path)):raise ProjectError('saved rectangular DXF GUID inventory differs')
+    from .rectangular_drawing_audit import audit
+    independent=audit(path,rows,s['axes'],height)
     if any(digest(Path(p))!=sha for p,sha in before.items()):raise ProjectError('rectangular drawing sources changed')
-    result=dict(inputs=before,inputs_unchanged=True,elements=rows,complete_represented_coverage=True,axes=s['axes'],design_accepted=False,
+    result=dict(inputs=before,inputs_unchanged=True,elements=rows,independent_saved_audit=independent,complete_represented_coverage=True,axes=s['axes'],annotation_height_m=height,design_accepted=False,
         scope='Source-checked orthographic outer-envelope outlines, centreline and nonassociative text notes only; not hidden-line, fabrication, insulation or installation drawings')
     result['artifacts']={path.name:digest(path)};(out/'drawing.json').write_text(json.dumps(result,indent=2),encoding='utf-8');return result

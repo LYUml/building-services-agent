@@ -307,8 +307,8 @@ def validate_plan(path):
             parent=t.get('depends_on')
             if parent not in ids or next(x for x in tasks if x['id']==parent)['kind'] not in ('rectangular_model_design','rectangular_network_binding'):raise ProjectError('rectangular drawing requires earlier native rectangular producer')
             if not any(x['id'] in gates and x['kind']=='ifc_clash' and x.get('depends_on')==parent for x in tasks):raise ProjectError('rectangular drawing requires same-model clash prerequisite')
-            from . import rectangular_drawing,ifc_native
-            inputs.update((local_path(root,t.get('settings')),local_path(root,t.get('sheet')),Path(rectangular_drawing.__file__).resolve(),Path(ifc_native.__file__).resolve()))
+            from . import rectangular_drawing,rectangular_drawing_audit,ifc_native,route_drawing_qa,cad_text_layout
+            inputs.update((local_path(root,t.get('settings')),local_path(root,t.get('sheet')),Path(rectangular_drawing.__file__).resolve(),Path(rectangular_drawing_audit.__file__).resolve(),Path(route_drawing_qa.__file__).resolve(),Path(cad_text_layout.__file__).resolve(),Path(ifc_native.__file__).resolve()))
         if kind=='rectangular_model_design':
             if set(t)-{'id','kind','project','model','binding','catalogue','geometry','requires_pass','description'}:raise ProjectError('rectangular model design requires project/model/binding/catalogue/geometry only')
             from . import rectangular_model_design,rectangular_design,rectangular_binding,rectangular_network,network_design,network_model_design,network_binding,network,bim,rectangular_geometry,circular_geometry
@@ -1316,6 +1316,9 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     model=out/parent/'selected-model.json' if producer['kind']=='rectangular_model_design' else local_path(root,producer['model'])
                     payload=draw(source,model,local_path(root,t['settings']),folder)
                     native(folder/'segments.dxf',local_path(root,t['sheet']),folder/'native',autocad)
+                    from .rectangular_drawing_audit import audit
+                    export_audit=audit(folder/'native/native-reopen/source-export.dxf',payload['elements'],payload['axes'],payload['annotation_height_m'])
+                    (folder/'native-source-audit.json').write_text(json.dumps(export_audit,indent=2),encoding='utf-8')
                     if any(not Path(f).is_file() or digest(Path(f))!=sha for f,sha in rectangular_pins[parent].items()):raise ProjectError('rectangular model changed during native drawing')
                     status='pass';reason=payload['scope']+'; native DWG/scale verified, actual visual and full engineering review separate'
             elif t['kind']=='rectangular_model_design':
