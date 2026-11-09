@@ -84,10 +84,25 @@ def regulatory_source_bindings(tasks,root):
         if kind in ('plumbing_pump_regulations','pump_operating_point'):
             current['pump_curve']=local_path(root,task.get('curve'))
         if kind=='plumbing_pump_regulations':current['plumbing_basis']=local_path(root,task.get('basis'))
+        set_parents=[p for p in upstream if known[p]['kind']=='plumbing_pump_set']
+        role_kinds=('network','pump_operating_point','plumbing_pump_regulations','water_pipe_regulations')
+        if 'pump_role' in task and (kind not in role_kinds or not set_parents):
+            raise ProjectError('pump_role requires a supported consumer and upstream pump-set gate')
         for parent in sorted(upstream):
             if known[parent]['kind'] not in ('plumbing_pump_set','plumbing_pump_regulations','epanet_pipe_regulations','circulation_duty','electrical_regulations','lighting_regulations','water_pipe_regulations'):continue
-            if known[parent]['kind']=='plumbing_pump_set' and kind in ('network','pump_operating_point','plumbing_pump_regulations'):
-                raise ProjectError('pump-set gate needs an explicit per-role downstream binding; single-pump substitution unsupported')
+            if known[parent]['kind']=='plumbing_pump_set' and kind in role_kinds:
+                role=task.get('pump_role')
+                if role not in ('duty','standby') or 'network' not in current:
+                    raise ProjectError('pump-set gate requires explicit pump_role and source network')
+                pairs={'network':role+'_network'}
+                if kind in ('pump_operating_point','plumbing_pump_regulations'):pairs['pump_curve']=role+'_curve'
+                if kind=='plumbing_pump_regulations':pairs['plumbing_basis']='plumbing_basis'
+                for field,source_field in pairs.items():
+                    checked=sources[parent][source_field];consumed=current[field]
+                    if hashed(checked)!=hashed(consumed):
+                        raise ProjectError(f'pump-set gate {parent} checks different {role} {field} bytes from consumer {name}')
+                    bindings.append(dict(check=parent,consumer=name,field=field,pump_role=role,
+                                         checked=str(checked),consumed=str(consumed),sha256=hashed(checked)))
             if (known[parent]['kind']=='plumbing_pump_regulations' and 'network_template' in sources[parent]
                     and kind in ('network','pump_operating_point','plumbing_pump_regulations') and 'network_template' not in current):
                 raise ProjectError('derived plumbing gate requires the same inherited network producer; explicit replacement cannot establish correspondence')

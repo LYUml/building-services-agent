@@ -23,7 +23,9 @@ class PumpSetTests(unittest.TestCase):
             brief=root/'brief.md';brief.write_text('Check each synthetic pump alone and gate a subsequent recheck.')
             row=passages(brief)[0]
             common=dict(kind='plumbing_pump_set',project='pump-set.json',basis='binding.json',pack='pack.json',sources='.')
-            tasks=[dict(common,id='capacity'),dict(common,id='after',requires_pass=['capacity'])]
+            tasks=[dict(common,id='capacity'),dict(common,id='after',requires_pass=['capacity']),
+                   dict(id='standby',kind='pump_operating_point',project='network.json',curve='curve.json',
+                        pump_role='standby',requires_pass=['after'])]
             plan=dict(version=1,brief='brief.md',brief_sha256=digest(brief),passage_dispositions={row['id']:'requirement'},tasks=tasks,
                       requirements=[dict(id=t['id'],passage=row['id'],quote=row['text'],task=t['id'],acceptance=row['text']) for t in tasks])
             file=root/'plan.json';file.write_text(json.dumps(plan))
@@ -34,10 +36,13 @@ class PumpSetTests(unittest.TestCase):
             (root/'weak.json').write_text(json.dumps(curves))
             data=json.loads((root/'pump-set.json').read_text());data['pumps'][1]['curve']='weak.json'
             (root/'pump-set.json').write_text(json.dumps(data))
+            plan['tasks'][-1]['curve']='weak.json';file.write_text(json.dumps(plan))
             result=execute(file,root/'negative')
             self.assertEqual(result['tasks']['capacity']['status'],'fail')
             self.assertEqual(result['tasks']['after']['status'],'pending')
             self.assertFalse((root/'negative/after').exists())
+            self.assertEqual(result['tasks']['standby']['status'],'pending')
+            self.assertFalse((root/'negative/standby').exists())
             report=json.loads((root/'negative/capacity/pump-set-checks.json').read_text())
             self.assertEqual([r['status'] for r in report['pump_checks']],['pass','fail'])
             self.assertFalse(report['individual_capacity_checks_pass'])
