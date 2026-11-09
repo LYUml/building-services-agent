@@ -1,0 +1,13 @@
+{
+  "native_report_sha256": "a11ef7b5271a40b5370bbdc0fe8bdf88de74c96a6937793a9dc4971e6e172e58",
+  "ifc_geometry_and_placement_binding_pass": true,
+  "native_clear": true,
+  "mesh_calculated_checks_pass": false,
+  "mesh_overlap_m3": 2.6501259276899105e-09,
+  "native_intersection_volume_m3": null,
+  "status": "comparison_requires_engineering_review",
+  "design_accepted": false,
+  "scope": "Same source bodies and saved relative placement; native kernel versus tessellated intersection. No mesh waiver or installed-joint approval.",
+  "input_hashes_verified": true,
+  "rehashed_1mm_placement_mutation_rejected_before_native": true
+}
