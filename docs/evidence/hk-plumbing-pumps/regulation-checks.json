@@ -1,0 +1,64 @@
+{
+  "rule_pack": "hk-plumbing-pumps-2026.11.09",
+  "jurisdiction": "HK",
+  "checks": [
+    {
+      "id": "HK-WSD-SUMP-PUMP-6.3.1",
+      "status": "pass",
+      "scope": "Sump-and-pump duplicate-set provision and sourced available pumping capacity versus supplied tank design outflow; facts-only check",
+      "source_url": "https://www.wsd.gov.hk/filemanager/en/content_1804/TR_2026_04%20%28Eng%29.pdf",
+      "source_sha256": "bc1769198874e167d4698f0ca2678d07df35570117ab7da716a2b26061ce96b7",
+      "edition": "April 2026",
+      "clause": "#6.3.1",
+      "pdf_page_1_based": 61,
+      "value": 0,
+      "unit": "count",
+      "maximum": 0,
+      "evidence": "Derived from sourced sump_pump assertions; no native hydraulic or installed configuration proof",
+      "reasons": [
+        "selected prescriptive limit met"
+      ],
+      "condition_checks": [
+        {
+          "condition": "duplicate_pumpset_provided",
+          "passed": true
+        },
+        {
+          "condition": "capacity_at_least_tank_design_outflow",
+          "available_m3_s": 0.003,
+          "required_m3_s": 0.0025,
+          "passed": true
+        }
+      ],
+      "binding_status": "sourced_assertions_only",
+      "pending_engineering_checks": [
+        "actual pump duty and system head/curve correspondence",
+        "duplicate-set arrangement, controls and installed/model identity",
+        "tank design outflow derivation and other plumbing requirements"
+      ]
+    }
+  ],
+  "supported_checks_pass": true,
+  "coverage": {
+    "implemented": [
+      "#6.3.1 sourced duplicate-set and capacity comparison only"
+    ],
+    "pending": [
+      "native pump/system model binding",
+      "tank outflow derivation",
+      "controls, standby arrangement and product approval",
+      "all other plumbing, drainage and fire-service requirements"
+    ],
+    "complete": false
+  },
+  "regulatory_compliance": "not_established",
+  "design_accepted": false,
+  "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination",
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\regulations\\hk\\plumbing-pumps-2026.11.09\\pack.json": "e27e4bf0c67026ecf15d73054c3b1850000d548535e16de3991c045d8a58cdc3",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\hk-plumbing-pumps\\facts.json": "4fc7b56a07b4ab31bb49373823e74f8fcc607a4f248b036fef1b6f0b4d984a3f",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-regulation-sources\\wsd-tr-2026-04.pdf": "bc1769198874e167d4698f0ca2678d07df35570117ab7da716a2b26061ce96b7"
+  },
+  "inputs_unchanged": true,
+  "missing_sources": []
+}

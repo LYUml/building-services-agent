@@ -1,0 +1,24 @@
+{
+  "reviewed_on": "2026-11-09",
+  "tr_pdf_page": 61,
+  "tr_printed_page": 52,
+  "preface_pdf_page": 10,
+  "related_publications": [
+    {
+      "url": "https://www.wsd.gov.hk/filemanager/article/en/upload/623/CL6_2026.pdf",
+      "sha256": "1b459f08bdf3ee57f04aa8650621746e43ca69a827fc79854e7a5028e3c5d117",
+      "cache_filename": "wsd-cl6-2026.pdf"
+    },
+    {
+      "url": "https://www.wsd.gov.hk/filemanager/article/en/upload/625/Circular%20Letter%205_2026.pdf",
+      "sha256": "1d29a93b21cd805627f960bb6437f200e50a525f9c7788d8f97524df287f6d55",
+      "cache_filename": "wsd-cl5-2026.pdf"
+    },
+    {
+      "url": "https://www.wsd.gov.hk/filemanager/en/content_1804/Amendment%20Table%20for%20Apr%202026%20Version.pdf",
+      "sha256": "d47fd79085df58afada38567df4983305574aed746b6ba1944e71aa8a6897479",
+      "cache_filename": "wsd-amendments-apr2026.pdf"
+    }
+  ],
+  "scope": "Selected #6.3.1 only. CL6/2026 consolidates April edition; subsequent CL5/2026 lists 3.1.5 and figure amendments. Full applicability/other requirements not established."
+}

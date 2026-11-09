@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "id": "hk-plumbing-pumps-2026.11.09",
+  "jurisdiction": "HK",
+  "version": "2026.11.09",
+  "sources": {
+    "wsd_tr_2026_04": {
+      "authority": "WSD",
+      "title": "Technical Requirements for Plumbing Works in Buildings",
+      "edition": "April 2026",
+      "kind": "water_authority_requirement",
+      "url": "https://www.wsd.gov.hk/filemanager/en/content_1804/TR_2026_04%20%28Eng%29.pdf",
+      "index_url": "https://www.wsd.gov.hk/en/plumbing-engineering/requirements-for-plumbing-installation/technical-requirements-for-plumbing-works-in-bldgs/index.html",
+      "cache_filename": "wsd-tr-2026-04.pdf",
+      "sha256": "bc1769198874e167d4698f0ca2678d07df35570117ab7da716a2b26061ce96b7",
+      "reviewed_on": "2026-11-09",
+      "review_scope": "Clause #6.3.1, printed page 52 / PDF page 61; classification in Preface PDF page 10.",
+      "applicability_note": "Project works/application and edition decision required. CL6/2026 announces consolidated April 2026 TR. CL5/2026 later amends 3.1.5 and figures; reviewed selected-clause scope does not establish all plumbing requirements."
+    }
+  },
+  "rules": [
+    {
+      "id": "HK-WSD-SUMP-PUMP-6.3.1",
+      "source_id": "wsd_tr_2026_04",
+      "clause": "#6.3.1",
+      "pdf_page_1_based": 61,
+      "method": "wsd_sump_pump",
+      "metric": "sump_pump_condition_failures",
+      "unit": "count",
+      "scope": "Sump-and-pump duplicate-set provision and sourced available pumping capacity versus supplied tank design outflow; facts-only check",
+      "applicability": [
+        {
+          "fact": "wsd_requirements_apply",
+          "equals": true
+        },
+        {
+          "fact": "sump_and_pump_system",
+          "equals": true
+        }
+      ],
+      "alternative_path_note": "Declared duplication/capacity does not satisfy this supported requirement; revise design and review applicable WSD requirements."
+    }
+  ],
+  "coverage": {
+    "implemented": [
+      "#6.3.1 sourced duplicate-set and capacity comparison only"
+    ],
+    "pending": [
+      "native pump/system model binding",
+      "tank outflow derivation",
+      "controls, standby arrangement and product approval",
+      "all other plumbing, drainage and fire-service requirements"
+    ],
+    "complete": false
+  }
+}

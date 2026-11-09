@@ -1,0 +1,48 @@
+{
+  "jurisdiction": "HK",
+  "rule_pack": "hk-plumbing-pumps-2026.11.09",
+  "edition_decisions": {
+    "wsd_tr_2026_04": {
+      "edition": "April 2026",
+      "basis": "Synthetic example explicitly evaluates this pinned edition; real project applicability unresolved"
+    }
+  },
+  "facts": {
+    "wsd_requirements_apply": {
+      "value": true,
+      "source": "Explicit synthetic software-test assumption, not a product or project source"
+    },
+    "sump_and_pump_system": {
+      "value": true,
+      "source": "Explicit synthetic software-test assumption, not a product or project source"
+    }
+  },
+  "sump_pump": {
+    "duplicate_pumpset_provided": {
+      "value": true,
+      "source": "Explicit synthetic software-test assumption, not a product or project source"
+    },
+    "available_pumping_capacity": {
+      "value": 0.003,
+      "source": "Explicit synthetic software-test assumption, not a product or project source",
+      "unit": "m3/s"
+    },
+    "tank_design_outflow": {
+      "value": 0.0025,
+      "source": "Explicit synthetic software-test assumption, not a product or project source",
+      "unit": "m3/s"
+    },
+    "capacity_duty_basis": {
+      "value": "Synthetic declared duty capacity; no tested pump curve",
+      "source": "Explicit synthetic software-test assumption, not a product or project source"
+    },
+    "tank_identity": {
+      "value": "SYNTHETIC-TANK-01",
+      "source": "Explicit synthetic software-test assumption, not a product or project source"
+    },
+    "pump_configuration_basis": {
+      "value": "Synthetic declared duplicate set; arrangement and standby adequacy require review",
+      "source": "Explicit synthetic software-test assumption, not a product or project source"
+    }
+  }
+}

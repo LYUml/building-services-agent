@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "id": "hk-coverage-2026.11.09-plumbing",
+  "jurisdiction": "HK",
+  "scope": "Project scope review prompts from existing official-source inventory; not an exhaustive statutory checklist or automatic applicability determination",
+  "source_inventory": "2026.11.08/pack.json",
+  "topics": [
+    {
+      "id": "electrical",
+      "title": "Electrical installation",
+      "source_id": "emsd_wiring_2025",
+      "modules": [
+        {
+          "pack": "2026.11.08/pack.json",
+          "pack_id": "hk-2026.11.08",
+          "rules": [
+            "HK.EMSD.COP2025.13A3v.voltage_drop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lighting",
+      "title": "Lighting installation",
+      "source_id": "emsd_bec",
+      "modules": [
+        {
+          "pack": "lighting-2026.11.08/pack.json",
+          "pack_id": "hk-lighting-2026.11.08",
+          "rules": [
+            "HK.EMSD.BEC2024.office_lpd"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hvac",
+      "title": "Air conditioning and energy",
+      "source_id": "emsd_bec",
+      "modules": [
+        {
+          "pack": "hvac-design-2026.11.08/pack.json",
+          "pack_id": "hk-hvac-design-2026.11.08",
+          "rules": [
+            "HK.EMSD.BEC2024.load_design_conditions"
+          ]
+        },
+        {
+          "pack": "hvac-water-2026.11.08/pack.json",
+          "pack_id": "hk-hvac-water-2026.11.08",
+          "rules": [
+            "HK.EMSD.BEC2024.water_piping"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "plumbing",
+      "title": "Water supply installation",
+      "source_id": "wsd_plumbing",
+      "modules": [
+        {
+          "pack": "plumbing-pumps-2026.11.09/pack.json",
+          "pack_id": "hk-plumbing-pumps-2026.11.09",
+          "rules": [
+            "HK-WSD-SUMP-PUMP-6.3.1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "drainage",
+      "title": "Drainage installation",
+      "source_id": "bd_drainage",
+      "modules": []
+    },
+    {
+      "id": "fire",
+      "title": "Fire services installation",
+      "source_id": "fsd_installations",
+      "modules": []
+    },
+    {
+      "id": "energy_audit",
+      "title": "Energy audit",
+      "source_id": "emsd_eac",
+      "modules": []
+    },
+    {
+      "id": "government_specification",
+      "title": "Government-project contract specification",
+      "source_id": "archsd_general",
+      "modules": []
+    },
+    {
+      "id": "utility",
+      "title": "Utility requirements and referenced standards",
+      "source_id": null,
+      "modules": []
+    }
+  ]
+}
