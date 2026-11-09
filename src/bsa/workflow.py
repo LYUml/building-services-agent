@@ -666,6 +666,13 @@ def validate_plan(path):
         if kind=='bim':
             from . import bim,concept_spaces,box_geometry
             inputs.update(Path(m.__file__).resolve() for m in (bim,concept_spaces,box_geometry))
+            if 'concept_layout' in t:
+                from . import concept_layout,thermal_binding,thermal_geometry,thermal_windows
+                settings=local_path(root,t['concept_layout']);inputs.add(settings)
+                concept_layout.validate_settings(read_json(settings))
+                bim_source=read_json(local_path(root,t['project']))
+                if bim_source.get('geometry_scope')!=bim.CONCEPT_SCOPE:raise ProjectError('concept layout requires explicit concept BIM scope')
+                inputs.update(Path(m.__file__).resolve() for m in (concept_layout,thermal_binding,thermal_geometry,thermal_windows))
         if kind=='tcf_fan_research':
             from . import tcf_fan_research,fan_interpolation_envelope,curve_interpolation,rectangular_fan,pump,rectangular_binding
             if set(t)-{'id','kind','depends_on','pdf','extraction','basis','requires_pass','description'}:raise ProjectError('source fan research inherits native inputs; replacements forbidden')
@@ -1317,6 +1324,9 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
             elif t["kind"]=="bim":
                 from .bim import run
                 payload=run(local_path(root,t['project']),folder)
+                if 'concept_layout' in t:
+                    from .concept_layout import run as layout
+                    payload['concept_layout']=layout(folder/'model.ifc',local_path(root,t['project']),local_path(root,t['concept_layout']),folder/'concept-layout')
                 status='pass';reason='IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending'
             elif t['kind']=='regulated_water_model':
                 from .regulated_water_model import run

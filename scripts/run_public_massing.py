@@ -16,46 +16,7 @@ def stage(decisions,variant):
     return dict(name='Unapproved public-brief concept: '+variant['id'],project_uuid=namespace,geometry_scope=CONCEPT_SCOPE,sources=dict(design=source),floor_area_basis='gross concept footprint; no deductions',storeys=rows,spaces=[dict(id='Space_'+r['id'],storey=r['id'],origin_m=[0,0,r['elevation_m']],size_m=[variant['width_m'],variant['depth_m'],height],source='design') for r in rows],systems=[],devices=[],connections=[])
 
 
-def geometry_handoff(ifc,source,wwr):
-    """Reuse saved-solid extraction and adjacency; do not infer thermal boundaries."""
-    import ifcopenshell
-    from bsa.concept_spaces import inspect_spaces
-    from bsa.thermal_binding import extract
-    from bsa.thermal_geometry import boxes,adjacency
-    if not isinstance(wwr,(int,float)) or isinstance(wwr,bool) or not 0<wwr<1:
-        raise ValueError('explicit fractional concept WWR target required')
-    before=digest(ifc)
-    inspected=inspect_spaces(ifcopenshell.open(str(ifc)),source)
-    binding=dict(spaces=[dict(guid=r['guid'],id=r['id'],source='Concept geometry only; not established thermal boundary') for r in inspected])
-    rows,audit=extract(ifc,binding)
-    boxes(dict(spaces=rows));pairs=adjacency(rows)
-    total_walls=sum(2*(r['size_m'][0]+r['size_m'][1])*r['size_m'][2] for r in rows)
-    exterior_walls=total_walls-2*sum(r['area_m2'] for r in pairs if r['axis']!=2)
-    horizontal=sum(r['size_m'][0]*r['size_m'][1] for r in rows)
-    horizontal_contacts=sum(r['area_m2'] for r in pairs if r['axis']==2)
-    from bsa.thermal_windows import FACES,validate as validate_windows,rectangle
-    # Explicit design choice: one centred rectangle on each vertical face,
-    # equal width/height scale sqrt(WWR). No glazing properties are implied.
-    windows=[]
-    for row in rows:
-        for face,(axis,sign,face_axis) in FACES.items():
-            width=row['size_m'][face_axis]*wwr**.5;height=row['size_m'][2]*wwr**.5
-            windows.append(dict(id=row['id']+'_'+face.replace('-','Minus').replace('+','Plus'),zone=row['id'],face=face,
-                source='Unapproved design decision: one centered rectangle per concept vertical face; equal fractional width/height sqrt(course WWR). Not surveyed windows or IFC opening geometry.',
-                offset_m=(row['size_m'][face_axis]-width)/2,sill_m=(row['size_m'][2]-height)/2,width_m=width,height_m=height))
-    validate_windows(windows,rows,require_glazing=False)
-    window_geometry=[dict(**w,vertices_m=rectangle(w,next(r for r in rows if r['id']==w['zone']))) for w in windows]
-    if digest(ifc)!=before:raise ValueError('concept source changed during handoff')
-    return dict(ifc_sha256=before,geometry=audit,adjacency=pairs,
-        exterior_vertical_face_area_m2=exterior_walls,
-        exposed_top_face_area_m2=horizontal-horizontal_contacts,
-        exposed_bottom_face_area_m2=horizontal-horizontal_contacts,
-        course_wwr_target=wwr,target_glazed_area_m2=exterior_walls*wwr,
-        draft_window_rectangles=window_geometry,draft_window_area_m2=sum(w['width_m']*w['height_m'] for w in windows),
-        glazing_selected=False,
-        modeled_window_area_m2=0,thermal_model_ready=False,design_accepted=False,
-        scope='Geometric exterior faces only; not surveyed facade or validated thermal boundaries. Window rectangles are an unapproved layout without glazing, walls or native openings.',
-        pending=['site/weather and explicit orientation','actual thermal boundary and clear-height interpretation','window positions and sourced glazing','construction, gains, schedules and HVAC','native annual simulation and deliverable acceptance'])
+from bsa.concept_layout import geometry_handoff
 
 
 def run(out):
@@ -87,8 +48,10 @@ def run_workflow(out,source_cache):
     for variant in data['variants']:
         file=out/(variant['id']+'.json');model=stage(data,variant);model['sources']['design']+=' Decision record SHA256 '+before
         file.write_text(json.dumps(model,indent=2),encoding='utf-8')
-        id='concept-'+variant['id'];tasks.append(dict(id=id,kind='bim',project=file.name))
-        plan['requirements'].append(dict(id='concept-'+variant['id'],passage=passage['id'],quote=passage['text'],task=id,acceptance='Unapproved source-defined gross concept space/storey geometry only; full site, facade/daylight/program acceptance remains in retained interpretation requirements'))
+        settings=out/(variant['id']+'-layout.json')
+        settings.write_text(json.dumps(dict(source='Course WWR assignment5 page1 SHA256 '+data['source']['sha256']+'; centered equal-fraction rectangles are unapproved design decisions',window_wall_ratio=data['window_wall_ratio']['course_comparison_target'],layout='centered-equal-fraction'),indent=2),encoding='utf-8')
+        id='concept-'+variant['id'];tasks.append(dict(id=id,kind='bim',project=file.name,concept_layout=settings.name))
+        plan['requirements'].append(dict(id='concept-'+variant['id'],passage=passage['id'],quote=passage['text'],task=id,acceptance='Unapproved source-defined gross concept space/storey geometry only; including sourced draft window layout; full site, facade/daylight/program acceptance remains in retained interpretation requirements'))
     plan['tasks']=tasks+plan['tasks'];path.write_text(json.dumps(plan,ensure_ascii=False,indent=2),encoding='utf-8')
     worker=subprocess.run([sys.executable,'-m','bsa.cli','workflow',str(path),'--out',str(out/'workflow')],capture_output=True,text=True)
     (out/'worker.log').write_text(worker.stdout+worker.stderr,encoding='utf-8')

@@ -371,3 +371,5 @@ Public-brief concept milestone: three source-defined storey/space variants autho
 Concept geometry now feeds saved-solid thermal extraction and exact whole-face adjacency. Actual three-variant exterior/contact and target-glazing budgets pass six tests; boundary/property/site/HVAC interpretation and native simulation remain pending. No annual result or completed assignment is claimed.
 
 Concept facade draft now produces explicit centered rectangle coordinates at 40 percent WWR, with source-linked design choice and existing geometric checks. Missing glazing remains blocked at formal thermal input validation. Actual layouts reconcile target area; native openings/materials/daylight/energy remain pending.
+
+Concept saved-geometry/window-layout composition is now part of unified BIM tasks with sourced concept_layout settings, rather than standalone-only. Actual reviewed public brief produces all three layouts, retains 34 technical blockers and passes artifact integrity. Seven concept plus two integration tests pass; full performance and delivery remain pending.

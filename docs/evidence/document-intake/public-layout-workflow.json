@@ -1,0 +1,25 @@
+{
+  "run": "runs/public-concept-workflow-v3",
+  "summary": {
+    "concept_tasks": {
+      "concept-compact": "pass",
+      "concept-slender": "pass",
+      "concept-stacked": "pass"
+    },
+    "pending_interpretation_tasks": 34,
+    "design_accepted": false,
+    "scope": "Partial real-brief workflow: concept geometry only; original technical obligations retained"
+  },
+  "integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "tests": {
+    "concept": 7,
+    "workflow": 2,
+    "passed": true
+  },
+  "scope": "Optional concept_layout settings on explicit concept bim task; no completed thermal model"
+}
