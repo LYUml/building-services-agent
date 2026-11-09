@@ -1,9 +1,11 @@
 ---
 name: mep-ifc-authoring
-description: Create and revise source-linked IFC4 MEP envelopes, straight circular walls finite elbows or scoped tee assemblies with spaces, systems, ports, native geometry checks and scoped CAD drawings. Use for open BIM authoring and saved IFC drawing workflows.
+description: Create and revise source-linked IFC4 MEP envelopes, straight circular or rectangular duct walls, finite elbows and scoped tee assemblies with spaces, systems, ports, native geometry checks and scoped CAD drawings. Use for open BIM authoring and saved IFC drawing workflows.
 ---
 
 # IFC MEP authoring
+
+For axis-aligned hollow rectangular straight ducts, use bsa.bim with the explicit rectangular scope/body_shape in docs/RECTANGULAR_AIR_NETWORKS.md. Require independent internal width/height/thickness and a matching outer envelope with end-face-centre ports. Saved profile/metadata/placement and native through-bore, connected wall, mass and port-axis checks are executed. Sharp corners only; bends/transitions/junctions and selected-network hydraulic binding remain unsupported. Do not call an envelope box a hollow duct or infer fabrication/installation acceptance from this geometry check.
 
 Cable route text placement now uses whole ezdxf text boxes and the saved/native-export auditor checks bounded outward dimension regions, text/text and text/LINE/ARC-box interference. Preserve exact source dimension graphics and notes; don't bypass a crowded-layout failure by trusting a writer flag or widening physical tolerances. Font boxes are approximate and ARC-box rejection is conservative; actual native PDF review remains required. The --quarter-turn synthetic case is executed at an explicitly chosen 1:25 scale (docs/CABLE_ROUTE_DRAWINGS.md).
 

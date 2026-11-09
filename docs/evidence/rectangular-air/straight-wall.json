@@ -1,0 +1,84 @@
+{
+  "scope": "Actual synthetic saved sharp-corner hollow rectangular straight wall only; no selected-network binding, fabrication, visual or installation acceptance",
+  "native_report": {
+    "ifcopenshell_version": "0.8.5",
+    "input_sha256": "d17434ff87c3ad6fc22471524799981c7568efaae87c0b1b0f04528cc35fe21a",
+    "ifc_sha256": "89497b58130041e26c9c53634f58c45fdc508662159a2c1871e20334ebeec46e",
+    "checks": {
+      "schema_valid": true,
+      "device_count_match": true,
+      "connection_count_match": true,
+      "connection_endpoints_match": true,
+      "metre_units": true,
+      "space_count_match": true,
+      "source_unchanged": true
+    },
+    "devices": [
+      {
+        "id": "DUCT",
+        "ifc_class": "IfcDuctSegment",
+        "global_id": "3jzmgt4rXJROS0ybhlzD_Q",
+        "space": "ROOM",
+        "systems": [
+          "AIR"
+        ],
+        "bounds_m": [
+          [
+            1.0,
+            0.9999999999999999,
+            1.0
+          ],
+          [
+            3.0,
+            1.5019999999999998,
+            1.302
+          ]
+        ],
+        "body_shape": "straight rectangular duct wall",
+        "circular_checks": null,
+        "rectangular_checks": {
+          "body_shape": "straight rectangular duct wall",
+          "saved_internal_width_m": 0.5,
+          "saved_internal_height_m": 0.3,
+          "saved_wall_thickness_m": 0.001,
+          "saved_length_m": 2.0,
+          "analytic_wall_volume_m3": 0.0032079999999999886,
+          "mesh_wall_volume_m3": 0.0032080000000001673,
+          "relative_volume_error": 5.569716896060217e-14,
+          "euler_characteristic": 0,
+          "closed_mesh": true,
+          "one_connected_wall": true,
+          "outward_port_axes_pass": true
+        }
+      }
+    ],
+    "model_checks_pass": true,
+    "design_accepted": false,
+    "geometry_scope": "axis-aligned envelopes and explicit rectangular duct walls",
+    "pending": [
+      "visual BIM review",
+      "manufacturer shape fidelity",
+      "physical route/clash checks",
+      "domain performance and code acceptance"
+    ],
+    "connection_scope": "logical topology only; no physical route is inferred between separated ports",
+    "identity_scope": "stable namespace/class/input-ID object and port GUIDs",
+    "project_uuid": "f72fd462-b4f8-4ad0-b3bd-0c0dfd09c904"
+  },
+  "manifold_version": "3.5.4",
+  "tests": {
+    "rectangular_geometry": 4,
+    "circular_geometry": 5,
+    "bim": 3,
+    "all_pass": true
+  },
+  "artifacts": {
+    "runs\\rectangular-wall-native-v2\\model.ifc": "89497b58130041e26c9c53634f58c45fdc508662159a2c1871e20334ebeec46e",
+    "runs\\rectangular-wall-native-v2\\bim-verification.json": "ad856ee0228b82018910059e057f41037a80e68183464e5ac453e5e22797ba4e",
+    "runs\\rectangular-wall-native-v2\\schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "modules": {
+    "src\\bsa\\rectangular_geometry.py": "279222bbf6482ba73becd26a2271fd645f4e15b2dbcb21d5e8717b5aa863eac8",
+    "src\\bsa\\bim.py": "88a485fe58d80cdbd66c1aebf07ffa4ed6e37b64d94f5b07b44d10a6ea4f5326"
+  }
+}

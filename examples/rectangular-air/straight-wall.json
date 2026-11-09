@@ -1,0 +1,79 @@
+{
+  "name": "Synthetic straight rectangular duct wall",
+  "project_uuid": "f72fd462-b4f8-4ad0-b3bd-0c0dfd09c904",
+  "geometry_scope": "axis-aligned envelopes and explicit rectangular duct walls",
+  "sources": {
+    "demo": "Explicit synthetic 500x300 mm internal duct, 1 mm sharp-corner wall, 2 m axis length and placement assumptions; not manufacturer fabrication data."
+  },
+  "spaces": [
+    {
+      "id": "ROOM",
+      "origin_m": [
+        0,
+        0,
+        0
+      ],
+      "size_m": [
+        5,
+        5,
+        5
+      ],
+      "source": "demo"
+    }
+  ],
+  "systems": [
+    {
+      "id": "AIR",
+      "predefined_type": "VENTILATION",
+      "source": "demo"
+    }
+  ],
+  "devices": [
+    {
+      "id": "DUCT",
+      "ifc_class": "IfcDuctSegment",
+      "space": "ROOM",
+      "system": "AIR",
+      "origin_m": [
+        1,
+        1,
+        1
+      ],
+      "size_m": [
+        2,
+        0.502,
+        0.302
+      ],
+      "body_shape": "straight rectangular duct wall",
+      "source": "demo",
+      "properties": {
+        "InternalWidth_m": 0.5,
+        "InternalHeight_m": 0.3,
+        "WallThickness_m": 0.001
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0,
+            0.251,
+            0.151
+          ],
+          "source": "demo"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            2,
+            0.251,
+            0.151
+          ],
+          "source": "demo"
+        }
+      ]
+    }
+  ],
+  "connections": []
+}

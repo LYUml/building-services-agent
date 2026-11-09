@@ -1,5 +1,13 @@
 # Rectangular air-tree pressure budgets
 
+## Explicit straight wall geometry
+
+The existing bsa.bim author now accepts geometry_scope `axis-aligned envelopes and explicit rectangular duct walls` and body_shape `straight rectangular duct wall` on IfcDuctSegment. See examples/rectangular-air/straight-wall.json. Supply independently sourced InternalWidth_m, InternalHeight_m and WallThickness_m, the matching outer envelope, two opposite end-face centre ports and ordinary source/space/system records. Width/height refer to the local profile axes determined by the positive-axis frame; do not swap them blindly when changing route axis. X/Y/Z axis-aligned straight walls are supported; arbitrary rotation, bends, transitions and junction fabrication are not.
+
+It reuses pinned IfcOpenShell 0.8.5 standard IfcRectangleHollowProfileDef/IfcExtrudedAreaSolid, the existing metre/stable-GUID/system/port author and native reopen, circular-wall closed two-manifold/through-bore checks and Manifold connected-solid/mass verification. Sharp corners only: fillets and profile offsets reject. Saved profile dimensions, metadata, depth, object/solid placements, native bounds/centroid/volume and outward port axes are checked separately. No mesh repair or widened tolerances is used.
+
+Actual runs/rectangular-wall-native-v2 authors and reopens a synthetic 500 x 300 mm internal, 1 mm uniform wall, 2 m straight duct. Wall volume is 0.003208 m3; through-bore Euler characteristic is zero and the native mesh is one connected closed wall. Four new native tests exercise three axis directions and saved profile/fillet/position/metadata mutations. This is not the selected network's bound geometry, sheet-metal fabrication detail, insulation, a native DWG drawing or completed duct installation. Those remain pending. Evidence: evidence/rectangular-air/straight-wall.json.
+
 ## Verified selected-input handoff
 
 A `rectangular_network` task may now use depends_on on an earlier rectangular_network_design instead of project. Replacement project input is rejected. Failed/no-feasible producers leave the consumer unexecuted. The executor pins producer artifact bytes in memory; selected_input additionally checks source identities, complete required artifact hashes, reconstructs the ranked selected candidate from the original project/catalogue and matches the saved network and selected numerical input hash. The consumer then executes fresh pressure analysis on that saved selected file. These checks establish sourced candidate correspondence, not document authenticity or geometry/code acceptance.
