@@ -4,6 +4,12 @@ Reviewed 2026-11-09 at the user's request. Revit is a planned native authoring/d
 
 ## Local evidence and adapter sequence
 
+`scripts/inspect_revit.ps1 -Out runs/new-revit-inventory.json` performs reproducible read-only installation checks without launching Revit or changing client configuration. The executed inventory found DynamoMCP 0.5.6.0 (Dynamo engine 4.2), but no Public MCP executable at the three documented installation paths and no running Revit process. This bounded path check does not exclude a custom installation elsewhere.
+
+Official [setup documentation](https://help.autodesk.com/cloudhelp/ENU/ADSKMCP-RevitMcp/files/ADSKMCP_RevitMcp_setting_up_revit_mcp_server_html.html) specifies a separate add-on and a running model. It names 2027.2, while an Autodesk forum response says 2027.2 and later; compatibility with installed 27.3 remains to be verified. Obtain the entitled installer through [Autodesk Account Extensions](https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/How-to-download-the-Revit-MCP-server.html), not an assumed bundled executable. No account access or installation was performed.
+
+The reviewed [official tool table](https://help.autodesk.com/cloudhelp/ENU/ADSKMCP-RevitMcp/files/revitmcp_tools.html) covers active context, queries, element data, parameter edits and experimental views/sheets/schedules/IFC export. It does not list native duct/pipe/connector creation. Therefore MCP installation alone cannot satisfy our MEP-authoring milestone. Evaluate a narrowly scoped API bridge for that gap. Its room-boundary tool simplifies nonlinear segments, so those outputs must not silently replace curved geometry in analysis.
+
 Read-only filesystem inspection found `C:/Program Files/Autodesk/Revit 2027/Revit.exe` and `RevitAPI.dll`, both file version 27.3.0.28. No Revit session was opened, add-in installed, document edited or licence availability established.
 
 Autodesk's [September 2026 announcement](https://forums.autodesk.com/t5/revit-api-forum/revit-mcp-server-tech-preview-launch/td-p/14262015) describes Read, Trusted-Write and Experimental MCP capabilities. Evaluate official availability and supported operations first. The independent [rui-branco/revit-mcp](https://github.com/rui-branco/revit-mcp) MIT bridge is another research candidate, not an installed or verified integration. App Store publication alone does not make a third-party bridge Autodesk-authored.
