@@ -81,3 +81,5 @@ Explicit circulation iteration can now search from a saved baseline with reverif
 A separate WSD April 2026 #6.3.1 plumbing-pump pack now checks sourced duplication/capacity declarations against tank design outflow, with edition/source hashes and a new partial-coverage snapshot. Actual pump/model binding and complete plumbing design remain pending; see HK_PLUMBING_PUMPS.md.
 
 WSD sump-pump capacity now has a fresh single-line pump/system binding and workflow gate, reusing fluids and the existing source-bounded solver. Official-PDF-backed synthetic 1.0 L/s pass / 1.5 L/s failure cases retain the actual 1.253 L/s operating flow. Duplicate-set configuration, controls, tank level range, products and IFC correspondence remain pending; see HK_PLUMBING_PUMPS.md.
+
+Plumbing capacity prerequisites now enforce source-byte correspondence for known downstream network/pump/repeated-rule consumers, including transitive gates and curve/basis identity. Changed design inputs cannot reuse the old prerequisite; arbitrary IFC correspondence remains pending.

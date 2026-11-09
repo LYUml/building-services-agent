@@ -67,15 +67,18 @@ def regulatory_source_bindings(tasks,root):
         current={}
         if kind in ('epanet_pipe_regulations','circulation_duty','water_network') and not task.get('depends_on'):
             current['circulation']=local_path(root,task.get('project'))
-        elif kind in ('water_pipe_regulations','network') and not task.get('depends_on'):
+        elif kind in ('plumbing_pump_regulations','pump_operating_point','water_pipe_regulations','network') and not task.get('depends_on'):
             current['network']=local_path(root,task.get('project'))
         elif kind in shared:
             current['project']=local_path(root,task.get('project'))
             if kind in geometric:current['geometry']=local_path(root,task.get('geometry'))
         elif isinstance(task.get('depends_on'),str):
             current=dict(sources.get(task['depends_on'],{}))
+        if kind in ('plumbing_pump_regulations','pump_operating_point'):
+            current['pump_curve']=local_path(root,task.get('curve'))
+        if kind=='plumbing_pump_regulations':current['plumbing_basis']=local_path(root,task.get('basis'))
         for parent in sorted(upstream):
-            if known[parent]['kind'] not in ('epanet_pipe_regulations','circulation_duty','electrical_regulations','lighting_regulations','water_pipe_regulations'):continue
+            if known[parent]['kind'] not in ('plumbing_pump_regulations','epanet_pipe_regulations','circulation_duty','electrical_regulations','lighting_regulations','water_pipe_regulations'):continue
             for field in current.keys() & sources[parent].keys():
                 checked=sources[parent][field];consumed=current[field]
                 if hashed(checked)!=hashed(consumed):

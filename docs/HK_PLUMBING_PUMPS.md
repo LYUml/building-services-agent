@@ -34,3 +34,10 @@ Workflow kind `plumbing_pump_regulations` takes project, curve, basis, pack and 
 If no converged operating point exists, no capacity fact is fabricated. Converged but insufficient flow retains both hydraulic failure and regulatory review. Other hydraulic failures also prevent overall pass even if the numerical capacity comparison passes. Missing/changed official sources preserve pending results. Outputs include the pump report, bound facts, report/artifact hashes and explicit remaining checks.
 
 The official-PDF-backed synthetic trial produces approximately 1.253 L/s against a 1.0 L/s target; the same system fails at 1.5 L/s. These are software-test dimensions and curves, not product selections. Evidence: docs/evidence/hk-plumbing-pump-binding/native-trials.zip. Independent analytic solver tests, identity/override rejection, no-intersection behavior and workflow failure gates were exercised. Full plumbing conformity, actual pump data, duplication, controls and IFC verification remain unresolved.
+
+
+### Downstream source correspondence
+
+A plumbing capacity prerequisite now binds known downstream `network`, explicit-input `pump_operating_point` and repeated `plumbing_pump_regulations` tasks to the same source network bytes. Pump consumers also require identical curve bytes; repeated plumbing checks require identical basis bytes. Ancestor checks propagate through intermediate tasks, including manual review, and the workflow records these hashes in regulatory_source_bindings. Different source content is rejected at plan validation, while an identical copy at another path is allowed.
+
+These comparisons apply only to the supported shared input fields. They do not verify arbitrary IFC/drawing consumers or prove that a prescribed-flow network result is the same physical operating scenario as a pump intersection. Changing the design intentionally requires a new corresponding check and plan, not reuse of a passing prerequisite for the old inputs.
