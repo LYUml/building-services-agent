@@ -1,0 +1,189 @@
+{
+  "scope": "Actual selected single continuous cable planar geometry drawing; not coordinated installation acceptance",
+  "drawing": {
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_ifc.py": "7a533bdb56a6613e6f0fd29205ee3359b25b00396420aa79e73e1f6d192eca48",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-native-workflow-v1\\combined\\geometry-source.json": "984421402bf4dc655b41365b7c29f07f2c7ff4419babd345c54c3d6c1a3153da",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-native-workflow-v1\\workflow\\study\\route-lengths.json": "8188354a804407fc463a6bc0c0d6b229e43a135beab13463b5dc6f56c162149e",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_continuity.py": "cb2e56d17a32baf27a22ee3137fe7239b52fc11d3c2808419dcd3b48ccb3de92",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cad_ifc.py": "2f6fafbde0711ee7a14fd64170bdb57df4db1afb6666a96d0f23a1a108245a47",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-native-workflow-v1\\workflow\\study\\project.json": "d3eb17fc6d359eb1f225c35452bfc1394377c827a0295386b9f73c07e0432bf5",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-native-workflow-v1\\workflow\\study\\model\\cables.ifc": "c04da2de2519be79dfed984a9e8c4cf1432132416dd2c00f50133052f7f5e4d9",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\circular_geometry.py": "b907345bd2904bf313b017cc1c7e1a07e403ff726bbb8a85e476ae538ea25cb9",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-native-workflow-v1\\combined\\binding.json": "180224069b6ff0b84e52b840c909681e8fe8f41c4333bd9bbf4f23306c5d4e4e",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-native-workflow-v1\\workflow\\study\\model\\binding.json": "180224069b6ff0b84e52b840c909681e8fe8f41c4333bd9bbf4f23306c5d4e4e",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-native-workflow-v1\\workflow\\study\\baseline\\basis.json": "30ebd15fbfe2fa9bb5804b4c6ec8c7871759da3b09f79694b0e395e866cf1f69",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-native-workflow-v1\\workflow\\study\\model\\geometry-source.json": "984421402bf4dc655b41365b7c29f07f2c7ff4419babd345c54c3d6c1a3153da",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-native-workflow-v1\\combined\\model.ifc": "c04da2de2519be79dfed984a9e8c4cf1432132416dd2c00f50133052f7f5e4d9",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\quarter_cable.py": "9e8223c6b6ea9efb8cb9397c4db298486659f8520d1a5dcfcb185ee4427f8591",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\solid_clash.py": "ceb782df2bcfffdf799542e56fb89deb2d5a04f9c9a66372030fd3a457366e4d",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-native-workflow-v1\\workflow\\study\\baseline\\geometry.json": "984421402bf4dc655b41365b7c29f07f2c7ff4419babd345c54c3d6c1a3153da",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\cable-route-settings-v1.json": "28e9a3b3ec63c196a0a15ec3eb55aa9b3e9042f1698af0e926e4c9e9a7e9b4ea",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_route_drawing.py": "81f543abffa2867652be3ad59a1f2614c1dad7a7dbaa8e156bb1c42eb3131187"
+    },
+    "settings": {
+      "projection_axes": [
+        "X",
+        "Z"
+      ],
+      "annotation_height_m": 0.04,
+      "source": "Synthetic drafting settings; X/Z route projection, 40 mm model text; no installation acceptance"
+    },
+    "cable": {
+      "id": "feeder",
+      "element_guid": "1uGqW$ugzIM9$Bw0m20nFy",
+      "port_guids": [
+        "1w$48BLGnT6hPO7AMWig2V",
+        "21dk0cvL1O_BgaDCOPe_oE"
+      ],
+      "observed_length_m": 2.471238898038469,
+      "project_length_m": 2.471238898038469,
+      "route_length_match": true,
+      "route_geometry": "quarter plus tangent straight",
+      "bend_radius_m": 0.3,
+      "body_type": "IfcBooleanResult",
+      "envelope_radius_m": 0.01,
+      "world_axis_ends_m": [
+        [
+          0.3,
+          0.0,
+          2.0
+        ],
+        [
+          -2.0,
+          0.0,
+          1.7
+        ]
+      ],
+      "native_volume_m3": 0.0007763485753805651,
+      "analytic_volume_m3": 0.000776362596734299
+    },
+    "geometry": {
+      "points_m": [
+        [
+          0.3,
+          2.0
+        ],
+        [
+          0.21213203435596423,
+          1.7878679656440357
+        ],
+        [
+          0.0,
+          1.7
+        ],
+        [
+          -2.0,
+          1.7
+        ]
+      ],
+      "centre_m": [
+        0.0,
+        2.0
+      ],
+      "radius_m": 0.3,
+      "start_angle_deg": 270.0,
+      "end_angle_deg": 0.0,
+      "plane_coordinate_m": 0.0
+    },
+    "straight_length_m": 2.0,
+    "included_guids": [
+      "1uGqW$ugzIM9$Bw0m20nFy"
+    ],
+    "omitted_guids": [
+      "2$66H3PjjSaAGFCsCrY9hx"
+    ],
+    "saved_dxf_sha256": "33a233942f0e19a892c14739ebb5e1a8c32c046f2f2bbaed9c68d7f251e78cdf",
+    "saved_identity_and_geometry_pass": true,
+    "design_accepted": false,
+    "scope": "Single cable planar true arc/straight and envelope OD; LINE/TEXT dimensions are not associative; omitted model elements, installation and engineering review pending"
+  },
+  "native": {
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\cable-route-drawing-v2\\cable-route.dxf": "33a233942f0e19a892c14739ebb5e1a8c32c046f2f2bbaed9c68d7f251e78cdf",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\cable-route-native-settings-v2.json": "ce00e6667b5a885a1f12324686ae8d4b0a9b597e26a06ea18ee8cc1c440ee5ac"
+    },
+    "inputs_unchanged": true,
+    "engine": "C:\\Program Files\\Autodesk\\AutoCAD 2027\\accoreconsole.exe",
+    "engine_sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2",
+    "dwg_sha256": "f3c0f50698a2dd46fe546129ed55f0e3c921df35c82d2ec00a95e1c4614c8146",
+    "native_reopen_pass": true,
+    "checks": {
+      "model_entity_count": 16,
+      "linked_entity_count": 16,
+      "model_entities_and_ifc_xdata_match": true,
+      "geometry_layers_and_annotations_match": true,
+      "metre_units": true
+    },
+    "plot": {
+      "pdf_sha256": "2625b3df3b2b5643b37321cdabab437bf1c2e13fa52fbf7f37111ac466d6835b",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 20,
+      "reference_handle": "37",
+      "reference_expected_mm": 100.0,
+      "reference_measured_mm": 99.99133333333333,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "settings": {
+      "source": "Synthetic cable route X/Z view; assumed A4 1:20 drafting scale; 2 m saved straight reference",
+      "window_drawing_units": [
+        -2.3,
+        1.1,
+        2.7,
+        2.9
+      ],
+      "scale_denominator": 20,
+      "reference_ifc_guid": "1uGqW$ugzIM9$Bw0m20nFy",
+      "reference_layer": "BSA_CABLE_AXIS",
+      "drawing_name": "cable-route",
+      "pdf_tolerance_mm": 0.2
+    },
+    "design_accepted": false,
+    "pending": [
+      "actual PDF visual review",
+      "equipment/fittings/insulation and installation drawing detail",
+      "complete engineering acceptance"
+    ],
+    "artifacts": {
+      "cable-route.dwg": "f3c0f50698a2dd46fe546129ed55f0e3c921df35c82d2ec00a95e1c4614c8146",
+      "input.dxf": "33a233942f0e19a892c14739ebb5e1a8c32c046f2f2bbaed9c68d7f251e78cdf",
+      "plot.log": "2a1a5fb40da2d748e42050d46a72dd5089f2f4eae444f53dde1e72eed4f5d7ed",
+      "save.log": "e3c29db84c0722e1f3446e2ee0cc9229a330216152e5ae8c2136beb7b987743f",
+      "save.scr": "f180828d6457030dce6540d75d3c588d6c61f5c264c2a9b8bdfb34edf11c7c8c",
+      "sheet.json": "760e1567cd6354642a44564ddfbc8013e126f237815821f91bcb111d39f0a7cc",
+      "sheet.log": "15f0b67c2f09f53027457fda1263781f14824a5b679e95be28c448b79a4e463c",
+      "sheet.pdf": "2625b3df3b2b5643b37321cdabab437bf1c2e13fa52fbf7f37111ac466d6835b",
+      "sheet.scr": "371afa86fadb9d849ef4936358aab87205717472f5cf032ebd31fa38b8a82f17",
+      "native-reopen/export.log": "434f3ab07b35af6a2366c2b2f3e4edcc8707b5ae0fb9c5a47ce8fcd7f6ca77eb",
+      "native-reopen/export.scr": "29d33a118969117ca62d24475224b0a2332699a3810658699d2a3d82441e81ef",
+      "native-reopen/source-copy.dwg": "f3c0f50698a2dd46fe546129ed55f0e3c921df35c82d2ec00a95e1c4614c8146",
+      "native-reopen/source-export.dxf": "cc7933a2558ad9d26e4964c11964bff550b11e5105b0255625e81546f7bb7713",
+      "ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "0c079e2476116b1eee685e5a25d1173db619246398f9a74f8d0387281c752910",
+      "native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "04867c8a3ad42b483e36708b9097f82507e9ae4dd0c54f0c47eb2d80e80c0e8b"
+    }
+  },
+  "visual_review": {
+    "pdf_sha256": "2625b3df3b2b5643b37321cdabab437bf1c2e13fa52fbf7f37111ac466d6835b",
+    "png_sha256": "0b7b6c1012734bfe5334905807f333fe8d348ee8cd1ce7e92ce9e65b977a6bc7",
+    "observed": "Readable IFC GUID, true total/arc lengths, radius and OD notes; continuous arc and straight outlines; straight dimension text separated from dimension line after retained first-trial spacing failure.",
+    "scoped_review_pass": true,
+    "full_engineering_acceptance": false
+  },
+  "tests": {
+    "projection_pass": 4,
+    "existing_native_pass": 4,
+    "existing_native_skipped": 1,
+    "separate_actual_native_executed": true
+  },
+  "retained_warnings": [
+    "Duplicate PDF PageMode; no PDF-conformance claim",
+    "Upstream IFC destructor warning during existing tests"
+  ],
+  "design_accepted": false
+}

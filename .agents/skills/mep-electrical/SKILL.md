@@ -5,6 +5,8 @@ description: Calculate source-linked single-phase circuits and scoped three-phas
 
 # mep-electrical
 
+For physical-route geometry rather than a Graphviz calculation schematic, the scoped bsa.cable_route_drawing adapter supports one saved quarter-plus-tangent cable (docs/CABLE_ROUTE_DRAWINGS.md). Require native geometry/length/port checks, true circular projection, saved DXF readback, native DWG reopen and actual plotted review. Other physical elements are explicitly omitted; its standalone output has no workflow release gate and does not prove installation acceptance.
+
 For the scoped continuous quarter-plus-tangent cable workflow, read docs/CABLE_CONTINUITY_TRIAL.md. scripts/run_continuous_cable_workflow.py exercises a fresh saved-model study, exact same-model bend and coordination prerequisites, and optionally reopened native schematic output. Supply actual source data for real projects; synthetic diameter/radius/clearance targets are not manufacturer or Hong Kong rules. Preserve failed bend blocking, actual PDF review and separate installation acceptance.
 
 For selected Hong Kong phase-current balance after numerical analysis, route through ../mep-regulations/SKILL.md and docs/HK_PHASE_BALANCE.md. Use an independently sourced protective-device rating, four-wire/single-phase-load classification and justified RMS design/model basis; the numerical study's current target is not a breaker rating. Fundamental phasor results alone cannot clear harmonic/neutral requirements. The three_phase_regulations workflow task must inherit the drawing study producer and gate it through requires_pass; full electrical conformity remains unestablished.

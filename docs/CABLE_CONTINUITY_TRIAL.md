@@ -1,5 +1,7 @@
 # Continuous cable native geometry trial
 
+Follow-up: [selected cable route drawings](CABLE_ROUTE_DRAWINGS.md) now provide a separately executed planar true-arc/straight/OD native drawing and inspected fixed-scale sheet. This is selected geometry only; obstacle-inclusive and workflow-controlled installation delivery remain pending.
+
 Executed 2026-11-10 using pinned IfcOpenShell 0.8.5 and the existing Manifold mesh validator. This is a synthetic geometry probe, not an engineering design or registered workflow capability.
 
 `scripts/probe_cable_union.py --out <new repository directory>` creates a quarter-circle envelope (centreline radius 0.3 m, envelope radius 0.01 m) and a tangent 2 m straight, all explicitly assumed. The existing revolution probe supplies the first solid. Upstream `geometry.add_boolean` performs UNION; no custom triangles, mesh repair, contact waiver or tolerance widening is used. The independent expected centreline length is 2.471238898038469 m. Analytic volume, volume-weighted centroid and tight bounds are compared to the saved, reopened native tessellation using existing tolerances.

@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+The selected continuous cable now also has a standalone source-checked planar true-arc/straight/OD drawing with saved IFC identity, nonassociative dimensional graphics, actual native reopening and inspected fixed-scale PDF. It explicitly omits other model elements; workflow release integration and complete installation detailing remain pending (CABLE_ROUTE_DRAWINGS.md).
+
 Continuous quarter-plus-tangent cable now reaches a fresh saved-model electrical study, same-model bend and solid/clearance checks, reopened native schematic and separately inspected PDF. Actual failed bend target prevents drawing adapter execution. This synthetic evidence does not resolve general routes, dimensioned installation drawings, product/equipment interfaces or full Hong Kong acceptance; see CABLE_CONTINUITY_TRIAL.md.
 
 Three-phase study and calculation-schematic delivery now run in one source-linked workflow using pinned pandapower/Graphviz plus existing ezdxf/AutoCAD/PDF components. Actual numerical and DWG-reopen/paper-reference stages pass on a synthetic three-bus fixture; separate inspected-page review retains full installation/protection/Hong Kong acceptance pending. Missing tools, target failures and changed study artifacts block drawing. This does not complete the original multiple-assignment, CAD/BIM, analysis and full-regulation goal. See THREE_PHASE_DRAWINGS.md.
