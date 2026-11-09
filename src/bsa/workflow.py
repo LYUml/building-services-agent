@@ -128,7 +128,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             inputs.add(local_path(root,t.get("project")))
@@ -150,6 +150,19 @@ def validate_plan(path):
             inputs.update({pack,project}|official)
             if kind in ('electrical_regulations','lighting_regulations'):
                 inputs.update(local_path(root,t.get(key)) for key in (('topology' if kind=='electrical_regulations' else 'geometry'),'basis'))
+        if kind=='circulation_pump_design':
+            from .circulation_pump_design import candidates
+            from .regulations import source_paths
+            project=local_path(root,t.get('project'));catalogue=local_path(root,t.get('catalogue'));pack=local_path(root,t.get('pack'))
+            candidates(read_json(project),read_json(catalogue))
+            if t.get('depends_on'):raise ProjectError('pump screening currently requires explicit standalone project')
+            directory=t.get('sources')
+            if not isinstance(directory,str) or Path(directory).is_absolute():raise ProjectError('relative regulation source directory required')
+            directory=(root/directory).resolve()
+            if not directory.is_relative_to(root):raise ProjectError('regulation sources escape plan root')
+            official=source_paths(read_json(pack),directory)
+            if any(not f.is_file() for f in official):raise ProjectError('download required official sources before workflow execution')
+            inputs.update({project,catalogue,pack,local_path(root,t.get('thermal_basis')),local_path(root,t.get('rule_basis'))}|official)
         if kind=='ifc_circulation_checks':
             parent=t.get('depends_on')
             if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='water_coordination':raise ProjectError('IFC circulation checks require earlier water_coordination')
@@ -569,6 +582,11 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                 payload=run(local_path(root,t['project']),local_path(root,t['model']),local_path(root,t['binding']),folder)
                 status='pass' if payload['calculated_checks_pass'] else 'fail'
                 reason='IFC port-derived circular route dimensions and prescribed-flow pressure budget; detailed routing and full acceptance pending'
+            elif t['kind']=='circulation_pump_design':
+                from .circulation_pump_design import run
+                payload=run(*(local_path(root,t[key]) for key in ('project','catalogue','thermal_basis','rule_basis','pack')),root/t['sources'],folder)
+                status='pass' if payload['feasible_candidate_found'] and payload['selected_rerun_pass'] else 'fail'
+                reason='bounded sourced pump screening with hydraulic/thermal/pipe-rule checks and selected rerun; IFC/product/full acceptance pending'
             elif t['kind']=='ifc_circulation_checks':
                 parent=t['depends_on']
                 if tasks[parent]['status']!='pass':reason='upstream saved water coordination did not pass; combined checks not executed'
