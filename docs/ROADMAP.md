@@ -97,3 +97,5 @@ A repeatable three-scenario pump-set brief workflow now verifies separate duty/s
 Official IfcMCP now has an isolated pinned 0.9.0 distribution and verified real stdio query/session trial against a saved synthetic IFC, with direct saved-model count/identity reconciliation and unchanged source hash. Editing, geometry, drawing and agent-host registration remain pending; existing engineering runtime is unchanged. See IFCMCP_TRIAL.md.
 
 Official IfcMCP now supports an executed source-bound pump text-property addition trial: new-file save/reload, original STEP-record preservation, exact target/property checks and overwrite/source-override rejection. Numeric ratings, geometry authoring, host registration and broader mutation remain pending.
+
+Official IfcMCP 0.9.0 plotting was actually attempted and is blocked by host application control on its OpenCascade kernel. Native failure/event evidence is retained; no image or drawing acceptance is claimed. Keep query/property functionality separate and use established verified drawing adapters for supported outputs.

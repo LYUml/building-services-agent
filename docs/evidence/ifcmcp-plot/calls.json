@@ -1,0 +1,52 @@
+{
+  "floorplan": {
+    "arguments": {
+      "selector": "IfcPump, IfcPipeSegment",
+      "view": "floorplan",
+      "width_mm": 210.0,
+      "height_mm": 297.0,
+      "scale": 0.02,
+      "png_width": 840,
+      "png_height": 1188,
+      "output_path": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifcmcp-plot-v1\\floorplan.svg"
+    },
+    "response": {
+      "meta": null,
+      "content": [
+        {
+          "type": "text",
+          "text": "Error executing tool ifc_plot: boost::dll::shared_library::load() failed: An Application Control policy has blocked this file.",
+          "annotations": null,
+          "meta": null
+        }
+      ],
+      "structuredContent": null,
+      "isError": true
+    }
+  },
+  "elevation": {
+    "arguments": {
+      "selector": "IfcPump, IfcPipeSegment",
+      "view": "elevation",
+      "width_mm": 210.0,
+      "height_mm": 297.0,
+      "scale": 0.02,
+      "png_width": 840,
+      "png_height": 1188,
+      "output_path": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifcmcp-plot-v1\\elevation.svg"
+    },
+    "response": {
+      "meta": null,
+      "content": [
+        {
+          "type": "text",
+          "text": "Error executing tool ifc_plot: boost::dll::shared_library::load() failed: An Application Control policy has blocked this file.",
+          "annotations": null,
+          "meta": null
+        }
+      ],
+      "structuredContent": null,
+      "isError": true
+    }
+  }
+}

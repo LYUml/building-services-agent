@@ -1,0 +1,60 @@
+{
+  "model": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-ifc-plumbing-v1\\route\\bim\\model.ifc",
+  "model_sha256": "5bdb0e163ffca69ef3791a3869317d7e7198868f031e0a60af03154bfc0d0934",
+  "source_unchanged": true,
+  "cairo_dll_sha256": "9fd5dbc5695106d118d1a2932f14b1eecb5525a64d7e89fdba1c0f2b36d0048f",
+  "calls": {
+    "floorplan": {
+      "arguments": {
+        "selector": "IfcPump, IfcPipeSegment",
+        "view": "floorplan",
+        "width_mm": 210.0,
+        "height_mm": 297.0,
+        "scale": 0.02,
+        "png_width": 840,
+        "png_height": 1188,
+        "output_path": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifcmcp-plot-v1\\floorplan.svg"
+      },
+      "response": {
+        "meta": null,
+        "content": [
+          {
+            "type": "text",
+            "text": "Error executing tool ifc_plot: boost::dll::shared_library::load() failed: An Application Control policy has blocked this file.",
+            "annotations": null,
+            "meta": null
+          }
+        ],
+        "structuredContent": null,
+        "isError": true
+      }
+    },
+    "elevation": {
+      "arguments": {
+        "selector": "IfcPump, IfcPipeSegment",
+        "view": "elevation",
+        "width_mm": 210.0,
+        "height_mm": 297.0,
+        "scale": 0.02,
+        "png_width": 840,
+        "png_height": 1188,
+        "output_path": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifcmcp-plot-v1\\elevation.svg"
+      },
+      "response": {
+        "meta": null,
+        "content": [
+          {
+            "type": "text",
+            "text": "Error executing tool ifc_plot: boost::dll::shared_library::load() failed: An Application Control policy has blocked this file.",
+            "annotations": null,
+            "meta": null
+          }
+        ],
+        "structuredContent": null,
+        "isError": true
+      }
+    }
+  },
+  "design_accepted": false,
+  "scope": "Native plot trial; image review, coverage, dimensions and engineering acceptance are separate"
+}

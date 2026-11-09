@@ -37,3 +37,16 @@ The installed 0.9.0 server may return edit payloads as JSON text without structu
 Actual saved-model evidence is in docs/evidence/ifcmcp-edit/native-trial.zip. After adding review/provenance text to the synthetic booster, all 189 original STEP entity records remained identical. Only property entities were added, their relationship targets exactly the requested pump, and all saved values match the patch. Original source hashes and schema remain unchanged. The new file was reset/reloaded over MCP and independently reopened through IfcOpenShell. Regression execution also checks an existing-set overwrite and reserved-source override are rejected before output creation.
 
 These checks prove a scoped metadata operation, not equipment truth, geometric authoring, new-model hydraulic validity, native drawings or regulatory conformity. Host registration and broader mutation remain pending. Use actual source-backed patch text for real assignments; the example is explicitly synthetic.
+
+
+## 2D plot trial: blocked by host application control
+
+```powershell
+tools/ifcmcp-runtime/Scripts/python scripts/probe_ifcmcp_plot.py --model runs/hk-ifc-plumbing-v1/route/bim/model.ifc --cairo tools/freecad-1.1.4/FreeCAD_1.1.4-Windows-x86_64-py311/bin --out runs/new-ifcmcp-plot
+```
+
+Actual floorplan and elevation calls on the saved synthetic route both failed. Windows Code Integrity events 3077/3033 identify `ifcopenshell_geometry_kernel_opencascade.dll` from the isolated 0.9.0 runtime as failing the host signing policy. No PNG or SVG was created, and no visual acceptance is claimed. The input hash remained unchanged. Error responses, event messages, blocked binary SHA256 and the dependency lock are retained in docs/evidence/ifcmcp-plot.
+
+The upstream MCP plot tool always generates PNG before saving an optional SVG, so this interface needs raster dependencies even for an SVG output path. CairoSVG 2.8.2 and Pillow 12.0.0 were installed only in the isolated environment. Cairo loaded successfully through cairocffi's documented CAIROCFFI_DLL_DIRECTORIES mechanism using the existing hash-verified official FreeCAD distribution's bin directory. The observed block occurred later in the separate IfcOpenShell OpenCascade geometry kernel. No blocked binary was substituted, repackaged or bypassed; no application-control settings were changed.
+
+Do not route required drawings to this unexecuted geometry path. Existing verified native drawing adapters remain available in the established 0.8.5 engineering environment; query and text-property MCP capabilities retain their separate evidence. A future plot retry needs an authorized runtime/environment in which the geometry kernel can load. That prerequisite does not block unrelated project development.

@@ -1,0 +1,22 @@
+[
+  {
+    "TimeCreated": "2026-11-09T09:15:20.8465205+08:00",
+    "Id": 3077,
+    "Message": "Code Integrity determined that a process (\\Device\\HarddiskVolume2\\Users\\lyuml-win\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe) attempted to load \\Device\\HarddiskVolume2\\Users\\lyuml-win\\Desktop\\building-services-agent\\tools\\ifcmcp-runtime\\Lib\\site-packages\\ifcopenshell\\ifcopenshell_geometry_kernel_opencascade.dll that did not meet the Enterprise signing level requirements or violated code integrity policy (Policy ID:{0283ac0f-fff1-49ae-ada1-8a933130cad6})."
+  },
+  {
+    "TimeCreated": "2026-11-09T09:15:20.8449581+08:00",
+    "Id": 3033,
+    "Message": "Code Integrity determined that a process (\\Device\\HarddiskVolume2\\Users\\lyuml-win\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe) attempted to load \\Device\\HarddiskVolume2\\Users\\lyuml-win\\Desktop\\building-services-agent\\tools\\ifcmcp-runtime\\Lib\\site-packages\\ifcopenshell\\ifcopenshell_geometry_kernel_opencascade.dll that did not meet the Enterprise signing level requirements."
+  },
+  {
+    "TimeCreated": "2026-11-09T09:15:19.7282645+08:00",
+    "Id": 3077,
+    "Message": "Code Integrity determined that a process (\\Device\\HarddiskVolume2\\Users\\lyuml-win\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe) attempted to load \\Device\\HarddiskVolume2\\Users\\lyuml-win\\Desktop\\building-services-agent\\tools\\ifcmcp-runtime\\Lib\\site-packages\\ifcopenshell\\ifcopenshell_geometry_kernel_opencascade.dll that did not meet the Enterprise signing level requirements or violated code integrity policy (Policy ID:{0283ac0f-fff1-49ae-ada1-8a933130cad6})."
+  },
+  {
+    "TimeCreated": "2026-11-09T09:15:19.7266894+08:00",
+    "Id": 3033,
+    "Message": "Code Integrity determined that a process (\\Device\\HarddiskVolume2\\Users\\lyuml-win\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe) attempted to load \\Device\\HarddiskVolume2\\Users\\lyuml-win\\Desktop\\building-services-agent\\tools\\ifcmcp-runtime\\Lib\\site-packages\\ifcopenshell\\ifcopenshell_geometry_kernel_opencascade.dll that did not meet the Enterprise signing level requirements."
+  }
+]
