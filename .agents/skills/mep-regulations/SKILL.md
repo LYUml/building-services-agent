@@ -5,6 +5,8 @@ description: Select source-pinned jurisdiction rule packs and bind supported MEP
 
 # MEP jurisdiction checks
 
+For Hong Kong emergency lighting, read docs/HK_EMERGENCY_LIGHTING.md and its source inventory before selecting requirements. This research is not an executable pack. Keep building-plan and licensed-premises application dates distinct; do not reuse ordinary-lighting LPD or workplane illuminance as emergency floor performance. Rated-duration degradation, applicable base standards and outstanding circular review remain explicit prerequisites.
+
 For fresh EPANET graph or circulation pipe results, use `bsa.epanet_pipe_regulations` as documented in docs/EPANET_PIPE_RULES.md. Require exact per-pipe bases, separately sourced density/fluid applicability and code-diameter classifications. Actual speed and distributed friction are derived; preserve hydraulic failures and regulatory reviews. Use workflow kind epanet_pipe_regulations and requires_pass gates. Chained circulation duty and water graph tasks must use identical hydraulic input bytes. Fluid/thermal assumption consistency and IFC correspondence remain separate review items.
 
 At intake and before delivery, read docs/REGULATORY_COVERAGE.md and run `bsa.regulation_coverage` with the selected jurisdiction catalog, sourced per-topic decisions and optional workflow plan. The Hong Kong catalog regulations/hk/coverage-2026.11.09.json adds HVAC water piping; retain the older snapshot for existing evidence. Resolve every missing applicability decision; retain unimplemented and unscheduled checks in the requirement matrix. A scheduled module is not an executed or complete check. The catalog is a planning aid, not an exhaustive legal determination; exclusions require project evidence and rationale.

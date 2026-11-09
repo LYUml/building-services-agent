@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Hong Kong emergency-lighting source review now pins five FSD PDFs and distinguishes building-plan versus licensed-premises transition dates, accommodation floor/count boundaries and rated-duration evidence. See HK_EMERGENCY_LIGHTING.md. Remaining circular/base-standard review, executable rules and emergency-mode photometric binding are pending; ordinary lighting results cannot satisfy this scope.
+
 The requested end state is reusable automation from a requirement document and source drawings to editable models, plotted drawings, performance analysis and a source-backed report. Multiple assignments must reuse the same tools without inheriting course-specific numbers.
 
 | Workstream | Acceptance evidence | Current state |

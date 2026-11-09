@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-11-09",
+  "authority": "Hong Kong Fire Services Department",
+  "status": "research_only",
+  "executable_rules": false,
+  "complete_amendment_review": false,
+  "regulatory_compliance": "not_established",
+  "sources": [
+    {
+      "cache_filename": "fsd-cop-2022.pdf",
+      "url": "https://www.hkfsd.gov.hk/eng/source/safety/File2022.pdf",
+      "sha256": "ce1d88b6f2df3d4674db80763134eebac3ff6f1ec9bd0f29d1466cf16657622f",
+      "reviewed_pdf_pages_one_based": [
+        65,
+        66
+      ]
+    },
+    {
+      "cache_filename": "fsd-emergency-guidance-2021.pdf",
+      "url": "https://www.hkfsd.gov.hk/eng/source/guidance/Technical_Guidance_BS5266_2016_BSEN1838_2013.pdf",
+      "sha256": "295e93caaf662c86d91c326f1c127541d7dce034217e94cc96df6d68452c6f8a",
+      "reviewed_pdf_pages_one_based": [
+        8,
+        20
+      ]
+    },
+    {
+      "cache_filename": "cl4-2021.pdf",
+      "url": "https://www.hkfsd.gov.hk/eng/source/circular/2021_04_eng_20210601_104610.pdf",
+      "sha256": "ea48939c84c27887ff339e4ce9d5e203712a351e4f3dbc41ec1a5b0b09aa3016",
+      "reviewed_pdf_pages_one_based": [
+        1,
+        2
+      ]
+    },
+    {
+      "cache_filename": "cl5-2021.pdf",
+      "url": "https://www.hkfsd.gov.hk/eng/source/circular/2021_05_eng_20210601_104701.pdf",
+      "sha256": "1a99b1dd6aa49e954d9d4ceb9b60b3bead85c3d4b70b43f86fee6aefda76e993",
+      "reviewed_pdf_pages_one_based": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "cache_filename": "corrigendum-2024.pdf",
+      "url": "https://www.hkfsd.gov.hk/eng/source/circular/2024_04_eng_20240725_165638.pdf",
+      "sha256": "8828d359ecdb17fe5982ed55e3767b410d48fbe35ab285da68901cd963873778",
+      "reviewed_pdf_pages_one_based": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    }
+  ],
+  "outstanding": [
+    "Circulars 5/2022, 1/2023 and 3/2023 and later amendment/withdrawal applicability",
+    "Complete licensed-premises appendices",
+    "Applicable base standards and photometric assessment method",
+    "Project-specific edition, premises and application dates"
+  ],
+  "guide": "docs/HK_EMERGENCY_LIGHTING.md"
+}
