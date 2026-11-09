@@ -1,0 +1,61 @@
+{
+  "runs": [
+    {
+      "basis": {
+        "source": "Native CAD comparison of verified zero-roll alignment; shifted case is an intentional interference control",
+        "fixed_sha256": "138d2db55989b3bc35339f217a7e7767423a234504cc4f56c5c48902cd4ff45f",
+        "moving_sha256": "a117469a50e2a4ad293ef29fa5b658d14dbb3c3f4365b0485527bbae36efecaa",
+        "insunits": 1,
+        "translation_drawing_units": [
+          2.765,
+          0,
+          0
+        ],
+        "rotation_z_degrees": -90
+      },
+      "insertion_point_drawing_units": [
+        2.75,
+        -9.184850993605148e-19,
+        -2e-16
+      ],
+      "solid_counts_before_after": [
+        2,
+        0
+      ],
+      "native_clear": true,
+      "intersection_volume_m3": null,
+      "native_transform_and_mass_checks_pass": true,
+      "design_accepted": false,
+      "scope": "Two native solids, explicit translation/Z rotation; kernel tolerance applies. No IFC equivalence, mesh waiver or installation acceptance."
+    },
+    {
+      "basis": {
+        "source": "Native CAD comparison of verified zero-roll alignment; shifted case is an intentional interference control",
+        "fixed_sha256": "138d2db55989b3bc35339f217a7e7767423a234504cc4f56c5c48902cd4ff45f",
+        "moving_sha256": "a117469a50e2a4ad293ef29fa5b658d14dbb3c3f4365b0485527bbae36efecaa",
+        "insunits": 1,
+        "translation_drawing_units": [
+          2.765,
+          0.01,
+          0
+        ],
+        "rotation_z_degrees": -90
+      },
+      "insertion_point_drawing_units": [
+        2.75,
+        0.009999999999999998,
+        -2e-16
+      ],
+      "solid_counts_before_after": [
+        2,
+        1
+      ],
+      "native_clear": false,
+      "intersection_volume_m3": 1.9459556564679998e-07,
+      "native_transform_and_mass_checks_pass": true,
+      "design_accepted": false,
+      "scope": "Two native solids, explicit translation/Z rotation; kernel tolerance applies. No IFC equivalence, mesh waiver or installation acceptance."
+    }
+  ],
+  "source_and_artifact_hashes_verified": true
+}
