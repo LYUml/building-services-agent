@@ -1,0 +1,10 @@
+{
+  "scope": "Actual Revit load-warning export only; no API inventory or accepted design",
+  "report_sha256": "1e1a79a22d64cd3ab4ef31db06d4118caa88ad48351d279aafa0e0a6ae5ed240",
+  "warning_count": 39,
+  "messages": {
+    "Space is not in a properly enclosed region": 39
+  },
+  "native_inventory_executed": false,
+  "design_accepted": false
+}
