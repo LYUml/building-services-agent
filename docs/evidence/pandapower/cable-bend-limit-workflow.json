@@ -1,0 +1,253 @@
+{
+  "scope": "Actual synthetic declared-limit release workflow; no manufacturer selection or full engineering acceptance",
+  "scenarios": [
+    {
+      "scenario": "conditional-pass",
+      "tasks": {
+        "study": {
+          "kind": "three_phase_ifc_project",
+          "status": "pass",
+          "scope": "New snapshot project with native straight or canonical quarter-circle IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+        },
+        "bend-check": {
+          "kind": "three_phase_bend_limits",
+          "status": "pass",
+          "scope": "Supported saved bends versus declared product diameter/condition/radius-reference limits only; source interpretation, cable selection, ratings, pulling forces, joints and full engineering/regulatory acceptance remain unverified"
+        },
+        "drawing": {
+          "kind": "three_phase_drawing",
+          "status": "pending",
+          "scope": "Graphviz executable not supplied; native three-phase drawing not executed"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: drawing (pending); adapter not executed"
+        }
+      },
+      "model_bindings": [
+        {
+          "producer": "study",
+          "consumer": "bend-check",
+          "ifc_sha256": "03c33110e160eba242b153c058eb50850bacb18361b570f07fe755a9bac86664",
+          "geometry_binding_sha256": "e82bce1d7bc02f55e40a38e66c634cf84f3e65933c27f7d4ce512ab0a1340c4c"
+        },
+        {
+          "producer": "bend-check",
+          "consumer": "drawing",
+          "ifc_sha256": "03c33110e160eba242b153c058eb50850bacb18361b570f07fe755a9bac86664",
+          "geometry_binding_sha256": "e82bce1d7bc02f55e40a38e66c634cf84f3e65933c27f7d4ce512ab0a1340c4c"
+        }
+      ],
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "design_accepted": false
+    },
+    {
+      "scenario": "inside-radius-too-small",
+      "tasks": {
+        "study": {
+          "kind": "three_phase_ifc_project",
+          "status": "pass",
+          "scope": "New snapshot project with native straight or canonical quarter-circle IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+        },
+        "bend-check": {
+          "kind": "three_phase_bend_limits",
+          "status": "fail",
+          "scope": "Supported saved bends versus declared product diameter/condition/radius-reference limits only; source interpretation, cable selection, ratings, pulling forces, joints and full engineering/regulatory acceptance remain unverified"
+        },
+        "drawing": {
+          "kind": "three_phase_drawing",
+          "status": "pending",
+          "scope": "required checks unresolved: bend-check (fail); adapter not executed"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: drawing (pending); adapter not executed"
+        }
+      },
+      "model_bindings": [
+        {
+          "producer": "study",
+          "consumer": "bend-check",
+          "ifc_sha256": "df18d8a4b5981b3f129c8254ec886c9f0fcf1a0aac98baa945eaf150be45eb0f",
+          "geometry_binding_sha256": "03ca3dee7b638b975918e8f72154396ec0a5a448e260e884fdcbeef6d54c249a"
+        },
+        {
+          "producer": "bend-check",
+          "consumer": "drawing",
+          "ifc_sha256": "df18d8a4b5981b3f129c8254ec886c9f0fcf1a0aac98baa945eaf150be45eb0f",
+          "geometry_binding_sha256": "03ca3dee7b638b975918e8f72154396ec0a5a448e260e884fdcbeef6d54c249a"
+        }
+      ],
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "design_accepted": false
+    },
+    {
+      "scenario": "unknown-radius-reference",
+      "tasks": {
+        "study": {
+          "kind": "three_phase_ifc_project",
+          "status": "pass",
+          "scope": "New snapshot project with native straight or canonical quarter-circle IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+        },
+        "bend-check": {
+          "kind": "three_phase_bend_limits",
+          "status": "pending",
+          "scope": "Supported saved bends versus declared product diameter/condition/radius-reference limits only; source interpretation, cable selection, ratings, pulling forces, joints and full engineering/regulatory acceptance remain unverified"
+        },
+        "drawing": {
+          "kind": "three_phase_drawing",
+          "status": "pending",
+          "scope": "required checks unresolved: bend-check (pending); adapter not executed"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: drawing (pending); adapter not executed"
+        }
+      },
+      "model_bindings": [
+        {
+          "producer": "study",
+          "consumer": "bend-check",
+          "ifc_sha256": "5e70749e4766be1b654135373e6b75479025cc7c32e0bee1fbb34b76d34b198f",
+          "geometry_binding_sha256": "d506a8ba3fadf42a105d58f708e371a8d9e6546c0f15a3312f55c0743a8d7075"
+        },
+        {
+          "producer": "bend-check",
+          "consumer": "drawing",
+          "ifc_sha256": "5e70749e4766be1b654135373e6b75479025cc7c32e0bee1fbb34b76d34b198f",
+          "geometry_binding_sha256": "d506a8ba3fadf42a105d58f708e371a8d9e6546c0f15a3312f55c0743a8d7075"
+        }
+      ],
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "design_accepted": false
+    }
+  ],
+  "positive_native_tasks": {
+    "study": {
+      "kind": "three_phase_ifc_project",
+      "status": "pass",
+      "scope": "New snapshot project with native straight or canonical quarter-circle IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+    },
+    "bend-check": {
+      "kind": "three_phase_bend_limits",
+      "status": "pass",
+      "scope": "Supported saved bends versus declared product diameter/condition/radius-reference limits only; source interpretation, cable selection, ratings, pulling forces, joints and full engineering/regulatory acceptance remain unverified"
+    },
+    "drawing": {
+      "kind": "three_phase_drawing",
+      "status": "pass",
+      "scope": "Source-linked calculation schematic and schedules only; full installation, protection and Hong Kong acceptance pending; actual page visual/engineering review remains pending"
+    },
+    "review": {
+      "kind": "manual",
+      "status": "pending",
+      "scope": "manual engineering/visual verification required"
+    }
+  },
+  "three_phase_source_bindings": [
+    {
+      "check": "bend-check",
+      "consumer": "drawing",
+      "study_producer": "study"
+    }
+  ],
+  "three_phase_model_bindings": [
+    {
+      "producer": "study",
+      "consumer": "bend-check",
+      "ifc_sha256": "03c33110e160eba242b153c058eb50850bacb18361b570f07fe755a9bac86664",
+      "geometry_binding_sha256": "e82bce1d7bc02f55e40a38e66c634cf84f3e65933c27f7d4ce512ab0a1340c4c"
+    },
+    {
+      "producer": "bend-check",
+      "consumer": "drawing",
+      "ifc_sha256": "03c33110e160eba242b153c058eb50850bacb18361b570f07fe755a9bac86664",
+      "geometry_binding_sha256": "e82bce1d7bc02f55e40a38e66c634cf84f3e65933c27f7d4ce512ab0a1340c4c"
+    }
+  ],
+  "positive_bend_check": [
+    {
+      "id": "feeder",
+      "element_guid": "1l0DiO$wXK7fdgG5dcTJLg",
+      "status": "pass",
+      "product_reference": "synthetic-cable-20",
+      "diameter_basis": "nominal",
+      "condition": "installed",
+      "radius_reference": "inside",
+      "centreline_radius_m": 0.3,
+      "inside_radius_m": 0.29,
+      "observed_envelope_diameter_m": 0.02,
+      "declared_diameter_m": 0.02,
+      "diameter_correspondence_pass": true,
+      "evaluated_radius_m": 0.29,
+      "minimum_radius_m": 0.28,
+      "numeric_radius_comparison": true,
+      "source_kind": "assumption",
+      "source_record": {
+        "path": "limit-basis.txt",
+        "sha256": "64b93c5ba84c8b59d1a7318799be64b6055822fbfd45d91d360b9ab25e1c0b3b",
+        "locator": "Synthetic nominal diameter, installed condition and inside-radius paragraph",
+        "kind": "assumption"
+      },
+      "failures": [],
+      "pending": []
+    }
+  ],
+  "manufacturer_selection_verified": false,
+  "native_reopen_pass": true,
+  "plot": {
+    "pdf_sha256": "1d00a52d6036183fce9af44ee13e74ea7a02b1637199d6e3a13d7839a66ae607",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 1,
+    "reference_handle": "7F",
+    "reference_expected_mm": 50.0,
+    "reference_measured_mm": 49.99566666666666,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "integrity_pass": true,
+  "delivery_context_pass": true,
+  "negative_drawing_directories_absent": true,
+  "negative_block_reasons": {
+    "inside-radius-too-small": "required checks unresolved: bend-check (fail); adapter not executed",
+    "unknown-radius-reference": "required checks unresolved: bend-check (pending); adapter not executed"
+  },
+  "page_review": {
+    "pdf_sha256": "1d00a52d6036183fce9af44ee13e74ea7a02b1637199d6e3a13d7839a66ae607",
+    "png_sha256": "aa42e7aa6ec80a801e6c55a4b9021d4fcd59bba6a383c839afa0912cdbcc3b24",
+    "observed": "Readable three-bus schematic, 0.47 m and 2.00 m labels, per-phase voltage/current values, limitations and 50 mm reference; no visible clipping or overlap",
+    "schematic_review_pass": true,
+    "engineering_acceptance": false
+  },
+  "tests": {
+    "new_workflow": 6,
+    "related_regression": 43,
+    "failures": 0,
+    "errors": 0
+  },
+  "retained_warning": "Duplicate /PageMode in native PDF; no PDF-conformance claim",
+  "design_accepted": false
+}

@@ -1,6 +1,6 @@
 # Source-bound cable bend limits
 
-The standalone bsa.cable_bend_limits command now compares supported saved circular cable bends with explicit declared product/installation requirements. It reuses the existing pinned IfcOpenShell/Manifold native reader and source-hash machinery. No new engineering engine, dependency or universal bend-radius table is introduced. Source interpretation, electrical cable selection, current rating, conductor/neutral/earth configuration, pulling forces, physical installation and complete regulatory conformity remain unverified.
+The bsa.cable_bend_limits command now compares supported saved circular cable bends with explicit declared product/installation requirements. It reuses the existing pinned IfcOpenShell/Manifold native reader and source-hash machinery. No new engineering engine, dependency or universal bend-radius table is introduced. Source interpretation, electrical cable selection, current rating, conductor/neutral/earth configuration, pulling forces, physical installation and complete regulatory conformity remain unverified.
 
 ## Why the source distinctions matter
 
@@ -26,6 +26,24 @@ For a supported round bend, centreline radius is R and inside envelope radius is
 .venv/Scripts/python -m bsa.cable_bend_limits examples/three-phase-bend/project.json --ifc runs/your-revised-cable-model/cables.ifc --binding runs/your-revised-cable-model/binding.json --basis examples/cable-bend-limits/limits.json --out runs/new-bend-limit-check
 ```
 
-The example limits are synthetic. The generic geometry fixture lacks the required selection metadata, so it cannot be advertised as passing this check without a deliberate sourced model revision. The module is read-only; it never adds selection properties or alters a model. Pass means the declared scoped comparison passed; fail/pending exits nonzero. The command is not yet registered as a workflow task, and a radius pass does not select a conductor or establish manufacturer/Hong Kong approval.
+The example limits are synthetic. The generic geometry fixture lacks the required selection metadata, so it cannot be advertised as passing this check without a deliberate sourced model revision. The module is read-only; it never adds selection properties or alters a model. Pass means the declared scoped comparison passed; fail/pending exits nonzero. The command is also registered as workflow three_phase_bend_limits; a radius pass does not select a conductor or establish manufacturer/Hong Kong approval.
 
 Ten tests pass, covering inside versus centreline distinction, installed-versus-pulling mismatch, maximum/nominal diameter behavior, missing native metadata, unknown datum, source changes, actual positive native correspondence and omitted-bend rejection. The positive native test uses explicitly synthetic requirements. The real manufacturer-source counterexample fails as expected. No native drawing or complete engineering acceptance is claimed by this new command.
+
+## Registered workflow release check
+
+Task kind three_phase_bend_limits inherits an exact passing three_phase or three_phase_ifc_project through depends_on. Its explicit native ifc, geometry binding and limit basis paths are required; replacement project/runtime options are forbidden. When the numerical producer is IFC-derived, both IFC and cable-role binding bytes must match that producer. Direct/transitive drawing prerequisites cannot borrow a different study or mix native model revisions. The basis and source files enter workflow input integrity; modified check artifacts block CAD invocation.
+
+Put the check ID in the drawing's requires_pass. Fail and pending remain distinct check outcomes, and both block drawing. They are not converted to pass because native geometry or numerical targets passed. The existing three_phase_source_bindings and three_phase_model_bindings records include this task and remain delivery-audited. A plan must still declare all applicable requirements; registration does not discover missing product/regulatory checks automatically.
+
+The existing native fixture/source APIs are composed by a repeatable three-scenario runner:
+
+```powershell
+.venv/Scripts/python scripts/run_cable_bend_limits_demo.py --python tools/pandapower-runtime/Scripts/python.exe --graphviz tools/freecad-1.1.4/FreeCAD_1.1.4-Windows-x86_64-py311/bin/dot.exe --autocad 'C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe' --out runs/new-bend-limit-suite
+```
+
+The synthetic normal condition uses a declared 0.28 m inside minimum and 0.29 m observed inside radius. A 0.295 m requirement fails; an unresolved measurement reference stays pending. The runner attaches only explicit synthetic product/source/condition properties to copied fixture IFC, refreshes its binding hash, then derives and solves a new model-bound numerical project. It is not a production product-selection author or a real manufacturer approval case.
+
+Actual numerical three-scenario execution retained pass/fail/pending outcomes and no drawing directory for either non-pass case. A separate actual positive run in runs/cable-bend-limit-native-positive-v1 passed the fresh study, bend check, native DWG reopening and PDF paper reference. The actual PDF was rendered and visually inspected; its 50 mm reference measured 49.995667 mm. File integrity and delivery-context reconstruction pass; full manual review stays pending. Duplicate /PageMode warnings remain retained without PDF-conformance claims.
+
+Six new workflow tests and 43 related workflow/model/delivery regressions pass. New controls exercise actual scenarios, failed-limit blocking before the drawing adapter, altered check results, missing runtime, rejected replacement project and unrelated study/model gates. [Workflow/page evidence](evidence/pandapower/cable-bend-limit-workflow.json) records executed scope. The earlier standalone-only milestone remains historical; no full cable selection, manufacturer guarantee, physical pulling analysis or Hong Kong conformity is implied.

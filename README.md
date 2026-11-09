@@ -180,3 +180,5 @@ Native electrical release now binds both IFC and cable-mapping file hashes to th
 [Native quarter-circle cable geometry](docs/CABLE_QUARTER_BENDS.md) now extends saved electrical length checks and derived studies beyond straight segments. Supported 90-degree envelopes use true arc lengths with native solid/Axis/port-normal QA; general bends, routing, manufacturer limits and full installation acceptance remain pending.
 
 [Declared cable bend limits](docs/CABLE_BEND_LIMITS.md) now compare saved bend geometry with source-bound product diameter, installation condition and explicit inside/centreline radius. Missing identity/datum stays pending; an actual manufacturer-data/model mismatch is rejected. Standalone checks do not select a compliant cable or establish full manufacturer/regulatory acceptance.
+
+Declared bend limits now register as three_phase_bend_limits, with inherited study/model identity and explicit drawing prerequisites. Actual pass/fail/unknown scenarios retain blocking, and a positive native DWG/inspected PDF run passes scoped checks. Full product and engineering acceptance remains pending. See docs/CABLE_BEND_LIMITS.md.
