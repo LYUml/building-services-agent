@@ -4,7 +4,7 @@ import shutil
 import tempfile
 import unittest
 import ifcopenshell
-from bsa.tee_selection import run,prepare
+from bsa.tee_selection import run,prepare,selected_paths
 ROOT=Path(__file__).resolve().parents[1]
 class TeeSelectionTests(unittest.TestCase):
     def test_selection_replay_no_feasible_and_changed_duty(self):
@@ -13,6 +13,11 @@ class TeeSelectionTests(unittest.TestCase):
             result=run(catalogue,root/'positive')
             self.assertEqual(result['selected'],'bore40');self.assertTrue(result['selected_rerun_pass'])
             self.assertFalse(result['trials'][0]['passed']);self.assertFalse(result['trials'][0]['details']['checks']['source_pressure_capacity'])
+            resolved=selected_paths(root/'positive',catalogue)
+            self.assertEqual(resolved[0],root/'positive/selected/assembly/assembly.ifc')
+            raw=resolved[0].read_bytes();resolved[0].write_bytes(raw+b'\n')
+            with self.assertRaisesRegex(ValueError,'artifact changed'):selected_paths(root/'positive',catalogue)
+            resolved[0].write_bytes(raw)
             a=ifcopenshell.open(str(root/'positive/candidates/bore32/assembly/assembly.ifc'))
             b=ifcopenshell.open(str(root/'positive/selected/assembly/assembly.ifc'))
             for cls in ('IfcPipeSegment','IfcPipeFitting','IfcDistributionPort'):

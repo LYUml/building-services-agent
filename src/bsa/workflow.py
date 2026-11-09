@@ -11,7 +11,7 @@ from pathlib import Path
 from .cli import digest
 from .engine import ProjectError
 
-IFC_ARTIFACTS={'tee_assembly':'assembly.ifc','ifc_metadata':'native/model.ifc','selected_pump_ifc':'selected-model.ifc','regulated_water_model':'selected-coordination/bim/model.ifc','annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
+IFC_ARTIFACTS={'tee_selection':'selected/assembly/assembly.ifc','tee_assembly':'assembly.ifc','ifc_metadata':'native/model.ifc','selected_pump_ifc':'selected-model.ifc','regulated_water_model':'selected-coordination/bim/model.ifc','annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
                'route_model':'bound/bim/model.ifc','route_optimize':'selected/bound/bim/model.ifc',
                'network_model_design':'selected-coordination/bim/model.ifc',
                'electrical_coordination':'bim/model.ifc','electrical_lighting':'shared/bim/model.ifc','pump_electrical':'model.ifc','water_coordination':'model.ifc'}
@@ -201,16 +201,20 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind=="water_network" and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
+        if kind=='tee_selection':
+            from .tee_selection import prepare
+            _,_,selection_files=prepare(local_path(root,t.get('catalogue')));inputs.update(selection_files)
+            if any(k in t for k in ('depends_on','ifc','tee_spec','assembly_spec','basis','control')):raise ProjectError('selection inherits only catalogue sources')
         if kind=='tee_assembly':
             inputs.update(local_path(root,t.get(k)) for k in ('tee_spec','assembly_spec'))
             if any(k in t for k in ('depends_on','ifc')):raise ProjectError('tee assembly uses explicit source specs')
         if kind in ('tee_losses','tee_pressure','tee_split','tee_drawing'):
             parent=t.get('depends_on')
-            if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='tee_assembly':
+            if parent not in ids or next(x for x in tasks if x['id']==parent)['kind'] not in (('tee_assembly','tee_selection') if kind=='tee_drawing' else ('tee_assembly',)):
                 raise ProjectError('tee losses require an earlier tee_assembly')
             if any(k in t for k in ('ifc','model','tee_spec','assembly_spec')):
                 raise ProjectError('tee losses inherit producer IFC and specs; replacement inputs forbidden')
@@ -620,6 +624,10 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     payload=run(source,local_path(root,t['settings']),folder)
                     status='pass' if payload['calculated_checks_pass'] else 'fail'
                     reason='saved hollow profiles and ports reconciled to schedule/projected centreline DXF; native and installation drawing acceptance pending'
+            elif t['kind']=='tee_selection':
+                from .tee_selection import run
+                payload=run(local_path(root,t['catalogue']),folder)
+                status='pass' if payload['calculated_checks_pass'] else 'fail';reason=payload['scope']
             elif t['kind']=='tee_assembly':
                 from .tee_assembly import run
                 payload=run(local_path(root,t['tee_spec']),local_path(root,t['assembly_spec']),folder)
@@ -630,7 +638,12 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 else:
                     from .tee_drawing import run
                     producer=next(x for x in p['tasks'] if x['id']==parent)
-                    payload=run(out/parent/'assembly.ifc',local_path(root,producer['tee_spec']),local_path(root,producer['assembly_spec']),folder)
+                    if producer['kind']=='tee_selection':
+                        from .tee_selection import selected_paths
+                        selected=selected_paths(out/parent,local_path(root,producer['catalogue']))
+                        payload=run(*selected,folder)
+                    else:
+                        payload=run(out/parent/'assembly.ifc',local_path(root,producer['tee_spec']),local_path(root,producer['assembly_spec']),folder)
                     status='pass' if payload['saved_geometry_identity_pass'] else 'fail';reason=payload['scope']
             elif t['kind'] in ('tee_losses','tee_pressure','tee_split'):
                 parent=t['depends_on']

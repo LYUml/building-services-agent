@@ -143,3 +143,5 @@ The tee workflow now spans requirement-linked assembly, table-based split, same-
 Tee diagrams now carry four GUID-linked arrow callouts and matching schedule IDs. Saved content/position/visibility/identity and text-overlap checks pass on generated and native-reopened DXF; actual labelled PDF reviewed. Wrong-text/hidden/wrong-GUID controls reject; broader installation detailing remains pending.
 
 A standalone source-bounded tee bore catalogue now retains native candidate geometry/split trials, rejects changed common duty, selects the lowest declared passing preference and independently regenerates/re-solves the selection. Synthetic 32 mm failure/40 mm success, stable IDs, no-feasible and changed-supply controls passed. Workflow/drawing handoff and real product/code acceptance remain pending.
+
+Tee selection now participates in requirement workflows and hands its verified selected IFC/specs to drawings and native delivery. Actual 40 mm selected-model DWG/PDF execution and visual review pass; selected-artifact mutation and no-feasible downstream blocking controls pass. Report integrity is distinct from physical/product/code truth.

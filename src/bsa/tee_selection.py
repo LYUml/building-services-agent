@@ -33,6 +33,37 @@ def prepare(path):
     return data,prepared,files
 
 
+def selected_paths(producer,catalogue):
+    """Verify retained selection/source bytes and resolve the selected native model."""
+    producer=Path(producer).resolve();catalogue=Path(catalogue).resolve()
+    data,candidates,files=prepare(catalogue)
+    report=json.loads((producer/'tee-selection.json').read_text(encoding='utf-8-sig'))
+    if report.get('catalogue')!=data or report.get('inputs')!={str(p):digest(p) for p in files}:raise ValueError('selection source correspondence failed')
+    if not report.get('calculated_checks_pass') or not report.get('selected_rerun_pass'):raise ValueError('no verified selected candidate')
+    artifacts=report.get('artifacts',{})
+    required={'selected/assembly/assembly.ifc','selected/assembly/assembly-checks.json','selected/split/tee-split.json'}
+    actual={p.relative_to(producer).as_posix() for p in producer.rglob('*') if p.is_file()}-{'tee-selection.json'}
+    if set(artifacts)!=actual or not required<=set(artifacts):raise ValueError('selection artifact coverage failed')
+    for name,sha in artifacts.items():
+        path=(producer/name).resolve()
+        if not path.is_relative_to(producer) or not path.is_file() or digest(path)!=sha:raise ValueError('selection artifact changed')
+    trials=report.get('trials',[])
+    if [t['id'] for t in trials]!=[r['id'] for r,_ in candidates]:raise ValueError('candidate trial coverage failed')
+    for trial,(row,_) in zip(trials,candidates):
+        if trial['preference']!=row['preference'] or trial['source']!=row['source']:raise ValueError('candidate ranking correspondence failed')
+    passing=[t for t in trials if t['passed']]
+    if not passing or min(passing,key=lambda t:(t['preference'],t['id']))['id']!=report['selected']:raise ValueError('selected preference mismatch')
+    row,paths=next((r,p) for r,p in candidates if r['id']==report['selected'])
+    model=producer/'selected/assembly/assembly.ifc'
+    split_report=json.loads((producer/'selected/split/tee-split.json').read_text())
+    expected={str(p):digest(p) for p in [model,*paths]}
+    if split_report.get('inputs')!=expected or not split_report.get('calculated_checks_pass'):raise ValueError('selected split source/pass mismatch')
+    from .tee_assembly import verify
+    spec,assembly=[json.loads(p.read_text(encoding='utf-8-sig')) for p in paths[:2]]
+    if not verify(model,spec,assembly['pipe_lengths_m'])['assembly_checks_pass']:raise ValueError('selected native geometry mismatch')
+    return model,paths[0],paths[1]
+
+
 def run(catalogue,out):
     catalogue,out=Path(catalogue).resolve(),Path(out).resolve();data,candidates,files=prepare(catalogue)
     if out.exists() or not out.is_relative_to(Path(__file__).resolve().parents[2]) or any(out==p or out in p.parents for p in files):raise ValueError('new repository output required')

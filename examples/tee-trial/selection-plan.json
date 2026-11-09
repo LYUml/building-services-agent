@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "brief": "selection-brief.md",
+  "brief_sha256": "a35ed1c1503ded38ce5146c7b2dd21d245e2aee3d4cad0e6134cf8ec49a04aa0",
+  "passage_dispositions": {
+    "P001": "requirement",
+    "P002": "requirement",
+    "P003": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "selection",
+      "kind": "tee_selection",
+      "catalogue": "selection-catalogue.json"
+    },
+    {
+      "id": "drawing",
+      "kind": "tee_drawing",
+      "depends_on": "selection"
+    },
+    {
+      "id": "native",
+      "kind": "ifc_native",
+      "depends_on": "drawing",
+      "settings": "native-sheet.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "selection",
+      "task": "selection",
+      "passage": "P001",
+      "quote": "Evaluate selection-catalogue.json against its common synthetic duty, preserve failed candidates and regenerate/re-solve the selected passing candidate. No feasible candidate must leave delivery blocked.",
+      "acceptance": "Evaluate selection-catalogue.json against its common synthetic duty, preserve failed candidates and regenerate/re-solve the selected passing candidate. No feasible candidate must leave delivery blocked."
+    },
+    {
+      "id": "drawing",
+      "task": "drawing",
+      "passage": "P002",
+      "quote": "Generate a labelled local outline diagram and schedule from the selected saved IFC and its exact source specs. Retain product and installation limits.",
+      "acceptance": "Generate a labelled local outline diagram and schedule from the selected saved IFC and its exact source specs. Retain product and installation limits."
+    },
+    {
+      "id": "native",
+      "task": "native",
+      "passage": "P003",
+      "quote": "Save/reopen the selected diagram as native DWG, plot with native-sheet.json and verify the print reference; actual visual review and engineering acceptance remain separate.",
+      "acceptance": "Save/reopen the selected diagram as native DWG, plot with native-sheet.json and verify the print reference; actual visual review and engineering acceptance remain separate."
+    }
+  ]
+}
