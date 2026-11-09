@@ -6,6 +6,7 @@ import importlib.metadata
 import json
 from pathlib import Path
 import sys
+from collections import Counter
 import ifcopenshell
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
@@ -34,19 +35,24 @@ async def run(model, out):
                     ('summary','ifc_summary',{}),
                     ('pumps','ifc_select',{'query':'IfcPump'}),
                     ('pipes','ifc_select',{'query':'IfcPipeSegment'}),
+                    ('fittings','ifc_select',{'query':'IfcPipeFitting'}),
+                    ('ports','ifc_select',{'query':'IfcDistributionPort'}),
+                    ('systems','ifc_select',{'query':'IfcDistributionSystem'}),
                     ('tree','ifc_tree',{}),
                     ('reset','ifc_reset',{}),
                     ('after_reset','ifc_summary',{})):
                     records[label]=(await session.call_tool(name,args)).model_dump(mode='json')
     native=ifcopenshell.open(str(model))
     expected={label:{(e.id(),e.is_a(),e.Name) for e in native.by_type(cls)}
-              for label,cls in (('pumps','IfcPump'),('pipes','IfcPipeSegment'))}
+              for label,cls in (('pumps','IfcPump'),('pipes','IfcPipeSegment'),('fittings','IfcPipeFitting'),
+                                ('ports','IfcDistributionPort'),('systems','IfcDistributionSystem'))}
     checks={'unloaded_rejected':records['unloaded']['isError'] is True,
             'reset_rejected':records['after_reset']['isError'] is True,
-            'queries_succeeded':all(records[k]['isError'] is False for k in ('load','summary','pumps','pipes','tree','reset')),
+            'queries_succeeded':all(records[k]['isError'] is False for k in ('load','summary',*expected,'tree','reset')),
             'source_unchanged':digest(model)==before}
     summary=records['summary'].get('structuredContent') or {}
     checks['summary_matches_saved_model']=summary.get('schema')==native.schema and summary.get('total_entities')==sum(1 for _ in native)
+    checks['class_counts_match_saved_model']=summary.get('types')==dict(Counter(e.is_a() for e in native))
     for label in expected:
         rows=(records[label].get('structuredContent') or {}).get('result',[])
         checks[label+'_match_saved_model']={(r['id'],r['type'],r['name']) for r in rows}==expected[label]

@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ids xmlns="http://standards.buildingsmart.org/IDS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://standards.buildingsmart.org/IDS http://standards.buildingsmart.org/IDS/1.0/ids.xsd">
+  <info>
+    <title>Source CAD model provenance; information presence only, not product or regulatory approval</title>
+  </info>
+  <specifications>
+    <specification name="BSA_CADSource" ifcVersion="IFC4">
+      <applicability minOccurs="1" maxOccurs="unbounded">
+        <entity>
+          <name>
+            <simpleValue>IFCPIPEFITTING</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property cardinality="required" instructions="Presence only; source truth and physical acceptance require separate checks">
+          <propertySet>
+            <simpleValue>BSA_CADSource</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>Source</simpleValue>
+          </baseName>
+        </property>
+        <property cardinality="required" instructions="Presence only; source truth and physical acceptance require separate checks">
+          <propertySet>
+            <simpleValue>BSA_CADSource</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>DrawingSHA256</simpleValue>
+          </baseName>
+        </property>
+        <property cardinality="required" instructions="Presence only; source truth and physical acceptance require separate checks">
+          <propertySet>
+            <simpleValue>BSA_CADSource</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>SolidHandle</simpleValue>
+          </baseName>
+        </property>
+        <property cardinality="required" instructions="Presence only; source truth and physical acceptance require separate checks">
+          <propertySet>
+            <simpleValue>BSA_CADSource</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>Scope</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+    <specification name="BSA_CADAnchor" ifcVersion="IFC4">
+      <applicability minOccurs="1" maxOccurs="unbounded">
+        <entity>
+          <name>
+            <simpleValue>IFCDISTRIBUTIONPORT</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property cardinality="required" instructions="Presence only; source truth and physical acceptance require separate checks">
+          <propertySet>
+            <simpleValue>BSA_CADAnchor</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>Source</simpleValue>
+          </baseName>
+        </property>
+        <property cardinality="required" instructions="Presence only; source truth and physical acceptance require separate checks">
+          <propertySet>
+            <simpleValue>BSA_CADAnchor</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>LineHandle</simpleValue>
+          </baseName>
+        </property>
+        <property cardinality="required" instructions="Presence only; source truth and physical acceptance require separate checks">
+          <propertySet>
+            <simpleValue>BSA_CADAnchor</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>Endpoint</simpleValue>
+          </baseName>
+        </property>
+        <property cardinality="required" instructions="Presence only; source truth and physical acceptance require separate checks">
+          <propertySet>
+            <simpleValue>BSA_CADAnchor</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>SourceDXFSHA256</simpleValue>
+          </baseName>
+        </property>
+        <property cardinality="required" instructions="Presence only; source truth and physical acceptance require separate checks">
+          <propertySet>
+            <simpleValue>BSA_CADAnchor</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>Scope</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+  </specifications>
+</ids>

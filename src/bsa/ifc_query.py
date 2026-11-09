@@ -10,8 +10,8 @@ def validate(contract):
     if not isinstance(contract,dict) or set(contract)!={'source','minimum_counts'} or not isinstance(contract['source'],str) or not contract['source'].strip():
         raise ProjectError('sourced IFC inventory requirements required')
     counts=contract['minimum_counts']
-    if not isinstance(counts,dict) or not counts or any(k not in ('IfcPump','IfcPipeSegment') or type(v) is not int or v<1 for k,v in counts.items()):
-        raise ProjectError('positive minimum pump/pipe counts required')
+    if not isinstance(counts,dict) or not counts or any(k not in ('IfcPump','IfcPipeSegment','IfcPipeFitting','IfcDistributionPort','IfcDistributionSystem') or type(v) is not int or v<1 for k,v in counts.items()):
+        raise ProjectError('positive minimum supported MEP class counts required')
 
 
 def run(ifc,requirements,out,python):

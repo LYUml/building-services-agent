@@ -1,0 +1,66 @@
+{
+  "scope": "Actual local vendor body, synthetic project placement; information checks only",
+  "tasks": {
+    "convert": {
+      "kind": "cad_ifc",
+      "status": "pass",
+      "scope": "source-bound tessellated IFC conversion; ports, product and engineering acceptance separate"
+    },
+    "place": {
+      "kind": "product_ports",
+      "status": "pass",
+      "scope": "source-anchored placed model ports and saved-IFC probe checks; physical joints, external network and engineering acceptance pending"
+    },
+    "inventory": {
+      "kind": "ifc_query",
+      "status": "pass",
+      "scope": "Saved IFC inventory and minimum class counts only; not geometry, equipment identity or engineering acceptance"
+    },
+    "information": {
+      "kind": "ids_check",
+      "status": "pass",
+      "scope": "Upstream IDS information requirements only; geometry, engineering physics and regulatory applicability remain separate"
+    }
+  },
+  "execution_pass": true,
+  "inputs_unchanged": true,
+  "count_checks": [
+    {
+      "ifc_class": "IfcPipeFitting",
+      "minimum": 1,
+      "actual": 1,
+      "passed": true
+    },
+    {
+      "ifc_class": "IfcDistributionPort",
+      "minimum": 3,
+      "actual": 3,
+      "passed": true
+    },
+    {
+      "ifc_class": "IfcDistributionSystem",
+      "minimum": 1,
+      "actual": 1,
+      "passed": true
+    }
+  ],
+  "ids_requirements_checked": 19,
+  "ids_requirements_failed": 0,
+  "runtime": {
+    "ifcopenshell-mcp": "0.9.0",
+    "ifcopenshell": "0.9.0",
+    "ifcquery": "0.9.0",
+    "ifcedit": "0.9.0",
+    "ifc5d": "0.9.0",
+    "mcp": "1.26.0"
+  },
+  "design_accepted": false,
+  "workflow_report_sha256": "797dfcdc090dfb91777b7c532bb73ffdc0677ee4b9095d36ea5562cd08d50e9d",
+  "pending": [
+    "physical joints",
+    "external network",
+    "hydraulics",
+    "viewer review",
+    "engineering and regulatory acceptance"
+  ]
+}

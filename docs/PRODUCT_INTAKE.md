@@ -112,3 +112,14 @@ Workflow kinds `cad_ifc` and `product_ports` now compose the verified adapters. 
 Embed these tasks in a source-linked workflow plan, mapping **each** task to a quoted brief requirement. All files must lie within the plan directory. The placement basis references its passage basis relative to itself; that nested input is also hashed by the workflow. Pass `--autocad` to `python -m bsa.workflow execute`. Ports inherit the earlier conversion directory; replacement producer/IFC paths are rejected. Missing engines remain pending; failed conversion prevents port execution. Generic IFC consumers must target `place` to inspect the revised model. Domain consumers still enforce their own supported geometry contracts.
 
 Local actual-vendor execution at `runs/manufacturer-workflow-v1/run` passed both stages and workflow integrity. Four workflow tests cover missing engine, failed producer, input mutation, replacement/wrong dependency and nested-path escape; four existing inventory gate tests also pass. Geometry and local source inputs are not redistributed. Execution and byte integrity do not establish physical joint, hydraulic, viewer or regulatory acceptance.
+
+
+## Upstream model information checks
+
+The official isolated IfcMCP inventory now supports positive minimum counts for `IfcPipeFitting`, `IfcDistributionPort` and `IfcDistributionSystem`, alongside pumps and pipes. The protocol trial reconciles selected entity identities/names and the complete exact-class count map against the saved IFC parser. Counts establish model inventory, not connected network topology.
+
+After `place`, add an `ifc_query` with `depends_on: "place"` and a sourced inventory requirements file; supply `--ifcmcp-python tools/ifcmcp-runtime/Scripts/python.exe`. Then add `ids_check` with `depends_on: "place"`, `requires_pass: ["inventory"]`, and `ids` pointing to a local copy of `examples/ids/cad-product-provenance.ids`. That original project IDS requires nonempty CAD source fields on fittings and anchor fields on every applicable port. It is a presence contract, not a verification of source truth or statutory requirements. The geometric adapter independently checks exact anchor values.
+
+If a pre-placement inventory was required, run the post-placement query with `refresh_inventory: true`. The old inventory cannot certify the revised producer; referencing the old model after refreshing also rejects.
+
+Actual local four-stage execution at `runs/manufacturer-audit-v1/run` passed: one fitting, three ports, one logical distribution system and 19 IDS checks. Independent synthetic controls reject a minimum of four ports, one missing anchor field, an empty model and stale producer correspondence. Restricted vendor IFC remains local. See `docs/evidence/manufacturer-block/information.json` for limited execution evidence.
