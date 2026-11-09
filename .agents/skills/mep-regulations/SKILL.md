@@ -43,3 +43,6 @@ When a sourced single-line pump curve and fixed-terminal system are available, u
 
 
 For capacity checks tied to saved IFC pipe geometry, use plumbing_pump_regulations with depends_on on a passing network_coordination and omit project/model/binding/ifc replacements. See the saved-route section in docs/HK_PLUMBING_PUMPS.md. Original sources are reconstructed and saved geometry reconciled before/after the solve. Known downstream pump tasks must inherit the same route and use requires_pass. This binds pipe route geometry only; physical pump/tank identity, duplicate-set controls and clash checks are still separate.
+
+
+For a reproducible plumbing integration exercise, run scripts/run_hk_plumbing_demo.py with the hash-pinned WSD PDF and a new repository-local output. It retains positive, insufficient-capacity and missing-duplication cases with dependency diagnosis and integrity evidence. Read docs/HK_PLUMBING_PUMPS.md. demonstration_checks_pass describes expected software behavior only; failed/pending scenarios and design_accepted: false remain intact. Actual assignments require their own sourced brief/plan.

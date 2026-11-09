@@ -1,0 +1,56 @@
+{
+  "inputs_unchanged": true,
+  "scenarios": {
+    "positive": {
+      "task_statuses": {
+        "route": "pass",
+        "capacity": "pass",
+        "pump": "pass"
+      },
+      "expected_behavior_pass": true,
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "workflow_execution_pass": true
+    },
+    "insufficient_capacity": {
+      "task_statuses": {
+        "route": "pass",
+        "capacity": "fail",
+        "pump": "pending"
+      },
+      "expected_behavior_pass": true,
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "workflow_execution_pass": false
+    },
+    "missing_duplication": {
+      "task_statuses": {
+        "route": "pass",
+        "capacity": "pending",
+        "pump": "pending"
+      },
+      "expected_behavior_pass": true,
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "workflow_execution_pass": false
+    }
+  },
+  "demonstration_checks_pass": true,
+  "design_accepted": false,
+  "regulatory_compliance": "not_established",
+  "scope": "Synthetic integration behavior only; expected negative cases remain failed/pending",
+  "archive_sha256": "404e7d267d6db5c4362ebc2a054383557f5c3c78272586e1d9d4f86a2ed3a513",
+  "official_pdfs_omitted": true
+}

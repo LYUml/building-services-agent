@@ -85,3 +85,5 @@ WSD sump-pump capacity now has a fresh single-line pump/system binding and workf
 Plumbing capacity prerequisites now enforce source-byte correspondence for known downstream network/pump/repeated-rule consumers, including transitive gates and curve/basis identity. Changed design inputs cannot reuse the old prerequisite; arbitrary IFC correspondence remains pending.
 
 Plumbing pump capacity checks can now inherit saved network_coordination IFC routes with complete original-source reconstruction, native artifact integrity and geometry reconciliation before/after calculation. Official-WSD-backed synthetic execution passes; generated-network tampering and replacement inputs are rejected. Pump/tank physical identity, standby controls and clashes remain pending; see HK_PLUMBING_PUMPS.md.
+
+A repeatable WSD plumbing runner now stages and executes three source-linked saved-IFC scenarios, retaining positive, insufficient-capacity and missing-duplication outcomes, downstream blocking, integrity and dependency diagnosis. All expected software behaviors pass with engineering acceptance still false; see scripts/run_hk_plumbing_demo.py.

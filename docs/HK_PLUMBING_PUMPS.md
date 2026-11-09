@@ -52,3 +52,16 @@ Before and after fresh capacity checks, `bsa.ifc_plumbing_pump` verifies all ori
 Known downstream pump consumers should inherit the same route producer and require this capacity check. Network-template, model, binding and curve source correspondence is recorded; explicit replacement network inputs cannot satisfy an inherited plumbing prerequisite. These are scoped source/route proofs, not arbitrary downstream model checks.
 
 The example uses route-template.json, route-model.json and route-binding.json under examples/hk-plumbing-pumps: explicitly synthetic 5 m vertical hollow pipe geometry, 32 mm bore and 40 mm OD. It reuses the earlier synthetic riser structure with a separate namespace and explicitly revised dimensions. It is not measured project geometry. Real pipe product validity, tank/booster shapes, physical pump/tank identity, standby controls and saved-model clashes remain separate. Evidence: docs/evidence/hk-ifc-plumbing/native-trial.zip retains actual IFC, derived inputs and official-PDF-backed capacity results.
+
+
+## Repeatable three-scenario demonstration
+
+```powershell
+.venv/Scripts/python scripts/run_hk_plumbing_demo.py --wsd-pdf runs/hk-regulation-sources/wsd-tr-2026-04.pdf --out runs/new-hk-plumbing-demo
+```
+
+The runner checks the official PDF against the pinned pack before staging a new repository-local output. It preserves the source examples and creates independent source-linked plans for: (1) sufficient capacity, (2) a sourced synthetic 1.5 L/s target exceeding available capacity, and (3) missing duplicate-set evidence. Each executes saved IFC route authoring, capacity checks and a gated same-source pump rerun. It records workflow integrity and dependency diagnosis, plus source/artifact hashes in summary.json.
+
+Observed task statuses (route / capacity / downstream pump) are pass/pass/pass, pass/fail/pending and pass/pending/pending respectively. The latter two create no downstream pump output. The runner's demonstration_checks_pass means these expected behaviors were observed; it does not convert negative tasks to passes or approve an engineering design. Existing output directories are not overwritten. Evidence is retained in docs/evidence/hk-plumbing-demo with official PDFs excluded from redistribution.
+
+For a real assignment, interpret the actual brief and source drawings into a separate plan. Do not edit the demonstration to masquerade as project data or reuse its flow/dimensions as measured inputs. Native DWG, actual pump/tank identity, standby controls and complete regulatory/engineering acceptance are not supplied by this runner.
