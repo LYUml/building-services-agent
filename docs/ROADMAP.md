@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Delivery audits now invoke source-bound dependency diagnosis, reject a passing child with nonpassing required parents, and retain blocked manual reviews as pending even when their reviewer asserts pass. Ten delivery tests, five dependency tests and an actual emergency-workflow audit verify the gate. Independent/manual review completion is not engine execution or automatic authorization to run downstream work.
+
 Product-joint status diagnosis now includes both junction_from and connector_from dependencies. An actual seven-stage no-engine workflow traces blocked alignment/native/release tasks back to both source conversions and produces no release artifact; fault-injected passing-child claims are rejected. This fixes status/report ancestry, not physical joint acceptance.
 
 Current Radiance availability was rechecked on 2026-11-09: host Application Control blocks rtrace.exe (4551; Code Integrity 3033/3077), including the existing native regression. Launch failures now retain diagnostics without success reports. Exact-floor probe expansion was not released because its native verification could not run; emergency photometric binding remains pending. Other development workstreams remain available.

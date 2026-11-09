@@ -86,6 +86,8 @@ def assess(plan,root,review_path):
         source,report,integrity=context(plan,root);result['source_integrity_pass']=integrity['integrity_pass']
         context_loaded=True
         result['issues'].extend(integrity['issues'])
+        from .workflow_status import diagnose
+        dependency_rows = {r['id']: r for r in diagnose(plan, root)['tasks']}
         review=json.loads(review_path.read_text(encoding='utf-8-sig'))
         if not isinstance(review,dict) or set(review)!={'version','plan_sha256','workflow_sha256','requirements'} or type(review['version']) is not int or review['version']!=1:
             raise ProjectError('review version 1 and exact source/report hashes required')
@@ -134,9 +136,11 @@ def assess(plan,root,review_path):
             if not integrity['integrity_pass']:issues.append('run source/artifact integrity failed')
             if task['status']=='fail':issues.append('upstream task failed; review cannot clear it')
             effective='fail' if issues or status=='fail' else status
+            blocked_by = dependency_rows[requirement['task']]['blocked_by']
+            if effective=='pass' and blocked_by:effective='pending'
             if effective=='pass' and task['status']=='pending' and task['kind']!='manual':effective='pending'
             result['requirements'].append(dict(id=requirement['id'],task=requirement['task'],quote=requirement['quote'],acceptance=requirement['acceptance'],
-                execution_status=task['status'],recorded_review_status=status,effective_review_status=effective,
+                execution_status=task['status'],recorded_review_status=status,effective_review_status=effective,blocked_by=blocked_by,
                 reviewer=row['reviewer'],reviewed_at_utc=row['reviewed_at_utc'],notes=row['notes'],evidence=row['evidence'],attachments=row['attachments'],facts=facts,issues=issues))
         result['review_checks_pass']=integrity['integrity_pass'] and all(r['effective_review_status']=='pass' for r in result['requirements'])
     except (ProjectError,ValueError,TypeError,KeyError,IndexError,AttributeError,OSError) as exc:

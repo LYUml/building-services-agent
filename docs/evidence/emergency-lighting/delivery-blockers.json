@@ -1,0 +1,21 @@
+{
+  "status": "needs_review",
+  "source_integrity_pass": true,
+  "requirements": [
+    {
+      "id": "R1",
+      "execution_status": "pending",
+      "effective_review_status": "pending",
+      "blocked_by": []
+    },
+    {
+      "id": "R2",
+      "execution_status": "pending",
+      "effective_review_status": "pending",
+      "blocked_by": [
+        "emergency"
+      ]
+    }
+  ],
+  "design_accepted": false
+}

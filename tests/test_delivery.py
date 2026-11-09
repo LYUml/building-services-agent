@@ -13,6 +13,41 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 class DeliveryReviewTests(unittest.TestCase):
+    def test_manual_review_cannot_clear_its_required_pending_parent(self):
+        with tempfile.TemporaryDirectory() as folder:
+            outer=Path(folder);plan,root,path,review=self.fixture(outer)
+            data=json.loads(plan.read_text())
+            data['tasks'][0]={'id':'electrical','kind':'manual','description':'Required upstream inspection'}
+            data['tasks'][1]['requires_pass']=['electrical']
+            plan.write_text(json.dumps(data))
+            run_root=outer/'gated';execute(plan,run_root)
+            review_path=outer/'gated-review.json';record=template(plan,run_root,review_path)
+            # Manual inspection has no generated artifact; reuse a recorded HTML
+            # artifact only to exercise reviewer assertions, not engineering proof.
+            for row in record['requirements']:
+                row.update(status='pass',reviewer='Test assertion',reviewed_at_utc='2026-11-09T00:00:00Z',
+                           notes='Synthetic review assertion',evidence=[dict(artifact='index.html',sha256=digest(run_root/'index.html'))])
+            review_path.write_text(json.dumps(record))
+            result=assess(plan,run_root,review_path)
+            self.assertEqual(result['requirements'][0]['effective_review_status'],'pass')
+            self.assertEqual(result['requirements'][1]['effective_review_status'],'pending')
+            self.assertEqual(result['requirements'][1]['blocked_by'],['electrical'])
+            self.assertFalse(result['review_checks_pass'])
+
+    def test_forged_passing_child_is_rejected_by_delivery_audit(self):
+        with tempfile.TemporaryDirectory() as folder:
+            outer=Path(folder);plan=ROOT/'examples/shared-lighting-plan.json'
+            root=outer/'run';execute(plan,root)
+            report_path=root/'workflow.json';report=json.loads(report_path.read_text())
+            report['tasks']['native']['status']='pass'
+            for r in report['requirements']:
+                if r['task']=='native':r['execution_status']='pass'
+            report_path.write_text(json.dumps(report))
+            path=outer/'review.json';template(plan,root,path)
+            result=assess(plan,root,path)
+            self.assertEqual(result['status'],'failed')
+            self.assertTrue(any('nonpassing dependencies' in x for x in result['issues']))
+
     def test_versioned_example_keeps_missing_engineering_evidence_pending(self):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder);plan=ROOT/'examples/delivery-plan.json';execute(plan,root/'run')
