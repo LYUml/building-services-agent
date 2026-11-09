@@ -32,10 +32,14 @@ def mass_properties(text):
     return result
 
 
-def mesh_properties(vertices, faces):
+def mesh_properties(vertices, faces, cavity_contract=None):
     v, f = np.array(vertices, dtype=float, copy=True), np.array(faces, dtype=np.int64, copy=True)
     solid = from_mesh((v, f))
-    if len(solid.decompose()) != 1:
+    topology = None
+    if cavity_contract is not None:
+        from .cad_cavities import check
+        topology = check(solid, cavity_contract)
+    elif len(solid.decompose()) != 1:
         raise ProjectError('one connected closed wall required')
     origin = (v.min(axis=0)+v.max(axis=0))/2
     triangles = v[f]-origin
@@ -44,7 +48,9 @@ def mesh_properties(vertices, faces):
     if volume <= 0 or not math.isfinite(volume):
         raise ProjectError('positive oriented mesh volume required')
     centroid = np.sum(triangles.sum(axis=1) * signed[:, None] / 4, axis=0) / volume + origin
-    return {'volume': float(volume), 'bounds': np.array([v.min(axis=0), v.max(axis=0)]), 'centroid': centroid}
+    result = {'volume': float(volume), 'bounds': np.array([v.min(axis=0), v.max(axis=0)]), 'centroid': centroid}
+    if topology is not None: result['nested_shells'] = topology
+    return result
 
 
 def compare(actual, reference, linear, relative_volume):
@@ -64,11 +70,15 @@ def run(source, basis_path, out, exe=DEFAULT_EXE, timeout=120):
     b = json.loads(basis_path.read_text(encoding='utf-8-sig'))
     required = {'source', 'drawing_sha256', 'solid_handle', 'insunits', 'project_uuid', 'id',
                 'linear_tolerance_m', 'relative_volume_tolerance'}
-    if not isinstance(b, dict) or not required <= set(b) or set(b)-required-{'predefined_type'}:
+    if not isinstance(b, dict) or not required <= set(b) or set(b)-required-{'predefined_type','cavity_contract'}:
         raise ProjectError('exact native IFC conversion basis required')
     fitting_type = b.get('predefined_type', 'JUNCTION')
     if fitting_type not in ('JUNCTION', 'CONNECTOR'):
         raise ProjectError('supported explicit fitting type must be JUNCTION or CONNECTOR')
+    if 'cavity_contract' in b:
+        from .cad_cavities import validate
+        validate(b['cavity_contract'])
+        if fitting_type!='CONNECTOR':raise ProjectError('nested cavity conversion is scoped to CONNECTOR')
     project_namespace(b)
     for k in ('source', 'id', 'solid_handle', 'drawing_sha256'):
         if not isinstance(b[k], str) or not b[k].strip(): raise ProjectError('source and identity required')
@@ -114,7 +124,7 @@ def run(source, basis_path, out, exe=DEFAULT_EXE, timeout=120):
     mesh = meshex.stl_loadb(raw); scale = METRES_PER_UNIT[b['insunits']]
     vertices = (np.asarray(mesh.vertices)-shift)*scale; faces = np.asarray(mesh.faces, dtype=np.int64)
     reference = {'volume': props['volume']*scale**3, 'bounds': props['bounds']*scale, 'centroid': props['centroid']*scale}
-    measured = mesh_properties(vertices, faces)
+    measured = mesh_properties(vertices, faces, b.get('cavity_contract'))
     stl_checks = compare(measured, reference, b['linear_tolerance_m'], b['relative_volume_tolerance'])
     if not all(stl_checks.values()): raise ProjectError(f'native/STL reconciliation failed: {stl_checks}')
     f = ifcopenshell.file(schema='IFC4')
@@ -138,7 +148,7 @@ def run(source, basis_path, out, exe=DEFAULT_EXE, timeout=120):
     path = out/'fitting.ifc'; f.write(str(path)); saved = ifcopenshell.open(str(path))
     shape = ifcopenshell.geom.create_shape(ifcopenshell.geom.settings(), saved.by_guid(obj.GlobalId))
     sv = ifcopenshell.util.shape.get_vertices(shape.geometry); sf = ifcopenshell.util.shape.get_faces(shape.geometry)
-    saved_props = mesh_properties(sv, sf)
+    saved_props = mesh_properties(sv, sf, b.get('cavity_contract'))
     saved_checks = compare(saved_props, measured, 1e-9, 1e-9)
     saved_checks['fitting_type'] = saved.by_guid(obj.GlobalId).PredefinedType == fitting_type
     saved_tess = saved.by_guid(obj.GlobalId).Representation.Representations[0].Items[0]

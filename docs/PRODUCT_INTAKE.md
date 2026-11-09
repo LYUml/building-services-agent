@@ -176,3 +176,18 @@ The already pinned official IPS archive contains Style 77. Source-selected DN40 
 Its one selected ACIS entity exports to three Manifold-decomposed components: one positive and two negative signed volumes. This may represent enclosed cavities, not three physical parts or a bad vendor model. The current one-boundary conversion contract correctly stops before IFC creation. Do not remove the component check or discard negative shells to force a pass. Next work must validate nested-shell containment/orientation and reconcile native material volume and cavity preservation in saved IFC.
 
 `cad_ifc` basis now optionally accepts `predefined_type` as `JUNCTION` (legacy default) or `CONNECTOR`. The saved value is checked. An independent original native annulus executed successfully as CONNECTOR; this does not validate conversion of the actual complex coupling. Three-port `product_ports` rejects CONNECTOR inputs. A synthetic enclosed-cavity test retains the current rejection until a supported contract is implemented. Limited evidence is in `docs/evidence/manufacturer-block/coupling-cad.json`.
+
+
+### Supported nested connector cavities
+
+`cad_ifc` CONNECTOR conversion now optionally accepts `cavity_contract`:
+
+```json
+{"source":"<evidence and numerical applicability>","count":2,"containment_margin_m":0.000001,"volume_tolerance_m3":1e-12}
+```
+
+One positive connected boundary and the declared 1–8 negative boundaries are required. The adapter reverses each negative shell into a positive cavity, dilates it by an axis-aligned cube of half-size `containment_margin_m`, and requires the expanded cavity to remain inside the outer volume within the declared Boolean volume tolerance. Expanded cavities must not overlap above that tolerance. Subtracting the cavities must reproduce the input material in both directional differences and volume accounting. These are numerical mesh proofs, not exact analytic CAD containment or physical-part identification. Large tolerance choices require project justification.
+
+The saved IFC is independently remeshed through the existing IfcOpenShell runtime and checked under the same contract, alongside native volume/bounds/centroid reconciliation and exact stored source triangles. Single-boundary legacy behavior remains the default; no automatic cavity-count inference promotes a model to acceptance. Three-port junction placement still rejects connectors.
+
+Actual Style 77 DN40 conversion now passes with two enclosed negative shells, and saved IFC schema/EXPRESS validation is clean. The generated fixed-view PNG was inspected. Two deliberately bounded native CAD cavity probes (0.3 mm radius, 1 mm length) are clear, with a separate positive wall control; these corroborate local void locations only. An earlier smaller probe was rejected by the existing native volume-resolution floor; tolerances were not relaxed. Independent cube controls reject exterior, crossing, touching, insufficient-margin, overlapping, wrong-orientation and wrong-count cases. Evidence: `docs/evidence/manufacturer-block/coupling-cavities.json`. Restricted CAD/IFC/images remain local. Full joint/pipe/gasket compatibility and engineering acceptance remain pending.

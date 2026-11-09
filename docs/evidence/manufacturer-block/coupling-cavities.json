@@ -1,0 +1,62 @@
+{
+  "scope": "Actual source-selected Style 77 CAD connector; geometry conversion only",
+  "conversion_report_sha256": "6577e42ba9dd03d3276460c7f32f91f968aa5901e3196d4078cf4aa39af7da82",
+  "ifc_sha256": "60fa3ba460ed570d3e20a38edee5226290889d7be616ad02f55fea1ac7f9fb32",
+  "stl_checks": {
+    "volume": true,
+    "bounds": true,
+    "centroid": true
+  },
+  "saved_ifc_checks": {
+    "volume": true,
+    "bounds": true,
+    "centroid": true,
+    "fitting_type": true,
+    "source_triangles_preserved": true
+  },
+  "nested_shells": {
+    "cavities": [
+      {
+        "volume_m3": 1.8146823323652428e-06,
+        "bounds_m": [
+          -0.05250693311691284,
+          -0.007300606704711912,
+          -0.02222499854660034,
+          -0.03790949866771698,
+          0.007300609611511232,
+          0.02222500145339966
+        ]
+      },
+      {
+        "volume_m3": 1.8146824394826238e-06,
+        "bounds_m": [
+          0.0379170654296875,
+          -0.007300606704711912,
+          -0.02222499854660034,
+          0.052514502906799314,
+          0.007300609611511232,
+          0.02222500145339966
+        ]
+      }
+    ],
+    "material_volume_m3": 0.00022983032583536006,
+    "containment_margin_m": 1e-06,
+    "volume_tolerance_m3": 1e-12,
+    "method": "Manifold signed decomposition, reversed cavity solids, cube dilation, containment and material differences"
+  },
+  "geometry_conversion_pass": true,
+  "native_cavity_probe_checks_pass": true,
+  "native_probe_scope": "Two 0.3 mm radius / 1 mm long cylinders plus positive crown-wall control; bounded spot checks only",
+  "schema_statements": 0,
+  "preview_sha256": "4f0f3b8285b7b72857c30d3e79b59b60eb176bb18fec2a956b5b8aa0e676fade",
+  "visual_review": "Actual PNG inspected: connector body, central opening and bolt/nut-like geometry visible; no attached ports; no observed clipping. Fixed-view raster inspection only.",
+  "design_accepted": false,
+  "pending": [
+    "connector anchors and installation placement",
+    "gasket and pipe compatibility",
+    "full interior/native shape fidelity",
+    "physical joints and pressure suitability",
+    "hydraulic and regulatory acceptance"
+  ],
+  "native_probe_report_sha256": "56490785691db8241a5057621d89e5553b227e20ade09c0a0fc2f3e6cf37c46b"
+}
