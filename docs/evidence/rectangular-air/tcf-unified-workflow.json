@@ -1,0 +1,88 @@
+{
+  "run": "runs\\tcf-fan-unified-v2",
+  "plan_sha256": "67261beb1793e410fa6a2f5bf2dc6c61228a4b8d715f082617feab7a3341522e",
+  "workflow_sha256": "13bdac6ee1e1728edb8ac72ea3fc01894920ec5957d5e209c697c6e5c5ddde3f",
+  "diagnosis_sha256": "f3f4de14eb3ecf220a3106c704954aff4f7d2d74dd83c3c9cffc5985c3f26317",
+  "states": {
+    "air": "pass",
+    "research": "pending",
+    "review": "pending"
+  },
+  "research_summary": {
+    "status": "pending",
+    "native_path_correspondence_pass": true,
+    "interpolation_only_checks_pass": true,
+    "calculated_checks_pass": false,
+    "operating_flow_envelope_m3_s": [
+      0.5375120831633817,
+      0.5375183961408797
+    ],
+    "speed_rpm": 1450,
+    "scope": "Source-reopened manufacturer graph on inherited native rectangular path; research only, no equipment/design release",
+    "pending": [
+      "Source axis/graph rounding and manufacturer performance tolerance",
+      "CSV endpoint errors if rounded coordinates are substituted",
+      "Installation/stable interval, actual product, viscosity and motor evidence",
+      "Native fan equipment and full Hong Kong/engineering acceptance"
+    ],
+    "runtime_sha256": "5c438223dea1c7b2c9ecc7759dc0d701fe06696053035bf08c5fdb00ffb2a51b"
+  },
+  "root_actions": [
+    {
+      "task": "research",
+      "kind": "tcf_fan_research",
+      "status": "pending",
+      "next_action": "resolve the recorded pending condition before a new run",
+      "recorded_scope": "Source-reopened manufacturer graph on inherited native rectangular path; research only, no equipment/design release; unresolved: Source axis/graph rounding and manufacturer performance tolerance; CSV endpoint errors if rounded coordinates are substituted; Installation/stable interval, actual product, viscosity and motor evidence; Native fan equipment and full Hong Kong/engineering acceptance",
+      "input_blockers": [],
+      "evidence": [
+        "research/interpolation-basis.json",
+        "research/research-curve.json",
+        "research/sensitivity/interpolation-envelope.json",
+        "research/sensitivity/lower-curve.json",
+        "research/sensitivity/lower/analysis/manifest.json",
+        "research/sensitivity/lower/analysis/network.json",
+        "research/sensitivity/lower/analysis/report.html",
+        "research/sensitivity/lower/analysis/segments.csv",
+        "research/sensitivity/lower/fan.json",
+        "research/sensitivity/lower/operating-network.json",
+        "research/sensitivity/upper-curve.json",
+        "research/sensitivity/upper/analysis/manifest.json",
+        "research/sensitivity/upper/analysis/network.json",
+        "research/sensitivity/upper/analysis/report.html",
+        "research/sensitivity/upper/analysis/segments.csv",
+        "research/sensitivity/upper/fan.json",
+        "research/sensitivity/upper/operating-network.json",
+        "research/source-audit/interpolation.json",
+        "research/source-worker.log",
+        "research/tcf-research.json"
+      ],
+      "affected_tasks": [
+        "research",
+        "review"
+      ],
+      "affected_requirements": [
+        {
+          "id": "R2",
+          "passage": "P002",
+          "quote": "Reopen the pinned TCF manufacturer graph and evaluate interpolation-only fan flow sensitivity on that exact native path; preserve source-domain and uncertainty blockers.",
+          "task": "research",
+          "acceptance": "Reopen the pinned TCF manufacturer graph and evaluate interpolation-only fan flow sensitivity on that exact native path; preserve source-domain and uncertainty blockers."
+        },
+        {
+          "id": "R3",
+          "passage": "P003",
+          "quote": "Review source accuracy, actual fan and motor identity, installation, acoustics, controls and Hong Kong requirements before engineering acceptance.",
+          "task": "review",
+          "acceptance": "Review source accuracy, actual fan and motor identity, installation, acoustics, controls and Hong Kong requirements before engineering acceptance."
+        }
+      ]
+    }
+  ],
+  "tests": {
+    "source_workflow": 5,
+    "unified_cli": 3,
+    "rectangular_fan_regression": 31
+  },
+  "design_accepted": false
+}

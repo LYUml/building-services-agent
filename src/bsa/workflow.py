@@ -298,7 +298,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","rectangular_network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind in ("water_network","rectangular_network") and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
@@ -663,6 +663,14 @@ def validate_plan(path):
             else:
                 diagram_source=local_path(root,t.get('dxf'));inputs.add(diagram_source)
                 if diagram_source.suffix.lower()!='.dxf':raise ProjectError('native diagram source must be DXF')
+        if kind=='tcf_fan_research':
+            from . import tcf_fan_research,fan_interpolation_envelope,curve_interpolation,rectangular_fan,pump,rectangular_binding
+            if set(t)-{'id','kind','depends_on','pdf','extraction','basis','requires_pass','description'}:raise ProjectError('source fan research inherits native inputs; replacements forbidden')
+            parent=t.get('depends_on')
+            if parent not in ids or next(x for x in tasks if x['id']==parent)['kind'] not in ('rectangular_model_design','rectangular_network_binding'):raise ProjectError('source fan research requires earlier native rectangular producer')
+            inputs.update(tcf_fan_research.sources(*(local_path(root,t.get(k)) for k in ('pdf','extraction','basis'))))
+            inputs.update(Path(m.__file__).resolve() for m in (tcf_fan_research,fan_interpolation_envelope,curve_interpolation,rectangular_fan,pump,rectangular_binding))
+            inputs.update(Path(__file__).resolve().parents[2]/'scripts'/name for name in ('check_tcf_interpolation.py','extract_tcf_vectors.py'))
         if kind=='fan_mechanical_limits':
             from . import fan_mechanical_limits,rectangular_fan_selection
             if set(t)-{'id','kind','depends_on','record','pdf','basis','requires_pass','description'}:raise ProjectError('fan mechanical check inherits selected curve; replacement inputs forbidden')
@@ -789,7 +797,7 @@ def three_phase_locations(root,out,producer):
     raise ProjectError('not a three-phase numerical producer')
 
 
-def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_python=None,three_phase_python=None,graphviz=None):
+def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_python=None,three_phase_python=None,graphviz=None,pdf2plot_python=None):
     plan,out=plan.resolve(),out.resolve()
     p,inputs=validate_plan(plan);inputs.add(plan)
     if any(out==f or out in f.parents for f in inputs):raise ProjectError("run output must not contain inputs")
@@ -968,6 +976,19 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     payload=run(local_path(root,t['project']),out/pump_task/'pump.json',source_ifc,local_path(root,t['network_binding']),local_path(root,t['link']),folder)
                     status='pass' if payload['calculated_checks_pass'] else 'fail'
                     reason='replayed pump estimate explicitly bound to electrical device/IFC source port; baseline hardware retained; steady scenario and property-only IFC checked; motor/fault/full acceptance pending'
+            elif t['kind']=='tcf_fan_research':
+                parent=t['depends_on']
+                if tasks[parent]['status']!='pass':reason='upstream native rectangular study did not pass; source fan research not executed'
+                elif not pdf2plot_python:reason='isolated pdf2plot Python runtime not supplied; source fan research not executed'
+                else:
+                    from .tcf_fan_research import run
+                    producer=next(x for x in p['tasks'] if x['id']==parent)
+                    base=out/parent/('selected-coordination' if producer['kind']=='rectangular_model_design' else '')
+                    model=out/parent/'selected-model.json' if producer['kind']=='rectangular_model_design' else local_path(root,producer['model'])
+                    payload=run(base/'network-input.json',model,local_path(root,producer['binding']),base/'bim/model.ifc',base/'analysis/network.json',local_path(root,t['pdf']),local_path(root,t['extraction']),local_path(root,t['basis']),folder,pdf2plot_python)
+                    if any(not Path(f).is_file() or digest(Path(f))!=sha for f,sha in rectangular_pins[parent].items()):raise ProjectError('native producer changed during source fan research')
+                    status=payload['status'];reason=payload['scope']+'; unresolved: '+'; '.join(payload['pending'])
+                    rectangular_pins[t['id']]={str(f):digest(f) for f in folder.rglob('*') if f.is_file()}
             elif t['kind']=='fan_mechanical_limits':
                 parent=t['depends_on']
                 if tasks[parent]['status']!='pass':reason='upstream fan selection did not pass; mechanical check not executed'
@@ -1543,6 +1564,7 @@ def main():
     e.add_argument("--energyplus",type=Path);e.add_argument("--autocad",type=Path)
     e.add_argument('--radiance-bin',type=Path)
     e.add_argument('--ifcmcp-python',type=Path)
+    e.add_argument('--pdf2plot-python',type=Path)
     e.add_argument('--three-phase-python',type=Path)
     e.add_argument('--graphviz',type=Path)
     v=sub.add_parser("verify");v.add_argument("run_directory",type=Path)
@@ -1557,7 +1579,7 @@ def main():
             r=verify(a.run_directory);print(json.dumps(r,indent=2))
             if not r["integrity_pass"]:return 2
         else:
-            r=execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python,a.three_phase_python,a.graphviz)
+            r=execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python,a.three_phase_python,a.graphviz,a.pdf2plot_python)
             print(json.dumps({"tasks":r["tasks"],"design_accepted":False},indent=2))
             if not r["execution_pass"]:return 2
     except (ProjectError,OSError,ValueError) as exc:p.exit(2,str(exc)+"\n")
