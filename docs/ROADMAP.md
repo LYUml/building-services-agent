@@ -22,6 +22,8 @@ The requested end state is reusable automation from a requirement document and s
 
 Manufacturer junction/connector model-node alignment now reuses upstream asset append with saved geometry and port preservation checks. The actual combined model retains a failing 2.65 mm3 mesh overlap; resolving source-node installation meaning, exact joint geometry and physical/hydraulic connectivity remains necessary. This is diagnostic progress, not an accepted fitting assembly (PRODUCT_INTAKE.md).
 
+An independent native CAD Boolean at the verified identical alignment returns no overlap solid, while a 0.254 mm radial control detects interference. Source INSBASE compensation was essential and verified by body mass/bounds/centroid. Cross-engine mesh/native reconciliation and real installed joint acceptance remain unresolved; retain both results rather than silently waiving the mesh failure.
+
 Hong Kong regulatory conformity is an explicit end-state requirement: interchangeable jurisdiction packs, official version/amendment and applicability decisions, clause-level electrical/HVAC-energy/lighting/plumbing/drainage/fire checks, and compliance gates throughout design and delivery. The initial pack implements only one EMSD voltage-drop path; official source inventory is not equivalent to implemented rules or full conformity. Preserve this requirement alongside CAD/BIM, analysis and reuse work.
 
 1. Exercise the electrical slice against malformed inputs and independent hand calculations.

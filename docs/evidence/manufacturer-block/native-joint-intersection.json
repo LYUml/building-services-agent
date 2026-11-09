@@ -1,0 +1,48 @@
+{
+  "trials": [
+    {
+      "trial": "runs/native-joint-v3",
+      "radial_control_offset_m": 0.0,
+      "solid_counts_before_after": [
+        2,
+        0
+      ],
+      "native_volume_centroid_bounds_match": true,
+      "artifacts": {
+        "before.dxf": "21e3e22d01bccf853ed3d17cd566090a09825748ddfd92753ff62439f1c48f5d",
+        "intersection.dxf": "09f9581ac5ff1469a97b0a4050c8fc13121dace1b02beae84ed2d6c21f1568eb",
+        "connector.mpr": "5ab59437b5b4f239f1205e27cd093eb3c30be922f7277aab2370927974b0a993",
+        "intersection.scr": "4e7516f939d8c308c6ea81ea9b852acf2caab89e3b9e063c4f9bff97c793456a",
+        "native.log": "8299ad193b8590d7209380db7b2a5933ceb9af6c4d5f2cf54ef02d6bcee25824"
+      },
+      "intersection_volume_m3": null
+    },
+    {
+      "trial": "runs/native-joint-control-v2",
+      "radial_control_offset_m": 0.000254,
+      "solid_counts_before_after": [
+        2,
+        1
+      ],
+      "native_volume_centroid_bounds_match": true,
+      "artifacts": {
+        "before.dxf": "a94484e4c7bc0bf8ddb94c047ecfb745b88a49502ef70bc611e6061b8a915618",
+        "intersection.dxf": "ca96b1c3565bc19586da9e547c25b7ec4e101e1845d78cffdb9533b2aebe7711",
+        "connector.mpr": "66ce77de0bea27c69307113d886cfebfbff237c3aedbeae1a01051e4c8b1a9db",
+        "intersection.scr": "e34e47bcb045c42da8527e612a452a33884279217e9742647d0212f747930379",
+        "native.log": "12bded6e7ed2d91e6b8e3ecdee506424af367e205c6290b88b7f18e4c3264e31"
+      },
+      "intersection_volume_m3": 1.9459556564679998e-07
+    }
+  ],
+  "source_tee_sha256": "138d2db55989b3bc35339f217a7e7767423a234504cc4f56c5c48902cd4ff45f",
+  "source_connector_sha256": "a117469a50e2a4ad293ef29fa5b658d14dbb3c3f4365b0485527bbae36efecaa",
+  "scope": "Native CAD Boolean diagnostic at existing model-node alignment, kernel tolerance applies; not physical installation acceptance",
+  "insertion_base_correction": "Connector source INSBASE=(0,-0.015,0) inch. Insertion at (2.75,0,0) with -90 degree Z rotation gives required local translation (2.765,0,0). Native body bounds/centroid independently confirm this.",
+  "discarded_runs": [
+    "native-joint-v1: interactive scale/attribute prompts consumed arguments",
+    "native-joint-v2: source INSBASE not compensated; centroid/bounds rejected"
+  ],
+  "mesh_overlap_remains_m3": 2.6501259276899105e-09,
+  "design_accepted": false
+}
