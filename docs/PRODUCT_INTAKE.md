@@ -80,3 +80,19 @@ The initial negative-coordinate STL trial exposed automatic relocation into posi
 After saving, the actual IFC is reopened through IfcOpenShell's geometry engine. Closed mesh, volume, bounds and centroid are checked again, along with the exact saved coordinate/index correspondence to the imported triangles. These checks establish a bounded tessellated conversion; they do not prove pointwise equivalence to every curved native face or preserve CAD editing history. The emitted IFC cannot be substituted into the source-parametric `tee_assembly` solver contract.
 
 The actual manufacturer trial produced 4,762 triangles and passed native/STL/saved-IFC comparisons; separate IFC schema/EXPRESS validation reported zero statements. Wrong declared units and excessively strict tessellation tolerances rejected before IFC output. Known-cube, translated/wrong-scale, missing native metadata and open-mesh unit controls pass. See [conversion evidence](evidence/manufacturer-block/ifc.json). Source and converted vendor geometry remain local. Saved-IFC passage/clash checks, viewer review, ports and system integration remain separate next steps.
+
+## Source-anchored model ports and placement
+
+`bsa.product_ports` now places a verified conversion and adds three reversible model ports plus a logical service group. It preserves the source tessellation and fitting GUID. The namespace from the conversion also supplies stable port and group GUIDs. This is a model connection interface; physical groove/coupling compatibility and an external connected network remain unverified.
+
+```powershell
+.venv/Scripts/python -m bsa.product_ports runs/conversion placement-basis.json --out runs/new-placed-product
+```
+
+The basis contains exactly `source`, `placement`, `system_name`, `passage_basis`, `ports`. Placement uses the existing sourced rigid origin/rotation contract. The passage path resolves relative to the basis file and must identify the same CAD hash, solid and units as the conversion. Each port has `id`, `source`, `line_handle`, `endpoint` (start/end) and `passage_id`. Choose source CAD model-space LINE endpoints deliberately; their outward frame axis is the direction from the other endpoint. The port must lie on the linked passage-probe axis/span and the outward support plane of the converted body, within the declared conversion tolerance. This bounded interface excludes recessed mouths or shapes whose other parts extend beyond a selected mouth in its outward direction.
+
+The producer's inputs/artifact hashes are rechecked, then the actual source body is reconciled to native mass properties. This catches a shifted body even if its artifact hash is updated. After saving the placed IFC, the adapter reopens it to check unchanged local tessellation, world geometry, actual port frames/identities/provenance and service-group membership. Mass-property integration is centred locally to avoid cancellation at distant project coordinates.
+
+The source-linked passage and positive wall probes are repeated against the saved **world-coordinate IFC mesh**, with 128-sided probe cylinders and a 1e-12 cubic metre intersection threshold. These are bounded polygonal clearance checks, not exact analytic cylinders, a minimum-bore search or full-system clash acceptance. Failed passages retain a false result and CLI exit 2. The original native probe result alone cannot satisfy this saved-body check.
+
+The real vendor body passed a synthetic translated/compound-rotated placement and all three saved IFC probes. An internal junction-centre anchor and a rehashed shifted producer mesh were rejected. A second placement retained all five product/port/group GUIDs; actual schema/EXPRESS validation reported zero statements. See [placement evidence](evidence/manufacturer-block/ports.json). Project coordinates and service grouping are synthetic demonstration choices, not an installed project or manufacturer service assignment.

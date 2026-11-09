@@ -28,6 +28,12 @@ class CADIFCTests(unittest.TestCase):
         v, f = self.cube()
         with self.assertRaises(ProjectError): mesh_properties(v, f[:-1])
 
+    def test_translated_volume_and_centroid_stay_stable(self):
+        v, f = self.cube(); shift = np.array([1e6, -2e6, 3e6])
+        result = mesh_properties(v+shift, f)
+        self.assertAlmostEqual(result['volume'], 1)
+        self.assertTrue(np.allclose(result['centroid'], shift+.5, atol=1e-9, rtol=0))
+
     def test_mass_properties_missing_and_ambiguous_rejected(self):
         text = 'Volume: 1.0\nBounding box: X: 0 -- 1\nY: 0 -- 1\nZ: 0 -- 1\nCentroid: X: 0.5\nY: 0.5\nZ: 0.5\n'
         result = mass_properties(text)

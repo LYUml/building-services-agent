@@ -37,12 +37,13 @@ def mesh_properties(vertices, faces):
     solid = from_mesh((v, f))
     if len(solid.decompose()) != 1:
         raise ProjectError('one connected closed wall required')
-    triangles = v[f]
+    origin = (v.min(axis=0)+v.max(axis=0))/2
+    triangles = v[f]-origin
     signed = np.einsum('ij,ij->i', triangles[:, 0], np.cross(triangles[:, 1], triangles[:, 2])) / 6
     volume = signed.sum()
     if volume <= 0 or not math.isfinite(volume):
         raise ProjectError('positive oriented mesh volume required')
-    centroid = np.sum(triangles.sum(axis=1) * signed[:, None] / 4, axis=0) / volume
+    centroid = np.sum(triangles.sum(axis=1) * signed[:, None] / 4, axis=0) / volume + origin
     return {'volume': float(volume), 'bounds': np.array([v.min(axis=0), v.max(axis=0)]), 'centroid': centroid}
 
 

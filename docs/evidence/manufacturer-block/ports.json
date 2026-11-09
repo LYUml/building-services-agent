@@ -1,0 +1,114 @@
+{
+  "local_run": "runs/manufacturer-ports-v1/release-check",
+  "producer": "runs/manufacturer-ifc-v1/verified",
+  "producer_report_sha256": "b5c512fdef1a7ea7017eaaed72d0cf891775a57d7c20192fad2058ab4a343d3b",
+  "report_sha256": "e78f3056b422b8c3f5655cfd38a7cf87764d087087652f0fb07334b73ccf026a",
+  "ifc_sha256": "71ea145f6fb3ec59279b1cbb6786b2720d59a79205d4e7ddea8d41257c64e2ca",
+  "basis": {
+    "source": "Synthetic project placement of actual vendor CAD geometry; model ports sourced from centreline anchors, no physical joint acceptance",
+    "placement": {
+      "source": "Synthetic project-coordinate trial",
+      "origin_m": [
+        12.3,
+        -4.5,
+        2.7
+      ],
+      "rotation": [
+        [
+          0.8660254037844387,
+          -0.49999999999999994,
+          0.0
+        ],
+        [
+          0.38302222155948895,
+          0.6634139481689384,
+          -0.6427876096865393
+        ],
+        [
+          0.32139380484326957,
+          0.5566703992264194,
+          0.766044443118978
+        ]
+      ]
+    },
+    "system_name": "Synthetic demonstration service grouping",
+    "passage_basis": "../manufacturer-passage-v1/basis.json",
+    "ports": [
+      {
+        "id": "main-a",
+        "source": "Selected source CL line endpoint in native extracted definition",
+        "line_handle": "71",
+        "endpoint": "start",
+        "passage_id": "main"
+      },
+      {
+        "id": "main-b",
+        "source": "Selected source CL line endpoint in native extracted definition",
+        "line_handle": "71",
+        "endpoint": "end",
+        "passage_id": "main"
+      },
+      {
+        "id": "branch",
+        "source": "Selected source CL line endpoint in native extracted definition",
+        "line_handle": "6D",
+        "endpoint": "end",
+        "passage_id": "branch"
+      }
+    ]
+  },
+  "guid": "2Q4jE0K8rUjOk8i3fjJYIc",
+  "checks": {
+    "tessellation_preserved": true,
+    "placement": true,
+    "port_coverage": true,
+    "system_membership": true,
+    "port_main-a": true,
+    "port_main-b": true,
+    "port_branch": true,
+    "world_volume": true,
+    "world_bounds": true,
+    "world_centroid": true,
+    "saved_ifc_passages_and_wall_control": true
+  },
+  "probes": [
+    {
+      "id": "main",
+      "role": "passage",
+      "intersection_m3": 0.0,
+      "pass": true
+    },
+    {
+      "id": "branch",
+      "role": "passage",
+      "intersection_m3": 0.0,
+      "pass": true
+    },
+    {
+      "id": "wall",
+      "role": "wall_control",
+      "intersection_m3": 1.5514296244410106e-06,
+      "pass": true
+    }
+  ],
+  "probe_numerics": {
+    "circular_segments": 128,
+    "intersection_volume_tolerance_m3": 1e-12
+  },
+  "controls": {
+    "interior_anchor_rejected": "port anchor must lie on the outward body support plane",
+    "rehashed_shifted_mesh_rejected": "converted body no longer reconciles to native source",
+    "five_stable_product_port_system_ids": true,
+    "schema_statements": 0
+  },
+  "release_schema_statements": 0,
+  "unit_tests_passed": 8,
+  "pending": [
+    "physical joint and pipe compatibility",
+    "external system connections",
+    "viewer and installation review",
+    "hydraulic and regulatory applicability"
+  ],
+  "design_accepted": false,
+  "vendor_geometry_redistributed": false
+}
