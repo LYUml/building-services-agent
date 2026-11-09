@@ -1,0 +1,7 @@
+{
+  "loader": "explicit internal geometry bridge",
+  "error": "ValueError('No geometry could be extracted from IFC.')",
+  "traceback": "Traceback (most recent call last):\n  File \"<stdin>\", line 10, in <module>\n  File \"C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\tools/moosas-review\\MoosasPy\\model\\io\\ifc.py\", line 912, in _loadIfc_via_geo_bridge\n    raise ValueError(\"No geometry could be extracted from IFC.\")\nValueError: No geometry could be extracted from IFC.\n",
+  "native_executed": true,
+  "design_accepted": false
+}

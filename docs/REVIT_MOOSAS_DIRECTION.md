@@ -44,6 +44,17 @@ The ExternalEvent queue is a useful reference for valid API-context execution. I
 
 ### Executed ordinary-IFC loading trial
 
+Follow-up: explicitly invoking the upstream internal geometry bridge also failed on the same IFC (`No geometry could be extracted from IFC`); its traversal excludes IfcSpace geometry. Evidence: `geometry-bridge-trial.json`.
+
+A separate original adapter now reuses BSA's saved-solid box validator and MOOSAS's model/space/surface and XML/GEO APIs: `scripts/moosas_space_exchange.py`. Actual three-space export and reload preserve source GUIDs, all face vertex sets (to 1e-9 m), areas 48/30/24 m2, 3 m heights, closedness and input hashes. An omitted-space mapping fails before export. Evidence: `space-exchange.json` and `space-exchange-negative.json`. This is successful bounded geometry exchange, not ordinary upstream IFC-loader acceptance or a simulation-ready thermal model. Perimeter planes are space envelopes, not asserted physical wall constructions; shared/interzone boundary semantics, north-axis/georeferencing, materials, gains and HVAC remain unresolved.
+
+The isolated optional dependencies are rdflib 7.1.4 and pyparsing 3.2.3, installed under ignored `tools/moosas-exchange-deps` with their distribution notices retained; the repository environment was not upgraded. The sparse pinned upstream checkout now includes its db/template directory and licence. Its bundled library.json lacks the version 5 field required by its current reader, so default XML reload fails. The wrapper explicitly selects an empty version-5 catalogue during geometry-only reload and restores the module setting afterward; it does not change upstream files, fabricate a GB/HK template, or execute analysis. Upstream Apache-2.0 attribution remains to KLEGB/MOOSAS and its authors; adapter code is original.
+
+```powershell
+.venv/Scripts/python -m pip install --target tools/moosas-exchange-deps --no-deps rdflib==7.1.4 pyparsing==3.2.3
+.venv/Scripts/python scripts/moosas_space_exchange.py --ifc runs/moosas-ifc-trial-v1/source/model.ifc --binding examples/thermal-ifc/binding.json --upstream tools/moosas-review --deps tools/moosas-exchange-deps --out runs/new-moosas-exchange
+```
+
 Pinned upstream was checked out under ignored `tools/moosas-review`, without installing its dependency set or fetching bundled simulation engines/templates. Its IFC module imports successfully with the existing repository Python dependencies. A fresh native `bsa.bim` run of `examples/thermal-ifc/bim.json` produced a schema-checked IFC4 containing three spaces and two distribution elements, with metre units and source preservation checks passing.
 
 Actual `loadIfc` execution returned zero spaces, zero faces and zero walls without raising, while reporting `ifcHasSpaces=True` and `ifcLoadMode='space'`. The source bytes stayed unchanged. Inspection of `_legacy_loadIfc_direct` explains this specific case: elements/spaces lacking its MOOSAS property set are skipped, and empty output does not trigger the exception-based fallback. This proves an incompatibility for our ordinary synthetic space IFC, not that all upstream IFC inputs fail. Its round-trip format and geometry bridge need separate evaluation.

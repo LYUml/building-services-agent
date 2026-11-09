@@ -1,0 +1,6 @@
+{
+  "control": "omitted one source space mapping",
+  "rejected": true,
+  "output_created": false,
+  "error": "thermal mapping must cover every saved IFC space exactly"
+}
