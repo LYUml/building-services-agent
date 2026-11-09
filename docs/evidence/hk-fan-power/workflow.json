@@ -1,0 +1,391 @@
+{
+  "scope": "Actual official-source-backed synthetic facts only; no native model/fan/flow binding or full acceptance",
+  "checks": {
+    "pass": {
+      "id": "HK.EMSD.BEC2024.base_fan_power",
+      "status": "pass",
+      "scope": "Conditioned-space CAV/VAV base fan-power ratio with explicit exemption basis; no deductions or whole-HVAC acceptance",
+      "source_url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+      "source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+      "edition": "2024",
+      "clause": "6.7.1-6.7.3, 6.7.5",
+      "pdf_page_1_based": 30,
+      "value": 0,
+      "unit": "count",
+      "maximum": 0,
+      "evidence": "Unadjusted supply/return clean-condition drawn electrical motor watts versus supply design L/s",
+      "reasons": [
+        "selected prescriptive limit met"
+      ],
+      "mode": "CAV",
+      "unadjusted_fan_motor_power_w": 3200.0,
+      "supply_design_airflow_l_s": 2000.0,
+      "maximum_unadjusted_power_w": 3200.0,
+      "exemption_asserted": false,
+      "deduction_applied_w": 0.0,
+      "guidance_url": "https://www.emsd.gov.hk/beeo/en/pee/TG-BEC_2024.pdf",
+      "guidance_printed_page": "76",
+      "motor_nameplate_or_air_power_substitution_permitted": false,
+      "pending_scope": [
+        "authentic equipment/inventory and actual clean operating point",
+        "6.7.4 reduced-speed/fresh-air requirements",
+        "6.7.6 mechanical ventilation route",
+        "deductions and full HVAC/engineering acceptance"
+      ]
+    },
+    "exceeded": {
+      "id": "HK.EMSD.BEC2024.base_fan_power",
+      "status": "review_required",
+      "scope": "Conditioned-space CAV/VAV base fan-power ratio with explicit exemption basis; no deductions or whole-HVAC acceptance",
+      "source_url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+      "source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+      "edition": "2024",
+      "clause": "6.7.1-6.7.3, 6.7.5",
+      "pdf_page_1_based": 30,
+      "value": 1,
+      "unit": "count",
+      "maximum": 0,
+      "evidence": "Unadjusted supply/return clean-condition drawn electrical motor watts versus supply design L/s",
+      "reasons": [
+        "Base comparison exceeds limit; review actual scope, design and applicable deductions/routes"
+      ],
+      "mode": "CAV",
+      "unadjusted_fan_motor_power_w": 3201.0,
+      "supply_design_airflow_l_s": 2000.0,
+      "maximum_unadjusted_power_w": 3200.0,
+      "exemption_asserted": false,
+      "deduction_applied_w": 0.0,
+      "guidance_url": "https://www.emsd.gov.hk/beeo/en/pee/TG-BEC_2024.pdf",
+      "guidance_printed_page": "76",
+      "motor_nameplate_or_air_power_substitution_permitted": false,
+      "pending_scope": [
+        "authentic equipment/inventory and actual clean operating point",
+        "6.7.4 reduced-speed/fresh-air requirements",
+        "6.7.6 mechanical ventilation route",
+        "deductions and full HVAC/engineering acceptance"
+      ]
+    },
+    "missing-power": {
+      "id": "HK.EMSD.BEC2024.base_fan_power",
+      "status": "pending",
+      "scope": "Conditioned-space CAV/VAV base fan-power ratio with explicit exemption basis; no deductions or whole-HVAC acceptance",
+      "source_url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+      "source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+      "edition": "2024",
+      "clause": "6.7.1-6.7.3, 6.7.5",
+      "pdf_page_1_based": 30,
+      "value": 1,
+      "unit": "count",
+      "maximum": 0,
+      "evidence": "Unadjusted supply/return clean-condition drawn electrical motor watts versus supply design L/s",
+      "reasons": [
+        "Base comparison exceeds limit; review actual scope, design and applicable deductions/routes",
+        "missing sourced fan basis: fan_motor_power"
+      ],
+      "mode": "CAV",
+      "unadjusted_fan_motor_power_w": null,
+      "supply_design_airflow_l_s": 2000.0,
+      "maximum_unadjusted_power_w": 3200.0,
+      "exemption_asserted": false,
+      "deduction_applied_w": 0.0,
+      "guidance_url": "https://www.emsd.gov.hk/beeo/en/pee/TG-BEC_2024.pdf",
+      "guidance_printed_page": "76",
+      "motor_nameplate_or_air_power_substitution_permitted": false,
+      "pending_scope": [
+        "authentic equipment/inventory and actual clean operating point",
+        "6.7.4 reduced-speed/fresh-air requirements",
+        "6.7.6 mechanical ventilation route",
+        "deductions and full HVAC/engineering acceptance"
+      ]
+    },
+    "exempt": {
+      "id": "HK.EMSD.BEC2024.base_fan_power",
+      "status": "not_applicable",
+      "scope": "Conditioned-space CAV/VAV base fan-power ratio with explicit exemption basis; no deductions or whole-HVAC acceptance",
+      "source_url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+      "source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+      "edition": "2024",
+      "clause": "6.7.1-6.7.3, 6.7.5",
+      "pdf_page_1_based": 30,
+      "reasons": [
+        "outside this explicitly supported rule path; other requirements remain unresolved"
+      ],
+      "mode": "CAV",
+      "unadjusted_fan_motor_power_w": 2499.0,
+      "supply_design_airflow_l_s": 2000.0,
+      "maximum_unadjusted_power_w": 3200.0,
+      "exemption_asserted": true,
+      "deduction_applied_w": 0.0,
+      "guidance_url": "https://www.emsd.gov.hk/beeo/en/pee/TG-BEC_2024.pdf",
+      "guidance_printed_page": "76",
+      "motor_nameplate_or_air_power_substitution_permitted": false,
+      "pending_scope": [
+        "authentic equipment/inventory and actual clean operating point",
+        "6.7.4 reduced-speed/fresh-air requirements",
+        "6.7.6 mechanical ventilation route",
+        "deductions and full HVAC/engineering acceptance"
+      ]
+    },
+    "adjustment": {
+      "id": "HK.EMSD.BEC2024.base_fan_power",
+      "status": "pending",
+      "scope": "Conditioned-space CAV/VAV base fan-power ratio with explicit exemption basis; no deductions or whole-HVAC acceptance",
+      "source_url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+      "source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+      "edition": "2024",
+      "clause": "6.7.1-6.7.3, 6.7.5",
+      "pdf_page_1_based": 30,
+      "value": 0,
+      "unit": "count",
+      "maximum": 0,
+      "evidence": "Unadjusted supply/return clean-condition drawn electrical motor watts versus supply design L/s",
+      "reasons": [
+        "selected prescriptive limit met",
+        "clean treatment drop exceeds base path; separate deduction/applicability assessment required"
+      ],
+      "mode": "CAV",
+      "unadjusted_fan_motor_power_w": 3200.0,
+      "supply_design_airflow_l_s": 2000.0,
+      "maximum_unadjusted_power_w": 3200.0,
+      "exemption_asserted": false,
+      "deduction_applied_w": 0.0,
+      "guidance_url": "https://www.emsd.gov.hk/beeo/en/pee/TG-BEC_2024.pdf",
+      "guidance_printed_page": "76",
+      "motor_nameplate_or_air_power_substitution_permitted": false,
+      "pending_scope": [
+        "authentic equipment/inventory and actual clean operating point",
+        "6.7.4 reduced-speed/fresh-air requirements",
+        "6.7.6 mechanical ventilation route",
+        "deductions and full HVAC/engineering acceptance"
+      ]
+    }
+  },
+  "tasks": [
+    {
+      "id": "pass",
+      "kind": "regulations",
+      "status": "pass",
+      "recorded_scope": "Selected jurisdiction checks only; whole-project regulatory compliance not established. HK.EMSD.BEC2024.base_fan_power: pass",
+      "dependencies": [],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R1"
+      ],
+      "evidence": [
+        "pass/regulation-checks.json"
+      ]
+    },
+    {
+      "id": "pass-review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "Actual applicability, clean motor power/inventory, controls and full acceptance remain pending",
+      "dependencies": [
+        "pass"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "pass-review"
+      ],
+      "input_blockers": [],
+      "next_action": "perform the specified review and record evidence separately",
+      "requirement_ids": [
+        "R1-review"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "exceeded",
+      "kind": "regulations",
+      "status": "pending",
+      "recorded_scope": "Selected jurisdiction checks only; whole-project regulatory compliance not established. HK.EMSD.BEC2024.base_fan_power: review_required",
+      "dependencies": [],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "exceeded"
+      ],
+      "input_blockers": [],
+      "next_action": "resolve the recorded pending condition before a new run",
+      "requirement_ids": [
+        "R2"
+      ],
+      "evidence": [
+        "exceeded/regulation-checks.json"
+      ]
+    },
+    {
+      "id": "exceeded-review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "required checks unresolved: exceeded (pending); adapter not executed",
+      "dependencies": [
+        "exceeded"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [
+        "exceeded"
+      ],
+      "upstream_action_tasks": [
+        "exceeded"
+      ],
+      "input_blockers": [],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R2-review"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "missing-power",
+      "kind": "regulations",
+      "status": "pending",
+      "recorded_scope": "Selected jurisdiction checks only; whole-project regulatory compliance not established. HK.EMSD.BEC2024.base_fan_power: pending",
+      "dependencies": [],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "missing-power"
+      ],
+      "input_blockers": [],
+      "next_action": "resolve the recorded pending condition before a new run",
+      "requirement_ids": [
+        "R3"
+      ],
+      "evidence": [
+        "missing-power/regulation-checks.json"
+      ]
+    },
+    {
+      "id": "missing-power-review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "required checks unresolved: missing-power (pending); adapter not executed",
+      "dependencies": [
+        "missing-power"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [
+        "missing-power"
+      ],
+      "upstream_action_tasks": [
+        "missing-power"
+      ],
+      "input_blockers": [],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R3-review"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "exempt",
+      "kind": "regulations",
+      "status": "pending",
+      "recorded_scope": "Selected jurisdiction checks only; whole-project regulatory compliance not established. HK.EMSD.BEC2024.base_fan_power: not_applicable",
+      "dependencies": [],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "exempt"
+      ],
+      "input_blockers": [],
+      "next_action": "resolve the recorded pending condition before a new run",
+      "requirement_ids": [
+        "R4"
+      ],
+      "evidence": [
+        "exempt/regulation-checks.json"
+      ]
+    },
+    {
+      "id": "exempt-review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "required checks unresolved: exempt (pending); adapter not executed",
+      "dependencies": [
+        "exempt"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [
+        "exempt"
+      ],
+      "upstream_action_tasks": [
+        "exempt"
+      ],
+      "input_blockers": [],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R4-review"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "adjustment",
+      "kind": "regulations",
+      "status": "pending",
+      "recorded_scope": "Selected jurisdiction checks only; whole-project regulatory compliance not established. HK.EMSD.BEC2024.base_fan_power: pending",
+      "dependencies": [],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "adjustment"
+      ],
+      "input_blockers": [],
+      "next_action": "resolve the recorded pending condition before a new run",
+      "requirement_ids": [
+        "R5"
+      ],
+      "evidence": [
+        "adjustment/regulation-checks.json"
+      ]
+    },
+    {
+      "id": "adjustment-review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "required checks unresolved: adjustment (pending); adapter not executed",
+      "dependencies": [
+        "adjustment"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [
+        "adjustment"
+      ],
+      "upstream_action_tasks": [
+        "adjustment"
+      ],
+      "input_blockers": [],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R5-review"
+      ],
+      "evidence": []
+    }
+  ],
+  "integrity_pass": true,
+  "design_accepted": false,
+  "tests": {
+    "fan_rules": 9,
+    "generic_regulations": 8,
+    "coverage": 7,
+    "all_pass": true
+  },
+  "reviewed_source_pages": {
+    "BEC": "printed 24-25 / PDF 30-31",
+    "TG": "printed 76 / PDF 87"
+  },
+  "artifacts": {
+    "runs\\hk-fan-power-workflow-v1\\demonstration.json": "5ade0262c4966296f1f6965d5264cb87771985d89f30a8bbcea3e13f61c5a719",
+    "runs\\hk-fan-power-workflow-v1\\workflow\\workflow.json": "57a20603ae91c085827b05e9fb430411ca6608d351d1f27cbb8d54aecfe357ca",
+    "runs\\hk-fan-power-workflow-v1\\coverage\\coverage.json": "cb851a3539c241989002e2f04c4bdafa30f3d7c5912c6bb100d165a28f74998b",
+    "runs\\hk-fan-source-review\\bec-30.png": "3998330e6e199ab88d0071d81bdfd445beefbfd38712b9c95d2d8d17e48aad26",
+    "runs\\hk-fan-source-review\\bec-31.png": "bf203d90f0e7aeb0844bbbc901a439eecacc630408556e0d7f195e83b420b583",
+    "runs\\hk-fan-source-review\\tg-087.png": "f1662f0c447220fb55ef055cb5261c431e57dd330bd0f8d8f24c6fbccf74e46f"
+  }
+}

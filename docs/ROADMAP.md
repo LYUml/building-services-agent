@@ -62,6 +62,8 @@ The requested end state is reusable automation from a requirement document and s
 
 ## Next sequence
 
+Hong Kong base CAV/VAV fan-power pack now uses pinned official BEC/TG sources with drawn electrical motor-power and inventory/flow/exemption prerequisites. Actual five-case sourced-fact workflow retains review/pending/exempt states and downstream gates. This is not native rectangular-network/fan binding, deductions, controls or full HVAC/Hong Kong acceptance (HK_FAN_POWER.md).
+
 Rectangular drawing now independently compares saved and native-exported DXF entities with checked model geometry/notes/GUIDs, including raw model-space and plot visibility controls plus approximate text guards. Actual 11-entity native sheet/PDF inspection passes; seven new and ten related tests pass. Full installation and regulatory acceptance remain pending.
 
 Rectangular selected-model drawing now requires same-model clash success, projects checked outer envelopes/centreline and inside-size/length notes, and executes native DWG reopen plus fixed-scale PDF verification. Actual 11-entity positive PDF was inspected; intrusion blocks before drawing. Five new tests pass; four native-adapter tests pass with one skip. Full installation graphics, fittings, products and Hong Kong acceptance remain pending.

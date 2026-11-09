@@ -1,0 +1,75 @@
+{
+  "jurisdiction": "HK",
+  "rule_pack": "hk-fan-power-2026.11.10",
+  "edition_decisions": {
+    "emsd_bec_2024": {
+      "edition": "2024",
+      "basis": "Explicit synthetic edition choice; not an actual works applicability determination"
+    },
+    "emsd_tg_bec_2024": {
+      "edition": "2024",
+      "basis": "Explicit synthetic edition choice; not an actual works applicability determination"
+    }
+  },
+  "facts": {
+    "bec_air_conditioning_scope_confirmed": {
+      "value": true,
+      "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+    },
+    "prescriptive_route_selected": {
+      "value": true,
+      "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+    },
+    "conditioned_space": {
+      "value": true,
+      "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+    },
+    "only_supply_return_fans_counted": {
+      "value": true,
+      "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+    },
+    "fan_inventory_complete": {
+      "value": true,
+      "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+    },
+    "motor_power_drawn_clean_basis_confirmed": {
+      "value": true,
+      "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+    },
+    "supply_design_flow_basis_confirmed": {
+      "value": true,
+      "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+    },
+    "no_deduction_claimed": {
+      "value": true,
+      "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+    },
+    "fan_motor_power": {
+      "value": 3200.0,
+      "unit": "W",
+      "source": "Synthetic total clean supply/return drawn electrical motor power"
+    },
+    "supply_design_airflow": {
+      "value": 2000.0,
+      "unit": "L/s",
+      "source": "Synthetic complete supply design flow"
+    },
+    "clean_treatment_pressure_drop": {
+      "value": 250.0,
+      "unit": "Pa",
+      "source": "Synthetic clean treatment total pressure drop"
+    },
+    "ahu_individual_fan_exemption_applies": {
+      "value": false,
+      "source": "Synthetic AHU exemption decision"
+    },
+    "schedule2_exemption_applies": {
+      "value": false,
+      "source": "Synthetic Schedule 2 scope decision"
+    },
+    "air_distribution_mode": {
+      "value": "CAV",
+      "source": "Synthetic CAV classification"
+    }
+  }
+}

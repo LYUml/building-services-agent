@@ -21,6 +21,9 @@ def evaluate(pack,project,source_directory):
     for rule in pack['rules']:
         if rule['id'] in seen:raise ProjectError('unique rule ids required')
         seen.add(rule['id'])
+        if rule['method']=='base_air_distribution_fan_power':
+            from .fan_power_rules import check
+            checks.append(check(pack,rule,project,root));continue
         if rule['method']=='pvc_stranded_copper_bend':
             from .cable_bend_rules import check
             checks.append(check(pack,rule,project,root));continue
@@ -79,10 +82,18 @@ def source_paths(pack, directory):
     """Only sources used by executable rules; catalog entries need no cached PDF."""
     root=Path(directory).resolve();paths=set()
     for rule in pack['rules']:
-        path=(root/pack['sources'][rule['source_id']]['cache_filename']).resolve()
-        if not path.is_relative_to(root):raise ProjectError('source cache path escapes root')
-        paths.add(path)
+        for source_id in [rule['source_id']]+([rule['guidance_source_id']] if 'guidance_source_id' in rule else []):
+            path=(root/pack['sources'][source_id]['cache_filename']).resolve()
+            if not path.is_relative_to(root):raise ProjectError('source cache path escapes root')
+            paths.add(path)
     return paths
+
+
+def method_paths(pack):
+    if any(rule['method']=='base_air_distribution_fan_power' for rule in pack['rules']):
+        from . import fan_power_rules
+        return {Path(__file__).resolve(),Path(fan_power_rules.__file__).resolve()}
+    return set()
 
 
 def run(pack,project,sources,out):
@@ -90,6 +101,7 @@ def run(pack,project,sources,out):
     if any(out==p or out in p.parents for p in (pack,project)):raise ProjectError('output must not contain inputs')
     before={str(p):digest(p) for p in (pack,project)}
     data=json.loads(pack.read_text(encoding='utf-8-sig'))
+    before.update({str(p):digest(p) for p in method_paths(data)})
     official=source_paths(data,sources)
     if any(out==p or out in p.parents for p in official):raise ProjectError('output must not contain official sources')
     source_before={str(p):digest(p) if p.is_file() else None for p in official}

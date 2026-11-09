@@ -480,6 +480,8 @@ def validate_plan(path):
             official=source_paths(read_json(pack),directory)
             if any(not f.is_file() for f in official):raise ProjectError('download required official sources before workflow execution')
             inputs.update({pack,project}|official)
+            from .regulations import method_paths
+            inputs.update(method_paths(read_json(pack)))
             if kind in ('electrical_regulations','lighting_regulations'):
                 inputs.update(local_path(root,t.get(key)) for key in (('topology' if kind=='electrical_regulations' else 'geometry'),'basis'))
         if kind=='plumbing_pump_regulations':
