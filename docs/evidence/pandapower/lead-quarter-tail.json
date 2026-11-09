@@ -1,0 +1,157 @@
+{
+  "scope": "Actual synthetic lead-quarter-tail continuous cable geometry and numerical derivation; no new-form route drawing acceptance",
+  "derivation": {
+    "original_inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\circular_geometry.py": "b907345bd2904bf313b017cc1c7e1a07e403ff726bbb8a85e476ae538ea25cb9",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\source\\basis.json": "30ebd15fbfe2fa9bb5804b4c6ec8c7871759da3b09f79694b0e395e866cf1f69",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_ifc.py": "05f216b1da14eaf01cf51b11f8f398b95743d5fc03f6665fa7f2710fc0926505",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\source\\project.json": "118e0ba6338b8c5c92e1125e8e6024e8476041686867687eb8576f01f329b093",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\fixture\\cables.ifc": "53396d3276aaef3976fd4acc221b83ab571743579fe9093dc42acb2a2dc6e40f",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cad_ifc.py": "2f6fafbde0711ee7a14fd64170bdb57df4db1afb6666a96d0f23a1a108245a47",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\fixture\\binding.json": "d5b3bb08dddcbce316132527baa1da11d240e5b3760d6a5810a74191804535da",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_continuity.py": "a920dc4aab25745ed9ad726341e9a218e2515afcf5092b481f8c039bd8599476",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\fixture\\geometry-source.json": "fca01e4557f2f078f163cc78ab3e254840d37dd79da65fcd5d34505a634a50e0",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\quarter_cable.py": "9e8223c6b6ea9efb8cb9397c4db298486659f8520d1a5dcfcb185ee4427f8591",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\solid_clash.py": "ceb782df2bcfffdf799542e56fb89deb2d5a04f9c9a66372030fd3a457366e4d",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\source\\geometry.json": "fca01e4557f2f078f163cc78ab3e254840d37dd79da65fcd5d34505a634a50e0",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_ifc_project.py": "88c6944ee0d4a3c158459ba05fd2563e92807c52760dafcce43f67d2a888771d"
+    },
+    "original_inputs_unchanged": true,
+    "changes": [
+      {
+        "id": "feeder",
+        "baseline_length_m": 3.671238898038469,
+        "derived_length_m": 3.671238898038469
+      }
+    ],
+    "derived_project_sha256": "0f2e02944db0a081c6564cd72bfa3cf53fa26956e6abcc706013b94be227f3df",
+    "derived_inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\model\\cables.ifc": "53396d3276aaef3976fd4acc221b83ab571743579fe9093dc42acb2a2dc6e40f",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\route-lengths.json": "817dd25fff99610fdd277733aeb52455c2f32ed2ecde25233b581ce30803379e",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\baseline\\basis.json": "30ebd15fbfe2fa9bb5804b4c6ec8c7871759da3b09f79694b0e395e866cf1f69",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\project.json": "0f2e02944db0a081c6564cd72bfa3cf53fa26956e6abcc706013b94be227f3df",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\model\\geometry-source.json": "fca01e4557f2f078f163cc78ab3e254840d37dd79da65fcd5d34505a634a50e0",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\model\\binding.json": "d5b3bb08dddcbce316132527baa1da11d240e5b3760d6a5810a74191804535da",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\baseline\\geometry.json": "fca01e4557f2f078f163cc78ab3e254840d37dd79da65fcd5d34505a634a50e0"
+    },
+    "derived_geometry_correspondence_pass": true,
+    "numerical_status": "pass",
+    "design_accepted": false,
+    "scope": "New snapshot project with supported native straight, quarter-circle or single-quarter tangent-straight IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+  },
+  "geometry": {
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_ifc.py": "05f216b1da14eaf01cf51b11f8f398b95743d5fc03f6665fa7f2710fc0926505",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\route-lengths.json": "817dd25fff99610fdd277733aeb52455c2f32ed2ecde25233b581ce30803379e",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_continuity.py": "a920dc4aab25745ed9ad726341e9a218e2515afcf5092b481f8c039bd8599476",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\project.json": "0f2e02944db0a081c6564cd72bfa3cf53fa26956e6abcc706013b94be227f3df",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\model\\geometry-source.json": "fca01e4557f2f078f163cc78ab3e254840d37dd79da65fcd5d34505a634a50e0",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\quarter_cable.py": "9e8223c6b6ea9efb8cb9397c4db298486659f8520d1a5dcfcb185ee4427f8591",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\circular_geometry.py": "b907345bd2904bf313b017cc1c7e1a07e403ff726bbb8a85e476ae538ea25cb9",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\model\\cables.ifc": "53396d3276aaef3976fd4acc221b83ab571743579fe9093dc42acb2a2dc6e40f",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cad_ifc.py": "2f6fafbde0711ee7a14fd64170bdb57df4db1afb6666a96d0f23a1a108245a47",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\baseline\\basis.json": "30ebd15fbfe2fa9bb5804b4c6ec8c7871759da3b09f79694b0e395e866cf1f69",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\model\\binding.json": "d5b3bb08dddcbce316132527baa1da11d240e5b3760d6a5810a74191804535da",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\solid_clash.py": "ceb782df2bcfffdf799542e56fb89deb2d5a04f9c9a66372030fd3a457366e4d",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\baseline\\geometry.json": "fca01e4557f2f078f163cc78ab3e254840d37dd79da65fcd5d34505a634a50e0"
+    },
+    "input_unchanged": true,
+    "source_basis": {
+      "path": "geometry-source.json",
+      "sha256": "fca01e4557f2f078f163cc78ab3e254840d37dd79da65fcd5d34505a634a50e0",
+      "locator": "Synthetic radius and bus coordinates; no real-world survey or equipment claim",
+      "kind": "assumption"
+    },
+    "ifc_unit_to_m": 1,
+    "versions": {
+      "ifcopenshell": "0.8.5",
+      "manifold3d": "3.5.4"
+    },
+    "lines": [
+      {
+        "id": "feeder",
+        "element_guid": "1uGqW$ugzIM9$Bw0m20nFy",
+        "port_guids": [
+          "1w$48BLGnT6hPO7AMWig2V",
+          "21dk0cvL1O_BgaDCOPe_oE"
+        ],
+        "observed_length_m": 3.671238898038469,
+        "project_length_m": 3.671238898038469,
+        "route_length_match": true,
+        "route_geometry": "straight plus quarter plus straight",
+        "bend_radius_m": 0.3,
+        "body_type": "IfcBooleanResult",
+        "envelope_radius_m": 0.01,
+        "world_axis_ends_m": [
+          [
+            0.3,
+            0.0,
+            3.2
+          ],
+          [
+            -2.0,
+            0.0,
+            1.7
+          ]
+        ],
+        "native_volume_m3": 0.001153334215417065,
+        "analytic_volume_m3": 0.001153353715165074
+      }
+    ],
+    "native_geometry_checks_pass": true,
+    "geometry_correspondence_pass": true,
+    "native_electrical_connectivity_verified": false,
+    "design_accepted": false,
+    "scope": "Selected-system straight, canonical quarter-circle or one quarter with tangent straight cable envelopes, placed ports, bus anchors and analysis lengths only; physical connections, general bends, conductor selection, protection and regulatory acceptance remain unverified"
+  },
+  "study": {
+    "status": "pass",
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\model\\cables.ifc": "53396d3276aaef3976fd4acc221b83ab571743579fe9093dc42acb2a2dc6e40f",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\route-lengths.json": "817dd25fff99610fdd277733aeb52455c2f32ed2ecde25233b581ce30803379e",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\baseline\\basis.json": "30ebd15fbfe2fa9bb5804b4c6ec8c7871759da3b09f79694b0e395e866cf1f69",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_bridge.py": "e2670961ac70dc14085d7c8ecb117bbf74e9138fbc0d1588ed69c928b50c3b04",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\tools\\pandapower-runtime\\Scripts\\python.exe": "5c438223dea1c7b2c9ecc7759dc0d701fe06696053035bf08c5fdb00ffb2a51b",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\scripts\\run_three_phase.py": "1466546e65e6b3f510512416efe6667a0fce22d57b93684e36c9f1d1e94529dd",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\project.json": "0f2e02944db0a081c6564cd72bfa3cf53fa26956e6abcc706013b94be227f3df",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\model\\geometry-source.json": "fca01e4557f2f078f163cc78ab3e254840d37dd79da65fcd5d34505a634a50e0",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\model\\binding.json": "d5b3bb08dddcbce316132527baa1da11d240e5b3760d6a5810a74191804535da",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase.py": "b58fe7a49b91906ade65abbd2c312d7a5e3ff0c769eb5ced7ca67b83428a346a",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-study-v2\\derived\\baseline\\geometry.json": "fca01e4557f2f078f163cc78ab3e254840d37dd79da65fcd5d34505a634a50e0"
+    },
+    "runtime": {
+      "pandapower": "3.5.6",
+      "numpy": "2.4.6",
+      "scipy": "1.18.1",
+      "pandas": "2.3.3"
+    },
+    "study_sha256": "d75d971b7f398008ad0eb597f65230a26d343ab8cdb000ffd7221f1732e8d5df",
+    "network_sha256": "84c4eca5e077488c5e559f97bc8cec5cf95659739237a47d3d2aa39d2d7db8b4",
+    "design_accepted": false,
+    "scope": "Single-voltage sequence-line constant-PQ wye power flow; numerical checks and declared targets only; no physical neutral, protection, cable selection, CAD/BIM or regulatory acceptance"
+  },
+  "schema_express_issues": 0,
+  "original_recorded_inputs_still_match": true,
+  "study_context_pass": true,
+  "initial_rotated_trial": {
+    "status": "rejected",
+    "reason": "native Manifold Error.NotManifold before common-local-frame authoring",
+    "resolution": "Canonical composite primitives plus one source ObjectPlacement; same world geometry; no tolerance change or mesh repair",
+    "retested_compound_rotation_pass": true
+  },
+  "visual_review": {
+    "ifc_sha256": "53396d3276aaef3976fd4acc221b83ab571743579fe9093dc42acb2a2dc6e40f",
+    "png_sha256": "ffc5d950b59dfbef3b1623f83d9fae220e1e8ac8ffee7f155443ee8c66a20b6f",
+    "observed": "One continuous incoming straight, curved transition and outgoing straight with outward endpoint arrows; four projected views inspected; no represented elements omitted.",
+    "full_bim_viewer_review": false,
+    "full_engineering_acceptance": false
+  },
+  "tests": {
+    "new_lead_route_pass": 7,
+    "original_continuity_pass": 7,
+    "saved_ifc_integration_pass": 4,
+    "saved_drawing_audit_pass": 10,
+    "total_distinct_pass": 28
+  },
+  "design_accepted": false
+}

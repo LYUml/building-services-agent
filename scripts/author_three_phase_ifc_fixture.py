@@ -19,11 +19,12 @@ from bsa.tee_geometry import stable_guid
 
 
 def run(project,geometry,out,body_kind='swept-disk'):
-    if body_kind not in ('swept-disk','extrusion','mixed-revolution','quarter-straight'):raise ProjectError('unsupported fixture body kind')
+    if body_kind not in ('swept-disk','extrusion','mixed-revolution','quarter-straight','straight-quarter-straight'):raise ProjectError('unsupported fixture body kind')
     project,geometry,out=[Path(v).resolve() for v in (project,geometry,out)]
     p,files=prepare(project);data=json.loads(geometry.read_text(encoding='utf-8-sig'))
     if not out.is_relative_to(ROOT) or out.exists() or any(out==f or out in f.parents for f in files|{geometry}):raise ProjectError('new separate repository fixture output required')
-    expected={'scope','project_uuid','envelope_radius_m','buses_m'}|({'quarter_bends'} if body_kind in ('mixed-revolution','quarter-straight') else set())|({'tangent_extensions_m'} if body_kind=='quarter-straight' else set())
+    composite=body_kind in ('quarter-straight','straight-quarter-straight')
+    expected={'scope','project_uuid','envelope_radius_m','buses_m'}|({'quarter_bends'} if body_kind=='mixed-revolution' or composite else set())|({'tangent_extensions_m'} if composite else set())|({'lead_extensions_m'} if body_kind=='straight-quarter-straight' else set())
     if set(data)!=expected or not isinstance(data['scope'],str) or not data['scope'].startswith('Synthetic'):raise ProjectError('explicit synthetic fixture scope required')
     radius=data['envelope_radius_m'];anchors=data['buses_m']
     if type(radius) not in (int,float) or not math.isfinite(radius) or radius<=0 or set(anchors)!={b['id'] for b in p['buses']}:raise ProjectError('positive radius and exact bus anchors required')
@@ -35,19 +36,25 @@ def run(project,geometry,out,body_kind='swept-disk'):
         import bsa.quarter_cable as quarter
         helpers.add(Path(quarter.__file__).resolve())
     extensions=data.get('tangent_extensions_m',{})
-    if body_kind=='quarter-straight':
+    leads=data.get('lead_extensions_m',{})
+    if composite:
         import bsa.cable_continuity as continuity
         helpers.add(Path(continuity.__file__).resolve())
         if not bends or not isinstance(extensions,dict) or set(extensions)!=set(bends):raise ProjectError('exact bend/extension coverage required')
+        if body_kind=='straight-quarter-straight' and (not isinstance(leads,dict) or set(leads)!=set(bends)):raise ProjectError('exact bend/lead coverage required')
     for line in p['lines']:
         if line['id'] in bends:
             bend_radius,frame,axis_points=quarter.source_geometry(bends[line['id']],radius)
             extension=extensions.get(line['id'],0)
-            if body_kind=='quarter-straight':
+            lead=leads.get(line['id'],0)
+            if composite:
                 if type(extension) not in (int,float) or not math.isfinite(extension) or extension<=0:raise ProjectError('positive finite tangent extension required')
                 axis_points[-1]-=frame[:3,0]*extension
+                if body_kind=='straight-quarter-straight':
+                    if type(lead) not in (int,float) or not math.isfinite(lead) or lead<=0:raise ProjectError('positive finite lead extension required')
+                    axis_points[0]+=frame[:3,2]*lead
             if not np.allclose(axis_points[[0,-1]],[anchors[line['from']],anchors[line['to']]],atol=1e-8,rtol=0):raise ProjectError('quarter-bend source endpoints differ from bus anchors')
-            length=bend_radius*math.pi/2+extension
+            length=bend_radius*math.pi/2+extension+lead
         else:length=math.dist(anchors[line['from']],anchors[line['to']])
         if not math.isclose(length,line['length_m'],abs_tol=1e-8,rel_tol=0):raise ProjectError('fixture coordinates do not match supplied route length')
     before={str(f):digest(f) for f in files|helpers|{geometry,Path(__file__).resolve()}}
@@ -73,7 +80,11 @@ def run(project,geometry,out,body_kind='swept-disk'):
         points=[[float(v) for v in anchors[id]] for id in (line['from'],line['to'])]
         curve=builder.polyline(points);directrix=builder.polyline(points)
         if line['id'] in bends:
-            if body_kind=='quarter-straight':solid,curve,_=continuity.author(model,builder,bends[line['id']],radius,extensions[line['id']])
+            if composite:
+                bend_radius,source_frame,_=quarter.source_geometry(bends[line['id']],radius)
+                local_spec=dict(radius_m=bend_radius,centre_m=[0.,0.,0.],rotation=np.eye(3).tolist())
+                solid,curve,_=continuity.author(model,builder,local_spec,radius,extensions[line['id']],leads.get(line['id'],0.))
+                api.run('geometry.edit_object_placement',model,product=obj,matrix=source_frame,is_si=True)
             else:solid,curve=quarter.author(model,builder,bends[line['id']],radius)
         elif body_kind=='swept-disk':
             solid=builder.create_swept_disk_solid(directrix,radius)
@@ -84,7 +95,7 @@ def run(project,geometry,out,body_kind='swept-disk'):
             profile=model.create_entity('IfcCircleProfileDef',ProfileType='AREA',Radius=float(radius))
             solid=builder.extrude(profile,magnitude=length,position=points[0],position_z_axis=direction,position_x_axis=x)
         representation=builder.get_representation(body,solid)
-        if body_kind=='quarter-straight' and line['id'] in bends:representation.RepresentationType='CSG'
+        if composite and line['id'] in bends:representation.RepresentationType='CSG'
         api.run('geometry.assign_representation',model,product=obj,representation=representation)
         api.run('geometry.assign_representation',model,product=obj,representation=builder.get_representation(axis,curve,representation_type='Curve3D'))
         ps=api.run('pset.add_pset',model,product=obj,name='BSA_DesignInputs')
@@ -113,5 +124,5 @@ def run(project,geometry,out,body_kind='swept-disk'):
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('project',type=Path)
     p.add_argument('--geometry',type=Path,required=True);p.add_argument('--out',type=Path,required=True)
-    p.add_argument('--body-kind',choices=['swept-disk','extrusion','mixed-revolution','quarter-straight'],default='swept-disk')
+    p.add_argument('--body-kind',choices=['swept-disk','extrusion','mixed-revolution','quarter-straight','straight-quarter-straight'],default='swept-disk')
     a=p.parse_args();run(a.project,a.geometry,a.out,a.body_kind)

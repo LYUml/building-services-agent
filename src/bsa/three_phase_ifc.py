@@ -147,12 +147,12 @@ def inspect(project,ifc,binding_path,*,require_length_match=True):
         length_match=math.isclose(length,line['length_m'],rel_tol=0,abs_tol=1e-6)
         if require_length_match and not length_match:raise ProjectError('electrical route length differs from saved IFC geometry')
         rows.append(dict(id=line['id'],element_guid=obj.GlobalId,port_guids=port_ids,observed_length_m=length,project_length_m=line['length_m'],
-            route_length_match=length_match,route_geometry=('quarter plus tangent straight' if solid.is_a('IfcBooleanResult') else 'quarter circle') if quarter else 'straight',bend_radius_m=quarter['bend_radius'] if quarter else None,
+            route_length_match=length_match,route_geometry=quarter.get('route_geometry','quarter circle') if quarter else 'straight',bend_radius_m=quarter['bend_radius'] if quarter else None,
             body_type=solid.is_a(),envelope_radius_m=radius,world_axis_ends_m=ends.tolist(),native_volume_m3=observed['volume'],analytic_volume_m3=expected_volume))
     if any(digest(Path(f))!=h for f,h in before.items()):raise ProjectError('inputs changed during IFC inspection')
     return dict(inputs=before,input_unchanged=True,source_basis=source,ifc_unit_to_m=factor,versions=versions,lines=rows,
         native_geometry_checks_pass=True,geometry_correspondence_pass=all(r['route_length_match'] for r in rows),native_electrical_connectivity_verified=False,design_accepted=False,
-        scope='Selected-system straight, canonical quarter-circle or one quarter plus tangent straight cable envelopes, placed ports, bus anchors and analysis lengths only; physical connections, general bends, conductor selection, protection and regulatory acceptance remain unverified')
+        scope='Selected-system straight, canonical quarter-circle or one quarter with tangent straight cable envelopes, placed ports, bus anchors and analysis lengths only; physical connections, general bends, conductor selection, protection and regulatory acceptance remain unverified')
 
 
 def run(project,ifc,binding,out):

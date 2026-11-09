@@ -1,5 +1,7 @@
 # Continuous cable native geometry trial
 
+The reader/fixture author now also supports a sourced lead straight before the quarter and tail. See the final section below; the physical-route drawing adapter still deliberately rejects that three-piece form.
+
 Follow-up: [selected cable route drawings](CABLE_ROUTE_DRAWINGS.md) now provide a separately executed planar true-arc/straight/OD native drawing and inspected fixed-scale sheet. This is selected geometry only; obstacle-inclusive and workflow-controlled installation delivery remain pending.
 
 Executed 2026-11-10 using pinned IfcOpenShell 0.8.5 and the existing Manifold mesh validator. This is a synthetic geometry probe, not an engineering design or registered workflow capability.
@@ -43,3 +45,17 @@ Actual positive run `runs/continuous-cable-native-workflow-v1` passed study, ben
 Actual negative run `runs/continuous-cable-workflow-failed-bend-v1` passed numerical and coordination checks but failed the 0.295 m inside-radius requirement. Drawing remained pending and its adapter directory was absent. Both workflow integrity checks and delivery contexts passed. Source/artifact hashes and separate scoped visual observations are recorded in `evidence/pandapower/continuous-cable-workflow.json`.
 
 The four-view saved-model preview includes both elements with none omitted and shows the continuous body and outward endpoint axes. The small obstacle is insufficiently resolved at the full-route scale for a visual clearance claim; native numerical clearance remains separate. This is a calculation schematic, not a dimensioned cable installation-route drawing. Full engineering review, actual manufacturer selection, physical equipment interfaces, general multi-bend routing and full Hong Kong conformity remain pending. This section supersedes the earlier unexecuted-workflow statements only for this scoped synthetic case.
+
+## Lead straight, quarter and tail straight
+
+Fixture mode `straight-quarter-straight` adds `lead_extensions_m` with exact quarter_bends coverage and positive finite lengths, alongside tangent_extensions_m. The independent from/to bus anchors and numerical project length must match both straights plus the actual quarter arc. The source-parametric author creates one cable with three curve segments, two regularized UNION operations and only two endpoint ports. No intermediate load, equipment connection or fictitious internal cable object is introduced.
+
+The shared saved reader accepts exactly quarter-tail or lead-quarter-tail UNION leaves, bounded to at most three primitives. It verifies each independent curve, proper placement, constant circular radius, coincident ends and same forward tangent. Analytic volume, volume-weighted centroid and combined tight bounds are reconciled against the native single-connected positive solid by the existing reader; source bus/port/length checks remain mandatory. Bend-limit coverage includes the new `straight plus quarter plus straight` route type so its bend cannot disappear from checks.
+
+An initial compound-rotation test failed with native Manifold Error.NotManifold when the Boolean primitives were separately placed in world coordinates. The fixture author now combines composite primitives in one canonical local frame and applies the source rigid transformation once through the cable ObjectPlacement. The same compound rotation/translation then passes native mesh/bounds/centroid/volume checks. This changes operation placement, not world geometry; no mesh repair, tolerance widening or exception waiver is used. The low-level author still returns primitives in its supplied frame; use the fixture's common-local-frame path for verified transformed native authoring.
+
+Run `.venv/Scripts/python scripts/run_continuous_cable_demo.py --out runs/new-lead-study --python tools/pandapower-runtime/Scripts/python.exe --lead 1.2`. Actual final `runs/lead-quarter-tail-study-v2` uses assumed 1.2 m lead, 0.3 m bend radius, 2 m tail and 0.01 m envelope radius. True length is 3.671238898038469 m. Saved IFC schema plus EXPRESS validation has zero issues; native geometry correspondence and freshly derived three-phase study pass. The saved four-view preview was inspected with one represented cable included and none omitted; it is not a full BIM viewer or installation acceptance.
+
+Seven new tests pass: native volume/length/ports, compound rigid placement, disconnected lead plus Axis, wrong lead radius, incorrect lead-port axis, omitted bend coverage and refusal by the old two-piece route writer. Seven original continuity, four saved IFC integration and ten saved drawing audit regressions also pass (28 distinct tests). Evidence: `evidence/pandapower/lead-quarter-tail.json`.
+
+The physical route drawing adapter deliberately rejects this three-piece shape before creating output; it must not draw only the tail or substitute a chord. Full source-driven workflow/native route drawing for this new form, additional bends, manufacturer selection and physical installation/Hong Kong acceptance remain pending. The existing two-piece native drawing capability is preserved.

@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Continuous cable geometry now includes an explicit incoming straight before the quarter/tail, with exact source anchors, common-local-frame native UNION, full length/volume/centroid/bounds and port checks. Actual three-piece native geometry, compound rigid placement and fresh numerical study pass; the current two-piece physical-route drawer deliberately refuses the unsupported form. Three-piece drawing/workflow delivery, general routes and installation acceptance remain pending (CABLE_CONTINUITY_TRIAL.md).
+
 Continuous cable route delivery now independently audits actual DXF geometry/dimensions/notes/IFC identities and visibility flags before native conversion and after AutoCAD reopen/export. Actual 21-entity checks, fixed-scale print and separate visual review pass; ten new mutation/audit tests plus eleven related tests pass. The audit requires source-checked geometry and does not establish general layout, glyph fidelity or full engineering acceptance (CABLE_ROUTE_DRAWINGS.md).
 
 Optional sourced box inventories now extend the continuous cable route sheet to complete supported cable/box physical coverage, with native identity/bounds checks and printed depth intervals. Actual same-model workflow, reopened native DWG and inspected 1:20 PDF pass with two included/zero omitted elements; extra unlisted equipment blocks. Arbitrary equipment/annotation/installation acceptance remains pending (CABLE_ROUTE_DRAWINGS.md).

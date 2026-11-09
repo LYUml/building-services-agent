@@ -5,6 +5,8 @@ description: Calculate source-linked single-phase circuits and scoped three-phas
 
 # mep-electrical
 
+The saved IFC electrical reader also supports an incoming straight plus one quarter plus an outgoing straight, with full true length and mandatory bend coverage (docs/CABLE_CONTINUITY_TRIAL.md). Use explicit sourced lead/tail dimensions and checked endpoints; no intermediate load or physical equipment connection is inferred. Fresh numerical derivation is verified; the current two-piece physical-route drawing adapter rejects this new form rather than omitting its lead.
+
 For cable route drawings, require independent_saved_audit and the workflow's native_saved_audit in addition to native reopen/scale checks. These compare actual DXF geometry, dimensions, notes, visibility flags and IFC identities to the checked source rather than trusting writer success flags. The raw auditor requires already source-checked input geometry and is not a standalone proof of IFC provenance or engineering acceptance (docs/CABLE_ROUTE_DRAWINGS.md).
 
 Cable route tasks may optionally supply obstacles to include source-checked generic boxes. This requires exact complete supported physical coverage, native box/source checks and printed depth intervals (docs/CABLE_ROUTE_DRAWINGS.md). Use the existing 3D coordination gate for physical clash/clearance; a rectangle crossing the cable in projection is neither a confirmed clash nor a clearance pass. Arbitrary equipment and full installation acceptance remain unsupported.
