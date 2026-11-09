@@ -36,6 +36,19 @@ class CableContinuityTests(unittest.TestCase):
     def test_true_length(self):
         self.assertAlmostEqual(self.check()['length'], 2 + .3 * math.pi / 2)
 
+    def test_source_author_roundtrip_and_invalid_extension(self):
+        from bsa.cable_continuity import author
+        from ifcopenshell.util.shape_builder import ShapeBuilder
+        model = ifcopenshell.file(schema='IFC4')
+        spec = dict(radius_m=.3, centre_m=[0., 0., 0.], rotation=np.eye(3).tolist())
+        solid, curve, ports = author(model, ShapeBuilder(model), spec, .01, 2.)
+        result = inspect(solid, curve, np.eye(4), 1., 1.)
+        self.assertAlmostEqual(result['length'], 2 + .3 * math.pi / 2)
+        np.testing.assert_allclose(ports[-1][:3, 3], [-2., 0., -.3])
+        for extension in (0, -1, True, float('nan')):
+            with self.assertRaisesRegex(ProjectError, 'extension'):
+                author(model, ShapeBuilder(model), spec, .01, extension)
+
     def test_axis_endpoint_mutation(self):
         self.axis.Segments[1].ParentCurve.Points[1].Coordinates = (-1.9, 0., -.3)
         with self.assertRaisesRegex(ProjectError, 'differs'):

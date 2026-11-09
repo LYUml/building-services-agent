@@ -99,3 +99,5 @@ Continuous cable trial (2026-11-10): pinned IfcOpenShell 0.8.5 native add_boolea
 Composite Axis follow-up: reuse existing quarter_cable analytic correspondence and upstream standard IfcCompositeCurve segments, not a new route engine. Saved native probe plus six positive/mutation tests pass; ports/electrical workflow remain pending. See CABLE_CONTINUITY_TRIAL.md.
 
 Continuous cable electrical follow-up: compose the existing quarter/straight inspector, native IfcOpenShell/Manifold validation, source-bound length derivation and declared bend comparator. No new engine. Four saved composite integration tests and ten existing bend-limit tests pass; source-driven authoring and solved/native drawing workflow remain pending. See CABLE_CONTINUITY_TRIAL.md.
+
+Continuous cable author follow-up: extend existing synthetic fixture author with standard IFC UNION and exact composite Axis through pinned IfcOpenShell; reuse length-source derivation and isolated pandapower. Actual source-driven native geometry plus fresh numerical study pass in continuous-cable-study-v2; seven continuity tests pass. No new dependency/engine or installation approval. See CABLE_CONTINUITY_TRIAL.md.

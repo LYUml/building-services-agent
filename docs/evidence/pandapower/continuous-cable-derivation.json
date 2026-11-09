@@ -1,0 +1,39 @@
+{
+  "original_inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\solid_clash.py": "ceb782df2bcfffdf799542e56fb89deb2d5a04f9c9a66372030fd3a457366e4d",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\fixture\\geometry-source.json": "984421402bf4dc655b41365b7c29f07f2c7ff4419babd345c54c3d6c1a3153da",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\circular_geometry.py": "b907345bd2904bf313b017cc1c7e1a07e403ff726bbb8a85e476ae538ea25cb9",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cad_ifc.py": "2f6fafbde0711ee7a14fd64170bdb57df4db1afb6666a96d0f23a1a108245a47",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\quarter_cable.py": "9e8223c6b6ea9efb8cb9397c4db298486659f8520d1a5dcfcb185ee4427f8591",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_continuity.py": "cb2e56d17a32baf27a22ee3137fe7239b52fc11d3c2808419dcd3b48ccb3de92",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\source\\project.json": "543ba1974bc91389804042b2303fb828a144ea26b647a24741e14b8f7e325ea1",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_ifc.py": "7a533bdb56a6613e6f0fd29205ee3359b25b00396420aa79e73e1f6d192eca48",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\fixture\\cables.ifc": "7710681618666910c5b1299d25d0ff03b5168a8b63986ab3c781e346bfe157f9",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\fixture\\binding.json": "dd6c5afd2a6279fdf0ba1c76579f4a29b50f8e2b81142290f1523fab41ab1bd0",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\source\\basis.json": "30ebd15fbfe2fa9bb5804b4c6ec8c7871759da3b09f79694b0e395e866cf1f69",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\source\\geometry.json": "984421402bf4dc655b41365b7c29f07f2c7ff4419babd345c54c3d6c1a3153da",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_ifc_project.py": "7cd33e0405d978b846a2a7694907a6e7a146ea9da1b13f18c178d752f89b1bf8"
+  },
+  "original_inputs_unchanged": true,
+  "changes": [
+    {
+      "id": "feeder",
+      "baseline_length_m": 2.471238898038469,
+      "derived_length_m": 2.471238898038469
+    }
+  ],
+  "derived_project_sha256": "14eb2102dfea41b9b346ae7456b9c9215172f6dab646a11eccd96e97b432591d",
+  "derived_inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\model\\binding.json": "dd6c5afd2a6279fdf0ba1c76579f4a29b50f8e2b81142290f1523fab41ab1bd0",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\baseline\\geometry.json": "984421402bf4dc655b41365b7c29f07f2c7ff4419babd345c54c3d6c1a3153da",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\project.json": "14eb2102dfea41b9b346ae7456b9c9215172f6dab646a11eccd96e97b432591d",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\route-lengths.json": "86d9cffe32384890fb2f23d8a8101422ecff7d2f63d9b4ba1554d664819e7b5d",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\model\\geometry-source.json": "984421402bf4dc655b41365b7c29f07f2c7ff4419babd345c54c3d6c1a3153da",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\model\\cables.ifc": "7710681618666910c5b1299d25d0ff03b5168a8b63986ab3c781e346bfe157f9",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\baseline\\basis.json": "30ebd15fbfe2fa9bb5804b4c6ec8c7871759da3b09f79694b0e395e866cf1f69"
+  },
+  "derived_geometry_correspondence_pass": true,
+  "numerical_status": "pass",
+  "design_accepted": false,
+  "scope": "New snapshot project with native straight or canonical quarter-circle IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+}

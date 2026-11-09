@@ -1,0 +1,26 @@
+{
+  "status": "pass",
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\model\\binding.json": "dd6c5afd2a6279fdf0ba1c76579f4a29b50f8e2b81142290f1523fab41ab1bd0",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase.py": "b58fe7a49b91906ade65abbd2c312d7a5e3ff0c769eb5ced7ca67b83428a346a",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\baseline\\geometry.json": "984421402bf4dc655b41365b7c29f07f2c7ff4419babd345c54c3d6c1a3153da",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\project.json": "14eb2102dfea41b9b346ae7456b9c9215172f6dab646a11eccd96e97b432591d",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\scripts\\run_three_phase.py": "1466546e65e6b3f510512416efe6667a0fce22d57b93684e36c9f1d1e94529dd",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\route-lengths.json": "86d9cffe32384890fb2f23d8a8101422ecff7d2f63d9b4ba1554d664819e7b5d",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\model\\geometry-source.json": "984421402bf4dc655b41365b7c29f07f2c7ff4419babd345c54c3d6c1a3153da",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\model\\cables.ifc": "7710681618666910c5b1299d25d0ff03b5168a8b63986ab3c781e346bfe157f9",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\baseline\\basis.json": "30ebd15fbfe2fa9bb5804b4c6ec8c7871759da3b09f79694b0e395e866cf1f69",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_bridge.py": "e2670961ac70dc14085d7c8ecb117bbf74e9138fbc0d1588ed69c928b50c3b04",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\tools\\pandapower-runtime\\Scripts\\python.exe": "5c438223dea1c7b2c9ecc7759dc0d701fe06696053035bf08c5fdb00ffb2a51b"
+  },
+  "runtime": {
+    "pandapower": "3.5.6",
+    "numpy": "2.4.6",
+    "scipy": "1.18.1",
+    "pandas": "2.3.3"
+  },
+  "study_sha256": "b4598ae6107845dd933b0fce164c4f6d259332c617fd34cd56a37a22c055fc22",
+  "network_sha256": "d8f7dd82e58bb5e956068d593074a8803018c3c6db2fbbdbbc5e55c2490b1229",
+  "design_accepted": false,
+  "scope": "Single-voltage sequence-line constant-PQ wye power flow; numerical checks and declared targets only; no physical neutral, protection, cable selection, CAD/BIM or regulatory acceptance"
+}

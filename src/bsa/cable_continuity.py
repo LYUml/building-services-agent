@@ -8,6 +8,28 @@ from .engine import ProjectError
 from .quarter_cable import inspect as quarter, rigid
 
 
+def author(model, builder, spec, envelope, extension):
+    from . import quarter_cable
+    if type(extension) not in (int, float) or not math.isfinite(extension) or extension <= 0:
+        raise ProjectError('positive finite sourced tangent extension required')
+    _, frame, points = quarter_cable.source_geometry(spec, envelope)
+    tangent = -frame[:3, 0]
+    end = points[-1] + tangent * extension
+    bend, arc = quarter_cable.author(model, builder, spec, envelope)
+    profile = model.create_entity('IfcCircleProfileDef', ProfileType='AREA', Radius=float(envelope))
+    straight = builder.extrude(profile, magnitude=float(extension), position=points[-1],
+        position_z_axis=tangent, position_x_axis=frame[:3, 1])
+    union = model.create_entity('IfcBooleanResult', Operator='UNION', FirstOperand=bend, SecondOperand=straight)
+    line = model.create_entity('IfcPolyline', Points=[
+        model.create_entity('IfcCartesianPoint', Coordinates=p.tolist()) for p in (points[-1], end)])
+    curve = model.create_entity('IfcCompositeCurve', SelfIntersect=False, Segments=[
+        model.create_entity('IfcCompositeCurveSegment', Transition='CONTSAMEGRADIENT', SameSense=True, ParentCurve=arc),
+        model.create_entity('IfcCompositeCurveSegment', Transition='DISCONTINUOUS', SameSense=True, ParentCurve=line)])
+    ports = quarter_cable.port_frames(spec, envelope)
+    ports[-1][:3, 3] = end
+    return union, curve, ports
+
+
 def inspect(solid, curve, object_frame, factor, angle_factor):
     import ifcopenshell.util.placement as placement
     if solid.is_a() != 'IfcBooleanResult' or solid.Operator != 'UNION':

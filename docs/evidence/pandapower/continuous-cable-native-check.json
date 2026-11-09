@@ -1,0 +1,65 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\baseline\\geometry.json": "984421402bf4dc655b41365b7c29f07f2c7ff4419babd345c54c3d6c1a3153da",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\solid_clash.py": "ceb782df2bcfffdf799542e56fb89deb2d5a04f9c9a66372030fd3a457366e4d",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\route-lengths.json": "86d9cffe32384890fb2f23d8a8101422ecff7d2f63d9b4ba1554d664819e7b5d",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cad_ifc.py": "2f6fafbde0711ee7a14fd64170bdb57df4db1afb6666a96d0f23a1a108245a47",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\circular_geometry.py": "b907345bd2904bf313b017cc1c7e1a07e403ff726bbb8a85e476ae538ea25cb9",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\model\\geometry-source.json": "984421402bf4dc655b41365b7c29f07f2c7ff4419babd345c54c3d6c1a3153da",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\model\\cables.ifc": "7710681618666910c5b1299d25d0ff03b5168a8b63986ab3c781e346bfe157f9",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\baseline\\basis.json": "30ebd15fbfe2fa9bb5804b4c6ec8c7871759da3b09f79694b0e395e866cf1f69",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\model\\binding.json": "dd6c5afd2a6279fdf0ba1c76579f4a29b50f8e2b81142290f1523fab41ab1bd0",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\continuous-cable-study-v2\\derived\\project.json": "14eb2102dfea41b9b346ae7456b9c9215172f6dab646a11eccd96e97b432591d",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\quarter_cable.py": "9e8223c6b6ea9efb8cb9397c4db298486659f8520d1a5dcfcb185ee4427f8591",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\cable_continuity.py": "cb2e56d17a32baf27a22ee3137fe7239b52fc11d3c2808419dcd3b48ccb3de92",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_ifc.py": "7a533bdb56a6613e6f0fd29205ee3359b25b00396420aa79e73e1f6d192eca48"
+  },
+  "input_unchanged": true,
+  "source_basis": {
+    "path": "geometry-source.json",
+    "sha256": "984421402bf4dc655b41365b7c29f07f2c7ff4419babd345c54c3d6c1a3153da",
+    "locator": "Synthetic radius and bus coordinates; no real-world survey or equipment claim",
+    "kind": "assumption"
+  },
+  "ifc_unit_to_m": 1,
+  "versions": {
+    "ifcopenshell": "0.8.5",
+    "manifold3d": "3.5.4"
+  },
+  "lines": [
+    {
+      "id": "feeder",
+      "element_guid": "1uGqW$ugzIM9$Bw0m20nFy",
+      "port_guids": [
+        "1w$48BLGnT6hPO7AMWig2V",
+        "21dk0cvL1O_BgaDCOPe_oE"
+      ],
+      "observed_length_m": 2.471238898038469,
+      "project_length_m": 2.471238898038469,
+      "route_length_match": true,
+      "route_geometry": "quarter plus tangent straight",
+      "bend_radius_m": 0.3,
+      "body_type": "IfcBooleanResult",
+      "envelope_radius_m": 0.01,
+      "world_axis_ends_m": [
+        [
+          0.3,
+          0.0,
+          2.0
+        ],
+        [
+          -2.0,
+          0.0,
+          1.7
+        ]
+      ],
+      "native_volume_m3": 0.0007763485753805651,
+      "analytic_volume_m3": 0.000776362596734299
+    }
+  ],
+  "native_geometry_checks_pass": true,
+  "geometry_correspondence_pass": true,
+  "native_electrical_connectivity_verified": false,
+  "design_accepted": false,
+  "scope": "Selected-system straight, canonical quarter-circle or one quarter plus tangent straight cable envelopes, placed ports, bus anchors and analysis lengths only; physical connections, general bends, conductor selection, protection and regulatory acceptance remain unverified"
+}
