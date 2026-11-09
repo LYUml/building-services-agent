@@ -36,6 +36,8 @@ The sample contains an explicit manual review task. Execute therefore returns ex
 
 ## Plan contract
 
+`rectangular_network` now supports either project or depends_on on an earlier rectangular_network_design, never both. The inherited path checks producer status, pinned artifacts, original project/catalogue reconstruction and selected rerun identity, then executes the saved selected rectangular input. No-feasible stays pending with no consumer directory. This extends the earlier standalone contract; no IFC inheritance or automatic installation acceptance is added.
+
 `rectangular_network_design` accepts project/catalogue and optional earlier requires_pass only. Its four geometry/pressure/search adapter modules and catalogue/project bytes enter inventory. It reuses exhaustive supplied sizing and fresh selected rerun; no feasible design fails execution and blocks required dependents. There is no automatic downstream geometry inheritance or fan selection. See RECTANGULAR_AIR_NETWORKS.md.
 
 Workflow kind `rectangular_network` accepts a sourced `project` and optional `requires_pass`, using the explicit level rectangular air-tree contract in RECTANGULAR_AIR_NETWORKS.md. Its actual-area/turbulent hydraulic-diameter calculation modules enter input inventory. Failed velocity/pressure targets fail execution and block required consumers. This adapter has no inherited IFC geometry or regulatory acceptance; retain separate manual/engineering deliverables.

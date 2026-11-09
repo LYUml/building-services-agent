@@ -1,0 +1,93 @@
+{
+  "scope": "Actual synthetic selected rectangular input handoff and fresh pressure analysis; no saved geometry or full acceptance",
+  "tasks": [
+    {
+      "id": "air",
+      "kind": "rectangular_network_design",
+      "status": "pass",
+      "recorded_scope": "Finite supplied rectangular catalogue optimum under prescribed level air-tree assumptions; not product selection, spatial fit or Hong Kong acceptance",
+      "dependencies": [],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R1"
+      ],
+      "evidence": [
+        "air/baseline/manifest.json",
+        "air/baseline/network.json",
+        "air/baseline/report.html",
+        "air/baseline/segments.csv",
+        "air/candidates.csv",
+        "air/design-comparison.json",
+        "air/report.html",
+        "air/selected-network.json",
+        "air/selected/manifest.json",
+        "air/selected/network.json",
+        "air/selected/report.html",
+        "air/selected/segments.csv"
+      ]
+    },
+    {
+      "id": "selected-check",
+      "kind": "rectangular_network",
+      "status": "pass",
+      "recorded_scope": "Prescribed level constant-density air withdrawals; rectangular actual area and turbulent hydraulic-diameter approximation; no loops, flow balancing or fan operating point; geometry, product and Hong Kong acceptance pending",
+      "dependencies": [
+        "air"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R3"
+      ],
+      "evidence": [
+        "selected-check/manifest.json",
+        "selected-check/network.json",
+        "selected-check/report.html",
+        "selected-check/segments.csv"
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "Independent geometry, fitting, fan, acoustic, fire/smoke and Hong Kong acceptance remains pending",
+      "dependencies": [
+        "selected-check"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "review"
+      ],
+      "input_blockers": [],
+      "next_action": "perform the specified review and record evidence separately",
+      "requirement_ids": [
+        "R2"
+      ],
+      "evidence": []
+    }
+  ],
+  "integrity_pass": true,
+  "consumer_input_sha256": "39fddf1d56c146ca4591c5b1fa372813495e04b3b65ef073b77e4262a693cc0b",
+  "selected_source_match": true,
+  "original_input_not_used": true,
+  "design_accepted": false,
+  "tests": {
+    "rectangular": 19,
+    "dependency_diagnosis": 7,
+    "all_pass": true
+  },
+  "artifacts": {
+    "runs\\rectangular-selected-handoff-v1\\workflow.json": "4954bb375de7a2cce64790cbf29de3a17ca465ea0fd87da9b1454f8518d34a80",
+    "runs\\rectangular-selected-handoff-v1\\air\\design-comparison.json": "d461d3d184c81b3f8fad7ae12d31fc789716e3bce3f6bdca65fd3a2f88a75350",
+    "runs\\rectangular-selected-handoff-v1\\air\\selected-network.json": "39fddf1d56c146ca4591c5b1fa372813495e04b3b65ef073b77e4262a693cc0b",
+    "runs\\rectangular-selected-handoff-v1\\selected-check\\network.json": "63b448363a654640c91bed9b8b508513c7b072736439472df05a1bb1ed45dfc0"
+  }
+}

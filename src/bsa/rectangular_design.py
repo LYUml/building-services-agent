@@ -4,8 +4,28 @@ import json
 from pathlib import Path
 from . import network_design as engine
 from .rectangular_network import prepare,calculate,run as analyse
+from .cli import digest
+from .engine import ProjectError
 
 DIMENSIONS=('width_m','height_m')
+
+
+def selected_input(producer,project,catalogue):
+    producer=Path(producer).resolve();project=Path(project).resolve();catalogue=Path(catalogue).resolve()
+    report=json.loads((producer/'design-comparison.json').read_text(encoding='utf-8-sig'))
+    if report.get('feasible_design_found') is not True or report.get('selected_rerun_pass') is not True:raise ProjectError('no verified rectangular selection available')
+    if report.get('inputs')!={str(p):digest(p) for p in (project,catalogue)}:raise ProjectError('rectangular selection source identity differs')
+    required={'selected-network.json','selected/network.json','selected/manifest.json'}
+    if not required<=set(report.get('artifacts',{})):raise ProjectError('rectangular selected artifact coverage missing')
+    for name,sha in report['artifacts'].items():
+        path=(producer/name).resolve()
+        if not path.is_relative_to(producer) or not path.is_file() or digest(path)!=sha:raise ProjectError('rectangular selection artifact changed')
+    expected,network=search(json.loads(project.read_text(encoding='utf-8-sig')),json.loads(catalogue.read_text(encoding='utf-8-sig')))
+    selected=producer/'selected-network.json'
+    if expected['selected']!=report.get('selected') or network!=json.loads(selected.read_text(encoding='utf-8-sig')):raise ProjectError('rectangular selection differs from source reconstruction')
+    saved=json.loads((producer/'selected/network.json').read_text(encoding='utf-8-sig'))
+    if saved.get('input_sha256')!=digest(selected) or saved.get('calculated_checks_pass') is not True:raise ProjectError('rectangular selected rerun identity/checks differ')
+    return selected
 
 
 def validate_catalogue(project,catalogue):

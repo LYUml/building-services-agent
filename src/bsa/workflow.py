@@ -301,14 +301,16 @@ def validate_plan(path):
         if kind not in ("rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","rectangular_network","water_network","water_coordination","network_design","network_model_design","lighting"):
-            if not (kind=="water_network" and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
+            if not (kind in ("water_network","rectangular_network") and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
         if kind=='rectangular_network_design':
             if set(t)-{'id','kind','project','catalogue','requires_pass','description'}:raise ProjectError('rectangular design requires project and catalogue only')
             from . import rectangular_design,rectangular_network,network_design,network
             inputs.update((local_path(root,t.get('project')),local_path(root,t.get('catalogue'))))
             inputs.update(Path(module.__file__).resolve() for module in (rectangular_design,rectangular_network,network_design,network))
         if kind=='rectangular_network':
-            if set(t)-{'id','kind','project','requires_pass','description'}:raise ProjectError('rectangular network accepts sourced project and prerequisites only')
+            if set(t)-{'id','kind','project','depends_on','requires_pass','description'}:raise ProjectError('rectangular network accepts project or selection producer only')
+            if t.get('depends_on'):
+                if 'project' in t or t['depends_on'] not in ids or next(x for x in tasks if x['id']==t['depends_on'])['kind']!='rectangular_network_design':raise ProjectError('rectangular network requires earlier sizing producer and no replacement project')
             from . import rectangular_network,network
             inputs.update((Path(rectangular_network.__file__).resolve(),Path(network.__file__).resolve()))
         if kind=='three_phase':
@@ -730,7 +732,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
     if any(out==f or out in f.parents for f in inputs):raise ProjectError("run output must not contain inputs")
     before={str(f):digest(f) for f in inputs}
     out.mkdir(parents=True,exist_ok=False)
-    evidence={};tasks={};three_phase_pins={};three_phase_rule_pins={}
+    evidence={};tasks={};three_phase_pins={};three_phase_rule_pins={};rectangular_pins={}
     root=plan.parent
     for t in p["tasks"]:
         folder=out/t["id"]
@@ -1286,11 +1288,21 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 payload=run(local_path(root,t['project']),local_path(root,t['catalogue']),folder)
                 status='pass' if payload['feasible_design_found'] and payload['selected_rerun_pass'] else 'fail'
                 reason=payload['scope']
+                rectangular_pins[t['id']]={str(f):digest(f) for f in folder.rglob('*') if f.is_file()}
             elif t['kind']=='rectangular_network':
-                from .rectangular_network import run
-                payload=run(local_path(root,t['project']),folder)
-                status='pass' if payload['calculated_checks_pass'] else 'fail'
-                reason=payload['scope']+'; geometry, product and Hong Kong acceptance pending'
+                parent=t.get('depends_on')
+                if parent and tasks[parent]['status']!='pass':reason='upstream rectangular selection did not pass; analysis not executed'
+                else:
+                    from .rectangular_network import run
+                    if parent:
+                        if any(not Path(f).is_file() or digest(Path(f))!=sha for f,sha in rectangular_pins[parent].items()):raise ProjectError('rectangular producer artifacts changed before analysis')
+                        from .rectangular_design import selected_input
+                        producer=next(x for x in p['tasks'] if x['id']==parent)
+                        source=selected_input(out/parent,local_path(root,producer['project']),local_path(root,producer['catalogue']))
+                    else:source=local_path(root,t['project'])
+                    payload=run(source,folder)
+                    status='pass' if payload['calculated_checks_pass'] else 'fail'
+                    reason=payload['scope']+'; geometry, product and Hong Kong acceptance pending'
             elif t['kind']=='network':
                 from .network import run
                 payload=run(local_path(root,t['project']),folder)

@@ -1,5 +1,11 @@
 # Rectangular air-tree pressure budgets
 
+## Verified selected-input handoff
+
+A `rectangular_network` task may now use depends_on on an earlier rectangular_network_design instead of project. Replacement project input is rejected. Failed/no-feasible producers leave the consumer unexecuted. The executor pins producer artifact bytes in memory; selected_input additionally checks source identities, complete required artifact hashes, reconstructs the ranked selected candidate from the original project/catalogue and matches the saved network and selected numerical input hash. The consumer then executes fresh pressure analysis on that saved selected file. These checks establish sourced candidate correspondence, not document authenticity or geometry/code acceptance.
+
+Use examples/rectangular-air/selected-plan.json. Actual runs/rectangular-selected-handoff-v1 passes sizing and inherited analysis while manual review stays pending. The consumer input hash matches air/selected-network.json and differs from undersized.json. Changed selection is rejected even if its artifact hash is rewritten; replacement and no-feasible cases are retained in tests. Nineteen rectangular tests plus seven dependency-diagnosis tests pass. Evidence: evidence/rectangular-air/selected-handoff.json. This supersedes earlier standalone-project-only notes for the rectangular pressure task; it does not add IFC geometry inheritance.
+
 ## Finite catalogue sizing
 
 Use `.venv/Scripts/python -m bsa.rectangular_design examples/rectangular-air/undersized.json --catalogue examples/rectangular-air/catalogue.json --out runs/new-rectangular-sizing`, or workflow kind `rectangular_network_design` with project/catalogue and optional requires_pass. The adapter reuses the existing exhaustive circular-tree search, ranking, baseline retention, candidate report and saved selected-project rerun. It supplies rectangular dimension validation and the actual-area pressure calculator; no second optimizer is introduced. Its selected-network.json remains geometry-free rectangular input, not an IFC model or an input to circular sizing/model-binding consumers.

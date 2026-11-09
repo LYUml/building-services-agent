@@ -62,6 +62,8 @@ The requested end state is reusable automation from a requirement document and s
 
 ## Next sequence
 
+Rectangular selected-network inheritance now reconstructs original-source candidate identity and verifies producer artifact/source/rerun hashes before fresh consumer analysis. Actual positive handoff passes with manual review pending; replacement/no-feasible and changed selected-file controls reject. Nineteen rectangular plus seven dependency tests pass. This remains geometry-free; fan, spatial and full assignment/Hong Kong acceptance remain pending.
+
 Rectangular air sizing now composes the existing exhaustive search with actual-area pressure analysis. Actual synthetic 27-combination selection retains failed baseline/candidates and freshly solves saved selected dimensions; no-feasible blocks downstream review. Six new and 22 related tests pass. Real size-dependent fitting applicability, saved geometry, fan selection and Hong Kong/full assignment acceptance remain pending (RECTANGULAR_AIR_NETWORKS.md).
 
 Rectangular level air-tree pressure budgets now reuse pinned fluids and existing tree logic with actual area and turbulent hydraulic diameter. Eight new tests plus 21 related regression tests pass; actual positive/insufficient-pressure workflows preserve full review and downstream gates. Saved duct geometry, sizing/fan selection, real applicability and Hong Kong requirements remain pending (RECTANGULAR_AIR_NETWORKS.md).
