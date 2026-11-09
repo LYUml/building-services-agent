@@ -5,7 +5,7 @@ description: Calculate source-linked single-phase circuits and scoped three-phas
 
 # mep-electrical
 
-For physical-route geometry rather than a Graphviz calculation schematic, the scoped bsa.cable_route_drawing adapter supports one saved quarter-plus-tangent cable (docs/CABLE_ROUTE_DRAWINGS.md). Require native geometry/length/port checks, true circular projection, saved DXF readback, native DWG reopen and actual plotted review. Other physical elements are explicitly omitted; its standalone output has no workflow release gate and does not prove installation acceptance.
+For physical-route geometry rather than a Graphviz calculation schematic, the scoped bsa.cable_route_drawing adapter supports one saved quarter-plus-tangent cable (docs/CABLE_ROUTE_DRAWINGS.md). Require native geometry/length/port checks, true circular projection, saved DXF readback, native DWG reopen and actual plotted review. Workflow cable_route_drawing requires an inherited IFC-derived study and same-model bend/coordination pass gates, settings/native_settings and AutoCAD; failed or altered results block before drafting. Other physical elements are explicitly omitted; standalone output has no workflow release gate, and neither path proves installation acceptance.
 
 For the scoped continuous quarter-plus-tangent cable workflow, read docs/CABLE_CONTINUITY_TRIAL.md. scripts/run_continuous_cable_workflow.py exercises a fresh saved-model study, exact same-model bend and coordination prerequisites, and optionally reopened native schematic output. Supply actual source data for real projects; synthetic diameter/radius/clearance targets are not manufacturer or Hong Kong rules. Preserve failed bend blocking, actual PDF review and separate installation acceptance.
 

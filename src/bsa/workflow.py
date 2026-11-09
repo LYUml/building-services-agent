@@ -184,7 +184,7 @@ def regulatory_source_bindings(tasks,root):
 
 def inventory_source_bindings(tasks,root):
     """Bind supported saved-IFC consumers to upstream inventory checks."""
-    electrical_readers={'three_phase_ifc_project','three_phase_ifc','three_phase_topology','three_phase_bend_limits','three_phase_coordination'}
+    electrical_readers={'three_phase_ifc_project','three_phase_ifc','three_phase_topology','three_phase_bend_limits','three_phase_coordination','cable_route_drawing'}
     readers={'connector_ports','ifc_preview','product_ports','tee_drawing','tee_split','tee_pressure','tee_losses','ifc_network','ifc_metadata','ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing',
              'ifc_views','water_coordination','annual_energy_ifc'}|electrical_readers
     known={};ancestors={};identities={};bindings=[];rechecks={}
@@ -237,7 +237,9 @@ def three_phase_rule_bindings(tasks):
         rules=set()
         for parent in parents:rules.update(ancestors[parent])
         if task['kind'] in ('three_phase_regulations','three_phase_ifc','three_phase_topology','three_phase_bend_limits','three_phase_coordination'):rules.add(task['id'])
-        if task['kind']=='three_phase_drawing':
+        if task['kind'] in ('three_phase_drawing','cable_route_drawing'):
+            if task['kind']=='cable_route_drawing' and not {'three_phase_bend_limits','three_phase_coordination'} <= {known[r]['kind'] for r in rules}:
+                raise ProjectError('cable route drawing requires bend and coordination release gates')
             for rule_id in sorted(rules):
                 if known[rule_id]['depends_on']!=task['depends_on']:raise ProjectError('three-phase rule gate checks a different study from drawing '+task['id'])
                 bindings.append(dict(check=rule_id,consumer=task['id'],study_producer=task['depends_on']))
@@ -248,7 +250,7 @@ def three_phase_rule_bindings(tasks):
 def three_phase_model_bindings(root,tasks):
     """Native gates must check one exact saved model and cable-role mapping."""
     root=Path(root).resolve()
-    known={t['id']:t for t in tasks};native={'three_phase_ifc','three_phase_topology','three_phase_bend_limits','three_phase_coordination'}
+    known={t['id']:t for t in tasks};native={'three_phase_ifc','three_phase_topology','three_phase_bend_limits','three_phase_coordination','cable_route_drawing'}
     identities={};records=[]
     def identity(task):
         return dict(ifc_sha256=digest(local_path(root,task['ifc'])),
@@ -260,7 +262,7 @@ def three_phase_model_bindings(root,tasks):
         if parent['kind']=='three_phase_ifc_project':
             if current!=identity(parent):raise ProjectError('native electrical check uses a different IFC or cable binding from derived study '+task['id'])
             records.append(dict(producer=parent['id'],consumer=task['id'],**current))
-    drawing_models={}
+    drawing_models={t['id']:identities[t['id']] for t in tasks if t['kind']=='cable_route_drawing'}
     for link in three_phase_rule_bindings(tasks):
         if known[link['check']]['kind'] not in native:continue
         current=identities[link['check']];drawing=link['consumer']
@@ -296,7 +298,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind=="water_network" and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
@@ -337,6 +339,17 @@ def validate_plan(path):
                 raise ProjectError('three-phase drawing requires an earlier three_phase study')
             from . import three_phase_drawing
             inputs.add(Path(three_phase_drawing.__file__).resolve())
+        if kind=='cable_route_drawing':
+            if set(t)-{'id','kind','depends_on','ifc','binding','settings','native_settings','requires_pass','description'}:raise ProjectError('cable route drawing inherits its study; replacement project forbidden')
+            parent=t.get('depends_on')
+            if not isinstance(parent,str) or parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='three_phase_ifc_project':raise ProjectError('cable route drawing requires earlier IFC-derived study')
+            from . import cable_route_drawing,three_phase_ifc,ifc_native,three_phase_drawing
+            from .ifc_drawing import validate_settings as drawing_settings
+            producer=next(x for x in tasks if x['id']==parent)
+            inputs.update(three_phase_ifc.inputs(local_path(root,producer['project']),local_path(root,t.get('ifc')),local_path(root,t.get('binding'))))
+            for field,validator in (('settings',drawing_settings),('native_settings',ifc_native.validate_settings)):
+                path=local_path(root,t.get(field));inputs.add(path);validator(read_json(path))
+            inputs.update(Path(m.__file__).resolve() for m in (cable_route_drawing,ifc_native,three_phase_drawing))
         if kind=='three_phase_regulations':
             if set(t)-{'id','kind','depends_on','basis','pack','sources','requires_pass','description'}:raise ProjectError('three-phase rules inherit study; replacement project forbidden')
             parent=t.get('depends_on')
@@ -755,6 +768,27 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     if payload.get('geometry_correspondence_pass') is not True or payload.get('design_accepted') is not False:raise ProjectError('invalid IFC correspondence result')
                     status=payload['status'] if t['kind'] in ('three_phase_bend_limits','three_phase_coordination') else 'pass';reason=payload['scope']
                     three_phase_rule_pins[t['id']]={str(f):digest(f) for f in folder.rglob('*') if f.is_file()}
+            elif t['kind']=='cable_route_drawing':
+                parent=t['depends_on']
+                if tasks[parent]['status']!='pass':reason='upstream IFC-derived electrical study did not pass; route drawing not executed'
+                elif not autocad:reason='AutoCAD executable not supplied; cable route delivery not executed'
+                else:
+                    if any(not Path(f).is_file() or digest(Path(f))!=h for f,h in three_phase_pins[parent].items()):raise ProjectError('three-phase producer artifacts changed before route drawing')
+                    for binding in three_phase_rule_bindings(p['tasks']):
+                        if binding['consumer']==t['id'] and any(not Path(f).is_file() or digest(Path(f))!=h for f,h in three_phase_rule_pins[binding['check']].items()):raise ProjectError('three-phase rule artifacts changed before route drawing')
+                    from .cable_route_drawing import run as draw_route
+                    from .three_phase_drawing import context as study_context
+                    from .ifc_native import run as native_route
+                    producer=next(x for x in p['tasks'] if x['id']==parent)
+                    project,study_folder=three_phase_locations(root,out,producer)
+                    _,_,study_sources=study_context(project,study_folder)
+                    payload=draw_route(project,local_path(root,t['ifc']),local_path(root,t['binding']),local_path(root,t['settings']),folder)
+                    payload['native']=native_route(folder/'cable-route.dxf',local_path(root,t['native_settings']),folder/'native',autocad)
+                    if any(not Path(f).is_file() or digest(Path(f))!=h for f,h in study_sources.items()):raise ProjectError('study changed during cable route delivery')
+                    if payload['saved_identity_and_geometry_pass'] is not True or payload['native']['native_reopen_pass'] is not True or payload['native']['plot']['pdf_reference_pass'] is not True:raise ProjectError('cable route native/plot verification did not pass')
+                    payload['study_sources']=study_sources
+                    (folder/'workflow-drawing.json').write_text(json.dumps(payload,indent=2),encoding='utf-8')
+                    status='pass';reason=payload['scope']+'; actual visual/engineering review remains pending'
             elif t['kind']=='three_phase_drawing':
                 parent=t['depends_on']
                 if tasks[parent]['status']!='pass':reason='upstream three-phase study '+parent+' did not pass; drawing not executed'

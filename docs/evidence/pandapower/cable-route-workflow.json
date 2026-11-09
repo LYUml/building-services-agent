@@ -1,0 +1,208 @@
+{
+  "scope": "Actual synthetic same-model continuous cable route workflow; not complete installation acceptance",
+  "positive": {
+    "tasks": {
+      "study": "pass",
+      "bend": "pass",
+      "coordination": "pass",
+      "drawing": "pass",
+      "review": "pending"
+    },
+    "integrity": {
+      "integrity_pass": true,
+      "issues": [],
+      "design_accepted": false,
+      "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+    },
+    "model_bindings": [
+      {
+        "producer": "study",
+        "consumer": "bend",
+        "ifc_sha256": "5f3cc1599e9a65cd5fbcb02fe05fef146ef5efe97db1f1c843871a3e8575bfdc",
+        "geometry_binding_sha256": "539df5f57f277fad266191c11452c443eead42b849a2ec93c90615180883bccd"
+      },
+      {
+        "producer": "study",
+        "consumer": "coordination",
+        "ifc_sha256": "5f3cc1599e9a65cd5fbcb02fe05fef146ef5efe97db1f1c843871a3e8575bfdc",
+        "geometry_binding_sha256": "539df5f57f277fad266191c11452c443eead42b849a2ec93c90615180883bccd"
+      },
+      {
+        "producer": "study",
+        "consumer": "drawing",
+        "ifc_sha256": "5f3cc1599e9a65cd5fbcb02fe05fef146ef5efe97db1f1c843871a3e8575bfdc",
+        "geometry_binding_sha256": "539df5f57f277fad266191c11452c443eead42b849a2ec93c90615180883bccd"
+      },
+      {
+        "producer": "bend",
+        "consumer": "drawing",
+        "ifc_sha256": "5f3cc1599e9a65cd5fbcb02fe05fef146ef5efe97db1f1c843871a3e8575bfdc",
+        "geometry_binding_sha256": "539df5f57f277fad266191c11452c443eead42b849a2ec93c90615180883bccd"
+      },
+      {
+        "producer": "coordination",
+        "consumer": "drawing",
+        "ifc_sha256": "5f3cc1599e9a65cd5fbcb02fe05fef146ef5efe97db1f1c843871a3e8575bfdc",
+        "geometry_binding_sha256": "539df5f57f277fad266191c11452c443eead42b849a2ec93c90615180883bccd"
+      }
+    ],
+    "scope": "Actual synthetic selected-cable route delivery; other elements omitted from drawing; engineering review pending",
+    "design_accepted": false
+  },
+  "failed_bend": {
+    "tasks": {
+      "study": "pass",
+      "bend": "fail",
+      "coordination": "pass",
+      "drawing": "pending",
+      "review": "pending"
+    },
+    "integrity": {
+      "integrity_pass": true,
+      "issues": [],
+      "design_accepted": false,
+      "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+    },
+    "model_bindings": [
+      {
+        "producer": "study",
+        "consumer": "bend",
+        "ifc_sha256": "9eadc310af66bf9434088fe1dea081ee93a45c80849760a044b5662b76e10306",
+        "geometry_binding_sha256": "8edfbfeaa34aabb03f8aecac643f6c0deaea264b722e9b0bdc2a88c430b49633"
+      },
+      {
+        "producer": "study",
+        "consumer": "coordination",
+        "ifc_sha256": "9eadc310af66bf9434088fe1dea081ee93a45c80849760a044b5662b76e10306",
+        "geometry_binding_sha256": "8edfbfeaa34aabb03f8aecac643f6c0deaea264b722e9b0bdc2a88c430b49633"
+      },
+      {
+        "producer": "study",
+        "consumer": "drawing",
+        "ifc_sha256": "9eadc310af66bf9434088fe1dea081ee93a45c80849760a044b5662b76e10306",
+        "geometry_binding_sha256": "8edfbfeaa34aabb03f8aecac643f6c0deaea264b722e9b0bdc2a88c430b49633"
+      },
+      {
+        "producer": "bend",
+        "consumer": "drawing",
+        "ifc_sha256": "9eadc310af66bf9434088fe1dea081ee93a45c80849760a044b5662b76e10306",
+        "geometry_binding_sha256": "8edfbfeaa34aabb03f8aecac643f6c0deaea264b722e9b0bdc2a88c430b49633"
+      },
+      {
+        "producer": "coordination",
+        "consumer": "drawing",
+        "ifc_sha256": "9eadc310af66bf9434088fe1dea081ee93a45c80849760a044b5662b76e10306",
+        "geometry_binding_sha256": "8edfbfeaa34aabb03f8aecac643f6c0deaea264b722e9b0bdc2a88c430b49633"
+      }
+    ],
+    "scope": "Synthetic continuous cable and box; schematic only; visual and engineering review pending",
+    "design_accepted": false
+  },
+  "artifact_tamper": {
+    "drawing": {
+      "kind": "cable_route_drawing",
+      "status": "fail",
+      "scope": "ProjectError: three-phase rule artifacts changed before route drawing"
+    },
+    "drawing_adapter_called": false,
+    "drawing_folder_absent": true,
+    "scope": "Actual deliberate output-artifact tamper control; study/bend/coordination freshly executed; no native application invoked",
+    "design_accepted": false
+  },
+  "positive_integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "negative_integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "delivery_contexts_pass": true,
+  "negative_drawing_folder_absent": true,
+  "native": {
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\cable-route-workflow-native-v1\\workflow\\drawing\\cable-route.dxf": "e4b784d58b3e86d06155553680676929b8841ab0565c92cf313da951b41b4565",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\cable-route-workflow-native-v1\\route-native-settings.json": "b773e742f06566d7a04394a02de1026eba606198606e1c7718cfefe4295b5bf6"
+    },
+    "inputs_unchanged": true,
+    "engine": "C:\\Program Files\\Autodesk\\AutoCAD 2027\\accoreconsole.exe",
+    "engine_sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2",
+    "dwg_sha256": "e34c38ca13d104383765ae0f3257027a350d18aeb8fb9fdd61cdd725a77f5529",
+    "native_reopen_pass": true,
+    "checks": {
+      "model_entity_count": 16,
+      "linked_entity_count": 16,
+      "model_entities_and_ifc_xdata_match": true,
+      "geometry_layers_and_annotations_match": true,
+      "metre_units": true
+    },
+    "plot": {
+      "pdf_sha256": "a3c2185c081177c300d377a3f60b0f9beb8b27d13274b245d8b27318cda99472",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 20,
+      "reference_handle": "37",
+      "reference_expected_mm": 100.0,
+      "reference_measured_mm": 99.99133333333333,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "settings": {
+      "source": "Synthetic A4 1:20 route view; 2 m saved straight reference",
+      "window_drawing_units": [
+        -2.3,
+        1.1,
+        2.7,
+        2.9
+      ],
+      "scale_denominator": 20,
+      "reference_ifc_guid": "1uGqW$ugzIM9$Bw0m20nFy",
+      "reference_layer": "BSA_CABLE_AXIS",
+      "drawing_name": "cable-route",
+      "pdf_tolerance_mm": 0.2
+    },
+    "design_accepted": false,
+    "pending": [
+      "actual PDF visual review",
+      "equipment/fittings/insulation and installation drawing detail",
+      "complete engineering acceptance"
+    ],
+    "artifacts": {
+      "cable-route.dwg": "e34c38ca13d104383765ae0f3257027a350d18aeb8fb9fdd61cdd725a77f5529",
+      "input.dxf": "e4b784d58b3e86d06155553680676929b8841ab0565c92cf313da951b41b4565",
+      "plot.log": "c4d7ae0eed307e201584faad5ca634b585f64c54d7b3e8f392ba15e7d74b8964",
+      "save.log": "0b992b1b2c6e778148a26993a887680aae3e0597e0f79b62a77d37df520f3aed",
+      "save.scr": "bef2c398a46baf1255e468f1c0b06b51024a1de0b601977b27f1f6dc0abe9395",
+      "sheet.json": "12bc41c8b27e89fc99c7b4cc5db27ebf93d23b064a68904045a256f1f42659ac",
+      "sheet.log": "fb7b94ee3fb55afb608156b48cf44b17e1e5c3f4455e422b0a3ec5722511e46b",
+      "sheet.pdf": "a3c2185c081177c300d377a3f60b0f9beb8b27d13274b245d8b27318cda99472",
+      "sheet.scr": "fd2f0b5be2864a32fbd9da252c2740b43796d10eee536630d19b0e0f55da5a0d",
+      "native-reopen/export.log": "d03818f9d8c922bd2f5273eba8bff77c64f58d1e7107906693fdc00041e744ed",
+      "native-reopen/export.scr": "8527ded74345da92ad7a4f4253fd982f3a2ca8654e94b67b1e654e698acb84d1",
+      "native-reopen/source-copy.dwg": "e34c38ca13d104383765ae0f3257027a350d18aeb8fb9fdd61cdd725a77f5529",
+      "native-reopen/source-export.dxf": "1c877860d383bd6c43bc12a1752de380bd8e65669b6921835a47b597e7317966",
+      "ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "8b8a44b8d4f78efa7ebae00b8346e011c46c1f3d224312c84366bce87f9e79fd",
+      "native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "bffa95ee6544d698c4d16abd230bca0c8bd367a84292d7cb65299fcfbae9d192"
+    }
+  },
+  "visual_review": {
+    "pdf_sha256": "a3c2185c081177c300d377a3f60b0f9beb8b27d13274b245d8b27318cda99472",
+    "png_sha256": "7b40554d55225dff267c87a5729f3627df5f03434f9287e3e875ecce4f4deff8",
+    "observed": "True arc and straight OD outlines; correct source-length/radius notes; separated readable straight dimension; other-element omission and installation scope explicit.",
+    "scoped_visual_review_pass": true,
+    "full_engineering_acceptance": false
+  },
+  "tests": {
+    "new_binding_and_inventory_pass": 7,
+    "existing_schematic_workflow_pass": 5
+  },
+  "design_accepted": false
+}

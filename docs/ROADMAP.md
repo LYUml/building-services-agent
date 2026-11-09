@@ -1,6 +1,6 @@
 # Scope and acceptance
 
-The selected continuous cable now also has a standalone source-checked planar true-arc/straight/OD drawing with saved IFC identity, nonassociative dimensional graphics, actual native reopening and inspected fixed-scale PDF. It explicitly omits other model elements; workflow release integration and complete installation detailing remain pending (CABLE_ROUTE_DRAWINGS.md).
+The selected continuous cable now also has a source-checked planar true-arc/straight/OD drawing with saved IFC identity, nonassociative dimensional graphics, actual native reopening and inspected fixed-scale PDF. The registered cable_route_drawing workflow requires the exact same IFC-derived study and bend/coordination gates; actual failed-radius blocking is retained. It explicitly omits other model elements; obstacle-inclusive drawing and complete installation detailing remain pending (CABLE_ROUTE_DRAWINGS.md).
 
 Continuous quarter-plus-tangent cable now reaches a fresh saved-model electrical study, same-model bend and solid/clearance checks, reopened native schematic and separately inspected PDF. Actual failed bend target prevents drawing adapter execution. This synthetic evidence does not resolve general routes, dimensioned installation drawings, product/equipment interfaces or full Hong Kong acceptance; see CABLE_CONTINUITY_TRIAL.md.
 

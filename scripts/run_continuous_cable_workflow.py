@@ -15,7 +15,7 @@ from run_continuous_cable_demo import run as stage
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def run(out, python, graphviz=None, autocad=None, inside_limit=.28):
+def run(out, python, graphviz=None, autocad=None, inside_limit=.28, route=False):
     if not math.isfinite(inside_limit) or inside_limit <= 0:
         raise ProjectError('positive finite synthetic inside-radius target required')
     out = Path(out).resolve()
@@ -53,6 +53,15 @@ def run(out, python, graphviz=None, autocad=None, inside_limit=.28):
         dict(id='coordination', kind='three_phase_coordination', depends_on='study', ifc='combined/model.ifc', binding='combined/binding.json', policy='source/policy.json'),
         dict(id='drawing', kind='three_phase_drawing', depends_on='study', requires_pass=['bend', 'coordination']),
         dict(id='review', kind='manual', requires_pass=['drawing'])]
+    if route:
+        drawing_settings=dict(projection_axes=['X','Z'],annotation_height_m=.04,source='Synthetic X/Z route projection and 40 mm model text; no installation acceptance')
+        native_settings=dict(source='Synthetic A4 1:20 route view; 2 m saved straight reference',window_drawing_units=[-2.3,1.1,2.7,2.9],scale_denominator=20,
+            reference_ifc_guid=cable.GlobalId,reference_layer='BSA_CABLE_AXIS',drawing_name='cable-route',pdf_tolerance_mm=.2)
+        (out/'route-settings.json').write_text(json.dumps(drawing_settings,indent=2),encoding='utf-8')
+        (out/'route-native-settings.json').write_text(json.dumps(native_settings,indent=2),encoding='utf-8')
+        tasks[3].update(kind='cable_route_drawing',ifc='combined/model.ifc',binding='combined/binding.json',settings='route-settings.json',native_settings='route-native-settings.json')
+        paragraphs[3]='Generate the selected cable true-arc/OD route view only after same-model study, bend and coordination checks pass; explicitly omit other elements and separately inspect the reopened native DWG/PDF.'
+        brief.write_text('\n\n'.join(paragraphs),encoding='utf-8')
     plan = dict(version=1, brief='brief.md', brief_sha256=digest(brief),
         passage_dispositions={f'P{i:03}': 'requirement' for i in range(1, 6)}, tasks=tasks,
         requirements=[dict(id=f'R{i}', passage=f'P{i:03}', quote=text, task=task['id'], acceptance=text)
@@ -63,13 +72,13 @@ def run(out, python, graphviz=None, autocad=None, inside_limit=.28):
     integrity = verify(out / 'workflow')
     statuses = {name: row['status'] for name, row in result['tasks'].items()}
     bend_status = 'pass' if .29 >= inside_limit else 'fail'
-    expected = dict(study='pass', bend=bend_status, coordination='pass', drawing='pass' if graphviz and autocad and bend_status=='pass' else 'pending', review='pending')
+    expected = dict(study='pass', bend=bend_status, coordination='pass', drawing='pass' if (route or graphviz) and autocad and bend_status=='pass' else 'pending', review='pending')
     if statuses != expected or not integrity['integrity_pass']:
         raise ProjectError('continuous cable workflow did not reach expected scoped result: ' + str(statuses))
     if bend_status != 'pass' and (out / 'workflow/drawing').exists():
         raise ProjectError('failed bend check reached drawing adapter')
     report = dict(tasks=statuses, integrity=integrity, model_bindings=result['three_phase_model_bindings'],
-                  scope='Synthetic continuous cable and box; schematic only; visual and engineering review pending', design_accepted=False)
+                  scope=('Synthetic selected cable route; obstacle omitted from drawing; visual and engineering review pending' if route else 'Synthetic continuous cable and box; schematic only; visual and engineering review pending'), design_accepted=False)
     (out / 'workflow-summary.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
     return report
 
@@ -81,4 +90,5 @@ if __name__ == '__main__':
     for key in ('graphviz', 'autocad'):
         parser.add_argument('--' + key, type=Path)
     parser.add_argument('--inside-limit', type=float, default=.28)
+    parser.add_argument('--route', action='store_true')
     print(json.dumps(run(**vars(parser.parse_args()))['tasks']))
