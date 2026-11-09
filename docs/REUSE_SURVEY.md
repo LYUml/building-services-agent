@@ -24,6 +24,10 @@ The installed IfcOpenShell 0.8.5 ShapeBuilder bend/transition helpers and geomet
 
 ### Executed follow-up and remaining native gaps
 
+Runtime follow-up: installed Autodesk DynamoCLI 4.2.1.5887 was actually invoked on an empty, Python-free graph with process-local analytics/network disabled and repository-local data folders. It emitted an engine-startup assertion despite exit code 0; see `evidence/moosas-review/dynamo-cli-empty-probe.json`. The UI also rejected generated inventory graphs and later crashed after a failed load. Do not select either path as verified Revit inventory execution. The Python/C# inventory implementation itself has not yet run in the host.
+
+The official [Revit 2027 add-in registration contract](https://help.autodesk.com/cloudhelp/2027/ENU/Revit-API/files/Revit_API_Developers_Guide/Introduction/Add_In_Integration/Revit_API_Revit_API_Developers_Guide_Introduction_Add_In_Integration_Add_in_Registration_html.html) documents `AllowLoadIntoExistingSession` and default discovery of newly added manifests without restarting. This offers a direct route to the already compiled original read-only command, avoiding a second custom bridge. Registration remains unexecuted pending the user's explicit exception for the single manifest outside the repository. Installed Add-Ins Manager DLLs alone do not prove SDK-style dynamic command loading; the built-in manager's enable/disable UI is a different capability.
+
 The following supersedes the initial research-only MOOSAS status below. Detailed source hashes and trials are in [Revit/MOOSAS evidence](REVIT_MOOSAS_DIRECTION.md).
 
 | Actual gap | Pinned upstream and reuse decision | Executed evidence and limit |
