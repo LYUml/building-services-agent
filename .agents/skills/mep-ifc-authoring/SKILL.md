@@ -5,6 +5,8 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+Cable route text placement now uses whole ezdxf text boxes and the saved/native-export auditor checks bounded outward dimension regions, text/text and text/LINE/ARC-box interference. Preserve exact source dimension graphics and notes; don't bypass a crowded-layout failure by trusting a writer flag or widening physical tolerances. Font boxes are approximate and ARC-box rejection is conservative; actual native PDF review remains required. The --quarter-turn synthetic case is executed at an explicitly chosen 1:25 scale (docs/CABLE_ROUTE_DRAWINGS.md).
+
 The verified cable route drawer/auditor now also supports lead-quarter-tail geometry. Preserve the incoming start and its separate axis/OD/dimension graphics; independent auditing must reject an omitted lead. The native scale reference remains the tail's unique BSA_CABLE_AXIS LINE, while the lead uses BSA_CABLE_LEAD_AXIS with the same cable GUID. The synthetic runner accepts --lead 1.2 together with --route --include-obstacles; fixed-scale sheet fit, same-model checks, native readback and actual PDF review remain mandatory. See docs/CABLE_ROUTE_DRAWINGS.md; prior three-piece refusal notes are historical.
 
 Cable route delivery now audits actual saved DXF entities through bsa.cable_route_audit against already source-checked geometry: true arc/OD/straight, dimensions/notes, IFC identities and model/plot visibility flags. Workflow repeats the audit on AutoCAD's reopened/exported DXF. Never supply invented expected geometry or treat writer flags as audit evidence. Preserve actual PDF, crowded-layout, font and installation review separately; see docs/CABLE_ROUTE_DRAWINGS.md.

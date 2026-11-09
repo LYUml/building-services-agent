@@ -10,7 +10,7 @@ from bsa.three_phase import ROOT
 from bsa.three_phase_ifc_project import run as derive
 
 
-def run(out, python, lead=0.):
+def run(out, python, lead=0.,rotation_deg=0.):
     out = Path(out).resolve()
     if not out.is_relative_to(ROOT) or out.exists():
         raise ProjectError('new repository output required')
@@ -25,6 +25,16 @@ def run(out, python, lead=0.):
         geometry['lead_extensions_m']={'feeder':lead}
         geometry['buses_m']['source']=[.3,0.,2.+lead]
         geometry['scope']='Synthetic lead straight, quarter and 2 m tail; all geometry assumed; no intermediate loads or installation acceptance'
+    if type(rotation_deg) not in (int,float) or not math.isfinite(rotation_deg):raise ProjectError('finite assumed rotation angle required')
+    if rotation_deg:
+        import numpy as np
+        from bsa.quarter_cable import source_geometry
+        theta=math.radians(rotation_deg);c,s=math.cos(theta),math.sin(theta)
+        spec=geometry['quarter_bends']['feeder'];spec['rotation']=[[c,0.,s],[0.,1.,0.],[-s,0.,c]]
+        _,frame,points=source_geometry(spec,geometry['envelope_radius_m'])
+        geometry['buses_m']['source']=(points[0]+frame[:3,2]*lead).tolist()
+        geometry['buses_m']['DB-A']=(points[-1]-frame[:3,0]*2).tolist()
+        geometry['scope']+=f'; assumed Y-axis rotation {rotation_deg:g} degrees; source boxes remain separately declared world boxes'
     (source / 'geometry.json').write_text(json.dumps(geometry, indent=2), encoding='utf-8')
     project = json.loads((source / 'project.json').read_text())
     project['lines'][0]['length_m'] = .3 * math.pi / 2 + 2 + lead
@@ -47,5 +57,6 @@ if __name__ == '__main__':
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--python', type=Path, required=True)
     parser.add_argument('--lead',type=float,default=0.)
+    parser.add_argument('--rotation-deg',type=float,default=0.)
     result = run(**vars(parser.parse_args()))
     print(json.dumps({k: result[k] for k in ('derived_geometry_correspondence_pass', 'numerical_status', 'design_accepted')}))

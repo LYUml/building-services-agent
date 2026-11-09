@@ -15,12 +15,12 @@ from run_continuous_cable_demo import run as stage
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def run(out, python, graphviz=None, autocad=None, inside_limit=.28, route=False, include_obstacles=False,lead=0.):
+def run(out, python, graphviz=None, autocad=None, inside_limit=.28, route=False, include_obstacles=False,lead=0.,quarter_turn=False):
     if include_obstacles and not route:raise ProjectError('obstacle projection requires route mode')
     if not math.isfinite(inside_limit) or inside_limit <= 0:
         raise ProjectError('positive finite synthetic inside-radius target required')
     out = Path(out).resolve()
-    stage(out, python,lead=lead)
+    stage(out, python,lead=lead,rotation_deg=90. if quarter_turn else 0.)
     source = out / 'source'
     append_obstacles(out / 'fixture/cables.ifc', source / 'obstacles.json', out / 'combined')
     binding = json.loads((out / 'fixture/binding.json').read_text())
@@ -58,6 +58,7 @@ def run(out, python, graphviz=None, autocad=None, inside_limit=.28, route=False,
         drawing_settings=dict(projection_axes=['X','Z'],annotation_height_m=.04,source='Synthetic X/Z route projection and 40 mm model text; no installation acceptance')
         native_settings=dict(source='Synthetic A4 1:20 route view; 2 m saved tail straight reference; declared lead included in window',window_drawing_units=[-2.3,1.1,2.7,2.9+lead],scale_denominator=20,
             reference_ifc_guid=cable.GlobalId,reference_layer='BSA_CABLE_AXIS',drawing_name='cable-route',pdf_tolerance_mm=.2)
+        if quarter_turn:native_settings.update(source='Independent synthetic 90-degree rotated case; explicit A4 1:25 window and 2 m tail reference; no automatic fit',window_drawing_units=[-1.5,1.,4.2,5.],scale_denominator=25)
         (out/'route-settings.json').write_text(json.dumps(drawing_settings,indent=2),encoding='utf-8')
         (out/'route-native-settings.json').write_text(json.dumps(native_settings,indent=2),encoding='utf-8')
         tasks[3].update(kind='cable_route_drawing',ifc='combined/model.ifc',binding='combined/binding.json',settings='route-settings.json',native_settings='route-native-settings.json')
@@ -96,4 +97,5 @@ if __name__ == '__main__':
     parser.add_argument('--route', action='store_true')
     parser.add_argument('--include-obstacles',action='store_true')
     parser.add_argument('--lead',type=float,default=0.)
+    parser.add_argument('--quarter-turn',action='store_true')
     print(json.dumps(run(**vars(parser.parse_args()))['tasks']))

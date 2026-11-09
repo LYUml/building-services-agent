@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+An independent 90-degree cable route now verifies whole-text-box dimension placement and independent saved/native-export text/graphic guards. Actual reopened DWG and inspected 1:25 PDF pass; the old left-normal text-crossing control is rejected. Boundary boxes remain approximate and general dense-layout/installation acceptance is pending (CABLE_ROUTE_DRAWINGS.md).
+
 Lead-quarter-tail route delivery now reaches same-model numerical/bend/coordination gates, actual native DWG reopen and an inspected fixed-scale PDF. Independent source and native-export audits cover all 28 entities; omission of the lead is rejected. Actual failed-bend workflow blocks drawing, with 29 distinct related tests passing. General routes, crowded annotation and installation/Hong Kong acceptance remain pending (CABLE_ROUTE_DRAWINGS.md).
 
 The earlier lead-quarter-tail geometry milestone verified source anchors, common-local-frame native UNION, full length/volume/centroid/bounds, ports and compound rigid placement. Its initial drawing refusal is superseded by the native workflow evidence above; general routes and installation acceptance remain pending (CABLE_CONTINUITY_TRIAL.md).

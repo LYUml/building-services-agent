@@ -101,6 +101,9 @@ def run(project, ifc, binding, settings, out, obstacles=None):
         return tag(space.add_line(a, b, dxfattribs={'layer': layer}))
     def text(value, point,guid=None):
         return tag(space.add_text(value, dxfattribs={'height': height, 'insert': point, 'layer': 'BSA_LABEL'}),guid)
+    def dimension_text(value,midpoint,normal):
+        from .cad_text_layout import place_outward
+        entity=text(value,[0.,0.]);place_outward(entity,midpoint,normal,height)
     for obstacle in obstacle_rows:
         x0,y0,x1,y1=obstacle['projected_bounds_m']
         corners=[[x0,y0],[x1,y0],[x1,y1],[x0,y1]]
@@ -118,7 +121,7 @@ def run(project, ifc, binding, settings, out, obstacles=None):
     a, b = p[2]+normal*offset, p[3]+normal*offset
     line(p[2], a+normal*height, 'BSA_DIMENSION'); line(p[3], b+normal*height, 'BSA_DIMENSION')
     line(a, b, 'BSA_DIMENSION')
-    text(f'Straight L={length:.6f} m', (a+b)/2+normal*2*height)
+    dimension_text(f'Straight L={length:.6f} m',(a+b)/2,normal)
     line(c, p[1], 'BSA_DIMENSION')
     lead_length=0.
     if lead is not None:
@@ -128,7 +131,7 @@ def run(project, ifc, binding, settings, out, obstacles=None):
         for sign in (-1,1):line(lead+sign*envelope*outward,p[0]+sign*envelope*outward,'BSA_CABLE_OUTLINE')
         x,y=lead+outward*offset,p[0]+outward*offset
         line(lead,x+outward*height,'BSA_DIMENSION');line(p[0],y+outward*height,'BSA_DIMENSION');line(x,y,'BSA_DIMENSION')
-        text(f'Lead L={lead_length:.6f} m',(x+y)/2+outward*2*height)
+        dimension_text(f'Lead L={lead_length:.6f} m',(x+y)/2,outward)
     extent_points=np.vstack((p,lead)) if lead is not None else p
     top = float(extent_points[:, 1].max()) + 5*height
     left = float(extent_points[:, 0].min())

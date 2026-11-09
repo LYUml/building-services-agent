@@ -8,8 +8,8 @@ from .engine import ProjectError
 
 
 def inputs():
-    from . import route_drawing_qa
-    return {Path(__file__).resolve(),Path(route_drawing_qa.__file__).resolve()}
+    from . import route_drawing_qa,cad_text_layout
+    return {Path(__file__).resolve(),Path(route_drawing_qa.__file__).resolve(),Path(cad_text_layout.__file__).resolve()}
 
 
 def audit_saved(path,cable,geometry,settings,obstacles=()):
@@ -36,14 +36,15 @@ def audit_saved(path,cable,geometry,settings,obstacles=()):
     def coords(v):return tuple(round(float(x),8) for x in v)
     def line(layer,g,a,b):return ('LINE',layer,g,*sorted([coords(a),coords(b)]))
     def arc(layer,g,c,r,a,b):return ('ARC',layer,g,coords(c),round(float(r),8),round(a%360,7)%360,round(b%360,7)%360)
-    def text(g,value,point):return ('TEXT','BSA_LABEL',g,value,coords(point))
+    def text(g,value,point=None):return ('TEXT','BSA_LABEL',g,value,coords(point) if point is not None else None)
     for r,layer in [(radius,'BSA_CABLE_AXIS'),(radius-envelope,'BSA_CABLE_OUTLINE'),(radius+envelope,'BSA_CABLE_OUTLINE')]:expected[arc(layer,guid,centre,r,start,end)]+=1
     expected[line('BSA_CABLE_AXIS',guid,p[2],p[3])]+=1
     tangent=(p[3]-p[2])/length;normal=np.array([-tangent[1],tangent[0]])
     for sign in (-1,1):expected[line('BSA_CABLE_OUTLINE',guid,p[2]+sign*envelope*normal,p[3]+sign*envelope*normal)]+=1
     offset=max(4*height,3*envelope);a,b=p[2]+normal*offset,p[3]+normal*offset
     for x,y in [(p[2],a+normal*height),(p[3],b+normal*height),(a,b),(centre,p[1])]:expected[line('BSA_DIMENSION',guid,x,y)]+=1
-    expected[text(guid,f'Straight L={length:.6f} m',(a+b)/2+normal*2*height)]+=1
+    regions={(guid,f'Straight L={length:.6f} m'):((a+b)/2,normal)}
+    expected[text(guid,f'Straight L={length:.6f} m')]+=1
     if lead is not None:
         precise([lead.tolist()])
         direction=(p[0]-lead)/lead_length;outward=np.array([-direction[1],direction[0]])
@@ -51,7 +52,8 @@ def audit_saved(path,cable,geometry,settings,obstacles=()):
         for sign in (-1,1):expected[line('BSA_CABLE_OUTLINE',guid,lead+sign*envelope*outward,p[0]+sign*envelope*outward)]+=1
         x,y=lead+outward*offset,p[0]+outward*offset
         for v,w in [(lead,x+outward*height),(p[0],y+outward*height),(x,y)]:expected[line('BSA_DIMENSION',guid,v,w)]+=1
-        expected[text(guid,f'Lead L={lead_length:.6f} m',(x+y)/2+outward*2*height)]+=1
+        regions[(guid,f'Lead L={lead_length:.6f} m')]=((x+y)/2,outward)
+        expected[text(guid,f'Lead L={lead_length:.6f} m')]+=1
     notes=[(guid,f"{cable['id']} / IFC {guid}"),
         (guid,f"True total L={cable['observed_length_m']:.6f} m; envelope OD={2*envelope:.6f} m"),
         (guid,f'Quarter R={radius:.6f} m; angle=90 deg; arc L={radius*math.pi/2:.6f} m'),
@@ -84,9 +86,16 @@ def audit_saved(path,cable,geometry,settings,obstacles=()):
         elif kind=='TEXT':
             precise([list(entity.dxf.insert),[entity.dxf.height,entity.dxf.rotation,entity.dxf.width,entity.dxf.oblique]])
             if abs(entity.dxf.insert.z)>1e-8 or abs(entity.dxf.height-height)>1e-8 or abs(entity.dxf.rotation)>1e-8 or abs(entity.dxf.width-1)>1e-8 or abs(entity.dxf.oblique)>1e-8 or entity.dxf.halign or entity.dxf.valign or not entity.dxf.extrusion.isclose((0,0,1),abs_tol=1e-8):raise ProjectError('checked saved text placement/style required')
-            actual[text(g,entity.dxf.text,list(entity.dxf.insert)[:2])]+=1
+            if (g,entity.dxf.text) in regions:
+                from .cad_text_layout import check_dimension_box
+                midpoint,outward=regions[(g,entity.dxf.text)]
+                check_dimension_box(entity,midpoint,outward,height)
+                actual[text(g,entity.dxf.text)]+=1
+            else:actual[text(g,entity.dxf.text,list(entity.dxf.insert)[:2])]+=1
         else:raise ProjectError('unsupported saved cable drawing entity')
     if expected!=actual:raise ProjectError('actual saved cable geometry, dimensions, notes or IFC coverage differ from checked source')
+    from .cad_text_layout import audit_graphics
+    text_graphics=audit_graphics(doc,height)
     if digest(path)!=before:raise ProjectError('saved cable DXF changed during audit')
-    return dict(dxf_sha256=before,entity_count=sum(actual.values()),saved_geometry_text_identity_pass=True,visibility_flags_pass=True,design_accepted=False,
+    return dict(dxf_sha256=before,entity_count=sum(actual.values()),saved_geometry_text_identity_pass=True,visibility_flags_pass=True,text_graphics=text_graphics,design_accepted=False,
         scope='Actual DXF entities versus already source-checked cable/box geometry and prescribed dimension/notes; no writer invocation or success flags used; font glyphs, crowded layout, native print and installation acceptance separate')

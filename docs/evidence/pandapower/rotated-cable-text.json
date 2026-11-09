@@ -1,0 +1,185 @@
+{
+  "scope": "Executed independent synthetic rotated cable route with approximate text-box guards; not glyph or installation certification",
+  "workflow": {
+    "tasks": {
+      "study": "pass",
+      "bend": "pass",
+      "coordination": "pass",
+      "drawing": "pass",
+      "review": "pending"
+    },
+    "integrity": {
+      "integrity_pass": true,
+      "issues": [],
+      "design_accepted": false,
+      "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+    },
+    "model_bindings": [
+      {
+        "producer": "study",
+        "consumer": "bend",
+        "ifc_sha256": "ae301a20b5d16798f6e8b2bc7cec75415593dacea1fbde11ca89065afe7fe0ec",
+        "geometry_binding_sha256": "5a42569752f6a7ad092d68faec31029eaad05c84ef251fcb91a4346c2cbcd808"
+      },
+      {
+        "producer": "study",
+        "consumer": "coordination",
+        "ifc_sha256": "ae301a20b5d16798f6e8b2bc7cec75415593dacea1fbde11ca89065afe7fe0ec",
+        "geometry_binding_sha256": "5a42569752f6a7ad092d68faec31029eaad05c84ef251fcb91a4346c2cbcd808"
+      },
+      {
+        "producer": "study",
+        "consumer": "drawing",
+        "ifc_sha256": "ae301a20b5d16798f6e8b2bc7cec75415593dacea1fbde11ca89065afe7fe0ec",
+        "geometry_binding_sha256": "5a42569752f6a7ad092d68faec31029eaad05c84ef251fcb91a4346c2cbcd808"
+      },
+      {
+        "producer": "bend",
+        "consumer": "drawing",
+        "ifc_sha256": "ae301a20b5d16798f6e8b2bc7cec75415593dacea1fbde11ca89065afe7fe0ec",
+        "geometry_binding_sha256": "5a42569752f6a7ad092d68faec31029eaad05c84ef251fcb91a4346c2cbcd808"
+      },
+      {
+        "producer": "coordination",
+        "consumer": "drawing",
+        "ifc_sha256": "ae301a20b5d16798f6e8b2bc7cec75415593dacea1fbde11ca89065afe7fe0ec",
+        "geometry_binding_sha256": "5a42569752f6a7ad092d68faec31029eaad05c84ef251fcb91a4346c2cbcd808"
+      }
+    ],
+    "scope": "Synthetic cable and source-box route projection; depth and visual/engineering review separate",
+    "design_accepted": false
+  },
+  "integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "delivery_context_pass": true,
+  "source_audit": {
+    "dxf_sha256": "a0f4cdb404d17be5c7b67850b2398a4e30af44a71658097d8c1b5b4d039aca82",
+    "entity_count": 28,
+    "saved_geometry_text_identity_pass": true,
+    "visibility_flags_pass": true,
+    "text_graphics": {
+      "text_count": 8,
+      "graphic_count": 20,
+      "graphic_margin_m": 0.008,
+      "text_graphics_checks_pass": true,
+      "scope": "ezdxf approximate font AABBs, actual LINE clipping and conservative ARC bounds; not exact glyph collision or general layout optimisation"
+    },
+    "design_accepted": false,
+    "scope": "Actual DXF entities versus already source-checked cable/box geometry and prescribed dimension/notes; no writer invocation or success flags used; font glyphs, crowded layout, native print and installation acceptance separate"
+  },
+  "native_export_audit": {
+    "dxf_sha256": "88dad1236dba7ead91c2c8235f3f2d54a4d642ea301a9014ecf1729dec606d03",
+    "entity_count": 28,
+    "saved_geometry_text_identity_pass": true,
+    "visibility_flags_pass": true,
+    "text_graphics": {
+      "text_count": 8,
+      "graphic_count": 20,
+      "graphic_margin_m": 0.008,
+      "text_graphics_checks_pass": true,
+      "scope": "ezdxf approximate font AABBs, actual LINE clipping and conservative ARC bounds; not exact glyph collision or general layout optimisation"
+    },
+    "design_accepted": false,
+    "scope": "Actual DXF entities versus already source-checked cable/box geometry and prescribed dimension/notes; no writer invocation or success flags used; font glyphs, crowded layout, native print and installation acceptance separate"
+  },
+  "native": {
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rotated-cable-text-native-v1\\workflow\\drawing\\cable-route.dxf": "a0f4cdb404d17be5c7b67850b2398a4e30af44a71658097d8c1b5b4d039aca82",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rotated-cable-text-native-v1\\route-native-settings.json": "1858174d469684959921ab17590821f05dfad2d632a27ca117b5d9f283e0f3cd"
+    },
+    "inputs_unchanged": true,
+    "engine": "C:\\Program Files\\Autodesk\\AutoCAD 2027\\accoreconsole.exe",
+    "engine_sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2",
+    "dwg_sha256": "0392ecd3b5d8c57e9651412830314a7c1939e5af63f129bdb1a5722f0c2f65bf",
+    "native_reopen_pass": true,
+    "checks": {
+      "model_entity_count": 28,
+      "linked_entity_count": 28,
+      "model_entities_and_ifc_xdata_match": true,
+      "geometry_layers_and_annotations_match": true,
+      "metre_units": true
+    },
+    "plot": {
+      "pdf_sha256": "ee1dfd79925efef56111a4376cc97125cec692eb591ab4cee2ca55ca0240e824",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 25,
+      "reference_handle": "3D",
+      "reference_expected_mm": 80.0,
+      "reference_measured_mm": 80.00999999999999,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "settings": {
+      "source": "Independent synthetic 90-degree rotated case; explicit A4 1:25 window and 2 m tail reference; no automatic fit",
+      "window_drawing_units": [
+        -1.5,
+        1.0,
+        4.2,
+        5.0
+      ],
+      "scale_denominator": 25,
+      "reference_ifc_guid": "1uGqW$ugzIM9$Bw0m20nFy",
+      "reference_layer": "BSA_CABLE_AXIS",
+      "drawing_name": "cable-route",
+      "pdf_tolerance_mm": 0.2
+    },
+    "design_accepted": false,
+    "pending": [
+      "actual PDF visual review",
+      "equipment/fittings/insulation and installation drawing detail",
+      "complete engineering acceptance"
+    ],
+    "artifacts": {
+      "cable-route.dwg": "0392ecd3b5d8c57e9651412830314a7c1939e5af63f129bdb1a5722f0c2f65bf",
+      "input.dxf": "a0f4cdb404d17be5c7b67850b2398a4e30af44a71658097d8c1b5b4d039aca82",
+      "plot.log": "d608f739d7adad0c7f879100c73533f3a9122535fe89359fab4a8ca6ba522fd0",
+      "save.log": "cb641167b94b59da5361d0dd4e2bd8ccb86009d91349d3c838e1bd5adf0aea8a",
+      "save.scr": "e73c088430d4f8c234cec3e14caa9e9cf2b2163f49a266672b99a2c1f5164ab1",
+      "sheet.json": "9df258e04168cd8b8f8727d04035e1003a75dd4c022681d366b28671d99caa2a",
+      "sheet.log": "bcfddfa9a72a275eb24b049645204ea61e6247b4889022e8aaa4ea3dd53154c9",
+      "sheet.pdf": "ee1dfd79925efef56111a4376cc97125cec692eb591ab4cee2ca55ca0240e824",
+      "sheet.scr": "cb3288fc637abcb319b72cfbe59890ed4e821a52694f6e7bb448a6f96f680b1d",
+      "native-reopen/export.log": "0d409fa21f8831f4e60128d4ea696d925637fe06b63ec96967bd03b237a71e4c",
+      "native-reopen/export.scr": "77def75ff4e0b138ad9075565ffd703dfc963eda17ca58c0c272b436d287dd1e",
+      "native-reopen/source-copy.dwg": "0392ecd3b5d8c57e9651412830314a7c1939e5af63f129bdb1a5722f0c2f65bf",
+      "native-reopen/source-export.dxf": "88dad1236dba7ead91c2c8235f3f2d54a4d642ea301a9014ecf1729dec606d03",
+      "ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "6dac1e346e887fe35334513dce32f5420a97f57453e739426b3f70939088870e",
+      "native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "3a63d2c0f356cb34789802aac622e9803feefb76c4191c7ac0af46c8357ac84a"
+    }
+  },
+  "included_guids": [
+    "1uGqW$ugzIM9$Bw0m20nFy",
+    "2$66H3PjjSaAGFCsCrY9hx"
+  ],
+  "omitted_guids": [],
+  "visual_review": {
+    "pdf_sha256": "ee1dfd79925efef56111a4376cc97125cec692eb591ab4cee2ca55ca0240e824",
+    "png_sha256": "16859f84e90acb70296a68582425e5d7c6b9757ac959d7018f98f9463c3e76e0",
+    "observed": "Complete rotated lead/quarter/tail and separate source-box projection. Tail dimension text entirely left of its dimension line and cable; incoming text below its line. Source/depth notes readable. No text crosses the route in this actual inspected print.",
+    "scoped_visual_review_pass": true,
+    "full_engineering_acceptance": false
+  },
+  "tests": {
+    "new_text_layout_pass": 5,
+    "existing_saved_audit_mutation_pass": 10,
+    "default_three_piece_drawing_regression_pass": 1,
+    "total_distinct_pass": 16
+  },
+  "limitations": [
+    "ezdxf text boundaries approximate",
+    "ARC enclosing rectangles can reject clear layouts",
+    "explicit synthetic window is not general sheet fitting",
+    "font substitution, general crowded layouts and installation acceptance remain separate"
+  ],
+  "retained_warning": "Duplicate PDF PageMode; no PDF-conformance claim",
+  "design_accepted": false
+}
