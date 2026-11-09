@@ -75,3 +75,17 @@ workflow.json records inventory_source_bindings as either explicit source SHA256
 For a deliberate revision after an earlier inventory, run a fresh ifc_query on the metadata producer with `refresh_inventory: true`. This explicit Boolean option starts a new inventory correspondence boundary: the new query still executes and must satisfy its own sourced count requirements. Supported consumers require that new check and select the revised producer. Older transitive inventory correspondence is superseded by the refresh; explicitly declared old gates remain enforceable. Execution gates are unchanged: refresh cannot turn failed/pending queries into passes. Without refresh, replacement-model rejection remains the default.
 
 Actual regression executes model → original inventory → metadata → refreshed inventory, and verifies the query input hash is the saved revised model. A duplicate property-set edit fails and its downstream query remains pending. Source-binding tests reject drawing the old model after the new inventory. This updates text metadata only, not equipment design, controls, geometry or full engineering acceptance.
+
+
+## Revised-model native drawing interoperability
+
+```powershell
+.venv/Scripts/python -m bsa.workflow execute examples/ifcmcp-drawing-plan.json --out runs/new-ifcmcp-native --ifcmcp-python tools/ifcmcp-runtime/Scripts/python.exe --autocad "C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe"
+.venv/Scripts/python -m bsa.workflow verify runs/new-ifcmcp-native
+```
+
+The six separately cited synthetic brief requirements execute model authoring, original inventory, sourced pump metadata addition, refreshed inventory, revised-model centreline DXF/schedule and native DWG/PDF. The metadata model authored through the isolated 0.9.0 MCP runtime is consumed by the established 0.8.5 drawing reader. No blocked 0.9.0 geometry kernel is used or bypassed; the established separately verified drawing path is used.
+
+Actual execution passed all six task scopes. The native DWG was reopened in a separate AutoCAD Core Console process; eight model entities and six IFC-linked entities reconciled with DXF geometry/layers/annotations/XDATA. The 2.5 m reference at 1:50 measured 49.9956667 mm against 50 mm expected. Source/artifact integrity passed. The actual A4-landscape PDF was rendered and visually inspected: both pipe labels and leaders are legible, with no observed overlap or clipping. Native numerical evidence retains its original pending-visual flag; the separate hash-bound visual-review.json records the subsequent inspection.
+
+Evidence is in docs/evidence/ifcmcp-native (archive excludes AutoCAD crash-report directories). The original execution paths remain in the reports; rerun the command for fresh integrity checking rather than using relocated evidence as a live run. The diagram deliberately excludes non-segment equipment and detailed installation geometry. Added pump text properties are retained in IFC, not automatically rendered as equipment labels. This verifies tool interoperability and scoped schematic delivery, not a complete building-services design or regulatory acceptance.

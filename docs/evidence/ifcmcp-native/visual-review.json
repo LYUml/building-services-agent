@@ -1,0 +1,18 @@
+{
+  "pdf": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifcmcp-native-v1\\native\\sheet.pdf",
+  "pdf_sha256": "9fc0caeaa3c13f0a62216a49cef75bb123812fbefb02729ab3817acfe518a774",
+  "image": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\ifcmcp-native-review-v1\\sheet.png",
+  "image_sha256": "5e45853370e9fbc0cd587b6f82435281597846bbf2d015499bbf66751ebdf4e5",
+  "reviewer": "Codex visual inspection of rendered actual PDF",
+  "visual_checks_pass": true,
+  "observations": [
+    "Both RISE-LOW and RISE-HIGH labels visible and legible: ID 32 / OD 40 mm; L 2.5 m.",
+    "Two vertical centreline segments and separate horizontal leaders visible; no label overlap or clipping.",
+    "X/Z projection, coordinate unit and non-installation scope note visible; adequate page margins."
+  ],
+  "limitations": [
+    "Centreline-only schematic; equipment, fittings, insulation and installation details excluded.",
+    "No claim of full drawing standards, product applicability or engineering/regulatory acceptance."
+  ],
+  "design_accepted": false
+}

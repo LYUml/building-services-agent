@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "brief": "ifcmcp/drawing-brief.md",
+  "brief_sha256": "40fb2b44842ac0b47f4404463149335c22073456eb887295ec98d4db8bd67524",
+  "passage_dispositions": {
+    "P001": "requirement",
+    "P002": "requirement",
+    "P003": "requirement",
+    "P004": "requirement",
+    "P005": "requirement",
+    "P006": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "model",
+      "kind": "bim",
+      "project": "hk-plumbing-pumps/route-model.json"
+    },
+    {
+      "id": "original_inventory",
+      "kind": "ifc_query",
+      "depends_on": "model",
+      "requirements": "ifcmcp/inventory-requirements.json"
+    },
+    {
+      "id": "metadata",
+      "kind": "ifc_metadata",
+      "depends_on": "model",
+      "patch": "ifcmcp/pump-properties.json",
+      "requires_pass": [
+        "original_inventory"
+      ]
+    },
+    {
+      "id": "revised_inventory",
+      "kind": "ifc_query",
+      "depends_on": "metadata",
+      "requirements": "ifcmcp/inventory-requirements.json",
+      "refresh_inventory": true
+    },
+    {
+      "id": "drawing",
+      "kind": "ifc_drawing",
+      "depends_on": "metadata",
+      "settings": "water-riser/drawing-settings.json",
+      "requires_pass": [
+        "revised_inventory"
+      ]
+    },
+    {
+      "id": "native",
+      "kind": "ifc_native",
+      "depends_on": "drawing",
+      "settings": "ifcmcp/native-sheet.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "model",
+      "task": "model",
+      "passage": "P001",
+      "quote": "Author the explicitly synthetic WSD route model from hk-plumbing-pumps/route-model.json. Preserve its pump, hollow pipe, port and system identities. This fixture is not measured building data.",
+      "acceptance": "Author the explicitly synthetic WSD route model from hk-plumbing-pumps/route-model.json. Preserve its pump, hollow pipe, port and system identities. This fixture is not measured building data."
+    },
+    {
+      "id": "original_inventory",
+      "task": "original_inventory",
+      "passage": "P002",
+      "quote": "Query the original saved IFC through official IfcMCP and require the sourced inventory of one pump and two pipe segments.",
+      "acceptance": "Query the original saved IFC through official IfcMCP and require the sourced inventory of one pump and two pipe segments."
+    },
+    {
+      "id": "metadata",
+      "task": "metadata",
+      "passage": "P003",
+      "quote": "Add the supplied sourced review text to the existing pump in a separate saved IFC. Preserve all original entities and do not overwrite an existing property set.",
+      "acceptance": "Add the supplied sourced review text to the existing pump in a separate saved IFC. Preserve all original entities and do not overwrite an existing property set."
+    },
+    {
+      "id": "revised_inventory",
+      "task": "revised_inventory",
+      "passage": "P004",
+      "quote": "Requery the revised saved IFC as a new inventory boundary; retain unchanged source hashes and minimum-count evidence.",
+      "acceptance": "Requery the revised saved IFC as a new inventory boundary; retain unchanged source hashes and minimum-count evidence."
+    },
+    {
+      "id": "drawing",
+      "task": "drawing",
+      "passage": "P005",
+      "quote": "Generate an X/Z pipe centreline schedule and DXF directly from the revised IFC. Reconcile both hollow pipe segments, actual lengths and GUID links. Equipment symbols and installation details remain excluded.",
+      "acceptance": "Generate an X/Z pipe centreline schedule and DXF directly from the revised IFC. Reconcile both hollow pipe segments, actual lengths and GUID links. Equipment symbols and installation details remain excluded."
+    },
+    {
+      "id": "native",
+      "task": "native",
+      "passage": "P006",
+      "quote": "Save and reopen a native DWG of the revised-model diagram using isolated AutoCAD Core Console. Plot at 1:50 on A4 landscape and verify the 2.5 m reference measures 50 mm. Actual PDF visual review and complete engineering acceptance remain separate.",
+      "acceptance": "Save and reopen a native DWG of the revised-model diagram using isolated AutoCAD Core Console. Plot at 1:50 on A4 landscape and verify the 2.5 m reference measures 50 mm. Actual PDF visual review and complete engineering acceptance remain separate."
+    }
+  ]
+}
