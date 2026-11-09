@@ -52,3 +52,5 @@ Saved IFC circulation now has a standalone combined thermal/pipe-rule adapter th
 Saved circulation combined checks now inherit water_coordination in the workflow, inventory official sources and thermal/rule bases, reject replacement inputs and block dependent delivery on failure. Actual official-BEC-backed IFC-to-checks execution passes with final manual engineering acceptance pending.
 
 The circulation IFC physical audit now explicitly fails on confirmed pump/node, pipe/node and corner material overlaps while hydraulic checks pass. A committed coordination plan gates drawings on clash success; native negative evidence proves no drawing is released. Real finite fitting interfaces and corresponding hydraulic binding are required next, not contact waivers.
+
+EPANET saved-model binding now supports source-verified finite circular elbows with actual arc length and exact per-piece excess-K coverage, forbidding duplicate aggregate losses. Independent elbow native execution passes; rejection controls exercise duplicate K, missing geometry sources and changed loss/radius; closed-loop physical node/equipment interfaces and full installation acceptance remain pending.

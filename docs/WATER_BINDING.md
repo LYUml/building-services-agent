@@ -53,3 +53,11 @@ Run `python -m bsa.workflow execute examples/circulation-ifc/coordination-plan.j
 The 50 mm clearance is an explicit synthetic policy, not a code-derived requirement. No contact exceptions are supplied. Geometry coverage passes, so the failure cannot be dismissed as missing meshes. Downstream drawing is pending and no drawing directory is created; workflow integrity still passes because faithfully recorded design failure is not data corruption.
 
 Evidence: docs/evidence/circulation-clash-gate. Resolving this fixture requires physical fitting/equipment interfaces and consistent hydraulic treatment of their finite geometry. Relaxing overlap limits or suppressing node solids would not establish installation acceptance. Existing thermal/rule passes remain scoped numerical evidence only.
+
+## Finite circular elbow routes
+
+Bindings may now include `fitting_sources` keyed by the exact fitting GUID with the full source-parametric elbow device definition, and `piece_losses` keyed by every physical piece GUID on any route containing a fitting. Each loss record has value, source and basis `excess over centreline Darcy friction`. Template aggregate minor_k must be absent on these routes. Saved per-piece K metadata must agree with those explicit sources; missing/extra piece coverage is rejected.
+
+Only the existing metre-based, source-parametric 90-degree circular hollow elbows are supported. The adapter verifies native wall mesh, bore, arc, placement and metadata against source geometry, then independently reads saved arc length and checks reversible ports against both arc ends. It sums straight lengths plus physical arc lengths and adds only declared excess K. Geometry never supplies manufacturer loss coefficients. Different bores still require separate hydraulic links. Non-metre finite-fitting files and arbitrary imported fitting products remain unsupported.
+
+The isolated examples/epanet-elbow fixture provides a 0.3 m centreline-radius bend between two 1.5 m straight pieces, with 80 mm bore, 100 mm OD and synthetic excess K=0.4. It exercises the native EPANET binding independently of the closed circulation fixture. Its endpoint node envelopes are still idealizations; this extension alone does not fix the circulation fixture's tees, pump interfaces or physical clash failures.

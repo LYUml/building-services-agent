@@ -1,0 +1,261 @@
+{
+  "name": "Synthetic reversible finite elbow EPANET binding",
+  "project_uuid": "c97f466a-8709-4050-928d-7499113a982b",
+  "geometry_scope": "axis-aligned envelopes, straight circular walls and explicit 90-degree elbows",
+  "sources": {
+    "demo": "Explicit synthetic geometry, water properties and excess K assumptions for a numerical demonstration; no manufacturer or code applicability."
+  },
+  "spaces": [
+    {
+      "id": "Room",
+      "origin_m": [
+        0,
+        0,
+        0
+      ],
+      "size_m": [
+        4,
+        4,
+        3
+      ],
+      "source": "demo"
+    }
+  ],
+  "systems": [
+    {
+      "id": "WATER",
+      "predefined_type": "DOMESTICCOLDWATER",
+      "source": "demo"
+    }
+  ],
+  "devices": [
+    {
+      "id": "IN",
+      "ifc_class": "IfcPipeSegment",
+      "space": "Room",
+      "system": "WATER",
+      "source": "demo",
+      "body_shape": "straight circular wall",
+      "origin_m": [
+        2.25,
+        0.5,
+        0.95
+      ],
+      "size_m": [
+        0.1,
+        1.5,
+        0.1
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.08,
+        "OutsideDiameter_m": 0.1,
+        "LocalLossCoefficient": 0.0,
+        "LocalLossBasis": "excess over centreline Darcy friction"
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.05,
+            0,
+            0.05
+          ],
+          "source": "demo"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.05,
+            1.5,
+            0.05
+          ],
+          "source": "demo"
+        }
+      ]
+    },
+    {
+      "id": "BEND",
+      "ifc_class": "IfcPipeFitting",
+      "space": "Room",
+      "system": "WATER",
+      "source": "demo",
+      "body_shape": "circular 90-degree elbow wall",
+      "origin_m": [
+        2,
+        2,
+        0.95
+      ],
+      "size_m": [
+        0.35,
+        0.35,
+        0.1
+      ],
+      "arc_center_m": [
+        2,
+        2,
+        1
+      ],
+      "bend_axes": [
+        "+X",
+        "+Y"
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.08,
+        "OutsideDiameter_m": 0.1,
+        "CenterlineRadius_m": 0.3,
+        "LocalLossCoefficient": 0.4,
+        "LocalLossBasis": "excess over centreline Darcy friction"
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.3,
+            0,
+            0.05
+          ],
+          "source": "demo"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0,
+            0.3,
+            0.05
+          ],
+          "source": "demo"
+        }
+      ]
+    },
+    {
+      "id": "OUT",
+      "ifc_class": "IfcPipeSegment",
+      "space": "Room",
+      "system": "WATER",
+      "source": "demo",
+      "body_shape": "straight circular wall",
+      "origin_m": [
+        0.5,
+        2.25,
+        0.95
+      ],
+      "size_m": [
+        1.5,
+        0.1,
+        0.1
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.08,
+        "OutsideDiameter_m": 0.1,
+        "LocalLossCoefficient": 0.0,
+        "LocalLossBasis": "excess over centreline Darcy friction"
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            1.5,
+            0.05,
+            0.05
+          ],
+          "source": "demo"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0,
+            0.05,
+            0.05
+          ],
+          "source": "demo"
+        }
+      ]
+    },
+    {
+      "id": "N_R",
+      "ifc_class": "IfcUnitaryEquipment",
+      "origin_m": [
+        2.1999999999999997,
+        0.4,
+        0.9
+      ],
+      "size_m": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "space": "Room",
+      "system": "WATER",
+      "source": "demo",
+      "ports": [
+        {
+          "id": "p",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "demo"
+        }
+      ]
+    },
+    {
+      "id": "N_END",
+      "ifc_class": "IfcUnitaryEquipment",
+      "origin_m": [
+        0.4,
+        2.1999999999999997,
+        0.9
+      ],
+      "size_m": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "space": "Room",
+      "system": "WATER",
+      "source": "demo",
+      "ports": [
+        {
+          "id": "p",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "source": "demo"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "IN.out",
+      "to": "BEND.in",
+      "source": "demo"
+    },
+    {
+      "from": "BEND.out",
+      "to": "OUT.in",
+      "source": "demo"
+    },
+    {
+      "from": "N_R.p",
+      "to": "IN.in",
+      "source": "demo"
+    },
+    {
+      "from": "N_END.p",
+      "to": "OUT.out",
+      "source": "demo"
+    }
+  ]
+}

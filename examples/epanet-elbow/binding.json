@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "source": "Synthetic source-parametric hollow elbow with sourced excess K per piece; no product applicability claim",
+  "project_guid": "3QDoz7ImvRPxr1Aib7vAYp",
+  "system_guid": "0oZu6NK_zGZv4y1Y8$cMdt",
+  "node_idealization": "coincident node ports form a zero-loss hydraulic node; withdrawals and boundary heads are separately sourced",
+  "nodes": {
+    "R": {
+      "element_guid": "2hU76XIB9LoAy_Yva7$FSF",
+      "port_guids": [
+        "0c$hruh3PScQRVoANadMAc"
+      ]
+    },
+    "END": {
+      "element_guid": "3gxvjP305IIvBk1sp8O8dd",
+      "port_guids": [
+        "0NX5b5L9jTPAw2Etuxsc29"
+      ]
+    }
+  },
+  "pipes": {
+    "MAIN": [
+      {
+        "element_guid": "1IMVLCvi5G1Qv_Wtur7gph",
+        "start_port_guid": "36JpzQt35LPBmAeg7fAAN_",
+        "end_port_guid": "15j4B7S2zNyxtsxsXmWBBO"
+      },
+      {
+        "element_guid": "1Mf8GWKWLTN9Q28LE2wYU4",
+        "start_port_guid": "1o2kG9QQrMpwkpL4z$6iIx",
+        "end_port_guid": "22Iw1FoLHVzum14a4fCZSI"
+      },
+      {
+        "element_guid": "3PzryY1TrJCe$bfvrN$Zcj",
+        "start_port_guid": "2iZqhr45bNvxBMJtzM0NdG",
+        "end_port_guid": "0SiG2pz8TGjg38d33f_lOA"
+      }
+    ]
+  },
+  "pumps": {},
+  "fitting_sources": {
+    "1Mf8GWKWLTN9Q28LE2wYU4": {
+      "id": "BEND",
+      "ifc_class": "IfcPipeFitting",
+      "space": "Room",
+      "system": "WATER",
+      "source": "demo",
+      "body_shape": "circular 90-degree elbow wall",
+      "origin_m": [
+        2,
+        2,
+        0.95
+      ],
+      "size_m": [
+        0.35,
+        0.35,
+        0.1
+      ],
+      "arc_center_m": [
+        2,
+        2,
+        1
+      ],
+      "bend_axes": [
+        "+X",
+        "+Y"
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.08,
+        "OutsideDiameter_m": 0.1,
+        "CenterlineRadius_m": 0.3,
+        "LocalLossCoefficient": 0.4,
+        "LocalLossBasis": "excess over centreline Darcy friction"
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0.3,
+            0,
+            0.05
+          ],
+          "source": "demo"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCEANDSINK",
+          "offset_m": [
+            0,
+            0.3,
+            0.05
+          ],
+          "source": "demo"
+        }
+      ]
+    }
+  },
+  "piece_losses": {
+    "1IMVLCvi5G1Qv_Wtur7gph": {
+      "value": 0.0,
+      "basis": "excess over centreline Darcy friction",
+      "source": "Synthetic per-piece excess K; not manufacturer data"
+    },
+    "1Mf8GWKWLTN9Q28LE2wYU4": {
+      "value": 0.4,
+      "basis": "excess over centreline Darcy friction",
+      "source": "Synthetic per-piece excess K; not manufacturer data"
+    },
+    "3PzryY1TrJCe$bfvrN$Zcj": {
+      "value": 0.0,
+      "basis": "excess over centreline Darcy friction",
+      "source": "Synthetic per-piece excess K; not manufacturer data"
+    }
+  }
+}

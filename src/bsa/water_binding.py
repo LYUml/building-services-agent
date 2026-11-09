@@ -16,7 +16,7 @@ TOLERANCE_M=1e-8
 
 def validate_contract(project,binding):
     fields={'version','source','project_guid','system_guid','node_idealization','nodes','pipes','pumps'}
-    if not isinstance(binding,dict) or set(binding)!=fields or type(binding['version']) is not int or binding['version']!=1 or binding['node_idealization']!=IDEALIZATION:
+    if not isinstance(binding,dict) or set(binding)-{'fitting_sources','piece_losses'}!=fields or type(binding['version']) is not int or binding['version']!=1 or binding['node_idealization']!=IDEALIZATION:
         raise ProjectError('versioned GUID binding and explicit zero-loss node idealization required')
     if not isinstance(binding['source'],str) or not binding['source'].strip():raise ProjectError('water binding source required')
     def guid(value):
@@ -77,6 +77,32 @@ def derive(ifc,project,binding):
     bad=[r for r in extracted['unsupported_segments'] if r['guid'] in claims]
     if bad:raise ProjectError('unsupported selected-system pipe geometry: '+json.dumps(bad))
     profiles={r['guid']:r for r in extracted['segments']}
+    from . import circular_elbow as elbow
+    fitting_sources=binding.get('fitting_sources',{})
+    losses=binding.get('piece_losses',{})
+    if not isinstance(fitting_sources,dict) or not isinstance(losses,dict):raise ProjectError('explicit fitting source and piece-loss mappings required')
+    fittings={g for rows in binding['pipes'].values() for piece in rows for g in [piece['element_guid']] if scope[g].is_a('IfcPipeFitting')}
+    if set(fitting_sources)!=fittings:raise ProjectError('exact source geometry coverage for every finite fitting required')
+    if fittings:
+        import ifcopenshell.geom
+        if factor!=1:raise ProjectError('source-parametric fitting binding currently requires metre IFC units')
+        settings=ifcopenshell.geom.settings();settings.set(settings.USE_WORLD_COORDS,True)
+        for g in fittings:
+            source=fitting_sources[g]
+            if not isinstance(source,dict) or not isinstance(source.get('source'),str) or not source['source'].strip():raise ProjectError('sourced finite fitting geometry required')
+            shape=ifcopenshell.geom.create_shape(settings,scope[g]);elbow.verify(scope[g],source,shape)
+            length,ends,radius=elbow.saved_arc_length(scope[g]);spec=elbow.specification(source)
+            profiles[g]=dict(length_m=length,inner_diameter_m=spec['inner_m'],ends=ends)
+    loss_pieces={piece['element_guid'] for rows in binding['pipes'].values() if any(piece['element_guid'] in fittings for piece in rows) for piece in rows}
+    if set(losses)!=loss_pieces:raise ProjectError('exact per-piece excess K coverage for fitting routes required')
+    for q in losses.values():
+        if not isinstance(q,dict) or set(q)!={'value','source','basis'} or type(q['value']) not in (int,float) or not math.isfinite(q['value']) or q['value']<0 or q['basis']!=elbow.LOSS_BASIS or not isinstance(q['source'],str) or not q['source'].strip():raise ProjectError('finite fitting route requires sourced nonnegative excess K')
+    if losses:
+        import ifcopenshell.util.element as element
+        for g,q in losses.items():
+            props=element.get_psets(scope[g]).get('BSA_DesignInputs',{})
+            k=props.get('LocalLossCoefficient')
+            if type(k) not in (int,float) or not math.isfinite(k) or k!=q['value'] or props.get('LocalLossBasis')!=q['basis']:raise ProjectError('saved piece loss metadata differs from sourced excess K')
     ports={};owners={}
     for obj in scope.values():
         for port in system.get_ports(obj):
@@ -135,14 +161,20 @@ def derive(ifc,project,binding):
         chain=binding['pipes'][row['id']];length=0;diameters=[];previous=None;records=[]
         for piece in chain:
             g=piece['element_guid'];obj=scope[g];profile=profiles.get(g)
-            if not obj.is_a('IfcPipeSegment') or not profile:raise ProjectError('actual direct hollow pipe profile required')
+            if not (obj.is_a('IfcPipeSegment') or g in fittings) or not profile:raise ProjectError('actual hollow pipe or verified finite elbow required')
             a,b=piece['start_port_guid'],piece['end_port_guid'];owned(piece,(a,b))
             if any(ports[p][0].FlowDirection!='SOURCEANDSINK' for p in (a,b)):raise ProjectError('free-flow water pipes require explicit bidirectional IFC ports')
+            if g in fittings:
+                ends=profile['ends']
+                if not ((math.dist(point(a),ends[0])<TOLERANCE_M and math.dist(point(b),ends[1])<TOLERANCE_M) or (math.dist(point(a),ends[1])<TOLERANCE_M and math.dist(point(b),ends[0])<TOLERANCE_M)):raise ProjectError('fitting ports differ from saved arc endpoints')
             if previous:connect(previous,a)
             previous=b;length+=profile['length_m'];diameters.append(profile['inner_diameter_m'])
             records.append(dict(**piece,length_m=profile['length_m'],diameter_m=profile['inner_diameter_m'],start_world_m=point(a),end_world_m=point(b)))
         if any(not math.isclose(d,diameters[0],abs_tol=1e-10,rel_tol=0) for d in diameters):raise ProjectError('split hydraulic links where profile diameter changes')
         attach(row['from'],chain[0]['start_port_guid']);attach(row['to'],chain[-1]['end_port_guid'])
+        if any(piece['element_guid'] in fittings for piece in chain):
+            if 'minor_k' in row:raise ProjectError('omit aggregate K on finite fitting routes to prevent double counting')
+            row['minor_k']=math.fsum(losses[piece['element_guid']]['value'] for piece in chain)
         row.update(length_m=length,diameter_m=diameters[0]);sourced(row,'pipe');evidence['pipes'][row['id']]=records
     for row in derived['pumps']:
         piece=binding['pumps'][row['id']];g=piece['element_guid'];a,b=piece['start_port_guid'],piece['end_port_guid'];owned(piece,(a,b))
