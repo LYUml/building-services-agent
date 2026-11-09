@@ -9,6 +9,7 @@ from .engine import ProjectError
 from . import circular_geometry as circular
 from . import circular_elbow as elbow
 from . import rectangular_geometry as rectangular
+from . import rectangular_elbow
 
 CLASSES={'IfcLightFixture','IfcOutlet','IfcElectricDistributionBoard','IfcAirTerminal',
          'IfcFan','IfcPump','IfcPipeSegment','IfcDuctSegment','IfcSensor',
@@ -16,7 +17,7 @@ CLASSES={'IfcLightFixture','IfcOutlet','IfcElectricDistributionBoard','IfcAirTer
 
 
 def validate(p):
-    if not isinstance(p,dict) or p.get('geometry_scope') not in ('axis-aligned bounding envelopes',circular.MIXED_SCOPE,elbow.SCOPE,rectangular.SCOPE):
+    if not isinstance(p,dict) or p.get('geometry_scope') not in ('axis-aligned bounding envelopes',circular.MIXED_SCOPE,elbow.SCOPE,rectangular.SCOPE,rectangular_elbow.SCOPE):
         raise ProjectError('explicit bounding-envelope geometry scope required')
     if not isinstance(p.get('name'),str) or not p['name'].strip():raise ProjectError('name required')
     if 'project_uuid' in p:
@@ -75,9 +76,12 @@ def validate(p):
             if key in ports or port.get('direction') not in ('SOURCE','SINK','SOURCEANDSINK'):raise ProjectError('unique directed or explicit bidirectional ports required')
             ports[key]=(d,port)
         shape=d.get('body_shape','bounding envelope')
-        if shape not in ('bounding envelope',circular.WALL,elbow.WALL,rectangular.WALL):raise ProjectError('unsupported explicit body_shape')
+        if shape not in ('bounding envelope',circular.WALL,elbow.WALL,rectangular.WALL,rectangular_elbow.WALL):raise ProjectError('unsupported explicit body_shape')
+        if shape==rectangular_elbow.WALL:
+            if p['geometry_scope']!=rectangular_elbow.SCOPE:raise ProjectError('rectangular bends require explicit geometry scope')
+            rectangular_elbow.specification(d)
         if shape==rectangular.WALL:
-            if p['geometry_scope']!=rectangular.SCOPE:raise ProjectError('rectangular walls require explicit geometry scope')
+            if p['geometry_scope'] not in (rectangular.SCOPE,rectangular_elbow.SCOPE):raise ProjectError('rectangular walls require explicit geometry scope')
             rectangular.specification(d)
         if shape==circular.WALL:
             if p['geometry_scope'] not in (circular.MIXED_SCOPE,elbow.SCOPE):raise ProjectError('circular bodies require explicit mixed geometry scope')
@@ -123,7 +127,9 @@ def run(project,out):
         return obj
     pr=create('IfcProject',p['name'])
     unit=api.run('unit.add_si_unit',model,unit_type='LENGTHUNIT')
-    api.run('unit.assign_unit',model,units=[unit])
+    units=[unit]
+    if any(d.get('body_shape')==rectangular_elbow.WALL for d in p['devices']):units.append(api.run('unit.add_si_unit',model,unit_type='PLANEANGLEUNIT'))
+    api.run('unit.assign_unit',model,units=units)
     context=api.run('context.add_context',model,context_type='Model')
     body=api.run('context.add_context',model,context_type='Model',context_identifier='Body',target_view='MODEL_VIEW',parent=context)
     site=create('IfcSite','Site');building=create('IfcBuilding','Building');storey=create('IfcBuildingStorey','Storey')
@@ -153,7 +159,8 @@ def run(project,out):
         obj=create(d['ifc_class'],d['id']);obj.Tag=d['id'];devices[d['id']]=obj
         api.run('spatial.assign_container',model,products=[obj],relating_structure=spaces[d['space']])
         api.run('system.assign_system',model,products=[obj],system=systems[d['system']])
-        if d.get('body_shape')==rectangular.WALL:rectangular.author(model,body,obj,d)
+        if d.get('body_shape')==rectangular_elbow.WALL:rectangular_elbow.author(model,body,obj,d)
+        elif d.get('body_shape')==rectangular.WALL:rectangular.author(model,body,obj,d)
         elif d.get('body_shape')==circular.WALL:circular.author(model,body,obj,d)
         elif d.get('body_shape')==elbow.WALL:elbow.author(model,body,obj,d)
         else:box(obj,d['origin_m'],d['size_m'])
@@ -165,8 +172,8 @@ def run(project,out):
             objport=api.run('system.add_port',model,element=obj)
             objport.Name=port['id'];objport.FlowDirection=port['direction']
             if namespace:objport.GlobalId=stable_guid('IfcDistributionPort',d['id'],port['id'])
-            module=rectangular if d.get('body_shape')==rectangular.WALL else elbow if d.get('body_shape')==elbow.WALL else circular
-            matrix=circular.frame(module.specification(d)['normals'][port['id']]) if d.get('body_shape') in (circular.WALL,elbow.WALL,rectangular.WALL) else np.eye(4)
+            module=rectangular_elbow if d.get('body_shape')==rectangular_elbow.WALL else rectangular if d.get('body_shape')==rectangular.WALL else elbow if d.get('body_shape')==elbow.WALL else circular
+            matrix=circular.frame(module.specification(d)['normals'][port['id']]) if d.get('body_shape') in (circular.WALL,elbow.WALL,rectangular.WALL,rectangular_elbow.WALL) else np.eye(4)
             matrix[:3,3]=np.array(d['origin_m'])+np.array(port['offset_m'])
             api.run('geometry.edit_object_placement',model,product=objport,matrix=matrix,is_si=True)
             props(objport,dict(Source=p['sources'][port['source']]))
@@ -196,14 +203,14 @@ def run(project,out):
         expected=np.array([d['origin_m'],np.array(d['origin_m'])+np.array(d['size_m'])])
         container=element.get_container(obj)
         groups={r.RelatingGroup.Name for r in obj.HasAssignments if r.is_a('IfcRelAssignsToGroup')}
-        bounds_tolerance=circular.BOUNDS_TOLERANCE_M if d.get('body_shape') in (circular.WALL,elbow.WALL,rectangular.WALL) else 1e-7
+        bounds_tolerance=circular.BOUNDS_TOLERANCE_M if d.get('body_shape') in (circular.WALL,elbow.WALL,rectangular.WALL,rectangular_elbow.WALL) else 1e-7
         if not np.allclose(bounds,expected,atol=bounds_tolerance,rtol=0) or container.Name!=d['space'] or groups!={d['system']}:
             raise ProjectError('IFC geometry/space/system mismatch')
         properties=element.get_psets(obj)['BSA_DesignInputs']
         if properties.get('Source')!=p['sources'][d['source']] or properties.get('InputID')!=d['id']:
             raise ProjectError('IFC provenance mismatch')
         if properties.get('BodyShape')!=d.get('body_shape','bounding envelope'):raise ProjectError('IFC body-shape metadata mismatch')
-        rectangular_checks=rectangular.verify(obj,d,shape) if d.get('body_shape')==rectangular.WALL else None
+        rectangular_checks=rectangular_elbow.verify(obj,d,shape) if d.get('body_shape')==rectangular_elbow.WALL else rectangular.verify(obj,d,shape) if d.get('body_shape')==rectangular.WALL else None
         circular_checks=circular.verify(obj,d,shape) if d.get('body_shape')==circular.WALL else elbow.verify(obj,d,shape) if d.get('body_shape')==elbow.WALL else None
         if 'electrical_kw' in d and not math.isclose(properties.get('ElectricalInput_kW',-1),d['electrical_kw']):
             raise ProjectError('IFC electrical input mismatch')
@@ -217,8 +224,8 @@ def run(project,out):
             origin=placement.get_local_placement(native.ObjectPlacement)[:3,3]
             if native.FlowDirection!=port['direction'] or not np.allclose(origin,np.array(d['origin_m'])+port['offset_m'],atol=1e-7,rtol=0):
                 raise ProjectError('IFC port direction/coordinate mismatch')
-            module=rectangular if d.get('body_shape')==rectangular.WALL else elbow if d.get('body_shape')==elbow.WALL else circular
-            if d.get('body_shape') in (circular.WALL,elbow.WALL,rectangular.WALL) and not np.allclose(placement.get_local_placement(native.ObjectPlacement)[:3,2],module.specification(d)['normals'][port['id']],atol=1e-8,rtol=0):
+            module=rectangular_elbow if d.get('body_shape')==rectangular_elbow.WALL else rectangular if d.get('body_shape')==rectangular.WALL else elbow if d.get('body_shape')==elbow.WALL else circular
+            if d.get('body_shape') in (circular.WALL,elbow.WALL,rectangular.WALL,rectangular_elbow.WALL) and not np.allclose(placement.get_local_placement(native.ObjectPlacement)[:3,2],module.specification(d)['normals'][port['id']],atol=1e-8,rtol=0):
                 raise ProjectError('IFC circular port outward axis mismatch')
         if circular_checks:circular_checks['outward_port_axes_pass']=True
         if rectangular_checks:rectangular_checks['outward_port_axes_pass']=True

@@ -1,0 +1,98 @@
+{
+  "scope": "Actual native sharp-corner rectangular 90-degree fitting geometry only; no pressure binding, fitted assembly, product or full acceptance",
+  "native_report": {
+    "ifcopenshell_version": "0.8.5",
+    "input_sha256": "9f3f0c473acf0d2c1fdb1421708c26ad2b7700d26a1cbbc9c5f099f6101e2177",
+    "ifc_sha256": "e5243b4eb93b36a3569c25d2fae82b23a3170e9bfcf167475cc0b75d8f317935",
+    "checks": {
+      "schema_valid": true,
+      "device_count_match": true,
+      "connection_count_match": true,
+      "connection_endpoints_match": true,
+      "metre_units": true,
+      "space_count_match": true,
+      "source_unchanged": true
+    },
+    "devices": [
+      {
+        "id": "BEND",
+        "ifc_class": "IfcDuctFitting",
+        "global_id": "3$kkT3TKnTb8Q1Oce8li87",
+        "space": "ROOM",
+        "systems": [
+          "AIR"
+        ],
+        "bounds_m": [
+          [
+            2.0,
+            2.0,
+            1.849
+          ],
+          [
+            3.051,
+            3.051,
+            2.151
+          ]
+        ],
+        "body_shape": "rectangular 90-degree elbow wall",
+        "circular_checks": null,
+        "rectangular_checks": {
+          "body_shape": "rectangular 90-degree elbow wall",
+          "body_representation": "IfcRevolvedAreaSolid hollow rectangle",
+          "saved_internal_width_m": 0.5,
+          "saved_internal_height_m": 0.3,
+          "saved_wall_thickness_m": 0.001,
+          "centreline_radius_m": 0.8000000000000003,
+          "centreline_arc_length_m": 1.2566370614359177,
+          "analytic_wall_volume_m3": 0.0020156458465432044,
+          "mesh_wall_volume_m3": 0.0020156343198981823,
+          "relative_volume_error": 5.718586448067058e-06,
+          "closed_mesh": true,
+          "one_connected_wall": true,
+          "euler_characteristic": 0,
+          "exact_arc_reference": true,
+          "analytic_centroid_m": [
+            2.5384351306197583,
+            2.5384351306197583,
+            2.0
+          ],
+          "native_centroid_m": [
+            2.5384331854789246,
+            2.538433185478925,
+            1.9999999999999918
+          ],
+          "outward_port_axes_pass": true
+        }
+      }
+    ],
+    "model_checks_pass": true,
+    "design_accepted": false,
+    "geometry_scope": "axis-aligned envelopes and rectangular straight and elbow walls",
+    "pending": [
+      "visual BIM review",
+      "manufacturer shape fidelity",
+      "physical route/clash checks",
+      "domain performance and code acceptance"
+    ],
+    "connection_scope": "logical topology only; no physical route is inferred between separated ports",
+    "identity_scope": "stable namespace/class/input-ID object and port GUIDs",
+    "project_uuid": "f72fd462-b4f8-4ad0-b3bd-0c0dfd09c904"
+  },
+  "tests": {
+    "rectangular_elbow": 3,
+    "rectangular_straight": 4,
+    "bim": 3,
+    "circular_geometry": 5,
+    "all_pass": true
+  },
+  "design_accepted": false,
+  "artifacts": {
+    "runs\\rectangular-elbow-native-v1\\model.ifc": "e5243b4eb93b36a3569c25d2fae82b23a3170e9bfcf167475cc0b75d8f317935",
+    "runs\\rectangular-elbow-native-v1\\bim-verification.json": "57a1ae2108a4ffb5bfee680283f89383922c6646ddb8734e638efea02d4cc170",
+    "runs\\rectangular-elbow-native-v1\\schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "implementation": {
+    "src\\bsa\\rectangular_elbow.py": "6f37501817ba065fbf6a7bc2149a4dcc5c7a27fa25180a057cf73ce71a999539",
+    "src\\bsa\\bim.py": "90dc75a721a7abfeccfed97bfa919b203da8e171a0fc8cce6347412def7d952f"
+  }
+}

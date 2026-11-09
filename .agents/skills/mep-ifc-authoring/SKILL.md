@@ -5,6 +5,8 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For native hollow rectangular 90-degree bend geometry, use bsa.bim's explicit rectangular straight/elbow scope and docs/RECTANGULAR_ELBOWS.md. Require radial width, normal height, wall thickness, radius, signed perpendicular axes and actual arc-end ports; preserve native profile/revolution/arc/mass/centroid/port checks. No fitting K is inferred. Current rectangular pressure/sizing/drawing adapters remain straight-only; joining section rolls and full assembly/engineering acceptance are pending.
+
 When fan-power scope is required, combine same-producer rectangular_fan_regulations and ifc_clash in rectangular_drawing requires_pass. The executed synthetic native delivery in docs/HK_FAN_POWER.md retains failed/unknown rule branches without drawing folders. Drawing/native-export audits and actual PDF review remain mandatory; this still does not prove real fan selection, inventory or full installation acceptance.
 
 Rectangular sheets now independently audit actual saved and AutoCAD-reopened/exported DXF entities against source-checked native bounds, axis endpoints and inside dimensions. Preserve complete geometry/text/GUID and raw model-space/visibility/plot checks; do not substitute a writer success flag or invented expected records. Approximate font boxes do not replace actual PDF review. See docs/RECTANGULAR_AIR_NETWORKS.md.
