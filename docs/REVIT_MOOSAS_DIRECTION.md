@@ -42,6 +42,18 @@ The ExternalEvent queue is a useful reference for valid API-context execution. I
 
 ## MOOSAS source details
 
+### Executed ordinary-IFC loading trial
+
+Pinned upstream was checked out under ignored `tools/moosas-review`, without installing its dependency set or fetching bundled simulation engines/templates. Its IFC module imports successfully with the existing repository Python dependencies. A fresh native `bsa.bim` run of `examples/thermal-ifc/bim.json` produced a schema-checked IFC4 containing three spaces and two distribution elements, with metre units and source preservation checks passing.
+
+Actual `loadIfc` execution returned zero spaces, zero faces and zero walls without raising, while reporting `ifcHasSpaces=True` and `ifcLoadMode='space'`. The source bytes stayed unchanged. Inspection of `_legacy_loadIfc_direct` explains this specific case: elements/spaces lacking its MOOSAS property set are skipped, and empty output does not trigger the exception-based fallback. This proves an incompatibility for our ordinary synthetic space IFC, not that all upstream IFC inputs fail. Its round-trip format and geometry bridge need separate evaluation.
+
+`scripts/probe_moosas_ifc.py` now repeats this diagnostic against the exact clean pinned checkout and records original space GUIDs plus loaded counts. Executed evidence is `docs/evidence/moosas-review/ifc-loader-trial.json`; the mismatch is retained as failure, never promoted to simulation readiness. Count equality alone would still not prove identity, geometry, units, boundaries or thermal fidelity. Existing BSA source-validated thermal extraction remains the available geometric binding; do not route generic IFC automatically through this MOOSAS loader. No upstream source was patched, vendored or redistributed, and no simulation was run.
+
+```powershell
+.venv/Scripts/python scripts/probe_moosas_ifc.py --upstream tools/moosas-review --ifc runs/moosas-ifc-trial-v1/source/model.ifc --out runs/new-moosas-ifc-probe.json
+```
+
 ### Native plumbing reference and inventory preparation
 
 Reviewed [Thaynabarreiro/revit-hydro-designer](https://github.com/Thaynabarreiro/revit-hydro-designer/tree/c08b5a0f12e40110e230338fce3e55c6781f302b) at the linked commit (MIT, copyright Thayna Barreiro). Source hashes are retained in `revit-hydro-source-review.json`. Its `tools/m6g_rede_final.py` uses native Pipe.Create and NewElbowFitting/NewTeeFitting, making it a closer authoring reference than the DirectShape bridge. However, its initial transaction deletes all project PipeCurves/PipeFitting elements, and connection fallback counts success without a final topology readback. Do not execute that script in a user model or inherit those acceptance semantics. Its NBR calculation assumptions are not Hong Kong regulatory evidence. No upstream implementation was copied or run.

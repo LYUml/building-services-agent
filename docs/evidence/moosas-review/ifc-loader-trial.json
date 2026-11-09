@@ -1,0 +1,47 @@
+{
+  "repository": "https://github.com/KLEGB/MOOSAS",
+  "commit": "dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c",
+  "scope": "Executed IFC loader/count diagnostic; no geometry or analysis acceptance",
+  "source_sha256": "3eb4ad3818103907627f18bac22cef32c3a2d40da0fc63f76a8abcb0ab369e7e",
+  "source_spaces": [
+    {
+      "guid": "05Q4lNZvfMjRB3$ExNimBH",
+      "name": "Office"
+    },
+    {
+      "guid": "2XcneOpvjTTuGBPHTpB5KV",
+      "name": "East"
+    },
+    {
+      "guid": "0CWbJCzJzH9wlEfBdo1lqM",
+      "name": "Annex"
+    }
+  ],
+  "source_counts": {
+    "IfcProject": 1,
+    "IfcSite": 1,
+    "IfcBuilding": 1,
+    "IfcBuildingStorey": 1,
+    "IfcSpace": 3,
+    "IfcWall": 0,
+    "IfcWindow": 0,
+    "IfcDoor": 0,
+    "IfcSlab": 0,
+    "IfcCovering": 0,
+    "IfcRoof": 0,
+    "IfcBuildingElementProxy": 0,
+    "IfcProductDefinitionShape": 5,
+    "IfcPropertySet": 8,
+    "schema": "IFC4",
+    "total_entities": 148
+  },
+  "loaded_space_count": 0,
+  "loaded_face_count": 0,
+  "loaded_wall_count": 0,
+  "reported_mode": "space",
+  "source_unchanged": true,
+  "space_count_preserved": false,
+  "geometry_verified": false,
+  "simulation_executed": false,
+  "design_accepted": false
+}
