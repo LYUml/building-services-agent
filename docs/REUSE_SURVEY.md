@@ -1,5 +1,7 @@
 # Reuse survey — 2026-11-09
 
+Plan bootstrap gap: compose the existing pinned pypdf/Word extractor, document-bundle identities, workflow plan schema and unresolved-input gates; no new parser, model service or orchestration engine. The thin scaffold preserves every extracted passage and leaves interpretation blocked, rather than claim generic automatic engineering planning. Real semantic decomposition and adapter selection remain host-agent work.
+
 Recovery handoff follow-up: reuse the existing workflow executor, source/byte validation and dependency-root diagnosis, rather than introduce another orchestration engine. The thin grouped action queue carries full affected requirement records and existing scope/evidence/input blockers. No new engine/dependency; declared graph roots are not engineering cause diagnosis or automatic repair.
 
 Phase-balance workflow follow-up (2026-11-10): the existing rule evaluator and current binding now form registered `three_phase_regulations` prerequisites for `three_phase_drawing`. A new explicit coverage snapshot detects the scheduled partial module. Actual positive native output, exceeded/missing-basis blocking and altered/mismatched producer/gate rejection are verified without adding another engine. Full conformity stays unresolved. Earlier standalone-only notes are historical.

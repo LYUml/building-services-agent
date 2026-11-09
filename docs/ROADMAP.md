@@ -62,6 +62,8 @@ The requested end state is reusable automation from a requirement document and s
 
 ## Next sequence
 
+Source-linked plan bootstrap now preserves all extracted primary/supplement passages as explicitly blocked interpretation requirements through the existing parser and workflow schema. Six bootstrap and three unified CLI tests pass; actual two-passage synthetic brief execution stays pending with source-linked actions and review. This reduces manual plan scaffolding, not semantic interpretation, adapter selection or engineering delivery. Evidence: evidence/document-intake/plan-bootstrap.json.
+
 The existing one-invocation workflow now emits a deduplicated source-bound recovery action queue with affected tasks and full requirements, retaining separate manual review and stale-evidence rejection. Actual missing-runtime execution and 20 related tests pass; no automatic repair, raw-brief plan generation or full assignment acceptance is established. Evidence: evidence/workflow-recovery/actions.json.
 
 Cable evidence association now supports distinct product-limit and classification documents on the same native product, retaining independent hashes and absent-only legacy compatibility. The synthetic separate-document workflow reaches native drawing; real vendor extraction/authentication and full assignment acceptance remain pending (HK_CABLE_BENDS.md).

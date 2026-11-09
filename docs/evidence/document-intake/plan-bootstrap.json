@@ -1,0 +1,91 @@
+{
+  "scope": "Actual synthetic brief to blocked interpretation plan and pending execution only; no semantic planning or engineering design",
+  "actions": [
+    {
+      "task": "interpret-001",
+      "kind": "manual",
+      "status": "pending",
+      "next_action": "resolve the cited missing/conflicting design inputs before a new run",
+      "recorded_scope": "unresolved design inputs: interpretation-001 (missing): Source meaning, design inputs and acceptance criteria have not been interpreted.; adapter not executed",
+      "input_blockers": [
+        {
+          "id": "interpretation-001",
+          "kind": "missing",
+          "description": "Source meaning, design inputs and acceptance criteria have not been interpreted.",
+          "sources": [
+            {
+              "passage": "P001",
+              "quote": "Prepare an editable SWMM input for the explicitly synthetic gravity drainage network, preserving sources, units and assumptions."
+            }
+          ],
+          "blocks_tasks": [
+            "interpret-001"
+          ]
+        }
+      ],
+      "evidence": [],
+      "affected_tasks": [
+        "interpret-001"
+      ],
+      "affected_requirements": [
+        {
+          "id": "R001",
+          "passage": "P001",
+          "quote": "Prepare an editable SWMM input for the explicitly synthetic gravity drainage network, preserving sources, units and assumptions.",
+          "task": "interpret-001",
+          "acceptance": "Pending interpretation: cover the complete source passage, split requirements and establish actual deliverables and verification before execution."
+        }
+      ]
+    },
+    {
+      "task": "interpret-002",
+      "kind": "manual",
+      "status": "pending",
+      "next_action": "resolve the cited missing/conflicting design inputs before a new run",
+      "recorded_scope": "unresolved design inputs: interpretation-002 (missing): Source meaning, design inputs and acceptance criteria have not been interpreted.; adapter not executed",
+      "input_blockers": [
+        {
+          "id": "interpretation-002",
+          "kind": "missing",
+          "description": "Source meaning, design inputs and acceptance criteria have not been interpreted.",
+          "sources": [
+            {
+              "passage": "P002",
+              "quote": "Run the native hydraulic model and independently review continuity, capacity and surcharge before accepting a drainage design. If the engine cannot run, retain this requirement as pending."
+            }
+          ],
+          "blocks_tasks": [
+            "interpret-002"
+          ]
+        }
+      ],
+      "evidence": [],
+      "affected_tasks": [
+        "interpret-002"
+      ],
+      "affected_requirements": [
+        {
+          "id": "R002",
+          "passage": "P002",
+          "quote": "Run the native hydraulic model and independently review continuity, capacity and surcharge before accepting a drainage design. If the engine cannot run, retain this requirement as pending.",
+          "task": "interpret-002",
+          "acceptance": "Pending interpretation: cover the complete source passage, split requirements and establish actual deliverables and verification before execution."
+        }
+      ]
+    }
+  ],
+  "integrity_pass": true,
+  "design_accepted": false,
+  "tests": {
+    "bootstrap": 6,
+    "unified_cli": 3,
+    "all_pass": true
+  },
+  "artifacts": {
+    "runs\\brief-bootstrap-v1\\brief.md": "fcd95f3797b8e179c8f1fc25fc8e6adec62188553616373ee13e8ba9ce4b10bd",
+    "runs\\brief-bootstrap-v1\\plan.json": "a125a1bcbf62b9d16e425093089c13346bffe90348d1288c92881c7219ec4b08",
+    "runs\\brief-bootstrap-v1\\execution\\workflow.json": "f9553cfe16cacbac2aba46d6632cef4c26f955f470d8f07ca033a379ab70a04c",
+    "runs\\brief-bootstrap-v1\\execution\\diagnosis.json": "7d6921ba58c58dc3a65b8c1ca3da0b773c7d66382fddc1f9e3bd9796e68ed692",
+    "runs\\brief-bootstrap-v1\\review.json": "7a70bd9d53ac7c29b8e257776a36e1cbcab087a42f7f5b8b361e0fd8b3a599b4"
+  }
+}
