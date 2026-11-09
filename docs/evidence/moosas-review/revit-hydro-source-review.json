@@ -1,0 +1,24 @@
+{
+  "license": "MIT",
+  "scope": "Source inspection only; not installed or executed",
+  "commit": "c08b5a0f12e40110e230338fce3e55c6781f302b",
+  "repository": "https://github.com/Thaynabarreiro/revit-hydro-designer",
+  "files": [
+    {
+      "sha256": "2cbd4795bb796b5ee2d19e7db7d750f594759b3d6e97576a75b3cf727d72baaf",
+      "path": "LICENSE"
+    },
+    {
+      "sha256": "d5625db2299cf44dab60537b856dc47fda05fb9175dba783349ff89510b62322",
+      "path": "README.md"
+    },
+    {
+      "sha256": "dea1ba09eba5cb483fc5b5753807cbc0bf8b33db3a2a214507883f2e6e784341",
+      "path": "tools/m6g_rede_final.py"
+    },
+    {
+      "sha256": "e76060909602191cf4356da84b07fe8df9da0844f7b7ce2d4fd6f2418d6002be",
+      "path": "tools/run_in_revit.py"
+    }
+  ]
+}

@@ -34,6 +34,12 @@ The ExternalEvent queue is a useful reference for valid API-context execution. I
 
 ## MOOSAS source details
 
+### Native plumbing reference and inventory preparation
+
+Reviewed [Thaynabarreiro/revit-hydro-designer](https://github.com/Thaynabarreiro/revit-hydro-designer/tree/c08b5a0f12e40110e230338fce3e55c6781f302b) at the linked commit (MIT, copyright Thayna Barreiro). Source hashes are retained in `revit-hydro-source-review.json`. Its `tools/m6g_rede_final.py` uses native Pipe.Create and NewElbowFitting/NewTeeFitting, making it a closer authoring reference than the DirectShape bridge. However, its initial transaction deletes all project PipeCurves/PipeFitting elements, and connection fallback counts success without a final topology readback. Do not execute that script in a user model or inherit those acceptance semantics. Its NBR calculation assumptions are not Hong Kong regulatory evidence. No upstream implementation was copied or run.
+
+Added original `scripts/revit_inventory.py` as a read-only callable for a valid Revit API context: `inventory(doc, expected_saved_path)`. It rejects missing/mismatched document paths and family documents before importing the API. It returns native pipe identities, types, system identities, lengths/diameters and connector references, converting internal lengths through UnitUtils. References may include logical links and do not prove physical connection; linked-model contents, fixtures, ducts and full system acceptance are outside this first inventory. The caller controls serialization; the module opens no files and starts no transactions. Python syntax was checked locally; actual Revit invocation, binding compatibility and saved-model comparison remain unverified. This is preparation, not an available production adapter.
+
 Pinned [KLEGB/MOOSAS](https://github.com/KLEGB/MOOSAS/tree/dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c), develop commit `dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c`. Current README describes a standalone MoosasPy core, not only SketchUp integration. Reviewed modules separate geometry transformation, model I/O and simulation; explicit coupling connects energy/airflow workflows. Shared results retain native command/workspace diagnostics. Apache-2.0 is the root licence; bundled engines/templates have additional notices to review before reuse. Selected source hashes are retained in `docs/evidence/moosas-review/source-manifest.json`; source snapshots remain local, not vendored or executed.
 
 Our application of these ideas:
