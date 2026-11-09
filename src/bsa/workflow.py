@@ -11,7 +11,7 @@ from pathlib import Path
 from .cli import digest
 from .engine import ProjectError
 
-IFC_ARTIFACTS={'tee_selection':'selected/assembly/assembly.ifc','tee_assembly':'assembly.ifc','ifc_metadata':'native/model.ifc','selected_pump_ifc':'selected-model.ifc','regulated_water_model':'selected-coordination/bim/model.ifc','annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
+IFC_ARTIFACTS={'cad_ifc':'fitting.ifc','product_ports':'placed-fitting.ifc','tee_selection':'selected/assembly/assembly.ifc','tee_assembly':'assembly.ifc','ifc_metadata':'native/model.ifc','selected_pump_ifc':'selected-model.ifc','regulated_water_model':'selected-coordination/bim/model.ifc','annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
                'route_model':'bound/bim/model.ifc','route_optimize':'selected/bound/bim/model.ifc',
                'network_model_design':'selected-coordination/bim/model.ifc',
                'electrical_coordination':'bim/model.ifc','electrical_lighting':'shared/bim/model.ifc','pump_electrical':'model.ifc','water_coordination':'model.ifc'}
@@ -133,7 +133,7 @@ def regulatory_source_bindings(tasks,root):
 
 def inventory_source_bindings(tasks,root):
     """Bind supported saved-IFC consumers to upstream inventory checks."""
-    readers={'tee_drawing','tee_split','tee_pressure','tee_losses','ifc_network','ifc_metadata','ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing',
+    readers={'product_ports','tee_drawing','tee_split','tee_pressure','tee_losses','ifc_network','ifc_metadata','ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing',
              'ifc_views','water_coordination','annual_energy_ifc'}
     known={};ancestors={};identities={};bindings=[];rechecks={}
     for task in tasks:
@@ -201,10 +201,25 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind=="water_network" and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
+        if kind=='cad_ifc':
+            if set(t)-{'id','kind','drawing','basis','requires_pass','description'}:
+                raise ProjectError('CAD IFC uses explicit drawing/basis and the workflow engine only')
+            inputs.update(local_path(root,t.get(k)) for k in ('drawing','basis'))
+        if kind=='product_ports':
+            if set(t)-{'id','kind','depends_on','basis','requires_pass','description'}:
+                raise ProjectError('product ports inherit the conversion; replacement inputs forbidden')
+            parent=t.get('depends_on')
+            if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='cad_ifc':
+                raise ProjectError('product ports require an earlier cad_ifc producer')
+            basis=local_path(root,t.get('basis'));inputs.add(basis)
+            nested=read_json(basis).get('passage_basis')
+            if not isinstance(nested,str) or Path(nested).is_absolute():
+                raise ProjectError('relative product passage basis required')
+            inputs.add(local_path(root,str(basis.relative_to(root).parent/nested)))
         if kind=='tee_selection':
             from .tee_selection import prepare
             _,_,selection_files=prepare(local_path(root,t.get('catalogue')));inputs.update(selection_files)
@@ -624,6 +639,21 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     payload=run(source,local_path(root,t['settings']),folder)
                     status='pass' if payload['calculated_checks_pass'] else 'fail'
                     reason='saved hollow profiles and ports reconciled to schedule/projected centreline DXF; native and installation drawing acceptance pending'
+            elif t['kind']=='cad_ifc':
+                if not autocad:reason='AutoCAD executable not supplied; CAD IFC conversion not executed'
+                else:
+                    from .cad_ifc import run
+                    payload=run(local_path(root,t['drawing']),local_path(root,t['basis']),folder,autocad)
+                    status='pass' if payload['geometry_conversion_pass'] else 'fail'
+                    reason='source-bound tessellated IFC conversion; ports, product and engineering acceptance separate'
+            elif t['kind']=='product_ports':
+                parent=t['depends_on']
+                if tasks[parent]['status']!='pass':reason='upstream CAD IFC conversion did not pass; product ports not executed'
+                else:
+                    from .product_ports import run
+                    payload=run(out/parent,local_path(root,t['basis']),folder)
+                    status='pass' if payload['product_ports_pass'] else 'fail'
+                    reason='source-anchored placed model ports and saved-IFC probe checks; physical joints, external network and engineering acceptance pending'
             elif t['kind']=='tee_selection':
                 from .tee_selection import run
                 payload=run(local_path(root,t['catalogue']),folder)

@@ -1,0 +1,26 @@
+{
+  "scope": "Local actual-vendor workflow; no restricted geometry redistributed",
+  "tasks": {
+    "convert": {
+      "kind": "cad_ifc",
+      "status": "pass",
+      "scope": "source-bound tessellated IFC conversion; ports, product and engineering acceptance separate"
+    },
+    "place": {
+      "kind": "product_ports",
+      "status": "pass",
+      "scope": "source-anchored placed model ports and saved-IFC probe checks; physical joints, external network and engineering acceptance pending"
+    }
+  },
+  "execution_pass": true,
+  "inputs_unchanged": true,
+  "design_accepted": false,
+  "workflow_report_sha256": "1d81a931f83076589f644c8831d8589cae5d76bd10d6b9823faae2c1cf407882",
+  "pending": [
+    "physical joints",
+    "external network",
+    "hydraulic applicability",
+    "BIM viewer review",
+    "regulatory and engineering acceptance"
+  ]
+}

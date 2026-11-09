@@ -96,3 +96,19 @@ The producer's inputs/artifact hashes are rechecked, then the actual source body
 The source-linked passage and positive wall probes are repeated against the saved **world-coordinate IFC mesh**, with 128-sided probe cylinders and a 1e-12 cubic metre intersection threshold. These are bounded polygonal clearance checks, not exact analytic cylinders, a minimum-bore search or full-system clash acceptance. Failed passages retain a false result and CLI exit 2. The original native probe result alone cannot satisfy this saved-body check.
 
 The real vendor body passed a synthetic translated/compound-rotated placement and all three saved IFC probes. An internal junction-centre anchor and a rehashed shifted producer mesh were rejected. A second placement retained all five product/port/group GUIDs; actual schema/EXPRESS validation reported zero statements. See [placement evidence](evidence/manufacturer-block/ports.json). Project coordinates and service grouping are synthetic demonstration choices, not an installed project or manufacturer service assignment.
+
+
+## Requirement-driven execution
+
+Workflow kinds `cad_ifc` and `product_ports` now compose the verified adapters. A task pair is:
+
+```json
+[
+  {"id":"convert","kind":"cad_ifc","drawing":"source.dwg","basis":"convert.json"},
+  {"id":"place","kind":"product_ports","depends_on":"convert","basis":"place.json"}
+]
+```
+
+Embed these tasks in a source-linked workflow plan, mapping **each** task to a quoted brief requirement. All files must lie within the plan directory. The placement basis references its passage basis relative to itself; that nested input is also hashed by the workflow. Pass `--autocad` to `python -m bsa.workflow execute`. Ports inherit the earlier conversion directory; replacement producer/IFC paths are rejected. Missing engines remain pending; failed conversion prevents port execution. Generic IFC consumers must target `place` to inspect the revised model. Domain consumers still enforce their own supported geometry contracts.
+
+Local actual-vendor execution at `runs/manufacturer-workflow-v1/run` passed both stages and workflow integrity. Four workflow tests cover missing engine, failed producer, input mutation, replacement/wrong dependency and nested-path escape; four existing inventory gate tests also pass. Geometry and local source inputs are not redistributed. Execution and byte integrity do not establish physical joint, hydraulic, viewer or regulatory acceptance.
