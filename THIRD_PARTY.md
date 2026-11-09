@@ -1,5 +1,7 @@
 # Attribution and upstream integration register
 
+`bsa.drainage_input` is original model-preparation code informed by EPA SWMM 5.2 User's Manual Appendix D input field semantics. It emits SWMM input for later upstream execution and does not implement hydraulic solving. Official manual link, limited support and unverified native-parser status are recorded in docs/SWMM_TRIAL.md; no upstream source text or solver binary is copied.
+
 SWMM reuse evaluation installs `swmm-toolkit==0.17.0` from [pyswmm/swmm-python](https://github.com/pyswmm/swmm-python), with `aenum==3.1.17`. Distributed SWMM/toolkit/OpenMP notices and AUTHORS are retained verbatim under `third_party/licenses/swmm-toolkit-*`; metadata, hashes and blocked import evidence are in docs/evidence/swmm-trial/runtime.json. No binaries or engine source are redistributed. Native swmm5.dll is blocked by host policy, so this is not a verified drainage adapter. See docs/SWMM_TRIAL.md.
 
 Hong Kong emergency-accommodation checks are original adapter code around the existing jurisdiction evaluator. Numeric conditions are attributed to the Hong Kong Fire Services Department's May 2021 technical guidance, local modifications to BS 5266-1 clauses 5.2.2/5.2.6. Official URLs, edition, pages and PDF SHA256 are retained in the versioned pack and source inventory; original PDFs remain local and are not redistributed. This is a sourced-assertions comparison, not a reproduction of the complete British Standards or an independent compliance certification. See docs/HK_EMERGENCY_LIGHTING.md.

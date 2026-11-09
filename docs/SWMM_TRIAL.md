@@ -1,5 +1,13 @@
 # SWMM reuse evaluation
 
+## Prepared model input
+
+`python -m bsa.drainage_input examples/drainage-preparation/project.json --out runs/new-drainage-preparation` prepares an editable `network.inp` and a source/hash/geometry report without importing the blocked solver. This bounded compiler supports strictly falling circular gravity trees, one FREE outfall and constant dry-weather inflows. Input names encode units (metres, litres/second); every component and time-control group references a declared source. Unknown fields and unsupported topology are rejected instead of silently discarded.
+
+The original synthetic fixture has two pipes and an independently checked 0.01 invert-fall/length ratio. Tests exercise a nonzero inlet offset, malformed/nonfinite values, unknown sources, duplicate IDs and disconnected topology. Preparation success is not native parser or simulation success. `native_parse_verified`, `simulation_executed` and `design_accepted` remain false. Initial dry state, absent ponding/local losses/rainfall and remaining engine-default numerical options are explicitly reported assumptions; review or extend them for the actual task.
+
+Input field semantics were checked against the official [EPA SWMM 5.2 manual](https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=P10145M6.TXT), Appendix D sections OPTIONS, JUNCTIONS, OUTFALLS, CONDUITS, XSECTIONS and DWF. The compiler is original integration code; it does not replace the upstream solver. No capacity, surcharge or continuity result is produced.
+
 The [EPA SWMM capability description](https://www.epa.gov/water-research/storm-water-management-model-swmm) identifies stormwater, combined and sanitary sewer networks, including external inflows, channels/pipes, storage, pumps, backwater and surcharging. This is a useful candidate for site drainage/network assignments. It does not by itself establish building sanitary-stack, trap/vent, fixture-loading or Hong Kong statutory design checks.
 
 The [PySWMM swmm-python repository](https://github.com/pyswmm/swmm-python) provides SWIG wrappers for the SWMM solver and binary output libraries. `swmm-toolkit==0.17.0` and dependency `aenum==3.1.17` were installed for evaluation on 2026-11-09. Package metadata declares `CC0-1.0 AND (MIT OR Apache-2.0)`; unmodified distributed notices/authors are preserved under `third_party/licenses/swmm-toolkit-*`. Their hashes and native-library hashes are in `docs/evidence/swmm-trial/runtime.json`. No source engine or binary is vendored.

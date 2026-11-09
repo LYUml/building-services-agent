@@ -1,0 +1,59 @@
+{
+  "name": "Synthetic gravity drainage preparation - no simulation",
+  "sources": {
+    "demo": "Original synthetic test dimensions, inflows and time controls; not an actual assignment"
+  },
+  "simulation": {
+    "start": "2026-01-01T00:00:00",
+    "end": "2026-01-01T01:00:00",
+    "routing_step_s": 5,
+    "report_step_s": 60,
+    "source": "demo"
+  },
+  "junctions": [
+    {
+      "id": "J1",
+      "invert_m": 10,
+      "maximum_depth_m": 2,
+      "dry_weather_flow_lps": 2,
+      "source": "demo"
+    },
+    {
+      "id": "J2",
+      "invert_m": 9.8,
+      "maximum_depth_m": 2,
+      "dry_weather_flow_lps": 1,
+      "source": "demo"
+    }
+  ],
+  "outfall": {
+    "id": "OUT",
+    "invert_m": 9.5,
+    "boundary": "FREE",
+    "source": "demo"
+  },
+  "conduits": [
+    {
+      "id": "C1",
+      "from": "J1",
+      "to": "J2",
+      "length_m": 20,
+      "diameter_m": 0.15,
+      "manning_n": 0.013,
+      "inlet_offset_m": 0,
+      "outlet_offset_m": 0,
+      "source": "demo"
+    },
+    {
+      "id": "C2",
+      "from": "J2",
+      "to": "OUT",
+      "length_m": 30,
+      "diameter_m": 0.2,
+      "manning_n": 0.013,
+      "inlet_offset_m": 0,
+      "outlet_offset_m": 0,
+      "source": "demo"
+    }
+  ]
+}

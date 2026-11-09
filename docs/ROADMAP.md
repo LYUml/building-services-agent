@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+A source-linked SWMM input preparer now emits editable SI circular gravity-tree models with explicit dry-weather inflows, offsets, free boundary and recorded assumptions. Geometry/source/topology rejection tests and actual synthetic input generation pass. Native parser/simulation remain unverified under the current host restriction; no drainage capacity or compliance is claimed (SWMM_TRIAL.md).
+
 Drainage reuse research now selects upstream swmm-toolkit 0.17.0 for evaluation rather than a new solver. Installation and license/native provenance are recorded, but host Code Integrity blocks swmm5.dll before simulation. Site drainage/network hydraulics, building sanitary-stack/vent design and HK requirements remain distinct pending scopes (SWMM_TRIAL.md).
 
 Delivery audits now invoke source-bound dependency diagnosis, reject a passing child with nonpassing required parents, and retain blocked manual reviews as pending even when their reviewer asserts pass. Ten delivery tests, five dependency tests and an actual emergency-workflow audit verify the gate. Independent/manual review completion is not engine execution or automatic authorization to run downstream work.
