@@ -26,7 +26,8 @@ def inputs(project,ifc,binding_path):
     return files|{ifc,binding_path,path,Path(__file__).resolve(),*(Path(m.__file__).resolve() for m in (circular_geometry,cad_ifc,solid_clash))}
 
 
-def inspect(project,ifc,binding_path):
+def inspect(project,ifc,binding_path,*,require_length_match=True):
+    if type(require_length_match) is not bool:raise ProjectError('explicit boolean length-match policy required')
     import numpy as np
     import ifcopenshell
     import ifcopenshell.geom
@@ -125,12 +126,13 @@ def inspect(project,ifc,binding_path):
         direction=(ends[1]-ends[0])/length;offset=radius*np.sqrt(np.maximum(0,1-direction**2))
         expected_bounds=np.array([ends.min(axis=0)-offset,ends.max(axis=0)+offset]);expected_volume=math.pi*radius**2*length
         if not np.allclose(observed['bounds'],expected_bounds,atol=BOUNDS_TOLERANCE_M,rtol=0) or not np.allclose(observed['centroid'],ends.mean(axis=0),atol=BOUNDS_TOLERANCE_M,rtol=0) or not math.isclose(observed['volume'],expected_volume,rel_tol=VOLUME_RELATIVE_TOLERANCE):raise ProjectError('native solid bounds/centroid/volume differ from straight cable axis')
-        if not math.isclose(length,line['length_m'],rel_tol=0,abs_tol=1e-6):raise ProjectError('electrical route length differs from saved IFC geometry')
+        length_match=math.isclose(length,line['length_m'],rel_tol=0,abs_tol=1e-6)
+        if require_length_match and not length_match:raise ProjectError('electrical route length differs from saved IFC geometry')
         rows.append(dict(id=line['id'],element_guid=obj.GlobalId,port_guids=port_ids,observed_length_m=length,project_length_m=line['length_m'],
-            body_type=solid.is_a(),envelope_radius_m=radius,world_axis_ends_m=ends.tolist(),native_volume_m3=observed['volume'],analytic_volume_m3=expected_volume))
+            route_length_match=length_match,body_type=solid.is_a(),envelope_radius_m=radius,world_axis_ends_m=ends.tolist(),native_volume_m3=observed['volume'],analytic_volume_m3=expected_volume))
     if any(digest(Path(f))!=h for f,h in before.items()):raise ProjectError('inputs changed during IFC inspection')
     return dict(inputs=before,input_unchanged=True,source_basis=source,ifc_unit_to_m=factor,versions=versions,lines=rows,
-        geometry_correspondence_pass=True,native_electrical_connectivity_verified=False,design_accepted=False,
+        native_geometry_checks_pass=True,geometry_correspondence_pass=all(r['route_length_match'] for r in rows),native_electrical_connectivity_verified=False,design_accepted=False,
         scope='Selected-system straight cable envelopes, placed ports, bus anchors and analysis lengths only; physical connections, bends, conductor selection, protection and regulatory acceptance remain unverified')
 
 

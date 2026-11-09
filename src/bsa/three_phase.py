@@ -68,7 +68,8 @@ def prepare(project):
     number(s,'angle_degree')
     adjacency={b:set() for b in ids}
     for line in rows('lines'):
-        fields(line,'id from to length_m r1_ohm_per_km x1_ohm_per_km r0_ohm_per_km x0_ohm_per_km max_current_a source current_limit_source')
+        fields(line,'id from to length_m r1_ohm_per_km x1_ohm_per_km r0_ohm_per_km x0_ohm_per_km max_current_a source current_limit_source'+(' length_source' if 'length_source' in line else ''))
+        if 'length_source' in line:source(line,'length_source')
         source(line);source(line,'current_limit_source')
         if any(not isinstance(line[k],str) or line[k] not in ids for k in ('from','to')) or line['from']==line['to']:raise ProjectError('valid distinct line buses required')
         adjacency[line['from']].add(line['to']);adjacency[line['to']].add(line['from'])

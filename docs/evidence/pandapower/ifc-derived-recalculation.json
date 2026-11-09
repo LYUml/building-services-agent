@@ -1,0 +1,163 @@
+{
+  "scope": "Executed synthetic stale-length to native-IFC-length recalculation, not real installation validation",
+  "changes": [
+    {
+      "id": "feeder",
+      "baseline_length_m": 80,
+      "derived_length_m": 40.0
+    },
+    {
+      "id": "branch",
+      "baseline_length_m": 50,
+      "derived_length_m": 25.0
+    }
+  ],
+  "original_inputs_unchanged": true,
+  "derived_geometry_correspondence_pass": true,
+  "numerical_status": "pass",
+  "old_nodes": [
+    {
+      "id": "source",
+      "phase_voltage_v": [
+        230.93658001685867,
+        230.93960258321775,
+        230.9441404281109
+      ],
+      "phase_angle_degree": [
+        8.926121254808198e-05,
+        -119.99998921258039,
+        119.99989995450194
+      ],
+      "current_balance_error_a": [
+        8.881784197001252e-16,
+        5.0242958677880805e-15,
+        0.0
+      ],
+      "voltage_target_pass": true
+    },
+    {
+      "id": "DB-A",
+      "phase_voltage_v": [
+        230.5006262044439,
+        230.46171212034534,
+        230.55545993237544
+      ],
+      "phase_angle_degree": [
+        -0.011907966467227233,
+        -120.03209731872464,
+        119.95273739127494
+      ],
+      "current_balance_error_a": [
+        9.459746269022244e-08,
+        3.5924016842302344e-08,
+        5.680724822955061e-08
+      ],
+      "voltage_target_pass": true
+    },
+    {
+      "id": "load-B",
+      "phase_voltage_v": [
+        230.50813834090349,
+        230.35642848546053,
+        230.3824020040296
+      ],
+      "phase_angle_degree": [
+        -0.01839645794720242,
+        -120.02561453353995,
+        119.9333203983033
+      ],
+      "current_balance_error_a": [
+        2.6165341241984074e-08,
+        2.2809915353662563e-08,
+        8.00349192613973e-08
+      ],
+      "voltage_target_pass": true
+    }
+  ],
+  "new_nodes": [
+    {
+      "id": "source",
+      "phase_voltage_v": [
+        230.93657438186426,
+        230.9396023701762,
+        230.9441462761427
+      ],
+      "phase_angle_degree": [
+        8.843875207779306e-05,
+        -119.99998834531819,
+        119.999899909695
+      ],
+      "current_balance_error_a": [
+        3.552713678800501e-15,
+        7.105427357601002e-15,
+        3.972054645195637e-15
+      ],
+      "voltage_target_pass": true
+    },
+    {
+      "id": "DB-A",
+      "phase_voltage_v": [
+        230.71880516715729,
+        230.70089602068623,
+        230.75005931640112
+      ],
+      "phase_angle_degree": [
+        -0.005896397922919687,
+        -120.0160270412924,
+        119.97633170163567
+      ],
+      "current_balance_error_a": [
+        1.1949062315853206e-08,
+        4.986054702516146e-09,
+        7.594970168367545e-09
+      ],
+      "voltage_target_pass": true
+    },
+    {
+      "id": "load-B",
+      "phase_voltage_v": [
+        230.7225575659385,
+        230.64830853585616,
+        230.6636378223522
+      ],
+      "phase_angle_degree": [
+        -0.009131115109827495,
+        -120.01279265868774,
+        119.96664216872576
+      ],
+      "current_balance_error_a": [
+        3.3156584643667715e-09,
+        3.168281499377208e-09,
+        1.0467065407197867e-08
+      ],
+      "voltage_target_pass": true
+    }
+  ],
+  "old_network_sha256": "ca9cede8d9e5191caef3e568dba953835b69a7f072e6821091d3a6280d889aad",
+  "new_network_sha256": "4dd06f7b17e58245d46c65ebd1ad4cf58d1604461d086cfe9520e32fb284c70d",
+  "source_kind_preserved": "assumption",
+  "design_accepted": false,
+  "artifacts": {
+    "runs\\three-phase-ifc-recalculated-v2\\derivation.json": "f0198babb52cf24ef520715ab739a5864c14a4b4d1756b8455e871287604f27c",
+    "runs\\three-phase-ifc-recalculated-v2\\project.json": "a89bbfd8c3732fe42dabbf00ca07c35cfd78c0f9fa9b4660dbce13c5b8800dfa",
+    "runs\\three-phase-ifc-recalculated-v2\\derived-ifc-check.json": "cae0e77b34143490012e4b21b91c486f142e04e081a346b589414380b0bce865",
+    "runs\\three-phase-ifc-recalculated-v2\\study\\native\\study.json": "d1cb9dddf82fbee6f0b5a29bcdf2f4c2ccb2f7a9a7c894f12937c580eba9e5a0"
+  },
+  "test_evidence": {
+    "distinct_tests": 35,
+    "groups": {
+      "derivation": 7,
+      "saved_ifc": 10,
+      "ifc_workflow": 5,
+      "drawing_workflow": 5,
+      "native_numerical_adapter": 8
+    },
+    "all_passed": true
+  },
+  "limits": [
+    "Straight paths only",
+    "Bus anchors and cable mapping remain explicit source inputs",
+    "No new route search, cable selection, protection or physical electrical connectivity",
+    "Derivation is a standalone CLI, not yet a workflow producer"
+  ]
+}
