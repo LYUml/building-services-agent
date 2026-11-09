@@ -1,0 +1,8 @@
+{
+  "source": "Synthetic stub lengths for independent laminar split reference",
+  "pipe_lengths_m": {
+    "main-a": 0.2,
+    "main-b": 0.2,
+    "branch": 0.4
+  }
+}
