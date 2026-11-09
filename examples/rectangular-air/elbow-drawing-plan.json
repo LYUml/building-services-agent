@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "b024b83303a4d8c94f0b8821d8afb6dfe45a5ca74ee1cd64b98a8ba6408bb280",
+  "passage_dispositions": {
+    "P001": "requirement",
+    "P002": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "air",
+      "kind": "rectangular_network_binding",
+      "project": "elbow-chain-project.json",
+      "model": "elbow-chain-model.json",
+      "binding": "elbow-chain-binding.json"
+    },
+    {
+      "id": "coordination",
+      "kind": "ifc_clash",
+      "depends_on": "air",
+      "policy": "elbow-chain-clash-policy.json"
+    },
+    {
+      "id": "drawing",
+      "kind": "rectangular_drawing",
+      "depends_on": "air",
+      "requires_pass": [
+        "coordination"
+      ],
+      "settings": "drawing-settings.json",
+      "sheet": "elbow-sheet-settings.json"
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "requires_pass": [
+        "air",
+        "coordination",
+        "drawing"
+      ],
+      "description": "Independent geometry, fitting, fan, acoustic, fire/smoke and Hong Kong acceptance remains pending"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P001",
+      "quote": "Calculate the explicitly synthetic level rectangular duct tree using actual section area and sourced method assumptions. Report branch flows, velocities, total-pressure losses and required source pressure.",
+      "task": "air",
+      "acceptance": "Saved finite rectangular arc length/section and declared excess K with fresh level-air pressure analysis; physical joints and full acceptance separate"
+    },
+    {
+      "id": "R2",
+      "passage": "P002",
+      "quote": "Review actual geometry, fitting applicability, fan selection, acoustics, fire/smoke and Hong Kong requirements before design acceptance.",
+      "task": "review",
+      "acceptance": "Independent actual engineering and regulatory evidence required"
+    },
+    {
+      "id": "R3",
+      "passage": "P002",
+      "quote": "Review actual geometry, fitting applicability, fan selection, acoustics, fire/smoke and Hong Kong requirements before design acceptance.",
+      "task": "coordination",
+      "acceptance": "Represented wall solid overlap and sourced outside-joint clearance only; real fittings/fabrication and full acceptance separate"
+    },
+    {
+      "id": "R4",
+      "passage": "P002",
+      "quote": "Review actual geometry, fitting applicability, fan selection, acoustics, fire/smoke and Hong Kong requirements before design acceptance.",
+      "task": "drawing",
+      "acceptance": "Native-source true quarter arcs, outer outlines and radius/arc-length notes; independent saved/native-export audit, reopened DWG and fixed-scale PDF; visual and full engineering review separate"
+    }
+  ]
+}

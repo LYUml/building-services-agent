@@ -1,0 +1,93 @@
+{
+  "scope": "Synthetic source-defined rectangular lead/quarter/tail; not a completed engineering design",
+  "run": "runs\\rectangular-elbow-native-sheet-v1",
+  "native": {
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-elbow-native-sheet-v1\\drawing\\segments.dxf": "385b042d64323e7679296fba6061859bcf8e7660c0410e124dc8f984e70e055a",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\rectangular-air\\elbow-sheet-settings.json": "91420362e9c3faed2c121717ff765938aab7d095dc867cafe223c161f958b37f"
+    },
+    "inputs_unchanged": true,
+    "engine": "C:\\Program Files\\Autodesk\\AutoCAD 2027\\accoreconsole.exe",
+    "engine_sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2",
+    "dwg_sha256": "2b4423d3f7be474a07ebb5bbcb7d4b32b2976768113e90a230826dbe6975ddff",
+    "native_reopen_pass": true,
+    "checks": {
+      "model_entity_count": 18,
+      "linked_entity_count": 18,
+      "model_entities_and_ifc_xdata_match": true,
+      "geometry_layers_and_annotations_match": true,
+      "metre_units": true
+    },
+    "plot": {
+      "pdf_sha256": "3c6c99bd7b83f6e65ab81bea4cdf3a31ec534456920a71adb95a16b90fbd383c",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 20,
+      "reference_handle": "34",
+      "reference_expected_mm": 50.0,
+      "reference_measured_mm": 49.99566666666668,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "settings": {
+      "source": "Explicit synthetic A4 1:20 sheet; native LEAD 1 m centreline reference expected 50 mm; not regulation",
+      "window_drawing_units": [
+        -0.2,
+        -0.2,
+        5.2,
+        3.8
+      ],
+      "scale_denominator": 20,
+      "reference_ifc_guid": "161gaDWF5OIx9gCqbfMJB6",
+      "pdf_tolerance_mm": 0.2
+    },
+    "design_accepted": false,
+    "pending": [
+      "actual PDF visual review",
+      "equipment/fittings/insulation and installation drawing detail",
+      "complete engineering acceptance"
+    ],
+    "artifacts": {
+      "input.dxf": "385b042d64323e7679296fba6061859bcf8e7660c0410e124dc8f984e70e055a",
+      "plot.log": "2a4c238827f179ee31d0f0270d5babb98b3e3114109e17ac7e70b4236c0297d2",
+      "save.log": "82b18628aa96efcb065e7a3d7434c40f7a45ef53e98134d80030fee0888e4239",
+      "save.scr": "726f5f4ba94d13331fabedd3da5c8fcd09c01bf8884ec9ae830b7e89f50f7432",
+      "segments.dwg": "2b4423d3f7be474a07ebb5bbcb7d4b32b2976768113e90a230826dbe6975ddff",
+      "sheet.json": "9931e5feb820ba24a3b455be28ccc54583ebd9b24fe118561bff8bdbc1fdf29f",
+      "sheet.log": "26373b20e04a42b2235f171065254ac908de798c6b0c70f1e9823e015cce068c",
+      "sheet.pdf": "3c6c99bd7b83f6e65ab81bea4cdf3a31ec534456920a71adb95a16b90fbd383c",
+      "sheet.scr": "3fc961a4f8f608d83a379459b39c5dcf1ce15ed370068c6d06196bbbb77e350c",
+      "native-reopen/export.log": "1eb363dd4c18ab11fb387469863df233f8c307dad6ae4518efdca8e964ea15bc",
+      "native-reopen/export.scr": "66ac0b9b499828ed3beafeb8bc66af63ae5d48e0bb38fb3d93b58adf8a39d936",
+      "native-reopen/source-copy.dwg": "2b4423d3f7be474a07ebb5bbcb7d4b32b2976768113e90a230826dbe6975ddff",
+      "native-reopen/source-export.dxf": "ffa95a0960b098a051f5545d1438cd2fc3b00fdb4445db7522933c209fcd3792",
+      "ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "2ddd019bba7807544a7a02d0c047c1e5ef9bb87c70dd62e4fa559e8188bdd193",
+      "native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "c858572c9fbf2c7d9f6c3e2aae0ba45819cdd6430e22d630f1d29e3df91b6132"
+    }
+  },
+  "visual_review": {
+    "status": "pass",
+    "render_sha256": "7b5cb0f86f58dee717ae2698a0f643d0869990e5f21f29b52b9004ae5bf71f2c",
+    "observations": [
+      "Continuous quarter-circle outlines and centreline",
+      "Three readable nonoverlapping source-linked notes",
+      "No visible clipping"
+    ],
+    "limitations": [
+      "No hidden lines, insulation, fabrication dimensions or title block",
+      "No actual fitting selection or full Hong Kong acceptance"
+    ]
+  },
+  "negative": {
+    "run": "runs/rectangular-elbow-low-sheet-v1/result",
+    "supply_pressure_pa": 1,
+    "air": "fail",
+    "drawing": "pending",
+    "drawing_folder_exists": false
+  },
+  "design_accepted": false
+}

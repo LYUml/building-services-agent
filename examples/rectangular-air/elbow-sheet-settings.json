@@ -1,0 +1,12 @@
+{
+  "source": "Explicit synthetic A4 1:20 sheet; native LEAD 1 m centreline reference expected 50 mm; not regulation",
+  "window_drawing_units": [
+    -0.2,
+    -0.2,
+    5.2,
+    3.8
+  ],
+  "scale_denominator": 20,
+  "reference_ifc_guid": "161gaDWF5OIx9gCqbfMJB6",
+  "pdf_tolerance_mm": 0.2
+}
