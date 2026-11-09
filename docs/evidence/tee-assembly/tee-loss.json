@@ -1,0 +1,55 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\tee-stable-identity-v1\\assembly.ifc": "0a46eb25049756ff9d5bafb3f76a71a21ebea81d39764c856c6079180d372af4",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\tee-trial\\spec.json": "6b17e04d350457bf20e8a39ddc6ae3fa586ff4c93e89dcf038709200bad3087c",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\tee-trial\\assembly.json": "f6cc12559ecc56c5ed1967420898832859f44b20801ca3df113848668fec2c74",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\tee-trial\\loss-basis.json": "36b932f7c33687b1f2731f6a8699b9595a844b66efbf28c25508304de6c9b868"
+  },
+  "basis": {
+    "source": "Explicit synthetic prescribed-flow diagnostic: 0.75 L/s run, 0.25 L/s branch, assumed water density 998 kg/m3",
+    "correlation_assumption": "Evaluate fluids 1.3.1 Crane equal-bore 90-degree diverging correlation as a scenario only; manufacturer applicability is unverified",
+    "inlet_port": "main-a",
+    "run_flow_m3_s": 0.00075,
+    "branch_flow_m3_s": 0.00025,
+    "density_kg_m3": 998.0
+  },
+  "fluids_version": "1.3.1",
+  "fittings_module_sha256": "4e2077df2dd29e01eb94a492ebefaa232c793f009440c24aa0ada5ba25cc771c",
+  "tee_guid": "1uO56cbanL4heLbI0yLPGp",
+  "inlet_guid": "2RjniwW9vSXO4NAvQJWxnM",
+  "combined_flow_m3_s": 0.001,
+  "combined_velocity_m_s": 1.2433979929054324,
+  "reference_dynamic_pressure_pa": 771.4732458118676,
+  "coefficient_reference": "combined inlet velocity; signed values retained",
+  "paths": {
+    "run": {
+      "outlet_guid": "3ciboAg7XUI9bIT0XzRULa",
+      "flow_m3_s": 0.00075,
+      "k_combined_velocity": -0.0625,
+      "signed_k_times_dynamic_pressure_pa": -48.21707786324173
+    },
+    "branch": {
+      "outlet_guid": "2hT7IXNQfPM8Uf9bMsbgW3",
+      "flow_m3_s": 0.00025,
+      "k_combined_velocity": 1.0378515625,
+      "signed_k_times_dynamic_pressure_pa": 800.6747135927934
+    }
+  },
+  "geometry_checks": {
+    "tee_geometry": true,
+    "exact_pipe_names": true,
+    "stable_identities": true,
+    "reversible_port_directions": true,
+    "connections_match": true,
+    "pipe_geometry_ports_match": true,
+    "no_material_interpenetration": true
+  },
+  "diagnostic_executed": true,
+  "design_accepted": false,
+  "pending": [
+    "physical correlation applicability",
+    "finite fitting distributed friction/reference stations",
+    "passive flow split and network pressure solution",
+    "product and regulatory acceptance"
+  ]
+}

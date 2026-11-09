@@ -43,3 +43,14 @@ The tee spec now requires a canonical `project_uuid`. Retain it for revisions of
 Saved assembly checks require all 13 expected identities to match and be unique. Real regenerate/reopen regression runs verify identical identities across repeat generation and a branch-length revision, disjoint identities under a different namespace, rejection of a substituted saved port GUID, and malformed namespace rejection before output creation. Existing blocked-bore, unchanged-port penetration and gap controls still pass. Relationships, property sets, representations and file bytes are not promised stable. Historical evidence archives predate this required input and retain their original random IDs.
 
 Current positive IFC and checks are archived in `docs/evidence/tee-assembly/stable-identity.zip`. This improves revision correspondence; it does not supply directional hydraulic losses or establish engineering acceptance.
+
+
+## Source-bound directional coefficient diagnostic
+
+Run `python scripts/probe_tee_losses.py --model <saved-assembly.ifc> --tee-spec examples/tee-trial/spec.json --assembly-spec examples/tee-trial/assembly.json --basis examples/tee-trial/loss-basis.json --out <new-repository-run>` in the established environment. Regression: `python scripts/test_tee_losses.py`.
+
+This calls unmodified fluids 1.3.1 `K_branch_diverging_Crane` and `K_run_diverging_Crane`. [Upstream reference](https://fluids.readthedocs.io/fluids.fittings.html) defines their coefficients against combined inlet velocity; signed run values must be retained. The trial supports only the verified equal-bore 90-degree assembly, either main leg as inlet, and two positive prescribed outlet flows. It reopens and verifies saved geometry/identities before binding the inlet/outlet GUIDs. Basis/source hashes and the installed fittings module hash are recorded.
+
+The synthetic 0.75/0.25 L/s run/branch split produces K values -0.0625 and 1.0378515625. At assumed density 998 kg/m3, K times inlet dynamic pressure is -48.217 and 800.675 Pa respectively. These are correlation diagnostics, not terminal pressure predictions. Independent numeric anchors, fourfold pressure scaling on doubled flow, reversed main inlet mapping, unsupported branch-inlet rejection and changed saved-body rejection passed.
+
+No general network adapter is enabled: the current segment interface assumes nonnegative local-velocity losses, whereas this diagnostic retains signed combined-velocity coefficients. Reference stations, finite fitting distributed friction and physical correlation applicability need resolution before a complete pressure balance. Prescribed split does not establish passive balancing. Manufacturer, regulatory and engineering acceptance remain false. Evidence: `docs/evidence/tee-assembly/tee-loss.json`, using the IFC in the stable-identity archive.
