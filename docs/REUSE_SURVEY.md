@@ -19,3 +19,16 @@ Install optional dependencies with `python -m pip install -e ".[ids]"`. Run `pyt
 Priorities: use upstream IDS now; evaluate FreeCAD/Dodo/OSE finite fittings next; use the verified isolated IfcMCP query trial and evaluate mutation/geometry separately; retain the already tested OpenStudio/EnergyPlus, WNTR/EPANET, Radiance, IfcOpenShell, ezdxf and Manifold runtimes. Custom code should focus on provenance, jurisdiction applicability, cross-tool data binding and delivery checks where existing tools do not supply the project contract.
 
 The installed IfcOpenShell 0.8.5 ShapeBuilder bend/transition helpers and geometry.add_boolean API were inspected for fitting reuse. A separate executed equal-bore hollow-tee trial now composes upstream cylinder unions/difference and verifies the saved native mesh with pinned Manifold3D 3.5.4, independent volume and blocked-bore controls. See IFC_TEE_TRIAL.md; this is not yet a production fitting/network adapter.
+
+## Follow-up discovery — 2026-11-09
+
+Rechecked the upstream IfcMCP, IfcTester, OpenStudio MCP, AutoCAD MCP, FreeCAD MCP and Dodo pages. Existing pinned, locally executed evidence above takes precedence over newer upstream capability claims; this review does not upgrade dependencies.
+
+Additional candidates:
+
+| Upstream | Reuse opportunity | Decision and evidence boundary |
+|---|---|---|
+| [Honeybee Radiance](https://github.com/ladybug-tools/honeybee-radiance) | Documented `honeybee-radiance` CLI for daylight/radiation simulation; evaluate before implementing annual daylight orchestration | Research only. Not installed, pinned or executed in this review. Existing electric-light Radiance checks remain authoritative. Inspect selected release, license and engine compatibility before adoption. |
+| [Honeybee Energy](https://github.com/ladybug-tools/honeybee-energy) / [CLI documentation](https://www.ladybug.tools/honeybee-energy/docs/cli/index.html) | EnergyPlus/OpenStudio model translation and CLI operations, particularly if incoming work uses Honeybee models | Research only. Avoid adding a parallel energy stack without an input/workflow need; existing verified OpenStudio workflow is preferred. No default construction or program library should be treated as Hong Kong regulatory evidence. |
+
+Selection policy: prefer an existing verified CLI/API over adding MCP solely for its interface. Reuse upstream geometry and simulation engines; keep project-specific provenance, model/result correspondence, jurisdiction applicability and delivery acceptance in this repository. MCP availability alone does not establish engineering correctness or local-code compliance.
