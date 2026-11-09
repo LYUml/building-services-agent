@@ -298,15 +298,26 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","rectangular_network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind in ("water_network","rectangular_network") and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
+        if kind=='rectangular_fan_regulations':
+            if set(t)-{'id','kind','depends_on','basis','pack','sources','requires_pass','description'}:raise ProjectError('native fan check inherits rectangular producer; replacement inputs forbidden')
+            parent=t.get('depends_on')
+            if parent not in ids or next(x for x in tasks if x['id']==parent)['kind'] not in ('rectangular_model_design','rectangular_network_binding'):raise ProjectError('native fan check requires earlier rectangular native producer')
+            from . import rectangular_fan_regulations,regulations
+            pack=local_path(root,t.get('pack'));directory=t.get('sources')
+            if not isinstance(directory,str) or Path(directory).is_absolute() or not (root/directory).resolve().is_relative_to(root):raise ProjectError('plan-local official source directory required')
+            official=regulations.source_paths(read_json(pack),root/directory)
+            if any(not f.is_file() for f in official):raise ProjectError('download both fan-power official sources before execution')
+            inputs.update({pack,local_path(root,t.get('basis')),Path(rectangular_fan_regulations.__file__).resolve()}|official|regulations.method_paths(read_json(pack)))
         if kind=='rectangular_drawing':
             if set(t)-{'id','kind','depends_on','settings','sheet','requires_pass','description'}:raise ProjectError('rectangular drawing inherits model; replacements forbidden')
             parent=t.get('depends_on')
             if parent not in ids or next(x for x in tasks if x['id']==parent)['kind'] not in ('rectangular_model_design','rectangular_network_binding'):raise ProjectError('rectangular drawing requires earlier native rectangular producer')
             if not any(x['id'] in gates and x['kind']=='ifc_clash' and x.get('depends_on')==parent for x in tasks):raise ProjectError('rectangular drawing requires same-model clash prerequisite')
+            if any(x['id'] in gates and x['kind']=='rectangular_fan_regulations' and x.get('depends_on')!=parent for x in tasks):raise ProjectError('rectangular drawing fan gate checks a different native producer')
             from . import rectangular_drawing,rectangular_drawing_audit,ifc_native,route_drawing_qa,cad_text_layout
             inputs.update((local_path(root,t.get('settings')),local_path(root,t.get('sheet')),Path(rectangular_drawing.__file__).resolve(),Path(rectangular_drawing_audit.__file__).resolve(),Path(route_drawing_qa.__file__).resolve(),Path(cad_text_layout.__file__).resolve(),Path(ifc_native.__file__).resolve()))
         if kind=='rectangular_model_design':
@@ -1306,6 +1317,17 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     payload=run(source,folder)
                     status='pass' if payload['calculated_checks_pass'] else 'fail'
                     reason='steady EPANET water graph, static head, sourced numerical/target checks; route binding, power and full acceptance pending'
+            elif t['kind']=='rectangular_fan_regulations':
+                parent=t['depends_on']
+                if tasks[parent]['status']!='pass':reason='upstream rectangular native study did not pass; fan rule not executed'
+                else:
+                    from .rectangular_fan_regulations import run
+                    producer=next(x for x in p['tasks'] if x['id']==parent)
+                    base=out/parent/('selected-coordination' if producer['kind']=='rectangular_model_design' else '')
+                    model=out/parent/'selected-model.json' if producer['kind']=='rectangular_model_design' else local_path(root,producer['model'])
+                    payload=run(base/'network-input.json',model,local_path(root,producer['binding']),base/'bim/model.ifc',base/'analysis/network.json',local_path(root,t['basis']),local_path(root,t['pack']),root/t['sources'],folder)
+                    status=payload['status'];reason=payload['scope']
+                    rectangular_pins[t['id']]={str(f):digest(f) for f in folder.rglob('*') if f.is_file()}
             elif t['kind']=='rectangular_drawing':
                 parent=t['depends_on']
                 if tasks[parent]['status']!='pass':reason='upstream rectangular model did not pass; drawing not executed'

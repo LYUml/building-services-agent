@@ -4,7 +4,7 @@
 
 An agent workspace and deterministic engineering tools for reusable MEP workflows. The AI reads requirements and orchestrates tools; calculation engines compute results. Unknown inputs stay unknown.
 
-[Hong Kong base fan power](docs/HK_FAN_POWER.md) now adds a versioned official BEC/TG-backed CAV/VAV sourced-fact module. Clean drawn electrical motor power, inventory, supply flow, scope/exemptions and editions remain explicit; deductions, native fan/network binding, controls and full HVAC acceptance are pending.
+[Hong Kong base fan power](docs/HK_FAN_POWER.md) now adds a versioned official BEC/TG-backed CAV/VAV module, with an optional freshly verified native rectangular supply-flow denominator. Clean drawn electrical motor power, inventory, whole-supply meaning, scope/exemptions and editions remain explicit; deductions, native fan selection/operating point, controls and full HVAC acceptance are pending.
 
 [Rectangular air-tree pressure budgets](docs/RECTANGULAR_AIR_NETWORKS.md) now reuse pinned fluids with actual rectangular area and turbulent hydraulic-diameter friction. The workflow retains insufficient-pressure/velocity failures and pending engineering review. This is level prescribed-flow analysis, not saved geometry, fan selection or Hong Kong acceptance.
 

@@ -7,6 +7,26 @@ from .engine import ProjectError
 from .network_binding import _prepare,_reconcile
 
 
+def inspect_saved(ifc,source,derived,binding):
+    from .bim import validate
+    validate(source)
+    used={name for chain in binding['segments'].values() for name in chain}
+    import ifcopenshell
+    import ifcopenshell.geom
+    from .rectangular_geometry import verify
+    from .circular_geometry import configure
+    saved=ifcopenshell.open(str(ifc));settings=ifcopenshell.geom.settings()
+    settings.set(settings.USE_WORLD_COORDS,True);configure(settings)
+    for device in source['devices']:
+        if device['id'] not in used:continue
+        matches=[obj for obj in saved.by_type('IfcDuctSegment') if obj.Name==device['id']]
+        if len(matches)!=1:raise ProjectError('unique saved rectangular duct required')
+        obj=matches[0];verify(obj,device,ifcopenshell.geom.create_shape(settings,obj))
+    if {o.Name for o in saved.by_type('IfcDuctSegment')}!=used or len(saved.by_type('IfcDuctSegment'))!=len(used):raise ProjectError('exact saved rectangular duct coverage required')
+    _reconcile(ifc,derived,binding,source,rectangular=True)
+    return True
+
+
 def run(project,model,binding,out):
     from .bim import run as author
     from .rectangular_network import run as analyse
@@ -21,19 +41,8 @@ def run(project,model,binding,out):
     out.mkdir(parents=True)
     native=author(paths[1],out/'bim')
     if not native['model_checks_pass'] or any(not d.get('rectangular_checks') for d in native['devices'] if d['id'] in used):raise ProjectError('saved rectangular native wall verification required')
-    import ifcopenshell
-    import ifcopenshell.geom
-    from .rectangular_geometry import verify
-    from .circular_geometry import configure
-    saved=ifcopenshell.open(str(out/'bim/model.ifc'));settings=ifcopenshell.geom.settings()
-    settings.set(settings.USE_WORLD_COORDS,True);configure(settings)
-    for device in data[1]['devices']:
-        if device['id'] not in used:continue
-        matches=[obj for obj in saved.by_type('IfcDuctSegment') if obj.Name==device['id']]
-        if len(matches)!=1:raise ProjectError('unique saved rectangular duct required')
-        obj=matches[0];verify(obj,device,ifcopenshell.geom.create_shape(settings,obj))
     generated=out/'network-input.json';generated.write_text(json.dumps(derived,indent=2),encoding='utf-8')
-    _reconcile(out/'bim/model.ifc',generated,data[2],data[1],rectangular=True)
+    inspect_saved(out/'bim/model.ifc',data[1],generated,data[2])
     calculation=analyse(generated,out/'analysis')
     if any(digest(Path(p))!=sha for p,sha in before.items()):raise ProjectError('rectangular binding inputs changed')
     result=dict(inputs=before,inputs_unchanged=True,segments=evidence,saved_ifc_geometry_match=True,

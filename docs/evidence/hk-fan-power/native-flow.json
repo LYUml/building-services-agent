@@ -1,0 +1,635 @@
+{
+  "scope": "Actual synthetic native rectangular flow denominator and HK base comparison only; native fan selection/inventory authenticity and full acceptance pending",
+  "tasks": [
+    {
+      "id": "model",
+      "kind": "rectangular_model_design",
+      "status": "pass",
+      "recorded_scope": "Finite rectangular sizing and source-defined straight-wall regeneration only; no physical junction, clash, fabrication, fan or full code acceptance",
+      "dependencies": [],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R1"
+      ],
+      "evidence": [
+        "model/baseline-bim/bim-verification.json",
+        "model/baseline-bim/model.ifc",
+        "model/baseline-bim/schema-validation.json",
+        "model/baseline-network.json",
+        "model/filtered-catalogue.json",
+        "model/model-design.json",
+        "model/selected-coordination/analysis/manifest.json",
+        "model/selected-coordination/analysis/network.json",
+        "model/selected-coordination/analysis/report.html",
+        "model/selected-coordination/analysis/segments.csv",
+        "model/selected-coordination/bim/bim-verification.json",
+        "model/selected-coordination/bim/model.ifc",
+        "model/selected-coordination/bim/schema-validation.json",
+        "model/selected-coordination/network-binding.json",
+        "model/selected-coordination/network-input.json",
+        "model/selected-model.json",
+        "model/selected-skeleton.json",
+        "model/sizing/baseline/manifest.json",
+        "model/sizing/baseline/network.json",
+        "model/sizing/baseline/report.html",
+        "model/sizing/baseline/segments.csv",
+        "model/sizing/candidates.csv",
+        "model/sizing/design-comparison.json",
+        "model/sizing/report.html",
+        "model/sizing/selected-network.json",
+        "model/sizing/selected/manifest.json",
+        "model/sizing/selected/network.json",
+        "model/sizing/selected/report.html",
+        "model/sizing/selected/segments.csv"
+      ]
+    },
+    {
+      "id": "pass",
+      "kind": "rectangular_fan_regulations",
+      "status": "pass",
+      "recorded_scope": "Verified native rectangular network/design-flow denominator only; fan motor power/inventory and whole-supply meaning are sourced assertions, not native fan selection or full HVAC acceptance",
+      "dependencies": [
+        "model"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R2"
+      ],
+      "evidence": [
+        "pass/fan-regulations.json"
+      ]
+    },
+    {
+      "id": "pass-review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "Real fan inventory/electrical operating point, scope, controls and full acceptance pending",
+      "dependencies": [
+        "pass"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "pass-review"
+      ],
+      "input_blockers": [],
+      "next_action": "perform the specified review and record evidence separately",
+      "requirement_ids": [
+        "R2-review"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "exceeded",
+      "kind": "rectangular_fan_regulations",
+      "status": "fail",
+      "recorded_scope": "Verified native rectangular network/design-flow denominator only; fan motor power/inventory and whole-supply meaning are sourced assertions, not native fan selection or full HVAC acceptance",
+      "dependencies": [
+        "model"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "exceeded"
+      ],
+      "input_blockers": [],
+      "next_action": "inspect retained failure evidence and correct source or adapter before a new run",
+      "requirement_ids": [
+        "R3"
+      ],
+      "evidence": [
+        "exceeded/fan-regulations.json"
+      ]
+    },
+    {
+      "id": "exceeded-review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "required checks unresolved: exceeded (fail); adapter not executed",
+      "dependencies": [
+        "exceeded"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [
+        "exceeded"
+      ],
+      "upstream_action_tasks": [
+        "exceeded"
+      ],
+      "input_blockers": [],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R3-review"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "unknown-supply",
+      "kind": "rectangular_fan_regulations",
+      "status": "pending",
+      "recorded_scope": "Verified native rectangular network/design-flow denominator only; fan motor power/inventory and whole-supply meaning are sourced assertions, not native fan selection or full HVAC acceptance",
+      "dependencies": [
+        "model"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "unknown-supply"
+      ],
+      "input_blockers": [],
+      "next_action": "resolve the recorded pending condition before a new run",
+      "requirement_ids": [
+        "R4"
+      ],
+      "evidence": [
+        "unknown-supply/fan-regulations.json"
+      ]
+    },
+    {
+      "id": "unknown-supply-review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "required checks unresolved: unknown-supply (pending); adapter not executed",
+      "dependencies": [
+        "unknown-supply"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [
+        "unknown-supply"
+      ],
+      "upstream_action_tasks": [
+        "unknown-supply"
+      ],
+      "input_blockers": [],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R4-review"
+      ],
+      "evidence": []
+    }
+  ],
+  "reports": {
+    "pass": {
+      "status": "pass",
+      "inputs": {
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\workflow\\model\\selected-coordination\\network-input.json": "2e443d30206dbab861458af88e6db8ebc31612993b6ff44aa47cbebdfd8bcdb3",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\workflow\\model\\selected-model.json": "39e808115dae053d9afdaaaf9d462c889a1d92c819a6adaff0020d6331550e1c",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\binding.json": "2166becf49b6ae6e91a233e51de4c011a78cc81b37aa2ce48cc92d64a3c905a9",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\workflow\\model\\selected-coordination\\bim\\model.ifc": "80603d9974da2757148cc89aae528897d48501b1bbed7b218002cf5908e9569b",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\workflow\\model\\selected-coordination\\analysis\\network.json": "54b13290b6efdaeb812d9a6d4b0d9892af674f311559984a86876a2f018706c7",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\pass.json": "b1446b639a4b47e16f252cb952f0ee23df037c88ed6e30d4a859ddb67f96f854",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\fan-pack.json": "078abb33b87298a7c1a5d943852fa8df00e9369c68e81a373a0195ed1b8217f5",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\fan_power_rules.py": "82051e5fc1babdade067f3d9395e3b46a87959bb236a4488fd3051dacceb0e91",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\rectangular_fan_regulations.py": "3fc356a8977e52b1df52c4c11b116f7b61a54b00f6eae1876be9585d0e3e64c0",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\sources\\emsd-tg-bec-2024.pdf": "2fce4b30773f1899635ee985876f418972fb3cacfccb176ba0df7283c4e61186",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\sources\\emsd-bec-2024.pdf": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\regulations.py": "0bcb67449b14a3e9e828c4d21a24622a1950ff48b5b4460478029ffd870b62b7"
+      },
+      "inputs_unchanged": true,
+      "project_sha256": "2e443d30206dbab861458af88e6db8ebc31612993b6ff44aa47cbebdfd8bcdb3",
+      "ifc_sha256": "80603d9974da2757148cc89aae528897d48501b1bbed7b218002cf5908e9569b",
+      "native_geometry_correspondence_pass": true,
+      "fresh_supply_design_flow_l_s": 2000.0,
+      "rule_result": {
+        "rule_pack": "hk-fan-power-2026.11.10",
+        "jurisdiction": "HK",
+        "checks": [
+          {
+            "id": "HK.EMSD.BEC2024.base_fan_power",
+            "status": "pass",
+            "scope": "Conditioned-space CAV/VAV base fan-power ratio with explicit exemption basis; no deductions or whole-HVAC acceptance",
+            "source_url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+            "source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+            "edition": "2024",
+            "clause": "6.7.1-6.7.3, 6.7.5",
+            "pdf_page_1_based": 30,
+            "value": 0,
+            "unit": "count",
+            "maximum": 0,
+            "evidence": "Unadjusted supply/return clean-condition drawn electrical motor watts versus supply design L/s",
+            "reasons": [
+              "selected prescriptive limit met"
+            ],
+            "mode": "CAV",
+            "unadjusted_fan_motor_power_w": 3200.0,
+            "supply_design_airflow_l_s": 2000.0,
+            "maximum_unadjusted_power_w": 3200.0,
+            "exemption_asserted": false,
+            "deduction_applied_w": 0.0,
+            "guidance_url": "https://www.emsd.gov.hk/beeo/en/pee/TG-BEC_2024.pdf",
+            "guidance_printed_page": "76",
+            "motor_nameplate_or_air_power_substitution_permitted": false,
+            "pending_scope": [
+              "authentic equipment/inventory and actual clean operating point",
+              "6.7.4 reduced-speed/fresh-air requirements",
+              "6.7.6 mechanical ventilation route",
+              "deductions and full HVAC/engineering acceptance"
+            ]
+          }
+        ],
+        "supported_checks_pass": true,
+        "coverage": {
+          "complete": false,
+          "implemented": [
+            "Selected conditioned-space unadjusted CAV/VAV fan-power path"
+          ],
+          "pending": [
+            "actual scope/edition/equipment and clean operating point",
+            "reduced-speed/fresh-air controls",
+            "deductions and mechanical ventilation",
+            "network/model/numerical correspondence",
+            "full HVAC and statutory acceptance"
+          ]
+        },
+        "regulatory_compliance": "not_established",
+        "design_accepted": false,
+        "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+      },
+      "derived_facts": {
+        "bec_air_conditioning_scope_confirmed": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "prescriptive_route_selected": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "conditioned_space": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "only_supply_return_fans_counted": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "fan_inventory_complete": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "motor_power_drawn_clean_basis_confirmed": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "supply_design_flow_basis_confirmed": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "no_deduction_claimed": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "fan_motor_power": {
+          "value": 3200.0,
+          "unit": "W",
+          "source": "Synthetic total clean supply/return drawn electrical motor power"
+        },
+        "clean_treatment_pressure_drop": {
+          "value": 250.0,
+          "unit": "Pa",
+          "source": "Synthetic clean treatment total pressure drop"
+        },
+        "ahu_individual_fan_exemption_applies": {
+          "value": false,
+          "source": "Synthetic AHU exemption decision"
+        },
+        "schedule2_exemption_applies": {
+          "value": false,
+          "source": "Synthetic Schedule 2 scope decision"
+        },
+        "air_distribution_mode": {
+          "value": "CAV",
+          "source": "Synthetic CAV classification"
+        },
+        "network_represents_supply_design_flow": {
+          "value": true,
+          "source": "Explicit synthetic whole-supply correspondence; not a verified real building inventory"
+        },
+        "supply_design_airflow": {
+          "value": 2000.0,
+          "unit": "L/s",
+          "source": "Fresh source-native-bound rectangular supply flow; project SHA256 2e443d30206dbab861458af88e6db8ebc31612993b6ff44aa47cbebdfd8bcdb3; IFC SHA256 80603d9974da2757148cc89aae528897d48501b1bbed7b218002cf5908e9569b"
+        }
+      },
+      "design_accepted": false,
+      "regulatory_compliance": "not_established",
+      "scope": "Verified native rectangular network/design-flow denominator only; fan motor power/inventory and whole-supply meaning are sourced assertions, not native fan selection or full HVAC acceptance"
+    },
+    "exceeded": {
+      "status": "fail",
+      "inputs": {
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\workflow\\model\\selected-coordination\\network-input.json": "2e443d30206dbab861458af88e6db8ebc31612993b6ff44aa47cbebdfd8bcdb3",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\workflow\\model\\selected-model.json": "39e808115dae053d9afdaaaf9d462c889a1d92c819a6adaff0020d6331550e1c",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\binding.json": "2166becf49b6ae6e91a233e51de4c011a78cc81b37aa2ce48cc92d64a3c905a9",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\workflow\\model\\selected-coordination\\bim\\model.ifc": "80603d9974da2757148cc89aae528897d48501b1bbed7b218002cf5908e9569b",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\workflow\\model\\selected-coordination\\analysis\\network.json": "54b13290b6efdaeb812d9a6d4b0d9892af674f311559984a86876a2f018706c7",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\exceeded.json": "a59687e1cf61cbded97710dd6b014ebbc247b147fce2108840020f52ecb551b0",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\fan-pack.json": "078abb33b87298a7c1a5d943852fa8df00e9369c68e81a373a0195ed1b8217f5",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\fan_power_rules.py": "82051e5fc1babdade067f3d9395e3b46a87959bb236a4488fd3051dacceb0e91",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\rectangular_fan_regulations.py": "3fc356a8977e52b1df52c4c11b116f7b61a54b00f6eae1876be9585d0e3e64c0",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\sources\\emsd-tg-bec-2024.pdf": "2fce4b30773f1899635ee985876f418972fb3cacfccb176ba0df7283c4e61186",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\sources\\emsd-bec-2024.pdf": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\regulations.py": "0bcb67449b14a3e9e828c4d21a24622a1950ff48b5b4460478029ffd870b62b7"
+      },
+      "inputs_unchanged": true,
+      "project_sha256": "2e443d30206dbab861458af88e6db8ebc31612993b6ff44aa47cbebdfd8bcdb3",
+      "ifc_sha256": "80603d9974da2757148cc89aae528897d48501b1bbed7b218002cf5908e9569b",
+      "native_geometry_correspondence_pass": true,
+      "fresh_supply_design_flow_l_s": 2000.0,
+      "rule_result": {
+        "rule_pack": "hk-fan-power-2026.11.10",
+        "jurisdiction": "HK",
+        "checks": [
+          {
+            "id": "HK.EMSD.BEC2024.base_fan_power",
+            "status": "review_required",
+            "scope": "Conditioned-space CAV/VAV base fan-power ratio with explicit exemption basis; no deductions or whole-HVAC acceptance",
+            "source_url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+            "source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+            "edition": "2024",
+            "clause": "6.7.1-6.7.3, 6.7.5",
+            "pdf_page_1_based": 30,
+            "value": 1,
+            "unit": "count",
+            "maximum": 0,
+            "evidence": "Unadjusted supply/return clean-condition drawn electrical motor watts versus supply design L/s",
+            "reasons": [
+              "Base comparison exceeds limit; review actual scope, design and applicable deductions/routes"
+            ],
+            "mode": "CAV",
+            "unadjusted_fan_motor_power_w": 3201.0,
+            "supply_design_airflow_l_s": 2000.0,
+            "maximum_unadjusted_power_w": 3200.0,
+            "exemption_asserted": false,
+            "deduction_applied_w": 0.0,
+            "guidance_url": "https://www.emsd.gov.hk/beeo/en/pee/TG-BEC_2024.pdf",
+            "guidance_printed_page": "76",
+            "motor_nameplate_or_air_power_substitution_permitted": false,
+            "pending_scope": [
+              "authentic equipment/inventory and actual clean operating point",
+              "6.7.4 reduced-speed/fresh-air requirements",
+              "6.7.6 mechanical ventilation route",
+              "deductions and full HVAC/engineering acceptance"
+            ]
+          }
+        ],
+        "supported_checks_pass": false,
+        "coverage": {
+          "complete": false,
+          "implemented": [
+            "Selected conditioned-space unadjusted CAV/VAV fan-power path"
+          ],
+          "pending": [
+            "actual scope/edition/equipment and clean operating point",
+            "reduced-speed/fresh-air controls",
+            "deductions and mechanical ventilation",
+            "network/model/numerical correspondence",
+            "full HVAC and statutory acceptance"
+          ]
+        },
+        "regulatory_compliance": "not_established",
+        "design_accepted": false,
+        "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+      },
+      "derived_facts": {
+        "bec_air_conditioning_scope_confirmed": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "prescriptive_route_selected": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "conditioned_space": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "only_supply_return_fans_counted": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "fan_inventory_complete": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "motor_power_drawn_clean_basis_confirmed": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "supply_design_flow_basis_confirmed": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "no_deduction_claimed": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "fan_motor_power": {
+          "value": 3201.0,
+          "unit": "W",
+          "source": "Synthetic total clean supply/return drawn electrical motor power"
+        },
+        "clean_treatment_pressure_drop": {
+          "value": 250.0,
+          "unit": "Pa",
+          "source": "Synthetic clean treatment total pressure drop"
+        },
+        "ahu_individual_fan_exemption_applies": {
+          "value": false,
+          "source": "Synthetic AHU exemption decision"
+        },
+        "schedule2_exemption_applies": {
+          "value": false,
+          "source": "Synthetic Schedule 2 scope decision"
+        },
+        "air_distribution_mode": {
+          "value": "CAV",
+          "source": "Synthetic CAV classification"
+        },
+        "network_represents_supply_design_flow": {
+          "value": true,
+          "source": "Explicit synthetic whole-supply correspondence; not a verified real building inventory"
+        },
+        "supply_design_airflow": {
+          "value": 2000.0,
+          "unit": "L/s",
+          "source": "Fresh source-native-bound rectangular supply flow; project SHA256 2e443d30206dbab861458af88e6db8ebc31612993b6ff44aa47cbebdfd8bcdb3; IFC SHA256 80603d9974da2757148cc89aae528897d48501b1bbed7b218002cf5908e9569b"
+        }
+      },
+      "design_accepted": false,
+      "regulatory_compliance": "not_established",
+      "scope": "Verified native rectangular network/design-flow denominator only; fan motor power/inventory and whole-supply meaning are sourced assertions, not native fan selection or full HVAC acceptance"
+    },
+    "unknown-supply": {
+      "status": "pending",
+      "inputs": {
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\workflow\\model\\selected-coordination\\network-input.json": "2e443d30206dbab861458af88e6db8ebc31612993b6ff44aa47cbebdfd8bcdb3",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\workflow\\model\\selected-model.json": "39e808115dae053d9afdaaaf9d462c889a1d92c819a6adaff0020d6331550e1c",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\binding.json": "2166becf49b6ae6e91a233e51de4c011a78cc81b37aa2ce48cc92d64a3c905a9",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\workflow\\model\\selected-coordination\\bim\\model.ifc": "80603d9974da2757148cc89aae528897d48501b1bbed7b218002cf5908e9569b",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\workflow\\model\\selected-coordination\\analysis\\network.json": "54b13290b6efdaeb812d9a6d4b0d9892af674f311559984a86876a2f018706c7",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\unknown-supply.json": "b29690fc3d76a49dfd6cfc056f234b49087ca5a146920cf5728db9dedb90aa0c",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\fan-pack.json": "078abb33b87298a7c1a5d943852fa8df00e9369c68e81a373a0195ed1b8217f5",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\fan_power_rules.py": "82051e5fc1babdade067f3d9395e3b46a87959bb236a4488fd3051dacceb0e91",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\rectangular_fan_regulations.py": "3fc356a8977e52b1df52c4c11b116f7b61a54b00f6eae1876be9585d0e3e64c0",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\sources\\emsd-tg-bec-2024.pdf": "2fce4b30773f1899635ee985876f418972fb3cacfccb176ba0df7283c4e61186",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-fan-workflow-v1\\sources\\emsd-bec-2024.pdf": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\regulations.py": "0bcb67449b14a3e9e828c4d21a24622a1950ff48b5b4460478029ffd870b62b7"
+      },
+      "inputs_unchanged": true,
+      "project_sha256": "2e443d30206dbab861458af88e6db8ebc31612993b6ff44aa47cbebdfd8bcdb3",
+      "ifc_sha256": "80603d9974da2757148cc89aae528897d48501b1bbed7b218002cf5908e9569b",
+      "native_geometry_correspondence_pass": true,
+      "fresh_supply_design_flow_l_s": 2000.0,
+      "rule_result": {
+        "rule_pack": "hk-fan-power-2026.11.10",
+        "jurisdiction": "HK",
+        "checks": [
+          {
+            "id": "HK.EMSD.BEC2024.base_fan_power",
+            "status": "pending",
+            "scope": "Conditioned-space CAV/VAV base fan-power ratio with explicit exemption basis; no deductions or whole-HVAC acceptance",
+            "source_url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+            "source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+            "edition": "2024",
+            "clause": "6.7.1-6.7.3, 6.7.5",
+            "pdf_page_1_based": 30,
+            "value": 0,
+            "unit": "count",
+            "maximum": 0,
+            "evidence": "Unadjusted supply/return clean-condition drawn electrical motor watts versus supply design L/s",
+            "reasons": [
+              "selected prescriptive limit met",
+              "source-backed whole-supply design-flow correspondence unresolved"
+            ],
+            "mode": "CAV",
+            "unadjusted_fan_motor_power_w": 3200.0,
+            "supply_design_airflow_l_s": 2000.0,
+            "maximum_unadjusted_power_w": 3200.0,
+            "exemption_asserted": false,
+            "deduction_applied_w": 0.0,
+            "guidance_url": "https://www.emsd.gov.hk/beeo/en/pee/TG-BEC_2024.pdf",
+            "guidance_printed_page": "76",
+            "motor_nameplate_or_air_power_substitution_permitted": false,
+            "pending_scope": [
+              "authentic equipment/inventory and actual clean operating point",
+              "6.7.4 reduced-speed/fresh-air requirements",
+              "6.7.6 mechanical ventilation route",
+              "deductions and full HVAC/engineering acceptance"
+            ]
+          }
+        ],
+        "supported_checks_pass": false,
+        "coverage": {
+          "complete": false,
+          "implemented": [
+            "Selected conditioned-space unadjusted CAV/VAV fan-power path"
+          ],
+          "pending": [
+            "actual scope/edition/equipment and clean operating point",
+            "reduced-speed/fresh-air controls",
+            "deductions and mechanical ventilation",
+            "network/model/numerical correspondence",
+            "full HVAC and statutory acceptance"
+          ]
+        },
+        "regulatory_compliance": "not_established",
+        "design_accepted": false,
+        "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+      },
+      "derived_facts": {
+        "bec_air_conditioning_scope_confirmed": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "prescriptive_route_selected": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "conditioned_space": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "only_supply_return_fans_counted": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "fan_inventory_complete": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "motor_power_drawn_clean_basis_confirmed": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "supply_design_flow_basis_confirmed": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "no_deduction_claimed": {
+          "value": true,
+          "source": "Explicit synthetic basis assumption; not authenticated project or manufacturer data"
+        },
+        "fan_motor_power": {
+          "value": 3200.0,
+          "unit": "W",
+          "source": "Synthetic total clean supply/return drawn electrical motor power"
+        },
+        "clean_treatment_pressure_drop": {
+          "value": 250.0,
+          "unit": "Pa",
+          "source": "Synthetic clean treatment total pressure drop"
+        },
+        "ahu_individual_fan_exemption_applies": {
+          "value": false,
+          "source": "Synthetic AHU exemption decision"
+        },
+        "schedule2_exemption_applies": {
+          "value": false,
+          "source": "Synthetic Schedule 2 scope decision"
+        },
+        "air_distribution_mode": {
+          "value": "CAV",
+          "source": "Synthetic CAV classification"
+        },
+        "network_represents_supply_design_flow": {
+          "value": null,
+          "source": "Explicit synthetic whole-supply correspondence; not a verified real building inventory"
+        },
+        "supply_design_airflow": {
+          "value": 2000.0,
+          "unit": "L/s",
+          "source": "Fresh source-native-bound rectangular supply flow; project SHA256 2e443d30206dbab861458af88e6db8ebc31612993b6ff44aa47cbebdfd8bcdb3; IFC SHA256 80603d9974da2757148cc89aae528897d48501b1bbed7b218002cf5908e9569b"
+        }
+      },
+      "design_accepted": false,
+      "regulatory_compliance": "not_established",
+      "scope": "Verified native rectangular network/design-flow denominator only; fan motor power/inventory and whole-supply meaning are sourced assertions, not native fan selection or full HVAC acceptance"
+    }
+  },
+  "integrity_pass": true,
+  "design_accepted": false,
+  "tests": {
+    "native_fan": 6,
+    "rectangular_binding": 4,
+    "fan_rules": 9,
+    "coverage": 7,
+    "model_design": 4,
+    "all_pass": true
+  },
+  "artifacts": {
+    "runs\\rectangular-hk-fan-workflow-v1\\workflow\\workflow.json": "dcf8ad95f816fbff9e3725362f2ad7890182879eb3c7c24c8bda5cf34753c022",
+    "runs\\rectangular-hk-fan-workflow-v1\\workflow\\model\\selected-coordination\\bim\\model.ifc": "80603d9974da2757148cc89aae528897d48501b1bbed7b218002cf5908e9569b",
+    "runs\\rectangular-hk-fan-workflow-v1\\workflow\\pass\\fan-regulations.json": "dc27152b68ec1713442c1bac67415753eec612e3988dec6c8b5243a9bc077ed4",
+    "runs\\rectangular-hk-fan-workflow-v1\\workflow\\exceeded\\fan-regulations.json": "a662c5c65c63b494d135f5bd5ae69909184046d9624bb372b72a3422476adf2c",
+    "runs\\rectangular-hk-fan-workflow-v1\\workflow\\unknown-supply\\fan-regulations.json": "e54849d82752a7949e67358fa11195ca500571bbab751c16769e261c54b62e44",
+    "runs\\rectangular-hk-fan-workflow-v1\\coverage\\coverage.json": "1d5818a978255cf5af1d3c8ae88d8da0e4889ed1980f90183011abe10ba96484"
+  }
+}
