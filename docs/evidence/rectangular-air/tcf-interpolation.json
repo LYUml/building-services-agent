@@ -1,0 +1,114 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\tcf-fan-intake-v1\\tcf-m300.pdf": "a50f3202afc6fb0fc42af856d43493dc1079a529de36634d25bef9c9ebdcd18b",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\tcf-calibrated-vectors-v2\\extraction.json": "49a0b80f4d9487100ab797e5cd08e84de8997a2667a7df2eaae4055f46a9dd15",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\tcf-calibrated-vectors-v2\\disjoint-paths.json": "2e03627604131e1e32e4fe206c6e3aae526e22924e44b037f18ad222e6cf9cdf"
+  },
+  "native_source_points_match": true,
+  "curve_count": 6,
+  "scope": "Analytic chord versus exact power-law image of each native log-log LINE segment; no extrapolation and no physical performance uncertainty bound",
+  "methods": [
+    "y/y0=(x/x0)^k; k=ln(y1/y0)/ln(x1/x0)",
+    "Differentiate chord/y for maximum relative error and chord-y for maximum absolute error"
+  ],
+  "source_grid_relative_residual": 0.0006200108595425524,
+  "solver_ready": false,
+  "design_accepted": false,
+  "pending": [
+    "Source graph/axis rounding and manufacturer performance tolerance",
+    "CSV endpoint rounding effects and operating-point sensitivity",
+    "Stable interval, installation, actual hardware/motor/ports"
+  ],
+  "curves": [
+    {
+      "speed_rpm": 960,
+      "flow_domain_m3_s": [
+        0.2196160565954146,
+        0.44422766411329145
+      ],
+      "pressure_domain_pa": [
+        49.37283469589767,
+        136.22299493153213
+      ],
+      "segment_count": 200,
+      "maximum_relative_pressure_excess": 1.8487579670617467e-05,
+      "maximum_absolute_pressure_excess_pa": 0.0009273461370422153
+    },
+    {
+      "speed_rpm": 1450,
+      "flow_domain_m3_s": [
+        0.33183963616834256,
+        0.6712316989462128
+      ],
+      "pressure_domain_pa": [
+        112.5522367963083,
+        310.8277299311086
+      ],
+      "segment_count": 200,
+      "maximum_relative_pressure_excess": 1.9453162169012555e-05,
+      "maximum_absolute_pressure_excess_pa": 0.0022494188664898976
+    },
+    {
+      "speed_rpm": 2000,
+      "flow_domain_m3_s": [
+        0.45756942413132623,
+        0.9255470642840374
+      ],
+      "pressure_domain_pa": [
+        214.17717681028356,
+        591.4781541870927
+      ],
+      "segment_count": 200,
+      "maximum_relative_pressure_excess": 1.8486827938868277e-05,
+      "maximum_absolute_pressure_excess_pa": 0.004022622527404835
+    },
+    {
+      "speed_rpm": 2500,
+      "flow_domain_m3_s": [
+        0.5722144010698965,
+        1.1574448184704067
+      ],
+      "pressure_domain_pa": [
+        334.55426886913506,
+        923.9076524927536
+      ],
+      "segment_count": 200,
+      "maximum_relative_pressure_excess": 1.944477252529285e-05,
+      "maximum_absolute_pressure_excess_pa": 0.006752132876369491
+    },
+    {
+      "speed_rpm": 2850,
+      "flow_domain_m3_s": [
+        0.6521149557041859,
+        1.3199763843601284
+      ],
+      "pressure_domain_pa": [
+        434.6033276101194,
+        1201.3283448777074
+      ],
+      "segment_count": 200,
+      "maximum_relative_pressure_excess": 1.9435864452592194e-05,
+      "maximum_absolute_pressure_excess_pa": 0.008494177639040966
+    },
+    {
+      "speed_rpm": 3500,
+      "flow_domain_m3_s": [
+        0.8010451968900842,
+        1.6214427917711036
+      ],
+      "pressure_domain_pa": [
+        655.877506476112,
+        1811.2911127171844
+      ],
+      "segment_count": 200,
+      "maximum_relative_pressure_excess": 1.945277565460052e-05,
+      "maximum_absolute_pressure_excess_pa": 0.012974215455856019
+    }
+  ],
+  "run": "runs\\tcf-interpolation-v1",
+  "report_sha256": "81f32ba79a2aaed74db4fc44a505b2e43ef7c1b3b5e4b7ba19bfd3993066db1a",
+  "tests": {
+    "interpolation": 4,
+    "vector_extraction": 3
+  }
+}
