@@ -1,0 +1,38 @@
+{
+  "scope": "Synthetic tangent quarter plus straight envelope and independent composite Axis; no ports, electrical binding or installation acceptance",
+  "inputs_kind": "assumption",
+  "schema_express_pass": true,
+  "single_connected_native_mesh_pass": true,
+  "analytic_length_m": 2.471238898038469,
+  "checks": {
+    "volume": true,
+    "bounds": true,
+    "centroid": true,
+    "axis_volume": true,
+    "axis_bounds": true,
+    "axis_centroid": true
+  },
+  "ifc_sha256": "6b48de710c8fd4aeb93881b4e6d7f9d7f5280baa0603bca09738fc224f4e0ddb",
+  "probe_sha256": "5ae76620adc1eeaf24ca7075de5a4f09e9b9df37c49ba33fb8bb521d79f011a7",
+  "design_accepted": false,
+  "actual": {
+    "volume": 0.0007763485753805562,
+    "bounds": [
+      [
+        -2.0,
+        -0.009999968817693087,
+        -0.31
+      ],
+      [
+        0.31,
+        0.01,
+        0.0
+      ]
+    ],
+    "centroid": [
+      -0.7728852667996928,
+      -1.5754678641866375e-09,
+      -0.2792223127205918
+    ]
+  }
+}

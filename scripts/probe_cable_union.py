@@ -15,6 +15,7 @@ from bsa.circular_geometry import configure, BOUNDS_TOLERANCE_M, VOLUME_RELATIVE
 from bsa.cli import digest
 from bsa.engine import ProjectError
 from bsa.three_phase import ROOT
+from bsa.cable_continuity import inspect as inspect_continuity
 from probe_cable_revolution import run as quarter
 
 
@@ -40,6 +41,19 @@ def run(out):
     # 0.8.5 has no validate_csg helper; set the standard representation explicitly.
     rep.Items = [result[0]]
     rep.RepresentationType = 'CSG'
+    arc_points = [[.3, 0., 0.], [.3/math.sqrt(2), 0., -.3/math.sqrt(2)], [0., 0., -.3]]
+    arc_curve = model.create_entity('IfcIndexedPolyCurve',
+        Points=model.create_entity('IfcCartesianPointList3D', CoordList=arc_points),
+        Segments=[model.create_entity('IfcArcIndex', (1, 2, 3))], SelfIntersect=False)
+    line_curve = model.create_entity('IfcPolyline', Points=[point((0., 0., -.3)), point((-2., 0., -.3))])
+    composite = model.create_entity('IfcCompositeCurve', SelfIntersect=False, Segments=[
+        model.create_entity('IfcCompositeCurveSegment', Transition='CONTSAMEGRADIENT', SameSense=True, ParentCurve=arc_curve),
+        model.create_entity('IfcCompositeCurveSegment', Transition='DISCONTINUOUS', SameSense=True, ParentCurve=line_curve)])
+    context = api.run('context.add_context', model, context_type='Model', context_identifier='Axis',
+                      target_view='GRAPH_VIEW', parent=model.by_type('IfcGeometricRepresentationContext', include_subtypes=False)[0])
+    axis_rep = model.create_entity('IfcShapeRepresentation', ContextOfItems=context,
+        RepresentationIdentifier='Axis', RepresentationType='Curve3D', Items=[composite])
+    api.run('geometry.assign_representation', model, product=cable, representation=axis_rep)
     path = out / 'continuous-cable.ifc'
     model.write(str(path))
     saved = ifcopenshell.open(str(path))
@@ -47,6 +61,9 @@ def run(out):
     ifcopenshell.validate.validate(saved, logger, express_rules=True)
     if logger.statements:
         raise ProjectError(str(logger.statements[:2]))
+    saved_cable = saved.by_guid(cable.GlobalId)
+    reps = {r.RepresentationIdentifier: r for r in saved_cable.Representation.Representations}
+    correspondence = inspect_continuity(reps['Body'].Items[0], reps['Axis'].Items[0], np.eye(4), 1., 1.)
     settings = ifcopenshell.geom.settings()
     settings.set('use-world-coords', True)
     configure(settings)
@@ -59,7 +76,10 @@ def run(out):
                     bounds=np.array([[-2., -.01, -.31], [.31, .01, 0.]]),
                     centroid=(arc * np.array([k, 0., -k]) + 2 * np.array([-1., 0., -.3])) / (arc + 2))
     checks = compare(actual, expected, BOUNDS_TOLERANCE_M, VOLUME_RELATIVE_TOLERANCE)
-    report = dict(scope='Synthetic tangent quarter plus straight envelope; no Axis, ports, electrical binding or installation acceptance',
+    if not math.isclose(correspondence['length'], arc + 2, abs_tol=1e-10):
+        raise ProjectError('composite true length mismatch')
+    checks.update({'axis_' + key: value for key, value in compare(actual, correspondence['expected'], BOUNDS_TOLERANCE_M, VOLUME_RELATIVE_TOLERANCE).items()})
+    report = dict(scope='Synthetic tangent quarter plus straight envelope and independent composite Axis; no ports, electrical binding or installation acceptance',
                   inputs_kind='assumption', schema_express_pass=True, single_connected_native_mesh_pass=True,
                   analytic_length_m=arc + 2, checks=checks, ifc_sha256=digest(path),
                   probe_sha256=digest(Path(__file__)), design_accepted=False,
