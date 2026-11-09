@@ -8,8 +8,21 @@ Source bytes and review locations are recorded in `sources/regulations/hk-emerge
 
 - FSD Circular 4/2021 adopts BS 5266-1:2016 and BS EN 1838:2013 with local modifications. PDF page 2 makes this applicable to initial building-plan submissions received by FSD on or after 2022-01-01. Unmodified parts of the standards still apply; their complete texts have not been reviewed here.
 - Circular 5/2021 concerns licensed/registered premises and separate central-supply and self-contained requirements. PDF page 2 specifies applications received by the respective licensing authority or FSD from 2022-06-01. Do not substitute the building-plan date for this application date.
-- The September 2022 FSI CoP is a separate edition decision. Neither date above proves that edition applies to a given project, existing building or improvement works.
-- Circular 4/2024's corrigendum was text-reviewed across all seven PDF pages. No section 5.9 amendment is listed. Its cover also requires reading Circulars 5/2022, 1/2023 and 3/2023; those dependencies and later withdrawal/amendment notices remain to be reviewed.
+- Circular 2/2022 PDF page 1 puts the September 2022 CoP into general use from 2022-09-01. Its building-plan rule covers new submissions for new buildings and specified existing-building works: at least half the volume rebuilt, alterations necessitating reconstruction of at least half the main-wall superficial area, or a new occupation permit. Voluntary adoption is also allowed. Neither lighting-standard date above establishes this separate edition decision.
+- Circular 4/2024's corrigendum was text-reviewed across all seven PDF pages. No section 5.9 amendment is listed. Its cited Circulars 5/2022, 1/2023 and 3/2023 have now been text-reviewed, including appendices; see the dependency register below. This is not a complete review of all later FSD instruments.
+
+### Reviewed dependency register
+
+| Circular | Reviewed scope and consequence |
+|---|---|
+| 5/2022 | Calibration requirements and specified inspection-code amendments; immediately effective. Its instrument table must not be generalized into an invented lux-meter calibration requirement. |
+| 1/2023 | Car-port sprinkler requirement and building-plan transition from 2023-04-01; no replacement accommodation lighting threshold identified. |
+| 3/2023 | Battery-room/charging-facility gas extraction, replacing paragraph 8 of Part XI of Circular 4/96; initial building plans from 2023-09-01, with voluntary earlier adoption. Relevant to central battery arrangements when its scope applies; not a blanket ventilation rule for every luminaire. |
+| 1/2025 | Obsolete-letter register; the reviewed English table does not list 4/2021 or 5/2021 as withdrawn. |
+| 6/2025 | Confirms emergency-lighting Circular 1/2006 was superseded by 5/2021, and calibration Circular 1/2016 by 5/2022. Neither 4/2021 nor 5/2021 is listed as withdrawn in this register. |
+| 3/2025 | Adds water-based fixed installation requirements for battery rooms/charging facilities, including a lithium-ion capacity condition at fire-compartment level. Building-plan transition starts 2025-08-01 for the stated new/existing-building categories. Treat central-battery fire protection as an independent applicability question. |
+
+The 3/2025 appendix is text-reviewed; its non-extractable page 2 was rendered and visually reviewed. It encourages voluntary compliance and retains formal approval procedures for additions/alterations in existing buildings. Absence from two obsolete-letter tables does not establish that no other amendment exists. Machine-readable dates and relations are research findings, not an automatic project edition selector.
 
 ## Candidate checks and essential limits
 
