@@ -1,0 +1,11 @@
+# SWMM reuse evaluation
+
+The [EPA SWMM capability description](https://www.epa.gov/water-research/storm-water-management-model-swmm) identifies stormwater, combined and sanitary sewer networks, including external inflows, channels/pipes, storage, pumps, backwater and surcharging. This is a useful candidate for site drainage/network assignments. It does not by itself establish building sanitary-stack, trap/vent, fixture-loading or Hong Kong statutory design checks.
+
+The [PySWMM swmm-python repository](https://github.com/pyswmm/swmm-python) provides SWIG wrappers for the SWMM solver and binary output libraries. `swmm-toolkit==0.17.0` and dependency `aenum==3.1.17` were installed for evaluation on 2026-11-09. Package metadata declares `CC0-1.0 AND (MIT OR Apache-2.0)`; unmodified distributed notices/authors are preserved under `third_party/licenses/swmm-toolkit-*`. Their hashes and native-library hashes are in `docs/evidence/swmm-trial/runtime.json`. No source engine or binary is vendored.
+
+Actual `from swmm.toolkit import solver` fails with an Application Control import error. Windows Code Integrity events 3033/3077 identify `swmm5.dll` as blocked by host signing policy. No simulation, engine-version query, mass-balance check or numerical reference comparison completed. Installation is not integration acceptance. No policy bypass or substitute calculation was used.
+
+Reproduce the package selection with `python -m pip install swmm-toolkit==0.17.0 aenum==3.1.17`; a policy-permitted environment is required before attempting native verification. This candidate is deliberately not advertised as a working optional project adapter.
+
+Next integration work: inspect the installed public solver/output APIs; author original source-declared SI fixtures for gravity flow and surcharge; run actual native time stepping and binary readback; independently reconcile continuity and steady reference cases; preserve numerical/physical failures; then add source-linked geometry, rainfall/inflow inputs and HK applicability. Reuse the upstream solver instead of implementing a substitute drainage engine. Rainfall, roughness, invert levels, pipe lengths and boundary conditions must come from the actual assignment or be explicitly synthetic test data.

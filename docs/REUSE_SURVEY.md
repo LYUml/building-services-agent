@@ -22,6 +22,8 @@ The installed IfcOpenShell 0.8.5 ShapeBuilder bend/transition helpers and geomet
 
 ## Follow-up discovery — 2026-11-09
 
+[SWMM toolkit evaluation](SWMM_TRIAL.md) adds an existing drainage-network engine candidate: upstream swmm-toolkit 0.17.0 / aenum 3.1.17 installed, licenses and native hashes retained. Actual import is blocked by host Application Control on swmm5.dll; no hydraulic simulation is verified. Keep it a candidate, not an available adapter. SWMM network capabilities do not replace building sanitary-stack/vent design or Hong Kong rules.
+
 Rechecked the upstream IfcMCP, IfcTester, OpenStudio MCP, AutoCAD MCP, FreeCAD MCP and Dodo pages. Existing pinned, locally executed evidence above takes precedence over newer upstream capability claims; this review does not upgrade dependencies.
 
 Additional candidates:
