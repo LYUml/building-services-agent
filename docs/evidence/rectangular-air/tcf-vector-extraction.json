@@ -1,0 +1,78 @@
+{
+  "run": "runs\\tcf-calibrated-vectors-v2",
+  "result": {
+    "source_pdf_sha256": "a50f3202afc6fb0fc42af856d43493dc1079a529de36634d25bef9c9ebdcd18b",
+    "source_page": 17,
+    "upstream": {
+      "repository": "https://github.com/adamkucharski/pdf2plot",
+      "commit": "99a8ee1d1e24a0859fea1cd06011280734ab82cb",
+      "license": "MIT",
+      "files": {
+        "pdf2plot_helper.py": "72ccfed8245478411160013455536e1eb4d4039930bfcde3d00601bef0008b1f",
+        "LICENSE": "1349538ec53a65b9368acd2651f9735babeb1ea56b14564dd44d59c935ada810",
+        "README.md": "9f1478f659b25e113fbc0558de19bde5ecb155b3fa6dad779061b7479ea8cc06"
+      },
+      "runtime": {
+        "package": "PyMuPDF",
+        "version": "1.26.7",
+        "license": "AGPL-3.0-or-later or commercial",
+        "upstream": "https://github.com/pymupdf/PyMuPDF"
+      },
+      "scope": "External isolated CLI; upstream calibration reused. Native line subpaths are split before export; no original helper code modified."
+    },
+    "curve_count": 6,
+    "points_per_curve": 201,
+    "speed_labels_rpm": [
+      960,
+      1450,
+      2000,
+      2500,
+      2850,
+      3500
+    ],
+    "discontinuities_preserved": 5,
+    "independent_log_export_relative_error": 4.9243341091465e-06,
+    "source_half_flow_grid_relative_residual": 0.0006200108595425524,
+    "anchors": {
+      "x": [
+        150.9062042236328,
+        536.9342041015625
+      ],
+      "flow_m3_s": [
+        0.2,
+        2
+      ],
+      "y_top_down": [
+        459.9173583984375,
+        174.693359375
+      ],
+      "total_pressure_pa": [
+        100,
+        1000
+      ]
+    },
+    "solver_ready": false,
+    "design_accepted": false,
+    "pending": [
+      "Source graph rounding/interpolation and extraction uncertainty bounds",
+      "Stable interval and installation applicability",
+      "Viscosity and actual product/motor/port identity",
+      "No electrical-power inference from chart labels"
+    ],
+    "artifacts": {
+      "calibrated.csv": "7af0f546b68779252cf74caa5cde1367136be9b740428c27b5011e95b518b534",
+      "disjoint-paths.json": "2e03627604131e1e32e4fe206c6e3aae526e22924e44b037f18ad222e6cf9cdf",
+      "export.log": "142f65c5da13170351bb4d61c6c0a3c07b82b13f2f77a983188e283730a8500a"
+    }
+  },
+  "tests_passed": 3,
+  "upstream_render_diagnostic": {
+    "path_count": 187,
+    "merged_green_points": 1201,
+    "native_corrected_points": 1206,
+    "discontinuities": 5,
+    "scope": "Pinned helper render flattens disjoint subpaths; native line adapter restores each start before upstream export"
+  },
+  "solver_ready": false,
+  "design_accepted": false
+}

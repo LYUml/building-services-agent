@@ -1,0 +1,17 @@
+{
+  "repository": "https://github.com/adamkucharski/pdf2plot",
+  "commit": "99a8ee1d1e24a0859fea1cd06011280734ab82cb",
+  "license": "MIT",
+  "files": {
+    "pdf2plot_helper.py": "72ccfed8245478411160013455536e1eb4d4039930bfcde3d00601bef0008b1f",
+    "LICENSE": "1349538ec53a65b9368acd2651f9735babeb1ea56b14564dd44d59c935ada810",
+    "README.md": "9f1478f659b25e113fbc0558de19bde5ecb155b3fa6dad779061b7479ea8cc06"
+  },
+  "runtime": {
+    "package": "PyMuPDF",
+    "version": "1.26.7",
+    "license": "AGPL-3.0-or-later or commercial",
+    "upstream": "https://github.com/pymupdf/PyMuPDF"
+  },
+  "scope": "External isolated CLI; upstream calibration reused. Native line subpaths are split before export; no original helper code modified."
+}
