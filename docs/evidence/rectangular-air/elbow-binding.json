@@ -1,0 +1,121 @@
+{
+  "scope": "Actual synthetic straight/finite-rectangular-bend chain pressure and represented coordination only; real K/fabrication/products, redesign/drawing and full acceptance pending",
+  "tasks": [
+    {
+      "id": "air",
+      "kind": "rectangular_network_binding",
+      "status": "pass",
+      "recorded_scope": "Source-bound hollow rectangular straight/90-degree bend chains with source-defined excess K and prescribed level-air pressure; no junction physics, fabrication or full acceptance",
+      "dependencies": [],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R1"
+      ],
+      "evidence": [
+        "air/analysis/manifest.json",
+        "air/analysis/network.json",
+        "air/analysis/report.html",
+        "air/analysis/segments.csv",
+        "air/bim/bim-verification.json",
+        "air/bim/model.ifc",
+        "air/bim/schema-validation.json",
+        "air/network-binding.json",
+        "air/network-input.json"
+      ]
+    },
+    {
+      "id": "coordination",
+      "kind": "ifc_clash",
+      "status": "pass",
+      "recorded_scope": "saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending",
+      "dependencies": [
+        "air"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R3"
+      ],
+      "evidence": [
+        "coordination/clash.json",
+        "coordination/report.html"
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "Independent geometry, fitting, fan, acoustic, fire/smoke and Hong Kong acceptance remains pending",
+      "dependencies": [
+        "air",
+        "coordination"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "review"
+      ],
+      "input_blockers": [],
+      "next_action": "perform the specified review and record evidence separately",
+      "requirement_ids": [
+        "R2"
+      ],
+      "evidence": []
+    }
+  ],
+  "bound_segments": [
+    {
+      "id": "MAIN",
+      "devices": [
+        "LEAD",
+        "BEND",
+        "TAIL"
+      ],
+      "length_m": 3.2566370614359172,
+      "section": {
+        "width_m": 0.5,
+        "height_m": 0.3
+      },
+      "minor_k": 0.3,
+      "length_basis": "straight lengths plus finite quarter-circle arc lengths",
+      "minor_k_basis": "excess over centreline Darcy friction"
+    }
+  ],
+  "coordination_checks": {
+    "geometry_coverage": true,
+    "no_intersections": true,
+    "clearance": true
+  },
+  "fan_control": {
+    "flow_l_s": 500.0,
+    "status": "fail",
+    "assumed_motor_w": 3200.0
+  },
+  "integrity_pass": true,
+  "design_accepted": false,
+  "tests": {
+    "rectangular_bend_binding": 6,
+    "circular_binding": 5,
+    "rectangular_straight_binding": 4,
+    "native_fan": 6,
+    "rectangular_model_design": 4,
+    "circular_elbow": 4,
+    "all_pass": true
+  },
+  "artifacts": {
+    "runs\\rectangular-elbow-coordination-workflow-v1\\workflow.json": "a486c3cec099af50d640e07b74b31fc9b54e7ab4a73c654d782849a86e61bb33",
+    "runs\\rectangular-elbow-coordination-workflow-v1\\air\\network-binding.json": "3223affc61179d46bb08219a23889f480d8e706da9c629ee913ec3782a4b4d75",
+    "runs\\rectangular-elbow-coordination-workflow-v1\\air\\network-input.json": "2ecebd3b8fbea4d6ed007c1f00a737c38ea391217d3dd102948423079e22d360",
+    "runs\\rectangular-elbow-coordination-workflow-v1\\air\\bim\\model.ifc": "bfc6c53440786364b77a173939a547c11910af2030ffd59e269599919cb1e821",
+    "runs\\rectangular-elbow-coordination-workflow-v1\\air\\analysis\\network.json": "1b946c75c8978074b5e40237aba5bbc3b7ec2b21098ebe818eeee01b90197bd5",
+    "runs\\rectangular-elbow-coordination-workflow-v1\\coordination\\clash.json": "b526f1897082151c50653c9046105ee5fc8bc6613e2c0c66737715dd2f841762",
+    "runs\\rectangular-elbow-fan-check-v1\\fan-regulations.json": "41659239572889561cb43ad9433c0eb41bf4cd38db59f55b0a6638710313aca2"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "name": "Synthetic level lead/rectangular elbow/tail pressure binding",
+  "model": "steady incompressible rectangular air tree",
+  "sources": {
+    "demo": "Explicit synthetic constant-density air, prescribed flows, internal rectangular dimensions, level routes, local-velocity K, fully-developed hydraulic-diameter applicability and design targets. Assumptions only; not a product, measured building or regulation."
+  },
+  "fluid": {
+    "density_kg_m3": 1.2,
+    "dynamic_viscosity_pa_s": 1.8e-05,
+    "source": "demo"
+  },
+  "supply": {
+    "node": "FAN",
+    "total_pressure_pa": 300,
+    "source": "demo"
+  },
+  "nodes": [
+    {
+      "id": "FAN",
+      "demand_m3_s": 0,
+      "required_total_pressure_pa": 0,
+      "source": "demo"
+    },
+    {
+      "id": "A",
+      "demand_m3_s": 0.5,
+      "required_total_pressure_pa": 30,
+      "source": "demo"
+    }
+  ],
+  "segments": [
+    {
+      "id": "MAIN",
+      "from": "FAN",
+      "to": "A",
+      "roughness_m": 9e-05,
+      "max_velocity_m_s": 7,
+      "source": "demo"
+    }
+  ],
+  "method_basis": {
+    "source": "demo",
+    "constant_density_air": true,
+    "fully_developed": true,
+    "hydraulic_diameter_applicable": true,
+    "level_common_reference": true
+  }
+}

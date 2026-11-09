@@ -26,6 +26,10 @@ def run(project,model,binding,ifc,analysis,basis,pack,sources,out):
     for node in skeleton['nodes']:node.pop('elevation_m')
     for segment in skeleton['segments']:
         for key in ('width_m','height_m','length_m'):segment.pop(key)
+    from .rectangular_elbow import WALL as RECTANGULAR_BEND
+    devices={d['id']:d for d in m['devices']}
+    for segment in skeleton['segments']:
+        if any(devices[name].get('body_shape')==RECTANGULAR_BEND for name in b['segments'][segment['id']]):segment.pop('minor_k',None)
     rederived,_=_prepare(skeleton,m,b,rectangular=True)
     if rederived!=p:raise ProjectError('fan network differs from native source geometry derivation')
     inspect_saved(ifc,m,project,b)

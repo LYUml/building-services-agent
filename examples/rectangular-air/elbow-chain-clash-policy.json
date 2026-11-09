@@ -1,0 +1,28 @@
+{
+  "scope": "all represented non-feature non-virtual IfcElements",
+  "sources": {
+    "demo": "Explicit synthetic 100 mm clearance, 350 mm end-joint spherical regions, 0.1 mm contact/intersection and 1e-10 m3 overlap threshold; not product installation or code acceptance."
+  },
+  "source": "demo",
+  "minimum_clearance_m": 0.1,
+  "intersection_tolerance_m": 0.0001,
+  "contact_tolerance_m": 0.0001,
+  "overlap_volume_tolerance_m3": 1e-10,
+  "maximum_boolean_pairs": 100,
+  "contact_clearance_mode": "outside_regions",
+  "contact_region_segments": 64,
+  "allowed_contacts": [
+    {
+      "from_port_guid": "12RJz0BxLMj9NGYNLxizf6",
+      "to_port_guid": "3QsZTF9tDMIwykxqsxLUuS",
+      "region_radius_m": 0.35,
+      "source": "demo"
+    },
+    {
+      "from_port_guid": "3eJjqvBerMER$jZzpOQIyo",
+      "to_port_guid": "1MK5sOS$PNCx3Ft3GCT2xa",
+      "region_radius_m": 0.35,
+      "source": "demo"
+    }
+  ]
+}

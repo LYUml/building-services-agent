@@ -36,6 +36,8 @@ The sample contains an explicit manual review task. Execute therefore returns ex
 
 ## Plan contract
 
+`rectangular_network_binding` also supports source-defined hollow rectangular 90-degree bends under RECTANGULAR_ELBOWS.md. Bend chains derive saved arc length and per-piece sourced excess K; geometry/aggregate-K overrides reject, and native wall/port/K reconciliation precedes calculation. Example elbow-coordination-plan.json chains the native bound result to generic IFC clash and a separate pending review. Catalogue bend redesign and current rectangular drawings remain unsupported.
+
 `rectangular_network` now supports either project or depends_on on an earlier rectangular_network_design, never both. The inherited path checks producer status, pinned artifacts, original project/catalogue reconstruction and selected rerun identity, then executes the saved selected rectangular input. No-feasible stays pending with no consumer directory. This extends the earlier standalone contract; no IFC inheritance or automatic installation acceptance is added.
 
 `rectangular_network_design` accepts project/catalogue and optional earlier requires_pass only. Its four geometry/pressure/search adapter modules and catalogue/project bytes enter inventory. It reuses exhaustive supplied sizing and fresh selected rerun; no feasible design fails execution and blocks required dependents. There is no automatic downstream geometry inheritance or fan selection. See RECTANGULAR_AIR_NETWORKS.md.

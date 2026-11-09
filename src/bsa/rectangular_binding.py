@@ -13,16 +13,27 @@ def inspect_saved(ifc,source,derived,binding):
     used={name for chain in binding['segments'].values() for name in chain}
     import ifcopenshell
     import ifcopenshell.geom
-    from .rectangular_geometry import verify
+    from .rectangular_geometry import verify,specification
+    from . import rectangular_elbow
+    import numpy as np
+    import ifcopenshell.util.placement as placement
+    import ifcopenshell.util.system as system
     from .circular_geometry import configure
     saved=ifcopenshell.open(str(ifc));settings=ifcopenshell.geom.settings()
     settings.set(settings.USE_WORLD_COORDS,True);configure(settings)
     for device in source['devices']:
         if device['id'] not in used:continue
-        matches=[obj for obj in saved.by_type('IfcDuctSegment') if obj.Name==device['id']]
+        matches=[obj for obj in saved.by_type(device['ifc_class']) if obj.Name==device['id']]
         if len(matches)!=1:raise ProjectError('unique saved rectangular duct required')
-        obj=matches[0];verify(obj,device,ifcopenshell.geom.create_shape(settings,obj))
-    if {o.Name for o in saved.by_type('IfcDuctSegment')}!=used or len(saved.by_type('IfcDuctSegment'))!=len(used):raise ProjectError('exact saved rectangular duct coverage required')
+        obj=matches[0];module=rectangular_elbow if device.get('body_shape')==rectangular_elbow.WALL else None
+        (module.verify if module else verify)(obj,device,ifcopenshell.geom.create_shape(settings,obj))
+        spec=(module.specification if module else specification)(device);ports={p.Name:p for p in system.get_ports(obj)}
+        if set(ports)!={p['id'] for p in device['ports']}:raise ProjectError('saved rectangular source port set differs')
+        for port in device['ports']:
+            frame=placement.get_local_placement(ports[port['id']].ObjectPlacement)
+            if not np.allclose(frame[:3,3],np.array(device['origin_m'])+port['offset_m'],atol=1e-8,rtol=0) or not np.allclose(frame[:3,2],spec['normals'][port['id']],atol=1e-8,rtol=0):raise ProjectError('saved rectangular port position/normal differs')
+    all_ducts=saved.by_type('IfcDuctSegment')+saved.by_type('IfcDuctFitting')
+    if {o.Name for o in all_ducts}!=used or len(all_ducts)!=len(used):raise ProjectError('exact saved rectangular duct coverage required')
     _reconcile(ifc,derived,binding,source,rectangular=True)
     return True
 
@@ -36,7 +47,7 @@ def run(project,model,binding,out):
     data=[json.loads(p.read_text(encoding='utf-8-sig')) for p in paths]
     derived,evidence=_prepare(*data,rectangular=True)
     used={name for row in data[2]['segments'].values() for name in row}
-    ducts={d['id'] for d in data[1]['devices'] if d['ifc_class']=='IfcDuctSegment'}
+    ducts={d['id'] for d in data[1]['devices'] if d['ifc_class'] in ('IfcDuctSegment','IfcDuctFitting')}
     if used!=ducts:raise ProjectError('exact rectangular duct route coverage required')
     out.mkdir(parents=True)
     native=author(paths[1],out/'bim')
@@ -47,7 +58,7 @@ def run(project,model,binding,out):
     if any(digest(Path(p))!=sha for p,sha in before.items()):raise ProjectError('rectangular binding inputs changed')
     result=dict(inputs=before,inputs_unchanged=True,segments=evidence,saved_ifc_geometry_match=True,
         calculated_checks_pass=calculation['calculated_checks_pass'],design_accepted=False,regulatory_compliance='not_established',
-        scope='Source-bound axis-aligned hollow rectangular straight chains and prescribed level-air pressure budget; no finite bends, junction physics, fabrication or full acceptance')
+        scope='Source-bound hollow rectangular straight/90-degree bend chains with source-defined excess K and prescribed level-air pressure; no junction physics, fabrication or full acceptance')
     result['artifacts']={p.relative_to(out).as_posix():digest(p) for p in out.rglob('*') if p.is_file()}
     (out/'network-binding.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
     return result

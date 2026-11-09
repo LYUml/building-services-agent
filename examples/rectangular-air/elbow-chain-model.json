@@ -1,0 +1,196 @@
+{
+  "name": "Synthetic native revolved rectangular elbow wall",
+  "project_uuid": "f72fd462-b4f8-4ad0-b3bd-0c0dfd09c904",
+  "geometry_scope": "axis-aligned envelopes and rectangular straight and elbow walls",
+  "sources": {
+    "demo": "Explicit synthetic 500x300 mm internal sharp-corner section, 1 mm wall, 800 mm centreline radius, centre/frame and ports; not manufacturer, fitting-loss or regulation data. Explicit synthetic per-piece excess K: straight 0, bend 0.3 relative to local rectangular velocity, above centreline Darcy friction. No manufacturer/correlation certification."
+  },
+  "spaces": [
+    {
+      "id": "ROOM",
+      "origin_m": [
+        0,
+        0,
+        0
+      ],
+      "size_m": [
+        5,
+        5,
+        5
+      ],
+      "source": "demo"
+    }
+  ],
+  "systems": [
+    {
+      "id": "AIR",
+      "predefined_type": "VENTILATION",
+      "source": "demo"
+    }
+  ],
+  "devices": [
+    {
+      "id": "LEAD",
+      "ifc_class": "IfcDuctSegment",
+      "space": "ROOM",
+      "system": "AIR",
+      "origin_m": [
+        2.549,
+        1,
+        1.849
+      ],
+      "size_m": [
+        0.502,
+        1,
+        0.302
+      ],
+      "body_shape": "straight rectangular duct wall",
+      "source": "demo",
+      "properties": {
+        "InternalWidth_m": 0.5,
+        "InternalHeight_m": 0.3,
+        "WallThickness_m": 0.001,
+        "LocalLossCoefficient": 0.0,
+        "LocalLossBasis": "excess over centreline Darcy friction"
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0.251,
+            0,
+            0.151
+          ],
+          "source": "demo"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            0.251,
+            1,
+            0.151
+          ],
+          "source": "demo"
+        }
+      ]
+    },
+    {
+      "id": "BEND",
+      "ifc_class": "IfcDuctFitting",
+      "space": "ROOM",
+      "system": "AIR",
+      "origin_m": [
+        2,
+        2,
+        1.849
+      ],
+      "size_m": [
+        1.051,
+        1.051,
+        0.302
+      ],
+      "body_shape": "rectangular 90-degree elbow wall",
+      "source": "demo",
+      "properties": {
+        "InternalWidth_m": 0.5,
+        "InternalHeight_m": 0.3,
+        "WallThickness_m": 0.001,
+        "CenterlineRadius_m": 0.8,
+        "LocalLossCoefficient": 0.3,
+        "LocalLossBasis": "excess over centreline Darcy friction"
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0.8,
+            0,
+            0.151
+          ],
+          "source": "demo"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            0,
+            0.8,
+            0.151
+          ],
+          "source": "demo"
+        }
+      ],
+      "arc_center_m": [
+        2,
+        2,
+        2
+      ],
+      "bend_axes": [
+        "+X",
+        "+Y"
+      ]
+    },
+    {
+      "id": "TAIL",
+      "ifc_class": "IfcDuctSegment",
+      "space": "ROOM",
+      "system": "AIR",
+      "origin_m": [
+        1,
+        2.549,
+        1.849
+      ],
+      "size_m": [
+        1,
+        0.502,
+        0.302
+      ],
+      "body_shape": "straight rectangular duct wall",
+      "source": "demo",
+      "properties": {
+        "InternalWidth_m": 0.5,
+        "InternalHeight_m": 0.3,
+        "WallThickness_m": 0.001,
+        "LocalLossCoefficient": 0.0,
+        "LocalLossBasis": "excess over centreline Darcy friction"
+      },
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            1,
+            0.251,
+            0.151
+          ],
+          "source": "demo"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            0,
+            0.251,
+            0.151
+          ],
+          "source": "demo"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "LEAD.out",
+      "to": "BEND.in",
+      "source": "demo"
+    },
+    {
+      "from": "BEND.out",
+      "to": "TAIL.in",
+      "source": "demo"
+    }
+  ]
+}

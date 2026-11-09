@@ -45,6 +45,8 @@ def run(project,model,binding,catalogue,geometry,out):
     if out.exists() or any(out==p or out in p.parents for p in paths):raise ProjectError('new separate rectangular model-design output required')
     before={str(p):digest(p) for p in paths};n,m,b,c,g=[json.loads(p.read_text(encoding='utf-8-sig')) for p in paths]
     if not m.get('project_uuid'):raise ProjectError('stable project namespace required for rectangular revision')
+    from .rectangular_elbow import WALL as RECTANGULAR_BEND
+    if any(d.get('body_shape')==RECTANGULAR_BEND for d in m['devices']):raise ProjectError('rectangular catalogue model revision supports straight walls only; bend redesign unsupported')
     baseline,_=_prepare(n,m,b,rectangular=True);options,_,_=validate_catalogue(baseline,c)
     if not isinstance(g,dict) or set(g)!={'basis','sources','options'} or g['basis']!=BASIS or not isinstance(g['sources'],dict) or not g['sources']:raise ProjectError('explicit sourced rectangular wall geometry contract required')
     if any(not isinstance(v,str) or not v.strip() for v in g['sources'].values()) or not isinstance(g['options'],dict) or set(g['options'])!=set(options):raise ProjectError('exact sourced wall option coverage required')

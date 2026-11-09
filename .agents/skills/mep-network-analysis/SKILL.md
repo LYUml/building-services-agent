@@ -5,6 +5,8 @@ description: Calculate source-linked air/water tree budgets, single-line pump op
 
 # Network pressure analysis
 
+For level rectangular straight/finite-90-degree-bend chains, read docs/RECTANGULAR_ELBOWS.md and use rectangular_network_binding. Omit aggregate minor_k when a bend is present; require per-piece sourced excess K above centreline Darcy friction. Preserve exact saved arc length, section-roll/opposed-normal joints and native dimension/K/port checks. No circular fitting coefficient is inferred. Catalogue bend redesign and curved drawings remain unsupported; real K/stations, fabrication and full acceptance remain pending.
+
 To propagate rectangular catalogue selection into native source-defined straight ducts, use rectangular_model_design with project/model/binding/catalogue/geometry. Source each option's wall thickness separately; preserve route/K assumptions and rejected spatial choices. Require stable identities, fixed endpoints and fresh native-bound pressure reconciliation. Read docs/RECTANGULAR_AIR_NETWORKS.md; this does not establish physical branch junctions, fan selection, clashes or Hong Kong acceptance.
 
 For source-model bound rectangular straight routes, use rectangular_network_binding rather than manually copying width/height/length into pressure inputs. Read docs/RECTANGULAR_AIR_NETWORKS.md: omit node elevations and segment dimensions/lengths, require exact source port-chain coverage, retain independent saved wall/port checks and pressure failures. It does not revise the model from a catalogue selection or resolve junction/fan/installation/regulatory acceptance.

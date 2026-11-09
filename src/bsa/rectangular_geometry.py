@@ -7,6 +7,19 @@ WALL='straight rectangular duct wall'
 SCOPE='axis-aligned envelopes and explicit rectangular duct walls'
 
 
+def face_frame(device,port_id):
+    """Source cross-section width/height directions and outward end normal."""
+    import numpy as np
+    from . import rectangular_elbow
+    if device.get('body_shape')==rectangular_elbow.WALL:
+        s=rectangular_elbow.specification(device);normal=np.array(s['normals'][port_id])
+        u,v,n=[s['matrix'][:3,i] for i in range(3)]
+        width=u if np.allclose(normal,-v,atol=1e-8,rtol=0) else v
+        return np.column_stack((width,n,normal))
+    s=specification(device)
+    return np.column_stack((s['matrix'][:3,0],s['matrix'][:3,1],s['normals'][port_id]))
+
+
 def specification(device):
     import numpy as np
     if device.get('ifc_class')!='IfcDuctSegment':raise ProjectError('rectangular wall requires IfcDuctSegment')

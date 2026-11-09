@@ -1,5 +1,7 @@
 # Rectangular air-tree pressure budgets
 
+For the newer source-defined finite rectangular bend pressure/coordination path, read RECTANGULAR_ELBOWS.md. It adds actual arc length and per-piece excess K with section-roll/opposed-normal checks to rectangular_network_binding. This supersedes straight-only pressure notes below; catalogue model revision and this document's rectangular sheet remain straight-only.
+
 ## Independent saved-entity audit
 
 The rectangular renderer now calls rectangular_drawing_audit on the actual saved DXF against already source-checked native model records. Workflow repeats this audit on AutoCAD's independently reopened/exported source-export.dxf. It reconstructs exact expected outer rectangles, nonzero duct centreline, inside-size/length and context-envelope notes, positions, layers and GUID coverage without invoking the writer or trusting its success flag. Duct source records carry verified world axis endpoints as well as native bounds/dimensions.

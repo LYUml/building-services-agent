@@ -7,6 +7,7 @@ from pathlib import Path
 from .engine import ProjectError
 from .cli import digest
 from . import circular_elbow as elbow
+from . import rectangular_elbow
 
 
 def prepare(network, model, binding):
@@ -49,7 +50,7 @@ def _prepare(network, model, binding, rectangular=False):
         chain = binding['segments'][s['id']]
         if not isinstance(chain,list) or not chain: raise ProjectError('nonempty ordered segment device chain required')
         if any(not isinstance(name,str) for name in chain):raise ProjectError('route device IDs must be strings')
-        has_elbow=any(devices.get(name,{}).get('body_shape')==elbow.WALL for name in chain)
+        has_elbow=any(devices.get(name,{}).get('body_shape') in ((elbow.WALL,rectangular_elbow.WALL) if rectangular else (elbow.WALL,)) for name in chain)
         if has_elbow and 'minor_k' in s:raise ProjectError('fitting routes derive explicit excess K; omit aggregate minor_k to prevent double counting')
         local_k=[]
         lengths=[]; diameters=[]; previous=None; start=None; end=None; system=None; route_class=None; first_port=None
@@ -61,7 +62,7 @@ def _prepare(network, model, binding, rectangular=False):
             family='pipe' if d['ifc_class'] in ('IfcPipeSegment','IfcPipeFitting') else 'duct'
             if route_class is None:route_class=family
             if route_class!=family:raise ProjectError('route mixes pipe and duct classes')
-            if d['ifc_class'] in ('IfcPipeFitting','IfcDuctFitting') and d.get('body_shape')!=elbow.WALL:raise ProjectError('unsupported finite fitting geometry')
+            if d['ifc_class'] in ('IfcPipeFitting','IfcDuctFitting') and d.get('body_shape') not in ((rectangular_elbow.WALL,) if rectangular else (elbow.WALL,)):raise ProjectError('unsupported finite fitting geometry')
             if system is None: system=d['system']
             if d['system'] != system: raise ProjectError('route changes distribution system')
             ps=d.get('ports',[])
@@ -69,7 +70,9 @@ def _prepare(network, model, binding, rectangular=False):
             if len(ps)!=2 or len(incoming)!=1 or len(outgoing)!=1: raise ProjectError('each route piece requires one inlet and one outlet')
             inlet=identifier+'.'+incoming[0]['id']; outlet=identifier+'.'+outgoing[0]['id']
             a,b=point(inlet),point(outlet)
-            if d.get('body_shape')==elbow.WALL:
+            if rectangular and d.get('body_shape')==rectangular_elbow.WALL:
+                length=rectangular_elbow.specification(d)['length']
+            elif d.get('body_shape')==elbow.WALL:
                 length=elbow.specification(d)['length_m']
             else:
                 axes=[i for i in range(3) if abs(a[i]-b[i])>1e-8]
@@ -85,8 +88,8 @@ def _prepare(network, model, binding, rectangular=False):
                 length=abs(b[axis]-a[axis])
             if rectangular:
                 from .rectangular_geometry import WALL,specification
-                if d.get('body_shape')!=WALL:raise ProjectError('rectangular routes require explicit straight hollow duct walls')
-                spec=specification(d);diameter=(spec['width'],spec['height'])
+                if d.get('body_shape') not in (WALL,rectangular_elbow.WALL):raise ProjectError('rectangular routes require explicit hollow straight/bend walls')
+                spec=rectangular_elbow.specification(d) if d.get('body_shape')==rectangular_elbow.WALL else specification(d);diameter=(spec['width'],spec['height'])
             else:
                 diameter=d.get('properties',{}).get('InternalDiameter_m')
             if not rectangular and (type(diameter) not in (int,float) or not math.isfinite(diameter) or diameter<=0):
@@ -99,6 +102,11 @@ def _prepare(network, model, binding, rectangular=False):
                 local_k.append(k)
             if previous and ((previous,inlet) not in links or not same(point(previous),a)):
                 raise ProjectError('route pieces require connected coincident ports')
+            if rectangular and previous:
+                import numpy as np
+                from .rectangular_geometry import face_frame
+                left=face_frame(ports[previous][0],ports[previous][1]['id']);right=face_frame(d,incoming[0]['id'])
+                if abs(float(left[:,0]@right[:,0]))<1-1e-8 or abs(float(left[:,1]@right[:,1]))<1-1e-8 or float(left[:,2]@right[:,2])>-1+1e-8:raise ProjectError('rectangular joint section roll or outward normals differ')
             if start is None: start=a;first_port=inlet
             end=b; previous=outlet; lengths.append(length); diameters.append(diameter)
         if any(v!=diameters[0] if rectangular else abs(v-diameters[0])>1e-10 for v in diameters): raise ProjectError('split hydraulic segments where internal diameter changes')
@@ -156,7 +164,7 @@ def _reconcile(model_path, derived_path, binding, source_model=None,rectangular=
             raise ProjectError('saved IFC/network elevation mismatch')
     originals={d['id']:d for d in source_model['devices']} if source_model else {}
     for s in derived['segments']:
-        has_elbow=any(element.get_psets(devices[name]).get('BSA_DesignInputs',{}).get('BodyShape')==elbow.WALL for name in binding['segments'][s['id']])
+        has_elbow=any(element.get_psets(devices[name]).get('BSA_DesignInputs',{}).get('BodyShape') in ((elbow.WALL,rectangular_elbow.WALL) if rectangular else (elbow.WALL,)) for name in binding['segments'][s['id']])
         if has_elbow and not source_model:raise ProjectError('source model required for independent fitting K reconciliation')
         minor_k=0
         length=0;first=None;last=None;first_port=None;last_port=None
@@ -168,7 +176,7 @@ def _reconcile(model_path, derived_path, binding, source_model=None,rectangular=
             inlet_port,inlet=ins[0];outlet_port,outlet=outs[0]
             if last_port is not None and ((last_port.id(),inlet_port.id()) not in links or math.dist(last,inlet)>1e-8):raise ProjectError('saved route pieces lack directed coincident connection')
             props=element.get_psets(obj)['BSA_DesignInputs']
-            if props.get('BodyShape')==elbow.WALL:
+            if props.get('BodyShape') in ((elbow.WALL,rectangular_elbow.WALL) if rectangular else (elbow.WALL,)):
                 arc_length,ends,radius=elbow.saved_arc_length(obj)
                 if not ((math.dist(inlet,ends[0])<1e-8 and math.dist(outlet,ends[1])<1e-8) or (math.dist(inlet,ends[1])<1e-8 and math.dist(outlet,ends[0])<1e-8)):raise ProjectError('saved elbow ports do not span actual arc')
                 if not math.isclose(props.get('CenterlineRadius_m',-1),radius,abs_tol=1e-9):raise ProjectError('saved elbow radius metadata differs from arc')

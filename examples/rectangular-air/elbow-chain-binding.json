@@ -1,0 +1,14 @@
+{
+  "source": "Explicit synthetic lead/bend/tail chain and flow boundary anchors",
+  "nodes": {
+    "FAN": "LEAD.in",
+    "A": "TAIL.out"
+  },
+  "segments": {
+    "MAIN": [
+      "LEAD",
+      "BEND",
+      "TAIL"
+    ]
+  }
+}

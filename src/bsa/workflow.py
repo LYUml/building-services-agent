@@ -322,14 +322,14 @@ def validate_plan(path):
             inputs.update((local_path(root,t.get('settings')),local_path(root,t.get('sheet')),Path(rectangular_drawing.__file__).resolve(),Path(rectangular_drawing_audit.__file__).resolve(),Path(route_drawing_qa.__file__).resolve(),Path(cad_text_layout.__file__).resolve(),Path(ifc_native.__file__).resolve()))
         if kind=='rectangular_model_design':
             if set(t)-{'id','kind','project','model','binding','catalogue','geometry','requires_pass','description'}:raise ProjectError('rectangular model design requires project/model/binding/catalogue/geometry only')
-            from . import rectangular_model_design,rectangular_design,rectangular_binding,rectangular_network,network_design,network_model_design,network_binding,network,bim,rectangular_geometry,circular_geometry
+            from . import rectangular_model_design,rectangular_design,rectangular_binding,rectangular_network,network_design,network_model_design,network_binding,network,bim,rectangular_geometry,rectangular_elbow,circular_geometry
             inputs.update(local_path(root,t.get(key)) for key in ('project','model','binding','catalogue','geometry'))
-            inputs.update(Path(module.__file__).resolve() for module in (rectangular_model_design,rectangular_design,rectangular_binding,rectangular_network,network_design,network_model_design,network_binding,network,bim,rectangular_geometry,circular_geometry))
+            inputs.update(Path(module.__file__).resolve() for module in (rectangular_model_design,rectangular_design,rectangular_binding,rectangular_network,network_design,network_model_design,network_binding,network,bim,rectangular_geometry,rectangular_elbow,circular_geometry))
         if kind=='rectangular_network_binding':
             if set(t)-{'id','kind','project','model','binding','requires_pass','description'}:raise ProjectError('rectangular binding requires project/model/binding only')
-            from . import rectangular_binding,rectangular_network,network_binding,network,bim,rectangular_geometry,circular_geometry
+            from . import rectangular_binding,rectangular_network,network_binding,network,bim,rectangular_geometry,rectangular_elbow,circular_geometry
             inputs.update(local_path(root,t.get(key)) for key in ('project','model','binding'))
-            inputs.update(Path(module.__file__).resolve() for module in (rectangular_binding,rectangular_network,network_binding,network,bim,rectangular_geometry,circular_geometry))
+            inputs.update(Path(module.__file__).resolve() for module in (rectangular_binding,rectangular_network,network_binding,network,bim,rectangular_geometry,rectangular_elbow,circular_geometry))
         if kind=='rectangular_network_design':
             if set(t)-{'id','kind','project','catalogue','requires_pass','description'}:raise ProjectError('rectangular design requires project and catalogue only')
             from . import rectangular_design,rectangular_network,network_design,network
