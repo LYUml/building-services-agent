@@ -78,6 +78,8 @@ def run(producer, basis_path, out):
         raise ProjectError('verified pinned geometry runtimes required')
     producer, basis_path, out = [Path(p).resolve() for p in (producer, basis_path, out)]
     report_path = producer/'cad-ifc.json'; report = json.loads(report_path.read_text())
+    if report['basis'].get('predefined_type', 'JUNCTION') != 'JUNCTION':
+        raise ProjectError('three-port placement requires a JUNCTION conversion')
     b = json.loads(basis_path.read_text(encoding='utf-8-sig'))
     if not isinstance(b, dict) or set(b) != {'source', 'placement', 'system_name', 'passage_basis', 'ports'}:
         raise ProjectError('exact sourced placement/port basis required')

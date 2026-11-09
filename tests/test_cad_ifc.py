@@ -28,6 +28,12 @@ class CADIFCTests(unittest.TestCase):
         v, f = self.cube()
         with self.assertRaises(ProjectError): mesh_properties(v, f[:-1])
 
+    def test_nested_cavity_requires_separate_supported_contract(self):
+        solid=manifold3d.Manifold.cube((3,3,3))-manifold3d.Manifold.cube((1,1,1)).translate((1,1,1))
+        mesh=solid.to_mesh64()
+        with self.assertRaisesRegex(ProjectError,'one connected closed wall'):
+            mesh_properties(np.array(mesh.vert_properties),np.array(mesh.tri_verts))
+
     def test_translated_volume_and_centroid_stay_stable(self):
         v, f = self.cube(); shift = np.array([1e6, -2e6, 3e6])
         result = mesh_properties(v+shift, f)

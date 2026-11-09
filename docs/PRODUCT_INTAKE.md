@@ -167,3 +167,12 @@ This research changes the next implementation step: do not simply append a plain
 The movement table must not become an automatic installed-gap value. Likewise, the groove's minimum groovable wall must not become a pressure-design thickness, and a reference groove depth must not override the controlled groove diameter. Neither the pipe-end table nor the CAD tee end alone establishes full joint fit. Model actual groove/housing/gasket interfaces or keep them explicitly unverified. Preserve finite separation when later connecting the hydraulic network; the existing coincident-node shortcut is not a validated representation of this joint.
 
 Next evidence needed: applicable installation instructions; actual mating pipe and groove measurements; gasket/service selection; actual coupling geometry; saved joint placement and clash checks. Only after those are available should this researched product enter an automatic joint-authoring or selection path. No product, hydraulic or Hong Kong compliance flag was promoted by this research.
+
+
+### Actual coupling CAD intake
+
+The already pinned official IPS archive contains Style 77. Source-selected DN40 block `CPLG_1.5 (40)_77` (INSERT C6, size/style attributes) was extracted using existing native WBLOCK and independently reopened. Units, definition structure and source preservation passed. Restricted source/extracted geometry remains under `runs/coupling-cad-v1`.
+
+Its one selected ACIS entity exports to three Manifold-decomposed components: one positive and two negative signed volumes. This may represent enclosed cavities, not three physical parts or a bad vendor model. The current one-boundary conversion contract correctly stops before IFC creation. Do not remove the component check or discard negative shells to force a pass. Next work must validate nested-shell containment/orientation and reconcile native material volume and cavity preservation in saved IFC.
+
+`cad_ifc` basis now optionally accepts `predefined_type` as `JUNCTION` (legacy default) or `CONNECTOR`. The saved value is checked. An independent original native annulus executed successfully as CONNECTOR; this does not validate conversion of the actual complex coupling. Three-port `product_ports` rejects CONNECTOR inputs. A synthetic enclosed-cavity test retains the current rejection until a supported contract is implemented. Limited evidence is in `docs/evidence/manufacturer-block/coupling-cad.json`.

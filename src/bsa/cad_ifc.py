@@ -64,8 +64,11 @@ def run(source, basis_path, out, exe=DEFAULT_EXE, timeout=120):
     b = json.loads(basis_path.read_text(encoding='utf-8-sig'))
     required = {'source', 'drawing_sha256', 'solid_handle', 'insunits', 'project_uuid', 'id',
                 'linear_tolerance_m', 'relative_volume_tolerance'}
-    if not isinstance(b, dict) or set(b) != required:
+    if not isinstance(b, dict) or not required <= set(b) or set(b)-required-{'predefined_type'}:
         raise ProjectError('exact native IFC conversion basis required')
+    fitting_type = b.get('predefined_type', 'JUNCTION')
+    if fitting_type not in ('JUNCTION', 'CONNECTOR'):
+        raise ProjectError('supported explicit fitting type must be JUNCTION or CONNECTOR')
     project_namespace(b)
     for k in ('source', 'id', 'solid_handle', 'drawing_sha256'):
         if not isinstance(b[k], str) or not b[k].strip(): raise ProjectError('source and identity required')
@@ -121,7 +124,7 @@ def run(source, basis_path, out, exe=DEFAULT_EXE, timeout=120):
     context = api.run('context.add_context', f, context_type='Model', context_identifier='Body', target_view='MODEL_VIEW', parent=model)
     storey = api.run('root.create_entity', f, ifc_class='IfcBuildingStorey', name='Local source definition')
     api.run('aggregate.assign_object', f, products=[storey], relating_object=project)
-    obj = api.run('root.create_entity', f, ifc_class='IfcPipeFitting', predefined_type='JUNCTION', name=b['id'])
+    obj = api.run('root.create_entity', f, ifc_class='IfcPipeFitting', predefined_type=fitting_type, name=b['id'])
     obj.GlobalId = stable_guid(b, 'IfcPipeFitting', b['id'])
     api.run('spatial.assign_container', f, products=[obj], relating_structure=storey)
     points = f.createIfcCartesianPointList3D(vertices.tolist())
@@ -137,6 +140,7 @@ def run(source, basis_path, out, exe=DEFAULT_EXE, timeout=120):
     sv = ifcopenshell.util.shape.get_vertices(shape.geometry); sf = ifcopenshell.util.shape.get_faces(shape.geometry)
     saved_props = mesh_properties(sv, sf)
     saved_checks = compare(saved_props, measured, 1e-9, 1e-9)
+    saved_checks['fitting_type'] = saved.by_guid(obj.GlobalId).PredefinedType == fitting_type
     saved_tess = saved.by_guid(obj.GlobalId).Representation.Representations[0].Items[0]
     saved_checks['source_triangles_preserved'] = (
         saved_tess.is_a('IfcTriangulatedFaceSet') and saved_tess.Closed is True

@@ -1,0 +1,38 @@
+{
+  "source_archive_sha256": "b165b72d6f2e1bb1a79e7311f583b1e925fa53d547aacb7cc189a0f122f11e42",
+  "member": "Victaulic_IPS_Coupling Flexible_Style 77 (OGS)_[3D].dwg",
+  "source_dwg_sha256": "446c739b90ae74ba3d034d32d6ef665f501e35db2815c39e1b59f74d5463d978",
+  "selection": {
+    "insert_handle": "C6",
+    "block": "CPLG_1.5 (40)_77",
+    "SIZE_MM": "40",
+    "STYLENO": "77"
+  },
+  "native_extraction_checks": {
+    "definition_structure_preserved": true,
+    "units_preserved": true,
+    "source_copy_unchanged": true,
+    "inputs_unchanged": true
+  },
+  "selected_solid_handle": "93",
+  "conversion_status": "rejected before IFC creation",
+  "reason": "Existing connected-boundary contract rejects three decomposed mesh components",
+  "diagnostic_component_signed_volumes_in3": [
+    14.24658441604963,
+    -0.11073871026348846,
+    -0.1107387168001921
+  ],
+  "interpretation": "Possible enclosed cavities; not proof of three physical parts or invalid vendor geometry",
+  "synthetic_connector_control": {
+    "native_conversion_pass": true,
+    "saved_predefined_type": "CONNECTOR",
+    "report_sha256": "288421ae5f070cd2f997ce09338649047bcab3397a76545096903b7f51a6c3e4"
+  },
+  "design_accepted": false,
+  "pending": [
+    "nested-shell containment and orientation validation",
+    "native/saved IFC cavity reconciliation",
+    "physical joints and gasket",
+    "product, installation, hydraulic and regulatory acceptance"
+  ]
+}
