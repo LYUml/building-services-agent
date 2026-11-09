@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "brief": "drawing-brief.md",
+  "brief_sha256": "5d1aa286caa8b8ec4291d1dd6f0ea4ee914c5c5759cc14640796594274295e4a",
+  "passage_dispositions": {
+    "P001": "requirement",
+    "P002": "requirement",
+    "P003": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "power-flow",
+      "kind": "three_phase",
+      "project": "project.json"
+    },
+    {
+      "id": "drawing",
+      "kind": "three_phase_drawing",
+      "depends_on": "power-flow"
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "requires_pass": [
+        "drawing"
+      ],
+      "description": "Actual PDF visual and full engineering review remain pending; automatic drawing generation is insufficient"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P001",
+      "quote": "Execute the explicitly synthetic three-phase network study with source-linked supply, line and phase-PQ data, independent numerical checks and declared voltage/current study targets.",
+      "task": "power-flow",
+      "acceptance": "Actual source-bound study with numerical and declared target checks"
+    },
+    {
+      "id": "R2",
+      "passage": "P002",
+      "quote": "Generate a calculation-bound editable schematic, complete per-phase load and line schedules, independently reopened native DWG and a paper-reference-checked PDF using the passing study; do not substitute diagram lengths for source route lengths.",
+      "task": "drawing",
+      "acceptance": "Complete source/result-linked DXF and schedules, native reopening and measured paper reference; visual/engineering review separate"
+    },
+    {
+      "id": "R3",
+      "passage": "P003",
+      "quote": "Visually inspect the actual PDF and review source interpretation, installation scope, cable and protection data, physical neutral, harmonics and Hong Kong applicability before engineering acceptance; retain all incomplete checks.",
+      "task": "review",
+      "acceptance": "Actual visual and engineering evidence for the full required scope; unresolved parts stay pending"
+    }
+  ]
+}

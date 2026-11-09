@@ -36,6 +36,8 @@ The sample contains an explicit manual review task. Execute therefore returns ex
 
 ## Plan contract
 
+Workflow kind `three_phase_drawing` inherits an earlier `three_phase` task through `depends_on`; no project replacement is accepted. Explicit `--graphviz` and `--autocad` CLI paths are required for its native DWG/PDF scope. A failed/pending study, absent tool or changed producer artifact blocks native authoring. Source diagram code enters plan integrity tracking. Success covers calculation-bound schematic/CSV correspondence, actual DWG reopen and measured paper reference; actual visual/full-engineering review stays separate. See THREE_PHASE_DRAWINGS.md and examples/three-phase-network/drawing-plan.json.
+
 Workflow kind `three_phase` takes an explicit source-bound `project` under THREE_PHASE_NETWORKS.md and optional `requires_pass`. Execute with `--three-phase-python <isolated-python.exe>` in either workflow CLI. Missing runtime stays pending; numerical or declared current/voltage target failure stays fail and blocks required downstream tasks. Source basis files and the fixed runner/adapter/bridge enter the workflow input inventory. The isolated bridge validates child evidence and preserves logs; no arbitrary runtime command is accepted from plan JSON. Full cable/protection/neutral/harmonics/Hong Kong and CAD/BIM acceptance remains separate.
 
 ### Missing and conflicting design inputs

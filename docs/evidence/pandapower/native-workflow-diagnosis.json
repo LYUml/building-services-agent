@@ -1,0 +1,92 @@
+{
+  "plan_sha256": "cfbd22034670fb7f38f4fe2b4e7cc93b9d6bb35f0e921d9432514de53e94cd74",
+  "workflow_sha256": "7872f1b47447cc742a5b193f7697262a0a3771440cb2eca5658d68fbcedf6a36",
+  "integrity_pass": true,
+  "tasks": [
+    {
+      "id": "power-flow",
+      "kind": "three_phase",
+      "status": "pass",
+      "recorded_scope": "Single-voltage sequence-line constant-PQ wye power flow; numerical checks and declared targets only; no physical neutral, protection, cable selection, CAD/BIM or regulatory acceptance",
+      "dependencies": [],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R1"
+      ],
+      "evidence": [
+        "power-flow/native/network.json",
+        "power-flow/native/study.json",
+        "power-flow/process.log",
+        "power-flow/three-phase.json"
+      ]
+    },
+    {
+      "id": "drawing",
+      "kind": "three_phase_drawing",
+      "status": "pass",
+      "recorded_scope": "Source-linked calculation schematic and schedules only; full installation, protection and Hong Kong acceptance pending; actual page visual/engineering review remains pending",
+      "dependencies": [
+        "power-flow"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R2"
+      ],
+      "evidence": [
+        "drawing/drawing.json",
+        "drawing/graphviz.log",
+        "drawing/layout.dot",
+        "drawing/layout.json",
+        "drawing/lines.csv",
+        "drawing/loads.csv",
+        "drawing/native/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log",
+        "drawing/native/electrical-schematic.dwg",
+        "drawing/native/input.dxf",
+        "drawing/native/plot.log",
+        "drawing/native/reopened/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log",
+        "drawing/native/reopened/export.log",
+        "drawing/native/reopened/export.scr",
+        "drawing/native/reopened/source-copy.dwg",
+        "drawing/native/reopened/source-export.dxf",
+        "drawing/native/save.log",
+        "drawing/native/save.scr",
+        "drawing/native/sheet.json",
+        "drawing/native/sheet.log",
+        "drawing/native/sheet.pdf",
+        "drawing/native/sheet.scr",
+        "drawing/schematic.dxf"
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "Actual PDF visual and full engineering review remain pending; automatic drawing generation is insufficient",
+      "dependencies": [
+        "drawing"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "review"
+      ],
+      "input_blockers": [],
+      "next_action": "perform the specified review and record evidence separately",
+      "requirement_ids": [
+        "R3"
+      ],
+      "evidence": []
+    }
+  ],
+  "execution_pass": false,
+  "design_accepted": false,
+  "scope": "Recorded execution and declared dependency graph only; no engine invocation, automatic repair, or engineering acceptance"
+}

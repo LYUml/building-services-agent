@@ -6,7 +6,7 @@ An agent workspace and deterministic engineering tools for reusable MEP workflow
 
 [Three-phase electrical network studies](docs/THREE_PHASE_NETWORKS.md) now use pinned pandapower 3.5.6 through a source-bound adapter and registered `three_phase` workflow task. Saved network reload, multi-bus radial/mesh tests, phase-domain node/branch checks, complex-power reconciliation and explicit current/voltage target failures are exercised. Missing runtime and failed targets block required downstream tasks. Protection, physical neutral/harmonics, Hong Kong conformity and CAD/BIM binding remain pending.
 
-[Calculation-bound electrical schematics](docs/THREE_PHASE_DRAWINGS.md) now connect that passing study to Graphviz layout, editable DXF, phase CSV schedules, independently reopened DWG and an inspected A4 PDF. Diagram positions are schematic, not physical route geometry. Full installation drawings, BIM topology, protection and code acceptance remain pending; drawing orchestration is currently standalone.
+[Calculation-bound electrical schematics](docs/THREE_PHASE_DRAWINGS.md) now connect that passing study to Graphviz layout, editable DXF, phase CSV schedules, independently reopened DWG and an inspected A4 PDF. Diagram positions are schematic, not physical route geometry. Full installation drawings, BIM topology, protection and code acceptance remain pending; workflow kind three_phase_drawing now inherits the passing study and retains separate visual/engineering review.
 
 ## Run the first vertical slice
 

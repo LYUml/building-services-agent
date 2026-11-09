@@ -1,0 +1,140 @@
+{
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\three-phase-network\\drawing-brief.md": "5d1aa286caa8b8ec4291d1dd6f0ea4ee914c5c5759cc14640796594274295e4a",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_drawing.py": "64cc9ca7a011eca7b4d11c5e3058ee4434c6400a7d26228f05e70cba58c337e4",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase.py": "d1ec41d73d13fa9f882bdde4b746ba84d72184e3ac8ccee27f6bf69f88f2876e",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\three-phase-network\\drawing-plan.json": "cfbd22034670fb7f38f4fe2b4e7cc93b9d6bb35f0e921d9432514de53e94cd74",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\three-phase-network\\basis.md": "4bc43b42c9d5ed644b37315d667b4e3f52cabd6a489d2f636543f2ecadd3f375",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\scripts\\run_three_phase.py": "1466546e65e6b3f510512416efe6667a0fce22d57b93684e36c9f1d1e94529dd",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\three_phase_bridge.py": "e2670961ac70dc14085d7c8ecb117bbf74e9138fbc0d1588ed69c928b50c3b04",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\three-phase-network\\project.json": "45de763da9c817c4a8ac5b4898469f04dbcae083963e88a3c94aa837a46ddbd1"
+  },
+  "inputs_unchanged": true,
+  "tasks": {
+    "power-flow": {
+      "kind": "three_phase",
+      "status": "pass",
+      "scope": "Single-voltage sequence-line constant-PQ wye power flow; numerical checks and declared targets only; no physical neutral, protection, cable selection, CAD/BIM or regulatory acceptance"
+    },
+    "drawing": {
+      "kind": "three_phase_drawing",
+      "status": "pass",
+      "scope": "Source-linked calculation schematic and schedules only; full installation, protection and Hong Kong acceptance pending; actual page visual/engineering review remains pending"
+    },
+    "review": {
+      "kind": "manual",
+      "status": "pending",
+      "scope": "Actual PDF visual and full engineering review remain pending; automatic drawing generation is insufficient"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P001",
+      "quote": "Execute the explicitly synthetic three-phase network study with source-linked supply, line and phase-PQ data, independent numerical checks and declared voltage/current study targets.",
+      "task": "power-flow",
+      "acceptance": "Actual source-bound study with numerical and declared target checks",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 1,
+        "end_line": 1
+      },
+      "execution_scope": "Single-voltage sequence-line constant-PQ wye power flow; numerical checks and declared targets only; no physical neutral, protection, cable selection, CAD/BIM or regulatory acceptance",
+      "evidence": [
+        "power-flow/process.log",
+        "power-flow/three-phase.json",
+        "power-flow/native/network.json",
+        "power-flow/native/study.json"
+      ]
+    },
+    {
+      "id": "R2",
+      "passage": "P002",
+      "quote": "Generate a calculation-bound editable schematic, complete per-phase load and line schedules, independently reopened native DWG and a paper-reference-checked PDF using the passing study; do not substitute diagram lengths for source route lengths.",
+      "task": "drawing",
+      "acceptance": "Complete source/result-linked DXF and schedules, native reopening and measured paper reference; visual/engineering review separate",
+      "execution_status": "pass",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 3,
+        "end_line": 3
+      },
+      "execution_scope": "Source-linked calculation schematic and schedules only; full installation, protection and Hong Kong acceptance pending; actual page visual/engineering review remains pending",
+      "evidence": [
+        "drawing/drawing.json",
+        "drawing/graphviz.log",
+        "drawing/layout.dot",
+        "drawing/layout.json",
+        "drawing/lines.csv",
+        "drawing/loads.csv",
+        "drawing/schematic.dxf",
+        "drawing/native/electrical-schematic.dwg",
+        "drawing/native/input.dxf",
+        "drawing/native/plot.log",
+        "drawing/native/save.log",
+        "drawing/native/save.scr",
+        "drawing/native/sheet.json",
+        "drawing/native/sheet.log",
+        "drawing/native/sheet.pdf",
+        "drawing/native/sheet.scr",
+        "drawing/native/reopened/export.log",
+        "drawing/native/reopened/export.scr",
+        "drawing/native/reopened/source-copy.dwg",
+        "drawing/native/reopened/source-export.dxf",
+        "drawing/native/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log",
+        "drawing/native/reopened/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log"
+      ]
+    },
+    {
+      "id": "R3",
+      "passage": "P003",
+      "quote": "Visually inspect the actual PDF and review source interpretation, installation scope, cable and protection data, physical neutral, harmonics and Hong Kong applicability before engineering acceptance; retain all incomplete checks.",
+      "task": "review",
+      "acceptance": "Actual visual and engineering evidence for the full required scope; unresolved parts stay pending",
+      "execution_status": "pending",
+      "acceptance_status": "pending review",
+      "source_locator": {
+        "start_line": 5,
+        "end_line": 5
+      },
+      "execution_scope": "Actual PDF visual and full engineering review remain pending; automatic drawing generation is insufficient",
+      "evidence": []
+    }
+  ],
+  "unresolved_inputs": [],
+  "regulatory_source_bindings": [],
+  "inventory_source_bindings": [],
+  "artifact_hashes": {
+    "drawing/drawing.json": "1c6d8f17f894ef339acf05d177886aabb3bf85baf413ba96ffc2a14c51ce4968",
+    "drawing/graphviz.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "drawing/layout.dot": "2c9c04f6b62f39d43fd72ad7856dca4213f81adb584210fd31fb53e54d20b117",
+    "drawing/layout.json": "a0c89d7c336ae78fb84f12ff40a29a12c4d6dbd5e887d66d6cbdaa7c336bf89d",
+    "drawing/lines.csv": "b957c23281d00d1e961ec26490e5e159d82d9ea44fb4aad9bf19f31ec90cb92b",
+    "drawing/loads.csv": "09ae8a584f0c2bbf7fc7d09b08523f8b7fd552002df605891c70f2260f8ce934",
+    "drawing/schematic.dxf": "3428e32effc54a58018ea869969f9a6abd1623d37d2a0c20148438b8d3efb685",
+    "power-flow/process.log": "93c7a2e11cb3a6b97a45e75f3ceee5112d9b4e9f65f25a3e59ff2e1afa0bb0c4",
+    "power-flow/three-phase.json": "93555835037af137b1735daeb132b84750fb7d475d25de7060c19e915528f1b5",
+    "drawing/native/electrical-schematic.dwg": "53f022792602db410c0ab78469e404634899378f2bd8133290e20cd69bf08f67",
+    "drawing/native/input.dxf": "3428e32effc54a58018ea869969f9a6abd1623d37d2a0c20148438b8d3efb685",
+    "drawing/native/plot.log": "6f603f26f28a9dd10d1443d53114c59e4a77719d4e17ea41a003da08d7e0ad3a",
+    "drawing/native/save.log": "dc4c55e942b1e594796b918b98c63e47f01eb2c2f5c48f26e79afb9eb7fa66f5",
+    "drawing/native/save.scr": "e865f8578e01feb4e9ff72409bb508bfc67f346f0f0982f24c0725e23cd8fb5c",
+    "drawing/native/sheet.json": "1970207e880b0e8e153fe5d4a59ce328d93a0d4083dcd05cff3209c895693492",
+    "drawing/native/sheet.log": "e7849a92a46f9d3a36aab051f30197ffc99436fd4c2ce901d34a099346a6b115",
+    "drawing/native/sheet.pdf": "8276f3a7c7cc98df7c06d8969be47d7f8caf68c366abde5116c399dcc92c951e",
+    "drawing/native/sheet.scr": "d0773c29e67f01583c8b2a2e123026e6379529f097df1e07e15f5881496e246d",
+    "drawing/native/reopened/export.log": "2fd0024c6fa012fef1f65b8d8cdb9452f963e8f7ffa7a62968ae44fca13f985c",
+    "drawing/native/reopened/export.scr": "029b6f29a33bd3d5b71906ff4a5760574aa0c1c9995edfa08df2217b7fde0ce2",
+    "drawing/native/reopened/source-copy.dwg": "53f022792602db410c0ab78469e404634899378f2bd8133290e20cd69bf08f67",
+    "drawing/native/reopened/source-export.dxf": "20a867c8b358d196a51dfd59aa66a5fa312399c4725a71061c7d1104536c8cdb",
+    "drawing/native/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "b58278bf420d9f3c2138c94aa1db6b11964ead4875a8328b683e09b5059297bc",
+    "drawing/native/reopened/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "3c0af9e84a15377a39f2e15dbdacd74992b5707ad97b6e40b332f55d76403646",
+    "power-flow/native/network.json": "4dd06f7b17e58245d46c65ebd1ad4cf58d1604461d086cfe9520e32fb284c70d",
+    "power-flow/native/study.json": "e9cb0cdc829b8b2808f2fedcc61a4a0370d00180d7ab2b0c4d11a0b7585ccae4",
+    "index.html": "3f43a4f6ed4ae08bc310772c66f11c45af3888d9b9bb799573d73fb6026ee2a4"
+  },
+  "execution_pass": false,
+  "design_accepted": false,
+  "acceptance_note": "Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance"
+}

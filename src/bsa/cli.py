@@ -79,7 +79,7 @@ def main():
     s.add_argument("plan",type=Path)
     s.add_argument("--out",type=Path,required=True)
     s.add_argument("--review",type=Path,help="Create a pending delivery review outside the run directory")
-    for flag in ("energyplus","autocad","radiance-bin","ifcmcp-python","three-phase-python"):
+    for flag in ("energyplus","autocad","radiance-bin","ifcmcp-python","three-phase-python","graphviz"):
         s.add_argument("--"+flag,type=Path)
     a=parser.parse_args()
     try:
@@ -90,7 +90,7 @@ def main():
                 review=a.review.resolve()
                 if review.exists() or review==a.plan.resolve() or review.is_relative_to(a.out.resolve()):
                     raise ProjectError("review must be a new file outside the plan/run artifacts")
-            execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python,a.three_phase_python)
+            execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python,a.three_phase_python,a.graphviz)
             diagnosis=diagnose(a.plan,a.out)
             # Separate from immutable task artifacts: diagnosis binds workflow.json.
             with (a.out/"diagnosis.json").open("x",encoding="utf-8") as stream:

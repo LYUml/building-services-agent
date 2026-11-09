@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Three-phase study and calculation-schematic delivery now run in one source-linked workflow using pinned pandapower/Graphviz plus existing ezdxf/AutoCAD/PDF components. Actual numerical and DWG-reopen/paper-reference stages pass on a synthetic three-bus fixture; separate inspected-page review retains full installation/protection/Hong Kong acceptance pending. Missing tools, target failures and changed study artifacts block drawing. This does not complete the original multiple-assignment, CAD/BIM, analysis and full-regulation goal. See THREE_PHASE_DRAWINGS.md.
+
 Native Revit development now includes a net10.0-windows library compiled against installed Revit 2027 API with zero warnings/errors. Its source-bound single-pipe creation method verifies native dimensions/connectors and rolls back failure messages; no live invocation, saved RVT or connected-system acceptance exists yet. See adapters/revit/README.md. Revit Home startup is verified, correcting the earlier installation-only state below.
 
 User-directed Revit/MOOSAS review now plans native Revit read/MEP-authoring/schedule/sheet/reopen acceptance alongside existing CAD/IFC workflows. Local Revit 2027 binaries (27.3.0.28) exist; no adapter or live session verified. MOOSAS develop dbf4eb6 is source-pinned for geometry/model/simulation separation and airflow-coupling evaluation, with EnergyPlus-version and licence boundaries retained. See REVIT_MOOSAS_DIRECTION.md.

@@ -1,0 +1,168 @@
+{
+  "design_accepted": false,
+  "review_checks_pass": false,
+  "source_integrity_pass": true,
+  "requirements": [
+    {
+      "id": "R1",
+      "task": "power-flow",
+      "quote": "Execute the explicitly synthetic three-phase network study with source-linked supply, line and phase-PQ data, independent numerical checks and declared voltage/current study targets.",
+      "acceptance": "Actual source-bound study with numerical and declared target checks",
+      "passage": "P001",
+      "source_locator": {
+        "start_line": 1,
+        "end_line": 1
+      },
+      "execution_status": "pass",
+      "recorded_review_status": "pass",
+      "effective_review_status": "pass",
+      "blocked_by": [],
+      "input_blockers": [],
+      "reviewer": "Host agent scoped evidence review",
+      "reviewed_at_utc": "2026-11-09T16:10:01.130253+00:00",
+      "notes": "Inspected the synthetic source-bound three-bus result: 18 electrical kW, 1.9 kvar demand; independent complex-power, node and branch residuals and declared study targets pass. Scope is numerical study only.",
+      "evidence": [
+        {
+          "artifact": "power-flow/native/study.json",
+          "sha256": "e9cb0cdc829b8b2808f2fedcc61a4a0370d00180d7ab2b0c4d11a0b7585ccae4"
+        },
+        {
+          "artifact": "power-flow/three-phase.json",
+          "sha256": "93555835037af137b1735daeb132b84750fb7d475d25de7060c19e915528f1b5"
+        }
+      ],
+      "attachments": [],
+      "facts": [
+        {
+          "artifact": "power-flow/native/study.json",
+          "pointer": "/verification_pass",
+          "expected": true,
+          "basis": "Scoped adapter fact; independent visual/engineering scope retained in observations",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "power-flow/native/study.json",
+          "pointer": "/study_targets_pass",
+          "expected": true,
+          "basis": "Scoped adapter fact; independent visual/engineering scope retained in observations",
+          "actual": true,
+          "pass_check": true
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "R2",
+      "task": "drawing",
+      "quote": "Generate a calculation-bound editable schematic, complete per-phase load and line schedules, independently reopened native DWG and a paper-reference-checked PDF using the passing study; do not substitute diagram lengths for source route lengths.",
+      "acceptance": "Complete source/result-linked DXF and schedules, native reopening and measured paper reference; visual/engineering review separate",
+      "passage": "P002",
+      "source_locator": {
+        "start_line": 3,
+        "end_line": 3
+      },
+      "execution_status": "pass",
+      "recorded_review_status": "pass",
+      "effective_review_status": "pass",
+      "blocked_by": [],
+      "input_blockers": [],
+      "reviewer": "Host agent scoped evidence review",
+      "reviewed_at_utc": "2026-11-09T16:10:01.130253+00:00",
+      "notes": "Inspected actual rendered PDF: three voltage boxes, both line current/length labels and scope notes are readable and uncut. Checked native reopen, source identities, six rows in each phase schedule and the 50 mm reference measured about 49.996 mm. This is a calculation schematic; full installation and regulatory acceptance remain pending.",
+      "evidence": [
+        {
+          "artifact": "drawing/drawing.json",
+          "sha256": "1c6d8f17f894ef339acf05d177886aabb3bf85baf413ba96ffc2a14c51ce4968"
+        },
+        {
+          "artifact": "drawing/schematic.dxf",
+          "sha256": "3428e32effc54a58018ea869969f9a6abd1623d37d2a0c20148438b8d3efb685"
+        },
+        {
+          "artifact": "drawing/loads.csv",
+          "sha256": "09ae8a584f0c2bbf7fc7d09b08523f8b7fd552002df605891c70f2260f8ce934"
+        },
+        {
+          "artifact": "drawing/lines.csv",
+          "sha256": "b957c23281d00d1e961ec26490e5e159d82d9ea44fb4aad9bf19f31ec90cb92b"
+        },
+        {
+          "artifact": "drawing/native/electrical-schematic.dwg",
+          "sha256": "53f022792602db410c0ab78469e404634899378f2bd8133290e20cd69bf08f67"
+        },
+        {
+          "artifact": "drawing/native/sheet.pdf",
+          "sha256": "8276f3a7c7cc98df7c06d8969be47d7f8caf68c366abde5116c399dcc92c951e"
+        }
+      ],
+      "attachments": [
+        {
+          "path": "page-review.png",
+          "sha256": "04ae6e069ba082de5399b97260b912f59458265d888f61a642237f850b2d53d6",
+          "source_artifact": "drawing/native/sheet.pdf",
+          "source_sha256": "8276f3a7c7cc98df7c06d8969be47d7f8caf68c366abde5116c399dcc92c951e"
+        }
+      ],
+      "facts": [
+        {
+          "artifact": "drawing/drawing.json",
+          "pointer": "/dxf_identity_pass",
+          "expected": true,
+          "basis": "Scoped adapter fact; independent visual/engineering scope retained in observations",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "drawing/drawing.json",
+          "pointer": "/native/native_reopen_pass",
+          "expected": true,
+          "basis": "Scoped adapter fact; independent visual/engineering scope retained in observations",
+          "actual": true,
+          "pass_check": true
+        },
+        {
+          "artifact": "drawing/drawing.json",
+          "pointer": "/native/plot/pdf_reference_pass",
+          "expected": true,
+          "basis": "Scoped adapter fact; independent visual/engineering scope retained in observations",
+          "actual": true,
+          "pass_check": true
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "R3",
+      "task": "review",
+      "quote": "Visually inspect the actual PDF and review source interpretation, installation scope, cable and protection data, physical neutral, harmonics and Hong Kong applicability before engineering acceptance; retain all incomplete checks.",
+      "acceptance": "Actual visual and engineering evidence for the full required scope; unresolved parts stay pending",
+      "passage": "P003",
+      "source_locator": {
+        "start_line": 5,
+        "end_line": 5
+      },
+      "execution_status": "pending",
+      "recorded_review_status": "pending",
+      "effective_review_status": "pending",
+      "blocked_by": [],
+      "input_blockers": [],
+      "reviewer": "",
+      "reviewed_at_utc": "",
+      "notes": "Only the page visual component has been inspected. Actual installation/cable/protection/neutral/harmonics/Hong Kong design remains unverified; do not clear this combined requirement.",
+      "evidence": [],
+      "attachments": [],
+      "facts": [],
+      "issues": []
+    }
+  ],
+  "issues": [],
+  "scope": "Source/byte consistency, recorded reviewer assertions and optional adapter-reported Boolean facts; not reviewer authentication, semantic completeness or engineering certification",
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\three-phase-network\\drawing-plan.json": "cfbd22034670fb7f38f4fe2b4e7cc93b9d6bb35f0e921d9432514de53e94cd74",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\three-phase-native-workflow-v1\\workflow.json": "7872f1b47447cc742a5b193f7697262a0a3771440cb2eca5658d68fbcedf6a36",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\three-phase-native-workflow-v1-review-observed.json": "aaf4214472643389b83fb9eee8a3257ee100f2074a56ec2991f6b71f7a5a23e5"
+  },
+  "inputs_unchanged": true,
+  "status": "needs_review"
+}
