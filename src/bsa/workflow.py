@@ -570,6 +570,8 @@ def validate_plan(path):
     if cited!={k for k,v in dispositions.items() if v=="requirement"}:
         raise ProjectError("requirement passage omitted from matrix")
     if {r["task"] for r in requirements}!=ids:raise ProjectError("every task must map to a requirement")
+    from .input_issues import validate as validate_inputs
+    validate_inputs(p,source,ids)
     regulatory_source_bindings(tasks,root)
     inventory_source_bindings(tasks,root)
     return p,inputs
@@ -600,7 +602,11 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
             if any(not f.is_file() or digest(f)!=before[str(f)] for f in inputs):
                 raise ProjectError('workflow source changed before task execution; adapter not executed')
             blocked=[g for g in t.get('requires_pass',[]) if tasks[g]['status']!='pass']
-            if blocked:
+            from .input_issues import blockers
+            missing_inputs=blockers(p,t['id'])
+            if missing_inputs:
+                reason='unresolved design inputs: '+', '.join(i['id']+' ('+i['kind']+'): '+i['description'] for i in missing_inputs)+'; adapter not executed'
+            elif blocked:
                 reason='required checks unresolved: '+', '.join(g+' ('+tasks[g]['status']+')' for g in blocked)+'; adapter not executed'
             elif t['kind']=='revit_inventory_check':
                 from .revit_connectivity import run
@@ -1082,6 +1088,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                            source_locator={k:v for k,v in source_rows[r["passage"]].items() if k not in ("id","text")},
                            execution_scope=task["scope"],evidence=evidence[r["task"]]))
     result=dict(inputs=before,inputs_unchanged=unchanged,tasks=tasks,requirements=matrix,
+        unresolved_inputs=p.get('unresolved_inputs',[]),
         regulatory_source_bindings=regulatory_source_bindings(p['tasks'],root) if unchanged else [],
         inventory_source_bindings=inventory_source_bindings(p['tasks'],root) if unchanged else [],
         artifact_hashes={f.relative_to(out).as_posix():digest(f) for f in out.rglob("*") if f.is_file()},

@@ -36,6 +36,26 @@ The sample contains an explicit manual review task. Execute therefore returns ex
 
 ## Plan contract
 
+### Missing and conflicting design inputs
+
+Optional `unresolved_inputs` records known input problems separately from task execution. For example:
+
+```json
+"unresolved_inputs": [{
+  "id": "installation-basis",
+  "kind": "missing",
+  "description": "Installation conditions needed for the sizing basis remain unconfirmed",
+  "sources": [{"passage": "P002", "quote": "Verify installation conditions before sizing."}],
+  "blocks_tasks": ["sizing"]
+}]
+```
+
+Each issue requires these exact fields, a unique path-safe ID, `missing` or `conflict`, a nonempty description, exact passage/quote citations, and unique existing task IDs. A conflict requires at least two distinct citations; the tool checks their source linkage, not whether they conflict in meaning. Supplemental-document passage IDs are supported. These records supplement the requirement matrix rather than replacing requirement coverage.
+
+An affected task remains pending and its adapter is not called. Dependent tasks still obey their existing dependency gates; independent tasks continue. The register is retained in `workflow.json`, rendered in the requirement report, and verified during dependency diagnosis and delivery audit. `input_blockers` identifies the source-linked issues for each affected task. Reviewer assertions cannot clear them, including for manual tasks. Diagnose rejects a recorded passing task with unresolved inputs and rejects a register differing from the source plan.
+
+Plans and declared task input files must still satisfy their existing validation contracts: this feature does not permit fake or absent project files as placeholders. If the required adapter input cannot yet be authored, preserve the requirement as a manual task with an explicit missing implementation/data scope until a valid source-backed design is available. Resolving an issue means obtaining actual evidence, revising the design basis and source-linked plan, and running into a new directory. There is no `resolved=true` override. Removing an issue is a plan-author decision, not independently verified resolution; preserve previous runs and review the new basis. The software does not infer missing parameters, compare arbitrary engineering values/units, or prove that a declared issue list is complete.
+
 See examples/workflow-plan.json. Version 1 requires:
 
 - `brief`: relative source path and `brief_sha256`: digest of the interpreted bytes.

@@ -19,6 +19,10 @@ def diagnose(plan, run):
     for task in source['tasks']:
         name = task['id']
         state = tasks[name]
+        from .input_issues import blockers
+        input_blockers=blockers(source,name)
+        if input_blockers and state['status']=='pass':
+            raise ProjectError(f'passing task {name} has unresolved design inputs')
         parents = list(dict.fromkeys([task[key] for key in
             ('depends_on', 'ifc_from', 'junction_from', 'connector_from')
             if task.get(key)]+task.get('requires_pass',[])))
@@ -40,7 +44,9 @@ def diagnose(plan, run):
         if state['status'] != 'pass' and not blocked:
             roots = [name]
         ancestors[name] = roots
-        if blocked:
+        if input_blockers:
+            action = 'resolve the cited missing/conflicting design inputs before a new run'
+        elif blocked:
             action = 'resolve upstream tasks before rerunning dependent task'
         elif state['status'] == 'fail':
             action = 'inspect retained failure evidence and correct source or adapter before a new run'
@@ -53,6 +59,7 @@ def diagnose(plan, run):
         rows.append(dict(id=name, kind=task['kind'], status=state['status'],
                          recorded_scope=state['scope'], dependencies=parents, iteration_baseline=iteration_baseline,
                          blocked_by=blocked, upstream_action_tasks=roots,
+                         input_blockers=input_blockers,
                          next_action=action,
                          requirement_ids=[r['id'] for r in source['requirements'] if r['task'] == name],
                          evidence=sorted(p for p in report['artifact_hashes'] if p.startswith(name + '/'))))

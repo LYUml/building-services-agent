@@ -19,6 +19,8 @@ def context(plan,root):
     plan,root=Path(plan).resolve(),Path(root).resolve()
     source,inputs=validate_plan(plan);inputs.add(plan)
     report=json.loads((root/'workflow.json').read_text(encoding='utf-8-sig'))
+    if report.get('unresolved_inputs',[])!=source.get('unresolved_inputs',[]):
+        raise ProjectError('run unresolved input register differs from plan')
     if not isinstance(report,dict) or report.get('inputs')!={str(p):digest(p) for p in inputs}:
         raise ProjectError('run input set/hashes differ from the current source-linked plan')
     tasks={t['id']:t for t in source['tasks']}
@@ -138,11 +140,13 @@ def assess(plan,root,review_path):
             if task['status']=='fail':issues.append('upstream task failed; review cannot clear it')
             effective='fail' if issues or status=='fail' else status
             blocked_by = dependency_rows[requirement['task']]['blocked_by']
-            if effective=='pass' and blocked_by:effective='pending'
+            input_blockers=dependency_rows[requirement['task']]['input_blockers']
+            if effective=='pass' and (blocked_by or input_blockers):effective='pending'
             if effective=='pass' and task['status']=='pending' and task['kind']!='manual':effective='pending'
             result['requirements'].append(dict(id=requirement['id'],task=requirement['task'],quote=requirement['quote'],acceptance=requirement['acceptance'],
                 passage=requirement['passage'],source_locator=recorded_requirements[requirement['id']]['source_locator'],
                 execution_status=task['status'],recorded_review_status=status,effective_review_status=effective,blocked_by=blocked_by,
+                input_blockers=input_blockers,
                 reviewer=row['reviewer'],reviewed_at_utc=row['reviewed_at_utc'],notes=row['notes'],evidence=row['evidence'],attachments=row['attachments'],facts=facts,issues=issues))
         result['review_checks_pass']=integrity['integrity_pass'] and all(r['effective_review_status']=='pass' for r in result['requirements'])
     except (ProjectError,ValueError,TypeError,KeyError,IndexError,AttributeError,OSError) as exc:
@@ -169,8 +173,8 @@ def run(plan,root,review,out):
         raise ProjectError('store audit separately; output must not contain source/run/review')
     result=assess(plan,root,review);out.mkdir(parents=True,exist_ok=False)
     (out/'audit.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
-    rows=''.join('<tr>'+''.join('<td>'+html.escape(str(r[k]))+'</td>' for k in ('id','passage','source_locator','quote','acceptance','execution_status','effective_review_status','notes'))+'</tr>' for r in result['requirements'])
-    (out/'report.html').write_text('<!doctype html><meta charset="utf-8"><title>Delivery review evidence</title><h1>Delivery review evidence</h1><p>'+html.escape(result['status'])+'</p><p>'+html.escape(result['scope'])+'</p><p>Design accepted: false. Reviewer assertions are not authenticated or independently certified.</p><table border="1"><tr><th>Requirement</th><th>Source passage</th><th>Source locator</th><th>Source quote</th><th>Acceptance target</th><th>Execution</th><th>Effective review result</th><th>Observations</th></tr>'+rows+'</table><pre>'+html.escape(json.dumps(result['issues'],ensure_ascii=False,indent=2))+'</pre>',encoding='utf-8')
+    rows=''.join('<tr>'+''.join('<td>'+html.escape(str(r[k]))+'</td>' for k in ('id','passage','source_locator','quote','acceptance','execution_status','effective_review_status','input_blockers','notes'))+'</tr>' for r in result['requirements'])
+    (out/'report.html').write_text('<!doctype html><meta charset="utf-8"><title>Delivery review evidence</title><h1>Delivery review evidence</h1><p>'+html.escape(result['status'])+'</p><p>'+html.escape(result['scope'])+'</p><p>Design accepted: false. Reviewer assertions are not authenticated or independently certified.</p><table border="1"><tr><th>Requirement</th><th>Source passage</th><th>Source locator</th><th>Source quote</th><th>Acceptance target</th><th>Execution</th><th>Effective review result</th><th>Input blockers</th><th>Observations</th></tr>'+rows+'</table><pre>'+html.escape(json.dumps(result['issues'],ensure_ascii=False,indent=2))+'</pre>',encoding='utf-8')
     return result
 
 

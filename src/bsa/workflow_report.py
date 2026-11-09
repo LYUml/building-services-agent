@@ -15,6 +15,8 @@ def render(report):
         return '<a href="'+quote(name,safe='/')+'">'+esc(name)+'</a> <small>SHA256 '+esc(report['artifact_hashes'][name])+'</small>'
     sections=[]
     for row in report['requirements']:
+        inputs=[i for i in report.get('unresolved_inputs',[]) if row['task'] in i['blocks_tasks']]
+        input_notice='<h3>Unresolved design inputs</h3><ul>'+''.join('<li>'+esc(i['id'])+' ('+esc(i['kind'])+'): '+esc(i['description'])+'<br>Source citations: '+esc(i['sources'])+'</li>' for i in inputs)+'</ul>' if inputs else ''
         files=sorted(set(row['evidence']))
         evidence='<ul>'+''.join('<li>'+link(name)+'</li>' for name in files)+'</ul>' if files else '<p>No artifacts generated for this task.</p>'
         sections.append('<section><h2>'+esc(row['id'])+' · '+esc(row['task'])+'</h2>'
@@ -23,6 +25,7 @@ def render(report):
             '<p>Source locator: '+esc(row.get('source_locator',{}))+'</p>'
             '<h3>Acceptance target</h3><p>'+esc(row['acceptance'])+'</p>'
             '<h3>Executed scope</h3><p>'+esc(row['execution_scope'])+'</p>'
+            +input_notice+
             '<details><summary>Task artifacts ('+str(len(files))+')</summary>'+evidence+'</details></section>')
     statuses={s:sum(t['status']==s for t in report['tasks'].values()) for s in ('pass','fail','pending')}
     return '''<!doctype html><html lang="en"><head><meta charset="utf-8">
