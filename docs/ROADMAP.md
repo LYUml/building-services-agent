@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Native Revit development now includes a net10.0-windows library compiled against installed Revit 2027 API with zero warnings/errors. Its source-bound single-pipe creation method verifies native dimensions/connectors and rolls back failure messages; no live invocation, saved RVT or connected-system acceptance exists yet. See adapters/revit/README.md. Revit Home startup is verified, correcting the earlier installation-only state below.
+
 User-directed Revit/MOOSAS review now plans native Revit read/MEP-authoring/schedule/sheet/reopen acceptance alongside existing CAD/IFC workflows. Local Revit 2027 binaries (27.3.0.28) exist; no adapter or live session verified. MOOSAS develop dbf4eb6 is source-pinned for geometry/model/simulation separation and airflow-coupling evaluation, with EnergyPlus-version and licence boundaries retained. See REVIT_MOOSAS_DIRECTION.md.
 
 Drainage preparation now requires explicit initial node depths, surcharge allowances and initial conduit flows. Inconsistent initial depths or conduit crowns above declared junction depths are rejected before input generation; five preparation/workflow tests pass. Native SWMM parsing and simulation are still unverified.

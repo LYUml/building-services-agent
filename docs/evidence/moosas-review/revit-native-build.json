@@ -1,0 +1,28 @@
+{
+  "build_pass": true,
+  "sdk_url": "https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.403/dotnet-sdk-10.0.403-win-x64.zip",
+  "native_executed": false,
+  "warnings": 0,
+  "sdk_version": "10.0.403",
+  "design_accepted": false,
+  "files": [
+    {
+      "path": "adapters/revit/NativePipes.cs",
+      "sha256": "2e0d5dacd2438cde82dee346e24538efebbd19657c43deddad924047d31cc924"
+    },
+    {
+      "path": "adapters/revit/Bsa.Revit.csproj",
+      "sha256": "60f67444998c24e873a604c543e03d807178cf4aa7621532df20a5f51cce3957"
+    },
+    {
+      "path": "adapters/revit/bin/Release/net10.0-windows/Bsa.Revit.dll",
+      "sha256": "d7ce22da06fea76d07a341094d7b10a17b527e20b6266d7de9438a7043ccaf5e"
+    },
+    {
+      "path": "runs/revit-build-v3.log",
+      "sha256": "0bc793c9f66da8117b86b63cb1e3ef12943faaa0b4b213edac6ce472c3fb3911"
+    }
+  ],
+  "errors": 0,
+  "sdk_sha512": "7a114c318fa7f1d9822991b534b2814d0e78386ceda816b371f5141acefe741d87ccb606ede06cadac8f9ac5070e32b708a67bbd1619ff5e5a7858a27874ef48"
+}

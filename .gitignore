@@ -5,3 +5,5 @@ __pycache__/
 runs/
 .env
 tools/
+adapters/revit/bin/
+adapters/revit/obj/
