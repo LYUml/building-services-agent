@@ -29,3 +29,19 @@ Use a new output directory and add `--body-kind extrusion` to the author command
 The reader requires an unoffset solid circular extrusion profile, a proper rigid frame, perpendicular normalized extrusion direction and positive depth. It compares the actual extrusion end centres with the independent Axis, native mesh properties and placed ports. Ten actual saved-file tests pass, covering baseline and inclined/translated fixtures, displaced Body/port, changed calculation length/units/source bytes/model hash, oblique extrusion and hollow-profile rejection. Two mesh-diagnostic tests passed separately. No checks or tolerances were weakened.
 
 This verifies straight cable geometry correspondence, not physical connectivity, authored distribution boards, cable selection, protection, bends, layout coordination, viewer acceptance or full regulatory coverage. The declared geometry source is hash/locator-bound; arbitrary source text is not automatically interpreted as a dimensional specification. Numerical calculations still consume their existing declared lengths, now checked against the saved IFC. Derivation of a fresh numerical project and workflow registration remain pending.
+
+## Registered workflow and native execution
+
+Workflow kind `three_phase_ifc` now inherits the exact passing `three_phase` producer via `depends_on`, with explicit saved `ifc` and `binding` paths. Replacement project settings are forbidden. Source geometry, model, binding and geometry helper code enter integrity tracking; saved numerical artifacts are checked before inspection. A drawing can require this task through `requires_pass`. Direct/transitive geometry or rule gates must use the drawing's exact numerical producer, and altered check artifacts block CAD invocation.
+
+Reproduce from the synthetic example with new paths (do not author generated IFC into examples):
+
+```powershell
+Copy-Item -LiteralPath examples/three-phase-network -Destination runs/new-ifc-source -Recurse
+.venv/Scripts/python scripts/author_three_phase_ifc_fixture.py runs/new-ifc-source/project.json --geometry runs/new-ifc-source/cable-geometry.json --body-kind extrusion --out runs/new-ifc-source/cable-fixture
+.venv/Scripts/python -m bsa.workflow execute runs/new-ifc-source/ifc-plan.json --out runs/new-ifc-workflow --three-phase-python tools/pandapower-runtime/Scripts/python.exe --graphviz tools/freecad-1.1.4/FreeCAD_1.1.4-Windows-x86_64-py311/bin/dot.exe --autocad 'C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe'
+```
+
+The actual run in `runs/three-phase-ifc-native-workflow-v1` passed numerical study, saved IFC correspondence and native drawing tasks. DWG was independently reopened; the actual A4 PDF was rendered and visually inspected. Its 50 mm reference measured 49.995667 mm. The [retained execution/page evidence](evidence/pandapower/cable-ifc-workflow.json) records this scope. A duplicate /PageMode PDF warning is retained; PDF conformance is not claimed. Full manual review remains pending and the workflow process consequently exits nonzero. The IFC is an external saved input; this workflow does not generate an installation model automatically.
+
+Forty-two related tests pass: five new workflow cases plus saved geometry, existing three-phase rule/drawing gates, workflow and delivery regressions. New cases cover actual numerical/IFC execution, missing runtime, changed geometry, changed check artifact and direct/transitive unrelated-study gates. Skills route this operation while retaining physical installation, local-code and engineering limitations. Prior standalone-only notes above describe the earlier milestone.

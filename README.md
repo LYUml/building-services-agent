@@ -166,3 +166,5 @@ A sourced one-duty/one-standby plumbing set now executes each role separately ag
 Straight cable IFC correspondence is under [active investigation](docs/THREE_PHASE_IFC.md): actual saved swept-disk fixtures pass schema validation but fail mandatory native solid checks. This is not an available workflow integration.
 
 Straight cable IFC follow-up: explicit circular extrusions now pass saved native geometry/port/axis/electrical-length correspondence and tamper tests; the failed swept-disk case remains retained. This standalone check is not connected installation authoring or a registered workflow. See docs/THREE_PHASE_IFC.md.
+
+The straight cable check is now registered as three_phase_ifc with exact-study geometry gates. Actual numerical → IFC correspondence → reopened DWG/inspected PDF execution passed its scoped tasks; manual engineering acceptance remains pending. See docs/THREE_PHASE_IFC.md and examples/three-phase-network/ifc-plan.json.

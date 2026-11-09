@@ -72,3 +72,5 @@ For selected circulation-pump curve properties, use docs/SELECTED_PUMP_IFC.md an
 
 
 For saved-model inventories or a new text property set on an existing pump, ../mep-ifc-mcp/SKILL.md provides the verified official MCP path and source-preservation checks. That isolated runtime is not a geometry-authoring substitute: local OpenCascade loading is blocked, while queries and scoped metadata saves have separate evidence. Do not treat unchanged original entity records as verification of new geometry or equipment truth.
+
+For straight electrical cable envelopes read docs/THREE_PHASE_IFC.md. Workflow three_phase_ifc inherits an exact passing three_phase study and accepts explicit saved ifc/binding inputs. Circular extrusions have executed native correspondence and tamper tests; the retained swept-disk fixture fails mandatory solid checks. Do not equate placed cable ports/bus anchors with connected electrical equipment. Gate the same-study schematic explicitly through requires_pass; conductor selection, bends, physical connectivity, protection and viewer acceptance remain separate.

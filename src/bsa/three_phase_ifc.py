@@ -12,6 +12,20 @@ from .engine import ProjectError
 from .three_phase import prepare,fields,ROOT
 
 
+def inputs(project,ifc,binding_path):
+    """Preflight source inventory without running native geometry."""
+    from . import circular_geometry,cad_ifc,solid_clash
+    _,files=prepare(project)
+    ifc,binding_path=Path(ifc).resolve(),Path(binding_path).resolve()
+    binding=json.loads(binding_path.read_text(encoding='utf-8-sig'))
+    fields(binding,'version ifc_sha256 project_guid system_guid source buses lines')
+    source=binding['source'];fields(source,'path sha256 locator kind')
+    if not isinstance(source['path'],str) or Path(source['path']).is_absolute():raise ProjectError('relative geometry source required')
+    path=(binding_path.parent/source['path']).resolve()
+    if not path.is_relative_to(binding_path.parent) or not path.is_file() or digest(path)!=source['sha256']:raise ProjectError('geometry source path/hash mismatch')
+    return files|{ifc,binding_path,path,Path(__file__).resolve(),*(Path(m.__file__).resolve() for m in (circular_geometry,cad_ifc,solid_clash))}
+
+
 def inspect(project,ifc,binding_path):
     import numpy as np
     import ifcopenshell
@@ -24,7 +38,7 @@ def inspect(project,ifc,binding_path):
     versions={name:importlib.metadata.version(name) for name in ('ifcopenshell','manifold3d')}
     if versions!={'ifcopenshell':'0.8.5','manifold3d':'3.5.4'}:raise ProjectError('verified IFC/mesh runtime pins required')
     project,ifc,binding_path=[Path(v).resolve() for v in (project,ifc,binding_path)]
-    p,inputs=prepare(project);inputs|={ifc,binding_path,Path(__file__).resolve()}
+    p,_=prepare(project);source_files=inputs(project,ifc,binding_path)
     binding=json.loads(binding_path.read_text(encoding='utf-8-sig'))
     fields(binding,'version ifc_sha256 project_guid system_guid source buses lines')
     if type(binding['version']) is not int or binding['version']!=1 or binding['ifc_sha256']!=digest(ifc):raise ProjectError('version 1 and exact saved IFC hash required')
@@ -33,7 +47,7 @@ def inspect(project,ifc,binding_path):
     source_path=(binding_path.parent/source['path']).resolve()
     if not source_path.is_relative_to(binding_path.parent) or not source_path.is_file() or digest(source_path)!=source['sha256']:raise ProjectError('geometry source path/hash mismatch')
     if not isinstance(source['locator'],str) or not source['locator'].strip() or source['kind'] not in ('assumption','measured','course_given','manufacturer','design_target'):raise ProjectError('geometry source kind/locator required')
-    inputs.add(source_path);before={str(f):digest(f) for f in inputs}
+    before={str(f):digest(f) for f in source_files}
     model=ifcopenshell.open(str(ifc));factor=unit.calculate_unit_scale(model)
     if model.schema!='IFC4' or not math.isfinite(factor) or factor<=0:raise ProjectError('IFC4 and positive length-unit scale required')
     projects=model.by_type('IfcProject')

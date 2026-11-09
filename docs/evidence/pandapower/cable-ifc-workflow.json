@@ -1,0 +1,68 @@
+{
+  "scope": "Synthetic same-study workflow and actual schematic page inspection only",
+  "tasks": {
+    "study": {
+      "kind": "three_phase",
+      "status": "pass",
+      "scope": "Single-voltage sequence-line constant-PQ wye power flow; numerical checks and declared targets only; no physical neutral, protection, cable selection, CAD/BIM or regulatory acceptance"
+    },
+    "geometry": {
+      "kind": "three_phase_ifc",
+      "status": "pass",
+      "scope": "Selected-system straight cable envelopes, placed ports, bus anchors and analysis lengths only; physical connections, bends, conductor selection, protection and regulatory acceptance remain unverified"
+    },
+    "drawing": {
+      "kind": "three_phase_drawing",
+      "status": "pass",
+      "scope": "Source-linked calculation schematic and schedules only; full installation, protection and Hong Kong acceptance pending; actual page visual/engineering review remains pending"
+    },
+    "review": {
+      "kind": "manual",
+      "status": "pending",
+      "scope": "manual engineering/visual verification required"
+    }
+  },
+  "three_phase_source_bindings": [
+    {
+      "check": "geometry",
+      "consumer": "drawing",
+      "study_producer": "study"
+    }
+  ],
+  "native_reopen_pass": true,
+  "plot": {
+    "pdf_sha256": "e03bc5e98a9c858d4d2d54ce134b036e291f882be75ad372013dacfb28b530bf",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 1,
+    "reference_handle": "7F",
+    "reference_expected_mm": 50.0,
+    "reference_measured_mm": 49.99566666666666,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "visual_review": {
+    "pdf_sha256": "e03bc5e98a9c858d4d2d54ce134b036e291f882be75ad372013dacfb28b530bf",
+    "png_sha256": "0ec4f84c7334098c9ae2d3b1bae1b5d9b1f06d66df926f7c589c4e109739fbe9",
+    "observed": "Three readable bus boxes, two labelled edges with 40 m and 25 m source lengths and phase currents; scope notes and 50 mm paper reference visible; no visible clipping or label overlaps",
+    "schematic_page_review_pass": true,
+    "engineering_acceptance": false
+  },
+  "related_tests": {
+    "run": 42,
+    "failures": 0,
+    "errors": 0
+  },
+  "design_accepted": false,
+  "artifact_sha256": {
+    "workflow.json": "c049f8e3d8132dea3350722b53d55bc8857ed762e9c4658368165100509dab25",
+    "geometry\\ifc-electrical-check.json": "a4a5c7020f7b5b918e4f0e268f0dea088309abd8daf733ced662e4d7286fb352",
+    "drawing\\drawing.json": "99b2827d6c32bab0d2e40856c310fcee5403c3fa7da60c1789f14c5bbb20a20d",
+    "drawing\\native\\electrical-schematic.dwg": "5a56174dfeb21b7a655c84b8860358455270c119bcff53b101cdf534f41ef826"
+  },
+  "retained_warning": "PDF dictionary contains duplicate /PageMode; no PDF conformance claim"
+}

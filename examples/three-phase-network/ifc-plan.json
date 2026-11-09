@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "brief": "ifc-brief.md",
+  "brief_sha256": "d405c1ae2ba45617a304c6b5f0494d2f094f9e8543ee14680ad7d56d5aa361b7",
+  "passage_dispositions": {
+    "P001": "requirement",
+    "P002": "requirement",
+    "P003": "requirement",
+    "P004": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "study",
+      "kind": "three_phase",
+      "project": "project.json"
+    },
+    {
+      "id": "geometry",
+      "kind": "three_phase_ifc",
+      "depends_on": "study",
+      "ifc": "cable-fixture/cables.ifc",
+      "binding": "cable-fixture/binding.json"
+    },
+    {
+      "id": "drawing",
+      "kind": "three_phase_drawing",
+      "depends_on": "study",
+      "requires_pass": [
+        "geometry"
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "requires_pass": [
+        "drawing"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P001",
+      "quote": "Execute the explicitly synthetic three-phase study with source-linked numerical and target checks.",
+      "task": "study",
+      "acceptance": "Execute the explicitly synthetic three-phase study with source-linked numerical and target checks."
+    },
+    {
+      "id": "R2",
+      "passage": "P002",
+      "quote": "Verify saved straight cable solids, ports and route lengths against that same study project.",
+      "task": "geometry",
+      "acceptance": "Verify saved straight cable solids, ports and route lengths against that same study project."
+    },
+    {
+      "id": "R3",
+      "passage": "P003",
+      "quote": "Generate a calculation schematic only after the corresponding geometry check passes; schematic positions are not installation routes.",
+      "task": "drawing",
+      "acceptance": "Generate a calculation schematic only after the corresponding geometry check passes; schematic positions are not installation routes."
+    },
+    {
+      "id": "R4",
+      "passage": "P004",
+      "quote": "Review actual drawings, physical connections, cable selection, protection and applicable regulations before engineering acceptance.",
+      "task": "review",
+      "acceptance": "Review actual drawings, physical connections, cable selection, protection and applicable regulations before engineering acceptance."
+    }
+  ]
+}
