@@ -1,0 +1,41 @@
+{
+  "record_type": "manufacturer_research_not_solver_input",
+  "source": {
+    "url": "https://assets.victaulic.com/assets/uploads/literature/I-100.pdf",
+    "publication": "I-100",
+    "revision": "H",
+    "retrieved": "2026-11-09",
+    "sha256": "bf25f58ea7cd6c43bff4752cc4293307ff3a32e2607dc44290701a2ebc1a8475",
+    "visually_reviewed_printed_pages": [
+      52,
+      149
+    ],
+    "text_reviewed_printed_pages": [
+      148,
+      169,
+      170,
+      171
+    ],
+    "copyright": "Victaulic; local reference only"
+  },
+  "published_data": {
+    "printed_page": 52,
+    "scope": "Other OGS flexible couplings; OGS roll-grooved pipe",
+    "nominal_size": "DN40",
+    "actual_od_mm": 48.3,
+    "nominal_pipe_end_separation_mm": [
+      0,
+      1.6
+    ],
+    "nominal_deflection_degrees": 1.93
+  },
+  "interpretation": {
+    "printed_149": "Align mating-component centre lines, select appropriate end separation and centre gasket between grooves. This does not define CAD POINT semantics.",
+    "printed_169_171": "Style77 two-housing installation requires groove engagement and visual bolt-pad contact checks; a saved IFC cannot certify physical installation.",
+    "source_difference": "I-100 H publishes 1.6 mm; 06.04 Rev Y publishes 1.5 mm. Retain separate published values; neither selects an installed project gap.",
+    "cad_node_separation_mm": 0.762,
+    "cad_node_is_installed_end": null
+  },
+  "decision": "Do not modify alignment or waive mesh overlap from these publications alone. Establish source CAD node/end correspondence and detailed joint geometry first.",
+  "design_accepted": false
+}
