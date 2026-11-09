@@ -1,0 +1,282 @@
+{
+  "run": "runs\\fan-mechanical-selection-v1",
+  "demonstration": {
+    "cases": {
+      "overspeed-first": {
+        "states": {
+          "air": "pass",
+          "fan": "pass",
+          "selected-operation": "pass",
+          "review": "pending"
+        },
+        "selected": "second",
+        "unresolved_preference": []
+      },
+      "preferred-unknown": {
+        "states": {
+          "air": "pass",
+          "fan": "pending",
+          "selected-operation": "pending",
+          "review": "pending"
+        },
+        "selected": null,
+        "unresolved_preference": [
+          "first"
+        ]
+      },
+      "lower-unknown": {
+        "states": {
+          "air": "pass",
+          "fan": "pass",
+          "selected-operation": "pass",
+          "review": "pending"
+        },
+        "selected": "first",
+        "unresolved_preference": []
+      },
+      "all-overspeed": {
+        "states": {
+          "air": "pass",
+          "fan": "fail",
+          "selected-operation": "pending",
+          "review": "pending"
+        },
+        "selected": null,
+        "unresolved_preference": []
+      }
+    },
+    "design_accepted": false,
+    "scope": "Real speed table; synthetic curves/product associations only"
+  },
+  "cases": {
+    "overspeed-first": {
+      "workflow_sha256": "1acaf0abcab39de51f1272a0e53f87c149a6fc472e7d8f5b2bc6d74ca28ca1b2",
+      "selection_sha256": "42ebf615dc7307d9b347090545deb88eced2cd36dcd77b2c85f76099b933f1fe",
+      "candidates": [
+        {
+          "id": "first",
+          "preference": 0,
+          "status": "converged",
+          "numerical_checks_pass": true,
+          "calculated_checks_pass": false,
+          "mechanical": {
+            "status": "fail",
+            "speed_rpm": 3500,
+            "construction_class": "Class_I",
+            "maximum_speed_rpm": 3167,
+            "speed_within_maximum": false,
+            "source_page": 13,
+            "source_pdf_sha256": "a50f3202afc6fb0fc42af856d43493dc1079a529de36634d25bef9c9ebdcd18b",
+            "independent_pdf_table_match": true,
+            "scope": "BC-SW 122 declared construction-class maximum speed only; no interpolation, product authentication or design acceptance",
+            "design_accepted": false,
+            "pending": [
+              "Actual supplied construction-class identity and present product suitability",
+              "Validated numeric curve/digitization uncertainty and stable/installation applicability",
+              "Native fan geometry/ports, motor/transmission and drawn electrical input",
+              "Full Hong Kong and engineering acceptance"
+            ]
+          }
+        },
+        {
+          "id": "second",
+          "preference": 1,
+          "status": "converged",
+          "numerical_checks_pass": true,
+          "calculated_checks_pass": true,
+          "mechanical": {
+            "status": "pass",
+            "speed_rpm": 1450,
+            "construction_class": "Class_I",
+            "maximum_speed_rpm": 3167,
+            "speed_within_maximum": true,
+            "source_page": 13,
+            "source_pdf_sha256": "a50f3202afc6fb0fc42af856d43493dc1079a529de36634d25bef9c9ebdcd18b",
+            "independent_pdf_table_match": true,
+            "scope": "BC-SW 122 declared construction-class maximum speed only; no interpolation, product authentication or design acceptance",
+            "design_accepted": false,
+            "pending": [
+              "Actual supplied construction-class identity and present product suitability",
+              "Validated numeric curve/digitization uncertainty and stable/installation applicability",
+              "Native fan geometry/ports, motor/transmission and drawn electrical input",
+              "Full Hong Kong and engineering acceptance"
+            ]
+          }
+        }
+      ]
+    },
+    "preferred-unknown": {
+      "workflow_sha256": "c736495586b8853326567db39bdee1a6b06f05060089a7371c53fcad231222d6",
+      "selection_sha256": "e6240e70d6869b7690f27f692a4881005bae51e82ec59a688c6800a65039e216",
+      "candidates": [
+        {
+          "id": "first",
+          "preference": 0,
+          "status": "converged",
+          "numerical_checks_pass": true,
+          "calculated_checks_pass": false,
+          "mechanical": {
+            "status": "pending",
+            "speed_rpm": 3500,
+            "construction_class": null,
+            "maximum_speed_rpm": null,
+            "speed_within_maximum": null,
+            "source_page": 13,
+            "source_pdf_sha256": "a50f3202afc6fb0fc42af856d43493dc1079a529de36634d25bef9c9ebdcd18b",
+            "independent_pdf_table_match": true,
+            "scope": "BC-SW 122 declared construction-class maximum speed only; no interpolation, product authentication or design acceptance",
+            "design_accepted": false,
+            "pending": [
+              "Actual supplied construction-class identity and present product suitability",
+              "Validated numeric curve/digitization uncertainty and stable/installation applicability",
+              "Native fan geometry/ports, motor/transmission and drawn electrical input",
+              "Full Hong Kong and engineering acceptance"
+            ]
+          }
+        },
+        {
+          "id": "second",
+          "preference": 1,
+          "status": "converged",
+          "numerical_checks_pass": true,
+          "calculated_checks_pass": true,
+          "mechanical": {
+            "status": "pass",
+            "speed_rpm": 1450,
+            "construction_class": "Class_I",
+            "maximum_speed_rpm": 3167,
+            "speed_within_maximum": true,
+            "source_page": 13,
+            "source_pdf_sha256": "a50f3202afc6fb0fc42af856d43493dc1079a529de36634d25bef9c9ebdcd18b",
+            "independent_pdf_table_match": true,
+            "scope": "BC-SW 122 declared construction-class maximum speed only; no interpolation, product authentication or design acceptance",
+            "design_accepted": false,
+            "pending": [
+              "Actual supplied construction-class identity and present product suitability",
+              "Validated numeric curve/digitization uncertainty and stable/installation applicability",
+              "Native fan geometry/ports, motor/transmission and drawn electrical input",
+              "Full Hong Kong and engineering acceptance"
+            ]
+          }
+        }
+      ]
+    },
+    "lower-unknown": {
+      "workflow_sha256": "b058c78f8a305d40f45c2d51b4343cacb173a1894f2f2cdc09eb5cc99e2abf51",
+      "selection_sha256": "1506522ef61ddd2cc172f8ce1026c8f05309515c73ff40d5a310aa0f3a00292d",
+      "candidates": [
+        {
+          "id": "first",
+          "preference": 0,
+          "status": "converged",
+          "numerical_checks_pass": true,
+          "calculated_checks_pass": true,
+          "mechanical": {
+            "status": "pass",
+            "speed_rpm": 1450,
+            "construction_class": "Class_I",
+            "maximum_speed_rpm": 3167,
+            "speed_within_maximum": true,
+            "source_page": 13,
+            "source_pdf_sha256": "a50f3202afc6fb0fc42af856d43493dc1079a529de36634d25bef9c9ebdcd18b",
+            "independent_pdf_table_match": true,
+            "scope": "BC-SW 122 declared construction-class maximum speed only; no interpolation, product authentication or design acceptance",
+            "design_accepted": false,
+            "pending": [
+              "Actual supplied construction-class identity and present product suitability",
+              "Validated numeric curve/digitization uncertainty and stable/installation applicability",
+              "Native fan geometry/ports, motor/transmission and drawn electrical input",
+              "Full Hong Kong and engineering acceptance"
+            ]
+          }
+        },
+        {
+          "id": "second",
+          "preference": 1,
+          "status": "converged",
+          "numerical_checks_pass": true,
+          "calculated_checks_pass": false,
+          "mechanical": {
+            "status": "pending",
+            "speed_rpm": 3500,
+            "construction_class": null,
+            "maximum_speed_rpm": null,
+            "speed_within_maximum": null,
+            "source_page": 13,
+            "source_pdf_sha256": "a50f3202afc6fb0fc42af856d43493dc1079a529de36634d25bef9c9ebdcd18b",
+            "independent_pdf_table_match": true,
+            "scope": "BC-SW 122 declared construction-class maximum speed only; no interpolation, product authentication or design acceptance",
+            "design_accepted": false,
+            "pending": [
+              "Actual supplied construction-class identity and present product suitability",
+              "Validated numeric curve/digitization uncertainty and stable/installation applicability",
+              "Native fan geometry/ports, motor/transmission and drawn electrical input",
+              "Full Hong Kong and engineering acceptance"
+            ]
+          }
+        }
+      ]
+    },
+    "all-overspeed": {
+      "workflow_sha256": "96785dc8db8c3d4b35c31532115daa6d96ab1c48e04135d3e6c9575bbba60752",
+      "selection_sha256": "4207ef134aa83b039d8b400d2419eaeb902f867b55f806727fd74ad726ccbaf5",
+      "candidates": [
+        {
+          "id": "first",
+          "preference": 0,
+          "status": "converged",
+          "numerical_checks_pass": true,
+          "calculated_checks_pass": false,
+          "mechanical": {
+            "status": "fail",
+            "speed_rpm": 3500,
+            "construction_class": "Class_I",
+            "maximum_speed_rpm": 3167,
+            "speed_within_maximum": false,
+            "source_page": 13,
+            "source_pdf_sha256": "a50f3202afc6fb0fc42af856d43493dc1079a529de36634d25bef9c9ebdcd18b",
+            "independent_pdf_table_match": true,
+            "scope": "BC-SW 122 declared construction-class maximum speed only; no interpolation, product authentication or design acceptance",
+            "design_accepted": false,
+            "pending": [
+              "Actual supplied construction-class identity and present product suitability",
+              "Validated numeric curve/digitization uncertainty and stable/installation applicability",
+              "Native fan geometry/ports, motor/transmission and drawn electrical input",
+              "Full Hong Kong and engineering acceptance"
+            ]
+          }
+        },
+        {
+          "id": "second",
+          "preference": 1,
+          "status": "converged",
+          "numerical_checks_pass": true,
+          "calculated_checks_pass": false,
+          "mechanical": {
+            "status": "fail",
+            "speed_rpm": 3500,
+            "construction_class": "Class_I",
+            "maximum_speed_rpm": 3167,
+            "speed_within_maximum": false,
+            "source_page": 13,
+            "source_pdf_sha256": "a50f3202afc6fb0fc42af856d43493dc1079a529de36634d25bef9c9ebdcd18b",
+            "independent_pdf_table_match": true,
+            "scope": "BC-SW 122 declared construction-class maximum speed only; no interpolation, product authentication or design acceptance",
+            "design_accepted": false,
+            "pending": [
+              "Actual supplied construction-class identity and present product suitability",
+              "Validated numeric curve/digitization uncertainty and stable/installation applicability",
+              "Native fan geometry/ports, motor/transmission and drawn electrical input",
+              "Full Hong Kong and engineering acceptance"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "tests": {
+    "mechanical_selection": 5,
+    "rectangular_fan_regression": 31
+  },
+  "design_accepted": false
+}

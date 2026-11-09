@@ -677,6 +677,9 @@ def validate_plan(path):
             parent=t.get('depends_on')
             if parent not in ids or next(x for x in tasks if x['id']==parent)['kind'] not in ('rectangular_model_design','rectangular_network_binding'):raise ProjectError('fan selection requires earlier rectangular native producer')
             catalogue=local_path(root,t.get('catalogue'));inputs.add(catalogue);rectangular_fan_selection.candidates(read_json(catalogue))
+            inputs.update(rectangular_fan_selection.mechanical_context(catalogue)[0])
+            from . import fan_mechanical_limits
+            inputs.add(Path(fan_mechanical_limits.__file__).resolve())
             inputs.update(Path(m.__file__).resolve() for m in (rectangular_fan_selection,rectangular_fan,rectangular_binding,rectangular_network,pump,network))
         if kind=='rectangular_fan_operating_point':
             from . import rectangular_fan,rectangular_network,pump,network,rectangular_fan_binding,rectangular_binding,rectangular_fan_selection
@@ -990,7 +993,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     model=out/parent/'selected-model.json' if producer['kind']=='rectangular_model_design' else local_path(root,producer['model'])
                     payload=run(base/'network-input.json',model,local_path(root,producer['binding']),base/'bim/model.ifc',base/'analysis/network.json',local_path(root,t['catalogue']),folder)
                     if any(not Path(f).is_file() or digest(Path(f))!=sha for f,sha in rectangular_pins[parent].items()):raise ProjectError('rectangular producer changed during fan selection')
-                    status='pass' if payload['calculated_checks_pass'] else 'fail';reason=payload['scope']
+                    status=payload.get('status','pass' if payload['calculated_checks_pass'] else 'fail');reason=payload['scope']
                     rectangular_pins[t['id']]={str(f):digest(f) for f in folder.rglob('*') if f.is_file()}
             elif t['kind']=='rectangular_fan_operating_point':
                 parent=t.get('depends_on')
