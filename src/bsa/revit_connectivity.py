@@ -6,6 +6,7 @@ import math
 from pathlib import Path
 
 from .engine import ProjectError
+from .revit_revision import audit_pipe
 
 
 def diagnose(inventory, tolerance_m):
@@ -108,8 +109,15 @@ def diagnose(inventory, tolerance_m):
                 issues.append(dict(port=ident, reasons=['physical_flag_without_physical_reference']))
             else:
                 open_ports.append(ident)
-    return dict(scope='Saved pipe/fitting connector evidence consistency only',
+    revision_checks = [dict(owner=p['unique_id'], **audit_pipe(p, tolerance_m)) for p in inventory['pipes']]
+    for row in revision_checks:
+        if row['status'] == 'fail':
+            issues.append(dict(owner=row['owner'], reasons=row['reasons']))
+        elif row['status'] == 'pending':
+            pending.append(dict(owner=row['owner'], reason='no_creation_provenance'))
+    return dict(scope='Saved pipe/fitting connector evidence and creation-request comparison only',
                 diagnostic_status='fail' if issues else 'pending', issues=issues, pending=pending,
+                revision_checks=revision_checks,
                 observed_open_ports=open_ports, consistent_reference_pairs=sorted(edges),
                 tolerance_m=tolerance_m, design_accepted=False, connected_system_verified=False,
                 unresolved=['Host execution and saved reopening', 'Declared terminals and complete equipment/accessory coverage',

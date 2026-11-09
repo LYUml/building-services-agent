@@ -94,6 +94,11 @@ public sealed class InventoryCommand : IExternalCommand
         var pipes = new FilteredElementCollector(doc).OfClass(typeof(Pipe)).Cast<Pipe>().Select(p => new
         {
             id = p.Id.Value.ToString(), unique_id = p.UniqueId, type_id = p.GetTypeId().Value.ToString(),
+            type_unique_id = doc.GetElement(p.GetTypeId())?.UniqueId,
+            system_type_unique_id = doc.GetElement(p.get_Parameter(BuiltInParameter.RBS_PIPING_SYSTEM_TYPE_PARAM).AsElementId())?.UniqueId,
+            level_unique_id = p.ReferenceLevel?.UniqueId,
+            curve_kind = ((LocationCurve)p.Location).Curve.GetType().Name,
+            endpoints_m = new[] { Point(((LocationCurve)p.Location).Curve.GetEndPoint(0)), Point(((LocationCurve)p.Location).Curve.GetEndPoint(1)) },
             system_unique_id = p.MEPSystem?.UniqueId, diameter_m = Metres(p.Diameter),
             length_m = Metres(((LocationCurve)p.Location).Curve.Length),
             creation_provenance = ElementProvenance.Read(p),
