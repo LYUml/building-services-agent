@@ -15,12 +15,12 @@ from run_continuous_cable_demo import run as stage
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def run(out, python, graphviz=None, autocad=None, inside_limit=.28, route=False, include_obstacles=False):
+def run(out, python, graphviz=None, autocad=None, inside_limit=.28, route=False, include_obstacles=False,lead=0.):
     if include_obstacles and not route:raise ProjectError('obstacle projection requires route mode')
     if not math.isfinite(inside_limit) or inside_limit <= 0:
         raise ProjectError('positive finite synthetic inside-radius target required')
     out = Path(out).resolve()
-    stage(out, python)
+    stage(out, python,lead=lead)
     source = out / 'source'
     append_obstacles(out / 'fixture/cables.ifc', source / 'obstacles.json', out / 'combined')
     binding = json.loads((out / 'fixture/binding.json').read_text())
@@ -42,7 +42,7 @@ def run(out, python, graphviz=None, autocad=None, inside_limit=.28, route=False,
     binding['ifc_sha256'] = digest(model_path)
     (out / 'combined/binding.json').write_text(json.dumps(binding, indent=2), encoding='utf-8')
     paragraphs = [
-        'Derive and solve a fresh electrical project from the saved continuous quarter-plus-tangent cable and sourced obstacle IFC.',
+        'Derive and solve a fresh electrical project from the saved single-quarter continuous cable and sourced obstacle IFC.',
         'Check its single bend against explicitly assumed diameter, installation condition and inside-radius limit; this is not manufacturer selection.',
         'Check all represented model solids for material overlap and the assumed 30 mm clearance; physical joint and obstacle completeness remain unverified.',
         'Generate a calculation schematic only after same-model bend and coordination checks pass; reopen native DWG and separately inspect the PDF.',
@@ -56,7 +56,7 @@ def run(out, python, graphviz=None, autocad=None, inside_limit=.28, route=False,
         dict(id='review', kind='manual', requires_pass=['drawing'])]
     if route:
         drawing_settings=dict(projection_axes=['X','Z'],annotation_height_m=.04,source='Synthetic X/Z route projection and 40 mm model text; no installation acceptance')
-        native_settings=dict(source='Synthetic A4 1:20 route view; 2 m saved straight reference',window_drawing_units=[-2.3,1.1,2.7,2.9],scale_denominator=20,
+        native_settings=dict(source='Synthetic A4 1:20 route view; 2 m saved tail straight reference; declared lead included in window',window_drawing_units=[-2.3,1.1,2.7,2.9+lead],scale_denominator=20,
             reference_ifc_guid=cable.GlobalId,reference_layer='BSA_CABLE_AXIS',drawing_name='cable-route',pdf_tolerance_mm=.2)
         (out/'route-settings.json').write_text(json.dumps(drawing_settings,indent=2),encoding='utf-8')
         (out/'route-native-settings.json').write_text(json.dumps(native_settings,indent=2),encoding='utf-8')
@@ -95,4 +95,5 @@ if __name__ == '__main__':
     parser.add_argument('--inside-limit', type=float, default=.28)
     parser.add_argument('--route', action='store_true')
     parser.add_argument('--include-obstacles',action='store_true')
+    parser.add_argument('--lead',type=float,default=0.)
     print(json.dumps(run(**vars(parser.parse_args()))['tasks']))

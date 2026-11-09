@@ -1,6 +1,8 @@
 # Scope and acceptance
 
-Continuous cable geometry now includes an explicit incoming straight before the quarter/tail, with exact source anchors, common-local-frame native UNION, full length/volume/centroid/bounds and port checks. Actual three-piece native geometry, compound rigid placement and fresh numerical study pass; the current two-piece physical-route drawer deliberately refuses the unsupported form. Three-piece drawing/workflow delivery, general routes and installation acceptance remain pending (CABLE_CONTINUITY_TRIAL.md).
+Lead-quarter-tail route delivery now reaches same-model numerical/bend/coordination gates, actual native DWG reopen and an inspected fixed-scale PDF. Independent source and native-export audits cover all 28 entities; omission of the lead is rejected. Actual failed-bend workflow blocks drawing, with 29 distinct related tests passing. General routes, crowded annotation and installation/Hong Kong acceptance remain pending (CABLE_ROUTE_DRAWINGS.md).
+
+The earlier lead-quarter-tail geometry milestone verified source anchors, common-local-frame native UNION, full length/volume/centroid/bounds, ports and compound rigid placement. Its initial drawing refusal is superseded by the native workflow evidence above; general routes and installation acceptance remain pending (CABLE_CONTINUITY_TRIAL.md).
 
 Continuous cable route delivery now independently audits actual DXF geometry/dimensions/notes/IFC identities and visibility flags before native conversion and after AutoCAD reopen/export. Actual 21-entity checks, fixed-scale print and separate visual review pass; ten new mutation/audit tests plus eleven related tests pass. The audit requires source-checked geometry and does not establish general layout, glyph fidelity or full engineering acceptance (CABLE_ROUTE_DRAWINGS.md).
 

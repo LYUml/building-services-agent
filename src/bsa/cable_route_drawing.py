@@ -14,7 +14,7 @@ from .three_phase_ifc import inspect
 from .ifc_drawing import validate_settings, AXES
 
 
-def project_geometry(points, centre, radius, axes):
+def project_geometry(points, centre, radius, axes,lead_start=None):
     indices = [AXES[a] for a in axes]
     omitted = next(i for i in range(3) if i not in indices)
     points = np.asarray(points, dtype=float)
@@ -33,8 +33,14 @@ def project_geometry(points, centre, radius, axes):
         start, end = end, start
     if not math.isclose((end - start) % 360, 90., abs_tol=1e-7) or not math.isclose((middle - start) % 360, 45., abs_tol=1e-7):
         raise ProjectError('exact quarter-circle projection required; chord fallback forbidden')
-    return dict(points_m=p.tolist(), centre_m=c.tolist(), radius_m=radius,
+    result=dict(points_m=p.tolist(), centre_m=c.tolist(), radius_m=radius,
                 start_angle_deg=start, end_angle_deg=end, plane_coordinate_m=float(centre[omitted]))
+    if lead_start is not None:
+        lead=np.asarray(lead_start,dtype=float)
+        if lead.shape!=(3,) or not np.isfinite(lead).all() or abs(lead[omitted]-centre[omitted])>1e-9:raise ProjectError('lead must lie in selected projection plane')
+        if np.linalg.norm(lead-points[0])<=1e-8:raise ProjectError('nonzero projected lead required')
+        result['lead_start_m']=lead[indices].tolist()
+    return result
 
 
 def run(project, ifc, binding, settings, out, obstacles=None):
@@ -60,8 +66,8 @@ def run(project, ifc, binding, settings, out, obstacles=None):
         before.update(obstacle_inputs)
     if any(out == Path(p) or out in Path(p).parents for p in before):
         raise ProjectError('output must not contain inputs')
-    if len(checked['lines']) != 1 or checked['lines'][0]['route_geometry'] != 'quarter plus tangent straight':
-        raise ProjectError('exactly one checked quarter-plus-tangent cable required')
+    if len(checked['lines']) != 1 or checked['lines'][0]['route_geometry'] not in ('quarter plus tangent straight','straight plus quarter plus straight'):
+        raise ProjectError('exactly one checked single-quarter continuous cable required')
     row = checked['lines'][0]
     model = ifcopenshell.open(str(ifc))
     cable = model.by_guid(row['element_guid'])
@@ -69,20 +75,24 @@ def run(project, ifc, binding, settings, out, obstacles=None):
     if obstacles is not None and physical!={cable.GlobalId,*(o['guid'] for o in obstacle_rows)}:
         raise ProjectError('obstacle-inclusive drawing requires complete physical element coverage')
     solid = next(r for r in cable.Representation.Representations if r.RepresentationIdentifier == 'Body').Items[0]
-    frame = placement.get_local_placement(cable.ObjectPlacement) @ placement.get_axis2placement(solid.FirstOperand.Position)
+    from .cable_continuity import union_leaves
+    bend=next(part for part in union_leaves(solid) if part.is_a('IfcRevolvedAreaSolid'))
+    frame = placement.get_local_placement(cable.ObjectPlacement) @ placement.get_axis2placement(bend.Position)
     factor = unit.calculate_unit_scale(model)
     frame[:3, 3] *= factor
     centre = frame[:3, 3]
     points = np.vstack((quarter_points(frame, row['bend_radius_m']), row['world_axis_ends_m'][-1]))
-    geometry = project_geometry(points, centre, row['bend_radius_m'], config['projection_axes'])
+    geometry = project_geometry(points, centre, row['bend_radius_m'], config['projection_axes'],row['world_axis_ends_m'][0] if row['route_geometry']=='straight plus quarter plus straight' else None)
     p = np.array(geometry['points_m'])
     c = geometry['centre_m']; radius = geometry['radius_m']; envelope = row['envelope_radius_m']
     height = config['annotation_height_m']
+    lead=np.array(geometry['lead_start_m']) if 'lead_start_m' in geometry else None
     doc = ezdxf.new('R2018'); doc.header['$INSUNITS'] = 6
     doc.appids.new('BSA_IFC')
     for layer, color in [('BSA_CABLE_AXIS', 4), ('BSA_CABLE_OUTLINE', 7), ('BSA_LABEL', 7), ('BSA_DIMENSION', 8)]:
         doc.layers.new(layer, dxfattribs={'color': color})
     if obstacle_rows:doc.layers.new('BSA_OBSTACLE',dxfattribs={'color':3})
+    if lead is not None:doc.layers.new('BSA_CABLE_LEAD_AXIS',dxfattribs={'color':4})
     space = doc.modelspace()
     def tag(entity,guid=None):
         entity.set_xdata('BSA_IFC', [(1000, guid or cable.GlobalId)])
@@ -110,8 +120,18 @@ def run(project, ifc, binding, settings, out, obstacles=None):
     line(a, b, 'BSA_DIMENSION')
     text(f'Straight L={length:.6f} m', (a+b)/2+normal*2*height)
     line(c, p[1], 'BSA_DIMENSION')
-    top = float(p[:, 1].max()) + 5*height
-    left = float(p[:, 0].min())
+    lead_length=0.
+    if lead is not None:
+        direction=p[0]-lead;lead_length=float(np.linalg.norm(direction));direction/=lead_length
+        outward=np.array([-direction[1],direction[0]])
+        line(lead,p[0],'BSA_CABLE_LEAD_AXIS')
+        for sign in (-1,1):line(lead+sign*envelope*outward,p[0]+sign*envelope*outward,'BSA_CABLE_OUTLINE')
+        x,y=lead+outward*offset,p[0]+outward*offset
+        line(lead,x+outward*height,'BSA_DIMENSION');line(p[0],y+outward*height,'BSA_DIMENSION');line(x,y,'BSA_DIMENSION')
+        text(f'Lead L={lead_length:.6f} m',(x+y)/2+outward*2*height)
+    extent_points=np.vstack((p,lead)) if lead is not None else p
+    top = float(extent_points[:, 1].max()) + 5*height
+    left = float(extent_points[:, 0].min())
     notes = [f"{row['id']} / IFC {cable.GlobalId}",
              f"True total L={row['observed_length_m']:.6f} m; envelope OD={2*envelope:.6f} m",
              f'Quarter R={radius:.6f} m; angle=90 deg; arc L={radius*math.pi/2:.6f} m',
@@ -137,7 +157,7 @@ def run(project, ifc, binding, settings, out, obstacles=None):
         raise ProjectError('cable drawing input changed')
     included=[cable.GlobalId,*(o['guid'] for o in obstacle_rows)]
     omitted=sorted(physical-set(included))
-    report = dict(inputs=before, settings=config, cable=row, geometry=geometry, straight_length_m=length,
+    report = dict(inputs=before, settings=config, cable=row, geometry=geometry, straight_length_m=length,lead_length_m=lead_length,
                   included_guids=included, omitted_guids=omitted, obstacles=obstacle_rows,saved_dxf_sha256=digest(path),
                   saved_identity_and_geometry_pass=True, design_accepted=False,
                   independent_saved_audit=saved_audit,

@@ -71,12 +71,19 @@ class LeadQuarterTailTests(unittest.TestCase):
         basis=self.case/'limits.json';basis.write_text(json.dumps(dict(version=1,sources={'assumed':dict(path='basis.txt',sha256=digest(source),locator='whole test text',kind='assumption')},bends={})),encoding='utf-8')
         with self.assertRaisesRegex(ProjectError,'coverage'):run(self.project,self.case/'cables.ifc',self.case/'binding.json',basis,self.case/'limits')
 
-    def test_old_route_writer_refuses_three_piece_shape(self):
+    def test_route_writer_keeps_lead_and_auditor_rejects_its_removal(self):
         from bsa.cable_route_drawing import run
+        from bsa.cable_route_audit import audit_saved
+        import ezdxf
         settings=self.case/'settings.json';settings.write_text(json.dumps(dict(projection_axes=['X','Z'],annotation_height_m=.04,source='Synthetic draft control')),encoding='utf-8')
-        with self.assertRaisesRegex(ProjectError,'exactly one checked quarter-plus-tangent'):
-            run(self.project,self.case/'cables.ifc',self.case/'binding.json',settings,self.case/'drawing')
-        self.assertFalse((self.case/'drawing').exists())
+        report=run(self.project,self.case/'cables.ifc',self.case/'binding.json',settings,self.case/'drawing')
+        self.assertAlmostEqual(report['lead_length_m'],1.2)
+        path=self.case/'drawing/cable-route.dxf';doc=ezdxf.readfile(path)
+        lead=doc.modelspace().query('LINE[layer=="BSA_CABLE_LEAD_AXIS"]').first
+        self.assertAlmostEqual(lead.dxf.start.distance(lead.dxf.end),1.2)
+        doc.modelspace().delete_entity(lead);doc.saveas(path)
+        with self.assertRaisesRegex(ProjectError,'differ'):
+            audit_saved(path,report['cable'],report['geometry'],report['settings'],report['obstacles'])
 
     def test_compound_rotated_translated_native_geometry(self):
         from bsa.quarter_cable import source_geometry

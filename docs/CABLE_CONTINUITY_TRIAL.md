@@ -1,6 +1,6 @@
 # Continuous cable native geometry trial
 
-The reader/fixture author now also supports a sourced lead straight before the quarter and tail. See the final section below; the physical-route drawing adapter still deliberately rejects that three-piece form.
+The reader/fixture author now also supports a sourced lead straight before the quarter and tail. Its native route workflow is recorded in [cable route drawings](CABLE_ROUTE_DRAWINGS.md); the initial three-piece drawing refusal described below is historical.
 
 Follow-up: [selected cable route drawings](CABLE_ROUTE_DRAWINGS.md) now provide a separately executed planar true-arc/straight/OD native drawing and inspected fixed-scale sheet. This is selected geometry only; obstacle-inclusive and workflow-controlled installation delivery remain pending.
 
@@ -59,3 +59,5 @@ Run `.venv/Scripts/python scripts/run_continuous_cable_demo.py --out runs/new-le
 Seven new tests pass: native volume/length/ports, compound rigid placement, disconnected lead plus Axis, wrong lead radius, incorrect lead-port axis, omitted bend coverage and refusal by the old two-piece route writer. Seven original continuity, four saved IFC integration and ten saved drawing audit regressions also pass (28 distinct tests). Evidence: `evidence/pandapower/lead-quarter-tail.json`.
 
 The physical route drawing adapter deliberately rejects this three-piece shape before creating output; it must not draw only the tail or substitute a chord. Full source-driven workflow/native route drawing for this new form, additional bends, manufacturer selection and physical installation/Hong Kong acceptance remain pending. The existing two-piece native drawing capability is preserved.
+
+Follow-up: the three-piece route writer and independent saved/native-export audit are now implemented and actually exercised through the same-model workflow (CABLE_ROUTE_DRAWINGS.md, evidence/pandapower/lead-quarter-tail-workflow.json). The former refusal test is replaced by a verified full-lead drawing test plus an omitted-lead mutation rejection. General multi-bend and installation acceptance remain pending.

@@ -39,3 +39,11 @@ class CableRouteProjectionTests(unittest.TestCase):
         p[-1,1]+=.01
         with self.assertRaisesRegex(ProjectError, 'projection plane'):
             project_geometry(p,c,.3,['X','Z'])
+
+    def test_lead_projection_preserves_length_and_rejects_depth_change(self):
+        p,c=self.geometry();lead=p[0]+[0.,0.,1.2]
+        r=project_geometry(p,c,.3,['X','Z'],lead)
+        self.assertAlmostEqual(math.dist(r['lead_start_m'],r['points_m'][0]),1.2)
+        lead[1]+=.01
+        with self.assertRaisesRegex(ProjectError,'projection plane'):
+            project_geometry(p,c,.3,['X','Z'],lead)

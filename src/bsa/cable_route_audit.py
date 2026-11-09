@@ -28,7 +28,10 @@ def audit_saved(path,cable,geometry,settings,obstacles=()):
     if not math.isclose((end-start)%360,90,abs_tol=1e-7):start,end=end,start
     if not math.isclose((end-start)%360,90,abs_tol=1e-7) or not math.isclose((middle-start)%360,45,abs_tol=1e-7):raise ProjectError('checked exact quarter source required')
     length=float(np.linalg.norm(p[3]-p[2]));guid=cable['element_guid']
-    if length<=0 or not math.isclose(length+radius*math.pi/2,cable['observed_length_m'],abs_tol=1e-8,rel_tol=0):raise ProjectError('checked total route length required')
+    lead=np.array(geometry['lead_start_m'],dtype=float) if 'lead_start_m' in geometry else None
+    if lead is not None and (lead.shape!=(2,) or not np.isfinite(lead).all()):raise ProjectError('finite checked planar lead required')
+    lead_length=float(np.linalg.norm(p[0]-lead)) if lead is not None else 0.
+    if length<=0 or (lead is not None and lead_length<=0) or not math.isclose(length+lead_length+radius*math.pi/2,cable['observed_length_m'],abs_tol=1e-8,rel_tol=0):raise ProjectError('checked total route length required')
     expected=Counter();actual=Counter()
     def coords(v):return tuple(round(float(x),8) for x in v)
     def line(layer,g,a,b):return ('LINE',layer,g,*sorted([coords(a),coords(b)]))
@@ -41,6 +44,14 @@ def audit_saved(path,cable,geometry,settings,obstacles=()):
     offset=max(4*height,3*envelope);a,b=p[2]+normal*offset,p[3]+normal*offset
     for x,y in [(p[2],a+normal*height),(p[3],b+normal*height),(a,b),(centre,p[1])]:expected[line('BSA_DIMENSION',guid,x,y)]+=1
     expected[text(guid,f'Straight L={length:.6f} m',(a+b)/2+normal*2*height)]+=1
+    if lead is not None:
+        precise([lead.tolist()])
+        direction=(p[0]-lead)/lead_length;outward=np.array([-direction[1],direction[0]])
+        expected[line('BSA_CABLE_LEAD_AXIS',guid,lead,p[0])]+=1
+        for sign in (-1,1):expected[line('BSA_CABLE_OUTLINE',guid,lead+sign*envelope*outward,p[0]+sign*envelope*outward)]+=1
+        x,y=lead+outward*offset,p[0]+outward*offset
+        for v,w in [(lead,x+outward*height),(p[0],y+outward*height),(x,y)]:expected[line('BSA_DIMENSION',guid,v,w)]+=1
+        expected[text(guid,f'Lead L={lead_length:.6f} m',(x+y)/2+outward*2*height)]+=1
     notes=[(guid,f"{cable['id']} / IFC {guid}"),
         (guid,f"True total L={cable['observed_length_m']:.6f} m; envelope OD={2*envelope:.6f} m"),
         (guid,f'Quarter R={radius:.6f} m; angle=90 deg; arc L={radius*math.pi/2:.6f} m'),
@@ -51,7 +62,8 @@ def audit_saved(path,cable,geometry,settings,obstacles=()):
         for x,y in zip(corners,corners[1:]+corners[:1]):expected[line('BSA_OBSTACLE',obstacle['guid'],x,y)]+=1
         low,high=obstacle['depth_interval_m']
         notes.append((obstacle['guid'],f"Box {obstacle['id']}: {obstacle['depth_axis']}=[{low:.6f},{high:.6f}] m; projection is not a clash test"))
-    top=float(p[:,1].max())+5*height;left=float(p[:,0].min())
+    extent_points=np.vstack((p,lead)) if lead is not None else p
+    top=float(extent_points[:,1].max())+5*height;left=float(extent_points[:,0].min())
     for i,(g,note) in enumerate(notes):expected[text(g,note,[left,top+(len(notes)-i)*1.8*height])]+=1
     for entity in doc.modelspace():
         records=raw.get(entity.dxf.handle.upper(),[])

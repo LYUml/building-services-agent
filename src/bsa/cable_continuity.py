@@ -74,7 +74,7 @@ def _straight(straight,line,object_frame,factor):
                 expected=dict(volume=volume,centroid=(start+end)/2,bounds=bounds))
 
 
-def inspect(solid,curve,object_frame,factor,angle_factor):
+def union_leaves(solid):
     if solid.is_a()!='IfcBooleanResult' or solid.Operator!='UNION':raise ProjectError('one quarter/straight UNION required')
     pending=[solid];leaves=[];visited=0
     while pending:
@@ -84,6 +84,11 @@ def inspect(solid,curve,object_frame,factor,angle_factor):
             if item.Operator!='UNION':raise ProjectError('only UNION cable pieces supported')
             pending.extend([item.SecondOperand,item.FirstOperand])
         else:leaves.append(item)
+    return leaves
+
+
+def inspect(solid,curve,object_frame,factor,angle_factor):
+    leaves=union_leaves(solid)
     kinds=[item.is_a() for item in leaves]
     if kinds not in (['IfcRevolvedAreaSolid','IfcExtrudedAreaSolid'],['IfcExtrudedAreaSolid','IfcRevolvedAreaSolid','IfcExtrudedAreaSolid']):
         raise ProjectError('quarter-tail or lead-quarter-tail pieces required')

@@ -1,0 +1,225 @@
+{
+  "scope": "Actual synthetic full lead-quarter-tail route workflow and source-box projection; not complete installation acceptance",
+  "positive": {
+    "tasks": {
+      "study": "pass",
+      "bend": "pass",
+      "coordination": "pass",
+      "drawing": "pass",
+      "review": "pending"
+    },
+    "integrity": {
+      "integrity_pass": true,
+      "issues": [],
+      "design_accepted": false,
+      "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+    },
+    "model_bindings": [
+      {
+        "producer": "study",
+        "consumer": "bend",
+        "ifc_sha256": "64cdba41b547b4038ac33b5a32a4a32dae74e9ce2ef613a66ef26a0d7006b309",
+        "geometry_binding_sha256": "76a7f5847408e7bae0f65a25e8fa285315da3bfade1cf2f58b15b3314c7704e3"
+      },
+      {
+        "producer": "study",
+        "consumer": "coordination",
+        "ifc_sha256": "64cdba41b547b4038ac33b5a32a4a32dae74e9ce2ef613a66ef26a0d7006b309",
+        "geometry_binding_sha256": "76a7f5847408e7bae0f65a25e8fa285315da3bfade1cf2f58b15b3314c7704e3"
+      },
+      {
+        "producer": "study",
+        "consumer": "drawing",
+        "ifc_sha256": "64cdba41b547b4038ac33b5a32a4a32dae74e9ce2ef613a66ef26a0d7006b309",
+        "geometry_binding_sha256": "76a7f5847408e7bae0f65a25e8fa285315da3bfade1cf2f58b15b3314c7704e3"
+      },
+      {
+        "producer": "bend",
+        "consumer": "drawing",
+        "ifc_sha256": "64cdba41b547b4038ac33b5a32a4a32dae74e9ce2ef613a66ef26a0d7006b309",
+        "geometry_binding_sha256": "76a7f5847408e7bae0f65a25e8fa285315da3bfade1cf2f58b15b3314c7704e3"
+      },
+      {
+        "producer": "coordination",
+        "consumer": "drawing",
+        "ifc_sha256": "64cdba41b547b4038ac33b5a32a4a32dae74e9ce2ef613a66ef26a0d7006b309",
+        "geometry_binding_sha256": "76a7f5847408e7bae0f65a25e8fa285315da3bfade1cf2f58b15b3314c7704e3"
+      }
+    ],
+    "scope": "Synthetic cable and source-box route projection; depth and visual/engineering review separate",
+    "design_accepted": false
+  },
+  "negative": {
+    "tasks": {
+      "study": "pass",
+      "bend": "fail",
+      "coordination": "pass",
+      "drawing": "pending",
+      "review": "pending"
+    },
+    "integrity": {
+      "integrity_pass": true,
+      "issues": [],
+      "design_accepted": false,
+      "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+    },
+    "model_bindings": [
+      {
+        "producer": "study",
+        "consumer": "bend",
+        "ifc_sha256": "a1eb277d025a24dd5d975f911aa8d3cf1de49dc04b975a699ea0a48b05c54ec3",
+        "geometry_binding_sha256": "5f3059a7b21fbb07de873d89d32bdf04b9f5bea22021d67bfb963304239caeb8"
+      },
+      {
+        "producer": "study",
+        "consumer": "coordination",
+        "ifc_sha256": "a1eb277d025a24dd5d975f911aa8d3cf1de49dc04b975a699ea0a48b05c54ec3",
+        "geometry_binding_sha256": "5f3059a7b21fbb07de873d89d32bdf04b9f5bea22021d67bfb963304239caeb8"
+      },
+      {
+        "producer": "study",
+        "consumer": "drawing",
+        "ifc_sha256": "a1eb277d025a24dd5d975f911aa8d3cf1de49dc04b975a699ea0a48b05c54ec3",
+        "geometry_binding_sha256": "5f3059a7b21fbb07de873d89d32bdf04b9f5bea22021d67bfb963304239caeb8"
+      },
+      {
+        "producer": "bend",
+        "consumer": "drawing",
+        "ifc_sha256": "a1eb277d025a24dd5d975f911aa8d3cf1de49dc04b975a699ea0a48b05c54ec3",
+        "geometry_binding_sha256": "5f3059a7b21fbb07de873d89d32bdf04b9f5bea22021d67bfb963304239caeb8"
+      },
+      {
+        "producer": "coordination",
+        "consumer": "drawing",
+        "ifc_sha256": "a1eb277d025a24dd5d975f911aa8d3cf1de49dc04b975a699ea0a48b05c54ec3",
+        "geometry_binding_sha256": "5f3059a7b21fbb07de873d89d32bdf04b9f5bea22021d67bfb963304239caeb8"
+      }
+    ],
+    "scope": "Synthetic cable and source-box route projection; depth and visual/engineering review separate",
+    "design_accepted": false
+  },
+  "positive_integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "negative_integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "delivery_contexts_pass": true,
+  "negative_drawing_folder_absent": true,
+  "included_guids": [
+    "1uGqW$ugzIM9$Bw0m20nFy",
+    "2$66H3PjjSaAGFCsCrY9hx"
+  ],
+  "omitted_guids": [],
+  "lead_length_m": 1.2000000000000002,
+  "tail_length_m": 2.0,
+  "true_total_length_m": 3.671238898038469,
+  "source_audit": {
+    "dxf_sha256": "3028e50e7a9fb7c86e9a9c7e50ec0bd6a12333c8e5bfd8ed5bef6cb7d51f1181",
+    "entity_count": 28,
+    "saved_geometry_text_identity_pass": true,
+    "visibility_flags_pass": true,
+    "design_accepted": false,
+    "scope": "Actual DXF entities versus already source-checked cable/box geometry and prescribed dimension/notes; no writer invocation or success flags used; font glyphs, crowded layout, native print and installation acceptance separate"
+  },
+  "native_export_audit": {
+    "dxf_sha256": "59e6667577e8fae07316184ee2247d39860fdf1948aa0d095220acb583974c9c",
+    "entity_count": 28,
+    "saved_geometry_text_identity_pass": true,
+    "visibility_flags_pass": true,
+    "design_accepted": false,
+    "scope": "Actual DXF entities versus already source-checked cable/box geometry and prescribed dimension/notes; no writer invocation or success flags used; font glyphs, crowded layout, native print and installation acceptance separate"
+  },
+  "native": {
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-native-workflow-v1\\workflow\\drawing\\cable-route.dxf": "3028e50e7a9fb7c86e9a9c7e50ec0bd6a12333c8e5bfd8ed5bef6cb7d51f1181",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\lead-quarter-tail-native-workflow-v1\\route-native-settings.json": "41ea8e3cb8ea9ad10c68c84d49a77ec3faf0130a133bd59eb729de7e0bbf3513"
+    },
+    "inputs_unchanged": true,
+    "engine": "C:\\Program Files\\Autodesk\\AutoCAD 2027\\accoreconsole.exe",
+    "engine_sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2",
+    "dwg_sha256": "b7be43284e4881cb70a45b4aeb400ab609948f69e0c9cdd06002f1efdd82aba9",
+    "native_reopen_pass": true,
+    "checks": {
+      "model_entity_count": 28,
+      "linked_entity_count": 28,
+      "model_entities_and_ifc_xdata_match": true,
+      "geometry_layers_and_annotations_match": true,
+      "metre_units": true
+    },
+    "plot": {
+      "pdf_sha256": "26682584504e92c7180a02d395f7314ff26a9f3744e58264a157b425a6f8f72c",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 20,
+      "reference_handle": "3D",
+      "reference_expected_mm": 100.0,
+      "reference_measured_mm": 99.99133333333333,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "settings": {
+      "source": "Synthetic A4 1:20 route view; 2 m saved tail straight reference; declared lead included in window",
+      "window_drawing_units": [
+        -2.3,
+        1.1,
+        2.7,
+        4.1
+      ],
+      "scale_denominator": 20,
+      "reference_ifc_guid": "1uGqW$ugzIM9$Bw0m20nFy",
+      "reference_layer": "BSA_CABLE_AXIS",
+      "drawing_name": "cable-route",
+      "pdf_tolerance_mm": 0.2
+    },
+    "design_accepted": false,
+    "pending": [
+      "actual PDF visual review",
+      "equipment/fittings/insulation and installation drawing detail",
+      "complete engineering acceptance"
+    ],
+    "artifacts": {
+      "cable-route.dwg": "b7be43284e4881cb70a45b4aeb400ab609948f69e0c9cdd06002f1efdd82aba9",
+      "input.dxf": "3028e50e7a9fb7c86e9a9c7e50ec0bd6a12333c8e5bfd8ed5bef6cb7d51f1181",
+      "plot.log": "30a338cba5a0a6c55a4d686ebfe259feaec339d1b9bae10c7d0436909cc405a0",
+      "save.log": "d786be30091f6b0c5b0f4163d5c6d906ecf91d14c203fe7c3cbb5925e1e4c6ae",
+      "save.scr": "5f0a404006197661be97875ec39f5e762245efb2e6b05a4defbeff60bd7aa9bd",
+      "sheet.json": "25c89d9cd2edc452d6f49cf3afc6bf59944cf42195ae0074797a5fd70c14f5d8",
+      "sheet.log": "1d02688e4d71daf03269343192d2d7ff9ef1dd20075a806b4cd0d58e9b77e2ec",
+      "sheet.pdf": "26682584504e92c7180a02d395f7314ff26a9f3744e58264a157b425a6f8f72c",
+      "sheet.scr": "0e3aca24158facdccb556de86cdf342f6239da816584c3509bb2fdb433bdc2d5",
+      "native-reopen/export.log": "c018d2b7d7f76bff1be4dd85298c714022ee7c40f0b0890e3f44ffc972c75e85",
+      "native-reopen/export.scr": "f037e43299c509e0efaed11b40ce9a5840ead9c4891214ad5a634b1d53381493",
+      "native-reopen/source-copy.dwg": "b7be43284e4881cb70a45b4aeb400ab609948f69e0c9cdd06002f1efdd82aba9",
+      "native-reopen/source-export.dxf": "59e6667577e8fae07316184ee2247d39860fdf1948aa0d095220acb583974c9c",
+      "ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "73669ffc26d5386c35d05c24e77421a5509b7c7a9a9eed72e3bd8283fb270d85",
+      "native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "dd37d264485170df11ff7d96a0e31750bbcc14a1d09055b4bcf6cceaf9330e90"
+    }
+  },
+  "visual_review": {
+    "pdf_sha256": "26682584504e92c7180a02d395f7314ff26a9f3744e58264a157b425a6f8f72c",
+    "png_sha256": "a7ff2efc1cd3c0452380dc8c13349ec59f4ba0b02d8ccf65831b99a4c542de9a",
+    "observed": "Complete 1.2 m incoming straight, quarter arc and 2 m outgoing straight; continuous OD outlines; readable separated lead and tail dimensions; 3.671239 m true total and box depth notes. No dimension text obscures this inspected route.",
+    "scoped_visual_review_pass": true,
+    "full_engineering_acceptance": false
+  },
+  "tests": {
+    "lead_route_geometry_and_drawing_pass": 7,
+    "saved_audit_mutations_pass": 10,
+    "projection_pass": 5,
+    "workflow_bindings_pass": 7,
+    "total_distinct_pass": 29
+  },
+  "retained_warning": "Duplicate PDF PageMode; no PDF-conformance claim",
+  "design_accepted": false
+}

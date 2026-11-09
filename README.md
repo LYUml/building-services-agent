@@ -4,6 +4,8 @@
 
 An agent workspace and deterministic engineering tools for reusable MEP workflows. The AI reads requirements and orchestrates tools; calculation engines compute results. Unknown inputs stay unknown.
 
+[Saved cable route drawings](docs/CABLE_ROUTE_DRAWINGS.md) now support a sourced incoming straight, quarter and outgoing straight through same-model study/bend/coordination gates, independently audited DXF and native DWG reopening with inspected fixed-scale PDF. The synthetic three-piece/box example retains failed-bend blocking; general multi-bend routing and complete installation/Hong Kong acceptance remain pending.
+
 [Continuous cable trial](docs/CABLE_CONTINUITY_TRIAL.md) now connects a source-parametric quarter-plus-tangent IFC envelope to a fresh electrical study, same-model bend/coordination gates and an actually reopened/visually inspected native schematic. A failed bend target blocks drawing. This synthetic case does not establish arbitrary routing, manufacturer selection, installation drawings or full Hong Kong conformity.
 
 [Hong Kong phase-current balance](docs/HK_PHASE_BALANCE.md) now binds verified three-phase results to a source-pinned BEC 2024 selected-clause pack. Protective-device rating and normal-service RMS/model applicability are separate sourced inputs; numerical targets are not regulatory ratings. A registered workflow prerequisite and explicit coverage snapshot now connect this check to native drawing; full conformity remains pending.
