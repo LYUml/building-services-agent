@@ -62,3 +62,5 @@ A bounded sourced circulation pump catalogue screener now retains baseline/rejec
 Pump screening now participates in workflows with complete declared input/source inventory and no-feasible/selected-rerun gates. Native positive and all-rejected cases verify downstream review blocking and catalogue tamper detection. Selected-network inheritance and IFC revision remain pending.
 
 Downstream water_network can now inherit a screened selected pump without replacement input, with original-source/artifact checks and candidate reconstruction before fresh execution. Native tests verify selected-input hash correspondence, no-feasible blocking and tamper rejection. IFC equipment revision remains pending.
+
+Selected pump curves can now be recorded on a new saved IFC copy with stable pump/port IDs and a revised hydraulic template, then rederived and natively solved against the screened physical scenario. Wrong source identities are rejected and originals retained. Product geometry, final combined delivery and workflow integration remain pending.

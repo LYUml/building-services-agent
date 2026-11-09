@@ -1,0 +1,9 @@
+# Selected pump curve back to saved IFC
+
+`bsa.selected_pump_ifc` accepts --producer (water_binding output), --screening (circulation_pump_design output), --template, --binding, --catalogue and a new --out directory. Screening must have consumed that exact producer network-input.json. Unrelated hydraulic inputs, different source identities and modified producer/screening artifacts are rejected before output is created.
+
+The adapter preserves original files, copies the IFC, and adds BSA_ScreenedPumpCurve to the bound pump GUID with candidate ID, explicit m3/s/metre curve JSON, source and screening-report hash. A reserved existing property set is rejected instead of overwritten. It generates a new hydraulic template by changing only the selected curve/source, then reopens the IFC and performs fresh geometry-bound EPANET analysis. The rebound physical hydraulic input must equal the screened selection after removing provenance strings. Existing equipment and port identities are preserved.
+
+This is a hydraulic curve/property revision, not replacement of the manufacturer's physical pump geometry. Shape, speed, efficiency, motor, NPSH, connector/product compatibility, clash and visual acceptance remain pending. Thermal/regulatory checks were made on the screened numeric scenario; final combined delivery checks on the new producer remain explicit. This adapter is standalone; workflow integration remains pending.
+
+Evidence in docs/evidence/selected-pump-ifc retains an official-BEC-backed synthetic screen and native IFC rebound. The integration test also exercises a genuinely changed synthetic curve, unchanged original IFC hash and stable equipment/port GUIDs, plus rejection of a different catalogue source identity. No real product suitability or full engineering acceptance is claimed.
