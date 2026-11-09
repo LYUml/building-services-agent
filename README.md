@@ -25,6 +25,8 @@ Use `$mep-ifc-mcp` to inspect saved IFC models or add source-backed pump text pr
 
 ## Current evidence and limits
 
+Current host revalidation (2026-11-09): the full regression completed 487 tests with 1 failure, 13 errors and 38 skips. OpenStudio native imports and EnergyPlus startup are now blocked by host application control; earlier successful energy evidence is historical, not proof of present availability. The dependent HK energy check correctly stays pending. Recheck using `scripts/probe_energy_runtime.py --energyplus <exe> --out runs/new-energy-probe.json` with the repository Python. A startup pass alone does not verify simulation. See [current regression evidence](docs/REGRESSION_20261109.md).
+
 [Manufacturer CAD intake](docs/PRODUCT_INTAKE.md) now extracts a selected native product block, measures circular sections and bounded passage clearance, and converts a selected junction solid into a source-bound tessellated IFC. Native/STL/IFC geometry statistics and saved triangles are checked. Source-anchored model ports, rigid placement and saved-IFC passage checks passed on the actual local vendor body. Physical joints, external pipe connections, hydraulic applicability and engineering acceptance remain pending. Restricted vendor geometry is not redistributed.
 
 [Bounded tee design iteration](docs/IFC_TEE_TRIAL.md) now retains failed size candidates, regenerates/re-solves the selected model and delivers labelled, dimensioned native diagrams through `examples/tee-trial/selection-plan.json`. Source-specific coefficients and fixed-total-flow boundary assumptions are explicit; the synthetic examples do not establish product or regulatory acceptance.

@@ -1,0 +1,28 @@
+{
+  "scope": "Runtime startup only; no model, simulation or engineering acceptance",
+  "python": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\.venv\\Scripts\\python.exe",
+  "energyplus_sha256": "51715987663666eaff1c8d3bd6ac2d7fe0486d8bc93673eea87c6912a79103f0",
+  "energyplus": {
+    "command": [
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\tools\\energyplus-25.2\\EnergyPlus-25.2.0-cf7368216c-Windows-x86_64\\energyplus.exe",
+      "--version"
+    ],
+    "returncode": 3236495362,
+    "stdout": "",
+    "stderr": "",
+    "launch_pass": false
+  },
+  "openstudio": {
+    "command": [
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\.venv\\Scripts\\python.exe",
+      "-c",
+      "import openstudio; print(openstudio.openStudioVersion()); print(openstudio.energyPlusVersion())"
+    ],
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\.venv\\Lib\\site-packages\\openstudio\\__init__.py\", line 20, in <module>\n    from . import openstudioairflow as airflow\n  File \"C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\.venv\\Lib\\site-packages\\openstudio\\openstudioairflow.py\", line 10, in <module>\n    from . import _openstudioairflow\nImportError: DLL load failed while importing _openstudioairflow: An Application Control policy has blocked this file.\n",
+    "launch_pass": false
+  },
+  "design_accepted": false,
+  "startup_pass": false
+}
