@@ -3,7 +3,7 @@ from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
-from bsa.workflow import execute, validate_plan
+from bsa.workflow import execute, validate_plan, inventory_source_bindings
 from bsa.engine import ProjectError
 from test_product_workflow import fixture, ROOT
 
@@ -20,6 +20,20 @@ def plan_fixture(root):
 
 
 class AlignmentWorkflowTests(unittest.TestCase):
+    def test_combined_model_cannot_borrow_input_inventory(self):
+        tasks=[dict(id='tee_source',kind='cad_ifc'),
+               dict(id='old',kind='ifc_query',depends_on='tee_source'),
+               dict(id='tee',kind='product_ports',depends_on='tee_source',requires_pass=['old']),
+               dict(id='connector',kind='connector_ports',depends_on='connector_source'),
+               dict(id='align',kind='product_alignment',junction_from='tee',connector_from='connector'),
+               dict(id='view',kind='ifc_preview',depends_on='align')]
+        with self.assertRaisesRegex(ProjectError,'different model'):
+            inventory_source_bindings(tasks,ROOT)
+        tasks.insert(-1,dict(id='fresh',kind='ifc_query',depends_on='align',refresh_inventory=True))
+        tasks[-1]['requires_pass']=['fresh']
+        rows=inventory_source_bindings(tasks,ROOT)
+        self.assertEqual([r['check'] for r in rows if r['consumer']=='view'],['fresh'])
+
     def test_missing_producers_leave_diagnostics_pending(self):
         with tempfile.TemporaryDirectory(dir=ROOT/'runs') as tmp:
             root=Path(tmp);path,_=plan_fixture(root)
