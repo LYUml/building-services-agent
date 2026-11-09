@@ -1,0 +1,59 @@
+{
+  "scope": "Actual synthetic finite rectangular sizing; no product, saved spatial geometry, fan or code acceptance",
+  "candidate_count": 27,
+  "feasible_count": 4,
+  "selected": {
+    "id": "C000013",
+    "choices": {
+      "BR-A": "medium",
+      "BR-B": "medium",
+      "MAIN": "large"
+    },
+    "material_score": 54.0,
+    "feasible": true,
+    "calculated_checks": {
+      "velocity": true,
+      "pressure": true,
+      "flow_continuity": true
+    },
+    "required_source_total_pressure_pa": 92.2796598607276,
+    "failed_velocity_segments": [],
+    "failed_pressure_nodes": []
+  },
+  "baseline": {
+    "calculated_checks": {
+      "velocity": false,
+      "pressure": false,
+      "flow_continuity": true
+    },
+    "calculated_checks_pass": false,
+    "required_source_total_pressure_pa": 6144.354186648774
+  },
+  "selected_rerun_pass": true,
+  "positive_statuses": [
+    "pass",
+    "pending"
+  ],
+  "negative_statuses": [
+    "fail",
+    "pending"
+  ],
+  "no_feasible_writes_no_selected": true,
+  "integrity_pass": true,
+  "design_accepted": false,
+  "tests": {
+    "rectangular_sizing": 6,
+    "rectangular_pressure": 8,
+    "circular_sizing": 7,
+    "circular_pressure": 7,
+    "all_pass": true
+  },
+  "artifacts": {
+    "runs\\rectangular-sizing-v1\\workflow.json": "f5db6d0d5e74a797ff91cf1c7d6b01f04e33184f1f6603fde476bee60090feb5",
+    "runs\\rectangular-sizing-v1\\air\\design-comparison.json": "d461d3d184c81b3f8fad7ae12d31fc789716e3bce3f6bdca65fd3a2f88a75350",
+    "runs\\rectangular-sizing-v1\\air\\selected-network.json": "39fddf1d56c146ca4591c5b1fa372813495e04b3b65ef073b77e4262a693cc0b",
+    "runs\\rectangular-sizing-v1\\air\\selected\\network.json": "63b448363a654640c91bed9b8b508513c7b072736439472df05a1bb1ed45dfc0",
+    "runs\\rectangular-sizing-no-feasible-v1\\execution\\workflow.json": "0a2b0423a37f75e447b4d9459174e651d18871f608f159b30c342a66c8c44765",
+    "runs\\rectangular-sizing-no-feasible-v1\\execution\\air\\design-comparison.json": "1c951c788a3fd972fc213fc3cdef9eaf87ac41d35aaf8d69d2ab0fc6896b7565"
+  }
+}

@@ -36,6 +36,8 @@ The sample contains an explicit manual review task. Execute therefore returns ex
 
 ## Plan contract
 
+`rectangular_network_design` accepts project/catalogue and optional earlier requires_pass only. Its four geometry/pressure/search adapter modules and catalogue/project bytes enter inventory. It reuses exhaustive supplied sizing and fresh selected rerun; no feasible design fails execution and blocks required dependents. There is no automatic downstream geometry inheritance or fan selection. See RECTANGULAR_AIR_NETWORKS.md.
+
 Workflow kind `rectangular_network` accepts a sourced `project` and optional `requires_pass`, using the explicit level rectangular air-tree contract in RECTANGULAR_AIR_NETWORKS.md. Its actual-area/turbulent hydraulic-diameter calculation modules enter input inventory. Failed velocity/pressure targets fail execution and block required consumers. This adapter has no inherited IFC geometry or regulatory acceptance; retain separate manual/engineering deliverables.
 
 Dependency diagnosis also emits `actions`: deduplicated unresolved upstream roots in plan order, each retaining recorded scope, evidence paths, cited input blockers, affected tasks and complete affected requirement records. Shared blockers appear once even when several downstream tasks require them; a join with independent unresolved parents retains both roots. Independent manual review remains an action. This is a recovery handoff derived from the declared dependency graph, not automatic cause inference, repair, priority ranking or resumption. Stale inputs/artifacts reject diagnosis before a queue is returned.

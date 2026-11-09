@@ -11,7 +11,7 @@ from .network import _calculate,_run
 MODEL='steady incompressible rectangular air tree'
 
 
-def calculate(project):
+def prepare(project):
     if not isinstance(project,dict) or project.get('model')!=MODEL:raise ProjectError('explicit rectangular air-tree model required')
     basis=project.get('method_basis')
     keys={'source','constant_density_air','fully_developed','hydraulic_diameter_applicable','level_common_reference'}
@@ -33,6 +33,13 @@ def calculate(project):
     nodes=p.get('nodes')
     if not isinstance(nodes,list) or not nodes or any(not isinstance(n,dict) for n in nodes):raise ProjectError('level nodes required')
     if any(n.get('elevation_m')!=nodes[0].get('elevation_m') for n in nodes):raise ProjectError('rectangular air-tree supports level common-reference nodes only')
+    from .network import validate
+    validate(p)
+    return p,areas,dimensions,basis
+
+
+def calculate(project):
+    p,areas,dimensions,basis=prepare(project)
     result=_calculate(p,areas,turbulent_only=True)
     for row in result['segments']:row.update(dimensions[row['id']])
     result.update(model=MODEL,method_basis=basis,

@@ -15,7 +15,11 @@ BASIS='prescribed demands; route and local K unchanged across sizes'
 
 
 def validate_catalogue(project,catalogue):
-    validate(project)
+    return _validate_catalogue(project,catalogue,validate,('diameter_m',))
+
+
+def _validate_catalogue(project,catalogue,validator,dimensions):
+    validator(project)
     if not isinstance(catalogue,dict) or set(catalogue)!={'sources','options','allowed_options','objective','max_evaluations','hydraulic_basis'}:
         raise ProjectError('explicit sizing catalogue, search bound, objective and hydraulic basis required')
     sources=catalogue['sources']
@@ -30,15 +34,17 @@ def validate_catalogue(project,catalogue):
     options={}
     if not isinstance(catalogue['options'],list) or not catalogue['options']:raise ProjectError('nonempty sourced options required')
     for row in catalogue['options']:
-        if not isinstance(row,dict) or set(row)!={'id','diameter_m','roughness_m','material_score_per_m','source'}:
+        if not isinstance(row,dict) or set(row)!=({'id','roughness_m','material_score_per_m','source'}|set(dimensions)):
             raise ProjectError('catalogue options require explicit internal diameter, roughness and material score')
         id=row['id']
         if not isinstance(id,str) or not id.strip() or id in options or not isinstance(row['source'],str) or row['source'] not in sources:raise ProjectError('unique sourced option IDs required')
-        for key in ('diameter_m','roughness_m','material_score_per_m'):
+        for key in (*dimensions,'roughness_m','material_score_per_m'):
             value=row[key]
-            if type(value) not in (int,float) or not math.isfinite(value) or value<0 or (key=='diameter_m' and value==0):
+            if type(value) not in (int,float) or not math.isfinite(value) or value<0 or (key in dimensions and value==0):
                 raise ProjectError('finite nonnegative score/roughness and positive internal diameter required')
-        if row['roughness_m']/row['diameter_m']>=.05:raise ProjectError('catalogue roughness outside supported range')
+        diameter=row['diameter_m'] if dimensions==('diameter_m',) else 2*row['width_m']*row['height_m']/(row['width_m']+row['height_m'])
+        if not math.isfinite(diameter) or diameter<=0:raise ProjectError('invalid derived option hydraulic diameter')
+        if row['roughness_m']/diameter>=.05:raise ProjectError('catalogue roughness outside supported range')
         options[id]=row
     allowed=catalogue['allowed_options'];ids=sorted(s['id'] for s in project['segments'])
     if not isinstance(allowed,dict) or set(allowed)!=set(ids):raise ProjectError('exact segment choice coverage required')
@@ -55,6 +61,10 @@ def validate_catalogue(project,catalogue):
 
 
 def derive(project,catalogue,options,choices):
+    return _derive(project,catalogue,options,choices,('diameter_m',))
+
+
+def _derive(project,catalogue,options,choices,dimensions):
     result=copy.deepcopy(project)
     result['sources'].update({'sizing/'+k:v for k,v in catalogue['sources'].items()})
     for segment in result['segments']:
@@ -63,21 +73,25 @@ def derive(project,catalogue,options,choices):
         if key in result['sources']:raise ProjectError('sizing provenance namespace collision')
         result['sources'][key]=(project['sources'][old_source]+'; size/roughness: '+catalogue['sources'][option['source']]
                                 +'; sizing assumption: '+catalogue['sources'][catalogue['hydraulic_basis']['source']])
-        segment.update(diameter_m=option['diameter_m'],roughness_m=option['roughness_m'],source=key)
+        segment.update({k:option[k] for k in dimensions},roughness_m=option['roughness_m'],source=key)
     return result
 
 
 def search(project,catalogue):
-    options,ids,count=validate_catalogue(project,catalogue)
+    return _search(project,catalogue,validate_catalogue,derive,calculate)
+
+
+def _search(project,catalogue,validator,deriver,calculator):
+    options,ids,count=validator(project,catalogue)
     lengths={s['id']:s['length_m'] for s in project['segments']}
     candidates=[];best=None;best_project=None;best_rank=None
     for index,values in enumerate(itertools.product(*(sorted(catalogue['allowed_options'][id]) for id in ids)),1):
-        choices=dict(zip(ids,values));candidate=derive(project,catalogue,options,choices)
+        choices=dict(zip(ids,values));candidate=deriver(project,catalogue,options,choices)
         score=math.fsum(lengths[id]*options[choices[id]]['material_score_per_m'] for id in ids)
         if not math.isfinite(score):raise ProjectError('derived material score overflow')
         row=dict(id=f'C{index:06}',choices=choices,material_score=score,feasible=False)
         try:
-            result=calculate(candidate)
+            result=calculator(candidate)
             row.update(calculated_checks=result['calculated_checks'],feasible=result['calculated_checks_pass'],
                        required_source_total_pressure_pa=result['required_source_total_pressure_pa'],
                        failed_velocity_segments=[s['id'] for s in result['segments'] if not s['velocity_pass']],
@@ -94,20 +108,24 @@ def search(project,catalogue):
 
 
 def run(project,catalogue,out):
+    return _run(project,catalogue,out,search,analyse)
+
+
+def _run(project,catalogue,out,searcher,analyser):
     project,catalogue,out=[Path(p).resolve() for p in (project,catalogue,out)]
     if any(out==p or out in p.parents for p in (project,catalogue)):raise ProjectError('output must not contain sources')
     before={str(p):digest(p) for p in (project,catalogue)}
     original=json.loads(project.read_text(encoding='utf-8-sig'));catalog=json.loads(catalogue.read_text(encoding='utf-8-sig'))
-    result,selected=search(original,catalog)
+    result,selected=searcher(original,catalog)
     out.mkdir(parents=True,exist_ok=False)
     try:
-        baseline=analyse(project,out/'baseline')
+        baseline=analyser(project,out/'baseline')
         result['baseline']=dict(calculated_checks=baseline['calculated_checks'],calculated_checks_pass=baseline['calculated_checks_pass'],
                                 required_source_total_pressure_pa=baseline['required_source_total_pressure_pa'])
     except ProjectError as exc:result['baseline']=dict(analysis_error=str(exc),calculated_checks_pass=False)
     if selected:
         selected_path=out/'selected-network.json';selected_path.write_text(json.dumps(selected,indent=2),encoding='utf-8')
-        saved=analyse(selected_path,out/'selected')
+        saved=analyser(selected_path,out/'selected')
         if not saved['calculated_checks_pass'] or not math.isclose(saved['required_source_total_pressure_pa'],result['selected']['required_source_total_pressure_pa'],rel_tol=1e-12):
             raise ProjectError('selected network rerun differs from ranked evidence')
         result['selected_rerun_pass']=True
