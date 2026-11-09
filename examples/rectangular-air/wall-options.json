@@ -1,0 +1,20 @@
+{
+  "basis": "rectangular walls; fixed centrelines and endpoints",
+  "sources": {
+    "demo": "Explicit synthetic 1 mm uniform sharp-corner wall for all size options; no product or fabrication validation."
+  },
+  "options": {
+    "small": {
+      "wall_thickness_m": 0.001,
+      "source": "demo"
+    },
+    "medium": {
+      "wall_thickness_m": 0.001,
+      "source": "demo"
+    },
+    "large": {
+      "wall_thickness_m": 0.001,
+      "source": "demo"
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "scope": "Actual synthetic single straight rectangular selected-model regeneration; no full routing, fitting, product, clash, drawing or code acceptance",
+  "tasks": [
+    {
+      "id": "air",
+      "kind": "rectangular_model_design",
+      "status": "pass",
+      "recorded_scope": "Finite rectangular sizing and source-defined straight-wall regeneration only; no physical junction, clash, fabrication, fan or full code acceptance",
+      "dependencies": [],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R1"
+      ],
+      "evidence": [
+        "air/baseline-bim/bim-verification.json",
+        "air/baseline-bim/model.ifc",
+        "air/baseline-bim/schema-validation.json",
+        "air/baseline-network.json",
+        "air/filtered-catalogue.json",
+        "air/model-design.json",
+        "air/selected-coordination/analysis/manifest.json",
+        "air/selected-coordination/analysis/network.json",
+        "air/selected-coordination/analysis/report.html",
+        "air/selected-coordination/analysis/segments.csv",
+        "air/selected-coordination/bim/bim-verification.json",
+        "air/selected-coordination/bim/model.ifc",
+        "air/selected-coordination/bim/schema-validation.json",
+        "air/selected-coordination/network-binding.json",
+        "air/selected-coordination/network-input.json",
+        "air/selected-model.json",
+        "air/selected-skeleton.json",
+        "air/sizing/baseline/manifest.json",
+        "air/sizing/baseline/network.json",
+        "air/sizing/baseline/report.html",
+        "air/sizing/baseline/segments.csv",
+        "air/sizing/candidates.csv",
+        "air/sizing/design-comparison.json",
+        "air/sizing/report.html",
+        "air/sizing/selected-network.json",
+        "air/sizing/selected/manifest.json",
+        "air/sizing/selected/network.json",
+        "air/sizing/selected/report.html",
+        "air/sizing/selected/segments.csv"
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "Independent geometry, fitting, fan, acoustic, fire/smoke and Hong Kong acceptance remains pending",
+      "dependencies": [
+        "air"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "review"
+      ],
+      "input_blockers": [],
+      "next_action": "perform the specified review and record evidence separately",
+      "requirement_ids": [
+        "R2"
+      ],
+      "evidence": []
+    }
+  ],
+  "selected": {
+    "id": "C000001",
+    "choices": {
+      "MAIN": "large"
+    },
+    "material_score": 6.0,
+    "feasible": true,
+    "calculated_checks": {
+      "velocity": true,
+      "pressure": true,
+      "flow_continuity": true
+    },
+    "required_source_total_pressure_pa": 37.37024025584715,
+    "failed_velocity_segments": [],
+    "failed_pressure_nodes": []
+  },
+  "fixed_endpoints_pass": true,
+  "stable_object_port_ids_match": true,
+  "inputs_unchanged": true,
+  "integrity_pass": true,
+  "design_accepted": false,
+  "tests": {
+    "rectangular_model_design": 4,
+    "rectangular_design": 6,
+    "rectangular_binding": 4,
+    "dependency_status": 7,
+    "all_pass": true
+  },
+  "artifacts": {
+    "runs\\rectangular-model-design-workflow-v1\\workflow.json": "fb0cf312ceb8eee149499b1688c5f8db856c6ba5f475377f9ef6930c8ac9ca47",
+    "runs\\rectangular-model-design-workflow-v1\\air\\model-design.json": "2a928b86b1be48e684cd12f44a846ecad8073b277d758feab44df0ff565371c8",
+    "runs\\rectangular-model-design-workflow-v1\\air\\selected-model.json": "ee95bc41504025a388b580d372ff345b840dfd5d53ec6c8b951fb97cf312495d",
+    "runs\\rectangular-model-design-workflow-v1\\air\\selected-coordination\\bim\\model.ifc": "d86a61c8a92a5c6a121f21377cec34d7566c9932fa1fb61c9bb9c899e2fa5e05",
+    "runs\\rectangular-model-design-workflow-v1\\air\\selected-coordination\\analysis\\network.json": "5e446c6909718b9f7355daa9fa512f40d2520ff95810e3fda2ae6ddb092fa858"
+  }
+}

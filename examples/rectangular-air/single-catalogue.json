@@ -1,0 +1,44 @@
+{
+  "sources": {
+    "demo": "Explicit synthetic rectangular sizes, roughness and preference scores; not product catalogue or cost. Fixed prescribed flow, route and local-velocity K applicability across sizes is assumed for this exercise only."
+  },
+  "options": [
+    {
+      "id": "small",
+      "width_m": 0.1,
+      "height_m": 0.1,
+      "roughness_m": 9e-05,
+      "material_score_per_m": 1,
+      "source": "demo"
+    },
+    {
+      "id": "medium",
+      "width_m": 0.3,
+      "height_m": 0.2,
+      "roughness_m": 9e-05,
+      "material_score_per_m": 2,
+      "source": "demo"
+    },
+    {
+      "id": "large",
+      "width_m": 0.5,
+      "height_m": 0.3,
+      "roughness_m": 9e-05,
+      "material_score_per_m": 3,
+      "source": "demo"
+    }
+  ],
+  "allowed_options": {
+    "MAIN": [
+      "small",
+      "medium",
+      "large"
+    ]
+  },
+  "objective": "minimise sum(length_m * material_score_per_m)",
+  "max_evaluations": 3,
+  "hydraulic_basis": {
+    "assumption": "prescribed demands; route and local K unchanged across sizes",
+    "source": "demo"
+  }
+}

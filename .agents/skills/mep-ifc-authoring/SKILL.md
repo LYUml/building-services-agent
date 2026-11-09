@@ -5,6 +5,8 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For catalogue-selected rectangular straight model revision, use rectangular_model_design per docs/RECTANGULAR_AIR_NETWORKS.md. Require stable project_uuid and separately sourced wall thickness per option; reject outer-space failures before selection. Preserve baseline/rejections, fixed world endpoints and saved object/port GUIDs, then reauthor/reopen and repeat bound pressure. This supersedes standalone revision-pending notes for supported straight chains; clashes, bends/junctions, fabrication and full acceptance remain separate.
+
 For source-defined rectangular straight duct chains bound to pressure analysis, use rectangular_network_binding with project/model/binding per docs/RECTANGULAR_AIR_NETWORKS.md. Omit duplicated numerical geometry; the adapter derives source dimensions/port lengths, independently verifies saved native wall profiles and reconciles directed saved ports before analysis. This extends standalone geometry support, but selected-catalogue model revision and finite bends/junction physics remain pending.
 
 For axis-aligned hollow rectangular straight ducts, use bsa.bim with the explicit rectangular scope/body_shape in docs/RECTANGULAR_AIR_NETWORKS.md. Require independent internal width/height/thickness and a matching outer envelope with end-face-centre ports. Saved profile/metadata/placement and native through-bore, connected wall, mass and port-axis checks are executed. Sharp corners only; bends/transitions/junctions and selected-network hydraulic binding remain unsupported. Do not call an envelope box a hollow duct or infer fabrication/installation acceptance from this geometry check.
