@@ -5,6 +5,8 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+When fan-power scope is required, combine same-producer rectangular_fan_regulations and ifc_clash in rectangular_drawing requires_pass. The executed synthetic native delivery in docs/HK_FAN_POWER.md retains failed/unknown rule branches without drawing folders. Drawing/native-export audits and actual PDF review remain mandatory; this still does not prove real fan selection, inventory or full installation acceptance.
+
 Rectangular sheets now independently audit actual saved and AutoCAD-reopened/exported DXF entities against source-checked native bounds, axis endpoints and inside dimensions. Preserve complete geometry/text/GUID and raw model-space/visibility/plot checks; do not substitute a writer success flag or invented expected records. Approximate font boxes do not replace actual PDF review. See docs/RECTANGULAR_AIR_NETWORKS.md.
 
 For a supported rectangular outer-envelope sheet use rectangular_drawing with a native rectangular producer, same-producer ifc_clash required gate, settings/sheet and explicit AutoCAD CLI path. It uses actual saved rectangular profiles and complete supported fan-envelope context, not circular size labels. Native reopen/scale checks and actual PDF review remain separate; end-on/unsupported elements reject. See docs/RECTANGULAR_AIR_NETWORKS.md. Do not label the diagnostic outline/notes as full installation drawings.

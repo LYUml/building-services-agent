@@ -1,0 +1,396 @@
+{
+  "scope": "Actual synthetic single straight-chain combined native delivery; real fan electrical/inventory, controls and full installation/HK acceptance remain pending",
+  "tasks": [
+    {
+      "id": "model",
+      "kind": "rectangular_model_design",
+      "status": "pass",
+      "recorded_scope": "Finite rectangular sizing and source-defined straight-wall regeneration only; no physical junction, clash, fabrication, fan or full code acceptance",
+      "dependencies": [],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R1"
+      ],
+      "evidence": [
+        "model/baseline-bim/bim-verification.json",
+        "model/baseline-bim/model.ifc",
+        "model/baseline-bim/schema-validation.json",
+        "model/baseline-network.json",
+        "model/filtered-catalogue.json",
+        "model/model-design.json",
+        "model/selected-coordination/analysis/manifest.json",
+        "model/selected-coordination/analysis/network.json",
+        "model/selected-coordination/analysis/report.html",
+        "model/selected-coordination/analysis/segments.csv",
+        "model/selected-coordination/bim/bim-verification.json",
+        "model/selected-coordination/bim/model.ifc",
+        "model/selected-coordination/bim/schema-validation.json",
+        "model/selected-coordination/network-binding.json",
+        "model/selected-coordination/network-input.json",
+        "model/selected-model.json",
+        "model/selected-skeleton.json",
+        "model/sizing/baseline/manifest.json",
+        "model/sizing/baseline/network.json",
+        "model/sizing/baseline/report.html",
+        "model/sizing/baseline/segments.csv",
+        "model/sizing/candidates.csv",
+        "model/sizing/design-comparison.json",
+        "model/sizing/report.html",
+        "model/sizing/selected-network.json",
+        "model/sizing/selected/manifest.json",
+        "model/sizing/selected/network.json",
+        "model/sizing/selected/report.html",
+        "model/sizing/selected/segments.csv"
+      ]
+    },
+    {
+      "id": "coordination",
+      "kind": "ifc_clash",
+      "status": "pass",
+      "recorded_scope": "saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending",
+      "dependencies": [
+        "model"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R-coordination"
+      ],
+      "evidence": [
+        "coordination/clash.json",
+        "coordination/report.html"
+      ]
+    },
+    {
+      "id": "pass",
+      "kind": "rectangular_fan_regulations",
+      "status": "pass",
+      "recorded_scope": "Verified native rectangular network/design-flow denominator only; fan motor power/inventory and whole-supply meaning are sourced assertions, not native fan selection or full HVAC acceptance",
+      "dependencies": [
+        "model"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R2"
+      ],
+      "evidence": [
+        "pass/fan-regulations.json"
+      ]
+    },
+    {
+      "id": "pass-drawing",
+      "kind": "rectangular_drawing",
+      "status": "pass",
+      "recorded_scope": "Source-checked orthographic outer-envelope outlines, centreline and nonassociative text notes only; not hidden-line, fabrication, insulation or installation drawings; native DWG/scale verified, actual visual and full engineering review separate",
+      "dependencies": [
+        "model",
+        "coordination",
+        "pass"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R2-drawing"
+      ],
+      "evidence": [
+        "pass-drawing/drawing.json",
+        "pass-drawing/native-source-audit.json",
+        "pass-drawing/native/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log",
+        "pass-drawing/native/input.dxf",
+        "pass-drawing/native/native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log",
+        "pass-drawing/native/native-reopen/export.log",
+        "pass-drawing/native/native-reopen/export.scr",
+        "pass-drawing/native/native-reopen/source-copy.dwg",
+        "pass-drawing/native/native-reopen/source-export.dxf",
+        "pass-drawing/native/native-verification.json",
+        "pass-drawing/native/plot.log",
+        "pass-drawing/native/save.log",
+        "pass-drawing/native/save.scr",
+        "pass-drawing/native/segments.dwg",
+        "pass-drawing/native/sheet.json",
+        "pass-drawing/native/sheet.log",
+        "pass-drawing/native/sheet.pdf",
+        "pass-drawing/native/sheet.scr",
+        "pass-drawing/segments.dxf"
+      ]
+    },
+    {
+      "id": "pass-review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "Real fan inventory/electrical operating point, scope, controls and full acceptance pending",
+      "dependencies": [
+        "pass",
+        "coordination",
+        "pass-drawing"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "pass-review"
+      ],
+      "input_blockers": [],
+      "next_action": "perform the specified review and record evidence separately",
+      "requirement_ids": [
+        "R2-review"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "exceeded",
+      "kind": "rectangular_fan_regulations",
+      "status": "fail",
+      "recorded_scope": "Verified native rectangular network/design-flow denominator only; fan motor power/inventory and whole-supply meaning are sourced assertions, not native fan selection or full HVAC acceptance",
+      "dependencies": [
+        "model"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "exceeded"
+      ],
+      "input_blockers": [],
+      "next_action": "inspect retained failure evidence and correct source or adapter before a new run",
+      "requirement_ids": [
+        "R3"
+      ],
+      "evidence": [
+        "exceeded/fan-regulations.json"
+      ]
+    },
+    {
+      "id": "exceeded-drawing",
+      "kind": "rectangular_drawing",
+      "status": "pending",
+      "recorded_scope": "required checks unresolved: exceeded (fail); adapter not executed",
+      "dependencies": [
+        "model",
+        "coordination",
+        "exceeded"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [
+        "exceeded"
+      ],
+      "upstream_action_tasks": [
+        "exceeded"
+      ],
+      "input_blockers": [],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R3-drawing"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "exceeded-review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "required checks unresolved: exceeded (fail), exceeded-drawing (pending); adapter not executed",
+      "dependencies": [
+        "exceeded",
+        "coordination",
+        "exceeded-drawing"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [
+        "exceeded",
+        "exceeded-drawing"
+      ],
+      "upstream_action_tasks": [
+        "exceeded"
+      ],
+      "input_blockers": [],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R3-review"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "unknown-supply",
+      "kind": "rectangular_fan_regulations",
+      "status": "pending",
+      "recorded_scope": "Verified native rectangular network/design-flow denominator only; fan motor power/inventory and whole-supply meaning are sourced assertions, not native fan selection or full HVAC acceptance",
+      "dependencies": [
+        "model"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "unknown-supply"
+      ],
+      "input_blockers": [],
+      "next_action": "resolve the recorded pending condition before a new run",
+      "requirement_ids": [
+        "R4"
+      ],
+      "evidence": [
+        "unknown-supply/fan-regulations.json"
+      ]
+    },
+    {
+      "id": "unknown-supply-drawing",
+      "kind": "rectangular_drawing",
+      "status": "pending",
+      "recorded_scope": "required checks unresolved: unknown-supply (pending); adapter not executed",
+      "dependencies": [
+        "model",
+        "coordination",
+        "unknown-supply"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [
+        "unknown-supply"
+      ],
+      "upstream_action_tasks": [
+        "unknown-supply"
+      ],
+      "input_blockers": [],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R4-drawing"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "unknown-supply-review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "required checks unresolved: unknown-supply (pending), unknown-supply-drawing (pending); adapter not executed",
+      "dependencies": [
+        "unknown-supply",
+        "coordination",
+        "unknown-supply-drawing"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [
+        "unknown-supply",
+        "unknown-supply-drawing"
+      ],
+      "upstream_action_tasks": [
+        "unknown-supply"
+      ],
+      "input_blockers": [],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R4-review"
+      ],
+      "evidence": []
+    }
+  ],
+  "shared_ifc_sha256": "bb826192d846ab83e567149a84ee54998af9ed5f7832a4c9f95b7e21fb03c4e1",
+  "native": {
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-delivery-v1\\workflow\\pass-drawing\\segments.dxf": "118f7747bc9a9771f2e8bee537b88f3e8fcafa875d0a6accbccff7a3e5773d3c",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-hk-delivery-v1\\sheet-settings.json": "31610409d5415ee5b522087debf96fb1d49610662206ec060c6f0bc70754dd48"
+    },
+    "inputs_unchanged": true,
+    "engine": "C:\\Program Files\\Autodesk\\AutoCAD 2027\\accoreconsole.exe",
+    "engine_sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2",
+    "dwg_sha256": "3a7e7e55e21f5701a9c4ab700e10ff5b481eeca4e3ca31432213750dc1cb92d0",
+    "native_reopen_pass": true,
+    "checks": {
+      "model_entity_count": 11,
+      "linked_entity_count": 11,
+      "model_entities_and_ifc_xdata_match": true,
+      "geometry_layers_and_annotations_match": true,
+      "metre_units": true
+    },
+    "plot": {
+      "pdf_sha256": "91e03789f02e2f9bb8c7ac4aa8a21b535e8dc01ea2f353d0657f7ade53660ac0",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 20,
+      "reference_handle": "34",
+      "reference_expected_mm": 100.0,
+      "reference_measured_mm": 99.949,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "settings": {
+      "source": "Explicit synthetic A4 1:20 window and 100 mm reference target; not regulation",
+      "window_drawing_units": [
+        -0.2,
+        -0.2,
+        5.2,
+        3.8
+      ],
+      "scale_denominator": 20,
+      "reference_ifc_guid": "3jzmgt4rXJROS0ybhlzD_Q",
+      "pdf_tolerance_mm": 0.2
+    },
+    "design_accepted": false,
+    "pending": [
+      "actual PDF visual review",
+      "equipment/fittings/insulation and installation drawing detail",
+      "complete engineering acceptance"
+    ],
+    "artifacts": {
+      "input.dxf": "118f7747bc9a9771f2e8bee537b88f3e8fcafa875d0a6accbccff7a3e5773d3c",
+      "plot.log": "20a56bac9eaf828e30c1a48e086749f18ab5f6ac955616381e289b68ed4173d9",
+      "save.log": "891ef41cf441a8d107537419299edcc5afd9dd7ecc83ae98a954d26fe5945093",
+      "save.scr": "b5db7694bd76c1d3d133a38da69623ebebd35be31ef174341ec17f13da06adaf",
+      "segments.dwg": "3a7e7e55e21f5701a9c4ab700e10ff5b481eeca4e3ca31432213750dc1cb92d0",
+      "sheet.json": "3732cd23c5a98e8d56819690fec652016fdc6575937d9988e27a094024536438",
+      "sheet.log": "a2f4edc528605e4425f85aece0d1bc5245f07287380ccf9846fc456a54619e87",
+      "sheet.pdf": "91e03789f02e2f9bb8c7ac4aa8a21b535e8dc01ea2f353d0657f7ade53660ac0",
+      "sheet.scr": "9b284d03112723bce0b04374428eeb476091da3e2e290f4111ccc7ac8d37b2d0",
+      "native-reopen/export.log": "170a46180eb25bd8569aaedc5b56c363518b2de0b5184214e4bd59a72b086068",
+      "native-reopen/export.scr": "b800e6606f263504433f9d84b45deb35761c925d09141f3eaa043d6109c181a3",
+      "native-reopen/source-copy.dwg": "3a7e7e55e21f5701a9c4ab700e10ff5b481eeca4e3ca31432213750dc1cb92d0",
+      "native-reopen/source-export.dxf": "4965cf9968d39d571279216ee8dc5ad9521cfd1060112e7b7fb39901fcfa846e",
+      "ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "25e9aa38beea822d5220b398c2358bae601fdc3b71735756e5e89d55b453ee8d",
+      "native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "b150ceaff41dfe1b66b2f450e2d4723a34f0b0f0856a2ec2a25e444b4fdb1a04"
+    }
+  },
+  "native_export_audit": {
+    "dxf_sha256": "4965cf9968d39d571279216ee8dc5ad9521cfd1060112e7b7fb39901fcfa846e",
+    "entity_count": 11,
+    "saved_geometry_notes_identity_pass": true,
+    "visibility_flags_pass": true,
+    "text_graphics": {
+      "text_count": 2,
+      "graphic_count": 9,
+      "graphic_margin_m": 0.01,
+      "text_graphics_checks_pass": true,
+      "scope": "ezdxf approximate font AABBs, actual LINE clipping and conservative ARC bounds; not exact glyph collision or general layout optimisation"
+    },
+    "design_accepted": false,
+    "scope": "Actual saved entities versus already source-checked model facts, not writer flags; approximate text boxes, native print, source authentication and full installation acceptance separate"
+  },
+  "visual_review": "Actual PDF rendered and viewed: readable 1000x500 inside, 2m true length and envelope-only context notes; no observed clipping",
+  "integrity_pass": true,
+  "design_accepted": false,
+  "tests": {
+    "combined": 1,
+    "native_fan": 6,
+    "saved_drawing_audit": 7,
+    "all_pass": true
+  },
+  "artifacts": {
+    "runs\\rectangular-hk-delivery-v1\\workflow\\workflow.json": "255473e41b832e9dee73cd3067e3a3ad7ea7c5f2dd8af640239279dd4c1d6875",
+    "runs\\rectangular-hk-delivery-v1\\workflow\\pass-drawing\\native\\native-verification.json": "5e7c777039c03f1859a5c3b7e0a673cd06f36d8b5264d1da624569143596ef4f",
+    "runs\\rectangular-hk-delivery-v1\\workflow\\pass-drawing\\native-source-audit.json": "8b6d871fb3d80c5b3ab0c5c2ecbdea769b8a821973215c205c38b7f199b9bee3",
+    "runs\\rectangular-hk-delivery-v1\\workflow\\pass-drawing\\native\\sheet.pdf": "91e03789f02e2f9bb8c7ac4aa8a21b535e8dc01ea2f353d0657f7ade53660ac0",
+    "runs\\rectangular-hk-delivery-v1\\sheet-review.png": "3b4ff6ffc645b5f25c96a726cc3e12e82c2ca7eb7347c48379120bb23e06625a"
+  }
+}

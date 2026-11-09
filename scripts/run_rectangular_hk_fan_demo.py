@@ -11,7 +11,7 @@ from bsa.workflow_status import diagnose
 ROOT=Path(__file__).resolve().parents[1]
 
 
-def run(out,sources):
+def stage(out,sources):
     out=Path(out).resolve()
     if not out.is_relative_to(ROOT) or out.exists():raise ValueError('new repository-local output required')
     out.mkdir(parents=True);ex=ROOT/'examples/rectangular-air'
@@ -38,7 +38,12 @@ def run(out,sources):
         for suffix in ('','-review'):requirements.append(dict(id='R'+str(index)+suffix,passage=f'P{index:03}',quote=text,task=label+suffix,acceptance='Scoped native-flow rule correspondence and preserved review gates only'))
     brief=out/'brief.md';brief.write_text('\n\n'.join(paragraphs)+'\n',encoding='utf-8')
     plan=dict(version=1,brief='brief.md',brief_sha256=digest(brief),passage_dispositions={f'P{i:03}':'requirement' for i in range(1,5)},tasks=tasks,requirements=requirements)
-    path=out/'plan.json';path.write_text(json.dumps(plan,indent=2),encoding='utf-8');execute(path,out/'workflow');d=diagnose(path,out/'workflow')
+    path=out/'plan.json';path.write_text(json.dumps(plan,indent=2),encoding='utf-8');return path
+
+
+def run(out,sources):
+    path=stage(out,sources);out=path.parent
+    execute(path,out/'workflow');d=diagnose(path,out/'workflow')
     states={t['id']:t['status'] for t in d['tasks']}
     if [states[k] for k in ('model','pass','exceeded','unknown-supply')]!=['pass','pass','fail','pending']:raise ValueError('unexpected native fan-rule demonstration states')
     (out/'demonstration.json').write_text(json.dumps(d,indent=2),encoding='utf-8');return d

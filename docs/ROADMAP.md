@@ -62,6 +62,8 @@ The requested end state is reusable automation from a requirement document and s
 
 ## Next sequence
 
+One native rectangular composition now chains sizing/IFC/pressure, HK fan-rule, represented-model coordination and audited/reopened fixed-scale drawing. Actual synthetic positive prints; exceeded/unknown rule branches have no drawing folders. Fourteen composition/native-rule/audit tests pass, but real fan evidence, complete routes/fittings, controls, installation and whole-project/HK acceptance remain pending.
+
 HK fan-power checks can now inherit native rectangular source/model calculations and freshly derive design supply L/s, rejecting flow overrides, changed studies/walls and unrelated drawing gates. Actual 2000 L/s synthetic native workflow retains motor-power exceedance and unknown supply meaning. This binds only the denominator; actual motor/inventory evidence, operating point, controls and full HVAC/Hong Kong acceptance remain pending.
 
 Hong Kong base CAV/VAV fan-power pack now uses pinned official BEC/TG sources with drawn electrical motor-power and inventory/flow/exemption prerequisites. Actual five-case sourced-fact workflow retains review/pending/exempt states and downstream gates. This is not native rectangular-network/fan binding, deductions, controls or full HVAC/Hong Kong acceptance (HK_FAN_POWER.md).

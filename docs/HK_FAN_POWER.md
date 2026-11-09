@@ -1,5 +1,15 @@
 # Hong Kong base fan-power rule
 
+## Combined scoped native delivery
+
+`python scripts/run_rectangular_hk_fan_delivery.py --out runs/new-rectangular-hk-delivery --sources runs/hk-fan-sources-v1 --autocad "C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe"` composes existing adapters in one plan: rectangular sizing/native model, represented-model coordination, three fan-rule cases and same-model native drawing prerequisites. It reuses the original native-flow demo's stage function; there is no second design or rules engine. The additional source-defined fan box is explicitly unconnected context geometry, not selected equipment or native evidence for the declared motor-power facts.
+
+Actual runs/rectangular-hk-delivery-v1 passes the positive model/pressure, coordination, fan comparison and native sheet. The selected 1000x500 mm internal straight duct carries the synthetic 2000 L/s; only the conditional rule-pass branch reaches drawing. Exceeded motor power and unknown whole-supply meaning each retain pending drawing status with no drawing directory and explicit failed/unresolved rule blockers. Missing AutoCAD is tested separately: positive prerequisites pass but the drawing remains unexecuted for the correct runtime reason. Final review remains pending for every branch.
+
+Actual AutoCAD DWG reopen and both independent source/native-export 11-entity audits pass, as does the 1:20 physical reference. The actual PDF was rendered and viewed: readable selected inside dimensions, true 2 m length and ENVELOPE ONLY context note, with no observed clipping. The duplicate PageMode warning remains; PDF standard conformance is not claimed. One new full-composition test, six native fan-rule tests and seven saved-entity audit tests pass (14 distinct tests). Evidence: evidence/hk-fan-power/native-delivery.json.
+
+This is a synthetic straight-chain diagnostic delivery, not a complete assignment or real fan design. Actual drawn electrical power/inventory and whole-system meaning, finite fittings, actual obstacles/products/insulation, control/fresh-air and remaining Hong Kong clauses, installation graphics and full engineering acceptance remain unresolved. Native CAD success does not clear those requirements.
+
 ## Native rectangular design-flow denominator
 
 Workflow `rectangular_fan_regulations` now inherits a passing rectangular_model_design or rectangular_network_binding and takes basis/pack/sources. It accepts no replacement network, model, IFC or numerical report. Basis uses the existing fan facts/edition contract but must omit supply_design_airflow; a provided override is rejected. A sourced true network_represents_supply_design_flow assertion is separately required: a subnetwork's total cannot silently stand for the whole system design supply.
