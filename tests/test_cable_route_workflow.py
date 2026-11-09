@@ -43,6 +43,19 @@ class CableRouteWorkflowBindings(unittest.TestCase):
         self.assertEqual({r['check'] for r in links},{'bend','coordination','bridge'})
         self.assertTrue(three_phase_model_bindings(self.root,self.tasks))
 
+    def test_hk_and_product_gates_bind_the_same_route_model(self):
+        self.tasks.insert(3,dict(id='hk',kind='three_phase_cable_regulations',depends_on='study',ifc='a.ifc',binding='binding.json'))
+        self.tasks[-1]['requires_pass'].append('hk')
+        self.assertEqual(len(three_phase_rule_bindings(self.tasks)),3)
+        self.assertEqual(len(three_phase_model_bindings(self.root,self.tasks)),7)
+        self.tasks[3]['ifc']='b.ifc'
+        with self.assertRaisesRegex(ProjectError,'different IFC'):three_phase_model_bindings(self.root,self.tasks)
+
+    def test_hk_rule_does_not_replace_product_limit_gate(self):
+        self.tasks.insert(3,dict(id='hk',kind='three_phase_cable_regulations',depends_on='study',ifc='a.ifc',binding='binding.json'))
+        self.tasks[-1]['requires_pass']=['hk','coordination']
+        with self.assertRaisesRegex(ProjectError,'bend and coordination'):three_phase_rule_bindings(self.tasks)
+
     def test_different_study_gate_rejected(self):
         self.tasks.insert(3,dict(id='other-study',kind='three_phase_ifc_project',ifc='a.ifc',binding='binding.json'))
         self.tasks[-1]['depends_on']='other-study'

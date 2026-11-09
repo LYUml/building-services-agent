@@ -5,6 +5,8 @@ description: Calculate source-linked single-phase circuits and scoped three-phas
 
 # mep-electrical
 
+When HK cable rules are selected for physical route drawing, require the product-limit, coordination and HK table tasks independently and bind all to the drawing's actual IFC/binding/study. The run_continuous_cable_workflow.py --hk-sources demonstration has executed pass, stricter-product-fail/code-pass and unknown-construction controls. Synthetic limits/classifications are not actual manufacturer approval; never clear a failed product requirement solely because the code table passes (docs/HK_CABLE_BENDS.md).
+
 For Hong Kong cable bending use ../mep-regulations/SKILL.md and docs/HK_CABLE_BENDS.md. The saved native radius may bind to the selected CoP 2025 table only with explicit source-backed PVC/stranded-copper/LV/armour and actual overall-diameter facts. Native product/source mismatch is not a regulatory pass. Workflow three_phase_cable_regulations must share the drawing's study/model and be a required pass gate when selected; retain independent manufacturer limits, no-damage, coordination and full engineering review.
 
 For rotated cable route sheets require the saved/native-export text_graphics result as well as geometry/identity/scale gates. Dimension labels are placed using whole approximate font boxes, with independent outward-region and interference checks; annotations may fail conservatively. Graphic margins are drafting assumptions, not electrical service clearances or regulations. Inspect the actual PDF and keep installation acceptance separate (docs/CABLE_ROUTE_DRAWINGS.md).

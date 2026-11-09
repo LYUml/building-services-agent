@@ -1,0 +1,432 @@
+{
+  "scope": "Actual synthetic combined product-limit/coordination/HK physical-route release; not real vendor or full installation acceptance",
+  "scenarios": {
+    "positive": {
+      "tasks": {
+        "study": {
+          "kind": "three_phase_ifc_project",
+          "status": "pass",
+          "scope": "New snapshot project with supported native straight, quarter-circle or single-quarter tangent-straight IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+        },
+        "bend": {
+          "kind": "three_phase_bend_limits",
+          "status": "pass",
+          "scope": "Supported saved bends versus declared product diameter/condition/radius-reference limits only; source interpretation, cable selection, ratings, pulling forces, joints and full engineering/regulatory acceptance remain unverified"
+        },
+        "coordination": {
+          "kind": "three_phase_coordination",
+          "status": "pass",
+          "scope": "Same saved electrical cable geometry and whole-model represented-element solid intersection/declared clearance checks only; source obstacle completeness, physical joints, product fidelity and full engineering acceptance remain unverified"
+        },
+        "hk-bend": {
+          "kind": "three_phase_cable_regulations",
+          "status": "pass",
+          "scope": "Saved single-quarter cable geometry versus selected HK table with explicitly sourced classifications; evidence assertions, manufacturer/no-damage, numerical-study revision, workflow gates and full installation acceptance remain separate"
+        },
+        "drawing": {
+          "kind": "cable_route_drawing",
+          "status": "pass",
+          "scope": "Single cable planar true arc/straight and envelope OD with explicitly selected source-box projections; depth intervals do not prove clearance; LINE/TEXT dimensions are not associative; installation and engineering review pending; actual visual/engineering review remains pending"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "manual engineering/visual verification required"
+        }
+      },
+      "model_bindings": [
+        {
+          "producer": "study",
+          "consumer": "bend",
+          "ifc_sha256": "a97dac896b0e12a2076905637fc1f340f69b8135eba9a96f54742dcc590e61f1",
+          "geometry_binding_sha256": "69bbf8d4b54a0b48d737964fbba91bfd80fb70e0bd975a48ceeb19284cd61604"
+        },
+        {
+          "producer": "study",
+          "consumer": "coordination",
+          "ifc_sha256": "a97dac896b0e12a2076905637fc1f340f69b8135eba9a96f54742dcc590e61f1",
+          "geometry_binding_sha256": "69bbf8d4b54a0b48d737964fbba91bfd80fb70e0bd975a48ceeb19284cd61604"
+        },
+        {
+          "producer": "study",
+          "consumer": "hk-bend",
+          "ifc_sha256": "a97dac896b0e12a2076905637fc1f340f69b8135eba9a96f54742dcc590e61f1",
+          "geometry_binding_sha256": "69bbf8d4b54a0b48d737964fbba91bfd80fb70e0bd975a48ceeb19284cd61604"
+        },
+        {
+          "producer": "study",
+          "consumer": "drawing",
+          "ifc_sha256": "a97dac896b0e12a2076905637fc1f340f69b8135eba9a96f54742dcc590e61f1",
+          "geometry_binding_sha256": "69bbf8d4b54a0b48d737964fbba91bfd80fb70e0bd975a48ceeb19284cd61604"
+        },
+        {
+          "producer": "bend",
+          "consumer": "drawing",
+          "ifc_sha256": "a97dac896b0e12a2076905637fc1f340f69b8135eba9a96f54742dcc590e61f1",
+          "geometry_binding_sha256": "69bbf8d4b54a0b48d737964fbba91bfd80fb70e0bd975a48ceeb19284cd61604"
+        },
+        {
+          "producer": "coordination",
+          "consumer": "drawing",
+          "ifc_sha256": "a97dac896b0e12a2076905637fc1f340f69b8135eba9a96f54742dcc590e61f1",
+          "geometry_binding_sha256": "69bbf8d4b54a0b48d737964fbba91bfd80fb70e0bd975a48ceeb19284cd61604"
+        },
+        {
+          "producer": "hk-bend",
+          "consumer": "drawing",
+          "ifc_sha256": "a97dac896b0e12a2076905637fc1f340f69b8135eba9a96f54742dcc590e61f1",
+          "geometry_binding_sha256": "69bbf8d4b54a0b48d737964fbba91bfd80fb70e0bd975a48ceeb19284cd61604"
+        }
+      ],
+      "source_bindings": [
+        {
+          "check": "bend",
+          "consumer": "drawing",
+          "study_producer": "study"
+        },
+        {
+          "check": "coordination",
+          "consumer": "drawing",
+          "study_producer": "study"
+        },
+        {
+          "check": "hk-bend",
+          "consumer": "drawing",
+          "study_producer": "study"
+        }
+      ],
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "delivery_context_pass": true,
+      "shared_selection_source_hash_verified": true,
+      "drawing_directory_exists": true
+    },
+    "product-fail": {
+      "tasks": {
+        "study": {
+          "kind": "three_phase_ifc_project",
+          "status": "pass",
+          "scope": "New snapshot project with supported native straight, quarter-circle or single-quarter tangent-straight IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+        },
+        "bend": {
+          "kind": "three_phase_bend_limits",
+          "status": "fail",
+          "scope": "Supported saved bends versus declared product diameter/condition/radius-reference limits only; source interpretation, cable selection, ratings, pulling forces, joints and full engineering/regulatory acceptance remain unverified"
+        },
+        "coordination": {
+          "kind": "three_phase_coordination",
+          "status": "pass",
+          "scope": "Same saved electrical cable geometry and whole-model represented-element solid intersection/declared clearance checks only; source obstacle completeness, physical joints, product fidelity and full engineering acceptance remain unverified"
+        },
+        "hk-bend": {
+          "kind": "three_phase_cable_regulations",
+          "status": "pass",
+          "scope": "Saved single-quarter cable geometry versus selected HK table with explicitly sourced classifications; evidence assertions, manufacturer/no-damage, numerical-study revision, workflow gates and full installation acceptance remain separate"
+        },
+        "drawing": {
+          "kind": "cable_route_drawing",
+          "status": "pending",
+          "scope": "required checks unresolved: bend (fail); adapter not executed"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: drawing (pending); adapter not executed"
+        }
+      },
+      "model_bindings": [
+        {
+          "producer": "study",
+          "consumer": "bend",
+          "ifc_sha256": "926ca39e29104f050c712b82e6b6e001ee19914d1a8d1096b3e2d093d25ccff7",
+          "geometry_binding_sha256": "fc21e7f9a52a915d9f5e3995b4affce1dd54c163584f81c979dd96de88359971"
+        },
+        {
+          "producer": "study",
+          "consumer": "coordination",
+          "ifc_sha256": "926ca39e29104f050c712b82e6b6e001ee19914d1a8d1096b3e2d093d25ccff7",
+          "geometry_binding_sha256": "fc21e7f9a52a915d9f5e3995b4affce1dd54c163584f81c979dd96de88359971"
+        },
+        {
+          "producer": "study",
+          "consumer": "hk-bend",
+          "ifc_sha256": "926ca39e29104f050c712b82e6b6e001ee19914d1a8d1096b3e2d093d25ccff7",
+          "geometry_binding_sha256": "fc21e7f9a52a915d9f5e3995b4affce1dd54c163584f81c979dd96de88359971"
+        },
+        {
+          "producer": "study",
+          "consumer": "drawing",
+          "ifc_sha256": "926ca39e29104f050c712b82e6b6e001ee19914d1a8d1096b3e2d093d25ccff7",
+          "geometry_binding_sha256": "fc21e7f9a52a915d9f5e3995b4affce1dd54c163584f81c979dd96de88359971"
+        },
+        {
+          "producer": "bend",
+          "consumer": "drawing",
+          "ifc_sha256": "926ca39e29104f050c712b82e6b6e001ee19914d1a8d1096b3e2d093d25ccff7",
+          "geometry_binding_sha256": "fc21e7f9a52a915d9f5e3995b4affce1dd54c163584f81c979dd96de88359971"
+        },
+        {
+          "producer": "coordination",
+          "consumer": "drawing",
+          "ifc_sha256": "926ca39e29104f050c712b82e6b6e001ee19914d1a8d1096b3e2d093d25ccff7",
+          "geometry_binding_sha256": "fc21e7f9a52a915d9f5e3995b4affce1dd54c163584f81c979dd96de88359971"
+        },
+        {
+          "producer": "hk-bend",
+          "consumer": "drawing",
+          "ifc_sha256": "926ca39e29104f050c712b82e6b6e001ee19914d1a8d1096b3e2d093d25ccff7",
+          "geometry_binding_sha256": "fc21e7f9a52a915d9f5e3995b4affce1dd54c163584f81c979dd96de88359971"
+        }
+      ],
+      "source_bindings": [
+        {
+          "check": "bend",
+          "consumer": "drawing",
+          "study_producer": "study"
+        },
+        {
+          "check": "coordination",
+          "consumer": "drawing",
+          "study_producer": "study"
+        },
+        {
+          "check": "hk-bend",
+          "consumer": "drawing",
+          "study_producer": "study"
+        }
+      ],
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "delivery_context_pass": true,
+      "shared_selection_source_hash_verified": true,
+      "drawing_directory_exists": false
+    },
+    "unknown": {
+      "tasks": {
+        "study": {
+          "kind": "three_phase_ifc_project",
+          "status": "pass",
+          "scope": "New snapshot project with supported native straight, quarter-circle or single-quarter tangent-straight IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+        },
+        "bend": {
+          "kind": "three_phase_bend_limits",
+          "status": "pass",
+          "scope": "Supported saved bends versus declared product diameter/condition/radius-reference limits only; source interpretation, cable selection, ratings, pulling forces, joints and full engineering/regulatory acceptance remain unverified"
+        },
+        "coordination": {
+          "kind": "three_phase_coordination",
+          "status": "pass",
+          "scope": "Same saved electrical cable geometry and whole-model represented-element solid intersection/declared clearance checks only; source obstacle completeness, physical joints, product fidelity and full engineering acceptance remain unverified"
+        },
+        "hk-bend": {
+          "kind": "three_phase_cable_regulations",
+          "status": "pending",
+          "scope": "Saved single-quarter cable geometry versus selected HK table with explicitly sourced classifications; evidence assertions, manufacturer/no-damage, numerical-study revision, workflow gates and full installation acceptance remain separate"
+        },
+        "drawing": {
+          "kind": "cable_route_drawing",
+          "status": "pending",
+          "scope": "required checks unresolved: hk-bend (pending); adapter not executed"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: drawing (pending); adapter not executed"
+        }
+      },
+      "model_bindings": [
+        {
+          "producer": "study",
+          "consumer": "bend",
+          "ifc_sha256": "a8dfc425ee4f3b53bbb2f8847cae28c8f5cbf12a92e199a311f5f058b8a50ae3",
+          "geometry_binding_sha256": "d23e52fa85161c6181958994f37ed762a36771b77c548b5a39094ce17c757e45"
+        },
+        {
+          "producer": "study",
+          "consumer": "coordination",
+          "ifc_sha256": "a8dfc425ee4f3b53bbb2f8847cae28c8f5cbf12a92e199a311f5f058b8a50ae3",
+          "geometry_binding_sha256": "d23e52fa85161c6181958994f37ed762a36771b77c548b5a39094ce17c757e45"
+        },
+        {
+          "producer": "study",
+          "consumer": "hk-bend",
+          "ifc_sha256": "a8dfc425ee4f3b53bbb2f8847cae28c8f5cbf12a92e199a311f5f058b8a50ae3",
+          "geometry_binding_sha256": "d23e52fa85161c6181958994f37ed762a36771b77c548b5a39094ce17c757e45"
+        },
+        {
+          "producer": "study",
+          "consumer": "drawing",
+          "ifc_sha256": "a8dfc425ee4f3b53bbb2f8847cae28c8f5cbf12a92e199a311f5f058b8a50ae3",
+          "geometry_binding_sha256": "d23e52fa85161c6181958994f37ed762a36771b77c548b5a39094ce17c757e45"
+        },
+        {
+          "producer": "bend",
+          "consumer": "drawing",
+          "ifc_sha256": "a8dfc425ee4f3b53bbb2f8847cae28c8f5cbf12a92e199a311f5f058b8a50ae3",
+          "geometry_binding_sha256": "d23e52fa85161c6181958994f37ed762a36771b77c548b5a39094ce17c757e45"
+        },
+        {
+          "producer": "coordination",
+          "consumer": "drawing",
+          "ifc_sha256": "a8dfc425ee4f3b53bbb2f8847cae28c8f5cbf12a92e199a311f5f058b8a50ae3",
+          "geometry_binding_sha256": "d23e52fa85161c6181958994f37ed762a36771b77c548b5a39094ce17c757e45"
+        },
+        {
+          "producer": "hk-bend",
+          "consumer": "drawing",
+          "ifc_sha256": "a8dfc425ee4f3b53bbb2f8847cae28c8f5cbf12a92e199a311f5f058b8a50ae3",
+          "geometry_binding_sha256": "d23e52fa85161c6181958994f37ed762a36771b77c548b5a39094ce17c757e45"
+        }
+      ],
+      "source_bindings": [
+        {
+          "check": "bend",
+          "consumer": "drawing",
+          "study_producer": "study"
+        },
+        {
+          "check": "coordination",
+          "consumer": "drawing",
+          "study_producer": "study"
+        },
+        {
+          "check": "hk-bend",
+          "consumer": "drawing",
+          "study_producer": "study"
+        }
+      ],
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "delivery_context_pass": true,
+      "shared_selection_source_hash_verified": true,
+      "drawing_directory_exists": false
+    }
+  },
+  "source_audit": {
+    "dxf_sha256": "1854909267cb50597d8961edfeffa953401236a8013523b3663d975d5c1c003c",
+    "entity_count": 28,
+    "saved_geometry_text_identity_pass": true,
+    "visibility_flags_pass": true,
+    "text_graphics": {
+      "text_count": 8,
+      "graphic_count": 20,
+      "graphic_margin_m": 0.008,
+      "text_graphics_checks_pass": true,
+      "scope": "ezdxf approximate font AABBs, actual LINE clipping and conservative ARC bounds; not exact glyph collision or general layout optimisation"
+    },
+    "design_accepted": false,
+    "scope": "Actual DXF entities versus already source-checked cable/box geometry and prescribed dimension/notes; no writer invocation or success flags used; font glyphs, crowded layout, native print and installation acceptance separate"
+  },
+  "native_export_audit": {
+    "dxf_sha256": "5f8b23f7d55dd7c7792e9b2406555c73f88e97dfc6fbe428c3db4b26f8fe0cb4",
+    "entity_count": 28,
+    "saved_geometry_text_identity_pass": true,
+    "visibility_flags_pass": true,
+    "text_graphics": {
+      "text_count": 8,
+      "graphic_count": 20,
+      "graphic_margin_m": 0.008,
+      "text_graphics_checks_pass": true,
+      "scope": "ezdxf approximate font AABBs, actual LINE clipping and conservative ARC bounds; not exact glyph collision or general layout optimisation"
+    },
+    "design_accepted": false,
+    "scope": "Actual DXF entities versus already source-checked cable/box geometry and prescribed dimension/notes; no writer invocation or success flags used; font glyphs, crowded layout, native print and installation acceptance separate"
+  },
+  "native": {
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-combined-route-positive-v1\\workflow\\drawing\\cable-route.dxf": "1854909267cb50597d8961edfeffa953401236a8013523b3663d975d5c1c003c",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\hk-combined-route-positive-v1\\route-native-settings.json": "41ea8e3cb8ea9ad10c68c84d49a77ec3faf0130a133bd59eb729de7e0bbf3513"
+    },
+    "inputs_unchanged": true,
+    "engine": "C:\\Program Files\\Autodesk\\AutoCAD 2027\\accoreconsole.exe",
+    "engine_sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2",
+    "dwg_sha256": "948d26df032db648ff7ba5c36e633504575643cd649e34cd84d4a20f9ff7e5df",
+    "native_reopen_pass": true,
+    "checks": {
+      "model_entity_count": 28,
+      "linked_entity_count": 28,
+      "model_entities_and_ifc_xdata_match": true,
+      "geometry_layers_and_annotations_match": true,
+      "metre_units": true
+    },
+    "plot": {
+      "pdf_sha256": "c12b04da84a139d925c9e060d148d309e332b5ece2fa33390a891f8d3de00553",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 20,
+      "reference_handle": "3D",
+      "reference_expected_mm": 100.0,
+      "reference_measured_mm": 99.99133333333333,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "settings": {
+      "source": "Synthetic A4 1:20 route view; 2 m saved tail straight reference; declared lead included in window",
+      "window_drawing_units": [
+        -2.3,
+        1.1,
+        2.7,
+        4.1
+      ],
+      "scale_denominator": 20,
+      "reference_ifc_guid": "1uGqW$ugzIM9$Bw0m20nFy",
+      "reference_layer": "BSA_CABLE_AXIS",
+      "drawing_name": "cable-route",
+      "pdf_tolerance_mm": 0.2
+    },
+    "design_accepted": false,
+    "pending": [
+      "actual PDF visual review",
+      "equipment/fittings/insulation and installation drawing detail",
+      "complete engineering acceptance"
+    ],
+    "artifacts": {
+      "cable-route.dwg": "948d26df032db648ff7ba5c36e633504575643cd649e34cd84d4a20f9ff7e5df",
+      "input.dxf": "1854909267cb50597d8961edfeffa953401236a8013523b3663d975d5c1c003c",
+      "plot.log": "15b708401bedd6729ae067b3733d9164b040ecfe9fcdd82a126bd591fbe6cd6f",
+      "save.log": "2261828b42e6514bbcfc2119a1c045ee415c0d059cf2048222d8eb93ac9e2179",
+      "save.scr": "ee957b482173a8ca7b5cbae1f846e27ef272fb9cfc7af5a5b87ef8b656a054b2",
+      "sheet.json": "aeed4ec52f2fd08c63aa57dd38914e59429f79458c56ed2bb0e570cc2edded3b",
+      "sheet.log": "a2e50dd9803220514b9cf470bdaecaebc0a70deb7a15f824a539a6610f5b33c8",
+      "sheet.pdf": "c12b04da84a139d925c9e060d148d309e332b5ece2fa33390a891f8d3de00553",
+      "sheet.scr": "be3340bf6992a4db457dd32b6c917d6ce1c41da52ea9c231c274259e9099b961",
+      "native-reopen/export.log": "cd198eec72c5309b1a0b73cf8df6f1543010b7768254127f9212db8f7c05688a",
+      "native-reopen/export.scr": "d057b8870ef0e892663e51b16dc82e20fc70969f1db441386059dd7ef332fcb0",
+      "native-reopen/source-copy.dwg": "948d26df032db648ff7ba5c36e633504575643cd649e34cd84d4a20f9ff7e5df",
+      "native-reopen/source-export.dxf": "5f8b23f7d55dd7c7792e9b2406555c73f88e97dfc6fbe428c3db4b26f8fe0cb4",
+      "ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "5638bb76295e069bece4fa58a605478fe80c5364d4f2befdb4380d5bb399105a",
+      "native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "3715d9602075c1157b3898968266f13533fb3699088a5fdcad050a3111749091"
+    }
+  },
+  "visual_review": {
+    "pdf_sha256": "c12b04da84a139d925c9e060d148d309e332b5ece2fa33390a891f8d3de00553",
+    "png_sha256": "2f171c32606fdaffda1a025dd252ff8cf74680223f7b439dbf5939110ce9819c",
+    "observed": "Full lead/quarter/tail and OD outlines, clear separate length dimensions and source-box depth notes; actual printed page inspected.",
+    "scoped_visual_review_pass": true,
+    "full_engineering_acceptance": false
+  },
+  "tests": {
+    "route_combined_binding_pass": 9,
+    "hk_workflow_binding_pass": 4,
+    "total_distinct_pass": 13
+  },
+  "retained_warning": "Duplicate PDF PageMode; no PDF-conformance claim",
+  "manufacturer_selection_verified": false,
+  "design_accepted": false
+}

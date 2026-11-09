@@ -29,3 +29,23 @@ The new explicit catalog `coverage-2026.11.10-cable-bends.json` adds this module
 Eight table/unit tests, six official-source-backed native binding tests, four new workflow identity tests, eight existing generic-rule tests, seven coverage tests and seven existing physical-route binding tests pass (40 distinct tests). Full actual workflow input/output integrity and current delivery context pass. Exact hashes and separate scoped visual observations are in `evidence/hk-cable-bends/workflow.json`. Duplicate PDF PageMode warning remains; PDF conformance is not asserted.
 
 Pending: authenticated real project applicability/edition/product classifications, manufacturer/pulling and no-damage assessments, other cable constructions and HV methods, supports/terminations/protection/neutral/harmonics, real building completeness and full engineering/Hong Kong acceptance. Numerical targets and source-association success never establish those requirements.
+
+## Combined physical-route release
+
+The existing continuous route runner now accepts `--hk-sources <pinned-cache>`. It preserves the declared product-limit and full represented-model coordination prerequisites, adding the selected HK table as a third independent same-model release check. Its synthetic selection document explicitly contains both the assumed product limit and classification/edition facts, with one matching native ProductReference/SourceSHA256. This demonstrates coherent source association, not authentication of a real manufacturer's data or general multi-document extraction.
+
+For the executed three-piece case use `.venv/Scripts/python scripts/run_continuous_cable_workflow.py --out <new-run> --python tools/pandapower-runtime/Scripts/python.exe --route --include-obstacles --lead 1.2 --hk-sources runs/hk-cable-bend-sources-v1 --autocad "C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe"`. The same IFC/binding and derived study feed all three checks and the physical route drawing. A rule pass cannot replace the existing product-limit gate; different model or study prerequisites are rejected.
+
+Actual runs:
+
+| Run | Declared product limit | HK table | Coordination | Physical route |
+|---|---|---|---|---|
+| hk-combined-route-positive-v1 | pass | pass | pass | native pass; engineering review pending |
+| hk-combined-route-product-fail-v1 | fail | pass | pass | blocked by bend; adapter not executed |
+| hk-combined-route-unknown-v1 | pass | pending | pass | blocked by hk-bend; adapter not executed |
+
+The second case uses `--inside-limit .295`: its explicitly assumed product requirement is stricter than the supported official table and fails against the 0.29 m actual inside radius. The third uses `--hk-unknown-construction`: the product-limit comparison can pass while missing PVC classification keeps the separate table check pending. Negative drawing scopes identify the failed/unresolved prerequisites, not an unavailable CAD runtime; no drawing directories were created.
+
+The positive actually reopened native DWG and printed A4 sheet were checked. Source and native-export independent geometry/text audits pass; the actual PDF shows the complete 1.2 m lead, quarter, 2 m tail, OD outlines, separated dimensions and source-box depth notes. The physical 2 m tail reference passes at 1:20. All three workflow integrities, source correspondence and current delivery contexts pass. Nine route model/gate tests, including new non-substitution and combined-model controls, plus four HK workflow binding tests pass (13 distinct tests). Evidence is `evidence/hk-cable-bends/combined-route.json`.
+
+Actual products, multi-document evidence association, no-damage/pulling, full building and complete statutory/engineering acceptance remain pending. All scenario product/classification facts are labelled assumptions; these examples do not establish manufacturer selection.
