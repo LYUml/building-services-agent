@@ -350,6 +350,8 @@ def validate_plan(path):
             for field,validator in (('settings',drawing_settings),('native_settings',ifc_native.validate_settings)):
                 path=local_path(root,t.get(field));inputs.add(path);validator(read_json(path))
             inputs.update(Path(m.__file__).resolve() for m in (cable_route_drawing,ifc_native,three_phase_drawing))
+            from .cable_route_audit import inputs as cable_audit_inputs
+            inputs.update(cable_audit_inputs())
             if 'obstacles' in t:
                 from .obstacle_projection import inputs as obstacle_inputs
                 inputs.update(obstacle_inputs(local_path(root,t['obstacles'])))
@@ -787,6 +789,8 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     _,_,study_sources=study_context(project,study_folder)
                     payload=draw_route(project,local_path(root,t['ifc']),local_path(root,t['binding']),local_path(root,t['settings']),folder,obstacles=local_path(root,t['obstacles']) if 'obstacles' in t else None)
                     payload['native']=native_route(folder/'cable-route.dxf',local_path(root,t['native_settings']),folder/'native',autocad)
+                    from .cable_route_audit import audit_saved as audit_cable
+                    payload['native_saved_audit']=audit_cable(folder/'native/native-reopen/source-export.dxf',payload['cable'],payload['geometry'],payload['settings'],payload['obstacles'])
                     if any(not Path(f).is_file() or digest(Path(f))!=h for f,h in study_sources.items()):raise ProjectError('study changed during cable route delivery')
                     if payload['saved_identity_and_geometry_pass'] is not True or payload['native']['native_reopen_pass'] is not True or payload['native']['plot']['pdf_reference_pass'] is not True:raise ProjectError('cable route native/plot verification did not pass')
                     payload['study_sources']=study_sources

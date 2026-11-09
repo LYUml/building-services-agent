@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Continuous cable route delivery now independently audits actual DXF geometry/dimensions/notes/IFC identities and visibility flags before native conversion and after AutoCAD reopen/export. Actual 21-entity checks, fixed-scale print and separate visual review pass; ten new mutation/audit tests plus eleven related tests pass. The audit requires source-checked geometry and does not establish general layout, glyph fidelity or full engineering acceptance (CABLE_ROUTE_DRAWINGS.md).
+
 Optional sourced box inventories now extend the continuous cable route sheet to complete supported cable/box physical coverage, with native identity/bounds checks and printed depth intervals. Actual same-model workflow, reopened native DWG and inspected 1:20 PDF pass with two included/zero omitted elements; extra unlisted equipment blocks. Arbitrary equipment/annotation/installation acceptance remains pending (CABLE_ROUTE_DRAWINGS.md).
 
 The selected continuous cable now also has a source-checked planar true-arc/straight/OD drawing with saved IFC identity, nonassociative dimensional graphics, actual native reopening and inspected fixed-scale PDF. The registered cable_route_drawing workflow requires the exact same IFC-derived study and bend/coordination gates; actual failed-radius blocking is retained. It explicitly omits other model elements; obstacle-inclusive drawing and complete installation detailing remain pending (CABLE_ROUTE_DRAWINGS.md).

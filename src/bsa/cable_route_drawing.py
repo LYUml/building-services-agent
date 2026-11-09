@@ -49,7 +49,9 @@ def run(project, ifc, binding, settings, out, obstacles=None):
         raise ProjectError('new repository cable drawing output required')
     config = validate_settings(json.loads(settings.read_text(encoding='utf-8-sig')))
     checked = inspect(project, ifc, binding)
+    from .cable_route_audit import inputs as audit_inputs,audit_saved
     before = {**checked['inputs'], str(settings): digest(settings), str(Path(__file__).resolve()): digest(Path(__file__))}
+    before.update({str(p):digest(p) for p in audit_inputs()})
     obstacle_rows=[]
     if obstacles is not None:
         from .obstacle_projection import extract
@@ -130,6 +132,7 @@ def run(project, ifc, binding, settings, out, obstacles=None):
         raise ProjectError('saved cable axis/units coverage failed')
     from .ifc_native import identity
     if identity(doc) != identity(saved):raise ProjectError('saved IFC identity failed')
+    saved_audit=audit_saved(path,row,geometry,config,obstacle_rows)
     if any(not Path(p).is_file() or digest(Path(p)) != sha for p, sha in before.items()):
         raise ProjectError('cable drawing input changed')
     included=[cable.GlobalId,*(o['guid'] for o in obstacle_rows)]
@@ -137,6 +140,7 @@ def run(project, ifc, binding, settings, out, obstacles=None):
     report = dict(inputs=before, settings=config, cable=row, geometry=geometry, straight_length_m=length,
                   included_guids=included, omitted_guids=omitted, obstacles=obstacle_rows,saved_dxf_sha256=digest(path),
                   saved_identity_and_geometry_pass=True, design_accepted=False,
+                  independent_saved_audit=saved_audit,
                   scope='Single cable planar true arc/straight and envelope OD with explicitly selected source-box projections; depth intervals do not prove clearance; LINE/TEXT dimensions are not associative; installation and engineering review pending')
     (out/'drawing.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
     return report

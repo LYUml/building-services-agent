@@ -5,6 +5,8 @@ description: Calculate source-linked single-phase circuits and scoped three-phas
 
 # mep-electrical
 
+For cable route drawings, require independent_saved_audit and the workflow's native_saved_audit in addition to native reopen/scale checks. These compare actual DXF geometry, dimensions, notes, visibility flags and IFC identities to the checked source rather than trusting writer success flags. The raw auditor requires already source-checked input geometry and is not a standalone proof of IFC provenance or engineering acceptance (docs/CABLE_ROUTE_DRAWINGS.md).
+
 Cable route tasks may optionally supply obstacles to include source-checked generic boxes. This requires exact complete supported physical coverage, native box/source checks and printed depth intervals (docs/CABLE_ROUTE_DRAWINGS.md). Use the existing 3D coordination gate for physical clash/clearance; a rectangle crossing the cable in projection is neither a confirmed clash nor a clearance pass. Arbitrary equipment and full installation acceptance remain unsupported.
 
 For physical-route geometry rather than a Graphviz calculation schematic, the scoped bsa.cable_route_drawing adapter supports one saved quarter-plus-tangent cable (docs/CABLE_ROUTE_DRAWINGS.md). Require native geometry/length/port checks, true circular projection, saved DXF readback, native DWG reopen and actual plotted review. Workflow cable_route_drawing requires an inherited IFC-derived study and same-model bend/coordination pass gates, settings/native_settings and AutoCAD; failed or altered results block before drafting. Other physical elements are explicitly omitted; standalone output has no workflow release gate, and neither path proves installation acceptance.
