@@ -2,6 +2,10 @@
 
 ## Prepared model input
 
+The same preparation tool is registered as workflow kind `drainage_input`, with explicit `project` and optional `requires_pass`. Run `python -m bsa.workflow execute examples/drainage-preparation/plan.json --out runs/new-drainage-workflow`. Its two-paragraph synthetic brief maps preparation and hydraulic acceptance to separate requirements. The second task is deliberately a pending manual placeholder, not a functioning simulation adapter; actual engine/output checks must be added before claiming those deliverables. No project-specific parameters come from previous coursework.
+
+Executed workflow evidence retains preparation pass, native review pending and overall incomplete status. Tests reject invalid geometry before generating an INP, trace downstream blockers, detect changed input bytes and confirm the delivery-review template stays pending.
+
 `python -m bsa.drainage_input examples/drainage-preparation/project.json --out runs/new-drainage-preparation` prepares an editable `network.inp` and a source/hash/geometry report without importing the blocked solver. This bounded compiler supports strictly falling circular gravity trees, one FREE outfall and constant dry-weather inflows. Input names encode units (metres, litres/second); every component and time-control group references a declared source. Unknown fields and unsupported topology are rejected instead of silently discarded.
 
 The original synthetic fixture has two pipes and an independently checked 0.01 invert-fall/length ratio. Tests exercise a nonzero inlet offset, malformed/nonfinite values, unknown sources, duplicate IDs and disconnected topology. Preparation success is not native parser or simulation success. `native_parse_verified`, `simulation_executed` and `design_accepted` remain false. Initial dry state, absent ponding/local losses/rainfall and remaining engine-default numerical options are explicitly reported assumptions; review or extend them for the actual task.

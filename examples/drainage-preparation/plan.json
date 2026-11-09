@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "fcd95f3797b8e179c8f1fc25fc8e6adec62188553616373ee13e8ba9ce4b10bd",
+  "passage_dispositions": {
+    "P001": "requirement",
+    "P002": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "prepare",
+      "kind": "drainage_input",
+      "project": "project.json"
+    },
+    {
+      "id": "hydraulic-review",
+      "kind": "manual",
+      "requires_pass": [
+        "prepare"
+      ],
+      "description": "Native SWMM parse/solve, continuity/capacity/surcharge evidence required; host currently blocks swmm5.dll"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P001",
+      "quote": "Prepare an editable SWMM input for the explicitly synthetic gravity drainage network, preserving sources, units and assumptions.",
+      "task": "prepare",
+      "acceptance": "Editable input with source-linked SI geometry; not simulation"
+    },
+    {
+      "id": "R2",
+      "passage": "P002",
+      "quote": "Run the native hydraulic model and independently review continuity, capacity and surcharge before accepting a drainage design. If the engine cannot run, retain this requirement as pending.",
+      "task": "hydraulic-review",
+      "acceptance": "Actual native simulation and independent engineering checks required"
+    }
+  ]
+}

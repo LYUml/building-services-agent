@@ -1,0 +1,22 @@
+{
+  "tasks": {
+    "prepare": {
+      "kind": "drainage_input",
+      "status": "pass",
+      "scope": "Prepared SI circular gravity-tree input with constant dry-weather inflows and FREE outfall; no hydraulic result or HK compliance; model preparation only, native parse and simulation unverified"
+    },
+    "hydraulic-review": {
+      "kind": "manual",
+      "status": "pending",
+      "scope": "Native SWMM parse/solve, continuity/capacity/surcharge evidence required; host currently blocks swmm5.dll"
+    }
+  },
+  "execution_pass": false,
+  "integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "design_accepted": false
+}
