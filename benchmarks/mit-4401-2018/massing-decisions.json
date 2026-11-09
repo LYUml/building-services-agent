@@ -1,0 +1,41 @@
+{
+  "license": "CC-BY-NC-SA-4.0",
+  "attribution": "Course target: Christoph Reinhart / MIT OpenCourseWare; dimensions below are agent design decisions",
+  "source": {
+    "document": "sources/assignment5.pdf",
+    "page": 1,
+    "sha256": "a9cb779dea25e462efb197da0556defd0924630fa7a6a28f81de574b0894e82f"
+  },
+  "target": {
+    "approximate_course_floor_area_m2": 3500,
+    "concept_interpretation": "gross footprint; not verified net usable/course-compliant area"
+  },
+  "frame": "Provisional local axes X east / Y north; no selected site or georeferencing",
+  "floor_to_floor_height_m": 3.5,
+  "height_basis": "Design decision; not measured clear height",
+  "variants": [
+    {
+      "id": "compact",
+      "width_m": 50,
+      "depth_m": 35,
+      "storeys": 2
+    },
+    {
+      "id": "slender",
+      "width_m": 70,
+      "depth_m": 25,
+      "storeys": 2
+    },
+    {
+      "id": "stacked",
+      "width_m": 35,
+      "depth_m": 25,
+      "storeys": 4
+    }
+  ],
+  "window_wall_ratio": {
+    "course_comparison_target": 0.4,
+    "modeled": false
+  },
+  "status": "unapproved concept study; no walls/windows, thermal model, daylight or energy results"
+}

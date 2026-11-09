@@ -663,6 +663,9 @@ def validate_plan(path):
             else:
                 diagram_source=local_path(root,t.get('dxf'));inputs.add(diagram_source)
                 if diagram_source.suffix.lower()!='.dxf':raise ProjectError('native diagram source must be DXF')
+        if kind=='bim':
+            from . import bim,concept_spaces,box_geometry
+            inputs.update(Path(m.__file__).resolve() for m in (bim,concept_spaces,box_geometry))
         if kind=='tcf_fan_research':
             from . import tcf_fan_research,fan_interpolation_envelope,curve_interpolation,rectangular_fan,pump,rectangular_binding
             if set(t)-{'id','kind','depends_on','pdf','extraction','basis','requires_pass','description'}:raise ProjectError('source fan research inherits native inputs; replacements forbidden')

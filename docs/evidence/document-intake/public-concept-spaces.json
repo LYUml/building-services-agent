@@ -1,0 +1,50 @@
+{
+  "standalone": {
+    "decisions_sha256": "3a5ff46c46e1709cfe58213c76b1c8477396ce00643815b61c85cf0ceeb37579",
+    "variants": {
+      "compact": {
+        "model_checks_pass": true,
+        "space_count": 2,
+        "gross_footprint_area_m2": 3500.0,
+        "ifc_sha256": "be64ee22bd946b6cb3402711e22e7b2afca1529c59965eb37998617f5d266f68",
+        "preview_sha256": "0664164b95d7e128181fa70a2e031b0e79f09c9c6947c1ca10fe08579f78a42d"
+      },
+      "slender": {
+        "model_checks_pass": true,
+        "space_count": 2,
+        "gross_footprint_area_m2": 3500.0,
+        "ifc_sha256": "064f91476a969efbb3001392699f6fdace3407029ede234c9842cb57bb15b528",
+        "preview_sha256": "8cdf961b3eb5c236be996b50cea39674416354221e659e8dd96807e5741e2c4a"
+      },
+      "stacked": {
+        "model_checks_pass": true,
+        "space_count": 4,
+        "gross_footprint_area_m2": 3500.0,
+        "ifc_sha256": "d1c5519cdad5361dc39c58cbd8193454b5bd815770766eeb4d14f6a6f7a6017a",
+        "preview_sha256": "87fe522f5987fce51f6fbd411c988398c9f4dace1602b6e26f2a57bf03441b56"
+      }
+    },
+    "design_accepted": false,
+    "scope": "Native storey/space concept volumes only; no site, facade/window geometry, net usable area, thermal boundary or performance proof"
+  },
+  "workflow": {
+    "concept_tasks": {
+      "concept-compact": "pass",
+      "concept-slender": "pass",
+      "concept-stacked": "pass"
+    },
+    "pending_interpretation_tasks": 34,
+    "design_accepted": false,
+    "scope": "Partial real-brief workflow: concept geometry only; original technical obligations retained"
+  },
+  "tests": {
+    "related_tests": 12,
+    "passed": true,
+    "concept_mutation_rerun_tests": 4
+  },
+  "visual_review": {
+    "path": "runs/public-concepts-v3/stacked/preview/preview.png",
+    "observed": "Legible outer box and axes; shared-face triangle shading and no visible floor boundaries; preview only"
+  },
+  "design_accepted": false
+}

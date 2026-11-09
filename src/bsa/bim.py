@@ -11,13 +11,15 @@ from . import circular_elbow as elbow
 from . import rectangular_geometry as rectangular
 from . import rectangular_elbow
 
+CONCEPT_SCOPE='axis-aligned concept space envelopes'
+
 CLASSES={'IfcLightFixture','IfcOutlet','IfcElectricDistributionBoard','IfcAirTerminal',
          'IfcFan','IfcPump','IfcPipeSegment','IfcDuctSegment','IfcSensor',
          'IfcUnitaryEquipment','IfcPipeFitting','IfcDuctFitting','IfcFireSuppressionTerminal','IfcSanitaryTerminal'}
 
 
 def validate(p):
-    if not isinstance(p,dict) or p.get('geometry_scope') not in ('axis-aligned bounding envelopes',circular.MIXED_SCOPE,elbow.SCOPE,rectangular.SCOPE,rectangular_elbow.SCOPE):
+    if not isinstance(p,dict) or p.get('geometry_scope') not in ('axis-aligned bounding envelopes',CONCEPT_SCOPE,circular.MIXED_SCOPE,elbow.SCOPE,rectangular.SCOPE,rectangular_elbow.SCOPE):
         raise ProjectError('explicit bounding-envelope geometry scope required')
     if not isinstance(p.get('name'),str) or not p['name'].strip():raise ProjectError('name required')
     if 'project_uuid' in p:
@@ -43,7 +45,7 @@ def validate(p):
             raise ProjectError(f'{key}: three finite SI coordinates/dimensions required')
     def collection(key):
         rows=p.get(key)
-        if not isinstance(rows,list) or not rows:raise ProjectError(f'nonempty {key} required')
+        if not isinstance(rows,list) or not rows and not (p['geometry_scope']==CONCEPT_SCOPE and key in ('systems','devices')):raise ProjectError(f'nonempty {key} required')
         ids=set()
         for r in rows:
             sourced(r)
@@ -53,6 +55,24 @@ def validate(p):
         return {r['id']:r for r in rows}
     spaces,systems,devices=(collection(k) for k in ('spaces','systems','devices'))
     for row in spaces.values():vector(row,'origin_m');vector(row,'size_m',True)
+    if p['geometry_scope']==CONCEPT_SCOPE:
+        if p['systems'] or p['devices'] or p.get('connections') or p.get('floor_area_basis')!='gross concept footprint; no deductions':raise ProjectError('concept spaces require empty MEP collections and explicit gross-footprint area basis')
+        storeys=collection('storeys');levels=set()
+        for row in storeys.values():
+            z,h=row.get('elevation_m'),row.get('height_m')
+            if type(z) not in (int,float) or not math.isfinite(z) or type(h) not in (int,float) or not math.isfinite(h) or h<.001 or z in levels:raise ProjectError('distinct finite storey levels and positive heights required')
+            levels.add(z)
+        for row in spaces.values():
+            if row.get('storey') not in storeys:raise ProjectError('concept space requires known storey')
+            level=storeys[row['storey']]
+            if not math.isclose(row['origin_m'][2],level['elevation_m'],abs_tol=1e-8,rel_tol=0) or not math.isclose(row['size_m'][2],level['height_m'],abs_tol=1e-8,rel_tol=0):raise ProjectError('concept space/storey elevation and height differ')
+        if set(row['storey'] for row in spaces.values())!=set(storeys):raise ProjectError('every concept storey needs a space')
+        rows=list(spaces.values())
+        for i,a in enumerate(rows):
+            for b in rows[i+1:]:
+                overlap=[min(a['origin_m'][k]+a['size_m'][k],b['origin_m'][k]+b['size_m'][k])-max(a['origin_m'][k],b['origin_m'][k]) for k in range(3)]
+                if all(v>1e-8 for v in overlap):raise ProjectError('concept space volumes overlap')
+
     for row in systems.values():
         if row.get('predefined_type') not in ('ELECTRICAL','LIGHTING','VENTILATION','AIRCONDITIONING','CHILLEDWATER','CONDENSERWATER','HEATING','DOMESTICCOLDWATER','DOMESTICHOTWATER','DRAINAGE','FIREPROTECTION'):
             raise ProjectError('unsupported distribution system type')
@@ -132,12 +152,26 @@ def run(project,out):
     api.run('unit.assign_unit',model,units=units)
     context=api.run('context.add_context',model,context_type='Model')
     body=api.run('context.add_context',model,context_type='Model',context_identifier='Body',target_view='MODEL_VIEW',parent=context)
-    site=create('IfcSite','Site');building=create('IfcBuilding','Building');storey=create('IfcBuildingStorey','Storey')
-    for parent,child in ((pr,site),(site,building),(building,storey)):
+    site=create('IfcSite','Site');building=create('IfcBuilding','Building')
+    for parent,child in ((pr,site),(site,building)):
         api.run('aggregate.assign_object',model,products=[child],relating_object=parent)
+    storeys={}
+    if p['geometry_scope']==CONCEPT_SCOPE:
+        for row in p['storeys']:
+            obj=create('IfcBuildingStorey',row['id']);obj.Elevation=row['elevation_m']
+            api.run('aggregate.assign_object',model,products=[obj],relating_object=building)
+            matrix=np.eye(4);matrix[2,3]=row['elevation_m']
+            api.run('geometry.edit_object_placement',model,product=obj,matrix=matrix)
+            storeys[row['id']]=obj
+    else:
+        storey=create('IfcBuildingStorey','Storey')
+        api.run('aggregate.assign_object',model,products=[storey],relating_object=building)
     def props(obj,values):
         ps=api.run('pset.add_pset',model,product=obj,name='BSA_DesignInputs')
         api.run('pset.edit_pset',model,pset=ps,properties=values)
+    if p['geometry_scope']==CONCEPT_SCOPE:
+        for row in p['storeys']:
+            props(storeys[row['id']],dict(Source=p['sources'][row['source']],GeometryScope=CONCEPT_SCOPE,InputID=row['id'],ConceptHeight_m=row['height_m']))
     def box(obj,origin,size):
         w,d,h=size
         vertices=[(0.,0.,0.),(w,0.,0.),(w,d,0.),(0.,d,0.),(0.,0.,h),(w,0.,h),(w,d,h),(0.,d,h)]
@@ -149,9 +183,9 @@ def run(project,out):
     spaces={};systems={};devices={};ports={}
     for s in p['spaces']:
         obj=create('IfcSpace',s['id']);spaces[s['id']]=obj
-        api.run('aggregate.assign_object',model,products=[obj],relating_object=storey)
+        api.run('aggregate.assign_object',model,products=[obj],relating_object=storeys[s['storey']] if p['geometry_scope']==CONCEPT_SCOPE else storey)
         box(obj,s['origin_m'],s['size_m'])
-        props(obj,dict(Source=p['sources'][s['source']],GeometryScope=p['geometry_scope']))
+        props(obj,dict(Source=p['sources'][s['source']],GeometryScope=p['geometry_scope'],**(dict(InputID=s['id'],FloorAreaBasis=p['floor_area_basis']) if p['geometry_scope']==CONCEPT_SCOPE else {})))
     for s in p['systems']:
         obj=create('IfcDistributionSystem',s['id'],predefined_type=s['predefined_type']);systems[s['id']]=obj
         props(obj,dict(Source=p['sources'][s['source']],**s.get('properties',{})))
@@ -238,6 +272,10 @@ def run(project,out):
         a,b=relation.RelatingPort,relation.RelatedPort
         actual_links.add((system_util.get_port_element(a).Name+'.'+a.Name,
                           system_util.get_port_element(b).Name+'.'+b.Name))
+    concept_records=[]
+    if p['geometry_scope']==CONCEPT_SCOPE:
+        from .concept_spaces import inspect_spaces
+        concept_records=inspect_spaces(reopened,p)
     checks=dict(schema_valid=not logger.statements,device_count_match=len(reopened.by_type('IfcDistributionElement'))==len(p['devices']),
                 connection_count_match=len(reopened.by_type('IfcRelConnectsPorts'))==len(expected_links),
                 connection_endpoints_match=actual_links==expected_links,
@@ -247,6 +285,9 @@ def run(project,out):
     result=dict(ifcopenshell_version=ifcopenshell.version,input_sha256=before,ifc_sha256=digest(path),
                 checks=checks,devices=records,model_checks_pass=all(checks.values()),design_accepted=False,
                 geometry_scope=p['geometry_scope'],pending=['visual BIM review','manufacturer shape fidelity','physical route/clash checks','domain performance and code acceptance'])
+    if p['geometry_scope']==CONCEPT_SCOPE:
+        result.update(spaces=concept_records,total_gross_footprint_area_m2=math.fsum(r['gross_footprint_area_m2'] for r in concept_records),floor_area_basis=p['floor_area_basis'],pending=['visual concept-model review','site/geolocation, walls/openings and facade design','net usable area/program and thermal boundary model','daylight/energy/MEP and full engineering acceptance'])
+        if len(reopened.by_type('IfcBuildingStorey'))!=len(p['storeys']):raise ProjectError('saved concept storey coverage differs')
     result['connection_scope']='logical topology only; no physical route is inferred between separated ports'
     result['identity_scope']='stable namespace/class/input-ID object and port GUIDs' if namespace else 'generated GUIDs; no stable namespace supplied'
     result['project_uuid']=p.get('project_uuid')

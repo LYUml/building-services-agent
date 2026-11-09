@@ -16,7 +16,7 @@ from .engine import ProjectError
 
 def extract(path, guid):
     f = ifcopenshell.open(str(path)); obj = f.by_guid(guid)
-    if not obj.is_a('IfcElement') or not obj.Representation:
+    if not (obj.is_a('IfcElement') or obj.is_a('IfcSpace')) or not obj.Representation:
         raise ProjectError('selected represented IFC element required')
     settings = ifcopenshell.geom.settings(); settings.set('use-world-coords', True)
     body = ifcopenshell.geom.create_shape(settings, obj)
@@ -34,7 +34,7 @@ def extract(path, guid):
             raise ProjectError('finite unit port axis required')
         ports.append(dict(guid=p.GlobalId, name=p.Name, position_m=(matrix[:3, 3]*scale).tolist(), axis=axis.tolist()))
     if len(ports) > 12: raise ProjectError('preview supports at most twelve port labels')
-    return vertices, faces, ports, [e.GlobalId for e in f.by_type('IfcElement') if e.GlobalId != guid]
+    return vertices, faces, ports, [e.GlobalId for e in [*f.by_type('IfcElement'),*(f.by_type('IfcSpace') if obj.is_a('IfcSpace') else [])] if e.GlobalId != guid]
 
 
 def run(ifc, guid, out, additional_guids=None):
@@ -85,7 +85,7 @@ def run(ifc, guid, out, additional_guids=None):
             hidden = {2:ax.zaxis, 3:ax.yaxis, 4:ax.xaxis}[i]
             hidden.set_ticks([]); hidden.set_label_text('')
         ax.tick_params(labelsize=7)
-    fig.suptitle('Saved IFC body and port axes — geometric preview', fontsize=15)
+    fig.suptitle('Saved IFC geometry preview', fontsize=15)
     labels = [f'{i+1}: {(p["name"] or p["guid"])[:32]}' for i,p in enumerate(ports)]
     legend = '\n'.join(' | '.join(labels[i:i+3]) for i in range(0,len(labels),3)) or 'No attached ports'
     fig.text(.05,.06,legend,fontsize=9,va='bottom')
