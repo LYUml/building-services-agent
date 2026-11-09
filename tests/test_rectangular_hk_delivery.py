@@ -13,12 +13,18 @@ ROOT=Path(__file__).resolve().parents[1];CACHE=ROOT/'runs/hk-fan-sources-v1'
 @unittest.skipUnless((CACHE/'emsd-bec-2024.pdf').is_file() and (CACHE/'emsd-tg-bec-2024.pdf').is_file(),'requires pinned official BEC/TG cache')
 class RectangularHKDeliveryTests(unittest.TestCase):
     def test_missing_cad_and_nonpassing_rules_remain_distinct_blockers(self):
+        self.check_delivery(False)
+
+    def test_curved_native_model_uses_same_rule_release_gates(self):
+        self.check_delivery(True)
+
+    def check_delivery(self,elbow):
         stage=runpy.run_path(str(ROOT/'scripts/run_rectangular_hk_fan_demo.py'))
         module=types.ModuleType('run_rectangular_hk_fan_demo');module.stage=stage['stage'];module.ROOT=ROOT
         with patch.dict(sys.modules,{'run_rectangular_hk_fan_demo':module}):
             runner=runpy.run_path(str(ROOT/'scripts/run_rectangular_hk_fan_delivery.py'))['run']
         with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
-            out=Path(folder)/'delivery';result=runner(out,CACHE)
+            out=Path(folder)/'delivery';result=runner(out,CACHE,elbow=elbow)
             rows={t['id']:t for t in result['tasks']}
             self.assertEqual(rows['model']['status'],'pass');self.assertEqual(rows['coordination']['status'],'pass')
             self.assertEqual(rows['pass']['status'],'pass');self.assertIn('AutoCAD',rows['pass-drawing']['recorded_scope'])

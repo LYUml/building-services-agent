@@ -5,7 +5,7 @@ description: Select source-pinned jurisdiction rule packs and bind supported MEP
 
 # MEP jurisdiction checks
 
-For combined rectangular scoped delivery, require rectangular_drawing gates on both same-producer ifc_clash and rectangular_fan_regulations. scripts/run_rectangular_hk_fan_delivery.py is an executed synthetic composition showing native positive release and exceeded/unknown-source blocking; use it as a wiring example, not as a substitute for an actual brief or complete HVAC acceptance. Read docs/HK_FAN_POWER.md; context fan boxes do not authenticate the electrical inventory.
+For combined rectangular scoped delivery, require rectangular_drawing gates on both same-producer ifc_clash and rectangular_fan_regulations. scripts/run_rectangular_hk_fan_delivery.py is an executed synthetic composition showing native positive release and exceeded/unknown-source blocking; use it as a wiring example, not as a substitute for an actual brief or complete HVAC acceptance. The --elbow mode also executes fixed-section curved chains with these gates; synthetic velocity/K/power values are not product evidence. Read docs/HK_FAN_POWER.md; context fan boxes do not authenticate the electrical inventory.
 
 For a native rectangular supply-flow denominator use rectangular_fan_regulations depending on the exact rectangular_model_design or rectangular_network_binding producer. Omit supply_design_airflow from basis; it is freshly derived after saved geometry/port/report checks. Require sourced whole-supply design-flow correspondence and independent drawn electrical motor/inventory evidence. Wrong-producer drawing gates and replacement flow/model inputs reject. Read docs/HK_FAN_POWER.md; this binds flow only, not fan selection, operating point or full conformity.
 

@@ -1,0 +1,124 @@
+{
+  "scope": "Synthetic fixed-section curved chain with same-model pressure, coordination and scoped HK fan rule gates",
+  "source_hashes": {
+    "project.json": "f7831e1ed37de36f8f7bd6a4840570a7015f41bc954538733b541f50e7d92038",
+    "elbow-chain-model.json": "4cb5fad1c40e9c97cf742bc6ffcba2cafb50cce1ebc4f0f2665a78f4eedd3511",
+    "elbow-chain-binding.json": "7b6c05d3c2dc4ee924e66546a04db10c4428faa1665ac61a17057bea5300bc1d",
+    "fan-pack.json": "078abb33b87298a7c1a5d943852fa8df00e9369c68e81a373a0195ed1b8217f5"
+  },
+  "workflow_sha256": "627187541f23352b28e158f184082bb2eebfbcf41782acba33e2e794abd19461",
+  "native": {
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-elbow-hk-delivery-v1\\workflow\\pass-drawing\\segments.dxf": "d4af190d11f01836aff0678494d36637d4a625d5b1b4a4ecb9f85b717b94d52e",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-elbow-hk-delivery-v1\\elbow-sheet-settings.json": "91420362e9c3faed2c121717ff765938aab7d095dc867cafe223c161f958b37f"
+    },
+    "inputs_unchanged": true,
+    "engine": "C:\\Program Files\\Autodesk\\AutoCAD 2027\\accoreconsole.exe",
+    "engine_sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2",
+    "dwg_sha256": "9140e5cc36ca16c81efa4acf024a8f4b7340674d7b52d7021f205771442dad3a",
+    "native_reopen_pass": true,
+    "checks": {
+      "model_entity_count": 18,
+      "linked_entity_count": 18,
+      "model_entities_and_ifc_xdata_match": true,
+      "geometry_layers_and_annotations_match": true,
+      "metre_units": true
+    },
+    "plot": {
+      "pdf_sha256": "e474f24f9416733e44da54ae7b67f5f8032ccec3c8907fc0500dd3be947d5848",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 20,
+      "reference_handle": "34",
+      "reference_expected_mm": 50.0,
+      "reference_measured_mm": 49.99566666666668,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "settings": {
+      "source": "Explicit synthetic A4 1:20 sheet; native LEAD 1 m centreline reference expected 50 mm; not regulation",
+      "window_drawing_units": [
+        -0.2,
+        -0.2,
+        5.2,
+        3.8
+      ],
+      "scale_denominator": 20,
+      "reference_ifc_guid": "161gaDWF5OIx9gCqbfMJB6",
+      "pdf_tolerance_mm": 0.2
+    },
+    "design_accepted": false,
+    "pending": [
+      "actual PDF visual review",
+      "equipment/fittings/insulation and installation drawing detail",
+      "complete engineering acceptance"
+    ],
+    "artifacts": {
+      "input.dxf": "d4af190d11f01836aff0678494d36637d4a625d5b1b4a4ecb9f85b717b94d52e",
+      "plot.log": "5f7a2e0882ae3847daa738456cedf3a647686f37f59ec14e4664bbc4ae12d9e6",
+      "save.log": "1357153e153b8ac0f81a2d1d5a552bc0de5952098494a72aed9420e4d3e87c57",
+      "save.scr": "6972ce3e0970dc8575aa96fa3b3a31d9578c57bc906865b7c368f2daa799805c",
+      "segments.dwg": "9140e5cc36ca16c81efa4acf024a8f4b7340674d7b52d7021f205771442dad3a",
+      "sheet.json": "952989b40dd88becadd5b618d9f31236d15f1219548ea36774395ceae9356fee",
+      "sheet.log": "0891f8dbec669d755c1a27b28a05711e8e807aea85a5b0763ddd36172f03ef0f",
+      "sheet.pdf": "e474f24f9416733e44da54ae7b67f5f8032ccec3c8907fc0500dd3be947d5848",
+      "sheet.scr": "e8e84fffe68ed355f1651c4c6c03174685d3688f69c953b4f8d8b14b0d10475a",
+      "native-reopen/export.log": "2ff63a42395d05c0f9f743662f81eb40559f9677b4149a8ede7a0aa16787b456",
+      "native-reopen/export.scr": "206a634528ad1fe65886443ed46fa3373d75bad516f06d8490b06dc8dc91c356",
+      "native-reopen/source-copy.dwg": "9140e5cc36ca16c81efa4acf024a8f4b7340674d7b52d7021f205771442dad3a",
+      "native-reopen/source-export.dxf": "f5dc4e2220f4d97039cee72d63bf215b63182c8cc21cac74725d36d7ce6ffc0f",
+      "ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "4f3c4d2e78b1e7fa0414079426742825b15fa8bf7f9d80fc3ffba3c20f35df18",
+      "native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "99f2c141149ed65767979b48be3e6c372a2a4e34980de77f887d1f2612352fbc"
+    }
+  },
+  "native_source_audit": {
+    "dxf_sha256": "f5dc4e2220f4d97039cee72d63bf215b63182c8cc21cac74725d36d7ce6ffc0f",
+    "entity_count": 18,
+    "saved_geometry_notes_identity_pass": true,
+    "visibility_flags_pass": true,
+    "text_graphics": {
+      "text_count": 3,
+      "graphic_count": 15,
+      "graphic_margin_m": 0.01,
+      "text_graphics_checks_pass": true,
+      "scope": "ezdxf approximate font AABBs, actual LINE clipping and conservative ARC bounds; not exact glyph collision or general layout optimisation"
+    },
+    "design_accepted": false,
+    "scope": "Actual saved entities versus already source-checked model facts, not writer flags; approximate text boxes, native print, source authentication and full installation acceptance separate"
+  },
+  "states": {
+    "model": "pass",
+    "coordination": "pass",
+    "pass": "pass",
+    "pass-drawing": "pass",
+    "pass-review": "pending",
+    "exceeded": "fail",
+    "exceeded-drawing": "pending",
+    "exceeded-review": "pending",
+    "unknown-supply": "pending",
+    "unknown-supply-drawing": "pending",
+    "unknown-supply-review": "pending"
+  },
+  "blocked_drawing_folders_absent": true,
+  "visual_review": {
+    "status": "pass",
+    "render_sha256": "7b5cb0f86f58dee717ae2698a0f643d0869990e5f21f29b52b9004ae5bf71f2c",
+    "observations": [
+      "True quarter arcs and connected straight outlines",
+      "Three readable unclipped notes"
+    ]
+  },
+  "tests_passed": 8,
+  "design_accepted": false,
+  "pending": [
+    "Real fitting K/product applicability",
+    "Real motor drawn power and inventory",
+    "Remaining Hong Kong clauses and controls",
+    "Installation detail and automatic bend sizing"
+  ],
+  "synthetic_assumptions": "2 m3/s, 15 m/s velocity target, 3200/3201 W: gate tests, not design recommendations"
+}
