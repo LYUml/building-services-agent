@@ -35,6 +35,7 @@ public static class NativePipes
             throw new ArgumentException("Positive finite diameter required");
         if (start.DistanceTo(end) <= Math.Max(doc.Application.ShortCurveTolerance, 1.0 / 120.0))
             throw new ArgumentException("Pipe is below Revit's minimum curve length");
+        ElementProvenance.RejectExistingRequest(doc, request);
         using var transaction = new Transaction(doc, "BSA: sourced native pipe");
         if (transaction.Start() != TransactionStatus.Started)
             throw new InvalidOperationException("Transaction did not start");

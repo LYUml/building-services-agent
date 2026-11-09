@@ -51,7 +51,7 @@ public static class ElementProvenance
             throw new InvalidOperationException("Creation provenance readback failed");
     }
 
-    public static object? Read(Element element)
+    private static Payload? ReadPayload(Element element)
     {
         var schema = Schema.Lookup(SchemaId);
         if (schema == null) return null;
@@ -63,6 +63,30 @@ public static class ElementProvenance
         if (payload.Version != 1 || string.IsNullOrWhiteSpace(payload.RequestJson)
             || Hash(payload.RequestJson) != payload.RequestSha256)
             throw new InvalidOperationException("Invalid BSA creation-request integrity");
+        return payload;
+    }
+
+    public static void RejectExistingRequest(Document document, PipeRequest request)
+    {
+        if (Schema.Lookup(SchemaId) == null) return;
+        string candidate = JsonSerializer.Serialize(request);
+        using var filter = new ExtensibleStorageFilter(SchemaId);
+        using var collector = new FilteredElementCollector(document);
+        foreach (var element in collector.WherePasses(filter))
+        {
+            var payload = ReadPayload(element);
+            if (payload == null) continue;
+            var previous = JsonSerializer.Deserialize<PipeRequest>(payload.RequestJson)
+                ?? throw new InvalidOperationException("Missing stored creation request");
+            if (JsonSerializer.Serialize(previous) == candidate)
+                throw new InvalidOperationException($"Creation request already recorded on element {element.UniqueId}; inspect current geometry and provenance before retrying");
+        }
+    }
+
+    public static object? Read(Element element)
+    {
+        var payload = ReadPayload(element);
+        if (payload == null) return null;
         var request = JsonSerializer.Deserialize<PipeRequest>(payload.RequestJson)
             ?? throw new InvalidOperationException("Missing stored creation request");
         return new
