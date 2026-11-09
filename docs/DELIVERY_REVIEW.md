@@ -1,5 +1,7 @@
 # Source-bound delivery review
 
+Audit JSON and HTML retain each requirement's passage ID, validated source locator, exact quote and acceptance target. For multi-document plans, locators include the source document and its hash alongside PDF page/line or Word XML information. Identical quotes from two files remain separate requirements. Locators are reconstructed from current source extraction before use; changing a recorded locator invalidates the audit. The HTML column reports the effective review result after dependency/failure gates, which may differ from a reviewer's asserted status.
+
 Audits also run source-bound dependency diagnosis. A recorded passing task with nonpassing required parents is rejected. Each reviewed requirement exposes `blocked_by`; a blocked manual task stays effectively pending even if its reviewer records pass. An upstream manual review does not rewrite workflow execution or authorize downstream tasks. Independent manual tasks can still receive evidence-backed reviews without being mislabelled executed engine tasks.
 
 `bsa.delivery` records requirement-by-requirement review evidence separately from an immutable workflow run. Successful tool execution alone does not fill the review or establish engineering acceptance. The host agent can record actual numerical/visual observations; no user permission or external publishing action is implied by a review record.

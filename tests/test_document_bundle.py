@@ -63,6 +63,35 @@ class BundleTests(unittest.TestCase):
         self.spec['supplemental_briefs'][0]=dict(brief='brief.md',brief_sha256=digest(self.brief))
         with self.assertRaisesRegex(ProjectError,'duplicate brief'):plan_documents(self.root,self.spec)
 
+    def test_delivery_distinguishes_identical_quotes_and_rejects_forged_locator(self):
+        from bsa.delivery import run as audit_run
+        quote='Include an editable <MEP> model.'
+        self.brief.write_text(quote,encoding='utf-8')
+        self.rubric.write_text(quote,encoding='utf-8')
+        self.spec['brief_sha256']=digest(self.brief)
+        self.spec['supplemental_briefs'][0]['brief_sha256']=digest(self.rubric)
+        for requirement in self.spec['requirements']:requirement['quote']=quote
+        self.save()
+        run=self.root/'run';execute(self.plan,run)
+        review=self.root/'review.json';template(self.plan,run,review)
+        audit=audit_run(self.plan,run,review,self.root/'audit')
+        rows=audit['requirements']
+        self.assertEqual([r['source_locator']['source_document'] for r in rows],['brief.md','rubric.md'])
+        self.assertEqual([r['passage'] for r in rows],['P001','D002:P001'])
+        page=(self.root/'audit/report.html').read_text(encoding='utf-8')
+        self.assertIn('brief.md',page);self.assertIn('rubric.md',page)
+        self.assertIn('&lt;MEP&gt;',page);self.assertNotIn('<MEP>',page)
+        self.assertIn('Acceptance target',page)
+        self.assertIn('Source-backed calculations',page)
+        self.assertFalse(audit['design_accepted'])
+        report_path=run/'workflow.json'
+        report=json.loads(report_path.read_text(encoding='utf-8'))
+        report['requirements'][1]['source_locator']['source_document']='brief.md'
+        report_path.write_text(json.dumps(report),encoding='utf-8')
+        altered=assess(self.plan,run,review)
+        self.assertEqual(altered['status'],'failed')
+        self.assertTrue(any('locator differs' in issue for issue in altered['issues']))
+
     def test_empty_annex_blocks_planning_and_source_is_not_overwritten(self):
         self.rubric.write_text('',encoding='utf-8')
         self.spec['supplemental_briefs'][0]['brief_sha256']=digest(self.rubric)
