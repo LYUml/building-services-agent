@@ -136,3 +136,16 @@ Install the pinned `preview` extra and run:
 The standalone tool reopens one represented element with IfcOpenShell 0.8.5, extracts its world-space mesh and attached port placements, and uses Matplotlib 3.11.2 for four fixed orthographic views. No triangle decimation is applied. `preview.json` binds source and PNG hashes, records world coordinates/axes, lists omitted elements and keeps visual review pending. Axis arrows have an illustrative length derived from body extent; they do not encode flow or physical connectors. Display coordinates are world-axis offsets from the explicitly reported centre. Legends abbreviate names to 32 characters; full names/GUIDs remain in JSON. At most 200000 triangles and twelve ports are supported.
 
 Actual source-placed vendor tee rendering was inspected at `runs/manufacturer-preview-final/preview.png`: body, mouth regions and three numbered axes are visible, and annotations are readable without observed page clipping. The separate limited review is in `docs/evidence/manufacturer-block/preview-review.json`; vendor imagery remains local. Facet raster artifacts and projected triangle sorting remain visible limitations, so this is not an independent interactive BIM-viewer or full interior/installation review. An independent millimetre-unit, rotated and translated solid/port fixture verifies world-metre extraction and omitted-element reporting; missing port placement rejects.
+
+
+### Workflow preview and review boundary
+
+The preview is also workflow kind `ifc_preview`. Example final task:
+
+```json
+{"id":"preview","kind":"ifc_preview","depends_on":"place","guid":"<actual 22-character GlobalId>","requires_pass":["information"]}
+```
+
+Map it to a quoted brief requirement like every other task. Supply exactly one `depends_on` on an IFC producer or explicit `ifc`, plus the actual selected element GUID. Unexpected fields and replacement input combinations reject. Missing/failed upstream producers or required checks prevent execution. The preview's transitive inventory and IDS prerequisites must use the same producer or identical explicit file bytes; a different model cannot borrow those passes. This IDS correspondence enforcement is scoped to the preview consumer, not a new blanket guarantee for every existing adapter.
+
+`pass` means the image was generated. `preview.json` still says visual review pending, and the workflow never promotes that to design acceptance. Inspect the actual PNG and preserve a separate source/PNG-hash-bound review. The actual five-stage manufacturer run at `runs/manufacturer-delivery-v1/run` passed with both inventory and IDS bound to `place`; actual PNG inspected. The restricted image/model remains local, while `docs/evidence/manufacturer-block/delivery.json` records limited evidence. Independent synthetic execution confirms a missing IDS property blocks preview creation, and source-binding controls reject both direct and transitive mismatched models.

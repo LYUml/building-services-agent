@@ -1,0 +1,71 @@
+{
+  "scope": "Five-stage local manufacturer workflow under synthetic integration brief",
+  "tasks": {
+    "convert": {
+      "kind": "cad_ifc",
+      "status": "pass",
+      "scope": "source-bound tessellated IFC conversion; ports, product and engineering acceptance separate"
+    },
+    "place": {
+      "kind": "product_ports",
+      "status": "pass",
+      "scope": "source-anchored placed model ports and saved-IFC probe checks; physical joints, external network and engineering acceptance pending"
+    },
+    "inventory": {
+      "kind": "ifc_query",
+      "status": "pass",
+      "scope": "Saved IFC inventory and minimum class counts only; not geometry, equipment identity or engineering acceptance"
+    },
+    "information": {
+      "kind": "ids_check",
+      "status": "pass",
+      "scope": "Upstream IDS information requirements only; geometry, engineering physics and regulatory applicability remain separate"
+    },
+    "preview": {
+      "kind": "ifc_preview",
+      "status": "pass",
+      "scope": "saved selected-element preview generated; visual review and engineering acceptance pending"
+    }
+  },
+  "source_bindings": [
+    {
+      "check": "inventory",
+      "consumer": "information",
+      "model_identity": {
+        "producer": "place"
+      }
+    },
+    {
+      "check": "information",
+      "consumer": "preview",
+      "model_identity": {
+        "producer": "place"
+      }
+    },
+    {
+      "check": "inventory",
+      "consumer": "preview",
+      "model_identity": {
+        "producer": "place"
+      }
+    }
+  ],
+  "execution_pass": true,
+  "workflow_sha256": "3ed42bde9af8662a41f8f45a840c6828e64330d0658603d473f305752ca6083f",
+  "ifc_sha256": "c1b3dd4e3f9c6ba6fdf3b12ed055d92f24990b51bb55fce35f59f0c3cebae0c2",
+  "preview_sha256": "327b6f2798eb7358332a79107251ced13bf0b1e316b73edef6db0d3aeacde7f0",
+  "visual_review": {
+    "method": "Agent inspected actual generated PNG",
+    "observations": [
+      "Tee body and mouth regions visible across fixed views",
+      "Three port labels and legend readable",
+      "No observed page clipping or label collision"
+    ],
+    "limitations": [
+      "Projected triangle and facet raster artifacts",
+      "Overlay axes do not prove hidden-surface visibility or physical joints",
+      "No interactive BIM-viewer or full engineering acceptance"
+    ]
+  },
+  "design_accepted": false
+}
