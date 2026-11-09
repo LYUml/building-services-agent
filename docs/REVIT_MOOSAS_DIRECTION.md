@@ -24,8 +24,6 @@ Implementation acceptance sequence:
 4. Generate a view, schedule and sheet; reconcile element counts/identities and inspect actual PDF/DWG exports.
 5. Recompute supported performance/rules after revisions; preserve product, installation and professional checks. Native RVT acceptance requires actual Revit readback, not IFC export success alone.
 
-## MOOSAS findings
-
 ## Independent Revit bridge source check
 
 Inspected `rui-branco/revit-mcp` at commit `0a99726d2fc95f71c24b373cbd74bda0d5e907d8` (MIT, copyright Rui Branco). Selected source hashes are in `docs/evidence/moosas-review/revit-mcp-source-review.json`; the checkout is local under ignored tools, not installed or executed. The local dotnet host returned no installed SDKs.
