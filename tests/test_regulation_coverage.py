@@ -52,6 +52,23 @@ class CoverageTests(unittest.TestCase):
         p.write_text(json.dumps(d))
         with self.assertRaisesRegex(ProjectError,'rule list differs'):self.check()
 
+    def test_emergency_module_does_not_hide_other_fire_gaps(self):
+        self.catalog=self.root/'hk/coverage-2026.11.09-emergency.json'
+        self.data=json.loads((ROOT/'examples/regulations-hk/coverage-scope-emergency.json').read_text())
+        self.save()
+        rows={t['id']:t for t in self.check()['topics']}
+        self.assertEqual(rows['fire']['gaps'],['no_implemented_module'])
+        self.assertEqual(rows['emergency_lighting']['gaps'],
+                         ['implemented_module_not_scheduled','partial_rule_coverage'])
+        self.assertEqual(rows['emergency_lighting']['modules'][0]['execution_status'],'not_assessed')
+
+    def test_new_catalog_requires_explicit_emergency_decision(self):
+        self.catalog=self.root/'hk/coverage-2026.11.09-emergency.json'
+        self.data['catalog']='hk-coverage-2026.11.09-emergency'
+        self.save()
+        with self.assertRaisesRegex(ProjectError,'exact nonempty topic'):
+            self.check()
+
     def test_scheduled_pack_is_not_executed_or_complete(self):
         pack_path=self.root/'hk/hvac-design-2026.11.08/pack.json'
         pack=json.loads(pack_path.read_text())

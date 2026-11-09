@@ -1,5 +1,7 @@
 # Project regulatory planning coverage
 
+Use `regulations/hk/coverage-2026.11.09-emergency.json` for the expanded snapshot, with `examples/regulations-hk/coverage-scope-emergency.json` as a synthetic format example only. It retains earlier plumbing modules and adds an explicit emergency-lighting topic. The broader fire topic remains unimplemented: an accommodation assertion check cannot satisfy all fire-services obligations. Existing catalogs stay unchanged for reproducible historical runs. Selecting the new catalog requires a sourced emergency-lighting applicability decision; omission is rejected.
+
 `bsa.regulation_coverage` compares a sourced project scope decision for every catalog topic with the available rule modules and, optionally, a validated workflow plan. It helps the agent identify missing work before design or delivery. It does not infer legal applicability or certify an exhaustive list of obligations.
 
 ```powershell

@@ -1,0 +1,81 @@
+{
+  "scope": "Synthetic sourced assertions; no emergency simulation or engineering acceptance",
+  "official_source_sha256": "295e93caaf662c86d91c326f1c127541d7dce034217e94cc96df6d68452c6f8a",
+  "scenarios": [
+    {
+      "scenario": "asserted-pass",
+      "tasks": {
+        "emergency": {
+          "kind": "regulations",
+          "status": "pass",
+          "scope": "Selected jurisdiction checks only; whole-project regulatory compliance not established. HK-FSD-EMERGENCY-ACCOMMODATION: pass"
+        },
+        "delivery": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "Physical, photometric and engineering review still required"
+        }
+      },
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "planning_gaps": [
+        "partial_rule_coverage"
+      ],
+      "design_accepted": false
+    },
+    {
+      "scenario": "low-illuminance",
+      "tasks": {
+        "emergency": {
+          "kind": "regulations",
+          "status": "pending",
+          "scope": "Selected jurisdiction checks only; whole-project regulatory compliance not established. HK-FSD-EMERGENCY-ACCOMMODATION: review_required"
+        },
+        "delivery": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: emergency (pending); adapter not executed"
+        }
+      },
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "planning_gaps": [
+        "partial_rule_coverage"
+      ],
+      "design_accepted": false
+    },
+    {
+      "scenario": "normal-mode",
+      "tasks": {
+        "emergency": {
+          "kind": "regulations",
+          "status": "pending",
+          "scope": "Selected jurisdiction checks only; whole-project regulatory compliance not established. HK-FSD-EMERGENCY-ACCOMMODATION: pending"
+        },
+        "delivery": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: emergency (pending); adapter not executed"
+        }
+      },
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "planning_gaps": [
+        "partial_rule_coverage"
+      ],
+      "design_accepted": false
+    }
+  ]
+}

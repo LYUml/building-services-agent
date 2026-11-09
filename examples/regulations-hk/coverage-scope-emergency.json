@@ -1,0 +1,47 @@
+{
+  "jurisdiction": "HK",
+  "catalog": "hk-coverage-2026.11.09-emergency",
+  "scope_source": "Synthetic multi-discipline planning example; actual brief and statutory applicability review required",
+  "topics": {
+    "electrical": {
+      "decision": "required",
+      "source": "Synthetic integration scope only; not an actual statutory applicability decision"
+    },
+    "lighting": {
+      "decision": "required",
+      "source": "Synthetic integration scope only; not an actual statutory applicability decision"
+    },
+    "hvac": {
+      "decision": "required",
+      "source": "Synthetic integration scope only; not an actual statutory applicability decision"
+    },
+    "plumbing": {
+      "decision": "required",
+      "source": "Synthetic integration scope only; not an actual statutory applicability decision"
+    },
+    "drainage": {
+      "decision": "required",
+      "source": "Synthetic integration scope only; not an actual statutory applicability decision"
+    },
+    "fire": {
+      "decision": "required",
+      "source": "Synthetic integration scope only; not an actual statutory applicability decision"
+    },
+    "energy_audit": {
+      "decision": "unresolved",
+      "source": "Synthetic integration scope only; not an actual statutory applicability decision"
+    },
+    "government_specification": {
+      "decision": "unresolved",
+      "source": "Synthetic integration scope only; not an actual statutory applicability decision"
+    },
+    "utility": {
+      "decision": "unresolved",
+      "source": "Synthetic integration scope only; not an actual statutory applicability decision"
+    },
+    "emergency_lighting": {
+      "decision": "required",
+      "source": "Synthetic scope: assess emergency accommodation lighting; actual applicability requires project evidence"
+    }
+  }
+}

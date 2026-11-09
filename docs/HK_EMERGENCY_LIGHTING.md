@@ -50,6 +50,8 @@ Licensed-premises appendices, supply arrangement, rated duration, activation, wi
 
 ## Executable sourced-assertions check
 
+For a repeatable official-source-backed workflow exercise, run `python scripts/run_hk_emergency_demo.py --source path/to/fsd-emergency-guidance-2021.pdf --out runs/new-emergency-workflow`. It verifies the PDF hash before staging, uses the expanded emergency coverage catalog, executes three synthetic scenarios and verifies recorded input/artifact integrity. Insufficient illuminance is `review_required` at rule level and `pending` at the generic regulations workflow level; downstream `requires_pass` prevents execution. A passing assertion check still leaves manual delivery review pending. This does not bind a downstream model or photometric run to the asserted inputs.
+
 Run `python -m bsa.regulations examples/regulations-hk/emergency-accommodation.json --pack regulations/hk/emergency-accommodation-2026.11.09/pack.json --sources runs/hk-emergency-lighting-research-v1 --out runs/new-emergency-check` with the pinned guidance PDF cached under its declared filename. The generic `regulations` workflow task can use the same pack; native photometry correspondence is not yet implemented.
 
 The synthetic input represents one accommodation. It requires sourced identity, positive gross area, distinct emergency-luminaire IDs, minimum lux, assessment-method/duration/degradation descriptions and explicit emergency-mode, floor, whole-area and entire-duration assertions. These assertions are not independent verification of their evidence. Licensed-premises-specific paths are excluded from this initial module and must retain their separate checks.
