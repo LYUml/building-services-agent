@@ -1,0 +1,62 @@
+{
+  "run": "runs/public-facades-v1",
+  "variants": {
+    "compact": {
+      "native_geometry_checks_pass": true,
+      "wall_window_opening_count": 8,
+      "opening_area_m2": 476.0,
+      "ifc_sha256": "191d9347f4f4cd520d2a06cea52581ce6793044e0a1be644b144ee430059d5a3",
+      "preview_sha256": "0aef3e6b4ce2d24abd6d6d8fcc97357cfc615b95f6577a7a3769a51a8e6cf0b8",
+      "design_accepted": false
+    },
+    "slender": {
+      "native_geometry_checks_pass": true,
+      "wall_window_opening_count": 8,
+      "opening_area_m2": 532.0,
+      "ifc_sha256": "11de70013e40e2ca44228629d62d197d94e686434013d87f823f815b60e19def",
+      "preview_sha256": "dbb30222c7c808d2eb1a712e01c82d9a0220bcfd99c6235ed1bd7dabdd7c9e75",
+      "design_accepted": false
+    },
+    "stacked": {
+      "native_geometry_checks_pass": true,
+      "wall_window_opening_count": 16,
+      "opening_area_m2": 672.0,
+      "ifc_sha256": "381b5a502f66ac3de4d4352c674320bcca9276d4a3da4783d8447b6cf3391bee",
+      "preview_sha256": "283e6b4a0a735be159ed0fb6e5e03529b1e472e26e9cbfadce9dd3223a9cad57",
+      "design_accepted": false
+    }
+  },
+  "engine": {
+    "name": "IfcOpenShell",
+    "version": "0.8.5",
+    "reuse": [
+      "geometry.add_wall_representation",
+      "feature.add_feature",
+      "feature.add_filling",
+      "geometry.edit_object_placement",
+      "spatial.assign_container"
+    ],
+    "documentation": [
+      "https://docs.ifcopenshell.org/autoapi/ifcopenshell/api/feature/add_feature/index.html",
+      "https://docs.ifcopenshell.org/autoapi/ifcopenshell/api/feature/add_filling/index.html"
+    ]
+  },
+  "tests": {
+    "count": 3,
+    "passed": true,
+    "controls": [
+      "void relation",
+      "filling relation",
+      "window dimensions",
+      "stable GUID",
+      "source metadata",
+      "invalid thickness"
+    ]
+  },
+  "visual_review": {
+    "assembly": "runs/public-facades-v1/stacked/preview/preview.png",
+    "wall": "runs/public-facades-v1/stacked/wall-only-preview/preview.png",
+    "observed": "Four-storey wall assembly visible; opaque window placeholders hide holes in full elevations and triangulated shading is distracting. Isolated saved wall shows actual through opening in 3D and YZ view. Preview only, not architectural acceptance."
+  },
+  "design_accepted": false
+}

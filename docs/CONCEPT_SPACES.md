@@ -50,3 +50,22 @@ A `bim` task with the explicit concept-space scope may now supply `concept_layou
 Re-run the --source-cache command above to include layouts in all three concept tasks. Actual runs/public-concept-workflow-v3 has three passing concept tasks with 8/8/16 draft windows and all 34 technical interpretation tasks pending. No obligation was removed. Settings, source geometry and IFC hashes are retained in each handoff. Full workflow source/artifact integrity passes; design acceptance remains false.
 
 Seven concept tests and two actual workflow tests pass. Controls reject boolean WWR, missing source, unknown layout and nonconcept scope before execution; changing a saved handoff invalidates workflow integrity. There is no new simulation engine or dependency, and successful draft-layout execution cannot establish glazing selection, authored openings, energy/daylight results or full assignment acceptance. Evidence: evidence/document-intake/public-layout-workflow.json.
+
+
+## Native concept walls and openings
+
+`bsa.concept_facade` now makes a separate IFC revision with real IfcWall, IfcOpeningElement and IfcWindow relationships. It rederives the layout from the saved source IFC and original geometry/settings, rather than trusting an edited handoff. Existing pinned IfcOpenShell 0.8.5 APIs author wall-like extrusions and void/filling relations. Window bodies are explicitly solid box envelopes, with no inferred frames, glazing properties or product selection. Upstream window representation defaults were not used because their frame dimensions would otherwise be unsourced.
+
+Provide explicit thickness decisions via benchmarks/mit-4401-2018/facade-decisions.json. The current 0.2 m wall and 0.04 m window-envelope thicknesses are unapproved concept choices, not measured construction or glass specifications. Walls extend outboard of concept space faces; corners are not joined/detailed, and slabs/roof/partitions remain absent. Floor-to-floor massing is not established as a clear thermal air volume.
+
+Example after generating the public concept workflow:
+
+```powershell
+.venv/Scripts/python -m bsa.concept_facade --ifc runs/public-concept-workflow-v3/workflow/concept-compact/model.ifc --project runs/public-concept-workflow-v3/compact.json --layout runs/public-concept-workflow-v3/compact-layout.json --basis benchmarks/mit-4401-2018/facade-decisions.json --out runs/new-native-facade
+```
+
+The saved revision preserves every original STEP entity record, schema/EXPRESS validation passes and source hashes remain unchanged. Independent saved checks require stable IDs, original source metadata, exact wall/window/opening counts, host/fill/storey relationships, metre-space geometry, wall bounds, all 16 outer/reveal corner vertices, closed consistently wound through-hole topology (Euler zero) and net material volume after subtracting the opening. Window/opening solids must match expected bounds/depth/placement, with explicit native window width/height. This verifies actual native Boolean subtraction, not simply a window box over a solid wall.
+
+Actual runs/public-facades-v1 produces 8/8/16 wall-opening-window groups for compact/slender/stacked. Opening areas are 476/532/672 m2. Three tests pass over all variants, source preservation and rejection controls (removed void/fill relations, changed window width, GUID/source and invalid thickness). Evidence: evidence/document-intake/public-native-facades.json.
+
+Stacked assembly and isolated-wall previews were actually inspected. The full assembly shows the storeys but opaque window-envelope bodies hide holes in filled elevations, with distracting triangulation shading. The isolated wall clearly shows the through opening. Previews are not native BIM GUI review, CAD drawings or architectural acceptance. This separate revision is currently standalone, not yet an inherited unified workflow producer. Materials/products, corner interfaces, room program, site shading, actual performance simulation, MEP and full delivery remain pending; design_accepted and thermal_model_ready stay false.

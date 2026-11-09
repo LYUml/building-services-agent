@@ -1,0 +1,5 @@
+{
+  "source": "Explicit unapproved concept decisions: 0.2 m wall and 0.04 m window solid envelope, not surveyed construction or glass/frame product; outboard walls without corner detailing",
+  "wall_thickness_m": 0.2,
+  "window_envelope_thickness_m": 0.04
+}
