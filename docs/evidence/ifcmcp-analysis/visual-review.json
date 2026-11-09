@@ -1,0 +1,11 @@
+{
+  "pdf_sha256": "5f848dd9c7a59e4ef29588ae8e235af9b5ee3e0312482a4dbed25a0f4f999616",
+  "image_sha256": "a19c80a1cb026f80b9d25bca1ee721c9479b8d8627ed3bf5357cdb8e7db0b0fd",
+  "visual_checks_pass": true,
+  "observations": [
+    "Both pipe labels and leaders legible; no observed overlap or clipping.",
+    "Projection/unit and non-installation scope note visible."
+  ],
+  "design_accepted": false,
+  "scope": "Actual rendered schematic only; equipment and installation details excluded"
+}

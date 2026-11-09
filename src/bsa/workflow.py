@@ -133,7 +133,7 @@ def regulatory_source_bindings(tasks,root):
 
 def inventory_source_bindings(tasks,root):
     """Bind supported saved-IFC consumers to upstream inventory checks."""
-    readers={'ifc_metadata','ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing',
+    readers={'ifc_network','ifc_metadata','ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing',
              'ifc_views','water_coordination','annual_energy_ifc'}
     known={};ancestors={};identities={};bindings=[];rechecks={}
     for task in tasks:
@@ -159,8 +159,8 @@ def inventory_source_bindings(tasks,root):
                 identity={'sha256':digest(path)}
             identities[name]=identity
             for parent in sorted(applicable):
-                if known[parent]['kind']!='ifc_query':continue
-                if refresh:
+                if known[parent]['kind'] not in ('ifc_query','ifc_network'):continue
+                if refresh and known[parent]['kind']=='ifc_query':
                     bindings.append(dict(check=parent,consumer=name,previous_model_identity=identities[parent],model_identity=identity,fresh_inventory_required=True))
                     continue
                 if identities[parent]!=identity:
@@ -199,7 +199,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind=="water_network" and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
@@ -315,8 +315,12 @@ def validate_plan(path):
             from .electrical_fault import prepare
             faults=local_path(root,t.get('faults'));inputs.add(faults)
             prepare(read_json(local_path(root,t['project'])),read_json(faults))
-        if kind in ('ifc_metadata','ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing','ifc_views','water_coordination','annual_energy_ifc'):
-            if kind=='ifc_metadata':
+        if kind in ('ifc_network','ifc_metadata','ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing','ifc_views','water_coordination','annual_energy_ifc'):
+            if kind=='ifc_network':
+                from .network_binding import prepare
+                network_paths=[local_path(root,t.get(k)) for k in ('project','model','binding')]
+                inputs.update(network_paths);prepare(*(read_json(p) for p in network_paths))
+            elif kind=='ifc_metadata':
                 inputs.add(local_path(root,t.get('patch')))
             elif kind=='ifc_query':
                 from .ifc_query import validate
@@ -603,6 +607,14 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     payload=run(source,local_path(root,t['settings']),folder)
                     status='pass' if payload['calculated_checks_pass'] else 'fail'
                     reason='saved hollow profiles and ports reconciled to schedule/projected centreline DXF; native and installation drawing acceptance pending'
+            elif t['kind']=='ifc_network':
+                dependency=t.get('depends_on')
+                if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC producer did not pass; hydraulic analysis not executed'
+                else:
+                    from .ifc_network import run
+                    source=out/dependency/IFC_ARTIFACTS[tasks[dependency]['kind']] if dependency else local_path(root,t['ifc'])
+                    payload=run(*(local_path(root,t[k]) for k in ('project','model','binding')),source,folder)
+                    status='pass' if payload['calculated_checks_pass'] else 'fail';reason=payload['scope']
             elif t['kind']=='ifc_metadata':
                 dependency=t.get('depends_on')
                 if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC producer did not pass; metadata edit not executed'

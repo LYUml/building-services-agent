@@ -50,3 +50,5 @@ Inherited screening requires a passing baseline by default. For intentional iter
 
 
 For a sourced one-duty/one-standby tank-transfer design, use bsa.plumbing_pump_set / workflow kind plumbing_pump_set and docs/HK_PLUMBING_PUMPS.md. Each role solves its own route/curve at the common receiving boundary and must meet the same target alone; do not sum standby flow. Keep each input hash and role failure. This is an explicit sequential-operating design mode, not proof of installed redundancy, controls, parallel operation or IFC identity.
+
+For fresh prescribed-flow analysis of an existing or metadata-revised straight hollow IFC route, use workflow kind ifc_network with project/model/binding and exactly one ifc or depends_on. It reuses source reconstruction, saved profile/port reconciliation and the existing pressure solver. Read docs/IFCMCP_TRIAL.md. Require same-model downstream drawing gates; retain failed targets. This adapter excludes elbows and does not infer products, pump curves or full compliance.
