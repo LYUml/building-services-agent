@@ -95,3 +95,5 @@ Pump-set downstream network/pump/pipe-rule tasks now support explicit duty/stand
 A repeatable three-scenario pump-set brief workflow now verifies separate duty/standby handoffs, whole-set blocking, input/artifact integrity, blocker diagnosis and pending/failed delivery review states using the pinned WSD source. Official-source-backed native evidence is retained; no physical installation or complete assignment acceptance is claimed.
 
 Official IfcMCP now has an isolated pinned 0.9.0 distribution and verified real stdio query/session trial against a saved synthetic IFC, with direct saved-model count/identity reconciliation and unchanged source hash. Editing, geometry, drawing and agent-host registration remain pending; existing engineering runtime is unchanged. See IFCMCP_TRIAL.md.
+
+Official IfcMCP now supports an executed source-bound pump text-property addition trial: new-file save/reload, original STEP-record preservation, exact target/property checks and overwrite/source-override rejection. Numeric ratings, geometry authoring, host registration and broader mutation remain pending.

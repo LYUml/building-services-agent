@@ -1,0 +1,9 @@
+{
+  "guid": "37AjE_3kHOc8Tm1q7DO7m1",
+  "pset": "BSA_MCPTrial",
+  "source": "Synthetic WSD route fixture; software integration example only",
+  "properties": {
+    "ReviewStatus": "Pending engineering review",
+    "Scenario": "Synthetic single booster route; no installed standby claim"
+  }
+}
