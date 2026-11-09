@@ -1,0 +1,12 @@
+{
+  "scope": "Build and file metadata only; no host invocation or signing",
+  "product": "Building Services Agent",
+  "title": "Bsa.Revit",
+  "product_version": "0.1.0+50247a911904f4b39e759863d7bc4e1bf5a8cfe4",
+  "file_version": "0.1.0.0",
+  "assembly_sha256": "8d0b0dcc54be86d17dd04a19c70179d469248d54eb3af9b373ce49b62132242b",
+  "project_sha256": "85259930090a2fb6a21d89b6386fbb78bb21c2ec71b50c81dd0c6d3061ce8227",
+  "signature_status": "NotSigned",
+  "native_inventory_executed": false,
+  "design_accepted": false
+}
