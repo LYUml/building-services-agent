@@ -1,0 +1,392 @@
+{
+  "executed": "2026-11-10",
+  "standalone": {
+    "status": "converged",
+    "operating_point": {
+      "flow_m3_s": 0.6526898145675659,
+      "system_required_rise_pa": 47.09652776973013,
+      "residual_pa": 4.513498907954272e-08,
+      "supply_total_pressure_pa": 47.09652781486512,
+      "fan_total_pressure_rise_pa": 47.09652781486512,
+      "air_power_kw": 0.030739424006260525
+    },
+    "calculated_checks_pass": true,
+    "design_accepted": false,
+    "design_flow_m3_s": 0.5,
+    "terminal_node": "A",
+    "trace": [
+      {
+        "flow_m3_s": 0.3,
+        "system_required_rise_pa": 33.79055055533652,
+        "residual_pa": 66.20944944466348,
+        "fan_total_pressure_rise_pa": 100.0
+      },
+      {
+        "flow_m3_s": 0.9,
+        "system_required_rise_pa": 61.991762066891475,
+        "residual_pa": -51.991762066891475,
+        "fan_total_pressure_rise_pa": 10.0
+      },
+      {
+        "flow_m3_s": 0.6,
+        "system_required_rise_pa": 44.51367210994366,
+        "residual_pa": 10.486327890056344,
+        "fan_total_pressure_rise_pa": 55.00000000000001
+      },
+      {
+        "flow_m3_s": 0.75,
+        "system_required_rise_pa": 52.41275490480463,
+        "residual_pa": -19.912754904804615,
+        "fan_total_pressure_rise_pa": 32.500000000000014
+      },
+      {
+        "flow_m3_s": 0.675,
+        "system_required_rise_pa": 48.25281985799608,
+        "residual_pa": -4.50281985799608,
+        "fan_total_pressure_rise_pa": 43.75
+      },
+      {
+        "flow_m3_s": 0.6375,
+        "system_required_rise_pa": 46.33058787506819,
+        "residual_pa": 3.0444121249318172,
+        "fan_total_pressure_rise_pa": 49.37500000000001
+      },
+      {
+        "flow_m3_s": 0.65625,
+        "system_required_rise_pa": 47.27854729642967,
+        "residual_pa": -0.7160472964296645,
+        "fan_total_pressure_rise_pa": 46.56250000000001
+      },
+      {
+        "flow_m3_s": 0.646875,
+        "system_required_rise_pa": 46.801277482093376,
+        "residual_pa": 1.1674725179066314,
+        "fan_total_pressure_rise_pa": 47.96875000000001
+      },
+      {
+        "flow_m3_s": 0.6515625,
+        "system_required_rise_pa": 47.03908998549596,
+        "residual_pa": 0.22653501450403724,
+        "fan_total_pressure_rise_pa": 47.265625
+      },
+      {
+        "flow_m3_s": 0.65390625,
+        "system_required_rise_pa": 47.15861305511136,
+        "residual_pa": -0.2445505551113598,
+        "fan_total_pressure_rise_pa": 46.9140625
+      },
+      {
+        "flow_m3_s": 0.6527343750000001,
+        "system_required_rise_pa": 47.098800121962434,
+        "residual_pa": -0.008956371962440812,
+        "fan_total_pressure_rise_pa": 47.08984374999999
+      },
+      {
+        "flow_m3_s": 0.6521484375000001,
+        "system_required_rise_pa": 47.0689322039084,
+        "residual_pa": 0.10880217109159673,
+        "fan_total_pressure_rise_pa": 47.177734375
+      },
+      {
+        "flow_m3_s": 0.6524414062500001,
+        "system_required_rise_pa": 47.08386295050968,
+        "residual_pa": 0.04992611199030961,
+        "fan_total_pressure_rise_pa": 47.13378906249999
+      },
+      {
+        "flow_m3_s": 0.6525878906250001,
+        "system_required_rise_pa": 47.091330733133304,
+        "residual_pa": 0.020485673116688474,
+        "fan_total_pressure_rise_pa": 47.11181640624999
+      },
+      {
+        "flow_m3_s": 0.6526611328125,
+        "system_required_rise_pa": 47.09506522677265,
+        "residual_pa": 0.005764851352353162,
+        "fan_total_pressure_rise_pa": 47.100830078125
+      },
+      {
+        "flow_m3_s": 0.6526977539062501,
+        "system_required_rise_pa": 47.09693262417379,
+        "residual_pa": -0.001595710111288895,
+        "fan_total_pressure_rise_pa": 47.0953369140625
+      },
+      {
+        "flow_m3_s": 0.652679443359375,
+        "system_required_rise_pa": 47.09599891292476,
+        "residual_pa": 0.0020845831689939587,
+        "fan_total_pressure_rise_pa": 47.09808349609376
+      },
+      {
+        "flow_m3_s": 0.6526885986328126,
+        "system_required_rise_pa": 47.09646576541217,
+        "residual_pa": 0.00024443966594844824,
+        "fan_total_pressure_rise_pa": 47.09671020507812
+      },
+      {
+        "flow_m3_s": 0.6526931762695314,
+        "system_required_rise_pa": 47.0966991940087,
+        "residual_pa": -0.0006756344383944679,
+        "fan_total_pressure_rise_pa": 47.096023559570305
+      },
+      {
+        "flow_m3_s": 0.652690887451172,
+        "system_required_rise_pa": 47.09658247951437,
+        "residual_pa": -0.00021559719015584733,
+        "fan_total_pressure_rise_pa": 47.09636688232421
+      },
+      {
+        "flow_m3_s": 0.6526897430419922,
+        "system_required_rise_pa": 47.09652412241425,
+        "residual_pa": 1.4421286920196508e-05,
+        "fan_total_pressure_rise_pa": 47.09653854370117
+      },
+      {
+        "flow_m3_s": 0.6526903152465822,
+        "system_required_rise_pa": 47.09655330095205,
+        "residual_pa": -0.00010058793936451593,
+        "fan_total_pressure_rise_pa": 47.09645271301269
+      },
+      {
+        "flow_m3_s": 0.6526900291442872,
+        "system_required_rise_pa": 47.09653871168008,
+        "residual_pa": -4.308332315616781e-05,
+        "fan_total_pressure_rise_pa": 47.09649562835693
+      },
+      {
+        "flow_m3_s": 0.6526898860931397,
+        "system_required_rise_pa": 47.09653141704641,
+        "residual_pa": -1.4331017354152209e-05,
+        "fan_total_pressure_rise_pa": 47.09651708602905
+      },
+      {
+        "flow_m3_s": 0.6526898145675659,
+        "system_required_rise_pa": 47.09652776973013,
+        "residual_pa": 4.513498907954272e-08,
+        "fan_total_pressure_rise_pa": 47.09652781486512
+      },
+      {
+        "flow_m3_s": 0.6526898503303529,
+        "system_required_rise_pa": 47.09652959338822,
+        "residual_pa": -7.142941143456483e-06,
+        "fan_total_pressure_rise_pa": 47.096522450447075
+      },
+      {
+        "flow_m3_s": 0.6526898324489594,
+        "system_required_rise_pa": 47.096528681559164,
+        "residual_pa": -3.548903066530329e-06,
+        "fan_total_pressure_rise_pa": 47.0965251326561
+      },
+      {
+        "flow_m3_s": 0.6526898235082627,
+        "system_required_rise_pa": 47.09652822564464,
+        "residual_pa": -1.7518840351726794e-06,
+        "fan_total_pressure_rise_pa": 47.096526473760605
+      },
+      {
+        "flow_m3_s": 0.6526898190379142,
+        "system_required_rise_pa": 47.09652799768739,
+        "residual_pa": -8.533745230465684e-07,
+        "fan_total_pressure_rise_pa": 47.096527144312866
+      },
+      {
+        "flow_m3_s": 0.6526898168027401,
+        "system_required_rise_pa": 47.09652788370876,
+        "residual_pa": -4.041197669835128e-07,
+        "fan_total_pressure_rise_pa": 47.09652747958899
+      },
+      {
+        "flow_m3_s": 0.652689815685153,
+        "system_required_rise_pa": 47.09652782671945,
+        "residual_pa": -1.7949240316283976e-07,
+        "fan_total_pressure_rise_pa": 47.09652764722705
+      },
+      {
+        "flow_m3_s": 0.6526898151263595,
+        "system_required_rise_pa": 47.096527798224784,
+        "residual_pa": -6.717870348893484e-08,
+        "fan_total_pressure_rise_pa": 47.09652773104608
+      }
+    ],
+    "pending": [
+      "Fan curve authenticity, installation category and system effects",
+      "Real fan electrical input, motor rating, efficiency and Hong Kong fan-power checks",
+      "Acoustics, controls, fire/smoke and full engineering acceptance",
+      "Native geometry binding and branches/loops"
+    ],
+    "flow_bracket_m3_s": [
+      0.6526898145675659,
+      0.6526898151263595
+    ],
+    "checks": {
+      "balance": true,
+      "flow_bracket": true,
+      "minimum_design_flow": true,
+      "velocity_through_bracket": true,
+      "node_pressure_requirements": true
+    },
+    "network_analysis": {
+      "name": "Synthetic single-path fixed-speed fan test",
+      "supply_flow_m3_s": 0.6526898145675659,
+      "segments": [
+        {
+          "id": "MAIN",
+          "from_node": "FAN",
+          "to_node": "A",
+          "flow_m3_s": 0.6526898145675659,
+          "area_m2": 0.15,
+          "velocity_m_s": 4.3512654304504395,
+          "reynolds": 108781.63576126097,
+          "darcy_friction_factor": 0.01893607222591393,
+          "regime": "turbulent Colebrook Darcy",
+          "friction_pa": 5.736421261990301,
+          "minor_pa": 11.360106507739829,
+          "dissipative_loss_pa": 17.09652776973013,
+          "elevation_pressure_pa": 0.0,
+          "downstream_total_pressure_pa": 30.00000004513499,
+          "velocity_pass": true,
+          "source": "demo",
+          "width_m": 0.5,
+          "height_m": 0.3,
+          "hydraulic_diameter_m": 0.37499999999999994
+        }
+      ],
+      "nodes": [
+        {
+          "id": "FAN",
+          "demand_m3_s": 0,
+          "total_pressure_pa": 47.09652781486512,
+          "required_total_pressure_pa": 0,
+          "pressure_margin_pa": 47.09652781486512,
+          "pressure_pass": true,
+          "path": [],
+          "source": "demo"
+        },
+        {
+          "id": "A",
+          "demand_m3_s": 0.6526898145675659,
+          "total_pressure_pa": 30.00000004513499,
+          "required_total_pressure_pa": 30,
+          "pressure_margin_pa": 4.513498907954272e-08,
+          "pressure_pass": true,
+          "path": [
+            "MAIN"
+          ],
+          "source": "fan/operating_point"
+        }
+      ],
+      "critical_node": "A",
+      "critical_path": [
+        "MAIN"
+      ],
+      "required_source_total_pressure_pa": 47.09652776973013,
+      "calculated_checks": {
+        "velocity": true,
+        "pressure": true,
+        "flow_continuity": true
+      },
+      "calculated_checks_pass": true,
+      "design_accepted": false,
+      "pressure_basis": "Total pressure (static + velocity), with elevation potential handled separately; common reference. Not an ambient-referenced vertical air pressure model.",
+      "scope": "Prescribed level constant-density air withdrawals; rectangular actual area and turbulent hydraulic-diameter approximation; no loops, flow balancing or fan operating point",
+      "pending": [
+        "source demand and route evidence",
+        "component K/reference velocity validation",
+        "fan/pump curve and operating-point selection",
+        "noise, cavitation, compressibility and domain/code checks",
+        "physical routing and clash review",
+        "hydraulic-diameter correlation and fully-developed applicability",
+        "rectangular fittings and local-velocity coefficient basis",
+        "duct leakage, acoustic, insulation and fire/smoke design"
+      ],
+      "model": "steady incompressible rectangular air tree",
+      "method_basis": {
+        "source": "demo",
+        "constant_density_air": true,
+        "fully_developed": true,
+        "hydraulic_diameter_applicable": true,
+        "level_common_reference": true
+      },
+      "methods": [
+        "Actual rectangular area w*h; hydraulic diameter 2*w*h/(w+h)",
+        "Darcy-Weisbach with local actual velocity and hydraulic-diameter Colebrook friction",
+        "K loss referenced to actual local rectangular mean velocity; no equivalent-round velocity",
+        "https://fluids.readthedocs.io/fluids.friction.html",
+        "https://handbook.ashrae.org/Handbooks/F17/SI/f17_ch21/f17_ch21_si.aspx"
+      ],
+      "geometry_bound": false,
+      "regulatory_compliance": "not_established"
+    },
+    "model": "fixed-speed air fan; single fixed-total-pressure terminal; free flow",
+    "geometry_bound": false,
+    "regulatory_compliance": "not_established",
+    "scope": "Source-bounded fixed-speed total-pressure curve and one level constant-density rectangular path; free flow at fixed terminal total pressure; fixed route/K; not a multi-terminal flow-balancing solver",
+    "methods": [
+      "Reused bounded bisection/interpolation from bsa.pump; no extrapolation",
+      "Pinned fluids Colebrook through rectangular actual-area/hydraulic-diameter pressure engine",
+      "https://www.amca.org/educate/articles-and-technical-papers/amca-inmotion-articles/straightening-out-fan-curves.html"
+    ],
+    "selected_rerun_pass": true,
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\rectangular-air\\fan-project.json": "969790dfb31da5c7029a88570586e36decd9aed6ba4eec444776ce5c00af92e0",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\rectangular-air\\fan-curve.json": "1b0795def4b1173a4b0ece803690b1e97f2d156227d7e917772092a0a8f31a7a"
+    },
+    "inputs_unchanged": true,
+    "curve": {
+      "model": "fixed-speed air fan; single fixed-total-pressure terminal; free flow",
+      "pressure_basis": "fan total pressure rise",
+      "sources": {
+        "demo": "Synthetic fixed-speed total-pressure curve at stated air density and viscosity, not product data or a stable-region certification; single fixed terminal total-pressure boundary; no installation system effects or electrical power claim"
+      },
+      "source": "demo",
+      "speed_rpm": 1450,
+      "fluid": {
+        "density_kg_m3": 1.2,
+        "dynamic_viscosity_pa_s": 1.8e-05
+      },
+      "inlet_total_pressure_pa": 0,
+      "efficiency_basis": "not supplied",
+      "points": [
+        {
+          "flow_m3_s": 0.3,
+          "total_pressure_rise_pa": 100
+        },
+        {
+          "flow_m3_s": 0.9,
+          "total_pressure_rise_pa": 10
+        }
+      ],
+      "flow_bracket_m3_s": [
+        0.3,
+        0.9
+      ],
+      "flow_tolerance_m3_s": 1e-09,
+      "pressure_tolerance_pa": 1e-05,
+      "max_iterations": 100
+    },
+    "network_sources": {
+      "demo": "Explicit synthetic constant-density air, prescribed flows, internal rectangular dimensions, level routes, local-velocity K, fully-developed hydraulic-diameter applicability and design targets. Assumptions only; not a product, measured building or regulation."
+    },
+    "fluids_version": "1.3.1",
+    "artifacts": {
+      "operating-network.json": "fddd1507d98f84433967e087714e3a4da65733ae32047db1c0ff2c0a3382ba38",
+      "analysis/manifest.json": "6a4ef600cbdbf3162acf0a7ece4f37f2b161585396a5a1ba74c120e14786ca17",
+      "analysis/network.json": "a3a05c953d1bc3eab331b0690dccfb8cf1bc88330327427567e2e9ceb07a1805",
+      "analysis/report.html": "e12226d28b248001246b4484468afe085037ba5ae40133fb8eda70400bdf8c75",
+      "analysis/segments.csv": "fef41b7085756e19feb44132458b4e3e6a1862888fde59768748ae59f3d15c0e"
+    }
+  },
+  "workflow_sha256": "93f1b27ddba547011b38b723129883a30079ce08310508eddbc14023dfdb02c1",
+  "tests": {
+    "fan": 8,
+    "pump_core": 9,
+    "broader_pump_pattern": "17 run; 16 pass, 1 circulation screening failure"
+  },
+  "host_failure": {
+    "test": "test_pump_screen_workflow.test_selection_and_no_feasible_gate",
+    "evidence": "runs/fan-pump-regression-diagnostic-v1/candidate-002/thermal/hydraulic/worker.log",
+    "reason": "pandas ccalendar native import blocked by Application Control; EPANET worker fails before solve",
+    "worker_log_sha256": "7e18b498f80c928fd497721ee03ec2e9e721da086ee3c7d23edf41fcd7394500"
+  },
+  "design_accepted": false
+}

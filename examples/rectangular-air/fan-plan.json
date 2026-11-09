@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "brief": "fan-brief.md",
+  "brief_sha256": "c1ed5f76d24d98b55b83e61abc4011ee19d3eaf3840dd40480ef1b5684f487fe",
+  "passage_dispositions": {
+    "P001": "requirement",
+    "P002": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "fan",
+      "kind": "rectangular_fan_operating_point",
+      "project": "fan-project.json",
+      "curve": "fan-curve.json"
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "requires_pass": [
+        "fan"
+      ],
+      "description": "Review real curve applicability, native geometry, electrical input, acoustics, controls and Hong Kong requirements before acceptance."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P001",
+      "quote": "Solve the explicitly synthetic fixed-speed total-pressure fan curve against one rectangular air path. Preserve flow, velocity and pressure failures.",
+      "task": "fan",
+      "acceptance": "Solve the explicitly synthetic fixed-speed total-pressure fan curve against one rectangular air path. Preserve flow, velocity and pressure failures."
+    },
+    {
+      "id": "R2",
+      "passage": "P002",
+      "quote": "Review real curve applicability, native geometry, electrical input, acoustics, controls and Hong Kong requirements before acceptance.",
+      "task": "review",
+      "acceptance": "Review real curve applicability, native geometry, electrical input, acoustics, controls and Hong Kong requirements before acceptance."
+    }
+  ]
+}

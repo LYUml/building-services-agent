@@ -86,11 +86,11 @@ def operating_network(network,curve,terminal,flow):
     return data,point
 
 
-def solve(network,curve):
-    terminal=prepare(network,curve);trace=[]
+def _solve(network,curve,preparer,calculator,operating):
+    terminal=preparer(network,curve);trace=[]
     target=next(n for n in network['nodes'] if n['id']==terminal)
     def evaluate(flow):
-        data,point=operating_network(network,curve,terminal,flow);analysis=calculate(data)
+        data,point=operating(network,curve,terminal,flow);analysis=calculator(data)
         system=target['required_total_pressure_pa']+math.fsum(s['dissipative_loss_pa']+s['elevation_pressure_pa'] for s in analysis['segments'])-curve['inlet_total_pressure_pa']
         row=dict(flow_m3_s=flow,pump_total_pressure_rise_pa=point['total_pressure_rise_pa'],system_required_rise_pa=system,
                  residual_pa=point['total_pressure_rise_pa']-system)
@@ -115,8 +115,8 @@ def solve(network,curve):
         if row['residual_pa']==0:lo=hi=middle;left=right=row
         elif row['residual_pa']>0:lo=middle;left=row
         else:hi=middle;right=row
-    data,point=operating_network(network,curve,terminal,lo);analysis=calculate(data)
-    upper,_=operating_network(network,curve,terminal,hi);upper_analysis=calculate(upper)
+    data,point=operating(network,curve,terminal,lo);analysis=calculator(data)
+    upper,_=operating(network,curve,terminal,hi);upper_analysis=calculator(upper)
     checks=dict(balance=abs(left['residual_pa'])<=curve['pressure_tolerance_pa'],
                 flow_bracket=hi-lo<=curve['flow_tolerance_m3_s'],minimum_design_flow=lo>=target['demand_m3_s'],
                 velocity_through_bracket=all(s['velocity_pass'] for s in upper_analysis['segments']),
@@ -131,6 +131,9 @@ def solve(network,curve):
                   network_analysis=analysis)
     return result,data
 
+
+def solve(network,curve):
+    return _solve(network,curve,prepare,calculate,operating_network)
 
 def run(project,curve_path,out):
     import importlib.metadata
