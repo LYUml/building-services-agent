@@ -30,6 +30,14 @@ Twenty Revit logic/workflow/request tests pass, including source/model changes, 
 
 ## Inventory execution
 
+An alternative manual host path now captures the compiled adapter in a Dynamo graph:
+
+```powershell
+.venv/Scripts/python scripts/prepare_revit_inventory_graph.py --model runs/revit-sample-inventory-v1/plumbing-test.rvt --adapter adapters/revit/bin/Release/net10.0-windows/Bsa.Revit.dll --out runs/new-revit-dynamo
+```
+
+The `--adapter` mode copies the current BSA DLL into the new run folder, pins DLL/request hashes in the embedded PythonNet3 code and calls the C# `InventoryCommand.Run` through `DocumentManager.Instance.CurrentUIApplication`. It verifies the returned assembly location to reject reuse of a different loaded assembly. It opens no model and performs no add-in registration. Without `--adapter`, the previous Python implementation remains available but lacks the current C# inventory fields. Preparation at `runs/revit-sample-dynamo-v1` succeeded, including embedded Python syntax compilation; Dynamo graph loading, PythonNet3 interoperability and native invocation remain unverified. If loading fails, retain that failure rather than changing host security policy or restarting the user's application automatically.
+
 Creation now searches existing BSA Extensible Storage records before starting a write transaction. An identical deserialized/reserialized `PipeRequest` is rejected with the existing element UniqueId, including copied elements carrying that request. The caller must inspect current geometry; the guard does not return success merely because history exists. Malformed stored payloads remain errors. This is exact-request duplicate prevention, not general geometric deduplication or a distributed idempotency protocol: changed source/path text, deleted provenance or altered request fields may not match. The new guard compiles with zero warnings/errors but its live repeat-after-save, copied-element and changed-geometry controls remain unexecuted. The earlier instruction to inspect state after an uncertain write still applies.
 
 Saved inventory diagnosis is available as `python -m bsa.revit_connectivity --inventory <inventory.json> --model <source.rvt> --tolerance-m <explicit-metres> --out <new-report.json>`. Paths must remain inside this repository; the saved RVT path/hash must match the inventory and both inputs must remain unchanged. The tolerance is an explicit diagnostic choice, not a regulatory or installation allowance.
