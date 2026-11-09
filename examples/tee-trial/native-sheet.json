@@ -1,0 +1,12 @@
+{
+  "source": "Synthetic local X/Z tee assembly A4 landscape 1:10; 200 mm main-a reference prints 20 mm",
+  "window_drawing_units": [
+    -0.4,
+    -0.65,
+    1.5,
+    0.4
+  ],
+  "scale_denominator": 10,
+  "reference_ifc_guid": "3NPRHhaC1PpBtnjli6dasx",
+  "pdf_tolerance_mm": 0.2
+}

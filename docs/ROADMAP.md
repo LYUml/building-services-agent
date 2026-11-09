@@ -135,3 +135,5 @@ A standalone fixed-total-flow tee split solver now reuses pinned SciPy Brent bra
 Bounded tee_split is now a requirement-linked workflow adapter inheriting exact tee assembly specs/IFC and hashed solver control. Actual positive execution/integrity and no-root/capacity downstream-blocking controls passed; replacement inputs and unrelated-model gates reject. Network skill routing documents the adjustable-source boundary contract.
 
 Tee split now supports source-declared fraction-dependent face-coefficient tables with piecewise-linear interpolation and no extrapolation. Actual workflow and independent variable-coefficient laminar reference passed; malformed-table controls reject before output. Constant-mode behavior remains tested; arbitrary-root uniqueness and real table applicability are not claimed.
+
+A standalone tee_drawing adapter now generates verified local-frame outside outlines, axes and four-product GUID schedules from saved placed IFC. Native AutoCAD reopening and actual A4 PDF inspection passed, with 20.024 mm measured for a 20 mm print reference. Paper callouts, workflow registration and full installation detail remain pending.
