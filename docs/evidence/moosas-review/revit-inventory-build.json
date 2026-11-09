@@ -1,0 +1,25 @@
+{
+  "scope": "Compiled and manifest-prepared only",
+  "errors": 0,
+  "warnings": 0,
+  "native_executed": false,
+  "files": [
+    {
+      "sha256": "d5a2fdc7111e1cef92c6ea4f5b9bd74eeaff0730e73c374961b2dd9b92c76f01",
+      "path": "adapters/revit/InventoryCommand.cs"
+    },
+    {
+      "sha256": "885e8f863e622fe03101cef7030ae3f9f84ce41b4b224527f029f4218e95e42d",
+      "path": "adapters/revit/bin/Release/net10.0-windows/Bsa.Revit.dll"
+    },
+    {
+      "sha256": "a97975ba6b1b0d5ec160ec8eea37632a45caf97a5e5c56810b342bb24c0f631f",
+      "path": "runs/revit-inventory-build-v1.log"
+    },
+    {
+      "sha256": "ac6d2c51f7cbe8c0292898e2088dcf70bd68e0cc1fe2d4b48fb0ff5723792b3a",
+      "path": "runs/revit-addin-v1/Bsa.Inventory.addin"
+    }
+  ],
+  "registered": false
+}
