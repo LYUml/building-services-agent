@@ -61,3 +61,25 @@ class NativeCableRuleBindingTests(unittest.TestCase):
     def test_changed_classification_document_rejected(self):
         with (self.case/'source/classification.txt').open('a',encoding='utf-8') as stream:stream.write('changed source')
         with self.assertRaisesRegex(ProjectError,'source path/hash'):self.check()
+
+    def set_native_evidence(self,**properties):
+        path=self.case/'selected-model/cables.ifc';model=ifcopenshell.open(str(path));obj=model.by_type('IfcCableSegment')[0]
+        ps=model.by_id(element.get_psets(obj)['BSA_CableSelection']['id'])
+        api.run('pset.edit_pset',model,pset=ps,properties=properties);model.write(str(path))
+        binding=self.case/'selected-model/binding.json';data=json.loads(binding.read_text());data['ifc_sha256']=digest(path);binding.write_text(json.dumps(data),encoding='utf-8')
+
+    def test_explicit_classification_can_differ_from_product_source(self):
+        sha=digest(self.case/'source/classification.txt')
+        self.set_native_evidence(SourceSHA256='a'*64,ClassificationSourceSHA256=sha)
+        report=self.check();self.assertEqual(report['status'],'pass')
+        association=report['source_associations']['feeder']
+        self.assertEqual(association['classification_metadata_field'],'ClassificationSourceSHA256')
+        self.assertNotEqual(association['native_product_limit_sha256'],association['native_classification_sha256'])
+
+    def test_wrong_explicit_classification_cannot_borrow_legacy_source(self):
+        self.set_native_evidence(ClassificationSourceSHA256='a'*64)
+        with self.assertRaisesRegex(ProjectError,'identity differs'):self.check()
+
+    def test_empty_explicit_classification_cannot_borrow_legacy_source(self):
+        self.set_native_evidence(ClassificationSourceSHA256='')
+        self.assertEqual(self.check()['status'],'pending')

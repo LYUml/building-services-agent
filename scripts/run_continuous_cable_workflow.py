@@ -15,8 +15,9 @@ from run_continuous_cable_demo import run as stage
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def run(out, python, graphviz=None, autocad=None, inside_limit=.28, route=False, include_obstacles=False,lead=0.,quarter_turn=False,hk_sources=None,hk_unknown_construction=False):
+def run(out, python, graphviz=None, autocad=None, inside_limit=.28, route=False, include_obstacles=False,lead=0.,quarter_turn=False,hk_sources=None,hk_unknown_construction=False,separate_hk_evidence=False):
     if hk_unknown_construction and not hk_sources:raise ProjectError('HK classification control requires selected HK sources')
+    if separate_hk_evidence and not hk_sources:raise ProjectError('separate classification evidence requires selected HK sources')
     if include_obstacles and not route:raise ProjectError('obstacle projection requires route mode')
     if not math.isfinite(inside_limit) or inside_limit <= 0:
         raise ProjectError('positive finite synthetic inside-radius target required')
@@ -30,7 +31,7 @@ def run(out, python, graphviz=None, autocad=None, inside_limit=.28, route=False,
     text = (source / 'limit-basis.txt').read_text().replace('0.280 m', f'{inside_limit:.9f} m')
     classification=dict(source='synthetic',product_reference='synthetic-cable-20',overall_diameter_mm=20.,overall_diameter_is_actual=True,
         wiring_scope_confirmed=True,low_voltage=True,pvc_insulated=None if hk_unknown_construction else True,stranded_copper=True,armoured=False)
-    if hk_sources:text+='\nExplicit synthetic CoP 2025 edition/classification assumptions only; no actual manufacturer or statutory authentication:\n'+json.dumps(classification,indent=2)
+    if hk_sources and not separate_hk_evidence:text+='\nExplicit synthetic CoP 2025 edition/classification assumptions only; no actual manufacturer or statutory authentication:\n'+json.dumps(classification,indent=2)
     (source / 'limit-basis.txt').write_text(text, encoding='utf-8')
     limits = json.loads((ROOT / 'examples/cable-bend-limits/limits.json').read_text())
     limits['bends']['feeder']['minimum_radius_m'] = inside_limit
@@ -39,8 +40,14 @@ def run(out, python, graphviz=None, autocad=None, inside_limit=.28, route=False,
     if hk_sources:
         shutil.copyfile(ROOT/'regulations/hk/cable-bends-2026.11.10/pack.json',out/'hk-pack.json')
         official=out/'hk-sources';official.mkdir();shutil.copyfile(Path(hk_sources)/'emsd-wiring-2025.pdf',official/'emsd-wiring-2025.pdf')
-        hk_basis=dict(version=1,sources={'synthetic':limits['sources']['synthetic']},jurisdiction='HK',rule_pack='hk-cable-bends-2026.11.10',
-            edition_decision=dict(edition='2025',source='synthetic'),bends={'feeder':classification})
+        classification_sources={'synthetic':limits['sources']['synthetic']};classification_id='synthetic'
+        if separate_hk_evidence:
+            classification_id='classification';classification['source']=classification_id
+            document=source/'classification-basis.txt'
+            document.write_text('Separate synthetic product classification and CoP 2025 edition selection; not manufacturer or statutory authentication.\n'+json.dumps(classification,indent=2),encoding='utf-8')
+            classification_sources={classification_id:dict(path=document.name,sha256=digest(document),locator='Explicit synthetic product, actual-diameter representation, construction and edition assumptions',kind='assumption')}
+        hk_basis=dict(version=1,sources=classification_sources,jurisdiction='HK',rule_pack='hk-cable-bends-2026.11.10',
+            edition_decision=dict(edition='2025',source=classification_id),bends={'feeder':classification})
         (source/'hk-basis.json').write_text(json.dumps(hk_basis,indent=2),encoding='utf-8')
     model_path = out / 'combined/model.ifc'
     model = ifcopenshell.open(str(model_path))
@@ -48,6 +55,7 @@ def run(out, python, graphviz=None, autocad=None, inside_limit=.28, route=False,
     pset = api.run('pset.add_pset', model, product=cable, name='BSA_CableSelection')
     api.run('pset.edit_pset', model, pset=pset, properties=dict(ProductReference='synthetic-cable-20',
         SourceSHA256=limits['sources']['synthetic']['sha256'], InstallationCondition='installed'))
+    if separate_hk_evidence:api.run('pset.edit_pset',model,pset=pset,properties=dict(ClassificationSourceSHA256=classification_sources[classification_id]['sha256']))
     model.write(str(model_path))
     binding['ifc_sha256'] = digest(model_path)
     (out / 'combined/binding.json').write_text(json.dumps(binding, indent=2), encoding='utf-8')
@@ -117,4 +125,5 @@ if __name__ == '__main__':
     parser.add_argument('--quarter-turn',action='store_true')
     parser.add_argument('--hk-sources',type=Path)
     parser.add_argument('--hk-unknown-construction',action='store_true')
+    parser.add_argument('--separate-hk-evidence',action='store_true')
     print(json.dumps(run(**vars(parser.parse_args()))['tasks']))

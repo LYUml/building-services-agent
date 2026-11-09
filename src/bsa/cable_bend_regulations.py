@@ -10,6 +10,12 @@ from .three_phase_ifc import inspect
 from .regulations import evaluate,source_paths
 
 
+def classification_source(metadata):
+    """An explicit classification slot never falls back to a different document."""
+    field='ClassificationSourceSHA256' if 'ClassificationSourceSHA256' in metadata else 'SourceSHA256'
+    return field,metadata.get(field)
+
+
 def prepare(path):
     path=Path(path).resolve();basis=json.loads(path.read_text(encoding='utf-8-sig'))
     fields(basis,'version sources jurisdiction rule_pack edition_decision bends')
@@ -53,7 +59,7 @@ def run(project,ifc,binding,basis,pack,sources,out):
     if not out.is_relative_to(ROOT) or out.exists() or any(out==Path(p) or out in Path(p).parents for p in before):raise ProjectError('new separate repository output required')
     bends={row['id']:row for row in geometry['lines'] if row['bend_radius_m'] is not None}
     if set(data['bends'])!=set(bends):raise ProjectError('exact saved bend/classification coverage required')
-    model=ifcopenshell.open(str(ifc));reports={};derived={}
+    model=ifcopenshell.open(str(ifc));reports={};derived={};associations={}
     rule=rule_pack['rules'][0];source_id=rule['source_id']
     def citation(name):return json.dumps(data['sources'][name],sort_keys=True)
     for name,observed in bends.items():
@@ -62,8 +68,12 @@ def run(project,ifc,binding,basis,pack,sources,out):
         if row['overall_diameter_is_actual'] is not True:pending.append('actual overall-diameter representation unresolved; nominal/unknown envelope cannot silently select a table band')
         if diameter is not None and row['overall_diameter_is_actual'] is True and not math.isclose(diameter,native_diameter,rel_tol=0,abs_tol=1e-9):raise ProjectError('saved envelope differs from sourced actual overall diameter')
         metadata=element.get_psets(model.by_guid(observed['element_guid'])).get('BSA_CableSelection',{})
-        if not row['product_reference'] or not metadata.get('ProductReference') or not metadata.get('SourceSHA256'):pending.append('native product/source correspondence unresolved')
-        elif metadata['ProductReference']!=row['product_reference'] or metadata['SourceSHA256']!=data['sources'][row['source']]['sha256']:raise ProjectError('native product/classification source identity differs')
+        field,classification_sha=classification_source(metadata)
+        if not row['product_reference'] or not metadata.get('ProductReference') or not isinstance(classification_sha,str) or not classification_sha.strip():pending.append('native product/source correspondence unresolved')
+        elif metadata['ProductReference']!=row['product_reference'] or classification_sha!=data['sources'][row['source']]['sha256']:raise ProjectError('native product/classification source identity differs')
+        associations[name]=dict(product_reference=metadata.get('ProductReference'),classification_metadata_field=field,
+            native_classification_sha256=classification_sha,declared_classification_sha256=data['sources'][row['source']]['sha256'],
+            native_product_limit_sha256=metadata.get('SourceSHA256'))
         facts={key:dict(value=row[key],source=proof) for key in ('wiring_scope_confirmed','low_voltage','pvc_insulated','stranded_copper','armoured')}
         facts['overall_diameter']=dict(value=diameter,unit='mm',source=proof)
         facts['internal_bend_radius']=dict(value=(observed['bend_radius_m']-observed['envelope_radius_m'])*1000,unit='mm',source='Saved native-checked centreline radius minus verified circular envelope radius; IFC SHA256 '+digest(ifc))
@@ -76,7 +86,7 @@ def run(project,ifc,binding,basis,pack,sources,out):
     statuses=[report['checks'][0]['status'] for report in reports.values()]
     status='fail' if 'review_required' in statuses else 'pass' if statuses and all(value=='pass' for value in statuses) else 'pending'
     if any((digest(Path(p)) if Path(p).is_file() else None)!=sha for p,sha in before.items()):raise ProjectError('cable regulation inputs changed during evaluation')
-    result=dict(status=status,inputs=before,inputs_unchanged=True,geometry_correspondence_pass=True,reports=reports,derived_inputs=derived,
+    result=dict(status=status,inputs=before,inputs_unchanged=True,geometry_correspondence_pass=True,reports=reports,derived_inputs=derived,source_associations=associations,
         manufacturer_selection_verified=False,regulatory_compliance='not_established',design_accepted=False,
         scope='Saved single-quarter cable geometry versus selected HK table with explicitly sourced classifications; evidence assertions, manufacturer/no-damage, numerical-study revision, workflow gates and full installation acceptance remain separate')
     out.mkdir(parents=True);(out/'cable-regulations.json').write_text(json.dumps(result,indent=2),encoding='utf-8')

@@ -1,0 +1,46 @@
+{
+  "scope": "Synthetic separate-document association only; real product authentication and full acceptance pending",
+  "tasks": {
+    "study": "pass",
+    "bend": "pass",
+    "coordination": "pass",
+    "hk-bend": "pass",
+    "drawing": "pass",
+    "review": "pending"
+  },
+  "integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "source_associations": {
+    "feeder": {
+      "product_reference": "synthetic-cable-20",
+      "classification_metadata_field": "ClassificationSourceSHA256",
+      "native_classification_sha256": "7e4a5f302b78507fcc29b511bcb999f09c38055add7fde6b87a06153aeec420a",
+      "declared_classification_sha256": "7e4a5f302b78507fcc29b511bcb999f09c38055add7fde6b87a06153aeec420a",
+      "native_product_limit_sha256": "2fe335191298e067854950e72aeb83a8adea37d7637827f45ac984cce60fe6a5"
+    }
+  },
+  "visual_review": {
+    "observed": "Actual PDF rendered and viewed; complete lead/quarter/tail, readable dimensions and source-box notes",
+    "design_accepted": false
+  },
+  "artifacts": {
+    "workflow-summary.json": "ab79ff798ef29ec79887560885d833811f59d2fc5c41a658c8b156b77a91724f",
+    "workflow\\hk-bend\\cable-regulations.json": "cc0c60420ebe17b363e951d567afa75991d9ad99f7cb68eb6bc2761bfab0ce99",
+    "workflow\\drawing\\native\\native-verification.json": "183d824c87497a89b54c31f86ba102fd2094f41bb9175eab2b4470924d006644",
+    "workflow\\drawing\\native\\sheet.pdf": "0f735e9dd910b29fb7170f7eb3bea24715b1947ada2507a299610397d724821c",
+    "sheet-review.png": "2f171c32606fdaffda1a025dd252ff8cf74680223f7b439dbf5939110ce9819c"
+  },
+  "validation": {
+    "native_official_binding_tests": 9,
+    "evidence_slot_tests": 4,
+    "workflow_binding_tests": 4,
+    "all_pass": true,
+    "skill_format": "pass",
+    "diff_check": "pass",
+    "scope": "Targeted tests only; no claim of full regression success"
+  }
+}
