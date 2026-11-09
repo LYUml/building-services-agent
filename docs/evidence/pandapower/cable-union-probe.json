@@ -1,0 +1,35 @@
+{
+  "scope": "Synthetic tangent quarter plus straight envelope; no Axis, ports, electrical binding or installation acceptance",
+  "inputs_kind": "assumption",
+  "schema_express_pass": true,
+  "single_connected_native_mesh_pass": true,
+  "analytic_length_m": 2.471238898038469,
+  "checks": {
+    "volume": true,
+    "bounds": true,
+    "centroid": true
+  },
+  "ifc_sha256": "369853931bf54a87b78db22fcc62f7721f5620bc896181bbbe9cda24ec793c37",
+  "probe_sha256": "c741d9203213187f37a9f95650bfec1961d2399b1218abb98c0c68c53c0e6e23",
+  "design_accepted": false,
+  "actual": {
+    "volume": 0.0007763485753805562,
+    "bounds": [
+      [
+        -2.0,
+        -0.009999968817693087,
+        -0.31
+      ],
+      [
+        0.31,
+        0.01,
+        0.0
+      ]
+    ],
+    "centroid": [
+      -0.7728852667996928,
+      -1.5754678641866375e-09,
+      -0.2792223127205918
+    ]
+  }
+}
