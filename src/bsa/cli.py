@@ -75,9 +75,27 @@ def main():
     for command in ("validate","run"):
         s=sub.add_parser(command);s.add_argument("project",type=Path)
         if command=="run": s.add_argument("--out",type=Path,required=True)
+    s=sub.add_parser("workflow",help="Execute a source-linked plan and retain dependency diagnosis")
+    s.add_argument("plan",type=Path)
+    s.add_argument("--out",type=Path,required=True)
+    for flag in ("energyplus","autocad","radiance-bin","ifcmcp-python"):
+        s.add_argument("--"+flag,type=Path)
     a=parser.parse_args()
     try:
-        if a.command=="validate":
+        if a.command=="workflow":
+            from .workflow import execute
+            from .workflow_status import diagnose
+            execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python)
+            diagnosis=diagnose(a.plan,a.out)
+            # Separate from immutable task artifacts: diagnosis binds workflow.json.
+            with (a.out/"diagnosis.json").open("x",encoding="utf-8") as stream:
+                json.dump(diagnosis,stream,ensure_ascii=False,indent=2)
+            print(json.dumps({"output":str(a.out.resolve()),
+                "report":str((a.out/"index.html").resolve()),
+                "diagnosis":str((a.out/"diagnosis.json").resolve()),
+                "execution_pass":diagnosis["execution_pass"],"design_accepted":False},indent=2))
+            return 0 if diagnosis["execution_pass"] else 2
+        elif a.command=="validate":
             validate(json.loads(a.project.read_text(encoding="utf-8-sig")))
             print("Valid electrical project; engineering acceptance not assessed.")
         else:

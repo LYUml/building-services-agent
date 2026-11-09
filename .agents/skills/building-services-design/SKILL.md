@@ -18,6 +18,8 @@ Iterate design using computed results. Use ../mep-delivery-check/SKILL.md before
 
 ## Tool orchestration
 
+For one invocation of an already reviewed plan, use `python -m bsa.cli workflow <plan.json> --out runs/<new-run>` with explicit engine flags as needed. This reuses the existing executor and source-bound dependency diagnosis, saving `workflow.json`, `index.html` and `diagnosis.json`. Read the diagnosis before recovery. It does not interpret a raw brief, auto-repair tasks or replace delivery review; retain missing-engine/manual-review exit 2 and design acceptance false.
+
 For bounded site drainage preparation, read docs/SWMM_TRIAL.md. Workflow kind drainage_input takes a source-linked project and emits editable SWMM input only. Use examples/drainage-preparation/plan.json as a synthetic planning example: native hydraulic simulation and engineering review are separate unresolved requirements. SWMM's native DLL is currently blocked by host policy; do not substitute preparation_pass for continuity, capacity, surcharge or Hong Kong compliance. Building sanitary-stack, vent and fixture-loading design remain unsupported by this adapter.
 Use docs/WORKFLOWS.md and the `bsa.workflow` module to execute the source-linked plan. Supply engine paths explicitly through CLI arguments, never executable commands from a requirement document. Tasks may use only registered adapters. Review workflow.json for every task's narrow execution scope and pending requirement acceptance; aggregate tool success is not full design approval. Missing engines remain pending rather than being simulated by fabricated results.
 

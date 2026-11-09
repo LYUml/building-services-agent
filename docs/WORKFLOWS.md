@@ -6,6 +6,14 @@ The host AI reads and interprets the user's brief. The deterministic workflow ru
 
 ## Commands
 
+The unified entry point executes an already interpreted source-linked plan, then validates the resulting evidence and saves `diagnosis.json` with dependency blockers:
+
+```powershell
+.venv/Scripts/python -m bsa.cli workflow examples/shared-lighting-plan.json --out runs/new-assignment
+```
+
+It accepts the same explicit `--autocad`, `--energyplus`, `--radiance-bin` and `--ifcmcp-python` paths as workflow execute. It does not discover runtimes, interpret the brief, repair failures or approve the design. Missing engines and manual review remain unresolved (exit 2); a successful execution still reports `design_accepted: false`. Use a new output directory for each attempt. `diagnosis.json` binds the source plan and workflow report hashes and is a derived handoff, not an additional engineering verification or authenticated evidence ledger.
+
 Any task may declare `"requires_pass": ["hk-check", "coordination-check"]` as additional execution prerequisites. Each ID must name a unique earlier task; forward references, cycles, self-references and malformed lists are rejected. All listed tasks must have execution status `pass` before the adapter is called. Otherwise the task stays pending, names its blockers and produces no task artifact directory. Independent tasks continue. These gates supplement adapter-specific `depends_on`/`ifc_from` artifact dependencies rather than replacing them.
 
 `workflow_status` includes these gates when tracing blockers and upstream action tasks. A gate is an explicitly selected narrow tool check, not whole-project approval. Known electrical/lighting consumers now require byte-identical project inputs to upstream electrical_regulations/lighting_regulations checks, and geometry too when both tasks consume it. Identical copies are allowed. Checks propagate through intermediate prerequisites and source-producing depends_on chains, including native drawing consumers. workflow.json records these source bindings. Changed inputs before a task prevent its adapter from executing. The plan author must still establish actual scope: this mechanism does not infer required jurisdiction rules, validate arbitrary cross-domain source correspondence or replace engineering review. For example, an `electrical_regulations` task and its gated `electrical` overlay should use the same electrical project file. The actual Hong Kong baseline/long-feeder execution evidence in `docs/evidence/workflow-gates` shows a permitted DXF run and a withheld DXF run, with full review pending in both.
