@@ -19,6 +19,8 @@ The synthetic office example produces traceable circuit calculations, an editabl
 
 Open this repository as the workspace. Ask the agent to use `$building-services-design` with your brief and original drawings. Project skills are in `.agents/skills`. The intake skill creates a requirement matrix before design; domain skills select the appropriate authoring and analysis tools. This repository uses the host agent's reasoning; it does not require or hide a separate paid model API.
 
+For assignments with separate rubrics or appendices, use repeated `bsa.workflow intake --supplement` arguments and the plan's `supplemental_briefs` contract. Every declared document receives source-bound passage coverage through execution and delivery review; missing or changed supplementary sources block the workflow. Interpretation, conflicts and undisclosed attachments still require agent review. See [document intake](docs/DOCUMENT_INTAKE.md).
+
 Use `$mep-revit` for the developing native Revit path and saved-inventory diagnostics. It distinguishes compiled adapters and synthetic checks from actual host execution, guides source/provenance and revision checks, and preserves unresolved connected-system, calculation, save/reopen and drawing acceptance. See [native Revit adapter](adapters/revit/README.md).
 
 Use `$mep-regulations` for jurisdiction/edition selection and supported source-bound rule checks. It routes Hong Kong electrical paths and office lighting to the appropriate tools, connects declared workflow prerequisites, and preserves missing regulatory coverage. Electrical and lighting skills use the same shared project sources; the delivery skill keeps supported checks separate from full conformity.

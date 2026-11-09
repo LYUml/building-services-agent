@@ -28,13 +28,28 @@ def passages(brief,ocr=None):
     return extract(brief,ocr)["passages"]
 
 
-def intake(brief,out,ocr=None):
+def intake(brief,out,ocr=None,supplements=None):
     brief,out=brief.resolve(),out.resolve()
     if out==brief:raise ProjectError("cannot overwrite brief")
     if out.exists():raise ProjectError("refusing to overwrite intake")
+    spec=dict(brief=brief.name,brief_sha256=digest(brief))
+    if ocr:
+        sidecar=ocr.resolve()
+        if not sidecar.is_relative_to(brief.parent):
+            if supplements:raise ProjectError('bundled OCR must be under brief directory')
+        else:spec.update(ocr=sidecar.relative_to(brief.parent).as_posix(),ocr_sha256=digest(sidecar))
+    if supplements:
+        spec['supplemental_briefs']=[]
+        for value in supplements:
+            value=value.resolve()
+            if not value.is_relative_to(brief.parent):raise ProjectError('supplement must be under brief directory')
+            spec['supplemental_briefs'].append(dict(brief=value.relative_to(brief.parent).as_posix(),brief_sha256=digest(value)))
     from .documents import extract
-    result=dict(brief=str(brief),brief_sha256=digest(brief),**extract(brief,ocr),
+    document=plan_documents(brief.parent,spec) if supplements else extract(brief,ocr)
+    if out in {Path(f) for f in document.get('supporting_files',[])}:raise ProjectError('cannot overwrite intake source')
+    result=dict(**spec,**document,
         interpretation_status="pending host-agent interpretation",requirements=[])
+    result['brief']=str(brief)
     out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
     return result
@@ -45,6 +60,42 @@ def local_path(root,value):
     path=(root/value).resolve()
     if not path.is_relative_to(root) or not path.is_file():raise ProjectError(f"invalid input path: {value}")
     return path
+
+
+def plan_documents(root,plan):
+    """Read every declared brief with independent identity and source coverage."""
+    from .documents import extract
+    extras=plan.get('supplemental_briefs',[])
+    if not isinstance(extras,list):raise ProjectError('supplemental_briefs must be a list')
+    specs=[plan]+extras
+    documents=[];seen=set();supporting=set()
+    for index,spec in enumerate(specs,1):
+        if not isinstance(spec,dict) or (index>1 and set(spec)-{'brief','brief_sha256','ocr','ocr_sha256'}):
+            raise ProjectError('supplement requires brief/hash and optional OCR/hash only')
+        path=local_path(root,spec.get('brief'))
+        if path in seen:raise ProjectError('duplicate brief document')
+        seen.add(path)
+        if digest(path)!=spec.get('brief_sha256'):raise ProjectError('brief hash differs; re-interpret current source')
+        ocr=local_path(root,spec['ocr']) if spec.get('ocr') else None
+        if ocr and digest(ocr)!=spec.get('ocr_sha256'):raise ProjectError('OCR sidecar changed; re-review transcription')
+        doc=extract(path,ocr)
+        supporting.add(str(path));supporting.update(doc.get('supporting_files',[]))
+        documents.append((path,doc))
+    if not extras:
+        return documents[0][1]
+    rows=[];issues=[];inventory=[]
+    for index,(path,doc) in enumerate(documents,1):
+        label=path.relative_to(root).as_posix()
+        prefix='' if index==1 else f'D{index:03}:'
+        inventory.append(dict(id=f'D{index:03}',path=label,sha256=digest(path),format=doc['format']))
+        for row in doc['passages']:
+            rows.append(dict(row,id=prefix+row['id'],source_document=label,source_sha256=digest(path)))
+        for issue in doc['issues']:
+            issues.append(dict(issue,id=prefix+issue['id'],locator=dict(issue['locator'],source_document=label)))
+    return dict(format='document-bundle',extractor_version='2',documents=inventory,
+        passages=rows,issues=issues,supporting_files=sorted(supporting),
+        coverage_status='blocked' if any(i['severity']=='blocking' for i in issues)
+        else 'needs review' if issues else 'text extracted')
 
 
 def regulatory_source_bindings(tasks,root):
@@ -178,11 +229,8 @@ def validate_plan(path):
     root=path.resolve().parent;p=read_json(path)
     if not isinstance(p,dict) or type(p.get("version")) is not int or p.get("version")!=1:raise ProjectError("plan version 1 required")
     brief=local_path(root,p.get("brief"))
-    if digest(brief)!=p.get("brief_sha256"):raise ProjectError("brief hash differs; re-interpret current source")
-    from .documents import extract,check_review
-    ocr=local_path(root,p['ocr']) if p.get('ocr') else None
-    if ocr and digest(ocr)!=p.get('ocr_sha256'):raise ProjectError('OCR sidecar changed; re-review transcription')
-    document=extract(brief,ocr)
+    from .documents import check_review
+    document=plan_documents(root,p)
     check_review(document,p.get("document_review",{}))
     source={x["id"]:x for x in document["passages"]}
     dispositions=p.get("passage_dispositions")
@@ -1026,7 +1074,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
         # An executed adapter is evidence for its narrow scope, not every interpreted requirement.
         evidence[t["id"]]=[f.relative_to(out).as_posix() for f in folder.rglob("*") if f.is_file()] if folder.exists() else []
     unchanged=all(f.is_file() and digest(f)==before[str(f)] for f in inputs)
-    source_rows={x["id"]:x for x in passages(local_path(root,p["brief"]),local_path(root,p['ocr']) if p.get('ocr') else None)}
+    source_rows={x["id"]:x for x in plan_documents(root,p)['passages']}
     matrix=[]
     for r in p["requirements"]:
         task=tasks[r["task"]]
@@ -1066,6 +1114,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__);sub=p.add_subparsers(dest="command",required=True)
     i=sub.add_parser("intake");i.add_argument("brief",type=Path);i.add_argument("--out",type=Path,required=True)
     i.add_argument('--ocr',type=Path)
+    i.add_argument('--supplement',type=Path,action='append',help='Additional brief/rubric under the main brief directory; repeatable')
     v=sub.add_parser("validate");v.add_argument("plan",type=Path)
     e=sub.add_parser("execute");e.add_argument("plan",type=Path);e.add_argument("--out",required=True,type=Path)
     e.add_argument("--energyplus",type=Path);e.add_argument("--autocad",type=Path)
@@ -1075,7 +1124,7 @@ def main():
     a=p.parse_args()
     try:
         if a.command=="intake":
-            r=intake(a.brief,a.out,a.ocr)
+            r=intake(a.brief,a.out,a.ocr,a.supplement)
             print(f"Indexed {len(r['passages'])} source passages; coverage: {r['coverage_status']}; interpretation pending")
             if r["coverage_status"]=="blocked":return 2
         elif a.command=="validate":validate_plan(a.plan);print("Source-linked plan valid; interpretation accuracy still requires review")

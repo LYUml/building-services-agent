@@ -26,6 +26,18 @@ OCR supplements pages that had no extractable text. Existing machine-readable pa
 
 For a plan with OCR, put the sidecar in the plan directory tree and specify `ocr` (relative path), `ocr_sha256` and the required `document_review` notes. Every page image must remain present under the sidecar directory with its recorded hash. Workflow execution includes the sidecar and page images in input integrity checks. A changed source, sidecar or image invalidates its bindings. Hashes do not prove that an externally authored sidecar is honest.
 
-## Evidence
+## Multiple source documents
+
+Keep the task brief, marking rubric and requirement-bearing appendices under the same project directory. Index them together:
+
+```powershell
+.venv/Scripts/python -m bsa.workflow intake project/brief.pdf --supplement project/rubric.docx --supplement project/appendix.md --out runs/project-intake.json
+```
+
+In the source-linked plan, retain the primary `brief`/`brief_sha256` and add `supplemental_briefs`, an ordered list of objects with `brief` and `brief_sha256`. Paths are relative to the plan directory and must stay inside it. Each supplemental entry may also declare its own `ocr` and `ocr_sha256` using the existing sidecar contract. CLI `--ocr` applies to the primary document; to index supplementary scans with OCR, use the plan contract and `plan_documents`, not an invented transcription. The intake CLI's supplemental paths must be inside the primary brief directory. Intake emits their relative paths/hashes; review them relative to the eventual plan location rather than copying paths blindly.
+
+The primary document retains `P001`/`I001` IDs. The second document uses `D002:P001`/`D002:I001`, and so on in declaration order. With supplements present, passage locators include `source_document` and `source_sha256`; Word/PDF-specific locators remain intact. Classify every document's passages and review every issue. Empty or blocked supplementary content blocks planning. Duplicate document paths and modified source bytes are rejected, and all declared documents/OCR images enter workflow integrity checks and delivery-review binding.
+
+Declaring the source list is still the agent's responsibility: the tool cannot detect an undisclosed appendix, decide whether two requirements conflict, or prove that a paragraph classified as context contains no requirement. Resolve conflicts using the actual assignment instructions; do not silently select the more convenient value. Reordering documents changes supplemental IDs, so regenerate intake and review the plan when changing the list.
 
 The existing synthetic AutoCAD output had no extractable text. Offline OCR recognized three label regions, but one included a circle symbol and some slashes became fullwidth. The agent inspected the rendered page and retained the raw errors, leaving transcription acceptance pending. See docs/evidence/document-intake. This is an OCR integration test, not proof of general drawing interpretation or Chinese/handwritten/formula recognition accuracy. Chinese text retention is covered by a Word parser fixture, not a Chinese OCR benchmark.

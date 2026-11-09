@@ -8,7 +8,7 @@ import re
 from pathlib import Path
 from .cli import digest
 from .engine import ProjectError
-from .workflow import validate_plan,verify,passages,local_path
+from .workflow import validate_plan,verify,plan_documents
 
 
 def fingerprint(requirement):
@@ -32,7 +32,7 @@ def context(plan,root):
     if len(by_id)!=len(recorded) or set(by_id)!={r['id'] for r in source['requirements']}:raise ProjectError('run requirement identities differ from plan')
     artifacts=report.get('artifact_hashes')
     if not isinstance(artifacts,dict):raise ProjectError('recorded artifact hashes required')
-    source_rows={r['id']:r for r in passages(local_path(plan.parent,source['brief']),local_path(plan.parent,source['ocr']) if source.get('ocr') else None)}
+    source_rows={r['id']:r for r in plan_documents(plan.parent,source)['passages']}
     for requirement in source['requirements']:
         row=by_id[requirement['id']]
         if any(row.get(key)!=value for key,value in requirement.items()):raise ProjectError('run requirement text/task differs from source plan')

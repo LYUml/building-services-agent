@@ -155,6 +155,12 @@ class DocumentTests(unittest.TestCase):
             self.assertEqual(doc['coverage_status'],'needs review')
             self.assertEqual(doc['passages'][0]['text'],'MCB 6 A')
             self.assertEqual(doc['passages'][0]['ocr_line'],1)
+            elsewhere=root/'sources'
+            elsewhere.mkdir()
+            copied=elsewhere/'scan.pdf'
+            copied.write_bytes(source.read_bytes())
+            indexed=intake(copied,root/'external-ocr-intake.json',sidecar)
+            self.assertEqual(indexed['passages'][0]['text'],'MCB 6 A')
             with self.assertRaises(ProjectError):check_review(doc,{})
             check_review(doc,{i['id']:'Source transcription explicitly reviewed' for i in doc['issues']})
             (root/'project.json').write_bytes((ROOT/'examples/office-electrical/project.json').read_bytes())

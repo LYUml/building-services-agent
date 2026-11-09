@@ -1,0 +1,48 @@
+{
+  "scope": "Executed synthetic multi-document CLI trial; not a completed assignment or hydraulic simulation",
+  "source_documents": [
+    {
+      "id": "D001",
+      "path": "brief.md",
+      "sha256": "fcd95f3797b8e179c8f1fc25fc8e6adec62188553616373ee13e8ba9ce4b10bd",
+      "format": "md"
+    },
+    {
+      "id": "D002",
+      "path": "rubric.md",
+      "sha256": "8480b6e0163154fc7ef826fac8bdb35d00fcc13e21a68339d35365b82d6b7865",
+      "format": "md"
+    }
+  ],
+  "passage_count": 3,
+  "requirement_count": 3,
+  "tasks": {
+    "prepare": {
+      "kind": "drainage_input",
+      "status": "pass",
+      "scope": "Prepared SI circular gravity-tree input with constant dry-weather inflows and FREE outfall; no hydraulic result or HK compliance; model preparation only, native parse and simulation unverified"
+    },
+    "hydraulic-review": {
+      "kind": "manual",
+      "status": "pending",
+      "scope": "Native SWMM parse/solve, continuity/capacity/surcharge evidence required; host currently blocks swmm5.dll"
+    }
+  },
+  "review_statuses": [
+    {
+      "id": "R1",
+      "status": "pending"
+    },
+    {
+      "id": "R2",
+      "status": "pending"
+    },
+    {
+      "id": "R3",
+      "status": "pending"
+    }
+  ],
+  "workflow_sha256": "b7eff3836152cf52ec4702afbfbc6b5d501d903ed38ce2c7a27b950758019913",
+  "plan_sha256": "dea4170782ea3df1b3957714e66c9c41361b95c6e87f9b792dfb521e5b96bdb5",
+  "design_accepted": false
+}
