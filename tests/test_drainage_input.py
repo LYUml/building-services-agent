@@ -11,6 +11,22 @@ EXAMPLE=ROOT/'examples/drainage-preparation/project.json'
 
 
 class DrainagePreparationTests(unittest.TestCase):
+    def test_initial_state_is_explicit_and_crown_cannot_change_node_depth(self):
+        data=json.loads(EXAMPLE.read_text())
+        data['junctions'][0].update(initial_depth_m=0.1,surcharge_depth_m=0.4)
+        data['conduits'][0]['initial_flow_lps']=0.5
+        text,_=compile_input(data)
+        self.assertIn('J1 10 2 0.1 0.4 0',text)
+        self.assertIn('C1 J1 J2 20 0.013 0 0 0.5 0',text)
+        data['junctions'][0]['maximum_depth_m']=0.14
+        with self.assertRaisesRegex(ProjectError,'crown'):compile_input(data)
+        data['junctions'][0]['maximum_depth_m']=2
+        data['junctions'][0]['initial_depth_m']=2.5
+        with self.assertRaisesRegex(ProjectError,'initial depth'):compile_input(data)
+        data['junctions'][0]['initial_depth_m']=0
+        del data['conduits'][0]['initial_flow_lps']
+        with self.assertRaises(ProjectError):compile_input(data)
+
     def test_si_units_offsets_and_no_simulation_claim(self):
         data=json.loads(EXAMPLE.read_text());data['conduits'][0]['inlet_offset_m']=0.1
         text,geometry=compile_input(data)

@@ -16,14 +16,18 @@
       "invert_m": 10,
       "maximum_depth_m": 2,
       "dry_weather_flow_lps": 2,
-      "source": "demo"
+      "source": "demo",
+      "initial_depth_m": 0,
+      "surcharge_depth_m": 0
     },
     {
       "id": "J2",
       "invert_m": 9.8,
       "maximum_depth_m": 2,
       "dry_weather_flow_lps": 1,
-      "source": "demo"
+      "source": "demo",
+      "initial_depth_m": 0,
+      "surcharge_depth_m": 0
     }
   ],
   "outfall": {
@@ -42,7 +46,8 @@
       "manning_n": 0.013,
       "inlet_offset_m": 0,
       "outlet_offset_m": 0,
-      "source": "demo"
+      "source": "demo",
+      "initial_flow_lps": 0
     },
     {
       "id": "C2",
@@ -53,7 +58,8 @@
       "manning_n": 0.013,
       "inlet_offset_m": 0,
       "outlet_offset_m": 0,
-      "source": "demo"
+      "source": "demo",
+      "initial_flow_lps": 0
     }
   ]
 }

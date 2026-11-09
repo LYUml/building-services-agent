@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Drainage preparation now requires explicit initial node depths, surcharge allowances and initial conduit flows. Inconsistent initial depths or conduit crowns above declared junction depths are rejected before input generation; five preparation/workflow tests pass. Native SWMM parsing and simulation are still unverified.
+
 Drainage input preparation now participates in source-linked workflows. A two-requirement synthetic brief executes input generation while keeping native hydraulic acceptance pending; invalid-source geometry blocks downstream review, changed bytes fail integrity, and delivery review remains incomplete. This is preparation integration, not a verified SWMM simulation adapter.
 
 A source-linked SWMM input preparer now emits editable SI circular gravity-tree models with explicit dry-weather inflows, offsets, free boundary and recorded assumptions. Geometry/source/topology rejection tests and actual synthetic input generation pass. Native parser/simulation remain unverified under the current host restriction; no drainage capacity or compliance is claimed (SWMM_TRIAL.md).

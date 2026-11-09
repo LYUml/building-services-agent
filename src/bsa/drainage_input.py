@@ -49,8 +49,12 @@ def compile_input(data):
     if not isinstance(nodes, list) or not nodes:raise ProjectError('junctions required')
     by_id = {}
     for node in nodes:
-        exact(node, 'id invert_m maximum_depth_m dry_weather_flow_lps source'); sourced(node); identity(node)
+        exact(node, 'id invert_m maximum_depth_m initial_depth_m surcharge_depth_m dry_weather_flow_lps source'); sourced(node); identity(node)
         number(node['invert_m'], 'invert');number(node['maximum_depth_m'], 'maximum depth', positive=True)
+        number(node['initial_depth_m'], 'initial depth', 0)
+        number(node['surcharge_depth_m'], 'surcharge depth', 0)
+        if node['initial_depth_m'] > node['maximum_depth_m'] + node['surcharge_depth_m']:
+            raise ProjectError('initial depth exceeds declared node depth and surcharge allowance')
         number(node['dry_weather_flow_lps'], 'dry weather flow', 0)
         by_id[node['id']] = node
     outlet = data['outfall']
@@ -62,15 +66,20 @@ def compile_input(data):
     if not isinstance(pipes, list) or not pipes:raise ProjectError('conduits required')
     downstream = {}; slopes = []
     for pipe in pipes:
-        exact(pipe, 'id from to length_m diameter_m manning_n inlet_offset_m outlet_offset_m source')
+        exact(pipe, 'id from to length_m diameter_m manning_n inlet_offset_m outlet_offset_m initial_flow_lps source')
         sourced(pipe);identity(pipe)
         a,b=pipe['from'],pipe['to']
         if not isinstance(a,str) or not isinstance(b,str) or a not in by_id or b not in by_id or a==b or a==outlet['id'] or a in downstream:
             raise ProjectError('supported directed tree requires valid unique downstream connection')
         for key in ('length_m','diameter_m','manning_n'):number(pipe[key],key,positive=True)
         for key in ('inlet_offset_m','outlet_offset_m'):number(pipe[key],key,0)
+        number(pipe['initial_flow_lps'], 'initial conduit flow', 0)
+        for node_id, offset in ((a,pipe['inlet_offset_m']),(b,pipe['outlet_offset_m'])):
+            if node_id != outlet['id'] and offset + pipe['diameter_m'] > by_id[node_id]['maximum_depth_m']:
+                raise ProjectError('conduit crown exceeds declared junction depth; no implicit depth adjustment allowed')
         fall = by_id[a]['invert_m']+pipe['inlet_offset_m']-by_id[b]['invert_m']-pipe['outlet_offset_m']
-        if fall <= 0:raise ProjectError('strictly falling gravity conduit required by this compiler scope')
+        number(fall,'invert fall',positive=True)
+        number(fall/pipe['length_m'],'conduit slope',positive=True)
         downstream[a]=b
         slopes.append(dict(id=pipe['id'],invert_fall_m=fall,slope=fall/pipe['length_m']))
     if sum(p['to']==outlet['id'] for p in pipes)!=1:raise ProjectError('single conduit at outfall required')
@@ -85,9 +94,9 @@ def compile_input(data):
            'REPORT_START_DATE '+start.strftime('%m/%d/%Y'),'REPORT_START_TIME '+start.strftime('%H:%M:%S'),
            'END_DATE '+end.strftime('%m/%d/%Y'),'END_TIME '+end.strftime('%H:%M:%S'),
            'ROUTING_STEP '+str(sim['routing_step_s']),'REPORT_STEP '+clock(sim['report_step_s']), '', '[JUNCTIONS]']
-    lines += [f"{n['id']} {n['invert_m']} {n['maximum_depth_m']} 0 0 0" for n in nodes]
+    lines += [f"{n['id']} {n['invert_m']} {n['maximum_depth_m']} {n['initial_depth_m']} {n['surcharge_depth_m']} 0" for n in nodes]
     lines += ['', '[OUTFALLS]', f"{outlet['id']} {outlet['invert_m']} FREE NO",'', '[CONDUITS]']
-    lines += [' '.join(str(p[k]) for k in ('id','from','to','length_m','manning_n','inlet_offset_m','outlet_offset_m'))+' 0 0' for p in pipes]
+    lines += [' '.join(str(p[k]) for k in ('id','from','to','length_m','manning_n','inlet_offset_m','outlet_offset_m','initial_flow_lps'))+' 0' for p in pipes]
     lines += ['', '[XSECTIONS]']+[f"{p['id']} CIRCULAR {p['diameter_m']} 0 0 0 1" for p in pipes]
     lines += ['', '[DWF]']+[f"{n['id']} FLOW {n['dry_weather_flow_lps']}" for n in nodes]
     lines += ['', '[REPORT]', 'INPUT YES', 'CONTINUITY YES', 'FLOWSTATS YES', 'NODES ALL', 'LINKS ALL']
@@ -104,7 +113,7 @@ def run(project, out):
     report=dict(inputs={str(project):before},artifacts={'network.inp':digest(inp)},
         conduit_geometry=slopes,source_references=data['sources'],preparation_pass=True,
         native_parse_verified=False,simulation_executed=False,design_accepted=False,
-        assumptions=['initially dry nodes and conduits','zero extra surcharge depth and no surface ponding',
+        assumptions=['initial depths, surcharge allowances and initial conduit flows are explicit sourced inputs', 'no surface ponding',
                      'one barrel per circular conduit','no flap gate, local losses, rainfall, infiltration or flow patterns',
                      'other engine numerical options remain upstream defaults; review before simulation'],
         scope='Prepared SI circular gravity-tree input with constant dry-weather inflows and FREE outfall; no hydraulic result or HK compliance')
