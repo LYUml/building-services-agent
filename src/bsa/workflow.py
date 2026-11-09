@@ -11,7 +11,7 @@ from pathlib import Path
 from .cli import digest
 from .engine import ProjectError
 
-IFC_ARTIFACTS={'connector_ports':'placed-connector.ifc','cad_ifc':'fitting.ifc','product_ports':'placed-fitting.ifc','tee_selection':'selected/assembly/assembly.ifc','tee_assembly':'assembly.ifc','ifc_metadata':'native/model.ifc','selected_pump_ifc':'selected-model.ifc','regulated_water_model':'selected-coordination/bim/model.ifc','annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
+IFC_ARTIFACTS={'product_alignment':'alignment.ifc','connector_ports':'placed-connector.ifc','cad_ifc':'fitting.ifc','product_ports':'placed-fitting.ifc','tee_selection':'selected/assembly/assembly.ifc','tee_assembly':'assembly.ifc','ifc_metadata':'native/model.ifc','selected_pump_ifc':'selected-model.ifc','regulated_water_model':'selected-coordination/bim/model.ifc','annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
                'route_model':'bound/bim/model.ifc','route_optimize':'selected/bound/bim/model.ifc',
                'network_model_design':'selected-coordination/bim/model.ifc',
                'electrical_coordination':'bim/model.ifc','electrical_lighting':'shared/bim/model.ifc','pump_electrical':'model.ifc','water_coordination':'model.ifc'}
@@ -60,7 +60,7 @@ def regulatory_source_bindings(tasks,root):
     for task in tasks:
         name=task['id'];kind=task['kind']
         parents=[p for p in task.get('requires_pass',[]) if p in known]
-        parents += [task[k] for k in ('depends_on','ifc_from') if isinstance(task.get(k),str) and task[k] in known]
+        parents += [task[k] for k in ('depends_on','ifc_from','junction_from','connector_from') if isinstance(task.get(k),str) and task[k] in known]
         upstream=set(parents)
         for parent in parents:upstream.update(ancestors[parent])
         ancestors[name]=upstream
@@ -142,7 +142,7 @@ def inventory_source_bindings(tasks,root):
         if type(refresh) is not bool or 'refresh_inventory' in task and task['kind']!='ifc_query':
             raise ProjectError('refresh_inventory is a Boolean option on ifc_query only')
         parents=set(task.get('requires_pass',[]))
-        parents.update(task[k] for k in ('depends_on','ifc_from') if isinstance(task.get(k),str))
+        parents.update(task[k] for k in ('depends_on','ifc_from','junction_from','connector_from') if isinstance(task.get(k),str))
         parents &= known.keys()
         upstream=set(parents)
         for parent in parents:upstream.update(ancestors[parent])
@@ -202,10 +202,24 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind=="water_network" and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
+        if kind=='product_alignment':
+            if set(t)-{'id','kind','junction_from','connector_from','basis','requires_pass','description'}:
+                raise ProjectError('alignment inherits source placement tasks; replacement inputs forbidden')
+            for field,expected in (('junction_from','product_ports'),('connector_from','connector_ports')):
+                parent=t.get(field)
+                if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!=expected:
+                    raise ProjectError('alignment requires earlier matching placement producers')
+            inputs.add(local_path(root,t.get('basis')))
+        if kind=='alignment_native':
+            if set(t)-{'id','kind','depends_on','requires_pass','description'}:
+                raise ProjectError('native comparison inherits alignment and both source bundles')
+            parent=t.get('depends_on')
+            if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='product_alignment':
+                raise ProjectError('native comparison requires earlier product alignment')
         if kind=='cad_ifc':
             if set(t)-{'id','kind','drawing','basis','requires_pass','description'}:
                 raise ProjectError('CAD IFC uses explicit drawing/basis and the workflow engine only')
@@ -652,6 +666,29 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     payload=run(source,local_path(root,t['settings']),folder)
                     status='pass' if payload['calculated_checks_pass'] else 'fail'
                     reason='saved hollow profiles and ports reconciled to schedule/projected centreline DXF; native and installation drawing acceptance pending'
+            elif t['kind']=='product_alignment':
+                parents=[t['junction_from'],t['connector_from']]
+                if any(tasks[x]['status']!='pass' for x in parents):
+                    reason='source placements did not pass; alignment not executed'
+                else:
+                    from .product_alignment import run
+                    payload=run(out/parents[0],out/parents[1],local_path(root,t['basis']),folder)
+                    status='pass' if payload['calculated_checks_pass'] else 'fail'
+                    reason='saved product alignment and mesh overlap checked; native comparison and installation acceptance separate'
+            elif t['kind']=='alignment_native':
+                parent=t['depends_on'];report=out/parent/'alignment.json'
+                if tasks[parent]['status'] not in ('pass','fail') or not report.is_file():
+                    reason='no executed alignment diagnostic available'
+                elif read_json(report).get('model_alignment_pass') is not True:
+                    reason='source model alignment did not pass; native comparison not executed'
+                elif not autocad:
+                    reason='AutoCAD executable not supplied for alignment diagnostic'
+                else:
+                    from .alignment_native import run
+                    producer=next(x for x in p['tasks'] if x['id']==parent)
+                    payload=run(out/parent,out/producer['junction_from'],out/producer['connector_from'],folder,autocad)
+                    status='pass' if payload['native_clear'] and payload['mesh_calculated_checks_pass'] else 'fail'
+                    reason='source-bound native/mesh comparison; disagreements retained and engineering acceptance pending'
             elif t['kind']=='cad_ifc':
                 if not autocad:reason='AutoCAD executable not supplied; CAD IFC conversion not executed'
                 else:

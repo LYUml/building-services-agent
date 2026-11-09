@@ -1,0 +1,45 @@
+{
+  "tasks": {
+    "tee_convert": {
+      "kind": "cad_ifc",
+      "status": "pass",
+      "scope": "source-bound tessellated IFC conversion; ports, product and engineering acceptance separate"
+    },
+    "tee_place": {
+      "kind": "product_ports",
+      "status": "pass",
+      "scope": "source-anchored placed model ports and saved-IFC probe checks; physical joints, external network and engineering acceptance pending"
+    },
+    "connector_convert": {
+      "kind": "cad_ifc",
+      "status": "pass",
+      "scope": "source-bound tessellated IFC conversion; ports, product and engineering acceptance separate"
+    },
+    "connector_place": {
+      "kind": "connector_ports",
+      "status": "pass",
+      "scope": "source CAD model-node placement verified; installed gap, physical joints and engineering acceptance pending"
+    },
+    "align": {
+      "kind": "product_alignment",
+      "status": "fail",
+      "scope": "saved product alignment and mesh overlap checked; native comparison and installation acceptance separate"
+    },
+    "native": {
+      "kind": "alignment_native",
+      "status": "fail",
+      "scope": "source-bound native/mesh comparison; disagreements retained and engineering acceptance pending"
+    },
+    "release": {
+      "kind": "ifc_preview",
+      "status": "pending",
+      "scope": "required checks unresolved: native (fail); adapter not executed"
+    }
+  },
+  "integrity_pass": true,
+  "execution_pass": false,
+  "native_clear": true,
+  "mesh_overlap_m3": 2.6501259276899105e-09,
+  "downstream_release_not_executed": true,
+  "design_accepted": false
+}
