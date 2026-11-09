@@ -1,5 +1,7 @@
 # Native Revit adapter (development)
 
+Current live status: Revit discovered and registered the inventory command in-session, and the user-authorized Load Once action was accepted. Actual invocation then triggered Windows Application Control: Code Integrity events 3077/3033 identify Bsa.Revit.dll as failing Enterprise signing requirements. Authenticode reports NotSigned. No inventory was produced. Evidence: ../../docs/evidence/moosas-review/revit-native-policy-block.json. Compilation, manifest parsing and button registration must not be reported as executable native integration. Do not retry via another loader, move the DLL to evade policy, or change security settings. A supported signing/deployment route requires the applicable policy's approved trust basis; adding a self-signed certificate alone does not establish it.
+
 Original source; uses Autodesk's installed proprietary RevitAPI/RevitAPIUI references without redistributing them. API usage follows the official [Pipe.Create reference](https://help.autodesk.com/cloudhelp/2026/ENU/Revit-API-MainReference/files/html/9550265f-5760-3c28-d023-d0373285855b.htm); compilation checks against local 2027 binaries. Upstream bridge and plumbing-project research attribution is in ../../docs/REVIT_MOOSAS_DIRECTION.md; no upstream implementation copied.
 
 The locally installed Microsoft .NET SDK 10.0.403 archive was SHA512-checked against official release metadata. It resides only in ignored tools, with its bundled licences/notices retained. From this directory:

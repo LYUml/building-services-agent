@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "utc": "2026-11-09T15:11:43.6230422Z",
+      "Id": 3077,
+      "Message": "Code Integrity determined that a process (\\Device\\HarddiskVolume2\\Program Files\\Autodesk\\Revit 2027\\Revit.exe) attempted to load \\Device\\HarddiskVolume2\\Users\\lyuml-win\\Desktop\\building-services-agent\\adapters\\revit\\bin\\Release\\net10.0-windows\\Bsa.Revit.dll that did not meet the Enterprise signing level requirements or violated code integrity policy (Policy ID:{0283ac0f-fff1-49ae-ada1-8a933130cad6})."
+    },
+    {
+      "utc": "2026-11-09T15:11:43.6228608Z",
+      "Id": 3033,
+      "Message": "Code Integrity determined that a process (\\Device\\HarddiskVolume2\\Program Files\\Autodesk\\Revit 2027\\Revit.exe) attempted to load \\Device\\HarddiskVolume2\\Users\\lyuml-win\\Desktop\\building-services-agent\\adapters\\revit\\bin\\Release\\net10.0-windows\\Bsa.Revit.dll that did not meet the Enterprise signing level requirements."
+    },
+    {
+      "utc": "2026-11-09T15:11:42.7381700Z",
+      "Id": 3077,
+      "Message": "Code Integrity determined that a process (\\Device\\HarddiskVolume2\\Program Files\\Autodesk\\Revit 2027\\Revit.exe) attempted to load \\Device\\HarddiskVolume2\\Users\\lyuml-win\\Desktop\\building-services-agent\\adapters\\revit\\bin\\Release\\net10.0-windows\\Bsa.Revit.dll that did not meet the Enterprise signing level requirements or violated code integrity policy (Policy ID:{0283ac0f-fff1-49ae-ada1-8a933130cad6})."
+    }
+  ],
+  "native_inventory_executed": false,
+  "assembly_sha256": "2f471e436a1c4fc84c0acb4163fe9889d5489e2971bea3bcb08bce8b466aedea",
+  "signature_status": "NotSigned",
+  "design_accepted": false,
+  "scope": "Actual Revit native command load attempt",
+  "host_discovered": true
+}
