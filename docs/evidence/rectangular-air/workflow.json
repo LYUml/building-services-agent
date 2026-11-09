@@ -1,0 +1,110 @@
+{
+  "scope": "Actual synthetic rectangular air-tree pressure workflows; no geometry, fan selection or Hong Kong acceptance",
+  "positive_tasks": [
+    {
+      "id": "air",
+      "kind": "rectangular_network",
+      "status": "pass",
+      "recorded_scope": "Prescribed level constant-density air withdrawals; rectangular actual area and turbulent hydraulic-diameter approximation; no loops, flow balancing or fan operating point; geometry, product and Hong Kong acceptance pending",
+      "dependencies": [],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R1"
+      ],
+      "evidence": [
+        "air/manifest.json",
+        "air/network.json",
+        "air/report.html",
+        "air/segments.csv"
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "Independent geometry, fitting, fan, acoustic, fire/smoke and Hong Kong acceptance remains pending",
+      "dependencies": [
+        "air"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "review"
+      ],
+      "input_blockers": [],
+      "next_action": "perform the specified review and record evidence separately",
+      "requirement_ids": [
+        "R2"
+      ],
+      "evidence": []
+    }
+  ],
+  "negative_tasks": [
+    {
+      "id": "air",
+      "kind": "rectangular_network",
+      "status": "fail",
+      "recorded_scope": "Prescribed level constant-density air withdrawals; rectangular actual area and turbulent hydraulic-diameter approximation; no loops, flow balancing or fan operating point; geometry, product and Hong Kong acceptance pending",
+      "dependencies": [],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "air"
+      ],
+      "input_blockers": [],
+      "next_action": "inspect retained failure evidence and correct source or adapter before a new run",
+      "requirement_ids": [
+        "R1"
+      ],
+      "evidence": [
+        "air/manifest.json",
+        "air/network.json",
+        "air/report.html",
+        "air/segments.csv"
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "required checks unresolved: air (fail); adapter not executed",
+      "dependencies": [
+        "air"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [
+        "air"
+      ],
+      "upstream_action_tasks": [
+        "air"
+      ],
+      "input_blockers": [],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R2"
+      ],
+      "evidence": []
+    }
+  ],
+  "positive_required_source_total_pressure_pa": 72.98525139041898,
+  "fluids_version": "1.3.1",
+  "independent_checks": "Actual rectangular area, hydraulic diameter, Colebrook implicit residual, Darcy friction, branch continuity and path pressure in tests",
+  "tests": {
+    "rectangular": 8,
+    "circular_network": 7,
+    "network_design": 7,
+    "workflow_status": 7,
+    "all_pass": true
+  },
+  "design_accepted": false,
+  "artifacts": {
+    "runs\\rectangular-air-workflow-v1\\workflow.json": "cd0eb370c842f18b03087e0863c92d7ac427e9bdaeb73cae3c0f9a33188f1da5",
+    "runs\\rectangular-air-workflow-v1\\air\\network.json": "121ae287c865b30dd05333986644787de767d9ef8afb85930c8dcfe47e166b1f",
+    "runs\\rectangular-air-negative-v1\\execution\\workflow.json": "f0b35118757a7e73d1fc6e473ccc2cd37b3b32e14d6b84c6ad36dbc1c74f5d12",
+    "runs\\rectangular-air-negative-v1\\execution\\air\\network.json": "8d17443a285dc45854c87640af0b3eff7945719b8f90bd3cdb7e4cda1ea6bc76"
+  }
+}

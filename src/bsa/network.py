@@ -81,6 +81,10 @@ def friction_factor(reynolds,relative_roughness):
 
 
 def calculate(p):
+    return _calculate(p)
+
+
+def _calculate(p,section=None,turbulent_only=False):
     p,nodes,incoming,outgoing,order=validate(p)
     rho=p['fluid']['density_kg_m3'];mu=p['fluid']['dynamic_viscosity_pa_s']
     flow={id:n['demand_m3_s'] for id,n in nodes.items()}
@@ -89,9 +93,11 @@ def calculate(p):
     results=[]
     for id in order[1:]:
         s=incoming[id];parent=s['from'];q=flow[id]
-        area=math.pi*s['diameter_m']**2/4;velocity=q/area
+        area=math.pi*s['diameter_m']**2/4 if section is None else section[s['id']]
+        velocity=q/area
         re=rho*velocity*s['diameter_m']/mu
         if not all(math.isfinite(v) for v in (q,area,velocity,re)):raise ProjectError('derived flow inputs overflowed')
+        if turbulent_only and 0<re<4000:raise ProjectError('rectangular duct requires turbulent Re>=4000; circular laminar law cannot be substituted')
         factor,regime=friction_factor(re,s['roughness_m']/s['diameter_m'])
         dynamic=rho*velocity**2/2
         major=factor*s['length_m']/s['diameter_m']*dynamic
@@ -123,14 +129,18 @@ def calculate(p):
 
 
 def run(project,out):
+    return _run(project,out,calculate)
+
+
+def _run(project,out,calculator):
     import importlib.metadata
     project,out=project.resolve(),out.resolve()
     if out==project or out in project.parents:raise ProjectError('output must not contain source')
     before=digest(project);p=json.loads(project.read_text(encoding='utf-8-sig'))
-    result=calculate(p)
+    result=calculator(p)
     result.update(input_sha256=before,fluids_version=importlib.metadata.version('fluids'),sources=p['sources'],
-        methods=['Darcy-Weisbach: f_D L/D rho v^2/2','Fittings: K rho v^2/2 using local segment velocity',
-                 'Elevation: rho g dz, g=9.80665 m/s2','https://fluids.readthedocs.io/fluids.friction.html'])
+        methods=result.get('methods',['Darcy-Weisbach: f_D L/D rho v^2/2','Fittings: K rho v^2/2 using local segment velocity',
+                 'Elevation: rho g dz, g=9.80665 m/s2','https://fluids.readthedocs.io/fluids.friction.html']))
     out.mkdir(parents=True,exist_ok=False)
     (out/'network.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
     with (out/'segments.csv').open('w',newline='',encoding='utf-8') as f:

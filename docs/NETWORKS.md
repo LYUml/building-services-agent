@@ -23,6 +23,8 @@ Every non-source node has one parent. Cycles, disconnected components, duplicate
 
 ## Methods and pressure basis
 
+For the separate level rectangular air-tree adapter see RECTANGULAR_AIR_NETWORKS.md. It reuses budget/topology logic with actual rectangular area and a sourced turbulent hydraulic-diameter approximation; the circular input contract above is unchanged. Rectangular projects cannot be submitted to the circular network or sizing/model-binding adapters.
+
 Continuity gives each segment the sum of downstream prescribed withdrawals. Circular area is pi D squared /4, velocity is Q/A and Reynolds number is rho v D/mu. Darcy factor is 64/Re below Re=2000. Re from 2000 inclusive to 4000 exclusive is rejected as transitional; no silent turbulent or interpolation assumption is applied. At Re>=4000 the pinned fluids library solves Colebrook with relative roughness epsilon/D.
 
 Friction loss is f_D L/D times rho v squared /2; minor loss is K times the same local segment velocity pressure. K must be supplied for that reference velocity. Fittings at diameter changes and branch junctions need consistent source data, not a universal guessed K. Elevation contributes rho g dz with conventional g=9.80665 m/s2 and its sign retained.

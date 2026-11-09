@@ -62,6 +62,8 @@ The requested end state is reusable automation from a requirement document and s
 
 ## Next sequence
 
+Rectangular level air-tree pressure budgets now reuse pinned fluids and existing tree logic with actual area and turbulent hydraulic diameter. Eight new tests plus 21 related regression tests pass; actual positive/insufficient-pressure workflows preserve full review and downstream gates. Saved duct geometry, sizing/fan selection, real applicability and Hong Kong requirements remain pending (RECTANGULAR_AIR_NETWORKS.md).
+
 Source-linked plan bootstrap now preserves all extracted primary/supplement passages as explicitly blocked interpretation requirements through the existing parser and workflow schema. Six bootstrap and three unified CLI tests pass; actual two-passage synthetic brief execution stays pending with source-linked actions and review. This reduces manual plan scaffolding, not semantic interpretation, adapter selection or engineering delivery. Evidence: evidence/document-intake/plan-bootstrap.json.
 
 The existing one-invocation workflow now emits a deduplicated source-bound recovery action queue with affected tasks and full requirements, retaining separate manual review and stale-evidence rejection. Actual missing-runtime execution and 20 related tests pass; no automatic repair, raw-brief plan generation or full assignment acceptance is established. Evidence: evidence/workflow-recovery/actions.json.
