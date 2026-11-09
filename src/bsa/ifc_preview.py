@@ -62,14 +62,14 @@ def run(ifc, guid, out):
     colours = plt.get_cmap('tab10')
     for i, (title, elev, azim) in enumerate((('Isometric',25,-55),('XY / looking down Z',90,-90),
                                             ('XZ / looking along Y',0,-90),('YZ / looking along X',0,0)), 1):
-        ax = fig.add_subplot(2, 2, i, projection='3d', proj_type='ortho')
+        ax = fig.add_subplot(2, 2, i, projection='3d', proj_type='ortho', computed_zorder=False)
         ax.add_collection3d(Poly3DCollection((vertices-centre)[faces], facecolors='#9bb5c9', shade=True,
-                                           linewidth=0, alpha=1, antialiased=False))
+                                           linewidth=0, alpha=1, antialiased=False, zorder=1))
         for j, p in enumerate(ports):
             pt = np.array(p['position_m'])-centre; direction = np.array(p['axis'])*arrow_length
-            ax.scatter(*pt, color=colours(j%10), s=28, depthshade=False)
-            ax.quiver(*pt, *direction, color=colours(j%10), arrow_length_ratio=.2, linewidth=2)
-            ax.text(*(pt+direction*1.15), str(j+1), color=colours(j%10), fontsize=11)
+            ax.scatter(*pt, color=colours(j%10), s=28, depthshade=False, zorder=10)
+            ax.quiver(*pt, *direction, color=colours(j%10), arrow_length_ratio=.2, linewidth=2, zorder=10)
+            ax.text(*(pt+direction*1.15), str(j+1), color=colours(j%10), fontsize=11, zorder=11)
         for setter in (ax.set_xlim, ax.set_ylim, ax.set_zlim): setter(-radius, radius)
         ax.set_box_aspect((1,1,1)); ax.view_init(elev=elev, azim=azim)
         ax.set_title(title); ax.set_xlabel('X offset (m)'); ax.set_ylabel('Y offset (m)'); ax.set_zlabel('Z offset (m)')

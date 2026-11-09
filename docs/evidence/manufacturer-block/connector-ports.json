@@ -1,0 +1,35 @@
+{
+  "scope": "Source CAD node anchors with synthetic rigid project placement; not installed joint acceptance",
+  "checks": {
+    "port_coverage": true,
+    "tessellation_preserved": true,
+    "placement": true,
+    "connector_type": true,
+    "no_external_connections": true,
+    "port_node-a": true,
+    "port_node-b": true,
+    "world_volume": true,
+    "world_bounds": true,
+    "world_centroid": true
+  },
+  "source_node_separation_m": 0.000762,
+  "source_axis_handle": "6D",
+  "selected_point_handles": [
+    "75",
+    "71"
+  ],
+  "ifc_sha256": "fd867462744aebda855aecf7063e91404e9ea43ac3f51fae9a55e8d5f00c8f12",
+  "report_sha256": "82724b49ea644b35d7091fcdec4f57113c4f855572792a791bd042981510c838",
+  "schema_statements": 0,
+  "revision_product_and_port_guids_stable": true,
+  "duplicate_position_rejected": true,
+  "preview_sha256": "5418d03ef8bfa3595b2812a1fedca84e213ed47257466b87da6793c44ae9fd72",
+  "visual_review": "Actual PNG inspected after overlay correction: numbered axes and legend readable; nodes nearly coincide at full body scale. Body and source placement visible; no page clipping observed. Overlay does not prove physical visibility.",
+  "design_accepted": false,
+  "pending": [
+    "source node versus installed pipe-end semantics",
+    "bore and gasket compatibility",
+    "physical external connections",
+    "hydraulic and regulatory acceptance"
+  ]
+}
