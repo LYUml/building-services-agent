@@ -131,6 +131,35 @@ def regulatory_source_bindings(tasks,root):
     return bindings
 
 
+def inventory_source_bindings(tasks,root):
+    """Bind supported saved-IFC consumers to upstream inventory checks."""
+    readers={'ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing',
+             'ifc_views','water_coordination','annual_energy_ifc'}
+    known={};ancestors={};identities={};bindings=[]
+    for task in tasks:
+        name=task['id']
+        parents=set(task.get('requires_pass',[]))
+        parents.update(task[k] for k in ('depends_on','ifc_from') if isinstance(task.get(k),str))
+        parents &= known.keys()
+        upstream=set(parents)
+        for parent in parents:upstream.update(ancestors[parent])
+        ancestors[name]=upstream
+        if task['kind'] in readers:
+            if task.get('depends_on'):
+                identity={'producer':task['depends_on']}
+            else:
+                path=local_path(root,task['ifc'])
+                identity={'sha256':digest(path)}
+            identities[name]=identity
+            for parent in sorted(upstream):
+                if known[parent]['kind']!='ifc_query':continue
+                if identities[parent]!=identity:
+                    raise ProjectError(f'IFC inventory gate {parent} checks a different model from consumer {name}; use the same explicit bytes or inherited producer')
+                bindings.append(dict(check=parent,consumer=name,model_identity=identity))
+        known[name]=task
+    return bindings
+
+
 def validate_plan(path):
     root=path.resolve().parent;p=read_json(path)
     if not isinstance(p,dict) or type(p.get("version")) is not int or p.get("version")!=1:raise ProjectError("plan version 1 required")
@@ -406,6 +435,7 @@ def validate_plan(path):
         raise ProjectError("requirement passage omitted from matrix")
     if {r["task"] for r in requirements}!=ids:raise ProjectError("every task must map to a requirement")
     regulatory_source_bindings(tasks,root)
+    inventory_source_bindings(tasks,root)
     return p,inputs
 
 
@@ -797,6 +827,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                            execution_scope=task["scope"],evidence=evidence[r["task"]]))
     result=dict(inputs=before,inputs_unchanged=unchanged,tasks=tasks,requirements=matrix,
         regulatory_source_bindings=regulatory_source_bindings(p['tasks'],root) if unchanged else [],
+        inventory_source_bindings=inventory_source_bindings(p['tasks'],root) if unchanged else [],
         artifact_hashes={f.relative_to(out).as_posix():digest(f) for f in out.rglob("*") if f.is_file()},
         execution_pass=unchanged and all(x["status"]=="pass" for x in tasks.values()),
         design_accepted=False,acceptance_note="Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance")
