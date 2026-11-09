@@ -1,5 +1,7 @@
 # Reuse survey — 2026-11-09
 
+Three-phase electrical gap: upstream pandapower 3.5.6 (BSD-3-Clause) is now installed in an isolated runtime with exact Windows/Python 3.12 package-artifact hashes. Its existing `runpp_3ph` engine actually solved balanced, unbalanced and overloaded two-bus synthetic cases. Independent voltage/current/power/loss checks and deliberate result-corruption controls passed; the overloaded target remained failed. See [trial scope and evidence](THREE_PHASE_TRIAL.md). Reuse this engine when developing a source-bound three-phase adapter rather than implementing another power-flow engine. No production workflow integration, arbitrary-network verification or complete electrical acceptance is established.
+
 User preference: actively reuse existing CLI/MCP tools and engineering libraries before implementing equivalent engines. GitHub/API snapshots are in research/reuse-candidates-2026-11-09.json. Commit pins identify researched source snapshots, not automatically installed software.
 
 | Tool | Practical role and decision | Verified status |

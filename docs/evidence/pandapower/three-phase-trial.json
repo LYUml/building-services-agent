@@ -1,0 +1,198 @@
+{
+  "scope": "Synthetic two-bus wye constant-power, zero-shunt sequence-line upstream evaluation only",
+  "script_sha256": "ca2a6c6cad50933f651f39478964898f8ecfa8999f463a7cbe437d4cfdd6d8bf",
+  "versions": {
+    "pandapower": "3.5.6",
+    "numpy": "2.4.6",
+    "scipy": "1.18.1",
+    "pandas": "2.3.3"
+  },
+  "source_basis": "All line, supply, load and 100 A target values are synthetic trial inputs; no product/code applicability",
+  "cases": {
+    "balanced": {
+      "p_kw": [
+        5,
+        5,
+        5
+      ],
+      "phase_voltage_v": [
+        230.72338168495102,
+        230.72338168495102,
+        230.72338168495105
+      ],
+      "phase_current_a": [
+        21.670972240436658,
+        21.67097224043666,
+        21.67097224043667
+      ],
+      "line_loading_percent": 21.67097224043667,
+      "line_equation_residual_v": [
+        1.4396458633328693e-11,
+        1.440445827458169e-11,
+        1.443003161365343e-11
+      ],
+      "current_reconciliation_error_a": [
+        1.2385186209940002e-09,
+        1.2385150682803214e-09,
+        1.238504410139285e-09
+      ],
+      "load_reconciliation_error_w": [
+        2.857550498447381e-07,
+        2.857550498447381e-07,
+        2.857523213606328e-07
+      ],
+      "source_power_w": 15014.088930278112,
+      "line_losses_w": 14.088931135375176,
+      "independent_line_losses_w": 14.08893113698368,
+      "load_reconciliation_error_var": [
+        1.1394763472163793e-07,
+        1.1394970038983288e-07,
+        1.1394614645920768e-07
+      ],
+      "source_reactive_power_var": 5.635572112306175,
+      "line_reactive_absorption_var": 5.635572454149622,
+      "reactive_balance_error_var": 3.4184344688270585e-07,
+      "reactive_loss_error_var": 6.438503064032375e-10,
+      "power_balance_error_w": 8.57262719478058e-07,
+      "resistive_loss_error_w": 1.6085035525748026e-09,
+      "balanced_analytic_voltage_v": 230.72338168493664,
+      "balanced_analytic_error_v": 1.4409806681214832e-11,
+      "verification_checks": {
+        "line_equations": true,
+        "currents": true,
+        "load_power": true,
+        "power_balance": true,
+        "reactive_power": true,
+        "resistive_losses": true,
+        "balanced_analytic": true
+      },
+      "verification_pass": true,
+      "synthetic_current_target_a": 100,
+      "synthetic_current_target_pass": true,
+      "design_accepted": false
+    },
+    "unbalanced": {
+      "p_kw": [
+        10,
+        5,
+        2
+      ],
+      "phase_voltage_v": [
+        230.28411461756693,
+        230.83326548857406,
+        230.96559045702173
+      ],
+      "phase_current_a": [
+        43.42461825475,
+        21.660656479894527,
+        8.659298667057675
+      ],
+      "line_loading_percent": 43.42461825475,
+      "line_equation_residual_v": [
+        1.9468125752842996e-08,
+        8.792777609604133e-09,
+        8.226859964084349e-09
+      ],
+      "current_reconciliation_error_a": [
+        1.0100525713596653e-06,
+        2.940663499373386e-07,
+        1.2807395854963488e-07
+      ],
+      "load_reconciliation_error_w": [
+        0.0002325990608369466,
+        6.788029622839531e-05,
+        2.9580676937257522e-05
+      ],
+      "source_power_w": 17030.463569931428,
+      "line_losses_w": 30.4637050695185,
+      "independent_line_losses_w": 30.46370623895817,
+      "load_reconciliation_error_var": [
+        8.542814459537114e-05,
+        1.4976837994820696e-05,
+        2.4238161437840822e-05
+      ],
+      "source_reactive_power_var": 12.185405860984647,
+      "line_reactive_absorption_var": 12.185482027805572,
+      "reactive_balance_error_var": 7.616682092503879e-05,
+      "reactive_loss_error_var": 4.6777769391326274e-07,
+      "power_balance_error_w": 0.00013513809087228879,
+      "resistive_loss_error_w": 1.169439670434258e-06,
+      "verification_checks": {
+        "line_equations": true,
+        "currents": true,
+        "load_power": true,
+        "power_balance": true,
+        "reactive_power": true,
+        "resistive_losses": true,
+        "balanced_analytic": true
+      },
+      "verification_pass": true,
+      "synthetic_current_target_a": 100,
+      "synthetic_current_target_pass": true,
+      "design_accepted": false
+    },
+    "overload": {
+      "p_kw": [
+        30,
+        5,
+        2
+      ],
+      "phase_voltage_v": [
+        228.8106427249732,
+        231.3323587297387,
+        231.0654840346371
+      ],
+      "phase_current_a": [
+        131.1127810222514,
+        21.61392394052653,
+        8.65555496713583
+      ],
+      "line_loading_percent": 131.1127810222514,
+      "line_equation_residual_v": [
+        2.3473204449381462e-08,
+        8.241346841617206e-09,
+        9.236935707112522e-09
+      ],
+      "current_reconciliation_error_a": [
+        1.3322806182713975e-06,
+        2.8388463135797792e-08,
+        8.354133385068963e-09
+      ],
+      "load_reconciliation_error_w": [
+        0.000304839984892169,
+        6.567172022187151e-06,
+        1.930351572809741e-06
+      ],
+      "source_power_w": 37267.79345796717,
+      "line_losses_w": 267.79375817033093,
+      "independent_line_losses_w": 267.79376361160024,
+      "load_reconciliation_error_var": [
+        2.638147518239779e-05,
+        2.5472940778408507e-05,
+        4.926551129381736e-06
+      ],
+      "source_reactive_power_var": 107.11744648716254,
+      "line_reactive_absorption_var": 107.11750326812933,
+      "reactive_balance_error_var": 5.678096678707334e-05,
+      "reactive_loss_error_var": 2.176510804474674e-06,
+      "power_balance_error_w": 0.0003002031599521615,
+      "resistive_loss_error_w": 5.441269308903429e-06,
+      "verification_checks": {
+        "line_equations": true,
+        "currents": true,
+        "load_power": true,
+        "power_balance": true,
+        "reactive_power": true,
+        "resistive_losses": true,
+        "balanced_analytic": true
+      },
+      "verification_pass": true,
+      "synthetic_current_target_a": 100,
+      "synthetic_current_target_pass": false,
+      "design_accepted": false
+    }
+  },
+  "verification_pass": true,
+  "overload_retained": true,
+  "design_accepted": false
+}
