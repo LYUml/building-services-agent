@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Continuous quarter-plus-tangent cable now reaches a fresh saved-model electrical study, same-model bend and solid/clearance checks, reopened native schematic and separately inspected PDF. Actual failed bend target prevents drawing adapter execution. This synthetic evidence does not resolve general routes, dimensioned installation drawings, product/equipment interfaces or full Hong Kong acceptance; see CABLE_CONTINUITY_TRIAL.md.
+
 Three-phase study and calculation-schematic delivery now run in one source-linked workflow using pinned pandapower/Graphviz plus existing ezdxf/AutoCAD/PDF components. Actual numerical and DWG-reopen/paper-reference stages pass on a synthetic three-bus fixture; separate inspected-page review retains full installation/protection/Hong Kong acceptance pending. Missing tools, target failures and changed study artifacts block drawing. This does not complete the original multiple-assignment, CAD/BIM, analysis and full-regulation goal. See THREE_PHASE_DRAWINGS.md.
 
 Native Revit development now includes a net10.0-windows library compiled against installed Revit 2027 API with zero warnings/errors. Its source-bound single-pipe creation method verifies native dimensions/connectors and rolls back failure messages; no live invocation, saved RVT or connected-system acceptance exists yet. See adapters/revit/README.md. Revit Home startup is verified, correcting the earlier installation-only state below.

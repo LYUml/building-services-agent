@@ -1,0 +1,139 @@
+{
+  "scope": "Executed synthetic continuous quarter-plus-tangent cable workflow; calculation schematic, not installation design",
+  "positive": {
+    "tasks": {
+      "study": "pass",
+      "bend": "pass",
+      "coordination": "pass",
+      "drawing": "pass",
+      "review": "pending"
+    },
+    "integrity": {
+      "integrity_pass": true,
+      "issues": [],
+      "design_accepted": false,
+      "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+    },
+    "model_bindings": [
+      {
+        "producer": "study",
+        "consumer": "bend",
+        "ifc_sha256": "c04da2de2519be79dfed984a9e8c4cf1432132416dd2c00f50133052f7f5e4d9",
+        "geometry_binding_sha256": "180224069b6ff0b84e52b840c909681e8fe8f41c4333bd9bbf4f23306c5d4e4e"
+      },
+      {
+        "producer": "study",
+        "consumer": "coordination",
+        "ifc_sha256": "c04da2de2519be79dfed984a9e8c4cf1432132416dd2c00f50133052f7f5e4d9",
+        "geometry_binding_sha256": "180224069b6ff0b84e52b840c909681e8fe8f41c4333bd9bbf4f23306c5d4e4e"
+      },
+      {
+        "producer": "bend",
+        "consumer": "drawing",
+        "ifc_sha256": "c04da2de2519be79dfed984a9e8c4cf1432132416dd2c00f50133052f7f5e4d9",
+        "geometry_binding_sha256": "180224069b6ff0b84e52b840c909681e8fe8f41c4333bd9bbf4f23306c5d4e4e"
+      },
+      {
+        "producer": "coordination",
+        "consumer": "drawing",
+        "ifc_sha256": "c04da2de2519be79dfed984a9e8c4cf1432132416dd2c00f50133052f7f5e4d9",
+        "geometry_binding_sha256": "180224069b6ff0b84e52b840c909681e8fe8f41c4333bd9bbf4f23306c5d4e4e"
+      }
+    ],
+    "scope": "Synthetic continuous cable and box; schematic only; visual and engineering review pending",
+    "design_accepted": false
+  },
+  "failed_bend": {
+    "tasks": {
+      "study": "pass",
+      "bend": "fail",
+      "coordination": "pass",
+      "drawing": "pending",
+      "review": "pending"
+    },
+    "integrity": {
+      "integrity_pass": true,
+      "issues": [],
+      "design_accepted": false,
+      "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+    },
+    "model_bindings": [
+      {
+        "producer": "study",
+        "consumer": "bend",
+        "ifc_sha256": "1f3d32cbf5df4c77cb6499336b94d39281396cd0ace043988b51bf2a7eb5f151",
+        "geometry_binding_sha256": "fddab25864aa7726b09519e4c6db05f15cb682f66fe91c94c5f75a5d00bc2adf"
+      },
+      {
+        "producer": "study",
+        "consumer": "coordination",
+        "ifc_sha256": "1f3d32cbf5df4c77cb6499336b94d39281396cd0ace043988b51bf2a7eb5f151",
+        "geometry_binding_sha256": "fddab25864aa7726b09519e4c6db05f15cb682f66fe91c94c5f75a5d00bc2adf"
+      },
+      {
+        "producer": "bend",
+        "consumer": "drawing",
+        "ifc_sha256": "1f3d32cbf5df4c77cb6499336b94d39281396cd0ace043988b51bf2a7eb5f151",
+        "geometry_binding_sha256": "fddab25864aa7726b09519e4c6db05f15cb682f66fe91c94c5f75a5d00bc2adf"
+      },
+      {
+        "producer": "coordination",
+        "consumer": "drawing",
+        "ifc_sha256": "1f3d32cbf5df4c77cb6499336b94d39281396cd0ace043988b51bf2a7eb5f151",
+        "geometry_binding_sha256": "fddab25864aa7726b09519e4c6db05f15cb682f66fe91c94c5f75a5d00bc2adf"
+      }
+    ],
+    "scope": "Synthetic continuous cable and box; schematic only; visual and engineering review pending",
+    "design_accepted": false
+  },
+  "positive_integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "negative_integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "delivery_contexts_pass": true,
+  "negative_drawing_folder_absent": true,
+  "native": {
+    "native_reopen_pass": true,
+    "dwg_sha256": "d5d16949fc945e13d6d88f571a630676c41ed89a11c2ffc5788952a18bf19f9d",
+    "engine_sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2",
+    "plot": {
+      "pdf_sha256": "0a0943b55119112ae9cf67d98a549755987dd390a5a911bb99ea5cd1081597d6",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 1,
+      "reference_handle": "60",
+      "reference_expected_mm": 50.0,
+      "reference_measured_mm": 49.99566666666666,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "visual_review": "pending"
+  },
+  "visual_review": {
+    "pdf_sha256": "0a0943b55119112ae9cf67d98a549755987dd390a5a911bb99ea5cd1081597d6",
+    "render_sha256": "65aaed173937d1b2da8847f9feae3ce13db9a8ac9d660d9b61c44f1d65c12fa8",
+    "observed": "Readable two-node schematic; feeder length 2.47 m; per-phase current/voltage and pending-engineering notes legible; reference line visible.",
+    "scoped_sheet_review_pass": true,
+    "full_engineering_acceptance": false
+  },
+  "model_preview": {
+    "ifc_sha256": "c04da2de2519be79dfed984a9e8c4cf1432132416dd2c00f50133052f7f5e4d9",
+    "png_sha256": "74f58630e40190c8dbcc6d66eec3eaa0ba63cc47815d45325cd2518b7bb7053b",
+    "observed": "Quarter-to-straight body and outward end port arrows visible in four projections. Two represented elements included, none omitted. Small obstacle is not adequately resolved for visual clearance acceptance at this scale.",
+    "full_bim_viewer_review": false
+  },
+  "retained_warning": "Duplicate PDF PageMode definition; no PDF-conformance claim",
+  "design_accepted": false
+}

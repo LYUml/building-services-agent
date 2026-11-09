@@ -4,6 +4,8 @@
 
 An agent workspace and deterministic engineering tools for reusable MEP workflows. The AI reads requirements and orchestrates tools; calculation engines compute results. Unknown inputs stay unknown.
 
+[Continuous cable trial](docs/CABLE_CONTINUITY_TRIAL.md) now connects a source-parametric quarter-plus-tangent IFC envelope to a fresh electrical study, same-model bend/coordination gates and an actually reopened/visually inspected native schematic. A failed bend target blocks drawing. This synthetic case does not establish arbitrary routing, manufacturer selection, installation drawings or full Hong Kong conformity.
+
 [Hong Kong phase-current balance](docs/HK_PHASE_BALANCE.md) now binds verified three-phase results to a source-pinned BEC 2024 selected-clause pack. Protective-device rating and normal-service RMS/model applicability are separate sourced inputs; numerical targets are not regulatory ratings. A registered workflow prerequisite and explicit coverage snapshot now connect this check to native drawing; full conformity remains pending.
 
 [Three-phase electrical network studies](docs/THREE_PHASE_NETWORKS.md) now use pinned pandapower 3.5.6 through a source-bound adapter and registered `three_phase` workflow task. Saved network reload, multi-bus radial/mesh tests, phase-domain node/branch checks, complex-power reconciliation and explicit current/voltage target failures are exercised. Missing runtime and failed targets block required downstream tasks. Protection, physical neutral/harmonics, Hong Kong conformity and CAD/BIM binding remain pending.
