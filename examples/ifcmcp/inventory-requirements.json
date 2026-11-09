@@ -1,0 +1,4 @@
+{
+  "source": "Synthetic fixture expectation only: one booster and two pipe segments; not an actual project specification",
+  "minimum_counts": {"IfcPump": 1, "IfcPipeSegment": 2}
+}

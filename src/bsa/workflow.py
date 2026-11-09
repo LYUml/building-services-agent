@@ -159,7 +159,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind=="water_network" and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
@@ -275,8 +275,11 @@ def validate_plan(path):
             from .electrical_fault import prepare
             faults=local_path(root,t.get('faults'));inputs.add(faults)
             prepare(read_json(local_path(root,t['project'])),read_json(faults))
-        if kind in ('ids_check','ifc_clash','ifc_drawing','ifc_route_drawing','ifc_views','water_coordination','annual_energy_ifc'):
-            if kind=='ids_check':
+        if kind in ('ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing','ifc_views','water_coordination','annual_energy_ifc'):
+            if kind=='ifc_query':
+                from .ifc_query import validate
+                query_requirements=local_path(root,t.get('requirements'));inputs.add(query_requirements);validate(read_json(query_requirements))
+            elif kind=='ids_check':
                 inputs.add(local_path(root,t.get('ids')))
             elif kind=='ifc_clash':
                 from .clash import validate_policy
@@ -416,7 +419,7 @@ def screening_project(task,tasks,root,out):
     return out/parent/'network-input.json'
 
 
-def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
+def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_python=None):
     plan,out=plan.resolve(),out.resolve()
     p,inputs=validate_plan(plan);inputs.add(plan)
     if any(out==f or out in f.parents for f in inputs):raise ProjectError("run output must not contain inputs")
@@ -557,6 +560,15 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                     payload=run(source,local_path(root,t['settings']),folder)
                     status='pass' if payload['calculated_checks_pass'] else 'fail'
                     reason='saved hollow profiles and ports reconciled to schedule/projected centreline DXF; native and installation drawing acceptance pending'
+            elif t['kind']=='ifc_query':
+                dependency=t.get('depends_on')
+                if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC producer did not pass; query not executed'
+                elif not ifcmcp_python:reason='isolated IFC MCP Python runtime not supplied'
+                else:
+                    from .ifc_query import run
+                    source=out/dependency/IFC_ARTIFACTS[tasks[dependency]['kind']] if dependency else local_path(root,t['ifc'])
+                    payload=run(source,local_path(root,t['requirements']),folder,ifcmcp_python)
+                    status='pass' if payload['calculated_checks_pass'] else 'fail';reason=payload['scope']
             elif t['kind']=='ids_check':
                 dependency=t.get('depends_on')
                 if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC producer did not pass; IDS check not executed'
@@ -818,6 +830,7 @@ def main():
     e=sub.add_parser("execute");e.add_argument("plan",type=Path);e.add_argument("--out",required=True,type=Path)
     e.add_argument("--energyplus",type=Path);e.add_argument("--autocad",type=Path)
     e.add_argument('--radiance-bin',type=Path)
+    e.add_argument('--ifcmcp-python',type=Path)
     v=sub.add_parser("verify");v.add_argument("run_directory",type=Path)
     a=p.parse_args()
     try:
@@ -830,7 +843,7 @@ def main():
             r=verify(a.run_directory);print(json.dumps(r,indent=2))
             if not r["integrity_pass"]:return 2
         else:
-            r=execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin)
+            r=execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python)
             print(json.dumps({"tasks":r["tasks"],"design_accepted":False},indent=2))
             if not r["execution_pass"]:return 2
     except (ProjectError,OSError,ValueError) as exc:p.exit(2,str(exc)+"\n")
