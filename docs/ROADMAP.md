@@ -93,3 +93,5 @@ A sourced one-duty/one-standby plumbing set now executes each role separately ag
 Pump-set downstream network/pump/pipe-rule tasks now support explicit duty/standby source binding, including transitive prerequisites, curve/network substitution rejection and full-set failure blocking. Physical equipment identity, inherited IFC role binding and control acceptance remain pending.
 
 A repeatable three-scenario pump-set brief workflow now verifies separate duty/standby handoffs, whole-set blocking, input/artifact integrity, blocker diagnosis and pending/failed delivery review states using the pinned WSD source. Official-source-backed native evidence is retained; no physical installation or complete assignment acceptance is claimed.
+
+Official IfcMCP now has an isolated pinned 0.9.0 distribution and verified real stdio query/session trial against a saved synthetic IFC, with direct saved-model count/identity reconciliation and unchanged source hash. Editing, geometry, drawing and agent-host registration remain pending; existing engineering runtime is unchanged. See IFCMCP_TRIAL.md.
