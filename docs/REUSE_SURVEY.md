@@ -1,5 +1,7 @@
 # Reuse survey — 2026-11-09
 
+Phase-balance workflow follow-up (2026-11-10): the existing rule evaluator and current binding now form registered `three_phase_regulations` prerequisites for `three_phase_drawing`. A new explicit coverage snapshot detects the scheduled partial module. Actual positive native output, exceeded/missing-basis blocking and altered/mismatched producer/gate rejection are verified without adding another engine. Full conformity stays unresolved. Earlier standalone-only notes are historical.
+
 Hong Kong phase-balance follow-up (2026-11-10): reuse the existing generic `bsa.regulations` evaluator and pinned pandapower study evidence for selected BEC 2024 clause 7.6.3. Official primary PDF definition/limit pages were visually inspected; source hashes, explicit protective-device rating and RMS/model applicability are retained. No new rules engine is built. The standalone calculation binding is tested; workflow/coverage-catalog integration and full compliance remain pending. See HK_PHASE_BALANCE.md.
 
 Native electrical workflow follow-up (2026-11-10): `three_phase_drawing` now inherits the verified study, invokes existing Graphviz/ezdxf/AutoCAD adapters and carries native plots/schedules into requirement evidence. Actual one-invocation numerical-plus-DWG/PDF execution passed its two technical tasks; full engineering review stayed pending. Missing runtimes, failed targets, replacement project inputs and altered producer bytes are tested blockers. Earlier standalone-only notes describe the previous milestone.

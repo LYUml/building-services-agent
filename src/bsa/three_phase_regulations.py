@@ -18,26 +18,34 @@ def unbalance(currents):
     return None if average==0 else max(abs(v-average) for v in currents)/average*100
 
 
-def run(project,study_root,basis_path,pack_path,sources,out):
-    project,basis_path,pack_path,out=[Path(v).resolve() for v in (project,basis_path,pack_path,out)]
-    p,study,before=context(project,study_root,require_targets=False)
-    basis=json.loads(basis_path.read_text(encoding='utf-8-sig'));pack=json.loads(pack_path.read_text(encoding='utf-8-sig'))
+def basis_inputs(basis_path):
+    basis_path=Path(basis_path).resolve()
+    basis=json.loads(basis_path.read_text(encoding='utf-8-sig'))
     fields(basis,'jurisdiction rule_pack edition_decisions sources circuits')
-    if len(pack.get('rules',[]))!=1:raise ProjectError('one current-unbalance rule required')
-    rule=pack['rules'][0]
-    if rule.get('method')!='prescriptive_maximum' or rule.get('metric')!='phase_current_unbalance_percent' or rule.get('unit')!='%':raise ProjectError('current-unbalance rule metric/unit required')
-    threshold=rule.get('minimum_protective_device_rating_a')
-    if type(threshold) not in (int,float) or not math.isfinite(threshold) or threshold<=0:raise ProjectError('sourced positive protective-device threshold required')
-    if not isinstance(basis['circuits'],dict) or set(basis['circuits'])!={r['id'] for r in p['lines']}:raise ProjectError('exact line/circuit basis coverage required')
     if not isinstance(basis['sources'],dict):raise ProjectError('basis source mapping required')
-    before.update({str(f):digest(f) for f in (basis_path,pack_path,Path(__file__).resolve(),Path(__file__).with_name('three_phase_drawing.py'))})
+    files={basis_path}
     for record in basis['sources'].values():
         fields(record,'path sha256 locator kind')
         if not isinstance(record['path'],str) or Path(record['path']).is_absolute():raise ProjectError('relative basis source required')
         f=(basis_path.parent/record['path']).resolve()
         if not f.is_relative_to(basis_path.parent) or not f.is_file() or digest(f)!=record['sha256']:raise ProjectError('basis source path/hash mismatch')
         if not isinstance(record['locator'],str) or not record['locator'].strip() or record['kind'] not in ('course_given','measured','manufacturer','design_target','assumption'):raise ProjectError('basis source kind/locator required')
-        before[str(f)]=digest(f)
+        files.add(f)
+    return basis,files
+
+
+def run(project,study_root,basis_path,pack_path,sources,out):
+    project,basis_path,pack_path,out=[Path(v).resolve() for v in (project,basis_path,pack_path,out)]
+    p,study,before=context(project,study_root,require_targets=False)
+    basis,basis_files=basis_inputs(basis_path);pack=json.loads(pack_path.read_text(encoding='utf-8-sig'))
+    if len(pack.get('rules',[]))!=1:raise ProjectError('one current-unbalance rule required')
+    rule=pack['rules'][0]
+    if rule.get('method')!='prescriptive_maximum' or rule.get('metric')!='phase_current_unbalance_percent' or rule.get('unit')!='%':raise ProjectError('current-unbalance rule metric/unit required')
+    threshold=rule.get('minimum_protective_device_rating_a')
+    if type(threshold) not in (int,float) or not math.isfinite(threshold) or threshold<=0:raise ProjectError('sourced positive protective-device threshold required')
+    if not isinstance(basis['circuits'],dict) or set(basis['circuits'])!={r['id'] for r in p['lines']}:raise ProjectError('exact line/circuit basis coverage required')
+    before.update({str(f):digest(f) for f in (basis_path,pack_path,Path(__file__).resolve(),Path(__file__).with_name('three_phase_drawing.py'))})
+    before.update({str(f):digest(f) for f in basis_files})
     official={str(f):digest(f) if f.is_file() else None for f in source_paths(pack,sources)}
     if not out.is_relative_to(ROOT) or any(out==Path(f) or out in Path(f).parents for f in list(before)+list(official)):raise ProjectError('separate repository output required')
     if out.exists():raise ProjectError('refusing to overwrite regulation result')

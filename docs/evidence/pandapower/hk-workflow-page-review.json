@@ -1,0 +1,14 @@
+{
+  "scope": "Actual conditional synthetic workflow page inspection; not full engineering or statutory acceptance",
+  "pdf_sha256": "158e36f582682d8f26c694d66fbc3a6a0ce97fee1778f159dc9762cf6d319a6e",
+  "dwg_sha256": "a728f18628cf91fcb48708ff900f34d5191e0ee895b78691a56da48edc201e83",
+  "image_sha256": "1fd9c89fee1219ca95bd4ce64062cf3c1f985c3e4c30a61a63f0047b2b9b235a",
+  "reference_expected_mm": 50.0,
+  "reference_measured_mm": 49.99566666666666,
+  "observations": [
+    "All three voltage boxes and both line labels readable and uncut on actual rendered PDF",
+    "Scope notes distinguish paper layout from source route lengths and retain installation/HK gaps",
+    "Only the conditional-pass scenario produced a drawing; exceeded/missing-basis scenarios retained pending rules"
+  ],
+  "design_accepted": false
+}

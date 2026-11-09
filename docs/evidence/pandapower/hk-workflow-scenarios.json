@@ -1,0 +1,437 @@
+{
+  "scope": "Synthetic selected-clause workflow only; no complete installation or regulatory acceptance",
+  "official_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+  "scenarios": [
+    {
+      "scenario": "conditional-pass",
+      "tasks": {
+        "power-flow": {
+          "kind": "three_phase",
+          "status": "pass",
+          "scope": "Single-voltage sequence-line constant-PQ wye power flow; numerical checks and declared targets only; no physical neutral, protection, cable selection, CAD/BIM or regulatory acceptance"
+        },
+        "hk-rule": {
+          "kind": "three_phase_regulations",
+          "status": "pass",
+          "scope": "Selected current-unbalance rule with explicit protective rating, circuit and sinusoidal normal-service RMS design basis; no neutral/harmonic/protection/full conformity acceptance"
+        },
+        "drawing": {
+          "kind": "three_phase_drawing",
+          "status": "pass",
+          "scope": "Source-linked calculation schematic and schedules only; full installation, protection and Hong Kong acceptance pending; actual page visual/engineering review remains pending"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "Actual visual and full engineering acceptance remain separate"
+        }
+      },
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "source_bindings": [
+        {
+          "check": "hk-rule",
+          "consumer": "drawing",
+          "study_producer": "power-flow"
+        }
+      ],
+      "diagnosis": {
+        "plan_sha256": "86c6a4f3e3101756f4efb603c132bc0b025ae4dcb471d073c97d9cf8ecb0b5b0",
+        "workflow_sha256": "3b4561827cdaaf53b8a126c1ba90bb3866efe09905651acf8364c3fb832c3592",
+        "integrity_pass": true,
+        "tasks": [
+          {
+            "id": "power-flow",
+            "kind": "three_phase",
+            "status": "pass",
+            "recorded_scope": "Single-voltage sequence-line constant-PQ wye power flow; numerical checks and declared targets only; no physical neutral, protection, cable selection, CAD/BIM or regulatory acceptance",
+            "dependencies": [],
+            "iteration_baseline": null,
+            "blocked_by": [],
+            "upstream_action_tasks": [],
+            "input_blockers": [],
+            "next_action": "review complete requirement acceptance against retained artifacts",
+            "requirement_ids": [
+              "R1"
+            ],
+            "evidence": [
+              "power-flow/native/network.json",
+              "power-flow/native/study.json",
+              "power-flow/process.log",
+              "power-flow/three-phase.json"
+            ]
+          },
+          {
+            "id": "hk-rule",
+            "kind": "three_phase_regulations",
+            "status": "pass",
+            "recorded_scope": "Selected current-unbalance rule with explicit protective rating, circuit and sinusoidal normal-service RMS design basis; no neutral/harmonic/protection/full conformity acceptance",
+            "dependencies": [
+              "power-flow"
+            ],
+            "iteration_baseline": null,
+            "blocked_by": [],
+            "upstream_action_tasks": [],
+            "input_blockers": [],
+            "next_action": "review complete requirement acceptance against retained artifacts",
+            "requirement_ids": [
+              "R2"
+            ],
+            "evidence": [
+              "hk-rule/derived-projects.json",
+              "hk-rule/phase-regulations.json"
+            ]
+          },
+          {
+            "id": "drawing",
+            "kind": "three_phase_drawing",
+            "status": "pass",
+            "recorded_scope": "Source-linked calculation schematic and schedules only; full installation, protection and Hong Kong acceptance pending; actual page visual/engineering review remains pending",
+            "dependencies": [
+              "power-flow",
+              "hk-rule"
+            ],
+            "iteration_baseline": null,
+            "blocked_by": [],
+            "upstream_action_tasks": [],
+            "input_blockers": [],
+            "next_action": "review complete requirement acceptance against retained artifacts",
+            "requirement_ids": [
+              "R3"
+            ],
+            "evidence": [
+              "drawing/drawing.json",
+              "drawing/graphviz.log",
+              "drawing/layout.dot",
+              "drawing/layout.json",
+              "drawing/lines.csv",
+              "drawing/loads.csv",
+              "drawing/native/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log",
+              "drawing/native/electrical-schematic.dwg",
+              "drawing/native/input.dxf",
+              "drawing/native/plot.log",
+              "drawing/native/reopened/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log",
+              "drawing/native/reopened/export.log",
+              "drawing/native/reopened/export.scr",
+              "drawing/native/reopened/source-copy.dwg",
+              "drawing/native/reopened/source-export.dxf",
+              "drawing/native/save.log",
+              "drawing/native/save.scr",
+              "drawing/native/sheet.json",
+              "drawing/native/sheet.log",
+              "drawing/native/sheet.pdf",
+              "drawing/native/sheet.scr",
+              "drawing/schematic.dxf"
+            ]
+          },
+          {
+            "id": "review",
+            "kind": "manual",
+            "status": "pending",
+            "recorded_scope": "Actual visual and full engineering acceptance remain separate",
+            "dependencies": [
+              "drawing"
+            ],
+            "iteration_baseline": null,
+            "blocked_by": [],
+            "upstream_action_tasks": [
+              "review"
+            ],
+            "input_blockers": [],
+            "next_action": "perform the specified review and record evidence separately",
+            "requirement_ids": [
+              "R4"
+            ],
+            "evidence": []
+          }
+        ],
+        "execution_pass": false,
+        "design_accepted": false,
+        "scope": "Recorded execution and declared dependency graph only; no engine invocation, automatic repair, or engineering acceptance"
+      },
+      "design_accepted": false
+    },
+    {
+      "scenario": "unbalanced-in-scope",
+      "tasks": {
+        "power-flow": {
+          "kind": "three_phase",
+          "status": "pass",
+          "scope": "Single-voltage sequence-line constant-PQ wye power flow; numerical checks and declared targets only; no physical neutral, protection, cable selection, CAD/BIM or regulatory acceptance"
+        },
+        "hk-rule": {
+          "kind": "three_phase_regulations",
+          "status": "pending",
+          "scope": "Selected current-unbalance rule with explicit protective rating, circuit and sinusoidal normal-service RMS design basis; no neutral/harmonic/protection/full conformity acceptance"
+        },
+        "drawing": {
+          "kind": "three_phase_drawing",
+          "status": "pending",
+          "scope": "required checks unresolved: hk-rule (pending); adapter not executed"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: drawing (pending); adapter not executed"
+        }
+      },
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "source_bindings": [
+        {
+          "check": "hk-rule",
+          "consumer": "drawing",
+          "study_producer": "power-flow"
+        }
+      ],
+      "diagnosis": {
+        "plan_sha256": "86c6a4f3e3101756f4efb603c132bc0b025ae4dcb471d073c97d9cf8ecb0b5b0",
+        "workflow_sha256": "b4ab743dfb157e21616f0beb8a1c0ea481a5a1e8d215a94adb52ff7f62c68b17",
+        "integrity_pass": true,
+        "tasks": [
+          {
+            "id": "power-flow",
+            "kind": "three_phase",
+            "status": "pass",
+            "recorded_scope": "Single-voltage sequence-line constant-PQ wye power flow; numerical checks and declared targets only; no physical neutral, protection, cable selection, CAD/BIM or regulatory acceptance",
+            "dependencies": [],
+            "iteration_baseline": null,
+            "blocked_by": [],
+            "upstream_action_tasks": [],
+            "input_blockers": [],
+            "next_action": "review complete requirement acceptance against retained artifacts",
+            "requirement_ids": [
+              "R1"
+            ],
+            "evidence": [
+              "power-flow/native/network.json",
+              "power-flow/native/study.json",
+              "power-flow/process.log",
+              "power-flow/three-phase.json"
+            ]
+          },
+          {
+            "id": "hk-rule",
+            "kind": "three_phase_regulations",
+            "status": "pending",
+            "recorded_scope": "Selected current-unbalance rule with explicit protective rating, circuit and sinusoidal normal-service RMS design basis; no neutral/harmonic/protection/full conformity acceptance",
+            "dependencies": [
+              "power-flow"
+            ],
+            "iteration_baseline": null,
+            "blocked_by": [],
+            "upstream_action_tasks": [
+              "hk-rule"
+            ],
+            "input_blockers": [],
+            "next_action": "resolve the recorded pending condition before a new run",
+            "requirement_ids": [
+              "R2"
+            ],
+            "evidence": [
+              "hk-rule/derived-projects.json",
+              "hk-rule/phase-regulations.json"
+            ]
+          },
+          {
+            "id": "drawing",
+            "kind": "three_phase_drawing",
+            "status": "pending",
+            "recorded_scope": "required checks unresolved: hk-rule (pending); adapter not executed",
+            "dependencies": [
+              "power-flow",
+              "hk-rule"
+            ],
+            "iteration_baseline": null,
+            "blocked_by": [
+              "hk-rule"
+            ],
+            "upstream_action_tasks": [
+              "hk-rule"
+            ],
+            "input_blockers": [],
+            "next_action": "resolve upstream tasks before rerunning dependent task",
+            "requirement_ids": [
+              "R3"
+            ],
+            "evidence": []
+          },
+          {
+            "id": "review",
+            "kind": "manual",
+            "status": "pending",
+            "recorded_scope": "required checks unresolved: drawing (pending); adapter not executed",
+            "dependencies": [
+              "drawing"
+            ],
+            "iteration_baseline": null,
+            "blocked_by": [
+              "drawing"
+            ],
+            "upstream_action_tasks": [
+              "hk-rule"
+            ],
+            "input_blockers": [],
+            "next_action": "resolve upstream tasks before rerunning dependent task",
+            "requirement_ids": [
+              "R4"
+            ],
+            "evidence": []
+          }
+        ],
+        "execution_pass": false,
+        "design_accepted": false,
+        "scope": "Recorded execution and declared dependency graph only; no engine invocation, automatic repair, or engineering acceptance"
+      },
+      "design_accepted": false
+    },
+    {
+      "scenario": "missing-design-basis",
+      "tasks": {
+        "power-flow": {
+          "kind": "three_phase",
+          "status": "pass",
+          "scope": "Single-voltage sequence-line constant-PQ wye power flow; numerical checks and declared targets only; no physical neutral, protection, cable selection, CAD/BIM or regulatory acceptance"
+        },
+        "hk-rule": {
+          "kind": "three_phase_regulations",
+          "status": "pending",
+          "scope": "Selected current-unbalance rule with explicit protective rating, circuit and sinusoidal normal-service RMS design basis; no neutral/harmonic/protection/full conformity acceptance"
+        },
+        "drawing": {
+          "kind": "three_phase_drawing",
+          "status": "pending",
+          "scope": "required checks unresolved: hk-rule (pending); adapter not executed"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: drawing (pending); adapter not executed"
+        }
+      },
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "source_bindings": [
+        {
+          "check": "hk-rule",
+          "consumer": "drawing",
+          "study_producer": "power-flow"
+        }
+      ],
+      "diagnosis": {
+        "plan_sha256": "86c6a4f3e3101756f4efb603c132bc0b025ae4dcb471d073c97d9cf8ecb0b5b0",
+        "workflow_sha256": "b78df71310088a409fc2e119e48dd80edd015e0a471e8f09e4366a27f300ec28",
+        "integrity_pass": true,
+        "tasks": [
+          {
+            "id": "power-flow",
+            "kind": "three_phase",
+            "status": "pass",
+            "recorded_scope": "Single-voltage sequence-line constant-PQ wye power flow; numerical checks and declared targets only; no physical neutral, protection, cable selection, CAD/BIM or regulatory acceptance",
+            "dependencies": [],
+            "iteration_baseline": null,
+            "blocked_by": [],
+            "upstream_action_tasks": [],
+            "input_blockers": [],
+            "next_action": "review complete requirement acceptance against retained artifacts",
+            "requirement_ids": [
+              "R1"
+            ],
+            "evidence": [
+              "power-flow/native/network.json",
+              "power-flow/native/study.json",
+              "power-flow/process.log",
+              "power-flow/three-phase.json"
+            ]
+          },
+          {
+            "id": "hk-rule",
+            "kind": "three_phase_regulations",
+            "status": "pending",
+            "recorded_scope": "Selected current-unbalance rule with explicit protective rating, circuit and sinusoidal normal-service RMS design basis; no neutral/harmonic/protection/full conformity acceptance",
+            "dependencies": [
+              "power-flow"
+            ],
+            "iteration_baseline": null,
+            "blocked_by": [],
+            "upstream_action_tasks": [
+              "hk-rule"
+            ],
+            "input_blockers": [],
+            "next_action": "resolve the recorded pending condition before a new run",
+            "requirement_ids": [
+              "R2"
+            ],
+            "evidence": [
+              "hk-rule/derived-projects.json",
+              "hk-rule/phase-regulations.json"
+            ]
+          },
+          {
+            "id": "drawing",
+            "kind": "three_phase_drawing",
+            "status": "pending",
+            "recorded_scope": "required checks unresolved: hk-rule (pending); adapter not executed",
+            "dependencies": [
+              "power-flow",
+              "hk-rule"
+            ],
+            "iteration_baseline": null,
+            "blocked_by": [
+              "hk-rule"
+            ],
+            "upstream_action_tasks": [
+              "hk-rule"
+            ],
+            "input_blockers": [],
+            "next_action": "resolve upstream tasks before rerunning dependent task",
+            "requirement_ids": [
+              "R3"
+            ],
+            "evidence": []
+          },
+          {
+            "id": "review",
+            "kind": "manual",
+            "status": "pending",
+            "recorded_scope": "required checks unresolved: drawing (pending); adapter not executed",
+            "dependencies": [
+              "drawing"
+            ],
+            "iteration_baseline": null,
+            "blocked_by": [
+              "drawing"
+            ],
+            "upstream_action_tasks": [
+              "hk-rule"
+            ],
+            "input_blockers": [],
+            "next_action": "resolve upstream tasks before rerunning dependent task",
+            "requirement_ids": [
+              "R4"
+            ],
+            "evidence": []
+          }
+        ],
+        "execution_pass": false,
+        "design_accepted": false,
+        "scope": "Recorded execution and declared dependency graph only; no engine invocation, automatic repair, or engineering acceptance"
+      },
+      "design_accepted": false
+    }
+  ],
+  "expected_behaviors_pass": true,
+  "design_accepted": false
+}

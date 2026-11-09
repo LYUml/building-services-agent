@@ -1,0 +1,149 @@
+[
+  {
+    "scenario": "conditional-pass",
+    "selected_topic": {
+      "id": "electrical_current_balance",
+      "title": "Electrical single-phase load balance",
+      "decision": {
+        "decision": "required",
+        "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+      },
+      "official_source": {
+        "authority": "EMSD",
+        "edition": "2024",
+        "kind": "code_of_practice",
+        "url": "https://www.emsd.gov.hk/beeo/en/mibec_beeo_codtechguidelines.html",
+        "reviewed_on": "2026-11-08",
+        "review_scope": "Official index only; numerical clauses not yet encoded",
+        "applicability_note": "Technical Circular 1/2024 governs effective dates. BEEO building scope, submission/works dates and amendments require project-specific review."
+      },
+      "modules": [
+        {
+          "pack": "hk-phase-balance-2026.11.10",
+          "sha256": "8c8d5ca3b71b77acf2027acbcaef6351c4dc1150540b3610518c767fc086205b",
+          "rule_ids": [
+            "HK.EMSD.BEC2024.7_6_3.current_unbalance"
+          ],
+          "scheduled_tasks": [
+            "hk-rule"
+          ],
+          "execution_status": "not_assessed",
+          "pack_coverage": {
+            "complete": false,
+            "implemented": [
+              "Scoped BEC 2024 clause 7.6.3 current-unbalance percentage with explicit circuit/rating/design-current basis"
+            ],
+            "pending": [
+              "Independent statutory and edition applicability",
+              "Protection and actual cable/neutral selection",
+              "Harmonics, TPF and THD",
+              "Other electrical clauses and complete Hong Kong conformity"
+            ]
+          }
+        }
+      ],
+      "gaps": [
+        "partial_rule_coverage"
+      ]
+    },
+    "design_accepted": false
+  },
+  {
+    "scenario": "unbalanced-in-scope",
+    "selected_topic": {
+      "id": "electrical_current_balance",
+      "title": "Electrical single-phase load balance",
+      "decision": {
+        "decision": "required",
+        "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+      },
+      "official_source": {
+        "authority": "EMSD",
+        "edition": "2024",
+        "kind": "code_of_practice",
+        "url": "https://www.emsd.gov.hk/beeo/en/mibec_beeo_codtechguidelines.html",
+        "reviewed_on": "2026-11-08",
+        "review_scope": "Official index only; numerical clauses not yet encoded",
+        "applicability_note": "Technical Circular 1/2024 governs effective dates. BEEO building scope, submission/works dates and amendments require project-specific review."
+      },
+      "modules": [
+        {
+          "pack": "hk-phase-balance-2026.11.10",
+          "sha256": "8c8d5ca3b71b77acf2027acbcaef6351c4dc1150540b3610518c767fc086205b",
+          "rule_ids": [
+            "HK.EMSD.BEC2024.7_6_3.current_unbalance"
+          ],
+          "scheduled_tasks": [
+            "hk-rule"
+          ],
+          "execution_status": "not_assessed",
+          "pack_coverage": {
+            "complete": false,
+            "implemented": [
+              "Scoped BEC 2024 clause 7.6.3 current-unbalance percentage with explicit circuit/rating/design-current basis"
+            ],
+            "pending": [
+              "Independent statutory and edition applicability",
+              "Protection and actual cable/neutral selection",
+              "Harmonics, TPF and THD",
+              "Other electrical clauses and complete Hong Kong conformity"
+            ]
+          }
+        }
+      ],
+      "gaps": [
+        "partial_rule_coverage"
+      ]
+    },
+    "design_accepted": false
+  },
+  {
+    "scenario": "missing-design-basis",
+    "selected_topic": {
+      "id": "electrical_current_balance",
+      "title": "Electrical single-phase load balance",
+      "decision": {
+        "decision": "required",
+        "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+      },
+      "official_source": {
+        "authority": "EMSD",
+        "edition": "2024",
+        "kind": "code_of_practice",
+        "url": "https://www.emsd.gov.hk/beeo/en/mibec_beeo_codtechguidelines.html",
+        "reviewed_on": "2026-11-08",
+        "review_scope": "Official index only; numerical clauses not yet encoded",
+        "applicability_note": "Technical Circular 1/2024 governs effective dates. BEEO building scope, submission/works dates and amendments require project-specific review."
+      },
+      "modules": [
+        {
+          "pack": "hk-phase-balance-2026.11.10",
+          "sha256": "8c8d5ca3b71b77acf2027acbcaef6351c4dc1150540b3610518c767fc086205b",
+          "rule_ids": [
+            "HK.EMSD.BEC2024.7_6_3.current_unbalance"
+          ],
+          "scheduled_tasks": [
+            "hk-rule"
+          ],
+          "execution_status": "not_assessed",
+          "pack_coverage": {
+            "complete": false,
+            "implemented": [
+              "Scoped BEC 2024 clause 7.6.3 current-unbalance percentage with explicit circuit/rating/design-current basis"
+            ],
+            "pending": [
+              "Independent statutory and edition applicability",
+              "Protection and actual cable/neutral selection",
+              "Harmonics, TPF and THD",
+              "Other electrical clauses and complete Hong Kong conformity"
+            ]
+          }
+        }
+      ],
+      "gaps": [
+        "partial_rule_coverage"
+      ]
+    },
+    "design_accepted": false
+  }
+]

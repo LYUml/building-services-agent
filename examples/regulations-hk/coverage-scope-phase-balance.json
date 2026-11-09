@@ -1,0 +1,51 @@
+{
+  "jurisdiction": "HK",
+  "catalog": "hk-coverage-2026.11.10-phase-balance",
+  "scope_source": "Synthetic phase-balance workflow; actual full-project statutory scope is not established",
+  "topics": {
+    "electrical": {
+      "decision": "unresolved",
+      "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+    },
+    "lighting": {
+      "decision": "unresolved",
+      "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+    },
+    "hvac": {
+      "decision": "unresolved",
+      "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+    },
+    "plumbing": {
+      "decision": "unresolved",
+      "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+    },
+    "drainage": {
+      "decision": "unresolved",
+      "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+    },
+    "fire": {
+      "decision": "unresolved",
+      "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+    },
+    "emergency_lighting": {
+      "decision": "unresolved",
+      "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+    },
+    "energy_audit": {
+      "decision": "unresolved",
+      "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+    },
+    "government_specification": {
+      "decision": "unresolved",
+      "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+    },
+    "utility": {
+      "decision": "unresolved",
+      "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+    },
+    "electrical_current_balance": {
+      "decision": "required",
+      "source": "Synthetic selected-clause scenario only; actual project scope and applicability require intake evidence"
+    }
+  }
+}
