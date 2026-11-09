@@ -26,6 +26,16 @@ Implementation acceptance sequence:
 
 ## MOOSAS findings
 
+## Independent Revit bridge source check
+
+Inspected `rui-branco/revit-mcp` at commit `0a99726d2fc95f71c24b373cbd74bda0d5e907d8` (MIT, copyright Rui Branco). Selected source hashes are in `docs/evidence/moosas-review/revit-mcp-source-review.json`; the checkout is local under ignored tools, not installed or executed. The local dotnet host returned no installed SDKs.
+
+The advertised `revit_create_pipes` endpoint routes to `DirectShapeEndpoints.CreatePipes`: it builds cylinders per route segment and passes them to DirectShape construction. Category may fall back from PipeCurves to GenericModel. It does not create native Plumbing.Pipe objects or MEP connectors. Its default radius must not become an assumed engineering diameter. This endpoint is unsuitable for our native system/connectivity acceptance despite its tool name.
+
+The ExternalEvent queue is a useful reference for valid API-context execution. It distinguishes a request abandoned before execution from a timeout after execution started; our future caller must read back state before retrying an uncertain write. The package also auto-installs by default (`REVIT_MCP_NO_AUTO_INSTALL=1` opts out), and advertises dialog dismissal. Do not launch it casually as a read-only probe or import those defaults into the user session. Evaluate query/export and transaction plumbing separately from the missing native MEP authoring. No source implementation has yet been copied into this repository.
+
+## MOOSAS source details
+
 Pinned [KLEGB/MOOSAS](https://github.com/KLEGB/MOOSAS/tree/dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c), develop commit `dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c`. Current README describes a standalone MoosasPy core, not only SketchUp integration. Reviewed modules separate geometry transformation, model I/O and simulation; explicit coupling connects energy/airflow workflows. Shared results retain native command/workspace diagnostics. Apache-2.0 is the root licence; bundled engines/templates have additional notices to review before reuse. Selected source hashes are retained in `docs/evidence/moosas-review/source-manifest.json`; source snapshots remain local, not vendored or executed.
 
 Our application of these ideas:

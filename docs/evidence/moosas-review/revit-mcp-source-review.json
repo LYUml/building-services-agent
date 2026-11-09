@@ -1,0 +1,29 @@
+{
+  "scope": "Source inspection only; no installation or native execution",
+  "repository": "https://github.com/rui-branco/revit-mcp",
+  "files": [
+    {
+      "sha256": "ed6e046ee80a618eb0664fe62385d51ab0f58c987c246e76586bef3de799f5b5",
+      "path": "README.md"
+    },
+    {
+      "sha256": "7f11a5da483be2a1b3aa335b80f1b47777a31008600f08df2ecb0954c038aaa2",
+      "path": "LICENSE"
+    },
+    {
+      "sha256": "b9b8c09b6459723e5c718ba991427a68bb77cf296055c5e0f5ea5a117f490842",
+      "path": "lib/auto-install.js"
+    },
+    {
+      "sha256": "cf4c2dc095395e4c799bccf6d0fb525c681eb4cd7408417e3a6afb54291f0293",
+      "path": "revit-bridge/src/RevitApiContext.cs"
+    },
+    {
+      "sha256": "eab977262a96da97e3b72a678590ea118a47647485d85b8b297ade22ab426750",
+      "path": "revit-bridge/handlers/src/Endpoints/DirectShapeEndpoints.cs"
+    }
+  ],
+  "license": "MIT",
+  "native_mep_pipe_authoring_verified": false,
+  "commit": "0a99726d2fc95f71c24b373cbd74bda0d5e907d8"
+}
