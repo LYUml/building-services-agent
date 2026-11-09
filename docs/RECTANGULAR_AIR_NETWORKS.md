@@ -1,5 +1,15 @@
 # Rectangular air-tree pressure budgets
 
+## Native outer-envelope sheet
+
+Workflow rectangular_drawing inherits a passing rectangular_model_design or rectangular_network_binding, with settings/sheet and requires_pass on an ifc_clash of that exact producer. It forbids replacement model/IFC fields. Missing AutoCAD leaves it unexecuted. Settings specify source, axes (XY/XZ/YZ) and annotation_height_m; sheet uses the existing native A4 fixed-scale/reference contract. See clearance-drawing-plan.json and intrusion-drawing-plan.json. The original circular-profile multiview adapter is not used for rectangular sizes.
+
+The thin renderer independently checks saved hollow rectangular profiles against the producer source model, native bounds/metadata and complete represented-device coverage. It draws true projected outer rectangles and a nonzero duct centreline, with explicit inside-width/height and true length text. Only explicit straight rectangular ducts and source-defined IfcFan box envelopes are supported; other represented classes reject instead of disappearing. End-on ducts reject. Equipment labels state ENVELOPE ONLY. LINE/TEXT entities have IFC GUID XDATA and metre units. Source-to-saved-DXF snapshot reconciliation is followed by the existing native AutoCAD full entity/layer/geometry/GUID reopen and PDF-scale check. This is not a separate independent saved-DXF engineering audit or hidden-line calculation.
+
+Actual runs/rectangular-drawing-workflow-v1 passes sizing/native model, coordination and drawing; final review remains pending. AutoCAD independently reopens 11 linked entities; the 2 m centreline prints at 100 mm at 1:20 within the supplied tolerance. The actual PDF was rendered and viewed: 500x300 mm inside and 2 m length notes plus separate context-envelope note are readable, with no observed clipping. The intrusion workflow has no drawing directory and explicitly identifies failed coordination as its blocker. Five renderer/gate tests pass; four native-adapter tests pass and one optional native test skips (the separate actual native workflow is executed). Existing duplicate PDF PageMode warning is retained; PDF standard conformance is not asserted. Evidence: evidence/rectangular-air/drawing.json.
+
+These are outer-envelope diagnostic sheets with nonassociative notes. Wall/insulation details, hidden lines, dimension graphics, title blocks, congested annotation, finite fittings, real products and complete installation/Hong Kong acceptance remain pending.
+
 ## Selected-model coordination gates
 
 The existing generic ifc_clash can now inherit rectangular_model_design's selected-coordination/bim/model.ifc or rectangular_network_binding's bim/model.ifc. No replacement IFC is supplied. Producer artifact bytes are pinned and checked before dependent consumers; inherited clash repeats the pin check afterward. A failed producer prevents collision execution; changed artifacts produce explicit integrity failures, including downstream review, instead of a passing or ordinary pending result.

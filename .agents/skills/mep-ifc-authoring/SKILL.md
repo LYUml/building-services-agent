@@ -5,6 +5,8 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For a supported rectangular outer-envelope sheet use rectangular_drawing with a native rectangular producer, same-producer ifc_clash required gate, settings/sheet and explicit AutoCAD CLI path. It uses actual saved rectangular profiles and complete supported fan-envelope context, not circular size labels. Native reopen/scale checks and actual PDF review remain separate; end-on/unsupported elements reject. See docs/RECTANGULAR_AIR_NETWORKS.md. Do not label the diagnostic outline/notes as full installation drawings.
+
 Gate rectangular selected-model delivery with ifc_clash depends_on on rectangular_model_design (or source-defined rectangular_network_binding). It reads the exact native producer model and checks artifact pins before/after; unknown/replaced/changed evidence cannot pass. Use sourced clash policy and actual represented context; synthetic fan envelopes are not physical fan selection or whole-building coverage. Keep downstream requires_pass and full drawing/engineering review separate. See docs/RECTANGULAR_AIR_NETWORKS.md.
 
 For catalogue-selected rectangular straight model revision, use rectangular_model_design per docs/RECTANGULAR_AIR_NETWORKS.md. Require stable project_uuid and separately sourced wall thickness per option; reject outer-space failures before selection. Preserve baseline/rejections, fixed world endpoints and saved object/port GUIDs, then reauthor/reopen and repeat bound pressure. This supersedes standalone revision-pending notes for supported straight chains; clashes, bends/junctions, fabrication and full acceptance remain separate.

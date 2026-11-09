@@ -1,0 +1,338 @@
+{
+  "scope": "Actual synthetic clash-gated rectangular diagnostic outer-envelope sheet; not full installation acceptance",
+  "positive_tasks": [
+    {
+      "id": "air",
+      "kind": "rectangular_model_design",
+      "status": "pass",
+      "recorded_scope": "Finite rectangular sizing and source-defined straight-wall regeneration only; no physical junction, clash, fabrication, fan or full code acceptance",
+      "dependencies": [],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R1"
+      ],
+      "evidence": [
+        "air/baseline-bim/bim-verification.json",
+        "air/baseline-bim/model.ifc",
+        "air/baseline-bim/schema-validation.json",
+        "air/baseline-network.json",
+        "air/filtered-catalogue.json",
+        "air/model-design.json",
+        "air/selected-coordination/analysis/manifest.json",
+        "air/selected-coordination/analysis/network.json",
+        "air/selected-coordination/analysis/report.html",
+        "air/selected-coordination/analysis/segments.csv",
+        "air/selected-coordination/bim/bim-verification.json",
+        "air/selected-coordination/bim/model.ifc",
+        "air/selected-coordination/bim/schema-validation.json",
+        "air/selected-coordination/network-binding.json",
+        "air/selected-coordination/network-input.json",
+        "air/selected-model.json",
+        "air/selected-skeleton.json",
+        "air/sizing/baseline/manifest.json",
+        "air/sizing/baseline/network.json",
+        "air/sizing/baseline/report.html",
+        "air/sizing/baseline/segments.csv",
+        "air/sizing/candidates.csv",
+        "air/sizing/design-comparison.json",
+        "air/sizing/report.html",
+        "air/sizing/selected-network.json",
+        "air/sizing/selected/manifest.json",
+        "air/sizing/selected/network.json",
+        "air/sizing/selected/report.html",
+        "air/sizing/selected/segments.csv"
+      ]
+    },
+    {
+      "id": "coordination",
+      "kind": "ifc_clash",
+      "status": "pass",
+      "recorded_scope": "saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending",
+      "dependencies": [
+        "air"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R3"
+      ],
+      "evidence": [
+        "coordination/clash.json",
+        "coordination/report.html"
+      ]
+    },
+    {
+      "id": "drawing",
+      "kind": "rectangular_drawing",
+      "status": "pass",
+      "recorded_scope": "Source-checked orthographic outer-envelope outlines, centreline and nonassociative text notes only; not hidden-line, fabrication, insulation or installation drawings; native DWG/scale verified, actual visual and full engineering review separate",
+      "dependencies": [
+        "air",
+        "coordination"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R4"
+      ],
+      "evidence": [
+        "drawing/drawing.json",
+        "drawing/native/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log",
+        "drawing/native/input.dxf",
+        "drawing/native/native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log",
+        "drawing/native/native-reopen/export.log",
+        "drawing/native/native-reopen/export.scr",
+        "drawing/native/native-reopen/source-copy.dwg",
+        "drawing/native/native-reopen/source-export.dxf",
+        "drawing/native/native-verification.json",
+        "drawing/native/plot.log",
+        "drawing/native/save.log",
+        "drawing/native/save.scr",
+        "drawing/native/segments.dwg",
+        "drawing/native/sheet.json",
+        "drawing/native/sheet.log",
+        "drawing/native/sheet.pdf",
+        "drawing/native/sheet.scr",
+        "drawing/segments.dxf"
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "Independent geometry, fitting, fan, acoustic, fire/smoke and Hong Kong acceptance remains pending",
+      "dependencies": [
+        "air",
+        "coordination",
+        "drawing"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "review"
+      ],
+      "input_blockers": [],
+      "next_action": "perform the specified review and record evidence separately",
+      "requirement_ids": [
+        "R2"
+      ],
+      "evidence": []
+    }
+  ],
+  "negative_tasks": [
+    {
+      "id": "air",
+      "kind": "rectangular_model_design",
+      "status": "pass",
+      "recorded_scope": "Finite rectangular sizing and source-defined straight-wall regeneration only; no physical junction, clash, fabrication, fan or full code acceptance",
+      "dependencies": [],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [],
+      "input_blockers": [],
+      "next_action": "review complete requirement acceptance against retained artifacts",
+      "requirement_ids": [
+        "R1"
+      ],
+      "evidence": [
+        "air/baseline-bim/bim-verification.json",
+        "air/baseline-bim/model.ifc",
+        "air/baseline-bim/schema-validation.json",
+        "air/baseline-network.json",
+        "air/filtered-catalogue.json",
+        "air/model-design.json",
+        "air/selected-coordination/analysis/manifest.json",
+        "air/selected-coordination/analysis/network.json",
+        "air/selected-coordination/analysis/report.html",
+        "air/selected-coordination/analysis/segments.csv",
+        "air/selected-coordination/bim/bim-verification.json",
+        "air/selected-coordination/bim/model.ifc",
+        "air/selected-coordination/bim/schema-validation.json",
+        "air/selected-coordination/network-binding.json",
+        "air/selected-coordination/network-input.json",
+        "air/selected-model.json",
+        "air/selected-skeleton.json",
+        "air/sizing/baseline/manifest.json",
+        "air/sizing/baseline/network.json",
+        "air/sizing/baseline/report.html",
+        "air/sizing/baseline/segments.csv",
+        "air/sizing/candidates.csv",
+        "air/sizing/design-comparison.json",
+        "air/sizing/report.html",
+        "air/sizing/selected-network.json",
+        "air/sizing/selected/manifest.json",
+        "air/sizing/selected/network.json",
+        "air/sizing/selected/report.html",
+        "air/sizing/selected/segments.csv"
+      ]
+    },
+    {
+      "id": "coordination",
+      "kind": "ifc_clash",
+      "status": "fail",
+      "recorded_scope": "saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending",
+      "dependencies": [
+        "air"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [],
+      "upstream_action_tasks": [
+        "coordination"
+      ],
+      "input_blockers": [],
+      "next_action": "inspect retained failure evidence and correct source or adapter before a new run",
+      "requirement_ids": [
+        "R3"
+      ],
+      "evidence": [
+        "coordination/clash.json",
+        "coordination/report.html"
+      ]
+    },
+    {
+      "id": "drawing",
+      "kind": "rectangular_drawing",
+      "status": "pending",
+      "recorded_scope": "required checks unresolved: coordination (fail); adapter not executed",
+      "dependencies": [
+        "air",
+        "coordination"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [
+        "coordination"
+      ],
+      "upstream_action_tasks": [
+        "coordination"
+      ],
+      "input_blockers": [],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R4"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "status": "pending",
+      "recorded_scope": "required checks unresolved: coordination (fail), drawing (pending); adapter not executed",
+      "dependencies": [
+        "air",
+        "coordination",
+        "drawing"
+      ],
+      "iteration_baseline": null,
+      "blocked_by": [
+        "coordination",
+        "drawing"
+      ],
+      "upstream_action_tasks": [
+        "coordination"
+      ],
+      "input_blockers": [],
+      "next_action": "resolve upstream tasks before rerunning dependent task",
+      "requirement_ids": [
+        "R2"
+      ],
+      "evidence": []
+    }
+  ],
+  "native": {
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\rectangular-drawing-workflow-v1\\drawing\\segments.dxf": "665b72c31b4097e5401da0d37b907c53f42dab11391cbed76d2d7e868a0bb4ed",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\rectangular-air\\sheet-settings.json": "31610409d5415ee5b522087debf96fb1d49610662206ec060c6f0bc70754dd48"
+    },
+    "inputs_unchanged": true,
+    "engine": "C:\\Program Files\\Autodesk\\AutoCAD 2027\\accoreconsole.exe",
+    "engine_sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2",
+    "dwg_sha256": "e3073e3e64ac617b932474aa77020192d7ffc810d2975a6767680c1c11fd3ab3",
+    "native_reopen_pass": true,
+    "checks": {
+      "model_entity_count": 11,
+      "linked_entity_count": 11,
+      "model_entities_and_ifc_xdata_match": true,
+      "geometry_layers_and_annotations_match": true,
+      "metre_units": true
+    },
+    "plot": {
+      "pdf_sha256": "b6b3a3ee0925b65ca19cf99dfcffc3b8d3bc964d5b21d9cca6925ecf9ec027aa",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 20,
+      "reference_handle": "34",
+      "reference_expected_mm": 100.0,
+      "reference_measured_mm": 99.949,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "settings": {
+      "source": "Explicit synthetic A4 1:20 window and 100 mm reference target; not regulation",
+      "window_drawing_units": [
+        -0.2,
+        -0.2,
+        5.2,
+        3.8
+      ],
+      "scale_denominator": 20,
+      "reference_ifc_guid": "3jzmgt4rXJROS0ybhlzD_Q",
+      "pdf_tolerance_mm": 0.2
+    },
+    "design_accepted": false,
+    "pending": [
+      "actual PDF visual review",
+      "equipment/fittings/insulation and installation drawing detail",
+      "complete engineering acceptance"
+    ],
+    "artifacts": {
+      "input.dxf": "665b72c31b4097e5401da0d37b907c53f42dab11391cbed76d2d7e868a0bb4ed",
+      "plot.log": "78f05990884cf8e0fe6230aa52cab3805ecf44457b23df308912b689031f5811",
+      "save.log": "bb9a3d3c462b9db9d25027c0592c71fbc87621a2a310cec583017cd933025dd6",
+      "save.scr": "1ca81eb57fb569a8fafd48365f5977d24051fd9af1b14abf265bd2a7fa0695a8",
+      "segments.dwg": "e3073e3e64ac617b932474aa77020192d7ffc810d2975a6767680c1c11fd3ab3",
+      "sheet.json": "866501d8a753a25c216cebf5f044ccf0df27e939312a6f4263becff4c19e3547",
+      "sheet.log": "6b6cff588e686edef0fde921757581bc4b17473b8f8861006626bd79eaf120fc",
+      "sheet.pdf": "b6b3a3ee0925b65ca19cf99dfcffc3b8d3bc964d5b21d9cca6925ecf9ec027aa",
+      "sheet.scr": "72f41a3132b3351c27b1736d932292326f4b95e78d4a223396f2ab7b1c90693d",
+      "native-reopen/export.log": "4e636babd902eed557794a19879f5f6b6b824d931d542d94d67d023b65c03892",
+      "native-reopen/export.scr": "9e715a0984747ff0d0325204f48bd88ec191059cf4f3a869e73623b011d9883e",
+      "native-reopen/source-copy.dwg": "e3073e3e64ac617b932474aa77020192d7ffc810d2975a6767680c1c11fd3ab3",
+      "native-reopen/source-export.dxf": "3931b79626e028af1a1746cf19850dc3cb0337f762eef03fed815d71789091e7",
+      "ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "9886287d45892a027715b5a05f699900e6a071bdf0120f4afa48a8fe85efcd75",
+      "native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "369e69e7c537ae0306c670c9f2948c858766803b7626c6c5029a033944e3db09"
+    }
+  },
+  "visual_review": {
+    "observed": "Actual workflow PDF rendered and viewed: readable 500x300 inside and 2m length notes, separate context envelope note, no observed clipping",
+    "full_engineering_accepted": false
+  },
+  "tests": {
+    "renderer": 5,
+    "native_adapter_pass": 4,
+    "native_adapter_skip": 1
+  },
+  "integrity_pass": true,
+  "design_accepted": false,
+  "artifacts": {
+    "runs\\rectangular-drawing-workflow-v1\\workflow.json": "5291d6435ded2fb4d251413b877bf53231b649ea66a2a50e15cb7e36e88453e3",
+    "runs\\rectangular-drawing-workflow-v1\\drawing\\drawing.json": "bc802105495c3b3ea55addbbfa599a02a48a90e708ba849e66bd1247ba5f57d4",
+    "runs\\rectangular-drawing-workflow-v1\\drawing\\native\\native-verification.json": "5c4bc2030c04c4a86fb95d459ecaf49b82f15e875f3a113cbe12d7c35daea260",
+    "runs\\rectangular-drawing-workflow-v1\\drawing\\native\\sheet.pdf": "b6b3a3ee0925b65ca19cf99dfcffc3b8d3bc964d5b21d9cca6925ecf9ec027aa",
+    "runs\\rectangular-drawing-workflow-v1\\sheet-review.png": "1234b1a25eb699acc7638dec63d5c451d8f1d42eb719cfb85de0e1f3672ebe17",
+    "runs\\rectangular-drawing-blocked-v1\\workflow.json": "2e9db5a6f5480c77209cebe0052589bc5b2d68cf75c66764443dc10ca7132371"
+  }
+}

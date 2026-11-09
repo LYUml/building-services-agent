@@ -62,6 +62,8 @@ The requested end state is reusable automation from a requirement document and s
 
 ## Next sequence
 
+Rectangular selected-model drawing now requires same-model clash success, projects checked outer envelopes/centreline and inside-size/length notes, and executes native DWG reopen plus fixed-scale PDF verification. Actual 11-entity positive PDF was inspected; intrusion blocks before drawing. Five new tests pass; four native-adapter tests pass with one skip. Full installation graphics, fittings, products and Hong Kong acceptance remain pending.
+
 Rectangular selected/native binding producers now feed generic IFC coordination with artifact pins. Actual synthetic clear and side-wall intrusion cases distinguish passing pressure from failed physical overlap/clearance, blocking required review; byte mutation creates explicit integrity failure. This is represented-model checking, not product/insulation/obstacle completeness, native drawings or full Hong Kong acceptance.
 
 Rectangular catalogue model revision now regenerates source-defined straight walls with separately sourced thickness, fixed endpoints, stable saved object/port GUIDs and fresh native-bound pressure. Baseline, rejected spatial choices and no-feasible failures are retained. Actual synthetic single-duct native workflow passes with final review pending; full routes, bends/junctions, products, clashes/drawings and HK acceptance remain pending.
