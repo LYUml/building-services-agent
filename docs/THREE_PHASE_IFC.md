@@ -82,3 +82,5 @@ The non-self-contained IFC plan example is now explicitly named ifc-plan.json.in
 Final related regression: 62 tests pass with zero failures/errors, including clean-checkout executable example checks. The renamed template was additionally staged with generated model/binding inputs and validated as a four-task plan with 14 source inputs. This is a scoped regression result, not a claim that every repository/native-runtime test passes.
 
 For explicit saved cable-to-board relationship checking, see ELECTRICAL_IFC_TOPOLOGY.md and workflow three_phase_topology. It can gate the same derived numerical producer and drawing while preserving the distinction between a logical common-node bus graph and unverified physical electrical installation.
+
+Supported 90-degree circular cable envelopes now extend the earlier straight-only scope: see CABLE_QUARTER_BENDS.md. The existing registered reader/derived producer uses true arc length with independent Body/Axis/native-solid and end-port-normal checks. General bends and complete electrical installation remain unsupported.

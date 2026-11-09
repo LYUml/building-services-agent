@@ -1,0 +1,45 @@
+{
+  "scope": "Synthetic native quarter-circle solid envelope only; no installation, equipment, conductor selection or regulation acceptance",
+  "inputs": {
+    "bend_radius_m": 0.3,
+    "envelope_radius_m": 0.01,
+    "angle_radians": 1.5707963267948966,
+    "kind": "assumption"
+  },
+  "ifc_sha256": "9ca67d38b5b1b3d8446061eb423fd6f24c26b9368c944170b04e07bc5e0740e3",
+  "schema_express_pass": true,
+  "analytic_arc_length_m": 0.47123889803846897,
+  "endpoint_chord_m": 0.4242640687119285,
+  "native_mesh_pass": true,
+  "native_volume_m3": 0.00014803916528462343,
+  "analytic_volume_m3": 0.00014804406601634038,
+  "native_centroid_m": [
+    0.19103740897462043,
+    -6.619363961296982e-17,
+    -0.1910374089746159
+  ],
+  "analytic_centroid_m": [
+    0.1910389833579717,
+    0.0,
+    -0.1910389833579717
+  ],
+  "native_bounds_m": [
+    [
+      3.219648156183399e-17,
+      -0.009999968817693087,
+      -0.31
+    ],
+    [
+      0.31,
+      0.009999968817693087,
+      0.0
+    ]
+  ],
+  "analytic_checks_pass": true,
+  "versions": {
+    "ifcopenshell": "0.8.5",
+    "manifold3d": "3.5.4"
+  },
+  "probe_sha256": "7f86612c9ea48d336dff32335258ddd58c687df36a4e8bf92897ec7af841607e",
+  "design_accepted": false
+}

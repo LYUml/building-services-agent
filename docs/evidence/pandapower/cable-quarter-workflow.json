@@ -1,0 +1,143 @@
+{
+  "scope": "Synthetic native quarter-circle cable geometry, source-derived numerical study and calculation schematic; no full engineering acceptance",
+  "tasks": {
+    "study": {
+      "kind": "three_phase_ifc_project",
+      "status": "pass",
+      "scope": "New snapshot project with native straight or canonical quarter-circle IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+    },
+    "geometry": {
+      "kind": "three_phase_ifc",
+      "status": "pass",
+      "scope": "Selected-system straight or canonical quarter-circle cable envelopes, placed ports, bus anchors and analysis lengths only; physical connections, general bends, conductor selection, protection and regulatory acceptance remain unverified"
+    },
+    "drawing": {
+      "kind": "three_phase_drawing",
+      "status": "pass",
+      "scope": "Source-linked calculation schematic and schedules only; full installation, protection and Hong Kong acceptance pending; actual page visual/engineering review remains pending"
+    },
+    "review": {
+      "kind": "manual",
+      "status": "pending",
+      "scope": "manual engineering/visual verification required"
+    }
+  },
+  "lines": [
+    {
+      "id": "feeder",
+      "element_guid": "1l0DiO$wXK7fdgG5dcTJLg",
+      "port_guids": [
+        "15$jvRQPbHMeZpewZ2USr8",
+        "14X8HwCtrVDQy_WG4Uo3mI"
+      ],
+      "observed_length_m": 0.47123889803846897,
+      "project_length_m": 0.47123889803846897,
+      "route_length_match": true,
+      "route_geometry": "quarter circle",
+      "bend_radius_m": 0.3,
+      "body_type": "IfcRevolvedAreaSolid",
+      "envelope_radius_m": 0.01,
+      "world_axis_ends_m": [
+        [
+          0.3,
+          0.0,
+          2.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.7
+        ]
+      ],
+      "native_volume_m3": 0.00014803916528462435,
+      "analytic_volume_m3": 0.00014804406601634035
+    },
+    {
+      "id": "branch",
+      "element_guid": "3fHnwhwAvUYQ60xaZ7C1uG",
+      "port_guids": [
+        "1AnG3ccqvSWQSdv_IXfFKq",
+        "2Kq5jZ9o1LjgM1DhF2Qxjo"
+      ],
+      "observed_length_m": 2.0,
+      "project_length_m": 2.0,
+      "route_length_match": true,
+      "route_geometry": "straight",
+      "bend_radius_m": null,
+      "body_type": "IfcExtrudedAreaSolid",
+      "envelope_radius_m": 0.01,
+      "world_axis_ends_m": [
+        [
+          0.0,
+          0.0,
+          1.7
+        ],
+        [
+          -2.0,
+          0.0,
+          1.7
+        ]
+      ],
+      "native_volume_m3": 0.0006283080814733207,
+      "analytic_volume_m3": 0.0006283185307179586
+    }
+  ],
+  "three_phase_model_bindings": [
+    {
+      "producer": "study",
+      "consumer": "geometry",
+      "ifc_sha256": "33bf7b9cde214006fe4b5520c4fa6055d529fa847a1b68e077a53d86974aeb8e",
+      "geometry_binding_sha256": "e23ff2f468cfe54538d7980b56b56308464fbf13bb030cc15b88d1e4fd4dc7a4"
+    },
+    {
+      "producer": "geometry",
+      "consumer": "drawing",
+      "ifc_sha256": "33bf7b9cde214006fe4b5520c4fa6055d529fa847a1b68e077a53d86974aeb8e",
+      "geometry_binding_sha256": "e23ff2f468cfe54538d7980b56b56308464fbf13bb030cc15b88d1e4fd4dc7a4"
+    }
+  ],
+  "native_reopen_pass": true,
+  "plot": {
+    "pdf_sha256": "9bdc2b84895b28679113103a80a936ef7e0e6a043e1b38e2b02387e9c6f89389",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 1,
+    "reference_handle": "7F",
+    "reference_expected_mm": 50.0,
+    "reference_measured_mm": 49.99566666666666,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "source_and_artifact_integrity_pass": true,
+  "delivery_context_pass": true,
+  "page_review": {
+    "pdf_sha256": "9bdc2b84895b28679113103a80a936ef7e0e6a043e1b38e2b02387e9c6f89389",
+    "png_sha256": "aa42e7aa6ec80a801e6c55a4b9021d4fcd59bba6a383c839afa0912cdbcc3b24",
+    "observed": "Readable three-bus schematic; feeder 0.47 m and branch 2.00 m labels, phase currents/voltages, scope notes and 50 mm reference; no visible clipping or overlap",
+    "schematic_page_review_pass": true,
+    "engineering_acceptance": false
+  },
+  "model_preview": {
+    "ifc_sha256": "33bf7b9cde214006fe4b5520c4fa6055d529fa847a1b68e077a53d86974aeb8e",
+    "guid": "1l0DiO$wXK7fdgG5dcTJLg",
+    "png_sha256": "2f587ecad7210b830e87b29bcb29e828ad7b0e4cf08bd5c5ffe53b8869917d5a",
+    "omitted_element_guids": [
+      "3fHnwhwAvUYQ60xaZ7C1uG"
+    ],
+    "observed": "Saved native quarter-circle visible in isometric and XZ views; outward end-port axes visible. Other segment omitted; preview is not BIM-viewer, joint or installation acceptance.",
+    "scoped_preview_review_pass": true,
+    "bim_viewer_review": false
+  },
+  "related_tests": {
+    "quarter_tests": 10,
+    "other_related_tests": 41,
+    "failures": 0,
+    "errors": 0
+  },
+  "retained_warning": "Duplicate /PageMode in native PDF; no PDF conformance claim",
+  "design_accepted": false
+}

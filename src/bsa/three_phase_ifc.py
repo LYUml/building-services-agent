@@ -14,7 +14,7 @@ from .three_phase import prepare,fields,ROOT
 
 def inputs(project,ifc,binding_path):
     """Preflight source inventory without running native geometry."""
-    from . import circular_geometry,cad_ifc,solid_clash
+    from . import circular_geometry,cad_ifc,solid_clash,quarter_cable
     _,files=prepare(project)
     ifc,binding_path=Path(ifc).resolve(),Path(binding_path).resolve()
     binding=json.loads(binding_path.read_text(encoding='utf-8-sig'))
@@ -23,7 +23,7 @@ def inputs(project,ifc,binding_path):
     if not isinstance(source['path'],str) or Path(source['path']).is_absolute():raise ProjectError('relative geometry source required')
     path=(binding_path.parent/source['path']).resolve()
     if not path.is_relative_to(binding_path.parent) or not path.is_file() or digest(path)!=source['sha256']:raise ProjectError('geometry source path/hash mismatch')
-    return files|{ifc,binding_path,path,Path(__file__).resolve(),*(Path(m.__file__).resolve() for m in (circular_geometry,cad_ifc,solid_clash))}
+    return files|{ifc,binding_path,path,Path(__file__).resolve(),*(Path(m.__file__).resolve() for m in (circular_geometry,cad_ifc,solid_clash,quarter_cable))}
 
 
 def inspect(project,ifc,binding_path,*,require_length_match=True):
@@ -87,27 +87,33 @@ def inspect(project,ifc,binding_path,*,require_length_match=True):
         body=[r for r in obj.Representation.Representations if r.RepresentationIdentifier=='Body']
         if len(axis)!=1 or len(body)!=1 or len(axis[0].Items)!=1 or len(body[0].Items)!=1:raise ProjectError('one explicit Axis and one Body item required')
         solid=body[0].Items[0]
-        local=line_points(axis[0].Items[0])
-        if solid.is_a('IfcSweptDiskSolid') and not solid.is_a('IfcSweptDiskSolidPolygonal'):
-            if solid.InnerRadius is not None or solid.StartParam is not None or solid.EndParam is not None:raise ProjectError('full solid cable sweep required')
-            body_axis=line_points(solid.Directrix);radius=float(solid.Radius)*factor
-        elif solid.is_a('IfcExtrudedAreaSolid'):
-            profile=solid.SweptArea
-            if profile.is_a()!='IfcCircleProfileDef' or profile.ProfileType!='AREA' or profile.Position is not None:raise ProjectError('unoffset solid circle extrusion profile required')
-            if not solid.Position or not solid.Position.is_a('IfcAxis2Placement3D'):raise ProjectError('explicit 3D extrusion placement required')
-            frame=placement.get_axis2placement(solid.Position)
-            if not np.isfinite(frame).all() or not np.allclose(frame[:3,:3].T@frame[:3,:3],np.eye(3),atol=1e-10,rtol=0) or not math.isclose(float(np.linalg.det(frame[:3,:3])),1,abs_tol=1e-10):raise ProjectError('rigid extrusion frame required')
-            vector=np.array(solid.ExtrudedDirection.DirectionRatios,dtype=float)
-            depth=float(solid.Depth)
-            if vector.shape!=(3,) or not np.isfinite(vector).all() or np.linalg.norm(vector)<=0 or not math.isfinite(depth) or depth<=0:raise ProjectError('finite nonzero extrusion vector and positive depth required')
-            vector/=np.linalg.norm(vector)
-            if not np.allclose(vector[:2],0,atol=1e-10,rtol=0):raise ProjectError('only perpendicular circular extrusion supported')
-            body_axis=np.array([frame[:3,3],(frame@np.append(vector*depth,1))[:3]])
-            radius=float(profile.Radius)*factor
-        else:raise ProjectError('straight solid circular extrusion or full swept-disk cable required')
-        if not (np.allclose(local,body_axis,atol=1e-9,rtol=0) or np.allclose(local,body_axis[::-1],atol=1e-9,rtol=0)):raise ProjectError('body directrix differs from declared Axis')
-        ends=np.array([(matrix@np.append(pt,1))[:3]*factor for pt in local])
-        length=float(np.linalg.norm(ends[1]-ends[0]))
+        quarter=None
+        if solid.is_a('IfcRevolvedAreaSolid'):
+            from .quarter_cable import inspect as inspect_quarter
+            quarter=inspect_quarter(solid,axis[0].Items[0],matrix,factor,unit.calculate_unit_scale(model,'PLANEANGLEUNIT'))
+            ends=quarter['points'][[0,-1]];radius=quarter['radius'];length=quarter['length']
+        else:
+            local=line_points(axis[0].Items[0])
+            if solid.is_a('IfcSweptDiskSolid') and not solid.is_a('IfcSweptDiskSolidPolygonal'):
+                if solid.InnerRadius is not None or solid.StartParam is not None or solid.EndParam is not None:raise ProjectError('full solid cable sweep required')
+                body_axis=line_points(solid.Directrix);radius=float(solid.Radius)*factor
+            elif solid.is_a('IfcExtrudedAreaSolid'):
+                profile=solid.SweptArea
+                if profile.is_a()!='IfcCircleProfileDef' or profile.ProfileType!='AREA' or profile.Position is not None:raise ProjectError('unoffset solid circle extrusion profile required')
+                if not solid.Position or not solid.Position.is_a('IfcAxis2Placement3D'):raise ProjectError('explicit 3D extrusion placement required')
+                frame=placement.get_axis2placement(solid.Position)
+                if not np.isfinite(frame).all() or not np.allclose(frame[:3,:3].T@frame[:3,:3],np.eye(3),atol=1e-10,rtol=0) or not math.isclose(float(np.linalg.det(frame[:3,:3])),1,abs_tol=1e-10):raise ProjectError('rigid extrusion frame required')
+                vector=np.array(solid.ExtrudedDirection.DirectionRatios,dtype=float)
+                depth=float(solid.Depth)
+                if vector.shape!=(3,) or not np.isfinite(vector).all() or np.linalg.norm(vector)<=0 or not math.isfinite(depth) or depth<=0:raise ProjectError('finite nonzero extrusion vector and positive depth required')
+                vector/=np.linalg.norm(vector)
+                if not np.allclose(vector[:2],0,atol=1e-10,rtol=0):raise ProjectError('only perpendicular circular extrusion supported')
+                body_axis=np.array([frame[:3,3],(frame@np.append(vector*depth,1))[:3]])
+                radius=float(profile.Radius)*factor
+            else:raise ProjectError('straight solid circular extrusion or full swept-disk cable required')
+            if not (np.allclose(local,body_axis,atol=1e-9,rtol=0) or np.allclose(local,body_axis[::-1],atol=1e-9,rtol=0)):raise ProjectError('body directrix differs from declared Axis')
+            ends=np.array([(matrix@np.append(pt,1))[:3]*factor for pt in local])
+            length=float(np.linalg.norm(ends[1]-ends[0]))
         if not math.isfinite(radius) or radius<=0:raise ProjectError('positive finite cable envelope radius required')
         ports={port.GlobalId:port for port in system.get_ports(obj)}
         port_ids=[role['from_port_guid'],role['to_port_guid']]
@@ -119,21 +125,30 @@ def inspect(project,ifc,binding_path,*,require_length_match=True):
             points.append(placement.get_local_placement(port.ObjectPlacement)[:3,3]*factor)
         points=np.array(points)
         if not (np.allclose(points,ends,atol=1e-6,rtol=0) or np.allclose(points,ends[::-1],atol=1e-6,rtol=0)):raise ProjectError('cable ports do not span body/axis ends')
+        if quarter:
+            for guid,point in zip(port_ids,points):
+                index=int(np.argmin(np.linalg.norm(ends-point,axis=1)))
+                if not np.allclose(placement.get_local_placement(ports[guid].ObjectPlacement)[:3,2],quarter['end_normals'][index],atol=1e-8,rtol=0):raise ProjectError('quarter-cable port axis differs from outward end-face normal')
         if not np.allclose(points[0],anchors[line['from']],atol=1e-6,rtol=0) or not np.allclose(points[1],anchors[line['to']],atol=1e-6,rtol=0):raise ProjectError('saved cable placement differs from sourced analysis bus anchors')
         shape=ifcopenshell.geom.create_shape(settings,obj)
         vertices=np.array(shape.geometry.verts).reshape(-1,3);faces=np.array(shape.geometry.faces).reshape(-1,3)
         observed=mesh_properties(vertices,faces)
-        direction=(ends[1]-ends[0])/length;offset=radius*np.sqrt(np.maximum(0,1-direction**2))
-        expected_bounds=np.array([ends.min(axis=0)-offset,ends.max(axis=0)+offset]);expected_volume=math.pi*radius**2*length
-        if not np.allclose(observed['bounds'],expected_bounds,atol=BOUNDS_TOLERANCE_M,rtol=0) or not np.allclose(observed['centroid'],ends.mean(axis=0),atol=BOUNDS_TOLERANCE_M,rtol=0) or not math.isclose(observed['volume'],expected_volume,rel_tol=VOLUME_RELATIVE_TOLERANCE):raise ProjectError('native solid bounds/centroid/volume differ from straight cable axis')
+        if quarter:
+            expected_bounds=quarter['expected']['bounds'];expected_volume=quarter['expected']['volume'];expected_centroid=quarter['expected']['centroid']
+        else:
+            direction=(ends[1]-ends[0])/length;offset=radius*np.sqrt(np.maximum(0,1-direction**2))
+            expected_bounds=np.array([ends.min(axis=0)-offset,ends.max(axis=0)+offset]);expected_volume=math.pi*radius**2*length
+            expected_centroid=ends.mean(axis=0)
+        if not np.allclose(observed['bounds'],expected_bounds,atol=BOUNDS_TOLERANCE_M,rtol=0) or not np.allclose(observed['centroid'],expected_centroid,atol=BOUNDS_TOLERANCE_M,rtol=0) or not math.isclose(observed['volume'],expected_volume,rel_tol=VOLUME_RELATIVE_TOLERANCE):raise ProjectError('native solid bounds/centroid/volume differ from cable axis')
         length_match=math.isclose(length,line['length_m'],rel_tol=0,abs_tol=1e-6)
         if require_length_match and not length_match:raise ProjectError('electrical route length differs from saved IFC geometry')
         rows.append(dict(id=line['id'],element_guid=obj.GlobalId,port_guids=port_ids,observed_length_m=length,project_length_m=line['length_m'],
-            route_length_match=length_match,body_type=solid.is_a(),envelope_radius_m=radius,world_axis_ends_m=ends.tolist(),native_volume_m3=observed['volume'],analytic_volume_m3=expected_volume))
+            route_length_match=length_match,route_geometry='quarter circle' if quarter else 'straight',bend_radius_m=quarter['bend_radius'] if quarter else None,
+            body_type=solid.is_a(),envelope_radius_m=radius,world_axis_ends_m=ends.tolist(),native_volume_m3=observed['volume'],analytic_volume_m3=expected_volume))
     if any(digest(Path(f))!=h for f,h in before.items()):raise ProjectError('inputs changed during IFC inspection')
     return dict(inputs=before,input_unchanged=True,source_basis=source,ifc_unit_to_m=factor,versions=versions,lines=rows,
         native_geometry_checks_pass=True,geometry_correspondence_pass=all(r['route_length_match'] for r in rows),native_electrical_connectivity_verified=False,design_accepted=False,
-        scope='Selected-system straight cable envelopes, placed ports, bus anchors and analysis lengths only; physical connections, bends, conductor selection, protection and regulatory acceptance remain unverified')
+        scope='Selected-system straight or canonical quarter-circle cable envelopes, placed ports, bus anchors and analysis lengths only; physical connections, general bends, conductor selection, protection and regulatory acceptance remain unverified')
 
 
 def run(project,ifc,binding,out):

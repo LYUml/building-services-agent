@@ -1,0 +1,49 @@
+{
+  "scope": "Synthetic straight and canonical quarter-circle cable envelopes; no manufacturer bend-radius or installed-route claim",
+  "project_uuid": "891e60d3-1af5-416d-9da7-7833b09e862c",
+  "envelope_radius_m": 0.01,
+  "buses_m": {
+    "source": [
+      0.3,
+      0.0,
+      2.0
+    ],
+    "DB-A": [
+      0.0,
+      0.0,
+      1.7
+    ],
+    "load-B": [
+      -2.0,
+      0.0,
+      1.7
+    ]
+  },
+  "quarter_bends": {
+    "feeder": {
+      "radius_m": 0.3,
+      "centre_m": [
+        0.0,
+        0.0,
+        2.0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  }
+}

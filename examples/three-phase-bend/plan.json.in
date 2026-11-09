@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "45f4581f2d56a65921e4b8fc2c1250960f6251203a5f9197ddd64dfe0286ea73",
+  "passage_dispositions": {
+    "P001": "requirement",
+    "P002": "requirement",
+    "P003": "requirement",
+    "P004": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "study",
+      "kind": "three_phase_ifc_project",
+      "project": "project.json",
+      "ifc": "cable-fixture/cables.ifc",
+      "binding": "cable-fixture/binding.json"
+    },
+    {
+      "id": "geometry",
+      "kind": "three_phase_ifc",
+      "depends_on": "study",
+      "ifc": "cable-fixture/cables.ifc",
+      "binding": "cable-fixture/binding.json"
+    },
+    {
+      "id": "drawing",
+      "kind": "three_phase_drawing",
+      "depends_on": "study",
+      "requires_pass": [
+        "geometry"
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "requires_pass": [
+        "drawing"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P001",
+      "quote": "Derive and solve a new three-phase study using actual saved straight and 90-degree circular cable lengths; never substitute endpoint chord distance for arc length.",
+      "task": "study",
+      "acceptance": "Derive and solve a new three-phase study using actual saved straight and 90-degree circular cable lengths; never substitute endpoint chord distance for arc length."
+    },
+    {
+      "id": "R2",
+      "passage": "P002",
+      "quote": "Verify the saved native cable solids, independent circular Axis, placed ports and source bus anchors against that derived project.",
+      "task": "geometry",
+      "acceptance": "Verify the saved native cable solids, independent circular Axis, placed ports and source bus anchors against that derived project."
+    },
+    {
+      "id": "R3",
+      "passage": "P003",
+      "quote": "Generate a source-linked calculation schematic and phase schedules only after the geometry check passes; retain native DWG reopening and actual PDF review separately.",
+      "task": "drawing",
+      "acceptance": "Generate a source-linked calculation schematic and phase schedules only after the geometry check passes; retain native DWG reopening and actual PDF review separately."
+    },
+    {
+      "id": "R4",
+      "passage": "P004",
+      "quote": "Review manufacturer bend limits, conductor selection, protection, physical joints, full regulations and installation scope before engineering acceptance; all example parameters are synthetic.",
+      "task": "review",
+      "acceptance": "Review manufacturer bend limits, conductor selection, protection, physical joints, full regulations and installation scope before engineering acceptance; all example parameters are synthetic."
+    }
+  ]
+}

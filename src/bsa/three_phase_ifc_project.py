@@ -1,4 +1,4 @@
-"""Derive a new electrical project from verified saved straight IFC lengths."""
+"""Derive an electrical project from verified straight/quarter-circle IFC lengths."""
 import argparse
 import copy
 import json
@@ -71,7 +71,7 @@ def run(project,ifc,binding,out,python=None):
                 derived_project_sha256=digest(derived_path),derived_inputs={str(f):digest(f) for f in derived_files},
                 derived_geometry_correspondence_pass=checked['geometry_correspondence_pass'],
                 numerical_status=study['status'] if study else 'pending',design_accepted=False,
-                scope='New snapshot project with native straight IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity')
+                scope='New snapshot project with native straight or canonical quarter-circle IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity')
     (out/'derivation.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
     return report
 
