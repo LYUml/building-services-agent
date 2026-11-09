@@ -31,3 +31,20 @@ The selection JSON requires `source`, `drawing_sha256`, `insert_handle`, `block_
 AutoCAD runs on isolated copies and verifies the active path before writing. A second native process reopens the extracted DWG. Checks cover unchanged input bytes, drawing units, entity type/layer counts and attribute definitions. These are **structural checks, not ACIS shape equivalence**. Output uses the block definition coordinate system; source instance translation, rotation, scale and attached attribute overrides are not baked into it. Instance attributes are retained separately in the report.
 
 The actual target extracted successfully. An additional native MASSPROP probe and fit-to-page isometric wireframe PDF review were performed locally; the tee is visible without clipping. Those are diagnostic observations, not a scaled installation drawing or proof of bore connectivity. The existing idealized IFC tee adapter cannot ingest the manufacturer's ACIS solid yet. Next work is verified solid/port interpretation and model placement, alongside hydraulic methodology; do not overwrite the unresolved product fields with inferred values from a block label.
+
+## Native circular-section measurement
+
+`bsa.cad_sections` now uses AutoCAD's existing SECTION/EXPLODE operations on isolated source copies, then reads the actual generated boundaries with ezdxf. It does not implement another solid kernel. Supply a source-hashed DWG, explicit model-space solid handle, drawing units, positive metre tolerance and independently located axis-aligned cutting planes:
+
+```powershell
+.venv/Scripts/python -m bsa.cad_sections source.dwg section-basis.json --out runs/new-sections
+.venv/Scripts/python scripts/test_native_cad_sections.py --out runs/new-section-controls
+```
+
+Basis fields are `source`, `drawing_sha256`, `solid_handle`, `insunits`, `tolerance_m`, `sections`. Each section has `id`, `source`, `plane` (XY/YZ/ZX) and `centre_drawing_units` (three coordinates in the source definition frame). The point defines both the cutting plane and the expected circular centre. Source the sampling position; a point near an end face is not the face itself. The actual circle centres are transformed from OCS to WCS before checking position and normal. Radius, wall thickness and centre are reported in metres.
+
+An accepted sample must produce exactly one new REGION and exactly two concentric circular boundaries on its reserved diagnostic layer. A miss cannot accidentally explode an old entity. Extra loops, noncircular boundaries, wrong normals/centres/units and unresolved wall thickness reject. Input DWG and basis hashes are checked again after execution. Diagnostic files can contain the proprietary source geometry and must remain local under its applicable license.
+
+Three actual tee samples, each 0.05 drawing inch inward from the observed centreline endpoints, yielded annular sections. See [execution evidence](evidence/manufacturer-block/sections.json). This establishes local model openings only: it does not prove a continuous passage through the junction, the minimum bore, physical tolerances, connection compatibility or a manufacturer-guaranteed internal diameter. Accordingly the product record's unresolved bore field remains null, and the pressure/IFC adapters do not automatically consume these measurements.
+
+Native controls create an independent hollow cylinder with known dimensions, a filled cylinder and a non-intersecting plane. The annulus returns the expected dimensions; the other cases reject for their actual geometry. Separate unit controls cover OCS conversion, nonconcentric circles, wrong planes/units/locations and ambiguous inputs. These checks are not full product or drawing acceptance.

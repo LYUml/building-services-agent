@@ -1,0 +1,128 @@
+{
+  "trial_date": "2026-11-09",
+  "scope": "Sampled planar model geometry only; not a product bore specification",
+  "local_run": "runs/manufacturer-sections-v1/run",
+  "inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\manufacturer-intake-v2\\adapter-final\\selected-block.dwg": "138d2db55989b3bc35339f217a7e7767423a234504cc4f56c5c48902cd4ff45f",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\manufacturer-sections-v1\\basis.json": "10fb10bd35f87960b489de6e25e87e45fc94ad141dae28d8bac3081e674a192b"
+  },
+  "basis": {
+    "source": "Native model diagnostic: sample 0.05 drawing inch inward from the observed +/-2.75 inch main and -2.75 inch branch centreline endpoints; not manufacturer dimensional acceptance",
+    "drawing_sha256": "138d2db55989b3bc35339f217a7e7767423a234504cc4f56c5c48902cd4ff45f",
+    "solid_handle": "94",
+    "insunits": 1,
+    "tolerance_m": 1e-08,
+    "sections": [
+      {
+        "id": "main_pos",
+        "source": "Explicit diagnostic sampling plane in extracted block coordinates",
+        "plane": "YZ",
+        "centre_drawing_units": [
+          2.7,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "main_neg",
+        "source": "Explicit diagnostic sampling plane in extracted block coordinates",
+        "plane": "YZ",
+        "centre_drawing_units": [
+          -2.7,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "branch",
+        "source": "Explicit diagnostic sampling plane in extracted block coordinates",
+        "plane": "XY",
+        "centre_drawing_units": [
+          0,
+          0,
+          -2.7
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "main_pos",
+      "plane": "YZ",
+      "centre_m": [
+        0.06858,
+        0.0,
+        0.0
+      ],
+      "inner_diameter_m": 0.04089399999999997,
+      "outer_diameter_m": 0.04825999999999999,
+      "wall_thickness_m": 0.003683000000000009,
+      "boundary_handles": [
+        "C4",
+        "C5"
+      ],
+      "dxf_sha256": "38395ea92f39582416dfe2b23bce3b49f778f15cb81be6c9a4bd02a13e5dd3c4"
+    },
+    {
+      "id": "main_neg",
+      "plane": "YZ",
+      "centre_m": [
+        -0.06858,
+        0.0,
+        0.0
+      ],
+      "inner_diameter_m": 0.04089399999999997,
+      "outer_diameter_m": 0.048259999999999977,
+      "wall_thickness_m": 0.0036830000000000022,
+      "boundary_handles": [
+        "C4",
+        "C5"
+      ],
+      "dxf_sha256": "3a903257966f587c32d6d478a2781f993f26d991f13cb772400aed35ea54383e"
+    },
+    {
+      "id": "branch",
+      "plane": "XY",
+      "centre_m": [
+        0.0,
+        0.0,
+        -0.06858
+      ],
+      "inner_diameter_m": 0.040894,
+      "outer_diameter_m": 0.04826,
+      "wall_thickness_m": 0.0036829999999999988,
+      "boundary_handles": [
+        "C4",
+        "C5"
+      ],
+      "dxf_sha256": "deea646f618381b0a03ac6c29e3d9dd19599a67e5cffe36c8bb2c7b0223fa86d"
+    }
+  ],
+  "report_sha256": "846e6964927bd658fb1a4cf70e225828b2c53fb6a81c996adf9061780c41f223",
+  "implementation_sha256": "22af141ca075f0085402b63ce1359b986104c16de3f42d788ce6cf993de4e6a1",
+  "native_controls": {
+    "annulus": {
+      "known_dimensions_match": true,
+      "report_sha256": "8ade21af657f1204b4ea2b07d472ba155df72ff9a2027ba05be2fd1318e581d5"
+    },
+    "filled": {
+      "expected_rejection": "section must contain exactly two circular boundaries",
+      "source_sha256": "bfbdb45c1b3152ba8234c6fb1f3fe8dd7cc9ef8d4a8b091a0d17ccde9affea57"
+    },
+    "no_hit": {
+      "expected_rejection": "section sample did not produce a single region",
+      "source_sha256": "f82631f448672fcffdf88c6b7da3a00c6a37007c2e4810c768ebdb4e34960600"
+    }
+  },
+  "native_controls_report_sha256": "6f22ec0687045535d07b70609b5c36845516a470fed28a4bb3fda56ca5fb4be7",
+  "unit_tests_passed": 4,
+  "annular_sections_pass": true,
+  "pending": [
+    "interior connectivity and minimum passage",
+    "port frame and joint compatibility",
+    "manufacturer dimensional confirmation",
+    "hydraulic and regulatory applicability"
+  ],
+  "design_accepted": false,
+  "vendor_geometry_redistributed": false
+}
