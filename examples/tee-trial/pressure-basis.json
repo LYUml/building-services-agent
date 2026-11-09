@@ -1,0 +1,20 @@
+{
+  "source": "Explicit synthetic fixed-flow budget; pressure and velocity are scenario targets, not regulations",
+  "fluid_source": "Assumed constant-density water scenario",
+  "coefficient_source": "Explicit synthetic face-to-face coefficients for software validation, not Crane or manufacturer data",
+  "coefficient_contract": "tee face-to-face total-head difference; includes all fitting wall friction; combined inlet velocity",
+  "inlet_port": "main-a",
+  "run_flow_m3_s": 0.00075,
+  "branch_flow_m3_s": 0.00025,
+  "density_kg_m3": 998,
+  "dynamic_viscosity_pa_s": 0.001,
+  "roughness_m": 1e-05,
+  "inlet_total_pressure_pa": 100000,
+  "required_outlet_total_pressure_pa": {
+    "run": 90000,
+    "branch": 90000
+  },
+  "max_velocity_m_s": 2,
+  "k_run": -0.05,
+  "k_branch": 1.1
+}

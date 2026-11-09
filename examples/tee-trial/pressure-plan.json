@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "brief": "pressure-brief.md",
+  "brief_sha256": "8381e7c68c5a86efcb4d4e0b305b5c05ec8aef0b04542888a26ff9139443ef11",
+  "passage_dispositions": {
+    "P001": "requirement",
+    "P002": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "assembly",
+      "kind": "tee_assembly",
+      "tee_spec": "placed-spec.json",
+      "assembly_spec": "assembly.json"
+    },
+    {
+      "id": "pressure",
+      "kind": "tee_pressure",
+      "depends_on": "assembly",
+      "basis": "pressure-basis.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "assembly",
+      "task": "assembly",
+      "passage": "P001",
+      "quote": "Generate the synthetic placed tee assembly from placed-spec.json and assembly.json, retaining geometry and source identity checks.",
+      "acceptance": "Generate the synthetic placed tee assembly from placed-spec.json and assembly.json, retaining geometry and source identity checks."
+    },
+    {
+      "id": "pressure",
+      "task": "pressure",
+      "passage": "P002",
+      "quote": "Budget the two prescribed-flow outlet total pressures from pressure-basis.json and the saved IFC. Include straight-pipe friction and world elevation; sourced face-to-face fitting coefficients include the entire fitting wall friction. Retain product, passive flow splitting and regulation acceptance as pending.",
+      "acceptance": "Budget the two prescribed-flow outlet total pressures from pressure-basis.json and the saved IFC. Include straight-pipe friction and world elevation; sourced face-to-face fitting coefficients include the entire fitting wall friction. Retain product, passive flow splitting and regulation acceptance as pending."
+    }
+  ]
+}

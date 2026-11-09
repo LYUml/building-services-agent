@@ -147,3 +147,5 @@ The equal-bore tee trial uses unmodified IfcOpenShell 0.8.5 ShapeBuilder and geo
 The tee assembly trial reuses the same pinned IfcOpenShell 0.8.5 and Manifold3D 3.5.4, including upstream system.connect_port and the existing bsa.solid_clash.from_mesh adapter. No vendor source or new dependency was introduced; assembly source contracts and geometric/topology controls are original project code.
 
 The directional tee diagnostic calls Caleb Bell and contributors' unmodified fluids 1.3.1 fittings functions (existing MIT dependency). Upstream: https://github.com/CalebBell/fluids ; documentation: https://fluids.readthedocs.io/fluids.fittings.html . The library attributes this correlation to Crane (2009); no Crane publication or upstream implementation is copied. Source/geometry binding and regression controls are original project code.
+
+The tee pressure budget reuses the existing bsa.network friction adapter and pinned fluids 1.3.1 Colebrook implementation. Face-to-face coefficients in its example are declared synthetic inputs, not copied Crane/manufacturer data. No new solver dependency or vendor source is introduced.
