@@ -8,23 +8,26 @@ VARIABLES={'Surface Window Transmitted Solar Radiation Energy':'J','Surface Wind
 VALIDATION_BASIS=dict(engine='EnergyPlus 25.2.0-cf7368216c',file='Energy+.idd',sha256='5f71380fdeb7d2456dbfb71913b90c40f87e109051c62c44f08577451974f44f',object='WindowMaterial:SimpleGlazingSystem',scope='input syntax/ranges; not product/code applicability')
 
 
-def validate(rows,spaces=None,zone_ids=None):
+def validate(rows,spaces=None,zone_ids=None,*,require_glazing=True):
     if not isinstance(rows,list) or not 1<=len(rows)<=200:raise ProjectError('one to 200 explicit sourced windows required')
     ids=set();known={s['id']:s for s in spaces} if spaces is not None else None
     zones=set(known) if known is not None else set(zone_ids or [])
     for row in rows:
-        if not isinstance(row,dict) or set(row)!={'id','zone','source','face','offset_m','sill_m','width_m','height_m','glazing'}:raise ProjectError('exact exterior-window geometry/glazing fields required')
+        fields={'id','zone','source','face','offset_m','sill_m','width_m','height_m'}
+        if require_glazing:fields.add('glazing')
+        if not isinstance(row,dict) or set(row)!=fields:raise ProjectError('exact exterior-window geometry/glazing fields required')
         if not isinstance(row['id'],str) or not re.fullmatch(r'[A-Za-z][A-Za-z0-9_-]{0,63}',row['id']) or row['id'].upper() in ids:raise ProjectError('unique ASCII window IDs required')
         ids.add(row['id'].upper())
         if not isinstance(row['zone'],str) or row['zone'] not in zones or not isinstance(row['face'],str) or row['face'] not in FACES:raise ProjectError('known thermal zone and Cartesian exterior face required')
         if not isinstance(row['source'],str) or not row['source'].strip():raise ProjectError('window geometry source required')
         for key in ('offset_m','sill_m','width_m','height_m'):
             if type(row[key]) not in (int,float) or not math.isfinite(row[key]) or row[key]<=0:raise ProjectError('positive finite window dimensions/edge offsets required')
-        g=row['glazing']
-        if not isinstance(g,dict) or set(g)!={'source','u_factor_w_m2k','shgc','visible_transmittance'} or not isinstance(g['source'],str) or not g['source'].strip():raise ProjectError('sourced simple glazing U/SHGC/visible transmittance required')
-        for key in ('u_factor_w_m2k','shgc','visible_transmittance'):
-            value=g[key]
-            if type(value) not in (int,float) or not math.isfinite(value) or value<=0 or key!='u_factor_w_m2k' and value>=1:raise ProjectError('invalid simple glazing property: '+key)
+        if require_glazing:
+            g=row['glazing']
+            if not isinstance(g,dict) or set(g)!={'source','u_factor_w_m2k','shgc','visible_transmittance'} or not isinstance(g['source'],str) or not g['source'].strip():raise ProjectError('sourced simple glazing U/SHGC/visible transmittance required')
+            for key in ('u_factor_w_m2k','shgc','visible_transmittance'):
+                value=g[key]
+                if type(value) not in (int,float) or not math.isfinite(value) or value<=0 or key!='u_factor_w_m2k' and value>=1:raise ProjectError('invalid simple glazing property: '+key)
         if known is not None:
             axis,sign,horizontal=FACES[row['face']];space=known[row['zone']];origin=space['origin_m'];size=space['size_m']
             if row['offset_m']+row['width_m']>=size[horizontal]-1e-7 or row['sill_m']+row['height_m']>=size[2]-1e-7:raise ProjectError('window must fit strictly inside source wall')

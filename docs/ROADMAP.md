@@ -369,3 +369,5 @@ Public course source QA: all 26 pages and annotation destinations were inspected
 Public-brief concept milestone: three source-defined storey/space variants authored and independently checked in saved IFC; unified workflow retains all 34 technical interpretation blockers. Twelve related tests pass, plus repeated concept mutation controls. Site/facade/net area, performance, MEP and full assignment acceptance remain pending (CONCEPT_SPACES.md).
 
 Concept geometry now feeds saved-solid thermal extraction and exact whole-face adjacency. Actual three-variant exterior/contact and target-glazing budgets pass six tests; boundary/property/site/HVAC interpretation and native simulation remain pending. No annual result or completed assignment is claimed.
+
+Concept facade draft now produces explicit centered rectangle coordinates at 40 percent WWR, with source-linked design choice and existing geometric checks. Missing glazing remains blocked at formal thermal input validation. Actual layouts reconcile target area; native openings/materials/daylight/energy remain pending.

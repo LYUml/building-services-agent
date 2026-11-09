@@ -1,0 +1,51 @@
+{
+  "run": "runs/public-concepts-v5",
+  "variants": {
+    "compact": {
+      "handoff_sha256": "23d2271c6a8e79adc021d33a4b8881177fb317f91859ea66f59b9b31d745eed8",
+      "ifc_sha256": "c6aaea0d7a7b03ae9a0d2c015eeaf860beb39170dd48e90f81aa20c4c5109a3a",
+      "draft_window_count": 8,
+      "draft_window_area_m2": 476.0,
+      "target_glazed_area_m2": 476.0,
+      "glazing_selected": false,
+      "modeled_window_area_m2": 0,
+      "thermal_model_ready": false
+    },
+    "slender": {
+      "handoff_sha256": "0ce7d89f7a8ce102a894eef5e6240ca86da38399d02e956d1489e1848f11ba9c",
+      "ifc_sha256": "267dff92e9a9f76180278a311dc3d0e2542a18d459bcbb326f852e1d60e7dd3a",
+      "draft_window_count": 8,
+      "draft_window_area_m2": 532.0,
+      "target_glazed_area_m2": 532.0,
+      "glazing_selected": false,
+      "modeled_window_area_m2": 0,
+      "thermal_model_ready": false
+    },
+    "stacked": {
+      "handoff_sha256": "e8adf89cfdab6039f9c85a69daa4d7e6dff1c1578588249963304e4f331953cb",
+      "ifc_sha256": "45dc28fb5bef62ceab6dff49de4ebd3abc424c1c1d45e47aca18e5846391f46d",
+      "draft_window_count": 16,
+      "draft_window_area_m2": 672.0,
+      "target_glazed_area_m2": 672.0,
+      "glazing_selected": false,
+      "modeled_window_area_m2": 0,
+      "thermal_model_ready": false
+    }
+  },
+  "source": {
+    "document": "assignment5.pdf",
+    "sha256": "a9cb779dea25e462efb197da0556defd0924630fa7a6a28f81de574b0894e82f",
+    "pages": [
+      1,
+      2
+    ],
+    "basis": "40 percent generic WWR; glazing type may be chosen. No supplied U/SHGC/VT rating."
+  },
+  "design_choice": "One centered rectangle per vertical concept face, equal width/height scale sqrt(0.4); no native walls/openings or glazing",
+  "tests": {
+    "concept": 7,
+    "legacy_window_input": 1,
+    "passed": true
+  },
+  "design_accepted": false
+}

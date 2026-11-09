@@ -67,6 +67,9 @@ class ConceptSpaceTests(unittest.TestCase):
             self.assertEqual(r['exposed_bottom_face_area_m2'],roof)
             self.assertEqual(len(r['adjacency']),count)
             self.assertAlmostEqual(r['target_glazed_area_m2'],walls*.4)
+            self.assertAlmostEqual(r['draft_window_area_m2'],walls*.4)
+            self.assertEqual(len(r['draft_window_rectangles']),4*len(r['geometry']['spaces']))
+            self.assertFalse(r['glazing_selected'])
             self.assertEqual(r['modeled_window_area_m2'],0)
             self.assertFalse(r['thermal_model_ready']);self.assertFalse(r['design_accepted'])
             self.assertEqual(r['ifc_sha256'],self.result['variants'][label]['ifc_sha256'])
@@ -76,3 +79,14 @@ class ConceptSpaceTests(unittest.TestCase):
         m.by_type('IfcSpace')[0].ObjectPlacement.RelativePlacement.Location.Coordinates=(2.,0.,0.)
         path=self.root/'changed.ifc';m.write(str(path))
         with self.assertRaises(ProjectError):self.driver['geometry_handoff'](path,self.source(),.4)
+
+    def test_geometric_window_draft_cannot_pass_as_glazed_thermal_input(self):
+        from bsa.thermal_windows import validate
+        r=json.loads((self.root/'concepts/compact/geometry-handoff.json').read_text(encoding='utf-8'))
+        windows=[{k:v for k,v in w.items() if k!='vertices_m'} for w in r['draft_window_rectangles']]
+        zones=[s['thermal_id'] for s in r['geometry']['spaces']]
+        validate(windows,zone_ids=zones,require_glazing=False)
+        with self.assertRaises(ProjectError):validate(windows,zone_ids=zones)
+        windows[0]['width_m']=1000
+        spaces=[dict(id=s['thermal_id'],origin_m=s['origin_m'],size_m=s['size_m']) for s in r['geometry']['spaces']]
+        with self.assertRaises(ProjectError):validate(windows,spaces,require_glazing=False)

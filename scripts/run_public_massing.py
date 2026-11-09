@@ -33,14 +33,28 @@ def geometry_handoff(ifc,source,wwr):
     exterior_walls=total_walls-2*sum(r['area_m2'] for r in pairs if r['axis']!=2)
     horizontal=sum(r['size_m'][0]*r['size_m'][1] for r in rows)
     horizontal_contacts=sum(r['area_m2'] for r in pairs if r['axis']==2)
+    from bsa.thermal_windows import FACES,validate as validate_windows,rectangle
+    # Explicit design choice: one centred rectangle on each vertical face,
+    # equal width/height scale sqrt(WWR). No glazing properties are implied.
+    windows=[]
+    for row in rows:
+        for face,(axis,sign,face_axis) in FACES.items():
+            width=row['size_m'][face_axis]*wwr**.5;height=row['size_m'][2]*wwr**.5
+            windows.append(dict(id=row['id']+'_'+face.replace('-','Minus').replace('+','Plus'),zone=row['id'],face=face,
+                source='Unapproved design decision: one centered rectangle per concept vertical face; equal fractional width/height sqrt(course WWR). Not surveyed windows or IFC opening geometry.',
+                offset_m=(row['size_m'][face_axis]-width)/2,sill_m=(row['size_m'][2]-height)/2,width_m=width,height_m=height))
+    validate_windows(windows,rows,require_glazing=False)
+    window_geometry=[dict(**w,vertices_m=rectangle(w,next(r for r in rows if r['id']==w['zone']))) for w in windows]
     if digest(ifc)!=before:raise ValueError('concept source changed during handoff')
     return dict(ifc_sha256=before,geometry=audit,adjacency=pairs,
         exterior_vertical_face_area_m2=exterior_walls,
         exposed_top_face_area_m2=horizontal-horizontal_contacts,
         exposed_bottom_face_area_m2=horizontal-horizontal_contacts,
         course_wwr_target=wwr,target_glazed_area_m2=exterior_walls*wwr,
+        draft_window_rectangles=window_geometry,draft_window_area_m2=sum(w['width_m']*w['height_m'] for w in windows),
+        glazing_selected=False,
         modeled_window_area_m2=0,thermal_model_ready=False,design_accepted=False,
-        scope='Geometric exterior faces only; not surveyed facade or validated thermal boundaries. Glazed area is a comparison target, not authored windows.',
+        scope='Geometric exterior faces only; not surveyed facade or validated thermal boundaries. Window rectangles are an unapproved layout without glazing, walls or native openings.',
         pending=['site/weather and explicit orientation','actual thermal boundary and clear-height interpretation','window positions and sourced glazing','construction, gains, schedules and HVAC','native annual simulation and deliverable acceptance'])
 
 
