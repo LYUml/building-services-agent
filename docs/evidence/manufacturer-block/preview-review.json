@@ -1,0 +1,18 @@
+{
+  "ifc_sha256": "b645f8e6e45d3ea6a756079a7c2e6ea5dbdfcbeb666795c203c341581295cdf3",
+  "preview_sha256": "327b6f2798eb7358332a79107251ced13bf0b1e316b73edef6db0d3aeacde7f0",
+  "review_method": "Actual generated PNG inspected by agent",
+  "scope": "Selected source-placed tee body and numbered model port axes in four fixed orthographic views",
+  "observations": [
+    "Tee body and three mouth regions visible across the views",
+    "Labels 1 main-a, 2 branch, 3 main-b readable with legend",
+    "Opposed main axes and transverse branch axis visible",
+    "No observed page clipping or label collisions in this artifact"
+  ],
+  "limitations": [
+    "Matplotlib projected triangle sorting and facet raster artifacts; not a depth-buffer BIM viewer",
+    "Overlay arrows do not establish hidden-surface visibility or physical joint compatibility",
+    "No full interior, installation, hydraulic or regulatory acceptance"
+  ],
+  "design_accepted": false
+}

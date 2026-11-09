@@ -123,3 +123,16 @@ After `place`, add an `ifc_query` with `depends_on: "place"` and a sourced inven
 If a pre-placement inventory was required, run the post-placement query with `refresh_inventory: true`. The old inventory cannot certify the revised producer; referencing the old model after refreshing also rejects.
 
 Actual local four-stage execution at `runs/manufacturer-audit-v1/run` passed: one fitting, three ports, one logical distribution system and 19 IDS checks. Independent synthetic controls reject a minimum of four ports, one missing anchor field, an empty model and stale producer correspondence. Restricted vendor IFC remains local. See `docs/evidence/manufacturer-block/information.json` for limited execution evidence.
+
+
+## Saved IFC visual preview
+
+Install the pinned `preview` extra and run:
+
+```powershell
+.venv/Scripts/python -m bsa.ifc_preview <saved.ifc> <element-GlobalId> --out runs/new-preview
+```
+
+The standalone tool reopens one represented element with IfcOpenShell 0.8.5, extracts its world-space mesh and attached port placements, and uses Matplotlib 3.11.2 for four fixed orthographic views. No triangle decimation is applied. `preview.json` binds source and PNG hashes, records world coordinates/axes, lists omitted elements and keeps visual review pending. Axis arrows have an illustrative length derived from body extent; they do not encode flow or physical connectors. Display coordinates are world-axis offsets from the explicitly reported centre. Legends abbreviate names to 32 characters; full names/GUIDs remain in JSON. At most 200000 triangles and twelve ports are supported.
+
+Actual source-placed vendor tee rendering was inspected at `runs/manufacturer-preview-final/preview.png`: body, mouth regions and three numbered axes are visible, and annotations are readable without observed page clipping. The separate limited review is in `docs/evidence/manufacturer-block/preview-review.json`; vendor imagery remains local. Facet raster artifacts and projected triangle sorting remain visible limitations, so this is not an independent interactive BIM-viewer or full interior/installation review. An independent millimetre-unit, rotated and translated solid/port fixture verifies world-metre extraction and omitted-element reporting; missing port placement rejects.

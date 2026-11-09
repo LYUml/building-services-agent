@@ -20,6 +20,7 @@ network = ["fluids==1.3.1"]
 tee = ["ifcopenshell==0.8.5", "manifold3d==3.5.4", "fluids==1.3.1", "scipy==1.18.1", "numpy==2.5.4"]
 water = ["wntr==1.5.0"]
 ids = ["ifctester==0.8.5", "ifcopenshell==0.8.5"]
+preview = ["ifcopenshell==0.8.5", "matplotlib==3.11.2", "numpy==2.5.4"]
 
 [project.scripts]
 bsa = "bsa.cli:main"
