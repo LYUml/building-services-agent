@@ -1,0 +1,225 @@
+{
+  "ifc_sha256": "efa9ebc744a540e0803a60d639204a020744784d90e81aad87d6070c04ca6e45",
+  "input_unchanged": true,
+  "versions": {
+    "ifcopenshell": "0.8.5",
+    "manifold3d": "3.5.4",
+    "numpy": "2.5.4"
+  },
+  "results": [
+    {
+      "guid": "0xYIqGQDTGdxkB7jP4cJsX",
+      "settings": {},
+      "accepted": false,
+      "vertices": 1258,
+      "triangles": 2512,
+      "edges": 3768,
+      "euler": 2,
+      "non_two_face_edges": 0,
+      "inconsistent_direction_edges": 629,
+      "duplicate_triangles": 0,
+      "bounds_m": [
+        [
+          0.0,
+          -0.009999968817693087,
+          1.990000124729033
+        ],
+        [
+          40.0,
+          0.009999968817693087,
+          2.01
+        ]
+      ],
+      "error": "mesh is not a positive-volume accepted Manifold solid: Error.NotManifold"
+    },
+    {
+      "guid": "2GtuHmgt1LhBrDktaS_FBP",
+      "settings": {},
+      "accepted": false,
+      "vertices": 1258,
+      "triangles": 2512,
+      "edges": 3768,
+      "euler": 2,
+      "non_two_face_edges": 0,
+      "inconsistent_direction_edges": 629,
+      "duplicate_triangles": 0,
+      "bounds_m": [
+        [
+          39.990000031182305,
+          0.0,
+          1.990000124729033
+        ],
+        [
+          40.009999968817695,
+          25.0,
+          2.01
+        ]
+      ],
+      "error": "mesh is not a positive-volume accepted Manifold solid: Error.NotManifold"
+    },
+    {
+      "guid": "0xYIqGQDTGdxkB7jP4cJsX",
+      "settings": {
+        "reorient-shells": true
+      },
+      "accepted": false,
+      "vertices": 1258,
+      "triangles": 2512,
+      "edges": 3768,
+      "euler": 2,
+      "non_two_face_edges": 0,
+      "inconsistent_direction_edges": 629,
+      "duplicate_triangles": 0,
+      "bounds_m": [
+        [
+          0.0,
+          -0.009999968817693087,
+          1.990000124729033
+        ],
+        [
+          40.0,
+          0.009999968817693087,
+          2.01
+        ]
+      ],
+      "error": "mesh is not a positive-volume accepted Manifold solid: Error.NotManifold"
+    },
+    {
+      "guid": "2GtuHmgt1LhBrDktaS_FBP",
+      "settings": {
+        "reorient-shells": true
+      },
+      "accepted": false,
+      "vertices": 1258,
+      "triangles": 2512,
+      "edges": 3768,
+      "euler": 2,
+      "non_two_face_edges": 0,
+      "inconsistent_direction_edges": 629,
+      "duplicate_triangles": 0,
+      "bounds_m": [
+        [
+          39.990000031182305,
+          0.0,
+          1.990000124729033
+        ],
+        [
+          40.009999968817695,
+          25.0,
+          2.01
+        ]
+      ],
+      "error": "mesh is not a positive-volume accepted Manifold solid: Error.NotManifold"
+    },
+    {
+      "guid": "0xYIqGQDTGdxkB7jP4cJsX",
+      "settings": {
+        "unify-shapes": true
+      },
+      "accepted": false,
+      "vertices": 1258,
+      "triangles": 2512,
+      "edges": 3768,
+      "euler": 2,
+      "non_two_face_edges": 0,
+      "inconsistent_direction_edges": 629,
+      "duplicate_triangles": 0,
+      "bounds_m": [
+        [
+          0.0,
+          -0.009999968817693087,
+          1.990000124729033
+        ],
+        [
+          40.0,
+          0.009999968817693087,
+          2.01
+        ]
+      ],
+      "error": "mesh is not a positive-volume accepted Manifold solid: Error.NotManifold"
+    },
+    {
+      "guid": "2GtuHmgt1LhBrDktaS_FBP",
+      "settings": {
+        "unify-shapes": true
+      },
+      "accepted": false,
+      "vertices": 1258,
+      "triangles": 2512,
+      "edges": 3768,
+      "euler": 2,
+      "non_two_face_edges": 0,
+      "inconsistent_direction_edges": 629,
+      "duplicate_triangles": 0,
+      "bounds_m": [
+        [
+          39.990000031182305,
+          0.0,
+          1.990000124729033
+        ],
+        [
+          40.009999968817695,
+          25.0,
+          2.01
+        ]
+      ],
+      "error": "mesh is not a positive-volume accepted Manifold solid: Error.NotManifold"
+    },
+    {
+      "guid": "0xYIqGQDTGdxkB7jP4cJsX",
+      "settings": {
+        "no-clean-triangulation": true
+      },
+      "accepted": false,
+      "vertices": 1258,
+      "triangles": 2512,
+      "edges": 3768,
+      "euler": 2,
+      "non_two_face_edges": 0,
+      "inconsistent_direction_edges": 629,
+      "duplicate_triangles": 0,
+      "bounds_m": [
+        [
+          0.0,
+          -0.009999968817693087,
+          1.990000124729033
+        ],
+        [
+          40.0,
+          0.009999968817693087,
+          2.01
+        ]
+      ],
+      "error": "mesh is not a positive-volume accepted Manifold solid: Error.NotManifold"
+    },
+    {
+      "guid": "2GtuHmgt1LhBrDktaS_FBP",
+      "settings": {
+        "no-clean-triangulation": true
+      },
+      "accepted": false,
+      "vertices": 1258,
+      "triangles": 2512,
+      "edges": 3768,
+      "euler": 2,
+      "non_two_face_edges": 0,
+      "inconsistent_direction_edges": 629,
+      "duplicate_triangles": 0,
+      "bounds_m": [
+        [
+          39.990000031182305,
+          0.0,
+          1.990000124729033
+        ],
+        [
+          40.009999968817695,
+          25.0,
+          2.01
+        ]
+      ],
+      "error": "mesh is not a positive-volume accepted Manifold solid: Error.NotManifold"
+    }
+  ],
+  "design_accepted": false,
+  "scope": "Read-only diagnostic, not a geometry repair or electrical design acceptance"
+}

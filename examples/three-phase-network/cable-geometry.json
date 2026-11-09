@@ -1,0 +1,6 @@
+{
+  "scope": "Synthetic straight cable envelope fixture only; not conductor/cable selection, a surveyed route or a connected installation",
+  "project_uuid": "1c85ff8b-2921-4a13-8c03-7c8c841e42ac",
+  "envelope_radius_m": 0.01,
+  "buses_m": {"source": [0, 0, 2], "DB-A": [40, 0, 2], "load-B": [40, 25, 2]}
+}

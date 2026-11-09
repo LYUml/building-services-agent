@@ -162,3 +162,5 @@ Plumbing pump capacity checks can now inherit saved network_coordination IFC rou
 A repeatable WSD plumbing runner now stages and executes three source-linked saved-IFC scenarios, retaining positive, insufficient-capacity and missing-duplication outcomes, downstream blocking, integrity and dependency diagnosis. All expected software behaviors pass with engineering acceptance still false; see scripts/run_hk_plumbing_demo.py.
 
 A sourced one-duty/one-standby plumbing set now executes each role separately against the same tank target, with nested input hashes and workflow gates. Actual weak-standby rejection is retained even when duty passes; capacity pooling is not used. Physical redundancy, controls, products and full acceptance remain pending.
+
+Straight cable IFC correspondence is under [active investigation](docs/THREE_PHASE_IFC.md): actual saved swept-disk fixtures pass schema validation but fail mandatory native solid checks. This is not an available workflow integration.
