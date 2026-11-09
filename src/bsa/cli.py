@@ -78,6 +78,7 @@ def main():
     s=sub.add_parser("workflow",help="Execute a source-linked plan and retain dependency diagnosis")
     s.add_argument("plan",type=Path)
     s.add_argument("--out",type=Path,required=True)
+    s.add_argument("--review",type=Path,help="Create a pending delivery review outside the run directory")
     for flag in ("energyplus","autocad","radiance-bin","ifcmcp-python"):
         s.add_argument("--"+flag,type=Path)
     a=parser.parse_args()
@@ -85,14 +86,22 @@ def main():
         if a.command=="workflow":
             from .workflow import execute
             from .workflow_status import diagnose
+            if a.review is not None:
+                review=a.review.resolve()
+                if review.exists() or review==a.plan.resolve() or review.is_relative_to(a.out.resolve()):
+                    raise ProjectError("review must be a new file outside the plan/run artifacts")
             execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python)
             diagnosis=diagnose(a.plan,a.out)
             # Separate from immutable task artifacts: diagnosis binds workflow.json.
             with (a.out/"diagnosis.json").open("x",encoding="utf-8") as stream:
                 json.dump(diagnosis,stream,ensure_ascii=False,indent=2)
+            if a.review is not None:
+                from .delivery import template
+                template(a.plan,a.out,a.review)
             print(json.dumps({"output":str(a.out.resolve()),
                 "report":str((a.out/"index.html").resolve()),
                 "diagnosis":str((a.out/"diagnosis.json").resolve()),
+                "review":str(a.review.resolve()) if a.review is not None else None,
                 "execution_pass":diagnosis["execution_pass"],"design_accepted":False},indent=2))
             return 0 if diagnosis["execution_pass"] else 2
         elif a.command=="validate":
