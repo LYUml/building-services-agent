@@ -1,6 +1,6 @@
 # Hong Kong emergency lighting: source review
 
-Reviewed 2026-11-09. This is a research and implementation contract, not an executable rule pack or design approval. Existing ordinary-lighting Radiance and office LPD results do not establish emergency-lighting performance.
+Reviewed 2026-11-09. A scoped sourced-assertions pack is now executable; native emergency photometry and engineering approval remain pending. Existing ordinary-lighting Radiance and office LPD results do not establish emergency-lighting performance.
 
 ## Official sources and edition decisions
 
@@ -48,4 +48,10 @@ Licensed-premises appendices, supply arrangement, rated duration, activation, wi
 3. Bind emergency-mode fixtures, stable space IDs, gross-area evidence and floor sensors to freshly executed photometry. Reuse the existing Radiance engine, with a reviewed method and sourced end-of-duration inputs.
 4. Exercise threshold boundaries, failed/pending states, source changes and ordinary-mode substitution. Gate drawing release on the same model/results; retain installation and statutory acceptance separately.
 
-No executable emergency rule or workflow coverage is claimed by this document. Full regulatory compliance remains not established.
+## Executable sourced-assertions check
+
+Run `python -m bsa.regulations examples/regulations-hk/emergency-accommodation.json --pack regulations/hk/emergency-accommodation-2026.11.09/pack.json --sources runs/hk-emergency-lighting-research-v1 --out runs/new-emergency-check` with the pinned guidance PDF cached under its declared filename. The generic `regulations` workflow task can use the same pack; native photometry correspondence is not yet implemented.
+
+The synthetic input represents one accommodation. It requires sourced identity, positive gross area, distinct emergency-luminaire IDs, minimum lux, assessment-method/duration/degradation descriptions and explicit emergency-mode, floor, whole-area and entire-duration assertions. These assertions are not independent verification of their evidence. Licensed-premises-specific paths are excluded from this initial module and must retain their separate checks.
+
+Actual official-PDF-backed execution retained asserted pass, insufficient-illuminance review and normal-mode pending cases in `docs/evidence/emergency-lighting/facts-trial.json`. Boundary and invalid-input tests also cover strict area comparison, duplicated identities, Boolean/nonfinite quantities, changed source, missing edition and excluded scope. All results retain `design_accepted: false` and `regulatory_compliance: not_established`. No photometric simulation or installed acceptance is claimed.

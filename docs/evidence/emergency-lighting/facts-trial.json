@@ -1,0 +1,26 @@
+{
+  "scope": "Synthetic assertions with actual hash-pinned official PDF; no photometric model execution",
+  "scenarios": [
+    {
+      "scenario": "asserted-pass",
+      "status": "pass",
+      "inputs_unchanged": true,
+      "supported_checks_pass": true,
+      "design_accepted": false
+    },
+    {
+      "scenario": "low-illuminance",
+      "status": "review_required",
+      "inputs_unchanged": true,
+      "supported_checks_pass": false,
+      "design_accepted": false
+    },
+    {
+      "scenario": "normal-mode",
+      "status": "pending",
+      "inputs_unchanged": true,
+      "supported_checks_pass": false,
+      "design_accepted": false
+    }
+  ]
+}

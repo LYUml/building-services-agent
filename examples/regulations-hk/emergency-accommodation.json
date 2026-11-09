@@ -1,0 +1,75 @@
+{
+  "jurisdiction": "HK",
+  "rule_pack": "hk-emergency-accommodation-2026.11.09",
+  "facts": {
+    "fsd_accommodation_requirements_apply": {
+      "value": true,
+      "source": "Synthetic software verification fixture; not project evidence"
+    },
+    "local_guidance_2021_applies": {
+      "value": true,
+      "source": "Synthetic software verification fixture; not project evidence"
+    },
+    "outside_licensed_premises_specific_path": {
+      "value": true,
+      "source": "Synthetic software verification fixture; not project evidence"
+    }
+  },
+  "edition_decisions": {
+    "fsd_guidance_2021": {
+      "edition": "May 2021",
+      "basis": "Synthetic selected-scope test only; not a real project edition determination"
+    }
+  },
+  "emergency_accommodation": {
+    "space_identity": {
+      "value": "synthetic-room",
+      "source": "Synthetic software verification fixture; not project evidence"
+    },
+    "assessment_method_basis": {
+      "value": "Synthetic asserted minimum, no simulation",
+      "source": "Synthetic software verification fixture; not project evidence"
+    },
+    "rated_duration_basis": {
+      "value": "Synthetic asserted complete rated interval",
+      "source": "Synthetic software verification fixture; not project evidence"
+    },
+    "degradation_basis": {
+      "value": "Synthetic asserted worst condition, not a product factor",
+      "source": "Synthetic software verification fixture; not project evidence"
+    },
+    "emergency_mode": {
+      "value": true,
+      "source": "Synthetic software verification fixture; not project evidence"
+    },
+    "floor_horizontal_assessment": {
+      "value": true,
+      "source": "Synthetic software verification fixture; not project evidence"
+    },
+    "whole_area_minimum_assessed": {
+      "value": true,
+      "source": "Synthetic software verification fixture; not project evidence"
+    },
+    "entire_rated_duration_assessed": {
+      "value": true,
+      "source": "Synthetic software verification fixture; not project evidence"
+    },
+    "emergency_luminaire_ids": {
+      "value": [
+        "EL-1",
+        "EL-2"
+      ],
+      "source": "Synthetic software verification fixture; not project evidence"
+    },
+    "gross_area": {
+      "value": 9,
+      "source": "Synthetic software verification fixture; not project evidence",
+      "unit": "m2"
+    },
+    "minimum_illuminance": {
+      "value": 2,
+      "source": "Synthetic software verification fixture; not project evidence",
+      "unit": "lx"
+    }
+  }
+}

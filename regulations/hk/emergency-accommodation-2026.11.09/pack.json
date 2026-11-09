@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "id": "hk-emergency-accommodation-2026.11.09",
+  "jurisdiction": "HK",
+  "version": "2026.11.09",
+  "sources": {
+    "fsd_guidance_2021": {
+      "cache_filename": "fsd-emergency-guidance-2021.pdf",
+      "url": "https://www.hkfsd.gov.hk/eng/source/guidance/Technical_Guidance_BS5266_2016_BSEN1838_2013.pdf",
+      "sha256": "295e93caaf662c86d91c326f1c127541d7dce034217e94cc96df6d68452c6f8a",
+      "reviewed_pdf_pages_one_based": [
+        8,
+        20
+      ],
+      "authority": "Hong Kong Fire Services Department",
+      "title": "Technical Guidance: Application of BS 5266-1:2016 and BS EN 1838:2013 for Emergency Lighting in Hong Kong",
+      "edition": "May 2021",
+      "kind": "local_standard_modifications",
+      "index_url": "https://www.hkfsd.gov.hk/eng/fire_protection/notices/guidance.html",
+      "reviewed_on": "2026-11-09",
+      "applicability_note": "Explicit project edition, FSD accommodation applicability and licensed-premises decision required. See docs/HK_EMERGENCY_LIGHTING.md."
+    }
+  },
+  "rules": [
+    {
+      "id": "HK-FSD-EMERGENCY-ACCOMMODATION",
+      "source_id": "fsd_guidance_2021",
+      "clause": "Local modifications to BS 5266-1 clauses 5.2.2 and 5.2.6",
+      "pdf_page_1_based": 8,
+      "method": "emergency_accommodation",
+      "metric": "emergency_accommodation_failures",
+      "unit": "count",
+      "scope": "Single accommodation, sourced whole-floor emergency illuminance through rated duration and distinct luminaire count; assertions only",
+      "applicability": [
+        {
+          "fact": "fsd_accommodation_requirements_apply",
+          "equals": true
+        },
+        {
+          "fact": "local_guidance_2021_applies",
+          "equals": true
+        },
+        {
+          "fact": "outside_licensed_premises_specific_path",
+          "equals": true
+        }
+      ],
+      "alternative_path_note": "Supported accommodation condition fails; revise and review applicable emergency lighting requirements."
+    }
+  ],
+  "coverage": {
+    "implemented": [
+      "Sourced accommodation 2 lx minimum and >8 m2 two-luminaire condition"
+    ],
+    "pending": [
+      "Native emergency photometry/model binding",
+      "Assessment method and source authentication",
+      "Other standards and licensed-premises paths",
+      "Activation, duration selection, supplies, wiring, commissioning and maintenance"
+    ],
+    "complete": false
+  }
+}
