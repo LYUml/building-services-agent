@@ -71,7 +71,9 @@ def run(fixed, moving, basis_path, out, exe=DEFAULT_EXE):
     native(exe,imported,out/'source-mass.scr',f'(command "_.MASSPROP" (handent {q(handle)}) "" "_Y" {q(out/"source.mpr")})')
     coord=lambda values:q(','.join(format(float(x),'.17g') for x in values))
     body=f'(command "_.UCS" "_3point" "0,0,0" {coord(rotation[:,0])} {coord(rotation[:,1])}) '
-    body+=f'(command "_.-INSERT" {q(imported)} {coord(rotation.T@point)} "1" "0") (setq block (entlast)) (command "_.UCS" "_World") '
+    # Specify uniform scale and angle before the point: source blocks differ in
+    # whether post-point prompts ask for one scale or separate X/Y scales.
+    body+=f'(command "_.-INSERT" {q(imported)} "_Scale" "1" "_Rotate" "0" {coord(rotation.T@point)}) (setq block (entlast)) (command "_.UCS" "_World") '
     body+=f'(command "_.DXFOUT" {q(out/"inserted.dxf")} "16") (command "_.EXPLODE" block "") '
     body+='(setq ss (ssget "_X" (list (cons 0 "3DSOLID") (cons 410 "Model")))) '
     fixed_handle=list(docs[0].modelspace().query('3DSOLID'))[0].dxf.handle

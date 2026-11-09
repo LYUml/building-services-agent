@@ -1,0 +1,39 @@
+{
+  "original_fixtures": true,
+  "units": "mm",
+  "moving_INSBASE": [
+    1,
+    2,
+    3
+  ],
+  "cases": [
+    {
+      "case": "separated",
+      "expected_intersection_mm3": 0,
+      "observed_intersection_m3": null,
+      "native_clear": true,
+      "oracle_match": true,
+      "report_sha256": "2ffb35175180d0ade75b0dbb1cda18211be4f55c60dfeee0bf8f20aa6b01a505"
+    },
+    {
+      "case": "contained",
+      "expected_intersection_mm3": 24,
+      "observed_intersection_m3": 2.4000000000000003e-08,
+      "native_clear": false,
+      "oracle_match": true,
+      "report_sha256": "4482d05f3b7001b24d3ee7ce2d74fa4cbb1d579d6966e7fdb6fb3cf3faa3c3b7"
+    },
+    {
+      "case": "partial",
+      "expected_intersection_mm3": 18,
+      "observed_intersection_m3": 1.8000000000000002e-08,
+      "native_clear": false,
+      "oracle_match": true,
+      "report_sha256": "107ea19e2e6b006fce3f6cfb5fc172d94ba8ff75a781555a99db7bd951f51c1f"
+    }
+  ],
+  "design_accepted": false,
+  "scope": "Executable native geometry controls; not a building-services design",
+  "regression_found": "Non-uniform-capable DWG prompts for separate X/Y scales; positional scale arguments were invalid. Explicit pre-point Scale/Rotate options now handle both source types.",
+  "vendor_37_degree_roll_regression_pass": true
+}
