@@ -1,0 +1,69 @@
+{
+  "scope": "Actual missing-runtime workflow and source-bound recovery handoff; no native lighting or CAD execution, repair or engineering acceptance",
+  "actions": [
+    {
+      "task": "shared",
+      "kind": "electrical_lighting",
+      "status": "pending",
+      "next_action": "resolve the recorded pending condition before a new run",
+      "recorded_scope": "Radiance binary directory not supplied for bound lighting",
+      "input_blockers": [],
+      "evidence": [],
+      "affected_tasks": [
+        "shared",
+        "native"
+      ],
+      "affected_requirements": [
+        {
+          "id": "R1",
+          "passage": "P002",
+          "quote": "Use office-electrical/project.json and office-electrical/geometry.json as the shared electrical and spatial sources. Bind exactly their light fixtures in the selected Office space to shared-lighting.json. Derive optical world positions from electrical XY centres, explicit envelope bottom Z and explicit photometric offsets, then transform to the selected room local frame. Check IES nominal power metadata against the electrical input using the supplied tolerance; do not derive brightness from watts. Generate and reconcile calculations, DXF and IFC, then run the prescribed Radiance illuminance and parameter-stability checks.",
+          "task": "shared",
+          "acceptance": "Use office-electrical/project.json and office-electrical/geometry.json as the shared electrical and spatial sources. Bind exactly their light fixtures in the selected Office space to shared-lighting.json. Derive optical world positions from electrical XY centres, explicit envelope bottom Z and explicit photometric offsets, then transform to the selected room local frame. Check IES nominal power metadata against the electrical input using the supplied tolerance; do not derive brightness from watts. Generate and reconcile calculations, DXF and IFC, then run the prescribed Radiance illuminance and parameter-stability checks."
+        },
+        {
+          "id": "R2",
+          "passage": "P003",
+          "quote": "Convert the generated shared DXF to native DWG in AutoCAD 2027, reopen it and verify device geometry/labels, then plot a padded schematic PDF. Existing drawings are not modified by this synthetic example.",
+          "task": "native",
+          "acceptance": "Convert the generated shared DXF to native DWG in AutoCAD 2027, reopen it and verify device geometry/labels, then plot a padded schematic PDF. Existing drawings are not modified by this synthetic example."
+        }
+      ]
+    },
+    {
+      "task": "review",
+      "kind": "manual",
+      "status": "pending",
+      "next_action": "perform the specified review and record evidence separately",
+      "recorded_scope": "Review physical optical origins and complete visual/domain acceptance independently",
+      "input_blockers": [],
+      "evidence": [],
+      "affected_tasks": [
+        "review"
+      ],
+      "affected_requirements": [
+        {
+          "id": "R3",
+          "passage": "P004",
+          "quote": "Review physical photometric origins, model/plot appearance and the full acceptance matrix. Source photometry, reflectances, offsets and targets are synthetic assumptions; these outputs do not certify actual manufacturer geometry, obstruction, glare, daylight, fault protection or code compliance.",
+          "task": "review",
+          "acceptance": "Review physical photometric origins, model/plot appearance and the full acceptance matrix. Source photometry, reflectances, offsets and targets are synthetic assumptions; these outputs do not certify actual manufacturer geometry, obstruction, glare, daylight, fault protection or code compliance."
+        }
+      ]
+    }
+  ],
+  "integrity_pass": true,
+  "execution_pass": false,
+  "design_accepted": false,
+  "tests": {
+    "workflow_status": 7,
+    "workflow_cli": 3,
+    "delivery": 10,
+    "all_pass": true
+  },
+  "artifacts": {
+    "runs\\recovery-action-queue-v1\\workflow.json": "aba411742a7f39e8fecca7a3b4f9be8556033b9ab0b8ab2990882ad2981e746d",
+    "runs\\recovery-action-queue-v1\\diagnosis.json": "eaf4ca8557c5b0664bedeec5037aedbd76fc747a9e82d052cb32749a53d5347d",
+    "runs\\recovery-action-queue-v1-review.json": "52ec8170ad6d4d392c06f9fe9a535f2d5f2e61cbc0fa34567c86975309eeaaa6"
+  }
+}

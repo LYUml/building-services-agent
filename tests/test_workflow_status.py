@@ -22,7 +22,12 @@ class WorkflowStatusTests(unittest.TestCase):
         report={'tasks':{t['id']:{'status':'pending','scope':'controlled missing input'} for t in source['tasks']},
                 'artifact_hashes':{}}
         with patch('bsa.workflow_status.context',return_value=(source,report,{'integrity_pass':True})):
-            rows={r['id']:r for r in diagnose(self.plan,self.run)['tasks']}
+            result=diagnose(self.plan,self.run)
+            rows={r['id']:r for r in result['tasks']}
+        actions={r['task']:r for r in result['actions']}
+        self.assertEqual(set(actions),{'tee','coupling'})
+        self.assertEqual(actions['tee']['affected_tasks'],['tee','joint','release'])
+        self.assertEqual(actions['coupling']['affected_requirements'],source['requirements'])
         self.assertEqual(rows['joint']['dependencies'],['tee','coupling'])
         self.assertEqual(rows['joint']['blocked_by'],['tee','coupling'])
         self.assertEqual(rows['release']['upstream_action_tasks'],['coupling','tee'])
@@ -50,6 +55,24 @@ class WorkflowStatusTests(unittest.TestCase):
         self.assertIn('review', rows['review']['next_action'])
         self.assertFalse(result['execution_pass'])
         self.assertFalse(result['design_accepted'])
+
+    def test_action_queue_groups_roots_and_preserves_requirement_sources(self):
+        result=diagnose(self.plan,self.run)
+        actions={a['task']:a for a in result['actions']}
+        self.assertIn('shared',actions)
+        self.assertNotIn('native',actions)
+        self.assertEqual(actions['shared']['affected_tasks'],['shared','native'])
+        source=json.loads(self.plan.read_text())
+        expected=[r for r in source['requirements'] if r['task'] in ('shared','native')]
+        self.assertEqual(actions['shared']['affected_requirements'],expected)
+        self.assertIn('Radiance',actions['shared']['recorded_scope'])
+        self.assertEqual(actions['review']['kind'],'manual')
+
+    def test_action_queue_rejects_stale_evidence(self):
+        report_path=self.run/'workflow.json'
+        report=json.loads(report_path.read_text());report['artifact_hashes']['missing.json']='0'*64
+        report_path.write_text(json.dumps(report))
+        with self.assertRaisesRegex(ProjectError,'stale execution evidence'):diagnose(self.plan,self.run)
 
     def test_failed_water_producer_traces_shared_roots_through_multiple_levels(self):
         from unittest.mock import patch

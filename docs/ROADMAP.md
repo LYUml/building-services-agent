@@ -62,6 +62,8 @@ The requested end state is reusable automation from a requirement document and s
 
 ## Next sequence
 
+The existing one-invocation workflow now emits a deduplicated source-bound recovery action queue with affected tasks and full requirements, retaining separate manual review and stale-evidence rejection. Actual missing-runtime execution and 20 related tests pass; no automatic repair, raw-brief plan generation or full assignment acceptance is established. Evidence: evidence/workflow-recovery/actions.json.
+
 Cable evidence association now supports distinct product-limit and classification documents on the same native product, retaining independent hashes and absent-only legacy compatibility. The synthetic separate-document workflow reaches native drawing; real vendor extraction/authentication and full assignment acceptance remain pending (HK_CABLE_BENDS.md).
 
 Manufacturer junction/connector model-node alignment now reuses upstream asset append with saved geometry and port preservation checks. The actual combined model retains a failing 2.65 mm3 mesh overlap; resolving source-node installation meaning, exact joint geometry and physical/hydraulic connectivity remains necessary. This is diagnostic progress, not an accepted fitting assembly (PRODUCT_INTAKE.md).

@@ -63,8 +63,22 @@ def diagnose(plan, run):
                          next_action=action,
                          requirement_ids=[r['id'] for r in source['requirements'] if r['task'] == name],
                          evidence=sorted(p for p in report['artifact_hashes'] if p.startswith(name + '/'))))
+    # Group declared recovery roots once, retaining every affected requirement.
+    # This is scheduling evidence, never a diagnosis of an engineering cause.
+    actions=[]
+    for row in rows:
+        name=row['id']
+        affected=[child for child in rows if name in child['upstream_action_tasks']]
+        if not affected:continue
+        requirement_ids={rid for child in affected for rid in child['requirement_ids']}
+        actions.append(dict(task=name,kind=row['kind'],status=row['status'],
+            next_action=row['next_action'],recorded_scope=row['recorded_scope'],
+            input_blockers=row['input_blockers'],evidence=row['evidence'],
+            affected_tasks=[child['id'] for child in affected],
+            affected_requirements=[r for r in source['requirements'] if r['id'] in requirement_ids]))
     return dict(plan_sha256=digest(plan), workflow_sha256=digest(run/'workflow.json'),
                 integrity_pass=True, tasks=rows,
+                actions=actions,
                 execution_pass=all(t['status'] == 'pass' for t in rows),
                 design_accepted=False,
                 scope='Recorded execution and declared dependency graph only; no engine invocation, automatic repair, or engineering acceptance')
