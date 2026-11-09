@@ -664,12 +664,16 @@ def validate_plan(path):
                 diagram_source=local_path(root,t.get('dxf'));inputs.add(diagram_source)
                 if diagram_source.suffix.lower()!='.dxf':raise ProjectError('native diagram source must be DXF')
         if kind=='rectangular_fan_operating_point':
-            from . import rectangular_fan,rectangular_network,pump,network
-            if t.get('depends_on'):raise ProjectError('rectangular fan currently requires explicit network; native producer inheritance unsupported')
-            project=local_path(root,t.get('project'));curve=local_path(root,t.get('curve'))
-            inputs.update((project,curve))
-            inputs.update(Path(m.__file__).resolve() for m in (rectangular_fan,rectangular_network,pump,network))
-            rectangular_fan.prepare(read_json(project),read_json(curve))
+            from . import rectangular_fan,rectangular_network,pump,network,rectangular_fan_binding,rectangular_binding
+            if set(t)-{'id','kind','project','depends_on','curve','requires_pass','description'}:raise ProjectError('fan inherits native inputs; replacement model/study forbidden')
+            curve=local_path(root,t.get('curve'));inputs.add(curve);rectangular_fan.validate_curve(read_json(curve))
+            inputs.update(Path(m.__file__).resolve() for m in (rectangular_fan,rectangular_network,pump,network,rectangular_fan_binding,rectangular_binding))
+            if t.get('depends_on'):
+                parent=t['depends_on']
+                if 'project' in t or parent not in ids or next(x for x in tasks if x['id']==parent)['kind'] not in ('rectangular_model_design','rectangular_network_binding'):raise ProjectError('native fan needs earlier rectangular producer and no replacement project')
+            else:
+                project=local_path(root,t.get('project'));inputs.add(project)
+                rectangular_fan.prepare(read_json(project),read_json(curve))
         if kind=='pump_operating_point':
             from .pump import validate_curve,prepare
             curve=local_path(root,t.get('curve'));inputs.add(curve);validate_curve(read_json(curve))
@@ -943,10 +947,22 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     status='pass' if payload['calculated_checks_pass'] else 'fail'
                     reason='replayed pump estimate explicitly bound to electrical device/IFC source port; baseline hardware retained; steady scenario and property-only IFC checked; motor/fault/full acceptance pending'
             elif t['kind']=='rectangular_fan_operating_point':
-                from .rectangular_fan import run
-                payload=run(local_path(root,t['project']),local_path(root,t['curve']),folder)
-                status='pass' if payload['calculated_checks_pass'] else 'fail'
-                reason='Bounded single-path total-pressure fan/system intersection and saved rectangular pressure rerun; native binding, motor/product evidence and full acceptance pending'
+                parent=t.get('depends_on')
+                if parent and tasks[parent]['status']!='pass':reason='upstream rectangular native study did not pass; fan intersection not executed'
+                else:
+                    if parent:
+                        from .rectangular_fan_binding import run
+                        producer=next(x for x in p['tasks'] if x['id']==parent)
+                        base=out/parent/('selected-coordination' if producer['kind']=='rectangular_model_design' else '')
+                        model=out/parent/'selected-model.json' if producer['kind']=='rectangular_model_design' else local_path(root,producer['model'])
+                        payload=run(base/'network-input.json',model,local_path(root,producer['binding']),base/'bim/model.ifc',base/'analysis/network.json',local_path(root,t['curve']),folder)
+                    else:
+                        from .rectangular_fan import run
+                        payload=run(local_path(root,t['project']),local_path(root,t['curve']),folder)
+                    status='pass' if payload['calculated_checks_pass'] else 'fail'
+                    reason='Bounded total-pressure fan/system intersection with saved rectangular rerun; native path verified when inherited; fan equipment, motor/product and full acceptance pending'
+                    if parent and any(not Path(f).is_file() or digest(Path(f))!=sha for f,sha in rectangular_pins[parent].items()):raise ProjectError('rectangular producer artifacts changed during fan intersection')
+                    rectangular_pins[t['id']]={str(f):digest(f) for f in folder.rglob('*') if f.is_file()}
             elif t['kind']=='pump_operating_point':
                 dependency=t.get('depends_on')
                 if dependency and tasks[dependency]['status']!='pass':reason='upstream network producer did not pass; no pump operating point fabricated'

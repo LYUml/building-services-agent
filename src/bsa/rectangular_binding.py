@@ -69,3 +69,30 @@ if __name__=='__main__':
     for name in ('model','binding','out'):parser.add_argument('--'+name,type=Path,required=True)
     r=run(**vars(parser.parse_args()));print(json.dumps({k:r[k] for k in ('saved_ifc_geometry_match','calculated_checks_pass','design_accepted')}))
     raise SystemExit(0 if r['calculated_checks_pass'] else 2)
+
+
+def verified_study(project,model,binding,ifc,analysis):
+    """Rebuild source geometry and inspect saved native walls before trusting a study."""
+    import copy
+    import math
+    from .rectangular_network import calculate
+    from .engine import ProjectError
+    from .cli import digest
+    p,m,b,study=[json.loads(Path(path).read_text(encoding="utf-8-sig")) for path in (project,model,binding,analysis)]
+    skeleton=copy.deepcopy(p)
+    for node in skeleton['nodes']:node.pop('elevation_m')
+    for segment in skeleton['segments']:
+        for key in ('width_m','height_m','length_m'):segment.pop(key)
+    from .rectangular_elbow import WALL as RECTANGULAR_BEND
+    devices={d['id']:d for d in m['devices']}
+    for segment in skeleton['segments']:
+        if any(devices[name].get('body_shape')==RECTANGULAR_BEND for name in b['segments'][segment['id']]):segment.pop('minor_k',None)
+    rederived,_=_prepare(skeleton,m,b,rectangular=True)
+    if rederived!=p:raise ProjectError('fan network differs from native source geometry derivation')
+    inspect_saved(ifc,m,project,b)
+    fresh=calculate(p)
+    if fresh['calculated_checks_pass'] is not True or study.get('calculated_checks_pass') is not True or study.get('input_sha256')!=digest(Path(project)):raise ProjectError('passing matching rectangular study required')
+    for key in ('supply_flow_m3_s','required_source_total_pressure_pa'):
+        actual=study.get(key)
+        if type(actual) not in (int,float) or not math.isfinite(actual) or not math.isclose(actual,fresh[key],rel_tol=1e-10,abs_tol=1e-10):raise ProjectError('saved rectangular study differs from fresh analysis')
+    return fresh

@@ -22,22 +22,8 @@ def run(project,model,binding,ifc,analysis,basis,pack,sources,out):
     if len(rule_pack.get('rules',[]))!=1 or rule_pack['rules'][0]['method']!='base_air_distribution_fan_power':raise ProjectError('one scoped base fan-power pack required')
     tracked=set(paths)|source_paths(rule_pack,sources)|method_paths(rule_pack)|{Path(__file__).resolve()}
     before.update({str(f):digest(f) if f.is_file() else None for f in tracked if str(f) not in before})
-    skeleton=copy.deepcopy(p)
-    for node in skeleton['nodes']:node.pop('elevation_m')
-    for segment in skeleton['segments']:
-        for key in ('width_m','height_m','length_m'):segment.pop(key)
-    from .rectangular_elbow import WALL as RECTANGULAR_BEND
-    devices={d['id']:d for d in m['devices']}
-    for segment in skeleton['segments']:
-        if any(devices[name].get('body_shape')==RECTANGULAR_BEND for name in b['segments'][segment['id']]):segment.pop('minor_k',None)
-    rederived,_=_prepare(skeleton,m,b,rectangular=True)
-    if rederived!=p:raise ProjectError('fan network differs from native source geometry derivation')
-    inspect_saved(ifc,m,project,b)
-    fresh=calculate(p)
-    if fresh['calculated_checks_pass'] is not True or study.get('calculated_checks_pass') is not True or study.get('input_sha256')!=digest(project):raise ProjectError('passing matching rectangular study required')
-    for key in ('supply_flow_m3_s','required_source_total_pressure_pa'):
-        actual=study.get(key)
-        if type(actual) not in (int,float) or not math.isfinite(actual) or not math.isclose(actual,fresh[key],rel_tol=1e-10,abs_tol=1e-10):raise ProjectError('saved rectangular study differs from fresh analysis')
+    from .rectangular_binding import verified_study
+    fresh=verified_study(project,model,binding,ifc,analysis)
     derived=copy.deepcopy(basis_data)
     flow=fresh['supply_flow_m3_s']*1000
     derived['facts']['supply_design_airflow']=dict(value=flow,unit='L/s',source='Fresh source-native-bound rectangular supply flow; project SHA256 '+digest(project)+'; IFC SHA256 '+digest(ifc))
