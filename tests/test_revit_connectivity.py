@@ -31,6 +31,16 @@ class RevitConnectivityTests(unittest.TestCase):
         self.data['fittings'][0]['connectors'][0]['references'] = []
         self.check_reason('missing_reciprocal_reference')
 
+    def test_one_sided_metadata_failure_cannot_leave_a_consistent_pair(self):
+        for field, value in (('reciprocal_reference', False), ('origin_m', [1.02, 0, 0]),
+                             ('separation_m', 0.02), ('connector_type', 'Logical')):
+            data = copy.deepcopy(self.data)
+            data['fittings'][0]['connectors'][0]['references'][0][field] = value
+            with self.subTest(field=field):
+                result = diagnose(data, 0.0001)
+                self.assertEqual(result['diagnostic_status'], 'fail')
+                self.assertEqual(result['consistent_reference_pairs'], [])
+
     def test_moved_target_with_unchanged_claims(self):
         self.data['fittings'][0]['connectors'][0]['origin_m'] = [1.02, 0, 0]
         self.check_reason('endpoint_separation')

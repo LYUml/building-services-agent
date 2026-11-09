@@ -58,7 +58,7 @@ def diagnose(inventory, tolerance_m):
 
     if not nodes:
         raise ProjectError('Empty inventory cannot establish connectivity')
-    edges = set()
+    directed_checks = set()
     for ident, c in nodes.items():
         if c['connector_type'] == 'Logical':
             continue
@@ -103,12 +103,14 @@ def diagnose(inventory, tolerance_m):
             if reasons:
                 issues.append(dict(port=ident, target=target, reasons=reasons))
             else:
-                edges.add(tuple(sorted((ident, target))))
+                directed_checks.add((ident, target))
         if not physical_refs:
             if c['physically_connected']:
                 issues.append(dict(port=ident, reasons=['physical_flag_without_physical_reference']))
             else:
                 open_ports.append(ident)
+    # A passing direction cannot mask contradictory metadata in the reverse record.
+    edges = {tuple(sorted((a, b))) for a, b in directed_checks if (b, a) in directed_checks}
     revision_checks = [dict(owner=p['unique_id'], **audit_pipe(p, tolerance_m)) for p in inventory['pipes']]
     for row in revision_checks:
         if row['status'] == 'fail':
