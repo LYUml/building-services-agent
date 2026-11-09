@@ -1,5 +1,7 @@
 # Source-bound three-phase networks
 
+The passing workflow study can now feed [calculation-bound schematics and phase schedules](THREE_PHASE_DRAWINGS.md), including independently reopened DWG and reviewed PDF for the synthetic fixture. That standalone drawing path is separate from installation design, BIM topology and protection/regulatory acceptance.
+
 This standalone adapter reuses pinned pandapower 3.5.6, selected through the [executed upstream trial](THREE_PHASE_TRIAL.md). It accepts connected single-voltage networks of sequence-impedance lines and constant-PQ wye loads with one external source. It supports multiple buses/loads/branches and has executed a three-bus radial fixture, a mesh control and nonzero inductive/capacitive reactive loads. It is not a general electrical design or protection tool.
 
 ```powershell

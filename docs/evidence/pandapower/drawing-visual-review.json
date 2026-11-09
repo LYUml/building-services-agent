@@ -1,0 +1,18 @@
+{
+  "scope": "Visual review of actual synthetic calculation schematic only; no installation/protection/Hong Kong acceptance",
+  "reviewed_at_utc": "2026-11-09T16:04:19.1126841Z",
+  "reviewer": "Host agent after inspecting the rendered PDF",
+  "pdf_sha256": "ef2c0afab2eca7253c3a7961edd3318a358b7ebd2b3d4f6ddd1dd35de2bda7e9",
+  "dwg_sha256": "5fab509dbd2e06e0b5aadd99c9c868478d5b5c05ea2bf2ef7e7ef58e3185ccd1",
+  "image_sha256": "04ae6e069ba082de5399b97260b912f59458265d888f61a642237f850b2d53d6",
+  "paper_reference_expected_mm": 50.0,
+  "paper_reference_measured_mm": 49.99566666666666,
+  "observations": [
+    "Three bus voltage boxes and both line length/current labels are visible and readable",
+    "Source / DB-A / load-B and feeder / branch correspond to the declared synthetic model",
+    "Scope notes distinguish schematic paper units from source route lengths and retain missing engineering checks",
+    "No observed clipped titles, labels or paper reference on the inspected page",
+    "AutoCAD PDF parser reported duplicate PageMode keys; no general PDF conformance claim"
+  ],
+  "design_accepted": false
+}
