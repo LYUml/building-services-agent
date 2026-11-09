@@ -1,0 +1,196 @@
+{
+  "name": "Synthetic WSD capacity route fixture",
+  "project_uuid": "bdca6680-eb31-43cf-9855-29f39cc66f1b",
+  "geometry_scope": "axis-aligned envelopes and explicit straight circular walls",
+  "sources": {
+    "test": "Explicit synthetic IFC route fixture: 5 m vertical route, 32 mm bore, 40 mm outside diameter, 1 L/s tank outflow target. Product, pump/tank shape and code suitability not established."
+  },
+  "spaces": [
+    {
+      "id": "ServiceShaft",
+      "origin_m": [
+        0,
+        0,
+        0
+      ],
+      "size_m": [
+        3,
+        3,
+        6
+      ],
+      "source": "test"
+    }
+  ],
+  "systems": [
+    {
+      "id": "COLD-WATER",
+      "predefined_type": "DOMESTICCOLDWATER",
+      "source": "test"
+    }
+  ],
+  "devices": [
+    {
+      "id": "BOOSTER",
+      "ifc_class": "IfcPump",
+      "origin_m": [
+        0.8,
+        0.8,
+        0
+      ],
+      "size_m": [
+        0.4,
+        0.4,
+        0.4
+      ],
+      "ports": [
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            0.2,
+            0.2,
+            0.4
+          ],
+          "source": "test"
+        }
+      ],
+      "source": "test",
+      "space": "ServiceShaft",
+      "system": "COLD-WATER"
+    },
+    {
+      "id": "RISE-LOW",
+      "ifc_class": "IfcPipeSegment",
+      "origin_m": [
+        0.98,
+        0.98,
+        0.4
+      ],
+      "size_m": [
+        0.04,
+        0.04,
+        2.5
+      ],
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0.02,
+            0.02,
+            0
+          ],
+          "source": "test"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            0.02,
+            0.02,
+            2.5
+          ],
+          "source": "test"
+        }
+      ],
+      "source": "test",
+      "space": "ServiceShaft",
+      "system": "COLD-WATER",
+      "body_shape": "straight circular wall",
+      "properties": {
+        "InternalDiameter_m": 0.032,
+        "OutsideDiameter_m": 0.04
+      }
+    },
+    {
+      "id": "RISE-HIGH",
+      "ifc_class": "IfcPipeSegment",
+      "origin_m": [
+        0.98,
+        0.98,
+        2.9
+      ],
+      "size_m": [
+        0.04,
+        0.04,
+        2.5
+      ],
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0.02,
+            0.02,
+            0
+          ],
+          "source": "test"
+        },
+        {
+          "id": "out",
+          "direction": "SOURCE",
+          "offset_m": [
+            0.02,
+            0.02,
+            2.5
+          ],
+          "source": "test"
+        }
+      ],
+      "source": "test",
+      "space": "ServiceShaft",
+      "system": "COLD-WATER",
+      "body_shape": "straight circular wall",
+      "properties": {
+        "InternalDiameter_m": 0.032,
+        "OutsideDiameter_m": 0.04
+      }
+    },
+    {
+      "id": "OUTLET",
+      "ifc_class": "IfcSanitaryTerminal",
+      "origin_m": [
+        0.95,
+        0.95,
+        5.4
+      ],
+      "size_m": [
+        0.1,
+        0.1,
+        0.2
+      ],
+      "ports": [
+        {
+          "id": "in",
+          "direction": "SINK",
+          "offset_m": [
+            0.05,
+            0.05,
+            0
+          ],
+          "source": "test"
+        }
+      ],
+      "source": "test",
+      "space": "ServiceShaft",
+      "system": "COLD-WATER"
+    }
+  ],
+  "connections": [
+    {
+      "source": "test",
+      "from": "BOOSTER.out",
+      "to": "RISE-LOW.in"
+    },
+    {
+      "source": "test",
+      "from": "RISE-LOW.out",
+      "to": "RISE-HIGH.in"
+    },
+    {
+      "source": "test",
+      "from": "RISE-HIGH.out",
+      "to": "OUTLET.in"
+    }
+  ]
+}

@@ -69,6 +69,8 @@ def regulatory_source_bindings(tasks,root):
             current['circulation']=local_path(root,task.get('project'))
         elif kind in ('plumbing_pump_regulations','pump_operating_point','water_pipe_regulations','network') and not task.get('depends_on'):
             current['network']=local_path(root,task.get('project'))
+        elif kind=='network_coordination':
+            current={field:local_path(root,task[key]) for field,key in (('network_template','project'),('network_model','model'),('network_binding','binding'))}
         elif kind in shared:
             current['project']=local_path(root,task.get('project'))
             if kind in geometric:current['geometry']=local_path(root,task.get('geometry'))
@@ -79,6 +81,9 @@ def regulatory_source_bindings(tasks,root):
         if kind=='plumbing_pump_regulations':current['plumbing_basis']=local_path(root,task.get('basis'))
         for parent in sorted(upstream):
             if known[parent]['kind'] not in ('plumbing_pump_regulations','epanet_pipe_regulations','circulation_duty','electrical_regulations','lighting_regulations','water_pipe_regulations'):continue
+            if (known[parent]['kind']=='plumbing_pump_regulations' and 'network_template' in sources[parent]
+                    and kind in ('network','pump_operating_point','plumbing_pump_regulations') and 'network_template' not in current):
+                raise ProjectError('derived plumbing gate requires the same inherited network producer; explicit replacement cannot establish correspondence')
             for field in current.keys() & sources[parent].keys():
                 checked=sources[parent][field];consumed=current[field]
                 if hashed(checked)!=hashed(consumed):
@@ -144,7 +149,7 @@ def validate_plan(path):
                 raise ProjectError('HVAC regulations read both producer variants; replacement inputs forbidden')
         if kind in ('plumbing_pump_regulations','epanet_pipe_regulations','regulations','electrical_regulations','lighting_regulations','hvac_regulations','water_pipe_regulations','regulated_water_model'):
             from .regulations import source_paths
-            pack=local_path(root,t.get('pack'));project=local_path(root,t.get('basis' if kind=='hvac_regulations' or kind=='water_pipe_regulations' and t.get('depends_on') else 'project'))
+            pack=local_path(root,t.get('pack'));project=local_path(root,t.get('basis' if kind=='hvac_regulations' or kind in ('water_pipe_regulations','plumbing_pump_regulations') and t.get('depends_on') else 'project'))
             directory=t.get('sources')
             if not isinstance(directory,str) or Path(directory).is_absolute():raise ProjectError('relative regulation source directory required')
             directory=(root/directory).resolve()
@@ -155,7 +160,10 @@ def validate_plan(path):
             if kind in ('electrical_regulations','lighting_regulations'):
                 inputs.update(local_path(root,t.get(key)) for key in (('topology' if kind=='electrical_regulations' else 'geometry'),'basis'))
         if kind=='plumbing_pump_regulations':
-            if t.get('depends_on'):raise ProjectError('plumbing capacity executes fresh explicit inputs; depends_on unsupported')
+            if t.get('depends_on'):
+                parent=t['depends_on']
+                if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='network_coordination':raise ProjectError('derived plumbing capacity requires earlier network_coordination')
+                if any(k in t for k in ('project','model','binding','ifc','producer')):raise ProjectError('derived plumbing capacity inherits original inputs; replacements forbidden')
             inputs.update(local_path(root,t.get(key)) for key in ('curve','basis'))
         if kind=='circulation_pump_design':
             from .circulation_pump_design import candidates
@@ -670,9 +678,17 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None):
                     payload=run(directory,template,binding,local_path(root,t['thermal_basis']),local_path(root,t['rule_basis']),local_path(root,t['pack']),root/t['sources'],folder)
                     status=payload['status'];reason='saved IFC-derived circulation thermal and scoped pipe rules; full acceptance pending'
             elif t['kind']=='plumbing_pump_regulations':
-                from .plumbing_pump_binding import run
-                payload=run(*(local_path(root,t[key]) for key in ('project','curve','basis','pack')),root/t['sources'],folder)
-                status=payload['status'];reason='fresh single-line pump capacity with sourced tank association and WSD checks; duplication, controls and full acceptance pending'
+                parent=t.get('depends_on')
+                if parent and tasks[parent]['status']!='pass':reason='upstream saved network did not pass; plumbing capacity not executed'
+                else:
+                    if parent:
+                        from .ifc_plumbing_pump import run
+                        producer=next(x for x in p['tasks'] if x['id']==parent)
+                        payload=run(out/parent,*(local_path(root,producer[key]) for key in ('project','model','binding')),*(local_path(root,t[key]) for key in ('curve','basis','pack')),root/t['sources'],folder)
+                    else:
+                        from .plumbing_pump_binding import run
+                        payload=run(*(local_path(root,t[key]) for key in ('project','curve','basis','pack')),root/t['sources'],folder)
+                    status=payload['status'];reason='fresh single-line pump capacity with sourced tank association and WSD checks; duplication, controls and full acceptance pending'
             elif t['kind']=='epanet_pipe_regulations':
                 from .epanet_pipe_regulations import run
                 payload=run(local_path(root,t['project']),local_path(root,t['basis']),local_path(root,t['pack']),(root/t['sources']).resolve(),folder)

@@ -1,0 +1,13 @@
+{
+  "source": "Explicit synthetic IFC route fixture: 5 m vertical route, 32 mm bore, 40 mm outside diameter, 1 L/s tank outflow target. Product, pump/tank shape and code suitability not established.",
+  "nodes": {
+    "BASE": "BOOSTER.out",
+    "TOP": "OUTLET.in"
+  },
+  "segments": {
+    "RISER": [
+      "RISE-LOW",
+      "RISE-HIGH"
+    ]
+  }
+}

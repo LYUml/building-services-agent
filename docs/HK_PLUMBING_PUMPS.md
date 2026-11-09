@@ -29,7 +29,7 @@ Clause 6.5.1 does not itself supply a universal numeric 60 m pressure limit. No 
 
 The binding file contains regulatory_basis plus a sourced connection: terminal_id, tank_id, capacity_mode, hydraulic_boundary_basis and source. Capacity mode is explicitly one operating pump with standby capacity excluded. Tank identity must match the regulatory basis, and terminal design demand must equal tank design outflow in m3/s. Omit available_pumping_capacity and capacity_duty_basis: the adapter computes them and rejects overrides. Neither descriptive associations nor model-independent duplication assertions prove installed configuration.
 
-Workflow kind `plumbing_pump_regulations` takes project, curve, basis, pack and sources, inventories their files and official source, and executes fresh calculation. Use requires_pass for downstream gates. It does not inherit an IFC producer or verify an unrelated downstream model. Scope planning recognizes this adapter as scheduling the selected pack.
+Workflow kind `plumbing_pump_regulations` takes project, curve, basis, pack and sources, inventories their files and official source, and executes fresh calculation. Use requires_pass for downstream gates. The inherited IFC-route mode below is also available; unrelated downstream models remain unverified. Scope planning recognizes this adapter as scheduling the selected pack.
 
 If no converged operating point exists, no capacity fact is fabricated. Converged but insufficient flow retains both hydraulic failure and regulatory review. Other hydraulic failures also prevent overall pass even if the numerical capacity comparison passes. Missing/changed official sources preserve pending results. Outputs include the pump report, bound facts, report/artifact hashes and explicit remaining checks.
 
@@ -41,3 +41,14 @@ The official-PDF-backed synthetic trial produces approximately 1.253 L/s against
 A plumbing capacity prerequisite now binds known downstream `network`, explicit-input `pump_operating_point` and repeated `plumbing_pump_regulations` tasks to the same source network bytes. Pump consumers also require identical curve bytes; repeated plumbing checks require identical basis bytes. Ancestor checks propagate through intermediate tasks, including manual review, and the workflow records these hashes in regulatory_source_bindings. Different source content is rejected at plan validation, while an identical copy at another path is allowed.
 
 These comparisons apply only to the supported shared input fields. They do not verify arbitrary IFC/drawing consumers or prove that a prescribed-flow network result is the same physical operating scenario as a pump intersection. Changing the design intentionally requires a new corresponding check and plan, not reuse of a passing prerequisite for the old inputs.
+
+
+## Saved IFC route inheritance
+
+`plumbing_pump_regulations` can now use `depends_on` referencing an earlier passing `network_coordination` instead of `project`. Keep curve, basis, pack and sources; project/model/binding/IFC/producer replacement fields are forbidden. The template, original model and route binding come from the producer.
+
+Before and after fresh capacity checks, `bsa.ifc_plumbing_pump` verifies all original input identities and hashes plus saved artifact coverage. It reconstructs the complete derived network from those originals, then reconciles saved IFC geometry/ports with that network. Editing generated dimensions and rewriting their manifest hashes cannot bypass the source reconstruction. Failed producer tasks block execution.
+
+Known downstream pump consumers should inherit the same route producer and require this capacity check. Network-template, model, binding and curve source correspondence is recorded; explicit replacement network inputs cannot satisfy an inherited plumbing prerequisite. These are scoped source/route proofs, not arbitrary downstream model checks.
+
+The example uses route-template.json, route-model.json and route-binding.json under examples/hk-plumbing-pumps: explicitly synthetic 5 m vertical hollow pipe geometry, 32 mm bore and 40 mm OD. It reuses the earlier synthetic riser structure with a separate namespace and explicitly revised dimensions. It is not measured project geometry. Real pipe product validity, tank/booster shapes, physical pump/tank identity, standby controls and saved-model clashes remain separate. Evidence: docs/evidence/hk-ifc-plumbing/native-trial.zip retains actual IFC, derived inputs and official-PDF-backed capacity results.

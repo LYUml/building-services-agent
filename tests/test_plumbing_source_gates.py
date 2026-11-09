@@ -10,6 +10,17 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class PlumbingSourceGateTests(unittest.TestCase):
+    def test_derived_gate_rejects_explicit_replacement(self):
+        root = ROOT/'examples/hk-plumbing-pumps'
+        tasks = [dict(id='route', kind='network_coordination', project='route-template.json', model='route-model.json', binding='route-binding.json'),
+                 dict(id='check', kind='plumbing_pump_regulations', depends_on='route', curve='curve.json', basis='binding.json'),
+                 dict(id='pump', kind='pump_operating_point', project='network.json', curve='curve.json', requires_pass=['check'])]
+        with self.assertRaisesRegex(ProjectError, 'same inherited network'):
+            regulatory_source_bindings(tasks, root)
+        del tasks[-1]['project']; tasks[-1]['depends_on'] = 'route'
+        rows = regulatory_source_bindings(tasks, root)
+        self.assertIn('network_model', {r['field'] for r in rows})
+
     def test_direct_transitive_and_curve_correspondence(self):
         with tempfile.TemporaryDirectory(dir=ROOT/'runs') as tmp:
             root = Path(tmp)

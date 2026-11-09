@@ -1,0 +1,42 @@
+{
+  "name": "Independent vertical water riser",
+  "model": "steady incompressible circular tree",
+  "sources": {
+    "test": "Explicit synthetic IFC route fixture: 5 m vertical route, 32 mm bore, 40 mm outside diameter, 1 L/s tank outflow target. Product, pump/tank shape and code suitability not established. Fixed 100 kPa terminal total pressure; synthetic 180 kPa baseline supply."
+  },
+  "fluid": {
+    "density_kg_m3": 998,
+    "dynamic_viscosity_pa_s": 0.001,
+    "source": "test"
+  },
+  "supply": {
+    "node": "BASE",
+    "total_pressure_pa": 180000,
+    "source": "test"
+  },
+  "nodes": [
+    {
+      "id": "BASE",
+      "demand_m3_s": 0,
+      "required_total_pressure_pa": 0,
+      "source": "test"
+    },
+    {
+      "id": "TOP",
+      "demand_m3_s": 0.001,
+      "required_total_pressure_pa": 100000,
+      "source": "test"
+    }
+  ],
+  "segments": [
+    {
+      "id": "RISER",
+      "roughness_m": 4.5e-05,
+      "minor_k": 3,
+      "max_velocity_m_s": 2,
+      "source": "test",
+      "from": "BASE",
+      "to": "TOP"
+    }
+  ]
+}

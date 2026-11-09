@@ -40,3 +40,6 @@ For WSD sump-and-pump requirements, read docs/HK_PLUMBING_PUMPS.md and use the e
 
 
 When a sourced single-line pump curve and fixed-terminal system are available, use plumbing_pump_regulations / bsa.plumbing_pump_binding from docs/HK_PLUMBING_PUMPS.md to derive capacity from a fresh operating-point solve. Bind terminal and tank identity, require equal terminal design demand/tank outflow and exclude standby capacity. Omit computed capacity/duty fields. Keep failed hydraulics and absent intersections failed even if other facts pass; duplicate-set controls, product applicability and IFC correspondence remain separate evidence requirements.
+
+
+For capacity checks tied to saved IFC pipe geometry, use plumbing_pump_regulations with depends_on on a passing network_coordination and omit project/model/binding/ifc replacements. See the saved-route section in docs/HK_PLUMBING_PUMPS.md. Original sources are reconstructed and saved geometry reconciled before/after the solve. Known downstream pump tasks must inherit the same route and use requires_pass. This binds pipe route geometry only; physical pump/tank identity, duplicate-set controls and clash checks are still separate.
