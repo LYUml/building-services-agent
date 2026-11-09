@@ -1,0 +1,33 @@
+{
+  "source": "Explicit synthetic software geometry fixture; not a manufacturer fitting or installation specification",
+  "outer_radius_m": 0.02,
+  "inner_radius_m": 0.016,
+  "main_half_length_m": 0.1,
+  "branch_length_m": 0.1,
+  "project_uuid": "80da3092-7341-45f4-9d70-31c225196f32",
+  "placement": {
+    "source": "Explicit synthetic relocation: origin [12.3, -4.5, 2.7] metres; 30 degree Z rotation followed by 40 degree X rotation; not surveyed coordinates",
+    "origin_m": [
+      12.3,
+      -4.5,
+      2.7
+    ],
+    "rotation": [
+      [
+        0.8660254037844387,
+        -0.49999999999999994,
+        0.0
+      ],
+      [
+        0.38302222155948895,
+        0.6634139481689384,
+        -0.6427876096865393
+      ],
+      [
+        0.32139380484326957,
+        0.5566703992264194,
+        0.766044443118978
+      ]
+    ]
+  }
+}

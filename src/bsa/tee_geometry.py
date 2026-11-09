@@ -30,11 +30,32 @@ def stable_guid(data,cls,*keys):
     return ifcopenshell.guid.compress(uuid.uuid5(project_namespace(data),json.dumps([cls,*keys],ensure_ascii=False,separators=(',',':'))).hex)
 
 
+def placement_matrix(data):
+    """Explicit right-handed rigid placement; legacy fixture defaults to identity."""
+    value=data.get('placement')
+    if value is None:
+        if 'placement' in data:raise ValueError('sourced rigid placement required')
+        return np.eye(4)
+    if not isinstance(value,dict) or set(value)!={'source','origin_m','rotation'} or not isinstance(value['source'],str) or not value['source'].strip():
+        raise ValueError('sourced rigid placement required')
+    origin,rotation=value['origin_m'],value['rotation']
+    if not isinstance(origin,list) or len(origin)!=3 or not isinstance(rotation,list) or len(rotation)!=3 or any(not isinstance(row,list) or len(row)!=3 for row in rotation):
+        raise ValueError('placement requires 3-vector and 3x3 rotation')
+    if any(type(x) not in (int,float) or not math.isfinite(x) for x in origin+[x for row in rotation for x in row]):
+        raise ValueError('finite numeric placement required')
+    r=np.array(rotation,dtype=float)
+    if not np.allclose(r.T@r,np.eye(3),atol=1e-10,rtol=0) or not math.isclose(np.linalg.det(r),1,abs_tol=1e-10,rel_tol=0):
+        raise ValueError('right-handed orthonormal rotation required; no scale or reflection')
+    m=np.eye(4);m[:3,:3]=r;m[:3,3]=origin
+    return m
+
+
 def run(spec_path,out):
     spec_path,out=Path(spec_path).resolve(),Path(out).resolve()
     data=json.loads(spec_path.read_text(encoding='utf-8-sig'))
-    if set(data)!={'project_uuid','source','outer_radius_m','inner_radius_m','main_half_length_m','branch_length_m'} or not isinstance(data['source'],str) or not data['source'].strip():raise ValueError('exact sourced tee parameters required')
+    if set(data)-{'placement'}!={'project_uuid','source','outer_radius_m','inner_radius_m','main_half_length_m','branch_length_m'} or not isinstance(data['source'],str) or not data['source'].strip():raise ValueError('exact sourced tee parameters required')
     project_namespace(data)
+    transform=placement_matrix(data)
     R,r,L,B=[data[k] for k in ('outer_radius_m','inner_radius_m','main_half_length_m','branch_length_m')]
     if any(type(x) not in (int,float) or not math.isfinite(x) for x in (R,r,L,B)) or not 0<r<R<min(L,B):raise ValueError('finite 0 < bore radius < outer radius < both arm lengths required')
     if out.exists() or not out.is_relative_to(Path(__file__).resolve().parents[2]) or out==spec_path or out in spec_path.parents:raise ValueError('new repository output required')
@@ -59,14 +80,15 @@ def run(spec_path,out):
     wall=api.run('geometry.add_boolean',f,first_item=outer,second_items=[inner],operator='DIFFERENCE')[-1]
     representation=builder.get_representation(body,[wall],representation_type='CSG')
     api.run('geometry.assign_representation',f,product=tee,representation=representation)
-    api.run('geometry.edit_object_placement',f,product=tee,matrix=np.eye(4),is_si=True)
+    api.run('geometry.edit_object_placement',f,product=tee,matrix=transform,is_si=True)
     ports=[]
     for name,xyz,axis in [('main-a',(0,0,-L),(0,0,-1)),('main-b',(0,0,L),(0,0,1)),('branch',(B,0,0),(1,0,0))]:
         port=api.run('system.add_port',f,element=tee);port.Name=name;port.FlowDirection='SOURCEANDSINK'
         port.GlobalId=stable_guid(data,'IfcDistributionPort','SYNTHETIC-TEE',name)
         mat=np.eye(4);mat[:3,3]=xyz;mat[:3,2]=axis
         mat[:3,0]=(0,1,0);mat[:3,1]=np.cross(mat[:3,2],mat[:3,0])
-        api.run('geometry.edit_object_placement',f,product=port,matrix=mat,is_si=True);ports.append((port.GlobalId,list(xyz),list(axis)))
+        mat=transform@mat
+        api.run('geometry.edit_object_placement',f,product=port,matrix=mat,is_si=True);ports.append((port.GlobalId,mat[:3,3].tolist(),mat[:3,2].tolist()))
     ps=api.run('pset.add_pset',f,product=tee,name='BSA_TeeTrial')
     api.run('pset.edit_pset',f,pset=ps,properties=dict(Source=data['source'],OuterRadius_m=R,InnerRadius_m=r,MainHalfLength_m=L,BranchLength_m=B,Scope='Synthetic intersecting-cylinder wall; no manufacturer, K-factor or installation acceptance'))
     path=out/'tee.ifc';f.write(str(path))
@@ -92,10 +114,10 @@ def verify_geometry(path,data,guid,ports):
     empty_volumes=[(mesh ^ probe).volume() for probe in probes]
     wall_probe=manifold.Manifold.cube((R-r,R-r,R-r),center=True).translate(((R+r)/2,0,-L/2))
     wall_overlap=(mesh ^ wall_probe).volume()
-    checks=dict(mesh_valid=str(mesh.status())=='Error.NoError',one_connected_wall=len(mesh.decompose())==1,
+    checks=dict(placement_matches=bool(np.allclose(ifcopenshell.util.placement.get_local_placement(obj.ObjectPlacement),placement_matrix(data),atol=1e-9,rtol=0)),mesh_valid=str(mesh.status())=='Error.NoError',one_connected_wall=len(mesh.decompose())==1,
                 volume_matches_analytic=math.isclose(mesh.volume(),expected,rel_tol=.002),
                 main_and_branch_bores_clear=all(abs(v)<1e-12 for v in empty_volumes),wall_control_detected=wall_overlap>1e-12,
-                ports_match=all(np.allclose(ifcopenshell.util.placement.get_local_placement(saved.by_guid(g).ObjectPlacement)[:3,3],xyz) and np.allclose(ifcopenshell.util.placement.get_local_placement(saved.by_guid(g).ObjectPlacement)[:3,2],axis) for g,xyz,axis in ports))
+                ports_match=all(np.allclose(ifcopenshell.util.placement.get_local_placement(saved.by_guid(g).ObjectPlacement)[:3,3],xyz,atol=1e-9,rtol=0) and np.allclose(ifcopenshell.util.placement.get_local_placement(saved.by_guid(g).ObjectPlacement)[:3,2],axis) for g,xyz,axis in ports))
     return checks,mesh.volume(),expected,empty_volumes,wall_overlap
 
 

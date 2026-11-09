@@ -15,7 +15,7 @@ import ifcopenshell.util.system as system
 from ifcopenshell.util.shape_builder import ShapeBuilder
 from bsa.cli import digest
 from bsa.solid_clash import from_mesh
-from .tee_geometry import run as tee_trial,verify_geometry,stable_guid,project_namespace
+from .tee_geometry import run as tee_trial,verify_geometry,stable_guid,project_namespace,placement_matrix
 
 
 def verify(path,spec,lengths):
@@ -23,6 +23,8 @@ def verify(path,spec,lengths):
     tee_ports={p.Name:p for p in system.get_ports(tee)}
     R,r,L,B=[spec[k] for k in ('outer_radius_m','inner_radius_m','main_half_length_m','branch_length_m')]
     anchors={'main-a':((0,0,-L),(0,0,-1)),'main-b':((0,0,L),(0,0,1)),'branch':((B,0,0),(1,0,0))}
+    transform=placement_matrix(spec)
+    anchors={name:(transform[:3,:3]@np.array(xyz)+transform[:3,3],transform[:3,:3]@np.array(axis)) for name,(xyz,axis) in anchors.items()}
     ports=[(tee_ports[k].GlobalId,*v) for k,v in anchors.items()]
     tee_checks,*_=verify_geometry(path,spec,tee.GlobalId,ports)
     checks=dict(tee_geometry=all(tee_checks.values()),exact_pipe_names={p.Name for p in f.by_type('IfcPipeSegment')}==set(lengths) and len(f.by_type('IfcPipeSegment'))==3)
@@ -65,7 +67,8 @@ def run(tee_spec,assembly_spec,out):
     lengths=data['pipe_lengths_m']
     if not isinstance(lengths,dict) or set(lengths)!={'main-a','main-b','branch'} or any(type(v) not in (int,float) or not math.isfinite(v) or v<=0 for v in lengths.values()):raise ValueError('three positive finite lengths required')
     if out.exists() or not out.is_relative_to(Path(__file__).resolve().parents[2]) or any(out==p or out in p.parents for p in (tee_spec,assembly_spec)):raise ValueError('new repository output required')
-    project_namespace(json.loads(tee_spec.read_text(encoding='utf-8-sig')))
+    source_spec=json.loads(tee_spec.read_text(encoding='utf-8-sig'))
+    project_namespace(source_spec);placement_matrix(source_spec)
     before={str(p):digest(p) for p in (tee_spec,assembly_spec)};out.mkdir(parents=True)
     trial=tee_trial(tee_spec,out/'tee')
     if not trial['geometry_trial_pass']:raise ValueError('tee geometry failed')

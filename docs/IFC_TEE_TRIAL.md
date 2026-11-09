@@ -17,7 +17,7 @@ Saved-model checks use 10 micrometre mesh linear deflection and 0.05 rad angular
 
 A deliberately damaged IFC removes branch-bore subtraction while retaining outer geometry and all ports. It fails both analytic volume and bore-clearance checks while its ports still pass. The positive model separately passed native IFC schema/EXPRESS validation with zero statements. Both models and native reports are retained in docs/evidence/ifc-tee/native-trials.zip.
 
-This trial runs the established geometry runtime used by existing project adapters. It does not load or bypass the blocked FreeCAD or IfcOpenShell 0.9.0 kernels. The subsequent assembly and identity sections cover adjoining pipes and stable identities. Remaining integration work includes placement/rotation support, source-backed directional junction losses, saved-network binding and drawings. Do not substitute it for a standard-compliant product, use a zero-loss junction by implication, or mark a complete engineering design on this evidence.
+This trial runs the established geometry runtime used by existing project adapters. It does not load or bypass the blocked FreeCAD or IfcOpenShell 0.9.0 kernels. The subsequent assembly and identity sections cover adjoining pipes and stable identities. Remaining integration work includes complete directional pressure balance, saved-network binding and drawings; subsequent sections document rigid placement and coefficient diagnostics. Do not substitute it for a standard-compliant product, use a zero-loss junction by implication, or mark a complete engineering design on this evidence.
 
 
 ## Connected three-pipe assembly trial
@@ -33,7 +33,7 @@ The saved IFC is reopened and the original tee checks rerun. Each pipe's native 
 
 Positive source/geometry/topology checks passed; native IFC schema/EXPRESS validation reported zero statements. Two controls keep all ports and connection relationships unchanged but shift the branch pipe body 10 mm: inward produces material overlap and endpoint mismatch, outward produces a gap and endpoint mismatch despite zero overlap. Both are rejected. Evidence is retained in docs/evidence/tee-assembly/native-trials.zip.
 
-The assembly remains a standalone geometry trial. A canonical project namespace now preserves the scoped product/port identities described below; no network loss coefficient, system hydraulic solution, arbitrary placement/rotation, product selection, native drawing or installation acceptance is provided. Future integration must preserve finite fitting lengths and directional losses rather than silently replacing the tee with a zero-loss mathematical junction.
+The assembly remains a standalone geometry trial. A canonical project namespace now preserves the scoped product/port identities described below; no network loss coefficient, system hydraulic solution, product selection, native drawing or installation acceptance is provided. Future integration must preserve finite fitting lengths and directional losses rather than silently replacing the tee with a zero-loss mathematical junction.
 
 
 ## Stable identities for iteration
@@ -63,3 +63,12 @@ No general network adapter is enabled: the current segment interface assumes non
 `tee_assembly` requires `tee_spec` and `assembly_spec` and exposes `assembly.ifc` as its IFC artifact. `tee_losses` requires `basis` and `depends_on` pointing to that earlier assembly. It inherits both source specs and the saved IFC; replacement model/spec fields are rejected. It reruns saved geometry/identity verification. Failed upstream generation leaves the diagnostic pending and creates no diagnostic output. General IFC inventory prerequisites also apply to this consumer.
 
 The example executed both tasks with intact source/artifact hashes and design acceptance false. Native geometry and coefficient regressions pass after extraction into package modules; a malformed geometry workflow verifies downstream blocking. Evidence is archived in `docs/evidence/tee-assembly/workflow.zip`. Task pass means only the recorded geometry or coefficient diagnostic scope, not complete pressure balance, actual product/installation or regulatory acceptance.
+
+
+## Sourced rigid project placement
+
+An optional `placement` on the tee spec contains `source`, `origin_m` (three coordinates in metres), and `rotation` (a row-major 3x3 matrix acting on column vectors). Rotation columns are the local axes in project coordinates. Require finite entries, unit orthogonal axes and determinant +1; scaling, shearing and reflection are rejected. Omission preserves the original explicit origin/axis fixture. Namespace and semantic IDs do not depend on coordinates.
+
+The tee's native product placement carries the transform. World opening positions/axes drive adjoining pipe solids and ports. Saved checks compare the tee placement against the source matrix, reconcile world pipe endpoints and ports, rerun local wall/bore/volume checks, and perform world-coordinate material intersection tests. This is placement in a metre-based project frame, not a map projection/georeferencing implementation.
+
+Run `python -m bsa.workflow execute examples/tee-trial/placed-plan.json --out runs/new-placed-tee`. The synthetic origin [12.3, -4.5, 2.7] m with 30-degree Z followed by 40-degree X rotation passed both workflow tasks and input/artifact integrity verification. Regression independently checks saved world endpoints, unchanged directional coefficients, rejection of a shifted saved tee, and pre-output rejection of scale/reflection. Evidence: `docs/evidence/tee-assembly/placed-workflow.zip`. Real survey coordinates, BIM-viewer inspection, multi-fitting authoring, full hydraulic solution and engineering acceptance remain pending.

@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "afb2c8b2278c134660b195f0b985fbadd47b02ee9bc6a76d4cb2d508ae26a280",
+  "passage_dispositions": {
+    "P001": "requirement",
+    "P002": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "assembly",
+      "kind": "tee_assembly",
+      "tee_spec": "placed-spec.json",
+      "assembly_spec": "assembly.json"
+    },
+    {
+      "id": "coefficients",
+      "kind": "tee_losses",
+      "depends_on": "assembly",
+      "basis": "loss-basis.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "assembly",
+      "task": "assembly",
+      "passage": "P001",
+      "quote": "Author the explicitly synthetic equal-bore tee and three pipe stubs using the supplied specs. Verify saved geometry, port topology and stable identities.",
+      "acceptance": "Author the explicitly synthetic equal-bore tee and three pipe stubs using the supplied specs. Verify saved geometry, port topology and stable identities."
+    },
+    {
+      "id": "coefficients",
+      "task": "coefficients",
+      "passage": "P002",
+      "quote": "Evaluate signed diverging coefficients using the supplied scenario basis on that saved assembly. Retain correlation applicability, full network balance, product, drawing and regulatory acceptance as pending.",
+      "acceptance": "Evaluate signed diverging coefficients using the supplied scenario basis on that saved assembly. Retain correlation applicability, full network balance, product, drawing and regulatory acceptance as pending."
+    }
+  ]
+}
