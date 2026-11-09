@@ -16,6 +16,10 @@ This is a compiled library, not an installed MCP/add-in or verified modeling wor
 
 ## Read-only host entry point
 
+The current C# inventory also collects native pipe-fitting family instances and reports missing connector managers explicitly. Each connector retains its domain/type, physical `IsConnected` flag (null for logical connectors), external references, reciprocal-reference evidence and endpoint separation in metres. `IsConnectedTo` is recorded as an API relation rather than promoted to physical-system acceptance. Logical connector origins and distances remain null instead of making unsupported physical queries. This follows the installed Revit 2027 `RevitAPI.xml` contracts for `Connector.IsConnected` and `Connector.IsConnectedTo`.
+
+The extended source compiles with zero warnings/errors (`../../docs/evidence/moosas-review/revit-connectivity-build.json`). No host execution has occurred: runtime handling of connector varieties, joined/unjoined controls, fitting coverage, saved reopening and full system traversal remain pending. The report explicitly retains `connected_system_verified = false`. Accessories, equipment, flexible pipes and linked models are not included; a missing item must not be interpreted as an open network endpoint. The separate Python inventory has not yet acquired these additional fields.
+
 `InventoryCommand` implements IExternalCommand with TransactionMode.ReadOnly. Its Execute entry opens a request-file picker; `Run(UIApplication, requestPath)` is also callable from a valid API context. The request contains absolute `DocumentPath` and `ReportPath`; the JSON and both paths must reside under this repository. It rejects family/unsaved/mismatched documents, checks model and request bytes before/after collection, and creates a new JSON report with model/request/assembly hashes. It reads native pipe/type/system/level identities and connector references. Logical references, linked models and physical connectivity remain outside acceptance. It opens no other documents or transactions.
 
 From the repository root, prepare a local manifest and request:

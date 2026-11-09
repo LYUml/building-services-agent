@@ -1,0 +1,22 @@
+{
+  "scope": "Compile-only connector and fitting inventory extension",
+  "warnings": 0,
+  "errors": 0,
+  "native_executed": false,
+  "connected_system_verified": false,
+  "api_reference": "Installed RevitAPI.xml: Connector.IsConnected, Connector.IsConnectedTo",
+  "files": [
+    {
+      "sha256": "ace2190c54750acd0d5d976d2e1601fef403d3c184c92cb1580893b7045c47e9",
+      "path": "adapters/revit/InventoryCommand.cs"
+    },
+    {
+      "sha256": "3f9e56831d4f3bda584c8b01283cf41495b5baad27d05b5a56705bfcc8669a97",
+      "path": "adapters/revit/bin/Release/net10.0-windows/Bsa.Revit.dll"
+    },
+    {
+      "sha256": "60f67444998c24e873a604c543e03d807178cf4aa7621532df20a5f51cce3957",
+      "path": "adapters/revit/Bsa.Revit.csproj"
+    }
+  ]
+}

@@ -66,25 +66,53 @@ public sealed class InventoryCommand : IExternalCommand
         static double Metres(double value) => UnitUtils.ConvertFromInternalUnits(value, UnitTypeId.Meters);
         static double[] Point(XYZ p) => [Metres(p.X), Metres(p.Y), Metres(p.Z)];
         static object Named(Element e) => new { id = e.Id.Value.ToString(), unique_id = e.UniqueId, name = e.Name };
+        static object ConnectorData(Connector c)
+        {
+            // Logical connectors do not support physical IsConnected/Origin queries.
+            bool logical = c.ConnectorType == ConnectorType.Logical;
+            return new
+            {
+                id = c.Id, domain = c.Domain.ToString(), connector_type = c.ConnectorType.ToString(),
+                origin_m = logical ? null : Point(c.Origin),
+                physically_connected = logical ? (bool?)null : c.IsConnected,
+                references = c.AllRefs.Cast<Connector>().Where(r => r.Owner.Id != c.Owner.Id).Select(r =>
+                {
+                    bool referenceLogical = r.ConnectorType == ConnectorType.Logical;
+                    return new
+                    {
+                        owner_unique_id = r.Owner.UniqueId, connector_id = r.Id,
+                        connector_type = r.ConnectorType.ToString(), domain = r.Domain.ToString(),
+                        origin_m = referenceLogical ? null : Point(r.Origin),
+                        api_connected_to = c.IsConnectedTo(r),
+                        reciprocal_reference = r.AllRefs.Cast<Connector>().Any(back =>
+                            back.Owner.Id == c.Owner.Id && back.Id == c.Id),
+                        separation_m = logical || referenceLogical ? (double?)null : Metres(c.Origin.DistanceTo(r.Origin))
+                    };
+                }).ToArray()
+            };
+        }
         var pipes = new FilteredElementCollector(doc).OfClass(typeof(Pipe)).Cast<Pipe>().Select(p => new
         {
             id = p.Id.Value.ToString(), unique_id = p.UniqueId, type_id = p.GetTypeId().Value.ToString(),
             system_unique_id = p.MEPSystem?.UniqueId, diameter_m = Metres(p.Diameter),
             length_m = Metres(((LocationCurve)p.Location).Curve.Length),
-            connectors = p.ConnectorManager.Connectors.Cast<Connector>().Select(c => new
-            {
-                id = c.Id, origin_m = Point(c.Origin), domain = c.Domain.ToString(), connector_type = c.ConnectorType.ToString(),
-                references = c.AllRefs.Cast<Connector>().Where(r => r.Owner.Id != p.Id).Select(r => new
-                { owner_unique_id = r.Owner.UniqueId, connector_id = r.Id, connector_type = r.ConnectorType.ToString() }).ToArray()
-            }).ToArray()
+            connectors = p.ConnectorManager.Connectors.Cast<Connector>().Select(ConnectorData).ToArray()
         }).ToArray();
+        var fittings = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_PipeFitting)
+            .WhereElementIsNotElementType().Cast<FamilyInstance>().Select(f => new
+            {
+                id = f.Id.Value.ToString(), unique_id = f.UniqueId, type_id = f.GetTypeId().Value.ToString(),
+                name = f.Name, connector_manager_available = f.MEPModel?.ConnectorManager != null,
+                connectors = f.MEPModel?.ConnectorManager?.Connectors.Cast<Connector>().Select(ConnectorData).ToArray()
+            }).ToArray();
         var result = new
         {
-            scope = "Native pipe inventory; connector references do not prove physical connectivity",
+            scope = "Native pipe/fitting inventory with API physical flags, reciprocal references and separation; system acceptance pending",
             document_path = expected, saved_rvt_sha256 = before,
             request_sha256 = Convert.ToHexString(SHA256.HashData(requestBytes)).ToLowerInvariant(),
             adapter_sha256 = Hash(typeof(InventoryCommand).Assembly.Location),
-            revit_version = doc.Application.VersionNumber, units = "metres", pipes,
+            revit_version = doc.Application.VersionNumber, units = "metres", pipes, fittings,
+            connected_system_verified = false,
             pipe_types = new FilteredElementCollector(doc).OfClass(typeof(PipeType)).Select(Named).ToArray(),
             system_types = new FilteredElementCollector(doc).OfClass(typeof(PipingSystemType)).Select(Named).ToArray(),
             levels = new FilteredElementCollector(doc).OfClass(typeof(Level)).Cast<Level>().Select(l => new
