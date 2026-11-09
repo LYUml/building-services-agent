@@ -42,6 +42,16 @@ The ExternalEvent queue is a useful reference for valid API-context execution. I
 
 ## MOOSAS source details
 
+### Native airflow interoperability probe
+
+`scripts/probe_moosas_airflow.py` exercises the pinned upstream's synthetic JSON-network fixture through MoosasAFN project generation, then CONTAM only if generation succeeds. The fixture is attributed to the Apache-2.0 upstream test; its dimensions, volume, opening coefficients and solver defaults are interoperability inputs, not an engineering design or Hong Kong basis. The script requires a clean exact upstream commit and a fresh repository-local workspace, retains executable/input/output hashes and raw process diagnostics, and uses a bounded child process without modifying application-control settings.
+
+Actual run `runs/moosas-airflow-probe-v1` produced network.json, but Windows refused to launch MoosasAFN.exe with WinError 4551 (Application Control). No CONTAM project was produced and CONTAM was therefore **not attempted**; its present runtime availability remains unknown. Evidence is `docs/evidence/moosas-review/airflow-runtime-probe.json`. Geometry exchange remains independently verified; native airflow simulation, result parsing, conservation checks and sourced opening/pressure/temperature binding remain pending. Do not infer an airflow opening from geometric space contact or adopt the upstream automatic leakage coefficient as measured input.
+
+```powershell
+.venv/Scripts/python scripts/probe_moosas_airflow.py --upstream tools/moosas-review --out runs/new-moosas-airflow-probe
+```
+
 ### Executed ordinary-IFC loading trial
 
 Follow-up: explicitly invoking the upstream internal geometry bridge also failed on the same IFC (`No geometry could be extracted from IFC`); its traversal excludes IfcSpace geometry. Evidence: `geometry-bridge-trial.json`.

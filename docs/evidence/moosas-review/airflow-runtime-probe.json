@@ -1,0 +1,34 @@
+{
+  "upstream_commit": "dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c",
+  "fixture_source": "test/test_airflow_network_json.py",
+  "scope": "Synthetic native interoperability only; upstream defaults retained",
+  "limitations": [
+    "Fixture dimensions and volume are upstream test inputs, not a coherent building model",
+    "Opening coefficients and solver defaults are not sourced project parameters",
+    "No IFC binding, conservation audit, HK checks or engineering acceptance"
+  ],
+  "design_accepted": false,
+  "simulation_verified": false,
+  "commands": [
+    {
+      "command": [
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\tools\\moosas-review\\MoosasPy\\libs\\moosas_afn\\windows-x86_64\\bin\\MoosasAFN.exe",
+        "-p",
+        "smoke",
+        "-d",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\moosas-airflow-probe-v1",
+        "-s",
+        "0",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\moosas-airflow-probe-v1\\network.json"
+      ],
+      "executable_sha256": "b976b5c9c14f3321ccc497536a92b9d04d86f6913626a7ef40ea68ae290c879b",
+      "returncode": null,
+      "error": "[WinError 4551] An Application Control policy has blocked this file"
+    }
+  ],
+  "project_generated": false,
+  "solver_exit_success": false,
+  "artifacts": {
+    "network.json": "c1ce6da92df5b3bcbe9be3ea0b99101c6e07ee387c2199d99b7a0660a238d289"
+  }
+}
