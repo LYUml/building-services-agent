@@ -1,0 +1,523 @@
+{
+  "scope": "Executed synthetic IFC-driven project/study to selected Hong Kong rule and native schematic workflow",
+  "scenarios": [
+    {
+      "scenario": "conditional-pass",
+      "tasks": {
+        "power-flow": {
+          "kind": "three_phase_ifc_project",
+          "status": "pass",
+          "scope": "New snapshot project with native straight IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+        },
+        "hk-rule": {
+          "kind": "three_phase_regulations",
+          "status": "pass",
+          "scope": "Selected current-unbalance rule with explicit protective rating, circuit and sinusoidal normal-service RMS design basis; no neutral/harmonic/protection/full conformity acceptance"
+        },
+        "drawing": {
+          "kind": "three_phase_drawing",
+          "status": "pass",
+          "scope": "Source-linked calculation schematic and schedules only; full installation, protection and Hong Kong acceptance pending; actual page visual/engineering review remains pending"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "Actual visual and full engineering acceptance remain separate"
+        }
+      },
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "source_bindings": [
+        {
+          "check": "hk-rule",
+          "consumer": "drawing",
+          "study_producer": "power-flow"
+        }
+      ],
+      "diagnosis": {
+        "plan_sha256": "4aeb99716492e77675aa8a8b2bba728d8dfef97aebacc9180231141b8ebe8bed",
+        "workflow_sha256": "39b2e2ab81deed77a2a157750d737f1d68260e114a5f328676c0f42f6aecdbc1",
+        "integrity_pass": true,
+        "tasks": [
+          {
+            "id": "power-flow",
+            "kind": "three_phase_ifc_project",
+            "status": "pass",
+            "recorded_scope": "New snapshot project with native straight IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity",
+            "dependencies": [],
+            "iteration_baseline": null,
+            "blocked_by": [],
+            "upstream_action_tasks": [],
+            "input_blockers": [],
+            "next_action": "review complete requirement acceptance against retained artifacts",
+            "requirement_ids": [
+              "R1"
+            ],
+            "evidence": [
+              "power-flow/baseline/basis.md",
+              "power-flow/baseline/project.json",
+              "power-flow/derivation.json",
+              "power-flow/derived-ifc-check.json",
+              "power-flow/model/binding.json",
+              "power-flow/model/cables.ifc",
+              "power-flow/model/geometry-source.json",
+              "power-flow/project.json",
+              "power-flow/route-lengths.json",
+              "power-flow/study/native/network.json",
+              "power-flow/study/native/study.json",
+              "power-flow/study/process.log",
+              "power-flow/study/three-phase.json"
+            ]
+          },
+          {
+            "id": "hk-rule",
+            "kind": "three_phase_regulations",
+            "status": "pass",
+            "recorded_scope": "Selected current-unbalance rule with explicit protective rating, circuit and sinusoidal normal-service RMS design basis; no neutral/harmonic/protection/full conformity acceptance",
+            "dependencies": [
+              "power-flow"
+            ],
+            "iteration_baseline": null,
+            "blocked_by": [],
+            "upstream_action_tasks": [],
+            "input_blockers": [],
+            "next_action": "review complete requirement acceptance against retained artifacts",
+            "requirement_ids": [
+              "R2"
+            ],
+            "evidence": [
+              "hk-rule/derived-projects.json",
+              "hk-rule/phase-regulations.json"
+            ]
+          },
+          {
+            "id": "drawing",
+            "kind": "three_phase_drawing",
+            "status": "pass",
+            "recorded_scope": "Source-linked calculation schematic and schedules only; full installation, protection and Hong Kong acceptance pending; actual page visual/engineering review remains pending",
+            "dependencies": [
+              "power-flow",
+              "hk-rule"
+            ],
+            "iteration_baseline": null,
+            "blocked_by": [],
+            "upstream_action_tasks": [],
+            "input_blockers": [],
+            "next_action": "review complete requirement acceptance against retained artifacts",
+            "requirement_ids": [
+              "R3"
+            ],
+            "evidence": [
+              "drawing/drawing.json",
+              "drawing/graphviz.log",
+              "drawing/layout.dot",
+              "drawing/layout.json",
+              "drawing/lines.csv",
+              "drawing/loads.csv",
+              "drawing/native/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log",
+              "drawing/native/electrical-schematic.dwg",
+              "drawing/native/input.dxf",
+              "drawing/native/plot.log",
+              "drawing/native/reopened/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log",
+              "drawing/native/reopened/export.log",
+              "drawing/native/reopened/export.scr",
+              "drawing/native/reopened/source-copy.dwg",
+              "drawing/native/reopened/source-export.dxf",
+              "drawing/native/save.log",
+              "drawing/native/save.scr",
+              "drawing/native/sheet.json",
+              "drawing/native/sheet.log",
+              "drawing/native/sheet.pdf",
+              "drawing/native/sheet.scr",
+              "drawing/schematic.dxf"
+            ]
+          },
+          {
+            "id": "review",
+            "kind": "manual",
+            "status": "pending",
+            "recorded_scope": "Actual visual and full engineering acceptance remain separate",
+            "dependencies": [
+              "drawing"
+            ],
+            "iteration_baseline": null,
+            "blocked_by": [],
+            "upstream_action_tasks": [
+              "review"
+            ],
+            "input_blockers": [],
+            "next_action": "perform the specified review and record evidence separately",
+            "requirement_ids": [
+              "R4"
+            ],
+            "evidence": []
+          }
+        ],
+        "execution_pass": false,
+        "design_accepted": false,
+        "scope": "Recorded execution and declared dependency graph only; no engine invocation, automatic repair, or engineering acceptance"
+      },
+      "selected_topic_gaps": [
+        "partial_rule_coverage"
+      ],
+      "design_accepted": false
+    },
+    {
+      "scenario": "unbalanced-in-scope",
+      "tasks": {
+        "power-flow": {
+          "kind": "three_phase_ifc_project",
+          "status": "pass",
+          "scope": "New snapshot project with native straight IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+        },
+        "hk-rule": {
+          "kind": "three_phase_regulations",
+          "status": "pending",
+          "scope": "Selected current-unbalance rule with explicit protective rating, circuit and sinusoidal normal-service RMS design basis; no neutral/harmonic/protection/full conformity acceptance"
+        },
+        "drawing": {
+          "kind": "three_phase_drawing",
+          "status": "pending",
+          "scope": "required checks unresolved: hk-rule (pending); adapter not executed"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: drawing (pending); adapter not executed"
+        }
+      },
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "source_bindings": [
+        {
+          "check": "hk-rule",
+          "consumer": "drawing",
+          "study_producer": "power-flow"
+        }
+      ],
+      "diagnosis": {
+        "plan_sha256": "4aeb99716492e77675aa8a8b2bba728d8dfef97aebacc9180231141b8ebe8bed",
+        "workflow_sha256": "d42b346635a96f352775281bf82f968e543edb1c23301083226fb2130e8832ff",
+        "integrity_pass": true,
+        "tasks": [
+          {
+            "id": "power-flow",
+            "kind": "three_phase_ifc_project",
+            "status": "pass",
+            "recorded_scope": "New snapshot project with native straight IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity",
+            "dependencies": [],
+            "iteration_baseline": null,
+            "blocked_by": [],
+            "upstream_action_tasks": [],
+            "input_blockers": [],
+            "next_action": "review complete requirement acceptance against retained artifacts",
+            "requirement_ids": [
+              "R1"
+            ],
+            "evidence": [
+              "power-flow/baseline/basis.md",
+              "power-flow/baseline/project.json",
+              "power-flow/derivation.json",
+              "power-flow/derived-ifc-check.json",
+              "power-flow/model/binding.json",
+              "power-flow/model/cables.ifc",
+              "power-flow/model/geometry-source.json",
+              "power-flow/project.json",
+              "power-flow/route-lengths.json",
+              "power-flow/study/native/network.json",
+              "power-flow/study/native/study.json",
+              "power-flow/study/process.log",
+              "power-flow/study/three-phase.json"
+            ]
+          },
+          {
+            "id": "hk-rule",
+            "kind": "three_phase_regulations",
+            "status": "pending",
+            "recorded_scope": "Selected current-unbalance rule with explicit protective rating, circuit and sinusoidal normal-service RMS design basis; no neutral/harmonic/protection/full conformity acceptance",
+            "dependencies": [
+              "power-flow"
+            ],
+            "iteration_baseline": null,
+            "blocked_by": [],
+            "upstream_action_tasks": [
+              "hk-rule"
+            ],
+            "input_blockers": [],
+            "next_action": "resolve the recorded pending condition before a new run",
+            "requirement_ids": [
+              "R2"
+            ],
+            "evidence": [
+              "hk-rule/derived-projects.json",
+              "hk-rule/phase-regulations.json"
+            ]
+          },
+          {
+            "id": "drawing",
+            "kind": "three_phase_drawing",
+            "status": "pending",
+            "recorded_scope": "required checks unresolved: hk-rule (pending); adapter not executed",
+            "dependencies": [
+              "power-flow",
+              "hk-rule"
+            ],
+            "iteration_baseline": null,
+            "blocked_by": [
+              "hk-rule"
+            ],
+            "upstream_action_tasks": [
+              "hk-rule"
+            ],
+            "input_blockers": [],
+            "next_action": "resolve upstream tasks before rerunning dependent task",
+            "requirement_ids": [
+              "R3"
+            ],
+            "evidence": []
+          },
+          {
+            "id": "review",
+            "kind": "manual",
+            "status": "pending",
+            "recorded_scope": "required checks unresolved: drawing (pending); adapter not executed",
+            "dependencies": [
+              "drawing"
+            ],
+            "iteration_baseline": null,
+            "blocked_by": [
+              "drawing"
+            ],
+            "upstream_action_tasks": [
+              "hk-rule"
+            ],
+            "input_blockers": [],
+            "next_action": "resolve upstream tasks before rerunning dependent task",
+            "requirement_ids": [
+              "R4"
+            ],
+            "evidence": []
+          }
+        ],
+        "execution_pass": false,
+        "design_accepted": false,
+        "scope": "Recorded execution and declared dependency graph only; no engine invocation, automatic repair, or engineering acceptance"
+      },
+      "selected_topic_gaps": [
+        "partial_rule_coverage"
+      ],
+      "design_accepted": false
+    },
+    {
+      "scenario": "missing-design-basis",
+      "tasks": {
+        "power-flow": {
+          "kind": "three_phase_ifc_project",
+          "status": "pass",
+          "scope": "New snapshot project with native straight IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity"
+        },
+        "hk-rule": {
+          "kind": "three_phase_regulations",
+          "status": "pending",
+          "scope": "Selected current-unbalance rule with explicit protective rating, circuit and sinusoidal normal-service RMS design basis; no neutral/harmonic/protection/full conformity acceptance"
+        },
+        "drawing": {
+          "kind": "three_phase_drawing",
+          "status": "pending",
+          "scope": "required checks unresolved: hk-rule (pending); adapter not executed"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: drawing (pending); adapter not executed"
+        }
+      },
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "source_bindings": [
+        {
+          "check": "hk-rule",
+          "consumer": "drawing",
+          "study_producer": "power-flow"
+        }
+      ],
+      "diagnosis": {
+        "plan_sha256": "4aeb99716492e77675aa8a8b2bba728d8dfef97aebacc9180231141b8ebe8bed",
+        "workflow_sha256": "900061fb911b54a47cc24052fd7f1d8ef403a441bd77ffc402b066d2b90ea5d1",
+        "integrity_pass": true,
+        "tasks": [
+          {
+            "id": "power-flow",
+            "kind": "three_phase_ifc_project",
+            "status": "pass",
+            "recorded_scope": "New snapshot project with native straight IFC route lengths only; other electrical data preserved, no automatic cable selection, protection or physical connectivity",
+            "dependencies": [],
+            "iteration_baseline": null,
+            "blocked_by": [],
+            "upstream_action_tasks": [],
+            "input_blockers": [],
+            "next_action": "review complete requirement acceptance against retained artifacts",
+            "requirement_ids": [
+              "R1"
+            ],
+            "evidence": [
+              "power-flow/baseline/basis.md",
+              "power-flow/baseline/project.json",
+              "power-flow/derivation.json",
+              "power-flow/derived-ifc-check.json",
+              "power-flow/model/binding.json",
+              "power-flow/model/cables.ifc",
+              "power-flow/model/geometry-source.json",
+              "power-flow/project.json",
+              "power-flow/route-lengths.json",
+              "power-flow/study/native/network.json",
+              "power-flow/study/native/study.json",
+              "power-flow/study/process.log",
+              "power-flow/study/three-phase.json"
+            ]
+          },
+          {
+            "id": "hk-rule",
+            "kind": "three_phase_regulations",
+            "status": "pending",
+            "recorded_scope": "Selected current-unbalance rule with explicit protective rating, circuit and sinusoidal normal-service RMS design basis; no neutral/harmonic/protection/full conformity acceptance",
+            "dependencies": [
+              "power-flow"
+            ],
+            "iteration_baseline": null,
+            "blocked_by": [],
+            "upstream_action_tasks": [
+              "hk-rule"
+            ],
+            "input_blockers": [],
+            "next_action": "resolve the recorded pending condition before a new run",
+            "requirement_ids": [
+              "R2"
+            ],
+            "evidence": [
+              "hk-rule/derived-projects.json",
+              "hk-rule/phase-regulations.json"
+            ]
+          },
+          {
+            "id": "drawing",
+            "kind": "three_phase_drawing",
+            "status": "pending",
+            "recorded_scope": "required checks unresolved: hk-rule (pending); adapter not executed",
+            "dependencies": [
+              "power-flow",
+              "hk-rule"
+            ],
+            "iteration_baseline": null,
+            "blocked_by": [
+              "hk-rule"
+            ],
+            "upstream_action_tasks": [
+              "hk-rule"
+            ],
+            "input_blockers": [],
+            "next_action": "resolve upstream tasks before rerunning dependent task",
+            "requirement_ids": [
+              "R3"
+            ],
+            "evidence": []
+          },
+          {
+            "id": "review",
+            "kind": "manual",
+            "status": "pending",
+            "recorded_scope": "required checks unresolved: drawing (pending); adapter not executed",
+            "dependencies": [
+              "drawing"
+            ],
+            "iteration_baseline": null,
+            "blocked_by": [
+              "drawing"
+            ],
+            "upstream_action_tasks": [
+              "hk-rule"
+            ],
+            "input_blockers": [],
+            "next_action": "resolve upstream tasks before rerunning dependent task",
+            "requirement_ids": [
+              "R4"
+            ],
+            "evidence": []
+          }
+        ],
+        "execution_pass": false,
+        "design_accepted": false,
+        "scope": "Recorded execution and declared dependency graph only; no engine invocation, automatic repair, or engineering acceptance"
+      },
+      "selected_topic_gaps": [
+        "partial_rule_coverage"
+      ],
+      "design_accepted": false
+    }
+  ],
+  "official_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+  "expected_behaviors_pass": true,
+  "length_changes": [
+    {
+      "id": "feeder",
+      "baseline_length_m": 80,
+      "derived_length_m": 40.0
+    },
+    {
+      "id": "branch",
+      "baseline_length_m": 50,
+      "derived_length_m": 25.0
+    }
+  ],
+  "new_project_sha256": "80236e99e992ec886e3427491c7a4c93945f8deadfa18f21daffcee5557a7a15",
+  "derived_geometry_correspondence_pass": true,
+  "native_reopen_pass": true,
+  "plot": {
+    "pdf_sha256": "84345afaa473e5980ed809d5ce8a380f9f37eb03acd3e50417e9dcfbce7a3658",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 1,
+    "reference_handle": "7F",
+    "reference_expected_mm": 50.0,
+    "reference_measured_mm": 49.99566666666666,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "page_review": {
+    "pdf_sha256": "84345afaa473e5980ed809d5ce8a380f9f37eb03acd3e50417e9dcfbce7a3658",
+    "png_sha256": "0ec4f84c7334098c9ae2d3b1bae1b5d9b1f06d66df926f7c589c4e109739fbe9",
+    "observed": "Three readable bus boxes, two source-length edges 40/25 m, phase-current and voltage labels, scope notes and 50 mm reference; no visible clipping or overlaps",
+    "schematic_page_review_pass": true,
+    "engineering_acceptance": false
+  },
+  "negative_drawing_directories_absent": true,
+  "retained_warning": "Duplicate /PageMode in native PDF; no PDF conformance claim",
+  "design_accepted": false,
+  "related_regression": {
+    "tests": 62,
+    "failures": 0,
+    "errors": 0,
+    "scope": "Derived/standard three-phase workflow, saved IFC, derivation, HK rule gates, drawing gates, delivery, workflow and coverage tests"
+  },
+  "staged_template_validation": {
+    "pass_": true,
+    "tasks": 4,
+    "inputs": 14
+  }
+}

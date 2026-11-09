@@ -3,6 +3,7 @@ import argparse
 import json
 from pathlib import Path
 import shutil
+import runpy
 from bsa.cli import digest
 from bsa.workflow import execute,verify
 from bsa.workflow_status import diagnose
@@ -11,7 +12,7 @@ from bsa.regulation_coverage import run as coverage
 ROOT=Path(__file__).resolve().parents[1]
 
 
-def run(source,out,python,graphviz=None,autocad=None):
+def run(source,out,python,graphviz=None,autocad=None,ifc_driven=False):
     source,out,python=[Path(v).resolve() for v in (source,out,python)]
     if not out.is_relative_to(ROOT) or out==ROOT or out.exists():raise ValueError('new repository-local output required')
     pack_path=ROOT/'regulations/hk/phase-balance-2026.11.10/pack.json'
@@ -22,6 +23,15 @@ def run(source,out,python,graphviz=None,autocad=None):
     for name,expected in [('conditional-pass','pass'),('unbalanced-in-scope','pending'),('missing-design-basis','pending')]:
         folder=out/name
         shutil.copytree(ROOT/'examples/three-phase-network',folder)
+        if ifc_driven:
+            author_cables=runpy.run_path(str(ROOT/'scripts/author_three_phase_ifc_fixture.py'))['run']
+            author_cables(folder/'project.json',folder/'cable-geometry.json',folder/'cable-fixture','extrusion')
+            electrical=json.loads((folder/'project.json').read_text(encoding='utf-8-sig'))
+            electrical_basis=folder/'basis.md'
+            with electrical_basis.open('a',encoding='utf-8') as f:f.write('\nSynthetic stale-input control: numerical lengths doubled to 80 m and 50 m before IFC-driven derivation; saved geometry stays 40 m and 25 m.\n')
+            for line in electrical['lines']:line['length_m']*=2
+            for record in electrical['sources'].values():record['sha256']=digest(electrical_basis)
+            (folder/'project.json').write_text(json.dumps(electrical,indent=2),encoding='utf-8')
         shutil.copyfile(pack_path,folder/'pack.json');shutil.copyfile(source,folder/official['cache_filename'])
         basis=json.loads((folder/'hk-basis.json').read_text(encoding='utf-8-sig'))
         document=folder/'hk-basis.md';text=document.read_text(encoding='utf-8')
@@ -41,6 +51,7 @@ def run(source,out,python,graphviz=None,autocad=None):
             'Check the selected BEC 2024 current-balance clause using the same study and explicitly sourced conditional circuit/rating/RMS basis; preserve missing or exceeded checks.',
             'Generate the source-bound calculation schematic, phase schedules, native DWG and measured PDF only after numerical and selected-rule prerequisites pass.',
             'Review the actual PDF and full installation/protection/neutral/harmonic/Hong Kong scope separately; preserve incomplete engineering acceptance.']
+        if ifc_driven:paragraphs[0]='Derive a new numerical project from verified saved straight IFC cable lengths, preserve baseline data and execute a fresh three-phase study; old numerical lengths are a deliberately stale software control.'
         brief=folder/'regulated-brief.md';brief.write_text('\n\n'.join(paragraphs),encoding='utf-8')
         task_ids=['power-flow','hk-rule','drawing','review']
         plan=dict(version=1,brief=brief.name,brief_sha256=digest(brief),passage_dispositions={f'P{i:03}':'requirement' for i in range(1,5)},tasks=[
@@ -50,6 +61,7 @@ def run(source,out,python,graphviz=None,autocad=None):
             dict(id='review',kind='manual',requires_pass=['drawing'],description='Actual visual and full engineering acceptance remain separate')],
             requirements=[dict(id='R'+str(i),passage=f'P{i:03}',quote=text,task=task,
                 acceptance=text+' Scope is the declared synthetic scenario, not an actual accepted design.') for i,(task,text) in enumerate(zip(task_ids,paragraphs),1)])
+        if ifc_driven:plan['tasks'][0].update(kind='three_phase_ifc_project',ifc='cable-fixture/cables.ifc',binding='cable-fixture/binding.json')
         path=folder/'regulated-plan.json';path.write_text(json.dumps(plan,indent=2),encoding='utf-8')
         planning=coverage(ROOT/'regulations/hk/coverage-2026.11.10-phase-balance.json',ROOT/'examples/regulations-hk/coverage-scope-phase-balance.json',folder/'coverage',path)
         topic=next(t for t in planning['topics'] if t['id']=='electrical_current_balance')
@@ -77,5 +89,6 @@ if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('source','out','python'):p.add_argument('--'+name,type=Path,required=True)
     for name in ('graphviz','autocad'):p.add_argument('--'+name,type=Path)
-    a=p.parse_args();r=run(a.source,a.out,a.python,a.graphviz,a.autocad)
+    p.add_argument('--ifc-driven',action='store_true')
+    a=p.parse_args();r=run(a.source,a.out,a.python,a.graphviz,a.autocad,a.ifc_driven)
     print(json.dumps(dict(expected_behaviors_pass=r['expected_behaviors_pass'],design_accepted=False)))

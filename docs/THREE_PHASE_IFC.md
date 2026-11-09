@@ -39,6 +39,7 @@ Reproduce from the synthetic example with new paths (do not author generated IFC
 ```powershell
 Copy-Item -LiteralPath examples/three-phase-network -Destination runs/new-ifc-source -Recurse
 .venv/Scripts/python scripts/author_three_phase_ifc_fixture.py runs/new-ifc-source/project.json --geometry runs/new-ifc-source/cable-geometry.json --body-kind extrusion --out runs/new-ifc-source/cable-fixture
+Copy-Item -LiteralPath runs/new-ifc-source/ifc-plan.json.in -Destination runs/new-ifc-source/ifc-plan.json
 .venv/Scripts/python -m bsa.workflow execute runs/new-ifc-source/ifc-plan.json --out runs/new-ifc-workflow --three-phase-python tools/pandapower-runtime/Scripts/python.exe --graphviz tools/freecad-1.1.4/FreeCAD_1.1.4-Windows-x86_64-py311/bin/dot.exe --autocad 'C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe'
 ```
 
@@ -59,3 +60,23 @@ Outputs include immutable baseline/source/model copies, `route-lengths.json`, th
 Actual control execution in `runs/three-phase-ifc-recalculated-v2` replaced deliberately stale 80 m / 50 m numerical lengths with saved 40 m / 25 m geometry and reran upstream power flow. Load-B phase voltages changed from approximately [230.508, 230.356, 230.382] V to [230.723, 230.648, 230.664] V. [Retained evidence](evidence/pandapower/ifc-derived-recalculation.json) records both native results and hashes. Seven derivation tests pass, including actual changed numerical results, failed-current-target preservation, immutable sources, snapshot tampering, invalid length-source references and repeated derivation; 28 related geometry/workflow/numerical tests also pass.
 
 Omitting `--python` generates validated inputs but leaves numerical status pending. A numerical target failure remains fail, and the CLI exits 2; geometry success cannot clear it. This standalone derivation is not yet a registered workflow producer. A later workflow must consume the new project and fresh study together, not reuse the old study. Cable bends, alternate routing, equipment sizing, connected electrical BIM, code acceptance and full assignment completion remain pending.
+
+## IFC-derived workflow producer
+
+Workflow kind `three_phase_ifc_project` now registers the snapshot/derive/recompute operation. Its exact fields are `id`, `kind`, `project`, `ifc`, `binding`, with optional `requires_pass` and `description`. The baseline project and saved model/binding are explicit inputs; the numerical runtime stays an explicit `--three-phase-python` CLI option. Missing runtime leaves the producer pending without generating a project. Failed new numerical targets retain fail and block dependent rules/drawings.
+
+The producer writes its new `project.json` and `study/` under its own task directory. `three_phase_regulations`, `three_phase_ifc` and `three_phase_drawing` inherit these two paths together through `depends_on`; they cannot substitute an old project or study. All producer files, including snapshots, geometry checks and fresh numerical results, are pinned before downstream use. Existing exact-producer rule/geometry gates still apply directly and transitively.
+
+The existing Hong Kong three-scenario runner now supports `--ifc-driven`:
+
+```powershell
+.venv/Scripts/python scripts/run_hk_three_phase_demo.py --ifc-driven --source runs/hk-three-phase-sources/emsd-bec-2024.pdf --python tools/pandapower-runtime/Scripts/python.exe --graphviz tools/freecad-1.1.4/FreeCAD_1.1.4-Windows-x86_64-py311/bin/dot.exe --autocad 'C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe' --out runs/new-hk-ifc-suite
+```
+
+The runner authors only synthetic fixture geometry, stages deliberately stale numerical lengths, then executes derivation, fresh study, the selected official-source-backed Hong Kong rule and native drawing. Actual execution in `runs/hk-ifc-driven-native-suite-v1` passed the positive technical tasks and independently reopened DWG. Its actual rendered PDF was visually inspected: three bus boxes, two 40/25 m labels, phase values and scope notes are readable with no observed clipping; the 50 mm reference measures 49.995667 mm. Exceeded-rule and missing-basis scenarios generate no drawing directory. Full manual review remains pending; geometry-driven success does not establish real protective-device ratings or whole-project conformity. Duplicate /PageMode warnings remain recorded, without PDF conformance claims.
+
+[Workflow/page evidence](evidence/pandapower/ifc-derived-workflow.json) retains the actual scenarios, input/result correspondence, plot hashes and review scope. Six new tests cover executed scenarios, changed derived project bytes before rules, failed new current targets, missing runtime, rejected replacement inputs/runtime options and a fresh geometry consumer using the derived project. Prior standalone-only notes describe historical milestones. Connected installation authoring, physical cable topology, bends, sizing/protection and independent real-assignment completion remain unresolved.
+
+The non-self-contained IFC plan example is now explicitly named ifc-plan.json.in: instantiate it as ifc-plan.json only after its generated model/binding exist in a staged run directory. Clean-checkout source/plan validation remains mandatory; no missing generated inputs are waived. The Hong Kong runner already stages complete executable plans.
+
+Final related regression: 62 tests pass with zero failures/errors, including clean-checkout executable example checks. The renamed template was additionally staged with generated model/binding inputs and validated as a four-task plan with 14 source inputs. This is a scoped regression result, not a claim that every repository/native-runtime test passes.

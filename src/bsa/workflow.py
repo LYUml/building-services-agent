@@ -268,7 +268,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("three_phase","three_phase_ifc","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind=="water_network" and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
@@ -276,10 +276,18 @@ def validate_plan(path):
             if set(t)-{'id','kind','project','requires_pass','description'}:raise ProjectError('three-phase task requires project only; runtime is an explicit CLI option')
             from .three_phase_bridge import inputs as three_phase_inputs
             inputs.update(three_phase_inputs(local_path(root,t.get('project'))))
+        if kind=='three_phase_ifc_project':
+            if set(t)-{'id','kind','project','ifc','binding','requires_pass','description'}:raise ProjectError('IFC-derived study requires baseline project, IFC and binding only')
+            from . import three_phase_ifc_project,three_phase_ifc
+            from .three_phase_bridge import inputs as three_phase_inputs
+            project=local_path(root,t.get('project'))
+            inputs.update(three_phase_inputs(project))
+            inputs.update(three_phase_ifc.inputs(project,local_path(root,t.get('ifc')),local_path(root,t.get('binding'))))
+            inputs.add(Path(three_phase_ifc_project.__file__).resolve())
         if kind=='three_phase_ifc':
             if set(t)-{'id','kind','depends_on','ifc','binding','requires_pass','description'}:raise ProjectError('three-phase IFC inherits study; replacement project forbidden')
             parent=t.get('depends_on')
-            if not isinstance(parent,str) or parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='three_phase':raise ProjectError('three-phase IFC requires an earlier three_phase study')
+            if not isinstance(parent,str) or parent not in ids or next(x for x in tasks if x['id']==parent)['kind'] not in ('three_phase','three_phase_ifc_project'):raise ProjectError('three-phase IFC requires an earlier three_phase study')
             from . import three_phase_ifc,three_phase_drawing
             producer=next(x for x in tasks if x['id']==parent)
             inputs.update(three_phase_ifc.inputs(local_path(root,producer['project']),local_path(root,t.get('ifc')),local_path(root,t.get('binding'))))
@@ -287,14 +295,14 @@ def validate_plan(path):
         if kind=='three_phase_drawing':
             if set(t)-{'id','kind','depends_on','requires_pass','description'}:raise ProjectError('three-phase drawing inherits its study; replacement project/settings forbidden')
             parent=t.get('depends_on')
-            if not isinstance(parent,str) or parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='three_phase':
+            if not isinstance(parent,str) or parent not in ids or next(x for x in tasks if x['id']==parent)['kind'] not in ('three_phase','three_phase_ifc_project'):
                 raise ProjectError('three-phase drawing requires an earlier three_phase study')
             from . import three_phase_drawing
             inputs.add(Path(three_phase_drawing.__file__).resolve())
         if kind=='three_phase_regulations':
             if set(t)-{'id','kind','depends_on','basis','pack','sources','requires_pass','description'}:raise ProjectError('three-phase rules inherit study; replacement project forbidden')
             parent=t.get('depends_on')
-            if not isinstance(parent,str) or parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='three_phase':raise ProjectError('three-phase rules require earlier three_phase study')
+            if not isinstance(parent,str) or parent not in ids or next(x for x in tasks if x['id']==parent)['kind'] not in ('three_phase','three_phase_ifc_project'):raise ProjectError('three-phase rules require earlier three_phase study')
             from . import three_phase_regulations,three_phase_drawing
             _,basis_files=three_phase_regulations.basis_inputs(local_path(root,t.get('basis')))
             pack=local_path(root,t.get('pack'));directory=t.get('sources')
@@ -637,6 +645,13 @@ def screening_project(task,tasks,root,out):
     return out/parent/'network-input.json'
 
 
+def three_phase_locations(root,out,producer):
+    """Resolve inseparable project/study paths from a validated producer kind."""
+    if producer['kind']=='three_phase_ifc_project':return out/producer['id']/'project.json',out/producer['id']/'study'
+    if producer['kind']=='three_phase':return local_path(root,producer['project']),out/producer['id']
+    raise ProjectError('not a three-phase numerical producer')
+
+
 def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_python=None,three_phase_python=None,graphviz=None):
     plan,out=plan.resolve(),out.resolve()
     p,inputs=validate_plan(plan);inputs.add(plan)
@@ -665,6 +680,14 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     payload=run_three_phase(local_path(root,t['project']),folder,three_phase_python)
                     status=payload['status'];reason=payload['scope']
                     three_phase_pins[t['id']]={str(f):digest(f) for f in folder.rglob('*') if f.is_file()}
+            elif t['kind']=='three_phase_ifc_project':
+                if not three_phase_python:reason='Three-phase isolated Python runtime not supplied; IFC-derived study not executed'
+                else:
+                    from .three_phase_ifc_project import run as derive_three_phase
+                    payload=derive_three_phase(local_path(root,t['project']),local_path(root,t['ifc']),local_path(root,t['binding']),folder,three_phase_python)
+                    if payload.get('derived_geometry_correspondence_pass') is not True or payload.get('design_accepted') is not False or payload.get('numerical_status') not in ('pass','fail'):raise ProjectError('invalid IFC-derived study result')
+                    status=payload['numerical_status'];reason=payload['scope']
+                    three_phase_pins[t['id']]={str(f):digest(f) for f in folder.rglob('*') if f.is_file()}
             elif t['kind']=='three_phase_ifc':
                 parent=t['depends_on']
                 if tasks[parent]['status']!='pass':reason='upstream three-phase study '+parent+' did not pass; IFC binding not executed'
@@ -673,8 +696,8 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     from .three_phase_ifc import run as check_cable_ifc
                     from .three_phase_drawing import context as study_context
                     producer=next(x for x in p['tasks'] if x['id']==parent)
-                    project=local_path(root,producer['project'])
-                    _,_,study_sources=study_context(project,out/parent)
+                    project,study_folder=three_phase_locations(root,out,producer)
+                    _,_,study_sources=study_context(project,study_folder)
                     payload=check_cable_ifc(project,local_path(root,t['ifc']),local_path(root,t['binding']),folder)
                     if any(not Path(f).is_file() or digest(Path(f))!=h for f,h in study_sources.items()):raise ProjectError('study changed during IFC binding')
                     if payload.get('geometry_correspondence_pass') is not True or payload.get('design_accepted') is not False:raise ProjectError('invalid IFC correspondence result')
@@ -691,7 +714,8 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                         if binding['consumer']==t['id'] and any(not Path(f).is_file() or digest(Path(f))!=h for f,h in three_phase_rule_pins[binding['check']].items()):raise ProjectError('three-phase rule artifacts changed before drawing')
                     from .three_phase_drawing import run as draw_three_phase
                     producer=next(x for x in p['tasks'] if x['id']==parent)
-                    payload=draw_three_phase(local_path(root,producer['project']),out/parent,folder,graphviz,autocad)
+                    project,study_folder=three_phase_locations(root,out,producer)
+                    payload=draw_three_phase(project,study_folder,folder,graphviz,autocad)
                     if payload.get('dxf_identity_pass') is not True or payload.get('native',{}).get('native_reopen_pass') is not True or payload['native']['plot'].get('pdf_reference_pass') is not True:
                         raise ProjectError('three-phase native/plot verification did not pass')
                     status='pass';reason=payload['scope']+'; actual page visual/engineering review remains pending'
@@ -702,7 +726,8 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     if any(not Path(f).is_file() or digest(Path(f))!=h for f,h in three_phase_pins[parent].items()):raise ProjectError('three-phase producer artifacts changed before rules')
                     from .three_phase_regulations import run as phase_rules
                     producer=next(x for x in p['tasks'] if x['id']==parent)
-                    payload=phase_rules(local_path(root,producer['project']),out/parent,local_path(root,t['basis']),local_path(root,t['pack']),root/t['sources'],folder)
+                    project,study_folder=three_phase_locations(root,out,producer)
+                    payload=phase_rules(project,study_folder,local_path(root,t['basis']),local_path(root,t['pack']),root/t['sources'],folder)
                     status=payload['status'];reason=payload['scope']
                     three_phase_rule_pins[t['id']]={str(f):digest(f) for f in folder.rglob('*') if f.is_file()}
             elif t['kind']=='revit_inventory_check':
