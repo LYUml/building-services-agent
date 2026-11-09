@@ -42,8 +42,8 @@ def run(model,tee_spec,assembly_spec,out):
     if len(f.by_type('IfcElement'))!=4 or len(f.by_type('IfcPipeFitting'))!=1:raise ValueError('exact assembly coverage required')
     if out.exists() or not out.is_relative_to(Path(__file__).resolve().parents[2]) or any(out==p or out in p.parents for p in paths):raise ValueError('new repository output required')
     doc=ezdxf.new('R2013');doc.units=6;doc.appids.new('BSA_IFC')
-    for name in ('BSA_PIPE_AXIS','BSA_OUTLINE','BSA_LABEL','BSA_CALLOUT'):doc.layers.new(name)
-    msp=doc.modelspace();expected=[];rows=[];labels=[];anchors={}
+    for name in ('BSA_PIPE_AXIS','BSA_OUTLINE','BSA_LABEL','BSA_CALLOUT','BSA_DIM'):doc.layers.new(name)
+    msp=doc.modelspace();expected=[];rows=[];labels=[];anchors={};outer_ports={}
     def line(a,b,guid,layer):
         ent=msp.add_line(tuple(a),tuple(b),dxfattribs={'layer':layer});ent.set_xdata('BSA_IFC',[(1000,guid)])
         expected.append((tuple(ent.dxf.start),tuple(ent.dxf.end),guid,layer))
@@ -61,6 +61,7 @@ def run(model,tee_spec,assembly_spec,out):
         ports={p.Name:p for p in system.get_ports(pipe)}
         endpoints=[inverse@placement.get_local_placement(ports[name].ObjectPlacement)[:,3] for name in ('in','out')]
         if any(abs(p[1])>1e-8 for p in endpoints):raise ValueError('nonplanar assembly unsupported')
+        outer_ports[pipe.Name]=dict(guid=ports['out'].GlobalId,xy=[float(endpoints[1][0]),float(endpoints[1][2])])
         a,b=[np.array([p[0],p[2]]) for p in endpoints];length=float(np.linalg.norm(b-a));direction=(b-a)/length;normal=np.array([-direction[1],direction[0]])
         line(a,b,pipe.GlobalId,'BSA_PIPE_AXIS')
         for sign in (-1,1):line(a+sign*R*normal,b+sign*R*normal,pipe.GlobalId,'BSA_OUTLINE')
@@ -75,6 +76,20 @@ def run(model,tee_spec,assembly_spec,out):
         for sign in (-1,1):line(tip,tip+.012*direction+sign*.005*normal,row['guid'],'BSA_CALLOUT')
         xy=tail+np.array([-.06,-.01]) if direction[0]<0 else tail+np.array([-.015,.012])
         text(row['callout'],xy,row['guid'],'BSA_CALLOUT')
+    lower=outer_ports['main-a']['xy'][1];upper=outer_ports['main-b']['xy'][1];reach=outer_ports['branch']['xy'][0]
+    dimensions=[dict(id='main_overall',value_m=upper-lower,port_guids=[outer_ports[k]['guid'] for k in ('main-a','main-b')],reference='main outer end-face centres'),
+                dict(id='branch_reach',value_m=reach,port_guids=[outer_ports['branch']['guid']],reference='local main centreline X=0 to branch outer end-face centre')]
+    def dimension(a,b):
+        a,b=np.array(a),np.array(b);direction=(b-a)/np.linalg.norm(b-a);normal=np.array([-direction[1],direction[0]])
+        line(a,b,tee.GlobalId,'BSA_DIM')
+        for tip,inward in ((a,direction),(b,-direction)):
+            for sign in (-1,1):line(tip,tip+.012*inward+sign*.005*normal,tee.GlobalId,'BSA_DIM')
+    xdim=reach+.10;ydim=upper+.08
+    for y in (lower,upper):line((R+.01,y),(xdim+.02,y),tee.GlobalId,'BSA_DIM')
+    dimension((xdim,lower),(xdim,upper));text(f"{1000*(upper-lower):.1f} mm",(xdim+.02,(lower+upper)/2),tee.GlobalId,'BSA_DIM')
+    line((0,upper+.01),(0,ydim+.02),tee.GlobalId,'BSA_DIM')
+    line((reach,R+.01),(reach,ydim+.02),tee.GlobalId,'BSA_DIM')
+    dimension((0,ydim),(reach,ydim));text(f"{1000*reach:.1f} mm",(reach/2-.06,ydim+.015),tee.GlobalId,'BSA_DIM')
     for i,row in enumerate(rows):
         label=f"{row['callout']} {row['name']} | ID {inner*1000:.1f} / OD {2*R*1000:.1f} mm"
         if row['length_m']!='':label+=f" | L {row['length_m']*1000:.1f} mm"
@@ -88,7 +103,7 @@ def run(model,tee_spec,assembly_spec,out):
     if any(digest(p)!=before[str(p)] for p in paths):raise ValueError('source changed during drawing')
     with (out/'schedule.csv').open('w',newline='',encoding='utf-8') as stream:
         writer=csv.DictWriter(stream,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
-    result=dict(inputs=before,geometry_checks=checks['checks'],rows=rows,labels=labels,saved_labels_pass=True,local_to_world=placement_matrix(spec).tolist(),line_count=len(actual),saved_geometry_identity_pass=True,design_accepted=False,scope='Local X/Z synthetic tee and pipe outside outlines with centreline axes; no sockets, supports, insulation or installation drawing acceptance')
+    result=dict(inputs=before,geometry_checks=checks['checks'],rows=rows,dimensions=dimensions,labels=labels,saved_labels_pass=True,local_to_world=placement_matrix(spec).tolist(),line_count=len(actual),saved_geometry_identity_pass=True,design_accepted=False,scope='Local X/Z synthetic tee and pipe outside outlines with centreline axes; no sockets, supports, insulation or installation drawing acceptance')
     result['artifacts']={p.name:digest(p) for p in out.iterdir() if p.is_file()};(out/'tee-drawing.json').write_text(json.dumps(result,indent=2));return result
 
 if __name__=='__main__':

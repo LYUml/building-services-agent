@@ -145,3 +145,5 @@ Tee diagrams now carry four GUID-linked arrow callouts and matching schedule IDs
 A standalone source-bounded tee bore catalogue now retains native candidate geometry/split trials, rejects changed common duty, selects the lowest declared passing preference and independently regenerates/re-solves the selection. Synthetic 32 mm failure/40 mm success, stable IDs, no-feasible and changed-supply controls passed. Workflow/drawing handoff and real product/code acceptance remain pending.
 
 Tee selection now participates in requirement workflows and hands its verified selected IFC/specs to drawings and native delivery. Actual 40 mm selected-model DWG/PDF execution and visual review pass; selected-artifact mutation and no-feasible downstream blocking controls pass. Report integrity is distinct from physical/product/code truth.
+
+Tee diagrams now include source-linked saved-port overall/reach dimensions as audited editable LINE/TEXT. Independent rotated-fixture dimensions and wrong-label rejection pass; actual native 600/500 mm sheet reviewed. These are regenerated geometry references, not associative CAD dimensions or manufacturer/installation allowances.
