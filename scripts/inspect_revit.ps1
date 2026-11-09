@@ -25,10 +25,17 @@ if (Test-Path -LiteralPath $dynamoPath) {
     $package = Get-Content -LiteralPath $dynamoPath -Raw | ConvertFrom-Json
     $dynamo = [ordered]@{name=$package.name;version=$package.version;engine_version=$package.engine_version;metadata_sha256=(Get-FileHash -LiteralPath $dynamoPath).Hash.ToLowerInvariant()}
 }
+$runtimePath = Join-Path $revit 'RevitAPI.runtimeconfig.json'
+$runtime = $null
+if (Test-Path -LiteralPath $runtimePath -PathType Leaf) {
+    $runtimeConfig = Get-Content -LiteralPath $runtimePath -Raw | ConvertFrom-Json
+    $runtime = [ordered]@{tfm=$runtimeConfig.runtimeOptions.tfm;frameworks=@($runtimeConfig.runtimeOptions.frameworks);sha256=(Get-FileHash -LiteralPath $runtimePath -Algorithm SHA256).Hash.ToLowerInvariant()}
+}
 $result = [ordered]@{
     scope='Read-only installation inventory; no application launch, licence check, MCP connection or model access'
     inspected_at_utc=[DateTime]::UtcNow.ToString('o')
     revit_files=@($files)
+    api_runtime=$runtime
     public_mcp_documented_locations=@($servers)
     dynamo_mcp=$dynamo
     revit_process_ids=@(Get-Process -Name Revit -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Id)

@@ -1,0 +1,71 @@
+{
+  "scope": "Read-only installation inventory; no application launch, licence check, MCP connection or model access",
+  "inspected_at_utc": "2026-11-09T06:14:45.3270955Z",
+  "revit_files": [
+    {
+      "name": "Revit.exe",
+      "path": "C:\\Program Files\\Autodesk\\Revit 2027\\Revit.exe",
+      "file_version": "27.3.0.28",
+      "sha256": "32e8874368bdf3dc932d15fe48dc961476b512c605583d4620bfa3bfe9cea360"
+    },
+    {
+      "name": "RevitAPI.dll",
+      "path": "C:\\Program Files\\Autodesk\\Revit 2027\\RevitAPI.dll",
+      "file_version": "27.3.0.28",
+      "sha256": "aeedd233e3b7f941d1107c93bd487756459da9e3870e853a4dc7945e80ccdf97"
+    },
+    {
+      "name": "RevitAPIUI.dll",
+      "path": "C:\\Program Files\\Autodesk\\Revit 2027\\RevitAPIUI.dll",
+      "file_version": "27.3.0.28",
+      "sha256": "427110c8e2fcda299139b62c0aa3ff1304bdd4c7a71ee1b1e77d8cc1daa10e6d"
+    }
+  ],
+  "api_runtime": {
+    "tfm": "net10.0",
+    "frameworks": [
+      {
+        "name": "Microsoft.NETCore.App",
+        "version": "10.0.0"
+      },
+      {
+        "name": "Microsoft.WindowsDesktop.App",
+        "version": "10.0.0"
+      },
+      {
+        "name": "Microsoft.AspNetCore.App",
+        "version": "10.0.0"
+      }
+    ],
+    "sha256": "78eefa3cc1587a0e03b652445f13bef175fd42380d8013e5a61d3dbd287a265e"
+  },
+  "public_mcp_documented_locations": [
+    {
+      "configuration": "Read",
+      "documented_path": "C:\\Program Files\\Autodesk\\Revit 2027 MCP Server Read-Tools Technical Preview\\Autodesk.RevitMcpServer.Stdio.exe",
+      "exists": false
+    },
+    {
+      "configuration": "Write",
+      "documented_path": "C:\\Program Files\\Autodesk\\Revit 2027 MCP Server Write-Tools Technical Preview\\Autodesk.RevitMcpServer.Stdio.exe",
+      "exists": false
+    },
+    {
+      "configuration": "Experimental",
+      "documented_path": "C:\\Program Files\\Autodesk\\Revit 2027 MCP Server Experimental-Tools Technical Preview\\Autodesk.RevitMcpServer.Stdio.exe",
+      "exists": false
+    }
+  ],
+  "dynamo_mcp": {
+    "name": "DynamoMCP",
+    "version": "0.5.6.0",
+    "engine_version": "4.2",
+    "metadata_sha256": "f754c1fce6bdc9329daa640fdbde89bac1a2c7912665a9faada4f03b17ff4161"
+  },
+  "revit_process_ids": [
+    24876
+  ],
+  "connection_verified": false,
+  "document_access_verified": false,
+  "design_accepted": false
+}
