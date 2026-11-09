@@ -1,0 +1,19 @@
+{
+  "scope": "Empty graph CLI runtime control only",
+  "command": [
+    "C:\\Program Files\\Autodesk\\Revit 2027\\AddIns\\DynamoForRevit\\DynamoCLI.exe",
+    "-o",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\dynamo-cli-empty-v1\\empty.dyn",
+    "--DisableAnalytics",
+    "--NoNetworkMode",
+    "-u",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\dynamo-cli-empty-v1\\user",
+    "--CommonData",
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\dynamo-cli-empty-v1\\common"
+  ],
+  "exe_sha256": "837fda7eff777d3e5d6692a49b1f41e8d0cce130273cebd7b83a70008a603261",
+  "native_revit_executed": false,
+  "returncode": 0,
+  "stdout": "Assertion failed: 'exe != null' in IsGlobalScopeDirty at AssociativeGraph.cs:398\n   at ProtoCore.Utils.Validity.Assert(Boolean cond, String conditionExpression, String memberName, String filePath, Int32 lineNumber)\n   at ProtoCore.AssociativeEngine.Utils.IsGlobalScopeDirty(Executable exe)\n   at ProtoScript.Runners.LiveRunner.ApplyUpdate()\n   at ProtoScript.Runners.LiveRunner.PostExecution()\n   at ProtoScript.Runners.LiveRunner.CompileAndExecuteForDeltaExecution(String code)\n   at ProtoScript.Runners.LiveRunner.SynchronizeInternal(String code)\n   at ProtoScript.Runners.LiveRunner.ResetVMAndResyncGraph(IEnumerable`1 libraries)\n   at Dynamo.Engine.LiveRunnerServices.ReloadAllLibraries(IEnumerable`1 libraries)\n   at Dynamo.Engine.EngineController.OnLibraryLoaded()\n   at Dynamo.Engine.EngineController..ctor(LibraryServices libraryServices, String geometryFactoryFileName, Boolean verboseLogging)\n   at Dynamo.Models.DynamoModel.ResetEngineInternal()\n   at Dynamo.Models.DynamoModel..ctor(IStartConfiguration config)\n   at Dynamo.Models.DynamoModel.Start(IStartConfiguration configuration)\n   at Dynamo.Applications.StartupUtils.StartDynamoWithDefaultConfig(Boolean CLImode, String userDataFolder, String commonDataFolder, String geometryFactoryPath, String preloaderLocation, Boolean noNetworkMode, HostAnalyticsInfo info, Boolean isServiceMode, String cliLocale, Version asmVersion, String asmPath, Boolean isASMLoaded)\n   at Dynamo.Applications.StartupUtils.PrepareModel(String cliLocale, String asmPath, Boolean noNetworkMode, HostAnalyticsInfo analyticsInfo, Boolean cliMode, String userDataFolder, String commonDataFolder, Boolean serviceMode)\n   at Dynamo.Applications.StartupUtils.MakeCLIModel(CommandLineArguments cmdLineArgs)\n   at DynamoCLI.Program.StartupDynamo(CommandLineArguments cmdLineArgs)\n   at DynamoCLI.Program.Main(String[] args)\n",
+  "stderr": ""
+}
