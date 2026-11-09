@@ -2,6 +2,7 @@
 import argparse
 import asyncio
 import json
+import importlib.metadata
 from pathlib import Path
 import sys
 import ifcopenshell
@@ -64,7 +65,7 @@ async def run(model, patch, out):
                 original_entities_unchanged=all(current.get(k)==v for k,v in original.items()),
                 exact_properties=actual==props,inputs_unchanged=all(digest(Path(p))==h for p,h in before.items()),
                 schema_unchanged=reopened.schema==native.schema)
-    report=dict(inputs=before,checks=checks,property_edit_checks_pass=all(checks.values()),
+    report=dict(runtime={n:importlib.metadata.version(n) for n in ('ifcopenshell-mcp','ifcopenshell','ifcquery','ifcedit','ifc5d','mcp')},inputs=before,checks=checks,property_edit_checks_pass=all(checks.values()),
                 model_sha256=digest(saved),target_guid=spec['guid'],design_accepted=False,
                 scope='New sourced text properties on one pump; original entity STEP records preserved. No new geometry or engineering approval.')
     (out/'edit-checks.json').write_text(json.dumps(report,indent=2),encoding='utf-8')

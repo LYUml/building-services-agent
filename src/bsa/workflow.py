@@ -11,7 +11,7 @@ from pathlib import Path
 from .cli import digest
 from .engine import ProjectError
 
-IFC_ARTIFACTS={'selected_pump_ifc':'selected-model.ifc','regulated_water_model':'selected-coordination/bim/model.ifc','annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
+IFC_ARTIFACTS={'ifc_metadata':'native/model.ifc','selected_pump_ifc':'selected-model.ifc','regulated_water_model':'selected-coordination/bim/model.ifc','annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
                'route_model':'bound/bim/model.ifc','route_optimize':'selected/bound/bim/model.ifc',
                'network_model_design':'selected-coordination/bim/model.ifc',
                'electrical_coordination':'bim/model.ifc','electrical_lighting':'shared/bim/model.ifc','pump_electrical':'model.ifc','water_coordination':'model.ifc'}
@@ -133,17 +133,24 @@ def regulatory_source_bindings(tasks,root):
 
 def inventory_source_bindings(tasks,root):
     """Bind supported saved-IFC consumers to upstream inventory checks."""
-    readers={'ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing',
+    readers={'ifc_metadata','ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing',
              'ifc_views','water_coordination','annual_energy_ifc'}
-    known={};ancestors={};identities={};bindings=[]
+    known={};ancestors={};identities={};bindings=[];rechecks={}
     for task in tasks:
         name=task['id']
+        refresh=task.get('refresh_inventory',False)
+        if type(refresh) is not bool or 'refresh_inventory' in task and task['kind']!='ifc_query':
+            raise ProjectError('refresh_inventory is a Boolean option on ifc_query only')
         parents=set(task.get('requires_pass',[]))
         parents.update(task[k] for k in ('depends_on','ifc_from') if isinstance(task.get(k),str))
         parents &= known.keys()
         upstream=set(parents)
         for parent in parents:upstream.update(ancestors[parent])
         ancestors[name]=upstream
+        superseded=set()
+        for parent in upstream:superseded.update(rechecks.get(parent,set()))
+        applicable=upstream-(superseded-parents)
+        if refresh:rechecks[name]={p for p in upstream if known[p]['kind']=='ifc_query'} | superseded
         if task['kind'] in readers:
             if task.get('depends_on'):
                 identity={'producer':task['depends_on']}
@@ -151,11 +158,15 @@ def inventory_source_bindings(tasks,root):
                 path=local_path(root,task['ifc'])
                 identity={'sha256':digest(path)}
             identities[name]=identity
-            for parent in sorted(upstream):
+            for parent in sorted(applicable):
                 if known[parent]['kind']!='ifc_query':continue
+                if refresh:
+                    bindings.append(dict(check=parent,consumer=name,previous_model_identity=identities[parent],model_identity=identity,fresh_inventory_required=True))
+                    continue
                 if identities[parent]!=identity:
                     raise ProjectError(f'IFC inventory gate {parent} checks a different model from consumer {name}; use the same explicit bytes or inherited producer')
                 bindings.append(dict(check=parent,consumer=name,model_identity=identity))
+        if refresh:ancestors[name]=set()  # New inventory is the downstream correspondence boundary.
         known[name]=task
     return bindings
 
@@ -188,7 +199,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind=="water_network" and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
@@ -304,8 +315,10 @@ def validate_plan(path):
             from .electrical_fault import prepare
             faults=local_path(root,t.get('faults'));inputs.add(faults)
             prepare(read_json(local_path(root,t['project'])),read_json(faults))
-        if kind in ('ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing','ifc_views','water_coordination','annual_energy_ifc'):
-            if kind=='ifc_query':
+        if kind in ('ifc_metadata','ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing','ifc_views','water_coordination','annual_energy_ifc'):
+            if kind=='ifc_metadata':
+                inputs.add(local_path(root,t.get('patch')))
+            elif kind=='ifc_query':
                 from .ifc_query import validate
                 query_requirements=local_path(root,t.get('requirements'));inputs.add(query_requirements);validate(read_json(query_requirements))
             elif kind=='ids_check':
@@ -590,6 +603,15 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     payload=run(source,local_path(root,t['settings']),folder)
                     status='pass' if payload['calculated_checks_pass'] else 'fail'
                     reason='saved hollow profiles and ports reconciled to schedule/projected centreline DXF; native and installation drawing acceptance pending'
+            elif t['kind']=='ifc_metadata':
+                dependency=t.get('depends_on')
+                if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC producer did not pass; metadata edit not executed'
+                elif not ifcmcp_python:reason='isolated IFC MCP Python runtime not supplied'
+                else:
+                    from .ifc_metadata import run
+                    source=out/dependency/IFC_ARTIFACTS[tasks[dependency]['kind']] if dependency else local_path(root,t['ifc'])
+                    payload=run(source,local_path(root,t['patch']),folder,ifcmcp_python)
+                    status='pass' if payload['calculated_checks_pass'] else 'fail';reason=payload['scope']
             elif t['kind']=='ifc_query':
                 dependency=t.get('depends_on')
                 if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC producer did not pass; query not executed'
