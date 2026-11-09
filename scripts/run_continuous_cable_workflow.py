@@ -15,7 +15,8 @@ from run_continuous_cable_demo import run as stage
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def run(out, python, graphviz=None, autocad=None, inside_limit=.28, route=False):
+def run(out, python, graphviz=None, autocad=None, inside_limit=.28, route=False, include_obstacles=False):
+    if include_obstacles and not route:raise ProjectError('obstacle projection requires route mode')
     if not math.isfinite(inside_limit) or inside_limit <= 0:
         raise ProjectError('positive finite synthetic inside-radius target required')
     out = Path(out).resolve()
@@ -60,7 +61,9 @@ def run(out, python, graphviz=None, autocad=None, inside_limit=.28, route=False)
         (out/'route-settings.json').write_text(json.dumps(drawing_settings,indent=2),encoding='utf-8')
         (out/'route-native-settings.json').write_text(json.dumps(native_settings,indent=2),encoding='utf-8')
         tasks[3].update(kind='cable_route_drawing',ifc='combined/model.ifc',binding='combined/binding.json',settings='route-settings.json',native_settings='route-native-settings.json')
+        if include_obstacles:tasks[3]['obstacles']='source/obstacles.json'
         paragraphs[3]='Generate the selected cable true-arc/OD route view only after same-model study, bend and coordination checks pass; explicitly omit other elements and separately inspect the reopened native DWG/PDF.'
+        if include_obstacles:paragraphs[3]='Generate the cable true-arc/OD route view and all source-checked box projections only after same-model study, bend and coordination checks pass; show depth intervals and separately inspect native DWG/PDF; projection alone does not prove clearance.'
         brief.write_text('\n\n'.join(paragraphs),encoding='utf-8')
     plan = dict(version=1, brief='brief.md', brief_sha256=digest(brief),
         passage_dispositions={f'P{i:03}': 'requirement' for i in range(1, 6)}, tasks=tasks,
@@ -78,7 +81,7 @@ def run(out, python, graphviz=None, autocad=None, inside_limit=.28, route=False)
     if bend_status != 'pass' and (out / 'workflow/drawing').exists():
         raise ProjectError('failed bend check reached drawing adapter')
     report = dict(tasks=statuses, integrity=integrity, model_bindings=result['three_phase_model_bindings'],
-                  scope=('Synthetic selected cable route; obstacle omitted from drawing; visual and engineering review pending' if route else 'Synthetic continuous cable and box; schematic only; visual and engineering review pending'), design_accepted=False)
+                  scope=('Synthetic cable and source-box route projection; depth and visual/engineering review separate' if include_obstacles else 'Synthetic selected cable route; obstacle omitted from drawing; visual and engineering review pending' if route else 'Synthetic continuous cable and box; schematic only; visual and engineering review pending'), design_accepted=False)
     (out / 'workflow-summary.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
     return report
 
@@ -91,4 +94,5 @@ if __name__ == '__main__':
         parser.add_argument('--' + key, type=Path)
     parser.add_argument('--inside-limit', type=float, default=.28)
     parser.add_argument('--route', action='store_true')
+    parser.add_argument('--include-obstacles',action='store_true')
     print(json.dumps(run(**vars(parser.parse_args()))['tasks']))

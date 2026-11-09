@@ -340,7 +340,7 @@ def validate_plan(path):
             from . import three_phase_drawing
             inputs.add(Path(three_phase_drawing.__file__).resolve())
         if kind=='cable_route_drawing':
-            if set(t)-{'id','kind','depends_on','ifc','binding','settings','native_settings','requires_pass','description'}:raise ProjectError('cable route drawing inherits its study; replacement project forbidden')
+            if set(t)-{'id','kind','depends_on','ifc','binding','settings','native_settings','obstacles','requires_pass','description'}:raise ProjectError('cable route drawing inherits its study; replacement project forbidden')
             parent=t.get('depends_on')
             if not isinstance(parent,str) or parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='three_phase_ifc_project':raise ProjectError('cable route drawing requires earlier IFC-derived study')
             from . import cable_route_drawing,three_phase_ifc,ifc_native,three_phase_drawing
@@ -350,6 +350,9 @@ def validate_plan(path):
             for field,validator in (('settings',drawing_settings),('native_settings',ifc_native.validate_settings)):
                 path=local_path(root,t.get(field));inputs.add(path);validator(read_json(path))
             inputs.update(Path(m.__file__).resolve() for m in (cable_route_drawing,ifc_native,three_phase_drawing))
+            if 'obstacles' in t:
+                from .obstacle_projection import inputs as obstacle_inputs
+                inputs.update(obstacle_inputs(local_path(root,t['obstacles'])))
         if kind=='three_phase_regulations':
             if set(t)-{'id','kind','depends_on','basis','pack','sources','requires_pass','description'}:raise ProjectError('three-phase rules inherit study; replacement project forbidden')
             parent=t.get('depends_on')
@@ -782,7 +785,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     producer=next(x for x in p['tasks'] if x['id']==parent)
                     project,study_folder=three_phase_locations(root,out,producer)
                     _,_,study_sources=study_context(project,study_folder)
-                    payload=draw_route(project,local_path(root,t['ifc']),local_path(root,t['binding']),local_path(root,t['settings']),folder)
+                    payload=draw_route(project,local_path(root,t['ifc']),local_path(root,t['binding']),local_path(root,t['settings']),folder,obstacles=local_path(root,t['obstacles']) if 'obstacles' in t else None)
                     payload['native']=native_route(folder/'cable-route.dxf',local_path(root,t['native_settings']),folder/'native',autocad)
                     if any(not Path(f).is_file() or digest(Path(f))!=h for f,h in study_sources.items()):raise ProjectError('study changed during cable route delivery')
                     if payload['saved_identity_and_geometry_pass'] is not True or payload['native']['native_reopen_pass'] is not True or payload['native']['plot']['pdf_reference_pass'] is not True:raise ProjectError('cable route native/plot verification did not pass')

@@ -1,0 +1,187 @@
+{
+  "scope": "Actual synthetic complete supported cable/box projection, not a complete installation drawing",
+  "workflow": {
+    "tasks": {
+      "study": "pass",
+      "bend": "pass",
+      "coordination": "pass",
+      "drawing": "pass",
+      "review": "pending"
+    },
+    "integrity": {
+      "integrity_pass": true,
+      "issues": [],
+      "design_accepted": false,
+      "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+    },
+    "model_bindings": [
+      {
+        "producer": "study",
+        "consumer": "bend",
+        "ifc_sha256": "43c4f01568bb96eaa0f81b282a27fc6491f8740381803686db8b5fbb60ebf7d0",
+        "geometry_binding_sha256": "7675491578080b9252ec510f5c0c070cd7b6da731c52f7565e51492c60f15ab3"
+      },
+      {
+        "producer": "study",
+        "consumer": "coordination",
+        "ifc_sha256": "43c4f01568bb96eaa0f81b282a27fc6491f8740381803686db8b5fbb60ebf7d0",
+        "geometry_binding_sha256": "7675491578080b9252ec510f5c0c070cd7b6da731c52f7565e51492c60f15ab3"
+      },
+      {
+        "producer": "study",
+        "consumer": "drawing",
+        "ifc_sha256": "43c4f01568bb96eaa0f81b282a27fc6491f8740381803686db8b5fbb60ebf7d0",
+        "geometry_binding_sha256": "7675491578080b9252ec510f5c0c070cd7b6da731c52f7565e51492c60f15ab3"
+      },
+      {
+        "producer": "bend",
+        "consumer": "drawing",
+        "ifc_sha256": "43c4f01568bb96eaa0f81b282a27fc6491f8740381803686db8b5fbb60ebf7d0",
+        "geometry_binding_sha256": "7675491578080b9252ec510f5c0c070cd7b6da731c52f7565e51492c60f15ab3"
+      },
+      {
+        "producer": "coordination",
+        "consumer": "drawing",
+        "ifc_sha256": "43c4f01568bb96eaa0f81b282a27fc6491f8740381803686db8b5fbb60ebf7d0",
+        "geometry_binding_sha256": "7675491578080b9252ec510f5c0c070cd7b6da731c52f7565e51492c60f15ab3"
+      }
+    ],
+    "scope": "Synthetic cable and source-box route projection; depth and visual/engineering review separate",
+    "design_accepted": false
+  },
+  "integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "delivery_context_pass": true,
+  "ifc_sha256": "43c4f01568bb96eaa0f81b282a27fc6491f8740381803686db8b5fbb60ebf7d0",
+  "inventory_sha256": "78dcc5bec73289cedcad3f438a34122a1dc2f5d4ceabd0cf5e5f15e52b4d22ea",
+  "included_guids": [
+    "1uGqW$ugzIM9$Bw0m20nFy",
+    "2$66H3PjjSaAGFCsCrY9hx"
+  ],
+  "omitted_guids": [],
+  "obstacles": [
+    {
+      "id": "TEST_BOX",
+      "origin_m": [
+        0.19,
+        0.1,
+        1.76
+      ],
+      "size_m": [
+        0.04,
+        0.04,
+        0.06
+      ],
+      "source": "basis.json; obstacle and coordination_targets; explicitly synthetic",
+      "properties": {
+        "SourceSHA256": "30ebd15fbfe2fa9bb5804b4c6ec8c7871759da3b09f79694b0e395e866cf1f69",
+        "SourceKind": "assumption"
+      },
+      "guid": "2$66H3PjjSaAGFCsCrY9hx",
+      "projected_bounds_m": [
+        0.19,
+        1.76,
+        0.23,
+        1.82
+      ],
+      "depth_axis": "Y",
+      "depth_interval_m": [
+        0.1,
+        0.14
+      ],
+      "native_volume_m3": 9.600000000000012e-05
+    }
+  ],
+  "native": {
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\cable-route-obstacles-native-v1\\workflow\\drawing\\cable-route.dxf": "ffdf8c2a39f5268c670e8c5ae90b3d39fa2b4729cf541027634469b95fa92615",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\cable-route-obstacles-native-v1\\route-native-settings.json": "b773e742f06566d7a04394a02de1026eba606198606e1c7718cfefe4295b5bf6"
+    },
+    "inputs_unchanged": true,
+    "engine": "C:\\Program Files\\Autodesk\\AutoCAD 2027\\accoreconsole.exe",
+    "engine_sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2",
+    "dwg_sha256": "b6a75989eee4dc3b00e26913a67484277f44bcc39811ea92e02d579081e4c001",
+    "native_reopen_pass": true,
+    "checks": {
+      "model_entity_count": 21,
+      "linked_entity_count": 21,
+      "model_entities_and_ifc_xdata_match": true,
+      "geometry_layers_and_annotations_match": true,
+      "metre_units": true
+    },
+    "plot": {
+      "pdf_sha256": "6fdd48a27f41f63fbf2b445946374853086e1317df00c91a75d45317790e20a7",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 20,
+      "reference_handle": "3C",
+      "reference_expected_mm": 100.0,
+      "reference_measured_mm": 99.99133333333333,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "settings": {
+      "source": "Synthetic A4 1:20 route view; 2 m saved straight reference",
+      "window_drawing_units": [
+        -2.3,
+        1.1,
+        2.7,
+        2.9
+      ],
+      "scale_denominator": 20,
+      "reference_ifc_guid": "1uGqW$ugzIM9$Bw0m20nFy",
+      "reference_layer": "BSA_CABLE_AXIS",
+      "drawing_name": "cable-route",
+      "pdf_tolerance_mm": 0.2
+    },
+    "design_accepted": false,
+    "pending": [
+      "actual PDF visual review",
+      "equipment/fittings/insulation and installation drawing detail",
+      "complete engineering acceptance"
+    ],
+    "artifacts": {
+      "cable-route.dwg": "b6a75989eee4dc3b00e26913a67484277f44bcc39811ea92e02d579081e4c001",
+      "input.dxf": "ffdf8c2a39f5268c670e8c5ae90b3d39fa2b4729cf541027634469b95fa92615",
+      "plot.log": "10dab0f6dbae8753686791fc50065ea8f1423b116a3c98570cd74ee27cfbb145",
+      "save.log": "01941ddfa837a33a09a84921a2d3834ba0faf4e38a8ed7ec45d96964a78a1b52",
+      "save.scr": "e98518a950615ebd17c57ca762a6ca1357eafed84e42c47846870912c708677e",
+      "sheet.json": "ac2b3a4cf1d3c15205dc3e09a1ffa6b4b020380e84cb9765ca9446b5ae05ea12",
+      "sheet.log": "ed9757c6958179c0311b0e1efc1da3db5880e54a9d6b7c7ba2f8185176ddb514",
+      "sheet.pdf": "6fdd48a27f41f63fbf2b445946374853086e1317df00c91a75d45317790e20a7",
+      "sheet.scr": "fbb87d5e5ab7b43e1dd9d36a28c3ee91a8a6a6da115d799c4bc7f6a785f7800a",
+      "native-reopen/export.log": "4f1c0b98b0413fc965284b2df6e0f008a21ccc15a0399c5a3785e26e041319da",
+      "native-reopen/export.scr": "28fe855ac568e4c8e194da48b8d64dcd500ef0130af9bc9ff3854396d51eda87",
+      "native-reopen/source-copy.dwg": "b6a75989eee4dc3b00e26913a67484277f44bcc39811ea92e02d579081e4c001",
+      "native-reopen/source-export.dxf": "4bcffab087bbdae9630cd11a7fc6f6ae6d0bd345acd7339c29e5c298a41ab9bf",
+      "ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "d0195a1651538e2006738985dcf09e36f2b298d08aa00cfad1038e8757a919e7",
+      "native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "d0dfdb8ebfac6547a7c71e6c818b7c7fba24462b6480f324a44349061ffbbbc7"
+    }
+  },
+  "visual_review": {
+    "pdf_sha256": "6fdd48a27f41f63fbf2b445946374853086e1317df00c91a75d45317790e20a7",
+    "png_sha256": "0801f0fcce657221abbe6ee84ba025f6876c5c0721913c2441e14ba45c3ed13f",
+    "observed": "Readable true route/OD/length/radius notes, box depth interval and separated straight dimension. One projected box crosses the arc in X/Z; Y depth is explicit and physical coordination remains a separate check.",
+    "scoped_visual_review_pass": true,
+    "full_engineering_acceptance": false
+  },
+  "tests": {
+    "new_obstacle_source_native_coverage_pass": 6,
+    "existing_projection_pass": 4,
+    "existing_workflow_identity_pass": 7,
+    "total_distinct_pass": 17
+  },
+  "retained_warnings": [
+    "Upstream EXPRESS ResourceWarning",
+    "Duplicate PDF PageMode; no PDF-conformance claim"
+  ],
+  "design_accepted": false
+}
