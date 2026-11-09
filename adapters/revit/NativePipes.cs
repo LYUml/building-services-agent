@@ -53,6 +53,7 @@ public static class NativePipes
                 || curve.GetEndPoint(1).DistanceTo(end) > 1e-7
                 || pipe.ConnectorManager.Connectors.Size != 2)
                 throw new InvalidOperationException("Native pipe readback differs from request");
+            ElementProvenance.Attach(pipe, request);
             var result = new { unique_id = pipe.UniqueId, element_id = pipe.Id.Value.ToString(),
                 source = request.Source, diameter_m = Metres(pipe.Diameter), length_m = Metres(curve.Length),
                 connector_count = 2, saved = false, connected_system_verified = false, design_accepted = false };

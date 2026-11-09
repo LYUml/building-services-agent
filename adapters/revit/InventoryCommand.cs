@@ -96,6 +96,7 @@ public sealed class InventoryCommand : IExternalCommand
             id = p.Id.Value.ToString(), unique_id = p.UniqueId, type_id = p.GetTypeId().Value.ToString(),
             system_unique_id = p.MEPSystem?.UniqueId, diameter_m = Metres(p.Diameter),
             length_m = Metres(((LocationCurve)p.Location).Curve.Length),
+            creation_provenance = ElementProvenance.Read(p),
             connectors = p.ConnectorManager.Connectors.Cast<Connector>().Select(ConnectorData).ToArray()
         }).ToArray();
         var fittings = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_PipeFitting)

@@ -1,0 +1,25 @@
+{
+  "scope": "Compile-only Revit Extensible Storage creation provenance",
+  "warnings": 0,
+  "errors": 0,
+  "native_executed": false,
+  "saved_reopen_verified": false,
+  "files": [
+    {
+      "sha256": "5ed29be236337dbe5f50f0e9e3c64d1c9f1f895a5a7aef39e7b245dba5eea62c",
+      "path": "adapters/revit/ElementProvenance.cs"
+    },
+    {
+      "sha256": "dba2e845396fb2bdefda8cdb0f84d61f18d532be9d3450a9469fbae988ae65ce",
+      "path": "adapters/revit/NativePipes.cs"
+    },
+    {
+      "sha256": "8d75f308cf06f55dc6696d662b658507fd22fb312620f847516625118a04af1b",
+      "path": "adapters/revit/InventoryCommand.cs"
+    },
+    {
+      "sha256": "5a8a25e5783f44608eba7b84c633e2adca07d406624071e335c71297733d6ba5",
+      "path": "adapters/revit/bin/Release/net10.0-windows/Bsa.Revit.dll"
+    }
+  ]
+}
