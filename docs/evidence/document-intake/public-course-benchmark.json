@@ -1,0 +1,58 @@
+{
+  "benchmark": "benchmarks/mit-4401-2018",
+  "intake": {
+    "manifest_sha256": "2dc320427dbe4c60f614df02e54faefcd83ae809123e41f71c7d1b7909060217",
+    "source_hashes": {
+      "sources/course-project.pdf": "5c0185f1180e1b0fcbc0d765c066b1a2ba55c8c73ff2a9a1865f8f380f3b072e",
+      "sources/assignment5.pdf": "a9cb779dea25e462efb197da0556defd0924630fa7a6a28f81de574b0894e82f",
+      "sources/assignment6.pdf": "2163209a9ea35bf81ae9b73a0ae747ffa877ee9a402fb49c0733e71e1324aca4",
+      "sources/assignment7.pdf": "18911144e6c2c69077431fdd68e97a00a835ff4debe3a4863953558f4fb75da0",
+      "sources/assignment8.pdf": "d083ab28c78fd116bf304d21df062a2edbf62a448ea1679cf743a13c4f0b8636"
+    },
+    "passages": 41,
+    "extraction_issue_count": 29,
+    "extraction_issue_codes": [
+      "pdf_annotations",
+      "pdf_layout"
+    ],
+    "license": "CC-BY-NC-SA-4.0",
+    "creator": "Christoph Reinhart; MIT OpenCourseWare",
+    "interpretation_complete": false,
+    "design_accepted": false
+  },
+  "draft_plan_sha256": "bf6745fc2229fc74fc54c7530996d631fe576fe26e7fb62bed7439152f2ae251",
+  "preliminary_requirement_groups": 21,
+  "visual_review": {
+    "pages": {
+      "course-project.pdf": [
+        1,
+        2
+      ],
+      "assignment5.pdf": [
+        1
+      ],
+      "assignment6.pdf": [
+        1
+      ],
+      "assignment8.pdf": [
+        1
+      ]
+    },
+    "render_hashes": {
+      "project-1.png": "a6a9f031b86ccbaa3e8ce37a75b44693b539f2ea914cd837cbab7253380cacc6",
+      "project-2.png": "e9ee5214465000a37adbe53e120276c82117baf0e85380152012cd499ebc89af",
+      "a5-page1.png": "a5de9f7f1058bc6369fe7af04c5f2b4857542efa17b3f022da743a37f72c4bbd",
+      "a6-page1.png": "3c2b99e1235049fb6c4ec435f6872a0f67cd20eec68da1574293fa3f2fd2eb2c",
+      "a8-page1.png": "b181d5072c49478d321d4e44f7642919cbcfbd2c255b656e6e5fddc1cd7aba8a"
+    },
+    "all_pages_reviewed": false,
+    "extraction_issues_acknowledged": false
+  },
+  "controls": {
+    "modified_source_rejected": true,
+    "modified_source_plan_exists": false,
+    "unreviewed_pdf_execution_rejected": true
+  },
+  "independent_designs_completed": 0,
+  "design_accepted": false
+}

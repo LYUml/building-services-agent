@@ -1,0 +1,240 @@
+{
+  "license": "CC-BY-NC-SA-4.0",
+  "attribution": "Christoph Reinhart; MIT OpenCourseWare",
+  "changes": "Concise paraphrases, obligation grouping and pending verification mapping; original PDFs unchanged",
+  "interpretation_complete": false,
+  "design_accepted": false,
+  "requirements": [
+    {
+      "id": "B001",
+      "source_document": "sources/course-project.pdf",
+      "locator": "p1",
+      "requirement": "Explain concept, precedents and EUI target.",
+      "discipline": "integration",
+      "deliverable": "presentation",
+      "verification_method": "source-linked review",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "B002",
+      "source_document": "sources/course-project.pdf",
+      "locator": "p1",
+      "requirement": "Present site, climate and shading context.",
+      "discipline": "site",
+      "deliverable": "context model",
+      "verification_method": "model and source inspection",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "B003",
+      "source_document": "sources/course-project.pdf",
+      "locator": "p1",
+      "requirement": "Compare massing and lighting solutions.",
+      "discipline": "lighting",
+      "deliverable": "comparative figures",
+      "verification_method": "simulation correspondence",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "B004",
+      "source_document": "sources/course-project.pdf",
+      "locator": "p2",
+      "requirement": "Include plans, perspectives and envelope sections.",
+      "discipline": "CAD/BIM",
+      "deliverable": "editable model and figures",
+      "verification_method": "saved model and visual review",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "B005",
+      "source_document": "sources/course-project.pdf",
+      "locator": "p2",
+      "requirement": "Compare annual energy against justified target.",
+      "discipline": "energy",
+      "deliverable": "annual report",
+      "verification_method": "simulation and target audit",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "B006",
+      "source_document": "sources/course-project.pdf",
+      "locator": "p2",
+      "requirement": "Label orientation, units and EUI basis.",
+      "discipline": "delivery",
+      "deliverable": "annotated figures",
+      "verification_method": "visual and unit audit",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "B007",
+      "source_document": "sources/assignment5.pdf",
+      "locator": "p1",
+      "requirement": "Choose city, site and design principles.",
+      "discipline": "site",
+      "deliverable": "design basis",
+      "verification_method": "documented design decisions",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "B008",
+      "source_document": "sources/assignment5.pdf",
+      "locator": "p1",
+      "requirement": "Evaluate three massings using sDA.",
+      "discipline": "daylighting",
+      "deliverable": "annual comparison",
+      "verification_method": "validated climate-based simulation",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "B009",
+      "source_document": "sources/assignment5.pdf",
+      "locator": "p1",
+      "requirement": "Test three glazing or skylight configurations.",
+      "discipline": "daylighting",
+      "deliverable": "variant comparison",
+      "verification_method": "source-linked iteration",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "B010",
+      "source_document": "sources/assignment5.pdf",
+      "locator": "p2-3",
+      "requirement": "Apply specified sensors, materials and scene QA.",
+      "discipline": "daylighting",
+      "deliverable": "simulation inputs",
+      "verification_method": "source and geometry audit",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "B011",
+      "source_document": "sources/assignment6.pdf",
+      "locator": "p1",
+      "requirement": "Assess ASE and representative DGP viewpoints.",
+      "discipline": "visual comfort",
+      "deliverable": "glare study",
+      "verification_method": "validated annual and view simulation",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "B012",
+      "source_document": "sources/assignment6.pdf",
+      "locator": "p1",
+      "requirement": "Recheck daylight after glare interventions.",
+      "discipline": "daylighting",
+      "deliverable": "revised comparison",
+      "verification_method": "same-model iteration audit",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "B013",
+      "source_document": "sources/assignment6.pdf",
+      "locator": "p1",
+      "requirement": "Select sourced luminaires and IES data.",
+      "discipline": "lighting",
+      "deliverable": "equipment schedule",
+      "verification_method": "manufacturer evidence audit",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "B014",
+      "source_document": "sources/assignment6.pdf",
+      "locator": "p2-3",
+      "requirement": "Render lighting, map illuminance and calculate LPD.",
+      "discipline": "lighting",
+      "deliverable": "layout and results",
+      "verification_method": "photometry, area and visual audit",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "B015",
+      "source_document": "sources/assignment7.pdf",
+      "locator": "p1-3",
+      "requirement": "Build zoned baseline with reference settings and EPW.",
+      "discipline": "thermal",
+      "deliverable": "energy model",
+      "verification_method": "source-native simulation QA",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "B016",
+      "source_document": "sources/assignment7.pdf",
+      "locator": "p3",
+      "requirement": "Report monthly end uses and annual totals.",
+      "discipline": "energy",
+      "deliverable": "baseline report",
+      "verification_method": "annual energy reconciliation",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "B017",
+      "source_document": "sources/assignment7.pdf",
+      "locator": "p4",
+      "requirement": "Evaluate at least two upgrade sets.",
+      "discipline": "energy",
+      "deliverable": "variant report",
+      "verification_method": "repeat simulation and comparison",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "B018",
+      "source_document": "sources/assignment7.pdf",
+      "locator": "p5",
+      "requirement": "Resolve thermal checklist metric ambiguity.",
+      "discipline": "requirements",
+      "deliverable": "clarification record",
+      "verification_method": "source review; do not silently correct",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "B019",
+      "source_document": "sources/assignment8.pdf",
+      "locator": "p1",
+      "requirement": "Optimise source EUI within game budget.",
+      "discipline": "optimisation",
+      "deliverable": "ranked variants",
+      "verification_method": "course-specific objective and cost audit",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "B020",
+      "source_document": "sources/assignment8.pdf",
+      "locator": "p2-4",
+      "requirement": "Preserve geometry rules and supplied upgrade definitions.",
+      "discipline": "thermal",
+      "deliverable": "candidate models",
+      "verification_method": "geometry and settings audit",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "B021",
+      "source_document": "sources/assignment8.pdf",
+      "locator": "p5-7",
+      "requirement": "Retain iterations and submit specified model/results files.",
+      "discipline": "delivery",
+      "deliverable": "editable archive and rationale",
+      "verification_method": "file, figure and result inspection",
+      "status": "pending",
+      "evidence": []
+    }
+  ]
+}

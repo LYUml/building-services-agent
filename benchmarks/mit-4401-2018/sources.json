@@ -1,0 +1,44 @@
+{
+  "title": "MIT 4.401/4.464 Environmental Technologies in Buildings, Fall 2018",
+  "creator": "Christoph Reinhart; MIT OpenCourseWare",
+  "source_type": "one course-project bundle, not independent completed assignments",
+  "course_url": "https://ocw.mit.edu/courses/4-401-environmental-technologies-in-buildings-fall-2018/",
+  "license": "CC-BY-NC-SA-4.0",
+  "license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+  "terms_url": "https://ocw.mit.edu/pages/privacy-and-terms-of-use/",
+  "retrieved": "2026-11-10",
+  "purpose": "Noncommercial engineering-agent intake/evaluation; no training or endorsement claim",
+  "primary": "sources/course-project.pdf",
+  "files": [
+    {
+      "file": "sources/course-project.pdf",
+      "url": "https://ocw.mit.edu/courses/4-401-environmental-technologies-in-buildings-fall-2018/400472d8d9edfcec734dfbf1bfa7a583_MIT4_401f18_course_project.pdf",
+      "sha256": "5c0185f1180e1b0fcbc0d765c066b1a2ba55c8c73ff2a9a1865f8f380f3b072e",
+      "pages": 4
+    },
+    {
+      "file": "sources/assignment5.pdf",
+      "url": "https://ocw.mit.edu/courses/4-401-environmental-technologies-in-buildings-fall-2018/4a661a066142c53ab84981fa6b000619_MIT4_401f18_assignment5.pdf",
+      "sha256": "a9cb779dea25e462efb197da0556defd0924630fa7a6a28f81de574b0894e82f",
+      "pages": 4
+    },
+    {
+      "file": "sources/assignment6.pdf",
+      "url": "https://ocw.mit.edu/courses/4-401-environmental-technologies-in-buildings-fall-2018/112aca2f2f0963ab54544229f6773b27_MIT4_401f18_assignment6.pdf",
+      "sha256": "2163209a9ea35bf81ae9b73a0ae747ffa877ee9a402fb49c0733e71e1324aca4",
+      "pages": 4
+    },
+    {
+      "file": "sources/assignment7.pdf",
+      "url": "https://ocw.mit.edu/courses/4-401-environmental-technologies-in-buildings-fall-2018/ea268fdc900bdb9b8e195593363c14bf_MIT4_401f18_assignment7.pdf",
+      "sha256": "18911144e6c2c69077431fdd68e97a00a835ff4debe3a4863953558f4fb75da0",
+      "pages": 6
+    },
+    {
+      "file": "sources/assignment8.pdf",
+      "url": "https://ocw.mit.edu/courses/4-401-environmental-technologies-in-buildings-fall-2018/ea064154791a4eb5e144e76ceeca60a5_MIT4_401f18_assignment8.pdf",
+      "sha256": "d083ab28c78fd116bf304d21df062a2edbf62a448ea1679cf743a13c4f0b8636",
+      "pages": 8
+    }
+  ]
+}

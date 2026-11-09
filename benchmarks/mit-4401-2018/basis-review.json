@@ -1,0 +1,120 @@
+{
+  "license": "CC-BY-NC-SA-4.0",
+  "facts": [
+    {
+      "source": "assignment5.pdf p1",
+      "kind": "course_design_target",
+      "quantity": "floor_area",
+      "value": 3500,
+      "unit": "m2",
+      "approximate": true
+    },
+    {
+      "source": "assignment5.pdf p1",
+      "kind": "course_design_target",
+      "quantity": "workers",
+      "value": 250,
+      "unit": "persons",
+      "approximate": true
+    },
+    {
+      "source": "assignment5.pdf p1",
+      "kind": "course_given_comparison",
+      "quantity": "massing_variants",
+      "minimum": 3,
+      "window_wall_ratio": 0.4
+    },
+    {
+      "source": "assignment5.pdf p2",
+      "kind": "course_given",
+      "quantity": "sensor_grid",
+      "height_m": 0.85,
+      "spacing_m": 0.5
+    },
+    {
+      "source": "assignment6.pdf p1",
+      "kind": "course_design_target",
+      "quantity": "work_illuminance",
+      "value": 300,
+      "unit": "lux",
+      "approximate": true,
+      "acceptance_band": null
+    },
+    {
+      "source": "assignment6.pdf p1",
+      "kind": "course_design_target",
+      "quantity": "circulation_illuminance",
+      "value": 150,
+      "unit": "lux",
+      "approximate": true,
+      "acceptance_band": null
+    },
+    {
+      "source": "assignment8.pdf p1",
+      "kind": "course_game_constraint",
+      "quantity": "budget",
+      "maximum": 50,
+      "unit": "MIT_game_dollars",
+      "real_currency": false
+    }
+  ],
+  "decisions": [
+    {
+      "id": "city-site",
+      "kind": "permitted_design_choice",
+      "options": [
+        "Chicago",
+        "Houston",
+        "Seattle"
+      ],
+      "status": "not_selected"
+    },
+    {
+      "id": "geometry-program",
+      "kind": "permitted_design_choice",
+      "status": "not_designed"
+    }
+  ],
+  "gaps": [
+    {
+      "id": "supplementary-gh",
+      "kind": "uncollected_attachment",
+      "details": "Course Grasshopper definitions, game cost implementation and example result workbook not collected; availability not established"
+    },
+    {
+      "id": "photometry",
+      "kind": "unselected_product_data",
+      "details": "IES files, ratings and lighting layout not selected"
+    },
+    {
+      "id": "daylight-metrics",
+      "kind": "unsupported_scope",
+      "details": "Current rectangular electric-light study does not establish annual sDA/ASE/DGP"
+    },
+    {
+      "id": "runtime",
+      "kind": "known_host_limit",
+      "details": "Prior native Radiance/OpenStudio/EnergyPlus application-control failures remain unresolved; no runtime retried here"
+    },
+    {
+      "id": "thermal-checklist",
+      "kind": "source_ambiguity",
+      "details": "Assignment 7 thermal checklist references daylight metrics; clarify intended acceptance"
+    },
+    {
+      "id": "tolerance",
+      "kind": "unresolved_acceptance",
+      "details": "Approximate illuminance targets supply no acceptance bands"
+    },
+    {
+      "id": "visual-coverage",
+      "kind": "unreviewed_source",
+      "details": "Only five selected source pages visually inspected; all 29 extraction reviews remain unacknowledged"
+    }
+  ],
+  "jurisdiction": {
+    "hk_rules_applied": false,
+    "reason": "US-city course benchmark; local scope and editions unselected"
+  },
+  "design_accepted": false
+}
