@@ -202,3 +202,12 @@ It inherits the full conversion bundle, rechecks source/native geometry (includi
 Actual Style 77 source LINE 6D and POINTs 75/71 executed successfully under a synthetic rotated/transformed placement. Their source separation is 0.762 mm. This is CAD node spacing, **not a selected installed pipe-end gap**; duplicated POINTs exist at the same source positions and are rejected if selected as the two opposing anchors. All ten saved checks, schema validation, revision identity stability and the actual duplicate-position rejection passed. Independent unit controls cover opposite axes, off-axis/out-of-span nodes, paper-space nodes and wrong entity types.
 
 The actual placed PNG was inspected. Preview marker/axis artists now explicitly overlay the opaque body, so interior nodes remain visible; this is diagnostic annotation, not hidden-line visibility. Almost coincident nodes cannot be dimensionally judged from the full-body view. Continue to use numerical source coordinates, and do not infer gasket contact, bore clearance, pipe compatibility or hydraulic connectivity from these model ports. Limited evidence: `docs/evidence/manufacturer-block/connector-ports.json`.
+
+
+### Connector workflow handoff
+
+The connector adapter is now workflow kind `connector_ports`, taking `id`, `kind`, `depends_on` on an earlier `cad_ifc`, and `basis` (optional description/requires_pass). Source conversion is inherited; replacement IFC/producer inputs are rejected. Missing engines or failed conversion leave placement pending. The saved producer artifact is `placed-connector.ifc`.
+
+Follow placement with `ifc_query` requiring one fitting/two ports, then `ids_check` using `examples/ids/cad-connector-provenance.ids`, then `ifc_preview`. All three consumers must target the placed producer. A pre-placement inventory requires a fresh inventory boundary after placement. The connector IDS checks every applicable port's POINT/axis provenance presence, not the truth of node installation semantics or exact component counts; use the inventory contract for minimum counts.
+
+Actual five-stage execution, source/artifact integrity and 16 information checks passed at `runs/connector-workflow-v1/run`; actual PNG inspected. Missing/failed producer, replacement inputs, stale model correspondence and a missing axis-source field are covered by independent controls. Limited evidence: `docs/evidence/manufacturer-block/connector-workflow.json`. Physical joint assembly remains pending.

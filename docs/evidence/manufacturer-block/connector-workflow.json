@@ -1,0 +1,68 @@
+{
+  "scope": "Actual manufacturer connector under synthetic integration requirements",
+  "tasks": {
+    "convert": {
+      "kind": "cad_ifc",
+      "status": "pass",
+      "scope": "source-bound tessellated IFC conversion; ports, product and engineering acceptance separate"
+    },
+    "place": {
+      "kind": "connector_ports",
+      "status": "pass",
+      "scope": "source CAD model-node placement verified; installed gap, physical joints and engineering acceptance pending"
+    },
+    "inventory": {
+      "kind": "ifc_query",
+      "status": "pass",
+      "scope": "Saved IFC inventory and minimum class counts only; not geometry, equipment identity or engineering acceptance"
+    },
+    "information": {
+      "kind": "ids_check",
+      "status": "pass",
+      "scope": "Upstream IDS information requirements only; geometry, engineering physics and regulatory applicability remain separate"
+    },
+    "preview": {
+      "kind": "ifc_preview",
+      "status": "pass",
+      "scope": "saved selected-element preview generated; visual review and engineering acceptance pending"
+    }
+  },
+  "source_bindings": [
+    {
+      "check": "inventory",
+      "consumer": "information",
+      "model_identity": {
+        "producer": "place"
+      }
+    },
+    {
+      "check": "information",
+      "consumer": "preview",
+      "model_identity": {
+        "producer": "place"
+      }
+    },
+    {
+      "check": "inventory",
+      "consumer": "preview",
+      "model_identity": {
+        "producer": "place"
+      }
+    }
+  ],
+  "execution_pass": true,
+  "inputs_unchanged": true,
+  "ids_checks": 16,
+  "ids_failures": 0,
+  "workflow_sha256": "2c49c404b2afd7af84c9c4d53f7b8a7cbca99f120f0290cada61fab6be61b73a",
+  "ifc_sha256": "083b8479db37d611121965674db81812d6e3faf8045fe1019dbf8a907c1d733f",
+  "preview_sha256": "5418d03ef8bfa3595b2812a1fedca84e213ed47257466b87da6793c44ae9fd72",
+  "visual_review": "Actual generated PNG inspected: body and numbered overlay axes visible, labels readable, no observed page clipping. Overlay is not physical visibility.",
+  "design_accepted": false,
+  "pending": [
+    "CAD node versus installed pipe-end semantics",
+    "gasket/pipe compatibility",
+    "physical external joint geometry",
+    "hydraulics and regulatory applicability"
+  ]
+}
