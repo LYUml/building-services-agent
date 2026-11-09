@@ -1,0 +1,92 @@
+{
+  "tee": {
+    "entity_counts": {
+      "CIRCLE": 2
+    },
+    "circles": [
+      {
+        "handle": "C4",
+        "centre_m": [
+          0.0635,
+          0.0,
+          -2.54e-17
+        ],
+        "radius_m": 0.020446999999999986,
+        "normal": [
+          1.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "handle": "C5",
+        "centre_m": [
+          0.0635,
+          0.0,
+          -2.54e-17
+        ],
+        "radius_m": 0.024129999999999995,
+        "normal": [
+          1.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "scope": "Primitive inventory only; no boundary role or annular acceptance",
+    "source_sha256": "138d2db55989b3bc35339f217a7e7767423a234504cc4f56c5c48902cd4ff45f",
+    "dxf_sha256": "644e4e8d3f49d56b23311f6cbb20e4c01b6cf5b59f0368f58e42d1da0fa79785",
+    "section": {
+      "id": "land",
+      "source": "Explicit CAD sample in overlap axial range",
+      "plane": "YZ",
+      "centre_drawing_units": [
+        2.5,
+        0,
+        0
+      ]
+    }
+  },
+  "connector": {
+    "entity_counts": {
+      "LINE": 32,
+      "CIRCLE": 1,
+      "ARC": 4
+    },
+    "circles": [
+      {
+        "handle": "CB",
+        "centre_m": [
+          -0.0,
+          -0.006731,
+          -2.54e-18
+        ],
+        "radius_m": 0.02413,
+        "normal": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    ],
+    "scope": "Primitive inventory only; no boundary role or annular acceptance",
+    "source_sha256": "a117469a50e2a4ad293ef29fa5b658d14dbb3c3f4365b0485527bbae36efecaa",
+    "dxf_sha256": "aa382c49d8b65d1a06b9feaa29a97b4b1d432a7aeb48f983aed3c5a9edbf6ea7",
+    "section": {
+      "id": "land",
+      "source": "Explicit CAD sample in overlap axial range",
+      "plane": "ZX",
+      "centre_drawing_units": [
+        0,
+        -0.265,
+        0
+      ]
+    }
+  },
+  "interpretation": "At this single sample, tee outer circle and connector coaxial circle both have radius 24.130 mm. Coincident analytic boundaries can produce tessellation overlap; this does not prove the cause over the full joint, boundary material roles, installed fit, or physical clearance.",
+  "annular_acceptance": {
+    "tee": true,
+    "connector": false
+  },
+  "design_accepted": false
+}

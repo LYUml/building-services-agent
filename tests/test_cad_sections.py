@@ -1,11 +1,20 @@
 import copy
 import unittest
 import ezdxf
-from bsa.cad_sections import measure, validate
+from bsa.cad_sections import measure, validate, boundary_inventory
 from bsa.engine import ProjectError
 
 
 class SectionTests(unittest.TestCase):
+    def test_mixed_boundary_inventory_does_not_accept_annulus(self):
+        doc, row = self.fixture()
+        doc.modelspace().add_line((0,0),(1,1),dxfattribs={'layer':'BSA_SECTION_port'})
+        result=boundary_inventory(doc,row,1)
+        self.assertEqual(result['entity_counts'],{'CIRCLE':2,'LINE':1})
+        self.assertAlmostEqual(result['circles'][0]['radius_m'],.0127)
+        self.assertEqual(result['circles'][0]['centre_m'],[.06858,0,0])
+        with self.assertRaises(ProjectError):measure(doc,row,1,1e-8)
+
     def fixture(self):
         doc = ezdxf.new('R2018'); doc.units = 1
         doc.layers.new('BSA_SECTION_port')

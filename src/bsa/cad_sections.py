@@ -49,6 +49,24 @@ def validate(basis):
             raise ProjectError('finite three-coordinate section centre required')
 
 
+def boundary_inventory(doc, row, insunits):
+    """Report native section primitives without inferring which boundary is a bore."""
+    from collections import Counter
+    if doc.units != insunits:
+        raise ProjectError('section export units mismatch')
+    entities = [e for e in doc.modelspace() if e.dxf.layer == 'BSA_SECTION_' + row['id']]
+    scale = METRES_PER_UNIT[insunits]
+    circles = []
+    for e in entities:
+        if e.dxftype() == 'CIRCLE':
+            circles.append({'handle': e.dxf.handle,
+                            'centre_m': [float(x)*scale for x in e.ocs().to_wcs(e.dxf.center)],
+                            'radius_m': float(e.dxf.radius)*scale,
+                            'normal': list(e.dxf.extrusion)})
+    return {'entity_counts': dict(Counter(e.dxftype() for e in entities)),
+            'circles': circles, 'scope': 'Primitive inventory only; no boundary role or annular acceptance'}
+
+
 def measure(doc, row, insunits, tolerance_m):
     if doc.units != insunits:
         raise ProjectError('section export units mismatch')
@@ -134,6 +152,9 @@ def run(source, basis_path, out, exe=DEFAULT_EXE, timeout=120):
         section = ezdxf.readfile(target); audit = section.audit()
         if audit.errors or audit.fixes:
             raise ProjectError('section export requires repair')
+        inventory = boundary_inventory(section, row, basis['insunits'])
+        inventory.update(dxf_sha256=digest(target), source_sha256=before[str(source)], section=row)
+        (folder / 'boundary-inventory.json').write_text(json.dumps(inventory, indent=2), encoding='utf-8')
         result = measure(section, row, basis['insunits'], basis['tolerance_m'])
         result['dxf_sha256'] = digest(target); results.append(result)
         if digest(copied) != before[str(source)]:
