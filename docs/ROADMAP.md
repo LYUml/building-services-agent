@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+User-directed Revit/MOOSAS review now plans native Revit read/MEP-authoring/schedule/sheet/reopen acceptance alongside existing CAD/IFC workflows. Local Revit 2027 binaries (27.3.0.28) exist; no adapter or live session verified. MOOSAS develop dbf4eb6 is source-pinned for geometry/model/simulation separation and airflow-coupling evaluation, with EnergyPlus-version and licence boundaries retained. See REVIT_MOOSAS_DIRECTION.md.
+
 Drainage preparation now requires explicit initial node depths, surcharge allowances and initial conduit flows. Inconsistent initial depths or conduit crowns above declared junction depths are rejected before input generation; five preparation/workflow tests pass. Native SWMM parsing and simulation are still unverified.
 
 Drainage input preparation now participates in source-linked workflows. A two-requirement synthetic brief executes input generation while keeping native hydraulic acceptance pending; invalid-source geometry blocks downstream review, changed bytes fail integrity, and delivery review remains incomplete. This is preparation integration, not a verified SWMM simulation adapter.

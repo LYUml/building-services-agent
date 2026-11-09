@@ -22,6 +22,8 @@ The installed IfcOpenShell 0.8.5 ShapeBuilder bend/transition helpers and geomet
 
 ## Follow-up discovery — 2026-11-09
 
+The user's [MOOSAS reference and Revit direction](REVIT_MOOSAS_DIRECTION.md) are now source-reviewed. Pinned MOOSAS standalone Python modules offer geometry/model exchange and explicit simulation-coupling patterns; no installation or runtime acceptance is claimed. Evaluate Autodesk's Revit MCP preview before building a redundant bridge; independent open-source bridges remain alternatives. Actual native MEP objects, connector semantics and saved RVT/sheet acceptance are required.
+
 [SWMM toolkit evaluation](SWMM_TRIAL.md) adds an existing drainage-network engine candidate: upstream swmm-toolkit 0.17.0 / aenum 3.1.17 installed, licenses and native hashes retained. Actual import is blocked by host Application Control on swmm5.dll; no hydraulic simulation is verified. Keep it a candidate, not an available adapter. SWMM network capabilities do not replace building sanitary-stack/vent design or Hong Kong rules.
 
 Rechecked the upstream IfcMCP, IfcTester, OpenStudio MCP, AutoCAD MCP, FreeCAD MCP and Dodo pages. Existing pinned, locally executed evidence above takes precedence over newer upstream capability claims; this review does not upgrade dependencies.

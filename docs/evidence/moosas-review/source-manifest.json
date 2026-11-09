@@ -1,0 +1,26 @@
+{
+  "repository": "https://github.com/KLEGB/MOOSAS",
+  "commit": "dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c",
+  "files": [
+    {
+      "path": "MoosasPy/simulation/contracts.py",
+      "sha256": "cdcd06bc87c8625f1cc74690b00f5dd203af354e62f9977ecdcd51c35c06c0e5"
+    },
+    {
+      "path": "MoosasPy/simulation/engine.py",
+      "sha256": "1f21fd59934d235878ac630a709995a9b64e7d9439bcc135f29fa76437458e7c"
+    },
+    {
+      "path": "MoosasPy/model/io/ifc.py",
+      "sha256": "da001c074e5fab1132685a2510b61dd7f8b22e8c474c921075da61716960d907"
+    },
+    {
+      "path": "MoosasPy/simulation/coupling/energy_airflow.py",
+      "sha256": "73dd85043abb603f9966ac364753f78903d42e7662e9ab2198483c9497336720"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "0b9fa969167f5646db06d002065644b0617da0d25dc38f403d76d2e151222a3c"
+    }
+  ]
+}
