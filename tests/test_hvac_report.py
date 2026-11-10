@@ -20,6 +20,19 @@ class HVACReportTests(unittest.TestCase):
   self.assertEqual(pdf['requirement_rows'],3)
   self.assertFalse(pdf['design_accepted'])
   with self.assertRaises(ValueError):render(root/'report',root/'pdf',font)
+  from bsa.hvac_package import run as package
+  bundled=package(root/'plan.json',root/'package',font=font)
+  self.assertEqual(bundled['status'],'review_required');self.assertFalse(bundled['design_accepted'])
+  self.assertTrue((root/'package/delivery-review.json').is_file())
+  self.assertEqual(bundled['stages']['report_pdf']['numerical_rows_checked'],6)
+  with self.assertRaises(ValueError):package(root/'plan.json',root/'package',font=font)
+  raw=(root/'allocation.json').read_bytes();changed=json.loads(raw);changed['terminals'][0]['center_m']=[99,99]
+  (root/'allocation.json').write_text(json.dumps(changed))
+  failed=package(root/'plan.json',root/'failed-package',font=font)
+  self.assertEqual(failed['status'],'incomplete');self.assertIn('report',failed['stage_errors'])
+  self.assertFalse((root/'failed-package/report-pdf').exists())
+  self.assertTrue(failed['unresolved_tasks'])
+  (root/'allocation.json').write_bytes(raw)
   allocation=json.loads((directory/'allocation/allocation.json').read_text());lookup=json.loads((directory/'lookup/terminal-results.json').read_text());schedule=json.loads((directory/'ducts/results.json').read_text());workflow=json.loads((directory/'workflow.json').read_text())
   lookup['terminals'][0]['directions']['east']['cases']['maximum']['flow_L_s']+=1
   with self.assertRaisesRegex(ValueError,'flow differs'):compose(workflow,allocation,lookup,schedule)
