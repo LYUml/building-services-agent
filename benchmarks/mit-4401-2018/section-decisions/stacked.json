@@ -1,0 +1,6 @@
+{
+  "source": "Unapproved concept drawing decisions: horizontal cut 1.2 m above each storey; 0.6 m model text height; explicitly selected A4 scale. Not surveyed architectural/MEP drawings.",
+  "cut_height_above_storey_m": 1.2,
+  "annotation_height_m": 0.6,
+  "scale_denominator": 200
+}

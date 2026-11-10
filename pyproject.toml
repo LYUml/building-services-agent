@@ -22,6 +22,7 @@ water = ["wntr==1.5.0"]
 ids = ["ifctester==0.8.5", "ifcopenshell==0.8.5"]
 preview = ["ifcopenshell==0.8.5", "matplotlib==3.11.2", "numpy==2.5.4"]
 gis = ["shapely==2.2.0", "matplotlib==3.11.2", "numpy==2.5.4"]
+section = ["trimesh==5.2.0", "shapely==2.2.0", "ifcopenshell==0.8.5", "numpy==2.5.4", "pypdf==7.0.0"]
 
 [project.scripts]
 bsa = "bsa.cli:main"

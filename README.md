@@ -206,3 +206,5 @@ An executed [Honeybee scene bridge](docs/HONEYBEE_SCENE.md) now converts checked
 The [Honeybee scene bridge](docs/HONEYBEE_SCENE.md) now runs inside the source-inherited unified workflow with explicit --honeybee-python. The public reviewed benchmark has twelve scoped execution passes and fourteen unmet engineering packages; no annual daylight result or completed assignment is claimed.
 
 [Candidate climate context](docs/CLIMATE_CONTEXT.md) now adds source-reconciled monthly EPW statistics and explicit-year solar paths through pinned Ladybug in the unified public workflow. Thirteen scoped tasks pass, fourteen engineering packages remain pending, and no project-site/shading or building-performance acceptance is claimed.
+
+[Native concept section sheets](docs/CONCEPT_SECTIONS.md) now derive actual saved facade cuts into editable CAD. Eight public-concept floor sheets have independently audited/reopened AutoCAD DWGs and inspected fixed-scale PDFs. They remain unapproved concept geometry with no completed room program or MEP, and are currently a standalone adapter.

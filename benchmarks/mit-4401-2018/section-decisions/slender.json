@@ -1,0 +1,6 @@
+{
+  "source": "Revised drawing decision: 1 m model text produces 2.5 mm text at chosen 1:400 A4 scale; 1.2 m cut above every storey; unapproved geometry only",
+  "cut_height_above_storey_m": 1.2,
+  "annotation_height_m": 1.0,
+  "scale_denominator": 400
+}

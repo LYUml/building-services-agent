@@ -26,7 +26,7 @@ def validate_settings(settings):
         raise ProjectError('fixed-scale window exceeds A4 landscape')
     if not isinstance(settings['reference_ifc_guid'],str) or not settings['reference_ifc_guid']:
         raise ProjectError('explicit IFC reference GUID required')
-    if settings.get('reference_layer','BSA_PIPE_AXIS') not in ('BSA_PIPE_AXIS','BSA_EQUIPMENT_REFERENCE','BSA_CABLE_AXIS') or settings.get('drawing_name','segments') not in ('segments','equipment','cable-route'):raise ProjectError('supported native reference layer/drawing name required')
+    if settings.get('reference_layer','BSA_PIPE_AXIS') not in ('BSA_PIPE_AXIS','BSA_EQUIPMENT_REFERENCE','BSA_CABLE_AXIS','BSA_SECTION_REFERENCE') or settings.get('drawing_name','segments') not in ('segments','equipment','cable-route','section'):raise ProjectError('supported native reference layer/drawing name required')
     return settings
 
 
