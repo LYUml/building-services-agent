@@ -1,0 +1,17 @@
+annotated-types==0.8.0
+click==8.3.3
+colorama==0.4.6
+honeybee-core==1.64.83
+honeybee-radiance==1.66.304
+honeybee-radiance-command==1.23.0
+honeybee-radiance-folder==2.11.17
+honeybee-schema==2.4.0
+honeybee-standards==2.0.7
+ladybug-core==0.45.0
+ladybug-geometry==1.35.7
+ladybug-geometry-polyskel==1.7.56
+pydantic==2.14.3
+pydantic-openapi-helper==1.0.5
+pydantic_core==2.50.4
+typing-inspection==0.4.5
+typing_extensions==4.16.0

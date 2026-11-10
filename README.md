@@ -200,3 +200,5 @@ Declared bend limits now register as three_phase_bend_limits, with inherited stu
 Source-linked public-brief concept modelling now generates three native storey/space IFC options using explicit design decisions and the existing BIM workflow. All three geometry tasks pass while 34 technical interpretation tasks remain pending. This is gross concept geometry only, not a finished assignment; see [concept spaces](docs/CONCEPT_SPACES.md).
 
 Public concept workflow now includes source-inherited native facade revisions and diagnostic saved-wall previews in the same command. Nine scoped tasks pass while all 34 technical interpretation tasks remain pending; full assignment acceptance is still unproven. See [concept workflow](docs/CONCEPT_SPACES.md).
+
+An executed [Honeybee scene bridge](docs/HONEYBEE_SCENE.md) now converts checked native concept facades into HBJSON, Radiance geometry/materials and exact sensor grids using pinned upstream tools. Annual solving, complete scene applicability and design acceptance remain pending.

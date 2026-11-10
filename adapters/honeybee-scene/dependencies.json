@@ -1,0 +1,138 @@
+[
+  {
+    "name": "annotated-types",
+    "version": "0.8.0",
+    "license": null,
+    "license_files": [
+      "annotated_types-0.8.0.dist-info/licenses/LICENSE"
+    ]
+  },
+  {
+    "name": "click",
+    "version": "8.3.3",
+    "license": null,
+    "license_files": [
+      "click-8.3.3.dist-info/licenses/LICENSE.txt"
+    ]
+  },
+  {
+    "name": "colorama",
+    "version": "0.4.6",
+    "license": null,
+    "license_files": [
+      "colorama-0.4.6.dist-info/licenses/LICENSE.txt"
+    ]
+  },
+  {
+    "name": "honeybee-core",
+    "version": "1.64.83",
+    "license": "AGPL-3.0",
+    "license_files": [
+      "honeybee_core-1.64.83.dist-info/licenses/LICENSE"
+    ]
+  },
+  {
+    "name": "honeybee-radiance",
+    "version": "1.66.304",
+    "license": "AGPL-3.0",
+    "license_files": [
+      "honeybee_radiance-1.66.304.dist-info/licenses/LICENSE"
+    ]
+  },
+  {
+    "name": "honeybee-radiance-command",
+    "version": "1.23.0",
+    "license": "AGPL-3.0",
+    "license_files": [
+      "honeybee_radiance_command-1.23.0.dist-info/licenses/LICENSE"
+    ]
+  },
+  {
+    "name": "honeybee-radiance-folder",
+    "version": "2.11.17",
+    "license": null,
+    "license_files": [
+      "honeybee_radiance_folder-2.11.17.dist-info/licenses/LICENSE"
+    ]
+  },
+  {
+    "name": "honeybee-schema",
+    "version": "2.4.0",
+    "license": "BSD-3-Clause",
+    "license_files": [
+      "honeybee_schema-2.4.0.dist-info/licenses/LICENSE"
+    ]
+  },
+  {
+    "name": "honeybee-standards",
+    "version": "2.0.7",
+    "license": null,
+    "license_files": [
+      "honeybee_standards-2.0.7.dist-info/LICENSE"
+    ]
+  },
+  {
+    "name": "ladybug-core",
+    "version": "0.45.0",
+    "license": "AGPL-3.0",
+    "license_files": [
+      "ladybug_core-0.45.0.dist-info/licenses/LICENSE"
+    ]
+  },
+  {
+    "name": "ladybug-geometry",
+    "version": "1.35.7",
+    "license": "AGPL-3.0",
+    "license_files": [
+      "ladybug_geometry-1.35.7.dist-info/licenses/LICENSE"
+    ]
+  },
+  {
+    "name": "ladybug-geometry-polyskel",
+    "version": "1.7.56",
+    "license": "AGPL-3.0",
+    "license_files": [
+      "ladybug_geometry_polyskel-1.7.56.dist-info/licenses/LICENSE"
+    ]
+  },
+  {
+    "name": "pydantic",
+    "version": "2.14.3",
+    "license": null,
+    "license_files": [
+      "pydantic-2.14.3.dist-info/licenses/LICENSE"
+    ]
+  },
+  {
+    "name": "pydantic-openapi-helper",
+    "version": "1.0.5",
+    "license": "MIT",
+    "license_files": [
+      "pydantic_openapi_helper-1.0.5.dist-info/licenses/LICENSE"
+    ]
+  },
+  {
+    "name": "pydantic_core",
+    "version": "2.50.4",
+    "license": null,
+    "license_files": [
+      "pydantic_core-2.50.4.dist-info/licenses/LICENSE"
+    ]
+  },
+  {
+    "name": "typing-inspection",
+    "version": "0.4.5",
+    "license": null,
+    "license_files": [
+      "typing_inspection-0.4.5.dist-info/licenses/LICENSE"
+    ]
+  },
+  {
+    "name": "typing_extensions",
+    "version": "4.16.0",
+    "license": null,
+    "license_files": [
+      "typing_extensions-4.16.0.dist-info/licenses/LICENSE"
+    ]
+  }
+]

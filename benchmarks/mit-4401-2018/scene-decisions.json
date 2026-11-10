@@ -1,0 +1,15 @@
+{
+  "source": "Assignment5 p2: course reflectance and sensor grid; Assignment8 p3 baseline VLT=0.70 chosen for this A5 concept scenario, not manufacturer data or a supplied A5 glazing requirement. Zero-thickness optical face simplification; not complete annual scene.",
+  "documents": {
+    "sources/assignment5.pdf": "a9cb779dea25e462efb197da0556defd0924630fa7a6a28f81de574b0894e82f",
+    "sources/assignment8.pdf": "d083ab28c78fd116bf304d21df062a2edbf62a448ea1679cf743a13c4f0b8636"
+  },
+  "reflectance": {
+    "wall": 0.5,
+    "floor": 0.2,
+    "ceiling": 0.8
+  },
+  "visible_transmittance": 0.7,
+  "grid_spacing_m": 0.5,
+  "sensor_height_m": 0.85
+}

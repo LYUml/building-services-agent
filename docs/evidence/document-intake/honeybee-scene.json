@@ -1,0 +1,93 @@
+{
+  "run": "runs/honeybee-scenes-v5",
+  "summary": {
+    "compact": {
+      "rooms": 2,
+      "apertures": 8,
+      "aperture_area_m2": 476.0,
+      "sensor_count": 14000,
+      "rad_polygon_count": 20,
+      "exported_punched_area_checks_pass": true,
+      "exported_adjacent_face_offset_m": 2e-06,
+      "geometry_checks_pass": true,
+      "simulation_executed": false,
+      "solver_ready": false,
+      "design_accepted": false,
+      "optical_conversion": {
+        "source_visible_transmittance": 0.7,
+        "saved_glass_transmissivity": 0.7628419848230164,
+        "upstream_approximate_inverse_transmittance": 0.7007609041186985,
+        "verification": "Exact forward Honeybee conversion; upstream inverse uses a 0.01 secant tolerance and is diagnostic only"
+      }
+    },
+    "slender": {
+      "rooms": 2,
+      "apertures": 8,
+      "aperture_area_m2": 532.0,
+      "sensor_count": 14000,
+      "rad_polygon_count": 20,
+      "exported_punched_area_checks_pass": true,
+      "exported_adjacent_face_offset_m": 2e-06,
+      "geometry_checks_pass": true,
+      "simulation_executed": false,
+      "solver_ready": false,
+      "design_accepted": false,
+      "optical_conversion": {
+        "source_visible_transmittance": 0.7,
+        "saved_glass_transmissivity": 0.7628419848230164,
+        "upstream_approximate_inverse_transmittance": 0.7007609041186985,
+        "verification": "Exact forward Honeybee conversion; upstream inverse uses a 0.01 secant tolerance and is diagnostic only"
+      }
+    },
+    "stacked": {
+      "rooms": 4,
+      "apertures": 16,
+      "aperture_area_m2": 672.0,
+      "sensor_count": 14000,
+      "rad_polygon_count": 40,
+      "exported_punched_area_checks_pass": true,
+      "exported_adjacent_face_offset_m": 2e-06,
+      "geometry_checks_pass": true,
+      "simulation_executed": false,
+      "solver_ready": false,
+      "design_accepted": false,
+      "optical_conversion": {
+        "source_visible_transmittance": 0.7,
+        "saved_glass_transmissivity": 0.7628419848230164,
+        "upstream_approximate_inverse_transmittance": 0.7007609041186985,
+        "verification": "Exact forward Honeybee conversion; upstream inverse uses a 0.01 secant tolerance and is diagnostic only"
+      }
+    }
+  },
+  "tests": {
+    "count": 3,
+    "passed": true
+  },
+  "source_review": {
+    "a5": "Course source reviewed all-page record; reflectances/grid from page 2",
+    "a8": "runs/public-brief-intake-v1/a8-review-3.png re-viewed this turn; base VLT 0.70 is an explicit choice for the A5 scene"
+  },
+  "artifacts": {
+    "compact": {
+      "honeybee-scene.json": "b5292b2ff8f46586ceeeb4739e902995ccea243337fca8904ed54ef8839ae7b7",
+      "scene/model.hbjson": "d61224faa693c82ee84b3bdae00d711f5ee16ab1f3a0804d4be90c6c54ba7e81",
+      "scene/scene.rad": "d4e5946689b19212992b8d46963bef4834ccb684222ff82a62b6b0e5adeff61e",
+      "scene/materials.rad": "636c8c76e0fb7e03439e47cefae150b4199ef08d1c92991277390201bbf3d584"
+    },
+    "slender": {
+      "honeybee-scene.json": "eb71dc368278f02f2644af4a40a07b796b96b61a4676290eeca5352a06f88c5e",
+      "scene/model.hbjson": "d0041ad385d81ad3762e2a682eadaf467d360dbb870826cf9fea079037e6dd87",
+      "scene/scene.rad": "d606f6e73d292adfe9127c31cf9f8d1fa0dd82d90956d299272e34222238989e",
+      "scene/materials.rad": "8ffa2815d9bf6d6c75a1bbbf8d7a5fbd5c8a7f6317f94d7c8649aad79334ef33"
+    },
+    "stacked": {
+      "honeybee-scene.json": "c10b6b3e3393f81bd0fbe1cbb584d2fb9237dc51196f596009f7960d8ebd75b4",
+      "scene/model.hbjson": "ae4ee5273cef3eefb9d8959e2a6d6e71a3a2ca0d8945bce10873a5f8ed01e509",
+      "scene/scene.rad": "d96d0bd2219c925573c09a5108ae4a74a41dd76ab3be173a4ecf48f4641ef316",
+      "scene/materials.rad": "643ac7ee27691bce31625a2b8b610d296b444b852f037a842918c5e02faadf32"
+    }
+  },
+  "simulation_executed": false,
+  "solver_ready": false,
+  "design_accepted": false
+}
