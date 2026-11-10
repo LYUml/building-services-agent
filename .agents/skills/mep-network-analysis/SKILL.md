@@ -36,6 +36,12 @@ it is not a transition's wall opening angle. Record partial geometric checks
 without accepting full method applicability. Follow exact source cross-references:
 a supported main-path table does not resolve that fitting's unsupported branch.
 
+For transition sources with a common width/height opening angle,inspect both
+native angles and use taper_angle_difference_deg in declared conditions where
+appropriate. Do not substitute major_taper_angle_deg for a source's equal-angle
+geometry. Bounds used for software alignment are not regulatory or fabrication
+tolerances;the source conditions still require explicit interpretation.
+
 For centred rectangular transition source matching,use transition_geometry in
 the fresh chain product/data-request records. It provides native taper length,
 separate end straights,width/height opening angles and outlet hydraulic-diameter

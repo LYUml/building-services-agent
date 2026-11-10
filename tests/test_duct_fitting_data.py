@@ -78,6 +78,16 @@ class DuctFittingDataTests(unittest.TestCase):
             taper_table['transition_flow_change']=native_tapers[taper_table['product_guid']]['flow_change']
             declared=calculate(model,case,taper_basis)
             self.assertEqual(declared['calculated_table_paths'],8);self.assertFalse(declared['design_accepted'])
+            # A single maximum angle cannot satisfy a source's equal-angle
+            # condition when the saved width and height wall slopes differ.
+            taper_table['conditions']=[dict(quantity='taper_angle_difference_deg',minimum=0.,maximum=1e-6)]
+            path.write_text(json.dumps(taper_basis));checked,_=prepare(path)
+            equal_angle=calculate(model,case,checked)
+            guarded=next(r for r in equal_angle['table_results'] if r['product_guid']==taper_table['product_guid'])
+            self.assertIsNone(guarded['coefficient'])
+            self.assertGreater(guarded['native_condition_checks'][0]['actual'],1e-6)
+            self.assertEqual(equal_angle['calculated_table_paths'],7)
+            taper_table.pop('conditions')
             taper_table['transition_flow_change']='expansion' if taper_table['transition_flow_change']!='expansion' else 'contraction'
             incompatible=calculate(model,case,taper_basis)
             self.assertEqual(incompatible['calculated_table_paths'],7)

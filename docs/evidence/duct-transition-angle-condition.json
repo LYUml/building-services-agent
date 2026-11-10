@@ -1,0 +1,56 @@
+{
+  "scope": "Saved geometry equal-angle condition only;no new physical fitting coefficients or completed pressure design",
+  "source": {
+    "url": "https://xp20.ashrae.org/SupplementalFiles/PHVAC9/Fitting_Loss_Coefficients.pdf",
+    "sha256": "746121b31696fd23cc11a39fd83d7be9ba3fec9bf0d81caa3b5e1ce6235abfbb",
+    "edition": "2021",
+    "location": "printed page20,Fitting4-4 diagram",
+    "interpretation": "Common theta labels visually inspected;explicit source interpretation,not automatically inferred applicability"
+  },
+  "rows": [
+    {
+      "width_angle_deg": 29.999999999999993,
+      "height_angle_deg": 10.207818722034192,
+      "difference_deg": 19.792181277965803,
+      "equal_angle_software_alignment_check": false
+    },
+    {
+      "width_angle_deg": 29.999999999999993,
+      "height_angle_deg": 10.207818722034192,
+      "difference_deg": 19.792181277965803,
+      "equal_angle_software_alignment_check": false
+    },
+    {
+      "width_angle_deg": 29.999999999999996,
+      "height_angle_deg": 15.26148042486013,
+      "difference_deg": 14.738519575139867,
+      "equal_angle_software_alignment_check": false
+    },
+    {
+      "width_angle_deg": 29.999999999999996,
+      "height_angle_deg": 12.235178472509206,
+      "difference_deg": 17.76482152749079,
+      "equal_angle_software_alignment_check": false
+    }
+  ],
+  "software_alignment_bound_deg": [
+    0.0,
+    1e-06
+  ],
+  "published_tolerance_claimed": false,
+  "fresh_saved_model_quantities_verified": true,
+  "targeted_test_methods_passed": 6,
+  "native_workflow_chain_creation": "pass",
+  "official_ifcmcp_inventory": "pass",
+  "synthetic_control_scope": "Fictional constant coefficient only to isolate native equal-angle prerequisites;not physical fitting data",
+  "independent_scalar_checks": true,
+  "all_input_hashes_verified": true,
+  "existing_main_table_contributions_preserved": 2,
+  "unresolved_coefficient_paths": 6,
+  "original_requirements_preserved": 34,
+  "report_angle_column_visually_reviewed": true,
+  "full_pressure_available": false,
+  "design_accepted": false,
+  "quantity_module_sha256": "eb45172ee21044aeb4c988310e031a17fe0d1b976b5a525429fed81a7f0a1871",
+  "generator_sha256": "c2f12850c067ce319ccccfdf1aff5494c78af327e925db6f159144e7c837db47"
+}

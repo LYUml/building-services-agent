@@ -1,5 +1,16 @@
 # Scope and acceptance
 
+Saved transition source matching now exposes the absolute width/height opening
+angle difference to existing bounded table conditions. Six targeted tests cover
+native equal/unequal/one-plane/mixed/reversed cases and reject an incompatible
+query without inventing a coefficient. Actual saved-chain creation and official
+MCP inventory pass;four transition differences are independently recomputed and
+the rendered nine-column report inspected. Existing two main contributions and
+all34 upstream requirements remain preserved;complete pressure stays pending.
+Official2021 Fitting4-4 diagram inspection is a source geometry interpretation,
+not an automatically selected correlation or published construction tolerance.
+See DUCT_FITTING_DATA.md and evidence/duct-transition-angle-condition.json.
+
 The HVAC single-invocation wrapper now optionally runs whole-source-tree review
 after its new saved-native workflow. Actual seven-stage preparation completes
 without stage errors and preserves nine unresolved tasks. Fresh native save/

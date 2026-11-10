@@ -654,3 +654,11 @@ new saved-native workflow;it does not recreate its graph/friction or source
 checks. Package-level controls verify exact source handoff,omission,stage failure
 and later source mutation without native/PDF mocks being treated as engineering
 evidence. No new engine/dependency is added. See HVAC_PACKAGE.md.
+
+Transition equal-angle screening reuses native saved-ring angle extraction and
+the existing bounded SciPy table-condition checks. Official ASHRAE2021 page20
+Fitting4-4 geometry was visually inspected;no publisher table is copied. The
+absolute width/height angle difference permits explicit source conditions without
+a replacement loss engine. Actual four-body quantities,synthetic positive and
+negative controls and the saved-chain workflow execute. This does not infer
+source conditions or make a published correlation physically applicable.

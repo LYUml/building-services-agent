@@ -3,7 +3,8 @@ import math
 
 import numpy as np
 
-ANGLE_QUANTITIES = {'taper_width_angle_deg', 'taper_height_angle_deg', 'major_taper_angle_deg'}
+ANGLE_QUANTITIES = {'taper_width_angle_deg', 'taper_height_angle_deg', 'major_taper_angle_deg',
+    'taper_angle_difference_deg'}
 QUANTITIES = ANGLE_QUANTITIES | {'taper_length_m', 'inlet_straight_length_m', 'outlet_straight_length_m',
     'total_length_m', 'outlet_hydraulic_diameter_m', 'taper_length_over_outlet_hydraulic_diameter',
     'total_length_over_outlet_hydraulic_diameter'}
@@ -48,6 +49,7 @@ def calculate(obj, inlet_name, outlet_name):
     change = 'contraction' if np.all(outlet <= inlet) and np.any(outlet < inlet) else 'expansion' if np.all(outlet >= inlet) and np.any(outlet > inlet) else 'mixed_width_height_change'
     quantities = dict(taper_length_m=taper,inlet_straight_length_m=inlet_straight,outlet_straight_length_m=outlet_straight,
         total_length_m=total,taper_width_angle_deg=angles[0],taper_height_angle_deg=angles[1],major_taper_angle_deg=max(angles),
+        taper_angle_difference_deg=abs(angles[0]-angles[1]),
         outlet_hydraulic_diameter_m=dh,taper_length_over_outlet_hydraulic_diameter=taper/dh,total_length_over_outlet_hydraulic_diameter=total/dh)
     if any(not math.isfinite(v) or v < 0 for v in quantities.values()): raise ValueError('Finite nonnegative transition quantities required')
     return dict(quantities=quantities,flow_change=change,inlet_section_m=inlet.tolist(),outlet_section_m=outlet.tolist(),

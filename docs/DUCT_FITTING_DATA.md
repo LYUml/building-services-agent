@@ -44,7 +44,7 @@ a physically valid method.
 
 Supported centred four-ring transitions also expose taper_length_m,
 inlet_straight_length_m,outlet_straight_length_m,total_length_m,
-taper_width_angle_deg,taper_height_angle_deg,major_taper_angle_deg,
+taper_width_angle_deg,taper_height_angle_deg,major_taper_angle_deg,taper_angle_difference_deg,
 outlet_hydraulic_diameter_m,taper_length_over_outlet_hydraulic_diameter and
 total_length_over_outlet_hydraulic_diameter. inlet_to_outlet_area_ratio is
 available on all supported paths. Transition-only axes/conditions on tees reject.
@@ -58,6 +58,23 @@ the actual outlet. Mixed width contraction/height expansion stays a distinct
 flow-change class,not a pure contraction inferred from area alone. This is a
 scoped dimension reader after full native/source inspection,not another solid
 kernel or a complete geometry/pressure acceptance check.
+
+`taper_angle_difference_deg` is the absolute difference between the two saved
+wall opening angles. It can be used in existing `conditions` to reject a query
+when a source requires equal width/height angles. It is invariant under flow
+reversal. A software test bound of0–0.000001degree only handles numerical
+alignment; it is not a published fabrication tolerance. Source conditions must
+still be interpreted and declared explicitly; the adapter does not infer them
+from a table name or authenticate the source interpretation.
+
+The official2021 supplement's page20 Fitting4-4 diagram labels both directions
+with the same theta. This is a geometry-applicability concern,not permission to
+replace two unequal angles with their maximum. The four actual saved transitions
+have angle differences about19.7922,19.7922,14.7385 and17.7648degrees. An
+equal-angle condition therefore rejects all four. No Fitting4-4 coefficients are
+transcribed or applied,and its tentative contraction footnote is not removed.
+See evidence/duct-transition-angle-condition.json. Full physical applicability,
+friction convention and complete pressure remain unresolved.
 
 Transition quantities and saved construction classifications accompany all
 transition data requests,even when no coefficient table exists. The numerical
