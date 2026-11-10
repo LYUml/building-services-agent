@@ -71,3 +71,17 @@ The source-pinned78DU classroom example, unknown-connection no-calculation branc
 and changed-source rejection execute. Five numerical tests pass, and the original
 identical-appliance source-bound example remains correct after helper reuse. These
 standalone commands are not yet registered workflow tasks.
+
+## Unified workflow tasks
+
+`plumbing_demand` and `discharge_demand` now accept project plus ordinary id,
+requires_pass and optional description. All reference files must stay within the
+plan root and their hashes join workflow integrity. Calculated maps to scoped pass,
+unknown to pending and rejected applicability to fail; downstream requires_pass
+blocks both unresolved branches. Results are saved as demand.json. No diagram or
+engineering requirement is accepted by the mathematical task.
+
+An actual private method-only workflow runs both lecture examples and retains
+manual engineering review; the full15-package coursework intake is unchanged. Six
+focused tests cover probability/DU arithmetic, both executed task types, unknown
+and rejected scope, downstream blocking and changed-source integrity failure.

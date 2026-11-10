@@ -387,3 +387,9 @@ plumbing reference-pinning helper. Actual lecture-source execution and unknown/
 changed-source controls pass; original binomial wrapper rechecked. No engine or
 dependency added. Workflow registration, real building inventory and complete
 drainage acceptance remain pending. See PLUMBING_DEMAND.md.
+
+Demand workflow registration reuses both existing source-bound studies, generic
+executor/reference inventory and dependency gates; no new engine or dependency.
+Actual private two-method execution and six focused tests pass while full coursework
+review remains pending. Unknown/rejected scope blocks downstream work and source
+changes invalidate recorded integrity. See PLUMBING_DEMAND.md.

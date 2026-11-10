@@ -301,7 +301,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","rectangular_network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind in ("water_network","rectangular_network") and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
@@ -423,6 +423,16 @@ def validate_plan(path):
             if type(tolerance) not in (int,float) or not math.isfinite(tolerance) or tolerance<=0:
                 raise ProjectError('Revit check requires a positive finite tolerance in metres')
             inputs.update(local_path(root,t.get(k)) for k in ('inventory','model'))
+        if kind in ('plumbing_demand','discharge_demand'):
+            from . import plumbing_demand_study,discharge_demand_study,plumbing_demand
+            if set(t)-{'id','kind','project','requires_pass','description'}:
+                raise ProjectError('demand task accepts only a source project and ordinary gates')
+            project=local_path(root,t.get('project'))
+            settings=read_json(project)
+            for path in plumbing_demand_study.pinned_references(project,settings):
+                if not Path(path).is_relative_to(root):raise ProjectError('Demand reference must stay within plan root')
+                inputs.add(Path(path))
+            inputs.update(Path(m.__file__).resolve() for m in (plumbing_demand_study,discharge_demand_study,plumbing_demand))
         if kind=='air_allocation':
             from . import air_allocation,air_load,service_areas
             if set(t)-{'id','kind','project','requires_pass','description'}:
@@ -1040,6 +1050,12 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 from .revit_connectivity import run
                 payload=run(local_path(root,t['inventory']),local_path(root,t['model']),folder/'diagnosis.json',t['tolerance_m'])
                 status=payload['diagnostic_status'];reason=payload['scope']+'; native host and complete-system acceptance remain pending'
+            elif t['kind'] in ('plumbing_demand','discharge_demand'):
+                from . import plumbing_demand_study,discharge_demand_study
+                adapter=plumbing_demand_study if t['kind']=='plumbing_demand' else discharge_demand_study
+                payload=adapter.run(local_path(root,t['project']),folder/'demand.json')
+                status={'calculated':'pass','pending':'pending','inapplicable':'fail'}[payload['status']]
+                reason=payload['scope']+'; mathematical task only, full engineering acceptance pending'
             elif t['kind']=='air_allocation':
                 from .air_allocation import run
                 payload=run(local_path(root,t['project']),folder)
