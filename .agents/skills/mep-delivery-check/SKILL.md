@@ -10,6 +10,12 @@ For tee_assembly and tee_losses, read docs/IFC_TEE_TRIAL.md. Inspect assembly-ch
 For tee_pressure, tee_split and tee_selection, inspect pressure boundary semantics, bracket/table coverage, residual, net fitting dissipation and source capacity separately. Selection must retain rejected candidates and the selected rerun under unchanged common duty. Verify the delivered IFC and drawing use that selected candidate. On the actual plotted page check callout-to-schedule correspondence, bore/OD, saved-port overall/reach dimensions and scope note. Numerical/schema/format checks alone cannot establish source authenticity, manufacturer applicability or Hong Kong compliance.
 
 Re-read the requirement matrix and inspect evidence for each deliverable. Check source hashes and provenance, unknown assumptions, code editions, IDs and counts across equipment, circuits, model, diagrams and report.
+For preliminary coursework calculations,use docs/COURSEWORK_SCOPE.md to preserve
+the requested scope and explicit assumption classifications. A supported
+rule-of-thumb load review does not verify actual room load for ADPI or accept
+layout/product obligations sharing the same source quote. Preserve the original
+input issue,source resolution,new producer prerequisites and unchanged full
+requirement matrix before recording any separate scoped review pass.
 Run calculations and review failures. Validate units and native model semantics. For DWG, reopen in AutoCAD and inspect native entities; separately export and visually review every PDF sheet for scale, clipped content, lineweights and legibility. A successful command or DXF validator cannot stand in for either gate.
 For simulations inspect actual engine logs, version, model/weather inputs and result units. Distinguish reproducibility, numerical checks and engineering acceptance.
 

@@ -1,5 +1,14 @@
 # Source-bound delivery review
 
+The HTML audit now shows effective pass/fail/pending counts and one readable
+section per original requirement. Execution,recorded review and effective review
+stay separately visible. Expand the source/evidence section for exact quotes,
+locators,reviewer assertions,blockers,artifact hashes,attachments and Boolean
+facts. Long text wraps without a wide source-quote table;untrusted observations
+and source strings remain HTML-escaped. The audit JSON and acceptance semantics
+are unchanged. See COURSEWORK_SCOPE.md for source-backed preliminary reviews
+that preserve other obligations from the same paragraph.
+
 Audit JSON and HTML retain each requirement's passage ID, validated source locator, exact quote and acceptance target. For multi-document plans, locators include the source document and its hash alongside PDF page/line or Word XML information. Identical quotes from two files remain separate requirements. Locators are reconstructed from current source extraction before use; changing a recorded locator invalidates the audit. The HTML column reports the effective review result after dependency/failure gates, which may differ from a reviewer's asserted status.
 
 Audits also run source-bound dependency diagnosis. A recorded passing task with nonpassing required parents is rejected. Each reviewed requirement exposes `blocked_by`; a blocked manual task stays effectively pending even if its reviewer records pass. An upstream manual review does not rewrite workflow execution or authorize downstream tasks. Independent manual tasks can still receive evidence-backed reviews without being mislabelled executed engine tasks.

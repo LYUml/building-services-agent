@@ -1,5 +1,18 @@
 # Scope and acceptance
 
+Coursework scope review now distinguishes an explicitly requested preliminary
+load/airflow calculation with declared assumptions from verified room load for
+ADPI. Actual source pages and independent decimal arithmetic support two scoped
+manual review passes while all34 original requirement records remain unchanged,
+32 reviews stay pending and manual execution is not relabelled. Original issue
+history and unrelated engineering gaps are retained. The fresh seven-stage
+package has no stage errors;22 report pages and the native plot match bound
+reviewed renders. Delivery HTML now exposes effective counts and expandable
+source/evidence sections;actual summary and expanded source were inspected.
+Fourteen delivery/input-issue tests pass. Full design and multi-discipline agent
+acceptance remain unfinished. See COURSEWORK_SCOPE.md and
+evidence/coursework-preliminary-review.json.
+
 Pinned HVAC project configurations now replay the existing package with its saved
 terminal,ADPI,planar,junction and whole-tree selections. Complete discovered
 source/settings inventories are verified before execution and rechecked before

@@ -670,3 +670,11 @@ host runtimes address omitted review flags without commands in document data.
 Source/setting mutation and incomplete-inventory controls execute separately from
 native evidence. No new engine,dependency or upstream implementation is copied.
 See HVAC_PROJECT.md for the source-pinned replay contract.
+
+Preliminary coursework reviews reuse existing planning_records,input blockers,
+numerical producers,delivery template/audit and independent scalar arithmetic.
+No new requirements parser,loss engine or simulation library is added. Readable
+audit sections reuse Python html escaping and native HTML details elements;
+source/evidence JSON and existing acceptance gates are unchanged. Actual source
+review,scoped assertions and native package evidence remain distinct from tests
+of review consistency. See COURSEWORK_SCOPE.md and DELIVERY_REVIEW.md.

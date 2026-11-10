@@ -13,6 +13,25 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 class DeliveryReviewTests(unittest.TestCase):
+    def test_readable_review_keeps_effective_counts_source_and_escaped_observations(self):
+        with tempfile.TemporaryDirectory() as folder:
+            plan,root,path,review=self.fixture(Path(folder));self.fill(root,review)
+            review['requirements'][1]['status']='pending'
+            review['requirements'][0]['notes']='Scoped observation <script>untrusted()</script> & source text'
+            path.write_text(json.dumps(review))
+            out=Path(folder)/'readable-audit';result=run(plan,root,path,out)
+            self.assertEqual([r['effective_review_status'] for r in result['requirements']],['pass','pending'])
+            text=(out/'report.html').read_text()
+            self.assertIn('pass: <strong>1</strong>',text)
+            self.assertIn('pending: <strong>1</strong>',text)
+            self.assertIn('&lt;script&gt;untrusted()&lt;/script&gt; &amp; source text',text)
+            self.assertNotIn('<script>',text)
+            self.assertEqual(text.count('<article>'),2)
+            self.assertIn(result['requirements'][0]['quote'],text)
+            self.assertIn('Recorded review',text);self.assertIn('Effective review',text)
+            self.assertIn('Source locator',text);self.assertIn('Input blockers',text)
+            self.assertFalse(result['design_accepted'])
+
     def test_manual_review_cannot_clear_its_required_pending_parent(self):
         with tempfile.TemporaryDirectory() as folder:
             outer=Path(folder);plan,root,path,review=self.fixture(outer)

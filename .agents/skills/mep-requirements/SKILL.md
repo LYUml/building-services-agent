@@ -11,6 +11,14 @@ Read the actual document, including drawing notes and deliverable list; cite pag
 Create a project data file using docs/PROJECT_FORMAT.md for supported electrical tasks. Distinguish measured inputs, manufacturer data, course-given values, design targets and explicit assumptions. A proposed assumption is not a supplied fact. Record thermal kW, electrical kW and kVA separately.
 Before geometry, prove source units and scale using a known dimension and identify WCS/local coordinate transformation. Before simulation, collect climate/weather, constructions, infiltration, occupancy/load schedules and HVAC control assumptions. Missing inputs may permit an explicitly labelled scenario, but not an asserted measured answer.
 Separate assignment-permitted design choices from missing supplied facts. Document chosen sites/geometry/programs as design decisions; do not label them measured inputs or invent them as course-given data. Preserve approximate targets with unresolved acceptance bands instead of silently converting them into exact minima. Preserve fictional course/game currencies separately from engineering cost estimates.
+
+For explicitly preliminary rule-of-thumb load tasks,read docs/COURSEWORK_SCOPE.md.
+Review declared air-property/temperature assumptions within that requested scope
+while keeping actual room-load and ADPI applicability unresolved where needed.
+Preserve the original gap and source evidence in a planning record before a new
+plan/run;retain all original requirements and unrelated blockers. A scoped manual
+review may cite independently checked producer artifacts without accepting other
+obligations in the same quoted paragraph or changing old execution statuses.
 Keep supplied files unchanged and record hashes. Do not upload private source documents to external services without task authorization.
 
 For local-code requirements use ../mep-regulations/SKILL.md. Record jurisdiction, building/works scope, relevant dates, selected editions and applicability evidence before assigning numeric limits. Keep regulatory clauses distinct from course targets and contract specifications. Map unimplemented disciplines/clauses to explicit pending review requirements; a narrow rule pack cannot replace the brief's full scope.
