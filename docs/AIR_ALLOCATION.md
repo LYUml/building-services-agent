@@ -80,3 +80,5 @@ propagation, invalid graph/membership, failed upstream blocking and exceeded sec
 limits. Actual private 80-terminal / 20-leaf / 47-section execution reconciles all
 section flows with the prior trial within 1.78e-15 m3/s, preserving all original brief
 requirements and pending engineering/regulatory work packages.
+
+Candidate size screening is now available in the same inherited duct_schedule task; see DUCT_SCHEDULE.md. This supersedes the earlier supplied-size-only limitation, while geometry regeneration and full design acceptance remain unresolved.

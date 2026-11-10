@@ -1,8 +1,6 @@
 # Building Services Agent
 
-[Inherited duct flows](docs/AIR_ALLOCATION.md) now aggregate exact allocated terminal demands through declared VAV/tree membership into supplied section checks. Actual 80-terminal/20-leaf/47-section execution and 45 focused tests pass. Automatic size selection, drawing regeneration and full design acceptance remain pending.
-
-Source-bound air allocation now supplies exact inherited maximum/minimum flows to terminal lookup in one workflow. Actual 80-terminal execution and 42 focused tests pass, with failed/mutated producer and replacement-input controls. VAV/tree flow inheritance, automatic drawing regeneration and full engineering acceptance remain pending; see [air allocation](docs/AIR_ALLOCATION.md).
+The HVAC workflow now connects classified load/area allocation to terminal lookup, VAV/tree flow aggregation and [candidate duct sizing](docs/DUCT_SCHEDULE.md). Actual private 80-terminal/20-leaf/47-section execution retains 16,779 candidate checks, matching the prior native-reconciled sizes; 52 focused tests pass. Drawing regeneration, source/ADPI review and full engineering/regulatory acceptance remain pending.
 
 需求文档 → 可追溯项目数据 → CAD/BIM → 工程计算与仿真 → 校核 → 交付。
 

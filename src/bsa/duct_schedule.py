@@ -4,7 +4,7 @@ import hashlib
 import json
 import math
 from pathlib import Path
-from .duct_equivalent import calculate
+from .duct_equivalent import calculate, select_sizes
 
 
 def run(project_path, output, *, allocation_path=None, allocation_sha256=None):
@@ -45,11 +45,32 @@ def run(project_path, output, *, allocation_path=None, allocation_sha256=None):
             raise ValueError('Explicit velocity, friction and aspect limits required')
         if any(type(v) not in (int, float) or not math.isfinite(v) or v <= 0 for v in limits.values()) or limits['aspect_ratio'] < 1:
             raise ValueError('Invalid section limits')
-        inputs = {k: section[k] for k in ('flow_m3_s', 'width_m', 'height_m')}
-        calculation = calculate(**inputs, **project['air'])
-        failures = [key for key, limit in limits.items() if calculation[key] > limit]
-        rows.append(dict(id=name, inputs=inputs, calculation=calculation,
-                         limits=limits, failures=failures))
+        selection=None
+        if 'candidates' in section:
+            if 'width_m' in section or 'height_m' in section:
+                raise ValueError('Choose supplied dimensions or candidate sizing, not both')
+            if not isinstance(section.get('candidate_basis'),str) or not section['candidate_basis'].strip():
+                raise ValueError('Explicit candidate size source/assumption required')
+            selection=select_sizes(candidates=section['candidates'],
+                max_velocity_m_s=limits['actual_velocity_m_s'],
+                max_friction_Pa_m=limits['friction_Pa_m'],
+                max_aspect_ratio=limits['aspect_ratio'],
+                flow_m3_s=section['flow_m3_s'],**project['air'])
+            chosen=selection['selected']
+            inputs=dict(flow_m3_s=section['flow_m3_s'])
+            if chosen:
+                inputs.update(width_m=chosen['width_m'],height_m=chosen['height_m'])
+                calculation=chosen['calculation'];failures=[]
+            else:
+                calculation=None;failures=['no_feasible_size']
+        else:
+            inputs = {k: section[k] for k in ('flow_m3_s', 'width_m', 'height_m')}
+            calculation = calculate(**inputs, **project['air'])
+            failures = [key for key, limit in limits.items() if calculation[key] > limit]
+        row=dict(id=name,inputs=inputs,calculation=calculation,limits=limits,failures=failures)
+        if selection is not None:
+            row.update(selection=selection,candidate_basis=section['candidate_basis'])
+        rows.append(row)
     if not rows:
         raise ValueError('Nonempty section list required')
     if project_path.read_bytes() != raw:
@@ -64,6 +85,8 @@ def run(project_path, output, *, allocation_path=None, allocation_sha256=None):
         result['allocation_input']={str(allocation_path):allocation_sha256}
         result['flow_aggregation']=aggregation
         result['scope']='Inherited prescribed terminal demands aggregated through declared tree; section checks only, physical connections, local losses, fan duty and geometry remain pending'
+    if any('selection' in r for r in rows):
+        result['scope']+='; candidate sizing ranks feasible sections by area/perimeter, not network pressure or spatial fit'
     output.mkdir(parents=True)
     (output/'results.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
     with (output/'schedule.csv').open('w', newline='', encoding='utf-8') as f:
@@ -71,6 +94,9 @@ def run(project_path, output, *, allocation_path=None, allocation_sha256=None):
         writer.writerow(['Section', 'Flow L/s', 'Width mm', 'Height mm', 'Velocity m/s', 'Friction Pa/m', 'Aspect ratio', 'Failed criteria'])
         for r in rows:
             i, c = r['inputs'], r['calculation']
+            if c is None:
+                writer.writerow([r['id'],i['flow_m3_s']*1000,'','','','','',';'.join(r['failures'])])
+                continue
             writer.writerow([r['id'], i['flow_m3_s']*1000, i['width_m']*1000,
                              i['height_m']*1000, c['actual_velocity_m_s'],
                              c['friction_Pa_m'], c['aspect_ratio'], ';'.join(r['failures'])])

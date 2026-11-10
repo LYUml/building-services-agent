@@ -38,3 +38,23 @@ failure dependency and changed-input controls. Network/geometry binding and
 complete assignment generation remain separate work.
 
 Workflow tasks may now inherit an earlier air_allocation via depends_on and an explicit rooted tree/terminal membership; omit prescribed section flows. Exact identities, unique coverage and producer hashes are enforced. This binds flow, not physical topology or automatic sizing. See AIR_ALLOCATION.md.
+
+
+## Candidate sizing in the same workflow
+
+A section can supply `candidates` (each `id`, `width_m`, `height_m`) and a nonempty
+`candidate_basis` instead of width/height. The existing `duct_equivalent.select_sizes`
+screens the explicit velocity, friction and aspect limits and ranks feasible sizes
+by area, perimeter and ID. Every candidate and rejection remains in `results.json`.
+No feasible candidate yields a failed section, `calculation: null`, absent selected
+dimensions and blank CSV dimension/calculation cells; downstream gates remain blocked.
+Supplied dimensions and candidates cannot be mixed on one section. Candidate grid
+assumptions must not be labelled as manufacturer stock or spatially coordinated sizes.
+
+This combines with inherited `air_allocation` tree flows. 52 focused tests pass.
+Actual private 47-section execution screens 357 candidates each (16,779 retained
+checks), selecting exactly the prior candidate dimensions whose schedule had been
+reconciled with the reopened DWG. This numerical replay is not a new native CAD
+write/reopen or new coordination review. Auto-regeneration, physical fittings,
+insulation, vertical constraints, fan duty and complete engineering acceptance remain
+pending. The broad scope string retains separate source/physical topology checks.

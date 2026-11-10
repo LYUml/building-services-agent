@@ -74,3 +74,36 @@ class DuctScheduleTests(unittest.TestCase):
                 self.assertTrue(verify(out)['integrity_pass'])
                 self.project.write_text('{}', encoding='utf-8')
                 self.assertFalse(verify(out)['integrity_pass'])
+
+    def candidates(self):
+        section=self.data['sections'][0]
+        section.pop('width_m');section.pop('height_m')
+        section.update(candidate_basis='Synthetic size options, not products',candidates=[dict(id='small',width_m=.2,height_m=.2),dict(id='large',width_m=.8,height_m=.4)])
+        return section
+
+    def test_candidate_selection_retains_rejected_options(self):
+        section=self.candidates()
+        r=self.execute();row=r['sections'][0]
+        self.assertEqual(r['status'],'pass')
+        self.assertEqual(row['selection']['selected']['id'],'large')
+        self.assertIn('actual_velocity_m_s',row['selection']['candidates'][0]['failures'])
+        self.assertEqual(row['inputs']['width_m'],.8)
+        self.assertFalse(r['design_accepted'])
+
+    def test_no_feasible_size_saves_failure_without_fake_dimensions(self):
+        import csv
+        section=self.candidates();section['candidates']=section['candidates'][:1]
+        r=self.execute();row=r['sections'][0]
+        self.assertEqual(r['status'],'fail')
+        self.assertIsNone(row['calculation'])
+        self.assertIsNone(row['selection']['selected'])
+        self.assertNotIn('width_m',row['inputs'])
+        with (self.root/'out/schedule.csv').open() as f:record=next(csv.DictReader(f))
+        self.assertEqual(record['Width mm'],'')
+        self.assertEqual(record['Failed criteria'],'no_feasible_size')
+
+    def test_candidate_replacement_and_missing_basis_rejected(self):
+        section=self.candidates();section['width_m']=.8
+        with self.assertRaisesRegex(ValueError,'not both'):self.execute()
+        del section['width_m'];section['candidate_basis']=''
+        with self.assertRaisesRegex(ValueError,'candidate size'):self.execute()

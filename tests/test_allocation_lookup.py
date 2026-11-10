@@ -62,6 +62,9 @@ class AllocationLookupTests(unittest.TestCase):
         duct=dict(basis='Synthetic supplied sizes',air=dict(density_kg_m3=1.2,viscosity_Pa_s=1.81e-5,roughness_m=.00009),tree=dict(root='R',sections=[dict(id='SA',**{'from':'R','to':'A'}),dict(id='SB',**{'from':'R','to':'B'})],leaf_terminals=dict(A=['A'],B=['B']),basis='Synthetic terminal leaves'),sections=[dict(id=k,width_m=.8,height_m=.4,limits=dict(actual_velocity_m_s=8,friction_Pa_m=2,aspect_ratio=4)) for k in ('SA','SB')])
         self.plan['tasks'].append(dict(id='ducts',kind='duct_schedule',project='ducts.json',depends_on='allocation'))
         self.plan['requirements'].append(dict(self.plan['requirements'][0],id='RD',task='ducts'))
+        for section in duct['sections']:
+            section.pop('width_m');section.pop('height_m')
+            section.update(candidate_basis='Synthetic grid',candidates=[dict(id='small',width_m=.2,height_m=.2),dict(id='large',width_m=.8,height_m=.4)])
         for right,fraction in [(5,.3),(7,.4)]:
             self.allocation['terminals'][1]['center_m']=[right,2]
             (self.root/'ducts.json').write_text(json.dumps(duct))

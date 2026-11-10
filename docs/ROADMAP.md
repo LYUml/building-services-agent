@@ -1,8 +1,6 @@
 # Scope and acceptance
 
-[Inherited duct flows](AIR_ALLOCATION.md) now aggregate exact allocated terminal demands through declared VAV/tree membership into supplied section checks. Actual 80-terminal/20-leaf/47-section execution and 45 focused tests pass. Automatic size selection, drawing regeneration and full design acceptance remain pending.
-
-Source-bound air allocation now supplies exact inherited maximum/minimum flows to terminal lookup in one workflow. Actual 80-terminal execution and 42 focused tests pass, with failed/mutated producer and replacement-input controls. VAV/tree flow inheritance, automatic drawing regeneration and full engineering acceptance remain pending; see [air allocation](AIR_ALLOCATION.md).
+The HVAC workflow now connects classified load/area allocation to terminal lookup, VAV/tree flow aggregation and [candidate duct sizing](DUCT_SCHEDULE.md). Actual private 80-terminal/20-leaf/47-section execution retains 16,779 candidate checks, matching the prior native-reconciled sizes; 52 focused tests pass. Drawing regeneration, source/ADPI review and full engineering/regulatory acceptance remain pending.
 
 Physical cable route release now composes declared product limits, represented-model coordination and scoped HK table gates on one exact model/study. Actual positive reaches audited/reopened native DWG and inspected PDF; stricter-product-fail/code-pass and product-pass/unknown-code cases both block before drawing. Synthetic evidence does not establish real manufacturer selection, no-damage or full installation/Hong Kong acceptance (HK_CABLE_BENDS.md).
 
