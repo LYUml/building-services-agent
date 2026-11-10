@@ -1,0 +1,35 @@
+{
+  "repository": "https://github.com/chuongmep/OpenMEP",
+  "revision": "b172d526b91bdf818f602dfecbc92a3d77be9645",
+  "reviewed": "2026-11-11",
+  "inspected_files": [
+    {
+      "path": "README.md",
+      "git_blob_sha": "d5424374dc3cc5b7923141f26248cd55d663bc91",
+      "url": "https://github.com/chuongmep/OpenMEP/blob/b172d526b91bdf818f602dfecbc92a3d77be9645/README.md"
+    },
+    {
+      "path": "LICENSE.md",
+      "git_blob_sha": "79db9868967897bf1b593e62dc140f945b2cf87e",
+      "url": "https://github.com/chuongmep/OpenMEP/blob/b172d526b91bdf818f602dfecbc92a3d77be9645/LICENSE.md"
+    },
+    {
+      "path": "OpenMEPRevit/Element/Fitting.cs",
+      "git_blob_sha": "dabff42b8e1408a6a5cb380693abc3d436760dba",
+      "url": "https://github.com/chuongmep/OpenMEP/blob/b172d526b91bdf818f602dfecbc92a3d77be9645/OpenMEPRevit/Element/Fitting.cs"
+    }
+  ],
+  "root_license": "MIT, copyright2023 chuongmep",
+  "dependency_license_note": "README identifies Miscellany geometry display dependency as AGPL-3.0 and LunchBox dependency as LGPL-3.0; inspect selected dependency closure before adoption",
+  "inspected_methods": [
+    "NewTeeFitting",
+    "NewTransitionFitting"
+  ],
+  "code_findings": [
+    "Fitting methods use DocumentManager.Instance.CurrentDBDocument and TransactionManager",
+    "Creation delegates to Autodesk Revit document fitting APIs with Revit Connector inputs"
+  ],
+  "execution_status": "Source inspected only; not installed, built or executed",
+  "decision": "Candidate for an approved Revit/Dynamo environment; not adopted as an independent CLI or a workaround for blocked deployment",
+  "attribution": "No upstream source bodies or binaries vendored"
+}

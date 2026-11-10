@@ -473,3 +473,13 @@ same review as an optional stage rather than a second clearance engine. Fifteen
 related tests plus an actual five-stage private package verify source/coverage
 retention,376 pairs,22-page render correspondence and complete artifact hashes.
 Replacement inputs reject; the limited clear projection never releases full design.
+
+Finite fitting reuse follow-up: installed IfcOpenShell0.8.5 transition/bend helpers
+were source-inspected and the transition executed/saved/native-reopened for solid
+and hollow-profile synthetic inputs. Both yield the same filled outer envelope,
+not wall material or automatic ports; independent volume/mesh evidence is retained.
+OpenMEP Revit fitting source and license/README are pinned at commit
+b172d526b91bdf818f602dfecbc92a3d77be9645; it requires Revit/Dynamo document/transaction
+services and is not installed/executed. Prefer upstream shape machinery plus thin
+wall/port QA glue; no new engine, dependency, loader or production claim. See
+MEP_FITTING_REUSE.md and adapters/openmep/research.json.

@@ -1,0 +1,58 @@
+{
+  "ifcopenshell_version": "0.8.5",
+  "upstream": "https://github.com/IfcOpenShell/IfcOpenShell",
+  "builder_sha256": "7d474a7df93e9fd46681b0814e80345e905d147c661d0fec50d9dc3b662dc6f4",
+  "script_sha256": "7c83e20e6f8798a445c6f0f26b24fcd3cf930a25bb8f609921829c96d37474bf",
+  "synthetic_inputs": {
+    "start_profile_m": [
+      0.6,
+      0.3
+    ],
+    "end_profile_m": [
+      0.4,
+      0.2
+    ],
+    "start_length_m": 0.1,
+    "end_length_m": 0.1,
+    "angle_degrees": 30
+  },
+  "upstream_parameters": {
+    "start_length": 0.1,
+    "end_length": 0.1,
+    "angle": 30,
+    "profile_offset": [
+      0.0,
+      0.0
+    ],
+    "transition_length": 0.3732050807568877,
+    "full_transition_length": 0.5732050807568877
+  },
+  "native_saved_geometry_executed": true,
+  "vertex_count": 16,
+  "triangle_count": 28,
+  "boundary_edge_count": 0,
+  "nonmanifold_edge_count": 0,
+  "all_mesh_edges_have_two_faces": true,
+  "bounds_m": [
+    [
+      -0.3,
+      -0.15,
+      0.0
+    ],
+    [
+      0.3,
+      0.15,
+      0.5732050807568877
+    ]
+  ],
+  "port_count": 0,
+  "wall_thickness_supplied": true,
+  "supplied_wall_thickness_m": 0.005,
+  "mesh_volume_m3": 0.07327264356253911,
+  "independent_filled_envelope_volume_m3": 0.07327264356253911,
+  "matches_filled_outer_envelope": true,
+  "ifc_sha256": "701187a2c3ff772223361c29e42369d33eed6f6bcc0cb4e1056f350c8196e1d3",
+  "production_adapter": false,
+  "design_accepted": false,
+  "scope": "Upstream transition representation probe only; no hollow wall material, physical ports, pressure loss, assembly or engineering acceptance"
+}
