@@ -18,11 +18,11 @@ rejection, inconsistent flow rejection and escaped source text. Actual private r
 produces 320 direction rows, 20 groups, 47 sections and all 34 source requirement
 records. The fresh native plot is identical to the previously inspected image.
 
-This is a single-system numerical HTML report, not a final coursework narrative or
-an automatically reviewed PDF. Final references, geometry/flexible-route discussion,
-visual report layout, source/ADPI/regulatory applicability and full delivery remain
-separate requirements. The existing privately reviewed PDF remains a distinct artifact
-until the general report renderer is integrated and reviewed.
+This is a single-system numerical report, not a final coursework narrative. The PDF
+renderer below and HVAC_PACKAGE.md provide integrated export and executed visual
+evidence. Final references, geometry/flexible-route discussion, source/ADPI/regulatory
+applicability and full delivery remain separate requirements. Each new output still
+requires its own review evidence.
 
 
 ## Pinned PDF renderer
