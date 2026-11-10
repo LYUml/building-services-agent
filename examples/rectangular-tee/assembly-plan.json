@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "brief": "assembly-brief.md",
+  "brief_sha256": "36f5bdf2bd228c0ac220ce91d84e06167e649a3ee7c8db7624ce1664f5cefc75",
+  "passage_dispositions": {
+    "P001": "requirement",
+    "P002": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "assembly",
+      "kind": "rectangular_tee_assembly",
+      "tee_spec": "project.json",
+      "assembly_spec": "assembly.json"
+    },
+    {
+      "id": "clash",
+      "kind": "ifc_clash",
+      "depends_on": "assembly",
+      "policy": "assembly-clash-policy.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "assembly",
+      "task": "assembly",
+      "passage": "P001",
+      "quote": "Author the synthetic equal-section rectangular tee and three butt-ended straight ducts from the explicit source specifications. Verify saved geometry, stable ports, directed connections, material continuity and open air paths.",
+      "acceptance": "Author the synthetic equal-section rectangular tee and three butt-ended straight ducts from the explicit source specifications. Verify saved geometry, stable ports, directed connections, material continuity and open air paths."
+    },
+    {
+      "id": "clash",
+      "task": "clash",
+      "passage": "P002",
+      "quote": "Check represented-element clearances with the explicitly synthetic joint contact policy. Retain actual product, joint construction, loss, installation and regulatory acceptance pending.",
+      "acceptance": "Check represented-element clearances with the explicitly synthetic joint contact policy. Retain actual product, joint construction, loss, installation and regulatory acceptance pending."
+    }
+  ]
+}

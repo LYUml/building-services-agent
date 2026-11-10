@@ -1,0 +1,34 @@
+{
+  "scope": "all represented non-feature non-virtual IfcElements",
+  "sources": {
+    "demo": "Explicit synthetic QA policy only: 10 mm clearance away from three 0.25 m radius butt-end regions; dimensions fit the 0.4 by 0.2 m ideal tee fixture. Not a product detail or regulation requirement."
+  },
+  "source": "demo",
+  "minimum_clearance_m": 0.01,
+  "intersection_tolerance_m": 0.0001,
+  "contact_tolerance_m": 0.0001,
+  "overlap_volume_tolerance_m3": 1e-10,
+  "maximum_boolean_pairs": 1000,
+  "allowed_contacts": [
+    {
+      "from_port_guid": "2gMSO4csPIsRBWZBzmTR3z",
+      "to_port_guid": "0r_aMSryPVuPMeifF3zTbv",
+      "region_radius_m": 0.25,
+      "source": "demo"
+    },
+    {
+      "from_port_guid": "2RxS1Mn6jQSgqYwaeSB2V2",
+      "to_port_guid": "1eMM54ffLIhBAYBAdFKNpt",
+      "region_radius_m": 0.25,
+      "source": "demo"
+    },
+    {
+      "from_port_guid": "2W2$e4OW1H5eCAsZ5UKesx",
+      "to_port_guid": "0PSHIPf4zObu3evryxDHhE",
+      "region_radius_m": 0.25,
+      "source": "demo"
+    }
+  ],
+  "contact_clearance_mode": "outside_regions",
+  "contact_region_segments": 64
+}

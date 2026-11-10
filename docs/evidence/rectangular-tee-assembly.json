@@ -1,0 +1,267 @@
+{
+  "scope": "Declared ideal equal-section sharp tee and three butt-ended straight walls only; no joints, products, losses, installation or jurisdiction acceptance",
+  "checks": {
+    "tee": {
+      "schema_express_issue_count": 0,
+      "ports": 3,
+      "one_connected_material": true,
+      "euler_characteristic": -2,
+      "native_material_volume_m3": 0.00871950000000001,
+      "independent_material_volume_m3": 0.008719500000000019,
+      "bore_probe_overlap_m3": [
+        0.0,
+        0.0
+      ],
+      "saved_source_geometry_and_port_frames": true
+    },
+    "components": 4,
+    "ports": 9,
+    "connections": 3,
+    "coincident_opposed_interfaces": 3,
+    "material_overlap_m3": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "one_connected_material": true,
+    "euler_characteristic": -2,
+    "material_volume_m3": 0.015429500000000013,
+    "independent_material_volume_m3": 0.015429500000000013,
+    "bore_probe_overlap_m3": [
+      0.0,
+      0.0
+    ]
+  },
+  "tasks": {
+    "assembly": {
+      "kind": "rectangular_tee_assembly",
+      "status": "pass",
+      "scope": "Declared ideal equal-section sharp tee and three butt-ended straight walls only; no joints, products, losses, installation or jurisdiction acceptance"
+    },
+    "clash": {
+      "kind": "ifc_clash",
+      "status": "pass",
+      "scope": "saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending"
+    }
+  },
+  "integrity_pass": true,
+  "assembly_ifc_sha256": "cadd4131c3b03def016e1278e25def1157652384a639967a1ae9a49cf8acec21",
+  "generator_sha256": "9ee1d07893441b8bd2ceaa003e36b3223cacfafb1a82a6c73f0316c2cd36d69c",
+  "source_hashes": {
+    "project.json": "22f347447ca039705d5471a17ee5dc91a0172788cfffddd17f5725d973219636",
+    "assembly.json": "5ba8db336eb8b5e95297995ee8d4b223f05cdb5af18706401ea162194cc2cd57"
+  },
+  "clash": {
+    "physical_element_count": 4,
+    "loaded_geometry_count": 4,
+    "potential_pair_count": 6,
+    "checks": {
+      "geometry_coverage": true,
+      "no_intersections": true,
+      "clearance": true
+    },
+    "calculated_checks_pass": true,
+    "outside_region_checks": [
+      {
+        "pair": [
+          "034VzUar1SnwCuMLANAyHz",
+          "3ZRncGELXUnvDb3t1kuGr4"
+        ],
+        "pass_check": true,
+        "status": "pass",
+        "sphere_segments": 64,
+        "mask_radius_shrink_m": 1e-05,
+        "gap_guard_m": 2e-05,
+        "required_clearance_m": 0.01,
+        "proof_threshold_m": 0.01002,
+        "scope": "both outside-region material parts versus the other full body; conservative clipped-solid lower bounds",
+        "regions": [
+          {
+            "centre_world_m": [
+              0.0,
+              0.0,
+              -0.6
+            ],
+            "sourced_radius_m": 0.25,
+            "mask_max_vertex_radius_m": 0.24999000000000005
+          }
+        ],
+        "directions": [
+          {
+            "outside_guid": "034VzUar1SnwCuMLANAyHz",
+            "full_guid": "3ZRncGELXUnvDb3t1kuGr4",
+            "outside_empty": false,
+            "conservative_gap_lower_bound_m": 0.01002,
+            "pass_check": true
+          },
+          {
+            "outside_guid": "3ZRncGELXUnvDb3t1kuGr4",
+            "full_guid": "034VzUar1SnwCuMLANAyHz",
+            "outside_empty": false,
+            "conservative_gap_lower_bound_m": 0.01002,
+            "pass_check": true
+          }
+        ]
+      },
+      {
+        "pair": [
+          "034VzUar1SnwCuMLANAyHz",
+          "3mMYoTTA5R$uVnxpKXEKL5"
+        ],
+        "pass_check": true,
+        "status": "pass",
+        "sphere_segments": 64,
+        "mask_radius_shrink_m": 1e-05,
+        "gap_guard_m": 2e-05,
+        "required_clearance_m": 0.01,
+        "proof_threshold_m": 0.01002,
+        "scope": "both outside-region material parts versus the other full body; conservative clipped-solid lower bounds",
+        "regions": [
+          {
+            "centre_world_m": [
+              0.0,
+              0.0,
+              0.6
+            ],
+            "sourced_radius_m": 0.25,
+            "mask_max_vertex_radius_m": 0.24999000000000005
+          }
+        ],
+        "directions": [
+          {
+            "outside_guid": "034VzUar1SnwCuMLANAyHz",
+            "full_guid": "3mMYoTTA5R$uVnxpKXEKL5",
+            "outside_empty": false,
+            "conservative_gap_lower_bound_m": 0.01002,
+            "pass_check": true
+          },
+          {
+            "outside_guid": "3mMYoTTA5R$uVnxpKXEKL5",
+            "full_guid": "034VzUar1SnwCuMLANAyHz",
+            "outside_empty": false,
+            "conservative_gap_lower_bound_m": 0.01002,
+            "pass_check": true
+          }
+        ]
+      },
+      {
+        "pair": [
+          "034VzUar1SnwCuMLANAyHz",
+          "1CuXhJ1fPHUOOtUu4Rly5G"
+        ],
+        "pass_check": true,
+        "status": "pass",
+        "sphere_segments": 64,
+        "mask_radius_shrink_m": 1e-05,
+        "gap_guard_m": 2e-05,
+        "required_clearance_m": 0.01,
+        "proof_threshold_m": 0.01002,
+        "scope": "both outside-region material parts versus the other full body; conservative clipped-solid lower bounds",
+        "regions": [
+          {
+            "centre_world_m": [
+              0.5,
+              0.0,
+              0.0
+            ],
+            "sourced_radius_m": 0.25,
+            "mask_max_vertex_radius_m": 0.24999000000000005
+          }
+        ],
+        "directions": [
+          {
+            "outside_guid": "034VzUar1SnwCuMLANAyHz",
+            "full_guid": "1CuXhJ1fPHUOOtUu4Rly5G",
+            "outside_empty": false,
+            "conservative_gap_lower_bound_m": 0.01002,
+            "pass_check": true
+          },
+          {
+            "outside_guid": "1CuXhJ1fPHUOOtUu4Rly5G",
+            "full_guid": "034VzUar1SnwCuMLANAyHz",
+            "outside_empty": false,
+            "conservative_gap_lower_bound_m": 0.01002,
+            "pass_check": true
+          }
+        ]
+      }
+    ]
+  },
+  "oblique_bidirectional_case": {
+    "checks": {
+      "tee": {
+        "schema_express_issue_count": 0,
+        "ports": 3,
+        "one_connected_material": true,
+        "euler_characteristic": -2,
+        "native_material_volume_m3": 0.00826854399999933,
+        "independent_material_volume_m3": 0.008268544000000017,
+        "bore_probe_overlap_m3": [
+          0.0,
+          0.0
+        ],
+        "saved_source_geometry_and_port_frames": true
+      },
+      "components": 4,
+      "ports": 9,
+      "connections": 6,
+      "coincident_opposed_interfaces": 3,
+      "material_overlap_m3": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "one_connected_material": true,
+      "euler_characteristic": -2,
+      "material_volume_m3": 0.014938944000000016,
+      "independent_material_volume_m3": 0.014938944000000032,
+      "bore_probe_overlap_m3": [
+        0.0,
+        0.0
+      ]
+    },
+    "ifc_sha256": "16c21507cd51715d5352c0452de7b2d6d3844daf76d1efe711a1f6cd4fcc5db6",
+    "rotation": [
+      [
+        0.6,
+        0,
+        0.8
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        -0.8,
+        0,
+        0.6
+      ]
+    ],
+    "origin_m": [
+      12,
+      -7,
+      4
+    ]
+  },
+  "visual_review": {
+    "ifc_sha256": "cadd4131c3b03def016e1278e25def1157652384a639967a1ae9a49cf8acec21",
+    "image_sha256": "6067889c3d1875bc7b63ccd4dad45fb9a74f07ed0fb6ab2d0ef4c0c494d8eb3c",
+    "scope": "Local saved-mesh T arrangement and four-component inclusion only",
+    "observations": [
+      "Four included distribution components, none omitted.",
+      "Main axis and branch T arrangement visible in isometric and XZ views.",
+      "Coincident port numbers overlap; end-on views and opaque projected triangle artifacts limit inspection."
+    ],
+    "drawing_accepted": false,
+    "design_accepted": false
+  },
+  "test_methods_passed": 7,
+  "design_accepted": false
+}

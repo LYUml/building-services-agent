@@ -5,6 +5,15 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For the explicitly source-declared equal-section rectangular tee plus three
+butt-ended straight walls, use rectangular_tee_assembly with tee_spec and
+assembly_spec in docs/RECTANGULAR_TEES.md. Require three positive sourced lengths
+and retain inherited rigid frames, exact saved bodies/ports/system membership,
+material union/independent volume and centre-bore probes. The actual synthetic
+assembly and same-producer ifc_clash execute with explicit contact regions and
+outside-region proofs. Do not reuse those QA tolerances as installation rules or
+infer variable sections, product joints, losses or actual coursework acceptance.
+
 For an explicitly sourced ideal equal-section sharp rectangular tee, use standalone bsa.rectangular_tee and docs/RECTANGULAR_TEES.md. Require dimensions, thickness interpretation/classification, rigid placement and three port directions; no product or coefficient defaults exist. It verifies saved native Boolean/prism geometry, stable owned port frames, material/bore topology and independent volume. This does not support variable-section takeoffs, production fabrication, pressure losses, adjoining assemblies or workflow release. Do not substitute this limited geometry for the different-section branches of a real supply tree.
 
 For native hollow rectangular 90-degree bend geometry, use bsa.bim's explicit rectangular straight/elbow scope and docs/RECTANGULAR_ELBOWS.md. Require radial width, normal height, wall thickness, radius, signed perpendicular axes and actual arc-end ports; preserve native profile/revolution/arc/mass/centroid/port checks. Pressure binding supports sourced per-piece excess K with matched section rolls/opposed normals; no fitting K is inferred. Catalogue bend redesign remains unsupported; bend-plane curved DXF projection and independent saved-entity audit are implemented, with native curved-sheet reopening, independent exported-DXF audit and visual PDF checks executed for the synthetic lead/quarter/tail case (docs/RECTANGULAR_ELBOWS.md), while real fitting applicability/fabrication and full engineering acceptance remain pending.

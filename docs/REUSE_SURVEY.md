@@ -510,3 +510,13 @@ upstream source body is rebuilt/vendored. Two native test methods cover two
 dimension/frame cases and rejected mutations; a source fixture saves/reopens with
 zero schema/EXPRESS issues. Variable sections, losses, products, assemblies and
 workflow release remain pending. See RECTANGULAR_TEES.md.
+
+Rectangular tee assembly extension reuses the already pinned IfcOpenShell0.8.5
+rectangular hollow-profile author, system/connection/placement APIs, existing tee
+UUID/frame/inspection helpers and Manifold3D3.5.4 union/material checks. The fitting
+survey above still supplies the upstream gap evidence; no new engine or copied
+upstream implementation is introduced. Explicit source lengths bind a local
+four-component assembly. Two native geometry tests and workflow handoff tests
+execute, including bidirectional/rigid cases and rejected saved mutations. Actual
+same-model clash coverage executes with synthetic sourced contact regions.
+Products, different-section takeoffs, losses and real installation remain pending.

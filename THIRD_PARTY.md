@@ -207,3 +207,9 @@ Identical-appliance demand reuses SciPy1.18.1 scipy.stats.binom (SciPy contribut
 BSD-3-Clause; Boost Math routines under the retained upstream licenses). The demand
 optional dependency pins SciPy/NumPy; no upstream implementation is copied.
 Reference: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.binom.html .
+
+Source-declared rectangular tee assemblies compose the credited IfcOpenShell0.8.5
+profile/extrusion, system-port and placement APIs with Manifold3D3.5.4 material
+operations and existing NumPy checks. These dependencies retain their upstream
+licenses/notices above. Source contracts, independent volume/topology checks and
+workflow binding are original adapter code; no upstream engine body is copied.

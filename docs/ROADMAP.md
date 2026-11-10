@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+Source-declared rectangular tee assemblies now compose three explicit straight
+walls with full rigid placement, nine stable ports and saved material/air-path
+checks. Seven related test methods pass; actual four-component workflow and
+same-model outside-contact-region clash checks pass. The inspected local preview
+remains a diagnostic. Variable sections, real products/joints, losses and project
+installation/regulatory acceptance remain pending. See RECTANGULAR_TEES.md.
+
 Rectangular tee authoring is now registered in unified workflows with source pins
 and inherited IFC readers. Four related test methods pass. The actual isolated
 fixture authors successfully, while its clash consumer correctly rejects fewer
