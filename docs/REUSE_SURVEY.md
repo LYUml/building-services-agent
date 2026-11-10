@@ -409,3 +409,9 @@ regulations maximum metrics alone cannot verify per-floor conjunctions or unknow
 inventory. The thin review explicitly checks only supplied single-stack fixture
 facts. Four added tests and actual source-pinned positive/fail/pending/hash-rejection
 cases execute; saved geometry binding and workflow gates remain unimplemented.
+
+Drainage workflow registration now reuses the existing executor, immutable source
+inventory and requires_pass gating. No new engine/dependency is added. Sixteen
+related tests and an official-PDF-bound synthetic three-case workflow execute;
+blocked downstream computation and stale-reference detection are covered. Saved
+geometry and same-inventory DU correspondence remain separate gaps.

@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Declared drainage connection checks now run as source-pinned workflow tasks with pass/fail/pending and downstream requires_pass gates. Sixteen related tests cover blocked downstream computation and stale sources; an official-PDF-bound synthetic three-case workflow also verifies integrity. Actual survey evidence, same-inventory DU/CAD/IFC correspondence and complete drainage acceptance remain pending. See HK_DRAINAGE.md.
+
 Source-pinned APP-164 declared-connection review now checks individual fitments on the selected discharge floor(s), preserving unknowns and explicit incomplete inventories. Actual synthetic official-PDF-bound pass/fail/pending/source-rejection cases and 14 related tests execute. Saved CAD/IFC correspondence, workflow gates, DU inventory binding and complete statutory acceptance remain pending. See HK_DRAINAGE.md.
 
 HK drainage planning now selects APP-164 2(d)/(e) separate-discharge floor offsets from explicit total-building or podium/basement-only storey counts and reviewed applicability evidence. Four focused tests plus six demand/workflow regressions pass. This is a planning helper, not an executed conformity rule, actual fixture inventory or saved-model connection check. See HK_DRAINAGE.md.

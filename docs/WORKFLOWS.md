@@ -184,3 +184,5 @@ concept_section inherits an earlier concept_facade and accepts only drawing basi
 `duct_sheet` inherits an earlier duct_schedule and takes drawing/binding (without a replacement schedule hash). It pins the fresh calculation artifact and prepares a saved DXF only. Failed sizing blocks preparation; mutation/replacement rejects. Native reopening and actual PDF review remain separate pending gates. See DUCT_SHEET.md.
 
 `duct_sheet_native` inherits a duct_sheet producer and takes settings (layers/sheet only). Pass --autocad explicitly; producer DXF and runtime are pinned. Native correspondence and PDF reference can pass while actual visual/full design acceptance remains pending. See DUCT_SHEET.md.
+
+`drainage_connections` takes a source-pinned single-stack declared connection project. It emits connections.json and retains pass/fail/pending. Use requires_pass for downstream tasks; failed/unknown checks block their execution. All references stay within the plan root. This does not bind a separately supplied DU inventory or saved CAD/IFC model; whole drainage acceptance remains pending. See HK_DRAINAGE.md.
