@@ -11,8 +11,9 @@ def run(project_path, output):
     project_path, output = Path(project_path).resolve(), Path(output).resolve()
     raw = project_path.read_bytes()
     project = json.loads(raw.decode('utf-8-sig'))
-    if set(project) != {'boundary', 'boundary_sha256', 'geometry_basis', 'terminals', 'load_inputs', 'turndown'}:
+    if set(project)-{'references'} != {'boundary', 'boundary_sha256', 'geometry_basis', 'terminals', 'load_inputs', 'turndown'}:
         raise ValueError('Exact allocation project fields required')
+    references=reference_files(project_path,project)
     relative = project['boundary']
     if not isinstance(relative, str) or Path(relative).is_absolute():
         raise ValueError('Relative boundary path required')
@@ -22,17 +23,33 @@ def run(project_path, output):
         raise ValueError('Boundary source hash mismatch')
     if not isinstance(project['geometry_basis'], str) or not project['geometry_basis'].strip():
         raise ValueError('Geometry units and interpretation basis required')
-    if output.exists() or any(output == p or output in p.parents for p in (project_path,boundary)):
+    if output.exists() or any(output == p or output in p.parents for p in (project_path,boundary,*references)):
         raise ValueError('New output separate from inputs required')
     result = prepare(json.loads(data.decode('utf-8-sig')), project['terminals'],
                      project['load_inputs'], project['turndown'])
     if project_path.read_bytes() != raw or boundary.read_bytes() != data:
         raise ValueError('Inputs changed during allocation')
+    if reference_files(project_path,project)!=references:raise ValueError('References changed during allocation')
     result.update(inputs={str(project_path):hashlib.sha256(raw).hexdigest(),
                           str(boundary):hashlib.sha256(data).hexdigest()},
                   geometry_basis=project['geometry_basis'])
+    result['inputs'].update({str(p):sha for p,sha in references.items()})
     output.mkdir(parents=True)
     (output/'allocation.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
+    return result
+
+
+def reference_files(project_path,project):
+    references=project.get('references',{})
+    if not isinstance(references,dict):raise ValueError('Reference path/hash mapping required')
+    result={}
+    for relative,sha in references.items():
+        if not isinstance(relative,str) or not relative.strip() or Path(relative).is_absolute():
+            raise ValueError('Relative reference path required')
+        p=(Path(project_path).parent/relative).resolve()
+        if not p.is_file() or hashlib.sha256(p.read_bytes()).hexdigest()!=sha:
+            raise ValueError('Allocation reference source hash mismatch')
+        result[p]=sha
     return result
 
 

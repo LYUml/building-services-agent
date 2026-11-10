@@ -436,6 +436,9 @@ def validate_plan(path):
             if digest(boundary)!=settings.get('boundary_sha256'):
                 raise ProjectError('allocation boundary source hash mismatch')
             inputs.update((project,boundary))
+            for reference in air_allocation.reference_files(project,settings):
+                if not reference.is_relative_to(root):raise ProjectError('Allocation reference must stay within plan root')
+                inputs.add(reference)
             inputs.update(Path(m.__file__).resolve() for m in (air_allocation,air_load,service_areas))
         if kind=='duct_sheet_native':
             from . import duct_sheet_native,cad_sheet,cad_intake,native_cad

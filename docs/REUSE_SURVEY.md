@@ -315,3 +315,9 @@ Terminal review source inheritance now reuses workflow.verify/local_path and the
 HVAC package terminal review reuses the inherited read-only checker with explicit hash-pinned layer/task settings. No new upstream engine or dependency. Actual fresh native package succeeds within scope, missing-AutoCAD control retains an incomplete package, and six focused tests pass. Physical and full engineering acceptance remain separate.
 
 Independent HVAC example reuses all existing allocation/lookup/sizing/sheet/native/package adapters and pinned upstream components. The input builder creates independent synthetic data with no private coursework source. Actual native four-terminal package, independent heat/area arithmetic, preserved pending acceptance and visual review execute; no new engine or dependency. See ../examples/hvac-package/README.md.
+
+Primary-source allocation provenance reuses existing SHA256/input-inventory checks,
+adding optional document references rather than a document engine. Actual retrieved
+private Canvas lecture is pinned in fresh allocation/workflow evidence; no course PDF
+is committed. Changed-source controls and unchanged-calculation replay pass. No new
+dependency; engineering/source interpretation remains separate.

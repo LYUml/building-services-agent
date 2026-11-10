@@ -84,3 +84,14 @@ requirements and pending engineering/regulatory work packages.
 Candidate size screening is now available in the same inherited duct_schedule task; see DUCT_SCHEDULE.md. This supersedes the earlier supplied-size-only limitation, while geometry regeneration and full design acceptance remain unresolved.
 
 Flow aggregation now retains root and section from/to identities for downstream drawing checks. Current duct_sheet consumers require node-bound line endpoints and reject legacy aggregation without that evidence. See DUCT_SHEET.md.
+
+## Reference documents
+
+Allocation projects optionally accept `references`, a mapping of relative file paths
+to SHA256 hashes. The adapter verifies these documents before/after calculation and
+retains them in output inputs; workflow validation includes the same files, within
+the plan root. This binds source bytes without claiming that cited values are true
+or applicable. Existing projects without references retain their prior contract.
+Actual private Canvas-lecture replay verifies primary-source allowance/approximate
+SHF provenance with unchanged arithmetic; temperature assumptions and ADPI remain
+explicit. Ten focused allocation/reference tests pass.
