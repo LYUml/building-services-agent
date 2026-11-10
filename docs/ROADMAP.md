@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Source-pinned APP-164 declared-connection review now checks individual fitments on the selected discharge floor(s), preserving unknowns and explicit incomplete inventories. Actual synthetic official-PDF-bound pass/fail/pending/source-rejection cases and 14 related tests execute. Saved CAD/IFC correspondence, workflow gates, DU inventory binding and complete statutory acceptance remain pending. See HK_DRAINAGE.md.
+
 HK drainage planning now selects APP-164 2(d)/(e) separate-discharge floor offsets from explicit total-building or podium/basement-only storey counts and reviewed applicability evidence. Four focused tests plus six demand/workflow regressions pass. This is a planning helper, not an executed conformity rule, actual fixture inventory or saved-model connection check. See HK_DRAINAGE.md.
 
 Independent HVAC reuse now executes a public synthetic input builder through the same package pipeline: different coordinates, four terminals, two two-outlet groups, three ducts and 50% minimum flow. Native reopen, A4 plot, inherited connections and four-page report were executed and inspected; independent flow/area checks pass. This verifies scoped reuse, not the full multi-discipline or engineering acceptance goal. See ../examples/hvac-package/README.md.

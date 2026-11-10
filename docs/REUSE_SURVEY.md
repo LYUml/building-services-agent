@@ -402,3 +402,10 @@ scope/count facts; no solver/library is needed. Four boundary/missing-evidence
 tests and six existing demand/workflow tests pass. Official source attribution
 and its pinned hash remain in docs/evidence/hk-drainage-source.json. Route checks,
 rule-pack integration and full statutory acceptance remain pending.
+
+Declared APP-164 connection review reuses the floor selector and existing pinned
+reference helper; no hydraulic/CAD engine or dependency is rebuilt. Existing
+regulations maximum metrics alone cannot verify per-floor conjunctions or unknown
+inventory. The thin review explicitly checks only supplied single-stack fixture
+facts. Four added tests and actual source-pinned positive/fail/pending/hash-rejection
+cases execute; saved geometry binding and workflow gates remain unimplemented.
