@@ -25,4 +25,11 @@ these controls are synthetic. The private coursework candidate was also evaluate
 and remains pending because its available routes are planar design geometry.
 See `docs/evidence/hk-flex-length/controls.json`.
 
+The actual private candidate plan now executes this rule alongside terminal
+and duct calculations. Both numerical tasks pass while the rule remains pending.
+An isolated copied-plan control removed only the separate delivery-input blocker
+and confirmed that `requires_pass` on the pending rule prevents delivery execution.
+The actual plan retains all unresolved inputs; the diagnostic control is not
+an acceptance record or a waiver.
+
 Official source: https://www.hkfsd.gov.hk/eng/source/licensing/MECHANICAL_VS_EN_2_2023.pdf
