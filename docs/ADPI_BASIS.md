@@ -67,3 +67,18 @@ Five boundary/missing/failed-case controls pass. Actual private lecture-backed
 and actual room load is not verified. Product/length/installation evidence remains
 unknown. No ADPI criterion has been relaxed to clear the study. This is currently
 a Python API, not a registered workflow or automatic regulatory check.
+
+## Verified workflow review command
+
+Run `python -m bsa.adpi_review <workflow-directory> <settings.json> --out
+<new-review.json>`. Settings contain exactly criterion, room_load_W_m2, facts,
+source (a path relative to settings) and source_sha256. Criterion and facts use the
+API contract above. The command verifies the run, selects exactly one passing
+terminal_throw task, inherits its result, checks the original criterion document
+and records/rechecks all input hashes. Store output outside the immutable run.
+CLI exit 2 retains outstanding acceptance even for eligible interval screening.
+
+Actual private execution inherits 640 cases from the new Canvas-source-backed run
+and retains pending applicability. A changed criterion-document hash rejects before
+output; the five numerical/applicability controls pass. This post-run command is
+not yet a registered workflow task or an automatic report/package stage.

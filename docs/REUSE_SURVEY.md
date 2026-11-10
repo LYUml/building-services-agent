@@ -327,3 +327,9 @@ bounded T/L but intentionally has no criterion verdict. Add only source/declarat
 and interval screening; no comfort model, interpolation engine or dependency is
 reimplemented. Five controls and actual 640-case pending study execute. Exact source
 interpretation remains external evidence; ADPI prediction/full acceptance stays false.
+
+Source-pinned ADPI review reuses workflow.verify, existing artifact identities and
+SHA256 handling with the previous screen API. The thin post-run CLI inherits lookup
+data rather than accepting a replacement study. Actual 640-case pending execution,
+changed-source rejection and five screen tests pass. No new engine or dependency;
+source transcription and engineering applicability remain independent evidence.
