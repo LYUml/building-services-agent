@@ -8,6 +8,24 @@ from .delivery import context
 from .engine import ProjectError
 
 
+def fitting_data_recovery(run, report, task_id):
+    """Read retained requests,without inventing a repair or a physical cause."""
+    relative = task_id+'/data-requests.json'
+    if relative not in report['artifact_hashes']: return {}
+    path = run/relative
+    if digest(path) != report['artifact_hashes'][relative]: raise ProjectError('Fitting data requests changed')
+    data = json.loads(path.read_text(encoding='utf-8'))
+    if any(not Path(p).is_file() or digest(Path(p)) != sha for p, sha in data['inputs'].items()):
+        raise ProjectError('Fitting request source or generator changed; execute a fresh study')
+    analysis = run/task_id/'analysis/analysis.json'
+    if digest(analysis) != data['analysis_sha256']: raise ProjectError('Fitting request analysis changed')
+    context = data['upstream_assignment_context']
+    for p, sha in ((Path(context['plan']), context['plan_sha256']), (Path(context['workflow'])/'workflow.json', context['workflow_sha256'])):
+        if not p.is_file() or digest(p) != sha: raise ProjectError('Original assignment context changed')
+    return dict(data_requests=data['data_requests'], upstream_assignment_context=context,
+        scope='Exact saved fitting data and review requests only; original requirement context is preserved without inferring cross-plan causal dependencies or selecting new products/geometry.')
+
+
 def water_runtime_failures(run, report, task_id):
     """Expose explicit, hash-verified water worker policy evidence, not inferred causes."""
     failures=[]
@@ -66,6 +84,7 @@ def diagnose(plan, run):
             roots = [name]
         ancestors[name] = roots
         runtime_failures=water_runtime_failures(run,report,name) if state['status']=='fail' else []
+        engineering_data_requests=fitting_data_recovery(run,report,name) if task['kind']=='duct_fitting_data' else {}
         if input_blockers:
             action = 'resolve the cited missing/conflicting design inputs before a new run'
         elif blocked:
@@ -76,6 +95,8 @@ def diagnose(plan, run):
             action = 'inspect retained failure evidence and correct source or adapter before a new run'
         elif task['kind'] == 'manual':
             action = 'perform the specified review and record evidence separately'
+        elif engineering_data_requests:
+            action = 'resolve each retained fitting source/support/review request; preserve original assignment requirements and execute a new source-bound study'
         elif state['status'] == 'pending':
             action = 'resolve the recorded pending condition before a new run'
         else:
@@ -85,6 +106,7 @@ def diagnose(plan, run):
                          blocked_by=blocked, upstream_action_tasks=roots,
                          input_blockers=input_blockers,
                          runtime_failures=runtime_failures,
+                         engineering_data_requests=engineering_data_requests,
                          next_action=action,
                          requirement_ids=[r['id'] for r in source['requirements'] if r['task'] == name],
                          evidence=sorted(p for p in report['artifact_hashes'] if p.startswith(name + '/'))))
@@ -100,6 +122,7 @@ def diagnose(plan, run):
             next_action=row['next_action'],recorded_scope=row['recorded_scope'],
             input_blockers=row['input_blockers'],evidence=row['evidence'],
             runtime_failures=row['runtime_failures'],
+            engineering_data_requests=row['engineering_data_requests'],
             affected_tasks=[child['id'] for child in affected],
             affected_requirements=[r for r in source['requirements'] if r['id'] in requirement_ids]))
     return dict(plan_sha256=digest(plan), workflow_sha256=digest(run/'workflow.json'),

@@ -1,0 +1,38 @@
+{
+  "scope": "Exact saved fitting data recovery and full upstream interpreted-plan context; no automatic physical repair or assignment acceptance",
+  "targeted_test_methods_passed": 12,
+  "targeted_groups": {
+    "native_and_fitting_data": 5,
+    "existing_workflow_diagnosis_regressions": 7
+  },
+  "actual_private_workflow": {
+    "integrity_pass": true,
+    "input_and_native_hashes_unchanged": true,
+    "unique_path_requests": 8,
+    "source_data_required": 6,
+    "table_support_missing": 2,
+    "saved_assumed_classifications_preserved": true,
+    "original_requirement_count": 34,
+    "original_requirement_records_exactly_preserved": true,
+    "original_acceptance_states_pending": true,
+    "local_affected_tasks": [
+      "analysis",
+      "pressure-gated-diagnostic"
+    ],
+    "local_affected_requirement_count": 2,
+    "original_context_is_not_claimed_causal_dependency": true,
+    "release_unexecuted": true,
+    "report_visually_reviewed": true
+  },
+  "mutation_controls": [
+    "changed request artifact",
+    "changed source/generator input",
+    "changed nested analysis",
+    "changed original plan/workflow",
+    "changed native model after analysis blocks data output"
+  ],
+  "generator_sha256": "94498bca09cd6744b23c59f656951b7b7148ce39d68cad2153d77fdb7324cd01",
+  "analysis_sha256": "05065bbe586ec14fb9de5b7009189828d6d2d3130b282c2e3a356547e4b1bdbc",
+  "diagnosis_module_sha256": "bfbedd3910754458bba68e7a5a3021ce62ef84546043130594db422c9d14f3f1",
+  "design_accepted": false
+}

@@ -236,7 +236,7 @@ def run(project, directory, out):
             if not path.is_file() or digest(path) != sha: raise ValueError('Chain source or component artifact changed')
             pins[str(path)] = sha
     expected = json.loads((directory/'source-snapshot.json').read_text(encoding='utf-8'))
-    _, data, _, workflow, _ = span_tool.prepare(project)
+    _, data, source_plan, workflow, _ = span_tool.prepare(project)
     native_checks = chain_tool.inspect(directory/'chain.ifc', data, expected)
     model = ifcopenshell.open(str(directory/'chain.ifc')); assigned, air, schedule, schedule_path, schedule_project = bind_flows(project, directory, model)
     for path in (schedule_path, schedule_project):
@@ -249,6 +249,8 @@ def run(project, directory, out):
         if not np.allclose([row['width_m'], row['height_m'], row['flow_m3_s']], [selected['width_m'], selected['height_m'], selected['flow_m3_s']], atol=1e-10, rtol=0): raise ValueError('Saved straight section differs from inherited selected schedule')
     if any(digest(Path(p)) != sha for p, sha in pins.items()) or not verify(workflow)['integrity_pass']: raise ValueError('Chain or native source changed during analysis')
     result.update(inputs=pins, versions=versions, air=air, native_chain_checks=native_checks, same_saved_ifc_verified=True,
+        source_context=dict(plan=str(source_plan), plan_sha256=digest(source_plan), workflow=str(workflow),
+            workflow_sha256=digest(workflow/'workflow.json'), native_task=data['native_task']),
         air_source_basis=dict(project=str(schedule_project), sha256=pins[str(schedule_project)], basis=json.loads(schedule_project.read_text(encoding='utf-8')).get('basis'),
             interpretation='Inherited source design conditions and declared assumptions;not new measured environmental/material properties'),
         geometry_basis='Saved model dimensions and separate straight length;not measured installed geometry',

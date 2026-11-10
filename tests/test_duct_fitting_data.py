@@ -5,6 +5,7 @@ import tempfile
 import unittest
 
 import ifcopenshell
+import ifcopenshell.util.element as element
 
 from tests import test_duct_fitting_chain as fixtures
 from bsa import rectangular_tee_transitions as composition
@@ -54,6 +55,21 @@ class DuctFittingDataTests(unittest.TestCase):
             path = root/'basis.json'; path.write_text(json.dumps(basis)); parsed, pins = prepare(path)
             result = calculate(model, case, parsed)
             self.assertEqual(result['calculated_table_paths'], 8); self.assertEqual(result['unsupplied_table_paths'], 0)
+            self.assertEqual(len(result['data_requests']), 8)
+            self.assertTrue(all(r['status'] == 'physical_review_required' for r in result['data_requests']))
+            for request in result['data_requests']:
+                self.assertEqual(request['geometry_sha256'], shape_hash(model.by_guid(request['product_guid'])))
+                self.assertEqual(request['saved_design_inputs'], {k:v for k,v in element.get_psets(model.by_guid(request['product_guid']))['BSA_DesignInputs'].items() if k != 'id'})
+                self.assertTrue(request['affected_outlet_port_guids'])
+                self.assertTrue(all(p['owner_guid'] == request['product_guid'] for p in request['available_reference_ports']))
+                expected = {p['outlet_port_guid'] for p in case['boundary_paths'] if any(
+                    all(s[k] == request[k] for k in ('product_guid', 'inlet_port_guid', 'outlet_port_guid')) for s in p['steps'] if s['kind'] == 'fitting')}
+                self.assertEqual(set(request['affected_outlet_port_guids']), expected)
+            blank = copy.deepcopy(parsed); blank['tables'][0]['coefficients'] = [None, None]
+            pending = calculate(model, case, blank)
+            self.assertEqual(pending['data_requests'][0]['status'], 'table_support_missing')
+            blank['tables'].pop(0); pending = calculate(model, case, blank)
+            self.assertEqual(pending['data_requests'][0]['status'], 'source_data_required')
             self.assertLess(result['table_results'][0]['signed_tabulated_contribution_Pa'], 0)
             self.assertTrue(all(p['tabulated_plus_separate_straight_Pa'] is not None for p in result['boundary_paths']))
             self.assertTrue(all(p['complete_total_pressure_drop_Pa'] is None for p in result['boundary_paths']))

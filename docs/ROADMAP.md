@@ -1,5 +1,14 @@
 # Scope and acceptance
 
+Fitting-data recovery now retains every exact native path request,source study
+classification,owned reference quantities and affected outlet paths. The unified
+diagnosis queue exposes these records with original-plan context and separate
+local dependency links. Actual execution preserves all34 upstream requirement
+records and pending acceptance,plus eight local requests;six lack tables and two
+need missing published support. Source/model/generator mutation guards preserve
+the evidence boundary. No product,data source,repair or full acceptance is inferred.
+See DUCT_FITTING_DATA.md.
+
 Source-linked fitting-table intake now runs through the unified workflow using
 fresh saved-chain quantities and pinned SciPy interpolation. Native controls
 verify signed/reference-port/per-path arithmetic; empty cells and out-of-bounds

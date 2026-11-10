@@ -20,6 +20,15 @@ Iterate design using computed results. Use ../mep-delivery-check/SKILL.md before
 
 ## Tool orchestration
 
+For pending duct_fitting_data,read the source-bound diagnosis action's
+engineering_data_requests and data-requests.json (docs/DUCT_FITTING_DATA.md).
+Preserve every native path,its saved construction/source classification and
+available reference pressures. Keep original upstream assignment requirements
+and states distinct from current local affected-task links: the original context
+does not mean all requirements depend on that fitting or are now accepted.
+Resolve actual source/support/physical-review needs,then execute a new study;
+never invent coefficients/products or replace pending acceptance with a queue.
+
 Before applying a fitting example to a real supply layout, run
 bsa.duct_junction_review on the exact passing native-sheet workflow, or include
 --junction-review-native-task in the HVAC package. See DUCT_JUNCTION_REVIEW.md.

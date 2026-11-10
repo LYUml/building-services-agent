@@ -607,3 +607,10 @@ actual equal-section branch queries. MIT python-hvac commit
 its sparse rectangular tee data and removed interp2d API prevent claiming a
 current verified integration. No candidate code/tables or publisher PDF is
 redistributed. See DUCT_FITTING_DATA.md for contracts and executed evidence.
+
+Fitting-data recovery reuses existing saved-chain/body fingerprints,IfcOpenShell
+property-set reading and workflow_status dependency grouping. It preserves full
+source-plan requirement records and saved assumed-construction classifications
+instead of building another requirements parser or inferring product data. Native
+requests,source/model mutation controls and actual recovery grouping execute;
+no upstream engine or licensed database is added. See DUCT_FITTING_DATA.md.

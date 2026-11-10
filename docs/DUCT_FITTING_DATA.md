@@ -66,6 +66,43 @@ then writes fitting-data.json and a readable index.html. The task always retains
 pending design scope. `requires_pass` consumers stay unexecuted. CLI exit2 is
 expected for this incomplete pressure study,not evidence of a completed design.
 
+## Recovery data and original requirements
+
+Every study now emits data-requests.json with one record per unique saved fitting
+path,including paths without any table. Records preserve native body fingerprints,
+inlet/outlet dimensions and inherited design flows,all owned reference ports and
+their actual velocity pressures,the exact affected outlet paths,and original
+BSA_DesignInputs source/classification fields. Saved study assumptions remain
+assumptions. Do not treat a shape fingerprint or source note as a manufacturer
+selection or measured installation. Requests distinguish source_data_required,
+table_support_missing and physical_review_required. Even successfully interpolated
+tables retain the physical-review request and their signed results.
+
+The saved analysis carries source_context for its original upstream plan/native
+workflow. The data study pins those files,checks complete requirement identities
+and contents against the original execution record,and preserves every original
+requirement's execution and acceptance states. This original-plan context is
+distinct from the current local workflow's affected requirements. It does not
+assert that every original requirement depends on these local fittings,or that
+the interpreted plan captures any requirement absent from that original plan.
+Independent assignment intake/delivery review remains necessary.
+
+workflow_status adds these retained requests and original-plan context to the
+fitting-data recovery root and task. It verifies the request artifact,nested
+analysis,source/generator/model inputs and original plan/workflow hashes before
+exposing them. A changed native model after fresh analysis blocks study output.
+The queue describes missing evidence and declared dependencies; it does not
+invent equipment,repair a design automatically,or clear physical acceptance.
+
+Actual execution retains eight requests:six without tables and two with blank
+source support. All eight preserve their saved assumed-construction inputs.
+The original34 requirement records are retained unchanged as parsed
+records,including pending acceptance. The local recovery root contains the exact
+eight requests and links only its declared local affected tasks. New native
+request/identity tests,mutation controls and existing diagnosis regressions verify
+these boundaries. See evidence/duct-fitting-recovery.json; private requirements
+and source notes remain local.
+
 ## Executed evidence and sources
 
 Native synthetic controls cover eight fitting paths,three outlet paths,signed

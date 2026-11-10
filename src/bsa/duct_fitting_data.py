@@ -9,6 +9,7 @@ from pathlib import Path
 import re
 
 import ifcopenshell
+import ifcopenshell.util.element as element
 import numpy as np
 from scipy.interpolate import RegularGridInterpolator
 
@@ -38,7 +39,8 @@ def render(result, case):
         values = [port['source_section'], f"{row['known_straight_friction_Pa']:.5f}", row['unresolved_fitting_path_count'], 'Pending']
         paths.append('<tr>'+''.join('<td>'+esc(v)+'</td>' for v in values)+'</tr>')
     citations = ''.join('<li>'+esc(s['citation'])+'; edition '+esc(s['edition'])+'</li>' for s in result['sources'].values())
-    return '<!doctype html><html lang="en"><meta charset="utf-8"><title>Duct Fitting Data Review</title><style>body{font:16px/1.5 Arial;color:#20343c;max-width:1250px;margin:35px auto;padding:0 20px}table{border-collapse:collapse;width:100%;font-size:14px}th,td{border:1px solid #cbd4d8;padding:10px;text-align:left}th{background:#eaf0f2}.pending{background:#fff0d2;border-left:5px solid #b47016;padding:16px}</style><h1>Duct Fitting Data Review</h1><p class="pending"><strong>Complete pressure assessment pending.</strong> '+str(result['calculated_table_paths'])+' table paths calculated out of '+str(result['unique_fitting_paths'])+' unique fitting paths. '+str(result['unsupplied_table_paths'])+' paths have no supplied table. Physical applicability and source transcription remain review-required even when interpolation succeeds.</p><h2>Native quantities and bounded source queries</h2><p>Each query uses actual saved port geometry and inherited design flow. Missing table cells stay unknown; no clamping or extrapolation is used.</p><table><tr><th>Source node</th><th>Source flow path</th><th>Outlet/inlet flow</th><th>Outlet/inlet velocity</th><th>Query result</th><th>Coefficient</th></tr>'+''.join(tables)+'</table><h2>Separate outlet paths</h2><table><tr><th>Outlet section</th><th>Known separate straight Pa</th><th>Unresolved fitting paths</th><th>Complete pressure</th></tr>'+''.join(paths)+'</table><p>Zero supplied fitting contribution does not mean zero fitting loss. Partial sums are not lower bounds; parallel paths must not be added. Critical path and fan duty remain unavailable.</p><h2>Sources</h2><ul>'+citations+'</ul><p>Coefficient reference port,friction convention,applicability note and source location are retained per table in <a href="fitting-data.json">the numerical record</a>. Tables themselves are not reproduced here. <a href="analysis/index.html">Saved flow and straight-friction analysis</a>.</p></html>'
+    context_html = '<h2>Original assignment context</h2><p>'+str(len(result['upstream_assignment_context']['requirements']))+' original-plan requirements and their recorded execution/acceptance states are preserved. This local study does not accept them or imply they all depend on these fittings. <a href="data-requests.json">Exact fitting data requests and original requirement context</a>.</p>'
+    return '<!doctype html><html lang="en"><meta charset="utf-8"><title>Duct Fitting Data Review</title><style>body{font:16px/1.5 Arial;color:#20343c;max-width:1250px;margin:35px auto;padding:0 20px}table{border-collapse:collapse;width:100%;font-size:14px}th,td{border:1px solid #cbd4d8;padding:10px;text-align:left}th{background:#eaf0f2}.pending{background:#fff0d2;border-left:5px solid #b47016;padding:16px}</style><h1>Duct Fitting Data Review</h1><p class="pending"><strong>Complete pressure assessment pending.</strong> '+str(result['calculated_table_paths'])+' table paths calculated out of '+str(result['unique_fitting_paths'])+' unique fitting paths. '+str(result['unsupplied_table_paths'])+' paths have no supplied table. Physical applicability and source transcription remain review-required even when interpolation succeeds.</p><h2>Native quantities and bounded source queries</h2><p>Each query uses actual saved port geometry and inherited design flow. Missing table cells stay unknown; no clamping or extrapolation is used.</p><table><tr><th>Source node</th><th>Source flow path</th><th>Outlet/inlet flow</th><th>Outlet/inlet velocity</th><th>Query result</th><th>Coefficient</th></tr>'+''.join(tables)+'</table><h2>Separate outlet paths</h2><table><tr><th>Outlet section</th><th>Known separate straight Pa</th><th>Unresolved fitting paths</th><th>Complete pressure</th></tr>'+''.join(paths)+'</table><p>Zero supplied fitting contribution does not mean zero fitting loss. Partial sums are not lower bounds; parallel paths must not be added. Critical path and fan duty remain unavailable.</p><h2>Sources</h2><ul>'+citations+'</ul><p>Coefficient reference port,friction convention,applicability note and source location are retained per table in <a href="fitting-data.json">the numerical record</a>. Tables themselves are not reproduced here. <a href="analysis/index.html">Saved flow and straight-friction analysis</a>.</p>'+context_html+'</html>'
 
 
 def number(x):
@@ -138,6 +140,28 @@ def calculate(model, case, data):
         if value['signed_tabulated_contribution_Pa'] is not None and not math.isfinite(value['signed_tabulated_contribution_Pa']):
             raise ValueError('Tabulated pressure contribution overflowed')
         results[key] = value
+    requests = []
+    for key, missing in requested.items():
+        obj = model.by_guid(key[0]); table_result = results.get(key)
+        ports = {g: p for g, p in case['port_flows'].items() if p['owner_guid'] == obj.GlobalId}
+        references = [dict(port_guid=g, name=model.by_guid(g).Name, **p) for g, p in ports.items()]
+        affected = [p['outlet_port_guid'] for p in case['boundary_paths'] if any(
+            tuple(s[k] for k in ('product_guid', 'inlet_port_guid', 'outlet_port_guid')) == key
+            for s in p['steps'] if s['kind'] == 'fitting')]
+        design_inputs = {k: v for k, v in element.get_psets(obj).get('BSA_DesignInputs', {}).items() if k != 'id'}
+        requests.append(dict(product_guid=key[0], geometry_sha256=shape_hash(obj), predefined_type=obj.PredefinedType,
+            saved_design_inputs=design_inputs, geometry_interpretation='Saved model geometry with its original source/classification;not newly measured installation or verified manufacturer construction',
+            inlet_port_guid=key[1], outlet_port_guid=key[2], inlet=ports[key[1]], outlet=ports[key[2]],
+            available_reference_ports=references, affected_outlet_port_guids=affected,
+            status='source_data_required' if table_result is None else 'table_support_missing' if table_result['coefficient'] is None else 'physical_review_required',
+            recorded_table_result=table_result,
+            required_evidence=['Applicable fitting geometry,direction,flow ratio and fluid/regime source',
+                'Hash-pinned document,publication edition and exact table/page or test location',
+                'Explicit actual owned-port reference velocity and signed total-pressure convention',
+                'Published support cell or directly applicable source test point; no extrapolation',
+                'Independent transcription and physical applicability review',
+                'Whole fitting friction/stations and adjacent fitting/joint interaction basis'],
+            design_accepted=False))
     paths = []
     for path in case['boundary_paths']:
         contributions = []; missing = 0
@@ -152,7 +176,7 @@ def calculate(model, case, data):
             unresolved_fitting_path_count=missing,
             tabulated_plus_separate_straight_Pa=None if missing else path['known_straight_friction_Pa']+math.fsum(contributions),
             complete_total_pressure_drop_Pa=None))
-    return dict(status='pending', table_results=list(results.values()), boundary_paths=paths,
+    return dict(status='pending', table_results=list(results.values()), boundary_paths=paths, data_requests=requests,
         unique_fitting_paths=len(requested), calculated_table_paths=sum(r['coefficient'] is not None for r in results.values()),
         unsupplied_table_paths=len(requested)-len(results), sources=data['sources'], pressure_budget_complete=False,
         critical_path=None, design_accepted=False,
@@ -170,11 +194,29 @@ def run(project, chain_directory, basis, out):
     for p in (Path(__file__), Path(rgi.__file__)):
         pins[str(p.resolve())] = digest(p)
     case = analysis.run(project, chain_directory, out/'analysis')
+    for name, sha in case['inputs'].items():
+        if name in pins and pins[name] != sha: raise ValueError('Fitting source context conflicts with native analysis')
+        pins[name] = sha
     result = calculate(ifcopenshell.open(str(chain_directory/'chain.ifc')), case, data)
+    context = case['source_context']; source_plan = Path(context['plan']); source_run = Path(context['workflow'])/'workflow.json'
+    if digest(source_plan) != context['plan_sha256'] or digest(source_run) != context['workflow_sha256']:
+        raise ValueError('Upstream assignment context changed')
+    pins[str(source_plan)] = context['plan_sha256']; pins[str(source_run)] = context['workflow_sha256']
+    original = json.loads(source_plan.read_text(encoding='utf-8')); original_run = json.loads(source_run.read_text(encoding='utf-8'))
+    recorded = {r['id']: r for r in original_run['requirements']}
+    if len(recorded) != len(original['requirements']) or set(recorded) != {r['id'] for r in original['requirements']}:
+        raise ValueError('Complete upstream requirement identity coverage required')
+    for row in original['requirements']:
+        if any(recorded[row['id']].get(k) != v for k, v in row.items()): raise ValueError('Upstream requirement contents differ')
+    result['upstream_assignment_context'] = dict(**context, requirements=[recorded[r['id']] for r in original['requirements']],
+        interpretation='Complete original-plan context,not a claim that every requirement depends on these local fittings. Original execution and acceptance states are preserved; local interpolation does not accept the assignment.')
     if any(digest(Path(p)) != sha for p, sha in pins.items()): raise ValueError('Table basis,source or engine changed during interpolation')
     result.update(inputs=pins, analysis_sha256=digest(out/'analysis/analysis.json'), scipy_version='1.18.1',
         same_saved_ifc_verified=case['same_saved_ifc_verified'])
     (out/'fitting-data.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
+    (out/'data-requests.json').write_text(json.dumps(dict(inputs=pins, analysis_sha256=result['analysis_sha256'],
+        data_requests=result['data_requests'], upstream_assignment_context=result['upstream_assignment_context'],
+        design_accepted=False), indent=2), encoding='utf-8')
     (out/'index.html').write_text(render(result, case), encoding='utf-8')
     return result
 

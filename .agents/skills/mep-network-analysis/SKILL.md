@@ -15,6 +15,13 @@ table set or declared applicability/friction note cannot accept full pressure:
 physical/transcription/friction/boundary review remains pending and required
 downstream consumers must stay blocked. Do not publish licensed/private tables.
 
+Use data-requests.json and the workflow_status engineering_data_requests queue
+to acquire missing data. Each unique path preserves saved geometry source and
+classification,actual owned-port quantities and affected outlet identities.
+Retain the upstream plan's complete requirement context and original states
+separately from declared local dependencies. Interpolated results still require
+physical review; changed model/source/generator evidence requires a fresh study.
+
 Inspect boundary_paths from bsa.duct_chain_analysis before using local pressure
 results. Keep inlet-to-outlet paths separate; shared straight contributions must
 not be added across parallel outlets. Full pressure and critical_path stay null

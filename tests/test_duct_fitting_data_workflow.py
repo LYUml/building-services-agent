@@ -8,12 +8,49 @@ from unittest.mock import patch
 from bsa.cli import digest
 from bsa.engine import ProjectError
 from bsa.workflow import execute, passages, validate_plan
-from bsa.duct_fitting_data import prepare
+from bsa.duct_fitting_data import prepare, run as fitting_run
+from bsa.workflow_status import fitting_data_recovery
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 class DuctFittingDataWorkflowTests(unittest.TestCase):
+    def test_changed_model_after_native_analysis_blocks_data_output(self):
+        # Mutation control for the adapter boundary,not native geometry evidence.
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as tmp:
+            root=Path(tmp); chain=root/'chain'; chain.mkdir(); model=chain/'chain.ifc'; model.write_text('Model control')
+            plan=root/'source-plan.json'; plan.write_text(json.dumps(dict(requirements=[])))
+            source_run=root/'source-run'; source_run.mkdir(); source_report=source_run/'workflow.json'; source_report.write_text(json.dumps(dict(requirements=[])))
+            basis=root/'basis.json'; basis.write_text('{}'); out=root/'new-study'
+            case=dict(inputs={str(model):digest(model)}, source_context=dict(plan=str(plan), plan_sha256=digest(plan),
+                workflow=str(source_run), workflow_sha256=digest(source_report), native_task='control'))
+            def analyzed(project, directory, folder):
+                folder.mkdir(parents=True); (folder/'analysis.json').write_text('{}'); return case
+            def changed(*args): model.write_text('Changed after native analysis'); return {}
+            with patch('bsa.duct_fitting_data.prepare', return_value=({}, {str(basis):digest(basis)})), patch('bsa.duct_fitting_data.analysis.run', side_effect=analyzed), patch('bsa.duct_fitting_data.ifcopenshell.open', return_value=object()), patch('bsa.duct_fitting_data.calculate', side_effect=changed):
+                with self.assertRaisesRegex(ValueError, 'changed during interpolation'): fitting_run(root/'project.json', chain, basis, out)
+            self.assertFalse((out/'fitting-data.json').exists()); self.assertFalse((out/'data-requests.json').exists())
+
+    def test_recovery_requests_preserve_context_and_reject_changed_evidence(self):
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as tmp:
+            root = Path(tmp); task = root/'data'; (task/'analysis').mkdir(parents=True)
+            analysis = task/'analysis/analysis.json'; analysis.write_text('{}')
+            source = root/'document.txt'; source.write_text('Source evidence')
+            plan = root/'original-plan.json'; plan.write_text('{}')
+            original_run = root/'original-run'; original_run.mkdir(); workflow = original_run/'workflow.json'; workflow.write_text('{}')
+            requirements = [dict(id='whole-assignment', task='manual', acceptance_status='pending review')]
+            data = dict(inputs={str(source):digest(source)}, analysis_sha256=digest(analysis),
+                data_requests=[dict(product_guid='control', status='source_data_required')],
+                upstream_assignment_context=dict(plan=str(plan), plan_sha256=digest(plan), workflow=str(original_run), workflow_sha256=digest(workflow), requirements=requirements), design_accepted=False)
+            path = task/'data-requests.json'; path.write_text(json.dumps(data)); report = dict(artifact_hashes={'data/data-requests.json':digest(path)})
+            result = fitting_data_recovery(root, report, 'data')
+            self.assertEqual(result['data_requests'], data['data_requests'])
+            self.assertEqual(result['upstream_assignment_context']['requirements'], requirements)
+            for changed in (source, analysis, plan, workflow, path):
+                original = changed.read_bytes(); changed.write_bytes(original+b'changed')
+                with self.subTest(changed=changed.name), self.assertRaises(ProjectError): fitting_data_recovery(root, report, 'data')
+                changed.write_bytes(original)
+
     def test_pending_data_blocks_release_and_changed_sources_reject(self):
         with tempfile.TemporaryDirectory(dir=ROOT/'runs') as tmp:
             root = Path(tmp); brief = root/'brief.md'; brief.write_text('Review native fitting data before downstream pressure release.')
