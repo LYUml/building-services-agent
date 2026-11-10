@@ -1,0 +1,9 @@
+{
+  "source": "Candidate Chicago station climate context for public benchmark; city/site not finalized. Calendar 2025 chosen for solar geometry, not a year of observed weather. No project-site/shading inference.",
+  "weather": {
+    "source": "Unmodified Chicago TMY3 EPW bundled with verified official EnergyPlus 25.2.0-cf7368216c Windows archive (archive SHA256 4136901f7e1708f6536d84278e26ad88b414c7efc905febf6d49c2539a36f3cd). https://github.com/NatLabRockies/EnergyPlus/releases/tag/v25.2.0 ; exact EPW bytes are retained as a deterministic gzip example asset with original header/source flags; EnergyPlus distribution notice retained at third_party/licenses/energyplus.txt.",
+    "sha256": "c7d4efcf93ba316a1d874352e743df5cf137ba5c0e3459eb2dc4b5442d5b7f5c",
+    "station_id": "725300"
+  },
+  "calendar_year": 2025
+}

@@ -1,0 +1,71 @@
+{
+  "standalone": "runs/chicago-climate-v1",
+  "workflow": "runs/public-climate-workflow-v1",
+  "summary": {
+    "concept_tasks": {
+      "climate-context": "pass",
+      "concept-compact": "pass",
+      "concept-slender": "pass",
+      "concept-stacked": "pass",
+      "facade-compact": "pass",
+      "facade-view-compact": "pass",
+      "scene-compact": "pass",
+      "facade-slender": "pass",
+      "facade-view-slender": "pass",
+      "scene-slender": "pass",
+      "facade-stacked": "pass",
+      "facade-view-stacked": "pass",
+      "scene-stacked": "pass"
+    },
+    "design_accepted": false,
+    "scope": "Reviewed source-complete work decomposition with partial concept execution; unmet engineering/delivery packages retained",
+    "pending_work_packages": 14
+  },
+  "integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "climate": {
+    "source_record_count": 8760,
+    "calendar_year": 2025,
+    "annual_irradiation_kwh_m2": {
+      "ghi_kwh_m2": 1406.646,
+      "dni_kwh_m2": 1294.257,
+      "dhi_kwh_m2": 660.253
+    },
+    "hourly_alignment_pass": true,
+    "climate_checks_pass": true,
+    "site_selected": false,
+    "shading_calculated": false,
+    "design_accepted": false
+  },
+  "source_years": [
+    1977,
+    1978,
+    1979,
+    1980,
+    1981,
+    1985,
+    1986,
+    1987,
+    1989,
+    2002
+  ],
+  "tests": {
+    "count": 9,
+    "climate": 3,
+    "workflow": 3,
+    "cli": 3,
+    "passed": true,
+    "seconds": 32.44
+  },
+  "visual_review": {
+    "path": "runs/chicago-climate-v1/climate-context.png",
+    "sha256": "2433fe52ccb3cc4439bb1b1d610640d35384d90abfee31c5e94d38da5db86229",
+    "workflow_image_identical": true,
+    "observed": "Legible monthly temperature extremes/means and radiation bars; north-up clockwise-azimuth polar paths, units, legend and candidate/TMY/no-site scope visible"
+  },
+  "design_accepted": false
+}

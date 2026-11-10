@@ -68,6 +68,11 @@ def run_workflow(out,source_cache,apply_work_plan=False,honeybee_python=None):
             sid='scene-'+label
             tasks.append(dict(id=sid,kind='honeybee_scene',depends_on=fid,basis='scene-basis.json'))
             plan['requirements'].append(dict(id=sid,passage=passage['id'],quote=passage['text'],task=sid,acceptance='Partial native-source optical scene and sensor-grid conversion only; complete annual daylight work remains pending'))
+    if honeybee_python:
+        (out/'climate-weather.epw.gz').write_bytes((ROOT/'examples/annual-energy/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw.gz').read_bytes())
+        (out/'climate-basis.json').write_bytes((ROOT/'benchmarks/mit-4401-2018/climate-decisions.json').read_bytes())
+        tasks.insert(0,dict(id='climate-context',kind='climate_context',weather='climate-weather.epw.gz',basis='climate-basis.json'))
+        plan['requirements'].append(dict(id='climate-context',passage=passage['id'],quote=passage['text'],task='climate-context',acceptance='Candidate weather-station statistics/solar paths only; original course-city/site/shading obligations remain pending'))
     plan['tasks']=tasks+plan['tasks'];path.write_text(json.dumps(plan,ensure_ascii=False,indent=2),encoding='utf-8')
     if apply_work_plan:
         from bsa.work_plan_review import apply

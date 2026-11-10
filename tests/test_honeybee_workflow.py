@@ -17,6 +17,9 @@ class HoneybeeWorkflowTests(unittest.TestCase):
     def test_actual_scene_inheritance_artifacts_and_unmet_packages(self):
         report=json.loads((self.root/'workflow/workflow.json').read_text(encoding='utf-8'))
         self.assertEqual(self.result['pending_work_packages'],14)
+        self.assertEqual(report['tasks']['climate-context']['status'],'pass')
+        climate=json.loads((self.root/'workflow/climate-context/climate-context.json').read_text(encoding='utf-8'))
+        self.assertFalse(climate['site_selected']);self.assertFalse(climate['shading_calculated'])
         self.assertIn(str(PYTHON),report['runtime_inputs'])
         for label in ('compact','slender','stacked'):
             r=json.loads((self.root/'workflow'/('scene-'+label)/'honeybee-scene.json').read_text(encoding='utf-8'))
@@ -41,6 +44,8 @@ class HoneybeeWorkflowTests(unittest.TestCase):
 
     def test_missing_runtime_leaves_pending_and_no_scene_folder(self):
         out=self.root/'missing-runtime';r=execute(self.root/'plan.json',out)
+        self.assertEqual(r['tasks']['climate-context']['status'],'pending')
+        self.assertFalse((out/'climate-context').exists())
         for label in ('compact','slender','stacked'):
             self.assertEqual(r['tasks']['scene-'+label]['status'],'pending')
             self.assertIn('runtime not supplied',r['tasks']['scene-'+label]['scope'])

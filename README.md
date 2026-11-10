@@ -204,3 +204,5 @@ Public concept workflow now includes source-inherited native facade revisions an
 An executed [Honeybee scene bridge](docs/HONEYBEE_SCENE.md) now converts checked native concept facades into HBJSON, Radiance geometry/materials and exact sensor grids using pinned upstream tools. Annual solving, complete scene applicability and design acceptance remain pending.
 
 The [Honeybee scene bridge](docs/HONEYBEE_SCENE.md) now runs inside the source-inherited unified workflow with explicit --honeybee-python. The public reviewed benchmark has twelve scoped execution passes and fourteen unmet engineering packages; no annual daylight result or completed assignment is claimed.
+
+[Candidate climate context](docs/CLIMATE_CONTEXT.md) now adds source-reconciled monthly EPW statistics and explicit-year solar paths through pinned Ladybug in the unified public workflow. Thirteen scoped tasks pass, fourteen engineering packages remain pending, and no project-site/shading or building-performance acceptance is claimed.
