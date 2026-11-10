@@ -36,3 +36,5 @@ from one plan, retaining eight pending work packages and all original passages.
 The combined 26-test terminal, duct and workflow suite passes, including
 failure dependency and changed-input controls. Network/geometry binding and
 complete assignment generation remain separate work.
+
+Workflow tasks may now inherit an earlier air_allocation via depends_on and an explicit rooted tree/terminal membership; omit prescribed section flows. Exact identities, unique coverage and producer hashes are enforced. This binds flow, not physical topology or automatic sizing. See AIR_ALLOCATION.md.

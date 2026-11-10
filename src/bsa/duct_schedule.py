@@ -7,7 +7,7 @@ from pathlib import Path
 from .duct_equivalent import calculate
 
 
-def run(project_path, output):
+def run(project_path, output, *, allocation_path=None, allocation_sha256=None):
     project_path, output = Path(project_path).resolve(), Path(output).resolve()
     raw = project_path.read_bytes()
     project = json.loads(raw.decode('utf-8-sig'))
@@ -16,6 +16,24 @@ def run(project_path, output):
     basis = project.get('basis')
     if not isinstance(basis, str) or not basis.strip():
         raise ValueError('Explicit source/assumption basis required')
+    inherited=None;aggregation=None
+    if allocation_path is not None:
+        from .air_tree_flow import aggregate
+        allocation_path=Path(allocation_path).resolve();inherited=allocation_path.read_bytes()
+        if hashlib.sha256(inherited).hexdigest()!=allocation_sha256:
+            raise ValueError('Allocation producer hash mismatch')
+        if output==allocation_path or output in allocation_path.parents:
+            raise ValueError('Output must not contain producer')
+        if any('flow_m3_s' in s for s in project['sections']):
+            raise ValueError('Inherited section flows cannot be overridden')
+        allocation=json.loads(inherited.decode('utf-8-sig'))
+        aggregation=aggregate(project['tree'],allocation['terminals'])
+        flows=aggregation['section_flow_L_s']
+        if set(flows)!={s['id'] for s in project['sections']}:
+            raise ValueError('Tree and schedule section identities must match exactly')
+        for section in project['sections']:section['flow_m3_s']=flows[section['id']]/1000
+    elif allocation_sha256 is not None or 'tree' in project:
+        raise ValueError('Tree schedule requires inherited allocation')
     rows, ids = [], set()
     for section in project['sections']:
         name = section['id']
@@ -41,6 +59,11 @@ def run(project_path, output):
                   status='fail' if any(r['failures'] for r in rows) else 'pass',
                   scope='Supplied section dimensions and prescribed flows only; source applicability, topology, local losses, fan selection and geometry require separate checks',
                   design_accepted=False)
+    if inherited is not None:
+        if allocation_path.read_bytes()!=inherited:raise ValueError('Allocation producer changed during schedule')
+        result['allocation_input']={str(allocation_path):allocation_sha256}
+        result['flow_aggregation']=aggregation
+        result['scope']='Inherited prescribed terminal demands aggregated through declared tree; section checks only, physical connections, local losses, fan duty and geometry remain pending'
     output.mkdir(parents=True)
     (output/'results.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
     with (output/'schedule.csv').open('w', newline='', encoding='utf-8') as f:

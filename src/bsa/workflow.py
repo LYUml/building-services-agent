@@ -438,11 +438,15 @@ def validate_plan(path):
             inputs.update((project,boundary))
             inputs.update(Path(m.__file__).resolve() for m in (air_allocation,air_load,service_areas))
         if kind=='duct_schedule':
-            from . import duct_schedule,duct_equivalent
-            if set(t)-{'id','kind','project','requires_pass','description'}:
+            from . import duct_schedule,duct_equivalent,air_tree_flow
+            if set(t)-{'id','kind','project','depends_on','requires_pass','description'}:
                 raise ProjectError('duct schedule requires explicit project only')
+            if 'depends_on' in t:
+                parent=t['depends_on']
+                if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='air_allocation':
+                    raise ProjectError('duct schedule must inherit an earlier air allocation')
             inputs.add(local_path(root,t.get('project')))
-            inputs.update(Path(m.__file__).resolve() for m in (duct_schedule,duct_equivalent))
+            inputs.update(Path(m.__file__).resolve() for m in (duct_schedule,duct_equivalent,air_tree_flow))
         if kind=='terminal_throw':
             from . import terminal_throw
             if set(t)-{'id','kind','project','depends_on','requires_pass','description'}:
@@ -1014,8 +1018,13 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 allocation_pins[t['id']]=digest(folder/'allocation.json')
             elif t['kind']=='duct_schedule':
                 from .duct_schedule import run
-                payload=run(local_path(root,t['project']),folder)
-                status=payload['status'];reason=payload['scope']
+                parent=t.get('depends_on')
+                if parent and tasks[parent]['status']!='pass':
+                    reason='upstream allocation '+parent+' did not pass; duct schedule not executed'
+                else:
+                    inherited={} if not parent else dict(allocation_path=out/parent/'allocation.json',allocation_sha256=allocation_pins[parent])
+                    payload=run(local_path(root,t['project']),folder,**inherited)
+                    status=payload['status'];reason=payload['scope']
             elif t['kind']=='terminal_throw':
                 from .terminal_throw import run
                 parent=t.get('depends_on')

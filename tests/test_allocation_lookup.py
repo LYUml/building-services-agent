@@ -57,3 +57,26 @@ class AllocationLookupTests(unittest.TestCase):
         self.assertIn('hash mismatch',r['tasks']['lookup']['scope'])
         self.assertFalse((self.root/'tamper/lookup').exists())
 
+
+    def test_inherited_duct_schedule_flow_and_rejection(self):
+        duct=dict(basis='Synthetic supplied sizes',air=dict(density_kg_m3=1.2,viscosity_Pa_s=1.81e-5,roughness_m=.00009),tree=dict(root='R',sections=[dict(id='SA',**{'from':'R','to':'A'}),dict(id='SB',**{'from':'R','to':'B'})],leaf_terminals=dict(A=['A'],B=['B']),basis='Synthetic terminal leaves'),sections=[dict(id=k,width_m=.8,height_m=.4,limits=dict(actual_velocity_m_s=8,friction_Pa_m=2,aspect_ratio=4)) for k in ('SA','SB')])
+        self.plan['tasks'].append(dict(id='ducts',kind='duct_schedule',project='ducts.json',depends_on='allocation'))
+        self.plan['requirements'].append(dict(self.plan['requirements'][0],id='RD',task='ducts'))
+        for right,fraction in [(5,.3),(7,.4)]:
+            self.allocation['terminals'][1]['center_m']=[right,2]
+            (self.root/'ducts.json').write_text(json.dumps(duct))
+            r=self.run_plan('duct'+str(right));self.assertEqual(r['tasks']['ducts']['status'],'pass')
+            result=json.loads((self.root/('duct'+str(right))/'ducts/results.json').read_text())
+            self.assertAlmostEqual(result['sections'][0]['inputs']['flow_m3_s'],1.28*fraction)
+            self.assertAlmostEqual(result['flow_aggregation']['total_flow_L_s'],1280)
+        duct['sections'][0]['flow_m3_s']=.1
+        (self.root/'ducts.json').write_text(json.dumps(duct))
+        r=self.run_plan('duct-override');self.assertEqual(r['tasks']['ducts']['status'],'fail')
+        self.assertIn('cannot be overridden',r['tasks']['ducts']['scope'])
+        del duct['sections'][0]['flow_m3_s']
+        duct['sections'][0]['limits']['actual_velocity_m_s']=.01
+        (self.root/'ducts.json').write_text(json.dumps(duct))
+        r=self.run_plan('duct-exceed');self.assertEqual(r['tasks']['ducts']['status'],'fail')
+        self.allocation['terminals'][1]['center_m']=[50,2]
+        r=self.run_plan('duct-blocked');self.assertEqual(r['tasks']['ducts']['status'],'pending')
+        self.assertFalse((self.root/'duct-blocked/ducts').exists())
