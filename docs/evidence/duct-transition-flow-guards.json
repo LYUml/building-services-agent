@@ -1,0 +1,35 @@
+{
+  "scope": "Necessary source-to-native geometric flow-class guard only;no new physical correlation or complete pressure",
+  "targeted_test_methods_passed": 6,
+  "native_fixture_classes": [
+    "contraction",
+    "expansion",
+    "mixed_width_height_change",
+    "one_plane_contraction"
+  ],
+  "controls": [
+    "matching declaration retains scoped arithmetic without physical acceptance",
+    "missing published/manufacturer flow class gives null coefficient",
+    "wrong source flow class gives null coefficient",
+    "mixed geometry rejected by pure contraction/expansion declarations in both directions",
+    "guard on tee rejected",
+    "missing fresh transition record cannot bypass guard",
+    "invalid source flow types/enums rejected",
+    "synthetic controls may omit declaration without gaining physical acceptance"
+  ],
+  "actual_private_workflow": {
+    "integrity_pass": true,
+    "source_native_engine_hashes_unchanged": true,
+    "main_table_contributions": 2,
+    "missing_transition_tables": 4,
+    "unsupported_branch_queries": 2,
+    "transition_requests_require_source_declaration": true,
+    "original_requirement_count": 34,
+    "original_requirement_records_preserved": true,
+    "all_complete_path_pressures_null": true,
+    "required_release_unexecuted": true,
+    "report_visually_reviewed": true
+  },
+  "generator_sha256": "5fa26444cd53ed900cd8dc2de29d69f2c6dbd39a3f24872aa262a42656c399c2",
+  "design_accepted": false
+}

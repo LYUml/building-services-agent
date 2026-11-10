@@ -69,9 +69,31 @@ class DuctFittingDataTests(unittest.TestCase):
             taper_table['coefficients']=[1.,3.]
             alternate=calculate(model,case,taper_basis)
             for before,after in zip(result['boundary_paths'],alternate['boundary_paths']):self.assertAlmostEqual(before['tabulated_plus_separate_straight_Pa'],after['tabulated_plus_separate_straight_Pa'])
+            # Source-class controls use fictional table values,not physical data.
+            taper_table['classification']='published correlation'
+            missing_guard=calculate(model,case,taper_basis)
+            guarded_row=next(r for r in missing_guard['table_results'] if r['product_guid']==taper_table['product_guid'])
+            self.assertIsNone(guarded_row['coefficient'])
+            self.assertEqual(sum(r['status']=='source_applicability_required' for r in missing_guard['data_requests']),1)
+            taper_table['transition_flow_change']=native_tapers[taper_table['product_guid']]['flow_change']
+            declared=calculate(model,case,taper_basis)
+            self.assertEqual(declared['calculated_table_paths'],8);self.assertFalse(declared['design_accepted'])
+            taper_table['transition_flow_change']='expansion' if taper_table['transition_flow_change']!='expansion' else 'contraction'
+            incompatible=calculate(model,case,taper_basis)
+            self.assertEqual(incompatible['calculated_table_paths'],7)
+            self.assertEqual(sum(r['status']=='native_condition_failed' for r in incompatible['data_requests']),1)
+            missing_geometry=copy.deepcopy(case)
+            next(p for p in missing_geometry['products'] if p['guid']==taper_table['product_guid']).pop('transition_geometry')
+            # Use the ratio-only baseline so this exercises the missing native
+            # geometry guard rather than the earlier unavailable-angle guard.
+            with self.assertRaisesRegex(ValueError,'Fresh native transition geometry'):calculate(model,missing_geometry,parsed)
             invalid_basis = copy.deepcopy(parsed)
             junction_table = next(r for r in invalid_basis['tables'] if r['product_guid'] not in native_tapers)
             junction_table['axes']=[dict(quantity='taper_length_m',values=[.1,1.])]
+            with self.assertRaisesRegex(ValueError,'unavailable'):calculate(model,case,invalid_basis)
+            invalid_basis=copy.deepcopy(parsed)
+            junction_table=next(r for r in invalid_basis['tables'] if r['product_guid'] not in native_tapers)
+            junction_table['transition_flow_change']='contraction'
             with self.assertRaisesRegex(ValueError,'unavailable'):calculate(model,case,invalid_basis)
             for row in result['table_results']:
                 obj = model.by_guid(row['product_guid']); outlet = model.by_guid(row['outlet_port_guid'])

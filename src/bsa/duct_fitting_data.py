@@ -53,7 +53,7 @@ def render(result, case):
             f"{q['taper_width_angle_deg']:.4f}", f"{q['taper_height_angle_deg']:.4f}",
             f"{q['outlet_hydraulic_diameter_m']:.5f}", f"{q['taper_length_over_outlet_hydraulic_diameter']:.5f}"]
         transition_rows.append('<tr>'+''.join('<td>'+esc(v)+'</td>' for v in values)+'</tr>')
-    transition_html = '<h2>Saved transition geometry</h2><p>Study construction assumptions remain. Taper length excludes both straight ends; Boolean bore-cap extensions do not add physical length. Width and height wall angles are separate. These are not centreline deflection angles or verified product data.</p><table><tr><th>Source section</th><th>Flow change</th><th>Taper m</th><th>Inlet / outlet straight m</th><th>Width included angle deg</th><th>Height included angle deg</th><th>Outlet hydraulic diameter m</th><th>Taper / outlet hydraulic diameter</th></tr>'+''.join(transition_rows)+'</table>' if transition_rows else ''
+    transition_html = '<h2>Saved transition geometry</h2><p>Study construction assumptions remain. Taper length excludes both straight ends; Boolean bore-cap extensions do not add physical length. Width and height wall angles are separate. These are not centreline deflection angles or verified product data. Published or manufacturer transition tables require a matching source flow-change declaration; matching it does not establish full applicability.</p><table><tr><th>Source section</th><th>Flow change</th><th>Taper m</th><th>Inlet / outlet straight m</th><th>Width included angle deg</th><th>Height included angle deg</th><th>Outlet hydraulic diameter m</th><th>Taper / outlet hydraulic diameter</th></tr>'+''.join(transition_rows)+'</table>' if transition_rows else ''
     citations = ''.join('<li>'+esc(s['citation'])+'; edition '+esc(s['edition'])+'</li>' for s in result['sources'].values())
     context_html = '<h2>Original assignment context</h2><p>'+str(len(result['upstream_assignment_context']['requirements']))+' original-plan requirements and their recorded execution/acceptance states are preserved. This local study does not accept them or imply they all depend on these fittings. <a href="data-requests.json">Exact fitting data requests and original requirement context</a>.</p>'
     return '<!doctype html><html lang="en"><meta charset="utf-8"><title>Duct Fitting Data Review</title><style>body{font:16px/1.5 Arial;color:#20343c;max-width:1250px;margin:35px auto;padding:0 20px}table{border-collapse:collapse;width:100%;font-size:14px}th,td{border:1px solid #cbd4d8;padding:10px;text-align:left}th{background:#eaf0f2}.pending{background:#fff0d2;border-left:5px solid #b47016;padding:16px}</style><h1>Duct Fitting Data Review</h1><p class="pending"><strong>Complete pressure assessment pending.</strong> '+str(result['calculated_table_paths'])+' table paths calculated out of '+str(result['unique_fitting_paths'])+' unique fitting paths. '+str(result['unsupplied_table_paths'])+' paths have no supplied table. Physical applicability and source transcription remain review-required even when interpolation succeeds.</p><h2>Native quantities and bounded source queries</h2><p>Each query uses actual saved port geometry and inherited design flow. Missing table cells stay unknown; no clamping or extrapolation is used.</p><table><tr><th>Source node</th><th>Source flow path</th><th>Outlet/inlet flow</th><th>Outlet/inlet velocity</th><th>Coefficient</th><th>Reference velocity pressure Pa</th><th>Signed tabulated contribution Pa</th><th>Query result</th></tr>'+''.join(tables)+'</table><h2>Separate outlet paths</h2><table><tr><th>Outlet section</th><th>Known separate straight Pa</th><th>Unresolved fitting paths</th><th>Complete pressure</th></tr>'+''.join(paths)+'</table><p>Zero supplied fitting contribution does not mean zero fitting loss. Partial sums are not lower bounds; parallel paths must not be added. Critical path and fan duty remain unavailable.</p>'+transition_html+'<h2>Sources</h2><ul>'+citations+'</ul><p>Coefficient reference port,friction convention,applicability note and source location are retained per table in <a href="fitting-data.json">the numerical record</a>. Tables themselves are not reproduced here. <a href="analysis/index.html">Saved flow and straight-friction analysis</a>.</p>'+context_html+'</html>'
@@ -81,12 +81,14 @@ def prepare(path):
     required = {'source_id', 'citation_location', 'classification', 'applicability_note', 'friction_scope',
         'product_guid', 'geometry_sha256', 'inlet_port_guid', 'outlet_port_guid', 'reference_port_guid', 'axes', 'coefficients'}
     for table in data['tables']:
-        if not required <= set(table) or set(table)-required-{'conditions'} or any(not isinstance(table[k], str) or not table[k].strip() for k in required-{'axes', 'coefficients'}):
+        if not required <= set(table) or set(table)-required-{'conditions','transition_flow_change'} or any(not isinstance(table[k], str) or not table[k].strip() for k in required-{'axes', 'coefficients'}):
             raise ValueError('Exact source-linked fitting-table record required')
         if table['source_id'] not in data['sources'] or not re.fullmatch('[0-9a-f]{64}', table['geometry_sha256']):
             raise ValueError('Known source and native body hash required')
         if table['classification'] not in ('published correlation', 'manufacturer data', 'synthetic') or table['friction_scope'] not in ('local_dynamic_only', 'whole_fitting_including_internal_straights'):
             raise ValueError('Explicit source classification and friction convention required')
+        if 'transition_flow_change' in table and (not isinstance(table['transition_flow_change'],str) or table['transition_flow_change'] not in ('contraction','expansion','mixed_width_height_change')):
+            raise ValueError('Explicit supported transition source flow class required')
         key = tuple(table[k] for k in ('product_guid', 'inlet_port_guid', 'outlet_port_guid'))
         if key in keys: raise ValueError('Duplicate fitting path table')
         keys.add(key)
@@ -143,6 +145,26 @@ def lookup(table, quantities):
         reason='Bounded interpolation only; engineering applicability and source transcription remain review-required')
 
 
+def flow_guard(table, geometry):
+    """A declared source flow class is a necessary check,not applicability proof."""
+    expected = table.get('transition_flow_change')
+    if geometry is None:
+        if expected is not None: raise ValueError('Transition flow guard is unavailable on this fitting class')
+        return None
+    required = table['classification'] != 'synthetic'
+    return dict(expected=expected, actual=geometry['flow_change'], required_for_source_class=required,
+        pass_check=(False if required else None) if expected is None else expected==geometry['flow_change'],
+        physical_applicability_verified=False)
+
+
+def request_status(result):
+    if result is None: return 'source_data_required'
+    if result['coefficient'] is not None: return 'physical_review_required'
+    if result['reason']=='source transition flow class required': return 'source_applicability_required'
+    if result['reason'] in ('declared native condition not met','declared transition flow change not met'): return 'native_condition_failed'
+    return 'table_support_missing'
+
+
 def calculate(model, case, data):
     requested = {(r['product_guid'], r['inlet_port_guid'], r['outlet_port_guid']): r for r in case['missing_fitting_path_losses']}
     geometries = {r['guid']:r.get('transition_geometry') for r in case['products']}
@@ -166,8 +188,15 @@ def calculate(model, case, data):
         if geometries[obj.GlobalId]: quantities.update(geometries[obj.GlobalId]['quantities'])
         if any(r['quantity'] not in quantities for r in table['axes']+table.get('conditions',[])):
             raise ValueError('Requested native quantity is unavailable on this fitting class')
-        value = lookup(table, quantities)
+        if obj.PredefinedType=='TRANSITION' and geometries[obj.GlobalId] is None:
+            raise ValueError('Fresh native transition geometry is required for source flow checks')
+        guard = flow_guard(table,geometries[obj.GlobalId])
+        if guard and guard['pass_check'] is False:
+            value = dict(status='pending', coefficient=None, native_condition_checks=[],
+                reason='source transition flow class required' if guard['expected'] is None else 'declared transition flow change not met')
+        else: value = lookup(table, quantities)
         value.update(product_guid=key[0], inlet_port_guid=key[1], outlet_port_guid=key[2],
+            transition_flow_check=guard,
             native_quantities=quantities, reference_port_guid=table['reference_port_guid'],
             reference_velocity_pressure_Pa=ref['actual_velocity_pressure_Pa'],
             signed_tabulated_contribution_Pa=None if value['coefficient'] is None else value['coefficient']*ref['actual_velocity_pressure_Pa'],
@@ -190,14 +219,15 @@ def calculate(model, case, data):
             transition_geometry=geometries[obj.GlobalId],
             inlet_port_guid=key[1], outlet_port_guid=key[2], inlet=ports[key[1]], outlet=ports[key[2]],
             available_reference_ports=references, affected_outlet_port_guids=affected,
-            status='source_data_required' if table_result is None else 'native_condition_failed' if table_result['reason']=='declared native condition not met' else 'table_support_missing' if table_result['coefficient'] is None else 'physical_review_required',
+            status=request_status(table_result),
             recorded_table_result=table_result,
             required_evidence=['Applicable fitting geometry,direction,flow ratio and fluid/regime source',
                 'Hash-pinned document,publication edition and exact table/page or test location',
                 'Explicit actual owned-port reference velocity and signed total-pressure convention',
                 'Published support cell or directly applicable source test point; no extrapolation',
                 'Independent transcription and physical applicability review',
-                'Whole fitting friction/stations and adjacent fitting/joint interaction basis'],
+                'Whole fitting friction/stations and adjacent fitting/joint interaction basis']+
+                (['Explicit source transition_flow_change declaration for published/manufacturer transition tables'] if geometries[obj.GlobalId] else []),
             design_accepted=False))
     paths = []
     for path in case['boundary_paths']:

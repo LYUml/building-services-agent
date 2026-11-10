@@ -38,6 +38,14 @@ physical length,and a major angle is not both plane angles. Reject unavailable
 quantities on tees. Native geometry still needs applicable source/product/regime
 evidence;hydraulic diameter alone does not authorize a circular correlation.
 
+For published/manufacturer transition tables,declare transition_flow_change from
+the source coverage for the actual path. It must match the fresh native class:
+contraction,expansion or mixed_width_height_change. Missing declarations remain
+source_applicability_required;wrong ones remain native_condition_failed,with no
+coefficient. Do not substitute net area reduction for mixed width/height geometry.
+Synthetic controls may omit the source declaration but never establish physical
+acceptance. Matching this one guard cannot clear the remaining method review.
+
 Inspect boundary_paths from bsa.duct_chain_analysis before using local pressure
 results. Keep inlet-to-outlet paths separate; shared straight contributions must
 not be added across parallel outlets. Full pressure and critical_path stay null

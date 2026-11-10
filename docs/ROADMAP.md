@@ -1,5 +1,14 @@
 # Scope and acceptance
 
+Published/manufacturer transition tables now require an explicit source geometric
+flow class that matches the fresh native contraction/expansion/mixed record.
+Missing or mismatched declarations retain null coefficients and distinct recovery
+states;net area alone cannot classify mixed width/height changes. Six targeted
+methods verify native and reversed cases,source-class and bypass controls. Actual
+workflow preserves two main contributions,six unresolved coefficient paths and34
+original pending requirements. No new physical correlation or design acceptance
+is inferred. See DUCT_FITTING_DATA.md.
+
 Saved rectangular transition dimensions now supply actual taper/end lengths,
 both wall opening angles,flow-change class and outlet hydraulic-diameter ratios
 to data requests and supported table queries. Inner Boolean bore extensions do

@@ -633,3 +633,10 @@ without an engine run or coefficient/physical applicability claim. Official
 ASHRAE shape-conversion diagrams are not treated as these rectangular bodies.
 No new dependency or upstream implementation/database is copied. See
 DUCT_FITTING_DATA.md and evidence/duct-transition-quantities.json.
+
+Transition source flow guards reuse the saved native transition classifier and
+existing bounded SciPy table adapter. They compare explicit source coverage with
+native contraction/expansion/mixed geometry before numeric interpolation,without
+another flow or geometry engine. Native/reversed/mixed controls retain unknown
+coefficients for missing or incompatible declarations. No new dependency or
+coefficient database is introduced. See DUCT_FITTING_DATA.md.

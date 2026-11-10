@@ -73,6 +73,29 @@ coefficient and native_condition_failed recovery status. No hidden tolerance
 expands these bounds. The caller must source the constraint interpretation;
 passing a partial condition list cannot verify full physical applicability.
 
+Transition tables may also declare `transition_flow_change` as contraction,
+expansion or mixed_width_height_change. Published-correlation and manufacturer
+transition tables must declare which geometric flow class their source supports
+for this record;synthetic mathematical controls may omit it. This is checked
+against the fresh native transition classification,not just the net area ratio.
+Missing declarations retain null coefficients with source_applicability_required;
+wrong declarations retain null coefficients with native_condition_failed.
+Transition guards on tees reject,and a missing fresh native transition record
+cannot bypass the check. Expected/actual classes and the partial check state
+remain in the numerical result. Matching the declared class does not verify the
+source interpretation,remaining geometry/regime/friction or full applicability.
+
+Native tests apply the guard to contraction,expansion,one-plane and oblique
+mixed-change bodies,and to reversed endpoints. Mixed geometry remains mixed
+even in the direction where net area decreases;neither a contraction-only nor
+an expansion-only declaration is accepted for it. Fictional coefficient controls
+show that a supported interpolation point still produces no contribution when
+the source flow declaration is missing or wrong. These controls are not real
+published coefficient verification. Actual execution retains the existing two
+main-path contributions,four absent transition tables,two sparse branch queries
+and all34 original requirement states. No additional coefficient or complete
+pressure is claimed. See evidence/duct-transition-flow-guards.json.
+
 Queries outside the table return pending with no coefficient. Every corner of
 the actual interpolation cell must be published/finite. Blank cells are never
 zero,large sentinels or extrapolated values. Exact grid-axis hits collapse that
