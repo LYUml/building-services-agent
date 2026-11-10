@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Source-declared ideal equal-section rectangular tee authoring now saves native CSG with three stable owned port frames, schema/EXPRESS and material/bore/analytic-volume checks. Two native test methods cover changed dimensions, rigid placement and rejected mutations; the public fixture executes. Variable-section takeoffs, product/fabrication/loss/assembly and workflow acceptance remain pending. See RECTANGULAR_TEES.md.
+
 Synthetic transition assembly research now joins two existing straight hollow walls to the upstream-derived transition: saved three-component/six-port/two-interface checks, schema/EXPRESS, material union/volume and centre-bore pass. Port, solid and transition shifts reject. General source-driven production authoring, constant sheet-normal construction, products/losses and actual coursework assembly remain pending. See MEP_FITTING_REUSE.md.
 
 Upstream-centred transition wall research now executes a saved native outer-minus-inner Boolean, zero schema/EXPRESS issues, analytic material volume, connected through-bore mesh and filled-envelope rejection. It is explicitly a synthetic section-plane-offset model rather than constant sheet-normal thickness; ports, products, losses and production/project integration remain pending. See MEP_FITTING_REUSE.md.

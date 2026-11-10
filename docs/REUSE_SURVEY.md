@@ -500,3 +500,13 @@ six-port/two-interface system passes schema, source frame/body, connected materi
 volume and centre-bore checks. Independent saved port/straight-solid/transition
 shift controls reject. This is a synthetic local assembly, with sheet-normal
 thickness, products, pressure, arbitrary junctions and project integration pending.
+
+Rectangular junction gap: ShapeBuilder inventory and pinned OpenMEP review did not
+establish an available general headless tee constructor. Reuse the circular-tee
+pattern's upstream IFC extrusion/Boolean/system APIs, stable identity/rigid frame
+helpers and accepted Manifold checks. The thin sharp equal-section adapter binds
+source geometry, ports and independent prism volume; no engine/dependency or
+upstream source body is rebuilt/vendored. Two native test methods cover two
+dimension/frame cases and rejected mutations; a source fixture saves/reopens with
+zero schema/EXPRESS issues. Variable sections, losses, products, assemblies and
+workflow release remain pending. See RECTANGULAR_TEES.md.

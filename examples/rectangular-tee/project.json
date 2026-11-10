@@ -1,0 +1,20 @@
+{
+  "project_uuid": "71b0a6a6-54ce-49c9-8b82-0735b7cbe141",
+  "source": "Synthetic ideal geometry for adapter verification; no manufacturer or actual project dimensions",
+  "classification": "assumed",
+  "internal_width_m": 0.4,
+  "internal_height_m": 0.2,
+  "wall_thickness_m": 0.005,
+  "main_half_length_m": 0.6,
+  "branch_length_m": 0.5,
+  "port_directions": {
+    "main-a": "SINK",
+    "main-b": "SOURCE",
+    "branch": "SOURCE"
+  },
+  "placement": {
+    "source": "Synthetic local fixture at the origin",
+    "origin_m": [0, 0, 0],
+    "rotation": [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+  }
+}

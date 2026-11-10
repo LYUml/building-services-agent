@@ -1,5 +1,11 @@
 # Attribution and upstream integration register
 
+Ideal equal-section rectangular tee authoring is original source/frame/volume
+binding around already pinned IfcOpenShell0.8.5 extrusion/Boolean/system APIs and
+Manifold3D3.5.4 material checks. Existing notices apply; no new solver, dependency,
+upstream function body or binary is vendored. The OpenMEP/ShapeBuilder reuse survey
+and exact scope are in docs/MEP_FITTING_REUSE.md and docs/RECTANGULAR_TEES.md.
+
 `bsa.drainage_input` is original model-preparation code informed by EPA SWMM 5.2 User's Manual Appendix D input field semantics. It emits SWMM input for later upstream execution and does not implement hydraulic solving. Official manual link, limited support and unverified native-parser status are recorded in docs/SWMM_TRIAL.md; no upstream source text or solver binary is copied.
 
 SWMM reuse evaluation installs `swmm-toolkit==0.17.0` from [pyswmm/swmm-python](https://github.com/pyswmm/swmm-python), with `aenum==3.1.17`. Distributed SWMM/toolkit/OpenMP notices and AUTHORS are retained verbatim under `third_party/licenses/swmm-toolkit-*`; metadata, hashes and blocked import evidence are in docs/evidence/swmm-trial/runtime.json. No binaries or engine source are redistributed. Native swmm5.dll is blocked by host policy, so this is not a verified drainage adapter. See docs/SWMM_TRIAL.md.

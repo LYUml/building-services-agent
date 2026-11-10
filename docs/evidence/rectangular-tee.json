@@ -1,0 +1,67 @@
+{
+  "inputs": {
+    "project.json": "22f347447ca039705d5471a17ee5dc91a0172788cfffddd17f5725d973219636"
+  },
+  "generator_sha256": "41ab60eb9ffadadbe04c4474325e582cec38b4f0b9187b993a2088a22cf6d3ac",
+  "ifc_sha256": "91f1784d30f279d56fb2289d3ceb13b00182922ac50521a5ddb73263c745d56b",
+  "versions": {
+    "ifcopenshell": "0.8.5",
+    "manifold3d": "3.5.4"
+  },
+  "parameters": {
+    "project_uuid": "71b0a6a6-54ce-49c9-8b82-0735b7cbe141",
+    "source": "Synthetic ideal geometry for adapter verification; no manufacturer or actual project dimensions",
+    "classification": "assumed",
+    "internal_width_m": 0.4,
+    "internal_height_m": 0.2,
+    "wall_thickness_m": 0.005,
+    "main_half_length_m": 0.6,
+    "branch_length_m": 0.5,
+    "port_directions": {
+      "main-a": "SINK",
+      "main-b": "SOURCE",
+      "branch": "SOURCE"
+    },
+    "placement": {
+      "source": "Synthetic local fixture at the origin",
+      "origin_m": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ]
+    }
+  },
+  "checks": {
+    "schema_express_issue_count": 0,
+    "ports": 3,
+    "one_connected_material": true,
+    "euler_characteristic": -2,
+    "native_material_volume_m3": 0.00871950000000001,
+    "independent_material_volume_m3": 0.008719500000000019,
+    "bore_probe_overlap_m3": [
+      0.0,
+      0.0
+    ],
+    "saved_source_geometry_and_port_frames": true
+  },
+  "geometry_checks_pass": true,
+  "design_accepted": false,
+  "scope": "Source-declared ideal equal-section sharp rectangular tee only; no radiused takeoff, variable sections, losses, products, assembly or jurisdiction acceptance"
+}
