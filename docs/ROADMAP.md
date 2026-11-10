@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Saved native terminal-connection inspection now binds declared VAV membership to planar rectangular diffuser symbols and straight flexible centreline endpoints, reusing ezdxf and tree validation. Actual 80-terminal/20-group/47-section inspection and five negative/positive controls pass. Workflow registration, physical ports/installed length, labels, 3D and full acceptance remain pending. See AIR_TERMINAL_DRAWING.md.
+
 Single-command HVAC package preparation now composes the existing workflow, diagnosis, pending delivery review and pinned report renderer. Actual coursework execution passes five stages and retains nine unresolved tasks; 22 report pages and the drawing render identically to inspected evidence. This does not complete source/ADPI, installation, jurisdiction or submission acceptance. See HVAC_PACKAGE.md.
 
 [Unified HVAC drawing execution](DUCT_SHEET.md) now runs source-classified airflow allocation, lookup, candidate sizing, bound single-line DXF update and fresh AutoCAD save/reopen/scaled A1 plotting. The actual private five-stage run and 55 focused tests pass; its PDF was inspected. Full source/ADPI, physical coordination, jurisdiction applicability, report and delivery acceptance remain pending.
