@@ -20,6 +20,14 @@ Iterate design using computed results. Use ../mep-delivery-check/SKILL.md before
 
 ## Tool orchestration
 
+For repeat runs of a reviewed HVAC project, use bsa.hvac_project create to pin
+the plan, discovered sources and selected package reviews, then run the saved
+configuration with explicit host font/AutoCAD arguments. Read docs/HVAC_PROJECT.md.
+Changed or omitted source inputs reject; do not edit hashes merely to accept an
+unreviewed change. Reuse hvac_package evidence and preserve every original
+engineering requirement. One-command settings replay is not raw-brief design
+automation or delivery acceptance.
+
 For a reviewed single-source HVAC package that needs whole-tree path coverage,
 pass --system-paths-native-task with the exact declared duct_sheet_native task ID
 to bsa.hvac_package. It executes the new native workflow first,then runs the

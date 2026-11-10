@@ -662,3 +662,11 @@ absolute width/height angle difference permits explicit source conditions withou
 a replacement loss engine. Actual four-body quantities,synthetic positive and
 negative controls and the saved-chain workflow execute. This does not infer
 source conditions or make a published correlation physically applicable.
+
+HVAC project configurations reuse workflow.validate_plan input discovery,existing
+SHA256 provenance and hvac_package orchestration rather than adding another
+workflow,requirements parser,solver or external CLI. Closed settings and explicit
+host runtimes address omitted review flags without commands in document data.
+Source/setting mutation and incomplete-inventory controls execute separately from
+native evidence. No new engine,dependency or upstream implementation is copied.
+See HVAC_PROJECT.md for the source-pinned replay contract.

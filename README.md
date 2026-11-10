@@ -10,6 +10,8 @@ Open this repository and invoke `$building-services-design` with the brief and s
 
 [Document intake](docs/DOCUMENT_INTAKE.md) extracts passages and creates a requirement matrix. A drafted plan still needs engineering interpretation: a raw brief is not a runnable design. Read [scope and acceptance](docs/ROADMAP.md) and the applicable skill before extending a capability. Check [upstream reuse decisions](docs/REUSE_SURVEY.md) first.
 
+For repeat HVAC execution, [project configurations](docs/HVAC_PROJECT.md) pin the interpreted plan, discovered source inputs and chosen reviews. Replay the saved configuration in one command with explicit host engine/font paths; changed sources reject and unresolved design acceptance remains visible.
+
 ## Run an independent HVAC demonstration
 
 ```powershell

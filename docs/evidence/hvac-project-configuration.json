@@ -1,0 +1,22 @@
+{
+  "scope": "Pinned interpreted-HVAC-project settings replay,not automatic raw-brief design or engineering acceptance",
+  "targeted_tests_passed": 8,
+  "configuration_input_hashes_pass": true,
+  "package_artifact_hashes_pass": true,
+  "workflow_integrity_pass": true,
+  "source_path_method_hashes_pass": true,
+  "stage_errors": {},
+  "stage_count": 7,
+  "unresolved_original_tasks": 9,
+  "native_save_reopen_plot_executed": true,
+  "source_sections": 47,
+  "original_outlet_paths": 20,
+  "report_pages": 22,
+  "numerical_rows_checked": 388,
+  "requirement_rows": 34,
+  "all_report_pages_pixel_identical_to_bound_reviewed_baseline": true,
+  "plot_pixel_identical_to_bound_reviewed_baseline": true,
+  "new_report_first_page_and_plot_visually_inspected": true,
+  "design_accepted": false,
+  "controller_sha256": "4181821e8508df35b61daa076ef60dd6654d089b1e57c1c7613f0692007f27ab"
+}

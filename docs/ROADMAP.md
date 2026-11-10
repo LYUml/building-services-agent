@@ -1,5 +1,16 @@
 # Scope and acceptance
 
+Pinned HVAC project configurations now replay the existing package with its saved
+terminal,ADPI,planar,junction and whole-tree selections. Complete discovered
+source/settings inventories are verified before execution and rechecked before
+the bound package receipt;engine/command fields from configuration reject. Eight
+targeted controls pass. Actual seven-stage execution has no stage errors,native
+save/reopen/plot and22 report pages;all pages and the plot match bound reviewed
+baseline renders. The388 numerical rows,34 requirements and nine unresolved tasks
+remain. This reduces repeated manual flags,not raw-brief interpretation,physical
+design gaps or full engineering acceptance. See HVAC_PROJECT.md and
+evidence/hvac-project-configuration.json.
+
 Saved transition source matching now exposes the absolute width/height opening
 angle difference to existing bounded table conditions. Six targeted tests cover
 native equal/unequal/one-plane/mixed/reversed cases and reject an incompatible
