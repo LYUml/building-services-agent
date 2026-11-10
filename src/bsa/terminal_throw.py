@@ -100,7 +100,7 @@ def evaluate(rows, *, maximum_flow_L_s, turndown, characteristic_length_m):
         bracket = next((i for i in range(len(flows)-1) if flows[i] <= flow <= flows[i+1]))
         cases[name] = dict(flow_L_s=flow,status='within_catalogue',T025_m=throw,
                            ratio=throw/length,bracketing_rows=[bracket,bracket+1])
-    return dict(cases=cases,method='Piecewise linear interpolation; explicit design approximation',
+    return dict(characteristic_length_m=length,cases=cases,method='Piecewise linear interpolation; explicit design approximation',
                 ADPI_verified=False,design_accepted=False,
                 pending=['Catalogue condition and characteristic-length applicability',
                          'ADPI classification, thermal load and criterion applicability'])
