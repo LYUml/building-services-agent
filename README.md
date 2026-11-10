@@ -29,7 +29,7 @@ For a reviewed real plan, [package preparation](docs/HVAC_PACKAGE.md) also accep
 | Requirements and orchestration | Source-linked plans, dependencies, input/artifact hashes, retained failures and pending review | General semantic interpretation and complete automatic task planning |
 | HVAC coursework | Allocation, bounded catalogue lookup, candidate duct sizes, bound single-line schedules, native DWG/PDF, connection review and report | Actual room loads, ADPI applicability, finite physical connections and installation acceptance |
 | Electrical | Scoped circuit/three-phase studies, selected protection/rule checks, native schematics and supported cable geometry | Complete protection/product/installation design and full jurisdiction coverage |
-| Water and drainage | Supported tree/EPANET networks, pump scenarios, saved-IFC binding, source-bound fixture demand, declared drainage connections and SWMM input preparation | Real survey/table applicability, saved sanitary topology, complete sanitary/fire design and currently blocked SWMM native execution |
+| Water and drainage | Supported tree/EPANET adapters with historical executed evidence, pump scenarios, saved-IFC binding, source-bound fixture demand, declared drainage connections and SWMM input preparation | Current WNTR/EPANET import and SWMM native execution blocked; real survey/table applicability, saved sanitary topology and complete sanitary/fire design pending |
 | IFC and coordination | Supported envelopes, straight walls, finite elbows/tees, saved port/geometry checks and scoped clashes/drawings | General fittings, complete equipment/product fidelity and connected installation design |
 | Revit | Compiled native adapter, provenance/diagnostic logic and local deployment preparation | Native execution blocked by host signing policy; creation/reopen/system validation unverified |
 | Lighting and energy | Historical executed Radiance/OpenStudio/EnergyPlus workflows and source-bound adapters | Current host blocks relevant native components; full performance/design acceptance pending |
@@ -38,6 +38,8 @@ For a reviewed real plan, [package preparation](docs/HVAC_PACKAGE.md) also accep
 See [native Revit](adapters/revit/README.md), [three-phase studies](docs/THREE_PHASE_NETWORKS.md), [water binding](docs/WATER_BINDING.md), [rectangular duct models](docs/RECTANGULAR_AIR_NETWORKS.md), [lighting](docs/LIGHTING.md), [energy](docs/ANNUAL_ENERGY.md), and [rule packs](docs/REGULATION_PACKS.md) for exact contracts. Successful examples are evidence only for their stated scope.
 
 For a repeatable source-bound sanitary example, see [Hong Kong drainage](docs/HK_DRAINAGE.md). Its public runner creates fictional survey/DU inputs and executes positive, unknown-route and prohibited-connection workflows using a supplied hash-pinned official PDF. It preserves whole-design review and does not need private coursework.
+
+The [current WNTR runtime probe](docs/WATER_RUNTIME.md) distinguishes installed packages from usable native dependencies. Its observed import failure prevents fresh EPANET hydraulic results on this host; scoped fixture-demand calculations do not use that solver.
 
 ## Verification and delivery
 

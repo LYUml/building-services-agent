@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Current-host water revalidation (2026-11-11) finds WNTR1.5.0 import blocked by Application Control at _network_isolation before EPANET execution. Actual source-example worker and independent child-process probe reproduce it; no hydraulic output or downstream acceptance is claimed. Historical executions remain historical. Full regression is still a separate running audit. See WATER_RUNTIME.md.
+
 Public scripts/run_hk_drainage_demo.py now reproduces the declared-connection/inherited-DU workflow without private coursework, using a supplied pinned official PDF. Actual three-scenario execution, independent5DU/flow check, artifact readback and wrong-source pre-output rejection pass. All cases retain engineering acceptance pending; real surveys, geometry and sanitary design remain incomplete. See HK_DRAINAGE.md.
 
 Stack DU now inherits the exact earlier drainage connection project in unified workflows, rejects replacement inventories and requires a fresh review to match the recorded producer. Twenty-two related tests and official-source-bound synthetic six-task execution verify scoped calculation, pending upper-route facts and upstream blocking. CAD/IFC correspondence, real surveys and full sanitary sizing remain pending. See HK_DRAINAGE.md.

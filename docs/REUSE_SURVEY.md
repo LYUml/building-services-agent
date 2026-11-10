@@ -438,3 +438,9 @@ executed official-source-bound positive/upper-route-unknown/prohibited scenarios
 independent5DU/flow checks and wrong-source pre-output rejection. Artifact hashes
 were read back. This is synthetic integration evidence only; geometry, real
 surveys and full engineering acceptance remain pending.
+
+Water runtime diagnosis reuses the existing isolated energy probe helper rather
+than adding a loader or replacing WNTR. Fresh pinned1.5.0 import and a real example
+worker both report Application Control blocking _network_isolation before EPANET
+execution. The public probe preserves raw evidence/version/timeout and does not
+change policy. Full regression is still running; no green-suite claim is made.
