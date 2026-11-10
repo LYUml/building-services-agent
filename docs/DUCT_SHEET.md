@@ -29,3 +29,22 @@ PDF was rendered and inspected: the plan and complete schedule are visible witho
 page clipping. D-22 placement near a wall, final titleblock and full ADPI/source,
 coordination and engineering acceptance remain pending. Native verification is actual
 private evidence, not yet incorporated in this callable or a workflow drawing task.
+
+
+## Unified DXF preparation
+
+Workflow kind `duct_sheet` takes `depends_on` pointing to an earlier `duct_schedule`,
+plus `drawing`, `binding`, optional `requires_pass` and `description`. Its binding
+omits `schedule_sha256`: the executor supplies the exact newly produced result hash.
+It rejects replacement schedule/project inputs or hashes, pins source drawing/binding
+and adapter modules, and leaves the task pending without output if sizing failed.
+Changed producer bytes fail before writing. A passing task means saved-DXF preparation
+only; `native_reopen_pass` stays false and plot review stays pending.
+
+54 focused tests pass, covering inherited producer identity, mutation, replacement,
+failed sizing and source/geometry checks. The actual private full-brief plan now runs
+allocation, lookup, candidate sizing and drawing preparation in one invocation; all
+four scoped stages pass, while nine regulatory/engineering work packages stay pending.
+The saved modelspace exactly matches the corrected, previously reviewed single-line
+candidate. That match does not substitute for fresh native/plot acceptance of this run.
+Unified native save/reopen/plot orchestration remains incomplete.

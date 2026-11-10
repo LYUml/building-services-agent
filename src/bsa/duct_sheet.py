@@ -23,7 +23,7 @@ def snapshot(doc):
     return {e.dxf.handle:repr(TagCollector.dxftags(e)) for e in doc.modelspace()}
 
 
-def run(source, schedule, binding, output):
+def run(source, schedule, binding, output, *, inherited_schedule_sha256=None):
     source,schedule,binding,output=map(lambda p:Path(p).resolve(),(source,schedule,binding,output))
     paths=(source,schedule,binding)
     if output.exists() or any(output==p or output in p.parents for p in paths):
@@ -31,7 +31,14 @@ def run(source, schedule, binding, output):
     pins={str(p):digest(p) for p in paths}
     spec=json.loads(binding.read_text(encoding='utf-8-sig'))
     result=json.loads(schedule.read_text(encoding='utf-8-sig'))
+    if inherited_schedule_sha256 is not None:
+        if 'schedule_sha256' in spec:
+            raise ValueError('Inherited schedule hash cannot be overridden in binding')
+        if pins[str(schedule)]!=inherited_schedule_sha256:
+            raise ValueError('Inherited schedule producer changed')
+        spec['schedule_sha256']=inherited_schedule_sha256
     if set(spec)!={'source_sha256','schedule_sha256','basis','sections'}:
+
         raise ValueError('Exact source/schedule hashes, basis and sections required')
     if spec['source_sha256']!=pins[str(source)] or spec['schedule_sha256']!=pins[str(schedule)]:
         raise ValueError('Drawing or schedule source hash mismatch')

@@ -301,7 +301,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","rectangular_network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind in ("water_network","rectangular_network") and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
@@ -437,6 +437,20 @@ def validate_plan(path):
                 raise ProjectError('allocation boundary source hash mismatch')
             inputs.update((project,boundary))
             inputs.update(Path(m.__file__).resolve() for m in (air_allocation,air_load,service_areas))
+        if kind=='duct_sheet':
+            from . import duct_sheet,cad_intake
+            if set(t)-{'id','kind','depends_on','drawing','binding','requires_pass','description'}:
+                raise ProjectError('duct sheet inherits schedule; replacement inputs forbidden')
+            parent=t.get('depends_on')
+            if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='duct_schedule':
+                raise ProjectError('duct sheet requires an earlier duct schedule')
+            drawing=local_path(root,t.get('drawing'));binding=local_path(root,t.get('binding'))
+            spec=read_json(binding)
+            if set(spec)!={'source_sha256','basis','sections'}:
+                raise ProjectError('inherited sheet binding excludes schedule override')
+            if digest(drawing)!=spec['source_sha256']:
+                raise ProjectError('duct sheet source drawing hash mismatch')
+            inputs.update((drawing,binding,Path(duct_sheet.__file__).resolve(),Path(cad_intake.__file__).resolve()))
         if kind=='duct_schedule':
             from . import duct_schedule,duct_equivalent,air_tree_flow
             if set(t)-{'id','kind','project','depends_on','requires_pass','description'}:
@@ -891,7 +905,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
     if any(out==f or out in f.parents for f in inputs):raise ProjectError("run output must not contain inputs")
     before={str(f):digest(f) for f in inputs}
     out.mkdir(parents=True,exist_ok=False)
-    evidence={};tasks={};three_phase_pins={};three_phase_rule_pins={};rectangular_pins={};concept_pins={};allocation_pins={}
+    evidence={};tasks={};three_phase_pins={};three_phase_rule_pins={};rectangular_pins={};concept_pins={};allocation_pins={};duct_schedule_pins={}
     root=plan.parent
     for t in p["tasks"]:
         folder=out/t["id"]
@@ -1025,6 +1039,16 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     inherited={} if not parent else dict(allocation_path=out/parent/'allocation.json',allocation_sha256=allocation_pins[parent])
                     payload=run(local_path(root,t['project']),folder,**inherited)
                     status=payload['status'];reason=payload['scope']
+                    duct_schedule_pins[t['id']]=digest(folder/'results.json')
+            elif t['kind']=='duct_sheet':
+                from .duct_sheet import run
+                parent=t['depends_on']
+                if tasks[parent]['status']!='pass':
+                    reason='upstream duct schedule '+parent+' did not pass; sheet update not executed'
+                else:
+                    payload=run(local_path(root,t['drawing']),out/parent/'results.json',local_path(root,t['binding']),folder,
+                        inherited_schedule_sha256=duct_schedule_pins[parent])
+                    status='pass';reason=payload['scope']+'; DXF preparation only, native reopening and actual plot review remain pending'
             elif t['kind']=='terminal_throw':
                 from .terminal_throw import run
                 parent=t.get('depends_on')
