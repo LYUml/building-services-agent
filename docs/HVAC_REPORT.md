@@ -62,3 +62,8 @@ Actual private report includes 80 terminals, 20 groups, 47 rigid sections and
 2.873 m maximum straight plan connection. A falsified 79-terminal review rejected.
 The 22-page PDF retains 388 checked table rows; changed pages 18–22 were inspected
 and pages 1–17 match previously inspected renders. Six focused tests pass.
+
+Five dedicated saved-DXF summary regression cases now cover reconstructed success,
+forged counts, moved flex endpoints even with rewritten review hashes, wrong workflow
+or pending ancestry, and binding sources outside the run. These are synthetic unit
+checks, not additional native AutoCAD executions.
