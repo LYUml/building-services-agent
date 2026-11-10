@@ -1,5 +1,7 @@
 # Building Services Agent
 
+A runnable [independent HVAC example](examples/hvac-package/README.md) now prepares its own synthetic inputs and exercises the complete package command, including native A4 plotting and terminal connections. Actual four-terminal execution and all four report pages were checked. It is a reusable demonstration, not a certified design.
+
 [HVAC package preparation](docs/HVAC_PACKAGE.md) now runs a reviewed plan through calculations, native drawing and numerical PDF reporting in one command. The private five-stage run produces a reopened DWG, inspected-equivalent A1 plot and 22-page report; full engineering and submission acceptance remain pending.
 
 [Unified HVAC drawing execution](docs/DUCT_SHEET.md) now runs source-classified airflow allocation, lookup, candidate sizing, bound single-line DXF update and fresh AutoCAD save/reopen/scaled A1 plotting. The actual private five-stage run and 55 focused tests pass; its PDF was inspected. Full source/ADPI, physical coordination, jurisdiction applicability, report and delivery acceptance remain pending.

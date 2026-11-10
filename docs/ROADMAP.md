@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Independent HVAC reuse now executes a public synthetic input builder through the same package pipeline: different coordinates, four terminals, two two-outlet groups, three ducts and 50% minimum flow. Native reopen, A4 plot, inherited connections and four-page report were executed and inspected; independent flow/area checks pass. This verifies scoped reuse, not the full multi-discipline or engineering acceptance goal. See ../examples/hvac-package/README.md.
+
 Saved native terminal-connection inspection now binds declared VAV membership to planar rectangular diffuser symbols and straight flexible centreline endpoints, reusing ezdxf and tree validation. Actual 80-terminal/20-group/47-section inspection and five negative/positive controls pass. Workflow registration, physical ports/installed length, labels, 3D and full acceptance remain pending. See AIR_TERMINAL_DRAWING.md.
 
 Single-command HVAC package preparation now composes the existing workflow, diagnosis, pending delivery review and pinned report renderer. Actual coursework execution passes five stages and retains nine unresolved tasks; 22 report pages and the drawing render identically to inspected evidence. This does not complete source/ADPI, installation, jurisdiction or submission acceptance. See HVAC_PACKAGE.md.
