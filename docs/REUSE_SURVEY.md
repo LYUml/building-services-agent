@@ -345,3 +345,13 @@ No OCR/vision engine or dependency added. Only structurally empty unannotated pa
 become review issues; non-text graphics and wholly empty briefs remain blocked.
 Actual five-page coursework intake and 22 focused tests (one optional OCR skip)
 verify the distinction without inventing source passages.
+
+Domestic fixture-demand gap: inspect USEPA/PPMtools at commit
+1c846f072e2d94a6aa1c667d7cc7da1cfb8778b9 (MIT), discovered through the EPA
+premise-plumbing page. Static code/README inspection shows stochastic household
+usage and water-quality analysis built on WNTR/EPANET, not an implemented IOP
+loading/discharge-unit design method for the current task. Retain as a research
+candidate; no import, simulation, dependency installation or production integration
+claimed. Source/license hashes and decision are in adapters/ppmtools/research.json.
+Existing BSA water solvers remain the downstream engine candidates; exact course
+method and source tables must be acquired before demand conversion is implemented.

@@ -1,0 +1,19 @@
+{
+  "repository": "https://github.com/USEPA/PPMtools",
+  "commit": "1c846f072e2d94a6aa1c667d7cc7da1cfb8778b9",
+  "license": "MIT",
+  "inspection": "Static source review only; no installation/import/native execution",
+  "files": {
+    "README.md": "ce84303f124b1561885d334e9c5d9734d79df40bc14afc8f1b931d68a6f78450",
+    "LICENSE.md": "750ab3ff9d2900ee01c863894e6f683920a154ecdb37e70f707c9e34eb6a2ccd",
+    "PPMtools.py": "4ba9ed50092c41641c5b19902f2304ee282c530414feccfc9dab55118545a288",
+    "fixtures.py": "8628ec7f810e4174493cf72cc66f85f5c8e5f7e9e7b9b6810e3f721951537eea"
+  },
+  "decision": "Research candidate for stochastic usage/water-age studies; not adopted as an IOP loading-unit demand calculator",
+  "dependency_fit": "Uses WNTR and EPANET; current BSA water workflows already have these engines",
+  "remaining": [
+    "Exact course loading-unit/discharge-unit tables and demand conversion method",
+    "Actual fixture/use inventory",
+    "Independent applicable-method verification before integration"
+  ]
+}
