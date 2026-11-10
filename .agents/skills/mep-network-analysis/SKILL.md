@@ -5,6 +5,13 @@ description: Calculate source-linked air/water networks, pump operating points a
 
 # Network pressure analysis
 
+For whole source supply-tree review after native-sheet execution,use
+bsa.duct_system_paths and docs/DUCT_SYSTEM_PATHS.md. It replays the selected
+friction method against saved-native centreline/node/source correspondence and
+enumerates all original leaf paths. Keep its untrimmed nominal baseline separate
+from trimmed physical straight/fitting studies. It cannot establish a pressure
+bound,fan critical path,downstream terminal route or accepted whole design.
+
 For external source/manufacturer rectangular fitting tables,use duct_fitting_data
 with basis and depends_on on the saved duct_fitting_chain. Read
 docs/DUCT_FITTING_DATA.md. Bind exact product/native body/path/reference-port

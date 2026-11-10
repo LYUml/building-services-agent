@@ -1,5 +1,13 @@
 # Scope and acceptance
 
+Whole source-tree path studies now replay selected equivalent-round friction and
+saved-native centreline correspondence across47 actual sections,48 nodes and20
+original VAV outlets. All34 original requirement records remain pending. The
+reported untrimmed centreline baseline is not physical straight or full pressure;
+fan critical path and downstream diffuser/equipment/fitting scope stay unknown.
+Five targeted source-path and drawing regressions pass;the actual rendered output
+is visually reviewed. See DUCT_SYSTEM_PATHS.md.
+
 Published/manufacturer transition tables now require an explicit source geometric
 flow class that matches the fresh native contraction/expansion/mixed record.
 Missing or mismatched declarations retain null coefficients and distinct recovery

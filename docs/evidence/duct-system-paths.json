@@ -1,0 +1,34 @@
+{
+  "scope": "Whole original source-tree nominal centreline studies only;physical trims,fitting/equipment/boundary and complete acceptance pending",
+  "targeted_test_methods_passed": 5,
+  "new_path_methods": 2,
+  "existing_saved_drawing_methods": 3,
+  "actual_private_case": {
+    "source_input_artifact_runtime_and_method_pins_unchanged": true,
+    "section_count": 47,
+    "node_count": 48,
+    "outlet_path_count": 20,
+    "all_original_sections_covered": true,
+    "source_boundary_flow_conserved": true,
+    "original_requirement_count": 34,
+    "original_requirement_records_preserved": true,
+    "original_acceptance_states_pending": true,
+    "physical_straight_lengths_and_losses_null": true,
+    "all_complete_path_pressures_null": true,
+    "fan_critical_path": null,
+    "downstream_diffuser_routes_inferred": false,
+    "report_visually_reviewed": true
+  },
+  "controls": [
+    "independent path lengths and friction sums",
+    "shared upstream branch accounting",
+    "changed source gradient rejected",
+    "changed incident/edge/leaf/topology coverage rejected",
+    "source mutation blocks final report"
+  ],
+  "generator_sha256": "febf6773b01b531a1481f747a66bcd4eaeec332123a8e39854cc5d4b03a56dca",
+  "versions": {
+    "fluids": "1.3.1"
+  },
+  "design_accepted": false
+}

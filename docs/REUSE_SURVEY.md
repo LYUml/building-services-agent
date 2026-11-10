@@ -640,3 +640,11 @@ native contraction/expansion/mixed geometry before numeric interpolation,without
 another flow or geometry engine. Native/reversed/mixed controls retain unknown
 coefficients for missing or incompatible declarations. No new dependency or
 coefficient database is introduced. See DUCT_FITTING_DATA.md.
+
+Whole source-tree studies reuse delivery.context,duct_junction_review saved-native
+LINE/source correspondence and duct_equivalent with fluids1.3.1. Original adapter
+glue enumerates declared paths and retains nominal centreline contributions;no
+network/friction engine or alternate geometry is rebuilt. Physical fitting trims,
+local losses and fan/boundary data are not inferred. Actual47-section/20-outlet
+execution and source mutation/shared-branch controls run. No new dependency or
+upstream implementation is copied. See DUCT_SYSTEM_PATHS.md.

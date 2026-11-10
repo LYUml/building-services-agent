@@ -20,6 +20,14 @@ Iterate design using computed results. Use ../mep-delivery-check/SKILL.md before
 
 ## Tool orchestration
 
+After a completed passing native-sheet workflow,use bsa.duct_system_paths with
+the exact source plan,workflow,native task and a new output directory to inspect
+the entire original supply tree. Read docs/DUCT_SYSTEM_PATHS.md. Preserve every
+original requirement and leaf boundary;do not infer downstream diffuser/flexible
+connections. Its untrimmed source-centreline friction baseline is not a physical
+straight loss,complete pressure bound or fan duty. Keep parallel paths separate
+and retain unresolved finite fittings,trim,products,boundaries and acceptance.
+
 For pending duct_fitting_data,read the source-bound diagnosis action's
 engineering_data_requests and data-requests.json (docs/DUCT_FITTING_DATA.md).
 Preserve every native path,its saved construction/source classification and

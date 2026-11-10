@@ -22,6 +22,8 @@ Use existing font/AutoCAD paths for the host and new output directories. Open th
 
 For a reviewed real plan, [package preparation](docs/HVAC_PACKAGE.md) also accepts `--adpi-settings` for source-pinned applicability screening. [ADPI guidance](docs/ADPI_BASIS.md) preserves unknown room loads, installation, product categories and characteristic lengths; an in-range ratio alone is not ADPI verification. [Scenario comparison](docs/AIR_ALLOCATION.md) compares executed alternatives and retains failed sizes without choosing a design automatically.
 
+After saved native-sheet execution, [whole source-tree review](docs/DUCT_SYSTEM_PATHS.md) checks every original section and outlet path against the selected schedule. Its untrimmed source-centreline friction baseline retains missing fitting trims,losses and boundary conditions;it does not determine complete fan duty.
+
 ## Current capabilities and limits
 
 | Area | Executed scope | Remaining scope |
