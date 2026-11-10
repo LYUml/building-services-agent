@@ -11,3 +11,16 @@ PPMtools was inspected as a stochastic household-use research candidate; see ada
 An actual lecture-example diagnostic with100 appliances, operating probability0.01 and allowed exceedance0.01 gives a minimum integer provision of4 appliances. SciPy survival probability is0.00343232; provision3 gives0.0183740. An independent sum of the binomial terms agrees within1e-12. The lecture's continuous approximation gives3.53 appliances; its resulting flow must not be called an exact integer-quantile guarantee. Preserve the stated classroom method when presenting its answer, and label the exact comparison separately.
 
 This is method investigation, not a completed design-demand adapter, mixed-fixture selection, drainage-stack sizing or local-code acceptance. Next integration must require sourced probabilities/fixture rates, explicit exceedance choice and declared independence/identical-appliance scope. Never substitute textbook example probabilities for actual project data.
+
+## Bounded identical-appliance API
+
+Install the `demand` optional dependencies and call
+`bsa.plumbing_demand.identical(count=..., operating_probability=...,
+fixture_flow_L_s=..., exceedance_probability=..., basis=...)`. Every input is explicit.
+The adapter uses SciPy isf/sf, verifies minimal integer provision and both tail
+probabilities, and retains design_accepted=false. A possible zero provision is a
+mathematical quantile result, not permission for zero-capacity installation; project
+minimum-flow and method applicability need separate evidence. Four tests cover
+independent summation/minimality, limiting provisions, monotonic service level and
+invalid/missing data. No mixed-fixture or IOP table method is implied. Source-bound
+CLI/workflow integration remains pending.

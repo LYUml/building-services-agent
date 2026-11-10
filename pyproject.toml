@@ -10,6 +10,7 @@ requires-python = ">=3.11"
 dependencies = ["ezdxf==1.4.5"]
 
 [project.optional-dependencies]
+demand = ["scipy==1.18.1", "numpy==2.5.4"]
 dev = ["PyYAML==6.0.3", "pypdf==7.0.0"]
 documents = ["pypdf==7.0.0"]
 reports = ["reportlab==4.4.9", "pypdf==7.0.0", "Pillow==13.0.0", "charset-normalizer==3.5.2"]

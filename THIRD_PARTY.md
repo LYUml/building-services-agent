@@ -196,3 +196,8 @@ Honeybee Radiance 1.66.304 / Honeybee Core 1.64.83 / Ladybug Geometry 1.35.7 and
 GIS context uses pyproj 3.7.2 / bundled PROJ 9.5.1 (MIT) and certifi 2026.10.23 (MPL-2.0) in ignored tools/gis-runtime, plus parent Shapely 2.2.0 (BSD-3-Clause, GEOS notices retained). Installed notices and exact runtime pins are in adapters/gis-context. Original code calls public projection/geodesic/topology APIs; no engine implementation is copied. Chicago/Cook County public geospatial data retains separate metadata/terms and is not assigned an open-source library license. Raw/derived geometry and plots remain local. See docs/GIS_CONTEXT.md.
 
 Trimesh 5.2.0 (MIT, https://github.com/mikedh/trimesh) is used through mesh_plane for actual saved native IFC facade section linework; installed LICENSE is preserved under third_party/licenses/trimesh. The existing NumPy 2.5.4, Shapely 2.2.0, IfcOpenShell 0.8.5, ezdxf 1.4.5, AutoCAD and Poppler components retain their separate licenses/notices. Original code composes source binding, closed section/area audits and CAD delivery without copying upstream engine implementation. Exact section dependencies are in pyproject.toml optional section extra; environments and generated drawings stay ignored.
+
+Identical-appliance demand reuses SciPy1.18.1 scipy.stats.binom (SciPy contributors,
+BSD-3-Clause; Boost Math routines under the retained upstream licenses). The demand
+optional dependency pins SciPy/NumPy; no upstream implementation is copied.
+Reference: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.binom.html .
