@@ -1,0 +1,35 @@
+{
+  "run": "runs/public-work-plan-v2",
+  "summary": {
+    "concept_tasks": {
+      "concept-compact": "pass",
+      "concept-slender": "pass",
+      "concept-stacked": "pass",
+      "facade-compact": "pass",
+      "facade-view-compact": "pass",
+      "facade-slender": "pass",
+      "facade-view-slender": "pass",
+      "facade-stacked": "pass",
+      "facade-view-stacked": "pass"
+    },
+    "design_accepted": false,
+    "scope": "Reviewed source-complete work decomposition with partial concept execution; unmet engineering/delivery packages retained",
+    "pending_work_packages": 14
+  },
+  "integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "original_source_quote_pairs_retained": true,
+  "technical_passages": 34,
+  "work_packages": 14,
+  "tests": {
+    "review": 3,
+    "cli": 3,
+    "passed": true,
+    "notes": "CLI tests passed before final scaffold-only hardening; all three review tests reran after it"
+  },
+  "design_accepted": false
+}

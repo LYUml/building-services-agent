@@ -289,6 +289,9 @@ def validate_plan(path):
     if not isinstance(tasks,list) or not tasks or not isinstance(requirements,list) or not requirements:
         raise ProjectError("nonempty tasks and requirements required")
     ids=set();inputs={brief}
+    records=p.get('planning_records',[])
+    if not isinstance(records,list) or len(records)>100 or any(not isinstance(r,str) for r in records) or len(set(records))!=len(records):raise ProjectError('planning_records must list unique local review files')
+    inputs.update(local_path(root,r) for r in records)
     inputs.update(Path(f) for f in document.get('supporting_files',[]))
     for t in tasks:
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:

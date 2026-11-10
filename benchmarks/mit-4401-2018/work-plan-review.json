@@ -1,0 +1,366 @@
+{
+  "license": "CC-BY-NC-SA-4.0",
+  "attribution": "Christoph Reinhart / MIT OpenCourseWare; agent paraphrases and work-package grouping",
+  "review_scope": "Reviewed work decomposition, not proof of exhaustive semantic acceptance or completed design",
+  "source_sha256": {
+    "sources/course-project.pdf": "5c0185f1180e1b0fcbc0d765c066b1a2ba55c8c73ff2a9a1865f8f380f3b072e",
+    "sources/assignment5.pdf": "a9cb779dea25e462efb197da0556defd0924630fa7a6a28f81de574b0894e82f",
+    "sources/assignment6.pdf": "2163209a9ea35bf81ae9b73a0ae747ffa877ee9a402fb49c0733e71e1324aca4",
+    "sources/assignment7.pdf": "18911144e6c2c69077431fdd68e97a00a835ff4debe3a4863953558f4fb75da0",
+    "sources/assignment8.pdf": "d083ab28c78fd116bf304d21df062a2edbf62a448ea1679cf743a13c4f0b8636"
+  },
+  "passages": {
+    "P001": {
+      "text_sha256": "24228442d1f80caa9fa4867bfb5644ca3f98fc3a6a25c04ad1d7877552eb61a8",
+      "tasks": [
+        "presentation"
+      ]
+    },
+    "P002": {
+      "text_sha256": "7d5bae77f9594157323a201238661cef6d085f1a025de058a06406fdafc4853d",
+      "tasks": [
+        "site",
+        "daylight",
+        "glare",
+        "electric-light",
+        "presentation"
+      ]
+    },
+    "P003": {
+      "text_sha256": "c17294d5babf3087cceb7e9ef9a5bb88a729abb912715d1e594ce683406df155",
+      "tasks": [
+        "presentation",
+        "thermal-baseline",
+        "energy-upgrades"
+      ]
+    },
+    "P004": {
+      "text_sha256": "e85f978825c507f4a34b299f9d4d59b847786d2e72dafabaa95cd92ac349977e",
+      "tasks": [
+        "presentation"
+      ]
+    },
+    "D002:P001": {
+      "text_sha256": "4bed5c57c4dc22681fab62c62bd171c5a0b2c5bcb5e4bec29f5a85160ef8e8c8",
+      "tasks": [
+        "site",
+        "program",
+        "daylight"
+      ]
+    },
+    "D002:P002": {
+      "text_sha256": "137344bb1a5212d8e0e3499966ae19fad8bc1c43773be79d325253689f03aeff",
+      "tasks": [
+        "daylight"
+      ]
+    },
+    "D002:P003": {
+      "text_sha256": "13ec16016597784f3f86fedf101f2709736bc917137df53b4e7d495def202305",
+      "tasks": [
+        "daylight-qa"
+      ]
+    },
+    "D002:P004": {
+      "text_sha256": "6ee609123db9c169de65cd5cf41f534e1acdcddde32179d34d94bbc9db625884",
+      "tasks": [
+        "daylight-qa"
+      ]
+    },
+    "D002:P005": {
+      "text_sha256": "e3e66a4125e66186f5c464c5c39f1e7234ed573c3466beec8d2190ad60fe6e68",
+      "tasks": [
+        "daylight-qa"
+      ]
+    },
+    "D002:P006": {
+      "text_sha256": "c6bf0a7931a617e89d3fe08aeab9f086d35350feb50a4739b04c12121cc798cd",
+      "tasks": [
+        "daylight-qa"
+      ]
+    },
+    "D003:P001": {
+      "text_sha256": "24bec34f092fd78e45f78a544b392270c396f0922ce4397b491638e33cbd4037",
+      "tasks": [
+        "glare",
+        "luminaires",
+        "electric-light"
+      ]
+    },
+    "D003:P002": {
+      "text_sha256": "d8cb1a863fe883e225276e08fb72b039ec8bb40b92242bfbd01464d8229498cf",
+      "tasks": [
+        "luminaires"
+      ]
+    },
+    "D003:P003": {
+      "text_sha256": "6e9c12d43b52a8675b093e1100dc26a35e4ff0508c2860f0d5af3659b561398b",
+      "tasks": [
+        "electric-light"
+      ]
+    },
+    "D003:P004": {
+      "text_sha256": "be01674f24e4f3ecc0441b87ce9b9a1e080adb910e60503810ba4eeb96567c5c",
+      "tasks": [
+        "luminaires"
+      ]
+    },
+    "D003:P005": {
+      "text_sha256": "4bdd5292b216b7b2ca95d2e4cca167cd126a3901360311199f1233c1c4444e48",
+      "tasks": [
+        "electric-light"
+      ]
+    },
+    "D003:P006": {
+      "text_sha256": "b124ef19edd9fa04923f773ebb0cb3be873431eed55240c764129c8a007f3221",
+      "tasks": [
+        "electric-light"
+      ]
+    },
+    "D003:P007": {
+      "text_sha256": "b8645b76571fe9c88fe71e7401a3f31c1b2b350e019b6d990d1a48b8cd816c21",
+      "tasks": [
+        "electric-light"
+      ]
+    },
+    "D003:P008": {
+      "text_sha256": "b8b2030fdf2c611b1e524c9a39b62a673c8d9974ed98825c773567d9a2992bd7",
+      "tasks": [
+        "electric-light"
+      ]
+    },
+    "D004:P001": {
+      "text_sha256": "433550a7615bdb26468acd2dedd6ba85aaa5a85d6077b23aed08ea9ab9017de0",
+      "tasks": [
+        "thermal-baseline"
+      ]
+    },
+    "D004:P002": {
+      "text_sha256": "d1dc4d7286431fdb27da19da1a1f4bea6ca6e30cf0d36b6a110d70b3fe09bc74",
+      "tasks": [
+        "thermal-baseline"
+      ]
+    },
+    "D004:P003": {
+      "text_sha256": "ff8ffb1ac6ab1543d2428ab2a2101eeacfa00598595d83a6a2857bc8e3254114",
+      "tasks": [
+        "thermal-baseline"
+      ]
+    },
+    "D004:P004": {
+      "text_sha256": "940762d7691124e4d83aef21dd2733b4594905ee77098ccf569ff491b7c8fef1",
+      "tasks": [
+        "thermal-baseline"
+      ]
+    },
+    "D004:P006": {
+      "text_sha256": "5490f9d993885e3dfed2497b64324bfdbe592cfce2ced2d410974f3123c1d71b",
+      "tasks": [
+        "thermal-baseline"
+      ]
+    },
+    "D004:P007": {
+      "text_sha256": "7c51ff13113b7dc8cd0bb8d10435dcca05f5c81ff8070ed5d25c412346f4cecc",
+      "tasks": [
+        "energy-upgrades"
+      ]
+    },
+    "D004:P008": {
+      "text_sha256": "83a97763b0ee47fd51295f75386c867d32c561ab1c3b23fd8cdf6f956672230b",
+      "tasks": [
+        "energy-upgrades"
+      ]
+    },
+    "D004:P009": {
+      "text_sha256": "8ac29f5be8a17d952bca37a9290ee8e7d63d38907f85aa19f6ddb3ee14ce927b",
+      "tasks": [
+        "energy-upgrades"
+      ]
+    },
+    "D004:P010": {
+      "text_sha256": "a384a27f25f216eddc339bb0911b91751bd17cabf90845efc86dbd94685b9eb7",
+      "tasks": [
+        "checklist-conflict"
+      ]
+    },
+    "D005:P001": {
+      "text_sha256": "ee6fac276e344ed762a4ac18ce72c392dbc7dcf8690567ec8a3b074aaa2c6a49",
+      "tasks": [
+        "game-model",
+        "game-optimization",
+        "archive"
+      ]
+    },
+    "D005:P002": {
+      "text_sha256": "45a829ab513da361ce48a2fb4a01d38c6db4019c062de869d67422db17fd134e",
+      "tasks": [
+        "game-model",
+        "game-optimization"
+      ]
+    },
+    "D005:P003": {
+      "text_sha256": "4b2cfd10010b3aad121aff0ced6cca39cebc495df7a57f140b37c8f7dc5c212d",
+      "tasks": [
+        "game-model",
+        "game-optimization"
+      ]
+    },
+    "D005:P004": {
+      "text_sha256": "a5d0e0673d279ee7c78626d8e0c819e0c7d2adbcbece81cd9c24aac30850457d",
+      "tasks": [
+        "game-model",
+        "game-optimization"
+      ]
+    },
+    "D005:P005": {
+      "text_sha256": "6b680a33cb52f685eff66c4a48394ce4306407a0c90a2a1bb80beeafe441344a",
+      "tasks": [
+        "archive"
+      ]
+    },
+    "D005:P006": {
+      "text_sha256": "d8fafd4e546b9a876c0ae1acf67673dbc9c32b22a10d5360075005531f79bb0c",
+      "tasks": [
+        "archive"
+      ]
+    },
+    "D005:P007": {
+      "text_sha256": "79123468b3644c5899eeb883d46b7f68fdea9c309d175db763178c56c7ab1400",
+      "tasks": [
+        "archive"
+      ]
+    }
+  },
+  "tasks": [
+    {
+      "id": "site",
+      "description": "Select permitted city/site, source weather and neighboring obstruction geometry; explain climate/access rationale.",
+      "blocker": "City/site is a permitted design choice not yet made; georeferencing, surrounding buildings and credible climate inputs are absent.",
+      "acceptance": "Site/climate/shading source and model review",
+      "requires_pass": []
+    },
+    {
+      "id": "program",
+      "description": "Develop around 3500 m2 / 250-worker program with reception, lavatory, two seminar rooms and optional cafe.",
+      "blocker": "Current gross boxes do not establish usable area, occupied-space layout, clear heights or program compliance.",
+      "acceptance": "Approximate targets retain unresolved acceptance bands; inspect actual room program",
+      "requires_pass": []
+    },
+    {
+      "id": "daylight-qa",
+      "description": "Apply supplied reflectances, 0.85 m upward sensors at 0.5 m spacing and minimum Radiance settings; check frames, single glazing surfaces, true openings and scene fidelity.",
+      "blocker": "Concept voids alone do not establish a complete Radiance scene, selected glazing/frame optical data or validated annual engine.",
+      "acceptance": "Source settings plus saved scene/sensor/material and engine-purpose validation",
+      "requires_pass": [
+        "site",
+        "program"
+      ]
+    },
+    {
+      "id": "daylight",
+      "description": "Compare at least three massing variants at 40 percent WWR using annual sDA300lux[50%]; select one and explore at least three window/skylight configurations.",
+      "blocker": "Native annual daylight adapter, site/weather/obstructions, complete scene and optical properties are unresolved; current runtime is blocked.",
+      "acceptance": "Actual annual metric/grid/scene QA and same-model comparison; no electric-light substitute",
+      "requires_pass": [
+        "daylight-qa"
+      ]
+    },
+    {
+      "id": "glare",
+      "description": "Assess ASE and representative DGP viewpoints, justify interventions and repeat daylight evaluation.",
+      "blocker": "Annual ASE and view-based DGP tools/site/viewpoint/sky/shading inputs are not integrated; no results exist.",
+      "acceptance": "Validated annual/view analysis, source viewpoints and iteration review",
+      "requires_pass": [
+        "daylight"
+      ]
+    },
+    {
+      "id": "luminaires",
+      "description": "Select actual luminaires, manufacturer IES and electrical input ratings; distinguish example illustrations from selected products.",
+      "blocker": "No selected product/IES/layout; the illustrative 46 W device and example office cannot be treated as project equipment.",
+      "acceptance": "Manufacturer provenance, IES units and input-power evidence",
+      "requires_pass": [
+        "program"
+      ]
+    },
+    {
+      "id": "electric-light",
+      "description": "Place luminaires, render key views and map nighttime illuminance throughout the building; calculate whole-building LPD.",
+      "blocker": "Full room layout, product photometry and native analysis/render runtime are missing; around 300/150 lux targets have no stated acceptance band.",
+      "acceptance": "Source-linked illuminance/LPD, visual review and approximate-target decisions",
+      "requires_pass": [
+        "luminaires",
+        "program"
+      ]
+    },
+    {
+      "id": "checklist-conflict",
+      "description": "Resolve the thermal checklist containing daylight metrics without silently substituting acceptance criteria.",
+      "blocker": "Assignment 7 page 5 labels a thermal checklist but repeats daylight metric language; instructor/intended-criterion clarification remains unavailable.",
+      "acceptance": "Preserve exact contradictory wording and document any adopted interpretation explicitly",
+      "requires_pass": []
+    },
+    {
+      "id": "thermal-baseline",
+      "description": "Create at least one thermal zone per floor, use city-specific DOE reference constructions/usage/window settings and EPW; retain all-zone monthly heating/cooling/equipment/lighting and annual totals.",
+      "blocker": "Original GH settings/workbook not found in reviewed archive; source equivalence, site/EPW, boundaries, constructions, gains/schedules/HVAC and currently blocked native engine remain unresolved.",
+      "acceptance": "Saved native source settings and complete-year/end-use reconciliation; distinguish loads and electricity",
+      "requires_pass": [
+        "daylight",
+        "glare",
+        "electric-light",
+        "checklist-conflict"
+      ]
+    },
+    {
+      "id": "energy-upgrades",
+      "description": "Use the actual Assignment 6 LPD, evaluate at least two upgrade sets, save zone templates/settings and report comparable annual results.",
+      "blocker": "Verified lighting baseline and thermal simulation are absent; continuous dimming is an optional evaluated upgrade, not an assumed saving.",
+      "acceptance": "Same-model baseline/variant runs with retained settings and end-use/comfort review",
+      "requires_pass": [
+        "thermal-baseline",
+        "electric-light"
+      ]
+    },
+    {
+      "id": "game-model",
+      "description": "Apply planar-zone/minimum 3 m floor-to-floor rules and supplied game upgrade definitions, including glazing, lighting/control and fuel/COP factors.",
+      "blocker": "Full game baseline/GH equivalence, R-factor unit basis and operating model are unresolved; course factors are not manufacturer ratings.",
+      "acceptance": "Source table and exact candidate settings audit; no real-product claim",
+      "requires_pass": [
+        "thermal-baseline"
+      ]
+    },
+    {
+      "id": "game-optimization",
+      "description": "Minimize source EUI against the same baseline under at most 50 MIT game dollars; compare iteration strategies.",
+      "blocker": "Native source-EUI model, numeric game-price mapping from dollar symbols/area rules and attachment settings are unresolved; MIT game dollars are not USD.",
+      "acceptance": "Actual source-EUI/fuel-factor/budget arithmetic and bounded candidate reruns",
+      "requires_pass": [
+        "game-model"
+      ]
+    },
+    {
+      "id": "archive",
+      "description": "Retain baseline and at least four important iterations, input/output files, settings, geometry and result figures, plus a strategy narrative.",
+      "blocker": "No simulation iteration archive exists; Rhino/GH-specific deliverables/equivalence remain unresolved.",
+      "acceptance": "Editable file manifest, exact result/settings links and substantive iteration rationale",
+      "requires_pass": [
+        "game-optimization",
+        "energy-upgrades"
+      ]
+    },
+    {
+      "id": "presentation",
+      "description": "Prepare 12-minute presentation plus 3-minute Q&A, design philosophy/precedents/EUI target, site, lighting, thermal concept, comfort, adaptive perspectives/plan and conclusion.",
+      "blocker": "Validated design/analysis/results and complete presentation content are absent; suggested slide counts are not hard mandatory minima.",
+      "acceptance": "Rubric and narrative review; figures need north arrows, units/legends and explicit site-versus-source energy basis",
+      "requires_pass": [
+        "archive",
+        "site",
+        "glare",
+        "electric-light"
+      ]
+    }
+  ],
+  "design_accepted": false
+}

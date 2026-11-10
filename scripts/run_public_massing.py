@@ -35,7 +35,7 @@ def run(out):
     result=dict(decisions_sha256=before,variants=results,design_accepted=False,scope='Native storey/space concept volumes only; no site, facade/window geometry, net usable area, thermal boundary or performance proof')
     (out/'concepts.json').write_text(json.dumps(result,indent=2),encoding='utf-8');return result
 
-def run_workflow(out,source_cache):
+def run_workflow(out,source_cache,apply_work_plan=False):
     import runpy
     import subprocess
     import sys
@@ -63,15 +63,23 @@ def run_workflow(out,source_cache):
         plan['requirements'].append(dict(id=fid,passage=passage['id'],quote=passage['text'],task=fid,acceptance='Unapproved native facade geometry with explicit thickness decisions; no materials/performance or full architectural acceptance'))
         plan['requirements'].append(dict(id='facade-view-'+label,passage=passage['id'],quote=passage['text'],task='facade-view-'+label,acceptance='Single-wall saved-IFC diagnostic preview only; not course daylight visualization or approved drawing'))
     plan['tasks']=tasks+plan['tasks'];path.write_text(json.dumps(plan,ensure_ascii=False,indent=2),encoding='utf-8')
+    if apply_work_plan:
+        from bsa.work_plan_review import apply
+        review=out/'work-plan-review.json';review.write_bytes((ROOT/'benchmarks/mit-4401-2018/work-plan-review.json').read_bytes())
+        apply(path,review)
     worker=subprocess.run([sys.executable,'-m','bsa.cli','workflow',str(path),'--out',str(out/'workflow')],capture_output=True,text=True)
     (out/'worker.log').write_text(worker.stdout+worker.stderr,encoding='utf-8')
     if worker.returncode!=2 or not (out/'workflow/diagnosis.json').is_file():raise ValueError('expected partial concept workflow with retained interpretation blockers')
     report=json.loads((out/'workflow/workflow.json').read_text(encoding='utf-8'))
     if any(report['tasks'][t['id']]['status']!='pass' for t in tasks) or digest(decision_path)!=before:raise ValueError('concept geometry failed or decisions changed')
     result=dict(concept_tasks={t['id']:report['tasks'][t['id']]['status'] for t in tasks},pending_interpretation_tasks=sum(t['status']=='pending' for t in report['tasks'].values()),design_accepted=False,scope='Partial real-brief workflow: concept geometry only; original technical obligations retained')
+    if apply_work_plan:
+        result['pending_work_packages']=result.pop('pending_interpretation_tasks')
+        result['scope']='Reviewed source-complete work decomposition with partial concept execution; unmet engineering/delivery packages retained'
     (out/'concept-workflow.json').write_text(json.dumps(result,indent=2),encoding='utf-8');return result
 
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--out',type=Path,required=True);p.add_argument('--source-cache',type=Path,help='Stage reviewed public-brief workflow using this pinned source cache')
-    args=p.parse_args();r=run_workflow(args.out,args.source_cache) if args.source_cache else run(args.out);print(json.dumps(r))
+    p.add_argument('--apply-work-plan',action='store_true',help='Apply exact-source reviewed work decomposition; all unmet engineering work remains pending')
+    args=p.parse_args();r=run_workflow(args.out,args.source_cache,args.apply_work_plan) if args.source_cache else run(args.out);print(json.dumps(r))

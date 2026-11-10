@@ -80,3 +80,20 @@ The public runner now stages three concept tasks, three native facade tasks and 
 Concept producer files are pinned immediately after successful execution and checked before/after downstream tasks. A test modifies the upstream IFC after facade execution: the facade is marked failed and no following preview folder is created. Additional controls reject replacement source fields before execution and verify facade/preview inheritance. Ten tests pass: four native-layout workflow tests, three unified CLI tests and three original BIM tests. Evidence: evidence/document-intake/public-facade-workflow.json.
 
 This supersedes the standalone-only facade integration limitation. Native facade creation is now in the same command as reviewed document intake, geometry and diagnostics. The pending architecture, products/materials, thermal/daylight analysis, MEP and deliverable acceptance are unchanged; nine task passes do not mean nine complete course requirements or a finished assignment.
+
+
+## Reviewed engineering work decomposition
+
+The optional --apply-work-plan flag applies benchmarks/mit-4401-2018/work-plan-review.json after staging the unchanged reviewed PDFs and before unified execution:
+
+```powershell
+.venv/Scripts/python scripts/run_public_massing.py --out runs/new-reviewed-work --source-cache runs/public-brief-intake-v1/sources --apply-work-plan
+```
+
+This is an explicit agent-reviewed, exact-source work plan, not an automatic generic semantic classifier. Thirty-four technical passages map to fourteen packages: site, program, daylight scene QA, annual daylight comparison, glare, luminaires, electric lighting, thermal-checklist clarification, thermal baseline, energy upgrades, game model, source-EUI optimisation, archive and presentation. Compound passages can map to multiple packages. Every original quote and requirement/context disposition is retained; suggested slide counts, illustrative equipment, approximate targets, game currency and unclarified checklist wording remain distinguished from hard engineering requirements.
+
+Package prerequisites are explicit requires_pass gates. Detailed missing decisions, source facts, adapter/runtime and deliverable gaps replace only the exact original generic interpretation scaffold. Existing engineering gaps cannot be erased by this transform. Fourteen pending packages are not fourteen fewer requirements: they group all original text, and each unmet package remains manual/blocked until actual inputs, execution and acceptance are available. The nine concept/facade/diagnostic tasks do not satisfy the full daylight or thermal packages.
+
+bsa.work_plan_review binds all five document hashes and every technical passage text hash, rejects omitted passages/unknown tasks/forward dependencies, validates a new candidate plan before replacing the original and preserves it on error. Local planning_records are inventoried by the workflow; changing a review record after execution invalidates integrity. The mechanism verifies structural/source coverage, not that an agent paraphrase exhausts every semantic nuance. Full source quotes remain authoritative and semantic/deliverable acceptance remains pending.
+
+Actual runs/public-work-plan-v2 executes nine scoped geometry tasks and retains all fourteen reviewed work packages pending. All old source-quote pairs survive and workflow integrity passes. Three review tests pass (including loss/drift/unknown-task/source forgery/cycle controls and protecting existing engineering gaps); three unified CLI tests also passed. Evidence: evidence/document-intake/public-work-plan.json. No performance results or accepted assignment were manufactured.
