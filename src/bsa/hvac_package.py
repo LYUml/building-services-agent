@@ -12,10 +12,14 @@ from .workflow_status import diagnose
 from .delivery import template
 
 
-def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None):
+def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,plan_clearance=None):
     plan,output,font=map(lambda p:Path(p).resolve(),(plan,output,font))
     validated,inputs=validate_plan(plan)
     protected=set(inputs)|{plan,font}
+    clearance_pin=None
+    if plan_clearance is not None:
+        plan_clearance=Path(plan_clearance).resolve();protected.add(plan_clearance)
+        clearance_pin=digest(plan_clearance)
     adpi_pins={}
     if adpi_settings is not None:
         adpi_settings=Path(adpi_settings).resolve()
@@ -49,6 +53,11 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None)
     (output/'diagnosis.json').write_text(json.dumps(diagnosis,indent=2),encoding='utf-8')
     template(plan,output/'workflow',output/'delivery-review.json')
     stages={};errors={}
+    if plan_clearance is not None:
+        try:
+            from .duct_plan_clearance import from_workflow as clearance_review
+            stages['plan_clearance']=clearance_review(plan,output/'workflow',plan_clearance,output/'plan-clearance.json')
+        except (ValueError,OSError,KeyError) as exc:errors['plan_clearance']=str(exc)
     if adpi_settings is not None:
         try:
             from .adpi_review import run as adpi_review
@@ -74,6 +83,8 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None)
     if any(digest(Path(p))!=sha for p,sha in adpi_pins.items()):raise ValueError('ADPI settings/source changed during packaging')
     if terminal_review is not None and digest(terminal_review)!=review_pin:
         raise ValueError('Terminal review settings changed during packaging')
+    if plan_clearance is not None and digest(plan_clearance)!=clearance_pin:
+        raise ValueError('Plan clearance settings changed during packaging')
     pending=[dict(id=name,kind=t['kind'],status=t['status'],scope=t['scope']) for name,t in workflow['tasks'].items() if t['status']!='pass']
     result=dict(plan_sha256=digest(plan),workflow_sha256=digest(output/'workflow/workflow.json'),
                 generator_sha256=digest(Path(__file__)),stages=stages,stage_errors=errors,
@@ -81,11 +92,13 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None)
                 design_accepted=False,scope='Prepared calculation/drawing/report package; actual visual and full requirement acceptance remain separate')
     result['terminal_review_configuration']=None if terminal_review is None else dict(path=str(terminal_review),sha256=review_pin,settings=review_settings)
     result['adpi_configuration_inputs']=adpi_pins
+    result['plan_clearance_configuration']=None if plan_clearance is None else dict(path=str(plan_clearance),sha256=clearance_pin)
     links=[('Workflow evidence','workflow/index.html'),('Dependency diagnosis','diagnosis.json'),('Pending delivery review','delivery-review.json')]
     if 'report' in stages:links.append(('Report HTML','report/HVAC System Design.html'))
     if 'report_pdf' in stages:links.append(('Report PDF','report-pdf/HVAC System Design.pdf'))
     if 'terminal_review' in stages:links.append(('Saved terminal connection review','terminal-review.json'))
     if 'adpi_review' in stages:links.append(('ADPI applicability and ratio screening','adpi-review.json'))
+    if 'plan_clearance' in stages:links.append(('Nominal-width planar obstacle review','plan-clearance.json'))
     for name,t in workflow['tasks'].items():
         if t['kind']=='duct_sheet_native' and t['status']=='pass':
             links.extend([(name+' DWG',f'workflow/{name}/Supply Air Distribution.dwg'),(name+' PDF',f'workflow/{name}/Supply Air Distribution.pdf')])
@@ -94,6 +107,9 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None)
     if 'adpi_review' in stages:
         review=stages['adpi_review']
         page+='<h2>ADPI scope</h2><p>Applicability: '+html.escape(review['applicability'])+'. Full ADPI acceptance is not established.</p><p>Missing facts: '+html.escape(', '.join(review['missing_facts']))+'</p>'
+    if 'plan_clearance' in stages:
+        review=stages['plan_clearance']
+        page+='<h2>Nominal-width planar review</h2><p>Tested planar target met: '+str(review['planar_target_met'])+'. Physical/three-dimensional clearance acceptance is pending.</p><p>Unresolved coverage: '+html.escape('; '.join(review['coverage']['unresolved']))+'</p>'
     page+='<h2>Unresolved execution tasks</h2><table><tr><th>Task</th><th>Status</th><th>Scope</th></tr>'+''.join('<tr>'+''.join('<td>'+html.escape(str(t[k]))+'</td>' for k in ('id','status','scope'))+'</tr>' for t in pending)+'</table>'
     if errors:page+='<h2>Preparation and review errors</h2><pre>'+html.escape(json.dumps(errors,indent=2))+'</pre>'
     (output/'index.html').write_text(page+'</html>',encoding='utf-8')
@@ -105,6 +121,7 @@ if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('plan');p.add_argument('--out',required=True);p.add_argument('--font',required=True);p.add_argument('--autocad')
     p.add_argument('--terminal-review',help='JSON containing native_task and four explicit layer names')
     p.add_argument('--adpi-settings',help='Source-pinned criterion and applicability settings')
-    a=p.parse_args();r=run(a.plan,a.out,font=a.font,autocad=Path(a.autocad) if a.autocad else None,terminal_review=a.terminal_review,adpi_settings=a.adpi_settings)
+    p.add_argument('--plan-clearance',help='Inherited native-sheet obstacle/coverage settings')
+    a=p.parse_args();r=run(a.plan,a.out,font=a.font,autocad=Path(a.autocad) if a.autocad else None,terminal_review=a.terminal_review,adpi_settings=a.adpi_settings,plan_clearance=a.plan_clearance)
     print(r['status'],len(r['unresolved_tasks']),'unresolved tasks; design acceptance pending')
     raise SystemExit(2)

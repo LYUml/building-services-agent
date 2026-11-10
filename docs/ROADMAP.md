@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+HVAC packages now optionally inherit native sheet/sizing ancestry for planar obstacle review, rejecting replacement geometry and retaining explicit incomplete coverage. Fifteen related tests and an actual five-stage private package verify376 pairs,22-page/drawing render correspondence and artifact/workflow integrity; nine tasks and complete acceptance remain unresolved. See DUCT_PLAN_CLEARANCE.md and HVAC_PACKAGE.md.
+
 Nominal-width duct plan screening now compares saved section geometry against explicitly source-bound closed obstacle outlines using Shapely. Eight focused tests and actual47-section/eight-column376-pair review execute. A ninth open column outline is rejected and preserved unresolved; walls, outer envelopes, fittings, elevations, workflow gating and complete clearance acceptance remain pending. See DUCT_PLAN_CLEARANCE.md.
 
 Supply single-line sheets now optionally derive flow arrows from conserved tree endpoint/flow evidence, independent of DXF orientation. Six focused tests and actual47-arrow native reopen (718 generated entities),1:100 reference, scoped plot review and80-terminal recheck pass. This addresses direction annotation only; finite geometry, complete label/installation/regulatory and engineering acceptance remain pending. See DUCT_SHEET.md.

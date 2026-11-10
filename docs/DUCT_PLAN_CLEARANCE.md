@@ -40,3 +40,24 @@ is an open source polyline and stays unresolved. One prior rounded outline was
 reconstructed from its exact four saved source LINEs without editing the original
 record. Walls and full obstacle completeness remain unresolved; no full clearance
 acceptance is claimed.
+
+For inherited post-processing use `from_workflow(plan, directory, settings, output)`.
+Settings accept exactly native_task, clearance_m, basis, obstacles and coverage;
+replacement drawing/schedule/binding hashes are forbidden. Coverage has complete
+(Boolean or null) and unresolved (list of descriptions); complete=true contradicting
+nonempty unresolved items rejects. The function verifies the entire recorded
+workflow, passing native->sheet->schedule ancestry, original plan, schedule project,
+saved geometry and before/after hashes. Output must remain outside that immutable
+workflow. Coverage is still a reviewed declaration, not automatic discovery.
+
+`bsa.hvac_package --plan-clearance settings.json` runs this inherited stage and
+includes its artifact, coverage and tested planar target in the package/index.
+Errors remain stage errors; a clear result remains review_required and does not
+release engineering acceptance. Fifteen related tests pass, including inherited
+source rejection, nonpassing native producers, contradictory coverage and stale
+workflow controls. The ancestry unit test uses synthetic geometry and a mocked
+integrity boundary; actual native/integrity evidence comes from the separate real
+package execution. That private package runs all five preparation stages, retains
+nine unresolved workflow tasks, checks376 pairs and preserves missing coverage.
+Its22-page report and drawing render identically to their previously inspected
+counterparts, with all package artifact hashes and workflow integrity verified.

@@ -1,5 +1,13 @@
 # HVAC drawing and report package
 
+Optional `--plan-clearance settings.json` adds a saved-native nominal-width obstacle
+review through the same package invocation. Read DUCT_PLAN_CLEARANCE.md for exact
+settings and coverage declarations. The stage inherits the selected native sheet
+and original sizing/binding; replacement inputs are rejected. Its JSON and package
+index retain tested planar-target results and missing obstacle coverage, without
+establishing physical/three-dimensional or full design acceptance. Source pins are
+checked before/after packaging; errors stay visible as stage errors.
+
 Run a reviewed, source-linked HVAC plan through the existing workflow, dependency diagnosis, pending delivery review, numerical HTML report and PDF renderer in one invocation:
 
 ```powershell

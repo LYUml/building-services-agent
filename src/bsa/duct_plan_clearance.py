@@ -89,3 +89,47 @@ def run(drawing,schedule,binding,specification,output):
     result.update(inputs=pins,generator_sha256=digest(Path(__file__)))
     output.parent.mkdir(parents=True,exist_ok=True);output.write_text(json.dumps(result,indent=2),encoding='utf-8')
     return result
+
+
+def from_workflow(plan,directory,settings,output):
+    """Inherit the exact passing native sheet and sizing ancestry; no replacement geometry."""
+    from .workflow import verify,local_path
+    plan,directory,settings,output=(Path(p).resolve() for p in (plan,directory,settings,output))
+    if output.exists() or output==directory or directory in output.parents or output in directory.parents:
+        raise ValueError('New review output outside immutable workflow required')
+    if output in (plan,settings):raise ValueError('Output cannot replace settings or plan')
+    before={str(p):digest(p) for p in (plan,settings,directory/'workflow.json',Path(__file__))}
+    if not verify(directory)['integrity_pass']:raise ValueError('Workflow source or artifacts changed')
+    report=json.loads((directory/'workflow.json').read_text(encoding='utf-8'))
+    if report['inputs'].get(str(plan))!=before[str(plan)]:raise ValueError('Plan does not belong to this workflow')
+    spec=json.loads(settings.read_text(encoding='utf-8'))
+    if set(spec)!={'native_task','clearance_m','basis','obstacles','coverage'}:
+        raise ValueError('Inherited settings require native_task, clearance, basis, obstacles and coverage only')
+    coverage=spec['coverage']
+    if not isinstance(coverage,dict) or set(coverage)!={'complete','unresolved'} or type(coverage['complete']) not in (bool,type(None)) or not isinstance(coverage['unresolved'],list) or any(not isinstance(s,str) or not s.strip() for s in coverage['unresolved']):
+        raise ValueError('Explicit Boolean/unknown coverage and unresolved-obstacle descriptions required')
+    if coverage['complete'] is True and coverage['unresolved']:raise ValueError('Complete coverage contradicts unresolved obstacles')
+    tasks={t['id']:t for t in json.loads(plan.read_text(encoding='utf-8'))['tasks']}
+    lineage=[];name=spec['native_task']
+    for kind in ('duct_sheet_native','duct_sheet','duct_schedule'):
+        task=tasks.get(name,{})
+        if task.get('kind')!=kind or report['tasks'].get(name,{}).get('status')!='pass':
+            raise ValueError('Passing native/sheet/schedule ancestry required')
+        lineage.append((name,task));name=task.get('depends_on')
+    native,sheet,schedule=lineage
+    drawing=directory/native[0]/'reopened/source-export.dxf'
+    schedule_path=directory/schedule[0]/'results.json'
+    binding=local_path(plan.parent,sheet[1]['binding'])
+    saved=json.loads(schedule_path.read_text(encoding='utf-8'))
+    if saved['input_sha256']!=digest(local_path(plan.parent,schedule[1]['project'])):
+        raise ValueError('Schedule project correspondence changed')
+    sources=(drawing,schedule_path,binding)
+    before.update({str(p):digest(p) for p in sources})
+    direct={k:spec[k] for k in ('clearance_m','basis','obstacles')}
+    direct.update(dict(zip(('drawing_sha256','schedule_sha256','binding_sha256'),(before[str(p)] for p in sources))))
+    result=inspect(ezdxf.readfile(drawing),saved,json.loads(binding.read_text(encoding='utf-8')),direct)
+    if any(digest(Path(p))!=sha for p,sha in before.items()) or not verify(directory)['integrity_pass']:
+        raise ValueError('Workflow or settings changed during plan review')
+    result.update(inputs=before,coverage=coverage,lineage=[n for n,_ in lineage],workflow_integrity_pass=True)
+    output.parent.mkdir(parents=True,exist_ok=True);output.write_text(json.dumps(result,indent=2),encoding='utf-8')
+    return result

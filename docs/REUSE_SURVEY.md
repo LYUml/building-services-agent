@@ -466,3 +466,10 @@ solid clash remains the path for represented3D materials; no replacement clash
 engine is built. The thin adapter verifies supplied planar source geometry and
 nominal section dimensions, preserving open-outline/coverage gaps. Eight focused
 tests and actual376 source-bound pairs execute; no3D/insulation/fitting acceptance.
+
+Inherited planar review reuses full workflow integrity, native sheet/schedule
+lineage and the existing footprint inspector. HVAC package orchestration adds the
+same review as an optional stage rather than a second clearance engine. Fifteen
+related tests plus an actual five-stage private package verify source/coverage
+retention,376 pairs,22-page render correspondence and complete artifact hashes.
+Replacement inputs reject; the limited clear projection never releases full design.
