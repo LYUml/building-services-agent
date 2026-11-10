@@ -1,5 +1,16 @@
 # Scope and acceptance
 
+Saved-chain analysis now binds every native port to the exact inherited design
+case and reads actual inner sections/straight length. Four targeted test methods
+and actual workflow execution verify16 ports,seven products,six interfaces and
+local boundary conservation; existing pinned equivalent-round/Colebrook friction
+calculates only the saved separate straight contribution. Eight fitting paths
+retain null coefficients and full pressure remains null/pending, blocking required
+release. Source/method/geometry pins, changed-IFC rejection and the rendered HTML
+report are checked. Product/method applicability, pressure/fan and complete
+installation/regulatory/assignment acceptance remain pending. See
+DUCT_CHAIN_ANALYSIS.md.
+
 The local source-bound duct segment now executes as one saved connected IFC:
 seven bodies,16 owned ports,six directed interfaces,four external boundaries and
 one ventilation system. Native cap-derived port frames resolve the reproduced

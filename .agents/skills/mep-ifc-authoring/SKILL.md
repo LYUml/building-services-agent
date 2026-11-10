@@ -5,6 +5,12 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For source-flow/straight-friction checks on a saved duct_fitting_chain, route to
+../mep-network-analysis/SKILL.md and docs/DUCT_CHAIN_ANALYSIS.md. Native connectivity
+and inventory cannot clear missing fitting-loss/pressure scope. The source-bound
+analysis remains pending and blocks required releases; it accepts no replacement
+IFC, copied flows, air properties or lengths.
+
 To merge the two source-bound fitting compositions and their fresh trimmed span
 into one saved directed local system, use duct_fitting_chain with project in
 docs/DUCT_FITTING_CHAINS.md. Require native source cap/port agreement, unchanged

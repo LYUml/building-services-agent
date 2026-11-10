@@ -575,3 +575,14 @@ wall topology. Official isolated IfcMCP0.9 summary actually reports duct classes
 the thin minimum-count contract now accepts those two classes, with executed
 positive and shortage controls. Native geometry and inventory scopes remain
 separate. See DUCT_FITTING_CHAINS.md and IFCMCP_TRIAL.md.
+
+Saved-chain flow/straight-friction analysis reuses the native source chain,
+existing duct_equivalent adapter and pinned fluids1.3.1 Colebrook/Darcy API.
+Installed fittings signatures and official documentation were inspected: conical
+and Crane tee methods use pipe diameter inputs, so rectangular applicability is
+not assumed through equivalent diameter substitution. Original glue reconciles
+saved port/source flows and native cross-sections; no network/friction engine or
+coefficient table is copied. The actual local case computes a separate saved
+straight contribution and retains eight null fitting-path coefficients and a null
+full pressure result. Method, product, pressure and regional scope remain explicit.
+See DUCT_CHAIN_ANALYSIS.md; existing third-party licenses/notices remain applicable.

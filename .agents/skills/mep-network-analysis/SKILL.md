@@ -5,6 +5,17 @@ description: Calculate source-linked air/water networks, pump operating points a
 
 # Network pressure analysis
 
+For the saved source-bound local duct chain, use duct_chain_analysis depending on
+duct_fitting_chain; read docs/DUCT_CHAIN_ANALYSIS.md. Inherit every port flow and
+air condition from the exact source schedule, and read saved native cross-sections
+and separate straight length. Keep actual-port velocities separate from the
+equivalent-round friction velocity. The actual16-port case conserves flow and
+computes a straight contribution, but eight fitting paths still require applicable
+rectangular loss/reference-velocity/friction-inclusion data. Missing coefficients
+are null, full pressure is unavailable and pressure-gated outputs remain pending.
+Do not substitute circular pipe coefficients, original full centreline length,
+zero losses or a finite straight subtotal for complete pressure/fan acceptance.
+
 For fixture demand read docs/PLUMBING_DEMAND.md before choosing a method. Workflow plumbing_demand supports only explicit independent identical-appliance binomial inputs through pinned SciPy; discharge_demand computes supplied K*sqrt(sum DU). Keep supply loading units, discharge units and thermal/volumetric quantities distinct. No automatic mixed-fixture table selection or assumed use probability is implemented. Source-bound scope facts can be true/false/unknown; unknown facts prevent calculation and rejected applicability blocks downstream tasks.
 
 For a Hong Kong stack, read docs/HK_DRAINAGE.md and use drainage_connections followed by drainage_stack_demand with depends_on on that producer and a pinned basis. Individual IDs/counts come from the original connection inventory; DU rates and K come from the basis. Do not supply a replacement project or hand-copied aggregate floor multiplier. Require explicit full-stack inventory confirmation separately from the restricted-floor survey. Direct-manhole fixtures are excluded only from this stack total, not from building demand; unknown/contradictory upper routes remain pending. For applicability and official-source scope use ../mep-regulations/SKILL.md. Capacity/venting, other inflows, real fixture tables and saved-model correspondence still need separate implementation/evidence.

@@ -1,0 +1,37 @@
+{
+  "scope": "Source-prescribed saved-port flow conservation and isolated saved straight-friction contribution only; fitting total-pressure losses, boundary pressure budget, fan duty, installation and regulatory acceptance pending",
+  "targeted_test_methods_passed": 4,
+  "actual_private_workflow": {
+    "task_statuses": {
+      "chain": "pass",
+      "inventory": "pass",
+      "analysis": "pending",
+      "pressure-gated-diagnostic": "pending"
+    },
+    "integrity_pass": true,
+    "consumed_source_method_and_model_hashes_pass": true,
+    "same_ifc_analysis": true,
+    "port_count": 16,
+    "product_count": 7,
+    "interface_count": 6,
+    "boundary_count": 4,
+    "flow_continuity_pass": true,
+    "straight_count": 1,
+    "missing_fitting_path_count": 8,
+    "full_pressure_result_available": false,
+    "all_missing_coefficients_null": true,
+    "pressure_release_not_executed": true,
+    "changed_ifc_rejected": true,
+    "html_visually_reviewed": true,
+    "design_accepted": false
+  },
+  "versions": {
+    "ifcopenshell": "0.8.5",
+    "manifold3d": "3.5.4",
+    "fluids": "1.3.1"
+  },
+  "friction_method_sha256": "6c626b7090b16fc50e0ea921281a17028e5aebb48f16cc292cacca481257acd6",
+  "friction_engine_sha256": "6e0327c701e8dc63a0fb2cc87a03cd3c4e25e2a86387b7f31d17b340e2e75a7c",
+  "generator_sha256": "934e8dde4d8c1ea796167bb8fefc57e7d2c9652911e19f57e685ca339befea9e",
+  "design_accepted": false
+}

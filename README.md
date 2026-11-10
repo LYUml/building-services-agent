@@ -49,7 +49,7 @@ The [2026-11-11 complete regression](docs/REGRESSION_20261111.md) finished988 te
 
 Keep numerical execution, geometric correspondence, source applicability, visual review and engineering acceptance explicit. Record unknowns rather than inventing values or changing a criterion to obtain a pass. Internal run/revision IDs belong in provenance; submitted titles, filenames and narrative omit internal iteration labels while preserving actual cited editions.
 
-The latest full-suite host revalidation remains a failed run: [487 tests, 1 failure, 13 errors, 38 skips](docs/REGRESSION_20261109.md), primarily native runtime blocks. Later focused tests do not supersede that result. Historical engine execution must not be presented as current availability, and host policy is not changed to make tests pass.
+The earlier [2026-11-09 regression](docs/REGRESSION_20261109.md) is historical; the 2026-11-11 complete regression above is the current full-suite record. Later focused tests do not supersede it. Historical engine execution must not be presented as current availability, and host policy is not changed to make tests pass.
 
 ## Development and provenance
 

@@ -185,7 +185,7 @@ def regulatory_source_bindings(tasks,root):
 def inventory_source_bindings(tasks,root):
     """Bind supported saved-IFC consumers to upstream inventory checks."""
     electrical_readers={'three_phase_ifc_project','three_phase_ifc','three_phase_topology','three_phase_bend_limits','three_phase_coordination','three_phase_cable_regulations','cable_route_drawing'}
-    readers={'connector_ports','ifc_preview','product_ports','tee_drawing','tee_split','tee_pressure','tee_losses','ifc_network','ifc_metadata','ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing',
+    readers={'duct_chain_analysis','connector_ports','ifc_preview','product_ports','tee_drawing','tee_split','tee_pressure','tee_losses','ifc_network','ifc_metadata','ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing',
              'ifc_views','water_coordination','annual_energy_ifc'}|electrical_readers
     known={};ancestors={};identities={};bindings=[];rechecks={}
     for task in tasks:
@@ -215,7 +215,7 @@ def inventory_source_bindings(tasks,root):
             identities[name]=identity
             for parent in sorted(applicable):
                 if parent not in identities:continue
-                if known[parent]['kind'] not in ('tee_split','tee_pressure','ifc_query','ifc_network','plumbing_pump_regulations') and not (task['kind']=='ifc_preview' and known[parent]['kind']=='ids_check'):continue
+                if known[parent]['kind'] not in ('duct_chain_analysis','tee_split','tee_pressure','ifc_query','ifc_network','plumbing_pump_regulations') and not (task['kind']=='ifc_preview' and known[parent]['kind']=='ids_check'):continue
                 if refresh and known[parent]['kind']=='ifc_query':
                     bindings.append(dict(check=parent,consumer=name,previous_model_identity=identities[parent],model_identity=identity,fresh_inventory_required=True))
                     continue
@@ -301,7 +301,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","rectangular_network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind in ("water_network","rectangular_network") and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
@@ -569,6 +569,11 @@ def validate_plan(path):
             from .tee_selection import prepare
             _,_,selection_files=prepare(local_path(root,t.get('catalogue')));inputs.update(selection_files)
             if any(k in t for k in ('depends_on','ifc','tee_spec','assembly_spec','basis','control')):raise ProjectError('selection inherits only catalogue sources')
+        if kind=='duct_chain_analysis':
+            if set(t)-{'id','kind','depends_on','requires_pass','description'}:
+                raise ProjectError('duct chain analysis inherits exact producer; replacement geometry, flow and air forbidden')
+            if t.get('depends_on') not in ids or next(x for x in tasks if x['id']==t['depends_on'])['kind']!='duct_fitting_chain':
+                raise ProjectError('duct chain analysis requires an earlier duct_fitting_chain')
         if kind=='duct_fitting_chain':
             if set(t)-{'id','kind','project','requires_pass','description'}:
                 raise ProjectError('duct chain requires its complete source project; replacement IFC forbidden')
@@ -1413,6 +1418,15 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 from .tee_selection import run
                 payload=run(local_path(root,t['catalogue']),folder)
                 status='pass' if payload['calculated_checks_pass'] else 'fail';reason=payload['scope']
+            elif t['kind']=='duct_chain_analysis':
+                parent=t['depends_on']
+                if tasks[parent]['status']!='pass':reason='upstream saved chain did not pass; analysis not executed'
+                else:
+                    from .duct_chain_analysis import run
+                    producer=next(x for x in p['tasks'] if x['id']==parent)
+                    payload=run(local_path(root,producer['project']),out/parent,folder)
+                    status='pass' if payload['pressure_budget_complete'] is True else 'pending'
+                    reason=payload['scope']+'; '+str(len(payload['missing_fitting_path_losses']))+' fitting paths lack source loss data'
             elif t['kind']=='duct_fitting_chain':
                 from .duct_fitting_chain import run
                 payload=run(local_path(root,t['project']),folder)
