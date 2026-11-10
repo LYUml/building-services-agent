@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Nominal-width duct plan screening now compares saved section geometry against explicitly source-bound closed obstacle outlines using Shapely. Eight focused tests and actual47-section/eight-column376-pair review execute. A ninth open column outline is rejected and preserved unresolved; walls, outer envelopes, fittings, elevations, workflow gating and complete clearance acceptance remain pending. See DUCT_PLAN_CLEARANCE.md.
+
 Supply single-line sheets now optionally derive flow arrows from conserved tree endpoint/flow evidence, independent of DXF orientation. Six focused tests and actual47-arrow native reopen (718 generated entities),1:100 reference, scoped plot review and80-terminal recheck pass. This addresses direction annotation only; finite geometry, complete label/installation/regulatory and engineering acceptance remain pending. See DUCT_SHEET.md.
 
 Failed water workflows now expose explicit application-control evidence in the verified dependency recovery queue, with hashed report/log paths and affected requirements. Eleven targeted checks and an actual blocked-worker workflow verify the handoff and downstream blocking; unsupported labels/stale logs reject. This improves diagnosis only and does not restore EPANET or clear the full-regression/engineering gaps. See WATER_RUNTIME.md.

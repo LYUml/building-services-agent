@@ -459,3 +459,10 @@ No drawing/geometry engine or dependency is rebuilt. Optional explicit arrow
 settings add only annotation and preserve reversed DXF orientation handling. Six
 focused tests plus actual47-arrow native reopen/plot and80-terminal recheck execute.
 This does not add finite duct geometry, routing or installation acceptance.
+
+Nominal-width plan screening gap: reuse pinned Shapely2.2.0 Polygon/LineString
+buffer/intersection/distance and ezdxf1.4.5 source outline inventory. Existing IFC
+solid clash remains the path for represented3D materials; no replacement clash
+engine is built. The thin adapter verifies supplied planar source geometry and
+nominal section dimensions, preserving open-outline/coverage gaps. Eight focused
+tests and actual376 source-bound pairs execute; no3D/insulation/fitting acceptance.
