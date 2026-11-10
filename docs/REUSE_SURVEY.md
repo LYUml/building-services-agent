@@ -355,3 +355,10 @@ candidate; no import, simulation, dependency installation or production integrat
 claimed. Source/license hashes and decision are in adapters/ppmtools/research.json.
 Existing BSA water solvers remain the downstream engine candidates; exact course
 method and source tables must be acquired before demand conversion is implemented.
+
+Identical-appliance demand probability gap: prefer existing SciPy1.18.1
+scipy.stats.binom (Boost-backed) over a new probability implementation. Official
+API and private course model definitions inspected; actual minimum-integer tail
+calculation agrees with independent binomial summation. Classroom continuous
+approximation is retained as a distinct method. Production adapter, mixed-fixture
+IOP conversion and building applicability remain pending. See PLUMBING_DEMAND.md.
