@@ -98,3 +98,10 @@ finds eight differing proxy directions with no aligned opposing outlet. These ar
 retained as explicit geometric review targets; the other 312 numeric agreements
 do not establish physical jet applicability. No lookup lengths or acceptance states
 were changed by this diagnostic.
+
+Alignment trials must reallocate areas/flows and rerun all affected directions,
+not just the previously ambiguous direction. A private eight-terminal alignment
+trial preserved panel containment but shortened a boundary distance and produced
+two maximum-flow ratio diagnostics outside the classroom example interval. It was
+retained unselected; no CAD or baseline input was replaced. This is a geometric
+tradeoff investigation, not proof of applicable ADPI compliance or optimal layout.
