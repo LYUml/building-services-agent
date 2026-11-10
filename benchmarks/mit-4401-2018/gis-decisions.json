@@ -1,0 +1,12 @@
+{
+  "source": "Explicit candidate query window for GIS integration near Fulton Market; not parcel selection, development availability, measured site or approval to place the concept building.",
+  "latitude": 41.888,
+  "longitude": -87.648,
+  "bbox_wgs84": [
+    -87.65,
+    41.886,
+    -87.646,
+    41.89
+  ],
+  "maximum_records": 200
+}

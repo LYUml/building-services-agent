@@ -1,0 +1,65 @@
+{
+  "run": "runs/chicago-footprints-v2",
+  "snapshot": {
+    "urls": {
+      "metadata.json": "https://data.cityofchicago.org/api/views/syp8-uezg.json",
+      "count.json": "https://data.cityofchicago.org/resource/syp8-uezg.json?%24where=intersects%28the_geom%2C+%27POLYGON%28%28-87.65+41.886%2C-87.646+41.886%2C-87.646+41.89%2C-87.65+41.89%2C-87.65+41.886%29%29%27%29&%24select=count%28%2A%29",
+      "features.json": "https://data.cityofchicago.org/resource/syp8-uezg.json?%24where=intersects%28the_geom%2C+%27POLYGON%28%28-87.65+41.886%2C-87.646+41.886%2C-87.646+41.89%2C-87.65+41.89%2C-87.65+41.886%29%29%27%29&%24limit=200&%24select=bldg_id%2Cthe_geom%2Cstories%2Cno_stories%2Cz_coord",
+      "count-after.json": "https://data.cityofchicago.org/resource/syp8-uezg.json?%24where=intersects%28the_geom%2C+%27POLYGON%28%28-87.65+41.886%2C-87.646+41.886%2C-87.646+41.89%2C-87.65+41.89%2C-87.65+41.886%29%29%27%29&%24select=count%28%2A%29",
+      "county-item.json": "https://www.arcgis.com/sharing/rest/content/items/7c4f47a3b32944e58c5f18652880fc05?f=json",
+      "county-metadata.xml": "https://www.arcgis.com/sharing/rest/content/items/7c4f47a3b32944e58c5f18652880fc05/info/metadata/metadata.xml"
+    },
+    "sha256": {
+      "metadata.json": "0311e51802dd4cbfc5d481b70868a04b3d698b10180169b22a57a7621826e946",
+      "count.json": "a337e68e0859ccecc4ad7cfd48e11e57cf62734fa97babec0b3f104f95ada63d",
+      "features.json": "698b92ddcff1f948f5987516070537b55a21aadb17960fcc9c5d7e0740f501e3",
+      "count-after.json": "a337e68e0859ccecc4ad7cfd48e11e57cf62734fa97babec0b3f104f95ada63d",
+      "county-item.json": "b0349b6f8acff64b9f8383b512468929ffa1587547912928e9994056e159a65e",
+      "county-metadata.xml": "ce628e1242772686b1d2081c6ef91fe37f5a1587ca9b90d35d4c95968bb8e375"
+    },
+    "acquired_utc": "2026-11-10T00:32:32.477031+00:00"
+  },
+  "results": {
+    "feature_count": 34,
+    "unknown_height_count": 34,
+    "source_time_period": "Current as of August 2015",
+    "source_rows_updated_at": 1439602534,
+    "runtime": {
+      "pyproj": "3.7.2",
+      "certifi": "2026.10.23"
+    },
+    "proj_version": "9.5.1",
+    "maximum_roundtrip_error_deg": 2.1316282072803006e-14,
+    "reference_xy_m": [
+      0.0,
+      0.0
+    ],
+    "north_probe_xy_m": [
+      0.0,
+      111.07111895482326
+    ],
+    "geometry_checks_pass": true,
+    "three_dimensional_context_ready": false,
+    "site_selected": false,
+    "design_accepted": false
+  },
+  "projected_area_sum_m2": 47083.46235370397,
+  "tests": {
+    "count": 3,
+    "passed": true
+  },
+  "visual_review": {
+    "path": "runs/chicago-footprints-v2/footprints.png",
+    "sha256": "1f4802cd9a098c1eef22164be85fb1e9bccd8ee04a98328b1e21eff630319fb7",
+    "observed": "Legible historical footprint outlines, reference-only cross, north-at-reference arrow, metre axes and explicit unknown-height/no-site/no-shading scope"
+  },
+  "county_2022": {
+    "item": "7c4f47a3b32944e58c5f18652880fc05",
+    "owner": "Cook_County_GIS",
+    "metadata_fetched": true,
+    "footprint_geometry_fetched": false,
+    "observed_direct_download_error": "SSL UNEXPECTED_EOF_WHILE_READING at public county GIS and maps hosts; no verification disabled or policy modified",
+    "height_basis": "Official service metadata lists above-ground Height, Ground_Z and Max_Point; sourceHeightModelInfo says NAVD88 height (ftUS), us-foot. No elevations converted/used without actual geometry source and applicability checks"
+  },
+  "design_accepted": false
+}
