@@ -12,9 +12,11 @@ from .workflow_status import diagnose
 from .delivery import template
 
 
-def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,plan_clearance=None):
+def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,plan_clearance=None,junction_review_native_task=None):
     plan,output,font=map(lambda p:Path(p).resolve(),(plan,output,font))
     validated,inputs=validate_plan(plan)
+    if junction_review_native_task is not None and (not isinstance(junction_review_native_task,str) or not any(t['id']==junction_review_native_task and t['kind']=='duct_sheet_native' for t in validated['tasks'])):
+        raise ValueError('Junction review must select a declared native sheet task')
     protected=set(inputs)|{plan,font}
     clearance_pin=None
     if plan_clearance is not None:
@@ -53,6 +55,11 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
     (output/'diagnosis.json').write_text(json.dumps(diagnosis,indent=2),encoding='utf-8')
     template(plan,output/'workflow',output/'delivery-review.json')
     stages={};errors={}
+    if junction_review_native_task is not None:
+        try:
+            from .duct_junction_review import from_workflow as junction_review
+            stages['junction_review']=junction_review(plan,output/'workflow',junction_review_native_task,output/'junction-review.json')
+        except (ValueError,OSError,KeyError) as exc:errors['junction_review']=str(exc)
     if plan_clearance is not None:
         try:
             from .duct_plan_clearance import from_workflow as clearance_review
@@ -92,6 +99,7 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
                 design_accepted=False,scope='Prepared calculation/drawing/report package; actual visual and full requirement acceptance remain separate')
     result['terminal_review_configuration']=None if terminal_review is None else dict(path=str(terminal_review),sha256=review_pin,settings=review_settings)
     result['adpi_configuration_inputs']=adpi_pins
+    result['junction_review_native_task']=junction_review_native_task
     result['plan_clearance_configuration']=None if plan_clearance is None else dict(path=str(plan_clearance),sha256=clearance_pin)
     links=[('Workflow evidence','workflow/index.html'),('Dependency diagnosis','diagnosis.json'),('Pending delivery review','delivery-review.json')]
     if 'report' in stages:links.append(('Report HTML','report/HVAC System Design.html'))
@@ -99,6 +107,7 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
     if 'terminal_review' in stages:links.append(('Saved terminal connection review','terminal-review.json'))
     if 'adpi_review' in stages:links.append(('ADPI applicability and ratio screening','adpi-review.json'))
     if 'plan_clearance' in stages:links.append(('Nominal-width planar obstacle review','plan-clearance.json'))
+    if 'junction_review' in stages:links.append(('Source-bound connection requirements','junction-review.json'))
     for name,t in workflow['tasks'].items():
         if t['kind']=='duct_sheet_native' and t['status']=='pass':
             links.extend([(name+' DWG',f'workflow/{name}/Supply Air Distribution.dwg'),(name+' PDF',f'workflow/{name}/Supply Air Distribution.pdf')])
@@ -110,6 +119,11 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
     if 'plan_clearance' in stages:
         review=stages['plan_clearance']
         page+='<h2>Nominal-width planar review</h2><p>Tested planar target met: '+str(review['planar_target_met'])+'. Physical/three-dimensional clearance acceptance is pending.</p><p>Unresolved coverage: '+html.escape('; '.join(review['coverage']['unresolved']))+'</p>'
+    if 'junction_review' in stages:
+        review=stages['junction_review']
+        page+='<h2>Connection requirements</h2><p>Plan centreline and nominal sizes only. Physical fittings and engineering acceptance remain pending.</p><table><tr><th>Requirement</th><th>Nodes</th></tr>'
+        page+=''.join('<tr><td>'+html.escape(kind.replace('_',' '))+'</td><td>'+str(count)+'</td></tr>' for kind,count in sorted(review['counts'].items()))+'</table>'
+        page+='<p>Missing design inputs: '+html.escape('; '.join(review['missing_design_inputs']))+'</p>'
     page+='<h2>Unresolved execution tasks</h2><table><tr><th>Task</th><th>Status</th><th>Scope</th></tr>'+''.join('<tr>'+''.join('<td>'+html.escape(str(t[k]))+'</td>' for k in ('id','status','scope'))+'</tr>' for t in pending)+'</table>'
     if errors:page+='<h2>Preparation and review errors</h2><pre>'+html.escape(json.dumps(errors,indent=2))+'</pre>'
     (output/'index.html').write_text(page+'</html>',encoding='utf-8')
@@ -122,6 +136,7 @@ if __name__=='__main__':
     p.add_argument('--terminal-review',help='JSON containing native_task and four explicit layer names')
     p.add_argument('--adpi-settings',help='Source-pinned criterion and applicability settings')
     p.add_argument('--plan-clearance',help='Inherited native-sheet obstacle/coverage settings')
-    a=p.parse_args();r=run(a.plan,a.out,font=a.font,autocad=Path(a.autocad) if a.autocad else None,terminal_review=a.terminal_review,adpi_settings=a.adpi_settings,plan_clearance=a.plan_clearance)
+    p.add_argument('--junction-review-native-task',help='Native sheet task whose exact sizing/tree ancestry supplies connection requirements')
+    a=p.parse_args();r=run(a.plan,a.out,font=a.font,autocad=Path(a.autocad) if a.autocad else None,terminal_review=a.terminal_review,adpi_settings=a.adpi_settings,plan_clearance=a.plan_clearance,junction_review_native_task=a.junction_review_native_task)
     print(r['status'],len(r['unresolved_tasks']),'unresolved tasks; design acceptance pending')
     raise SystemExit(2)

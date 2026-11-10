@@ -1,0 +1,23 @@
+{
+  "package_sha256": "56fb30106c186b0fccf25bba3ceb0afb4f41bd7aef8cd56858fccee10fedd8d4",
+  "artifact_hashes_pass": true,
+  "workflow_integrity_pass": true,
+  "junction_inputs_unchanged": true,
+  "report_pages": 22,
+  "report_visual_comparison": "All22 pages pixel-identical at1200px to the previously inspected coordination package report",
+  "drawing_visual_comparison": "Pixel-identical at2400px to the previously inspected47-arrow native drawing",
+  "report_pdf_sha256": "40435aafa91051bc96d6c3c74f68f201d5b905f06ab07f1a83157ad30de16c11",
+  "drawing_pdf_sha256": "6acebcfbdeca45c0a72c760071c360a5b0cc522692e749b99e7ae88e44e74ccf",
+  "junction_counts": {
+    "source_boundary": 1,
+    "elbow_required": 10,
+    "unequal_section_tee_required": 15,
+    "multi_branch_connection_required": 2,
+    "terminal_boundary": 20
+  },
+  "stage_count": 6,
+  "unresolved_tasks": 9,
+  "drawing_render_sha256": "671cabe6b9ef3d95e4313e713c26e077016b405ec125b1920c4a28dd80d94782",
+  "design_accepted": false,
+  "scope": "Private project aggregate evidence only; no source geometry or coursework content committed"
+}

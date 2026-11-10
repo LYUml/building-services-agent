@@ -1,5 +1,14 @@
 # Scope and acceptance
 
+Actual native HVAC ancestry now drives a source-bound connection-requirements
+review:47 sections/48 nodes include15 unequal-section tees,10 bends and2
+multi-branch nodes, with20 terminal boundaries still lacking physical VAV ports.
+Six targeted tests pass. The actual six-stage package has no preparation errors;
+22 report pages and the native plot are pixel-identical to inspected baseline
+renders, with artifact/workflow/review-input pins verified. Nine tasks, physical
+fitting/installation/loss and full acceptance remain unresolved. See
+DUCT_JUNCTION_REVIEW.md and HVAC_PACKAGE.md.
+
 Source-declared rectangular tee assemblies now compose three explicit straight
 walls with full rigid placement, nine stable ports and saved material/air-path
 checks. Seven related test methods pass; actual four-component workflow and

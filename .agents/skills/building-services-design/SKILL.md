@@ -20,6 +20,15 @@ Iterate design using computed results. Use ../mep-delivery-check/SKILL.md before
 
 ## Tool orchestration
 
+Before applying a fitting example to a real supply layout, run
+bsa.duct_junction_review on the exact passing native-sheet workflow, or include
+--junction-review-native-task in the HVAC package. See DUCT_JUNCTION_REVIEW.md.
+Use its source-bound node incidents, nominal sizes, angles and centreline lengths
+to identify unequal tees, bends, transitions and multi-branch gaps. These are
+connection requirements, not manufactured fitting dimensions or available trim
+lengths. Preserve missing end stations, installation roll/elevation, products and
+loss data. Do not replace unequal branches with the equal-section tee fixture.
+
 For nominal-width planar obstacle screening in an HVAC package, use --plan-clearance with the inherited native-task/obstacle/coverage settings in docs/DUCT_PLAN_CLEARANCE.md. This reviews the same saved native sheet and sizing result; replacement geometry is forbidden. Keep open outlines, missing walls, outer-envelope/fitting dimensions and elevations in coverage. A clear tested projection stays review_required and cannot replace finite3D clash, installation, code or full delivery acceptance.
 
 For repeated HVAC studies, use the independent public example at examples/hvac-package/README.md to understand the input contracts, then derive each real project from its own sources. `hvac_package` accepts `--terminal-review` for inherited saved-native connection checks and `--adpi-settings` for a pinned criterion document and applicability facts. Configuring these stages retains their results and errors in the package index; generating a report does not clear pending/inapplicable ADPI. Read docs/HVAC_PACKAGE.md and docs/ADPI_BASIS.md before selecting criteria. Allocation `references` binds actual source-document bytes to the workflow; a source string alone cannot detect document changes.

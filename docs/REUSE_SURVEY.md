@@ -520,3 +520,13 @@ four-component assembly. Two native geometry tests and workflow handoff tests
 execute, including bidirectional/rigid cases and rejected saved mutations. Actual
 same-model clash coverage executes with synthetic sourced contact regions.
 Products, different-section takeoffs, losses and real installation remain pending.
+
+Real HVAC fitting-gap assessment reuses the existing saved-DXF ancestry and
+conserved tree/sizing contracts, pinned ezdxf1.4.5 reading/unit handling and Python
+vector math. Existing IFC fitting/transition survey above addresses authoring;
+the new review does not claim a new upstream engine or physical fitting creator.
+Its original thin binding layer reconciles exact saved handles/endpoints, nominal
+sections and flows into node requirements. No upstream implementation is copied.
+Actual private native-sheet ancestry identifies differing-section tees and
+multi-branch nodes that the equal-section fixture cannot cover. Geometric authoring,
+products, end stations and loss data remain separate gaps.

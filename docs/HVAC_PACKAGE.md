@@ -1,5 +1,20 @@
 # HVAC drawing and report package
 
+Actual execution of the six-stage junction-review option retains nine unresolved
+tasks and full acceptance pending. The47-section saved native layout identifies
+15 unequal tees,ten bends,two multi-branch nodes and20 terminal boundaries. All
+package artifact,workflow and junction-source pins pass. All22 report pages at
+1200px and the native plot at2400px are pixel-identical to the previously inspected
+package; the new review changes no design dimensions. Aggregate evidence is in
+evidence/duct-junction-review.json; private source geometry remains local.
+
+Optional `--junction-review-native-task native-sheet` inherits that declared
+native sheet's exact sizing/tree/binding ancestry to list connection requirements
+and nominal-size changes. It adds junction-review.json and an index count table;
+missing physical fittings, VAV ports and construction/pressure facts remain
+pending. Invalid task selection rejects before output creation; review errors
+remain in stage_errors. See DUCT_JUNCTION_REVIEW.md.
+
 Optional `--plan-clearance settings.json` adds a saved-native nominal-width obstacle
 review through the same package invocation. Read DUCT_PLAN_CLEARANCE.md for exact
 settings and coverage declarations. The stage inherits the selected native sheet
