@@ -452,3 +452,10 @@ targeted tests and an actual source-example workflow verify root action evidence
 downstream blocking and rejected stale/unsupported labels. Full regression has
 since finished with failures; see REGRESSION_20261111.md. No solver or loader is
 replaced, and the blocked environment remains unresolved.
+
+Single-line flow direction gap: reuse pinned ezdxf1.4.5 LINE authoring, existing
+tree flow/endpoints, source snapshot preservation and native ordered comparison.
+No drawing/geometry engine or dependency is rebuilt. Optional explicit arrow
+settings add only annotation and preserve reversed DXF orientation handling. Six
+focused tests plus actual47-arrow native reopen/plot and80-terminal recheck execute.
+This does not add finite duct geometry, routing or installation acceptance.

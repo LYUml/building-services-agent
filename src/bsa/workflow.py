@@ -493,7 +493,7 @@ def validate_plan(path):
                 raise ProjectError('duct sheet requires an earlier duct schedule')
             drawing=local_path(root,t.get('drawing'));binding=local_path(root,t.get('binding'))
             spec=read_json(binding)
-            if set(spec)!={'source_sha256','basis','sections'}:
+            if set(spec)-{'flow_arrows'}!={'source_sha256','basis','sections'}:
                 raise ProjectError('inherited sheet binding excludes schedule override')
             if digest(drawing)!=spec['source_sha256']:
                 raise ProjectError('duct sheet source drawing hash mismatch')

@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Supply single-line sheets now optionally derive flow arrows from conserved tree endpoint/flow evidence, independent of DXF orientation. Six focused tests and actual47-arrow native reopen (718 generated entities),1:100 reference, scoped plot review and80-terminal recheck pass. This addresses direction annotation only; finite geometry, complete label/installation/regulatory and engineering acceptance remain pending. See DUCT_SHEET.md.
+
 Failed water workflows now expose explicit application-control evidence in the verified dependency recovery queue, with hashed report/log paths and affected requirements. Eleven targeted checks and an actual blocked-worker workflow verify the handoff and downstream blocking; unsupported labels/stale logs reject. This improves diagnosis only and does not restore EPANET or clear the full-regression/engineering gaps. See WATER_RUNTIME.md.
 
 The 2026-11-11 complete regression finished988 test invocations with25 failures,17 errors and103 skips. OpenStudio/WNTR policy blocks and dependent failures remain; attribution limits are recorded rather than claiming all defects excluded. Subsequent EPANET error classification distinguishes explicit policy block, timeout and generic worker failure;12 targeted checks and an actual blocked worker reproduction verify it without manufacturing hydraulic results. See REGRESSION_20261111.md.

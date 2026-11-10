@@ -23,6 +23,50 @@ def snapshot(doc):
     return {e.dxf.handle:repr(TagCollector.dxftags(e)) for e in doc.modelspace()}
 
 
+def add_flow_arrows(doc, spec, topology, scale, result):
+    settings=spec.get('flow_arrows')
+    if settings is None:return []
+    if topology is None or result['flow_aggregation'].get('topology_pass') is not True or result['flow_aggregation'].get('flow_conserved') is not True:
+        raise ValueError('Flow arrows require the conserved calculation tree')
+    if not isinstance(settings,dict) or set(settings)!={'layer','length_m','width_m','fraction'}:
+        raise ValueError('Explicit arrow layer, length, width and fractional position required')
+    layer=settings['layer']
+    if not isinstance(layer,str) or not layer.strip() or layer in doc.layers:
+        raise ValueError('New nonempty arrow layer required')
+    for key in ('length_m','width_m','fraction'):
+        v=settings[key]
+        if type(v) not in (int,float) or not math.isfinite(v) or v<=0:
+            raise ValueError('Positive finite arrow dimensions/position required')
+    if settings['fraction']>=1:raise ValueError('Arrow position must lie inside section')
+    planned=[]
+    for name,entry in spec['sections'].items():
+        line=doc.entitydb[entry['line_handle']]
+        start,end=line.dxf.start,line.dxf.end
+        if entry['from_node']!=topology[name]['from']:start,end=end,start
+        dx,dy,dz=(end[i]-start[i] for i in range(3))
+        length=math.hypot(dx,dy)*scale
+        if abs(dz*scale)>1e-8 or length<=0:raise ValueError('Flow arrows require nonzero planar XY sections')
+        if settings['length_m']>=length*settings['fraction']:
+            raise ValueError('Arrow does not fit inside section; supply a smaller explicit size')
+        flow=result['flow_aggregation'].get('section_flow_L_s',{}).get(name)
+        row=next(r for r in result['sections'] if r['id']==name)
+        if type(flow) not in (int,float) or not math.isfinite(flow) or flow<=0 or not math.isclose(flow,row['inputs']['flow_m3_s']*1000,rel_tol=1e-12):
+            raise ValueError('Arrow direction requires matching positive supply-tree flow')
+        ux,uy=dx/(length/scale),dy/(length/scale)
+        tip=tuple(start[i]+(end[i]-start[i])*settings['fraction'] for i in range(3))
+        back=settings['length_m']/scale;half=settings['width_m']/scale/2
+        wings=[(tip[0]-ux*back-sign*uy*half,tip[1]-uy*back+sign*ux*half,tip[2]) for sign in (-1,1)]
+        planned.append((name,tip,wings))
+    doc.layers.new(layer,dxfattribs={'color':7})
+    records=[]
+    for name,tip,wings in planned:
+        entities=[doc.modelspace().add_line(wing,tip,dxfattribs={'layer':layer}) for wing in wings]
+        records.append(dict(section=name,from_node=topology[name]['from'],to_node=topology[name]['to'],
+                            handles=[e.dxf.handle for e in entities],tip_m=[v*scale for v in tip],
+                            wings_m=[[v*scale for v in p] for p in wings]))
+    return records
+
+
 def run(source, schedule, binding, output, *, inherited_schedule_sha256=None):
     source,schedule,binding,output=map(lambda p:Path(p).resolve(),(source,schedule,binding,output))
     paths=(source,schedule,binding)
@@ -37,7 +81,7 @@ def run(source, schedule, binding, output, *, inherited_schedule_sha256=None):
         if pins[str(schedule)]!=inherited_schedule_sha256:
             raise ValueError('Inherited schedule producer changed')
         spec['schedule_sha256']=inherited_schedule_sha256
-    if set(spec)!={'source_sha256','schedule_sha256','basis','sections'}:
+    if set(spec)-{'flow_arrows'}!={'source_sha256','schedule_sha256','basis','sections'}:
 
         raise ValueError('Exact source/schedule hashes, basis and sections required')
     if spec['source_sha256']!=pins[str(source)] or spec['schedule_sha256']!=pins[str(schedule)]:
@@ -92,6 +136,7 @@ def run(source, schedule, binding, output, *, inherited_schedule_sha256=None):
             if e.dxf.text!=cell['expected_text'] or (index==0 and e.dxf.text!=name):
                 raise ValueError('Prior schedule cell or identity mismatch')
             edits[e.dxf.handle]=value;e.dxf.text=value
+    arrows=add_flow_arrows(doc,spec,topology,scale,result)
     expected=snapshot(doc)
     if any(expected[h]!=tags for h,tags in original.items() if h not in edits):
         raise ValueError('Unbound modelspace entity changed')
@@ -101,6 +146,7 @@ def run(source, schedule, binding, output, *, inherited_schedule_sha256=None):
     reopened=ezdxf.readfile(target)
     if snapshot(reopened)!=expected:raise ValueError('Saved DXF entity correspondence failed')
     evidence=dict(inputs=pins,dxf_sha256=digest(target),updated_sections=len(rows),bound_text_cells=len(edits),
+        flow_arrows=arrows,flow_arrow_count=len(arrows),
         unchanged_unbound_modelspace=True,saved_dxf_correspondence=True,basis=spec['basis'],
         calculation_tree_endpoint_binding=topology is not None,bound_node_count=len(node_points),
         scope='Existing single-line centreline geometry retained; selected dimensions and flow/friction schedule updated. No physical-width or routing regeneration.',

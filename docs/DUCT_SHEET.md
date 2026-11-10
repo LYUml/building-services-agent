@@ -111,3 +111,21 @@ then independently reopens native output. Its newly rendered PDF is byte-identic
 to the previously inspected rendered image; the comparison records both image and
 new PDF hashes. This establishes the declared centreline graph, not finite joints,
 physical duct connections, fitting sizes, pressure losses or 3D coordination.
+
+Optional binding `flow_arrows` accepts exact fields `layer`, `length_m`, `width_m`
+and `fraction` (strictly between0 and1). The layer must be new. Conserved tree
+endpoint/positive-flow correspondence is required; unbound standalone schedules
+cannot supply arrow direction. Each planar section receives two LINE wings pointing
+from its calculation-tree from-node toward its to-node, independent of DXF line
+orientation. Explicit dimensions must fit the section; no silent resizing occurs.
+Saved correspondence retains all original entities apart from bound schedule text
+and audits the new arrow geometry. Include the arrow layer in explicit native
+settings so independent DWG export comparison covers it as well.
+
+Six focused drawing/native tests pass, including metre/millimetre oblique and
+reversed-line direction, invalid sizing/tree/flow/layer rejection and saved arrow
+tamper detection. Actual private47-section execution produces94 arrow LINEs,
+independently reopens718 generated native entities and passes the1:100 physical
+reference. Full-page framing and a central/right detail were visually inspected;
+all80 terminal correspondences were freshly rechecked. Complete label collision,
+finite fitting/installation and engineering acceptance remain separate.
