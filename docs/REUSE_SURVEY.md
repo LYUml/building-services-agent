@@ -369,3 +369,9 @@ controls pass; no probability engine is rebuilt. Scoped mathematical output does
 accept source declarations, mixed units or engineering minimum capacity. SciPy and
 NumPy are pinned in the demand optional dependency; existing license attribution
 extended. See PLUMBING_DEMAND.md.
+
+Source-bound appliance study composes the existing binomial API and SHA256/source
+classification conventions, adding no engine or dependency. Actual pinned course
+example, unknown-model no-calculation branch and mutated-source rejection execute.
+CLI help and four numerical tests pass; project applicability/real surveys remain
+unverified. See PLUMBING_DEMAND.md.

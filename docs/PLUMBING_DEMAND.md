@@ -24,3 +24,19 @@ minimum-flow and method applicability need separate evidence. Four tests cover
 independent summation/minimality, limiting provisions, monotonic service level and
 invalid/missing data. No mixed-fixture or IOP table method is implied. Source-bound
 CLI/workflow integration remains pending.
+
+## Source-bound study command
+
+`python -m bsa.plumbing_demand_study <project.json> --out <new-result.json>`
+accepts exactly inputs, model_facts, basis and references. Each of the four input
+quantities has value/unit/classification/source; units are1 except fixture_flow_L_s
+which uses L/s. References map relative document paths to SHA256. Model facts are
+identical_appliances and independent_use, each true/false/null. Unknown facts or
+values retain pending without a calculation; false facts retain inapplicable.
+Calculated cases retain source hashes, original classifications, numerical tail
+checks and design_accepted=false. CLI exit2 preserves outstanding acceptance.
+
+Actual source-pinned classroom example produces4 appliances; unknown independence
+produces no flow and changed reference hashes reject. Four probability tests pass.
+This command does not verify the truth of declared facts and is not yet registered
+in the multi-task workflow or connected to a real home-survey design.
