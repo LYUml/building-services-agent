@@ -1,0 +1,64 @@
+{
+  "run": "runs/public-honeybee-workflow-v2",
+  "summary": {
+    "concept_tasks": {
+      "concept-compact": "pass",
+      "concept-slender": "pass",
+      "concept-stacked": "pass",
+      "facade-compact": "pass",
+      "facade-view-compact": "pass",
+      "scene-compact": "pass",
+      "facade-slender": "pass",
+      "facade-view-slender": "pass",
+      "scene-slender": "pass",
+      "facade-stacked": "pass",
+      "facade-view-stacked": "pass",
+      "scene-stacked": "pass"
+    },
+    "design_accepted": false,
+    "scope": "Reviewed source-complete work decomposition with partial concept execution; unmet engineering/delivery packages retained",
+    "pending_work_packages": 14
+  },
+  "integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "delivery_context_pass": true,
+  "runtime_inputs": {
+    "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\tools\\honeybee-scene-runtime\\Scripts\\python.exe": "5c438223dea1c7b2c9ecc7759dc0d701fe06696053035bf08c5fdb00ffb2a51b"
+  },
+  "scenes": {
+    "compact": {
+      "native_ifc_sha256": "73bb539cc9a2e4c84cd16d9ce15da2c16a97f812937b473678c607a8043bdfa3",
+      "scene_source_ifc_sha256": "73bb539cc9a2e4c84cd16d9ce15da2c16a97f812937b473678c607a8043bdfa3",
+      "sensor_count": 14000,
+      "rad_polygon_count": 20,
+      "simulation_executed": false,
+      "solver_ready": false
+    },
+    "slender": {
+      "native_ifc_sha256": "66ea5bf77e448832efe1b09a1157e8b579bac18c0d1b56bf8b88d550f20d6e2e",
+      "scene_source_ifc_sha256": "66ea5bf77e448832efe1b09a1157e8b579bac18c0d1b56bf8b88d550f20d6e2e",
+      "sensor_count": 14000,
+      "rad_polygon_count": 20,
+      "simulation_executed": false,
+      "solver_ready": false
+    },
+    "stacked": {
+      "native_ifc_sha256": "f54d81f7bd8feeb7d76651dfaeb936f668f2f988b66687aebc253331c24747b4",
+      "scene_source_ifc_sha256": "f54d81f7bd8feeb7d76651dfaeb936f668f2f988b66687aebc253331c24747b4",
+      "sensor_count": 14000,
+      "rad_polygon_count": 40,
+      "simulation_executed": false,
+      "solver_ready": false
+    }
+  },
+  "tests": {
+    "suite": 9,
+    "passed": true,
+    "runtime_hash_control_rerun": "passed: one actual workflow inheritance/integrity case, 17.451 seconds"
+  },
+  "design_accepted": false
+}

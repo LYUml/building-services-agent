@@ -301,7 +301,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","rectangular_network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind in ("water_network","rectangular_network") and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
@@ -666,6 +666,14 @@ def validate_plan(path):
             else:
                 diagram_source=local_path(root,t.get('dxf'));inputs.add(diagram_source)
                 if diagram_source.suffix.lower()!='.dxf':raise ProjectError('native diagram source must be DXF')
+        if kind=='honeybee_scene':
+            from . import honeybee_scene,concept_facade,concept_layout,thermal_binding,thermal_geometry,thermal_windows
+            if set(t)-{'id','kind','depends_on','basis','requires_pass','description'}:raise ProjectError('Honeybee scene inherits native facade/source/layout; replacement/runtime fields forbidden')
+            parent=t.get('depends_on')
+            if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='concept_facade':raise ProjectError('Honeybee scene requires earlier native concept facade')
+            inputs.update(honeybee_scene.source_files(local_path(root,t.get('basis'))))
+            inputs.update(Path(m.__file__).resolve() for m in (honeybee_scene,concept_facade,concept_layout,thermal_binding,thermal_geometry,thermal_windows))
+            inputs.update(Path(__file__).resolve().parents[2]/'adapters/honeybee-scene'/name for name in ('worker.py','dependencies.json','requirements.txt'))
         if kind=='concept_facade':
             from . import concept_facade,concept_layout,concept_spaces,box_geometry,circular_geometry,thermal_binding,thermal_geometry,thermal_windows
             if set(t)-{'id','kind','depends_on','basis','requires_pass','description'}:raise ProjectError('concept facade inherits exact model/source/layout; replacement fields forbidden')
@@ -819,9 +827,10 @@ def three_phase_locations(root,out,producer):
     raise ProjectError('not a three-phase numerical producer')
 
 
-def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_python=None,three_phase_python=None,graphviz=None,pdf2plot_python=None):
+def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_python=None,three_phase_python=None,graphviz=None,pdf2plot_python=None,honeybee_python=None):
     plan,out=plan.resolve(),out.resolve()
     p,inputs=validate_plan(plan);inputs.add(plan)
+    runtime_inputs={str(Path(honeybee_python).resolve()):digest(Path(honeybee_python).resolve())} if honeybee_python else {}
     if any(out==f or out in f.parents for f in inputs):raise ProjectError("run output must not contain inputs")
     before={str(f):digest(f) for f in inputs}
     out.mkdir(parents=True,exist_ok=False)
@@ -832,6 +841,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
         status="pending";reason="";payload=None
         try:
             if any(not Path(f).is_file() or digest(Path(f))!=sha for pins in concept_pins.values() for f,sha in pins.items()):raise ProjectError('concept producer artifacts changed before downstream execution')
+            if any(not Path(f).is_file() or digest(Path(f))!=sha for f,sha in runtime_inputs.items()):raise ProjectError('explicit Honeybee runtime changed during workflow')
             if any(not f.is_file() or digest(f)!=before[str(f)] for f in inputs):
                 raise ProjectError('workflow source changed before task execution; adapter not executed')
             for parent in [t.get('depends_on'),*t.get('requires_pass',[])]:
@@ -1334,6 +1344,17 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     payload=run(local_path(root,t["project"]),folder,energyplus)
                     status="pass";reason="design-day engine execution; no annual energy or physical HVAC routing asserted"
                 else:reason="EnergyPlus executable not supplied"
+            elif t['kind']=='honeybee_scene':
+                parent=t['depends_on']
+                if tasks[parent]['status']!='pass':reason='upstream native facade did not pass; scene conversion not executed'
+                elif not honeybee_python:reason='isolated Honeybee Python runtime not supplied; scene conversion not executed'
+                else:
+                    from .honeybee_scene import run as scene
+                    facade_task=next(x for x in p['tasks'] if x['id']==parent)
+                    producer=next(x for x in p['tasks'] if x['id']==facade_task['depends_on'])
+                    payload=scene(out/parent/'facade.ifc',local_path(root,producer['project']),local_path(root,producer['concept_layout']),local_path(root,facade_task['basis']),local_path(root,t['basis']),folder,honeybee_python)
+                    status='pass' if payload['geometry_checks_pass'] else 'fail'
+                    reason='Native-source Honeybee scene/grid conversion only; solver_ready=false, no annual sDA/ASE/DGP or complete scene acceptance'
             elif t['kind']=='concept_facade':
                 parent=t['depends_on']
                 if tasks[parent]['status']!='pass':reason='upstream concept model/layout did not pass; facade not executed'
@@ -1561,7 +1582,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
         matrix.append(dict(**r,execution_status=task["status"],acceptance_status="pending review",
                            source_locator={k:v for k,v in source_rows[r["passage"]].items() if k not in ("id","text")},
                            execution_scope=task["scope"],evidence=evidence[r["task"]]))
-    result=dict(inputs=before,inputs_unchanged=unchanged,tasks=tasks,requirements=matrix,
+    result=dict(inputs=before,runtime_inputs=runtime_inputs,inputs_unchanged=unchanged,tasks=tasks,requirements=matrix,
         unresolved_inputs=p.get('unresolved_inputs',[]),three_phase_source_bindings=three_phase_rule_bindings(p['tasks']),
         three_phase_model_bindings=three_phase_model_bindings(root,p['tasks']) if unchanged else [],
         regulatory_source_bindings=regulatory_source_bindings(p['tasks'],root) if unchanged else [],
@@ -1581,7 +1602,7 @@ def verify(run_directory):
     root=run_directory.resolve()
     report=read_json(root/"workflow.json")
     issues=[]
-    for name,expected in report["inputs"].items():
+    for name,expected in list(report["inputs"].items())+list(report.get("runtime_inputs",{}).items()):
         path=Path(name)
         if not path.is_file() or digest(path)!=expected:issues.append(f"input changed or missing: {name}")
     for name,expected in report["artifact_hashes"].items():
@@ -1603,6 +1624,7 @@ def main():
     e.add_argument('--radiance-bin',type=Path)
     e.add_argument('--ifcmcp-python',type=Path)
     e.add_argument('--pdf2plot-python',type=Path)
+    e.add_argument('--honeybee-python',type=Path)
     e.add_argument('--three-phase-python',type=Path)
     e.add_argument('--graphviz',type=Path)
     v=sub.add_parser("verify");v.add_argument("run_directory",type=Path)
@@ -1617,7 +1639,7 @@ def main():
             r=verify(a.run_directory);print(json.dumps(r,indent=2))
             if not r["integrity_pass"]:return 2
         else:
-            r=execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python,a.three_phase_python,a.graphviz,a.pdf2plot_python)
+            r=execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python,a.three_phase_python,a.graphviz,a.pdf2plot_python,a.honeybee_python)
             print(json.dumps({"tasks":r["tasks"],"design_accepted":False},indent=2))
             if not r["execution_pass"]:return 2
     except (ProjectError,OSError,ValueError) as exc:p.exit(2,str(exc)+"\n")

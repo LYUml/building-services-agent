@@ -27,3 +27,20 @@ Two upstream numerical details are recorded, not hidden by loose tolerances. Hon
 Actual runs/honeybee-scenes-v5 converts compact/slender/stacked into 2/2/4 rooms, 8/8/16 apertures and 476/532/672 m2 aperture area. Each has 14,000 sensors, or 42,000 across all three studies. Three tests pass with a separately generated synthetic native facade, exact grid/area checks, changed source, invalid optical/sensor and native-window mutation controls. Evidence: evidence/document-intake/honeybee-scene.json.
 
 All outputs remain simulation_executed=false, solver_ready=false and design_accepted=false. Scene geometry uses simplified massing room planes, not verified clear air volumes, native wall reveal/frame detail, full room program or complete site shading. Roof/ceiling material treatment and paired floor faces need physical applicability review. Ground/weather/sky/annual occupancy and actual annual sDA/ASE/view-based DGP are absent; current Radiance application-control blocks are unchanged. The conversion is currently standalone and not a unified workflow simulation task. It establishes an executed upstream scene adapter, not a finished daylight design or assignment.
+
+
+## Unified source-inherited scene tasks
+
+Workflow kind honeybee_scene accepts id, kind, depends_on and basis, with optional requires_pass/description. It requires an earlier concept_facade producer and inherits the exact revised IFC, original geometry, layout and thickness basis. Replacement IFC/project/layout/runtime fields reject. Scene settings and cited source documents, worker/dependency pins and reused modules enter the workflow source inventory. The runtime is supplied only through --honeybee-python to the unified CLI or workflow execute command, not document content.
+
+The public runner can now stage all three scene conversions in the same reviewed-brief workflow:
+
+```powershell
+.venv/Scripts/python scripts/run_public_massing.py --out runs/new-public-scenes --source-cache runs/public-brief-intake-v1/sources --apply-work-plan --honeybee-python tools/honeybee-scene-runtime/Scripts/python.exe
+```
+
+Actual runs/public-honeybee-workflow-v2 passes twelve scoped concept/facade/preview/scene tasks, retaining all fourteen reviewed engineering packages pending. All three scenes record the newly generated facade hashes and 14,000 sensors each. HBJSON, Radiance geometry/materials and .pts files are covered by workflow artifact hashes. Scene conversion pass means geometry/input conversion only; every scene retains simulation_executed=false and solver_ready=false. Missing explicit runtime leaves scene tasks pending with no scene output directories.
+
+The explicit runtime executable is hashed in a separate runtime_inputs map, preserving the delivery layer's exact source-plan input-set check. Runtime changes are checked during execution and by workflow verify, alongside source and artifact checks. Source-plan equality was not relaxed to allow arbitrary untracked extras. Source revisions, native facade tampering and downstream integrity gates retain their existing behavior.
+
+Nine tests pass: three actual Honeybee workflow tests, three scene tests and three unified CLI tests. They cover exact revised-model inheritance, original unmet packages, missing runtime, forbidden replacement/runtime settings, changed cited source and generated point-file mutation. The runtime hash-control case is also exercised separately. Evidence: evidence/document-intake/honeybee-workflow.json. This supersedes the earlier standalone-only integration limit; complete site/ground/detail/annual solving and accepted design remain pending.
