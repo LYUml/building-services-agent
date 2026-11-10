@@ -45,3 +45,5 @@ Ten terminal tests plus eight existing workflow tests pass. Actual private
 assignment execution retains all 14 original interpretation tasks as pending
 while the added 80-terminal lookup task passes; no coursework requirement is
 silently removed or declared accepted by this integration.
+
+Criterion applicability needs a separate edition/product/load/geometry basis; see ADPI_BASIS.md. Official 2015 and 2023 source review does not justify silently reusing a generic course interval. No new ADPI acceptance is implemented.
