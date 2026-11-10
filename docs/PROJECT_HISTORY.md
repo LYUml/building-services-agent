@@ -1,0 +1,226 @@
+# Historical implementation notes
+
+Preserved from README on 2026-11-11. These entries describe observations at their original milestones; later entries may supersede earlier ones. Consult the current README and linked capability guides for current use. Commands in this history assume the repository root. Historical native engine successes do not prove present host availability.
+
+# Building Services Agent
+
+A runnable [independent HVAC example](../examples/hvac-package/README.md) now prepares its own synthetic inputs and exercises the complete package command, including native A4 plotting and terminal connections. Actual four-terminal execution and all four report pages were checked. It is a reusable demonstration, not a certified design.
+
+[HVAC package preparation](HVAC_PACKAGE.md) now runs a reviewed plan through calculations, native drawing and numerical PDF reporting in one command. The private five-stage run produces a reopened DWG, inspected-equivalent A1 plot and 22-page report; full engineering and submission acceptance remain pending.
+
+[Unified HVAC drawing execution](DUCT_SHEET.md) now runs source-classified airflow allocation, lookup, candidate sizing, bound single-line DXF update and fresh AutoCAD save/reopen/scaled A1 plotting. The actual private five-stage run and 55 focused tests pass; its PDF was inspected. Full source/ADPI, physical coordination, jurisdiction applicability, report and delivery acceptance remain pending.
+
+The HVAC workflow now connects classified load/area allocation to terminal lookup, VAV/tree flow aggregation and [candidate duct sizing](DUCT_SCHEDULE.md). Actual private 80-terminal/20-leaf/47-section execution retains 16,779 candidate checks, matching the prior native-reconciled sizes; 52 focused tests pass. Drawing regeneration, source/ADPI review and full engineering/regulatory acceptance remain pending.
+
+需求文档 → 可追溯项目数据 → CAD/BIM → 工程计算与仿真 → 校核 → 交付。
+
+An agent workspace and deterministic engineering tools for reusable MEP workflows. The AI reads requirements and orchestrates tools; calculation engines compute results. Unknown inputs stay unknown.
+
+HVAC assignment calculations now have unified workflow tasks for [bounded terminal throw lookup](TERMINAL_THROW.md) and [equivalent-round duct schedules](DUCT_SCHEDULE.md). Actual private coursework execution covers 80 terminals and 47 supplied duct sections, with 26 focused tests passing. The updated design/network skills route to these tools and retain source, ADPI, geometry and delivery reviews. This is progress toward assignment automation, not a completed one-click design or regulatory approval.
+
+[Hong Kong base fan power](HK_FAN_POWER.md) now adds a versioned official BEC/TG-backed CAV/VAV module, with an optional freshly verified native rectangular supply-flow denominator. Clean drawn electrical motor power, inventory, whole-supply meaning, scope/exemptions and editions remain explicit; deductions, native fan selection/operating point, controls and full HVAC acceptance are pending.
+
+[Rectangular air-tree pressure budgets](RECTANGULAR_AIR_NETWORKS.md) now reuse pinned fluids with actual rectangular area and turbulent hydraulic-diameter friction. The workflow retains insufficient-pressure/velocity failures and pending engineering review. This is level prescribed-flow analysis, not saved geometry, fan selection or Hong Kong acceptance.
+
+[Hong Kong cable bend checks](HK_CABLE_BENDS.md) now use the hash-pinned CoP 2025 selected table with native inside-radius binding and explicit cable classification/diameter evidence. Same-model workflows gate native schematics and physical route sheets, preserving separate declared product-limit and coordination prerequisites. Code-pass/product-fail and product-pass/unknown-code controls block drawing. This is partial rule coverage, not manufacturer selection or full Hong Kong acceptance.
+
+[Saved cable route drawings](CABLE_ROUTE_DRAWINGS.md) now support a sourced incoming straight, quarter and outgoing straight through same-model study/bend/coordination gates, independently audited DXF and native DWG reopening with inspected fixed-scale PDF. The synthetic three-piece/box example retains failed-bend blocking; general multi-bend routing and complete installation/Hong Kong acceptance remain pending.
+
+[Continuous cable trial](CABLE_CONTINUITY_TRIAL.md) now connects a source-parametric quarter-plus-tangent IFC envelope to a fresh electrical study, same-model bend/coordination gates and an actually reopened/visually inspected native schematic. A failed bend target blocks drawing. This synthetic case does not establish arbitrary routing, manufacturer selection, installation drawings or full Hong Kong conformity.
+
+[Hong Kong phase-current balance](HK_PHASE_BALANCE.md) now binds verified three-phase results to a source-pinned BEC 2024 selected-clause pack. Protective-device rating and normal-service RMS/model applicability are separate sourced inputs; numerical targets are not regulatory ratings. A registered workflow prerequisite and explicit coverage snapshot now connect this check to native drawing; full conformity remains pending.
+
+[Three-phase electrical network studies](THREE_PHASE_NETWORKS.md) now use pinned pandapower 3.5.6 through a source-bound adapter and registered `three_phase` workflow task. Saved network reload, multi-bus radial/mesh tests, phase-domain node/branch checks, complex-power reconciliation and explicit current/voltage target failures are exercised. Missing runtime and failed targets block required downstream tasks. Protection, physical neutral/harmonics, Hong Kong conformity and CAD/BIM binding remain pending.
+
+[Calculation-bound electrical schematics](THREE_PHASE_DRAWINGS.md) now connect that passing study to Graphviz layout, editable DXF, phase CSV schedules, independently reopened DWG and an inspected A4 PDF. Diagram positions are schematic, not physical route geometry. Full installation drawings, BIM topology, protection and code acceptance remain pending; workflow kind three_phase_drawing now inherits the passing study and retains separate visual/engineering review.
+
+## Run the first vertical slice
+
+```powershell
+.venv/Scripts/python -m pip install -e .
+bsa validate examples/office-electrical/project.json
+bsa run examples/office-electrical/project.json --out runs/office
+.venv/Scripts/python -m unittest discover -s tests -v
+```
+
+The synthetic office example produces traceable circuit calculations, an editable DXF device overlay, a drawing preview, an HTML report, and input/output hashes. It is a demonstration, not the completed coursework or a certified design. No old project files are copied or modified.
+
+## Use with an agent
+
+Open this repository as the workspace. Ask the agent to use `$building-services-design` with your brief and original drawings. Project skills are in `.agents/skills`. The intake skill creates a requirement matrix before design; domain skills select the appropriate authoring and analysis tools. This repository uses the host agent's reasoning; it does not require or hide a separate paid model API.
+
+To bootstrap a source-linked plan from a new brief, use `python -m bsa.workflow_draft <brief> --out <project-root/plan.json>` with optional repeated `--supplement` files under the plan directory. It preserves all extracted passages as blocked interpretation tasks; the agent must interpret and replace them with actual engineering tasks. This is not automatic design. See [document intake](DOCUMENT_INTAKE.md).
+
+For assignments with separate rubrics or appendices, use repeated `bsa.workflow intake --supplement` arguments and the plan's `supplemental_briefs` contract. Every declared document receives source-bound passage coverage through execution and delivery review; missing or changed supplementary sources block the workflow. Interpretation, conflicts and undisclosed attachments still require agent review. See [document intake](DOCUMENT_INTAKE.md).
+
+Use `$mep-revit` for the developing native Revit path and saved-inventory diagnostics. It distinguishes compiled adapters and synthetic checks from actual host execution, guides source/provenance and revision checks, and preserves unresolved connected-system, calculation, save/reopen and drawing acceptance. See [native Revit adapter](../adapters/revit/README.md).
+
+Use `$mep-regulations` for jurisdiction/edition selection and supported source-bound rule checks. It routes Hong Kong electrical paths and office lighting to the appropriate tools, connects declared workflow prerequisites, and preserves missing regulatory coverage. Electrical and lighting skills use the same shared project sources; the delivery skill keeps supported checks separate from full conformity.
+
+Use `$mep-ifc-mcp` to inspect saved IFC models or add source-backed pump text properties through the verified isolated official server. Its local geometry/plotting path is blocked; use existing authoring/drawing skills for supported physical deliverables. See [IfcMCP trial](IFCMCP_TRIAL.md).
+
+## Current evidence and limits
+
+Current host revalidation (2026-11-09): the full regression completed 487 tests with 1 failure, 13 errors and 38 skips. OpenStudio native imports and EnergyPlus startup are now blocked by host application control; earlier successful energy evidence is historical, not proof of present availability. The dependent HK energy check correctly stays pending. Recheck using `scripts/probe_energy_runtime.py --energyplus <exe> --out runs/new-energy-probe.json` with the repository Python. A startup pass alone does not verify simulation. See [current regression evidence](REGRESSION_20261109.md).
+
+[Manufacturer CAD intake](PRODUCT_INTAKE.md) now extracts a selected native product block, measures circular sections and bounded passage clearance, and converts a selected junction solid into a source-bound tessellated IFC. Native/STL/IFC geometry statistics and saved triangles are checked. Source-anchored model ports, rigid placement and saved-IFC passage checks passed on the actual local vendor body. Physical joints, external pipe connections, hydraulic applicability and engineering acceptance remain pending. Restricted vendor geometry is not redistributed.
+
+[Bounded tee design iteration](IFC_TEE_TRIAL.md) now retains failed size candidates, regenerates/re-solves the selected model and delivers labelled, dimensioned native diagrams through `examples/tee-trial/selection-plan.json`. Source-specific coefficients and fixed-total-flow boundary assumptions are explicit; the synthetic examples do not establish product or regulatory acceptance.
+
+[Source-bound tee assembly](IFC_TEE_TRIAL.md) now has a requirement-linked workflow for saved hollow geometry, stable ports and upstream fluids diverging-coefficient diagnostics. Run `python -m bsa.workflow execute examples/tee-trial/plan.json --out runs/new-tee-workflow`. Signed coefficients are retained; this does not yet solve a complete branched hydraulic network or establish product/code acceptance.
+
+[Saved IFC water binding](WATER_BINDING.md) now includes source-verified finite 90-degree hollow elbows with actual arc lengths and per-piece excess losses in EPANET. Closed circulation also reaches thermal and scoped Hong Kong pipe checks, but its current idealized junction geometry fails physical clash inspection and is blocked from drawing release.
+
+[Jurisdiction rule packs](REGULATION_PACKS.md) now start with a versioned Hong Kong pack, official source inventory and hash-pinned EMSD Wiring CoP 2025 evidence. The first executable check covers one normal-service voltage-drop deemed-to-satisfy path with explicit applicability, units and edition decisions. [Electrical path binding](ELECTRICAL_PATHS.md) now computes source-declared single-phase feeder/branch totals and supplies per-circuit regulatory metrics with report hashes; actual topology and applicability assertions remain review items. [Office lighting LPD](HK_LIGHTING_RULES.md) adds a separately pinned BEC 2024 module with full-output wattage, area bands and the scoped low-power exception. The broader Hong Kong regulatory implementation remains incomplete; supported calculation success never implies whole-project compliance.
+
+[Candidate route search](ROUTE_SEARCH.md) now derives planar finite-grid pipe paths around sourced rectangular obstacles, with explicit finite-radius bends and conservative outside-wall clearance. A separate compiler carries the searched route into source-bound hollow IFC/ports and pressure calculations. Fixed-bore prescribed-flow pressure optimisation retains the length baseline, derives a per-bend loss objective and reopens the selected native IFC; low-supply failures remain explicit. Full spatial coordination, broader optimisation, native drawings and engineering acceptance remain pending.
+
+An explicit obstacle stage now appends sourced footprint/height boxes to a separate IFC copy while preserving original entities. The selected synthetic route and obstacle passed actual six-element material/100 mm clearance checks; a deliberately moved obstacle produced a detected solid overlap. The combined route/obstacle drawing now reaches reopened native DWG and an inspected 1:40 PDF, with source-checked boxes and obstacle-avoiding labels (see the route-search guide). Real obstacle completeness, product applicability and full acceptance remain pending.
+
+[Saved route annotation auditing](SAVED_ROUTE_AUDIT.md) now checks actual DXF leaders and source-linked labels independently of the planner's status claims. Injected false-success plans, crossings, self-intersections, changed labels, coverage gaps and hidden/nonplotting annotation flags are rejected, including raw paper-space markers that the reader would normalize; native pipe and printed/visual gates remain separate.
+
+[An independent vertical elbow riser](ELBOW_RISER.md) now reuses the source-linked geometry/pressure/clash/native pipeline with different dimensions, coordinates, gravity and namespace. It exposed a leader crossing missed by the first example; conservative annotation routing now checks OD/prior-leader avoidance and saved DXF paths. Actual insufficient-supply failures block downstream output. Product and full installation acceptance remain pending.
+
+[Planar route drawings](IFC_ROUTE_DRAWINGS.md) now carry source-checked finite elbows and straight walls into true-arc/OD-outline DXF, GUID-linked schedules, independently reopened AutoCAD DWG and fixed-scale A4 PDF. Actual world bounds catch shifted solids with unchanged ports; inspected-sheet evidence remains separate from full installation acceptance.
+
+[Finite circular elbows](CIRCULAR_ELBOWS.md) now connect source-parametric hollow IFC4 walls and exact arc references to directed tree pressure calculations. Saved geometry and excess-K reconciliation preserve physical bend length; independent laminar pressure and tamper checks cover the synthetic route. A source-linked coordination workflow also checks the same saved IFC, both outside-joint clearances and unwaivable material overlaps, with curved-bore and intrusion regression controls. Product, viewer and installation acceptance remain pending.
+
+[Annual EPW analysis](ANNUAL_ENERGY.md) executes complete hourly calendar years with OpenStudio/EnergyPlus, explicit multi-space box geometry and reciprocal shared-face/zone-key checks, weather hashes/site checks, monthly/annual reconciliation and unmet-zone-time targets. Attributed Chicago TMY3 data makes the synthetic example reproducible; thermal supply and lighting electricity stay separate. [Native completion diagnosis](ENERGY_COMPLETION.md) now explains the inspected executable's unwritten SQL flags through pinned source/binary evidence while rejecting actual failures and unknown exceptions. [Saved IFC-space binding](THERMAL_BINDING.md) now derives box geometry from actual solids and placements with complete GUID coverage and explicit north axis. [Explicit opaque layers](THERMAL_MATERIALS.md) now replace fixed synthetic mass defaults with sourced role assemblies and saved property/order/provenance audits. [Weekly operation](THERMAL_OPERATION.md) adds sourced lighting/equipment/occupancy, fixed scheduled outdoor air, saved-profile audits and independent hourly/annual electricity/count checks. [Actual fixed-size PTACs](THERMAL_HVAC.md) now replace ideal loads with sourced DX/electric-heat/fan components, saved-curve/topology audits and native electricity reconciliation. [Saved HVAC equipment binding](HVAC_DEVICES.md) now checks device/system/space GUIDs and ratings and creates a property-only analysis IFC with source-bound operating results. [HVAC equipment drawings](HVAC_DRAWINGS.md) now carry verified device geometry/results through a GUID-linked plan/CSV to reopened native DWG and physically checked A4 PDF. [Sourced thermal windows](THERMAL_WINDOWS.md) now add explicit exterior rectangles/glazing, saved geometry/net-area audits and native hourly solar/heat-gain/loss accounting. Real building/plant applicability remains pending.
+
+[EPANET water graphs](WATER_GRAPHS.md) solve steady loops, parallel pipes and pressure-driven demand through pinned WNTR 1.5.0 / EPANET 2.2. Signed flows, static heads, source pump intersections and converged target failures are retained. Independent scalar friction/minor energy residuals and reservoir boundaries detect errors that preserve mass balance. [Saved IFC water binding](WATER_BINDING.md) now derives hollow-pipe dimensions, chain lengths and node elevations through GUID/topology mappings, with reversible ports and signed per-piece results. Static-head graphs remain distinct from older total-pressure tree bindings; actual products, fittings, physical coordination and full acceptance stay pending.
+
+The electrical slice implements load aggregation, design current and conditional cable/protection/voltage-drop checks, plus a DXF overlay. Cable ampacity, factors, mV/A/m and limits are explicit sourced inputs, not embedded regulation tables. [Conditional TN fault verification](ELECTRICAL_FAULTS.md) now checks supplied hot loop, total-clearing, standalone capacity and CPC let-through bounds; missing source guarantees stay pending. Actual source/code applicability, selectivity and full protection acceptance remain unresolved. Separate adapters below provide IES photometry, IFC, energy and network analysis; a successful tool run is not full design acceptance.
+
+Native conversion and source-drawing intake use tested AutoCAD 2027 adapters. [Supported base overlays and fixed-scale A4 plots](CAD_OVERLAY.md) now preserve checked source geometry and verify a reference line's physical PDF scale. Arbitrary drawing fidelity, full sheet standards and engineering acceptance remain pending. See [roadmap](ROADMAP.md), [project format](PROJECT_FORMAT.md), and [upstream attribution](../THIRD_PARTY.md).
+
+[Orthographic IFC drawing sets](IFC_VIEWS.md) now combine plan/elevation views with explicit end-on pipe symbols, preserving true/projected lengths and GUIDs. The water-ring workflow extends through three reopened native DWGs and fixed-scale PDF sheets; complete installation detail and engineering acceptance remain pending.
+
+## Native AutoCAD example
+
+```powershell
+.venv/Scripts/python -m bsa.native_cad runs/office/devices.dxf --out runs/native-office
+$env:BSA_TEST_AUTOCAD='1'
+.venv/Scripts/python -m unittest discover -s tests -v
+```
+
+Requires a licensed local AutoCAD 2027 installation at the default path (or pass `--exe`). Core Console runs on generated copies in isolated processes, never attaching to the GUI session. The adapter saves DWG, reopens it in a second process, checks CIRCLE/TEXT geometry, layers, labels and metre units, then plots a padded fit-to-page PDF. It refuses output overwrite. `native-verification.json` keeps visual review pending until a separate actual image inspection is recorded. This restricted overlay workflow does not yet merge existing base drawings, produce fixed-scale sheets or validate all CAD entity types.
+
+## Real energy-engine example
+
+```powershell
+.venv/Scripts/python scripts/setup_energy.py
+.venv/Scripts/python -m bsa.energy examples/two-zone-energy/project.json --out runs/energy --energyplus tools/energyplus-25.2/EnergyPlus-25.2.0-cf7368216c-Windows-x86_64/energyplus.exe
+.venv/Scripts/python scripts/probe_openstudio_mcp.py runs/energy/baseline/model.osm
+```
+
+Bootstrap is Windows x64 only, verifies the portable engine archive checksum and uses an inspected upstream MCP commit. It changes only this workspace. `pip install -e ".[energy]"` installs the optional SDK when an engine is already available.
+
+The current energy adapter is a two-zone design-day workflow: OSM + IDF creation, shared-wall matching, real EnergyPlus execution, SQL results and baseline/variant comparison. All example inputs are synthetic. It reports coincident thermal peaks and simulated-period quantities separately from lighting electricity. It does **not** report annual kWh, EUI, plant electricity or a finished HVAC layout. Original input and engine/artifact hashes, translation warnings and simulation logs are retained. The MCP probe exercises upstream model reading; it does not claim upstream simulation execution.
+
+## Brief-to-tools workflow
+
+After a run, use `python -m bsa.workflow_status <plan.json> <run-directory>` for an integrity-checked task handoff: direct and upstream blockers, associated requirements, retained evidence and next review/correction actions. It preserves pending/failed states and never launches engines or approves a design.
+
+Use `python -m bsa.workflow intake <brief.md> --out <new-intake.json>` to index source passages. The host AI then creates a quoted, source-linked plan and project data. `validate` checks the handoff; `execute` dispatches electrical/native-CAD/energy tasks and creates an evidence matrix; `verify` detects changed inputs or task artifacts. See [workflow contract and runnable combined example](WORKFLOWS.md). The combined example has been executed against actual AutoCAD and EnergyPlus. Manual review remains pending, so it is not an accepted final design.
+
+[Delivery review records](DELIVERY_REVIEW.md) now pin every source requirement and the exact run, cite original artifacts/render attachments, and keep pass/fail/pending findings separate from execution. Stale data, omitted requirements and false Boolean facts fail the audit. The synthetic demonstration retains actual numerical/SVG review evidence while missing fault-protection inputs remain pending; review consistency is not engineering certification.
+
+## PDF and Word requirements
+
+[Document intake](DOCUMENT_INTAKE.md) supports PDF page locators, Word body/table/header/note locators and optional offline OCR. Extraction gaps remain visible and require source review. Scanned/outlined text can be OCR-indexed, but recognition is never silently accepted as engineering data.
+
+[Drawing intake](DRAWING_INTAKE.md) inventories source DXF or isolated AutoCAD DWG exports without changing source bytes. Explicit hash-bound selections can measure straight horizontal polygons after an independent dimension check. Nested/unsupported geometry and semantic or visual acceptance remain unresolved.
+
+## Editable IFC MEP models
+
+[IFC authoring](IFC_MODELS.md) creates source-linked IFC4 spaces, device envelopes, distribution-system membership and directed port connections. Electrical and ventilation examples have been generated, reopened and checked through the geometry engine and schema/EXPRESS validator. Use the `bim` workflow adapter or `python -m bsa.bim`. Detailed product geometry, physical routing and engineering acceptance remain pending.
+
+## Duct and pipe pressure analysis
+
+[Network calculations](NETWORKS.md) aggregate prescribed flow through circular tree networks and report friction, fittings, elevation, residual total pressure and the critical path. The `network` workflow adapter has air and water examples with independent formula tests. Loops, operating-point selection, physical routing and domain compliance remain outside this adapter.
+
+[Model/network binding](NETWORK_BINDING.md) derives straight circular route lengths, node elevations and explicit internal diameters from model ports/properties, generates IFC and independently reconciles its saved geometry with the derived pressure input. Physical junction detail and full engineering acceptance remain pending.
+
+[Conditional sizing and iteration](NETWORK_DESIGN.md) retains an undersized baseline, evaluates every permitted finite-catalogue size combination, preserves failures and reruns the selected feasible network. It optimises the supplied length-weighted material score under fixed demand/route/K assumptions; it does not invent product data, prices or a fan/pump operating point.
+
+[Model-aware sizing](NETWORK_MODEL_DESIGN.md) now applies explicit outside-envelope sizes to a new IFC revision while preserving source endpoints. Space-contained choices feed sizing; saved model bounds, stable device/port identities and model-derived pressure are checked. Product geometry, clashes and complete engineering acceptance remain pending.
+
+[Straight circular wall solids](CIRCULAR_GEOMETRY.md) opt into actual hollow IFC profile extrusions with independent inner/outside diameters. Native mesh topology, bore, annular wall volume, bounds and outward port axes are checked, including after sizing. Other equipment remains explicit envelopes; fittings, materials, clashes and full acceptance are pending.
+
+[Saved IFC coordination](CLASH.md) adds triangle clearance queries and Manifold3D Mesh64 solid intersections. It detects aligned overlap/full containment and distinguishes a tube's empty bore from its bounding box. Sourced contact exceptions remain visible and cannot waive solid overlaps; incomplete geometry and broader product/engineering acceptance stay pending.
+
+[Independent water-riser reuse](../examples/water-riser/README.md) runs a new synthetic source-linked brief through unchanged electrical, IFC sizing and clearance adapters: two vertical hollow pipe bodies, gravity pressure, four catalogue choices, retained failures and an editable electrical overlay. The separate water/electrical assumptions and pending drawing/product/engineering gates remain explicit.
+
+[Saved IFC schedules and diagrams](IFC_DRAWINGS.md) derive hollow-segment dimensions, true lengths and directed endpoints from saved native profiles/ports, then generate a GUID-linked CSV and projected centreline DXF. Unsupported segments fail coverage; omitted equipment and native/installation drawing gates remain explicit. The water-riser delivery plan includes this adapter.
+
+The water-riser `native-plan.json` adds isolated AutoCAD save/reopen, complete model entity/IFC GUID reconciliation and an actual 1:50 A4 PDF reference check. The synthetic PDF has been rendered and visually reviewed; this verifies the diagram's scoped native delivery, with equipment/fittings and complete installation drawing standards still pending.
+
+[Pump operating points](PUMPS.md) now solve a supplied fixed-speed curve against a single fixed-pressure terminal line, using model-derived pipe dimensions and recomputed friction. Source curve/bracket limits, convergence, design-flow/velocity checks and a selected rerun are retained. Explicit combined wire-to-water efficiency permits an electrical-input estimate; the electrical project is not automatically revised or accepted. Real product/NPSH/control and branched/looped systems remain pending.
+
+[Pump/electrical binding](PUMP_ELECTRICAL.md) now carries that estimate into an explicitly bound operating scenario and saved pump IFC properties. Source replay, actual pump/connected-port identity, body-centre XY, unchanged baseline hardware/original IFC entities and saved properties/schema are checked. The eight-task coupled example rechecks/draws the revised model; baseline loads, other devices and motor/protection acceptance remain distinct.
+
+## Shared electrical data
+
+[Coordinated generation](COORDINATION.md) now feeds the same device/circuit data into calculations, DXF and IFC. A geometry companion only adds explicit dimensions, heights and spaces. Reopened artifacts are reconciled; the workflow can send the resulting DXF through native AutoCAD save/reopen/plot. No separate power, PF, XY or circuit copy is maintained in geometry inputs.
+
+## Real photometric engine
+
+[Lighting analysis](LIGHTING.md) runs official Radiance against sourced IES files, computes direct/reflected sensor illuminance and checks a higher-quality verification run. A synthetic fixture has been checked against the inverse-square/cosine law and maintenance scaling. Arbitrary geometry, glare/daylight and full lighting acceptance remain pending.
+
+[Shared lighting binding](LIGHTING_BINDING.md) now reuses electrical/CAD/IFC fixture IDs and positions in Radiance, with explicit photometric offsets and nominal IES/electrical watt checks. The combined synthetic workflow has executed optical analysis and native AutoCAD conversion; physical and visual acceptance remain pending.
+
+[Saved HVAC regulatory inputs](HVAC_IDF_RULES.md) now derive supported zone sizing temperatures, RH bands and design-day extrema directly from native IDF files. Actual EnergyPlus positive/negative fixtures retain source hashes and scoped rule results; arbitrary controls and full HVAC conformity remain pending.
+
+Upstream IDS checks now participate in source-linked workflows with explicit or inherited saved IFC, source/artifact hashing and downstream pass gates. Real positive, missing-property and no-applicable-pump cases keep information conformance separate from geometry, physics and regulatory acceptance; see [IDS workflow](IDS_WORKFLOW.md).
+
+[OSE/FreeCAD evaluation](OSE_FREECAD_TRIAL.md) now pins and inspects an existing socket-tee API and verifies the official portable archive. Windows Code Integrity blocks its native Part module before geometry execution; the prepared probe is not a validated fitting integration. Socket shoulders, IFC/hydraulic binding and physical acceptance remain unresolved.
+
+Saved IFC pump iteration now runs as one source-linked workflow: inherited derived network, bounded selection, new curve-bearing IFC, fresh native rebind, combined thermal/pipe checks and upstream IDS. The official-BEC-backed synthetic seven-stage trial passes; no-feasible selections block revision. Baseline failure recovery, product/physical clashes and full acceptance remain pending; see [selected pump IFC](SELECTED_PUMP_IFC.md).
+
+Explicit circulation iteration can now search from a saved baseline with reverified target-only hydraulic failure. Raw numerical/curve and geometry checks remain mandatory; strict pass gates take precedence. Native 1.3 m/s synthetic-target recovery retains the failed baseline while selection, revised IFC and fresh checks pass; aggregate acceptance remains false. See [selected pump IFC](SELECTED_PUMP_IFC.md).
+
+A separate WSD April 2026 #6.3.1 plumbing-pump pack now checks sourced duplication/capacity declarations against tank design outflow, with edition/source hashes and a new partial-coverage snapshot. Actual pump/model binding and complete plumbing design remain pending; see [Hong Kong plumbing pumps](HK_PLUMBING_PUMPS.md).
+
+WSD sump-pump capacity now has a fresh single-line pump/system binding and workflow gate, reusing fluids and the existing source-bounded solver. Official-PDF-backed synthetic 1.0 L/s pass / 1.5 L/s failure cases retain the actual 1.253 L/s operating flow. Duplicate-set configuration, controls, tank level range, products and IFC correspondence remain pending; see [Hong Kong plumbing pumps](HK_PLUMBING_PUMPS.md).
+
+Plumbing pump capacity checks can now inherit saved network_coordination IFC routes with complete original-source reconstruction, native artifact integrity and geometry reconciliation before/after calculation. Official-WSD-backed synthetic execution passes; generated-network tampering and replacement inputs are rejected. Pump/tank physical identity, standby controls and clashes remain pending; see [Hong Kong plumbing pumps](HK_PLUMBING_PUMPS.md).
+
+A repeatable WSD plumbing runner now stages and executes three source-linked saved-IFC scenarios, retaining positive, insufficient-capacity and missing-duplication outcomes, downstream blocking, integrity and dependency diagnosis. All expected software behaviors pass with engineering acceptance still false; see scripts/run_hk_plumbing_demo.py.
+
+A sourced one-duty/one-standby plumbing set now executes each role separately against the same tank target, with nested input hashes and workflow gates. Actual weak-standby rejection is retained even when duty passes; capacity pooling is not used. Physical redundancy, controls, products and full acceptance remain pending.
+
+Straight cable IFC correspondence is under [active investigation](THREE_PHASE_IFC.md): actual saved swept-disk fixtures pass schema validation but fail mandatory native solid checks. This is not an available workflow integration.
+
+Straight cable IFC follow-up: explicit circular extrusions now pass saved native geometry/port/axis/electrical-length correspondence and tamper tests; the failed swept-disk case remains retained. This standalone check is not connected installation authoring or a registered workflow. See docs/THREE_PHASE_IFC.md.
+
+The straight cable check is now registered as three_phase_ifc with exact-study geometry gates. Actual numerical → IFC correspondence → reopened DWG/inspected PDF execution passed its scoped tasks; manual engineering acceptance remains pending. See docs/THREE_PHASE_IFC.md and examples/three-phase-network/ifc-plan.json.in (instantiate after generating model inputs).
+
+Saved straight IFC now also drives a new snapshot electrical project and fresh power flow through bsa.three_phase_ifc_project. Actual stale-length correction changes native voltages while preserving unrelated source data and failed targets. Standalone derivation is verified; automatic workflow producer registration and connected installation design remain pending. See docs/THREE_PHASE_IFC.md.
+
+IFC-driven recalculation is now a registered three_phase_ifc_project workflow producer. Actual synthetic execution derives lengths, solves, checks the selected Hong Kong rule, reopens native DWG and produces an inspected PDF; failed/missing-rule cases block drawing. Full design acceptance remains pending. See docs/THREE_PHASE_IFC.md.
+
+[Saved electrical connection graphs](ELECTRICAL_IFC_TOPOLOGY.md) now check exact native cable/board port relationships against the same-study graph and can gate drawings. Explicit ideal common-node assumptions remain separate from physical terminals, busbars, conductors and installation acceptance.
+
+Native electrical release now binds both IFC and cable-mapping file hashes to the derived study and drawing prerequisites. Different revisions cannot share a pass even when lengths/graph match; current delivery audit verifies the recorded model bindings. See docs/ELECTRICAL_IFC_TOPOLOGY.md.
+
+[Native quarter-circle cable geometry](CABLE_QUARTER_BENDS.md) now extends saved electrical length checks and derived studies beyond straight segments. Supported 90-degree envelopes use true arc lengths with native solid/Axis/port-normal QA; general bends, routing, manufacturer limits and full installation acceptance remain pending.
+
+[Declared cable bend limits](CABLE_BEND_LIMITS.md) now compare saved bend geometry with source-bound product diameter, installation condition and explicit inside/centreline radius. Missing identity/datum stays pending; an actual manufacturer-data/model mismatch is rejected. Standalone checks do not select a compliant cable or establish full manufacturer/regulatory acceptance.
+
+Declared bend limits now register as three_phase_bend_limits, with inherited study/model identity and explicit drawing prerequisites. Actual pass/fail/unknown scenarios retain blocking, and a positive native DWG/inspected PDF run passes scoped checks. Full product and engineering acceptance remains pending. See docs/CABLE_BEND_LIMITS.md.
+
+[Electrical spatial coordination](CABLE_COORDINATION.md) now binds the same saved cable model to the existing whole-model overlap/clearance engine and drawing prerequisites. Source-linked generic obstacle boxes reuse the old route append engine. Clear, insufficient-clearance and material-overlap scenarios are exercised; the earlier unwaived ideal-node joint failure remains explicit. Full physical installation acceptance is pending.
+
+Source-linked public-brief concept modelling now generates three native storey/space IFC options using explicit design decisions and the existing BIM workflow. All three geometry tasks pass while 34 technical interpretation tasks remain pending. This is gross concept geometry only, not a finished assignment; see [concept spaces](CONCEPT_SPACES.md).
+
+Public concept workflow now includes source-inherited native facade revisions and diagnostic saved-wall previews in the same command. Nine scoped tasks pass while all 34 technical interpretation tasks remain pending; full assignment acceptance is still unproven. See [concept workflow](CONCEPT_SPACES.md).
+
+An executed [Honeybee scene bridge](HONEYBEE_SCENE.md) now converts checked native concept facades into HBJSON, Radiance geometry/materials and exact sensor grids using pinned upstream tools. Annual solving, complete scene applicability and design acceptance remain pending.
+
+The [Honeybee scene bridge](HONEYBEE_SCENE.md) now runs inside the source-inherited unified workflow with explicit --honeybee-python. The public reviewed benchmark has twelve scoped execution passes and fourteen unmet engineering packages; no annual daylight result or completed assignment is claimed.
+
+[Candidate climate context](CLIMATE_CONTEXT.md) now adds source-reconciled monthly EPW statistics and explicit-year solar paths through pinned Ladybug in the unified public workflow. Thirteen scoped tasks pass, fourteen engineering packages remain pending, and no project-site/shading or building-performance acceptance is claimed.
+
+[Native concept section sheets](CONCEPT_SECTIONS.md) now derive actual saved facade cuts into editable CAD. Eight public-concept floor sheets have independently audited/reopened AutoCAD DWGs and inspected fixed-scale PDFs. They remain unapproved concept geometry with no completed room program or MEP, and are currently a standalone adapter.
+
+The [native concept section adapter](CONCEPT_SECTIONS.md) is now in the unified pipeline: the public benchmark command produces all eight scoped native floor-section sheets, with sixteen execution passes and fourteen unmet engineering packages. This is still not a completed assignment.
