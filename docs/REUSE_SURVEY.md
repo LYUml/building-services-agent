@@ -430,3 +430,11 @@ dependency is added. Twenty-two related tests and official-source-bound syntheti
 six-task execution verify fresh-review correspondence, blocked/unknown inventory
 and rejected replacements. CAD/IFC correspondence and full sanitary sizing remain
 unimplemented rather than being inferred from a source-facts pass.
+
+Repeatable drainage demonstration reuses the existing workflow/diagnosis/integrity
+and same-inventory demand adapters, following the existing plumbing-demo pattern.
+No engine/dependency or private assignment source is copied. The public runner
+executed official-source-bound positive/upper-route-unknown/prohibited scenarios,
+independent5DU/flow checks and wrong-source pre-output rejection. Artifact hashes
+were read back. This is synthetic integration evidence only; geometry, real
+surveys and full engineering acceptance remain pending.

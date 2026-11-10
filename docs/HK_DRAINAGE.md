@@ -1,5 +1,13 @@
 # Hong Kong building drainage: declared connection and demand checks
 
+Run the repeatable public synthetic integration with an already retrieved official PDF:
+
+```powershell
+.venv/Scripts/python -X utf8 scripts/run_hk_drainage_demo.py --app164-pdf runs/hk-drainage-source-review/APP164.pdf --out runs/new-drainage-demo
+```
+
+The source must match the pinned November2023 official bytes and output must be a new repository-local directory. The script generates its own fictional survey/DU/use evidence, three plans, workflow outputs, dependency diagnoses and a hashed summary; it does not require private coursework. The executed positive selects C/D only (5DU, 0.5*sqrt(5)L/s), upper-route-unknown retains no calculation, and the prohibited-connection case never executes demand. All three retain engineering review and design_accepted=false. A wrong-source probe rejects before creating output. Demonstration exit0 means expected software behavior, including negative cases; it does not approve a design. No native geometry or drawing is produced by this example.
+
 The demand tools currently calculate scoped quantities; they do not establish a compliant sanitary network. Keep Buildings Department aboveground building drainage requirements distinct from Drainage Services Department public sewer design and from WSD potable-water requirements.
 
 The official [PNAP APP-164](https://www.bd.gov.hk/doc/en/resources/codes-and-references/practice-notes-and-circular-letters/pnap/APP/APP164.pdf), retrieved2026-11-11 with printed November2023 revision, is pinned in [source evidence](evidence/hk-drainage-source.json). Paragraph2(d)/(e) distinguishes buildings over3 through20 storeys from buildings over20 for separate pipework at the stack/manhole discharge level. The latter also addresses the floor above. Footnote5 distinguishes total building height from storeys served by a particular stack, with special podium/basement scope.

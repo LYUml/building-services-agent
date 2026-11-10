@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Public scripts/run_hk_drainage_demo.py now reproduces the declared-connection/inherited-DU workflow without private coursework, using a supplied pinned official PDF. Actual three-scenario execution, independent5DU/flow check, artifact readback and wrong-source pre-output rejection pass. All cases retain engineering acceptance pending; real surveys, geometry and sanitary design remain incomplete. See HK_DRAINAGE.md.
+
 Stack DU now inherits the exact earlier drainage connection project in unified workflows, rejects replacement inventories and requires a fresh review to match the recorded producer. Twenty-two related tests and official-source-bound synthetic six-task execution verify scoped calculation, pending upper-route facts and upstream blocking. CAD/IFC correspondence, real surveys and full sanitary sizing remain pending. See HK_DRAINAGE.md.
 
 Standalone drainage stack demand now binds exact individual connection IDs to existing DU arithmetic, excludes declared direct-manhole pipes from this stack total and retains unknown/full-inventory gaps. Twenty-one related tests and official-source-bound synthetic calculated/pending/fail runs pass their expected software checks. This is not a saved-model check, complete building demand or full sanitary design; inherited workflow registration remains pending. See HK_DRAINAGE.md.
