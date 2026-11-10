@@ -22,3 +22,18 @@ review. No table has been automatically chosen for the coursework. Original cour
 method, actual room load and product/geometry correspondence remain unresolved.
 Keep the reported allocation-cell lengths labelled diagnostic proxies; do not alter
 geometry or invent loads merely to place ratios inside a preferred interval.
+
+## Concrete applicability checks
+
+Rechecked the official 2023 SI chapter on 2026-11-10. Table 5 ties horizontal-throw
+ceiling diffuser L to walls, outlet midplanes or intersecting jets. Allocation-cell
+ray distances require physical interpretation; the vertical addition listed for
+light-troffer diffusers must not silently be applied to another category.
+
+Table 6A cooling entries use 25 and 50 W/m2, and its source note limits ceiling
+height to 3.7 m. These are table applicability conditions, not building regulations
+or permission to extrapolate. Establish the actual room sensible load and ceiling
+height first. If a course uses a different edition or method, retain that source
+and resolve the difference explicitly. Never replace a trial load with a convenient
+tabulated value to obtain a passing result. Louvered blade-lip classification also
+needs product evidence before selecting the applicable row.
