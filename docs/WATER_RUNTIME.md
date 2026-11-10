@@ -30,5 +30,10 @@ The complete regression finished with988 invocations,25 failures,17 errors and10
 skips; see REGRESSION_20261111.md for classification and limitations. The suite did
 not pass. The water adapter now records an explicit application_control_block
 category when the worker log contains that message, without emitting pipe results.
+Workflow dependency diagnosis now carries that explicit classification and hashed
+worker evidence into the root recovery action, after checking the log itself.
+Changed evidence or a label unsupported by the log is rejected. Eleven related
+tests and an actual blocked-worker workflow execute; no policy change or automatic
+repair is attempted, and dependent tasks remain blocked.
 Historical successful WNTR/EPANET results remain evidence of their original runs,
 not current-host availability. Existing failure/downstream gates must remain intact.

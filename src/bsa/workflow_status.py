@@ -8,6 +8,27 @@ from .delivery import context
 from .engine import ProjectError
 
 
+def water_runtime_failures(run, report, task_id):
+    """Expose explicit, hash-verified water worker policy evidence, not inferred causes."""
+    failures=[]
+    artifacts=report['artifact_hashes']
+    for relative in sorted(artifacts):
+        if not relative.startswith(task_id+'/') or Path(relative).name!='water.json':continue
+        data=json.loads((run/relative).read_text(encoding='utf-8'))
+        failure=data.get('engine_failure')
+        if not isinstance(failure,dict) or failure.get('kind')!='application_control_block':continue
+        if data.get('calculated_checks_pass') is not False or not data.get('engine_error'):
+            raise ProjectError('inconsistent water runtime failure evidence')
+        log=(Path(relative).parent/'worker.log').as_posix()
+        if failure.get('evidence')!='worker.log' or log not in artifacts:
+            raise ProjectError('water runtime failure lacks recorded worker log')
+        if 'application control policy' not in (run/log).read_text(encoding='utf-8',errors='replace').lower():
+            raise ProjectError('water policy failure classification differs from worker log')
+        failures.append(dict(kind='application_control_block',report=relative,
+                             report_sha256=artifacts[relative],evidence=log,evidence_sha256=artifacts[log]))
+    return failures
+
+
 def diagnose(plan, run):
     plan, run = Path(plan).resolve(), Path(run).resolve()
     source, report, integrity = context(plan, run)
@@ -44,10 +65,13 @@ def diagnose(plan, run):
         if state['status'] != 'pass' and not blocked:
             roots = [name]
         ancestors[name] = roots
+        runtime_failures=water_runtime_failures(run,report,name) if state['status']=='fail' else []
         if input_blockers:
             action = 'resolve the cited missing/conflicting design inputs before a new run'
         elif blocked:
             action = 'resolve upstream tasks before rerunning dependent task'
+        elif runtime_failures:
+            action = 'resolve the recorded native runtime policy block through an approved environment; pipe-size changes cannot fix this startup failure'
         elif state['status'] == 'fail':
             action = 'inspect retained failure evidence and correct source or adapter before a new run'
         elif task['kind'] == 'manual':
@@ -60,6 +84,7 @@ def diagnose(plan, run):
                          recorded_scope=state['scope'], dependencies=parents, iteration_baseline=iteration_baseline,
                          blocked_by=blocked, upstream_action_tasks=roots,
                          input_blockers=input_blockers,
+                         runtime_failures=runtime_failures,
                          next_action=action,
                          requirement_ids=[r['id'] for r in source['requirements'] if r['task'] == name],
                          evidence=sorted(p for p in report['artifact_hashes'] if p.startswith(name + '/'))))
@@ -74,6 +99,7 @@ def diagnose(plan, run):
         actions.append(dict(task=name,kind=row['kind'],status=row['status'],
             next_action=row['next_action'],recorded_scope=row['recorded_scope'],
             input_blockers=row['input_blockers'],evidence=row['evidence'],
+            runtime_failures=row['runtime_failures'],
             affected_tasks=[child['id'] for child in affected],
             affected_requirements=[r for r in source['requirements'] if r['id'] in requirement_ids]))
     return dict(plan_sha256=digest(plan), workflow_sha256=digest(run/'workflow.json'),

@@ -444,3 +444,11 @@ than adding a loader or replacing WNTR. Fresh pinned1.5.0 import and a real exam
 worker both report Application Control blocking _network_isolation before EPANET
 execution. The public probe preserves raw evidence/version/timeout and does not
 change policy. Full regression is still running; no green-suite claim is made.
+
+Water policy recovery handoff reuses the existing workflow integrity/context and
+dependency action queue. It exposes only explicit structured water failure records
+corroborated by the recorded worker log, not a new cause-inference engine. Eleven
+targeted tests and an actual source-example workflow verify root action evidence,
+downstream blocking and rejected stale/unsupported labels. Full regression has
+since finished with failures; see REGRESSION_20261111.md. No solver or loader is
+replaced, and the blocked environment remains unresolved.

@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Failed water workflows now expose explicit application-control evidence in the verified dependency recovery queue, with hashed report/log paths and affected requirements. Eleven targeted checks and an actual blocked-worker workflow verify the handoff and downstream blocking; unsupported labels/stale logs reject. This improves diagnosis only and does not restore EPANET or clear the full-regression/engineering gaps. See WATER_RUNTIME.md.
+
 The 2026-11-11 complete regression finished988 test invocations with25 failures,17 errors and103 skips. OpenStudio/WNTR policy blocks and dependent failures remain; attribution limits are recorded rather than claiming all defects excluded. Subsequent EPANET error classification distinguishes explicit policy block, timeout and generic worker failure;12 targeted checks and an actual blocked worker reproduction verify it without manufacturing hydraulic results. See REGRESSION_20261111.md.
 
 Current-host water revalidation (2026-11-11) finds WNTR1.5.0 import blocked by Application Control at _network_isolation before EPANET execution. Actual source-example worker and independent child-process probe reproduce it; no hydraulic output or downstream acceptance is claimed. Historical executions remain historical. Full regression is still a separate running audit. See WATER_RUNTIME.md.
