@@ -56,3 +56,18 @@ eleven-storey block give78DU and4.41588L/s; ground-floor fixtures are explicitly
 separate. Five probability/discharge tests pass, including aggregation, duplicate
 identity, unknown factor and invalid-count controls. No hydraulic engine or new
 dependency is introduced; this is thin sourced arithmetic using Python math.
+
+## Source-bound DU study command
+
+`python -m bsa.discharge_demand_study <project.json> --out <new-result.json>`
+accepts fixtures, frequency_factor, model_facts, basis and references. The factor
+has value/source/classification; fixtures use the DU API rows. Model facts are
+connected_inventory_verified and frequency_classification_verified (true/false/null).
+Unknown scope produces no wastewater calculation; rejected scope is inapplicable.
+Reference files use relative path/SHA256 entries through the same helper as the
+identical-appliance study. Output hashes sources and retains full acceptance false.
+
+The source-pinned78DU classroom example, unknown-connection no-calculation branch
+and changed-source rejection execute. Five numerical tests pass, and the original
+identical-appliance source-bound example remains correct after helper reuse. These
+standalone commands are not yet registered workflow tasks.

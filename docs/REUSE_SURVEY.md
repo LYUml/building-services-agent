@@ -381,3 +381,9 @@ contracts; the actual classroom source provides the selected relation. No solver
 fixture table or pipe-capacity engine is rebuilt. Actual source-example arithmetic
 and five probability/DU tests pass. Connected fixtures and frequency factor stay
 explicit; complete drainage demand and statutory applicability remain pending.
+
+Source-bound DU study reuses existing wastewater arithmetic and the shared
+plumbing reference-pinning helper. Actual lecture-source execution and unknown/
+changed-source controls pass; original binomial wrapper rechecked. No engine or
+dependency added. Workflow registration, real building inventory and complete
+drainage acceptance remain pending. See PLUMBING_DEMAND.md.

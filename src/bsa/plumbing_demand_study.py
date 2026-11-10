@@ -6,6 +6,17 @@ from .cli import digest
 from .plumbing_demand import identical
 
 
+def pinned_references(project,spec):
+    if not isinstance(spec['references'],dict) or not spec['references']:raise ValueError('At least one pinned reference required')
+    pins={str(project):digest(project)}
+    for relative,sha in spec['references'].items():
+        if not isinstance(relative,str) or not relative.strip() or Path(relative).is_absolute():raise ValueError('Relative reference paths required')
+        path=(project.parent/relative).resolve()
+        if not path.is_file() or digest(path)!=sha:raise ValueError('Demand reference hash mismatch')
+        pins[str(path)]=sha
+    return pins
+
+
 def run(project,output):
     project,output=(Path(p).resolve() for p in (project,output))
     project_hash=digest(project);spec=json.loads(project.read_text(encoding='utf-8'))
@@ -19,13 +30,8 @@ def run(project,output):
     facts=spec['model_facts']
     if not isinstance(facts,dict) or set(facts)!={'identical_appliances','independent_use'} or any(type(v) not in (bool,type(None)) for v in facts.values()):raise ValueError('Explicit Boolean/unknown model facts required')
     if not isinstance(spec['basis'],str) or not spec['basis'].strip():raise ValueError('Explicit applicability basis required')
-    if not isinstance(spec['references'],dict) or not spec['references']:raise ValueError('At least one pinned reference required')
-    pins={str(project):project_hash}
-    for relative,sha in spec['references'].items():
-        if not isinstance(relative,str) or not relative.strip() or Path(relative).is_absolute():raise ValueError('Relative reference paths required')
-        path=(project.parent/relative).resolve()
-        if not path.is_file() or digest(path)!=sha:raise ValueError('Demand reference hash mismatch')
-        pins[str(path)]=sha
+    pins=pinned_references(project,spec)
+    if pins[str(project)]!=project_hash:raise ValueError('Demand project changed during validation')
     if output.exists() or any(output==Path(p) or output in Path(p).parents for p in pins):raise ValueError('New output outside source files required')
     values={k:r['value'] for k,r in spec['inputs'].items()}
     status='inapplicable' if any(v is False for v in facts.values()) else 'pending' if any(v is None for v in facts.values()) or any(v is None for v in values.values()) else 'calculated'
