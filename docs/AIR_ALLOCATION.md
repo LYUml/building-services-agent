@@ -110,3 +110,18 @@ total supply from about 12000 to 17112 L/s; the three incoming sections have no
 feasible candidate in the declared grid. The schedule fails and drawing preparation
 remains pending, with source/workflow integrity preserved. The baseline was retained.
 This demonstrates material input uncertainty, not a selected alternative design.
+
+## Compare executed scenarios
+
+`python -m bsa.hvac_compare <baseline-run> <candidate-run> --out <new.json>`
+verifies both runs, requires matching source requirement IDs/quotes and terminal/
+section coverage, and compares classified load inputs, airflow, section dimensions,
+failed calculations and unresolved tasks. It supports retained failed schedules
+with actual calculation artifacts. Missing calculations from unexecuted tasks cannot
+be compared as successful alternatives. Output stays outside both immutable runs.
+No scenario is automatically selected or approved.
+
+Actual private temperature comparison retains the 5111.427 L/s increase and three
+uncomputed incoming sections. An independent synthetic two-run regression checks
+changed temperature propagation, unselected status, output reuse rejection and stale
+calculation artifact rejection. This is a comparison adapter, not an optimizer.

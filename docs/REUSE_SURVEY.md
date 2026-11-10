@@ -333,3 +333,9 @@ SHA256 handling with the previous screen API. The thin post-run CLI inherits loo
 data rather than accepting a replacement study. Actual 640-case pending execution,
 changed-source rejection and five screen tests pass. No new engine or dependency;
 source transcription and engineering applicability remain independent evidence.
+
+HVAC scenario comparison reuses workflow.verify and existing allocation/schedule
+artifacts; no solver, sizing engine or dependency is added. Thin identity/requirement
+checks retain failed candidates and changed inputs. Actual temperature comparison
+and an independently executed synthetic pair with stale-artifact control pass.
+Comparison does not select a design or resolve source applicability.
