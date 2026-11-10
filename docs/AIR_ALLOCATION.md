@@ -125,3 +125,12 @@ Actual private temperature comparison retains the 5111.427 L/s increase and thre
 uncomputed incoming sections. An independent synthetic two-run regression checks
 changed temperature propagation, unselected status, output reuse rejection and stale
 calculation artifact rejection. This is a comparison adapter, not an optimizer.
+
+For course/example-based scenarios, keep the source's role explicit. Typical VAV
+turndown guidance cannot override a different minimum-flow requirement in the
+actual brief. Worked-example room/supply temperatures and properties remain
+assumed sensitivity inputs until their project applicability is established.
+Source-pin the example document, retain the actual brief's turndown, and execute
+allocation/lookup/schedule afresh. A failed candidate grid remains failed and blocks
+drawing; changing the grid or selecting an alternative needs a justified design
+decision, not a desire for a passing report.
