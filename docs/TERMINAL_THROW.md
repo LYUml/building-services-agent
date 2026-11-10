@@ -31,3 +31,17 @@ missing directions and output reuse. An actual private assignment run processed
 80 terminals in four directions at maximum and minimum flow (640 lookups), all
 within the selected reviewed table. ADPI and design acceptance remain false.
 Private coursework and manufacturer documents are not distributed here.
+
+## Unified workflow
+
+Register a task with `kind: "terminal_throw"` and `project: "project.json"`.
+The plan inventories both the project and its hash-pinned catalogue, plus the
+adapter module. Catalogue paths must be relative and stay within the plan root.
+A successful lookup task means only bounded interpolation; out-of-range cases
+fail the task and block tasks declaring `requires_pass`. Preserve separate
+source/applicability and ADPI review requirements.
+
+Ten terminal tests plus eight existing workflow tests pass. Actual private
+assignment execution retains all 14 original interpretation tasks as pending
+while the added 80-terminal lookup task passes; no coursework requirement is
+silently removed or declared accepted by this integration.

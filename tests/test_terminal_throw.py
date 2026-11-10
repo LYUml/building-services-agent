@@ -81,3 +81,45 @@ class TerminalProjectTests(unittest.TestCase):
         self.data['terminals'][0]['characteristic_lengths_m'] = {}
         with self.assertRaises(ValueError): self.execute()
         self.assertFalse((self.root / 'output').exists())
+
+    def workflow_plan(self):
+        from bsa.cli import digest
+        self.project.write_text(json.dumps(self.data), encoding='utf-8')
+        brief = self.root / 'brief.md'
+        brief.write_text('Calculate terminal throw.\n', encoding='utf-8')
+        plan = dict(version=1, brief='brief.md', brief_sha256=digest(brief),
+                    passage_dispositions={'P001': 'requirement'},
+                    tasks=[dict(id='lookup', kind='terminal_throw', project='project.json'),
+                           dict(id='review', kind='manual', requires_pass=['lookup'],
+                                description='Review source and ADPI applicability')],
+                    requirements=[dict(id='R1', passage='P001', quote='Calculate terminal throw.',
+                                       task='lookup', acceptance='Bounded lookup, not ADPI approval'),
+                                  dict(id='R2', passage='P001', quote='Calculate terminal throw.',
+                                       task='review', acceptance='Source and applicability review')])
+        path = self.root / 'plan.json'
+        path.write_text(json.dumps(plan), encoding='utf-8')
+        return path
+
+    def test_workflow_tracks_catalogue_and_retains_review(self):
+        from bsa.workflow import execute, verify
+        result = execute(self.workflow_plan(), self.root / 'run')
+        self.assertEqual(result['tasks']['lookup']['status'], 'pass')
+        self.assertEqual(result['tasks']['review']['status'], 'pending')
+        self.assertIn(str(self.catalogue.resolve()), result['inputs'])
+        self.assertFalse(result['design_accepted'])
+        self.catalogue.write_text('{}', encoding='utf-8')
+        self.assertFalse(verify(self.root / 'run')['integrity_pass'])
+
+    def test_workflow_outside_blocks_dependent(self):
+        from bsa.workflow import execute
+        self.data['terminals'][0]['maximum_flow_L_s'] = 110
+        result = execute(self.workflow_plan(), self.root / 'run')
+        self.assertEqual(result['tasks']['lookup']['status'], 'fail')
+        self.assertEqual(result['tasks']['review']['status'], 'pending')
+        self.assertIn('lookup', result['tasks']['review']['scope'])
+
+    def test_workflow_rejects_external_catalogue(self):
+        from bsa.workflow import validate_plan
+        from bsa.engine import ProjectError
+        self.data['catalogue'] = str(self.catalogue.resolve())
+        with self.assertRaises(ProjectError): validate_plan(self.workflow_plan())
