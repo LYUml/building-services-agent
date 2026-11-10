@@ -16,3 +16,11 @@ Open `index.html` for links to the native drawing, plotted sheet, report, workfl
 On 2026-11-10 the private coursework plan executed allocation for 80 terminals, catalogue lookup, sizing of 47 duct sections, a bound single-line sheet update, and fresh AutoCAD save/reopen/A1 plotting. The package contains a 22-page report with 387 complete numerical rows checked after PDF extraction and 34 requirement records. All artifact hashes and workflow integrity passed. Rendered report pages and the drawing were pixel-identical to the previously inspected renders. Nine execution tasks remain unresolved; this is a prepared design study, not a submission-ready or approved engineering design. Private files are excluded from Git.
 
 The integration test executes a synthetic plan through the same wrapper, checks the report and pending review, rejects reuse of an output directory, and verifies that an invalid allocation is retained as failed without producing a misleading PDF report. Existing pinned engines and reporting components are reused; no additional solver or dependency is introduced.
+
+## Saved terminal connection review
+
+Add `--terminal-review <settings.json>` to automatically inspect the fresh native drawing after execution. Settings contain exactly `native_task` (the declared native sheet task ID) and `layers`, with distinct nonempty `supply`, `vav`, `terminal` and `flex` layer names. The package pins the settings bytes and inherits all geometry/calculation sources through the verified task ancestry (AIR_TERMINAL_DRAWING.md). No source replacements are accepted.
+
+The review appears in terminal-review.json and the package index. Missing/failed native ancestry or geometric mismatch is retained in stage_errors and makes package status incomplete. Numerical reports may still be generated as design-study evidence; they do not clear a failed review. Omitting the option means this specific review was not requested, recorded as null configuration, not passed. Full acceptance always remains separate.
+
+Actual private package replay checks 80 terminals and retains nine unresolved engineering tasks. Its 22 PDF report pages and drawing match inspected renders. A second run without AutoCAD retains the missing-native review error and incomplete package status. Six focused report/package/geometry tests pass. No new dependency or solver was introduced.
