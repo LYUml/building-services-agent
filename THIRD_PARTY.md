@@ -224,3 +224,8 @@ Tee/transition composition reuses the same credited engines and IfcOpenShell0.8.
 project.append_asset/system APIs to import actually saved component bodies and
 owned ports. The source binding, identity namespace and parent-relative placement
 checks are original glue; no upstream engine or fitting source body is vendored.
+
+Source-bound straight spans use the already credited IfcOpenShell0.8.5 hollow
+profile/extrusion/port APIs and Manifold3D3.5.4 material operations. Original code
+binds both fitting extents and actual saved frames to source centreline length;
+the existing dependency licenses/notices apply without copying their engines.

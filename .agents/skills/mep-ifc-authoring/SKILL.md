@@ -5,6 +5,15 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For a straight candidate between two source-bound tee/transition compositions,
+use bsa.duct_fitting_span and docs/DUCT_FITTING_SPANS.md. Require the same native
+source section and fresh endpoint/source-model checks. Deduct both fitting
+reaches, independently match saved end-plane separation/section/roll and reject
+overrun; no installed length or product allowance is inferred. Check saved native
+wall/ports/mass and material intersections against both endpoint models. The
+result has boundary ports in a separate IFC, not inter-file logical connections
+or a merged system. Preserve installation/elevation/product/pressure acceptance.
+
 For a source-declared equal-section core tee with one to three separate centred
 transition arms, use rectangular_tee_transitions with project in
 docs/RECTANGULAR_TEE_TRANSITIONS.md. Bare arms must be explicit. Preserve saved

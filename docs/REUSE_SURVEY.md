@@ -552,3 +552,13 @@ Two/three-arm, directed/bidirectional, oblique and saved mutation cases execute.
 Fresh saved-source plan-ray/size/extent binding executes for one actual private
 local candidate with explicit study assumptions; it does not establish installed
 space, joints, sheet-normal taper construction, pressure or full network acceptance.
+
+Two-end straight-span authoring reuses source-bound fitting review, saved native
+port frames and the existing IfcOpenShell0.8.5 rectangular_geometry.author/profile/
+port APIs. Source section length minus both fitting reaches, plus independent
+saved plane separation, binds the original thin adapter. Manifold3D3.5.4 checks
+actual candidate/source-component material intersections. The upstream engines
+and existing licenses/notices remain unchanged; no engine implementation is
+copied. The output is a standalone boundary-port span, not a merged saved network
+or inter-file logical connection. Installation/product/pressure acceptance remain
+pending. See DUCT_FITTING_SPANS.md.

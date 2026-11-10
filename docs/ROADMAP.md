@@ -1,5 +1,16 @@
 # Scope and acceptance
 
+Two-end straight-span candidates now deduct both source-bound fitting reaches,
+independently match saved section/roll/end-plane separation, author a native
+hollow wall and reject material intrusion against both supplied endpoint models.
+Five related test methods pass, including mixed-context and source-mutation
+rejection. One actual adjacent-node study passes fresh
+source/model/native checks and six material pair tests; a seven-body diagnostic
+projection was inspected. The three source IFCs remain separate boundary-port
+models. Merged-system connectivity, real construction/elevation/product allowances,
+full network pressure and assignment acceptance remain pending. See
+DUCT_FITTING_SPANS.md.
+
 Core tee/centred-transition composition now imports saved verified components
 through pinned upstream asset/port APIs, with stable identities, local frames,
 complete inventory/system and union/independent-volume/three-bore checks. Six

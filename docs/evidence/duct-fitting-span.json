@@ -1,0 +1,33 @@
+{
+  "scope": "Single source-bound trimmed straight candidate between two separately saved fittings; no merged-system connectivity, product allowances, installation/clearance, pressure or regulatory acceptance",
+  "related_test_methods_passed": 5,
+  "test_cases": [
+    "Independent two-end arithmetic, reversed endpoint order and retained overrun",
+    "Native identity/oblique wall and saved length/solid/port/source/connection mutation rejection",
+    "Identical material overlap control fails and translated disjoint control passes",
+    "Existing local-fit source correspondence/extent controls remain passing",
+    "Conflicting endpoint source snapshots and source changes during authoring block output"
+  ],
+  "actual_private_study": {
+    "two_source_fittings_reinspected": true,
+    "source_workflow_integrity_pass": true,
+    "source_model_input_pins_pass": true,
+    "saved_span_schema_express_issue_count": 0,
+    "saved_boundary_ports": 2,
+    "closed_material_and_independent_volume_pass": true,
+    "material_pairs_checked": 6,
+    "no_material_interpenetration": true,
+    "diagnostic_included_component_count": 7,
+    "external_logical_connections_created": false,
+    "merged_system_created": false,
+    "installation_elevation_verified": false,
+    "section_roll_verified": false,
+    "product_joint_allowances_included": false,
+    "design_accepted": false,
+    "all_consumed_native_review_source_pins_pass": true,
+    "final_source_workflow_integrity_pass": true,
+    "preview_pixel_identical_to_inspected_diagnostic": true
+  },
+  "generator_sha256": "2e0193230b501c99fa6a1d4a42740bbe6eb3d18f0eb5d24799ff6471551165df",
+  "design_accepted": false
+}
