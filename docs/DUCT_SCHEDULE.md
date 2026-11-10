@@ -73,3 +73,10 @@ Viscosity, temperature and dimension-grid/manufacturer availability still need t
 own assumptions/evidence. Actual private source-backed replay after retrieval of the
 classroom chart and criteria retains identical results for all 47 sections; numerical
 correspondence does not clear installed geometry, ADPI or full engineering acceptance.
+
+When multiple course sources provide velocity guidance, preserve system/application
+context. A generic velocity band must not automatically override an office-specific
+low-pressure supply-main/branch table. If system classification or source precedence
+is unknown, retain that decision as an assumption or unresolved item. Browser-readable
+text is not a hash-pinned original document; record a failed download as such and do
+not claim verification of graphical fitting-table rows from their heading alone.
