@@ -208,6 +208,12 @@ BSD-3-Clause; Boost Math routines under the retained upstream licenses). The dem
 optional dependency pins SciPy/NumPy; no upstream implementation is copied.
 Reference: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.binom.html .
 
+Source-linked rectangular fitting table studies also reuse SciPy1.18.1
+RegularGridInterpolator (SciPy contributors,BSD-3-Clause). Original glue binds
+source/native path identities and rejects out-of-bounds or unpublished support
+cells; no interpolation engine or coefficient database is copied. Reference:
+https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.RegularGridInterpolator.html .
+
 Source-declared rectangular tee assemblies compose the credited IfcOpenShell0.8.5
 profile/extrusion, system-port and placement APIs with Manifold3D3.5.4 material
 operations and existing NumPy checks. These dependencies retain their upstream

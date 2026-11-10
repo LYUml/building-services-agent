@@ -5,6 +5,16 @@ description: Calculate source-linked air/water networks, pump operating points a
 
 # Network pressure analysis
 
+For external source/manufacturer rectangular fitting tables,use duct_fitting_data
+with basis and depends_on on the saved duct_fitting_chain. Read
+docs/DUCT_FITTING_DATA.md. Bind exact product/native body/path/reference-port
+identities and hash-pinned source documents; native quantities supply the queries.
+Null support cells and bounds remain pending,never clamped or extrapolated. Keep
+negative coefficients signed and parallel paths separate. A complete numeric
+table set or declared applicability/friction note cannot accept full pressure:
+physical/transcription/friction/boundary review remains pending and required
+downstream consumers must stay blocked. Do not publish licensed/private tables.
+
 Inspect boundary_paths from bsa.duct_chain_analysis before using local pressure
 results. Keep inlet-to-outlet paths separate; shared straight contributions must
 not be added across parallel outlets. Full pressure and critical_path stay null

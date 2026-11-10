@@ -1,5 +1,14 @@
 # Scope and acceptance
 
+Source-linked fitting-table intake now runs through the unified workflow using
+fresh saved-chain quantities and pinned SciPy interpolation. Native controls
+verify signed/reference-port/per-path arithmetic; empty cells and out-of-bounds
+queries never create coefficients. Actual official-source queries for two sharp
+rectangular branches remain pending because required table cells are blank;
+six other fitting paths lack supplied tables. Same-model gates retain blocked
+release. Full fitting/friction/boundary/fan/installation/code scope remains open.
+See DUCT_FITTING_DATA.md.
+
 Local pressure accounting now traces every saved inlet-to-outlet path separately,
 retaining shared straight contributions, unique missing fitting paths and null
 critical/full pressures. Native execution finds three outlets; independent native

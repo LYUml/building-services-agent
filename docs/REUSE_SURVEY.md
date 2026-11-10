@@ -596,3 +596,14 @@ and two-dimension-changing tapers. Not adopted as a production dependency; no
 upstream code/table or publisher PDF is redistributed. Probe/archive/module/license
 hashes and executed observations are retained. See DUCT_CHAIN_ANALYSIS.md for
 exact pin, reproduction, source/edition and applicability limits.
+
+External fitting data studies now reuse pinned SciPy1.18.1
+RegularGridInterpolator and existing saved-chain analysis/body fingerprints.
+The thin adapter rejects bounds,blank support cells,changed documents/bodies and
+wrong reference ports; signed actual-port pressure contributions remain scoped
+pending studies. The official ASHRAE2021 page42 candidate does not cover the two
+actual equal-section branch queries. MIT python-hvac commit
+94247560a667905bfbf67e45a58965a58254fce8 was inspected as another candidate;
+its sparse rectangular tee data and removed interp2d API prevent claiming a
+current verified integration. No candidate code/tables or publisher PDF is
+redistributed. See DUCT_FITTING_DATA.md for contracts and executed evidence.
