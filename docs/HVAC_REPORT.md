@@ -48,3 +48,17 @@ without modifying calculation artifacts. PDF extraction checks also include the
 complete load-summary row (388 rows in the actual private report). Synthetic package
 and failure controls pass; the actual 22-page output was rendered, changed pages
 2–14 inspected, and remaining pages matched prior inspected renders.
+
+## Native connection evidence in report
+
+Use `--terminal-review <inherited-review.json>` to include a scoped connection
+summary. The report checks exact workflow/schedule/source identities and reruns the
+read-only saved-geometry matcher; altered counts or geometry results reject rather
+than being copied from a success flag. The review itself is pinned as a report input.
+The package supplies its successful connection review automatically. Full physical
+ports, installed length, labels, 3D and code acceptance remain explicitly excluded.
+
+Actual private report includes 80 terminals, 20 groups, 47 rigid sections and
+2.873 m maximum straight plan connection. A falsified 79-terminal review rejected.
+The 22-page PDF retains 388 checked table rows; changed pages 18–22 were inspected
+and pages 1–17 match previously inspected renders. Six focused tests pass.

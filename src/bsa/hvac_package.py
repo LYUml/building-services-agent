@@ -47,7 +47,8 @@ def run(plan,output,*,font,autocad=None,terminal_review=None):
         except (ValueError,OSError,KeyError) as exc:errors['terminal_review']=str(exc)
     try:
         from .hvac_report import run as report
-        stages['report']=report(output/'workflow',output/'report')
+        stages['report']=report(output/'workflow',output/'report',
+            terminal_review=output/'terminal-review.json' if 'terminal_review' in stages else None)
     except (ValueError,OSError,KeyError) as exc:errors['report']=str(exc)
     if 'report' in stages:
         try:

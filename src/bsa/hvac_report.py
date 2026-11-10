@@ -51,7 +51,39 @@ def compose(workflow,allocation,lookup,ducts):
     return ''.join(parts),dict(terminal_direction_rows=len(terminal),leaf_groups=len(groups),duct_sections=len(sections),requirements=len(requirements))
 
 
-def run(directory,output):
+def connection_summary(directory,workflow,paths,review):
+    """Recheck saved geometry instead of trusting review success/count assertions."""
+    import ezdxf
+    from .air_terminal_drawing import inspect
+    record=json.loads(review.read_text(encoding='utf-8'))
+    if record.get('workflow_sha256')!=digest(directory/'workflow.json') or record.get('schedule_sha256')!=digest(paths[2]):
+        raise ValueError('Terminal review belongs to another workflow or schedule')
+    inputs={Path(p).resolve():sha for p,sha in record['inputs'].items()}
+    if len(inputs)!=4 or any(not p.is_file() or digest(p)!=sha for p,sha in inputs.items()):
+        raise ValueError('Terminal review input evidence changed')
+    lineage=record['lineage']
+    if len(lineage)!=4 or any(workflow['tasks'].get(n,{}).get('kind')!=k or workflow['tasks'][n]['status']!='pass' for n,k in zip(lineage,('duct_sheet_native','duct_sheet','duct_schedule','air_allocation'))):
+        raise ValueError('Passing terminal review ancestry required')
+    drawing=directory/lineage[0]/'reopened/source-export.dxf'
+    if paths[0]!=directory/lineage[3]/'allocation.json' or paths[2]!=directory/lineage[2]/'results.json' or drawing not in inputs or paths[0] not in inputs:
+        raise ValueError('Terminal review source identities differ')
+    sources=[p for p in inputs if p not in (drawing,paths[0])]
+    if any(workflow['inputs'].get(str(p))!=inputs[p] for p in sources):
+        raise ValueError('Terminal review uses sources outside workflow')
+    schedule=json.loads(paths[2].read_text(encoding='utf-8'))
+    projects=[p for p in sources if inputs[p]==schedule['input_sha256']]
+    if len(projects)!=1:raise ValueError('Unique calculated duct project required')
+    project=projects[0];binding=next(p for p in sources if p!=project)
+    fresh=inspect(ezdxf.readfile(drawing),json.loads(paths[0].read_text(encoding='utf-8')),
+        json.loads(project.read_text(encoding='utf-8'))['tree'],json.loads(binding.read_text(encoding='utf-8')),record['layers'])
+    if any(record.get(k)!=v for k,v in fresh.items()):raise ValueError('Terminal review differs from saved geometry')
+    return (f"Saved native drawing correspondence covers {fresh['terminal_count']} terminals, "
+        f"{len(fresh['groups'])} groups and {fresh['rigid_section_count']} rigid sections. "
+        f"The longest straight centre-to-centre planar flexible connection is {fresh['maximum_plan_length_m']:.3f} m. "
+        'This does not verify physical ports, installed flexible lengths, labels, three-dimensional coordination or regulatory compliance.')
+
+
+def run(directory,output,*,terminal_review=None):
     directory,output=Path(directory).resolve(),Path(output).resolve()
     if output.exists() or output==directory or output in directory.parents or directory in output.parents:
         raise ValueError('New report directory outside immutable workflow required')
@@ -63,6 +95,15 @@ def run(directory,output):
         if len(names)!=1 or workflow['tasks'][names[0]]['status']!='pass':raise ValueError('One passing '+kind+' task required')
         p=directory/names[0]/filename;paths.append(p);data.append(json.loads(p.read_text(encoding='utf-8')))
     content,counts=compose(workflow,*data)
+    if terminal_review is not None:
+        review=Path(terminal_review).resolve()
+        if output==review or output in review.parents:raise ValueError('Report must not contain review input')
+        review_hash=digest(review)
+        summary=connection_summary(directory,workflow,paths,review)
+        if digest(review)!=review_hash:raise ValueError('Terminal review changed during reporting')
+        content=content.replace('<h2>Complete source requirement matrix</h2>',
+            '<h2>Saved terminal connections</h2><p>'+html.escape(summary)+'</p><h2>Complete source requirement matrix</h2>')
+        paths.append(review)
     pins={str(p):digest(p) for p in [directory/'workflow.json',*paths]}
     if not verify(directory)['integrity_pass']:raise ValueError('Workflow changed during report preparation')
     output.mkdir(parents=True);target=output/'HVAC System Design.html';target.write_text(content,encoding='utf-8')
@@ -71,5 +112,5 @@ def run(directory,output):
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('run_directory');p.add_argument('--out',required=True)
-    a=p.parse_args();print(run(a.run_directory,a.out)['counts'])
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('run_directory');p.add_argument('--out',required=True);p.add_argument('--terminal-review')
+    a=p.parse_args();print(run(a.run_directory,a.out,terminal_review=a.terminal_review)['counts'])
