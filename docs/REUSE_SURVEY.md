@@ -321,3 +321,9 @@ adding optional document references rather than a document engine. Actual retrie
 private Canvas lecture is pinned in fresh allocation/workflow evidence; no course PDF
 is committed. Changed-source controls and unchanged-calculation replay pass. No new
 dependency; engineering/source interpretation remains separate.
+
+ADPI interval applicability gap: existing terminal_throw/fluids already computes
+bounded T/L but intentionally has no criterion verdict. Add only source/declaration
+and interval screening; no comfort model, interpolation engine or dependency is
+reimplemented. Five controls and actual 640-case pending study execute. Exact source
+interpretation remains external evidence; ADPI prediction/full acceptance stays false.

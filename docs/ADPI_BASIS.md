@@ -50,3 +50,20 @@ from another without resolving the correspondence. Manufacturer participation in
 the study is not proof that a specific catalogue model/configuration was tested.
 A paper found in a prior project folder is not automatically a course-prescribed
 method. The local paper was reviewed without redistributing its copyrighted PDF.
+
+## Scoped interval screening
+
+`bsa.adpi_screen.screen` reuses terminal_throw output without changing the fluids
+lookup engine. Supply the exact criterion source, room-load/ratio intervals and
+Boolean-or-unknown facts for room load, product category, characteristic lengths,
+installation and edition selection. Unknowns retain pending; verified loads outside
+the source range or rejected facts mark inapplicable. Only eligible inputs receive
+per-case interval results, with both maximum/minimum cases retained. The result
+always keeps ADPI_verified and design_accepted false: a ratio interval is not a
+measured comfort index or proof that declarations are true.
+
+Five boundary/missing/failed-case controls pass. Actual private lecture-backed
+640-case screening remains pending: trial170.1 W/m2 is outside the displayed range
+and actual room load is not verified. Product/length/installation evidence remains
+unknown. No ADPI criterion has been relaxed to clear the study. This is currently
+a Python API, not a registered workflow or automatic regulatory check.
