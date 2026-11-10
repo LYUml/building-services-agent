@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "id": "hk-flex-length-2026.11.10",
+  "jurisdiction": "HK",
+  "version": "2026.11.10",
+  "sources": {
+    "fsd_mv_2023": {
+      "authority": "FSD",
+      "title": "Fire Safety Requirements for Mechanical Ventilating Systems",
+      "edition": "Circular 2/2023",
+      "url": "https://www.hkfsd.gov.hk/eng/source/licensing/MECHANICAL_VS_EN_2_2023.pdf",
+      "cache_filename": "FSD_Mechanical_Ventilating_Systems_2023.pdf",
+      "sha256": "950c83c826b18d2c1daf9e959698a82f1d20299ad6456f274c7e099d5d897635",
+      "reviewed_on": "2026-11-10",
+      "review_scope": "Clause 7.2, PDF page 14 / printed page 11; official bytes re-fetched and matched",
+      "applicability_note": "Effective 2023-09-01 under stated scopes; project scope, amendments and installation facts require review"
+    }
+  },
+  "rules": [
+    {
+      "id": "HK.FSD.MV2023.7.2.flex_length",
+      "source_id": "fsd_mv_2023",
+      "clause": "7.2",
+      "pdf_page_1_based": 14,
+      "printed_page": "11",
+      "method": "prescriptive_maximum",
+      "metric": "maximum_complete_connection_length",
+      "unit": "m",
+      "maximum": 4,
+      "scope": "Maximum installed flexible-duct length across the explicitly complete connection inventory; ordinary limit only, no Director-approved extension path",
+      "applicability": [
+        {
+          "fact": "mechanical_ventilating_system_scope_confirmed",
+          "equals": true
+        },
+        {
+          "fact": "complete_flexible_connection_inventory",
+          "equals": true
+        },
+        {
+          "fact": "actual_installed_lengths_verified",
+          "equals": true
+        },
+        {
+          "fact": "ordinary_limit_path_selected",
+          "equals": true
+        }
+      ],
+      "alternative_path_note": "Ordinary length limit exceeded. Redesign or separately assess specific Director agreement obtained before installation; no exception is inferred."
+    }
+  ],
+  "coverage": {
+    "complete": false,
+    "implemented": [
+      "Clause 7.2 ordinary flexible connection length maximum only"
+    ],
+    "pending": [
+      "Project legal/edition/amendment scope",
+      "Clause 7.1 tested product",
+      "Clauses 7.3 and 7.4 main-duct and fire-boundary/damper restrictions",
+      "Director-approved extension path",
+      "Geometry/installed-length evidence authentication",
+      "Remaining mechanical ventilation and fire requirements"
+    ]
+  }
+}

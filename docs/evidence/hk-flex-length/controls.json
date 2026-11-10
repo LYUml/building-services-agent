@@ -1,0 +1,19 @@
+{
+  "source_sha256": "950c83c826b18d2c1daf9e959698a82f1d20299ad6456f274c7e099d5d897635",
+  "cases": [
+    {
+      "case": "4",
+      "status": "pass"
+    },
+    {
+      "case": "4.01",
+      "status": "review_required"
+    },
+    {
+      "case": "unknown installed length",
+      "status": "pending"
+    }
+  ],
+  "scope": "Executed generic rule-engine controls against actual pinned official source; synthetic facts, not installed validation",
+  "design_accepted": false
+}
