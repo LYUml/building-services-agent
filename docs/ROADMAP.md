@@ -1,5 +1,14 @@
 # Scope and acceptance
 
+Local pressure accounting now traces every saved inlet-to-outlet path separately,
+retaining shared straight contributions, unique missing fitting paths and null
+critical/full pressures. Native execution finds three outlets; independent native
+path checks plus disconnected-cycle/merge controls pass. A separately hash-pinned
+hvac-pressure0.1.1 candidate probe executes but shows silent bounds clamping and
+geometric applicability gaps; its tables are not adopted. Correct fitting sources,
+boundary conditions, critical fan path and whole-network acceptance remain open.
+See DUCT_CHAIN_ANALYSIS.md.
+
 Saved-chain analysis now binds every native port to the exact inherited design
 case and reads actual inner sections/straight length. Four targeted test methods
 and actual workflow execution verify16 ports,seven products,six interfaces and

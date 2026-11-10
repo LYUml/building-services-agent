@@ -11,7 +11,7 @@ from bsa import rectangular_tee_transitions as composition
 from bsa import rectangular_transition as transition
 from bsa import duct_fitting_span as span_tool
 from bsa.duct_fitting_chain import merge
-from bsa.duct_chain_analysis import calculate
+from bsa.duct_chain_analysis import calculate, boundary_paths
 from bsa.tee_geometry import stable_guid
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -42,6 +42,17 @@ class DuctChainAnalysisTests(unittest.TestCase):
             self.assertTrue(all(r['coefficient'] is None for r in result['missing_fitting_path_losses']))
             self.assertIsNone(result['complete_chain_pressure_drop_Pa']); self.assertFalse(result['pressure_budget_complete']); self.assertFalse(result['design_accepted'])
             self.assertEqual(result['status'], 'pending')
+            paths = result['boundary_paths']
+            self.assertTrue(result['boundary_path_accounting_pass']); self.assertEqual(len(paths), 3)
+            self.assertIsNone(result['critical_path'])
+            self.assertAlmostEqual(sum(p['outlet_flow_m3_s'] for p in paths), .5)
+            self.assertEqual(sorted(p['outlet_flow_m3_s'] for p in paths), [.1, .2, .2])
+            self.assertEqual(sorted(sum(s['kind'] == 'straight' for s in p['steps']) for p in paths), [0, 1, 1])
+            self.assertTrue(all(p['complete_total_pressure_drop_Pa'] is None for p in paths))
+            for path in paths:
+                self.assertEqual(path['steps'][0]['inlet_port_guid'], path['inlet_port_guid'])
+                self.assertEqual(path['steps'][-1]['outlet_port_guid'], path['outlet_port_guid'])
+                self.assertTrue(all(a['outlet_port_guid'] == b['inlet_port_guid'] for a, b in zip(path['steps'], path['steps'][1:])))
             row = result['straight_sections'][0]; calc = row['calculation']; de = calc['equivalent_diameter_m']; f = calc['darcy_factor']; re = calc['reynolds']
             independent_length = 4-.7-.2-.2/(2*math.tan(math.radians(15)))-.5
             self.assertAlmostEqual(row['length_m'], independent_length, places=10)
@@ -50,6 +61,7 @@ class DuctChainAnalysisTests(unittest.TestCase):
             self.assertAlmostEqual(1/math.sqrt(f)+2*math.log10(air['roughness_m']/(3.7*de)+2.51/(re*math.sqrt(f))), 0, places=8)
             independent_loss = f*independent_length/de*air['density_kg_m3']*(4*.3/(math.pi*de**2))**2/2
             self.assertAlmostEqual(row['straight_friction_Pa'], independent_loss, places=10)
+            self.assertEqual(sorted(p['known_straight_friction_Pa'] for p in paths), [0, row['straight_friction_Pa'], row['straight_friction_Pa']])
             self.assertAlmostEqual(result['port_flows'][span_ports[0]]['actual_velocity_pressure_Pa'], 1.2*(.3/(.4*.2))**2/2, places=12)
             for case in ('product', 'interface', 'missing', 'negative', 'air'):
                 altered = copy.deepcopy(flows); properties = dict(air)
@@ -64,3 +76,13 @@ class DuctChainAnalysisTests(unittest.TestCase):
     def test_empty_model_cannot_pass_flow_conservation(self):
         model = ifcopenshell.file(schema='IFC4')
         with self.assertRaisesRegex(ValueError, 'nonempty'): calculate(model, {}, dict(density_kg_m3=1.2, viscosity_Pa_s=1.81e-5, roughness_m=9e-5))
+
+    def test_disconnected_cycle_and_merged_path_rejected(self):
+        # Graph control only; native branching and numerical results are checked above.
+        ports = {g: dict(direction='SINK' if g == 'root' else 'SOURCE', flow_m3_s=1.)
+            for g in ('root', 'out', 'a', 'b')}
+        def edge(a, b): return dict(source_port=a, sink_port=b)
+        with self.assertRaisesRegex(ValueError, 'complete saved model'):
+            boundary_paths(ports, [], [edge('root', 'out'), edge('a', 'b'), edge('b', 'a')], [], [], ['root', 'out'])
+        with self.assertRaisesRegex(ValueError, 'divergent pressure tree'):
+            boundary_paths(ports, [], [edge('root', 'a'), edge('root', 'b'), edge('a', 'out'), edge('b', 'out')], [], [], ['root', 'out'])

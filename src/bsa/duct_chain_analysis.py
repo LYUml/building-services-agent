@@ -36,8 +36,15 @@ def render(result):
         values = [first['source_node'], row['predefined_type'], first['source_section']+' → '+last['source_section'],
             f"{row['inlet_actual_velocity_m_s']:.4f}", f"{row['outlet_actual_velocity_m_s']:.4f}", 'Pending source basis']
         missing.append('<tr>'+''.join('<td>'+esc(v)+'</td>' for v in values)+'</tr>')
+    path_rows = []
+    for row in result['boundary_paths']:
+        outlet = result['port_flows'][row['outlet_port_guid']]
+        values = [outlet['source_node'], outlet['source_section'], f"{row['outlet_flow_m3_s']*1000:.3f}",
+            f"{row['known_straight_friction_Pa']:.5f}", row['missing_fitting_path_count'], 'Pending']
+        path_rows.append('<tr>'+''.join('<td>'+esc(v)+'</td>' for v in values)+'</tr>')
+    path_html = '<h2>Separate inlet-to-outlet paths</h2><p>Parallel outlets are separate pressure paths. Known straight contributions exclude missing fitting losses; critical path and fan duty remain undetermined. Shared cap interfaces describe connectivity, not verified joint losses.</p><table><tr><th>Outlet node</th><th>Source section</th><th>Outlet L/s</th><th>Known straight Pa</th><th>Missing fitting paths</th><th>Full path pressure</th></tr>'+''.join(path_rows)+'</table>'
     air = result['air']; basis = result['air_source_basis']
-    return '<!doctype html><html lang="en"><meta charset="utf-8"><title>Local Duct Flow and Straight Friction</title><style>body{font:16px/1.5 Arial;color:#20343c;max-width:1250px;margin:35px auto;padding:0 20px}h1{line-height:1.2}.pending{background:#fff0d2;padding:16px;border-left:5px solid #b47016}table{border-collapse:collapse;width:100%;font-size:14px}th,td{border:1px solid #cbd4d8;padding:8px;text-align:left}th{background:#eaf0f2}a{color:#075c70}</style><h1>Local Duct Flow and Straight Friction</h1><p class="pending"><strong>Complete pressure assessment pending.</strong> '+str(len(missing))+' fitting paths require applicable loss data. Full chain pressure drop is unavailable.</p><p>Source-prescribed local flows conserve at all saved products,interfaces and boundaries. This preliminary local study retains source construction and condition assumptions; product,installation and full-network acceptance remain pending.</p><h2>Local design case</h2><p>Boundary inlet: <strong>'+f"{result['boundary_inlet_flow_m3_s']*1000:.3f}"+' L/s</strong>; boundary outlet: <strong>'+f"{result['boundary_outlet_flow_m3_s']*1000:.3f}"+' L/s</strong>. '+str(len(result['port_flows']))+' saved ports and '+str(len(result['interfaces']))+' interfaces checked.</p><p>Inherited air conditions: density '+f"{air['density_kg_m3']:.4g}"+' kg/m³; dynamic viscosity '+f"{air['viscosity_Pa_s']:.4g}"+' Pa·s; roughness '+f"{air['roughness_m']*1000:.4g}"+' mm. These are source design conditions and assumptions.</p><h2>Isolated straight contribution</h2><p>Equivalent-round straight friction; actual rectangular and equivalent-round velocities remain distinct. Saved straight length excludes both fitting reaches.</p><table><tr><th>Source section</th><th>Model length m</th><th>Inside size mm</th><th>Flow L/s</th><th>Actual velocity m/s</th><th>Equivalent-round velocity m/s</th><th>Gradient Pa/m</th><th>Straight contribution Pa</th></tr>'+''.join(straight)+'</table><p><strong>Straight subtotal: '+f"{result['straight_friction_subtotal_Pa']:.5f}"+' Pa.</strong> Fitting body losses and their wall-friction conventions remain unresolved.</p><h2>Missing fitting path data</h2><table><tr><th>Source node</th><th>Body</th><th>Source flow path</th><th>Actual inlet m/s</th><th>Actual outlet m/s</th><th>Loss basis</th></tr>'+''.join(missing)+'</table><details><summary>Inherited source basis and evidence</summary><p>'+esc(basis['basis'])+'</p><p>'+esc(result['geometry_basis'])+'</p><p><a href="analysis.json">Source hashes,native checks,port quantities and full numerical evidence</a></p></details></html>'
+    return '<!doctype html><html lang="en"><meta charset="utf-8"><title>Local Duct Flow and Straight Friction</title><style>body{font:16px/1.5 Arial;color:#20343c;max-width:1250px;margin:35px auto;padding:0 20px}h1{line-height:1.2}.pending{background:#fff0d2;padding:16px;border-left:5px solid #b47016}table{border-collapse:collapse;width:100%;font-size:14px}th,td{border:1px solid #cbd4d8;padding:8px;text-align:left}th{background:#eaf0f2}a{color:#075c70}</style><h1>Local Duct Flow and Straight Friction</h1><p class="pending"><strong>Complete pressure assessment pending.</strong> '+str(len(missing))+' fitting paths require applicable loss data. Full chain pressure drop is unavailable.</p><p>Source-prescribed local flows conserve at all saved products,interfaces and boundaries. This preliminary local study retains source construction and condition assumptions; product,installation and full-network acceptance remain pending.</p><h2>Local design case</h2><p>Boundary inlet: <strong>'+f"{result['boundary_inlet_flow_m3_s']*1000:.3f}"+' L/s</strong>; boundary outlet: <strong>'+f"{result['boundary_outlet_flow_m3_s']*1000:.3f}"+' L/s</strong>. '+str(len(result['port_flows']))+' saved ports and '+str(len(result['interfaces']))+' interfaces checked.</p><p>Inherited air conditions: density '+f"{air['density_kg_m3']:.4g}"+' kg/m³; dynamic viscosity '+f"{air['viscosity_Pa_s']:.4g}"+' Pa·s; roughness '+f"{air['roughness_m']*1000:.4g}"+' mm. These are source design conditions and assumptions.</p><h2>Isolated straight contribution</h2><p>Equivalent-round straight friction; actual rectangular and equivalent-round velocities remain distinct. Saved straight length excludes both fitting reaches.</p><table><tr><th>Source section</th><th>Model length m</th><th>Inside size mm</th><th>Flow L/s</th><th>Actual velocity m/s</th><th>Equivalent-round velocity m/s</th><th>Gradient Pa/m</th><th>Straight contribution Pa</th></tr>'+''.join(straight)+'</table><p><strong>Straight subtotal: '+f"{result['straight_friction_subtotal_Pa']:.5f}"+' Pa.</strong> Fitting body losses and their wall-friction conventions remain unresolved.</p>'+path_html+'<h2>Missing fitting path data</h2><table><tr><th>Source node</th><th>Body</th><th>Source flow path</th><th>Actual inlet m/s</th><th>Actual outlet m/s</th><th>Loss basis</th></tr>'+''.join(missing)+'</table><details><summary>Inherited source basis and evidence</summary><p>'+esc(basis['basis'])+'</p><p>'+esc(result['geometry_basis'])+'</p><p><a href="analysis.json">Source hashes,native checks,port quantities and full numerical evidence</a></p></details></html>'
 
 
 def source_schedule(plan, workflow, native_task):
@@ -107,6 +114,50 @@ def section_at_port(obj, port):
     raise ValueError('Unsupported saved fitting cross-section')
 
 
+def boundary_paths(ports, products, interfaces, straight, missing, boundaries):
+    """Trace a divergent local tree; never add losses from parallel outlets."""
+    edges = {g: [] for g in ports}; indegree = dict.fromkeys(ports, 0)
+    def add(a, b, kind, product=None, known=None):
+        if a not in ports or b not in ports or a == b:
+            raise ValueError('Invalid directed pressure-path edge')
+        edges[a].append(dict(inlet_port_guid=a, outlet_port_guid=b, kind=kind,
+            product_guid=product, straight_friction_Pa=known))
+        indegree[b] += 1
+    for row in interfaces:
+        add(row['source_port'], row['sink_port'], 'shared_cap_interface')
+    for row in straight:
+        owned = {g: p for g, p in ports.items() if p['owner_guid'] == row['guid']}
+        ins = [g for g, p in owned.items() if p['direction'] == 'SINK']
+        outs = [g for g, p in owned.items() if p['direction'] == 'SOURCE']
+        if len(ins) != 1 or len(outs) != 1: raise ValueError('One-in/one-out pressure span required')
+        add(ins[0], outs[0], 'straight', row['guid'], row['straight_friction_Pa'])
+    for row in missing:
+        add(row['inlet_port_guid'], row['outlet_port_guid'], 'fitting', row['product_guid'])
+    roots = [g for g in boundaries if ports[g]['direction'] == 'SINK']
+    leaves = {g for g in boundaries if ports[g]['direction'] == 'SOURCE'}
+    if len(roots) != 1 or not leaves or any(n != (0 if g in roots else 1) for g, n in indegree.items()):
+        raise ValueError('One-inlet divergent pressure tree required; merging and cycles unsupported')
+    if {g for g, rows in edges.items() if not rows} != leaves:
+        raise ValueError('Pressure-path leaves must match saved outlet boundaries')
+    stack = [(roots[0], [], frozenset())]; paths = []; visited = set()
+    while stack:
+        node, steps, ancestors = stack.pop()
+        if node in ancestors: raise ValueError('Cyclic pressure path')
+        visited.add(node)
+        if node in leaves:
+            paths.append(dict(inlet_port_guid=roots[0], outlet_port_guid=node,
+                outlet_flow_m3_s=ports[node]['flow_m3_s'], steps=steps,
+                known_straight_friction_Pa=math.fsum(s['straight_friction_Pa'] for s in steps if s['kind'] == 'straight'),
+                missing_fitting_path_count=sum(s['kind'] == 'fitting' for s in steps),
+                complete_total_pressure_drop_Pa=None, status='pending'))
+            if len(paths) > 256: raise ValueError('Local pressure-path budget exceeded')
+        for step in sorted(edges[node], key=lambda s: s['outlet_port_guid'], reverse=True):
+            stack.append((step['outlet_port_guid'], steps+[step], ancestors|{node}))
+    if visited != set(ports) or {s['product_guid'] for p in paths for s in p['steps'] if s['product_guid']} != {p['guid'] for p in products}:
+        raise ValueError('Pressure paths do not cover the complete saved model')
+    return paths
+
+
 def calculate(model, assigned, air):
     if not assigned or not model.by_type('IfcDistributionElement') or set(assigned) != {p.GlobalId for p in model.by_type('IfcDistributionPort')}: raise ValueError('Every saved port in a nonempty model requires exactly one source flow')
     if set(air) != {'density_kg_m3', 'viscosity_Pa_s', 'roughness_m'}: raise ValueError('Exact inherited air properties required')
@@ -155,9 +206,12 @@ def calculate(model, assigned, air):
     inlet = math.fsum(p['flow_m3_s'] for p in boundaries.values() if p['direction'] == 'SINK')
     outlet = math.fsum(p['flow_m3_s'] for p in boundaries.values() if p['direction'] == 'SOURCE')
     if not math.isclose(inlet, outlet, rel_tol=1e-12, abs_tol=1e-12): raise ValueError('Saved local boundary flows are not conserved')
+    paths = boundary_paths(ports, products, links, straight, missing, boundaries)
     return dict(status='pending', port_flows=ports, products=products, interfaces=links, boundary_ports=list(boundaries),
         boundary_inlet_flow_m3_s=inlet, boundary_outlet_flow_m3_s=outlet, flow_continuity_pass=True,
         straight_sections=straight, straight_friction_subtotal_Pa=math.fsum(r['straight_friction_Pa'] for r in straight),
+        boundary_paths=paths, boundary_path_accounting_pass=True, critical_path=None,
+        boundary_path_scope='Directed local inlet-to-outlet paths; shared-cap edges describe connectivity only. Unknown fitting/joint losses, outlet pressure requirements and fan duty are not inferred. Straight subtotal across products is not a branched-system pressure drop.',
         missing_fitting_path_losses=missing, pressure_budget_complete=False, complete_chain_pressure_drop_Pa=None,
         design_accepted=False, scope='Source-prescribed saved-port flow conservation and isolated saved straight-friction contribution only; fitting total-pressure losses, boundary pressure budget, fan duty, installation and regulatory acceptance pending')
 

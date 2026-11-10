@@ -1,0 +1,37 @@
+{
+  "scope": "Saved local divergent boundary-path accounting and independent candidate evaluation; complete pressure/fan/product acceptance pending",
+  "targeted_test_methods_passed": 4,
+  "native_case": {
+    "boundary_path_count": 3,
+    "shared_straight_path_count": 2,
+    "unique_missing_fitting_path_count": 8,
+    "path_fitting_counts": [
+      2,
+      4,
+      4
+    ],
+    "source_hashes_unchanged": true,
+    "rendered_report_reviewed": true,
+    "critical_path": null,
+    "all_complete_path_pressures_null": true
+  },
+  "candidate": {
+    "upstream": "https://github.com/JeremySimonneau/hvac-fitting-loss",
+    "version": "0.1.1",
+    "wheel_sha256": "87a469dc3dd954c44da9f6b0e76ce5fffd5da8782de0490578ef8b88b402b82b",
+    "probe_sha256": "bfd5d17e0618f94e6b17284889ca23c479618d39a426fe2b5fba5ec45d8946d6",
+    "observations": {
+      "out_of_range_angle_returns_boundary_coefficient": true,
+      "out_of_range_angle_has_no_warning": true,
+      "out_of_range_area_returns_boundary_coefficient": true,
+      "out_of_range_area_has_no_warning": true,
+      "tee_metadata_requires_radius_ratio": true,
+      "transition_metadata_requires_two_parallel_sides": true,
+      "upstream_returns_both_tee_paths": true
+    },
+    "changed_wheel_rejected": true,
+    "production_adapter": false
+  },
+  "generator_sha256": "6c74ce1757bc9a8f7bc4992b56e42e3765567798800d62795647bf0ecc6e2293",
+  "design_accepted": false
+}

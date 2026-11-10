@@ -586,3 +586,13 @@ coefficient table is copied. The actual local case computes a separate saved
 straight contribution and retains eight null fitting-path coefficients and a null
 full pressure result. Method, product, pressure and regional scope remain explicit.
 See DUCT_CHAIN_ANALYSIS.md; existing third-party licenses/notices remain applicable.
+
+Further rectangular-loss research executed the hash-pinned MIT
+[hvac-pressure0.1.1](https://pypi.org/project/hvac-pressure/0.1.1/) wheel through
+scripts/probe_hvac_pressure.py. Public APIs return both tee paths, but out-of-range
+angle/area queries silently clamp. Candidate metadata requires rounded tee
+entrance r/Wb=1 and two-parallel-side transitions, unlike the current sharp tee
+and two-dimension-changing tapers. Not adopted as a production dependency; no
+upstream code/table or publisher PDF is redistributed. Probe/archive/module/license
+hashes and executed observations are retained. See DUCT_CHAIN_ANALYSIS.md for
+exact pin, reproduction, source/edition and applicability limits.

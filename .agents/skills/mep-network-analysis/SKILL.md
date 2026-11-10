@@ -5,6 +5,15 @@ description: Calculate source-linked air/water networks, pump operating points a
 
 # Network pressure analysis
 
+Inspect boundary_paths from bsa.duct_chain_analysis before using local pressure
+results. Keep inlet-to-outlet paths separate; shared straight contributions must
+not be added across parallel outlets. Full pressure and critical_path stay null
+until fitting applicability, losses and boundary conditions are established. The
+reviewed hvac-pressure0.1.1 wheel is an executed research candidate only: silent
+bounds clamping and rounded-tee/two-parallel-side requirements prevent direct use
+for the current sharp tee and two-dimension-changing taper case. See
+docs/DUCT_CHAIN_ANALYSIS.md; do not install it as an accepted solver.
+
 For the saved source-bound local duct chain, use duct_chain_analysis depending on
 duct_fitting_chain; read docs/DUCT_CHAIN_ANALYSIS.md. Inherit every port flow and
 air condition from the exact source schedule, and read saved native cross-sections

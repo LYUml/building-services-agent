@@ -24,6 +24,29 @@ pressure are recorded at each port. Velocity can change across a taper while
 volume flow stays unchanged. A source section ID identifies its inherited flow;
 it does not replace every interior fitting port's dimensions.
 
+## Boundary pressure paths
+
+The saved ports and directed product/interface edges now form a checked local
+one-inlet divergent tree. Every product and port must belong to at least one
+inlet-to-outlet path; merges, disconnected cycles and more than256 outlet paths
+reject. Shared-cap interface steps record connectivity only, without claiming
+verified physical joint losses. Each path retains its outlet flow, ordered native
+port/product identities, known straight contribution and missing fitting-path
+count. Unknown full path pressure remains null. Parallel outlet paths must never
+be summed into a system pressure drop; a common straight can occur in multiple
+paths without becoming multiple physical ducts. Critical path stays null until
+all applicable losses and boundary pressure requirements are established.
+
+Actual private execution traces three outlets. One path contains no separate
+straight span; two share the same saved straight. Their missing-fitting counts
+are2,4,4: this includes shared fitting paths, not ten distinct fittings or ten
+unique missing records. The eight unique loss paths remain unresolved. Native
+tests independently check the three outlet flows, exact path adjacency and
+shared-straight accounting; isolated graph controls reject a disconnected cycle
+and a merged outlet. These controls do not establish product applicability.
+Aggregate executed evidence is in evidence/duct-boundary-paths.json; private
+source models, numerical project data and rendered reviews remain local.
+
 ## Straight contribution and incomplete pressure scope
 
 Dimensions and extrusion length come from the saved straight span. Existing
@@ -78,3 +101,30 @@ eight path-loss records; the full pressure result stays null and pressure-gated
 release is blocked. This is one preliminary local case, not the completed
 coursework network or a substitute for minimum-flow/ADPI checks. Aggregate
 evidence is in evidence/duct-chain-analysis.json; detailed private data stays local.
+
+## Additional upstream candidate investigation
+
+`scripts/probe_hvac_pressure.py` executes only the reviewed PyPI
+hvac-pressure0.1.1 wheel SHA256
+`87a469dc3dd954c44da9f6b0e76ce5fffd5da8782de0490578ef8b88b402b82b`.
+It imports directly from that wheel without installation, records Python/license
+file hashes, and probes public APIs. It does not copy coefficient tables or
+validate their numerical accuracy. See
+[upstream source and MIT license](https://github.com/JeremySimonneau/hvac-fitting-loss)
+and the [exact release](https://pypi.org/project/hvac-pressure/0.1.1/).
+
+```powershell
+.venv/Scripts/python -I -X utf8 scripts/probe_hvac_pressure.py tools/hvac-pressure-review/hvac_pressure-0.1.1-py3-none-any.whl --out runs/hvac-pressure-probe
+```
+
+Actual execution confirms out-of-range angle and area queries return boundary
+coefficients without warnings. The candidate's SR5-1 metadata requires a rounded
+branch with r/Wb=1; SR4-1 requires two parallel sides. Our equal-section tee is
+sharp, and the current tapers change both width and height. Those table names
+therefore do not establish applicability to the saved bodies. No production
+dependency or replacement coefficient is adopted. Future integration needs
+explicit bounds rejection, independently verified source/edition/geometry and
+reference pressure, plus table distribution review. The publisher's
+[official supplemental reference](https://xp20.ashrae.org/SupplementalFiles/PHVAC9/Fitting_Loss_Coefficients.pdf)
+is a separate2021 source with its own use terms; the candidate README's2009
+Handbook claim must not be treated as verification against that reference.
