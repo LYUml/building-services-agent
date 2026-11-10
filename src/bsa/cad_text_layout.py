@@ -13,6 +13,31 @@ def text_box(entity):
     return result
 
 
+def audit_label_associations(entities, anchors, max_distance, ambiguity_margin):
+    """Unique nearest-anchor screen in caller drawing units; not leader verification."""
+    if not anchors or any(type(v) not in (int,float) or not math.isfinite(v) or v <= 0
+                          for v in (max_distance, ambiguity_margin)):
+        raise ProjectError('nonempty anchors and positive finite distance limits required')
+    for name, point in anchors.items():
+        if not isinstance(name,str) or not name.strip() or len(point)!=2 or any(
+                type(v) not in (int,float) or not math.isfinite(v) for v in point):
+            raise ProjectError('named finite planar anchors required')
+    seen=set(); results=[]
+    for entity in entities:
+        name=entity.dxf.text
+        if name not in anchors or name in seen:
+            raise ProjectError('unexpected or duplicate device label')
+        seen.add(name); bounds=text_box(entity); center=(bounds[:2]+bounds[2:])/2
+        distance=math.dist(center,anchors[name])
+        competitors=[math.dist(center,p) for k,p in anchors.items() if k!=name]
+        if distance>max_distance or any(d<=distance+ambiguity_margin for d in competitors):
+            raise ProjectError('device label too distant or nearest association ambiguous')
+        results.append(dict(label=name,distance=float(distance)))
+    if seen!=set(anchors):raise ProjectError('missing device labels')
+    return dict(associations=results,association_screen_pass=True,
+                scope='Approximate text-box centre nearest-anchor screen only; source identity and visual association remain separate')
+
+
 def place_outward(entity,midpoint,normal,height):
     """Place whole axis-aligned font box outside the dimension line, centred along it."""
     box=text_box(entity);centre=(box[:2]+box[2:])/2

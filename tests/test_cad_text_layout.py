@@ -36,3 +36,14 @@ class CadTextLayoutTests(unittest.TestCase):
         doc=ezdxf.new();doc.modelspace().add_arc((0.,0.),1.,0.,90.)
         doc.modelspace().add_text('a',dxfattribs={'height':.04,'insert':(.1,.1)})
         with self.assertRaisesRegex(ProjectError,'arc bounds'):audit_graphics(doc,.04)
+
+    def test_device_label_association_controls(self):
+        from bsa.cad_text_layout import audit_label_associations
+        doc=ezdxf.new();a=doc.modelspace().add_text('A',dxfattribs={'height':.1})
+        b=doc.modelspace().add_text('B',dxfattribs={'height':.1,'insert':(3,0)})
+        anchors={'A':[0,0],'B':[3,0]}
+        self.assertTrue(audit_label_associations([a,b],anchors,1,.01)['association_screen_pass'])
+        a.dxf.insert=(2.8,0)
+        with self.assertRaises(ProjectError):audit_label_associations([a,b],anchors,1,.01)
+        with self.assertRaises(ProjectError):audit_label_associations([b],anchors,1,.01)
+        with self.assertRaises(ProjectError):audit_label_associations([b,b],anchors,1,.01)
