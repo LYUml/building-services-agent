@@ -1,5 +1,7 @@
 # Building Services Agent
 
+[Bound single-line sheet updates](docs/DUCT_SHEET.md) now preserve source geometry while updating selected duct schedule cells. Actual 47-row output was saved/reopened in AutoCAD and its PDF visually inspected; 53 focused tests pass. Unified native drawing orchestration, routing regeneration and final engineering acceptance remain pending.
+
 The HVAC workflow now connects classified load/area allocation to terminal lookup, VAV/tree flow aggregation and [candidate duct sizing](docs/DUCT_SCHEDULE.md). Actual private 80-terminal/20-leaf/47-section execution retains 16,779 candidate checks, matching the prior native-reconciled sizes; 52 focused tests pass. Drawing regeneration, source/ADPI review and full engineering/regulatory acceptance remain pending.
 
 需求文档 → 可追溯项目数据 → CAD/BIM → 工程计算与仿真 → 校核 → 交付。

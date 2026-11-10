@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+[Bound single-line sheet updates](DUCT_SHEET.md) now preserve source geometry while updating selected duct schedule cells. Actual 47-row output was saved/reopened in AutoCAD and its PDF visually inspected; 53 focused tests pass. Unified native drawing orchestration, routing regeneration and final engineering acceptance remain pending.
+
 The HVAC workflow now connects classified load/area allocation to terminal lookup, VAV/tree flow aggregation and [candidate duct sizing](DUCT_SCHEDULE.md). Actual private 80-terminal/20-leaf/47-section execution retains 16,779 candidate checks, matching the prior native-reconciled sizes; 52 focused tests pass. Drawing regeneration, source/ADPI review and full engineering/regulatory acceptance remain pending.
 
 Physical cable route release now composes declared product limits, represented-model coordination and scoped HK table gates on one exact model/study. Actual positive reaches audited/reopened native DWG and inspected PDF; stricter-product-fail/code-pass and product-pass/unknown-code cases both block before drawing. Synthetic evidence does not establish real manufacturer selection, no-damage or full installation/Hong Kong acceptance (HK_CABLE_BENDS.md).
