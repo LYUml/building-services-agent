@@ -59,6 +59,20 @@ class DuctFittingDataTests(unittest.TestCase):
             path = root/'basis.json'; path.write_text(json.dumps(basis)); parsed, pins = prepare(path)
             result = calculate(model, case, parsed)
             self.assertEqual(result['calculated_table_paths'], 8); self.assertEqual(result['unsupplied_table_paths'], 0)
+            native_tapers = {p['guid']:p['transition_geometry'] for p in case['products'] if p.get('transition_geometry')}
+            self.assertEqual(len(native_tapers),4)
+            self.assertTrue(all(r['transition_geometry'] for r in result['data_requests'] if r['predefined_type']=='TRANSITION'))
+            taper_basis = copy.deepcopy(parsed)
+            taper_table = next(r for r in taper_basis['tables'] if r['product_guid'] in native_tapers)
+            angle = native_tapers[taper_table['product_guid']]['quantities']['major_taper_angle_deg']
+            taper_table['axes']=[dict(quantity='major_taper_angle_deg',values=[angle-1,angle+1])]
+            taper_table['coefficients']=[1.,3.]
+            alternate=calculate(model,case,taper_basis)
+            for before,after in zip(result['boundary_paths'],alternate['boundary_paths']):self.assertAlmostEqual(before['tabulated_plus_separate_straight_Pa'],after['tabulated_plus_separate_straight_Pa'])
+            invalid_basis = copy.deepcopy(parsed)
+            junction_table = next(r for r in invalid_basis['tables'] if r['product_guid'] not in native_tapers)
+            junction_table['axes']=[dict(quantity='taper_length_m',values=[.1,1.])]
+            with self.assertRaisesRegex(ValueError,'unavailable'):calculate(model,case,invalid_basis)
             for row in result['table_results']:
                 obj = model.by_guid(row['product_guid']); outlet = model.by_guid(row['outlet_port_guid'])
                 self.assertAlmostEqual(row['native_quantities']['deflection_deg'], 90. if obj.PredefinedType=='JUNCTION' and outlet.Name=='branch' else 0., places=9)

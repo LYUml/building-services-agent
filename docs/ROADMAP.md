@@ -1,5 +1,15 @@
 # Scope and acceptance
 
+Saved rectangular transition dimensions now supply actual taper/end lengths,
+both wall opening angles,flow-change class and outlet hydraulic-diameter ratios
+to data requests and supported table queries. Inner Boolean bore extensions do
+not inflate physical length. Six targeted methods cover native reductions,
+expansions,mixed oblique cases,reversal and rejection controls. Actual four-body
+extraction and readable report retain two main-table contributions,six unresolved
+coefficient paths and34 original pending requirements. Candidate source API range
+inspection does not establish physical applicability or fill missing coefficients.
+See DUCT_FITTING_DATA.md.
+
 Two actual sharp rectangular tee main paths now use the official source's
 explicit main-table cross-reference,with native equal-section/straight-direction
 conditions and independent scalar interpolation/reference-pressure checks. The

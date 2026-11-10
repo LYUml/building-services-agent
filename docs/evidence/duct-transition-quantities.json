@@ -1,0 +1,48 @@
+{
+  "scope": "Saved centred rectangular transition quantity binding only;source correlation and complete pressure remain pending",
+  "targeted_test_methods_passed": 6,
+  "native_fixture_cases": [
+    "reduction",
+    "expansion",
+    "mixed_oblique",
+    "one_plane_parallel"
+  ],
+  "native_controls": [
+    "endpoints reversed",
+    "straight lengths swapped",
+    "Boolean bore extension excluded",
+    "malformed corner rejected",
+    "filled body rejected",
+    "transition-only quantity on tee rejected",
+    "synthetic angle table scalar reconciled"
+  ],
+  "actual_private_workflow": {
+    "integrity_pass": true,
+    "source_native_method_hashes_unchanged": true,
+    "transition_count": 4,
+    "all_flow_classes_contraction": true,
+    "all_source_geometry_classes_assumed": true,
+    "separate_width_height_angles_retained": true,
+    "unique_fitting_paths": 8,
+    "calculated_main_table_paths": 2,
+    "unsupplied_transition_tables": 4,
+    "unsupported_branch_queries": 2,
+    "full_pressure_available": false,
+    "original_requirement_count": 34,
+    "original_requirement_states_preserved": true,
+    "required_release_unexecuted": true,
+    "report_visually_reviewed": true
+  },
+  "candidate_inspection": {
+    "upstream": "https://github.com/TomLXXVI/python-hvac",
+    "commit": "94247560a667905bfbf67e45a58965a58254fce8",
+    "source_sha256": "4c0f14a911784d76aa7c7212cd930608219547b8cc63535627b4c33b930c57a9",
+    "class_name": "ConvergingTransitionA9B",
+    "taper_length_ratio_out_of_bounds": 3,
+    "within_inspected_axis_ranges": 1,
+    "scope": "Pinned-source API axis support inspection only;candidate engine/coefficients not executed and physical applicability not established"
+  },
+  "quantity_module_sha256": "6abf31050ba63534f7732f1249bcc1a6b25dacdefd33b2c7a2ae70d1f0a435e8",
+  "generator_sha256": "a10e98c034f8959e6e7e832c54c237514d327e0865af588fb9436c8006b66fba",
+  "design_accepted": false
+}

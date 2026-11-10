@@ -27,7 +27,7 @@ Each table has these required fields:
 | product_guid,geometry_sha256 | Actual fitting GUID and existing duct_fitting_chain.shape_hash body fingerprint |
 | inlet_port_guid,outlet_port_guid | Exact directed path from the fresh saved model |
 | reference_port_guid | Owned port whose actual velocity pressure multiplies the coefficient |
-| axes | One to three unique quantities and finite,strictly increasing values;ratios positive,deflection from0 to180degrees |
+| axes | One to three unique quantities and finite,strictly increasing values;angles from0 to180degrees,other quantities positive |
 | coefficients | Nested grid in axis order; finite signed numbers or null |
 
 Supported axis quantities are outlet_to_inlet_flow_ratio,
@@ -42,9 +42,32 @@ angle. Entrance radius,Reynolds regime,developed inlet profile and installation
 remain part of physical review. Body equality binds a record to geometry,not to
 a physically valid method.
 
+Supported centred four-ring transitions also expose taper_length_m,
+inlet_straight_length_m,outlet_straight_length_m,total_length_m,
+taper_width_angle_deg,taper_height_angle_deg,major_taper_angle_deg,
+outlet_hydraulic_diameter_m,taper_length_over_outlet_hydraulic_diameter and
+total_length_over_outlet_hydraulic_diameter. inlet_to_outlet_area_ratio is
+available on all supported paths. Transition-only axes/conditions on tees reject.
+Native inner/outer ring stations supply these quantities through
+duct_transition_quantities;no declared30degree input is copied over the geometry.
+Outer end planes set total/straight lengths. The deliberate inner Boolean bore
+cap extension is excluded from physical length,and inner taper stations provide
+the width/height opening angles. Reversing flow swaps sections and end-straight
+lengths while retaining taper angles;the outlet hydraulic diameter changes with
+the actual outlet. Mixed width contraction/height expansion stays a distinct
+flow-change class,not a pure contraction inferred from area alone. This is a
+scoped dimension reader after full native/source inspection,not another solid
+kernel or a complete geometry/pressure acceptance check.
+
+Transition quantities and saved construction classifications accompany all
+transition data requests,even when no coefficient table exists. The numerical
+report displays both opening angles and separate taper/end lengths. A geometric
+hydraulic diameter does not establish rectangular applicability of circular pipe
+correlations or replace the existing equivalent-round straight-friction method.
+
 Optional `conditions` is a list of unique native quantity records with exactly
 quantity,minimum,maximum. Bounds must be finite and ordered;ratio bounds are
-positive and deflection bounds stay within0–180degrees. Conditions are checked
+positive and angle bounds stay within0–180degrees. Conditions are checked
 before interpolation,with actual values retained. A failed condition gives null
 coefficient and native_condition_failed recovery status. No hidden tolerance
 expands these bounds. The caller must source the constraint interpretation;
@@ -145,6 +168,24 @@ remain preserved. Physical/friction/interaction/boundary acceptance and complete
 pressure stay pending. The report now displays coefficients,reference velocity
 pressures and signed table contributions separately. See
 evidence/duct-main-loss-study.json;private table transcriptions remain local.
+
+The next actual study extracts four saved transitions and preserves the two
+main-table results and all34 upstream requirements. Unequal width/height opening
+angles are retained rather than replaced with the nominal maximum angle. Native
+tests cover reduction,expansion,mixed oblique geometry,reversed endpoints,bore
+extension exclusion and malformed/filled body rejection. A synthetic transition
+angle-table control reproduces its known scalar result;using a transition-only
+quantity on a tee rejects. See evidence/duct-transition-quantities.json.
+
+The pinned python-hvac ConvergingTransitionA9B source was additionally inspected
+for its API axis ranges,without running its removed interp2d engine or computing
+coefficients. Three actual taper/outlet-hydraulic-diameter ratios exceed that
+candidate's declared tabular range;one is within the inspected ranges. This is
+candidate API support screening,not validation of an original correlation or
+proof that the one bounded case is physically applicable. Official supplemental
+page21's round/rectangular shape-conversion diagrams were inspected separately
+and are not substituted for these rectangular-to-rectangular bodies. All four
+transition coefficients remain absent pending suitable source/method evidence.
 
 Additional inspection pinned MIT
 [TomLXXVI/python-hvac](https://github.com/TomLXXVI/python-hvac/tree/94247560a667905bfbf67e45a58965a58254fce8)

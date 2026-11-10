@@ -17,11 +17,13 @@ from scipy.interpolate import RegularGridInterpolator
 from . import duct_chain_analysis as analysis
 from .duct_fitting_chain import shape_hash
 from .cli import digest
+from .duct_transition_quantities import QUANTITIES as TRANSITION_QUANTITIES, ANGLE_QUANTITIES
 
 ROOT = Path(__file__).resolve().parents[2]
 QUANTITIES = {'outlet_to_inlet_flow_ratio', 'outlet_to_inlet_area_ratio',
     'outlet_to_inlet_width_ratio', 'outlet_to_inlet_height_ratio',
-    'outlet_to_inlet_velocity_ratio', 'inlet_aspect_ratio', 'outlet_aspect_ratio', 'deflection_deg'}
+    'outlet_to_inlet_velocity_ratio', 'inlet_aspect_ratio', 'outlet_aspect_ratio', 'deflection_deg', 'inlet_to_outlet_area_ratio'} | TRANSITION_QUANTITIES
+ANGLES = ANGLE_QUANTITIES | {'deflection_deg'}
 
 
 def render(result, case):
@@ -41,9 +43,20 @@ def render(result, case):
         port = case['port_flows'][row['outlet_port_guid']]
         values = [port['source_section'], f"{row['known_straight_friction_Pa']:.5f}", row['unresolved_fitting_path_count'], 'Pending']
         paths.append('<tr>'+''.join('<td>'+esc(v)+'</td>' for v in values)+'</tr>')
+    transition_rows = []
+    for request in result['data_requests']:
+        geometry = request.get('transition_geometry')
+        if not geometry: continue
+        q = geometry['quantities']
+        values = [request['outlet']['source_section'], geometry['flow_change'], f"{q['taper_length_m']:.5f}",
+            f"{q['inlet_straight_length_m']:.4f} / {q['outlet_straight_length_m']:.4f}",
+            f"{q['taper_width_angle_deg']:.4f}", f"{q['taper_height_angle_deg']:.4f}",
+            f"{q['outlet_hydraulic_diameter_m']:.5f}", f"{q['taper_length_over_outlet_hydraulic_diameter']:.5f}"]
+        transition_rows.append('<tr>'+''.join('<td>'+esc(v)+'</td>' for v in values)+'</tr>')
+    transition_html = '<h2>Saved transition geometry</h2><p>Study construction assumptions remain. Taper length excludes both straight ends; Boolean bore-cap extensions do not add physical length. Width and height wall angles are separate. These are not centreline deflection angles or verified product data.</p><table><tr><th>Source section</th><th>Flow change</th><th>Taper m</th><th>Inlet / outlet straight m</th><th>Width included angle deg</th><th>Height included angle deg</th><th>Outlet hydraulic diameter m</th><th>Taper / outlet hydraulic diameter</th></tr>'+''.join(transition_rows)+'</table>' if transition_rows else ''
     citations = ''.join('<li>'+esc(s['citation'])+'; edition '+esc(s['edition'])+'</li>' for s in result['sources'].values())
     context_html = '<h2>Original assignment context</h2><p>'+str(len(result['upstream_assignment_context']['requirements']))+' original-plan requirements and their recorded execution/acceptance states are preserved. This local study does not accept them or imply they all depend on these fittings. <a href="data-requests.json">Exact fitting data requests and original requirement context</a>.</p>'
-    return '<!doctype html><html lang="en"><meta charset="utf-8"><title>Duct Fitting Data Review</title><style>body{font:16px/1.5 Arial;color:#20343c;max-width:1250px;margin:35px auto;padding:0 20px}table{border-collapse:collapse;width:100%;font-size:14px}th,td{border:1px solid #cbd4d8;padding:10px;text-align:left}th{background:#eaf0f2}.pending{background:#fff0d2;border-left:5px solid #b47016;padding:16px}</style><h1>Duct Fitting Data Review</h1><p class="pending"><strong>Complete pressure assessment pending.</strong> '+str(result['calculated_table_paths'])+' table paths calculated out of '+str(result['unique_fitting_paths'])+' unique fitting paths. '+str(result['unsupplied_table_paths'])+' paths have no supplied table. Physical applicability and source transcription remain review-required even when interpolation succeeds.</p><h2>Native quantities and bounded source queries</h2><p>Each query uses actual saved port geometry and inherited design flow. Missing table cells stay unknown; no clamping or extrapolation is used.</p><table><tr><th>Source node</th><th>Source flow path</th><th>Outlet/inlet flow</th><th>Outlet/inlet velocity</th><th>Coefficient</th><th>Reference velocity pressure Pa</th><th>Signed tabulated contribution Pa</th><th>Query result</th></tr>'+''.join(tables)+'</table><h2>Separate outlet paths</h2><table><tr><th>Outlet section</th><th>Known separate straight Pa</th><th>Unresolved fitting paths</th><th>Complete pressure</th></tr>'+''.join(paths)+'</table><p>Zero supplied fitting contribution does not mean zero fitting loss. Partial sums are not lower bounds; parallel paths must not be added. Critical path and fan duty remain unavailable.</p><h2>Sources</h2><ul>'+citations+'</ul><p>Coefficient reference port,friction convention,applicability note and source location are retained per table in <a href="fitting-data.json">the numerical record</a>. Tables themselves are not reproduced here. <a href="analysis/index.html">Saved flow and straight-friction analysis</a>.</p>'+context_html+'</html>'
+    return '<!doctype html><html lang="en"><meta charset="utf-8"><title>Duct Fitting Data Review</title><style>body{font:16px/1.5 Arial;color:#20343c;max-width:1250px;margin:35px auto;padding:0 20px}table{border-collapse:collapse;width:100%;font-size:14px}th,td{border:1px solid #cbd4d8;padding:10px;text-align:left}th{background:#eaf0f2}.pending{background:#fff0d2;border-left:5px solid #b47016;padding:16px}</style><h1>Duct Fitting Data Review</h1><p class="pending"><strong>Complete pressure assessment pending.</strong> '+str(result['calculated_table_paths'])+' table paths calculated out of '+str(result['unique_fitting_paths'])+' unique fitting paths. '+str(result['unsupplied_table_paths'])+' paths have no supplied table. Physical applicability and source transcription remain review-required even when interpolation succeeds.</p><h2>Native quantities and bounded source queries</h2><p>Each query uses actual saved port geometry and inherited design flow. Missing table cells stay unknown; no clamping or extrapolation is used.</p><table><tr><th>Source node</th><th>Source flow path</th><th>Outlet/inlet flow</th><th>Outlet/inlet velocity</th><th>Coefficient</th><th>Reference velocity pressure Pa</th><th>Signed tabulated contribution Pa</th><th>Query result</th></tr>'+''.join(tables)+'</table><h2>Separate outlet paths</h2><table><tr><th>Outlet section</th><th>Known separate straight Pa</th><th>Unresolved fitting paths</th><th>Complete pressure</th></tr>'+''.join(paths)+'</table><p>Zero supplied fitting contribution does not mean zero fitting loss. Partial sums are not lower bounds; parallel paths must not be added. Critical path and fan duty remain unavailable.</p>'+transition_html+'<h2>Sources</h2><ul>'+citations+'</ul><p>Coefficient reference port,friction convention,applicability note and source location are retained per table in <a href="fitting-data.json">the numerical record</a>. Tables themselves are not reproduced here. <a href="analysis/index.html">Saved flow and straight-friction analysis</a>.</p>'+context_html+'</html>'
 
 
 def number(x):
@@ -84,7 +97,7 @@ def prepare(path):
             if not isinstance(c, dict) or set(c) != {'quantity','minimum','maximum'} or c['quantity'] not in QUANTITIES or c['quantity'] in condition_names:
                 raise ValueError('Unique supported native conditions required')
             condition_names.add(c['quantity'])
-            if not all(number(c[k]) for k in ('minimum','maximum')) or c['minimum'] > c['maximum'] or (c['minimum'] < 0 if c['quantity']=='deflection_deg' else c['minimum'] <= 0) or c['quantity']=='deflection_deg' and c['maximum'] > 180:
+            if not all(number(c[k]) for k in ('minimum','maximum')) or c['minimum'] > c['maximum'] or (c['minimum'] < 0 if c['quantity'] in ANGLES else c['minimum'] <= 0) or c['quantity'] in ANGLES and c['maximum'] > 180:
                 raise ValueError('Finite ordered native condition bounds required')
         axes = table['axes']
         if not isinstance(axes, list) or not 1 <= len(axes) <= 3: raise ValueError('One to three bounded native quantity axes required')
@@ -93,7 +106,7 @@ def prepare(path):
             if not isinstance(axis, dict) or set(axis) != {'quantity', 'values'} or axis['quantity'] not in QUANTITIES or axis['quantity'] in names:
                 raise ValueError('Unique supported native quantity axes required')
             names.add(axis['quantity']); values = axis['values']
-            if not isinstance(values, list) or len(values) < 2 or not all(number(v) and (0 <= v <= 180 if axis['quantity']=='deflection_deg' else v > 0) for v in values) or any(b <= a for a, b in zip(values, values[1:])):
+            if not isinstance(values, list) or len(values) < 2 or not all(number(v) and (0 <= v <= 180 if axis['quantity'] in ANGLES else v > 0) for v in values) or any(b <= a for a, b in zip(values, values[1:])):
                 raise ValueError('Finite valid strictly increasing table axes required')
         def check_grid(grid, dimension):
             if dimension == len(axes):
@@ -132,6 +145,7 @@ def lookup(table, quantities):
 
 def calculate(model, case, data):
     requested = {(r['product_guid'], r['inlet_port_guid'], r['outlet_port_guid']): r for r in case['missing_fitting_path_losses']}
+    geometries = {r['guid']:r.get('transition_geometry') for r in case['products']}
     results = {}
     for table in data['tables']:
         key = tuple(table[k] for k in ('product_guid', 'inlet_port_guid', 'outlet_port_guid'))
@@ -145,9 +159,13 @@ def calculate(model, case, data):
         deflection = math.degrees(math.atan2(float(np.linalg.norm(np.cross(inlet_axis, outlet_axis))), float(np.dot(inlet_axis, outlet_axis))))
         quantities = dict(outlet_to_inlet_flow_ratio=b['flow_m3_s']/a['flow_m3_s'],
             outlet_to_inlet_area_ratio=b['width_m']*b['height_m']/(a['width_m']*a['height_m']),
+            inlet_to_outlet_area_ratio=a['width_m']*a['height_m']/(b['width_m']*b['height_m']),
             outlet_to_inlet_width_ratio=b['width_m']/a['width_m'], outlet_to_inlet_height_ratio=b['height_m']/a['height_m'],
             outlet_to_inlet_velocity_ratio=b['actual_velocity_m_s']/a['actual_velocity_m_s'],
             inlet_aspect_ratio=a['width_m']/a['height_m'], outlet_aspect_ratio=b['width_m']/b['height_m'], deflection_deg=deflection)
+        if geometries[obj.GlobalId]: quantities.update(geometries[obj.GlobalId]['quantities'])
+        if any(r['quantity'] not in quantities for r in table['axes']+table.get('conditions',[])):
+            raise ValueError('Requested native quantity is unavailable on this fitting class')
         value = lookup(table, quantities)
         value.update(product_guid=key[0], inlet_port_guid=key[1], outlet_port_guid=key[2],
             native_quantities=quantities, reference_port_guid=table['reference_port_guid'],
@@ -169,6 +187,7 @@ def calculate(model, case, data):
         design_inputs = {k: v for k, v in element.get_psets(obj).get('BSA_DesignInputs', {}).items() if k != 'id'}
         requests.append(dict(product_guid=key[0], geometry_sha256=shape_hash(obj), predefined_type=obj.PredefinedType,
             saved_design_inputs=design_inputs, geometry_interpretation='Saved model geometry with its original source/classification;not newly measured installation or verified manufacturer construction',
+            transition_geometry=geometries[obj.GlobalId],
             inlet_port_guid=key[1], outlet_port_guid=key[2], inlet=ports[key[1]], outlet=ports[key[2]],
             available_reference_ports=references, affected_outlet_port_guids=affected,
             status='source_data_required' if table_result is None else 'native_condition_failed' if table_result['reason']=='declared native condition not met' else 'table_support_missing' if table_result['coefficient'] is None else 'physical_review_required',

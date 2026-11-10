@@ -623,3 +623,13 @@ cross/dot and atan2 avoid a new geometry engine. Body/flow references remain
 source-bound,and source wall friction/interactions/installation stay unresolved.
 No upstream coefficient database or engine implementation is copied. See
 DUCT_FITTING_DATA.md and evidence/duct-main-loss-study.json.
+
+Transition quantity binding reuses the verified IfcOpenShell0.8.5 centred BRep
+authoring/inspection contract,NumPy ring data and existing source-chain checks.
+It reads saved inner/outer stations,not another loft/mesh/pressure engine. Pinned
+python-hvac ConvergingTransitionA9B API axes were inspected against actual native
+quantities;three cases exceed candidate length-ratio support and one is bounded,
+without an engine run or coefficient/physical applicability claim. Official
+ASHRAE shape-conversion diagrams are not treated as these rectangular bodies.
+No new dependency or upstream implementation/database is copied. See
+DUCT_FITTING_DATA.md and evidence/duct-transition-quantities.json.

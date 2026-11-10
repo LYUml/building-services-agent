@@ -15,6 +15,7 @@ from . import duct_fitting_span as span_tool
 from . import rectangular_tee_transitions as composition
 from . import rectangular_transition as transition
 from .duct_equivalent import calculate as straight_friction
+from .duct_transition_quantities import calculate as transition_quantities
 from .cli import digest
 from .tee_geometry import stable_guid
 
@@ -179,6 +180,9 @@ def calculate(model, assigned, air):
         qin = math.fsum(ports[p.GlobalId]['flow_m3_s'] for p in incoming); qout = math.fsum(ports[p.GlobalId]['flow_m3_s'] for p in outgoing)
         if not incoming or not outgoing or not math.isclose(qin, qout, rel_tol=1e-12, abs_tol=1e-12): raise ValueError('Saved product flow is not conserved')
         products.append(dict(guid=obj.GlobalId, ifc_class=obj.is_a(), incoming_flow_m3_s=qin, outgoing_flow_m3_s=qout, continuity_pass=True))
+        if obj.is_a('IfcDuctFitting') and obj.PredefinedType == 'TRANSITION':
+            if len(incoming) != 1 or len(outgoing) != 1: raise ValueError('One-in/one-out transition quantities required')
+            products[-1]['transition_geometry'] = transition_quantities(obj,incoming[0].Name,outgoing[0].Name)
         if obj.is_a('IfcDuctSegment'):
             if len(incoming) != 1 or len(outgoing) != 1: raise ValueError('One-in/one-out straight required')
             source = ports[incoming[0].GlobalId]; width, height = source['width_m'], source['height_m']
@@ -227,7 +231,8 @@ def run(project, directory, out):
     if record.get('chain_checks_pass') is not True or record.get('inputs', {}).get(str(project)) != digest(project): raise ValueError('Passing exact source-chain producer required')
     method_file = Path(straight_friction.__code__.co_filename).resolve()
     engine_file = Path(friction_factor.__code__.co_filename).resolve()
-    pins = {str(p): digest(p) for p in (project, record_path, directory/'chain.ifc', directory/'source-snapshot.json', Path(__file__), method_file, engine_file)}
+    quantity_file = Path(transition_quantities.__code__.co_filename).resolve()
+    pins = {str(p): digest(p) for p in (project, record_path, directory/'chain.ifc', directory/'source-snapshot.json', Path(__file__), method_file, engine_file, quantity_file)}
     if pins[str(directory/'chain.ifc')] != record['ifc_sha256'] or pins[str(directory/'source-snapshot.json')] != record['snapshot_sha256']: raise ValueError('Saved chain or source snapshot changed')
     for section in ('inputs', 'component_artifacts'):
         for name, sha in record[section].items():
