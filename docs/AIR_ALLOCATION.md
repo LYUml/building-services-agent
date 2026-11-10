@@ -95,3 +95,18 @@ or applicable. Existing projects without references retain their prior contract.
 Actual private Canvas-lecture replay verifies primary-source allowance/approximate
 SHF provenance with unchanged arithmetic; temperature assumptions and ADPI remain
 explicit. Ten focused allocation/reference tests pass.
+
+## Temperature/property sensitivity
+
+A temperature/property value appearing in a lecture example is not automatically
+a requirement for another system. Preserve its example context and run a separate
+unselected sensitivity case when the project value is unknown. Propagate changed
+flow through terminal lookup, section sizing and drawing prerequisites rather than
+merely editing the report total. Do not expand a candidate size catalogue silently
+to clear a failure; geometry and manufacturing evidence must support new sizes.
+
+Actual private sensitivity using a separately sourced classroom example increases
+total supply from about 12000 to 17112 L/s; the three incoming sections have no
+feasible candidate in the declared grid. The schedule fails and drawing preparation
+remains pending, with source/workflow integrity preserved. The baseline was retained.
+This demonstrates material input uncertainty, not a selected alternative design.
