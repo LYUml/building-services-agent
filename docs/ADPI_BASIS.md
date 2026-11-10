@@ -37,3 +37,16 @@ height first. If a course uses a different edition or method, retain that source
 and resolve the difference explicitly. Never replace a trial load with a convenient
 tabulated value to obtain a passing result. Louvered blade-lip classification also
 needs product evidence before selecting the applicable row.
+
+## Research paper versus handbook
+
+Liu, Clark and Novoselac, *Air diffusion performance index (ADPI) of overhead-air-
+distribution at low cooling loads*, Energy and Buildings 134 (2017), 271–284,
+[DOI 10.1016/j.enbuild.2016.10.055](https://doi.org/10.1016/j.enbuild.2016.10.055),
+reports experiments at 25/50 W/m2. Its appendix and the 2023 handbook contain
+different louvered selection intervals. Keep the selected source, edition and
+conditions together; do not use an interval from one with a category or conditions
+from another without resolving the correspondence. Manufacturer participation in
+the study is not proof that a specific catalogue model/configuration was tested.
+A paper found in a prior project folder is not automatically a course-prescribed
+method. The local paper was reviewed without redistributing its copyrighted PDF.
