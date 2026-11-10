@@ -1,0 +1,21 @@
+{
+  "source_url": "https://www.bd.gov.hk/doc/en/resources/codes-and-references/practice-notes-and-circular-letters/pnap/APP/APP164.pdf",
+  "sha256": "af42aafd00e67afc2abaf5601d433737a266e4797b5cc897c96d511539219b4b",
+  "printed_revision": "November2023",
+  "retrieved": "2026-11-11",
+  "pages": 11,
+  "scope": "Source research, not implemented rules or acceptance",
+  "reviewed_paragraphs": [
+    "2(d)",
+    "2(e)",
+    "footnote5",
+    "3",
+    "4"
+  ],
+  "findings": [
+    "Separate lowest discharge-floor branch requirement depends on building-storey band.",
+    "Above20storeys includes the floor above the stack/manhole discharge floor.",
+    "Footnote5 uses building storeys irrespective of stack served-storey count, with specific podium/basement scope.",
+    "Paragraphs3/4 and appendices govern application/works type; no automatic project applicability asserted."
+  ]
+}
