@@ -72,13 +72,16 @@ class DuctFittingDataWorkflowTests(unittest.TestCase):
                 self.assertEqual(result['tasks']['data']['status'], 'pending')
                 self.assertEqual(result['tasks']['release']['status'], 'pending'); self.assertFalse((root/'run/release').exists())
                 original = json.loads(basis.read_text())
-                for invalid in ('duplicate', 'axis', 'nonfinite', 'shape', 'boolean'):
+                for invalid in ('duplicate', 'axis', 'nonfinite', 'shape', 'boolean', 'condition', 'duplicate_condition', 'angle_bounds'):
                     altered = copy.deepcopy(original); table = altered['tables'][0]
                     if invalid == 'duplicate': altered['tables'].append(copy.deepcopy(table))
                     elif invalid == 'axis': table['axes'][0]['values'] = [.9, .1]
                     elif invalid == 'nonfinite': table['coefficients'][0] = float('nan')
                     elif invalid == 'shape': table['coefficients'] = [1.]
-                    else: table['coefficients'][0] = True
+                    elif invalid == 'boolean': table['coefficients'][0] = True
+                    elif invalid == 'condition': table['conditions'] = [dict(quantity='inlet_aspect_ratio', minimum=2., maximum=1.)]
+                    elif invalid == 'duplicate_condition': table['conditions'] = [dict(quantity='inlet_aspect_ratio', minimum=1., maximum=2.)]*2
+                    else: table['conditions'] = [dict(quantity='deflection_deg', minimum=0., maximum=181.)]
                     basis.write_text(json.dumps(altered))
                     with self.subTest(invalid=invalid), self.assertRaises(ValueError): prepare(basis)
                 basis.write_text(json.dumps(original))

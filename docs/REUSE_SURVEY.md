@@ -614,3 +614,12 @@ source-plan requirement records and saved assumed-construction classifications
 instead of building another requirements parser or inferring product data. Native
 requests,source/model mutation controls and actual recovery grouping execute;
 no upstream engine or licensed database is added. See DUCT_FITTING_DATA.md.
+
+The official ASHRAE2021 sharp rectangular tee page42 explicitly cross-references
+page38's main table. Selected source cells stay private;the existing pinned
+SciPy adapter executes two actual main queries with native quantity conditions.
+Existing IfcOpenShell world-placement APIs supply port-axis deflection;NumPy
+cross/dot and atan2 avoid a new geometry engine. Body/flow references remain
+source-bound,and source wall friction/interactions/installation stay unresolved.
+No upstream coefficient database or engine implementation is copied. See
+DUCT_FITTING_DATA.md and evidence/duct-main-loss-study.json.

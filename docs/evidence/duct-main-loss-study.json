@@ -1,0 +1,41 @@
+{
+  "scope": "Source-backed local main-path tabulated contributions and declared native conditions only;complete pressure and physical acceptance remain pending",
+  "targeted_test_methods_passed": 5,
+  "actual_private_workflow": {
+    "integrity_pass": true,
+    "source_and_model_pins_unchanged": true,
+    "unique_fitting_paths": 8,
+    "calculated_table_paths": 2,
+    "unsupplied_transition_paths": 4,
+    "blank_support_branch_queries": 2,
+    "main_native_condition_count": 6,
+    "all_main_native_conditions_pass": true,
+    "common_inlet_reference_ports_verified": true,
+    "independent_scalar_interpolation_and_pressure_checks_pass": true,
+    "all_complete_path_pressures_null": true,
+    "critical_path": null,
+    "original_requirement_count": 34,
+    "original_requirement_records_preserved": true,
+    "required_release_unexecuted": true,
+    "report_visually_reviewed": true
+  },
+  "official_source": {
+    "url": "https://xp20.ashrae.org/SupplementalFiles/PHVAC9/Fitting_Loss_Coefficients.pdf",
+    "sha256": "746121b31696fd23cc11a39fd83d7be9ba3fec9bf0d81caa3b5e1ce6235abfbb",
+    "edition": "2021",
+    "cross_reference": "Printed page42,Fitting5-28 main points to printed page38,Fitting5-23 main",
+    "pages_visually_inspected": [
+      38,
+      42
+    ],
+    "redistributed": false
+  },
+  "native_controls": [
+    "straight and branch frame angles independently checked",
+    "wrong branch rejected by declared straight-path condition",
+    "invalid/repeated/over180degree native conditions rejected",
+    "failed constraints preserve null coefficient"
+  ],
+  "generator_sha256": "ec57d96c56aa599c0357178607879324537e3418651d72d4faa4130feda155bf",
+  "design_accepted": false
+}

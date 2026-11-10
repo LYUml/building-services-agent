@@ -22,6 +22,13 @@ Retain the upstream plan's complete requirement context and original states
 separately from declared local dependencies. Interpolated results still require
 physical review; changed model/source/generator evidence requires a fresh study.
 
+External fitting tables may declare native quantity conditions with explicit
+minimum/maximum bounds. Failed conditions stay pending with a null coefficient.
+deflection_deg comes from actual inward-inlet/outward-outlet world port axes;
+it is not a transition's wall opening angle. Record partial geometric checks
+without accepting full method applicability. Follow exact source cross-references:
+a supported main-path table does not resolve that fitting's unsupported branch.
+
 Inspect boundary_paths from bsa.duct_chain_analysis before using local pressure
 results. Keep inlet-to-outlet paths separate; shared straight contributions must
 not be added across parallel outlets. Full pressure and critical_path stay null

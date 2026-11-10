@@ -30,6 +30,10 @@ class DuctFittingDataTests(unittest.TestCase):
         self.assertEqual(lookup(table, dict(x=1., y=1.))['coefficient'], 1.)
         self.assertEqual(lookup(table, dict(x=1., y=1.5))['coefficient'], 2.)
         self.assertIn('bounds', lookup(table, dict(x=.99, y=1.))['reason'])
+        constrained = copy.deepcopy(table); constrained['conditions'] = [dict(quantity='x', minimum=1., maximum=1.1)]
+        self.assertIsNone(lookup(constrained, dict(x=1.5, y=1.))['coefficient'])
+        self.assertFalse(lookup(constrained, dict(x=1.5, y=1.))['native_condition_checks'][0]['pass_check'])
+        self.assertEqual(lookup(constrained, dict(x=1., y=1.))['coefficient'], 1.)
         self.assertIsNone(lookup(dict(axes=table['axes'], coefficients=[[1., 2.], [float('inf'), 3.]]), dict(x=1.5, y=1.5))['coefficient'])
 
     def test_native_reference_pressure_signed_paths_and_source_rejection(self):
@@ -55,6 +59,15 @@ class DuctFittingDataTests(unittest.TestCase):
             path = root/'basis.json'; path.write_text(json.dumps(basis)); parsed, pins = prepare(path)
             result = calculate(model, case, parsed)
             self.assertEqual(result['calculated_table_paths'], 8); self.assertEqual(result['unsupplied_table_paths'], 0)
+            for row in result['table_results']:
+                obj = model.by_guid(row['product_guid']); outlet = model.by_guid(row['outlet_port_guid'])
+                self.assertAlmostEqual(row['native_quantities']['deflection_deg'], 90. if obj.PredefinedType=='JUNCTION' and outlet.Name=='branch' else 0., places=9)
+            constrained = copy.deepcopy(parsed)
+            branch = next(r for r in constrained['tables'] if model.by_guid(r['product_guid']).PredefinedType=='JUNCTION' and model.by_guid(r['outlet_port_guid']).Name=='branch')
+            branch['conditions'] = [dict(quantity='deflection_deg', minimum=0., maximum=1e-6)]
+            rejected = calculate(model, case, constrained)
+            self.assertEqual(rejected['calculated_table_paths'], 7)
+            self.assertEqual(sum(r['status']=='native_condition_failed' for r in rejected['data_requests']), 1)
             self.assertEqual(len(result['data_requests']), 8)
             self.assertTrue(all(r['status'] == 'physical_review_required' for r in result['data_requests']))
             for request in result['data_requests']:

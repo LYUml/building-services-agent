@@ -1,5 +1,15 @@
 # Scope and acceptance
 
+Two actual sharp rectangular tee main paths now use the official source's
+explicit main-table cross-reference,with native equal-section/straight-direction
+conditions and independent scalar interpolation/reference-pressure checks. The
+adapter adds declared native quantity bounds and saved-port deflection without
+confusing centreline deflection with taper opening angle. Five targeted methods
+pass;actual workflow and rendered numerical report retain two calculated table
+contributions,four absent transition tables,two sparse branch queries and all34
+original pending requirements. Full physical/friction/network acceptance stays
+open. See DUCT_FITTING_DATA.md.
+
 Fitting-data recovery now retains every exact native path request,source study
 classification,owned reference quantities and affected outlet paths. The unified
 diagnosis queue exposes these records with original-plan context and separate

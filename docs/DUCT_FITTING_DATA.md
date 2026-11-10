@@ -16,7 +16,7 @@ exist within the repository and match their hashes. Keep private/licensed source
 files and transcriptions in ignored local runs; this repository distributes no
 coefficient database. Missing or changed source files reject before native work.
 
-Each table has exactly:
+Each table has these required fields:
 
 | Field | Meaning |
 |---|---|
@@ -27,17 +27,28 @@ Each table has exactly:
 | product_guid,geometry_sha256 | Actual fitting GUID and existing duct_fitting_chain.shape_hash body fingerprint |
 | inlet_port_guid,outlet_port_guid | Exact directed path from the fresh saved model |
 | reference_port_guid | Owned port whose actual velocity pressure multiplies the coefficient |
-| axes | One to three unique quantities and finite,positive,strictly increasing values |
+| axes | One to three unique quantities and finite,strictly increasing values;ratios positive,deflection from0 to180degrees |
 | coefficients | Nested grid in axis order; finite signed numbers or null |
 
 Supported axis quantities are outlet_to_inlet_flow_ratio,
 outlet_to_inlet_area_ratio,outlet_to_inlet_width_ratio,
 outlet_to_inlet_height_ratio,outlet_to_inlet_velocity_ratio,inlet_aspect_ratio
-and outlet_aspect_ratio. All queries come from fresh native dimensions and exact
+and outlet_aspect_ratio,plus deflection_deg. All queries come from fresh native dimensions and exact
 inherited design flow. No duplicate model,flow,density or length overrides exist.
-Other conditions such as angle,entrance radius,Reynolds regime,developed inlet
-profile and installation remain part of physical review; these axes do not infer
-them. Body equality binds a record to geometry,not to a physically valid method.
+Deflection is the angle between inward inlet and outward outlet axes from saved
+world port frames,computed with atan2(cross magnitude,dot). A centred transition
+has zero deflection even when its walls taper:this is not the wall/taper opening
+angle. Entrance radius,Reynolds regime,developed inlet profile and installation
+remain part of physical review. Body equality binds a record to geometry,not to
+a physically valid method.
+
+Optional `conditions` is a list of unique native quantity records with exactly
+quantity,minimum,maximum. Bounds must be finite and ordered;ratio bounds are
+positive and deflection bounds stay within0–180degrees. Conditions are checked
+before interpolation,with actual values retained. A failed condition gives null
+coefficient and native_condition_failed recovery status. No hidden tolerance
+expands these bounds. The caller must source the constraint interpretation;
+passing a partial condition list cannot verify full physical applicability.
 
 Queries outside the table return pending with no coefficient. Every corner of
 the actual interpolation cell must be published/finite. Blank cells are never
@@ -75,7 +86,7 @@ their actual velocity pressures,the exact affected outlet paths,and original
 BSA_DesignInputs source/classification fields. Saved study assumptions remain
 assumptions. Do not treat a shape fingerprint or source note as a manufacturer
 selection or measured installation. Requests distinguish source_data_required,
-table_support_missing and physical_review_required. Even successfully interpolated
+table_support_missing,native_condition_failed and physical_review_required. Even successfully interpolated
 tables retain the physical-review request and their signed results.
 
 The saved analysis carries source_context for its original upstream plan/native
@@ -94,7 +105,7 @@ exposing them. A changed native model after fresh analysis blocks study output.
 The queue describes missing evidence and declared dependencies; it does not
 invent equipment,repair a design automatically,or clear physical acceptance.
 
-Actual execution retains eight requests:six without tables and two with blank
+Initial recovery execution retained eight requests:six without tables and two with blank
 source support. All eight preserve their saved assumed-construction inputs.
 The original34 requirement records are retained unchanged as parsed
 records,including pending acceptance. The local recovery root contains the exact
@@ -116,10 +127,24 @@ The official [ASHRAE2021 supplement](https://xp20.ashrae.org/SupplementalFiles/P
 was downloaded locally and printed pages19,20,42 rendered and inspected. Fitting
 5-28 on page42 is a sharp rectangular branch candidate. Actual native branch
 velocity and flow ratios both equal the branch fraction in this equal-section
-local geometry. Both real queries require blank table cells. The actual workflow
-retains two pending source queries and six paths without supplied tables; no
+local geometry. Both real queries require blank table cells. The initial workflow
+retained two pending source queries and six paths without supplied tables; no
 coefficient or complete pressure is manufactured. Source editions,use terms and
 the separate source-transcription/physical-review limits remain explicit.
+
+Subsequent actual execution follows the page42 sharp-tee main-path reference to
+the page38 main table of Fitting5-23;it does not substitute that fitting's wye
+branch data. Native main areas/heights are equal and deflection is zero. The
+declared0–0.000001degree frame condition is a software alignment bound,not a
+published construction tolerance. Both actual main velocity ratios lie inside
+published cells and yield two finite signed table contributions,independently
+checked with linear segment arithmetic and the actual common-inlet velocity
+pressure. Four transitions still lack tables and two branch queries still need
+unpublished support. All original34 requirements and their acceptance states
+remain preserved. Physical/friction/interaction/boundary acceptance and complete
+pressure stay pending. The report now displays coefficients,reference velocity
+pressures and signed table contributions separately. See
+evidence/duct-main-loss-study.json;private table transcriptions remain local.
 
 Additional inspection pinned MIT
 [TomLXXVI/python-hvac](https://github.com/TomLXXVI/python-hvac/tree/94247560a667905bfbf67e45a58965a58254fce8)
