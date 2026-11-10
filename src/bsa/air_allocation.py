@@ -1,7 +1,39 @@
 """Compose classified load balance and explicit nearest-centre service allocation."""
 import math
+import json
+import hashlib
+from pathlib import Path
 from .air_load import calculate
 from .service_areas import allocate
+
+
+def run(project_path, output):
+    project_path, output = Path(project_path).resolve(), Path(output).resolve()
+    raw = project_path.read_bytes()
+    project = json.loads(raw.decode('utf-8-sig'))
+    if set(project) != {'boundary', 'boundary_sha256', 'geometry_basis', 'terminals', 'load_inputs', 'turndown'}:
+        raise ValueError('Exact allocation project fields required')
+    relative = project['boundary']
+    if not isinstance(relative, str) or Path(relative).is_absolute():
+        raise ValueError('Relative boundary path required')
+    boundary = (project_path.parent/relative).resolve()
+    data = boundary.read_bytes()
+    if hashlib.sha256(data).hexdigest() != project['boundary_sha256']:
+        raise ValueError('Boundary source hash mismatch')
+    if not isinstance(project['geometry_basis'], str) or not project['geometry_basis'].strip():
+        raise ValueError('Geometry units and interpretation basis required')
+    if output.exists() or any(output == p or output in p.parents for p in (project_path,boundary)):
+        raise ValueError('New output separate from inputs required')
+    result = prepare(json.loads(data.decode('utf-8-sig')), project['terminals'],
+                     project['load_inputs'], project['turndown'])
+    if project_path.read_bytes() != raw or boundary.read_bytes() != data:
+        raise ValueError('Inputs changed during allocation')
+    result.update(inputs={str(project_path):hashlib.sha256(raw).hexdigest(),
+                          str(boundary):hashlib.sha256(data).hexdigest()},
+                  geometry_basis=project['geometry_basis'])
+    output.mkdir(parents=True)
+    (output/'allocation.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
+    return result
 
 
 def prepare(boundary, terminals, load_inputs, turndown):
@@ -23,3 +55,11 @@ def prepare(boundary, terminals, load_inputs, turndown):
                             area_conserved=True, flow_conserved=True),
                 scope='Uniform allowance allocated by nearest-centre area; not spatial load simulation, duct routing, air coverage or ADPI acceptance',
                 design_accepted=False)
+
+
+if __name__ == '__main__':
+    import argparse
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('project');parser.add_argument('--out',required=True)
+    args=parser.parse_args();result=run(args.project,args.out)
+    print(len(result['terminals']), 'terminal allocations calculated; design acceptance pending')

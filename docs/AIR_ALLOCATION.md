@@ -22,3 +22,14 @@ flows across three private 80-terminal variants. Moving a terminal changes its
 allocation while preserving the total; downstream VAV/tree flows and duct sizes
 must be recomputed. Native drawing and final acceptance remain separate.
 This is a callable composition, not yet a complete workflow producer binding.
+
+## Source-bound command
+
+Run `python -m bsa.air_allocation project.json --out runs/new-allocation`.
+Project fields are `boundary` (relative GeoJSON path), `boundary_sha256`,
+`geometry_basis` (units and interpretation), `terminals`, `load_inputs`, and
+`turndown`. Output `allocation.json` records both input hashes and preserves
+the source classifications. Changed boundary bytes and output reuse are rejected.
+Input geometry remains an interpretation requiring review; a matching hash does
+not establish source-drawing correspondence. Nine focused tests pass, and actual
+private CLI execution generates 80 updated terminal allocations.
