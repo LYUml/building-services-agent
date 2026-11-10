@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Standalone drainage stack demand now binds exact individual connection IDs to existing DU arithmetic, excludes declared direct-manhole pipes from this stack total and retains unknown/full-inventory gaps. Twenty-one related tests and official-source-bound synthetic calculated/pending/fail runs pass their expected software checks. This is not a saved-model check, complete building demand or full sanitary design; inherited workflow registration remains pending. See HK_DRAINAGE.md.
+
 Declared drainage connection checks now run as source-pinned workflow tasks with pass/fail/pending and downstream requires_pass gates. Sixteen related tests cover blocked downstream computation and stale sources; an official-PDF-bound synthetic three-case workflow also verifies integrity. Actual survey evidence, same-inventory DU/CAD/IFC correspondence and complete drainage acceptance remain pending. See HK_DRAINAGE.md.
 
 Source-pinned APP-164 declared-connection review now checks individual fitments on the selected discharge floor(s), preserving unknowns and explicit incomplete inventories. Actual synthetic official-PDF-bound pass/fail/pending/source-rejection cases and 14 related tests execute. Saved CAD/IFC correspondence, workflow gates, DU inventory binding and complete statutory acceptance remain pending. See HK_DRAINAGE.md.
