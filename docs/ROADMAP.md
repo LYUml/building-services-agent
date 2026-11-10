@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+HK drainage planning now selects APP-164 2(d)/(e) separate-discharge floor offsets from explicit total-building or podium/basement-only storey counts and reviewed applicability evidence. Four focused tests plus six demand/workflow regressions pass. This is a planning helper, not an executed conformity rule, actual fixture inventory or saved-model connection check. See HK_DRAINAGE.md.
+
 Independent HVAC reuse now executes a public synthetic input builder through the same package pipeline: different coordinates, four terminals, two two-outlet groups, three ducts and 50% minimum flow. Native reopen, A4 plot, inherited connections and four-page report were executed and inspected; independent flow/area checks pass. This verifies scoped reuse, not the full multi-discipline or engineering acceptance goal. See ../examples/hvac-package/README.md.
 
 Saved native terminal-connection inspection now binds declared VAV membership to planar rectangular diffuser symbols and straight flexible centreline endpoints, reusing ezdxf and tree validation. Actual 80-terminal/20-group/47-section inspection and five negative/positive controls pass. Workflow registration, physical ports/installed length, labels, 3D and full acceptance remain pending. See AIR_TERMINAL_DRAWING.md.

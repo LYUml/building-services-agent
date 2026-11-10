@@ -393,3 +393,12 @@ executor/reference inventory and dependency gates; no new engine or dependency.
 Actual private two-method execution and six focused tests pass while full coursework
 review remains pending. Unknown/rejected scope blocks downstream work and source
 changes invalidate recorded integrity. See PLUMBING_DEMAND.md.
+
+APP-164 floor-selection gap: the existing generic regulations engine supports
+maximum metrics but cannot derive floor bands or authenticate connection topology.
+Reuse its future conformity gate rather than add a second engine. A small pure
+planning helper now selects only 2(d)/(e) relative floor offsets from reviewed
+scope/count facts; no solver/library is needed. Four boundary/missing-evidence
+tests and six existing demand/workflow tests pass. Official source attribution
+and its pinned hash remain in docs/evidence/hk-drainage-source.json. Route checks,
+rule-pack integration and full statutory acceptance remain pending.
