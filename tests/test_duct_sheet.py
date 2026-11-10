@@ -71,3 +71,24 @@ class DuctSheetTests(unittest.TestCase):
    self.assertEqual(r['tasks']['native']['status'],'pending')
    spec['schedule_sha256']='replacement';binding.write_text(json.dumps(spec))
    with self.assertRaisesRegex(ProjectError,'override'):validate_plan(path)
+
+ def test_tree_node_identity_and_geometric_continuity(self):
+  with tempfile.TemporaryDirectory() as folder:
+   root=Path(folder);d=ezdxf.new();d.units=6;m=d.modelspace();bindings={};rows=[]
+   for index,(sid,start,end,first,last) in enumerate([('A',(0,0),(2,0),'R','J'),('B',(2,0),(4,0),'J','L')]):
+    line=m.add_line(start,end)
+    cells=[m.add_text(v,dxfattribs={'insert':(i,3+index)}) for i,v in enumerate([sid,'q','size','v','f'])]
+    bindings[sid]=dict(line_handle=line.dxf.handle,from_m=[*start,0],to_m=[*end,0],from_node=first,to_node=last,cells=[dict(handle=e.dxf.handle,expected_text=e.dxf.text) for e in cells])
+    rows.append(dict(id=sid,inputs=dict(flow_m3_s=1,width_m=.8,height_m=.4),calculation=dict(actual_velocity_m_s=3.125,friction_Pa_m=.2),failures=[]))
+   source=root/'source.dxf';d.saveas(source)
+   data=dict(status='pass',sections=rows,flow_aggregation=dict(sections=[dict(id='A',**{'from':'R','to':'J'}),dict(id='B',**{'from':'J','to':'L'})]))
+   schedule=root/'schedule.json';schedule.write_text(json.dumps(data));binding=root/'binding.json'
+   spec=dict(source_sha256=digest(source),schedule_sha256=digest(schedule),basis='Synthetic topology',sections=bindings);binding.write_text(json.dumps(spec))
+   r=run(source,schedule,binding,root/'ok');self.assertTrue(r['calculation_tree_endpoint_binding']);self.assertEqual(r['bound_node_count'],3)
+   bindings['B']['from_node']='R';binding.write_text(json.dumps(spec))
+   with self.assertRaisesRegex(ValueError,'endpoints differ'):run(source,schedule,binding,root/'wrong-node')
+   bindings['B']['from_node']='J';bindings['B']['from_m']=[3,0,0]
+   d.entitydb[bindings['B']['line_handle']].dxf.start=(3,0,0);d.saveas(source);spec['source_sha256']=digest(source);binding.write_text(json.dumps(spec))
+   with self.assertRaisesRegex(ValueError,'disconnected'):run(source,schedule,binding,root/'disconnected')
+   data['flow_aggregation'].pop('sections');schedule.write_text(json.dumps(data));spec['schedule_sha256']=digest(schedule);binding.write_text(json.dumps(spec))
+   with self.assertRaisesRegex(ValueError,'rerun aggregation'):run(source,schedule,binding,root/'legacy')

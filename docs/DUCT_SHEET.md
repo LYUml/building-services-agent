@@ -90,3 +90,23 @@ inspected and review evidence saved outside the immutable run. 55 focused tests 
 including missing-runtime, failed-upstream and changed-DXF controls. Machine-native
 pass is not visual/full design acceptance. Report regeneration, source/ADPI/geometry,
 full rule applicability and final deliverables remain unresolved.
+
+
+## Calculation-node correspondence
+
+Inherited tree schedules now retain their section endpoint identities in
+`flow_aggregation.sections`. Their drawing binding entries additionally require
+`from_node` and `to_node`, corresponding to the source LINE's start/end. Reversed
+LINE orientation is allowed for this non-arrowed single-line representation, but
+its unordered endpoint pair must match the calculated section. Every occurrence
+of a shared node must map to the same point within 1e-8 m. A section ID alone no
+longer establishes correspondence. Older aggregation outputs without endpoint
+evidence reject and must be regenerated; standalone prescribed-flow schedules
+without a tree retain their explicitly limited no-topology contract.
+
+56 focused tests pass, including same-ID/wrong-node and disconnected shared-node
+controls. Actual private five-stage replay verifies 47 segments and 48 nodes,
+then independently reopens native output. Its newly rendered PDF is byte-identical
+to the previously inspected rendered image; the comparison records both image and
+new PDF hashes. This establishes the declared centreline graph, not finite joints,
+physical duct connections, fitting sizes, pressure losses or 3D coordination.

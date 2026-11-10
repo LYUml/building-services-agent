@@ -48,12 +48,23 @@ def run(source, schedule, binding, output, *, inherited_schedule_sha256=None):
     rows={r['id']:r for r in result['sections']}
     if len(rows)!=len(result['sections']) or set(rows)!=set(spec['sections']):
         raise ValueError('Exact unique section coverage required')
+    topology=None;node_points={}
+    if 'flow_aggregation' in result:
+        edges=result['flow_aggregation'].get('sections')
+        if not isinstance(edges,list):raise ValueError('Inherited flow tree lacks endpoint evidence; rerun aggregation')
+        topology={edge['id']:edge for edge in edges}
+        if len(topology)!=len(edges) or set(topology)!=set(rows):raise ValueError('Calculation tree section coverage mismatch')
     doc=ezdxf.readfile(source)
     from .cad_intake import METRES_PER_UNIT
     if doc.units not in METRES_PER_UNIT:raise ValueError('Known drawing length units required')
     scale=METRES_PER_UNIT[doc.units];original=snapshot(doc);used=set();edits={}
     for name,entry in spec['sections'].items():
-        if set(entry)!={'line_handle','from_m','to_m','cells'}:raise ValueError('Explicit line, metre endpoints and five TEXT cells required')
+        required={'line_handle','from_m','to_m','cells'}|({'from_node','to_node'} if topology is not None else set())
+        if set(entry)!=required:raise ValueError('Exact line/endpoints/cells and inherited node identities required')
+        if topology is not None:
+            edge=topology[name];pair=(entry['from_node'],entry['to_node'])
+            if pair not in ((edge['from'],edge['to']),(edge['to'],edge['from'])):
+                raise ValueError('Drawing section endpoints differ from calculation tree')
         line=doc.entitydb.get(entry['line_handle'])
         if line is None or line.dxftype()!='LINE' or line.dxf.handle not in original:
             raise ValueError('Bound centreline must be a modelspace LINE')
@@ -64,6 +75,11 @@ def run(source, schedule, binding, output, *, inherited_schedule_sha256=None):
             if len(expected)!=3 or any(type(v) not in (int,float) or not math.isfinite(v) for v in expected):raise ValueError('Finite 3D metre endpoints required')
             if math.dist([v*scale for v in point],expected)>1e-8:
                 raise ValueError('Centreline geometry differs from binding')
+            if topology is not None:
+                node=entry['from_node' if key=='from_m' else 'to_node']
+                if node in node_points and math.dist(node_points[node],expected)>1e-8:
+                    raise ValueError('Shared calculation node is disconnected in drawing')
+                node_points[node]=expected
         cells=entry['cells']
         if not isinstance(cells,list) or len(cells)!=5:raise ValueError('Five schedule cells required')
         values=cell_values(rows[name])
@@ -86,6 +102,7 @@ def run(source, schedule, binding, output, *, inherited_schedule_sha256=None):
     if snapshot(reopened)!=expected:raise ValueError('Saved DXF entity correspondence failed')
     evidence=dict(inputs=pins,dxf_sha256=digest(target),updated_sections=len(rows),bound_text_cells=len(edits),
         unchanged_unbound_modelspace=True,saved_dxf_correspondence=True,basis=spec['basis'],
+        calculation_tree_endpoint_binding=topology is not None,bound_node_count=len(node_points),
         scope='Existing single-line centreline geometry retained; selected dimensions and flow/friction schedule updated. No physical-width or routing regeneration.',
         native_reopen_pass=False,plot_visual_review='pending',design_accepted=False)
     (output/'drawing-update.json').write_text(json.dumps(evidence,indent=2),encoding='utf-8')

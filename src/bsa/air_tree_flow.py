@@ -49,7 +49,8 @@ def aggregate(tree, terminals):
     total=math.fsum(demands.values())
     if not math.isfinite(total) or not math.isclose(flow[root],total,rel_tol=1e-12):
         raise ValueError('Tree flow not conserved')
-    return dict(section_flow_L_s={sid:flow[s['to']] for sid,s in sections.items()},
+    return dict(sections=[dict(s) for s in sections.values()],root=root,
+                section_flow_L_s={sid:flow[s['to']] for sid,s in sections.items()},
                 leaf_flow_L_s={n:flow[n] for n in sorted(leaves)},total_flow_L_s=total,
                 topology_pass=True,flow_conserved=True,basis=tree['basis'],
                 design_accepted=False)

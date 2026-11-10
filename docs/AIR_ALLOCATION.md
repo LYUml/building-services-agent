@@ -82,3 +82,5 @@ section flows with the prior trial within 1.78e-15 m3/s, preserving all original
 requirements and pending engineering/regulatory work packages.
 
 Candidate size screening is now available in the same inherited duct_schedule task; see DUCT_SCHEDULE.md. This supersedes the earlier supplied-size-only limitation, while geometry regeneration and full design acceptance remain unresolved.
+
+Flow aggregation now retains root and section from/to identities for downstream drawing checks. Current duct_sheet consumers require node-bound line endpoints and reject legacy aggregation without that evidence. See DUCT_SHEET.md.
