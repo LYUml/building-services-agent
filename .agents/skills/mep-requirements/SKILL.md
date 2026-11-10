@@ -3,6 +3,8 @@ name: mep-requirements
 description: Extract source-backed requirements, missing parameters and acceptance criteria from MEP assignment briefs and reference drawings before design.
 ---
 
+For drawing samples or annotated reference sets, establish their role before extracting requirements. Presentation examples do not automatically add systems, dimensions, equipment ratings or code obligations to the actual brief. Compare the original rendered pages and retain a page correspondence when the annotated set omits sheets or crops/enlarges regions; equal page numbers need not represent the same drawing. Colored highlights without a legend are not authenticated system classifications or correction instructions. Image-only pages remain graphical sources, not blank pages; preserve extraction blockers and actual visual notes rather than manufacturing text quotes.
+
 # mep-requirements
 
 Read the actual document, including drawing notes and deliverable list; cite page/section for each requirement. Create requirements.json with id, source_document, locator, requirement, discipline, deliverable, verification_method, status and evidence. Unknown values must remain unresolved.

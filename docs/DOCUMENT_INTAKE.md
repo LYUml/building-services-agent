@@ -10,6 +10,15 @@ PDF passages retain 1-based page and extracted line ranges. Line ranges refer to
 
 Plan `document_review` maps every extraction review issue ID to a specific source-inspection note. `validate` rejects unacknowledged review issues and any blocking issue. A nonempty note is a recorded assertion, not machine proof of inspection. The host AI must actually inspect the source, including tables and figures, and add omitted requirements before authoring project data. Quotes are matched to extracted content; this is traceability, not semantic accuracy verification.
 
+Treat example drawings and annotated reference sets according to their source role.
+Visual conventions can inform a drawing review without importing another
+project's systems, quantities or obligations into the brief. An annotated set may
+omit a sheet or show enlarged/cropped regions: record correspondence after actual
+rendered comparison rather than matching identical page numbers. Highlight color
+alone does not prove system meaning or a required correction. Image-only drawings
+still trigger no_text blockers; visual review records do not create extracted
+quotations or automatically clear source-planning gates.
+
 ## Conservative plan bootstrap
 
 `python -m bsa.workflow_draft project/brief.md --supplement project/rubric.md --out project/plan.json` creates a new blocked interpretation scaffold using the existing extractor and workflow schema. Optional --ocr applies to the primary source. All sources must lie under the plan directory; originals are not copied or modified. Every extracted paragraph is retained as a full quote and a provisional requirement with a manual task and source-cited unresolved interpretation issue. No paragraphs are silently classified as context. Exit 2 explicitly retains pending interpretation.
