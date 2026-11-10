@@ -1,5 +1,15 @@
 # Scope and acceptance
 
+Source-declared centred rectangular transition authoring now reuses the pinned
+upstream helper with explicit inner subtraction, owned stable ports and saved
+source-corner/station/angle, volume/moment, mesh and bore checks. Five related
+test methods pass, covering reduction/expansion/crossed dimensions, oblique frame,
+saved mutations and genuine upstream failure blocking its reader. Actual saved
+workflow and preview-source integrity pass; diagnostic views were inspected.
+Section-plane offset is not sheet-normal construction. Products, loss, joints,
+adjacent assemblies and actual unequal-tee integration remain pending. See
+RECTANGULAR_TRANSITIONS.md.
+
 Actual native HVAC ancestry now drives a source-bound connection-requirements
 review:47 sections/48 nodes include15 unequal-section tees,10 bends and2
 multi-branch nodes, with20 terminal boundaries still lacking physical VAV ports.

@@ -530,3 +530,14 @@ sections and flows into node requirements. No upstream implementation is copied.
 Actual private native-sheet ancestry identifies differing-section tees and
 multi-branch nodes that the equal-section fixture cannot cover. Geometric authoring,
 products, end stations and loss data remain separate gaps.
+
+Centred rectangular transition authoring now promotes the previously exercised
+IfcOpenShell0.8.5 helper/BRep/Boolean/port APIs into a source-declared adapter.
+Temporary profile holders and helper representations are removed. Manifold3D3.5.4
+and existing native mesh checks verify positive closed wall material; independent
+area-polynomial volume/moment and source corner/station/angle checks bind output.
+No engine or upstream implementation is rebuilt/copied. The declared section-plane
+offset is explicitly not constant sheet-normal thickness. Reduction, expansion
+and crossed width/height change cases execute, with saved mutations and a real
+failed upstream length blocking its workflow consumer. Products, joints, loss,
+unequal-tee composition and actual project fitting placement remain pending.

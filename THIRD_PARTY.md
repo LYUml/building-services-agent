@@ -213,3 +213,9 @@ profile/extrusion, system-port and placement APIs with Manifold3D3.5.4 material
 operations and existing NumPy checks. These dependencies retain their upstream
 licenses/notices above. Source contracts, independent volume/topology checks and
 workflow binding are original adapter code; no upstream engine body is copied.
+
+The source-declared rectangular transition adapter similarly calls existing
+IfcOpenShell0.8.5 ShapeBuilder transition/faceted-BRep and native Boolean/port APIs,
+plus the credited Manifold3D3.5.4 and NumPy components. Original source binding,
+area-polynomial volume/moment integration and saved-model checks do not copy the
+upstream shape engine implementation. Existing licenses/notices above apply.

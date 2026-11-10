@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "208a1c021a5ce27de591ff0ba942501b858f5da39c11f1e99c535ad6c53335ff",
+  "passage_dispositions": {
+    "P001": "requirement",
+    "P002": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "transition",
+      "kind": "rectangular_transition",
+      "project": "project.json"
+    },
+    {
+      "id": "preview",
+      "kind": "ifc_preview",
+      "depends_on": "transition",
+      "guid": "2PO8naPPvPqwv9WZuZS6ZT"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "transition",
+      "task": "transition",
+      "passage": "P001",
+      "quote": "Author the explicitly synthetic centred rectangular transition from the declared source dimensions, wall interpretation, taper length and rigid placement. Verify saved wall geometry and owned port frames.",
+      "acceptance": "Author the explicitly synthetic centred rectangular transition from the declared source dimensions, wall interpretation, taper length and rigid placement. Verify saved wall geometry and owned port frames."
+    },
+    {
+      "id": "preview",
+      "task": "preview",
+      "passage": "P002",
+      "quote": "Generate a read-only diagnostic preview of the exact saved transition. Retain product construction, constant sheet-normal wall, loss, joint, installation and regulatory acceptance pending.",
+      "acceptance": "Generate a read-only diagnostic preview of the exact saved transition. Retain product construction, constant sheet-normal wall, loss, joint, installation and regulatory acceptance pending."
+    }
+  ]
+}

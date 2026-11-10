@@ -1,0 +1,70 @@
+{
+  "scope": "Centred rectangular section-plane-offset transition only; not constant sheet-normal thickness, products, joints, loss coefficients, assembly or jurisdiction acceptance",
+  "checks": {
+    "schema_express_issue_count": 0,
+    "ports": 2,
+    "material_volume_m3": 0.0043563586137523435,
+    "independent_material_volume_m3": 0.004356358613752345,
+    "material_centroid_m": [
+      -9.955123245022552e-17,
+      -4.666464021104321e-17,
+      0.2623159102889873
+    ],
+    "relative_volume_error": 3.9820492980090195e-16,
+    "euler_characteristic": 0,
+    "one_connected_closed_material": true,
+    "independent_maximum_included_angle_degrees": 29.999999999999996,
+    "centre_bore_overlap_m3": 0.0,
+    "bounds_m": [
+      [
+        -0.305,
+        -0.155,
+        0.0
+      ],
+      [
+        0.305,
+        0.155,
+        0.5732050807568877
+      ]
+    ]
+  },
+  "versions": {
+    "ifcopenshell": "0.8.5",
+    "manifold3d": "3.5.4"
+  },
+  "source_hashes": {
+    "project.json": "171e3bc2873db286a1deedd8341aa5c9d6c3b3238e3e91f3a21b8a0c62a8e82d"
+  },
+  "upstream_builder_sha256": "7d474a7df93e9fd46681b0814e80345e905d147c661d0fec50d9dc3b662dc6f4",
+  "generator_sha256": "4c7d34cffdba0cb9ca3702cf04ff3d720c617e514a739a8f02d4fcfeb078f446",
+  "ifc_sha256": "07c9e67f4e7d289d303883334115a863158ca65bc301ce4ff7540b0b49d675e0",
+  "upstream_log_sha256": "46ef395d1b46d7a254b9a6d367f60844548e88562be61c4fcc6220d5bdbaf424",
+  "numerical_bore_extension_m": 0.0001,
+  "tasks": {
+    "transition": {
+      "kind": "rectangular_transition",
+      "status": "pass",
+      "scope": "Centred rectangular section-plane-offset transition only; not constant sheet-normal thickness, products, joints, loss coefficients, assembly or jurisdiction acceptance"
+    },
+    "preview": {
+      "kind": "ifc_preview",
+      "status": "pass",
+      "scope": "saved selected-element preview generated; visual review and engineering acceptance pending"
+    }
+  },
+  "workflow_integrity_pass": true,
+  "visual_review": {
+    "ifc_sha256": "07c9e67f4e7d289d303883334115a863158ca65bc301ce4ff7540b0b49d675e0",
+    "image_sha256": "465ef42d5bbbcb3eb06f8cdc979b47048decccb659c4b9fa8f5fe7a1b0964ff4",
+    "scope": "Diagnostic local centred transition shape and two end openings only",
+    "observations": [
+      "Isometric and two side views show centred taper and straight ends.",
+      "End-on view shows an open inner rectangle; opaque projected triangles limit full interior inspection.",
+      "Two port markers appear at opposite ends; arrows are illustrative."
+    ],
+    "drawing_accepted": false,
+    "design_accepted": false
+  },
+  "related_test_methods_passed": 5,
+  "design_accepted": false
+}

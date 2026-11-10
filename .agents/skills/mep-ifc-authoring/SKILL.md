@@ -5,6 +5,16 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For source-declared centred rectangular transitions, use rectangular_transition
+with project in docs/RECTANGULAR_TRANSITIONS.md. Require explicit inside end
+sections, section-plane wall offset, straight/taper lengths, upstream angle,
+directions and sourced rigid placement. The helper's filled envelope is converted
+to a native outer-minus-inner wall with stable owned ports and saved schema,
+corners/stations, independent volume/moment/angle, closed-mesh and centre-bore
+checks. This is not constant sheet-normal construction. Preserve product/joint,
+loss, adjoining assembly, unequal-tee and actual project end-station acceptance;
+the synthetic transition cannot complete the real differing-section tee layout.
+
 For the explicitly source-declared equal-section rectangular tee plus three
 butt-ended straight walls, use rectangular_tee_assembly with tee_spec and
 assembly_spec in docs/RECTANGULAR_TEES.md. Require three positive sourced lengths

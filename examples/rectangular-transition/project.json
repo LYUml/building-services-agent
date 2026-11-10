@@ -1,0 +1,19 @@
+{
+  "project_uuid": "a1a5f4be-c012-496c-a06e-565d124b800f",
+  "source": "Explicit synthetic centred rectangular transition software fixture; no actual product or coursework dimensions.",
+  "classification": "assumed",
+  "wall_model": "section_plane_offset",
+  "start_section_m": [0.6, 0.3],
+  "end_section_m": [0.4, 0.2],
+  "section_offset_m": 0.005,
+  "start_length_m": 0.1,
+  "end_length_m": 0.1,
+  "upstream_angle_degrees": 30,
+  "transition_length_m": 0.3732050807568877,
+  "port_directions": {"start": "SINK", "end": "SOURCE"},
+  "placement": {
+    "source": "Explicit synthetic local frame",
+    "origin_m": [0, 0, 0],
+    "rotation": [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+  }
+}
