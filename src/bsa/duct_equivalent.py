@@ -6,6 +6,40 @@ provides the Colebrook engine. Inputs are SI and must be sourced by callers.
 import math
 
 
+def select_sizes(*, candidates, max_velocity_m_s, max_friction_Pa_m,
+                 max_aspect_ratio, **conditions):
+    """Rank supplied dimensions by area then perimeter; retain all rejections.
+
+    This section-only screen does not solve topology, fan duty or spatial fit.
+    Callers supply source-reviewed candidates, limits and fluid conditions.
+    """
+    for limit in (max_velocity_m_s, max_friction_Pa_m, max_aspect_ratio):
+        if isinstance(limit, bool) or not math.isfinite(limit) or limit <= 0:
+            raise ValueError('Limits must be finite positive numbers')
+    if max_aspect_ratio < 1 or not candidates:
+        raise ValueError('Aspect limit must be >=1 and candidates nonempty')
+    rows = []
+    ids = set()
+    for candidate in candidates:
+        if set(candidate) != {'id', 'width_m', 'height_m'}:
+            raise ValueError('Candidate requires id, width_m and height_m only')
+        name = candidate['id']
+        if not isinstance(name, str) or not name.strip() or name in ids:
+            raise ValueError('Candidate IDs must be nonempty and unique')
+        ids.add(name)
+        result = calculate(width_m=candidate['width_m'], height_m=candidate['height_m'], **conditions)
+        failures = [key for key, limit in (
+            ('actual_velocity_m_s', max_velocity_m_s),
+            ('friction_Pa_m', max_friction_Pa_m),
+            ('aspect_ratio', max_aspect_ratio)) if result[key] > limit]
+        rows.append(dict(candidate, calculation=result, failures=failures))
+    feasible = [r for r in rows if not r['failures']]
+    feasible.sort(key=lambda r: (r['width_m']*r['height_m'],
+                                 r['width_m']+r['height_m'], r['id']))
+    return dict(candidates=rows, selected=feasible[0] if feasible else None,
+                feasible_count=len(feasible), design_accepted=False)
+
+
 def calculate(*, flow_m3_s, width_m, height_m, density_kg_m3,
               viscosity_Pa_s, roughness_m):
     values = (flow_m3_s, width_m, height_m, density_kg_m3, viscosity_Pa_s)

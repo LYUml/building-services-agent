@@ -28,3 +28,17 @@ class EquivalentDuctTests(unittest.TestCase):
         for kw in [dict(flow_m3_s=.000001),dict(width_m=0),dict(roughness_m=-1),
                    dict(viscosity_Pa_s=float('nan')),dict(flow_m3_s=True)]:
             with self.assertRaises(ValueError): self.run_case(**kw)
+
+    def test_selection_and_no_feasible(self):
+        from bsa.duct_equivalent import select_sizes
+        args=dict(candidates=[dict(id='small',width_m=.2,height_m=.2),
+                              dict(id='large',width_m=.8,height_m=.4)],
+                  max_velocity_m_s=5,max_friction_Pa_m=2,max_aspect_ratio=4,
+                  flow_m3_s=1,density_kg_m3=1.2,viscosity_Pa_s=1.81e-5,roughness_m=.00009)
+        result=select_sizes(**args)
+        self.assertEqual(result['selected']['id'],'large')
+        self.assertIn('actual_velocity_m_s',result['candidates'][0]['failures'])
+        args['max_velocity_m_s']=1
+        self.assertIsNone(select_sizes(**args)['selected'])
+        args['candidates'][1]['id']='small'
+        with self.assertRaises(ValueError): select_sizes(**args)
