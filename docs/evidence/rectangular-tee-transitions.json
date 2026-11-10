@@ -1,0 +1,213 @@
+{
+  "scope": "Declared ideal equal-section core tee with centred section-plane-offset transitions; no product joints, constant sheet-normal taper walls, pressure loss or actual installation/regulatory acceptance",
+  "checks": {
+    "tee": {
+      "schema_express_issue_count": 0,
+      "ports": 3,
+      "one_connected_material": true,
+      "euler_characteristic": -2,
+      "native_material_volume_m3": 0.014524499999999984,
+      "independent_material_volume_m3": 0.014524499999999996,
+      "bore_probe_overlap_m3": [
+        0.0,
+        0.0
+      ],
+      "saved_source_geometry_and_port_frames": true
+    },
+    "transitions": {
+      "main-b": {
+        "schema_express_issue_count": 0,
+        "ports": 2,
+        "material_volume_m3": 0.0043563586137523435,
+        "independent_material_volume_m3": 0.004356358613752345,
+        "material_centroid_m": [
+          -9.955123245022552e-17,
+          -4.666464021104321e-17,
+          0.2623159102889873
+        ],
+        "relative_volume_error": 3.9820492980090195e-16,
+        "euler_characteristic": 0,
+        "one_connected_closed_material": true,
+        "independent_maximum_included_angle_degrees": 29.999999999999996,
+        "centre_bore_overlap_m3": 0.0,
+        "bounds_m": [
+          [
+            -0.305,
+            -0.155,
+            0.0
+          ],
+          [
+            0.305,
+            0.155,
+            0.5732050807568877
+          ]
+        ]
+      },
+      "branch": {
+        "schema_express_issue_count": 0,
+        "ports": 2,
+        "material_volume_m3": 0.0043563586137523435,
+        "independent_material_volume_m3": 0.004356358613752345,
+        "material_centroid_m": [
+          -9.955123245022552e-17,
+          -4.666464021104321e-17,
+          0.2623159102889873
+        ],
+        "relative_volume_error": 3.9820492980090195e-16,
+        "euler_characteristic": 0,
+        "one_connected_closed_material": true,
+        "independent_maximum_included_angle_degrees": 29.999999999999996,
+        "centre_bore_overlap_m3": 0.0,
+        "bounds_m": [
+          [
+            -0.305,
+            -0.155,
+            0.0
+          ],
+          [
+            0.305,
+            0.155,
+            0.5732050807568877
+          ]
+        ]
+      }
+    },
+    "components": 3,
+    "ports": 7,
+    "connections": 2,
+    "coincident_opposed_interfaces": 2,
+    "material_overlap_m3": [
+      -5.421010862427522e-20,
+      0.0,
+      0.0
+    ],
+    "one_connected_material": true,
+    "euler_characteristic": -2,
+    "material_volume_m3": 0.023237217227504683,
+    "independent_material_volume_m3": 0.023237217227504686,
+    "bore_probe_overlap_m3": [
+      0.0,
+      0.0
+    ],
+    "external_end_frames": {
+      "main-a": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          -0.7
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "main-b": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          1.2732050807568878
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "branch": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          1.1732050807568877
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  },
+  "source_hashes": {
+    "project.json": "b3db77bbad5f02760ff25c31daf4906f164634d9bc02956895ead1cbe8f68375",
+    "tee.json": "1e9010e8a0e593a564aceeb7c5e22b2fd110a30e4903e8513b99f40fd6c00bbb"
+  },
+  "generator_sha256": "b46a8dfca14a751ad5ef8544cfef8a0df18bbfdecd362f58f49ad17d9867e23c",
+  "ifc_sha256": "da795522bc9367b665eba526d186e1bbf8231ed65a8f30b78b0c0175dd760166",
+  "workflow_tasks": {
+    "assembly": {
+      "kind": "rectangular_tee_transitions",
+      "status": "pass",
+      "scope": "Declared ideal equal-section core tee with centred section-plane-offset transitions; no product joints, constant sheet-normal taper walls, pressure loss or actual installation/regulatory acceptance"
+    },
+    "clash": {
+      "kind": "ifc_clash",
+      "status": "pass",
+      "scope": "saved IFC triangle clearance plus Manifold3D solid-overlap coverage with sourced contact exceptions; product fidelity and complete acceptance pending"
+    }
+  },
+  "workflow_integrity_pass": true,
+  "clash_checks": {
+    "geometry_coverage": true,
+    "no_intersections": true,
+    "clearance": true
+  },
+  "outside_region_interface_count": 2,
+  "related_test_methods_passed": 6,
+  "actual_private_local_study": {
+    "saved_model_reinspected": true,
+    "native_component_count": 3,
+    "plan_extent_check_pass": true,
+    "source_input_pins_pass": true,
+    "source_workflow_integrity_pass": true,
+    "explicit_study_assumptions_preserved": true,
+    "negative_binding_and_changed_model_rejected": true,
+    "installation_elevation_verified": false,
+    "section_roll_verified": false,
+    "neighbouring_end_fitting_trim_verified": false,
+    "design_accepted": false
+  },
+  "design_accepted": false
+}

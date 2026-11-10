@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "2a0a2f91e5cbf45d90c995d30fe61f4b9de5075d150ad206ec82686fc1beaf2b",
+  "passage_dispositions": {
+    "P001": "requirement",
+    "P002": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "assembly",
+      "kind": "rectangular_tee_transitions",
+      "project": "project.json"
+    },
+    {
+      "id": "clash",
+      "kind": "ifc_clash",
+      "depends_on": "assembly",
+      "policy": "clash-policy.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "assembly",
+      "task": "assembly",
+      "passage": "P001",
+      "quote": "Author the synthetic tee and declared centred transition arms. Verify saved exact component and port inventory, connection frames, material continuity, independent volume and open centre paths.",
+      "acceptance": "Author the synthetic tee and declared centred transition arms. Verify saved exact component and port inventory, connection frames, material continuity, independent volume and open centre paths."
+    },
+    {
+      "id": "clash",
+      "task": "clash",
+      "passage": "P002",
+      "quote": "Inspect represented component clearances with the explicit synthetic contact policy. Keep product joints, constant sheet-normal taper construction, pressure loss, actual fitting end stations and installation/regulatory acceptance pending.",
+      "acceptance": "Inspect represented component clearances with the explicit synthetic contact policy. Keep product joints, constant sheet-normal taper construction, pressure loss, actual fitting end stations and installation/regulatory acceptance pending."
+    }
+  ]
+}

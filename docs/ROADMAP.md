@@ -1,5 +1,16 @@
 # Scope and acceptance
 
+Core tee/centred-transition composition now imports saved verified components
+through pinned upstream asset/port APIs, with stable identities, local frames,
+complete inventory/system and union/independent-volume/three-bore checks. Six
+related test methods pass; actual synthetic same-model clash checks pass. One
+source-placed private local study preserves selected nominal sizes and source XY
+rays while declaring construction assumptions; fresh native and necessary plan
+extent checks pass. Wrong binding and changed-model controls reject. Opposite-end
+fitting consumption, real elevation/roll, product joints, sheet-normal taper walls,
+loss and entire-network/assignment acceptance remain pending. See
+RECTANGULAR_TEE_TRANSITIONS.md.
+
 Source-declared centred rectangular transition authoring now reuses the pinned
 upstream helper with explicit inner subtraction, owned stable ports and saved
 source-corner/station/angle, volume/moment, mesh and bore checks. Five related

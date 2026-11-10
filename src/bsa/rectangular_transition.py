@@ -82,7 +82,7 @@ def expected_rings(data, inner):
     return np.array([(sx*(w+2*offset)/2, sy*(h+2*offset)/2, z) for (w, h), z in zip(dimensions, stations) for sx, sy in ((-1, -1), (1, -1), (1, 1), (-1, 1))])
 
 
-def inspect(path, data):
+def inspect(path, data, *, component=False):
     validate(data); model = ifcopenshell.open(str(path)); logger = ifcopenshell.validate.json_logger()
     largest_change = max(abs(a-b) for a, b in zip(data['start_section_m'], data['end_section_m']))
     angle = math.degrees(2*math.atan(largest_change/(2*data['transition_length_m'])))
@@ -91,7 +91,7 @@ def inspect(path, data):
     ifcopenshell.validate.validate(model, logger, express_rules=True)
     if logger.statements: raise ValueError('Saved transition schema/EXPRESS issues')
     fitting = model.by_guid(stable_guid(data, 'IfcDuctFitting', KEY))
-    if len(model.by_type('IfcDistributionElement')) != 1 or fitting.PredefinedType != 'TRANSITION' or not np.allclose(placement.get_local_placement(fitting.ObjectPlacement), placement_matrix(data), atol=1e-9, rtol=0):
+    if (not component and len(model.by_type('IfcDistributionElement')) != 1) or fitting.PredefinedType != 'TRANSITION' or not np.allclose(placement.get_local_placement(fitting.ObjectPlacement), placement_matrix(data), atol=1e-9, rtol=0):
         raise ValueError('Exact single transition type/placement required')
     props = element.get_psets(fitting).get('BSA_DesignInputs', {})
     if any(props.get(k) != v for k, v in dict(Source=data['source'], Classification=data['classification'], WallModel=data['wall_model'], SectionOffset_m=data['section_offset_m']).items()):
@@ -115,7 +115,7 @@ def inspect(path, data):
         if len(actual) != 16 or any(np.min(np.linalg.norm(actual-point, axis=1)) > 1e-9 for point in expected) or any(np.min(np.linalg.norm(expected-point, axis=1)) > 1e-9 for point in actual):
             raise ValueError('Saved transition stations/section corners differ from source')
     ports = system.get_ports(fitting)
-    if len(ports) != 2 or len(model.by_type('IfcDistributionPort')) != 2 or {p.Name for p in ports} != {'start', 'end'}: raise ValueError('Two owned transition ports required')
+    if len(ports) != 2 or (not component and len(model.by_type('IfcDistributionPort')) != 2) or {p.Name for p in ports} != {'start', 'end'}: raise ValueError('Two owned transition ports required')
     for port in ports:
         if port.GlobalId != stable_guid(data, 'IfcDistributionPort', KEY, port.Name) or port.FlowDirection != data['port_directions'][port.Name] or port.PredefinedType != 'DUCT' or port.SystemType != 'VENTILATION' or not np.allclose(placement.get_local_placement(port.ObjectPlacement), port_frames(data)[port.Name], atol=1e-9, rtol=0):
             raise ValueError('Saved transition port identity/type/direction/frame differs')

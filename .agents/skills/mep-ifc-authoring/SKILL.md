@@ -5,6 +5,18 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For a source-declared equal-section core tee with one to three separate centred
+transition arms, use rectangular_tee_transitions with project in
+docs/RECTANGULAR_TEE_TRANSITIONS.md. Bare arms must be explicit. Preserve saved
+component/source hashes, owned stable ports, parent-relative frames, complete
+inventory/system checks, material union/volume/topology and centre-bore checks.
+For one local study on an existing native route, use bsa.duct_fitting_fit with the
+exact arm-section binding; it freshly inherits source rays/nominal sizes and
+retains overrun. Remaining centreline is not installed straight length. Keep
+opposite-end fitting consumption, elevation/roll, product joints, sheet-normal
+taper wall, loss and entire-project acceptance pending. Do not treat a local
+source-placed software candidate as release of all real unequal tees.
+
 For source-declared centred rectangular transitions, use rectangular_transition
 with project in docs/RECTANGULAR_TRANSITIONS.md. Require explicit inside end
 sections, section-plane wall offset, straight/taper lengths, upstream angle,

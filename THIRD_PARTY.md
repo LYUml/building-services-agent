@@ -219,3 +219,8 @@ IfcOpenShell0.8.5 ShapeBuilder transition/faceted-BRep and native Boolean/port A
 plus the credited Manifold3D3.5.4 and NumPy components. Original source binding,
 area-polynomial volume/moment integration and saved-model checks do not copy the
 upstream shape engine implementation. Existing licenses/notices above apply.
+
+Tee/transition composition reuses the same credited engines and IfcOpenShell0.8.5
+project.append_asset/system APIs to import actually saved component bodies and
+owned ports. The source binding, identity namespace and parent-relative placement
+checks are original glue; no upstream engine or fitting source body is vendored.

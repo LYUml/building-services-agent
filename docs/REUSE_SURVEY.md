@@ -541,3 +541,14 @@ offset is explicitly not constant sheet-normal thickness. Reduction, expansion
 and crossed width/height change cases execute, with saved mutations and a real
 failed upstream length blocking its workflow consumer. Products, joints, loss,
 unequal-tee composition and actual project fitting placement remain pending.
+
+Tee/transition composition now reuses the two verified source adapters plus the
+already exercised IfcOpenShell0.8.5 project.append_asset and system/connect APIs
+(also used by product_alignment). It imports saved native bodies and owned ports;
+no new loft/Boolean engine or upstream implementation is copied. Whole-model
+inventory checks surround component-scoped transition inspection. Manifold3D3.5.4
+material union and independent component integrals verify source-local continuity.
+Two/three-arm, directed/bidirectional, oblique and saved mutation cases execute.
+Fresh saved-source plan-ray/size/extent binding executes for one actual private
+local candidate with explicit study assumptions; it does not establish installed
+space, joints, sheet-normal taper construction, pressure or full network acceptance.

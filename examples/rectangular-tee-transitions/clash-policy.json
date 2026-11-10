@@ -1,0 +1,28 @@
+{
+  "scope": "all represented non-feature non-virtual IfcElements",
+  "sources": {
+    "demo": "Explicit synthetic QA only:10mm clearance away from0.36m spherical core/transition contact regions; not product or code criteria."
+  },
+  "source": "demo",
+  "minimum_clearance_m": 0.01,
+  "intersection_tolerance_m": 0.0001,
+  "contact_tolerance_m": 0.0001,
+  "overlap_volume_tolerance_m3": 1e-10,
+  "maximum_boolean_pairs": 1000,
+  "allowed_contacts": [
+    {
+      "from_port_guid": "2ETth4Zo5ONfVbrMM0SGgh",
+      "to_port_guid": "0Z48BgByDHchq3PHQt135P",
+      "region_radius_m": 0.36,
+      "source": "demo"
+    },
+    {
+      "from_port_guid": "2CVl6U9dfMsQlU6efBxzWc",
+      "to_port_guid": "2x8qo54HnQyQuSOoG_JnTP",
+      "region_radius_m": 0.36,
+      "source": "demo"
+    }
+  ],
+  "contact_clearance_mode": "outside_regions",
+  "contact_region_segments": 64
+}

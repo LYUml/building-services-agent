@@ -1,0 +1,32 @@
+{
+  "source": "Explicit synthetic composition software fixture; no product joint or actual coursework end stations.",
+  "classification": "assumed",
+  "tee": "tee.json",
+  "arms": {
+    "main-a": {
+      "kind": "bare"
+    },
+    "main-b": {
+      "kind": "transition",
+      "end_section_m": [
+        0.4,
+        0.2
+      ],
+      "start_length_m": 0.1,
+      "end_length_m": 0.1,
+      "upstream_angle_degrees": 30,
+      "transition_length_m": 0.3732050807568877
+    },
+    "branch": {
+      "kind": "transition",
+      "end_section_m": [
+        0.4,
+        0.2
+      ],
+      "start_length_m": 0.1,
+      "end_length_m": 0.1,
+      "upstream_angle_degrees": 30,
+      "transition_length_m": 0.3732050807568877
+    }
+  }
+}
