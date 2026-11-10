@@ -24,3 +24,18 @@ Add `--terminal-review <settings.json>` to automatically inspect the fresh nativ
 The review appears in terminal-review.json and the package index. Missing/failed native ancestry or geometric mismatch is retained in stage_errors and makes package status incomplete. Numerical reports may still be generated as design-study evidence; they do not clear a failed review. Omitting the option means this specific review was not requested, recorded as null configuration, not passed. Full acceptance always remains separate.
 
 Actual private package replay checks 80 terminals and retains nine unresolved engineering tasks. Its 22 PDF report pages and drawing match inspected renders. A second run without AutoCAD retains the missing-native review error and incomplete package status. Six focused report/package/geometry tests pass. No new dependency or solver was introduced.
+
+## ADPI scope review
+
+Add `--adpi-settings <settings.json>` using the source-pinned schema in
+ADPI_BASIS.md. The package inherits its new terminal lookup and includes
+adpi-review.json plus an index summary of applicability and missing facts. Settings
+and original source hashes are retained and rechecked. Pending/inapplicable review
+is preserved as such; preparation success cannot establish ADPI acceptance. Omission
+is recorded as an empty ADPI configuration, not a passed check. Review execution
+errors remain stage_errors and make package status incomplete.
+
+Actual private course-source-backed replay passes native drawing and terminal
+connection preparation, retains pending applicability across 640 cases and produces
+a 22-page report. Changed pages 1/16/17 were inspected; the rest and the native plot
+match previously inspected renders. Eleven focused report/ADPI/summary tests pass.

@@ -12,10 +12,20 @@ from .workflow_status import diagnose
 from .delivery import template
 
 
-def run(plan,output,*,font,autocad=None,terminal_review=None):
+def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None):
     plan,output,font=map(lambda p:Path(p).resolve(),(plan,output,font))
     validated,inputs=validate_plan(plan)
     protected=set(inputs)|{plan,font}
+    adpi_pins={}
+    if adpi_settings is not None:
+        adpi_settings=Path(adpi_settings).resolve()
+        adpi_spec=json.loads(adpi_settings.read_text(encoding='utf-8'))
+        if not isinstance(adpi_spec.get('source'),str) or Path(adpi_spec['source']).is_absolute():
+            raise ValueError('Relative ADPI source required')
+        adpi_source=(adpi_settings.parent/adpi_spec['source']).resolve()
+        adpi_pins={str(p):digest(p) for p in (adpi_settings,adpi_source)}
+        if adpi_pins[str(adpi_source)]!=adpi_spec.get('source_sha256'):raise ValueError('ADPI source hash mismatch')
+        protected.update((adpi_settings,adpi_source))
     review_settings=None;review_pin=None
     if terminal_review is not None:
         terminal_review=Path(terminal_review).resolve();protected.add(terminal_review)
@@ -39,6 +49,11 @@ def run(plan,output,*,font,autocad=None,terminal_review=None):
     (output/'diagnosis.json').write_text(json.dumps(diagnosis,indent=2),encoding='utf-8')
     template(plan,output/'workflow',output/'delivery-review.json')
     stages={};errors={}
+    if adpi_settings is not None:
+        try:
+            from .adpi_review import run as adpi_review
+            stages['adpi_review']=adpi_review(output/'workflow',adpi_settings,output/'adpi-review.json')
+        except (ValueError,OSError,KeyError) as exc:errors['adpi_review']=str(exc)
     if review_settings is not None:
         try:
             from .air_terminal_drawing import from_workflow
@@ -56,6 +71,7 @@ def run(plan,output,*,font,autocad=None,terminal_review=None):
             stages['report_pdf']=render(output/'report',output/'report-pdf',font)
         except (ValueError,OSError,KeyError,ImportError) as exc:errors['report_pdf']=str(exc)
     if not verify(output/'workflow')['integrity_pass']:raise ValueError('Workflow changed during packaging')
+    if any(digest(Path(p))!=sha for p,sha in adpi_pins.items()):raise ValueError('ADPI settings/source changed during packaging')
     if terminal_review is not None and digest(terminal_review)!=review_pin:
         raise ValueError('Terminal review settings changed during packaging')
     pending=[dict(id=name,kind=t['kind'],status=t['status'],scope=t['scope']) for name,t in workflow['tasks'].items() if t['status']!='pass']
@@ -64,15 +80,20 @@ def run(plan,output,*,font,autocad=None,terminal_review=None):
                 unresolved_tasks=pending,status='incomplete' if errors else 'review_required',
                 design_accepted=False,scope='Prepared calculation/drawing/report package; actual visual and full requirement acceptance remain separate')
     result['terminal_review_configuration']=None if terminal_review is None else dict(path=str(terminal_review),sha256=review_pin,settings=review_settings)
+    result['adpi_configuration_inputs']=adpi_pins
     links=[('Workflow evidence','workflow/index.html'),('Dependency diagnosis','diagnosis.json'),('Pending delivery review','delivery-review.json')]
     if 'report' in stages:links.append(('Report HTML','report/HVAC System Design.html'))
     if 'report_pdf' in stages:links.append(('Report PDF','report-pdf/HVAC System Design.pdf'))
     if 'terminal_review' in stages:links.append(('Saved terminal connection review','terminal-review.json'))
+    if 'adpi_review' in stages:links.append(('ADPI applicability and ratio screening','adpi-review.json'))
     for name,t in workflow['tasks'].items():
         if t['kind']=='duct_sheet_native' and t['status']=='pass':
             links.extend([(name+' DWG',f'workflow/{name}/Supply Air Distribution.dwg'),(name+' PDF',f'workflow/{name}/Supply Air Distribution.pdf')])
     page='<!doctype html><html lang="en"><meta charset="utf-8"><title>HVAC Project Review</title><style>body{font:16px/1.5 Arial;max-width:1000px;margin:35px auto}td,th{padding:8px;border:1px solid #ccd}table{border-collapse:collapse}li{margin:8px}</style><h1>HVAC Project Review</h1><p>Design study. Full requirement acceptance is pending.</p><ul>'
     page+=''.join('<li><a href="'+html.escape(path,quote=True)+'">'+html.escape(label)+'</a></li>' for label,path in links)+'</ul>'
+    if 'adpi_review' in stages:
+        review=stages['adpi_review']
+        page+='<h2>ADPI scope</h2><p>Applicability: '+html.escape(review['applicability'])+'. Full ADPI acceptance is not established.</p><p>Missing facts: '+html.escape(', '.join(review['missing_facts']))+'</p>'
     page+='<h2>Unresolved execution tasks</h2><table><tr><th>Task</th><th>Status</th><th>Scope</th></tr>'+''.join('<tr>'+''.join('<td>'+html.escape(str(t[k]))+'</td>' for k in ('id','status','scope'))+'</tr>' for t in pending)+'</table>'
     if errors:page+='<h2>Preparation and review errors</h2><pre>'+html.escape(json.dumps(errors,indent=2))+'</pre>'
     (output/'index.html').write_text(page+'</html>',encoding='utf-8')
@@ -83,6 +104,7 @@ def run(plan,output,*,font,autocad=None,terminal_review=None):
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('plan');p.add_argument('--out',required=True);p.add_argument('--font',required=True);p.add_argument('--autocad')
     p.add_argument('--terminal-review',help='JSON containing native_task and four explicit layer names')
-    a=p.parse_args();r=run(a.plan,a.out,font=a.font,autocad=Path(a.autocad) if a.autocad else None,terminal_review=a.terminal_review)
+    p.add_argument('--adpi-settings',help='Source-pinned criterion and applicability settings')
+    a=p.parse_args();r=run(a.plan,a.out,font=a.font,autocad=Path(a.autocad) if a.autocad else None,terminal_review=a.terminal_review,adpi_settings=a.adpi_settings)
     print(r['status'],len(r['unresolved_tasks']),'unresolved tasks; design acceptance pending')
     raise SystemExit(2)
