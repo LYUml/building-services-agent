@@ -67,3 +67,19 @@ From the repository root, prepare a local manifest and request:
 This command only prepares files; it does not register the add-in, restart Revit, or claim that the RVT exists. `InventoryCommand` compiled with zero warnings/errors against the local API. Its current build evidence is ../../docs/evidence/moosas-review/revit-inventory-build.json; the earlier native-pipe evidence identifies an older assembly. Manifest XML was generated and read back. Actual registration, loading, invocation and readback are still pending desktop availability. Generated manifests reference the current build output, so regenerate/review hashes after rebuilding. The Python/Dynamo route remains an alternative pending path, not another verified implementation.
 
 Host integration follows Autodesk's [IExternalCommand reference](https://help.autodesk.com/cloudhelp/2026/ENU/Revit-API-MainReference/files/html/ad99887e-db50-bf8f-e4e6-2fb86082b5fb.htm) and [transaction-mode contract](https://help.autodesk.com/cloudhelp/2026/ENU/Revit-API-MainReference/files/html/84254a1f-7bba-885a-ce65-e68fc238fddb.htm).
+
+## Local deployment review bundle
+
+Run `python scripts/prepare_revit_handoff.py --out runs/<new-review>` from the
+repository root after a reviewed build. The allowlisted ZIP contains only
+Bsa.Revit.dll, Bsa.Revit.deps.json and a review manifest. It excludes Autodesk
+references, PDBs and models, verifies archived bytes against the input files, records
+current C# source/project/SDK hashes and rejects existing or outside-runs output.
+It does not compile, sign, register, upload or invoke the adapter; source hashes
+alone do not prove that an arbitrary existing DLL was built from those sources.
+
+On 2026-11-10 a fresh Release build completed with zero warnings/errors, followed by
+actual bundle preparation and archive readback. Authenticode still reports NotSigned.
+Existing-output and outside-runs controls reject. The bundle is retained locally
+under ignored runs, not published as a release. Owner license selection, an approved
+trust/deployment basis and the full native validation sequence remain pending.

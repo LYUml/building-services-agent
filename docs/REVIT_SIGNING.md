@@ -17,3 +17,9 @@ The original adapter now declares Product `Building Services Agent`, Title `Buil
 Before a signing integration is selected, the repository owner must choose a distribution license and establish eligibility with a provider, or supply an already approved signing identity/deployment environment. Prepare the exact candidate package and verify proprietary references are excluded; pin any signing action/tool before adoption. No signing action or service has been installed in this milestone.
 
 After supported signing, verify Authenticode and certificate chain on the exact DLL, record the signed hash, regenerate preparation evidence, and invoke the command on the saved test copy. A valid signature alone does not prove acceptance by the machine's recorded policy. Native inventory, creation/rollback, connectivity, save/reopen, schedules, drawings and full engineering acceptance still require actual host evidence. Do not change loaders or disable application control to clear this gate.
+
+A local review-bundle preparer is now available at scripts/prepare_revit_handoff.py.
+Actual 2026-11-10 build and byte-checked ZIP preparation include only the original
+adapter DLL, dependency manifest and review metadata; no Autodesk binaries or models
+are included. This is preparation for an authorized deployment decision, not a
+signature, provider approval or remedy for the recorded host policy block.
