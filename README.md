@@ -4,6 +4,8 @@
 
 An agent workspace and deterministic engineering tools for reusable MEP workflows. The AI reads requirements and orchestrates tools; calculation engines compute results. Unknown inputs stay unknown.
 
+HVAC assignment calculations now have unified workflow tasks for [bounded terminal throw lookup](docs/TERMINAL_THROW.md) and [equivalent-round duct schedules](docs/DUCT_SCHEDULE.md). Actual private coursework execution covers 80 terminals and 47 supplied duct sections, with 26 focused tests passing. The updated design/network skills route to these tools and retain source, ADPI, geometry and delivery reviews. This is progress toward assignment automation, not a completed one-click design or regulatory approval.
+
 [Hong Kong base fan power](docs/HK_FAN_POWER.md) now adds a versioned official BEC/TG-backed CAV/VAV module, with an optional freshly verified native rectangular supply-flow denominator. Clean drawn electrical motor power, inventory, whole-supply meaning, scope/exemptions and editions remain explicit; deductions, native fan selection/operating point, controls and full HVAC acceptance are pending.
 
 [Rectangular air-tree pressure budgets](docs/RECTANGULAR_AIR_NETWORKS.md) now reuse pinned fluids with actual rectangular area and turbulent hydraulic-diameter friction. The workflow retains insufficient-pressure/velocity failures and pending engineering review. This is level prescribed-flow analysis, not saved geometry, fan selection or Hong Kong acceptance.
