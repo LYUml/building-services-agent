@@ -42,3 +42,9 @@ synthetic workflow/report/PDF test also executes. Visual evidence remains separa
 from the machine manifest. This report is a source-linked design study and requirement
 review, not final coursework prose or engineering approval; report narrative, ADPI,
 physical coordination and source applicability remain unresolved.
+
+The load summary now displays thermal kW to three decimals and airflow to one decimal,
+without modifying calculation artifacts. PDF extraction checks also include the
+complete load-summary row (388 rows in the actual private report). Synthetic package
+and failure controls pass; the actual 22-page output was rendered, changed pages
+2–14 inspected, and remaining pages matched prior inspected renders.

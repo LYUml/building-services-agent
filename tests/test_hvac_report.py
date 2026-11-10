@@ -16,7 +16,7 @@ class HVACReportTests(unittest.TestCase):
   from bsa.hvac_report_pdf import run as render
   font=Path(reportlab.__file__).parent/'fonts/Vera.ttf'
   pdf=render(root/'report',root/'pdf',font)
-  self.assertEqual(pdf['numerical_rows_checked'],6)
+  self.assertEqual(pdf['numerical_rows_checked'],7)
   self.assertEqual(pdf['requirement_rows'],3)
   self.assertFalse(pdf['design_accepted'])
   with self.assertRaises(ValueError):render(root/'report',root/'pdf',font)
@@ -24,7 +24,7 @@ class HVACReportTests(unittest.TestCase):
   bundled=package(root/'plan.json',root/'package',font=font)
   self.assertEqual(bundled['status'],'review_required');self.assertFalse(bundled['design_accepted'])
   self.assertTrue((root/'package/delivery-review.json').is_file())
-  self.assertEqual(bundled['stages']['report_pdf']['numerical_rows_checked'],6)
+  self.assertEqual(bundled['stages']['report_pdf']['numerical_rows_checked'],7)
   with self.assertRaises(ValueError):package(root/'plan.json',root/'package',font=font)
   raw=(root/'allocation.json').read_bytes();changed=json.loads(raw);changed['terminals'][0]['center_m']=[99,99]
   (root/'allocation.json').write_text(json.dumps(changed))

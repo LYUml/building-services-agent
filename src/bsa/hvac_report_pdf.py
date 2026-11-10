@@ -72,7 +72,7 @@ def run(directory,output,font):
     from pypdf import PdfReader
     pages=PdfReader(target).pages;flat=' '.join(' '.join(p.extract_text() for p in pages).split())
     # Compare every complete numeric row, not just IDs or row totals.
-    numeric=[row for table in tables[2:5] for row in table[1:]]
+    numeric=[row for table in tables[1:5] for row in table[1:]]
     if any(' '.join(' '.join(row).split()) not in flat for row in numeric):raise ValueError('PDF numerical row missing or changed')
     if any(digest(Path(p))!=sha for p,sha in pins.items()):raise ValueError('Report/font changed during rendering')
     result=dict(inputs=pins,pdf_sha256=digest(target),reportlab_version=reportlab.Version,pages=len(pages),numerical_rows_checked=len(numeric),requirement_rows=counts['requirements'],visual_review='pending',design_accepted=False)
