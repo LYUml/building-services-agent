@@ -132,7 +132,10 @@ class BundleTests(unittest.TestCase):
     def test_supplementary_ocr_retains_page_and_image_integrity(self):
         from pypdf import PdfWriter
         annex=self.root/'scan.pdf'
-        writer=PdfWriter();writer.add_blank_page(width=200,height=200);writer.write(annex)
+        writer=PdfWriter();page=writer.add_blank_page(width=200,height=200)
+        from pypdf.generic import DecodedStreamObject,NameObject
+        stream=DecodedStreamObject();stream.set_data(b'0 0 100 100 re f')
+        page[NameObject('/Contents')]=writer._add_object(stream);writer.write(annex)
         image=self.root/'page.png';image.write_bytes(b'Synthetic raster identity; not actual OCR')
         sidecar=self.root/'ocr.json'
         sidecar.write_text(json.dumps(dict(version=1,source_sha256=digest(annex),pages=[

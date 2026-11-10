@@ -43,8 +43,12 @@ def extract(path, ocr_path=None):
         for page_no, page in enumerate(reader.pages, 1):
             value = page.extract_text() or ""
             if not value.strip():
-                issue("no_text", "No extractable text; OCR or source inspection required before planning",
-                      "blocking", page=page_no)
+                content=page.get_contents()
+                if (content is None or not content.get_data().strip()) and not page.get('/Annots'):
+                    issue('blank_page','Empty page content stream and no annotations; confirm blank page in rendered source',page=page_no)
+                else:
+                    issue("no_text", "No extractable text; OCR or source inspection required before planning",
+                          "blocking", page=page_no)
             else:
                 rows.extend(text_rows(value, {"page": page_no}))
             issue("pdf_layout", "Review rendering for reading order, tables, equations, figures and drawing notes",

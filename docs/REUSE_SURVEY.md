@@ -339,3 +339,9 @@ artifacts; no solver, sizing engine or dependency is added. Thin identity/requir
 checks retain failed candidates and changed inputs. Actual temperature comparison
 and an independently executed synthetic pair with stale-artifact control pass.
 Comparison does not select a design or resolve source applicability.
+
+Blank-page intake gap: reuse pinned pypdf content-stream/annotation inspection.
+No OCR/vision engine or dependency added. Only structurally empty unannotated pages
+become review issues; non-text graphics and wholly empty briefs remain blocked.
+Actual five-page coursework intake and 22 focused tests (one optional OCR skip)
+verify the distinction without inventing source passages.

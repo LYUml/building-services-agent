@@ -51,3 +51,11 @@ The existing synthetic AutoCAD output had no extractable text. Offline OCR recog
 Public real-brief intake: benchmarks/mit-4401-2018 now pins five official educational PDFs with separate attribution/CC-BY-NC-SA material notices, 21 preliminary obligation groups and classified facts/decisions/gaps. Existing document extraction/workflow_draft staged 41 interpretation tasks and 29 unacknowledged PDF layout/annotation reviews. Actual source-hash tampering and unreviewed execution controls reject. Only five selected pages have visual review; no models/simulation answers or completed independent designs are claimed. Reuses existing intake engines, no new dependency. See benchmark README and docs/evidence/document-intake/public-course-benchmark.json.
 
 Public course source QA: all 26 pages and annotation destinations were inspected, with 29 source-specific notes in benchmarks/mit-4401-2018/source-review.json. Reviewed-byte/issue/context-text guards permit only seven boilerplate context dispositions; 34 technical interpretation blockers remain. Actual unified CLI produces pending diagnosis and delivery-review without engineering acceptance; two source-loss controls pass. Pinned official archive inventory (305 files) contains matching five PDFs but no referenced GH/model/weather/workbook files; absence is limited to that archive. See archive-review.json and docs/evidence/document-intake/public-course-review.json.
+
+A PDF page with an absent/empty content stream and no annotations now produces
+a `blank_page` review issue rather than an OCR blocker. The page still requires
+a specific rendered-source review note. Nonempty streams with no extractable text
+remain blocking, including graphic/scan fixtures; a wholly textless document remains
+blocked. This narrow distinction uses pypdf content inspection, not a visual
+blankness classifier. Actual trailing blank-page intake validates only after visual
+review notes; 22 intake/draft/bundle tests run with21 passing and1 optional OCR skip.

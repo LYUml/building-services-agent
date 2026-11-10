@@ -33,10 +33,28 @@ def pdf_fixture(path, texts):
             stream=DecodedStreamObject()
             stream.set_data(f'BT /F1 12 Tf 50 700 Td ({text}) Tj ET'.encode('ascii'))
             page[NameObject('/Contents')]=writer._add_object(stream)
+        else:
+            # Non-text graphic fixture: unlike a genuinely empty content stream.
+            stream=DecodedStreamObject();stream.set_data(b'0 0 100 100 re f')
+            page[NameObject('/Contents')]=writer._add_object(stream)
     writer.write(path)
 
 
 class DocumentTests(unittest.TestCase):
+    def test_true_trailing_blank_still_needs_visual_review(self):
+        from pypdf import PdfReader,PdfWriter
+        with tempfile.TemporaryDirectory() as folder:
+            source=Path(folder)/'text.pdf';pdf_fixture(source,['Source requirement'])
+            writer=PdfWriter();writer.append(PdfReader(source));writer.add_blank_page(width=600,height=800)
+            path=Path(folder)/'trailing.pdf';writer.write(path)
+            doc=extract(path)
+            self.assertTrue(any(i['code']=='blank_page' for i in doc['issues']))
+            self.assertFalse(any(i['severity']=='blocking' for i in doc['issues']))
+            with self.assertRaises(ProjectError):check_review(doc,{})
+            check_review(doc,{i['id']:'Inspected synthetic page render: trailing page blank' for i in doc['issues']})
+            writer=PdfWriter();writer.add_blank_page(width=600,height=800);empty=Path(folder)/'empty.pdf';writer.write(empty)
+            self.assertEqual(extract(empty)['coverage_status'],'blocked')
+
     def test_nested_textbox_requirements_keep_independent_locators(self):
         with tempfile.TemporaryDirectory() as folder:
             path=Path(folder)/'brief.docx'
