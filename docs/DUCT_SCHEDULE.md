@@ -22,3 +22,17 @@ conversion, source hash, output protection, failed limits and invalid batches.
 Actual private execution recomputed 47 sections against explicit trial limits.
 No coursework or vendor data is redistributed. Unified workflow registration,
 network/geometry binding and complete engineering acceptance remain pending.
+
+## Unified execution
+
+Workflow kind `duct_schedule` takes `project` and optional `requires_pass`.
+The executor records the project, batch adapter and equivalent-round module
+as inputs. Exceeded criteria fail the task and block dependent tasks; passing
+section checks do not accept the full sizing or design requirement. Source
+changes invalidate saved run integrity.
+
+Actual private execution runs both terminal lookup and 47-section schedule
+from one plan, retaining eight pending work packages and all original passages.
+The combined 26-test terminal, duct and workflow suite passes, including
+failure dependency and changed-input controls. Network/geometry binding and
+complete assignment generation remain separate work.

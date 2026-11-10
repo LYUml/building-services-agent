@@ -43,7 +43,34 @@ class DuctScheduleTests(unittest.TestCase):
         self.data['sections'] *= 2
         with self.assertRaises(ValueError): self.execute()
         self.assertFalse((self.root/'out').exists())
+
         self.data['sections'] = self.data['sections'][:1]
         self.data['sections'][0]['limits']['friction_Pa_m'] = float('nan')
         with self.assertRaises(ValueError): self.execute()
         self.assertFalse((self.root/'out').exists())
+
+    def test_workflow_gates_and_source_integrity(self):
+        from bsa.workflow import execute, verify
+        from bsa.cli import digest
+        for fail in (False, True):
+            with self.subTest(fail=fail):
+                self.data['sections'][0]['limits']['actual_velocity_m_s'] = 2 if fail else 8
+                self.project.write_text(json.dumps(self.data), encoding='utf-8')
+                brief = self.root/'brief.md'
+                brief.write_text('Calculate duct sections and review acceptance.\n', encoding='utf-8')
+                plan = dict(version=1, brief='brief.md', brief_sha256=digest(brief),
+                            passage_dispositions={'P001':'requirement'},
+                            tasks=[dict(id='ducts', kind='duct_schedule', project='project.json'),
+                                   dict(id='review', kind='manual', requires_pass=['ducts'], description='Engineering acceptance pending')],
+                            requirements=[dict(id=id, passage='P001', quote='Calculate duct sections and review acceptance.', task=task, acceptance='Separate calculation and engineering review') for id,task in [('R1','ducts'),('R2','review')]])
+                path = self.root/'plan.json'
+                path.write_text(json.dumps(plan), encoding='utf-8')
+                out = self.root/('failed' if fail else 'passed')
+                result = execute(path, out)
+                self.assertEqual(result['tasks']['ducts']['status'], 'fail' if fail else 'pass')
+                self.assertEqual(result['tasks']['review']['status'], 'pending')
+                if fail: self.assertIn('ducts', result['tasks']['review']['scope'])
+                self.assertFalse(result['design_accepted'])
+                self.assertTrue(verify(out)['integrity_pass'])
+                self.project.write_text('{}', encoding='utf-8')
+                self.assertFalse(verify(out)['integrity_pass'])
