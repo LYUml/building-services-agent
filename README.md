@@ -41,6 +41,8 @@ For a repeatable source-bound sanitary example, see [Hong Kong drainage](docs/HK
 
 The [current WNTR runtime probe](docs/WATER_RUNTIME.md) distinguishes installed packages from usable native dependencies. Its observed import failure prevents fresh EPANET hydraulic results on this host; scoped fixture-demand calculations do not use that solver.
 
+The [2026-11-11 complete regression](docs/REGRESSION_20261111.md) finished988 test invocations with25 failures,17 errors and103 skips. Native startup failures and their downstream effects remain visible; the suite is not green. Subsequent targeted diagnostic checks do not replace a full rerun.
+
 ## Verification and delivery
 
 [Workflow verification](docs/WORKFLOWS.md) checks recorded sources/artifacts. [Delivery review](docs/DELIVERY_REVIEW.md) checks every requirement and retains missing evidence. Native DWG acceptance needs independent AutoCAD reopening and actual plotted-page inspection. A successful script or DXF is insufficient.

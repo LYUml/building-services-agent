@@ -1,0 +1,238 @@
+{
+  "date": "2026-11-11",
+  "command": ".venv/Scripts/python -X utf8 -m unittest discover -s tests -v",
+  "launch_revision": "8fb7b16",
+  "source_changes_during_run": "Only docs and isolated diagnostic script added; src/tests unchanged until completion",
+  "duration_seconds": 1441.319,
+  "tests_run": 988,
+  "passing_invocations": 843,
+  "failures": 25,
+  "errors": 17,
+  "skipped": 103,
+  "suite_pass": false,
+  "raw_log_sha256": "94715bf38bf588d957c2a2b68fd9aebcce50676a3011bbb621c80092b92d4356",
+  "issues": [
+    {
+      "test": "test_circulation_error_passes_mass_balance_but_fails_energy (test_epanet.WaterEngineTests.test_circulation_error_passes_mass_balance_but_fails_energy)",
+      "outcome": "ERROR",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_velocity_crosscheck_does_not_relax_physical_limit (test_epanet.WaterEngineTests.test_velocity_crosscheck_does_not_relax_physical_limit)",
+      "outcome": "ERROR",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_changed_native_controls_rejected (test_hvac_idf_rules.NativeHVACRuleTests.test_changed_native_controls_rejected)",
+      "outcome": "ERROR",
+      "category": "openstudio_import_block"
+    },
+    {
+      "test": "test_missing_zone_and_numeric_override_rejected (test_hvac_idf_rules.NativeHVACRuleTests.test_missing_zone_and_numeric_override_rejected)",
+      "outcome": "ERROR",
+      "category": "openstudio_import_block"
+    },
+    {
+      "test": "test_native_extrema_and_zone_coverage (test_hvac_idf_rules.NativeHVACRuleTests.test_native_extrema_and_zone_coverage)",
+      "outcome": "ERROR",
+      "category": "openstudio_import_block"
+    },
+    {
+      "test": "test_rule_failure_then_independent_native_revision (test_hvac_idf_rules.NativeHVACRuleTests.test_rule_failure_then_independent_native_revision)",
+      "outcome": "ERROR",
+      "category": "openstudio_import_block"
+    },
+    {
+      "test": "test_native_checks_and_changed_derived_geometry (test_ifc_circulation_checks.BoundCirculationChecks.test_native_checks_and_changed_derived_geometry)",
+      "outcome": "ERROR",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_source_preservation_native_rebind_and_wrong_screen (test_selected_pump_ifc.SelectedPumpIFCTests.test_source_preservation_native_rebind_and_wrong_screen)",
+      "outcome": "ERROR",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_changed_schedule_and_operating_override_rejected (test_sizing_humidity.SizingHumidityTests.test_changed_schedule_and_operating_override_rejected)",
+      "outcome": "ERROR",
+      "category": "openstudio_import_block"
+    },
+    {
+      "test": "test_invalid_percent_deadband_and_annual_use_rejected (test_sizing_humidity.SizingHumidityTests.test_invalid_percent_deadband_and_annual_use_rejected)",
+      "outcome": "ERROR",
+      "category": "openstudio_import_block"
+    },
+    {
+      "test": "test_native_method_tampering_rejected (test_sizing_humidity.SizingHumidityTests.test_native_method_tampering_rejected)",
+      "outcome": "ERROR",
+      "category": "openstudio_import_block"
+    },
+    {
+      "test": "test_saved_osm_and_idf_cover_all_zones (test_sizing_humidity.SizingHumidityTests.test_saved_osm_and_idf_cover_all_zones)",
+      "outcome": "ERROR",
+      "category": "openstudio_import_block"
+    },
+    {
+      "test": "test_stacked_saved_geometry (test_thermal_geometry.ThermalGeometryTests.test_stacked_saved_geometry)",
+      "outcome": "ERROR",
+      "category": "openstudio_import_block"
+    },
+    {
+      "test": "test_saved_layers_area_capacity_and_stacked_reverse_order (test_thermal_materials.ThermalMaterialTests.test_saved_layers_area_capacity_and_stacked_reverse_order)",
+      "outcome": "ERROR",
+      "category": "openstudio_import_block"
+    },
+    {
+      "test": "test_saved_property_order_and_source_tampering_rejected (test_thermal_materials.ThermalMaterialTests.test_saved_property_order_and_source_tampering_rejected)",
+      "outcome": "ERROR",
+      "category": "openstudio_import_block"
+    },
+    {
+      "test": "test_saved_four_faces_translated_vertices_and_net_opaque_area (test_thermal_windows.WindowInputTests.test_saved_four_faces_translated_vertices_and_net_opaque_area)",
+      "outcome": "ERROR",
+      "category": "openstudio_import_block"
+    },
+    {
+      "test": "test_saved_glazing_geometry_type_multiplier_and_source_tampering (test_thermal_windows.WindowInputTests.test_saved_glazing_geometry_type_multiplier_and_source_tampering)",
+      "outcome": "ERROR",
+      "category": "openstudio_import_block"
+    },
+    {
+      "test": "test_hydraulic_pass_does_not_release_overlapping_geometry (test_circulation_clash_gate.CirculationClashGateTests.test_hydraulic_pass_does_not_release_overlapping_geometry)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_actual_engine_pass_and_insufficient_duty (test_circulation_duty.ThermalDutyTests.test_actual_engine_pass_and_insufficient_duty)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_saved_geometry_circulation_and_missing_connection (test_circulation_ifc.CirculationIFCTests.test_saved_geometry_circulation_and_missing_connection)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_no_feasible_pump_preserves_rejections (test_circulation_pump_design.CirculationPumpDesignTests.test_no_feasible_pump_preserves_rejections)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_pass_and_integrity (tests.test_circulation_workflow.CirculationWorkflowTests.test_pass_and_integrity)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_official_bytes_recorded (test_circulation_rules_workflow.CombinedWorkflowTests.test_official_bytes_recorded)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_pass_and_integrity (test_circulation_rules_workflow.CombinedWorkflowTests.test_pass_and_integrity)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_regulatory_review_blocks_downstream (test_circulation_rules_workflow.CombinedWorkflowTests.test_regulatory_review_blocks_downstream)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_pass_and_integrity (test_circulation_workflow.CirculationWorkflowTests.test_pass_and_integrity)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_demand_driven_parallel_pipes_split_known_withdrawal (test_epanet.WaterEngineTests.test_demand_driven_parallel_pipes_split_known_withdrawal)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_native_laminar_loss_matches_independent_poiseuille_calculation (test_epanet.WaterEngineTests.test_native_laminar_loss_matches_independent_poiseuille_calculation)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_native_transition_loss_and_reversed_orientation (test_epanet.WaterEngineTests.test_native_transition_loss_and_reversed_orientation)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_native_zero_withdrawal_dead_end_has_no_singular_energy_check (test_epanet.WaterEngineTests.test_native_zero_withdrawal_dead_end_has_no_singular_energy_check)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_pressure_driven_shortfall_is_retained_as_failed_design (test_epanet.WaterEngineTests.test_pressure_driven_shortfall_is_retained_as_failed_design)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_real_loop_symmetry_reverse_flow_and_native_artifacts (test_epanet.WaterEngineTests.test_real_loop_symmetry_reverse_flow_and_native_artifacts)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_workflow_runs_and_integrity_detects_native_input_tamper (test_epanet.WaterEngineTests.test_workflow_runs_and_integrity_detects_native_input_tamper)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_saved_finite_elbow_length_loss_and_rejections (test_epanet_elbow_binding.FiniteElbowWaterTests.test_saved_finite_elbow_length_loss_and_rejections)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_actual_small_failure_large_pass_and_density (test_epanet_pipe_regulations.EPANETRuleTests.test_actual_small_failure_large_pass_and_density)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_actual_circulation_is_independent_of_reference_head_offset (test_hvac_circulation.CirculationTests.test_actual_circulation_is_independent_of_reference_head_offset)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_actual_variants_and_postrun_native_tampering (test_hvac_energy_rules.HVACWorkflowTests.test_actual_variants_and_postrun_native_tampering)",
+      "outcome": "FAIL",
+      "category": "energy_upstream_failure"
+    },
+    {
+      "test": "test_positive_and_thermal_failure (test_ifc_circulation_workflow.IFCWorkflowTests.test_positive_and_thermal_failure)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_selection_and_no_feasible_gate (test_pump_screen_workflow.PumpScreenWorkflowTests.test_selection_and_no_feasible_gate)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_inherited_screen_revision_ids_and_no_feasible_gate (test_selected_pump_workflow.SelectedPumpWorkflowTests.test_inherited_screen_revision_ids_and_no_feasible_gate)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_actual_workflow_and_direct_saved_ifc_input_keep_integrity (test_water_binding.SavedWaterBindingTests.test_actual_workflow_and_direct_saved_ifc_input_keep_integrity)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    },
+    {
+      "test": "test_real_profiles_chains_elevations_and_reverse_flow (test_water_binding.SavedWaterBindingTests.test_real_profiles_chains_elevations_and_reverse_flow)",
+      "outcome": "FAIL",
+      "category": "water_runtime_or_dependent_failure"
+    }
+  ],
+  "category_counts": {
+    "water_runtime_or_dependent_failure": 28,
+    "openstudio_import_block": 13,
+    "energy_upstream_failure": 1
+  },
+  "classification_limit": "Water failures are consistent with the reproduced WNTR import block; not every temporary worker traceback was retained. Other defects are not excluded.",
+  "later_diagnostic_checks": {
+    "tests_run": 12,
+    "passed": true,
+    "scope": "Failure classification, pure water inputs/network and inherited drainage workflow; not a full rerun"
+  },
+  "design_accepted": false
+}

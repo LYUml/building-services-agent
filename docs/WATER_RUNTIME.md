@@ -26,7 +26,9 @@ explicit_application_control_message=true and simulation_executed=false. A futur
 passing import still needs actual EPANET execution, numerical QA and all relevant
 domain/model/regulatory checks. No security setting, binary or loader is modified.
 
-The complete regression started alongside this investigation remains a separate
-running audit; this note does not claim a final test count or green suite.
+The complete regression finished with988 invocations,25 failures,17 errors and103
+skips; see REGRESSION_20261111.md for classification and limitations. The suite did
+not pass. The water adapter now records an explicit application_control_block
+category when the worker log contains that message, without emitting pipe results.
 Historical successful WNTR/EPANET results remain evidence of their original runs,
 not current-host availability. Existing failure/downstream gates must remain intact.

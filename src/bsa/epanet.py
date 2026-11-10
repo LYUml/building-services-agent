@@ -225,10 +225,18 @@ def run(project,out):
             process=subprocess.run([sys.executable,'-m','bsa.epanet','_worker',str(copied),'--out',str(out)],stdout=log,stderr=subprocess.STDOUT,timeout=p['solver']['max_runtime_s'])
             if process.returncode:raise ProjectError('EPANET worker failed; inspect worker.log and native INP/RPT artifacts')
             raw=json.loads((out/'raw.json').read_text());result.update(evaluate(p,raw),runtime={k:raw[k] for k in ('engine_version','library','library_sha256','versions','engine_codes','error_code','energy_analysis_performed','unused_engine_default_efficiency_percent')})
-        except (subprocess.TimeoutExpired,ProjectError,ValueError,KeyError,OSError) as exc:result['engine_error']=str(exc)
+        except (subprocess.TimeoutExpired,ProjectError,ValueError,KeyError,OSError) as exc:
+            result['engine_error']=str(exc)
+            result['engine_failure']=dict(kind='timeout' if isinstance(exc,subprocess.TimeoutExpired) else 'worker_or_result_error',
+                                          evidence='worker.log',hydraulic_result_available=False)
+    if 'engine_failure' in result:
+        worker_text=(out/'worker.log').read_text(encoding='utf-8',errors='replace')
+        if 'application control policy' in worker_text.lower():
+            result['engine_failure'].update(kind='application_control_block',
+                recovery='Use an approved runtime/deployment environment; changing pipe sizes cannot fix this startup failure')
     result.update(input_sha256=before,input_unchanged=digest(project)==before,source_data=p)
     if not result['input_unchanged']:raise ProjectError('source water input changed')
-    (out/'report.html').write_text('<!doctype html><meta charset="utf-8"><title>EPANET water graph</title><h1>EPANET water graph</h1><p>'+html.escape(result['scope'])+'</p><p>Static head m; not total pressure Pa. Pump power and default efficiency are not accepted design data.</p><pre>'+html.escape(json.dumps({k:result.get(k) for k in ('engine_error','checks','junctions','pipes','pumps')},indent=2))+'</pre><h2>Pending</h2><ul>'+''.join('<li>'+html.escape(v)+'</li>' for v in result['pending'])+'</ul>',encoding='utf-8')
+    (out/'report.html').write_text('<!doctype html><meta charset="utf-8"><title>EPANET water graph</title><h1>EPANET water graph</h1><p>'+html.escape(result['scope'])+'</p><p>Static head m; not total pressure Pa. Pump power and default efficiency are not accepted design data.</p><pre>'+html.escape(json.dumps({k:result.get(k) for k in ('engine_error','engine_failure','checks','junctions','pipes','pumps')},indent=2))+'</pre><h2>Pending</h2><ul>'+''.join('<li>'+html.escape(v)+'</li>' for v in result['pending'])+'</ul>',encoding='utf-8')
     result['artifacts']={p.name:digest(p) for p in out.iterdir() if p.is_file()}
     (out/'water.json').write_text(json.dumps(result,indent=2,allow_nan=False),encoding='utf-8');return result
 
