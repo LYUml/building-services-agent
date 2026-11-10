@@ -58,3 +58,18 @@ reconciled with the reopened DWG. This numerical replay is not a new native CAD
 write/reopen or new coordination review. Auto-regeneration, physical fittings,
 insulation, vertical constraints, fan duty and complete engineering acceptance remain
 pending. The broad scope string retains separate source/physical topology checks.
+
+## Interpreting source criteria
+
+Keep a recommended pressure-gradient band distinct from a mandatory minimum or
+maximum. When a brief calls for limiting friction, record the chosen upper cap and
+its source; do not reject a larger, lower-friction duct merely because it falls below
+a recommendation unless the actual project imposes that minimum. Retain maximum
+velocity and aspect-ratio preferences separately from regulation claims.
+
+Source-chart density and roughness may establish the chart-comparison basis, but
+they do not establish actual operating air properties or fabricated surface quality.
+Viscosity, temperature and dimension-grid/manufacturer availability still need their
+own assumptions/evidence. Actual private source-backed replay after retrieval of the
+classroom chart and criteria retains identical results for all 47 sections; numerical
+correspondence does not clear installed geometry, ADPI or full engineering acceptance.
