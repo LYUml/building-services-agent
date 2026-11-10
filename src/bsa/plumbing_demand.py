@@ -2,6 +2,30 @@
 import math
 
 
+def discharge_units(rows,*,frequency_factor,basis):
+    """Evaluate only the supplied K*sqrt(sum DU) wastewater relation."""
+    if type(frequency_factor) not in (int,float) or not math.isfinite(frequency_factor) or frequency_factor<=0:
+        raise ValueError('Explicit positive finite frequency factor required')
+    if not isinstance(basis,str) or not basis.strip():raise ValueError('Source, connected scope and usage basis required')
+    if not isinstance(rows,list) or not rows:raise ValueError('Nonempty connected fixture inventory required')
+    seen=set();products=[]
+    for row in rows:
+        if set(row)!={'id','count','DU_per_fixture','source','classification'}:raise ValueError('Exact fixture identity/count/DU/source/classification required')
+        name=row['id'];count=row['count'];du=row['DU_per_fixture']
+        if not isinstance(name,str) or not name.strip() or name in seen:raise ValueError('Unique nonempty fixture-group identities required')
+        seen.add(name)
+        if type(count) is not int or not 1<=count<=10**9:raise ValueError('Positive integer connected fixture count required')
+        if type(du) not in (int,float) or not math.isfinite(du) or du<=0:raise ValueError('Positive finite source DU required')
+        if not isinstance(row['source'],str) or not row['source'].strip() or row['classification'] not in ('given','assumed','secondary_transcription'):
+            raise ValueError('Explicit DU source and classification required')
+        products.append(count*du)
+    try:total=math.fsum(products);flow=frequency_factor*math.sqrt(total)
+    except (OverflowError,ValueError):raise ValueError('Discharge sum outside numeric range')
+    if not math.isfinite(total) or not math.isfinite(flow):raise ValueError('Discharge result outside numeric range')
+    return dict(fixtures=rows,frequency_factor=frequency_factor,total_DU=total,wastewater_flow_L_s=flow,basis=basis,
+        design_accepted=False,scope='Supplied DU/frequency wastewater relation only; connected scope, fixture/source applicability, continuous/pumped discharges, pipe/stack/vent capacity and local codes not established')
+
+
 def identical(*,count,operating_probability,fixture_flow_L_s,exceedance_probability,basis):
     if type(count) is not int or not 1<=count<=10**9:raise ValueError('Integer appliance count in1..1e9 required')
     for name,v in [('operating probability',operating_probability),('exceedance probability',exceedance_probability)]:

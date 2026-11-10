@@ -375,3 +375,9 @@ classification conventions, adding no engine or dependency. Actual pinned course
 example, unknown-model no-calculation branch and mutated-source rejection execute.
 CLI help and four numerical tests pass; project applicability/real surveys remain
 unverified. See PLUMBING_DEMAND.md.
+
+Drainage DU arithmetic gap: reuse standard math.fsum/sqrt alongside existing demand
+contracts; the actual classroom source provides the selected relation. No solver,
+fixture table or pipe-capacity engine is rebuilt. Actual source-example arithmetic
+and five probability/DU tests pass. Connected fixtures and frequency factor stay
+explicit; complete drainage demand and statutory applicability remain pending.

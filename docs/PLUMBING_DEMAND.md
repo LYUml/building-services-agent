@@ -40,3 +40,19 @@ Actual source-pinned classroom example produces4 appliances; unknown independenc
 produces no flow and changed reference hashes reject. Four probability tests pass.
 This command does not verify the truth of declared facts and is not yet registered
 in the multi-task workflow or connected to a real home-survey design.
+
+## Supplied discharge-unit relation
+
+`bsa.plumbing_demand.discharge_units(rows, frequency_factor=..., basis=...)`
+computes only K*sqrt(sumDU). Each connected fixture group supplies a unique id,
+positive integer count, DU_per_fixture, source and classification. The factor and
+connection/use basis are explicit; no fixture table, system type or floor multiplier
+is inferred. Scope excludes continuous/pumped discharge additions, largest-outlet
+minimum criteria, stack/vent capacity and jurisdiction acceptance. Those must be
+resolved before using the wastewater relation as complete drainage design demand.
+
+The actual private lecture example is reproduced: ten connected floors in an
+eleven-storey block give78DU and4.41588L/s; ground-floor fixtures are explicitly
+separate. Five probability/discharge tests pass, including aggregation, duplicate
+identity, unknown factor and invalid-count controls. No hydraulic engine or new
+dependency is introduced; this is thin sourced arithmetic using Python math.
