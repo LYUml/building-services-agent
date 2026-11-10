@@ -99,6 +99,44 @@ def run(drawing,allocation,project,binding,output,*,layers):
     return result
 
 
+def from_workflow(plan,directory,native_task,output,*,layers):
+    """Resolve a complete native -> sheet -> schedule -> allocation ancestry."""
+    from .workflow import verify,local_path
+    plan,directory,output=(Path(p).resolve() for p in (plan,directory,output))
+    if output==directory or directory in output.parents or output in directory.parents:
+        raise ValueError('Review output must be outside immutable workflow')
+    if not verify(directory)['integrity_pass']:
+        raise ValueError('Workflow source or artifact evidence changed')
+    manifest=directory/'workflow.json'
+    workflow=json.loads(manifest.read_text(encoding='utf-8'))
+    if workflow['inputs'].get(str(plan))!=digest(plan):
+        raise ValueError('Plan does not belong to this workflow')
+    tasks={t['id']:t for t in json.loads(plan.read_text(encoding='utf-8'))['tasks']}
+    lineage=[];name=native_task
+    for kind in ('duct_sheet_native','duct_sheet','duct_schedule','air_allocation'):
+        task=tasks.get(name,{})
+        recorded=workflow['tasks'].get(name,{})
+        if task.get('kind')!=kind or recorded.get('kind')!=kind or recorded.get('status')!='pass':
+            raise ValueError('Passing native/sheet/schedule/allocation ancestry required')
+        lineage.append((name,task));name=task.get('depends_on')
+    native,sheet,schedule,allocation=lineage
+    project=local_path(plan.parent,schedule[1]['project'])
+    schedule_file=directory/schedule[0]/'results.json'
+    saved=json.loads(schedule_file.read_text(encoding='utf-8'))
+    if saved['input_sha256']!=digest(project):
+        raise ValueError('Schedule project correspondence changed')
+    before=digest(manifest)
+    result=run(directory/native[0]/'reopened/source-export.dxf',directory/allocation[0]/'allocation.json',
+               project,local_path(plan.parent,sheet[1]['binding']),output,layers=layers)
+    if digest(manifest)!=before or not verify(directory)['integrity_pass']:
+        raise ValueError('Workflow changed during terminal review')
+    result.update(workflow_sha256=before,plan_sha256=digest(plan),schedule_sha256=digest(schedule_file),
+                  lineage=[name for name,_ in lineage],workflow_integrity_pass=True,
+                  generator_sha256=digest(Path(__file__)))
+    output.write_text(json.dumps(result,indent=2),encoding='utf-8')
+    return result
+
+
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('drawing','allocation','project','binding'):p.add_argument(name)
