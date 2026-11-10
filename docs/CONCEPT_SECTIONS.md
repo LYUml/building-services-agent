@@ -31,3 +31,18 @@ All eight final pages were rendered with Poppler and viewed. Level/Z/cut/scale l
 Nine targeted tests ran: eight passed and one existing optional native test was skipped by its environment gate. Actual eight-sheet native AutoCAD execution was separately completed, so the skip does not stand in for native evidence. An existing IfcOpenShell destructor cleanup warning appeared without test failure. AutoCAD PDF output also emitted duplicate PageMode metadata warnings; the actual pages rendered and scale checks passed, with no archival/PDF-A claim. The broader repository suite is not asserted green.
 
 This module is currently standalone, not yet a registered inherited workflow drawing task. design_accepted stays false; full program/MEP, product/architectural completeness, site orientation, professional analysis, Hong Kong coverage and whole-assignment acceptance remain pending. The old completed electrical project was not used or modified.
+
+
+## Unified inherited section delivery
+
+Workflow kind concept_section now accepts depends_on pointing to an earlier concept_facade and a drawing basis, with optional requires_pass/description. Original project/layout/thickness and the exact newly generated IFC are inherited; replacement geometry or runtime fields in the plan reject. Cut/text/scale and source-storey limits validate before execution. Native AutoCAD is supplied only by the explicit --autocad flag. Missing runtime leaves pending without a drawing folder; DXF-only or a false native reopen result cannot release this task. Producer artifact pins are checked before/after consumers, and the explicit executable is recorded in runtime_inputs without weakening exact source-plan matching.
+
+Run the complete partial public pipeline with:
+
+```powershell
+.venv/Scripts/python scripts/run_public_massing.py --out runs/new-public-native-sections --source-cache runs/public-brief-intake-v1/sources --apply-work-plan --honeybee-python tools/honeybee-scene-runtime/Scripts/python.exe --autocad "C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe"
+```
+
+Actual runs/public-section-workflow-v1 passes sixteen scoped context/geometry/facade/scene/drawing tasks and retains fourteen unmet engineering packages. The three section tasks cover all eight storeys; exact inherited IFC hashes, native reopen/export and fixed-scale checks pass. All eight new PDFs were rendered and their PNG bytes match the previously viewed final sheets exactly, preserving that scoped visual review; the new PDF/DWG hashes are separately recorded. No room-program, MEP, performance or whole-assignment acceptance was inferred from this result.
+
+Nineteen targeted tests pass (section workflow, geometry/audit, CLI and baseline workflow). Controls cover missing AutoCAD, upstream invalid geometry, replacement/wrong-parent/invalid-basis rejection and a deliberately false native reopen result. The latter is a mocked negative control, not native execution evidence; actual positive AutoCAD delivery is independently evidenced above. See evidence/document-intake/native-section-workflow.json. This supersedes the earlier standalone-only registration limitation; full design_accepted remains false.

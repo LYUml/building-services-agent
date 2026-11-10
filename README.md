@@ -208,3 +208,5 @@ The [Honeybee scene bridge](docs/HONEYBEE_SCENE.md) now runs inside the source-i
 [Candidate climate context](docs/CLIMATE_CONTEXT.md) now adds source-reconciled monthly EPW statistics and explicit-year solar paths through pinned Ladybug in the unified public workflow. Thirteen scoped tasks pass, fourteen engineering packages remain pending, and no project-site/shading or building-performance acceptance is claimed.
 
 [Native concept section sheets](docs/CONCEPT_SECTIONS.md) now derive actual saved facade cuts into editable CAD. Eight public-concept floor sheets have independently audited/reopened AutoCAD DWGs and inspected fixed-scale PDFs. They remain unapproved concept geometry with no completed room program or MEP, and are currently a standalone adapter.
+
+The [native concept section adapter](docs/CONCEPT_SECTIONS.md) is now in the unified pipeline: the public benchmark command produces all eight scoped native floor-section sheets, with sixteen execution passes and fourteen unmet engineering packages. This is still not a completed assignment.

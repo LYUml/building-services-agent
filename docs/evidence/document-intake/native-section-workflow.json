@@ -1,0 +1,136 @@
+{
+  "run": "runs/public-section-workflow-v1",
+  "summary": {
+    "concept_tasks": {
+      "climate-context": "pass",
+      "concept-compact": "pass",
+      "concept-slender": "pass",
+      "concept-stacked": "pass",
+      "facade-compact": "pass",
+      "facade-view-compact": "pass",
+      "scene-compact": "pass",
+      "facade-slender": "pass",
+      "facade-view-slender": "pass",
+      "scene-slender": "pass",
+      "facade-stacked": "pass",
+      "facade-view-stacked": "pass",
+      "scene-stacked": "pass",
+      "section-compact": "pass",
+      "section-slender": "pass",
+      "section-stacked": "pass"
+    },
+    "design_accepted": false,
+    "scope": "Reviewed source-complete work decomposition with partial concept execution; unmet engineering/delivery packages retained",
+    "pending_work_packages": 14
+  },
+  "integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "plot_review": {
+    "pages": [
+      {
+        "variant": "compact",
+        "storey": "Level1",
+        "render_sha256": "9f72fef46573aa9e2f7da1c9ed14b0338a30c6b68a5e230e3a035868e4a72966",
+        "matches_reviewed_image": true,
+        "preview": "runs\\public-section-workflow-v1\\workflow\\section-compact\\Level1\\native\\pdf-review\\page.png",
+        "pdf_sha256": "b3842806a7a885d400fcc60626e95b1d49432b4c10f3ef5a8cae0ee0d20c9cc6",
+        "dwg_sha256": "36e8f157502ef648e16f35e011586ef111187586407a88114f99e9fe717f3e1e"
+      },
+      {
+        "variant": "compact",
+        "storey": "Level2",
+        "render_sha256": "40170624bb53be1e4f1edceb63c20687909602e7212b519df0f9b1ed463e2fbd",
+        "matches_reviewed_image": true,
+        "preview": "runs\\public-section-workflow-v1\\workflow\\section-compact\\Level2\\native\\pdf-review\\page.png",
+        "pdf_sha256": "2c6241913e8a5eb3259b8b790b31c8341d4b25d1c01962450ccf97458ed869d2",
+        "dwg_sha256": "43210680ff0d0d2cbf03257fb4ffa39843ac12ed6abd0c7ba794db211c1a758c"
+      },
+      {
+        "variant": "slender",
+        "storey": "Level1",
+        "render_sha256": "94f3dbaf610a8f7b98a64b5c43307de4d09eb3cdf5a85c9fb3a63695fb470bf7",
+        "matches_reviewed_image": true,
+        "preview": "runs\\public-section-workflow-v1\\workflow\\section-slender\\Level1\\native\\pdf-review\\page.png",
+        "pdf_sha256": "3ca90363dee2faf91bb7a2b3ee14a0ccef39cd3eca29ddfadd558742c22f8444",
+        "dwg_sha256": "bdb1f62d8e9f5c4aa3ffe6425f22f5fe10cce85fba0fba59e8be991a1390c63e"
+      },
+      {
+        "variant": "slender",
+        "storey": "Level2",
+        "render_sha256": "ae94a11cd907991fcdd8059b4b02b711dc5ff356bbf60cf6552ac6bf058b5156",
+        "matches_reviewed_image": true,
+        "preview": "runs\\public-section-workflow-v1\\workflow\\section-slender\\Level2\\native\\pdf-review\\page.png",
+        "pdf_sha256": "155ad93cfde601611cad57f8b58fe4029aa1f43d8c39cfc14564867e964950a8",
+        "dwg_sha256": "4aeb763ff24a517a609eeb58d02cc70f259ce68c4c7278e7f4d9c8a69bd60c9d"
+      },
+      {
+        "variant": "stacked",
+        "storey": "Level1",
+        "render_sha256": "3902ac26e3171ece7a141c5582474a1d71f8ce47b3b276763bb9e3485d7df8d4",
+        "matches_reviewed_image": true,
+        "preview": "runs\\public-section-workflow-v1\\workflow\\section-stacked\\Level1\\native\\pdf-review\\page.png",
+        "pdf_sha256": "d86d8ac6c5dc113643922286e1f32d333b1011347d8f7343be50529bf1024bcb",
+        "dwg_sha256": "ee8fee448a8db89c7f75c636887e7428574f794d0cae0cc6148969affbccbfb4"
+      },
+      {
+        "variant": "stacked",
+        "storey": "Level2",
+        "render_sha256": "499d35f8ac4d35f41e0a106548ff14030ac1e16a059b010f218cdb3984d138aa",
+        "matches_reviewed_image": true,
+        "preview": "runs\\public-section-workflow-v1\\workflow\\section-stacked\\Level2\\native\\pdf-review\\page.png",
+        "pdf_sha256": "9b03092618439fb993440119b20244a4bddd6f076308ba33d652902c8c88c8a9",
+        "dwg_sha256": "48e83710da786097272e03f4dfd20b90213751570e9adf7b6c41414ba67e4211"
+      },
+      {
+        "variant": "stacked",
+        "storey": "Level3",
+        "render_sha256": "724f12b23818ca150ce328c6c647519728b7be3180d66b3ff159bb7a6202b742",
+        "matches_reviewed_image": true,
+        "preview": "runs\\public-section-workflow-v1\\workflow\\section-stacked\\Level3\\native\\pdf-review\\page.png",
+        "pdf_sha256": "7468799b6e0fc8f89426c4c85cab0273ab351f46a03ae415abccbbe7ad836288",
+        "dwg_sha256": "d6ece524512608ae2f91d5c59b3bac1146c28b6d6d9cbc075a9eff6e479da198"
+      },
+      {
+        "variant": "stacked",
+        "storey": "Level4",
+        "render_sha256": "6487a0b488be0d010957dae071074c8d610d8be31b2c42632290fa81b7f0a948",
+        "matches_reviewed_image": true,
+        "preview": "runs\\public-section-workflow-v1\\workflow\\section-stacked\\Level4\\native\\pdf-review\\page.png",
+        "pdf_sha256": "e0e3bb643ac631946ada34877dbe8e2a98b71f65680261035314980ef09fc2d5",
+        "dwg_sha256": "ebcd9309efa1ecd136367bdca6c4419a0d1f1849714d99a72f72510a5b08e35e"
+      }
+    ],
+    "all_match_previously_reviewed": true,
+    "design_accepted": false
+  },
+  "source_bindings": {
+    "compact": {
+      "native_facade_sha256": "711f331d2f57b47fb1728496fdfb38452f0a52b4275ba86b88c2e8dfda1d3d7a",
+      "section_source_sha256": "711f331d2f57b47fb1728496fdfb38452f0a52b4275ba86b88c2e8dfda1d3d7a",
+      "storey_count": 2,
+      "native_reopen_pass": true
+    },
+    "slender": {
+      "native_facade_sha256": "b58a120960cdea4f077c0c650657671d06a83a26d179ff5d9e809f408694bc66",
+      "section_source_sha256": "b58a120960cdea4f077c0c650657671d06a83a26d179ff5d9e809f408694bc66",
+      "storey_count": 2,
+      "native_reopen_pass": true
+    },
+    "stacked": {
+      "native_facade_sha256": "d6585f98b0d20ed82d7c97f470609e86955dc73f625da321f0479e57f37eec19",
+      "section_source_sha256": "d6585f98b0d20ed82d7c97f470609e86955dc73f625da321f0479e57f37eec19",
+      "storey_count": 4,
+      "native_reopen_pass": true
+    }
+  },
+  "tests": {
+    "count": 19,
+    "passed": true,
+    "seconds": 11.254
+  },
+  "design_accepted": false
+}

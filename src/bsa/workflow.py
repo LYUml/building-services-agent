@@ -301,7 +301,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","rectangular_network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind in ("water_network","rectangular_network") and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
@@ -666,6 +666,15 @@ def validate_plan(path):
             else:
                 diagram_source=local_path(root,t.get('dxf'));inputs.add(diagram_source)
                 if diagram_source.suffix.lower()!='.dxf':raise ProjectError('native diagram source must be DXF')
+        if kind=='concept_section':
+            from . import concept_section,concept_facade,concept_layout,ifc_native,cad_sheet,route_drawing_qa,cad_overlay
+            if set(t)-{'id','kind','depends_on','basis','requires_pass','description'}:raise ProjectError('concept section inherits exact facade/source/layout; replacement/runtime fields forbidden')
+            parent=t.get('depends_on')
+            if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='concept_facade':raise ProjectError('concept section requires earlier native concept facade')
+            facade_task=next(x for x in tasks if x['id']==parent);producer=next(x for x in tasks if x['id']==facade_task['depends_on'])
+            basis=local_path(root,t.get('basis'));inputs.add(basis);concept_section.validate_basis(read_json(basis),read_json(local_path(root,producer['project'])))
+            inputs.update(Path(m.__file__).resolve() for m in (concept_section,concept_facade,concept_layout,ifc_native,cad_sheet,route_drawing_qa,cad_overlay))
+            inputs.add(Path(__file__).resolve().parents[2]/'pyproject.toml')
         if kind=='climate_context':
             from . import climate_context,annual_energy
             if set(t)-{'id','kind','weather','basis','requires_pass','description'}:raise ProjectError('candidate climate context requires exact weather/basis; runtime/geometry fields forbidden')
@@ -837,6 +846,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
     plan,out=plan.resolve(),out.resolve()
     p,inputs=validate_plan(plan);inputs.add(plan)
     runtime_inputs={str(Path(honeybee_python).resolve()):digest(Path(honeybee_python).resolve())} if honeybee_python else {}
+    if autocad and any(t['kind']=='concept_section' for t in p['tasks']):runtime_inputs[str(Path(autocad).resolve())]=digest(Path(autocad).resolve())
     if any(out==f or out in f.parents for f in inputs):raise ProjectError("run output must not contain inputs")
     before={str(f):digest(f) for f in inputs}
     out.mkdir(parents=True,exist_ok=False)
@@ -847,7 +857,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
         status="pending";reason="";payload=None
         try:
             if any(not Path(f).is_file() or digest(Path(f))!=sha for pins in concept_pins.values() for f,sha in pins.items()):raise ProjectError('concept producer artifacts changed before downstream execution')
-            if any(not Path(f).is_file() or digest(Path(f))!=sha for f,sha in runtime_inputs.items()):raise ProjectError('explicit Honeybee runtime changed during workflow')
+            if any(not Path(f).is_file() or digest(Path(f))!=sha for f,sha in runtime_inputs.items()):raise ProjectError('explicit analysis/CAD runtime changed during workflow')
             if any(not f.is_file() or digest(f)!=before[str(f)] for f in inputs):
                 raise ProjectError('workflow source changed before task execution; adapter not executed')
             for parent in [t.get('depends_on'),*t.get('requires_pass',[])]:
@@ -1350,6 +1360,16 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     payload=run(local_path(root,t["project"]),folder,energyplus)
                     status="pass";reason="design-day engine execution; no annual energy or physical HVAC routing asserted"
                 else:reason="EnergyPlus executable not supplied"
+            elif t['kind']=='concept_section':
+                parent=t['depends_on']
+                if tasks[parent]['status']!='pass':reason='upstream native facade did not pass; section drawing not executed'
+                elif not autocad:reason='AutoCAD executable not supplied; native section drawing not executed'
+                else:
+                    from .concept_section import run as sections
+                    facade_task=next(x for x in p['tasks'] if x['id']==parent);producer=next(x for x in p['tasks'] if x['id']==facade_task['depends_on'])
+                    payload=sections(out/parent/'facade.ifc',local_path(root,producer['project']),local_path(root,producer['concept_layout']),local_path(root,facade_task['basis']),local_path(root,t['basis']),folder,autocad)
+                    status='pass' if payload['native_reopen_pass'] else 'fail'
+                    reason='Saved native facade sections, independent saved/native-export audit and reopened DWG/fixed-scale PDF only; actual plot review and full architectural/MEP acceptance remain separate'
             elif t['kind']=='climate_context':
                 if not honeybee_python:reason='isolated Ladybug/Honeybee Python runtime not supplied; climate context not executed'
                 else:

@@ -35,7 +35,7 @@ def run(out):
     result=dict(decisions_sha256=before,variants=results,design_accepted=False,scope='Native storey/space concept volumes only; no site, facade/window geometry, net usable area, thermal boundary or performance proof')
     (out/'concepts.json').write_text(json.dumps(result,indent=2),encoding='utf-8');return result
 
-def run_workflow(out,source_cache,apply_work_plan=False,honeybee_python=None):
+def run_workflow(out,source_cache,apply_work_plan=False,honeybee_python=None,autocad=None):
     import runpy
     import subprocess
     import sys
@@ -68,6 +68,12 @@ def run_workflow(out,source_cache,apply_work_plan=False,honeybee_python=None):
             sid='scene-'+label
             tasks.append(dict(id=sid,kind='honeybee_scene',depends_on=fid,basis='scene-basis.json'))
             plan['requirements'].append(dict(id=sid,passage=passage['id'],quote=passage['text'],task=sid,acceptance='Partial native-source optical scene and sensor-grid conversion only; complete annual daylight work remains pending'))
+    if autocad:
+        drawing_passage=next(r for r in plan_documents(out,plan)['passages'] if r['id']=='P003')
+        for variant in data['variants']:
+            label=variant['id'];basis=out/(label+'-section.json');basis.write_bytes((ROOT/'benchmarks/mit-4401-2018/section-decisions'/(label+'.json')).read_bytes())
+            sid='section-'+label;tasks.append(dict(id=sid,kind='concept_section',depends_on='facade-'+label,basis=basis.name))
+            plan['requirements'].append(dict(id=sid,passage=drawing_passage['id'],quote=drawing_passage['text'],task=sid,acceptance='All-storey concept material sections and verified native CAD only; complete room program/MEP/site direction and full drawing acceptance remain pending'))
     if honeybee_python:
         (out/'climate-weather.epw.gz').write_bytes((ROOT/'examples/annual-energy/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw.gz').read_bytes())
         (out/'climate-basis.json').write_bytes((ROOT/'benchmarks/mit-4401-2018/climate-decisions.json').read_bytes())
@@ -80,6 +86,7 @@ def run_workflow(out,source_cache,apply_work_plan=False,honeybee_python=None):
         apply(path,review)
     command=[sys.executable,'-m','bsa.cli','workflow',str(path),'--out',str(out/'workflow')]
     if honeybee_python:command+=['--honeybee-python',str(Path(honeybee_python).resolve())]
+    if autocad:command+=['--autocad',str(Path(autocad).resolve())]
     worker=subprocess.run(command,capture_output=True,text=True)
     (out/'worker.log').write_text(worker.stdout+worker.stderr,encoding='utf-8')
     if worker.returncode!=2 or not (out/'workflow/diagnosis.json').is_file():raise ValueError('expected partial concept workflow with retained interpretation blockers')
@@ -96,4 +103,7 @@ if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--out',type=Path,required=True);p.add_argument('--source-cache',type=Path,help='Stage reviewed public-brief workflow using this pinned source cache')
     p.add_argument('--apply-work-plan',action='store_true',help='Apply exact-source reviewed work decomposition; all unmet engineering work remains pending')
     p.add_argument('--honeybee-python',type=Path,help='Explicit isolated runtime; enables source-inherited scene conversion tasks, not annual solving')
-    args=p.parse_args();r=run_workflow(args.out,args.source_cache,args.apply_work_plan,args.honeybee_python) if args.source_cache else run(args.out);print(json.dumps(r))
+    p.add_argument('--autocad',type=Path,help='Explicit native runtime; enables all-storey concept section drawings')
+    args=p.parse_args()
+    if (args.apply_work_plan or args.honeybee_python or args.autocad) and not args.source_cache:p.error('workflow flags require --source-cache')
+    r=run_workflow(args.out,args.source_cache,args.apply_work_plan,args.honeybee_python,args.autocad) if args.source_cache else run(args.out);print(json.dumps(r))

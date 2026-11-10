@@ -88,6 +88,14 @@ def audit(path,rows,space,level,basis):
     return dict(entity_count=sum(actual.values()),saved_geometry_notes_identity_pass=True,model_space_visibility_pass=True,design_accepted=False)
 
 
+def validate_basis(b,source=None):
+    if set(b)!={'source','cut_height_above_storey_m','annotation_height_m','scale_denominator'} or not isinstance(b['source'],str) or not b['source'].strip() or any(type(b[k]) not in (int,float) or not math.isfinite(b[k]) or b[k]<=0 for k in ('cut_height_above_storey_m','annotation_height_m','scale_denominator')):raise ProjectError('explicit sourced cut/annotation/scale required')
+    if source is not None:
+        if any(not re.fullmatch(r'[A-Za-z][A-Za-z0-9_-]{0,63}',r['id']) for r in source['storeys']):raise ProjectError('path-safe ASCII storey identifiers required for section sheets')
+        if any(b['cut_height_above_storey_m']>=r['height_m'] for r in source['storeys']):raise ProjectError('cut must be strictly inside each storey')
+    return b
+
+
 def run(ifc,project,layout,facade_basis,drawing_basis,out,autocad=None):
     import ifcopenshell
     import ezdxf
@@ -95,9 +103,7 @@ def run(ifc,project,layout,facade_basis,drawing_basis,out,autocad=None):
     ifc,project,layout,facade_basis,drawing_basis,out=map(lambda p:Path(p).resolve(),(ifc,project,layout,facade_basis,drawing_basis,out))
     pins={str(p):digest(p) for p in (ifc,project,layout,facade_basis,drawing_basis)}
     source=json.loads(project.read_text(encoding='utf-8-sig'));l=layout_settings(json.loads(layout.read_text(encoding='utf-8-sig')));f=facade_settings(json.loads(facade_basis.read_text(encoding='utf-8-sig')));b=json.loads(drawing_basis.read_text(encoding='utf-8-sig'))
-    if set(b)!={'source','cut_height_above_storey_m','annotation_height_m','scale_denominator'} or not isinstance(b['source'],str) or not b['source'].strip() or any(type(b[k]) not in (int,float) or not math.isfinite(b[k]) or b[k]<=0 for k in ('cut_height_above_storey_m','annotation_height_m','scale_denominator')):raise ProjectError('explicit sourced cut/annotation/scale required')
-    if any(not re.fullmatch(r'[A-Za-z][A-Za-z0-9_-]{0,63}',r['id']) for r in source['storeys']):raise ProjectError('path-safe ASCII storey identifiers required for section sheets')
-    if any(b['cut_height_above_storey_m']>=r['height_m'] for r in source['storeys']):raise ProjectError('cut must be strictly inside each storey')
+    validate_basis(b,source)
     h=geometry_handoff(ifc,source,l['window_wall_ratio']);model=ifcopenshell.open(str(ifc));inspect(model,source,h,f)
     represented=[o for o in model.by_type('IfcElement') if o.Representation]
     if any(o.is_a() not in ('IfcWall','IfcWindow','IfcOpeningElement') for o in represented):raise ProjectError('complete facade-only represented context required')
