@@ -301,7 +301,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","rectangular_network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind in ("water_network","rectangular_network") and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
@@ -423,6 +423,18 @@ def validate_plan(path):
             if type(tolerance) not in (int,float) or not math.isfinite(tolerance) or tolerance<=0:
                 raise ProjectError('Revit check requires a positive finite tolerance in metres')
             inputs.update(local_path(root,t.get(k)) for k in ('inventory','model'))
+        if kind=='drainage_stack_demand':
+            from . import drainage_stack_demand,plumbing_demand,plumbing_demand_study
+            if set(t)-{'id','kind','depends_on','basis','requires_pass','description'}:
+                raise ProjectError('Stack demand inherits connection inventory; replacement project forbidden')
+            parent=t.get('depends_on')
+            if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='drainage_connections':
+                raise ProjectError('Stack demand requires an earlier drainage_connections producer')
+            basis=local_path(root,t.get('basis'))
+            for path in plumbing_demand_study.pinned_references(basis,read_json(basis)):
+                if not Path(path).is_relative_to(root):raise ProjectError('Stack demand references must stay within plan root')
+                inputs.add(Path(path))
+            inputs.update(Path(m.__file__).resolve() for m in (drainage_stack_demand,plumbing_demand,plumbing_demand_study))
         if kind=='drainage_connections':
             from . import drainage_connections,drainage_scope,plumbing_demand_study
             if set(t)-{'id','kind','project','requires_pass','description'}:
@@ -940,7 +952,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
     if any(out==f or out in f.parents for f in inputs):raise ProjectError("run output must not contain inputs")
     before={str(f):digest(f) for f in inputs}
     out.mkdir(parents=True,exist_ok=False)
-    evidence={};tasks={};three_phase_pins={};three_phase_rule_pins={};rectangular_pins={};concept_pins={};allocation_pins={};duct_schedule_pins={};duct_sheet_pins={}
+    evidence={};tasks={};drainage_connection_pins={};three_phase_pins={};three_phase_rule_pins={};rectangular_pins={};concept_pins={};allocation_pins={};duct_schedule_pins={};duct_sheet_pins={}
     root=plan.parent
     for t in p["tasks"]:
         folder=out/t["id"]
@@ -1064,6 +1076,21 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 from .drainage_connections import run
                 payload=run(local_path(root,t['project']),folder/'connections.json')
                 status=payload['status'];reason=payload['scope']
+                drainage_connection_pins[t['id']]=digest(folder/'connections.json')
+            elif t['kind']=='drainage_stack_demand':
+                from .drainage_stack_demand import run
+                parent=t['depends_on']
+                if tasks[parent]['status']!='pass':
+                    reason='upstream connection review '+parent+' did not pass; stack demand not executed'
+                else:
+                    original=next(x for x in p['tasks'] if x['id']==parent)
+                    artifact=out/parent/'connections.json'
+                    if digest(artifact)!=drainage_connection_pins[parent]:raise ProjectError('Connection producer artifact changed')
+                    payload=run(local_path(root,original['project']),local_path(root,t['basis']),folder)
+                    if digest(artifact)!=drainage_connection_pins[parent] or read_json(artifact)!=read_json(folder/'connections.json'):
+                        raise ProjectError('Fresh connection review differs from inherited producer')
+                    status={'calculated':'pass','pending':'pending','fail':'fail'}[payload['status']]
+                    reason=payload['scope']
             elif t['kind'] in ('plumbing_demand','discharge_demand'):
                 from . import plumbing_demand_study,discharge_demand_study
                 adapter=plumbing_demand_study if t['kind']=='plumbing_demand' else discharge_demand_study

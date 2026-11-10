@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Stack DU now inherits the exact earlier drainage connection project in unified workflows, rejects replacement inventories and requires a fresh review to match the recorded producer. Twenty-two related tests and official-source-bound synthetic six-task execution verify scoped calculation, pending upper-route facts and upstream blocking. CAD/IFC correspondence, real surveys and full sanitary sizing remain pending. See HK_DRAINAGE.md.
+
 Standalone drainage stack demand now binds exact individual connection IDs to existing DU arithmetic, excludes declared direct-manhole pipes from this stack total and retains unknown/full-inventory gaps. Twenty-one related tests and official-source-bound synthetic calculated/pending/fail runs pass their expected software checks. This is not a saved-model check, complete building demand or full sanitary design; inherited workflow registration remains pending. See HK_DRAINAGE.md.
 
 Declared drainage connection checks now run as source-pinned workflow tasks with pass/fail/pending and downstream requires_pass gates. Sixteen related tests cover blocked downstream computation and stale sources; an official-PDF-bound synthetic three-case workflow also verifies integrity. Actual survey evidence, same-inventory DU/CAD/IFC correspondence and complete drainage acceptance remain pending. See HK_DRAINAGE.md.

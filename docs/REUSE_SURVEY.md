@@ -423,3 +423,10 @@ prevent a replacement aggregate count; explicit full-stack completeness remains
 required separately from the restricted-floor survey. Five added tests and actual
 official-source-bound synthetic calculated/pending/fail cases execute. Inherited
 workflow registration, model geometry and full drainage sizing remain pending.
+
+Inherited stack-demand workflow now reuses the existing connection producer,
+standalone binding and workflow dependency/integrity machinery. No engine or
+dependency is added. Twenty-two related tests and official-source-bound synthetic
+six-task execution verify fresh-review correspondence, blocked/unknown inventory
+and rejected replacements. CAD/IFC correspondence and full sanitary sizing remain
+unimplemented rather than being inferred from a source-facts pass.
