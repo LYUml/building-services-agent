@@ -648,3 +648,9 @@ network/friction engine or alternate geometry is rebuilt. Physical fitting trims
 local losses and fan/boundary data are not inferred. Actual47-section/20-outlet
 execution and source mutation/shared-branch controls run. No new dependency or
 upstream implementation is copied. See DUCT_SYSTEM_PATHS.md.
+
+HVAC packaging now calls the existing duct_system_paths postprocessor after the
+new saved-native workflow;it does not recreate its graph/friction or source
+checks. Package-level controls verify exact source handoff,omission,stage failure
+and later source mutation without native/PDF mocks being treated as engineering
+evidence. No new engine/dependency is added. See HVAC_PACKAGE.md.

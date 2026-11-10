@@ -1,5 +1,14 @@
 # Scope and acceptance
 
+The HVAC single-invocation wrapper now optionally runs whole-source-tree review
+after its new saved-native workflow. Actual seven-stage preparation completes
+without stage errors and preserves nine unresolved tasks. Fresh native save/
+reopen/plot,22 report pages,388 checked numerical rows and the exact47-section/
+20-outlet source handoff are verified;all report pages and the plot match bound
+reviewed baseline images. Package index and new stage scope are inspected. Five
+targeted package/path controls pass. Complete pressure,physical source acceptance
+and the full multi-discipline agent goal remain unfinished. See HVAC_PACKAGE.md.
+
 Whole source-tree path studies now replay selected equivalent-round friction and
 saved-native centreline correspondence across47 actual sections,48 nodes and20
 original VAV outlets. All34 original requirement records remain pending. The

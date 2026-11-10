@@ -12,11 +12,13 @@ from .workflow_status import diagnose
 from .delivery import template
 
 
-def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,plan_clearance=None,junction_review_native_task=None):
+def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,plan_clearance=None,junction_review_native_task=None,system_paths_native_task=None):
     plan,output,font=map(lambda p:Path(p).resolve(),(plan,output,font))
     validated,inputs=validate_plan(plan)
     if junction_review_native_task is not None and (not isinstance(junction_review_native_task,str) or not any(t['id']==junction_review_native_task and t['kind']=='duct_sheet_native' for t in validated['tasks'])):
         raise ValueError('Junction review must select a declared native sheet task')
+    if system_paths_native_task is not None and (not isinstance(system_paths_native_task,str) or not any(t['id']==system_paths_native_task and t['kind']=='duct_sheet_native' for t in validated['tasks'])):
+        raise ValueError('System path review must select a declared native sheet task')
     protected=set(inputs)|{plan,font}
     clearance_pin=None
     if plan_clearance is not None:
@@ -55,6 +57,11 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
     (output/'diagnosis.json').write_text(json.dumps(diagnosis,indent=2),encoding='utf-8')
     template(plan,output/'workflow',output/'delivery-review.json')
     stages={};errors={}
+    if system_paths_native_task is not None:
+        try:
+            from .duct_system_paths import run as system_paths
+            stages['system_paths']=system_paths(plan,output/'workflow',system_paths_native_task,output/'system-paths')
+        except (ValueError,OSError,KeyError,ImportError) as exc:errors['system_paths']=str(exc)
     if junction_review_native_task is not None:
         try:
             from .duct_junction_review import from_workflow as junction_review
@@ -87,6 +94,8 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
             stages['report_pdf']=render(output/'report',output/'report-pdf',font)
         except (ValueError,OSError,KeyError,ImportError) as exc:errors['report_pdf']=str(exc)
     if not verify(output/'workflow')['integrity_pass']:raise ValueError('Workflow changed during packaging')
+    if 'system_paths' in stages and any(digest(Path(p))!=sha for p,sha in stages['system_paths']['inputs'].items()):
+        raise ValueError('System path source or method changed during packaging')
     if any(digest(Path(p))!=sha for p,sha in adpi_pins.items()):raise ValueError('ADPI settings/source changed during packaging')
     if terminal_review is not None and digest(terminal_review)!=review_pin:
         raise ValueError('Terminal review settings changed during packaging')
@@ -100,6 +109,7 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
     result['terminal_review_configuration']=None if terminal_review is None else dict(path=str(terminal_review),sha256=review_pin,settings=review_settings)
     result['adpi_configuration_inputs']=adpi_pins
     result['junction_review_native_task']=junction_review_native_task
+    result['system_paths_native_task']=system_paths_native_task
     result['plan_clearance_configuration']=None if plan_clearance is None else dict(path=str(plan_clearance),sha256=clearance_pin)
     links=[('Workflow evidence','workflow/index.html'),('Dependency diagnosis','diagnosis.json'),('Pending delivery review','delivery-review.json')]
     if 'report' in stages:links.append(('Report HTML','report/HVAC System Design.html'))
@@ -108,6 +118,7 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
     if 'adpi_review' in stages:links.append(('ADPI applicability and ratio screening','adpi-review.json'))
     if 'plan_clearance' in stages:links.append(('Nominal-width planar obstacle review','plan-clearance.json'))
     if 'junction_review' in stages:links.append(('Source-bound connection requirements','junction-review.json'))
+    if 'system_paths' in stages:links.append(('Whole source-tree nominal centreline study','system-paths/index.html'))
     for name,t in workflow['tasks'].items():
         if t['kind']=='duct_sheet_native' and t['status']=='pass':
             links.extend([(name+' DWG',f'workflow/{name}/Supply Air Distribution.dwg'),(name+' PDF',f'workflow/{name}/Supply Air Distribution.pdf')])
@@ -124,6 +135,9 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
         page+='<h2>Connection requirements</h2><p>Plan centreline and nominal sizes only. Physical fittings and engineering acceptance remain pending.</p><table><tr><th>Requirement</th><th>Nodes</th></tr>'
         page+=''.join('<tr><td>'+html.escape(kind.replace('_',' '))+'</td><td>'+str(count)+'</td></tr>' for kind,count in sorted(review['counts'].items()))+'</table>'
         page+='<p>Missing design inputs: '+html.escape('; '.join(review['missing_design_inputs']))+'</p>'
+    if 'system_paths' in stages:
+        review=stages['system_paths']
+        page+='<h2>Whole original supply tree</h2><p>'+str(review['section_count'])+' source sections and '+str(review['outlet_path_count'])+' original outlet paths checked. Nominal untrimmed centreline friction only;physical straight lengths,fitting/terminal/equipment losses,full pressure and fan duty remain pending. Downstream routes are not inferred.</p>'
     page+='<h2>Unresolved execution tasks</h2><table><tr><th>Task</th><th>Status</th><th>Scope</th></tr>'+''.join('<tr>'+''.join('<td>'+html.escape(str(t[k]))+'</td>' for k in ('id','status','scope'))+'</tr>' for t in pending)+'</table>'
     if errors:page+='<h2>Preparation and review errors</h2><pre>'+html.escape(json.dumps(errors,indent=2))+'</pre>'
     (output/'index.html').write_text(page+'</html>',encoding='utf-8')
@@ -137,6 +151,7 @@ if __name__=='__main__':
     p.add_argument('--adpi-settings',help='Source-pinned criterion and applicability settings')
     p.add_argument('--plan-clearance',help='Inherited native-sheet obstacle/coverage settings')
     p.add_argument('--junction-review-native-task',help='Native sheet task whose exact sizing/tree ancestry supplies connection requirements')
-    a=p.parse_args();r=run(a.plan,a.out,font=a.font,autocad=Path(a.autocad) if a.autocad else None,terminal_review=a.terminal_review,adpi_settings=a.adpi_settings,plan_clearance=a.plan_clearance,junction_review_native_task=a.junction_review_native_task)
+    p.add_argument('--system-paths-native-task',help='Native sheet task whose completed source tree supplies nominal centreline path studies')
+    a=p.parse_args();r=run(a.plan,a.out,font=a.font,autocad=Path(a.autocad) if a.autocad else None,terminal_review=a.terminal_review,adpi_settings=a.adpi_settings,plan_clearance=a.plan_clearance,junction_review_native_task=a.junction_review_native_task,system_paths_native_task=a.system_paths_native_task)
     print(r['status'],len(r['unresolved_tasks']),'unresolved tasks; design acceptance pending')
     raise SystemExit(2)

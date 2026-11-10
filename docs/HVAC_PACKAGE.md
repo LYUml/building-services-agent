@@ -1,5 +1,28 @@
 # HVAC drawing and report package
 
+Optional `--system-paths-native-task native-sheet` now runs the existing
+whole-source-tree postprocessor after workflow completion in the same invocation.
+It inherits the exact new native-sheet/schedule/source ancestry and adds
+system-paths/index.html,system-paths.json and its saved-native junction review.
+The package index links the study and records its section/outlet counts. Invalid
+task selection rejects before output creation;stage failures remain in
+stage_errors and make the package incomplete. The source/method pins are rechecked
+after later report/PDF stages. Omitting the option is recorded as null,not passed.
+Nominal untrimmed centreline estimates do not accept physical straight lengths,
+fitting/equipment/terminal losses,full pressure,fan duty or the original assignment.
+See DUCT_SYSTEM_PATHS.md.
+
+Actual seven-stage execution with this option produced a fresh AutoCAD-saved/
+independently reopened drawing,its plot and a22-page numerical report. Stage
+errors are empty;nine original unresolved tasks and all34 requirement records
+remain. The new study binds the exact new workflow and covers47 source sections,
+48 nodes and20 original VAV leaf paths. The report renderer checked388 numerical
+rows. All22 rendered report pages at1200px and the native plot at2400px are
+pixel-identical to hash-verified previously reviewed renders;actual first/last
+pages,the plot and the new package index were inspected again. Five targeted
+package/source-path controls pass;mocked controls are not native execution
+evidence. Aggregate evidence is in evidence/hvac-package-system-paths.json.
+
 Actual execution of the six-stage junction-review option retains nine unresolved
 tasks and full acceptance pending. The47-section saved native layout identifies
 15 unequal tees,ten bends,two multi-branch nodes and20 terminal boundaries. All

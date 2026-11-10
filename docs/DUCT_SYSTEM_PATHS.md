@@ -42,6 +42,9 @@ are retained,without claiming that the interpreted plan omitted no brief content
 CLI exit2 and pending status reflect incomplete pressure/design acceptance.
 The host agent can call this postprocessor after an existing saved native
 workflow;it is not registered as a task that consumes an unfinished workflow.
+For single-invocation preparation,add --system-paths-native-task with the declared
+native sheet ID to bsa.hvac_package. It runs this study after completing its new
+workflow,and retains pending scope,errors,artifact hashes and an index link.
 
 Actual private execution covers47 source sections,48 nodes and20 paths to the
 original VAV leaf nodes,with all34 original requirement records retained. The

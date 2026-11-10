@@ -20,6 +20,13 @@ Iterate design using computed results. Use ../mep-delivery-check/SKILL.md before
 
 ## Tool orchestration
 
+For a reviewed single-source HVAC package that needs whole-tree path coverage,
+pass --system-paths-native-task with the exact declared duct_sheet_native task ID
+to bsa.hvac_package. It executes the new native workflow first,then runs the
+source-bound nominal path postprocessor and includes its report/errors in the
+package. Read docs/HVAC_PACKAGE.md. Omitted checks are not passed;review failures
+remain explicit. The stage retains full pressure/fan/physical acceptance pending.
+
 After a completed passing native-sheet workflow,use bsa.duct_system_paths with
 the exact source plan,workflow,native task and a new output directory to inspect
 the entire original supply tree. Read docs/DUCT_SYSTEM_PATHS.md. Preserve every

@@ -1,0 +1,32 @@
+{
+  "scope": "Single-invocation HVAC preparation with optional whole-source-tree study;full pressure and acceptance pending",
+  "targeted_test_methods_passed": 5,
+  "package_controls": [
+    "exact new workflow handoff",
+    "invalid native selection rejects before output",
+    "omitted check is null,not passed",
+    "stage failure retained as incomplete package",
+    "source mutation during later report blocks final package"
+  ],
+  "actual_private_execution": {
+    "stage_count": 7,
+    "stage_errors": {},
+    "unresolved_tasks": 9,
+    "system_section_count": 47,
+    "system_node_count": 48,
+    "system_outlet_path_count": 20,
+    "original_requirement_count": 34,
+    "source_handoff_to_exact_new_workflow": true,
+    "workflow_and_package_artifact_integrity_pass": true,
+    "system_source_method_pins_unchanged": true,
+    "native_saved_reopened_and_plot_reviewed": true,
+    "report_pages": 22,
+    "numerical_rows_checked": 388,
+    "all_report_pages_pixel_identical_to_verified_reviewed_baseline": true,
+    "native_plot_pixel_identical_to_verified_reviewed_baseline": true,
+    "package_index_visually_reviewed": true,
+    "complete_pressure_available": false
+  },
+  "generator_sha256": "c39ce2fb7f075c3f4cd38d69a058a5fc420acedfd17b8fe4d511e9e2dd09e7dd",
+  "design_accepted": false
+}
