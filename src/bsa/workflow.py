@@ -301,7 +301,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","rectangular_network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind in ("water_network","rectangular_network") and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
@@ -437,6 +437,18 @@ def validate_plan(path):
                 raise ProjectError('allocation boundary source hash mismatch')
             inputs.update((project,boundary))
             inputs.update(Path(m.__file__).resolve() for m in (air_allocation,air_load,service_areas))
+        if kind=='duct_sheet_native':
+            from . import duct_sheet_native,cad_sheet,cad_intake,native_cad
+            if set(t)-{'id','kind','depends_on','settings','requires_pass','description'}:
+                raise ProjectError('native duct sheet inherits drawing; replacement/runtime fields forbidden')
+            parent=t.get('depends_on')
+            if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='duct_sheet':
+                raise ProjectError('native duct sheet requires an earlier prepared duct sheet')
+            settings=local_path(root,t.get('settings'))
+            if set(read_json(settings))!={'layers','sheet'}:
+                raise ProjectError('inherited native settings exclude drawing hash override')
+            inputs.add(settings)
+            inputs.update(Path(m.__file__).resolve() for m in (duct_sheet_native,cad_sheet,cad_intake,native_cad))
         if kind=='duct_sheet':
             from . import duct_sheet,cad_intake
             if set(t)-{'id','kind','depends_on','drawing','binding','requires_pass','description'}:
@@ -901,11 +913,11 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
     plan,out=plan.resolve(),out.resolve()
     p,inputs=validate_plan(plan);inputs.add(plan)
     runtime_inputs={str(Path(honeybee_python).resolve()):digest(Path(honeybee_python).resolve())} if honeybee_python else {}
-    if autocad and any(t['kind']=='concept_section' for t in p['tasks']):runtime_inputs[str(Path(autocad).resolve())]=digest(Path(autocad).resolve())
+    if autocad and any(t['kind'] in ('concept_section','duct_sheet_native') for t in p['tasks']):runtime_inputs[str(Path(autocad).resolve())]=digest(Path(autocad).resolve())
     if any(out==f or out in f.parents for f in inputs):raise ProjectError("run output must not contain inputs")
     before={str(f):digest(f) for f in inputs}
     out.mkdir(parents=True,exist_ok=False)
-    evidence={};tasks={};three_phase_pins={};three_phase_rule_pins={};rectangular_pins={};concept_pins={};allocation_pins={};duct_schedule_pins={}
+    evidence={};tasks={};three_phase_pins={};three_phase_rule_pins={};rectangular_pins={};concept_pins={};allocation_pins={};duct_schedule_pins={};duct_sheet_pins={}
     root=plan.parent
     for t in p["tasks"]:
         folder=out/t["id"]
@@ -1049,6 +1061,16 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     payload=run(local_path(root,t['drawing']),out/parent/'results.json',local_path(root,t['binding']),folder,
                         inherited_schedule_sha256=duct_schedule_pins[parent])
                     status='pass';reason=payload['scope']+'; DXF preparation only, native reopening and actual plot review remain pending'
+                    duct_sheet_pins[t['id']]=digest(folder/'Supply Air Distribution.dxf')
+            elif t['kind']=='duct_sheet_native':
+                from .duct_sheet_native import run
+                parent=t['depends_on']
+                if tasks[parent]['status']!='pass':reason='upstream duct sheet '+parent+' did not pass; native adapter not executed'
+                elif not autocad:reason='AutoCAD runtime not supplied; native adapter not executed'
+                else:
+                    payload=run(out/parent/'Supply Air Distribution.dxf',local_path(root,t['settings']),folder,autocad,
+                        inherited_source_sha256=duct_sheet_pins[parent])
+                    status='pass';reason=payload['scope']+'; actual plot visual and complete engineering acceptance remain pending'
             elif t['kind']=='terminal_throw':
                 from .terminal_throw import run
                 parent=t.get('depends_on')

@@ -182,3 +182,5 @@ concept_section inherits an earlier concept_facade and accepts only drawing basi
 `air_allocation` takes a source-bound project and emits classified load/terminal flows. `terminal_throw` may inherit it via `depends_on`; omit replacement flow and turndown from the lookup project. Exact terminal identity and saved producer hash are enforced. See AIR_ALLOCATION.md. Numerical pass leaves ADPI, sources and full design acceptance pending.
 
 `duct_sheet` inherits an earlier duct_schedule and takes drawing/binding (without a replacement schedule hash). It pins the fresh calculation artifact and prepares a saved DXF only. Failed sizing blocks preparation; mutation/replacement rejects. Native reopening and actual PDF review remain separate pending gates. See DUCT_SHEET.md.
+
+`duct_sheet_native` inherits a duct_sheet producer and takes settings (layers/sheet only). Pass --autocad explicitly; producer DXF and runtime are pinned. Native correspondence and PDF reference can pass while actual visual/full design acceptance remains pending. See DUCT_SHEET.md.

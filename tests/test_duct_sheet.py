@@ -38,10 +38,26 @@ class DuctSheetTests(unittest.TestCase):
    project=root/'duct.json';project.write_text(json.dumps(duct))
    brief=root/'brief.md';brief.write_text('Size ducts and update drawing.\n')
    plan=dict(version=1,brief='brief.md',brief_sha256=digest(brief),passage_dispositions={'P001':'requirement'},tasks=[dict(id='duct',kind='duct_schedule',project='duct.json'),dict(id='sheet',kind='duct_sheet',depends_on='duct',drawing='source.dxf',binding='binding.json')],requirements=[dict(id='R'+str(i),passage='P001',quote='Size ducts and update drawing.',task=t,acceptance='Scoped execution only; full acceptance pending') for i,t in enumerate(('duct','sheet'))])
+   (root/'native.json').write_text(json.dumps(dict(layers=['0'],sheet={})))
+   plan['tasks'].append(dict(id='native',kind='duct_sheet_native',depends_on='sheet',settings='native.json'))
+   plan['requirements'].append(dict(plan['requirements'][0],id='RN',task='native'))
    path=root/'plan.json';path.write_text(json.dumps(plan))
    r=execute(path,root/'pass');self.assertEqual(r['tasks']['sheet']['status'],'pass');self.assertFalse(r['design_accepted'])
    sheet=json.loads((root/'pass/sheet/drawing-update.json').read_text());self.assertFalse(sheet['native_reopen_pass'])
    self.assertIn(str(root/'pass/duct/results.json'),sheet['inputs']);self.assertTrue(verify(root/'pass')['integrity_pass'])
+   self.assertEqual(r['tasks']['native']['status'],'pending')
+   self.assertIn('AutoCAD runtime not supplied',r['tasks']['native']['scope'])
+   self.assertFalse((root/'pass/native').exists())
+   from bsa.duct_sheet_native import run as native_run
+   fake_exe=root/'fake.exe';fake_exe.write_bytes(b'Runtime pin test only; never executed')
+   def changed_native(*args,**kwargs):
+    Path(args[0]).write_text('changed')
+    return native_run(*args,**kwargs)
+   with patch('bsa.duct_sheet_native.run',side_effect=changed_native):
+    native_result=execute(path,root/'native-tamper',autocad=fake_exe)
+   self.assertEqual(native_result['tasks']['native']['status'],'fail')
+   self.assertIn('producer changed',native_result['tasks']['native']['scope'])
+   self.assertFalse((root/'native-tamper/native').exists())
    original=run
    def tamper(*args,**kwargs):
     Path(args[1]).write_text('{}')
@@ -52,5 +68,6 @@ class DuctSheetTests(unittest.TestCase):
    duct['sections'][0]['limits']['actual_velocity_m_s']=.1;project.write_text(json.dumps(duct))
    r=execute(path,root/'failed');self.assertEqual(r['tasks']['duct']['status'],'fail');self.assertEqual(r['tasks']['sheet']['status'],'pending')
    self.assertFalse((root/'failed/sheet').exists())
+   self.assertEqual(r['tasks']['native']['status'],'pending')
    spec['schedule_sha256']='replacement';binding.write_text(json.dumps(spec))
    with self.assertRaisesRegex(ProjectError,'override'):validate_plan(path)

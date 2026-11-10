@@ -72,3 +72,21 @@ tolerance. The generated PDF was rendered and inspected with corrected D-22 plac
 and no page clipping. AutoCAD's duplicate PDF PageMode warning remains; no PDF-standard
 conformity is claimed. 55 HVAC tests and two existing CAD-sheet tests pass. Native
 workflow registration, final titleblock and full engineering acceptance remain pending.
+
+
+## Unified native workflow
+
+`duct_sheet_native` now inherits an earlier `duct_sheet` through `depends_on`, and
+takes `settings` containing only `layers` and `sheet`. Omit the source hash: the
+executor pins the exact newly generated DXF. Source/runtime replacement fields reject.
+Supply AutoCAD using the existing workflow `--autocad` argument; its executable is
+included in runtime integrity. Missing runtime or failed preparation leaves pending
+without native output. Mutated producer bytes fail before native commands execute.
+
+Actual private full-brief execution passes all five stages (allocation, terminal
+lookup, sizing, DXF preparation, native save/reopen/plot), retaining nine pending
+regulatory/engineering work packages. The freshly rendered A1 PDF was visually
+inspected and review evidence saved outside the immutable run. 55 focused tests pass,
+including missing-runtime, failed-upstream and changed-DXF controls. Machine-native
+pass is not visual/full design acceptance. Report regeneration, source/ADPI/geometry,
+full rule applicability and final deliverables remain unresolved.

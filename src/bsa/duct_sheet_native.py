@@ -39,13 +39,17 @@ def compare(source, reopened, layers):
         generated_native_correspondence=True)
 
 
-def run(source,settings,output,exe):
+def run(source,settings,output,exe,*,inherited_source_sha256=None):
     source,settings,output,exe=map(lambda p:Path(p).resolve(),(source,settings,output,exe))
     if output.exists() or any(output==p or output in p.parents for p in (source,settings,exe)):
         raise ValueError('New isolated output required')
     if source.suffix.lower()!='.dxf' or not exe.is_file():raise ValueError('Prepared DXF and explicit AutoCAD executable required')
     pins={str(p):digest(p) for p in (source,settings,exe)}
     spec=json.loads(settings.read_text(encoding='utf-8-sig'))
+    if inherited_source_sha256 is not None:
+        if 'source_sha256' in spec:raise ValueError('Inherited drawing hash cannot be overridden')
+        if pins[str(source)]!=inherited_source_sha256:raise ValueError('Inherited drawing producer changed')
+        spec['source_sha256']=inherited_source_sha256
     if set(spec)!={'source_sha256','layers','sheet'} or spec['source_sha256']!=pins[str(source)]:
         raise ValueError('Exact source hash, layers and sheet settings required')
     compare(source,source,spec['layers'])
