@@ -1,4 +1,4 @@
-"""Explicit-scale A4 model-window plotting with independent PDF line measurement."""
+"""Explicit-scale A4/A1 model-window plotting with independent PDF line measurement."""
 import json
 import math
 from pathlib import Path
@@ -12,7 +12,7 @@ def pdf_lines(path):
     from pypdf import PdfReader
     from pypdf.generic import ContentStream
     reader=PdfReader(path)
-    if len(reader.pages)!=1:raise ProjectError('single A4 sheet expected')
+    if len(reader.pages)!=1:raise ProjectError('single sheet expected')
     page=reader.pages[0]
     if page.get('/Rotate',0) or page.get('/UserUnit',1)!=1:raise ProjectError('unsupported PDF page rotation/unit')
     matrix=[1.,0.,0.,1.,0.,0.];stack=[];paths=[];lines=[];current=None;start=None
@@ -48,9 +48,14 @@ def plot(dwg,dxf,settings,output,exe):
     import ezdxf
     dwg,dxf,output=[Path(p).resolve() for p in (dwg,dxf,output)]
     if output.exists():raise ProjectError('refusing to overwrite PDF')
-    if not isinstance(settings,dict) or set(settings)!={'source','window_drawing_units','scale_denominator','reference_handle','pdf_tolerance_mm'}:
+    if not isinstance(settings,dict) or set(settings)-{'paper','source','window_drawing_units','scale_denominator','reference_handle','pdf_tolerance_mm'} or not {'source','window_drawing_units','scale_denominator','reference_handle','pdf_tolerance_mm'}<=set(settings):
         raise ProjectError('explicit sourced window, scale and PDF reference required')
     if not isinstance(settings['source'],str) or not settings['source'].strip():raise ProjectError('sheet source required')
+    paper_name=settings.get('paper','A4')
+    papers={'A4':(297,210,'ISO full bleed A4 (297.00 x 210.00 MM)'),
+            'A1':(841,594,'ISO full bleed A1 (841.00 x 594.00 MM)')}
+    if not isinstance(paper_name,str) or paper_name not in papers:raise ProjectError('Supported A4 or A1 paper required')
+    paper_width,paper_height,media=papers[paper_name]
     window=settings['window_drawing_units'];den=settings['scale_denominator'];tol=settings['pdf_tolerance_mm']
     if not isinstance(window,list) or len(window)!=4 or any(type(v) not in (int,float) or not math.isfinite(v) for v in window+[den,tol]):
         raise ProjectError('finite plot parameters required')
@@ -58,7 +63,7 @@ def plot(dwg,dxf,settings,output,exe):
     doc=ezdxf.readfile(dxf);unit=METRES_PER_UNIT.get(int(doc.header['$INSUNITS']))
     if unit is None:raise ProjectError('known drawing units required')
     width=(window[2]-window[0])*unit*1000/den;height=(window[3]-window[1])*unit*1000/den
-    if width>297 or height>210:raise ProjectError('requested fixed-scale window exceeds A4 landscape')
+    if width>paper_width or height>paper_height:raise ProjectError('requested fixed-scale window exceeds selected landscape paper')
     ref=doc.entitydb.get(settings['reference_handle'])
     if ref is None or ref.dxftype()!='LINE':raise ProjectError('existing LINE reference required for PDF verification')
     if abs(ref.dxf.start.z-ref.dxf.end.z)>1e-9:raise ProjectError('PDF reference must be horizontal in WCS XY plane')
@@ -66,7 +71,7 @@ def plot(dwg,dxf,settings,output,exe):
     for pt in (ref.dxf.start,ref.dxf.end):
         if not window[0]<=pt.x<=window[2] or not window[1]<=pt.y<=window[3]:raise ProjectError('reference lies outside plot window')
     condition=f'(= (strcase (vl-string-translate (chr 92) "/" (strcat (getvar "DWGPREFIX") (getvar "DWGNAME")))) (strcase {lisp_string(dwg)}))'
-    args=['_.-PLOT','_Y','Model','DWG To PDF.pc3','ISO full bleed A4 (297.00 x 210.00 MM)','_M','_L','_N','_W',
+    args=['_.-PLOT','_Y','Model','DWG To PDF.pc3',media,'_M','_L','_N','_W',
           f'{window[0]},{window[1]}',f'{window[2]},{window[3]}',f'1={den*.001/unit:.12g}','_C','_Y','monochrome.ctb','_Y','_A',str(output),'_N','_Y']
     command='(command '+' '.join(lisp_string(v) for v in args)+')'
     script=output.with_suffix('.scr')
@@ -75,7 +80,7 @@ def plot(dwg,dxf,settings,output,exe):
     if not output.is_file():raise ProjectError('fixed-scale PDF missing')
     if digest(dwg)!=before:raise ProjectError('plot changed DWG source')
     paper,lines=pdf_lines(output)
-    if any(abs(v-e)>.2 for v,e in zip(paper,[297,210])):raise ProjectError('PDF page size does not match A4 landscape')
+    if any(abs(v-e)>.2 for v,e in zip(paper,[paper_width,paper_height])):raise ProjectError('PDF page size does not match selected landscape paper')
     def expected(pt):return [(paper[0]-width)/2+(pt.x-window[0])*unit*1000/den,(paper[1]-height)/2+(pt.y-window[1])*unit*1000/den]
     a,b=expected(ref.dxf.start),expected(ref.dxf.end)
     matches=[(x,y) for x,y in lines if min(max(math.dist(a,x),math.dist(b,y)),max(math.dist(a,y),math.dist(b,x)))<=tol]

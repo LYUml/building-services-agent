@@ -48,3 +48,27 @@ four scoped stages pass, while nine regulatory/engineering work packages stay pe
 The saved modelspace exactly matches the corrected, previously reviewed single-line
 candidate. That match does not substitute for fresh native/plot acceptance of this run.
 Unified native save/reopen/plot orchestration remains incomplete.
+
+
+## Repeatable native adapter
+
+`python -m bsa.duct_sheet_native prepared.dxf settings.json --out runs/new-native --autocad <accoreconsole.exe>`
+copies the prepared source into a new directory, guards active paths before writes,
+saves DWG, independently reopens through cad_intake, compares explicitly named layers,
+and plots through cad_sheet. Settings contain exactly `source_sha256`, `layers` and
+`sheet`. The sheet uses the existing sourced window/scale/reference-handle/tolerance
+contract plus optional `paper` (`A4` default or `A1`). Runtime/source/settings hashes
+and unchanged copied DXF are checked. It never attaches to the user's GUI session.
+
+Supported reviewed entities are LINE/TEXT/CIRCLE/LWPOLYLINE. Comparison uses ordered
+effective attributes and polyline vertices; it does not claim nested base-building,
+XDATA or arbitrary block semantic fidelity. Unknown types or changed attributes fail.
+The saved PDF reference is independently measured; actual visual review stays pending
+in the machine result and is recorded separately after viewing the rendered artifact.
+
+Actual private adapter execution reopens 624 generated entities and produces A1 at
+1:100; the 10 m reference measures 99.991333 mm against expected 100 mm, inside 0.2 mm
+tolerance. The generated PDF was rendered and inspected with corrected D-22 placement
+and no page clipping. AutoCAD's duplicate PDF PageMode warning remains; no PDF-standard
+conformity is claimed. 55 HVAC tests and two existing CAD-sheet tests pass. Native
+workflow registration, final titleblock and full engineering acceptance remain pending.
