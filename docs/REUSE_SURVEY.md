@@ -492,3 +492,11 @@ through-bore topology and filled-envelope negative control pass for a synthetic
 centred section-plane-offset model. Constant sheet-normal thickness, ports,
 products, pressure and actual project assembly remain unverified; see the public
 section-offset-wall probe evidence in MEP_FITTING_REUSE.md.
+
+Transition assembly research composes the existing wall probe, rectangular duct
+author/verify, upstream system port/connect APIs and existing Manifold material
+checks. No fitting kernel or dependency is rebuilt. Actual saved three-component,
+six-port/two-interface system passes schema, source frame/body, connected material
+volume and centre-bore checks. Independent saved port/straight-solid/transition
+shift controls reject. This is a synthetic local assembly, with sheet-normal
+thickness, products, pressure, arbitrary junctions and project integration pending.

@@ -45,6 +45,28 @@ evidence/ifc-transition/section-offset-wall-probe.json records those limitations
 Reuse of a valid solid/Boolean/topology engine has now been exercised; promoting
 this research into a production duct-wall or project fitting is still pending.
 
+`scripts/probe_ifc_transition_assembly.py --out runs/new-assembly-probe` now
+composes that source-preserved transition with two0.3m straight hollow rectangular
+segments using existing rectangular_geometry author/verify and upstream system
+port APIs. Unrepresented helper placeholders are removed from the new assembly
+copy. The saved three-component model has six owned ports, two directed
+connections, opposed/coincident interface frames and exact ventilation-system
+membership. Source transition placement/bounds and saved straight profile/body
+geometry are checked separately from logical port connections.
+
+Actual native schema/EXPRESS checks return zero issues. The three material meshes
+form one connected Manifold union with Euler characteristic0, zero centre-bore
+probe overlap, and0.00868171760m3 volume matching independent section/prismoid
+integration and the sum of component volumes. Separate saved negative controls
+shift a port, a straight solid without its ports, and the transition placement;
+all reject. Public evidence is in
+evidence/ifc-transition/three-piece-assembly-probe.json.
+
+This remains synthetic centred section-plane-offset transition research, not a
+general fitting constructor, constant sheet-normal fabrication model, airflow-loss
+solver, product selection or actual coursework assembly. The two end ports remain
+external boundaries; a connected local example cannot accept an entire network.
+
 This supports reusing the upstream representation/length machinery in a thin
 future adapter, with explicit wall/bore construction, saved material-volume and
 through-bore checks, source-backed endpoints/ports and assembly correspondence.

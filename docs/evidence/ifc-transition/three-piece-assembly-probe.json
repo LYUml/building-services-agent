@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "schema_express_issue_count": 0,
+    "represented_components": 3,
+    "ports": 6,
+    "directed_connections": 2,
+    "opposed_coincident_interfaces": 2,
+    "one_connected_material": true,
+    "material_volume_m3": 0.008681717597600981,
+    "independent_material_volume_m3": 0.008681717597600985,
+    "relative_volume_error": 3.996267919279389e-16,
+    "euler_characteristic": 0,
+    "centre_through_bore_overlap_m3": 0.0,
+    "component_volume_sum_m3": 0.008681717597600972
+  },
+  "negative_controls": {
+    "port_shift": "Saved port direction/frame differs",
+    "solid_shift": "rectangular solid local placement/direction differs",
+    "transition_shift": "Transition placement differs from its source"
+  },
+  "source_ifc_sha256": "f7c6ffcc0fb6cbc091fb17a605088af3d65b23de9f4eecb44c621bedaaa6741a",
+  "ifc_sha256": "01025070b555385d867172406a176ac3b9f6a3c32e7ecc5608c2e38a1a8a1d3c",
+  "script_sha256": "aa9fab5be2ac4bdef38fcb14a514ff68a1e14b8b870f7c43beb9687aae68a231",
+  "production_adapter": false,
+  "design_accepted": false,
+  "scope": "Synthetic centred section-plane-offset transition and straight pair; no constant sheet-normal wall/product/loss/actual-project acceptance"
+}
