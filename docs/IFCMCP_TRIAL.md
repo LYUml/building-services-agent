@@ -102,4 +102,12 @@ Actual revised-model results at the synthetic 1 L/s target: velocity 1.2434 m/s,
 
 ## Product inventory extension
 
-Positive minimum counts also support IfcPipeFitting, IfcDistributionPort and IfcDistributionSystem. The protocol probe selects all five supported classes and checks the entire exact-class count map against the saved model, without invoking the blocked geometry kernel. Actual manufacturer placement and independent synthetic shortage controls executed successfully; see PRODUCT_INTAKE.md. Counts and logical group presence do not prove physical connections.
+Minimum-count contracts now also accept IfcDuctFitting and IfcDuctSegment. Actual
+official summary calls on a saved source-bound local chain report six fittings,
+one segment,16 ports and one distribution system. The four-class minimum contract
+passes and a seven-fitting contract correctly fails. This extension uses the
+existing verified exact-class summary, not a newly claimed duct-specific selection
+or geometry tool. The0.9 isolated runtime remains separate from the0.8.5 authoring
+environment; native geometry/connectivity checks are in DUCT_FITTING_CHAINS.md.
+
+Positive minimum counts also support IfcPipeFitting, IfcDistributionPort and IfcDistributionSystem. The original protocol probe selects those five pump/pipe/port/system classes and checks the entire exact-class count map against the saved model, without invoking the blocked geometry kernel. Actual manufacturer placement and independent synthetic shortage controls executed successfully; see PRODUCT_INTAKE.md. Counts and logical group presence do not prove physical connections.

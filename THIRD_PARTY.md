@@ -229,3 +229,10 @@ Source-bound straight spans use the already credited IfcOpenShell0.8.5 hollow
 profile/extrusion/port APIs and Manifold3D3.5.4 material operations. Original code
 binds both fitting extents and actual saved frames to source centreline length;
 the existing dependency licenses/notices apply without copying their engines.
+
+Connected local duct chains reuse the credited IfcOpenShell0.8.5 asset/placement/
+port/system APIs and Manifold3D3.5.4 native material operations. Original code
+fingerprints transferred geometry and binds saved native cap frames to a directed
+placement tree; no upstream implementation is copied. The existing isolated
+official IfcMCP runtime supplies read-only duct class counts under its retained
+notices, without changing the engineering environment.

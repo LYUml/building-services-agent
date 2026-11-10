@@ -9,6 +9,13 @@ Use this repository's official IfcMCP integration for a saved IFC inventory or a
 
 ## Choose the operation
 
+Minimum inventory contracts also support IfcDuctFitting and IfcDuctSegment through
+the verified exact-class summary. Use same-producer ifc_query depends_on on a
+duct_fitting_chain for its actual saved chain.ifc; six-fitting/one-segment/16-port/
+one-system positive and intentional shortage cases have executed. These counts
+do not verify the graph or native geometry; retain the chain's separate saved
+connection/material checks and all installation/pressure/engineering limits.
+
 For an inventory, run:
 
 ```powershell

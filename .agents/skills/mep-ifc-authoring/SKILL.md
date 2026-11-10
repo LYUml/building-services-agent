@@ -5,6 +5,17 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+To merge the two source-bound fitting compositions and their fresh trimmed span
+into one saved directed local system, use duct_fitting_chain with project in
+docs/DUCT_FITTING_CHAINS.md. Require native source cap/port agreement, unchanged
+source shape/property fingerprints, complete owned inventory, exact same-file
+links, one system, connected material/independent volume and boundary-bore topology.
+The actual seven-body model has16 ports,six interfaces and four external boundaries;
+this is not the entire supply network. Use same-producer ifc_query for independent
+official inventory with the isolated runtime. Preserve construction/elevation,
+products, pressure and full assignment acceptance. Whole-model diagnostics do not
+override the existing labelled preview's12-port budget or native drawing gates.
+
 For a straight candidate between two source-bound tee/transition compositions,
 use bsa.duct_fitting_span and docs/DUCT_FITTING_SPANS.md. Require the same native
 source section and fresh endpoint/source-model checks. Deduct both fitting

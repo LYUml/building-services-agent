@@ -562,3 +562,16 @@ and existing licenses/notices remain unchanged; no engine implementation is
 copied. The output is a standalone boundary-port span, not a merged saved network
 or inter-file logical connection. Installation/product/pressure acceptance remain
 pending. See DUCT_FITTING_SPANS.md.
+
+Saved local duct chains reuse the installed IfcOpenShell0.8.5 append_asset
+implementation's owned-port/property/context copying and existing system APIs.
+Its inspected inverse whitelist omits logical connections and groups, so the
+adapter deliberately rebuilds the exact source links and one system after import.
+Source geometry fingerprints, source-native cap frames and a directed placement
+tree preserve native bodies without a new engine. The raw-port-offset numerical
+failure was reproduced; actual cap-derived frames pass unchanged material volume/
+topology checks. Manifold3D3.5.4 verifies21 material pairs and connected four-ended
+wall topology. Official isolated IfcMCP0.9 summary actually reports duct classes;
+the thin minimum-count contract now accepts those two classes, with executed
+positive and shortage controls. Native geometry and inventory scopes remain
+separate. See DUCT_FITTING_CHAINS.md and IFCMCP_TRIAL.md.

@@ -1,0 +1,86 @@
+{
+  "scope": "One directed saved-IFC local chain only; inherited construction/elevation assumptions, product joints, full-network pressure, installation and jurisdiction acceptance remain pending",
+  "targeted_test_methods_passed": 3,
+  "native_test_cases": [
+    "Identity and translated oblique source models",
+    "Saved link/body/pose/port/system/extra-object mutations rejected",
+    "Misplaced source cap port and disconnected graph rejected"
+  ],
+  "workflow_controls": [
+    "Failed chain blocks saved IFC reader",
+    "Replacement IFC input rejected"
+  ],
+  "actual_private_workflow": {
+    "tasks": {
+      "chain": {
+        "kind": "duct_fitting_chain",
+        "status": "pass",
+        "scope": "One directed saved-IFC local chain only; inherited construction/elevation assumptions, product joints, full-network pressure, installation and jurisdiction acceptance remain pending"
+      },
+      "inventory": {
+        "kind": "ifc_query",
+        "status": "pass",
+        "scope": "Saved IFC inventory and minimum class counts only; not geometry, equipment identity or engineering acceptance"
+      }
+    },
+    "integrity_pass": true,
+    "nested_source_file_pins": 88,
+    "checks": {
+      "schema_express_issue_count": 0,
+      "components": 7,
+      "ports": 16,
+      "directed_interfaces": 6,
+      "boundary_ports": 4,
+      "one_connected_product_tree": true,
+      "one_connected_material": true,
+      "euler_characteristic": -4,
+      "material_pair_count": 21,
+      "maximum_source_frame_numeric_difference": 0.0,
+      "source_shape_and_property_hashes_pass": true,
+      "maximum_source_cap_port_numeric_difference": 5.662137425588298e-15,
+      "saved_same_file_connections": true,
+      "design_accepted": false
+    },
+    "official_inventory": [
+      {
+        "ifc_class": "IfcDuctFitting",
+        "minimum": 6,
+        "actual": 6,
+        "passed": true
+      },
+      {
+        "ifc_class": "IfcDuctSegment",
+        "minimum": 1,
+        "actual": 1,
+        "passed": true
+      },
+      {
+        "ifc_class": "IfcDistributionPort",
+        "minimum": 16,
+        "actual": 16,
+        "passed": true
+      },
+      {
+        "ifc_class": "IfcDistributionSystem",
+        "minimum": 1,
+        "actual": 1,
+        "passed": true
+      }
+    ],
+    "official_runtime": {
+      "ifcopenshell-mcp": "0.9.0",
+      "ifcopenshell": "0.9.0",
+      "ifcquery": "0.9.0",
+      "ifcedit": "0.9.0",
+      "ifc5d": "0.9.0",
+      "mcp": "1.26.0"
+    },
+    "same_ifc_inventory_source_verified": true,
+    "shortage_contract_correctly_failed": true,
+    "diagnostic_included_bodies": 7,
+    "source_geometry_projection_comparison_pass": true,
+    "design_accepted": false
+  },
+  "generator_sha256": "b842765beaac0469908cc0f989ba9fac4062dd08e948abfd20134607f022143b",
+  "design_accepted": false
+}

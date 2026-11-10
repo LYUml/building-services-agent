@@ -1,5 +1,16 @@
 # Scope and acceptance
 
+The local source-bound duct segment now executes as one saved connected IFC:
+seven bodies,16 owned ports,six directed interfaces,four external boundaries and
+one ventilation system. Native cap-derived port frames resolve the reproduced
+raw-port precision failure without changing wall geometry. Source fingerprints,
+21 material pairs, connected union/independent volume and Euler-4 pass. Three
+targeted test methods and actual chain→official-IfcMCP workflow execute;88 nested
+source pins and independent duct-count/shortage controls verify. The diagnostic
+projection remains scoped. Remaining network branches, products/construction,
+installation/elevation, pressure and full coursework acceptance stay pending.
+See DUCT_FITTING_CHAINS.md.
+
 Two-end straight-span candidates now deduct both source-bound fitting reaches,
 independently match saved section/roll/end-plane separation, author a native
 hollow wall and reject material intrusion against both supplied endpoint models.
