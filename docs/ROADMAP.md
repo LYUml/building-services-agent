@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Upstream-centred transition wall research now executes a saved native outer-minus-inner Boolean, zero schema/EXPRESS issues, analytic material volume, connected through-bore mesh and filled-envelope rejection. It is explicitly a synthetic section-plane-offset model rather than constant sheet-normal thickness; ports, products, losses and production/project integration remain pending. See MEP_FITTING_REUSE.md.
+
 Finite fitting reuse investigation executes installed IfcOpenShell0.8.5 transition helpers with solid/hollow profiles through saved native mesh/volume checks; both produce a filled outer envelope without automatic ports. OpenMEP source/license is pinned and remains an unexecuted Revit/Dynamo candidate. Thin wall/port/assembly integration, rectangular junctions and real source/pressure acceptance remain pending. See MEP_FITTING_REUSE.md.
 
 HVAC packages now optionally inherit native sheet/sizing ancestry for planar obstacle review, rejecting replacement geometry and retaining explicit incomplete coverage. Fifteen related tests and an actual five-stage private package verify376 pairs,22-page/drawing render correspondence and artifact/workflow integrity; nine tasks and complete acceptance remain unresolved. See DUCT_PLAN_CLEARANCE.md and HVAC_PACKAGE.md.

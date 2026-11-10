@@ -483,3 +483,12 @@ b172d526b91bdf818f602dfecbc92a3d77be9645; it requires Revit/Dynamo document/tran
 services and is not installed/executed. Prefer upstream shape machinery plus thin
 wall/port QA glue; no new engine, dependency, loader or production claim. See
 MEP_FITTING_REUSE.md and adapters/openmep/research.json.
+
+Transition cavity research now reuses upstream transition/faceted-BREP APIs and
+native IFC Boolean DIFFERENCE, plus existing circular_geometry closed-wall and
+cad_ifc/Manifold mass/bore checks. No mesh generator, Boolean engine or dependency
+is rebuilt. Actual saved schema/EXPRESS, analytic material volume, connected
+through-bore topology and filled-envelope negative control pass for a synthetic
+centred section-plane-offset model. Constant sheet-normal thickness, ports,
+products, pressure and actual project assembly remain unverified; see the public
+section-offset-wall probe evidence in MEP_FITTING_REUSE.md.

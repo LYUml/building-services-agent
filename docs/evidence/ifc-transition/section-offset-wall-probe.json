@@ -1,0 +1,40 @@
+{
+  "upstream": "IfcOpenShell0.8.5 ShapeBuilder transition and faceted_brep; native IFC Boolean DIFFERENCE",
+  "versions": {
+    "ifcopenshell": "0.8.5",
+    "manifold3d": "3.5.4",
+    "numpy": "2.5.4"
+  },
+  "builder_sha256": "7d474a7df93e9fd46681b0814e80345e905d147c661d0fec50d9dc3b662dc6f4",
+  "saved_schema_express_issue_count": 0,
+  "section_plane_offset_m": 0.005,
+  "offset_is_not_constant_sheet_normal_thickness": true,
+  "inner_numerical_end_extension_m": 0.0001,
+  "transition_length_m": 0.3732050807568877,
+  "independent_material_volume_m3": 0.004241717597600975,
+  "native_material_volume_m3": 0.004241717597600977,
+  "relative_volume_error": 6.134508378013884e-16,
+  "euler_characteristic": 0,
+  "one_connected_closed_material": true,
+  "centre_through_bore_overlap_m3": 0.0,
+  "filled_outer_negative_control_rejected": true,
+  "bounds_m": [
+    [
+      -0.3,
+      -0.15,
+      0.0
+    ],
+    [
+      0.3,
+      0.15,
+      0.5732050807568877
+    ]
+  ],
+  "port_count": 0,
+  "source_ifc_sha256": "45faeb9dc3ff4868021e52abba3f0bb49f617aeccee37f90869c975b89a8908b",
+  "ifc_sha256": "e484c8578ab1d9a4f1be08d2e911e48d9a9939119387ba765aa58b5fd9790bc4",
+  "script_sha256": "eda3ba6732c305f9175e049e6180d44a65eb68c2ab4cac561c11053cc7f940c4",
+  "production_adapter": false,
+  "design_accepted": false,
+  "scope": "Synthetic centred section-plane offset wall only; not constant sheet-normal thickness, product geometry, ports, pressure losses or accepted assembly"
+}

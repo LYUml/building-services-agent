@@ -25,6 +25,26 @@ ports; it is a shape helper, while separate upstream system APIs support ports.
 Executed public evidence is in evidence/ifc-transition. No manufacturer dimensions,
 loss coefficient, accepted wall construction or production integration is implied.
 
+Follow-up `scripts/probe_ifc_transition_wall.py --out runs/new-wall-probe` reuses
+that exact upstream envelope probe, generates a smaller inner transition through
+the same helper, converts both through upstream faceted_brep and applies native
+IFC Boolean DIFFERENCE. The original outer IFC stays unchanged. Synthetic inner
+straight ends extend0.1mm beyond the outer caps to form an open bore; this is a
+Boolean construction parameter, not a fabrication allowance or changed tolerance.
+The resulting saved model has zero schema/EXPRESS issues, a single connected
+closed material mesh with Euler characteristic0, and0.00424171760m3 material volume
+matching an independent rectangle-prismoid integration. Existing Manifold checks
+find zero overlap with a centre through-bore probe. The filled original envelope
+is rejected by the same wall-topology checker as a negative control.
+
+This is a centred synthetic **section-plane offset** model:5mm is subtracted from
+each side in the section plane, and is explicitly not constant sheet-normal
+thickness on sloping faces. It has no ports, pressure coefficient, manufacturer
+construction or assembly acceptance. The executed report in
+evidence/ifc-transition/section-offset-wall-probe.json records those limitations.
+Reuse of a valid solid/Boolean/topology engine has now been exercised; promoting
+this research into a production duct-wall or project fitting is still pending.
+
 This supports reusing the upstream representation/length machinery in a thin
 future adapter, with explicit wall/bore construction, saved material-volume and
 through-bore checks, source-backed endpoints/ports and assembly correspondence.
