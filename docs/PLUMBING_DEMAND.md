@@ -10,7 +10,7 @@ PPMtools was inspected as a stochastic household-use research candidate; see ada
 
 An actual lecture-example diagnostic with100 appliances, operating probability0.01 and allowed exceedance0.01 gives a minimum integer provision of4 appliances. SciPy survival probability is0.00343232; provision3 gives0.0183740. An independent sum of the binomial terms agrees within1e-12. The lecture's continuous approximation gives3.53 appliances; its resulting flow must not be called an exact integer-quantile guarantee. Preserve the stated classroom method when presenting its answer, and label the exact comparison separately.
 
-This is method investigation, not a completed design-demand adapter, mixed-fixture selection, drainage-stack sizing or local-code acceptance. Next integration must require sourced probabilities/fixture rates, explicit exceedance choice and declared independence/identical-appliance scope. Never substitute textbook example probabilities for actual project data.
+The source-bound adapters below support scoped calculation, not mixed-fixture table selection, drainage-stack sizing or local-code acceptance. They require sourced probabilities/fixture rates, explicit exceedance choice and declared independence/identical-appliance scope. Never substitute textbook example probabilities for actual project data.
 
 ## Bounded identical-appliance API
 
@@ -23,7 +23,7 @@ mathematical quantile result, not permission for zero-capacity installation; pro
 minimum-flow and method applicability need separate evidence. Four tests cover
 independent summation/minimality, limiting provisions, monotonic service level and
 invalid/missing data. No mixed-fixture or IOP table method is implied. Source-bound
-CLI/workflow integration remains pending.
+CLI/workflow integration is available as described below.
 
 ## Source-bound study command
 
@@ -38,8 +38,8 @@ checks and design_accepted=false. CLI exit2 preserves outstanding acceptance.
 
 Actual source-pinned classroom example produces4 appliances; unknown independence
 produces no flow and changed reference hashes reject. Four probability tests pass.
-This command does not verify the truth of declared facts and is not yet registered
-in the multi-task workflow or connected to a real home-survey design.
+This command does not verify the truth of declared facts. It is registered in the
+multi-task workflow, but a real home-survey design remains unverified.
 
 ## Supplied discharge-unit relation
 
@@ -70,7 +70,7 @@ identical-appliance study. Output hashes sources and retains full acceptance fal
 The source-pinned78DU classroom example, unknown-connection no-calculation branch
 and changed-source rejection execute. Five numerical tests pass, and the original
 identical-appliance source-bound example remains correct after helper reuse. These
-standalone commands are not yet registered workflow tasks.
+commands are registered workflow tasks as described below.
 
 ## Unified workflow tasks
 
@@ -85,3 +85,9 @@ An actual private method-only workflow runs both lecture examples and retains
 manual engineering review; the full15-package coursework intake is unchanged. Six
 focused tests cover probability/DU arithmetic, both executed task types, unknown
 and rejected scope, downstream blocking and changed-source integrity failure.
+
+For Hong Kong same-inventory stack calculations use the inherited
+drainage_connections -> drainage_stack_demand chain in HK_DRAINAGE.md rather than
+copying a separate aggregate DU inventory. Exact fixture IDs and separate-pipe
+exclusions are checked; full-stack survey confirmation, DU/K applicability,
+other inflows, pipe/vent sizing and saved CAD/BIM correspondence remain explicit.

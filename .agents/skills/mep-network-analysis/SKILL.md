@@ -1,9 +1,13 @@
 ---
 name: mep-network-analysis
-description: Calculate source-linked air/water tree budgets, single-line pump operating points EPANET water graphs and bounded tee split/size selection. Use for supported duct/pipe pressure, sizing, loops and sourced pump-curve checks.
+description: Calculate source-linked air/water networks, pump operating points and bounded fixture demand. Use for supported duct/pipe pressure and sizing, sourced pump curves, identical-appliance probability and wastewater DU studies.
 ---
 
 # Network pressure analysis
+
+For fixture demand read docs/PLUMBING_DEMAND.md before choosing a method. Workflow plumbing_demand supports only explicit independent identical-appliance binomial inputs through pinned SciPy; discharge_demand computes supplied K*sqrt(sum DU). Keep supply loading units, discharge units and thermal/volumetric quantities distinct. No automatic mixed-fixture table selection or assumed use probability is implemented. Source-bound scope facts can be true/false/unknown; unknown facts prevent calculation and rejected applicability blocks downstream tasks.
+
+For a Hong Kong stack, read docs/HK_DRAINAGE.md and use drainage_connections followed by drainage_stack_demand with depends_on on that producer and a pinned basis. Individual IDs/counts come from the original connection inventory; DU rates and K come from the basis. Do not supply a replacement project or hand-copied aggregate floor multiplier. Require explicit full-stack inventory confirmation separately from the restricted-floor survey. Direct-manhole fixtures are excluded only from this stack total, not from building demand; unknown/contradictory upper routes remain pending. For applicability and official-source scope use ../mep-regulations/SKILL.md. Capacity/venting, other inflows, real fixture tables and saved-model correspondence still need separate implementation/evidence.
 
 For HVAC diffuser lookup and equivalent-round section schedules, use the registered `terminal_throw` and `duct_schedule` workflow tasks with `project` inputs. Read docs/TERMINAL_THROW.md or docs/DUCT_SCHEDULE.md for the relevant input contract. These adapters reuse pinned fluids; prefer them over private interpolation or friction scripts. Keep the two methods distinct from hydraulic-diameter rectangular network analysis. A passing task establishes bounded lookup or supplied-section criteria only, not topology, fan duty, source applicability or complete design acceptance.
 
