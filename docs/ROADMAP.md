@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Rectangular tee authoring is now registered in unified workflows with source pins
+and inherited IFC readers. Four related test methods pass. The actual isolated
+fixture authors successfully, while its clash consumer correctly rejects fewer
+than two physical elements; producer failures block consumers. Connected assembly,
+coordination, losses, products and full acceptance remain pending.
+
 Source-declared ideal equal-section rectangular tee authoring now saves native CSG with three stable owned port frames, schema/EXPRESS and material/bore/analytic-volume checks. Two native test methods cover changed dimensions, rigid placement and rejected mutations; the public fixture executes. Variable-section takeoffs, product/fabrication/loss/assembly and workflow acceptance remain pending. See RECTANGULAR_TEES.md.
 
 Synthetic transition assembly research now joins two existing straight hollow walls to the upstream-derived transition: saved three-component/six-port/two-interface checks, schema/EXPRESS, material union/volume and centre-bore pass. Port, solid and transition shifts reject. General source-driven production authoring, constant sheet-normal construction, products/losses and actual coursework assembly remain pending. See MEP_FITTING_REUSE.md.

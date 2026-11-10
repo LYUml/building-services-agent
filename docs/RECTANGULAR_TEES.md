@@ -40,7 +40,24 @@ Two native test methods cover two dimension sets, rotated/translated placement,
 independent volume values, rejected inner-width/port/filled-wall mutations,
 invalid arm lengths and reflected frames. The actual public fixture has zero
 schema/EXPRESS issues, three ports and0.0087195m3 material volume; metadata is in
-evidence/rectangular-tee.json. Workflow execution, adjoining assemblies,
+evidence/rectangular-tee.json. Adjoining assemblies,
 variable-section fittings, loss analysis, products and full regional acceptance
 remain pending. A real variable-section supply tree cannot be replaced by this
 equal-section local example.
+
+Unified workflows accept `rectangular_tee` with an explicit `project` source and
+ordinary `requires_pass` gates. The recorded IFC artifact is rectangular-tee.ifc;
+generic IFC readers inherit it through `depends_on`, with no replacement input.
+The public plan deliberately requests a clash check on the isolated fitting:
+authoring passes, but clash checking rejects fewer than two represented physical
+elements. This is an executed rejection example, not a coordination pass.
+Four related test methods cover native geometry, this inherited handoff, source
+and artifact integrity, forbidden replacement inputs, simulated producer failure
+blocking its consumer, and the existing circular tee workflow.
+
+```powershell
+.venv/Scripts/python -m bsa.workflow execute examples/rectangular-tee/plan.json --out runs/rectangular-tee-workflow
+```
+
+Expect incomplete execution and design acceptance false. This workflow adds no
+adjacent ducts, clearance proof, pressure coefficients or engineering approval.

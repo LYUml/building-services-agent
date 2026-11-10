@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "02674521c60a66398df021e48259b7d8360f553ba0d86565b589309dbf0efeea",
+  "passage_dispositions": {
+    "P001": "requirement",
+    "P002": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "tee",
+      "kind": "rectangular_tee",
+      "project": "project.json"
+    },
+    {
+      "id": "clash",
+      "kind": "ifc_clash",
+      "depends_on": "tee",
+      "policy": "clash-policy.json"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "tee",
+      "task": "tee",
+      "passage": "P001",
+      "quote": "Author the explicitly synthetic equal-section rectangular tee from the supplied sourced dimensions and placement.",
+      "acceptance": "Author the explicitly synthetic equal-section rectangular tee from the supplied sourced dimensions and placement."
+    },
+    {
+      "id": "clash",
+      "task": "clash",
+      "passage": "P002",
+      "quote": "Inspect the saved model for represented-element clash coverage only; retain product, loss, assembly and engineering acceptance pending.",
+      "acceptance": "Inspect the saved model for represented-element clash coverage only; retain product, loss, assembly and engineering acceptance pending."
+    }
+  ]
+}

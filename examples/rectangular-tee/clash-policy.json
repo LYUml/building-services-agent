@@ -1,0 +1,15 @@
+{
+  "scope": "all represented non-feature non-virtual IfcElements",
+  "sources": {
+    "demo": "Synthetic isolated tee QA tolerance only; no surrounding installation is included and no regulatory clearance is asserted."
+  },
+  "source": "demo",
+  "minimum_clearance_m": 0.01,
+  "intersection_tolerance_m": 0.0001,
+  "contact_tolerance_m": 0.0001,
+  "overlap_volume_tolerance_m3": 1e-10,
+  "maximum_boolean_pairs": 1000,
+  "allowed_contacts": [],
+  "contact_clearance_mode": "outside_regions",
+  "contact_region_segments": 64
+}

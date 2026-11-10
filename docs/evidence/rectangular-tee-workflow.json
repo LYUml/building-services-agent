@@ -1,0 +1,20 @@
+{
+  "scope": "Synthetic isolated rectangular tee workflow; clash deliberately rejects insufficient physical scope.",
+  "tasks": {
+    "tee": {
+      "kind": "rectangular_tee",
+      "status": "pass",
+      "scope": "Source-declared ideal equal-section sharp rectangular tee only; no radiused takeoff, variable sections, losses, products, assembly or jurisdiction acceptance"
+    },
+    "clash": {
+      "kind": "ifc_clash",
+      "status": "fail",
+      "scope": "ProjectError: at least two represented physical elements required"
+    }
+  },
+  "execution_pass": false,
+  "design_accepted": false,
+  "integrity_pass": true,
+  "ifc_sha256": "aaee3407479c0986edb64c293037dee1377127dbf0affd70d0642d88e63be68a",
+  "test_methods_passed": 4
+}
