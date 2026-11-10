@@ -301,7 +301,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","rectangular_network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind in ("water_network","rectangular_network") and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
@@ -423,6 +423,20 @@ def validate_plan(path):
             if type(tolerance) not in (int,float) or not math.isfinite(tolerance) or tolerance<=0:
                 raise ProjectError('Revit check requires a positive finite tolerance in metres')
             inputs.update(local_path(root,t.get(k)) for k in ('inventory','model'))
+        if kind=='air_allocation':
+            from . import air_allocation,air_load,service_areas
+            if set(t)-{'id','kind','project','requires_pass','description'}:
+                raise ProjectError('air allocation requires explicit project only')
+            project=local_path(root,t.get('project'))
+            settings=json.loads(project.read_text(encoding='utf-8-sig'))
+            relative=settings.get('boundary')
+            if not isinstance(relative,str) or Path(relative).is_absolute():
+                raise ProjectError('allocation boundary must use a relative path')
+            boundary=local_path(root,str(project.parent.relative_to(root)/relative))
+            if digest(boundary)!=settings.get('boundary_sha256'):
+                raise ProjectError('allocation boundary source hash mismatch')
+            inputs.update((project,boundary))
+            inputs.update(Path(m.__file__).resolve() for m in (air_allocation,air_load,service_areas))
         if kind=='duct_schedule':
             from . import duct_schedule,duct_equivalent
             if set(t)-{'id','kind','project','requires_pass','description'}:
@@ -431,8 +445,12 @@ def validate_plan(path):
             inputs.update(Path(m.__file__).resolve() for m in (duct_schedule,duct_equivalent))
         if kind=='terminal_throw':
             from . import terminal_throw
-            if set(t)-{'id','kind','project','requires_pass','description'}:
+            if set(t)-{'id','kind','project','depends_on','requires_pass','description'}:
                 raise ProjectError('terminal lookup requires explicit project only')
+            if 'depends_on' in t:
+                parent=t['depends_on']
+                if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='air_allocation':
+                    raise ProjectError('terminal lookup must inherit an earlier air allocation')
             project=local_path(root,t.get('project'))
             settings=json.loads(project.read_text(encoding='utf-8-sig'))
             relative=settings.get('catalogue')
@@ -869,7 +887,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
     if any(out==f or out in f.parents for f in inputs):raise ProjectError("run output must not contain inputs")
     before={str(f):digest(f) for f in inputs}
     out.mkdir(parents=True,exist_ok=False)
-    evidence={};tasks={};three_phase_pins={};three_phase_rule_pins={};rectangular_pins={};concept_pins={}
+    evidence={};tasks={};three_phase_pins={};three_phase_rule_pins={};rectangular_pins={};concept_pins={};allocation_pins={}
     root=plan.parent
     for t in p["tasks"]:
         folder=out/t["id"]
@@ -989,15 +1007,25 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 from .revit_connectivity import run
                 payload=run(local_path(root,t['inventory']),local_path(root,t['model']),folder/'diagnosis.json',t['tolerance_m'])
                 status=payload['diagnostic_status'];reason=payload['scope']+'; native host and complete-system acceptance remain pending'
+            elif t['kind']=='air_allocation':
+                from .air_allocation import run
+                payload=run(local_path(root,t['project']),folder)
+                status='pass';reason=payload['scope']
+                allocation_pins[t['id']]=digest(folder/'allocation.json')
             elif t['kind']=='duct_schedule':
                 from .duct_schedule import run
                 payload=run(local_path(root,t['project']),folder)
                 status=payload['status'];reason=payload['scope']
             elif t['kind']=='terminal_throw':
                 from .terminal_throw import run
-                payload=run(local_path(root,t['project']),folder)
-                status='fail' if payload['outside_catalogue_cases'] else 'pass'
-                reason='Bounded catalogue interpolation only; original source, characteristic lengths and ADPI acceptance require review'
+                parent=t.get('depends_on')
+                if parent and tasks[parent]['status']!='pass':
+                    reason='upstream allocation '+parent+' did not pass; terminal lookup not executed'
+                else:
+                    inherited={} if not parent else dict(allocation_path=out/parent/'allocation.json',allocation_sha256=allocation_pins[parent])
+                    payload=run(local_path(root,t['project']),folder,**inherited)
+                    status='fail' if payload['outside_catalogue_cases'] else 'pass'
+                    reason='Bounded catalogue interpolation only; original source, characteristic lengths and ADPI acceptance require review'
             elif t['kind']=='drainage_input':
                 from .drainage_input import run
                 payload=run(local_path(root,t['project']),folder)

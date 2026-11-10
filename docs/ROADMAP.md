@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Source-bound air allocation now supplies exact inherited maximum/minimum flows to terminal lookup in one workflow. Actual 80-terminal execution and 42 focused tests pass, with failed/mutated producer and replacement-input controls. VAV/tree flow inheritance, automatic drawing regeneration and full engineering acceptance remain pending; see [air allocation](AIR_ALLOCATION.md).
+
 Physical cable route release now composes declared product limits, represented-model coordination and scoped HK table gates on one exact model/study. Actual positive reaches audited/reopened native DWG and inspected PDF; stricter-product-fail/code-pass and product-pass/unknown-code cases both block before drawing. Synthetic evidence does not establish real manufacturer selection, no-damage or full installation/Hong Kong acceptance (HK_CABLE_BENDS.md).
 
 The source-pinned HK cable-bend module now binds native internal radius/overall-diameter correspondence and explicit construction/armour facts to selected CoP 2025 25C(1)(h). Actual fresh numerical/rule/native-schematic workflow passes only the scoped positive; short-radius, unknown-class and HV controls block drawing. The explicit coverage catalog preserves other gaps; real product/no-damage and full Hong Kong acceptance remain pending (HK_CABLE_BENDS.md).

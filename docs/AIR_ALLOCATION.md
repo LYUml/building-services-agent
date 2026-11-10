@@ -21,7 +21,7 @@ Eight composition/load/geometry tests pass. Actual replay reconciles 240 termina
 flows across three private 80-terminal variants. Moving a terminal changes its
 allocation while preserving the total; downstream VAV/tree flows and duct sizes
 must be recomputed. Native drawing and final acceptance remain separate.
-This is a callable composition, not yet a complete workflow producer binding.
+The unified producer and terminal-flow binding are described below; full design automation remains incomplete.
 
 ## Source-bound command
 
@@ -33,3 +33,25 @@ the source classifications. Changed boundary bytes and output reuse are rejected
 Input geometry remains an interpretation requiring review; a matching hash does
 not establish source-drawing correspondence. Nine focused tests pass, and actual
 private CLI execution generates 80 updated terminal allocations.
+
+
+## Unified producer and inherited lookup
+
+Workflow kind `air_allocation` accepts `project`, optional `requires_pass` and
+`description`. Geometry must stay inside the plan root, its hash must match,
+and the project, geometry and three calculation modules enter run integrity.
+
+A `terminal_throw` task can set `depends_on` to an earlier `air_allocation`.
+Its project must omit `turndown` and every `maximum_flow_L_s`; both are inherited
+from the exact new allocation artifact, whose hash is checked before lookup.
+Terminal IDs must match exactly. Catalogue and reviewed characteristic lengths
+remain explicit inputs. Allocation failure leaves lookup pending, changed producer
+bytes or replacement flows fail, and neither path infers ADPI acceptance.
+
+42 focused allocation, lookup, schedule, executor and diagnosis tests pass.
+Actual private execution preserves all brief requirements, calculates 80 allocations
+and 640 direction/flow lookup cases, and matches the prior trial within
+2.85e-14 L/s. The 47 supplied duct-section calculations also run, but do not yet
+inherit their section flows from this producer; VAV/tree aggregation and automatic
+size/drawing regeneration remain separate integration work. Regulatory and full
+engineering/delivery acceptance remain pending.

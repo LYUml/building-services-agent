@@ -3,7 +3,7 @@ import math
 from fluids.numerics import interp
 
 
-def run(project_path, output):
+def run(project_path, output, *, allocation_path=None, allocation_sha256=None):
     """Execute source-pinned terminal lookups; input facts remain caller-reviewed."""
     import json
     import hashlib
@@ -19,6 +19,26 @@ def run(project_path, output):
         raise ValueError('New output directory separate from inputs required')
     if not isinstance(project.get('basis'),str) or not project['basis'].strip():
         raise ValueError('Explicit project basis and limitations required')
+    inherited = None
+    if allocation_path is not None:
+        allocation_path=Path(allocation_path).resolve()
+        inherited=allocation_path.read_bytes()
+        if hashlib.sha256(inherited).hexdigest()!=allocation_sha256:
+            raise ValueError('Allocation producer hash mismatch')
+        if output==allocation_path or output in allocation_path.parents:
+            raise ValueError('Output must not contain allocation producer')
+        if 'turndown' in project or any('maximum_flow_L_s' in t for t in project['terminals']):
+            raise ValueError('Inherited flow and turndown cannot be overridden')
+        allocation=json.loads(inherited.decode('utf-8-sig'))
+        rows=allocation['terminals']
+        flows={t['id']:t['maximum_flow_L_s'] for t in rows}
+        if len(flows)!=len(rows) or set(flows)!={t['id'] for t in project['terminals']}:
+            raise ValueError('Allocation and lookup terminal identities must match exactly')
+        project['turndown']=allocation['turndown']
+        for terminal in project['terminals']:
+            terminal['maximum_flow_L_s']=flows[terminal['id']]
+    elif allocation_sha256 is not None:
+        raise ValueError('Allocation path required with producer hash')
     results=[]; ids=set()
     for terminal in project['terminals']:
         name=terminal['id']
@@ -44,6 +64,11 @@ def run(project_path, output):
                 outside_catalogue_cases=unresolved,
                 source_scope='Pins reviewed catalogue JSON; original manufacturer document and transcription require separate review',
                 basis=project['basis'],terminals=results,ADPI_verified=False,design_accepted=False)
+    if inherited is not None:
+        if allocation_path.read_bytes()!=inherited:
+            raise ValueError('Allocation producer changed during lookup')
+        result['inputs'][str(allocation_path)]=allocation_sha256
+        result['flow_basis']='Exact inherited air allocation; no replacement flow or turndown'
     output.mkdir(parents=True)
     (output/'terminal-results.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
     return result
