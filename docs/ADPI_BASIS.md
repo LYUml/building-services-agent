@@ -82,3 +82,19 @@ Actual private execution inherits 640 cases from the new Canvas-source-backed ru
 and retains pending applicability. A changed criterion-document hash rejects before
 output; the five numerical/applicability controls pass. This post-run command is
 not yet a registered workflow task or an automatic report/package stage.
+
+## Geometry evidence before choosing L
+
+A clipped nearest-centre allocation boundary can be a bisector toward a diagonally
+offset terminal. That does not establish opposing jets along the principal airflow
+direction. A diagnostic comparison should distinguish interpreted polygon boundaries,
+aligned outlet midplanes and off-axis jet interactions. Polygon holes may represent
+columns rather than full-height boundary walls; their semantics need separate review.
+Do not automatically replace all L values with either wall-ray distance or Voronoi
+cell distance. Product discharge pattern and actual installation remain relevant.
+
+Actual private 320-direction comparison using existing Shapely boundary intersections
+finds eight differing proxy directions with no aligned opposing outlet. These are
+retained as explicit geometric review targets; the other 312 numeric agreements
+do not establish physical jet applicability. No lookup lengths or acceptance states
+were changed by this diagnostic.
