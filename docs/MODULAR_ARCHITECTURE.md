@@ -7,6 +7,13 @@ states remain explicit. This is a scoped projection,not a registered replaceable
 jurisdiction provider. Unknown/exempt states remain pending in this contract.
 Other disciplines and actual jurisdiction-provider replacement remain unfinished.
 
+The initial rule contract also requires per-entity implemented/pending coverage
+lists. Every assessed entity has exactly one coverage record;pending lists remain
+nonempty while coverage_complete is false. The consumer reconstructs these
+lists from the original evaluator on verification. Historical outputs without
+these required fields reject the current contract;rerun instead of patching old
+assessment bytes. Full regulatory conformity remains not_established.
+
 This is the execution plan for [the active goal](GOAL.md). The first request/result
 and box-space contracts plus MOOSAS provider now execute as described in
 [MODULES.md](MODULES.md). Remaining boundaries/registry coverage below are planned,

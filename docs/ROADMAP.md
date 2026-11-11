@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+Common rule output now preserves per-entity implemented/pending coverage,not just
+an incomplete Boolean. Missing/duplicate entity coverage and empty pending lists
+reject. Fresh IFC/EPANET/official-source workflow passes3automated stages and
+integrity replay,retaining20pending-coverage entries across4pipes. Manual/full
+acceptance remains pending;these entries repeat the scoped pack gaps per entity,
+not20independent new regulations.
+
 Initial common RuleAssessment contract now executes through the existing saved-
 water rule consumer. Source/producer/entity identities and original states are
 validated and reconstructed on verification. A fresh synthetic native IFC to

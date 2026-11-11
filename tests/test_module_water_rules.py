@@ -37,6 +37,8 @@ class ModuleWaterRuleTests(unittest.TestCase):
         self.assertEqual(r['assessment']['schema'],'bsa.rule-assessment/1')
         self.assertEqual(r['assessment']['status'],'pass')
         self.assertEqual({x['entity_id'] for x in r['assessment']['checks']},set(r['segment_checks']))
+        for row in r['assessment']['coverage']:
+            self.assertEqual(row['pending'],r['segment_checks'][row['entity_id']]['coverage']['pending'])
         self.assertEqual(r['regulatory_compliance'],'not_established');self.assertFalse(r['design_accepted'])
         b=json.loads(self.basis.read_text());original=copy.deepcopy(b)
         for row in b['pipes'].values():row['water_pipe'].update(flow_mode=dict(value='variable',source='Synthetic negative control'),pump_control=dict(value='single_fixed_speed',source='Synthetic negative control'))
@@ -68,6 +70,10 @@ class ModuleWaterRuleTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'contradicts'):validate(a)
         a=copy.deepcopy(r['assessment']);a['checks'][0]['original_status']='unknown_future_state'
         with self.assertRaisesRegex(ValueError,'original check meaning'):validate(a)
+        a=copy.deepcopy(r['assessment']);a['coverage'].pop()
+        with self.assertRaisesRegex(ValueError,'coverage must match'):validate(a)
+        a=copy.deepcopy(r['assessment']);a['coverage'][0]['pending']=[]
+        with self.assertRaisesRegex(ValueError,'Contract violation'):validate(a)
         path=self.folder/'typed/module-water-rules.json'
         r['assessment']['checks'][0]['entity_id']='OTHER-SYSTEM'
         path.write_text(json.dumps(r))

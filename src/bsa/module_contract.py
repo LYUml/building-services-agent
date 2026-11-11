@@ -51,6 +51,9 @@ def validate(data,schema=None):
     if schema==RULE_SCHEMA:
         identities=[(r['entity_id'],r['rule_id']) for r in data['checks']]
         if len(identities)!=len(set(identities)):raise ValueError('Duplicate entity/rule assessment')
+        coverage_ids=[r['entity_id'] for r in data['coverage']]
+        if len(coverage_ids)!=len(set(coverage_ids)) or set(coverage_ids)!={r['entity_id'] for r in data['checks']}:
+            raise ValueError('Rule coverage must match assessed entities exactly')
         for row in data['checks']:
             original=row['original_status']
             expected_row='pass' if original=='pass' else 'fail' if original=='review_required' else 'pending'

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object", "additionalProperties": false,
-  "required": ["schema","jurisdiction","rule_pack","producer_sha256","status","checks","coverage_complete","regulatory_compliance","design_accepted"],
+  "required": ["schema","jurisdiction","rule_pack","producer_sha256","status","checks","coverage","coverage_complete","regulatory_compliance","design_accepted"],
   "properties": {
     "schema": {"const":"bsa.rule-assessment/1"},
     "jurisdiction": {"type":"string","minLength":1},
@@ -11,6 +11,15 @@
     "coverage_complete": {"const":false},
     "regulatory_compliance": {"const":"not_established"},
     "design_accepted": {"const":false},
+    "coverage": {"type":"array","minItems":1,"items":{
+      "type":"object","additionalProperties":false,
+      "required":["entity_id","implemented","pending"],
+      "properties":{
+        "entity_id":{"type":"string","minLength":1},
+        "implemented":{"type":"array","items":{"type":"string","minLength":1},"uniqueItems":true},
+        "pending":{"type":"array","minItems":1,"items":{"type":"string","minLength":1},"uniqueItems":true}
+      }
+    }},
     "checks": {"type":"array","minItems":1,"items":{
       "type":"object","additionalProperties":false,
       "required":["entity_id","rule_id","status","original_status","source_id","source_sha256","edition","clause","scope"],

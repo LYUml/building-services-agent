@@ -6,6 +6,15 @@
   "manual_review":"pending",
   "workflow_integrity_pass":true,
   "entity_rule_rows":4,
+  "coverage_followup": {
+    "targeted_tests_passed":21,
+    "fresh_automated_stages_passed":3,
+    "workflow_and_rule_replay_integrity_pass":true,
+    "entities_with_exact_original_coverage":4,
+    "pending_coverage_entries":20,
+    "interpretation":"Five original pack gaps repeated per entity;not twenty independent statutory clauses",
+    "controls":"Missing entity coverage and empty pending lists reject;coverage bytes reconstructed from evaluator"
+  },
   "official_source":"Existing hash-matching BEC 2024 cache; unchanged rule pack",
   "controls":"Duplicate entity-rule pairs,contradictory aggregate states,unknown-state promotion and altered entity identity reject;legacy failure/unknown/source and same-producer workflow controls pass",
   "runtime_observation":"IfcOpenShell emitted an unclosed IFC4 rules-file ResourceWarning during tests; not resolved by this change",
