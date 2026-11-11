@@ -1,5 +1,11 @@
 # Start from original requirement documents
 
+Common source-linked requirements inventory now executes through the trusted
+module runner and automatically after validated project_start intake. Exact
+passages,requirements,locators and unresolved inputs survive source replay on
+electrical,water and real BSE3227 plans. Semantic completeness and design-input
+binding remain unfinished. See REQUIREMENTS_MODULE.md.
+
 The real interpreted bundle now also executes5existing engineering adapters
 after explicit host binding of18unchanged source files. This regenerates actual
 calculation/sizing/native drawing outputs while retaining the user-selected HK

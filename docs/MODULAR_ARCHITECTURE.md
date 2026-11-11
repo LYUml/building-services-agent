@@ -1,5 +1,11 @@
 # Modular architecture and next implementation sequence
 
+Common source-linked requirements inventory now executes through the trusted
+module runner and automatically after validated project_start intake. Exact
+passages,requirements,locators and unresolved inputs survive source replay on
+electrical,water and real BSE3227 plans. Semantic completeness and design-input
+binding remain unfinished. See REQUIREMENTS_MODULE.md.
+
 Conditional single-phase electrical analysis now also has an executed common
 provider/contract through the existing engine and workflow gates. Source replay
 and explicit electrical units preserve fault/protection/native/code gaps. This

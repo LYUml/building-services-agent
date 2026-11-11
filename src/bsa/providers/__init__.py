@@ -2,6 +2,9 @@
 
 
 def get_provider(id):
+    if id=='bsa.source-requirements':
+        from . import requirements
+        return requirements
     if id=='bsa.electrical-path-rules':
         from . import electrical_rules
         return electrical_rules

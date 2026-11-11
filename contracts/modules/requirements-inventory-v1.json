@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "coordinate_frame",
+    "source_plan_sha256",
+    "documents",
+    "passages",
+    "requirements",
+    "unresolved_inputs",
+    "tasks",
+    "interpretation_status",
+    "engineering_execution",
+    "geometry_bound",
+    "design_accepted"
+  ],
+  "properties": {
+    "schema": {
+      "const": "bsa.requirements-inventory/1"
+    },
+    "coordinate_frame": {
+      "type": "object"
+    },
+    "source_plan_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "documents": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "path",
+          "sha256",
+          "role"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "role": {
+            "enum": [
+              "primary",
+              "supplement_or_reference"
+            ]
+          }
+        }
+      }
+    },
+    "passages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "text",
+          "locator",
+          "disposition"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "locator": {
+            "type": "object"
+          },
+          "disposition": {
+            "enum": [
+              "requirement",
+              "context"
+            ]
+          }
+        }
+      }
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "task",
+          "passage",
+          "quote",
+          "acceptance"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "task": {
+            "type": "string",
+            "minLength": 1
+          },
+          "passage": {
+            "type": "string",
+            "minLength": 1
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 1
+          },
+          "acceptance": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "unresolved_inputs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "interpretation_status": {
+      "const": "not_assessed"
+    },
+    "engineering_execution": {
+      "const": "not_executed"
+    },
+    "geometry_bound": {
+      "const": false
+    },
+    "design_accepted": {
+      "const": false
+    }
+  }
+}

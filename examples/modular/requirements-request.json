@@ -1,0 +1,18 @@
+{
+  "schema": "bsa.module-request/1",
+  "project_id": "public-requirements",
+  "scenario_id": "electrical-example",
+  "capability": "requirements.source-inventory",
+  "coordinate_frame": {
+    "id": "requirements-no-geometry-claim",
+    "kind": "source-world-si",
+    "length_unit": "m",
+    "georeferenced": false
+  },
+  "sources": {
+    "plan": {
+      "path": "../modular-electrical-plan.json",
+      "sha256": "1db129a2e6251cd92548b6ff21c865803c8081274f5c120407ea3ba96f6776f2"
+    }
+  }
+}

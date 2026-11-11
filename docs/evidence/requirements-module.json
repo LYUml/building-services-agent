@@ -1,0 +1,66 @@
+{
+  "scope": "Source inventory and exact host-declared requirement preservation;not semantic interpretation or design",
+  "scenarios": {
+    "electrical": {
+      "documents": 1,
+      "passages": 3,
+      "requirements": 2,
+      "unresolved_inputs": 0,
+      "source_plan_unchanged": true,
+      "verified": true,
+      "interpretation_status": "not_assessed",
+      "engineering_execution": "not_executed",
+      "design_accepted": false
+    },
+    "water": {
+      "documents": 1,
+      "passages": 5,
+      "requirements": 4,
+      "unresolved_inputs": 0,
+      "source_plan_unchanged": true,
+      "verified": true,
+      "interpretation_status": "not_assessed",
+      "engineering_execution": "not_executed",
+      "design_accepted": false
+    },
+    "bse3227": {
+      "documents": 2,
+      "passages": 90,
+      "requirements": 33,
+      "unresolved_inputs": 9,
+      "source_plan_unchanged": true,
+      "verified": true,
+      "interpretation_status": "not_assessed",
+      "engineering_execution": "not_executed",
+      "design_accepted": false
+    },
+    "automatic-start": {
+      "status": "needs_interpretation",
+      "module_execution": "completed",
+      "source_unchanged": true,
+      "interpretation_status": "not_assessed",
+      "design_accepted": false
+    }
+  },
+  "public_request_executed": true,
+  "tests": {
+    "invocations": 39,
+    "passes": 39,
+    "failures": 0,
+    "errors": 0,
+    "command": "python -m unittest tests.test_requirements_provider tests.test_project_start tests.test_work_plan_review tests.test_modules tests.test_module_electrical_rules_workflow tests.test_workflow_status"
+  },
+  "source_snapshot": {
+    "src/bsa/providers/requirements.py": "6fca4cbaf38ded33337789dfa2a65d1152ff7bf0b6d667a3dabaa0aa68949bd3",
+    "src/bsa/project_start.py": "e867a5ca92a03342db9bac43aa3041d732269ed6bcef22e7db85991600c42db5",
+    "src/bsa/module_contract.py": "16a3c35e055e3538c1154055909d4122e55bb9640c9d73fda705bfa845e936bf",
+    "contracts/modules/requirements-inventory-v1.json": "32494e492e507fb49b9b65ccbbd776a2f029a099d8930fb0adcba39a6151d342"
+  },
+  "limitations": [
+    "No semantic completeness assessment or automatic professional design",
+    "Common requirements-to-design-input binding remains unfinished",
+    "Existing plan validation and domain input contracts remain authoritative",
+    "No private source text or coursework artifacts published"
+  ],
+  "design_accepted": false
+}

@@ -1,5 +1,11 @@
 # Building Services Agent
 
+The common requirements inventory now preserves source passages,obligations
+and unresolved inputs across electrical,water and actual BSE3227 plans. Fresh
+validated project intake creates it automatically;39 related tests pass. See
+[evidence](docs/evidence/requirements-module.json). Semantic completeness and
+automatic design-input binding remain unfinished.
+
 Host configuration now selects existing electrical/water rule adapters without
 editing source plans. Four actual enabled/disabled trials and34related tests
 pass. See [evidence](docs/evidence/rule-host-selection.json). A second

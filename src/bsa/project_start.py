@@ -26,7 +26,7 @@ def start(brief,out,*,supplements=(),references=()):
         target=folder/p.name;shutil.copyfile(p,target)
         if digest(target)!=before[str(p)]:raise ValueError('Staged source differs from original snapshot')
         staged.append(target)
-    errors={};result=None;review_ready=False;effective_plan=out/'plan.json'
+    errors={};result=None;review_ready=False;effective_plan=out/'plan.json';requirements_module=None
     try:
         result=draft(staged[0],out/'plan.json',staged[1:])
         if references:
@@ -48,6 +48,15 @@ def start(brief,out,*,supplements=(),references=()):
             errors['work_review']='Inspect extraction issues against original pages before preparing the interpretation handoff.'
         else:
             template(effective_plan,out/'work-review.json');review_ready=True
+            from .modules import run as run_module
+            request=dict(schema='bsa.module-request/1',project_id=out.name,scenario_id='source-intake',
+                capability='requirements.source-inventory',coordinate_frame=dict(id='intake-no-geometry-claim',kind='source-world-si',length_unit='m',georeferenced=False),
+                sources=dict(plan=dict(path=effective_plan.name,sha256=digest(effective_plan))))
+            request_path=out/'requirements-request.json'
+            request_path.write_text(json.dumps(request,indent=2),encoding='utf-8')
+            module=run_module(request_path,'bsa.source-requirements',out/'requirements')
+            requirements_module=dict(result='requirements/result.json',execution=module['execution'],interpretation_status='not_assessed')
+            if module['execution']['status']!='completed':errors['requirements_inventory']='Common requirements inventory did not complete;inspect retained module diagnostics.'
     except Exception as exc:
         errors['intake']=type(exc).__name__+': '+str(exc)
     if any(not p.is_file() or digest(p)!=before[str(p)] for p in originals):raise ValueError('Original document changed during intake')
@@ -56,7 +65,7 @@ def start(brief,out,*,supplements=(),references=()):
     report=dict(status='needs_source_review' if errors else 'needs_interpretation',
         sources=[dict(original=str(p),staged=s.relative_to(out).as_posix(),sha256=before[str(p)],
             role='primary' if i==0 else 'supplement' if i<=len(supplements) else 'reference') for i,(p,s) in enumerate(zip(originals,staged))],
-        effective_plan=effective_plan.relative_to(out).as_posix() if effective_plan.is_file() else None,
+        effective_plan=effective_plan.relative_to(out).as_posix() if effective_plan.is_file() else None,requirements_module=requirements_module,
         originals_unchanged=True,methods=methods,draft=result,stage_errors=errors,interpretation_template_ready=review_ready,
         artifacts={p.relative_to(out).as_posix():digest(p) for p in out.rglob('*') if p.is_file()},
         design_accepted=False,scope='Source staging and conservative interpretation handoff only;no semantic design,engineering execution or acceptance')

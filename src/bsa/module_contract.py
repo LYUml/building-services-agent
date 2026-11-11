@@ -9,6 +9,7 @@ RULE_SCHEMA='bsa.rule-assessment/1'
 SCHEMAS={'bsa.module-request/1':'request-v1.json','bsa.module-result/1':'result-v1.json','bsa.spatial-boxes/1':'spatial-boxes-v1.json','bsa.model-artifact/1':'model-artifact-v1.json','bsa.air-budget/1':'air-budget-v1.json','bsa.bound-air-budget/1':'bound-air-budget-v1.json','bsa.water-graph/1':'water-graph-v1.json','bsa.bound-water-graph/1':'bound-water-graph-v1.json'}
 
 
+SCHEMAS['bsa.requirements-inventory/1']='requirements-inventory-v1.json'
 SCHEMAS[RULE_SCHEMA]='rule-assessment-v1.json'
 SCHEMAS['bsa.electrical-circuits/1']='electrical-circuits-v1.json'
 
@@ -59,6 +60,16 @@ def validate(data,schema=None):
     spec=read_json(ROOT/'contracts/modules'/SCHEMAS[schema]);jsonschema.Draft202012Validator.check_schema(spec)
     errors=list(jsonschema.Draft202012Validator(spec).iter_errors(data))
     if errors:raise ValueError('Contract violation: '+errors[0].message)
+    if schema=='bsa.requirements-inventory/1':
+        frame_spec=read_json(ROOT/'contracts/modules/request-v1.json')['properties']['coordinate_frame']
+        if list(jsonschema.Draft202012Validator(frame_spec).iter_errors(data['coordinate_frame'])):raise ValueError('Invalid requirements coordinate frame')
+        for key in ('documents','passages','requirements','tasks'):
+            ids=[r['id'] for r in data[key]]
+            if len(ids)!=len(set(ids)):raise ValueError('Duplicate requirements inventory identity')
+        passages={r['id']:r for r in data['passages']};tasks={r['id'] for r in data['tasks']}
+        for row in data['requirements']:
+            if row['task'] not in tasks or row['passage'] not in passages or not row['quote'] or row['quote'] not in passages[row['passage']]['text']:raise ValueError('Requirements source/task correspondence differs')
+        if {r['passage'] for r in data['requirements']}!={r['id'] for r in data['passages'] if r['disposition']=='requirement'}:raise ValueError('Requirements inventory loses source coverage')
     if schema=='bsa.electrical-circuits/1':
         frame_spec=read_json(ROOT/'contracts/modules/request-v1.json')['properties']['coordinate_frame']
         if list(jsonschema.Draft202012Validator(frame_spec).iter_errors(data['coordinate_frame'])):raise ValueError('Invalid electrical coordinate frame')

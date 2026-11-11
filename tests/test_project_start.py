@@ -22,6 +22,11 @@ class ProjectStartTests(unittest.TestCase):
         self.assertTrue(all(t['kind']=='manual' for t in p['tasks']));self.assertEqual(len(p['unresolved_inputs']),3)
         self.assertEqual(self.brief.read_bytes(),before);self.assertFalse(r['design_accepted'])
         self.assertEqual(json.loads((out/'work-review.json').read_text())['tasks'],[])
+        from bsa.modules import verify_result
+        module=verify_result(out/r['requirements_module']['result'])
+        self.assertEqual(module['execution']['status'],'completed')
+        self.assertEqual(module['payload']['requirements'],p['requirements'])
+        self.assertEqual(module['payload']['interpretation_status'],'not_assessed')
 
     def test_empty_source_is_retained_without_false_plan(self):
         self.brief.write_text('');out=self.root/'empty';r=start(self.brief,out)
@@ -60,3 +65,4 @@ class ProjectStartTests(unittest.TestCase):
         plan=json.loads((out/'role-plan.json').read_text());self.assertEqual(plan['document_review'],{})
         self.assertEqual(plan['passage_dispositions']['D002:P001'],'context')
         self.assertFalse((out/'work-review.json').exists())
+        self.assertIsNone(r['requirements_module']);self.assertFalse((out/'requirements').exists())

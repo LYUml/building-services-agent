@@ -5,6 +5,8 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+Use bsa.source-requirements for the common requirements.source-inventory boundary (docs/REQUIREMENTS_MODULE.md). project_start now creates it only after source validation permits interpretation handoff. Preserve every indexed passage,context disposition,requirement and unresolved input;verify_result rereads source evidence. Inventory completion is not semantic completeness or engineering execution. Common design binding remains unfinished.
+
 Host --module-provider TASK=PROVIDER can select bsa.electrical-path-rules or bsa.hvac-water-rules on the corresponding direct rule task without changing the plan. Read docs/ELECTRICAL_RULE_PROVIDER.md or docs/RULE_PROVIDER.md. Preserve exact inherited producer/source and host disable checks;cross-domain choices reject. This does not establish a second jurisdiction or interchangeable engine.
 
 Use examples/modular/README.md for the source-only public native-IFC to spatial
