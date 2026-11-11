@@ -1,5 +1,20 @@
 # Public modular pipeline
 
+Experimental drawing composition: the water-rule builder's --drawings option
+adds the same-model plan/front and native plotting tasks. The actual trial has
+passing DWG/reopen/reference checks but **failed visual acceptance** because of
+crossing label leaders. Do not use it as a polished or accepted drawing set;
+see docs/MODULES.md and evidence/water-rule-drawing-gates.json.
+
+```powershell
+.venv/Scripts/python examples/modular/build_water_rules_inputs.py --sources runs/hk-regulation-sources --out runs/water-drawing-inputs --drawings
+.venv/Scripts/python -m bsa.workflow execute runs/water-drawing-inputs/plan.json --out runs/water-drawing-workflow --autocad 'C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe'
+```
+
+Use an actual installed host path and new output directories. No GUI documents
+are attached/closed. Manual visual/domain review remains pending in the workflow;
+the actual failed visual observation is retained separately from immutable results.
+
 For the complete scoped native-circulation/model/analysis/HK-rule chain,first
 obtain the existing pinned official cache using scripts/fetch_regulation_sources.py
 as documented in docs/REGULATION_PACKS.md,then stage a self-contained run:

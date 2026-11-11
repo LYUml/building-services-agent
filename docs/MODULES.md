@@ -648,3 +648,30 @@ evidence/module-water-rule-workflow.json. Planning coverage now recognizes this
 scheduled pack consumer but preserves execution_status:not_assessed and remaining
 catalog gaps. No full-suite rerun,complete jurisdiction coverage,real coursework
 acceptance or typed RuleAssessment replacement is established by this milestone.
+
+## Gated native-water drawing composition: visual acceptance failed
+
+The public water-rule input builder also accepts --drawings. It stages explicit
+circulation-ifc plan/front settings and adds same-authoring ifc_views and
+ifc_views_native tasks after the rule check. This is an experimental drawing
+composition,not an accepted drawing release. No authoring/plot engine is added.
+
+An actual licensed AutoCAD2027 isolated execution creates and independently
+reopens2DWGs,and plots2merged pages at1:30. Both native GUID/geometry audits and
+physical PDF references pass:66.632667mm versus66.666667mm in plan and the
+front-view reference recorded in evidence/water-rule-drawing-gates.json.
+Both actual pages were rendered at150dpi and inspected. Text is legible without
+visible clipping,but straight label leaders cross other projected pipes or peer
+leaders. Visual review is fail;the drawing set is not delivered as polished or
+accepted. Raw PDF duplicate /PageMode warnings remain observed and unsuppressed.
+
+The existing route_annotations.layout returns a4-piece conservative layout for
+the plan. A direct front-view trial fails on zero-length end-on projections with
+ZeroDivisionError. It is not integrated or claimed as a working multiview fix.
+Next work needs a verified graphical adapter for symbolic end-on cases and saved-
+geometry leader auditing,then fresh native plotting and page inspection.
+
+Two new drawing-gate and5 default-workflow regression invocations pass. Failed
+rules prevent both drawing stages;missing AutoCAD leaves native work pending.
+Pump/node bodies,fittings,physical clashes,installation details,products,full HK
+scope and full engineering acceptance remain pending. See the retained evidence.

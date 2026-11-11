@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "source": "Explicit two-view synthetic flat circulation layout;actual source GUIDs and metre coordinates. 0.075m annotation prints2.5mm at1:30. Centreline scope excludes pump/node bodies and installation detail.",
+  "annotation_height_m": 0.075,
+  "end_on_marker_half_size_m": 0.05,
+  "labels": {
+    "0BTDsWeIDLcOm5pGkZrfzy": "CROSS",
+    "0pk6ypS9rPiQEtiKgKEiGH": "RETURN",
+    "2Ahi2LTNbPLRjDnTrkCfHv": "OUTBOUND",
+    "3MEDeSiSbVew8STY4kq$Zs": "REFERENCE"
+  },
+  "views": [
+    {
+      "id": "plan",
+      "projection_axes": [
+        "X",
+        "Y"
+      ],
+      "sheet": {
+        "source": "Declared synthetic A4 landscape1:30;0.2mm physical reference tolerance;end-on crosses are symbolic,not bores.",
+        "window_drawing_units": [
+          0,
+          0,
+          7,
+          5.4
+        ],
+        "scale_denominator": 30,
+        "reference_ifc_guid": "2Ahi2LTNbPLRjDnTrkCfHv",
+        "pdf_tolerance_mm": 0.2
+      }
+    },
+    {
+      "id": "front",
+      "projection_axes": [
+        "X",
+        "Z"
+      ],
+      "sheet": {
+        "source": "Declared synthetic A4 landscape1:30;0.2mm physical reference tolerance;end-on crosses are symbolic,not bores.",
+        "window_drawing_units": [
+          0,
+          0,
+          7,
+          5.4
+        ],
+        "scale_denominator": 30,
+        "reference_ifc_guid": "0BTDsWeIDLcOm5pGkZrfzy",
+        "pdf_tolerance_mm": 0.2
+      }
+    }
+  ]
+}

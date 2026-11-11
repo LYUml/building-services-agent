@@ -1,0 +1,162 @@
+{
+  "scope": "Experimental same-model water-rule-to-native-drawing composition;visual acceptance failed",
+  "source_sha256": {
+    "examples/modular/build_water_rules_inputs.py": "43f9807adbd8c00f4ef83e1ec171b32261ea31618d8c33c1fb3ee3d31fbf4c2f",
+    "examples/circulation-ifc/views-settings.json": "dde705a56aa9756ecdb6201ea226cb4b6f616bc22e0435749ff401a95acdac70",
+    "tests/test_water_rule_drawing_gate.py": "e70de74ee0fc3c5cbc29942cef69644a1d3f0efb31058cb970e28dfc874ee40d"
+  },
+  "workflow": "runs/water-rule-drawing-native/workflow.json",
+  "workflow_sha256": "85ce600093831e8841981aca1d52d6710a6169672dd34695d940c5d308d5418b",
+  "plan_sha256": "05708babd3d2da71edabbb1a2a664afc6aeaebb34aeff38ef00e5c0f2f7e7365",
+  "tasks": {
+    "model": "pass",
+    "water": "pass",
+    "rules": "pass",
+    "views": "pass",
+    "native": "pass",
+    "review": "pending"
+  },
+  "native_views": [
+    {
+      "id": "plan",
+      "native_reopen_pass": true,
+      "dwg_sha256": "ba50eff2e17497759e4d65d064ba26caad85de7badd82682f49b2cc906fa1546",
+      "checks": {
+        "model_entity_count": 15,
+        "linked_entity_count": 12,
+        "model_entities_and_ifc_xdata_match": true,
+        "geometry_layers_and_annotations_match": true,
+        "metre_units": true
+      },
+      "plot": {
+        "pdf_sha256": "e91aeaf50a27ddd9c14a3f3f634cd7eafeafd463ba5afefb450c196eb68118d3",
+        "dwg_unchanged": true,
+        "paper_mm": [
+          297.03888888888883,
+          209.90277777777777
+        ],
+        "scale_denominator": 30,
+        "reference_handle": "3A",
+        "reference_expected_mm": 66.66666666666666,
+        "reference_measured_mm": 66.63266666666667,
+        "pdf_reference_pass": true,
+        "visual_review": "pending",
+        "design_accepted": false
+      }
+    },
+    {
+      "id": "front",
+      "native_reopen_pass": true,
+      "dwg_sha256": "3e9db6a231a54e9ecefde7bebf93af05e0ac7f91503bc978a61b243ba6e285f7",
+      "checks": {
+        "model_entity_count": 17,
+        "linked_entity_count": 14,
+        "model_entities_and_ifc_xdata_match": true,
+        "geometry_layers_and_annotations_match": true,
+        "metre_units": true
+      },
+      "plot": {
+        "pdf_sha256": "590394cd7c988e02d99a504b9c7f713cdd6a5dda4af4a87c11809bf9a3b6f1e8",
+        "dwg_unchanged": true,
+        "paper_mm": [
+          297.03888888888883,
+          209.90277777777777
+        ],
+        "scale_denominator": 30,
+        "reference_handle": "34",
+        "reference_expected_mm": 33.33333333333334,
+        "reference_measured_mm": 33.31633333333332,
+        "pdf_reference_pass": true,
+        "visual_review": "pending",
+        "design_accepted": false
+      }
+    }
+  ],
+  "visual_evidence": {
+    "pdf": "runs/water-rule-drawing-native/native/drawing-set.pdf",
+    "pdf_sha256": "0fdddf917faea85d3b4177a87fb754ce77dbea522aaf6feb560ec5149923435c",
+    "render_dpi": 150,
+    "pages": [
+      {
+        "page": 1,
+        "path": "runs/water-rule-drawing-review/page-1.png",
+        "sha256": "159f1246f86cd2e0ef6b490d8cb53afca4ebe39706e77ad782a11ea3bb44e9f9",
+        "text_clipping_observed": false,
+        "labels_legible": true,
+        "leader_ambiguity_observed": true
+      },
+      {
+        "page": 2,
+        "path": "runs/water-rule-drawing-review/page-2.png",
+        "sha256": "343ac5b00af2e486a18f4570cec8117805a4c2c82c92d3cbadd51d82ad0070a4",
+        "text_clipping_observed": false,
+        "labels_legible": true,
+        "leader_ambiguity_observed": true
+      }
+    ],
+    "visual_review": "fail",
+    "reason": "Straight label leaders cross other pipe projections or peer leaders;do not accept or deliver as a polished drawing set",
+    "native_reopen_pass": true,
+    "reference_checks": [
+      {
+        "view": "plan",
+        "expected_mm": 66.66666666666666,
+        "measured_mm": 66.63266666666667,
+        "pass_": true
+      },
+      {
+        "view": "front",
+        "expected_mm": 33.33333333333334,
+        "measured_mm": 33.31633333333332,
+        "pass_": true
+      }
+    ],
+    "existing_annotation_reuse_trial": [
+      {
+        "view": "plan",
+        "status": "layout_returned",
+        "pieces": 4,
+        "scope": "conservative OD-rectangle and prior-leader-box avoidance; own initial stub is an outward OD normal ray",
+        "integration_verified": false
+      },
+      {
+        "view": "front",
+        "status": "unsupported_trial",
+        "error": "ZeroDivisionError: float division by zero",
+        "integration_verified": false
+      }
+    ],
+    "annotation_method_sha256": "1454a9b87a6ad326d11df2f0a813c5f040b3546f33c49e24af9afc6795da4259",
+    "next_gap": "Existing conservative planner handles finite planar pipe extents;direct front-view input includes zero-length end-on symbols and is not compatible without a verified graphical adapter",
+    "design_accepted": false
+  },
+  "visual_evidence_sha256": "5bc637b71438a1ad23d35159f091910318c12c632318a554c2e7cc11bd187dc0",
+  "test_runs": [
+    {
+      "result": "runs/water-rule-drawing-gate-tests/result.json",
+      "sha256": "9944cc0082d2223c33d49602a7eaebca436e6ea034db6456f1e1f276cdbfdf9e",
+      "invocations": 2,
+      "passed": 2,
+      "skipped": 0,
+      "log_sha256": "7af58070d5dd26afa9c7dff6f0400caf9feb078d35a1d86157183b0ee8e53f4b"
+    },
+    {
+      "result": "runs/water-rule-drawing-default-regression/result.json",
+      "sha256": "fe1cbcf43b69b5a873e53e1b4ab21db38516a559b5b9a544eac56ae91730d89a",
+      "invocations": 5,
+      "passed": 5,
+      "skipped": 0,
+      "log_sha256": "21190a0299c9c27de7154455ca84e08fe19330fac15aeac4beedc0cccaa16832"
+    }
+  ],
+  "design_accepted": false,
+  "visual_review": "fail",
+  "limitations": [
+    "Crossing leaders must be corrected and native/PDF inspection repeated before visual release",
+    "No accepted or polished PDF deliverable in this milestone",
+    "Existing route planner direct end-on input is unsupported;no integrated fix claimed",
+    "Centreline projection excludes pump/node bodies,fittings,insulation and installation details",
+    "Product/clash/full engineering and HK acceptance pending",
+    "Original full agent goal and real coursework delivery remain unfinished"
+  ]
+}

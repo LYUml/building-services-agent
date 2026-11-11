@@ -908,3 +908,12 @@ or hydraulic engine. The public staging helper copies existing circulation input
 pack and verified cached official bytes. No dependency or upstream implementation
 is added. Six actual workflow scenarios and85 targeted invocations execute;
 typed common rule output and full engineering/jurisdiction acceptance remain pending.
+
+Native-water drawing composition reuses ifc_views,ifc_native,cad_sheet and licensed
+isolated AutoCAD2027;only source settings/staging/gates are added. Actual2DWG and
+2-page output passes native/reference checks but fails actual visual review due
+to straight leaders crossing other projections/leaders. The existing original
+route_annotations.layout was checked against this exact gap:plan returns4pieces,
+direct front input fails on zero-length end-on symbols. No replacement planner
+or new upstream dependency is added;multiview adaptation remains unverified.
+See evidence/water-rule-drawing-gates.json. Retain current engine/licence notices.

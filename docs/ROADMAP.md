@@ -1,5 +1,14 @@
 # Scope and acceptance
 
+The rule workflow's optional drawing composition now executes actual2DWG save/
+independent reopen and2-page1:30 plotting. Native and scale checks pass;actual
+150dpi inspection fails visual acceptance because straight leaders cross other
+geometry/leader paths. Seven targeted invocations pass for dependency gates and
+default-workflow compatibility. This is not an accepted drawing release. Existing
+route_annotations works for the plan trial but direct end-on front projections
+are unsupported;adapt/re-audit before another native/visual run. See MODULES.md
+and evidence/water-rule-drawing-gates.json. Full goal remains active.
+
 The native water/model/rule chain now runs in one workflow with no repeated
 geometry or hydraulic solve for jurisdiction checks. Required downstream work
 stays blocked on failure/pending;delivery rejects source/producer substitutions
