@@ -20,6 +20,11 @@ The [modular authoring example](examples/modular/README.md) also puts native
 IFC creation behind a common model-artifact contract. One authoring provider is
 verified;other native authoring replacements remain unfinished.
 
+The [bound air-budget example](examples/modular/README.md) also connects saved
+rectangular IFC profiles/ports to the existing pressure calculator. Canonical
+source/native agreement is verified;fan,installation and full design acceptance
+remain separate.
+
 A developing agent workspace for building services. The host AI interprets requirements and coordinates scoped tools; pinned engineering libraries and native applications perform calculations and authoring. The complete multi-discipline, document-to-accepted-design goal remains unfinished.
 
 ## Start with a real assignment

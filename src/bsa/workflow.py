@@ -327,9 +327,10 @@ def validate_plan(path):
             from .workflow_modules import inputs as module_inputs
             parent=t.get('depends_on')
             if kind=='module_analysis':
-                if 'depends_on' in t:raise ProjectError('Air budget module requires declared project request;native geometry inheritance is not implemented')
                 from .module_contract import read_json as read_module
-                if read_module(local_path(root,t.get('request')))['capability']!='analysis.air.rectangular-tree':raise ProjectError('Supported rectangular air budget capability required')
+                capability=read_module(local_path(root,t.get('request')))['capability']
+                if capability not in ('analysis.air.rectangular-tree','analysis.air.rectangular-ifc-tree'):raise ProjectError('Supported rectangular air budget capability required')
+                if parent and (capability!='analysis.air.rectangular-ifc-tree' or parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='module_authoring'):raise ProjectError('Bound budget requires earlier canonical module authoring producer')
             if kind=='module_authoring':
                 if 'depends_on' in t:raise ProjectError('Authoring module uses explicit project request,not inherited geometry')
                 from .module_contract import read_json as read_module

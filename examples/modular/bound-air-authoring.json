@@ -1,0 +1,18 @@
+{
+  "schema": "bsa.module-request/1",
+  "project_id": "public-bound-rectangular-budget",
+  "scenario_id": "synthetic-source",
+  "capability": "authoring.ifc.bim",
+  "coordinate_frame": {
+    "id": "declared-bound-level-air-reference",
+    "kind": "source-world-si",
+    "length_unit": "m",
+    "georeferenced": false
+  },
+  "sources": {
+    "project": {
+      "path": "../rectangular-air/straight-wall.json",
+      "sha256": "d17434ff87c3ad6fc22471524799981c7568efaae87c0b1b0f04528cc35fe21a"
+    }
+  }
+}

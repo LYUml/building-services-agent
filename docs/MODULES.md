@@ -423,3 +423,50 @@ tests execute the real existing calculator,including rejected summary/status
 forgery and wrong units. See [evidence](evidence/modular-air-budget.json). This
 does not establish physical routes,component K,leakage,acoustics,fan/product
 selection,full code applicability or complete multi-discipline design.
+
+## Saved-native rectangular air-budget binding
+
+fluids.rectangular-ifc-budget adds capability analysis.air.rectangular-ifc-tree.
+It reuses network_binding._prepare,rectangular_binding.inspect_saved and the
+existing rectangular_network calculation. Values derive from canonical authoring
+input and independently reconcile against saved native solids,wall profiles,
+ports,connections and complete duct coverage. This is not an arbitrary IFC
+importer or automatic interpretation of an unexplained external revision.
+
+```powershell
+.venv/Scripts/python -m pip install -e ".[modules,bim,network]"
+.venv/Scripts/python -m bsa.workflow execute examples/modular-bound-analysis-plan.json --out runs/modular-bound-air
+```
+
+The public plan authors the existing straight-wall example through module_authoring.
+A module_analysis depending on it uses an inherited request containing exactly
+project and binding sources. The template omits bound length,width,height and
+node elevation. The workflow supplies ifc from the verified model artifact and
+model from its canonical project source,requires matching frames and pins all
+four final sources. Replacement model/IFC fields in inherited templates reject.
+Standalone requests may supply all four project/model/binding/ifc sources.
+
+bsa.bound-air-budget/1 requires geometry_bound=true and hash-linked copied IFC4/
+binding-report artifacts. Declared-only air-budget/1 remains geometry_bound=false.
+Original engine reports are unchanged:their geometry_bound=false describes the
+standalone calculator;the wrapper's true flag records the additional native
+reconciliation. Verification reconstructs the network and repeats native
+inspection. Analysis does not edit or reauthor source models. Numerical failure
+still blocks required consumers;engineering acceptance remains separate.
+
+The retained calculation must hash-match the actual derived input,and binding/
+numerical reports must agree on calculated-check status. Altering either record
+cannot promote a contradictory result through verification.
+
+Six actual straight/bend/pressure/duplicate/disabled-author/disabled-analysis
+workflows verify source,diagnosis and review contexts,with all reviews pending.
+Two direct controls reject source-metadata mismatch and a changed real hollow
+profile with original metadata preserved.105 targeted invocations:104pass,
+1optional native test skipped;added profile controls pass. Existing engines are
+fluids1.3.1 (MIT) and IfcOpenShell0.8.5 (LGPL-3.0-or-later). See
+[evidence](evidence/modular-bound-air-budget.json).
+
+Native agreement is not surveyed as-built truth or installation approval.
+Flow,roughness,K,method applicability,junction physics,fan operating point,
+products,acoustics and code conformity remain independently sourced/reviewed.
+This does not establish a complete HVAC design.

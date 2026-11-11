@@ -1,0 +1,22 @@
+{
+  "schema": "bsa.module-request/1",
+  "project_id": "public-bound-rectangular-budget",
+  "scenario_id": "synthetic-source",
+  "capability": "analysis.air.rectangular-ifc-tree",
+  "coordinate_frame": {
+    "id": "declared-bound-level-air-reference",
+    "kind": "source-world-si",
+    "length_unit": "m",
+    "georeferenced": false
+  },
+  "sources": {
+    "project": {
+      "path": "../rectangular-air/binding-project.json",
+      "sha256": "98d088f7dcb0c465713ff6991ed00408fe0f6bdb79e772ad35e0d79932997678"
+    },
+    "binding": {
+      "path": "../rectangular-air/binding.json",
+      "sha256": "2166becf49b6ae6e91a233e51de4c011a78cc81b37aa2ce48cc92d64a3c905a9"
+    }
+  }
+}

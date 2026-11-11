@@ -90,3 +90,16 @@ failed criteria block required downstream tasks. Raw branch/node JSON,CSV and
 HTML are retained. The geometry,flows,K and targets are explicit synthetic test
 inputs;geometry_bound=false. Operating fan selection,physical routes,acoustics,
 code and full design acceptance remain pending. See docs/MODULES.md.
+
+To bind a rectangular budget to newly authored native geometry:
+
+```powershell
+.venv/Scripts/python -m pip install -e ".[modules,bim,network]"
+.venv/Scripts/python -m bsa.workflow execute examples/modular-bound-analysis-plan.json --out runs/modular-bound-air
+```
+
+This reuses the synthetic hollow duct and geometry-free network template.
+Saved solid/profile/port/connection checks must match the canonical source before
+geometry is analysed. Flows,roughness,K and targets remain explicit. See
+docs/MODULES.md for the distinct bound contract and actual bend/failure controls.
+Junction/fan/product/installation/code acceptance remains pending.

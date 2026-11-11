@@ -2,6 +2,9 @@
 
 
 def get_provider(id):
+    if id=='fluids.rectangular-ifc-budget':
+        from . import rectangular_ifc_air
+        return rectangular_ifc_air
     if id=='fluids.rectangular-air-budget':
         from . import rectangular_air
         return rectangular_air

@@ -857,3 +857,11 @@ No package/source vendoring or new engine is added. Raw branch/node reports stay
 available,common results are cross-checked,and independent native work continues
 through pressure/velocity/invalid/disabled controls. See MODULES.md and
 evidence/modular-air-budget.json.
+
+Saved-native budget binding reuses network_binding._prepare,
+rectangular_binding.inspect_saved and rectangular_network.run instead of the
+legacy combined runner that regenerates IFC. The gap is common-model/source
+resolution and typed binding evidence,not another geometry or friction solver.
+Existing fluids1.3.1 MIT and IfcOpenShell0.8.5 LGPL attribution/pins remain;no new
+dependency or upstream source is copied. Six actual straight/bend/failure/disable
+workflows and metadata/real-profile mismatch controls execute;see MODULES.md.

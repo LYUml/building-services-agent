@@ -5,7 +5,7 @@ import math
 from pathlib import Path,PurePosixPath
 
 ROOT=Path(__file__).resolve().parents[2]
-SCHEMAS={'bsa.module-request/1':'request-v1.json','bsa.module-result/1':'result-v1.json','bsa.spatial-boxes/1':'spatial-boxes-v1.json','bsa.model-artifact/1':'model-artifact-v1.json','bsa.air-budget/1':'air-budget-v1.json'}
+SCHEMAS={'bsa.module-request/1':'request-v1.json','bsa.module-result/1':'result-v1.json','bsa.spatial-boxes/1':'spatial-boxes-v1.json','bsa.model-artifact/1':'model-artifact-v1.json','bsa.air-budget/1':'air-budget-v1.json','bsa.bound-air-budget/1':'bound-air-budget-v1.json'}
 
 
 def read_json(path):
@@ -35,13 +35,13 @@ def validate(data,schema=None):
     spec=read_json(ROOT/'contracts/modules'/SCHEMAS[schema]);jsonschema.Draft202012Validator.check_schema(spec)
     errors=list(jsonschema.Draft202012Validator(spec).iter_errors(data))
     if errors:raise ValueError('Contract violation: '+errors[0].message)
-    if schema in ('bsa.spatial-boxes/1','bsa.model-artifact/1','bsa.air-budget/1'):
+    if schema in ('bsa.spatial-boxes/1','bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1'):
         frame=data['coordinate_frame'];request_schema=read_json(ROOT/'contracts/modules/request-v1.json')
         if list(jsonschema.Draft202012Validator(request_schema['properties']['coordinate_frame']).iter_errors(frame)):raise ValueError('Invalid common coordinate frame')
-    if schema=='bsa.air-budget/1':
+    if schema in ('bsa.air-budget/1','bsa.bound-air-budget/1'):
         if (data['status']=='pass')!=all(data['checks'].values()):raise ValueError('Air budget status differs from numerical checks')
-    if schema in ('bsa.model-artifact/1','bsa.air-budget/1'):
-        for key in (('model','verification') if schema=='bsa.model-artifact/1' else ('report',)):
+    if schema in ('bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1'):
+        for key in (('model','verification') if schema=='bsa.model-artifact/1' else ('report','model','binding') if schema=='bsa.bound-air-budget/1' else ('report',)):
             name=data[key]['path']
             if '\\' in name or PurePosixPath(name).is_absolute() or '..' in PurePosixPath(name).parts or ':' in name:raise ValueError('Model artifact references must be local relative paths')
     if schema=='bsa.spatial-boxes/1':
@@ -59,8 +59,8 @@ def validate(data,schema=None):
         if data['execution']['status']=='completed':
             if data['payload'] is None:raise ValueError('Completed module needs validated payload')
             validate(data['payload'],data['payload_schema'])
-            if data['payload_schema'] in ('bsa.model-artifact/1','bsa.air-budget/1'):
-                for key in (('model','verification') if data['payload_schema']=='bsa.model-artifact/1' else ('report',)):
+            if data['payload_schema'] in ('bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1'):
+                for key in (('model','verification') if data['payload_schema']=='bsa.model-artifact/1' else ('report','model','binding') if data['payload_schema']=='bsa.bound-air-budget/1' else ('report',)):
                     row=data['payload'][key]
                     if data['artifacts'].get(row['path'])!=row['sha256']:raise ValueError('Model artifact payload differs from complete artifact inventory')
         elif data['payload'] is not None:raise ValueError('Unexecuted/failed module cannot expose a successful payload')

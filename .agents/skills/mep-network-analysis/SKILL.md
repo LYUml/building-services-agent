@@ -14,6 +14,15 @@ numerical pass may satisfy requires_pass;do not change targets to hide failure.
 Declared lengths/K/applicability are not saved-native geometry,fan selection or
 full engineering acceptance. Other analysis-provider replacement is unverified.
 
+For saved-native rectangular binding,use fluids.rectangular-ifc-budget with
+analysis.air.rectangular-ifc-tree. module_analysis may inherit module_authoring
+using a project/binding-only template;the workflow binds its exact IFC and
+canonical source. See examples/modular-bound-analysis-plan.json and docs/MODULES.md.
+Do not repeat dimensions/elevations or replace the model. Existing source
+derivation and saved solid/profile/port/connection reconciliation must pass.
+geometry_bound means source/native agreement;installed truth,K,junction physics,
+fan selection and complete acceptance remain pending.
+
 For an explicit planar layout change,use bsa.terminal_layout_revision only when
 the original drawing matches the full allocation/tree and ID-label bindings.
 Read docs/TERMINAL_LAYOUT_REVISION.md. Preserve rigid/VAV geometry and unrelated

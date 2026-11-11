@@ -1,0 +1,113 @@
+{
+  "scope": "Canonical source/native IFC reconciliation and typed rectangular air-tree analysis",
+  "actual_workflows": [
+    {
+      "case": "straight",
+      "statuses": [
+        "pass",
+        "pass",
+        "pending"
+      ],
+      "module_execution": "completed",
+      "numerical_status": "pass",
+      "source_diagnosis_delivery_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "elbow",
+      "statuses": [
+        "pass",
+        "pass",
+        "pending"
+      ],
+      "module_execution": "completed",
+      "numerical_status": "pass",
+      "source_diagnosis_delivery_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "pressure",
+      "statuses": [
+        "pass",
+        "fail",
+        "pending"
+      ],
+      "module_execution": "completed",
+      "numerical_status": "fail",
+      "source_diagnosis_delivery_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "duplicate",
+      "statuses": [
+        "pass",
+        "fail",
+        "pending"
+      ],
+      "module_execution": "failed",
+      "numerical_status": null,
+      "source_diagnosis_delivery_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "disabled-author",
+      "statuses": [
+        "pending",
+        "pending",
+        "pending"
+      ],
+      "module_execution": null,
+      "numerical_status": null,
+      "source_diagnosis_delivery_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "disabled-analysis",
+      "statuses": [
+        "pass",
+        "pending",
+        "pending"
+      ],
+      "module_execution": "unavailable",
+      "numerical_status": null,
+      "source_diagnosis_delivery_verified": true,
+      "all_reviews_pending": true
+    }
+  ],
+  "direct_native_mismatch": {
+    "status": "failed",
+    "payload_present": false,
+    "reason": "bsa.engine.ProjectError: rectangular dimension metadata differs from source"
+  },
+  "original_ifc_copied_without_change": true,
+  "source_geometry_not_repeated_in_network_template": true,
+  "straight_and_three_piece_bend_models_executed": true,
+  "upstream": {
+    "fluids": "1.3.1",
+    "IfcOpenShell": "0.8.5",
+    "licenses": [
+      "MIT",
+      "LGPL-3.0-or-later"
+    ]
+  },
+  "design_accepted": false,
+  "methods": {
+    "scripts/rectangular_saved_budget.py": "b5aeb6a567c33d1046e2c0e79b8c2436fbb5af76fe93deb6941ce697d07f6b89",
+    "src/bsa/providers/rectangular_ifc_air.py": "c7ad3231602fcd97ff09ececff939b3fe8b1877c2b12fa06a6ba3c02cc1ef5a5",
+    "src/bsa/module_contract.py": "c5b9f52821eddbe668d72323a8eb712f8ae7bd9c08afe7e12d2658a951b113b7",
+    "src/bsa/workflow.py": "b114895495a8aa6a2f0ccb40b7bb463a290db15dddc023b2ecdb0377cccfcfd0",
+    "src/bsa/workflow_modules.py": "c12ebb8d532d92196d4a68346e1a8b5a17ef0baa75367cecc3db9a2a6c65bce7",
+    "src/bsa/workflow_status.py": "35b68d48681da3e593de4516ece0b7b1333d88496869ca797ec796bfadcbd646"
+  },
+  "schema_sha256": "2115a64768ed0b333996074efd37e51e54d85f68d75bc4676a41c5d22e844fb3",
+  "native_profile_mismatch_with_unchanged_metadata": {
+    "status": "failed",
+    "payload_present": false,
+    "reason": "bsa.engine.ProjectError: saved rectangular dimensions differ"
+  },
+  "targeted_tests": {
+    "invocations": 105,
+    "passed": 104,
+    "skipped": 1
+  }
+}

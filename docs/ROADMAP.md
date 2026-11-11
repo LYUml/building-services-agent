@@ -1,5 +1,14 @@
 # Scope and acceptance
 
+Native rectangular geometry now binds into the typed air-budget interface.
+Canonical source values independently reconcile with saved profiles,ports,
+connections and complete duct coverage before calculation/replay. Straight and
+finite-bend chains execute;pressure failure stays numerical fail,repeated
+geometry and mismatching real profiles reject. Six actual workflows verify
+diagnosis/review contexts;105 targeted invocations:104pass,1skip. Native agreement
+does not verify installed data,K,junction physics,fan selection or full HVAC
+acceptance. See MODULES.md and evidence/modular-bound-air-budget.json.
+
 The existing rectangular air-tree calculator now executes behind a typed
 module_analysis boundary with pinned fluids1.3.1. Completed calculations retain
 separate numerical pass/fail;failed declared criteria block downstream tasks.
