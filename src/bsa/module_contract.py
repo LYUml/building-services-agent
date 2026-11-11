@@ -5,13 +5,14 @@ import math
 from pathlib import Path,PurePosixPath
 
 ROOT=Path(__file__).resolve().parents[2]
-SCHEMAS={'bsa.module-request/1':'request-v1.json','bsa.module-result/1':'result-v1.json','bsa.spatial-boxes/1':'spatial-boxes-v1.json','bsa.model-artifact/1':'model-artifact-v1.json','bsa.air-budget/1':'air-budget-v1.json','bsa.bound-air-budget/1':'bound-air-budget-v1.json','bsa.water-graph/1':'water-graph-v1.json'}
+SCHEMAS={'bsa.module-request/1':'request-v1.json','bsa.module-result/1':'result-v1.json','bsa.spatial-boxes/1':'spatial-boxes-v1.json','bsa.model-artifact/1':'model-artifact-v1.json','bsa.air-budget/1':'air-budget-v1.json','bsa.bound-air-budget/1':'bound-air-budget-v1.json','bsa.water-graph/1':'water-graph-v1.json','bsa.bound-water-graph/1':'bound-water-graph-v1.json'}
 
 
 def artifact_references(schema,data):
     if schema=='bsa.model-artifact/1':return ('model','verification')
     if schema=='bsa.air-budget/1':return ('report',)
     if schema=='bsa.water-graph/1':return ('report','raw')
+    if schema=='bsa.bound-water-graph/1':return ('report','raw','network_input','model','binding')
     if schema=='bsa.bound-air-budget/1':return ('report','model','binding')+(('network_input',) if 'network_input' in data else ())
     return ()
 
@@ -43,16 +44,16 @@ def validate(data,schema=None):
     spec=read_json(ROOT/'contracts/modules'/SCHEMAS[schema]);jsonschema.Draft202012Validator.check_schema(spec)
     errors=list(jsonschema.Draft202012Validator(spec).iter_errors(data))
     if errors:raise ValueError('Contract violation: '+errors[0].message)
-    if schema in ('bsa.spatial-boxes/1','bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1'):
+    if schema in ('bsa.spatial-boxes/1','bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
         frame=data['coordinate_frame'];request_schema=read_json(ROOT/'contracts/modules/request-v1.json')
         if list(jsonschema.Draft202012Validator(request_schema['properties']['coordinate_frame']).iter_errors(frame)):raise ValueError('Invalid common coordinate frame')
-    if schema in ('bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1'):
+    if schema in ('bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
         if (data['status']=='pass')!=all(data['checks'].values()):raise ValueError('Analysis status differs from numerical checks')
-    if schema in ('bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1'):
+    if schema in ('bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
         for key in artifact_references(schema,data):
             name=data[key]['path']
             if '\\' in name or PurePosixPath(name).is_absolute() or '..' in PurePosixPath(name).parts or ':' in name:raise ValueError('Model artifact references must be local relative paths')
-    if schema=='bsa.water-graph/1':
+    if schema in ('bsa.water-graph/1','bsa.bound-water-graph/1'):
         for kind in ('junctions','pipes','pumps'):
             ids=[r['id'] for r in data[kind]]
             if len(ids)!=len(set(ids)):raise ValueError('Duplicate common water graph IDs')
@@ -71,7 +72,7 @@ def validate(data,schema=None):
         if data['execution']['status']=='completed':
             if data['payload'] is None:raise ValueError('Completed module needs validated payload')
             validate(data['payload'],data['payload_schema'])
-            if data['payload_schema'] in ('bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1'):
+            if data['payload_schema'] in ('bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
                 for key in artifact_references(data['payload_schema'],data['payload']):
                     row=data['payload'][key]
                     if data['artifacts'].get(row['path'])!=row['sha256']:raise ValueError('Model artifact payload differs from complete artifact inventory')

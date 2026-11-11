@@ -1,0 +1,22 @@
+{
+  "schema": "bsa.module-request/1",
+  "project_id": "public-modular-bound-water",
+  "scenario_id": "synthetic-native-loop",
+  "capability": "analysis.water.ifc-steady-graph",
+  "coordinate_frame": {
+    "id": "synthetic-native-water-world",
+    "kind": "source-world-si",
+    "length_unit": "m",
+    "georeferenced": false
+  },
+  "sources": {
+    "project": {
+      "path": "../water-loop-ifc/project.json",
+      "sha256": "d9b63ba465a140c9974dca8628dce47be9d22cc81a096122cab82e2dc2b9f9d5"
+    },
+    "binding": {
+      "path": "../water-loop-ifc/binding.json",
+      "sha256": "aac441dd515cfd0c024cec131582542c0ca6e19ed1c615b1dba468d799e84a02"
+    }
+  }
+}

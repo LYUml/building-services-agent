@@ -21,7 +21,7 @@ def host_selection(tasks,overrides=None,disabled=()):
 def execution_status(result,kind):
     status={'completed':'pass','failed':'fail','unavailable':'pending','pending':'pending'}[result['execution']['status']]
     if kind=='module_analysis' and result['execution']['status']=='completed':
-        if result['payload_schema'] not in ('bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1'):raise ValueError('Supported numerical analysis payload required')
+        if result['payload_schema'] not in ('bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):raise ValueError('Supported numerical analysis payload required')
         status=result['payload']['status']
     return status
 
@@ -73,6 +73,11 @@ def inherited_request(task,tasks,root,run):
         if frame!=request['coordinate_frame']:raise ValueError('Authoring and spatial source frames differ')
     else:model=(Path(run)/producer['id']/IFC_ARTIFACTS[producer['kind']]).resolve()
     destination=(Path(run)/task['id']/'request.json').resolve()
+    if task['kind']=='module_analysis' and request['capability']=='analysis.water.ifc-steady-graph':
+        sources={k:(request_path.parent/r['path']).resolve() for k,r in request['sources'].items()}
+        sources['ifc']=model
+        request['sources']={k:dict(path=os.path.relpath(path,destination.parent),sha256=digest(path)) for k,path in sources.items()}
+        return destination,request
     if task['kind']=='module_analysis':
         from .modules import verify_result
         authored=verify_result(result_path(run,producer));source_request_path=Path(authored['request']['path']);source_request=module_contract.read_json(source_request_path)
@@ -120,7 +125,7 @@ def inputs(request_path,provider_id,*,inherited=False):
     request=module_contract.validate(module_contract.read_json(request_path),'bsa.module-request/1')
     provider=get_provider(provider_id)
     if inherited:
-        expected={'project','binding'} if request['capability']=='analysis.air.rectangular-ifc-tree' else {'binding'}
+        expected={'project','binding'} if request['capability'] in ('analysis.air.rectangular-ifc-tree','analysis.water.ifc-steady-graph') else {'binding'}
         if request['capability']!=provider.CAPABILITY or set(request['sources'])!=expected:raise ValueError('Inherited module template has wrong source roles;replacement IFC forbidden')
     else:provider.validate_request(request)
     paths={request_path,Path(__file__),*method_paths(provider)}

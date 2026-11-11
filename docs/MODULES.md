@@ -547,3 +547,39 @@ These60 targeted invocations do not replace the last full regression at b74f030.
 See evidence/modular-water-graph.json. Native BIM/routing handoff,HK rule binding
 through this interface,products,efficiency/electrical input,controls,NPSH and full
 water/MEP design remain unfinished.
+
+## Saved-native water graph
+
+`wntr.ifc-steady` implements `analysis.water.ifc-steady-graph` and emits
+`bsa.bound-water-graph/1`. It directly wraps the existing water_binding.run,
+derive/reconcile,ifc_drawing extractor and EPANET worker,with WNTR1.5.0 and
+IfcOpenShell0.8.5 pins. No geometry or hydraulic engine is replaced.
+
+An explicit request has project/ifc/binding sources. module_analysis may instead
+depend on module_authoring with a project/binding-only template. The workflow
+binds the exact verified IFC4 artifact and matching frame;no model filename,
+dimensions or elevations are guessed. Repeated bound dimensions reject. The
+source mapping must cover every element/port/connection in the selected system;
+other systems remain outside the selected scope. Real saved hollow profiles,
+world placements,owned bidirectional ports and coincident native connections
+are checked by the existing adapter. Explicit zero-loss hydraulic nodes remain
+an engineering idealization,not physical fitting acceptance.
+
+Payload quantities preserve the declared water contract's static-head/signed-flow
+units and numerical checks,and add explicit IFC4 model,binding and derived-input
+artifact refs. The copied model must be byte-identical to its source. Verification
+rederives/reconciles geometry and replays the same numerical evaluator against
+the retained raw results. This proves scoped consistency,not independent solver
+verification,authenticated execution or as-built truth. geometry_bound=true does
+not clear products,K,physical junctions,clashes or complete engineering acceptance.
+
+Use examples/modular-bound-water-plan.json. Six actual baseline/velocity/water-
+disabled/author-disabled/repeated-dimension/circulation workflows verify result,
+workflow,diagnosis and delivery contexts. Two independent public native projects
+pass;the others preserve numerical failure,unavailability or input failure as
+appropriate. All manual reviews remain pending. 46 modular and7 existing water-
+binding invocations pass;see evidence/modular-bound-water.json. Native fitting
+variants beyond these saved straight-pipe projects,other provider replacement,
+HK consumer handoff,product/visual/installation drawings and full acceptance
+remain unfinished. The earlier full regression is not replaced by these53
+targeted invocations.

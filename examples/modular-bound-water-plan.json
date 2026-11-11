@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "brief": "modular/bound-water-brief.md",
+  "brief_sha256": "6525b61f78cca53de0fbf28540f4781ceaf9608a6ea07355ab3ebfc44032eda2",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement",
+    "P004": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "model",
+      "kind": "module_authoring",
+      "request": "modular/water-authoring.json",
+      "provider": "ifcopenshell.bim-authoring"
+    },
+    {
+      "id": "water",
+      "kind": "module_analysis",
+      "request": "modular/bound-water-graph.json",
+      "provider": "wntr.ifc-steady",
+      "depends_on": "model"
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "requires_pass": [
+        "water"
+      ],
+      "description": "Review physical source applicability,junction and fitting idealization,products,pump power,clashes,installation drawings and Hong Kong rules separately. Numerical failure or unavailable upstream work must block this dependent review path;full design acceptance remains pending."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "task": "model",
+      "quote": "Author water-loop-ifc/model.json through the common native IFC authoring provider. Preserve source GUIDs,actual hollow pipes,bidirectional ports and saved verification evidence.",
+      "acceptance": "Author water-loop-ifc/model.json through the common native IFC authoring provider. Preserve source GUIDs,actual hollow pipes,bidirectional ports and saved verification evidence."
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "task": "water",
+      "quote": "Bind the exact saved model using water-loop-ifc/project.json and binding.json through the common water analysis provider. Derive pipe lengths,bores and node elevations from actual saved geometry;reject repeated dimensions and missing or inconsistent connections. Preserve native and numerical evidence.",
+      "acceptance": "Bind the exact saved model using water-loop-ifc/project.json and binding.json through the common water analysis provider. Derive pipe lengths,bores and node elevations from actual saved geometry;reject repeated dimensions and missing or inconsistent connections. Preserve native and numerical evidence."
+    },
+    {
+      "id": "R3",
+      "passage": "P004",
+      "task": "review",
+      "quote": "Review physical source applicability,junction and fitting idealization,products,pump power,clashes,installation drawings and Hong Kong rules separately. Numerical failure or unavailable upstream work must block this dependent review path;full design acceptance remains pending.",
+      "acceptance": "Review physical source applicability,junction and fitting idealization,products,pump power,clashes,installation drawings and Hong Kong rules separately. Numerical failure or unavailable upstream work must block this dependent review path;full design acceptance remains pending."
+    }
+  ]
+}

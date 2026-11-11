@@ -883,3 +883,12 @@ retained under third_party/licenses and THIRD_PARTY.md. No new dependency or
 upstream implementation is copied. Six actual workflows and60 targeted test
 invocations execute;native-model/jurisdiction consumers and full acceptance
 remain unfinished. See MODULES.md and evidence/modular-water-graph.json.
+
+Saved-native water integration directly calls existing water_binding.run,
+derive/reconcile,ifc_drawing.extract and the same EPANET worker/evaluator through
+a fixed script. The actual gap is verified model-artifact resolution and common
+binding/raw/result references,not another solver or geometry importer. Existing
+WNTR1.5.0 Revised BSD,EPANET notices and IfcOpenShell0.8.5 LGPL-3.0-or-later
+attribution remain under THIRD_PARTY.md;no dependency or copied engine is added.
+Six actual native workflows and53 targeted invocations execute. Other native
+fitting variants,HK handoff,product/physical acceptance remain unfinished.

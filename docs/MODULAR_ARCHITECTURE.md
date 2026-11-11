@@ -76,8 +76,9 @@ dependent failures/pending work while independent tasks continue.
    source/native rectangular binding now executes;arbitrary native-model intake
    and replacement by another solver remain unfinished.
    Steady declared water/circulation graphs now also use the common analysis
-   boundary via the existing WNTR/EPANET worker;native water-model and HK-rule
-   inheritance through this boundary remain unfinished. Keep blocked
+   boundary via the existing WNTR/EPANET worker. Scoped native IFC water-model
+   inheritance now also executes;HK-rule handoff and full acceptance through
+   this boundary remain unfinished. Keep blocked
    Revit/analysis execution visible;do not bypass
    signing policy or silently upgrade EnergyPlus versions.
 5. Bind independent HK rules and requirement/delivery review to the same common

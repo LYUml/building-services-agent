@@ -2,6 +2,9 @@
 
 
 def get_provider(id):
+    if id=='wntr.ifc-steady':
+        from . import epanet_ifc_water
+        return epanet_ifc_water
     if id=='wntr.epanet-steady':
         from . import epanet_water
         return epanet_water

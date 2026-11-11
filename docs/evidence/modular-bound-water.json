@@ -1,0 +1,210 @@
+{
+  "scope": "Common IFC authoring to selected-system saved hollow pipe/port graph and steady water analysis;not full design acceptance",
+  "provider": {
+    "id": "wntr.ifc-steady",
+    "version": "1",
+    "license": "BSD-3-Clause AND LGPL-3.0-or-later"
+  },
+  "capability": "analysis.water.ifc-steady-graph",
+  "payload_schema": "bsa.bound-water-graph/1",
+  "test_runs": [
+    {
+      "result": "runs/modular-bound-water-related-regression/result.json",
+      "sha256": "1cdbf955e8f1977eeccdf9a779adec621117c60d33cec12049688e2a26e78a64",
+      "invocations": 46,
+      "passed": 46,
+      "skipped": 0,
+      "source_unchanged": true,
+      "log_sha256": "2a072fe99a2f5f35ec283e6987b8b0596d0e85f4a2fc00182903a4f2d368de47"
+    },
+    {
+      "result": "runs/modular-bound-water-legacy-regression/result.json",
+      "sha256": "4d01e5cfa3b0249849112ff993d960cd24ffc8e392cac3663fb4ccf3b6997d04",
+      "invocations": 7,
+      "passed": 7,
+      "skipped": 0,
+      "source_unchanged": true,
+      "log_sha256": "e0e2b61f0e5356bca151f959f81823d9415614fc1f3c88c0ccdeffbfb3930878"
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario": "baseline",
+      "original_sources": {
+        "examples/water-loop-ifc/project.json": "d9b63ba465a140c9974dca8628dce47be9d22cc81a096122cab82e2dc2b9f9d5",
+        "examples/water-loop-ifc/model.json": "d38c00422879397280ef8122ed335a5a673300ba771efd20bfddda0b78b7cc41",
+        "examples/water-loop-ifc/binding.json": "aac441dd515cfd0c024cec131582542c0ca6e19ed1c615b1dba468d799e84a02"
+      },
+      "workflow": "runs/modular-bound-water-final/baseline/workflow.json",
+      "workflow_sha256": "273cb0dddbeb5f58048bf1cd0a80c6f60e2d7c6fa05767546273d5f5a171863e",
+      "module_sha256": "a0e6350f938d6588284e8010c1c523ce2cf839e1d526fafd04cb527f85da7b95",
+      "task_status": "pass",
+      "execution": "completed",
+      "numerical_status": "pass",
+      "checks": {
+        "engine_clean": true,
+        "serialized_input_match": true,
+        "finite_results": true,
+        "reservoir_heads": true,
+        "mass_balance": true,
+        "head_pressure_identity": true,
+        "demand_law": true,
+        "pressure_targets": true,
+        "delivery_targets": true,
+        "velocity_limits": true,
+        "pipe_energy": true,
+        "pump_curves": true
+      },
+      "review_status": "pending",
+      "integrity_pass": true,
+      "design_accepted": false
+    },
+    {
+      "scenario": "velocity",
+      "original_sources": {
+        "examples/water-loop-ifc/project.json": "d9b63ba465a140c9974dca8628dce47be9d22cc81a096122cab82e2dc2b9f9d5",
+        "examples/water-loop-ifc/model.json": "d38c00422879397280ef8122ed335a5a673300ba771efd20bfddda0b78b7cc41",
+        "examples/water-loop-ifc/binding.json": "aac441dd515cfd0c024cec131582542c0ca6e19ed1c615b1dba468d799e84a02"
+      },
+      "workflow": "runs/modular-bound-water-final/velocity/workflow.json",
+      "workflow_sha256": "1148d35a8cbb8b16a363f72e82f0c5323909d560414e1e0ee44d6fa63db70781",
+      "module_sha256": "3b0456de6729a8f704c11b688084947b1c2240d69ef019f917abfe34fc748b7c",
+      "task_status": "fail",
+      "execution": "completed",
+      "numerical_status": "fail",
+      "checks": {
+        "engine_clean": true,
+        "serialized_input_match": true,
+        "finite_results": true,
+        "reservoir_heads": true,
+        "mass_balance": true,
+        "head_pressure_identity": true,
+        "demand_law": true,
+        "pressure_targets": true,
+        "delivery_targets": true,
+        "velocity_limits": false,
+        "pipe_energy": true,
+        "pump_curves": true
+      },
+      "review_status": "pending",
+      "integrity_pass": true,
+      "design_accepted": false
+    },
+    {
+      "scenario": "water-disabled",
+      "original_sources": {
+        "examples/water-loop-ifc/project.json": "d9b63ba465a140c9974dca8628dce47be9d22cc81a096122cab82e2dc2b9f9d5",
+        "examples/water-loop-ifc/model.json": "d38c00422879397280ef8122ed335a5a673300ba771efd20bfddda0b78b7cc41",
+        "examples/water-loop-ifc/binding.json": "aac441dd515cfd0c024cec131582542c0ca6e19ed1c615b1dba468d799e84a02"
+      },
+      "workflow": "runs/modular-bound-water-final/water-disabled/workflow.json",
+      "workflow_sha256": "b855840545709e9b48960eec38c8bea348c61a919a3be56e695840e7aff73ea3",
+      "module_sha256": "32afcfe2731aa2911bedc6bc675e614fbf490e4d87fe4a93011d57514445099e",
+      "task_status": "pending",
+      "execution": "unavailable",
+      "numerical_status": null,
+      "checks": {},
+      "review_status": "pending",
+      "integrity_pass": true,
+      "design_accepted": false
+    },
+    {
+      "scenario": "author-disabled",
+      "original_sources": {
+        "examples/water-loop-ifc/project.json": "d9b63ba465a140c9974dca8628dce47be9d22cc81a096122cab82e2dc2b9f9d5",
+        "examples/water-loop-ifc/model.json": "d38c00422879397280ef8122ed335a5a673300ba771efd20bfddda0b78b7cc41",
+        "examples/water-loop-ifc/binding.json": "aac441dd515cfd0c024cec131582542c0ca6e19ed1c615b1dba468d799e84a02"
+      },
+      "workflow": "runs/modular-bound-water-final/author-disabled/workflow.json",
+      "workflow_sha256": "1e599ec40e8cbdbeedb95e018cdef5aba3f0d84e03ce21ddfbdbdb85a2f198f1",
+      "module_sha256": null,
+      "task_status": "pending",
+      "execution": "not_executed",
+      "numerical_status": null,
+      "checks": {},
+      "review_status": "pending",
+      "integrity_pass": true,
+      "design_accepted": false
+    },
+    {
+      "scenario": "repeated",
+      "original_sources": {
+        "examples/water-loop-ifc/project.json": "d9b63ba465a140c9974dca8628dce47be9d22cc81a096122cab82e2dc2b9f9d5",
+        "examples/water-loop-ifc/model.json": "d38c00422879397280ef8122ed335a5a673300ba771efd20bfddda0b78b7cc41",
+        "examples/water-loop-ifc/binding.json": "aac441dd515cfd0c024cec131582542c0ca6e19ed1c615b1dba468d799e84a02"
+      },
+      "workflow": "runs/modular-bound-water-final/repeated/workflow.json",
+      "workflow_sha256": "21921f27cb9e8cedd420c71cabb7096d476d2cabe3ee056f73a603a3491af994",
+      "module_sha256": "bbb6e9e05ece900ea49fe76fa252102114cd7801e5ccc5cb731390f6ddc89f6d",
+      "task_status": "fail",
+      "execution": "failed",
+      "numerical_status": null,
+      "checks": {},
+      "review_status": "pending",
+      "integrity_pass": true,
+      "design_accepted": false
+    },
+    {
+      "scenario": "circulation",
+      "original_sources": {
+        "examples/circulation-ifc/project.json": "eb2a4d0feba946bc835e2331df6bcb0179f5493de4e2e364f331cf5faa35c231",
+        "examples/circulation-ifc/model.json": "0363cd934797285ce326459c9286883334a5d2b830c5abdb95a244a47c6d752d",
+        "examples/circulation-ifc/binding.json": "d039e61f94afacdb7ea654e590a481d0fbfd11a5f6e98af6b47d9a6385a2f281"
+      },
+      "workflow": "runs/modular-bound-water-final/circulation/workflow.json",
+      "workflow_sha256": "cb9ba502640126d6ac0e7a0f8087049619678cb3c955aadf12f550fdbea61b97",
+      "module_sha256": "a76dcdc3718443fb76e2bd67d1cb7909704e4b833a1396595da263efdec0a285",
+      "task_status": "pass",
+      "execution": "completed",
+      "numerical_status": "pass",
+      "checks": {
+        "engine_clean": true,
+        "serialized_input_match": true,
+        "finite_results": true,
+        "reservoir_heads": true,
+        "mass_balance": true,
+        "head_pressure_identity": true,
+        "demand_law": true,
+        "pressure_targets": true,
+        "delivery_targets": true,
+        "velocity_limits": true,
+        "pipe_energy": true,
+        "pump_curves": true,
+        "zero_reference_exchange": true,
+        "positive_circulation": true
+      },
+      "review_status": "pending",
+      "integrity_pass": true,
+      "design_accepted": false
+    }
+  ],
+  "summary_sha256": "c262d5f6517fff561be505aa3e47d80d5f46e54b4f80a789a0636289a72cc575",
+  "method_sha256": {
+    "src/bsa/modules.py": "d4c1dd2ff58535f20eca9f1b803b4d9ab00d3857617f6b699c4a80af707c0ce3",
+    "src/bsa/module_contract.py": "de24f6aa9592adebd51de004e5940ba49a0c89bcb0da1eee98b2d7a38c3ec8b2",
+    "src/bsa/providers/epanet_ifc_water.py": "a8dc207e31002f09b8c21ff23e15b6be8b9593dd74cd3722ba0e7243c64a2896",
+    "src/bsa/providers/__init__.py": "f7a28b66822852c0dfee8d730e95d015332ee3f83121ab0e1008fc52c31a96e5",
+    "contracts/modules/request-v1.json": "5f0248cbd616c4ad7775ec8977f88eaccba570a6215eec73480147a70edfab2b",
+    "contracts/modules/result-v1.json": "4d6c03471305bb1da1a54a37f1322ce5255db9e6d99fc5a83b09cd1fd21cf1e6",
+    "contracts/modules/bound-water-graph-v1.json": "eaa90f19d12669644444281295990a5e1f2c10f6fd97b58152a9e3ee193df2fe",
+    "scripts/water_saved_graph.py": "15387d60066c47e263667e2c8846aeec78508d753996f64b4c42f4fd29833d19",
+    "src/bsa/providers/epanet_water.py": "f5853c74e5e1ed1afe8253959d7515574606844099acadad6900d124bab550f5",
+    "src/bsa/epanet.py": "c8cfed73616e0909187013fc252780174a6fa99deda82c0b1777490c2965c35f",
+    "src/bsa/epanet_energy.py": "2831d32c7b4fabd4984c66c356c0ad11090d0b90340c5f140d41a32baa487274",
+    "src/bsa/engine.py": "a06a8ce591b85dfd84c4cfc7834c92061a55fc9f5aea8bc0a44aed22a11af365",
+    "src/bsa/cli.py": "50df1e66668dad8e842b3a0b8d60ca15761a9471f0bef6ee08a5593b3fe37784",
+    "src/bsa/water_binding.py": "b8456d979023c0f4d6c824ba6c05b4028a57abdea2b5684c10af40e12e8d6bb8",
+    "src/bsa/ifc_drawing.py": "9a15bc7982e6a4c85b8e63c200984470d18e932b12ec950554bf3d8154bc82da",
+    "src/bsa/circular_geometry.py": "b907345bd2904bf313b017cc1c7e1a07e403ff726bbb8a85e476ae538ea25cb9",
+    "src/bsa/circular_elbow.py": "8bcf3651f413617051eb004c7bf898ab39f1c0d8a59a2135fb8538c7bc3e5a22"
+  },
+  "limitations": [
+    "Native/source geometry agreement,not as-built or physical product truth",
+    "Same evaluator replay,not independent solver or authenticated execution",
+    "Explicit zero-loss node idealization and source K/curves still need engineering review",
+    "Other native fitting variants and runtime/provider replacements unverified through this boundary",
+    "HK consumer handoff,product/installation/native drawing/visual acceptance pending",
+    "Last full regression predates this capability and remains non-green"
+  ],
+  "design_accepted": false
+}

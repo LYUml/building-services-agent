@@ -5,6 +5,15 @@ description: Calculate source-linked air/water networks, pump operating points a
 
 # Network pressure analysis
 
+For a saved-native water graph,use wntr.ifc-steady with
+analysis.water.ifc-steady-graph. module_analysis may inherit module_authoring
+with a project/binding-only request;see examples/modular-bound-water-plan.json.
+Require exact selected-system GUID/port/connection coverage and derive dimensions
+from native hollow profiles. Reject repeated lengths,bores and elevations. Verify
+the copied IFC,derived input,binding and raw numerical replay;preserve static head
+and signed flow. Source/native agreement does not accept physical nodes,K,products,
+clashes,HK rules or a complete design. See docs/MODULES.md.
+
 For declared steady water/circulation graphs,use module_analysis with
 wntr.epanet-steady and analysis.water.steady-graph per examples/modular-water-plan.json.
 It wraps the existing WNTR1.5.0/EPANET2.2 worker. Inspect native files,raw/report

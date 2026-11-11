@@ -1,5 +1,13 @@
 # Scope and acceptance
 
+The common IFC authoring artifact now feeds a saved-native water graph provider
+without repeated lengths,bores or elevations. Existing water_binding and EPANET
+engines check actual selected-system profiles/ports/connections and numerical
+results. Two native projects and four failure/disable controls verify;53 targeted
+invocations pass. Native/source agreement is not physical/code/design acceptance;
+HK handoff through this interface and full delivery remain pending. See MODULES.md
+and evidence/modular-bound-water.json.
+
 Steady water/circulation analysis now uses the common module boundary via
 wntr.epanet-steady,bsa.water-graph/1 and the existing pinned WNTR/EPANET worker.
 Source/raw evaluator replay and signed flow/static-head units remain explicit.

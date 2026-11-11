@@ -9,9 +9,12 @@ and complete engineering acceptance have not passed.
 
 The [modular water example](examples/modular/README.md) now wraps existing
 WNTR/EPANET steady analysis with source/raw replay and typed signed-flow/static-
-head results. Six workflows and60 targeted invocations pass;native geometry,
-jurisdiction handoff and complete acceptance remain pending. This postdates the
-full regression above.
+head results. Six workflows and60 targeted invocations pass for that declared
+boundary. A separate saved-native water provider now inherits the common IFC
+authoring artifact,derives dimensions and checks actual profiles/ports/connections.
+Two native projects and four failure/disable controls verify;53 targeted
+invocations pass. Jurisdiction handoff and complete acceptance remain pending.
+These additions postdate the full regression above.
 
 The [active user-authorized goal](docs/GOAL.md) now explicitly prioritizes
 [modular boundaries/public contracts](docs/MODULAR_ARCHITECTURE.md) and

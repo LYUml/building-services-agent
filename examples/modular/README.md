@@ -1,5 +1,18 @@
 # Public modular pipeline
 
+For common native IFC authoring followed by water analysis without repeated
+pipe dimensions or node elevations:
+
+```powershell
+.venv/Scripts/python -m bsa.workflow execute examples/modular-bound-water-plan.json --out runs/public-modular-bound-water
+.venv/Scripts/python -m bsa.workflow verify runs/public-modular-bound-water
+```
+
+This creates the saved model and materializes its exact IFC request automatically.
+The synthetic source/geometry and numerical checks execute;manual review remains
+pending,so execute exits1. Static head is metres of water. No products,HK compliance,
+physical fitting acceptance or complete installation drawing set is inferred.
+
 The independent steady-water example uses the existing WNTR1.5.0/EPANET2.2
 engine through a typed analysis provider:
 
