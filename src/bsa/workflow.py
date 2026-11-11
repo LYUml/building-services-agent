@@ -314,9 +314,11 @@ def validate_plan(path):
             validate_contract(read_json(project),mapping)
             inputs.add(Path(__file__).with_name('module_thermal.py'))
         if kind=='module_exchange':
-            if set(t)-{'id','kind','request','provider','requires_pass','description'}:raise ProjectError('Module task accepts a request and trusted provider ID only;runtime is host configuration')
+            if set(t)-{'id','kind','request','provider','depends_on','requires_pass','description'}:raise ProjectError('Module task accepts a request and trusted provider ID only;runtime is host configuration')
             from .workflow_modules import inputs as module_inputs
-            inputs.update(module_inputs(local_path(root,t.get('request')),t.get('provider')))
+            parent=t.get('depends_on')
+            if parent and (parent not in ids or next(x for x in tasks if x['id']==parent)['kind'] not in IFC_ARTIFACTS):raise ProjectError('Inherited spatial module requires earlier supported saved IFC producer')
+            inputs.update(module_inputs(local_path(root,t.get('request')),t.get('provider'),inherited=bool(parent)))
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","rectangular_network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind in ("water_network","rectangular_network","annual_energy") and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
         if kind=='rectangular_fan_regulations':
@@ -1048,17 +1050,24 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 if tasks[parent]['status']!='pass':reason='upstream spatial module '+parent+' did not pass;thermal preparation not executed'
                 else:
                     from .module_thermal import run as inherit_thermal
-                    payload=inherit_thermal(out/parent/'result.json',local_path(root,t['project']),local_path(root,t['binding']),folder)
+                    from .workflow_modules import result_path
+                    producer=next(x for x in p['tasks'] if x['id']==parent)
+                    payload=inherit_thermal(result_path(out,producer),local_path(root,t['project']),local_path(root,t['binding']),folder)
                     verify_thermal(folder);thermal_results.append(folder);runtime_inputs.update(payload['inputs'])
                     status='pass';reason=payload['scope']
             elif t['kind']=='module_exchange':
                 from .modules import run as run_module
                 provider_id=module_providers.get(t['id'],t['provider'])
-                payload=run_module(local_path(root,t['request']),provider_id,folder,runtime=module_runtime,disabled=provider_id in disabled_module_providers)
-                verify_module(folder/'result.json');module_results.append(folder/'result.json')
-                runtime_inputs.update(payload['inputs'])
-                status={'completed':'pass','failed':'fail','unavailable':'pending','pending':'pending'}[payload['execution']['status']]
-                reason='Module execution '+payload['execution']['status']+';scoped spatial exchange only;engineering acceptance pending'
+                parent=t.get('depends_on')
+                if parent and tasks[parent]['status']!='pass':reason='upstream IFC producer '+parent+' did not pass;module exchange not executed'
+                else:
+                    from .workflow_modules import materialize,result_path
+                    request=materialize(t,p['tasks'],root,out) if parent else local_path(root,t['request'])
+                    payload=run_module(request,provider_id,folder/'exchange' if parent else folder,runtime=module_runtime,disabled=provider_id in disabled_module_providers)
+                    path=result_path(out,t);verify_module(path);module_results.append(path)
+                    runtime_inputs.update(payload['inputs'])
+                    status={'completed':'pass','failed':'fail','unavailable':'pending','pending':'pending'}[payload['execution']['status']]
+                    reason='Module execution '+payload['execution']['status']+';scoped spatial exchange only;engineering acceptance pending'
             elif t['kind']=='three_phase':
                 if not three_phase_python:reason='Three-phase isolated Python runtime not supplied; adapter not executed'
                 else:
@@ -1906,6 +1915,8 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
         tasks[t["id"]]=dict(kind=t["kind"],status=status,scope=reason)
         # An executed adapter is evidence for its narrow scope, not every interpreted requirement.
         evidence[t["id"]]=[f.relative_to(out).as_posix() for f in folder.rglob("*") if f.is_file()] if folder.exists() else []
+        if status=='pass' and any(child['kind']=='module_exchange' and child.get('depends_on')==t['id'] for child in p['tasks']):
+            runtime_inputs.update({str(f):digest(f) for f in folder.rglob('*') if f.is_file()})
     for module_result in module_results:verify_module(module_result)
     for thermal_folder in thermal_results:verify_thermal(thermal_folder)
     unchanged=all(f.is_file() and digest(f)==before[str(f)] for f in inputs)
@@ -1949,11 +1960,13 @@ def verify(run_directory):
                 from .module_thermal import verify as verify_thermal
                 verify_thermal(root/name)
             except (OSError,ValueError) as exc:issues.append('thermal inheritance evidence invalid: '+name+': '+str(exc))
-        if task['kind']=='module_exchange' and (root/name/'result.json').is_file():
-            try:
-                from .modules import verify_result
-                verify_result(root/name/'result.json')
-            except (OSError,ValueError) as exc:issues.append('module evidence invalid: '+name+': '+str(exc))
+        if task['kind']=='module_exchange':
+            for module_result in (root/name/'result.json',root/name/'exchange/result.json'):
+                if not module_result.is_file():continue
+                try:
+                    from .modules import verify_result
+                    verify_result(module_result)
+                except (OSError,ValueError) as exc:issues.append('module evidence invalid: '+name+': '+str(exc))
     return dict(integrity_pass=not issues,issues=issues,design_accepted=False,
                 scope="Recorded inputs and task artifact bytes only; no semantic or engineering acceptance")
 

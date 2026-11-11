@@ -813,3 +813,11 @@ A thin canonical selection record and verified module-state adapter preserve
 pending reviews and existing recovery-root grouping. No new dependency or
 upstream source is added. Eight actual source-bound review paths and single-task
 override regression controls execute;see MODULES.md.
+
+Author-to-spatial inheritance reuses workflow.IFC_ARTIFACTS,bim.run and the
+existing module providers/thermal adapter. The gap is automatically binding a
+new saved producer artifact into the versioned request,not another IFC importer
+or authoring engine. Public plan/assets reuse attributed synthetic thermal-ifc
+and annual-weather examples. No new dependency or copied engine is added.
+Four actual authoring-to-input workflows execute;complete simulation/design
+remains pending. See examples/modular/README.md.

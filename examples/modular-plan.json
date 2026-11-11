@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "brief": "modular/brief.md",
+  "brief_sha256": "730c3e144dda9d8343e30c2393762e994832590027c76a6b373e852b5d6295e4",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement",
+    "P004": "requirement",
+    "P005": "requirement",
+    "P006": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "model",
+      "kind": "bim",
+      "project": "thermal-ifc/bim.json"
+    },
+    {
+      "id": "spaces",
+      "kind": "module_exchange",
+      "depends_on": "model",
+      "request": "modular/request.json",
+      "provider": "ifcopenshell.box-spaces"
+    },
+    {
+      "id": "thermal",
+      "kind": "module_thermal_project",
+      "depends_on": "spaces",
+      "project": "thermal-ifc/project.json",
+      "binding": "thermal-ifc/binding.json"
+    },
+    {
+      "id": "annual",
+      "kind": "annual_energy",
+      "depends_on": "thermal",
+      "weather": "annual-energy/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw.gz"
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "description": "Review the native model,source assumptions,thermal boundaries,materials,weather applicability,MEP design and required drawings separately. Preparation or engine execution cannot establish full project acceptance."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Author thermal-ifc/bim.json as a native editable IFC using the existing verified box-envelope authoring adapter. This is explicit synthetic integration geometry,not surveyed construction or a complete MEP design.",
+      "task": "model",
+      "acceptance": "Author thermal-ifc/bim.json as a native editable IFC using the existing verified box-envelope authoring adapter. This is explicit synthetic integration geometry,not surveyed construction or a complete MEP design."
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Inherit that newly saved IFC into the selected spatial provider without a manually copied IFC path or hash. Preserve all three source-space GUIDs and geometry-derived whole-face contacts. Permit explicit host provider replacement or disable settings.",
+      "task": "spaces",
+      "acceptance": "Inherit that newly saved IFC into the selected spatial provider without a manually copied IFC path or hash. Preserve all three source-space GUIDs and geometry-derived whole-face contacts. Permit explicit host provider replacement or disable settings."
+    },
+    {
+      "id": "R3",
+      "passage": "P004",
+      "quote": "Prepare the existing annual thermal input from the neutral spaces using thermal-ifc/project.json and the complete explicit thermal-ifc/binding.json mapping and synthetic north angle. Inherit geometry without repeated dimensions;retain every non-geometric source assumption.",
+      "task": "thermal",
+      "acceptance": "Prepare the existing annual thermal input from the neutral spaces using thermal-ifc/project.json and the complete explicit thermal-ifc/binding.json mapping and synthetic north angle. Inherit geometry without repeated dimensions;retain every non-geometric source assumption."
+    },
+    {
+      "id": "R4",
+      "passage": "P005",
+      "quote": "Route the prepared input and attributed Chicago weather to the existing annual adapter only when an approved engine is supplied. Missing engine or blocked upstream work remains pending;no simulated result may be fabricated.",
+      "task": "annual",
+      "acceptance": "Route the prepared input and attributed Chicago weather to the existing annual adapter only when an approved engine is supplied. Missing engine or blocked upstream work remains pending;no simulated result may be fabricated."
+    },
+    {
+      "id": "R5",
+      "passage": "P006",
+      "quote": "Review the native model,source assumptions,thermal boundaries,materials,weather applicability,MEP design and required drawings separately. Preparation or engine execution cannot establish full project acceptance.",
+      "task": "review",
+      "acceptance": "Review the native model,source assumptions,thermal boundaries,materials,weather applicability,MEP design and required drawings separately. Preparation or engine execution cannot establish full project acceptance."
+    }
+  ]
+}

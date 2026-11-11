@@ -1,0 +1,72 @@
+{
+  "scope": "Public synthetic native authoring to neutral spatial exchange to annual-input preparation;no simulation",
+  "actual_cases": [
+    {
+      "case": "native",
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pending",
+        "pending"
+      ],
+      "source_and_delivery_context_verified": true,
+      "request_bound_to_newly_authored_ifc": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "moosas",
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pending",
+        "pending"
+      ],
+      "source_and_delivery_context_verified": true,
+      "request_bound_to_newly_authored_ifc": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "disabled",
+      "statuses": [
+        "pass",
+        "pending",
+        "pending",
+        "pending",
+        "pending"
+      ],
+      "source_and_delivery_context_verified": true,
+      "request_bound_to_newly_authored_ifc": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "missing-runtime",
+      "statuses": [
+        "pass",
+        "pending",
+        "pending",
+        "pending",
+        "pending"
+      ],
+      "source_and_delivery_context_verified": true,
+      "request_bound_to_newly_authored_ifc": true,
+      "all_reviews_pending": true
+    }
+  ],
+  "equal_native_moosas_bound_projects": true,
+  "targeted_tests_passed": 47,
+  "simulation_executed": false,
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/workflow.py": "1a69013dba1b87a454a3922d1bcb525e58b1837f26d85f9cf9b36d357da9702c",
+    "src/bsa/workflow_modules.py": "928b06d086ed30ec3ed586c85dc0430fbefcaa896fa10687bf0f5a3ef9692146",
+    "src/bsa/workflow_status.py": "20a3815908399bca151407c2f7126adf2bb7a81ac2a87d7e6f66b178ac34c845",
+    "src/bsa/delivery.py": "0b5e8a7bb9c9cf848ecae8cbed58b2a743f39c732b5b71b9f816a2b6e0079f8a"
+  },
+  "public_inputs": {
+    "examples/modular-plan.json": "9c2e06aea6ea51c7e86812a21fa8ffb6702aebb794daa2ac08abb10fb6102e39",
+    "examples/modular/brief.md": "730c3e144dda9d8343e30c2393762e994832590027c76a6b373e852b5d6295e4",
+    "examples/modular/request.json": "c4f6722501611022cc5a04ae2648032ac51d0a2443e95b428b1594720e6a9203"
+  }
+}

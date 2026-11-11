@@ -5,6 +5,13 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+Use examples/modular/README.md for the source-only public native-IFC to spatial
+exchange to thermal-preparation workflow. module_exchange may inherit an earlier
+supported saved-IFC producer via depends_on and a binding-only request template;
+replacement IFC sources are forbidden. Actual saved source hashes enter the
+materialized request and producer evidence remains pinned. This prepares inputs,
+not a completed engineering design or simulation.
+
 For the first executed modular boundary,use bsa.modules with versioned request/
 result and common box-space contracts in docs/MODULES.md. Select the trusted
 MOOSAS provider and pass upstream/dependency locations as host arguments,never

@@ -230,3 +230,28 @@ and design_accepted=false. Forty-four targeted tests pass,including selection
 tampering and existing workflow/status/delivery tests. See
 [evidence](evidence/module-selection-review.json). This is review integration,
 not complete multi-discipline design or simulation.
+
+## Newly authored IFC inheritance and public pipeline
+
+module_exchange may declare depends_on on an earlier supported saved-IFC
+producer from the existing workflow IFC_ARTIFACTS registry. Its request is then
+a binding-only module-request/1 template. An explicit IFC source is forbidden;
+the workflow supplies the actual producer artifact path and SHA256 after that
+producer passes. Failed/pending authoring blocks materialization and exchange.
+Native producer files are pinned immediately before later tasks execute.
+
+The task writes request.json in its folder and executes the provider into
+exchange/. Source selection/review reconstructs the request against the original
+template and exact saved producer. Thermal inheritance resolves either direct
+or inherited module result layout. No additional geometry engine is introduced.
+
+[The public example](../examples/modular/README.md) runs the checked-in
+examples/modular-plan.json without previous private/generated files. Four actual
+native/MOOSAS/disabled/missing-runtime runs cover native authoring through neutral
+space exchange and annual input preparation. Normal routes preserve3spaces and
+produce equal thermal inputs. All diagnoses/review contexts verify;47 targeted
+tests pass,including native public execution and blocked authoring. Annual
+simulation and every engineering acceptance review remain pending. See
+[evidence](evidence/public-modular-pipeline.json). The example retains explicit
+synthetic geometry,Chicago weather and declared orientation assumptions;it is
+not raw-brief automatic engineering or a completed coursework design.

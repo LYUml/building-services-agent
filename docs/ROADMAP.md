@@ -1,5 +1,14 @@
 # Scope and acceptance
 
+The checked-in public modular plan now executes native IFC authoring into
+selected spatial exchange and thermal preparation without a manually prepared
+IFC request. Generated requests bind exact saved producer paths/hashes and reject
+replacement IFCs. Four actual native/MOOSAS/disabled/missing-runtime runs verify
+diagnosis/review contexts;47 targeted tests pass. Native/MOOSAS thermal inputs
+match. Performance simulation,visual/domain review and complete multi-discipline
+design remain unfinished. See examples/modular/README.md and
+evidence/public-modular-pipeline.json.
+
 Provider selection now remains explicit through diagnosis and delivery review.
 A reproduced single-task native override input-set mismatch is fixed by binding
 selected provider methods and disabled states. Eight actual single/thermal-chain

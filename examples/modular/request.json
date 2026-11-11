@@ -1,0 +1,18 @@
+{
+  "schema": "bsa.module-request/1",
+  "project_id": "public-modular-demonstration",
+  "scenario_id": "synthetic-source",
+  "capability": "spatial.ifc-boxes.exchange",
+  "coordinate_frame": {
+    "id": "synthetic-source-world",
+    "kind": "source-world-si",
+    "length_unit": "m",
+    "georeferenced": false
+  },
+  "sources": {
+    "binding": {
+      "path": "../thermal-ifc/binding.json",
+      "sha256": "c1263f36fffdce3a2b8a7cbacb811af6527b7c0c196f0fbfaef06687fc2efbdb"
+    }
+  }
+}

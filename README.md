@@ -20,6 +20,11 @@ A developing agent workspace for building services. The host AI interprets requi
 
 ## Start with a real assignment
 
+For a reproducible modular demonstration with no prior run files,use
+[the public pipeline](examples/modular/README.md). It authors native IFC and
+feeds a selected spatial provider into thermal input preparation in one workflow.
+Simulation and engineering review remain pending.
+
 Open this repository and invoke `$building-services-design` with the brief and source drawings. The skill routes requirements intake, discipline tools, jurisdiction checks and delivery review. Originals and assumptions retain their sources. Private coursework and generated runs stay out of Git.
 
 [Document intake](docs/DOCUMENT_INTAKE.md) extracts passages and creates a requirement matrix. A drafted plan still needs engineering interpretation: a raw brief is not a runnable design. Read [scope and acceptance](docs/ROADMAP.md) and the applicable skill before extending a capability. Check [upstream reuse decisions](docs/REUSE_SURVEY.md) first.

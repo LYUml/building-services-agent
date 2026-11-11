@@ -28,7 +28,7 @@ def context(plan,root):
     selection=report.get('module_selection')
     if selection is not None:
         inputs.update(selection_inputs(source['tasks'],plan.parent,selection))
-        verify_selection(source['tasks'],root,selection)
+        verify_selection(source['tasks'],root,selection,plan.parent)
     if not isinstance(report,dict) or report.get('inputs')!={str(p):digest(p) for p in inputs}:
         raise ProjectError('run input set/hashes differ from the current source-linked plan')
     tasks={t['id']:t for t in source['tasks']}

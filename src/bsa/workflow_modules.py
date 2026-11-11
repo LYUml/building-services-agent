@@ -1,5 +1,7 @@
 """Thin compatibility boundary between existing workflow plans and public modules."""
 from pathlib import Path
+import json
+import os
 from . import module_contract
 from .cli import digest
 from .modules import ROOT,method_paths
@@ -23,17 +25,46 @@ def selection_inputs(tasks,root,selection):
     paths=set()
     for task in tasks:
         if task['kind']=='module_exchange':
-            paths.update(inputs(Path(root)/task['request'],selection['providers'].get(task['id'],task['provider'])))
+            paths.update(inputs(Path(root)/task['request'],selection['providers'].get(task['id'],task['provider']),inherited=bool(task.get('depends_on'))))
     return paths
 
 
-def verify_selection(tasks,run,selection):
+def result_path(run,task):
+    return Path(run)/task['id']/('exchange/result.json' if task.get('depends_on') else 'result.json')
+
+
+def inherited_request(task,tasks,root,run):
+    from .workflow import IFC_ARTIFACTS
+    request_path=(Path(root)/task['request']).resolve()
+    request=module_contract.read_json(request_path)
+    inputs(request_path,task['provider'],inherited=True)
+    producer=next(t for t in tasks if t['id']==task['depends_on'])
+    model=(Path(run)/producer['id']/IFC_ARTIFACTS[producer['kind']]).resolve()
+    destination=(Path(run)/task['id']/'request.json').resolve()
+    binding=(request_path.parent/request['sources']['binding']['path']).resolve()
+    request['sources']={'ifc':dict(path=os.path.relpath(model,destination.parent),sha256=digest(model)),
+        'binding':dict(path=os.path.relpath(binding,destination.parent),sha256=digest(binding))}
+    return destination,request
+
+
+def materialize(task,tasks,root,run):
+    destination,request=inherited_request(task,tasks,root,run)
+    destination.parent.mkdir(parents=True,exist_ok=False)
+    destination.write_text(json.dumps(request,indent=2),encoding='utf-8')
+    return destination
+
+
+def verify_selection(tasks,run,selection,root=None):
     """Bind selected provider and disabled state to actual retained module results."""
     from .modules import verify_result
     for task in tasks:
         if task['kind']!='module_exchange':continue
-        path=Path(run)/task['id']/'result.json'
+        path=result_path(run,task)
         if not path.is_file():continue
+        if task.get('depends_on'):
+            if root is None:raise ValueError('Source plan directory required for inherited module verification')
+            destination,expected=inherited_request(task,tasks,root,run)
+            if module_contract.read_json(destination)!=expected:raise ValueError('Materialized module request differs from saved producer')
         result=verify_result(path);provider=selection['providers'].get(task['id'],task['provider'])
         if result['provider']['id']!=provider:raise ValueError('Executed module provider differs from host selection')
         disabled=provider in selection['disabled_providers']
@@ -41,11 +72,14 @@ def verify_selection(tasks,run,selection):
         if disabled!=recorded:raise ValueError('Executed module disable state differs from host selection')
 
 
-def inputs(request_path,provider_id):
+def inputs(request_path,provider_id,*,inherited=False):
     request_path=Path(request_path).resolve()
     if not request_path.is_relative_to(ROOT):raise ValueError('Module requests must remain in repository')
     request=module_contract.validate(module_contract.read_json(request_path),'bsa.module-request/1')
-    provider=get_provider(provider_id);provider.validate_request(request)
+    provider=get_provider(provider_id)
+    if inherited:
+        if request['capability']!=provider.CAPABILITY or set(request['sources'])!={'binding'}:raise ValueError('Inherited module template requires binding only;replacement IFC forbidden')
+    else:provider.validate_request(request)
     paths={request_path,Path(__file__),*method_paths(provider)}
     for row in request['sources'].values():
         if Path(row['path']).is_absolute():raise ValueError('Relative module sources required')
