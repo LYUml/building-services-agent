@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+ADPI screening exposes structured evidence requests and source-load-domain
+conflicts in results and the package index.18 targeted tests pass;actual private
+saved-workflow screening retains640not-evaluated cases and4requests. No criterion,
+load or applicability fact was changed. Complete engineering acceptance remains
+pending;the prior complete package predates this diagnostic change.
+
 Real interpreted-project replay now includes a strict complete own-package,
 fixed-worker and contract source inventory in hvac_project configurations.
 Historical partial method inventories reject;changed/added/missing methods cannot

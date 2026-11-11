@@ -1,5 +1,15 @@
 # ADPI basis before criterion evaluation
 
+Screen results now include structured `data_requests` for unknown/rejected
+applicability facts, missing room load and supplied-load/source-domain conflicts.
+A trial outside the selected domain remains a visible conflict even when its
+room-load verification is unknown; applicability stays pending rather than
+asserting a verified physical mismatch. The package index displays these actions.
+No action changes facts, selects a replacement criterion or establishes ADPI.
+Ten ADPI tests and eight package tests pass. A separate private saved-workflow
+replay retains 640 not-evaluated cases and four evidence requests. This is a
+post-run screening replay, not a fresh complete package/native drawing run.
+
 Course-specific category review now has separate evidence support. An inspected
 classroom example explicitly maps its prescribed diffuser family to the selected
 historical classroom row;the [manufacturer's introduction](https://www.krueger-hvac.com/file/3117/1400_1400FR_51400_M1400_M51400_Introduction.pdf) independently identifies

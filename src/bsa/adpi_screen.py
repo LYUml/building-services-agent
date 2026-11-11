@@ -20,6 +20,21 @@ def screen(lookup, *, criterion, room_load_W_m2, facts):
     rejected=[k for k,v in facts.items() if v is False]
     in_range=None if room_load_W_m2 is None else load_low<=room_load_W_m2<=load_high
     eligibility='inapplicable' if rejected or (facts['room_load_verified'] is True and in_range is False) else 'pending' if missing or room_load_W_m2 is None else 'eligible'
+    actions={
+        'room_load_verified':'Establish the room sensible load from source-backed room calculations; keep preliminary cooling allowances separate.',
+        'product_category_verified':'Document correspondence between the specified diffuser and the selected source category.',
+        'lengths_verified':'Verify characteristic lengths against walls, outlet midplanes or intersecting jets under the selected source definition.',
+        'installation_verified':'Verify ceiling and installation conditions against the selected source and actual project.',
+        'edition_selected':'Record the selected criterion edition and resolve differences from other sources.'}
+    requests=[dict(code='applicability_fact_unknown' if facts[k] is None else 'applicability_fact_rejected',
+                   fact=k,action=actions[k]) for k in sorted(missing+rejected)]
+    if room_load_W_m2 is None:
+        requests.append(dict(code='room_load_missing',action=actions['room_load_verified']))
+    elif in_range is False:
+        requests.append(dict(code='criterion_load_domain_mismatch',
+            supplied_load_W_m2=room_load_W_m2,source_range_W_m2=[load_low,load_high],
+            load_verified=facts['room_load_verified'],
+            action='Resolve the room load and criterion applicability with source evidence; do not clamp the load, extrapolate the interval or silently replace the criterion.'))
     rows=[];ids=set()
     for terminal in lookup['terminals']:
         if terminal['id'] in ids:raise ValueError('Unique terminal identities required')
@@ -34,7 +49,7 @@ def screen(lookup, *, criterion, room_load_W_m2, facts):
                 rows.append(dict(terminal=terminal['id'],direction=direction,case=case,ratio=ratio,ratio_in_range=inside,status=status))
     if not rows:raise ValueError('Nonempty terminal cases required')
     return dict(criterion=criterion,facts=facts,room_load_W_m2=room_load_W_m2,load_in_source_range=in_range,
-        applicability=eligibility,missing_facts=missing,rejected_facts=rejected,cases=rows,
+        applicability=eligibility,missing_facts=missing,rejected_facts=rejected,data_requests=requests,cases=rows,
         all_ratios_within_scope=eligibility=='eligible' and all(r['status']=='within_sourced_ratio_range' for r in rows),
         ADPI_verified=False,design_accepted=False,
         scope='Supplied source interval and declared applicability only; not measured/predicted ADPI, source authentication or full comfort acceptance')

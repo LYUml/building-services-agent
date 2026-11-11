@@ -20,6 +20,24 @@ class ADPIScreenTests(unittest.TestCase):
     def test_minimum_flow_failure_is_retained(self):
         self.lookup['terminals'][0]['directions']['east']['cases']['minimum']['ratio']=.9
         r=self.evaluate();self.assertFalse(r['all_ratios_within_scope']);self.assertEqual(r['cases'][1]['status'],'fail')
+    def test_trial_domain_conflict_and_unknown_facts_remain_distinct(self):
+        self.facts['room_load_verified']=None
+        self.facts['lengths_verified']=None
+        r=self.evaluate(170.1)
+        conflict=[x for x in r['data_requests'] if x['code']=='criterion_load_domain_mismatch']
+        self.assertEqual(len(conflict),1)
+        self.assertEqual(conflict[0]['supplied_load_W_m2'],170.1)
+        self.assertEqual(conflict[0]['source_range_W_m2'],[35,160])
+        self.assertIsNone(conflict[0]['load_verified'])
+        self.assertEqual({x['fact'] for x in r['data_requests'] if 'fact' in x},{'room_load_verified','lengths_verified'})
+        self.assertEqual(r['applicability'],'pending')
+        self.assertTrue(all(x['status']=='not_evaluated' for x in r['cases']))
+    def test_unknown_load_and_rejected_fact_request_no_invented_value(self):
+        self.facts['installation_verified']=False
+        r=self.evaluate(None)
+        self.assertEqual(r['applicability'],'inapplicable')
+        self.assertEqual({x['code'] for x in r['data_requests']},{'room_load_missing','applicability_fact_rejected'})
+        self.assertEqual(self.evaluate(100)['data_requests'][0]['fact'],'installation_verified')
     def test_no_extrapolated_or_unknown_case_pass(self):
         self.lookup['terminals'][0]['directions']['east']['cases']['minimum'].update(ratio=None,status='outside_catalogue')
         self.assertFalse(self.evaluate()['all_ratios_within_scope'])

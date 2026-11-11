@@ -143,6 +143,7 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
     if 'adpi_review' in stages:
         review=stages['adpi_review']
         page+='<h2>ADPI scope</h2><p>Applicability: '+html.escape(review['applicability'])+'. Full ADPI acceptance is not established.</p><p>Missing facts: '+html.escape(', '.join(review['missing_facts']))+'</p>'
+        page+='<ul>'+''.join('<li>'+html.escape(item['code']+': '+item['action'])+'</li>' for item in review['data_requests'])+'</ul>'
     if 'plan_clearance' in stages:
         review=stages['plan_clearance']
         page+='<h2>Nominal-width planar review</h2><p>Tested planar target met: '+str(review['planar_target_met'])+'. Physical/three-dimensional clearance acceptance is pending.</p><p>Unresolved coverage: '+html.escape('; '.join(review['coverage']['unresolved']))+'</p>'
