@@ -1,0 +1,79 @@
+{
+  "scope": "Verified common requirements inventory consumed by the exact existing engineering plan",
+  "public_scenarios": {
+    "electrical": {
+      "status": {
+        "electrical": "pass",
+        "rules": "pass",
+        "review": "pending"
+      },
+      "bound_requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "integrity_pass": true,
+      "delivery_context_pass": true,
+      "design_accepted": false
+    },
+    "water": {
+      "status": {
+        "model": "pass",
+        "water": "pass",
+        "rules": "pass",
+        "review": "pending"
+      },
+      "bound_requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "integrity_pass": true,
+      "delivery_context_pass": true,
+      "design_accepted": false
+    }
+  },
+  "actual_coursework": {
+    "requirements": 33,
+    "unresolved_inputs": 9,
+    "tasks": {
+      "pass": 4,
+      "fail": 0,
+      "pending": 12
+    },
+    "integrity_pass": true,
+    "delivery_context_pass": true,
+    "native_host_not_supplied": true,
+    "design_accepted": false
+  },
+  "cli_trial": {
+    "bound_inventory_verified": true,
+    "pending_manual_review": true,
+    "integrity_pass": true,
+    "delivery_context_pass": true
+  },
+  "tests": {
+    "invocations": 63,
+    "passes": 63,
+    "failures": 0,
+    "errors": 0,
+    "commands": [
+      "python -m unittest tests.test_requirements_provider tests.test_project_start tests.test_modules tests.test_delivery tests.test_workflow_status tests.test_module_electrical_rules_workflow tests.test_work_plan_review tests.test_workflow",
+      "python -m unittest tests.test_workflow_cli"
+    ]
+  },
+  "source_snapshot": {
+    "src/bsa/requirements_binding.py": "f704cc658cdb64b9c6a72c244c021af3df80ad315ece946f2cc55ef3a526467b",
+    "src/bsa/workflow.py": "07c7935398d528db40c45e3f6221cfeaa6e120e738c1de821a938df2c7270e6a",
+    "src/bsa/delivery.py": "1d0df4ed373c7e305346bc22f958e1fb72bb0b2ede312c48a38c0fd11c2c3097",
+    "src/bsa/cli.py": "aef02c724c188ff726903bd1f7184135117879c55c51a2c3ad033dda087baa3c"
+  },
+  "limitations": [
+    "Exact existing-plan binding only;no semantic design-input generation",
+    "No native CAD was executed in these trials",
+    "Four real coursework calculation/drafting stages pass;remaining12tasks and9inputs remain pending",
+    "Full multi-discipline autonomous design/acceptance remains unfinished"
+  ],
+  "design_accepted": false
+}

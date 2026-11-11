@@ -19,6 +19,8 @@ def context(plan,root):
     plan,root=Path(plan).resolve(),Path(root).resolve()
     source,inputs=validate_plan(plan);inputs.add(plan)
     report=json.loads((root/'workflow.json').read_text(encoding='utf-8-sig'))
+    from .requirements_binding import verify_report as verify_requirements
+    inputs.update(Path(p) for p in verify_requirements(report,plan))
     from .workflow import three_phase_rule_bindings,three_phase_model_bindings
     if report.get('three_phase_source_bindings',[])!=three_phase_rule_bindings(source['tasks']):raise ProjectError('three-phase source bindings differ from plan')
     if report.get('three_phase_model_bindings',[])!=three_phase_model_bindings(plan.parent,source['tasks']):raise ProjectError('three-phase model bindings differ from plan')

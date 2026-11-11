@@ -1078,9 +1078,14 @@ def three_phase_locations(root,out,producer):
     raise ProjectError('not a three-phase numerical producer')
 
 
-def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_python=None,three_phase_python=None,graphviz=None,pdf2plot_python=None,honeybee_python=None,module_providers=None,module_runtime=None,disabled_module_providers=()):
+def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_python=None,three_phase_python=None,graphviz=None,pdf2plot_python=None,honeybee_python=None,module_providers=None,module_runtime=None,disabled_module_providers=(),requirements_result=None):
     plan,out=plan.resolve(),out.resolve()
     p,inputs=validate_plan(plan);inputs.add(plan)
+    from .requirements_binding import bind as bind_requirements
+    requirements_inventory=None
+    if requirements_result is not None:
+        requirements_inventory,requirement_pins=bind_requirements(plan,requirements_result)
+        inputs.update(Path(p) for p in requirement_pins)
     module_providers=module_providers or {};module_runtime=module_runtime or {}
     from .workflow_modules import host_selection,selection_inputs
     module_selection=host_selection(p['tasks'],module_providers,disabled_module_providers)
@@ -2073,7 +2078,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
         matrix.append(dict(**r,execution_status=task["status"],acceptance_status="pending review",
                            source_locator={k:v for k,v in source_rows[r["passage"]].items() if k not in ("id","text")},
                            execution_scope=task["scope"],evidence=evidence[r["task"]]))
-    result=dict(inputs=before,runtime_inputs=runtime_inputs,module_selection=module_selection,inputs_unchanged=unchanged,tasks=tasks,requirements=matrix,
+    result=dict(inputs=before,runtime_inputs=runtime_inputs,requirements_inventory=requirements_inventory,module_selection=module_selection,inputs_unchanged=unchanged,tasks=tasks,requirements=matrix,
         unresolved_inputs=p.get('unresolved_inputs',[]),three_phase_source_bindings=three_phase_rule_bindings(p['tasks']),
         three_phase_model_bindings=three_phase_model_bindings(root,p['tasks']) if unchanged else [],
         regulatory_source_bindings=regulatory_source_bindings(p['tasks'],root) if unchanged else [],
@@ -2081,6 +2086,9 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
         artifact_hashes={f.relative_to(out).as_posix():digest(f) for f in out.rglob("*") if f.is_file()},
         execution_pass=unchanged and all(x["status"]=="pass" for x in tasks.values()),
         design_accepted=False,acceptance_note="Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance")
+    if requirements_inventory is not None:
+        from .requirements_binding import verify_report as verify_requirements
+        verify_requirements(result,plan)
     from .workflow_report import render
     (out/"index.html").write_text(render(result),encoding="utf-8")
     result['artifact_hashes']['index.html']=digest(out/'index.html')
@@ -2093,6 +2101,10 @@ def verify(run_directory):
     root=run_directory.resolve()
     report=read_json(root/"workflow.json")
     issues=[]
+    try:
+        from .requirements_binding import verify_report as verify_requirements
+        verify_requirements(report)
+    except (ValueError,OSError,KeyError,TypeError) as exc:issues.append('requirements inventory invalid: '+str(exc))
     for name,expected in list(report["inputs"].items())+list(report.get("runtime_inputs",{}).items()):
         path=Path(name)
         if not path.is_file() or digest(path)!=expected:issues.append(f"input changed or missing: {name}")
@@ -2160,6 +2172,7 @@ def main():
     e.add_argument('--honeybee-python',type=Path)
     e.add_argument('--three-phase-python',type=Path)
     e.add_argument('--graphviz',type=Path)
+    e.add_argument('--requirements-result',type=Path)
     e.add_argument('--module-provider',action='append',default=[],metavar='TASK=PROVIDER')
     e.add_argument('--disable-module-provider',action='append',default=[])
     e.add_argument('--moosas-upstream',type=Path);e.add_argument('--moosas-deps',type=Path)
@@ -2180,7 +2193,7 @@ def main():
                 task,sep,provider=item.partition('=')
                 if not sep or not task or not provider or task in overrides:raise ProjectError('Unique TASK=PROVIDER module overrides required')
                 overrides[task]=provider
-            r=execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python,a.three_phase_python,a.graphviz,a.pdf2plot_python,a.honeybee_python,module_providers=overrides,module_runtime=dict(upstream=a.moosas_upstream,deps=a.moosas_deps),disabled_module_providers=a.disable_module_provider)
+            r=execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python,a.three_phase_python,a.graphviz,a.pdf2plot_python,a.honeybee_python,module_providers=overrides,module_runtime=dict(upstream=a.moosas_upstream,deps=a.moosas_deps),disabled_module_providers=a.disable_module_provider,requirements_result=a.requirements_result)
             print(json.dumps({"tasks":r["tasks"],"design_accepted":False},indent=2))
             if not r["execution_pass"]:return 2
     except (ProjectError,OSError,ValueError) as exc:p.exit(2,str(exc)+"\n")

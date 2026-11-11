@@ -34,5 +34,35 @@ class RequirementsProviderTests(unittest.TestCase):
  def test_omitted_passage_and_false_engineering_state_reject_contract(self):
   p=run(self.request,'bsa.source-requirements',self.root/'output')['payload'];p['passages']=p['passages'][1:]
   with self.assertRaises(ValueError):validate(p)
+
   p['engineering_execution']='completed'
   with self.assertRaises(ValueError):validate(p)
+
+ def test_bound_workflow_keeps_blockers_and_rejects_rewritten_matrix(self):
+  from bsa.workflow import execute,verify
+  from bsa.delivery import context
+  run(self.request,'bsa.source-requirements',self.root/'inventory')
+  result=self.root/'inventory/result.json';out=self.root/'workflow'
+  r=execute(self.plan,out,requirements_result=result)
+  self.assertTrue(verify(out)['integrity_pass']);context(self.plan,out)
+  self.assertTrue(all(t['status']=='pending' for t in r['tasks'].values()))
+  self.assertEqual(r['unresolved_inputs'],json.loads(self.plan.read_text())['unresolved_inputs'])
+  clean=copy.deepcopy(r)
+  r['requirements'][0]['acceptance']='Invented completed requirement'
+  (out/'workflow.json').write_text(json.dumps(r))
+  self.assertFalse(verify(out)['integrity_pass'])
+  with self.assertRaisesRegex(ValueError,'matrix differs'):context(self.plan,out)
+  clean.pop('requirements_inventory');(out/'workflow.json').write_text(json.dumps(clean))
+  self.assertFalse(verify(out)['integrity_pass'])
+
+ def test_binding_rejects_same_bytes_other_plan_and_disabled_inventory(self):
+  from bsa.workflow import execute
+  run(self.request,'bsa.source-requirements',self.root/'inventory')
+  clone=self.plan.parent/'clone.json';clone.write_bytes(self.plan.read_bytes())
+  with self.assertRaisesRegex(ValueError,'exact execution plan'):
+   execute(clone,self.root/'other',requirements_result=self.root/'inventory/result.json')
+  self.assertFalse((self.root/'other').exists())
+  run(self.request,'bsa.source-requirements',self.root/'disabled',disabled=True)
+  with self.assertRaisesRegex(ValueError,'Completed verified requirements'):
+   execute(self.plan,self.root/'no-result',requirements_result=self.root/'disabled/result.json')
+  self.assertFalse((self.root/'no-result').exists())

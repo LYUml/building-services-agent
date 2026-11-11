@@ -1,5 +1,11 @@
 # Building Services Agent
 
+Workflows now bind an exact common requirements inventory before engineering
+execution and recheck it at delivery. Actual electrical/water/BSE3227 runs and
+63related tests pass scoped checks. BSE3227 retains9unresolved inputs and12pending
+tasks. See [evidence](docs/evidence/requirements-workflow-binding.json).
+Semantic design-input generation and full acceptance remain unfinished.
+
 The common requirements inventory now preserves source passages,obligations
 and unresolved inputs across electrical,water and actual BSE3227 plans. Fresh
 validated project intake creates it automatically;39 related tests pass. See

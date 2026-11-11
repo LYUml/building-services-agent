@@ -1,5 +1,32 @@
 # Scope and acceptance
 
+
+A workflow can now require the exact common inventory using host option
+`--requirements-result`. This checks the original plan path/hash,complete
+requirement/task identities and unresolved inputs before executing any task:
+
+```powershell
+.venv/Scripts/python -m bsa.workflow execute runs/project/plan.json --requirements-result runs/project/requirements/result.json --out runs/project/workflow
+```
+
+The same option is available on `bsa.cli workflow`. The run records the inventory
+reference and pins its module inputs/artifacts;verification and delivery replay
+its source and compare the resulting requirement matrix. A same-byte different
+plan cannot borrow it. A disabled/unexecuted inventory rejects before output.
+Rewritten acceptance,removed blockers or a stripped pinned binding reject.
+Existing tasks keep their original source inputs,gates and acceptance states.
+After changing a plan or completing interpretation,export a fresh inventory for
+that exact plan;do not rewrite old module results. This binding does not infer
+engineering values or perform semantic requirement-to-design selection.
+
+Actual public electrical and native-water workflows execute with bound
+requirements and pass integrity/delivery correspondence. A fresh BSE3227 run
+preserves33requirements and9unresolved inputs,four existing calculation/drafting
+stages pass,and native/other unresolved stages remain pending without an explicit
+AutoCAD host. No native drawing or full design acceptance is established in this
+trial. See evidence/requirements-workflow-binding.json.
+
+
 Common source-linked requirements inventory now executes through the trusted
 module runner and automatically after validated project_start intake. Exact
 passages,requirements,locators and unresolved inputs survive source replay on
