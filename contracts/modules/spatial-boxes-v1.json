@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "coordinate_frame", "units", "classification", "spaces", "contacts", "simulation_ready"],
+  "properties": {
+    "schema": {"const": "bsa.spatial-boxes/1"}, "coordinate_frame": {"type": "object"},
+    "units": {"const": {"length": "m", "area": "m2"}}, "classification": {"const": "geometry-derived"}, "simulation_ready": {"const": false},
+    "spaces": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["id", "origin_m", "size_m", "floor_area_m2"], "properties": {"id": {"type": "string", "minLength": 1}, "origin_m": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number"}}, "size_m": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number", "exclusiveMinimum": 0}}, "floor_area_m2": {"type": "number", "exclusiveMinimum": 0}}}},
+    "contacts": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["spaces", "axis", "area_m2", "surfaces"], "properties": {"spaces": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}, "axis": {"type": "integer", "minimum": 0, "maximum": 2}, "area_m2": {"type": "number", "exclusiveMinimum": 0}, "surfaces": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}}}}
+  }
+}

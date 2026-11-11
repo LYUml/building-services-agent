@@ -1,0 +1,67 @@
+{
+  "scope": "First actual modular MOOSAS box-space exchange provider and common contract slice",
+  "targeted_test_methods_passed": 10,
+  "contract_validator": {
+    "name": "jsonschema",
+    "version": "4.26.0",
+    "license": "MIT"
+  },
+  "upstream": {
+    "repository": "https://github.com/KLEGB/MOOSAS",
+    "commit": "dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c",
+    "license": "Apache-2.0"
+  },
+  "actual_cases": [
+    {
+      "execution": "completed",
+      "project_id": "space-exchange-fixture",
+      "space_count": 3,
+      "geometric_contacts": 2,
+      "acceptance": "pending",
+      "payload_present": true
+    },
+    {
+      "execution": "completed",
+      "project_id": "public-course-concept",
+      "space_count": 2,
+      "geometric_contacts": 1,
+      "acceptance": "pending",
+      "payload_present": true
+    },
+    {
+      "execution": "unavailable",
+      "project_id": "space-exchange-fixture",
+      "space_count": null,
+      "geometric_contacts": null,
+      "acceptance": "pending",
+      "payload_present": false
+    },
+    {
+      "execution": "failed",
+      "project_id": "mep-only-scope-control",
+      "space_count": null,
+      "geometric_contacts": null,
+      "acceptance": "pending",
+      "payload_present": false
+    }
+  ],
+  "all_request_method_source_and_artifact_pins_verified": true,
+  "legacy_upstream_XML_GEO_called_directly": true,
+  "engine_imports_isolated_from_core": true,
+  "simulation_executed": false,
+  "alternate_provider_substitution_verified": false,
+  "workflow_DAG_integration_verified": false,
+  "arbitrary_IFC_loading_verified": false,
+  "design_accepted": false,
+  "method_sha256": {
+    "module_contract.py": "787f38f62691ad2a28803fbcb44e7d6a6dbdd5908280ec4e4d698b7d3ab4e4df",
+    "modules.py": "0a57484e122db8fd97ae541089f3d0a80545eb803937978dadd90eecf0b4994e",
+    "providers/__init__.py": "1dd07b40675c51b1f565fd03b441cc6ccf1dea18697feac8c2bec76641e5559c",
+    "providers/moosas_exchange.py": "013822de684acd0bf52b1f955db4a7763bf32a46a5a35846e25e3785022dba2e"
+  },
+  "schema_sha256": {
+    "request-v1.json": "5f0248cbd616c4ad7775ec8977f88eaccba570a6215eec73480147a70edfab2b",
+    "result-v1.json": "4d6c03471305bb1da1a54a37f1322ce5255db9e6d99fc5a83b09cd1fd21cf1e6",
+    "spatial-boxes-v1.json": "23bcfccb8a785a7be5bef486fc8884fd6bfaea21a44132c31d48d2d8c8cdb969"
+  }
+}

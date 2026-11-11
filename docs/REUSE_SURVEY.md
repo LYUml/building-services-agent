@@ -771,3 +771,12 @@ logic fills the actual gap;there is no new bend kernel or inferred catalogue.
 Existing raw clash checks retain remaining failures. Actual47-straight/8-bend
 export and16 cap-matched IFC links execute;two specified-radius corners remain
 blocked. No new dependency or copied upstream source. See DUCT_ELBOW_BACKBONE.md.
+
+The first modular MOOSAS provider wraps the already executed upstream XML/GEO
+exchange rather than rewriting it. Contract validation reuses installed
+jsonschema4.26.0 (MIT),now pinned in the modules optional dependency. Own versioned
+schemas and thin core/provider glue preserve source/face checks and host/runtime
+isolation. Actual3-space and public2-space calls pass;disabled and MEP-only inputs
+remain unavailable/failed with no payload. Upstream Apache-2.0 pin/attribution and
+isolated dependency versions stay unchanged. This is not another engine,an
+accepted ordinary IFC loader or proven component replacement. See MODULES.md.

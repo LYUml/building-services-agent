@@ -1,0 +1,59 @@
+"""Versioned module contracts validated by pinned upstream JSON Schema tooling."""
+import importlib.metadata
+import json
+import math
+from pathlib import Path,PurePosixPath
+
+ROOT=Path(__file__).resolve().parents[2]
+SCHEMAS={'bsa.module-request/1':'request-v1.json','bsa.module-result/1':'result-v1.json','bsa.spatial-boxes/1':'spatial-boxes-v1.json'}
+
+
+def read_json(path):
+    def pairs(items):
+        result={}
+        for key,value in items:
+            if key in result:raise ValueError('Duplicate contract key: '+key)
+            result[key]=value
+        return result
+    def invalid(value):raise ValueError('Nonfinite JSON number: '+value)
+    return json.loads(Path(path).read_text(encoding='utf-8-sig'),object_pairs_hook=pairs,parse_constant=invalid)
+
+
+def validate(data,schema=None):
+    import jsonschema
+    if not isinstance(data,dict):raise ValueError('Contract object required')
+    if importlib.metadata.version('jsonschema')!='4.26.0':raise ValueError('Pinned jsonschema4.26.0 required')
+    schema=schema or data.get('schema')
+    if schema not in SCHEMAS:raise ValueError('Unsupported module contract version')
+    def finite(value):
+        if type(value) is float and not math.isfinite(value):raise ValueError('Nonfinite contract number')
+        if isinstance(value,dict):
+            for item in value.values():finite(item)
+        elif isinstance(value,list):
+            for item in value:finite(item)
+    finite(data)
+    spec=read_json(ROOT/'contracts/modules'/SCHEMAS[schema]);jsonschema.Draft202012Validator.check_schema(spec)
+    errors=list(jsonschema.Draft202012Validator(spec).iter_errors(data))
+    if errors:raise ValueError('Contract violation: '+errors[0].message)
+    if schema=='bsa.spatial-boxes/1':
+        frame=data['coordinate_frame'];request_schema=read_json(ROOT/'contracts/modules/request-v1.json')
+        if list(jsonschema.Draft202012Validator(request_schema['properties']['coordinate_frame']).iter_errors(frame)):raise ValueError('Invalid common coordinate frame')
+        spaces={r['id']:r for r in data['spaces']}
+        if len(spaces)!=len(data['spaces']):raise ValueError('Duplicate common space IDs')
+        for row in spaces.values():
+            if not math.isclose(row['floor_area_m2'],row['size_m'][0]*row['size_m'][1],rel_tol=1e-10,abs_tol=1e-9):raise ValueError('Common space area differs from box geometry')
+        seen=set()
+        for contact in data['contacts']:
+            pair=tuple(sorted(contact['spaces']))
+            if pair in seen or not set(pair)<=set(spaces):raise ValueError('Duplicate/unknown common contact identity')
+            seen.add(pair)
+    if schema=='bsa.module-result/1':
+        if data['payload_schema'] not in SCHEMAS or data['payload_schema'] in ('bsa.module-request/1','bsa.module-result/1'):raise ValueError('Unsupported module payload contract')
+        if data['execution']['status']=='completed':
+            if data['payload'] is None:raise ValueError('Completed module needs validated payload')
+            validate(data['payload'],data['payload_schema'])
+        elif data['payload'] is not None:raise ValueError('Unexecuted/failed module cannot expose a successful payload')
+        if data['execution']['status']!='completed' and data['acceptance']['status']=='pass':raise ValueError('Unexecuted/failed module cannot pass acceptance')
+        for name in data['artifacts']:
+            if '\\' in name or PurePosixPath(name).is_absolute() or '..' in PurePosixPath(name).parts or ':' in name:raise ValueError('Module artifact references must be local relative paths')
+    return data

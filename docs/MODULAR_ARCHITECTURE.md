@@ -1,7 +1,9 @@
 # Modular architecture and next implementation sequence
 
-This is the execution plan for [the active goal](GOAL.md). The contracts and
-provider registry below are proposed work,not implemented capability claims.
+This is the execution plan for [the active goal](GOAL.md). The first request/result
+and box-space contracts plus MOOSAS provider now execute as described in
+[MODULES.md](MODULES.md). Remaining boundaries/registry coverage below are planned,
+not implemented capability claims.
 Existing workflow/project formats remain authoritative until explicit adapters
 and migration tests are executed.
 
@@ -52,13 +54,13 @@ dependent failures/pending work while independent tasks continue.
 
 ## Next milestones in order
 
-1. Define and implement the minimum envelope/validator/provider boundary for the
-   existing executed MOOSAS space exchange. Preserve its original source checks
-   and failures. Add no replacement geometry/space-recognition engine.
-2. Promote that wrapper from script-only use into a pinned provider with explicit
-   inputs,outputs and availability. Map transform/model/simulation modules using
-   MOOSAS_MODULE_MAP.md;test real upstream calls before marking each available.
-3. Execute replacement/disable controls and the same contracts with another
+1. Initial bounded slice implemented:module request/result,box-space schemas and
+   the existing executed MOOSAS wrapper as a trusted provider (MODULES.md).
+   Preserve original source checks/failures;extend contracts incrementally.
+2. MOOSAS exchange now has explicit inputs,outputs and availability outcomes.
+   Continue transform/model/simulation mapping using MOOSAS_MODULE_MAP.md;test
+   real upstream calls before making additional modules available.
+3. Next:execute replacement/disable controls and the same contracts with another
    genuinely applicable implementation. A mock validates dispatch only,not
    successful engine replacement. Include incompatible-version and dropped-space/
    boundary-ownership controls.

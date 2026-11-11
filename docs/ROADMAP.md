@@ -1,13 +1,25 @@
 # Scope and acceptance
 
+The first modular slice now executes versioned request/result and neutral
+box-space contracts through a trusted independent MOOSAS provider. It directly
+reuses the existing upstream XML/GEO exchange in an isolated process;the core
+has no MOOSAS modelling code. Ten targeted checks pass. Actual3-space fixture
+and2-space public-project calls preserve2/1 contacts;disabled runtime returns
+unavailable,and real MEP-only IFC without spaces fails with no payload. Source/
+method/schema and complete artifact inventories verify. Next:another real
+same-contract provider and replacement/disable orchestration tests,then migrate
+other adapters incrementally. Full multi-discipline design,arbitrary IFC intake,
+performance readiness and complete modular substitution remain unfinished.
+See MODULES.md and evidence/module-moosas-exchange.json.
+
 User-authorized modular goal revision2026-11-11:read GOAL.md and
 MODULAR_ARCHITECTURE.md before further implementation. The same active goal
 retains complete multi-discipline document-to-editable-deliverable scope.
 Prioritize replaceable public contracts/providers and direct pinned MOOSAS
 geometry/space/exchange/performance reuse;see MOOSAS_MODULE_MAP.md. Existing
-verified adapters stay available. After the closed finite-elbow milestone,implement
-the actual MOOSAS exchange contract/provider vertical slice next,then component
-replacement/disable and cross-project tests. Do not continue accumulating
+verified adapters stay available. The initial MOOSAS exchange contract/provider
+slice now executes;prioritize real component replacement/disable and broader
+cross-project tests next. Do not continue accumulating
 course-specific helpers as the primary architecture. These documents record the
 authorized revision;the goal API cannot edit objective text and no new goal or
 completion was created. Architecture/interface work and unexecuted upstream

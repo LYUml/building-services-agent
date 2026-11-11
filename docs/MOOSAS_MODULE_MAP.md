@@ -20,6 +20,12 @@ own notices. The repository's root distribution licence remains undecided.
 | simulation/airflow and bundled MoosasAFN/CONTAM | Airflow preparation and solving | Recorded JSON fixture preparation;MoosasAFN launch failed under host policy and CONTAM was not attempted. Separate preparation from unavailable verified solving. |
 | simulation/radiation,weather and other upstream daylight-related paths | Radiation/climate/daylight workflow reuse | Inspect exact supported APIs and compare existing Honeybee/Radiance/Ladybug bridges. Keep unexecuted capability unavailable until an actual bounded trial proves it. |
 
+The existing wrapper now also runs through bsa.modules with versioned request/
+result and common box-space contracts. Actual3-space fixture and2-space public
+concept exchanges pass;disable and MEP-only/no-space failures are retained.
+Another interchangeable provider and workflow integration remain unverified.
+See [MODULES.md](MODULES.md).
+
 The existing geometry-only XML reload wrapper selects an empty version5 catalogue
 because the bundled template library lacks the required version field. This is
 an explicit compatibility workaround,not a valid construction/HK template or

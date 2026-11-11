@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "project_id", "scenario_id", "capability", "coordinate_frame", "sources"],
+  "properties": {
+    "schema": {"const": "bsa.module-request/1"},
+    "project_id": {"type": "string", "minLength": 1},
+    "scenario_id": {"type": "string", "minLength": 1},
+    "capability": {"type": "string", "minLength": 1},
+    "coordinate_frame": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "kind", "length_unit", "georeferenced"],
+      "properties": {"id": {"type": "string", "minLength": 1}, "kind": {"const": "source-world-si"}, "length_unit": {"const": "m"}, "georeferenced": {"const": false}}
+    },
+    "sources": {
+      "type": "object", "minProperties": 1,
+      "additionalProperties": {
+        "type": "object", "additionalProperties": false, "required": ["path", "sha256"],
+        "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+      }
+    }
+  }
+}

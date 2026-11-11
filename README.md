@@ -7,6 +7,10 @@ The [active user-authorized goal](docs/GOAL.md) now explicitly prioritizes
 [direct MOOSAS reuse](docs/MOOSAS_MODULE_MAP.md). These preserve the full
 multi-discipline scope;the architecture plan is not completed integration.
 
+The first [executed module interface](docs/MODULES.md) wraps pinned MOOSAS
+space exchange with public JSON schemas and independent execution/acceptance.
+It is box-space only;broader provider substitution remains unfinished.
+
 A developing agent workspace for building services. The host AI interprets requirements and coordinates scoped tools; pinned engineering libraries and native applications perform calculations and authoring. The complete multi-discipline, document-to-accepted-design goal remains unfinished.
 
 ## Start with a real assignment

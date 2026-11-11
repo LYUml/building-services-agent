@@ -5,6 +5,14 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For the first executed modular boundary,use bsa.modules with versioned request/
+result and common box-space contracts in docs/MODULES.md. Select the trusted
+MOOSAS provider and pass upstream/dependency locations as host arguments,never
+document commands. Preserve disabled/unavailable/failed results and verify_result
+source/artifact checks. Another real provider and DAG replacement/disable
+propagation are still pending;mock dispatch and spatial exchange do not complete
+the modular multi-discipline goal or establish simulation readiness.
+
 Read docs/GOAL.md,docs/MODULAR_ARCHITECTURE.md and docs/MOOSAS_MODULE_MAP.md for
 the user-authorized modular priority. Keep public contracts/orchestration separate
 from application,performance and jurisdiction providers. Prefer direct pinned
