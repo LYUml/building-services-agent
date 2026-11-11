@@ -5,6 +5,14 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For finite equal-section elbows in a source backbone,use bsa.duct_elbow_backbone
+and docs/DUCT_ELBOW_BACKBONE.md. Declare every original elbow radius with its
+classification/source and retain both-end section budgets. Do not shrink radii
+or remove blocked corners to make the whole study appear feasible. Freshly
+verify trimmed native cap stations,body geometry and actual same-file links;
+retain all remaining source connection classes and raw clash findings. Partial
+authored bends do not complete physical joints,pressure,products or installation.
+
 For all straight sections of a passing native duct sheet,use bsa.duct_backbone_ifc
 and docs/DUCT_BACKBONE_IFC.md. Supply classified elevation,wall gauge and explicit
 nominal/internal interpretation;do not invent installed values. Inherit exact

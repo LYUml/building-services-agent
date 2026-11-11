@@ -1,5 +1,15 @@
 # Scope and acceptance
 
+Finite-elbow source integration retains all10 equal-section corner candidates and
+declared two-end budgets. Four focused tests pass. Actual unaccepted1.5xwidth
+radius scenario authors8 bends and trims adjacent straights;two main corners
+remain blocked by A-02/A-03 deficits. Final55-body export has110 owned ports and
+16 cap-matched actual IFC links. Complete raw clash coverage has40 intersection
+pairs versus48 before,no waivers and no unverified solid pairs. Overall clash/
+clearance and complete physical topology remain failed or pending;15 unequal
+tees,two multi-branch nodes and full product/pressure/installation acceptance
+are unfinished. See DUCT_ELBOW_BACKBONE.md and evidence/duct-elbow-backbone.json.
+
 All47 source rigid sections now author through the existing rectangular IFC
 engine into an untrimmed straight-wall scenario with94 owned ports. Final export
 removes the internal envelope and uses a labelled reference storey;native wall

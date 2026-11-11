@@ -763,3 +763,11 @@ checks expose retained untrimmed-node interference. No new geometry/kernel,
 fitting solver or dependency is introduced. This source bridge is distinct from
 the blocked FreeCAD/IfcMCP0.9 native geometry routes documented earlier,and does
 not complete physical connections or actual installation. See DUCT_BACKBONE_IFC.md.
+
+Finite-elbow source integration reuses duct_backbone_ifc.compile_model,
+bim/rectangular_geometry/rectangular_elbow native bodies and official
+IfcOpenShell spatial/port operations. Thin source-radius and two-end budget
+logic fills the actual gap;there is no new bend kernel or inferred catalogue.
+Existing raw clash checks retain remaining failures. Actual47-straight/8-bend
+export and16 cap-matched IFC links execute;two specified-radius corners remain
+blocked. No new dependency or copied upstream source. See DUCT_ELBOW_BACKBONE.md.
