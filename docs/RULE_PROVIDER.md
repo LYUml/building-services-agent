@@ -1,5 +1,14 @@
 # Registered saved-water rule provider
 
+The consumer now also checks the selected saved IFC distribution system against
+the bound system GUID. Explicit DOMESTICCOLDWATER/DOMESTICHOTWATER labels reject
+this HVAC-only provider before it writes a rule assessment. This catches a known
+model/declaration conflict;other labels do not establish statutory applicability
+or remove the required sourced facts. Existing IfcOpenShell and verified producer
+binding are reused. A second independent native domestic ring passes hydraulic
+checks but rejects HVAC rule application without payload;the chilled-water
+positive control still passes. Domestic-water regulation support remains absent.
+
 `bsa.hvac-water-rules` implements `regulation.water.saved-native` through the
 existing `module_water_rules` consumer and pinned existing rule pack. It returns
 `bsa.rule-assessment/1` using the same common module runner as analysis/authoring.

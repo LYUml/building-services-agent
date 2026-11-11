@@ -39,6 +39,13 @@ def binding(producer,basis,pack,sources):
     producer=Path(producer).resolve();module=verify_result(producer)
     if module['execution']['status']!='completed' or module['payload_schema']!='bsa.bound-water-graph/1' or module['payload']['status']!='pass':raise ValueError('Passing verified saved-native water graph required')
     payload=module['payload'];network=read_json(producer.parent/payload['network_input']['path']);hydraulic=read_json(producer.parent/payload['report']['path'])
+    import ifcopenshell
+    request_path=Path(module['request']['path']);request=read_json(request_path)
+    mapping=read_json((request_path.parent/request['sources']['binding']['path']).resolve())
+    model=ifcopenshell.open(str(producer.parent/payload['model']['path']))
+    selected=model.by_guid(mapping['system_guid'])
+    if selected.PredefinedType in ('DOMESTICCOLDWATER','DOMESTICHOTWATER'):
+        raise ValueError('Saved native system declares domestic water;HVAC water rule scope conflicts with model')
     origin='Verified saved-native water module '+str(producer)+' SHA256 '+digest(producer)
     fluid,projects=prepare(network,read_json(basis),hydraulic,origin)
     if any(p.get('jurisdiction')!=pack['jurisdiction'] or p.get('rule_pack')!=pack['id'] for p in projects.values()):raise ValueError('Explicit matching jurisdiction/rule pack required for every pipe')

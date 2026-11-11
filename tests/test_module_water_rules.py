@@ -84,6 +84,19 @@ class ModuleWaterRuleTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'Passing verified'):run(self.folder/'disabled/result.json',self.basis,self.pack,self.folder,self.folder/'rejected')
         self.assertFalse((self.folder/'rejected').exists())
 
+    def test_independent_domestic_water_project_cannot_use_hvac_pack(self):
+        source=ROOT/'examples/water-loop-ifc'
+        author(source/'model.json',self.folder/'domestic-native')
+        upstream=json.loads(self.request.read_text());upstream['project_id']='independent-domestic-ring'
+        upstream['sources']={k:dict(path=os.path.relpath(p,self.folder),sha256=digest(p)) for k,p in
+            [('project',source/'project.json'),('binding',source/'binding.json'),('ifc',self.folder/'domestic-native/model.ifc')]}
+        request=self.folder/'domestic-request.json';request.write_text(json.dumps(upstream))
+        result=module(request,'wntr.ifc-steady',self.folder/'domestic-module')
+        self.assertEqual(result['payload']['status'],'pass')
+        with self.assertRaisesRegex(ValueError,'domestic water;HVAC water rule scope conflicts'):
+            run(self.folder/'domestic-module/result.json',self.basis,self.pack,self.folder,self.folder/'wrong-rules')
+        self.assertFalse((self.folder/'wrong-rules').exists())
+
     def test_registered_rule_provider_completion_disable_and_missing_cache(self):
         from bsa.modules import verify_result
         upstream=json.loads(self.producer.read_text())

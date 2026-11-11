@@ -1,0 +1,14 @@
+{
+  "scope":"Known native system-label conflict guard for the existing HVAC-only water rule consumer",
+  "targeted_tests":{"invocations":24,"passed":24},
+  "independent_project":"Existing public spatial water ring with DOMESTICCOLDWATER selected system",
+  "actual_native_authoring":"completed",
+  "actual_saved_native_hydraulic_module":"completed; numerical checks pass",
+  "wrong_scope_registered_rule_execution":"failed",
+  "wrong_scope_payload":null,
+  "diagnostic":"Saved native system declares domestic water;HVAC water rule scope conflicts with model",
+  "actual_chilled_water_positive_control":"completed;scoped rules pass",
+  "module_verification":"pass for positive and negative actual outputs",
+  "design_accepted":false,
+  "limitations":"A guard against explicit domestic-cold/hot labels,not automatic legal applicability inference. Unknown/other IFC labels still need sourced facts and review. No domestic-water rule capability or full regression pass is claimed. Existing IfcOpenShell ResourceWarning persists."
+}

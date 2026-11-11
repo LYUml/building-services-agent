@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+Cross-project trial found a model/scope conflict:the independent saved domestic
+water ring could reach an HVAC-only consumer without a system-label guard. The
+consumer now rejects explicit domestic-cold/hot labels using the bound native
+system. Actual independent ring hydraulics pass but HVAC rules reject without
+payload;chilled-water positive control remains passing. Other system labels and
+full applicability still need review;domestic-water rules are not implemented.
+
 The registered rule workflow now executes through actual same-model native
 drawings:5automated stages pass,2DWGs independently reopen,and both1:30 PDF
 references pass. Both actual pages were inspected and match hash-bound prior
