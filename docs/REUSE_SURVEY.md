@@ -821,3 +821,12 @@ or authoring engine. Public plan/assets reuse attributed synthetic thermal-ifc
 and annual-weather examples. No new dependency or copied engine is added.
 Four actual authoring-to-input workflows execute;complete simulation/design
 remains pending. See examples/modular/README.md.
+
+Spatial lighting rule binding reuses regulations.evaluate,source_paths and
+lighting_rules.office_check plus the existing pinned HK office LPD pack and
+official EMSD source. The actual gap is inherited neutral-space area/identity,
+not another rule engine or new legal thresholds. No new dependency,upstream
+source copying or legal interpretation is introduced. Each sourced fixture-W
+inventory and statutory-area/edition fact remains explicit. Six actual source-
+pinned workflow cases execute with current geometry and replay checks;see
+MODULES.md and evidence/spatial-lighting-rules.json.

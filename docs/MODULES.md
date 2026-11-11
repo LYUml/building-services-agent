@@ -255,3 +255,48 @@ simulation and every engineering acceptance review remain pending. See
 [evidence](evidence/public-modular-pipeline.json). The example retains explicit
 synthetic geometry,Chicago weather and declared orientation assumptions;it is
 not raw-brief automatic engineering or a completed coursework design.
+
+## Separate jurisdiction checks using neutral space IDs
+
+spatial_lighting_rules is a thin consumer of a completed module_exchange
+result. It reuses regulations.evaluate and lighting_rules.office_check with an
+explicit selected pack;it contains no new legal limits or geometry engine.
+Only office_lighting_power_density methods are supported at this boundary.
+Jurisdiction and rule-pack ID must match each supplied space basis.
+
+```json
+{"id":"lpd","kind":"spatial_lighting_rules","depends_on":"spaces","basis":"lighting-basis.json","pack":"lighting-pack.json","sources":"official"}
+```
+
+Every neutral GUID must have an explicit basis. Each basis uses the existing
+jurisdiction/rule_pack/edition_decisions/facts fields and lighting_space containing
+only luminaires;repeating an area is rejected. Luminaire IDs must be unique
+across spaces. Full-output circuit W remain sourced inventory inputs. The saved
+geometry-derived m2 supplies the numerical denominator. A separate sourced fact
+must establish whether this geometry represents statutory internal floor area;
+box geometry alone cannot establish that. No thermal kW,lighting W/m2 target,
+demand or dimming factor supplies actual fixture watts.
+
+Rule output retains official hashes,source snapshots,per-space calculated values,
+applicability/edition reasons and regulatory_compliance=not_established. Missing
+facts/sources stay pending;exceeded selected LPD criterion is fail without ruling
+out separately reviewed alternative compliance routes. Replay verifies original
+producer evidence,derived areas and rule results before following workflow tasks.
+Use requires_pass on intended downstream tasks explicitly. A passing LPD result
+does not establish branch,photometry,controls,product or whole-project acceptance.
+
+For the public synthetic model,lighting-basis.json is provided under
+examples/modular. After obtaining the unchanged pinned official source:
+
+```powershell
+.venv/Scripts/python scripts/fetch_regulation_sources.py regulations/hk/lighting-2026.11.08/pack.json --out runs/hk-lpd-sources
+.venv/Scripts/python -m bsa.spatial_lighting_rules runs/public-modular/spaces/exchange/result.json --basis examples/modular/lighting-basis.json --pack regulations/hk/lighting-2026.11.08/pack.json --sources runs/hk-lpd-sources --out runs/public-modular-lpd
+```
+
+Six actual workflows cover native/MOOSAS equal rule results,exceeded watts,
+unknown internal-area applicability,missing official source and disabled spatial
+producer. Independent thermal preparation remains separate;required downstream
+review stays blocked when LPD has not passed. All diagnosis/review contexts
+verify and69 targeted tests pass. Inputs/facts are synthetic;the existing pinned
+BEC2024 edition decision is not a real statutory applicability determination.
+See [evidence](evidence/spatial-lighting-rules.json) and HK_LIGHTING_RULES.md.

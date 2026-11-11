@@ -41,3 +41,9 @@ materializes spaces/request.json from the exact newly authored model,then runs
 the provider in spaces/exchange. A replacement IFC in the template is forbidden.
 All dimensions and IDs come from saved solids and explicit mapping. See
 docs/MODULES.md and docs/evidence/public-modular-pipeline.json.
+
+For a separate scoped office LPD check,lighting-basis.json provides an explicitly
+synthetic inventory/applicability basis for the same saved-space GUIDs. The
+spatial_lighting_rules consumer derives area from the neutral result and reuses
+the pinned HK pack/official source;see docs/MODULES.md for commands. Those
+assertions and watts are test data,not product ratings or statutory decisions.

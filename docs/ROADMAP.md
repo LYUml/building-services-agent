@@ -1,5 +1,14 @@
 # Scope and acceptance
 
+The neutral-space chain now feeds the existing selected office LPD rule pack.
+Derived areas preserve actual saved-space IDs;full-output watts and statutory
+area/applicability assertions remain separate sourced inputs. Six actual native/
+MOOSAS/exceeded/unknown/missing-source/disabled workflows verify review contexts;
+69 targeted tests pass. Selected criterion failures block declared downstream
+work without clearing independent tasks or whole-project gaps. No new clause or
+limit is invented;actual performance and complete conformity remain unfinished.
+See MODULES.md and evidence/spatial-lighting-rules.json.
+
 The checked-in public modular plan now executes native IFC authoring into
 selected spatial exchange and thermal preparation without a manually prepared
 IFC request. Generated requests bind exact saved producer paths/hashes and reject

@@ -5,6 +5,14 @@ description: Select source-pinned jurisdiction rule packs and bind supported MEP
 
 # MEP jurisdiction checks
 
+For office LPD using completed neutral module spaces,use spatial_lighting_rules
+with depends_on on the exact module_exchange task. Read docs/MODULES.md. Basis
+must cover every neutral GUID and omit replacement area;full-output fixture W,
+edition and statutory internal-area applicability stay sourced assertions.
+The adapter reuses the existing pinned office rule method;missing facts/sources
+stay pending and exceeded criterion stays fail. Gate intended downstream tasks
+with requires_pass. No circuit,photometry,controls or full conformity is inferred.
+
 For flexible-duct main-distribution,fire-boundary and direct-damper restrictions,
 select regulations/hk/flex-routing-2026.11.11/pack.json and read
 docs/HK_FLEX_ROUTING.md. The existing regulations adapter derives counts from

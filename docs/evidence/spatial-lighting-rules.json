@@ -1,0 +1,97 @@
+{
+  "scope": "Neutral geometry bound to existing scoped office LPD rules;synthetic inventory and applicability assertions",
+  "actual_cases": [
+    {
+      "case": "native",
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pending",
+        "pending"
+      ],
+      "source_and_review_context_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "moosas",
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pending",
+        "pending"
+      ],
+      "source_and_review_context_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "exceeded",
+      "statuses": [
+        "pass",
+        "pass",
+        "fail",
+        "pass",
+        "pending",
+        "pending"
+      ],
+      "source_and_review_context_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "unknown",
+      "statuses": [
+        "pass",
+        "pass",
+        "pending",
+        "pass",
+        "pending",
+        "pending"
+      ],
+      "source_and_review_context_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "missing-source",
+      "statuses": [
+        "pass",
+        "pass",
+        "pending",
+        "pass",
+        "pending",
+        "pending"
+      ],
+      "source_and_review_context_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "disabled",
+      "statuses": [
+        "pass",
+        "pending",
+        "pending",
+        "pending",
+        "pending",
+        "pending"
+      ],
+      "source_and_review_context_verified": true,
+      "all_reviews_pending": true
+    }
+  ],
+  "native_moosas_rule_results_equal": true,
+  "space_count": 3,
+  "targeted_tests_passed": 69,
+  "official_source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+  "pack_sha256": "97b7be1ea891b575bdd239e200ce41120ed09a509914ebd74394135decc9997c",
+  "regulatory_compliance": "not_established",
+  "simulation_executed": false,
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/spatial_lighting_rules.py": "db7f3d72570b794e0aa9824d9c7c77d9e01e4b19aff4d81a81bdbfe751d43606",
+    "src/bsa/workflow.py": "c99f740731f3658feb578523dcad57c0e95e6a2ee25b602c5506b9254c2e5351",
+    "src/bsa/lighting_rules.py": "6c6e63650dd0e004d1fea196ee5fba279e3e281d4664acfd9c1c019725861b5a",
+    "src/bsa/regulations.py": "33e498396daa79276eb14295d295160eadf5cfd5f8a71c41ce7f520746f1e00e"
+  }
+}
