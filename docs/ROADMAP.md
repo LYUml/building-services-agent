@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+A single project_start command now stages original briefs and composes existing
+source-linked draft/handoff tools. Twelve related tests pass. A real2PDF bundle
+retains90passages and unchanged original/staged bytes;PDF extraction review
+correctly withholds a ready interpretation template. This is intake composition,
+not automatic semantic design or completed coursework. See PROJECT_START.md.
+
 Expanded retained regression at a11d95d covers modular providers/consumers,
 delivery,IFC views/tags and workflow gates:84invocations,83passes,1optional
 native-view skip,no failures/errors. All four runs retain unchanged source

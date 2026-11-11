@@ -1,0 +1,13 @@
+{
+  "scope": "Original-document staging into existing draft/handoff engines only",
+  "targeted_tests_passed": 12,
+  "actual_source_documents": 2,
+  "actual_passages": 90,
+  "actual_extraction_review_issues": 14,
+  "status": "needs_source_review",
+  "interpretation_template_ready": false,
+  "source_and_artifact_hashes_verified": true,
+  "originals_unchanged": true,
+  "design_accepted": false,
+  "limitations": "Private source content and paths excluded;no automatic semantic design,engineering run or full acceptance"
+}
