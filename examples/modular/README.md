@@ -47,3 +47,17 @@ synthetic inventory/applicability basis for the same saved-space GUIDs. The
 spatial_lighting_rules consumer derives area from the neutral result and reuses
 the pinned HK pack/official source;see docs/MODULES.md for commands. Those
 assertions and watts are test data,not product ratings or statutory decisions.
+
+To put native authoring itself behind the module boundary,use the second public
+plan (same original synthetic inputs):
+
+```powershell
+.venv/Scripts/python -m bsa.workflow execute examples/modular-authoring-plan.json --out runs/modular-authoring
+```
+
+model uses ifcopenshell.bim-authoring and returns a verified model-artifact/1
+payload. Downstream spaces inherit that actual IFC and require the same frame.
+Use --disable-module-provider ifcopenshell.bim-authoring to retain unavailable
+authoring and blocked consumers,or override spaces with the MOOSAS host options
+above. There is one verified authoring implementation;this does not prove
+Revit/AutoCAD authoring substitution or full design acceptance.

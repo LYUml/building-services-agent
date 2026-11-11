@@ -1,5 +1,13 @@
 # Scope and acceptance
 
+Native IFC authoring now uses a registered provider and the versioned common
+model-artifact contract. The unmodified existing bsa.bim engine runs in a fixed
+subprocess;downstream spatial modules resolve its verified saved model and require
+matching frames. Six actual success/disable/failure/frame/HK cases pass source,
+diagnosis and delivery checks;73 targeted tests pass. Only one authoring provider
+is verified;Revit/AutoCAD replacement,native visual/performance and full design
+acceptance remain unfinished. See MODULES.md and evidence/module-ifc-authoring.json.
+
 The neutral-space chain now feeds the existing selected office LPD rule pack.
 Derived areas preserve actual saved-space IDs;full-output watts and statutory
 area/applicability assertions remain separate sourced inputs. Six actual native/

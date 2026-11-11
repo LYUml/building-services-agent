@@ -69,7 +69,9 @@ dependent failures/pending work while independent tasks continue.
    including dropped-space/boundary ownership
    controls. A mock validates dispatch only.
 4. Route existing AutoCAD/IFC,Revit and performance adapters through the boundary
-   incrementally. Keep blocked Revit/analysis execution visible;do not bypass
+   incrementally. Native IFC now has an initial model-artifact authoring provider
+   and executed downstream chain;other authoring-provider substitution remains
+   unverified. Keep blocked Revit/analysis execution visible;do not bypass
    signing policy or silently upgrade EnergyPlus versions.
 5. Bind independent HK rules and requirement/delivery review to the same common
    source IDs. Reproduce the real HVAC project and another independent project,

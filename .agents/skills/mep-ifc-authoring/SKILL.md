@@ -5,6 +5,14 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For the initial modular native-authoring boundary,use module_authoring with
+ifcopenshell.bim-authoring and a source-pinned authoring.ifc.bim request.
+It reuses bsa.bim in a fixed subprocess and emits model-artifact/1;see
+docs/MODULES.md and examples/modular-authoring-plan.json. Downstream spatial
+modules inherit its verified IFC and require matching coordinate frames.
+Scoped native checks are not visual/product/installation/design acceptance.
+Only one authoring provider is verified;Revit/AutoCAD replacement is pending.
+
 For finite equal-section elbows in a source backbone,use bsa.duct_elbow_backbone
 and docs/DUCT_ELBOW_BACKBONE.md. Declare every original elbow radius with its
 classification/source and retain both-end section budgets. Do not shrink radii

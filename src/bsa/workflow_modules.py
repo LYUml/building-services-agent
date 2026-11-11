@@ -10,7 +10,7 @@ from .providers import get_provider
 
 def host_selection(tasks,overrides=None,disabled=()):
     """Validate trusted host choices separately from source plan task data."""
-    known={t['id']:t for t in tasks if t['kind']=='module_exchange'}
+    known={t['id']:t for t in tasks if t['kind'] in ('module_exchange','module_authoring')}
     overrides={} if overrides is None else overrides
     if not isinstance(overrides,dict) or set(overrides)-set(known):raise ValueError('Module overrides must name existing module tasks')
     if not isinstance(disabled,(list,tuple)) or any(not isinstance(p,str) for p in disabled) or len(set(disabled))!=len(disabled):raise ValueError('Unique disabled provider IDs required')
@@ -24,7 +24,7 @@ def selection_inputs(tasks,root,selection):
     if selection!=expected:raise ValueError('Noncanonical module host selection')
     paths=set()
     for task in tasks:
-        if task['kind']=='module_exchange':
+        if task['kind'] in ('module_exchange','module_authoring'):
             paths.update(inputs(Path(root)/task['request'],selection['providers'].get(task['id'],task['provider']),inherited=bool(task.get('depends_on'))))
     return paths
 
@@ -39,7 +39,13 @@ def inherited_request(task,tasks,root,run):
     request=module_contract.read_json(request_path)
     inputs(request_path,task['provider'],inherited=True)
     producer=next(t for t in tasks if t['id']==task['depends_on'])
-    model=(Path(run)/producer['id']/IFC_ARTIFACTS[producer['kind']]).resolve()
+    if producer['kind']=='module_authoring':
+        from .modules import verify_result
+        authored=verify_result(result_path(run,producer))
+        if authored['payload_schema']!='bsa.model-artifact/1' or authored['payload'] is None or authored['payload']['model']['format']!='IFC4':raise ValueError('Verified IFC4 model artifact required')
+        if authored['payload']['coordinate_frame']!=request['coordinate_frame']:raise ValueError('Authoring and spatial source frames differ')
+        model=(result_path(run,producer).parent/authored['payload']['model']['path']).resolve()
+    else:model=(Path(run)/producer['id']/IFC_ARTIFACTS[producer['kind']]).resolve()
     destination=(Path(run)/task['id']/'request.json').resolve()
     binding=(request_path.parent/request['sources']['binding']['path']).resolve()
     request['sources']={'ifc':dict(path=os.path.relpath(model,destination.parent),sha256=digest(model)),
@@ -58,7 +64,7 @@ def verify_selection(tasks,run,selection,root=None):
     """Bind selected provider and disabled state to actual retained module results."""
     from .modules import verify_result
     for task in tasks:
-        if task['kind']!='module_exchange':continue
+        if task['kind'] not in ('module_exchange','module_authoring'):continue
         path=result_path(run,task)
         if not path.is_file():continue
         if task.get('depends_on'):

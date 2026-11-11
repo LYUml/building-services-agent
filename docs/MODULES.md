@@ -300,3 +300,43 @@ review stays blocked when LPD has not passed. All diagnosis/review contexts
 verify and69 targeted tests pass. Inputs/facts are synthetic;the existing pinned
 BEC2024 edition decision is not a real statutory applicability determination.
 See [evidence](evidence/spatial-lighting-rules.json) and HK_LIGHTING_RULES.md.
+
+## Native IFC authoring provider
+
+The common bsa.model-artifact/1 payload identifies an IFC4 model and its native
+verification report using relative artifact paths/SHA256,source-world SI frame,
+geometry scope and passed scoped checks. Both references must match the complete
+module artifact inventory. It is initially IFC4-only;no DWG/RVT support or
+general native-application equivalence is claimed.
+
+ifcopenshell.bim-authoring accepts capability authoring.ifc.bim with exactly one
+project source. It executes the existing bsa.bim CLI in an isolated fixed
+subprocess,requires installed IfcOpenShell0.8.5 and verifies saved-reopen report,
+source/model hashes and all native scoped checks. No authoring engine is copied
+or rebuilt. IfcOpenShell remains LGPL-3.0-or-later;the descriptor identifies that
+upstream engine,not a new licence grant for unrelated repository code.
+
+```json
+{"id":"model","kind":"module_authoring","request":"modular/authoring.json","provider":"ifcopenshell.bim-authoring"}
+```
+
+module_authoring uses the same host-selection/disable/verification boundaries.
+It has no depends_on geometry replacement path. A later module_exchange may
+depend on it and resolves the actual IFC from the verified model-artifact
+payload instead of a provider-specific filename. Coordinate frames must match;
+failed/unavailable authoring blocks request materialization and later consumers.
+Acceptance remains separate from authoring checks. Only this one native authoring
+provider is verified;successful authoring-provider substitution remains pending.
+
+```powershell
+.venv/Scripts/python -m bsa.workflow execute examples/modular-authoring-plan.json --out runs/modular-authoring
+```
+
+This second public plan retains the original public example and reuses its exact
+synthetic source brief,BIM,thermal mapping and weather. Native authoring/spatial/
+thermal preparation pass;annual simulation and engineering review remain pending.
+Six actual native/MOOSAS/disabled/invalid-source/frame-mismatch/HK-LPD workflows
+pass source/diagnosis/delivery checks with pending reviews. Seventy-three targeted
+tests pass,including a real native authoring chain and artifact-contract controls.
+See [evidence](evidence/module-ifc-authoring.json). No visual/native DWG/RVT,
+full installation or complete engineering design acceptance is established.

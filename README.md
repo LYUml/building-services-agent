@@ -16,6 +16,10 @@ feeds the existing annual thermal input without re-entering dimensions;actual
 inherited simulation and broader multi-discipline migration remain unfinished.
 See the module integration instructions.
 
+The [modular authoring example](examples/modular/README.md) also puts native
+IFC creation behind a common model-artifact contract. One authoring provider is
+verified;other native authoring replacements remain unfinished.
+
 A developing agent workspace for building services. The host AI interprets requirements and coordinates scoped tools; pinned engineering libraries and native applications perform calculations and authoring. The complete multi-discipline, document-to-accepted-design goal remains unfinished.
 
 ## Start with a real assignment

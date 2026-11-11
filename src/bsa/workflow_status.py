@@ -49,7 +49,7 @@ def water_runtime_failures(run, report, task_id):
 
 def module_state(run,report,task):
     """Expose verified module diagnostics without inferring a native failure cause."""
-    if task['kind']!='module_exchange':return {}
+    if task['kind'] not in ('module_exchange','module_authoring'):return {}
     relative=task['id']+('/exchange/result.json' if task.get('depends_on') else '/result.json')
     if relative not in report['artifact_hashes']:return {}
     from .modules import verify_result

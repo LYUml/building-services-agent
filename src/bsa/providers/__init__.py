@@ -2,6 +2,9 @@
 
 
 def get_provider(id):
+    if id=='ifcopenshell.bim-authoring':
+        from . import ifc_authoring
+        return ifc_authoring
     if id=='ifcopenshell.box-spaces':
         from . import ifc_boxes
         return ifc_boxes

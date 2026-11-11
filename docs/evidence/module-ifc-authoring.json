@@ -1,0 +1,99 @@
+{
+  "scope": "Existing native IFC authoring behind a model-artifact provider contract;not general MEP design",
+  "actual_cases": [
+    {
+      "case": "native",
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pending",
+        "pending"
+      ],
+      "source_diagnosis_delivery_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "moosas",
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pending",
+        "pending"
+      ],
+      "source_diagnosis_delivery_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "disabled",
+      "statuses": [
+        "pending",
+        "pending",
+        "pending",
+        "pending",
+        "pending"
+      ],
+      "source_diagnosis_delivery_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "invalid",
+      "statuses": [
+        "fail",
+        "pending",
+        "pending",
+        "pending",
+        "pending"
+      ],
+      "source_diagnosis_delivery_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "frame",
+      "statuses": [
+        "pass",
+        "fail",
+        "pending",
+        "pending",
+        "pending"
+      ],
+      "source_diagnosis_delivery_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "hk",
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pending",
+        "pending"
+      ],
+      "source_diagnosis_delivery_verified": true,
+      "all_reviews_pending": true
+    }
+  ],
+  "equal_native_moosas_thermal_projects": true,
+  "targeted_tests_passed": 73,
+  "upstream": {
+    "name": "IfcOpenShell",
+    "version": "0.8.5",
+    "license": "LGPL-3.0-or-later"
+  },
+  "only_one_native_authoring_provider_verified": true,
+  "alternate_authoring_provider_verified": false,
+  "simulation_executed": false,
+  "native_visual_acceptance": false,
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/providers/ifc_authoring.py": "a63716bca4d4e060226639fe365594c804aa148cca12476da48fc7876c7912fc",
+    "src/bsa/module_contract.py": "0a7aaf2798cb08410ed2560d3e7942f01eda041f95ce2ae697247d2c8985ef01",
+    "src/bsa/modules.py": "aa07b8a2fd4b3abc0d320cb70e92bae52ee6bbc599e2de67b786c68c50b668e7",
+    "src/bsa/workflow.py": "040b4ac9e41a46869074a7227d723f95273619e52a5b127ca8bfeafd08618e96",
+    "src/bsa/workflow_modules.py": "eb4ebbcaf33e94c6bd516bc7d82a2787ceb4d4e368820735504c80205445e160",
+    "src/bsa/workflow_status.py": "fbeb38fb409f80a537761bd6d433bd7a1ee893ec89f5b5932fdaa1b1bea9f98f",
+    "src/bsa/delivery.py": "0b5e8a7bb9c9cf848ecae8cbed58b2a743f39c732b5b71b9f816a2b6e0079f8a"
+  }
+}

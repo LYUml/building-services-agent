@@ -1,0 +1,11 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "type":"object","additionalProperties":false,
+  "required":["schema","coordinate_frame","length_unit","model","verification","geometry_scope","checks","design_accepted"],
+  "properties":{
+    "schema":{"const":"bsa.model-artifact/1"},"coordinate_frame":{"type":"object"},"length_unit":{"const":"m"},
+    "model":{"type":"object","additionalProperties":false,"required":["path","sha256","format"],"properties":{"path":{"type":"string","minLength":1},"sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"},"format":{"const":"IFC4"}}},
+    "verification":{"type":"object","additionalProperties":false,"required":["path","sha256"],"properties":{"path":{"type":"string","minLength":1},"sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"}}},
+    "geometry_scope":{"type":"string","minLength":1},"checks":{"type":"object","minProperties":1,"additionalProperties":{"const":true}},"design_accepted":{"const":false}
+  }
+}

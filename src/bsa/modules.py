@@ -37,7 +37,7 @@ def run(request_path,provider_id,out,*,runtime=None,disabled=False):
         pins[name]=sha
     if any(digest(Path(p))!=sha for p,sha in pins.items()):raise ValueError('Module source or provider changed during execution')
     result=dict(schema='bsa.module-result/1',request=dict(path=str(request_path),sha256=request_sha),project_id=request['project_id'],scenario_id=request['scenario_id'],capability=request['capability'],provider=provider.DESCRIPTION,
-        execution=dict(status=execution['status'],diagnostics=execution['diagnostics']),acceptance=dict(status='pending',scope='Scoped spatial exchange only;thermal,airflow,MEP,regulatory and full design acceptance remain separate'),
+        execution=dict(status=execution['status'],diagnostics=execution['diagnostics']),acceptance=dict(status='pending',scope=getattr(provider,'ACCEPTANCE_SCOPE','Scoped spatial exchange only;thermal,airflow,MEP,regulatory and full design acceptance remain separate')),
         inputs=pins,artifacts={p.relative_to(out).as_posix():digest(p) for p in out.rglob('*') if p.is_file()},payload_schema=provider.PAYLOAD,payload=execution['payload'],design_accepted=False)
     try:
         module_contract.validate(result,'bsa.module-result/1')

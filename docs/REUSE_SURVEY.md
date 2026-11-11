@@ -830,3 +830,12 @@ source copying or legal interpretation is introduced. Each sourced fixture-W
 inventory and statutory-area/edition fact remains explicit. Six actual source-
 pinned workflow cases execute with current geometry and replay checks;see
 MODULES.md and evidence/spatial-lighting-rules.json.
+
+The native IFC authoring provider wraps the existing bsa.bim CLI and pinned
+IfcOpenShell0.8.5 (LGPL-3.0-or-later) in an isolated subprocess. The gap is a common
+model-artifact contract with saved-model/report hashes and provider-independent
+downstream selection,not a new authoring engine. Existing circular/rectangular
+geometry code and native reopen checks remain unchanged/pinned. No dependency
+or upstream code is added/copied. Six actual authoring-to-consumer scenarios and
+source/frame/disable controls execute. Only one authoring implementation is
+verified;see MODULES.md and examples/modular-authoring-plan.json.
