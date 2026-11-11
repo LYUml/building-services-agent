@@ -1,5 +1,13 @@
 # Scope and acceptance
 
+The registered rule workflow now executes through actual same-model native
+drawings:5automated stages pass,2DWGs independently reopen,and both1:30 PDF
+references pass. Both actual pages were inspected and match hash-bound prior
+reviewed pixels. Disabling the rule provider blocks all drawing/native work and
+produces no DWG/PDF. Workflow/delivery correspondence passes in both cases.
+Synthetic engineering data,omitted equipment/fittings and full acceptance remain
+explicit. See evidence/registered-rule-native-drawings.json.
+
 Existing module_water_rules tasks now optionally dispatch the registered provider
 with a materialized exact-producer request. Legacy plans remain supported. Fresh
 actual enabled/disabled/failing-rule scenarios preserve correct downstream gates

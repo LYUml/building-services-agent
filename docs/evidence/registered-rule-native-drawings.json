@@ -1,0 +1,19 @@
+{
+  "scope":"Registered saved-water rule provider gates native drawings of the same source model",
+  "executed_code_commit":"3737cdf06cfdbce78beb82ef502da14dce093120",
+  "data":"Existing public synthetic circulation geometry and operating/applicability assertions;actual native engines and hash-matching official source",
+  "automated_stages":{"model":"pass","water":"pass","rules":"pass","views":"pass","native":"pass"},
+  "manual_review":"pending",
+  "native_dwgs":2,
+  "independent_autocad_reopen_checks":"pass for plan and front",
+  "pdf_pages":2,
+  "scale_denominator":30,
+  "physical_pdf_reference_checks":"pass for both pages",
+  "visual_review":"Both actual150dpi pages inspected;four tags match parameter rows;no observed clipping or text/geometry collision",
+  "rendered_pixels_equal_to_hash_bound_prior_review":true,
+  "disabled_rule_scenario":"rules,views,native and final review pending;no DWG or merged PDF produced",
+  "workflow_integrity_and_delivery_context":"pass for enabled and disabled runs",
+  "design_accepted":false,
+  "regulatory_compliance":"not_established",
+  "limitations":"Pipes-only centreline projections omit pump/node/fitting bodies,insulation,hidden-line and installation detail. Product,physical and complete compliance acceptance remain pending. Native PDF duplicate PageMode warnings persist."
+}

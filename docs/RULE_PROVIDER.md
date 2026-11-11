@@ -42,3 +42,11 @@ Actual fresh synthetic IFC/EPANET/official-source execution produces the same
 assessment through legacy and registered calls. Disabled/unconfigured branches
 retain no payload. These are integration evidence,not a real product design or
 complete HK compliance.
+
+The public builder's `--drawings` composition also executes with the registered
+provider selected on its rules task. Actual model/water/rules/views/native stages
+pass;two independently reopened DWGs and both1:30 plot references pass. Both
+rendered pages were inspected. Disabling that provider blocks the dependent
+views/native tasks before any DWG/merged PDF exists. This verifies same-model
+rule-to-drawing gating,not equipment/fitting or installation completeness.
+See evidence/registered-rule-native-drawings.json.
