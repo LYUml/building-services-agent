@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+The electrical rule consumer is now also a registered CLI/API provider with
+the common RuleAssessment contract. Actual official-source direct/registered
+assessments match. Automatic registered dispatch remains unfinished;existing
+workflow/native paths retain direct dispatch. See ELECTRICAL_RULE_PROVIDER.md.
+
 
 Scoped native electrical schematic now inherits the exact passing rule task via
 `module_electrical_native`. The module explicitly inventories its DXF and replays

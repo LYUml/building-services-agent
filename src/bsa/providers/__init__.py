@@ -2,6 +2,9 @@
 
 
 def get_provider(id):
+    if id=='bsa.electrical-path-rules':
+        from . import electrical_rules
+        return electrical_rules
     if id=='bsa.single-phase-circuits':
         from . import electrical_circuits
         return electrical_circuits

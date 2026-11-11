@@ -1,0 +1,54 @@
+{
+  "provider": {
+    "id": "bsa.electrical-path-rules",
+    "version": "1",
+    "license": "NOASSERTION"
+  },
+  "execution": {
+    "status": "completed",
+    "diagnostics": []
+  },
+  "payload_status": "pass",
+  "direct_assessment_equal": true,
+  "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+  "result_sha256": "c8eda69bd30e69cdb385ad35ecff4d3817e91034c5180a2880a68a435701fdda",
+  "design_accepted": false,
+  "controls": {
+    "disabled": {
+      "execution": {
+        "status": "unavailable",
+        "diagnostics": [
+          {
+            "code": "provider_disabled",
+            "message": "Selected provider is disabled by host configuration"
+          }
+        ]
+      },
+      "payload_absent": true
+    },
+    "unconfigured": {
+      "execution": {
+        "status": "unavailable",
+        "diagnostics": [
+          {
+            "code": "source_cache_not_configured",
+            "message": "Explicit host official-source cache path required"
+          }
+        ]
+      },
+      "payload_absent": true
+    }
+  },
+  "tests": {
+    "invocations": 39,
+    "passes": 39,
+    "failures": 0,
+    "errors": 0,
+    "command": "python -m unittest tests.test_electrical_rule_provider tests.test_module_electrical_rules tests.test_module_electrical_rules_workflow tests.test_modular_electrical tests.test_modules tests.test_module_water_rules"
+  },
+  "limitations": [
+    "CLI/API only;automatic registered electrical workflow dispatch remains unfinished",
+    "Existing direct workflow/native consumer remains available",
+    "Source applicability,other electrical checks and full engineering/regulatory acceptance remain pending"
+  ]
+}
