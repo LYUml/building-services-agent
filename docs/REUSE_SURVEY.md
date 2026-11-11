@@ -687,3 +687,11 @@ the chart page,so the pinned vector pdf2plot path cannot yield its curve reading
 The official ASHRAE chapter corroborates the equation family without substituting
 its webpage for the original printed edition. Source conditions and graphical
 readings stay separate. No new dependency or copied coefficient database.
+
+Flexible-duct routing restrictions reuse the existing regulations count/maximum
+evaluation pattern and source/edition/workflow gates. A thin adapter derives
+counts from individual sourced assertions rather than another rules engine or
+an unsupported CAD-based fire classifier. The official FSD2/2023 PDF was fetched,
+hash matched and page14 visually checked. Existing source-native terminal review
+stages only declared design-line identity;unknown boundary/attachment facts remain
+pending. No external dependency or inferred product/installed metadata is added.

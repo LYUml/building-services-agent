@@ -21,6 +21,9 @@ def evaluate(pack,project,source_directory):
     for rule in pack['rules']:
         if rule['id'] in seen:raise ProjectError('unique rule ids required')
         seen.add(rule['id'])
+        if rule['method']=='flexible_duct_restrictions':
+            from .flexible_duct_rules import check
+            checks.append(check(pack,rule,project,root));continue
         if rule['method']=='base_air_distribution_fan_power':
             from .fan_power_rules import check
             checks.append(check(pack,rule,project,root));continue
@@ -90,10 +93,14 @@ def source_paths(pack, directory):
 
 
 def method_paths(pack):
+    paths=set()
     if any(rule['method']=='base_air_distribution_fan_power' for rule in pack['rules']):
         from . import fan_power_rules
-        return {Path(__file__).resolve(),Path(fan_power_rules.__file__).resolve()}
-    return set()
+        paths.update({Path(__file__).resolve(),Path(fan_power_rules.__file__).resolve()})
+    if any(rule['method']=='flexible_duct_restrictions' for rule in pack['rules']):
+        from . import flexible_duct_rules
+        paths.update({Path(__file__).resolve(),Path(flexible_duct_rules.__file__).resolve()})
+    return paths
 
 
 def run(pack,project,sources,out):

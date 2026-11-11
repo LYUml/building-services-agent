@@ -1,5 +1,9 @@
 # Hong Kong flexible connection length
 
+For separately implemented sourced-inventory checks of clauses7.3/7.4,see
+[flexible-duct routing restrictions](HK_FLEX_ROUTING.md). They do not replace
+this length module or prove native fire-boundary/equipment classifications.
+
 Select `regulations/hk/flex-length-2026.11.10/pack.json` explicitly with the
 existing `bsa.regulations` engine or `regulations` workflow task. No new engine
 or dependency is introduced. The pack pins the FSD Circular 2/2023 official PDF;

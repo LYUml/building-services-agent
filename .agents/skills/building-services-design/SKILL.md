@@ -5,6 +5,12 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+The requested outcome is automatic preparation of complete models,calculations,
+analyses and drawings for the user to inspect and use. Report progress against
+artifact completeness and verified capability. Do not describe portal submission
+as the user's goal or as the missing automation milestone. Authorized course
+portal access in this project is for retrieving source material.
+
 For domestic-water or sanitary-drainage demand, route to ../mep-network-analysis/SKILL.md and docs/PLUMBING_DEMAND.md. Distinguish supply loading units, independent identical-appliance probability and wastewater DU arithmetic; the available methods do not infer mixed-fixture supply tables. For Hong Kong drainage, also use ../mep-regulations/SKILL.md and docs/HK_DRAINAGE.md: workflow drainage_connections checks declared restricted-floor connections, then drainage_stack_demand inherits that exact individual inventory with depends_on and a sourced DU/use basis. Require pass before intended downstream tasks. Unknown full-stack inventory or routing remains pending even if the limited floor check passes. Preserve real survey, separate-pipe/building demand, stack/vent sizing, saved CAD/BIM correspondence and drawing/report requirements; these numerical checks do not complete a plumbing assignment.
 
 For native RVT workflows use ../mep-revit/SKILL.md. It routes installed-host verification, native pipe/fitting inventory, original-request revision checks and workflow gates. Current native creation remains compile-only; preserve connected-system, real analysis, saved-reopen and drawing requirements instead of substituting a synthetic diagnostic report.

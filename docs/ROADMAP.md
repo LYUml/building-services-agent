@@ -1,5 +1,17 @@
 # Scope and acceptance
 
+Hong Kong flexible-duct routing now has a separate source-pinned module for
+FSD2/2023 clauses7.3/7.4. Individual sourced declarations derive forbidden-use,
+fire-boundary and direct-damper counts;aggregate zero cannot substitute for them.
+Unknown/incomplete inventories remain pending and known forbidden conditions stay
+visible. Twenty-four rule/regulation/fan-method tests pass,including release gates
+and additive mixed-pack method pins. Six synthetic scenarios execute against the
+freshly hash-matched official PDF. Actual80 intended final design connections
+remain pending because full boundary/attachment/inventory evidence is absent.
+This is assertion checking,not native fire classification or full conformity.
+The requested goal remains complete generated artifacts for user review/use.
+See HK_FLEX_ROUTING.md and evidence/hk-flex-routing.json.
+
 Independent saved-schedule review now reconstructs equations and checks stored
 Colebrook residuals for every selected/source candidate,with exact native/source
 ancestry and original criterion/ranking checks. Actual47-section/16,779-candidate

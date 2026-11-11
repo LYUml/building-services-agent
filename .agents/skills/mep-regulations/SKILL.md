@@ -5,6 +5,15 @@ description: Select source-pinned jurisdiction rule packs and bind supported MEP
 
 # MEP jurisdiction checks
 
+For flexible-duct main-distribution,fire-boundary and direct-damper restrictions,
+select regulations/hk/flex-routing-2026.11.11/pack.json and read
+docs/HK_FLEX_ROUTING.md. The existing regulations adapter derives counts from
+individual sourced connection declarations;unknown endpoints,crossings or
+completeness stay pending. Known forbidden conditions stay visible even with an
+incomplete inventory. This is sourced-assertion checking,not native/installed
+classification. Keep the separate length/product/edition requirements and full
+fire/HVAC scope;intended downstream tasks require this check explicitly.
+
 For Hong Kong building sanitary stacks, read docs/HK_DRAINAGE.md and the pinned BD APP-164 evidence. Review November2023 edition and paragraphs3/4 works applicability explicitly; do not infer them from today's date. Workflow drainage_connections checks declared individual fixtures under 2(d)/(e), using total building storeys or explicit podium-only/basement-only counts, not stack served-floor counts. Offsets are relative to the stack's manhole-discharge floor, not an assumed ground floor. Use drainage_stack_demand with depends_on on that exact producer for source-bound DU aggregation, and requires_pass for intended downstream work. The limited floor check can pass while full-stack routing/inventory stays pending. These are scoped source-facts adapters, not a complete drainage rule pack or saved-model compliance check; preserve offset, ventilation, trap, capacity and remaining statutory requirements.
 
 For ordinary flexible air-duct connection length, select `regulations/hk/flex-length-2026.11.10/pack.json` with the existing `regulations` task and read docs/HK_FLEX_LENGTH.md. Require sourced complete installed-length inventory, applicability and edition decisions; a plan-distance result must not populate the installed-length metric. Keep the prior Director-agreement exception path, product testing and fire-boundary/damper restrictions separate. Gate intended final delivery with `requires_pass` on this check when applicable; a numerical duct/throw pass does not override pending regulatory evidence. Coursework criteria and additional jurisdiction checks remain distinct requirements.

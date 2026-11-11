@@ -1,0 +1,69 @@
+{
+  "scope": "Selected FSD flexible-duct restriction checks from individual sourced assertions only",
+  "source": {
+    "url": "https://www.hkfsd.gov.hk/eng/source/licensing/MECHANICAL_VS_EN_2_2023.pdf",
+    "edition": "Circular 2/2023",
+    "sha256": "950c83c826b18d2c1daf9e959698a82f1d20299ad6456f274c7e099d5d897635",
+    "fresh_fetch_matches_pin": true,
+    "pdf_page_1_based": 14,
+    "printed_page": "11",
+    "clauses_visually_reviewed": [
+      "7.3",
+      "7.4"
+    ]
+  },
+  "targeted_test_methods_passed": 24,
+  "synthetic_controls_with_actual_source": {
+    "clear": [
+      "pass",
+      "pass",
+      "pass"
+    ],
+    "main": [
+      "review_required",
+      "pass",
+      "pass"
+    ],
+    "boundary": [
+      "pass",
+      "review_required",
+      "pass"
+    ],
+    "damper": [
+      "pass",
+      "pass",
+      "review_required"
+    ],
+    "unknown": [
+      "pending",
+      "pending",
+      "pending"
+    ],
+    "known_and_unknown": [
+      "review_required",
+      "pending",
+      "pending"
+    ]
+  },
+  "actual_private_handoff": {
+    "saved_native_design_final_connections": 80,
+    "complete_flexible_inventory_verified": false,
+    "fire_boundary_and_attachment_classifications_verified": false,
+    "rule_statuses": [
+      "pending",
+      "pending",
+      "pending"
+    ],
+    "source_method_and_artifact_hashes_verified": true
+  },
+  "binding_status": "sourced_inventory_assertions_only",
+  "aggregate_zero_substitution_rejected": true,
+  "unknown_rule_blocks_workflow_release": true,
+  "mixed_pack_method_pins_retained": true,
+  "native_fire_classification_claimed": false,
+  "regulatory_compliance": "not_established",
+  "design_accepted": false,
+  "pack_sha256": "12e5f123106b93590760eb0af110013a462ee4af9a9279bf90b5844fa9e0b69e",
+  "adapter_sha256": "41b753e72bd84c5b13baff01f5fb5ab90e33ad3308d607f7d061b1b311c84dde",
+  "regulations_engine_sha256": "33e498396daa79276eb14295d295160eadf5cfd5f8a71c41ce7f520746f1e00e"
+}

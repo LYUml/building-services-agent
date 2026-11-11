@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "hk-flex-routing-2026.11.11",
+  "jurisdiction": "HK",
+  "version": "2026.11.11",
+  "sources": {
+    "fsd_mv_2023": {
+      "authority": "FSD",
+      "title": "Fire Safety Requirements for Mechanical Ventilating Systems",
+      "edition": "Circular 2/2023",
+      "url": "https://www.hkfsd.gov.hk/eng/source/licensing/MECHANICAL_VS_EN_2_2023.pdf",
+      "cache_filename": "FSD_Mechanical_Ventilating_Systems_2023.pdf",
+      "sha256": "950c83c826b18d2c1daf9e959698a82f1d20299ad6456f274c7e099d5d897635",
+      "reviewed_on": "2026-11-11",
+      "review_scope": "Clauses7.3/7.4,PDF page14,printed page11;individual sourced inventory assertions only",
+      "applicability_note": "Project works/date/scope and amendment applicability require an explicit decision;website listing is not a complete legal applicability determination"
+    }
+  },
+  "rules": [
+    {
+      "id": "HK.FSD.MV2023.7.3.flex_main_distribution",
+      "source_id": "fsd_mv_2023",
+      "clause": "7.3",
+      "pdf_page_1_based": 14,
+      "printed_page": "11",
+      "method": "flexible_duct_restrictions",
+      "restriction": "main_distribution",
+      "metric": "forbidden_main_distribution_connection_count",
+      "unit": "connections",
+      "maximum": 0,
+      "scope": "Declared flexible ducts used as main distribution",
+      "applicability": [{"fact": "mechanical_ventilating_system_scope_confirmed", "equals": true}],
+      "alternative_path_note": "A declared flexible main-distribution duct conflicts with the selected prohibition;revise and independently review the design. No waiver is inferred."
+    },
+    {
+      "id": "HK.FSD.MV2023.7.4.flex_fire_boundary",
+      "source_id": "fsd_mv_2023",
+      "clause": "7.4",
+      "pdf_page_1_based": 14,
+      "printed_page": "11",
+      "method": "flexible_duct_restrictions",
+      "restriction": "fire_boundary",
+      "metric": "forbidden_fire_boundary_connection_count",
+      "unit": "connections",
+      "maximum": 0,
+      "scope": "Declared flexible-duct penetrations through fire-resisting walls,floors,ceilings or partitions",
+      "applicability": [{"fact": "mechanical_ventilating_system_scope_confirmed", "equals": true}],
+      "alternative_path_note": "A declared flexible connection penetrates a fire-resisting boundary;revise and independently review the design. A short length does not clear this prohibition."
+    },
+    {
+      "id": "HK.FSD.MV2023.7.4.flex_direct_damper",
+      "source_id": "fsd_mv_2023",
+      "clause": "7.4",
+      "pdf_page_1_based": 14,
+      "printed_page": "11",
+      "method": "flexible_duct_restrictions",
+      "restriction": "direct_damper",
+      "metric": "forbidden_direct_damper_connection_count",
+      "unit": "connections",
+      "maximum": 0,
+      "scope": "Declared direct flexible-duct connections to fire or fire-and-smoke dampers",
+      "applicability": [{"fact": "mechanical_ventilating_system_scope_confirmed", "equals": true}],
+      "alternative_path_note": "A declared flexible connection terminates directly at a fire or fire-and-smoke damper;revise and independently review the design. No approval is inferred."
+    }
+  ],
+  "coverage": {
+    "complete": false,
+    "implemented": ["Clause7.3 main-distribution restriction from individual sourced assertions", "Clause7.4 fire-boundary and direct-damper restrictions from individual sourced assertions"],
+    "pending": ["Project legal/edition/amendment applicability", "Native/installed correspondence and authenticity of classifications", "Clause7.1 product testing", "Clause7.2 length and specific prior-Director-agreement path,use the separate length module", "Remaining mechanical ventilation,fire and whole-project requirements"]
+  }
+}
