@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+The scoped saved-water rule consumer is now registered as bsa.hvac-water-rules
+behind the common CLI/API module boundary. Fresh actual IFC/EPANET/official-source
+execution matches the legacy assessment exactly;disabled/unconfigured providers
+return unavailable without payload. Inherited frames are required. Automatic
+workflow rule-provider dispatch and another jurisdiction remain unfinished.
+See RULE_PROVIDER.md.
+
 Common rule output now preserves per-entity implemented/pending coverage,not just
 an incomplete Boolean. Missing/duplicate entity coverage and empty pending lists
 reject. Fresh IFC/EPANET/official-source workflow passes3automated stages and

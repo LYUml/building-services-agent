@@ -1,9 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object", "additionalProperties": false,
-  "required": ["schema","jurisdiction","rule_pack","producer_sha256","status","checks","coverage","coverage_complete","regulatory_compliance","design_accepted"],
+  "required": ["schema","coordinate_frame","jurisdiction","rule_pack","producer_sha256","status","checks","coverage","coverage_complete","regulatory_compliance","design_accepted"],
   "properties": {
     "schema": {"const":"bsa.rule-assessment/1"},
+    "coordinate_frame": {"type":"object"},
     "jurisdiction": {"type":"string","minLength":1},
     "rule_pack": {"type":"string","minLength":1},
     "producer_sha256": {"type":"string","pattern":"^[a-f0-9]{64}$"},

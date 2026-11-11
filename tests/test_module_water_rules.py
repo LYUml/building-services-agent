@@ -83,3 +83,26 @@ class ModuleWaterRuleTests(unittest.TestCase):
         module(self.request,'wntr.ifc-steady',self.folder/'disabled',disabled=True)
         with self.assertRaisesRegex(ValueError,'Passing verified'):run(self.folder/'disabled/result.json',self.basis,self.pack,self.folder,self.folder/'rejected')
         self.assertFalse((self.folder/'rejected').exists())
+
+    def test_registered_rule_provider_completion_disable_and_missing_cache(self):
+        from bsa.modules import verify_result
+        upstream=json.loads(self.producer.read_text())
+        request=dict(schema='bsa.module-request/1',project_id=upstream['project_id'],scenario_id=upstream['scenario_id'],
+            capability='regulation.water.saved-native',coordinate_frame=upstream['payload']['coordinate_frame'],
+            sources={key:dict(path=os.path.relpath(path,self.folder),sha256=digest(path)) for key,path in
+                [('producer',self.producer),('basis',self.basis),('pack',self.pack)]})
+        path=self.folder/'rule-request.json';path.write_text(json.dumps(request))
+        r=module(path,'bsa.hvac-water-rules',self.folder/'provider',runtime=dict(sources=self.folder))
+        self.assertEqual(r['execution']['status'],'completed');self.assertEqual(r['payload']['status'],'pass')
+        self.assertEqual(r['acceptance']['status'],'pending');verify_result(self.folder/'provider/result.json')
+        for name,options in [('disabled',dict(disabled=True)),('missing-cache',{})]:
+            result=module(path,'bsa.hvac-water-rules',self.folder/name,**options)
+            self.assertEqual(result['execution']['status'],'unavailable');self.assertIsNone(result['payload'])
+            verify_result(self.folder/name/'result.json')
+        request['coordinate_frame']['id']='OTHER-FRAME';path2=self.folder/'changed-frame.json';path2.write_text(json.dumps(request))
+        result=module(path2,'bsa.hvac-water-rules',self.folder/'frame-failure',runtime=dict(sources=self.folder))
+        self.assertEqual(result['execution']['status'],'failed');self.assertIsNone(result['payload'])
+        request['coordinate_frame']=upstream['payload']['coordinate_frame'];request['project_id']='OTHER-PROJECT'
+        path3=self.folder/'changed-project.json';path3.write_text(json.dumps(request))
+        result=module(path3,'bsa.hvac-water-rules',self.folder/'project-failure',runtime=dict(sources=self.folder))
+        self.assertEqual(result['execution']['status'],'failed');self.assertIsNone(result['payload'])

@@ -3,9 +3,10 @@
 The saved-water jurisdiction consumer now emits an initial validated
 `bsa.rule-assessment/1` alongside its detailed legacy report. Entity/rule IDs,
 pack/jurisdiction,producer hash,source hash/edition/clause and original check
-states remain explicit. This is a scoped projection,not a registered replaceable
-jurisdiction provider. Unknown/exempt states remain pending in this contract.
-Other disciplines and actual jurisdiction-provider replacement remain unfinished.
+states remain explicit. The scoped projection now also runs through the registered
+standalone bsa.hvac-water-rules provider (RULE_PROVIDER.md). Unknown/exempt states
+remain pending in this contract. Automatic workflow dispatch,other disciplines
+and actual jurisdiction-provider replacement remain unfinished.
 
 The initial rule contract also requires per-entity implemented/pending coverage
 lists. Every assessed entity has exactly one coverage record;pending lists remain

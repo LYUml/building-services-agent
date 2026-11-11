@@ -49,6 +49,8 @@ def validate(data,schema=None):
     errors=list(jsonschema.Draft202012Validator(spec).iter_errors(data))
     if errors:raise ValueError('Contract violation: '+errors[0].message)
     if schema==RULE_SCHEMA:
+        frame_spec=read_json(ROOT/'contracts/modules/request-v1.json')['properties']['coordinate_frame']
+        if list(jsonschema.Draft202012Validator(frame_spec).iter_errors(data['coordinate_frame'])):raise ValueError('Invalid common rule coordinate frame')
         identities=[(r['entity_id'],r['rule_id']) for r in data['checks']]
         if len(identities)!=len(set(identities)):raise ValueError('Duplicate entity/rule assessment')
         coverage_ids=[r['entity_id'] for r in data['coverage']]

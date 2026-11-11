@@ -78,7 +78,7 @@ def verify_result(path):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('request');p.add_argument('--provider',required=True);p.add_argument('--out',required=True)
-    p.add_argument('--upstream');p.add_argument('--deps');p.add_argument('--disable-provider',action='store_true');a=p.parse_args()
-    result=run(a.request,a.provider,a.out,runtime=dict(upstream=a.upstream,deps=a.deps),disabled=a.disable_provider)
+    p.add_argument('--upstream');p.add_argument('--deps');p.add_argument('--sources');p.add_argument('--disable-provider',action='store_true');a=p.parse_args()
+    result=run(a.request,a.provider,a.out,runtime=dict(upstream=a.upstream,deps=a.deps,sources=a.sources),disabled=a.disable_provider)
     print(result['execution']['status']+';engineering acceptance pending')
     raise SystemExit(0 if result['execution']['status']=='completed' else 2)

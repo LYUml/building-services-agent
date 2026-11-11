@@ -1,0 +1,19 @@
+{
+  "provider":"bsa.hvac-water-rules",
+  "capability":"regulation.water.saved-native",
+  "payload":"bsa.rule-assessment/1",
+  "targeted_tests":{"invocations":22,"passed":22},
+  "actual_execution":"Fresh synthetic native IFC and EPANET producer with existing hash-matching official HK sources",
+  "registered_execution":"completed",
+  "registered_scoped_status":"pass",
+  "registered_payload_equals_fresh_legacy_assessment":true,
+  "disabled_execution":"unavailable",
+  "unconfigured_cache_execution":"unavailable",
+  "unavailable_payloads":null,
+  "module_result_verification":"pass for all three actual branches",
+  "frame_mismatch_test":"failed with no payload",
+  "project_identity_mismatch_test":"failed with no payload",
+  "engineering_acceptance":"pending",
+  "regulatory_compliance":"not_established",
+  "limitations":"Standalone registry CLI/API only;automatic workflow provider dispatch,second jurisdiction,other disciplines and complete engineering acceptance remain unfinished. Full regression not rerun. Existing IfcOpenShell ResourceWarning persists."
+}

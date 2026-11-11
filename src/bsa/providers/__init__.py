@@ -2,6 +2,9 @@
 
 
 def get_provider(id):
+    if id=='bsa.hvac-water-rules':
+        from . import water_rules
+        return water_rules
     if id=='wntr.ifc-steady':
         from . import epanet_ifc_water
         return epanet_ifc_water

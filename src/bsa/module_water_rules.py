@@ -18,7 +18,7 @@ def paths(basis,pack,sources):
     return {Path(basis).resolve(),Path(pack).resolve(),*methods,*[p for p in official if p.is_file()]},official
 
 
-def assessment(checks,pack,producer_hash):
+def assessment(checks,pack,producer_hash,coordinate_frame):
     rules={r['id']:r for r in pack['rules']};rows=[]
     for entity,result in sorted(checks.items()):
         for row in result['checks']:
@@ -28,7 +28,7 @@ def assessment(checks,pack,producer_hash):
                 source_id=rule['source_id'],source_sha256=source['sha256'],edition=source['edition'],
                 clause=rule['clause'],scope=row['scope']))
     states=[r['status'] for r in rows]
-    return validate(dict(schema='bsa.rule-assessment/1',jurisdiction=pack['jurisdiction'],rule_pack=pack['id'],
+    return validate(dict(schema='bsa.rule-assessment/1',coordinate_frame=coordinate_frame,jurisdiction=pack['jurisdiction'],rule_pack=pack['id'],
         producer_sha256=producer_hash,status='fail' if 'fail' in states else 'pending' if 'pending' in states else 'pass',
         coverage=[dict(entity_id=entity,implemented=result['coverage']['implemented'],pending=result['coverage']['pending']) for entity,result in sorted(checks.items())],
         checks=rows,coverage_complete=False,regulatory_compliance='not_established',design_accepted=False))
@@ -62,7 +62,7 @@ def run(producer,basis,pack,sources,out):
         missing_sources=[p for p,h in snapshot.items() if h is None],fluid_basis=fluid,segment_checks=checks,status=status,
         artifacts={'bound-pipe-projects.json':digest(out/'bound-pipe-projects.json')},design_accepted=False,regulatory_compliance='not_established',
         scope='Saved-native selected-system water quantities bound to scoped HVAC water-piping rules only;code diameter,fluid/edition/applicability remain sourced assertions;not domestic-water or full conformity')
-    report['assessment']=assessment(checks,read_json(pack),digest(producer))
+    report['assessment']=assessment(checks,read_json(pack),digest(producer),module['payload']['coordinate_frame'])
     (out/'module-water-rules.json').write_text(json.dumps(report,indent=2),encoding='utf-8');return report
 
 
@@ -74,7 +74,7 @@ def verify(folder):
     snapshot={str(p):digest(p) if p.is_file() else None for p in official}
     if snapshot!=report['source_snapshot'] or report['missing_sources']!=[p for p,h in snapshot.items() if h is None]:raise ValueError('Water rule source availability changed')
     _,fluid,projects,checks,status=binding(report['producer_result'],report['basis'],read_json(report['pack']),report['sources'])
-    if report['assessment']!=assessment(checks,read_json(report['pack']),digest(Path(report['producer_result']))):raise ValueError('Common rule assessment differs from replay')
+    if report['assessment']!=assessment(checks,read_json(report['pack']),digest(Path(report['producer_result'])),module['payload']['coordinate_frame']):raise ValueError('Common rule assessment differs from replay')
     if read_json(folder/'bound-pipe-projects.json')!=projects or report['artifacts']!={'bound-pipe-projects.json':digest(folder/'bound-pipe-projects.json')}:raise ValueError('Water rule bound facts differ')
     if report['segment_checks']!=checks or report['fluid_basis']!=fluid or report['status']!=status or report['design_accepted'] is not False or report['regulatory_compliance']!='not_established':raise ValueError('Water rule results differ from replay')
     return report
