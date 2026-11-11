@@ -22,7 +22,16 @@ class ModuleContractTests(unittest.TestCase):
     def save(self):self.path.write_text(json.dumps(self.request))
     def execute(self,name='out',**kwargs):return run(self.path,'moosas.box-space-exchange',self.root/name,**kwargs)
     def payload(self):return dict(schema='bsa.spatial-boxes/1',coordinate_frame=self.request['coordinate_frame'],units=dict(length='m',area='m2'),classification='geometry-derived',spaces=[dict(id='A',origin_m=[0,0,0],size_m=[2,3,4],floor_area_m2=6)],contacts=[],simulation_ready=False)
-    def fake(self,*args):return dict(status='completed',diagnostics=[],payload=self.payload(),pins={})
+    def fake(self,request,paths,runtime,out):
+        # Synthetic dispatch evidence only;no native/upstream execution claimed.
+        payload=self.payload();geometry=dict(complete_space_coverage=True,ifc_sha256=digest(paths['ifc']),
+            spaces=[dict(guid=r['id'],**{k:v for k,v in r.items() if k!='id'}) for r in payload['spaces']])
+        (out/'native-exchange.json').write_text(json.dumps(dict(geometry=geometry,payload=payload)))
+        from bsa.providers.moosas_exchange import PIN
+        (out/'exchange').mkdir();(out/'exchange/exchange.json').write_text(json.dumps(dict(inputs={str(p):digest(p) for p in paths.values()},
+            geometry=geometry,geometric_contacts=[],checks=dict(synthetic=True),geometry_exchange_pass=True,simulation_executed=False,upstream_commit=PIN)))
+        (out/'process.json').write_text(json.dumps(dict(returncode=0,upstream_commit=PIN)))
+        return dict(status='completed',diagnostics=[],payload=payload,pins={})
 
     def test_disabled_and_missing_runtime_never_claim_completed_geometry(self):
         with patch('bsa.providers.moosas_exchange.execute') as provider:r=self.execute(disabled=True)
@@ -40,6 +49,20 @@ class ModuleContractTests(unittest.TestCase):
         self.request['capability']='spatial.unsupported';self.save()
         with self.assertRaises(ValueError):run(self.path,'ifcopenshell.box-spaces',self.root/'bad-capability')
         self.assertFalse((self.root/'bad-capability').exists())
+
+    def test_retained_spatial_audits_reject_schema_valid_payload_substitution(self):
+        for label,provider in [('native','ifcopenshell.box-spaces'),('moosas','moosas.box-space-exchange')]:
+            target='bsa.providers.'+('ifc_boxes' if label=='native' else 'moosas_exchange')+'.execute'
+            with patch(target,side_effect=self.fake):r=run(self.path,provider,self.root/label)
+            path=self.root/label/'result.json';verify_result(path)
+            original=copy.deepcopy(r)
+            for change in ('size','identity'):
+                r=copy.deepcopy(original)
+                if change=='size':r['payload']['spaces'][0].update(size_m=[3,3,4],floor_area_m2=9)
+                else:r['payload']['spaces'][0]['id']='SUBSTITUTED'
+                path.write_text(json.dumps(r))
+                with self.assertRaisesRegex(ValueError,'spatial payload differs'):verify_result(path)
+            path.write_text(json.dumps(original));verify_result(path)
 
     def workflow_plan(self):
         brief=self.root/'brief.md';brief.write_text('Exchange the declared source spaces and retain engineering review.\n',encoding='utf-8')

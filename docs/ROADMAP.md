@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+Both spatial exchange providers now reconcile common payloads with retained
+native/MOOSAS audit records during verify_result.22related tests pass. Actual
+native and pinned MOOSAS3space exchanges match;schema-valid dimension/area
+substitution in copied actual results rejects for both. This checks retained
+evidence consistency,not an independent fresh geometry solve or authenticated
+execution. Simulation/physical acceptance remains pending.
+
 project_start now supports explicit --reference roles alongside requirement
 supplements. Original drafts remain unchanged;role-aware plans preserve indexed
 reference context,source hashes and extraction-review gates. Fourteen related

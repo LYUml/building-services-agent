@@ -36,3 +36,16 @@ def execute(request,paths,runtime,out):
         payload=result['payload']
     except (OSError,ValueError,KeyError) as exc:return outcome('failed','provider_evidence_invalid',str(exc))
     return dict(status='completed',diagnostics=[],payload=payload,pins=pins)
+
+
+def verify_evidence(result,result_path):
+    if result['execution']['status']!='completed':return
+    from ..module_contract import read_json,spatial_projection
+    try:
+        root=Path(result_path).parent;report=read_json(root/'native-exchange.json')
+        request_path=Path(result['request']['path']);request=read_json(request_path)
+        source=(request_path.parent/request['sources']['ifc']['path']).resolve()
+        if read_json(root/'process.json')['returncode']!=0 or report['geometry']['ifc_sha256']!=digest(source):raise ValueError('Native spatial source/process differs')
+        expected=spatial_projection(request['coordinate_frame'],report['geometry'],report['payload']['contacts'])
+        if expected!=report['payload'] or expected!=result['payload']:raise ValueError('Common spatial payload differs from retained native audit')
+    except (OSError,ValueError,KeyError,TypeError) as exc:raise ValueError('Invalid native spatial evidence: '+str(exc)) from exc

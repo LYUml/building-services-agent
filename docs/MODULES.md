@@ -1,5 +1,13 @@
 # Executed module contract and MOOSAS provider
 
+Completed spatial results now have provider-specific retained-evidence checks.
+Native output is compared with the complete saved-space audit and process/source
+record;MOOSAS output is reconstructed from retained GUID/box/contact records with
+source,commit and scoped-check correspondence.22related tests pass. Actual
+3space outputs match across providers and changed common dimensions/areas reject.
+This is retained-report consistency,not independent geometry re-extraction,
+authenticated execution or simulation acceptance.
+
 The first executable modular slice exposes a common request/result boundary and
 a separately registered MOOSAS provider. The core runner does not import MOOSAS
 or implement its geometry/model engine. Existing scripts/moosas_space_exchange.py

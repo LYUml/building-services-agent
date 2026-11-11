@@ -1,0 +1,15 @@
+{
+  "scope":"Provider-specific retained spatial audit reconciliation on common result rereading",
+  "related_tests":{"invocations":22,"passed":22},
+  "actual_native_provider":"ifcopenshell.box-spaces",
+  "actual_upstream_provider":"moosas.box-space-exchange",
+  "moosas_commit":"dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c",
+  "actual_spaces":3,
+  "payloads_equal":true,
+  "normal_result_verification":"pass for both providers",
+  "actual_result_copy_controls":"Schema-valid altered box width and corresponding area reject for both providers",
+  "synthetic_controls":"Schema-valid box-size/area and space-identity substitutions reject;unavailable/provider-selection/thermal-handoff controls pass",
+  "design_accepted":false,
+  "simulation_ready":false,
+  "limitations":"Retained report projection only;shared extractor is not independent geometry corroboration. Coherently rewritten source/audit/result bundles are not authenticated. No architectural recognition,construction,thermal/airflow or full engineering acceptance. Full regression not rerun. IfcOpenShell ResourceWarning remains observed."
+}

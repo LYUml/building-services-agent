@@ -60,3 +60,20 @@ def execute(request,paths,runtime,out):
         checkout()
     except (OSError,ValueError,KeyError,subprocess.SubprocessError) as exc:return outcome('failed','provider_evidence_invalid',str(exc))
     return dict(status='completed',diagnostics=diagnostics,payload=payload,pins=pins)
+
+
+def verify_evidence(result,result_path):
+    if result['execution']['status']!='completed':return
+    from ..module_contract import read_json,spatial_projection
+    try:
+        root=Path(result_path).parent;report=read_json(root/'exchange/exchange.json')
+        request_path=Path(result['request']['path']);request=read_json(request_path)
+        paths={k:(request_path.parent/r['path']).resolve() for k,r in request['sources'].items()}
+        if report['inputs']!={str(p):digest(p) for p in paths.values()}:raise ValueError('MOOSAS retained input identity differs')
+        process=read_json(root/'process.json')
+        if process['returncode']!=0 or process['upstream_commit']!=PIN or report['upstream_commit']!=PIN:raise ValueError('MOOSAS process/pin differs')
+        if report['geometry_exchange_pass'] is not True or report['simulation_executed'] is not False or not report['checks'] or not all(v is True for v in report['checks'].values()):raise ValueError('MOOSAS scoped exchange did not pass')
+        if report['geometry']['ifc_sha256']!=digest(paths['ifc']):raise ValueError('MOOSAS geometry source differs')
+        expected=spatial_projection(request['coordinate_frame'],report['geometry'],report['geometric_contacts'])
+        if expected!=result['payload']:raise ValueError('Common spatial payload differs from retained MOOSAS audit')
+    except (OSError,ValueError,KeyError,TypeError) as exc:raise ValueError('Invalid MOOSAS spatial evidence: '+str(exc)) from exc

@@ -32,6 +32,15 @@ def read_json(path):
     return json.loads(Path(path).read_text(encoding='utf-8-sig'),object_pairs_hook=pairs,parse_constant=invalid)
 
 
+def spatial_projection(frame,geometry,contacts):
+    """Project retained box audit fields;not an independent geometry extraction."""
+    if geometry.get('complete_space_coverage') is not True:raise ValueError('Complete saved-space coverage required')
+    return validate(dict(schema='bsa.spatial-boxes/1',coordinate_frame=frame,
+        units=dict(length='m',area='m2'),classification='geometry-derived',
+        spaces=[dict(id=r['guid'],origin_m=r['origin_m'],size_m=r['size_m'],floor_area_m2=r['floor_area_m2']) for r in geometry['spaces']],
+        contacts=contacts,simulation_ready=False))
+
+
 def validate(data,schema=None):
     import jsonschema
     if not isinstance(data,dict):raise ValueError('Contract object required')

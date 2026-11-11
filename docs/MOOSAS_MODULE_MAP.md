@@ -1,5 +1,12 @@
 # MOOSAS priority reuse map
 
+Spatial-result rereading now includes retained-audit reconciliation for both
+providers. Actual native/MOOSAS3space exchanges match and altered common box
+dimensions/areas reject on both copied results.22related tests pass. The shared
+projection is deliberately not an independent geometry extractor or proof that
+coherently rewritten source/audit/result bundles are authentic. Current evidence
+does not establish simulation readiness or complete architectural recognition.
+
 Priority foundation authorized by the user;module boundaries follow
 [GOAL.md](GOAL.md) and [MODULAR_ARCHITECTURE.md](MODULAR_ARCHITECTURE.md).
 
