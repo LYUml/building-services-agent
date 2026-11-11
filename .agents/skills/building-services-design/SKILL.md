@@ -12,8 +12,11 @@ document commands. Preserve disabled/unavailable/failed results and verify_resul
 source/artifact checks. Native IfcOpenShell provider switching now matches two
 saved-project payloads. Existing workflow module_exchange tasks now support
 requires_pass gating,host provider overrides and disabled-provider propagation;
-see docs/MODULES.md. Direct neutral payload inheritance into analysis/design
-consumers remains pending.
+see docs/MODULES.md. module_thermal_project now inherits box geometry through
+explicit GUID mapping/orientation into a geometry-free annual template.
+annual_energy may depend on that preparation with no replacement project.
+Preparation is not simulation;actual inherited native execution and broader
+analysis/design consumers remain pending.
 Shared extraction is not independent geometry validation;spatial exchange does not complete
 the modular multi-discipline goal or establish simulation readiness.
 

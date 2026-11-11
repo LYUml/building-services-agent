@@ -73,6 +73,24 @@ class ModuleContractTests(unittest.TestCase):
         document=json.loads(plan.read_text());document['tasks'][0]['command']='untrusted';plan.write_text(json.dumps(document))
         with self.assertRaises(ValueError):validate_plan(plan)
 
+    def test_workflow_thermal_inherits_and_simulation_waits_for_real_engine(self):
+        from bsa.workflow import execute,verify,validate_plan
+        plan=self.workflow_plan();data=json.loads(plan.read_text())
+        (self.root/'thermal.json').write_bytes((ROOT/'examples/thermal-ifc/project.json').read_bytes())
+        (self.root/'mapping.json').write_text(json.dumps(dict(source='Explicit synthetic test north and mapping',north_axis_deg=30,spaces=[dict(guid='A',id='ZoneA',source='Synthetic test identity')])) )
+        (self.root/'weather.epw.gz').write_bytes((ROOT/'examples/annual-energy/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw.gz').read_bytes())
+        data['tasks']=[data['tasks'][0],dict(id='thermal',kind='module_thermal_project',depends_on='primary',project='thermal.json',binding='mapping.json'),dict(id='annual',kind='annual_energy',depends_on='thermal',weather='weather.epw.gz')]
+        for row,task in zip(data['requirements'],data['tasks']):row['task']=task['id']
+        plan.write_text(json.dumps(data))
+        with patch('bsa.providers.moosas_exchange.execute',side_effect=self.fake):result=execute(plan,self.root/'thermal-run')
+        self.assertEqual([r['status'] for r in result['tasks'].values()],['pass','pass','pending'])
+        self.assertTrue(verify(self.root/'thermal-run')['integrity_pass'])
+        bound=json.loads((self.root/'thermal-run/thermal/bound-project.json').read_text())
+        self.assertEqual(bound['building']['spaces'][0]['size_m'],[2,3,4])
+        self.assertFalse((self.root/'thermal-run/annual').exists())
+        data['tasks'][2]['project']='thermal.json';plan.write_text(json.dumps(data))
+        with self.assertRaises(ValueError):validate_plan(plan)
+
     def test_version_command_and_unknown_provider_reject_before_outputs(self):
         original=copy.deepcopy(self.request)
         for key,value in (('schema','bsa.module-request/2'),('command','echo untrusted'),('upstream','untrusted runtime')):

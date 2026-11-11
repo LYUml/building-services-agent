@@ -797,3 +797,11 @@ selects compatible providers/runtimes. Existing module result verification runs
 before later tasks and during workflow verification. No new dependency or solver
 is added. Five actual native/MOOSAS scheduling scenarios retain independent
 execution and pending engineering acceptance. See MODULES.md.
+
+Neutral-to-annual inheritance reuses thermal_binding.validate_contract,
+thermal_geometry.boxes/adjacency and annual_energy.validate/run. The gap is a
+source-verified geometry handoff into an already implemented analysis input,
+not another thermal engine. Explicit mapping/orientation and non-geometric
+template settings remain separate. No new package or upstream engine code is
+added. Actual MOOSAS/native preparations produce the same3-space input;host
+restrictions still prevent an actual inherited annual simulation. See MODULES.md.

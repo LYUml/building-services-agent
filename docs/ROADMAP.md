@@ -1,5 +1,15 @@
 # Scope and acceptance
 
+Direct neutral-space inheritance now prepares the existing annual thermal input.
+MOOSAS/native workflows produce exactly equal3-space projects without repeated
+dimensions;mapping/orientation remain explicit. Five actual workflows retain
+blocked preparations/simulations and independent work;25 targeted tests pass.
+Annual consumers reject replacement projects and inherit the prepared input.
+Actual inherited native simulation remains unexecuted on this restricted host;
+this is preparation evidence only,not performance or design acceptance. Extend
+other consumers and engine availability without bypassing host policy.
+See MODULES.md and evidence/module-thermal.json.
+
 Module workflow integration now executes through existing requires_pass gates.
 Five actual normal/replacement/disabled/missing-runtime/failed scenarios preserve
 independent native work and unexecuted blocked dependents. All workflow evidence

@@ -64,7 +64,9 @@ dependent failures/pending work while independent tasks continue.
    saved IFC projects,including disabled/zero-space controls (MODULES.md).
    Shared extraction limits this to interoperability. Existing workflow gating
    now propagates disabled/failed results and preserves independent branches.
-   Next:direct payload inheritance and broader contracts,including dropped-space/boundary ownership
+   Neutral box payload inheritance into annual thermal preparation now executes;
+   actual inherited simulation remains unexecuted. Next:broader consumers/contracts,
+   including dropped-space/boundary ownership
    controls. A mock validates dispatch only.
 4. Route existing AutoCAD/IFC,Revit and performance adapters through the boundary
    incrementally. Keep blocked Revit/analysis execution visible;do not bypass

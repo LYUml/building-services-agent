@@ -157,3 +157,50 @@ uses its declared request. Direct consumer inheritance of upstream neutral
 payloads,automatic design/iteration and complete multi-discipline modularization
 remain unfinished. Earlier substitution evidence above predates this workflow
 milestone;its statement about unverified DAG propagation is historical.
+
+## Thermal input inheritance
+
+An existing module producer can feed the annual thermal input adapter:
+
+```json
+[
+  {"id":"spaces","kind":"module_exchange","request":"request.json","provider":"moosas.box-space-exchange"},
+  {"id":"thermal","kind":"module_thermal_project","depends_on":"spaces","project":"template.json","binding":"mapping.json"},
+  {"id":"annual","kind":"annual_energy","depends_on":"thermal","weather":"weather.epw.gz"}
+]
+```
+
+This reuses thermal_binding.validate_contract,thermal_geometry boxes/adjacency
+and annual_energy.validate/run. The template omits spaces,dimensions and north
+angle. Mapping contains exactly source,spaces (guid,id,source) and explicit
+north_axis_deg,as in examples/thermal-ifc/binding.json. Every neutral GUID must
+map exactly once. No equipment properties are imported by this bridge. Source
+dimensions/origins are inherited from the verified producer,not template data.
+Contacts recompute and must match the producer. Explicit orientation remains a
+separate sourced input;source-world SI is not surveyed north/georeferencing.
+
+Preparation writes bound-project.json and inheritance.json with source/method
+pins. Source producer evidence is verified before/after preparation and before
+following tasks. Verification reconstructs the expected bound project. Workflow
+pass here means input preparation only;simulation_executed and design_accepted
+remain false. Actual thermal applicability is still subject to the documented
+legacy box/whole-face/material/system assumptions (THERMAL_BINDING.md).
+
+Inherited annual_energy forbids a replacement project and requires an earlier
+module_thermal_project. It uses that exact bound-project.json and declared EPW;
+no executable means pending with no synthetic simulation output. With an engine
+supplied it routes to the existing annual adapter. That inherited native-engine
+branch has not executed on the currently restricted host. Existing native
+startup restrictions remain in force;this milestone does not claim simulation.
+
+Five actual workflows compare MOOSAS/native preparation and disabled/missing/
+failed source controls. The two successful preparations yield exactly equal
+3-space bound projects. All five verify;blocked preparations/simulations remain
+unexecuted and an independent native branch passes. Twenty-five targeted tests
+pass. The synthetic template and Chicago weather are test data,not Hong Kong
+project facts or regulation. See [evidence](evidence/module-thermal.json).
+
+The previous statement that direct payload inheritance was unimplemented is
+historical:it now exists for this bounded annual-input bridge. Arbitrary geometry,
+other performance/authoring consumers,actual simulation and full design remain
+unfinished.

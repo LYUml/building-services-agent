@@ -11,9 +11,10 @@ The first [executed module interface](docs/MODULES.md) wraps pinned MOOSAS
 space exchange with public JSON schemas and independent execution/acceptance.
 Native IfcOpenShell now replaces that provider with exactly matching payloads
 on two saved projects. It is box-space only;workflow
-dependency propagation now executes for this boundary. Direct neutral payload
-inheritance into analysis/design and broader multi-discipline migration remain
-unfinished;see the module integration instructions.
+dependency propagation now executes for this boundary. Neutral geometry also
+feeds the existing annual thermal input without re-entering dimensions;actual
+inherited simulation and broader multi-discipline migration remain unfinished.
+See the module integration instructions.
 
 A developing agent workspace for building services. The host AI interprets requirements and coordinates scoped tools; pinned engineering libraries and native applications perform calculations and authoring. The complete multi-discipline, document-to-accepted-design goal remains unfinished.
 

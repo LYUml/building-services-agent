@@ -1,0 +1,70 @@
+{
+  "scope": "Direct neutral geometry inheritance into existing annual thermal input;no native simulation",
+  "actual_workflows": [
+    {
+      "case": "moosas",
+      "statuses": [
+        "pass",
+        "pass",
+        "pending",
+        "pass"
+      ],
+      "integrity_pass": true,
+      "simulation_executed": false
+    },
+    {
+      "case": "native",
+      "statuses": [
+        "pass",
+        "pass",
+        "pending",
+        "pass"
+      ],
+      "integrity_pass": true,
+      "simulation_executed": false
+    },
+    {
+      "case": "disabled",
+      "statuses": [
+        "pending",
+        "pending",
+        "pending",
+        "pass"
+      ],
+      "integrity_pass": true,
+      "simulation_executed": false
+    },
+    {
+      "case": "missing",
+      "statuses": [
+        "pending",
+        "pending",
+        "pending",
+        "pass"
+      ],
+      "integrity_pass": true,
+      "simulation_executed": false
+    },
+    {
+      "case": "failed",
+      "statuses": [
+        "fail",
+        "pending",
+        "pending",
+        "pass"
+      ],
+      "integrity_pass": true,
+      "simulation_executed": false
+    }
+  ],
+  "equal_bound_projects": true,
+  "spaces": 3,
+  "geometry_reentered": false,
+  "targeted_tests_passed": 25,
+  "simulation_executed": false,
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/module_thermal.py": "fae8a4caf75aca039ab7d6e9dcb5d3fa845a84c83365acf00930f3fd957ed727",
+    "src/bsa/workflow.py": "797a617544d942964be404ccde203576297da73f164d38174df1b26d7a748fd7"
+  }
+}
