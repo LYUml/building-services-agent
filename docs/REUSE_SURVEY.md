@@ -703,3 +703,11 @@ entry points. Source/mid-run/late-stage mutation checks execute;documents do not
 set applicability facts. The course-specific mapping is retained separately from
 other manufacturer/handbook taxonomies and unresolved physical conditions. No
 new dependency or copied manufacturer catalogue is distributed.
+
+ADPI report integration reuses settings_inputs and the existing adpi_screen
+engine for exact replay,plus the established HTML/ReportLab4.4.9 report path.
+It adds no ADPI prediction model or new document engine. Existing six numeric
+tables retain their contracts;source-scoped paragraphs and source notes are
+verified in extracted PDF text. Nested source rechecking strengthens standalone
+rendering. Forged review/omitted paragraph/source-mutation controls are separate
+from actual native drawing/report execution and visual evidence.

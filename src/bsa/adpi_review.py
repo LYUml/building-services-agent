@@ -54,7 +54,7 @@ def run(directory,settings,output):
     pins.update({str(manifest):manifest_hash,str(lookup):lookup_hash})
     if any(digest(Path(p))!=sha for p,sha in pins.items()) or not verify(directory)['integrity_pass']:
         raise ValueError('ADPI review inputs changed during execution')
-    result.update(inputs=pins,lookup_task=names[0],fact_evidence=spec.get('fact_evidence',{}),generator_sha256=digest(Path(__file__)),scope=result['scope']+'; source bytes pinned, transcription and declared facts require independent review; evidence records do not set applicability facts automatically')
+    result.update(inputs=pins,lookup_task=names[0],settings_path=str(settings),fact_evidence=spec.get('fact_evidence',{}),generator_sha256=digest(Path(__file__)),scope=result['scope']+'; source bytes pinned, transcription and declared facts require independent review; evidence records do not set applicability facts automatically')
     output.parent.mkdir(parents=True,exist_ok=True);output.write_text(json.dumps(result,indent=2),encoding='utf-8')
     return result
 

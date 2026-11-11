@@ -1,5 +1,33 @@
 # Workflow-bound HVAC numerical report
 
+The actual source-bound replay recorded in
+[hvac-adpi-report.json](evidence/hvac-adpi-report.json) executes seven stages
+without stage errors. Its23-page PDF retains388 checked numerical rows,34
+requirements and14 checked ADPI paragraphs. Twenty-three focused tests pass,
+including forged screen fields,missing evidence,HTML escaping and nested-source
+mutation checks. Final renders match the inspected intermediate report;this
+does not replace physical/source applicability review. Full regression remains
+the separately documented non-green2026-11-11 run.
+
+The package now includes its source-reconstructed ADPI applicability/evidence
+summary in HTML and PDF. A standalone report may use `--adpi-review` with a fresh
+review produced by the current adpi_review command. Old records without explicit
+settings identity must be regenerated from their original settings.
+
+The report checks exact settings,source documents,method,workflow and lookup
+identities,then replays the existing screen and compares its facts,cases and
+conclusions. Forged success flags reject. It shows criterion/load bounds,
+supplied-value qualification,missing/rejected facts,case outcome counts,declared
+fact states and per-fact source/locator/interpretation notes. Every original
+requirement remains in the existing source matrix. Declarations and byte identity
+do not authenticate physical conditions or establish an actual ADPI.
+
+The PDF renderer checks every ADPI summary paragraph against the report manifest
+and extracted PDF text,as well as its existing complete numeric rows. Nested
+source inputs are checked before and after rendering. Supplemental evidence
+changes therefore cannot be ignored by standalone PDF export. A report still
+retains full design acceptance false.
+
 Run `python -m bsa.hvac_report runs/study --out runs/new-report` after execution.
 The report directory must be separate from the immutable run. The adapter verifies
 all run source/runtime/artifact hashes before and after report preparation. It

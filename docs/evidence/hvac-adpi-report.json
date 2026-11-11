@@ -1,0 +1,28 @@
+{
+  "actual_stage_count": 7,
+  "actual_stage_errors": {},
+  "pages": 23,
+  "numerical_rows_checked": 388,
+  "requirement_rows": 34,
+  "adpi_review_paragraphs_checked": 14,
+  "ADPI_verified": false,
+  "design_accepted": false,
+  "scope": "Source-reconstructed ADPI applicability and evidence in HTML/PDF reports",
+  "targeted_test_methods_passed": 23,
+  "source_pins_checked_before_and_after_pdf": true,
+  "forged_or_missing_review_inputs_reject": true,
+  "report_visual_review": "All23 pages inspected in initial contact sheets;initial pages2,3,4,15,17,19 and final pages16,18,20,21,22,23 inspected individually. Final23 pages pixel-identical to initial renders. Native plot pixel-identical to hash-bound prior reviewed plot.",
+  "retained_unknown_facts": [
+    "room_load_verified",
+    "lengths_verified",
+    "installation_verified"
+  ],
+  "actual_case_count": 640,
+  "actual_case_status": "not_evaluated",
+  "method_sha256": {
+    "adpi_review.py": "d04be64a8b4381c0d2c3e01a4e8b28b23c4a475e1525bb340add579ba89e72f2",
+    "hvac_report.py": "5494af8eb1cad4fdb733ea67695277c22cdb17328b0e091db18bcaf71fb92226",
+    "hvac_report_pdf.py": "50093a9daa935615b2202ba11c516e92b796faa1d26854dd499fea899ae1d758",
+    "hvac_package.py": "5cd76933bb568a8504e6375110b4e9b4282fc2622bd65cc3b4ed69ac01236133"
+  }
+}

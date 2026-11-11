@@ -83,7 +83,47 @@ def connection_summary(directory,workflow,paths,review):
         'This does not verify physical ports, installed flexible lengths, labels, three-dimensional coordination or regulatory compliance.')
 
 
-def run(directory,output,*,terminal_review=None):
+def adpi_summary(directory,lookup,review):
+    """Reconstruct the screen from exact settings/source/lookup identities."""
+    from . import adpi_review,adpi_screen
+    review_hash=digest(review)
+    record=json.loads(review.read_text(encoding='utf-8'))
+    if not isinstance(record.get('settings_path'),str):raise ValueError('ADPI review settings identity missing;rerun its source review')
+    settings=Path(record['settings_path']).resolve()
+    spec,pins=adpi_review.settings_inputs(settings)
+    for p in (Path(adpi_review.__file__),Path(adpi_screen.__file__),directory/'workflow.json',lookup):
+        pins[str(p.resolve())]=digest(p)
+    task=record.get('lookup_task')
+    workflow=json.loads((directory/'workflow.json').read_text(encoding='utf-8'))
+    if not isinstance(task,str) or workflow['tasks'].get(task,{}).get('kind')!='terminal_throw' or directory/task/'terminal-results.json'!=lookup:
+        raise ValueError('ADPI review belongs to another terminal lookup')
+    if record.get('inputs')!=pins or record.get('generator_sha256')!=digest(Path(adpi_review.__file__)):
+        raise ValueError('ADPI review source/method/workflow identities differ')
+    expected=adpi_screen.screen(json.loads(lookup.read_text(encoding='utf-8')),criterion=spec['criterion'],room_load_W_m2=spec['room_load_W_m2'],facts=spec['facts'])
+    if any(record.get(k)!=v for k,v in expected.items() if k!='scope') or record.get('fact_evidence',{})!=spec.get('fact_evidence',{}):
+        raise ValueError('ADPI review differs from fresh source-scoped screening')
+    labels=dict(room_load_verified='Room sensible load',product_category_verified='Product category within selected criterion',
+        lengths_verified='Characteristic lengths',installation_verified='Installation conditions',edition_selected='Criterion edition selection')
+    state=lambda value:'Declared supported' if value is True else 'Declared rejected' if value is False else 'Unverified'
+    criterion=expected['criterion']
+    load='Unknown' if expected['room_load_W_m2'] is None else str(expected['room_load_W_m2'])+' W/m2'
+    paragraphs=[
+        'Applicability: '+expected['applicability']+'. '+str(len(expected['cases']))+' maximum/minimum directional cases. This is source-scoped ratio screening;no measured or predicted ADPI is claimed.',
+        'Selected criterion: '+criterion['source']+'. Room sensible-load range: '+str(criterion['room_load_range_W_m2'][0])+' to '+str(criterion['room_load_range_W_m2'][1])+' W/m2. T0.25/L range: '+str(criterion['ratio_range'][0])+' to '+str(criterion['ratio_range'][1])+'.',
+        'Supplied room-load value: '+load+'. Within source range: '+str(expected['load_in_source_range'])+'. An unverified preliminary value does not establish the actual room load or an ADPI failure.',
+        'Missing applicability facts: '+(', '.join(labels[k] for k in expected['missing_facts']) or 'None declared')+'. Rejected facts: '+(', '.join(labels[k] for k in expected['rejected_facts']) or 'None declared')+'.']
+    outcomes={key:sum(row['status']==key for row in expected['cases']) for key in ('not_evaluated','within_sourced_ratio_range','fail')}
+    paragraphs.append('Screened outcomes: '+', '.join(key+'='+str(value) for key,value in outcomes.items())+'. All ratios within the selected applicable scope: '+str(expected['all_ratios_within_scope'])+'. Pending applicability is not a comfort pass or a measured failure.')
+    paragraphs.extend(labels[k]+': '+state(value)+'.' for k,value in expected['facts'].items())
+    for name,records in spec.get('fact_evidence',{}).items():
+        for index,item in enumerate(records,1):
+            paragraphs.append('Evidence for '+labels[name]+' '+str(index)+': '+Path(item['source']).name+'; '+item['locator']+'. '+item['note'])
+    paragraphs.append('Source hashes and exact evidence notes are retained in the report manifest. Declarations and source-byte identity do not authenticate physical conditions or establish comfort/engineering acceptance.')
+    pins[str(review)]=review_hash
+    return paragraphs,pins
+
+
+def run(directory,output,*,terminal_review=None,adpi_review=None):
     directory,output=Path(directory).resolve(),Path(output).resolve()
     if output.exists() or output==directory or output in directory.parents or directory in output.parents:
         raise ValueError('New report directory outside immutable workflow required')
@@ -95,6 +135,13 @@ def run(directory,output,*,terminal_review=None):
         if len(names)!=1 or workflow['tasks'][names[0]]['status']!='pass':raise ValueError('One passing '+kind+' task required')
         p=directory/names[0]/filename;paths.append(p);data.append(json.loads(p.read_text(encoding='utf-8')))
     content,counts=compose(workflow,*data)
+    review_paragraphs=[];review_pins={}
+    if adpi_review is not None:
+        review=Path(adpi_review).resolve()
+        review_paragraphs,review_pins=adpi_summary(directory,paths[1],review)
+        if any(output==Path(p) or output in Path(p).parents for p in review_pins):raise ValueError('Report must not contain ADPI source evidence')
+        section='<h2>ADPI applicability and evidence</h2>'+''.join('<p>'+html.escape(text)+'</p>' for text in review_paragraphs)
+        content=content.replace('<h2>Maximum and minimum terminal lookup</h2>',section+'<h2>Maximum and minimum terminal lookup</h2>')
     if terminal_review is not None:
         review=Path(terminal_review).resolve()
         if output==review or output in review.parents:raise ValueError('Report must not contain review input')
@@ -105,12 +152,15 @@ def run(directory,output,*,terminal_review=None):
             '<h2>Saved terminal connections</h2><p>'+html.escape(summary)+'</p><h2>Complete source requirement matrix</h2>')
         paths.append(review)
     pins={str(p):digest(p) for p in [directory/'workflow.json',*paths]}
+    pins.update(review_pins)
+    if any(digest(Path(p))!=sha for p,sha in pins.items()):raise ValueError('Report review evidence changed during preparation')
     if not verify(directory)['integrity_pass']:raise ValueError('Workflow changed during report preparation')
     output.mkdir(parents=True);target=output/'HVAC System Design.html';target.write_text(content,encoding='utf-8')
     result=dict(inputs=pins,html_sha256=digest(target),counts=counts,scope='Single allocation/lookup/tree study; complete requirement states retained. No PDF or full design acceptance.',design_accepted=False)
+    result['adpi_review_summary']=review_paragraphs
     (output/'report.json').write_text(json.dumps(result,indent=2),encoding='utf-8');return result
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('run_directory');p.add_argument('--out',required=True);p.add_argument('--terminal-review')
-    a=p.parse_args();print(run(a.run_directory,a.out,terminal_review=a.terminal_review)['counts'])
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('run_directory');p.add_argument('--out',required=True);p.add_argument('--terminal-review');p.add_argument('--adpi-review')
+    a=p.parse_args();print(run(a.run_directory,a.out,terminal_review=a.terminal_review,adpi_review=a.adpi_review)['counts'])

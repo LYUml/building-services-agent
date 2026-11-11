@@ -1,5 +1,17 @@
 # Scope and acceptance
 
+ADPI applicability and per-fact evidence now appear directly in generated HTML
+and PDF reports. The reporter reconstructs the current source-pinned screen;
+missing settings identity, forged outcomes and changed supplemental sources
+reject. Standalone PDF export checks nested inputs before and after rendering.
+Twenty-three targeted tests pass. Actual seven-stage replay has no stage errors:
+23 report pages,388 complete numerical rows,34 requirement rows and14 ADPI
+paragraphs checked. All23 final renders match the inspected intermediate report;
+the native plot matches its bound reviewed baseline. Three applicability facts
+remain unknown and640 cases remain not_evaluated. This is a reporting and evidence
+milestone,not full ADPI or engineering acceptance. See HVAC_REPORT.md and
+evidence/hvac-adpi-report.json. Earlier22-page records below are historical.
+
 ADPI applicability declarations now retain optional per-fact document/hash/
 locator/note evidence through standalone,package and project-configuration
 entry points. Evidence never promotes a fact automatically. Eighteen targeted

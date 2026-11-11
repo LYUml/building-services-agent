@@ -82,7 +82,8 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
     try:
         from .hvac_report import run as report
         stages['report']=report(output/'workflow',output/'report',
-            terminal_review=output/'terminal-review.json' if 'terminal_review' in stages else None)
+            terminal_review=output/'terminal-review.json' if 'terminal_review' in stages else None,
+            adpi_review=output/'adpi-review.json' if 'adpi_review' in stages else None)
     except (ValueError,OSError,KeyError) as exc:errors['report']=str(exc)
     if 'report' in stages:
         try:

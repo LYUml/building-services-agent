@@ -24,16 +24,25 @@ class Parser(HTMLParser):
         elif tag==self.tag:self.blocks.append((tag,''.join(self.buf)));self.tag=None
 
 
+def verify_report_inputs(report):
+    if any(not Path(p).is_file() or digest(Path(p))!=sha for p,sha in report['inputs'].items()):
+        raise ValueError('Report source evidence changed')
+
+
 def run(directory,output,font):
     directory,output,font=map(lambda p:Path(p).resolve(),(directory,output,font))
     if output.exists() or output==directory or output in directory.parents or directory in output.parents or output in font.parents:
         raise ValueError('New PDF directory separate from report and font required')
     source=directory/'HVAC System Design.html';manifest=directory/'report.json'
     report=json.loads(manifest.read_text(encoding='utf-8'))
-    if digest(source)!=report['html_sha256'] or any(not Path(p).is_file() or digest(Path(p))!=sha for p,sha in report['inputs'].items()):
+    if digest(source)!=report['html_sha256']:
         raise ValueError('Report source evidence changed')
+    verify_report_inputs(report)
     pins={str(p):digest(p) for p in (source,manifest,font)}
     parser=Parser();parser.feed(source.read_text(encoding='utf-8'))
+    review_paragraphs=report.get('adpi_review_summary',[])
+    if not isinstance(review_paragraphs,list) or any(not isinstance(p,str) or ('p',p) not in parser.blocks for p in review_paragraphs):
+        raise ValueError('ADPI review summary differs from report manifest')
     tables=[v for k,v in parser.blocks if k=='table'];counts=report['counts']
     expected=[counts[k] for k in ('terminal_direction_rows','leaf_groups','duct_sections','requirements')]
     if len(tables)!=6 or [len(t)-1 for t in tables[2:]]!=expected:
@@ -74,8 +83,11 @@ def run(directory,output,font):
     # Compare every complete numeric row, not just IDs or row totals.
     numeric=[row for table in tables[1:5] for row in table[1:]]
     if any(' '.join(' '.join(row).split()) not in flat for row in numeric):raise ValueError('PDF numerical row missing or changed')
+    if any(' '.join(paragraph.split()) not in flat for paragraph in review_paragraphs):raise ValueError('PDF ADPI applicability/evidence paragraph missing or changed')
     if any(digest(Path(p))!=sha for p,sha in pins.items()):raise ValueError('Report/font changed during rendering')
+    verify_report_inputs(report)
     result=dict(inputs=pins,pdf_sha256=digest(target),reportlab_version=reportlab.Version,pages=len(pages),numerical_rows_checked=len(numeric),requirement_rows=counts['requirements'],visual_review='pending',design_accepted=False)
+    result['adpi_review_paragraphs_checked']=len(review_paragraphs)
     (output/'render.json').write_text(json.dumps(result,indent=2),encoding='utf-8');return result
 
 

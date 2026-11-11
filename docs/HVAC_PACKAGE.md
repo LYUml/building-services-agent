@@ -1,5 +1,11 @@
 # HVAC drawing and report package
 
+When ADPI review succeeds as a preparation stage,the package now passes its
+record into the report. HTML/PDF retain the same reconstructed applicability,
+unknowns and scoped source notes instead of leaving them only in adpi-review.json.
+This is reporting integration;the screen and underlying design values are
+unchanged. See HVAC_REPORT.md for source/replay and paragraph-extraction guards.
+
 ADPI settings may include fact_evidence source/hash/locator/note records as
 described in ADPI_BASIS.md. The package protects and rechecks every supporting
 document;the same reader is used by project configurations. Late source changes
