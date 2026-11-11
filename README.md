@@ -81,6 +81,10 @@ The [2026-11-11 complete regression](docs/REGRESSION_20261111.md) finished988 te
 
 ## Verification and delivery
 
+Use the [retained regression runner](docs/REGRESSION_RUNNER.md) for fresh unittest
+discovery with live counts,complete logs and before/after source hashes. Narrow
+patterns and successful reporting controls do not replace a full regression.
+
 [Workflow verification](docs/WORKFLOWS.md) checks recorded sources/artifacts. [Delivery review](docs/DELIVERY_REVIEW.md) checks every requirement and retains missing evidence. Native DWG acceptance needs independent AutoCAD reopening and actual plotted-page inspection. A successful script or DXF is insufficient.
 
 Keep numerical execution, geometric correspondence, source applicability, visual review and engineering acceptance explicit. Record unknowns rather than inventing values or changing a criterion to obtain a pass. Internal run/revision IDs belong in provenance; submitted titles, filenames and narrative omit internal iteration labels while preserving actual cited editions.
