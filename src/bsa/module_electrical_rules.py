@@ -100,18 +100,20 @@ def registered_report(folder):
 
 
 def verify_workflow(tasks,root,plan_root,report_tasks,selection=None):
-    from .workflow_modules import result_path
+    from .workflow_modules import result_path,selected_rule_provider
     known={t['id']:t for t in tasks}
     for task in tasks:
         if task['kind']!='module_electrical_rules':continue
         folder=Path(root)/task['id'];path=folder/'electrical-module-rules.json';registered=folder/'provider/result.json'
         if not path.is_file() and not registered.is_file() and report_tasks[task['id']]['status']!='pass':continue
-        if registered.is_file()!=bool(task.get('provider')):raise ValueError('Electrical rule provider differs from declared task')
+        host_selection=selection if selection is not None else read_json(Path(root)/'workflow.json')['module_selection']
+        selected=selected_rule_provider(task,host_selection)
+        if registered.is_file()!=bool(selected):raise ValueError('Electrical rule provider differs from declared task/host selection')
         report=verify(folder);expected=result_path(root,known[task['depends_on']]).resolve()
         if registered.is_file():
             result=verify_result(registered)
-            host_selection=selection if selection is not None else read_json(Path(root)/'workflow.json')['module_selection']
-            disabled='bsa.electrical-path-rules' in host_selection['disabled_providers']
+            if result['provider']['id']!=selected:raise ValueError('Electrical rule provider differs from host selection')
+            disabled=selected in host_selection['disabled_providers']
             if disabled!=any(d['code']=='provider_disabled' for d in result['execution']['diagnostics']):raise ValueError('Electrical rule disable state differs from host selection')
         keys=('topology','basis','pack','sources') if 'sources' in report else ('topology','basis','pack')
         if Path(report['producer_result']).resolve()!=expected or any(Path(report[k]).resolve()!=(Path(plan_root)/task[k]).resolve() for k in keys):raise ValueError('Workflow electrical rules differ from declared producer/topology/basis/pack/sources')

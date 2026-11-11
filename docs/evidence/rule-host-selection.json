@@ -1,0 +1,170 @@
+{
+  "scope": "Host-selected existing registered rules without editing public synthetic source plans",
+  "scenarios": {
+    "electrical-enabled": {
+      "plan_unchanged": true,
+      "plan_sha256": "a101bcfb7d462e111b89b423fc9ea45f9baa82dbf05d68c35c9bfdc3efb837ac",
+      "status": {
+        "electrical": "pass",
+        "rules": "pass",
+        "review": "pending"
+      },
+      "integrity_pass": true,
+      "delivery_context_pass": true,
+      "module_state": {
+        "provider": {
+          "id": "bsa.electrical-path-rules",
+          "version": "1",
+          "license": "NOASSERTION"
+        },
+        "execution": {
+          "status": "completed",
+          "diagnostics": []
+        },
+        "acceptance": {
+          "status": "pending",
+          "scope": "Selected radial whole-path voltage-drop rules only;scope,edition,products and whole engineering/regulatory acceptance remain separate"
+        },
+        "numerical_result": {},
+        "regulatory_result": {
+          "status": "pass"
+        },
+        "evidence": "rules/provider/result.json",
+        "evidence_sha256": "8d342277503a56f29a327665516cb6146ca3afd46492113b9bf497f7d9a9dfba",
+        "design_accepted": false
+      },
+      "next_action": "review complete requirement acceptance against retained artifacts"
+    },
+    "electrical-disabled": {
+      "plan_unchanged": true,
+      "plan_sha256": "a101bcfb7d462e111b89b423fc9ea45f9baa82dbf05d68c35c9bfdc3efb837ac",
+      "status": {
+        "electrical": "pass",
+        "rules": "pending",
+        "review": "pending"
+      },
+      "integrity_pass": true,
+      "delivery_context_pass": true,
+      "module_state": {
+        "provider": {
+          "id": "bsa.electrical-path-rules",
+          "version": "1",
+          "license": "NOASSERTION"
+        },
+        "execution": {
+          "status": "unavailable",
+          "diagnostics": [
+            {
+              "code": "provider_disabled",
+              "message": "Selected provider is disabled by host configuration"
+            }
+          ]
+        },
+        "acceptance": {
+          "status": "pending",
+          "scope": "Selected radial whole-path voltage-drop rules only;scope,edition,products and whole engineering/regulatory acceptance remain separate"
+        },
+        "numerical_result": {},
+        "regulatory_result": {},
+        "evidence": "rules/provider/result.json",
+        "evidence_sha256": "e26d96c0695021d7811a4923727fc2d6020455569cf27a3d87765403415cc148",
+        "design_accepted": false
+      },
+      "next_action": "enable the selected provider or explicitly select a compatible trusted replacement in host configuration before a new run"
+    },
+    "water-enabled": {
+      "plan_unchanged": true,
+      "plan_sha256": "f702fe8fc2547e8fb007dcbb6587333abd4cbc9c06546461172826f7ccea60f2",
+      "status": {
+        "model": "pass",
+        "water": "pass",
+        "rules": "pass",
+        "review": "pending"
+      },
+      "integrity_pass": true,
+      "delivery_context_pass": true,
+      "module_state": {
+        "provider": {
+          "id": "bsa.hvac-water-rules",
+          "version": "1",
+          "license": "NOASSERTION"
+        },
+        "execution": {
+          "status": "completed",
+          "diagnostics": []
+        },
+        "acceptance": {
+          "status": "pending",
+          "scope": "Selected HVAC water-piping rules only;scope,edition,products and whole engineering/regulatory acceptance remain separate"
+        },
+        "numerical_result": {},
+        "regulatory_result": {
+          "status": "pass"
+        },
+        "evidence": "rules/provider/result.json",
+        "evidence_sha256": "fa2b377458dd915f8ab48ed516f09d02a15a950fba16cbb0a23905923027ac6d",
+        "design_accepted": false
+      },
+      "next_action": "review complete requirement acceptance against retained artifacts"
+    },
+    "water-disabled": {
+      "plan_unchanged": true,
+      "plan_sha256": "f702fe8fc2547e8fb007dcbb6587333abd4cbc9c06546461172826f7ccea60f2",
+      "status": {
+        "model": "pass",
+        "water": "pass",
+        "rules": "pending",
+        "review": "pending"
+      },
+      "integrity_pass": true,
+      "delivery_context_pass": true,
+      "module_state": {
+        "provider": {
+          "id": "bsa.hvac-water-rules",
+          "version": "1",
+          "license": "NOASSERTION"
+        },
+        "execution": {
+          "status": "unavailable",
+          "diagnostics": [
+            {
+              "code": "provider_disabled",
+              "message": "Selected provider is disabled by host configuration"
+            }
+          ]
+        },
+        "acceptance": {
+          "status": "pending",
+          "scope": "Selected HVAC water-piping rules only;scope,edition,products and whole engineering/regulatory acceptance remain separate"
+        },
+        "numerical_result": {},
+        "regulatory_result": {},
+        "evidence": "rules/provider/result.json",
+        "evidence_sha256": "84587ed2a703abae558d27e0f57447f76a95f3220a3273c8370a9db5909f1068",
+        "design_accepted": false
+      },
+      "next_action": "enable the selected provider or explicitly select a compatible trusted replacement in host configuration before a new run"
+    }
+  },
+  "tests": {
+    "invocations": 34,
+    "passes": 34,
+    "failures": 0,
+    "errors": 0,
+    "command": "python -m unittest tests.test_module_water_rules_workflow tests.test_module_electrical_rules_workflow tests.test_workflow_status tests.test_modules"
+  },
+  "source_snapshot": {
+    "src/bsa/workflow_modules.py": "6406da39c373fab214e37dc87385378faa0a000534b93919b50b1ade5f94968b",
+    "src/bsa/workflow.py": "3ad1a35c55704bb31600af4970ae4ba5a45c5047da0103d7701f0dbee799a04d",
+    "src/bsa/module_water_rules.py": "f21af967ec456285f145e76389c7fbbb531fcff85a3a397b9daa230bdc94f9ab",
+    "src/bsa/module_electrical_rules.py": "d0f8204ab7e002955c70ec5ea20efec5338e2cd309a5966db0b6b3389f4fc263",
+    "src/bsa/workflow_status.py": "b1c63f9a54b538a0d1cc993b7bf1491132ad2b5bb83f9e6bba8e71c9efb330a8"
+  },
+  "limitations": [
+    "One verified provider per electrical/water rule capability;no second provider/jurisdiction substitution established",
+    "Synthetic source data with pinned official cache;no completed engineering installation",
+    "Native CAD not rerun in these host-selection trials;earlier native evidence retains its own source snapshot",
+    "Full multi-discipline autonomous intake/design/analysis/delivery remains unfinished"
+  ],
+  "design_accepted": false
+}

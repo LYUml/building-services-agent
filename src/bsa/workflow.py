@@ -1139,9 +1139,11 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     from .module_electrical_rules import run as check_electrical_rules
                     producer=next(x for x in p['tasks'] if x['id']==parent)
                     args=(result_path(out,producer),local_path(root,t['topology']),local_path(root,t['basis']),local_path(root,t['pack']),root/t['sources'],folder)
-                    if t.get('provider'):
+                    from .workflow_modules import selected_rule_provider
+                    selected=selected_rule_provider(t,module_selection)
+                    if selected:
                         from .module_electrical_rules import run_registered
-                        payload=run_registered(*args,disabled=t['provider'] in module_selection['disabled_providers'])
+                        payload=run_registered(*args,disabled=selected in module_selection['disabled_providers'])
                     else:payload=check_electrical_rules(*args)
                     verify_electrical_rules(folder);runtime_inputs.update(payload['inputs'])
                     status=payload['status'];reason=payload['scope']
@@ -1153,9 +1155,11 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     from .module_water_rules import run as check_water_rules
                     producer=next(x for x in p['tasks'] if x['id']==parent)
                     args=(result_path(out,producer),local_path(root,t['basis']),local_path(root,t['pack']),root/t['sources'],folder)
-                    if t.get('provider'):
+                    from .workflow_modules import selected_rule_provider
+                    selected=selected_rule_provider(t,module_selection)
+                    if selected:
                         from .module_water_rules import run_registered
-                        payload=run_registered(*args,disabled=t['provider'] in module_selection['disabled_providers'])
+                        payload=run_registered(*args,disabled=selected in module_selection['disabled_providers'])
                     else:payload=check_water_rules(*args)
                     verify_water_rules(folder);water_rule_results.append(folder);runtime_inputs.update(payload['inputs'])
                     status=payload['status'];reason=payload['scope']

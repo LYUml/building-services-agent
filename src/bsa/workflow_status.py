@@ -64,7 +64,8 @@ def annual_runtime_failures(run,report,task_id):
 
 def module_state(run,report,task):
     """Expose verified module diagnostics without inferring a native failure cause."""
-    if task['kind'] in ('module_electrical_rules','module_water_rules') and task.get('provider'):
+    from .workflow_modules import selected_rule_provider
+    if task['kind'] in ('module_electrical_rules','module_water_rules') and selected_rule_provider(task,report['module_selection']):
         relative=task['id']+'/provider/result.json'
     elif task['kind'] in ('module_exchange','module_authoring','module_analysis'):
         relative=task['id']+('/exchange/result.json' if task.get('depends_on') else '/result.json')

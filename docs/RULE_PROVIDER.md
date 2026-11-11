@@ -1,5 +1,25 @@
 # Registered saved-water rule provider
 
+
+Host configuration can now select the existing registered electrical or water
+rule provider on a direct rule task without editing its source plan:
+
+```powershell
+.venv/Scripts/python -m bsa.workflow execute runs/project/plan.json --out runs/project-run --module-provider rules=bsa.electrical-path-rules
+```
+
+For a saved-native HVAC water rule task,use `rules=bsa.hvac-water-rules`.
+Only the compatible trusted provider is accepted for each rule-task domain;
+manual/native tasks and cross-domain substitutions reject. Existing plan-level
+provider fields still work,and an omitted host/plan provider retains direct
+legacy dispatch. Host disable selection applies to the effective provider.
+Delivery repeats effective-provider/source/disable correspondence. Diagnostics
+use the retained selection rather than guessing from the plan field.
+This is configuration independence,not a demonstrated second implementation
+of either rule capability or a second jurisdiction. Those remain unfinished.
+See [executed evidence](evidence/rule-host-selection.json).
+
+
 The consumer now also checks the selected saved IFC distribution system against
 the bound system GUID. Explicit DOMESTICCOLDWATER/DOMESTICHOTWATER labels reject
 this HVAC-only provider before it writes a rule assessment. This catches a known
@@ -41,8 +61,7 @@ direct dispatch. The task still declares depends_on,basis,pack and sources;the
 request is materialized from that exact passing producer. Results live under
 the task's provider directory and the same rule verifier/delivery correspondence
 checks cover both paths. Host disabled_module_providers can disable this rule
-provider;pending/failed checks block requires_pass consumers. Provider overrides
-for rule tasks are not implemented. Do not dispatch rule payloads as numerical
+provider;pending/failed checks block requires_pass consumers. Host provider selection for rule tasks is now supported above. Do not dispatch rule payloads as numerical
 module_analysis. A second jurisdiction and broader replacement remain unfinished.
 Historical rule payloads lacking the required inherited coordinate frame reject;
 create a fresh run instead of patching old evidence.

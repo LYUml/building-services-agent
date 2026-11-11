@@ -66,6 +66,18 @@ class ModuleWaterWorkflowTests(unittest.TestCase):
         self.assertEqual(w['tasks']['rules']['status'],'pending');context(self.plan,out)
         self.assertTrue(verify(out)['integrity_pass'])
 
+    def test_host_rule_selection_keeps_plan_and_exposes_disable_diagnostic(self):
+        original=self.plan.read_bytes()
+        for name,disabled,expected in [('host',[],'pass'),('host-disabled',['bsa.hvac-water-rules'],'pending')]:
+            out=self.root/name;w=execute(self.plan,out,module_providers={'rules':'bsa.hvac-water-rules'},disabled_module_providers=disabled)
+            self.assertEqual(w['tasks']['rules']['status'],expected);self.assertEqual(self.plan.read_bytes(),original)
+            self.assertTrue(verify(out)['integrity_pass']);context(self.plan,out)
+            rows={r['id']:r for r in diagnose(self.plan,out)['tasks']}
+            self.assertEqual(rows['rules']['module_state']['provider']['id'],'bsa.hvac-water-rules')
+            if disabled:self.assertIn('enable the selected provider',rows['rules']['next_action'])
+        with self.assertRaisesRegex(ValueError,'Compatible registered rule provider'):
+            execute(self.plan,self.root/'wrong-domain',module_providers={'rules':'bsa.electrical-path-rules'})
+
     def test_replacement_and_wrong_model_drawing_gates_reject(self):
         p=json.loads(self.plan.read_text());original=json.loads(self.plan.read_text());p['tasks'][2]['project']='source/project.json';self.plan.write_text(json.dumps(p))
         with self.assertRaisesRegex(ValueError,'replacement inputs forbidden'):validate_plan(self.plan)

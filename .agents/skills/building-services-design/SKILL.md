@@ -5,6 +5,8 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+Host --module-provider TASK=PROVIDER can select bsa.electrical-path-rules or bsa.hvac-water-rules on the corresponding direct rule task without changing the plan. Read docs/ELECTRICAL_RULE_PROVIDER.md or docs/RULE_PROVIDER.md. Preserve exact inherited producer/source and host disable checks;cross-domain choices reject. This does not establish a second jurisdiction or interchangeable engine.
+
 Use examples/modular/README.md for the source-only public native-IFC to spatial
 exchange to thermal-preparation workflow. module_exchange may inherit an earlier
 supported saved-IFC producer via depends_on and a binding-only request template;

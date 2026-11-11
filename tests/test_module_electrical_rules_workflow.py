@@ -47,6 +47,21 @@ class ElectricalRuleWorkflowTests(unittest.TestCase):
         plan['tasks'][1].pop('provider');self.plan.write_text(json.dumps(plan))
         with self.assertRaises(ValueError):context(self.plan,out)
 
+    def test_host_can_select_rules_without_changing_plan_and_reject_wrong_domain(self):
+        from bsa.workflow_status import diagnose
+        original=self.plan.read_bytes()
+        out=self.root/'host-rule';r=execute(self.plan,out,module_providers={'rules':'bsa.electrical-path-rules'})
+        self.assertEqual(r['tasks']['rules']['status'],'pass');self.assertEqual(self.plan.read_bytes(),original)
+        self.assertTrue((out/'rules/provider/result.json').is_file());context(self.plan,out)
+        rows={r['id']:r for r in diagnose(self.plan,out)['tasks']}
+        self.assertEqual(rows['rules']['module_state']['provider']['id'],'bsa.electrical-path-rules')
+        disabled=self.root/'host-disabled';r=execute(self.plan,disabled,module_providers={'rules':'bsa.electrical-path-rules'},disabled_module_providers=['bsa.electrical-path-rules'])
+        self.assertEqual(r['tasks']['rules']['status'],'pending');context(self.plan,disabled)
+        with self.assertRaisesRegex(ValueError,'Compatible registered rule provider'):
+            execute(self.plan,self.root/'wrong-domain',module_providers={'rules':'bsa.hvac-water-rules'})
+        report=json.loads((out/'workflow.json').read_text());report['module_selection']['providers'].pop('rules');(out/'workflow.json').write_text(json.dumps(report))
+        with self.assertRaises(ValueError):context(self.plan,out)
+
     def test_exceedance_false_pass_and_disabled_upstream(self):
         topology=self.inputs/'source/topology.json';data=json.loads(topology.read_text());data['feeders'][0]['route_length_m']=300;topology.write_text(json.dumps(data))
         out=self.root/'fail';r=execute(self.plan,out);self.assertEqual(r['tasks']['rules']['status'],'fail');context(self.plan,out)

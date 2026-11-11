@@ -121,18 +121,20 @@ def validate_gates(tasks):
 
 
 def verify_workflow(tasks,root,plan_root,report_tasks):
-    from .workflow_modules import result_path
+    from .workflow_modules import result_path,selected_rule_provider
     known={t['id']:t for t in tasks}
     for task in tasks:
         if task['kind']!='module_water_rules':continue
         folder=Path(root)/task['id'];path=folder/'module-water-rules.json';registered=folder/'provider/result.json'
         if not path.is_file() and not registered.is_file() and report_tasks[task['id']]['status']!='pass':continue
-        if registered.is_file()!=bool(task.get('provider')):raise ValueError('Water rule provider differs from declared task')
+        selection=read_json(Path(root)/'workflow.json')['module_selection']
+        selected=selected_rule_provider(task,selection)
+        if registered.is_file()!=bool(selected):raise ValueError('Water rule provider differs from declared task/host selection')
         report=verify(folder);expected=result_path(root,known[task['depends_on']]).resolve()
         if registered.is_file():
             result=verify_result(registered)
-            selection=read_json(Path(root)/'workflow.json')['module_selection']
-            disabled='bsa.hvac-water-rules' in selection['disabled_providers']
+            if result['provider']['id']!=selected:raise ValueError('Water rule provider differs from host selection')
+            disabled=selected in selection['disabled_providers']
             if disabled!=any(d['code']=='provider_disabled' for d in result['execution']['diagnostics']):raise ValueError('Water rule disable state differs from host selection')
         keys=('basis','pack','sources') if 'sources' in report else ('basis','pack')
         if Path(report['producer_result']).resolve()!=expected or any(Path(report[k]).resolve()!=(Path(plan_root)/task[k]).resolve() for k in keys):raise ValueError('Workflow water rule inputs differ from declared producer/basis/pack/sources')

@@ -1,5 +1,25 @@
 # Scope and acceptance
 
+
+Host configuration can now select the existing registered electrical or water
+rule provider on a direct rule task without editing its source plan:
+
+```powershell
+.venv/Scripts/python -m bsa.workflow execute runs/project/plan.json --out runs/project-run --module-provider rules=bsa.electrical-path-rules
+```
+
+For a saved-native HVAC water rule task,use `rules=bsa.hvac-water-rules`.
+Only the compatible trusted provider is accepted for each rule-task domain;
+manual/native tasks and cross-domain substitutions reject. Existing plan-level
+provider fields still work,and an omitted host/plan provider retains direct
+legacy dispatch. Host disable selection applies to the effective provider.
+Delivery repeats effective-provider/source/disable correspondence. Diagnostics
+use the retained selection rather than guessing from the plan field.
+This is configuration independence,not a demonstrated second implementation
+of either rule capability or a second jurisdiction. Those remain unfinished.
+See [executed evidence](evidence/rule-host-selection.json).
+
+
 Automatic workflows now support provider `bsa.electrical-path-rules` on the
 existing `module_electrical_rules` task. Exact producer/topology/basis/pack/cache
 correspondence and host disable selection are rechecked during execution and

@@ -7,14 +7,23 @@ from .cli import digest
 from .modules import ROOT,method_paths
 from .providers import get_provider
 
+RULE_PROVIDERS={'module_electrical_rules':'bsa.electrical-path-rules','module_water_rules':'bsa.hvac-water-rules'}
+
+def selected_rule_provider(task,selection):
+    provider=selection['providers'].get(task['id'],task.get('provider'))
+    if provider is not None and provider!=RULE_PROVIDERS.get(task['kind']):raise ValueError('Compatible registered rule provider required for '+task['id'])
+    return provider
+
 
 def host_selection(tasks,overrides=None,disabled=()):
     """Validate trusted host choices separately from source plan task data."""
-    known={t['id']:t for t in tasks if t['kind'] in ('module_exchange','module_authoring','module_analysis')}
+    known={t['id']:t for t in tasks if t['kind'] in ('module_exchange','module_authoring','module_analysis',*RULE_PROVIDERS)}
     overrides={} if overrides is None else overrides
     if not isinstance(overrides,dict) or set(overrides)-set(known):raise ValueError('Module overrides must name existing module tasks')
     if not isinstance(disabled,(list,tuple)) or any(not isinstance(p,str) for p in disabled) or len(set(disabled))!=len(disabled):raise ValueError('Unique disabled provider IDs required')
     for provider in [*overrides.values(),*disabled]:get_provider(provider)
+    for task in known.values():
+        if task['kind'] in RULE_PROVIDERS:selected_rule_provider(task,dict(providers=overrides))
     return dict(schema='bsa.workflow-module-selection/1',providers=dict(overrides),disabled_providers=sorted(disabled))
 
 
@@ -34,6 +43,9 @@ def selection_inputs(tasks,root,selection):
     for task in tasks:
         if task['kind'] in ('module_exchange','module_authoring','module_analysis'):
             paths.update(inputs(Path(root)/task['request'],selection['providers'].get(task['id'],task['provider']),inherited=bool(task.get('depends_on'))))
+        elif task['kind'] in RULE_PROVIDERS:
+            provider=selected_rule_provider(task,selection)
+            if provider:paths.update(method_paths(get_provider(provider)))
     return paths
 
 

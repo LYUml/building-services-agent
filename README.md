@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Host configuration now selects existing electrical/water rule adapters without
+editing source plans. Four actual enabled/disabled trials and34related tests
+pass. See [evidence](docs/evidence/rule-host-selection.json). A second
+implementation/jurisdiction and complete multi-discipline delivery remain unfinished.
+
 Registered electrical rules now dispatch automatically through the exact
 producer into native device schematics. Actual DWG reopening/PDF review and
 four blocked controls verify;58 related tests pass. See
