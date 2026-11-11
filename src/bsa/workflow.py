@@ -301,7 +301,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("module_authoring","spatial_lighting_rules","module_thermal_project","module_exchange","duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("module_analysis","module_authoring","spatial_lighting_rules","module_thermal_project","module_exchange","duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind=='spatial_lighting_rules':
             if set(t)-{'id','kind','depends_on','basis','pack','sources','requires_pass','description'}:raise ProjectError('Spatial lighting rules inherit neutral geometry;replacement model/area forbidden')
@@ -322,10 +322,14 @@ def validate_plan(path):
             if set(mapping)!={'source','spaces','north_axis_deg'}:raise ProjectError('Thermal module mapping cannot bind native equipment')
             validate_contract(read_json(project),mapping)
             inputs.add(Path(__file__).with_name('module_thermal.py'))
-        if kind in ('module_exchange','module_authoring'):
+        if kind in ('module_exchange','module_authoring','module_analysis'):
             if set(t)-{'id','kind','request','provider','depends_on','requires_pass','description'}:raise ProjectError('Module task accepts a request and trusted provider ID only;runtime is host configuration')
             from .workflow_modules import inputs as module_inputs
             parent=t.get('depends_on')
+            if kind=='module_analysis':
+                if 'depends_on' in t:raise ProjectError('Air budget module requires declared project request;native geometry inheritance is not implemented')
+                from .module_contract import read_json as read_module
+                if read_module(local_path(root,t.get('request')))['capability']!='analysis.air.rectangular-tree':raise ProjectError('Supported rectangular air budget capability required')
             if kind=='module_authoring':
                 if 'depends_on' in t:raise ProjectError('Authoring module uses explicit project request,not inherited geometry')
                 from .module_contract import read_json as read_module
@@ -1082,7 +1086,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     payload=inherit_thermal(result_path(out,producer),local_path(root,t['project']),local_path(root,t['binding']),folder)
                     verify_thermal(folder);thermal_results.append(folder);runtime_inputs.update(payload['inputs'])
                     status='pass';reason=payload['scope']
-            elif t['kind'] in ('module_exchange','module_authoring'):
+            elif t['kind'] in ('module_exchange','module_authoring','module_analysis'):
                 from .modules import run as run_module
                 provider_id=module_providers.get(t['id'],t['provider'])
                 parent=t.get('depends_on')
@@ -1093,8 +1097,10 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     payload=run_module(request,provider_id,folder/'exchange' if parent else folder,runtime=module_runtime,disabled=provider_id in disabled_module_providers)
                     path=result_path(out,t);verify_module(path);module_results.append(path)
                     runtime_inputs.update(payload['inputs'])
-                    status={'completed':'pass','failed':'fail','unavailable':'pending','pending':'pending'}[payload['execution']['status']]
+                    from .workflow_modules import execution_status
+                    status=execution_status(payload,t['kind'])
                     reason='Module execution '+payload['execution']['status']+';'+payload['acceptance']['scope']
+                    if t['kind']=='module_analysis' and payload['execution']['status']=='completed':reason+=';numerical checks '+status
             elif t['kind']=='three_phase':
                 if not three_phase_python:reason='Three-phase isolated Python runtime not supplied; adapter not executed'
                 else:
@@ -1997,7 +2003,7 @@ def verify(run_directory):
                 from .module_thermal import verify as verify_thermal
                 verify_thermal(root/name)
             except (OSError,ValueError) as exc:issues.append('thermal inheritance evidence invalid: '+name+': '+str(exc))
-        if task['kind'] in ('module_exchange','module_authoring'):
+        if task['kind'] in ('module_exchange','module_authoring','module_analysis'):
             for module_result in (root/name/'result.json',root/name/'exchange/result.json'):
                 if not module_result.is_file():continue
                 try:

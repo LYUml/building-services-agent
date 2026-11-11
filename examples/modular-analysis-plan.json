@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "brief": "modular/air-budget-brief.md",
+  "brief_sha256": "682673e484ef55929f03a0c3a398cc3122eca3342e32bbeb1cea5127da119958",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "budget",
+      "kind": "module_analysis",
+      "request": "modular/air-budget.json",
+      "provider": "fluids.rectangular-air-budget"
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "requires_pass": [
+        "budget"
+      ],
+      "description": "Review every original source assumption and complete domain requirement before delivery. A completed calculation with failed pressure,velocity or continuity checks must block this dependent review path. Preserve total-pressure versus flow/velocity units,raw branch/node results and unresolved physical routing,fan operating point,acoustics,product and code applicability."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "task": "budget",
+      "passage": "P002",
+      "quote": "Run the existing prescribed level constant-density rectangular air-tree calculator on rectangular-air/project.json through the selected module provider. Preserve declared flows,internal dimensions,route lengths,roughness,K,source total pressure and all applicability assumptions;no saved geometry or selected fan is inferred.",
+      "acceptance": "Run the existing prescribed level constant-density rectangular air-tree calculator on rectangular-air/project.json through the selected module provider. Preserve declared flows,internal dimensions,route lengths,roughness,K,source total pressure and all applicability assumptions;no saved geometry or selected fan is inferred."
+    },
+    {
+      "id": "R2",
+      "task": "review",
+      "passage": "P003",
+      "quote": "Review every original source assumption and complete domain requirement before delivery. A completed calculation with failed pressure,velocity or continuity checks must block this dependent review path. Preserve total-pressure versus flow/velocity units,raw branch/node results and unresolved physical routing,fan operating point,acoustics,product and code applicability.",
+      "acceptance": "Review every original source assumption and complete domain requirement before delivery. A completed calculation with failed pressure,velocity or continuity checks must block this dependent review path. Preserve total-pressure versus flow/velocity units,raw branch/node results and unresolved physical routing,fan operating point,acoustics,product and code applicability."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "schema": "bsa.module-request/1",
+  "project_id": "public-modular-air-budget",
+  "scenario_id": "synthetic-source",
+  "capability": "analysis.air.rectangular-tree",
+  "coordinate_frame": {
+    "id": "declared-synthetic-level-air-reference",
+    "kind": "source-world-si",
+    "length_unit": "m",
+    "georeferenced": false
+  },
+  "sources": {
+    "project": {
+      "path": "../rectangular-air/project.json",
+      "sha256": "7774afa5dfe8e155fb7109dc26a95d6ff7ddc2c173d4c164ca0f37957566ac68"
+    }
+  }
+}

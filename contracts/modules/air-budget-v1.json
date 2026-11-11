@@ -1,0 +1,14 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "type":"object","additionalProperties":false,
+  "required":["schema","coordinate_frame","units","status","checks","supply_flow_m3_s","required_source_total_pressure_pa","report","geometry_bound","design_accepted"],
+  "properties":{
+    "schema":{"const":"bsa.air-budget/1"},"coordinate_frame":{"type":"object"},
+    "units":{"const":{"flow":"m3/s","pressure":"Pa","velocity":"m/s"}},
+    "status":{"enum":["pass","fail"]},
+    "checks":{"type":"object","additionalProperties":false,"required":["velocity","pressure","flow_continuity"],"properties":{"velocity":{"type":"boolean"},"pressure":{"type":"boolean"},"flow_continuity":{"type":"boolean"}}},
+    "supply_flow_m3_s":{"type":"number","minimum":0},"required_source_total_pressure_pa":{"type":"number","minimum":0},
+    "report":{"type":"object","additionalProperties":false,"required":["path","sha256"],"properties":{"path":{"type":"string","minLength":1},"sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"}}},
+    "geometry_bound":{"const":false},"design_accepted":{"const":false}
+  }
+}

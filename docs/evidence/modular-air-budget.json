@@ -1,0 +1,97 @@
+{
+  "scope": "Declared rectangular air-tree budget behind public typed module;no saved geometry or fan operating-point acceptance",
+  "upstream": {
+    "name": "fluids",
+    "version": "1.3.1",
+    "author": "Caleb Bell",
+    "license": "MIT"
+  },
+  "actual_cases": [
+    {
+      "case": "baseline",
+      "workflow_statuses": [
+        "pass",
+        "pending",
+        "pass"
+      ],
+      "module_execution": "completed",
+      "numerical_status": "pass",
+      "all_source_diagnosis_review_checks_verified": true,
+      "independent_native_authoring_pass": true
+    },
+    {
+      "case": "pressure",
+      "workflow_statuses": [
+        "fail",
+        "pending",
+        "pass"
+      ],
+      "module_execution": "completed",
+      "numerical_status": "fail",
+      "all_source_diagnosis_review_checks_verified": true,
+      "independent_native_authoring_pass": true
+    },
+    {
+      "case": "velocity",
+      "workflow_statuses": [
+        "fail",
+        "pending",
+        "pass"
+      ],
+      "module_execution": "completed",
+      "numerical_status": "fail",
+      "all_source_diagnosis_review_checks_verified": true,
+      "independent_native_authoring_pass": true
+    },
+    {
+      "case": "invalid",
+      "workflow_statuses": [
+        "fail",
+        "pending",
+        "pass"
+      ],
+      "module_execution": "failed",
+      "numerical_status": null,
+      "all_source_diagnosis_review_checks_verified": true,
+      "independent_native_authoring_pass": true
+    },
+    {
+      "case": "disabled",
+      "workflow_statuses": [
+        "pending",
+        "pending",
+        "pass"
+      ],
+      "module_execution": "unavailable",
+      "numerical_status": null,
+      "all_source_diagnosis_review_checks_verified": true,
+      "independent_native_authoring_pass": true
+    }
+  ],
+  "targeted_tests": {
+    "invocations": 101,
+    "passed": 100,
+    "skipped": 1
+  },
+  "false_common_result_and_false_workflow_pass_rejected": true,
+  "geometry_bound": false,
+  "regulatory_compliance": "not_established",
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/providers/rectangular_air.py": "05befc9c1c29b2d46615a34ca161381b2bf394651eca2d05491f79d697594811",
+    "src/bsa/module_contract.py": "d12be4f08813625304cec5a20c7e584927333e2b02823aeb606dccd7fa853368",
+    "src/bsa/modules.py": "d4c1dd2ff58535f20eca9f1b803b4d9ab00d3857617f6b699c4a80af707c0ce3",
+    "src/bsa/workflow.py": "5816a417e7bffc06fbbd3a176fc5dabcee1c8381e19ed6c7b9ec3f2c568b1e5f",
+    "src/bsa/workflow_modules.py": "e82ac70777b90cbbe670e5058b56cca31d6e65a87d0b52683c0a2f343e80f67f",
+    "src/bsa/workflow_status.py": "255042232948e06608f52ee0720c2624e4d54decc32c7361e7d698245894959c",
+    "src/bsa/delivery.py": "f3fceca9377640174278e9d6a7b8fe103b5807cc791dfb4931e8ab0bf3bd6f61",
+    "src/bsa/network.py": "1c03609656aad5d244f9466bf62011eccc725dcabd05962acf269292949ff7d7",
+    "src/bsa/rectangular_network.py": "e8453ce4d97c85456f9ae242b66d24c2d0c407847fdfb594876901407a633ced"
+  },
+  "public_inputs": {
+    "examples/modular-analysis-plan.json": "752bb4acb8ca65749b6c50a11fb85af5c17d5b181be6af0d04183d78c1a5fc6d",
+    "examples/modular/air-budget.json": "9d501cd5150034853a15ba4bd185273fafc05919505385ab10529c785a90a15f",
+    "examples/modular/air-budget-brief.md": "682673e484ef55929f03a0c3a398cc3122eca3342e32bbeb1cea5127da119958"
+  },
+  "schema_sha256": "df2aa6e0188748ba8c63c1f6f3e5d3f72f4af73b5bb09f2a248428e9005c19d2"
+}

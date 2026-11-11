@@ -49,12 +49,13 @@ def water_runtime_failures(run, report, task_id):
 
 def module_state(run,report,task):
     """Expose verified module diagnostics without inferring a native failure cause."""
-    if task['kind'] not in ('module_exchange','module_authoring'):return {}
+    if task['kind'] not in ('module_exchange','module_authoring','module_analysis'):return {}
     relative=task['id']+('/exchange/result.json' if task.get('depends_on') else '/result.json')
     if relative not in report['artifact_hashes']:return {}
     from .modules import verify_result
     result=verify_result(run/relative)
     return dict(provider=result['provider'],execution=result['execution'],acceptance=result['acceptance'],
+        numerical_result=dict(status=result['payload']['status'],checks=result['payload']['checks']) if result['execution']['status']=='completed' and result['payload_schema']=='bsa.air-budget/1' else {},
         evidence=relative,evidence_sha256=report['artifact_hashes'][relative],design_accepted=False)
 
 
@@ -110,6 +111,8 @@ def diagnose(plan, run):
             action = 'supply the selected provider runtime through host options or explicitly select a compatible trusted replacement before a new run'
         elif 'upstream_incompatible' in module_codes:
             action = 'restore the declared clean pinned upstream checkout or explicitly select a compatible trusted replacement before a new run'
+        elif module.get('numerical_result',{}).get('status')=='fail':
+            action = 'review the failed declared numerical checks and source design assumptions before revising the design and executing a new run;retain original targets and unresolved engineering acceptance'
         elif state['status'] == 'fail':
             action = 'inspect retained failure evidence and correct source or adapter before a new run'
         elif task['kind'] == 'manual':

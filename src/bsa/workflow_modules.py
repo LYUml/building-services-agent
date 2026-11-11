@@ -10,12 +10,20 @@ from .providers import get_provider
 
 def host_selection(tasks,overrides=None,disabled=()):
     """Validate trusted host choices separately from source plan task data."""
-    known={t['id']:t for t in tasks if t['kind'] in ('module_exchange','module_authoring')}
+    known={t['id']:t for t in tasks if t['kind'] in ('module_exchange','module_authoring','module_analysis')}
     overrides={} if overrides is None else overrides
     if not isinstance(overrides,dict) or set(overrides)-set(known):raise ValueError('Module overrides must name existing module tasks')
     if not isinstance(disabled,(list,tuple)) or any(not isinstance(p,str) for p in disabled) or len(set(disabled))!=len(disabled):raise ValueError('Unique disabled provider IDs required')
     for provider in [*overrides.values(),*disabled]:get_provider(provider)
     return dict(schema='bsa.workflow-module-selection/1',providers=dict(overrides),disabled_providers=sorted(disabled))
+
+
+def execution_status(result,kind):
+    status={'completed':'pass','failed':'fail','unavailable':'pending','pending':'pending'}[result['execution']['status']]
+    if kind=='module_analysis' and result['execution']['status']=='completed':
+        if result['payload_schema']!='bsa.air-budget/1':raise ValueError('Supported numerical analysis payload required')
+        status=result['payload']['status']
+    return status
 
 
 def selection_inputs(tasks,root,selection):
@@ -24,7 +32,7 @@ def selection_inputs(tasks,root,selection):
     if selection!=expected:raise ValueError('Noncanonical module host selection')
     paths=set()
     for task in tasks:
-        if task['kind'] in ('module_exchange','module_authoring'):
+        if task['kind'] in ('module_exchange','module_authoring','module_analysis'):
             paths.update(inputs(Path(root)/task['request'],selection['providers'].get(task['id'],task['provider']),inherited=bool(task.get('depends_on'))))
     return paths
 
@@ -65,11 +73,11 @@ def materialize(task,tasks,root,run):
     return destination
 
 
-def verify_selection(tasks,run,selection,root=None):
+def verify_selection(tasks,run,selection,root=None,report_tasks=None):
     """Bind selected provider and disabled state to actual retained module results."""
     from .modules import verify_result
     for task in tasks:
-        if task['kind'] not in ('module_exchange','module_authoring'):continue
+        if task['kind'] not in ('module_exchange','module_authoring','module_analysis'):continue
         path=result_path(run,task)
         if not path.is_file():continue
         if task.get('depends_on'):
@@ -77,6 +85,7 @@ def verify_selection(tasks,run,selection,root=None):
             destination,expected=inherited_request(task,tasks,root,run)
             if module_contract.read_json(destination)!=expected:raise ValueError('Materialized module request differs from saved producer')
         result=verify_result(path);provider=selection['providers'].get(task['id'],task['provider'])
+        if report_tasks is not None and report_tasks[task['id']]['status']!=execution_status(result,task['kind']):raise ValueError('Workflow task status contradicts retained module result')
         if result['provider']['id']!=provider:raise ValueError('Executed module provider differs from host selection')
         disabled=provider in selection['disabled_providers']
         recorded=any(d['code']=='provider_disabled' for d in result['execution']['diagnostics'])

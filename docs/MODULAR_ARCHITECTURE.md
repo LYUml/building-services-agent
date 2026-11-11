@@ -71,7 +71,9 @@ dependent failures/pending work while independent tasks continue.
 4. Route existing AutoCAD/IFC,Revit and performance adapters through the boundary
    incrementally. Native IFC now has an initial model-artifact authoring provider
    and executed downstream chain;other authoring-provider substitution remains
-   unverified. Keep blocked Revit/analysis execution visible;do not bypass
+   unverified. The existing rectangular air-tree budget now has a typed analysis
+   provider with separate completed/numerical-fail gating;native source binding
+   and replacement by another solver remain unfinished. Keep blocked Revit/analysis execution visible;do not bypass
    signing policy or silently upgrade EnergyPlus versions.
 5. Bind independent HK rules and requirement/delivery review to the same common
    source IDs. Reproduce the real HVAC project and another independent project,

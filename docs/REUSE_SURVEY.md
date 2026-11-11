@@ -848,3 +848,12 @@ IfcOpenShell,ezdxf and pypdf remain in use,with the installed licensed AutoCAD
 2027 host. Actual three-DWG/three-page plotting and all rendered-page inspections
 execute;centreline-only limitations and hydraulic/full design gaps remain.
 See examples/modular-drawing-plan.json and MODULES.md.
+
+The rectangular air-budget module directly calls the existing rectangular_network
+CLI/network budget with the already pinned fluids1.3.1 (Caleb Bell,MIT;installed
+LICENSE.txt inspected). The gap is a typed analysis boundary and correct completed-
+but-numerically-failed gating,not another solver or a substitute native simulation.
+No package/source vendoring or new engine is added. Raw branch/node reports stay
+available,common results are cross-checked,and independent native work continues
+through pressure/velocity/invalid/disabled controls. See MODULES.md and
+evidence/modular-air-budget.json.

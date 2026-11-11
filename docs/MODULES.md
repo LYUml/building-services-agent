@@ -376,3 +376,50 @@ Eighty-two targeted invocations complete:81pass,1optional native test skipped;
 the native end-to-end workflow above executes separately. See
 [evidence](evidence/modular-native-drawings.json). This is scoped native drawing
 integration,not full multi-discipline design or general DWG/RVT authoring.
+
+## Typed rectangular air-budget analysis
+
+fluids.rectangular-air-budget reuses the existing rectangular_network CLI and
+network pressure-budget code with fluids1.3.1 (Caleb Bell,MIT). No solver,
+friction correlation or domain limit is rewritten. It requires capability
+analysis.air.rectangular-tree and exactly one source-pinned project. There is
+one verified analysis implementation at this boundary;replacement by another
+solver is not verified.
+
+```powershell
+.venv/Scripts/python -m pip install -e ".[modules,network]"
+.venv/Scripts/python -m bsa.workflow execute examples/modular-analysis-plan.json --out runs/modular-air-budget
+```
+
+module_analysis uses the same trusted registry,host provider selection/disable,
+source/hash and artifact checks. This initial analysis consumes a declared
+project;native-geometry inheritance is not implemented and depends_on is rejected.
+The public example reuses the existing explicit synthetic rectangular air tree.
+No AutoCAD,Revit,EnergyPlus or prior generated file is required for that example.
+It remains a prescribed level constant-density,fully-developed turbulent
+hydraulic-diameter approximation;it is not a flow-balancing or fan operating-
+point solution. Lengths,K and applicability remain declared source inputs.
+
+bsa.air-budget/1 preserves explicit m3/s,Pa and m/s units,numerical pass/fail,
+velocity/pressure/continuity checks,supply flow,required source total pressure and
+a hash-linked full report. The raw report/CSV/HTML retain all branch/node results
+and unresolved scope. geometry_bound=false and design_accepted=false remain
+explicit;no thermal/electrical power or jurisdiction pass is inferred.
+
+Execution completed and numerical pass are separate. The existing engine's
+exit2 with valid failed-check artifacts becomes execution completed with numerical
+fail;invalid input without a calculation report is execution failed. Workflow
+status uses numerical fail to block requires_pass consumers. Unavailable/disabled
+modules remain pending. Verification checks the common numerical summary against
+retained engine evidence;delivery context rejects a workflow pass contradicting
+that result. Diagnosis distinguishes failed declared checks from failed execution
+and retains original targets and engineering acceptance gaps.
+
+Five actual baseline/pressure-fail/velocity-fail/invalid/disabled scenarios retain
+independent native IFC work while blocking the required review as appropriate.
+All source/diagnosis/review contexts verify with every review pending.101 targeted
+test invocations complete:100pass,1optional native test skipped. The new budget
+tests execute the real existing calculator,including rejected summary/status
+forgery and wrong units. See [evidence](evidence/modular-air-budget.json). This
+does not establish physical routes,component K,leakage,acoustics,fan/product
+selection,full code applicability or complete multi-discipline design.

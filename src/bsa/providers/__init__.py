@@ -2,6 +2,9 @@
 
 
 def get_provider(id):
+    if id=='fluids.rectangular-air-budget':
+        from . import rectangular_air
+        return rectangular_air
     if id=='ifcopenshell.bim-authoring':
         from . import ifc_authoring
         return ifc_authoring

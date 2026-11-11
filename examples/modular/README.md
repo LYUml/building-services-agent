@@ -75,3 +75,18 @@ references remain mandatory. Omit --autocad to retain native work as pending.
 Actual execution and all3merged rendered pages were checked;review still stays
 pending for hydraulic/product/hidden-line/fitting/equipment/installation and full
 engineering acceptance. See docs/evidence/modular-native-drawings.json.
+
+For a separate declared rectangular air-tree budget:
+
+```powershell
+.venv/Scripts/python -m pip install -e ".[modules,network]"
+.venv/Scripts/python -m bsa.workflow execute examples/modular-analysis-plan.json --out runs/modular-air-budget
+```
+
+This reuses rectangular-air/project.json through fluids.rectangular-air-budget.
+The real existing calculation runs without native CAD/energy engines. Numerical
+pressure/velocity/continuity results remain distinct from execution completion;
+failed criteria block required downstream tasks. Raw branch/node JSON,CSV and
+HTML are retained. The geometry,flows,K and targets are explicit synthetic test
+inputs;geometry_bound=false. Operating fan selection,physical routes,acoustics,
+code and full design acceptance remain pending. See docs/MODULES.md.

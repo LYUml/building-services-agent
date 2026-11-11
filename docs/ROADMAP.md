@@ -1,5 +1,15 @@
 # Scope and acceptance
 
+The existing rectangular air-tree calculator now executes behind a typed
+module_analysis boundary with pinned fluids1.3.1. Completed calculations retain
+separate numerical pass/fail;failed declared criteria block downstream tasks.
+Verification/delivery reject common-summary or workflow-pass contradictions.
+Five actual baseline/pressure/velocity/invalid/disabled cases verify with
+independent native work preserved.101 targeted invocations:100pass,1skip.
+Declared geometry/K and method applicability remain unverified physical facts;
+native binding,fan operating point and full design remain unfinished. See
+MODULES.md and evidence/modular-air-budget.json.
+
 Common model artifacts now feed the existing orthographic pipe-view/native
 AutoCAD chain. The public modular drawing plan actually authors6source pipes,
 reopens3DWGs and plots3merged pages. All GUID/geometry and100mm reference checks

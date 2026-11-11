@@ -5,6 +5,15 @@ description: Calculate source-linked air/water networks, pump operating points a
 
 # Network pressure analysis
 
+For the initial modular air-budget boundary,use module_analysis with
+fluids.rectangular-air-budget and a source-pinned analysis.air.rectangular-tree
+request. It reuses the existing rectangular_network calculator/fluids1.3.1;
+see docs/MODULES.md and examples/modular-analysis-plan.json. Preserve typed units,
+raw branch/node results and separate completed/numerical-fail states. Only a
+numerical pass may satisfy requires_pass;do not change targets to hide failure.
+Declared lengths/K/applicability are not saved-native geometry,fan selection or
+full engineering acceptance. Other analysis-provider replacement is unverified.
+
 For an explicit planar layout change,use bsa.terminal_layout_revision only when
 the original drawing matches the full allocation/tree and ID-label bindings.
 Read docs/TERMINAL_LAYOUT_REVISION.md. Preserve rigid/VAV geometry and unrelated

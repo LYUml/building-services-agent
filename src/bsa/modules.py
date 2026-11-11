@@ -72,6 +72,7 @@ def verify_result(path):
     if any(result[k]!=request[k] for k in ('project_id','scenario_id','capability')):raise ValueError('Module request/result correspondence differs')
     if result['provider']!=provider.DESCRIPTION:raise ValueError('Module provider identity differs')
     if result['payload'] is not None and result['payload']['coordinate_frame']!=request['coordinate_frame']:raise ValueError('Module frame correspondence differs')
+    if hasattr(provider,'verify_evidence'):provider.verify_evidence(result,path)
     return result
 
 
