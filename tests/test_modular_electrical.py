@@ -67,3 +67,14 @@ class ModularElectricalTests(unittest.TestCase):
         from bsa.workflow_status import diagnose
         out=self.root/'scope-workflow';execute(self.plan,out)
         self.assertIn('without deleting fields',diagnose(self.plan,out)['actions'][0]['next_action'])
+
+    def test_rehashed_schematic_geometry_identity_and_style_changes_reject(self):
+        import ezdxf
+        for change in ('position','identity','rotation'):
+            out=self.root/('schematic-'+change);r=run(self.request,'bsa.single-phase-circuits',out)
+            path=out/'analysis/devices.dxf';doc=ezdxf.readfile(path)
+            if change=='position':doc.modelspace().query('CIRCLE')[0].dxf.center=(99,99,0)
+            elif change=='identity':doc.modelspace().query('TEXT')[0].dxf.text='OTHER / CIRCUIT'
+            else:doc.modelspace().query('TEXT')[0].dxf.rotation=45
+            doc.saveas(path);r['artifacts']['analysis/devices.dxf']=digest(path);r['payload']['schematic_dxf']['sha256']=digest(path);(out/'result.json').write_text(json.dumps(r))
+            with self.assertRaisesRegex(ValueError,'schematic'):verify_result(out/'result.json')

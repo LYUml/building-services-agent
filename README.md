@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Source-bound electrical rule → native device schematic now executes with
+independent AutoCAD reopening and actual PDF presentation review. See
+[scoped evidence](docs/evidence/module-electrical-native.json). Physical routes,
+complete drawing sets and full engineering acceptance remain unfinished.
+
 需求文档 → 可追溯项目数据 → CAD/BIM → 工程分析 → 设计迭代 → 已核对交付。
 
 Latest [targeted electrical-rule workflow checks](docs/evidence/module-electrical-rule-workflow.json):

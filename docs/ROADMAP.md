@@ -1,10 +1,23 @@
 # Scope and acceptance
 
+
+Scoped native electrical schematic now inherits the exact passing rule task via
+`module_electrical_native`. The module explicitly inventories its DXF and replays
+source device IDs, XY coordinates and symbolic styles before isolated AutoCAD
+save, independent reopen and PDF plotting. Coincident symbols reject before CAD.
+The public builder accepts `--drawings`; it stages an explicit presentation-only
+layout and records original/chosen coordinates without changing electrical
+quantities. This is a fit-to-page device schematic, not physical cable routing,
+a complete electrical drawing set or full engineering acceptance. Actual PDF
+visual review remains separate from native execution. See
+[evidence](evidence/module-electrical-native.json).
+
+
 Common electrical rules now execute automatically from the exact declared
 electrical producer,with repeated topology/basis/pack/source correspondence and
 delivery checks. Five actual pass/exceeded/unknown/missing/disabled scenarios
 retain correct gates. Coherent other-producer reports and false-pass records
-reject. Native/replacement release consumers remain unsupported and reject.
+reject. At that milestone native/replacement release consumers were unsupported;the scoped device schematic above now inherits the exact rule task.
 Public staging uses existing source data and unchanged official bytes. See
 MODULAR_ELECTRICAL_RULES.md.
 

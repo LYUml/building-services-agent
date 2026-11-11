@@ -1,5 +1,18 @@
 # Bind common electrical results to whole-path voltage-drop rules
 
+
+Scoped native electrical schematic now inherits the exact passing rule task via
+`module_electrical_native`. The module explicitly inventories its DXF and replays
+source device IDs, XY coordinates and symbolic styles before isolated AutoCAD
+save, independent reopen and PDF plotting. Coincident symbols reject before CAD.
+The public builder accepts `--drawings`; it stages an explicit presentation-only
+layout and records original/chosen coordinates without changing electrical
+quantities. This is a fit-to-page device schematic, not physical cable routing,
+a complete electrical drawing set or full engineering acceptance. Actual PDF
+visual review remains separate from native execution. See
+[evidence](evidence/module-electrical-native.json).
+
+
 Latest automatic-workflow validation:48related tests pass. Five actual
 official-source scenarios preserve pass/fail/pending and upstream-disabled gates;
 workflow/delivery correspondence verifies. See
@@ -58,8 +71,8 @@ report;failed/pending checks block required dependent review. Coverage schedulin
 recognizes the new task but does not turn it into full regulatory coverage.
 
 It is not yet a registered replaceable electrical rule provider. Unsupported
-numerical/authoring/native release consumers reject rather than borrowing this
-rule gate with replacement sources. Same-model native CAD release remains
+numerical/authoring/legacy-native release consumers reject rather than borrowing this
+rule gate with replacement sources. The source-bound device schematic is now supported as described above;physical-route release remains
 unfinished. The original legacy electrical_regulations workflow remains available.
 
 Initial standalone evidence:twenty-seven related tests pass across electrical/
@@ -69,3 +82,11 @@ the scoped check. Deliberately longer feeders fail,unknown applicability and
 missing official sources remain pending. Independent Decimal feeder/path sums
 reconcile;manual metric overrides and coherently rehashed bound-fact changes
 reject. These are scoped integration controls,not a completed electrical design.
+
+To stage the native example, add `--drawings` to the public
+`examples/modular/build_electrical_rules_inputs.py` builder, then execute its
+plan with an explicit `--autocad` Core Console path. The early electrical
+contract now requires a hashed `schematic_dxf` artifact. Regenerate old results
+rather than rewriting historical manifests. The original coincident public
+source remains unchanged;the staged source and source-manifest record the
+chosen schematic-only layout. No physical layout is inferred.

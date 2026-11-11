@@ -301,8 +301,13 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("module_electrical_rules","module_water_rules","module_analysis","module_authoring","spatial_lighting_rules","module_thermal_project","module_exchange","duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("module_electrical_native","module_electrical_rules","module_water_rules","module_analysis","module_authoring","spatial_lighting_rules","module_thermal_project","module_exchange","duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
+        if kind=='module_electrical_native':
+            if set(t)-{'id','kind','depends_on','requires_pass','description'}:raise ProjectError('Native electrical task inherits rule producer only;replacement inputs forbidden')
+            parent=t.get('depends_on')
+            if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='module_electrical_rules':raise ProjectError('Native electrical schematic requires earlier same-producer rule task')
+            inputs.update(Path(__file__).with_name(n) for n in ('module_electrical_native.py','native_cad.py'))
         if kind=='module_electrical_rules':
             if set(t)-{'id','kind','depends_on','topology','basis','pack','sources','requires_pass','description'}:raise ProjectError('Electrical rules inherit exact module;replacement inputs forbidden')
             parent=t.get('depends_on')
@@ -1084,6 +1089,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
     root=plan.parent
     module_results=[];thermal_results=[];spatial_rule_results=[];module_fan_results=[];water_rule_results=[]
     from .module_electrical_rules import verify as verify_electrical_rules,verify_workflow as verify_electrical_workflow
+    from .module_electrical_native import verify_workflow as verify_electrical_native_workflow
     for t in p["tasks"]:
         folder=out/t["id"]
         status="pending";reason="";payload=None
@@ -1095,6 +1101,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
             from .module_water_rules import verify as verify_water_rules
             for rule_folder in water_rule_results:verify_water_rules(rule_folder)
             verify_electrical_workflow([task for task in p['tasks'] if task['id'] in tasks],out,root,tasks)
+            verify_electrical_native_workflow([task for task in p['tasks'] if task['id'] in tasks],out,tasks)
             from .spatial_lighting_rules import verify as verify_spatial_rules
             for rule_folder in spatial_rule_results:verify_spatial_rules(rule_folder)
             from .module_fan import verify as verify_module_fan
@@ -1112,6 +1119,13 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 reason='unresolved design inputs: '+', '.join(i['id']+' ('+i['kind']+'): '+i['description'] for i in missing_inputs)+'; adapter not executed'
             elif blocked:
                 reason='required checks unresolved: '+', '.join(g+' ('+tasks[g]['status']+')' for g in blocked)+'; adapter not executed'
+            elif t['kind']=='module_electrical_native':
+                if tasks[t['depends_on']]['status']!='pass':reason='upstream electrical rule check did not pass;native schematic not executed'
+                elif not autocad:reason='AutoCAD executable not supplied for module electrical schematic'
+                else:
+                    from .module_electrical_native import run as native_electrical
+                    payload=native_electrical(out/t['depends_on'],folder,autocad)
+                    runtime_inputs.update(payload['inputs']);status='pass';reason=payload['scope']
             elif t['kind']=='module_electrical_rules':
                 parent=t['depends_on']
                 if tasks[parent]['status']!='pass':reason='upstream electrical analysis did not pass;rules not executed'
@@ -2037,6 +2051,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
     for fan_folder in module_fan_results:verify_module_fan(fan_folder)
     for rule_folder in water_rule_results:verify_water_rules(rule_folder)
     verify_electrical_workflow(p['tasks'],out,root,tasks)
+    verify_electrical_native_workflow(p['tasks'],out,tasks)
     unchanged=all(f.is_file() and digest(f)==before[str(f)] for f in inputs)
     source_rows={x["id"]:x for x in plan_documents(root,p)['passages']}
     matrix=[]
@@ -2079,6 +2094,12 @@ def verify(run_directory):
                     from .module_fan import verify as verify_module_fan
                     verify_module_fan(root/name)
             except (OSError,ValueError,KeyError,TypeError) as exc:issues.append('module fan evidence invalid: '+name+': '+str(exc))
+        if task['kind']=='module_electrical_native' and ((root/name/'electrical-native.json').is_file() or task['status']=='pass'):
+            try:
+                from .module_electrical_native import verify as verify_native_electrical
+                verify_native_electrical(root/name)
+                if task['status']!='pass':raise ValueError('Native electrical task status contradicts retained result')
+            except (OSError,ValueError,KeyError,TypeError) as exc:issues.append('module electrical native evidence invalid: '+name+': '+str(exc))
         if task['kind']=='module_electrical_rules' and ((root/name/'electrical-module-rules.json').is_file() or task['status']=='pass'):
             try:
                 from .module_electrical_rules import verify as verify_electrical_rules

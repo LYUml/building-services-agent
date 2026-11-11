@@ -14,7 +14,8 @@
     "report",
     "pending",
     "geometry_bound",
-    "design_accepted"
+    "design_accepted",
+    "schematic_dxf"
   ],
   "properties": {
     "schema": {
@@ -212,6 +213,28 @@
     },
     "design_accepted": {
       "const": false
+    },
+    "schematic_dxf": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "format"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "format": {
+          "const": "DXF"
+        }
+      }
     }
   }
 }

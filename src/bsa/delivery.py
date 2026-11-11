@@ -40,6 +40,8 @@ def context(plan,root):
     verify_workflow(source['tasks'],root,plan.parent,report['tasks'])
     from .module_electrical_rules import verify_workflow as verify_electrical_workflow
     verify_electrical_workflow(source['tasks'],root,plan.parent,report['tasks'])
+    from .module_electrical_native import verify_workflow as verify_electrical_native_workflow
+    verify_electrical_native_workflow(source['tasks'],root,report['tasks'])
     for name,task in tasks.items():
         if task['kind']=='rectangular_fan_operating_point' and task.get('depends_on') in tasks and tasks[task['depends_on']]['kind']=='module_analysis':
             if (root/name/'fan.json').is_file() or report['tasks'][name]['status']=='pass':

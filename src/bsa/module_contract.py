@@ -14,7 +14,7 @@ SCHEMAS['bsa.electrical-circuits/1']='electrical-circuits-v1.json'
 
 
 def artifact_references(schema,data):
-    if schema=='bsa.electrical-circuits/1':return ('report',)
+    if schema=='bsa.electrical-circuits/1':return ('report','schematic_dxf')
     if schema=='bsa.model-artifact/1':return ('model','verification')
     if schema=='bsa.air-budget/1':return ('report',)
     if schema=='bsa.water-graph/1':return ('report','raw')
@@ -117,8 +117,9 @@ def validate(data,schema=None):
             if data['payload'] is None:raise ValueError('Completed module needs validated payload')
             validate(data['payload'],data['payload_schema'])
             if data['payload_schema']=='bsa.electrical-circuits/1':
-                row=data['payload']['report']
-                if data['artifacts'].get(row['path'])!=row['sha256']:raise ValueError('Electrical report differs from module inventory')
+                for key in artifact_references(data['payload_schema'],data['payload']):
+                    row=data['payload'][key]
+                    if data['artifacts'].get(row['path'])!=row['sha256']:raise ValueError('Electrical artifact differs from module inventory')
             if data['payload_schema'] in ('bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
                 for key in artifact_references(data['payload_schema'],data['payload']):
                     row=data['payload'][key]

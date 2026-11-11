@@ -39,7 +39,31 @@ def common(request,project,report,folder):
         units=dict(real_power='kW electrical',apparent_power='VA',current='A',voltage='V',length='m'),
         status='pass' if report['calculated_checks_pass'] else 'fail',checks=checks,supply_voltage_v=project['supply_voltage_v'],
         circuits=report['circuits'],phase_demand_va=report['phase_demand_va'],pending=report['pending'],
-        report=dict(path='analysis/calculations.json',sha256=digest(folder/'calculations.json')),geometry_bound=False,design_accepted=False))
+        report=dict(path='analysis/calculations.json',sha256=digest(folder/'calculations.json')),
+        schematic_dxf=dict(path='analysis/devices.dxf',sha256=digest(folder/'devices.dxf'),format='DXF'),geometry_bound=False,design_accepted=False))
+
+
+def verify_schematic(project,path):
+    """Read saved entities against explicit source IDs/coordinates and legacy style."""
+    import ezdxf
+    doc=ezdxf.readfile(path);entities=list(doc.modelspace())
+    if doc.units!=6 or len(entities)!=2*len(project['devices']) or any(e.dxftype() not in ('CIRCLE','TEXT') for e in entities):raise ValueError('Electrical source schematic units/entity inventory differs')
+    def xyz(point):return tuple(round(float(v),9) for v in point)
+    circles=sorted((e.dxf.layer,xyz(e.dxf.center),round(e.dxf.radius,9)) for e in entities if e.dxftype()=='CIRCLE')
+    texts=sorted((e.dxf.layer,xyz(e.dxf.insert),e.dxf.text) for e in entities if e.dxftype()=='TEXT')
+    expected_c=sorted(('BSA_DEVICES',(round(d['x_m'],9),round(d['y_m'],9),0.),.12) for d in project['devices'])
+    expected_t=sorted(('BSA_LABELS',(round(d['x_m']+.2,9),round(d['y_m'],9),0.),d['id']+' / '+d['circuit']) for d in project['devices'])
+    if circles!=expected_c or texts!=expected_t:raise ValueError('Electrical source schematic IDs/coordinates differ')
+    for e in entities:
+        if e.dxf.get('invisible',0) or xyz(e.dxf.get('extrusion',(0,0,1)))!=(0.,0.,1.):raise ValueError('Electrical schematic hidden or nonplanar entity')
+        if e.dxftype()=='TEXT' and (abs(e.dxf.height-.12)>1e-9 or e.dxf.get('rotation',0)!=0 or e.dxf.get('width',1)!=1 or e.dxf.get('text_generation_flag',0)!=0 or e.dxf.get('oblique',0)!=0 or e.dxf.get('halign',0)!=0 or e.dxf.get('valign',0)!=0):raise ValueError('Electrical schematic label style differs')
+    for name in ('BSA_DEVICES','BSA_LABELS'):
+        layer=doc.layers.get(name)
+        if layer.is_off() or layer.is_frozen():raise ValueError('Electrical schematic layer hidden')
+    positions={}
+    for d in project['devices']:positions.setdefault((round(d['x_m'],9),round(d['y_m'],9)),[]).append(d['id'])
+    return dict(device_count=len(project['devices']),source_ids_coordinates_match=True,symbolic_style_checked=True,
+        coincident_symbol_ids=[ids for ids in positions.values() if len(ids)>1],geometry_bound=False)
 
 
 def execute(request,paths,runtime,out):
@@ -50,7 +74,7 @@ def execute(request,paths,runtime,out):
         if importlib.metadata.version('ezdxf')!='1.4.5':return failed('unavailable','runtime_incompatible','Pinned ezdxf1.4.5 required')
     except importlib.metadata.PackageNotFoundError:return failed('unavailable','runtime_missing','Pinned ezdxf1.4.5 not installed')
     try:
-        project=validate_project(read_json(paths['project']));report=run(paths['project'],out/'analysis');payload=common(request,project,report,out/'analysis')
+        project=validate_project(read_json(paths['project']));report=run(paths['project'],out/'analysis');verify_schematic(project,out/'analysis/devices.dxf');payload=common(request,project,report,out/'analysis')
     except UnsupportedElectricalSemantics as exc:return failed('failed','unsupported_source_semantics',str(exc))
     except (ValueError,OSError,KeyError) as exc:return failed('failed','electrical_analysis_failed',str(exc))
     return dict(status='completed',diagnostics=[],payload=payload,pins=pins)
@@ -66,4 +90,5 @@ def verify_evidence(result,result_path):
         path=ROOT/'src/bsa'/name
         if result['inputs'].get(str(path))!=digest(path):raise ValueError('Electrical method evidence differs')
     if report!=calculate(project):raise ValueError('Electrical retained result differs from source replay')
+    verify_schematic(project,folder/'devices.dxf')
     if common(request,project,report,folder)!=result['payload']:raise ValueError('Common electrical payload differs from source replay')

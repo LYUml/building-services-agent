@@ -1,0 +1,85 @@
+{
+  "scope": "Common single-phase source -> whole-path voltage-drop rule -> native device schematic;synthetic two-device example only",
+  "tests": {
+    "invocations": 45,
+    "passes": 45,
+    "failures": 0,
+    "errors": 0,
+    "command": "python -m unittest tests.test_modular_electrical tests.test_module_electrical_rules_workflow tests.test_module_electrical_rules tests.test_modules tests.test_delivery tests.test_module_water_rules"
+  },
+  "positive": {
+    "native_reopen_pass": true,
+    "workflow_integrity_pass": true,
+    "delivery_context_pass": true,
+    "electrical_calculation_unchanged": true,
+    "visual_review": {
+      "pdf_sha256": "d934603e4317cbcbd7d9d62614aa819b31fcb9ad63baa7603d6e53c513f9c353",
+      "image_sha256": "d720a33eac961b529079815abef30f4a1ffbd540798f1e66abb0a9ccd4cdcfac",
+      "visual_review": "pass",
+      "scope": "Two distinct device circles and DC1 / C1, DC2 / C2 labels visible without overlap or clipping on the actual rendered page;schematic presentation only",
+      "geometry_bound": false,
+      "design_accepted": false,
+      "electrical_calculation_unchanged": true
+    },
+    "artifacts": {
+      "devices.dwg": "d4f9368c23055dc588b095fd962093137688c555184d6a8ecc8316c73030f9f4",
+      "devices.pdf": "d934603e4317cbcbd7d9d62614aa819b31fcb9ad63baa7603d6e53c513f9c353",
+      "native-entities.csv": "7de84599de96fc49858ac70b26c329658be5e3f05f6d09484372dd0907745dac",
+      "electrical-native.json": "258e183fb0c32b0ede90ccde2ff317599792b5d2a6a08f10a93eaa149ceb3aca"
+    }
+  },
+  "controls": {
+    "exceeded": {
+      "tasks": {
+        "electrical": "pass",
+        "rules": "fail",
+        "native": "pending",
+        "review": "pending"
+      },
+      "native_outputs_absent": true,
+      "integrity_pass": true,
+      "delivery_context_pass": true
+    },
+    "missing": {
+      "tasks": {
+        "electrical": "pass",
+        "rules": "pending",
+        "native": "pending",
+        "review": "pending"
+      },
+      "native_outputs_absent": true,
+      "integrity_pass": true,
+      "delivery_context_pass": true
+    },
+    "disabled": {
+      "tasks": {
+        "electrical": "pending",
+        "rules": "pending",
+        "native": "pending",
+        "review": "pending"
+      },
+      "native_outputs_absent": true,
+      "integrity_pass": true,
+      "delivery_context_pass": true
+    }
+  },
+  "initial_visual_failure": {
+    "reason": "Original source device coordinates coincide;labels overprint",
+    "preserved": true,
+    "corrected_by": "Explicit staged presentation layout;original/chosen XY retained,all electrical calculations unchanged"
+  },
+  "reuse": {
+    "ezdxf": "1.4.5 MIT",
+    "native_adapter": "existing bsa.native_cad",
+    "host": "installed proprietary AutoCAD 2027 Core Console",
+    "new_solver": false
+  },
+  "limitations": [
+    "Fit-to-page symbolic device diagram only;not a physical route or complete drawing set",
+    "Visual review is separate and scoped;immutable execution report keeps visual_review pending",
+    "Recorded native readback is not an authenticated fresh verification",
+    "Fault/protection/equipment/source applicability and full regulatory/engineering acceptance remain pending"
+  ],
+  "geometry_bound": false,
+  "design_accepted": false
+}

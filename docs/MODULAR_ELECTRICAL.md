@@ -1,5 +1,18 @@
 # Conditional electrical analysis module
 
+
+Scoped native electrical schematic now inherits the exact passing rule task via
+`module_electrical_native`. The module explicitly inventories its DXF and replays
+source device IDs, XY coordinates and symbolic styles before isolated AutoCAD
+save, independent reopen and PDF plotting. Coincident symbols reject before CAD.
+The public builder accepts `--drawings`; it stages an explicit presentation-only
+layout and records original/chosen coordinates without changing electrical
+quantities. This is a fit-to-page device schematic, not physical cable routing,
+a complete electrical drawing set or full engineering acceptance. Actual PDF
+visual review remains separate from native execution. See
+[evidence](evidence/module-electrical-native.json).
+
+
 The provider accepts only the exact existing project/circuit/device fields used
 by this single-phase calculator. Extra phase-count,line-voltage,thermal-load or
 other unsupported fields reject before calculation artifacts rather than being

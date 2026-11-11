@@ -4,6 +4,7 @@ import runpy
 import shutil
 import tempfile
 import unittest
+from unittest.mock import patch
 from bsa.cli import digest
 from bsa.workflow import execute,verify,validate_plan
 from bsa.delivery import context
@@ -56,3 +57,37 @@ class ElectricalRuleWorkflowTests(unittest.TestCase):
             if name.startswith('rules/'):r['artifact_hashes'][name]=digest(out/name)
         (out/'workflow.json').write_text(json.dumps(r))
         with self.assertRaisesRegex(ValueError,'differ from declared producer'):context(self.plan,out)
+
+    def test_native_missing_host_and_failed_rule_do_not_call_cad(self):
+        build=runpy.run_path(str(ROOT/'examples/modular/build_electrical_rules_inputs.py'))['build']
+        plan=build(self.root/'drawing-inputs',self.root/'empty',True);inputs=plan.parent
+        shutil.copyfile(self.inputs/'sources/emsd-wiring-2025.pdf',inputs/'sources/emsd-wiring-2025.pdf')
+        shutil.copyfile(self.inputs/'source/pack.json',inputs/'source/pack.json')
+        with patch('bsa.module_electrical_native.run') as cad:
+            out=self.root/'missing-cad';r=execute(plan,out)
+        cad.assert_not_called();self.assertEqual(r['tasks']['rules']['status'],'pass');self.assertEqual(r['tasks']['native']['status'],'pending');context(plan,out)
+        topology=inputs/'source/topology.json';data=json.loads(topology.read_text());data['feeders'][0]['route_length_m']=300;topology.write_text(json.dumps(data))
+        exe=self.root/'never-launched.exe';exe.write_bytes(b'Not a program;CAD worker must not be called')
+        with patch('bsa.module_electrical_native.run') as cad:
+            out=self.root/'failed-rule-native';r=execute(plan,out,autocad=exe)
+        cad.assert_not_called();self.assertEqual(r['tasks']['rules']['status'],'fail');self.assertEqual(r['tasks']['native']['status'],'pending')
+        self.assertFalse((out/'native').exists());context(plan,out)
+
+    def test_coincident_source_rejects_before_native_and_layout_preserves_electrical_data(self):
+        from bsa.module_electrical_native import run
+        out=self.root/'coincident';execute(self.plan,out)
+        with patch('bsa.native_cad.convert') as convert:
+            with self.assertRaisesRegex(ValueError,'Coincident device symbols'):
+                run(out/'rules',self.root/'must-not-exist',self.root/'unused.exe')
+        convert.assert_not_called();self.assertFalse((self.root/'must-not-exist').exists())
+        build=runpy.run_path(str(ROOT/'examples/modular/build_electrical_rules_inputs.py'))['build']
+        plan=build(self.root/'separated',self.root/'empty',True)
+        original=json.loads((self.inputs/'source/project.json').read_text())
+        staged=json.loads((plan.parent/'source/project.json').read_text())
+        self.assertEqual(staged['circuits'],original['circuits'])
+        for before,after in zip(original['devices'],staged['devices']):
+            self.assertEqual({k:v for k,v in before.items() if k not in ('x_m','y_m')},
+                             {k:v for k,v in after.items() if k not in ('x_m','y_m')})
+        self.assertEqual(len({(d['x_m'],d['y_m']) for d in staged['devices']}),len(staged['devices']))
+        from bsa.engine import calculate
+        self.assertEqual(calculate(original),calculate(staged))

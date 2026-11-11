@@ -5,6 +5,8 @@ description: Calculate source-linked single-phase circuits and scoped three-phas
 
 # mep-electrical
 
+For common single-phase device schematics, use module_electrical_native after the exact passing module_electrical_rules task. Read docs/MODULAR_ELECTRICAL_RULES.md. Inherit the checked DXF; never replace producer/source paths. Coincident device coordinates require an explicit source-backed schematic layout before CAD. The public builder --drawings is a synthetic presentation example only. Require actual native reopening and separate PDF visual review; preserve physical routes, complete drawings and engineering acceptance as unresolved.
+
 When HK cable rules are selected for physical route drawing, require the product-limit, coordination and HK table tasks independently and bind all to the drawing's actual IFC/binding/study. The run_continuous_cable_workflow.py --hk-sources demonstration has executed pass, stricter-product-fail/code-pass and unknown-construction controls. Synthetic limits/classifications are not actual manufacturer approval; never clear a failed product requirement solely because the code table passes (docs/HK_CABLE_BENDS.md).
 
 For Hong Kong cable bending use ../mep-regulations/SKILL.md and docs/HK_CABLE_BENDS.md. The saved native radius may bind to the selected CoP 2025 table only with explicit source-backed PVC/stranded-copper/LV/armour and actual overall-diameter facts. Native product/source mismatch is not a regulatory pass. Workflow three_phase_cable_regulations must share the drawing's study/model and be a required pass gate when selected; retain independent manufacturer limits, no-damage, coordination and full engineering review.
