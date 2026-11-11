@@ -30,7 +30,10 @@ own notices. The repository's root distribution licence remains undecided.
 The existing wrapper now also runs through bsa.modules with versioned request/
 result and common box-space contracts. Actual3-space fixture and2-space public
 concept exchanges pass;disable and MEP-only/no-space failures are retained.
-Another interchangeable provider and workflow integration remain unverified.
+The native interchangeable provider and inherited thermal-preparation workflow
+now execute on two projects with equal common/prepared outputs. The explicit
+annual-engine trial remains blocked during OpenStudio import;no simulation
+result is established. See evidence/spatial-thermal-chain-replay.json.
 See [MODULES.md](MODULES.md).
 
 The existing geometry-only XML reload wrapper selects an empty version5 catalogue

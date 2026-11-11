@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+Fresh native/MOOSAS substitution now passes exchange and inherited thermal
+preparation on3space and2space projects with equal payloads/prepared inputs.
+Automatic model/space/thermal stages pass. An explicit existing EnergyPlus25.2
+trial fails before simulation because Application Control blocks OpenStudio XML
+import. Policy remains unchanged;annual results are absent. All chain/module
+integrity and delivery-context checks pass. See evidence/spatial-thermal-chain-replay.json.
+
 Both spatial exchange providers now reconcile common payloads with retained
 native/MOOSAS audit records during verify_result.22related tests pass. Actual
 native and pinned MOOSAS3space exchanges match;schema-valid dimension/area

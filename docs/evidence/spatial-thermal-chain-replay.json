@@ -1,0 +1,22 @@
+{
+  "scope":"Fresh provider substitution and inherited thermal-input preparation after retained-spatial-evidence checks",
+  "executed_code_commit":"54a4f43aabc1d516e16cb1d87529afa83768926e",
+  "projects":[
+    {"kind":"native synthetic three-space fixture","space_count":3,"contact_count":2,"native_and_moosas_payloads_equal":true,"prepared_thermal_inputs_equal":true},
+    {"kind":"saved public-course concept geometry","space_count":2,"contact_count":1,"native_and_moosas_payloads_equal":true,"prepared_thermal_inputs_equal":true,"orientation":"Explicit zero-degree trial;not surveyed"}
+  ],
+  "first_project_automatic_chain":{"model":"pass","spaces":"pass","thermal":"pass"},
+  "first_project_engine_omitted":"annual pending;not counted as simulation",
+  "first_project_explicit_engine_trial":{
+    "engine":"Existing EnergyPlus25.2 host path explicitly supplied",
+    "annual_status":"fail",
+    "failure_stage":"OpenStudio component import before verified annual simulation",
+    "diagnostic":"DLL load failed while importing _openstudioutilitiesxml: An Application Control policy has blocked this file.",
+    "security_policy_changed":false
+  },
+  "workflow_integrity_and_delivery_context":"pass for all three first-project chain runs",
+  "second_project_module_and_preparation_verification":"pass for both providers",
+  "simulation_executed":false,
+  "design_accepted":false,
+  "limitations":"Shared geometry extractor is not independent geometry corroboration. Second project uses explicit synthetic non-geometric thermal assumptions;no actual building performance or Hong Kong climate/regulatory claim. Annual engine/preparation dependency remains blocked by host policy. Full multi-discipline acceptance remains unfinished."
+}
