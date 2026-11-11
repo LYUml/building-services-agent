@@ -1,0 +1,14 @@
+{
+  "scope": "Explicit source-role support in existing project intake composition",
+  "related_tests_passed": 14,
+  "actual_sources": 2,
+  "primary_requirement_passages": 14,
+  "reference_context_passages": 76,
+  "original_draft_passages": 90,
+  "source_and_staged_hashes_verified": true,
+  "status": "needs_source_review",
+  "extraction_review_issues": 14,
+  "interpretation_template_ready": false,
+  "design_accepted": false,
+  "limitations": "Host must select roles and interpret obligations;reference role does not acknowledge graphical extraction issues or establish engineering inputs. No complete arbitrary-brief design claimed."
+}

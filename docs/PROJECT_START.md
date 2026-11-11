@@ -22,6 +22,22 @@ evidence/project-start-interpretation.json.
 .venv/Scripts/python -m bsa.project_start C:/path/to/brief.pdf --supplement C:/path/to/rubric.docx --out runs/new-project
 ```
 
+Use repeated `--reference C:/path/to/guide.pdf` for host-selected reference
+material. These files are still copied,hashed,indexed and extraction-reviewed.
+The original all-passage plan.json remains unchanged;role-plan.json records
+reference passages as context with a pinned source-roles.json decision. Primary
+and --supplement documents keep their interpretation obligations. intake.json
+identifies the effective plan. This is an explicit host role choice,not automatic
+semantic classification. Do not label a mandatory rubric as reference.
+Graphical/reference extraction issues still withhold work-review.json until
+source inspection is recorded. Changing reference bytes invalidates the plan.
+
+Fourteen intake/draft/handoff tests pass,including supplementary/reference role
+separation,source mutation and graphical-reference review preservation. The real
+two-PDF reference-aware run keeps14primary requirements and76reference-context
+passages,with all90passages preserved in the original draft. Source review stays
+pending;prior review notes are not automatically transferred.
+
 This composes existing workflow_draft and work_plan_review tools. It copies
 original briefs into numbered source folders,pins original/staged bytes and
 retains full extracted passages. Originals can be outside this repository;

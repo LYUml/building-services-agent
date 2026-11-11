@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+project_start now supports explicit --reference roles alongside requirement
+supplements. Original drafts remain unchanged;role-aware plans preserve indexed
+reference context,source hashes and extraction-review gates. Fourteen related
+tests pass. Actual2PDF intake retains14primary/76reference passages and pending
+source review;no automatic semantic classification or engineering acceptance.
+
 The new host-interpreted intake now binds existing classified engineering data
 to5actual calculation/drawing adapters and reruns native output. All14primary
 passages and76reference passages remain;33rows include the additional user HK
