@@ -1,0 +1,15 @@
+{
+  "scope": "Fresh private actual-project preliminary-load requirement review after the complete post-run-actions replay",
+  "source_integrity_pass": true,
+  "audit_inputs_unchanged": true,
+  "requirements_preserved": 34,
+  "effective_scoped_pass": 2,
+  "effective_pending": 32,
+  "audit_status": "needs_review",
+  "review_checks_pass": false,
+  "design_accepted": false,
+  "independent_check": "Decimal thermal cooling, approximate sensible cooling and volume-flow arithmetic reconciled against newly executed output",
+  "source_review": "Original brief explicitly permits rule-of-thumb load; course reference supplies office allowance and approximate sensible fraction",
+  "assumptions_retained": "Source-label area differs from interpreted net geometry; adopted chart-condition air density is not measured room air; heat capacity and temperature difference remain declared assumptions",
+  "limitations": "Two load/total-airflow subrequirements only; no actual room-load, ADPI, diffuser/layout, geometry, installation, jurisdiction or complete delivery acceptance"
+}

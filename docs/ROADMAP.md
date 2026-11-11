@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+Fresh actual-project delivery review independently reconciles preliminary thermal
+load/total-flow arithmetic with Decimal and rechecks the original brief/course
+scope. The separate source-bound audit retains all34requirements:2scoped passes,
+32pending,source integrity and unchanged inputs true. The immutable workflow
+manual tasks stay pending. Actual room load/ADPI and complete acceptance remain
+unverified. See evidence/fresh-preliminary-load-review.json.
+
 The post-run action aggregation now has a fresh complete private interpreted-
 project replay:8stages,no stage errors,9unresolved workflow tasks and4review
 actions. Configuration/receipt/artifact/workflow checks pass. All23report pages
