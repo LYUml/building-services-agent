@@ -470,3 +470,44 @@ Native agreement is not surveyed as-built truth or installation approval.
 Flow,roughness,K,method applicability,junction physics,fan operating point,
 products,acoustics and code conformity remain independently sourced/reviewed.
 This does not establish a complete HVAC design.
+
+## Existing fan intersection from a common bound budget
+
+rectangular_fan_operating_point can depend on a passing module_analysis with
+analysis.air.rectangular-ifc-tree. It reuses rectangular_fan_binding.run and the
+existing fixed-speed single-path solver;no new fan or friction engine is added.
+The consumer takes only the parent ID and explicit source curve. Repeating
+project,model,flow or pressure inputs is forbidden.
+
+```powershell
+.venv/Scripts/python -m bsa.workflow execute examples/modular-fan-plan.json --out runs/modular-fan
+```
+
+This public synthetic plan runs native authoring → bound budget → existing fan
+intersection → pending review. The total-pressure curve and free-flow,fixed
+terminal boundary are explicit. This is not a multi-terminal balancing solver.
+Original design demand remains separate from operating flow;no upstream model
+or original network is overwritten. Air power remains air_power_kw;electrical
+motor input and real product selection remain unresolved.
+
+The bound payload gains an optional hash-linked network_input reference,which
+the current provider emits. Earlier payloads remain structurally readable but
+cannot feed this consumer without that reference;no provider filename is guessed.
+Common reference validation checks path/hash inventory correspondence. Parent
+result and curve identities enter fan.json with source/method hashes.
+
+Verification replays the same existing solver from original inherited inputs,
+checks the point,trace,targets,bracket,pass/fail and saved operating-network rerun.
+This is source/result consistency,not an independent solver or authenticated
+execution proof. Delivery rejects false fan-pass records. A converged point
+below design demand remains fail;no sign bracket gives no fabricated/extrapolated
+point. Density mismatch rejects without an inferred correction. Failed/disabled
+upstream work leaves fan output absent and required review blocked.
+
+Seven actual straight/bend/capacity/no-bracket/density/upstream-failure/disabled
+workflows verify source,diagnosis and delivery context with all reviews pending.
+134 targeted invocations complete:133pass,1optional native test skipped.
+Tests include point/trace tampering and false workflow-pass rejection. See
+[evidence](evidence/modular-fan-handoff.json). Real curves/installation category,
+stable operation,mechanical limits,native fan equipment,electrical input,HK rules
+and full design acceptance remain unfinished.

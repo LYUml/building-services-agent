@@ -865,3 +865,11 @@ resolution and typed binding evidence,not another geometry or friction solver.
 Existing fluids1.3.1 MIT and IfcOpenShell0.8.5 LGPL attribution/pins remain;no new
 dependency or upstream source is copied. Six actual straight/bend/failure/disable
 workflows and metadata/real-profile mismatch controls execute;see MODULES.md.
+
+Common-budget fan handoff reuses rectangular_fan_binding.verified_study/run,
+rectangular_fan.solve/run and existing pump bisection/interpolation machinery.
+The gap is explicit inherited input identity and source/result replay,not a new
+fan solver,curve extraction or equipment selection engine. Optional network_input
+artifact references replace filename guesses. No new dependency or upstream
+source is copied. Seven actual workflows and legacy fan handoff/selection tests
+execute;synthetic curves do not establish real product suitability. See MODULES.md.

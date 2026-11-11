@@ -1,5 +1,14 @@
 # Scope and acceptance
 
+The typed native air budget now feeds the existing fixed-speed single-path fan
+intersection without repeated network values or provider filenames. Original
+design demand and operating flow stay separate;point/trace/target/rerun replay
+protects recorded results. Seven actual success/capacity/no-root/density/upstream/
+disabled scenarios verify source and review context;134 targeted invocations:
+133pass,1skip. Curves are synthetic;real manufacturer selection,electrical input,
+native fan equipment and full HVAC acceptance remain unfinished. See MODULES.md
+and evidence/modular-fan-handoff.json.
+
 Native rectangular geometry now binds into the typed air-budget interface.
 Canonical source values independently reconcile with saved profiles,ports,
 connections and complete duct coverage before calculation/replay. Straight and

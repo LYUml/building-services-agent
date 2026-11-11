@@ -36,6 +36,12 @@ def context(plan,root):
     for id,task in report['tasks'].items():
         if task.get('kind')!=tasks[id]['kind'] or task.get('status') not in ('pass','fail','pending'):
             raise ProjectError('run task metadata differs from plan or has unknown status')
+    for name,task in tasks.items():
+        if task['kind']=='rectangular_fan_operating_point' and task.get('depends_on') in tasks and tasks[task['depends_on']]['kind']=='module_analysis':
+            if (root/name/'fan.json').is_file() or report['tasks'][name]['status']=='pass':
+                from .module_fan import verify as verify_module_fan
+                fan=verify_module_fan(root/name)
+                if report['tasks'][name]['status']!=('pass' if fan['calculated_checks_pass'] else 'fail'):raise ProjectError('Workflow fan status contradicts retained/replayed result')
     recorded=report.get('requirements',[])
     if not isinstance(recorded,list) or len(recorded)!=len(source['requirements']):raise ProjectError('run requirement coverage differs from plan')
     by_id={r['id']:r for r in recorded}

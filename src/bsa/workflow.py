@@ -927,7 +927,12 @@ def validate_plan(path):
             inputs.update(Path(m.__file__).resolve() for m in (rectangular_fan,rectangular_network,pump,network,rectangular_fan_binding,rectangular_binding,rectangular_fan_selection))
             if t.get('depends_on'):
                 parent=t['depends_on']
-                if 'project' in t or parent not in ids or next(x for x in tasks if x['id']==parent)['kind'] not in ('rectangular_model_design','rectangular_network_binding','rectangular_fan_selection'):raise ProjectError('native fan needs earlier rectangular producer/selection and no replacement project')
+                if 'project' in t or parent not in ids or next(x for x in tasks if x['id']==parent)['kind'] not in ('rectangular_model_design','rectangular_network_binding','rectangular_fan_selection','module_analysis'):raise ProjectError('native fan needs earlier rectangular producer/selection and no replacement project')
+                producer=next(x for x in tasks if x['id']==parent)
+                if producer['kind']=='module_analysis':
+                    from .module_contract import read_json as read_module
+                    if read_module(local_path(root,producer['request']))['capability']!='analysis.air.rectangular-ifc-tree':raise ProjectError('Fan requires saved-native bound budget;declared-only study is insufficient')
+                    inputs.add(Path(__file__).with_name('module_fan.py'))
                 selected_parent=next(x for x in tasks if x['id']==parent)['kind']=='rectangular_fan_selection'
                 if selected_parent and 'curve' in t:raise ProjectError('selected fan curve is inherited; replacement forbidden')
             else:selected_parent=False
@@ -1043,7 +1048,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
     out.mkdir(parents=True,exist_ok=False)
     evidence={};tasks={};drainage_connection_pins={};three_phase_pins={};three_phase_rule_pins={};rectangular_pins={};concept_pins={};allocation_pins={};duct_schedule_pins={};duct_sheet_pins={}
     root=plan.parent
-    module_results=[];thermal_results=[];spatial_rule_results=[]
+    module_results=[];thermal_results=[];spatial_rule_results=[];module_fan_results=[]
     for t in p["tasks"]:
         folder=out/t["id"]
         status="pending";reason="";payload=None
@@ -1054,6 +1059,8 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
             for thermal_folder in thermal_results:verify_thermal(thermal_folder)
             from .spatial_lighting_rules import verify as verify_spatial_rules
             for rule_folder in spatial_rule_results:verify_spatial_rules(rule_folder)
+            from .module_fan import verify as verify_module_fan
+            for fan_folder in module_fan_results:verify_module_fan(fan_folder)
             if any(not Path(f).is_file() or digest(Path(f))!=sha for pins in concept_pins.values() for f,sha in pins.items()):raise ProjectError('concept producer artifacts changed before downstream execution')
             if any(not Path(f).is_file() or digest(Path(f))!=sha for f,sha in runtime_inputs.items()):raise ProjectError('explicit analysis/CAD runtime changed during workflow')
             if any(not f.is_file() or digest(f)!=before[str(f)] for f in inputs):
@@ -1374,23 +1381,30 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     if parent:
                         from .rectangular_fan_binding import run
                         producer=next(x for x in p['tasks'] if x['id']==parent)
-                        selection=producer if producer['kind']=='rectangular_fan_selection' else None
-                        native_parent=producer['depends_on'] if selection else parent
-                        producer=next(x for x in p['tasks'] if x['id']==native_parent)
-                        base=out/native_parent/('selected-coordination' if producer['kind']=='rectangular_model_design' else '')
-                        model=out/native_parent/'selected-model.json' if producer['kind']=='rectangular_model_design' else local_path(root,producer['model'])
-                        args=(base/'network-input.json',model,local_path(root,producer['binding']),base/'bim/model.ifc',base/'analysis/network.json')
-                        if selection:
-                            from .rectangular_fan_selection import selected_input
-                            curve=selected_input(out/parent,*args,local_path(root,selection['catalogue']))
-                        else:curve=local_path(root,t['curve'])
-                        payload=run(*args,curve,folder)
+                        if producer['kind']=='module_analysis':
+                            from .module_fan import run as solve_module_fan
+                            from .workflow_modules import result_path
+                            payload=solve_module_fan(result_path(out,producer),local_path(root,t['curve']),folder)
+                            module_fan_results.append(folder);runtime_inputs.update(payload['inputs'])
+                        else:
+                            selection=producer if producer['kind']=='rectangular_fan_selection' else None
+                            native_parent=producer['depends_on'] if selection else parent
+                            producer=next(x for x in p['tasks'] if x['id']==native_parent)
+                            base=out/native_parent/('selected-coordination' if producer['kind']=='rectangular_model_design' else '')
+                            model=out/native_parent/'selected-model.json' if producer['kind']=='rectangular_model_design' else local_path(root,producer['model'])
+                            args=(base/'network-input.json',model,local_path(root,producer['binding']),base/'bim/model.ifc',base/'analysis/network.json')
+                            if selection:
+                                from .rectangular_fan_selection import selected_input
+                                curve=selected_input(out/parent,*args,local_path(root,selection['catalogue']))
+                            else:curve=local_path(root,t['curve'])
+                            payload=run(*args,curve,folder)
                     else:
                         from .rectangular_fan import run
                         payload=run(local_path(root,t['project']),local_path(root,t['curve']),folder)
                     status='pass' if payload['calculated_checks_pass'] else 'fail'
                     reason='Bounded total-pressure fan/system intersection with saved rectangular rerun; inherited selection is source/ranking reconstructed; fan equipment, motor/product and full acceptance pending'
-                    if parent and any(not Path(f).is_file() or digest(Path(f))!=sha for f,sha in rectangular_pins[parent].items()):raise ProjectError('rectangular producer artifacts changed during fan intersection')
+                    if parent and tasks[parent]['kind']=='module_analysis':reason='Source/native bound single-path fixed-speed fan intersection and selected rerun;declared curve/free-flow applicability,product,electrical,installation and full acceptance pending'
+                    if parent in rectangular_pins and any(not Path(f).is_file() or digest(Path(f))!=sha for f,sha in rectangular_pins[parent].items()):raise ProjectError('rectangular producer artifacts changed during fan intersection')
                     rectangular_pins[t['id']]={str(f):digest(f) for f in folder.rglob('*') if f.is_file()}
             elif t['kind']=='pump_operating_point':
                 dependency=t.get('depends_on')
@@ -1958,6 +1972,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
     for module_result in module_results:verify_module(module_result)
     for thermal_folder in thermal_results:verify_thermal(thermal_folder)
     for rule_folder in spatial_rule_results:verify_spatial_rules(rule_folder)
+    for fan_folder in module_fan_results:verify_module_fan(fan_folder)
     unchanged=all(f.is_file() and digest(f)==before[str(f)] for f in inputs)
     source_rows={x["id"]:x for x in plan_documents(root,p)['passages']}
     matrix=[]
@@ -1994,6 +2009,12 @@ def verify(run_directory):
         if not path.is_relative_to(root) or not path.is_file() or digest(path)!=expected:
             issues.append(f"artifact changed or missing: {name}")
     for name,task in report['tasks'].items():
+        if task['kind']=='rectangular_fan_operating_point' and (root/name/'fan.json').is_file():
+            try:
+                if 'module_parent' in read_json(root/name/'fan.json'):
+                    from .module_fan import verify as verify_module_fan
+                    verify_module_fan(root/name)
+            except (OSError,ValueError,KeyError,TypeError) as exc:issues.append('module fan evidence invalid: '+name+': '+str(exc))
         if task['kind']=='spatial_lighting_rules' and (root/name/'spatial-lighting-rules.json').is_file():
             try:
                 from .spatial_lighting_rules import verify as verify_spatial_rules

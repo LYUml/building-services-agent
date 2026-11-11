@@ -25,6 +25,10 @@ rectangular IFC profiles/ports to the existing pressure calculator. Canonical
 source/native agreement is verified;fan,installation and full design acceptance
 remain separate.
 
+The [modular fan example](examples/modular/README.md) consumes that exact native
+budget in the existing single-path fixed-speed fan intersection. Synthetic curve
+results and real equipment/electrical acceptance remain distinct.
+
 A developing agent workspace for building services. The host AI interprets requirements and coordinates scoped tools; pinned engineering libraries and native applications perform calculations and authoring. The complete multi-discipline, document-to-accepted-design goal remains unfinished.
 
 ## Start with a real assignment

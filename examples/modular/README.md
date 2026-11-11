@@ -103,3 +103,16 @@ Saved solid/profile/port/connection checks must match the canonical source befor
 geometry is analysed. Flows,roughness,K and targets remain explicit. See
 docs/MODULES.md for the distinct bound contract and actual bend/failure controls.
 Junction/fan/product/installation/code acceptance remains pending.
+
+For a fixed-speed fan intersection on that exact verified path:
+
+```powershell
+.venv/Scripts/python -m bsa.workflow execute examples/modular-fan-plan.json --out runs/modular-fan
+```
+
+The existing synthetic total-pressure curve feeds the existing single fixed-
+terminal free-flow solver. Geometry and the baseline analysis are inherited
+through explicit artifact references. No flow/pressure values are copied by
+hand. A converged point can still fail capacity;no root stays failed with no
+extrapolation. Air power is not electrical motor input. Source/result replay
+and original-target checks retain pending product/installation/code acceptance.

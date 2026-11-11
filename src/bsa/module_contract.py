@@ -8,6 +8,13 @@ ROOT=Path(__file__).resolve().parents[2]
 SCHEMAS={'bsa.module-request/1':'request-v1.json','bsa.module-result/1':'result-v1.json','bsa.spatial-boxes/1':'spatial-boxes-v1.json','bsa.model-artifact/1':'model-artifact-v1.json','bsa.air-budget/1':'air-budget-v1.json','bsa.bound-air-budget/1':'bound-air-budget-v1.json'}
 
 
+def artifact_references(schema,data):
+    if schema=='bsa.model-artifact/1':return ('model','verification')
+    if schema=='bsa.air-budget/1':return ('report',)
+    if schema=='bsa.bound-air-budget/1':return ('report','model','binding')+(('network_input',) if 'network_input' in data else ())
+    return ()
+
+
 def read_json(path):
     def pairs(items):
         result={}
@@ -41,7 +48,7 @@ def validate(data,schema=None):
     if schema in ('bsa.air-budget/1','bsa.bound-air-budget/1'):
         if (data['status']=='pass')!=all(data['checks'].values()):raise ValueError('Air budget status differs from numerical checks')
     if schema in ('bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1'):
-        for key in (('model','verification') if schema=='bsa.model-artifact/1' else ('report','model','binding') if schema=='bsa.bound-air-budget/1' else ('report',)):
+        for key in artifact_references(schema,data):
             name=data[key]['path']
             if '\\' in name or PurePosixPath(name).is_absolute() or '..' in PurePosixPath(name).parts or ':' in name:raise ValueError('Model artifact references must be local relative paths')
     if schema=='bsa.spatial-boxes/1':
@@ -60,7 +67,7 @@ def validate(data,schema=None):
             if data['payload'] is None:raise ValueError('Completed module needs validated payload')
             validate(data['payload'],data['payload_schema'])
             if data['payload_schema'] in ('bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1'):
-                for key in (('model','verification') if data['payload_schema']=='bsa.model-artifact/1' else ('report','model','binding') if data['payload_schema']=='bsa.bound-air-budget/1' else ('report',)):
+                for key in artifact_references(data['payload_schema'],data['payload']):
                     row=data['payload'][key]
                     if data['artifacts'].get(row['path'])!=row['sha256']:raise ValueError('Model artifact payload differs from complete artifact inventory')
         elif data['payload'] is not None:raise ValueError('Unexecuted/failed module cannot expose a successful payload')

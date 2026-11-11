@@ -49,6 +49,19 @@ def authored_model(run,producer):
     return (path.parent/result['payload']['model']['path']).resolve(),result['payload']['coordinate_frame']
 
 
+def bound_air_context(path):
+    """Expose hash-linked domain files for existing consumers without filename guesses."""
+    from .modules import verify_result
+    path=Path(path).resolve();result=verify_result(path)
+    if result['execution']['status']!='completed' or result['payload_schema']!='bsa.bound-air-budget/1' or result['payload']['status']!='pass':raise ValueError('Passing saved-native air budget required')
+    payload=result['payload']
+    if 'network_input' not in payload:raise ValueError('Explicit derived network input artifact required for downstream fan analysis')
+    request_path=Path(result['request']['path']);request=module_contract.read_json(request_path)
+    files={k:(request_path.parent/request['sources'][k]['path']).resolve() for k in ('model','binding')}
+    files.update(project=path.parent/payload['network_input']['path'],ifc=path.parent/payload['model']['path'],analysis=path.parent/payload['report']['path'])
+    return files,result
+
+
 def inherited_request(task,tasks,root,run):
     from .workflow import IFC_ARTIFACTS
     request_path=(Path(root)/task['request']).resolve()

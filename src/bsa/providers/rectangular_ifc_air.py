@@ -42,7 +42,7 @@ def execute(request,paths,runtime,out):
         if report['input_sha256']!=digest(bound/'network-input.json') or binding['calculated_checks_pass']!=report['calculated_checks_pass']:raise ValueError('Derived input/result binding differs')
         if process.returncode!=(0 if report['calculated_checks_pass'] else 2):raise ValueError('Budget return code differs')
         payload=dict(schema=PAYLOAD,coordinate_frame=request['coordinate_frame'],units=dict(flow='m3/s',pressure='Pa',velocity='m/s'),status='pass' if report['calculated_checks_pass'] else 'fail',checks=report['calculated_checks'],supply_flow_m3_s=report['supply_flow_m3_s'],required_source_total_pressure_pa=report['required_source_total_pressure_pa'],geometry_bound=True,design_accepted=False,
-            report=dict(path='bound/analysis/network.json',sha256=digest(bound/'analysis/network.json')),binding=dict(path='bound/network-binding.json',sha256=digest(bound/'network-binding.json')),model=dict(path='bound/verified-model.ifc',sha256=digest(bound/'verified-model.ifc'),format='IFC4'))
+            network_input=dict(path='bound/network-input.json',sha256=digest(bound/'network-input.json')),report=dict(path='bound/analysis/network.json',sha256=digest(bound/'analysis/network.json')),binding=dict(path='bound/network-binding.json',sha256=digest(bound/'network-binding.json')),model=dict(path='bound/verified-model.ifc',sha256=digest(bound/'verified-model.ifc'),format='IFC4'))
     except (OSError,ValueError,KeyError) as exc:return outcome('failed','provider_evidence_invalid',str(exc))
     return dict(status='completed',diagnostics=[],payload=payload,pins=pins)
 
@@ -58,7 +58,8 @@ def verify_evidence(result,result_path):
         from ..network_binding import _prepare
         from ..rectangular_binding import inspect_saved
         model=read_json(paths['model']);mapping=read_json(paths['binding']);derived,_=_prepare(read_json(paths['project']),model,mapping,rectangular=True)
-        generated=folder/'bound/network-input.json'
+        if 'network_input' not in payload:raise ValueError('Explicit derived network artifact required')
+        generated=folder/payload['network_input']['path']
         if read_json(generated)!=derived:raise ValueError('Derived geometry changed')
         report=read_json(folder/payload['report']['path'])
         if report['input_sha256']!=digest(generated) or binding['calculated_checks_pass']!=report['calculated_checks_pass']:raise ValueError('Derived input/result binding differs')

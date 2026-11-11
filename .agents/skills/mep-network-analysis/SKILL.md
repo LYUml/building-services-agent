@@ -23,6 +23,15 @@ derivation and saved solid/profile/port/connection reconciliation must pass.
 geometry_bound means source/native agreement;installed truth,K,junction physics,
 fan selection and complete acceptance remain pending.
 
+For the existing single-path fan consumer,rectangular_fan_operating_point may
+depend on a passing bound module_analysis and an explicit total-pressure curve.
+Use examples/modular-fan-plan.json and docs/MODULES.md. The network_input artifact
+must be declared;do not guess provider paths or repeat network values. Replay
+point/trace/targets and the operating-network rerun. Convergence cannot clear
+failed capacity;missing sign brackets must not extrapolate. Air power cannot
+populate motor electrical input or HK fan-power evidence. Synthetic curves do
+not select actual equipment;mechanical/stable/installation/product review remains.
+
 For an explicit planar layout change,use bsa.terminal_layout_revision only when
 the original drawing matches the full allocation/tree and ID-label bindings.
 Read docs/TERMINAL_LAYOUT_REVISION.md. Preserve rigid/VAV geometry and unrelated

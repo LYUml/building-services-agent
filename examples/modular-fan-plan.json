@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "brief": "modular/fan-brief.md",
+  "brief_sha256": "4d29cc674d929ff2edc943c6af715724db8862726d54ef10aa1a8b606576b63f",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement",
+    "P004": "requirement",
+    "P005": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "model",
+      "kind": "module_authoring",
+      "request": "modular/bound-air-authoring.json",
+      "provider": "ifcopenshell.bim-authoring"
+    },
+    {
+      "id": "budget",
+      "kind": "module_analysis",
+      "depends_on": "model",
+      "request": "modular/bound-air-budget.json",
+      "provider": "fluids.rectangular-ifc-budget"
+    },
+    {
+      "id": "fan",
+      "kind": "rectangular_fan_operating_point",
+      "depends_on": "budget",
+      "curve": "rectangular-air/fan-curve.json"
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "requires_pass": [
+        "budget",
+        "fan"
+      ],
+      "description": "Review original method applicability,K,fan operating point,products,physical junctions,acoustics,regulations and installation requirements separately. Numerical failure or upstream failure must block this dependent review path. Geometry agreement is not complete engineering acceptance."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "task": "model",
+      "passage": "P002",
+      "quote": "Author rectangular-air/straight-wall.json through the common native IFC provider. Preserve source units,explicit hollow wall profile,owned ports,identities and saved reopening checks. This is synthetic declared construction,not installed or manufacturer data.",
+      "acceptance": "Author rectangular-air/straight-wall.json through the common native IFC provider. Preserve source units,explicit hollow wall profile,owned ports,identities and saved reopening checks. This is synthetic declared construction,not installed or manufacturer data."
+    },
+    {
+      "id": "R2",
+      "task": "budget",
+      "passage": "P003",
+      "quote": "Bind the exact saved model artifact into the existing rectangular source/native reconciliation and pressure calculator using rectangular-air/binding-project.json and binding.json. Omit repeated network lengths,internal dimensions and node elevations. Verify complete saved duct,profile,port and connection agreement against the canonical source before analysing the derived geometry. Preserve independently sourced flows,roughness,K and design targets.",
+      "acceptance": "Bind the exact saved model artifact into the existing rectangular source/native reconciliation and pressure calculator using rectangular-air/binding-project.json and binding.json. Omit repeated network lengths,internal dimensions and node elevations. Verify complete saved duct,profile,port and connection agreement against the canonical source before analysing the derived geometry. Preserve independently sourced flows,roughness,K and design targets."
+    },
+    {
+      "id": "R3",
+      "task": "review",
+      "passage": "P004",
+      "quote": "Review original method applicability,K,fan operating point,products,physical junctions,acoustics,regulations and installation requirements separately. Numerical failure or upstream failure must block this dependent review path. Geometry agreement is not complete engineering acceptance.",
+      "acceptance": "Review original method applicability,K,fan operating point,products,physical junctions,acoustics,regulations and installation requirements separately. Numerical failure or upstream failure must block this dependent review path. Geometry agreement is not complete engineering acceptance."
+    },
+    {
+      "id": "R4",
+      "task": "fan",
+      "passage": "P005",
+      "quote": "Compute the existing fixed-speed,single fixed-total-pressure terminal fan intersection using rectangular-air/fan-curve.json and the exact verified bound network inputs. Preserve original demand/velocity targets,free-flow assumptions,curve limits and convergence evidence. This synthetic curve is not product selection;air power is not motor electrical input.",
+      "acceptance": "Compute the existing fixed-speed,single fixed-total-pressure terminal fan intersection using rectangular-air/fan-curve.json and the exact verified bound network inputs. Preserve original demand/velocity targets,free-flow assumptions,curve limits and convergence evidence. This synthetic curve is not product selection;air power is not motor electrical input."
+    }
+  ]
+}

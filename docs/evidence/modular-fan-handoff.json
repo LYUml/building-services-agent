@@ -1,0 +1,121 @@
+{
+  "scope": "Existing fixed-speed single-path fan/system intersection inherited from typed native budget;synthetic curves only",
+  "actual_cases": [
+    {
+      "case": "baseline",
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pending"
+      ],
+      "fan_status": "converged",
+      "operating_point_present": true,
+      "source_diagnosis_delivery_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "elbow",
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pending"
+      ],
+      "fan_status": "converged",
+      "operating_point_present": true,
+      "source_diagnosis_delivery_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "capacity",
+      "statuses": [
+        "pass",
+        "pass",
+        "fail",
+        "pending"
+      ],
+      "fan_status": "converged",
+      "operating_point_present": true,
+      "source_diagnosis_delivery_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "no-bracket",
+      "statuses": [
+        "pass",
+        "pass",
+        "fail",
+        "pending"
+      ],
+      "fan_status": "not_bracketed",
+      "operating_point_present": false,
+      "source_diagnosis_delivery_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "density",
+      "statuses": [
+        "pass",
+        "pass",
+        "fail",
+        "pending"
+      ],
+      "fan_status": null,
+      "operating_point_present": false,
+      "source_diagnosis_delivery_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "pressure",
+      "statuses": [
+        "pass",
+        "fail",
+        "pending",
+        "pending"
+      ],
+      "fan_status": null,
+      "operating_point_present": false,
+      "source_diagnosis_delivery_verified": true,
+      "all_reviews_pending": true
+    },
+    {
+      "case": "disabled",
+      "statuses": [
+        "pass",
+        "pending",
+        "pending",
+        "pending"
+      ],
+      "fan_status": null,
+      "operating_point_present": false,
+      "source_diagnosis_delivery_verified": true,
+      "all_reviews_pending": true
+    }
+  ],
+  "explicit_network_artifact_inherited": true,
+  "independent_existing_solver_replay_verified": true,
+  "air_power_not_electrical_input": true,
+  "manufacturer_product_selection_established": false,
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/module_fan.py": "8a2b0125f468892f0d5a8f1c5507fc4cca0956be01531391a2b275eb9392e77b",
+    "src/bsa/module_contract.py": "44ad96068af63cd6391f382dd98096bd5026d5b8f21bc8fcf345b3df6a9ad9f8",
+    "src/bsa/providers/rectangular_ifc_air.py": "497317e900a58d8ed54c85bbb7e41273bd46e0c559e3d9b6c97522f517f5255f",
+    "src/bsa/workflow_modules.py": "988ae52ce1a4a22e80aecc0a17c337e21dd6fab245fe2b424bf8edf904749e90",
+    "src/bsa/workflow.py": "d97ea73ec5915b9b365c3c61aec871bd26cc034bfa90b94759a74efe450f48ff",
+    "src/bsa/delivery.py": "bd11d05a65fcf1a80a31a95172b08bf0f3f89400ffa51110588d3e39f16ba549",
+    "src/bsa/rectangular_fan_binding.py": "c2a536abf1b20d0d1aeb2e393248e24a8af8634673491740a28d86121a1b4a68",
+    "src/bsa/rectangular_fan.py": "d1a5f484a2852afe75fc3e0346d4e690b53bd87ec4ee438b5d5115e6675420ca"
+  },
+  "public_inputs": {
+    "examples/modular-fan-plan.json": "0dbab7167605f2d43a063a4eb13d0cde45c18e83d05d34c37a97e654010bed0a",
+    "examples/modular/fan-brief.md": "4d29cc674d929ff2edc943c6af715724db8862726d54ef10aa1a8b606576b63f"
+  },
+  "targeted_tests": {
+    "invocations": 134,
+    "passed": 133,
+    "skipped": 1
+  },
+  "same_solver_replay_not_independent_solver": true
+}
