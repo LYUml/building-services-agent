@@ -58,3 +58,9 @@ the existing upper columns has no panel boundary/overlap,cell/ray or interval
 issues across320 directions and640 flow cases. This last alternative is still
 unselected and has not been written into CAD. See
 [executed evidence](evidence/air-layout-study.json).
+
+Subsequent source-bound [terminal revision](TERMINAL_LAYOUT_REVISION.md) has
+written and natively verified a separate copy of the24-position alternative and
+selected it for continued design. The immutable comparison above remains an
+unselected study record. Selection and later native evidence are recorded
+separately;the original baseline and unresolved engineering acceptance survive.

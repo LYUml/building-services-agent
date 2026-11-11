@@ -5,6 +5,14 @@ description: Calculate source-linked air/water networks, pump operating points a
 
 # Network pressure analysis
 
+For an explicit planar layout change,use bsa.terminal_layout_revision only when
+the original drawing matches the full allocation/tree and ID-label bindings.
+Read docs/TERMINAL_LAYOUT_REVISION.md. Preserve rigid/VAV geometry and unrelated
+entities,then rerun actual allocation,lookup,section sizing,sheet/native plotting
+and connection review in a new plan/package. A translated panel and straight flex
+endpoint do not verify installed length,physical ports or ADPI. Retain original
+requirements,unrelated gaps and the previous accepted/reviewed baseline.
+
 For explicit diffuser-position alternatives,use bsa.air_layout_study and
 docs/AIR_LAYOUT_STUDY.md. Reuse source-classified loads and the reviewed catalogue;
 compare full terminal inventories,flow conservation,panel envelopes and cardinal

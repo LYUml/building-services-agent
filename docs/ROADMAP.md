@@ -1,5 +1,17 @@
 # Scope and acceptance
 
+The24-position diffuser alternative now has a separate revised CAD source and
+fresh eight-stage native package with no stage errors. Exactly72 bound panel/
+label/flex entities change;all unbound source geometry is preserved. Saved native
+correspondence covers80 terminals,20 VAV groups and47 rigid sections. New flows
+change9 selected sizes;all47 sections/16779 candidates pass independent numerical
+review. Maximum plan flex is2.975724m,not installed length. Fifteen targeted tests
+pass;new plot/details and23 report pages were reviewed within the recorded scope.
+All34 original requirements and unrelated gaps remain;3scoped reviews pass and31
+stay pending. This is the preferred continuing design scenario with old baseline
+preserved,not full ADPI/installation/fire acceptance. See
+TERMINAL_LAYOUT_REVISION.md and evidence/terminal-layout-revision.json.
+
 Declared diffuser-layout alternatives now recompute original load allocation and
 bounded throw lookups with source-pinned panel/ray diagnostics. Twenty targeted
 tests pass. Actual three-layout comparison preserves all80 IDs and total airflow;

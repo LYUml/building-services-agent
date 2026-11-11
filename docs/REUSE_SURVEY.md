@@ -744,3 +744,12 @@ panel and cardinal-ray diagnostics;it does not implement a jet simulation or
 automatic physical interpretation. No new upstream package or copied engine.
 Actual three-layout comparison retains original sources and unselected results.
 See AIR_LAYOUT_STUDY.md.
+
+Planar terminal revision reuses existing ezdxf1.4.5 editing/serialization and
+air_terminal_drawing.inspect,air_tree_flow.aggregate,duct_sheet.snapshot. The
+gap is a source-bound copy update of existing panel/label/flex entities,not
+another CAD engine or live MCP interface. A thin adapter retains original
+rigid/VAV geometry and full entity snapshots,then feeds the existing native
+AutoCAD workflow. No dependency or upstream implementation is added/copied.
+Saved-DXF checks remain separate from fresh native reopening/plotting and full
+physical/engineering acceptance. See TERMINAL_LAYOUT_REVISION.md.
