@@ -1,5 +1,13 @@
 # Scope and acceptance
 
+A standalone jurisdiction consumer now reads verified common native water
+results and reuses the existing HVAC water-pipe fact binding/rule evaluator.
+Official EMSD BEC2024 source-backed pass/control-fail/unknown/missing-source
+scenarios execute;11 targeted invocations pass. No new legal threshold or solver
+is added. Workflow dispatch/downstream gates and typed common rule output remain
+unfinished;full compliance stays not_established. See MODULES.md and
+evidence/module-water-rules.json.
+
 The common IFC authoring artifact now feeds a saved-native water graph provider
 without repeated lengths,bores or elevations. Existing water_binding and EPANET
 engines check actual selected-system profiles/ports/connections and numerical

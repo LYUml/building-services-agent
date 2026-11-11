@@ -583,3 +583,36 @@ variants beyond these saved straight-pipe projects,other provider replacement,
 HK consumer handoff,product/visual/installation drawings and full acceptance
 remain unfinished. The earlier full regression is not replaced by these53
 targeted invocations.
+
+## Saved-water jurisdiction consumer: standalone boundary
+
+`python -m bsa.module_water_rules <bound-water-result.json> --basis <basis.json>
+--pack <pack.json> --sources <official-cache> --out <new-repository-folder>`
+consumes a passing verified bsa.bound-water-graph/1 result. It resolves explicit
+network-input/report artifact refs and uses the existing
+epanet_pipe_regulations.prepare and regulations.evaluate routines. The pure
+quantity-to-rule binding was extracted from the legacy adapter without changing
+its equations,source checks or fresh-solve entry point. The consumer does not
+rerun hydraulics or author a second model.
+
+Only the existing hvac_water_piping method is supported. Current actual trials
+select the pinned HK BEC2024 pack and its hash-matching EMSD PDF. These are
+air-conditioning water-piping checks,not domestic-water/WSD rules. Code diameter,
+fluid density/applicability,flow/control mode,edition and scope remain explicit
+sourced assertions;none is inferred from bore diameter or a passing solver.
+Velocity and distributed friction cannot be overridden. Known criterion breaches
+map to fail;unknown facts or missing official bytes remain pending. Full
+regulatory_compliance remains not_established and design_accepted stays false.
+
+The report verifier reconstructs producer/method/source inventories,bound facts,
+official-source availability,all rule checks and result status. A changed source
+cache requires a new run. Same-evaluator replay is consistency,not independent
+solver verification or authentication of project assertions.
+
+Four official-source scenarios retain pass/fail/pending/pending for a synthetic
+native circulation project. Eleven targeted invocations pass,including legacy
+fresh solving,fluid consistency,existing rule checks and the new consumer's
+override/tamper/unavailable controls. See evidence/module-water-rules.json.
+This is a standalone CLI/API consumer;workflow task dispatch,automatic downstream
+gates and a typed common RuleAssessment contract are still unfinished. It does
+not establish complete HK applicability,physical acceptance or the full agent.

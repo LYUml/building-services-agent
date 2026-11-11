@@ -14,7 +14,9 @@ boundary. A separate saved-native water provider now inherits the common IFC
 authoring artifact,derives dimensions and checks actual profiles/ports/connections.
 Two native projects and four failure/disable controls verify;53 targeted
 invocations pass. Jurisdiction handoff and complete acceptance remain pending.
-These additions postdate the full regression above.
+These additions postdate the full regression above. A standalone saved-water
+jurisdiction consumer now reuses the existing source-pinned HK HVAC pipe checks;
+workflow dispatch/gate integration and complete conformity remain unfinished.
 
 The [active user-authorized goal](docs/GOAL.md) now explicitly prioritizes
 [modular boundaries/public contracts](docs/MODULAR_ARCHITECTURE.md) and

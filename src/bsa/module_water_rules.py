@@ -1,0 +1,68 @@
+"""Bind verified common native water results to existing jurisdiction pipe rules."""
+import argparse
+from pathlib import Path
+import json
+from .cli import digest
+from .module_contract import read_json
+from .modules import ROOT,verify_result
+from .epanet_pipe_regulations import prepare
+from .regulations import evaluate,source_paths,method_paths
+
+
+def paths(basis,pack,sources):
+    data=read_json(pack)
+    if not data.get('rules') or any(r['method']!='hvac_water_piping' for r in data['rules']):raise ValueError('Existing HVAC water-piping rule method required')
+    official=source_paths(data,sources)
+    methods={Path(__file__),*[Path(__file__).with_name(n) for n in ('epanet_pipe_regulations.py','regulations.py','water_pipe_rules.py')],*method_paths(data)}
+    return {Path(basis).resolve(),Path(pack).resolve(),*methods,*[p for p in official if p.is_file()]},official
+
+
+def binding(producer,basis,pack,sources):
+    producer=Path(producer).resolve();module=verify_result(producer)
+    if module['execution']['status']!='completed' or module['payload_schema']!='bsa.bound-water-graph/1' or module['payload']['status']!='pass':raise ValueError('Passing verified saved-native water graph required')
+    payload=module['payload'];network=read_json(producer.parent/payload['network_input']['path']);hydraulic=read_json(producer.parent/payload['report']['path'])
+    origin='Verified saved-native water module '+str(producer)+' SHA256 '+digest(producer)
+    fluid,projects=prepare(network,read_json(basis),hydraulic,origin)
+    if any(p.get('jurisdiction')!=pack['jurisdiction'] or p.get('rule_pack')!=pack['id'] for p in projects.values()):raise ValueError('Explicit matching jurisdiction/rule pack required for every pipe')
+    checks={id:evaluate(pack,p,sources) for id,p in projects.items()}
+    exceeded=any(c['status']=='review_required' for r in checks.values() for c in r['checks'])
+    status='fail' if exceeded else 'pass' if checks and all(r['supported_checks_pass'] for r in checks.values()) else 'pending'
+    return module,fluid,projects,checks,status
+
+
+def run(producer,basis,pack,sources,out):
+    producer,basis,pack,sources,out=[Path(p).resolve() for p in (producer,basis,pack,sources,out)]
+    if not out.is_relative_to(ROOT):raise ValueError('Repository-local rule output required')
+    files,official=paths(basis,pack,sources);module=verify_result(producer)
+    pins={str(p):digest(p) for p in files|{producer}};pins.update(module['inputs'])
+    snapshot={str(p):digest(p) if p.is_file() else None for p in official}
+    if out.exists() or any(out==Path(p) or out in Path(p).parents for p in [*pins,*snapshot]):raise ValueError('New rule output separate from sources required')
+    _,fluid,projects,checks,status=binding(producer,basis,read_json(pack),sources)
+    if any(digest(Path(p))!=h for p,h in pins.items()) or any((digest(Path(p)) if Path(p).is_file() else None)!=h for p,h in snapshot.items()):raise ValueError('Water rule source changed')
+    verify_result(producer);out.mkdir(parents=True)
+    (out/'bound-pipe-projects.json').write_text(json.dumps(projects,indent=2),encoding='utf-8')
+    report=dict(producer_result=str(producer),basis=str(basis),pack=str(pack),sources=str(sources),inputs=pins,source_snapshot=snapshot,
+        missing_sources=[p for p,h in snapshot.items() if h is None],fluid_basis=fluid,segment_checks=checks,status=status,
+        artifacts={'bound-pipe-projects.json':digest(out/'bound-pipe-projects.json')},design_accepted=False,regulatory_compliance='not_established',
+        scope='Saved-native selected-system water quantities bound to scoped HVAC water-piping rules only;code diameter,fluid/edition/applicability remain sourced assertions;not domestic-water or full conformity')
+    (out/'module-water-rules.json').write_text(json.dumps(report,indent=2),encoding='utf-8');return report
+
+
+def verify(folder):
+    folder=Path(folder).resolve();report=read_json(folder/'module-water-rules.json')
+    files,official=paths(report['basis'],report['pack'],report['sources']);module=verify_result(report['producer_result'])
+    expected_pins={str(p):digest(p) for p in files|{Path(report['producer_result'])}};expected_pins.update(module['inputs'])
+    if expected_pins!=report['inputs']:raise ValueError('Water rule input/method inventory differs')
+    snapshot={str(p):digest(p) if p.is_file() else None for p in official}
+    if snapshot!=report['source_snapshot'] or report['missing_sources']!=[p for p,h in snapshot.items() if h is None]:raise ValueError('Water rule source availability changed')
+    _,fluid,projects,checks,status=binding(report['producer_result'],report['basis'],read_json(report['pack']),report['sources'])
+    if read_json(folder/'bound-pipe-projects.json')!=projects or report['artifacts']!={'bound-pipe-projects.json':digest(folder/'bound-pipe-projects.json')}:raise ValueError('Water rule bound facts differ')
+    if report['segment_checks']!=checks or report['fluid_basis']!=fluid or report['status']!=status or report['design_accepted'] is not False or report['regulatory_compliance']!='not_established':raise ValueError('Water rule results differ from replay')
+    return report
+
+
+if __name__=='__main__':
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('producer')
+    for key in ('basis','pack','sources','out'):p.add_argument('--'+key,required=True)
+    args=p.parse_args();result=run(args.producer,args.basis,args.pack,args.sources,args.out);verify(args.out)
+    print(result['status']+';full compliance not established');raise SystemExit(0 if result['status']=='pass' else 2)

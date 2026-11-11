@@ -10,13 +10,8 @@ from .epanet import run as run_network, validate
 from .regulations import evaluate,source_paths
 
 
-def run(project,basis,pack,sources,out):
-    files=[Path(p).resolve() for p in (project,basis,pack)];out=Path(out).resolve()
-    before={str(p):digest(p) for p in files}
-    network,bases,rules=[json.loads(p.read_text(encoding='utf-8-sig')) for p in files]
-    official=source_paths(rules,sources)
-    if any(out==p or out in p.parents for p in set(files)|official):raise ProjectError('output must not contain inputs')
-    cached={str(p):digest(p) if p.is_file() else None for p in official}
+def prepare(network,bases,hydraulic,origin):
+    """Bind verified pipe quantities to rule projects without executing a solver."""
     validate(network)
     segments={s['id']:s for s in network['pipes']}
     if not isinstance(bases,dict) or set(bases)!={'density','fluid_applicability','pipes'}:raise ProjectError('density, fluid_applicability and pipes required')
@@ -33,11 +28,7 @@ def run(project,basis,pack,sources,out):
         conditions=b.get('water_pipe',{})
         if not isinstance(conditions,dict) or any(k in conditions for k in ('velocity','linear_friction')):
             raise ProjectError('computed pipe velocity/friction cannot be overridden')
-    out.mkdir(parents=True,exist_ok=False)
-    hydraulic=run_network(files[0],out/'network')
-    report=out/'network/water.json'
-    checks={};projects={}
-    origin='Fresh network '+str(files[0])+' SHA256 '+before[str(files[0])]
+    projects={}
     for row in hydraulic.get('pipes',[]):
         id=row['id'];p=copy.deepcopy(bases[id]);conditions=p.setdefault('water_pipe',{})
         conditions['velocity']=dict(value=row['velocity_m_s'],unit='m/s',source=origin)
@@ -45,7 +36,25 @@ def run(project,basis,pack,sources,out):
         gradient=0.0 if row['flow_m3_s']==0 else factor*rho*row['velocity_m_s']**2/(2*segments[id]['diameter_m'])
         if not math.isfinite(gradient):raise ProjectError('friction gradient outside numeric range')
         conditions['linear_friction']=dict(value=gradient,unit='Pa/m',source=origin+'; SI Darcy f*rho*v^2/(2D), engine-audited friction factor; excludes fittings/elevation; density: '+density['source'])
-        checks[id]=evaluate(rules,p,sources);projects[id]=p
+        projects[id]=p
+    return fluid_basis,projects
+
+
+def run(project,basis,pack,sources,out):
+    files=[Path(p).resolve() for p in (project,basis,pack)];out=Path(out).resolve()
+    before={str(p):digest(p) for p in files}
+    network,bases,rules=[json.loads(p.read_text(encoding='utf-8-sig')) for p in files]
+    official=source_paths(rules,sources)
+    if any(out==p or out in p.parents for p in set(files)|official):raise ProjectError('output must not contain inputs')
+    cached={str(p):digest(p) if p.is_file() else None for p in official}
+    prepare(network,bases,dict(pipes=[]),'input validation')
+    out.mkdir(parents=True,exist_ok=False)
+    hydraulic=run_network(files[0],out/'network')
+    report=out/'network/water.json'
+    origin='Fresh network '+str(files[0])+' SHA256 '+before[str(files[0])]
+    fluid_basis,projects=prepare(network,bases,hydraulic,origin)
+    checks={id:evaluate(rules,p,sources) for id,p in projects.items()}
+    segments={row['id']:row for row in network['pipes']}
     if any(digest(Path(p))!=h for p,h in before.items()) or any((digest(Path(p)) if Path(p).is_file() else None)!=h for p,h in cached.items()):raise ProjectError('pipe rule inputs changed')
     before.update({p:h for p,h in cached.items() if h is not None})
     passed=set(checks)==set(segments) and all(c['supported_checks_pass'] for c in checks.values())

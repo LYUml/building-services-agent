@@ -892,3 +892,11 @@ WNTR1.5.0 Revised BSD,EPANET notices and IfcOpenShell0.8.5 LGPL-3.0-or-later
 attribution remain under THIRD_PARTY.md;no dependency or copied engine is added.
 Six actual native workflows and53 targeted invocations execute. Other native
 fitting variants,HK handoff,product/physical acceptance remain unfinished.
+
+Saved-water rule consumption reuses the existing epanet_pipe_regulations
+quantity binding (extracted unchanged into prepare) and regulations.evaluate/
+water_pipe_rules.check. No new friction engine,code threshold or dependency is
+introduced. The consumer resolves verified common artifact refs,not provider
+filenames,and preserves independent source/classification/edition assertions.
+Four actual hash-pinned EMSD BEC2024 trials and11 targeted invocations execute.
+This is a standalone CLI/API;workflow task/gate integration remains unfinished.

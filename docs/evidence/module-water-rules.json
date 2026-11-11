@@ -1,0 +1,177 @@
+{
+  "scope": "Standalone common native-water to existing scoped HVAC pipe rule consumer;not workflow integration/full compliance",
+  "rule_pack": "regulations/hk/hvac-water-2026.11.08/pack.json",
+  "rule_pack_sha256": "de85187d63c45e59827f268e2d3fe923231106ae676ef12f0d0baf41084fad12",
+  "official_source_url": "https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf",
+  "official_source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+  "source_review": "Official PDF checked2026-11-11;section6.9,printed26-27;pack limits unchanged",
+  "test_runs": [
+    {
+      "result": "runs/module-water-rules-tests-verified/result.json",
+      "sha256": "49ded609fac2e21762e3fbcc28da5240a8d8fbe03392df192dc0fab9314b3877",
+      "invocations": 4,
+      "passed": 4,
+      "skipped": 0,
+      "source_unchanged": true,
+      "log_sha256": "f682964d1a26a7f758933ee2033b8b9d238e22fc08dbbb704876f77368c459df"
+    },
+    {
+      "result": "runs/modular-water-rules-legacy-tests/result.json",
+      "sha256": "0ee128c5131c72f6ff9f0f2d2faf231206dff82e054e18f11f99d03ac8d6b932",
+      "invocations": 1,
+      "passed": 1,
+      "skipped": 0,
+      "source_unchanged": true,
+      "log_sha256": "e4f29faff70987c3dcb6c2700c44086b0e9e262591b03427b91ed3f25f7fa395"
+    },
+    {
+      "result": "runs/module-water-rules-fluid-tests/result.json",
+      "sha256": "97793839359240d91b678418d16257ca98304ab7da57807b1b084b274d3c98ed",
+      "invocations": 2,
+      "passed": 2,
+      "skipped": 0,
+      "source_unchanged": true,
+      "log_sha256": "532fb01787168ea028bb1e4eaa68470e1e7c5ac935291e4ef58fd4cc798d66c6"
+    },
+    {
+      "result": "runs/module-water-rules-rule-tests/result.json",
+      "sha256": "c16c2c24deec6992fc6c5afc86cab72b85706aac98f9dc6a77ce79f09dfeee02",
+      "invocations": 4,
+      "passed": 4,
+      "skipped": 0,
+      "source_unchanged": true,
+      "log_sha256": "6bf5ffb29a95eace636590bf362effe4ac1a2f563dd55d508141bdf911c92427"
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario": "positive",
+      "status": "pass",
+      "report": "runs/module-water-rules-final/positive/module-water-rules.json",
+      "report_sha256": "b8bba0d2fb63656c5b05301006bd87fe041f33a7ebaccbdfb4dc3b92daaa0b2c",
+      "basis_sha256": "9c5557e069f8935f8fc2c0de39b5981ec3491a244772c788546d89ebcb172a63",
+      "producer_sha256": "a76dcdc3718443fb76e2bd67d1cb7909704e4b833a1396595da263efdec0a285",
+      "segment_status": {
+        "REFERENCE": [
+          "pass"
+        ],
+        "OUTBOUND": [
+          "pass"
+        ],
+        "CROSS": [
+          "pass"
+        ],
+        "RETURN": [
+          "pass"
+        ]
+      },
+      "design_accepted": false,
+      "regulatory_compliance": "not_established"
+    },
+    {
+      "scenario": "pump-control-fail",
+      "status": "fail",
+      "report": "runs/module-water-rules-final/pump-control-fail/module-water-rules.json",
+      "report_sha256": "db3064718d10f4f73b66a77c322d98c013778cf403f41b1f2381fdd086db2a59",
+      "basis_sha256": "615ed972dc3a42053406c9617799857a21e53aa539f28dcd87dc09e87a2aed32",
+      "producer_sha256": "a76dcdc3718443fb76e2bd67d1cb7909704e4b833a1396595da263efdec0a285",
+      "segment_status": {
+        "REFERENCE": [
+          "review_required"
+        ],
+        "OUTBOUND": [
+          "review_required"
+        ],
+        "CROSS": [
+          "review_required"
+        ],
+        "RETURN": [
+          "review_required"
+        ]
+      },
+      "design_accepted": false,
+      "regulatory_compliance": "not_established"
+    },
+    {
+      "scenario": "unknown-scope",
+      "status": "pending",
+      "report": "runs/module-water-rules-final/unknown-scope/module-water-rules.json",
+      "report_sha256": "8ce904f64fe469440a8b3ac21dd46fcdda4da1f90d7d0b18423b6bd2b5023e1d",
+      "basis_sha256": "84718984aadd41ec70c83c0393e45b282535732b9eb06db93a195246d680597d",
+      "producer_sha256": "a76dcdc3718443fb76e2bd67d1cb7909704e4b833a1396595da263efdec0a285",
+      "segment_status": {
+        "REFERENCE": [
+          "pass"
+        ],
+        "OUTBOUND": [
+          "pending"
+        ],
+        "CROSS": [
+          "pass"
+        ],
+        "RETURN": [
+          "pass"
+        ]
+      },
+      "design_accepted": false,
+      "regulatory_compliance": "not_established"
+    },
+    {
+      "scenario": "missing-source",
+      "status": "pending",
+      "report": "runs/module-water-rules-final/missing-source/module-water-rules.json",
+      "report_sha256": "a2d37ebaa7c50b9f6816442b8e5d0b696bc07a5dc523bf7b7c87602576e48cf3",
+      "basis_sha256": "9c5557e069f8935f8fc2c0de39b5981ec3491a244772c788546d89ebcb172a63",
+      "producer_sha256": "a76dcdc3718443fb76e2bd67d1cb7909704e4b833a1396595da263efdec0a285",
+      "segment_status": {
+        "REFERENCE": [
+          "pending"
+        ],
+        "OUTBOUND": [
+          "pending"
+        ],
+        "CROSS": [
+          "pending"
+        ],
+        "RETURN": [
+          "pending"
+        ]
+      },
+      "design_accepted": false,
+      "regulatory_compliance": "not_established"
+    }
+  ],
+  "summary_sha256": "401129b1aee39ac603812d966a91f43d6ee893ca14d62e2a8ba2c32d774e4724",
+  "method_sha256": {
+    "src/bsa/water_pipe_rules.py": "522f9e190071cf0503c8e8e45b09621a7430853fd8aa7c64e655f7d8ab2912e4",
+    "src/bsa/module_water_rules.py": "4ed925d332e961dd22786d801dd01dc60dbc276a26a14427c1333592f68bd265",
+    "src/bsa/regulations.py": "33e498396daa79276eb14295d295160eadf5cfd5f8a71c41ce7f520746f1e00e",
+    "src/bsa/epanet_pipe_regulations.py": "ae79fddfd2df083f907ff0f90485c0dd79c319f3cd08c0126738662f3b4e688b",
+    "src/bsa/modules.py": "d4c1dd2ff58535f20eca9f1b803b4d9ab00d3857617f6b699c4a80af707c0ce3",
+    "src/bsa/module_contract.py": "de24f6aa9592adebd51de004e5940ba49a0c89bcb0da1eee98b2d7a38c3ec8b2",
+    "src/bsa/providers/epanet_ifc_water.py": "a8dc207e31002f09b8c21ff23e15b6be8b9593dd74cd3722ba0e7243c64a2896",
+    "src/bsa/providers/__init__.py": "f7a28b66822852c0dfee8d730e95d015332ee3f83121ab0e1008fc52c31a96e5",
+    "contracts/modules/request-v1.json": "5f0248cbd616c4ad7775ec8977f88eaccba570a6215eec73480147a70edfab2b",
+    "contracts/modules/result-v1.json": "4d6c03471305bb1da1a54a37f1322ce5255db9e6d99fc5a83b09cd1fd21cf1e6",
+    "contracts/modules/bound-water-graph-v1.json": "eaa90f19d12669644444281295990a5e1f2c10f6fd97b58152a9e3ee193df2fe",
+    "scripts/water_saved_graph.py": "15387d60066c47e263667e2c8846aeec78508d753996f64b4c42f4fd29833d19",
+    "src/bsa/providers/epanet_water.py": "f5853c74e5e1ed1afe8253959d7515574606844099acadad6900d124bab550f5",
+    "src/bsa/epanet.py": "c8cfed73616e0909187013fc252780174a6fa99deda82c0b1777490c2965c35f",
+    "src/bsa/epanet_energy.py": "2831d32c7b4fabd4984c66c356c0ad11090d0b90340c5f140d41a32baa487274",
+    "src/bsa/engine.py": "a06a8ce591b85dfd84c4cfc7834c92061a55fc9f5aea8bc0a44aed22a11af365",
+    "src/bsa/cli.py": "50df1e66668dad8e842b3a0b8d60ca15761a9471f0bef6ee08a5593b3fe37784",
+    "src/bsa/water_binding.py": "b8456d979023c0f4d6c824ba6c05b4028a57abdea2b5684c10af40e12e8d6bb8",
+    "src/bsa/ifc_drawing.py": "9a15bc7982e6a4c85b8e63c200984470d18e932b12ec950554bf3d8154bc82da",
+    "src/bsa/circular_geometry.py": "b907345bd2904bf313b017cc1c7e1a07e403ff726bbb8a85e476ae538ea25cb9",
+    "src/bsa/circular_elbow.py": "8bcf3651f413617051eb004c7bf898ab39f1c0d8a59a2135fb8538c7bc3e5a22"
+  },
+  "regulatory_compliance": "not_established",
+  "design_accepted": false,
+  "limitations": [
+    "Standalone CLI/API only;workflow dispatch/downstream gates/common RuleAssessment unfinished",
+    "Existing HVAC air-conditioning water scope,not domestic-water or WSD rules",
+    "Code diameter,density/fluid,mode/control,edition/applicability remain sourced assertions",
+    "Same evaluator replay,not independent solver/authenticated source proof",
+    "Original full multi-discipline/native/engineering acceptance remains unfinished"
+  ]
+}

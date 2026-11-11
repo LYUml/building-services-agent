@@ -1,5 +1,12 @@
 # EPANET to HVAC pipe rules
 
+The existing quantity binding is now also exposed as prepare(network,bases,
+hydraulic,origin),without running another solver. The standalone
+bsa.module_water_rules consumer uses it only after verifying the common saved-
+native water result,then reuses the same jurisdiction evaluator. See MODULES.md
+and evidence/module-water-rules.json. This does not add inherited workflow task
+dispatch;the legacy command below continues to execute fresh hydraulics.
+
 `python -m bsa.epanet_pipe_regulations examples/hvac-circulation/project.json --basis examples/hvac-circulation/regulatory-bases.json --pack regulations/hk/hvac-water-2026.11.08/pack.json --sources runs/hk-regulation-sources --out runs/new-circulation-rules`
 
 This adapter reruns pinned WNTR/EPANET and binds every pipe's actual speed and distributed friction to the existing jurisdiction rule evaluator. The basis requires `density` (positive finite kg/m3 with source), `fluid_applicability` (evidence for compatibility with hydraulic viscosity/specific gravity), and `pipes` with exact per-pipe regulatory bases. All pipes, including pressure-reference connections, need an explicit applicability decision. Unknown density or code-diameter classification is not inferred. Supplied velocity/friction overrides are rejected.
