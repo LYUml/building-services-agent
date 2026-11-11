@@ -27,6 +27,15 @@ For DWG/DXF input, read docs/DRAWING_INTAKE.md and use `bsa.cad_intake` or a `dr
 
 ## Executable intake and planning
 
+After source inspection and extraction-review notes,prepare a work decomposition
+with `python -m bsa.work_plan_review template <plan> --out <review.json>`.
+Read source_passages against originals,fill tasks and every passage task mapping,
+then run `python -m bsa.work_plan_review apply <plan> <review.json> --out <new-plan.json>`.
+Both outputs belong beside the source plan. The CLI preserves the original plan;
+do not turn template blanks into assumed engineering facts. Exact original quotes,
+context dispositions and known engineering gaps remain protected. Successful JSON
+with exit2 retains unexecuted engineering work. See docs/WORK_PLAN_HANDOFF.md.
+
 To bootstrap a new source-linked plan use `python -m bsa.workflow_draft <brief> --supplement <rubric> --out <project-root/plan.json>` (optional primary --ocr). Sources must be under the plan directory. This conservative scaffold quotes every extracted passage, classifies all as requirements and creates blocked manual interpretation tasks; it does not interpret semantics or select tools. Read every source, split compound requirements, justify context dispositions, inspect extraction issues and replace placeholders with actual sourced tasks/acceptance. Resolve interpretation blockers from evidence; never simply remove them to claim completion. Exit 2 means interpretation remains pending even when the draft was saved. Empty extraction creates no plan; unreviewed extraction issues remain unacknowledged and prevent execution.
 
 For separate rubrics/appendices, use repeated intake `--supplement` arguments and `supplemental_briefs` in the plan; cover every document's passages and extraction issues. For known missing parameters or conflicting instructions, declare source-linked `unresolved_inputs` with the affected task IDs as documented in docs/WORKFLOWS.md. These tasks remain unexecuted, independent tasks may continue, and downstream pass gates remain active. Keep requirement coverage as well as the issue record. Do not fill gaps with invented adapter inputs or erase an issue merely to permit execution; resolve from actual evidence, revise the basis/plan and preserve the previous run. The register does not discover undeclared gaps or verify semantic consistency of a proposed resolution.

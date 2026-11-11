@@ -1,5 +1,14 @@
 # Scope and acceptance
 
+Source interpretation now has a reusable work-plan CLI handoff:prepare a full
+technical-passage template,author the reviewed decomposition,and save a new
+validated plan while preserving the original. Fourteen targeted tests pass.
+Actual five-document public replay retains34 technical passages in14 pending
+engineering packages with intact original quotes and passing workflow integrity.
+This exposes the existing reviewed transform to the agent;it does not automate
+semantic interpretation or replace missing engineering producers. See
+WORK_PLAN_HANDOFF.md and evidence/document-intake/work-plan-cli.json.
+
 ADPI applicability and per-fact evidence now appear directly in generated HTML
 and PDF reports. The reporter reconstructs the current source-pinned screen;
 missing settings identity, forged outcomes and changed supplemental sources

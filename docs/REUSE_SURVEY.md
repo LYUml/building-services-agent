@@ -711,3 +711,11 @@ tables retain their contracts;source-scoped paragraphs and source notes are
 verified in extracted PDF text. Nested source rechecking strengthens standalone
 rendering. Forged review/omitted paragraph/source-mutation controls are separate
 from actual native drawing/report execution and visual evidence.
+
+Work-plan CLI handoff reuses workflow_draft,plan_documents,validate_plan and the
+existing reviewed decomposition transform. No parser,semantic classifier or new
+CAD/BIM engine is introduced. A thin argparse interface exposes source coverage
+templates and preservation of the original plan through a new output. Existing
+pinned MIT public documents,source review and credited decomposition supply the
+actual replay;no upstream material is recopied into distribution. See
+WORK_PLAN_HANDOFF.md and its executed evidence.

@@ -21,6 +21,11 @@ quotations or automatically clear source-planning gates.
 
 ## Conservative plan bootstrap
 
+After actual source inspection,the [work-plan handoff](WORK_PLAN_HANDOFF.md)
+provides command-line template/apply operations for the host agent's reviewed
+decomposition. It preserves full source quotes and saves a new plan beside the
+original;manual packages and missing engineering inputs remain pending.
+
 `python -m bsa.workflow_draft project/brief.md --supplement project/rubric.md --out project/plan.json` creates a new blocked interpretation scaffold using the existing extractor and workflow schema. Optional --ocr applies to the primary source. All sources must lie under the plan directory; originals are not copied or modified. Every extracted paragraph is retained as a full quote and a provisional requirement with a manual task and source-cited unresolved interpretation issue. No paragraphs are silently classified as context. Exit 2 explicitly retains pending interpretation.
 
 The agent must inspect originals, split compound requirements, identify units/missing inputs and applicability, choose verified adapters and author actual acceptance criteria. The draft is not semantic requirement extraction or an engineering plan ready for execution. Unknown figure/table content is not invented: extraction issues are returned and document_review stays empty, so existing validation gates reject unreviewed or blocking sources. A wholly empty extraction creates no plan. Run provenance and delivery checks prevent a pending interpretation issue being cleared by a reviewer pass assertion. Removing issues remains a plan-author decision requiring actual evidence; the tool does not certify that decision.

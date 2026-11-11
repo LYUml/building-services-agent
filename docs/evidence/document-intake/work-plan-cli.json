@@ -1,0 +1,15 @@
+{
+  "scope": "Reusable source-reviewed work-plan command interface; no new semantic interpretation",
+  "targeted_test_methods_passed": 14,
+  "source_document_count": 5,
+  "technical_passage_count": 34,
+  "reviewed_work_packages": 14,
+  "original_quotes_and_dispositions_preserved": true,
+  "original_plan_sha256": "546c7e966ebd424df8b80bb237ae391e9c51acf3eb0dce93ea38d24d1087c61e",
+  "new_plan_sha256": "577be06266b9ccdf941c1ae3b1db346df0dd237aa14c0443658e3b3ed70f6ab2",
+  "workflow_integrity_pass": true,
+  "all_engineering_tasks_pending": true,
+  "design_accepted": false,
+  "method_sha256": "7aa0767f725cbbe5c15ccb47f3374f3a31e8b8d9749cf7d52e6fbbe74be1f6b3",
+  "upstream_attribution": "Christoph Reinhart; MIT OpenCourseWare; see benchmarks/mit-4401-2018/NOTICE.md"
+}
