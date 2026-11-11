@@ -127,6 +127,8 @@ def diagnose(plan, run):
             action = 'supply the selected provider runtime through host options or explicitly select a compatible trusted replacement before a new run'
         elif 'upstream_incompatible' in module_codes:
             action = 'restore the declared clean pinned upstream checkout or explicitly select a compatible trusted replacement before a new run'
+        elif 'unsupported_source_semantics' in module_codes:
+            action = 'review declared phases and power meaning;select an adapter covering the actual source semantics without deleting fields or converting thermal power into electrical input'
         elif module.get('numerical_result',{}).get('status')=='fail':
             action = 'review the failed declared numerical checks and source design assumptions before revising the design and executing a new run;retain original targets and unresolved engineering acceptance'
         elif state['status'] == 'fail':

@@ -53,3 +53,17 @@ class ModularElectricalTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'phase apparent-power'):validate(changed)
         changed=copy.deepcopy(result);changed['circuits'].append(copy.deepcopy(changed['circuits'][0]))
         with self.assertRaisesRegex(ValueError,'Duplicate common circuit'):validate(changed)
+
+    def test_unknown_load_semantics_reject_before_calculation_artifacts(self):
+        original=json.loads(self.project.read_text());request=json.loads(self.request.read_text())
+        for name,key,value in [('three-phase','phase_count',3),('thermal','thermal_kw',5),('line-voltage','line_to_line_voltage_v',400)]:
+            data=copy.deepcopy(original);data['devices'][0][key]=value;self.project.write_text(json.dumps(data))
+            request['sources']['project']['sha256']=digest(self.project);self.request.write_text(json.dumps(request))
+            out=self.root/name;r=run(self.request,'bsa.single-phase-circuits',out)
+            self.assertEqual(r['execution']['status'],'failed');self.assertIsNone(r['payload'])
+            self.assertIn('Unsupported devices fields',r['execution']['diagnostics'][0]['message'])
+            self.assertEqual(r['execution']['diagnostics'][0]['code'],'unsupported_source_semantics')
+            self.assertFalse((out/'analysis').exists());verify_result(out/'result.json')
+        from bsa.workflow_status import diagnose
+        out=self.root/'scope-workflow';execute(self.plan,out)
+        self.assertIn('without deleting fields',diagnose(self.plan,out)['actions'][0]['next_action'])

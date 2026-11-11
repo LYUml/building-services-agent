@@ -1,0 +1,13 @@
+{
+  "scope":"Explicit input semantics at the common single-phase electrical provider boundary",
+  "related_tests":{"invocations":24,"passed":24},
+  "actual_controls":["phase_count:3 device field rejected","thermal_kw device field rejected","line_to_line_voltage_v device field rejected"],
+  "actual_control_execution":"failed before calculation directory creation",
+  "actual_control_payload":null,
+  "diagnostic_code":"unsupported_source_semantics",
+  "positive_controls":"Existing one-circuit and two-circuit projects still complete/pass and verify",
+  "workflow_recovery_test":"Review phases and power meaning;select matching supported adapter without deleting fields or converting thermal power to electrical input",
+  "legacy_engine_modified":false,
+  "design_accepted":false,
+  "limitations":"Strict accepted-field boundary only;cannot authenticate or infer physical meaning of correctly named input values. Three-phase/native/code/fault-protection and complete engineering acceptance remain unfinished. Full regression not rerun."
+}

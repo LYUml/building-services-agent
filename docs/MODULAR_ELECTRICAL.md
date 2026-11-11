@@ -1,5 +1,17 @@
 # Conditional electrical analysis module
 
+The provider accepts only the exact existing project/circuit/device fields used
+by this single-phase calculator. Extra phase-count,line-voltage,thermal-load or
+other unsupported fields reject before calculation artifacts rather than being
+silently ignored by the legacy calculator. This stricter boundary does not alter
+the standalone legacy engine. Diagnostics expose unsupported_source_semantics
+and preserve the original source;recovery calls for matching the real semantics
+to a supported adapter,not deleting fields. Correctly named electrical_kw still
+requires authentic source review;the guard does not infer physical load meaning.
+
+Twenty-four related tests pass. Actual three unsupported-field controls reject
+with no payload,and both existing1circuit/2circuit projects still pass/replay.
+
 `bsa.single-phase-circuits` exposes the existing engine.calculate/cli.run through
 `analysis.electrical.single-phase-circuits` and `bsa.electrical-circuits/1`.
 No electrical solver or physical model is rewritten. The existing ezdxf1.4.5

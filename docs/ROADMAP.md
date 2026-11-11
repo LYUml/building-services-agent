@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+The common single-phase electrical provider now rejects unsupported source
+fields before calculation,with an explicit unsupported_source_semantics recovery
+diagnostic.24related tests pass;three actual phase-count/thermal/line-voltage
+controls retain no payload,while1circuit/2circuit positive projects pass. This
+checks declared fields,not authentic equipment meaning or full protection/code
+acceptance. Standalone legacy calculation behaviour remains unchanged.
+
 Existing conditional single-phase electrical calculations now use the common
 analysis boundary with a typed units/circuit contract and exact source replay.
 Twenty-three related tests pass;actual1circuit and2circuit projects verify. Positive,
