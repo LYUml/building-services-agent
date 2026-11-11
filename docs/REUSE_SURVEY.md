@@ -805,3 +805,11 @@ not another thermal engine. Explicit mapping/orientation and non-geometric
 template settings remain separate. No new package or upstream engine code is
 added. Actual MOOSAS/native preparations produce the same3-space input;host
 restrictions still prevent an actual inherited annual simulation. See MODULES.md.
+
+Selection-aware diagnosis/review reuses workflow_status.diagnose,
+delivery.context/template/assess and modules.verify_result. The gap was binding
+host provider overrides to source/method inputs,not another execution engine.
+A thin canonical selection record and verified module-state adapter preserve
+pending reviews and existing recovery-root grouping. No new dependency or
+upstream source is added. Eight actual source-bound review paths and single-task
+override regression controls execute;see MODULES.md.

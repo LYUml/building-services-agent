@@ -47,6 +47,17 @@ def water_runtime_failures(run, report, task_id):
     return failures
 
 
+def module_state(run,report,task):
+    """Expose verified module diagnostics without inferring a native failure cause."""
+    if task['kind']!='module_exchange':return {}
+    relative=task['id']+'/result.json'
+    if relative not in report['artifact_hashes']:return {}
+    from .modules import verify_result
+    result=verify_result(run/relative)
+    return dict(provider=result['provider'],execution=result['execution'],acceptance=result['acceptance'],
+        evidence=relative,evidence_sha256=report['artifact_hashes'][relative],design_accepted=False)
+
+
 def diagnose(plan, run):
     plan, run = Path(plan).resolve(), Path(run).resolve()
     source, report, integrity = context(plan, run)
@@ -85,12 +96,20 @@ def diagnose(plan, run):
         ancestors[name] = roots
         runtime_failures=water_runtime_failures(run,report,name) if state['status']=='fail' else []
         engineering_data_requests=fitting_data_recovery(run,report,name) if task['kind']=='duct_fitting_data' else {}
+        module=module_state(run,report,task)
+        module_codes={r['code'] for r in module.get('execution',{}).get('diagnostics',[])}
         if input_blockers:
             action = 'resolve the cited missing/conflicting design inputs before a new run'
         elif blocked:
             action = 'resolve upstream tasks before rerunning dependent task'
         elif runtime_failures:
             action = 'resolve the recorded native runtime policy block through an approved environment; pipe-size changes cannot fix this startup failure'
+        elif 'provider_disabled' in module_codes:
+            action = 'enable the selected provider or explicitly select a compatible trusted replacement in host configuration before a new run'
+        elif 'runtime_missing' in module_codes:
+            action = 'supply the selected provider runtime through host options or explicitly select a compatible trusted replacement before a new run'
+        elif 'upstream_incompatible' in module_codes:
+            action = 'restore the declared clean pinned upstream checkout or explicitly select a compatible trusted replacement before a new run'
         elif state['status'] == 'fail':
             action = 'inspect retained failure evidence and correct source or adapter before a new run'
         elif task['kind'] == 'manual':
@@ -107,6 +126,7 @@ def diagnose(plan, run):
                          input_blockers=input_blockers,
                          runtime_failures=runtime_failures,
                          engineering_data_requests=engineering_data_requests,
+                         module_state=module,
                          next_action=action,
                          requirement_ids=[r['id'] for r in source['requirements'] if r['task'] == name],
                          evidence=sorted(p for p in report['artifact_hashes'] if p.startswith(name + '/'))))
@@ -123,6 +143,7 @@ def diagnose(plan, run):
             input_blockers=row['input_blockers'],evidence=row['evidence'],
             runtime_failures=row['runtime_failures'],
             engineering_data_requests=row['engineering_data_requests'],
+            module_state=row['module_state'],
             affected_tasks=[child['id'] for child in affected],
             affected_requirements=[r for r in source['requirements'] if r['id'] in requirement_ids]))
     return dict(plan_sha256=digest(plan), workflow_sha256=digest(run/'workflow.json'),

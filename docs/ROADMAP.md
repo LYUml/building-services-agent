@@ -1,5 +1,13 @@
 # Scope and acceptance
 
+Provider selection now remains explicit through diagnosis and delivery review.
+A reproduced single-task native override input-set mismatch is fixed by binding
+selected provider methods and disabled states. Eight actual single/thermal-chain
+scenarios pass diagnosis/review-context checks;44 targeted tests pass. Disabled/
+missing-runtime actions retain affected requirements;all initialized reviews
+remain pending. Blocked performance engines and full design acceptance remain
+unfinished. See MODULES.md and evidence/module-selection-review.json.
+
 Direct neutral-space inheritance now prepares the existing annual thermal input.
 MOOSAS/native workflows produce exactly equal3-space projects without repeated
 dimensions;mapping/orientation remain explicit. Five actual workflows retain

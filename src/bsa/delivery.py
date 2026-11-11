@@ -24,6 +24,11 @@ def context(plan,root):
     if report.get('three_phase_model_bindings',[])!=three_phase_model_bindings(plan.parent,source['tasks']):raise ProjectError('three-phase model bindings differ from plan')
     if report.get('unresolved_inputs',[])!=source.get('unresolved_inputs',[]):
         raise ProjectError('run unresolved input register differs from plan')
+    from .workflow_modules import selection_inputs,verify_selection
+    selection=report.get('module_selection')
+    if selection is not None:
+        inputs.update(selection_inputs(source['tasks'],plan.parent,selection))
+        verify_selection(source['tasks'],root,selection)
     if not isinstance(report,dict) or report.get('inputs')!={str(p):digest(p) for p in inputs}:
         raise ProjectError('run input set/hashes differ from the current source-linked plan')
     tasks={t['id']:t for t in source['tasks']}

@@ -5,6 +5,14 @@ description: Audit building services models, drawings, calculations and reports 
 
 # mep-delivery-check
 
+For modular workflows inspect module_selection and nested results per
+docs/MODULES.md. Delivery context reconstructs selected provider method inputs
+and checks actual provider/disable correspondence. workflow_status retains
+module_state and distinct disabled/missing-runtime actions with affected
+requirements. Valid host overrides must use the selected inventory rather than
+only the default provider's files. Pending module acceptance and preparation-only
+thermal results cannot establish simulation or full engineering acceptance.
+
 For HVAC reports with an ADPI review,check the rendered applicability/evidence
 section against the source-pinned review. The reporter must reconstruct current
 settings/lookup facts rather than copy a success flag. PDF paragraph checks retain

@@ -1011,12 +1011,9 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
     plan,out=plan.resolve(),out.resolve()
     p,inputs=validate_plan(plan);inputs.add(plan)
     module_providers=module_providers or {};module_runtime=module_runtime or {}
-    module_tasks={t['id']:t for t in p['tasks'] if t['kind']=='module_exchange'}
-    if set(module_providers)-set(module_tasks):raise ProjectError('Module overrides must name existing module tasks')
-    from .providers import get_provider
-    for provider_id in disabled_module_providers:get_provider(provider_id)
-    from .workflow_modules import inputs as module_inputs
-    for name,task in module_tasks.items():inputs.update(module_inputs(local_path(plan.parent,task['request']),module_providers.get(name,task['provider'])))
+    from .workflow_modules import host_selection,selection_inputs
+    module_selection=host_selection(p['tasks'],module_providers,disabled_module_providers)
+    inputs.update(selection_inputs(p['tasks'],plan.parent,module_selection))
     runtime_inputs={str(Path(honeybee_python).resolve()):digest(Path(honeybee_python).resolve())} if honeybee_python else {}
     if autocad and any(t['kind'] in ('concept_section','duct_sheet_native') for t in p['tasks']):runtime_inputs[str(Path(autocad).resolve())]=digest(Path(autocad).resolve())
     if any(out==f or out in f.parents for f in inputs):raise ProjectError("run output must not contain inputs")
@@ -1919,7 +1916,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
         matrix.append(dict(**r,execution_status=task["status"],acceptance_status="pending review",
                            source_locator={k:v for k,v in source_rows[r["passage"]].items() if k not in ("id","text")},
                            execution_scope=task["scope"],evidence=evidence[r["task"]]))
-    result=dict(inputs=before,runtime_inputs=runtime_inputs,inputs_unchanged=unchanged,tasks=tasks,requirements=matrix,
+    result=dict(inputs=before,runtime_inputs=runtime_inputs,module_selection=module_selection,inputs_unchanged=unchanged,tasks=tasks,requirements=matrix,
         unresolved_inputs=p.get('unresolved_inputs',[]),three_phase_source_bindings=three_phase_rule_bindings(p['tasks']),
         three_phase_model_bindings=three_phase_model_bindings(root,p['tasks']) if unchanged else [],
         regulatory_source_bindings=regulatory_source_bindings(p['tasks'],root) if unchanged else [],

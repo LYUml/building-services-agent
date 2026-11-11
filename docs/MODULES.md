@@ -204,3 +204,29 @@ The previous statement that direct payload inheritance was unimplemented is
 historical:it now exists for this bounded annual-input bridge. Arbitrary geometry,
 other performance/authoring consumers,actual simulation and full design remain
 unfinished.
+
+## Provider selection in diagnosis and delivery
+
+Workflow reports retain module_selection with schema
+bsa.workflow-module-selection/1,explicit task/provider overrides and disabled
+provider IDs. These are host choices,not executable document content. Delivery
+context reconstructs selected provider method inputs and verifies actual result
+provider/disable states. Unsupported selection fields reject. This fixes a
+reproduced single-task override whose valid native output previously failed
+delivery input-set comparison. Older runs retain original evidence;rerun
+overridden plans for selection-bound review.
+
+workflow_status includes verified module_state (provider,execution diagnostics,
+acceptance and result hash) in task and recovery-action records. Disabled and
+missing-runtime conditions receive distinct host-configuration actions;failed
+exchange keeps retained logs without inferring a physical cause. Recovery lists
+preserve all affected tasks and requirements. Diagnosis does not enable modules,
+launch engines,apply fallback or alter security policy.
+
+Eight actual runs cover single-task MOOSAS/native switching,disabled/missing
+runtime and thermal inheritance with disabled/missing/failed inputs. All pass
+source/diagnosis/delivery-context checks;every initialized review remains pending
+and design_accepted=false. Forty-four targeted tests pass,including selection
+tampering and existing workflow/status/delivery tests. See
+[evidence](evidence/module-selection-review.json). This is review integration,
+not complete multi-discipline design or simulation.

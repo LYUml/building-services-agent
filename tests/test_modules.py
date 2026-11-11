@@ -59,6 +59,11 @@ class ModuleContractTests(unittest.TestCase):
         self.assertEqual([r['status'] for r in result['tasks'].values()],['pending','pending','pass'])
         self.assertFalse((self.root/'workflow/dependent').exists())
         self.assertTrue(verify(self.root/'workflow')['integrity_pass'])
+        from bsa.workflow_status import diagnose
+        diagnosis=diagnose(plan,self.root/'workflow')
+        self.assertIn('enable the selected provider',diagnosis['actions'][0]['next_action'])
+        self.assertEqual(diagnosis['actions'][0]['module_state']['execution']['diagnostics'][0]['code'],'provider_disabled')
+        self.assertEqual(diagnosis['tasks'][1]['upstream_action_tasks'],['primary'])
         self.assertTrue(all(r['acceptance_status']=='pending review' for r in result['requirements']))
         (self.root/'workflow/independent/result.json').write_text('{}')
         self.assertFalse(verify(self.root/'workflow')['integrity_pass'])
@@ -90,6 +95,20 @@ class ModuleContractTests(unittest.TestCase):
         self.assertFalse((self.root/'thermal-run/annual').exists())
         data['tasks'][2]['project']='thermal.json';plan.write_text(json.dumps(data))
         with self.assertRaises(ValueError):validate_plan(plan)
+
+    def test_single_provider_override_survives_diagnosis_and_delivery_context(self):
+        from bsa.workflow import execute
+        from bsa.workflow_status import diagnose
+        from bsa.delivery import template,context
+        plan=self.workflow_plan();data=json.loads(plan.read_text());data['tasks']=data['tasks'][:1];data['requirements']=data['requirements'][:1];plan.write_text(json.dumps(data))
+        folder=self.root/'single-override'
+        with patch('bsa.providers.ifc_boxes.execute',side_effect=self.fake):
+            result=execute(plan,folder,module_providers=dict(primary='ifcopenshell.box-spaces'))
+        self.assertTrue(diagnose(plan,folder)['execution_pass'])
+        review=template(plan,folder,self.root/'review.json')
+        self.assertEqual(review['requirements'][0]['status'],'pending')
+        result['module_selection']['providers']={};(folder/'workflow.json').write_text(json.dumps(result))
+        with self.assertRaisesRegex(ValueError,'differs from host selection'):context(plan,folder)
 
     def test_version_command_and_unknown_provider_reject_before_outputs(self):
         original=copy.deepcopy(self.request)

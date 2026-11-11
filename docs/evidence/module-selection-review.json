@@ -1,0 +1,169 @@
+{
+  "scope": "Source-bound provider selection through workflow diagnosis and delivery review",
+  "original_single_override_mismatch_reproduced": true,
+  "actual_cases": [
+    {
+      "case": "single-moosas",
+      "statuses": [
+        "pass"
+      ],
+      "integrity_pass": true,
+      "diagnosis_pass": true,
+      "delivery_context_pass": true,
+      "all_requirement_reviews_pending": true,
+      "actions": []
+    },
+    {
+      "case": "single-native",
+      "statuses": [
+        "pass"
+      ],
+      "integrity_pass": true,
+      "diagnosis_pass": true,
+      "delivery_context_pass": true,
+      "all_requirement_reviews_pending": true,
+      "actions": []
+    },
+    {
+      "case": "single-disabled",
+      "statuses": [
+        "pending"
+      ],
+      "integrity_pass": true,
+      "diagnosis_pass": true,
+      "delivery_context_pass": true,
+      "all_requirement_reviews_pending": true,
+      "actions": [
+        {
+          "task": "spaces",
+          "next_action": "enable the selected provider or explicitly select a compatible trusted replacement in host configuration before a new run",
+          "affected_tasks": [
+            "spaces"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "single-missing",
+      "statuses": [
+        "pending"
+      ],
+      "integrity_pass": true,
+      "diagnosis_pass": true,
+      "delivery_context_pass": true,
+      "all_requirement_reviews_pending": true,
+      "actions": [
+        {
+          "task": "spaces",
+          "next_action": "supply the selected provider runtime through host options or explicitly select a compatible trusted replacement before a new run",
+          "affected_tasks": [
+            "spaces"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "thermal-native",
+      "statuses": [
+        "pass",
+        "pass",
+        "pending",
+        "pass"
+      ],
+      "integrity_pass": true,
+      "diagnosis_pass": true,
+      "delivery_context_pass": true,
+      "all_requirement_reviews_pending": true,
+      "actions": [
+        {
+          "task": "annual",
+          "next_action": "resolve the recorded pending condition before a new run",
+          "affected_tasks": [
+            "annual"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "thermal-disabled",
+      "statuses": [
+        "pending",
+        "pending",
+        "pending",
+        "pass"
+      ],
+      "integrity_pass": true,
+      "diagnosis_pass": true,
+      "delivery_context_pass": true,
+      "all_requirement_reviews_pending": true,
+      "actions": [
+        {
+          "task": "spaces",
+          "next_action": "enable the selected provider or explicitly select a compatible trusted replacement in host configuration before a new run",
+          "affected_tasks": [
+            "spaces",
+            "thermal",
+            "annual"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "thermal-missing",
+      "statuses": [
+        "pending",
+        "pending",
+        "pending",
+        "pass"
+      ],
+      "integrity_pass": true,
+      "diagnosis_pass": true,
+      "delivery_context_pass": true,
+      "all_requirement_reviews_pending": true,
+      "actions": [
+        {
+          "task": "spaces",
+          "next_action": "supply the selected provider runtime through host options or explicitly select a compatible trusted replacement before a new run",
+          "affected_tasks": [
+            "spaces",
+            "thermal",
+            "annual"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "thermal-failed",
+      "statuses": [
+        "fail",
+        "pending",
+        "pending",
+        "pass"
+      ],
+      "integrity_pass": true,
+      "diagnosis_pass": true,
+      "delivery_context_pass": true,
+      "all_requirement_reviews_pending": true,
+      "actions": [
+        {
+          "task": "spaces",
+          "next_action": "inspect retained failure evidence and correct source or adapter before a new run",
+          "affected_tasks": [
+            "spaces",
+            "thermal",
+            "annual"
+          ]
+        }
+      ]
+    }
+  ],
+  "targeted_tests_passed": 44,
+  "simulation_executed": false,
+  "design_accepted": false,
+  "method_sha256": {
+    "src/bsa/workflow_modules.py": "b7adecc60befefa1433345ab00f0d9b7709ec14eeda76eb7086c1941a39423ff",
+    "src/bsa/workflow.py": "a1a1c251052c3eddf827c755d8d36735f1c1263f23ecd59df966627741da456a",
+    "src/bsa/workflow_status.py": "b717c852e1211e9cd57685aacd06e290ebb6b4dd2a76193f74373f4fcdc90b61",
+    "src/bsa/delivery.py": "d4f28e66d53961d0d05f9e7e7a1838b2c96d0fde665132752f619492064e6a0d"
+  }
+}
