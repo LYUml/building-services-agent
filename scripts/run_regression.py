@@ -29,7 +29,15 @@ def sources():
 
 
 def write(path,data):
-    temporary=path.with_suffix('.tmp');temporary.write_text(json.dumps(data,indent=2,ensure_ascii=False),encoding='utf-8');temporary.replace(path)
+    temporary=path.with_suffix('.tmp');temporary.write_text(json.dumps(data,indent=2,ensure_ascii=False),encoding='utf-8')
+    # Windows readers may briefly hold the destination without delete sharing.
+    # Retry normal atomic replacement;never change ACLs or ignore persistent IO.
+    for attempt in range(20):
+        try:
+            temporary.replace(path);return
+        except PermissionError:
+            if attempt==19:raise
+            time.sleep(.05)
 
 
 def run(out,pattern='test*.py'):

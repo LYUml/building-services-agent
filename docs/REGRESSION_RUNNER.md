@@ -15,6 +15,8 @@ untracked Python/application/test and JSON-contract source. progress.json is an
 atomic snapshot of test starts/completions and result counts. unittest.log
 captures discovery/test stdout,stderr and verbose results. result.json retains
 individual failure/error/skip records,elapsed time,log hash and source changes.
+Atomic JSON replacement retries a temporary Windows sharing/access error for a
+bounded interval;it does not change permissions or hide persistent IO failures.
 
 passed counts actual unittest addSuccess events. Failure/error events may include
 multiple subtests within one invocation;they are not subtracted from invocation
@@ -31,6 +33,8 @@ If a run terminates without result.json,it has not completed this audit protocol
 
 Executed runner controls:11 existing module tests pass;an empty pattern is
 non-green;a temporary3-test counter probe produces1pass,1skip and2failed-subtest
-events without a negative or inflated pass count. These validate reporting only,
-not a new full regression. The earlier complete audit remains documented in
+events without a negative or inflated pass count. Transient/persistent replacement
+controls verify bounded retry and preservation of the previous JSON when
+replacement cannot complete. These validate reporting only,not a new full
+regression. The earlier complete audit remains documented in
 REGRESSION_20261111.md until a fresh complete run finishes.
