@@ -899,4 +899,12 @@ water_pipe_rules.check. No new friction engine,code threshold or dependency is
 introduced. The consumer resolves verified common artifact refs,not provider
 filenames,and preserves independent source/classification/edition assertions.
 Four actual hash-pinned EMSD BEC2024 trials and11 targeted invocations execute.
-This is a standalone CLI/API;workflow task/gate integration remains unfinished.
+Initial CLI/API evidence is retained above;workflow task/gate integration follows.
+
+The existing module_water_rules consumer now also dispatches through the current
+workflow scheduler. This adds exact parent/source identities,replayed status,
+same-authoring drawing gates and retained missing/failed states,not another legal
+or hydraulic engine. The public staging helper copies existing circulation inputs,
+pack and verified cached official bytes. No dependency or upstream implementation
+is added. Six actual workflow scenarios and85 targeted invocations execute;
+typed common rule output and full engineering/jurisdiction acceptance remain pending.

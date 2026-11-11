@@ -4,8 +4,10 @@ The existing quantity binding is now also exposed as prepare(network,bases,
 hydraulic,origin),without running another solver. The standalone
 bsa.module_water_rules consumer uses it only after verifying the common saved-
 native water result,then reuses the same jurisdiction evaluator. See MODULES.md
-and evidence/module-water-rules.json. This does not add inherited workflow task
-dispatch;the legacy command below continues to execute fresh hydraulics.
+and evidence/module-water-rules.json. The module_water_rules workflow task now
+inherits this verified result and gates declared downstream work;see MODULES.md
+and examples/modular/README.md. The legacy command below continues to execute
+fresh hydraulics. The common consumer does not rerun them or clear applicability.
 
 `python -m bsa.epanet_pipe_regulations examples/hvac-circulation/project.json --basis examples/hvac-circulation/regulatory-bases.json --pack regulations/hk/hvac-water-2026.11.08/pack.json --sources runs/hk-regulation-sources --out runs/new-circulation-rules`
 

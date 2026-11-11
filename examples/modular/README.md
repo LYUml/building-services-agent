@@ -1,5 +1,22 @@
 # Public modular pipeline
 
+For the complete scoped native-circulation/model/analysis/HK-rule chain,first
+obtain the existing pinned official cache using scripts/fetch_regulation_sources.py
+as documented in docs/REGULATION_PACKS.md,then stage a self-contained run:
+
+```powershell
+.venv/Scripts/python examples/modular/build_water_rules_inputs.py --sources runs/hk-regulation-sources --out runs/public-water-rule-inputs
+.venv/Scripts/python -m bsa.workflow execute runs/public-water-rule-inputs/plan.json --out runs/public-water-rule-workflow
+.venv/Scripts/python -m bsa.workflow verify runs/public-water-rule-workflow
+```
+
+Use new output directories. Missing official files produce pending checks;
+different source hashes require edition review. The synthetic circulation model,
+density,code-diameter/control and applicability assertions are not project facts.
+This checks selected BEC air-conditioning water-piping criteria,not domestic-water
+or complete conformity. Manual review stays pending,so execute exits1 even when
+model,water and scoped rule tasks pass. The example does not submit anything.
+
 For common native IFC authoring followed by water analysis without repeated
 pipe dimensions or node elevations:
 

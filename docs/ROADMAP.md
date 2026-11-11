@@ -1,5 +1,14 @@
 # Scope and acceptance
 
+The native water/model/rule chain now runs in one workflow with no repeated
+geometry or hydraulic solve for jurisdiction checks. Required downstream work
+stays blocked on failure/pending;delivery rejects source/producer substitutions
+and false pass states. Six actual scenarios and85 targeted invocations verify.
+The public input builder stages pinned source bytes;planning coverage recognizes
+the scheduled task without inferring execution or complete scope. Typed common
+rule output,full jurisdiction/design/native delivery and the original complete
+agent remain unfinished. See MODULES.md and evidence/module-water-rule-workflow.json.
+
 A standalone jurisdiction consumer now reads verified common native water
 results and reuses the existing HVAC water-pipe fact binding/rule evaluator.
 Official EMSD BEC2024 source-backed pass/control-fail/unknown/missing-source

@@ -301,8 +301,20 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("module_analysis","module_authoring","spatial_lighting_rules","module_thermal_project","module_exchange","duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("module_water_rules","module_analysis","module_authoring","spatial_lighting_rules","module_thermal_project","module_exchange","duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
+        if kind=='module_water_rules':
+            if set(t)-{'id','kind','depends_on','basis','pack','sources','requires_pass','description'}:raise ProjectError('Water rules inherit exact native result;replacement inputs forbidden')
+            parent=t.get('depends_on')
+            if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='module_analysis':raise ProjectError('Water rules require earlier native water module')
+            from .module_contract import read_json as read_module
+            producer=next(x for x in tasks if x['id']==parent)
+            if read_module(local_path(root,producer['request']))['capability']!='analysis.water.ifc-steady-graph':raise ProjectError('Water rules require saved-native water graph capability')
+            directory=t.get('sources')
+            if not isinstance(directory,str) or Path(directory).is_absolute() or not (root/directory).resolve().is_relative_to(root):raise ProjectError('Plan-local official rule source directory required')
+            from .module_water_rules import paths as water_rule_paths
+            files,_=water_rule_paths(local_path(root,t.get('basis')),local_path(root,t.get('pack')),root/directory)
+            inputs.update(files)
         if kind=='spatial_lighting_rules':
             if set(t)-{'id','kind','depends_on','basis','pack','sources','requires_pass','description'}:raise ProjectError('Spatial lighting rules inherit neutral geometry;replacement model/area forbidden')
             parent=t.get('depends_on')
@@ -1010,6 +1022,8 @@ def validate_plan(path):
     if {r["task"] for r in requirements}!=ids:raise ProjectError("every task must map to a requirement")
     from .input_issues import validate as validate_inputs
     validate_inputs(p,source,ids)
+    from .module_water_rules import validate_gates
+    validate_gates(tasks)
     regulatory_source_bindings(tasks,root)
     inventory_source_bindings(tasks,root)
     three_phase_rule_bindings(tasks)
@@ -1048,7 +1062,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
     out.mkdir(parents=True,exist_ok=False)
     evidence={};tasks={};drainage_connection_pins={};three_phase_pins={};three_phase_rule_pins={};rectangular_pins={};concept_pins={};allocation_pins={};duct_schedule_pins={};duct_sheet_pins={}
     root=plan.parent
-    module_results=[];thermal_results=[];spatial_rule_results=[];module_fan_results=[]
+    module_results=[];thermal_results=[];spatial_rule_results=[];module_fan_results=[];water_rule_results=[]
     for t in p["tasks"]:
         folder=out/t["id"]
         status="pending";reason="";payload=None
@@ -1057,6 +1071,8 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
             for module_result in module_results:verify_module(module_result)
             from .module_thermal import verify as verify_thermal
             for thermal_folder in thermal_results:verify_thermal(thermal_folder)
+            from .module_water_rules import verify as verify_water_rules
+            for rule_folder in water_rule_results:verify_water_rules(rule_folder)
             from .spatial_lighting_rules import verify as verify_spatial_rules
             for rule_folder in spatial_rule_results:verify_spatial_rules(rule_folder)
             from .module_fan import verify as verify_module_fan
@@ -1074,6 +1090,16 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 reason='unresolved design inputs: '+', '.join(i['id']+' ('+i['kind']+'): '+i['description'] for i in missing_inputs)+'; adapter not executed'
             elif blocked:
                 reason='required checks unresolved: '+', '.join(g+' ('+tasks[g]['status']+')' for g in blocked)+'; adapter not executed'
+            elif t['kind']=='module_water_rules':
+                parent=t['depends_on']
+                if tasks[parent]['status']!='pass':reason='upstream native water analysis did not pass;water rules not executed'
+                else:
+                    from .workflow_modules import result_path
+                    from .module_water_rules import run as check_water_rules
+                    producer=next(x for x in p['tasks'] if x['id']==parent)
+                    payload=check_water_rules(result_path(out,producer),local_path(root,t['basis']),local_path(root,t['pack']),root/t['sources'],folder)
+                    verify_water_rules(folder);water_rule_results.append(folder);runtime_inputs.update(payload['inputs'])
+                    status=payload['status'];reason=payload['scope']
             elif t['kind']=='spatial_lighting_rules':
                 parent=t['depends_on']
                 if tasks[parent]['status']!='pass':reason='upstream neutral geometry did not pass;spatial lighting rules not executed'
@@ -1973,6 +1999,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
     for thermal_folder in thermal_results:verify_thermal(thermal_folder)
     for rule_folder in spatial_rule_results:verify_spatial_rules(rule_folder)
     for fan_folder in module_fan_results:verify_module_fan(fan_folder)
+    for rule_folder in water_rule_results:verify_water_rules(rule_folder)
     unchanged=all(f.is_file() and digest(f)==before[str(f)] for f in inputs)
     source_rows={x["id"]:x for x in plan_documents(root,p)['passages']}
     matrix=[]
@@ -2015,6 +2042,12 @@ def verify(run_directory):
                     from .module_fan import verify as verify_module_fan
                     verify_module_fan(root/name)
             except (OSError,ValueError,KeyError,TypeError) as exc:issues.append('module fan evidence invalid: '+name+': '+str(exc))
+        if task['kind']=='module_water_rules' and ((root/name/'module-water-rules.json').is_file() or task['status']=='pass'):
+            try:
+                from .module_water_rules import verify as verify_water_rules
+                rule=verify_water_rules(root/name)
+                if task['status']!=rule['status']:raise ValueError('Workflow water rule status contradicts retained result')
+            except (OSError,ValueError,KeyError,TypeError) as exc:issues.append('module water rule evidence invalid: '+name+': '+str(exc))
         if task['kind']=='spatial_lighting_rules' and (root/name/'spatial-lighting-rules.json').is_file():
             try:
                 from .spatial_lighting_rules import verify as verify_spatial_rules

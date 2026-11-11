@@ -613,6 +613,38 @@ Four official-source scenarios retain pass/fail/pending/pending for a synthetic
 native circulation project. Eleven targeted invocations pass,including legacy
 fresh solving,fluid consistency,existing rule checks and the new consumer's
 override/tamper/unavailable controls. See evidence/module-water-rules.json.
-This is a standalone CLI/API consumer;workflow task dispatch,automatic downstream
-gates and a typed common RuleAssessment contract are still unfinished. It does
-not establish complete HK applicability,physical acceptance or the full agent.
+The CLI/API remains available. Workflow dispatch and dependent gates now execute
+as described below;the typed common RuleAssessment contract remains unfinished.
+This does not establish complete HK applicability,physical acceptance or the full agent.
+
+## Native-water rule workflow
+
+Task kind module_water_rules accepts depends_on,basis,pack,sources and optional
+requires_pass/description. Its producer must be an earlier module_analysis with
+analysis.water.ifc-steady-graph capability. Replacement projects/models or computed
+quantities are forbidden. Missing official files remain a retained pending rule
+result;failed/unavailable upstream water work produces no rule assessment.
+
+The scheduler verifies retained rule/source evidence before subsequent tasks and
+at completion. Workflow verification rejects a recorded rule status contradicting
+the replayed result. Delivery context additionally checks that the actual producer,
+basis,pack and source directory match the declared plan. A separately valid rule
+assessment cannot be substituted from another producer. Supported ifc_views and
+ifc_views_native gates require the water producer's same authoring task;known
+legacy water/numerical/drawing consumers without a supported inherited handoff
+reject replacement inputs. This validation does not prove native plotted-page or
+physical drawing acceptance;those separate gates remain required.
+
+Stage the self-contained public synthetic circulation example with
+examples/modular/build_water_rules_inputs.py,then execute plan.json. The builder
+copies existing source models/templates/bases and the unchanged rule pack. It
+copies available official source bytes only if their hashes match;missing sources
+stay absent. It does not download,change security policy or submit anything.
+
+Six actual positive/control-fail/unknown/missing-source/disabled/hydraulic-fail
+workflows verify result,diagnosis and delivery contexts. All manual reviews stay
+pending. 85 related targeted invocations pass;see
+evidence/module-water-rule-workflow.json. Planning coverage now recognizes this
+scheduled pack consumer but preserves execution_status:not_assessed and remaining
+catalog gaps. No full-suite rerun,complete jurisdiction coverage,real coursework
+acceptance or typed RuleAssessment replacement is established by this milestone.

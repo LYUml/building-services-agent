@@ -61,6 +61,37 @@ def verify(folder):
     return report
 
 
+def validate_gates(tasks):
+    """Prevent known water/drawing consumers from borrowing another model's check."""
+    known={t['id']:t for t in tasks};ancestors={}
+    for task in tasks:
+        parents=set(task.get('requires_pass',[]))|({task['depends_on']} if task.get('depends_on') else set())
+        upstream=set(parents)
+        for parent in parents:upstream.update(ancestors.get(parent,set()))
+        ancestors[task['id']]=upstream
+        for name in upstream:
+            rule=known[name]
+            if rule['kind']!='module_water_rules':continue
+            producer=known[rule['depends_on']];model=producer.get('depends_on')
+            if task['kind'] in ('ifc_views','ifc_views_native'):
+                view=known.get(task.get('depends_on'),{}) if task['kind']=='ifc_views_native' else task
+                if view.get('kind')!='ifc_views' or model is None or view.get('depends_on')!=model:raise ValueError('Water rule drawing gate requires the same native authoring producer')
+            elif task['kind'] in ('water_network','water_coordination','circulation_duty','epanet_pipe_regulations','regulated_water_model','water_pipe_regulations','module_analysis','module_authoring','ifc_drawing','ifc_native'):
+                raise ValueError('Water rule gate has no supported same-producer handoff for this consumer;replacement inputs forbidden')
+
+
+def verify_workflow(tasks,root,plan_root,report_tasks):
+    from .workflow_modules import result_path
+    known={t['id']:t for t in tasks}
+    for task in tasks:
+        if task['kind']!='module_water_rules':continue
+        folder=Path(root)/task['id'];path=folder/'module-water-rules.json'
+        if not path.is_file() and report_tasks[task['id']]['status']!='pass':continue
+        report=verify(folder);expected=result_path(root,known[task['depends_on']]).resolve()
+        if Path(report['producer_result']).resolve()!=expected or any(Path(report[k]).resolve()!=(Path(plan_root)/task[k]).resolve() for k in ('basis','pack','sources')):raise ValueError('Workflow water rule inputs differ from declared producer/basis/pack/sources')
+        if report_tasks[task['id']]['status']!=report['status']:raise ValueError('Workflow water rule status contradicts retained result')
+
+
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('producer')
     for key in ('basis','pack','sources','out'):p.add_argument('--'+key,required=True)

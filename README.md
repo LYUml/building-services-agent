@@ -13,10 +13,12 @@ head results. Six workflows and60 targeted invocations pass for that declared
 boundary. A separate saved-native water provider now inherits the common IFC
 authoring artifact,derives dimensions and checks actual profiles/ports/connections.
 Two native projects and four failure/disable controls verify;53 targeted
-invocations pass. Jurisdiction handoff and complete acceptance remain pending.
-These additions postdate the full regression above. A standalone saved-water
-jurisdiction consumer now reuses the existing source-pinned HK HVAC pipe checks;
-workflow dispatch/gate integration and complete conformity remain unfinished.
+invocations pass. Product/installation review and complete acceptance remain pending.
+These additions postdate the full regression above. The saved-water jurisdiction
+consumer now also runs in the automatic workflow with exact producer/source
+checks and dependent gates. Six actual scenarios and85 related targeted
+invocations pass. See the public staged example above;typed common rule output,
+full project delivery and complete conformity remain unfinished.
 
 The [active user-authorized goal](docs/GOAL.md) now explicitly prioritizes
 [modular boundaries/public contracts](docs/MODULAR_ARCHITECTURE.md) and

@@ -6,13 +6,19 @@ description: Select source-pinned jurisdiction rule packs and bind supported MEP
 # MEP jurisdiction checks
 
 For a verified common saved-native water result,bsa.module_water_rules is a
-standalone CLI/API consumer of the existing HVAC water-piping rule method.
+CLI/API and workflow consumer of the existing HVAC water-piping rule method.
 Resolve its exact derived-input/report refs;do not supply replacement speed or
 friction. Require explicit density/fluid,code-diameter,control,edition and scope
 bases for every pipe. This is BEC air-conditioning water scope,not domestic-water
 compliance. Known breaches stay fail;unknown/missing official sources stay pending.
 Run its verifier and preserve regulatory_compliance:not_established. Automatic
-workflow dispatch/gates for this consumer remain unfinished;see docs/MODULES.md.
+workflow dispatch now uses module_water_rules depending on the exact passing
+native water module. Use requires_pass for intended downstream tasks;unknown or
+missing sources remain pending,and upstream failure produces no rule report.
+Delivery verifies actual producer/basis/pack/source identities. Supported saved-
+view gates require the same authoring producer;legacy replacement inputs reject.
+Use examples/modular/build_water_rules_inputs.py for a source-only public trial.
+Typed common rule output and full conformity remain unfinished;see docs/MODULES.md.
 
 For office LPD using completed neutral module spaces,use spatial_lighting_rules
 with depends_on on the exact module_exchange task. Read docs/MODULES.md. Basis

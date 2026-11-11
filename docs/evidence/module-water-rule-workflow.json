@@ -1,0 +1,198 @@
+{
+  "scope": "Automatic scoped native circulation/model/analysis/HK pipe-rule workflow and dependent gates;not full acceptance",
+  "source_sha256": {
+    "src/bsa/workflow.py": "55b7c609c33f14c8348e963635e71f486d624d92be324eba8ae973625fd9e3b2",
+    "src/bsa/delivery.py": "db2acc905634faa79451a3cc98ecc78170615e16c1fc2768c87f502c526ea366",
+    "src/bsa/module_water_rules.py": "4082586c53bbbbf5a24e21f05fe8a293e243ec2028f8ff99dd75bf6cd8e948ae",
+    "src/bsa/regulation_coverage.py": "d45ce4f7b451fbc3d83b743d4b80170797e855fa71e8630737b2951a8adc8aa9",
+    "examples/modular/build_water_rules_inputs.py": "40aa8acc899dd81faf383c537189bd598f213b2f9e65507ee3bdf8fbdadd50ab",
+    "tests/test_module_water_rules_workflow.py": "95acdb356d74fb54044e20e9b0481bda9346d3a58327ac644c647d84c76660f8"
+  },
+  "test_runs": [
+    {
+      "result": "runs/module-water-rule-workflow-related-regression/result.json",
+      "sha256": "5978fb89b62710ca45da2c0d67fb9a48ca50aa2372ff5b1fea4984fb3a2320de",
+      "invocations": 55,
+      "passed": 55,
+      "skipped": 0,
+      "source_unchanged": true,
+      "log_sha256": "dbb496f45d2a55f39835c0000a0aed04d9e59d125b8d43de0da4c805d7bee1bf"
+    },
+    {
+      "result": "runs/module-water-rule-workflow-delivery-regression/result.json",
+      "sha256": "0f7af0ba5a8693f50d2771921c8428ad53648f09a450a7351f98d78431264c18",
+      "invocations": 11,
+      "passed": 11,
+      "skipped": 0,
+      "source_unchanged": true,
+      "log_sha256": "60f339bc35f5df862b831a4df5fff4ea9517c7f54df70f8b84b9eec14b37a6d5"
+    },
+    {
+      "result": "runs/module-water-rule-workflow-source-regression/result.json",
+      "sha256": "ca9dfb923afebfe05db45aadfa411a554f53d8384a50dee6fb2e55d91cd55e2d",
+      "invocations": 5,
+      "passed": 5,
+      "skipped": 0,
+      "source_unchanged": true,
+      "log_sha256": "472a2b2732425f48dde7883ff40cad3092d51319cfcbf7dcc73f760429302887"
+    },
+    {
+      "result": "runs/module-water-rule-workflow-diagnosis-regression/result.json",
+      "sha256": "3292198cb02a977e455a740c9f621fbf6f414db74385a2b583ce24b4f86c23f9",
+      "invocations": 7,
+      "passed": 7,
+      "skipped": 0,
+      "source_unchanged": true,
+      "log_sha256": "974125b64eadf940ea43d081426b786b309e32146de3d6a30ab66387224e37ad"
+    },
+    {
+      "result": "runs/module-water-rule-workflow-coverage-regression/result.json",
+      "sha256": "8040e9271aaf3a9dcbd7d6cc64f48ffdbeac65da45d9f52bb54b10706bcc7f7a",
+      "invocations": 7,
+      "passed": 7,
+      "skipped": 0,
+      "source_unchanged": true,
+      "log_sha256": "afcba342a47ca4f5131c23e1f9175ccb15d0cf7af2b20ba73cecb34bea90976a"
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario": "positive",
+      "workflow": "runs/module-water-rule-workflow-final/positive/workflow.json",
+      "workflow_sha256": "38bcc74a8f26db004f5797698e6ba2873690d57190c25072b57d635f23a15ad4",
+      "plan_sha256": "f702fe8fc2547e8fb007dcbb6587333abd4cbc9c06546461172826f7ccea60f2",
+      "tasks": {
+        "model": "pass",
+        "water": "pass",
+        "rules": "pass",
+        "review": "pending"
+      },
+      "rule_report_sha256": "dac0867130683395c48b65a41463871a13deafdf51d7d4075783e3900e6f8bb7",
+      "regulatory_compliance": "not_established",
+      "integrity_pass": true,
+      "design_accepted": false
+    },
+    {
+      "scenario": "control-fail",
+      "workflow": "runs/module-water-rule-workflow-final/control-fail/workflow.json",
+      "workflow_sha256": "9ba66dd3823ea6ea99251f877e7ff9f07bc793db0375ea14f3081a8ac7ce213f",
+      "plan_sha256": "f702fe8fc2547e8fb007dcbb6587333abd4cbc9c06546461172826f7ccea60f2",
+      "tasks": {
+        "model": "pass",
+        "water": "pass",
+        "rules": "fail",
+        "review": "pending"
+      },
+      "rule_report_sha256": "946e15b9e0a1b8b91658de41d5c27d6a21ecdc7efa68f85e6e12aa11ea81f46e",
+      "regulatory_compliance": "not_established",
+      "integrity_pass": true,
+      "design_accepted": false
+    },
+    {
+      "scenario": "unknown",
+      "workflow": "runs/module-water-rule-workflow-final/unknown/workflow.json",
+      "workflow_sha256": "38fbb9fb6104dd61fc964cfa5935a2eff0bd41ae2622e83c8a89b5007a353ba0",
+      "plan_sha256": "f702fe8fc2547e8fb007dcbb6587333abd4cbc9c06546461172826f7ccea60f2",
+      "tasks": {
+        "model": "pass",
+        "water": "pass",
+        "rules": "pending",
+        "review": "pending"
+      },
+      "rule_report_sha256": "6fd4fe81a8877e504240a82952675024bba8fb29294a4a2d7e69a4d34419d921",
+      "regulatory_compliance": "not_established",
+      "integrity_pass": true,
+      "design_accepted": false
+    },
+    {
+      "scenario": "missing-source",
+      "workflow": "runs/module-water-rule-workflow-final/missing-source/workflow.json",
+      "workflow_sha256": "ddbd7860cfc4eec6f1b5c9a3e943725bfe47d11adb784e50b22cc925465c5637",
+      "plan_sha256": "f702fe8fc2547e8fb007dcbb6587333abd4cbc9c06546461172826f7ccea60f2",
+      "tasks": {
+        "model": "pass",
+        "water": "pass",
+        "rules": "pending",
+        "review": "pending"
+      },
+      "rule_report_sha256": "64405950ae64ea4e5b8ee8bdea5c2ccfb80e9afe490049389bbdc417ced61f3e",
+      "regulatory_compliance": "not_established",
+      "integrity_pass": true,
+      "design_accepted": false
+    },
+    {
+      "scenario": "water-disabled",
+      "workflow": "runs/module-water-rule-workflow-final/water-disabled/workflow.json",
+      "workflow_sha256": "db849d3b802280ed1cacf4aa339563bdd15d4c6c50cd4dc3bfe15a20291103c2",
+      "plan_sha256": "f702fe8fc2547e8fb007dcbb6587333abd4cbc9c06546461172826f7ccea60f2",
+      "tasks": {
+        "model": "pass",
+        "water": "pending",
+        "rules": "pending",
+        "review": "pending"
+      },
+      "rule_report_sha256": null,
+      "regulatory_compliance": "not_assessed",
+      "integrity_pass": true,
+      "design_accepted": false
+    },
+    {
+      "scenario": "hydraulic-fail",
+      "workflow": "runs/module-water-rule-workflow-final/hydraulic-fail/workflow.json",
+      "workflow_sha256": "073348224547974386c91b5754fee752e152200b266e2f4b149be6b4656f5d8d",
+      "plan_sha256": "f702fe8fc2547e8fb007dcbb6587333abd4cbc9c06546461172826f7ccea60f2",
+      "tasks": {
+        "model": "pass",
+        "water": "fail",
+        "rules": "pending",
+        "review": "pending"
+      },
+      "rule_report_sha256": null,
+      "regulatory_compliance": "not_assessed",
+      "integrity_pass": true,
+      "design_accepted": false
+    }
+  ],
+  "summary_sha256": "6d6e74f908c040599141a1b1c49ebcc2da112c8de3a83428984dadf9bc852ade",
+  "planning": {
+    "report": "runs/module-water-rule-workflow-coverage/coverage.json",
+    "sha256": "967b66225bbde2fcba6bf9cee8b0163f6632071f2a0dfe176288efcbf7d6b808",
+    "matching_module": {
+      "pack": "hk-hvac-water-2026.11.08",
+      "sha256": "de85187d63c45e59827f268e2d3fe923231106ae676ef12f0d0baf41084fad12",
+      "rule_ids": [
+        "HK.EMSD.BEC2024.water_piping"
+      ],
+      "scheduled_tasks": [
+        "rules"
+      ],
+      "execution_status": "not_assessed",
+      "pack_coverage": {
+        "complete": false,
+        "implemented": [
+          "Selected 6.9.1-6.9.3 water-piping conditions"
+        ],
+        "pending": [
+          "actual statutory scope, edition and works applicability",
+          "diameter classification and hydraulic input/product evidence",
+          "full network topology and actual design flows",
+          "variable-flow requirements under 6.8 and remaining HVAC clauses",
+          "full engineering and regulatory acceptance"
+        ]
+      }
+    },
+    "has_declared_gaps": true,
+    "coverage_complete": false
+  },
+  "design_accepted": false,
+  "regulatory_compliance": "not_established",
+  "limitations": [
+    "Synthetic source/applicability/product/fluid/diameter/control assertions remain unverified engineering facts",
+    "Same evaluator replay and source identity checks,not independent solver/authenticated execution",
+    "Only supported same-authoring saved views/native-view gates;legacy replacement consumers reject",
+    "New gated native plotted drawings not executed in this milestone",
+    "Typed common RuleAssessment and alternative jurisdiction/provider replacement unfinished",
+    "Last full regression predates these additions and remains non-green",
+    "Original full multi-discipline/native/performance/real-coursework design acceptance remains unfinished"
+  ]
+}
