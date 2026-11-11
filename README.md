@@ -2,6 +2,11 @@
 
 需求文档 → 可追溯项目数据 → CAD/BIM → 工程分析 → 设计迭代 → 已核对交付。
 
+Expanded [targeted regression](docs/evidence/registered-rules-expanded-regression.json)
+after the registered-rule changes:84invocations,83passes,1optional native skip,
+no failures/errors;all four source snapshots unchanged. This does not supersede
+the full-suite limitations below or establish complete engineering acceptance.
+
 The scoped water-rule/native-drawing example now uses source-keyed tags to fix
 crossing annotation leaders. Two actual DWGs reopen and two rendered pages pass
 scoped presentation review;14 targeted invocations:13pass,1optional native skip.

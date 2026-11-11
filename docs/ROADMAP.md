@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Expanded retained regression at a11d95d covers modular providers/consumers,
+delivery,IFC views/tags and workflow gates:84invocations,83passes,1optional
+native-view skip,no failures/errors. All four runs retain unchanged source
+snapshots and checked log hashes. This is targeted coverage,not a new complete
+suite pass or engineering acceptance. See evidence/registered-rules-expanded-regression.json.
+
 Cross-project trial found a model/scope conflict:the independent saved domestic
 water ring could reach an HVAC-only consumer without a system-label guard. The
 consumer now rejects explicit domestic-cold/hot labels using the bound native

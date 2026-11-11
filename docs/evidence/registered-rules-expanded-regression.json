@@ -1,0 +1,57 @@
+{
+  "scope": "Expanded targeted module/delivery/view/gating regression;not full suite or engineering acceptance",
+  "runs": [
+    {
+      "pattern": "test_modul*.py",
+      "revision": "a11d95d67ece2d543529a8eab486da790b5481f8",
+      "invocations": 59,
+      "passed": 59,
+      "skipped": [],
+      "source_unchanged": true,
+      "result_sha256": "3b9afe73a0270f1bdde7cc4911571301d8a24855f8dfe9ba90807b7a08a0b2e6",
+      "log_sha256": "5be546c389ffc8394d43027fa1d17862ddf8912da4100331d097df1856f024b1"
+    },
+    {
+      "pattern": "test_delivery.py",
+      "revision": "a11d95d67ece2d543529a8eab486da790b5481f8",
+      "invocations": 11,
+      "passed": 11,
+      "skipped": [],
+      "source_unchanged": true,
+      "result_sha256": "292c372095f2c10786ffb1ecdf418986b6a8ffcb271b5624fd1a1f8c5b3f1c72",
+      "log_sha256": "89a85ef4064cabdb800aeeec9b712de06f8097beb34f85241277cf25306a40bf"
+    },
+    {
+      "pattern": "test_ifc_view*.py",
+      "revision": "a11d95d67ece2d543529a8eab486da790b5481f8",
+      "invocations": 9,
+      "passed": 8,
+      "skipped": [
+        {
+          "test": "test_ifc_views.IFCViewsTests.test_actual_three_native_reopens_and_merged_pdf_references",
+          "reason": "requires AutoCAD"
+        }
+      ],
+      "source_unchanged": true,
+      "result_sha256": "bfc6f9166bcb4c87fbaf0df5e2fc8a7787ee7b5daaba7843a7bc64696748b042",
+      "log_sha256": "2cd3335c6fb7896299f30e6b73f0ede353b3f35bf6fed0be7960ee9ecbbc0be9"
+    },
+    {
+      "pattern": "test_workflow_gates.py",
+      "revision": "a11d95d67ece2d543529a8eab486da790b5481f8",
+      "invocations": 5,
+      "passed": 5,
+      "skipped": [],
+      "source_unchanged": true,
+      "result_sha256": "3cf486b3db7ec83bd7c82c3f300d8f168ddac3390269a815af6f37d2bcc97199",
+      "log_sha256": "3d11b26ee52ce29e25eb84e88cd0f572c335b11f1fcf12f79e55e93cf606680e"
+    }
+  ],
+  "invocations": 84,
+  "passed": 83,
+  "skipped": 1,
+  "failures": 0,
+  "errors": 0,
+  "design_accepted": false,
+  "limitations": "Optional native view test skipped without host flag;separate prior actual native evidence is not this test execution. Full regression remains historical with unresolved engine restrictions and failures."
+}
