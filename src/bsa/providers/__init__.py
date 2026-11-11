@@ -2,6 +2,9 @@
 
 
 def get_provider(id):
+    if id=='ifcopenshell.box-spaces':
+        from . import ifc_boxes
+        return ifc_boxes
     if id=='moosas.box-space-exchange':
         from . import moosas_exchange
         return moosas_exchange

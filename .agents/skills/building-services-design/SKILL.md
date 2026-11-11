@@ -9,8 +9,9 @@ For the first executed modular boundary,use bsa.modules with versioned request/
 result and common box-space contracts in docs/MODULES.md. Select the trusted
 MOOSAS provider and pass upstream/dependency locations as host arguments,never
 document commands. Preserve disabled/unavailable/failed results and verify_result
-source/artifact checks. Another real provider and DAG replacement/disable
-propagation are still pending;mock dispatch and spatial exchange do not complete
+source/artifact checks. Native IfcOpenShell provider switching now matches two
+saved-project payloads;DAG replacement/disable propagation remains pending.
+Shared extraction is not independent geometry validation;spatial exchange does not complete
 the modular multi-discipline goal or establish simulation readiness.
 
 Read docs/GOAL.md,docs/MODULAR_ARCHITECTURE.md and docs/MOOSAS_MODULE_MAP.md for

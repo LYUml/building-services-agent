@@ -1,0 +1,60 @@
+{
+  "scope": "Executed replacement of bounded spatial provider only",
+  "actual_cases": [
+    {
+      "case": 0,
+      "provider": "moosas.box-space-exchange",
+      "execution": "completed"
+    },
+    {
+      "case": 0,
+      "provider": "ifcopenshell.box-spaces",
+      "execution": "completed"
+    },
+    {
+      "case": 1,
+      "provider": "moosas.box-space-exchange",
+      "execution": "completed"
+    },
+    {
+      "case": 1,
+      "provider": "ifcopenshell.box-spaces",
+      "execution": "completed"
+    },
+    {
+      "case": 2,
+      "provider": "moosas.box-space-exchange",
+      "execution": "failed"
+    },
+    {
+      "case": 2,
+      "provider": "ifcopenshell.box-spaces",
+      "execution": "failed"
+    }
+  ],
+  "equal_complete_payloads": [
+    true,
+    true
+  ],
+  "disabled_statuses": [
+    "unavailable",
+    "unavailable"
+  ],
+  "all_eight_results_verified": true,
+  "shared_source_extractor": true,
+  "independent_geometry_validation": false,
+  "native_provider": {
+    "library": "IfcOpenShell",
+    "version": "0.8.5",
+    "license": "LGPL-3.0-or-later"
+  },
+  "targeted_tests_passed": 11,
+  "workflow_DAG_propagation_verified": false,
+  "simulation_executed": false,
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/providers/ifc_boxes.py": "3e6ee8dc4094e94764330d44f7709573e2421d6a1229163f4c7d9f1b65c9c3a1",
+    "src/bsa/providers/__init__.py": "54095fd2dc4e0795c85eb50f173f7e9bc968a76ef1fff7085f495b61735526ad",
+    "scripts/ifc_box_exchange.py": "6e65b0e961e9c20abe6ec286818eefd9662b853b194b105da1ecffb8c370765f"
+  }
+}

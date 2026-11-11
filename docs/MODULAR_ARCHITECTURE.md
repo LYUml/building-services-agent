@@ -60,10 +60,11 @@ dependent failures/pending work while independent tasks continue.
 2. MOOSAS exchange now has explicit inputs,outputs and availability outcomes.
    Continue transform/model/simulation mapping using MOOSAS_MODULE_MAP.md;test
    real upstream calls before making additional modules available.
-3. Next:execute replacement/disable controls and the same contracts with another
-   genuinely applicable implementation. A mock validates dispatch only,not
-   successful engine replacement. Include incompatible-version and dropped-space/
-   boundary-ownership controls.
+3. Initial replacement now executes with native IfcOpenShell and MOOSAS on two
+   saved IFC projects,including disabled/zero-space controls (MODULES.md).
+   Shared extraction limits this to interoperability. Next:dependent disable
+   propagation and broader contracts,including dropped-space/boundary ownership
+   controls. A mock validates dispatch only.
 4. Route existing AutoCAD/IFC,Revit and performance adapters through the boundary
    incrementally. Keep blocked Revit/analysis execution visible;do not bypass
    signing policy or silently upgrade EnergyPlus versions.

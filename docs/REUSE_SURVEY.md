@@ -780,3 +780,12 @@ isolation. Actual3-space and public2-space calls pass;disabled and MEP-only inpu
 remain unavailable/failed with no payload. Upstream Apache-2.0 pin/attribution and
 isolated dependency versions stay unchanged. This is not another engine,an
 accepted ordinary IFC loader or proven component replacement. See MODULES.md.
+
+Spatial-provider substitution reuses the already pinned IfcOpenShell0.8.5
+(LGPL-3.0-or-later),thermal_binding.extract and existing space_contacts helper.
+The actual gap is a native provider adapter for the established common payload,
+not a new geometry solver. A fixed subprocess keeps native imports outside the
+core. No dependency/source vendoring is added. Actual two-project switching
+matches full neutral payloads;both providers preserve failed zero-space inputs
+and disabled states. Shared extraction means this is interoperability evidence,
+not independent geometric corroboration. See MODULES.md.

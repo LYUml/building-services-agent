@@ -73,9 +73,9 @@ promote the previously failed ordinary MOOSAS IFC loader to supported status.
 The empty version5 geometry-only catalogue workaround still applies;no
 construction/HK template,thermal/airflow solve or native MEP authoring occurs.
 
-This initial provider is repository-local and box-space only. Result provenance
-uses local file paths;portable artifact resolution,another real interchangeable
-provider,workflow DAG integration,dependent disable propagation and other
+These providers are repository-local and box-space only. Result provenance
+uses local file paths;portable artifact resolution,
+workflow DAG integration,dependent disable propagation and other
 analysis/authoring/rule contracts remain to be implemented and verified. A mock
 dispatch test is not evidence of successful engine substitution.
 
@@ -93,3 +93,23 @@ no architectural spaces returns failed and no payload. This demonstrates bounded
 cross-project data reuse,not completed real designs,arbitrary IFC conversion,
 thermal readiness or module substitution. See
 [executed evidence](evidence/module-moosas-exchange.json).
+
+## Executed provider substitution
+
+`--provider ifcopenshell.box-spaces` selects the existing native IfcOpenShell0.8.5
+box extractor behind the same request/result/payload contracts. It does not need
+MOOSAS checkout or dependencies. The native library is LGPL-3.0-or-later;no engine
+source was copied. A fixed isolated worker reuses thermal_binding.extract and
+the existing whole-face contact helper. There is no new geometry engine.
+
+Actual calls of both providers on the same two requests produce exactly equal
+neutral payloads (3 spaces/2 contacts and2 spaces/1 contact). Both reject the
+MEP-only0-space source and both return unavailable when disabled. All eight
+results pass source/method/artifact verification. Eleven targeted tests pass.
+See [substitution evidence](evidence/module-substitution.json).
+
+This verifies switching the selected spatial provider at this boundary. It is
+not independent geometric validation:both paths share the same source extractor
+and contact logic. Only the MOOSAS path saves/reloads XML/GEO. Equal payloads do
+not establish equivalent simulation,thermal boundaries or native MEP authoring.
+DAG dependency propagation and broader module replacement remain unverified.

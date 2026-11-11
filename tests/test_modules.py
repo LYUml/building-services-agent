@@ -31,6 +31,16 @@ class ModuleContractTests(unittest.TestCase):
         missing=self.execute('missing');self.assertEqual(missing['execution']['diagnostics'][0]['code'],'runtime_missing')
         self.assertFalse(missing['design_accepted']);self.assertEqual(missing['acceptance']['status'],'pending')
 
+    def test_native_provider_disabled_and_rejects_incompatible_capability(self):
+        with patch('bsa.providers.ifc_boxes.execute') as provider:
+            result=run(self.path,'ifcopenshell.box-spaces',self.root/'native-disabled',disabled=True)
+        provider.assert_not_called()
+        self.assertEqual(result['execution']['status'],'unavailable')
+        self.assertEqual(verify_result(self.root/'native-disabled/result.json'),result)
+        self.request['capability']='spatial.unsupported';self.save()
+        with self.assertRaises(ValueError):run(self.path,'ifcopenshell.box-spaces',self.root/'bad-capability')
+        self.assertFalse((self.root/'bad-capability').exists())
+
     def test_version_command_and_unknown_provider_reject_before_outputs(self):
         original=copy.deepcopy(self.request)
         for key,value in (('schema','bsa.module-request/2'),('command','echo untrusted'),('upstream','untrusted runtime')):

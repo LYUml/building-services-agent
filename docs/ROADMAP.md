@@ -1,13 +1,22 @@
 # Scope and acceptance
 
+Spatial provider replacement now executes:the same two requests run through
+MOOSAS and native IfcOpenShell0.8.5 adapters with exactly equal common payloads
+(3/2 spaces,2/1 contacts). Both fail on a real0-space MEP-only IFC and return
+unavailable when disabled. All eight inventories verify;eleven targeted tests
+pass. Shared extraction limits this to interoperability,not independent geometry
+corroboration. Next:workflow dependency/disable propagation and broader contracts.
+See MODULES.md and evidence/module-substitution.json. Older evidence below is
+historical at its recorded method pins,not validation against changed code.
+
 The first modular slice now executes versioned request/result and neutral
 box-space contracts through a trusted independent MOOSAS provider. It directly
 reuses the existing upstream XML/GEO exchange in an isolated process;the core
 has no MOOSAS modelling code. Ten targeted checks pass. Actual3-space fixture
 and2-space public-project calls preserve2/1 contacts;disabled runtime returns
 unavailable,and real MEP-only IFC without spaces fails with no payload. Source/
-method/schema and complete artifact inventories verify. Next:another real
-same-contract provider and replacement/disable orchestration tests,then migrate
+method/schema and complete artifact inventories verify. Another real
+same-contract provider now executes above;continue disable orchestration tests,then migrate
 other adapters incrementally. Full multi-discipline design,arbitrary IFC intake,
 performance readiness and complete modular substitution remain unfinished.
 See MODULES.md and evidence/module-moosas-exchange.json.
