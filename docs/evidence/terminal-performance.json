@@ -1,0 +1,27 @@
+{
+  "scope": "Catalogue diffuser static/total operating pressures and adjacent published NC references only",
+  "targeted_test_methods_passed": 21,
+  "actual_terminal_count": 80,
+  "actual_operating_cases": 160,
+  "independent_decimal_pressure_checks": 320,
+  "all_cases_within_original_catalogue": true,
+  "all_NC_results_uninterpolated": true,
+  "static_pressure_range_Pa": [
+    2.2460493460619144,
+    25.32399030775003
+  ],
+  "total_pressure_range_Pa": [
+    3.9908384116942637,
+    45.11525554555688
+  ],
+  "source_pdf_sha256": "073c639219b28068a0c8190a926d493e42a12c0918db464ee8439c55a3994aef",
+  "source_locator": "Archival Krueger2012 B1-12;600x600mm panel;8-inch neck;no damper",
+  "source_visual_review": "All9 Pt/Ps rows and NC footnote inspected in original rendered page",
+  "source_and_workflow_integrity_pass": true,
+  "html_visual_review": "pending",
+  "fan_pressure_complete": false,
+  "room_acoustic_performance_verified": false,
+  "ADPI_verified": false,
+  "design_accepted": false,
+  "method_sha256": "da42b859d20759eb5933c5fa604eb87455566eb7c8a581fb89ed06651828d9da"
+}

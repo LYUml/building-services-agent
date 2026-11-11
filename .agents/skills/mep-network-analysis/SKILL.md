@@ -5,6 +5,15 @@ description: Calculate source-linked air/water networks, pump operating points a
 
 # Network pressure analysis
 
+For catalogue pressure operating points after a passing terminal_throw workflow,
+use bsa.terminal_performance and docs/TERMINAL_PERFORMANCE.md. Bind the original
+document/table/product and inherit exact maximum/minimum flow,without replacement
+values. Inspect published Pt/Ps columns and installation notes. Keep static and
+total pressures separate;never sum parallel terminals or both pressure columns.
+NC stays at exact published flows or as adjacent reference rows,without numeric
+interpolation or assumed room-noise bounds. This does not complete fan,room
+acoustic,product/installation or ADPI acceptance.
+
 ADPI settings support optional fact_evidence document/hash/locator/note records
 (docs/ADPI_BASIS.md). Use them to retain independent sources behind a scoped
 interpretation,such as a course's explicit product/table mapping. Evidence never

@@ -719,3 +719,12 @@ templates and preservation of the original plan through a new output. Existing
 pinned MIT public documents,source review and credited decomposition supply the
 actual replay;no upstream material is recopied into distribution. See
 WORK_PLAN_HANDOFF.md and its executed evidence.
+
+Diffuser operating points reuse existing fluids1.3.1 piecewise-linear
+interpolation,terminal_throw.evaluate and source/workflow binding. No new loss
+solver or acoustic engine is built. Existing reviewed manufacturer performance
+tables already contain Ps/NC;the original rendered page supplies separately
+reviewed Pt columns and explicit NC conditions. The thin adapter preserves those
+columns,source provenance and exact inherited flows. NC interpolation is not
+implemented:published adjacent rows remain references only. No dependency or
+manufacturer document/table is added to distribution. See TERMINAL_PERFORMANCE.md.

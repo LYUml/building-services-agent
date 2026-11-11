@@ -1,5 +1,14 @@
 # Scope and acceptance
 
+Diffuser catalogue operating points now inherit an exact passing terminal lookup
+and preserve separate static/total pressure columns plus uninterpolated NC source
+references. Twenty-one targeted tests pass. Actual80 terminals/160 flow cases
+execute against the inspected archival product table,with independent decimal
+interpolation checks of both pressure columns. Full fan pressure,room acoustics,
+installation and ADPI remain unresolved. The standalone postprocessor still needs
+package integration and a source-backed complete pressure network. See
+TERMINAL_PERFORMANCE.md and evidence/terminal-performance.json.
+
 Source interpretation now has a reusable work-plan CLI handoff:prepare a full
 technical-passage template,author the reviewed decomposition,and save a new
 validated plan while preserving the original. Fourteen targeted tests pass.
