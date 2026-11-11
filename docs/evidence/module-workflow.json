@@ -1,0 +1,85 @@
+{
+  "scope": "Existing workflow scheduling of spatial module providers",
+  "actual_runs": [
+    {
+      "case": "normal",
+      "statuses": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "integrity_pass": true,
+      "acceptance": [
+        "pending review",
+        "pending review",
+        "pending review"
+      ]
+    },
+    {
+      "case": "replacement",
+      "statuses": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "integrity_pass": true,
+      "acceptance": [
+        "pending review",
+        "pending review",
+        "pending review"
+      ]
+    },
+    {
+      "case": "disabled",
+      "statuses": [
+        "pending",
+        "pending",
+        "pass"
+      ],
+      "integrity_pass": true,
+      "acceptance": [
+        "pending review",
+        "pending review",
+        "pending review"
+      ]
+    },
+    {
+      "case": "missing-runtime",
+      "statuses": [
+        "pending",
+        "pending",
+        "pass"
+      ],
+      "integrity_pass": true,
+      "acceptance": [
+        "pending review",
+        "pending review",
+        "pending review"
+      ]
+    },
+    {
+      "case": "failed",
+      "statuses": [
+        "fail",
+        "pending",
+        "pass"
+      ],
+      "integrity_pass": true,
+      "acceptance": [
+        "pending review",
+        "pending review",
+        "pending review"
+      ]
+    }
+  ],
+  "normal_replacement_payload_equal": true,
+  "blocked_dependents_not_executed": true,
+  "independent_native_branches_pass": true,
+  "targeted_tests_passed": 21,
+  "consumer_payload_inheritance_implemented": false,
+  "engineering_acceptance": false,
+  "methods": {
+    "src/bsa/workflow.py": "52363ba63e3d71c4ee8de5aaff68d5b3e9ef6ec49989398a4c43264394567b36",
+    "src/bsa/workflow_modules.py": "3c28bb6c1e1488551b6b73d0859cd269d1bb3b84379cb8f36f6b455686ddcaba"
+  }
+}

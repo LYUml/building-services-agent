@@ -113,3 +113,47 @@ not independent geometric validation:both paths share the same source extractor
 and contact logic. Only the MOOSAS path saves/reloads XML/GEO. Equal payloads do
 not establish equivalent simulation,thermal boundaries or native MEP authoring.
 DAG dependency propagation and broader module replacement remain unverified.
+
+## Existing workflow integration
+
+The existing source-linked workflow accepts this bounded task:
+
+```json
+{"id":"spaces","kind":"module_exchange","request":"request.json","provider":"moosas.box-space-exchange"}
+```
+
+The request path is relative to the plan;its source hashes and common contracts
+validate before output creation. Tasks may use the existing `requires_pass`
+array with earlier task IDs. No engine paths or commands may enter the task.
+Use host CLI options to select runtime/replacement/availability:
+
+```powershell
+.venv/Scripts/python -m bsa.workflow execute runs/project/plan.json --out runs/project/run --moosas-upstream tools/moosas-review --moosas-deps tools/moosas-exchange-deps
+.venv/Scripts/python -m bsa.workflow execute runs/project/plan.json --out runs/project/native-run --module-provider spaces=ifcopenshell.box-spaces
+.venv/Scripts/python -m bsa.workflow execute runs/project/plan.json --out runs/project/disabled-run --disable-module-provider moosas.box-space-exchange
+```
+
+Module completed/failed/unavailable/pending map to workflow pass/fail/pending/
+pending respectively,for execution only. The original module result remains
+unchanged with separate pending acceptance. Every requirement remains pending
+review. Provider selection is explicit;there is no silent fallback. Override
+IDs must name existing module tasks and trusted compatible providers.
+
+Before each following task and workflow completion,the runner verifies produced
+module source/method/artifact inventories. Workflow verification also checks
+nested module results and their current source evidence. Native/upstream pins
+are preserved in runtime_inputs. A blocked dependent has no output directory;
+independent valid branches continue. This reuses existing workflow gating.
+
+Five actual native/MOOSAS workflows exercise normal,replacement,disabled,missing
+runtime and0-space failure. Normal/replacement execute all3 tasks;the latter3
+leave the dependent unexecuted while independent native exchange passes. Exact
+replacement payloads and all workflow inventories verify. A CLI disabled run
+also executes and verifies;21 targeted tests pass. See
+[workflow evidence](evidence/module-workflow.json).
+
+These are scheduling controls,not a new analysis consumer:the gated task still
+uses its declared request. Direct consumer inheritance of upstream neutral
+payloads,automatic design/iteration and complete multi-discipline modularization
+remain unfinished. Earlier substitution evidence above predates this workflow
+milestone;its statement about unverified DAG propagation is historical.

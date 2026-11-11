@@ -301,8 +301,12 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("module_exchange","duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
+        if kind=='module_exchange':
+            if set(t)-{'id','kind','request','provider','requires_pass','description'}:raise ProjectError('Module task accepts a request and trusted provider ID only;runtime is host configuration')
+            from .workflow_modules import inputs as module_inputs
+            inputs.update(module_inputs(local_path(root,t.get('request')),t.get('provider')))
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","rectangular_network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind in ("water_network","rectangular_network") and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))
         if kind=='rectangular_fan_regulations':
@@ -986,9 +990,16 @@ def three_phase_locations(root,out,producer):
     raise ProjectError('not a three-phase numerical producer')
 
 
-def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_python=None,three_phase_python=None,graphviz=None,pdf2plot_python=None,honeybee_python=None):
+def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_python=None,three_phase_python=None,graphviz=None,pdf2plot_python=None,honeybee_python=None,module_providers=None,module_runtime=None,disabled_module_providers=()):
     plan,out=plan.resolve(),out.resolve()
     p,inputs=validate_plan(plan);inputs.add(plan)
+    module_providers=module_providers or {};module_runtime=module_runtime or {}
+    module_tasks={t['id']:t for t in p['tasks'] if t['kind']=='module_exchange'}
+    if set(module_providers)-set(module_tasks):raise ProjectError('Module overrides must name existing module tasks')
+    from .providers import get_provider
+    for provider_id in disabled_module_providers:get_provider(provider_id)
+    from .workflow_modules import inputs as module_inputs
+    for name,task in module_tasks.items():inputs.update(module_inputs(local_path(plan.parent,task['request']),module_providers.get(name,task['provider'])))
     runtime_inputs={str(Path(honeybee_python).resolve()):digest(Path(honeybee_python).resolve())} if honeybee_python else {}
     if autocad and any(t['kind'] in ('concept_section','duct_sheet_native') for t in p['tasks']):runtime_inputs[str(Path(autocad).resolve())]=digest(Path(autocad).resolve())
     if any(out==f or out in f.parents for f in inputs):raise ProjectError("run output must not contain inputs")
@@ -996,10 +1007,13 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
     out.mkdir(parents=True,exist_ok=False)
     evidence={};tasks={};drainage_connection_pins={};three_phase_pins={};three_phase_rule_pins={};rectangular_pins={};concept_pins={};allocation_pins={};duct_schedule_pins={};duct_sheet_pins={}
     root=plan.parent
+    module_results=[]
     for t in p["tasks"]:
         folder=out/t["id"]
         status="pending";reason="";payload=None
         try:
+            from .modules import verify_result as verify_module
+            for module_result in module_results:verify_module(module_result)
             if any(not Path(f).is_file() or digest(Path(f))!=sha for pins in concept_pins.values() for f,sha in pins.items()):raise ProjectError('concept producer artifacts changed before downstream execution')
             if any(not Path(f).is_file() or digest(Path(f))!=sha for f,sha in runtime_inputs.items()):raise ProjectError('explicit analysis/CAD runtime changed during workflow')
             if any(not f.is_file() or digest(f)!=before[str(f)] for f in inputs):
@@ -1013,6 +1027,14 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 reason='unresolved design inputs: '+', '.join(i['id']+' ('+i['kind']+'): '+i['description'] for i in missing_inputs)+'; adapter not executed'
             elif blocked:
                 reason='required checks unresolved: '+', '.join(g+' ('+tasks[g]['status']+')' for g in blocked)+'; adapter not executed'
+            elif t['kind']=='module_exchange':
+                from .modules import run as run_module
+                provider_id=module_providers.get(t['id'],t['provider'])
+                payload=run_module(local_path(root,t['request']),provider_id,folder,runtime=module_runtime,disabled=provider_id in disabled_module_providers)
+                verify_module(folder/'result.json');module_results.append(folder/'result.json')
+                runtime_inputs.update(payload['inputs'])
+                status={'completed':'pass','failed':'fail','unavailable':'pending','pending':'pending'}[payload['execution']['status']]
+                reason='Module execution '+payload['execution']['status']+';scoped spatial exchange only;engineering acceptance pending'
             elif t['kind']=='three_phase':
                 if not three_phase_python:reason='Three-phase isolated Python runtime not supplied; adapter not executed'
                 else:
@@ -1857,6 +1879,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
         tasks[t["id"]]=dict(kind=t["kind"],status=status,scope=reason)
         # An executed adapter is evidence for its narrow scope, not every interpreted requirement.
         evidence[t["id"]]=[f.relative_to(out).as_posix() for f in folder.rglob("*") if f.is_file()] if folder.exists() else []
+    for module_result in module_results:verify_module(module_result)
     unchanged=all(f.is_file() and digest(f)==before[str(f)] for f in inputs)
     source_rows={x["id"]:x for x in plan_documents(root,p)['passages']}
     matrix=[]
@@ -1892,6 +1915,12 @@ def verify(run_directory):
         path=(root/name).resolve()
         if not path.is_relative_to(root) or not path.is_file() or digest(path)!=expected:
             issues.append(f"artifact changed or missing: {name}")
+    for name,task in report['tasks'].items():
+        if task['kind']=='module_exchange' and (root/name/'result.json').is_file():
+            try:
+                from .modules import verify_result
+                verify_result(root/name/'result.json')
+            except (OSError,ValueError) as exc:issues.append('module evidence invalid: '+name+': '+str(exc))
     return dict(integrity_pass=not issues,issues=issues,design_accepted=False,
                 scope="Recorded inputs and task artifact bytes only; no semantic or engineering acceptance")
 
@@ -1910,6 +1939,9 @@ def main():
     e.add_argument('--honeybee-python',type=Path)
     e.add_argument('--three-phase-python',type=Path)
     e.add_argument('--graphviz',type=Path)
+    e.add_argument('--module-provider',action='append',default=[],metavar='TASK=PROVIDER')
+    e.add_argument('--disable-module-provider',action='append',default=[])
+    e.add_argument('--moosas-upstream',type=Path);e.add_argument('--moosas-deps',type=Path)
     v=sub.add_parser("verify");v.add_argument("run_directory",type=Path)
     a=p.parse_args()
     try:
@@ -1922,7 +1954,12 @@ def main():
             r=verify(a.run_directory);print(json.dumps(r,indent=2))
             if not r["integrity_pass"]:return 2
         else:
-            r=execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python,a.three_phase_python,a.graphviz,a.pdf2plot_python,a.honeybee_python)
+            overrides={}
+            for item in a.module_provider:
+                task,sep,provider=item.partition('=')
+                if not sep or not task or not provider or task in overrides:raise ProjectError('Unique TASK=PROVIDER module overrides required')
+                overrides[task]=provider
+            r=execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python,a.three_phase_python,a.graphviz,a.pdf2plot_python,a.honeybee_python,module_providers=overrides,module_runtime=dict(upstream=a.moosas_upstream,deps=a.moosas_deps),disabled_module_providers=a.disable_module_provider)
             print(json.dumps({"tasks":r["tasks"],"design_accepted":False},indent=2))
             if not r["execution_pass"]:return 2
     except (ProjectError,OSError,ValueError) as exc:p.exit(2,str(exc)+"\n")

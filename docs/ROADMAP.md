@@ -1,5 +1,14 @@
 # Scope and acceptance
 
+Module workflow integration now executes through existing requires_pass gates.
+Five actual normal/replacement/disabled/missing-runtime/failed scenarios preserve
+independent native work and unexecuted blocked dependents. All workflow evidence
+verifies;21 targeted tests pass and a disabled CLI run executes. Module results
+and requirement acceptance remain separate/pending. Direct neutral payload
+inheritance by design/performance consumers is the next integration gap;broader
+multi-discipline modularization and full project acceptance remain unfinished.
+See MODULES.md and evidence/module-workflow.json.
+
 Spatial provider replacement now executes:the same two requests run through
 MOOSAS and native IfcOpenShell0.8.5 adapters with exactly equal common payloads
 (3/2 spaces,2/1 contacts). Both fail on a real0-space MEP-only IFC and return

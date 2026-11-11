@@ -41,6 +41,38 @@ class ModuleContractTests(unittest.TestCase):
         with self.assertRaises(ValueError):run(self.path,'ifcopenshell.box-spaces',self.root/'bad-capability')
         self.assertFalse((self.root/'bad-capability').exists())
 
+    def workflow_plan(self):
+        brief=self.root/'brief.md';brief.write_text('Exchange the declared source spaces and retain engineering review.\n',encoding='utf-8')
+        tasks=[dict(id='primary',kind='module_exchange',request='request.json',provider='moosas.box-space-exchange'),
+            dict(id='dependent',kind='module_exchange',request='request.json',provider='ifcopenshell.box-spaces',requires_pass=['primary']),
+            dict(id='independent',kind='module_exchange',request='request.json',provider='ifcopenshell.box-spaces')]
+        plan=dict(version=1,brief='brief.md',brief_sha256=digest(brief),passage_dispositions=dict(P001='requirement'),tasks=tasks,
+            requirements=[dict(id='R'+str(i),task=t['id'],passage='P001',quote='Exchange the declared source spaces',acceptance='Review source geometry and engineering scope') for i,t in enumerate(tasks)])
+        path=self.root/'plan.json';path.write_text(json.dumps(plan),encoding='utf-8');return path
+
+    def test_workflow_disable_blocks_dependent_and_runs_independent(self):
+        from bsa.workflow import execute,verify
+        plan=self.workflow_plan()
+        with patch('bsa.providers.moosas_exchange.execute') as disabled,patch('bsa.providers.ifc_boxes.execute',side_effect=self.fake) as native:
+            result=execute(plan,self.root/'workflow',disabled_module_providers=['moosas.box-space-exchange'])
+        disabled.assert_not_called();self.assertEqual(native.call_count,1)
+        self.assertEqual([r['status'] for r in result['tasks'].values()],['pending','pending','pass'])
+        self.assertFalse((self.root/'workflow/dependent').exists())
+        self.assertTrue(verify(self.root/'workflow')['integrity_pass'])
+        self.assertTrue(all(r['acceptance_status']=='pending review' for r in result['requirements']))
+        (self.root/'workflow/independent/result.json').write_text('{}')
+        self.assertFalse(verify(self.root/'workflow')['integrity_pass'])
+
+    def test_workflow_provider_override_and_untrusted_runtime_fields(self):
+        from bsa.workflow import execute,validate_plan
+        plan=self.workflow_plan()
+        with patch('bsa.providers.ifc_boxes.execute',side_effect=self.fake) as native:
+            result=execute(plan,self.root/'replacement',module_providers=dict(primary='ifcopenshell.box-spaces'))
+        self.assertEqual(native.call_count,3);self.assertTrue(result['execution_pass']);self.assertFalse(result['design_accepted'])
+        with self.assertRaises(ValueError):execute(plan,self.root/'unknown',module_providers=dict(missing='ifcopenshell.box-spaces'))
+        document=json.loads(plan.read_text());document['tasks'][0]['command']='untrusted';plan.write_text(json.dumps(document))
+        with self.assertRaises(ValueError):validate_plan(plan)
+
     def test_version_command_and_unknown_provider_reject_before_outputs(self):
         original=copy.deepcopy(self.request)
         for key,value in (('schema','bsa.module-request/2'),('command','echo untrusted'),('upstream','untrusted runtime')):

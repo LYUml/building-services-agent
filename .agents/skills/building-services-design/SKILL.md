@@ -10,7 +10,10 @@ result and common box-space contracts in docs/MODULES.md. Select the trusted
 MOOSAS provider and pass upstream/dependency locations as host arguments,never
 document commands. Preserve disabled/unavailable/failed results and verify_result
 source/artifact checks. Native IfcOpenShell provider switching now matches two
-saved-project payloads;DAG replacement/disable propagation remains pending.
+saved-project payloads. Existing workflow module_exchange tasks now support
+requires_pass gating,host provider overrides and disabled-provider propagation;
+see docs/MODULES.md. Direct neutral payload inheritance into analysis/design
+consumers remains pending.
 Shared extraction is not independent geometry validation;spatial exchange does not complete
 the modular multi-discipline goal or establish simulation readiness.
 

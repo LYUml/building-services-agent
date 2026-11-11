@@ -87,6 +87,14 @@ Native electrical conversion requires its producer to pass, including the bound 
 
 ## Evidence and acceptance
 
+`module_exchange` integrates versioned module requests and trusted providers with
+existing `requires_pass` gates. Runtime paths,provider overrides and disable
+settings are host CLI options;see [module integration](MODULES.md). Nested module
+source/artifact verification is retained. Workflow pass means scoped execution,
+not module engineering acceptance. Actual disabled/unavailable/failed controls
+block dependent tasks while independent native exchange continues. Direct neutral
+payload inheritance into performance/design consumers remains unimplemented.
+
 `workflow.json` records input hashes, source line locators, task scopes, output evidence paths and task-artifact hashes. `index.html` summarizes the matrix. `verify` rehashes recorded inputs and task outputs, and detects missing or changed files. This is integrity checking, not a signed tamperproof ledger. It does not assess semantic correctness or hash its own report.
 
 Task execution statuses pass/fail/pending are separate from requirement acceptance, which remains pending review. A task's success proves only the named adapter scope. For example, native conversion verifies circle/text entities and emits a PDF, but cannot prove arbitrary quoted layout requirements, print scale, visual quality or all electrical safety conditions.

@@ -789,3 +789,11 @@ core. No dependency/source vendoring is added. Actual two-project switching
 matches full neutral payloads;both providers preserve failed zero-space inputs
 and disabled states. Shared extraction means this is interoperability evidence,
 not independent geometric corroboration. See MODULES.md.
+
+Workflow integration reuses workflow.execute/validate_plan/verify and existing
+requires_pass gates rather than adding a second DAG scheduler. A thin module
+bridge discovers hashed request sources and trusted method schemas;host CLI
+selects compatible providers/runtimes. Existing module result verification runs
+before later tasks and during workflow verification. No new dependency or solver
+is added. Five actual native/MOOSAS scheduling scenarios retain independent
+execution and pending engineering acceptance. See MODULES.md.
