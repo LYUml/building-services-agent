@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+Actual source-role/work interpretation now preserves14primary passages as26
+traceable requirement rows across10work packages,with76lecture passages retained
+as reference context. Source plan/workflow/dependency checks pass;all10engineering
+packages stay pending with explicit blockers. Original90passage drafts remain
+unchanged. Host interpretation does not establish an autonomous semantic engine
+or replace missing engineering evidence. See evidence/project-start-interpretation.json.
+
 The new real intake bundle now has14specific source-inspection notes and a new
 validated source-reviewed plan/handoff template. Eleven reference pages were
 rendered/inspected;two primary-page reviews reused only after source/image hash

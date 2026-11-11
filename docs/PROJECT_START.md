@@ -1,5 +1,15 @@
 # Start from original requirement documents
 
+The actual reviewed bundle now also exercises source-role interpretation and
+work decomposition:all14primary passages retain original quotes across26rows
+and10work packages;76lecture passages remain indexed reference context. This
+preserves the brief's required scope without turning every general reference
+example into a coursework deliverable. Original drafts remain unchanged. Source
+validation and dependency diagnosis pass,while all10engineering packages remain
+pending. This is host-agent interpretation,not an implemented autonomous semantic
+engine or a completed engineering execution. Evidence:
+evidence/project-start-interpretation.json.
+
 ```powershell
 .venv/Scripts/python -m bsa.project_start C:/path/to/brief.pdf --supplement C:/path/to/rubric.docx --out runs/new-project
 ```

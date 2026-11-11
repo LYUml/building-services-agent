@@ -1,0 +1,18 @@
+{
+  "scope":"Host-agent interpretation of the actual source-reviewed private bundle using existing work-plan handoff tools",
+  "indexed_source_passages":90,
+  "primary_assignment_passages_retained":14,
+  "reference_context_passages":76,
+  "work_packages":10,
+  "source_linked_requirement_rows_after_compound_mapping":26,
+  "original_quotes_preserved":true,
+  "source_role_decision":"Primary brief defines coursework obligations;lecture remains reference evidence rather than adding all example/general procedures as mandatory deliverables",
+  "original_drafts_and_sources":"preserved",
+  "source_plan_validation":"pass",
+  "workflow_integrity":"pass",
+  "dependency_diagnosis_integrity":"pass",
+  "engineering_work_packages_executed":0,
+  "pending_work_packages":10,
+  "design_accepted":false,
+  "limitations":"Actual host interpretation,not an autonomous semantic engine. Existing engineering runs are not silently reused or accepted. Missing inputs,actual producer bindings,ADPI applicability,native drawings and complete domain acceptance remain required. Full multi-discipline agent goal unchanged."
+}
