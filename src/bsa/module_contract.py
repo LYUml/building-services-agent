@@ -5,7 +5,11 @@ import math
 from pathlib import Path,PurePosixPath
 
 ROOT=Path(__file__).resolve().parents[2]
+RULE_SCHEMA='bsa.rule-assessment/1'
 SCHEMAS={'bsa.module-request/1':'request-v1.json','bsa.module-result/1':'result-v1.json','bsa.spatial-boxes/1':'spatial-boxes-v1.json','bsa.model-artifact/1':'model-artifact-v1.json','bsa.air-budget/1':'air-budget-v1.json','bsa.bound-air-budget/1':'bound-air-budget-v1.json','bsa.water-graph/1':'water-graph-v1.json','bsa.bound-water-graph/1':'bound-water-graph-v1.json'}
+
+
+SCHEMAS[RULE_SCHEMA]='rule-assessment-v1.json'
 
 
 def artifact_references(schema,data):
@@ -44,6 +48,16 @@ def validate(data,schema=None):
     spec=read_json(ROOT/'contracts/modules'/SCHEMAS[schema]);jsonschema.Draft202012Validator.check_schema(spec)
     errors=list(jsonschema.Draft202012Validator(spec).iter_errors(data))
     if errors:raise ValueError('Contract violation: '+errors[0].message)
+    if schema==RULE_SCHEMA:
+        identities=[(r['entity_id'],r['rule_id']) for r in data['checks']]
+        if len(identities)!=len(set(identities)):raise ValueError('Duplicate entity/rule assessment')
+        for row in data['checks']:
+            original=row['original_status']
+            expected_row='pass' if original=='pass' else 'fail' if original=='review_required' else 'pending'
+            if row['status']!=expected_row:raise ValueError('Rule assessment changes original check meaning')
+        states=[r['status'] for r in data['checks']]
+        expected='fail' if 'fail' in states else 'pending' if 'pending' in states else 'pass'
+        if data['status']!=expected:raise ValueError('Rule assessment status contradicts checks')
     if schema in ('bsa.spatial-boxes/1','bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
         frame=data['coordinate_frame'];request_schema=read_json(ROOT/'contracts/modules/request-v1.json')
         if list(jsonschema.Draft202012Validator(request_schema['properties']['coordinate_frame']).iter_errors(frame)):raise ValueError('Invalid common coordinate frame')

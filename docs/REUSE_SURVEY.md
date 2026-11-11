@@ -928,3 +928,5 @@ invocations:13pass,1optional native skip. The full route_annotations planner rem
 unintegrated into multiview end-on handling. See evidence/keyed-view-tags.json.
 
 Characteristic-length trace gap: reuse existing pinned Shapely2.2.0 nearest-point and polygon-ring operations inside air_layout_study. Existing allocation/throw engines and lengths remain;add geometric hit/control provenance only. No new dependency or physical jet solver. Ten tests and actual three-layout/960-direction replay execute;topology does not verify wall semantics,installation or ADPI applicability. See AIR_LAYOUT_STUDY.md.
+
+Common rule-output gap: reuse pinned jsonschema validation and existing regulation/water-pipe evaluators plus saved-native producer verification. A thin RuleAssessment projection preserves exact IDs,source editions/clauses and original status;no new rules engine,source pack or dependency. Fresh IFC/EPANET/official-source workflow executes;full acceptance and jurisdiction-provider replacement remain pending.

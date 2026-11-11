@@ -1,5 +1,12 @@
 # Modular architecture and next implementation sequence
 
+The saved-water jurisdiction consumer now emits an initial validated
+`bsa.rule-assessment/1` alongside its detailed legacy report. Entity/rule IDs,
+pack/jurisdiction,producer hash,source hash/edition/clause and original check
+states remain explicit. This is a scoped projection,not a registered replaceable
+jurisdiction provider. Unknown/exempt states remain pending in this contract.
+Other disciplines and actual jurisdiction-provider replacement remain unfinished.
+
 This is the execution plan for [the active goal](GOAL.md). The first request/result
 and box-space contracts plus MOOSAS provider now execute as described in
 [MODULES.md](MODULES.md). Remaining boundaries/registry coverage below are planned,

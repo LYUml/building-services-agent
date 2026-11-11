@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+Initial common RuleAssessment contract now executes through the existing saved-
+water rule consumer. Source/producer/entity identities and original states are
+validated and reconstructed on verification. A fresh synthetic native IFC to
+actual EPANET to hash-matching official HK source workflow passes its3automated
+stages;manual/full acceptance remains pending. No replacement jurisdiction
+provider or broader discipline coverage is claimed.
+
 Length-screening results now expose boundary-hit/ring and screened-endpoint
 provenance plus controlling boundary/midpoint candidates. Ten targeted tests and
 an actual3layout/960direction replay pass. The current aligned alternative has

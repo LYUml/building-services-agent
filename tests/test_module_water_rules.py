@@ -34,6 +34,9 @@ class ModuleWaterRuleTests(unittest.TestCase):
 
     def test_positive_known_control_failure_and_unknown_are_distinct(self):
         r=self.check('positive');self.assertEqual(r['status'],'pass');verify(self.folder/'positive')
+        self.assertEqual(r['assessment']['schema'],'bsa.rule-assessment/1')
+        self.assertEqual(r['assessment']['status'],'pass')
+        self.assertEqual({x['entity_id'] for x in r['assessment']['checks']},set(r['segment_checks']))
         self.assertEqual(r['regulatory_compliance'],'not_established');self.assertFalse(r['design_accepted'])
         b=json.loads(self.basis.read_text());original=copy.deepcopy(b)
         for row in b['pipes'].values():row['water_pipe'].update(flow_mode=dict(value='variable',source='Synthetic negative control'),pump_control=dict(value='single_fixed_speed',source='Synthetic negative control'))
@@ -55,6 +58,20 @@ class ModuleWaterRuleTests(unittest.TestCase):
         folder=self.folder/'good';bound=folder/'bound-pipe-projects.json';p=json.loads(bound.read_text());p['OUTBOUND']['water_pipe']['velocity']['value']=0;bound.write_text(json.dumps(p))
         path=folder/'module-water-rules.json';r=json.loads(path.read_text());r['artifacts']['bound-pipe-projects.json']=digest(bound);path.write_text(json.dumps(r))
         with self.assertRaisesRegex(ValueError,'bound facts differ'):verify(folder)
+
+    def test_common_assessment_identity_and_forgery_reject(self):
+        from bsa.module_contract import validate
+        r=self.check('typed');a=copy.deepcopy(r['assessment'])
+        a['checks'].append(copy.deepcopy(a['checks'][0]))
+        with self.assertRaisesRegex(ValueError,'Duplicate'):validate(a)
+        a=copy.deepcopy(r['assessment']);a['status']='fail'
+        with self.assertRaisesRegex(ValueError,'contradicts'):validate(a)
+        a=copy.deepcopy(r['assessment']);a['checks'][0]['original_status']='unknown_future_state'
+        with self.assertRaisesRegex(ValueError,'original check meaning'):validate(a)
+        path=self.folder/'typed/module-water-rules.json'
+        r['assessment']['checks'][0]['entity_id']='OTHER-SYSTEM'
+        path.write_text(json.dumps(r))
+        with self.assertRaisesRegex(ValueError,'assessment differs'):verify(path.parent)
 
     def test_unavailable_upstream_cannot_create_rule_assessment(self):
         module(self.request,'wntr.ifc-steady',self.folder/'disabled',disabled=True)

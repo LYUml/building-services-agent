@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema","jurisdiction","rule_pack","producer_sha256","status","checks","coverage_complete","regulatory_compliance","design_accepted"],
+  "properties": {
+    "schema": {"const":"bsa.rule-assessment/1"},
+    "jurisdiction": {"type":"string","minLength":1},
+    "rule_pack": {"type":"string","minLength":1},
+    "producer_sha256": {"type":"string","pattern":"^[a-f0-9]{64}$"},
+    "status": {"enum":["pass","fail","pending"]},
+    "coverage_complete": {"const":false},
+    "regulatory_compliance": {"const":"not_established"},
+    "design_accepted": {"const":false},
+    "checks": {"type":"array","minItems":1,"items":{
+      "type":"object","additionalProperties":false,
+      "required":["entity_id","rule_id","status","original_status","source_id","source_sha256","edition","clause","scope"],
+      "properties":{
+        "entity_id":{"type":"string","minLength":1},
+        "rule_id":{"type":"string","minLength":1},
+        "status":{"enum":["pass","fail","pending"]},
+        "original_status":{"type":"string","minLength":1},
+        "source_id":{"type":"string","minLength":1},
+        "source_sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"},
+        "edition":{"type":"string","minLength":1},
+        "clause":{"type":"string","minLength":1},
+        "scope":{"type":"string","minLength":1}
+      }
+    }}
+  }
+}

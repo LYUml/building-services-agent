@@ -1,0 +1,16 @@
+{
+  "contract": "bsa.rule-assessment/1",
+  "targeted_tests": {"invocations":21,"passed":21},
+  "executed_workflow": "Fresh public synthetic native IFC authoring to saved-native WNTR/EPANET analysis to existing HK HVAC water rules",
+  "automated_stages": {"model":"pass","water":"pass","rules":"pass"},
+  "manual_review":"pending",
+  "workflow_integrity_pass":true,
+  "entity_rule_rows":4,
+  "official_source":"Existing hash-matching BEC 2024 cache; unchanged rule pack",
+  "controls":"Duplicate entity-rule pairs,contradictory aggregate states,unknown-state promotion and altered entity identity reject;legacy failure/unknown/source and same-producer workflow controls pass",
+  "runtime_observation":"IfcOpenShell emitted an unclosed IFC4 rules-file ResourceWarning during tests; not resolved by this change",
+  "coverage_complete":false,
+  "regulatory_compliance":"not_established",
+  "design_accepted":false,
+  "limitations":"Initial typed projection only; not a registered replacement jurisdiction provider,real product design or complete regulation acceptance;full regression not rerun"
+}
