@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Existing module_water_rules tasks now optionally dispatch the registered provider
+with a materialized exact-producer request. Legacy plans remain supported. Fresh
+actual enabled/disabled/failing-rule scenarios preserve correct downstream gates
+and pass workflow/delivery correspondence checks. Other providers/jurisdictions
+and full acceptance remain unfinished. See RULE_PROVIDER.md.
+
 The scoped saved-water rule consumer is now registered as bsa.hvac-water-rules
 behind the common CLI/API module boundary. Fresh actual IFC/EPANET/official-source
 execution matches the legacy assessment exactly;disabled/unconfigured providers

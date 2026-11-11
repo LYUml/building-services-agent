@@ -53,6 +53,19 @@ class ModuleWaterWorkflowTests(unittest.TestCase):
         self.assertEqual(w['tasks']['rules']['status'],'pending');self.assertFalse((out/'rules/module-water-rules.json').exists())
         self.assertTrue(verify(out)['integrity_pass']);context(self.plan,out)
 
+    def test_registered_rule_dispatch_disable_and_missing_source(self):
+        p=json.loads(self.plan.read_text());p['tasks'][2]['provider']='bsa.hvac-water-rules';self.plan.write_text(json.dumps(p))
+        for name,options,expected in [('registered',{},'pass'),('disabled-rule',dict(disabled_module_providers=['bsa.hvac-water-rules']),'pending')]:
+            out=self.root/name;w=execute(self.plan,out,**options)
+            self.assertEqual(w['tasks']['rules']['status'],expected)
+            self.assertTrue((out/'rules/provider/result.json').is_file())
+            self.assertTrue(verify(out)['integrity_pass']);context(self.plan,out)
+            if expected=='pending':self.assertIn('required checks unresolved',w['tasks']['review']['scope'])
+        (self.inputs/'sources/emsd-bec-2024.pdf').unlink()
+        out=self.root/'registered-missing';w=execute(self.plan,out)
+        self.assertEqual(w['tasks']['rules']['status'],'pending');context(self.plan,out)
+        self.assertTrue(verify(out)['integrity_pass'])
+
     def test_replacement_and_wrong_model_drawing_gates_reject(self):
         p=json.loads(self.plan.read_text());original=json.loads(self.plan.read_text());p['tasks'][2]['project']='source/project.json';self.plan.write_text(json.dumps(p))
         with self.assertRaisesRegex(ValueError,'replacement inputs forbidden'):validate_plan(self.plan)

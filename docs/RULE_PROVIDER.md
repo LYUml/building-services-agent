@@ -26,10 +26,15 @@ or rule evidence fails without a successful payload. A completed check can have
 a failed or pending engineering status;module execution completion is separate
 from its payload status and acceptance always remains pending.
 
-This is a standalone CLI/API registered provider. Automatic workflows still use
-the existing `module_water_rules` task and its same-producer gates. Do not dispatch
-this rule payload as module_analysis or infer automatic workflow replacement.
-A second jurisdiction provider and broader discipline replacement are unfinished.
+Automatic workflows may now add `"provider":"bsa.hvac-water-rules"` to the
+existing `module_water_rules` task. Existing plans without that field retain
+direct dispatch. The task still declares depends_on,basis,pack and sources;the
+request is materialized from that exact passing producer. Results live under
+the task's provider directory and the same rule verifier/delivery correspondence
+checks cover both paths. Host disabled_module_providers can disable this rule
+provider;pending/failed checks block requires_pass consumers. Provider overrides
+for rule tasks are not implemented. Do not dispatch rule payloads as numerical
+module_analysis. A second jurisdiction and broader replacement remain unfinished.
 Historical rule payloads lacking the required inherited coordinate frame reject;
 create a fresh run instead of patching old evidence.
 

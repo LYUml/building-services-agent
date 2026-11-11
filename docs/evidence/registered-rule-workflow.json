@@ -1,0 +1,16 @@
+{
+  "scope":"Optional registered provider dispatch in the existing saved-water rule task",
+  "targeted_tests":{"invocations":23,"passed":23},
+  "fresh_actual_scenarios":{
+    "enabled":{"model":"pass","water":"pass","rules":"pass","review":"pending"},
+    "disabled":{"model":"pass","water":"pass","rules":"pending","review":"pending"},
+    "synthetic_rule_breach":{"model":"pass","water":"pass","rules":"fail","review":"pending"}
+  },
+  "workflow_integrity_and_delivery_context":"pass for all three actual scenarios",
+  "missing_official_source_control":"registered rule status remains pending;workflow/delivery checks pass",
+  "legacy_workflow_tests":"pass",
+  "producer_binding":"Materialized request pins exact current native analysis result,basis and pack;source cache remains declared plan input",
+  "provider_selection":"Only trusted bsa.hvac-water-rules optional task field;host disable supported;rule-task provider overrides not implemented",
+  "design_accepted":false,
+  "limitations":"Synthetic public engineering data with actual native/solver/official-source execution;not a real product design or complete regulation acceptance. Other regions/providers and full regression remain unfinished."
+}

@@ -2,6 +2,7 @@
 import argparse
 from pathlib import Path
 import json
+import os
 from .cli import digest
 from .module_contract import read_json,validate
 from .modules import ROOT,verify_result
@@ -67,7 +68,9 @@ def run(producer,basis,pack,sources,out):
 
 
 def verify(folder):
-    folder=Path(folder).resolve();report=read_json(folder/'module-water-rules.json')
+    folder=Path(folder).resolve()
+    if (folder/'provider/result.json').is_file():return registered_report(folder)
+    report=read_json(folder/'module-water-rules.json')
     files,official=paths(report['basis'],report['pack'],report['sources']);module=verify_result(report['producer_result'])
     expected_pins={str(p):digest(p) for p in files|{Path(report['producer_result'])}};expected_pins.update(module['inputs'])
     if expected_pins!=report['inputs']:raise ValueError('Water rule input/method inventory differs')
@@ -78,6 +81,32 @@ def verify(folder):
     if read_json(folder/'bound-pipe-projects.json')!=projects or report['artifacts']!={'bound-pipe-projects.json':digest(folder/'bound-pipe-projects.json')}:raise ValueError('Water rule bound facts differ')
     if report['segment_checks']!=checks or report['fluid_basis']!=fluid or report['status']!=status or report['design_accepted'] is not False or report['regulatory_compliance']!='not_established':raise ValueError('Water rule results differ from replay')
     return report
+
+
+def run_registered(producer,basis,pack,sources,out,*,disabled=False):
+    """Materialize the same verified producer into the trusted rule boundary."""
+    from .modules import run as run_module
+    producer,basis,pack,sources,out=[Path(p).resolve() for p in (producer,basis,pack,sources,out)]
+    upstream=verify_result(producer)
+    if out.exists():raise ValueError('New registered rule task output required')
+    out.mkdir(parents=True)
+    request=dict(schema='bsa.module-request/1',project_id=upstream['project_id'],scenario_id=upstream['scenario_id'],
+        capability='regulation.water.saved-native',coordinate_frame=upstream['payload']['coordinate_frame'],
+        sources={k:dict(path=os.path.relpath(p,out),sha256=digest(p)) for k,p in [('producer',producer),('basis',basis),('pack',pack)]})
+    path=out/'request.json';path.write_text(json.dumps(request,indent=2),encoding='utf-8')
+    run_module(path,'bsa.hvac-water-rules',out/'provider',runtime=dict(sources=sources),disabled=disabled)
+    return registered_report(out)
+
+
+def registered_report(folder):
+    result=verify_result(Path(folder)/'provider/result.json')
+    if result['provider']['id']!='bsa.hvac-water-rules':raise ValueError('Unexpected registered water rule provider')
+    if result['execution']['status']=='completed':return verify(Path(folder)/'provider/rules')
+    request_path=Path(result['request']['path']);request=read_json(request_path)
+    sources={k:str((request_path.parent/r['path']).resolve()) for k,r in request['sources'].items()}
+    return dict(producer_result=sources['producer'],basis=sources['basis'],pack=sources['pack'],
+        status='fail' if result['execution']['status']=='failed' else 'pending',inputs=result['inputs'],
+        scope='Registered water rule provider '+result['execution']['status']+';no engineering assessment produced')
 
 
 def validate_gates(tasks):
@@ -104,10 +133,17 @@ def verify_workflow(tasks,root,plan_root,report_tasks):
     known={t['id']:t for t in tasks}
     for task in tasks:
         if task['kind']!='module_water_rules':continue
-        folder=Path(root)/task['id'];path=folder/'module-water-rules.json'
-        if not path.is_file() and report_tasks[task['id']]['status']!='pass':continue
+        folder=Path(root)/task['id'];path=folder/'module-water-rules.json';registered=folder/'provider/result.json'
+        if not path.is_file() and not registered.is_file() and report_tasks[task['id']]['status']!='pass':continue
+        if registered.is_file()!=bool(task.get('provider')):raise ValueError('Water rule provider differs from declared task')
         report=verify(folder);expected=result_path(root,known[task['depends_on']]).resolve()
-        if Path(report['producer_result']).resolve()!=expected or any(Path(report[k]).resolve()!=(Path(plan_root)/task[k]).resolve() for k in ('basis','pack','sources')):raise ValueError('Workflow water rule inputs differ from declared producer/basis/pack/sources')
+        if registered.is_file():
+            result=verify_result(registered)
+            selection=read_json(Path(root)/'workflow.json')['module_selection']
+            disabled='bsa.hvac-water-rules' in selection['disabled_providers']
+            if disabled!=any(d['code']=='provider_disabled' for d in result['execution']['diagnostics']):raise ValueError('Water rule disable state differs from host selection')
+        keys=('basis','pack','sources') if 'sources' in report else ('basis','pack')
+        if Path(report['producer_result']).resolve()!=expected or any(Path(report[k]).resolve()!=(Path(plan_root)/task[k]).resolve() for k in keys):raise ValueError('Workflow water rule inputs differ from declared producer/basis/pack/sources')
         if report_tasks[task['id']]['status']!=report['status']:raise ValueError('Workflow water rule status contradicts retained result')
 
 

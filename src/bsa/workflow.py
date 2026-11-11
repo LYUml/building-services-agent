@@ -304,7 +304,12 @@ def validate_plan(path):
         if kind not in ("module_water_rules","module_analysis","module_authoring","spatial_lighting_rules","module_thermal_project","module_exchange","duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind=='module_water_rules':
-            if set(t)-{'id','kind','depends_on','basis','pack','sources','requires_pass','description'}:raise ProjectError('Water rules inherit exact native result;replacement inputs forbidden')
+            if set(t)-{'id','kind','depends_on','basis','pack','sources','requires_pass','description','provider'}:raise ProjectError('Water rules inherit exact native result;replacement inputs forbidden')
+            if 'provider' in t:
+                if t['provider']!='bsa.hvac-water-rules':raise ProjectError('Supported registered water rule provider required')
+                from .providers import get_provider
+                from .modules import method_paths
+                inputs.update(method_paths(get_provider(t['provider'])))
             parent=t.get('depends_on')
             if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='module_analysis':raise ProjectError('Water rules require earlier native water module')
             from .module_contract import read_json as read_module
@@ -1098,7 +1103,11 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     from .workflow_modules import result_path
                     from .module_water_rules import run as check_water_rules
                     producer=next(x for x in p['tasks'] if x['id']==parent)
-                    payload=check_water_rules(result_path(out,producer),local_path(root,t['basis']),local_path(root,t['pack']),root/t['sources'],folder)
+                    args=(result_path(out,producer),local_path(root,t['basis']),local_path(root,t['pack']),root/t['sources'],folder)
+                    if t.get('provider'):
+                        from .module_water_rules import run_registered
+                        payload=run_registered(*args,disabled=t['provider'] in module_selection['disabled_providers'])
+                    else:payload=check_water_rules(*args)
                     verify_water_rules(folder);water_rule_results.append(folder);runtime_inputs.update(payload['inputs'])
                     status=payload['status'];reason=payload['scope']
             elif t['kind']=='spatial_lighting_rules':
@@ -2043,7 +2052,7 @@ def verify(run_directory):
                     from .module_fan import verify as verify_module_fan
                     verify_module_fan(root/name)
             except (OSError,ValueError,KeyError,TypeError) as exc:issues.append('module fan evidence invalid: '+name+': '+str(exc))
-        if task['kind']=='module_water_rules' and ((root/name/'module-water-rules.json').is_file() or task['status']=='pass'):
+        if task['kind']=='module_water_rules' and ((root/name/'module-water-rules.json').is_file() or (root/name/'provider/result.json').is_file() or task['status']=='pass'):
             try:
                 from .module_water_rules import verify as verify_water_rules
                 rule=verify_water_rules(root/name)
