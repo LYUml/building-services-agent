@@ -839,3 +839,12 @@ geometry code and native reopen checks remain unchanged/pinned. No dependency
 or upstream code is added/copied. Six actual authoring-to-consumer scenarios and
 source/frame/disable controls execute. Only one authoring implementation is
 verified;see MODULES.md and examples/modular-authoring-plan.json.
+
+Model-artifact drawing integration reuses the existing ifc_views saved-profile
+reader,GUID/label checks,ifc_native guarded isolated Core Console save/reopen and
+cad_sheet fixed-scale plotting. Common artifact resolution is a thin adapter;
+no drawing/CAD engine or native dependency is rebuilt/copied. Existing pinned
+IfcOpenShell,ezdxf and pypdf remain in use,with the installed licensed AutoCAD
+2027 host. Actual three-DWG/three-page plotting and all rendered-page inspections
+execute;centreline-only limitations and hydraulic/full design gaps remain.
+See examples/modular-drawing-plan.json and MODULES.md.

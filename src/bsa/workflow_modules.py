@@ -33,6 +33,14 @@ def result_path(run,task):
     return Path(run)/task['id']/('exchange/result.json' if task.get('depends_on') else 'result.json')
 
 
+def authored_model(run,producer):
+    """Resolve a verified common artifact rather than guessing a provider filename."""
+    from .modules import verify_result
+    path=result_path(run,producer);result=verify_result(path)
+    if result['execution']['status']!='completed' or result['payload_schema']!='bsa.model-artifact/1' or result['payload'] is None or result['payload']['model']['format']!='IFC4':raise ValueError('Verified completed IFC4 model artifact required')
+    return (path.parent/result['payload']['model']['path']).resolve(),result['payload']['coordinate_frame']
+
+
 def inherited_request(task,tasks,root,run):
     from .workflow import IFC_ARTIFACTS
     request_path=(Path(root)/task['request']).resolve()
@@ -40,11 +48,8 @@ def inherited_request(task,tasks,root,run):
     inputs(request_path,task['provider'],inherited=True)
     producer=next(t for t in tasks if t['id']==task['depends_on'])
     if producer['kind']=='module_authoring':
-        from .modules import verify_result
-        authored=verify_result(result_path(run,producer))
-        if authored['payload_schema']!='bsa.model-artifact/1' or authored['payload'] is None or authored['payload']['model']['format']!='IFC4':raise ValueError('Verified IFC4 model artifact required')
-        if authored['payload']['coordinate_frame']!=request['coordinate_frame']:raise ValueError('Authoring and spatial source frames differ')
-        model=(result_path(run,producer).parent/authored['payload']['model']['path']).resolve()
+        model,frame=authored_model(run,producer)
+        if frame!=request['coordinate_frame']:raise ValueError('Authoring and spatial source frames differ')
     else:model=(Path(run)/producer['id']/IFC_ARTIFACTS[producer['kind']]).resolve()
     destination=(Path(run)/task['id']/'request.json').resolve()
     binding=(request_path.parent/request['sources']['binding']['path']).resolve()

@@ -1,0 +1,18 @@
+{
+  "schema": "bsa.module-request/1",
+  "project_id": "public-modular-pipe-drawings",
+  "scenario_id": "synthetic-source",
+  "capability": "authoring.ifc.bim",
+  "coordinate_frame": {
+    "id": "synthetic-water-ring-world",
+    "kind": "source-world-si",
+    "length_unit": "m",
+    "georeferenced": false
+  },
+  "sources": {
+    "project": {
+      "path": "../water-loop-ifc/model.json",
+      "sha256": "d38c00422879397280ef8122ed335a5a673300ba771efd20bfddda0b78b7cc41"
+    }
+  }
+}

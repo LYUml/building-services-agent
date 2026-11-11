@@ -1,5 +1,11 @@
 # Orthographic IFC pipe drawing sets
 
+The view adapter can also inherit a completed common model artifact from an
+earlier module_authoring task. See examples/modular-drawing-plan.json and
+MODULES.md. Actual native authoring →3views →3DWGs/reopens →3plotted pages is
+verified within the existing centreline-only scope;hydraulic analysis and full
+engineering review remain separate. No provider filename is assumed.
+
 The `ifc_views` adapter creates two or three distinct orthographic views from saved hollow IFC pipe/duct profiles. Every segment appears in every view as either a true projected axis or an explicit symbolic end-on cross. Every segment must also have a nonzero axis in at least one view. This fills the three-axis drawing gap while preserving the older single-view adapter's strict end-on rejection.
 
 ```powershell

@@ -13,6 +13,13 @@ modules inherit its verified IFC and require matching coordinate frames.
 Scoped native checks are not visual/product/installation/design acceptance.
 Only one authoring provider is verified;Revit/AutoCAD replacement is pending.
 
+For drawings of a supported circular-profile common model,use ifc_views with
+depends_on on module_authoring,then ifc_views_native. The source is resolved from
+the verified model-artifact payload. See examples/modular-drawing-plan.json.
+Native AutoCAD reopening and per-sheet scale checks must execute,then inspect
+every actual merged PDF page. Existing pipe-only/profile/label restrictions and
+hidden-line/fitting/equipment/hydraulic/installation gaps remain explicit.
+
 For finite equal-section elbows in a source backbone,use bsa.duct_elbow_backbone
 and docs/DUCT_ELBOW_BACKBONE.md. Declare every original elbow radius with its
 classification/source and retain both-end section budgets. Do not shrink radii

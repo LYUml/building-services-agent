@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "brief": "modular/drawing-brief.md",
+  "brief_sha256": "54914cdaf6988b85ece41426e215cb10a3d7558ab67c9e5dc8601f1232578958",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement",
+    "P004": "requirement",
+    "P005": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "model",
+      "kind": "module_authoring",
+      "request": "modular/drawing-authoring.json",
+      "provider": "ifcopenshell.bim-authoring"
+    },
+    {
+      "id": "views",
+      "kind": "ifc_views",
+      "depends_on": "model",
+      "settings": "water-loop-ifc/views-settings.json"
+    },
+    {
+      "id": "native",
+      "kind": "ifc_views_native",
+      "depends_on": "views"
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "requires_pass": [
+        "native"
+      ],
+      "description": "Inspect every actual plotted page and retain review evidence separately. Hidden lines,finite fittings,equipment,insulation,hydraulic operating conditions,product/code applicability,installation detail and complete engineering acceptance remain unfinished."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Author water-loop-ifc/model.json through the registered native IFC authoring provider. Preserve the declared stable pipe,port,system and space identities and native reopening checks. This is a synthetic ring,not installed equipment or a complete hydraulic design.",
+      "task": "model",
+      "acceptance": "Author water-loop-ifc/model.json through the registered native IFC authoring provider. Preserve the declared stable pipe,port,system and space identities and native reopening checks. This is a synthetic ring,not installed equipment or a complete hydraulic design."
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Read that exact verified model artifact into the existing plan,front and side pipe-view adapter using water-loop-ifc/views-settings.json. Preserve all six segment GUIDs,true/profile dimensions and explicit end-on symbols;do not replace the source IFC or interpret projected length as installed length.",
+      "task": "views",
+      "acceptance": "Read that exact verified model artifact into the existing plan,front and side pipe-view adapter using water-loop-ifc/views-settings.json. Preserve all six segment GUIDs,true/profile dimensions and explicit end-on symbols;do not replace the source IFC or interpret projected length as installed length."
+    },
+    {
+      "id": "R3",
+      "passage": "P004",
+      "quote": "With an approved AutoCAD executable,save and independently reopen all three DWGs,check entity/geometry/GUID identity and plot the declared A4 windows at 1:50. Check each 5 m reference against 100 mm within 0.2 mm and preserve the merged three-page PDF. Missing runtime or upstream failure remains pending.",
+      "task": "native",
+      "acceptance": "With an approved AutoCAD executable,save and independently reopen all three DWGs,check entity/geometry/GUID identity and plot the declared A4 windows at 1:50. Check each 5 m reference against 100 mm within 0.2 mm and preserve the merged three-page PDF. Missing runtime or upstream failure remains pending."
+    },
+    {
+      "id": "R4",
+      "passage": "P005",
+      "quote": "Inspect every actual plotted page and retain review evidence separately. Hidden lines,finite fittings,equipment,insulation,hydraulic operating conditions,product/code applicability,installation detail and complete engineering acceptance remain unfinished.",
+      "task": "review",
+      "acceptance": "Inspect every actual plotted page and retain review evidence separately. Hidden lines,finite fittings,equipment,insulation,hydraulic operating conditions,product/code applicability,installation detail and complete engineering acceptance remain unfinished."
+    }
+  ]
+}

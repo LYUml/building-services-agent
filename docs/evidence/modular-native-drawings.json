@@ -1,0 +1,103 @@
+{
+  "scope": "Common IFC model artifact to existing orthographic centreline views and actual native DWG/PDF",
+  "actual_workflows": [
+    {
+      "case": "native",
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pending"
+      ]
+    },
+    {
+      "case": "missing-native-runtime",
+      "statuses": [
+        "pass",
+        "pass",
+        "pending",
+        "pending"
+      ]
+    },
+    {
+      "case": "disabled-authoring",
+      "statuses": [
+        "pending",
+        "pending",
+        "pending",
+        "pending"
+      ]
+    }
+  ],
+  "all_source_diagnosis_review_checks_verified": true,
+  "targeted_tests": {
+    "invocations": 82,
+    "passed": 81,
+    "skipped": 1
+  },
+  "native_reopens": 3,
+  "segments": 6,
+  "views": 3,
+  "merged_pdf_pages": 3,
+  "references": [
+    {
+      "view": "plan",
+      "native_reopen_pass": true,
+      "guid_geometry_match": true,
+      "expected_mm": 100.0,
+      "measured_mm": 99.9913333333333
+    },
+    {
+      "view": "front",
+      "native_reopen_pass": true,
+      "guid_geometry_match": true,
+      "expected_mm": 100.0,
+      "measured_mm": 99.99133333333332
+    },
+    {
+      "view": "side",
+      "native_reopen_pass": true,
+      "guid_geometry_match": true,
+      "expected_mm": 100.0,
+      "measured_mm": 99.9913333333333
+    }
+  ],
+  "merged_pdf_sha256": "52a19efe23c54cb44e52fec6003ffa022b973395e96ca27729c96bd25858279d",
+  "render_dpi": 150,
+  "page_renders": [
+    {
+      "page": 1,
+      "sha256": "a46e0dfc52ef96d226670f1d22659378d196d198859eca1e0389eea0da7eb59c"
+    },
+    {
+      "page": 2,
+      "sha256": "6e3258c791cd68da21a8fb360e047f46fc0facd41cc50901b81c2e1623552da3"
+    },
+    {
+      "page": 3,
+      "sha256": "c80262ad3b2485e786e47a77984a680cf98913a0191fb9a6ed3f03f9756dd1d2"
+    }
+  ],
+  "visual_review": {
+    "all_three_pages_inspected": true,
+    "no_visible_clipping": true,
+    "text_labels_symbols_readable": true,
+    "limited_scope": "Centreline projections only;overlapping projections,hidden lines,fittings,equipment,insulation and installation details remain pending"
+  },
+  "raw_pdf_metadata_warning": "pypdf reported duplicate PageMode keys in original AutoCAD source PDFs;originals retained;merged page streams,scale checks and rendered pages verified",
+  "all_engineering_reviews_pending": true,
+  "design_accepted": false,
+  "hydraulic_analysis_executed": false,
+  "methods": {
+    "src/bsa/workflow.py": "3a9aaac46c209e9fcfef9e219d13f752eb9f0cd348a5510c346189bda01312f0",
+    "src/bsa/workflow_modules.py": "f8050b1799400347201e29936a0bafddc2e7934ae5da8e969966823e89a6ecb9",
+    "src/bsa/ifc_views.py": "58d7f49bc53872935a2459bbeb46faaa707d15489e4dbd9bce7e51416d0a2ec1",
+    "src/bsa/ifc_native.py": "b7365c1329c95caf567f1790144a6b2f450abd677561de0515c58590ec304ea6"
+  },
+  "public_inputs": {
+    "examples/modular-drawing-plan.json": "7db4894d54432ddd70885c94fa45ff8c646765d25ceca1dd3043a1bf9dfe89e9",
+    "examples/modular/drawing-brief.md": "54914cdaf6988b85ece41426e215cb10a3d7558ab67c9e5dc8601f1232578958",
+    "examples/modular/drawing-authoring.json": "91186b8fa8ddf0a0228580f363cc75b75d7da80ace66baeda55655c4a9ccd077"
+  },
+  "final_renders_identical_to_inspected_renders": true
+}

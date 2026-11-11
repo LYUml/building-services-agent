@@ -801,6 +801,7 @@ def validate_plan(path):
             elif kind=='ifc_views':
                 from .ifc_views import validate_settings
                 settings=local_path(root,t.get('settings'));inputs.add(settings);validate_settings(read_json(settings))
+                inputs.update(Path(__file__).with_name(name) for name in ('ifc_views.py','ifc_drawing.py','ifc_native.py'))
             elif kind=='annual_energy_ifc':
                 from .thermal_binding import validate_contract
                 from .annual_energy import read_weather
@@ -815,12 +816,13 @@ def validate_plan(path):
             if bool(t.get('ifc'))==bool(t.get('depends_on')):raise ProjectError('IFC task requires exactly one source IFC or earlier model dependency')
             if t.get('depends_on'):
                 dependency=t['depends_on']
-                if dependency not in ids or next(x for x in tasks if x['id']==dependency)['kind'] not in IFC_ARTIFACTS:
+                if dependency not in ids or (next(x for x in tasks if x['id']==dependency)['kind'] not in IFC_ARTIFACTS and not (kind=='ifc_views' and next(x for x in tasks if x['id']==dependency)['kind']=='module_authoring')):
                     raise ProjectError('IFC dependency must be an earlier supported IFC producer')
             else:
                 ifc_source=local_path(root,t.get('ifc'));inputs.add(ifc_source)
                 if ifc_source.suffix.lower()!='.ifc':raise ProjectError('task source must be IFC')
         if kind=='ifc_views_native':
+            inputs.update(Path(__file__).with_name(name) for name in ('ifc_views.py','ifc_native.py','native_cad.py','cad_intake.py','cad_overlay.py','cad_sheet.py'))
             if bool(t.get('manifest'))==bool(t.get('depends_on')):raise ProjectError('native views require exactly one multiview manifest or earlier producer')
             if t.get('depends_on'):
                 if t['depends_on'] not in ids or next(x for x in tasks if x['id']==t['depends_on'])['kind']!='ifc_views':raise ProjectError('native multiview dependency must be an earlier ifc_views task')
@@ -1030,7 +1032,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
     module_selection=host_selection(p['tasks'],module_providers,disabled_module_providers)
     inputs.update(selection_inputs(p['tasks'],plan.parent,module_selection))
     runtime_inputs={str(Path(honeybee_python).resolve()):digest(Path(honeybee_python).resolve())} if honeybee_python else {}
-    if autocad and any(t['kind'] in ('concept_section','duct_sheet_native') for t in p['tasks']):runtime_inputs[str(Path(autocad).resolve())]=digest(Path(autocad).resolve())
+    if autocad and any(t['kind'] in ('concept_section','duct_sheet_native','ifc_views_native') for t in p['tasks']):runtime_inputs[str(Path(autocad).resolve())]=digest(Path(autocad).resolve())
     if any(out==f or out in f.parents for f in inputs):raise ProjectError("run output must not contain inputs")
     before={str(f):digest(f) for f in inputs}
     out.mkdir(parents=True,exist_ok=False)
@@ -1406,7 +1408,11 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 if dependency and tasks[dependency]['status']!='pass':reason='upstream IFC producer did not pass; no multiview drawing fabricated'
                 else:
                     from .ifc_views import run
-                    source=out/dependency/IFC_ARTIFACTS[tasks[dependency]['kind']] if dependency else local_path(root,t['ifc'])
+                    if dependency and tasks[dependency]['kind']=='module_authoring':
+                        from .workflow_modules import authored_model
+                        producer=next(x for x in p['tasks'] if x['id']==dependency)
+                        source,_=authored_model(out,producer)
+                    else:source=out/dependency/IFC_ARTIFACTS[tasks[dependency]['kind']] if dependency else local_path(root,t['ifc'])
                     payload=run(source,local_path(root,t['settings']),folder);status='pass' if payload['calculated_checks_pass'] else 'fail'
                     reason='complete per-view segment/end-on symbols and combined axis coverage; true/projected lengths and GUIDs retained; native/physical/visual acceptance separate'
             elif t['kind']=='ifc_equipment':

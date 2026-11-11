@@ -1,5 +1,14 @@
 # Scope and acceptance
 
+Common model artifacts now feed the existing orthographic pipe-view/native
+AutoCAD chain. The public modular drawing plan actually authors6source pipes,
+reopens3DWGs and plots3merged pages. All GUID/geometry and100mm reference checks
+pass;three actual rendered pages were inspected without visible clipping.
+Source-bound audit/engineering review stay pending;centreline projections omit
+fittings,equipment and installation detail. Runtime/disabled controls preserve
+blocked work.82 targeted invocations:81pass,1skip;actual native workflow runs
+separately. See MODULES.md and evidence/modular-native-drawings.json.
+
 Native IFC authoring now uses a registered provider and the versioned common
 model-artifact contract. The unmodified existing bsa.bim engine runs in a fixed
 subprocess;downstream spatial modules resolve its verified saved model and require

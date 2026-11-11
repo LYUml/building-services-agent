@@ -61,3 +61,17 @@ Use --disable-module-provider ifcopenshell.bim-authoring to retain unavailable
 authoring and blocked consumers,or override spaces with the MOOSAS host options
 above. There is one verified authoring implementation;this does not prove
 Revit/AutoCAD authoring substitution or full design acceptance.
+
+For native centreline drawings from a common model artifact:
+
+```powershell
+.venv/Scripts/python -m bsa.workflow execute examples/modular-drawing-plan.json --out runs/modular-drawings --autocad 'C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe'
+```
+
+This independently declared synthetic ring reuses the existing6-pipe source,
+not the thermal example. It saves3DWGs,independently reopens them and plots an
+A4 plan/front/side set at1:50. Source profile/port/GUID checks and per-sheet100mm
+references remain mandatory. Omit --autocad to retain native work as pending.
+Actual execution and all3merged rendered pages were checked;review still stays
+pending for hydraulic/product/hidden-line/fitting/equipment/installation and full
+engineering acceptance. See docs/evidence/modular-native-drawings.json.

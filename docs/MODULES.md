@@ -340,3 +340,39 @@ pass source/diagnosis/delivery checks with pending reviews. Seventy-three target
 tests pass,including a real native authoring chain and artifact-contract controls.
 See [evidence](evidence/module-ifc-authoring.json). No visual/native DWG/RVT,
 full installation or complete engineering design acceptance is established.
+
+## Drawing from a common model artifact
+
+The existing ifc_views task may now depend directly on module_authoring. It
+resolves and verifies the IFC4 model-artifact payload rather than assuming the
+provider's output filename. Other unsupported IFC consumers do not automatically
+gain this ability. The existing circular hollow-profile/port/complete-label
+requirements still apply;equipment and fittings are reported as excluded.
+
+```powershell
+.venv/Scripts/python -m bsa.workflow execute examples/modular-drawing-plan.json --out runs/modular-drawings --autocad 'C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe'
+```
+
+This public synthetic ring reuses water-loop-ifc/model.json and its exact sourced
+view settings. It executes common-module authoring → plan/front/side DXF views →
+existing guarded isolated AutoCAD save/reopen/plot → pending engineering review.
+It does not execute the separate water hydraulic adapter or imply hydraulic
+acceptance. No GUI documents are attached to,closed or written. AutoCAD binary
+bytes are pinned for this native workflow.
+
+Actual execution saves/reopens3DWGs with complete entity/geometry/GUID matching.
+All three5m references measure99.991333mm against100mm within the declared0.2mm
+tolerance. The merged3-page PDF matches verified source page streams and all
+three150dpi renders were inspected:labels,titles,symbols and leaders are readable
+without visible clipping. Raw source PDFs retain duplicate PageMode dictionary
+warnings from pypdf;merged content,scale and rendering checks pass. Centreline
+projection overlap,hidden lines,finite fittings,equipment,insulation and
+installation sheets remain outside the accepted scope. Source-bound audit and
+every engineering review remain pending.
+
+Missing native runtime and disabled-author controls preserve blocked work;
+incomplete-label and disabled native-dispatch regression controls are tested.
+Eighty-two targeted invocations complete:81pass,1optional native test skipped;
+the native end-to-end workflow above executes separately. See
+[evidence](evidence/modular-native-drawings.json). This is scoped native drawing
+integration,not full multi-discipline design or general DWG/RVT authoring.
