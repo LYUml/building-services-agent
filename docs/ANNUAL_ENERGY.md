@@ -1,5 +1,20 @@
 # Annual hourly weather analysis
 
+Initial OpenStudio ImportError now writes runtime-failure.json and the exact
+runtime-import.log before returning an execution failure. The report identifies
+openstudio_import,source/weather/engine hashes and simulation_executed:false.
+Only an explicit Application Control policy message receives that classification;
+other import errors remain dependency_import_error. Existing output paths reject
+before startup. No model/performance or successful engine result is fabricated.
+
+Workflow dependency diagnosis verifies the retained report/log association and
+source bytes,then exposes a compatible approved-environment recovery action.
+It does not propose changing design quantities to fix a dependency startup.
+Eleven related tests and a real inherited MOOSAS-chain failure verify this path.
+Other version/build/solver failures retain their existing handling. Host policy
+and missing annual simulation acceptance remain unchanged. Evidence:
+evidence/annual-runtime-diagnostics.json.
+
 `annual_energy` extends the existing synthetic two-zone design-day adapter with actual complete-calendar EPW simulation. It keeps ideal supplied heating/cooling **thermal** kWh separate from lighting **electricity** kWh. It does not infer plant electricity, COP, whole-building EUI or a finished HVAC system from ideal loads.
 
 ```powershell

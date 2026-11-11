@@ -1,0 +1,15 @@
+{
+  "scope":"Retained annual model-preparation dependency startup diagnostics;not successful simulation",
+  "related_tests":{"invocations":11,"passed":11},
+  "test_controls":"Explicit policy versus ordinary import errors remain distinct;no engine version/process invocation on import failure;coherently rehashed false policy classification rejects",
+  "actual_chain":{"model":"pass","spaces":"pass","thermal":"pass","annual":"fail","review":"pending"},
+  "actual_failure_kind":"application_control_block",
+  "actual_failure_stage":"openstudio_import",
+  "retained_artifacts":["runtime-failure.json","runtime-import.log"],
+  "workflow_integrity_and_delivery_context":"pass",
+  "dependency_diagnosis":"Structured kind/stage,raw log hashes and approved-environment recovery action retained",
+  "simulation_executed":false,
+  "design_accepted":false,
+  "security_policy_changed":false,
+  "limitations":"Handles ImportError during initial OpenStudio load only. Other preparation/version/engine failures keep their existing paths. Does not repair runtime,produce annual values or establish full regression/engineering acceptance."
+}

@@ -47,6 +47,21 @@ def water_runtime_failures(run, report, task_id):
     return failures
 
 
+def annual_runtime_failures(run,report,task_id):
+    failures=[]
+    for relative,sha in report['artifact_hashes'].items():
+        if not relative.startswith(task_id+'/') or Path(relative).name!='runtime-failure.json':continue
+        data=json.loads((run/relative).read_text(encoding='utf-8'))
+        kind=data.get('kind');log=(Path(relative).parent/'runtime-import.log').as_posix()
+        if kind not in ('application_control_block','dependency_import_error') or data.get('stage')!='openstudio_import' or data.get('simulation_executed') is not False or data.get('calculation_status')!='not_executed':raise ProjectError('Inconsistent annual startup failure evidence')
+        if data.get('evidence')!='runtime-import.log' or log not in report['artifact_hashes'] or data.get('evidence_sha256')!=report['artifact_hashes'][log]:raise ProjectError('Annual startup failure lacks retained import log')
+        if not data.get('inputs') or any(not Path(p).is_file() or digest(Path(p))!=h for p,h in data['inputs'].items()):raise ProjectError('Annual startup failure input evidence changed')
+        text=(run/log).read_text(encoding='utf-8',errors='replace').lower()
+        if (kind=='application_control_block')!=('application control policy' in text):raise ProjectError('Annual startup policy classification differs from import log')
+        failures.append(dict(kind=kind,stage='openstudio_import',report=relative,report_sha256=sha,evidence=log,evidence_sha256=report['artifact_hashes'][log],simulation_executed=False))
+    return failures
+
+
 def module_state(run,report,task):
     """Expose verified module diagnostics without inferring a native failure cause."""
     if task['kind'] not in ('module_exchange','module_authoring','module_analysis'):return {}
@@ -96,6 +111,7 @@ def diagnose(plan, run):
             roots = [name]
         ancestors[name] = roots
         runtime_failures=water_runtime_failures(run,report,name) if state['status']=='fail' else []
+        if state['status']=='fail' and task['kind'] in ('annual_energy','annual_energy_ifc'):runtime_failures+=annual_runtime_failures(run,report,name)
         engineering_data_requests=fitting_data_recovery(run,report,name) if task['kind']=='duct_fitting_data' else {}
         module=module_state(run,report,task)
         module_codes={r['code'] for r in module.get('execution',{}).get('diagnostics',[])}
@@ -104,7 +120,7 @@ def diagnose(plan, run):
         elif blocked:
             action = 'resolve upstream tasks before rerunning dependent task'
         elif runtime_failures:
-            action = 'resolve the recorded native runtime policy block through an approved environment; pipe-size changes cannot fix this startup failure'
+            action = 'resolve the recorded runtime startup failure through a compatible approved environment before a new run;design quantities cannot fix this startup failure'
         elif 'provider_disabled' in module_codes:
             action = 'enable the selected provider or explicitly select a compatible trusted replacement in host configuration before a new run'
         elif 'runtime_missing' in module_codes:

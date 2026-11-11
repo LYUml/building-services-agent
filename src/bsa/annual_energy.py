@@ -6,6 +6,7 @@ import csv
 import gzip
 import hashlib
 import io
+import importlib
 from datetime import date,timedelta
 import html
 import json
@@ -205,10 +206,19 @@ def extract(sql,year,lighting_w_m2,area,solver,targets,geometry=None,operation=N
 
 def run(project,weather,out,exe):
     project,weather,out,exe=[Path(v).resolve() for v in (project,weather,out,exe)]
-    if not exe.is_file() or any(out==p or out in p.parents for p in (project,weather)):raise ProjectError('existing engine and separate annual output required')
+    if out.exists() or not exe.is_file() or any(out==p or out in p.parents for p in (project,weather)):raise ProjectError('existing engine and new separate annual output required')
     before={str(v):digest(v) for v in (project,weather)}
     p=validate(json.loads(project.read_text(encoding='utf-8-sig')));weather_meta=read_weather(weather,p['weather'],p['calendar_year'])
-    import openstudio
+    try:openstudio=importlib.import_module('openstudio')
+    except ImportError as exc:
+        if any(digest(Path(p))!=sha for p,sha in before.items()):raise ProjectError('Annual inputs changed during runtime import') from exc
+        out.mkdir(parents=True,exist_ok=False)
+        log=out/'runtime-import.log';log.write_text(type(exc).__name__+': '+str(exc),encoding='utf-8')
+        kind='application_control_block' if 'application control policy' in str(exc).lower() else 'dependency_import_error'
+        failure=dict(stage='openstudio_import',kind=kind,evidence=log.name,evidence_sha256=digest(log),
+            inputs=before,engine_sha256=digest(exe),simulation_executed=False,calculation_status='not_executed',design_accepted=False)
+        (out/'runtime-failure.json').write_text(json.dumps(failure,indent=2),encoding='utf-8')
+        raise ProjectError('Annual analysis not executed;'+kind+' during OpenStudio import;inspect runtime-failure.json') from exc
     if openstudio.openStudioVersion()!='3.11.0' or openstudio.energyPlusVersion()!='25.2.0':raise ProjectError('pinned OpenStudio 3.11.0 / EnergyPlus 25.2.0 required')
     version=subprocess.check_output([str(exe),'--version'],text=True).strip()
     if openstudio.energyPlusVersion() not in version:raise ProjectError('OpenStudio/EnergyPlus version mismatch')

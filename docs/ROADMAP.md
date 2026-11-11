@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+Annual OpenStudio import failures now retain runtime-failure.json plus raw import
+log with source/engine hashes and simulation_executed:false. Dependency diagnosis
+checks this evidence and distinguishes explicit Application Control messages
+from other import errors. Eleven related tests pass;actual inherited MOOSAS
+chain retains a policy-block diagnostic and source/delivery integrity passes.
+No annual simulation or performance result is established;policy is unchanged.
+
 Fresh native/MOOSAS substitution now passes exchange and inherited thermal
 preparation on3space and2space projects with equal payloads/prepared inputs.
 Automatic model/space/thermal stages pass. An explicit existing EnergyPlus25.2
