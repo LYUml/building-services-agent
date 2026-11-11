@@ -1,5 +1,11 @@
 # Building Services Agent
 
+Registered electrical rules now dispatch automatically through the exact
+producer into native device schematics. Actual DWG reopening/PDF review and
+four blocked controls verify;58 related tests pass. See
+[evidence](docs/evidence/electrical-rule-provider-workflow.json). This remains
+a scoped schematic workflow;complete multi-discipline delivery is unfinished.
+
 Source-bound electrical rule → native device schematic now executes with
 independent AutoCAD reopening and actual PDF presentation review. See
 [scoped evidence](docs/evidence/module-electrical-native.json). Physical routes,

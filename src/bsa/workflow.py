@@ -309,7 +309,12 @@ def validate_plan(path):
             if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='module_electrical_rules':raise ProjectError('Native electrical schematic requires earlier same-producer rule task')
             inputs.update(Path(__file__).with_name(n) for n in ('module_electrical_native.py','native_cad.py'))
         if kind=='module_electrical_rules':
-            if set(t)-{'id','kind','depends_on','topology','basis','pack','sources','requires_pass','description'}:raise ProjectError('Electrical rules inherit exact module;replacement inputs forbidden')
+            if 'provider' in t:
+                if t['provider']!='bsa.electrical-path-rules':raise ProjectError('Supported registered electrical rule provider required')
+                from .providers import get_provider
+                from .modules import method_paths
+                inputs.update(method_paths(get_provider(t['provider'])))
+            if set(t)-{'id','kind','depends_on','topology','basis','pack','sources','requires_pass','description','provider'}:raise ProjectError('Electrical rules inherit exact module;replacement inputs forbidden')
             parent=t.get('depends_on')
             if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='module_analysis':raise ProjectError('Electrical rules require earlier electrical module')
             from .module_contract import read_json as read_module
@@ -1100,7 +1105,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
             for thermal_folder in thermal_results:verify_thermal(thermal_folder)
             from .module_water_rules import verify as verify_water_rules
             for rule_folder in water_rule_results:verify_water_rules(rule_folder)
-            verify_electrical_workflow([task for task in p['tasks'] if task['id'] in tasks],out,root,tasks)
+            verify_electrical_workflow([task for task in p['tasks'] if task['id'] in tasks],out,root,tasks,module_selection)
             verify_electrical_native_workflow([task for task in p['tasks'] if task['id'] in tasks],out,tasks)
             from .spatial_lighting_rules import verify as verify_spatial_rules
             for rule_folder in spatial_rule_results:verify_spatial_rules(rule_folder)
@@ -1133,7 +1138,11 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     from .workflow_modules import result_path
                     from .module_electrical_rules import run as check_electrical_rules
                     producer=next(x for x in p['tasks'] if x['id']==parent)
-                    payload=check_electrical_rules(result_path(out,producer),local_path(root,t['topology']),local_path(root,t['basis']),local_path(root,t['pack']),root/t['sources'],folder)
+                    args=(result_path(out,producer),local_path(root,t['topology']),local_path(root,t['basis']),local_path(root,t['pack']),root/t['sources'],folder)
+                    if t.get('provider'):
+                        from .module_electrical_rules import run_registered
+                        payload=run_registered(*args,disabled=t['provider'] in module_selection['disabled_providers'])
+                    else:payload=check_electrical_rules(*args)
                     verify_electrical_rules(folder);runtime_inputs.update(payload['inputs'])
                     status=payload['status'];reason=payload['scope']
             elif t['kind']=='module_water_rules':
@@ -2050,7 +2059,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
     for rule_folder in spatial_rule_results:verify_spatial_rules(rule_folder)
     for fan_folder in module_fan_results:verify_module_fan(fan_folder)
     for rule_folder in water_rule_results:verify_water_rules(rule_folder)
-    verify_electrical_workflow(p['tasks'],out,root,tasks)
+    verify_electrical_workflow(p['tasks'],out,root,tasks,module_selection)
     verify_electrical_native_workflow(p['tasks'],out,tasks)
     unchanged=all(f.is_file() and digest(f)==before[str(f)] for f in inputs)
     source_rows={x["id"]:x for x in plan_documents(root,p)['passages']}
@@ -2100,7 +2109,7 @@ def verify(run_directory):
                 verify_native_electrical(root/name)
                 if task['status']!='pass':raise ValueError('Native electrical task status contradicts retained result')
             except (OSError,ValueError,KeyError,TypeError) as exc:issues.append('module electrical native evidence invalid: '+name+': '+str(exc))
-        if task['kind']=='module_electrical_rules' and ((root/name/'electrical-module-rules.json').is_file() or task['status']=='pass'):
+        if task['kind']=='module_electrical_rules' and ((root/name/'electrical-module-rules.json').is_file() or (root/name/'provider/result.json').is_file() or task['status']=='pass'):
             try:
                 from .module_electrical_rules import verify as verify_electrical_rules
                 rule=verify_electrical_rules(root/name)

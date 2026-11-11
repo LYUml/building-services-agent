@@ -9,6 +9,13 @@ from .module_electrical_rules import verify as verify_rules
 from .providers.electrical_circuits import verify_schematic
 
 
+def rule_evidence(rule_folder):
+    folder=Path(rule_folder)
+    if (folder/'provider/result.json').is_file():
+        return [folder/'provider/result.json',folder/'provider/rules/electrical-module-rules.json']
+    return [folder/'electrical-module-rules.json']
+
+
 def source_context(rule_folder):
     rule_folder=Path(rule_folder).resolve();rule=verify_rules(rule_folder)
     if rule['status']!='pass':raise ValueError('Passing exact electrical rule result required before native schematic')
@@ -38,7 +45,7 @@ def run(rule_folder,out,exe):
     from .native_cad import convert,plot
     rule_folder,out,exe=[Path(p).resolve() for p in (rule_folder,out,exe)]
     rule,producer,source,audit=source_context(rule_folder)
-    pins=dict(rule['inputs']);pins.update({str(p):digest(p) for p in (rule_folder/'electrical-module-rules.json',source,exe,Path(__file__),ROOT/'src/bsa/native_cad.py')})
+    pins=dict(rule['inputs']);pins.update({str(p):digest(p) for p in (*rule_evidence(rule_folder),source,exe,Path(__file__),ROOT/'src/bsa/native_cad.py')})
     if not out.is_relative_to(ROOT) or out.exists() or any(out==Path(p) or out in Path(p).parents for p in pins):raise ValueError('New repository native output separate from sources required')
     native=convert(source,out,exe);native['plot']=plot(out/'devices.dwg',source,out/'devices.pdf',exe)
     (out/'native-verification.json').write_text(json.dumps(native,indent=2),encoding='utf-8');native_readback(out,source)
@@ -56,7 +63,7 @@ def verify(folder):
     folder=Path(folder).resolve();r=read_json(folder/'electrical-native.json')
     rule,producer,source,audit=source_context(r['rule_run'])
     exe=Path(read_json(folder/'native-verification.json')['engine']).resolve()
-    pins=dict(rule['inputs']);pins.update({str(p):digest(p) for p in (Path(r['rule_run'])/'electrical-module-rules.json',source,exe,Path(__file__),ROOT/'src/bsa/native_cad.py')})
+    pins=dict(rule['inputs']);pins.update({str(p):digest(p) for p in (*rule_evidence(r['rule_run']),source,exe,Path(__file__),ROOT/'src/bsa/native_cad.py')})
     if r['inputs']!=pins or r['producer_result']!=str(producer) or r['schematic_source']!=str(source) or r['source_audit']!=audit:raise ValueError('Electrical native source lineage differs')
     for name,sha in r['artifacts'].items():
         path=(folder/name).resolve()

@@ -1,5 +1,15 @@
 # Registered whole-path electrical rule provider
 
+Automatic workflows now support provider `bsa.electrical-path-rules` on the
+existing `module_electrical_rules` task. Exact producer/topology/basis/pack/cache
+correspondence and host disable selection are rechecked during execution and
+at delivery. Native device schematics inherit the same verified rule result.
+Use `--registered-rules --drawings` with the public source-only builder.
+Actual native chain and four blocked controls execute;visual presentation
+review remains separate. Diagnostics expose registered rule state. See
+[evidence](evidence/electrical-rule-provider-workflow.json).
+
+
 `bsa.electrical-path-rules` implements `regulation.electrical.radial-paths`
 through the existing `module_electrical_rules` consumer and returns the common
 `bsa.rule-assessment/1` payload. It reuses existing radial voltage-drop and
@@ -28,10 +38,9 @@ pending assessment. A numerical rule exceedance is completed execution with a
 failed assessment;it is never engineering acceptance. Invalid producer identity
 or source/frame mapping produces failure without a successful payload.
 
-This initial registered provider is CLI/API only. Automatic workflow tasks and
-native electrical drawings still use the existing direct consumer. Registered
-workflow dispatch and interchangeable jurisdiction implementations remain next
-work;this does not establish complete electrical or multi-discipline design.
+Plans without a provider retain direct dispatch. The registered workflow is
+now available as described above. Interchangeable jurisdiction implementations
+and complete electrical/multi-discipline design remain unfinished.
 Historical results pinned to an older registry need fresh execution;do not
 rewrite their original inventories.
 

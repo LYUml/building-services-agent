@@ -5,7 +5,7 @@ description: Calculate source-linked single-phase circuits and scoped three-phas
 
 # mep-electrical
 
-For standalone common whole-path rules, use registered bsa.electrical-path-rules with exact producer/topology/basis/pack sources and explicit host official cache. Read docs/ELECTRICAL_RULE_PROVIDER.md. Execution completion can carry pass/fail/pending assessment;never clear a dependent gate from execution status alone. Automatic workflow/native paths currently retain direct rule dispatch.
+For standalone common whole-path rules, use registered bsa.electrical-path-rules with exact producer/topology/basis/pack sources and explicit host official cache. Read docs/ELECTRICAL_RULE_PROVIDER.md. Execution completion can carry pass/fail/pending assessment;never clear a dependent gate from execution status alone. Workflow module_electrical_rules can now declare provider bsa.electrical-path-rules;native device schematics inherit that exact result. Plans without a provider retain direct dispatch. Use workflow_status for retained provider diagnostics.
 
 For common single-phase device schematics, use module_electrical_native after the exact passing module_electrical_rules task. Read docs/MODULAR_ELECTRICAL_RULES.md. Inherit the checked DXF; never replace producer/source paths. Coincident device coordinates require an explicit source-backed schematic layout before CAD. The public builder --drawings is a synthetic presentation example only. Require actual native reopening and separate PDF visual review; preserve physical routes, complete drawings and engineering acceptance as unresolved.
 

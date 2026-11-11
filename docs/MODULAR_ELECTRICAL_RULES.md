@@ -1,9 +1,19 @@
 # Bind common electrical results to whole-path voltage-drop rules
 
+Automatic workflows now support provider `bsa.electrical-path-rules` on the
+existing `module_electrical_rules` task. Exact producer/topology/basis/pack/cache
+correspondence and host disable selection are rechecked during execution and
+at delivery. Native device schematics inherit the same verified rule result.
+Use `--registered-rules --drawings` with the public source-only builder.
+Actual native chain and four blocked controls execute;visual presentation
+review remains separate. Diagnostics expose registered rule state. See
+[evidence](evidence/electrical-rule-provider-workflow.json).
+
+
 The electrical rule consumer is now also a registered CLI/API provider with
 the common RuleAssessment contract. Actual official-source direct/registered
-assessments match. Automatic registered dispatch remains unfinished;existing
-workflow/native paths retain direct dispatch. See ELECTRICAL_RULE_PROVIDER.md.
+assessments match. Registered workflow dispatch is now supported above;plans
+without a provider retain direct dispatch. See ELECTRICAL_RULE_PROVIDER.md.
 
 
 Scoped native electrical schematic now inherits the exact passing rule task via

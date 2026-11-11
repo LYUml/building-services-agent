@@ -30,6 +30,23 @@ class ElectricalRuleWorkflowTests(unittest.TestCase):
         (self.inputs/'sources/emsd-wiring-2025.pdf').unlink();out=self.root/'missing';r=execute(self.plan,out)
         self.assertEqual(r['tasks']['rules']['status'],'pending');self.assertIn('required checks unresolved',r['tasks']['review']['scope']);context(self.plan,out)
 
+    def test_registered_dispatch_equality_disable_and_declared_provider_identity(self):
+        direct_out=self.root/'direct';execute(self.plan,direct_out)
+        plan=json.loads(self.plan.read_text());plan['tasks'][1]['provider']='bsa.electrical-path-rules';self.plan.write_text(json.dumps(plan))
+        out=self.root/'registered';r=execute(self.plan,out)
+        baseline=assess(out/'electrical/result.json',self.inputs/'source/topology.json',self.inputs/'source/basis.json',self.inputs/'source/pack.json',self.inputs/'sources',self.root/'same-producer-direct')['assessment']
+        self.assertEqual(r['tasks']['rules']['status'],'pass');self.assertEqual(verify_rules(out/'rules')['assessment'],baseline)
+        self.assertTrue(verify(out)['integrity_pass']);context(self.plan,out)
+        disabled=self.root/'rule-disabled';r=execute(self.plan,disabled,disabled_module_providers=['bsa.electrical-path-rules'])
+        self.assertEqual(r['tasks']['rules']['status'],'pending');self.assertEqual(r['tasks']['review']['status'],'pending')
+        self.assertTrue(verify(disabled)['integrity_pass']);context(self.plan,disabled)
+        from bsa.workflow_status import diagnose
+        rows={r['id']:r for r in diagnose(self.plan,disabled)['tasks']}
+        self.assertEqual(rows['rules']['module_state']['execution']['diagnostics'][0]['code'],'provider_disabled')
+        self.assertIn('enable the selected provider',rows['rules']['next_action'])
+        plan['tasks'][1].pop('provider');self.plan.write_text(json.dumps(plan))
+        with self.assertRaises(ValueError):context(self.plan,out)
+
     def test_exceedance_false_pass_and_disabled_upstream(self):
         topology=self.inputs/'source/topology.json';data=json.loads(topology.read_text());data['feeders'][0]['route_length_m']=300;topology.write_text(json.dumps(data))
         out=self.root/'fail';r=execute(self.plan,out);self.assertEqual(r['tasks']['rules']['status'],'fail');context(self.plan,out)

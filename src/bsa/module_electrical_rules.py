@@ -1,6 +1,7 @@
 """Bind a verified electrical module and explicit radial topology to existing rules."""
 import argparse
 import json
+import os
 from pathlib import Path
 from .cli import digest
 from .module_contract import read_json
@@ -57,7 +58,9 @@ def run(producer,topology,basis,pack,sources,out):
 
 
 def verify(folder):
-    folder=Path(folder).resolve();report=read_json(folder/'electrical-module-rules.json')
+    folder=Path(folder).resolve()
+    if (folder/'provider/result.json').is_file():return registered_report(folder)
+    report=read_json(folder/'electrical-module-rules.json')
     files,official=paths(report['topology'],report['basis'],report['pack'],report['sources']);module=verify_result(report['producer_result'])
     pins={str(p):digest(p) for p in files|{Path(report['producer_result'])}};pins.update(module['inputs'])
     if pins!=report['inputs']:raise ValueError('Electrical rule source/method inventory differs')
@@ -70,15 +73,48 @@ def verify(folder):
     return report
 
 
-def verify_workflow(tasks,root,plan_root,report_tasks):
+def run_registered(producer,topology,basis,pack,sources,out,*,disabled=False):
+    """Materialize the same verified producer into the trusted rule boundary."""
+    from .modules import run as run_module
+    producer,topology,basis,pack,sources,out=[Path(p).resolve() for p in (producer,topology,basis,pack,sources,out)]
+    upstream=verify_result(producer)
+    if not out.is_relative_to(ROOT) or out.exists():raise ValueError('New repository-local registered rule task output required')
+    out.mkdir(parents=True)
+    request=dict(schema='bsa.module-request/1',project_id=upstream['project_id'],scenario_id=upstream['scenario_id'],
+        capability='regulation.electrical.radial-paths',coordinate_frame=upstream['payload']['coordinate_frame'],
+        sources={k:dict(path=os.path.relpath(p,out),sha256=digest(p)) for k,p in [('producer',producer),('topology',topology),('basis',basis),('pack',pack)]})
+    path=out/'request.json';path.write_text(json.dumps(request,indent=2),encoding='utf-8')
+    run_module(path,'bsa.electrical-path-rules',out/'provider',runtime=dict(sources=sources),disabled=disabled)
+    return registered_report(out)
+
+
+def registered_report(folder):
+    result=verify_result(Path(folder)/'provider/result.json')
+    if result['provider']['id']!='bsa.electrical-path-rules':raise ValueError('Unexpected registered electrical rule provider')
+    if result['execution']['status']=='completed':return verify(Path(folder)/'provider/rules')
+    request_path=Path(result['request']['path']);request=read_json(request_path)
+    sources={k:str((request_path.parent/r['path']).resolve()) for k,r in request['sources'].items()}
+    return dict(producer_result=sources['producer'],topology=sources['topology'],basis=sources['basis'],pack=sources['pack'],
+        status='fail' if result['execution']['status']=='failed' else 'pending',inputs=result['inputs'],
+        scope='Registered electrical rule provider '+result['execution']['status']+';no engineering assessment produced')
+
+
+def verify_workflow(tasks,root,plan_root,report_tasks,selection=None):
     from .workflow_modules import result_path
     known={t['id']:t for t in tasks}
     for task in tasks:
         if task['kind']!='module_electrical_rules':continue
-        folder=Path(root)/task['id'];path=folder/'electrical-module-rules.json'
-        if not path.is_file() and report_tasks[task['id']]['status']!='pass':continue
+        folder=Path(root)/task['id'];path=folder/'electrical-module-rules.json';registered=folder/'provider/result.json'
+        if not path.is_file() and not registered.is_file() and report_tasks[task['id']]['status']!='pass':continue
+        if registered.is_file()!=bool(task.get('provider')):raise ValueError('Electrical rule provider differs from declared task')
         report=verify(folder);expected=result_path(root,known[task['depends_on']]).resolve()
-        if Path(report['producer_result']).resolve()!=expected or any(Path(report[k]).resolve()!=(Path(plan_root)/task[k]).resolve() for k in ('topology','basis','pack','sources')):raise ValueError('Workflow electrical rules differ from declared producer/topology/basis/pack/sources')
+        if registered.is_file():
+            result=verify_result(registered)
+            host_selection=selection if selection is not None else read_json(Path(root)/'workflow.json')['module_selection']
+            disabled='bsa.electrical-path-rules' in host_selection['disabled_providers']
+            if disabled!=any(d['code']=='provider_disabled' for d in result['execution']['diagnostics']):raise ValueError('Electrical rule disable state differs from host selection')
+        keys=('topology','basis','pack','sources') if 'sources' in report else ('topology','basis','pack')
+        if Path(report['producer_result']).resolve()!=expected or any(Path(report[k]).resolve()!=(Path(plan_root)/task[k]).resolve() for k in keys):raise ValueError('Workflow electrical rules differ from declared producer/topology/basis/pack/sources')
         if report['status']!=report_tasks[task['id']]['status']:raise ValueError('Workflow electrical rule status contradicts retained result')
 
 

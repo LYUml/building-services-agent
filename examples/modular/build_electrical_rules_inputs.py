@@ -9,7 +9,7 @@ from bsa.workflow import passages
 ROOT=Path(__file__).resolve().parents[2]
 
 
-def build(out,sources,drawings=False):
+def build(out,sources,drawings=False,registered=False):
     out,sources=Path(out).resolve(),Path(sources).resolve()
     if not out.is_relative_to(ROOT/'runs') or out.exists():raise ValueError('New repository runs folder required')
     pack_path=ROOT/'regulations/hk/2026.11.08/pack.json';pack=json.loads(pack_path.read_text())
@@ -44,6 +44,7 @@ def build(out,sources,drawings=False):
         brief.write_text(text,encoding='utf-8');rows=passages(brief)
         tasks.insert(2,dict(id='native',kind='module_electrical_native',depends_on='rules'))
         tasks[-1].update(requires_pass=['rules','native'],description=rows[-1]['text'])
+    if registered:tasks[1]['provider']='bsa.electrical-path-rules'
     plan=dict(version=1,brief='brief.md',brief_sha256=digest(brief),passage_dispositions={r['id']:'context' if i==0 else 'requirement' for i,r in enumerate(rows)},tasks=tasks,requirements=[dict(id='R'+str(i),task=t['id'],passage=r['id'],quote=r['text'],acceptance=r['text']) for i,(t,r) in enumerate(zip(tasks,rows[1:]),1)])
     (out/'plan.json').write_text(json.dumps(plan,indent=2),encoding='utf-8')
     (out/'source-manifest.json').write_text(json.dumps(dict(public_source_sha256=origins,schematic_presentation=presentation,basis_transformation='Omit standalone demonstration total-drop value;the verified producer and explicit topology supply this computed metric',official_source_sha256={pack['sources'][k]['cache_filename']:digest(out/'sources'/pack['sources'][k]['cache_filename']) if (out/'sources'/pack['sources'][k]['cache_filename']).is_file() else None for k in used}),indent=2),encoding='utf-8')
@@ -51,4 +52,4 @@ def build(out,sources,drawings=False):
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--out',required=True);p.add_argument('--sources',required=True);p.add_argument('--drawings',action='store_true');a=p.parse_args();print(build(a.out,a.sources,a.drawings))
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--out',required=True);p.add_argument('--sources',required=True);p.add_argument('--drawings',action='store_true');p.add_argument('--registered-rules',action='store_true');a=p.parse_args();print(build(a.out,a.sources,a.drawings,a.registered_rules))

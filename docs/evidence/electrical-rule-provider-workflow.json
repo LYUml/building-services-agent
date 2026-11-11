@@ -1,0 +1,88 @@
+{
+  "positive": {
+    "status": {
+      "electrical": "pass",
+      "rules": "pass",
+      "native": "pass",
+      "review": "pending"
+    },
+    "integrity_pass": true,
+    "delivery_context_pass": true,
+    "native_reopen_pass": true,
+    "same_producer_direct_assessment_equal": true,
+    "diagnostic_rule_status": "pass",
+    "visual": {
+      "visual_review": "pass",
+      "pdf_sha256": "3ef801acacfdd81ea9cececafb0c9b6667cd1a1da79b44999a01b70aae19115e",
+      "render_sha256": "d720a33eac961b529079815abef30f4a1ffbd540798f1e66abb0a9ccd4cdcfac",
+      "scope": "Actual plotted two-device schematic;DC1/C1 and DC2/C2 distinct,visible and unclipped;no physical-route acceptance",
+      "design_accepted": false
+    }
+  },
+  "controls": {
+    "disabled-rule": {
+      "status": {
+        "electrical": "pass",
+        "rules": "pending",
+        "native": "pending",
+        "review": "pending"
+      },
+      "no_native_output": true,
+      "integrity_pass": true,
+      "delivery_context_pass": true
+    },
+    "disabled-analysis": {
+      "status": {
+        "electrical": "pending",
+        "rules": "pending",
+        "native": "pending",
+        "review": "pending"
+      },
+      "no_native_output": true,
+      "integrity_pass": true,
+      "delivery_context_pass": true
+    },
+    "exceeded": {
+      "status": {
+        "electrical": "pass",
+        "rules": "fail",
+        "native": "pending",
+        "review": "pending"
+      },
+      "no_native_output": true,
+      "integrity_pass": true,
+      "delivery_context_pass": true
+    },
+    "missing": {
+      "status": {
+        "electrical": "pass",
+        "rules": "pending",
+        "native": "pending",
+        "review": "pending"
+      },
+      "no_native_output": true,
+      "integrity_pass": true,
+      "delivery_context_pass": true
+    }
+  },
+  "limitations": [
+    "Device schematic only;no physical cable routes or complete drawing set",
+    "Native visual acceptance is a separate scoped review;execution report remains pending visual review",
+    "Other electrical rules,jurisdiction replacement and full multi-discipline acceptance remain unfinished"
+  ],
+  "design_accepted": false,
+  "tests": {
+    "invocations": 58,
+    "passes": 58,
+    "failures": 0,
+    "errors": 0,
+    "command": "python -m unittest tests.test_module_electrical_rules_workflow tests.test_workflow_status tests.test_electrical_rule_provider tests.test_module_electrical_rules tests.test_modular_electrical tests.test_modules tests.test_delivery tests.test_module_water_rules"
+  },
+  "source_snapshot": {
+    "src/bsa/module_electrical_rules.py": "4b579da5707880d1ab0a95127a5a24587ec523d9bb0c8fbe57522391dcc4aac2",
+    "src/bsa/module_electrical_native.py": "064abf5c441c80f709ddd14b034449ea994100741387c73a10c1b28ff67987e7",
+    "src/bsa/workflow.py": "b41e86e124e92bd6fdc7782b9399a5d93314352ce69d1e878e555ea8471ec0b6",
+    "src/bsa/workflow_status.py": "be4a29837d44b5495d36d121d0a9c48a0d2f28ea4bbab200a1ef29ad1ac9b558",
+    "examples/modular/build_electrical_rules_inputs.py": "63a8d6173f4e2b73376c63be22f87088f4ed8662f14d92248559303abbed2785"
+  }
+}

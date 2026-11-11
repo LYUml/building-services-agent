@@ -64,13 +64,17 @@ def annual_runtime_failures(run,report,task_id):
 
 def module_state(run,report,task):
     """Expose verified module diagnostics without inferring a native failure cause."""
-    if task['kind'] not in ('module_exchange','module_authoring','module_analysis'):return {}
-    relative=task['id']+('/exchange/result.json' if task.get('depends_on') else '/result.json')
+    if task['kind'] in ('module_electrical_rules','module_water_rules') and task.get('provider'):
+        relative=task['id']+'/provider/result.json'
+    elif task['kind'] in ('module_exchange','module_authoring','module_analysis'):
+        relative=task['id']+('/exchange/result.json' if task.get('depends_on') else '/result.json')
+    else:return {}
     if relative not in report['artifact_hashes']:return {}
     from .modules import verify_result
     result=verify_result(run/relative)
     return dict(provider=result['provider'],execution=result['execution'],acceptance=result['acceptance'],
         numerical_result=dict(status=result['payload']['status'],checks=result['payload']['checks']) if result['execution']['status']=='completed' and result['payload_schema'] in ('bsa.electrical-circuits/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1') else {},
+        regulatory_result=dict(status=result['payload']['status']) if result['execution']['status']=='completed' and result['payload_schema']=='bsa.rule-assessment/1' else {},
         evidence=relative,evidence_sha256=report['artifact_hashes'][relative],design_accepted=False)
 
 
@@ -131,6 +135,8 @@ def diagnose(plan, run):
             action = 'review declared phases and power meaning;select an adapter covering the actual source semantics without deleting fields or converting thermal power into electrical input'
         elif module.get('numerical_result',{}).get('status')=='fail':
             action = 'review the failed declared numerical checks and source design assumptions before revising the design and executing a new run;retain original targets and unresolved engineering acceptance'
+        elif module.get('regulatory_result',{}).get('status') in ('fail','pending'):
+            action = 'review retained rule assessment and cited source/applicability requirements;resolve failed or unknown checks before a new source-bound run'
         elif state['status'] == 'fail':
             action = 'inspect retained failure evidence and correct source or adapter before a new run'
         elif task['kind'] == 'manual':
