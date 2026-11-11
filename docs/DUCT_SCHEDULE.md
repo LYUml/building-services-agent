@@ -1,5 +1,11 @@
 # Equivalent-round section schedule
 
+For independent equation and source-candidate checks after saved-native workflow
+execution,use [schedule equation review](DUCT_SCHEDULE_CHECK.md). It verifies
+stored Colebrook residuals,actual/equivalent velocity and every supplied candidate
+without another friction solver. This does not establish scanned-chart readings,
+source applicability or full duct-sizing acceptance.
+
 `python -m bsa.duct_schedule project.json --out runs/new-schedule` recomputes
 supplied rectangular sections with the existing fluids-backed equivalent-round
 adapter. It writes `results.json` and `schedule.csv`; it does not select sizes,

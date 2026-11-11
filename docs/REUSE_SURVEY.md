@@ -678,3 +678,12 @@ audit sections reuse Python html escaping and native HTML details elements;
 source/evidence JSON and existing acceptance gates are unchanged. Actual source
 review,scoped assertions and native package evidence remain distinct from tests
 of review consistency. See COURSEWORK_SCOPE.md and DELIVERY_REVIEW.md.
+
+Saved-schedule equation review reuses the pinned fluids1.3.1 producer and existing
+delivery/junction native-source binding. Python math evaluates identities and
+the stored Colebrook residual;no replacement numerical solver is built. Actual
+classroom chart inspection finds zero native drawings and one raster image on
+the chart page,so the pinned vector pdf2plot path cannot yield its curve readings.
+The official ASHRAE chapter corroborates the equation family without substituting
+its webpage for the original printed edition. Source conditions and graphical
+readings stay separate. No new dependency or copied coefficient database.

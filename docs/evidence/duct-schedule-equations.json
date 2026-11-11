@@ -1,0 +1,21 @@
+{
+  "scope": "Independent saved-schedule algebra/residual/source-candidate checks only",
+  "targeted_test_methods_passed": 13,
+  "actual_saved_native_source_workflow_verified": true,
+  "source_sections": 47,
+  "source_candidates_checked": 16779,
+  "original_requirement_records_preserved": 34,
+  "maximum_absolute_colebrook_residual": 3.375077994860476e-14,
+  "all_source_method_and_artifact_pins_verified": true,
+  "report_visually_reviewed": true,
+  "actual_and_equivalent_round_velocities_separate": true,
+  "scanned_chart_readings_verified": false,
+  "chart_native_vector_paths": 0,
+  "chart_embedded_raster_images": 1,
+  "pdf2plot_vector_extractor_selected_for_raster_chart": false,
+  "scoped_delivery_review_passes": 3,
+  "pending_delivery_requirements": 31,
+  "full_duct_sizing_acceptance": false,
+  "design_accepted": false,
+  "generator_sha256": "51ccb309fac8cefbc8acd79776aa26dde55706c6abc892cef524c832ca328b6a"
+}

@@ -20,6 +20,13 @@ Iterate design using computed results. Use ../mep-delivery-check/SKILL.md before
 
 ## Tool orchestration
 
+Before recording scoped numerical acceptance for a saved-native duct schedule,
+use bsa.duct_schedule_check as described in docs/DUCT_SCHEDULE_CHECK.md when its
+source contract matches the project. Reuse the exact native/sheet/schedule ancestry;
+retain original requirements and physical/source/chart-reading gaps. Algebra and
+candidate-ranking success may support only the examined numerical subrequirement,
+not original complete sizing or drawing acceptance.
+
 For repeat runs of a reviewed HVAC project, use bsa.hvac_project create to pin
 the plan, discovered sources and selected package reviews, then run the saved
 configuration with explicit host font/AutoCAD arguments. Read docs/HVAC_PROJECT.md.

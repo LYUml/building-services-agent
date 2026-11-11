@@ -5,6 +5,14 @@ description: Calculate source-linked air/water networks, pump operating points a
 
 # Network pressure analysis
 
+For an independent numerical audit of an existing saved-native duct schedule,use
+bsa.duct_schedule_check with the exact plan,workflow,native task and a new output
+directory. Read docs/DUCT_SCHEDULE_CHECK.md. It checks geometry/flow identities,
+all source candidate calculations,stored Colebrook residuals and declared ranking
+without another friction solver. Preserve scanned-chart readings,physical source
+applicability and full acceptance as pending;residual tolerance is not an
+engineering acceptance band. Keep actual and equivalent-round velocities separate.
+
 For whole source supply-tree review after native-sheet execution,use
 bsa.duct_system_paths and docs/DUCT_SYSTEM_PATHS.md. It replays the selected
 friction method against saved-native centreline/node/source correspondence and

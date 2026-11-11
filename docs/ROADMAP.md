@@ -1,5 +1,16 @@
 # Scope and acceptance
 
+Independent saved-schedule review now reconstructs equations and checks stored
+Colebrook residuals for every selected/source candidate,with exact native/source
+ancestry and original criterion/ranking checks. Actual47-section/16,779-candidate
+review passes with maximum absolute residual about3.38e-14. Thirteen focused
+schedule/equation/path tests pass,including coherent factor/pressure forgery and
+unselected-candidate tampering. The readable actual report was inspected. Three
+scoped delivery reviews pass and31 original requirements remain pending. Raster
+chart readings,physical sizing/source applicability and full design remain
+unaccepted;no replacement friction solver or source curve extraction is claimed.
+See DUCT_SCHEDULE_CHECK.md and evidence/duct-schedule-equations.json.
+
 Coursework scope review now distinguishes an explicitly requested preliminary
 load/airflow calculation with declared assumptions from verified room load for
 ADPI. Actual source pages and independent decimal arithmetic support two scoped
