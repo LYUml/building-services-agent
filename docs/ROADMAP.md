@@ -1,5 +1,18 @@
 # Scope and acceptance
 
+User-authorized modular goal revision2026-11-11:read GOAL.md and
+MODULAR_ARCHITECTURE.md before further implementation. The same active goal
+retains complete multi-discipline document-to-editable-deliverable scope.
+Prioritize replaceable public contracts/providers and direct pinned MOOSAS
+geometry/space/exchange/performance reuse;see MOOSAS_MODULE_MAP.md. Existing
+verified adapters stay available. After the closed finite-elbow milestone,implement
+the actual MOOSAS exchange contract/provider vertical slice next,then component
+replacement/disable and cross-project tests. Do not continue accumulating
+course-specific helpers as the primary architecture. These documents record the
+authorized revision;the goal API cannot edit objective text and no new goal or
+completion was created. Architecture/interface work and unexecuted upstream
+capabilities remain unverified until actual execution.
+
 Finite-elbow source integration retains all10 equal-section corner candidates and
 declared two-end budgets. Four focused tests pass. Actual unaccepted1.5xwidth
 radius scenario authors8 bends and trims adjacent straights;two main corners

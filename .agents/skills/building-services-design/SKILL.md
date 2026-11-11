@@ -5,6 +5,14 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+Read docs/GOAL.md,docs/MODULAR_ARCHITECTURE.md and docs/MOOSAS_MODULE_MAP.md for
+the user-authorized modular priority. Keep public contracts/orchestration separate
+from application,performance and jurisdiction providers. Prefer direct pinned
+MOOSAS geometry/space/exchange/analysis reuse where compatible;preserve existing
+verified domain adapters and failed upstream trials. Develop the real exchange
+contract/provider vertical slice before more course-specific helpers. Contract
+plans do not prove implemented replacement or complete engineering acceptance.
+
 The requested outcome is automatic preparation of complete models,calculations,
 analyses and drawings for the user to inspect and use. Report progress against
 artifact completeness and verified capability. Do not describe portal submission
