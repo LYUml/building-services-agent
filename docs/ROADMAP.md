@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+Existing conditional single-phase electrical calculations now use the common
+analysis boundary with a typed units/circuit contract and exact source replay.
+Twenty-three related tests pass;actual1circuit and2circuit projects verify. Positive,
+deliberate numerical-fail and disabled workflows preserve downstream gates.
+Independent Decimal arithmetic reconciles the first case. Native model/code/
+fault-protection and full electrical acceptance remain separate. See MODULAR_ELECTRICAL.md.
+
 Annual OpenStudio import failures now retain runtime-failure.json plus raw import
 log with source/engine hashes and simulation_executed:false. Dependency diagnosis
 checks this evidence and distinguishes explicit Application Control messages

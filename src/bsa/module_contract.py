@@ -10,9 +10,11 @@ SCHEMAS={'bsa.module-request/1':'request-v1.json','bsa.module-result/1':'result-
 
 
 SCHEMAS[RULE_SCHEMA]='rule-assessment-v1.json'
+SCHEMAS['bsa.electrical-circuits/1']='electrical-circuits-v1.json'
 
 
 def artifact_references(schema,data):
+    if schema=='bsa.electrical-circuits/1':return ('report',)
     if schema=='bsa.model-artifact/1':return ('model','verification')
     if schema=='bsa.air-budget/1':return ('report',)
     if schema=='bsa.water-graph/1':return ('report','raw')
@@ -57,6 +59,20 @@ def validate(data,schema=None):
     spec=read_json(ROOT/'contracts/modules'/SCHEMAS[schema]);jsonschema.Draft202012Validator.check_schema(spec)
     errors=list(jsonschema.Draft202012Validator(spec).iter_errors(data))
     if errors:raise ValueError('Contract violation: '+errors[0].message)
+    if schema=='bsa.electrical-circuits/1':
+        frame_spec=read_json(ROOT/'contracts/modules/request-v1.json')['properties']['coordinate_frame']
+        if list(jsonschema.Draft202012Validator(frame_spec).iter_errors(data['coordinate_frame'])):raise ValueError('Invalid electrical coordinate frame')
+        ids=[r['id'] for r in data['circuits']]
+        if len(ids)!=len(set(ids)):raise ValueError('Duplicate common circuit ID')
+        devices=[name for r in data['circuits'] for name in r['device_ids']]
+        if len(devices)!=len(set(devices)):raise ValueError('Duplicate common electrical device ID')
+        expected={k:all(r['checks'][k] for r in data['circuits']) for k in data['checks']}
+        if data['checks']!=expected or (data['status']=='pass')!=all(expected.values()):raise ValueError('Electrical status/check aggregation differs')
+        for phase,value in data['phase_demand_va'].items():
+            if not math.isclose(value,sum(r['demand_va'] for r in data['circuits'] if r['phase']==phase),rel_tol=1e-10,abs_tol=1e-9):raise ValueError('Electrical phase apparent-power aggregation differs')
+        for ref in artifact_references(schema,data):
+            name=data[ref]['path']
+            if '\\' in name or PurePosixPath(name).is_absolute() or '..' in PurePosixPath(name).parts or ':' in name:raise ValueError('Electrical report must be local relative path')
     if schema==RULE_SCHEMA:
         frame_spec=read_json(ROOT/'contracts/modules/request-v1.json')['properties']['coordinate_frame']
         if list(jsonschema.Draft202012Validator(frame_spec).iter_errors(data['coordinate_frame'])):raise ValueError('Invalid common rule coordinate frame')
@@ -100,6 +116,9 @@ def validate(data,schema=None):
         if data['execution']['status']=='completed':
             if data['payload'] is None:raise ValueError('Completed module needs validated payload')
             validate(data['payload'],data['payload_schema'])
+            if data['payload_schema']=='bsa.electrical-circuits/1':
+                row=data['payload']['report']
+                if data['artifacts'].get(row['path'])!=row['sha256']:raise ValueError('Electrical report differs from module inventory')
             if data['payload_schema'] in ('bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
                 for key in artifact_references(data['payload_schema'],data['payload']):
                     row=data['payload'][key]

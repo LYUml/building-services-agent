@@ -1,0 +1,18 @@
+{
+  "schema": "bsa.module-request/1",
+  "project_id": "public-conditional-electrical",
+  "scenario_id": "single-phase-circuits",
+  "capability": "analysis.electrical.single-phase-circuits",
+  "coordinate_frame": {
+    "id": "declared-electrical-schematic",
+    "kind": "source-world-si",
+    "length_unit": "m",
+    "georeferenced": false
+  },
+  "sources": {
+    "project": {
+      "path": "../office-electrical/project.json",
+      "sha256": "34e1fba15d2ec9dacbdf256cf996d2de772873d720374f1ac55fd6b64ac4f34a"
+    }
+  }
+}

@@ -1,5 +1,11 @@
 # Modular architecture and next implementation sequence
 
+Conditional single-phase electrical analysis now also has an executed common
+provider/contract through the existing engine and workflow gates. Source replay
+and explicit electrical units preserve fault/protection/native/code gaps. This
+does not complete three-phase or physical electrical provider coverage. See
+MODULAR_ELECTRICAL.md.
+
 The saved-water jurisdiction consumer now emits an initial validated
 `bsa.rule-assessment/1` alongside its detailed legacy report. Entity/rule IDs,
 pack/jurisdiction,producer hash,source hash/edition/clause and original check

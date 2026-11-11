@@ -2,6 +2,9 @@
 
 
 def get_provider(id):
+    if id=='bsa.single-phase-circuits':
+        from . import electrical_circuits
+        return electrical_circuits
     if id=='bsa.hvac-water-rules':
         from . import water_rules
         return water_rules

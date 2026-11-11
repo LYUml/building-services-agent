@@ -1,0 +1,15 @@
+{
+  "provider":"bsa.single-phase-circuits",
+  "capability":"analysis.electrical.single-phase-circuits",
+  "payload":"bsa.electrical-circuits/1",
+  "related_tests":{"invocations":23,"passed":23},
+  "actual_projects":[{"source":"Public office-electrical example","circuits":1,"execution":"completed","scoped_status":"pass"},{"source":"Independent electrical-paths example","circuits":2,"execution":"completed","scoped_status":"pass"}],
+  "actual_workflow_states":{"positive":"pass","deliberate_low_breaker":"fail","disabled":"pending"},
+  "dependent_review":"retained pending;blocked on numerical failure or disabled provider",
+  "workflow_and_delivery_correspondence":"pass for all three final-source scenarios",
+  "independent_arithmetic":"Seven circuit values recomputed with Decimal for the first project;final-source rerun retains exactly the checked report values",
+  "mutation_controls":"Common value substitution and coherently rehashed retained report reject against source replay;thermal-power units,phase total and duplicate-circuit contract controls reject",
+  "geometry_bound":false,
+  "design_accepted":false,
+  "limitations":"Existing conditional single-phase scalar calculator only;phase VA buckets are not three-phase phasor analysis. No fault/protection,native DWG,physical route,Hong Kong rule or full engineering acceptance. Full regression not rerun."
+}

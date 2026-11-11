@@ -1,0 +1,217 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "coordinate_frame",
+    "units",
+    "status",
+    "checks",
+    "supply_voltage_v",
+    "circuits",
+    "phase_demand_va",
+    "report",
+    "pending",
+    "geometry_bound",
+    "design_accepted"
+  ],
+  "properties": {
+    "schema": {
+      "const": "bsa.electrical-circuits/1"
+    },
+    "coordinate_frame": {
+      "type": "object"
+    },
+    "units": {
+      "const": {
+        "real_power": "kW electrical",
+        "apparent_power": "VA",
+        "current": "A",
+        "voltage": "V",
+        "length": "m"
+      }
+    },
+    "status": {
+      "enum": [
+        "pass",
+        "fail"
+      ]
+    },
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ib_le_in",
+        "in_le_iz",
+        "voltage_drop"
+      ],
+      "properties": {
+        "ib_le_in": {
+          "type": "boolean"
+        },
+        "in_le_iz": {
+          "type": "boolean"
+        },
+        "voltage_drop": {
+          "type": "boolean"
+        }
+      }
+    },
+    "supply_voltage_v": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "circuits": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "phase",
+          "device_ids",
+          "source",
+          "checks",
+          "connected_electrical_kw",
+          "connected_va",
+          "demand_va",
+          "design_current_a",
+          "effective_ampacity_a",
+          "voltage_drop_v",
+          "voltage_drop_percent"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "phase": {
+            "enum": [
+              "L1",
+              "L2",
+              "L3"
+            ]
+          },
+          "device_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "checks": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "ib_le_in",
+              "in_le_iz",
+              "voltage_drop"
+            ],
+            "properties": {
+              "ib_le_in": {
+                "type": "boolean"
+              },
+              "in_le_iz": {
+                "type": "boolean"
+              },
+              "voltage_drop": {
+                "type": "boolean"
+              }
+            }
+          },
+          "connected_electrical_kw": {
+            "type": "number",
+            "minimum": 0
+          },
+          "connected_va": {
+            "type": "number",
+            "minimum": 0
+          },
+          "demand_va": {
+            "type": "number",
+            "minimum": 0
+          },
+          "design_current_a": {
+            "type": "number",
+            "minimum": 0
+          },
+          "effective_ampacity_a": {
+            "type": "number",
+            "minimum": 0
+          },
+          "voltage_drop_v": {
+            "type": "number",
+            "minimum": 0
+          },
+          "voltage_drop_percent": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "phase_demand_va": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "properties": {
+        "L1": {
+          "type": "number",
+          "minimum": 0
+        },
+        "L2": {
+          "type": "number",
+          "minimum": 0
+        },
+        "L3": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "report": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "pending": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "geometry_bound": {
+      "const": false
+    },
+    "design_accepted": {
+      "const": false
+    }
+  }
+}
