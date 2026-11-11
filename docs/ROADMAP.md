@@ -1,5 +1,14 @@
 # Scope and acceptance
 
+Declared diffuser-layout alternatives now recompute original load allocation and
+bounded throw lookups with source-pinned panel/ray diagnostics. Twenty targeted
+tests pass. Actual three-layout comparison preserves all80 IDs and total airflow;
+the new24-position alignment removes the8 cell/ray differences without introducing
+panel boundary/overlap or diagnostic interval issues across640 flow cases. It
+remains unselected,no CAD was modified,and wall/jet semantics,room load,installation,
+connections,sizing/native review and full ADPI remain pending. See
+AIR_LAYOUT_STUDY.md and evidence/air-layout-study.json.
+
 The source-bound terminal-performance adapter is now an optional stage in both
 HVAC package invocation and saved project replay. Complete document/table/method
 pins protect the new stage;failures remain in package stage_errors and late

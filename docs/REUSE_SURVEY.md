@@ -735,3 +735,12 @@ No new engine or dependency is introduced. Complete document/table/method pins
 enter replay configuration and late-stage checks;the index links the unchanged
 standalone pressure/NC report. Native/report replay and mutation controls remain
 distinct from product,acoustic,ADPI or full fan-pressure acceptance.
+
+Declared diffuser-layout studies reuse existing air_allocation.prepare,
+service_areas/ Shapely2.2.0 and terminal_throw.evaluate/fluids1.3.1. The actual gap
+is comparing explicit layout choices against those already executed engines,
+not another solver or CAD engine. Thin source-pinned orchestration adds planar
+panel and cardinal-ray diagnostics;it does not implement a jet simulation or
+automatic physical interpretation. No new upstream package or copied engine.
+Actual three-layout comparison retains original sources and unselected results.
+See AIR_LAYOUT_STUDY.md.

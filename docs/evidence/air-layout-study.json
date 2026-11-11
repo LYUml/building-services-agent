@@ -1,0 +1,41 @@
+{
+  "scope": "Three declared planar diffuser alternatives using existing load/allocation and bounded catalogue engines",
+  "targeted_test_methods_passed": 20,
+  "actual_terminal_count": 80,
+  "actual_variant_count": 3,
+  "actual_directional_cases_per_variant": 320,
+  "actual_maximum_minimum_cases_per_variant": 640,
+  "comparisons": [
+    {
+      "id": "existing-layout",
+      "changed_ids": 0,
+      "panel_boundary_issues": 0,
+      "panel_overlaps": 0,
+      "cell_ray_mismatches": 8,
+      "diagnostic_ratio_issues": 16
+    },
+    {
+      "id": "upper-eight-aligned",
+      "changed_ids": 8,
+      "panel_boundary_issues": 0,
+      "panel_overlaps": 0,
+      "cell_ray_mismatches": 0,
+      "diagnostic_ratio_issues": 2
+    },
+    {
+      "id": "common-right-columns",
+      "changed_ids": 24,
+      "panel_boundary_issues": 0,
+      "panel_overlaps": 0,
+      "cell_ray_mismatches": 0,
+      "diagnostic_ratio_issues": 0
+    }
+  ],
+  "all_original_ids_and_total_flow_preserved": true,
+  "all_input_and_method_hashes_verified": true,
+  "selected_variant": null,
+  "CAD_modified": false,
+  "ADPI_verified": false,
+  "design_accepted": false,
+  "method_sha256": "f6ed114b1ce0dc2750c3bdd54add178bed2e36f900001b3b04ecadaab3da84be"
+}

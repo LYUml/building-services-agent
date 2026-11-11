@@ -5,6 +5,15 @@ description: Calculate source-linked air/water networks, pump operating points a
 
 # Network pressure analysis
 
+For explicit diffuser-position alternatives,use bsa.air_layout_study and
+docs/AIR_LAYOUT_STUDY.md. Reuse source-classified loads and the reviewed catalogue;
+compare full terminal inventories,flow conservation,panel envelopes and cardinal
+polygon/aligned-midpoint rays. Off-axis neighbours are not automatically opposing
+jets,and allocation cells are not physical jet boundaries. Keep diagnostic ratios
+distinct from ADPI applicability. Candidate geometry does not select a design or
+update CAD:rebuild source-bound connections,sizing and native plots after actual
+position changes,and preserve original studies.
+
 For catalogue pressure operating points after a passing terminal_throw workflow,
 use bsa.terminal_performance and docs/TERMINAL_PERFORMANCE.md. Bind the original
 document/table/product and inherit exact maximum/minimum flow,without replacement
