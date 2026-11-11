@@ -55,7 +55,7 @@ def module_state(run,report,task):
     from .modules import verify_result
     result=verify_result(run/relative)
     return dict(provider=result['provider'],execution=result['execution'],acceptance=result['acceptance'],
-        numerical_result=dict(status=result['payload']['status'],checks=result['payload']['checks']) if result['execution']['status']=='completed' and result['payload_schema'] in ('bsa.air-budget/1','bsa.bound-air-budget/1') else {},
+        numerical_result=dict(status=result['payload']['status'],checks=result['payload']['checks']) if result['execution']['status']=='completed' and result['payload_schema'] in ('bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1') else {},
         evidence=relative,evidence_sha256=report['artifact_hashes'][relative],design_accepted=False)
 
 

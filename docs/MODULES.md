@@ -511,3 +511,39 @@ Tests include point/trace tampering and false workflow-pass rejection. See
 [evidence](evidence/modular-fan-handoff.json). Real curves/installation category,
 stable operation,mechanical limits,native fan equipment,electrical input,HK rules
 and full design acceptance remain unfinished.
+
+## Steady water analysis provider
+
+`wntr.epanet-steady` implements `analysis.water.steady-graph` using the existing
+fixed `python -m bsa.epanet` CLI and WNTR1.5.0/EPANET2.2. See
+examples/modular-water-plan.json and the commands in examples/modular/README.md.
+Its request has exactly one source role,project. It accepts the existing declared
+withdrawal and circulation graph formats;it does not inherit a model artifact
+or import arbitrary IFC geometry. Windows-x64 library selection is verified on
+this host;other deployment profiles/provider replacements remain unverified.
+
+The `bsa.water-graph/1` payload retains junction head/static pressure head and
+delivered/design demand,pipe signed flow and speed,pump flow/head gain,12 explicit
+numerical checks plus circulation checks where applicable,and raw/report refs.
+Units are m3/s,m and m/s;head denotes metres of water,not Pa or source total
+pressure. No pump motor power is inferred. Geometry remains unbound and all
+engineering acceptance stays pending.
+
+Verification checks method/source/library pins,domain artifacts,worker source
+copy,process status,common/raw report agreement and source/raw numerical replay
+using the existing evaluator. This is consistency checking,not another solver,
+authenticated execution or manufacturer/source applicability verification.
+INP/RPT/BIN,CSV outputs and worker logs remain available. A successful solve with
+failed targets is completed/numerical fail and blocks required downstream work.
+A disabled/missing/incompatible runtime is unavailable;worker/timeout/policy
+failure cannot expose a hydraulic payload. Policy classification requires the
+actual retained log message and does not trigger policy changes.
+
+Six actual baseline/capacity/velocity/disabled/invalid/circulation workflows
+verify result,workflow,diagnosis and delivery context. The final numerical results
+are respectively pass/fail/fail/absent/absent/pass;all reviews remain pending.
+42 related modular tests,11 existing water tests and7 diagnosis tests pass.
+These60 targeted invocations do not replace the last full regression at b74f030.
+See evidence/modular-water-graph.json. Native BIM/routing handoff,HK rule binding
+through this interface,products,efficiency/electrical input,controls,NPSH and full
+water/MEP design remain unfinished.

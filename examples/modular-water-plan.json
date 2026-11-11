@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "brief": "modular/water-graph-brief.md",
+  "brief_sha256": "a415a1fe5fa92ed60030623a80a74fe85f17215d654b767c1ff9ee3a2a04e37a",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "water",
+      "kind": "module_analysis",
+      "request": "modular/water-graph.json",
+      "provider": "wntr.epanet-steady"
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "requires_pass": [
+        "water"
+      ],
+      "description": "Review all source assumptions,physical model and product applicability,pump power,controls and Hong Kong requirements separately. Failed numerical checks must block this review path;successful solving does not establish engineering acceptance."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "task": "water",
+      "passage": "P002",
+      "quote": "Run the existing WNTR/EPANET steady solver on water-loop/project.json through the selected module provider. Preserve sourced demands,pipe dimensions,lengths,roughness,curve and static pressure-head targets;schematic coordinates do not define physical routes.",
+      "acceptance": "Run the existing WNTR/EPANET steady solver on water-loop/project.json through the selected module provider. Preserve sourced demands,pipe dimensions,lengths,roughness,curve and static pressure-head targets;schematic coordinates do not define physical routes."
+    },
+    {
+      "id": "R2",
+      "task": "review",
+      "passage": "P003",
+      "quote": "Review all source assumptions,physical model and product applicability,pump power,controls and Hong Kong requirements separately. Failed numerical checks must block this review path;successful solving does not establish engineering acceptance.",
+      "acceptance": "Review all source assumptions,physical model and product applicability,pump power,controls and Hong Kong requirements separately. Failed numerical checks must block this review path;successful solving does not establish engineering acceptance."
+    }
+  ]
+}

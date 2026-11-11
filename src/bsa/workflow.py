@@ -329,7 +329,7 @@ def validate_plan(path):
             if kind=='module_analysis':
                 from .module_contract import read_json as read_module
                 capability=read_module(local_path(root,t.get('request')))['capability']
-                if capability not in ('analysis.air.rectangular-tree','analysis.air.rectangular-ifc-tree'):raise ProjectError('Supported rectangular air budget capability required')
+                if capability not in ('analysis.air.rectangular-tree','analysis.air.rectangular-ifc-tree','analysis.water.steady-graph'):raise ProjectError('Supported numerical analysis capability required')
                 if parent and (capability!='analysis.air.rectangular-ifc-tree' or parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='module_authoring'):raise ProjectError('Bound budget requires earlier canonical module authoring producer')
             if kind=='module_authoring':
                 if 'depends_on' in t:raise ProjectError('Authoring module uses explicit project request,not inherited geometry')

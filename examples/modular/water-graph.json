@@ -1,0 +1,18 @@
+{
+  "schema": "bsa.module-request/1",
+  "project_id": "public-modular-water-graph",
+  "scenario_id": "synthetic-loop",
+  "capability": "analysis.water.steady-graph",
+  "coordinate_frame": {
+    "id": "synthetic-water-source-reference",
+    "kind": "source-world-si",
+    "length_unit": "m",
+    "georeferenced": false
+  },
+  "sources": {
+    "project": {
+      "path": "../water-loop/project.json",
+      "sha256": "d2c6f22d9cc176c306d46c002aef6ccb8bc872dd69ef1c3663d84bc4f6a27215"
+    }
+  }
+}

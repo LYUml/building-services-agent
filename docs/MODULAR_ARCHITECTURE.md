@@ -74,7 +74,10 @@ dependent failures/pending work while independent tasks continue.
    unverified. The existing rectangular air-tree budget now has a typed analysis
    provider with separate completed/numerical-fail gating. Bounded canonical
    source/native rectangular binding now executes;arbitrary native-model intake
-   and replacement by another solver remain unfinished. Keep blocked
+   and replacement by another solver remain unfinished.
+   Steady declared water/circulation graphs now also use the common analysis
+   boundary via the existing WNTR/EPANET worker;native water-model and HK-rule
+   inheritance through this boundary remain unfinished. Keep blocked
    Revit/analysis execution visible;do not bypass
    signing policy or silently upgrade EnergyPlus versions.
 5. Bind independent HK rules and requirement/delivery review to the same common

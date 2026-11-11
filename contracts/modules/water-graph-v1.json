@@ -1,0 +1,230 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "coordinate_frame",
+    "units",
+    "pressure_basis",
+    "status",
+    "checks",
+    "junctions",
+    "pipes",
+    "pumps",
+    "report",
+    "raw",
+    "geometry_bound",
+    "design_accepted"
+  ],
+  "properties": {
+    "schema": {
+      "const": "bsa.water-graph/1"
+    },
+    "coordinate_frame": {
+      "type": "object"
+    },
+    "units": {
+      "const": {
+        "flow": "m3/s",
+        "head": "m",
+        "velocity": "m/s"
+      }
+    },
+    "pressure_basis": {
+      "const": "static pressure head in metres of water"
+    },
+    "status": {
+      "enum": [
+        "pass",
+        "fail"
+      ]
+    },
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "engine_clean",
+        "serialized_input_match",
+        "finite_results",
+        "reservoir_heads",
+        "mass_balance",
+        "head_pressure_identity",
+        "demand_law",
+        "pressure_targets",
+        "delivery_targets",
+        "velocity_limits",
+        "pipe_energy",
+        "pump_curves"
+      ],
+      "properties": {
+        "engine_clean": {
+          "type": "boolean"
+        },
+        "serialized_input_match": {
+          "type": "boolean"
+        },
+        "finite_results": {
+          "type": "boolean"
+        },
+        "reservoir_heads": {
+          "type": "boolean"
+        },
+        "mass_balance": {
+          "type": "boolean"
+        },
+        "head_pressure_identity": {
+          "type": "boolean"
+        },
+        "demand_law": {
+          "type": "boolean"
+        },
+        "pressure_targets": {
+          "type": "boolean"
+        },
+        "delivery_targets": {
+          "type": "boolean"
+        },
+        "velocity_limits": {
+          "type": "boolean"
+        },
+        "pipe_energy": {
+          "type": "boolean"
+        },
+        "pump_curves": {
+          "type": "boolean"
+        },
+        "zero_reference_exchange": {
+          "type": "boolean"
+        },
+        "positive_circulation": {
+          "type": "boolean"
+        }
+      }
+    },
+    "junctions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "head_m",
+          "static_pressure_head_m",
+          "delivered_m3_s",
+          "design_demand_m3_s"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "head_m": {
+            "type": "number"
+          },
+          "static_pressure_head_m": {
+            "type": "number"
+          },
+          "delivered_m3_s": {
+            "type": "number"
+          },
+          "design_demand_m3_s": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "pipes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "flow_m3_s",
+          "velocity_m_s"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "flow_m3_s": {
+            "type": "number"
+          },
+          "velocity_m_s": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "pumps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "flow_m3_s",
+          "head_gain_m"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "flow_m3_s": {
+            "type": "number"
+          },
+          "head_gain_m": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "report": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "raw": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "geometry_bound": {
+      "const": false
+    },
+    "design_accepted": {
+      "const": false
+    }
+  }
+}

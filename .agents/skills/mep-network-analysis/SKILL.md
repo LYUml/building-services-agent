@@ -5,6 +5,14 @@ description: Calculate source-linked air/water networks, pump operating points a
 
 # Network pressure analysis
 
+For declared steady water/circulation graphs,use module_analysis with
+wntr.epanet-steady and analysis.water.steady-graph per examples/modular-water-plan.json.
+It wraps the existing WNTR1.5.0/EPANET2.2 worker. Inspect native files,raw/report
+agreement and source/raw evaluator replay;preserve signed flow and static head
+in metres of water. Completed numerical fail blocks required work;worker failure
+has no hydraulic payload. Geometry,HK rules,pump electricity and full acceptance
+remain unverified through this boundary. See docs/MODULES.md.
+
 For the initial modular air-budget boundary,use module_analysis with
 fluids.rectangular-air-budget and a source-pinned analysis.air.rectangular-tree
 request. It reuses the existing rectangular_network calculator/fluids1.3.1;

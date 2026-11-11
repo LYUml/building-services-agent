@@ -1,5 +1,19 @@
 # Public modular pipeline
 
+The independent steady-water example uses the existing WNTR1.5.0/EPANET2.2
+engine through a typed analysis provider:
+
+```powershell
+.venv/Scripts/python -m bsa.workflow execute examples/modular-water-plan.json --out runs/public-modular-water
+.venv/Scripts/python -m bsa.workflow verify runs/public-modular-water
+```
+
+Use a new output directory. The synthetic graph is declared,not native-bound.
+The execute command exits1 while the manual review remains pending;inspect
+actual task results. Completed numerical failures and absent solver results stay
+distinct. Static pressure head in metres of water is neither Pa nor total source
+pressure. No electrical pump power or Hong Kong compliance is inferred.
+
 This independent synthetic example executes native IFC authoring,selected
 spatial exchange and annual thermal input preparation from checked-in sources.
 It needs no previous runs or manually generated module request. It reuses the

@@ -21,7 +21,7 @@ def host_selection(tasks,overrides=None,disabled=()):
 def execution_status(result,kind):
     status={'completed':'pass','failed':'fail','unavailable':'pending','pending':'pending'}[result['execution']['status']]
     if kind=='module_analysis' and result['execution']['status']=='completed':
-        if result['payload_schema'] not in ('bsa.air-budget/1','bsa.bound-air-budget/1'):raise ValueError('Supported numerical analysis payload required')
+        if result['payload_schema'] not in ('bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1'):raise ValueError('Supported numerical analysis payload required')
         status=result['payload']['status']
     return status
 

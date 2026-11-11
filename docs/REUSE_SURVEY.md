@@ -873,3 +873,13 @@ fan solver,curve extraction or equipment selection engine. Optional network_inpu
 artifact references replace filename guesses. No new dependency or upstream
 source is copied. Seven actual workflows and legacy fan handoff/selection tests
 execute;synthetic curves do not establish real product suitability. See MODULES.md.
+
+The steady-water module wraps the existing bsa.epanet CLI/worker and evaluate
+routine,using pinned WNTR1.5.0/EPANET2.2 rather than adding another engine or
+loader. Existing water-binding/circulation adapters remain unchanged;the gap is
+typed graph output,raw-result replay and workflow gating. Installed WNTR's
+LICENSE.md was inspected:Revised BSD,with existing separate EPANET/native notices
+retained under third_party/licenses and THIRD_PARTY.md. No new dependency or
+upstream implementation is copied. Six actual workflows and60 targeted test
+invocations execute;native-model/jurisdiction consumers and full acceptance
+remain unfinished. See MODULES.md and evidence/modular-water-graph.json.

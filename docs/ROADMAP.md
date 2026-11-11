@@ -1,5 +1,14 @@
 # Scope and acceptance
 
+Steady water/circulation analysis now uses the common module boundary via
+wntr.epanet-steady,bsa.water-graph/1 and the existing pinned WNTR/EPANET worker.
+Source/raw evaluator replay and signed flow/static-head units remain explicit.
+Six actual workflows preserve numeric failure,disabled/invalid states and pending
+review;60 related targeted invocations pass. Native-model inheritance,HK rule
+handoff through this interface and full design remain pending. See MODULES.md
+and evidence/modular-water-graph.json. The full regression below predates this
+addition;targeted checks do not make that audit green.
+
 Full regression at b74f030 now completes with frozen source:1,136 invocations,
 1,019 passes,1 failure,13 errors,103 skips. It is not green:13 tracebacks explicitly
 report the OpenStudio Application Control import block;the HVAC rule-workflow

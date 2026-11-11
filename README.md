@@ -7,6 +7,12 @@ Latest [full regression](docs/REGRESSION_MODULAR_20261111.md):1,136 invocations,
 remains blocked;fresh scoped WNTR/EPANET execution now succeeds. The full suite
 and complete engineering acceptance have not passed.
 
+The [modular water example](examples/modular/README.md) now wraps existing
+WNTR/EPANET steady analysis with source/raw replay and typed signed-flow/static-
+head results. Six workflows and60 targeted invocations pass;native geometry,
+jurisdiction handoff and complete acceptance remain pending. This postdates the
+full regression above.
+
 The [active user-authorized goal](docs/GOAL.md) now explicitly prioritizes
 [modular boundaries/public contracts](docs/MODULAR_ARCHITECTURE.md) and
 [direct MOOSAS reuse](docs/MOOSAS_MODULE_MAP.md). These preserve the full
