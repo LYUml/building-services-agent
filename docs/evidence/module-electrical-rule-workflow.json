@@ -1,0 +1,18 @@
+{
+  "scope":"Automatic same-producer electrical module to existing whole-path rule consumer",
+  "related_tests":{"invocations":48,"passed":48},
+  "actual_final_scenarios":{
+    "normal":{"electrical":"pass","rules":"pass","review":"pending"},
+    "longer_feeder":{"electrical":"pass","rules":"fail","review":"pending"},
+    "unknown_applicability":{"electrical":"pass","rules":"pending","review":"pending"},
+    "missing_official_source":{"electrical":"pass","rules":"pending","review":"pending"},
+    "disabled_analysis":{"electrical":"pending","rules":"pending","review":"pending","rule_report_created":false}
+  },
+  "actual_workflow_and_delivery_verification":"pass for all five scenarios",
+  "controls":"False pass state rejects;coherently valid report from another producer rejects;replacement input fields and unsupported numerical/native release consumers reject",
+  "source_binding":"Exact producer/topology/basis/pack/cache correspondence checked before dependent work,at completion and in delivery context",
+  "public_builder":"Source-only project/topology/pack staging;original hashes and basis computed-metric omission recorded;changed official cache hash rejects",
+  "regulatory_coverage":"New task recognized as scheduled scoped check;complete conformity remains unestablished",
+  "design_accepted":false,
+  "limitations":"Synthetic public engineering data with actual calculator/official-byte execution. Registered electrical jurisdiction-provider replacement,native same-model release,other required electrical rules and full engineering acceptance remain unfinished. Full regression not rerun."
+}

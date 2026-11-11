@@ -1,5 +1,13 @@
 # Scope and acceptance
 
+Common electrical rules now execute automatically from the exact declared
+electrical producer,with repeated topology/basis/pack/source correspondence and
+delivery checks. Five actual pass/exceeded/unknown/missing/disabled scenarios
+retain correct gates. Coherent other-producer reports and false-pass records
+reject. Native/replacement release consumers remain unsupported and reject.
+Public staging uses existing source data and unchanged official bytes. See
+MODULAR_ELECTRICAL_RULES.md.
+
 The common electrical module now has a standalone whole-path rule consumer
 reusing existing radial/evaluator engines. Explicit feeders are required;branch
 drop cannot stand in for total path and computed metrics cannot be overridden.

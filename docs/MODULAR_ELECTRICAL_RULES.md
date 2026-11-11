@@ -1,5 +1,11 @@
 # Bind common electrical results to whole-path voltage-drop rules
 
+Latest automatic-workflow validation:48related tests pass. Five actual
+official-source scenarios preserve pass/fail/pending and upstream-disabled gates;
+workflow/delivery correspondence verifies. See
+evidence/module-electrical-rule-workflow.json. This does not establish native
+release,other electrical rules or complete engineering acceptance.
+
 `bsa.module_electrical_rules` reuses electrical_paths.calculate_paths/bind_facts
 and the existing regulation evaluator. It requires a passing verified
 single-phase electrical module,explicit sourced radial topology,fact/edition
@@ -31,13 +37,33 @@ coverage is preserved per entity. Verification reconstructs path quantities,
 bound facts,source availability and checks. Updated output hashes cannot clear
 changed facts. This is source replay,not independent physical validation.
 
-This initial consumer is CLI/API only. It is not yet a registered replaceable
-electrical rule provider or automatic workflow task. Do not infer automatic
-same-model CAD release gates from standalone execution. The original legacy
-electrical_regulations workflow remains available;other required electrical
-protection/native/code obligations remain unfinished.
+The consumer now also runs as workflow kind module_electrical_rules. Declare
+depends_on for the exact earlier electrical module plus topology,basis,pack and
+sources. Replacement project/result inputs reject. Results are rechecked against
+that producer and declared sources before downstream tasks and at completion;
+delivery repeats those checks. Use requires_pass for intended consumers.
 
-Twenty-seven related tests pass across electrical/water/common contracts.
+Stage the public source-only example with an existing official-source cache:
+
+```powershell
+.venv/Scripts/python examples/modular/build_electrical_rules_inputs.py --sources runs/official-sources --out runs/new-electrical-rules-inputs
+.venv/Scripts/python -m bsa.workflow execute runs/new-electrical-rules-inputs/plan.json --out runs/new-electrical-rules
+```
+
+Missing official files remain absent/pending;changed cache hashes reject staging.
+The builder records original public source hashes and the explicit removal of
+the standalone demonstration metric from the basis. No unknown calculation value
+is supplied in its place. Disabled/failed upstream analysis produces no rule
+report;failed/pending checks block required dependent review. Coverage scheduling
+recognizes the new task but does not turn it into full regulatory coverage.
+
+It is not yet a registered replaceable electrical rule provider. Unsupported
+numerical/authoring/native release consumers reject rather than borrowing this
+rule gate with replacement sources. Same-model native CAD release remains
+unfinished. The original legacy electrical_regulations workflow remains available.
+
+Initial standalone evidence:twenty-seven related tests pass across electrical/
+water/common contracts.
 Actual synthetic two-circuit data with unchanged pinned official sources passes
 the scoped check. Deliberately longer feeders fail,unknown applicability and
 missing official sources remain pending. Independent Decimal feeder/path sums

@@ -70,6 +70,29 @@ def verify(folder):
     return report
 
 
+def verify_workflow(tasks,root,plan_root,report_tasks):
+    from .workflow_modules import result_path
+    known={t['id']:t for t in tasks}
+    for task in tasks:
+        if task['kind']!='module_electrical_rules':continue
+        folder=Path(root)/task['id'];path=folder/'electrical-module-rules.json'
+        if not path.is_file() and report_tasks[task['id']]['status']!='pass':continue
+        report=verify(folder);expected=result_path(root,known[task['depends_on']]).resolve()
+        if Path(report['producer_result']).resolve()!=expected or any(Path(report[k]).resolve()!=(Path(plan_root)/task[k]).resolve() for k in ('topology','basis','pack','sources')):raise ValueError('Workflow electrical rules differ from declared producer/topology/basis/pack/sources')
+        if report['status']!=report_tasks[task['id']]['status']:raise ValueError('Workflow electrical rule status contradicts retained result')
+
+
+def validate_gates(tasks):
+    known={t['id']:t for t in tasks};ancestors={}
+    for task in tasks:
+        parents=set(task.get('requires_pass',[]))|({task['depends_on']} if task.get('depends_on') else set())
+        upstream=set(parents)
+        for parent in parents:upstream.update(ancestors.get(parent,set()))
+        ancestors[task['id']]=upstream
+        if any(known[name]['kind']=='module_electrical_rules' for name in upstream) and task['kind'] in ('electrical','electrical_fault','electrical_regulations','electrical_lighting','electrical_coordination','native_cad','base_overlay','module_analysis','module_authoring','bim','ifc_views','ifc_views_native','ifc_drawing','ifc_native'):
+            raise ValueError('Electrical rule gate has no supported same-producer handoff for this consumer;replacement inputs forbidden')
+
+
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('producer')
     for key in ('topology','basis','pack','sources','out'):p.add_argument('--'+key,required=True)

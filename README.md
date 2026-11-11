@@ -2,6 +2,11 @@
 
 需求文档 → 可追溯项目数据 → CAD/BIM → 工程分析 → 设计迭代 → 已核对交付。
 
+Latest [targeted electrical-rule workflow checks](docs/evidence/module-electrical-rule-workflow.json):
+48passes;five actual source-bound scenarios verify pass/fail/pending gates.
+Native release and full engineering acceptance remain unfinished. Earlier
+regression records below retain their original snapshots and limitations.
+
 Expanded [targeted regression](docs/evidence/registered-rules-expanded-regression.json)
 after the registered-rule changes:84invocations,83passes,1optional native skip,
 no failures/errors;all four source snapshots unchanged. This does not supersede
