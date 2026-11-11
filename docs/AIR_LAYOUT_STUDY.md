@@ -1,5 +1,15 @@
 # Declared diffuser layout alternatives
 
+Directional cases now record polygon-hit coordinates,source component/ring
+indices (exterior or interior),screened endpoints and controlling geometric
+candidates. Coincident controls retain both candidates. This is topological
+provenance,not wall/column semantics or verified jet interaction. Existing pinned
+Shapely nearest-point/ring operations are reused without a new engine. Ten
+layout/allocation tests pass,including interior-hole and aligned/off-axis cases.
+A fresh private three-layout replay records960directions;the current aligned
+alternative has280midpoint and40boundary controls. All320nearest boundary hits
+belong to exterior rings. Physical L/installation/ADPI applicability stays pending.
+
 `bsa.air_layout_study` compares explicit position alternatives using existing
 air_allocation.prepare,Shapely2.2.0 service geometry and fluids1.3.1 bounded throw
 interpolation. It retains the original load assumptions,total airflow,terminal

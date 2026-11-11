@@ -926,3 +926,5 @@ implementation is added/copied. Saved-DXF tag identity and conservative graphic
 box checks are verified;actual2DWG/2page output is separately inspected.14 targeted
 invocations:13pass,1optional native skip. The full route_annotations planner remains
 unintegrated into multiview end-on handling. See evidence/keyed-view-tags.json.
+
+Characteristic-length trace gap: reuse existing pinned Shapely2.2.0 nearest-point and polygon-ring operations inside air_layout_study. Existing allocation/throw engines and lengths remain;add geometric hit/control provenance only. No new dependency or physical jet solver. Ten tests and actual three-layout/960-direction replay execute;topology does not verify wall semantics,installation or ADPI applicability. See AIR_LAYOUT_STUDY.md.

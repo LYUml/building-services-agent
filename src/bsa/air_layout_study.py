@@ -6,6 +6,7 @@ import json
 import math
 from pathlib import Path
 from shapely.geometry import Point,LineString,box,shape
+from shapely.ops import nearest_points
 from .air_allocation import prepare,reference_files
 from .cli import digest
 from .terminal_throw import evaluate,positive
@@ -41,6 +42,14 @@ def evaluate_variant(boundary,project,catalogue,variant,panel_size_m,ratio_range
             hit=ray.intersection(space.boundary)
             if hit.is_empty:raise ValueError('Missing polygon ray boundary intersection')
             wall=origin.distance(hit);opposing=[]
+            boundary_point=nearest_points(origin,hit)[1]
+            rings=[]
+            polygons=list(space.geoms) if space.geom_type=='MultiPolygon' else [space]
+            for component,polygon in enumerate(polygons):
+                for ring_index,ring in enumerate([polygon.exterior,*polygon.interiors]):
+                    if ring.distance(boundary_point)<=COINCIDENCE_M:
+                        rings.append(dict(component=component,ring=ring_index,kind='exterior' if ring_index==0 else 'interior'))
+            if not rings:raise ValueError('Ray hit has no source polygon ring')
             for other in terminals:
                 vx,vy=[v-u for u,v in zip(xy,other['center_m'])]
                 forward=vx*dx+vy*dy;cross=vx*dy-vy*dx
@@ -48,12 +57,17 @@ def evaluate_variant(boundary,project,catalogue,variant,panel_size_m,ratio_range
                     opposing.append((forward/2,other['id']))
             aligned=min(opposing) if opposing else None
             length=min(wall,aligned[0]) if aligned else wall
+            controls=[]
+            if math.isclose(length,wall,rel_tol=0,abs_tol=COINCIDENCE_M):controls.append('polygon_boundary')
+            if aligned and math.isclose(length,aligned[0],rel_tol=0,abs_tol=COINCIDENCE_M):controls.append('aligned_outlet_midpoint')
             proxy=origin.distance(ray.intersection(cell.boundary))
             mismatch=not math.isclose(proxy,length,rel_tol=0,abs_tol=COINCIDENCE_M)
             mismatches+=mismatch
             lookup=evaluate(catalogue['rows'],maximum_flow_L_s=terminal['maximum_flow_L_s'],turndown=project['turndown'],characteristic_length_m=length)
             issue=sum(c['ratio'] is None or not low<=c['ratio']<=high for c in lookup['cases'].values());ratio_issues+=issue
             cases.append(dict(terminal=terminal['id'],direction=name,polygon_ray_distance_m=wall,aligned_midpoint_candidate=None if aligned is None else dict(terminal=aligned[1],distance_m=aligned[0]),
+                polygon_hit_m=list(boundary_point.coords[0]),polygon_hit_rings=rings,
+                screened_endpoint_m=[xy[0]+dx*length,xy[1]+dy*length],geometric_controls=controls,
                 screened_length_m=length,allocation_cell_ray_distance_m=proxy,cell_ray_mismatch=mismatch,lookup=lookup))
     return dict(id=variant['id'],basis=variant['basis'],changes=variant['changes'],allocation=allocation,cases=cases,
         panel_outside_boundary=outside,panel_overlaps=pairs,cell_ray_mismatches=mismatches,diagnostic_ratio_cases_outside_range=ratio_issues,

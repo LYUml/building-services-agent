@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Length-screening results now expose boundary-hit/ring and screened-endpoint
+provenance plus controlling boundary/midpoint candidates. Ten targeted tests and
+an actual3layout/960direction replay pass. The current aligned alternative has
+280midpoint and40boundary controls;physical L and ADPI facts remain unresolved.
+Earlier full-package evidence predates this method change.
+
 Fresh actual-project delivery review independently reconciles preliminary thermal
 load/total-flow arithmetic with Decimal and rechecks the original brief/course
 scope. The separate source-bound audit retains all34requirements:2scoped passes,
