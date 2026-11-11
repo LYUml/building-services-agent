@@ -4,7 +4,8 @@ from pathlib import Path
 import json
 import os
 from .cli import digest
-from .module_contract import read_json,validate
+from .module_contract import read_json
+from .rule_assessment import assessment
 from .modules import ROOT,verify_result
 from .epanet_pipe_regulations import prepare
 from .regulations import evaluate,source_paths,method_paths
@@ -15,24 +16,8 @@ def paths(basis,pack,sources):
     if not data.get('rules') or any(r['method']!='hvac_water_piping' for r in data['rules']):raise ValueError('Existing HVAC water-piping rule method required')
     official=source_paths(data,sources)
     methods={Path(__file__),*[Path(__file__).with_name(n) for n in ('epanet_pipe_regulations.py','regulations.py','water_pipe_rules.py')],*method_paths(data)}
-    methods.update({ROOT/'src/bsa/module_contract.py',ROOT/'contracts/modules/rule-assessment-v1.json'})
+    methods.update({ROOT/'src/bsa/module_contract.py',ROOT/'src/bsa/rule_assessment.py',ROOT/'contracts/modules/rule-assessment-v1.json'})
     return {Path(basis).resolve(),Path(pack).resolve(),*methods,*[p for p in official if p.is_file()]},official
-
-
-def assessment(checks,pack,producer_hash,coordinate_frame):
-    rules={r['id']:r for r in pack['rules']};rows=[]
-    for entity,result in sorted(checks.items()):
-        for row in result['checks']:
-            rule=rules[row['id']];source=pack['sources'][rule['source_id']]
-            original=row['status'];state='pass' if original=='pass' else 'fail' if original=='review_required' else 'pending'
-            rows.append(dict(entity_id=entity,rule_id=row['id'],status=state,original_status=original,
-                source_id=rule['source_id'],source_sha256=source['sha256'],edition=source['edition'],
-                clause=rule['clause'],scope=row['scope']))
-    states=[r['status'] for r in rows]
-    return validate(dict(schema='bsa.rule-assessment/1',coordinate_frame=coordinate_frame,jurisdiction=pack['jurisdiction'],rule_pack=pack['id'],
-        producer_sha256=producer_hash,status='fail' if 'fail' in states else 'pending' if 'pending' in states else 'pass',
-        coverage=[dict(entity_id=entity,implemented=result['coverage']['implemented'],pending=result['coverage']['pending']) for entity,result in sorted(checks.items())],
-        checks=rows,coverage_complete=False,regulatory_compliance='not_established',design_accepted=False))
 
 
 def binding(producer,basis,pack,sources):

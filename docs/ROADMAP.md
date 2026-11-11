@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+The common electrical module now has a standalone whole-path rule consumer
+reusing existing radial/evaluator engines. Explicit feeders are required;branch
+drop cannot stand in for total path and computed metrics cannot be overridden.
+Actual official-source two-circuit pass/longer-feeder fail/unknown/missing-source
+controls verify. Independent Decimal sums reconcile. Automatic provider/task
+and native release gates remain unfinished. See MODULAR_ELECTRICAL_RULES.md.
+
 The common single-phase electrical provider now rejects unsupported source
 fields before calculation,with an explicit unsupported_source_semantics recovery
 diagnostic.24related tests pass;three actual phase-count/thermal/line-voltage

@@ -1,0 +1,14 @@
+{
+  "scope":"Verified common electrical branch result plus explicit same-phase radial topology bound to existing whole-path voltage-drop rule",
+  "related_tests":{"invocations":27,"passed":27},
+  "actual_circuits":2,
+  "official_source":"Existing unchanged hash-matching pinned Wiring2025 cache and selected legacy pack",
+  "actual_final_scenarios":{"normal":"pass","longer_feeder":"fail","unknown_applicability":"pending","missing_official_source":"pending"},
+  "source_replay_verification":"pass for all four scenarios",
+  "independent_arithmetic":"Decimal feeder-current/drop and branch-plus-feeder path summation reconciled;final-source replay preserves the independently checked path report",
+  "controls":"Computed total-path metric overrides and coherently rehashed bound-fact changes reject",
+  "shared_projection":"Generic rule_assessment extracted unchanged from existing water consumer and reused for electrical entity/rule rows;water controls pass",
+  "regulatory_compliance":"not_established",
+  "design_accepted":false,
+  "limitations":"Standalone CLI/API only;automatic workflow/provider/CAD gates unfinished. Explicit source topology and applicability are synthetic assertions,not surveyed routes or legal determinations. No branch-only total-path claim,three-phase solver,feeder protection or full electrical acceptance. Full regression not rerun. Existing IfcOpenShell ResourceWarning persists in related water tests."
+}
