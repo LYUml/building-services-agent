@@ -33,3 +33,11 @@ necessary before the agent creates executable engineering tasks.
 
 Twelve intake/draft/handoff tests pass. A real private two-PDF bundle was staged
 unchanged with90passages;source-review issues correctly prevent a ready handoff.
+
+That real bundle was subsequently reviewed against actual reference-page renders
+and hash-verified prior primary-page inspection. A new source-reviewed plan now
+validates and generates the interpretation template,retaining all90passages and
+their interpretation blockers. Embedded performance/friction/fitting graphics
+are explicitly identified as untranscribed source evidence. Source review does
+not imply those numbers or their engineering applicability are accepted. See
+evidence/project-start-source-review.json.

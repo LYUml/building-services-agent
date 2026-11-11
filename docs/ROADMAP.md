@@ -1,5 +1,13 @@
 # Scope and acceptance
 
+The new real intake bundle now has14specific source-inspection notes and a new
+validated source-reviewed plan/handoff template. Eleven reference pages were
+rendered/inspected;two primary-page reviews reused only after source/image hash
+checks and annotation reinspection. Graphical performance/friction/fitting tables
+remain explicit source data requiring separate numeric/applicability review.
+All90passages and90interpretation blockers remain;originals are preserved.
+See evidence/project-start-source-review.json. No engineering acceptance implied.
+
 A single project_start command now stages original briefs and composes existing
 source-linked draft/handoff tools. Twelve related tests pass. A real2PDF bundle
 retains90passages and unchanged original/staged bytes;PDF extraction review

@@ -1,0 +1,16 @@
+{
+  "scope":"Actual source inspection after original-document staging;no engineering acceptance",
+  "source_documents":2,
+  "extraction_review_issues_addressed":14,
+  "reference_pages_newly_rendered_and_inspected":11,
+  "primary_pages":"Two prior inspected renders reused only after source and image hash checks;link annotation independently rechecked",
+  "graphical_data_pages_requiring_separate_numeric_review":4,
+  "source_discrepancy_retained":"Reference product-family text differs from primary brief/catalogue header;not silently resolved",
+  "new_source_reviewed_plan_validation":"pass",
+  "interpretation_template_generated":true,
+  "source_passages_preserved":90,
+  "interpretation_blockers_preserved":90,
+  "original_plan_and_sources":"preserved",
+  "design_accepted":false,
+  "limitations":"Layout/annotation inspection only;embedded tables/graphs are not complete machine-readable facts. Reference guidance does not automatically expand primary deliverables. Actual loads,geometry,product/application and full engineering acceptance remain pending. Poppler Symbol display-font warning retained."
+}
