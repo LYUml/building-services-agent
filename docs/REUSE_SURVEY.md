@@ -917,3 +917,12 @@ route_annotations.layout was checked against this exact gap:plan returns4pieces,
 direct front input fails on zero-length end-on symbols. No replacement planner
 or new upstream dependency is added;multiview adaptation remains unverified.
 See evidence/water-rule-drawing-gates.json. Retain current engine/licence notices.
+
+The visual fix uses a source-keyed tag/parameter-list convention instead of
+claiming the finite-pipe planner supports end-on glyphs. Original bounded graphic
+placement glue reuses route_annotations.expand and the existing ezdxf,IFC and
+native save/reopen/plot pipeline. No dependency,engineering solver or upstream
+implementation is added/copied. Saved-DXF tag identity and conservative graphic
+box checks are verified;actual2DWG/2page output is separately inspected.14 targeted
+invocations:13pass,1optional native skip. The full route_annotations planner remains
+unintegrated into multiview end-on handling. See evidence/keyed-view-tags.json.

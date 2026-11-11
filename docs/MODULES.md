@@ -651,6 +651,10 @@ acceptance or typed RuleAssessment replacement is established by this milestone.
 
 ## Gated native-water drawing composition: visual acceptance failed
 
+Historical straight-leader trial. The later keyed-schedule trial in IFC_VIEWS.md
+and evidence/keyed-view-tags.json fixes this observed presentation failure on
+two actual rendered pages. Original failed evidence remains preserved below.
+
 The public water-rule input builder also accepts --drawings. It stages explicit
 circulation-ifc plan/front settings and adds same-authoring ifc_views and
 ifc_views_native tasks after the rule check. This is an experimental drawing

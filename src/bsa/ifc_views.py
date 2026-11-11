@@ -13,12 +13,24 @@ from .ifc_native import validate_settings as validate_sheet
 
 
 def label_text(row,settings,mode):
-    return f"{settings['labels'][row['guid']]}  ID {row['inner_diameter_m']*1000:g}/OD {row['outside_diameter_m']*1000:g} mm  L {row['length_m']:g} m"+(' END-ON' if mode=='end_on' else '')
+    prefix=(tag_text(row['guid'],settings)+' ') if settings.get('annotation_mode')=='keyed-schedule' else ''
+    return prefix+f"{settings['labels'][row['guid']]}  ID {row['inner_diameter_m']*1000:g}/OD {row['outside_diameter_m']*1000:g} mm  L {row['length_m']:g} m"+(' END-ON' if mode=='end_on' else '')
+
+
+def tag_text(guid,settings):return '['+str(sorted(settings['labels']).index(guid)+1)+']'
+
+
+def tag_layout(rows,settings,axes,window):
+    from .view_tags import layout
+    modes={r['guid']:'axis' if math.dist(*[[p[i] for i in axes] for p in (r['start_world_m'],r['end_world_m'])])>1e-9 else 'end_on' for r in rows}
+    return layout(rows,axes,settings['annotation_height_m'],settings['end_on_marker_half_size_m'],window,
+                  {r['guid']:label_text(r,settings,modes[r['guid']]) for r in rows},{r['guid']:tag_text(r['guid'],settings) for r in rows})
 
 
 def validate_settings(p):
-    if not isinstance(p,dict) or set(p)!={'version','source','annotation_height_m','end_on_marker_half_size_m','labels','views'} or type(p['version']) is not int or p['version']!=1:
+    if not isinstance(p,dict) or set(p)-{'annotation_mode'}!={'version','source','annotation_height_m','end_on_marker_half_size_m','labels','views'} or type(p['version']) is not int or p['version']!=1:
         raise ProjectError('versioned multiview settings, explicit labels and end-on symbol size required')
+    if 'annotation_mode' in p and p['annotation_mode']!='keyed-schedule':raise ProjectError('Supported optional annotation mode required')
     if not isinstance(p['source'],str) or not p['source'].strip():raise ProjectError('multiview provenance required')
     for key in ('annotation_height_m','end_on_marker_half_size_m'):
         if type(p[key]) not in (int,float) or not math.isfinite(p[key]) or not .001<=p[key]<=1:raise ProjectError('annotation/symbol sizes must be 0.001..1 metre')
@@ -50,6 +62,7 @@ def draw_view(rows,settings,view,out):
         projected.append((row,a,b,math.dist(a,b)))
     label_x=max(pt[0] for _,a,b,_ in projected for pt in (a,b))+4*h
     window=view['sheet']['window_drawing_units'];label_y=window[3]-2
+    keyed=settings.get('annotation_mode')=='keyed-schedule';tags=tag_layout(rows,settings,axes,window) if keyed else {}
     def line(a,b,layer,guid):
         e=ms.add_line(a,b,dxfattribs={'layer':layer});e.set_xdata('BSA_IFC',[(1000,guid)])
         svg.append(f'<line x1="{a[0]}" y1="{-a[1]}" x2="{b[0]}" y2="{-b[1]}" stroke="{"#888" if layer=="BSA_LEADER" else "black"}" stroke-width="{h/(25 if layer=="BSA_LEADER" else 12)}"/>');return e.dxf.handle
@@ -63,12 +76,15 @@ def draw_view(rows,settings,view,out):
         else:
             for sign in (-1,1):handles.append(line([middle[0]-radius,middle[1]-sign*radius],[middle[0]+radius,middle[1]+sign*radius],'BSA_END_ON',guid))
         label=label_text(row,settings,mode)
-        handles.append(line(middle,[label_x-h,label_y],'BSA_LEADER',guid));handles.append(text(label,[label_x,label_y],guid))
+        if keyed:handles.append(text(tags[guid]['text'],tags[guid]['point'],guid))
+        else:handles.append(line(middle,[label_x-h,label_y],'BSA_LEADER',guid))
+        handles.append(text(label,[label_x,label_y],guid))
         records.append(dict(guid=guid,label=settings['labels'][guid],mode=mode,projected_start_m=a,projected_end_m=b,projected_length_m=length,true_length_m=row['length_m'],handles=handles))
         label_y-=3*h
     titles=[f"{' / '.join(view['projection_axes'])} pipe projection; scale 1:{view['sheet']['scale_denominator']:g}; coordinates m",
             'Labels show true lengths; X marks a symbolic end-on pipe, not its diameter',
             'Pipes only; fittings, equipment and installation detail remain pending']
+    if keyed:titles[1]='Numbered tags match the parameter list; X marks an end-on pipe, not its diameter'
     for i,title in enumerate(titles):text(title,[window[0]+2*h,window[3]-(i+2)*1.6*h])
     # Conservative ASCII text allowance is a layout precheck; actual PDF review is separate.
     for e in ms:
@@ -97,6 +113,8 @@ def run(ifc,settings_path,out):
     ifc,settings_path,out=[Path(p).resolve() for p in (ifc,settings_path,out)]
     if any(out==p or out in p.parents for p in (ifc,settings_path)):raise ProjectError('output must not contain sources')
     before={str(p):digest(p) for p in (ifc,settings_path)};settings=validate_settings(json.loads(settings_path.read_text(encoding='utf-8-sig')))
+    if settings.get('annotation_mode')=='keyed-schedule':
+        for name in ('view_tags.py','route_annotations.py'):before[str(Path(__file__).with_name(name).resolve())]=digest(Path(__file__).with_name(name))
     source=extract(ifc)
     if not source['calculated_checks_pass']:raise ProjectError('complete supported IFC segment coverage required: '+json.dumps(source['unsupported_segments']))
     rows=source['segments']
@@ -126,6 +144,11 @@ def verify_manifest(path):
         if not file.is_relative_to(path.parent) or not file.is_file() or digest(file)!=sha:raise ProjectError('multiview input artifact missing/changed/escaping its directory')
     expected={v['id']:v for v in p['settings']['views']}
     rows={r['guid']:r for r in p['source_geometry']['segments']}
+    keyed=p['settings'].get('annotation_mode')=='keyed-schedule'
+    if keyed:
+        for name in ('view_tags.py','route_annotations.py'):
+            helper=Path(__file__).with_name(name).resolve()
+            if p['inputs'].get(str(helper))!=digest(helper):raise ProjectError('View tag helper method pin missing or changed')
     if p['source_geometry']['calculated_checks_pass'] is not True or set(rows)!=set(p['settings']['labels']):raise ProjectError('complete source geometry/callout coverage required')
     coverage={guid:[] for guid in rows}
     if len(p['views'])!=len(expected) or {v['id'] for v in p['views']}!=set(expected):raise ProjectError('manifest view coverage differs')
@@ -139,6 +162,7 @@ def verify_manifest(path):
         if doc.header.get('$INSUNITS')!=6 or len(view['segments'])!=len(rows) or {r['guid'] for r in view['segments']}!=set(rows):raise ProjectError('DXF units or per-view segment coverage differs')
         handles=[];h=p['settings']['annotation_height_m'];radius=p['settings']['end_on_marker_half_size_m']
         label_x=max(pt[axes[0]] for row in rows.values() for pt in (row['start_world_m'],row['end_world_m']))+4*h
+        tags=tag_layout(list(rows.values()),p['settings'],axes,expected[id]['sheet']['window_drawing_units']) if keyed else {};saved_tags=[]
         def close(a,b):return len(a)==len(b) and all(abs(x-y)<=1e-9 for x,y in zip(a,b))
         for index,record in enumerate(view['segments']):
             row=rows[record['guid']];a,b=[[pt[i] for i in axes] for pt in (row['start_world_m'],row['end_world_m'])]
@@ -152,7 +176,16 @@ def verify_manifest(path):
             if mode=='axis':coverage[row['guid']].append(id)
             text=entities[-1];leader=entities[-2];label_y=expected[id]['sheet']['window_drawing_units'][3]-2-index*3*h
             if text.dxftype()!='TEXT' or text.dxf.layer!='BSA_LABEL' or text.dxf.text!=label_text(row,p['settings'],mode) or abs(text.dxf.height-h)>1e-9 or not close(list(text.dxf.insert),[label_x,label_y,0]) or text.dxf.rotation!=0 or text.dxf.width!=1:raise ProjectError('multiview annotation differs')
-            if leader.dxftype()!='LINE' or leader.dxf.layer!='BSA_LEADER' or not close(list(leader.dxf.start),middle+[0]) or not close(list(leader.dxf.end),[label_x-h,label_y,0]):raise ProjectError('multiview leader differs')
+            if keyed:
+                tag=tags[row['guid']]
+                if leader.dxftype()!='TEXT' or leader.dxf.layer!='BSA_LABEL' or leader.dxf.text!=tag['text'] or not close(list(leader.dxf.insert),tag['point']+[0]) or abs(leader.dxf.height-h)>1e-9 or leader.dxf.rotation!=0 or leader.dxf.width!=1:raise ProjectError('Saved source-keyed tag differs')
+                saved_tags.append(dict(point=list(leader.dxf.insert)[:2],text=leader.dxf.text))
+            elif leader.dxftype()!='LINE' or leader.dxf.layer!='BSA_LEADER' or not close(list(leader.dxf.start),middle+[0]) or not close(list(leader.dxf.end),[label_x-h,label_y,0]):raise ProjectError('multiview leader differs')
+        if keyed:
+            from .view_tags import context,audit_positions
+            texts={r['guid']:label_text(r,p['settings'],'axis' if math.dist(*[[pt[i] for i in axes] for pt in (r['start_world_m'],r['end_world_m'])])>1e-9 else 'end_on') for r in rows.values()}
+            _,bounds,reserved=context(list(rows.values()),axes,h,radius,expected[id]['sheet']['window_drawing_units'],texts)
+            audit_positions(saved_tags,bounds,reserved,expected[id]['sheet']['window_drawing_units'],h)
         linked={e.dxf.handle for e in doc.modelspace() if e.has_xdata('BSA_IFC')}
         if len(set(handles))!=len(handles) or set(handles)!=linked or len(doc.modelspace())!=len(handles)+3:raise ProjectError('unexpected/missing multiview model entities')
     if p['axis_coverage']!=coverage or any(not views for views in coverage.values()):raise ProjectError('combined nonzero projection coverage differs')

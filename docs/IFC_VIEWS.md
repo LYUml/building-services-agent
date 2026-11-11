@@ -1,5 +1,33 @@
 # Orthographic IFC pipe drawing sets
 
+Optional annotation_mode:keyed-schedule replaces straight leaders with numbered
+tags near the source projections and matching full parameter rows. Numbers are
+deterministic from source GUID order;original callouts/names and true lengths
+remain in the schedule. It supports the existing end-on glyphs without sending
+zero-length axes through a finite-pipe leader router. The default legacy settings
+remain structurally unchanged.
+
+The small graphic adapter reuses route_annotations.expand and the existing
+ezdxf/native pipeline. It searches20 bounded candidate positions per tag against
+conservative projected pipe/symbol rectangles,parameter/title regions and other
+tags. Those are graphic avoidance bounds,not physical/service clearances. Failure
+to find a clear position raises rather than placing an overlapping tag. It is
+not a general annotation optimizer or a proof of unambiguous physical installation.
+
+The saved-DXF verifier checks exact tag-to-GUID/parameter identity,placement,
+height,width/rotation and independently reads tag boxes against graphic regions.
+Both helper method hashes are required in the manifest and selected workflow
+inputs. Updated file hashes cannot clear a moved/reassigned/resized tag. Actual
+PDF inspection still remains mandatory.
+
+The public circulation settings now select this mode. Actual gated native
+authoring/water/HK checks →2DWGs/reopens →2pages at1:30 execute. Both rendered pages
+were inspected:the prior crossing leaders are absent,all four tags match their
+parameter rows,and no clipping/overlap is visible. The scoped presentation review
+passes;whole engineering/installation acceptance remains false. 14 targeted
+invocations:13pass,1optional native test skipped;actual2view native execution is
+separate from that skipped test. See evidence/keyed-view-tags.json.
+
 The view adapter can also inherit a completed common model artifact from an
 earlier module_authoring task. See examples/modular-drawing-plan.json and
 MODULES.md. Actual native authoring →3views →3DWGs/reopens →3plotted pages is

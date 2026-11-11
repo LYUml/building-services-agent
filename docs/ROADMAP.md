@@ -1,5 +1,14 @@
 # Scope and acceptance
 
+Numbered source-keyed view tags plus the existing parameter list now fix the
+observed crossing-leader issue without routing zero-length end-on projections.
+Saved-DXF identity/graphic checks and helper pins execute;updated file hashes
+cannot clear moved or reassigned tags. Two actual native DWGs reopen,and both
+replotted1:30 pages pass scoped visual review.14 targeted invocations:13pass,
+1optional native skip. Original failed output remains historical evidence. Full
+physical/installation/design acceptance and the original goal remain incomplete.
+See IFC_VIEWS.md and evidence/keyed-view-tags.json.
+
 The rule workflow's optional drawing composition now executes actual2DWG save/
 independent reopen and2-page1:30 plotting. Native and scale checks pass;actual
 150dpi inspection fails visual acceptance because straight leaders cross other

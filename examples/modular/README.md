@@ -1,10 +1,12 @@
 # Public modular pipeline
 
-Experimental drawing composition: the water-rule builder's --drawings option
-adds the same-model plan/front and native plotting tasks. The actual trial has
-passing DWG/reopen/reference checks but **failed visual acceptance** because of
-crossing label leaders. Do not use it as a polished or accepted drawing set;
-see docs/MODULES.md and evidence/water-rule-drawing-gates.json.
+The water-rule builder's --drawings option adds same-model plan/front and native
+plotting tasks. Its current circulation settings use numbered source tags and a
+parameter list,fixing the earlier crossing-leader presentation. An actual two-page
+native run passes scoped presentation/native/reference review;physical products,
+fittings/equipment,installation details and full engineering acceptance remain
+pending. See docs/IFC_VIEWS.md and evidence/keyed-view-tags.json. The earlier failed
+straight-leader trial remains in evidence/water-rule-drawing-gates.json.
 
 ```powershell
 .venv/Scripts/python examples/modular/build_water_rules_inputs.py --sources runs/hk-regulation-sources --out runs/water-drawing-inputs --drawings
@@ -13,7 +15,7 @@ see docs/MODULES.md and evidence/water-rule-drawing-gates.json.
 
 Use an actual installed host path and new output directories. No GUI documents
 are attached/closed. Manual visual/domain review remains pending in the workflow;
-the actual failed visual observation is retained separately from immutable results.
+actual visual observations are retained separately from immutable results.
 
 For the complete scoped native-circulation/model/analysis/HK-rule chain,first
 obtain the existing pinned official cache using scripts/fetch_regulation_sources.py

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "source": "Explicit two-view synthetic flat circulation layout;actual source GUIDs and metre coordinates. 0.075m annotation prints2.5mm at1:30. Centreline scope excludes pump/node bodies and installation detail.",
+  "source": "Explicit two-view synthetic flat circulation layout;actual source GUIDs and metre coordinates. 0.075m annotation prints2.5mm at1:30. Centreline scope excludes pump/node bodies and installation detail. Numbered source-keyed tags avoid crossing leaders;graphic clearances are not service clearances.",
   "annotation_height_m": 0.075,
   "end_on_marker_half_size_m": 0.05,
   "labels": {
@@ -48,5 +48,6 @@
         "pdf_tolerance_mm": 0.2
       }
     }
-  ]
+  ],
+  "annotation_mode": "keyed-schedule"
 }

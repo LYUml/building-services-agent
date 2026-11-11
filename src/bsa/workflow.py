@@ -819,6 +819,7 @@ def validate_plan(path):
                 from .ifc_views import validate_settings
                 settings=local_path(root,t.get('settings'));inputs.add(settings);validate_settings(read_json(settings))
                 inputs.update(Path(__file__).with_name(name) for name in ('ifc_views.py','ifc_drawing.py','ifc_native.py'))
+                if read_json(settings).get('annotation_mode')=='keyed-schedule':inputs.update(Path(__file__).with_name(name) for name in ('view_tags.py','route_annotations.py'))
             elif kind=='annual_energy_ifc':
                 from .thermal_binding import validate_contract
                 from .annual_energy import read_weather

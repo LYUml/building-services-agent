@@ -5,6 +5,14 @@ description: Audit building services models, drawings, calculations and reports 
 
 # mep-delivery-check
 
+For ifc_views annotation_mode:keyed-schedule,verify source GUID-number/tag and
+full parameter-row correspondence,exact saved text position/height/width/rotation
+and conservative graphic nonintersection. Both view_tags/route_annotations helper
+pins must be present. No leader routing or physical clearance is inferred.
+Inspect every actual plotted page for ambiguity/clipping/legibility;source/native
+and graphic checks do not accept fittings,equipment,installation or full design.
+See docs/IFC_VIEWS.md and the retained failed versus corrected native trials.
+
 For modular workflows inspect module_selection and nested results per
 docs/MODULES.md. Delivery context reconstructs selected provider method inputs
 and checks actual provider/disable correspondence. workflow_status retains

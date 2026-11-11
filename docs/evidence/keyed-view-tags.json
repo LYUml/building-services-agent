@@ -1,0 +1,159 @@
+{
+  "scope": "Source-keyed compact tag and parameter-list presentation for supported straight IFC orthographic views;not full installation/design acceptance",
+  "source_sha256": {
+    "src/bsa/ifc_views.py": "7966ce842631ed7689602f17d8bac89c4572df22151e91ae83db62007ae2792b",
+    "src/bsa/view_tags.py": "33452707bf2b7f98e04cc3534c9a8cf86dca7982998a7fc058fe079ea01332a7",
+    "src/bsa/route_annotations.py": "1454a9b87a6ad326d11df2f0a813c5f040b3546f33c49e24af9afc6795da4259",
+    "src/bsa/workflow.py": "984d743eabe31273c754749a5e146d0623555ef4b26d61ba239daaf651c5e9f1",
+    "examples/circulation-ifc/views-settings.json": "76c63153a24e398358f21dce811570d1ec5c7b16bbb205ff72e3b103bb00b1b4",
+    "tests/test_ifc_view_tags.py": "f8956e1c73a4ce0e5c2831a8434be5d64c0ecfd4d15e9c3fd2a61f5a634f9953"
+  },
+  "test_runs": [
+    {
+      "result": "runs/keyed-view-tag-tests/result.json",
+      "sha256": "268f7dc4bf502346bfae9b0e3fb76eeafcb42fbd0e6a6a17b8dc13351766bf5c",
+      "invocations": 9,
+      "passed": 8,
+      "skipped": [
+        {
+          "test": "test_ifc_views.IFCViewsTests.test_actual_three_native_reopens_and_merged_pdf_references",
+          "reason": "requires AutoCAD"
+        }
+      ],
+      "source_unchanged": true,
+      "log_sha256": "e38f8fc070008bd81c09933996ba67731e1221e75d7e98487a6bb41f3e6f8723"
+    },
+    {
+      "result": "runs/keyed-water-drawing-gate-tests/result.json",
+      "sha256": "9e29847dd872477c94ea49d110ba42dc912d01a71adfd6a711e0eaf063f6f4dc",
+      "invocations": 2,
+      "passed": 2,
+      "skipped": [],
+      "source_unchanged": true,
+      "log_sha256": "0fd991268897006e47f54f6a1e59fffe80948997e3da143397e0dd3b29743e05"
+    },
+    {
+      "result": "runs/keyed-view-module-regression/result.json",
+      "sha256": "2ed75a8e80d32dc1e4fbe1846c65035d11b74fa3da6f6267dda0d681753b27f6",
+      "invocations": 3,
+      "passed": 3,
+      "skipped": [],
+      "source_unchanged": true,
+      "log_sha256": "cd45e24c1e598ecbc401af10c67749d9036326ce8f9560b2f9987f797ce95c76"
+    }
+  ],
+  "workflow": "runs/water-tag-native/workflow.json",
+  "workflow_sha256": "c3c8998683816bef222a2e1ea9d1fe2ae18bd90413cfcf20a02e57da336aa1bc",
+  "native_views": [
+    {
+      "id": "plan",
+      "dwg_sha256": "06fa085c3aeb066526df33618e65c61ede149bc2f56870c0e8d1879812715613",
+      "native_reopen_pass": true,
+      "checks": {
+        "model_entity_count": 15,
+        "linked_entity_count": 12,
+        "model_entities_and_ifc_xdata_match": true,
+        "geometry_layers_and_annotations_match": true,
+        "metre_units": true
+      },
+      "plot": {
+        "pdf_sha256": "4ab260b7584f48c47e7a8f4d6597296716764c31e12c4e4b28715cbf80cf256a",
+        "dwg_unchanged": true,
+        "paper_mm": [
+          297.03888888888883,
+          209.90277777777777
+        ],
+        "scale_denominator": 30,
+        "reference_handle": "3A",
+        "reference_expected_mm": 66.66666666666666,
+        "reference_measured_mm": 66.63266666666667,
+        "pdf_reference_pass": true,
+        "visual_review": "pending",
+        "design_accepted": false
+      }
+    },
+    {
+      "id": "front",
+      "dwg_sha256": "2c7a495727e15eb5f1c802c74a4d7e8b293440c25389c67f566e910ead3ef98e",
+      "native_reopen_pass": true,
+      "checks": {
+        "model_entity_count": 17,
+        "linked_entity_count": 14,
+        "model_entities_and_ifc_xdata_match": true,
+        "geometry_layers_and_annotations_match": true,
+        "metre_units": true
+      },
+      "plot": {
+        "pdf_sha256": "25188f334c8a89c99ceadaa78bedbada409239df9f6202824d51b0608b72f074",
+        "dwg_unchanged": true,
+        "paper_mm": [
+          297.03888888888883,
+          209.90277777777777
+        ],
+        "scale_denominator": 30,
+        "reference_handle": "34",
+        "reference_expected_mm": 33.33333333333334,
+        "reference_measured_mm": 33.31633333333332,
+        "pdf_reference_pass": true,
+        "visual_review": "pending",
+        "design_accepted": false
+      }
+    }
+  ],
+  "visual_review": {
+    "pdf": "runs/water-tag-native/native/drawing-set.pdf",
+    "pdf_sha256": "253f4681338e22ea95382554cdf8761429d8bf503e347f09f38f62383c3a9bb6",
+    "dpi": 150,
+    "visual_review": "pass_within_scoped_centreline_presentation",
+    "pages": [
+      {
+        "page": 1,
+        "image": "runs/water-tag-review/page-1.png",
+        "image_sha256": "1da9ee3f34643866677ee51e3d4959b743564c734a3d147c7f23a62b3b5ee64f",
+        "tag_count": 4,
+        "tag_parameter_correspondence": true,
+        "visible_text_clipping": false,
+        "visible_text_overlap": false,
+        "crossing_leaders": false,
+        "observations": "Numbered tags are separated from pipe axes/end-on crosses and match their four parameter rows;scope and scale text legible"
+      },
+      {
+        "page": 2,
+        "image": "runs/water-tag-review/page-2.png",
+        "image_sha256": "5656b079a36e6dfb833e782c9e77c8d784f8f38eb7d9aa228f306c55f9c1b472",
+        "tag_count": 4,
+        "tag_parameter_correspondence": true,
+        "visible_text_clipping": false,
+        "visible_text_overlap": false,
+        "crossing_leaders": false,
+        "observations": "Numbered tags are separated from pipe axes/end-on crosses and match their four parameter rows;scope and scale text legible"
+      }
+    ],
+    "source_method_sha256": {
+      "src/bsa/ifc_views.py": "7966ce842631ed7689602f17d8bac89c4572df22151e91ae83db62007ae2792b",
+      "src/bsa/view_tags.py": "33452707bf2b7f98e04cc3534c9a8cf86dca7982998a7fc058fe079ea01332a7",
+      "src/bsa/route_annotations.py": "1454a9b87a6ad326d11df2f0a813c5f040b3546f33c49e24af9afc6795da4259"
+    },
+    "design_accepted": false,
+    "regulatory_compliance": "not_established",
+    "limitations": [
+      "Synthetic declared geometry and applicability only",
+      "Pipes-only centreline projections omit pump/node bodies,fittings,insulation,hidden-line and installation detail",
+      "No physical/service clearance or complete engineering acceptance",
+      "Native PDF duplicate PageMode warnings remain unsuppressed"
+    ]
+  },
+  "visual_review_sha256": "2f5f79282db4195415d39cff1686c22c301b9f72ae7fc2f83130dd3b05b89045",
+  "previous_failed_evidence": "docs/evidence/water-rule-drawing-gates.json",
+  "design_accepted": false,
+  "regulatory_compliance": "not_established",
+  "limitations": [
+    "Bounded20-candidate graphic search,not general annotation optimization or physical clearance",
+    "Conservative text/graphic bounds require actual rendered-page review",
+    "Legacy straight-leader mode remains available and its historical failure remains recorded",
+    "The optional skipped3view AutoCAD test is not claimed covered by the separate actual2view execution",
+    "Pipes-only projections omit pump/node bodies,fittings,insulation,hidden lines and installation detail",
+    "Source/applicability/product/clash/full jurisdiction/design and original full agent goal remain incomplete",
+    "Last full regression predates this change and remains non-green"
+  ]
+}

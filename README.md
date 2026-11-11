@@ -2,6 +2,12 @@
 
 需求文档 → 可追溯项目数据 → CAD/BIM → 工程分析 → 设计迭代 → 已核对交付。
 
+The scoped water-rule/native-drawing example now uses source-keyed tags to fix
+crossing annotation leaders. Two actual DWGs reopen and two rendered pages pass
+scoped presentation review;14 targeted invocations:13pass,1optional native skip.
+See [view verification](docs/IFC_VIEWS.md). Physical installation and complete
+engineering acceptance remain pending.
+
 Latest [full regression](docs/REGRESSION_MODULAR_20261111.md):1,136 invocations,
 1,019 passes,1 failure,13 errors,103 skips;source unchanged. OpenStudio import
 remains blocked;fresh scoped WNTR/EPANET execution now succeeds. The full suite
