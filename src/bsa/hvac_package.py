@@ -12,6 +12,22 @@ from .workflow_status import diagnose
 from .delivery import template
 
 
+def review_actions(stages,errors):
+    """Collect post-run engineering work without clearing workflow/manual gates."""
+    actions=[dict(stage=name,code='stage_execution_error',detail=message,
+                  action='Resolve the stage error and rerun against reviewed inputs.')
+             for name,message in sorted(errors.items())]
+    if 'adpi_review' in stages:
+        review=stages['adpi_review']
+        actions.extend(dict(item,stage='adpi_review') for item in review['data_requests'])
+        failed=[row for row in review['cases'] if row['status']=='fail']
+        if failed:
+            actions.append(dict(stage='adpi_review',code='terminal_ratio_screen_failed',
+                cases=[{key:row[key] for key in ('terminal','direction','case')} for row in failed],
+                action='Review catalogue coverage and terminal design for the listed cases; rerun both operating conditions.'))
+    return actions
+
+
 def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,plan_clearance=None,junction_review_native_task=None,system_paths_native_task=None,terminal_performance=None):
     plan,output,font=map(lambda p:Path(p).resolve(),(plan,output,font))
     validated,inputs=validate_plan(plan)
@@ -120,6 +136,7 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
                 generator_sha256=digest(Path(__file__)),stages=stages,stage_errors=errors,
                 unresolved_tasks=pending,status='incomplete' if errors else 'review_required',
                 design_accepted=False,scope='Prepared calculation/drawing/report package; actual visual and full requirement acceptance remain separate')
+    result['review_actions']=review_actions(stages,errors)
     result['terminal_review_configuration']=None if terminal_review is None else dict(path=str(terminal_review),sha256=review_pin,settings=review_settings)
     result['adpi_configuration_inputs']=adpi_pins
     result['terminal_performance_configuration_inputs']=performance_pins
@@ -140,6 +157,8 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
             links.extend([(name+' DWG',f'workflow/{name}/Supply Air Distribution.dwg'),(name+' PDF',f'workflow/{name}/Supply Air Distribution.pdf')])
     page='<!doctype html><html lang="en"><meta charset="utf-8"><title>HVAC Project Review</title><style>body{font:16px/1.5 Arial;max-width:1000px;margin:35px auto}td,th{padding:8px;border:1px solid #ccd}table{border-collapse:collapse}li{margin:8px}</style><h1>HVAC Project Review</h1><p>Design study. Full requirement acceptance is pending.</p><ul>'
     page+=''.join('<li><a href="'+html.escape(path,quote=True)+'">'+html.escape(label)+'</a></li>' for label,path in links)+'</ul>'
+    page+='<h2>Post-run review actions</h2><p>These supplement unresolved workflow tasks and the full requirement review.</p><ul>'
+    page+=''.join('<li>'+html.escape(item['stage']+' / '+item['code']+': '+item['action'])+'</li>' for item in result['review_actions'])+'</ul>'
     if 'adpi_review' in stages:
         review=stages['adpi_review']
         page+='<h2>ADPI scope</h2><p>Applicability: '+html.escape(review['applicability'])+'. Full ADPI acceptance is not established.</p><p>Missing facts: '+html.escape(', '.join(review['missing_facts']))+'</p>'

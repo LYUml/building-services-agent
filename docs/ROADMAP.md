@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Package-level review_actions now aggregate ADPI evidence requests,eligible ratio
+failures and post-run stage errors,without clearing manual/workflow gates.
+21 ADPI/package tests pass;actual saved-screening aggregation retains4requests.
+This verifies aggregation only;full package/native replay remains outstanding.
+
 ADPI screening exposes structured evidence requests and source-load-domain
 conflicts in results and the package index.18 targeted tests pass;actual private
 saved-workflow screening retains640not-evaluated cases and4requests. No criterion,

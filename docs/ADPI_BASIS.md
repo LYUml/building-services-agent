@@ -10,6 +10,15 @@ Ten ADPI tests and eight package tests pass. A separate private saved-workflow
 replay retains 640 not-evaluated cases and four evidence requests. This is a
 post-run screening replay, not a fresh complete package/native drawing run.
 
+Package results now aggregate these records into `review_actions` alongside
+post-run stage errors. When applicability is eligible, failed ratio cases identify
+the terminal, direction and operating condition. Pending applicability does not
+turn a diagnostic ratio into a failed ADPI claim. The package index presents the
+same action list; unresolved workflow tasks and manual requirement gates remain
+separate and unchanged.21 combined ADPI/package tests pass;aggregation of the
+actual private saved screening yields4requests. Full package/native replay has
+not been repeated for this aggregation change.
+
 Course-specific category review now has separate evidence support. An inspected
 classroom example explicitly maps its prescribed diffuser family to the selected
 historical classroom row;the [manufacturer's introduction](https://www.krueger-hvac.com/file/3117/1400_1400FR_51400_M1400_M51400_Introduction.pdf) independently identifies
