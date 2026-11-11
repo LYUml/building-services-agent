@@ -5,6 +5,30 @@ source-pinned configuration. It calls the existing `hvac_package` unchanged:
 allocation, catalogue lookup, sizing, native drawing, reviews and report
 preparation continue to use their existing engines and evidence contracts.
 
+Configurations now also include a strict own-method inventory:Python sources
+under src/bsa and scripts,and JSON contracts under contracts. Historical
+configurations included discovered project/review methods but did not capture
+this complete own-code set. They reject the current complete-inventory check;
+review the unchanged engineering inputs and create a new configuration rather
+than silently rewriting an old receipt.
+
+This intentionally pins even unrelated package/worker/contract files. A change,
+addition or removal requires a reviewed new configuration. After package execution
+the wrapper rechecks both existing bytes and the complete discovered set before
+writing project-run.json;an added method cannot escape the final receipt guard.
+This is a coherent own-code snapshot,not proof every file executes,an authenticated
+execution record or a byte-for-byte third-party environment lock. Explicit host
+engine/font paths and the domain adapters' runtime evidence remain separate.
+
+Nine project-wrapper controls pass,including method mutation,new-method discovery
+and mid-run addition with receipt suppression. Mocked package controls establish
+the protection only. A separate private real-project replay completes all8stages
+without stage errors with unchanged engineering inputs. Its23report pages and
+native plot match hash-bound prior reviewed pixels;388numerical rows reconcile.
+All34requirements and9unresolved tasks remain;full acceptance is not established.
+Only aggregate technical evidence is published in evidence/project-method-snapshot.json;
+private coursework,configuration and generated files stay ignored.
+
 Prepare a configuration once after reviewing the project inputs:
 
 ```powershell

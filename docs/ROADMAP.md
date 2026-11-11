@@ -1,5 +1,16 @@
 # Scope and acceptance
 
+Real interpreted-project replay now includes a strict complete own-package,
+fixed-worker and contract source inventory in hvac_project configurations.
+Historical partial method inventories reject;changed/added/missing methods cannot
+produce a completion receipt without a new reviewed configuration.9 targeted
+wrapper controls pass. A separate private8stage native/report replay completes
+without stage errors,retaining all34requirements and9unresolved tasks. Rendering
+and388row reconciliation do not clear ADPI applicability or full acceptance.
+Scope review preserves the brief's mandatory outputs separately from optional
+research and the unchanged full agent goal. See HVAC_PROJECT.md and
+evidence/project-method-snapshot.json.
+
 Numbered source-keyed view tags plus the existing parameter list now fix the
 observed crossing-leader issue without routing zero-length end-on projections.
 Saved-DXF identity/graphic checks and helper pins execute;updated file hashes

@@ -27,6 +27,10 @@ class HVACProjectTests(unittest.TestCase):
         self.assertIn(self.plan.parent/'source.dxf', pins)
         self.assertIn(self.plan.parent/'brief.md', pins)
         self.assertIn(self.plan.parent/'catalogue.json', pins)
+        self.assertIn(ROOT/'src/bsa/hvac_project.py',pins)
+        self.assertIn(ROOT/'src/bsa/air_allocation.py',pins)
+        self.assertIn(ROOT/'scripts/water_saved_graph.py',pins)
+        self.assertIn(ROOT/'contracts/modules/request-v1.json',pins)
         self.assertEqual(selectors['system_paths_native_task'], 'native')
         output = self.root/'package'
         def package(plan, out, **kwargs):
@@ -64,6 +68,29 @@ class HVACProjectTests(unittest.TestCase):
         changed['input_hashes'].pop(key)
         self.configuration.write_text(json.dumps(changed))
         with self.assertRaisesRegex(ValueError, 'Complete current'): load(self.configuration)
+
+    def test_method_change_and_added_method_require_a_new_configuration(self):
+        method=self.root/'worker.py';method.write_text('original method')
+        with patch('bsa.hvac_project.method_inputs',return_value={method}):
+            self.create();method.write_text('changed method')
+            with patch('bsa.hvac_project.hvac_package.run') as package:
+                with self.assertRaisesRegex(ValueError,'source changed'):run(self.configuration,self.root/'changed',font='host font')
+                package.assert_not_called()
+            method.write_text('original method');extra=self.root/'added.py';extra.write_text('new method')
+            with patch('bsa.hvac_project.method_inputs',return_value={method,extra}):
+                with self.assertRaisesRegex(ValueError,'Complete current'):load(self.configuration)
+
+    def test_method_addition_during_execution_keeps_receipt_absent(self):
+        method=self.root/'worker.py';method.write_text('original method');methods={method}
+        with patch('bsa.hvac_project.method_inputs',side_effect=lambda:set(methods)):
+            self.create()
+            def package(plan,out,**kwargs):
+                out.mkdir();(out/'package.json').write_text('{}');extra=self.root/'new.py';extra.write_text('added during execution');methods.add(extra)
+                return dict(status='review_required')
+            output=self.root/'changed-set'
+            with patch('bsa.hvac_project.hvac_package.run',side_effect=package):
+                with self.assertRaisesRegex(ValueError,'inventory changed during'):run(self.configuration,output,font='host font')
+            self.assertFalse((output/'project-run.json').exists())
 
     def test_runtime_fields_escape_invalid_selector_and_overwrite_reject(self):
         original = self.create()

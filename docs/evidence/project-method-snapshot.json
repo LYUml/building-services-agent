@@ -1,0 +1,50 @@
+{
+  "scope": "Strict own-package/fixed-worker/contract inventory for reviewed HVAC project configurations;not full engineering acceptance",
+  "source_sha256": {
+    "src/bsa/hvac_project.py": "3b87fdb9aa902aaea27e624253ce55d83c6150d19cb3ba391f5dac5c2da0d62a",
+    "tests/test_hvac_project.py": "bddc7de71e8d3c1a1fafc426a0719f20731cb26434e9a355ee09937d2154450e"
+  },
+  "method_inventory_count": 291,
+  "snapshot_roots": [
+    "src/bsa/**/*.py",
+    "scripts/**/*.py",
+    "contracts/**/*.json"
+  ],
+  "targeted_tests": {
+    "result": "runs/project-method-snapshot-tests/result.json",
+    "sha256": "b801fd2a9607d334aabfb9a70a03864860a2a720b39a414c465ea047302b0108",
+    "invocations": 9,
+    "passed": 9,
+    "source_unchanged": true,
+    "log_sha256": "9fd0c6f87e51b908c2131ffcd694f8faf01da1c89266080e050c53bcabd538ff"
+  },
+  "controls": [
+    "Changed method bytes reject before execution",
+    "Added method files reject historical configuration inventory",
+    "Mid-run method additions suppress completion receipt",
+    "Complete own-code and schema examples appear in project pins",
+    "Existing source/setting/overwrite/selector and evidence controls remain"
+  ],
+  "private_native_replay": {
+    "executed": true,
+    "artifacts": "Private source/configuration/results retained only in ignored runs",
+    "engineering_inputs_unchanged": true,
+    "stage_count": 8,
+    "stage_error_count": 0,
+    "requirement_count": 34,
+    "unresolved_task_count": 9,
+    "report_page_count": 23,
+    "numerical_rows_checked": 388,
+    "all_report_pages_pixel_identical_to_hash_bound_reviewed_baseline": true,
+    "native_plot_pixel_identical_to_hash_bound_reviewed_baseline": true,
+    "internal_iteration_labels_detected": 0,
+    "design_accepted": false
+  },
+  "limitations": [
+    "Strict own-code snapshot intentionally includes unexecuted/unrelated methods",
+    "Changed/added/removed methods require a reviewed new configuration;no silent hash repair",
+    "Third-party runtime/environment lock and authenticated execution are not established",
+    "Source/ADPI/physical/regulatory/full project acceptance remains pending",
+    "Original full multi-discipline agent goal remains unfinished"
+  ]
+}

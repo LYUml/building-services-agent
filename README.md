@@ -68,6 +68,12 @@ Open this repository and invoke `$building-services-design` with the brief and s
 
 For repeat HVAC execution, [project configurations](docs/HVAC_PROJECT.md) pin the interpreted plan, discovered source inputs and chosen reviews. Replay the saved configuration in one command with explicit host engine/font paths; changed sources reject and unresolved design acceptance remains visible.
 
+Project configurations now also snapshot the complete own-code/worker/contract
+inventory,including set changes during execution. Nine wrapper controls pass;
+a private real-project native/report replay completes all8stages without errors
+while preserving its unresolved requirements. This does not interpret a raw brief
+or establish complete engineering acceptance.
+
 ## Run an independent HVAC demonstration
 
 ```powershell

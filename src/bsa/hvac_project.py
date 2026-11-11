@@ -15,6 +15,14 @@ SELECTORS = ('junction_review_native_task', 'system_paths_native_task')
 KEYS = {'schema', 'files', 'selectors', 'input_hashes'}
 
 
+def method_inputs():
+    """Strict own-code snapshot,not a claim that every file executes in a project."""
+    paths=set()
+    for folder,pattern in ((ROOT/'src/bsa','*.py'),(ROOT/'scripts','*.py'),(ROOT/'contracts','*.json')):
+        paths.update(local(p) for p in folder.rglob(pattern) if p.is_file())
+    return paths
+
+
 def local(path):
     path = Path(path).resolve()
     if not path.is_relative_to(ROOT):
@@ -25,7 +33,7 @@ def local(path):
 def inventory(files, selectors):
     """Reuse plan intake and dependency discovery; do not interpret a raw brief."""
     plan, inputs = validate_plan(files['plan'])
-    inputs = {local(p) for p in inputs} | set(files.values())
+    inputs = {local(p) for p in inputs} | set(files.values()) | method_inputs()
     for key in SELECTORS:
         value = selectors[key]
         if value is not None and (not isinstance(value, str) or not any(
@@ -113,8 +121,10 @@ def run(configuration, output, *, font, autocad=None):
     # cannot select a program or issue a shell command.
     result = hvac_package.run(files['plan'], output, font=font, autocad=autocad,
         **{k: v for k, v in files.items() if k != 'plan'}, **selectors)
-    if any(digest(p) != sha for p, sha in pins.items()):
+    if any(not p.is_file() or digest(p) != sha for p, sha in pins.items()):
         raise ValueError('Project configuration or source changed during package execution')
+    if inventory(files,selectors)!={p:h for p,h in pins.items() if p!=local(configuration)}:
+        raise ValueError('Project method/input inventory changed during package execution')
     receipt = dict(configuration=str(Path(configuration).resolve()), configuration_sha256=digest(Path(configuration).resolve()),
         input_hashes={str(p): sha for p, sha in pins.items()},
         package_sha256=digest(output/'package.json'), generator_sha256=digest(Path(__file__)),

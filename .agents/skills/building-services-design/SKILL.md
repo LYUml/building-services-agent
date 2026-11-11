@@ -116,6 +116,17 @@ For nominal-width planar obstacle screening in an HVAC package, use --plan-clear
 
 For repeated HVAC studies, use the independent public example at examples/hvac-package/README.md to understand the input contracts, then derive each real project from its own sources. `hvac_package` accepts `--terminal-review` for inherited saved-native connection checks and `--adpi-settings` for a pinned criterion document and applicability facts. Configuring these stages retains their results and errors in the package index; generating a report does not clear pending/inapplicable ADPI. Read docs/HVAC_PACKAGE.md and docs/ADPI_BASIS.md before selecting criteria. Allocation `references` binds actual source-document bytes to the workflow; a source string alone cannot detect document changes.
 
+hvac_project configurations also pin the complete own-package/fixed-Python-worker/
+JSON-contract source set. Old partial inventories or software changes require a
+reviewed new configuration;do not silently repair old hashes or receipts. The
+post-run set/byte check suppresses a receipt on mid-run method additions as well
+as changes. This is not a third-party environment lock or proof all methods execute.
+For real briefs,keep mandatory coursework outputs separate from optional research
+and the full reusable-agent capability backlog. Preserve every original requirement
+and additional user-selected jurisdiction checks. A preliminary single-line task
+does not implicitly require complete3Dinstallation authoring;it still needs its
+actual source,calculation,ADPI,diagram and scoped regulatory evidence.
+
 When classroom material supplies a historical handbook table, retain its cited edition, load range, diffuser category and installation conditions together. Do not silently substitute a newer table. Distinguish rule-of-thumb total cooling times approximate SHF from verified room sensible load. For L, distinguish an actual wall or aligned opposing jet from a Voronoi boundary toward an offset terminal; unresolved interactions remain pending. An alignment change requires fresh allocation, maximum/minimum lookup in every affected direction, containment and downstream connection/sizing checks. Retain unselected trials rather than moving terminals merely to clear an interval.
 
 For a reviewed single-system HVAC plan, use `python -m bsa.hvac_package <plan.json> --out runs/<new-package> --font <installed-font.ttf> --autocad <accoreconsole.exe>` as described in docs/HVAC_PACKAGE.md. It composes calculation/drawing execution, dependency diagnosis, a pending delivery review, and numerical HTML/PDF reporting. Read package.json and diagnosis.json to resolve failures; exit 2 and design_accepted=false retain outstanding acceptance. This command needs an interpreted plan, not just a raw brief. Render and inspect the actual generated PDFs, and complete source/ADPI/physical/regulatory review before presenting submission-ready work. Do not reuse private coursework assumptions for another assignment.
