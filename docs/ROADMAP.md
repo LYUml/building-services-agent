@@ -1,5 +1,13 @@
 # Scope and acceptance
 
+The post-run action aggregation now has a fresh complete private interpreted-
+project replay:8stages,no stage errors,9unresolved workflow tasks and4review
+actions. Configuration/receipt/artifact/workflow checks pass. All23report pages
+and the actual native plot match source-hash-bound previously reviewed pixels;
+report text is unchanged and current first-page presentation was inspected.
+This supersedes the aggregation-only execution limit below,not its pending
+engineering/ADPI acceptance. Evidence: evidence/post-run-actions-replay.json.
+
 Package-level review_actions now aggregate ADPI evidence requests,eligible ratio
 failures and post-run stage errors,without clearing manual/workflow gates.
 21 ADPI/package tests pass;actual saved-screening aggregation retains4requests.

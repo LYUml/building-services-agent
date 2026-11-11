@@ -1,0 +1,18 @@
+{
+  "scope": "Private real interpreted-project replay after post-run action aggregation; aggregate public evidence only",
+  "executed_code_commit": "5aa0a1e7ce49e7d6fd729a324e34c99df0eb2a3b",
+  "engineering_source_inputs_unchanged": 27,
+  "stages_completed": 8,
+  "stage_errors": {},
+  "unresolved_workflow_tasks": 9,
+  "post_run_review_actions": 4,
+  "configuration_receipt_artifact_workflow_checks": "pass",
+  "report_pages": 23,
+  "all_report_pages_pixel_equal_to_hash_bound_reviewed_baseline": true,
+  "native_plot_pixel_equal_to_hash_bound_reviewed_baseline": true,
+  "report_extracted_text_unchanged": true,
+  "package_index_contains_all_action_codes": true,
+  "current_report_first_page_inspected": true,
+  "design_accepted": false,
+  "limitations": "ADPI applicability and full requirement acceptance remain pending; pixel equality transfers scoped prior presentation review only; no new engineering acceptance or whole-suite pass"
+}
