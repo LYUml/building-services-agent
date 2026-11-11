@@ -1,5 +1,17 @@
 # Scope and acceptance
 
+ADPI applicability declarations now retain optional per-fact document/hash/
+locator/note evidence through standalone,package and project-configuration
+entry points. Evidence never promotes a fact automatically. Eighteen targeted
+controls pass,including changed supplemental sources during screening and later
+packaging. Actual seven-stage replay has no stage errors and retains pending
+applicability with640 not_evaluated cases. A course-specific product/table mapping is supported by the explicit
+classroom example and manufacturer family description;room load,L and installation
+remain unknown. Original load/criterion values are unchanged. All22 report pages
+and the native plot match bound reviewed renders;fresh numerical artifacts and
+three scoped review assertions were re-examined. Full ADPI/design acceptance
+remains false. See ADPI_BASIS.md and evidence/adpi-fact-evidence.json.
+
 Hong Kong flexible-duct routing now has a separate source-pinned module for
 FSD2/2023 clauses7.3/7.4. Individual sourced declarations derive forbidden-use,
 fire-boundary and direct-damper counts;aggregate zero cannot substitute for them.

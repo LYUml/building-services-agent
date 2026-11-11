@@ -1,0 +1,25 @@
+{
+  "scope": "Optional source evidence per declared ADPI fact;course-specific correspondence only",
+  "targeted_test_methods_passed": 18,
+  "legacy_settings_supported": true,
+  "evidence_does_not_promote_facts": true,
+  "project_and_package_pin_all_supporting_sources": true,
+  "screen_and_late_package_mutations_reject": true,
+  "actual_stage_count": 7,
+  "actual_stage_errors": {},
+  "actual_case_count": 640,
+  "actual_case_status": "not_evaluated",
+  "course_specific_product_category_supported": true,
+  "retained_unknown_facts": [
+    "room_load_verified",
+    "lengths_verified",
+    "installation_verified"
+  ],
+  "original_load_and_source_bounds_unchanged": true,
+  "all_report_pages_and_plot_match_bound_reviewed_baseline": true,
+  "ADPI_verified": false,
+  "design_accepted": false,
+  "review_method_sha256": "263d0f044f28bdaad3eaf0aa6c83771384ce079ed69ad5971390759f14f8103f",
+  "package_method_sha256": "a4bc7eb67b9e5bc0618af7c189595d0036e59f5dfce9584bbaa09c625ea4e376",
+  "project_method_sha256": "a3ff721d31a4bb5dde83a9afeb354c0574935299d6052281ba6d5ea7ef861e42"
+}

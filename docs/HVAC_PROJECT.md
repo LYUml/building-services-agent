@@ -26,7 +26,8 @@ Replay all saved selections with one command:
 Each output must be new. Plan, discovered source inputs, settings, referenced
 ADPI document and configuration stay inside this repository. Relative paths may
 refer to siblings within the repository; resolved paths outside it reject.
-The configuration pins the complete discovered input inventory. Changed or
+The configuration pins the complete discovered input inventory,including
+supplemental ADPI fact-evidence documents. Changed or
 omitted inputs reject before package execution; changes during execution prevent
 the `project-run.json` completion receipt. Review an intentional source change
 and create a new configuration without overwriting the original.

@@ -1,5 +1,11 @@
 # HVAC drawing and report package
 
+ADPI settings may include fact_evidence source/hash/locator/note records as
+described in ADPI_BASIS.md. The package protects and rechecks every supporting
+document;the same reader is used by project configurations. Late source changes
+reject the package rather than retaining a previously screened result. Evidence
+does not set applicability facts or accept ADPI automatically.
+
 Optional `--system-paths-native-task native-sheet` now runs the existing
 whole-source-tree postprocessor after workflow completion in the same invocation.
 It inherits the exact new native-sheet/schedule/source ancestry and adds

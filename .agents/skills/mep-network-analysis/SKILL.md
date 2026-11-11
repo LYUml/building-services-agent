@@ -5,6 +5,13 @@ description: Calculate source-linked air/water networks, pump operating points a
 
 # Network pressure analysis
 
+ADPI settings support optional fact_evidence document/hash/locator/note records
+(docs/ADPI_BASIS.md). Use them to retain independent sources behind a scoped
+interpretation,such as a course's explicit product/table mapping. Evidence never
+sets a fact automatically. Keep that mapping within its selected criterion and
+edition;room load,L,installation and actual ADPI remain separate. Package and
+saved-project inputs must include every supporting document.
+
 For an independent numerical audit of an existing saved-native duct schedule,use
 bsa.duct_schedule_check with the exact plan,workflow,native task and a new output
 directory. Read docs/DUCT_SCHEDULE_CHECK.md. It checks geometry/flow identities,

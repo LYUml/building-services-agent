@@ -695,3 +695,11 @@ an unsupported CAD-based fire classifier. The official FSD2/2023 PDF was fetched
 hash matched and page14 visually checked. Existing source-native terminal review
 stages only declared design-line identity;unknown boundary/attachment facts remain
 pending. No external dependency or inferred product/installed metadata is added.
+
+ADPI per-fact evidence reuses the existing source-pinned screen,package and
+project inventory rather than a new classification/ADPI engine. A shared settings
+reader binds supplemental document bytes and interpretation notes at all three
+entry points. Source/mid-run/late-stage mutation checks execute;documents do not
+set applicability facts. The course-specific mapping is retained separately from
+other manufacturer/handbook taxonomies and unresolved physical conditions. No
+new dependency or copied manufacturer catalogue is distributed.

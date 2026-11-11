@@ -100,10 +100,26 @@ class HVACProjectTests(unittest.TestCase):
     def test_adpi_document_pin_and_source_replacement_reject(self):
         source = self.root/'criterion.txt'; source.write_text('Synthetic source pin control only')
         settings = self.root/'adpi.json'
-        settings.write_text(json.dumps(dict(source=source.name, source_sha256=digest(source))))
+        settings.write_text(json.dumps(dict(source=source.name, source_sha256=digest(source),
+            criterion=dict(source='Synthetic source pin control',room_load_range_W_m2=[35,160],ratio_range=[1,3.4]),
+            room_load_W_m2=None,facts={k:None for k in ('room_load_verified','product_category_verified','lengths_verified','installation_verified','edition_selected')})))
         create(self.plan, self.configuration, adpi_settings=settings)
         self.assertIn(source, load(self.configuration)[2])
         source.write_text('Changed source')
         with self.assertRaisesRegex(ValueError, 'source changed'): load(self.configuration)
         with self.assertRaisesRegex(ValueError, 'ADPI source hash'):
             create(self.plan, self.root/'bad-adpi.json', adpi_settings=settings)
+
+    def test_adpi_fact_evidence_enters_complete_project_inventory(self):
+        source=self.root/'criterion.txt';source.write_text('Synthetic criterion')
+        extra=self.root/'category.txt';extra.write_text('Synthetic category evidence')
+        settings=self.root/'settings.json'
+        settings.write_text(json.dumps(dict(source=source.name,source_sha256=digest(source),criterion={},facts={},room_load_W_m2=None,
+            fact_evidence=dict(product_category_verified=[dict(source=extra.name,sha256=digest(extra),locator='Synthetic paragraph',note='Source inventory control only')]))))
+        create(self.plan,self.configuration,adpi_settings=settings)
+        self.assertIn(extra,load(self.configuration)[2])
+        extra.write_text('Changed evidence')
+        with patch('bsa.hvac_project.hvac_package.run') as package:
+            with self.assertRaisesRegex(ValueError,'source changed'):
+                run(self.configuration,self.root/'changed',font='host font')
+            package.assert_not_called()

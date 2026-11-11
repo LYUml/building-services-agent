@@ -1,5 +1,13 @@
 # ADPI basis before criterion evaluation
 
+Course-specific category review now has separate evidence support. An inspected
+classroom example explicitly maps its prescribed diffuser family to the selected
+historical classroom row;the [manufacturer's introduction](https://www.krueger-hvac.com/file/3117/1400_1400FR_51400_M1400_M51400_Introduction.pdf) independently identifies
+the face/cone/neck family. That supports this course-specific selection basis.
+Other manufacturer pattern taxonomies and newer handbook categories remain
+separate contexts. Actual room load,L and installation stay unresolved;this does
+not establish a measured/predicted ADPI or unrestricted physical correspondence.
+
 The current terminal tool calculates bounded catalogue throw and T/L only. Its
 ADPI_verified flag remains false. Numerical interpolation does not select an
 applicable comfort criterion.
@@ -81,7 +89,31 @@ CLI exit 2 retains outstanding acceptance even for eligible interval screening.
 Actual private execution inherits 640 cases from the new Canvas-source-backed run
 and retains pending applicability. A changed criterion-document hash rejects before
 output; the five numerical/applicability controls pass. This post-run command is
-not yet a registered workflow task or an automatic report/package stage.
+not a registered workflow task;the HVAC package now invokes it as an optional
+review stage.
+
+## Per-fact review evidence
+
+Settings may additionally contain `fact_evidence`,a mapping from any supported
+applicability fact name to1–20 document records. Each record contains exactly
+`source` (relative to settings),`sha256`,`locator` and `note`. Documents must exist,
+match their hashes and remain unchanged. Records are retained in the numerical
+result. Evidence does not promote a fact;the reviewer must explicitly declare
+true,false or unknown with a justified interpretation. A true course-specific
+mapping must not be silently reused for another criterion,product or edition.
+
+The same settings reader is used by the standalone review,HVAC package and saved
+project configuration. Supplemental documents enter pre/post execution pins and
+the protected source set. Changed evidence during screening or a later package
+stage rejects;changed project-config evidence prevents execution. Legacy settings
+without this optional map retain their existing behavior.
+
+Eighteen targeted ADPI/project/package controls pass. Actual new seven-stage
+execution supports the course-specific category while room-load,length and
+installation facts stay unknown. All640 cases remain not_evaluated under pending
+applicability and
+ADPI_verified=false;trial load and source bounds are unchanged. Private source
+documents and interpretations remain local.
 
 ## Geometry evidence before choosing L
 

@@ -26,11 +26,22 @@ class PackageSystemPathTests(unittest.TestCase):
         r=dict(inputs={str(self.source):digest(self.source)},section_count=1,outlet_path_count=1,status='pending',design_accepted=False)
         (out/'system-paths.json').write_text(json.dumps(r));return r
 
-    def controlled(self,out,*,stage=None,report=None,native='native'):
+    def controlled(self,out,*,stage=None,report=None,native='native',adpi=None):
         # Stage plumbing only;no native CAD/PDF or engineering evidence is mocked as real.
         with patch('bsa.hvac_package.validate_plan',return_value=(dict(tasks=[dict(id='native',kind='duct_sheet_native')]),{self.plan})),patch('bsa.hvac_package.execute',side_effect=self.execute),patch('bsa.hvac_package.diagnose',return_value={}),patch('bsa.hvac_package.template'),patch('bsa.hvac_package.verify',return_value=dict(integrity_pass=True)),patch('bsa.duct_system_paths.run',side_effect=stage or self.study) as study,patch('bsa.hvac_report.run',side_effect=report or (lambda *a,**kw:dict(scope='Unit report control'))),patch('bsa.hvac_report_pdf.run',return_value=dict(scope='Unit PDF control;no PDF authored')):
-            result=run(self.plan,out,font=self.font,system_paths_native_task=native)
+            with patch('bsa.adpi_review.run',return_value=dict(applicability='pending',missing_facts=['installation_verified'])):
+                result=run(self.plan,out,font=self.font,system_paths_native_task=native,adpi_settings=adpi)
             return result,study.call_args_list
+
+    def test_fact_evidence_mutation_during_later_package_stage_rejects(self):
+        criterion=self.root/'criterion.txt';criterion.write_text('Synthetic criterion')
+        extra=self.root/'category.txt';extra.write_text('Synthetic category source')
+        settings=self.root/'adpi.json';settings.write_text(json.dumps(dict(criterion={},room_load_W_m2=None,facts={},
+            source=criterion.name,source_sha256=digest(criterion),fact_evidence=dict(product_category_verified=[
+                dict(source=extra.name,sha256=digest(extra),locator='Synthetic section',note='Source mutation control only')]))))
+        def changed(*a,**kwargs):extra.write_text('Changed during later report');return dict(scope='Mock report only')
+        with self.assertRaisesRegex(ValueError,'ADPI settings/source changed'):
+            self.controlled(self.root/'changed-category',report=changed,adpi=settings)
 
     def test_handoff_index_hashes_and_omitted_configuration(self):
         out=self.root/'package';r,calls=self.controlled(out)

@@ -32,15 +32,9 @@ def inventory(files, selectors):
                 t['id'] == value and t['kind'] == 'duct_sheet_native' for t in plan['tasks'])):
             raise ValueError('Project review selector must name a declared native sheet task')
     if 'adpi_settings' in files:
-        settings = files['adpi_settings']
-        data = json.loads(settings.read_text(encoding='utf-8-sig'))
-        value = data.get('source')
-        if not isinstance(value, str) or Path(value).is_absolute():
-            raise ValueError('Relative ADPI source required')
-        source = local(settings.parent / value)
-        if digest(source) != data.get('source_sha256'):
-            raise ValueError('ADPI source hash mismatch')
-        inputs.add(source)
+        from .adpi_review import settings_inputs
+        _,adpi_pins = settings_inputs(files['adpi_settings'])
+        inputs.update(local(p) for p in adpi_pins)
     return {p: digest(p) for p in sorted(inputs)}
 
 

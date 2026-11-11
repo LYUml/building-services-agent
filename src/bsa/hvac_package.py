@@ -26,14 +26,10 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
         clearance_pin=digest(plan_clearance)
     adpi_pins={}
     if adpi_settings is not None:
+        from .adpi_review import settings_inputs
         adpi_settings=Path(adpi_settings).resolve()
-        adpi_spec=json.loads(adpi_settings.read_text(encoding='utf-8'))
-        if not isinstance(adpi_spec.get('source'),str) or Path(adpi_spec['source']).is_absolute():
-            raise ValueError('Relative ADPI source required')
-        adpi_source=(adpi_settings.parent/adpi_spec['source']).resolve()
-        adpi_pins={str(p):digest(p) for p in (adpi_settings,adpi_source)}
-        if adpi_pins[str(adpi_source)]!=adpi_spec.get('source_sha256'):raise ValueError('ADPI source hash mismatch')
-        protected.update((adpi_settings,adpi_source))
+        _,adpi_pins=settings_inputs(adpi_settings)
+        protected.update(Path(p) for p in adpi_pins)
     review_settings=None;review_pin=None
     if terminal_review is not None:
         terminal_review=Path(terminal_review).resolve();protected.add(terminal_review)
