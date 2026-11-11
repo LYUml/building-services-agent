@@ -97,3 +97,15 @@ Actual private course-source-backed replay passes native drawing and terminal
 connection preparation, retains pending applicability across 640 cases and produces
 a 22-page report. Changed pages 1/16/17 were inspected; the rest and the native plot
 match previously inspected renders. Eleven focused report/ADPI/summary tests pass.
+
+## Optional diffuser operating points
+
+Use `--terminal-performance <source-pinned-settings.json>` to execute the
+existing diffuser operating-point adapter on the freshly generated lookup.
+Exactly one declared terminal_throw task is required. Settings,manufacturer
+document,performance table and adapter method are protected before execution
+and checked again after later stages. A stage failure is retained in stage_errors
+and no success link is added. The index links the separate pressure/NC HTML;
+the existing report PDF is unchanged. Source conditions,static/total separation,
+uninterpolated NC and full fan/acoustic limitations remain in
+[TERMINAL_PERFORMANCE.md](TERMINAL_PERFORMANCE.md).

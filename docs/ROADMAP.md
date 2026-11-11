@@ -1,5 +1,15 @@
 # Scope and acceptance
 
+The source-bound terminal-performance adapter is now an optional stage in both
+HVAC package invocation and saved project replay. Complete document/table/method
+pins protect the new stage;failures remain in package stage_errors and late
+mutations prevent the complete package record. Twenty-two targeted tests pass.
+Actual eight-stage replay has no stage errors,80 terminals/160 operating cases
+and320 independent pressure checks. All23 report pages and the native plot match
+bound reviewed renders;the full34-requirement scope remains. Performance HTML
+visual review,complete fan pressure,room acoustics and ADPI remain pending.
+See TERMINAL_PERFORMANCE.md and evidence/terminal-performance-package.json.
+
 Diffuser catalogue operating points now inherit an exact passing terminal lookup
 and preserve separate static/total pressure columns plus uninterpolated NC source
 references. Twenty-one targeted tests pass. Actual80 terminals/160 flow cases

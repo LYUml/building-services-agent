@@ -1,0 +1,28 @@
+{
+  "scope": "One-command optional diffuser operating-point stage in saved HVAC project configuration",
+  "targeted_test_methods_passed": 22,
+  "actual_stage_count": 8,
+  "actual_stage_errors": {},
+  "actual_terminal_count": 80,
+  "actual_operating_cases": 160,
+  "independent_decimal_pressure_checks": 320,
+  "report_pages": 23,
+  "numerical_rows_checked": 388,
+  "requirements_retained": 34,
+  "adpi_paragraphs_checked": 14,
+  "complete_configuration_source_inventory_verified": true,
+  "all_source_artifact_method_pins_verified": true,
+  "late_source_mutation_suppresses_manifest": true,
+  "stage_errors_retained": true,
+  "all_report_pages_and_plot_match_bound_reviewed_renders": true,
+  "performance_html_visual_review": "pending",
+  "fan_pressure_complete": false,
+  "room_acoustic_performance_verified": false,
+  "ADPI_verified": false,
+  "design_accepted": false,
+  "method_sha256": {
+    "terminal_performance.py": "2727ff3410f426715ce5de55a760cbb357a3baca7d5dbcf09b29d21f4c5e5f3d",
+    "hvac_package.py": "c7e0632116e4207294e212ab6e05e1e6bfc133e46b8756a2d8a727c4e7121b4e",
+    "hvac_project.py": "6f0bd2fb4e364e39b2dcbe10ac8200aa14c26a294fcd59ef9a52a03c5e018ef2"
+  }
+}

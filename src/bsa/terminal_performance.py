@@ -37,6 +37,18 @@ def calculate(rows,flow):
         nc_catalogue_rows=[dict(index=i,flow_L_s=flows[i],NC=rows[i]['NC'],qualifier=rows[i]['NC_qualifier']) for i in indices])
 
 
+def settings_inputs(settings):
+    settings=Path(settings).resolve();settings_hash=digest(settings)
+    spec=json.loads(settings.read_text(encoding='utf-8-sig'))
+    if set(spec)!={'source','source_sha256','catalogue','catalogue_sha256','conditions'} or not isinstance(spec['conditions'],str) or not spec['conditions'].strip():
+        raise ValueError('Exact source/catalogue pins and explicit operating conditions required')
+    document=local_path(settings.parent,spec['source']);catalogue=local_path(settings.parent,spec['catalogue'])
+    if digest(document)!=spec['source_sha256'] or digest(catalogue)!=spec['catalogue_sha256']:raise ValueError('Performance source hash mismatch')
+    pins={str(settings):settings_hash,str(document):spec['source_sha256'],str(catalogue):spec['catalogue_sha256'],str(Path(__file__).resolve()):digest(Path(__file__))}
+    if any(digest(Path(p))!=sha for p,sha in pins.items()):raise ValueError('Performance settings changed during validation')
+    return spec,pins
+
+
 def run(plan,directory,lookup_task,settings,output):
     plan,directory,settings,output=[Path(p).resolve() for p in (plan,directory,settings,output)]
     source,workflow,integrity=context(plan,directory)
@@ -44,12 +56,8 @@ def run(plan,directory,lookup_task,settings,output):
     tasks={t['id']:t for t in source['tasks']}
     if lookup_task not in tasks or tasks[lookup_task]['kind']!='terminal_throw' or workflow['tasks'][lookup_task]['status']!='pass':
         raise ValueError('Exact passing terminal lookup task required')
-    settings_hash=digest(settings)
-    spec=json.loads(settings.read_text(encoding='utf-8-sig'))
-    if set(spec)!={'source','source_sha256','catalogue','catalogue_sha256','conditions'} or not isinstance(spec['conditions'],str) or not spec['conditions'].strip():
-        raise ValueError('Exact source/catalogue pins and explicit operating conditions required')
+    spec,settings_pins=settings_inputs(settings)
     document=local_path(settings.parent,spec['source']);catalogue=local_path(settings.parent,spec['catalogue'])
-    if digest(document)!=spec['source_sha256'] or digest(catalogue)!=spec['catalogue_sha256']:raise ValueError('Performance source hash mismatch')
     project=local_path(plan.parent,tasks[lookup_task]['project'])
     original_project=json.loads(project.read_text(encoding='utf-8-sig'))
     original_catalogue=(project.parent/original_project['catalogue']).resolve()
@@ -64,7 +72,7 @@ def run(plan,directory,lookup_task,settings,output):
         if key in old and new.get(key)!=old[key]:raise ValueError('Original product identity differs')
     lookup=directory/lookup_task/'terminal-results.json'
     pins={str(p):digest(p) for p in (plan,directory/'workflow.json',lookup,settings,document,catalogue,original_catalogue,Path(__file__))}
-    pins.update({str(settings):settings_hash,str(document):spec['source_sha256'],str(catalogue):spec['catalogue_sha256'],str(original_catalogue):original_project['catalogue_sha256']})
+    pins.update(settings_pins);pins[str(original_catalogue)]=original_project['catalogue_sha256']
     producer=tasks[lookup_task].get('depends_on')
     if producer:
         allocation=directory/producer/'allocation.json'

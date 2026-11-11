@@ -40,8 +40,15 @@ independent analysis. Do not sum NC values across terminals.
 Outputs are performance.json and index.html in a new directory outside the
 immutable workflow. Source/settings/table/method hashes are rechecked before
 writing,as is the workflow. The source plan and earlier artifacts remain unchanged.
-This standalone postprocessor is not yet an optional hvac_package stage or a
-fan-budget consumer. Parallel terminal pressures must not be summed;VAV,flex,
+This postprocessor is available as an optional hvac_package stage using
+`--terminal-performance <settings.json>`. It requires exactly one declared
+terminal_throw task and inherits the newly executed workflow. The same option
+on hvac_project create persists the selection and its complete settings/document/
+table/method inventory. Old configurations that omit it remain supported;omission
+does not mean a performance check passed. The package links the performance HTML
+and retains stage errors;later source changes prevent the package manifest or
+project receipt. It remains separate from the existing numerical report PDF and
+is not yet a complete fan-budget consumer. Parallel terminal pressures must not be summed;VAV,flex,
 rigid-duct,fitting,boundary and balancing data remain necessary for full fan duty.
 
 Seven new tests and14 existing throw/allocation tests pass. Actual archival

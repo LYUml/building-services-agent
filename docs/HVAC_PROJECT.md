@@ -65,3 +65,21 @@ and the native plot are pixel-identical to hash-bound reviewed baseline renders;
 the new first page and plot were also inspected. All34 requirement records and
 nine unresolved tasks remain. See evidence/hvac-project-configuration.json.
 Private configuration,source files and dense results remain outside Git.
+
+## Optional terminal performance selection
+
+`hvac_project create` also accepts `--terminal-performance <settings.json>`.
+The file,original manufacturer document,performance table and adapter method
+enter the complete input inventory. The saved configuration replays the optional
+stage without another flag. Only one declared terminal lookup is supported;
+ambiguous selection rejects instead of choosing arbitrarily. Existing configurations
+without this optional file remain valid. See TERMINAL_PERFORMANCE.md.
+
+The actual eight-stage replay has no stage errors and includes80 terminals/160
+pressure operating cases. All23 report pages and the native plot match their
+hash-bound reviewed baseline renders;388 numerical rows,34 original requirements
+and14 ADPI paragraphs remain checked. Independent decimal arithmetic verifies
+both pressure columns for all160 cases. Twenty-two targeted tests cover the
+stage/configuration handoff and source-mutation controls. Full fan pressure,
+room acoustics,ADPI and engineering acceptance remain pending. Evidence:
+[terminal-performance-package.json](evidence/terminal-performance-package.json).

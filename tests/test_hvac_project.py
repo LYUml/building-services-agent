@@ -123,3 +123,20 @@ class HVACProjectTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'source changed'):
                 run(self.configuration,self.root/'changed',font='host font')
             package.assert_not_called()
+
+    def test_terminal_performance_inventory_and_omitted_source_reject(self):
+        source=self.root/'manufacturer.txt';source.write_text('Synthetic performance source')
+        catalogue=self.root/'performance.json';catalogue.write_text('{}')
+        settings=self.root/'performance-settings.json'
+        settings.write_text(json.dumps(dict(source=source.name,source_sha256=digest(source),catalogue=catalogue.name,
+            catalogue_sha256=digest(catalogue),conditions='Synthetic source inventory only')))
+        original=create(self.plan,self.configuration,terminal_performance=settings)
+        files,_,pins=load(self.configuration)
+        self.assertEqual(files['terminal_performance'],settings)
+        self.assertIn(source,pins);self.assertIn(catalogue,pins)
+        key=next(p for p in original['input_hashes'] if p.endswith('manufacturer.txt'))
+        original['input_hashes'].pop(key);self.configuration.write_text(json.dumps(original))
+        with self.assertRaisesRegex(ValueError,'Complete current'):load(self.configuration)
+        source.write_text('Changed manufacturer source')
+        with self.assertRaisesRegex(ValueError,'source hash'):
+            create(self.plan,self.root/'changed.json',terminal_performance=settings)

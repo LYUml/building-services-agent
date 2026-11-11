@@ -10,7 +10,7 @@ from . import hvac_package
 from .workflow import validate_plan
 
 ROOT = Path(__file__).resolve().parents[2]
-FILES = ('plan', 'terminal_review', 'adpi_settings', 'plan_clearance')
+FILES = ('plan', 'terminal_review', 'adpi_settings', 'plan_clearance', 'terminal_performance')
 SELECTORS = ('junction_review_native_task', 'system_paths_native_task')
 KEYS = {'schema', 'files', 'selectors', 'input_hashes'}
 
@@ -35,6 +35,12 @@ def inventory(files, selectors):
         from .adpi_review import settings_inputs
         _,adpi_pins = settings_inputs(files['adpi_settings'])
         inputs.update(local(p) for p in adpi_pins)
+    if 'terminal_performance' in files:
+        from .terminal_performance import settings_inputs
+        _,performance_pins=settings_inputs(files['terminal_performance'])
+        inputs.update(local(p) for p in performance_pins)
+        if len([t for t in plan['tasks'] if t['kind']=='terminal_throw'])!=1:
+            raise ValueError('One declared terminal lookup required for performance stage')
     return {p: digest(p) for p in sorted(inputs)}
 
 
@@ -43,13 +49,13 @@ def relative(path, parent):
 
 
 def create(plan, configuration, *, terminal_review=None, adpi_settings=None,
-           plan_clearance=None, junction_review_native_task=None, system_paths_native_task=None):
+           plan_clearance=None, junction_review_native_task=None, system_paths_native_task=None,terminal_performance=None):
     configuration = local(configuration)
     if configuration.exists():
         raise ValueError('New project configuration required; existing files are preserved')
     files = {'plan': local(plan)}
     for key, value in (('terminal_review', terminal_review), ('adpi_settings', adpi_settings),
-                       ('plan_clearance', plan_clearance)):
+                       ('plan_clearance', plan_clearance),('terminal_performance',terminal_performance)):
         if value is not None:
             files[key] = local(value)
     selectors = dict(junction_review_native_task=junction_review_native_task,

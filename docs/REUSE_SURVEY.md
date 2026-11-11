@@ -728,3 +728,10 @@ reviewed Pt columns and explicit NC conditions. The thin adapter preserves those
 columns,source provenance and exact inherited flows. NC interpolation is not
 implemented:published adjacent rows remain references only. No dependency or
 manufacturer document/table is added to distribution. See TERMINAL_PERFORMANCE.md.
+
+Terminal-performance packaging reuses the executed standalone adapter via its
+shared settings_inputs reader and existing hvac_package/hvac_project stages.
+No new engine or dependency is introduced. Complete document/table/method pins
+enter replay configuration and late-stage checks;the index links the unchanged
+standalone pressure/NC report. Native/report replay and mutation controls remain
+distinct from product,acoustic,ADPI or full fan-pressure acceptance.

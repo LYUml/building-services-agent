@@ -12,7 +12,7 @@ from .workflow_status import diagnose
 from .delivery import template
 
 
-def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,plan_clearance=None,junction_review_native_task=None,system_paths_native_task=None):
+def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,plan_clearance=None,junction_review_native_task=None,system_paths_native_task=None,terminal_performance=None):
     plan,output,font=map(lambda p:Path(p).resolve(),(plan,output,font))
     validated,inputs=validate_plan(plan)
     if junction_review_native_task is not None and (not isinstance(junction_review_native_task,str) or not any(t['id']==junction_review_native_task and t['kind']=='duct_sheet_native' for t in validated['tasks'])):
@@ -20,6 +20,15 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
     if system_paths_native_task is not None and (not isinstance(system_paths_native_task,str) or not any(t['id']==system_paths_native_task and t['kind']=='duct_sheet_native' for t in validated['tasks'])):
         raise ValueError('System path review must select a declared native sheet task')
     protected=set(inputs)|{plan,font}
+    performance_pins={};performance_task=None
+    if terminal_performance is not None:
+        from .terminal_performance import settings_inputs as performance_inputs
+        terminal_performance=Path(terminal_performance).resolve()
+        _,performance_pins=performance_inputs(terminal_performance)
+        protected.update(Path(p) for p in performance_pins)
+        matches=[t['id'] for t in validated['tasks'] if t['kind']=='terminal_throw']
+        if len(matches)!=1:raise ValueError('One declared terminal lookup required for performance stage')
+        performance_task=matches[0]
     clearance_pin=None
     if plan_clearance is not None:
         plan_clearance=Path(plan_clearance).resolve();protected.add(plan_clearance)
@@ -53,6 +62,11 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
     (output/'diagnosis.json').write_text(json.dumps(diagnosis,indent=2),encoding='utf-8')
     template(plan,output/'workflow',output/'delivery-review.json')
     stages={};errors={}
+    if terminal_performance is not None:
+        try:
+            from .terminal_performance import run as performance
+            stages['terminal_performance']=performance(plan,output/'workflow',performance_task,terminal_performance,output/'terminal-performance')
+        except (ValueError,OSError,KeyError,ImportError) as exc:errors['terminal_performance']=str(exc)
     if system_paths_native_task is not None:
         try:
             from .duct_system_paths import run as system_paths
@@ -94,6 +108,9 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
     if 'system_paths' in stages and any(digest(Path(p))!=sha for p,sha in stages['system_paths']['inputs'].items()):
         raise ValueError('System path source or method changed during packaging')
     if any(digest(Path(p))!=sha for p,sha in adpi_pins.items()):raise ValueError('ADPI settings/source changed during packaging')
+    if any(digest(Path(p))!=sha for p,sha in performance_pins.items()):raise ValueError('Terminal performance settings/source changed during packaging')
+    if 'terminal_performance' in stages and any(digest(Path(p))!=sha for p,sha in stages['terminal_performance']['inputs'].items()):
+        raise ValueError('Terminal performance source or method changed during packaging')
     if terminal_review is not None and digest(terminal_review)!=review_pin:
         raise ValueError('Terminal review settings changed during packaging')
     if plan_clearance is not None and digest(plan_clearance)!=clearance_pin:
@@ -105,6 +122,7 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
                 design_accepted=False,scope='Prepared calculation/drawing/report package; actual visual and full requirement acceptance remain separate')
     result['terminal_review_configuration']=None if terminal_review is None else dict(path=str(terminal_review),sha256=review_pin,settings=review_settings)
     result['adpi_configuration_inputs']=adpi_pins
+    result['terminal_performance_configuration_inputs']=performance_pins
     result['junction_review_native_task']=junction_review_native_task
     result['system_paths_native_task']=system_paths_native_task
     result['plan_clearance_configuration']=None if plan_clearance is None else dict(path=str(plan_clearance),sha256=clearance_pin)
@@ -116,6 +134,7 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
     if 'plan_clearance' in stages:links.append(('Nominal-width planar obstacle review','plan-clearance.json'))
     if 'junction_review' in stages:links.append(('Source-bound connection requirements','junction-review.json'))
     if 'system_paths' in stages:links.append(('Whole source-tree nominal centreline study','system-paths/index.html'))
+    if 'terminal_performance' in stages:links.append(('Diffuser catalogue operating pressures and NC references','terminal-performance/index.html'))
     for name,t in workflow['tasks'].items():
         if t['kind']=='duct_sheet_native' and t['status']=='pass':
             links.extend([(name+' DWG',f'workflow/{name}/Supply Air Distribution.dwg'),(name+' PDF',f'workflow/{name}/Supply Air Distribution.pdf')])
@@ -149,6 +168,7 @@ if __name__=='__main__':
     p.add_argument('--plan-clearance',help='Inherited native-sheet obstacle/coverage settings')
     p.add_argument('--junction-review-native-task',help='Native sheet task whose exact sizing/tree ancestry supplies connection requirements')
     p.add_argument('--system-paths-native-task',help='Native sheet task whose completed source tree supplies nominal centreline path studies')
-    a=p.parse_args();r=run(a.plan,a.out,font=a.font,autocad=Path(a.autocad) if a.autocad else None,terminal_review=a.terminal_review,adpi_settings=a.adpi_settings,plan_clearance=a.plan_clearance,junction_review_native_task=a.junction_review_native_task,system_paths_native_task=a.system_paths_native_task)
+    p.add_argument('--terminal-performance',help='Source-pinned diffuser pressure/NC performance settings')
+    a=p.parse_args();r=run(a.plan,a.out,font=a.font,autocad=Path(a.autocad) if a.autocad else None,terminal_review=a.terminal_review,adpi_settings=a.adpi_settings,plan_clearance=a.plan_clearance,junction_review_native_task=a.junction_review_native_task,system_paths_native_task=a.system_paths_native_task,terminal_performance=a.terminal_performance)
     print(r['status'],len(r['unresolved_tasks']),'unresolved tasks; design acceptance pending')
     raise SystemExit(2)

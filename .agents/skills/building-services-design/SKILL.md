@@ -26,6 +26,14 @@ Iterate design using computed results. Use ../mep-delivery-check/SKILL.md before
 
 ## Tool orchestration
 
+For reviewed diffuser pressure tables,include --terminal-performance with the
+source-pinned settings in hvac_package or hvac_project create. The optional stage
+inherits the current single terminal lookup and places separate pressure/NC
+evidence in the package index. Read docs/TERMINAL_PERFORMANCE.md. Preserve source
+and acoustic conditions;static and total pressures are separate,NC is not
+interpolated,and neither this stage nor its successful execution completes fan
+duty or room-noise acceptance. Omitted stages remain omitted.
+
 Before recording scoped numerical acceptance for a saved-native duct schedule,
 use bsa.duct_schedule_check as described in docs/DUCT_SCHEDULE_CHECK.md when its
 source contract matches the project. Reuse the exact native/sheet/schedule ancestry;
