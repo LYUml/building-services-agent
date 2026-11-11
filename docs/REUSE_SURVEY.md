@@ -753,3 +753,13 @@ rigid/VAV geometry and full entity snapshots,then feeds the existing native
 AutoCAD workflow. No dependency or upstream implementation is added/copied.
 Saved-DXF checks remain separate from fresh native reopening/plotting and full
 physical/engineering acceptance. See TERMINAL_LAYOUT_REVISION.md.
+
+Whole-source straight backbone uses existing duct_junction_review and
+duct_system_paths source checks,then transforms selected source sections into
+bim/rectangular_geometry inputs. Pinned IfcOpenShell0.8.5 authors/verifies native
+hollow walls;official spatial.assign_container/root.remove_product APIs remove
+the temporary internal envelope from final export. Existing clash/Manifold3D
+checks expose retained untrimmed-node interference. No new geometry/kernel,
+fitting solver or dependency is introduced. This source bridge is distinct from
+the blocked FreeCAD/IfcMCP0.9 native geometry routes documented earlier,and does
+not complete physical connections or actual installation. See DUCT_BACKBONE_IFC.md.

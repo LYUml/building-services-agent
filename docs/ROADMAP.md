@@ -1,5 +1,17 @@
 # Scope and acceptance
 
+All47 source rigid sections now author through the existing rectangular IFC
+engine into an untrimmed straight-wall scenario with94 owned ports. Final export
+removes the internal envelope and uses a labelled reference storey;native wall
+geometry,source dimensions/flows/endpoints and final schema verify. Ten targeted
+tests pass. Elevation,gauge and nominal/internal convention remain explicit
+unaccepted assumptions. Actual clash coverage is complete and48 shared-node
+intersection pairs remain failed with no waivers;ports are unlinked,physical trim
+and fittings incomplete. No nonadjacent pair intersects in this scenario. The
+exported-mesh preview was inspected;complete physical BIM/installation/pressure
+acceptance remains pending. See DUCT_BACKBONE_IFC.md and
+evidence/duct-backbone-ifc.json.
+
 The24-position diffuser alternative now has a separate revised CAD source and
 fresh eight-stage native package with no stage errors. Exactly72 bound panel/
 label/flex entities change;all unbound source geometry is preserved. Saved native

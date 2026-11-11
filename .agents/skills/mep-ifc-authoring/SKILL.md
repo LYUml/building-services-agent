@@ -5,6 +5,15 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For all straight sections of a passing native duct sheet,use bsa.duct_backbone_ifc
+and docs/DUCT_BACKBONE_IFC.md. Supply classified elevation,wall gauge and explicit
+nominal/internal interpretation;do not invent installed values. Inherit exact
+source nodes/selected sizes/flows. The saved study has untrimmed walls and unlinked
+ports;use existing clash checks to retain junction interference. No logical links
+or shared-node exemption can replace physical fittings/trim. Final export removes
+the internal coordination envelope and uses a named reference storey,not a real
+room/thermal zone. Keep complete BIM,products,installation and pressure pending.
+
 For source-flow/straight-friction checks on a saved duct_fitting_chain, route to
 ../mep-network-analysis/SKILL.md and docs/DUCT_CHAIN_ANALYSIS.md. Native connectivity
 and inventory cannot clear missing fitting-loss/pressure scope. The source-bound

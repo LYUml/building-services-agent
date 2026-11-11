@@ -1,0 +1,29 @@
+{
+  "scope": "All source rigid sections as an untrimmed straight-wall IFC scenario,not a complete physical network",
+  "targeted_test_methods_passed": 10,
+  "actual_saved_duct_walls": 47,
+  "actual_saved_owned_ports": 94,
+  "actual_logical_connections": 0,
+  "exported_artificial_spaces": 0,
+  "final_native_wall_geometry_and_schema_verified": true,
+  "source_native_dimensions_flows_and_endpoints_match": true,
+  "original_requirements_retained": 34,
+  "construction_assumptions": {
+    "reference_elevation_m": 0,
+    "wall_thickness_m": 0.0008,
+    "nominal_dimensions_interpreted_as_clear_internal": true,
+    "classification": "assumed;unaccepted authoring scenario only"
+  },
+  "clash_geometry_coverage": true,
+  "intersection_pairs": 48,
+  "nonadjacent_section_intersection_pairs": 0,
+  "unverified_solid_pairs": 0,
+  "clash_calculated_checks_pass": false,
+  "all_intersections_retained_without_waivers": true,
+  "all_source_artifact_and_method_pins_verified": true,
+  "preview_scope": "Inspected actual exported wall-mesh 3D and plan preview;scope note and axes readable after simplifying reference-z ticks. This is not a separate BIM viewer acceptance.",
+  "connections_complete": false,
+  "physical_trim_complete": false,
+  "design_accepted": false,
+  "method_sha256": "3ded22c622ae312c4ff8233267bbd6aeca70e348054eb4dbb0a0242fadcf8106"
+}
