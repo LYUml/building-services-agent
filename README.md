@@ -2,6 +2,11 @@
 
 需求文档 → 可追溯项目数据 → CAD/BIM → 工程分析 → 设计迭代 → 已核对交付。
 
+Latest [full regression](docs/REGRESSION_MODULAR_20261111.md):1,136 invocations,
+1,019 passes,1 failure,13 errors,103 skips;source unchanged. OpenStudio import
+remains blocked;fresh scoped WNTR/EPANET execution now succeeds. The full suite
+and complete engineering acceptance have not passed.
+
 The [active user-authorized goal](docs/GOAL.md) now explicitly prioritizes
 [modular boundaries/public contracts](docs/MODULAR_ARCHITECTURE.md) and
 [direct MOOSAS reuse](docs/MOOSAS_MODULE_MAP.md). These preserve the full

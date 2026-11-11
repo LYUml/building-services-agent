@@ -1,5 +1,10 @@
 # Native-runtime and workflow regression
 
+Historical snapshot. The later [full modular regression](REGRESSION_MODULAR_20261111.md)
+records 1,136 invocations with 1 failure, 13 errors and 103 skips, and a fresh
+successful scoped WNTR/EPANET execution. Use it for the newer tested revision;
+the failures below remain evidence of this earlier run.
+
 The complete command `.venv/Scripts/python -X utf8 -m unittest discover -s tests -v`
 finished with exit1: **988 test invocations in1441.319 seconds, 25 failures,
 17 errors and103 skips**. The suite did not pass. The remaining843 invocations

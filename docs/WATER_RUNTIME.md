@@ -1,5 +1,12 @@
 # Current WNTR runtime boundary
 
+Current recheck: the later [full modular regression](REGRESSION_MODULAR_20261111.md)
+passes all 11 test_epanet invocations. A separate WNTR1.5.0 import and real public
+water-loop EPANET2.2 run also pass, with all12 recorded numerical checks true.
+See evidence/regression-modular-20261111.json for hashes and runtime versions.
+The earlier block below is historical;its cause/change is not established.
+This scoped success does not establish complete water-system design acceptance.
+
 On 2026-11-11, a fresh isolated import of the installed pinned WNTR1.5.0 failed:
 Windows reported that Application Control blocked the native `_network_isolation`
 component. This happens while importing WNTR, before the EPANET solver is invoked.

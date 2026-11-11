@@ -36,5 +36,6 @@ non-green;a temporary3-test counter probe produces1pass,1skip and2failed-subtest
 events without a negative or inflated pass count. Transient/persistent replacement
 controls verify bounded retry and preservation of the previous JSON when
 replacement cannot complete. These validate reporting only,not a new full
-regression. The earlier complete audit remains documented in
-REGRESSION_20261111.md until a fresh complete run finishes.
+regression. The fresh full run is documented in REGRESSION_MODULAR_20261111.md:
+1,136 invocations,1,019 passes,1 failure,13 errors,103 skips;source unchanged.
+It is not green. REGRESSION_20261111.md preserves the previous complete audit.

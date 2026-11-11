@@ -1,5 +1,13 @@
 # Scope and acceptance
 
+Full regression at b74f030 now completes with frozen source:1,136 invocations,
+1,019 passes,1 failure,13 errors,103 skips. It is not green:13 tracebacks explicitly
+report the OpenStudio Application Control import block;the HVAC rule-workflow
+failure retains a pending upstream producer. Fresh WNTR import and actual EPANET
+water-loop execution now pass scoped checks,updating the historical water block.
+Optional native checks and full engineering acceptance remain unverified. See
+REGRESSION_MODULAR_20261111.md and evidence/regression-modular-20261111.json.
+
 The typed native air budget now feeds the existing fixed-speed single-path fan
 intersection without repeated network values or provider filenames. Original
 design demand and operating flow stay separate;point/trace/target/rerun replay

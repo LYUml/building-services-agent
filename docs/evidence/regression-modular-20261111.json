@@ -1,0 +1,571 @@
+{
+  "revision": "b74f03038035094f5695180cb20aaffd48fe0302",
+  "started_utc": "2026-11-11T04:40:17.317869+00:00",
+  "finished_utc": "2026-11-11T05:13:10.036885+00:00",
+  "elapsed_seconds": 1972.7189999999973,
+  "invocations": 1136,
+  "passed": 1019,
+  "source_unchanged": true,
+  "changed_sources": [],
+  "tests_successful": false,
+  "regression_pass": false,
+  "log_sha256": "fa01004bd4c8f8d4dc0a8b6aa4ba8df59d284ea60ee18372fad1162a5d9142cf",
+  "scope": "Default unittest discovery; no optional native flags enabled; not engineering acceptance",
+  "result_path": "runs/regression-modular-full/result.json",
+  "result_sha256": "3cebbc1cf2b7d086b2d7c905196dfcaa4b2cbc8383886e88ba47a5c5e8ff0b50",
+  "failure_count": 1,
+  "error_count": 13,
+  "skip_count": 103,
+  "failures": [
+    {
+      "test": "test_hvac_energy_rules.HVACWorkflowTests.test_actual_variants_and_postrun_native_tampering",
+      "traceback": "Traceback (most recent call last):\n  File \"REPOSITORY\\tests\\test_hvac_energy_rules.py\", line 50, in test_actual_variants_and_postrun_native_tampering\n    self.assertEqual(result['tasks']['hk']['status'],'pass',result['tasks']['hk']['scope'])\nAssertionError: 'pending' != 'pass'\n- pending\n+ pass\n : upstream energy producer energy did not pass; native regulatory checks not executed\n"
+    }
+  ],
+  "errors": [
+    {
+      "test": "test_hvac_idf_rules.NativeHVACRuleTests.test_changed_native_controls_rejected",
+      "exception": "ImportError: DLL load failed while importing _openstudioutilitiestime: An Application Control policy has blocked this file."
+    },
+    {
+      "test": "test_hvac_idf_rules.NativeHVACRuleTests.test_missing_zone_and_numeric_override_rejected",
+      "exception": "ImportError: DLL load failed while importing _openstudioutilitiestime: An Application Control policy has blocked this file."
+    },
+    {
+      "test": "test_hvac_idf_rules.NativeHVACRuleTests.test_native_extrema_and_zone_coverage",
+      "exception": "ImportError: DLL load failed while importing _openstudioutilitiestime: An Application Control policy has blocked this file."
+    },
+    {
+      "test": "test_hvac_idf_rules.NativeHVACRuleTests.test_rule_failure_then_independent_native_revision",
+      "exception": "ImportError: DLL load failed while importing _openstudioutilitiestime: An Application Control policy has blocked this file."
+    },
+    {
+      "test": "test_sizing_humidity.SizingHumidityTests.test_changed_schedule_and_operating_override_rejected",
+      "exception": "ImportError: DLL load failed while importing _openstudioutilitiestime: An Application Control policy has blocked this file."
+    },
+    {
+      "test": "test_sizing_humidity.SizingHumidityTests.test_invalid_percent_deadband_and_annual_use_rejected",
+      "exception": "ImportError: DLL load failed while importing _openstudioutilitiestime: An Application Control policy has blocked this file."
+    },
+    {
+      "test": "test_sizing_humidity.SizingHumidityTests.test_native_method_tampering_rejected",
+      "exception": "ImportError: DLL load failed while importing _openstudioutilitiestime: An Application Control policy has blocked this file."
+    },
+    {
+      "test": "test_sizing_humidity.SizingHumidityTests.test_saved_osm_and_idf_cover_all_zones",
+      "exception": "ImportError: DLL load failed while importing _openstudioutilitiestime: An Application Control policy has blocked this file."
+    },
+    {
+      "test": "test_thermal_geometry.ThermalGeometryTests.test_stacked_saved_geometry",
+      "exception": "ImportError: DLL load failed while importing _openstudioutilitiestime: An Application Control policy has blocked this file."
+    },
+    {
+      "test": "test_thermal_materials.ThermalMaterialTests.test_saved_layers_area_capacity_and_stacked_reverse_order",
+      "exception": "ImportError: DLL load failed while importing _openstudioutilitiestime: An Application Control policy has blocked this file."
+    },
+    {
+      "test": "test_thermal_materials.ThermalMaterialTests.test_saved_property_order_and_source_tampering_rejected",
+      "exception": "ImportError: DLL load failed while importing _openstudioutilitiestime: An Application Control policy has blocked this file."
+    },
+    {
+      "test": "test_thermal_windows.WindowInputTests.test_saved_four_faces_translated_vertices_and_net_opaque_area",
+      "exception": "ImportError: DLL load failed while importing _openstudioutilitiestime: An Application Control policy has blocked this file."
+    },
+    {
+      "test": "test_thermal_windows.WindowInputTests.test_saved_glazing_geometry_type_multiplier_and_source_tampering",
+      "exception": "ImportError: DLL load failed while importing _openstudioutilitiestime: An Application Control policy has blocked this file."
+    }
+  ],
+  "skipped": [
+    {
+      "test": "test_annual_energy.AnnualEngineTests.test_actual_8760_hours_and_independent_monthly_lighting_balance",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_annual_energy.AnnualEngineTests.test_actual_leap_calendar_with_explicit_synthetic_weather_derivative",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_annual_energy.AnnualEngineTests.test_explicit_failed_unmet_target_is_not_turned_into_a_pass",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_annual_energy.AnnualEngineTests.test_truncated_wrong_interval_and_wrong_environment_sql_rejected",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_annual_energy.AnnualEngineTests.test_workflow_and_weather_asset_integrity",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_cable_bend_regulations.NativeCableRuleBindingTests.test_actual_official_four_scenarios",
+      "reason": "requires pinned official Wiring CoP PDF"
+    },
+    {
+      "test": "test_cable_bend_regulations.NativeCableRuleBindingTests.test_changed_classification_document_rejected",
+      "reason": "requires pinned official Wiring CoP PDF"
+    },
+    {
+      "test": "test_cable_bend_regulations.NativeCableRuleBindingTests.test_diameter_mismatch_rejected",
+      "reason": "requires pinned official Wiring CoP PDF"
+    },
+    {
+      "test": "test_cable_bend_regulations.NativeCableRuleBindingTests.test_empty_explicit_classification_cannot_borrow_legacy_source",
+      "reason": "requires pinned official Wiring CoP PDF"
+    },
+    {
+      "test": "test_cable_bend_regulations.NativeCableRuleBindingTests.test_explicit_classification_can_differ_from_product_source",
+      "reason": "requires pinned official Wiring CoP PDF"
+    },
+    {
+      "test": "test_cable_bend_regulations.NativeCableRuleBindingTests.test_missing_native_product_metadata_pending",
+      "reason": "requires pinned official Wiring CoP PDF"
+    },
+    {
+      "test": "test_cable_bend_regulations.NativeCableRuleBindingTests.test_product_source_mismatch_rejected",
+      "reason": "requires pinned official Wiring CoP PDF"
+    },
+    {
+      "test": "test_cable_bend_regulations.NativeCableRuleBindingTests.test_unknown_actual_diameter_basis_pending",
+      "reason": "requires pinned official Wiring CoP PDF"
+    },
+    {
+      "test": "test_cable_bend_regulations.NativeCableRuleBindingTests.test_wrong_explicit_classification_cannot_borrow_legacy_source",
+      "reason": "requires pinned official Wiring CoP PDF"
+    },
+    {
+      "test": "test_cad_intake.CADIntakeTests.test_actual_dwg_export_preserves_source_and_mm_measurement",
+      "reason": "requires explicit AutoCAD test"
+    },
+    {
+      "test": "test_cad_overlay.CADOverlayTests.test_actual_native_base_and_devices_reopen",
+      "reason": "requires local AutoCAD"
+    },
+    {
+      "test": "test_documents.DocumentTests.test_real_offline_ocr_preserves_raw_lines",
+      "reason": "requires explicit local OCR input"
+    },
+    {
+      "test": "test_elbow_riser.IndependentElbowRiserTests.test_actual_elevation_native_reopen_and_72_mm_reference",
+      "reason": "requires local AutoCAD"
+    },
+    {
+      "test": "test_energy.EnergyTests.test_real_engine_geometry_and_lighting_balance",
+      "reason": "requires explicit EnergyPlus executable"
+    },
+    {
+      "test": "test_energy_completion.NativeCompletionTests.test_actual_fatal_run_is_not_cleared_by_known_engine_policy",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_hvac_devices.HVACDeviceTests.test_actual_bim_annual_property_revision_and_original_entities",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_hvac_devices.HVACDeviceTests.test_actual_failed_capacity_remains_failed_in_derived_ifc",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_ifc_equipment.EquipmentDrawingTests.test_actual_native_dwg_reopen_scale_and_clipped_sheet_guard",
+      "reason": "requires actual EnergyPlus source report"
+    },
+    {
+      "test": "test_ifc_equipment.EquipmentDrawingTests.test_complete_schedule_geometry_identity_and_units",
+      "reason": "requires actual EnergyPlus source report"
+    },
+    {
+      "test": "test_ifc_equipment.EquipmentDrawingTests.test_producer_artifact_changes_and_failed_results_rejected",
+      "reason": "requires actual EnergyPlus source report"
+    },
+    {
+      "test": "test_ifc_native.NativeDiagramTests.test_actual_native_reopen_xdata_and_fixed_scale_pdf",
+      "reason": "requires local AutoCAD"
+    },
+    {
+      "test": "test_ifc_route_drawing.RouteDrawingTests.test_actual_native_arc_reopen_identity_and_physical_pdf_scale",
+      "reason": "requires local AutoCAD"
+    },
+    {
+      "test": "test_ifc_views.IFCViewsTests.test_actual_three_native_reopens_and_merged_pdf_references",
+      "reason": "requires AutoCAD"
+    },
+    {
+      "test": "test_lighting.LightingTests.test_real_engine_matches_analytical_lux_and_maintenance_scaling",
+      "reason": "requires local Radiance binaries"
+    },
+    {
+      "test": "test_lighting_binding.BoundLightingTests.test_real_bound_generation_and_simulation",
+      "reason": "requires Radiance binaries and IFC library"
+    },
+    {
+      "test": "test_native_cad.NativeCADTests.test_real_native_save_reopen_and_plot",
+      "reason": "requires explicit local AutoCAD integration test"
+    },
+    {
+      "test": "test_pandapower_trial.PandapowerTrialTests.test_balanced_analytic_unbalanced_and_overload",
+      "reason": "requires isolated pandapower trial runtime"
+    },
+    {
+      "test": "test_pandapower_trial.PandapowerTrialTests.test_wrong_current_voltage_angle_and_source_power_are_detected",
+      "reason": "requires isolated pandapower trial runtime"
+    },
+    {
+      "test": "test_quarter_cable.QuarterCableTests.test_chord_baseline_derives_actual_arc_and_recalculates",
+      "reason": "requires isolated numerical runtime"
+    },
+    {
+      "test": "test_thermal_binding.ThermalBindingTests.test_saved_bim_to_annual_workflow",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_thermal_geometry.ThermalGeometryTests.test_actual_three_zone_year_and_key_tamper",
+      "reason": "requires real EnergyPlus"
+    },
+    {
+      "test": "test_thermal_hvac.PTACEngineTests.test_actual_equipment_electricity_topology_and_coverage",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_thermal_hvac.PTACEngineTests.test_native_component_sum_tamper_and_missing_series",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_thermal_hvac.PTACEngineTests.test_saved_capacity_curve_link_source_and_mode_tampering",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_thermal_hvac.PTACEngineTests.test_undersized_heating_retains_failed_unmet_target",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_thermal_materials.ThermalMaterialTests.test_saved_ifc_layered_annual_engine",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_thermal_operation.OperationEngineTests.test_actual_annual_independent_integrals_and_saved_audit",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_thermal_operation.OperationEngineTests.test_actual_leap_weekday_mapping_with_declared_weather_derivative",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_thermal_operation.OperationEngineTests.test_hourly_tampering_despite_unchanged_annual_equipment_total",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_thermal_operation.OperationEngineTests.test_missing_wrong_units_and_extra_series_rejected",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_thermal_operation.OperationEngineTests.test_saved_weekday_link_property_and_source_changes_rejected",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_thermal_operation.OperationEngineTests.test_zero_loads_and_natural_no_fan_are_actual_zero_series",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_thermal_windows.WindowEngineTests.test_actual_calendar_solar_geometry_and_monthly_annual_results",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_thermal_windows.WindowEngineTests.test_lower_declared_shgc_changes_actual_transmitted_solar",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_thermal_windows.WindowEngineTests.test_native_units_coverage_and_solar_bound_failures",
+      "reason": "requires actual EnergyPlus"
+    },
+    {
+      "test": "test_three_phase.ThreePhaseTests.test_branched_network_saved_roundtrip_and_nonzero_reactive_demands",
+      "reason": "requires pinned isolated pandapower runtime"
+    },
+    {
+      "test": "test_three_phase.ThreePhaseTests.test_changed_source_sequence_parameters_and_load_type_are_detected",
+      "reason": "requires pinned isolated pandapower runtime"
+    },
+    {
+      "test": "test_three_phase.ThreePhaseTests.test_corrupt_result_angles_power_and_currents_rejected",
+      "reason": "requires pinned isolated pandapower runtime"
+    },
+    {
+      "test": "test_three_phase.ThreePhaseTests.test_mesh_and_explicit_current_target_failure",
+      "reason": "requires pinned isolated pandapower runtime"
+    },
+    {
+      "test": "test_three_phase.ThreePhaseTests.test_solver_failure_and_existing_directory_do_not_emit_success",
+      "reason": "requires pinned isolated pandapower runtime"
+    },
+    {
+      "test": "test_three_phase.ThreePhaseTests.test_source_change_during_solver_prevents_success_report",
+      "reason": "requires pinned isolated pandapower runtime"
+    },
+    {
+      "test": "test_three_phase.ThreePhaseTests.test_source_invalid_inputs_and_unconnected_nodes_rejected",
+      "reason": "requires pinned isolated pandapower runtime"
+    },
+    {
+      "test": "test_three_phase.ThreePhaseTests.test_wrong_native_line_impedance_not_hidden_by_solver_convergence",
+      "reason": "requires pinned isolated pandapower runtime"
+    },
+    {
+      "test": "test_three_phase_drawing.ThreePhaseDrawingTests.test_layout_endpoint_swap_is_rejected",
+      "reason": "requires explicit Graphviz and isolated three-phase runtime"
+    },
+    {
+      "test": "test_three_phase_drawing.ThreePhaseDrawingTests.test_modified_study_or_failed_target_cannot_generate_drawing",
+      "reason": "requires explicit Graphviz and isolated three-phase runtime"
+    },
+    {
+      "test": "test_three_phase_drawing.ThreePhaseDrawingTests.test_real_layout_dxf_identity_and_phase_schedules",
+      "reason": "requires explicit Graphviz and isolated three-phase runtime"
+    },
+    {
+      "test": "test_three_phase_ifc_project.ModelDrivenProjectTests.test_actual_recalculation_uses_native_lengths_and_changes_voltages",
+      "reason": "requires explicit isolated numerical runtime"
+    },
+    {
+      "test": "test_three_phase_ifc_project.ModelDrivenProjectTests.test_derivation_does_not_clear_failed_current_targets",
+      "reason": "requires explicit isolated numerical runtime"
+    },
+    {
+      "test": "test_three_phase_regulations.ThreePhaseRegulationTests.test_actual_study_feeder_pass_and_branch_below_protection_threshold",
+      "reason": "requires explicit isolated runtime and official source cache"
+    },
+    {
+      "test": "test_three_phase_regulations.ThreePhaseRegulationTests.test_missing_rating_or_false_rms_basis_stays_pending",
+      "reason": "requires explicit isolated runtime and official source cache"
+    },
+    {
+      "test": "test_three_phase_regulations.ThreePhaseRegulationTests.test_override_current_values_is_rejected",
+      "reason": "requires explicit isolated runtime and official source cache"
+    },
+    {
+      "test": "test_three_phase_regulations.ThreePhaseRegulationTests.test_pack_defined_scope_fact_names_do_not_require_engine_changes",
+      "reason": "requires explicit isolated runtime and official source cache"
+    },
+    {
+      "test": "test_three_phase_regulations.ThreePhaseRegulationTests.test_rating_boundary_and_exceeded_current_balance",
+      "reason": "requires explicit isolated runtime and official source cache"
+    },
+    {
+      "test": "test_three_phase_regulations.ThreePhaseRegulationTests.test_regulatory_pass_does_not_clear_failed_study_target",
+      "reason": "requires explicit isolated runtime and official source cache"
+    },
+    {
+      "test": "test_three_phase_regulations.ThreePhaseRegulationTests.test_rule_boundary_and_official_source_tampering",
+      "reason": "requires explicit isolated runtime and official source cache"
+    },
+    {
+      "test": "test_workflow_cable_bend_limits.BendReleaseWorkflowTests.test_actual_source_bound_scenarios_and_identity_records",
+      "reason": "requires isolated numerical runtime"
+    },
+    {
+      "test": "test_workflow_cable_bend_limits.BendReleaseWorkflowTests.test_changed_limit_result_blocks_drawing",
+      "reason": "requires isolated numerical runtime"
+    },
+    {
+      "test": "test_workflow_cable_bend_limits.BendReleaseWorkflowTests.test_failed_limit_blocks_before_native_drawing_call",
+      "reason": "requires isolated numerical runtime"
+    },
+    {
+      "test": "test_workflow_cable_bend_limits.BendReleaseWorkflowTests.test_missing_runtime_blocks_before_limit_adapter",
+      "reason": "requires isolated numerical runtime"
+    },
+    {
+      "test": "test_workflow_cable_bend_limits.BendReleaseWorkflowTests.test_other_study_and_model_gate_rejected",
+      "reason": "requires isolated numerical runtime"
+    },
+    {
+      "test": "test_workflow_cable_bend_limits.BendReleaseWorkflowTests.test_replacement_project_forbidden",
+      "reason": "requires isolated numerical runtime"
+    },
+    {
+      "test": "test_workflow_cable_coordination.ElectricalCoordinationWorkflowTests.test_actual_clear_near_and_overlap_scenarios",
+      "reason": "requires isolated numerical runtime"
+    },
+    {
+      "test": "test_workflow_cable_coordination.ElectricalCoordinationWorkflowTests.test_changed_nested_clash_result_blocks_drawing",
+      "reason": "requires isolated numerical runtime"
+    },
+    {
+      "test": "test_workflow_cable_coordination.ElectricalCoordinationWorkflowTests.test_missing_runtime_blocks_coordination",
+      "reason": "requires isolated numerical runtime"
+    },
+    {
+      "test": "test_workflow_cable_coordination.ElectricalCoordinationWorkflowTests.test_overlap_blocks_before_drawing_adapter",
+      "reason": "requires isolated numerical runtime"
+    },
+    {
+      "test": "test_workflow_cable_coordination.ElectricalCoordinationWorkflowTests.test_unrelated_model_and_study_gate_rejected",
+      "reason": "requires isolated numerical runtime"
+    },
+    {
+      "test": "test_workflow_three_phase.ThreePhaseWorkflowTests.test_actual_pass_and_converged_overload_gate",
+      "reason": "requires explicit isolated runtime"
+    },
+    {
+      "test": "test_workflow_three_phase.ThreePhaseWorkflowTests.test_exit_zero_without_study_is_failure",
+      "reason": "requires explicit isolated runtime"
+    },
+    {
+      "test": "test_workflow_three_phase.ThreePhaseWorkflowTests.test_incomplete_or_contradictory_child_report_is_rejected",
+      "reason": "requires explicit isolated runtime"
+    },
+    {
+      "test": "test_workflow_three_phase_drawing.DrawingWorkflowTests.test_changed_producer_bytes_block_before_drawing_adapter",
+      "reason": "requires explicit isolated runtime"
+    },
+    {
+      "test": "test_workflow_three_phase_drawing.DrawingWorkflowTests.test_converged_failed_target_blocks_actual_drawing",
+      "reason": "requires explicit isolated runtime"
+    },
+    {
+      "test": "test_workflow_three_phase_drawing.DrawingWorkflowTests.test_missing_graphviz_or_autocad_does_not_call_drawing",
+      "reason": "requires explicit isolated runtime"
+    },
+    {
+      "test": "test_workflow_three_phase_ifc.CableWorkflowTests.test_actual_study_geometry_pass_and_delivery_remains_pending",
+      "reason": "requires explicit isolated runtime"
+    },
+    {
+      "test": "test_workflow_three_phase_ifc.CableWorkflowTests.test_changed_check_artifact_blocks_before_drawing",
+      "reason": "requires explicit isolated runtime"
+    },
+    {
+      "test": "test_workflow_three_phase_ifc.CableWorkflowTests.test_changed_geometry_blocks_drawing",
+      "reason": "requires explicit isolated runtime"
+    },
+    {
+      "test": "test_workflow_three_phase_ifc_project.DerivedWorkflowTests.test_actual_derived_projects_rules_and_blocking_scenarios",
+      "reason": "requires isolated numerical runtime and official cached BEC"
+    },
+    {
+      "test": "test_workflow_three_phase_ifc_project.DerivedWorkflowTests.test_changed_derived_project_blocks_rules_and_drawing",
+      "reason": "requires isolated numerical runtime and official cached BEC"
+    },
+    {
+      "test": "test_workflow_three_phase_ifc_project.DerivedWorkflowTests.test_failed_new_study_blocks_rules_and_drawing",
+      "reason": "requires isolated numerical runtime and official cached BEC"
+    },
+    {
+      "test": "test_workflow_three_phase_ifc_project.DerivedWorkflowTests.test_geometry_consumer_inherits_derived_project",
+      "reason": "requires isolated numerical runtime and official cached BEC"
+    },
+    {
+      "test": "test_workflow_three_phase_ifc_project.DerivedWorkflowTests.test_missing_runtime_does_not_derive_or_check_rules",
+      "reason": "requires isolated numerical runtime and official cached BEC"
+    },
+    {
+      "test": "test_workflow_three_phase_ifc_project.DerivedWorkflowTests.test_replacement_project_or_runtime_options_forbidden",
+      "reason": "requires isolated numerical runtime and official cached BEC"
+    },
+    {
+      "test": "test_workflow_three_phase_rules.RuleWorkflowTests.test_actual_scenarios_keep_missing_exceeded_and_full_acceptance_pending",
+      "reason": "requires explicit isolated runtime and official cache"
+    },
+    {
+      "test": "test_workflow_three_phase_rules.RuleWorkflowTests.test_changed_rule_artifact_stops_before_cad_call",
+      "reason": "requires explicit isolated runtime and official cache"
+    },
+    {
+      "test": "test_workflow_three_phase_rules.RuleWorkflowTests.test_replacement_project_and_changed_binding_record_rejected",
+      "reason": "requires explicit isolated runtime and official cache"
+    },
+    {
+      "test": "test_workflow_three_phase_topology.ElectricalTopologyWorkflowTests.test_actual_passing_study_and_native_topology",
+      "reason": "requires isolated numerical runtime"
+    },
+    {
+      "test": "test_workflow_three_phase_topology.ElectricalTopologyWorkflowTests.test_changed_topology_evidence_blocks_drawing",
+      "reason": "requires isolated numerical runtime"
+    },
+    {
+      "test": "test_workflow_three_phase_topology.ElectricalTopologyWorkflowTests.test_delivery_rejects_removed_model_binding_record",
+      "reason": "requires isolated numerical runtime"
+    },
+    {
+      "test": "test_workflow_three_phase_topology.ElectricalTopologyWorkflowTests.test_disconnected_graph_blocks_drawing",
+      "reason": "requires isolated numerical runtime"
+    }
+  ],
+  "skip_reason_counts": {
+    "requires actual EnergyPlus": 23,
+    "requires pinned official Wiring CoP PDF": 9,
+    "requires explicit AutoCAD test": 1,
+    "requires local AutoCAD": 4,
+    "requires explicit local OCR input": 1,
+    "requires explicit EnergyPlus executable": 1,
+    "requires actual EnergyPlus source report": 3,
+    "requires AutoCAD": 1,
+    "requires local Radiance binaries": 1,
+    "requires Radiance binaries and IFC library": 1,
+    "requires explicit local AutoCAD integration test": 1,
+    "requires isolated pandapower trial runtime": 2,
+    "requires isolated numerical runtime": 16,
+    "requires real EnergyPlus": 1,
+    "requires pinned isolated pandapower runtime": 8,
+    "requires explicit Graphviz and isolated three-phase runtime": 3,
+    "requires explicit isolated numerical runtime": 2,
+    "requires explicit isolated runtime and official source cache": 7,
+    "requires explicit isolated runtime": 9,
+    "requires isolated numerical runtime and official cached BEC": 6,
+    "requires explicit isolated runtime and official cache": 3
+  },
+  "unraisable_warnings": [
+    {
+      "type": "IfcOpenShell file.__del__ KeyError",
+      "count": 2,
+      "scope": "Not unittest error events; retained in raw log; no impact proven or dismissed"
+    }
+  ],
+  "design_accepted": false,
+  "runtime_rechecks": {
+    "water_import": {
+      "report": "runs/water-runtime-modular-regression.json",
+      "sha256": "6d98be53419ea78f13eb2a3671ca8cb9c02ed370bfb73a49e64d8fb0b49faa97",
+      "import_pass": true,
+      "simulation_executed": false
+    },
+    "energy": {
+      "report": "runs/energy-runtime-modular-regression.json",
+      "sha256": "8cd325eff08665c84bfc26a5c54c04e7754f9144aafb3b557aeb876fb0f60fb8",
+      "energyplus_version_output": "EnergyPlus, Version 25.2.0-cf7368216c",
+      "energyplus_version_launch_pass": true,
+      "openstudio_import_pass": false,
+      "exception": "ImportError: DLL load failed while importing _openstudioutilitiestime: An Application Control policy has blocked this file.",
+      "simulation_executed": false
+    },
+    "water_solver": {
+      "report": "runs/water-modular-regression-solver/water.json",
+      "sha256": "f1de8fbde9686752678bd21fb75725318cf1e88fad2992878f3868e23610a05f",
+      "source": "examples/water-loop/project.json",
+      "source_sha256": "d2c6f22d9cc176c306d46c002aef6ccb8bc872dd69ef1c3663d84bc4f6a27215",
+      "engine_version": 20200,
+      "library_sha256": "87fd7456a0b3ada99938e3e581b487248d9312f87a0e00eef56575169159e01d",
+      "versions": {
+        "wntr": "1.5.0",
+        "numpy": "2.5.4",
+        "scipy": "1.18.1",
+        "pandas": "3.1.1"
+      },
+      "checks": {
+        "engine_clean": true,
+        "serialized_input_match": true,
+        "finite_results": true,
+        "reservoir_heads": true,
+        "mass_balance": true,
+        "head_pressure_identity": true,
+        "demand_law": true,
+        "pressure_targets": true,
+        "delivery_targets": true,
+        "velocity_limits": true,
+        "pipe_energy": true,
+        "pump_curves": true
+      },
+      "calculated_checks_pass": true,
+      "design_accepted": false
+    }
+  }
+}
