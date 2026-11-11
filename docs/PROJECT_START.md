@@ -1,5 +1,13 @@
 # Start from original requirement documents
 
+The real interpreted bundle now also executes5existing engineering adapters
+after explicit host binding of18unchanged source files. This regenerates actual
+calculation/sizing/native drawing outputs while retaining the user-selected HK
+check and10manual work packages. Native reopen/scale and source/delivery checks
+pass;11tasks remain pending. This uses earlier source-backed design choices,
+not automatic inference from an arbitrary brief. See
+evidence/project-start-engineering-binding.json.
+
 The actual reviewed bundle now also exercises source-role interpretation and
 work decomposition:all14primary passages retain original quotes across26rows
 and10work packages;76lecture passages remain indexed reference context. This

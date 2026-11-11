@@ -1,0 +1,21 @@
+{
+  "scope":"Actual host-interpreted source bundle bound to existing engineering scenario and executed adapters",
+  "source_documents":2,
+  "primary_passages_retained":14,
+  "reference_context_passages":76,
+  "reviewed_work_packages":10,
+  "additional_scoped_producer_and_user_rule_rows":7,
+  "total_requirement_rows":33,
+  "engineering_source_files_staged":18,
+  "existing_engineering_values_changed":false,
+  "actual_automated_stages_passed":5,
+  "pending_tasks":11,
+  "additional_user_selected_hk_check":"retained;pending;separate from coursework limit",
+  "independent_preliminary_decimal_arithmetic":"pass;final regulated replay preserves the checked output exactly",
+  "native_dwg_independent_reopen":"pass",
+  "physical_pdf_reference":"pass",
+  "visual_review":"Current earlier replay overview inspected;final regulated replay pixels identical to that source-bound reviewed image and prior reviewed full-size baseline",
+  "workflow_integrity_and_delivery_context":"pass",
+  "design_accepted":false,
+  "limitations":"Existing design choices imported with explicit source/provenance;not autonomous generation from an arbitrary brief. No report or ADPI acceptance added in this replay. Geometry/installation/product/applicability and complete multi-discipline acceptance remain pending. Earlier drafts/runs preserved."
+}

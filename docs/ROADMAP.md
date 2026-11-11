@@ -1,5 +1,13 @@
 # Scope and acceptance
 
+The new host-interpreted intake now binds existing classified engineering data
+to5actual calculation/drawing adapters and reruns native output. All14primary
+passages and76reference passages remain;33rows include the additional user HK
+check,which stays pending. Five stages pass,11tasks remain pending. Independent
+preliminary arithmetic,native reopen/physical scale and source/delivery checks
+pass;final plot matches inspected source-bound pixels. No arbitrary-brief
+autonomy,ADPI/full engineering acceptance implied. See evidence/project-start-engineering-binding.json.
+
 Actual source-role/work interpretation now preserves14primary passages as26
 traceable requirement rows across10work packages,with76lecture passages retained
 as reference context. Source plan/workflow/dependency checks pass;all10engineering
