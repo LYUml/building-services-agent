@@ -1,5 +1,12 @@
 # MOOSAS priority reuse map
 
+The direct IFC polygon-space interface now supports actual native IfcOpenShell
+replacement without MOOSAS runtime arguments. Same-request geometry correspondence
+and downstream lighting-input equivalence pass in the synthetic native trial;
+25distinct related tests pass. Shared source extraction limits the independence
+of this comparison. See POLYGON_PROVIDER_REPLACEMENT.md and
+evidence/polygon-provider-replacement.json.
+
 Surface/direct-IFC recognition now supports explicit host project workspaces.
 The actual external temporary-project chain and23related tests verify source
 separation,HK LPD consumption,disabled gates and host-removal rejection. Trusted

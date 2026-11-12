@@ -1,5 +1,11 @@
 # Saved IFC spaces to recognition input
 
+The native `ifcopenshell.polygon-spaces` provider now accepts the same IFC/settings
+request as the MOOSAS composed provider and feeds the same polygon-space consumer.
+Actual component replacement preserves geometry IDs/quantities and byte-identical
+lighting input. See POLYGON_PROVIDER_REPLACEMENT.md for scope,grid metadata and
+shared-extraction limitations. Both adapters retain full acceptance pending.
+
 Provider `moosas.ifc-room-recognition`,capability `spatial.ifc-room-recognition`,
 now accepts original `ifc` and `settings` sources directly through bsa.modules
 or an existing module_exchange workflow task. Settings contain exactly explicit

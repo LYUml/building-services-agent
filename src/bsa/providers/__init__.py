@@ -2,6 +2,9 @@
 
 
 def get_provider(id):
+    if id=='ifcopenshell.polygon-spaces':
+        from . import ifc_polygon_spaces
+        return ifc_polygon_spaces
     if id=='moosas.ifc-room-recognition':
         from . import moosas_ifc_recognition
         return moosas_ifc_recognition

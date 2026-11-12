@@ -1,6 +1,5 @@
 """Compose saved-native IFC intake and the existing isolated MOOSAS recognizer."""
 import json
-import math
 from pathlib import Path
 from ..cli import digest
 from ..module_contract import read_json
@@ -18,10 +17,8 @@ def validate_request(request):
 
 
 def settings(path):
-    values=read_json(path)
-    if not isinstance(values,dict) or set(values)!={'length_tolerance_m','area_tolerance_m2'} or any(type(v) not in (int,float) or not math.isfinite(v) or v<=0 for v in values.values()):
-        raise ValueError('Exact explicit positive source length/area tolerances required')
-    return values
+    from ..ifc_space_surfaces import read_settings
+    return read_settings(path)
 
 
 def execute(request,paths,runtime,out):

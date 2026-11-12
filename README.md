@@ -1,5 +1,11 @@
 # Building Services Agent
 
+The same saved-IFC polygon-space request now switches between MOOSAS and native
+IfcOpenShell providers. Actual trials preserve source identities/geometry and
+byte-identical downstream lighting input;25distinct related tests pass. Shared
+source extraction and incomplete engineering acceptance remain explicit.
+See docs/POLYGON_PROVIDER_REPLACEMENT.md.
+
 MOOSAS recognition now accepts explicit external project workspaces,keeping
 project data separate from tool source. Twenty-three related tests and an actual
 temporary native-IFC/HK-LPD workflow verify the boundary. Other adapters and

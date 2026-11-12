@@ -14,6 +14,14 @@ from .cli import digest
 from .workspace import allowed
 
 
+def read_settings(path):
+    from .module_contract import read_json
+    values=read_json(path)
+    if not isinstance(values,dict) or set(values)!={'length_tolerance_m','area_tolerance_m2'} or any(type(v) not in (int,float) or not math.isfinite(v) or v<=0 for v in values.values()):
+        raise ValueError('Exact explicit positive source length/area tolerances required')
+    return values
+
+
 def prepare(source, *, length_tolerance_m, area_tolerance_m2):
     import ifcopenshell
     import ifcopenshell.geom

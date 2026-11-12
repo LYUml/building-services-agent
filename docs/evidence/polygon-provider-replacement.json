@@ -1,0 +1,95 @@
+{
+  "scope": "Actual same-request saved-IFC provider replacement and unchanged downstream HK LPD input",
+  "providers": {
+    "native": {
+      "id": "ifcopenshell.polygon-spaces",
+      "version": "0.8.5",
+      "license": "LGPL-3.0-or-later"
+    },
+    "moosas": {
+      "id": "moosas.ifc-room-recognition",
+      "version": "1",
+      "license": "Apache-2.0",
+      "upstream_commit": "dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c"
+    }
+  },
+  "comparisons": [
+    {
+      "id": "05Q4lNZvfMjRB3$ExNimBH",
+      "boundary_hausdorff_m": 0.0,
+      "symmetric_difference_m2": 0.0,
+      "areas_m2": [
+        14.0,
+        14.0
+      ],
+      "heights_m": [
+        3.0,
+        3.0
+      ],
+      "elevations_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "0CWbJCzJzH9wlEfBdo1lqM",
+      "boundary_hausdorff_m": 0.0,
+      "symmetric_difference_m2": 0.0,
+      "areas_m2": [
+        24.0,
+        24.0
+      ],
+      "heights_m": [
+        3.0,
+        3.0
+      ],
+      "elevations_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "2XcneOpvjTTuGBPHTpB5KV",
+      "boundary_hausdorff_m": 0.0,
+      "symmetric_difference_m2": 0.0,
+      "areas_m2": [
+        30.0,
+        30.0
+      ],
+      "heights_m": [
+        3.0,
+        3.0
+      ],
+      "elevations_m": [
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "downstream_lighting_input_byte_identical": true,
+  "native_requires_moosas_runtime": false,
+  "point_grid_m": {
+    "native": null,
+    "moosas": 1e-09
+  },
+  "disabled_native_task_statuses": {
+    "recognition": "pending",
+    "lighting-rules": "pending",
+    "review": "pending",
+    "independent-electrical": "pass"
+  },
+  "result_hashes": {
+    "native": "e45f3ac2a14dde6d1e8af7337cbca05d071ed12a5005b4fc76ab5386ff2de039",
+    "moosas": "ab305db723534df9c0fed8ea362d79189845a2e863d6a33b4b28bc4397662708"
+  },
+  "official_source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+  "design_accepted": false,
+  "limitations": [
+    "Shared IFC prism extractor/source checks;replacement demonstrates interoperability,not independent architectural validation",
+    "Generated native IDs and numerical grid metadata intentionally differ",
+    "Synthetic building/lighting inputs;selected rule arithmetic is not complete conformity",
+    "No thermal/MEP/physical acceptance"
+  ],
+  "distinct_related_tests_passed": 25,
+  "native_external_project_trial": "Temporary synthetic project workflow passed without MOOSAS runtime;host removal rejected verification;temporary files removed"
+}

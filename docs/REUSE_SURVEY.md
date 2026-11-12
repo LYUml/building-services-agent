@@ -1,5 +1,13 @@
 # Reuse survey â€” 2026-11-09
 
+Polygon provider replacement gap: reuse the already verified native
+ifc_space_surfaces.prepare and pinned IfcOpenShell/Manifold/Shapely stack through
+a thin registered provider. Preserve the same IFC/settings source contract and
+consumer fields;declare no added native-adapter grid rather than claim MOOSAS
+snapping. Actual same-request replacement yields equivalent geometry and identical
+bound lighting inputs;25distinct related tests pass. No new solver/dependency;
+shared extraction is not independent validation. See POLYGON_PROVIDER_REPLACEMENT.md.
+
 Recognition project-workspace gap: reuse existing workspace.allowed host policy
 in common workflow request discovery and the already verified MOOSAS worker/
 providers. Keep upstream/dependency installations repository-local and pin the

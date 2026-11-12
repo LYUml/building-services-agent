@@ -75,7 +75,10 @@
       }
     },
     "point_grid_m": {
-      "const": 1e-09
+      "enum": [
+        null,
+        1e-09
+      ]
     },
     "source_geometry_matches": {
       "const": true
