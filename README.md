@@ -1,5 +1,10 @@
 # Building Services Agent
 
+MCP now returns actual recorded PDF artifact pages after source-bound workflow
+audits, preserving render/source hashes and pending visual/engineering review.
+Fresh native DWG reopen, PDF image delivery and actual page inspection executed.
+See docs/MCP_ARTIFACT_PAGES.md.
+
 MCP now exposes pending delivery templates and existing source-bound review
 assessment. Artifact inventory includes the original requirement/evidence matrix;
 unsupported pass assertions fail and design acceptance remains unestablished.

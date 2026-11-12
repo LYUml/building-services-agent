@@ -5,6 +5,12 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For recorded PDF output, use bsa_render_artifact_page after bsa_artifact_index
+per docs/MCP_ARTIFACT_PAGES.md. Actually inspect every required page, retain
+workflow/PDF/image hashes and separate scoped observations. A rendered image
+does not establish native reopening, print scale or full design acceptance.
+
+
 For MCP delivery review, use bsa_delivery_template and bsa_assess_delivery per
 docs/MCP_DELIVERY.md. Read the artifact index requirement/evidence matrix and
 actual saved artifacts first. Save explicit observations in a fresh review;

@@ -1,0 +1,133 @@
+{
+  "command": ".venv/Scripts/python -X utf8 -m unittest tests.test_mcp_server tests.test_source_page",
+  "environment": {
+    "BSA_MCP_ARTIFACT_PLAN": "mcp-artifact-native-study/engineering-plan.json",
+    "BSA_MCP_ARTIFACT_RUN": "mcp-artifact-native-study/engineering-run/workflow",
+    "BSA_MCP_ARTIFACT_PREVIEW": "mcp-artifact-native-preview"
+  },
+  "tests": 10,
+  "skips": 0,
+  "elapsed_seconds": 69.202,
+  "result": "pass",
+  "workflow_integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "task_statuses": {
+    "electrical": "pass",
+    "water": "pass",
+    "qa": "pass",
+    "pump": "pass",
+    "coupled": "pass",
+    "coupled-qa": "pass",
+    "drawing": "pass",
+    "native": "pass",
+    "review": "pending"
+  },
+  "native": {
+    "native_reopen_pass": true,
+    "checks": {
+      "model_entity_count": 8,
+      "linked_entity_count": 6,
+      "model_entities_and_ifc_xdata_match": true,
+      "geometry_layers_and_annotations_match": true,
+      "metre_units": true
+    },
+    "plot": {
+      "pdf_sha256": "14ca61f63c9233566af328c50b0d7a168984464375e8f1c43363861c0fbdfbd7",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 50,
+      "reference_handle": "33",
+      "reference_expected_mm": 50.0,
+      "reference_measured_mm": 49.995666666666665,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    }
+  },
+  "protocol": {
+    "page": {
+      "schema": "bsa.source-page/1",
+      "source": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\mcp-artifact-native-study\\engineering-run\\workflow\\native\\sheet.pdf",
+      "source_sha256": "14ca61f63c9233566af328c50b0d7a168984464375e8f1c43363861c0fbdfbd7",
+      "page": 1,
+      "page_count": 1,
+      "media_box_pdf_units": [
+        842.0,
+        595.0
+      ],
+      "pdf_user_unit": 1,
+      "page_rotation": 0,
+      "render_policy": "Full source MediaBox with native rotation; fit within maximum pixel side, not an engineering plot scale",
+      "max_side_px": 2048,
+      "image": "page.png",
+      "image_sha256": "b77351dc74551cb2b3315b65b0156afb34c32fe2271ca020eed3ed1cc2a02d5b",
+      "image_size_px": [
+        2048,
+        1448
+      ],
+      "inputs": {
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\mcp-artifact-native-study\\engineering-run\\workflow\\native\\sheet.pdf": "14ca61f63c9233566af328c50b0d7a168984464375e8f1c43363861c0fbdfbd7",
+        "C:\\Program Files\\WindowsApps\\OpenAI.CodexPrimaryRuntime.v26-1104-2876-0_26.1104.2876.0_x64__3k8sg7r9htsxt\\dependencies\\native\\poppler\\Library\\bin\\pdftoppm.exe": "5b6ff07d229b8a8baca960751d5c591dbc7504efec529a1f5c22f5fd9e3b7220",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\source_page.py": "d82b779b809283d3513073b8b6618318ce62c245615feb04d8489c305348f7ca",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\ocr.py": "c2ea311d715ee35fc0e2b80dbbbcf9f29bc4120e88e697178e1f92f3e21ccb09"
+      },
+      "source_unchanged": true,
+      "visual_review": "not_performed_by_renderer",
+      "extraction_review_cleared": false,
+      "design_accepted": false,
+      "workflow_sha256": "51a24593cf239370ef8f2740e672686f7b85eb3ceb590877151c7663a3224cb2",
+      "artifact": "native/sheet.pdf",
+      "artifact_sha256": "14ca61f63c9233566af328c50b0d7a168984464375e8f1c43363861c0fbdfbd7",
+      "engineering_acceptance": "not_established"
+    },
+    "rejections": [
+      {
+        "artifact": "../outside.pdf"
+      },
+      {
+        "artifact": "workflow.json"
+      },
+      {
+        "workflow_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      {
+        "page": 999
+      },
+      {
+        "target": "mcp-artifact-native-preview"
+      }
+    ],
+    "design_accepted": false
+  },
+  "actual_visual_inspection": {
+    "scope": "Actual one-page synthetic native pipe schematic visual inspection only",
+    "source_pdf_sha256": "14ca61f63c9233566af328c50b0d7a168984464375e8f1c43363861c0fbdfbd7",
+    "image_sha256": "b77351dc74551cb2b3315b65b0156afb34c32fe2271ca020eed3ed1cc2a02d5b",
+    "workflow_sha256": "51a24593cf239370ef8f2740e672686f7b85eb3ceb590877151c7663a3224cb2",
+    "page": 1,
+    "observations": [
+      "RISE-HIGH and RISE-LOW labels, 32 mm bore, 40 mm OD and 2.5 m lengths are legible",
+      "Leader lines and projected centreline are visible without observed clipping or text overlap",
+      "Source-unit and non-installation notes are visible"
+    ],
+    "limitations": [
+      "image inspection does not establish installation geometry, real equipment, engineering integration or full statutory compliance",
+      "original workflow/native visual-review pending fields remain immutable; observations are separate evidence"
+    ],
+    "design_accepted": false
+  },
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/artifact_access.py": "302565585eecc3cfcfd67306596feda641012242226c9a7ef7cd6ec2eba494d5",
+    "src/bsa/mcp_server.py": "e7d39d3130ea827d40a78f0acf36a8178e346478235ed9dbd101fd813a188a27",
+    "src/bsa/mcp_worker.py": "cf585f5a285628f65c8d8950c45d3ae5a2150ba02eb351121ae4c25ec93ee439",
+    "tests/test_mcp_server.py": "98c5aa6bc906cf69b77febaadba1b47780f57127f9e17633b0621aa54c6e1bbe"
+  }
+}

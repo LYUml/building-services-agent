@@ -42,3 +42,23 @@ def read(plan,out,artifact,workflow_sha256):
     try:content=data.decode('utf-8');encoding='utf-8'
     except UnicodeDecodeError:content=base64.b64encode(data).decode('ascii');encoding='base64'
     return dict(path=artifact,sha256=sha,size=len(data),workflow_sha256=receipt,encoding=encoding,content=content,design_accepted=False)
+
+
+def render_page(plan,out,artifact,workflow_sha256,page,target,*,renderer=None,max_side=2048):
+    from . import source_page
+    import json
+    folder,_,report,receipt=audited(plan,out)
+    if receipt!=workflow_sha256:raise ValueError('Workflow differs from inspected index')
+    if artifact not in report['artifact_hashes']:raise ValueError('Recorded PDF artifact required')
+    pdf=delivery.relative_file(folder,artifact)
+    target=Path(target).resolve()
+    root=(workspace.project_root() or workspace.ROOT/'runs').resolve()
+    if not target.is_relative_to(root):raise ValueError('Preview must belong to selected project')
+    if pdf.suffix.lower()!='.pdf':raise ValueError('Recorded PDF artifact required')
+    result=source_page.run(pdf,page,target,renderer=renderer,max_side=max_side)
+    _,_,after,after_receipt=audited(plan,out)
+    if after_receipt!=receipt or result['source_sha256']!=after['artifact_hashes'][artifact]:
+        raise ValueError('Workflow or artifact changed during rendering')
+    result=dict(result,workflow_sha256=receipt,artifact=artifact,artifact_sha256=report['artifact_hashes'][artifact],engineering_acceptance='not_established')
+    (target/'artifact-page.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
+    return result

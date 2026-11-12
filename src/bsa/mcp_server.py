@@ -155,6 +155,17 @@ def create_server(*,execute_options=None,pdftoppm=None):
         return invoke(artifact_access.read,local(plan),local(out),artifact,workflow_sha256)
 
     @server.tool(annotations=write)
+    def bsa_render_artifact_page(plan:str,out:str,artifact:str,workflow_sha256:str,page:Annotated[int,Field(strict=True,ge=1)],target:str,max_side:Annotated[int,Field(strict=True,ge=512,le=2560)]=2048)->CallToolResult:
+        """Render one source-audited recorded PDF page for actual visual inspection. Fresh target only; no automatic visual acceptance."""
+        folder=local(target)
+        with lock:
+            result=invoke(artifact_access.render_page,local(plan),local(out),artifact,workflow_sha256,page,folder,renderer=pdftoppm,max_side=max_side)
+            data=(folder/'page.png').read_bytes()
+            import hashlib
+            if hashlib.sha256(data).hexdigest()!=result['image_sha256']:raise ValueError('Rendered page changed before MCP delivery')
+            return CallToolResult(content=[TextContent(type='text',text=json.dumps(result)),ImageContent(type='image',mimeType='image/png',data=base64.b64encode(data).decode('ascii'))],structuredContent=result)
+
+    @server.tool(annotations=write)
     def bsa_delivery_template(plan:str,out:str,review:str)->dict[str,Any]:
         """Create a separate fresh source-bound review. All requirements start pending; actual inspection is required before recording findings."""
         target=local(review)

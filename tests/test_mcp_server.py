@@ -41,7 +41,7 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                     async with ClientSession(read,write) as session:
                         initialized=(await session.initialize()).model_dump(mode='json')
                         tools=(await session.list_tools()).tools
-                        self.assertEqual(len(tools),18)
+                        self.assertEqual(len(tools),19)
                         for tool in tools:
                             self.assertFalse({'autocad','command','project_root'} & set(tool.inputSchema.get('properties',{})))
                         async def call(name,args):
@@ -168,6 +168,34 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                 blank_interpretation_rejected=blank.isError,absolute_path_rejected=outside.isError,
                 page_preview=preview,visual_transcription=transcription,references=references,engineering_verification=checked,uninterpreted_execution_pass=blocked['execution_pass'],design_accepted=False),indent=2),encoding='utf-8')
 
+
+    @unittest.skipUnless(os.environ.get('BSA_MCP_ARTIFACT_PLAN') and os.environ.get('BSA_MCP_ARTIFACT_RUN') and os.environ.get('BSA_MCP_ARTIFACT_PREVIEW'),'requires explicit executed public PDF workflow and fresh preview')
+    async def test_real_generated_pdf_page_matches_recorded_workflow(self):
+        root=ROOT/'runs'
+        plan=os.environ['BSA_MCP_ARTIFACT_PLAN'];out=os.environ['BSA_MCP_ARTIFACT_RUN'];target=os.environ['BSA_MCP_ARTIFACT_PREVIEW']
+        renderer=shutil.which('pdftoppm')
+        self.assertIsNotNone(renderer)
+        params=StdioServerParameters(command=sys.executable,args=['-X','utf8','-m','bsa.mcp_server','--pdftoppm',renderer],cwd=str(ROOT),env={**os.environ,'BSA_PROJECT_ROOT':str(root),'PYTHONUTF8':'1'})
+        async with stdio_client(params) as (read,write):
+            async with ClientSession(read,write) as session:
+                await session.initialize()
+                inventory=await session.call_tool('bsa_artifact_index',dict(plan=plan,out=out))
+                self.assertFalse(inventory.isError,str(inventory.content));index=inventory.structuredContent
+                pdf=next(r for r in index['artifacts'] if r['suffix']=='.pdf')
+                args=dict(plan=plan,out=out,artifact=pdf['path'],workflow_sha256=index['workflow_sha256'],page=1,target=target)
+                result=await session.call_tool('bsa_render_artifact_page',args)
+                self.assertFalse(result.isError,str(result.content));meta=result.structuredContent
+                image=next(c for c in result.content if c.type=='image');raw=base64.b64decode(image.data)
+                self.assertEqual(raw,(root/target/'page.png').read_bytes())
+                self.assertEqual(hashlib.sha256(raw).hexdigest(),meta['image_sha256'])
+                self.assertEqual(meta['artifact_sha256'],pdf['sha256'])
+                self.assertFalse(meta['design_accepted']);self.assertEqual(meta['visual_review'],'not_performed_by_renderer')
+                rejected=[]
+                for change in [dict(artifact='../outside.pdf'),dict(artifact='workflow.json'),dict(workflow_sha256='0'*64),dict(page=999),dict(target=target)]:
+                    check=await session.call_tool('bsa_render_artifact_page',{**args,'target':target+'-rejected',**change})
+                    self.assertTrue(check.isError);rejected.append(change)
+                self.assertFalse((root/(target+'-rejected')).exists())
+                (root/target/'protocol.json').write_text(json.dumps(dict(page=meta,rejections=rejected,design_accepted=False),indent=2),encoding='utf-8')
 
     async def test_real_pump_catalogue_recovery_uses_original_electrical_and_preserves_failure(self):
         persistent=os.environ.get('BSA_MCP_RECOVERY_TRIAL_OUT')
