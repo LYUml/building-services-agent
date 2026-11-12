@@ -11,8 +11,8 @@ def allocate(boundary, terminals, given_load_area_m2):
         raise ValueError('Valid positive polygonal service boundary required')
     if type(given_load_area_m2) not in (int, float) or not math.isfinite(given_load_area_m2) or given_load_area_m2 <= 0:
         raise ValueError('Explicit positive load area required')
-    if len(terminals) < 2:
-        raise ValueError('At least two terminals required')
+    if not terminals:
+        raise ValueError('At least one terminal required')
     ids, points = set(), []
     for terminal in terminals:
         name, xy = terminal['id'], terminal['center_m']
@@ -24,7 +24,7 @@ def allocate(boundary, terminals, given_load_area_m2):
             raise ValueError('Distinct terminal centres inside service space required')
         ids.add(name)
         points.append(tuple(xy))
-    cells = list(voronoi_polygons(MultiPoint(points), extend_to=space.envelope, ordered=True).geoms)
+    cells = [space] if len(points)==1 else list(voronoi_polygons(MultiPoint(points), extend_to=space.envelope, ordered=True).geoms)
     if len(cells) != len(terminals):
         raise ValueError('Voronoi cell identity count differs')
     clipped = [cell.intersection(space) for cell in cells]

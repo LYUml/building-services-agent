@@ -1,5 +1,12 @@
 # Reuse survey â€” 2026-11-09
 
+Spatial balance-to-terminal gap: reuse existing air_allocation.prepare,
+air_load and the Shapely nearest-centre partitioner. Add whole-boundary handling
+for one terminal,source-classified positions/turndown,and exact inherited room
+balance/geometry binding. No new solver. Two actual provider chains,disabled
+controls,independent Decimal checks and22related tests pass. See
+SPATIAL_TERMINAL_ALLOCATION.md;ADPI/installation/full design remain pending.
+
 Geometry-to-HVAC balance gap: reuse existing verified neutral-space providers,
 air_load.calculate and workflow/delivery source checks. Bind geometry-derived
 area only;preserve the other five classified quantities. No new solver or

@@ -14,7 +14,8 @@ from bsa.documents import extract
 ROOT=Path(__file__).resolve().parents[2]
 
 
-def build(out, sources=None, *, ifc_source=None, tolerances=None, air_balance=False):
+def build(out, sources=None, *, ifc_source=None, tolerances=None, air_balance=False, terminal_allocation=False):
+    if terminal_allocation and not air_balance:raise ValueError('Terminal allocation requires explicit air balance selection')
     out=Path(out).resolve()
     if out.exists():raise ValueError('New workflow input directory required')
     out.mkdir(parents=True);(out/'sources').mkdir()
@@ -62,6 +63,20 @@ def build(out, sources=None, *, ifc_source=None, tolerances=None, air_balance=Fa
         (out/'air-balance-basis.json').write_text(json.dumps(load_basis,indent=2))
         paragraphs.insert(3,'Inherit every source space area into the existing classified thermal and supply-air balance using the explicit synthetic non-geometric basis; preserve unverified room-load and full HVAC acceptance.')
         ids.insert(2,'air-balance')
+    if terminal_allocation:
+        from shapely.geometry import Polygon
+        if ifc_source is None:
+            rooms=json.loads((out/'l-shaped-room.expected.json').read_text())['expected']
+        else:
+            from bsa.ifc_space_surfaces import prepare as native_spaces
+            _,declaration,_=native_spaces(out/'native-source.ifc',**tolerances);rooms=declaration['expected']
+        terminal_basis={}
+        for room in rooms:
+            point=Polygon(room['boundary_vertices']).representative_point()
+            terminal_basis[room['id']]=dict(terminals=[dict(id=room['id']+'_terminal1',center_m=[point.x,point.y],unit='m',classification='design_choice',source='Synthetic interior-point placement for integration checks;not optimized air coverage or installed position')],turndown=dict(value=.4,unit='1',classification='assumed',source='Explicit synthetic40%turndown control;not measured equipment performance'))
+        (out/'terminal-design-basis.json').write_text(json.dumps(terminal_basis,indent=2))
+        paragraphs.insert(4,'Allocate each inherited room airflow to explicitly declared synthetic terminal positions and turndown; preserve source geometry,maximum/minimum flow conservation and pending ADPI/installation checks.')
+        ids.insert(3,'terminal-allocation')
     brief.write_text('\n\n'.join(paragraphs)+'\n',encoding='utf-8')
     passages=extract(brief)['passages']
     plan=dict(version=1,brief=brief.name,brief_sha256=digest(brief),
@@ -74,6 +89,9 @@ def build(out, sources=None, *, ifc_source=None, tolerances=None, air_balance=Fa
     if air_balance:
         plan['tasks'].insert(2,dict(id='air-balance',kind='spatial_air_balance',depends_on='recognition',basis='air-balance-basis.json'))
         next(t for t in plan['tasks'] if t['id']=='review')['requires_pass'].append('air-balance')
+    if terminal_allocation:
+        plan['tasks'].insert(3,dict(id='terminal-allocation',kind='spatial_air_allocation',depends_on='air-balance',basis='terminal-design-basis.json'))
+        next(t for t in plan['tasks'] if t['id']=='review')['requires_pass'].append('terminal-allocation')
     if len(passages)!=len(ids)+1:raise ValueError('Exact public fixture passage coverage required')
     path=out/'plan.json';path.write_text(json.dumps(plan,indent=2));return path
 
@@ -82,6 +100,7 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--out',required=True,type=Path);parser.add_argument('--sources',type=Path)
     parser.add_argument('--ifc',type=Path);parser.add_argument('--length-tolerance-m',type=float);parser.add_argument('--area-tolerance-m2',type=float)
     parser.add_argument('--air-balance',action='store_true')
+    parser.add_argument('--terminal-allocation',action='store_true')
     args=parser.parse_args()
     if args.ifc and (args.length_tolerance_m is None or args.area_tolerance_m2 is None):parser.error('Explicit IFC source length/area tolerances required')
-    print(build(args.out,args.sources,ifc_source=args.ifc,tolerances=None if args.ifc is None else dict(length_tolerance_m=args.length_tolerance_m,area_tolerance_m2=args.area_tolerance_m2),air_balance=args.air_balance))
+    print(build(args.out,args.sources,ifc_source=args.ifc,tolerances=None if args.ifc is None else dict(length_tolerance_m=args.length_tolerance_m,area_tolerance_m2=args.area_tolerance_m2),air_balance=args.air_balance,terminal_allocation=args.terminal_allocation))

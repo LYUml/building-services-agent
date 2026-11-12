@@ -1,5 +1,11 @@
 # Building Services Agent
 
+Classified room air balances now feed source-declared terminal positions and
+maximum/minimum flow allocation,including single-outlet rooms. Two actual
+spatial-provider chains and22related tests pass. Air coverage,ADPI,physical
+routing and complete engineering acceptance remain unfinished.
+See docs/SPATIAL_TERMINAL_ALLOCATION.md.
+
 Verified neutral room areas now feed the existing classified HVAC thermal/
 supply-air balance without duplicate area input. Native/MOOSAS runs preserve
 identical calculations;19distinct related tests pass. This remains uniform-

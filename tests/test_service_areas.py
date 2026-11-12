@@ -5,6 +5,13 @@ from bsa.service_areas import allocate
 
 
 class ServiceAreaTests(unittest.TestCase):
+    def test_single_terminal_preserves_whole_concave_boundary_and_given_area(self):
+        boundary=box(0,0,5,4).difference(box(2,2,5,4))
+        r=allocate(mapping(boundary),[dict(id='one',center_m=[1,3])],20)
+        self.assertEqual(r['terminals'][0]['allocated_load_area_m2'],20)
+        self.assertEqual(r['terminals'][0]['geometric_area_m2'],14)
+        self.assertTrue(shape(r['terminals'][0]['geometry']).equals(boundary))
+        with self.assertRaisesRegex(ValueError,'At least one'):allocate(mapping(boundary),[],20)
     def test_asymmetric_split_preserves_given_area(self):
         r = allocate(mapping(box(0,0,10,4)), [dict(id='A',center_m=[1,2]),dict(id='B',center_m=[5,2])], 100)
         self.assertAlmostEqual(r['terminals'][0]['geometric_area_m2'],12)

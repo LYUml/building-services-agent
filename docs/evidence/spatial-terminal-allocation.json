@@ -1,0 +1,53 @@
+{
+  "scope": "Actual IFC to classified room balance to sourced terminal allocation across two spatial providers",
+  "cases": {
+    "native": {
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "air-balance": "pass",
+        "terminal-allocation": "pass",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "workflow_sha256": "3503b6ff18f6c4f938628af03c5fa970c2cbcf9d3ae7764fde5d4d5ec2e6c16c"
+    },
+    "moosas": {
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "air-balance": "pass",
+        "terminal-allocation": "pass",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "workflow_sha256": "e1a90e5abb27c92e1767b4ac13339326b982e926bf817887e958b52f3cceebda"
+    },
+    "disabled": {
+      "tasks": {
+        "recognition": "pending",
+        "lighting-rules": "pending",
+        "air-balance": "pending",
+        "terminal-allocation": "pending",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "workflow_sha256": "a4461c081ebf5f4882026611754eb7d78de7f5f8a4ecd469f6d1a76ae2f1affc"
+    }
+  },
+  "terminal_count": 3,
+  "maximum_flow_L_s": 870.4,
+  "minimum_flow_L_s": 348.16,
+  "provider_replacement_preserves_calculation": true,
+  "independent_decimal_max_turndown_error_L_s": "2E-14",
+  "related_tests_passed": 22,
+  "official_lighting_source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+  "ADPI_verified": false,
+  "installed_geometry_verified": false,
+  "design_accepted": false,
+  "limitations": [
+    "Synthetic interior-point terminal proposals and assumed40%turndown;not an optimized or installed layout",
+    "Nearest-centre area partition is not air coverage or characteristic ADPI length",
+    "No catalogue selection,pressure/routing,annual simulation or full engineering acceptance"
+  ]
+}
