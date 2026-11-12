@@ -1,0 +1,11 @@
+{
+  "source": "Synthetic source wall cap GUID selection; route endpoints must be read from saved IFC",
+  "start": {
+    "owner_guid": "3oaxxrgjPRuxAM8d6trG2Y",
+    "port_guid": "04uoNqOyjJF9$erYQFFf9s"
+  },
+  "end": {
+    "owner_guid": "3ejrrcQNLNJPPa6$_DmwA_",
+    "port_guid": "2uVu88OD1IO9ZUWZUU4LsH"
+  }
+}

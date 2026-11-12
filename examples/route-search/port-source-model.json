@@ -1,0 +1,122 @@
+{
+  "name": "Synthetic source endpoint walls",
+  "project_uuid": "dbea17fb-866c-538b-8c8f-8c8a95d40dfd",
+  "geometry_scope": "axis-aligned envelopes and explicit straight circular walls",
+  "sources": {
+    "study": "Explicit synthetic source walls: positions, bore, OD and open directed caps are study assumptions; no installed equipment or product approval"
+  },
+  "spaces": [
+    {
+      "id": "ROOM",
+      "origin_m": [
+        -0.2,
+        -0.2,
+        0
+      ],
+      "size_m": [
+        4.4,
+        3.4,
+        3.4
+      ],
+      "source": "study"
+    }
+  ],
+  "systems": [
+    {
+      "id": "AIR",
+      "predefined_type": "AIRCONDITIONING",
+      "source": "study"
+    }
+  ],
+  "devices": [
+    {
+      "id": "SUPPLY",
+      "ifc_class": "IfcDuctSegment",
+      "space": "ROOM",
+      "system": "AIR",
+      "source": "study",
+      "body_shape": "straight circular wall",
+      "origin_m": [
+        -0.1024,
+        1.3976,
+        1.2
+      ],
+      "size_m": [
+        0.2048,
+        0.2048,
+        0.3
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.2032,
+        "OutsideDiameter_m": 0.2048
+      },
+      "ports": [
+        {
+          "id": "bottom",
+          "direction": "SINK",
+          "offset_m": [
+            0.1024,
+            0.1024,
+            0.0
+          ],
+          "source": "study"
+        },
+        {
+          "id": "top",
+          "direction": "SOURCE",
+          "offset_m": [
+            0.1024,
+            0.1024,
+            0.3
+          ],
+          "source": "study"
+        }
+      ]
+    },
+    {
+      "id": "RECEIVER",
+      "ifc_class": "IfcDuctSegment",
+      "space": "ROOM",
+      "system": "AIR",
+      "source": "study",
+      "body_shape": "straight circular wall",
+      "origin_m": [
+        3.8976,
+        1.3976,
+        1.2
+      ],
+      "size_m": [
+        0.2048,
+        0.2048,
+        0.3
+      ],
+      "properties": {
+        "InternalDiameter_m": 0.2032,
+        "OutsideDiameter_m": 0.2048
+      },
+      "ports": [
+        {
+          "id": "bottom",
+          "direction": "SOURCE",
+          "offset_m": [
+            0.1024,
+            0.1024,
+            0.0
+          ],
+          "source": "study"
+        },
+        {
+          "id": "top",
+          "direction": "SINK",
+          "offset_m": [
+            0.1024,
+            0.1024,
+            0.3
+          ],
+          "source": "study"
+        }
+      ]
+    }
+  ],
+  "connections": []
+}

@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Saved open circular-wall caps now drive routing from exact native IFC port GUIDs,
+positions, directions and bore/OD. Actual source-to-route-to-DXF execution passes;
+wrong-flow control blocks routing/drawing. Source and route remain separate IFCs,
+with physical connections and complete engineering pending. See SOURCE_PORT_ROUTING.md.
+
 Directed endpoint constraints and declared vertical-plane pipe/air-duct routing
 now execute through pressure optimisation, saved IFC frame checks and inherited
 X/Z DXF generation. Actual pressure-failing higher-endpoint control blocks drawing;

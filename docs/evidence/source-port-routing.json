@@ -1,0 +1,152 @@
+{
+  "scope": "Synthetic source-wall-cap routing and downstream DXF, not equipment or installation approval",
+  "design_accepted": false,
+  "tests": {
+    "passed": 32,
+    "skipped": 0,
+    "suite": "test_route_ports test_route_workflow test_route_model test_route_optimize test_route_search test_route_obstacles",
+    "warning": "Upstream IfcOpenShell unclosed IFC4.py ResourceWarning"
+  },
+  "workflows": {
+    "source-port-route-workflow": {
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "tasks": {
+        "source": {
+          "kind": "bim",
+          "status": "pass",
+          "scope": "IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending"
+        },
+        "route": {
+          "kind": "route_ports",
+          "status": "pass",
+          "scope": "Source-guided separate route IFC only; no merged logical connections, physical joints, full equipment geometry, obstacle completeness or regulatory acceptance"
+        },
+        "drawing": {
+          "kind": "ifc_route_drawing",
+          "status": "pass",
+          "scope": "source-checked saved circular walls and finite arcs to GUID-linked planar axes/OD outlines; product and installation acceptance pending"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "Review source completeness, physical joints and merged connectivity, full network pressure and installation, native plot and applicable Hong Kong rules before full engineering acceptance."
+        }
+      },
+      "summary": {
+        "endpoints": {
+          "start": {
+            "owner_guid": "3oaxxrgjPRuxAM8d6trG2Y",
+            "port_guid": "04uoNqOyjJF9$erYQFFf9s",
+            "point_m": [
+              0.0,
+              1.5,
+              1.5
+            ],
+            "outward_axis": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "travel_direction": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "bore_m": 0.2032,
+            "outside_diameter_m": 0.2048,
+            "native_wall_cap_match": true
+          },
+          "end": {
+            "owner_guid": "3ejrrcQNLNJPPa6$_DmwA_",
+            "port_guid": "2uVu88OD1IO9ZUWZUU4LsH",
+            "point_m": [
+              4.0,
+              1.5,
+              1.5
+            ],
+            "outward_axis": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "travel_direction": [
+              -0.0,
+              -0.0,
+              -1.0
+            ],
+            "bore_m": 0.2032,
+            "outside_diameter_m": 0.2048,
+            "native_wall_cap_match": true
+          }
+        },
+        "saved_endpoint_correspondence": true,
+        "source_and_method_hashes_current": true
+      },
+      "files": {
+        "runs\\source-port-route-workflow\\workflow.json": "b68843bf017d736c6edd921c0e7bd6ff1f14829474aac4f54b322b819b7faf85",
+        "runs\\source-port-route-workflow\\source\\model.ifc": "c093e09293f15a97f9d41709fbd889143f8c6a540c45996e759247d9237e84d4",
+        "runs\\source-port-route-workflow\\route\\port-route.json": "6aa705fb3214691b0f354671b25e738f47c1ecbab4a83ebc94e083a6d1c8253c",
+        "runs\\source-port-route-workflow\\route\\routing-input.json": "e7b3b6d20f4928411f1ea93984bd580d2de38f069166628b7038111d6aa0ed65",
+        "runs\\source-port-route-workflow\\route\\route\\route-optimisation.json": "d932ac3549a35c4ba9d05d9f659729aac2164484919ca30ffc83ea204fc87d6c",
+        "runs\\source-port-route-workflow\\route\\route\\selected\\bound\\bim\\model.ifc": "34190682eda19ecf1c9029ddef7044fb04a33738879318c7b4c872138a3d3bee",
+        "runs\\source-port-route-workflow\\route\\route\\selected\\route-model.json": "5b46f9e453b033a9ff39731bdce6adabbb4837c1f8aff92e632d4f40e34af9fe",
+        "runs\\source-port-route-workflow\\drawing\\drawing.json": "d87f1761fb0b61311238ec4bbfff188e3391b287070733b11620753d963b67be",
+        "runs\\source-port-route-workflow\\drawing\\segments.dxf": "a4c5da3f4c99edae9c56173c437f8629b5aac4f04f12a33145d06c18179abf5f"
+      }
+    },
+    "source-port-invalid-workflow": {
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "tasks": {
+        "source": {
+          "kind": "bim",
+          "status": "pass",
+          "scope": "IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending"
+        },
+        "route": {
+          "kind": "route_ports",
+          "status": "fail",
+          "scope": "ProjectError: Open directed source SOURCE and receiving SINK ports required"
+        },
+        "drawing": {
+          "kind": "ifc_route_drawing",
+          "status": "pending",
+          "scope": "upstream IFC producer did not pass; no route drawing fabricated"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: route (fail), drawing (pending); adapter not executed"
+        }
+      },
+      "summary": {
+        "rejection": "ProjectError: Open directed source SOURCE and receiving SINK ports required",
+        "no_generated_route_ifc": true,
+        "no_drawing": true
+      },
+      "files": {
+        "runs\\source-port-invalid-workflow\\workflow.json": "e05eb829c7d62f47162a0417cda71ee1cab6ec3824e7e44a2276a8dffdd7198a",
+        "runs\\source-port-invalid-workflow\\source\\model.ifc": "d7a2516e76e83ca7efb4636819d16d9207e02ef0754cbcdc82c94ff8b50a2143"
+      }
+    }
+  },
+  "source_model_public": "examples/route-search/port-source-model.json",
+  "reuse": "Pinned IfcOpenShell native placement/system APIs, existing proper-rigid guard, route_optimize and inherited DXF writer; no new engine/dependency",
+  "pending": [
+    "merged same-file source/route logical links",
+    "physical joint geometry and manufacturer applicability",
+    "general equipment family connectors",
+    "complete obstacle/self-clearance and multibranch pressure",
+    "native DWG/plot visual review for this sheet",
+    "full Hong Kong engineering acceptance"
+  ]
+}

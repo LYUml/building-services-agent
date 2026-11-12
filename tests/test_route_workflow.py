@@ -1,14 +1,55 @@
 from pathlib import Path
+import json
+import shutil
 import tempfile
 import unittest
 from unittest.mock import patch
 
 from bsa.workflow import execute,validate_plan,verify
+from bsa.engine import ProjectError
 
 ROOT=Path(__file__).resolve().parents[1]
 
 
 class RouteWorkflowTests(unittest.TestCase):
+    def test_port_route_rejects_copied_endpoints_and_replacement_ifc(self):
+        source=ROOT/'examples/route-search/port-routing-plan.json'
+        _,inputs=validate_plan(source)
+        for fault in ('endpoints','replacement'):
+            with self.subTest(fault=fault),tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+                root=Path(folder)
+                for path in inputs:
+                    if path.parent==source.parent:shutil.copy2(path,root/path.name)
+                plan=json.loads(source.read_text())
+                if fault=='replacement':plan['tasks'][1]['ifc']='port-source-model.json'
+                else:
+                    template=root/'port-routing-template.json';data=json.loads(template.read_text());data['start_m']=[0,1.5];template.write_text(json.dumps(data))
+                target=root/'plan.json';target.write_text(json.dumps(plan))
+                with self.assertRaises(ProjectError):validate_plan(target)
+
+    def test_source_port_route_inherits_exact_native_source_and_selected_model(self):
+        plan=ROOT/'examples/route-search/port-routing-plan.json'
+        validate_plan(plan)
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+            out=(Path(folder)/'run').resolve()
+            with patch('bsa.bim.run',return_value={}),patch('bsa.route_ports.run',return_value={'calculated_checks_pass':True,'scope':'dispatch-only test'}) as route,patch('bsa.ifc_route_drawing.run',return_value={'calculated_checks_pass':True}) as drawing:
+                result=execute(plan,out)
+            self.assertEqual(route.call_args.args[0],out/'source/model.ifc')
+            self.assertEqual(drawing.call_args.args[0],out/'route/route/selected/bound/bim/model.ifc')
+            self.assertEqual(drawing.call_args.args[1],out/'route/route/selected/model-input.json')
+            self.assertEqual(result['tasks']['review']['status'],'pending')
+
+    def test_source_port_failure_gates(self):
+        plan=ROOT/'examples/route-search/port-routing-plan.json'
+        for fault in ('source','pressure'):
+            with self.subTest(fault=fault),tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+                with patch('bsa.bim.run',side_effect=ProjectError('native source invalid') if fault=='source' else None,return_value={}),patch('bsa.route_ports.run',return_value={'calculated_checks_pass':False,'scope':'dispatch-only test'}) as route,patch('bsa.ifc_route_drawing.run') as drawing:
+                    result=execute(plan,Path(folder)/'run')
+                if fault=='source':route.assert_not_called()
+                else:self.assertEqual(result['tasks']['route']['status'],'fail')
+                drawing.assert_not_called()
+                self.assertEqual(result['tasks']['drawing']['status'],'pending')
+
     def test_generated_route_model_is_inherited_by_drawing(self):
         plan=ROOT/'examples/route-search/vertical-air-plan.json'
         validate_plan(plan)

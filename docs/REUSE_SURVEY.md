@@ -1222,3 +1222,14 @@ no new engine or dependency is needed. Preserve the pinned dependencies and
 existing attribution/licenses. Legacy obstacle-height extrusion remains XY-only;
 full volumetric obstacle extraction is not implemented by this extension.
 See DIRECTED_ROUTE_PLANES.md for executed evidence and remaining limits.
+
+Saved endpoint gap: existing product_alignment aligns one junction/connector
+bundle; connector_ports derives bidirectional CAD anchors. Neither derives a
+grid route from two saved open circular wall caps. Reuse pinned IfcOpenShell
+get_ports/get_port_element/get_element_systems/get_local_placement utilities,
+product_alignment.aligned_placement's proper-rigid guard, native hollow
+extrusion parameters and route_optimize instead of adding a CAD or routing
+engine. New route_ports only binds these boundaries and checks saved endpoint
+correspondence. Existing IfcOpenShell/NumPy licenses and attribution remain
+unchanged; no new dependency. See SOURCE_PORT_ROUTING.md for exact supported
+sources and separate-IFC/physical-joint limitations.
