@@ -17,7 +17,8 @@ def calculate(inputs):
         v = row['value']
         if type(v) not in (int, float) or not math.isfinite(v) or v <= 0 or row['unit'] != unit:
             raise ValueError('Positive finite quantities with exact units required')
-        if not isinstance(row['source'], str) or not row['source'].strip() or row['classification'] not in ('given', 'measured', 'assumed', 'secondary_transcription'):
+        classifications=('given', 'measured', 'assumed', 'secondary_transcription')+(('geometry-derived',) if key=='area' else ())
+        if not isinstance(row['source'], str) or not row['source'].strip() or row['classification'] not in classifications:
             raise ValueError('Explicit source and supported classification required')
         values[key] = v
     if values['sensible_fraction'] > 1:

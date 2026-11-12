@@ -1,0 +1,59 @@
+{
+  "scope": "Actual saved-space geometry inheritance into existing classified thermal/supply-air balance",
+  "cases": {
+    "native": {
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "air-balance": "pass",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "workflow_sha256": "5d8695636239e223d67b42f260b223e2fc13175d9e34a9cbc394999219221f98"
+    },
+    "moosas": {
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "air-balance": "pass",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "workflow_sha256": "80d2ab7e0c490cd3f0940b7061a61aae6ce0477ed9ee720800175759df7c4c18"
+    },
+    "disabled": {
+      "tasks": {
+        "recognition": "pending",
+        "lighting-rules": "pending",
+        "air-balance": "pending",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "workflow_sha256": "1228bcf85593d1fbb320db381137102336b0fd83cc1bd3ccf3c44621b637511d"
+    }
+  },
+  "totals": {
+    "total_cooling_kW_thermal": 13.6,
+    "sensible_trial_kW_thermal": 10.879999999999999,
+    "supply_flow_L_s": 870.4
+  },
+  "units": {
+    "power": "kW thermal",
+    "flow": "L/s",
+    "area": "m2"
+  },
+  "space_count": 3,
+  "geometry_provider_replacement_preserves_calculation": true,
+  "independent_decimal_max_flow_error_L_s": "0.0000",
+  "official_lighting_source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+  "room_sensible_load_verified": false,
+  "simulation_executed": false,
+  "design_accepted": false,
+  "limitations": [
+    "Synthetic allowance,SHF and air-property assumptions;not detailed actual building room loads",
+    "Geometry-derived area does not establish surveyed/statutory area",
+    "No ADPI,annual simulation,plant electricity or full physical/regulatory acceptance"
+  ],
+  "distinct_related_tests_passed": 19,
+  "external_project_trial": "Temporary synthetic native-IFC to spatial-air-balance workflow verified with explicit host root;removing host selection rejected verification;temporary files removed"
+}

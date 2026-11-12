@@ -1,5 +1,12 @@
 # Reuse survey â€” 2026-11-09
 
+Geometry-to-HVAC balance gap: reuse existing verified neutral-space providers,
+air_load.calculate and workflow/delivery source checks. Bind geometry-derived
+area only;preserve the other five classified quantities. No new solver or
+simulation engine. Three actual workflow scenarios and19distinct related tests
+pass,with independent Decimal arithmetic and source/method rejection controls.
+See SPATIAL_AIR_BALANCE.md;detailed room load and full acceptance remain pending.
+
 Polygon provider replacement gap: reuse the already verified native
 ifc_space_surfaces.prepare and pinned IfcOpenShell/Manifold/Shapely stack through
 a thin registered provider. Preserve the same IFC/settings source contract and

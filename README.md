@@ -1,5 +1,11 @@
 # Building Services Agent
 
+Verified neutral room areas now feed the existing classified HVAC thermal/
+supply-air balance without duplicate area input. Native/MOOSAS runs preserve
+identical calculations;19distinct related tests pass. This remains uniform-
+allowance arithmetic,not detailed room-load simulation or full HVAC acceptance.
+See docs/SPATIAL_AIR_BALANCE.md.
+
 The same saved-IFC polygon-space request now switches between MOOSAS and native
 IfcOpenShell providers. Actual trials preserve source identities/geometry and
 byte-identical downstream lighting input;25distinct related tests pass. Shared

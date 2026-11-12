@@ -1,5 +1,11 @@
 # Modular architecture and next implementation sequence
 
+A new domain consumer now inherits common box/polygon floor areas into the
+existing classified thermal/supply-air balance without repeated area inputs.
+Native/MOOSAS replacement preserves the calculation;19distinct related tests
+pass. This is a replayable legacy-domain report,not a newly registered generic
+payload or detailed load simulation. See SPATIAL_AIR_BALANCE.md.
+
 Common source-linked requirements inventory now executes through the trusted
 module runner and automatically after validated project_start intake. Exact
 passages,requirements,locators and unresolved inputs survive source replay on
