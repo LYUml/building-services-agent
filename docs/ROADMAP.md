@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+IFC terminal envelopes and full-model coordination now execute as inherited
+automatic tasks. Native/MOOSAS/disabled workflows preserve10requirements;real
+collision controls retain failure and final manual review stays pending. See
+SPATIAL_TERMINAL_COORDINATION.md. Reuses existing authoring/clash tools.
+
 Terminal-envelope coordination now inherits the exact authored IFC and reuses
 existing full-model triangle/Boolean checks. Two actual8element studies pass
 the declared synthetic policy;deliberate overlap fails and original findings

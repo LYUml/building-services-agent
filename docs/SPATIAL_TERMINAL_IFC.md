@@ -42,3 +42,19 @@ remain unfinished. Do not call this a complete MEP model.
 Validation:28 related tests pass with actual MOOSAS enabled,including saved-body
 tampering after rewritten output hash,incomplete basis,unknown source/elevation
 rejection and inherited spatial/native source controls.
+
+## Automatic workflow
+
+Task kind spatial_terminal_ifc requires an earlier spatial_terminal_performance,
+explicit plan-local basis and optional requires_pass. No replacement source IFC,
+flow or geometry is accepted. Missing/nonpassing prerequisite produces no model.
+Execution passes after producer and saved-native replay;installation/complete
+engineering acceptance is still pending. workflow.verify replays the model and
+delivery.context binds exact declared source/basis and passing states.
+
+The public builder accepts --ifc-basis only with explicit performance settings.
+--clash-policy requires that IFC basis and adds spatial_terminal_coordination.
+It retains all source requirements and adds explicit model/check obligations.
+Each generated task depends on the preceding producer and final manual review
+requires both. No new geometry/clash solver or dependency is introduced.
+See evidence/spatial-bim-workflow.json and SPATIAL_TERMINAL_COORDINATION.md.

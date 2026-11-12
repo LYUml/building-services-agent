@@ -1,0 +1,64 @@
+{
+  "scope": "Synthetic IFC-envelope and full-model coordination automatic workflow",
+  "runs": {
+    "native": {
+      "workflow": "runs\\spatial-bim-workflow-native\\workflow.json",
+      "sha256": "7f23afc02f280da84fd6a2d262fda3576733c82afa6ea9ec39dbfc3df569692f",
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "air-balance": "pass",
+        "terminal-allocation": "pass",
+        "terminal-performance": "pass",
+        "terminal-drawing": "pass",
+        "terminal-ifc": "pass",
+        "terminal-coordination": "pass",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "requirements": 10,
+      "ifc_exists": true,
+      "coordination_exists": true
+    },
+    "moosas": {
+      "workflow": "runs\\spatial-bim-workflow-moosas\\workflow.json",
+      "sha256": "6837cfccfbdba06a426e010af12055dfd9e730f2f50ec3c2f9514e6d419af7f7",
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "air-balance": "pass",
+        "terminal-allocation": "pass",
+        "terminal-performance": "pass",
+        "terminal-drawing": "pass",
+        "terminal-ifc": "pass",
+        "terminal-coordination": "pass",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "requirements": 10,
+      "ifc_exists": true,
+      "coordination_exists": true
+    },
+    "disabled": {
+      "workflow": "runs\\spatial-bim-workflow-disabled\\workflow.json",
+      "sha256": "ddab434c466d2b95cb10aba8ff3a0804c14cd2a3ab2448e7e9c709e05ff7f4fc",
+      "tasks": {
+        "recognition": "pending",
+        "lighting-rules": "pending",
+        "air-balance": "pending",
+        "terminal-allocation": "pending",
+        "terminal-performance": "pending",
+        "terminal-drawing": "pending",
+        "terminal-ifc": "pending",
+        "terminal-coordination": "pending",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "requirements": 10,
+      "ifc_exists": false,
+      "coordination_exists": false
+    }
+  },
+  "collision_control": "Real overlap in test remains fail and final review stays pending",
+  "design_accepted": false
+}

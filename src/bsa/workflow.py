@@ -301,7 +301,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("module_electrical_native","module_electrical_rules","module_water_rules","module_analysis","module_authoring","spatial_terminal_native","spatial_terminal_drawing","spatial_terminal_performance","spatial_air_allocation","spatial_air_balance","spatial_lighting_rules","module_thermal_project","module_exchange","duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("module_electrical_native","module_electrical_rules","module_water_rules","module_analysis","module_authoring","spatial_terminal_ifc","spatial_terminal_coordination","spatial_terminal_native","spatial_terminal_drawing","spatial_terminal_performance","spatial_air_allocation","spatial_air_balance","spatial_lighting_rules","module_thermal_project","module_exchange","duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind=='module_electrical_native':
             if set(t)-{'id','kind','depends_on','requires_pass','description'}:raise ProjectError('Native electrical task inherits rule producer only;replacement inputs forbidden')
@@ -342,6 +342,19 @@ def validate_plan(path):
             from .module_water_rules import paths as water_rule_paths
             files,_=water_rule_paths(local_path(root,t.get('basis')),local_path(root,t.get('pack')),root/directory)
             inputs.update(files)
+        if kind in ('spatial_terminal_ifc','spatial_terminal_coordination'):
+            field='basis' if kind=='spatial_terminal_ifc' else 'policy'
+            parent_kind='spatial_terminal_performance' if kind=='spatial_terminal_ifc' else 'spatial_terminal_ifc'
+            if set(t)-{'id','kind','depends_on',field,'requires_pass','description'}:raise ProjectError('Spatial BIM tasks inherit exact source;replacement IFC/flows forbidden')
+            parent=t.get('depends_on')
+            if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!=parent_kind:raise ProjectError('Spatial BIM task requires earlier '+parent_kind)
+            inputs.add(local_path(root,t.get(field)))
+            names=['spatial_terminal_ifc.py','box_geometry.py']
+            if kind=='spatial_terminal_coordination':
+                from .clash import validate_policy
+                validate_policy(read_json(local_path(root,t.get(field))))
+                names+=['spatial_terminal_coordination.py','clash.py','solid_clash.py','circular_geometry.py','contact_clearance.py']
+            inputs.update(Path(__file__).with_name(name) for name in names)
         if kind=='spatial_terminal_native':
             if set(t)-{'id','kind','depends_on','settings','requires_pass','description'}:raise ProjectError('Spatial native task inherits its drawing;replacement sources/runtime forbidden')
             parent=t.get('depends_on')
@@ -1202,6 +1215,17 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     else:payload=check_water_rules(*args)
                     verify_water_rules(folder);water_rule_results.append(folder);runtime_inputs.update(payload['inputs'])
                     status=payload['status'];reason=payload['scope']
+            elif t['kind'] in ('spatial_terminal_ifc','spatial_terminal_coordination'):
+                parent=t['depends_on']
+                if tasks[parent]['status']!='pass':reason='upstream spatial BIM prerequisite did not pass;task not executed'
+                elif t['kind']=='spatial_terminal_ifc':
+                    from .spatial_terminal_ifc import run as author_terminals,verify as verify_authored_terminals
+                    payload=author_terminals(out/parent/'terminal-performance.json',local_path(root,t['basis']),folder)
+                    verify_authored_terminals(folder);runtime_inputs.update(payload['inputs']);status='pass';reason='Saved source-classified envelopes and original IFC entities verified;complete design pending'
+                else:
+                    from .spatial_terminal_coordination import run as coordinate_terminals,verify as verify_terminal_coordination
+                    payload=coordinate_terminals(out/parent/'terminal-ifc.json',local_path(root,t['policy']),folder)
+                    verify_terminal_coordination(folder);runtime_inputs.update(payload['inputs']);status=payload['summary']['status'];reason=payload['summary']['scope']
             elif t['kind']=='spatial_terminal_native':
                 parent=t['depends_on']
                 if tasks[parent]['status']!='pass':reason='upstream spatial drawing did not pass;native execution not started'
@@ -2226,6 +2250,18 @@ def verify(run_directory):
                 rule=verify_water_rules(root/name)
                 if task['status']!=rule['status']:raise ValueError('Workflow water rule status contradicts retained result')
             except (OSError,ValueError,KeyError,TypeError) as exc:issues.append('module water rule evidence invalid: '+name+': '+str(exc))
+        if task['kind'] in ('spatial_terminal_ifc','spatial_terminal_coordination'):
+            filename='terminal-ifc.json' if task['kind']=='spatial_terminal_ifc' else 'terminal-coordination.json'
+            if (root/name/filename).is_file() or task['status']=='pass':
+                try:
+                    if task['kind']=='spatial_terminal_ifc':
+                        from .spatial_terminal_ifc import verify as verify_terminal_model
+                        verify_terminal_model(root/name)
+                    else:
+                        from .spatial_terminal_coordination import verify as verify_terminal_collision
+                        checked=verify_terminal_collision(root/name)
+                        if checked['summary']['status']!=task['status']:raise ValueError('Coordination workflow status differs')
+                except (OSError,ValueError,KeyError,TypeError) as exc:issues.append('spatial BIM evidence invalid: '+name+': '+str(exc))
         if task['kind']=='spatial_terminal_native' and ((root/name/'spatial-native.json').is_file() or task['status']=='pass'):
             try:
                 from .spatial_terminal_native import verify as verify_native_spatial

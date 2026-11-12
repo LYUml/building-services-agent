@@ -111,6 +111,19 @@ def verify(folder):
     return result
 
 
+def verify_workflow(tasks,root,plan_root,record):
+    for task in tasks:
+        if task['kind']!='spatial_terminal_ifc':continue
+        folder=Path(root)/task['id']
+        if not (folder/'terminal-ifc.json').is_file():
+            if record[task['id']]['status']=='pass':raise ValueError('Passing BIM task lacks report')
+            continue
+        report=verify(folder)
+        if Path(report['performance'])!=(Path(root)/task['depends_on']/'terminal-performance.json').resolve() or Path(report['basis'])!=(Path(plan_root)/task['basis']).resolve():raise ValueError('Spatial BIM task replaced declared inputs')
+        expected=report['summary']['status'] if task['kind']=='spatial_terminal_coordination' else 'pass'
+        if record[task['id']]['status']!=expected or record[task['depends_on']]['status']!='pass':raise ValueError('Spatial BIM task dependency/status differs')
+
+
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('performance');parser.add_argument('--basis',required=True);parser.add_argument('--out',required=True)
     args=parser.parse_args();run(args.performance,args.basis,args.out)

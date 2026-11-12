@@ -38,3 +38,22 @@ engineering acceptance remain pending. Workflow-task integration is unfinished.
 Validation:17 related tests pass,including existing hollow-bore,containment,
 connected-contact and finite-elbow native regressions,as well as new overlap,
 original-only failure and tampering controls.
+
+## Automatic workflow
+
+spatial_terminal_coordination inherits an earlier spatial_terminal_ifc and exact
+plan-local policy. workflow.verify/delivery.context replay complete native data,
+validate producer/policy identity and require task status to equal full-model
+calculated status. Failures remain fail;they do not become a completed pass.
+Existing requires_pass gates prevent intended dependent work after failure.
+
+Actual native/MOOSAS workflows execute recognition,selected HK lighting check,
+classified air balance,terminal allocation,source catalogue query,editable DXF,
+IFC envelopes and whole-model coordination. Both retain10requirements and pending
+manual review. Disabled geometry creates neither terminal model nor coordination,
+while independent electrical still executes. A real overlapping-envelope workflow
+control retains coordination fail. No IFC viewer/installation/network acceptance
+is inferred from these synthetic runs. See evidence/spatial-bim-workflow.json.
+
+Workflow regression:23 related tests pass with actual MOOSAS enabled,including
+clear/disabled/real-overlap complete workflows and source/native tamper controls.
