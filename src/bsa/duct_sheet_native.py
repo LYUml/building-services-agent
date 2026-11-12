@@ -25,7 +25,7 @@ def compare(source, reopened, layers):
         if hasattr(a,'x') and hasattr(b,'x'):return all(equal(x,y) for x,y in zip(a,b))
         return a==b
     for a,b in zip(*inventories):
-        if a.dxftype()!=b.dxftype() or a.dxftype() not in ('LINE','TEXT','CIRCLE','LWPOLYLINE'):
+        if a.dxftype()!=b.dxftype() or a.dxftype() not in ('LINE','TEXT','CIRCLE','POINT','LWPOLYLINE'):
             raise ValueError('Native type/order differs or unsupported generated entity')
         keys=(set(a.dxf.all_existing_dxf_attribs())|set(b.dxf.all_existing_dxf_attribs()))-{'handle','owner'}
         if any(not equal(getattr(a.dxf,k),getattr(b.dxf,k)) for k in keys):

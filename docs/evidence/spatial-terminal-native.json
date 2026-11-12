@@ -1,0 +1,29 @@
+{
+  "scope": "Actual isolated AutoCAD2027 synthetic spatial schematic save/reopen/plot",
+  "report": "runs\\spatial-terminal-native-current\\spatial-native.json",
+  "sha256": "f0f6802f7d042eff539ba9edb40f6344803f7de76a1d1b87830fa1cdf574a53c",
+  "native_reopen_pass": true,
+  "entities": 24,
+  "plot": {
+    "pdf_sha256": "ba844059de1b11a90f3317df8d1ee1c17314190458cf64dcb886591856be8660",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 100,
+    "reference_handle": "33",
+    "reference_expected_mm": 50.0,
+    "reference_measured_mm": 49.99566666666665,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "visual_findings": [
+    "Rendered at1800px;all room/outlet labels present",
+    "At1:100 the declared0.12m annotation is1.2mm on paper;too small for accepted delivery",
+    "Some labels extend across room boundaries;schematic placement requires sheet refinement"
+  ],
+  "visual_acceptance": "pending",
+  "design_accepted": false
+}

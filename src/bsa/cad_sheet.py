@@ -44,11 +44,22 @@ def pdf_lines(path):
             [([x*factor for x in a],[x*factor for x in b]) for a,b in lines])
 
 
+def reference_points(doc,settings):
+    ref=doc.entitydb.get(settings['reference_handle'])
+    index=settings.get('reference_segment_index')
+    if ref is None:raise ProjectError('Existing reference entity required')
+    if ref.dxftype()=='LINE' and index is None:return ref.dxf.start,ref.dxf.end
+    if ref.dxftype()!='LWPOLYLINE' or type(index) is not int:raise ProjectError('LINE or explicit straight polyline segment required')
+    points=list(ref.vertices_in_wcs());count=len(points) if ref.closed else len(points)-1
+    if not 0<=index<count or ref.get_points()[index][4]!=0:raise ProjectError('Existing straight polyline segment required')
+    return points[index],points[(index+1)%len(points)]
+
+
 def plot(dwg,dxf,settings,output,exe):
     import ezdxf
     dwg,dxf,output=[Path(p).resolve() for p in (dwg,dxf,output)]
     if output.exists():raise ProjectError('refusing to overwrite PDF')
-    if not isinstance(settings,dict) or set(settings)-{'paper','source','window_drawing_units','scale_denominator','reference_handle','pdf_tolerance_mm'} or not {'source','window_drawing_units','scale_denominator','reference_handle','pdf_tolerance_mm'}<=set(settings):
+    if not isinstance(settings,dict) or set(settings)-{'paper','source','window_drawing_units','scale_denominator','reference_handle','pdf_tolerance_mm','reference_segment_index'} or not {'source','window_drawing_units','scale_denominator','reference_handle','pdf_tolerance_mm'}<=set(settings):
         raise ProjectError('explicit sourced window, scale and PDF reference required')
     if not isinstance(settings['source'],str) or not settings['source'].strip():raise ProjectError('sheet source required')
     paper_name=settings.get('paper','A4')
@@ -64,11 +75,10 @@ def plot(dwg,dxf,settings,output,exe):
     if unit is None:raise ProjectError('known drawing units required')
     width=(window[2]-window[0])*unit*1000/den;height=(window[3]-window[1])*unit*1000/den
     if width>paper_width or height>paper_height:raise ProjectError('requested fixed-scale window exceeds selected landscape paper')
-    ref=doc.entitydb.get(settings['reference_handle'])
-    if ref is None or ref.dxftype()!='LINE':raise ProjectError('existing LINE reference required for PDF verification')
-    if abs(ref.dxf.start.z-ref.dxf.end.z)>1e-9:raise ProjectError('PDF reference must be horizontal in WCS XY plane')
-    if math.dist(ref.dxf.start,ref.dxf.end)<=1e-9:raise ProjectError('nonzero PDF reference length required')
-    for pt in (ref.dxf.start,ref.dxf.end):
+    ref_start,ref_end=reference_points(doc,settings)
+    if abs(ref_start.z-ref_end.z)>1e-9:raise ProjectError('PDF reference must be horizontal in WCS XY plane')
+    if math.dist(ref_start,ref_end)<=1e-9:raise ProjectError('Nonzero reference length required')
+    for pt in (ref_start,ref_end):
         if not window[0]<=pt.x<=window[2] or not window[1]<=pt.y<=window[3]:raise ProjectError('reference lies outside plot window')
     condition=f'(= (strcase (vl-string-translate (chr 92) "/" (strcat (getvar "DWGPREFIX") (getvar "DWGNAME")))) (strcase {lisp_string(dwg)}))'
     args=['_.-PLOT','_Y','Model','DWG To PDF.pc3',media,'_M','_L','_N','_W',
@@ -82,7 +92,7 @@ def plot(dwg,dxf,settings,output,exe):
     paper,lines=pdf_lines(output)
     if any(abs(v-e)>.2 for v,e in zip(paper,[paper_width,paper_height])):raise ProjectError('PDF page size does not match selected landscape paper')
     def expected(pt):return [(paper[0]-width)/2+(pt.x-window[0])*unit*1000/den,(paper[1]-height)/2+(pt.y-window[1])*unit*1000/den]
-    a,b=expected(ref.dxf.start),expected(ref.dxf.end)
+    a,b=expected(ref_start),expected(ref_end)
     matches=[(x,y) for x,y in lines if min(max(math.dist(a,x),math.dist(b,y)),max(math.dist(a,y),math.dist(b,x)))<=tol]
     if not matches:raise ProjectError('PDF reference position/physical scale mismatch')
     length=math.dist(*matches[0]);expected_length=math.dist(a,b)

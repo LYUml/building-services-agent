@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Actual AutoCAD save/reopen and fixed-scale PDF checks now run on spatial airflow
+schematics through existing adapters.24entities reconcile;visual review flags
+small text,so sheet/engineering acceptance remains pending. See
+docs/SPATIAL_TERMINAL_NATIVE.md.
+
 Source-bound DXF drawing now runs inside the automatic spatial/HVAC workflow.
 Native/MOOSAS/disabled scenarios verify exact producer binding and execution
 gates;all8requirements remain and final manual review stays pending. See
