@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Logical inlet authoring now executes in workflows,and coordination/preview
+resolve the exact augmented IFC. Native/MOOSAS/disabled trials preserve11
+requirements;valid old-model substitution rejects. Physical joints/network and
+full acceptance remain pending. See SPATIAL_TERMINAL_MODEL.md.
+
 Terminal envelopes now accept source-classified logical inlet ports and declared
 air-system groups through existing IFC APIs. Native/MOOSAS cases preserve
 identical port identities/geometry and original entities;physical joints and

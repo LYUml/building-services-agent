@@ -34,6 +34,7 @@ class IFCPreviewTests(unittest.TestCase):
             self.assertTrue(np.allclose(v.max(axis=0),[10,22,31]))
             self.assertTrue(np.allclose(ports[0]['position_m'],[10,22,30.5]))
             self.assertEqual(ports[0]['axis'],[0,0,1])
+            self.assertEqual(ports[0]['owner_guid'],obj.GlobalId)
             self.assertEqual(omitted,[other.GlobalId])
             self.assertGreater(len(faces),0)
             # Two independently placed bodies must both contribute to world bounds.

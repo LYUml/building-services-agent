@@ -6,12 +6,12 @@ from pathlib import Path
 from .cli import digest
 from .module_contract import read_json
 from .workspace import allowed
-from . import spatial_terminal_ifc as author,clash,solid_clash,circular_geometry
+from . import spatial_terminal_ifc as author,clash,solid_clash,circular_geometry,spatial_terminal_model as model_source
 
 
 def pins_for(source,policy,report):
     pins=dict(report['inputs']);pins[str(source)]=digest(source);pins[str(policy)]=digest(policy)
-    target=source.parent/'Terminal Envelope Study.ifc';pins[str(target)]=digest(target)
+    target=Path(report['model_path']);pins[str(target)]=digest(target)
     for module in (author,clash,solid_clash,circular_geometry):pins[str(Path(module.__file__).resolve())]=digest(Path(module.__file__))
     pins[str(Path(__file__).resolve())]=digest(Path(__file__))
     contact=Path(__file__).with_name('contact_clearance.py').resolve();pins[str(contact)]=digest(contact)
@@ -32,12 +32,12 @@ def classify(report,calculation):
 
 def run(source,policy,out):
     source,policy,out=[Path(p).resolve() for p in (source,policy,out)]
-    if not all(allowed(p) for p in (source,policy,out)) or out.exists() or source.name!='terminal-ifc.json':raise ValueError('Verified terminal IFC,selected policy and fresh output required')
-    before=digest(source);report=author.verify(source.parent);pins=pins_for(source,policy,report)
+    if not all(allowed(p) for p in (source,policy,out)) or out.exists() or source.name not in ('terminal-ifc.json','terminal-inlets.json'):raise ValueError('Verified terminal IFC,selected policy and fresh output required')
+    before=digest(source);target,report=model_source.resolve(source);pins=pins_for(source,policy,report)
     if pins[str(source)]!=before:raise ValueError('Terminal source changed during verification')
     if any(out==Path(p) or out in Path(p).parents for p in pins):raise ValueError('Coordination output overlaps sources')
-    specification=clash.validate_policy(read_json(policy));calculation=clash.inspect(source.parent/'Terminal Envelope Study.ifc',specification);summary=classify(report,calculation)
-    author.verify(source.parent)
+    specification=clash.validate_policy(read_json(policy));calculation=clash.inspect(target,specification);summary=classify(report,calculation)
+    model_source.resolve(source)
     if any(digest(Path(p))!=sha for p,sha in pins.items()):raise ValueError('Coordination source/method changed')
     result=dict(terminal_ifc=str(source),policy=str(policy),inputs=pins,calculation=calculation,summary=summary,design_accepted=False)
     out.mkdir(parents=True);(out/'terminal-coordination.json').write_text(json.dumps(result,indent=2),encoding='utf-8');return result
@@ -49,10 +49,10 @@ def verify(folder):
     result=read_json(folder/'terminal-coordination.json')
     if set(result)!={'terminal_ifc','policy','inputs','calculation','summary','design_accepted'} or result['design_accepted'] is not False:raise ValueError('Exact unaccepted coordination report required')
     source=Path(result['terminal_ifc']);policy=Path(result['policy'])
-    if not all(allowed(p) for p in (source,policy)) or source.name!='terminal-ifc.json':raise ValueError('Selected original terminal model required')
-    report=author.verify(source.parent);pins=pins_for(source,policy,report)
+    if not all(allowed(p) for p in (source,policy)) or source.name not in ('terminal-ifc.json','terminal-inlets.json'):raise ValueError('Selected original terminal model required')
+    target,report=model_source.resolve(source);pins=pins_for(source,policy,report)
     if result['inputs']!=pins or any(digest(Path(p))!=sha for p,sha in pins.items()):raise ValueError('Coordination source/method pins differ')
-    calculation=clash.inspect(source.parent/'Terminal Envelope Study.ifc',clash.validate_policy(read_json(policy)))
+    calculation=clash.inspect(target,clash.validate_policy(read_json(policy)))
     if calculation!=result['calculation'] or classify(report,calculation)!=result['summary']:raise ValueError('Coordination result differs from native replay')
     return result
 
@@ -65,7 +65,8 @@ def verify_workflow(tasks,root,plan_root,record):
             if record[task['id']]['status']=='pass':raise ValueError('Passing BIM task lacks report')
             continue
         report=verify(folder)
-        if Path(report['terminal_ifc'])!=(Path(root)/task['depends_on']/'terminal-ifc.json').resolve() or Path(report['policy'])!=(Path(plan_root)/task['policy']).resolve():raise ValueError('Spatial BIM task replaced declared inputs')
+        parent=next(t for t in tasks if t['id']==task['depends_on']);filename='terminal-inlets.json' if parent['kind']=='spatial_terminal_inlets' else 'terminal-ifc.json'
+        if Path(report['terminal_ifc'])!=(Path(root)/task['depends_on']/filename).resolve() or Path(report['policy'])!=(Path(plan_root)/task['policy']).resolve():raise ValueError('Spatial BIM task replaced declared inputs')
         expected=report['summary']['status'] if task['kind']=='spatial_terminal_coordination' else 'pass'
         if record[task['id']]['status']!=expected or record[task['depends_on']]['status']!='pass':raise ValueError('Spatial BIM task dependency/status differs')
 

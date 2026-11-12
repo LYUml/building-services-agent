@@ -32,7 +32,7 @@ def extract(path, guid):
         axis = matrix[:3, 2]
         if not np.isfinite(matrix).all() or not np.isclose(np.linalg.norm(axis), 1):
             raise ProjectError('finite unit port axis required')
-        ports.append(dict(guid=p.GlobalId, name=p.Name, position_m=(matrix[:3, 3]*scale).tolist(), axis=axis.tolist()))
+        ports.append(dict(guid=p.GlobalId,owner_guid=guid, name=p.Name, position_m=(matrix[:3, 3]*scale).tolist(), axis=axis.tolist()))
     if len(ports) > 12: raise ProjectError('preview supports at most twelve port labels')
     return vertices, faces, ports, [e.GlobalId for e in [*f.by_type('IfcElement'),*(f.by_type('IfcSpace') if obj.is_a('IfcSpace') else [])] if e.GlobalId != guid]
 
@@ -98,12 +98,15 @@ def run(ifc, guid, out, additional_guids=None, *, context_guids=None, element_la
             hidden.set_ticks([]); hidden.set_label_text('')
         ax.tick_params(labelsize=7)
     fig.suptitle('Saved IFC geometry preview', fontsize=15)
-    labels = [f'{i+1}: {(p["name"] or p["guid"])[:32]}' for i,p in enumerate(ports)]
+    labels = [f'{i+1}: {element_labels.get(p["owner_guid"],p["name"] or p["guid"])[:32]}' for i,p in enumerate(ports)]
     legend = '\n'.join(' | '.join(labels[i:i+3]) for i in range(0,len(labels),3)) or ('No attached foreground ports' if context_guids else 'No attached ports')
     fig.text(.05,.06,legend,fontsize=9,va='bottom')
-    if context_guids:fig.text(.05,.085,f'Solid blue: foreground. Transparent grey: retained context. Background ports not drawn: {len(context_ports)}.',fontsize=8)
+    legend_top=.06+max(1,(len(labels)+2)//3)*.018
+    role_y=legend_top+.015
+    if context_guids:fig.text(.05,role_y,f'Solid blue: foreground. Transparent grey: retained context. Background ports not drawn: {len(context_ports)}.',fontsize=8)
     fig.text(.05,.025,f'World origin for displayed offsets: {np.round(centre,6).tolist()} m\nAxis arrows are illustrative; no flow, joint, installation or design acceptance.',fontsize=8)
-    fig.subplots_adjust(left=.02,right=.95,bottom=.12,top=.92,wspace=.08,hspace=.12)
+    bottom_margin=max(.12,(role_y if context_guids else legend_top)+.04)
+    fig.subplots_adjust(left=.02,right=.95,bottom=bottom_margin,top=.92,wspace=.08,hspace=.12)
     out.mkdir(parents=True)
     try: fig.savefig(out/'preview.png',dpi=150)
     finally: plt.close(fig)

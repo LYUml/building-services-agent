@@ -41,3 +41,7 @@ Validation:two focused tests pass on final rendering code,including original
 millimetre/rotation/port geometry,complete context/foreground binding and image
 mutation rejection. A four-test IFC/preview regression also passed before the
 final legend-only change.
+
+Exact inlet-model workflow/consumer integration is now executed;see
+SPATIAL_TERMINAL_MODEL.md and evidence/spatial-inlet-workflow.json. Earlier
+pending-integration notes describe prior milestones,not complete design acceptance.

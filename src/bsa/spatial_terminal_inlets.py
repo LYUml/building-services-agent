@@ -116,6 +116,18 @@ def verify(folder):
     return result
 
 
+def verify_workflow(tasks,root,plan_root,record):
+    for task in tasks:
+        if task['kind']!='spatial_terminal_inlets':continue
+        folder=Path(root)/task['id']
+        if not (folder/'terminal-inlets.json').is_file():
+            if record[task['id']]['status']=='pass':raise ValueError('Passing inlet task lacks report')
+            continue
+        report=verify(folder)
+        if Path(report['terminal_ifc'])!=(Path(root)/task['depends_on']/'terminal-ifc.json').resolve() or Path(report['basis'])!=(Path(plan_root)/task['basis']).resolve():raise ValueError('Inlet task replaced declared producer/basis')
+        if record[task['id']]['status']!='pass' or record[task['depends_on']]['status']!='pass':raise ValueError('Inlet task execution dependency differs')
+
+
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('source');parser.add_argument('--basis',required=True);parser.add_argument('--out',required=True)
     args=parser.parse_args();run(args.source,args.basis,args.out)

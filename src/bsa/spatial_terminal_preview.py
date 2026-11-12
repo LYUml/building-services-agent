@@ -4,21 +4,20 @@ import json
 from pathlib import Path
 import numpy as np
 import ifcopenshell
-from . import spatial_terminal_ifc as author,ifc_preview
+from . import spatial_terminal_ifc as author,ifc_preview,spatial_terminal_model as model_source
 from .cli import digest
 from .module_contract import read_json
 from .workspace import allowed
 
 
 def selection(source):
-    report=author.verify(source.parent)
-    if source.name!='terminal-ifc.json':raise ValueError('Exact verified terminal model report required')
-    model=ifcopenshell.open(str(source.parent/'Terminal Envelope Study.ifc'))
+    target,report=model_source.resolve(source)
+    model=ifcopenshell.open(str(target))
     terminals=sorted(report['terminals'],key=lambda r:r['id']);foreground=[r['guid'] for r in terminals]
     context=[o.GlobalId for o in [*model.by_type('IfcSpace'),*model.by_type('IfcElement')] if o.GlobalId not in foreground and o.Representation]
     labels={r['guid']:f'T{i:02}' for i,r in enumerate(terminals,1)}
     bindings={labels[r['guid']]:dict(terminal_id=r['id'],guid=r['guid'],space_guid=r['space_guid']) for r in terminals}
-    pins=dict(report['inputs']);pins[str(source)]=digest(source);target=source.parent/'Terminal Envelope Study.ifc';pins[str(target)]=digest(target)
+    pins=dict(report['inputs']);pins[str(source)]=digest(source);pins[str(target)]=digest(target)
     for module in (author,ifc_preview):pins[str(Path(module.__file__).resolve())]=digest(Path(module.__file__))
     pins[str(Path(__file__).resolve())]=digest(Path(__file__))
     return target,foreground,context,labels,bindings,pins
@@ -30,7 +29,7 @@ def run(source,out):
     before=digest(source);target,foreground,context,labels,bindings,pins=selection(source)
     if pins[str(source)]!=before or any(out==Path(p) or out in Path(p).parents for p in pins):raise ValueError('Preview source changed or output overlaps sources')
     preview=ifc_preview.run(target,foreground[0],out/'overview',foreground[1:],context_guids=context,element_labels=labels)
-    author.verify(source.parent)
+    model_source.resolve(source)
     if any(digest(Path(p))!=sha for p,sha in pins.items()):raise ValueError('Preview source/method changed')
     result=dict(terminal_ifc=str(source),inputs=pins,bindings=bindings,preview=preview,preview_report_sha256=digest(out/'overview/preview.json'),visual_review='pending',design_accepted=False,
         scope='Native saved terminal envelopes in solid blue against transparent retained represented IFC context;short labels bind to source terminal IDs. No physical installation or complete engineering acceptance')

@@ -57,3 +57,7 @@ is inferred from these synthetic runs. See evidence/spatial-bim-workflow.json.
 
 Workflow regression:23 related tests pass with actual MOOSAS enabled,including
 clear/disabled/real-overlap complete workflows and source/native tamper controls.
+
+Exact inlet-model workflow/consumer integration is now executed;see
+SPATIAL_TERMINAL_MODEL.md and evidence/spatial-inlet-workflow.json. Earlier
+pending-integration notes describe prior milestones,not complete design acceptance.

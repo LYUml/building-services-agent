@@ -1,0 +1,74 @@
+{
+  "scope": "Synthetic exact logical-inlet model consumer integration",
+  "runs": {
+    "native": {
+      "workflow": "runs\\spatial-inlet-workflow-native\\workflow.json",
+      "sha256": "073fab684690f855f85e9d5f5eb7c41da741823df62972a3230f07e93014952c",
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "air-balance": "pass",
+        "terminal-allocation": "pass",
+        "terminal-performance": "pass",
+        "terminal-drawing": "pass",
+        "terminal-ifc": "pass",
+        "terminal-inlets": "pass",
+        "terminal-coordination": "pass",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "requirements": 11,
+      "coordination_producer": "runs\\spatial-inlet-workflow-native\\terminal-inlets\\terminal-inlets.json",
+      "foreground_ports": 6,
+      "context_ports_not_drawn": 2,
+      "preview_sha256": "34dd19bf2470fa25cfd033a345ae077dc4278b5408e49b454d269fc5b3f74455"
+    },
+    "moosas": {
+      "workflow": "runs\\spatial-inlet-workflow-moosas\\workflow.json",
+      "sha256": "3a6f036768da541716587b2b875687753c84a42866e43493f2e1048243234a21",
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "air-balance": "pass",
+        "terminal-allocation": "pass",
+        "terminal-performance": "pass",
+        "terminal-drawing": "pass",
+        "terminal-ifc": "pass",
+        "terminal-inlets": "pass",
+        "terminal-coordination": "pass",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "requirements": 11,
+      "coordination_producer": "runs\\spatial-inlet-workflow-moosas\\terminal-inlets\\terminal-inlets.json",
+      "foreground_ports": 6,
+      "context_ports_not_drawn": 2,
+      "preview_sha256": "34dd19bf2470fa25cfd033a345ae077dc4278b5408e49b454d269fc5b3f74455"
+    },
+    "disabled": {
+      "workflow": "runs\\spatial-inlet-workflow-disabled\\workflow.json",
+      "sha256": "117d23ed9701002ad6b5f6fa498df605a7de3a4daa4e38014ee1d4dd483f6cb5",
+      "tasks": {
+        "recognition": "pending",
+        "lighting-rules": "pending",
+        "air-balance": "pending",
+        "terminal-allocation": "pending",
+        "terminal-performance": "pending",
+        "terminal-drawing": "pending",
+        "terminal-ifc": "pending",
+        "terminal-inlets": "pending",
+        "terminal-coordination": "pending",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "requirements": 11
+    }
+  },
+  "render_bytes_equal": true,
+  "old_envelope_substitution_control": "Coherent valid old-envelope coordination report rejected by declared-producer check",
+  "visual_limitations": [
+    "Side projection labels overlap",
+    "Axis arrows illustrative,not flow direction or physical duct length"
+  ],
+  "design_accepted": false
+}

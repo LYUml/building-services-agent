@@ -45,3 +45,7 @@ integration must bind this exact new producer and preserve its limitations.
 Validation:6 related tests pass,including header-independent stable identity,
 wrong direction after rewritten IFC hash,invalid face/diameter/axis/source,
 missing basis,existing envelope preservation and native preview regressions.
+
+Exact inlet-model workflow/consumer integration is now executed;see
+SPATIAL_TERMINAL_MODEL.md and evidence/spatial-inlet-workflow.json. Earlier
+pending-integration notes describe prior milestones,not complete design acceptance.
