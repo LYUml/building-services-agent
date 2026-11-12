@@ -1,0 +1,141 @@
+{
+  "scope": "Synthetic local same-file logical chain; engineering acceptance pending",
+  "design_accepted": false,
+  "tests": {
+    "passed": 37,
+    "skipped": 0,
+    "suite": "test_route_join test_route_ports test_route_workflow test_route_search test_route_model test_route_optimize test_route_obstacles",
+    "upstream_warning": "IfcOpenShell ResourceWarning for unclosed IFC4.py"
+  },
+  "workflows": {
+    "source-port-joined-workflow": {
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "tasks": {
+        "source": {
+          "kind": "bim",
+          "status": "pass",
+          "scope": "IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending"
+        },
+        "route": {
+          "kind": "route_ports",
+          "status": "pass",
+          "scope": "Source-guided separate route IFC only; no merged logical connections, physical joints, full equipment geometry, obstacle completeness or regulatory acceptance"
+        },
+        "join": {
+          "kind": "route_join",
+          "status": "pass",
+          "scope": "Saved same-file local logical chain; no physical joint, whole-network pressure, clearance, manufacturer or regulatory acceptance"
+        },
+        "drawing": {
+          "kind": "ifc_route_drawing",
+          "status": "pass",
+          "scope": "source-checked saved circular walls and finite arcs to GUID-linked planar axes/OD outlines; product and installation acceptance pending"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "Review source completeness, physical joints and merged connectivity, full network pressure and installation, native plot and applicable Hong Kong rules before full engineering acceptance."
+        }
+      },
+      "summary": {
+        "checks": {
+          "source_geometry_properties_frames_preserved": true,
+          "exact_element_port_inventory": true,
+          "exact_directed_links": true,
+          "shared_source_system": true,
+          "local_chain_connected": true,
+          "schema_valid": true,
+          "local_chain_body_count": 7,
+          "connection_count": 6
+        },
+        "independent_saved_inventory": {
+          "elements": 7,
+          "ports": 14,
+          "directed_links": 6,
+          "system_members": 7,
+          "open_boundary_ports": 2
+        },
+        "source_and_method_pins_current": true
+      },
+      "files": {
+        "runs\\source-port-joined-workflow\\workflow.json": "ce7ae5eb442d60a4f781bb07f2536806f1b731bae7acfe4f2b6178943da5df6f",
+        "runs\\source-port-joined-workflow\\source\\model.ifc": "399890a02588797d5707bfc6967ec3f2b8962e90d86403f3d6d3364a3acbe310",
+        "runs\\source-port-joined-workflow\\route\\port-route.json": "86f0471036af32ac28ef626deaa154dc89612952eb98575ba89f4b33087189ee",
+        "runs\\source-port-joined-workflow\\join\\route-join.json": "94456f0c084783513428e4634ff0d56e75b11a07afcb4ffa1ca9e08074edb639",
+        "runs\\source-port-joined-workflow\\join\\source-snapshot.json": "b5f90fe27b405104306d8164b4e193ff1b531f73a143d86d102a84278ca2d950",
+        "runs\\source-port-joined-workflow\\join\\joined.ifc": "bc3088d2de51b3c179ec9828691c810944db085b96d2f753591a400fca6a9c58",
+        "runs\\source-port-joined-workflow\\drawing\\drawing.json": "a314a8a1b461f1edea360730cd015db576769a5ce28c457590dfa95021d942bb",
+        "runs\\source-port-joined-workflow\\drawing\\segments.dxf": "c33458d00c3a67f777313cf8075f24fc7cd15ca58fc50d4d598fef3cafc909ca"
+      }
+    },
+    "source-port-joined-higher-workflow": {
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "tasks": {
+        "source": {
+          "kind": "bim",
+          "status": "pass",
+          "scope": "IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending"
+        },
+        "route": {
+          "kind": "route_ports",
+          "status": "fail",
+          "scope": "Source-guided separate route IFC only; no merged logical connections, physical joints, full equipment geometry, obstacle completeness or regulatory acceptance"
+        },
+        "join": {
+          "kind": "route_join",
+          "status": "pending",
+          "scope": "upstream source-port route did not pass; no joined model fabricated"
+        },
+        "drawing": {
+          "kind": "ifc_route_drawing",
+          "status": "pending",
+          "scope": "required checks unresolved: join (pending); adapter not executed"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: route (fail), drawing (pending), join (pending); adapter not executed"
+        }
+      },
+      "summary": {
+        "unchanged_supply_flow_fluid_and_pressure_target": true,
+        "elevation_pressure_pa": 6.129156249999999,
+        "no_joined_model": true,
+        "no_drawing": true
+      },
+      "files": {
+        "runs\\source-port-joined-higher-workflow\\workflow.json": "f4c857579fd3f1ef1a3df0b0bf4b4bfa2ddadf18ef141d3a90d2526221998e2f",
+        "runs\\source-port-joined-higher-workflow\\source\\model.ifc": "e9c253995419fccdb3106e97a6abaf59e61a959b12118318ccb09db3f92ed5f9",
+        "runs\\source-port-joined-higher-workflow\\route\\port-route.json": "16c6b87f8c98d9a8c9c32fbb42931989c8ca1ace2f7e579f4f8fa7ef8d94aaa0",
+        "runs\\source-port-joined-higher-workflow\\route\\route\\selected\\bound\\analysis\\network.json": "cb0683694221bd3324aeea82478c5bc8f870bb186c7f6b06b401d69342cdd3a9"
+      }
+    }
+  },
+  "controls": [
+    "removed link rejected",
+    "changed native extrusion depth rejected",
+    "changed system membership rejected",
+    "changed port flow rejected",
+    "occupied source port rejected using distinct imported route GUIDs",
+    "source/route identity overlap rejected"
+  ],
+  "reuse": "Pinned IfcOpenShell append_asset/connect_port/system/spatial APIs plus existing shape_hash/properties and endpoint_frames; no new engine/dependency",
+  "pending": [
+    "physical joint construction/material continuity",
+    "whole-model clash/clearance and source completeness",
+    "full-network pressure including source walls and correct boundary reference",
+    "real equipment/product applicability",
+    "joined-model drawing/native plot review",
+    "Hong Kong engineering acceptance"
+  ]
+}

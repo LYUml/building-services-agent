@@ -1233,3 +1233,15 @@ engine. New route_ports only binds these boundaries and checks saved endpoint
 correspondence. Existing IfcOpenShell/NumPy licenses and attribution remain
 unchanged; no new dependency. See SOURCE_PORT_ROUTING.md for exact supported
 sources and separate-IFC/physical-joint limitations.
+
+Same-file port-route gap: existing duct_fitting_chain merges a rectangular tee/
+transition/span tree with product-relative frames; its canonical cap and
+rectangular roll contracts do not cover the circular searched route. Reuse its
+native shape_hash/properties helpers, pinned IfcOpenShell project.append_asset,
+shared reuse_identities, system.connect_port, system/spatial assignment and
+saved schema validation. Add exact source-preservation and local-chain checks
+rather than another BIM authoring engine. Read the installed upstream append
+API's unit and name-reuse contracts; require metre IFC4 and disable name-only
+reuse. Existing IfcOpenShell LGPL attribution/licensing remains unchanged; no
+new dependency. See JOINED_ROUTE.md for executed limits, including logical-only
+interfaces and unchanged original pressure boundaries.

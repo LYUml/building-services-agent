@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Source-guided routes now append into the original source IFC with exact saved
+geometry/port preservation and directed same-file links. An actual seven-body
+six-link local chain passes; higher-endpoint pressure failure blocks joining and
+drawing. Physical joints and full engineering remain pending. See docs/JOINED_ROUTE.md.
+
 Saved open circular-wall caps now drive routing from exact native IFC port GUIDs,
 positions, directions and bore/OD. Actual source-to-route-to-DXF execution passes;
 wrong-flow control blocks routing/drawing. Source and route remain separate IFCs,

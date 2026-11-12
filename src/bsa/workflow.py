@@ -12,7 +12,7 @@ from .cli import digest
 from .engine import ProjectError
 
 IFC_ARTIFACTS={'duct_fitting_chain':'chain.ifc','rectangular_tee_transitions':'assembly.ifc','rectangular_transition':'transition.ifc','rectangular_tee_assembly':'assembly.ifc','rectangular_tee':'rectangular-tee.ifc','concept_facade':'facade.ifc','rectangular_model_design':'selected-coordination/bim/model.ifc','rectangular_network_binding':'bim/model.ifc','product_alignment':'alignment.ifc','connector_ports':'placed-connector.ifc','cad_ifc':'fitting.ifc','product_ports':'placed-fitting.ifc','tee_selection':'selected/assembly/assembly.ifc','tee_assembly':'assembly.ifc','ifc_metadata':'native/model.ifc','selected_pump_ifc':'selected-model.ifc','regulated_water_model':'selected-coordination/bim/model.ifc','annual_energy_ifc':'analysis.ifc','bim':'model.ifc','network_coordination':'bim/model.ifc',
-               'route_model':'bound/bim/model.ifc','route_optimize':'selected/bound/bim/model.ifc','route_ports':'route/selected/bound/bim/model.ifc',
+               'route_model':'bound/bim/model.ifc','route_optimize':'selected/bound/bim/model.ifc','route_ports':'route/selected/bound/bim/model.ifc','route_join':'joined.ifc',
                'network_model_design':'selected-coordination/bim/model.ifc',
                'electrical_coordination':'bim/model.ifc','electrical_lighting':'shared/bim/model.ifc','pump_electrical':'model.ifc','water_coordination':'model.ifc'}
 ROUTE_MODEL_ARTIFACTS={'route_model':'model-input.json','route_optimize':'selected/model-input.json','route_ports':'route/selected/model-input.json'}
@@ -186,7 +186,7 @@ def regulatory_source_bindings(tasks,root):
 def inventory_source_bindings(tasks,root):
     """Bind supported saved-IFC consumers to upstream inventory checks."""
     electrical_readers={'three_phase_ifc_project','three_phase_ifc','three_phase_topology','three_phase_bend_limits','three_phase_coordination','three_phase_cable_regulations','cable_route_drawing'}
-    readers={'route_ports','duct_fitting_data','duct_chain_analysis','connector_ports','ifc_preview','product_ports','tee_drawing','tee_split','tee_pressure','tee_losses','ifc_network','ifc_metadata','ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing',
+    readers={'route_join','route_ports','duct_fitting_data','duct_chain_analysis','connector_ports','ifc_preview','product_ports','tee_drawing','tee_split','tee_pressure','tee_losses','ifc_network','ifc_metadata','ifc_query','ids_check','ifc_clash','ifc_drawing','ifc_route_drawing',
              'ifc_views','water_coordination','annual_energy_ifc'}|electrical_readers
     known={};ancestors={};identities={};bindings=[];rechecks={}
     for task in tasks:
@@ -302,7 +302,7 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("module_electrical_native","module_electrical_rules","module_water_rules","module_analysis","module_authoring","spatial_terminal_stubs","spatial_terminal_inlets","spatial_terminal_ifc","spatial_terminal_coordination","spatial_terminal_native","spatial_terminal_drawing","spatial_terminal_performance","spatial_air_allocation","spatial_air_balance","spatial_lighting_rules","module_thermal_project","module_exchange","duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","route_ports","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("module_electrical_native","module_electrical_rules","module_water_rules","module_analysis","module_authoring","spatial_terminal_stubs","spatial_terminal_inlets","spatial_terminal_ifc","spatial_terminal_coordination","spatial_terminal_native","spatial_terminal_drawing","spatial_terminal_performance","spatial_air_allocation","spatial_air_balance","spatial_lighting_rules","module_thermal_project","module_exchange","duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","route_ports","route_join","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind=='module_electrical_native':
             if set(t)-{'id','kind','depends_on','requires_pass','description'}:raise ProjectError('Native electrical task inherits rule producer only;replacement inputs forbidden')
@@ -838,6 +838,12 @@ def validate_plan(path):
             else:
                 from .epanet import validate
                 validate(read_json(local_path(root,t['project'])))
+        if kind=='route_join':
+            if set(t)-{'id','kind','depends_on','requires_pass','description'}:
+                raise ProjectError('Route join inherits source and selected route; replacement files forbidden')
+            parent=t.get('depends_on')
+            if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='route_ports':
+                raise ProjectError('Route join needs earlier source-port route')
         if kind=='route_ports':
             files={key:local_path(root,t.get(key)) for key in ('basis','routing','settings','network')}
             inputs.update(files.values())
@@ -1545,6 +1551,14 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 payload=run(local_path(root,t['pack']),local_path(root,t['project']),root/t['sources'],folder)
                 status='pass' if payload['supported_checks_pass'] else 'pending'
                 reason='Selected jurisdiction checks only; whole-project regulatory compliance not established. '+', '.join(r['id']+': '+r['status'] for r in payload['checks'])
+            elif t['kind']=='route_join':
+                dependency=t['depends_on']
+                if tasks[dependency]['status']!='pass':reason='upstream source-port route did not pass; no joined model fabricated'
+                else:
+                    from .route_join import run
+                    payload=run(out/dependency,folder)
+                    status='pass' if payload['calculated_checks_pass'] else 'fail'
+                    reason=payload['scope']
             elif t['kind']=='route_ports':
                 dependency=t.get('depends_on')
                 if dependency and tasks[dependency]['status']!='pass':reason='upstream native IFC did not pass; no endpoint or route fabricated'

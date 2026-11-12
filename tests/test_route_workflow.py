@@ -12,6 +12,22 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 class RouteWorkflowTests(unittest.TestCase):
+    def test_joined_route_inherits_producer_and_gates_drawing(self):
+        plan=ROOT/'examples/route-search/port-joined-plan.json'
+        validate_plan(plan)
+        for fault in ('none','pressure','join'):
+            with self.subTest(fault=fault),tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+                out=(Path(folder)/'run').resolve()
+                with patch('bsa.bim.run',return_value={}),patch('bsa.route_ports.run',return_value={'calculated_checks_pass':fault!='pressure','scope':'dispatch-only test'}),patch('bsa.route_join.run',return_value={'calculated_checks_pass':fault!='join','scope':'dispatch-only test'}) as join,patch('bsa.ifc_route_drawing.run',return_value={'calculated_checks_pass':True}) as drawing:
+                    result=execute(plan,out)
+                if fault=='pressure':join.assert_not_called()
+                else:self.assertEqual(join.call_args.args,(out/'route',out/'join'))
+                if fault=='none':self.assertEqual(result['tasks']['drawing']['status'],'pass')
+                else:
+                    drawing.assert_not_called()
+                    self.assertEqual(result['tasks']['drawing']['status'],'pending')
+                self.assertEqual(result['tasks']['review']['status'],'pending')
+
     def test_port_route_rejects_copied_endpoints_and_replacement_ifc(self):
         source=ROOT/'examples/route-search/port-routing-plan.json'
         _,inputs=validate_plan(source)
