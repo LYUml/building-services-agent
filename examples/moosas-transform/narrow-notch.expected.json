@@ -1,0 +1,47 @@
+{
+  "source_sha256": "fa69661e058c44fc45622dd09e19a83b58f317305116de88a29ae799255b3c8f",
+  "classification": "synthetic fixture declaration;not measured architecture",
+  "length_unit": "m",
+  "expected": [
+    {
+      "id": "narrow-notch",
+      "boundary_vertices": [
+        [
+          0.0,
+          3.0
+        ],
+        [
+          2.0,
+          3.0
+        ],
+        [
+          2.0,
+          2.5
+        ],
+        [
+          2.0004,
+          2.5
+        ],
+        [
+          2.0004,
+          3.0
+        ],
+        [
+          4.0,
+          3.0
+        ],
+        [
+          4.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "height_m": 3.0
+    }
+  ],
+  "length_tolerance_m": 1e-06,
+  "area_tolerance_m2": 1e-08
+}

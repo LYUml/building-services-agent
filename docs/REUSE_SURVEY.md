@@ -1,5 +1,12 @@
 # Reuse survey â€” 2026-11-09
 
+Recognition fidelity gap: reuse existing pinned MOOSAS transform and Shapely2.2.0
+Hausdorff/symmetric-difference operations through a thin source expectation check.
+No geometry kernel or solver added. Actual concave,rotated and narrow-notch
+trials distinguish completed recognition from geometry correspondence;16related
+tests pass. Rotated rounding and small-feature upstream failure remain explicit.
+See evidence/moosas-transform-boundary-check.json.
+
 MOOSAS recognition gap: inspected transform.pipeline,CCR generation,assembly,
 GEO importer and configure_model_resources before implementation. A thin probe
 calls the existing pinned upstream pipeline,with explicit geometry-only catalogue

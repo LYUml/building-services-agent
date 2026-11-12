@@ -1,0 +1,89 @@
+{
+  "scope": "Actual pinned MOOSAS nonrectangular/rotation/detail source-geometry trials",
+  "upstream_commit": "dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c",
+  "cases": {
+    "l-shape": {
+      "source": "examples/moosas-transform/l-shaped-room.geo",
+      "source_sha256": "9eb3faf3fb777c8cc1d151f6a438d34fd08ffdee8ad6442515ce315dad7ed69f",
+      "engine_execution": "completed",
+      "diagnostic": null,
+      "saved_reload_matches": true,
+      "source_geometry_matches": true,
+      "rooms": [
+        {
+          "source_id": "l-shaped-room",
+          "source_area_m2": 14.0,
+          "matching_ids": [
+            "0x0100010e90602k"
+          ],
+          "candidates": [
+            {
+              "recognized_id": "0x0100010e90602k",
+              "boundary_hausdorff_m": 0.0,
+              "symmetric_difference_m2": 0.0,
+              "height_error_m": 0.0,
+              "passes": true
+            }
+          ],
+          "pass_check": true
+        }
+      ],
+      "probe_sha256": "fe51c6ff97f52194b0b8d092bbd248d561b1d25ff74cc92d1c0a1e87d9b52dea",
+      "check_sha256": "0e275932130739f075bceeefdcc8e5423bcdc43023dd2be1eb613eb8b3fdbeee"
+    },
+    "rotated": {
+      "source": "examples/moosas-transform/rotated-room.geo",
+      "source_sha256": "c4cce965036822ced29564e331c18d65a83e38deee8154c7c1c27c870de520c3",
+      "engine_execution": "completed",
+      "diagnostic": null,
+      "saved_reload_matches": true,
+      "source_geometry_matches": false,
+      "rooms": [
+        {
+          "source_id": "rotated-room",
+          "source_area_m2": 12.000000000000004,
+          "matching_ids": [],
+          "candidates": [
+            {
+              "recognized_id": "0x0100050c90406j",
+              "boundary_hausdorff_m": 0.0005370171979681553,
+              "symmetric_difference_m2": 0.004186874648796595,
+              "height_error_m": 0.0,
+              "passes": false
+            }
+          ],
+          "pass_check": false
+        }
+      ],
+      "probe_sha256": "fe91e9f434dae3aeeb31ef74e2bff114c6ac00cded8f11a82161bf4a57114ee0",
+      "check_sha256": "fe1afa771f694a7d6a25fb9077bea9f0d23000de58faa09ddd7873aa4384590a"
+    },
+    "notch": {
+      "source": "examples/moosas-transform/narrow-notch.geo",
+      "source_sha256": "fa69661e058c44fc45622dd09e19a83b58f317305116de88a29ae799255b3c8f",
+      "engine_execution": "failed",
+      "diagnostic": {
+        "type": "TypeError",
+        "message": "cannot unpack non-iterable NoneType object"
+      },
+      "saved_reload_matches": null,
+      "source_geometry_matches": false,
+      "rooms": [
+        {
+          "source_id": "narrow-notch",
+          "source_area_m2": 11.9998,
+          "matching_ids": [],
+          "candidates": [],
+          "pass_check": false
+        }
+      ],
+      "probe_sha256": "9c391194e9706e69b6788bb3ab1d1d622f53be9a23a4d2d91432a1441e52632a",
+      "check_sha256": "4686365bc1418a31caaac15253bdb0100646f222510975620144d6a0ea9a04c5"
+    }
+  },
+  "fixture_length_tolerance_m": 1e-06,
+  "fixture_area_tolerance_m2": 1e-08,
+  "tolerances_are_software_fixture_targets_not_installation_limits": true,
+  "design_accepted": false,
+  "simulation_executed": false
+}

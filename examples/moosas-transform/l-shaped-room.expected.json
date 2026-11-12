@@ -1,0 +1,39 @@
+{
+  "source_sha256": "9eb3faf3fb777c8cc1d151f6a438d34fd08ffdee8ad6442515ce315dad7ed69f",
+  "classification": "synthetic fixture declaration;not measured architecture",
+  "length_unit": "m",
+  "expected": [
+    {
+      "id": "l-shaped-room",
+      "boundary_vertices": [
+        [
+          0.0,
+          4.0
+        ],
+        [
+          2.0,
+          4.0
+        ],
+        [
+          2.0,
+          2.0
+        ],
+        [
+          5.0,
+          2.0
+        ],
+        [
+          5.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "height_m": 3.0
+    }
+  ],
+  "length_tolerance_m": 1e-06,
+  "area_tolerance_m2": 1e-08
+}

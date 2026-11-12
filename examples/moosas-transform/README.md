@@ -8,6 +8,20 @@ wrapper. They are software geometry controls, not measured buildings/designs.
 - two-rooms.geo: adjacent4x3x3m and2x3x3m rooms,including coincident party walls;
   expected two spaces of12m2and6m2,both3m high.
 - missing-wall.geo: the first room with one side removed;expected zero spaces.
+- l-shaped-room.geo: concave closed14m2room,3m high;source boundary correspondence passes.
+- rotated-room.geo: rotated/translated12m2room,3m high;recognition/reload completes,
+  but upstream millimetre rounding changes its area to12.00207m2and fails the
+  declared fixture boundary tolerances.
+- narrow-notch.geo: a4x3m footprint with a0.4mm wide,0.5m deep notch;upstream
+  transformation fails with a recorded TypeError after losing horizontal references.
+
+The latter three fixtures have explicit `.expected.json` source declarations.
+`bsa.spatial_recognition_check.check` reuses pinned Shapely2.2.0 Hausdorff and
+symmetric-difference operations against those declarations,with complete unique
+room coverage,height and closure checks. The caller must supply positive length
+and area tolerances. Here1e-6m and1e-8m2are software fixture targets,not installation
+or regulatory limits. The checker does not repair geometry or authenticate source
+interpretation. See docs/evidence/moosas-transform-boundary-check.json.
 
 ```powershell
 .venv/Scripts/python -X utf8 scripts/probe_moosas_transform.py --source examples/moosas-transform/two-rooms.geo --upstream tools/moosas-review --deps tools/moosas-exchange-deps --out runs/new-transform-probe --empty-catalogue

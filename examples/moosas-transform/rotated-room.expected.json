@@ -1,0 +1,31 @@
+{
+  "source_sha256": "c4cce965036822ced29564e331c18d65a83e38deee8154c7c1c27c870de520c3",
+  "classification": "synthetic fixture declaration;not measured architecture",
+  "length_unit": "m",
+  "expected": [
+    {
+      "id": "rotated-room",
+      "boundary_vertices": [
+        [
+          8.6234,
+          0.03027621135331593
+        ],
+        [
+          12.087501615137755,
+          2.030276211353316
+        ],
+        [
+          13.587501615137755,
+          -0.5678000000000003
+        ],
+        [
+          10.1234,
+          -2.5678
+        ]
+      ],
+      "height_m": 3.0
+    }
+  ],
+  "length_tolerance_m": 1e-06,
+  "area_tolerance_m2": 1e-08
+}

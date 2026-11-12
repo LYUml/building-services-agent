@@ -1,5 +1,14 @@
 # MOOSAS priority reuse map
 
+Nonrectangular follow-up now recognizes a concave14m2room and preserves its
+boundary. A rotated room completes/reloads but millimetre coordinate rounding
+changes its geometry;the separate source-boundary checker rejects it against
+explicit software fixture tolerances. A0.4mm notch input fails upstream. Sixteen
+related tests pass. See evidence/moosas-transform-boundary-check.json and
+examples/moosas-transform/README.md. These limits block advertising arbitrary
+geometry-preserving recognition;no precision constant or geometry algorithm was
+changed to hide them.
+
 A direct surface-to-space recognition probe now executes the pinned upstream
 transform pipeline on three original synthetic surface fixtures. With an explicit
 empty geometry-only template catalogue,one closed room,two adjacent rooms and a
