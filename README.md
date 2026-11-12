@@ -1,5 +1,10 @@
 # Building Services Agent
 
+AI clients can now invoke existing pump candidate recovery and its verifier
+through MCP. Actual diagnosed failure → hydraulic/electrical screening → eight-
+task replay passes; all-ineligible input stops and original evidence survives.
+This is bounded supplied-curve recovery, not full design approval. See docs/MCP_PUMP_RECOVERY.md.
+
 MCP clients can now discover and read committed schemas/docs/examples by immutable
 Git reference, then prepare inputs without local template-file access. Actual
 five-input/four-domain execution passes scoped checks; reference values remain

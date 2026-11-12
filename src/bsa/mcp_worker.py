@@ -3,7 +3,7 @@ import contextlib
 import json
 from pathlib import Path
 import sys
-from . import engineering_handoff,project_start,workflow,workflow_status,source_page,visual_transcription,source_review,reference_library
+from . import engineering_handoff,project_start,workflow,workflow_status,source_page,visual_transcription,source_review,reference_library,pump_catalogue_iteration
 from .cli import digest
 from .module_contract import read_json
 
@@ -17,7 +17,8 @@ def read_source_plan(plan):
 
 OPERATIONS={function.__module__+'.'+function.__name__:function for function in
     (project_start.start,engineering_handoff.template,engineering_handoff.run,engineering_handoff.verify,
-     workflow.execute,workflow_status.diagnose,source_page.run,visual_transcription.prepare,source_review.run,reference_library.catalogue,reference_library.read)}
+     workflow.execute,workflow_status.diagnose,source_page.run,visual_transcription.prepare,source_review.run,reference_library.catalogue,reference_library.read,
+     pump_catalogue_iteration.run,pump_catalogue_iteration.verify)}
 OPERATIONS['bsa.mcp_worker.read_source_plan']=read_source_plan
 
 

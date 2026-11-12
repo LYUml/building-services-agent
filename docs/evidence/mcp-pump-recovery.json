@@ -1,0 +1,77 @@
+{
+  "scope": "Actual local MCP diagnosed pump failure to existing supplied-curve hydraulic/electrical screening, full-plan replay and independent verification",
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/mcp_server.py": "5d8faa5fb637b9c1a25fe9250704dc301f270b22bd75c6d58775f9b71e8045cc",
+    "src/bsa/mcp_worker.py": "5762f2597bf4e80a87048d2565deccbed7c69e7069a806a32d435ece75141e88",
+    "src/bsa/pump_catalogue_iteration.py": "749ef5a3400dea05ee0422d916e14475915993ae390a3196352a2b6dead03461",
+    "src/bsa/catalogue_iteration.py": "1d4f7f34ee19085313af5684e35ac76b5c2f0a6a77538e65f4bc2ac7125dba1f"
+  },
+  "protocol": {
+    "tools": 14,
+    "recovery_reference_inputs": 11,
+    "successful_recovery_calls": 31,
+    "recovery_protocol_sha256": "41ed99f06e29a29729d2cdb1d88d6b36bb034e862f24f447ed088cf225ad6730",
+    "source_protocol_sha256": "05c2d25e8b49d8e9c78e058e461df152efcd38b0d76610b93381042d831c37b1",
+    "server_log_sha256": "48776f2bf20cc3b8619d1fefdb1e7dd1a6fb40c2baca11a9a1ce321791d9c6c2"
+  },
+  "positive": {
+    "verification": {
+      "integrity_pass": true,
+      "candidates": 2,
+      "selected": "eligible",
+      "requirements_preserved": true,
+      "full_plan_executed": true,
+      "design_accepted": false
+    },
+    "original_failure_reproduced": true,
+    "diagnosis_ready_task_consumed": true,
+    "preferred_hydraulic_pass": true,
+    "preferred_electrical_status": "fail",
+    "task_statuses": {
+      "electrical": "pass",
+      "water": "pass",
+      "qa": "pass",
+      "drawing": "pass",
+      "pump": "pass",
+      "coupled": "pass",
+      "coupled-qa": "pass",
+      "coupled-drawing": "pass"
+    },
+    "requirements": 8,
+    "screening_matches_final_electrical": true,
+    "baseline_electrical_kw": 0.75,
+    "baseline_hardware_retained": true
+  },
+  "negative": {
+    "verification": {
+      "integrity_pass": true,
+      "candidates": 1,
+      "selected": null,
+      "requirements_preserved": true,
+      "full_plan_executed": false,
+      "design_accepted": false
+    },
+    "target_created": false,
+    "replay_created": false
+  },
+  "preservation": {
+    "original_plan_and_failed_workflow_bytes_unchanged": true,
+    "original_workflow_integrity": true
+  },
+  "tests": {
+    "passed": 7,
+    "skipped": 0,
+    "suites": [
+      "test_mcp_server",
+      "test_reference_library"
+    ]
+  },
+  "limitations": [
+    "Authored synthetic curves, not manufacturer discovery or equipment certification",
+    "Ready failed pump task only; not arbitrary autonomous repair",
+    "Steady electrical checks only; motor/protection/NPSH/installation remain pending",
+    "IFC/DXF scope; no new native DWG/RVT/plot acceptance",
+    "No complete Hong Kong or full engineering/agent acceptance"
+  ]
+}

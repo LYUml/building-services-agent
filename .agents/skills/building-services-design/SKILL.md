@@ -5,6 +5,12 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For MCP pump iteration, inspect actual recovery_schedule.ready_tasks and original
+task kinds, then use bsa_recover_pump_catalogue / bsa_verify_pump_recovery per
+bsa://recovery-guide / docs/MCP_PUMP_RECOVERY.md. Supply sourced candidates and,
+when required, the exact original electrical consumer. Keep original targets,
+hardware, sources and failed evidence; no feasible candidate means no new plan.
+
 For a filesystem-independent MCP client, use bsa_reference_catalogue and its
 returned immutable resource URIs per bsa://reference-guide / docs/REFERENCE_LIBRARY.md.
 Retain commit/path/SHA citations. Read adapter scope and validate new project

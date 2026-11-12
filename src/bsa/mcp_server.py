@@ -10,7 +10,7 @@ import subprocess
 import threading
 from typing import Any,Annotated
 
-from . import engineering_handoff,project_start,workflow,workflow_status,workspace,mcp_worker,source_page,visual_transcription,source_review,reference_library
+from . import engineering_handoff,project_start,workflow,workflow_status,workspace,mcp_worker,source_page,visual_transcription,source_review,reference_library,pump_catalogue_iteration
 from .cli import digest
 from .terminal_iteration import OPTIONS
 
@@ -130,6 +130,16 @@ def create_server(*,execute_options=None,pdftoppm=None):
         """List paginated committed docs/contracts/examples/regulation JSON references. Synthetic examples are not project facts or verified capabilities. Read returned immutable resource URIs."""
         return invoke(reference_library.catalogue,kind,query,offset,limit)
 
+    @server.tool(annotations=write)
+    def bsa_recover_pump_catalogue(plan:str,original_run:str,task:str,catalogue:str,target:str,out:str,electrical_task:str|None=None)->dict[str,Any]:
+        """Screen explicit supplied curves for a ready failed original pump, optionally inherit original downstream electrical constraints, then rerun the full unchanged-target plan. No manufacturer discovery or approval."""
+        return invoke(pump_catalogue_iteration.run,local(plan),local(original_run),task,local(catalogue),local(target),local(out),electrical_task=electrical_task,execute_options=options)
+
+    @server.tool(annotations=read)
+    def bsa_verify_pump_recovery(out:str)->dict[str,Any]:
+        """Reconstruct original failure, candidate ranking, source and complete pump recovery correspondence. Does not approve a design."""
+        return invoke(pump_catalogue_iteration.verify,local(out))
+
     @server.resource('bsa://reference/{revision}/{reference_id}')
     def reference(revision:str,reference_id:str)->str:
         return json.dumps(invoke(reference_library.read,revision,reference_id),ensure_ascii=False)
@@ -149,6 +159,10 @@ def create_server(*,execute_options=None,pdftoppm=None):
     @server.resource('bsa://reference-guide')
     def reference_guide()->str:
         return (workspace.ROOT/'docs/REFERENCE_LIBRARY.md').read_text(encoding='utf-8')
+
+    @server.resource('bsa://recovery-guide')
+    def recovery_guide()->str:
+        return (workspace.ROOT/'docs/MCP_PUMP_RECOVERY.md').read_text(encoding='utf-8')
 
     @server.resource('bsa://skills/{name}')
     def skill(name:str)->str:

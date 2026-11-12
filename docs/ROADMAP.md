@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+Existing pump catalogue recovery/verification now run through MCP with fixed
+host runtimes. Actual client retrieves eleven reference assets, consumes ready
+diagnosis, screens original hydraulic/electrical constraints and reruns eight
+tasks; no-feasible control creates no target/replay and preserves failed source.
+General autonomous repair and whole-agent acceptance remain unfinished.
+See MCP_PUMP_RECOVERY.md.
+
 The twelfth MCP tool now discovers committed reference assets and returns exact
 commit/blob/SHA-bound resources. Actual client retrieves five JSON inputs through
 MCP and executes four domains with manual review pending. Six targeted tests

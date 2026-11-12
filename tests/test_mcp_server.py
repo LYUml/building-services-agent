@@ -2,6 +2,7 @@ import asyncio
 import base64
 import hashlib
 import contextlib
+import copy
 import importlib.metadata
 import importlib.util
 import json
@@ -40,7 +41,7 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                     async with ClientSession(read,write) as session:
                         initialized=(await session.initialize()).model_dump(mode='json')
                         tools=(await session.list_tools()).tools
-                        self.assertEqual(len(tools),12)
+                        self.assertEqual(len(tools),14)
                         for tool in tools:
                             self.assertFalse({'autocad','command','project_root'} & set(tool.inputSchema.get('properties',{})))
                         async def call(name,args):
@@ -126,6 +127,8 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                         self.assertIn('bsa.visual-transcription/1',source_guide.contents[0].text)
                         reference_guide=await session.read_resource('bsa://reference-guide')
                         self.assertIn('bsa_reference_catalogue',reference_guide.contents[0].text)
+                        recovery_guide=await session.read_resource('bsa://recovery-guide')
+                        self.assertIn('bsa_recover_pump_catalogue',recovery_guide.contents[0].text)
                         skill=await session.read_resource('bsa://skills/building-services-design')
                         self.assertIn('building-services-design',skill.contents[0].text)
                         outside=await session.call_tool('bsa_read_source_plan',dict(plan=str(root/'project/plan.json')))
@@ -134,6 +137,74 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                 tools=[tool.model_dump(mode='json') for tool in tools],calls=records,rejected_paths=rejections,
                 blank_interpretation_rejected=blank.isError,absolute_path_rejected=outside.isError,
                 page_preview=preview,visual_transcription=transcription,references=references,engineering_verification=checked,uninterpreted_execution_pass=blocked['execution_pass'],design_accepted=False),indent=2),encoding='utf-8')
+
+
+    async def test_real_pump_catalogue_recovery_uses_original_electrical_and_preserves_failure(self):
+        persistent=os.environ.get('BSA_MCP_RECOVERY_TRIAL_OUT')
+        if persistent:
+            output=Path(persistent).resolve()
+            if not output.is_relative_to(ROOT/'runs') or output.exists():raise ValueError('Fresh repository runs recovery trial required')
+            output.mkdir(parents=True);directory=contextlib.nullcontext(str(output))
+        else:directory=tempfile.TemporaryDirectory(dir=ROOT/'runs')
+        with directory as folder:
+            root=Path(folder);(root/'coupled').mkdir()
+            shutil.copyfile(ROOT/'examples/water-riser/coupled-brief.md',root/'coupled/coupled-brief.md')
+            records=[];references=[]
+            params=StdioServerParameters(command=sys.executable,args=['-X','utf8','-m','bsa.mcp_server'],cwd=str(ROOT),env={**os.environ,'BSA_PROJECT_ROOT':str(root),'PYTHONUTF8':'1'})
+            with (root/'server.log').open('w',encoding='utf-8') as errors:
+                async with stdio_client(params,errlog=errors) as (read,write):
+                    async with ClientSession(read,write) as session:
+                        await session.initialize()
+                        async def call(name,args):
+                            result=await session.call_tool(name,args);self.assertFalse(result.isError,str(result.content))
+                            records.append(dict(tool=name,arguments=args,result=result.model_dump(mode='json')))
+                            return result.structuredContent
+                        good=None;plan_spec=None
+                        for name in ['electrical.json','model.json','network.json','binding.json','catalogue.json','geometry.json','policy.json','drawing-settings.json','pump-electrical-link.json','pump-curve.json','coupled-plan.json']:
+                            path='examples/water-riser/'+name;index=await call('bsa_reference_catalogue',dict(kind='example',query=path))
+                            row=next(r for r in index['references'] if r['path']==path)
+                            resource=await session.read_resource(row['uri']);ref=json.loads(resource.contents[0].text)
+                            self.assertEqual(hashlib.sha256(ref['content_utf8'].encode('utf-8')).hexdigest(),ref['sha256'])
+                            references.append({k:v for k,v in ref.items() if k!='content_utf8'})
+                            data=json.loads(ref['content_utf8'])
+                            if name=='coupled-plan.json':plan_spec=data
+                            if name=='pump-curve.json':
+                                good=copy.deepcopy(data)
+                                await call('bsa_save_json',dict(path='coupled/source-pump-curve.json',data=good))
+                                for point in data['points']:point['total_pressure_rise_pa']*=.65
+                                data['sources'][data['source']]+=' Explicit synthetic insufficient-pressure baseline control: pressures scaled by0.65; not actual equipment.'
+                            await call('bsa_save_json',dict(path='coupled/'+name,data=data))
+                        self.assertIsNotNone(good)
+                        bad=copy.deepcopy(good)
+                        for point in bad['points']:point['wire_to_water_efficiency']=.02 if point['flow_m3_s'] else 0
+                        bad['sources'][bad['source']]+=' Explicit synthetic low-efficiency adverse electrical control; not manufacturer data.'
+                        rows=[dict(id='preferred-low-efficiency',source='Synthetic adverse electrical input',preference=0,curve=bad),dict(id='eligible',source='Original synthetic source curve',preference=1,curve=good)]
+                        catalogue=dict(objective='lowest declared preference among passing candidates',source='Declared synthetic supplied curves; no real product approval',candidates=rows)
+                        await call('bsa_save_json',dict(path='coupled/pump-catalogue.json',data=catalogue))
+                        original=await call('bsa_execute_workflow',dict(plan='coupled/coupled-plan.json',out='coupled/original-run'))
+                        self.assertFalse(original['execution_pass'])
+                        ready=original['recovery_schedule']['ready_tasks']
+                        recoverable=[t['id'] for t in plan_spec['tasks'] if t['id'] in ready and t['kind']=='pump_operating_point']
+                        self.assertEqual(recoverable,['pump']);pump_task=recoverable[0]
+                        before=(root/'coupled/coupled-plan.json').read_bytes();failure=(root/'coupled/original-run/workflow.json').read_bytes()
+                        recovered=await call('bsa_recover_pump_catalogue',dict(plan='coupled/coupled-plan.json',original_run='coupled/original-run',task=pump_task,catalogue='coupled/pump-catalogue.json',target='coupled/selected-plan.json',out='coupled/selection',electrical_task='coupled'))
+                        self.assertEqual(recovered['screening']['selected']['id'],'eligible')
+                        rejected=recovered['screening']['candidates'][0]
+                        self.assertTrue(rejected['numerical_checks_pass']);self.assertEqual(rejected['electrical']['status'],'fail')
+                        checked=await call('bsa_verify_pump_recovery',dict(out='coupled/selection'))
+                        self.assertTrue(checked['integrity_pass']);self.assertTrue(checked['full_plan_executed']);self.assertFalse(checked['design_accepted'])
+                        diagnosis=await call('bsa_diagnose_workflow',dict(plan='coupled/selected-plan.json',out='coupled/selection/replay/workflow'))
+                        self.assertTrue(all(t['status']=='pass' for t in diagnosis['tasks']))
+                        catalogue['candidates']=rows[:1]
+                        await call('bsa_save_json',dict(path='coupled/no-eligible-catalogue.json',data=catalogue))
+                        stopped=await call('bsa_recover_pump_catalogue',dict(plan='coupled/coupled-plan.json',original_run='coupled/original-run',task=pump_task,catalogue='coupled/no-eligible-catalogue.json',target='coupled/no-selected-plan.json',out='coupled/selection-none',electrical_task='coupled'))
+                        self.assertEqual(stopped['status'],'no_feasible_candidate')
+                        negative=await call('bsa_verify_pump_recovery',dict(out='coupled/selection-none'))
+                        self.assertTrue(negative['integrity_pass']);self.assertFalse(negative['full_plan_executed'])
+                        self.assertFalse((root/'coupled/no-selected-plan.json').exists());self.assertFalse((root/'coupled/selection-none/replay').exists())
+                        self.assertEqual(before,(root/'coupled/coupled-plan.json').read_bytes());self.assertEqual(failure,(root/'coupled/original-run/workflow.json').read_bytes())
+            (root/'protocol.json').write_text(json.dumps(dict(calls=records,references=references,positive=checked,negative=negative,diagnosis=diagnosis,
+                original_plan_and_failed_run_preserved=True,design_accepted=False),indent=2),encoding='utf-8')
 
 
 class MCPWorkerTests(unittest.TestCase):
