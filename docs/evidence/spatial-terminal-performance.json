@@ -1,0 +1,21 @@
+{
+  "scope": "Synthetic three-room geometry with archival source-bound product trial;not coursework or accepted design",
+  "providers": [
+    "ifcopenshell.polygon-spaces",
+    "moosas.ifc-room-recognition"
+  ],
+  "calculations_equal": true,
+  "outside_catalogue_cases": 2,
+  "catalogue_source_sha256": "073c639219b28068a0c8190a926d493e42a12c0918db464ee8439c55a3994aef",
+  "design_accepted": false,
+  "reports": {
+    "native": {
+      "path": "runs/spatial-product-performance-native/terminal-performance/terminal-performance.json",
+      "sha256": "f1b7e731328963031c5eb63f94f5196af8f782a2fbcf674d85c3321ca85022ae"
+    },
+    "moosas": {
+      "path": "runs/spatial-product-performance-moosas/terminal-performance/terminal-performance.json",
+      "sha256": "129585ae0447c44c491d29cf71e1ae6e2974960202a228868ad0c95de9fd56ff"
+    }
+  }
+}

@@ -26,10 +26,11 @@ def calculate(rows,flow):
         if nc is not None and (type(nc) not in (int,float) or not math.isfinite(nc) or nc<0):raise ValueError('Numeric NC or explicitly qualified null required')
         if not isinstance(row['NC_qualifier'],str) or not row['NC_qualifier'].strip():raise ValueError('NC qualifier required;dash is not zero')
     if not flows[0]<=flow<=flows[-1]:
-        return dict(flow_L_s=flow,status='outside_catalogue',static_pressure_Pa=None,total_pressure_Pa=None,NC=None,nc_catalogue_rows=[])
+        return dict(flow_L_s=flow,status='outside_catalogue',T025_m=None,static_pressure_Pa=None,total_pressure_Pa=None,NC=None,nc_catalogue_rows=[])
     exact=next((i for i,q in enumerate(flows) if q==flow),None)
     indices=[exact] if exact is not None else next([i,i+1] for i in range(len(flows)-1) if flows[i]<flow<flows[i+1])
     return dict(flow_L_s=flow,status='within_catalogue',
+        T025_m=interp(flow,flows,[r['T025_m'] for r in rows]),
         static_pressure_Pa=interp(flow,flows,[r['static_pressure_Pa'] for r in rows]),
         total_pressure_Pa=interp(flow,flows,[r['total_pressure_Pa'] for r in rows]),
         NC=rows[exact]['NC'] if exact is not None else None,

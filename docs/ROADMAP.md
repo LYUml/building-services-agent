@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Inherited terminal flows now query pinned product T0.25/Ps/Pt tables through the
+existing fluids-backed calculator. Native/MOOSAS trials agree and retain two
+out-of-range cases as pending;ADPI/product/installation/full acceptance remain
+unverified. Twenty-five related tests pass. See SPATIAL_TERMINAL_PERFORMANCE.md.
+
 
 This review and its existing duct_junction_review ancestry check now support
 explicit host BSA_PROJECT_ROOT output workspaces. Repository-only operation

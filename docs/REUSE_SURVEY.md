@@ -1,5 +1,10 @@
 # Reuse survey â€” 2026-11-09
 
+Inherited terminal flows now query pinned product T0.25/Ps/Pt tables through the
+existing fluids-backed calculator. Native/MOOSAS trials agree and retain two
+out-of-range cases as pending;ADPI/product/installation/full acceptance remain
+unverified. Twenty-five related tests pass. See SPATIAL_TERMINAL_PERFORMANCE.md.
+
 Spatial balance-to-terminal gap: reuse existing air_allocation.prepare,
 air_load and the Shapely nearest-centre partitioner. Add whole-boundary handling
 for one terminal,source-classified positions/turndown,and exact inherited room

@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Inherited terminal flows now query pinned product T0.25/Ps/Pt tables through the
+existing fluids-backed calculator. Native/MOOSAS trials agree and retain two
+out-of-range cases as pending;ADPI/product/installation/full acceptance remain
+unverified. Twenty-five related tests pass. See docs/SPATIAL_TERMINAL_PERFORMANCE.md.
+
 Classified room air balances now feed source-declared terminal positions and
 maximum/minimum flow allocation,including single-outlet rooms. Two actual
 spatial-provider chains and22related tests pass. Air coverage,ADPI,physical
