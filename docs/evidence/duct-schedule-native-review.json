@@ -1,0 +1,52 @@
+{
+  "scope": "Independent conditional duct-schedule calculation-to-saved/native correspondence review;existing engines unchanged",
+  "actual_review": {
+    "sections": 47,
+    "fields": 235,
+    "drawing_labels": 47,
+    "saved_dxfs_checked": 2,
+    "velocity_independently_recomputed": true,
+    "formula": "Q/(width*height)",
+    "native_reopen_pass": true,
+    "actual_plot_pixels_equal_previous_visual_review": true,
+    "requirements": 33,
+    "unresolved_inputs": 6,
+    "scoped_review_passes": 6,
+    "pending_review_rows": 27
+  },
+  "artifacts": {
+    "pdf_sha256": "4302ef6f994d69b5c792764939504504791eee2a4a98f6bae06912fae6c4cd23",
+    "dwg_sha256": "6e5099154537dc11d139214cf2a51d524f0661303712045064783ad76a863e00",
+    "render_sha256": "44d8b54f0d6ae0f927d6e5dbfeb61e8f89c3a29ccb35be4049238abf62bdacc6"
+  },
+  "tests": {
+    "invocations": 18,
+    "passes": 18,
+    "failures": 0,
+    "errors": 0,
+    "command": "python -m unittest tests.test_delivery tests.test_input_issues tests.test_duct_sheet tests.test_duct_sheet_native"
+  },
+  "reuse": {
+    "new_engine": false,
+    "new_dependency": false,
+    "tools": [
+      "existing duct_sheet",
+      "existing duct_sheet_native",
+      "existing delivery review",
+      "ezdxf1.4.5",
+      "isolated installed AutoCAD2027"
+    ]
+  },
+  "source_snapshot": {
+    "src/bsa/duct_sheet.py": "5be0d9648b9aaf147d0160081199ba160ded4bfea2923d23159e876fafea651a",
+    "src/bsa/duct_sheet_native.py": "298c4e209ea6b5e907443bae3ca959a677e04519a6530b953f51010a990a4308",
+    "src/bsa/delivery.py": "1d0df4ed373c7e305346bc22f958e1fb72bb0b2ede312c48a38c0fd11c2c3097"
+  },
+  "limitations": [
+    "Conditional current-design table presentation only",
+    "Friction-method applicability,fluid assumptions,physical geometry,route/clearance/installation and ADPI remain pending",
+    "Source requirement texts/IDs and unrelated blockers are retained",
+    "Private coursework inputs,drawing geometry and artifacts remain in the project workspace"
+  ],
+  "design_accepted": false
+}

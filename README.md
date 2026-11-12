@@ -1,5 +1,11 @@
 # Building Services Agent
 
+Independent saved/native duct-schedule review reconciles47sections,235fields
+and47drawing labels in the coursework workspace. Native plot/reference checks
+pass;33requirements remain,with6scoped reviews passed and27pending. See
+[evidence](docs/evidence/duct-schedule-native-review.json). Physical sizing,
+installation and full design acceptance remain unfinished.
+
 Terminal lookup can now pin an original manufacturer PDF as well as its JSON
 transcription. Actual external-project source review/640independent cases and
 DWG reopening/plot review execute;43 related tests pass. Seven project inputs

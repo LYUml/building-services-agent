@@ -5,6 +5,8 @@ description: Audit building services models, drawings, calculations and reports 
 
 # mep-delivery-check
 
+For conditional duct-schedule presentation,read every bound section/field and drawing label from the saved DXF and the actual native-reopened export;independently reconcile Q/(width*height),units and displayed rounding. Inspect the actual PDF separately. A source/native match does not accept friction-method applicability,physical geometry,routing or installation. Preserve unrelated sizing/ADPI blockers and original requirement coverage. See docs/DUCT_SHEET.md.
+
 For ifc_views annotation_mode:keyed-schedule,verify source GUID-number/tag and
 full parameter-row correspondence,exact saved text position/height/width/rotation
 and conservative graphic nonintersection. Both view_tags/route_annotations helper

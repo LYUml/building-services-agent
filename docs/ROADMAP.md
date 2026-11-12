@@ -1,6 +1,25 @@
 # Scope and acceptance
 
 
+Independent project review now checks every section ID,all five table fields
+and the drawing labels in both the saved DXF and the DXF exported after native
+DWG reopening. Recompute velocity fromQ/(width*height),check displayed units and
+rounding,then inspect the actual plot separately. Matching a reported friction
+value accepts its traceability to the current calculation,not its physical
+method/applicability. Exact rendered-pixel comparison may extend a previous
+visual review only when the actual page pixels and render settings match.
+
+For a requirement that asks specifically for the schedule representation,a
+scoped conditional review can depend on the actual passing schedule/native
+producers. Preserve the original dependency/issue in a planning record,new plan
+and new run;retain all sizing,geometry and installation obligations separately.
+Do not remove a sizing prerequisite from a task that actually approves sizing.
+Actual47section/235field/native-label review executes in the coursework workspace;
+all33requirements remain,6scoped review rows pass and27remain pending. Eighteen
+related tests pass. See evidence/duct-schedule-native-review.json.
+
+
+
 Catalogues may now declare `source_document` as a relative original-PDF path
 alongside `source_sha256`. The adapter checks that file before output and after
 lookup,records it in inputs and reports original_document_pinned. Workflow input
