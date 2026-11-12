@@ -1,5 +1,10 @@
 # Reuse survey â€” 2026-11-09
 
+Terminal envelopes now accept source-classified logical inlet ports and declared
+air-system groups through existing IFC APIs. Native/MOOSAS cases preserve
+identical port identities/geometry and original entities;physical joints and
+complete design stay pending. See SPATIAL_TERMINAL_INLETS.md.
+
 Saved terminal IFC now has source-bound multi-view visual diagnostics using the
 existing renderer:blue foreground,transparent original context and explicit
 port roles. Two provider images match;side-view label overlap and full BIM/design

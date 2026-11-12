@@ -1,0 +1,28 @@
+{
+  "scope": "Source-classified logical inlet and air-system study;no physical opening or connections",
+  "runs": {
+    "native": {
+      "report": "runs\\spatial-terminal-inlets-current-native\\terminal-inlets.json",
+      "sha256": "89d5b562a4e52831a4980c17f1d0d3ce7977161a481bab2eef2719ccf326ab79",
+      "inlets": 6,
+      "original_entities_unchanged": true,
+      "system_guids": [
+        "0d49d$SGXMcvEChaDmCBcw"
+      ]
+    },
+    "moosas": {
+      "report": "runs\\spatial-terminal-inlets-current-moosas\\terminal-inlets.json",
+      "sha256": "f8f90e4c11c282b46bff6f834a01f0f7e216a8808fde7043da947b2bd79691e0",
+      "inlets": 6,
+      "original_entities_unchanged": true,
+      "system_guids": [
+        "0d49d$SGXMcvEChaDmCBcw"
+      ]
+    }
+  },
+  "keyed_port_system_geometry_records_equal": true,
+  "trial_nominal_diameter_m": 0.2032,
+  "nominal_basis": "Archival8inch table neck,not measured internal bore",
+  "position_axis_basis": "Explicit synthetic top-face envelope centre and outwardZ",
+  "design_accepted": false
+}
