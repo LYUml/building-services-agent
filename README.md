@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Saved stub geometry and flow now feed the existing fluids straight-friction
+engine with density inherited from the original room balance. Two actual
+provider results match;short-duct development,entry/joint losses and whole-system
+acceptance remain pending. See docs/SPATIAL_STUB_FRICTION.md.
+
 Retained coordination failures now enter the existing source-backed action queue
 with native element/port evidence and affected requirements. Two actual diagnoses
 retain6interface requests each;disabled source creates none. No repair or waiver

@@ -1,0 +1,50 @@
+{
+  "scope": "Native geometry/flow inherited fully-developed straight-friction component study",
+  "runs": {
+    "native": {
+      "report": "runs\\spatial-stub-friction-native\\straight-friction.json",
+      "sha256": "3e7fea5044a242160f328e8806cd20c3a432c4624c0120d1cc251d46b9678c2e",
+      "terminal_count": 6,
+      "calculation_status": "calculated",
+      "engineering_status": "pending",
+      "fully_developed_flow_verified": false,
+      "density_sources": [
+        "Explicit synthetic uniform-allowance/air-property control;not measured room load"
+      ],
+      "straight_friction_Pa": {
+        "maximum": [
+          0.07628321928751883,
+          0.3333114539685158
+        ],
+        "minimum": [
+          0.014813127186570537,
+          0.062412538767127344
+        ]
+      }
+    },
+    "moosas": {
+      "report": "runs\\spatial-stub-friction-moosas\\straight-friction.json",
+      "sha256": "6838d1b6196f6ba0b0b3830e206653403c2897b3c1554f7eac33f6448be1d18e",
+      "terminal_count": 6,
+      "calculation_status": "calculated",
+      "engineering_status": "pending",
+      "fully_developed_flow_verified": false,
+      "density_sources": [
+        "Explicit synthetic uniform-allowance/air-property control;not measured room load"
+      ],
+      "straight_friction_Pa": {
+        "maximum": [
+          0.07628321928751883,
+          0.3333114539685158
+        ],
+        "minimum": [
+          0.014813127186570537,
+          0.062412538767127344
+        ]
+      }
+    }
+  },
+  "calculations_equal": true,
+  "whole_system_pressure_complete": false,
+  "design_accepted": false
+}
