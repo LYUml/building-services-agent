@@ -81,6 +81,37 @@ def module_state(run,report,task):
         evidence=relative,evidence_sha256=report['artifact_hashes'][relative],design_accepted=False)
 
 
+def recovery_schedule(rows):
+    """Order unresolved work by verified dependencies, without authorising a repair."""
+    remaining={row['id']:row for row in rows if row['status']!='pass'}
+    waves=[]
+    completed=set()
+    while remaining:
+        ready=[row for row in remaining.values()
+               if all(parent in completed or parent not in remaining for parent in row['blocked_by'])]
+        if not ready:raise ProjectError('Unresolved recovery dependency cycle')
+        wave=[]
+        for row in ready:
+            if row['input_blockers']:category='source_inputs'
+            elif row['runtime_failures']:category='runtime_environment'
+            elif row['kind']=='manual':category='manual_review'
+            elif row['module_state'].get('execution',{}).get('status') in ('unavailable','disabled'):
+                category='provider_configuration'
+            elif row['status']=='fail':category='failure_evidence_review'
+            else:category='pending_condition_review'
+            wave.append(dict(task=row['id'],category=category,
+                prerequisite_tasks=row['blocked_by'],requirement_ids=row['requirement_ids'],
+                next_action=row['next_action'],evidence=row['evidence'],
+                ready_now=not waves,automatic_repair_authorized=False))
+        waves.append(wave)
+        completed.update(row['id'] for row in ready)
+        for row in ready:del remaining[row['id']]
+    return dict(waves=waves,
+        ready_tasks=[item['task'] for item in waves[0]] if waves else [],
+        requires_fresh_diagnosis_after_each_wave=True,
+        scope='Conditional dependency order only; later waves require fresh execution and diagnosis, not assumed upstream success or automatic engineering changes')
+
+
 def diagnose(plan, run):
     plan, run = Path(plan).resolve(), Path(run).resolve()
     source, report, integrity = context(plan, run)
@@ -189,6 +220,7 @@ def diagnose(plan, run):
     return dict(plan_sha256=digest(plan), workflow_sha256=digest(run/'workflow.json'),
                 integrity_pass=True, tasks=rows,
                 actions=actions, engineering_actions=engineering_actions,
+                recovery_schedule=recovery_schedule(rows),
                 execution_pass=all(t['status'] == 'pass' for t in rows),
                 design_accepted=False,
                 scope='Recorded execution and declared dependency graph only; no engine invocation, automatic repair, or engineering acceptance')

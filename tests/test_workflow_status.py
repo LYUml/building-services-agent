@@ -5,9 +5,46 @@ import unittest
 
 from bsa.engine import ProjectError
 from bsa.workflow import execute
-from bsa.workflow_status import diagnose
+from bsa.workflow_status import diagnose, recovery_schedule
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+class RecoveryScheduleTests(unittest.TestCase):
+    def row(self,name,parents=(),kind='network',status='pending',**extra):
+        return dict(id=name,blocked_by=list(parents),kind=kind,status=status,
+            input_blockers=[],runtime_failures=[],module_state={},
+            requirement_ids=[name+'-requirement'],next_action='inspect retained evidence',
+            evidence=[],**extra)
+
+    def test_independent_roots_and_shared_join_are_not_serialised_or_skipped(self):
+        rows=[self.row('water',status='fail'),self.row('electrical',status='fail'),
+              self.row('joint',['water','electrical']),self.row('drawing',['joint']),
+              self.row('review',['drawing'],kind='manual'),self.row('passed',status='pass')]
+        result=recovery_schedule(rows)
+        self.assertEqual([[i['task'] for i in w] for w in result['waves']],
+                         [['water','electrical'],['joint'],['drawing'],['review']])
+        self.assertEqual(result['ready_tasks'],['water','electrical'])
+        self.assertTrue(result['requires_fresh_diagnosis_after_each_wave'])
+        for index,wave in enumerate(result['waves']):
+            for item in wave:
+                self.assertEqual(item['ready_now'],index==0)
+                self.assertFalse(item['automatic_repair_authorized'])
+        self.assertEqual(result['waves'][-1][0]['category'],'manual_review')
+        self.assertEqual(result['waves'][1][0]['requirement_ids'],['joint-requirement'])
+
+    def test_source_and_runtime_categories_and_empty_case(self):
+        source=self.row('source');source['input_blockers']=[{'id':'missing-dimension'}]
+        runtime=self.row('runtime',status='fail');runtime['runtime_failures']=[{'kind':'application_control_block'}]
+        provider=self.row('provider');provider['module_state']={'execution':{'status':'unavailable'}}
+        result=recovery_schedule([source,runtime,provider])
+        self.assertEqual([i['category'] for i in result['waves'][0]],
+                         ['source_inputs','runtime_environment','provider_configuration'])
+        self.assertEqual(recovery_schedule([self.row('done',status='pass')])['ready_tasks'],[])
+
+    def test_cycle_cannot_publish_a_ready_queue(self):
+        with self.assertRaisesRegex(ProjectError,'cycle'):
+            recovery_schedule([self.row('a',['b']),self.row('b',['a'])])
 
 
 class WorkflowStatusTests(unittest.TestCase):
@@ -55,6 +92,8 @@ class WorkflowStatusTests(unittest.TestCase):
         self.assertIn('review', rows['review']['next_action'])
         self.assertFalse(result['execution_pass'])
         self.assertFalse(result['design_accepted'])
+        self.assertIn('shared',result['recovery_schedule']['ready_tasks'])
+        self.assertNotIn('native',result['recovery_schedule']['ready_tasks'])
 
     def test_action_queue_groups_roots_and_preserves_requirement_sources(self):
         result=diagnose(self.plan,self.run)

@@ -1,5 +1,9 @@
 # Building Services Agent
 
+Cross-discipline diagnosis now emits conditional recovery waves. Saved positive
+and failed workflows plus 29 related tests verify scheduling and retained gates;
+automatic engineering repair remains unfinished. See docs/RECOVERY_SCHEDULE.md.
+
 Passing circular fan operations now produce a source-replayed IFC copy with typed
 explicit-unit calculated flow/total-pressure properties on seven bodies/fourteen
 ports in the synthetic trial. Saved checks preserve original design values, units,

@@ -5,6 +5,12 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+Use workflow_status recovery_schedule for conditional cross-discipline recovery
+waves (docs/RECOVERY_SCHEDULE.md). Only ready_tasks are current inspection/action
+roots; later waves require fresh execution and diagnosis. Preserve the separate
+engineering_actions queue even when execution passes or the schedule is empty.
+The schedule does not authorise parameter changes or manual acceptance.
+
 For one supported terminal design iteration from an existing verified plan/run,
 use bsa.terminal_iteration with explicit search/geometry policies and fresh output
 paths; read [the iteration entry](../../../docs/TERMINAL_ITERATION.md). It rebuilds

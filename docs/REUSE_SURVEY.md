@@ -1,5 +1,10 @@
 # Reuse survey â€” 2026-11-09
 
+Recovery scheduling reuses workflow_status diagnosis, delivery.context integrity
+and declared dependencies. No new engine/dependency is needed. Saved positive
+and no-feasible workflows and 29 tests exercise conditional recovery waves.
+See RECOVERY_SCHEDULE.md and evidence/recovery-schedule.json.
+
 Saved stub geometry and flow now feed the existing fluids straight-friction
 engine with density inherited from the original room balance. Two actual
 provider results match;short-duct development,entry/joint losses and whole-system
