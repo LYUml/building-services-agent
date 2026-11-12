@@ -116,7 +116,7 @@ def load(configuration):
     return files, data['selectors'], pins
 
 
-def run(configuration, output, *, font, autocad=None):
+def run(configuration, output, *, font, autocad=None, module_providers=None, disabled_module_providers=()):
     files, selectors, pins = load(configuration)
     output = local(output)
     if output.exists() or any(p == output or p.is_relative_to(output) for p in pins):
@@ -124,7 +124,8 @@ def run(configuration, output, *, font, autocad=None):
     # Engines/fonts stay explicit host arguments. Document/configuration content
     # cannot select a program or issue a shell command.
     result = hvac_package.run(files['plan'], output, font=font, autocad=autocad,
-        **{k: v for k, v in files.items() if k != 'plan'}, **selectors)
+        **{k: v for k, v in files.items() if k != 'plan'}, **selectors,
+        **(dict(module_providers=module_providers,disabled_module_providers=disabled_module_providers) if module_providers or disabled_module_providers else {}))
     if any(not p.is_file() or digest(p) != sha for p, sha in pins.items()):
         raise ValueError('Project configuration or source changed during package execution')
     if inventory(files,selectors)!={p:h for p,h in pins.items() if p!=local(configuration)}:
@@ -132,7 +133,7 @@ def run(configuration, output, *, font, autocad=None):
     receipt = dict(configuration=str(Path(configuration).resolve()), configuration_sha256=digest(Path(configuration).resolve()),
         input_hashes={str(p): sha for p, sha in pins.items()},
         package_sha256=digest(output/'package.json'), generator_sha256=digest(Path(__file__)),
-        status=result['status'], design_accepted=False,
+        status=result['status'], module_selection=result.get('module_selection'), design_accepted=False,
         scope='Pinned interpreted-project settings replay only; raw brief interpretation, actual visual review and full engineering acceptance remain separate')
     (output/'project-run.json').write_text(json.dumps(receipt, indent=2), encoding='utf-8')
     return receipt
@@ -148,12 +149,15 @@ def main():
     execute = commands.add_parser('run')
     execute.add_argument('configuration'); execute.add_argument('--out', required=True)
     execute.add_argument('--font', required=True); execute.add_argument('--autocad')
+    execute.add_argument('--module-provider',action='append',default=[])
+    execute.add_argument('--disable-module-provider',action='append',default=[])
+    from .workflow_modules import parse_provider_options
     args = parser.parse_args()
     if args.command == 'create':
         create(args.plan, args.out, **{k: getattr(args, k) for k in FILES[1:] + SELECTORS})
         print('Project configuration saved; engineering interpretation and acceptance remain separate')
         return 0
-    result = run(args.configuration, args.out, font=args.font, autocad=args.autocad)
+    result = run(args.configuration, args.out, font=args.font, autocad=args.autocad,module_providers=parse_provider_options(args.module_provider),disabled_module_providers=args.disable_module_provider)
     print(result['status'] + '; full engineering acceptance pending')
     return 2
 

@@ -1,5 +1,12 @@
 # HVAC drawing and report package
 
+Host `--module-provider TASK=PROVIDER` and `--disable-module-provider PROVIDER`
+options now propagate through this package into the existing workflow selection
+and gates. Invalid provider/task combinations reject before package output.
+The selected providers and disabled IDs are retained in package.json. The same
+options are available on hvac_project run;see HVAC_PROJECT.md for actual native
+execution evidence and limitations.
+
 When ADPI review succeeds as a preparation stage,the package now passes its
 record into the report. HTML/PDF retain the same reconstructed applicability,
 unknowns and scoped source notes instead of leaving them only in adpi-review.json.

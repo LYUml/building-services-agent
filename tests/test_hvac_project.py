@@ -11,6 +11,26 @@ from bsa.hvac_project import ROOT, create, load, run
 
 
 class HVACProjectTests(unittest.TestCase):
+    def test_host_provider_options_reach_package_and_invalid_selection_creates_no_output(self):
+        from bsa.workflow_modules import parse_provider_options
+        from bsa.hvac_package import run as package_run
+        selected=parse_provider_options(['allocation=bsa.classified-air-allocation'])
+        for invalid in (['bad'],['=x'],['a='],['a=x','a=y']):
+            with self.assertRaises(ValueError):parse_provider_options(invalid)
+        self.create()
+        def package(plan,output,**kwargs):
+            self.assertEqual(kwargs['module_providers'],selected)
+            self.assertEqual(kwargs['disabled_module_providers'],['bsa.classified-air-allocation'])
+            output.mkdir();(output/'package.json').write_text('{}')
+            return dict(status='review_required',module_selection=dict(providers=selected))
+        with patch('bsa.hvac_project.hvac_package.run',side_effect=package):
+            receipt=run(self.configuration,self.root/'selected-host',font='host font',module_providers=selected,disabled_module_providers=['bsa.classified-air-allocation'])
+        self.assertEqual(receipt['module_selection']['providers'],selected)
+        output=self.root/'wrong-host'
+        with self.assertRaisesRegex(ValueError,'Compatible direct'):
+            package_run(self.plan,output,font='not-needed',module_providers={'allocation':'bsa.single-phase-circuits'})
+        self.assertFalse(output.exists())
+
     def test_requirements_inventory_is_pinned_and_changed_inventory_rejects(self):
         from bsa.project_start import start
         brief = self.root/'raw-brief.md'

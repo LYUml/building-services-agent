@@ -28,13 +28,15 @@ def review_actions(stages,errors):
     return actions
 
 
-def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,plan_clearance=None,junction_review_native_task=None,system_paths_native_task=None,terminal_performance=None,requirements_result=None):
+def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,plan_clearance=None,junction_review_native_task=None,system_paths_native_task=None,terminal_performance=None,requirements_result=None,module_providers=None,disabled_module_providers=()):
     plan,output,font=map(lambda p:Path(p).resolve(),(plan,output,font))
     validated,inputs=validate_plan(plan)
     if junction_review_native_task is not None and (not isinstance(junction_review_native_task,str) or not any(t['id']==junction_review_native_task and t['kind']=='duct_sheet_native' for t in validated['tasks'])):
         raise ValueError('Junction review must select a declared native sheet task')
     if system_paths_native_task is not None and (not isinstance(system_paths_native_task,str) or not any(t['id']==system_paths_native_task and t['kind']=='duct_sheet_native' for t in validated['tasks'])):
         raise ValueError('System path review must select a declared native sheet task')
+    from .workflow_modules import host_selection
+    module_selection=host_selection(validated['tasks'],module_providers,disabled_module_providers)
     protected=set(inputs)|{plan,font}
     if requirements_result is not None:
         from .requirements_binding import bind
@@ -78,7 +80,7 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
         raise ValueError('New package directory separate from all inputs required')
     if not font.is_file():raise ValueError('Existing explicit report font required')
     output.mkdir(parents=True)
-    workflow=execute(plan,output/'workflow',autocad=autocad,**({'requirements_result':requirements_result} if requirements_result is not None else {}))
+    workflow=execute(plan,output/'workflow',autocad=autocad,**({'requirements_result':requirements_result} if requirements_result is not None else {}),**(dict(module_providers=module_providers,disabled_module_providers=disabled_module_providers) if module_providers or disabled_module_providers else {}))
     diagnosis=diagnose(plan,output/'workflow')
     (output/'diagnosis.json').write_text(json.dumps(diagnosis,indent=2),encoding='utf-8')
     template(plan,output/'workflow',output/'delivery-review.json')
@@ -141,6 +143,7 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
                 generator_sha256=digest(Path(__file__)),stages=stages,stage_errors=errors,
                 unresolved_tasks=pending,status='incomplete' if errors else 'review_required',
                 design_accepted=False,scope='Prepared calculation/drawing/report package; actual visual and full requirement acceptance remain separate')
+    result['module_selection']=module_selection
     result['review_actions']=review_actions(stages,errors)
     result['terminal_review_configuration']=None if terminal_review is None else dict(path=str(terminal_review),sha256=review_pin,settings=review_settings)
     result['adpi_configuration_inputs']=adpi_pins
@@ -188,6 +191,9 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('plan');p.add_argument('--out',required=True);p.add_argument('--font',required=True);p.add_argument('--autocad')
+    p.add_argument('--module-provider',action='append',default=[],help='Trusted TASK=PROVIDER host selection')
+    p.add_argument('--disable-module-provider',action='append',default=[])
+    from .workflow_modules import parse_provider_options
     p.add_argument('--requirements-result',help='Verified requirements inventory for the exact plan')
     p.add_argument('--terminal-review',help='JSON containing native_task and four explicit layer names')
     p.add_argument('--adpi-settings',help='Source-pinned criterion and applicability settings')
@@ -195,6 +201,6 @@ if __name__=='__main__':
     p.add_argument('--junction-review-native-task',help='Native sheet task whose exact sizing/tree ancestry supplies connection requirements')
     p.add_argument('--system-paths-native-task',help='Native sheet task whose completed source tree supplies nominal centreline path studies')
     p.add_argument('--terminal-performance',help='Source-pinned diffuser pressure/NC performance settings')
-    a=p.parse_args();r=run(a.plan,a.out,font=a.font,autocad=Path(a.autocad) if a.autocad else None,terminal_review=a.terminal_review,adpi_settings=a.adpi_settings,plan_clearance=a.plan_clearance,junction_review_native_task=a.junction_review_native_task,system_paths_native_task=a.system_paths_native_task,terminal_performance=a.terminal_performance,requirements_result=a.requirements_result)
+    a=p.parse_args();r=run(a.plan,a.out,font=a.font,autocad=Path(a.autocad) if a.autocad else None,terminal_review=a.terminal_review,adpi_settings=a.adpi_settings,plan_clearance=a.plan_clearance,junction_review_native_task=a.junction_review_native_task,system_paths_native_task=a.system_paths_native_task,terminal_performance=a.terminal_performance,requirements_result=a.requirements_result,module_providers=parse_provider_options(a.module_provider),disabled_module_providers=a.disable_module_provider)
     print(r['status'],len(r['unresolved_tasks']),'unresolved tasks; design acceptance pending')
     raise SystemExit(2)

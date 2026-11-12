@@ -10,6 +10,15 @@ from .providers import get_provider
 RULE_PROVIDERS={'module_electrical_rules':'bsa.electrical-path-rules','module_water_rules':'bsa.hvac-water-rules'}
 DIRECT_PROVIDERS={'air_allocation':'bsa.classified-air-allocation'}
 
+def parse_provider_options(values):
+    overrides={}
+    for value in values:
+        if not isinstance(value,str) or value.count('=')!=1:raise ValueError('Module provider must be TASK=PROVIDER')
+        task,provider=value.split('=')
+        if not task or not provider or task in overrides:raise ValueError('Unique nonempty TASK=PROVIDER options required')
+        overrides[task]=provider
+    return overrides
+
 def selected_rule_provider(task,selection):
     provider=selection['providers'].get(task['id'],task.get('provider'))
     if provider is not None and provider!=RULE_PROVIDERS.get(task['kind']):raise ValueError('Compatible registered rule provider required for '+task['id'])

@@ -1,0 +1,36 @@
+{
+  "scope": "Actual external HVAC project CLI replay with host-selected common allocation provider and saved-native reviews",
+  "module_selection": {
+    "schema": "bsa.workflow-module-selection/1",
+    "providers": {
+      "air-allocation": "bsa.classified-air-allocation"
+    },
+    "disabled_providers": []
+  },
+  "stage_errors": {},
+  "stages": [
+    "system_paths",
+    "junction_review",
+    "report",
+    "report_pdf"
+  ],
+  "passing_tasks": 5,
+  "requirements": 33,
+  "unresolved_inputs": 6,
+  "report_pages": 22,
+  "native_plot_pages": 1,
+  "native_save_reopen": true,
+  "workflow_integrity_and_delivery_context_pass": true,
+  "path_sections": 47,
+  "path_outlets": 20,
+  "all23rendered_pages_pixel_identical_to_prior_review": true,
+  "receipt_sha256": "4e3483ec558c43addf99cd66e42225383813be2715d3ff61e181365fb83413e4",
+  "visual_review_sha256": "11b338b77182e470a842ea3642df6a30edc5b7281a3e98dab6364750bb3b8c70",
+  "targeted_tests_passed": 30,
+  "design_accepted": false,
+  "limitations": [
+    "Interpreted-plan replay;not raw-brief automatic design",
+    "ADPI,terminal connection and planar clearance optional reviews not selected",
+    "Full pressure/fan and physical/regulatory acceptance pending"
+  ]
+}

@@ -1,5 +1,19 @@
 # Repeatable HVAC project settings
 
+Both `hvac_project run` and `hvac_package` accept repeated host options
+`--module-provider TASK=PROVIDER` and `--disable-module-provider PROVIDER`.
+These use the existing workflow registry/selection checks;duplicate or malformed
+selections reject. Selection remains a host argument rather than document
+configuration,and is retained in package.json and project-run.json.
+
+Actual external project CLI replay with
+`--module-provider air-allocation=bsa.classified-air-allocation` completes native
+save/reopen,junction/path reviews and22report pages without stage errors.
+All23rendered PDF pages match previously reviewed pixels;the actual plot and
+report first page were reinspected. Thirty related tests pass. All33requirements
+and six unresolved inputs remain. See evidence/modular-hvac-package.json.
+This is interpreted-plan replay,not raw-brief automatic engineering design.
+
 Actual external coursework replay now completes with the verified requirements
 inventory bound:five calculation/drawing tasks pass,native DWG save/reopen and
 plot execute,and22report pages are generated without stage errors. Workflow
