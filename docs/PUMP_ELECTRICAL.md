@@ -1,5 +1,10 @@
 # Pump, electrical and IFC operating scenarios
 
+New native scenario properties now use explicit typed measures/units, including
+operating device current, with saved type/unit/scale checks. Original project
+units remain unchanged. See [shared handoff and units](COUPLED_HANDOFF_UNITS.md)
+for the executed source-to-task workflow, positive/wrong-identity runs and controls.
+
 `pump_electrical` explicitly binds a passing pump operating point to an electrical device and a saved IFC pump. It preserves the original electrical project, baseline load assumptions and all circuit hardware. A separate operating scenario and property-only IFC revision carry the derived input power; neither is a motor rating or a new cable-selection basis.
 
 ```powershell

@@ -53,7 +53,42 @@ class PumpElectricalTests(unittest.TestCase):
             self.assertEqual(props['BaselineElectricalInput_kW'],.75)
             self.assertAlmostEqual(props['OperatingElectricalInput_kW'],point['estimated_electrical_kw'])
             self.assertEqual(props['CircuitID'],'PUMP-SUPPLY')
+            pset=next(r.RelatingPropertyDefinition for r in native.by_guid(record['pump_guid']).IsDefinedBy if r.RelatingPropertyDefinition.Name=='BSA_PumpElectrical')
+            raw={p.Name:p for p in pset.HasProperties}
+            for name in ('BaselineElectricalInput_kW','OperatingElectricalInput_kW','HydraulicPower_kW'):
+                self.assertEqual(raw[name].NominalValue.is_a(),'IfcPowerMeasure')
+                self.assertEqual((raw[name].Unit.UnitType,raw[name].Unit.Name,raw[name].Unit.Prefix),('POWERUNIT','WATT','KILO'))
+            self.assertEqual(raw['NominalVoltage_V'].NominalValue.is_a(),'IfcElectricVoltageMeasure')
+            self.assertEqual(raw['NominalVoltage_V'].Unit.Name,'VOLT')
+            self.assertEqual(raw['OperatingDeviceCurrent_A'].NominalValue.is_a(),'IfcElectricCurrentMeasure')
+            self.assertEqual(raw['OperatingDeviceCurrent_A'].Unit.Name,'AMPERE')
+            self.assertAlmostEqual(props['OperatingDeviceCurrent_A'],record['bound_device_operating_current_a'])
+            self.assertTrue(result['saved_typed_properties']['explicit_units_pass'])
             self.assertTrue(all(digest(p)==sha for p,sha in before.items()))
+
+    def test_saved_unit_prefix_missing_unit_and_datatype_controls_reject(self):
+        import ifcopenshell
+        from bsa import ifc_property_units as units
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);args=self.fixture(root);result=run(*args,root/'coupled')
+            path=root/'coupled/model.ifc';model=ifcopenshell.open(str(path));obj=model.by_guid(result['record']['pump_guid'])
+            pset=next(r.RelatingPropertyDefinition for r in obj.IsDefinedBy if r.RelatingPropertyDefinition.Name=='BSA_PumpElectrical')
+            types={datatype:kind for kind,(datatype,_) in units.CONTRACTS.items()}
+            records={p.Name:(p.NominalValue.wrappedValue,types[p.NominalValue.is_a()]) for p in pset.HasProperties}
+            self.assertEqual(units.inspect(model,obj,'BSA_PumpElectrical',records)['property_count'],15)
+            for action in ('kilo','missing','flow-time','datatype'):
+                altered=ifcopenshell.open(str(path));target=altered.by_guid(obj.GlobalId)
+                group=next(r.RelatingPropertyDefinition for r in target.IsDefinedBy if r.RelatingPropertyDefinition.Name=='BSA_PumpElectrical')
+                raw={p.Name:p for p in group.HasProperties}
+                if action=='kilo':raw['OperatingElectricalInput_kW'].Unit.Prefix=None
+                elif action=='missing':raw['OperatingElectricalInput_kW'].Unit=None
+                elif action=='flow-time':
+                    for term in raw['OperatingFlow_m3_s'].Unit.Elements:
+                        if term.Unit.Name=='SECOND':term.Unit.Prefix='MILLI'
+                else:raw['OperatingPowerFactor'].NominalValue=altered.create_entity('IfcReal',.85)
+                changed=root/(action+'.ifc');altered.write(str(changed));reopened=ifcopenshell.open(str(changed))
+                with self.subTest(action=action),self.assertRaisesRegex(ProjectError,'measure type or explicit unit'):
+                    units.inspect(reopened,reopened.by_guid(obj.GlobalId),'BSA_PumpElectrical',records)
 
     def test_report_scalar_and_artifact_tampering_are_rejected(self):
         for action in ('scalar','artifact','source','curve-metadata'):

@@ -5,6 +5,13 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For pump/electrical scenario properties read docs/COUPLED_HANDOFF_UNITS.md.
+Use the source-replayed pump_electrical adapter and its typed explicit-unit native
+checks. Never write copied operating kW/current onto a merely nearby element or
+change global project units to reinterpret existing properties. Preserve original
+STEP entities and the distinct baseline; property coupling is not electrical
+system topology, real equipment or installation approval.
+
 For a passing source-bound circular fan operation, use `circular_fan_metadata`
 depending on `circular_fan_operating_point`; read
 [calculated airflow state](../../../docs/CIRCULAR_FAN_METADATA.md). It replays

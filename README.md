@@ -1,5 +1,11 @@
 # Building Services Agent
 
+An authored shared-model handoff now connects water sizing, pump operation,
+electrical load and revised IFC/drawing through exact pump/port identity. New
+properties carry typed kW/V/A/flow/pressure units; baseline/hardware remain.
+Real equipment, installation and full acceptance stay pending.
+See docs/COUPLED_HANDOFF_UNITS.md.
+
 Host source interpretation now binds into concrete existing engineering tasks,
 with original quotes/dependencies and ordinary input gaps preserved. An authored
 five-passage trial executes electrical, air, water and standalone IFC adapters;

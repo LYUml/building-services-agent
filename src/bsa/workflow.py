@@ -1107,6 +1107,8 @@ def validate_plan(path):
             else:
                 pump_network=local_path(root,t.get('project'));inputs.add(pump_network);prepare(read_json(pump_network),read_json(curve))
         if kind=='pump_electrical':
+            from . import pump_electrical,ifc_property_units
+            inputs.update(Path(m.__file__).resolve() for m in (pump_electrical,ifc_property_units))
             from .pump_electrical import validate_link
             for key in ('project','network_binding','link'):inputs.add(local_path(root,t.get(key)))
             validate_link(read_json(local_path(root,t['link'])))

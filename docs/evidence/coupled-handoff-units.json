@@ -1,0 +1,487 @@
+{
+  "scope": "Shared synthetic water/pump/electrical identity and typed IFC operating properties; no real product/installation/full acceptance",
+  "design_accepted": false,
+  "methods": {
+    "src\\bsa\\pump_electrical.py": "0384c9540627217eaf0ec04f016fa28798df44d8e4c2423176d67f6942740db0",
+    "src\\bsa\\ifc_property_units.py": "d1a298bb02cca87516b7a11cf8abe0e6c8114ae68442ecfb41dec0659075d0bb",
+    "src\\bsa\\workflow.py": "a457b288f03072c2039c6d4623aa41f3d30b6ec837dd99d15815ab6a248e498f",
+    "scripts\\run_coupled_handoff_demo.py": "4592a360f4d1db7fe5a4141a2b2753df370a800fde6c18d2423061766801b118"
+  },
+  "runtimes": {
+    "ifcopenshell": "0.8.5",
+    "fluids": "1.3.1",
+    "numpy": "2.5.4",
+    "manifold3d": "3.5.4"
+  },
+  "positive": {
+    "run": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-handoff-unit-final",
+    "verification": {
+      "integrity_pass": true,
+      "original_requirement_ids": [
+        "R001",
+        "R002",
+        "R003",
+        "R004",
+        "R005",
+        "R006",
+        "R007"
+      ],
+      "task_statuses": {
+        "electrical": "pass",
+        "water": "pass",
+        "qa": "pass",
+        "pump": "pass",
+        "coupled": "pass",
+        "coupled-qa": "pass",
+        "drawing": "pass",
+        "review": "pending"
+      },
+      "retained_input_gaps": [],
+      "recovery_schedule": {
+        "waves": [
+          [
+            {
+              "task": "review",
+              "category": "manual_review",
+              "prerequisite_tasks": [],
+              "requirement_ids": [
+                "R007-bound-1"
+              ],
+              "next_action": "perform the specified review and record evidence separately",
+              "evidence": [],
+              "ready_now": true,
+              "automatic_repair_authorized": false
+            }
+          ]
+        ],
+        "ready_tasks": [
+          "review"
+        ],
+        "requires_fresh_diagnosis_after_each_wave": true,
+        "scope": "Conditional dependency order only; later waves require fresh execution and diagnosis, not assumed upstream success or automatic engineering changes"
+      },
+      "design_accepted": false,
+      "semantic_completeness": "not_established"
+    },
+    "record": {
+      "electrical_device_id": "BOOSTER",
+      "pump_guid": "2H47DrX1HQH8FfeRHY$hU5",
+      "source_port_guid": "1EJ$TpRUnV7RZ90W$yl5XS",
+      "circuit_id": "PUMP-SUPPLY",
+      "baseline_electrical_kw": 0.75,
+      "operating_electrical_kw": 0.43782750125019576,
+      "operating_power_factor": 0.85,
+      "bound_device_operating_current_a": 2.2395268606148124,
+      "operating_circuit_current_a": 2.2395268606148124,
+      "pump_body_centre_m": [
+        1.0,
+        1.0,
+        0.2
+      ]
+    },
+    "point": {
+      "flow_m3_s": 0.001253485172986984,
+      "pump_total_pressure_rise_pa": 157325.7413506508,
+      "system_required_rise_pa": 157325.73692220883,
+      "residual_pa": 0.004428441956406459,
+      "supply_total_pressure_pa": 157325.7413506508,
+      "hydraulic_power_kw": 0.197205484112226,
+      "wire_to_water_efficiency": 0.45041822075843807,
+      "estimated_electrical_kw": 0.43782750125019576
+    },
+    "typed_checks": {
+      "property_count": 15,
+      "typed_values_pass": true,
+      "explicit_units_pass": true
+    },
+    "original_step_entities_preserved": 191,
+    "project_units_preserved": true,
+    "source_ifc_sha256": "de8cb91100c4c128cd7963464a2091bef6349f5967da7eebeb63a3d459444d66",
+    "saved_ifc_sha256": "24b2655aa3e7e021c5974e4d73ef5156c2d2eb7e4932877219adaf0b10b994af",
+    "property_contracts": {
+      "ElectricalDeviceID": {
+        "value": "BOOSTER",
+        "datatype": "IfcIdentifier",
+        "unit": null
+      },
+      "CircuitID": {
+        "value": "PUMP-SUPPLY",
+        "datatype": "IfcIdentifier",
+        "unit": null
+      },
+      "BaselineElectricalInput_kW": {
+        "value": 0.75,
+        "datatype": "IfcPowerMeasure",
+        "unit": [
+          "SI",
+          "POWERUNIT",
+          "WATT",
+          "KILO"
+        ]
+      },
+      "OperatingElectricalInput_kW": {
+        "value": 0.43782750125019576,
+        "datatype": "IfcPowerMeasure",
+        "unit": [
+          "SI",
+          "POWERUNIT",
+          "WATT",
+          "KILO"
+        ]
+      },
+      "OperatingPowerFactor": {
+        "value": 0.85,
+        "datatype": "IfcRatioMeasure",
+        "unit": null
+      },
+      "NominalVoltage_V": {
+        "value": 230.0,
+        "datatype": "IfcElectricVoltageMeasure",
+        "unit": [
+          "SI",
+          "ELECTRICVOLTAGEUNIT",
+          "VOLT",
+          null
+        ]
+      },
+      "OperatingFlow_m3_s": {
+        "value": 0.001253485172986984,
+        "datatype": "IfcVolumetricFlowRateMeasure",
+        "unit": [
+          "DERIVED",
+          "VOLUMETRICFLOWRATEUNIT",
+          [
+            [
+              [
+                "SI",
+                "LENGTHUNIT",
+                "METRE",
+                null
+              ],
+              3
+            ],
+            [
+              [
+                "SI",
+                "TIMEUNIT",
+                "SECOND",
+                null
+              ],
+              -1
+            ]
+          ]
+        ]
+      },
+      "PumpTotalPressureRise_Pa": {
+        "value": 157325.7413506508,
+        "datatype": "IfcPressureMeasure",
+        "unit": [
+          "SI",
+          "PRESSUREUNIT",
+          "PASCAL",
+          null
+        ]
+      },
+      "HydraulicPower_kW": {
+        "value": 0.197205484112226,
+        "datatype": "IfcPowerMeasure",
+        "unit": [
+          "SI",
+          "POWERUNIT",
+          "WATT",
+          "KILO"
+        ]
+      },
+      "WireToWaterEfficiency": {
+        "value": 0.45041822075843807,
+        "datatype": "IfcRatioMeasure",
+        "unit": null
+      },
+      "LoadBasis": {
+        "value": "steady operating estimate; retain baseline design load and hardware",
+        "datatype": "IfcText",
+        "unit": null
+      },
+      "Source": {
+        "value": "Synthetic explicit BOOSTER electrical/IFC identity and envelope-centre binding; operating PF 0.85 is a separate assumption, not a derived motor or drive characteristic. Original 0.75 kW design scenario/hardware retained; operating estimate is not nameplate or starting load.; source pump report SHA256 a4f3db0b81d3e31151605a09062f4d5e01e0b882451218f7c92c38fe571fba8e; steady operating estimate only; baseline design load/hardware retained separately; original device basis: Synthetic 230 V single-phase steady loads; explicit input cable factors and limits for calculation testing, no product or regulation basis. Pump input electrical power is prescribed independently of hydraulic output; starting and operating-point checks pending.",
+        "datatype": "IfcText",
+        "unit": null
+      },
+      "PumpReportSHA256": {
+        "value": "a4f3db0b81d3e31151605a09062f4d5e01e0b882451218f7c92c38fe571fba8e",
+        "datatype": "IfcText",
+        "unit": null
+      },
+      "OperatingDeviceCurrent_A": {
+        "value": 2.2395268606148124,
+        "datatype": "IfcElectricCurrentMeasure",
+        "unit": [
+          "SI",
+          "ELECTRICCURRENTUNIT",
+          "AMPERE",
+          null
+        ]
+      },
+      "Scenario": {
+        "value": "Calculated steady operating estimate, not measured operation, motor nameplate, starting current or full design approval",
+        "datatype": "IfcText",
+        "unit": null
+      }
+    },
+    "drawing": {
+      "ifcopenshell_version": "0.8.5",
+      "source_length_unit_to_m": 1,
+      "segment_count": 2,
+      "segments": [
+        {
+          "guid": "14_Pcn3dHIEx82hnR2Z_vq",
+          "name": "RISE-LOW",
+          "ifc_class": "IfcPipeSegment",
+          "system_guids": [
+            "0U_R6hQ5vNwBpa8WcBPN8F"
+          ],
+          "source": "Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data.; selected size: Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data. Material scores are abstract points per metre; fixed-K comparative assumption.; outside envelope: Synthetic independent outside diameters for wall verification; no product or insulation certification.",
+          "missing_diameter_metadata": [],
+          "inner_diameter_m": 0.032,
+          "outside_diameter_m": 0.04,
+          "length_m": 2.5,
+          "start_world_m": [
+            1.0,
+            1.0,
+            0.4
+          ],
+          "end_world_m": [
+            1.0,
+            1.0,
+            2.9
+          ],
+          "sink_port_guid": "2paArO4kzLBvJnkjAEX$BW",
+          "source_port_guid": "32OMxUGdTKXfUO2CVwNvsw",
+          "start_port_guid": "2paArO4kzLBvJnkjAEX$BW",
+          "end_port_guid": "32OMxUGdTKXfUO2CVwNvsw",
+          "port_direction_scope": "sink to source",
+          "analytic_wall_volume_m3": 0.0011309733552923257,
+          "projected_length_m": 2.5
+        },
+        {
+          "guid": "19uC5wvzbIexOWydoQSx0y",
+          "name": "RISE-HIGH",
+          "ifc_class": "IfcPipeSegment",
+          "system_guids": [
+            "0U_R6hQ5vNwBpa8WcBPN8F"
+          ],
+          "source": "Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data.; selected size: Explicit synthetic test inputs: 5 m vertical rise, prescribed 1 L/s water flow, 998 kg/m3 and 0.001 Pa s; 180 kPa supply total pressure, 100 kPa required outlet total pressure, K=3, 2 m/s target. Not measured, manufacturer or regulatory data. Material scores are abstract points per metre; fixed-K comparative assumption.; outside envelope: Synthetic independent outside diameters for wall verification; no product or insulation certification.",
+          "missing_diameter_metadata": [],
+          "inner_diameter_m": 0.032,
+          "outside_diameter_m": 0.04,
+          "length_m": 2.5,
+          "start_world_m": [
+            1.0,
+            1.0,
+            2.9
+          ],
+          "end_world_m": [
+            1.0,
+            1.0,
+            5.4
+          ],
+          "sink_port_guid": "2SniO0RInNsB5dobEbry_9",
+          "source_port_guid": "2Ii$4RJlTUkuSrZSOEiDbG",
+          "start_port_guid": "2SniO0RInNsB5dobEbry_9",
+          "end_port_guid": "2Ii$4RJlTUkuSrZSOEiDbG",
+          "port_direction_scope": "sink to source",
+          "analytic_wall_volume_m3": 0.0011309733552923257,
+          "projected_length_m": 2.5000000000000004
+        }
+      ],
+      "unsupported_segments": [],
+      "excluded_non_segment_elements": [
+        {
+          "guid": "2H47DrX1HQH8FfeRHY$hU5",
+          "name": "BOOSTER",
+          "ifc_class": "IfcPump"
+        },
+        {
+          "guid": "1p9zCELIrUOxISTXL$jK9N",
+          "name": "OUTLET",
+          "ifc_class": "IfcSanitaryTerminal"
+        }
+      ],
+      "calculated_checks_pass": true,
+      "inputs": {
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-handoff-unit-final\\engineering-run\\workflow\\coupled\\model.ifc": "24b2655aa3e7e021c5974e4d73ef5156c2d2eb7e4932877219adaf0b10b994af",
+        "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-handoff-unit-final\\drawing-settings.json": "726092d1785151fbb97ed6c4195ef4853fdbfdfbbfcf4c03afb5d542f61b5942"
+      },
+      "settings": {
+        "projection_axes": [
+          "X",
+          "Z"
+        ],
+        "annotation_height_m": 0.12,
+        "source": "Synthetic X/Z projected centreline schematic; coordinates and text height in metres, no printed scale or installation representation implied."
+      },
+      "inputs_unchanged": true,
+      "design_accepted": false,
+      "scope": "saved direct hollow pipe/duct profiles and directed ports; projected centreline schematic only",
+      "pending": [
+        "native DWG reopen and printed scale/visual acceptance",
+        "equipment, fittings, insulation and installation drawings",
+        "product provenance and complete engineering acceptance"
+      ],
+      "artifacts": {
+        "preview.svg": "fbcabd1b7d2396e8a16a6ab3aaa240652ea4ff9f4ce3ec11db33e2bd2b96ef87",
+        "segments.csv": "fdbec0b0ee07b826e8e1321d22def602001b151958a924dd8b4c30b338880cb3",
+        "segments.dxf": "014f8a56643d2d9614cb522787e904c429ff7035b884fef1393bcbb5fb3cd64b"
+      }
+    }
+  },
+  "wrong_identity": {
+    "run": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-handoff-identity-final",
+    "verification": {
+      "integrity_pass": true,
+      "original_requirement_ids": [
+        "R001",
+        "R002",
+        "R003",
+        "R004",
+        "R005",
+        "R006",
+        "R007"
+      ],
+      "task_statuses": {
+        "electrical": "pass",
+        "water": "pass",
+        "qa": "pass",
+        "pump": "pass",
+        "coupled": "fail",
+        "coupled-qa": "pending",
+        "drawing": "pending",
+        "review": "pending"
+      },
+      "retained_input_gaps": [],
+      "recovery_schedule": {
+        "waves": [
+          [
+            {
+              "task": "coupled",
+              "category": "failure_evidence_review",
+              "prerequisite_tasks": [],
+              "requirement_ids": [
+                "R005-bound-1"
+              ],
+              "next_action": "inspect retained failure evidence and correct source or adapter before a new run",
+              "evidence": [],
+              "ready_now": true,
+              "automatic_repair_authorized": false
+            }
+          ],
+          [
+            {
+              "task": "coupled-qa",
+              "category": "pending_condition_review",
+              "prerequisite_tasks": [
+                "coupled"
+              ],
+              "requirement_ids": [
+                "R003-bound-2"
+              ],
+              "next_action": "resolve upstream tasks before rerunning dependent task",
+              "evidence": [],
+              "ready_now": false,
+              "automatic_repair_authorized": false
+            }
+          ],
+          [
+            {
+              "task": "drawing",
+              "category": "pending_condition_review",
+              "prerequisite_tasks": [
+                "coupled",
+                "coupled-qa"
+              ],
+              "requirement_ids": [
+                "R006-bound-1"
+              ],
+              "next_action": "resolve upstream tasks before rerunning dependent task",
+              "evidence": [],
+              "ready_now": false,
+              "automatic_repair_authorized": false
+            }
+          ],
+          [
+            {
+              "task": "review",
+              "category": "manual_review",
+              "prerequisite_tasks": [
+                "coupled",
+                "coupled-qa",
+                "drawing"
+              ],
+              "requirement_ids": [
+                "R007-bound-1"
+              ],
+              "next_action": "resolve upstream tasks before rerunning dependent task",
+              "evidence": [],
+              "ready_now": false,
+              "automatic_repair_authorized": false
+            }
+          ]
+        ],
+        "ready_tasks": [
+          "coupled"
+        ],
+        "requires_fresh_diagnosis_after_each_wave": true,
+        "scope": "Conditional dependency order only; later waves require fresh execution and diagnosis, not assumed upstream success or automatic engineering changes"
+      },
+      "design_accepted": false,
+      "semantic_completeness": "not_established"
+    },
+    "no_coupled_IFC_or_drawing": true
+  },
+  "saved_unit_controls": {
+    "kilo-prefix-removed": {
+      "rejected": true,
+      "reason": "Scenario measure type or explicit unit differs: BaselineElectricalInput_kW",
+      "schema_issues": 0,
+      "saved_ifc_sha256": "248b1ceefde69171a4962d46551fea97734619844f812c8e81a00fa54996e134"
+    },
+    "power-unit-missing": {
+      "rejected": true,
+      "reason": "Scenario measure type or explicit unit differs: OperatingElectricalInput_kW",
+      "schema_issues": 0,
+      "saved_ifc_sha256": "f64c1260067558c247154804419885e38f51097a4f91cd56679be869db75e5a1"
+    },
+    "millisecond-flow-unit": {
+      "rejected": true,
+      "reason": "Scenario measure type or explicit unit differs: OperatingFlow_m3_s",
+      "schema_issues": 0,
+      "saved_ifc_sha256": "7b2641f1b00baf6888ed757f4742dbc49c74335a5deeca6fb76ace55ea1ea2a3"
+    },
+    "ratio-as-untyped-real": {
+      "rejected": true,
+      "reason": "Scenario measure type or explicit unit differs: OperatingPowerFactor",
+      "schema_issues": 0,
+      "saved_ifc_sha256": "15a0f9a1197a045629c5f1eaafa7421420f6f3d62153c87d9f70cacb840f5855"
+    }
+  },
+  "original_saved_IFC_unchanged": true,
+  "tests": {
+    "passed": 31,
+    "skipped": 0,
+    "suite": [
+      "test_coupled_handoff",
+      "test_pump_electrical",
+      "test_engineering_handoff",
+      "test_workflow_status",
+      "test_project_start"
+    ]
+  },
+  "upstream_warning": "IfcOpenShell ResourceWarning for unclosed IFC4.py",
+  "limitations": [
+    "Authored host interpretation, not arbitrary brief semantics",
+    "Synthetic equipment/curve/PF/efficiency and clearance policy",
+    "Other electrical loads/port topology and real product constraints pending",
+    "No new native DWG/visual plot acceptance",
+    "Whole installation and Hong Kong regulatory acceptance pending"
+  ]
+}

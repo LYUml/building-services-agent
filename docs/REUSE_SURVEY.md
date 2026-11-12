@@ -1,5 +1,11 @@
 # Reuse survey â€” 2026-11-09
 
+Shared pump/electrical handoff reuses existing source intake, engineering_handoff,
+water model sizing, pump solving, GUID/port binding, native clash and saved-IFC
+drawing adapters. Explicit measure/unit writing is thin IfcOpenShell API glue,
+not a new engine or dependency. Installed IFC4 schema declarations were inspected
+and saved units/schema/scale controls executed. See COUPLED_HANDOFF_UNITS.md.
+
 Engineering handoff reuses project_start/workflow_draft, workflow validation,
 the requirements inventory module, executor and diagnosis. The existing engines
 already execute the scoped electrical/air/water/IFC tasks; the actual gap is

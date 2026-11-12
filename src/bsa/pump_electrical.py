@@ -10,6 +10,7 @@ from .cli import digest,run as electrical_run
 from .engine import ProjectError,validate
 from .cad_overlay import equivalent
 from .pump import solve
+from . import ifc_property_units
 
 PSET='BSA_PumpElectrical'
 LOAD_BASIS='steady operating estimate; retain baseline design load and hardware'
@@ -67,7 +68,6 @@ def read_pump(report_path):
 def run(project,pump_report,ifc_path,network_binding,link_path,out):
     import numpy as np
     import ifcopenshell
-    import ifcopenshell.api as api
     import ifcopenshell.geom
     import ifcopenshell.util.system as system
     import ifcopenshell.util.element as element
@@ -76,7 +76,7 @@ def run(project,pump_report,ifc_path,network_binding,link_path,out):
     paths=[Path(p).resolve() for p in (project,pump_report,ifc_path,network_binding,link_path)];out=Path(out).resolve()
     project,pump_report,ifc_path,network_binding,link_path=paths
     pump,network,network_path,lineage=read_pump(pump_report)
-    inputs=set(paths)|set(lineage)
+    inputs=set(paths)|set(lineage)|{Path(__file__).resolve(),Path(ifc_property_units.__file__).resolve()}
     if any(out==p or out in p.parents for p in inputs):raise ProjectError('output must not contain source or pump evidence inputs')
     before={str(p):lineage[p] if p in lineage else digest(p) for p in inputs}
     if any(digest(Path(p))!=sha for p,sha in before.items()):raise ProjectError('pump evidence changed during binding preparation')
@@ -126,11 +126,19 @@ def run(project,pump_report,ifc_path,network_binding,link_path,out):
         OperatingElectricalInput_kW=point['estimated_electrical_kw'],OperatingPowerFactor=link['operating_power_factor'],NominalVoltage_V=float(baseline['supply_voltage_v']),
         OperatingFlow_m3_s=point['flow_m3_s'],PumpTotalPressureRise_Pa=point['pump_total_pressure_rise_pa'],HydraulicPower_kW=point['hydraulic_power_kw'],
         WireToWaterEfficiency=point['wire_to_water_efficiency'],LoadBasis=link['load_basis'],Source=operating['sources'][source_key],PumpReportSHA256=digest(pump_report))
-    pset=api.run('pset.add_pset',model,product=obj,name=PSET);api.run('pset.edit_pset',model,pset=pset,properties=properties)
+    properties['OperatingDeviceCurrent_A']=point['estimated_electrical_kw']*1000/link['operating_power_factor']/baseline['supply_voltage_v']
+    properties['Scenario']='Calculated steady operating estimate, not measured operation, motor nameplate, starting current or full design approval'
+    kinds={**{key:'power_kw' for key in ('BaselineElectricalInput_kW','OperatingElectricalInput_kW','HydraulicPower_kW')},
+        **{key:'ratio' for key in ('OperatingPowerFactor','WireToWaterEfficiency')},
+        **{key:'identifier' for key in ('ElectricalDeviceID','CircuitID')},
+        'NominalVoltage_V':'voltage','OperatingFlow_m3_s':'flow','PumpTotalPressureRise_Pa':'pressure','OperatingDeviceCurrent_A':'current'}
+    records={key:(val,kinds.get(key,'text')) for key,val in properties.items()}
+    ifc_property_units.add(model,obj,PSET,records)
     selected=out/'model.ifc';model.write(str(selected));reopened=ifcopenshell.open(str(selected))
     if any(str(reopened.by_id(id))!=value for id,value in original_entities.items()):raise ProjectError('existing IFC entities changed during property-only revision')
     saved=element.get_psets(reopened.by_guid(obj.GlobalId)).get(PSET,{})
     if any(not equivalent(value,saved.get(key)) for key,value in properties.items()):raise ProjectError('saved pump electrical properties differ')
+    typed_checks=ifc_property_units.inspect(reopened,reopened.by_guid(obj.GlobalId),PSET,records)
     reconcile(selected,network_path,binding)
     logger=ifcopenshell.validate.json_logger();ifcopenshell.validate.validate(reopened,logger,express_rules=True)
     (out/'schema-validation.json').write_text(json.dumps(logger.statements,default=str,indent=2),encoding='utf-8')
@@ -142,7 +150,7 @@ def run(project,pump_report,ifc_path,network_binding,link_path,out):
         operating_circuit_current_a=circuit['design_current_a'],pump_body_centre_m=centre.tolist())
     unchanged=all(digest(Path(p))==h for p,h in before.items())
     result=dict(inputs=before,inputs_unchanged=unchanged,record=record,pump_replayed=True,existing_ifc_entities_unchanged=True,
-        saved_ifc_properties_match=True,schema_valid=True,baseline_hardware_retained=baseline['circuits']==operating['circuits'],
+        saved_ifc_properties_match=True,saved_typed_properties=typed_checks,schema_valid=True,baseline_hardware_retained=baseline['circuits']==operating['circuits'],
         baseline_checks_pass=baseline_result['calculated_checks_pass'],operating_checks_pass=operating_result['calculated_checks_pass'],
         unbound_electrical_device_ids=[d['id'] for d in baseline['devices'] if d['id']!=target['id']],
         calculated_checks_pass=unchanged and baseline['circuits']==operating['circuits'] and baseline_result['calculated_checks_pass'] and operating_result['calculated_checks_pass'],design_accepted=False,
