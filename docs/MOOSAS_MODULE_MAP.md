@@ -1,5 +1,14 @@
 # MOOSAS priority reuse map
 
+A direct surface-to-space recognition probe now executes the pinned upstream
+transform pipeline on three original synthetic surface fixtures. With an explicit
+empty geometry-only template catalogue,one closed room,two adjacent rooms and a
+missing-wall control return1,2and0spaces respectively;native XML reload preserves
+their area,height,closure and boundary vertices. The default catalogue version
+failure is retained. No upstream source/geometry algorithm was modified. See
+examples/moosas-transform/README.md and evidence/moosas-transform-probe.json.
+This is not arbitrary architectural recognition or a registered common provider.
+
 Spatial-result rereading now includes retained-audit reconciliation for both
 providers. Actual native/MOOSAS3space exchanges match and altered common box
 dimensions/areas reject on both copied results.22related tests pass. The shared

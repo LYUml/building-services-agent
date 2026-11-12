@@ -1,5 +1,13 @@
 # Reuse survey â€” 2026-11-09
 
+MOOSAS recognition gap: inspected transform.pipeline,CCR generation,assembly,
+GEO importer and configure_model_resources before implementation. A thin probe
+calls the existing pinned upstream pipeline,with explicit geometry-only catalogue
+selection and native XML reload. Four actual cases retain default catalogue
+failure and verify1/2/0recognized spaces against synthetic expectations. No new
+geometry engine or dependency;Apache-2.0 notice retained. See
+examples/moosas-transform/README.md and evidence/moosas-transform-probe.json.
+
 Workflow allocation gap: reuse the registered classified-air-allocation provider
 and existing downstream allocation.json contract through a thin source-bound
 bridge. Host provider selection,disabled/failure gates and delivery replay now

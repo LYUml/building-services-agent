@@ -1,5 +1,14 @@
 # Attribution and upstream integration register
 
+- KLEGB/MOOSAS, Apache-2.0, https://github.com/KLEGB/MOOSAS, fixed commit
+  dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c. Direct transform/model API calls in
+  scripts/probe_moosas_transform.py use an unmodified external checkout. Upstream
+  license retained at third_party/licenses/moosas.txt;no upstream geometry source
+  copied into the wrapper. Explicit empty geometry-only catalogue compatibility
+  override is documented in examples/moosas-transform/README.md. No thermal or
+  jurisdiction template applied. Existing exchange attribution remains in
+  docs/MOOSAS_MODULE_MAP.md.
+
 Ideal equal-section rectangular tee authoring is original source/frame/volume
 binding around already pinned IfcOpenShell0.8.5 extrusion/Boolean/system APIs and
 Manifold3D3.5.4 material checks. Existing notices apply; no new solver, dependency,

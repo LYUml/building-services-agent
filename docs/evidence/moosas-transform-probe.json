@@ -1,0 +1,90 @@
+{
+  "upstream": "https://github.com/KLEGB/MOOSAS",
+  "commit": "dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c",
+  "license": "Apache-2.0",
+  "upstream_modified": false,
+  "cases": {
+    "default": {
+      "execution": "failed",
+      "space_metrics": [],
+      "saved_reload_matches": null,
+      "empty_catalogue_override": false,
+      "diagnostic": {
+        "type": "ValueError",
+        "message": "Unsupported building template catalog schema/version in library.json"
+      },
+      "report_sha256": "df48c9cfb81bf88a2ed20db5d6ad7aa3dfc0b67bf9cc23b7399eb681afb088d3",
+      "artifacts": {
+        "worker.log": "4d227a0ef4484ca336c6107f10f2bcbac698b348bae8a81593944eca9b7e0d84"
+      }
+    },
+    "closed": {
+      "execution": "completed",
+      "space_metrics": [
+        {
+          "area_m2": 12.0,
+          "height_m": 3.0,
+          "is_open": false
+        }
+      ],
+      "saved_reload_matches": true,
+      "empty_catalogue_override": true,
+      "diagnostic": null,
+      "report_sha256": "70fbc60fe91dba7a227463f37fd6074fc9f26212333f46788997871c2e322ee0",
+      "artifacts": {
+        "recognized.geo": "f6e668e8c4c0d761d579a1d9d0782319d69f60de290695366bbea06ccafe9fad",
+        "recognized.xml": "5d5ec861cb0c70d1470117925a52a2d0a032e8608f9cc32f433207f4414274ea",
+        "worker.log": "4badf84f78f390af5fed5cfecc3c222cf18b8e6269e8c5c1ad59705ad97e233d",
+        "geometry-only-catalogue/library.json": "eb5be2ea75ae1169f11426017d1e58638169e771cbe303dcaf93ca6abb58da54"
+      }
+    },
+    "two": {
+      "execution": "completed",
+      "space_metrics": [
+        {
+          "area_m2": 12.0,
+          "height_m": 3.0,
+          "is_open": false
+        },
+        {
+          "area_m2": 6.0,
+          "height_m": 3.0,
+          "is_open": false
+        }
+      ],
+      "saved_reload_matches": true,
+      "empty_catalogue_override": true,
+      "diagnostic": null,
+      "report_sha256": "716c5fb998591e91ebd94792e7fb9d9fcceb553070a9023663359280ee232a55",
+      "artifacts": {
+        "recognized.geo": "0e0c841c5fdddf9aa510fd5a26f111f426f732b0f88a7a025a972ce18e896739",
+        "recognized.xml": "38436ad6d536a979e0f64e75dae923d58745c99174251f83a76d734e36d8794f",
+        "worker.log": "d82a01e9cb8e2cf7ef2810afa804e1c3ec470a878b5f2f3b8aa334b24f7cece7",
+        "geometry-only-catalogue/library.json": "eb5be2ea75ae1169f11426017d1e58638169e771cbe303dcaf93ca6abb58da54"
+      }
+    },
+    "open": {
+      "execution": "completed",
+      "space_metrics": [],
+      "saved_reload_matches": true,
+      "empty_catalogue_override": true,
+      "diagnostic": null,
+      "report_sha256": "7fd3557f697333ff6ec046a08084f1b1a285a10fbd3d1fd72cc0006490ba9338",
+      "artifacts": {
+        "recognized.geo": "9a4ea229535225bac9de6fd23287089608d8b9390037c6e863b7d4f7cb9f8621",
+        "recognized.xml": "b39c509ec874df7f7790644590aef80a46b666cb2b5c769b16f30a81d3de5ee3",
+        "worker.log": "a23878eef8cfeb6e9c5221337f11f2b915374ae2f727315ddba6596ab54497ad",
+        "geometry-only-catalogue/library.json": "eb5be2ea75ae1169f11426017d1e58638169e771cbe303dcaf93ca6abb58da54"
+      }
+    }
+  },
+  "checks": "Expected synthetic room areas/heights/counts and XML reload compared;all source/method hashes unchanged",
+  "simulation_executed": false,
+  "design_accepted": false,
+  "limitations": [
+    "Synthetic axis-aligned surface fixtures only;not arbitrary DWG recognition",
+    "Explicit geometry-only empty template catalogue required for completed cases",
+    "Not integrated as common provider or used to derive actual coursework geometry",
+    "Full thermal/material/MEP/regulatory readiness unproven"
+  ]
+}
