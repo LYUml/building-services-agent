@@ -1180,3 +1180,10 @@ bore must stay distinct. Preserve proprietary attribution and local-only source
 bytes. Add a generic assumed-bore request using the existing verified payload
 review; no new solver or numerical substitution. See
 TERMINAL_PRODUCT_GEOMETRY_SOURCES.md.
+
+Saved RFA text-inspection gap: compare the native Revit inventory adapter
+(currently blocked by documented host signing policy) with read-only compound
+file inspection. Reuse pinned olefile0.47 and standard XML parsing for retained
+PartAtom text only. No custom structured-storage parser, geometry kernel or
+loader workaround. Preserve raw units and unverified default semantics. Native
+geometry, formulas and connectors remain pending. See RFA_METADATA.md.

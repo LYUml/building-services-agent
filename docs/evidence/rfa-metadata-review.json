@@ -1,0 +1,130 @@
+{
+  "scope": "Actual saved RFA candidate CFB/PartAtom read; complete archive and native geometry verification remain pending",
+  "source_sha256": "36f2a138c2713cb605997f7503341f6c026de513c44c5f2ee7967e03a9a6d490",
+  "metadata_report_sha256": "25fada112107eb5ae70573094357e69664a44e0ae6b01cf27994a59526139a93",
+  "source_archive_complete": false,
+  "olefile_version": "0.47",
+  "olefile_wheel_sha256": "543c7da2a7adadf21214938bb79c83ea12b473a4b6ee4ad4bf854e7715e13d1f",
+  "olefile_source_sha256": "dcce514efdcbd04fa689bc920531a1985df0837c92b57fe3af0c45c46f1bbd87",
+  "license_sha256": "cf1498d5b834b3758a89d06d224a1502c54a28b3a852f46130b761deaa4890d1",
+  "stream_count": 13,
+  "parsing_issue_count": 0,
+  "type_names": [
+    "1400",
+    "51400"
+  ],
+  "stored_parameters": {
+    "1400": {
+      "Min_Flow": {
+        "raw_value": "0 CFM",
+        "attributes": {
+          "displayName": "Min Flow",
+          "type": "system",
+          "typeOfParameter": "Air Flow",
+          "units": "CFM"
+        }
+      },
+      "Max_Flow": {
+        "raw_value": "0 CFM",
+        "attributes": {
+          "displayName": "Max Flow",
+          "type": "system",
+          "typeOfParameter": "Air Flow",
+          "units": "CFM"
+        }
+      },
+      "F22___Surface_Mount": {
+        "raw_value": "Yes",
+        "attributes": {
+          "displayName": "F22 - Surface Mount",
+          "type": "custom",
+          "typeOfParameter": "Yes/No"
+        }
+      },
+      "Conditioned_Air_Connection_Radius": {
+        "raw_value": "6\"",
+        "attributes": {
+          "displayName": "Conditioned Air Connection Radius",
+          "type": "shared",
+          "id": "6d3947af-97e1-4dd3-986d-ddd733f47de9",
+          "typeOfParameter": "Duct Size"
+        }
+      },
+      "F23___Lay_in_T_Bar": {
+        "raw_value": "No",
+        "attributes": {
+          "displayName": "F23 - Lay-in T-Bar",
+          "type": "custom",
+          "typeOfParameter": "Yes/No"
+        }
+      },
+      "Duct_Connection_Radius": {
+        "raw_value": "6\"",
+        "attributes": {
+          "displayName": "Duct Connection Radius",
+          "type": "custom",
+          "typeOfParameter": "Duct Size"
+        }
+      }
+    },
+    "51400": {
+      "Min_Flow": {
+        "raw_value": "0 CFM",
+        "attributes": {
+          "displayName": "Min Flow",
+          "type": "system",
+          "typeOfParameter": "Air Flow",
+          "units": "CFM"
+        }
+      },
+      "Max_Flow": {
+        "raw_value": "0 CFM",
+        "attributes": {
+          "displayName": "Max Flow",
+          "type": "system",
+          "typeOfParameter": "Air Flow",
+          "units": "CFM"
+        }
+      },
+      "F22___Surface_Mount": {
+        "raw_value": "Yes",
+        "attributes": {
+          "displayName": "F22 - Surface Mount",
+          "type": "custom",
+          "typeOfParameter": "Yes/No"
+        }
+      },
+      "Conditioned_Air_Connection_Radius": {
+        "raw_value": "6\"",
+        "attributes": {
+          "displayName": "Conditioned Air Connection Radius",
+          "type": "shared",
+          "id": "6d3947af-97e1-4dd3-986d-ddd733f47de9",
+          "typeOfParameter": "Duct Size"
+        }
+      },
+      "F23___Lay_in_T_Bar": {
+        "raw_value": "No",
+        "attributes": {
+          "displayName": "F23 - Lay-in T-Bar",
+          "type": "custom",
+          "typeOfParameter": "Yes/No"
+        }
+      },
+      "Duct_Connection_Radius": {
+        "raw_value": "6\"",
+        "attributes": {
+          "displayName": "Duct Connection Radius",
+          "type": "custom",
+          "typeOfParameter": "Duct Size"
+        }
+      }
+    }
+  },
+  "metadata_tamper_rejected": true,
+  "tests_passed": 20,
+  "native_revit_executed": false,
+  "geometry_verified": false,
+  "connectors_verified": false,
+  "design_accepted": false
+}

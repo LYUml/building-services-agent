@@ -1,5 +1,9 @@
 # Building Services Agent
 
+Saved RFA PartAtom text can now be inspected through pinned upstream olefile,
+with raw parameter units/defaults and replay checks. This is read-only metadata;
+native geometry/connectors remain unverified. See docs/RFA_METADATA.md.
+
 Official terminal dimensions now distinguish nominal connection, actual neck
 and unverified hydraulic bore. Retained analysis requests flag assumed bores
 without rewriting geometry or losses. See docs/TERMINAL_PRODUCT_GEOMETRY_SOURCES.md.

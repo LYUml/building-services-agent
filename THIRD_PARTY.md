@@ -251,3 +251,10 @@ fingerprints transferred geometry and binds saved native cap frames to a directe
 placement tree; no upstream implementation is copied. The existing isolated
 official IfcMCP runtime supplies read-only duct class counts under its retained
 notices, without changing the engineering environment.
+
+Saved RFA metadata inspection reuses olefile0.47 by Philippe Lagadec, retaining
+its BSD redistribution terms and inherited PIL notices in
+third_party/olefile/LICENSE.txt. Source: https://github.com/decalage2/olefile .
+No upstream implementation is modified or vendored. This reads CFB/PartAtom
+text only; it does not implement Revit geometry or connectors. Manufacturer
+BIM assets are copyrighted local-only sources, not open-source dependencies.
