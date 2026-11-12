@@ -14,10 +14,11 @@ SCHEMAS[RULE_SCHEMA]='rule-assessment-v1.json'
 SCHEMAS['bsa.electrical-circuits/1']='electrical-circuits-v1.json'
 SCHEMAS['bsa.air-allocation/1']='air-allocation-v1.json'
 SCHEMAS['bsa.spatial-polygons/1']='spatial-polygons-v1.json'
+SCHEMAS['bsa.straight-friction-components/1']='straight-friction-components-v1.json'
 
 
 def artifact_references(schema,data):
-    if schema=='bsa.air-allocation/1':return ('report',)
+    if schema in ('bsa.air-allocation/1','bsa.straight-friction-components/1'):return ('report',)
     if schema=='bsa.electrical-circuits/1':return ('report','schematic_dxf')
     if schema=='bsa.model-artifact/1':return ('model','verification')
     if schema=='bsa.air-budget/1':return ('report',)
@@ -63,6 +64,20 @@ def validate(data,schema=None):
     spec=read_json(ROOT/'contracts/modules'/SCHEMAS[schema]);jsonschema.Draft202012Validator.check_schema(spec)
     errors=list(jsonschema.Draft202012Validator(spec).iter_errors(data))
     if errors:raise ValueError('Contract violation: '+errors[0].message)
+    if schema=='bsa.straight-friction-components/1':
+        components=data['components'];cases=[case for row in components.values() for case in row['cases'].values()]
+        complete=all(case['status']=='calculated' for case in cases)
+        if data['case_count']!=len(cases) or data['checks']['case_domain_complete']!=complete or data['status']!=('pass' if complete else 'pending'):raise ValueError('Friction case/status aggregation differs')
+        guids=[row['stub_guid'] for row in components.values()]
+        if len(set(guids))!=len(guids):raise ValueError('Duplicate native friction component identity')
+        ports=[row[key] for row in components.values() for key in ('inlet_port_guid','outlet_port_guid')]
+        if len(ports)!=len(set(ports)):raise ValueError('Duplicate native friction port identity')
+        for row in components.values():
+            if not math.isclose(row['length_over_diameter'],row['native_length_m']/row['native_internal_diameter_m'],rel_tol=1e-10):raise ValueError('Friction native length ratio differs')
+            for case in row['cases'].values():
+                if not math.isclose(case['flow_m3_s'],case['flow_L_s']/1000,rel_tol=1e-10):raise ValueError('Friction flow unit correspondence differs')
+        name=data['report']['path']
+        if '\\' in name or PurePosixPath(name).is_absolute() or '..' in PurePosixPath(name).parts or ':' in name:raise ValueError('Friction artifact must be local relative path')
     if schema=='bsa.spatial-polygons/1':
         from shapely.geometry import Polygon
         frame_spec=read_json(ROOT/'contracts/modules/request-v1.json')['properties']['coordinate_frame']
@@ -124,7 +139,7 @@ def validate(data,schema=None):
         if list(jsonschema.Draft202012Validator(request_schema['properties']['coordinate_frame']).iter_errors(frame)):raise ValueError('Invalid common coordinate frame')
     if schema in ('bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
         if (data['status']=='pass')!=all(data['checks'].values()):raise ValueError('Analysis status differs from numerical checks')
-    if schema in ('bsa.air-allocation/1','bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
+    if schema in ('bsa.straight-friction-components/1','bsa.air-allocation/1','bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
         for key in artifact_references(schema,data):
             name=data[key]['path']
             if '\\' in name or PurePosixPath(name).is_absolute() or '..' in PurePosixPath(name).parts or ':' in name:raise ValueError('Model artifact references must be local relative paths')
@@ -151,7 +166,7 @@ def validate(data,schema=None):
                 for key in artifact_references(data['payload_schema'],data['payload']):
                     row=data['payload'][key]
                     if data['artifacts'].get(row['path'])!=row['sha256']:raise ValueError('Electrical artifact differs from module inventory')
-            if data['payload_schema'] in ('bsa.air-allocation/1','bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
+            if data['payload_schema'] in ('bsa.straight-friction-components/1','bsa.air-allocation/1','bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
                 for key in artifact_references(data['payload_schema'],data['payload']):
                     row=data['payload'][key]
                     if data['artifacts'].get(row['path'])!=row['sha256']:raise ValueError('Model artifact payload differs from complete artifact inventory')

@@ -14,7 +14,7 @@ from bsa.documents import extract
 ROOT=Path(__file__).resolve().parents[2]
 
 
-def build(out, sources=None, *, ifc_source=None, tolerances=None, air_balance=False, terminal_allocation=False, performance_settings=None, drawing_settings=None, native_settings=None, ifc_basis=None, clash_policy=None, inlet_basis=None, stub_basis=None):
+def build(out, sources=None, *, ifc_source=None, tolerances=None, air_balance=False, terminal_allocation=False, performance_settings=None, drawing_settings=None, native_settings=None, ifc_basis=None, clash_policy=None, inlet_basis=None, stub_basis=None, friction_basis=None):
     if terminal_allocation and not air_balance:raise ValueError('Terminal allocation requires explicit air balance selection')
     if performance_settings is not None and not terminal_allocation:raise ValueError("Performance requires explicit terminal allocation")
     if drawing_settings is not None and not terminal_allocation:raise ValueError('Drawing requires explicit terminal allocation')
@@ -23,6 +23,7 @@ def build(out, sources=None, *, ifc_source=None, tolerances=None, air_balance=Fa
     if inlet_basis is not None and ifc_basis is None:raise ValueError('Inlets require explicit terminal IFC basis')
     if clash_policy is not None and ifc_basis is None:raise ValueError('Coordination requires explicit terminal IFC basis')
     if stub_basis is not None and inlet_basis is None:raise ValueError('Short stubs require explicit inlet basis')
+    if friction_basis is not None and stub_basis is None:raise ValueError('Native friction requires explicit short-stub basis')
     out=Path(out).resolve()
     if out.exists():raise ValueError('New workflow input directory required')
     out.mkdir(parents=True);(out/'sources').mkdir()
@@ -108,6 +109,13 @@ def build(out, sources=None, *, ifc_source=None, tolerances=None, air_balance=Fa
         if path is not None:
             shutil.copyfile(path,out/(name+'-basis.json'))
             paragraphs.insert(-1,text);ids.insert(-1,name)
+    if friction_basis is not None:
+        shutil.copyfile(friction_basis,out/'friction-basis.json')
+        source_request=json.loads((out/request_name).read_text())
+        request=dict(schema='bsa.module-request/1',project_id=source_request['project_id'],scenario_id='native-straight-friction',capability='analysis.air.native-stub-friction',coordinate_frame=source_request['coordinate_frame'],sources=dict(basis=dict(path='friction-basis.json',sha256=digest(out/'friction-basis.json'))))
+        (out/'friction-request.json').write_text(json.dumps(request,indent=2))
+        paragraphs.insert(-1,'Calculate inherited native short-stub straight-friction components through the selected analysis provider;retain unsupported regimes and unverified flow-development/full-pressure acceptance.')
+        ids.insert(-1,'straight-friction')
     brief.write_text('\n\n'.join(paragraphs)+'\n',encoding='utf-8')
     passages=extract(brief)['passages']
     plan=dict(version=1,brief=brief.name,brief_sha256=digest(brief),
@@ -139,6 +147,10 @@ def build(out, sources=None, *, ifc_source=None, tolerances=None, air_balance=Fa
             index=next(i for i,t in enumerate(plan['tasks']) if t['id']=='review')
             plan['tasks'].insert(index,dict(id=name,kind=kind,depends_on=parent,**{field:name+'-basis.json'}))
             next(t for t in plan['tasks'] if t['id']=='review')['requires_pass'].append(name)
+    if friction_basis is not None:
+        index=next(i for i,t in enumerate(plan['tasks']) if t['id']=='review')
+        plan['tasks'].insert(index,dict(id='straight-friction',kind='module_analysis',depends_on='terminal-stubs',provider='fluids.native-stub-friction',request='friction-request.json'))
+        next(t for t in plan['tasks'] if t['id']=='review')['requires_pass'].append('straight-friction')
     if len(passages)!=len(ids)+1:raise ValueError('Exact public fixture passage coverage required')
     path=out/'plan.json';path.write_text(json.dumps(plan,indent=2));return path
 
@@ -154,6 +166,7 @@ if __name__=='__main__':
     parser.add_argument('--ifc-basis',type=Path);parser.add_argument('--clash-policy',type=Path)
     parser.add_argument('--inlet-basis',type=Path)
     parser.add_argument('--stub-basis',type=Path)
+    parser.add_argument('--friction-basis',type=Path)
     args=parser.parse_args()
     if args.ifc and (args.length_tolerance_m is None or args.area_tolerance_m2 is None):parser.error('Explicit IFC source length/area tolerances required')
-    print(build(args.out,args.sources,ifc_source=args.ifc,tolerances=None if args.ifc is None else dict(length_tolerance_m=args.length_tolerance_m,area_tolerance_m2=args.area_tolerance_m2),air_balance=args.air_balance,terminal_allocation=args.terminal_allocation,performance_settings=args.performance_settings,drawing_settings=args.drawing_settings,native_settings=args.native_settings,ifc_basis=args.ifc_basis,clash_policy=args.clash_policy,inlet_basis=args.inlet_basis,stub_basis=args.stub_basis))
+    print(build(args.out,args.sources,ifc_source=args.ifc,tolerances=None if args.ifc is None else dict(length_tolerance_m=args.length_tolerance_m,area_tolerance_m2=args.area_tolerance_m2),air_balance=args.air_balance,terminal_allocation=args.terminal_allocation,performance_settings=args.performance_settings,drawing_settings=args.drawing_settings,native_settings=args.native_settings,ifc_basis=args.ifc_basis,clash_policy=args.clash_policy,inlet_basis=args.inlet_basis,stub_basis=args.stub_basis,friction_basis=args.friction_basis))

@@ -1,5 +1,9 @@
 # Building Services Agent
 
+Native stub friction now uses the common analysis contract and exact inherited
+workflow source. Geometry/analysis disable controls are isolated; numerical
+completion remains separate from engineering acceptance. See docs/MODULAR_STUB_FRICTION.md.
+
 Saved stub geometry and flow now feed the existing fluids straight-friction
 engine with density inherited from the original room balance. Two actual
 provider results match;short-duct development,entry/joint losses and whole-system

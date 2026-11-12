@@ -1,0 +1,550 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "coordinate_frame",
+    "units",
+    "status",
+    "checks",
+    "components",
+    "case_count",
+    "fluid_basis",
+    "report",
+    "geometry_bound",
+    "engineering_status",
+    "fully_developed_flow_verified",
+    "whole_system_pressure_complete",
+    "design_accepted"
+  ],
+  "properties": {
+    "schema": {
+      "const": "bsa.straight-friction-components/1"
+    },
+    "coordinate_frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "length_unit",
+        "georeferenced"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "source-world-si"
+        },
+        "length_unit": {
+          "const": "m"
+        },
+        "georeferenced": {
+          "const": false
+        }
+      }
+    },
+    "units": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "flow",
+        "flow_si",
+        "length",
+        "pressure",
+        "velocity",
+        "density",
+        "dynamic_viscosity",
+        "dimensionless"
+      ],
+      "properties": {
+        "flow": {
+          "const": "L/s"
+        },
+        "flow_si": {
+          "const": "m3/s"
+        },
+        "length": {
+          "const": "m"
+        },
+        "pressure": {
+          "const": "Pa"
+        },
+        "velocity": {
+          "const": "m/s"
+        },
+        "density": {
+          "const": "kg/m3"
+        },
+        "dynamic_viscosity": {
+          "const": "Pa.s"
+        },
+        "dimensionless": {
+          "const": "1"
+        }
+      }
+    },
+    "status": {
+      "enum": [
+        "pass",
+        "pending"
+      ]
+    },
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_domain_complete"
+      ],
+      "properties": {
+        "case_domain_complete": {
+          "type": "boolean"
+        }
+      }
+    },
+    "components": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "stub_guid",
+          "space_guid",
+          "inlet_port_guid",
+          "outlet_port_guid",
+          "native_length_m",
+          "native_internal_diameter_m",
+          "inlet_point_m",
+          "outlet_point_m",
+          "inherited_density",
+          "inherited_stub_basis",
+          "length_over_diameter",
+          "cases"
+        ],
+        "properties": {
+          "stub_guid": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[0-3][0-9A-Za-z_$]{21}$"
+          },
+          "space_guid": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[0-3][0-9A-Za-z_$]{21}$"
+          },
+          "inlet_port_guid": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[0-3][0-9A-Za-z_$]{21}$"
+          },
+          "outlet_port_guid": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[0-3][0-9A-Za-z_$]{21}$"
+          },
+          "native_length_m": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "native_internal_diameter_m": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "inlet_point_m": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 3,
+            "items": {
+              "type": "number"
+            }
+          },
+          "outlet_point_m": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 3,
+            "items": {
+              "type": "number"
+            }
+          },
+          "inherited_density": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "value",
+              "unit",
+              "source",
+              "classification"
+            ],
+            "properties": {
+              "value": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "unit": {
+                "const": "kg/m3"
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "classification": {
+                "enum": [
+                  "given",
+                  "measured",
+                  "assumed",
+                  "secondary_transcription",
+                  "design_choice"
+                ]
+              }
+            }
+          },
+          "inherited_stub_basis": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "length_m",
+              "internal_diameter_m",
+              "wall_thickness_m"
+            ],
+            "properties": {
+              "length_m": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "value",
+                  "unit",
+                  "source",
+                  "classification"
+                ],
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "unit": {
+                    "const": "m"
+                  },
+                  "source": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "classification": {
+                    "enum": [
+                      "given",
+                      "measured",
+                      "assumed",
+                      "secondary_transcription",
+                      "design_choice"
+                    ]
+                  }
+                }
+              },
+              "internal_diameter_m": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "value",
+                  "unit",
+                  "source",
+                  "classification"
+                ],
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "unit": {
+                    "const": "m"
+                  },
+                  "source": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "classification": {
+                    "enum": [
+                      "given",
+                      "measured",
+                      "assumed",
+                      "secondary_transcription",
+                      "design_choice"
+                    ]
+                  }
+                }
+              },
+              "wall_thickness_m": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "value",
+                  "unit",
+                  "source",
+                  "classification"
+                ],
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "unit": {
+                    "const": "m"
+                  },
+                  "source": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "classification": {
+                    "enum": [
+                      "given",
+                      "measured",
+                      "assumed",
+                      "secondary_transcription",
+                      "design_choice"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "length_over_diameter": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "cases": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "maximum",
+              "minimum"
+            ],
+            "properties": {
+              "maximum": {
+                "$ref": "#/$defs/case"
+              },
+              "minimum": {
+                "$ref": "#/$defs/case"
+              }
+            }
+          }
+        }
+      },
+      "propertyNames": {
+        "minLength": 1,
+        "pattern": "\\S"
+      }
+    },
+    "case_count": {
+      "type": "integer",
+      "minimum": 2
+    },
+    "fluid_basis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dynamic_viscosity_pa_s",
+        "roughness_m"
+      ],
+      "properties": {
+        "dynamic_viscosity_pa_s": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "source",
+            "classification"
+          ],
+          "properties": {
+            "value": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "unit": {
+              "const": "Pa.s"
+            },
+            "source": {
+              "type": "string",
+              "minLength": 1
+            },
+            "classification": {
+              "enum": [
+                "given",
+                "measured",
+                "assumed",
+                "secondary_transcription",
+                "design_choice"
+              ]
+            }
+          }
+        },
+        "roughness_m": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "source",
+            "classification"
+          ],
+          "properties": {
+            "value": {
+              "type": "number",
+              "minimum": 0
+            },
+            "unit": {
+              "const": "m"
+            },
+            "source": {
+              "type": "string",
+              "minLength": 1
+            },
+            "classification": {
+              "enum": [
+                "given",
+                "measured",
+                "assumed",
+                "secondary_transcription",
+                "design_choice"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "report": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "geometry_bound": {
+      "const": true
+    },
+    "engineering_status": {
+      "const": "pending"
+    },
+    "fully_developed_flow_verified": {
+      "const": false
+    },
+    "whole_system_pressure_complete": {
+      "const": false
+    },
+    "design_accepted": {
+      "const": false
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "flow_L_s",
+        "flow_m3_s",
+        "velocity_m_s",
+        "reynolds",
+        "relative_roughness",
+        "signed_geometric_rho_g_dz_Pa",
+        "status",
+        "darcy_friction_factor",
+        "straight_friction_Pa",
+        "regime"
+      ],
+      "properties": {
+        "flow_L_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "flow_m3_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "velocity_m_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "reynolds": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "relative_roughness": {
+          "type": "number",
+          "minimum": 0,
+          "exclusiveMaximum": 0.05
+        },
+        "signed_geometric_rho_g_dz_Pa": {
+          "type": "number"
+        },
+        "status": {
+          "enum": [
+            "calculated",
+            "pending"
+          ]
+        },
+        "darcy_friction_factor": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "straight_friction_Pa": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "regime": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "calculated"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "darcy_friction_factor": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "straight_friction_Pa": {
+                "type": "number",
+                "minimum": 0
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "darcy_friction_factor": {
+                "type": "null"
+              },
+              "straight_friction_Pa": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

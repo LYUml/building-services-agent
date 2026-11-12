@@ -41,8 +41,8 @@ under the declared model;entrance,developing-flow,exit and actual joint effects
 remain unverified. engineering_status stays pending even when numerical cases
 calculate. No whole-network pressure,fan selection,compressibility/air-state,
 regulatory or design acceptance is established. Original six interface-clearance
-failures are untouched. Workflow-task and further performance integration remain
-unfinished.
+failures are untouched. Common module/workflow integration is now available; see
+MODULAR_STUB_FRICTION.md. Further performance integration remains unfinished.
 
 Validation:14 related tests pass. Laminar pressure matches independent
 Hagen-Poiseuille arithmetic;the turbulent factor satisfies an independent

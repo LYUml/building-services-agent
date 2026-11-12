@@ -42,7 +42,7 @@ def host_selection(tasks,overrides=None,disabled=()):
 def execution_status(result,kind):
     status={'completed':'pass','failed':'fail','unavailable':'pending','pending':'pending'}[result['execution']['status']]
     if kind=='module_analysis' and result['execution']['status']=='completed':
-        if result['payload_schema'] not in ('bsa.electrical-circuits/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):raise ValueError('Supported numerical analysis payload required')
+        if result['payload_schema'] not in ('bsa.straight-friction-components/1','bsa.electrical-circuits/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):raise ValueError('Supported numerical analysis payload required')
         status=result['payload']['status']
     return status
 
@@ -96,6 +96,13 @@ def inherited_request(task,tasks,root,run):
     request=module_contract.read_json(request_path)
     inputs(request_path,task['provider'],inherited=True)
     producer=next(t for t in tasks if t['id']==task['depends_on'])
+    if task['kind']=='module_analysis' and request['capability']=='analysis.air.native-stub-friction':
+        if producer['kind']!='spatial_terminal_stubs':raise ValueError('Native friction requires exact earlier short-stub producer')
+        destination=(Path(run)/task['id']/'request.json').resolve()
+        sources={k:(request_path.parent/r['path']).resolve() for k,r in request['sources'].items()}
+        sources['stubs']=(Path(run)/producer['id']/'terminal-stubs.json').resolve()
+        request['sources']={k:dict(path=os.path.relpath(path,destination.parent),sha256=digest(path)) for k,path in sources.items()}
+        return destination,request
     if producer['kind']=='module_authoring':
         model,frame=authored_model(run,producer)
         if frame!=request['coordinate_frame']:raise ValueError('Authoring and spatial source frames differ')
@@ -159,7 +166,7 @@ def inputs(request_path,provider_id,*,inherited=False):
     request=module_contract.validate(module_contract.read_json(request_path),'bsa.module-request/1')
     provider=get_provider(provider_id)
     if inherited:
-        expected={'project','binding'} if request['capability'] in ('analysis.air.rectangular-ifc-tree','analysis.water.ifc-steady-graph') else {'binding'}
+        expected={'basis'} if request['capability']=='analysis.air.native-stub-friction' else {'project','binding'} if request['capability'] in ('analysis.air.rectangular-ifc-tree','analysis.water.ifc-steady-graph') else {'binding'}
         if request['capability']!=provider.CAPABILITY or set(request['sources'])!=expected:raise ValueError('Inherited module template has wrong source roles;replacement IFC forbidden')
     else:provider.validate_request(request)
     paths={request_path,Path(__file__),*method_paths(provider)}

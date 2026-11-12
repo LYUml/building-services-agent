@@ -1152,3 +1152,10 @@ Original terminal source gap: reuse terminal_throw and pinned fluids1.3.1 interp
 Schedule correspondence review: reuse existing duct_sheet,duct_sheet_native,native reopen export and delivery review;independent Decimal formatting/velocity arithmetic reads the retained47section/235cell data and labels. No new solver,CAD engine or dependency. Actual project run and pixel-equal plot review execute in the coursework workspace. Conditional table presentation is distinct from unresolved sizing/friction/geometry/installation acceptance. See evidence/duct-schedule-native-review.json.
 
 External equation-review gap: reuse existing duct_schedule_check and duct_junction_review,extending only their output guard to the existing explicit host workspace policy and pinning workspace.py. No new friction solver,chart extractor or dependency. Actual47section/16,779candidate audit executes in the coursework workspace;25related tests pass. Official ASHRAE2021source corroborates the equation family,but2013classroom raster readings/physical applicability remain unverified. See evidence/external-duct-equation-review.json.
+
+Native-stub common analysis gap: reuse existing spatial_stub_friction native
+source reader, network.friction_factor and pinned fluids1.3.1 (MIT), common
+jsonschema contracts and workflow materialization/disable gates. No new solver
+or dependency. Exact source/model correspondence is retained; numerical case
+completion cannot clear physical-development, joint, fan or full acceptance.
+See MODULAR_STUB_FRICTION.md for executed cases and remaining scope.

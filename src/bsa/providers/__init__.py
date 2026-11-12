@@ -2,6 +2,9 @@
 
 
 def get_provider(id):
+    if id=='fluids.native-stub-friction':
+        from . import stub_friction
+        return stub_friction
     if id=='ifcopenshell.polygon-spaces':
         from . import ifc_polygon_spaces
         return ifc_polygon_spaces

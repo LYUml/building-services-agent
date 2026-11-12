@@ -412,13 +412,15 @@ def validate_plan(path):
             if kind=='module_analysis':
                 from .module_contract import read_json as read_module
                 capability=read_module(local_path(root,t.get('request')))['capability']
-                if capability not in ('analysis.electrical.single-phase-circuits','analysis.air.rectangular-tree','analysis.air.rectangular-ifc-tree','analysis.water.steady-graph','analysis.water.ifc-steady-graph'):raise ProjectError('Supported numerical analysis capability required')
-                if parent and (capability not in ('analysis.air.rectangular-ifc-tree','analysis.water.ifc-steady-graph') or parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='module_authoring'):raise ProjectError('Bound budget requires earlier canonical module authoring producer')
+                if capability not in ('analysis.air.native-stub-friction','analysis.electrical.single-phase-circuits','analysis.air.rectangular-tree','analysis.air.rectangular-ifc-tree','analysis.water.steady-graph','analysis.water.ifc-steady-graph'):raise ProjectError('Supported numerical analysis capability required')
+                if parent and capability=='analysis.air.native-stub-friction':
+                    if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='spatial_terminal_stubs':raise ProjectError('Native friction must inherit earlier short-stub producer')
+                elif parent and (capability not in ('analysis.air.rectangular-ifc-tree','analysis.water.ifc-steady-graph') or parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='module_authoring'):raise ProjectError('Bound budget requires earlier canonical module authoring producer')
             if kind=='module_authoring':
                 if 'depends_on' in t:raise ProjectError('Authoring module uses explicit project request,not inherited geometry')
                 from .module_contract import read_json as read_module
                 if read_module(local_path(root,t.get('request')))['capability']!='authoring.ifc.bim':raise ProjectError('Supported IFC authoring capability required')
-            if parent and (parent not in ids or next(x for x in tasks if x['id']==parent)['kind'] not in {*IFC_ARTIFACTS,'module_authoring'}):raise ProjectError('Inherited spatial module requires earlier supported saved IFC producer')
+            if parent and not (kind=='module_analysis' and capability=='analysis.air.native-stub-friction') and (parent not in ids or next(x for x in tasks if x['id']==parent)['kind'] not in {*IFC_ARTIFACTS,'module_authoring'}):raise ProjectError('Inherited spatial module requires earlier supported saved IFC producer')
             inputs.update(module_inputs(local_path(root,t.get('request')),t.get('provider'),inherited=bool(parent)))
         if kind in ("electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","rectangular_network","water_network","water_coordination","network_design","network_model_design","lighting"):
             if not (kind in ("water_network","rectangular_network","annual_energy") and t.get("depends_on")):inputs.add(local_path(root,t.get("project")))

@@ -1,5 +1,10 @@
 # Modular architecture and next implementation sequence
 
+Saved-native stub straight-friction components now have a registered common
+analysis boundary with exact workflow inheritance and explicit disable controls.
+This extends the existing engine; full-network and engineering acceptance remain
+pending. See MODULAR_STUB_FRICTION.md.
+
 A new domain consumer now inherits common box/polygon floor areas into the
 existing classified thermal/supply-air balance without repeated area inputs.
 Native/MOOSAS replacement preserves the calculation;19distinct related tests

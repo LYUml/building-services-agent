@@ -687,3 +687,8 @@ Two new drawing-gate and5 default-workflow regression invocations pass. Failed
 rules prevent both drawing stages;missing AutoCAD leaves native work pending.
 Pump/node bodies,fittings,physical clashes,installation details,products,full HK
 scope and full engineering acceptance remain pending. See the retained evidence.
+
+Native short-stub components also use module_analysis through
+fluids.native-stub-friction, with exact inherited stub report and classified
+property basis. See MODULAR_STUB_FRICTION.md for source roles, typed payload
+and mandatory pending engineering acceptance.

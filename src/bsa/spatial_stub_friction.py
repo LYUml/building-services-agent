@@ -65,7 +65,7 @@ def prepare(source,basis):
     for module in (stubs,network,core,friction):pins[str(Path(module.__file__).resolve())]=digest(Path(module.__file__))
     pins[str(Path(__file__).resolve())]=digest(Path(__file__))
     if digest(source)!=before or any(digest(Path(p))!=sha for p,sha in pins.items()):raise ValueError('Straight-friction source/method changed')
-    calculation=dict(schema='bsa.terminal-straight-friction/1',units=dict(flow='L/s',length='m',pressure='Pa'),basis=spec,terminals=rows,status='pending' if requests else 'calculated',data_requests=requests,
+    calculation=dict(schema='bsa.terminal-straight-friction/1',coordinate_frame=balance['calculation']['coordinate_frame'],units=dict(flow='L/s',length='m',pressure='Pa'),basis=spec,terminals=rows,status='pending' if requests else 'calculated',data_requests=requests,
         engineering_status='pending',fully_developed_flow_verified=False,air_state_verified=False,whole_system_pressure_complete=False,fan_selection_complete=False,regulatory_acceptance=False,design_accepted=False,
         scope='Incompressible constant-property fully-developed straight-wall friction component only;short-duct entrance/developing-flow applicability is unverified. Signed rho*g*dz is a separate geometric diagnostic,not fan duty or ambient-reference pressure. No parallel pressure sum,minor losses,terminal total/static pressure or whole-network acceptance')
     return calculation,pins
