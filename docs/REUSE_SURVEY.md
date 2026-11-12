@@ -1,5 +1,11 @@
 # Reuse survey â€” 2026-11-09
 
+Engineering handoff reuses project_start/workflow_draft, workflow validation,
+the requirements inventory module, executor and diagnosis. The existing engines
+already execute the scoped electrical/air/water/IFC tasks; the actual gap is
+host-interpretation-to-task glue, not another solver or external package.
+No new dependency or third-party code is added. See ENGINEERING_HANDOFF.md.
+
 Catalogue recovery reuses circular_fan_selection and its shared preference
 screen/fluids solver, requirements source inventory, workflow execution and
 dependency diagnosis. Thin plan/provenance glue is needed; no new engine or

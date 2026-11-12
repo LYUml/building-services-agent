@@ -1,0 +1,335 @@
+{
+  "scope": "Explicit host interpretation handoff into existing adapters, not arbitrary semantic interpretation or integrated engineering design",
+  "design_accepted": false,
+  "tests": {
+    "passed": 38,
+    "skipped": 0,
+    "suite": [
+      "test_engineering_handoff",
+      "test_workflow_status",
+      "test_workflow_draft",
+      "test_project_start",
+      "test_requirements_provider",
+      "test_work_plan_cli"
+    ]
+  },
+  "upstream_warning": "IfcOpenShell ResourceWarning for unclosed IFC4.py",
+  "methods": {
+    "src\\bsa\\engineering_handoff.py": "96bc8fc87b5a8aebb821f909a563514930f2a7cb54e4a95cc27d828dee7bb2d3",
+    "scripts\\run_engineering_handoff_demo.py": "5480df5aa7e0657847d8bf4262858b90f59b251a285c643cffa3a1f2118c55b9"
+  },
+  "cases": {
+    "engineering-handoff-verified-public": {
+      "verification": {
+        "integrity_pass": true,
+        "original_requirement_ids": [
+          "R001",
+          "R002",
+          "R003",
+          "R004",
+          "R005"
+        ],
+        "task_statuses": {
+          "electrical": "pass",
+          "air": "pass",
+          "water": "pass",
+          "envelopes": "pass",
+          "review": "pending"
+        },
+        "retained_input_gaps": [],
+        "recovery_schedule": {
+          "waves": [
+            [
+              {
+                "task": "review",
+                "category": "manual_review",
+                "prerequisite_tasks": [],
+                "requirement_ids": [
+                  "R005-bound-1"
+                ],
+                "next_action": "perform the specified review and record evidence separately",
+                "evidence": [],
+                "ready_now": true,
+                "automatic_repair_authorized": false
+              }
+            ]
+          ],
+          "ready_tasks": [
+            "review"
+          ],
+          "requires_fresh_diagnosis_after_each_wave": true,
+          "scope": "Conditional dependency order only; later waves require fresh execution and diagnosis, not assumed upstream success or automatic engineering changes"
+        },
+        "design_accepted": false,
+        "semantic_completeness": "not_established"
+      },
+      "source_transfers": {
+        "electrical.json": {
+          "source": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\office-electrical\\project.json",
+          "sha256": "34e1fba15d2ec9dacbdf256cf996d2de772873d720374f1ac55fd6b64ac4f34a"
+        },
+        "air.json": {
+          "source": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-design\\project.json",
+          "sha256": "528f9d97e34282b8f205dbf4d9ec60e78cdac4057eb0e1df9445192ed39b00d0"
+        },
+        "air-catalogue.json": {
+          "source": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-design\\catalogue.json",
+          "sha256": "2a10138cdfa93e61408e1a2a55a48c60c6854602b45edee444b97191102697fb"
+        },
+        "water.json": {
+          "source": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network\\water.json",
+          "sha256": "2581091ffb39f671a4dccfcf3c3bd76bede752ee16a290e5276d14fe55119f13"
+        },
+        "envelopes.json": {
+          "source": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\mep-ifc\\project.json",
+          "sha256": "ab316bbadcd3844014d6cb937e32f83e0b6c4952b0854701ed25db6779271924"
+        }
+      },
+      "receipt_sha256": "dd025628f21b30c61231b31c8c3be0f1574300bff55905749a904de58b74f550",
+      "workflow_sha256": "cb24e0512a6c78467b5600fc6a511d76c0aa5f5a556216180a2f660719185abe",
+      "independently_reopened_IFC": {
+        "path": "runs\\engineering-handoff-verified-public\\engineering-run\\workflow\\envelopes\\model.ifc",
+        "sha256": "3164f81eca8aa3928f3e83ec86cd101c9beec36daf79b04df8b89a3775e83459",
+        "schema": "IFC4",
+        "counts": {
+          "IfcSpace": 1,
+          "IfcDistributionElement": 2,
+          "IfcDistributionPort": 2,
+          "IfcRelConnectsPorts": 1
+        }
+      },
+      "artifact_hashes": {
+        "air/candidates.csv": "279e2572d11a125b4af0762726500889f7a0f3bb34a6b6a2671f0da4db557b51",
+        "air/design-comparison.json": "e1684e7926be7701e815b4a87e18fc79bee71273eff7a01b2558880360261679",
+        "air/report.html": "59967391103fc4cf6a292df359f66dddd0bc05439ea0bffa48db7d636c4ff0ff",
+        "air/selected-network.json": "a5696f848afe54e70f3328228e11c70dbc8f45eae5110ff40563961ef04de0df",
+        "electrical/calculations.json": "87c8230a5a5a8ae521a2677d332753106e79d8d909eaba31e5da0602fad0ca5e",
+        "electrical/devices.dxf": "4773ff7e34c2bd21e8c3f71cf50260a8b43a908ad9c780d42cd6e06bbb5a1b1a",
+        "electrical/manifest.json": "ef05910524b4608e9d6f9817ae7397a7a74a370eac4278418c4412c8376de0fe",
+        "electrical/preview.svg": "96aab302c3820d8bd1ce04ba1356de32734d3fa291cfa57111c39d2cffa3cef2",
+        "electrical/report.html": "ea329bfc4dce45c18b8f3e7117c6eaf169cf37db64ac25fa89d64c2e906bcd21",
+        "envelopes/bim-verification.json": "7fa8db7e2b3d15e9b1edd5a64d0f8c8798934fab95c3eb7bdbf66cb0115d3d4a",
+        "envelopes/model.ifc": "3164f81eca8aa3928f3e83ec86cd101c9beec36daf79b04df8b89a3775e83459",
+        "envelopes/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "water/manifest.json": "7a1d3a724bad72ee251128a130f21eb250523169f1efff626dcf673a65a01932",
+        "water/network.json": "09894ba06312fefd4cf8d312dabf9cb2e21f7b1ff67db7729c52e821ebb9e7cd",
+        "water/report.html": "6ab73d7e2c7246a437fd883c8de9e0ca93d8e3f481a6e767f32962d88259f761",
+        "water/segments.csv": "5636b7336f8f2232157e5282a2b3dd4fe23ac915b83032fb744d525b62f0f58a",
+        "air/baseline/manifest.json": "ae2ded69979d50ebde3548659ebdd6c83c99e89cc1ee950edabfe6aa9219dd9d",
+        "air/baseline/network.json": "77fafa22de7142b8231864b2033f2a7857df0688ee4626c9c8aed4426c0490eb",
+        "air/baseline/report.html": "f3f6cc0305aae22258a8f23e4b0debed6ae765951d88beeac010917bf853d35b",
+        "air/baseline/segments.csv": "6fb7f2b26e0ec93ad47281622a6f4d419dcb81395e949284f3b182a92b584b87",
+        "air/selected/manifest.json": "88b817c0762f79d39f05a57b817dc5a0eccb4d2eda871593d23faff73e032e2b",
+        "air/selected/network.json": "8f9dedd47dec2d7d6ac468a3568b0c12d12b09993b7ce73b9f1d9eaa2ef214c6",
+        "air/selected/report.html": "bfeb6bf0ab134c78f9635f4ceceb7732da813d2e0eca5bb533bbaa055d94dcbc",
+        "air/selected/segments.csv": "f1268ecb59ea69e216c4b292d14d5e6d9746c180c993d04437638a023276a8bb",
+        "index.html": "3bfa1f667f13fe1ca4e40b0e1bef6d1a43ef4975d9f2133f94223ede2415132d"
+      }
+    },
+    "engineering-handoff-verified-missing-water": {
+      "verification": {
+        "integrity_pass": true,
+        "original_requirement_ids": [
+          "R001",
+          "R002",
+          "R003",
+          "R004",
+          "R005"
+        ],
+        "task_statuses": {
+          "electrical": "pass",
+          "air": "pass",
+          "water": "pending",
+          "envelopes": "pass",
+          "review": "pending"
+        },
+        "retained_input_gaps": [
+          {
+            "id": "water-property-review",
+            "kind": "missing",
+            "description": "Controlled unresolved review of supplied water-property applicability; do not assume approval.",
+            "sources": [
+              {
+                "passage": "P003",
+                "quote": "Using the explicitly synthetic water.json, calculate prescribed flow, Darcy friction, local and elevation losses, and pressure/velocity checks. Preserve the supplied fluid properties and outlet targets. This is a prescribed-demand calculation, not pump selection, a physical installation or full plumbing compliance."
+              }
+            ],
+            "blocks_tasks": [
+              "water"
+            ]
+          }
+        ],
+        "recovery_schedule": {
+          "waves": [
+            [
+              {
+                "task": "water",
+                "category": "source_inputs",
+                "prerequisite_tasks": [],
+                "requirement_ids": [
+                  "R003-bound-1"
+                ],
+                "next_action": "resolve the cited missing/conflicting design inputs before a new run",
+                "evidence": [],
+                "ready_now": true,
+                "automatic_repair_authorized": false
+              }
+            ],
+            [
+              {
+                "task": "review",
+                "category": "manual_review",
+                "prerequisite_tasks": [
+                  "water"
+                ],
+                "requirement_ids": [
+                  "R005-bound-1"
+                ],
+                "next_action": "resolve upstream tasks before rerunning dependent task",
+                "evidence": [],
+                "ready_now": false,
+                "automatic_repair_authorized": false
+              }
+            ]
+          ],
+          "ready_tasks": [
+            "water"
+          ],
+          "requires_fresh_diagnosis_after_each_wave": true,
+          "scope": "Conditional dependency order only; later waves require fresh execution and diagnosis, not assumed upstream success or automatic engineering changes"
+        },
+        "design_accepted": false,
+        "semantic_completeness": "not_established"
+      },
+      "source_transfers": {
+        "electrical.json": {
+          "source": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\office-electrical\\project.json",
+          "sha256": "34e1fba15d2ec9dacbdf256cf996d2de772873d720374f1ac55fd6b64ac4f34a"
+        },
+        "air.json": {
+          "source": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-design\\project.json",
+          "sha256": "528f9d97e34282b8f205dbf4d9ec60e78cdac4057eb0e1df9445192ed39b00d0"
+        },
+        "air-catalogue.json": {
+          "source": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network-design\\catalogue.json",
+          "sha256": "2a10138cdfa93e61408e1a2a55a48c60c6854602b45edee444b97191102697fb"
+        },
+        "water.json": {
+          "source": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\network\\water.json",
+          "sha256": "2581091ffb39f671a4dccfcf3c3bd76bede752ee16a290e5276d14fe55119f13"
+        },
+        "envelopes.json": {
+          "source": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\examples\\mep-ifc\\project.json",
+          "sha256": "ab316bbadcd3844014d6cb937e32f83e0b6c4952b0854701ed25db6779271924"
+        }
+      },
+      "receipt_sha256": "b01075894e5420e193cb504a3fb84312d0a22d80e20cff0ba942ff65d6e1b29d",
+      "workflow_sha256": "3a75bf843262573eb7b5abc96ec1249fb253727e1cf167b66c269ba62914c205",
+      "independently_reopened_IFC": {
+        "path": "runs\\engineering-handoff-verified-missing-water\\engineering-run\\workflow\\envelopes\\model.ifc",
+        "sha256": "07bae5cb74eece6d503c7ed04db28a879097ba6fb92f22f4dbf3a63d3c1466e0",
+        "schema": "IFC4",
+        "counts": {
+          "IfcSpace": 1,
+          "IfcDistributionElement": 2,
+          "IfcDistributionPort": 2,
+          "IfcRelConnectsPorts": 1
+        }
+      },
+      "artifact_hashes": {
+        "air/candidates.csv": "279e2572d11a125b4af0762726500889f7a0f3bb34a6b6a2671f0da4db557b51",
+        "air/design-comparison.json": "f37dc28a1fd5a3243950d1291508222fb55dac313885d981f43c5e747578dfbf",
+        "air/report.html": "59967391103fc4cf6a292df359f66dddd0bc05439ea0bffa48db7d636c4ff0ff",
+        "air/selected-network.json": "a5696f848afe54e70f3328228e11c70dbc8f45eae5110ff40563961ef04de0df",
+        "electrical/calculations.json": "87c8230a5a5a8ae521a2677d332753106e79d8d909eaba31e5da0602fad0ca5e",
+        "electrical/devices.dxf": "f4daeb5eb1e5249ca8b43595cfa5c5fd8cf8753ac89151aed6159a8e35c5f264",
+        "electrical/manifest.json": "90cfe5b0c5d9a66db4bd8275098edfa26025e9f19768a8c345327bc71082944d",
+        "electrical/preview.svg": "96aab302c3820d8bd1ce04ba1356de32734d3fa291cfa57111c39d2cffa3cef2",
+        "electrical/report.html": "ea329bfc4dce45c18b8f3e7117c6eaf169cf37db64ac25fa89d64c2e906bcd21",
+        "envelopes/bim-verification.json": "e5f782138b474e42ef52fa9f71d84c0b51fa3e36202cd15c55b57dd848ab138d",
+        "envelopes/model.ifc": "07bae5cb74eece6d503c7ed04db28a879097ba6fb92f22f4dbf3a63d3c1466e0",
+        "envelopes/schema-validation.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "air/baseline/manifest.json": "ae2ded69979d50ebde3548659ebdd6c83c99e89cc1ee950edabfe6aa9219dd9d",
+        "air/baseline/network.json": "77fafa22de7142b8231864b2033f2a7857df0688ee4626c9c8aed4426c0490eb",
+        "air/baseline/report.html": "f3f6cc0305aae22258a8f23e4b0debed6ae765951d88beeac010917bf853d35b",
+        "air/baseline/segments.csv": "6fb7f2b26e0ec93ad47281622a6f4d419dcb81395e949284f3b182a92b584b87",
+        "air/selected/manifest.json": "88b817c0762f79d39f05a57b817dc5a0eccb4d2eda871593d23faff73e032e2b",
+        "air/selected/network.json": "8f9dedd47dec2d7d6ac468a3568b0c12d12b09993b7ce73b9f1d9eaa2ef214c6",
+        "air/selected/report.html": "bfeb6bf0ab134c78f9635f4ceceb7732da813d2e0eca5bb533bbaa055d94dcbc",
+        "air/selected/segments.csv": "f1268ecb59ea69e216c4b292d14d5e6d9746c180c993d04437638a023276a8bb",
+        "index.html": "af01e53ccf9534fa16dc4610a0c5bced3fa16a99d2d9bf2ceb2e274bafb3f252"
+      }
+    }
+  },
+  "tamper_controls": {
+    "controls": {
+      "removed_original_requirement_count": {
+        "rejected": true,
+        "reason": "Handoff receipt differs from original requirements or gaps"
+      },
+      "omitted_bound_electrical_input": {
+        "rejected": true,
+        "reason": "Handoff omitted bound engineering input pins"
+      },
+      "forged_complete_status": {
+        "rejected": true,
+        "reason": "Handoff status differs from actual execution"
+      },
+      "changed_electrical_parameter": {
+        "rejected": true,
+        "reason": "Handoff source or method changed"
+      }
+    },
+    "original_receipt_and_parameter_bytes_restored": true,
+    "restored_verification": {
+      "integrity_pass": true,
+      "original_requirement_ids": [
+        "R001",
+        "R002",
+        "R003",
+        "R004",
+        "R005"
+      ],
+      "task_statuses": {
+        "electrical": "pass",
+        "air": "pass",
+        "water": "pass",
+        "envelopes": "pass",
+        "review": "pending"
+      },
+      "retained_input_gaps": [],
+      "recovery_schedule": {
+        "waves": [
+          [
+            {
+              "task": "review",
+              "category": "manual_review",
+              "prerequisite_tasks": [],
+              "requirement_ids": [
+                "R005-bound-1"
+              ],
+              "next_action": "perform the specified review and record evidence separately",
+              "evidence": [],
+              "ready_now": true,
+              "automatic_repair_authorized": false
+            }
+          ]
+        ],
+        "ready_tasks": [
+          "review"
+        ],
+        "requires_fresh_diagnosis_after_each_wave": true,
+        "scope": "Conditional dependency order only; later waves require fresh execution and diagnosis, not assumed upstream success or automatic engineering changes"
+      },
+      "design_accepted": false,
+      "semantic_completeness": "not_established"
+    }
+  },
+  "limitations": [
+    "Explicit host interpretation, no arbitrary semantic solver",
+    "Synthetic source classifications retained",
+    "Standalone IFC not reconciled to independent calculations",
+    "No new native DWG/visual plot acceptance",
+    "Missing real physical/product/Hong Kong checks remain pending"
+  ]
+}

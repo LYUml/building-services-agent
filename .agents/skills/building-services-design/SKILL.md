@@ -5,6 +5,13 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For source-to-execution handoff after actual host interpretation, route through
+mep-requirements and bsa.engineering_handoff (docs/ENGINEERING_HANDOFF.md). Supply
+explicit existing-adapter tasks and complete source requirement bindings. It
+pins parameters, rebuilds requirements, executes and diagnoses; ordinary input
+gaps and manual review remain blocking. Verify the result. The authored public
+cross-discipline case is not an arbitrary-brief interpreter or integrated design.
+
 For a ready failed circular_fan_selection with no selected candidate and an
 explicit host-supplied revised source catalogue, use bsa.catalogue_iteration
 and bsa.catalogue_iteration_verify per docs/CATALOGUE_ITERATION.md. Keep the

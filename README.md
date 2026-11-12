@@ -1,5 +1,11 @@
 # Building Services Agent
 
+Host source interpretation now binds into concrete existing engineering tasks,
+with original quotes/dependencies and ordinary input gaps preserved. An authored
+five-passage trial executes electrical, air, water and standalone IFC adapters;
+semantic generalisation and integrated design remain unfinished.
+See docs/ENGINEERING_HANDOFF.md.
+
 Explicit catalogue recovery now reproduces a failed circular fan selection,
 changes only the declared catalogue, rebuilds requirements and reruns the full
 original task graph. Original engineering targets and manual review remain.

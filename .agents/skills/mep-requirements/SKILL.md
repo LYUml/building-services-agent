@@ -27,6 +27,14 @@ For DWG/DXF input, read docs/DRAWING_INTAKE.md and use `bsa.cad_intake` or a `dr
 
 ## Executable intake and planning
 
+To bind an actual host interpretation to concrete supported engineering tasks,
+use bsa.engineering_handoff per docs/ENGINEERING_HANDOFF.md. Read the full source;
+author every requirement binding, explicit acceptance, interpretation note and
+additional actual gap. This replaces only generic interpretation gaps and
+preserves every ordinary missing/conflicting input and original dependency.
+Use a new sibling plan/run and verify it. Never copy the authored public demo's
+engineering values into another project or treat JSON coverage as semantic proof.
+
 After source inspection and extraction-review notes,prepare a work decomposition
 with `python -m bsa.work_plan_review template <plan> --out <review.json>`.
 Read source_passages against originals,fill tasks and every passage task mapping,
