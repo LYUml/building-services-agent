@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Explicit catalogue recovery now reproduces a failed circular fan selection,
+changes only the declared catalogue, rebuilds requirements and reruns the full
+original task graph. Original engineering targets and manual review remain.
+See CATALOGUE_ITERATION.md for scope and executed evidence.
+
 Cross-discipline diagnosis now emits conditional recovery waves. Saved positive
 and failed workflows plus 29 related tests verify scheduling and retained gates;
 automatic engineering repair remains unfinished. See RECOVERY_SCHEDULE.md.

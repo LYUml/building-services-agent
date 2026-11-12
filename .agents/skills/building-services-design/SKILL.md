@@ -5,6 +5,14 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For a ready failed circular_fan_selection with no selected candidate and an
+explicit host-supplied revised source catalogue, use bsa.catalogue_iteration
+and bsa.catalogue_iteration_verify per docs/CATALOGUE_ITERATION.md. Keep the
+catalogue inside the original plan input tree and use a fresh sibling plan/run.
+This reproduces the old failure, changes only catalogue identity and rebuilds
+requirements before full execution. Do not invent product curves, relax targets
+or accept manual review. Other recovery task kinds require their own adapters.
+
 Use workflow_status recovery_schedule for conditional cross-discipline recovery
 waves (docs/RECOVERY_SCHEDULE.md). Only ready_tasks are current inspection/action
 roots; later waves require fresh execution and diagnosis. Preserve the separate

@@ -1,0 +1,347 @@
+{
+  "scope": "Explicit host catalogue change and full original workflow replay; synthetic curves/local geometry only",
+  "design_accepted": false,
+  "native_DWG_acceptance": false,
+  "tests": {
+    "passed": 37,
+    "suite": [
+      "test_catalogue_iteration",
+      "test_workflow_status",
+      "test_terminal_iteration",
+      "test_delivery"
+    ]
+  },
+  "skill_validation": "building-services-design quick_validate passed",
+  "methods": {
+    "src\\bsa\\catalogue_iteration.py": "40931fc76632b026afac0c2f0ec9ce8c47b5eeeab148f08b216bd73039086763",
+    "src\\bsa\\catalogue_iteration_verify.py": "96b24da50f64dcbadb96d57e77b7a653a317765a1928bb39c23504fb3b107f8b"
+  },
+  "positive": {
+    "run": "runs\\catalogue-recovery-local-workflow",
+    "receipt_sha256": "ca5a4accda40497f428105c017884375785a3c34fda5d144e429d845491f41cb",
+    "original_plan": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\airflow-state-no-feasible-inputs\\port-airflow-state-plan.json",
+    "original_run": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\airflow-state-no-feasible-workflow",
+    "target_plan": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\airflow-state-no-feasible-inputs\\recovered-local-plan.json",
+    "stages": {
+      "baseline": "failure_reproduced",
+      "plan": "materialized_verified",
+      "requirements": "completed",
+      "workflow": "executed",
+      "diagnosis": "source_verified"
+    },
+    "verification": {
+      "integrity_pass": true,
+      "original_failure_reproduced": true,
+      "requirements_preserved": true,
+      "recovery_schedule": {
+        "waves": [
+          [
+            {
+              "task": "review",
+              "category": "manual_review",
+              "prerequisite_tasks": [],
+              "requirement_ids": [
+                "R4"
+              ],
+              "next_action": "perform the specified review and record evidence separately",
+              "evidence": [],
+              "ready_now": true,
+              "automatic_repair_authorized": false
+            }
+          ]
+        ],
+        "ready_tasks": [
+          "review"
+        ],
+        "requires_fresh_diagnosis_after_each_wave": true,
+        "scope": "Conditional dependency order only; later waves require fresh execution and diagnosis, not assumed upstream success or automatic engineering changes"
+      },
+      "task_status": "pass",
+      "design_accepted": false
+    },
+    "tasks": {
+      "source": {
+        "kind": "bim",
+        "status": "pass",
+        "scope": "IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending"
+      },
+      "route": {
+        "kind": "route_ports",
+        "status": "pass",
+        "scope": "Source-guided separate route IFC only; no merged logical connections, physical joints, full equipment geometry, obstacle completeness or regulatory acceptance"
+      },
+      "join": {
+        "kind": "route_join",
+        "status": "pass",
+        "scope": "Saved same-file local logical chain; no physical joint, whole-network pressure, clearance, manufacturer or regulatory acceptance"
+      },
+      "material": {
+        "kind": "route_material",
+        "status": "pass",
+        "scope": "Ideal local circular-wall material union, topology and finite centre-core probes only; no whole-model clearance, product joints, whole-network pressure, full-bore CFD, installation or regulatory acceptance"
+      },
+      "pressure": {
+        "kind": "route_pressure",
+        "status": "pass",
+        "scope": "Uniform-bore prescribed-flow local chain including both source walls; explicit common-reference pressure/boundary/roughness/K assumptions. No ambient-gauge fan duty, operating-point solution, intermediate pressure acceptance, product or regulatory approval"
+      },
+      "selection": {
+        "kind": "circular_fan_selection",
+        "status": "pass",
+        "scope": "Finite declared numerical fan preference screening on an exact checked circular path; product applicability and full engineering remain pending"
+      },
+      "fan": {
+        "kind": "circular_fan_operating_point",
+        "status": "pass",
+        "scope": "Fixed circular local geometry/K, constant-density free flow at one fixed terminal total pressure; level external common-reference stations; no static-pressure conversion, fan electricity or branches/loops"
+      },
+      "state": {
+        "kind": "circular_fan_metadata",
+        "status": "pass",
+        "scope": "Typed explicitly unit-bound calculated local airflow/total-pressure properties on original bodies and ports; original design properties/geometry preserved. No fan equipment, measured operation, whole-system or regulatory acceptance"
+      },
+      "drawing": {
+        "kind": "ifc_route_drawing",
+        "status": "pass",
+        "scope": "source-checked saved circular walls and finite arcs to GUID-linked planar axes/OD outlines; product and installation acceptance pending"
+      },
+      "review": {
+        "kind": "manual",
+        "status": "pending",
+        "scope": "Review source completeness, physical joints and merged connectivity, full network pressure and installation, native plot and applicable Hong Kong rules before full engineering acceptance."
+      }
+    },
+    "original_requirement_count": 10
+  },
+  "tamper_controls": {
+    "controls": {
+      "removed_requirements": {
+        "rejected": true,
+        "reason": "Recovery removed original requirements or inputs"
+      },
+      "forged_target_hash": {
+        "rejected": true,
+        "reason": "Recovery changed more than the declared catalogue"
+      },
+      "forged_complete_status": {
+        "rejected": true,
+        "reason": "Recovery status differs from execution"
+      },
+      "omitted_original_workflow_pin": {
+        "rejected": true,
+        "reason": "Recovery omitted original source or method pins"
+      }
+    },
+    "original_receipt_unchanged": true,
+    "restored_verification": {
+      "integrity_pass": true,
+      "original_failure_reproduced": true,
+      "requirements_preserved": true,
+      "recovery_schedule": {
+        "waves": [
+          [
+            {
+              "task": "review",
+              "category": "manual_review",
+              "prerequisite_tasks": [],
+              "requirement_ids": [
+                "R4"
+              ],
+              "next_action": "perform the specified review and record evidence separately",
+              "evidence": [],
+              "ready_now": true,
+              "automatic_repair_authorized": false
+            }
+          ]
+        ],
+        "ready_tasks": [
+          "review"
+        ],
+        "requires_fresh_diagnosis_after_each_wave": true,
+        "scope": "Conditional dependency order only; later waves require fresh execution and diagnosis, not assumed upstream success or automatic engineering changes"
+      },
+      "task_status": "pass",
+      "design_accepted": false
+    }
+  },
+  "limitations": [
+    "Explicit host catalogue input, not autonomous discovery",
+    "Circular fan no-selection failures only",
+    "Synthetic curves, not vendor product approval",
+    "Route-only DXF, no new native DWG acceptance",
+    "Manual engineering review, complete networks and full Hong Kong compliance pending"
+  ],
+  "negative": {
+    "run": "runs\\catalogue-recovery-weak-workflow",
+    "receipt_sha256": "896a1e9a95ec5d63c85ce3b5d033ca13428e94fcf0edee00782d186d18bc1f34",
+    "stages": {
+      "baseline": "failure_reproduced",
+      "plan": "materialized_verified",
+      "requirements": "completed",
+      "workflow": "executed",
+      "diagnosis": "source_verified"
+    },
+    "verification": {
+      "integrity_pass": true,
+      "original_failure_reproduced": true,
+      "requirements_preserved": true,
+      "recovery_schedule": {
+        "waves": [
+          [
+            {
+              "task": "selection",
+              "category": "failure_evidence_review",
+              "prerequisite_tasks": [],
+              "requirement_ids": [
+                "R9"
+              ],
+              "next_action": "inspect retained failure evidence and correct source or adapter before a new run",
+              "evidence": [
+                "selection/candidate-000/curve.json",
+                "selection/candidate-000/operating/analysis/manifest.json",
+                "selection/candidate-000/operating/analysis/network.json",
+                "selection/candidate-000/operating/analysis/report.html",
+                "selection/candidate-000/operating/analysis/segments.csv",
+                "selection/candidate-000/operating/fan.json",
+                "selection/candidate-000/operating/operating-network.json",
+                "selection/candidate-001/curve.json",
+                "selection/fan-selection.json"
+              ],
+              "ready_now": true,
+              "automatic_repair_authorized": false
+            }
+          ],
+          [
+            {
+              "task": "fan",
+              "category": "pending_condition_review",
+              "prerequisite_tasks": [
+                "selection"
+              ],
+              "requirement_ids": [
+                "R8"
+              ],
+              "next_action": "resolve upstream tasks before rerunning dependent task",
+              "evidence": [],
+              "ready_now": false,
+              "automatic_repair_authorized": false
+            }
+          ],
+          [
+            {
+              "task": "state",
+              "category": "pending_condition_review",
+              "prerequisite_tasks": [
+                "fan"
+              ],
+              "requirement_ids": [
+                "R10"
+              ],
+              "next_action": "resolve upstream tasks before rerunning dependent task",
+              "evidence": [],
+              "ready_now": false,
+              "automatic_repair_authorized": false
+            }
+          ],
+          [
+            {
+              "task": "drawing",
+              "category": "pending_condition_review",
+              "prerequisite_tasks": [
+                "fan",
+                "selection",
+                "state"
+              ],
+              "requirement_ids": [
+                "R3"
+              ],
+              "next_action": "resolve upstream tasks before rerunning dependent task",
+              "evidence": [],
+              "ready_now": false,
+              "automatic_repair_authorized": false
+            }
+          ],
+          [
+            {
+              "task": "review",
+              "category": "manual_review",
+              "prerequisite_tasks": [
+                "drawing",
+                "fan",
+                "selection",
+                "state"
+              ],
+              "requirement_ids": [
+                "R4"
+              ],
+              "next_action": "resolve upstream tasks before rerunning dependent task",
+              "evidence": [],
+              "ready_now": false,
+              "automatic_repair_authorized": false
+            }
+          ]
+        ],
+        "ready_tasks": [
+          "selection"
+        ],
+        "requires_fresh_diagnosis_after_each_wave": true,
+        "scope": "Conditional dependency order only; later waves require fresh execution and diagnosis, not assumed upstream success or automatic engineering changes"
+      },
+      "task_status": "fail",
+      "design_accepted": false
+    },
+    "tasks": {
+      "source": {
+        "kind": "bim",
+        "status": "pass",
+        "scope": "IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending"
+      },
+      "route": {
+        "kind": "route_ports",
+        "status": "pass",
+        "scope": "Source-guided separate route IFC only; no merged logical connections, physical joints, full equipment geometry, obstacle completeness or regulatory acceptance"
+      },
+      "join": {
+        "kind": "route_join",
+        "status": "pass",
+        "scope": "Saved same-file local logical chain; no physical joint, whole-network pressure, clearance, manufacturer or regulatory acceptance"
+      },
+      "material": {
+        "kind": "route_material",
+        "status": "pass",
+        "scope": "Ideal local circular-wall material union, topology and finite centre-core probes only; no whole-model clearance, product joints, whole-network pressure, full-bore CFD, installation or regulatory acceptance"
+      },
+      "pressure": {
+        "kind": "route_pressure",
+        "status": "pass",
+        "scope": "Uniform-bore prescribed-flow local chain including both source walls; explicit common-reference pressure/boundary/roughness/K assumptions. No ambient-gauge fan duty, operating-point solution, intermediate pressure acceptance, product or regulatory approval"
+      },
+      "selection": {
+        "kind": "circular_fan_selection",
+        "status": "fail",
+        "scope": "Finite declared numerical fan preference screening on an exact checked circular path; product applicability and full engineering remain pending"
+      },
+      "fan": {
+        "kind": "circular_fan_operating_point",
+        "status": "pending",
+        "scope": "upstream pressure/selection did not pass; fan operating point not executed"
+      },
+      "state": {
+        "kind": "circular_fan_metadata",
+        "status": "pending",
+        "scope": "upstream fan duty did not pass; no calculated BIM state fabricated"
+      },
+      "drawing": {
+        "kind": "ifc_route_drawing",
+        "status": "pending",
+        "scope": "required checks unresolved: fan (pending), selection (fail), state (pending); adapter not executed"
+      },
+      "review": {
+        "kind": "manual",
+        "status": "pending",
+        "scope": "required checks unresolved: drawing (pending), fan (pending), selection (fail), state (pending); adapter not executed"
+      }
+    },
+    "no_operating_IFC_or_DXF": true
+  }
+}

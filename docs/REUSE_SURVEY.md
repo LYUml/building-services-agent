@@ -1,5 +1,10 @@
 # Reuse survey â€” 2026-11-09
 
+Catalogue recovery reuses circular_fan_selection and its shared preference
+screen/fluids solver, requirements source inventory, workflow execution and
+dependency diagnosis. Thin plan/provenance glue is needed; no new engine or
+dependency. See CATALOGUE_ITERATION.md for executed evidence and limitations.
+
 Recovery scheduling reuses workflow_status diagnosis, delivery.context integrity
 and declared dependencies. No new engine/dependency is needed. Saved positive
 and no-feasible workflows and 29 tests exercise conditional recovery waves.
