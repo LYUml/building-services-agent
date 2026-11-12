@@ -1,5 +1,10 @@
 # Full-plan fan catalogue recovery
 
+The same orchestrator now also handles explicit failed pump-curve revision; see
+[pump curve iteration](PUMP_CURVE_ITERATION.md). Existing fan execution remains
+unchanged. Current receipts require the new method/scope pins; preserve old runs
+and rerun rather than modifying their recorded hashes.
+
 `bsa.catalogue_iteration` takes an existing source-verified failed workflow and
 an explicitly host-supplied revised circular fan catalogue. It reproduces the
 original no-selection failure before writing a new plan. It changes only the
@@ -40,7 +45,7 @@ network solver, requirements source-inventory provider, workflow executor and
 dependency diagnosis. No engine, package, vendor curve or regulatory clause is
 newly implemented. Existing upstream licensing and attribution apply unchanged.
 
-Current scope is a ready failed `circular_fan_selection` task with no selected
+The fan scope is a ready failed `circular_fan_selection` task with no selected
 candidate. Failed native geometry, missing source inputs, nonpassing upstream
 pressure, arbitrary task repair, automatic catalogue discovery and complete
 multi-discipline recovery are not handled by this adapter.

@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Explicit failed pump-curve revision now reuses full-plan catalogue iteration:
+original failure replay, fresh requirements and coupled water/electrical/IFC/DXF
+rerun. Actual positive/insufficient controls preserve all eight obligations;
+real product and full acceptance remain pending. See docs/PUMP_CURVE_ITERATION.md.
+
 Shared CLI workflow/handoff now accept explicit MOOSAS host directories. Actual
 native/MOOSAS runs preserve identical spatial and thermal inputs; disabled/missing
 runtime controls stop consumers. Annual attempts remain blocked by host OpenStudio

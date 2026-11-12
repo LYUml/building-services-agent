@@ -1,29 +1,64 @@
-"""Recover a failed circular fan catalogue through a fresh full-plan execution."""
+"""Replay a failed fan catalogue or pump curve revision through the full plan."""
 import argparse
 import copy
 import json
 import os
 from pathlib import Path
 
-from . import circular_fan_selection, delivery, modules, workflow, workflow_status
+from . import circular_fan_selection, pump, delivery, modules, workflow, workflow_status
 from .cli import digest
 from .module_contract import read_json
 from .workspace import allowed
 from .terminal_iteration import OPTIONS
 
-SCOPE='Explicit host catalogue revision with unchanged original requirements and targets; not autonomous product approval or full engineering acceptance'
+SCOPE='Explicit host fan catalogue or pump curve revision with unchanged original requirements and targets; not autonomous product approval or full engineering acceptance'
+
+
+def revision_field(task):
+    fields={'circular_fan_selection':'catalogue','pump_operating_point':'curve'}
+    if task['kind'] not in fields:raise ValueError('Supported fan selection or pump operating task required')
+    return fields[task['kind']]
+
+
+def selection_context(task,source,plan,original,replacement):
+    if task['kind']=='circular_fan_selection':
+        pressure=original/task['depends_on']
+        _,_,inputs,_,_,_=circular_fan_selection.context(pressure,replacement)
+        return pressure,inputs
+    revision_field(task)
+    parent=task.get('depends_on')
+    known={t['id']:t for t in source['tasks']}
+    network=original/parent/workflow.NETWORK_ARTIFACTS[known[parent]['kind']] if parent else workflow.local_path(plan.parent,task['project'])
+    pump.prepare(read_json(network),read_json(replacement))
+    return network,{str(p):digest(p) for p in (network,replacement)}
+
+
+def selection_run(task,context,replacement,out):
+    return (pump.run if task['kind']=='pump_operating_point' else circular_fan_selection.run)(context,replacement,out)
+
+
+def selection_report(task):
+    return 'pump.json' if task['kind']=='pump_operating_point' else 'fan-selection.json'
+
+
+def selection_modules(task):
+    if task['kind']=='pump_operating_point':
+        from . import network,pump_electrical
+        return (pump,network,pump_electrical)
+    return (circular_fan_selection,)
 
 
 def revised_plan(source,task,catalogue,target):
     if not catalogue.is_relative_to(target.parent):raise ValueError('Revised catalogue must be inside the plan input directory')
     result=copy.deepcopy(source)
     selected=next(t for t in result['tasks'] if t['id']==task)
-    if selected['kind']!='circular_fan_selection':raise ValueError('Circular fan selection task required')
-    selected['catalogue']=os.path.relpath(catalogue,target.parent)
+    selected[revision_field(selected)]=os.path.relpath(catalogue,target.parent)
     return result
 
 
 def baseline_signature(result):
+    if 'candidates' not in result:
+        return {key:result.get(key) for key in ('status','reason','calculated_checks_pass','checks','operating_point','flow_bracket_m3_s','selected_rerun_pass')}
     return [(row['id'],row['preference'],{key:row.get(key) for key in
              ('status','calculated_checks_pass','checks','operating_point')})
             for row in result['candidates']]
@@ -44,20 +79,20 @@ def run(plan,original_run,task,catalogue,target,out,*,execute_options=None):
     if not integrity['integrity_pass']:raise ValueError('Original workflow evidence is stale')
     diagnosis=workflow_status.diagnose(plan,original_run)
     tasks={t['id']:t for t in source['tasks']}
-    if task not in tasks or tasks[task]['kind']!='circular_fan_selection' or report['tasks'][task]['status']!='fail' or task not in diagnosis['recovery_schedule']['ready_tasks']:
-        raise ValueError('Ready failed circular fan selection required')
-    selected=tasks[task];pressure=original_run/selected['depends_on']
-    old_catalogue=workflow.local_path(plan.parent,selected['catalogue'])
+    if task not in tasks or tasks[task]['kind'] not in ('circular_fan_selection','pump_operating_point') or report['tasks'][task]['status']!='fail' or task not in diagnosis['recovery_schedule']['ready_tasks']:
+        raise ValueError('Ready failed fan selection or pump operating task required')
+    selected=tasks[task]
+    old_catalogue=workflow.local_path(plan.parent,selected[revision_field(selected)])
     if digest(old_catalogue)==digest(catalogue):raise ValueError('Explicit revised catalogue must differ from failed source')
-    old=read_json(original_run/task/'fan-selection.json')
+    old=read_json(original_run/task/selection_report(selected))
     if old.get('selected') is not None or old.get('calculated_checks_pass') is not False:
         raise ValueError('Failed no-selection baseline required')
     # Validate the replacement against the exact inherited pressure/native source.
-    _,_,new_inputs,_,_,_=circular_fan_selection.context(pressure,catalogue)
+    pressure,new_inputs=selection_context(selected,source,plan,original_run,catalogue)
     pins={**report['inputs'],**new_inputs,str(plan):digest(plan),
           str(original_run/'workflow.json'):digest(original_run/'workflow.json')}
     pins.update({str(original_run/name):sha for name,sha in report['artifact_hashes'].items()})
-    for module in (delivery,modules,workflow,workflow_status,circular_fan_selection):
+    for module in (delivery,modules,workflow,workflow_status,*selection_modules(selected)):
         pins[str(Path(module.__file__).resolve())]=digest(Path(module.__file__))
     pins[str(Path(__file__).resolve())]=digest(Path(__file__))
     out.mkdir(parents=True)
@@ -67,8 +102,8 @@ def run(plan,original_run,task,catalogue,target,out,*,execute_options=None):
         scope=SCOPE,design_accepted=False,status='failed',stages={},stage_errors={})
     stage='baseline'
     try:
-        baseline=circular_fan_selection.run(pressure,old_catalogue,out/'baseline-recheck')
-        if baseline['selected'] is not None or baseline['calculated_checks_pass'] is not False or baseline_signature(old)!=baseline_signature(baseline):
+        baseline=selection_run(selected,pressure,old_catalogue,out/'baseline-recheck')
+        if baseline.get('selected') is not None or baseline['calculated_checks_pass'] is not False or baseline_signature(old)!=baseline_signature(baseline):
             raise ValueError('Original failed selection differs from fresh source replay')
         result['stages']['baseline']='failure_reproduced'
         stage='plan'
@@ -103,7 +138,9 @@ def run(plan,original_run,task,catalogue,target,out,*,execute_options=None):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('plan');parser.add_argument('original_run')
-    for name in ('task','catalogue','target','out'):parser.add_argument('--'+name,required=True)
+    for name in ('task','target','out'):parser.add_argument('--'+name,required=True)
+    replacement=parser.add_mutually_exclusive_group(required=True)
+    replacement.add_argument('--catalogue');replacement.add_argument('--curve',dest='catalogue')
     args=parser.parse_args();result=run(args.plan,args.original_run,args.task,args.catalogue,args.target,args.out)
     print(json.dumps(result,indent=2));return 2
 

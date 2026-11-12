@@ -5,6 +5,12 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For a ready failed pump_operating_point with an explicit sourced replacement
+curve, reuse bsa.catalogue_iteration --curve per docs/PUMP_CURVE_ITERATION.md.
+Preserve all original inputs, requirements, electrical baseline and targets;
+verify the fresh full-plan run. This is not autonomous catalogue discovery or
+motor/NPSH/product acceptance. Inadequate replacements retain blocked consumers.
+
 Use the shared bsa project-start/handoff/handoff-verify CLI in docs/PROJECT_CLI.md
 for source intake and host-reviewed execution. Read effective_plan and inspect
 all source/extraction issues before writing the exact engineering-handoff review;

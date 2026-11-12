@@ -26,23 +26,30 @@ def verify(folder):
     diagnosis=workflow_status.diagnose(plan,original)
     if task not in diagnosis['recovery_schedule']['ready_tasks'] or report['tasks'][task]['status']!='fail':raise ValueError('Recovery original is not a ready failure')
     if result.get('original_requirements')!=source['requirements'] or result.get('original_unresolved_inputs')!=source.get('unresolved_inputs',[]):raise ValueError('Recovery removed original requirements or inputs')
-    pressure=original/tasks[task]['depends_on'];old_catalogue=workflow.local_path(plan.parent,tasks[task]['catalogue'])
+    selected=tasks[task]
+    old_catalogue=workflow.local_path(plan.parent,selected[iteration.revision_field(selected)])
     if digest(old_catalogue)==digest(catalogue):raise ValueError('Recovery catalogue was not revised')
-    project,_,inputs,_,options,mechanical=selection.context(pressure,old_catalogue)
+    pressure,inputs=iteration.selection_context(selected,source,plan,original,old_catalogue)
+    if selected['kind']=='pump_operating_point':
+        replay,operating=iteration.pump.solve(read_json(pressure),read_json(old_catalogue))
+        # pump.run separately reruns the selected network with the same engine.
+        replay['selected_rerun_pass']=bool(operating is not None and iteration.pump.calculate(operating)['calculated_checks_pass'])
+    else:
+        project,_,inputs,_,options,mechanical=selection.context(pressure,old_catalogue)
     def evaluate(row,name):
         try:
             fresh,_=selection.circular_fan.solve(project,row['curve'])
             actual={key:fresh.get(key) for key in ('status','calculated_checks_pass','checks','operating_point')}
         except ProjectError as exc:actual=dict(status='unsupported',calculated_checks_pass=False,reason=str(exc))
         return selection.shared.eligibility(actual,mechanical.get(row['id']))
-    replay=selection.shared.screen(options,evaluate)
-    old=read_json(original/task/'fan-selection.json');baseline=read_json(folder/'baseline-recheck/fan-selection.json')
-    if replay['selected'] is not None or replay['calculated_checks_pass'] is not False or any(record.get('selected') is not None or record.get('calculated_checks_pass') is not False or iteration.baseline_signature(record)!=iteration.baseline_signature(replay) for record in (old,baseline)):
+    if selected['kind']!='pump_operating_point':replay=selection.shared.screen(options,evaluate)
+    old=read_json(original/task/iteration.selection_report(selected));baseline=read_json(folder/'baseline-recheck'/iteration.selection_report(selected))
+    if replay.get('selected') is not None or replay['calculated_checks_pass'] is not False or any(record.get('selected') is not None or record.get('calculated_checks_pass') is not False or iteration.baseline_signature(record)!=iteration.baseline_signature(replay) for record in (old,baseline)):
         raise ValueError('Original failure cannot be reconstructed')
     required={**report['inputs'],**inputs,str(plan):digest(plan),str(original/'workflow.json'):digest(original/'workflow.json')}
     required.update({str(original/name):sha for name,sha in report['artifact_hashes'].items()})
-    _,_,replacement_inputs,_,_,_=selection.context(pressure,catalogue);required.update(replacement_inputs)
-    for module in (iteration,delivery,modules,workflow,workflow_status,selection):
+    _,replacement_inputs=iteration.selection_context(selected,source,plan,original,catalogue);required.update(replacement_inputs)
+    for module in (iteration,delivery,modules,workflow,workflow_status,*iteration.selection_modules(selected)):
         required[str(Path(module.__file__).resolve())]=digest(Path(module.__file__))
     if any(result['inputs'].get(p)!=sha for p,sha in required.items()):raise ValueError('Recovery omitted original source or method pins')
     if digest(target)!=result.get('target_plan_sha256') or read_json(target)!=iteration.revised_plan(source,task,catalogue,target):raise ValueError('Recovery changed more than the declared catalogue')
@@ -57,7 +64,10 @@ def verify(folder):
     expected='needs_engineering_review' if fresh['execution_pass'] else 'execution_incomplete'
     if result.get('status')!=expected:raise ValueError('Recovery status differs from execution')
     if next(row for row in fresh['tasks'] if row['id']==task)['status']=='pass':
-        selection.selected_input(folder/'workflow'/task,folder/'workflow'/tasks[task]['depends_on'],catalogue)
+        if selected['kind']=='pump_operating_point':
+            from .pump_electrical import read_pump
+            read_pump(folder/'workflow'/task/'pump.json')
+        else:selection.selected_input(folder/'workflow'/task,folder/'workflow'/selected['depends_on'],catalogue)
     return dict(integrity_pass=True,original_failure_reproduced=True,
         requirements_preserved=True,recovery_schedule=fresh['recovery_schedule'],
         task_status=saved['tasks'][task]['status'],design_accepted=False)

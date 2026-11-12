@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Pump operating-curve revision now reuses the existing catalogue recovery graph.
+Actual synthetic positive reruns all eight coupled tasks; insufficient replacement
+blocks coupled IFC/QA/drawing. Sources, 0.75 kW baseline/hardware and requirements
+remain;26 related tests pass. Product/native/full acceptance remains pending.
+See PUMP_CURVE_ITERATION.md.
+
 Shared CLI MOOSAS host runtime selection now executes native/provider replacement
 with identical three-space payloads and thermal inputs. Disabled/unconfigured
 controls block preparation. Both annual attempts retain OpenStudio application-

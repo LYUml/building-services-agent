@@ -1365,3 +1365,14 @@ setup. No new engine/dependency or upstream code copied. Actual native/MOOSAS
 spatial and thermal preparation match; disabled/unconfigured consumers block.
 Both annual attempts fail host OpenStudio import before simulation. Evidence:
 docs/evidence/shared-cli-moosas.json; retain this failure and upstream attribution.
+
+Pump-curve recovery gap: existing circulation_pump_design is an EPANET thermal/
+pipe-rule catalogue model, not the single-terminal free-flow pump/IFC/electrical
+case. Reuse existing pump.solve/run (fluids1.3.1 pressure engine), full-plan
+catalogue_iteration, requirements modules and pump_electrical.read_pump source
+reconstruction. Extend the thin orchestrator with task-specific source-context/
+report adapters, not a new pump solver or catalogue discovery service. Explicit
+replacement curves retain sourced data and original targets. Actual positive/
+insufficient coupled trials and26related tests are recorded in
+docs/evidence/pump-curve-iteration.json. No dependency/upstream code/regulation
+added; existing licenses/attribution apply.

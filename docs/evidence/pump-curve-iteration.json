@@ -1,0 +1,94 @@
+{
+  "scope": "Explicit pump-curve full-plan iteration with original source and targets retained; synthetic example only",
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/catalogue_iteration.py": "1d4f7f34ee19085313af5684e35ac76b5c2f0a6a77538e65f4bc2ac7125dba1f",
+    "src/bsa/catalogue_iteration_verify.py": "1945ba6701cb45742b6a0e73b5cba29ce3bfbccf0927e41d79a5a79c3ce387c4",
+    "src/bsa/pump.py": "43cda622e121fd9aa4da5da23538fb2ae31919e4dcaee44761f96fbbe4c9987c",
+    "scripts/run_pump_curve_iteration_demo.py": "999d9a66319f259cb363c2627a4085596d7abf215a256a9f7db305d2807c3ae5"
+  },
+  "tests": {
+    "passed": 26,
+    "skipped": 0,
+    "suites": [
+      "test_pump_curve_iteration",
+      "test_catalogue_iteration",
+      "test_pump",
+      "test_circular_fan_selection"
+    ],
+    "additional_executed_control": "Direct laminar network: converged below original minimum flow while numerical rerun passes; replacement recovers flow and retains ordinary equipment gap/manual review"
+  },
+  "runs": {
+    "pump-curve-recovery-verified": {
+      "integrity_pass": true,
+      "original_failure_reproduced": true,
+      "requirements": 8,
+      "requirements_unchanged": true,
+      "task_statuses": {
+        "electrical": "pass",
+        "water": "pass",
+        "qa": "pass",
+        "drawing": "pass",
+        "pump": "pass",
+        "coupled": "pass",
+        "coupled-qa": "pass",
+        "coupled-drawing": "pass"
+      },
+      "receipt_sha256": "73bb7495c9c5e00706535594f454c225a837ba67276008f107503a9b10be459c",
+      "design_accepted": false,
+      "operating_record": {
+        "electrical_device_id": "BOOSTER",
+        "pump_guid": "2H47DrX1HQH8FfeRHY$hU5",
+        "source_port_guid": "1EJ$TpRUnV7RZ90W$yl5XS",
+        "circuit_id": "PUMP-SUPPLY",
+        "baseline_electrical_kw": 0.75,
+        "operating_electrical_kw": 0.43782750125019576,
+        "operating_power_factor": 0.85,
+        "bound_device_operating_current_a": 2.2395268606148124,
+        "operating_circuit_current_a": 2.2395268606148124,
+        "pump_body_centre_m": [
+          1.0,
+          1.0,
+          0.2
+        ]
+      },
+      "baseline_hardware_retained": true,
+      "typed_properties_match": {
+        "property_count": 15,
+        "typed_values_pass": true,
+        "explicit_units_pass": true
+      },
+      "ifc_schema_valid": true
+    },
+    "pump-curve-recovery-verified-weak": {
+      "integrity_pass": true,
+      "original_failure_reproduced": true,
+      "requirements": 8,
+      "requirements_unchanged": true,
+      "task_statuses": {
+        "electrical": "pass",
+        "water": "pass",
+        "qa": "pass",
+        "drawing": "pass",
+        "pump": "fail",
+        "coupled": "pending",
+        "coupled-qa": "pending",
+        "coupled-drawing": "pending"
+      },
+      "receipt_sha256": "60913418f6e4326bcfa44fd43a3873be64cf4ad397bd754186340cb29a26fc54",
+      "design_accepted": false,
+      "coupled_outputs_absent": true
+    }
+  },
+  "rejected_controls": [
+    "Changed original requirement list",
+    "Omitted original workflow pin"
+  ],
+  "limitations": [
+    "Explicit host-provided replacement; no autonomous catalogue discovery",
+    "Synthetic pump curve, not actual manufacturer/equipment approval",
+    "Original 0.75 kW design baseline preserved; operating kW is not nameplate input",
+    "DXF/IFC scope only: no new native DWG or visual plot acceptance",
+    "No full Hong Kong or installation acceptance"
+  ]
+}
