@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Bounded terminal count/position proposals now inherit room loads and catalogue
+limits automatically, rerun existing allocation/performance and generate DXF.
+Native schematic delivery was separately reopened/visually checked; whole-plan
+physical/comfort/regulatory acceptance remains unfinished. See docs/AUTOMATIC_TERMINAL_SEARCH.md.
+
 Saved RFA PartAtom text can now be inspected through pinned upstream olefile,
 with raw parameter units/defaults and replay checks. This is read-only metadata;
 native geometry/connectors remain unverified. See docs/RFA_METADATA.md.

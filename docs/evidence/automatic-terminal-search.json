@@ -1,0 +1,95 @@
+{
+  "scope": "Executed bounded synthetic automatic terminal count/position study and source-bound schematic; full workflow and engineering acceptance incomplete",
+  "tests": {
+    "run": 18,
+    "passed": 17,
+    "skipped": 1
+  },
+  "cases": {
+    "native": {
+      "search": "runs/automatic-terminal-search-checked/native/search.json",
+      "search_sha256": "a896521559804c19b2efb288e4094d29e900218fb264d53ff5d651bffb7b42b8",
+      "status": "candidate_available",
+      "attempted_grids": 12,
+      "selected_grid_indices": {
+        "05Q4lNZvfMjRB3$ExNimBH": 0,
+        "0CWbJCzJzH9wlEfBdo1lqM": 1,
+        "2XcneOpvjTTuGBPHTpB5KV": 1
+      },
+      "source_unchanged": true,
+      "terminal_count": 5,
+      "maximum_flow_L_s": 870.4,
+      "minimum_flow_L_s": 348.16,
+      "outside_catalogue_cases": 0,
+      "dxf_sha256": "f8777245a7cade537f25416c98712904444f7da4af915fb8ca8b85416c1c46bc"
+    },
+    "moosas": {
+      "search": "runs/automatic-terminal-search-checked/moosas/search.json",
+      "search_sha256": "0849b07922ed47507bc4fbe49a01bc15b8c5b1df1f29136e4d534a5e442e6727",
+      "status": "candidate_available",
+      "attempted_grids": 12,
+      "selected_grid_indices": {
+        "05Q4lNZvfMjRB3$ExNimBH": 0,
+        "0CWbJCzJzH9wlEfBdo1lqM": 1,
+        "2XcneOpvjTTuGBPHTpB5KV": 1
+      },
+      "source_unchanged": true,
+      "terminal_count": 5,
+      "maximum_flow_L_s": 870.4,
+      "minimum_flow_L_s": 348.16,
+      "outside_catalogue_cases": 0,
+      "dxf_sha256": "d5228d2ff533e6d59c1dac9b9c5e586a4d6d9773aa11d35af7156fd08400e2f5"
+    },
+    "infeasible": {
+      "search": "runs/automatic-terminal-search-checked/infeasible/search.json",
+      "search_sha256": "b61cc3576ac88a9efcc0f959f9f3f33ef7ee42481b12c67034652d96b77cf18e",
+      "status": "no_feasible_candidate",
+      "attempted_grids": 3,
+      "selected_grid_indices": {
+        "05Q4lNZvfMjRB3$ExNimBH": 0,
+        "0CWbJCzJzH9wlEfBdo1lqM": null,
+        "2XcneOpvjTTuGBPHTpB5KV": null
+      },
+      "source_unchanged": true
+    }
+  },
+  "identical_provider_proposals": true,
+  "altered_position_rejected": true,
+  "automatic_pressure_or_physical_design": false,
+  "original_full_workflow_unchanged": true,
+  "design_accepted": false,
+  "native_schematic": {
+    "report_sha256": "19d50451c8cc4eb20ef50d08f57e02aed5929d7843790c0559a54272c6ec2f57",
+    "native_reopen_pass": true,
+    "plot": {
+      "pdf_sha256": "862be7c4faa9695e7849715e7b62826e5718fb860ffbec603336048ec49b2d3b",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 75,
+      "reference_handle": "33",
+      "reference_expected_mm": 66.66666666666666,
+      "reference_measured_mm": 66.675,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "pdf_sha256": "862be7c4faa9695e7849715e7b62826e5718fb860ffbec603336048ec49b2d3b",
+    "dwg_sha256": "255f82fa8568c285e2af249f29c274f6e9bd52f49505eca0b4e9ca42e8327dae",
+    "visual_review": {
+      "image_sha256": "8974788306fc74e93496594e7bd56618d9efd3ce433070c928c472833a1592b3",
+      "status": "scoped_visible_schematic_pass",
+      "page_count": 1,
+      "observations": "All five keyed maximum/minimum airflow schedule rows and room/terminal labels visible; schematic-only scope note retained. No installed geometry or comfort acceptance.",
+      "pixel_identical_to_inspected_corrected_page": true
+    },
+    "retained_initial_failure": {
+      "pdf_sha256": "fb39498cd04e0065bff63e46a482ae5287a1fd3e86c3961bd19576f801562398",
+      "image_sha256": "1788840f6e432a96481cf132ef0966a7b3faa2ff3246f93b8671f39cd1973a28",
+      "reason": "Old explicit lower plot window clipped airflow schedule rows; retained as failed visual evidence"
+    },
+    "plot_window_adjustment_automatic": false
+  }
+}

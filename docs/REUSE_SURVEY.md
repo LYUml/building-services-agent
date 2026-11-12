@@ -1187,3 +1187,12 @@ file inspection. Reuse pinned olefile0.47 and standard XML parsing for retained
 PartAtom text only. No custom structured-storage parser, geometry kernel or
 loader workaround. Preserve raw units and unverified default semantics. Native
 geometry, formulas and connectors remain pending. See RFA_METADATA.md.
+
+Automatic terminal-count/position gap: reuse existing source-room balance,
+spatial_terminal_revision, air_allocation/service_areas, Shapely2.2.0 clipped
+interior points and fluids1.3.1 bounded catalogue calls. Existing study/factory
+requires explicit manually authored centres; bounded grid enumeration adds
+proposals while retaining original area/flow/product sources. No new geometry
+engine, pressure solver or dependency. Existing DXF/native adapters produce the
+selected schematic; plot-window revision remains explicit. See
+AUTOMATIC_TERMINAL_SEARCH.md for executed evidence and remaining scope.
