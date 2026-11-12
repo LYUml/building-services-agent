@@ -34,3 +34,5 @@ also checks80terminal minimum flows against the supplied40%factor. This accepts
 only the conditional arithmetic,not room loads,geometry,throw,ADPI or installation.
 Private project sources/results remain outside commits to this tool repository.
 See evidence/project-workspace.json.
+
+Saved-native duct_schedule_check and duct_junction_review now also accept explicitly selected host project workspaces;their equation/geometry engines remain unchanged. Existing output-separation and source checks remain. See DUCT_SCHEDULE_CHECK.md.

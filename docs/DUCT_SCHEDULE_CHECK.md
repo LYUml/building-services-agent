@@ -1,5 +1,23 @@
 # Independent saved-schedule equation checks
 
+
+This review and its existing duct_junction_review ancestry check now support
+explicit host BSA_PROJECT_ROOT output workspaces. Repository-only operation
+remains the default;unselected external outputs and immutable workflow output
+locations reject. Both reviews pin workspace.py along with their own methods.
+Actual external coursework execution checks47sections and16,779candidates with
+maximum absolute Colebrook residual3.3751e-14. Twenty-five related tests pass.
+
+Actual classroom pages7–9were inspected. The chart is labelled2013and uses
+1.20kg/m3and0.09mm as reference conditions;viscosity and size grid remain declared
+assumptions. The official [2021chapter](https://handbook.ashrae.org/Handbooks/F21/SI/F21_Ch21/F21_Ch21_si.aspx)
+corroborates the Darcy/Colebrook/equal-resistance conversion family. This does
+not authenticate the2013raster chart,provide actual scanned readings or establish
+installed applicability. No original engineering obligation is accepted merely
+because the numerical residual is small. All6project input gaps remain. See
+[evidence](evidence/external-duct-equation-review.json).
+
+
 ```powershell
 .venv/Scripts/python -m bsa.duct_schedule_check runs/project/plan.json runs/project-package/workflow native-sheet --out runs/duct-sizing-equation-review
 ```

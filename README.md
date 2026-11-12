@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Saved-native duct equation review now runs in the explicit coursework workspace:
+47sections and16,779candidates reconcile;25 related tests pass. Chart readings
+and physical applicability remain unresolved. See
+[evidence](docs/evidence/external-duct-equation-review.json).
+
 Independent saved/native duct-schedule review reconciles47sections,235fields
 and47drawing labels in the coursework workspace. Native plot/reference checks
 pass;33requirements remain,with6scoped reviews passed and27pending. See

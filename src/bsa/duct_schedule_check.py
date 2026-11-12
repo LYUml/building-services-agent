@@ -6,6 +6,7 @@ import math
 from pathlib import Path
 
 from .cli import digest
+from .workspace import allowed
 from .delivery import context
 from .duct_junction_review import from_workflow
 
@@ -119,9 +120,9 @@ def run(plan,workflow,native_task,out):
     plan,workflow,out=[Path(p).resolve() for p in (plan,workflow,out)]
     source,record,integrity=context(plan,workflow)
     if not integrity['integrity_pass']:raise ValueError('Source workflow integrity failed')
-    if out.exists() or not out.is_relative_to(ROOT) or out.is_relative_to(workflow) or workflow.is_relative_to(out) or plan.is_relative_to(out):
+    if out.exists() or not allowed(out) or out.is_relative_to(workflow) or workflow.is_relative_to(out) or plan.is_relative_to(out):
         raise ValueError('New repository output outside immutable source inputs required')
-    pins={str(p):digest(p) for p in (plan,workflow/'workflow.json',Path(__file__))}
+    pins={str(p):digest(p) for p in (plan,workflow/'workflow.json',Path(__file__),ROOT/'src/bsa/workspace.py')}
     junction=from_workflow(plan,workflow,native_task,out/'junction-review.json')
     schedule_id=junction['lineage'][-1]
     task=next(t for t in source['tasks'] if t['id']==schedule_id)

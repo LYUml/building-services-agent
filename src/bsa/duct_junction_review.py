@@ -9,6 +9,7 @@ import ezdxf
 
 from .cad_intake import METRES_PER_UNIT
 from .cli import digest
+from .workspace import allowed
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -107,9 +108,9 @@ def inspect(doc, schedule, binding):
 def from_workflow(plan, directory, native_task, output):
     from .workflow import verify, local_path
     plan, directory, output = [Path(p).resolve() for p in (plan, directory, output)]
-    if not output.is_relative_to(ROOT) or output.exists() or output == directory or directory in output.parents or output in directory.parents or output == plan:
+    if not allowed(output) or output.exists() or output == directory or directory in output.parents or output in directory.parents or output == plan:
         raise ValueError('New review file outside immutable workflow required')
-    pins = {str(p): digest(p) for p in (plan, directory/'workflow.json', Path(__file__))}
+    pins = {str(p): digest(p) for p in (plan, directory/'workflow.json', Path(__file__),ROOT/'src/bsa/workspace.py')}
     if not verify(directory)['integrity_pass']: raise ValueError('Workflow sources/artifacts changed')
     report = json.loads((directory/'workflow.json').read_text(encoding='utf-8'))
     if report['inputs'].get(str(plan)) != pins[str(plan)]: raise ValueError('Plan does not belong to workflow')

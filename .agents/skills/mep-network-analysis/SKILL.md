@@ -5,6 +5,8 @@ description: Calculate source-linked air/water networks, pump operating points a
 
 # Network pressure analysis
 
+Reuse duct_schedule_check after actual native-sheet execution to check all declared candidates and stored Colebrook residuals without another solver. It and duct_junction_review support explicit host BSA_PROJECT_ROOT. Keep chart readings/edition,air-property assumptions and physical applicability separate;small residuals do not clear those gaps. Read docs/DUCT_SCHEDULE_CHECK.md.
+
 For terminal_throw source lookup,optionally bind the catalogue original PDF using relative source_document and source_sha256. Workflow pins the PDF and rejects outside-plan sources. Read docs/TERMINAL_THROW.md. Still inspect actual source rows,throw column,conditions,units and less-than NC values;PDF identity alone does not accept transcription,installation or ADPI.
 
 For a saved-native water graph,use wntr.ifc-steady with

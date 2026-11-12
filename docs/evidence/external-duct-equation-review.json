@@ -1,0 +1,52 @@
+{
+  "scope": "External-workspace reuse of existing saved-native schedule equation and source-candidate review",
+  "actual_execution": {
+    "project_directory_as_cwd": true,
+    "outputs_in_coursework_workspace": true,
+    "sections": 47,
+    "candidates": 16779,
+    "independent_equation_checks_pass": true,
+    "source_candidate_ranking_pass": true,
+    "maximum_absolute_colebrook_residual": 3.375077994860476e-14,
+    "native_schedule_lineage": [
+      "native-sheet",
+      "duct-sheet",
+      "duct-schedule"
+    ],
+    "original_requirements_retained": 33
+  },
+  "source_review": {
+    "classroom_pages": [
+      7,
+      8,
+      9
+    ],
+    "visually_inspected": true,
+    "classroom_chart_edition": "2013",
+    "official_corroborating_edition": "2021",
+    "official_url": "https://handbook.ashrae.org/Handbooks/F21/SI/F21_Ch21/F21_Ch21_si.aspx",
+    "scanned_chart_readings_verified": false,
+    "edition_equivalence_verified": false,
+    "physical_applicability_verified": false
+  },
+  "tests": {
+    "invocations": 25,
+    "passes": 25,
+    "failures": 0,
+    "errors": 0,
+    "command": "python -m unittest tests.test_duct_schedule_check tests.test_duct_junction_review tests.test_project_workspace tests.test_duct_sheet tests.test_duct_sheet_native tests.test_delivery"
+  },
+  "source_snapshot": {
+    "src/bsa/duct_schedule_check.py": "f61722bf17f90b6a5e5ee03b27e395648884e6c19f7d0bc8233957758fd73e36",
+    "src/bsa/duct_junction_review.py": "26ccbc444f33467f3b47f0a17ed25b7cf6bbb5c69898e6eb4db3372dce72a443",
+    "src/bsa/workspace.py": "217d3a491408715ebee7f4fbf7cee5b4a560eb7d62c1377ba47600d816220008"
+  },
+  "limitations": [
+    "Existing equation/review engines reused;no new friction solver or chart digitizer",
+    "Course chart density/roughness are reference conditions,not measured installed conditions",
+    "Viscosity and finite candidate grid remain declared design assumptions",
+    "All6unresolved project inputs and27pending review rows remain unchanged",
+    "Private source snapshots and dense calculations remain in the project workspace"
+  ],
+  "design_accepted": false
+}

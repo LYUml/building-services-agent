@@ -63,8 +63,8 @@ class DuctJunctionReviewTests(unittest.TestCase):
             else: schedule['flow_aggregation']['sections'][0]['to'] = 'R'
             with self.subTest(case=case), self.assertRaises(ValueError): inspect(doc, schedule, binding)
 
-    def test_inherited_inputs_and_immutable_workflow(self):
-        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as tmp:
+    def _check_inherited_inputs_and_immutable_workflow(self,directory):
+        with tempfile.TemporaryDirectory(dir=directory) as tmp:
             root = Path(tmp).resolve(); run = root/'workflow'; (run/'native/reopened').mkdir(parents=True); (run/'sizing').mkdir()
             doc, schedule, binding = self.fixture(); doc.saveas(run/'native/reopened/source-export.dxf')
             source = root/'source.json'; source.write_text('{}'); schedule['input_sha256'] = digest(source)
@@ -85,3 +85,15 @@ class DuctJunctionReviewTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'Schedule/project'): from_workflow(plan, run, 'native', root/'changed.json')
             with patch('bsa.workflow.verify', return_value={'integrity_pass': False}):
                 with self.assertRaisesRegex(ValueError, 'changed'): from_workflow(plan, run, 'native', root/'stale.json')
+
+    def test_inherited_inputs_and_immutable_workflow(self):
+        self._check_inherited_inputs_and_immutable_workflow(ROOT/'runs')
+
+    def test_host_selected_external_review(self):
+        import os
+        with tempfile.TemporaryDirectory() as parent:
+            with patch.dict(os.environ,{'BSA_PROJECT_ROOT':parent}):
+                self._check_inherited_inputs_and_immutable_workflow(parent)
+            with patch.dict(os.environ,{'BSA_PROJECT_ROOT':''}):
+                with self.assertRaisesRegex(ValueError,'outside immutable'):
+                    from_workflow(Path(parent)/'plan.json',Path(parent)/'workflow','native',Path(parent)/'denied.json')
