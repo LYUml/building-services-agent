@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Short-stub authoring and exact-model consumers now run automatically. Two actual
+14element studies retain6interface clearance failures under the unchanged
+synthetic policy;required review blocks,12requirements remain. See
+docs/SPATIAL_TERMINAL_STUBS.md. No new engine or automatic contact waiver.
+
 Verified inlets now feed explicit hollow short-duct studies through the existing
 circular-wall engine. Two actual6stub cases preserve native geometry/flows and
 directed coincident links;upstream ends,physical openings and full-network

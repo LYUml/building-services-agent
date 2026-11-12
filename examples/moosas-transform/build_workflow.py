@@ -14,7 +14,7 @@ from bsa.documents import extract
 ROOT=Path(__file__).resolve().parents[2]
 
 
-def build(out, sources=None, *, ifc_source=None, tolerances=None, air_balance=False, terminal_allocation=False, performance_settings=None, drawing_settings=None, native_settings=None, ifc_basis=None, clash_policy=None, inlet_basis=None):
+def build(out, sources=None, *, ifc_source=None, tolerances=None, air_balance=False, terminal_allocation=False, performance_settings=None, drawing_settings=None, native_settings=None, ifc_basis=None, clash_policy=None, inlet_basis=None, stub_basis=None):
     if terminal_allocation and not air_balance:raise ValueError('Terminal allocation requires explicit air balance selection')
     if performance_settings is not None and not terminal_allocation:raise ValueError("Performance requires explicit terminal allocation")
     if drawing_settings is not None and not terminal_allocation:raise ValueError('Drawing requires explicit terminal allocation')
@@ -22,6 +22,7 @@ def build(out, sources=None, *, ifc_source=None, tolerances=None, air_balance=Fa
     if ifc_basis is not None and performance_settings is None:raise ValueError('IFC envelope study requires explicit terminal performance')
     if inlet_basis is not None and ifc_basis is None:raise ValueError('Inlets require explicit terminal IFC basis')
     if clash_policy is not None and ifc_basis is None:raise ValueError('Coordination requires explicit terminal IFC basis')
+    if stub_basis is not None and inlet_basis is None:raise ValueError('Short stubs require explicit inlet basis')
     out=Path(out).resolve()
     if out.exists():raise ValueError('New workflow input directory required')
     out.mkdir(parents=True);(out/'sources').mkdir()
@@ -103,7 +104,7 @@ def build(out, sources=None, *, ifc_source=None, tolerances=None, air_balance=Fa
         shutil.copyfile(native_settings,out/'spatial-native-settings.json')
         paragraphs.insert(-1,'Save and independently reopen the inherited schematic in AutoCAD and verify its fixed-scale PDF reference;retain visual and engineering review as pending.')
         ids.insert(-1,'terminal-native')
-    for path,name,text in [(ifc_basis,'terminal-ifc','Author source-classified terminal IFC envelopes from the inherited performance/allocation source,retaining every original space/entity and pending installation checks.'),(inlet_basis,'terminal-inlets','Add explicit source-classified logical inlets and air-system groups while preserving body geometry and pending physical connection requirements.'),(clash_policy,'terminal-coordination','Check the exact authored IFC against the complete sourced clash policy;retain whole-model failures and pending engineering applicability.')]:
+    for path,name,text in [(ifc_basis,'terminal-ifc','Author source-classified terminal IFC envelopes from the inherited performance/allocation source,retaining every original space/entity and pending installation checks.'),(inlet_basis,'terminal-inlets','Add explicit source-classified logical inlets and air-system groups while preserving body geometry and pending physical connection requirements.'),(stub_basis,'terminal-stubs','Author explicit hollow short ducts from saved inlet frames and source-classified dimensions;retain open upstream boundaries and unresolved physical/network acceptance.'),(clash_policy,'terminal-coordination','Check the exact authored IFC against the complete sourced clash policy;retain whole-model failures and pending engineering applicability.')]:
         if path is not None:
             shutil.copyfile(path,out/(name+'-basis.json'))
             paragraphs.insert(-1,text);ids.insert(-1,name)
@@ -133,7 +134,7 @@ def build(out, sources=None, *, ifc_source=None, tolerances=None, air_balance=Fa
         index=next(i for i,t in enumerate(plan['tasks']) if t['id']=='review')
         plan['tasks'].insert(index,dict(id='terminal-native',kind='spatial_terminal_native',depends_on='terminal-drawing',settings='spatial-native-settings.json'))
         next(t for t in plan['tasks'] if t['id']=='review')['requires_pass'].append('terminal-native')
-    for path,name,kind,parent,field in [(ifc_basis,'terminal-ifc','spatial_terminal_ifc','terminal-performance','basis'),(inlet_basis,'terminal-inlets','spatial_terminal_inlets','terminal-ifc','basis'),(clash_policy,'terminal-coordination','spatial_terminal_coordination','terminal-inlets' if inlet_basis is not None else 'terminal-ifc','policy')]:
+    for path,name,kind,parent,field in [(ifc_basis,'terminal-ifc','spatial_terminal_ifc','terminal-performance','basis'),(inlet_basis,'terminal-inlets','spatial_terminal_inlets','terminal-ifc','basis'),(stub_basis,'terminal-stubs','spatial_terminal_stubs','terminal-inlets','basis'),(clash_policy,'terminal-coordination','spatial_terminal_coordination','terminal-stubs' if stub_basis is not None else 'terminal-inlets' if inlet_basis is not None else 'terminal-ifc','policy')]:
         if path is not None:
             index=next(i for i,t in enumerate(plan['tasks']) if t['id']=='review')
             plan['tasks'].insert(index,dict(id=name,kind=kind,depends_on=parent,**{field:name+'-basis.json'}))
@@ -152,6 +153,7 @@ if __name__=='__main__':
     parser.add_argument('--native-settings',type=Path)
     parser.add_argument('--ifc-basis',type=Path);parser.add_argument('--clash-policy',type=Path)
     parser.add_argument('--inlet-basis',type=Path)
+    parser.add_argument('--stub-basis',type=Path)
     args=parser.parse_args()
     if args.ifc and (args.length_tolerance_m is None or args.area_tolerance_m2 is None):parser.error('Explicit IFC source length/area tolerances required')
-    print(build(args.out,args.sources,ifc_source=args.ifc,tolerances=None if args.ifc is None else dict(length_tolerance_m=args.length_tolerance_m,area_tolerance_m2=args.area_tolerance_m2),air_balance=args.air_balance,terminal_allocation=args.terminal_allocation,performance_settings=args.performance_settings,drawing_settings=args.drawing_settings,native_settings=args.native_settings,ifc_basis=args.ifc_basis,clash_policy=args.clash_policy,inlet_basis=args.inlet_basis))
+    print(build(args.out,args.sources,ifc_source=args.ifc,tolerances=None if args.ifc is None else dict(length_tolerance_m=args.length_tolerance_m,area_tolerance_m2=args.area_tolerance_m2),air_balance=args.air_balance,terminal_allocation=args.terminal_allocation,performance_settings=args.performance_settings,drawing_settings=args.drawing_settings,native_settings=args.native_settings,ifc_basis=args.ifc_basis,clash_policy=args.clash_policy,inlet_basis=args.inlet_basis,stub_basis=args.stub_basis))

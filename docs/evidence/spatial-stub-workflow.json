@@ -1,0 +1,93 @@
+{
+  "scope": "Synthetic short-stub workflow with complete new-model policy failure retained",
+  "runs": {
+    "native": {
+      "workflow": "runs\\spatial-stub-workflow-native\\workflow.json",
+      "sha256": "f0d3221b7f2e219234cd9bc8dc4437329d180b0e96cd62c7e096960ebca4f8f7",
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "air-balance": "pass",
+        "terminal-allocation": "pass",
+        "terminal-performance": "pass",
+        "terminal-drawing": "pass",
+        "terminal-ifc": "pass",
+        "terminal-inlets": "pass",
+        "terminal-stubs": "pass",
+        "terminal-coordination": "fail",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "requirements": 12,
+      "final_review_scope": "required checks unresolved: terminal-coordination (fail); adapter not executed",
+      "coordination_producer": "runs\\spatial-stub-workflow-native\\terminal-stubs\\terminal-stubs.json",
+      "physical_elements": 14,
+      "intersection_pairs": 0,
+      "clearance_violation_pairs": 6,
+      "checks": {
+        "geometry_coverage": true,
+        "no_intersections": true,
+        "clearance": false
+      },
+      "preview_sha256": "ee249bcdf16e65f84dcabff0e1822e030dc9b4dba9c3f1e08dd8c0a36a20168f",
+      "context_objects": 11,
+      "context_ports_not_drawn": 14
+    },
+    "moosas": {
+      "workflow": "runs\\spatial-stub-workflow-moosas\\workflow.json",
+      "sha256": "5ae0a82c9dd98343f1b0091083ae3c29fede1f0c3e078b43f6b2de5e8d38fa41",
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "air-balance": "pass",
+        "terminal-allocation": "pass",
+        "terminal-performance": "pass",
+        "terminal-drawing": "pass",
+        "terminal-ifc": "pass",
+        "terminal-inlets": "pass",
+        "terminal-stubs": "pass",
+        "terminal-coordination": "fail",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "requirements": 12,
+      "final_review_scope": "required checks unresolved: terminal-coordination (fail); adapter not executed",
+      "coordination_producer": "runs\\spatial-stub-workflow-moosas\\terminal-stubs\\terminal-stubs.json",
+      "physical_elements": 14,
+      "intersection_pairs": 0,
+      "clearance_violation_pairs": 6,
+      "checks": {
+        "geometry_coverage": true,
+        "no_intersections": true,
+        "clearance": false
+      },
+      "preview_sha256": "ee249bcdf16e65f84dcabff0e1822e030dc9b4dba9c3f1e08dd8c0a36a20168f",
+      "context_objects": 11,
+      "context_ports_not_drawn": 14
+    },
+    "disabled": {
+      "workflow": "runs\\spatial-stub-workflow-disabled\\workflow.json",
+      "sha256": "1270a5179c9406cf972560b5b7abd1eed8c1de4c6d228aeae9f06ef39900e42c",
+      "tasks": {
+        "recognition": "pending",
+        "lighting-rules": "pending",
+        "air-balance": "pending",
+        "terminal-allocation": "pending",
+        "terminal-performance": "pending",
+        "terminal-drawing": "pending",
+        "terminal-ifc": "pending",
+        "terminal-inlets": "pending",
+        "terminal-stubs": "pending",
+        "terminal-coordination": "pending",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "requirements": 12,
+      "final_review_scope": "required checks unresolved: recognition (pending), lighting-rules (pending), air-balance (pending), terminal-allocation (pending), terminal-performance (pending), terminal-drawing (pending), terminal-ifc (pending), terminal-inlets (pending), terminal-stubs (pending), terminal-coordination (pending); adapter not executed"
+    }
+  },
+  "render_bytes_equal": true,
+  "policy_minimum_clearance_m": 0.05,
+  "allowed_contacts": [],
+  "design_accepted": false
+}

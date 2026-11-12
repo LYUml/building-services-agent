@@ -50,3 +50,50 @@ Full-model clashes/clearances,room/ceiling containment,manufacturer/fitting
 geometry,pressure/fan duty,visual BIM and engineering acceptance remain pending.
 Existing consumer/workflow bindings are not silently redirected to this new
 producer;automatic stub/consumer integration remains unfinished.
+
+## Automatic workflow and exact consumers
+
+spatial_terminal_stubs inherits an earlier spatial_terminal_inlets with explicit
+plan-local basis and optional requires_pass. The public builder accepts
+--stub-basis only with --inlet-basis and binds following coordination to the new
+stub task. Missing/failed upstream work creates no stub file. A passing authoring
+task means saved geometry/directed interfaces pass,not complete network acceptance.
+workflow.verify and delivery.context replay the stub and exact inlet/basis ties.
+
+The common terminal model resolver now accepts terminal-stubs.json and selects
+its exact Terminal Stub Study.ifc. It validates the producer's declared IFC hash,
+original terminal inventory and source pins. Coordination inspects that complete
+new model. Diagnostic preview keeps terminal envelopes as foreground and retains
+new short ducts as context;their ports are explicitly recorded as context ports,
+not mistaken for invisible or missing components. No arbitrary IFC replacement
+or redirection to the older inlet file is accepted.
+
+Full-model contact policy still applies. Coincident ports do not implicitly waive
+a clearance finding or establish a real opening in a terminal envelope. The
+original no-contact-exception policy remains unchanged. Numerical coordination
+failure must block required releases while preserving independent work and the
+original requirements. Exact runtime evidence is recorded separately in
+evidence/spatial-stub-workflow.json after actual execution.
+
+Actual complete native/MOOSAS workflows each retain12requirements,author6stubs
+and inspect14physical elements in the exact stub IFC. Both show0hard intersection
+pairs but6clearance-violation pairs under the unchanged50mm/no-contact-exception
+synthetic policy. Therefore coordination stays fail and final manual review is
+blocked;independent electrical still passes. These are policy findings at the
+new interfaces,not a claim that an actual manufactured joint is defective.
+Do not add waivers or remove these pairs merely to obtain a numerical pass.
+Manufacturer joint/opening/clearance evidence and physical model fidelity remain
+necessary before interpreting contacts as acceptable.
+
+The disabled-source scenario creates no stubs or coordination result. The two
+actual diagnostic previews include the6new short ducts among11context objects,
+with14context ports retained but not drawn;foreground terminal ports remain6.
+Rendered PNG bytes match and one was visually inspected. Thin translucent context
+and side-projection label overlap limit that diagnostic;no physical BIM review
+or design acceptance is inferred.
+
+Validation:5 related tests pass after fixing a test assertion's status-field name.
+The complete new-model workflow verifies a policy failure blocks required review,
+disabled-source propagation,correct producer binding and legacy envelope/preview
+compatibility. The actual native/MOOSAS/disabled runs provide separate runtime
+evidence in evidence/spatial-stub-workflow.json.

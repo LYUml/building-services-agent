@@ -44,6 +44,8 @@ def context(plan,root):
     verify_electrical_workflow(source['tasks'],root,plan.parent,report['tasks'])
     from .module_electrical_native import verify_workflow as verify_electrical_native_workflow
     verify_electrical_native_workflow(source['tasks'],root,report['tasks'])
+    from .spatial_terminal_stubs import verify_workflow as verify_terminal_stub_workflow
+    verify_terminal_stub_workflow(source['tasks'],root,plan.parent,report['tasks'])
     from .spatial_terminal_inlets import verify_workflow as verify_terminal_inlet_workflow
     verify_terminal_inlet_workflow(source['tasks'],root,plan.parent,report['tasks'])
     from .spatial_terminal_ifc import verify_workflow as verify_terminal_ifc_workflow

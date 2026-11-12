@@ -123,6 +123,18 @@ def verify(folder):
     return result
 
 
+def verify_workflow(tasks,root,plan_root,record):
+    for task in tasks:
+        if task['kind']!='spatial_terminal_stubs':continue
+        folder=Path(root)/task['id']
+        if not (folder/'terminal-stubs.json').is_file():
+            if record[task['id']]['status']=='pass':raise ValueError('Passing stub task lacks report')
+            continue
+        report=verify(folder)
+        if Path(report['inlets'])!=(Path(root)/task['depends_on']/'terminal-inlets.json').resolve() or Path(report['basis'])!=(Path(plan_root)/task['basis']).resolve():raise ValueError('Stub task replaced declared inlet/basis')
+        if record[task['id']]['status']!='pass' or record[task['depends_on']]['status']!='pass':raise ValueError('Stub task execution dependency differs')
+
+
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('source');parser.add_argument('--basis',required=True);parser.add_argument('--out',required=True)
     args=parser.parse_args();run(args.source,args.basis,args.out)

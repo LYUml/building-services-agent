@@ -32,7 +32,7 @@ def classify(report,calculation):
 
 def run(source,policy,out):
     source,policy,out=[Path(p).resolve() for p in (source,policy,out)]
-    if not all(allowed(p) for p in (source,policy,out)) or out.exists() or source.name not in ('terminal-ifc.json','terminal-inlets.json'):raise ValueError('Verified terminal IFC,selected policy and fresh output required')
+    if not all(allowed(p) for p in (source,policy,out)) or out.exists() or source.name not in ('terminal-ifc.json','terminal-inlets.json','terminal-stubs.json'):raise ValueError('Verified terminal IFC,selected policy and fresh output required')
     before=digest(source);target,report=model_source.resolve(source);pins=pins_for(source,policy,report)
     if pins[str(source)]!=before:raise ValueError('Terminal source changed during verification')
     if any(out==Path(p) or out in Path(p).parents for p in pins):raise ValueError('Coordination output overlaps sources')
@@ -49,7 +49,7 @@ def verify(folder):
     result=read_json(folder/'terminal-coordination.json')
     if set(result)!={'terminal_ifc','policy','inputs','calculation','summary','design_accepted'} or result['design_accepted'] is not False:raise ValueError('Exact unaccepted coordination report required')
     source=Path(result['terminal_ifc']);policy=Path(result['policy'])
-    if not all(allowed(p) for p in (source,policy)) or source.name not in ('terminal-ifc.json','terminal-inlets.json'):raise ValueError('Selected original terminal model required')
+    if not all(allowed(p) for p in (source,policy)) or source.name not in ('terminal-ifc.json','terminal-inlets.json','terminal-stubs.json'):raise ValueError('Selected original terminal model required')
     target,report=model_source.resolve(source);pins=pins_for(source,policy,report)
     if result['inputs']!=pins or any(digest(Path(p))!=sha for p,sha in pins.items()):raise ValueError('Coordination source/method pins differ')
     calculation=clash.inspect(target,clash.validate_policy(read_json(policy)))
@@ -65,7 +65,7 @@ def verify_workflow(tasks,root,plan_root,record):
             if record[task['id']]['status']=='pass':raise ValueError('Passing BIM task lacks report')
             continue
         report=verify(folder)
-        parent=next(t for t in tasks if t['id']==task['depends_on']);filename='terminal-inlets.json' if parent['kind']=='spatial_terminal_inlets' else 'terminal-ifc.json'
+        parent=next(t for t in tasks if t['id']==task['depends_on']);filename={'spatial_terminal_ifc':'terminal-ifc.json','spatial_terminal_inlets':'terminal-inlets.json','spatial_terminal_stubs':'terminal-stubs.json'}[parent['kind']]
         if Path(report['terminal_ifc'])!=(Path(root)/task['depends_on']/filename).resolve() or Path(report['policy'])!=(Path(plan_root)/task['policy']).resolve():raise ValueError('Spatial BIM task replaced declared inputs')
         expected=report['summary']['status'] if task['kind']=='spatial_terminal_coordination' else 'pass'
         if record[task['id']]['status']!=expected or record[task['depends_on']]['status']!='pass':raise ValueError('Spatial BIM task dependency/status differs')

@@ -44,3 +44,8 @@ Validation:8 distinct related tests pass,covering source substitution,gates,
 legacy envelope coordination/preview and inlet geometry/identity controls.
 Two preview tests were repeated successfully after the final footer/owner-label
 change,including source port ownership and image mutation detection.
+
+The resolver additionally supports verified terminal-stubs.json. See
+SPATIAL_TERMINAL_STUBS.md for exact new-model consumer and workflow semantics.
+Original two-producer notes describe earlier milestones;full acceptance remains
+unproven. Producer-declared IFC hashes are checked before returning artifacts.
