@@ -126,6 +126,9 @@ def regulatory_source_bindings(tasks,root):
         elif kind in shared:
             current['project']=local_path(root,task.get('project'))
             if kind in geometric:current['geometry']=local_path(root,task.get('geometry'))
+        elif kind=='pump_electrical':
+            current=dict(sources.get(task.get('depends_on'),{}))
+            current['project']=local_path(root,task.get('project'))
         elif isinstance(task.get('depends_on'),str):
             current=dict(sources.get(task['depends_on'],{}))
         if kind=='plumbing_pump_set':
@@ -766,6 +769,8 @@ def validate_plan(path):
             inputs.update(method_paths(read_json(pack)))
             if kind in ('electrical_regulations','lighting_regulations'):
                 inputs.update(local_path(root,t.get(key)) for key in (('topology' if kind=='electrical_regulations' else 'geometry'),'basis'))
+            if kind=='electrical_regulations':
+                inputs.update(Path(__file__).with_name(name) for name in ('electrical_regulations.py','electrical_paths.py','regulations.py','engine.py'))
         if kind=='plumbing_pump_regulations':
             if t.get('depends_on'):
                 parent=t['depends_on']

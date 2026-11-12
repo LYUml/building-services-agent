@@ -1,5 +1,12 @@
 # Source-bound electrical voltage-drop paths
 
+An explicit independent-phase grouping extension now reuses this same-phase
+calculator without changing original labels, loads or hardware. It requires
+dedicated returns, exact coverage and separate feeder/non-origin identities;
+shared-neutral/phasor coupling remains unsupported. Read
+[the executed HK handoff](COUPLED_HK_ELECTRICAL.md). The original default method
+and its same-phase restriction below remain unchanged.
+
 The branch electrical engine does not represent the route from installation origin through distribution feeders. `bsa.electrical_paths` adds an explicitly declared single-phase radial feeder tree, computes each feeder current from all attached downstream circuit design currents once, and sums feeder plus branch voltage drops for each terminal circuit.
 
 ```powershell

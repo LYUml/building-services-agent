@@ -1,5 +1,12 @@
 # Reuse survey â€” 2026-11-09
 
+HK shared-model release reuses existing electrical_paths same-phase calculation,
+electrical_regulations and the pinned 2025 EMSD rule pack; no new solver/package.
+The actual input has L1/L2 circuits, so explicit dedicated-return group glue is
+needed rather than relabelling phases or assuming unavailable neutral/impedance
+data for a phasor solver. Official index and fresh PDF bytes were checked; native
+positive and blocked controls executed. See COUPLED_HK_ELECTRICAL.md.
+
 Native shared-model delivery reuses existing ifc_native/native_cad/cad_intake/
 cad_overlay/cad_sheet and installed AutoCAD Core Console. The gap was dependency
 composition and native method/runtime pin coverage, not another DWG engine.

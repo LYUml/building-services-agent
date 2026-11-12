@@ -1,0 +1,10 @@
+{
+  "jurisdiction": "HK",
+  "rule_pack": "hk-2026.11.08",
+  "edition_decisions": {"emsd_wiring_2025": {"edition": "2025", "basis": "Explicit synthetic test selects the 2025 CoP path. EMSD index states publication on 31 December 2025 and a 2020-edition grace path for installations completed and connected by 31 December 2026. This is not a determination of real works dates or statutory applicability."}},
+  "facts": {
+    "normal_service": {"value": true, "source": "Explicit synthetic steady normal-service scenario; motor starting/transients not modelled."},
+    "fixed_current_using_equipment": {"value": true, "source": "Explicit synthetic classification of the represented pump and luminaires; actual equipment standards remain pending."},
+    "includes_entire_installation_origin_to_equipment_path": {"value": true, "source": "Explicit scenario completeness assertion for the two declared independent radials, represented feeders and original terminal branches only; not a site or whole-building survey."}
+  }
+}

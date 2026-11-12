@@ -7,8 +7,41 @@ from pathlib import Path
 from .cli import digest
 from .engine import calculate, ProjectError
 
+PHASE_METHOD='independent_single_phase_radials'
+RETURN_BASIS='dedicated per-radial return paths; no shared-neutral coupling'
+
+
+def calculate_phase_paths(project,topology):
+    """Partition declared independent radials; reuse the original same-phase solver."""
+    fields={'schema_version','method','source','installation_origin','return_path_basis','radials'}
+    if set(topology)!=fields or type(topology['schema_version']) is not int or topology['schema_version']!=1 or topology['return_path_basis']!=RETURN_BASIS or not isinstance(topology['source'],str) or not topology['source'].strip() or not isinstance(topology['installation_origin'],str) or not topology['installation_origin'].strip():
+        raise ProjectError('Explicit sourced independent radial return-path basis required')
+    branch=calculate(project);phases={c['phase'] for c in project['circuits']};radials=topology['radials']
+    if not isinstance(radials,dict) or set(radials)!=phases:raise ProjectError('Independent radial groups must cover every original phase exactly')
+    feeders=[];paths=[];groups={};used_ids=set();used_nodes=set();pending=[]
+    for phase,radial in radials.items():
+        if not isinstance(radial,dict) or radial.get('method')!='single_phase_scalar_radial' or radial.get('installation_origin')!=topology['installation_origin']:
+            raise ProjectError('Each group requires the original same-phase method and common declared installation origin')
+        subset=copy.deepcopy(project);subset['circuits']=[c for c in subset['circuits'] if c['phase']==phase]
+        ids={c['id'] for c in subset['circuits']};subset['devices']=[d for d in subset['devices'] if d['circuit'] in ids]
+        result=calculate_paths(subset,radial)
+        feeder_ids={f['id'] for f in result['feeders']}
+        nodes={node for f in result['feeders'] for node in (f['from_node'],f['to_node']) if node!=topology['installation_origin']}
+        if used_ids & feeder_ids or used_nodes & nodes:raise ProjectError('Cross-phase feeder identities or non-origin nodes cannot be shared by independent radials')
+        used_ids.update(feeder_ids);used_nodes.update(nodes)
+        feeders.extend(dict(f,phase=phase) for f in result['feeders'])
+        paths.extend(dict(p,phase=phase) for p in result['paths'])
+        groups[phase]=dict(circuit_ids=sorted(ids),feeder_ids=sorted(feeder_ids))
+        pending.extend(result['pending'])
+    if {p['circuit'] for p in paths}!={c['id'] for c in project['circuits']} or len(paths)!=len(project['circuits']):raise ProjectError('Complete once-only original circuit coverage required')
+    return dict(branch_calculation=branch,feeders=feeders,paths=paths,installation_origin=topology['installation_origin'],
+        topology_source=topology['source'],phase_groups=groups,return_path_basis=RETURN_BASIS,design_accepted=False,
+        scope='Declared independent same-phase radial groups at nominal voltage; original phase labels and all loads preserved; no shared-neutral or multiphase load-flow solution',
+        pending=list(dict.fromkeys(pending+['dedicated return-path applicability and actual source/topology completeness','shared-neutral/phase coupling not modelled'])))
+
 
 def calculate_paths(project, topology):
+    if isinstance(topology,dict) and topology.get('method')==PHASE_METHOD:return calculate_phase_paths(project,topology)
     branch=calculate(project)
     def text(value):
         return isinstance(value,str) and bool(value.strip())

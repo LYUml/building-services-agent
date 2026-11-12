@@ -6,12 +6,14 @@ from .cli import digest
 from .engine import ProjectError
 from .electrical_paths import run as run_paths, bind_facts
 from .regulations import evaluate, source_paths
+from . import electrical_paths,regulations,engine
 
 
 def run(project,topology,basis,pack,sources,out):
     files=[Path(p).resolve() for p in (project,topology,basis,pack)]
     out=Path(out).resolve()
     before={str(p):digest(p) for p in files}
+    before.update({str(Path(p).resolve()):digest(Path(p)) for p in (__file__,electrical_paths.__file__,regulations.__file__,engine.__file__)})
     data=json.loads(files[3].read_text(encoding='utf-8-sig'))
     official=source_paths(data,sources)
     if any(out==p or out in p.parents for p in set(files)|official):

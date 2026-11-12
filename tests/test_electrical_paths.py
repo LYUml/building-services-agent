@@ -56,3 +56,33 @@ class ElectricalPathTests(unittest.TestCase):
         r=calculate_paths(self.project,self.topology)
         self.assertFalse(r['branch_calculation']['calculated_checks_pass'])
         self.assertFalse(r['branch_calculation']['circuits'][0]['checks']['ib_le_in'])
+
+    def test_phase_separated_radials_preserve_original_loads_and_phase_currents(self):
+        from bsa.engine import calculate
+        p=json.loads((ROOT/'examples/water-riser/electrical.json').read_text())
+        t=json.loads((ROOT/'examples/engineering-handoff/hk-electrical-topology.json').read_text())
+        before=copy.deepcopy(p);result=calculate_paths(p,t)
+        self.assertEqual(p,before);self.assertEqual(result['branch_calculation'],calculate(p))
+        currents={r['phase']:r['design_current_a'] for r in result['feeders']}
+        self.assertAlmostEqual(currents['L1'],750/.85/230)
+        self.assertAlmostEqual(currents['L2'],36/.9/230)
+        paths={r['circuit']:r for r in result['paths']}
+        self.assertAlmostEqual(paths['PUMP-SUPPLY']['total_voltage_drop_v'],(4*20+18*12)*currents['L1']/1000)
+        self.assertAlmostEqual(paths['SERVICE-LIGHTS']['total_voltage_drop_v'],(4*20+18*18)*currents['L2']/1000)
+        self.assertEqual(result['phase_groups']['L1']['circuit_ids'],['PUMP-SUPPLY'])
+        self.assertFalse(result['design_accepted'])
+
+    def test_independent_groups_reject_missing_return_basis_cross_phase_nodes_and_coverage(self):
+        p=json.loads((ROOT/'examples/water-riser/electrical.json').read_text())
+        original=json.loads((ROOT/'examples/engineering-handoff/hk-electrical-topology.json').read_text())
+        for mode in ('basis','phase','circuit','node','feeder','origin','recursive'):
+            t=copy.deepcopy(original)
+            if mode=='basis':t['return_path_basis']='shared neutral'
+            if mode=='phase':t['radials'].pop('L2')
+            if mode=='circuit':t['radials']['L1']['circuit_from_node']['SERVICE-LIGHTS']='PUMP-DB-L1'
+            if mode=='node':
+                t['radials']['L2']['feeders'][0]['to_node']='PUMP-DB-L1';t['radials']['L2']['circuit_from_node']['SERVICE-LIGHTS']='PUMP-DB-L1'
+            if mode=='feeder':t['radials']['L2']['feeders'][0]['id']='PUMP-FEEDER'
+            if mode=='origin':t['radials']['L2']['installation_origin']='SUBSTITUTE'
+            if mode=='recursive':t['radials']['L2']['method']='independent_single_phase_radials'
+            with self.subTest(mode=mode),self.assertRaises(ProjectError):calculate_paths(p,t)

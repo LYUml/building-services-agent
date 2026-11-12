@@ -1,0 +1,1424 @@
+{
+  "scope": "Original mixed-phase baseline, explicitly independent single-phase radials and selected HK voltage-drop gate before shared IFC/native drawing; no full compliance",
+  "design_accepted": false,
+  "regulatory_compliance": "not_established",
+  "official_source": {
+    "verified_at_utc": "2026-11-12T19:22:27.554917+00:00",
+    "fresh_retrieval_in_this_turn": true,
+    "url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+    "official_index_url": "https://www.emsd.gov.hk/en/electricity_safety/publications/codes_of_practice/index.html",
+    "sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+    "bytes": 10581124,
+    "pdf_page_1_based": 116,
+    "printed_page": "115",
+    "edition_selection": "Explicit synthetic 2025 path; actual works dates and the separate 2020 grace path remain project-specific"
+  },
+  "methods": {
+    "src\\bsa\\electrical_paths.py": "d79704389af28a00ca52c9fe659e0dfb11adc0a0c89ee86afbadc05587cf9228",
+    "src\\bsa\\electrical_regulations.py": "e81806a10fad6d7aaad233e1b8016e9f435907ee5cba5321e76dd436a7ff90e4",
+    "src\\bsa\\workflow.py": "da1423dac518df465b1cc7644f002108f26fcd94581aba2d86c808aeb10199a3",
+    "scripts\\run_coupled_handoff_demo.py": "85f10b694ee8dc823aeae758ad50123f52f5a0ba976e5f438a19f114b80c6f9b"
+  },
+  "cases": {
+    "coupled-hk-native-study": {
+      "verification": {
+        "integrity_pass": true,
+        "original_requirement_ids": [
+          "R001",
+          "R002",
+          "R003",
+          "R004",
+          "R005",
+          "R006",
+          "R007",
+          "R008",
+          "R009",
+          "R010",
+          "R011"
+        ],
+        "task_statuses": {
+          "electrical": "pass",
+          "hk-rules": "pass",
+          "water": "pass",
+          "qa": "pass",
+          "pump": "pass",
+          "coupled": "pass",
+          "coupled-qa": "pass",
+          "drawing": "pass",
+          "native": "pass",
+          "review": "pending"
+        },
+        "retained_input_gaps": [],
+        "recovery_schedule": {
+          "waves": [
+            [
+              {
+                "task": "review",
+                "category": "manual_review",
+                "prerequisite_tasks": [],
+                "requirement_ids": [
+                  "R007-bound-1",
+                  "R009-bound-2",
+                  "R011-bound-2"
+                ],
+                "next_action": "perform the specified review and record evidence separately",
+                "evidence": [],
+                "ready_now": true,
+                "automatic_repair_authorized": false
+              }
+            ]
+          ],
+          "ready_tasks": [
+            "review"
+          ],
+          "requires_fresh_diagnosis_after_each_wave": true,
+          "scope": "Conditional dependency order only; later waves require fresh execution and diagnosis, not assumed upstream success or automatic engineering changes"
+        },
+        "design_accepted": false,
+        "semantic_completeness": "not_established"
+      },
+      "rule_report": {
+        "inputs": {
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-native-study\\electrical.json": "feeda257a5741dbc71c5d6ff676e3ce1592c69a0806f01896cfcdf664c8136c5",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-native-study\\hk-electrical-topology.json": "963aef30571260c5b0d1ddcedcd0058fe4d268394e959950e9e18428812a6737",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-native-study\\hk-electrical-basis.json": "85e14f8ad236c80b19ee45d9036bb0754cfd252bfa0ee77fd89e7ca0a3d6ff5f",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-native-study\\hk-voltage-drop-pack.json": "e39191cab144ccdd9a405996613d5fcd48efd154bef36c1717fbd00e022e9dfb",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\electrical_regulations.py": "e81806a10fad6d7aaad233e1b8016e9f435907ee5cba5321e76dd436a7ff90e4",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\electrical_paths.py": "d79704389af28a00ca52c9fe659e0dfb11adc0a0c89ee86afbadc05587cf9228",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\regulations.py": "33e498396daa79276eb14295d295160eadf5cfd5f8a71c41ce7f520746f1e00e",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\engine.py": "a06a8ce591b85dfd84c4cfc7834c92061a55fc9f5aea8bc0a44aed22a11af365",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-native-study\\hk-sources\\emsd-wiring-2025.pdf": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b"
+        },
+        "inputs_unchanged": true,
+        "missing_sources": [],
+        "calculation_sha256": "72db157051a659612a70e1c1ee78d8fc39b4ba47d1f0fd40698bb31e6d170606",
+        "circuit_checks": {
+          "PUMP-SUPPLY": {
+            "rule_pack": "hk-2026.11.08",
+            "jurisdiction": "HK",
+            "checks": [
+              {
+                "id": "HK.EMSD.COP2025.13A3v.voltage_drop",
+                "status": "pass",
+                "scope": "Normal-service voltage drop from installation origin to fixed current-using equipment, selected deemed-to-satisfy path only; not a branch-circuit-only or starting-transient limit.",
+                "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+                "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+                "edition": "2025",
+                "clause": "13A(3)(v)",
+                "pdf_page_1_based": 116,
+                "value": 0.4937173357055488,
+                "unit": "percent_of_nominal_supply_voltage",
+                "maximum": 4,
+                "evidence": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-native-study\\engineering-run\\workflow\\hk-rules\\calculation\\electrical-paths.json SHA256 72db157051a659612a70e1c1ee78d8fc39b4ba47d1f0fd40698bb31e6d170606; circuit PUMP-SUPPLY; devices BOOSTER",
+                "reasons": [
+                  "selected deemed-to-satisfy path met"
+                ]
+              }
+            ],
+            "supported_checks_pass": true,
+            "coverage": {
+              "complete": false,
+              "implemented": [
+                "One normal-service electrical voltage-drop deemed-to-satisfy check"
+              ],
+              "pending": [
+                "statutory scope and applicability",
+                "remaining electrical protection/cable/earthing rules",
+                "BEC HVAC/lighting/electrical/lifts clauses",
+                "WSD plumbing clauses",
+                "FSD premises and installation rules",
+                "BD drainage rules",
+                "ArchSD contract applicability",
+                "utility requirements and referenced standards"
+              ]
+            },
+            "regulatory_compliance": "not_established",
+            "design_accepted": false,
+            "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+          },
+          "SERVICE-LIGHTS": {
+            "rule_pack": "hk-2026.11.08",
+            "jurisdiction": "HK",
+            "checks": [
+              {
+                "id": "HK.EMSD.COP2025.13A3v.voltage_drop",
+                "status": "pass",
+                "scope": "Normal-service voltage drop from installation origin to fixed current-using equipment, selected deemed-to-satisfy path only; not a branch-circuit-only or starting-transient limit.",
+                "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+                "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+                "edition": "2025",
+                "clause": "13A(3)(v)",
+                "pdf_page_1_based": 116,
+                "value": 0.03054820415879016,
+                "unit": "percent_of_nominal_supply_voltage",
+                "maximum": 4,
+                "evidence": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-native-study\\engineering-run\\workflow\\hk-rules\\calculation\\electrical-paths.json SHA256 72db157051a659612a70e1c1ee78d8fc39b4ba47d1f0fd40698bb31e6d170606; circuit SERVICE-LIGHTS; devices SHAFT-L1,SHAFT-L2",
+                "reasons": [
+                  "selected deemed-to-satisfy path met"
+                ]
+              }
+            ],
+            "supported_checks_pass": true,
+            "coverage": {
+              "complete": false,
+              "implemented": [
+                "One normal-service electrical voltage-drop deemed-to-satisfy check"
+              ],
+              "pending": [
+                "statutory scope and applicability",
+                "remaining electrical protection/cable/earthing rules",
+                "BEC HVAC/lighting/electrical/lifts clauses",
+                "WSD plumbing clauses",
+                "FSD premises and installation rules",
+                "BD drainage rules",
+                "ArchSD contract applicability",
+                "utility requirements and referenced standards"
+              ]
+            },
+            "regulatory_compliance": "not_established",
+            "design_accepted": false,
+            "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+          }
+        },
+        "branch_checks_pass": true,
+        "supported_regulation_checks_pass": true,
+        "status": "pass",
+        "design_accepted": false,
+        "regulatory_compliance": "not_established",
+        "scope": "Fresh single-phase radial calculation and selected per-circuit rules; passing voltage drop cannot clear failed branch checks",
+        "pending": [
+          "actual route lengths and coefficient applicability",
+          "load simultaneity and topology completeness",
+          "feeder protection/ampacity",
+          "three-phase, neutral and phasor effects",
+          "regulatory and engineering acceptance",
+          "dedicated return-path applicability and actual source/topology completeness",
+          "shared-neutral/phase coupling not modelled"
+        ]
+      },
+      "workflow_sha256": "5fafe4236e54d45d6b1c4bc2cd7798d29116e7a968cb84ec5e12f84f6b718c1b",
+      "handoff_sha256": "60004beb88a69925c0d4fc9d423782c985916375a61795504cf51a7ebeccc198",
+      "bound_requirement_count": 14,
+      "no_downstream_coupled_model_or_native_output": false
+    },
+    "coupled-hk-long-feeder": {
+      "verification": {
+        "integrity_pass": true,
+        "original_requirement_ids": [
+          "R001",
+          "R002",
+          "R003",
+          "R004",
+          "R005",
+          "R006",
+          "R007",
+          "R008",
+          "R009",
+          "R010",
+          "R011"
+        ],
+        "task_statuses": {
+          "electrical": "pass",
+          "hk-rules": "pending",
+          "water": "pass",
+          "qa": "pass",
+          "pump": "pass",
+          "coupled": "pending",
+          "coupled-qa": "pending",
+          "drawing": "pending",
+          "native": "pending",
+          "review": "pending"
+        },
+        "retained_input_gaps": [],
+        "recovery_schedule": {
+          "waves": [
+            [
+              {
+                "task": "hk-rules",
+                "category": "pending_condition_review",
+                "prerequisite_tasks": [],
+                "requirement_ids": [
+                  "R010-bound-1",
+                  "R011-bound-1"
+                ],
+                "next_action": "resolve the recorded pending condition before a new run",
+                "evidence": [
+                  "hk-rules/calculation/electrical-paths.json",
+                  "hk-rules/calculation/regulation-projects.json",
+                  "hk-rules/electrical-regulation-checks.json"
+                ],
+                "ready_now": true,
+                "automatic_repair_authorized": false
+              }
+            ],
+            [
+              {
+                "task": "coupled",
+                "category": "pending_condition_review",
+                "prerequisite_tasks": [
+                  "hk-rules"
+                ],
+                "requirement_ids": [
+                  "R005-bound-1"
+                ],
+                "next_action": "resolve upstream tasks before rerunning dependent task",
+                "evidence": [],
+                "ready_now": false,
+                "automatic_repair_authorized": false
+              }
+            ],
+            [
+              {
+                "task": "coupled-qa",
+                "category": "pending_condition_review",
+                "prerequisite_tasks": [
+                  "coupled"
+                ],
+                "requirement_ids": [
+                  "R003-bound-2"
+                ],
+                "next_action": "resolve upstream tasks before rerunning dependent task",
+                "evidence": [],
+                "ready_now": false,
+                "automatic_repair_authorized": false
+              }
+            ],
+            [
+              {
+                "task": "drawing",
+                "category": "pending_condition_review",
+                "prerequisite_tasks": [
+                  "coupled",
+                  "coupled-qa"
+                ],
+                "requirement_ids": [
+                  "R006-bound-1"
+                ],
+                "next_action": "resolve upstream tasks before rerunning dependent task",
+                "evidence": [],
+                "ready_now": false,
+                "automatic_repair_authorized": false
+              }
+            ],
+            [
+              {
+                "task": "native",
+                "category": "pending_condition_review",
+                "prerequisite_tasks": [
+                  "drawing",
+                  "coupled-qa"
+                ],
+                "requirement_ids": [
+                  "R008-bound-1",
+                  "R009-bound-1"
+                ],
+                "next_action": "resolve upstream tasks before rerunning dependent task",
+                "evidence": [],
+                "ready_now": false,
+                "automatic_repair_authorized": false
+              }
+            ],
+            [
+              {
+                "task": "review",
+                "category": "manual_review",
+                "prerequisite_tasks": [
+                  "coupled",
+                  "coupled-qa",
+                  "drawing",
+                  "native",
+                  "hk-rules"
+                ],
+                "requirement_ids": [
+                  "R007-bound-1",
+                  "R009-bound-2",
+                  "R011-bound-2"
+                ],
+                "next_action": "resolve upstream tasks before rerunning dependent task",
+                "evidence": [],
+                "ready_now": false,
+                "automatic_repair_authorized": false
+              }
+            ]
+          ],
+          "ready_tasks": [
+            "hk-rules"
+          ],
+          "requires_fresh_diagnosis_after_each_wave": true,
+          "scope": "Conditional dependency order only; later waves require fresh execution and diagnosis, not assumed upstream success or automatic engineering changes"
+        },
+        "design_accepted": false,
+        "semantic_completeness": "not_established"
+      },
+      "rule_report": {
+        "inputs": {
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-long-feeder\\electrical.json": "feeda257a5741dbc71c5d6ff676e3ce1592c69a0806f01896cfcdf664c8136c5",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-long-feeder\\hk-electrical-topology.json": "5dac44bf4d056a29b39231d95eab7deeb05f3c046ea0dfa822e743dbc8971032",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-long-feeder\\hk-electrical-basis.json": "85e14f8ad236c80b19ee45d9036bb0754cfd252bfa0ee77fd89e7ca0a3d6ff5f",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-long-feeder\\hk-voltage-drop-pack.json": "e39191cab144ccdd9a405996613d5fcd48efd154bef36c1717fbd00e022e9dfb",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\electrical_regulations.py": "e81806a10fad6d7aaad233e1b8016e9f435907ee5cba5321e76dd436a7ff90e4",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\electrical_paths.py": "d79704389af28a00ca52c9fe659e0dfb11adc0a0c89ee86afbadc05587cf9228",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\regulations.py": "33e498396daa79276eb14295d295160eadf5cfd5f8a71c41ce7f520746f1e00e",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\engine.py": "a06a8ce591b85dfd84c4cfc7834c92061a55fc9f5aea8bc0a44aed22a11af365",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-long-feeder\\hk-sources\\emsd-wiring-2025.pdf": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b"
+        },
+        "inputs_unchanged": true,
+        "missing_sources": [],
+        "calculation_sha256": "ceeb21e43ddf6f85354528e51ad297d5459e895f63cadd8544cc50bef322f3af",
+        "circuit_checks": {
+          "PUMP-SUPPLY": {
+            "rule_pack": "hk-2026.11.08",
+            "jurisdiction": "HK",
+            "checks": [
+              {
+                "id": "HK.EMSD.COP2025.13A3v.voltage_drop",
+                "status": "review_required",
+                "scope": "Normal-service voltage drop from installation origin to fixed current-using equipment, selected deemed-to-satisfy path only; not a branch-circuit-only or starting-transient limit.",
+                "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+                "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+                "edition": "2025",
+                "clause": "13A(3)(v)",
+                "pdf_page_1_based": 116,
+                "value": 7.032136105860114,
+                "unit": "percent_of_nominal_supply_voltage",
+                "maximum": 4,
+                "evidence": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-long-feeder\\engineering-run\\workflow\\hk-rules\\calculation\\electrical-paths.json SHA256 ceeb21e43ddf6f85354528e51ad297d5459e895f63cadd8544cc50bef322f3af; circuit PUMP-SUPPLY; devices BOOSTER",
+                "reasons": [
+                  "The 4 percent deemed-to-satisfy path is not met. Assess applicable equipment standards, safe function and any relevant exception; this result alone does not establish statutory noncompliance."
+                ]
+              }
+            ],
+            "supported_checks_pass": false,
+            "coverage": {
+              "complete": false,
+              "implemented": [
+                "One normal-service electrical voltage-drop deemed-to-satisfy check"
+              ],
+              "pending": [
+                "statutory scope and applicability",
+                "remaining electrical protection/cable/earthing rules",
+                "BEC HVAC/lighting/electrical/lifts clauses",
+                "WSD plumbing clauses",
+                "FSD premises and installation rules",
+                "BD drainage rules",
+                "ArchSD contract applicability",
+                "utility requirements and referenced standards"
+              ]
+            },
+            "regulatory_compliance": "not_established",
+            "design_accepted": false,
+            "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+          },
+          "SERVICE-LIGHTS": {
+            "rule_pack": "hk-2026.11.08",
+            "jurisdiction": "HK",
+            "checks": [
+              {
+                "id": "HK.EMSD.COP2025.13A3v.voltage_drop",
+                "status": "pass",
+                "scope": "Normal-service voltage drop from installation origin to fixed current-using equipment, selected deemed-to-satisfy path only; not a branch-circuit-only or starting-transient limit.",
+                "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+                "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+                "edition": "2025",
+                "clause": "13A(3)(v)",
+                "pdf_page_1_based": 116,
+                "value": 0.03054820415879016,
+                "unit": "percent_of_nominal_supply_voltage",
+                "maximum": 4,
+                "evidence": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-long-feeder\\engineering-run\\workflow\\hk-rules\\calculation\\electrical-paths.json SHA256 ceeb21e43ddf6f85354528e51ad297d5459e895f63cadd8544cc50bef322f3af; circuit SERVICE-LIGHTS; devices SHAFT-L1,SHAFT-L2",
+                "reasons": [
+                  "selected deemed-to-satisfy path met"
+                ]
+              }
+            ],
+            "supported_checks_pass": true,
+            "coverage": {
+              "complete": false,
+              "implemented": [
+                "One normal-service electrical voltage-drop deemed-to-satisfy check"
+              ],
+              "pending": [
+                "statutory scope and applicability",
+                "remaining electrical protection/cable/earthing rules",
+                "BEC HVAC/lighting/electrical/lifts clauses",
+                "WSD plumbing clauses",
+                "FSD premises and installation rules",
+                "BD drainage rules",
+                "ArchSD contract applicability",
+                "utility requirements and referenced standards"
+              ]
+            },
+            "regulatory_compliance": "not_established",
+            "design_accepted": false,
+            "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+          }
+        },
+        "branch_checks_pass": true,
+        "supported_regulation_checks_pass": false,
+        "status": "pending",
+        "design_accepted": false,
+        "regulatory_compliance": "not_established",
+        "scope": "Fresh single-phase radial calculation and selected per-circuit rules; passing voltage drop cannot clear failed branch checks",
+        "pending": [
+          "actual route lengths and coefficient applicability",
+          "load simultaneity and topology completeness",
+          "feeder protection/ampacity",
+          "three-phase, neutral and phasor effects",
+          "regulatory and engineering acceptance",
+          "dedicated return-path applicability and actual source/topology completeness",
+          "shared-neutral/phase coupling not modelled"
+        ]
+      },
+      "workflow_sha256": "bf579422db434aa2f4a04574ac989c6cbb747241e8c95fb999878673c6572886",
+      "handoff_sha256": "0da20a67e8801785b9a7df5b45034cbd710d3f2b1df45c58811e868ac286ef92",
+      "bound_requirement_count": 14,
+      "no_downstream_coupled_model_or_native_output": true
+    },
+    "coupled-hk-unknown-scope": {
+      "verification": {
+        "integrity_pass": true,
+        "original_requirement_ids": [
+          "R001",
+          "R002",
+          "R003",
+          "R004",
+          "R005",
+          "R006",
+          "R007",
+          "R008",
+          "R009",
+          "R010",
+          "R011"
+        ],
+        "task_statuses": {
+          "electrical": "pass",
+          "hk-rules": "pending",
+          "water": "pass",
+          "qa": "pass",
+          "pump": "pass",
+          "coupled": "pending",
+          "coupled-qa": "pending",
+          "drawing": "pending",
+          "native": "pending",
+          "review": "pending"
+        },
+        "retained_input_gaps": [],
+        "recovery_schedule": {
+          "waves": [
+            [
+              {
+                "task": "hk-rules",
+                "category": "pending_condition_review",
+                "prerequisite_tasks": [],
+                "requirement_ids": [
+                  "R010-bound-1",
+                  "R011-bound-1"
+                ],
+                "next_action": "resolve the recorded pending condition before a new run",
+                "evidence": [
+                  "hk-rules/calculation/electrical-paths.json",
+                  "hk-rules/calculation/regulation-projects.json",
+                  "hk-rules/electrical-regulation-checks.json"
+                ],
+                "ready_now": true,
+                "automatic_repair_authorized": false
+              }
+            ],
+            [
+              {
+                "task": "coupled",
+                "category": "pending_condition_review",
+                "prerequisite_tasks": [
+                  "hk-rules"
+                ],
+                "requirement_ids": [
+                  "R005-bound-1"
+                ],
+                "next_action": "resolve upstream tasks before rerunning dependent task",
+                "evidence": [],
+                "ready_now": false,
+                "automatic_repair_authorized": false
+              }
+            ],
+            [
+              {
+                "task": "coupled-qa",
+                "category": "pending_condition_review",
+                "prerequisite_tasks": [
+                  "coupled"
+                ],
+                "requirement_ids": [
+                  "R003-bound-2"
+                ],
+                "next_action": "resolve upstream tasks before rerunning dependent task",
+                "evidence": [],
+                "ready_now": false,
+                "automatic_repair_authorized": false
+              }
+            ],
+            [
+              {
+                "task": "drawing",
+                "category": "pending_condition_review",
+                "prerequisite_tasks": [
+                  "coupled",
+                  "coupled-qa"
+                ],
+                "requirement_ids": [
+                  "R006-bound-1"
+                ],
+                "next_action": "resolve upstream tasks before rerunning dependent task",
+                "evidence": [],
+                "ready_now": false,
+                "automatic_repair_authorized": false
+              }
+            ],
+            [
+              {
+                "task": "native",
+                "category": "pending_condition_review",
+                "prerequisite_tasks": [
+                  "drawing",
+                  "coupled-qa"
+                ],
+                "requirement_ids": [
+                  "R008-bound-1",
+                  "R009-bound-1"
+                ],
+                "next_action": "resolve upstream tasks before rerunning dependent task",
+                "evidence": [],
+                "ready_now": false,
+                "automatic_repair_authorized": false
+              }
+            ],
+            [
+              {
+                "task": "review",
+                "category": "manual_review",
+                "prerequisite_tasks": [
+                  "coupled",
+                  "coupled-qa",
+                  "drawing",
+                  "native",
+                  "hk-rules"
+                ],
+                "requirement_ids": [
+                  "R007-bound-1",
+                  "R009-bound-2",
+                  "R011-bound-2"
+                ],
+                "next_action": "resolve upstream tasks before rerunning dependent task",
+                "evidence": [],
+                "ready_now": false,
+                "automatic_repair_authorized": false
+              }
+            ]
+          ],
+          "ready_tasks": [
+            "hk-rules"
+          ],
+          "requires_fresh_diagnosis_after_each_wave": true,
+          "scope": "Conditional dependency order only; later waves require fresh execution and diagnosis, not assumed upstream success or automatic engineering changes"
+        },
+        "design_accepted": false,
+        "semantic_completeness": "not_established"
+      },
+      "rule_report": {
+        "inputs": {
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-unknown-scope\\electrical.json": "feeda257a5741dbc71c5d6ff676e3ce1592c69a0806f01896cfcdf664c8136c5",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-unknown-scope\\hk-electrical-topology.json": "963aef30571260c5b0d1ddcedcd0058fe4d268394e959950e9e18428812a6737",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-unknown-scope\\hk-electrical-basis.json": "fce1f8a5f42f7ec11b8721dd9ea98f6d58835926d1983640a74c2d9a9ee3a5e2",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-unknown-scope\\hk-voltage-drop-pack.json": "e39191cab144ccdd9a405996613d5fcd48efd154bef36c1717fbd00e022e9dfb",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\electrical_regulations.py": "e81806a10fad6d7aaad233e1b8016e9f435907ee5cba5321e76dd436a7ff90e4",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\electrical_paths.py": "d79704389af28a00ca52c9fe659e0dfb11adc0a0c89ee86afbadc05587cf9228",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\regulations.py": "33e498396daa79276eb14295d295160eadf5cfd5f8a71c41ce7f520746f1e00e",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\src\\bsa\\engine.py": "a06a8ce591b85dfd84c4cfc7834c92061a55fc9f5aea8bc0a44aed22a11af365",
+          "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-unknown-scope\\hk-sources\\emsd-wiring-2025.pdf": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b"
+        },
+        "inputs_unchanged": true,
+        "missing_sources": [],
+        "calculation_sha256": "1c3fcbba289101a293bc4648d656a119451661e65f2ac807c2a876bf6abc7755",
+        "circuit_checks": {
+          "PUMP-SUPPLY": {
+            "rule_pack": "hk-2026.11.08",
+            "jurisdiction": "HK",
+            "checks": [
+              {
+                "id": "HK.EMSD.COP2025.13A3v.voltage_drop",
+                "status": "pending",
+                "scope": "Normal-service voltage drop from installation origin to fixed current-using equipment, selected deemed-to-satisfy path only; not a branch-circuit-only or starting-transient limit.",
+                "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+                "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+                "edition": "2025",
+                "clause": "13A(3)(v)",
+                "pdf_page_1_based": 116,
+                "reasons": [
+                  "missing sourced applicability fact: fixed_current_using_equipment"
+                ]
+              }
+            ],
+            "supported_checks_pass": false,
+            "coverage": {
+              "complete": false,
+              "implemented": [
+                "One normal-service electrical voltage-drop deemed-to-satisfy check"
+              ],
+              "pending": [
+                "statutory scope and applicability",
+                "remaining electrical protection/cable/earthing rules",
+                "BEC HVAC/lighting/electrical/lifts clauses",
+                "WSD plumbing clauses",
+                "FSD premises and installation rules",
+                "BD drainage rules",
+                "ArchSD contract applicability",
+                "utility requirements and referenced standards"
+              ]
+            },
+            "regulatory_compliance": "not_established",
+            "design_accepted": false,
+            "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+          },
+          "SERVICE-LIGHTS": {
+            "rule_pack": "hk-2026.11.08",
+            "jurisdiction": "HK",
+            "checks": [
+              {
+                "id": "HK.EMSD.COP2025.13A3v.voltage_drop",
+                "status": "pending",
+                "scope": "Normal-service voltage drop from installation origin to fixed current-using equipment, selected deemed-to-satisfy path only; not a branch-circuit-only or starting-transient limit.",
+                "source_url": "https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf",
+                "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+                "edition": "2025",
+                "clause": "13A(3)(v)",
+                "pdf_page_1_based": 116,
+                "reasons": [
+                  "missing sourced applicability fact: fixed_current_using_equipment"
+                ]
+              }
+            ],
+            "supported_checks_pass": false,
+            "coverage": {
+              "complete": false,
+              "implemented": [
+                "One normal-service electrical voltage-drop deemed-to-satisfy check"
+              ],
+              "pending": [
+                "statutory scope and applicability",
+                "remaining electrical protection/cable/earthing rules",
+                "BEC HVAC/lighting/electrical/lifts clauses",
+                "WSD plumbing clauses",
+                "FSD premises and installation rules",
+                "BD drainage rules",
+                "ArchSD contract applicability",
+                "utility requirements and referenced standards"
+              ]
+            },
+            "regulatory_compliance": "not_established",
+            "design_accepted": false,
+            "scope": "Selected sourced checks only; applicability assertions remain project evidence, not an independent legal determination"
+          }
+        },
+        "branch_checks_pass": true,
+        "supported_regulation_checks_pass": false,
+        "status": "pending",
+        "design_accepted": false,
+        "regulatory_compliance": "not_established",
+        "scope": "Fresh single-phase radial calculation and selected per-circuit rules; passing voltage drop cannot clear failed branch checks",
+        "pending": [
+          "actual route lengths and coefficient applicability",
+          "load simultaneity and topology completeness",
+          "feeder protection/ampacity",
+          "three-phase, neutral and phasor effects",
+          "regulatory and engineering acceptance",
+          "dedicated return-path applicability and actual source/topology completeness",
+          "shared-neutral/phase coupling not modelled"
+        ]
+      },
+      "workflow_sha256": "8d24dde43f168f0c3d58e8b387df245c9528125c7c2500f81eeaa35733614bdb",
+      "handoff_sha256": "c2bae6f56fffe4f95912a01667e975e589e4d353a431240a2c4e684a1335b3a9",
+      "bound_requirement_count": 14,
+      "no_downstream_coupled_model_or_native_output": true
+    }
+  },
+  "baseline_phase_groups": {
+    "L1": {
+      "circuit_ids": [
+        "PUMP-SUPPLY"
+      ],
+      "feeder_ids": [
+        "PUMP-FEEDER"
+      ]
+    },
+    "L2": {
+      "circuit_ids": [
+        "SERVICE-LIGHTS"
+      ],
+      "feeder_ids": [
+        "LIGHT-FEEDER"
+      ]
+    }
+  },
+  "baseline_feeders": [
+    {
+      "id": "PUMP-FEEDER",
+      "from_node": "ORIGIN",
+      "to_node": "PUMP-DB-L1",
+      "route_length_m": 20,
+      "vd_mv_a_m": 4,
+      "source": "Synthetic 20 m dedicated-return single-phase feeder and full 4 mV/A/m coefficient, not product or measured data.",
+      "downstream_circuits": [
+        "PUMP-SUPPLY"
+      ],
+      "design_current_a": 3.8363171355498724,
+      "voltage_drop_v": 0.3069053708439898,
+      "phase": "L1"
+    },
+    {
+      "id": "LIGHT-FEEDER",
+      "from_node": "ORIGIN",
+      "to_node": "LIGHT-DB-L2",
+      "route_length_m": 20,
+      "vd_mv_a_m": 4,
+      "source": "Synthetic 20 m dedicated-return single-phase feeder and full 4 mV/A/m coefficient, not product or measured data.",
+      "downstream_circuits": [
+        "SERVICE-LIGHTS"
+      ],
+      "design_current_a": 0.17391304347826086,
+      "voltage_drop_v": 0.013913043478260868,
+      "phase": "L2"
+    }
+  ],
+  "baseline_paths": [
+    {
+      "circuit": "PUMP-SUPPLY",
+      "device_ids": [
+        "BOOSTER"
+      ],
+      "feeder_ids": [
+        "PUMP-FEEDER"
+      ],
+      "branch_voltage_drop_v": 0.8286445012787724,
+      "total_voltage_drop_v": 1.1355498721227621,
+      "total_voltage_drop_percent": 0.4937173357055488,
+      "phase": "L1"
+    },
+    {
+      "circuit": "SERVICE-LIGHTS",
+      "device_ids": [
+        "SHAFT-L1",
+        "SHAFT-L2"
+      ],
+      "feeder_ids": [
+        "LIGHT-FEEDER"
+      ],
+      "branch_voltage_drop_v": 0.056347826086956515,
+      "total_voltage_drop_v": 0.07026086956521738,
+      "total_voltage_drop_percent": 0.03054820415879016,
+      "phase": "L2"
+    }
+  ],
+  "source_project_substitution_control": {
+    "rejected": true,
+    "reason": "regulatory gate hk-rules checks different project bytes from consumer coupled",
+    "candidate_plan_sha256": "5738bc0ee7dd762a8b4049cd7ff1a3c882f2fb5e4f95d59270c5e3a318725c37",
+    "candidate_project_sha256": "81cd40eb381685dc43eaab47ee229b6ce9f0fedd3b5f2343fb178e813478ce72"
+  },
+  "native": {
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-native-study\\engineering-run\\workflow\\drawing\\segments.dxf": "5a8ddaed9dbb10b8085d6f67c8d182cecba8171ec7ea1f38e726a97f0072fd65",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-native-study\\native-sheet.json": "ff0d8180f23a8a066ea89388339a1e9ce01667d5463241a45e0da36b4b6cc95d"
+    },
+    "inputs_unchanged": true,
+    "engine": "C:\\Program Files\\Autodesk\\AutoCAD 2027\\accoreconsole.exe",
+    "engine_sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2",
+    "dwg_sha256": "1621d84abd2ca895ddd6125c450d08e4c913cd693cad3c1a0d879fff9ee87438",
+    "native_reopen_pass": true,
+    "checks": {
+      "model_entity_count": 8,
+      "linked_entity_count": 6,
+      "model_entities_and_ifc_xdata_match": true,
+      "geometry_layers_and_annotations_match": true,
+      "metre_units": true
+    },
+    "plot": {
+      "pdf_sha256": "940b71b7fcf255107f303082b1f2fd6b1940381d8f0ce8ba185e455019f31614",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 50,
+      "reference_handle": "33",
+      "reference_expected_mm": 50.0,
+      "reference_measured_mm": 49.995666666666665,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "settings": {
+      "source": "Synthetic explicit A4 landscape 1:50 sheet window in metre DXF coordinates; 2.5 m RISE-LOW axis must measure 50 mm. Not an installation drawing.",
+      "window_drawing_units": [
+        -1,
+        -0.5,
+        8,
+        6.5
+      ],
+      "scale_denominator": 50,
+      "reference_ifc_guid": "14_Pcn3dHIEx82hnR2Z_vq",
+      "pdf_tolerance_mm": 0.2
+    },
+    "design_accepted": false,
+    "pending": [
+      "actual PDF visual review",
+      "equipment/fittings/insulation and installation drawing detail",
+      "complete engineering acceptance"
+    ],
+    "artifacts": {
+      "input.dxf": "5a8ddaed9dbb10b8085d6f67c8d182cecba8171ec7ea1f38e726a97f0072fd65",
+      "plot.log": "2b54919e63689095872794977e03ffc22ffe3c96c20c1e6a03ac408840647058",
+      "save.log": "8ca7f7e2cd11f4c7bf9dc1464d5a44eb2405b131bb0d41762f2c3a31bf659747",
+      "save.scr": "552bd4e0d94c94380de4b7049bf686d32b84bf9dae26c10c33b0315269fa1272",
+      "segments.dwg": "1621d84abd2ca895ddd6125c450d08e4c913cd693cad3c1a0d879fff9ee87438",
+      "sheet.json": "938cf842076f4ccdb123ecca215ee4b27dcddc60b709ac1d74b89299cb7537c6",
+      "sheet.log": "4b572e141baaf50662df2c7f21445c192b038d7e1d0559c5f0a36063c7b2a942",
+      "sheet.pdf": "940b71b7fcf255107f303082b1f2fd6b1940381d8f0ce8ba185e455019f31614",
+      "sheet.scr": "a955f28a76d939869d7b5173fd367e0990340d05d92cacdd46b5213dcb2cb974",
+      "native-reopen/export.log": "c27ecff45a2faf2bb7ecc3b080b97976fd50e21cd16651c26c3a16aa2f51d641",
+      "native-reopen/export.scr": "8bc9eaa40400de4a552ead9433ace4e48ab02156e6e22701b1e3d92d8eda2a3e",
+      "native-reopen/source-copy.dwg": "1621d84abd2ca895ddd6125c450d08e4c913cd693cad3c1a0d879fff9ee87438",
+      "native-reopen/source-export.dxf": "60278eeeb1c23d1f388152f77c35e5cd0185bf799caa28ba1985dc2cc3e9bb7d",
+      "ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "6f7658e99f3267ba98afbb4041d35fa0fc0528b1d7f6a4a6c40bff7fe6f9bd7b",
+      "native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "a64075480c01feda61740d76e211215c0dd4dcd5c33cc92f52c673febadbbcec"
+    }
+  },
+  "visual_review": {
+    "scope": "One actual A4 1:50 two-segment X/Z centreline schematic only; no installation/equipment/full engineering acceptance",
+    "reviewer": "Codex host visual inspection",
+    "reviewed_at_utc": "2026-11-12T19:17:41.481379+00:00",
+    "pages_inspected": [
+      1
+    ],
+    "page_count": 1,
+    "pdf": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-native-study\\engineering-run\\workflow\\native\\sheet.pdf",
+    "pdf_sha256": "940b71b7fcf255107f303082b1f2fd6b1940381d8f0ce8ba185e455019f31614",
+    "render": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-native-study\\visual-review\\page-1.png",
+    "render_sha256": "45e3c35380214f76cd50ef0cd9e5674c26e2aeba3ea5aab065afc0841932469c",
+    "checks": {
+      "both_segment_labels_legible": true,
+      "no_clipped_text": true,
+      "no_text_overlap": true,
+      "continuous_two_segment_axis_visible": true,
+      "source_coordinate_unit_and_non_installation_notes_visible": true
+    },
+    "observations": [
+      "RISE-HIGH and RISE-LOW labels each show ID 32 / OD 40 mm and L 2.5 m",
+      "Leader lines meet their source axis and do not collide with labels",
+      "Bottom notes distinguish X/Z projected centrelines and true length from installation geometry",
+      "Generous sheet whitespace; no equipment or electrical topology depicted"
+    ],
+    "format_notes": [
+      "AutoCAD PDF has vector-stroke text, no extracted searchable text",
+      "PDF parser reports duplicate PageMode metadata key; complete page rendered and visually checked"
+    ],
+    "visual_schematic_pass": true,
+    "design_accepted": false
+  },
+  "delivery_assessment": {
+    "design_accepted": false,
+    "review_checks_pass": false,
+    "source_integrity_pass": true,
+    "requirements": [
+      {
+        "id": "R001-bound-1",
+        "task": "electrical",
+        "quote": "Calculate the explicitly synthetic service-shaft electrical baseline from electrical.json: a 0.75 kW single-phase BOOSTER electrical input and two 18 W lights at 230 V. Retain all supplied circuit hardware and create the editable electrical overlay and calculation report. The baseline is an assumption, not a verified motor nameplate or starting load.",
+        "acceptance": "Calculate the explicitly synthetic service-shaft electrical baseline from electrical.json: a 0.75 kW single-phase BOOSTER electrical input and two 18 W lights at 230 V. Retain all supplied circuit hardware and create the editable electrical overlay and calculation report. The baseline is an assumption, not a verified motor nameplate or starting load.",
+        "passage": "P001",
+        "source_locator": {
+          "start_line": 1,
+          "end_line": 1,
+          "source_document": "sources/D001/coupled-brief.md",
+          "source_sha256": "dae00ef65b71e788b2239f896a6616f7ade53946a833e9865adc334b491729ad"
+        },
+        "execution_status": "pass",
+        "recorded_review_status": "pending",
+        "effective_review_status": "pending",
+        "blocked_by": [],
+        "input_blockers": [],
+        "engineering_review_requests": [],
+        "reviewer": "",
+        "reviewed_at_utc": "",
+        "notes": "",
+        "evidence": [],
+        "attachments": [],
+        "facts": [],
+        "issues": []
+      },
+      {
+        "id": "R002-bound-1",
+        "task": "water",
+        "quote": "Using model.json, network.json, binding.json, catalogue.json and geometry.json, size the explicitly synthetic 5 m vertical water riser at prescribed 1 L/s. Evaluate the supplied 15, 25, 32 and 40 mm internal diameters with independent outside diameters. Keep 180 kPa source total pressure, 100 kPa outlet target, 2 m/s velocity limit, fixed endpoints and object/port identities. Retain failed sizes and recheck the saved hollow IFC against the selected calculation. Material scores are scenario points, not prices.",
+        "acceptance": "Using model.json, network.json, binding.json, catalogue.json and geometry.json, size the explicitly synthetic 5 m vertical water riser at prescribed 1 L/s. Evaluate the supplied 15, 25, 32 and 40 mm internal diameters with independent outside diameters. Keep 180 kPa source total pressure, 100 kPa outlet target, 2 m/s velocity limit, fixed endpoints and object/port identities. Retain failed sizes and recheck the saved hollow IFC against the selected calculation. Material scores are scenario points, not prices.",
+        "passage": "P002",
+        "source_locator": {
+          "start_line": 3,
+          "end_line": 3,
+          "source_document": "sources/D001/coupled-brief.md",
+          "source_sha256": "dae00ef65b71e788b2239f896a6616f7ade53946a833e9865adc334b491729ad"
+        },
+        "execution_status": "pass",
+        "recorded_review_status": "pending",
+        "effective_review_status": "pending",
+        "blocked_by": [],
+        "input_blockers": [],
+        "engineering_review_requests": [],
+        "reviewer": "",
+        "reviewed_at_utc": "",
+        "notes": "",
+        "evidence": [],
+        "attachments": [],
+        "facts": [],
+        "issues": []
+      },
+      {
+        "id": "R003-bound-1",
+        "task": "qa",
+        "quote": "Use unchanged policy.json to check all represented physical elements before pump/electrical model revision and again on the revised IFC. Retain overlaps, missing geometry and both-direction clearance findings beyond the explicitly sourced contact regions. These synthetic contact regions and clearance targets do not establish installed joints, service access or Hong Kong compliance.",
+        "acceptance": "Use unchanged policy.json to check all represented physical elements before pump/electrical model revision and again on the revised IFC. Retain overlaps, missing geometry and both-direction clearance findings beyond the explicitly sourced contact regions. These synthetic contact regions and clearance targets do not establish installed joints, service access or Hong Kong compliance.",
+        "passage": "P003",
+        "source_locator": {
+          "start_line": 5,
+          "end_line": 5,
+          "source_document": "sources/D001/coupled-brief.md",
+          "source_sha256": "dae00ef65b71e788b2239f896a6616f7ade53946a833e9865adc334b491729ad"
+        },
+        "execution_status": "pass",
+        "recorded_review_status": "pending",
+        "effective_review_status": "pending",
+        "blocked_by": [],
+        "input_blockers": [],
+        "engineering_review_requests": [],
+        "reviewer": "",
+        "reviewed_at_utc": "",
+        "notes": "",
+        "evidence": [],
+        "attachments": [],
+        "facts": [],
+        "issues": []
+      },
+      {
+        "id": "R003-bound-2",
+        "task": "coupled-qa",
+        "quote": "Use unchanged policy.json to check all represented physical elements before pump/electrical model revision and again on the revised IFC. Retain overlaps, missing geometry and both-direction clearance findings beyond the explicitly sourced contact regions. These synthetic contact regions and clearance targets do not establish installed joints, service access or Hong Kong compliance.",
+        "acceptance": "Use unchanged policy.json to check all represented physical elements before pump/electrical model revision and again on the revised IFC. Retain overlaps, missing geometry and both-direction clearance findings beyond the explicitly sourced contact regions. These synthetic contact regions and clearance targets do not establish installed joints, service access or Hong Kong compliance.",
+        "passage": "P003",
+        "source_locator": {
+          "start_line": 5,
+          "end_line": 5,
+          "source_document": "sources/D001/coupled-brief.md",
+          "source_sha256": "dae00ef65b71e788b2239f896a6616f7ade53946a833e9865adc334b491729ad"
+        },
+        "execution_status": "pass",
+        "recorded_review_status": "pending",
+        "effective_review_status": "pending",
+        "blocked_by": [],
+        "input_blockers": [],
+        "engineering_review_requests": [],
+        "reviewer": "",
+        "reviewed_at_utc": "",
+        "notes": "",
+        "evidence": [],
+        "attachments": [],
+        "facts": [],
+        "issues": []
+      },
+      {
+        "id": "R004-bound-1",
+        "task": "pump",
+        "quote": "Using pump-curve.json and the selected model-derived network, solve the fixed-speed pump/system intersection only inside its supplied flow domain with the fixed 100 kPa terminal total-pressure boundary. Recompute friction, retain the bracket and independently rerun the selected state. Use only the explicitly supplied wire-to-water efficiency to estimate electrical input; preserve all flow/velocity checks and do not infer a motor rating, starting current or NPSH approval.",
+        "acceptance": "Using pump-curve.json and the selected model-derived network, solve the fixed-speed pump/system intersection only inside its supplied flow domain with the fixed 100 kPa terminal total-pressure boundary. Recompute friction, retain the bracket and independently rerun the selected state. Use only the explicitly supplied wire-to-water efficiency to estimate electrical input; preserve all flow/velocity checks and do not infer a motor rating, starting current or NPSH approval.",
+        "passage": "P004",
+        "source_locator": {
+          "start_line": 7,
+          "end_line": 7,
+          "source_document": "sources/D001/coupled-brief.md",
+          "source_sha256": "dae00ef65b71e788b2239f896a6616f7ade53946a833e9865adc334b491729ad"
+        },
+        "execution_status": "pass",
+        "recorded_review_status": "pending",
+        "effective_review_status": "pending",
+        "blocked_by": [],
+        "input_blockers": [],
+        "engineering_review_requests": [],
+        "reviewer": "",
+        "reviewed_at_utc": "",
+        "notes": "",
+        "evidence": [],
+        "attachments": [],
+        "facts": [],
+        "issues": []
+      },
+      {
+        "id": "R005-bound-1",
+        "task": "coupled",
+        "quote": "Bind that passing pump result to electrical device BOOSTER, the exact IFC pump GUID and its actually connected source port using pump-electrical-link.json and binding.json. Retain the original 0.75 kW project and circuit hardware. Create a separate operating electrical scenario with the explicitly supplied operating PF. Write a new IFC copy with typed explicit-unit electrical kW, voltage, operating device current, flow and pressure plus dimensionless PF/efficiency. Preserve original entities and project units; reopen and reconcile properties, geometry, source identity and schema. Treat these as calculated operating estimates, not measured or nameplate values.",
+        "acceptance": "Bind that passing pump result to electrical device BOOSTER, the exact IFC pump GUID and its actually connected source port using pump-electrical-link.json and binding.json. Retain the original 0.75 kW project and circuit hardware. Create a separate operating electrical scenario with the explicitly supplied operating PF. Write a new IFC copy with typed explicit-unit electrical kW, voltage, operating device current, flow and pressure plus dimensionless PF/efficiency. Preserve original entities and project units; reopen and reconcile properties, geometry, source identity and schema. Treat these as calculated operating estimates, not measured or nameplate values.",
+        "passage": "P005",
+        "source_locator": {
+          "start_line": 9,
+          "end_line": 9,
+          "source_document": "sources/D001/coupled-brief.md",
+          "source_sha256": "dae00ef65b71e788b2239f896a6616f7ade53946a833e9865adc334b491729ad"
+        },
+        "execution_status": "pass",
+        "recorded_review_status": "pending",
+        "effective_review_status": "pending",
+        "blocked_by": [],
+        "input_blockers": [],
+        "engineering_review_requests": [],
+        "reviewer": "",
+        "reviewed_at_utc": "",
+        "notes": "",
+        "evidence": [],
+        "attachments": [],
+        "facts": [],
+        "issues": []
+      },
+      {
+        "id": "R006-bound-1",
+        "task": "drawing",
+        "quote": "After the revised-model checks pass, derive the pipe schedule and editable X/Z centreline DXF directly from that same coupled IFC using drawing-settings.json. Preserve source GUIDs, saved profiles, true lengths and directed endpoint correspondence. List omitted equipment and retain the schematic-only scope; native DWG, print-scale and visual acceptance remain pending.",
+        "acceptance": "After the revised-model checks pass, derive the pipe schedule and editable X/Z centreline DXF directly from that same coupled IFC using drawing-settings.json. Preserve source GUIDs, saved profiles, true lengths and directed endpoint correspondence. List omitted equipment and retain the schematic-only scope; native DWG, print-scale and visual acceptance remain pending.",
+        "passage": "P006",
+        "source_locator": {
+          "start_line": 11,
+          "end_line": 11,
+          "source_document": "sources/D001/coupled-brief.md",
+          "source_sha256": "dae00ef65b71e788b2239f896a6616f7ade53946a833e9865adc334b491729ad"
+        },
+        "execution_status": "pass",
+        "recorded_review_status": "pending",
+        "effective_review_status": "pending",
+        "blocked_by": [],
+        "input_blockers": [],
+        "engineering_review_requests": [],
+        "reviewer": "",
+        "reviewed_at_utc": "",
+        "notes": "",
+        "evidence": [],
+        "attachments": [],
+        "facts": [],
+        "issues": []
+      },
+      {
+        "id": "R007-bound-1",
+        "task": "review",
+        "quote": "Review every original requirement and the complete artifact matrix before engineering acceptance. Preserve real equipment applicability, motor starting/protection, physical installation, electrical port topology, native CAD/plot review and full Hong Kong regulatory checks as pending. Do not equate a calculated operating load or a successful file export with a complete building-services design.",
+        "acceptance": "Review every original requirement and the complete artifact matrix before engineering acceptance. Preserve real equipment applicability, motor starting/protection, physical installation, electrical port topology, native CAD/plot review and full Hong Kong regulatory checks as pending. Do not equate a calculated operating load or a successful file export with a complete building-services design.",
+        "passage": "P007",
+        "source_locator": {
+          "start_line": 13,
+          "end_line": 13,
+          "source_document": "sources/D001/coupled-brief.md",
+          "source_sha256": "dae00ef65b71e788b2239f896a6616f7ade53946a833e9865adc334b491729ad"
+        },
+        "execution_status": "pending",
+        "recorded_review_status": "pending",
+        "effective_review_status": "pending",
+        "blocked_by": [],
+        "input_blockers": [],
+        "engineering_review_requests": [],
+        "reviewer": "",
+        "reviewed_at_utc": "",
+        "notes": "",
+        "evidence": [],
+        "attachments": [],
+        "facts": [],
+        "issues": []
+      },
+      {
+        "id": "R008-bound-1",
+        "task": "native",
+        "quote": "Deliver a native DWG from the exact passing coupled-IFC pipe DXF with native-sheet.json. Use the explicitly host-selected AutoCAD executable on generated isolated copies, check the active document path before writes, independently reopen the saved DWG and reconcile geometry, annotations and IFC GUID XDATA. Failed or missing upstream evidence must block native output; do not attach to or close a user drawing.",
+        "acceptance": "Deliver a native DWG from the exact passing coupled-IFC pipe DXF with native-sheet.json. Use the explicitly host-selected AutoCAD executable on generated isolated copies, check the active document path before writes, independently reopen the saved DWG and reconcile geometry, annotations and IFC GUID XDATA. Failed or missing upstream evidence must block native output; do not attach to or close a user drawing.",
+        "passage": "D002:P001",
+        "source_locator": {
+          "start_line": 1,
+          "end_line": 1,
+          "source_document": "sources/D002/coupled-native-brief.md",
+          "source_sha256": "d2fa627ea23299a3140765d2edd675140db93e26d1a70367b264591f4d8ae344"
+        },
+        "execution_status": "pass",
+        "recorded_review_status": "pass",
+        "effective_review_status": "pass",
+        "blocked_by": [],
+        "input_blockers": [],
+        "engineering_review_requests": [],
+        "reviewer": "Codex host visual inspection",
+        "reviewed_at_utc": "2026-11-12T19:17:41.481379+00:00",
+        "notes": "Scoped native/plot/visual schematic review only. Actual one-page rendered PDF inspected: both pipe labels and projection/non-installation notes legible, no clipping/overlap. 2.5 m reference measured 49.995666666666665 mm at 1:50. Render SHA256 45e3c35380214f76cd50ef0cd9e5674c26e2aeba3ea5aab065afc0841932469c. Native reopen preserves 8 entities and 6 GUID-linked entities. No user GUI drawing was attached or closed. Full equipment, electrical topology, installation and Hong Kong engineering acceptance remain pending.",
+        "evidence": [
+          {
+            "artifact": "native/segments.dwg",
+            "sha256": "1621d84abd2ca895ddd6125c450d08e4c913cd693cad3c1a0d879fff9ee87438"
+          },
+          {
+            "artifact": "native/sheet.pdf",
+            "sha256": "940b71b7fcf255107f303082b1f2fd6b1940381d8f0ce8ba185e455019f31614"
+          },
+          {
+            "artifact": "native/native-verification.json",
+            "sha256": "1d2ad8af05427975906a963137458b8dd14c104330ea01e277f294bc3f852d9f"
+          }
+        ],
+        "attachments": [],
+        "facts": [
+          {
+            "artifact": "native/native-verification.json",
+            "pointer": "/native_reopen_pass",
+            "expected": true,
+            "basis": "Actual native saved/reopened and physical-scale checks; visual observation is recorded separately",
+            "actual": true,
+            "pass_check": true
+          },
+          {
+            "artifact": "native/native-verification.json",
+            "pointer": "/plot/pdf_reference_pass",
+            "expected": true,
+            "basis": "Actual native saved/reopened and physical-scale checks; visual observation is recorded separately",
+            "actual": true,
+            "pass_check": true
+          }
+        ],
+        "issues": []
+      },
+      {
+        "id": "R009-bound-1",
+        "task": "native",
+        "quote": "Plot that same DWG as an A4 landscape PDF at the explicit 1:50 scale in native-sheet.json. Check its 2.5 m RISE-LOW reference as 50 mm within the declared tolerance, then inspect the actual rendered page for clipping, overlap and legibility. Keep this numeric/visual schematic evidence separate from equipment detail, electrical topology, physical installation and complete Hong Kong engineering acceptance.",
+        "acceptance": "Plot that same DWG as an A4 landscape PDF at the explicit 1:50 scale in native-sheet.json. Check its 2.5 m RISE-LOW reference as 50 mm within the declared tolerance, then inspect the actual rendered page for clipping, overlap and legibility. Keep this numeric/visual schematic evidence separate from equipment detail, electrical topology, physical installation and complete Hong Kong engineering acceptance.",
+        "passage": "D002:P002",
+        "source_locator": {
+          "start_line": 3,
+          "end_line": 3,
+          "source_document": "sources/D002/coupled-native-brief.md",
+          "source_sha256": "d2fa627ea23299a3140765d2edd675140db93e26d1a70367b264591f4d8ae344"
+        },
+        "execution_status": "pass",
+        "recorded_review_status": "pass",
+        "effective_review_status": "pass",
+        "blocked_by": [],
+        "input_blockers": [],
+        "engineering_review_requests": [],
+        "reviewer": "Codex host visual inspection",
+        "reviewed_at_utc": "2026-11-12T19:17:41.481379+00:00",
+        "notes": "Scoped native/plot/visual schematic review only. Actual one-page rendered PDF inspected: both pipe labels and projection/non-installation notes legible, no clipping/overlap. 2.5 m reference measured 49.995666666666665 mm at 1:50. Render SHA256 45e3c35380214f76cd50ef0cd9e5674c26e2aeba3ea5aab065afc0841932469c. Native reopen preserves 8 entities and 6 GUID-linked entities. No user GUI drawing was attached or closed. Full equipment, electrical topology, installation and Hong Kong engineering acceptance remain pending.",
+        "evidence": [
+          {
+            "artifact": "native/segments.dwg",
+            "sha256": "1621d84abd2ca895ddd6125c450d08e4c913cd693cad3c1a0d879fff9ee87438"
+          },
+          {
+            "artifact": "native/sheet.pdf",
+            "sha256": "940b71b7fcf255107f303082b1f2fd6b1940381d8f0ce8ba185e455019f31614"
+          },
+          {
+            "artifact": "native/native-verification.json",
+            "sha256": "1d2ad8af05427975906a963137458b8dd14c104330ea01e277f294bc3f852d9f"
+          }
+        ],
+        "attachments": [],
+        "facts": [
+          {
+            "artifact": "native/native-verification.json",
+            "pointer": "/native_reopen_pass",
+            "expected": true,
+            "basis": "Actual native saved/reopened and physical-scale checks; visual observation is recorded separately",
+            "actual": true,
+            "pass_check": true
+          },
+          {
+            "artifact": "native/native-verification.json",
+            "pointer": "/plot/pdf_reference_pass",
+            "expected": true,
+            "basis": "Actual native saved/reopened and physical-scale checks; visual observation is recorded separately",
+            "actual": true,
+            "pass_check": true
+          }
+        ],
+        "issues": []
+      },
+      {
+        "id": "R009-bound-2",
+        "task": "review",
+        "quote": "Plot that same DWG as an A4 landscape PDF at the explicit 1:50 scale in native-sheet.json. Check its 2.5 m RISE-LOW reference as 50 mm within the declared tolerance, then inspect the actual rendered page for clipping, overlap and legibility. Keep this numeric/visual schematic evidence separate from equipment detail, electrical topology, physical installation and complete Hong Kong engineering acceptance.",
+        "acceptance": "Plot that same DWG as an A4 landscape PDF at the explicit 1:50 scale in native-sheet.json. Check its 2.5 m RISE-LOW reference as 50 mm within the declared tolerance, then inspect the actual rendered page for clipping, overlap and legibility. Keep this numeric/visual schematic evidence separate from equipment detail, electrical topology, physical installation and complete Hong Kong engineering acceptance.",
+        "passage": "D002:P002",
+        "source_locator": {
+          "start_line": 3,
+          "end_line": 3,
+          "source_document": "sources/D002/coupled-native-brief.md",
+          "source_sha256": "d2fa627ea23299a3140765d2edd675140db93e26d1a70367b264591f4d8ae344"
+        },
+        "execution_status": "pending",
+        "recorded_review_status": "pass",
+        "effective_review_status": "pass",
+        "blocked_by": [],
+        "input_blockers": [],
+        "engineering_review_requests": [],
+        "reviewer": "Codex host visual inspection",
+        "reviewed_at_utc": "2026-11-12T19:17:41.481379+00:00",
+        "notes": "Scoped native/plot/visual schematic review only. Actual one-page rendered PDF inspected: both pipe labels and projection/non-installation notes legible, no clipping/overlap. 2.5 m reference measured 49.995666666666665 mm at 1:50. Render SHA256 45e3c35380214f76cd50ef0cd9e5674c26e2aeba3ea5aab065afc0841932469c. Native reopen preserves 8 entities and 6 GUID-linked entities. No user GUI drawing was attached or closed. Full equipment, electrical topology, installation and Hong Kong engineering acceptance remain pending.",
+        "evidence": [
+          {
+            "artifact": "native/segments.dwg",
+            "sha256": "1621d84abd2ca895ddd6125c450d08e4c913cd693cad3c1a0d879fff9ee87438"
+          },
+          {
+            "artifact": "native/sheet.pdf",
+            "sha256": "940b71b7fcf255107f303082b1f2fd6b1940381d8f0ce8ba185e455019f31614"
+          },
+          {
+            "artifact": "native/native-verification.json",
+            "sha256": "1d2ad8af05427975906a963137458b8dd14c104330ea01e277f294bc3f852d9f"
+          }
+        ],
+        "attachments": [],
+        "facts": [
+          {
+            "artifact": "native/native-verification.json",
+            "pointer": "/native_reopen_pass",
+            "expected": true,
+            "basis": "Actual native saved/reopened and physical-scale checks; visual observation is recorded separately",
+            "actual": true,
+            "pass_check": true
+          },
+          {
+            "artifact": "native/native-verification.json",
+            "pointer": "/plot/pdf_reference_pass",
+            "expected": true,
+            "basis": "Actual native saved/reopened and physical-scale checks; visual observation is recorded separately",
+            "actual": true,
+            "pass_check": true
+          }
+        ],
+        "issues": []
+      },
+      {
+        "id": "R010-bound-1",
+        "task": "hk-rules",
+        "quote": "Use the unchanged baseline electrical.json with hk-electrical-topology.json, hk-electrical-basis.json and the selected hk-voltage-drop-pack.json. Preserve original L1/L2 phase labels, devices, loads and circuit hardware. Reuse separate same-phase radial calculations only under the explicit dedicated-return assumption; do not model a shared neutral or coupled three-phase load flow. Derive every complete origin-to-fixed-equipment voltage-drop metric freshly, then evaluate the selected source-pinned EMSD 2025 Code 13A(3)(v) deemed-to-satisfy path with explicit edition and applicability decisions. Do not substitute branch-only drop, hand-copied totals or the lower pump operating estimate for the baseline.",
+        "acceptance": "Use the unchanged baseline electrical.json with hk-electrical-topology.json, hk-electrical-basis.json and the selected hk-voltage-drop-pack.json. Preserve original L1/L2 phase labels, devices, loads and circuit hardware. Reuse separate same-phase radial calculations only under the explicit dedicated-return assumption; do not model a shared neutral or coupled three-phase load flow. Derive every complete origin-to-fixed-equipment voltage-drop metric freshly, then evaluate the selected source-pinned EMSD 2025 Code 13A(3)(v) deemed-to-satisfy path with explicit edition and applicability decisions. Do not substitute branch-only drop, hand-copied totals or the lower pump operating estimate for the baseline.",
+        "passage": "D003:P001",
+        "source_locator": {
+          "start_line": 1,
+          "end_line": 1,
+          "source_document": "sources/D003/coupled-hk-brief.md",
+          "source_sha256": "7a667baf6337bd23012942ca1ac2bddf7fc4a9f8fc1441e6fbb54c5c9c6206dc"
+        },
+        "execution_status": "pass",
+        "recorded_review_status": "pending",
+        "effective_review_status": "pending",
+        "blocked_by": [],
+        "input_blockers": [],
+        "engineering_review_requests": [],
+        "reviewer": "",
+        "reviewed_at_utc": "",
+        "notes": "",
+        "evidence": [],
+        "attachments": [],
+        "facts": [],
+        "issues": []
+      },
+      {
+        "id": "R011-bound-1",
+        "task": "hk-rules",
+        "quote": "Require original branch checks and these selected Hong Kong electrical checks before coupled IFC revision and drawing release. Missing applicability/edition evidence or an exceeded deemed-to-satisfy path must retain pending review and block downstream release. Scope is conditional source-backed voltage-drop checking only; preserve actual route/coefficient/return-path evidence, equipment standards, protection, WSD plumbing, motor starting and full Hong Kong engineering acceptance as unresolved.",
+        "acceptance": "Require original branch checks and these selected Hong Kong electrical checks before coupled IFC revision and drawing release. Missing applicability/edition evidence or an exceeded deemed-to-satisfy path must retain pending review and block downstream release. Scope is conditional source-backed voltage-drop checking only; preserve actual route/coefficient/return-path evidence, equipment standards, protection, WSD plumbing, motor starting and full Hong Kong engineering acceptance as unresolved.",
+        "passage": "D003:P002",
+        "source_locator": {
+          "start_line": 3,
+          "end_line": 3,
+          "source_document": "sources/D003/coupled-hk-brief.md",
+          "source_sha256": "7a667baf6337bd23012942ca1ac2bddf7fc4a9f8fc1441e6fbb54c5c9c6206dc"
+        },
+        "execution_status": "pass",
+        "recorded_review_status": "pending",
+        "effective_review_status": "pending",
+        "blocked_by": [],
+        "input_blockers": [],
+        "engineering_review_requests": [],
+        "reviewer": "",
+        "reviewed_at_utc": "",
+        "notes": "",
+        "evidence": [],
+        "attachments": [],
+        "facts": [],
+        "issues": []
+      },
+      {
+        "id": "R011-bound-2",
+        "task": "review",
+        "quote": "Require original branch checks and these selected Hong Kong electrical checks before coupled IFC revision and drawing release. Missing applicability/edition evidence or an exceeded deemed-to-satisfy path must retain pending review and block downstream release. Scope is conditional source-backed voltage-drop checking only; preserve actual route/coefficient/return-path evidence, equipment standards, protection, WSD plumbing, motor starting and full Hong Kong engineering acceptance as unresolved.",
+        "acceptance": "Require original branch checks and these selected Hong Kong electrical checks before coupled IFC revision and drawing release. Missing applicability/edition evidence or an exceeded deemed-to-satisfy path must retain pending review and block downstream release. Scope is conditional source-backed voltage-drop checking only; preserve actual route/coefficient/return-path evidence, equipment standards, protection, WSD plumbing, motor starting and full Hong Kong engineering acceptance as unresolved.",
+        "passage": "D003:P002",
+        "source_locator": {
+          "start_line": 3,
+          "end_line": 3,
+          "source_document": "sources/D003/coupled-hk-brief.md",
+          "source_sha256": "7a667baf6337bd23012942ca1ac2bddf7fc4a9f8fc1441e6fbb54c5c9c6206dc"
+        },
+        "execution_status": "pending",
+        "recorded_review_status": "pending",
+        "effective_review_status": "pending",
+        "blocked_by": [],
+        "input_blockers": [],
+        "engineering_review_requests": [],
+        "reviewer": "",
+        "reviewed_at_utc": "",
+        "notes": "",
+        "evidence": [],
+        "attachments": [],
+        "facts": [],
+        "issues": []
+      }
+    ],
+    "issues": [],
+    "engineering_actions": [],
+    "engineering_acceptance": "not_established",
+    "scope": "Source/byte consistency, recorded reviewer assertions and optional adapter-reported Boolean facts; not reviewer authentication, semantic completeness or engineering certification",
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-native-study\\engineering-plan.json": "cc39dbaf663f1b9ca9b11e89481cbf2013ee9250ffe43d503f13ccc5210e9d8a",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-native-study\\engineering-run\\workflow\\workflow.json": "5fafe4236e54d45d6b1c4bc2cd7798d29116e7a968cb84ec5e12f84f6b718c1b",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-hk-native-study\\native-delivery-review.json": "42a5fc435f784c2d4207663e55485869199f1269b49efaccc473fc1bd88bfab2"
+    },
+    "inputs_unchanged": true,
+    "status": "needs_review"
+  },
+  "tests": {
+    "passed": 48,
+    "skipped": 0,
+    "suite": [
+      "test_coupled_hk",
+      "test_coupled_handoff",
+      "test_electrical_paths",
+      "test_electrical_regulations",
+      "test_pump_electrical",
+      "test_regulatory_source_bindings",
+      "test_module_electrical_rules",
+      "test_module_electrical_rules_workflow",
+      "test_electrical_rule_provider"
+    ]
+  },
+  "upstream_notes": [
+    "IfcOpenShell unclosed IFC4.py ResourceWarning",
+    "AutoCAD vector-stroke text / duplicate PDF PageMode metadata; current one-page render inspected"
+  ],
+  "limitations": [
+    "Dedicated returns/whole-path completeness are explicit synthetic assertions, not site authentication",
+    "No shared-neutral or multiphase phasor coupling",
+    "Original baseline is an assumed electrical design scenario, not actual motor nameplate verification",
+    "Other equipment/protection/plumbing/HK rules and installation acceptance pending",
+    "Native plot remains a two-segment water pipe schematic; authored interpretation not arbitrary semantic understanding"
+  ]
+}

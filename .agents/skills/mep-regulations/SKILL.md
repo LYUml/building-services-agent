@@ -5,6 +5,15 @@ description: Select source-pinned jurisdiction rule packs and bind supported MEP
 
 # MEP jurisdiction checks
 
+For the optional source-pinned electrical gate in the water/pump/electrical
+handoff, read docs/COUPLED_HK_ELECTRICAL.md. Check the unchanged original baseline
+project, whole declared origin-to-equipment paths, explicit 2025 edition and
+applicability facts. Missing scope or an exceeded deemed-to-satisfy path blocks
+coupled revision/drawing; it is not automatically statutory noncompliance.
+Use independent phase radials only with explicit dedicated returns; preserve
+actual phase labels and reject shared-neutral/multiphase coupling assumptions.
+Do not apply the HVAC water-pipe pack to domestic water or infer full HK compliance.
+
 For a verified common saved-native water result,bsa.module_water_rules is a
 CLI/API and workflow consumer of the existing HVAC water-piping rule method.
 Resolve its exact derived-input/report refs;do not supply replacement speed or

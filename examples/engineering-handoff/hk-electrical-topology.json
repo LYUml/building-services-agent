@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "method": "independent_single_phase_radials",
+  "source": "Explicit synthetic independent L1 pump and L2 lighting feeder paths. Each has its own return; lengths and full single-phase mV/A/m coefficients are assumed scenario data, not surveyed routes or manufacturer cable values. No shared-neutral coupling or three-phase load flow is represented.",
+  "installation_origin": "ORIGIN",
+  "return_path_basis": "dedicated per-radial return paths; no shared-neutral coupling",
+  "radials": {
+    "L1": {
+      "schema_version": 1,
+      "method": "single_phase_scalar_radial",
+      "source": "Explicit synthetic complete origin-to-pump-board feeder plus original branch; no added diversity or factor of two.",
+      "installation_origin": "ORIGIN",
+      "feeders": [{"id": "PUMP-FEEDER", "from_node": "ORIGIN", "to_node": "PUMP-DB-L1", "route_length_m": 20, "vd_mv_a_m": 4, "source": "Synthetic 20 m dedicated-return single-phase feeder and full 4 mV/A/m coefficient, not product or measured data."}],
+      "circuit_from_node": {"PUMP-SUPPLY": "PUMP-DB-L1"}
+    },
+    "L2": {
+      "schema_version": 1,
+      "method": "single_phase_scalar_radial",
+      "source": "Explicit synthetic complete origin-to-lighting-board feeder plus original branch; no added diversity or factor of two.",
+      "installation_origin": "ORIGIN",
+      "feeders": [{"id": "LIGHT-FEEDER", "from_node": "ORIGIN", "to_node": "LIGHT-DB-L2", "route_length_m": 20, "vd_mv_a_m": 4, "source": "Synthetic 20 m dedicated-return single-phase feeder and full 4 mV/A/m coefficient, not product or measured data."}],
+      "circuit_from_node": {"SERVICE-LIGHTS": "LIGHT-DB-L2"}
+    }
+  }
+}

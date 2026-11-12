@@ -5,6 +5,14 @@ description: Calculate source-linked single-phase circuits and scoped three-phas
 
 # mep-electrical
 
+For full-path voltage drop on explicit independent single-phase radial groups,
+read docs/COUPLED_HK_ELECTRICAL.md. Preserve original phase labels and all baseline
+loads/hardware; require dedicated per-radial returns and exact source coverage.
+The wrapper reuses the existing same-phase calculator and rejects shared feeders
+or non-origin nodes across phases. It is not a neutral/phasor load-flow solver.
+Source-bound HK gates must check the baseline project, never a substituted lower
+operating-load scenario. Applicable editions and unknown facts remain explicit.
+
 For a sourced pump operating estimate bound to an actual saved IFC pump/connected
 source port, use pump_electrical and docs/COUPLED_HANDOFF_UNITS.md. New properties
 require typed explicit kW/V/A/m3/s/Pa units and dimensionless PF/efficiency, with

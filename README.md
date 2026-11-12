@@ -1,5 +1,11 @@
 # Building Services Agent
 
+The shared-model handoff now optionally gates IFC/drawing release on the existing
+source-pinned Hong Kong voltage-drop path, preserving its mixed-phase baseline
+through explicitly independent single-phase radials. Actual native positive and
+long-feeder/unknown-scope controls execute; full compliance remains unestablished.
+See docs/COUPLED_HK_ELECTRICAL.md.
+
 The shared-model handoff now optionally reaches native AutoCAD DWG reopen and
 an actually inspected fixed-scale plot. Missing runtime/failed identity block
 native output; method and used-executable pins are retained. This is a scoped
