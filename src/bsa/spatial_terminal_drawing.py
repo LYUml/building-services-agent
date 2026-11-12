@@ -100,6 +100,18 @@ def verify(folder):
     return r
 
 
+def verify_workflow(tasks,root,plan_root,record):
+    for task in tasks:
+        if task['kind']!='spatial_terminal_drawing':continue
+        folder=Path(root)/task['id']
+        if not (folder/'drawing.json').is_file():
+            if record[task['id']]['status']=='pass':raise ValueError('Passing spatial drawing lacks report')
+            continue
+        report=verify(folder)
+        if Path(report['allocation'])!=(Path(root)/task['depends_on']/'terminal-allocation.json').resolve() or Path(report['settings'])!=(Path(plan_root)/task['settings']).resolve():raise ValueError('Spatial drawing replaced declared source/settings')
+        if record[task['id']]['status']!='pass' or record[task['depends_on']]['status']!='pass':raise ValueError('Spatial drawing execution dependency differs')
+
+
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('allocation');parser.add_argument('--settings',required=True);parser.add_argument('--out',required=True)
     args=parser.parse_args();run(args.allocation,args.settings,args.out)

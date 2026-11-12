@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Source-bound DXF drawing now runs inside the automatic spatial/HVAC workflow.
+Native/MOOSAS/disabled scenarios verify exact producer binding and execution
+gates;all8requirements remain and final manual review stays pending. See
+SPATIAL_TERMINAL_DRAWING.md. No new engine or dependency.
+
 Verified spatial allocations now produce editable metre-unit DXF room/terminal
 airflow schematics through pinned ezdxf. Saved geometry/flow replay and two actual
 preview checks execute;native DWG,physical layout and full design remain pending.

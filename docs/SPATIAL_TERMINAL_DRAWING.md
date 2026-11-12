@@ -38,3 +38,28 @@ remain unfinished. This is a source-bound editable schematic,not a full HVAC pla
 Validation:28 related tests pass with actual MOOSAS execution enabled,including
 saved-DXF coordinate tampering after a rewritten output hash,source replay and
 complete candidate workflow regressions.
+
+## Automatic workflow integration
+
+Use kind spatial_terminal_drawing,depends_on an earlier spatial_air_allocation,
+and explicit plan-local settings. Geometry or flow overrides are forbidden.
+The public examples/moosas-transform/build_workflow.py accepts --drawing-settings
+with --air-balance --terminal-allocation. It adds an explicit sourced brief
+requirement and manual-review dependency. The drawing uses allocation,not product
+footprints;optionally require product performance with requires_pass if the
+specific project demands that gate. Range failures do not invent geometry.
+
+Execution inherits the exact saved parent allocation. Upstream pending/failure
+creates no drawing. workflow.verify replays saved DXF evidence;delivery.context
+also enforces declared parent/settings and passing dependency status. Saved DXF
+correspondence can pass the scoped task while native reopening,plot review and
+engineering acceptance stay pending in its report and final manual review.
+
+Three actual six-terminal workflow scenarios execute: native and MOOSAS produce
+the source-bound drawing;disabled geometry produces none while independent
+electrical still passes. Eight requirements remain fully represented and manual
+review stays pending. See evidence/spatial-drawing-workflow.json. No actual
+coursework data or files were modified for this integration.
+
+Integration regression:30 related tests pass with actual MOOSAS execution enabled,
+including drawing task gating,forbidden overrides and wrong-parent rejection.

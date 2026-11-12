@@ -1,0 +1,55 @@
+{
+  "scope": "Synthetic source-to-calculation-to-editable schematic workflow",
+  "runs": {
+    "native": {
+      "path": "runs\\spatial-drawing-workflow-native\\workflow.json",
+      "sha256": "bc3c44ffae52cc1d792308f2c4e1c4dc81fa27ac77741e1b25290307711d1bbb",
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "air-balance": "pass",
+        "terminal-allocation": "pass",
+        "terminal-performance": "pass",
+        "terminal-drawing": "pass",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "requirements": 8,
+      "drawing_exists": true
+    },
+    "moosas": {
+      "path": "runs\\spatial-drawing-workflow-moosas\\workflow.json",
+      "sha256": "68695f5db0dbf912fd760876daec771fabcc2cd16579ed4306d9bd8c08dc5000",
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "air-balance": "pass",
+        "terminal-allocation": "pass",
+        "terminal-performance": "pass",
+        "terminal-drawing": "pass",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "requirements": 8,
+      "drawing_exists": true
+    },
+    "disabled": {
+      "path": "runs\\spatial-drawing-workflow-disabled\\workflow.json",
+      "sha256": "adb1deeff99ce6bc63e47d494583bec1faea330c0c10459486a0c1a2759e7f9a",
+      "tasks": {
+        "recognition": "pending",
+        "lighting-rules": "pending",
+        "air-balance": "pending",
+        "terminal-allocation": "pending",
+        "terminal-performance": "pending",
+        "terminal-drawing": "pending",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "requirements": 8,
+      "drawing_exists": false
+    }
+  },
+  "design_accepted": false,
+  "native_DWG_accepted": false
+}
