@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Saved terminal IFC now has source-bound multi-view visual diagnostics using the
+existing renderer:blue foreground,transparent original context and explicit
+port roles. Two provider images match;side-view label overlap and full BIM/design
+acceptance remain pending. See SPATIAL_TERMINAL_PREVIEW.md.
+
 IFC terminal envelopes and full-model coordination now execute as inherited
 automatic tasks. Native/MOOSAS/disabled workflows preserve10requirements;real
 collision controls retain failure and final manual review stays pending. See

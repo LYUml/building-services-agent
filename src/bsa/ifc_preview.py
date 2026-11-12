@@ -37,18 +37,24 @@ def extract(path, guid):
     return vertices, faces, ports, [e.GlobalId for e in [*f.by_type('IfcElement'),*(f.by_type('IfcSpace') if obj.is_a('IfcSpace') else [])] if e.GlobalId != guid]
 
 
-def run(ifc, guid, out, additional_guids=None):
+def run(ifc, guid, out, additional_guids=None, *, context_guids=None, element_labels=None):
     ifc, out = Path(ifc).resolve(), Path(out).resolve()
     if out.exists() or out == ifc or out in ifc.parents: raise ProjectError('new separate output directory required')
     versions = {n: importlib.metadata.version(n) for n in ('ifcopenshell', 'matplotlib', 'numpy')}
     if versions != {'ifcopenshell':'0.8.5','matplotlib':'3.11.2','numpy':'2.5.4'}:
         raise ProjectError('pinned preview dependencies required')
     before = digest(ifc); vertices, faces, ports, omitted = extract(ifc, guid)
-    selected=[guid]+list(additional_guids or [])
+    context_guids=list(context_guids or []);element_labels=dict(element_labels or {})
+    selected=[guid]+list(additional_guids or [])+context_guids
+    if not set(element_labels)<=set(selected) or any(not isinstance(v,str) or not v.strip() or len(v)>32 or '\n' in v for v in element_labels.values()):raise ProjectError('Short explicit labels must belong to selected IFC objects')
+    parts=[(guid,vertices,faces)];context_ports=[]
     if len(set(selected))!=len(selected):raise ProjectError('unique preview element GUIDs required')
     for other in selected[1:]:
         ov,of,op,_=extract(ifc,other)
-        faces=np.concatenate([faces,of+len(vertices)]);vertices=np.concatenate([vertices,ov]);ports+=op
+        parts.append((other,ov,of))
+        faces=np.concatenate([faces,of+len(vertices)]);vertices=np.concatenate([vertices,ov])
+        if other in context_guids:context_ports+=op
+        else:ports+=op
     omitted=[g for g in omitted if g not in selected]
     if len(faces)>200000 or len(ports)>12:raise ProjectError('combined preview exceeds triangle or port budget')
     centre = (vertices.min(axis=0)+vertices.max(axis=0))/2
@@ -70,8 +76,14 @@ def run(ifc, guid, out, additional_guids=None):
     for i, (title, elev, azim) in enumerate((('Isometric',25,-55),('XY / looking down Z',90,-90),
                                             ('XZ / looking along Y',0,-90),('YZ / looking along X',0,0)), 1):
         ax = fig.add_subplot(2, 2, i, projection='3d', proj_type='ortho', computed_zorder=False)
-        ax.add_collection3d(Poly3DCollection((vertices-centre)[faces], facecolors='#9bb5c9', shade=True,
-                                           linewidth=0, alpha=1, antialiased=False, zorder=1))
+        for key,pv,pf in parts:
+            background=key in context_guids
+            ax.add_collection3d(Poly3DCollection((pv-centre)[pf],facecolors='#c0c5cb' if background else '#1976b8',
+                edgecolors='#697581' if background else '#124366',linewidth=.25 if background else .5,
+                alpha=.035 if background else 1,antialiased=False,zorder=1 if background else 3))
+            if key in element_labels:
+                position=(pv.min(axis=0)+pv.max(axis=0))/2-centre
+                ax.text(*position,element_labels[key],fontsize=8,color='#152c46',zorder=12)
         for j, p in enumerate(ports):
             pt = np.array(p['position_m'])-centre; direction = np.array(p['axis'])*arrow_length
             ax.scatter(*pt, color=colours(j%10), s=28, depthshade=False, zorder=10)
@@ -87,8 +99,9 @@ def run(ifc, guid, out, additional_guids=None):
         ax.tick_params(labelsize=7)
     fig.suptitle('Saved IFC geometry preview', fontsize=15)
     labels = [f'{i+1}: {(p["name"] or p["guid"])[:32]}' for i,p in enumerate(ports)]
-    legend = '\n'.join(' | '.join(labels[i:i+3]) for i in range(0,len(labels),3)) or 'No attached ports'
+    legend = '\n'.join(' | '.join(labels[i:i+3]) for i in range(0,len(labels),3)) or ('No attached foreground ports' if context_guids else 'No attached ports')
     fig.text(.05,.06,legend,fontsize=9,va='bottom')
+    if context_guids:fig.text(.05,.085,f'Solid blue: foreground. Transparent grey: retained context. Background ports not drawn: {len(context_ports)}.',fontsize=8)
     fig.text(.05,.025,f'World origin for displayed offsets: {np.round(centre,6).tolist()} m\nAxis arrows are illustrative; no flow, joint, installation or design acceptance.',fontsize=8)
     fig.subplots_adjust(left=.02,right=.95,bottom=.12,top=.92,wspace=.08,hspace=.12)
     out.mkdir(parents=True)
@@ -96,11 +109,11 @@ def run(ifc, guid, out, additional_guids=None):
     finally: plt.close(fig)
     if digest(ifc) != before: raise ProjectError('source IFC changed during preview')
     result = dict(ifc=str(ifc), ifc_sha256=before, guid=guid, included_element_guids=selected, vertices=len(vertices), triangles=len(faces),
-                  ports=ports, omitted_element_guids=omitted, display_origin_m=centre.tolist(),
+                  ports=ports,context_ports_not_drawn=context_ports, omitted_element_guids=omitted, context_element_guids=context_guids,element_labels=element_labels,display_origin_m=centre.tolist(),
                   world_bounds_m=[vertices.min(axis=0).tolist(),vertices.max(axis=0).tolist()],
                   arrow_length_m=arrow_length, runtime=versions, preview_sha256=digest(out/'preview.png'),
                   visual_review='pending', design_accepted=False,
-                  scope='Explicitly selected saved elements only; opaque mesh with overlay port markers, not a hidden-line or installation drawing')
+                  scope='Explicitly selected saved elements only;solid foreground and optional transparent context with overlay labels/ports,not a hidden-line or installation drawing')
     (out/'preview.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
     return result
 

@@ -1,0 +1,30 @@
+{
+  "scope": "Selected saved-envelope visual diagnostic;not BIM installation/design acceptance",
+  "runs": {
+    "native": {
+      "report": "runs\\spatial-terminal-preview-final-native\\terminal-preview.json",
+      "sha256": "057d62842904382b938d74ba22a9ce3ac9ed514d81f4e09e733544d3b9e69d05",
+      "foreground_terminals": 6,
+      "context_objects": 5,
+      "foreground_ports": 0,
+      "background_ports_not_drawn": 2,
+      "image_sha256": "dac62c704ebbc7b6f1cbf030b93ea446e6a214185f0c4eafa60c0e972575c190"
+    },
+    "moosas": {
+      "report": "runs\\spatial-terminal-preview-final-moosas\\terminal-preview.json",
+      "sha256": "3e49d89a10a7a44a983e9aa8f98fa0ab20f3949ac367de74b77539c1fb086af5",
+      "foreground_terminals": 6,
+      "context_objects": 5,
+      "foreground_ports": 0,
+      "background_ports_not_drawn": 2,
+      "image_sha256": "dac62c704ebbc7b6f1cbf030b93ea446e6a214185f0c4eafa60c0e972575c190"
+    }
+  },
+  "render_bytes_equal": true,
+  "visual_observations": [
+    "Six labelled foreground envelopes and retained context visible in isometric/XY views",
+    "Some labels overlap in side projections;no claim that every view is legible",
+    "Background ports preserved in metadata but arrows hidden;foreground has no attached ports"
+  ],
+  "design_accepted": false
+}
