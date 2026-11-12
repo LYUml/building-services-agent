@@ -1,5 +1,13 @@
 # Reuse survey â€” 2026-11-09
 
+MOOSAS coordinate fidelity follow-up: source inspection found geom.POINT_PRECISION
+controls importer quantization and recognition snapping. Add an explicit process-
+local host grid option to the existing probe,restoring it after native reload or
+failure. No new engine,upstream file patch or relaxed acceptance tolerance.
+Actual finer-grid rotated/notch trials now pass source correspondence and eight
+tests retain default/failure/closed/open controls. See moosas-transform-finer-grid
+ evidence and examples/moosas-transform/README.md;arbitrary geometry remains unproven.
+
 Recognition fidelity gap: reuse existing pinned MOOSAS transform and Shapely2.2.0
 Hausdorff/symmetric-difference operations through a thin source expectation check.
 No geometry kernel or solver added. Actual concave,rotated and narrow-notch

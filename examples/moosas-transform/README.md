@@ -23,6 +23,23 @@ and area tolerances. Here1e-6m and1e-8m2are software fixture targets,not install
 or regulatory limits. The checker does not repair geometry or authenticate source
 interpretation. See docs/evidence/moosas-transform-boundary-check.json.
 
+The probe now accepts explicit host `--point-grid-m 1e-9` for a finer process-local
+upstream coordinate/recognition grid. It sets geom.POINT_PRECISION before pipeline
+import/execution,keeps that selection through native XML reload,and restores the
+original value in finally,including on catalogue failure. This is an explicitly
+documented constant override,not a new upstream public configuration API. No
+upstream file or geometry algorithm is patched. Default operation remains1mm.
+
+With the finer grid,the rotated and narrow-notch inputs pass their original
+1e-6m/1e-8m2source correspondence targets. The rotated boundary Hausdorff error is
+about3.79e-10m;its symmetric-difference area is about2.11e-9m2. The notch matches
+exactly in this trial. Closed/two-room/missing-wall controls still return1/2/0spaces.
+Eight tests pass with BSA_TEST_MOOSAS_TRANSFORM=1,including actual upstream runs,
+default precision failure and restoration after failed catalogue configuration.
+See docs/evidence/moosas-transform-finer-grid.json. This bounded result does not
+validate finer numerical grids for arbitrary buildings or silently remove small
+features;each future source still needs its own correspondence check.
+
 ```powershell
 .venv/Scripts/python -X utf8 scripts/probe_moosas_transform.py --source examples/moosas-transform/two-rooms.geo --upstream tools/moosas-review --deps tools/moosas-exchange-deps --out runs/new-transform-probe --empty-catalogue
 ```

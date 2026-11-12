@@ -1,5 +1,12 @@
 # MOOSAS priority reuse map
 
+A subsequent explicit1e-9m process-local grid trial resolves the rotated and
+narrow-notch source correspondence failures under unchanged fixture acceptance
+targets. Default1mm behavior and its failures remain reproducible. Eight tests,
+including actual upstream1/2/0space controls and exception restoration,pass.
+This is a documented upstream constant override,not a new public API or arbitrary
+geometry guarantee. See evidence/moosas-transform-finer-grid.json.
+
 Nonrectangular follow-up now recognizes a concave14m2room and preserves its
 boundary. A rotated room completes/reloads but millimetre coordinate rounding
 changes its geometry;the separate source-boundary checker rejects it against

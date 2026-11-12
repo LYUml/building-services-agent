@@ -8,6 +8,7 @@ import contextlib
 import importlib
 import importlib.metadata
 import json
+import math
 from pathlib import Path
 import subprocess
 import sys
@@ -20,7 +21,10 @@ def main():
     for name in ('source','upstream','deps','out'):
         parser.add_argument('--'+name,type=Path,required=True)
     parser.add_argument('--empty-catalogue',action='store_true')
+    parser.add_argument('--point-grid-m',type=float,help='Explicit process-local upstream coordinate grid;default upstream grid unchanged')
     args=parser.parse_args()
+    if args.point_grid_m is not None and (not math.isfinite(args.point_grid_m) or not 1e-9<=args.point_grid_m<=1e-3):
+        parser.error('Explicit grid must be between1e-9and1e-3metres')
     root=Path(__file__).resolve().parents[1]
     source,upstream,deps,out=(getattr(args,k).resolve() for k in ('source','upstream','deps','out'))
     if any(not p.is_relative_to(root) for p in (source,upstream,deps,out)) or out.exists():
@@ -43,12 +47,18 @@ def main():
         spaces=[],execution='failed',simulation_executed=False,design_accepted=False,
         scope='Surface-to-space recognition probe;not architectural correctness,MEP or thermal readiness')
     with (out/'worker.log').open('w',encoding='utf-8') as log:
+        geom=None;previous_grid=None
         try:
             with contextlib.redirect_stdout(log),contextlib.redirect_stderr(log):
                 versions={name:importlib.metadata.version(name) for name in ('rdflib','pyparsing','shapely')}
                 result['dependencies']=versions
                 if versions!={'rdflib':'7.1.4','pyparsing':'3.2.3','shapely':'2.2.0'}:
                     raise ValueError('Pinned geometry exchange dependencies required')
+                from MoosasPy.utils.constant import geom
+                previous_grid=geom.POINT_PRECISION
+                result['point_grid_m']=previous_grid if args.point_grid_m is None else args.point_grid_m
+                result['upstream_default_point_grid_m']=previous_grid
+                if args.point_grid_m is not None:geom.POINT_PRECISION=args.point_grid_m
                 from MoosasPy.transform import pipeline
                 original=pipeline.configure_model_resources
                 try:
@@ -82,6 +92,10 @@ def main():
         except Exception as exc:
             result['diagnostic']=dict(type=type(exc).__name__,message=str(exc))
             traceback.print_exc(file=log)
+        finally:
+            if geom is not None and previous_grid is not None:
+                geom.POINT_PRECISION=previous_grid
+                result['point_grid_restored']=geom.POINT_PRECISION==previous_grid
     if any(digest(Path(p))!=sha for p,sha in before.items()):raise ValueError('Source or upstream changed during probe')
     result['artifacts']={p.relative_to(out).as_posix():digest(p) for p in out.rglob('*') if p.is_file()}
     (out/'probe.json').write_text(json.dumps(result,indent=2),encoding='utf-8')

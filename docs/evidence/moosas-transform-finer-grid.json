@@ -1,0 +1,73 @@
+{
+  "scope": "Explicit finer coordinate grid in pinned MOOSAS process;unchanged fixture acceptance targets",
+  "upstream_commit": "dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c",
+  "upstream_source_modified": false,
+  "tests_passed": 8,
+  "actual_transform_invocations_in_tests": 8,
+  "cases": {
+    "rotated": {
+      "source_geometry_matches": true,
+      "point_grid_m": 1e-09,
+      "upstream_default_point_grid_m": 0.001,
+      "grid_restored": true,
+      "saved_reload_matches": true,
+      "rooms": [
+        {
+          "source_id": "rotated-room",
+          "source_area_m2": 12.000000000000004,
+          "matching_ids": [
+            "0x0100050b90406j"
+          ],
+          "candidates": [
+            {
+              "recognized_id": "0x0100050b90406j",
+              "boundary_hausdorff_m": 3.7922102093974217e-10,
+              "symmetric_difference_m2": 2.1117938509007672e-09,
+              "height_error_m": 0.0,
+              "passes": true
+            }
+          ],
+          "pass_check": true
+        }
+      ],
+      "probe_sha256": "cb62d4709b32aeb7fa807d56b92f5120a594fa5da637cb3ad28b4e6fe8797028",
+      "check_sha256": "58b59486428a3b663de2dd5e83e4da6c39f5ad6d0245def638a27684ceba718f"
+    },
+    "notch": {
+      "source_geometry_matches": true,
+      "point_grid_m": 1e-09,
+      "upstream_default_point_grid_m": 0.001,
+      "grid_restored": true,
+      "saved_reload_matches": true,
+      "rooms": [
+        {
+          "source_id": "narrow-notch",
+          "source_area_m2": 11.9998,
+          "matching_ids": [
+            "0x0100001b9080k0"
+          ],
+          "candidates": [
+            {
+              "recognized_id": "0x0100001b9080k0",
+              "boundary_hausdorff_m": 0.0,
+              "symmetric_difference_m2": 0.0,
+              "height_error_m": 0.0,
+              "passes": true
+            }
+          ],
+          "pass_check": true
+        }
+      ],
+      "probe_sha256": "74985bd0cb9d8bfbe05fe2baf3c84d33e40fb2e1012036f39af68cd9f5e0e159",
+      "check_sha256": "ba0792203fa950fcc7a4a1397d4f86c2668bcb78560c0fd0284402244908ad15"
+    }
+  },
+  "default_rounding_and_failure_evidence_preserved": "moosas-transform-boundary-check.json",
+  "design_accepted": false,
+  "limitations": [
+    "Process-local upstream constant override;not a new public MOOSAS API",
+    "Same selected grid maintained through recognition and XML reload",
+    "Not proven for arbitrary geometry,architectural interpretation,thermal models or MEP",
+    "Explicit empty geometry-only catalogue still required"
+  ]
+}
