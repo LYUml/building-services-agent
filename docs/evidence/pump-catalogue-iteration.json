@@ -1,0 +1,106 @@
+{
+  "scope": "Finite supplied synthetic pump curves, hydraulic ranking, source-preserving full coupled-plan iteration",
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/pump_catalogue_iteration.py": "0b2e7c549fb16bb121fa093a51157d16ee42f793bf6307727705a17fb46234ba",
+    "src/bsa/rectangular_fan_selection.py": "aa86c8fd2abff1bfab5fb04a3c03851a0da3acf76896d58a94c9caaafc58df9f",
+    "src/bsa/catalogue_iteration.py": "1d4f7f34ee19085313af5684e35ac76b5c2f0a6a77538e65f4bc2ac7125dba1f",
+    "scripts/run_pump_catalogue_iteration_demo.py": "93a96307de8fe334d4822b6a01332cc0fdee4f29b3395a63b2623b558a6668c3"
+  },
+  "tests": {
+    "passed": 31,
+    "skipped": 0,
+    "suites": [
+      "test_pump_catalogue_iteration",
+      "test_catalogue_iteration",
+      "test_pump",
+      "test_circular_fan_selection",
+      "test_rectangular_fan_selection"
+    ]
+  },
+  "runs": {
+    "pump-catalogue-recovery": {
+      "verification": {
+        "integrity_pass": true,
+        "candidates": 2,
+        "selected": "eligible",
+        "requirements_preserved": true,
+        "full_plan_executed": true,
+        "design_accepted": false
+      },
+      "status": "needs_engineering_review",
+      "requirements": 8,
+      "candidates": [
+        {
+          "id": "insufficient",
+          "preference": 0,
+          "status": "not_bracketed",
+          "calculated_checks_pass": false
+        },
+        {
+          "id": "eligible",
+          "preference": 1,
+          "status": "converged",
+          "calculated_checks_pass": true
+        }
+      ],
+      "receipt_sha256": "df486adaa01db1fe172bae33281b985489bd869efadb8cdf915b6853c09a2769",
+      "task_statuses": {
+        "electrical": "pass",
+        "water": "pass",
+        "qa": "pass",
+        "drawing": "pass",
+        "pump": "pass",
+        "coupled": "pass",
+        "coupled-qa": "pass",
+        "coupled-drawing": "pass"
+      },
+      "baseline_electrical_kw": 0.75,
+      "baseline_hardware_retained": true,
+      "IFC_typed_properties": {
+        "property_count": 15,
+        "typed_values_pass": true,
+        "explicit_units_pass": true
+      },
+      "native_DWG_acceptance": false
+    },
+    "pump-catalogue-recovery-none": {
+      "verification": {
+        "integrity_pass": true,
+        "candidates": 1,
+        "selected": null,
+        "requirements_preserved": true,
+        "full_plan_executed": false,
+        "design_accepted": false
+      },
+      "status": "no_feasible_candidate",
+      "requirements": 8,
+      "candidates": [
+        {
+          "id": "insufficient",
+          "preference": 0,
+          "status": "not_bracketed",
+          "calculated_checks_pass": false
+        }
+      ],
+      "receipt_sha256": "994fec46a4a2e96906c1dbec627610896b32150800e51e002d35f2c3ed4752a6",
+      "target_created": false,
+      "replay_created": false
+    }
+  },
+  "rejected_controls": [
+    "Forged selected candidate ID",
+    "Changed candidate curve with recomputed receipt artifact hash",
+    "Duplicate candidate IDs",
+    "Unknown catalogue command field",
+    "Boolean preference",
+    "Outside project output"
+  ],
+  "limitations": [
+    "No actual manufacturer discovery/authentication",
+    "Ranking on original hydraulic checks and declared preference only",
+    "Downstream electrical failure does not trigger undeclared re-ranking",
+    "Synthetic curves, equipment/NPSH/motor/installation applicability unresolved",
+    "No new native DWG/visual/Hong Kong/full engineering acceptance"
+  ]
+}

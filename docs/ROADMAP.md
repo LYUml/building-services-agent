@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+Finite supplied pump catalogue screening now reuses shared preference ranking
+and original-network pump solving before full-plan iteration. Actual positive
+selects an eligible curve and reruns eight tasks; no-feasible control creates no
+plan/replay. This is conditional hydraulic ranking, not manufacturer discovery,
+electrical-aware re-ranking or complete product/native/engineering acceptance.
+See PUMP_CATALOGUE_ITERATION.md.
+
 Pump operating-curve revision now reuses the existing catalogue recovery graph.
 Actual synthetic positive reruns all eight coupled tasks; insufficient replacement
 blocks coupled IFC/QA/drawing. Sources, 0.75 kW baseline/hardware and requirements

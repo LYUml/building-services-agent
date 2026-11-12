@@ -1,5 +1,9 @@
 # Full-plan pump curve iteration
 
+For bounded automatic comparison of an explicitly supplied curve catalogue
+before this full-plan revision, use [pump catalogue iteration](PUMP_CATALOGUE_ITERATION.md).
+It reuses the same solver and retains downstream failures and missing equipment facts.
+
 The existing catalogue iteration orchestrator now also accepts a ready failed
 `pump_operating_point` task and an explicit host-supplied replacement curve.
 It reuses the existing single-terminal pump/system solver and fluids pressure

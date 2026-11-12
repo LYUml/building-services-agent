@@ -11,7 +11,7 @@ from .rectangular_fan import validate_curve,run as trial
 OBJECTIVE='lowest declared preference among passing candidates'
 
 
-def candidates(catalogue):
+def candidates(catalogue,*,curve_validator=validate_curve):
     if not isinstance(catalogue,dict) or not {'objective','source','candidates'}<=set(catalogue) or set(catalogue)-{'objective','source','candidates','mechanical'} or catalogue['objective']!=OBJECTIVE or not isinstance(catalogue['source'],str) or not catalogue['source'].strip():raise ProjectError('explicit sourced finite fan preference catalogue required')
     rows=catalogue['candidates']
     if not isinstance(rows,list) or not 1<=len(rows)<=100:raise ProjectError('fan catalogue requires 1..100 candidates')
@@ -21,7 +21,7 @@ def candidates(catalogue):
         if not isinstance(row['id'],str) or not row['id'].strip() or row['id'] in seen:raise ProjectError('unique nonempty fan candidate IDs required')
         seen.add(row['id'])
         if not isinstance(row['source'],str) or not row['source'].strip() or type(row['preference']) not in (int,float) or not math.isfinite(row['preference']):raise ProjectError('fan source and finite preference required')
-        validate_curve(row['curve'])
+        curve_validator(row['curve'])
     return copy.deepcopy(rows)
 
 

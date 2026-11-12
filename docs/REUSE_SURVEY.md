@@ -1376,3 +1376,12 @@ replacement curves retain sourced data and original targets. Actual positive/
 insufficient coupled trials and26related tests are recorded in
 docs/evidence/pump-curve-iteration.json. No dependency/upstream code/regulation
 added; existing licenses/attribution apply.
+
+Finite pump-catalogue automation gap: reuse rectangular_fan_selection.candidates
+with an explicit trusted pump curve validator, its existing shared screen/ranking
+loop, pump.solve/run and the source-preserving full-plan catalogue_iteration.
+The separate EPANET circulation-pump model does not match this fixed-terminal
+network; no engine rewrite, curve extrapolation or new search objective. No
+external dependency or third-party code is added. Actual coupled eligible/
+no-feasible trials and31tests: docs/evidence/pump-catalogue-iteration.json.
+Manufacturer identity, motor/NPSH and complete engineering remain unresolved.

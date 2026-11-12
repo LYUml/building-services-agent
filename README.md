@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Supplied finite pump curves can now be screened and ranked before automatic
+full-plan curve revision. Actual eligible/no-feasible trials preserve original
+hydraulic targets and coupled requirements; complete product/engineering approval
+remains pending. See docs/PUMP_CATALOGUE_ITERATION.md.
+
 Explicit failed pump-curve revision now reuses full-plan catalogue iteration:
 original failure replay, fresh requirements and coupled water/electrical/IFC/DXF
 rerun. Actual positive/insufficient controls preserve all eight obligations;
