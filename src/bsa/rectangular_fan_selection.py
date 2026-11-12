@@ -61,6 +61,23 @@ def unresolved_preference(records,passing):
     return [r['id'] for r in records if r.get('numerical_checks_pass') and r.get('mechanical',{}).get('status')=='pending' and (first is None or (r['preference'],r['id'])<first)]
 
 
+def screen(options,evaluate):
+    """Shared finite ranking with a trusted domain evaluator; no numerical solver."""
+    records=[]
+    for i,row in enumerate(options):
+        record={k:row[k] for k in ('id','source','preference')};record['directory']=f'candidate-{i:03d}'
+        record.update(evaluate(row,record['directory']));records.append(record)
+    passing=sorted((r for r in records if r['calculated_checks_pass']),key=lambda r:(r['preference'],r['id']))
+    unresolved=unresolved_preference(records,passing)
+    result=dict(status='pending' if unresolved else 'fail',unresolved_preference=unresolved,objective=OBJECTIVE,tie_break='lexical candidate ID',candidates=records,selected=None,feasible_candidate_found=bool(passing),selected_rerun_pass=False,calculated_checks_pass=False,design_accepted=False)
+    if passing and not unresolved:
+        chosen=passing[0];row=next(r for r in options if r['id']==chosen['id'])
+        rerun=evaluate(row,'selected')
+        if not rerun['calculated_checks_pass'] or rerun['operating_point']!=chosen['operating_point']:raise ProjectError('selected fan rerun differs from ranked candidate')
+        result.update(status='pass',selected=dict(id=chosen['id'],source=chosen['source'],preference=chosen['preference'],rerun=rerun),selected_rerun_pass=True,calculated_checks_pass=True)
+    return result
+
+
 def run(project,model,binding,ifc,analysis,catalogue,out):
     paths=[Path(p).resolve() for p in (project,model,binding,ifc,analysis,catalogue)]
     out=Path(out).resolve()
@@ -83,20 +100,10 @@ def run(project,model,binding,ifc,analysis,catalogue,out):
             return eligibility(dict(status='unsupported',calculated_checks_pass=False,reason=str(exc),curve_sha256=digest(curve)),mechanical.get(row['id']))
         unchanged()
         return eligibility(dict(status=r['status'],calculated_checks_pass=r['calculated_checks_pass'],checks=r.get('checks'),operating_point=r.get('operating_point'),curve_sha256=digest(curve),report_sha256=digest(folder/'operating/fan.json')),mechanical.get(row['id']))
-    records=[]
-    for i,row in enumerate(options):
-        record={k:row[k] for k in ('id','source','preference')};record['directory']=f'candidate-{i:03d}'
-        record.update(evaluate(row,out/record['directory']));records.append(record)
-    passing=sorted((r for r in records if r['calculated_checks_pass']),key=lambda r:(r['preference'],r['id']))
-    unresolved=unresolved_preference(records,passing)
-    result=dict(status='pending' if unresolved else 'fail',unresolved_preference=unresolved,inputs=before,inputs_unchanged=True,native_path_correspondence_pass=True,objective=OBJECTIVE,tie_break='lexical candidate ID',candidates=records,selected=None,feasible_candidate_found=bool(passing),selected_rerun_pass=False,calculated_checks_pass=False,design_accepted=False,
+    result=screen(options,lambda row,name:evaluate(row,out/name))
+    result.update(inputs=before,inputs_unchanged=True,native_path_correspondence_pass=True,
         scope='Finite sourced fan-curve screening on verified native duct path; no fan hardware authoring, electrical/HK acceptance or authenticity guarantee',
         pending=['Real vendor curve/installation and stable-region applicability','Native fan equipment/ports and electrical motor evidence','Full acoustics/control/Hong Kong/installation acceptance'])
-    if passing and not unresolved:
-        chosen=passing[0];row=next(r for r in options if r['id']==chosen['id'])
-        rerun=evaluate(row,out/'selected')
-        if not rerun['calculated_checks_pass'] or rerun['operating_point']!=chosen['operating_point']:raise ProjectError('selected fan rerun differs from ranked candidate')
-        result.update(status='pass',selected=dict(id=chosen['id'],source=chosen['source'],preference=chosen['preference'],rerun=rerun),selected_rerun_pass=True,calculated_checks_pass=True)
     verified_study(*paths[:5]);unchanged()
     result['artifacts']={p.relative_to(out).as_posix():digest(p) for p in out.rglob('*') if p.is_file()}
     (out/'fan-selection.json').write_text(json.dumps(result,indent=2),encoding='utf-8')

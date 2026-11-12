@@ -1282,3 +1282,13 @@ area/Reynolds preparer. Bind only the exact source-checked extended pressure
 network; preserve inlet/common-reference/level-boundary assumptions and reject
 static curves, fluid mismatch and out-of-domain brackets. No new solver or
 dependency, and no real product/installation/stability certification inferred.
+
+Circular catalogue gap: extract the existing rectangular fan ranking loop into
+its shared screen(options, trusted_evaluator) function; both domains now call it.
+Reuse existing catalogue validation, eligibility and preferred-unknown mechanical
+rules. Reuse circular_fan's native source reconstruction through source_project
+for both catalogue context and individual trials. Selected handoff reconstructs
+all original candidates and exact source ranking, then reruns the selected curve
+independently. No new numerical or ranking objective engine and no dependency.
+The existing published mechanical-table/class gate remains active when supplied;
+missing hardware/curve applicability is not converted into a product certificate.

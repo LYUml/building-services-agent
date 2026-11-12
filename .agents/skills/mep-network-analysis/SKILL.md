@@ -17,6 +17,13 @@ turbulent bounded curve domain. Air power is separate from motor electrical
 input; native fan equipment, flow metadata, real product applicability and full
 engineering acceptance remain pending.
 
+For finite circular fan catalogues, use `circular_fan_selection` on that pressure
+producer, then `circular_fan_operating_point` on the selection with no replacement
+curve. Read [catalogue screening](../../../docs/CIRCULAR_FAN_SELECTION.md).
+Inspect retained candidates and `unresolved_preference`: a preferred unresolved
+mechanical identity blocks selection. Preferences are declared choices; do not
+infer cost, motor power or product suitability from numerical eligibility.
+
 For standalone common-interface airflow allocation, reuse provider
 bsa.classified-air-allocation with analysis.air.classified-allocation and an
 existing source-backed allocation project. See docs/MODULAR_AIR_ALLOCATION.md.

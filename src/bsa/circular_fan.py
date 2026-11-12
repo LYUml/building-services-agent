@@ -43,15 +43,15 @@ def solve(project,curve):
     return result,selected
 
 
-def run(producer,curve_path,out):
-    producer,curve_path,out=[Path(p).resolve() for p in (producer,curve_path,out)]
-    if out.exists() or not all(allowed(p) for p in (producer,curve_path,out)) or producer==out or producer in out.parents or out in producer.parents or out==curve_path or out in curve_path.parents:
-        raise ProjectError('Fresh selected-workspace fan output outside all source inputs required')
+def source_project(producer):
+    """Reconstruct the exact native pressure scenario before a curve is considered."""
+    producer=Path(producer).resolve()
+    if not allowed(producer):raise ProjectError('Selected source workspace required')
     versions={name:importlib.metadata.version(name) for name in ('fluids','ifcopenshell','numpy')}
     if versions!={'fluids':'1.3.1','ifcopenshell':'0.8.5','numpy':'2.5.4'}:raise ProjectError('Pinned pressure/native source runtimes required')
     receipt=producer/'route-pressure.json';baseline=read_json(receipt)
     if baseline.get('calculated_checks_pass') is not True or baseline.get('design_accepted') is not False:raise ProjectError('Passing source-checked local pressure producer required')
-    inputs={**baseline['inputs'],**baseline['method_inputs'],str(receipt):digest(receipt),str(curve_path):digest(curve_path)}
+    inputs={**baseline['inputs'],**baseline['method_inputs'],str(receipt):digest(receipt)}
     for name,sha in baseline['artifacts'].items():
         path=(producer/name).resolve()
         if not path.is_relative_to(producer):raise ProjectError('Pressure artifact escapes original producer')
@@ -60,7 +60,7 @@ def run(producer,curve_path,out):
         if not allowed(Path(path)) or digest(Path(path))!=sha:raise ProjectError('Fan upstream source, method or pressure artifact changed')
     project_path=producer/'network-input.json'
     if str(project_path) not in inputs:raise ProjectError('Exact saved derived pressure input required')
-    project=read_json(project_path);curve=read_json(curve_path)
+    project=read_json(project_path)
     material_paths=[Path(p) for p in baseline['inputs'] if Path(p).name=='route-material.json']
     canonical_paths=[Path(p) for p in baseline['inputs'] if Path(p).name=='model-input.json']
     joined_paths=[Path(p) for p in baseline['inputs'] if Path(p).name=='joined.ifc']
@@ -75,6 +75,16 @@ def run(producer,curve_path,out):
     original=network.calculate(project)
     if not original['calculated_checks_pass']:raise ProjectError('Fresh original prescribed-flow check did not pass')
     if baseline['policy']['pressure_reference']!='common-elevation-datum':raise ProjectError('Explicit inherited common-reference pressure basis required')
+    return project,baseline,inputs,versions
+
+
+def run(producer,curve_path,out):
+    producer,curve_path,out=[Path(p).resolve() for p in (producer,curve_path,out)]
+    if out.exists() or not all(allowed(p) for p in (producer,curve_path,out)) or producer==out or producer in out.parents or out in producer.parents or out==curve_path or out in curve_path.parents:
+        raise ProjectError('Fresh selected-workspace fan output outside all source inputs required')
+    project,baseline,inputs,versions=source_project(producer)
+    inputs[str(curve_path)]=digest(curve_path);curve=read_json(curve_path)
+    original=network.calculate(project);receipt=producer/'route-pressure.json'
     methods={str(Path(p).resolve()):digest(Path(p)) for p in (__file__,network.__file__,pump.__file__,rectangular_fan.__file__,route_pressure.__file__)}
     result,selected=solve(project,curve)
     out.mkdir(parents=True)

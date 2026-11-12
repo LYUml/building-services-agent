@@ -1,0 +1,117 @@
+{
+  "objective": "lowest declared preference among passing candidates",
+  "source": "Explicit synthetic finite candidate study; preference is a declared study choice, not price/power/product ranking. All curves remain assumptions with no manufacturer applicability or hardware identity.",
+  "candidates": [
+    {
+      "id": "weak-first",
+      "source": "Synthetic candidate weak-first",
+      "preference": 0,
+      "curve": {
+        "model": "fixed-speed air fan; single fixed-total-pressure terminal; free flow",
+        "pressure_basis": "fan total pressure rise",
+        "sources": {
+          "demo": "Explicit synthetic circular-path fixed-speed total-pressure curve, not manufacturer data. Inlet total pressure0Pa is assumed at the verified outer upstream cap in the same common reference/elevation as the fixed1Pa downstream target; no installation/stability/electrical claim."
+        },
+        "source": "demo",
+        "speed_rpm": 1450,
+        "fluid": {
+          "density_kg_m3": 1.25,
+          "dynamic_viscosity_pa_s": 1.8e-05
+        },
+        "inlet_total_pressure_pa": 0,
+        "efficiency_basis": "not supplied",
+        "points": [
+          {
+            "flow_m3_s": 0.04,
+            "total_pressure_rise_pa": 8
+          },
+          {
+            "flow_m3_s": 0.12,
+            "total_pressure_rise_pa": 1
+          }
+        ],
+        "flow_bracket_m3_s": [
+          0.04,
+          0.12
+        ],
+        "flow_tolerance_m3_s": 1e-10,
+        "pressure_tolerance_pa": 1e-08,
+        "max_iterations": 100
+      }
+    },
+    {
+      "id": "wrong-fluid",
+      "source": "Synthetic candidate wrong-fluid",
+      "preference": 1,
+      "curve": {
+        "model": "fixed-speed air fan; single fixed-total-pressure terminal; free flow",
+        "pressure_basis": "fan total pressure rise",
+        "sources": {
+          "demo": "Explicit synthetic circular-path fixed-speed total-pressure curve, not manufacturer data. Inlet total pressure0Pa is assumed at the verified outer upstream cap in the same common reference/elevation as the fixed1Pa downstream target; no installation/stability/electrical claim."
+        },
+        "source": "demo",
+        "speed_rpm": 1450,
+        "fluid": {
+          "density_kg_m3": 1.2,
+          "dynamic_viscosity_pa_s": 1.8e-05
+        },
+        "inlet_total_pressure_pa": 0,
+        "efficiency_basis": "not supplied",
+        "points": [
+          {
+            "flow_m3_s": 0.04,
+            "total_pressure_rise_pa": 12
+          },
+          {
+            "flow_m3_s": 0.12,
+            "total_pressure_rise_pa": 2
+          }
+        ],
+        "flow_bracket_m3_s": [
+          0.04,
+          0.12
+        ],
+        "flow_tolerance_m3_s": 1e-10,
+        "pressure_tolerance_pa": 1e-08,
+        "max_iterations": 100
+      }
+    },
+    {
+      "id": "supported",
+      "source": "Synthetic candidate supported",
+      "preference": 2,
+      "curve": {
+        "model": "fixed-speed air fan; single fixed-total-pressure terminal; free flow",
+        "pressure_basis": "fan total pressure rise",
+        "sources": {
+          "demo": "Explicit synthetic circular-path fixed-speed total-pressure curve, not manufacturer data. Inlet total pressure0Pa is assumed at the verified outer upstream cap in the same common reference/elevation as the fixed1Pa downstream target; no installation/stability/electrical claim."
+        },
+        "source": "demo",
+        "speed_rpm": 1450,
+        "fluid": {
+          "density_kg_m3": 1.25,
+          "dynamic_viscosity_pa_s": 1.8e-05
+        },
+        "inlet_total_pressure_pa": 0,
+        "efficiency_basis": "not supplied",
+        "points": [
+          {
+            "flow_m3_s": 0.04,
+            "total_pressure_rise_pa": 12
+          },
+          {
+            "flow_m3_s": 0.12,
+            "total_pressure_rise_pa": 2
+          }
+        ],
+        "flow_bracket_m3_s": [
+          0.04,
+          0.12
+        ],
+        "flow_tolerance_m3_s": 1e-10,
+        "pressure_tolerance_pa": 1e-08,
+        "max_iterations": 100
+      }
+    }
+  ]
+}

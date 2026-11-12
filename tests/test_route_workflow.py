@@ -12,6 +12,20 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 class RouteWorkflowTests(unittest.TestCase):
+    def test_circular_catalogue_selection_handoff_and_failure_gates(self):
+        plan=ROOT/'examples/route-search/port-fan-selection-plan.json';validate_plan(plan)
+        for fault in ('none','selection'):
+            with self.subTest(fault=fault),tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+                out=(Path(folder)/'run').resolve()
+                with patch('bsa.bim.run',return_value={}),patch('bsa.route_ports.run',return_value={'calculated_checks_pass':True,'scope':'dispatch-only test'}),patch('bsa.route_join.run',return_value={'calculated_checks_pass':True,'scope':'dispatch-only test'}),patch('bsa.route_material.run',return_value={'calculated_checks_pass':True,'scope':'dispatch-only test'}),patch('bsa.route_pressure.run',return_value={'calculated_checks_pass':True,'scope':'dispatch-only test'}),patch('bsa.circular_fan_selection.run',return_value={'status':'pass' if fault=='none' else 'fail','scope':'dispatch-only test'}) as screen,patch('bsa.circular_fan_selection.run_selected',return_value={'calculated_checks_pass':True,'scope':'dispatch-only test'}) as consume,patch('bsa.ifc_route_drawing.run',return_value={'calculated_checks_pass':True}) as drawing:
+                    result=execute(plan,out)
+                self.assertEqual(screen.call_args.args[0],out/'pressure')
+                if fault=='none':
+                    self.assertEqual(consume.call_args.args[:2],(out/'selection',out/'pressure'))
+                    self.assertEqual(result['tasks']['drawing']['status'],'pass')
+                else:consume.assert_not_called();drawing.assert_not_called()
+                self.assertEqual(result['tasks']['review']['status'],'pending')
+
     def test_circular_fan_inherits_pressure_and_failed_capacity_blocks_drawing(self):
         plan=ROOT/'examples/route-search/port-fan-plan.json';validate_plan(plan)
         for fault in ('none','pressure','fan'):

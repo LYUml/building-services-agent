@@ -1,0 +1,265 @@
+{
+  "scope": "Synthetic finite declared circular fan screening and source-reconstructed selected handoff; full engineering remains pending",
+  "design_accepted": false,
+  "tests": {
+    "passed": 86,
+    "skipped": 0,
+    "suite": "test_circular_fan_selection test_rectangular_fan_selection test_fan_mechanical_selection test_circular_fan test_rectangular_fan test_circular_native test_route_pressure test_route_material test_route_join test_route_ports test_route_workflow test_route_search test_route_model test_route_optimize test_route_obstacles",
+    "mechanical_source_regression": "Five original published-table/mechanical-selection tests executed with cached official PDF",
+    "upstream_warning": "IfcOpenShell ResourceWarning for unclosed IFC4.py"
+  },
+  "skill_validation": "mep-network-analysis quick_validate passed",
+  "workflows": {
+    "source-port-circular-selection-workflow": {
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "tasks": {
+        "source": {
+          "kind": "bim",
+          "status": "pass",
+          "scope": "IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending"
+        },
+        "route": {
+          "kind": "route_ports",
+          "status": "pass",
+          "scope": "Source-guided separate route IFC only; no merged logical connections, physical joints, full equipment geometry, obstacle completeness or regulatory acceptance"
+        },
+        "join": {
+          "kind": "route_join",
+          "status": "pass",
+          "scope": "Saved same-file local logical chain; no physical joint, whole-network pressure, clearance, manufacturer or regulatory acceptance"
+        },
+        "material": {
+          "kind": "route_material",
+          "status": "pass",
+          "scope": "Ideal local circular-wall material union, topology and finite centre-core probes only; no whole-model clearance, product joints, whole-network pressure, full-bore CFD, installation or regulatory acceptance"
+        },
+        "pressure": {
+          "kind": "route_pressure",
+          "status": "pass",
+          "scope": "Uniform-bore prescribed-flow local chain including both source walls; explicit common-reference pressure/boundary/roughness/K assumptions. No ambient-gauge fan duty, operating-point solution, intermediate pressure acceptance, product or regulatory approval"
+        },
+        "selection": {
+          "kind": "circular_fan_selection",
+          "status": "pass",
+          "scope": "Finite declared numerical fan preference screening on an exact checked circular path; product applicability and full engineering remain pending"
+        },
+        "fan": {
+          "kind": "circular_fan_operating_point",
+          "status": "pass",
+          "scope": "Fixed circular local geometry/K, constant-density free flow at one fixed terminal total pressure; level external common-reference stations; no static-pressure conversion, fan electricity or branches/loops"
+        },
+        "drawing": {
+          "kind": "ifc_route_drawing",
+          "status": "pass",
+          "scope": "source-checked saved circular walls and finite arcs to GUID-linked planar axes/OD outlines; product and installation acceptance pending"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "Review source completeness, physical joints and merged connectivity, full network pressure and installation, native plot and applicable Hong Kong rules before full engineering acceptance."
+        }
+      },
+      "source_and_method_hashes_current": true,
+      "summary": {
+        "status": "pass",
+        "candidates": [
+          {
+            "id": "weak-first",
+            "preference": 0,
+            "status": "converged",
+            "checks": {
+              "balance": true,
+              "flow_bracket": true,
+              "minimum_design_flow": false,
+              "velocity_through_bracket": true,
+              "node_pressure_requirements": true
+            },
+            "reason": null,
+            "calculated_checks_pass": false
+          },
+          {
+            "id": "wrong-fluid",
+            "preference": 1,
+            "status": "unsupported",
+            "checks": null,
+            "reason": "Fan curve and circular path fluid mismatch; no density correction inferred",
+            "calculated_checks_pass": false
+          },
+          {
+            "id": "supported",
+            "preference": 2,
+            "status": "converged",
+            "checks": {
+              "balance": true,
+              "flow_bracket": true,
+              "minimum_design_flow": true,
+              "velocity_through_bracket": true,
+              "node_pressure_requirements": true
+            },
+            "reason": null,
+            "calculated_checks_pass": true
+          }
+        ],
+        "selected": "supported",
+        "independent_consumer_point": {
+          "flow_m3_s": 0.08029227424412967,
+          "system_required_rise_pa": 6.963465711498296,
+          "residual_pa": 7.985494931972426e-09,
+          "supply_total_pressure_pa": 6.963465719483791,
+          "fan_total_pressure_rise_pa": 6.963465719483791,
+          "air_power_kw": 0.0005591124992383882
+        },
+        "source_reconstructed_handoff": true
+      },
+      "files": {
+        "runs\\source-port-circular-selection-workflow\\workflow.json": "886916c41a9b091a9de542b73b63fb2ed46f81a13815ffae447549210daaa352",
+        "runs\\source-port-circular-selection-workflow\\selection\\fan-selection.json": "e999f12f2c710c7545d3d65bcef44dc187bb384530e8264c00db27ee054aaf78",
+        "runs\\source-port-circular-selection-workflow\\pressure\\network-input.json": "4e282f3c2c9b3507d45662efb89d06e906b4ffa207e652a8045067ff8c85ffaf",
+        "runs\\source-port-circular-selection-workflow\\selection\\selected\\curve.json": "8bce0400dfea8f22f34487adcbbf8c59b0c12efa79f270f1f44c6416029d3b40",
+        "runs\\source-port-circular-selection-workflow\\selection\\selected\\operating\\fan.json": "76ccb4cec4869015a94199810a5c5652e5fd75ef55d95e756445d86960f61d93",
+        "runs\\source-port-circular-selection-workflow\\fan\\fan.json": "59cf810485cba819d776da86864be2464604aeae4a621044c00584a7bcbb6ab9",
+        "runs\\source-port-circular-selection-workflow\\fan\\operating-network.json": "e29bf30f7b5f80f7943d3a2747467e385470fe078a40411197e7b2bed87f09b8",
+        "runs\\source-port-circular-selection-workflow\\fan\\analysis\\network.json": "bf9ccd5853f2b14b38b2d77295dadf3ea1e148a503550d4ff89586418e66fb23",
+        "runs\\source-port-circular-selection-workflow\\drawing\\segments.dxf": "af6255b779ab0b396dcb4dc9943d4840ab2d0d8f8bdbd0d7f896c3eaa5275ac3"
+      }
+    },
+    "source-port-circular-selection-no-feasible-workflow": {
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "tasks": {
+        "source": {
+          "kind": "bim",
+          "status": "pass",
+          "scope": "IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending"
+        },
+        "route": {
+          "kind": "route_ports",
+          "status": "pass",
+          "scope": "Source-guided separate route IFC only; no merged logical connections, physical joints, full equipment geometry, obstacle completeness or regulatory acceptance"
+        },
+        "join": {
+          "kind": "route_join",
+          "status": "pass",
+          "scope": "Saved same-file local logical chain; no physical joint, whole-network pressure, clearance, manufacturer or regulatory acceptance"
+        },
+        "material": {
+          "kind": "route_material",
+          "status": "pass",
+          "scope": "Ideal local circular-wall material union, topology and finite centre-core probes only; no whole-model clearance, product joints, whole-network pressure, full-bore CFD, installation or regulatory acceptance"
+        },
+        "pressure": {
+          "kind": "route_pressure",
+          "status": "pass",
+          "scope": "Uniform-bore prescribed-flow local chain including both source walls; explicit common-reference pressure/boundary/roughness/K assumptions. No ambient-gauge fan duty, operating-point solution, intermediate pressure acceptance, product or regulatory approval"
+        },
+        "selection": {
+          "kind": "circular_fan_selection",
+          "status": "fail",
+          "scope": "Finite declared numerical fan preference screening on an exact checked circular path; product applicability and full engineering remain pending"
+        },
+        "fan": {
+          "kind": "circular_fan_operating_point",
+          "status": "pending",
+          "scope": "upstream pressure/selection did not pass; fan operating point not executed"
+        },
+        "drawing": {
+          "kind": "ifc_route_drawing",
+          "status": "pending",
+          "scope": "required checks unresolved: fan (pending), selection (fail); adapter not executed"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: drawing (pending), fan (pending), selection (fail); adapter not executed"
+        }
+      },
+      "source_and_method_hashes_current": true,
+      "summary": {
+        "status": "fail",
+        "candidates": [
+          {
+            "id": "weak-first",
+            "preference": 0,
+            "status": "converged",
+            "checks": {
+              "balance": true,
+              "flow_bracket": true,
+              "minimum_design_flow": false,
+              "velocity_through_bracket": true,
+              "node_pressure_requirements": true
+            },
+            "reason": null,
+            "calculated_checks_pass": false
+          },
+          {
+            "id": "wrong-fluid",
+            "preference": 1,
+            "status": "unsupported",
+            "checks": null,
+            "reason": "Fan curve and circular path fluid mismatch; no density correction inferred",
+            "calculated_checks_pass": false
+          }
+        ],
+        "selected": null,
+        "no_selected_scenario": true,
+        "no_independent_consumer": true,
+        "no_drawing": true
+      },
+      "files": {
+        "runs\\source-port-circular-selection-no-feasible-workflow\\workflow.json": "068963cfd7866e3e3070ea19e5e5db6c663df7c84a75e929d9e8fd691853c460",
+        "runs\\source-port-circular-selection-no-feasible-workflow\\selection\\fan-selection.json": "e545e03dd5f26d772fcc2d323402a67735b4f46d3a15995af8bac8cd99a1cd0b",
+        "runs\\source-port-circular-selection-no-feasible-workflow\\pressure\\network-input.json": "4e282f3c2c9b3507d45662efb89d06e906b4ffa207e652a8045067ff8c85ffaf"
+      }
+    }
+  },
+  "controls": {
+    "upstream_pressure_inputs_identical": true,
+    "handoff": {
+      "false-preference": {
+        "rejected": true,
+        "reason": "Selected fan is not the original preferred eligible candidate",
+        "consumer_absent": true
+      },
+      "rehashed-curve": {
+        "rejected": true,
+        "reason": "Selected curve or operating scenario differs from reconstruction",
+        "consumer_absent": true
+      },
+      "false-capacity": {
+        "rejected": true,
+        "reason": "Candidate result differs from fresh source solve",
+        "consumer_absent": true
+      },
+      "no-feasible": {
+        "rejected": true,
+        "reason": "No passing selected circular fan available",
+        "consumer_absent": true
+      }
+    },
+    "control_record_sha256": "d5c6435e78501324fe33d5d18564d9e4c305ef0b72a826145f5ecf438a9f4c2b"
+  },
+  "requirements": {
+    "original_geometry_pressure_duty_R1_to_R7_unchanged": true,
+    "R8_curve_source_explicitly_revised_in_new_brief": true,
+    "R9_catalogue_screening_added": true,
+    "total": 9
+  },
+  "reuse": "Shared existing rectangular fan screen/eligibility/preference helpers plus circular native source loader and existing curve solver; no new numerical solver/dependency",
+  "pending": [
+    "actual vendor curves and installation/stable-region applicability",
+    "verified product/mechanical identity beyond declared associations",
+    "native fan equipment and airflow metadata",
+    "motor electrical input and Hong Kong fan-power checks",
+    "full multibranch balancing and controls",
+    "native joined drawings and full engineering acceptance"
+  ]
+}

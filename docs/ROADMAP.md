@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Finite circular fan catalogues now reuse the shared existing preference screen.
+Actual weak/fluid-mismatch/eligible trials select and independently rerun the
+preferred eligible curve; no feasible catalogue blocks consumer and DXF. Source
+ranking/curve tamper controls reject. Real hardware and full design remain pending.
+See CIRCULAR_FAN_SELECTION.md.
+
 Source-bound circular fan intersection now reuses the existing curve solver and
 fresh pressure rerun. Actual synthetic normal/weak curves converge, but the weak
 curve fails original minimum airflow and blocks DXF. Native source reconstruction
