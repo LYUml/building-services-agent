@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Shared bsa project-start/handoff/handoff-verify commands now route through the
+existing intake, engineering handoff and verifier with explicit host runtime and
+provider selection. Actual four-domain execution and disabled inventory controls
+retain pending acceptance. Arbitrary brief interpretation remains unfinished.
+See PROJECT_CLI.md.
+
 Tool-only drift can now prepare a fresh HVAC configuration/requirements inventory
 while preserving every original project source and review. Actual private-project
 replay reopens DWG and reproduces the reviewed 24-page report with all gaps retained;

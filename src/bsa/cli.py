@@ -72,6 +72,19 @@ def run(project, out):
 def main():
     parser=argparse.ArgumentParser(description="Building Services Agent engineering tools")
     sub=parser.add_subparsers(dest="command",required=True)
+    s=sub.add_parser('project-start',help='Stage a brief and build the source interpretation handoff')
+    s.add_argument('brief',type=Path);s.add_argument('--out',type=Path,required=True)
+    s.add_argument('--supplement',type=Path,action='append',default=[])
+    s.add_argument('--reference',type=Path,action='append',default=[])
+    s=sub.add_parser('handoff',help='Execute an explicit source-bound host interpretation')
+    s.add_argument('plan',type=Path);s.add_argument('interpretation',type=Path)
+    s.add_argument('--target',type=Path,required=True);s.add_argument('--out',type=Path,required=True)
+    for flag in ('energyplus','autocad','radiance-bin','ifcmcp-python','three-phase-python','graphviz','pdf2plot-python','honeybee-python'):
+        s.add_argument('--'+flag,type=Path)
+    s.add_argument('--module-provider',action='append',default=[])
+    s.add_argument('--disable-module-provider',action='append',default=[])
+    s=sub.add_parser('handoff-verify',help='Reconstruct source and execution correspondence; not design acceptance')
+    s.add_argument('out',type=Path)
     for command in ("validate","run"):
         s=sub.add_parser(command);s.add_argument("project",type=Path)
         if command=="run": s.add_argument("--out",type=Path,required=True)
@@ -83,7 +96,24 @@ def main():
         s.add_argument("--"+flag,type=Path)
     a=parser.parse_args()
     try:
-        if a.command=="workflow":
+        if a.command=='project-start':
+            from .project_start import start
+            result=start(a.brief,a.out,supplements=a.supplement,references=a.reference)
+            print(json.dumps({key:result[key] for key in ('status','effective_plan','interpretation_template_ready','stage_errors','design_accepted')},indent=2))
+            return 2
+        elif a.command=='handoff':
+            from .engineering_handoff import run as handoff
+            from .workflow_modules import parse_provider_options
+            names=('energyplus','autocad','radiance_bin','ifcmcp_python','three_phase_python','graphviz','pdf2plot_python','honeybee_python')
+            options={key:getattr(a,key) for key in names if getattr(a,key) is not None}
+            options.update(module_providers=parse_provider_options(a.module_provider),disabled_module_providers=a.disable_module_provider)
+            result=handoff(a.plan,a.interpretation,a.target,a.out,execute_options=options)
+            print(json.dumps({key:result[key] for key in ('status','stages','stage_errors','design_accepted')},indent=2))
+            return 2
+        elif a.command=='handoff-verify':
+            from .engineering_handoff import verify
+            print(json.dumps(verify(a.out),indent=2));return 0
+        elif a.command=="workflow":
             from .workflow import execute
             from .workflow_status import diagnose
             if a.review is not None:

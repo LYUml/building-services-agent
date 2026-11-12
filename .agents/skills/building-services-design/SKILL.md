@@ -5,6 +5,12 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+Use the shared bsa project-start/handoff/handoff-verify CLI in docs/PROJECT_CLI.md
+for source intake and host-reviewed execution. Read effective_plan and inspect
+all source/extraction issues before writing the exact engineering-handoff review;
+the intake work-review template is a different contract. Keep pending status and
+ordinary gaps; verification is evidence correspondence, not design approval.
+
 When an interpreted HVAC project's pinned configuration is stale after tool
 changes, use bsa.hvac_refresh per docs/HVAC_REFRESH.md. Inspect drift first;
 changed project data require source review, while unchanged project inputs may

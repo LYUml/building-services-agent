@@ -1,5 +1,9 @@
 # Building Services Agent
 
+The shared `bsa` CLI now exposes project-start, reviewed engineering handoff and
+independent handoff verification. Actual cross-discipline and disabled-inventory
+trials retain source requirements and incomplete acceptance. See docs/PROJECT_CLI.md.
+
 Tool-only drift can now prepare a fresh HVAC configuration/requirements inventory
 while preserving every original project source and review. Actual private-project
 replay reopens DWG and reproduces the reviewed 24-page report with all gaps retained;

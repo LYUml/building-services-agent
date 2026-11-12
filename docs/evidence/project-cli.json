@@ -1,0 +1,47 @@
+{
+  "scope": "Shared command entry over existing adapters; authored synthetic source, no general semantic interpretation or integrated design acceptance",
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/cli.py": "c12e91633a33c6f9d34c7cda1f9712fd85aa8735ae529bb076d7691787a121ae",
+    "src/bsa/project_start.py": "274f9db2c67adc0cb1b05443f9651208f74e1ebb6c12f236e2e9a35d58f88e4a",
+    "src/bsa/engineering_handoff.py": "96bc8fc87b5a8aebb821f909a563514930f2a7cb54e4a95cc27d828dee7bb2d3"
+  },
+  "tests": {
+    "passed": 17,
+    "skipped": 0,
+    "suites": [
+      "test_project_cli",
+      "test_project_start",
+      "test_engineering_handoff",
+      "test_workflow_cli"
+    ]
+  },
+  "positive": {
+    "integrity_pass": true,
+    "requirements": 5,
+    "task_statuses": {
+      "electrical": "pass",
+      "air": "pass",
+      "water": "pass",
+      "envelopes": "pass",
+      "review": "pending"
+    },
+    "retained_input_gaps": 0,
+    "receipt_sha256": "b5c3b0bc8d247cab72db362f4d3a927c82eefd010b346ddf71ed0462012c219d"
+  },
+  "disabled_inventory": {
+    "status": "requirements_unavailable",
+    "workflow_created": false,
+    "stages": {
+      "plan": "materialized_verified",
+      "requirements": "unavailable"
+    },
+    "receipt_sha256": "f70d8de936bb969cfb387073eebefa4cb47c2a1d1356ae89cb74f4bcfda25a6f"
+  },
+  "limitations": [
+    "Host-authored interpretation still required",
+    "Synthetic independent disciplines and standalone BIM",
+    "Manual review pending",
+    "Not full native delivery or regulatory acceptance"
+  ]
+}

@@ -1343,3 +1343,11 @@ selected fan/source replay rather than copy a scalar or infer motor input. Add
 separate calculated scenario properties; do not overwrite original design values,
 author a pretend fan body or change whole-system flow on unrelated elements.
 No new dependency or numerical engine.
+# Shared project command entry
+
+Gap: the installed bsa CLI omitted existing intake and reviewed engineering
+handoff. Reuse project_start.start, engineering_handoff.run/verify and existing
+workflow provider parsing rather than adding an agent framework, LLM service or
+new engineering engine. No third-party code/dependency is added; upstream engines
+retain their existing pins and attribution. Actual positive and disabled-provider
+CLI execution is recorded in docs/evidence/project-cli.json.
