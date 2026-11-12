@@ -22,6 +22,15 @@ class SpatialLightingRulesTests(unittest.TestCase):
         self.assertEqual(projects['Room']['lighting_space']['luminaires'],self.basis['lighting_space']['luminaires'])
         self.assertNotIn('internal_floor_area',self.basis['lighting_space'])
 
+    def test_polygon_space_area_inherited_without_box_dimensions(self):
+        self.result['payload_schema']='bsa.spatial-polygons/1'
+        self.result['payload']=dict(schema='bsa.spatial-polygons/1',coordinate_frame=dict(id='declared',kind='source-world-si',length_unit='m',georeferenced=False),units=dict(length='m',area='m2'),point_grid_m=1e-9,source_geometry_matches=True,simulation_ready=False,design_accepted=False,
+            spaces=[dict(id='Room',recognized_id='native-id',boundary_vertices=[[0,0],[5,0],[5,2],[2,2],[2,4],[0,4],[0,0]],floor_area_m2=14,height_m=3,floor_elevation_m=0)])
+        project=prepare(self.result,self.bases,self.pack)['Room']
+        self.assertEqual(project['lighting_space']['internal_floor_area']['value'],14)
+        self.result['payload']['spaces'][0]['floor_area_m2']=100
+        with self.assertRaisesRegex(ValueError,'Polygon area'):prepare(self.result,self.bases,self.pack)
+
     def test_dropped_room_and_area_override_reject(self):
         with self.assertRaises(ValueError):prepare(self.result,{},self.pack)
         self.basis['lighting_space']['internal_floor_area']={'value':10000,'unit':'m2','source':'Untrusted replacement'}

@@ -1,0 +1,59 @@
+{
+  "scope": "Actual source-checked MOOSAS polygon recognition to existing selected HK LPD consumer;independent electrical branch",
+  "cases": {
+    "exceeded": {
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "fail",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "workflow_sha256": "80b5c24d312afa4e46bf9eafd1d06213f735ee7bd4599b2054cc35182394a480"
+    },
+    "unknown": {
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pending",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "workflow_sha256": "e86ddafa83e79d5870330af5d9c8ec57bdc2910e262ccc0b54e320eb2dc79633"
+    },
+    "disabled": {
+      "tasks": {
+        "recognition": "pending",
+        "lighting-rules": "pending",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "workflow_sha256": "0b94967399e2b556bcba648b2652cc974d4729e1b4b789c631b25105bba6ad37"
+    },
+    "missing-source": {
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pending",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "workflow_sha256": "c66a674db306e8eee61161334606bfe0fd23641d5569dbbbd9712af4ee89a744"
+    },
+    "enabled": {
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "workflow_sha256": "59e6f3d9a53b182a57b1d7d3fbac62f75b921c1b8c3b196ada54d0740ab6f364"
+    }
+  },
+  "official_source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+  "test_inputs": "Synthetic geometry,luminaire watts and applicability assertions;actual pinned official BEC bytes for retained workflow cases",
+  "design_accepted": false,
+  "limitations": [
+    "Selected office LPD arithmetic only;full regulatory conformity not established",
+    "No physical lighting or electrical geometry coordination",
+    "No arbitrary DWG recognition,thermal simulation or complete engineering design"
+  ],
+  "targeted_tests_passed": 24
+}

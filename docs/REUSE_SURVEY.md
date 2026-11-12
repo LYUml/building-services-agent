@@ -1,5 +1,12 @@
 # Reuse survey â€” 2026-11-09
 
+Recognition workflow/LPD gap: existing module_exchange dispatch already supports
+the registered recognizer. Reuse that runner and extend only the existing office
+LPD area consumer to validated polygon payloads;no new regulator or solver.
+Five actual official-source-pinned workflows and24related tests retain exact
+geometry IDs/areas,breaches,unknown facts,missing files and disabled gates. See
+MODULAR_SPACE_RECOGNITION.md;full engineering/conformity remains unfinished.
+
 Common recognition boundary: wrap the already executed pinned MOOSAS probe and
 existing Shapely source-boundary checker in the trusted module runner. Add a
 polygon-space contract rather than forcing nonrectangular rooms into box fields.

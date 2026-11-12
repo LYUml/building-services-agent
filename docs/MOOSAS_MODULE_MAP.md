@@ -1,5 +1,12 @@
 # MOOSAS priority reuse map
 
+The common polygon-space provider now runs through existing module_exchange
+orchestration and feeds recognized area into the existing HK office LPD consumer.
+Five actual source-pinned scenario workflows verify pass/fail/pending states and
+independent-branch continuation;24related tests pass. See
+MODULAR_SPACE_RECOGNITION.md and evidence/moosas-recognition-lighting-workflow.json.
+Thermal and physical/complete regulatory acceptance remain unfinished.
+
 Surface recognition now has a registered common provider and polygon-space
 contract preserving concave boundaries,source IDs,height and elevation. Actual
 three-fixture source/reload trials and23related tests pass. No automatic workflow

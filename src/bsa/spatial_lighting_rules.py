@@ -10,7 +10,10 @@ from .regulations import evaluate,source_paths
 
 
 def prepare(result,bases,pack):
-    if result['execution']['status']!='completed' or result['payload_schema']!='bsa.spatial-boxes/1':raise ValueError('Completed neutral spaces required')
+    if result['execution']['status']!='completed' or result['payload_schema'] not in ('bsa.spatial-boxes/1','bsa.spatial-polygons/1'):raise ValueError('Completed supported neutral spaces required')
+    if result['payload_schema']=='bsa.spatial-polygons/1':
+        from .module_contract import validate
+        validate(result['payload'])
     if not pack.get('rules') or any(r['method']!='office_lighting_power_density' for r in pack['rules']):raise ValueError('Only the existing office LPD rule method is supported')
     spaces={s['id']:s for s in result['payload']['spaces']}
     if not isinstance(bases,dict) or set(bases)!=set(spaces):raise ValueError('Explicit lighting bases must cover every neutral space exactly')
