@@ -3,6 +3,7 @@ from pathlib import Path
 import runpy
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from bsa.engineering_handoff import verify
 
@@ -18,6 +19,10 @@ class CoupledHandoffTests(unittest.TestCase):
         execute=runpy.run_path(str(ROOT/'scripts/run_coupled_handoff_demo.py'))['execute']
         cls.positive=execute(cls.root/'positive')
         cls.negative=execute(cls.root/'negative',True)
+        cls.no_engine=execute(cls.root/'no-engine',native=True)
+        with patch('bsa.ifc_native.run') as native:
+            cls.native_negative=execute(cls.root/'native-negative',True,native=True,autocad='not-started.exe')
+        native.assert_not_called()
 
     def test_shared_identity_unit_bound_scenario_and_source_preservation(self):
         root=self.root/'positive';result=verify(root/'engineering-run')
@@ -45,6 +50,21 @@ class CoupledHandoffTests(unittest.TestCase):
         transfer=self.negative['source_transfers']['pump-electrical-link.json']
         self.assertNotEqual((root/'pump-electrical-link.json').read_bytes(),(root/transfer['archived']).read_bytes())
         self.assertEqual((root/transfer['archived']).read_bytes(),(ROOT/'examples/water-riser/pump-electrical-link.json').read_bytes())
+
+    def test_native_scope_preserves_all_supplement_passages_without_fabricating_runtime(self):
+        result=verify(self.root/'no-engine/engineering-run')
+        self.assertEqual(len(result['original_requirement_ids']),9)
+        self.assertEqual(result['task_statuses']['drawing'],'pass')
+        self.assertEqual(result['task_statuses']['native'],'pending')
+        self.assertEqual(result['task_statuses']['review'],'pending')
+        self.assertEqual(result['recovery_schedule']['ready_tasks'],['native'])
+        self.assertFalse((self.root/'no-engine/engineering-run/workflow/native').exists())
+
+    def test_failed_identity_blocks_native_even_with_explicit_host_runtime(self):
+        result=verify(self.root/'native-negative/engineering-run')
+        self.assertEqual(result['task_statuses']['coupled'],'fail')
+        self.assertEqual(result['task_statuses']['native'],'pending')
+        self.assertFalse((self.root/'native-negative/engineering-run/workflow/native').exists())
 
 
 if __name__=='__main__':unittest.main()

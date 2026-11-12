@@ -1,5 +1,9 @@
 # Shared water, pump and electrical handoff
 
+The separate optional native-DWG/plot supplement has now been executed and
+visually inspected; see [native handoff](COUPLED_NATIVE_HANDOFF.md). The original
+base trial below remains DXF-only and does not acquire retrospective acceptance.
+
 The source-to-adapter handoff now has an authored shared-model case rather than
 only independent discipline examples. The host interpretation binds seven source
 paragraphs to water sizing/native IFC, clearance checks, fixed-speed pump solving,

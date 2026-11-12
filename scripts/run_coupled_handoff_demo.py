@@ -1,5 +1,6 @@
 """Source-to-execution trial with a shared water/pump/electrical IFC identity."""
 import argparse
+import copy
 import json
 from pathlib import Path
 import shutil
@@ -21,11 +22,13 @@ TASKS=[dict(id='electrical',kind='electrical',project='electrical.json'),
 MAPPING=[['electrical'],['water'],['qa','coupled-qa'],['pump'],['coupled'],['drawing'],['review']]
 
 
-def execute(out,wrong_identity=False):
-    out=Path(out).resolve();intake=start(ROOT/'examples/engineering-handoff/coupled-brief.md',out)
+def execute(out,wrong_identity=False,*,native=False,autocad=None):
+    if autocad is not None and not native:raise ValueError('Native scope must be explicit when supplying AutoCAD')
+    out=Path(out).resolve();supplement=ROOT/'examples/engineering-handoff/coupled-native-brief.md'
+    intake=start(ROOT/'examples/engineering-handoff/coupled-brief.md',out,supplements=[supplement] if native else [])
     if intake['stage_errors']:raise ValueError('Source intake failed')
     transfers={}
-    for name in FILES:
+    for name in FILES+(['native-sheet.json'] if native else []):
         source=ROOT/'examples/water-riser'/name;before=digest(source)
         archived=out/'sources/inputs'/name;archived.parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(source,archived);shutil.copyfile(source,out/name)
@@ -39,19 +42,25 @@ def execute(out,wrong_identity=False):
         revision=dict(file=path.name,original_sha256=before,revised_sha256=digest(path),basis='Explicit negative control only; all source originals retained')
     plan=out/'plan.json';source=json.loads(plan.read_text())
     expected=(ROOT/'examples/engineering-handoff/coupled-brief.md').read_text(encoding='utf-8').strip().split('\n\n')
-    if [r['quote'] for r in source['requirements']]!=expected or len(expected)!=len(MAPPING):raise ValueError('Authored source interpretation changed')
-    bindings={r['id']:dict(tasks=targets,acceptance=r['quote']) for r,targets in zip(source['requirements'],MAPPING)}
+    tasks=copy.deepcopy(TASKS);mapping=copy.deepcopy(MAPPING)
+    if native:
+        expected+=supplement.read_text(encoding='utf-8').strip().split('\n\n')
+        mapping+=[['native'],['native','review']]
+        tasks.insert(-1,dict(id='native',kind='ifc_native',depends_on='drawing',settings='native-sheet.json',requires_pass=['coupled-qa']))
+        tasks[-1]['requires_pass'].append('native')
+    if [r['quote'] for r in source['requirements']]!=expected or len(expected)!=len(mapping):raise ValueError('Authored source interpretation changed')
+    bindings={r['id']:dict(tasks=targets,acceptance=r['quote']) for r,targets in zip(source['requirements'],mapping)}
     notes={i['id']:'Host interprets the complete quoted obligation with the declared shared-model task graph. Original data transfers '+json.dumps(transfers,sort_keys=True)+'; controlled revision '+json.dumps(revision) for i in source['unresolved_inputs']}
-    record=dict(schema='bsa.engineering-handoff/1',source_plan_sha256=digest(plan),tasks=TASKS,requirement_bindings=bindings,interpretation_notes=notes,extra_unresolved_inputs=[])
+    record=dict(schema='bsa.engineering-handoff/1',source_plan_sha256=digest(plan),tasks=tasks,requirement_bindings=bindings,interpretation_notes=notes,extra_unresolved_inputs=[])
     review=out/'engineering-review.json';review.write_text(json.dumps(record,indent=2),encoding='utf-8')
-    result=run(plan,review,out/'engineering-plan.json',out/'engineering-run')
+    result=run(plan,review,out/'engineering-plan.json',out/'engineering-run',execute_options={'autocad':autocad} if autocad is not None else None)
     checked=verify(out/'engineering-run')
-    summary=dict(source_transfers=transfers,controlled_revision=revision,status=result['status'],stages=result['stages'],stage_errors=result['stage_errors'],verification=checked,
+    summary=dict(source_transfers=transfers,controlled_revision=revision,native_requested=native,status=result['status'],stages=result['stages'],stage_errors=result['stage_errors'],verification=checked,
         design_accepted=False,scope='Authored synthetic brief, shared water/pump/electrical identity and typed operating scenario; complete engineering pending')
     (out/'demo.json').write_text(json.dumps(summary,indent=2),encoding='utf-8');return summary
 
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--out',required=True);parser.add_argument('--wrong-pump-identity',action='store_true')
-    args=parser.parse_args();r=execute(args.out,args.wrong_pump_identity)
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--out',required=True);parser.add_argument('--wrong-pump-identity',action='store_true');parser.add_argument('--native',action='store_true');parser.add_argument('--autocad')
+    args=parser.parse_args();r=execute(args.out,args.wrong_pump_identity,native=args.native,autocad=args.autocad)
     print(json.dumps({k:r[k] for k in ('status','stage_errors','verification','design_accepted')},indent=2))

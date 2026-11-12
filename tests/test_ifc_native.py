@@ -4,6 +4,7 @@ from pathlib import Path
 import shutil
 import tempfile
 import unittest
+from unittest.mock import patch
 
 import ezdxf
 from bsa.cli import digest
@@ -68,6 +69,24 @@ class NativeDiagramTests(unittest.TestCase):
             self.assertEqual(result['tasks']['drawing']['status'],'fail')
             self.assertEqual(result['tasks']['native']['status'],'pending')
             self.assertFalse((root/'run/native').exists())
+
+    def test_workflow_pins_used_engine_and_native_methods_without_starting_mock_engine(self):
+        from bsa.workflow import execute,verify,validate_plan
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);shutil.copyfile(SOURCE,root/'segments.dxf');shutil.copyfile(SETTINGS,root/'sheet.json')
+            engine=root/'controlled-engine.exe';engine.write_bytes(b'controlled runtime identity, never executed')
+            brief=root/'brief.md';brief.write_text('Create a native schematic with an explicit runtime.\n')
+            plan=dict(version=1,brief='brief.md',brief_sha256=digest(brief),passage_dispositions={'P001':'requirement'},tasks=[dict(id='native',kind='ifc_native',dxf='segments.dxf',settings='sheet.json')],requirements=[dict(id='R1',passage='P001',quote='Create a native schematic with an explicit runtime.',task='native',acceptance='Runtime/source correspondence; this controlled test does not execute AutoCAD')])
+            path=root/'plan.json';path.write_text(json.dumps(plan))
+            _,inputs=validate_plan(path)
+            self.assertTrue(all(ROOT/'src/bsa'/name in inputs for name in ('ifc_native.py','native_cad.py','cad_intake.py','cad_overlay.py','cad_sheet.py')))
+            with patch('bsa.ifc_native.run',return_value=dict(native_reopen_pass=True,plot=dict(pdf_reference_pass=True))) as native:
+                result=execute(path,root/'run',autocad=engine)
+            native.assert_called_once()
+            self.assertEqual(result['runtime_inputs'][str(engine.resolve())],digest(engine))
+            self.assertTrue(verify(root/'run')['integrity_pass'])
+            engine.write_bytes(b'changed runtime identity')
+            self.assertFalse(verify(root/'run')['integrity_pass'])
 
     @unittest.skipUnless(os.environ.get('BSA_TEST_AUTOCAD')=='1' and DEFAULT_EXE.is_file(),'requires local AutoCAD')
     def test_actual_native_reopen_xdata_and_fixed_scale_pdf(self):

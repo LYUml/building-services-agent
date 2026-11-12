@@ -1,5 +1,11 @@
 # Building Services Agent
 
+The shared-model handoff now optionally reaches native AutoCAD DWG reopen and
+an actually inspected fixed-scale plot. Missing runtime/failed identity block
+native output; method and used-executable pins are retained. This is a scoped
+two-segment schematic, not complete installation acceptance.
+See docs/COUPLED_NATIVE_HANDOFF.md.
+
 An authored shared-model handoff now connects water sizing, pump operation,
 electrical load and revised IFC/drawing through exact pump/port identity. New
 properties carry typed kW/V/A/flow/pressure units; baseline/hardware remain.

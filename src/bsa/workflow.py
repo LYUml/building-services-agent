@@ -975,6 +975,7 @@ def validate_plan(path):
             else:
                 inputs.add(local_path(root,t.get('ifc')));inputs.add(local_path(root,t.get('report')))
         if kind=='ifc_native':
+            inputs.update(Path(__file__).with_name(name) for name in ('ifc_native.py','native_cad.py','cad_intake.py','cad_overlay.py','cad_sheet.py'))
             from .ifc_native import validate_settings
             settings=local_path(root,t.get('settings'));inputs.add(settings);validate_settings(read_json(settings))
             if bool(t.get('dxf'))==bool(t.get('depends_on')):raise ProjectError('native IFC diagram requires exactly one DXF or earlier drawing dependency')
@@ -1791,7 +1792,10 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 else:
                     from .ifc_native import run
                     source=out/dependency/('equipment.dxf' if tasks[dependency]['kind']=='ifc_equipment' else 'segments.dxf') if dependency else local_path(root,t['dxf'])
+                    engine=Path(autocad).resolve()
+                    if engine.is_file():runtime_inputs[str(engine)]=digest(engine)
                     payload=run(source,local_path(root,t['settings']),folder,autocad)
+                    if digest(engine)!=runtime_inputs[str(engine)]:raise ProjectError('AutoCAD executable changed during native IFC delivery')
                     status='pass' if payload['native_reopen_pass'] and payload['plot']['pdf_reference_pass'] else 'fail'
                     reason='isolated native DWG reopen, geometry/IFC XDATA reconciliation and physical PDF reference verified; visual/installation acceptance pending'
             elif t['kind']=='water_coordination':

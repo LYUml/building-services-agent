@@ -5,6 +5,14 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For the optional native sheet after the shared water/pump/electrical handoff,
+read docs/COUPLED_NATIVE_HANDOFF.md. Use the existing ifc_native consumer after
+the exact passing drawing, with explicit host AutoCAD and source sheet settings.
+Missing runtime or failed identity must block output. Require actual DWG reopen,
+GUID/entity reconciliation, physical print-scale check and inspection of every
+actual PDF page. Record visual review separately; never clear full installation
+or engineering acceptance from the two-segment schematic.
+
 For pump/electrical scenario properties read docs/COUPLED_HANDOFF_UNITS.md.
 Use the source-replayed pump_electrical adapter and its typed explicit-unit native
 checks. Never write copied operating kW/current onto a merely nearby element or

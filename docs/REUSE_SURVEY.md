@@ -1,5 +1,11 @@
 # Reuse survey â€” 2026-11-09
 
+Native shared-model delivery reuses existing ifc_native/native_cad/cad_intake/
+cad_overlay/cad_sheet and installed AutoCAD Core Console. The gap was dependency
+composition and native method/runtime pin coverage, not another DWG engine.
+Actual saved/reopened DWG, fixed-scale PDF and full-page visual inspection were
+executed; upstream/host licensing is unchanged. See COUPLED_NATIVE_HANDOFF.md.
+
 Shared pump/electrical handoff reuses existing source intake, engineering_handoff,
 water model sizing, pump solving, GUID/port binding, native clash and saved-IFC
 drawing adapters. Explicit measure/unit writing is thin IfcOpenShell API glue,

@@ -1,0 +1,466 @@
+{
+  "scope": "Native saved/reopened DWG and actual visual/physical-scale evidence for the synthetic shared-model two-segment schematic only",
+  "design_accepted": false,
+  "methods": {
+    "src\\bsa\\workflow.py": "494556328f951284b286892c0e0f6f05b60b9c3d9dee155871edaa146f16457b",
+    "scripts\\run_coupled_handoff_demo.py": "0cc47e6aa668422d3fc6db097fb6f7f074308b200aef947ef9e5e7185100379e",
+    "src\\bsa\\ifc_native.py": "b7365c1329c95caf567f1790144a6b2f450abd677561de0515c58590ec304ea6",
+    "src\\bsa\\native_cad.py": "d6a8b81b11bb2b422fdfbfa4ba3fc6b26557b5cfd0a8fc66a91c52cb74a180a0",
+    "src\\bsa\\cad_intake.py": "ab8f7dd945134dc824de2a25cfb2d8423752c190baa150fedb81d87e93242bd0",
+    "src\\bsa\\cad_overlay.py": "91c4c9e2802a76f5516ca92c3438766cd472a0cbf797da0b1b3e8bfa688a9e49",
+    "src\\bsa\\cad_sheet.py": "2aa3880343af74c7dea09e329266651f5152badbf3e12befb8e5dc2f9a60c315"
+  },
+  "cases": {
+    "coupled-handoff-native-study": {
+      "verification": {
+        "integrity_pass": true,
+        "original_requirement_ids": [
+          "R001",
+          "R002",
+          "R003",
+          "R004",
+          "R005",
+          "R006",
+          "R007",
+          "R008",
+          "R009"
+        ],
+        "task_statuses": {
+          "electrical": "pass",
+          "water": "pass",
+          "qa": "pass",
+          "pump": "pass",
+          "coupled": "pass",
+          "coupled-qa": "pass",
+          "drawing": "pass",
+          "native": "pass",
+          "review": "pending"
+        },
+        "retained_input_gaps": [],
+        "recovery_schedule": {
+          "waves": [
+            [
+              {
+                "task": "review",
+                "category": "manual_review",
+                "prerequisite_tasks": [],
+                "requirement_ids": [
+                  "R007-bound-1",
+                  "R009-bound-2"
+                ],
+                "next_action": "perform the specified review and record evidence separately",
+                "evidence": [],
+                "ready_now": true,
+                "automatic_repair_authorized": false
+              }
+            ]
+          ],
+          "ready_tasks": [
+            "review"
+          ],
+          "requires_fresh_diagnosis_after_each_wave": true,
+          "scope": "Conditional dependency order only; later waves require fresh execution and diagnosis, not assumed upstream success or automatic engineering changes"
+        },
+        "design_accepted": false,
+        "semantic_completeness": "not_established"
+      },
+      "workflow_sha256": "4fbb50d60433fe44d81ebf2b4cf626b4b5c9dbe309140a9e4e7028bcd05d772b",
+      "handoff_sha256": "0860d93368ea0db051742c7a4628ee710df44c228756541af0523f8b89341479",
+      "runtime_inputs": {
+        "C:\\Program Files\\Autodesk\\AutoCAD 2027\\accoreconsole.exe": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2"
+      },
+      "native_output_exists": true
+    },
+    "coupled-handoff-native-no-runtime": {
+      "verification": {
+        "integrity_pass": true,
+        "original_requirement_ids": [
+          "R001",
+          "R002",
+          "R003",
+          "R004",
+          "R005",
+          "R006",
+          "R007",
+          "R008",
+          "R009"
+        ],
+        "task_statuses": {
+          "electrical": "pass",
+          "water": "pass",
+          "qa": "pass",
+          "pump": "pass",
+          "coupled": "pass",
+          "coupled-qa": "pass",
+          "drawing": "pass",
+          "native": "pending",
+          "review": "pending"
+        },
+        "retained_input_gaps": [],
+        "recovery_schedule": {
+          "waves": [
+            [
+              {
+                "task": "native",
+                "category": "pending_condition_review",
+                "prerequisite_tasks": [],
+                "requirement_ids": [
+                  "R008-bound-1",
+                  "R009-bound-1"
+                ],
+                "next_action": "resolve the recorded pending condition before a new run",
+                "evidence": [],
+                "ready_now": true,
+                "automatic_repair_authorized": false
+              }
+            ],
+            [
+              {
+                "task": "review",
+                "category": "manual_review",
+                "prerequisite_tasks": [
+                  "native"
+                ],
+                "requirement_ids": [
+                  "R007-bound-1",
+                  "R009-bound-2"
+                ],
+                "next_action": "resolve upstream tasks before rerunning dependent task",
+                "evidence": [],
+                "ready_now": false,
+                "automatic_repair_authorized": false
+              }
+            ]
+          ],
+          "ready_tasks": [
+            "native"
+          ],
+          "requires_fresh_diagnosis_after_each_wave": true,
+          "scope": "Conditional dependency order only; later waves require fresh execution and diagnosis, not assumed upstream success or automatic engineering changes"
+        },
+        "design_accepted": false,
+        "semantic_completeness": "not_established"
+      },
+      "workflow_sha256": "0372ac2b3d2c42aa90335e84bef36124afdfc6ec328743c2f639e4ce60d9d7d6",
+      "handoff_sha256": "43575efde633e6de54d0bb493dd8b41d6a35efcc23664e8df7a49a0120e1fceb",
+      "runtime_inputs": {},
+      "native_output_exists": false
+    },
+    "coupled-handoff-native-bad-identity": {
+      "verification": {
+        "integrity_pass": true,
+        "original_requirement_ids": [
+          "R001",
+          "R002",
+          "R003",
+          "R004",
+          "R005",
+          "R006",
+          "R007",
+          "R008",
+          "R009"
+        ],
+        "task_statuses": {
+          "electrical": "pass",
+          "water": "pass",
+          "qa": "pass",
+          "pump": "pass",
+          "coupled": "fail",
+          "coupled-qa": "pending",
+          "drawing": "pending",
+          "native": "pending",
+          "review": "pending"
+        },
+        "retained_input_gaps": [],
+        "recovery_schedule": {
+          "waves": [
+            [
+              {
+                "task": "coupled",
+                "category": "failure_evidence_review",
+                "prerequisite_tasks": [],
+                "requirement_ids": [
+                  "R005-bound-1"
+                ],
+                "next_action": "inspect retained failure evidence and correct source or adapter before a new run",
+                "evidence": [],
+                "ready_now": true,
+                "automatic_repair_authorized": false
+              }
+            ],
+            [
+              {
+                "task": "coupled-qa",
+                "category": "pending_condition_review",
+                "prerequisite_tasks": [
+                  "coupled"
+                ],
+                "requirement_ids": [
+                  "R003-bound-2"
+                ],
+                "next_action": "resolve upstream tasks before rerunning dependent task",
+                "evidence": [],
+                "ready_now": false,
+                "automatic_repair_authorized": false
+              }
+            ],
+            [
+              {
+                "task": "drawing",
+                "category": "pending_condition_review",
+                "prerequisite_tasks": [
+                  "coupled",
+                  "coupled-qa"
+                ],
+                "requirement_ids": [
+                  "R006-bound-1"
+                ],
+                "next_action": "resolve upstream tasks before rerunning dependent task",
+                "evidence": [],
+                "ready_now": false,
+                "automatic_repair_authorized": false
+              }
+            ],
+            [
+              {
+                "task": "native",
+                "category": "pending_condition_review",
+                "prerequisite_tasks": [
+                  "drawing",
+                  "coupled-qa"
+                ],
+                "requirement_ids": [
+                  "R008-bound-1",
+                  "R009-bound-1"
+                ],
+                "next_action": "resolve upstream tasks before rerunning dependent task",
+                "evidence": [],
+                "ready_now": false,
+                "automatic_repair_authorized": false
+              }
+            ],
+            [
+              {
+                "task": "review",
+                "category": "manual_review",
+                "prerequisite_tasks": [
+                  "coupled",
+                  "coupled-qa",
+                  "drawing",
+                  "native"
+                ],
+                "requirement_ids": [
+                  "R007-bound-1",
+                  "R009-bound-2"
+                ],
+                "next_action": "resolve upstream tasks before rerunning dependent task",
+                "evidence": [],
+                "ready_now": false,
+                "automatic_repair_authorized": false
+              }
+            ]
+          ],
+          "ready_tasks": [
+            "coupled"
+          ],
+          "requires_fresh_diagnosis_after_each_wave": true,
+          "scope": "Conditional dependency order only; later waves require fresh execution and diagnosis, not assumed upstream success or automatic engineering changes"
+        },
+        "design_accepted": false,
+        "semantic_completeness": "not_established"
+      },
+      "workflow_sha256": "690df2126638c1ab3c8ed6a35060a32487dd983e9363ca440e24671fa8ca97ac",
+      "handoff_sha256": "f8daa14d28c1d74d226419057769b2b6f7cb66b631cd3f63eec5c449f2a068c0",
+      "runtime_inputs": {},
+      "native_output_exists": false
+    }
+  },
+  "native_verification": {
+    "inputs": {
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-handoff-native-study\\engineering-run\\workflow\\drawing\\segments.dxf": "e2de3c8de304dea9abfe854ea33a896b3b27d1053ba10bcb50767f05ef4855e1",
+      "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-handoff-native-study\\native-sheet.json": "ff0d8180f23a8a066ea89388339a1e9ce01667d5463241a45e0da36b4b6cc95d"
+    },
+    "inputs_unchanged": true,
+    "engine": "C:\\Program Files\\Autodesk\\AutoCAD 2027\\accoreconsole.exe",
+    "engine_sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2",
+    "dwg_sha256": "91fc943f553e08aa47830b216a9b75c38fc2ef6436b7b7defb8d5816626e2012",
+    "native_reopen_pass": true,
+    "checks": {
+      "model_entity_count": 8,
+      "linked_entity_count": 6,
+      "model_entities_and_ifc_xdata_match": true,
+      "geometry_layers_and_annotations_match": true,
+      "metre_units": true
+    },
+    "plot": {
+      "pdf_sha256": "b9d29982b21cddc623beb3bb8401b80f19110fa0ca222137b2a167bb7d2a5d1c",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 50,
+      "reference_handle": "33",
+      "reference_expected_mm": 50.0,
+      "reference_measured_mm": 49.995666666666665,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "settings": {
+      "source": "Synthetic explicit A4 landscape 1:50 sheet window in metre DXF coordinates; 2.5 m RISE-LOW axis must measure 50 mm. Not an installation drawing.",
+      "window_drawing_units": [
+        -1,
+        -0.5,
+        8,
+        6.5
+      ],
+      "scale_denominator": 50,
+      "reference_ifc_guid": "14_Pcn3dHIEx82hnR2Z_vq",
+      "pdf_tolerance_mm": 0.2
+    },
+    "design_accepted": false,
+    "pending": [
+      "actual PDF visual review",
+      "equipment/fittings/insulation and installation drawing detail",
+      "complete engineering acceptance"
+    ],
+    "artifacts": {
+      "input.dxf": "e2de3c8de304dea9abfe854ea33a896b3b27d1053ba10bcb50767f05ef4855e1",
+      "plot.log": "fe3f99196db3f761bc5bb188ef20307adf91db73dac335465d4cbecc07c96abe",
+      "save.log": "829622b3b8c3c6ad60602df5b56cf56d263b13d4010878854c3f4ca6b5063afb",
+      "save.scr": "f71a8303d967223da14dd5fe517b38f3e15fd11488037b06a28626126ce6aba7",
+      "segments.dwg": "91fc943f553e08aa47830b216a9b75c38fc2ef6436b7b7defb8d5816626e2012",
+      "sheet.json": "2114578631e66afabf1115123c91ce04b4fcf7a06e909f4b6e8fe88b624e581c",
+      "sheet.log": "09a00ed7aeb7588a7b7961d27f6d47441f623ba5c2fdb4bf7bea389ec35397f3",
+      "sheet.pdf": "b9d29982b21cddc623beb3bb8401b80f19110fa0ca222137b2a167bb7d2a5d1c",
+      "sheet.scr": "e599e02b1b1065bfc2fadc483187d081c80ab4e7bd163f193ff82095dd8cb250",
+      "native-reopen/export.log": "ffed0048aa4dbd18fe97e8b269fd983d03f5504a227278dd99acc340b296bacb",
+      "native-reopen/export.scr": "defa36b66e6587e1b1d0794a737cd8c0309bc068628cb1fc0794ad11f2aa7556",
+      "native-reopen/source-copy.dwg": "91fc943f553e08aa47830b216a9b75c38fc2ef6436b7b7defb8d5816626e2012",
+      "native-reopen/source-export.dxf": "4ae3c9ff2db04fb6e8b64752925c05bd8be093946007003c8a37f89f71f39438",
+      "ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "cb19074a71cfa34403ca06e27aad8ac46aa4ac5b2350f7f002d8a8a02ff4fb9c",
+      "native-reopen/ErrorReports/9d6767a77b9d2cce90e03082e1302957689eeac5/cer.log": "cffa0d6f55123a6b15cf6089a850a87d8ead228d0b80cdf3da9382ae6c91c64f"
+    }
+  },
+  "visual_review": {
+    "scope": "One actual A4 1:50 two-segment X/Z centreline schematic only; no installation/equipment/full engineering acceptance",
+    "reviewer": "Codex host visual inspection",
+    "reviewed_at_utc": "2026-11-12T19:02:07.668110+00:00",
+    "pages_inspected": [
+      1
+    ],
+    "page_count": 1,
+    "pdf": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-handoff-native-study\\engineering-run\\workflow\\native\\sheet.pdf",
+    "pdf_sha256": "b9d29982b21cddc623beb3bb8401b80f19110fa0ca222137b2a167bb7d2a5d1c",
+    "render": "C:\\Users\\lyuml-win\\Desktop\\building-services-agent\\runs\\coupled-handoff-native-study\\visual-review\\page-1.png",
+    "render_sha256": "45e3c35380214f76cd50ef0cd9e5674c26e2aeba3ea5aab065afc0841932469c",
+    "checks": {
+      "both_segment_labels_legible": true,
+      "no_clipped_text": true,
+      "no_text_overlap": true,
+      "continuous_two_segment_axis_visible": true,
+      "source_coordinate_unit_and_non_installation_notes_visible": true
+    },
+    "observations": [
+      "RISE-HIGH and RISE-LOW labels each show ID 32 / OD 40 mm and L 2.5 m",
+      "Leader lines meet their source axis and do not collide with labels",
+      "Bottom notes distinguish X/Z projected centrelines and true length from installation geometry",
+      "Generous sheet whitespace; no equipment or electrical topology depicted"
+    ],
+    "format_notes": [
+      "AutoCAD PDF has vector-stroke text, no extracted searchable text",
+      "PDF parser reports duplicate PageMode metadata key; complete page rendered and visually checked"
+    ],
+    "visual_schematic_pass": true,
+    "design_accepted": false
+  },
+  "scoped_delivery_review": {
+    "status": "needs_review",
+    "review_checks_pass": false,
+    "pass_count": 3,
+    "rows": [
+      {
+        "id": "R001-bound-1",
+        "task": "electrical",
+        "effective_review_status": "pending"
+      },
+      {
+        "id": "R002-bound-1",
+        "task": "water",
+        "effective_review_status": "pending"
+      },
+      {
+        "id": "R003-bound-1",
+        "task": "qa",
+        "effective_review_status": "pending"
+      },
+      {
+        "id": "R003-bound-2",
+        "task": "coupled-qa",
+        "effective_review_status": "pending"
+      },
+      {
+        "id": "R004-bound-1",
+        "task": "pump",
+        "effective_review_status": "pending"
+      },
+      {
+        "id": "R005-bound-1",
+        "task": "coupled",
+        "effective_review_status": "pending"
+      },
+      {
+        "id": "R006-bound-1",
+        "task": "drawing",
+        "effective_review_status": "pending"
+      },
+      {
+        "id": "R007-bound-1",
+        "task": "review",
+        "effective_review_status": "pending"
+      },
+      {
+        "id": "R008-bound-1",
+        "task": "native",
+        "effective_review_status": "pass"
+      },
+      {
+        "id": "R009-bound-1",
+        "task": "native",
+        "effective_review_status": "pass"
+      },
+      {
+        "id": "R009-bound-2",
+        "task": "review",
+        "effective_review_status": "pass"
+      }
+    ],
+    "review_sha256": "a4a93b731919341feaf63f1de0fd8d33285c7eb95d4abd50a4bf43e42cd10705",
+    "assessment_sha256": "ab99a5242ea809d2464fd8e607a5b91b908d1a2da1053413c160d4ad4b903cb6"
+  },
+  "tests": {
+    "ran": 39,
+    "passed": 38,
+    "skipped": 1,
+    "skip": "Optional standalone AutoCAD unit test opt-in flag absent; actual native full workflow separately executed",
+    "suite": [
+      "test_coupled_handoff",
+      "test_ifc_native",
+      "test_pump_electrical",
+      "test_engineering_handoff",
+      "test_workflow_status",
+      "test_project_start"
+    ]
+  },
+  "upstream_notes": [
+    "IfcOpenShell unclosed IFC4.py ResourceWarning and ignored cleanup KeyError; suite completes successfully",
+    "AutoCAD duplicate PDF PageMode metadata, vector-stroke text; actual full rendered page inspected"
+  ],
+  "limitations": [
+    "Authored synthetic source interpretation, not arbitrary brief solving",
+    "Two-segment pipe schematic only; equipment/electrical topology/installation incomplete",
+    "No full Hong Kong or engineering acceptance",
+    "Generated native result retains pending visual flag; separate real review preserves immutable run"
+  ]
+}
