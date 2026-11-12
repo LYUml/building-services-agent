@@ -1,0 +1,38 @@
+{
+  "scope": "Synthetic envelope coordination with explicitly declared nonregulatory policy",
+  "runs": {
+    "native": {
+      "report": "runs\\spatial-terminal-coordination-verified-native\\terminal-coordination.json",
+      "sha256": "3dbda7079f9eca4656bf5c743258d58f633996193a05006257dd8bb17992037d",
+      "checks": {
+        "geometry_coverage": true,
+        "no_intersections": true,
+        "clearance": true
+      },
+      "represented_elements": 8,
+      "potential_pairs": 28,
+      "added_terminals": 6,
+      "status": "pass"
+    },
+    "moosas": {
+      "report": "runs\\spatial-terminal-coordination-verified-moosas\\terminal-coordination.json",
+      "sha256": "becb63cefe55df0ec6cdb357795a19a214e1c7f98429c58ac056db412edfbebe",
+      "checks": {
+        "geometry_coverage": true,
+        "no_intersections": true,
+        "clearance": true
+      },
+      "represented_elements": 8,
+      "potential_pairs": 28,
+      "added_terminals": 6,
+      "status": "pass"
+    }
+  },
+  "policy": {
+    "minimum_clearance_m": 0.05,
+    "intersection_tolerance_m": 0.0001,
+    "allowed_contacts": []
+  },
+  "deliberate_overlap_control": "Executed regression reports fail;removed findings rejected by native replay",
+  "design_accepted": false
+}

@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Terminal-envelope coordination now inherits the exact authored IFC and reuses
+existing full-model triangle/Boolean checks. Two actual8element studies pass
+the declared synthetic policy;deliberate overlap fails and original findings
+remain unwaived. See docs/SPATIAL_TERMINAL_COORDINATION.md.
+
 Verified spatial terminal positions/flows now author source-classified IFC
 envelopes while preserving original concave rooms and every source entity. Two
 actual provider chains pass native geometry/schema replay;visual BIM,ports and
