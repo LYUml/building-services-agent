@@ -1,5 +1,9 @@
 # Building Services Agent
 
+Official terminal dimensions now distinguish nominal connection, actual neck
+and unverified hydraulic bore. Retained analysis requests flag assumed bores
+without rewriting geometry or losses. See docs/TERMINAL_PRODUCT_GEOMETRY_SOURCES.md.
+
 Delivery audits now expose retained engineering requests alongside scoped
 review and execution results, with requirement and source evidence bindings.
 Whole-design acceptance remains unestablished. See docs/DELIVERY_REVIEW.md.

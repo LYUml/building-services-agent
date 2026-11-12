@@ -12,9 +12,9 @@ class FrictionReviewTests(unittest.TestCase):
 
     def test_review_preserves_source_basis_without_changing_numerical_result(self):
         payload=common(self.request,self.report,self.root);original=copy.deepcopy(payload)
-        rows=requests(payload);self.assertEqual(len(rows),3)
+        rows=requests(payload);self.assertEqual(len(rows),4)
         self.assertAlmostEqual(rows[0]['evidence']['length_over_diameter'],.75)
-        self.assertEqual(rows[1]['evidence']['density_by_terminal']['T1']['classification'],'assumed')
+        self.assertEqual(next(r for r in rows if r['code']=='air_property_basis_review_required')['evidence']['density_by_terminal']['T1']['classification'],'assumed')
         self.assertEqual(payload,original)
         payload['components']['T1']['cases']['minimum'].update(status='pending',regime='transition',reynolds=3000)
         pending=[r for r in requests(payload) if r['code']=='transitional_flow_method_required']
@@ -45,3 +45,12 @@ class FrictionReviewTests(unittest.TestCase):
         with patch('bsa.modules.verify_result',side_effect=ValueError('changed native evidence')):
             with self.assertRaisesRegex(ValueError,'changed native evidence'):
                 module_state(self.root,dict(artifact_hashes={'friction/result.json':'0'*64}),dict(id='friction',kind='module_analysis'))
+
+    def test_assumed_bore_request_preserves_value_and_original_classification(self):
+        payload=common(self.request,self.report,self.root)
+        rows=requests(payload);bore=next(r for r in rows if r['code']=='assumed_bore_requires_product_evidence')
+        self.assertEqual(bore['evidence']['inherited_bore_basis']['classification'],'assumed')
+        self.assertEqual(bore['evidence']['native_internal_diameter_m'],.2)
+        payload['components']['T1']['inherited_stub_basis']['internal_diameter_m']['classification']='given'
+        self.assertNotIn('assumed_bore_requires_product_evidence',[r['code'] for r in requests(payload)])
+        self.assertIn('flow_development_applicability_unverified',[r['code'] for r in requests(payload)])

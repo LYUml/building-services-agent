@@ -1,0 +1,117 @@
+{
+  "schema": "bsa.product-source-review/1",
+  "scope": "Archival dimensional source review; not verified native product geometry or hydraulic bore",
+  "manufacturer": "Krueger",
+  "series": [
+    "1400",
+    "51400",
+    "M1400",
+    "M51400"
+  ],
+  "source": {
+    "url": "https://www.krueger-hvac.com/file/3116/1400_51400_M1400_M51400_DimensionalData.pdf",
+    "sha256": "d9ba2e24520571af2e43ca40844ed8b20a5ac898f531b8b0ee311a172aac0ec4",
+    "local_copy": "runs/krueger-product-source-review/dimensions.pdf",
+    "edition": "Krueger 2012",
+    "page": 1,
+    "printed_page": "B1-4",
+    "locator": "24 inch x 24 inch and 600 mm panel table, nominal neck 08 row; cross-section A/B labels",
+    "copyright": "Krueger; no open-source license established; original retained locally only"
+  },
+  "classification": "secondary_transcription",
+  "review": {
+    "original_page_rendered": true,
+    "render_sha256": "774269a455304ab13b0a2106bcaf5f2da2d72ed124bde42daabb10adc1a8e8a4",
+    "scope": "Visual transcription of the selected row and section labels; not independent manufacturer authentication or installation acceptance"
+  },
+  "facts": {
+    "nominal_neck": {
+      "value": 8,
+      "unit": "in",
+      "si_m": 0.2032,
+      "semantic": "Nominal designation, not established actual hydraulic bore"
+    },
+    "actual_neck_A": {
+      "published_imperial": {
+        "numerator": 63,
+        "denominator": 8,
+        "unit": "in"
+      },
+      "converted_imperial_m": 0.200025,
+      "published_metric": {
+        "value": 200,
+        "unit": "mm"
+      },
+      "semantic": "Published actual neck dimension A; hydraulic clear bore and wall thickness not established"
+    },
+    "B_1400_M1400": {
+      "published_imperial": {
+        "numerator": 5,
+        "denominator": 4,
+        "unit": "in"
+      },
+      "converted_imperial_m": 0.03175,
+      "published_metric": {
+        "value": 32,
+        "unit": "mm"
+      },
+      "semantic": "Dimension B in cross-section; not substituted for total device height"
+    },
+    "B_51400_M51400": {
+      "published_imperial": {
+        "numerator": 3,
+        "denominator": 2,
+        "unit": "in"
+      },
+      "converted_imperial_m": 0.0381,
+      "published_metric": {
+        "value": 38,
+        "unit": "mm"
+      },
+      "semantic": "Dimension B in cross-section; not substituted for total device height"
+    }
+  },
+  "source_interpretation": {
+    "metric_values_are_published_rounded_values": true,
+    "imperial_and_metric_representations_preserved": true,
+    "hydraulic_bore_verified": false,
+    "wall_thickness_verified": false,
+    "total_device_geometry_verified": false
+  },
+  "pending": [
+    "Select exact material/model and metric or imperial panel variant; 600 mm and 24 inch designations are not interchangeable dimensions.",
+    "Obtain applicable submittal for exact frame/accessory configuration.",
+    "Establish clear bore, gauge, backpan/cone geometry, physical opening and connection detail.",
+    "Resolve source suitability/edition before modifying nominal-port assumptions or native geometry."
+  ],
+  "bim": {
+    "official_index": "https://www.krueger-hvac.com/public/software/revit",
+    "archive_url": "https://www.krueger-hvac.com/files/revit/Krueger_Revit_Models.zip",
+    "manufacturer_caveat": "Generalized design/layout representations; dimensional and performance documentation must come from product submittals/catalogues.",
+    "native_model_verified": false,
+    "archive_transfer_status": "in_progress_not_validated",
+    "observed_content_length_bytes": 171001369,
+    "observed_etag": "9adf37e2171edd1:0",
+    "archive_inventory_verified": false
+  },
+  "existing_study": {
+    "nominal_port_m": 0.2032,
+    "assumed_stub_bore_m": 0.2032,
+    "classification": "assumed",
+    "action": "Retain as explicit synthetic assumption; do not silently substitute dimension A as a verified clear bore."
+  },
+  "design_accepted": false,
+  "executed_diagnosis": {
+    "path": "runs/krueger-product-source-review/native-diagnosis.json",
+    "sha256": "5368ac9f81a585d801ab70d18fecd6bfaf67d9b94867d07d222bd22e86fd1183",
+    "integrity_pass": true,
+    "request_codes": {
+      "flow_development_applicability_unverified": 6,
+      "assumed_bore_requires_product_evidence": 6,
+      "air_property_basis_review_required": 1,
+      "whole_system_pressure_incomplete": 1
+    },
+    "tests_passed": 24,
+    "design_accepted": false
+  }
+}

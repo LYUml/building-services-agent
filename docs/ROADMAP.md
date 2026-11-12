@@ -1,5 +1,9 @@
 # Scope and acceptance
 
+Official terminal dimensions now distinguish nominal connection, actual neck
+and unverified hydraulic bore. Retained analysis requests flag assumed bores
+without rewriting geometry or losses. See TERMINAL_PRODUCT_GEOMETRY_SOURCES.md.
+
 Delivery audits now expose retained engineering requests alongside scoped
 review and execution results, with requirement and source evidence bindings.
 Whole-design acceptance remains unestablished. See DELIVERY_REVIEW.md.

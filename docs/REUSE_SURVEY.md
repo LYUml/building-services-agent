@@ -1171,3 +1171,12 @@ workflow_status requests, existing HTML escaping and source-bound review
 records. No new calculation, geometry engine, dependency or regulatory method.
 Preserve scoped reviewer assertions separately from engineering acceptance and
 retain original failure gates. See DELIVERY_REVIEW.md.
+
+Terminal physical-geometry gap: review official Krueger dimensional submittal
+and manufacturer Revit archive before another authoring adapter. Reuse existing
+IfcOpenShell/Revit paths where supported, not a new geometry kernel. Model index
+expressly limits dimensional use; nominal neck, actual dimension A and clear
+bore must stay distinct. Preserve proprietary attribution and local-only source
+bytes. Add a generic assumed-bore request using the existing verified payload
+review; no new solver or numerical substitution. See
+TERMINAL_PRODUCT_GEOMETRY_SOURCES.md.

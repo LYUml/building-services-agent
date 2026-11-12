@@ -14,6 +14,11 @@ def requests(payload):
                           native_length_m=component['native_length_m'],
                           native_internal_diameter_m=component['native_internal_diameter_m']),
             requested='Provide an applicable source-backed flow-development and entry/joint treatment for the actual geometry; do not treat the theoretical fully-developed component as total short-duct pressure loss.'))
+        bore=component['inherited_stub_basis']['internal_diameter_m']
+        if bore['classification'] in ('assumed','design_choice'):
+            rows.append(dict(identity,code='assumed_bore_requires_product_evidence',
+                evidence=dict(native_internal_diameter_m=component['native_internal_diameter_m'],inherited_bore_basis=bore),
+                requested='Obtain applicable product and joint evidence for the actual clear bore; nominal connection size or an exterior neck dimension does not establish hydraulic internal diameter. Preserve the original assumption until a source-backed revision is executed.'))
         for condition,case in sorted(component['cases'].items()):
             if case['status']=='pending':
                 rows.append(dict(identity,condition=condition,code='transitional_flow_method_required',
