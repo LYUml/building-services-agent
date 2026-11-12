@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Verified spatial allocations now produce editable metre-unit DXF room/terminal
+airflow schematics through pinned ezdxf. Saved geometry/flow replay and two actual
+preview checks execute;native DWG,physical layout and full design remain pending.
+See SPATIAL_TERMINAL_DRAWING.md.
+
 Studied terminal candidates now materialize as complete new workflow plans with
 all original requirements and dependencies preserved. Native/MOOSAS replays pass
 the scoped numeric chain while manual engineering review remains pending. See

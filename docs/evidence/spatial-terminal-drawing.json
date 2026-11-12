@@ -1,0 +1,21 @@
+{
+  "scope": "Synthetic room/terminal-centre airflow schematic only",
+  "runs": {
+    "native": {
+      "report": "runs\\spatial-terminal-drawing-verified-native\\drawing.json",
+      "sha256": "d2ee53c2c7a606a1994861aa8d1150666a69535ede778cc9b02e1cfda45caa83",
+      "entity_count": 24,
+      "room_count": 3,
+      "native_reopen_pass": false
+    },
+    "moosas": {
+      "report": "runs\\spatial-terminal-drawing-verified-moosas\\drawing.json",
+      "sha256": "d404cca80d294ceeb3359c2222bc3b8e3d722045acfa057afca401bd527e25a9",
+      "entity_count": 24,
+      "room_count": 3,
+      "native_reopen_pass": false
+    }
+  },
+  "entity_records_equal": false,
+  "design_accepted": false
+}
