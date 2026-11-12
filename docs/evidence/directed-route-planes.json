@@ -1,0 +1,238 @@
+{
+  "scope": "Synthetic scoped directed-route execution; no full engineering acceptance",
+  "design_accepted": false,
+  "tests": {
+    "suite": "test_route_search test_route_model test_route_optimize test_route_workflow test_route_obstacles",
+    "passed": 24,
+    "skipped": 0,
+    "upstream_warning": "IfcOpenShell ResourceWarning for unclosed IFC4.py"
+  },
+  "workflows": {
+    "directed-vertical-air-workflow": {
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "tasks": {
+        "route": {
+          "kind": "route_optimize",
+          "status": "pass",
+          "scope": "searched finite-radius pipe route, actual saved IFC and prescribed-flow pressure checks; obstacle correspondence, self-clash and complete engineering acceptance remain separate"
+        },
+        "drawing": {
+          "kind": "ifc_route_drawing",
+          "status": "pass",
+          "scope": "source-checked saved circular walls and finite arcs to GUID-linked planar axes/OD outlines; product and installation acceptance pending"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "Review physical joints, complete obstacle/self-clearance evidence, manufacturer applicability, actual air-pressure reference, native plotting and applicable Hong Kong rules before complete engineering acceptance. Numerical geometry and pressure checks do not complete this review."
+        }
+      },
+      "native_endpoint_frames": {
+        "start": {
+          "owner_guid": "3VhSKGpxLTFwYPv01Zlz9Z",
+          "port_guid": "1Q8vjfSmnK8f41CJm13HaL",
+          "point_m": [
+            0.0,
+            1.5,
+            1.5
+          ],
+          "outward_axis": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "travel_direction": [
+            -0.0,
+            -0.0,
+            1.0
+          ],
+          "expected_travel_direction": [
+            0,
+            0,
+            1
+          ],
+          "basis": {
+            "axis": [
+              0,
+              1
+            ],
+            "source": "Explicit synthetic supply/receiver travel tangent; not an installed connector measurement",
+            "classification": "design_choice"
+          },
+          "native_frame_match": true
+        },
+        "end": {
+          "owner_guid": "3$rdDliyXIn8HyoA1sjSl0",
+          "port_guid": "2TJ3K8GZPS8h9lZptJcGEz",
+          "point_m": [
+            4.0,
+            1.5,
+            1.5
+          ],
+          "outward_axis": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "travel_direction": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "expected_travel_direction": [
+            0,
+            0,
+            -1
+          ],
+          "basis": {
+            "axis": [
+              0,
+              -1
+            ],
+            "source": "Explicit synthetic supply/receiver travel tangent; not an installed connector measurement",
+            "classification": "design_choice"
+          },
+          "native_frame_match": true
+        }
+      },
+      "length_m": 5.828318530717958,
+      "bend_count": 2,
+      "pressure_reduction_pa": 5.9318304425398765,
+      "files": {
+        "runs\\directed-vertical-air-workflow\\workflow.json": "682e26ed55c2b737e765e28fb4ae79fcca87bf89358a133b59f9fb3239fbf9c1",
+        "runs\\directed-vertical-air-workflow\\route\\route-optimisation.json": "bfa739715e0d594291d6c7572d14fb0a6d0b20b382f1151393d9c36e6b6664a8",
+        "runs\\directed-vertical-air-workflow\\route\\selected\\route-model.json": "dfe2aff93be3f12beb61c6bbe5d574e68a4759a2e7c163686377118a705c3e0a",
+        "runs\\directed-vertical-air-workflow\\route\\selected\\bound\\bim\\model.ifc": "2b35fef351da1dfd8fcc6feee89d3e558533979175fee0fb321ca282cfb7325d",
+        "runs\\directed-vertical-air-workflow\\route\\selected\\bound\\analysis\\network.json": "7e0e069215292ee6733063791e2120406e8a5394e764151b1d4d1f8975820294",
+        "runs\\directed-vertical-air-workflow\\drawing\\drawing.json": "807cc9c4f07937e8c4c1145e7a3c6ade8b95fe9ceb6e210e1cd542f63e889c3b",
+        "runs\\directed-vertical-air-workflow\\drawing\\segments.dxf": "8b6337ce01772280e193e21a4b5334e23b8218b22065c0824e5399859a19ef95"
+      }
+    },
+    "directed-higher-air-workflow": {
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "tasks": {
+        "route": {
+          "kind": "route_optimize",
+          "status": "fail",
+          "scope": "searched finite-radius pipe route, actual saved IFC and prescribed-flow pressure checks; obstacle correspondence, self-clash and complete engineering acceptance remain separate"
+        },
+        "drawing": {
+          "kind": "ifc_route_drawing",
+          "status": "pending",
+          "scope": "upstream IFC producer did not pass; no route drawing fabricated"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: route (fail), drawing (pending); adapter not executed"
+        }
+      },
+      "native_endpoint_frames": {
+        "start": {
+          "owner_guid": "3VhSKGpxLTFwYPv01Zlz9Z",
+          "port_guid": "1Q8vjfSmnK8f41CJm13HaL",
+          "point_m": [
+            0.0,
+            1.5,
+            1.5
+          ],
+          "outward_axis": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "travel_direction": [
+            -0.0,
+            -0.0,
+            1.0
+          ],
+          "expected_travel_direction": [
+            0,
+            0,
+            1
+          ],
+          "basis": {
+            "axis": [
+              0,
+              1
+            ],
+            "source": "Explicit synthetic supply/receiver travel tangent; not an installed connector measurement",
+            "classification": "design_choice"
+          },
+          "native_frame_match": true
+        },
+        "end": {
+          "owner_guid": "3$rdDliyXIn8HyoA1sjSl0",
+          "port_guid": "2TJ3K8GZPS8h9lZptJcGEz",
+          "point_m": [
+            4.0,
+            1.5,
+            2.0
+          ],
+          "outward_axis": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "travel_direction": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "expected_travel_direction": [
+            0,
+            0,
+            -1
+          ],
+          "basis": {
+            "axis": [
+              0,
+              -1
+            ],
+            "source": "Explicit synthetic supply/receiver travel tangent; not an installed connector measurement",
+            "classification": "design_choice"
+          },
+          "native_frame_match": true
+        }
+      },
+      "length_m": 5.328318530717958,
+      "bend_count": 2,
+      "pressure_reduction_pa": 2.9659152212699365,
+      "files": {
+        "runs\\directed-higher-air-workflow\\workflow.json": "8e5d1502f5615cd975f030a1f89a45633c0a6f7aa6a1ced2ea24970771fb66f4",
+        "runs\\directed-higher-air-workflow\\route\\route-optimisation.json": "9f94512bd29ce676eb7314ff7c6e6be674a7c8f42cab7da41345e692a162e1de",
+        "runs\\directed-higher-air-workflow\\route\\selected\\route-model.json": "87b006ea29e4b869bf49403895ac5b1c04819302c91bfbb62a50b52bbae1416d",
+        "runs\\directed-higher-air-workflow\\route\\selected\\bound\\bim\\model.ifc": "33e4c73caf9509905b7b1a439ca2d6f106b2700316d1be714cb480ec13ac184b",
+        "runs\\directed-higher-air-workflow\\route\\selected\\bound\\analysis\\network.json": "cb0683694221bd3324aeea82478c5bc8f870bb186c7f6b06b401d69342cdd3a9"
+      }
+    }
+  },
+  "legacy": {
+    "report": "runs\\directed-route-legacy-replay\\route-model.json",
+    "sha256": "c8bff9108bb2eb301625dc7af8b89581ff16837b66247d52a546c8e5915557a9",
+    "geometry_match": true,
+    "pressure_checks": true
+  },
+  "other_executed_controls": {
+    "impossible_start_heading": "Rejected before output directory creation; no constraint relaxation",
+    "same_point_wrong_saved_port_normal": "endpoint_frames rejected saved native travel tangent; source IFC unchanged"
+  },
+  "pending": [
+    "complete 3D/multibranch routing and equipment binding",
+    "complete obstacle/self-clearance checks",
+    "manufacturer/installation applicability",
+    "ambient-reference air-pressure applicability",
+    "native drawing reopening and visual plot review for this new sheet",
+    "Hong Kong engineering acceptance"
+  ]
+}

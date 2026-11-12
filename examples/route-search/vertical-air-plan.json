@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "brief": "vertical-air-brief.md",
+  "brief_sha256": "1269c4b1c2160adfa52da81aafb668c242ee4c4920ae738a0f201470bf78df38",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement",
+    "P004": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "route",
+      "kind": "route_optimize",
+      "routing": "vertical-air-routing.json",
+      "settings": "vertical-air-settings.json",
+      "network": "vertical-air-network.json"
+    },
+    {
+      "id": "drawing",
+      "kind": "ifc_route_drawing",
+      "depends_on": "route",
+      "settings": "vertical-air-drawing-settings.json"
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "requires_pass": [
+        "route",
+        "drawing"
+      ],
+      "description": "Review physical joints, complete obstacle/self-clearance evidence, manufacturer applicability, actual air-pressure reference, native plotting and applicable Hong Kong rules before complete engineering acceptance. Numerical geometry and pressure checks do not complete this review."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Search the declared local grid using vertical-air-routing.json and the explicit X/Z frame in vertical-air-settings.json. Preserve endpoint travel tangents. Optimise prescribed-flow dissipative pressure using vertical-air-network.json without changing its supply or targets. Retain the baseline, source/native geometry and actual endpoint-frame checks.",
+      "task": "route",
+      "acceptance": "Scoped source/native/numerical execution only; engineering review remains pending"
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Generate an editable X/Z circular-route drawing from the selected saved IFC and its exact generated source model. Preserve segment and elbow identities, true arcs and bore/OD dimensions; do not manually repeat the generated model geometry.",
+      "task": "drawing",
+      "acceptance": "Scoped source/native/numerical execution only; engineering review remains pending"
+    },
+    {
+      "id": "R3",
+      "passage": "P004",
+      "quote": "Review physical joints, complete obstacle/self-clearance evidence, manufacturer applicability, actual air-pressure reference, native plotting and applicable Hong Kong rules before complete engineering acceptance. Numerical geometry and pressure checks do not complete this review.",
+      "task": "review",
+      "acceptance": "Scoped source/native/numerical execution only; engineering review remains pending"
+    }
+  ]
+}

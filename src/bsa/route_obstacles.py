@@ -10,6 +10,7 @@ from .route_search import search
 
 
 def contract(routing,heights):
+    if routing.get('coordinate_plane','world-xy')!='world-xy':raise ProjectError('World-XY obstacle extrusion does not support local routing frames')
     search(routing)  # Validate planar source contract; no search result is trusted as BIM evidence.
     rows=routing['obstacles']
     if not isinstance(heights,dict) or set(heights)!={r['id'] for r in rows}:

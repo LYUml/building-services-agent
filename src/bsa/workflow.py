@@ -891,7 +891,10 @@ def validate_plan(path):
                 settings=local_path(root,t.get('settings'));inputs.add(settings);validate_settings(read_json(settings))
                 if kind=='ifc_route_drawing':
                     from .bim import validate as validate_bim
-                    source_model=local_path(root,t.get('model'));inputs.add(source_model);validate_bim(read_json(source_model))
+                    if 'model' in t:
+                        source_model=local_path(root,t.get('model'));inputs.add(source_model);validate_bim(read_json(source_model))
+                    elif not t.get('depends_on') or t['depends_on'] not in ids or next(x for x in tasks if x['id']==t['depends_on'])['kind'] not in ('route_model','route_optimize'):
+                        raise ProjectError('Route drawing needs explicit model or earlier route producer model inheritance')
             elif kind=='ifc_views':
                 from .ifc_views import validate_settings
                 settings=local_path(root,t.get('settings'));inputs.add(settings);validate_settings(read_json(settings))
@@ -1680,7 +1683,8 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 else:
                     from .ifc_route_drawing import run
                     source=out/dependency/IFC_ARTIFACTS[tasks[dependency]['kind']] if dependency else local_path(root,t['ifc'])
-                    payload=run(source,local_path(root,t['model']),local_path(root,t['settings']),folder)
+                    source_model=local_path(root,t['model']) if 'model' in t else out/dependency/('selected/model-input.json' if tasks[dependency]['kind']=='route_optimize' else 'model-input.json')
+                    payload=run(source,source_model,local_path(root,t['settings']),folder)
                     status='pass' if payload['calculated_checks_pass'] else 'fail'
                     reason='source-checked saved circular walls and finite arcs to GUID-linked planar axes/OD outlines; product and installation acceptance pending'
             elif t['kind']=='ifc_drawing':

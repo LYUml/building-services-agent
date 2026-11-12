@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Directed endpoint constraints and declared vertical-plane pipe/air-duct routing
+now execute through pressure optimisation, saved IFC frame checks and inherited
+X/Z DXF generation. Actual pressure-failing higher-endpoint control blocks drawing;
+full engineering remains pending. See docs/DIRECTED_ROUTE_PLANES.md.
+
 A single supported terminal-iteration command now composes search, full-plan
 generation, fresh requirements binding, execution and source-backed action
 diagnosis. Actual runs preserve incomplete engineering checks; arbitrary

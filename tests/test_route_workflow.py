@@ -9,6 +9,27 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 class RouteWorkflowTests(unittest.TestCase):
+    def test_generated_route_model_is_inherited_by_drawing(self):
+        plan=ROOT/'examples/route-search/vertical-air-plan.json'
+        validate_plan(plan)
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+            out=(Path(folder)/'run').resolve()
+            with patch('bsa.route_optimize.run',return_value={'calculated_checks_pass':True}),patch('bsa.ifc_route_drawing.run',return_value={'calculated_checks_pass':True}) as drawing:
+                result=execute(plan,out)
+            self.assertEqual(drawing.call_args.args[0],out/'route/selected/bound/bim/model.ifc')
+            self.assertEqual(drawing.call_args.args[1],out/'route/selected/model-input.json')
+            self.assertEqual(result['tasks']['drawing']['status'],'pass')
+            self.assertEqual(result['tasks']['review']['status'],'pending')
+            self.assertFalse(result['design_accepted'])
+
+    def test_failed_route_pressure_blocks_inherited_drawing(self):
+        plan=ROOT/'examples/route-search/vertical-air-plan.json'
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+            with patch('bsa.route_optimize.run',return_value={'calculated_checks_pass':False}),patch('bsa.ifc_route_drawing.run',side_effect=AssertionError('failed pressure must block drawing')) as drawing:
+                result=execute(plan,Path(folder)/'run')
+            drawing.assert_not_called()
+            self.assertEqual(result['tasks']['drawing']['status'],'pending')
+
     def test_route_inputs_are_tracked_and_failed_pressure_blocks_clash(self):
         plan=ROOT/'examples/route-search/coordination-plan.json'
         _,inputs=validate_plan(plan)

@@ -1,0 +1,46 @@
+{
+  "name": "Synthetic vertical round air duct routing",
+  "project_uuid": "b4987ecf-74c8-55f4-bab2-1d604743f7a4",
+  "source": "Explicit synthetic round-duct study: bore0.2032m and OD0.2048m are assumptions, excess bend K0.4 and straight K0 are declared assumptions over centreline friction. Room volume/frame are design choices; no manufacturer, measured installation or regulatory claim.",
+  "inside_diameter_m": 0.2032,
+  "elbow_excess_k": 0.4,
+  "straight_excess_k": 0,
+  "loss_basis": "excess over centreline Darcy friction",
+  "space": {
+    "id": "ROOM",
+    "origin_m": [
+      -0.2,
+      -0.2,
+      0
+    ],
+    "size_m": [
+      4.4,
+      3.4,
+      3.4
+    ]
+  },
+  "system": {
+    "id": "AIR",
+    "predefined_type": "AIRCONDITIONING"
+  },
+  "element_family": "duct",
+  "plane_frame": {
+    "origin_m": [
+      0,
+      1.5,
+      0
+    ],
+    "u_axis": [
+      1,
+      0,
+      0
+    ],
+    "v_axis": [
+      0,
+      0,
+      1
+    ],
+    "source": "Explicit synthetic X/Z plane at Y=1.5m; no surveyed datum or project transformation claim",
+    "classification": "design_choice"
+  }
+}

@@ -1212,3 +1212,13 @@ hvac_project repeats a configured package; neither performs this studied
 terminal-to-BIM iteration. Add orchestration and exact new-plan inventory
 rebinding, not another solver or dependency. No implicit geometry templates,
 provider substitution or acceptance transfer. See TERMINAL_ITERATION.md.
+
+Directed route-plane gap: retain the existing heading-state Dijkstra/heapq
+search and fixed-bore pressure optimizer; add sourced endpoint constraints and
+an explicit signed-cardinal local/world frame. Reuse existing IfcOpenShell
+straight/quarter-elbow bodies, saved geometry reconciliation, elevation binding
+and ezdxf projection. Existing signed-axis bodies already support these planes;
+no new engine or dependency is needed. Preserve the pinned dependencies and
+existing attribution/licenses. Legacy obstacle-height extrusion remains XY-only;
+full volumetric obstacle extraction is not implemented by this extension.
+See DIRECTED_ROUTE_PLANES.md for executed evidence and remaining limits.

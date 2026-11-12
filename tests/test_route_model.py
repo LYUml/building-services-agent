@@ -46,3 +46,18 @@ class RouteModelTests(unittest.TestCase):
             elif fault=='basis':settings['loss_basis']='total fitting loss including friction'
             else:settings['inside_diameter_m']=.11
             with self.subTest(fault=fault),self.assertRaises(ProjectError):compile_route(self.route,settings,network)
+
+
+class PlaneFrameRouteTests(unittest.TestCase):
+    def setUp(self):RouteModelTests.setUp(self)
+    def test_vertical_plane_and_explicit_duct_family_inherit_native_elevations(self):
+        self.route['obstacles']=[];self.route['coordinate_plane']='declared-local-frame';self.settings.pop('elevation_m');self.settings['plane_frame']=dict(origin_m=[0,0,0],u_axis=[0,0,1],v_axis=[0,1,0],source='Synthetic plane control',classification='design_choice');self.settings['space'].update(origin_m=[-.2,-.2,-.2],size_m=[2,4,6]);self.settings['element_family']='duct';self.settings['system']['predefined_type']='AIRCONDITIONING'
+        route,model,binding,network=compile_route(self.route,self.settings,self.network);derived,_=prepare(network,model,binding)
+        self.assertEqual(model['devices'][0]['ifc_class'],'IfcDuctSegment');self.assertEqual([n['elevation_m'] for n in derived['nodes']],[0,4]);self.assertEqual(route['length_m'],4)
+    def test_duplicated_elevation_noncardinal_frame_or_wrong_system_rejects(self):
+        for fault in ['duplicate','axes','system']:
+            self.route['coordinate_plane']='declared-local-frame';settings=copy.deepcopy(self.settings);settings['plane_frame']=dict(origin_m=[0,0,0],u_axis=[1,0,0],v_axis=[0,0,1],source='Synthetic plane control',classification='design_choice')
+            if fault!='duplicate':settings.pop('elevation_m')
+            if fault=='axes':settings['plane_frame']['v_axis']=[1,0,0]
+            if fault=='system':settings['element_family']='duct'
+            with self.subTest(fault=fault),self.assertRaises(ProjectError):compile_route(self.route,settings,self.network)

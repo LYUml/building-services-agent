@@ -17,6 +17,7 @@ def search(data):
     if not isinstance(data.get('source'),str) or not data['source'].strip():
         raise ProjectError('routing input provenance required')
     if data.get('units')!='m':raise ProjectError('routing uses explicit metre units')
+    if data.get('coordinate_plane','world-xy') not in ('world-xy','declared-local-frame'):raise ProjectError('Supported routing coordinate-plane declaration required')
     start,end=data.get('start_m'),data.get('end_m')
     origin=data.get('grid_origin_m');counts=data.get('grid_counts')
     step=data.get('grid_step_m');radius=data.get('bend_radius_m')
@@ -56,6 +57,13 @@ def search(data):
     def line_clear(a,b):
         return clear([min(a[i],b[i])-ro for i in (0,1)],[max(a[i],b[i])+ro for i in (0,1)])
     directions=((1,0),(0,1),(-1,0),(0,-1))
+    constraints=data.get('endpoint_directions')
+    headings={}
+    if constraints is not None:
+        if not isinstance(constraints,dict) or not constraints or set(constraints)-{'start','end'}:raise ProjectError('Explicit start/end travel direction records required')
+        for role,row in constraints.items():
+            if not isinstance(row,dict) or set(row)!={'axis','source','classification'} or not point(row['axis']) or tuple(row['axis']) not in directions or not isinstance(row['source'],str) or not row['source'].strip() or row['classification'] not in ('given','measured','assumed','secondary_transcription','design_choice','geometry-derived'):raise ProjectError('Source-classified cardinal endpoint travel direction required')
+            headings[role]=directions.index(tuple(row['axis']))
     def bend(a,u,v):
         entry=[a[i]-radius*u[i] for i in (0,1)]
         exit=[a[i]+radius*v[i] for i in (0,1)]
@@ -75,9 +83,11 @@ def search(data):
         if (x,y)==last:goal=state;break
         a=world((x,y))
         for direction,v in enumerate(directions):
+            if heading<0 and 'start' in headings and direction!=headings['start']:continue
             if heading>=0 and direction==(heading+2)%4:continue
             node=(x+v[0],y+v[1])
             if any(not 0<=node[i]<counts[i] for i in (0,1)):continue
+            if node==last and 'end' in headings and direction!=headings['end']:continue
             b=world(node)
             if not line_clear(a,b):continue
             turning=heading>=0 and heading!=direction
@@ -92,6 +102,8 @@ def search(data):
     base=dict(source=data['source'],design_accepted=False,visited_states=len(dist),
               bend_penalty_m=penalty,objective_source=data.get('objective_source','physical centreline length only'),
               scope='minimum centreline length plus declared per-bend penalty among accepted finite-grid paths; conservative rectangle clearance; no BIM, hydraulic, product or installation acceptance')
+    if constraints is not None:base['endpoint_directions']=constraints
+    if 'coordinate_plane' in data:base['coordinate_plane']=data['coordinate_plane']
     if goal is None:return dict(**base,route_found=False,reason='no path on the declared grid under conservative clearance checks')
     chain=[];state=goal
     while state!=initial:chain.append(world(state[:2]));state=previous[state]
@@ -116,6 +128,10 @@ def search(data):
     bends=sum(p['kind']=='elbow' for p in pieces)
     if not math.isclose(length+bends*penalty,dist[goal],abs_tol=1e-8,rel_tol=1e-12):raise ProjectError('search cost differs from finite bend geometry and declared penalty')
     if any(not clear(p['min_m'],p['max_m']) for p in pieces):raise ProjectError('compiled route violates obstacle clearance')
+    for role,piece in (('start',pieces[0]),('end',pieces[-1])):
+        if role not in headings:continue
+        vector=[(piece['end_m'][i]-piece['start_m'][i])/piece['length_m'] for i in (0,1)]
+        if math.dist(vector,directions[headings[role]])>1e-8:raise ProjectError('Compiled route violates endpoint travel tangent')
     return dict(**base,route_found=True,vertices_m=vertices,pieces=pieces,length_m=length,
                 bend_count=bends,objective_cost_m=dist[goal],obstacle_ids=sorted(ids))
 

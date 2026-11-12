@@ -1,0 +1,41 @@
+{
+  "name": "Synthetic common-datum air-route pressure budget",
+  "model": "steady incompressible circular tree",
+  "sources": {
+    "demo": "Explicit synthetic constant-density air study: density1.25kg/m3, viscosity1.8e-5Pa.s, flow0.08m3/s, roughness0.00009m, supply total pressure10Pa, outlet target1Pa and velocity target3m/s. Pressures share one common elevation datum; not ambient-gauge fan duty, product rating or code limits."
+  },
+  "fluid": {
+    "density_kg_m3": 1.25,
+    "dynamic_viscosity_pa_s": 1.8e-05,
+    "source": "demo"
+  },
+  "supply": {
+    "node": "SOURCE",
+    "total_pressure_pa": 10,
+    "source": "demo"
+  },
+  "nodes": [
+    {
+      "id": "SOURCE",
+      "demand_m3_s": 0,
+      "required_total_pressure_pa": 0,
+      "source": "demo"
+    },
+    {
+      "id": "END",
+      "demand_m3_s": 0.08,
+      "required_total_pressure_pa": 1,
+      "source": "demo"
+    }
+  ],
+  "segments": [
+    {
+      "id": "MAIN",
+      "from": "SOURCE",
+      "to": "END",
+      "roughness_m": 9e-05,
+      "max_velocity_m_s": 3,
+      "source": "demo"
+    }
+  ]
+}
