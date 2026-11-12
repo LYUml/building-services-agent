@@ -48,8 +48,13 @@ Replay all saved selections with one command:
 ```
 
 Each output must be new. Plan, discovered source inputs, settings, referenced
-ADPI document and configuration stay inside this repository. Relative paths may
-refer to siblings within the repository; resolved paths outside it reject.
+ADPI document and configuration may live in this repository or the explicitly
+host-selected `BSA_PROJECT_ROOT` workspace (see PROJECT_WORKSPACE.md). Set the
+same host workspace for creation and replay; documents cannot select it.
+Relative references may cross between the selected project and installed tool
+source; resolved paths outside both reject. Removing the host selection rejects
+an external configuration before execution. Own-method pins stay in the tool
+repository, including workspace.py; source hash and overwrite guards are unchanged.
 The configuration pins the complete discovered input inventory,including
 supplemental ADPI fact-evidence documents. Changed or
 omitted inputs reject before package execution; changes during execution prevent

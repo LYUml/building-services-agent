@@ -6,7 +6,7 @@ from pathlib import Path
 import re
 
 from .cli import digest
-from . import hvac_package
+from . import hvac_package, workspace
 from .workflow import validate_plan
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -25,8 +25,8 @@ def method_inputs():
 
 def local(path):
     path = Path(path).resolve()
-    if not path.is_relative_to(ROOT):
-        raise ValueError('Repository-local project configuration and inputs required')
+    if not workspace.allowed(path):
+        raise ValueError('Repository-local or explicitly host-selected project configuration and inputs required')
     return path
 
 
@@ -91,7 +91,7 @@ def load(configuration):
         raise ValueError('Exact review selectors required; omitted reviews must remain null')
     def resolve(value):
         if not isinstance(value, str) or not value.strip() or Path(value).is_absolute():
-            raise ValueError('Nonempty relative repository-local reference required')
+            raise ValueError('Nonempty relative workspace reference required')
         return local(configuration.parent / value)
     files = {key: resolve(value) for key, value in data['files'].items()}
     expected = data['input_hashes']

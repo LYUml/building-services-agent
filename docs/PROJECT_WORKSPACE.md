@@ -36,3 +36,10 @@ Private project sources/results remain outside commits to this tool repository.
 See evidence/project-workspace.json.
 
 Saved-native duct_schedule_check and duct_junction_review now also accept explicitly selected host project workspaces;their equation/geometry engines remain unchanged. Existing output-separation and source checks remain. See DUCT_SCHEDULE_CHECK.md.
+
+The repeatable `hvac_project` configuration wrapper also accepts this explicit
+workspace for configuration, sources and output. Its complete method inventory
+continues to pin installed tool source. Twelve wrapper/workspace tests pass,
+including absent host selection, unselected sibling paths and mutated inputs.
+An actual private coursework configuration was created and loaded with328pins;
+this trial did not execute the HVAC package or establish design acceptance.

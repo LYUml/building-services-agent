@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 import runpy
 import tempfile
@@ -10,6 +11,29 @@ from bsa.hvac_project import ROOT, create, load, run
 
 
 class HVACProjectTests(unittest.TestCase):
+    def test_external_configuration_requires_same_host_workspace_on_reload(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder).resolve()
+            with patch.dict(os.environ, {'BSA_PROJECT_ROOT': str(root)}):
+                plan = runpy.run_path(str(ROOT/'examples/hvac-package/build_inputs.py'))['build'](root/'inputs')
+                configuration = root/'project.json'
+                create(plan, configuration)
+                files, _, pins = load(configuration)
+                self.assertEqual(files['plan'], plan)
+                self.assertIn(plan.parent/'source.dxf', pins)
+                self.assertIn(ROOT/'src/bsa/workspace.py', pins)
+                with self.assertRaisesRegex(ValueError, 'host-selected'):
+                    create(plan, root.parent/'unselected-bsa-project.json')
+            with patch.dict(os.environ, {'BSA_PROJECT_ROOT': ''}):
+                with self.assertRaisesRegex(ValueError, 'host-selected'):
+                    load(configuration)
+                with self.assertRaisesRegex(ValueError, 'host-selected'):
+                    create(plan, self.root/'external-denied.json')
+            with patch.dict(os.environ, {'BSA_PROJECT_ROOT': str(root)}):
+                (plan.parent/'source.dxf').write_bytes(b'changed source')
+                with self.assertRaisesRegex(ValueError, 'source changed'):
+                    load(configuration)
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory(dir=ROOT/'runs')
         self.addCleanup(self.temp.cleanup)

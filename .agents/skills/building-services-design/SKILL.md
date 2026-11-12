@@ -78,6 +78,10 @@ candidate-ranking success may support only the examined numerical subrequirement
 not original complete sizing or drawing acceptance.
 
 For repeat runs of a reviewed HVAC project, use bsa.hvac_project create to pin
+the configuration in the explicitly host-selected project workspace. Keep the
+same BSA_PROJECT_ROOT during creation and replay; absent selection rejects an
+external configuration. General method files remain pinned in the tool repository.
+Use this wrapper to pin
 the plan, discovered sources and selected package reviews, then run the saved
 configuration with explicit host font/AutoCAD arguments. Read docs/HVAC_PROJECT.md.
 Changed or omitted source inputs reject; do not edit hashes merely to accept an
