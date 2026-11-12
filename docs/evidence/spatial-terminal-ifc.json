@@ -1,0 +1,22 @@
+{
+  "scope": "Synthetic source-classified terminal bounding-envelope BIM study",
+  "runs": {
+    "native": {
+      "report": "runs\\spatial-terminal-ifc-verified-native\\terminal-ifc.json",
+      "sha256": "e39db8e9a55a84db5350805e6aa66ca3f10fe3a4f1ea797de2827def97682063",
+      "terminal_count": 6,
+      "original_entities_unchanged": true,
+      "schema_and_EXPRESS_replay_pass": true
+    },
+    "moosas": {
+      "report": "runs\\spatial-terminal-ifc-verified-moosas\\terminal-ifc.json",
+      "sha256": "3a236c1b6e5f2429f3b101dc257716219c43b2e1107757f45991c36ead4f3966",
+      "terminal_count": 6,
+      "original_entities_unchanged": true,
+      "schema_and_EXPRESS_replay_pass": true
+    }
+  },
+  "terminal_identity_and_volume_records_equal": true,
+  "design_accepted": false,
+  "visual_BIM_review": "pending"
+}

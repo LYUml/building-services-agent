@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Verified spatial terminal positions/flows now author source-classified IFC
+envelopes while preserving original concave rooms and every source entity. Two
+actual provider chains pass native geometry/schema replay;visual BIM,ports and
+full engineering remain pending. See SPATIAL_TERMINAL_IFC.md.
+
 Native AutoCAD now executes as an inherited automatic spatial-drawing task.
 Four actual scenarios verify production/runtime/source gating;9requirements
 remain and full manual review stays pending. A backend-order label defect was
