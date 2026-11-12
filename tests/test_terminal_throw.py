@@ -34,6 +34,32 @@ class TerminalThrowTests(unittest.TestCase):
 
 
 class TerminalProjectTests(unittest.TestCase):
+    def test_optional_original_pdf_is_pinned_and_changed_bytes_reject(self):
+        original=self.root/'manufacturer.pdf';original.write_bytes(b'SYNTHETIC SOURCE IDENTITY CONTROL;NOT A REAL PDF')
+        catalogue=json.loads(self.catalogue.read_text());catalogue.update(source_document=original.name,source_sha256=hashlib.sha256(original.read_bytes()).hexdigest())
+        self.catalogue.write_text(json.dumps(catalogue));self.data['catalogue_sha256']=hashlib.sha256(self.catalogue.read_bytes()).hexdigest()
+        r=self.execute();self.assertTrue(r['original_document_pinned']);self.assertEqual(r['inputs'][str(original.resolve())],catalogue['source_sha256'])
+        original.write_bytes(b'Changed source')
+        self.project.write_text(json.dumps(self.data))
+        with self.assertRaisesRegex(ValueError,'Original catalogue PDF'):
+            run(self.project,self.root/'second-output')
+        self.assertFalse((self.root/'second-output').exists())
+
+    def test_workflow_pins_original_pdf_and_rejects_outside_plan(self):
+        from bsa.workflow import execute,verify,validate_plan
+        original=self.root/'manufacturer.pdf';original.write_bytes(b'SYNTHETIC SOURCE IDENTITY CONTROL')
+        catalogue=json.loads(self.catalogue.read_text());catalogue.update(source_document=original.name,source_sha256=hashlib.sha256(original.read_bytes()).hexdigest())
+        self.catalogue.write_text(json.dumps(catalogue));self.data['catalogue_sha256']=hashlib.sha256(self.catalogue.read_bytes()).hexdigest()
+        plan=self.workflow_plan();r=execute(plan,self.root/'run')
+        self.assertIn(str(original.resolve()),r['inputs']);original.write_bytes(b'Changed source')
+        self.assertFalse(verify(self.root/'run')['integrity_pass'])
+        with tempfile.TemporaryDirectory() as other:
+            outside=Path(other)/'source.pdf';outside.write_bytes(b'External source control')
+            import os
+            catalogue.update(source_document=os.path.relpath(outside,self.root),source_sha256=hashlib.sha256(outside.read_bytes()).hexdigest())
+            self.catalogue.write_text(json.dumps(catalogue));self.data['catalogue_sha256']=hashlib.sha256(self.catalogue.read_bytes()).hexdigest();self.workflow_plan()
+            with self.assertRaisesRegex(ValueError,'plan-local'):validate_plan(plan)
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)

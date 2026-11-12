@@ -1,5 +1,25 @@
 # Scope and acceptance
 
+
+Catalogues may now declare `source_document` as a relative original-PDF path
+alongside `source_sha256`. The adapter checks that file before output and after
+lookup,records it in inputs and reports original_document_pinned. Workflow input
+discovery includes it and rejects source PDFs outside the plan directory tree.
+Missing/changed bytes reject;without that optional field,the legacy JSON-only
+path remains available and reports original_document_pinned:false.
+This pins original bytes;it does not prove manufacturer authenticity,correct
+transcription,selected installation conditions or ADPI applicability.
+
+Actual project execution in its coursework workspace binds an inspected9row
+manufacturer table and independently reconciles640direction/load lookup cases.
+Native save/reopen and the actual plot are reviewed separately. The reference
+lecture's product-family typo is retained and distinguished from the primary
+brief/manufacturer family rather than silently normalized. Only scoped source/
+configuration/interpolation requirements receive manual review passes;physical
+lengths,room loads,ADPI and installation remain unresolved. See
+[evidence](evidence/terminal-original-source.json).
+
+
 User-selected coursework workspaces now separate project inputs/runs/deliverables
 from reusable tool source. Supported entry points use explicit host BSA_PROJECT_ROOT;
 actual BSE3227 execution now occurs in its own project directory. Other adapters

@@ -5,6 +5,8 @@ description: Calculate source-linked air/water networks, pump operating points a
 
 # Network pressure analysis
 
+For terminal_throw source lookup,optionally bind the catalogue original PDF using relative source_document and source_sha256. Workflow pins the PDF and rejects outside-plan sources. Read docs/TERMINAL_THROW.md. Still inspect actual source rows,throw column,conditions,units and less-than NC values;PDF identity alone does not accept transcription,installation or ADPI.
+
 For a saved-native water graph,use wntr.ifc-steady with
 analysis.water.ifc-steady-graph. module_analysis may inherit module_authoring
 with a project/binding-only request;see examples/modular-bound-water-plan.json.

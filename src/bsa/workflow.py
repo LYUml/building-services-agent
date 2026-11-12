@@ -598,6 +598,10 @@ def validate_plan(path):
             if digest(catalogue)!=settings.get('catalogue_sha256'):
                 raise ProjectError('terminal catalogue source hash mismatch')
             inputs.update((project,catalogue,Path(terminal_throw.__file__).resolve()))
+            original=terminal_throw.source_document(catalogue)
+            if original:
+                if not original[0].is_relative_to(root):raise ProjectError('Original terminal catalogue PDF must be plan-local')
+                inputs.add(original[0])
         if kind=='drainage_input':
             if set(t)-{'id','kind','project','requires_pass','description'}:
                 raise ProjectError('drainage preparation requires explicit project only')

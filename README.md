@@ -1,5 +1,11 @@
 # Building Services Agent
 
+Terminal lookup can now pin an original manufacturer PDF as well as its JSON
+transcription. Actual external-project source review/640independent cases and
+DWG reopening/plot review execute;43 related tests pass. Seven project inputs
+and28review rows remain unresolved. See
+[evidence](docs/evidence/terminal-original-source.json).
+
 User-selected coursework workspaces now separate project inputs/runs/deliverables
 from reusable tool source. Supported entry points use explicit host BSA_PROJECT_ROOT;
 actual BSE3227 execution now occurs in its own project directory. Other adapters

@@ -3,6 +3,21 @@ import math
 from fluids.numerics import interp
 
 
+def source_document(catalogue):
+    """Optional original PDF identity;transcription still needs graphical review."""
+    import json
+    import hashlib
+    from pathlib import Path
+    catalogue=Path(catalogue).resolve();data=json.loads(catalogue.read_text(encoding='utf-8-sig'))
+    if 'source_document' not in data:return None
+    relative=data['source_document']
+    if not isinstance(relative,str) or not relative.strip() or Path(relative).is_absolute():raise ValueError('Relative original catalogue PDF required')
+    path=(catalogue.parent/relative).resolve()
+    if path.suffix.lower()!='.pdf' or not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest()!=data.get('source_sha256'):
+        raise ValueError('Original catalogue PDF missing or hash differs')
+    return path,data['source_sha256']
+
+
 def run(project_path, output, *, allocation_path=None, allocation_sha256=None):
     """Execute source-pinned terminal lookups; input facts remain caller-reviewed."""
     import json
@@ -15,7 +30,8 @@ def run(project_path, output, *, allocation_path=None, allocation_sha256=None):
     if actual!=project['catalogue_sha256']:
         raise ValueError('Catalogue source hash mismatch')
     source=json.loads(data.decode('utf-8-sig'))
-    if output.exists() or any(output==p or output in p.parents for p in (project_path,catalogue)):
+    original=source_document(catalogue)
+    if output.exists() or any(output==p or output in p.parents for p in (project_path,catalogue,*([original[0]] if original else []))):
         raise ValueError('New output directory separate from inputs required')
     if not isinstance(project.get('basis'),str) or not project['basis'].strip():
         raise ValueError('Explicit project basis and limitations required')
@@ -64,6 +80,11 @@ def run(project_path, output, *, allocation_path=None, allocation_sha256=None):
                 outside_catalogue_cases=unresolved,
                 source_scope='Pins reviewed catalogue JSON; original manufacturer document and transcription require separate review',
                 basis=project['basis'],terminals=results,ADPI_verified=False,design_accepted=False)
+    result['original_document_pinned']=original is not None
+    if original:
+        if source_document(catalogue)!=original:raise ValueError('Original catalogue PDF changed during lookup')
+        result['inputs'][str(original[0])]=original[1]
+        result['source_scope']='Original PDF and transcribed JSON pinned;graphical transcription,selected condition and installation applicability still require separate review'
     if inherited is not None:
         if allocation_path.read_bytes()!=inherited:
             raise ValueError('Allocation producer changed during lookup')
