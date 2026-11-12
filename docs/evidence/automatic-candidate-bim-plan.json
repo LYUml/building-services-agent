@@ -1,0 +1,96 @@
+{
+  "scope": "Synthetic automatic candidate to complete original workflow rerun; not physical installation or complete engineering acceptance",
+  "tests_passed": 7,
+  "skill_format_valid": true,
+  "cases": {
+    "native": {
+      "plan": "runs/modular-stub-friction-inputs/automatic-joined-native-plan.json",
+      "plan_sha256": "4f1fd7ccf461eb94fdf81f2e91bc139fe5d892ec01de530a759c856b239c298e",
+      "workflow": "runs/automatic-candidate-bim-joined-native/workflow.json",
+      "workflow_sha256": "f5ffd181a7e1007adb557414ebb6e1eda684baa523bdfbb424766a3e444be016",
+      "requirement_count": 13,
+      "requirements_preserved": true,
+      "unresolved_inputs_preserved": true,
+      "source_context_verified": true,
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "air-balance": "pass",
+        "terminal-allocation": "pass",
+        "terminal-performance": "pass",
+        "terminal-drawing": "pass",
+        "terminal-ifc": "pass",
+        "terminal-inlets": "pass",
+        "terminal-stubs": "pass",
+        "terminal-coordination": "fail",
+        "straight-friction": "pass",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "geometry_task_count": 3,
+      "terminal_count": 5,
+      "stub_count": 5,
+      "intersection_pair_count": 0,
+      "clearance_violation_pair_count": 5,
+      "physical_element_count": 12,
+      "flow_case_count": 10,
+      "module_acceptance": "pending",
+      "new_geometry_classifications": {
+        "design_choice": 45
+      }
+    },
+    "moosas": {
+      "plan": "runs/modular-stub-friction-inputs/automatic-joined-moosas-plan.json",
+      "plan_sha256": "a2f07dbd08392e5e917ff462c4c56118f3cac5df72868ee43df9983213464c54",
+      "workflow": "runs/automatic-candidate-bim-joined-moosas/workflow.json",
+      "workflow_sha256": "36a1cd7846232e14919bc37dd90357141f7c47b7296a85f424b9140d7b1aa20f",
+      "requirement_count": 13,
+      "requirements_preserved": true,
+      "unresolved_inputs_preserved": true,
+      "source_context_verified": true,
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "air-balance": "pass",
+        "terminal-allocation": "pass",
+        "terminal-performance": "pass",
+        "terminal-drawing": "pass",
+        "terminal-ifc": "pass",
+        "terminal-inlets": "pass",
+        "terminal-stubs": "pass",
+        "terminal-coordination": "fail",
+        "straight-friction": "pass",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "geometry_task_count": 3,
+      "terminal_count": 5,
+      "stub_count": 5,
+      "intersection_pair_count": 0,
+      "clearance_violation_pair_count": 5,
+      "physical_element_count": 12,
+      "flow_case_count": 10,
+      "module_acceptance": "pending",
+      "new_geometry_classifications": {
+        "design_choice": 45
+      }
+    }
+  },
+  "identical_friction_components": true,
+  "design_accepted": false,
+  "retained_initial_failure": {
+    "workflow": "runs/automatic-candidate-bim-native/workflow.json",
+    "workflow_sha256": "b6996abfdf579c5f6ce25f6fa90a250d93845e611003bb3e10b6b17709cddf83",
+    "task": "terminal-inlets",
+    "reason": "Repeated system identity has conflicting basis; per-terminal source text incorrectly differed across one shared system",
+    "downstream_not_executed": true
+  },
+  "scope_limits": [
+    "Geometry is explicitly reused as design choices, not manufacturer or new-location measurements.",
+    "Shared-system metadata conflict is fixed; five coordination clearance findings remain.",
+    "Full product,physical joints,routing,ADPI,HK and native BIM-viewer acceptance remain pending."
+  ],
+  "self_consistent_rehashed_geometry_substitution_rejected": true,
+  "negative_control_exact_bytes_restored": true,
+  "original_workflow_bytes_unchanged": true
+}

@@ -5,6 +5,17 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For source-linked room/terminal workflows, use bsa.spatial_terminal_search with
+explicit sampled grids, objective and inherited product choices; read
+[automatic terminal search](../../../docs/AUTOMATIC_TERMINAL_SEARCH.md).
+To continue a studied candidate through the full original workflow, use
+bsa.spatial_terminal_candidate_plan and, when justified, an explicit same-room
+geometry transfer policy per [candidate plans](../../../docs/SPATIAL_TERMINAL_CANDIDATE_PLAN.md).
+New geometry assignments remain design choices with original classifications
+retained separately. Keep shared system declarations consistent across templates.
+Execute into a new run with all original requirements and failure gates; do not
+transfer old manual acceptance or infer ADPI/product/installation acceptance.
+
 Keep general tool source/skills/tests in this repository and actual coursework data/runs/deliverables in the user-selected project directory. See docs/PROJECT_WORKSPACE.md. Use explicit host BSA_PROJECT_ROOT for supported external paths,never a document-selected root. Do not silently fall back to tool-repository coursework outputs when an adapter remains unmigrated. Preserve old runs and source originals.
 
 Use bsa.source-requirements for the common requirements.source-inventory boundary (docs/REQUIREMENTS_MODULE.md). project_start now creates it only after source validation permits interpretation handoff. Preserve every indexed passage,context disposition,requirement and unresolved input;verify_result rereads source evidence. Inventory completion is not semantic completeness or engineering execution. Use workflow --requirements-result to bind an exact completed inventory before existing tasks execute;regenerate the inventory after plan revisions. Semantic design-input binding remains unfinished.

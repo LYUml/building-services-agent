@@ -1196,3 +1196,11 @@ proposals while retaining original area/flow/product sources. No new geometry
 engine, pressure solver or dependency. Existing DXF/native adapters produce the
 selected schematic; plot-window revision remains explicit. See
 AUTOMATIC_TERMINAL_SEARCH.md for executed evidence and remaining scope.
+
+Automatic candidate-to-BIM gap: extend the existing verified candidate-plan
+factory with explicit same-room template references; reuse existing IFC
+envelope/inlet/stub authoring and inherited common-friction/coordination tasks.
+No new engine or dependency. New placements retain old parameter values as
+explicit design choices with original classifications separately pinned, not
+as new measurements. Preserve complete source tasks/requirements and rerun
+all downstream checks. See SPATIAL_TERMINAL_CANDIDATE_PLAN.md.

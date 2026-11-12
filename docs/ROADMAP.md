@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Studied automatic terminal layouts can now continue through the complete original
+workflow using explicit same-room geometry reuse. Two actual five-terminal BIM
+reruns preserve all13requirements and retain coordination failures; shared-system
+metadata consistency is corrected. See SPATIAL_TERMINAL_CANDIDATE_PLAN.md.
+
 Bounded terminal count/position proposals now inherit room loads and catalogue
 limits automatically, rerun existing allocation/performance and generate DXF.
 Native schematic delivery was separately reopened/visually checked; whole-plan
