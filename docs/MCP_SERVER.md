@@ -1,7 +1,8 @@
 # Building Services Agent stdio MCP server
 
-The current server has nine tools, including actual source-page PNG delivery;
-see [PDF page viewing](MCP_SOURCE_PAGE.md). The initial eight-tool trial below
+The current server has eleven tools, including actual source-page PNG delivery
+and [explicit visual transcription/source review](VISUAL_TRANSCRIPTION.md);
+see also [PDF page viewing](MCP_SOURCE_PAGE.md). The initial eight-tool trial below
 remains historical evidence; preserve its method hashes rather than updating them.
 
 The agent now exposes existing source intake, interpretation preparation,
@@ -61,6 +62,8 @@ those paths. Existing source, runtime and application-control failures remain.
 | bsa_execute_workflow | Execute an already interpreted plan with fixed host runtimes and saved diagnosis |
 | bsa_diagnose_workflow | Source-verify existing results and expose pending recovery actions |
 | bsa_render_source_page | Return actual PDF page image and source/page metadata; preserve extraction/engineering review |
+| bsa_prepare_visual_transcription | Bind literal host text to every actual page receipt; create an unreviewed manual scaffold |
+| bsa_review_source_plan | Apply explicit inspection notes to a fresh unchanged scaffold; preserve all requirements/gaps |
 
 Resources `bsa://guide`, `bsa://skills` and `bsa://skills/{name}` expose the existing
 workflow guide and repository skill instructions. Source text is project data,
@@ -69,6 +72,8 @@ pages, supply source-linked inputs and fill every interpretation binding; MCP
 does not independently solve arbitrary briefs. Blank templates and unresolved
 input conditions remain blocking. Read result status and `stage_errors`, not
 only protocol success. Every result keeps engineering acceptance separate.
+`bsa://source-guide` additionally exposes the exact page-viewing and visual
+transcription/source-review contracts to clients without filesystem access.
 
 Protocol handling and engineering execute in separate processes. A fixed
 JSON-only worker whitelist calls the existing APIs; it cannot import an operation

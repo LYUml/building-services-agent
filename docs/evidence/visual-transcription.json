@@ -1,0 +1,77 @@
+{
+  "scope": "Actual MCP source-page to explicit host visual transcription, source review and blocked engineering template; separate four-domain handoff still executes",
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/visual_transcription.py": "9dccaad6734e797dd8205a27d201f2b56553b9075f53041985e8902f5ea7cd7b",
+    "src/bsa/source_review.py": "2474a3eff1ffc62c2a18338a40bb11150772d38c6f34fbec22414cc02375f595",
+    "src/bsa/documents.py": "e55f8c80b2e1abdcf6302d2e7dfbe09ba96ba95779699a256852e7a9373654df",
+    "src/bsa/mcp_server.py": "5ca1977c8a33c8948dd528e765b90580bd79066f28e5bf9ba09d644b1213c177",
+    "src/bsa/mcp_worker.py": "22a559e67234cb24ca16cf4a064dc33708aa0d515aada7ef4fe9e293461c83ae"
+  },
+  "protocol": {
+    "tools": 11,
+    "successful_calls": 20,
+    "protocol_sha256": "d5fce48d8649bf7defe979982fb7b8ffa500a2d3dc0230740a6e5b72c73e4783",
+    "server_log_sha256": "d777998c754298ecef7ba32ad2b140353e675b5cf5d5233bd1673557030f3488",
+    "source_guide_read": true
+  },
+  "source": {
+    "source_sha256": "7c0e3832516f1895adf9723751e7ea5e23134fd73ed0c3dfe7acfdccd74bc6cb",
+    "page_image_sha256": "5f808ddb135693bb318a7e7ccc13337c7e54d77db3064a17cfec8e2c5eccf09a",
+    "original_source_unchanged": true,
+    "literal_passages": 3,
+    "transcription_method": "host_visual_transcription",
+    "confidence_generated": false,
+    "physical_dimensions_inferred": false
+  },
+  "reviewed": {
+    "requirements_unchanged": true,
+    "tasks_unchanged": true,
+    "unresolved_inputs_unchanged": true,
+    "ordinary_interpretation_gaps": 3,
+    "original_unreviewed_plan_retained": true,
+    "original_plan_ancestry_pinned": true,
+    "unreviewed_template_rejected": true,
+    "reviewed_template_executable": false
+  },
+  "requirements_module": {
+    "execution": "completed",
+    "source_replay_verified": true,
+    "requirements": 3,
+    "unresolved_inputs": 3,
+    "new_locator_preserved": true,
+    "result_sha256": "9e838de93f456664734f60b5c90739f7e3babde6890c9e7324a693ca774971ec",
+    "workspace_restrictions_unchanged": true,
+    "runtime_still_checked_by_page_replay": true
+  },
+  "tests": {
+    "passed": 34,
+    "skipped": 1,
+    "suites": [
+      "test_visual_transcription",
+      "test_mcp_server",
+      "test_source_page",
+      "test_documents",
+      "test_document_bundle",
+      "test_requirements_provider"
+    ],
+    "skip_reason": "Existing explicit-input offline OCR test; no new OCR execution claimed"
+  },
+  "controls": [
+    "Missing source page",
+    "Fabricated confidence field",
+    "Invalid pixel region",
+    "Changed PNG/source receipt",
+    "Missing source review notes",
+    "Changed transcription invalidates reviewed plan",
+    "Changed renderer evidence rejected during module replay",
+    "Concurrent candidate creation is not removed on exclusive-open failure"
+  ],
+  "limitations": [
+    "Explicit authored host transcription, not an automatic vision/OCR service",
+    "Transcription correctness and whole-page completeness still need actual review",
+    "Pixel locators are not measured physical dimensions",
+    "Source review is not engineering interpretation or missing-parameter acceptance",
+    "No new complete CAD/BIM/Hong Kong/full engineering acceptance"
+  ]
+}

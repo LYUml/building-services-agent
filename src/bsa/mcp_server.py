@@ -10,7 +10,7 @@ import subprocess
 import threading
 from typing import Any,Annotated
 
-from . import engineering_handoff,project_start,workflow,workflow_status,workspace,mcp_worker,source_page
+from . import engineering_handoff,project_start,workflow,workflow_status,workspace,mcp_worker,source_page,visual_transcription,source_review
 from .cli import digest
 from .terminal_iteration import OPTIONS
 
@@ -115,6 +115,16 @@ def create_server(*,execute_options=None,pdftoppm=None):
             if digest(image)!=result['image_sha256']:raise ValueError('Rendered page changed before MCP delivery')
             return CallToolResult(content=[TextContent(type='text',text=json.dumps(result)),ImageContent(type='image',mimeType='image/png',data=base64.b64encode(image.read_bytes()).decode('ascii'))],structuredContent=result)
 
+    @server.tool(annotations=write)
+    def bsa_prepare_visual_transcription(source:str,pages:list[dict],sidecar:str,target:str)->dict[str,Any]:
+        """Bind explicit literal host transcription to every actual rendered page and create a blocked source scaffold. No OCR confidence or review waiver."""
+        return invoke(visual_transcription.prepare,local(source),pages,local(sidecar),local(target))
+
+    @server.tool(annotations=write)
+    def bsa_review_source_plan(plan:str,notes:dict,out:str)->dict[str,Any]:
+        """Apply explicit source-inspection notes to every nonblocking extraction issue on a fresh manual scaffold. Preserve requirements/gaps and original ancestry; engineering interpretation stays pending."""
+        return invoke(source_review.run,local(plan),notes,local(out))
+
     @server.resource('bsa://guide')
     def guide()->str:
         return '\n\n'.join((workspace.ROOT/'docs'/name).read_text(encoding='utf-8') for name in ['PROJECT_CLI.md','ENGINEERING_HANDOFF.md'])
@@ -122,6 +132,10 @@ def create_server(*,execute_options=None,pdftoppm=None):
     @server.resource('bsa://skills')
     def skills()->str:
         return json.dumps(sorted(p.parent.name for p in (workspace.ROOT/'.agents/skills').glob('*/SKILL.md')))
+
+    @server.resource('bsa://source-guide')
+    def source_guide()->str:
+        return '\n\n'.join((workspace.ROOT/'docs'/name).read_text(encoding='utf-8') for name in ['MCP_SOURCE_PAGE.md','VISUAL_TRANSCRIPTION.md'])
 
     @server.resource('bsa://skills/{name}')
     def skill(name:str)->str:

@@ -34,14 +34,14 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
             root=Path(folder);shutil.copyfile(ROOT/'examples/engineering-handoff/brief.md',root/'brief.md')
             shutil.copyfile(ROOT/'docs/evidence/document-intake/source.pdf',root/'source.pdf')
             records=[];rejections=[]
-            renderer=shutil.which('pdftoppm');preview=None
+            renderer=shutil.which('pdftoppm');preview=None;transcription=None
             params=StdioServerParameters(command=sys.executable,args=['-X','utf8','-m','bsa.mcp_server',*(['--pdftoppm',renderer] if renderer else [])],cwd=str(ROOT),env={**os.environ,'BSA_PROJECT_ROOT':str(root),'PYTHONUTF8':'1'})
             with (root/'server.log').open('w',encoding='utf-8') as errors:
                 async with stdio_client(params,errlog=errors) as (read,write):
                     async with ClientSession(read,write) as session:
                         initialized=(await session.initialize()).model_dump(mode='json')
                         tools=(await session.list_tools()).tools
-                        self.assertEqual(len(tools),9)
+                        self.assertEqual(len(tools),11)
                         for tool in tools:
                             self.assertFalse({'autocad','command','project_root'} & set(tool.inputSchema.get('properties',{})))
                         async def call(name,args):
@@ -65,6 +65,22 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                             for bad in [dict(page=2),dict(page=True),dict(page=1,max_side=3000)]:
                                 invalid=await session.call_tool('bsa_render_source_page',dict(source='source.pdf',out='invalid-page',**bad))
                                 self.assertTrue(invalid.isError);self.assertFalse((root/'invalid-page').exists())
+                            pages=[dict(page=1,receipt='source-page/page.json',lines=[dict(text=f'L{i} / LGT-1',box=[[x,660],[x+410,660],[x+410,760],[x,760]]) for i,x in [(1,240),(2,850),(3,1480)]])]
+                            prepared=await call('bsa_prepare_visual_transcription',dict(source='source.pdf',pages=pages,sidecar='visual-transcription.json',target='visual-plan.json'))
+                            self.assertEqual(prepared['status'],'needs_source_review')
+                            visual=await call('bsa_read_source_plan',dict(plan='visual-plan.json'))
+                            self.assertEqual([r['text'] for r in visual['documents']['passages']],['L1 / LGT-1','L2 / LGT-1','L3 / LGT-1'])
+                            self.assertTrue(all(r['transcription_method']=='host_visual_transcription' and 'confidence' not in r for r in visual['documents']['passages']))
+                            blocked_template=await session.call_tool('bsa_handoff_template',dict(plan='visual-plan.json',out='blocked-visual-template.json'))
+                            self.assertTrue(blocked_template.isError);self.assertFalse((root/'blocked-visual-template.json').exists())
+                            notes={issue['id']:'Actual rendered public page inspected: literal labels checked; no supplied physical dimensions and none inferred. Source graphical completeness and transcription inspected; engineering meaning remains pending.' for issue in visual['documents']['issues']}
+                            reviewed=await call('bsa_review_source_plan',dict(plan='visual-plan.json',notes=notes,out='visual-reviewed-plan.json'))
+                            self.assertEqual(reviewed['status'],'needs_interpretation')
+                            next_plan=await call('bsa_read_source_plan',dict(plan='visual-reviewed-plan.json'))
+                            for key in ('tasks','requirements','unresolved_inputs'):self.assertEqual(next_plan['plan'][key],visual['plan'][key])
+                            template=await call('bsa_handoff_template',dict(plan='visual-reviewed-plan.json',out='visual-template.json'))
+                            self.assertFalse(template['executable']);self.assertEqual(template['original_requirements'],3)
+                            transcription=dict(prepared=prepared,reviewed=reviewed,template=template,source_meaning='not_assessed',ordinary_gaps_preserved=True)
                         else:
                             self.assertTrue(page.isError);self.assertFalse((root/'source-page').exists())
                         intake=await call('bsa_project_start',dict(brief='brief.md',out='project'))
@@ -97,6 +113,8 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                         self.assertFalse(blocked['execution_pass']);self.assertFalse(blocked['design_accepted'])
                         resources=await session.list_resources()
                         self.assertIn('bsa://guide',[str(r.uri) for r in resources.resources])
+                        source_guide=await session.read_resource('bsa://source-guide')
+                        self.assertIn('bsa.visual-transcription/1',source_guide.contents[0].text)
                         skill=await session.read_resource('bsa://skills/building-services-design')
                         self.assertIn('building-services-design',skill.contents[0].text)
                         outside=await session.call_tool('bsa_read_source_plan',dict(plan=str(root/'project/plan.json')))
@@ -104,7 +122,7 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
             (root/'protocol.json').write_text(json.dumps(dict(sdk_version=importlib.metadata.version('mcp'),initialize=initialized,
                 tools=[tool.model_dump(mode='json') for tool in tools],calls=records,rejected_paths=rejections,
                 blank_interpretation_rejected=blank.isError,absolute_path_rejected=outside.isError,
-                page_preview=preview,engineering_verification=checked,uninterpreted_execution_pass=blocked['execution_pass'],design_accepted=False),indent=2),encoding='utf-8')
+                page_preview=preview,visual_transcription=transcription,engineering_verification=checked,uninterpreted_execution_pass=blocked['execution_pass'],design_accepted=False),indent=2),encoding='utf-8')
 
 
 class MCPWorkerTests(unittest.TestCase):

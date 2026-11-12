@@ -1406,3 +1406,5 @@ ImageContent plus metadata through the fixed worker. Installed Poppler26.07.0
 help/version and actual executable hash are recorded; no renderer binary,
 engine implementation or new OCR service copied. Actual protocol PNG bytes,
 visual inspection and23passing/1optional-skipped tests: docs/evidence/mcp-source-page.json.
+
+Visual-source handoff gap: reuse source_page receipts, documents extraction/check_review, workflow_draft, common requirements and engineering template. Automatic OCR sidecars require a machine confidence score; do not fabricate one for host visual transcription. Add an explicit confidence-free host sidecar using the legacy plan slot and retain every page/image/source locator and review gate. Keep system renderer runtime inside receipt replay, not project-source input inventory; existing module workspace rules stay unchanged. Actual11-tool protocol, common inventory and34passing/1optional-skipped tests: docs/evidence/visual-transcription.json. No vision/LLM/OCR engine or dependency added.

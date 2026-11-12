@@ -141,6 +141,9 @@ def apply_ocr(document, source, sidecar):
     if document['format'] != 'pdf':raise ProjectError('OCR sidecars are supported for PDF only')
     sidecar = Path(sidecar).resolve()
     data = json.loads(sidecar.read_text(encoding='utf-8'))
+    if data.get('schema')=='bsa.visual-transcription/1':
+        from .visual_transcription import apply
+        return apply(document,source,sidecar)
     if data.get('version') != 1 or data.get('source_sha256') != digest(source):
         raise ProjectError('OCR sidecar version/source hash mismatch')
     pages = data.get('pages')

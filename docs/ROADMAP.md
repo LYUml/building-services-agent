@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+Two new MCP tools connect source page images, explicit confidence-free host
+transcription and source-inspection notes to unchanged requirement/gap scaffolds.
+Actual eleven-tool protocol and common requirements replay pass;34related tests
+pass/1existing OCR test skips. Runtime/source boundaries remain strict. Automatic
+vision/semantic design and full agent acceptance remain unfinished.
+See VISUAL_TRANSCRIPTION.md.
+
 The ninth MCP tool now renders source PDF pages through existing Poppler and
 returns actual PNG content plus source/page/runtime hashes. Actual byte identity,
 visual inspection and rejection controls execute; source-review gates remain.

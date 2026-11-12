@@ -14,6 +14,12 @@ For PDF diagrams/tables through MCP, use bsa_render_source_page with a host-star
 --pdftoppm path per docs/MCP_SOURCE_PAGE.md. Actually inspect returned images;
 page rendering does not clear extraction review or establish physical scale.
 Request original/higher-detail evidence when dimensions are unreadable.
+For explicit literal transcription after actual page inspection, use
+bsa_prepare_visual_transcription and bsa_review_source_plan per
+docs/VISUAL_TRANSCRIPTION.md. Account for every page with saved render receipts,
+do not invent OCR confidence/physical dimensions, and supply actual inspection
+notes for all issues. Unreviewed source cannot prepare an engineering template;
+reviewed source still retains all interpretation gaps and engineering requirements.
 
 For a ready failed pump with several explicitly supplied sourced curves, use
 bsa.pump_catalogue_iteration per docs/PUMP_CATALOGUE_ITERATION.md. It compares on

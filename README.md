@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Explicit host visual transcription now connects actual page images to a source-
+reviewed manual requirements scaffold and engineering template through MCP.
+Real protocol/common-inventory trials preserve quotes/gaps and reject fabricated
+confidence or changed evidence. This is not automatic vision/design. See docs/VISUAL_TRANSCRIPTION.md.
+
 MCP now returns actual source PDF page PNGs with pinned metadata through a ninth
 tool. Real client image bytes match saved output; viewing preserves extraction
 review. Original-page understanding and full design remain pending. See docs/MCP_SOURCE_PAGE.md.
