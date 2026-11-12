@@ -1,5 +1,16 @@
 # Separate tool source from project data
 
+Common workflow module request discovery,and the MOOSAS surface/direct-IFC
+recognition worker/providers now support the explicit host workspace. Upstream
+checkout/dependency locations remain repository-local trusted runtime arguments.
+The worker pins workspace.py;source/output separation and unselected-sibling
+guards remain. Twenty-three related tests pass. A separate actual temporary
+external-project trial with pinned official BEC source bytes verifies recognition,
+selected LPD checks,disabled gates and rejection after removing host selection.
+Its temporary files were removed after checks;only aggregate evidence remains in
+evidence/external-moosas-recognition-workflow.json. No coursework was used in that
+trial,and other adapters' remaining repository-only restrictions still apply.
+
 General agent source,skills and software tests live in this repository.
 Actual coursework inputs,runs and deliverables live in the user-selected
 project directory. Existing historical repository runs remain preserved.

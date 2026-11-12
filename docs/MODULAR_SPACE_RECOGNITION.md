@@ -34,11 +34,15 @@ These expectations require source interpretation;the provider does not infer or
 authenticate them. Unsupported holes,sloping/variable-height spaces,arbitrary
 architectural recognition and other unsupported semantics are not established.
 
-This initial worker supports repository-local geometry,runtime and output paths.
+Geometry,requests and outputs may now use the explicit host BSA_PROJECT_ROOT
+workspace as well as the tool repository. The upstream checkout and isolated
+dependency directories remain repository-local trusted host runtime paths.
 An explicit clean upstream checkout and isolated dependency directory are host
 arguments,never commands selected by documents. Missing/disabled runtime is
 unavailable;failed execution or source correspondence produces no successful
-payload. External coursework workspace support remains unfinished.
+payload. Verification requires the same explicit host workspace selection.
+Unselected external siblings reject. This migration is scoped to surface/direct
+IFC recognition and common module request discovery,not every other provider.
 
 The worker explicitly uses an empty version5geometry-only template catalogue and
 a1e-9m coordinate grid;it restores process-local settings after native XML reload

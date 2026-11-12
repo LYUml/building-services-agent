@@ -1,0 +1,42 @@
+{
+  "scope": "Actual native recognition/HK LPD workflow in an explicit external temporary project workspace",
+  "cases": {
+    "enabled": {
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "workflow_sha256": "a2434404b0c549dd8031e7251a92d5790ef80f7147d463294cde17b02d302fa9"
+    },
+    "disabled": {
+      "tasks": {
+        "recognition": "pending",
+        "lighting-rules": "pending",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "workflow_sha256": "37754b1484a1bde5c4d590867eff675cfa118f1f11bbd6744fb2e145da5dbbde"
+    }
+  },
+  "areas_m2": [
+    14.0,
+    24.0,
+    30.0
+  ],
+  "source_ifc_sha256": "d89e97ef6987ae26b46f1734dfa34be5c9463bbf7843e7ac825406a38de791fa",
+  "official_source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+  "workspace_policy_pinned": true,
+  "host_removal_rejects": true,
+  "workflow_artifacts_inside_selected_project": true,
+  "temporary_project_removed_after_verification": true,
+  "targeted_tests_passed": 23,
+  "design_accepted": false,
+  "limitations": [
+    "Synthetic geometry,lighting and applicability inputs;actual pinned official BEC source bytes",
+    "Executed temporary project was removed;reproduce with public fixture builders/tests",
+    "Not all other domain adapters support external workspaces",
+    "No thermal/physical/full engineering acceptance"
+  ]
+}

@@ -44,10 +44,11 @@ IfcSpace quantity metadata. No height is invented from a2Dplan.
 
 The tolerance values above are software-example targets,not regulatory or
 installation limits. Callers must select and review actual project tolerances.
-The intake supports explicitly selected BSA_PROJECT_ROOT paths;the current
-MOOSAS worker still requires repository-local inputs/output. External coursework
-recognition remains unavailable until that worker is migrated;do not silently
-copy private project data back into the tool repository.
+The intake and both MOOSAS recognition providers now support explicitly selected
+BSA_PROJECT_ROOT data paths. Inputs,generated intermediate files and results stay
+in that project;the pinned upstream checkout and dependencies remain in the tool
+repository. Select the same project root for execution and verification. Do not
+silently fall back to storing private coursework in the tool repository.
 
 The initial boundary is IFC4 with an explicit SI metre-based unit,including
 prefix conversion such as millimetres. All one-to-100 saved spaces must have

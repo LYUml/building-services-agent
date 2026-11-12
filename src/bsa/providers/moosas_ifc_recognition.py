@@ -5,6 +5,7 @@ from pathlib import Path
 from ..cli import digest
 from ..module_contract import read_json
 from .moosas_recognition import PIN,PAYLOAD,ACCEPTANCE_SCOPE
+from ..workspace import allowed
 
 ROOT=Path(__file__).resolve().parents[3]
 CAPABILITY='spatial.ifc-room-recognition'
@@ -31,8 +32,8 @@ def execute(request,paths,runtime,out):
     try:values=settings(paths['settings'])
     except (ValueError,OSError,KeyError) as exc:return outcome('failed','invalid_source_settings',str(exc))
     if not runtime.get('upstream') or not runtime.get('deps'):return outcome('unavailable','runtime_missing','Explicit pinned MOOSAS upstream/dependencies required')
-    if not out.is_relative_to(ROOT) or any(not p.is_relative_to(ROOT) for p in paths.values()):
-        return outcome('unavailable','runtime_incompatible','Current recognition worker requires repository-local source/output paths')
+    if not allowed(out) or any(not allowed(p) for p in paths.values()):
+        return outcome('unavailable','runtime_incompatible','Explicitly host-selected source/output workspace required')
     try:
         intake(paths['ifc'],out/'intake',**values)
         nested=out/'intake/request.json';data=read_json(nested)

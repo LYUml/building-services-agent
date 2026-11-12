@@ -6,6 +6,7 @@ import sys
 from ..cli import digest
 from ..module_contract import read_json,validate
 from ..spatial_recognition_check import check
+from ..workspace import allowed
 
 ROOT=Path(__file__).resolve().parents[3]
 PIN='dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c'
@@ -48,8 +49,8 @@ def execute(request,paths,runtime,out):
         pins[str(p)]=digest(p)
     if not runtime.get('upstream') or not runtime.get('deps'):return failed('unavailable','runtime_missing','Explicit pinned upstream and isolated dependencies required')
     upstream,deps=(Path(runtime[k]).resolve() for k in ('upstream','deps'))
-    if any(not p.is_relative_to(ROOT) or not p.is_dir() for p in (upstream,deps)) or any(not p.is_relative_to(ROOT) for p in paths.values()) or not out.is_relative_to(ROOT):
-        return failed('unavailable','runtime_incompatible','Current isolated recognition worker requires repository-local runtime,source and output paths')
+    if any(not p.is_relative_to(ROOT) or not p.is_dir() for p in (upstream,deps)) or any(not allowed(p) for p in paths.values()) or not allowed(out):
+        return failed('unavailable','runtime_incompatible','Repository-local runtime and explicitly host-selected source/output workspace required')
     command=[sys.executable,'-X','utf8',str(ROOT/'scripts/probe_moosas_transform.py'),'--source',str(paths['geometry']),'--upstream',str(upstream),'--deps',str(deps),'--out',str(out/'recognition'),'--empty-catalogue','--point-grid-m','1e-9']
     try:
         process=subprocess.run(command,capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=60)

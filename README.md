@@ -1,5 +1,11 @@
 # Building Services Agent
 
+MOOSAS recognition now accepts explicit external project workspaces,keeping
+project data separate from tool source. Twenty-three related tests and an actual
+temporary native-IFC/HK-LPD workflow verify the boundary. Other adapters and
+complete multi-discipline engineering acceptance remain unfinished.
+See docs/PROJECT_WORKSPACE.md.
+
 Direct saved-IFC recognition now runs as a common provider through the existing
 automatic workflow and selected HK office LPD consumer. Three actual scenario
 runs and25related tests pass;raw IFC/space identity and pending gates survive.

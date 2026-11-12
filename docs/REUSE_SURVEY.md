@@ -1,5 +1,12 @@
 # Reuse survey â€” 2026-11-09
 
+Recognition project-workspace gap: reuse existing workspace.allowed host policy
+in common workflow request discovery and the already verified MOOSAS worker/
+providers. Keep upstream/dependency installations repository-local and pin the
+workspace policy;no solver/runtime replacement. Twenty-three related tests and
+an actual temporary external-project trial pass scoped checks. See
+PROJECT_WORKSPACE.md;universal external-adapter support remains unfinished.
+
 Direct native recognition dispatch gap: compose the existing ifc_space_surfaces
 and moosas.surface-room-recognition through a thin registered provider and reuse
 module_exchange orchestration. Source tolerances,frame,GUIDs,raw IFC pins and

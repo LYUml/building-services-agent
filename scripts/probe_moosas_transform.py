@@ -14,6 +14,7 @@ import subprocess
 import sys
 import traceback
 from probe_moosas_ifc import PIN, digest
+from bsa import workspace
 
 
 def main():
@@ -27,8 +28,8 @@ def main():
         parser.error('Explicit grid must be between1e-9and1e-3metres')
     root=Path(__file__).resolve().parents[1]
     source,upstream,deps,out=(getattr(args,k).resolve() for k in ('source','upstream','deps','out'))
-    if any(not p.is_relative_to(root) for p in (source,upstream,deps,out)) or out.exists():
-        parser.error('Repository-local source/runtime and new output directory required')
+    if any(not p.is_relative_to(root) for p in (upstream,deps)) or not workspace.allowed(source) or not workspace.allowed(out) or out.exists():
+        parser.error('Repository-local runtime,host-selected source workspace and new output directory required')
     if out.is_relative_to(upstream) or out.is_relative_to(deps) or any(p.is_relative_to(out) for p in (source,upstream,deps)):
         parser.error('Output must remain separate from source and upstream/dependency installations')
     if subprocess.check_output(['git','-C',str(upstream),'rev-parse','HEAD'],text=True).strip()!=PIN:
@@ -38,6 +39,7 @@ def main():
     if source.suffix.lower() not in ('.geo','.obj','.stl'):parser.error('Explicit supported surface geometry required')
     helper=Path(__file__).with_name('probe_moosas_ifc.py').resolve()
     before={str(source):digest(source),str(Path(__file__).resolve()):digest(Path(__file__)),str(helper):digest(helper)}
+    before[str(Path(workspace.__file__).resolve())]=digest(Path(workspace.__file__))
     before.update({str(p):digest(p) for p in (upstream/'MoosasPy').rglob('*.py')})
     before.update({str(p):digest(p) for p in (upstream/'MoosasPy').rglob('*.json')})
     before[str(upstream/'LICENSE')]=digest(upstream/'LICENSE')

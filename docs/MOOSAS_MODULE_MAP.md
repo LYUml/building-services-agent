@@ -1,5 +1,12 @@
 # MOOSAS priority reuse map
 
+Surface/direct-IFC recognition now supports explicit host project workspaces.
+The actual external temporary-project chain and23related tests verify source
+separation,HK LPD consumption,disabled gates and host-removal rejection. Trusted
+upstream/dependency runtimes remain repository-local;other providers are not
+universally migrated. See PROJECT_WORKSPACE.md and
+evidence/external-moosas-recognition-workflow.json.
+
 Direct saved-IFC recognition is now a composed trusted provider,so the existing
 workflow accepts IFC/settings without manually generated geometry inputs. Three
 actual source-pinned IFC-to-HK-LPD scenario workflows and25related tests pass.

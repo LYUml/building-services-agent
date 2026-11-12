@@ -6,6 +6,7 @@ from . import module_contract
 from .cli import digest
 from .modules import ROOT,method_paths
 from .providers import get_provider
+from .workspace import allowed
 
 RULE_PROVIDERS={'module_electrical_rules':'bsa.electrical-path-rules','module_water_rules':'bsa.hvac-water-rules'}
 DIRECT_PROVIDERS={'air_allocation':'bsa.classified-air-allocation'}
@@ -154,7 +155,7 @@ def verify_selection(tasks,run,selection,root=None,report_tasks=None):
 
 def inputs(request_path,provider_id,*,inherited=False):
     request_path=Path(request_path).resolve()
-    if not request_path.is_relative_to(ROOT):raise ValueError('Module requests must remain in repository')
+    if not allowed(request_path):raise ValueError('Module requests require repository or explicit host-selected workspace')
     request=module_contract.validate(module_contract.read_json(request_path),'bsa.module-request/1')
     provider=get_provider(provider_id)
     if inherited:
@@ -165,6 +166,6 @@ def inputs(request_path,provider_id,*,inherited=False):
     for row in request['sources'].values():
         if Path(row['path']).is_absolute():raise ValueError('Relative module sources required')
         path=(request_path.parent/row['path']).resolve()
-        if not path.is_relative_to(ROOT) or not path.is_file() or digest(path)!=row['sha256']:raise ValueError('Module source missing or changed')
+        if not allowed(path) or not path.is_file() or digest(path)!=row['sha256']:raise ValueError('Module source missing,changed or outside selected workspace')
         paths.add(path)
     return paths
