@@ -1,5 +1,11 @@
 # Building Services Agent
 
+Saved IFC space bodies now feed source-replayed MOOSAS recognition without
+manually duplicating room geometry. An actual synthetic concave/box IFC trial
+and19distinct related tests pass. Curves,holes/slopes and unsupported bodies
+reject;thermal/MEP and complete engineering acceptance remain unfinished.
+See docs/IFC_SPACE_SURFACES.md.
+
 Pinned MOOSAS surface recognition now has a common polygon-space provider.
 Three actual nonrectangular/rotated/detail fixtures and23related tests pass;
 source IDs,height/elevation and geometry checks survive the boundary. Automatic recognition-to-HK-LPD workflow now executes in five scoped scenarios;

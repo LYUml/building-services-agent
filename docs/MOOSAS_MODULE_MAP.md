@@ -1,5 +1,12 @@
 # MOOSAS priority reuse map
 
+A saved IFC space intake now derives polygonal surface/expectation inputs from
+native bodies and binds the original IFC through common MOOSAS recognition.
+Actual concave/box three-space source,IFC4 validation,complete GUID coverage and
+19distinct related tests pass. Unsupported holes,curves/slopes and missing bodies
+reject. See IFC_SPACE_SURFACES.md and evidence/ifc-space-surface-recognition.json.
+Geometry exchange remains distinct from thermal/MEP readiness and full acceptance.
+
 The common polygon-space provider now runs through existing module_exchange
 orchestration and feeds recognized area into the existing HK office LPD consumer.
 Five actual source-pinned scenario workflows verify pass/fail/pending states and

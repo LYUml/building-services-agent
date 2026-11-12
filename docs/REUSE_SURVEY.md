@@ -1,5 +1,12 @@
 # Reuse survey â€” 2026-11-09
 
+Native IFC recognition intake gap: inspect existing thermal_binding/box_geometry,
+cad_ifc/solid_clash and reuse IfcOpenShell0.8.5 world-SI meshes,Manifold3D3.5.4
+closed-solid validation,Shapely2.2.0 planar unions and NumPy2.5.4. A thin vertical-
+prism adapter emits source surfaces/expectations;the existing MOOSAS provider
+replays native source extraction. No new kernel or solver. Actual saved concave
+three-space trial and19distinct related tests pass;see IFC_SPACE_SURFACES.md.
+
 Recognition workflow/LPD gap: existing module_exchange dispatch already supports
 the registered recognizer. Reuse that runner and extend only the existing office
 LPD area consumer to validated polygon payloads;no new regulator or solver.

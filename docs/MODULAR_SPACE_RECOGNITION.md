@@ -24,7 +24,10 @@ The existing box-space exchange contract/providers remain separate.
 .venv/Scripts/python -X utf8 -m bsa.modules examples/moosas-transform/l-shaped-room.request.json --provider moosas.surface-room-recognition --upstream tools/moosas-review --deps tools/moosas-exchange-deps --out runs/new-common-recognition
 ```
 
-The exact request sources are `geometry` and `expectations`. The latter binds
+The request sources are `geometry` and `expectations`,optionally with `ifc_source`
+for the saved-native IFC intake described in IFC_SPACE_SURFACES.md. With that
+role,the provider replays native extraction and pins the original IFC;replacement
+expectations cannot override it. The expectations file binds
 the geometry SHA256,metre units,declared classification,source room IDs,planar
 single-ring boundaries,height,floor elevation and explicit length/area tolerances.
 These expectations require source interpretation;the provider does not infer or

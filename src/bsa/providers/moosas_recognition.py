@@ -16,7 +16,7 @@ ACCEPTANCE_SCOPE='Declared polygonal room boundary,height and elevation correspo
 
 
 def validate_request(request):
-    if request['capability']!=CAPABILITY or set(request['sources'])!={'geometry','expectations'}:
+    if request['capability']!=CAPABILITY or set(request['sources']) not in ({'geometry','expectations'},{'geometry','expectations','ifc_source'}):
         raise ValueError('Surface recognition requires exact geometry/expectations sources')
 
 
@@ -26,6 +26,10 @@ def projection(request,paths,report):
         raise ValueError('Exact metre source expectations bound to geometry required')
     for room in expected['expected']:
         if set(room)!={'id','boundary_vertices','height_m','floor_elevation_m'}:raise ValueError('Exact source room boundary,height and floor elevation required')
+    if 'ifc_source' in paths:
+        from ..ifc_space_surfaces import prepare
+        text,declaration,_=prepare(paths['ifc_source'],length_tolerance_m=expected['length_tolerance_m'],area_tolerance_m2=expected['area_tolerance_m2'])
+        if text.encode('utf-8')!=paths['geometry'].read_bytes() or declaration!=expected:raise ValueError('Recognition inputs differ from saved IFC source replay')
     if report['execution']!='completed' or not report['saved_reload_matches'] or report['point_grid_m']!=1e-9 or report['point_grid_restored'] is not True or report['simulation_executed'] is not False or report['upstream_commit']!=PIN:
         raise ValueError('Completed pinned geometry-only recognition/reload required')
     assessment=check(report['spaces'],expected['expected'],length_tolerance_m=expected['length_tolerance_m'],area_tolerance_m2=expected['area_tolerance_m2'])
@@ -40,7 +44,7 @@ def projection(request,paths,report):
 def execute(request,paths,runtime,out):
     pins={}
     def failed(status,code,message):return dict(status=status,diagnostics=[dict(code=code,message=message)],payload=None,pins=pins)
-    for p in (ROOT/'scripts/probe_moosas_transform.py',ROOT/'scripts/probe_moosas_ifc.py',ROOT/'src/bsa/spatial_recognition_check.py'):
+    for p in (ROOT/'scripts/probe_moosas_transform.py',ROOT/'scripts/probe_moosas_ifc.py',ROOT/'src/bsa/spatial_recognition_check.py',ROOT/'src/bsa/ifc_space_surfaces.py',ROOT/'src/bsa/solid_clash.py'):
         pins[str(p)]=digest(p)
     if not runtime.get('upstream') or not runtime.get('deps'):return failed('unavailable','runtime_missing','Explicit pinned upstream and isolated dependencies required')
     upstream,deps=(Path(runtime[k]).resolve() for k in ('upstream','deps'))
@@ -60,7 +64,8 @@ def execute(request,paths,runtime,out):
     try:
         if report['inputs'].get(str(paths['geometry']))!=digest(paths['geometry']):raise ValueError('Recognized geometry source identity differs')
         payload=projection(request,paths,report)
-    except (ValueError,OSError,KeyError,TypeError) as exc:return failed('failed','recognition_evidence_invalid',str(exc))
+    except ImportError as exc:return failed('unavailable','native_source_runtime_unavailable',str(exc))
+    except (ValueError,OSError,KeyError,TypeError,RuntimeError) as exc:return failed('failed','recognition_evidence_invalid',str(exc))
     return dict(status='completed',diagnostics=[],payload=payload,pins=pins)
 
 

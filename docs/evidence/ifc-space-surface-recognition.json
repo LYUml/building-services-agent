@@ -1,0 +1,40 @@
+{
+  "scope": "Saved synthetic native IFC4 spaces to automatically derived surface inputs and source-replayed common MOOSAS polygon result",
+  "provider": {
+    "id": "moosas.surface-room-recognition",
+    "version": "1",
+    "license": "Apache-2.0",
+    "upstream_commit": "dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c"
+  },
+  "ifc_schema_errors": 0,
+  "space_count": 3,
+  "floor_areas_m2": [
+    14.0,
+    24.0,
+    30.0
+  ],
+  "native_volume_m3": [
+    42.0,
+    72.0,
+    90.0
+  ],
+  "complete_native_guid_coverage": true,
+  "original_ifc_pinned_in_result": true,
+  "execution": {
+    "status": "completed",
+    "diagnostics": []
+  },
+  "acceptance": "pending",
+  "source_sha256": "90701113e10d3140c298cd3b357865076ce769bf5402db69b0b26f4bf08b2424",
+  "intake_sha256": "738d344eb54ad0d59eed1a3b82e3403edb841fc5243be6d5bce60b6573d1b7e2",
+  "result_sha256": "e1a9a1683e8236f3430a1a8eb91a6eec9631ad7d425ddafe0d28e97e9e77dc53",
+  "design_accepted": false,
+  "limitations": [
+    "Synthetic fixture;not surveyed building or coordinated MEP layout",
+    "Only linear-profile/faceted constant-height vertical IFC4 spaces;holes/curves/slopes reject",
+    "Geometry-only data;no thermal readiness or complete engineering acceptance",
+    "Recognition worker remains repository-local"
+  ],
+  "targeted_distinct_tests_passed": 19,
+  "runtime_unavailable_control": "Mocked native-source import failure produces unavailable with no successful payload;not evidence of a real policy change"
+}
