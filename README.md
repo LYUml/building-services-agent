@@ -1,5 +1,10 @@
 # Building Services Agent
 
+The agent now has an actual local stdio MCP server, using pinned official SDK
+and isolated engineering workers. Real client calls execute four public domains
+and retain manual review; workspace/overwrite/unfilled-input controls reject.
+Client UI integration and complete design remain pending. See docs/MCP_SERVER.md.
+
 Pump catalogue ranking now optionally includes the original downstream steady
 electrical checks via the same load projection as final IFC handoff. Actual
 electrical-fail/eligible/preferred-unknown controls execute; full product and

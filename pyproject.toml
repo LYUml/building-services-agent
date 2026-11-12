@@ -10,6 +10,7 @@ requires-python = ">=3.11"
 dependencies = ["ezdxf==1.4.5"]
 
 [project.optional-dependencies]
+mcp = ["mcp==1.30.0"]
 vendor-bim = ["olefile==0.47"]
 modules = ["jsonschema==4.26.0"]
 demand = ["scipy==1.18.1", "numpy==2.5.4"]
@@ -30,6 +31,7 @@ section = ["trimesh==5.2.0", "shapely==2.2.0", "ifcopenshell==0.8.5", "numpy==2.
 
 [project.scripts]
 bsa = "bsa.cli:main"
+bsa-mcp = "bsa.mcp_server:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

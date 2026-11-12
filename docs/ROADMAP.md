@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+Local stdio MCP now exposes eight existing intake/engineering/verification tools
+and skill resources through pinned official SDK1.30.0. A real client completes
+public source-to-four-domain execution with manual review pending;22related tests
+pass. Native work is isolated after an actual in-process SciPy import stall.
+Desktop client configuration, arbitrary brief design and full acceptance remain
+unverified. See MCP_SERVER.md.
+
 Optional original downstream electrical eligibility now precedes finite pump
 ranking. Actual synthetic electrical-fail, eligible and preferred-unknown cases
 retain source targets/hardware; screening and final electrical circuits match.

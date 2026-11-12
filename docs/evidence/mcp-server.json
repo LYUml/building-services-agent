@@ -1,0 +1,85 @@
+{
+  "scope": "Actual local stdio MCP client to existing engineering tools, source/engineering/worker controls; public authored synthetic case",
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/mcp_server.py": "19b062432ade6edc4e7d2cfe556f21ddd2281b27d68d0743a6196145fbaa3802",
+    "src/bsa/mcp_worker.py": "84691ca3df8cd6ce58dc4c1caabf5fe965585a23d5523bd5c34e86e5d9c9b580",
+    "pyproject.toml": "e57b8097ba8b4dea8e98b500598fbdd40771a0bc49178795ad8e2b086ca1d3a9"
+  },
+  "upstream": {
+    "name": "Official MCP Python SDK",
+    "version": "1.30.0",
+    "license": "MIT",
+    "release": "https://github.com/modelcontextprotocol/python-sdk/releases/tag/v1.30.0",
+    "license_sha256": "5e13dbbc1d120fc2a03cecde7c91424ae2d7de11b63d58ded2f4431e261ee50d"
+  },
+  "runtime": {
+    "mcp": "1.30.0",
+    "anyio": "4.16.0",
+    "pydantic": "2.14.3",
+    "httpx": "0.28.1",
+    "starlette": "1.10.0",
+    "uvicorn": "0.54.0"
+  },
+  "protocol": {
+    "version": "2025-11-25",
+    "tool_count": 8,
+    "tools": [
+      "bsa_project_start",
+      "bsa_read_source_plan",
+      "bsa_handoff_template",
+      "bsa_save_json",
+      "bsa_execute_handoff",
+      "bsa_verify_handoff",
+      "bsa_execute_workflow",
+      "bsa_diagnose_workflow"
+    ],
+    "successful_calls": 13,
+    "protocol_record_sha256": "9eade38a78f6acca89714ce8e174cd6dc881a3d960f817ffbe3a06cf9b46ee36",
+    "server_log_sha256": "5cb96a0d2bb62bff4463c9e19938e110e8bc7ed9763b65c22e1cee3ae8e3554a"
+  },
+  "engineering": {
+    "integrity_pass": true,
+    "requirements": 5,
+    "task_statuses": {
+      "electrical": "pass",
+      "air": "pass",
+      "water": "pass",
+      "envelopes": "pass",
+      "review": "pending"
+    },
+    "semantic_completeness": "not_established",
+    "design_accepted": false
+  },
+  "controls": {
+    "blank_interpretation_rejected": true,
+    "absolute_path_rejected": true,
+    "escape_overwrite_nonjson_rejected": true,
+    "uninterpreted_execution_pass": false,
+    "unknown_worker_operation_rejected": true
+  },
+  "tests": {
+    "passed": 22,
+    "skipped": 0,
+    "suites": [
+      "test_mcp_server",
+      "test_project_cli",
+      "test_project_start",
+      "test_engineering_handoff",
+      "test_workflow_cli"
+    ]
+  },
+  "native_isolation": {
+    "initial_in_process_stall": "SciPy native module import while async MCP server active",
+    "diagnostic_sha256": "52164a5c3e88306aea1e16eb59c58a8a5ce363774337a24797eebaed3e9e3686",
+    "fixed_worker_pipeline_executed": true,
+    "host_policy_changed": false
+  },
+  "limitations": [
+    "Generic stdio client verified; no named desktop client configuration changed/verified",
+    "Host-authored public synthetic interpretation, not arbitrary semantic planning",
+    "Source pages/graphics require actual host review",
+    "No new native DWG/RVT/plot or full HK/engineering acceptance",
+    "No new availability for blocked native energy/lighting components"
+  ]
+}

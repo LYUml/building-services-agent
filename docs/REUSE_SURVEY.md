@@ -1396,3 +1396,5 @@ rule or third-party dependency. Actual positive/all-electrical-fail/preferred-
 unknown coupled trials, final circuit correspondence and26tests are recorded in
 docs/evidence/pump-electrical-catalogue.json. Existing motor/protection/NPSH/full
 engineering limitations and upstream attribution remain.
+
+MCP host-access gap: reuse installed official MCP Python SDK1.30.0 (MIT), pin the optional extra and retain its license. Official v1 server/client documentation and release were inspected; v2 exists but is not assumed compatible. Existing IFC/OpenStudio MCP clients do not expose this agent orchestration. Add a thin eight-tool stdio server over existing intake/engineering/verification APIs, fixed host roots/runtimes and an isolated JSON worker after an observed in-process SciPy import stall. No protocol/solver rewrite, native-policy change or new LLM service. Actual client execution, controls and22tests: docs/evidence/mcp-server.json.

@@ -258,3 +258,5 @@ third_party/olefile/LICENSE.txt. Source: https://github.com/decalage2/olefile .
 No upstream implementation is modified or vendored. This reads CFB/PartAtom
 text only; it does not implement Revit geometry or connectors. Manufacturer
 BIM assets are copyrighted local-only sources, not open-source dependencies.
+
+MCP server integration reuses the official Model Context Protocol Python SDK `mcp==1.30.0` (MIT), unmodified. Upstream: https://github.com/modelcontextprotocol/python-sdk/releases/tag/v1.30.0 ; maintenance documentation: https://py.sdk.modelcontextprotocol.io/v1/ . The original installed distribution license is retained verbatim at third_party/licenses/mcp-1.30.0.txt. The repository adds only a stdio adapter and fixed JSON worker over existing engineering APIs. Actual protocol/native isolation evidence is in docs/evidence/mcp-server.json; no SDK/solver binary is redistributed.

@@ -5,6 +5,12 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For a local MCP-capable host, use the eight existing engineering tools exposed
+by bsa.mcp_server per docs/MCP_SERVER.md. Fix BSA_PROJECT_ROOT and native runtime
+paths at process startup; calls cannot choose executables or change roots. Read
+source issues, save fresh declarative JSON only, fill exact interpretation and
+verify actual results. Protocol success and listed tools do not imply acceptance.
+
 For a ready failed pump with several explicitly supplied sourced curves, use
 bsa.pump_catalogue_iteration per docs/PUMP_CATALOGUE_ITERATION.md. It compares on
 the unchanged hydraulic network/targets and replays the preferred passing curve
