@@ -5,6 +5,11 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+Inspect saved results with bsa_artifact_index and bsa_read_artifact per
+docs/MCP_ARTIFACTS.md. Bind reads to the returned workflow hash and exact recorded
+path; interpret actual calculations/model content and preserve pending reviews.
+Byte integrity does not establish native geometry or engineering acceptance.
+
 For MCP pump iteration, inspect actual recovery_schedule.ready_tasks and original
 task kinds, then use bsa_recover_pump_catalogue / bsa_verify_pump_recovery per
 bsa://recovery-guide / docs/MCP_PUMP_RECOVERY.md. Supply sourced candidates and,

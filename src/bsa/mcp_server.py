@@ -10,7 +10,7 @@ import subprocess
 import threading
 from typing import Any,Annotated
 
-from . import engineering_handoff,project_start,workflow,workflow_status,workspace,mcp_worker,source_page,visual_transcription,source_review,reference_library,pump_catalogue_iteration
+from . import engineering_handoff,project_start,workflow,workflow_status,workspace,mcp_worker,source_page,visual_transcription,source_review,reference_library,pump_catalogue_iteration,artifact_access
 from .cli import digest
 from .terminal_iteration import OPTIONS
 
@@ -143,6 +143,16 @@ def create_server(*,execute_options=None,pdftoppm=None):
     @server.resource('bsa://reference/{revision}/{reference_id}')
     def reference(revision:str,reference_id:str)->str:
         return json.dumps(invoke(reference_library.read,revision,reference_id),ensure_ascii=False)
+
+    @server.tool(annotations=read)
+    def bsa_artifact_index(plan:str,out:str)->dict[str,Any]:
+        """Audit source-bound workflow and list recorded artifacts. Pending engineering review remains pending."""
+        return invoke(artifact_access.index,local(plan),local(out))
+
+    @server.tool(annotations=read)
+    def bsa_read_artifact(plan:str,out:str,artifact:str,workflow_sha256:str)->dict[str,Any]:
+        """Read one recorded artifact, at most 2 MiB, bound to the inspected workflow hash. UTF-8 or base64; never design approval."""
+        return invoke(artifact_access.read,local(plan),local(out),artifact,workflow_sha256)
 
     @server.resource('bsa://guide')
     def guide()->str:

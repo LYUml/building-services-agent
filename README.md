@@ -1,5 +1,9 @@
 # Building Services Agent
 
+MCP artifact inspection now reuses source-bound delivery auditing before listing
+and reading recorded calculation/model bytes. Each read binds the workflow and
+artifact hashes; pending design review remains. See docs/MCP_ARTIFACTS.md.
+
 AI clients can now invoke existing pump candidate recovery and its verifier
 through MCP. Actual diagnosed failure → hydraulic/electrical screening → eight-
 task replay passes; all-ineligible input stops and original evidence survives.

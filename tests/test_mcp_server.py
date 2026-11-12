@@ -41,7 +41,7 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                     async with ClientSession(read,write) as session:
                         initialized=(await session.initialize()).model_dump(mode='json')
                         tools=(await session.list_tools()).tools
-                        self.assertEqual(len(tools),14)
+                        self.assertEqual(len(tools),16)
                         for tool in tools:
                             self.assertFalse({'autocad','command','project_root'} & set(tool.inputSchema.get('properties',{})))
                         async def call(name,args):
@@ -119,6 +119,22 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                         self.assertEqual(checked['task_statuses'],dict(electrical='pass',air='pass',water='pass',envelopes='pass',review='pending'))
                         diagnosis=await call('bsa_diagnose_workflow',dict(plan='project/engineering-plan.json',out='engineering-run/workflow'))
                         self.assertFalse(diagnosis['execution_pass'])
+                        inventory=await call('bsa_artifact_index',dict(plan='project/engineering-plan.json',out='engineering-run/workflow'))
+                        self.assertFalse(inventory['design_accepted'])
+                        for suffix in ['.json','.ifc']:
+                            row=next(r for r in inventory['artifacts'] if r['suffix']==suffix)
+                            args=dict(plan='project/engineering-plan.json',out='engineering-run/workflow',artifact=row['path'],workflow_sha256=inventory['workflow_sha256'])
+                            saved=await call('bsa_read_artifact',args)
+                            raw=saved['content'].encode('utf-8') if saved['encoding']=='utf-8' else base64.b64decode(saved['content'])
+                            self.assertEqual(hashlib.sha256(raw).hexdigest(),row['sha256'])
+                            self.assertEqual(raw,(root/'engineering-run/workflow'/row['path']).read_bytes())
+                        for changed in [dict(artifact='../brief.md'),dict(artifact='diagnosis.json'),dict(workflow_sha256='0'*64)]:
+                            self.assertTrue((await session.call_tool('bsa_read_artifact',{**args,**changed})).isError)
+                        artifact=root/'engineering-run/workflow'/args['artifact'];original_bytes=artifact.read_bytes()
+                        artifact.write_bytes(original_bytes+b'changed')
+                        try:self.assertTrue((await session.call_tool('bsa_read_artifact',args)).isError)
+                        finally:artifact.write_bytes(original_bytes)
+
                         blocked=await call('bsa_execute_workflow',dict(plan='project/plan.json',out='uninterpreted-run'))
                         self.assertFalse(blocked['execution_pass']);self.assertFalse(blocked['design_accepted'])
                         resources=await session.list_resources()

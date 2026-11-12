@@ -1,5 +1,9 @@
 # Scope and acceptance
 
+MCP artifact inspection now reuses source-bound delivery auditing before listing
+and reading recorded calculation/model bytes. Each read binds the workflow and
+artifact hashes; pending design review remains. See docs/MCP_ARTIFACTS.md.
+
 Existing pump catalogue recovery/verification now run through MCP with fixed
 host runtimes. Actual client retrieves eleven reference assets, consumes ready
 diagnosis, screens original hydraulic/electrical constraints and reruns eight

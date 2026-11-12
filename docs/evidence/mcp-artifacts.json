@@ -1,0 +1,26 @@
+{
+  "command": ".venv/Scripts/python -X utf8 -m unittest tests.test_mcp_server",
+  "tests": 3,
+  "skips": 0,
+  "result": "pass",
+  "elapsed_seconds": 60.794,
+  "executed_checks": [
+    "actual stdio initialization and sixteen-tool discovery",
+    "source-reviewed four-domain engineering execution with manual review pending",
+    "JSON and IFC artifact bytes match returned SHA256 and saved bytes",
+    "unrecorded file, traversal, wrong workflow hash and changed artifact rejected",
+    "existing pump recovery positive and no-feasible controls",
+    "unknown worker operation rejected"
+  ],
+  "design_accepted": false,
+  "limitations": [
+    "binary base64 and oversized-file branches not exercised by this protocol trial",
+    "no named desktop UI configuration or native model acceptance established"
+  ],
+  "methods": {
+    "src/bsa/artifact_access.py": "4199f111601d51e954de423a6310dcbdd0532fc1e3fba2977241b1e61368f6b8",
+    "src/bsa/mcp_server.py": "78e5a5f8542b13062684813b9d208d0bc0a1af6cc11f72742affe73bc6687436",
+    "src/bsa/mcp_worker.py": "150b3229170d2a5ceb52363ed0b301fe6d9f9957942ad6c7b45f07148700ca2d",
+    "tests/test_mcp_server.py": "539b8f6e1a893dd0a1bf4b193e00c2514e702567d9712f42176c5a79fa7349bf"
+  }
+}

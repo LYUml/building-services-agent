@@ -1,0 +1,44 @@
+"""Read recorded workflow artifacts after existing source-bound delivery audit."""
+import base64
+import hashlib
+from pathlib import Path
+from . import delivery,workspace
+from .cli import digest
+
+LIMIT=2*1024*1024
+
+
+def audited(plan,out):
+    plan,out=Path(plan).resolve(),Path(out).resolve()
+    root=(workspace.project_root() or workspace.ROOT/'runs').resolve()
+    if not plan.is_relative_to(root) or not out.is_relative_to(root):
+        raise ValueError('Plan and workflow must belong to selected project')
+    before=digest(out/'workflow.json')
+    source,report,integrity=delivery.context(plan,out)
+    if not integrity['integrity_pass']:raise ValueError('Stale workflow evidence; rerun or repair first')
+    if digest(out/'workflow.json')!=before:raise ValueError('Workflow changed during audit')
+    return out,source,report,before
+
+
+def index(plan,out):
+    folder,source,report,receipt=audited(plan,out)
+    rows=[]
+    for name,sha in sorted(report['artifact_hashes'].items()):
+        path=delivery.relative_file(folder,name)
+        rows.append(dict(path=name,sha256=sha,size=path.stat().st_size,suffix=path.suffix.lower(),readable=path.stat().st_size<=LIMIT))
+    return dict(workflow_sha256=receipt,artifacts=rows,tasks=report['tasks'],requirement_count=len(source['requirements']),unresolved_inputs=source.get('unresolved_inputs',[]),design_accepted=False)
+
+
+def read(plan,out,artifact,workflow_sha256):
+    folder,_,report,receipt=audited(plan,out)
+    if receipt!=workflow_sha256:raise ValueError('Workflow differs from inspected index')
+    if artifact not in report['artifact_hashes']:raise ValueError('Only recorded workflow artifacts may be read')
+    path=delivery.relative_file(folder,artifact)
+    with path.open('rb') as stream:data=stream.read(LIMIT+1)
+    if len(data)>LIMIT:raise ValueError('Artifact exceeds bounded read limit')
+    sha=hashlib.sha256(data).hexdigest()
+    if sha!=report['artifact_hashes'][artifact] or digest(folder/'workflow.json')!=receipt:
+        raise ValueError('Artifact or workflow changed during reading')
+    try:content=data.decode('utf-8');encoding='utf-8'
+    except UnicodeDecodeError:content=base64.b64encode(data).decode('ascii');encoding='base64'
+    return dict(path=artifact,sha256=sha,size=len(data),workflow_sha256=receipt,encoding=encoding,content=content,design_accepted=False)
