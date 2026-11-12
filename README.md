@@ -1,5 +1,10 @@
 # Building Services Agent
 
+MCP clients can now discover and read committed schemas/docs/examples by immutable
+Git reference, then prepare inputs without local template-file access. Actual
+five-input/four-domain execution passes scoped checks; reference values remain
+separate from project facts. See docs/REFERENCE_LIBRARY.md.
+
 Explicit host visual transcription now connects actual page images to a source-
 reviewed manual requirements scaffold and engineering template through MCP.
 Real protocol/common-inventory trials preserve quotes/gaps and reject fabricated

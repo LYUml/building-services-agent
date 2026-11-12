@@ -10,7 +10,7 @@ import subprocess
 import threading
 from typing import Any,Annotated
 
-from . import engineering_handoff,project_start,workflow,workflow_status,workspace,mcp_worker,source_page,visual_transcription,source_review
+from . import engineering_handoff,project_start,workflow,workflow_status,workspace,mcp_worker,source_page,visual_transcription,source_review,reference_library
 from .cli import digest
 from .terminal_iteration import OPTIONS
 
@@ -125,6 +125,15 @@ def create_server(*,execute_options=None,pdftoppm=None):
         """Apply explicit source-inspection notes to every nonblocking extraction issue on a fresh manual scaffold. Preserve requirements/gaps and original ancestry; engineering interpretation stays pending."""
         return invoke(source_review.run,local(plan),notes,local(out))
 
+    @server.tool(annotations=read)
+    def bsa_reference_catalogue(kind:str='all',query:str='',offset:Annotated[int,Field(strict=True,ge=0)]=0,limit:Annotated[int,Field(strict=True,ge=1,le=50)]=20)->dict[str,Any]:
+        """List paginated committed docs/contracts/examples/regulation JSON references. Synthetic examples are not project facts or verified capabilities. Read returned immutable resource URIs."""
+        return invoke(reference_library.catalogue,kind,query,offset,limit)
+
+    @server.resource('bsa://reference/{revision}/{reference_id}')
+    def reference(revision:str,reference_id:str)->str:
+        return json.dumps(invoke(reference_library.read,revision,reference_id),ensure_ascii=False)
+
     @server.resource('bsa://guide')
     def guide()->str:
         return '\n\n'.join((workspace.ROOT/'docs'/name).read_text(encoding='utf-8') for name in ['PROJECT_CLI.md','ENGINEERING_HANDOFF.md'])
@@ -136,6 +145,10 @@ def create_server(*,execute_options=None,pdftoppm=None):
     @server.resource('bsa://source-guide')
     def source_guide()->str:
         return '\n\n'.join((workspace.ROOT/'docs'/name).read_text(encoding='utf-8') for name in ['MCP_SOURCE_PAGE.md','VISUAL_TRANSCRIPTION.md'])
+
+    @server.resource('bsa://reference-guide')
+    def reference_guide()->str:
+        return (workspace.ROOT/'docs/REFERENCE_LIBRARY.md').read_text(encoding='utf-8')
 
     @server.resource('bsa://skills/{name}')
     def skill(name:str)->str:

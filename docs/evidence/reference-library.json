@@ -1,0 +1,129 @@
+{
+  "scope": "Read-only committed references to actual MCP-prepared four-domain input execution; authored synthetic interpretation, not arbitrary design",
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/reference_library.py": "dcd75c316724f132b97db82f7f7b408339d7074aa89106769a64909a5f2f30e3",
+    "src/bsa/mcp_server.py": "7589d04ec27bc9eda3483f7f3e07ba070e6b094ae2af46e61df928bab2cfb6dd",
+    "src/bsa/mcp_worker.py": "b5a74231c7a2ebd301ee113b474cbeaa1c57fc3d1b4d5c447bef4161e7e09196"
+  },
+  "git_runtime": {
+    "version": "git version 2.56.0.windows.4",
+    "sha256": "20d0dde30a65afb6e5810a883700a94dcd77fbf3b44b32868d45bf7c9b30137c",
+    "redistributed": false
+  },
+  "protocol": {
+    "tools": 12,
+    "reference_inputs": 5,
+    "reference_hashes_verified": true,
+    "reference_guide_read": true,
+    "protocol_sha256": "01fb41174c40318515264e6e0e62b9f413c78d4937d5acba0773a56b8fc9988e",
+    "server_log_sha256": "d6a60f2e667fbe20c290da99a867d1786d918dd247a6da347d21b47e84f64008"
+  },
+  "references": [
+    {
+      "id": "198a3e942fb651911b129cf3",
+      "path": "examples/office-electrical/project.json",
+      "kind": "example",
+      "git_blob": "296889837fec429bbd1f6e880e6bf3aca70d1ad9",
+      "bytes": 1063,
+      "readable": true,
+      "uri": "bsa://reference/ff1146130b34369c6278d89430d82c76e7c7aad4/198a3e942fb651911b129cf3",
+      "revision": "ff1146130b34369c6278d89430d82c76e7c7aad4",
+      "sha256": "34e1fba15d2ec9dacbdf256cf996d2de772873d720374f1ac55fd6b64ac4f34a",
+      "classification": "Reusable committed reference; synthetic/assumed example values are not actual project facts",
+      "immutable_reference": "git:ff1146130b34369c6278d89430d82c76e7c7aad4:examples/office-electrical/project.json",
+      "design_accepted": false
+    },
+    {
+      "id": "4152254fd24022fdbbe41c2a",
+      "path": "examples/network-design/project.json",
+      "kind": "example",
+      "git_blob": "d17960409a58bdc7d45eb63996dfda9479be8ced",
+      "bytes": 1889,
+      "readable": true,
+      "uri": "bsa://reference/ff1146130b34369c6278d89430d82c76e7c7aad4/4152254fd24022fdbbe41c2a",
+      "revision": "ff1146130b34369c6278d89430d82c76e7c7aad4",
+      "sha256": "528f9d97e34282b8f205dbf4d9ec60e78cdac4057eb0e1df9445192ed39b00d0",
+      "classification": "Reusable committed reference; synthetic/assumed example values are not actual project facts",
+      "immutable_reference": "git:ff1146130b34369c6278d89430d82c76e7c7aad4:examples/network-design/project.json",
+      "design_accepted": false
+    },
+    {
+      "id": "65d1c6ed8d7835c15c2d7866",
+      "path": "examples/network-design/catalogue.json",
+      "kind": "example",
+      "git_blob": "44c6bf13d83a983050a61f2594e18be80be47de8",
+      "bytes": 1867,
+      "readable": true,
+      "uri": "bsa://reference/ff1146130b34369c6278d89430d82c76e7c7aad4/65d1c6ed8d7835c15c2d7866",
+      "revision": "ff1146130b34369c6278d89430d82c76e7c7aad4",
+      "sha256": "2a10138cdfa93e61408e1a2a55a48c60c6854602b45edee444b97191102697fb",
+      "classification": "Reusable committed reference; synthetic/assumed example values are not actual project facts",
+      "immutable_reference": "git:ff1146130b34369c6278d89430d82c76e7c7aad4:examples/network-design/catalogue.json",
+      "design_accepted": false
+    },
+    {
+      "id": "3d9c5540ddb9de5ffc34852a",
+      "path": "examples/network/water.json",
+      "kind": "example",
+      "git_blob": "5185121cb7ac03bf0a4e7d8b709e00a40336fd47",
+      "bytes": 1055,
+      "readable": true,
+      "uri": "bsa://reference/ff1146130b34369c6278d89430d82c76e7c7aad4/3d9c5540ddb9de5ffc34852a",
+      "revision": "ff1146130b34369c6278d89430d82c76e7c7aad4",
+      "sha256": "2581091ffb39f671a4dccfcf3c3bd76bede752ee16a290e5276d14fe55119f13",
+      "classification": "Reusable committed reference; synthetic/assumed example values are not actual project facts",
+      "immutable_reference": "git:ff1146130b34369c6278d89430d82c76e7c7aad4:examples/network/water.json",
+      "design_accepted": false
+    },
+    {
+      "id": "3e1b386dae4083f8befbbee4",
+      "path": "examples/mep-ifc/project.json",
+      "kind": "example",
+      "git_blob": "d992b27369e66cf5c2fce124469f37823e127a9b",
+      "bytes": 1823,
+      "readable": true,
+      "uri": "bsa://reference/ff1146130b34369c6278d89430d82c76e7c7aad4/3e1b386dae4083f8befbbee4",
+      "revision": "ff1146130b34369c6278d89430d82c76e7c7aad4",
+      "sha256": "ab316bbadcd3844014d6cb937e32f83e0b6c4952b0854701ed25db6779271924",
+      "classification": "Reusable committed reference; synthetic/assumed example values are not actual project facts",
+      "immutable_reference": "git:ff1146130b34369c6278d89430d82c76e7c7aad4:examples/mep-ifc/project.json",
+      "design_accepted": false
+    }
+  ],
+  "engineering": {
+    "integrity_pass": true,
+    "requirements": 5,
+    "task_statuses": {
+      "electrical": "pass",
+      "air": "pass",
+      "water": "pass",
+      "envelopes": "pass",
+      "review": "pending"
+    },
+    "manual_review_pending": true
+  },
+  "tests": {
+    "passed": 6,
+    "skipped": 0,
+    "suites": [
+      "test_reference_library",
+      "test_mcp_server"
+    ]
+  },
+  "controls": [
+    "Committed bytes ignore uncommitted modifications",
+    "Untracked/program/evidence entries excluded",
+    "Old revision stable after HEAD changes",
+    "Filters and bounded pagination",
+    "Unknown path-like/option-like identifiers reject",
+    "Oversized blob listed but unreadable",
+    "Inherited repository override environment cannot change fixed library checkout"
+  ],
+  "limitations": [
+    "References are not actual project facts or execution readiness",
+    "Authored synthetic source interpretation still required",
+    "Original brief still staged in host-selected project",
+    "No specific desktop client UI integration or complete native/regulatory/engineering acceptance"
+  ]
+}

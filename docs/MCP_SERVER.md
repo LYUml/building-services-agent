@@ -1,6 +1,6 @@
 # Building Services Agent stdio MCP server
 
-The current server has eleven tools, including actual source-page PNG delivery
+The current server has twelve tools, including a [committed reference library](REFERENCE_LIBRARY.md), actual source-page PNG delivery
 and [explicit visual transcription/source review](VISUAL_TRANSCRIPTION.md);
 see also [PDF page viewing](MCP_SOURCE_PAGE.md). The initial eight-tool trial below
 remains historical evidence; preserve its method hashes rather than updating them.
@@ -64,6 +64,7 @@ those paths. Existing source, runtime and application-control failures remain.
 | bsa_render_source_page | Return actual PDF page image and source/page metadata; preserve extraction/engineering review |
 | bsa_prepare_visual_transcription | Bind literal host text to every actual page receipt; create an unreviewed manual scaffold |
 | bsa_review_source_plan | Apply explicit inspection notes to a fresh unchanged scaffold; preserve all requirements/gaps |
+| bsa_reference_catalogue | Discover committed reference assets with immutable resource URIs; examples remain separate from project facts |
 
 Resources `bsa://guide`, `bsa://skills` and `bsa://skills/{name}` expose the existing
 workflow guide and repository skill instructions. Source text is project data,

@@ -5,6 +5,11 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For a filesystem-independent MCP client, use bsa_reference_catalogue and its
+returned immutable resource URIs per bsa://reference-guide / docs/REFERENCE_LIBRARY.md.
+Retain commit/path/SHA citations. Read adapter scope and validate new project
+inputs; synthetic reference values are never measured facts or code applicability.
+
 For a local MCP-capable host, use the existing engineering tools exposed
 by bsa.mcp_server per docs/MCP_SERVER.md. Fix BSA_PROJECT_ROOT and native runtime
 paths at process startup; calls cannot choose executables or change roots. Read

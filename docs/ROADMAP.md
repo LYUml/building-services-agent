@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+The twelfth MCP tool now discovers committed reference assets and returns exact
+commit/blob/SHA-bound resources. Actual client retrieves five JSON inputs through
+MCP and executes four domains with manual review pending. Six targeted tests
+cover source isolation/revision/bounds. References are not verified capabilities
+or project facts; full semantic design remains unfinished. See REFERENCE_LIBRARY.md.
+
 Two new MCP tools connect source page images, explicit confidence-free host
 transcription and source-inspection notes to unchanged requirement/gap scaffolds.
 Actual eleven-tool protocol and common requirements replay pass;34related tests

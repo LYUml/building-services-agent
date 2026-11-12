@@ -7,7 +7,6 @@ import importlib.util
 import json
 import os
 from pathlib import Path
-import runpy
 import shutil
 import sys
 import subprocess
@@ -33,7 +32,7 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
         with directory as folder:
             root=Path(folder);shutil.copyfile(ROOT/'examples/engineering-handoff/brief.md',root/'brief.md')
             shutil.copyfile(ROOT/'docs/evidence/document-intake/source.pdf',root/'source.pdf')
-            records=[];rejections=[]
+            records=[];rejections=[];references=[]
             renderer=shutil.which('pdftoppm');preview=None;transcription=None
             params=StdioServerParameters(command=sys.executable,args=['-X','utf8','-m','bsa.mcp_server',*(['--pdftoppm',renderer] if renderer else [])],cwd=str(ROOT),env={**os.environ,'BSA_PROJECT_ROOT':str(root),'PYTHONUTF8':'1'})
             with (root/'server.log').open('w',encoding='utf-8') as errors:
@@ -41,7 +40,7 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                     async with ClientSession(read,write) as session:
                         initialized=(await session.initialize()).model_dump(mode='json')
                         tools=(await session.list_tools()).tools
-                        self.assertEqual(len(tools),11)
+                        self.assertEqual(len(tools),12)
                         for tool in tools:
                             self.assertFalse({'autocad','command','project_root'} & set(tool.inputSchema.get('properties',{})))
                         async def call(name,args):
@@ -90,13 +89,23 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                         await call('bsa_handoff_template',dict(plan='project/plan.json',out='project/template.json'))
                         blank=await session.call_tool('bsa_execute_handoff',dict(plan='project/plan.json',interpretation='project/template.json',target='project/blank-plan.json',out='blank-run'))
                         self.assertTrue(blank.isError);self.assertFalse((root/'blank-run').exists())
-                        demo=runpy.run_path(str(ROOT/'scripts/run_engineering_handoff_demo.py'))
-                        for target,name in demo['INPUTS'].items():
-                            await call('bsa_save_json',dict(path='project/'+target,data=json.loads((ROOT/name).read_text())))
-                        plan=source['plan'];tasks=demo['TASKS']
+                        input_references={'electrical.json':'examples/office-electrical/project.json','air.json':'examples/network-design/project.json',
+                            'air-catalogue.json':'examples/network-design/catalogue.json','water.json':'examples/network/water.json','envelopes.json':'examples/mep-ifc/project.json'}
+                        for target,name in input_references.items():
+                            index=await call('bsa_reference_catalogue',dict(kind='example',query=name))
+                            row=next(row for row in index['references'] if row['path']==name)
+                            resource=await session.read_resource(row['uri']);data=json.loads(resource.contents[0].text)
+                            self.assertEqual(hashlib.sha256(data['content_utf8'].encode('utf-8')).hexdigest(),data['sha256'])
+                            self.assertEqual(data['revision'],index['revision']);self.assertFalse(data['design_accepted'])
+                            references.append({k:v for k,v in data.items() if k!='content_utf8'})
+                            await call('bsa_save_json',dict(path='project/'+target,data=json.loads(data['content_utf8'])))
+                        plan=source['plan']
+                        tasks=[dict(id='electrical',kind='electrical',project='electrical.json'),dict(id='air',kind='network_design',project='air.json',catalogue='air-catalogue.json'),
+                            dict(id='water',kind='network',project='water.json'),dict(id='envelopes',kind='bim',project='envelopes.json'),
+                            dict(id='review',kind='manual',requires_pass=['electrical','air','water','envelopes'],description='Review complete original source obligations, physical applicability, products, native drawing and regulatory gaps.')]
                         review=dict(schema='bsa.engineering-handoff/1',source_plan_sha256=source['plan_sha256'],tasks=tasks,
                             requirement_bindings={r['id']:dict(tasks=[t['id']],acceptance=r['quote']) for r,t in zip(plan['requirements'],tasks)},
-                            interpretation_notes={i['id']:'Authored public synthetic interpretation; full source quote mapped to the existing adapter with declared synthetic data; not semantic generalisation.' for i in plan['unresolved_inputs']},extra_unresolved_inputs=[])
+                            interpretation_notes={i['id']:'Authored public synthetic interpretation; full source quote mapped to existing adapter and declared synthetic references '+json.dumps(references)+'; not semantic generalisation.' for i in plan['unresolved_inputs']},extra_unresolved_inputs=[])
                         await call('bsa_save_json',dict(path='project/interpretation.json',data=review))
                         for path in ['../outside.json','project/interpretation.json','project/program.py']:
                             result=await session.call_tool('bsa_save_json',dict(path=path,data={}))
@@ -115,6 +124,8 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                         self.assertIn('bsa://guide',[str(r.uri) for r in resources.resources])
                         source_guide=await session.read_resource('bsa://source-guide')
                         self.assertIn('bsa.visual-transcription/1',source_guide.contents[0].text)
+                        reference_guide=await session.read_resource('bsa://reference-guide')
+                        self.assertIn('bsa_reference_catalogue',reference_guide.contents[0].text)
                         skill=await session.read_resource('bsa://skills/building-services-design')
                         self.assertIn('building-services-design',skill.contents[0].text)
                         outside=await session.call_tool('bsa_read_source_plan',dict(plan=str(root/'project/plan.json')))
@@ -122,7 +133,7 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
             (root/'protocol.json').write_text(json.dumps(dict(sdk_version=importlib.metadata.version('mcp'),initialize=initialized,
                 tools=[tool.model_dump(mode='json') for tool in tools],calls=records,rejected_paths=rejections,
                 blank_interpretation_rejected=blank.isError,absolute_path_rejected=outside.isError,
-                page_preview=preview,visual_transcription=transcription,engineering_verification=checked,uninterpreted_execution_pass=blocked['execution_pass'],design_accepted=False),indent=2),encoding='utf-8')
+                page_preview=preview,visual_transcription=transcription,references=references,engineering_verification=checked,uninterpreted_execution_pass=blocked['execution_pass'],design_accepted=False),indent=2),encoding='utf-8')
 
 
 class MCPWorkerTests(unittest.TestCase):
