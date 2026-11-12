@@ -12,9 +12,11 @@ SCHEMAS={'bsa.module-request/1':'request-v1.json','bsa.module-result/1':'result-
 SCHEMAS['bsa.requirements-inventory/1']='requirements-inventory-v1.json'
 SCHEMAS[RULE_SCHEMA]='rule-assessment-v1.json'
 SCHEMAS['bsa.electrical-circuits/1']='electrical-circuits-v1.json'
+SCHEMAS['bsa.air-allocation/1']='air-allocation-v1.json'
 
 
 def artifact_references(schema,data):
+    if schema=='bsa.air-allocation/1':return ('report',)
     if schema=='bsa.electrical-circuits/1':return ('report','schematic_dxf')
     if schema=='bsa.model-artifact/1':return ('model','verification')
     if schema=='bsa.air-budget/1':return ('report',)
@@ -60,6 +62,14 @@ def validate(data,schema=None):
     spec=read_json(ROOT/'contracts/modules'/SCHEMAS[schema]);jsonschema.Draft202012Validator.check_schema(spec)
     errors=list(jsonschema.Draft202012Validator(spec).iter_errors(data))
     if errors:raise ValueError('Contract violation: '+errors[0].message)
+    if schema=='bsa.air-allocation/1':
+        frame_spec=read_json(ROOT/'contracts/modules/request-v1.json')['properties']['coordinate_frame']
+        if list(jsonschema.Draft202012Validator(frame_spec).iter_errors(data['coordinate_frame'])):raise ValueError('Invalid allocation coordinate frame')
+        ids=[r['id'] for r in data['terminals']]
+        if len(ids)!=len(set(ids)):raise ValueError('Duplicate allocation terminal ID')
+        if not math.isclose(math.fsum(r['maximum_flow_L_s'] for r in data['terminals']),data['supply_flow_L_s'],rel_tol=1e-10):raise ValueError('Allocation flow conservation differs')
+        if any(not math.isclose(r['minimum_flow_L_s'],r['maximum_flow_L_s']*data['turndown'],rel_tol=1e-10) for r in data['terminals']):raise ValueError('Allocation turndown differs')
+        if data['sensible_trial_kW_thermal']>data['total_cooling_kW_thermal']:raise ValueError('Sensible thermal load exceeds total')
     if schema=='bsa.requirements-inventory/1':
         frame_spec=read_json(ROOT/'contracts/modules/request-v1.json')['properties']['coordinate_frame']
         if list(jsonschema.Draft202012Validator(frame_spec).iter_errors(data['coordinate_frame'])):raise ValueError('Invalid requirements coordinate frame')
@@ -104,7 +114,7 @@ def validate(data,schema=None):
         if list(jsonschema.Draft202012Validator(request_schema['properties']['coordinate_frame']).iter_errors(frame)):raise ValueError('Invalid common coordinate frame')
     if schema in ('bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
         if (data['status']=='pass')!=all(data['checks'].values()):raise ValueError('Analysis status differs from numerical checks')
-    if schema in ('bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
+    if schema in ('bsa.air-allocation/1','bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
         for key in artifact_references(schema,data):
             name=data[key]['path']
             if '\\' in name or PurePosixPath(name).is_absolute() or '..' in PurePosixPath(name).parts or ':' in name:raise ValueError('Model artifact references must be local relative paths')
@@ -131,7 +141,7 @@ def validate(data,schema=None):
                 for key in artifact_references(data['payload_schema'],data['payload']):
                     row=data['payload'][key]
                     if data['artifacts'].get(row['path'])!=row['sha256']:raise ValueError('Electrical artifact differs from module inventory')
-            if data['payload_schema'] in ('bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
+            if data['payload_schema'] in ('bsa.air-allocation/1','bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
                 for key in artifact_references(data['payload_schema'],data['payload']):
                     row=data['payload'][key]
                     if data['artifacts'].get(row['path'])!=row['sha256']:raise ValueError('Model artifact payload differs from complete artifact inventory')

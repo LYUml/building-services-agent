@@ -1,0 +1,24 @@
+{
+  "scope": "Actual standalone common allocation module over existing private-project interpreted inputs",
+  "provider": {
+    "id": "bsa.classified-air-allocation",
+    "version": "1",
+    "license": "NOASSERTION"
+  },
+  "execution": {
+    "status": "completed",
+    "diagnostics": []
+  },
+  "terminal_count": 80,
+  "exact_legacy_allocation_correspondence": true,
+  "acceptance": "pending",
+  "result_sha256": "1f01ef5ad7eaa38029cf74e27031a6f57e4ae1f91bb251ac89b0bf8054b0fe07",
+  "targeted_tests_passed": 41,
+  "separate_water_rule_setup": "failed:application_control_block;not passed",
+  "design_accepted": false,
+  "limitations": [
+    "No workflow provider dispatch yet",
+    "No independent room load,ADPI or native geometry acceptance",
+    "Current planar nearest-centre allocation only"
+  ]
+}

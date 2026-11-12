@@ -1,5 +1,12 @@
 # Reuse survey â€” 2026-11-09
 
+Common airflow allocation gap: wrap existing air_allocation/air_load/service_areas
+and pinned Shapely2.2.0 behind the existing trusted module runner. No new engine
+or dependency. Preserve original classified-source result with source replay and
+a typed thermal-kW/L/s terminal projection. Actual80terminal result matches the
+legacy workflow exactly;41related tests pass. Workflow dispatch and full room/
+ADPI/native/engineering acceptance remain unfinished. See MODULAR_AIR_ALLOCATION.md.
+
 HVAC requirements replay gap: reuse requirements_binding.bind and the existing
 workflow requirements_result option through thin package/configuration arguments.
 No parser, solver or dependency added. Complete source/artifact pins and exact

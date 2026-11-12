@@ -1,0 +1,111 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "coordinate_frame",
+    "units",
+    "terminals",
+    "total_cooling_kW_thermal",
+    "sensible_trial_kW_thermal",
+    "supply_flow_L_s",
+    "turndown",
+    "report",
+    "geometry_bound",
+    "room_sensible_load_verified",
+    "design_accepted"
+  ],
+  "properties": {
+    "schema": {
+      "const": "bsa.air-allocation/1"
+    },
+    "coordinate_frame": {
+      "type": "object"
+    },
+    "units": {
+      "const": {
+        "power": "kW thermal",
+        "flow": "L/s",
+        "area": "m2",
+        "length": "m"
+      }
+    },
+    "total_cooling_kW_thermal": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "sensible_trial_kW_thermal": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "supply_flow_L_s": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "turndown": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 1
+    },
+    "terminals": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "maximum_flow_L_s",
+          "minimum_flow_L_s",
+          "allocated_load_area_m2"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "maximum_flow_L_s": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "minimum_flow_L_s": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "allocated_load_area_m2": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        }
+      }
+    },
+    "report": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "geometry_bound": {
+      "const": false
+    },
+    "room_sensible_load_verified": {
+      "const": false
+    },
+    "design_accepted": {
+      "const": false
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

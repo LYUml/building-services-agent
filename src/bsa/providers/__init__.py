@@ -2,6 +2,9 @@
 
 
 def get_provider(id):
+    if id=='bsa.classified-air-allocation':
+        from . import air_allocation
+        return air_allocation
     if id=='bsa.source-requirements':
         from . import requirements
         return requirements
