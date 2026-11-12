@@ -1,5 +1,11 @@
 # Building Services Agent
 
+Source-bound circular fan intersection now reuses the existing curve solver and
+fresh pressure rerun. Actual synthetic normal/weak curves converge, but the weak
+curve fails original minimum airflow and blocks DXF. Native source reconstruction
+rejects a rehashed forged network. Real fan hardware/electricity and full design
+remain pending. See docs/CIRCULAR_FAN.md.
+
 Material-checked local circular chains now support an explicit outer-cap pressure
 budget including both source walls. Saved cap geometry, genuine open boundaries,
 original body K and separately classified added losses feed the existing solver.

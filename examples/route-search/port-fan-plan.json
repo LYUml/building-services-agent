@@ -1,0 +1,139 @@
+{
+  "version": 1,
+  "brief": "port-fan-brief.md",
+  "brief_sha256": "d3cc813ba957e5ec880c3057b700b68217ebe7e3b722e7aa4fd9b3eaffddbd1c",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement",
+    "P004": "requirement",
+    "P005": "requirement",
+    "P006": "requirement",
+    "P007": "requirement",
+    "P008": "requirement",
+    "P009": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "source",
+      "kind": "bim",
+      "project": "port-source-model.json"
+    },
+    {
+      "id": "route",
+      "kind": "route_ports",
+      "depends_on": "source",
+      "basis": "port-routing-basis.json",
+      "routing": "port-routing-template.json",
+      "settings": "vertical-air-settings.json",
+      "network": "vertical-air-network.json"
+    },
+    {
+      "id": "join",
+      "kind": "route_join",
+      "depends_on": "route"
+    },
+    {
+      "id": "material",
+      "kind": "route_material",
+      "depends_on": "join",
+      "basis": "material-qa-policy.json"
+    },
+    {
+      "id": "pressure",
+      "kind": "route_pressure",
+      "depends_on": "material",
+      "basis": "extended-pressure-policy.json"
+    },
+    {
+      "id": "fan",
+      "kind": "circular_fan_operating_point",
+      "depends_on": "pressure",
+      "curve": "circular-fan-curve.json"
+    },
+    {
+      "id": "drawing",
+      "kind": "ifc_route_drawing",
+      "depends_on": "route",
+      "settings": "vertical-air-drawing-settings.json",
+      "requires_pass": [
+        "join",
+        "material",
+        "pressure",
+        "fan"
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "requires_pass": [
+        "source",
+        "route",
+        "drawing",
+        "join",
+        "material",
+        "pressure",
+        "fan"
+      ],
+      "description": "Review source completeness, physical joints and merged connectivity, full network pressure and installation, native plot and applicable Hong Kong rules before full engineering acceptance."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Author the two hollow source walls from port-source-model.json and verify the saved IFC.",
+      "task": "source",
+      "acceptance": "Scoped native/source/numerical execution; final engineering review remains pending"
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Read the selected open cap GUIDs in port-routing-basis.json from that exact saved IFC. Derive positions and travel tangents without copying endpoint coordinates. Search and optimise the declared port-routing-template.json using vertical-air-settings.json and vertical-air-network.json; preserve native cap/bore correspondence and pressure failures.",
+      "task": "route",
+      "acceptance": "Scoped native/source/numerical execution; final engineering review remains pending"
+    },
+    {
+      "id": "R3",
+      "passage": "P004",
+      "quote": "Generate an editable X/Z route drawing from the exact selected route IFC and canonical model.",
+      "task": "drawing",
+      "acceptance": "Scoped native/source/numerical execution; final engineering review remains pending"
+    },
+    {
+      "id": "R4",
+      "passage": "P005",
+      "quote": "Review source completeness, physical joints and merged connectivity, full network pressure and installation, native plot and applicable Hong Kong rules before full engineering acceptance.",
+      "task": "review",
+      "acceptance": "Scoped native/source/numerical execution; final engineering review remains pending"
+    },
+    {
+      "id": "R5",
+      "passage": "P006",
+      "quote": "Merge the exact passing source-guided route into the original saved IFC. Preserve every existing element identity, native shape, property, placement and port ownership; retain original links and verify new directed coincident-cap connections, a shared source system and one connected local chain after saving and reopening. Physical joints and full engineering acceptance remain pending.",
+      "task": "join",
+      "acceptance": "Saved same-file local logical chain and unchanged source geometry; physical joints and full acceptance remain pending"
+    },
+    {
+      "id": "R6",
+      "passage": "P007",
+      "quote": "Check the exact joined local circular walls with material-qa-policy.json. Retain source geometry and raw intersection values; check connected material union, independent source volume, two-boundary bore topology and finite central-core probes at every local interface. Failures must block drawing. Numerical geometry checks do not establish product joints, installation, full-bore CFD, whole-network pressure or Hong Kong compliance.",
+      "task": "material",
+      "acceptance": "Scoped ideal material/topology/probe checks only; physical products and full engineering acceptance remain pending"
+    },
+    {
+      "id": "R7",
+      "passage": "P008",
+      "quote": "Use extended-pressure-policy.json to extend the inherited prescribed-flow budget to the two outer open source-wall caps of the exact material-checked local chain. Derive every length, bore and cap elevation from saved/native source evidence, retain original per-body K and separately declared source-wall and additional interface losses. Apply unchanged numeric source/terminal pressure values at the explicitly changed stations and inherited roughness to all local walls. Retain a per-body pressure ledger, pressure failures and drawing gates; do not claim ambient-gauge fan duty or complete installation acceptance.",
+      "task": "pressure",
+      "acceptance": "Explicitly extended local pressure budget; full fan/product/installation/regulatory review remains pending"
+    },
+    {
+      "id": "R8",
+      "passage": "P009",
+      "quote": "Solve the supplied circular-fan-curve.json total-pressure curve against the exact extended material-checked circular path. Keep the original design airflow as a minimum requirement and the existing velocity/terminal-pressure targets. Retain inadequate or unbracketed results, rerun the solved operating network and gate drawing on the complete numerical checks. Curve/fluid/pressure-reference validity, actual fan equipment, native flow metadata and electrical input remain separate engineering obligations; these synthetic data are not product selection.",
+      "task": "fan",
+      "acceptance": "Source-bounded free-flow numerical operating point only; full engineering review pending"
+    }
+  ]
+}

@@ -1,9 +1,21 @@
 ---
 name: mep-network-analysis
-description: Calculate source-linked air/water networks, pump operating points and bounded fixture demand. Use for supported duct/pipe pressure and sizing, sourced pump curves, identical-appliance probability and wastewater DU studies.
+description: Calculate source-linked air/water networks, fan/pump operating points and bounded fixture demand. Use for supported duct/pipe pressure and sizing, sourced curves, identical-appliance probability and wastewater DU studies.
 ---
 
 # Network pressure analysis
+
+For a material-checked circular local chain, use `route_pressure` with explicit
+outer-boundary, roughness and source/interface loss decisions; read
+[extended pressure](../../../docs/EXTENDED_ROUTE_PRESSURE.md). To solve a supplied
+total-pressure fan curve, use `circular_fan_operating_point` depending on that exact
+passing pressure producer; read [circular fan](../../../docs/CIRCULAR_FAN.md).
+Keep the original airflow as the minimum duty and retain weak/unbracketed curves.
+Convergence alone does not release drawing. The current fan contract requires
+level external common-reference stations, matching fluid properties and a
+turbulent bounded curve domain. Air power is separate from motor electrical
+input; native fan equipment, flow metadata, real product applicability and full
+engineering acceptance remain pending.
 
 For standalone common-interface airflow allocation, reuse provider
 bsa.classified-air-allocation with analysis.air.classified-allocation and an

@@ -1272,3 +1272,13 @@ Reject a displaced free port even if its distance equals the extrusion depth,
 and reject an outer boundary with an actual external peer. No coordinate repair,
 extra component or new engine is inferred. Preserve matching compiler-generated
 straight-only aggregate K once through its canonical body ledger.
+
+Circular fan intersection gap: existing rectangular_fan already adapts bounded
+pump._solve hooks to air-only total-pressure semantics, fixed terminal pressure,
+minimum design-flow/velocity checks and no electrical-power inference. Its area
+preparer is rectangular-specific. Reuse validate_curve, operating_network,
+pump._solve and the existing circular network calculator with a circular
+area/Reynolds preparer. Bind only the exact source-checked extended pressure
+network; preserve inlet/common-reference/level-boundary assumptions and reject
+static curves, fluid mismatch and out-of-domain brackets. No new solver or
+dependency, and no real product/installation/stability certification inferred.
