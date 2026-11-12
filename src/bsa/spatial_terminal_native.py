@@ -52,6 +52,19 @@ def verify(folder):
     return result
 
 
+def verify_workflow(tasks,root,plan_root,record):
+    for task in tasks:
+        if task['kind']!='spatial_terminal_native':continue
+        folder=Path(root)/task['id']
+        if not (folder/'spatial-native.json').is_file():
+            if record[task['id']]['status']=='pass':raise ValueError('Passing native task lacks report')
+            continue
+        report=verify(folder)
+        settings=(Path(plan_root)/task['settings']).resolve()
+        if Path(report['source_drawing'])!=(Path(root)/task['depends_on']/'drawing.json').resolve() or str(settings) not in report['inputs']:raise ValueError('Native task replaced declared drawing/settings')
+        if record[task['id']]['status']!='pass' or record[task['depends_on']]['status']!='pass':raise ValueError('Native task execution dependency differs')
+
+
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('source');parser.add_argument('--settings',required=True);parser.add_argument('--out',required=True);parser.add_argument('--autocad',required=True)
     args=parser.parse_args();run(args.source,args.settings,args.out,args.autocad)

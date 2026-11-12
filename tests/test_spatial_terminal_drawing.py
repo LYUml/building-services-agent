@@ -1,3 +1,4 @@
+import copy
 import json
 import unittest
 import ezdxf
@@ -18,3 +19,12 @@ class SpatialTerminalDrawingTests(unittest.TestCase):
         record=folder/'drawing.json';changed=json.loads(record.read_text());changed['dxf_sha256']=digest(drawing);record.write_text(json.dumps(changed))
         with self.assertRaisesRegex(ValueError,'source replay'):verify(folder)
         with self.assertRaises(ValueError):run(out/'terminal-allocation/terminal-allocation.json',settings,folder)
+
+    def test_room_label_anchor_independent_of_boundary_start(self):
+        from bsa.spatial_terminal_drawing import expected
+        report={'calculation':{'rooms':{'room':dict(floor_elevation_m=0,allocation=dict(terminals=[]))}}}
+        producer=dict(payload_schema='bsa.spatial-polygons/1',payload=dict(spaces=[dict(id='room',boundary_vertices=[[0,0],[4,0],[4,3],[0,3]])]))
+        settings=dict(annotation_height_m=.2,source='Synthetic annotation control')
+        first=expected(report,producer,settings);changed=copy.deepcopy(producer);points=changed['payload']['spaces'][0]['boundary_vertices'];changed['payload']['spaces'][0]['boundary_vertices']=points[2:]+points[:2]
+        labels=lambda rows:[r for r in rows if r['kind']=='TEXT']
+        self.assertEqual(labels(first),labels(expected(report,changed,settings)))

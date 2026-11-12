@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Native AutoCAD now executes as an inherited automatic spatial-drawing task.
+Four actual scenarios verify production/runtime/source gating;9requirements
+remain and full manual review stays pending. A backend-order label defect was
+found visually and corrected. See SPATIAL_TERMINAL_NATIVE.md.
+
 Spatial schematics now separate terminal IDs from a keyed airflow schedule and
 include legend/scope notes. Actual AutoCAD1:75PDF inspection resolves the prior
 small-text/overlap findings for one synthetic sheet;full engineering stays pending.

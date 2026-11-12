@@ -30,7 +30,7 @@ def expected(report,producer,settings):
             text=f"R{room_number}-T{terminal_number}"
             rows.append(dict(kind='TEXT',layer='BSA_FLOW',text=text,point=[float(x-height*1.5),float(y+height),0.],height=height))
             flow_labels.append(f'R{room_number}-T{terminal_number}   {q:.1f} / {minimum:.1f} L/s')
-        x,y=vertices[0]
+        x=min(p[0] for p in vertices);y=min(p[1] for p in vertices)
         rows.append(dict(kind='TEXT',layer='BSA_ROOM_LABEL',text=f"R{room_number} | floor z={room['floor_elevation_m']:.3f} m",point=[float(x),float(y-height*2),0.],height=height))
     boundaries=[r for r in rows if r['kind']=='LWPOLYLINE']
     x=min(p[0] for r in boundaries for p in r['points']);y=min(p[1] for r in boundaries for p in r['points'])

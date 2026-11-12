@@ -45,3 +45,35 @@ The later readability iteration addresses the small-text finding in this exact
 synthetic sheet through a keyed flow schedule and explicit paper-height target.
 See SPATIAL_TERMINAL_DRAWING.md and evidence/spatial-sheet-readability.json;the
 original finding remains historical evidence,not an automatically cleared gate.
+
+## Native automatic workflow task
+
+Use spatial_terminal_native with depends_on an earlier spatial_terminal_drawing,
+plan-local settings and optional requires_pass. Source/runtime replacements in
+the task are forbidden. AutoCAD is supplied as a trusted host execution argument.
+No runtime or failed/pending upstream drawing means pending and no native output.
+Execution passes only after actual native production and verification;full manual
+review and producer visual acceptance remain pending.
+
+workflow.verify replays spatial-native evidence;delivery.context binds the exact
+declared drawing/settings and passing parent/task states. The public builder
+accepts --native-settings together with --drawing-settings,--air-balance and
+--terminal-allocation. It creates a dedicated spatial-native-settings.json,not
+the IFC recognition native-settings.json;the initial filename collision was
+caught by source hash validation during testing and corrected before acceptance.
+All nine brief requirements remain represented and review depends on native work.
+No new engine or dependency;existing native producer/validators are composed.
+
+Four actual scenarios run from fresh outputs: native and MOOSAS produce the same
+scoped27entity schematic and real DWG/PDF;missing runtime and disabled source
+produce no native output,while independent electrical passes. The two final PDFs
+were rendered and reviewed. Native render exactly matches the previously reviewed
+sheet;MOOSAS was directly inspected. A MOOSAS vertex-order-dependent room label
+outside the plot was found and corrected using the source boundary minimumXY.
+A regression test rotates boundary vertices and checks unchanged annotation
+positions. All labels,legend,schedule and limitations are now visible in these
+specific sheets. Numeric/visual execution does not complete engineering design.
+See evidence/spatial-native-workflow.json. Original trials remain untouched.
+
+Workflow regression:37 related tests pass with actual MOOSAS runtime enabled,
+including missing-runtime/disabled-source gates and ring-order annotation checks.

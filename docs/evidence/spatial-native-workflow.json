@@ -1,0 +1,82 @@
+{
+  "scope": "Synthetic complete source-to-calculation-to-native-schematic workflow",
+  "runs": {
+    "native": {
+      "path": "runs\\spatial-native-workflow-reviewed-native\\workflow.json",
+      "sha256": "bb0d94c761b21cff8cdf17538e47b0da5c37aa580b2d3b569696572236931503",
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "air-balance": "pass",
+        "terminal-allocation": "pass",
+        "terminal-performance": "pass",
+        "terminal-drawing": "pass",
+        "terminal-native": "pass",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "requirements": 9,
+      "native_exists": true,
+      "pdf_sha256": "caec60d26b1f744c99603001147158b28803bc84427e1ed3b05195b0dca99f88",
+      "render_sha256": "2e06913c9e5dea88a35ae3740d07d7fe2fcba8bbd07e838c0eb0d4eb64e60234",
+      "specific_visual_readability_review": "All room/outlet labels,schedule and scope notes visible after source-order-independent label fix;no observed clipping or text collision"
+    },
+    "moosas": {
+      "path": "runs\\spatial-native-workflow-reviewed-moosas\\workflow.json",
+      "sha256": "daec65d270e02ca8b20643cbe116ec0ff93fb8d380d782b793e91895a067e88a",
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "air-balance": "pass",
+        "terminal-allocation": "pass",
+        "terminal-performance": "pass",
+        "terminal-drawing": "pass",
+        "terminal-native": "pass",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "requirements": 9,
+      "native_exists": true,
+      "pdf_sha256": "ccb1bdc516dc513ba3263ad6cc1bf78b3d181d28748c4ac1040c8d46dec710ee",
+      "render_sha256": "044275d92d817ec07bfa398c9e1da36ed392ac45b924c9fbe3aed91f49096725",
+      "specific_visual_readability_review": "All room/outlet labels,schedule and scope notes visible after source-order-independent label fix;no observed clipping or text collision"
+    },
+    "no-runtime": {
+      "path": "runs\\spatial-native-workflow-reviewed-no-runtime\\workflow.json",
+      "sha256": "dad06d079648fee2ffdf9c91d24c0caeffc0603617f430281cd0dea6d7b0b834",
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "air-balance": "pass",
+        "terminal-allocation": "pass",
+        "terminal-performance": "pass",
+        "terminal-drawing": "pass",
+        "terminal-native": "pending",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "requirements": 9,
+      "native_exists": false
+    },
+    "disabled": {
+      "path": "runs\\spatial-native-workflow-reviewed-disabled\\workflow.json",
+      "sha256": "6e690ee93c84c93c687189639ed06133f4a64f2bd84b27513a0e936cbc6ff7f1",
+      "tasks": {
+        "recognition": "pending",
+        "lighting-rules": "pending",
+        "air-balance": "pending",
+        "terminal-allocation": "pending",
+        "terminal-performance": "pending",
+        "terminal-drawing": "pending",
+        "terminal-native": "pending",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "requirements": 9,
+      "native_exists": false
+    }
+  },
+  "design_accepted": false,
+  "prior_visual_issue": "MOOSAS ring start placed a room label outside plot window;fixed with minimumXY anchor",
+  "annotation_height_paper_mm": 2.6666666666666665
+}
