@@ -28,7 +28,7 @@ def review_actions(stages,errors):
     return actions
 
 
-def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,plan_clearance=None,junction_review_native_task=None,system_paths_native_task=None,terminal_performance=None):
+def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,plan_clearance=None,junction_review_native_task=None,system_paths_native_task=None,terminal_performance=None,requirements_result=None):
     plan,output,font=map(lambda p:Path(p).resolve(),(plan,output,font))
     validated,inputs=validate_plan(plan)
     if junction_review_native_task is not None and (not isinstance(junction_review_native_task,str) or not any(t['id']==junction_review_native_task and t['kind']=='duct_sheet_native' for t in validated['tasks'])):
@@ -36,6 +36,11 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
     if system_paths_native_task is not None and (not isinstance(system_paths_native_task,str) or not any(t['id']==system_paths_native_task and t['kind']=='duct_sheet_native' for t in validated['tasks'])):
         raise ValueError('System path review must select a declared native sheet task')
     protected=set(inputs)|{plan,font}
+    if requirements_result is not None:
+        from .requirements_binding import bind
+        requirements_result=Path(requirements_result).resolve()
+        _, requirement_pins=bind(plan,requirements_result)
+        protected.update(Path(p) for p in requirement_pins)
     performance_pins={};performance_task=None
     if terminal_performance is not None:
         from .terminal_performance import settings_inputs as performance_inputs
@@ -73,7 +78,7 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
         raise ValueError('New package directory separate from all inputs required')
     if not font.is_file():raise ValueError('Existing explicit report font required')
     output.mkdir(parents=True)
-    workflow=execute(plan,output/'workflow',autocad=autocad)
+    workflow=execute(plan,output/'workflow',autocad=autocad,**({'requirements_result':requirements_result} if requirements_result is not None else {}))
     diagnosis=diagnose(plan,output/'workflow')
     (output/'diagnosis.json').write_text(json.dumps(diagnosis,indent=2),encoding='utf-8')
     template(plan,output/'workflow',output/'delivery-review.json')
@@ -183,12 +188,13 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('plan');p.add_argument('--out',required=True);p.add_argument('--font',required=True);p.add_argument('--autocad')
+    p.add_argument('--requirements-result',help='Verified requirements inventory for the exact plan')
     p.add_argument('--terminal-review',help='JSON containing native_task and four explicit layer names')
     p.add_argument('--adpi-settings',help='Source-pinned criterion and applicability settings')
     p.add_argument('--plan-clearance',help='Inherited native-sheet obstacle/coverage settings')
     p.add_argument('--junction-review-native-task',help='Native sheet task whose exact sizing/tree ancestry supplies connection requirements')
     p.add_argument('--system-paths-native-task',help='Native sheet task whose completed source tree supplies nominal centreline path studies')
     p.add_argument('--terminal-performance',help='Source-pinned diffuser pressure/NC performance settings')
-    a=p.parse_args();r=run(a.plan,a.out,font=a.font,autocad=Path(a.autocad) if a.autocad else None,terminal_review=a.terminal_review,adpi_settings=a.adpi_settings,plan_clearance=a.plan_clearance,junction_review_native_task=a.junction_review_native_task,system_paths_native_task=a.system_paths_native_task,terminal_performance=a.terminal_performance)
+    a=p.parse_args();r=run(a.plan,a.out,font=a.font,autocad=Path(a.autocad) if a.autocad else None,terminal_review=a.terminal_review,adpi_settings=a.adpi_settings,plan_clearance=a.plan_clearance,junction_review_native_task=a.junction_review_native_task,system_paths_native_task=a.system_paths_native_task,terminal_performance=a.terminal_performance,requirements_result=a.requirements_result)
     print(r['status'],len(r['unresolved_tasks']),'unresolved tasks; design acceptance pending')
     raise SystemExit(2)

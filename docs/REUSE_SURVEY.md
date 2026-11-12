@@ -1,5 +1,12 @@
 # Reuse survey â€” 2026-11-09
 
+HVAC requirements replay gap: reuse requirements_binding.bind and the existing
+workflow requirements_result option through thin package/configuration arguments.
+No parser, solver or dependency added. Complete source/artifact pins and exact
+plan identity survive configuration replay;28related tests pass and an actual
+private configuration loads. This configuration trial does not establish full
+package execution or engineering acceptance. See HVAC_PROJECT.md.
+
 HVAC package orchestration gap: reuse the existing workflow executor, dependency diagnosis, delivery template, source-bound HTML report and pinned ReportLab renderer. A thin CLI adds navigation, artifact hashes and retained stage errors; no new engine or dependency. Actual native coursework execution and synthetic upstream-failure controls pass. Full engineering and requirement acceptance remain separate. See HVAC_PACKAGE.md.
 
 Rectangular bend pressure gap: extend existing finite circular route/arc/K reconciliation through section-aware rectangular helpers, preserving the fluids engine and native saved wall inspector. Source face frames check width/height roll and opposed normals; per-piece excess K and true arc lengths avoid duplication/chord substitution. Actual three-piece native pressure/coordination and saved-K/normal/roll/low-pressure controls pass; no new solver or inferred circular fitting K. Native fan flow rederivation removes only derived aggregate K before rebuilding it from source pieces. Catalogue bend redesign/drawings and real product/fabrication acceptance remain pending.

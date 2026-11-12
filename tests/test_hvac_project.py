@@ -11,6 +11,38 @@ from bsa.hvac_project import ROOT, create, load, run
 
 
 class HVACProjectTests(unittest.TestCase):
+    def test_requirements_inventory_is_pinned_and_changed_inventory_rejects(self):
+        from bsa.project_start import start
+        brief = self.root/'raw-brief.md'
+        brief.write_text('Calculate ventilation and produce editable drawings.')
+        result = start(brief, self.root/'intake')
+        plan = self.root/'intake'/result['effective_plan']
+        inventory = self.root/'intake'/result['requirements_module']['result']
+        create(plan, self.configuration, requirements_result=inventory)
+        files, _, pins = load(self.configuration)
+        self.assertEqual(files['requirements_result'], inventory.resolve())
+        self.assertIn(inventory.resolve(), pins)
+        from bsa.hvac_package import run as package_run
+        other_plan = plan.with_name('same-bytes-other-plan.json')
+        other_plan.write_bytes(plan.read_bytes())
+        denied_output = self.root/'wrong-plan-package'
+        with self.assertRaisesRegex(ValueError, 'exact execution plan'):
+            package_run(other_plan, denied_output, font='not-needed', requirements_result=inventory)
+        self.assertFalse(denied_output.exists())
+        def bound_package(plan_arg, output, **kwargs):
+            self.assertEqual(kwargs['requirements_result'], inventory.resolve())
+            output.mkdir()
+            (output/'package.json').write_text('{}')
+            return {'status': 'review_required'}
+        with patch('bsa.hvac_project.hvac_package.run', side_effect=bound_package):
+            receipt = run(self.configuration, self.root/'bound-package', font='host font')
+        self.assertIn(str(inventory.resolve()), receipt['input_hashes'])
+        with patch('bsa.hvac_project.hvac_package.run') as package:
+            inventory.write_bytes(inventory.read_bytes()+b' ')
+            with self.assertRaisesRegex(ValueError, 'source changed'):
+                run(self.configuration, self.root/'changed-inventory', font='host font')
+            package.assert_not_called()
+
     def test_external_configuration_requires_same_host_workspace_on_reload(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder).resolve()

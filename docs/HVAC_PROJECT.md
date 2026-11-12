@@ -1,5 +1,18 @@
 # Repeatable HVAC project settings
 
+Use `--requirements-result <verified-inventory/result.json>` during `create`
+to retain the exact source-requirements inventory through package replay.
+The existing requirements_binding verifier checks the exact plan identity and
+inventory, and the wrapper pins its complete inputs/artifacts. The package
+checks this binding before creating output and forwards it to workflow execution,
+whose delivery checks replay it. A same-byte different plan rejects. Omission
+retains legacy operation without claiming a requirements binding.
+
+Twenty-eight related wrapper/provider/package tests pass, including forwarding,
+inventory mutation and wrong-plan rejection before package output. An actual
+private coursework configuration loads with330pins and its existing inventory;
+this configuration trial does not execute the package or accept the design.
+
 `bsa.hvac_project` saves the interpreted plan and chosen package reviews in a
 source-pinned configuration. It calls the existing `hvac_package` unchanged:
 allocation, catalogue lookup, sizing, native drawing, reviews and report

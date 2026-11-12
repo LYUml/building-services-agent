@@ -78,6 +78,9 @@ candidate-ranking success may support only the examined numerical subrequirement
 not original complete sizing or drawing acceptance.
 
 For repeat runs of a reviewed HVAC project, use bsa.hvac_project create to pin
+the verified requirements inventory with --requirements-result when available.
+The package reuses exact-plan binding before execution; omission does not
+establish requirements coverage. Also pin
 the configuration in the explicitly host-selected project workspace. Keep the
 same BSA_PROJECT_ROOT during creation and replay; absent selection rejects an
 external configuration. General method files remain pinned in the tool repository.

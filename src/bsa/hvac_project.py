@@ -10,7 +10,7 @@ from . import hvac_package, workspace
 from .workflow import validate_plan
 
 ROOT = Path(__file__).resolve().parents[2]
-FILES = ('plan', 'terminal_review', 'adpi_settings', 'plan_clearance', 'terminal_performance')
+FILES = ('plan', 'terminal_review', 'adpi_settings', 'plan_clearance', 'terminal_performance', 'requirements_result')
 SELECTORS = ('junction_review_native_task', 'system_paths_native_task')
 KEYS = {'schema', 'files', 'selectors', 'input_hashes'}
 
@@ -39,6 +39,10 @@ def inventory(files, selectors):
         if value is not None and (not isinstance(value, str) or not any(
                 t['id'] == value and t['kind'] == 'duct_sheet_native' for t in plan['tasks'])):
             raise ValueError('Project review selector must name a declared native sheet task')
+    if 'requirements_result' in files:
+        from .requirements_binding import bind
+        _, requirement_pins = bind(files['plan'], files['requirements_result'])
+        inputs.update(local(p) for p in requirement_pins)
     if 'adpi_settings' in files:
         from .adpi_review import settings_inputs
         _,adpi_pins = settings_inputs(files['adpi_settings'])
@@ -57,13 +61,13 @@ def relative(path, parent):
 
 
 def create(plan, configuration, *, terminal_review=None, adpi_settings=None,
-           plan_clearance=None, junction_review_native_task=None, system_paths_native_task=None,terminal_performance=None):
+           plan_clearance=None, junction_review_native_task=None, system_paths_native_task=None,terminal_performance=None,requirements_result=None):
     configuration = local(configuration)
     if configuration.exists():
         raise ValueError('New project configuration required; existing files are preserved')
     files = {'plan': local(plan)}
     for key, value in (('terminal_review', terminal_review), ('adpi_settings', adpi_settings),
-                       ('plan_clearance', plan_clearance),('terminal_performance',terminal_performance)):
+                       ('plan_clearance', plan_clearance),('terminal_performance',terminal_performance),('requirements_result',requirements_result)):
         if value is not None:
             files[key] = local(value)
     selectors = dict(junction_review_native_task=junction_review_native_task,
