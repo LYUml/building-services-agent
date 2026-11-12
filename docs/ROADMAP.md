@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Shared CLI MOOSAS host runtime selection now executes native/provider replacement
+with identical three-space payloads and thermal inputs. Disabled/unconfigured
+controls block preparation. Both annual attempts retain OpenStudio application-
+control failures before simulation; no annual result or full acceptance claimed.
+Twenty related tests pass; see evidence/shared-cli-moosas.json and PROJECT_CLI.md.
+
 Exact engineering-handoff template generation now bridges shared intake and
 execution contracts. Original requirement/generic-gap IDs and source hash survive;
 unfilled templates and replacing existing engineering tasks reject. Nineteen

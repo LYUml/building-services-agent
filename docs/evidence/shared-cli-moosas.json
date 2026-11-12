@@ -1,0 +1,121 @@
+{
+  "scope": "Shared bsa CLI explicit MOOSAS host runtime/provider substitution; actual synthetic box-space workflow",
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/cli.py": "1e766a7cd7805a94ead1cc8ae7c163712a8925349cef09bbec1f644c91695562"
+  },
+  "tests": {
+    "passed": 20,
+    "skipped": 0,
+    "suites": [
+      "test_project_cli",
+      "test_project_start",
+      "test_engineering_handoff",
+      "test_workflow_cli"
+    ]
+  },
+  "runs": {
+    "native-spaces": {
+      "workflow_integrity": true,
+      "task_statuses": {
+        "model": "pass",
+        "spaces": "pass",
+        "thermal": "pass",
+        "annual": "pending",
+        "review": "pending"
+      },
+      "provider": {
+        "id": "ifcopenshell.box-spaces",
+        "version": "0.8.5",
+        "license": "LGPL-3.0-or-later"
+      },
+      "module_execution": "completed",
+      "requirements": 5,
+      "workflow_sha256": "ded42a4e9464d39ca9d4f945beea377cb77232ac8d836c531266201c4e749725"
+    },
+    "moosas-spaces": {
+      "workflow_integrity": true,
+      "task_statuses": {
+        "model": "pass",
+        "spaces": "pass",
+        "thermal": "pass",
+        "annual": "pending",
+        "review": "pending"
+      },
+      "provider": {
+        "id": "moosas.box-space-exchange",
+        "version": "1",
+        "upstream_commit": "dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c",
+        "license": "Apache-2.0"
+      },
+      "module_execution": "completed",
+      "requirements": 5,
+      "workflow_sha256": "b5d57c5a7c4c43bbf17fbfd646407742a20cc703ac4a5db25ab1b641d701378e"
+    },
+    "moosas-disabled": {
+      "workflow_integrity": true,
+      "task_statuses": {
+        "model": "pass",
+        "spaces": "pending",
+        "thermal": "pending",
+        "annual": "pending",
+        "review": "pending"
+      },
+      "provider": {
+        "id": "moosas.box-space-exchange",
+        "version": "1",
+        "upstream_commit": "dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c",
+        "license": "Apache-2.0"
+      },
+      "module_execution": "unavailable",
+      "requirements": 5,
+      "workflow_sha256": "cf19589df13bd361fa438c9eee1e4a5ba1d159704c633017cd5409b7f15d6be2"
+    },
+    "moosas-unconfigured": {
+      "workflow_integrity": true,
+      "task_statuses": {
+        "model": "pass",
+        "spaces": "pending",
+        "thermal": "pending",
+        "annual": "pending",
+        "review": "pending"
+      },
+      "provider": {
+        "id": "moosas.box-space-exchange",
+        "version": "1",
+        "upstream_commit": "dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c",
+        "license": "Apache-2.0"
+      },
+      "module_execution": "unavailable",
+      "requirements": 5,
+      "workflow_sha256": "88b1640557bf68032d4d59dc348c25c3ef0b65fc039242e596951fdd834525df"
+    }
+  },
+  "spatial_payloads_equal": true,
+  "thermal_project_equal": true,
+  "spaces": 3,
+  "limitations": [
+    "Box-space exchange only, not arbitrary space recognition",
+    "Shared extraction is not independent geometry validation",
+    "Annual simulations attempted with explicit installed EnergyPlus; application control blocks OpenStudio import before simulation",
+    "Full native MEP design, regulatory and engineering acceptance remain pending"
+  ],
+  "annual_attempts": {
+    "native-annual": {
+      "workflow_integrity": true,
+      "stage": "openstudio_import",
+      "kind": "application_control_block",
+      "simulation_executed": false,
+      "runtime_failure_sha256": "72190138833d52e597f411d3a2009cd9d8ff640524e8e2e718d4fb17ff09d22c",
+      "workflow_sha256": "942c92c1bae208893978e4124a2536a9167c7a29a7a0250b7ea622c736537154"
+    },
+    "moosas-annual": {
+      "workflow_integrity": true,
+      "stage": "openstudio_import",
+      "kind": "application_control_block",
+      "simulation_executed": false,
+      "runtime_failure_sha256": "aa6128c62ddf6dbab5213b3ec24d04b8755389453df91f09ba3809bd3702505a",
+      "workflow_sha256": "64a40c43d357b7ea94aff0baf1060683a51369c03635e155369ea63bdb645341"
+    }
+  }
+}

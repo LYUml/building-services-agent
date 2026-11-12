@@ -13,6 +13,10 @@ ordinary gaps; verification is evidence correspondence, not design approval.
 Generate the exact review with bsa handoff-template EFFECTIVE_PLAN --out a fresh
 sibling JSON; then explicitly fill every binding, acceptance and note from source
 inspection. Blank templates cannot execute and do not clear ordinary input gaps.
+For MOOSAS replacement through shared workflow/handoff commands, pass explicit
+host --moosas-upstream and --moosas-deps directories plus --module-provider.
+Do not infer annual performance from matching spatial/thermal inputs: current
+annual attempts can fail OpenStudio import under host Application Control.
 
 When an interpreted HVAC project's pinned configuration is stale after tool
 changes, use bsa.hvac_refresh per docs/HVAC_REFRESH.md. Inspect drift first;

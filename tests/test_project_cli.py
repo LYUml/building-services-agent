@@ -34,12 +34,21 @@ class ProjectCLITests(unittest.TestCase):
         with patch('bsa.engineering_handoff.run',return_value=result) as run:
             code,summary=self.invoke(['handoff','plan.json','interpretation.json','--target','target.json','--out','new-run',
                 '--autocad','host-autocad.exe','--module-provider','rules=bsa.electrical-path-rules',
-                '--disable-module-provider','bsa.source-requirements'])
+                '--disable-module-provider','bsa.source-requirements','--moosas-upstream','host-upstream','--moosas-deps','host-deps'])
         self.assertEqual(code,2);self.assertFalse(summary['design_accepted'])
         options=run.call_args.kwargs['execute_options']
         self.assertEqual(options['autocad'],Path('host-autocad.exe'))
         self.assertEqual(options['module_providers'],{'rules':'bsa.electrical-path-rules'})
         self.assertEqual(options['disabled_module_providers'],['bsa.source-requirements'])
+        self.assertEqual(options['module_runtime'],dict(upstream=Path('host-upstream'),deps=Path('host-deps')))
+
+    def test_workflow_rejects_duplicate_provider_overrides_before_output(self):
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+            out=Path(folder)/'result'
+            with patch('sys.argv',['bsa','workflow',str(ROOT/'examples/modular-plan.json'),'--out',str(out),
+                '--module-provider','spaces=ifcopenshell.box-spaces','--module-provider','spaces=moosas.box-space-exchange']),contextlib.redirect_stderr(io.StringIO()):
+                with self.assertRaises(SystemExit):main()
+            self.assertFalse(out.exists())
 
     def test_invalid_provider_selection_rejects_before_execution(self):
         with patch('bsa.engineering_handoff.run') as run,patch('sys.argv',['bsa','handoff','plan','review','--target','target','--out','out','--module-provider','invalid']),contextlib.redirect_stderr(io.StringIO()):

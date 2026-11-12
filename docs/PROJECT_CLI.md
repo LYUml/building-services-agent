@@ -44,6 +44,24 @@ remain available, including `bsa workflow` for an already interpreted plan.
 selections through existing validators. A document cannot choose executables.
 Unsupported provider bindings and missing runtime checks remain adapter errors.
 
+Both `bsa workflow` and `bsa handoff` also accept `--moosas-upstream` and
+`--moosas-deps` as explicit trusted host directories. They forward these to the
+existing isolated adapter; briefs/plans do not choose import paths. For example:
+
+```powershell
+bsa workflow examples/modular-plan.json --out runs/new-moosas-workflow --module-provider spaces=moosas.box-space-exchange --moosas-upstream tools/moosas-review --moosas-deps tools/moosas-exchange-deps
+```
+
+The same unchanged public source plan was actually executed with both native
+IFC and MOOSAS providers through this entry. The three-space payloads and the
+derived thermal project match exactly. Disabled and unconfigured MOOSAS controls
+retain unavailable exchange and do not create thermal inputs. Annual analysis was
+also attempted with installed EnergyPlus on both paths; host Application Control
+blocks OpenStudio import before simulation, with explicit retained failure logs.
+No annual result or security-policy change is claimed. Twenty related tests pass.
+See [replacement evidence](evidence/shared-cli-moosas.json). This remains a
+synthetic box-space case, not complete MEP or simulation acceptance.
+
 Intake and handoff return exit 2 while interpretation or engineering acceptance
 is pending. Inspect JSON `status`, `stages` and `stage_errors`; code 2 does not
 necessarily indicate a process crash. `handoff-verify` returns 0 only for intact

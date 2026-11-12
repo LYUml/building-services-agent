@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Shared CLI workflow/handoff now accept explicit MOOSAS host directories. Actual
+native/MOOSAS runs preserve identical spatial and thermal inputs; disabled/missing
+runtime controls stop consumers. Annual attempts remain blocked by host OpenStudio
+application control. See docs/PROJECT_CLI.md.
+
 Shared `bsa handoff-template` now prepares the exact source-pinned interpretation
 contract with every requirement/generic-gap ID and deliberately empty decisions.
 Unfilled templates reject; existing engineering tasks cannot be replaced. See docs/PROJECT_CLI.md.

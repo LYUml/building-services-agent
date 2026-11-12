@@ -1357,3 +1357,11 @@ engineering_handoff schema/generic-gap logic and shared CLI. The old work-review
 template has a different contract; do not repurpose it or add another agent
 framework. No external dependency/engine/code is added. Source-preserving blank
 template rejection and actual replay evidence: docs/evidence/handoff-template.json.
+
+Shared CLI MOOSAS host-runtime gap: reuse workflow.execute module_runtime and
+existing isolated moosas.box-space-exchange provider, pinned MOOSAS
+dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c (Apache-2.0), and its existing dependency
+setup. No new engine/dependency or upstream code copied. Actual native/MOOSAS
+spatial and thermal preparation match; disabled/unconfigured consumers block.
+Both annual attempts fail host OpenStudio import before simulation. Evidence:
+docs/evidence/shared-cli-moosas.json; retain this failure and upstream attribution.

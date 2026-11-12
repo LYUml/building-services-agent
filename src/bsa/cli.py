@@ -83,6 +83,8 @@ def main():
         s.add_argument('--'+flag,type=Path)
     s.add_argument('--module-provider',action='append',default=[])
     s.add_argument('--disable-module-provider',action='append',default=[])
+    s.add_argument('--moosas-upstream',type=Path)
+    s.add_argument('--moosas-deps',type=Path)
     s=sub.add_parser('handoff-verify',help='Reconstruct source and execution correspondence; not design acceptance')
     s.add_argument('out',type=Path)
     s=sub.add_parser('handoff-template',help='Prepare the exact blocked engineering interpretation contract')
@@ -96,6 +98,10 @@ def main():
     s.add_argument("--review",type=Path,help="Create a pending delivery review outside the run directory")
     for flag in ("energyplus","autocad","radiance-bin","ifcmcp-python","three-phase-python","graphviz","pdf2plot-python","honeybee-python","requirements-result"):
         s.add_argument("--"+flag,type=Path)
+    s.add_argument('--module-provider',action='append',default=[])
+    s.add_argument('--disable-module-provider',action='append',default=[])
+    s.add_argument('--moosas-upstream',type=Path)
+    s.add_argument('--moosas-deps',type=Path)
     a=parser.parse_args()
     try:
         if a.command=='project-start':
@@ -112,6 +118,7 @@ def main():
             names=('energyplus','autocad','radiance_bin','ifcmcp_python','three_phase_python','graphviz','pdf2plot_python','honeybee_python')
             options={key:getattr(a,key) for key in names if getattr(a,key) is not None}
             options.update(module_providers=parse_provider_options(a.module_provider),disabled_module_providers=a.disable_module_provider)
+            options['module_runtime']={key:value for key,value in dict(upstream=a.moosas_upstream,deps=a.moosas_deps).items() if value is not None}
             result=handoff(a.plan,a.interpretation,a.target,a.out,execute_options=options)
             print(json.dumps({key:result[key] for key in ('status','stages','stage_errors','design_accepted')},indent=2))
             return 2
@@ -121,11 +128,15 @@ def main():
         elif a.command=="workflow":
             from .workflow import execute
             from .workflow_status import diagnose
+            from .workflow_modules import parse_provider_options
+            providers=parse_provider_options(a.module_provider)
             if a.review is not None:
                 review=a.review.resolve()
                 if review.exists() or review==a.plan.resolve() or review.is_relative_to(a.out.resolve()):
                     raise ProjectError("review must be a new file outside the plan/run artifacts")
-            execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python,a.three_phase_python,a.graphviz,a.pdf2plot_python,a.honeybee_python,requirements_result=a.requirements_result)
+            execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python,a.three_phase_python,a.graphviz,a.pdf2plot_python,a.honeybee_python,requirements_result=a.requirements_result,
+                module_providers=providers,disabled_module_providers=a.disable_module_provider,
+                module_runtime={key:value for key,value in dict(upstream=a.moosas_upstream,deps=a.moosas_deps).items() if value is not None})
             diagnosis=diagnose(a.plan,a.out)
             # Separate from immutable task artifacts: diagnosis binds workflow.json.
             with (a.out/"diagnosis.json").open("x",encoding="utf-8") as stream:
