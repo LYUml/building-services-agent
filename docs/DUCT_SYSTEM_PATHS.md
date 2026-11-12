@@ -1,5 +1,13 @@
 # Whole source-tree centreline studies
 
+Output may now live in an explicitly host-selected BSA_PROJECT_ROOT workspace;
+unselected external outputs and outputs inside/containing the immutable source
+workflow reject. workspace.py is pinned alongside the calculation methods.
+Eleven related tests pass. An actual external coursework study from its fresh
+requirements-bound native workflow covers47sections,48nodes and20outlet paths,
+retaining all33requirements and pending full pressure/fan acceptance. See
+evidence/external-system-paths.json. No physical losses are accepted by this trial.
+
 `bsa.duct_system_paths` reuses saved-native drawing correspondence and the
 selected duct schedule to enumerate every source inlet-to-leaf path. It replays
 the existing equivalent-round/Colebrook friction method with pinned fluids1.3.1.

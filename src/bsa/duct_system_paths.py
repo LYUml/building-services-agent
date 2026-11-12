@@ -90,9 +90,10 @@ def render(result):
 
 def run(plan,workflow,native_task,out):
     from .delivery import context
+    from . import workspace
     import fluids.friction as engine
     plan,workflow,out=[Path(p).resolve() for p in (plan,workflow,out)]
-    if out.exists() or not out.is_relative_to(ROOT) or out.is_relative_to(workflow) or workflow.is_relative_to(out) or plan.is_relative_to(out):raise ValueError('New repository output outside source workflow required')
+    if out.exists() or not workspace.allowed(out) or out.is_relative_to(workflow) or workflow.is_relative_to(out) or plan.is_relative_to(out):raise ValueError('New host-selected workspace output outside source workflow required')
     if importlib.metadata.version('fluids')!='1.3.1':raise ValueError('Pinned fluids1.3.1 required')
     source_report=workflow/'workflow.json';report_sha=digest(source_report)
     _,record,integrity=context(plan,workflow)
@@ -109,7 +110,7 @@ def run(plan,workflow,native_task,out):
         for name,sha in addition.items():
             if name in pins and pins[name]!=sha:raise ValueError('Source context changed between system checks')
             pins[name]=sha
-    for p in (Path(__file__),Path(friction.__code__.co_filename),Path(engine.__file__)):
+    for p in (Path(__file__),Path(workspace.__file__),Path(friction.__code__.co_filename),Path(engine.__file__)):
         pins[str(p.resolve())]=digest(p)
     result=calculate(junction,schedule)
     if any(digest(Path(p))!=sha for p,sha in pins.items()):raise ValueError('Source or method changed during system path study')

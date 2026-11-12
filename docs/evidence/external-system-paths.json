@@ -1,0 +1,12 @@
+{
+  "section_count": 47,
+  "node_count": 48,
+  "outlet_path_count": 20,
+  "status": "pending",
+  "design_accepted": false,
+  "scope": "Actual external-project saved-native whole source-tree study",
+  "original_requirements": 33,
+  "report_sha256": "30effea672a8f9083461657fcc0f63aba69202bd765a61414a628d93db742c61",
+  "related_tests": 11,
+  "full_pressure_and_fan_acceptance": false
+}

@@ -1,5 +1,6 @@
 import copy
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -15,6 +16,17 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 class DuctSystemPathsTests(unittest.TestCase):
+    def test_external_output_requires_host_selection_and_stays_outside_workflow(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder).resolve();plan=root/'plan.json';workflow=root/'workflow'
+            with patch.dict(os.environ,{'BSA_PROJECT_ROOT':''}):
+                with self.assertRaisesRegex(ValueError,'host-selected'):
+                    run(plan,workflow,'native',root/'out')
+            with patch.dict(os.environ,{'BSA_PROJECT_ROOT':str(root)}):
+                for out in (workflow/'nested',root,root.parent/'unselected-path-study'):
+                    with self.assertRaisesRegex(ValueError,'outside source workflow'):
+                        run(plan,workflow,'native',out)
+
     def source(self):
         doc,schedule,binding=fixtures.DuctJunctionReviewTests().fixture()
         schedule['air']=dict(density_kg_m3=1.2,viscosity_Pa_s=1.81e-5,roughness_m=9e-5)
