@@ -10,7 +10,7 @@ import subprocess
 import threading
 from typing import Any,Annotated
 
-from . import engineering_handoff,project_start,workflow,workflow_status,workspace,mcp_worker,source_page,visual_transcription,source_review,reference_library,pump_catalogue_iteration,artifact_access
+from . import engineering_handoff,project_start,workflow,workflow_status,workspace,mcp_worker,source_page,visual_transcription,source_review,reference_library,pump_catalogue_iteration,artifact_access,delivery
 from .cli import digest
 from .terminal_iteration import OPTIONS
 
@@ -153,6 +153,18 @@ def create_server(*,execute_options=None,pdftoppm=None):
     def bsa_read_artifact(plan:str,out:str,artifact:str,workflow_sha256:str)->dict[str,Any]:
         """Read one recorded artifact, at most 2 MiB, bound to the inspected workflow hash. UTF-8 or base64; never design approval."""
         return invoke(artifact_access.read,local(plan),local(out),artifact,workflow_sha256)
+
+    @server.tool(annotations=write)
+    def bsa_delivery_template(plan:str,out:str,review:str)->dict[str,Any]:
+        """Create a separate fresh source-bound review. All requirements start pending; actual inspection is required before recording findings."""
+        target=local(review)
+        if target.suffix.lower()!='.json':raise ValueError('JSON review required')
+        return invoke(delivery.template,local(plan),local(out),target)
+
+    @server.tool(annotations=read)
+    def bsa_assess_delivery(plan:str,out:str,review:str)->dict[str,Any]:
+        """Assess explicit source-bound findings, cited artifacts and Boolean facts. Preserve failed/pending tasks; never certify whole-design acceptance."""
+        return invoke(delivery.assess,local(plan),local(out),local(review))
 
     @server.resource('bsa://guide')
     def guide()->str:

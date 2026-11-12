@@ -1,6 +1,7 @@
 # Building Services Agent stdio MCP server
 
-The current server has fourteen tools, including [pump recovery](MCP_PUMP_RECOVERY.md), a [committed reference library](REFERENCE_LIBRARY.md), actual source-page PNG delivery
+The current server has eighteen tools, including [artifact reads](MCP_ARTIFACTS.md),
+[source-bound delivery review](MCP_DELIVERY.md), [pump recovery](MCP_PUMP_RECOVERY.md), a [committed reference library](REFERENCE_LIBRARY.md), actual source-page PNG delivery
 and [explicit visual transcription/source review](VISUAL_TRANSCRIPTION.md);
 see also [PDF page viewing](MCP_SOURCE_PAGE.md). The initial eight-tool trial below
 remains historical evidence; preserve its method hashes rather than updating them.

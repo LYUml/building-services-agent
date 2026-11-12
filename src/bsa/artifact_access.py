@@ -26,7 +26,7 @@ def index(plan,out):
     for name,sha in sorted(report['artifact_hashes'].items()):
         path=delivery.relative_file(folder,name)
         rows.append(dict(path=name,sha256=sha,size=path.stat().st_size,suffix=path.suffix.lower(),readable=path.stat().st_size<=LIMIT))
-    return dict(workflow_sha256=receipt,artifacts=rows,tasks=report['tasks'],requirement_count=len(source['requirements']),unresolved_inputs=source.get('unresolved_inputs',[]),design_accepted=False)
+    return dict(workflow_sha256=receipt,artifacts=rows,tasks=report['tasks'],requirements=report['requirements'],requirement_count=len(source['requirements']),unresolved_inputs=source.get('unresolved_inputs',[]),design_accepted=False)
 
 
 def read(plan,out,artifact,workflow_sha256):

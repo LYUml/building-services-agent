@@ -41,7 +41,7 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                     async with ClientSession(read,write) as session:
                         initialized=(await session.initialize()).model_dump(mode='json')
                         tools=(await session.list_tools()).tools
-                        self.assertEqual(len(tools),16)
+                        self.assertEqual(len(tools),18)
                         for tool in tools:
                             self.assertFalse({'autocad','command','project_root'} & set(tool.inputSchema.get('properties',{})))
                         async def call(name,args):
@@ -121,6 +121,20 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                         self.assertFalse(diagnosis['execution_pass'])
                         inventory=await call('bsa_artifact_index',dict(plan='project/engineering-plan.json',out='engineering-run/workflow'))
                         self.assertFalse(inventory['design_accepted'])
+                        self.assertEqual(len(inventory['requirements']),5)
+                        pending=await call('bsa_delivery_template',dict(plan='project/engineering-plan.json',out='engineering-run/workflow',review='review/pending.json'))
+                        self.assertTrue(all(r['status']=='pending' for r in pending['requirements']))
+                        assessed=await call('bsa_assess_delivery',dict(plan='project/engineering-plan.json',out='engineering-run/workflow',review='review/pending.json'))
+                        self.assertEqual(assessed['status'],'needs_review');self.assertFalse(assessed['review_checks_pass'])
+                        self.assertEqual(len(assessed['requirements']),5);self.assertFalse(assessed['design_accepted'])
+                        unsupported=copy.deepcopy(pending)
+                        unsupported['requirements'][0].update(status='pass',reviewer='Synthetic unsupported assertion',reviewed_at_utc='2026-11-13T00:00:00Z',notes='Control: no artifact evidence supplied')
+                        await call('bsa_save_json',dict(path='review/unsupported.json',data=unsupported))
+                        rejected=await call('bsa_assess_delivery',dict(plan='project/engineering-plan.json',out='engineering-run/workflow',review='review/unsupported.json'))
+                        self.assertEqual(rejected['status'],'failed');self.assertFalse(rejected['review_checks_pass'])
+                        self.assertIn('cited original artifacts',' '.join(rejected['issues']))
+                        self.assertTrue((await session.call_tool('bsa_delivery_template',dict(plan='project/engineering-plan.json',out='engineering-run/workflow',review='review/pending.json'))).isError)
+
                         for suffix in ['.json','.ifc']:
                             row=next(r for r in inventory['artifacts'] if r['suffix']==suffix)
                             args=dict(plan='project/engineering-plan.json',out='engineering-run/workflow',artifact=row['path'],workflow_sha256=inventory['workflow_sha256'])

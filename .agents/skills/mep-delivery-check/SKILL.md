@@ -5,6 +5,13 @@ description: Audit building services models, drawings, calculations and reports 
 
 # mep-delivery-check
 
+For MCP delivery review, use bsa_delivery_template and bsa_assess_delivery per
+docs/MCP_DELIVERY.md. Read the artifact index requirement/evidence matrix and
+actual saved artifacts first. Save explicit observations in a fresh review;
+unexamined obligations stay pending. Never treat one Boolean flag or a reviewer
+assertion as whole-requirement engineering approval.
+
+
 For conditional duct-schedule presentation,read every bound section/field and drawing label from the saved DXF and the actual native-reopened export;independently reconcile Q/(width*height),units and displayed rounding. Inspect the actual PDF separately. A source/native match does not accept friction-method applicability,physical geometry,routing or installation. Preserve unrelated sizing/ADPI blockers and original requirement coverage. See docs/DUCT_SHEET.md.
 
 For ifc_views annotation_mode:keyed-schedule,verify source GUID-number/tag and

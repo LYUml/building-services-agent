@@ -1,0 +1,25 @@
+{
+  "command": ".venv/Scripts/python -X utf8 -m unittest tests.test_mcp_server tests.test_delivery",
+  "tests": 15,
+  "skips": 0,
+  "elapsed_seconds": 64.257,
+  "result": "pass",
+  "actual_protocol_checks": [
+    "18 tools discovered",
+    "5 source requirement/evidence rows retained",
+    "pending review template returned and saved",
+    "pending audit stays needs_review/design_accepted false",
+    "unsupported pass without cited artifacts returns failed",
+    "existing template overwrite rejected",
+    "existing source/artifact/pump recovery trials remain passing"
+  ],
+  "engineering_review_completed": false,
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/mcp_server.py": "7a746379cc819dc50a0ddcf12d2a59a58138ccc3a37e5a96b6dd5d012af6f7f6",
+    "src/bsa/mcp_worker.py": "fe85a9d82a3e62e006b1d8054ae3d4a8b074289b4b15c2aa06865dea382bb982",
+    "src/bsa/artifact_access.py": "077828fe2e43aaae361c95221ec7357b712a91a2022fe0abfdf15b2fb2573bba",
+    "tests/test_mcp_server.py": "2673e99a4eeff68e353f8c77f1ff0b80d29defbec774f23b0db4cb8a264dc1d1",
+    "tests/test_delivery.py": "fa2ab71d00bd2ac76a01c2610811847fedf9514582b69ead6d9fd704a5ef7e68"
+  }
+}

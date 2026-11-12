@@ -5,6 +5,13 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For MCP delivery review, use bsa_delivery_template and bsa_assess_delivery per
+docs/MCP_DELIVERY.md. Read the artifact index requirement/evidence matrix and
+actual saved artifacts first. Save explicit observations in a fresh review;
+unexamined obligations stay pending. Never treat one Boolean flag or a reviewer
+assertion as whole-requirement engineering approval.
+
+
 Inspect saved results with bsa_artifact_index and bsa_read_artifact per
 docs/MCP_ARTIFACTS.md. Bind reads to the returned workflow hash and exact recorded
 path; interpret actual calculations/model content and preserve pending reviews.
