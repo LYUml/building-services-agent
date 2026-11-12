@@ -1,0 +1,21 @@
+{
+  "scope": "Actual external coursework HVAC package replay with exact requirements binding",
+  "workflow_integrity_pass": true,
+  "requirements_count": 33,
+  "unresolved_inputs_count": 6,
+  "passing_task_count": 5,
+  "pending_task_count": 11,
+  "stage_errors": {},
+  "report_pages": 22,
+  "native_plot_pages": 1,
+  "requirements_binding_present": true,
+  "receipt_sha256": "03d3144f9024699fb050168274f3767694082dd3b15abbfcc4dea62d5e72bb79",
+  "visual_review_sha256": "dcb3885ffea47b0552b2f87e7694fa2103248ac7af3de8440a16f046847c1049",
+  "design_accepted": false,
+  "limitations": [
+    "Reviewed interpreted plan replay;not raw-brief design automation",
+    "Optional terminal/ADPI/clearance/path reviews not selected in this configuration",
+    "Previous manual acceptance assertions are not automatically transferred",
+    "Full multi-discipline agent and engineering acceptance remain unfinished"
+  ]
+}

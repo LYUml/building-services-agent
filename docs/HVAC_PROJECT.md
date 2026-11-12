@@ -1,5 +1,15 @@
 # Repeatable HVAC project settings
 
+Actual external coursework replay now completes with the verified requirements
+inventory bound:five calculation/drawing tasks pass,native DWG save/reopen and
+plot execute,and22report pages are generated without stage errors. Workflow
+integrity passes;33requirements,six unresolved inputs and11pending tasks remain.
+The actual rendered plot and all report contact sheets were inspected,with
+selected report pages inspected individually. Narrow requirement IDs wrap.
+Manual acceptance assertions are not transferred automatically;optional reviews
+not selected remain omitted. See evidence/requirements-bound-hvac-package.json.
+This does not complete raw-brief automation or engineering acceptance.
+
 Use `--requirements-result <verified-inventory/result.json>` during `create`
 to retain the exact source-requirements inventory through package replay.
 The existing requirements_binding verifier checks the exact plan identity and
