@@ -1,0 +1,113 @@
+{
+  "scope": "Declared-source bounded pump recovery controller, not arbitrary design repair",
+  "tests": [
+    {
+      "command": ".venv/Scripts/python -X utf8 -m unittest tests.test_mcp_server.MCPServerTests.test_real_pump_catalogue_recovery_uses_original_electrical_and_preserves_failure tests.test_recovery_controller tests.test_pump_catalogue_iteration tests.test_pump_electrical_catalogue",
+      "passed": 15,
+      "skips": 0,
+      "elapsed_seconds": 61.001
+    },
+    {
+      "command": ".venv/Scripts/python -X utf8 -m unittest tests.test_mcp_server.MCPServerTests.test_real_stdio_source_to_engineering_and_workspace_controls",
+      "passed": 1,
+      "skips": 0,
+      "elapsed_seconds": 26.55
+    }
+  ],
+  "prior_attempt": "Rejected because controller source was edited while test was in flight; no pass claimed; subsequent tests ran with fixed source.",
+  "cases": {
+    "runs/recovery-controller-release/controller": {
+      "verification": {
+        "integrity_pass": true,
+        "steps": 2,
+        "status": "needs_action_or_review",
+        "execution_pass": false,
+        "design_accepted": false
+      },
+      "steps": [
+        {
+          "task": "first",
+          "selected": "eligible",
+          "status": "execution_incomplete"
+        },
+        {
+          "task": "second",
+          "selected": "eligible",
+          "status": "execution_incomplete"
+        }
+      ],
+      "final_tasks": {
+        "first": "pass",
+        "second": "pass",
+        "review": "pending"
+      },
+      "ready_tasks": [
+        "review"
+      ]
+    },
+    "runs/mcp-controller-release/coupled/controller": {
+      "verification": {
+        "integrity_pass": true,
+        "steps": 1,
+        "status": "execution_pass_review_pending",
+        "execution_pass": true,
+        "design_accepted": false
+      },
+      "steps": [
+        {
+          "task": "pump",
+          "selected": "eligible",
+          "status": "needs_engineering_review"
+        }
+      ],
+      "final_tasks": {
+        "electrical": "pass",
+        "water": "pass",
+        "qa": "pass",
+        "drawing": "pass",
+        "pump": "pass",
+        "coupled": "pass",
+        "coupled-qa": "pass",
+        "coupled-drawing": "pass"
+      },
+      "ready_tasks": []
+    },
+    "runs/mcp-controller-release/coupled/controller-none": {
+      "verification": {
+        "integrity_pass": true,
+        "steps": 1,
+        "status": "no_feasible_candidate",
+        "execution_pass": false,
+        "design_accepted": false
+      },
+      "steps": [
+        {
+          "task": "pump",
+          "selected": null,
+          "status": "no_feasible_candidate"
+        }
+      ],
+      "final_tasks": {
+        "electrical": "pass",
+        "water": "pass",
+        "qa": "pass",
+        "drawing": "pass",
+        "pump": "fail",
+        "coupled": "pending",
+        "coupled-qa": "pending",
+        "coupled-drawing": "pending"
+      },
+      "ready_tasks": [
+        "pump"
+      ]
+    }
+  },
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/recovery_controller.py": "a36be80774d220b6669db8b46c9baf49737242e81fa5ba5550d8f92deca1b330",
+    "src/bsa/mcp_server.py": "6d5076bff9a7564f7c59af32706fef6a5c047e245e1cd560920234c035862546",
+    "src/bsa/mcp_worker.py": "52c0256db79a2c9751e97b48ebc01c09c4f0808633c010416f521eb3c72c27e0",
+    "tests/test_recovery_controller.py": "2bb736a6bfbb2a97b17d7cfa4940ccb2f55d0af486cc2d25f0e43fb1de33296c",
+    "tests/test_mcp_server.py": "2bc7f0d5abe0f81b750b01a171fb822de9a38e26e76699afd256b79ac7565b30"
+  }
+}

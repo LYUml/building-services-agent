@@ -41,7 +41,7 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                     async with ClientSession(read,write) as session:
                         initialized=(await session.initialize()).model_dump(mode='json')
                         tools=(await session.list_tools()).tools
-                        self.assertEqual(len(tools),19)
+                        self.assertEqual(len(tools),21)
                         for tool in tools:
                             self.assertFalse({'autocad','command','project_root'} & set(tool.inputSchema.get('properties',{})))
                         async def call(name,args):
@@ -260,6 +260,17 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                         negative=await call('bsa_verify_pump_recovery',dict(out='coupled/selection-none'))
                         self.assertTrue(negative['integrity_pass']);self.assertFalse(negative['full_plan_executed'])
                         self.assertFalse((root/'coupled/no-selected-plan.json').exists());self.assertFalse((root/'coupled/selection-none/replay').exists())
+                        policy=dict(schema='bsa.recovery-policy/1',max_steps=3,actions=[dict(task='pump',catalogue='pump-catalogue.json',electrical_task='coupled')])
+                        await call('bsa_save_json',dict(path='coupled/recovery-policy.json',data=policy))
+                        controlled=await call('bsa_run_recovery',dict(plan='coupled/coupled-plan.json',original_run='coupled/original-run',policy='coupled/recovery-policy.json',out='coupled/controller'))
+                        self.assertEqual(len(controlled['steps']),1);self.assertEqual(controlled['steps'][0]['selected'],'eligible')
+                        proof=await call('bsa_verify_recovery',dict(out='coupled/controller'))
+                        self.assertTrue(proof['integrity_pass']);self.assertTrue(proof['execution_pass']);self.assertFalse(proof['design_accepted'])
+                        policy['actions'][0]['catalogue']='no-eligible-catalogue.json'
+                        await call('bsa_save_json',dict(path='coupled/recovery-negative-policy.json',data=policy))
+                        controlled_negative=await call('bsa_run_recovery',dict(plan='coupled/coupled-plan.json',original_run='coupled/original-run',policy='coupled/recovery-negative-policy.json',out='coupled/controller-none'))
+                        self.assertEqual(controlled_negative['status'],'no_feasible_candidate')
+                        self.assertEqual((await call('bsa_verify_recovery',dict(out='coupled/controller-none')))['steps'],1)
                         self.assertEqual(before,(root/'coupled/coupled-plan.json').read_bytes());self.assertEqual(failure,(root/'coupled/original-run/workflow.json').read_bytes())
             (root/'protocol.json').write_text(json.dumps(dict(calls=records,references=references,positive=checked,negative=negative,diagnosis=diagnosis,
                 original_plan_and_failed_run_preserved=True,design_accepted=False),indent=2),encoding='utf-8')

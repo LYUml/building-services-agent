@@ -1,5 +1,10 @@
 # Building Services Agent
 
+A bounded recovery controller now chains ready failed pump actions using explicit
+source catalogues, independent replay verification and fresh whole-plan diagnosis.
+Unknown/no-feasible candidates stop; manual/full engineering review remains.
+See docs/RECOVERY_CONTROLLER.md.
+
 MCP now returns actual recorded PDF artifact pages after source-bound workflow
 audits, preserving render/source hashes and pending visual/engineering review.
 Fresh native DWG reopen, PDF image delivery and actual page inspection executed.
