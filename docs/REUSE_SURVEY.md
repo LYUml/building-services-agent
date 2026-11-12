@@ -1292,3 +1292,13 @@ all original candidates and exact source ranking, then reruns the selected curve
 independently. No new numerical or ranking objective engine and no dependency.
 The existing published mechanical-table/class gate remains active when supplied;
 missing hardware/curve applicability is not converted into a product certificate.
+
+Operating-airflow BIM gap: the official isolated IFC MCP metadata adapter is
+verified for scoped pump text properties, not this selected air operating state.
+Keep its runtime/contract unchanged. Reuse pinned IfcOpenShell0.8.5 pset.add_pset /
+pset.edit_pset (documented explicit IFC value support), explicit IfcPropertySingleValue
+units, existing source-preservation snapshots and saved schema checks. Reuse the
+selected fan/source replay rather than copy a scalar or infer motor input. Add
+separate calculated scenario properties; do not overwrite original design values,
+author a pretend fan body or change whole-system flow on unrelated elements.
+No new dependency or numerical engine.

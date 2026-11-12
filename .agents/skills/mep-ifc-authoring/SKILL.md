@@ -5,6 +5,15 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For a passing source-bound circular fan operation, use `circular_fan_metadata`
+depending on `circular_fan_operating_point`; read
+[calculated airflow state](../../../docs/CIRCULAR_FAN_METADATA.md). It replays
+pressure/curve/selection sources and writes a new IFC copy with typed m3/s and Pa
+scenario properties on exact body/port GUIDs. Preserve original design values and
+units; calculated properties are not measured operation or native fan equipment.
+Saved schema and unchanged geometry/relationships remain required. Do not pass
+hand-copied flows or overwrite an existing scenario namespace.
+
 For the initial modular native-authoring boundary,use module_authoring with
 ifcopenshell.bim-authoring and a source-pinned authoring.ifc.bim request.
 It reuses bsa.bim in a fixed subprocess and emits model-artifact/1;see

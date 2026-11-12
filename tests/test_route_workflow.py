@@ -12,6 +12,19 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 class RouteWorkflowTests(unittest.TestCase):
+    def test_operating_bim_state_requires_passing_fan_and_gates_drawing(self):
+        plan=ROOT/'examples/route-search/port-airflow-state-plan.json';validate_plan(plan)
+        for fault in ('none','fan','state'):
+            with self.subTest(fault=fault),tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+                out=(Path(folder)/'run').resolve()
+                with patch('bsa.bim.run',return_value={}),patch('bsa.route_ports.run',return_value={'calculated_checks_pass':True,'scope':'dispatch-only test'}),patch('bsa.route_join.run',return_value={'calculated_checks_pass':True,'scope':'dispatch-only test'}),patch('bsa.route_material.run',return_value={'calculated_checks_pass':True,'scope':'dispatch-only test'}),patch('bsa.route_pressure.run',return_value={'calculated_checks_pass':True,'scope':'dispatch-only test'}),patch('bsa.circular_fan_selection.run',return_value={'status':'pass','scope':'dispatch-only test'}),patch('bsa.circular_fan_selection.run_selected',return_value={'calculated_checks_pass':fault!='fan','scope':'dispatch-only test'}),patch('bsa.circular_fan_metadata.run',return_value={'calculated_checks_pass':fault!='state','scope':'dispatch-only test'}) as state,patch('bsa.ifc_route_drawing.run',return_value={'calculated_checks_pass':True}) as drawing:
+                    result=execute(plan,out)
+                if fault=='fan':state.assert_not_called()
+                else:self.assertEqual(state.call_args.args,(out/'fan',out/'state'))
+                if fault=='none':self.assertEqual(result['tasks']['drawing']['status'],'pass')
+                else:drawing.assert_not_called()
+                self.assertEqual(result['tasks']['review']['status'],'pending')
+
     def test_circular_catalogue_selection_handoff_and_failure_gates(self):
         plan=ROOT/'examples/route-search/port-fan-selection-plan.json';validate_plan(plan)
         for fault in ('none','selection'):

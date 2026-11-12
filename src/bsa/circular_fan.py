@@ -96,7 +96,7 @@ def run(producer,curve_path,out):
         result['selected_rerun_pass']=rerun['calculated_checks_pass'];result['calculated_checks_pass'] &= rerun['calculated_checks_pass']
     else:result['selected_rerun_pass']=False
     if any(digest(Path(p))!=sha for p,sha in {**inputs,**methods}.items()):raise ProjectError('Fan source or method changed during execution')
-    result.update(inputs=inputs,method_inputs=methods,runtime_versions=versions,curve=curve,geometry_bound=True,
+    result.update(inputs=inputs,method_inputs=methods,input_roles=dict(pressure_producer=str(producer),curve=str(curve_path)),runtime_versions=versions,curve=curve,geometry_bound=True,
                   native_binding_scope='Exact material-checked local chain geometry/bore/K and extended open pressure stations; no native fan equipment or installed product selection',
                   boundary_ports=baseline['boundary_ports'],source_body_guids=[r['owner_guid'] for r in baseline['ledger']],
                   original_prescribed_flow_m3_s=original['supply_flow_m3_s'],original_pressure_source_report_sha256=digest(receipt))

@@ -1,5 +1,11 @@
 # Building Services Agent
 
+Passing circular fan operations now produce a source-replayed IFC copy with typed
+explicit-unit calculated flow/total-pressure properties on seven bodies/fourteen
+ports in the synthetic trial. Saved checks preserve original design values, units,
+geometry and links; weak/false-pass/unit-scale controls reject. Real fan hardware
+and full engineering remain pending. See docs/CIRCULAR_FAN_METADATA.md.
+
 Finite circular fan catalogues now reuse the shared existing preference screen.
 Actual weak/fluid-mismatch/eligible trials select and independently rerun the
 preferred eligible curve; no feasible catalogue blocks consumer and DXF. Source

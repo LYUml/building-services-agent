@@ -1,0 +1,212 @@
+{
+  "scope": "Calculated local airflow/pressure properties on preserved source IFC; no measured-operation/product/full-engineering acceptance",
+  "design_accepted": false,
+  "tests": {
+    "passed": 93,
+    "skipped": 0,
+    "suite": "test_circular_fan_metadata test_circular_fan_selection test_rectangular_fan_selection test_fan_mechanical_selection test_circular_fan test_rectangular_fan test_circular_native test_route_pressure test_route_material test_route_join test_route_ports test_route_workflow test_route_search test_route_model test_route_optimize test_route_obstacles",
+    "upstream_warning": "IfcOpenShell ResourceWarning for unclosed IFC4.py"
+  },
+  "skill_validation": "mep-ifc-authoring quick_validate passed",
+  "workflows": {
+    "airflow-state-workflow": {
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "tasks": {
+        "source": {
+          "kind": "bim",
+          "status": "pass",
+          "scope": "IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending"
+        },
+        "route": {
+          "kind": "route_ports",
+          "status": "pass",
+          "scope": "Source-guided separate route IFC only; no merged logical connections, physical joints, full equipment geometry, obstacle completeness or regulatory acceptance"
+        },
+        "join": {
+          "kind": "route_join",
+          "status": "pass",
+          "scope": "Saved same-file local logical chain; no physical joint, whole-network pressure, clearance, manufacturer or regulatory acceptance"
+        },
+        "material": {
+          "kind": "route_material",
+          "status": "pass",
+          "scope": "Ideal local circular-wall material union, topology and finite centre-core probes only; no whole-model clearance, product joints, whole-network pressure, full-bore CFD, installation or regulatory acceptance"
+        },
+        "pressure": {
+          "kind": "route_pressure",
+          "status": "pass",
+          "scope": "Uniform-bore prescribed-flow local chain including both source walls; explicit common-reference pressure/boundary/roughness/K assumptions. No ambient-gauge fan duty, operating-point solution, intermediate pressure acceptance, product or regulatory approval"
+        },
+        "selection": {
+          "kind": "circular_fan_selection",
+          "status": "pass",
+          "scope": "Finite declared numerical fan preference screening on an exact checked circular path; product applicability and full engineering remain pending"
+        },
+        "fan": {
+          "kind": "circular_fan_operating_point",
+          "status": "pass",
+          "scope": "Fixed circular local geometry/K, constant-density free flow at one fixed terminal total pressure; level external common-reference stations; no static-pressure conversion, fan electricity or branches/loops"
+        },
+        "state": {
+          "kind": "circular_fan_metadata",
+          "status": "pass",
+          "scope": "Typed explicitly unit-bound calculated local airflow/total-pressure properties on original bodies and ports; original design properties/geometry preserved. No fan equipment, measured operation, whole-system or regulatory acceptance"
+        },
+        "drawing": {
+          "kind": "ifc_route_drawing",
+          "status": "pass",
+          "scope": "source-checked saved circular walls and finite arcs to GUID-linked planar axes/OD outlines; product and installation acceptance pending"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "Review source completeness, physical joints and merged connectivity, full network pressure and installation, native plot and applicable Hong Kong rules before full engineering acceptance."
+        }
+      },
+      "summary": {
+        "checks": {
+          "original_geometry_and_properties_preserved": true,
+          "original_ports_systems_links_preserved": true,
+          "original_project_units_preserved": true,
+          "typed_explicit_units_pass": true,
+          "schema_valid": true,
+          "body_count": 7,
+          "port_count": 14,
+          "property_count": 196
+        },
+        "operating_point": {
+          "flow_m3_s": 0.08029227424412967,
+          "system_required_rise_pa": 6.963465711498296,
+          "residual_pa": 7.985494931972426e-09,
+          "supply_total_pressure_pa": 6.963465719483791,
+          "fan_total_pressure_rise_pa": 6.963465719483791,
+          "air_power_kw": 0.0005591124992383882
+        },
+        "native_fan_count": 0,
+        "original_model_untouched": true,
+        "source_and_method_hashes_current": true
+      },
+      "files": {
+        "runs\\airflow-state-workflow\\workflow.json": "895703e519be7e0ff8351ba5b782c7e48b896912678ff1546c0a87884eca772a",
+        "runs\\airflow-state-workflow\\state\\fan-metadata.json": "85abdfa973cd9e2e24ba596523b73ad9774067eecdf90f9f3cdddb56197439e4",
+        "runs\\airflow-state-workflow\\state\\scenario-snapshot.json": "6eff3419f7d445e5979bc4fe95f9c8204e111322748286f1dc76600d410cfb94",
+        "runs\\airflow-state-workflow\\state\\Operating Airflow Study.ifc": "7a257cc71c22e6f98c56b979a8f346a167fa6843b64fb47f4350c75d9083e9c8",
+        "runs\\airflow-state-workflow\\fan\\fan.json": "e26082a641fb162b6f833e4ab4077090e30cf7e8e777b1bad2f7da988f732dab",
+        "runs\\airflow-state-workflow\\drawing\\segments.dxf": "3d111f177be4397e07b1af1461d3660778e8bf10c939edb9329837bccd7b8995"
+      }
+    },
+    "airflow-state-no-feasible-workflow": {
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "tasks": {
+        "source": {
+          "kind": "bim",
+          "status": "pass",
+          "scope": "IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending"
+        },
+        "route": {
+          "kind": "route_ports",
+          "status": "pass",
+          "scope": "Source-guided separate route IFC only; no merged logical connections, physical joints, full equipment geometry, obstacle completeness or regulatory acceptance"
+        },
+        "join": {
+          "kind": "route_join",
+          "status": "pass",
+          "scope": "Saved same-file local logical chain; no physical joint, whole-network pressure, clearance, manufacturer or regulatory acceptance"
+        },
+        "material": {
+          "kind": "route_material",
+          "status": "pass",
+          "scope": "Ideal local circular-wall material union, topology and finite centre-core probes only; no whole-model clearance, product joints, whole-network pressure, full-bore CFD, installation or regulatory acceptance"
+        },
+        "pressure": {
+          "kind": "route_pressure",
+          "status": "pass",
+          "scope": "Uniform-bore prescribed-flow local chain including both source walls; explicit common-reference pressure/boundary/roughness/K assumptions. No ambient-gauge fan duty, operating-point solution, intermediate pressure acceptance, product or regulatory approval"
+        },
+        "selection": {
+          "kind": "circular_fan_selection",
+          "status": "fail",
+          "scope": "Finite declared numerical fan preference screening on an exact checked circular path; product applicability and full engineering remain pending"
+        },
+        "fan": {
+          "kind": "circular_fan_operating_point",
+          "status": "pending",
+          "scope": "upstream pressure/selection did not pass; fan operating point not executed"
+        },
+        "state": {
+          "kind": "circular_fan_metadata",
+          "status": "pending",
+          "scope": "upstream fan duty did not pass; no calculated BIM state fabricated"
+        },
+        "drawing": {
+          "kind": "ifc_route_drawing",
+          "status": "pending",
+          "scope": "required checks unresolved: fan (pending), selection (fail), state (pending); adapter not executed"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: drawing (pending), fan (pending), selection (fail), state (pending); adapter not executed"
+        }
+      },
+      "summary": {
+        "no_calculated_state": true,
+        "no_drawing": true
+      },
+      "files": {
+        "runs\\airflow-state-no-feasible-workflow\\workflow.json": "0e7476663e56c8aa8d4f1269088efe964e8a44c42bf28468ec34d8da71775e2d"
+      }
+    }
+  },
+  "controls": {
+    "actual": {
+      "weak-duty": {
+        "rejected": true,
+        "reason": "Passing unaccepted native operating scenario required",
+        "model_absent": true
+      },
+      "false-pass": {
+        "rejected": true,
+        "reason": "Operating result differs from fresh curve/network solve",
+        "model_absent": true
+      },
+      "millisecond-flow-unit": {
+        "rejected": true,
+        "reason": "Calculated value type or explicit unit differs"
+      }
+    },
+    "record_sha256": "b38eb84bd8c0945d2ef9045e04772e00c1115dc55039c60652ef7037021d320c",
+    "unit_regressions": [
+      "missing explicit calculated unit rejects",
+      "changed original explicit unit rejects",
+      "changed calculated value/native geometry rejects",
+      "unrelated prior scenario retained",
+      "target namespace collision rejects",
+      "JSON-roundtrip snapshot replay passes",
+      "nonzero interface loss keeps distinct adjacent port pressures"
+    ]
+  },
+  "requirements": {
+    "prior9unchanged": true,
+    "calculated_state_R10_added": true,
+    "total": 10
+  },
+  "reuse": "Pinned native IfcOpenShell property-set API with explicit IFC measures/units, existing native snapshots/schema validation and fresh source fan replay; no new engine/dependency",
+  "pending": [
+    "real fan geometry/ports and host automatic MEP flow solution",
+    "measured operation and actual product applicability",
+    "motor/electrical input",
+    "full multibranch/network/installation acceptance",
+    "native joined drawing review and full Hong Kong rules"
+  ]
+}

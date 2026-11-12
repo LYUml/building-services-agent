@@ -2,6 +2,8 @@
 
 For a finite catalogue, [circular fan screening](CIRCULAR_FAN_SELECTION.md) adds
 source-reconstructed ranking and an independent selected-curve consumer.
+Optional [calculated BIM state](CIRCULAR_FAN_METADATA.md) writes source-replayed
+flow/pressure properties after that operating analysis, preserving design inputs.
 
 `circular_fan_operating_point` inherits the exact passing `route_pressure` result.
 It reuses the existing bounded bisection/interpolation in `pump._solve`, the
