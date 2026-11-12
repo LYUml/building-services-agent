@@ -1,5 +1,10 @@
 # Reuse survey â€” 2026-11-09
 
+Verified inlets now feed explicit hollow short-duct studies through the existing
+circular-wall engine. Two actual6stub cases preserve native geometry/flows and
+directed coincident links;upstream ends,physical openings and full-network
+acceptance remain pending. See SPATIAL_TERMINAL_STUBS.md.
+
 Logical inlet authoring now executes in workflows,and coordination/preview
 resolve the exact augmented IFC. Native/MOOSAS/disabled trials preserve11
 requirements;valid old-model substitution rejects. Physical joints/network and

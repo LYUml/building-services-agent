@@ -1,0 +1,27 @@
+{
+  "scope": "Explicit hollow inlet short-stub and directed interface study",
+  "runs": {
+    "native": {
+      "report": "runs\\spatial-terminal-stubs-verified-native\\terminal-stubs.json",
+      "sha256": "5b9be77a789e2fde7dcee7bfb25cbf5d0f5030a785521dbeb7f9e17e6095afd3",
+      "stubs": 6,
+      "original_entities_unchanged": true,
+      "network_continuity_verified": false
+    },
+    "moosas": {
+      "report": "runs\\spatial-terminal-stubs-verified-moosas\\terminal-stubs.json",
+      "sha256": "b6ba2d06979314af1179552014dd1af2e43c103c09c98c6f43ff24affab149e0",
+      "stubs": 6,
+      "original_entities_unchanged": true,
+      "network_continuity_verified": false
+    }
+  },
+  "keyed_geometry_flow_records_equal": true,
+  "trial": {
+    "length_m": 0.15,
+    "internal_diameter_m": 0.2032,
+    "wall_thickness_m": 0.0008,
+    "classification": "Synthetic design choices plus explicit bore-equals-nominal assumption"
+  },
+  "design_accepted": false
+}
