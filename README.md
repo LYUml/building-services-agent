@@ -1,5 +1,10 @@
 # Building Services Agent
 
+A single supported terminal-iteration command now composes search, full-plan
+generation, fresh requirements binding, execution and source-backed action
+diagnosis. Actual runs preserve incomplete engineering checks; arbitrary
+raw-brief design and full-agent acceptance remain unfinished. See docs/TERMINAL_ITERATION.md.
+
 Studied automatic terminal layouts can now continue through the complete original
 workflow using explicit same-room geometry reuse. Two actual five-terminal BIM
 reruns preserve all13requirements and retain coordination failures; shared-system

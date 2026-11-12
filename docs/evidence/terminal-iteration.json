@@ -1,0 +1,74 @@
+{
+  "scope": "Executed single-command source-bound synthetic terminal iteration; complete engineering acceptance and semantic arbitrary-brief design remain unproven",
+  "tests_passed": 18,
+  "skill_format_valid": true,
+  "new_engine_or_dependency": false,
+  "cases": {
+    "native": {
+      "receipt": "runs/terminal-iteration-checked-native/iteration.json",
+      "receipt_sha256": "7e94f1ececc705be365da9071ab688d72989364e687bf26a13b2b2988e42c190",
+      "receipt_replay_verified": true,
+      "status": "execution_incomplete",
+      "stages": {
+        "search": "candidate_available",
+        "plan": "materialized_verified",
+        "requirements": "completed",
+        "workflow": "executed",
+        "diagnosis": "source_verified"
+      },
+      "original_requirement_count": 13,
+      "original_unresolved_input_count": 0,
+      "original_inputs_unchanged": true,
+      "design_accepted": false,
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "air-balance": "pass",
+        "terminal-allocation": "pass",
+        "terminal-performance": "pass",
+        "terminal-drawing": "pass",
+        "terminal-ifc": "pass",
+        "terminal-inlets": "pass",
+        "terminal-stubs": "pass",
+        "terminal-coordination": "fail",
+        "straight-friction": "pass",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "fresh_inventory_bound_to_exact_new_plan": true,
+      "requirements_execution": "completed",
+      "new_requirement_count": 13,
+      "interpretation_status": "not_assessed",
+      "stub_count": 5,
+      "friction_case_count": 10,
+      "clearance_violation_pair_count": 5,
+      "intersection_pair_count": 0,
+      "execution_action_tasks": [
+        "terminal-coordination"
+      ],
+      "engineering_request_count": 12
+    },
+    "infeasible": {
+      "receipt": "runs/terminal-iteration-checked-infeasible/iteration.json",
+      "receipt_sha256": "d1ce6962255303aad47306014d0829c757c506f2d3403837dc80eb5636b6c30f",
+      "receipt_replay_verified": true,
+      "status": "no_feasible_candidate",
+      "stages": {
+        "search": "no_feasible_candidate"
+      },
+      "original_requirement_count": 13,
+      "original_unresolved_input_count": 0,
+      "original_inputs_unchanged": true,
+      "design_accepted": false,
+      "target_plan_created": false,
+      "workflow_started": false
+    }
+  },
+  "design_accepted": false,
+  "limits": [
+    "Existing configured engineering plan/run and explicit search/geometry policies are required.",
+    "Requirements interpretation remains not_assessed; inventory completion is not semantic completeness.",
+    "Native pipeline preserves five coordination failures and twelve retained friction engineering requests.",
+    "Physical product/joint/routing,ADPI,complete HK and whole-agent acceptance remain unfinished."
+  ]
+}

@@ -1204,3 +1204,11 @@ No new engine or dependency. New placements retain old parameter values as
 explicit design choices with original classifications separately pinned, not
 as new measurements. Preserve complete source tasks/requirements and rerun
 all downstream checks. See SPATIAL_TERMINAL_CANDIDATE_PLAN.md.
+
+Single-command terminal iteration gap: reuse terminal search, verified full-plan
+factory, bsa.source-requirements, workflow.execute and workflow_status.diagnose.
+The existing project_start handles conservative raw-source handoff and
+hvac_project repeats a configured package; neither performs this studied
+terminal-to-BIM iteration. Add orchestration and exact new-plan inventory
+rebinding, not another solver or dependency. No implicit geometry templates,
+provider substitution or acceptance transfer. See TERMINAL_ITERATION.md.

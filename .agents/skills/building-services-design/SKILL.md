@@ -5,6 +5,12 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For one supported terminal design iteration from an existing verified plan/run,
+use bsa.terminal_iteration with explicit search/geometry policies and fresh output
+paths; read [the iteration entry](../../../docs/TERMINAL_ITERATION.md). It rebuilds
+the exact new-plan requirements inventory and preserves unresolved action queues.
+It is not a semantic raw-brief solver or an automatic engineering approval.
+
 For source-linked room/terminal workflows, use bsa.spatial_terminal_search with
 explicit sampled grids, objective and inherited product choices; read
 [automatic terminal search](../../../docs/AUTOMATIC_TERMINAL_SEARCH.md).
