@@ -17,7 +17,7 @@ def expected(report,producer,settings):
     if set(settings)!={'annotation_height_m','source'} or not isinstance(settings['source'],str) or not settings['source'].strip():raise ValueError('Explicit sourced annotation settings required')
     height=settings['annotation_height_m']
     if type(height) not in (int,float) or not math.isfinite(height) or not .001<=height<=1:raise ValueError('Annotation height must be .001 to1 metre')
-    rows=[]
+    rows=[];flow_labels=[]
     for room_number,space in enumerate(producer['payload']['spaces'],1):
         room=report['calculation']['rooms'][space['id']]
         if producer['payload_schema']=='bsa.spatial-polygons/1':vertices=space['boundary_vertices']
@@ -28,10 +28,18 @@ def expected(report,producer,settings):
             x,y=terminal['center_m'];q=terminal['maximum_flow_L_s'];minimum=terminal['minimum_flow_L_s']
             rows.append(dict(kind='POINT',layer='BSA_TERMINAL_CENTER',point=[float(x),float(y),0.]))
             text=f"R{room_number}-T{terminal_number}"
-            rows.append(dict(kind='TEXT',layer='BSA_FLOW',text=text,point=[float(x+height),float(y+height),0.],height=height))
-            rows.append(dict(kind='TEXT',layer='BSA_FLOW',text=f'{q:.1f}/{minimum:.1f} L/s',point=[float(x+height),float(y-height*2),0.],height=height))
+            rows.append(dict(kind='TEXT',layer='BSA_FLOW',text=text,point=[float(x-height*1.5),float(y+height),0.],height=height))
+            flow_labels.append(f'R{room_number}-T{terminal_number}   {q:.1f} / {minimum:.1f} L/s')
         x,y=vertices[0]
         rows.append(dict(kind='TEXT',layer='BSA_ROOM_LABEL',text=f"R{room_number} | floor z={room['floor_elevation_m']:.3f} m",point=[float(x),float(y-height*2),0.],height=height))
+    boundaries=[r for r in rows if r['kind']=='LWPOLYLINE']
+    x=min(p[0] for r in boundaries for p in r['points']);y=min(p[1] for r in boundaries for p in r['points'])
+    notes=['TERMINAL AIRFLOW SCHEMATIC','Crosses: terminal centres. Values: maximum/minimum airflow in L/s.',
+        'Plan projection only. No equipment size,duct routing or installation approval.']
+    for index,text in enumerate(notes,1):
+        rows.append(dict(kind='TEXT',layer='BSA_ROOM_LABEL',text=text,point=[x,y-height*(4+index*2),0.],height=height))
+    for index,text in enumerate(flow_labels):
+        rows.append(dict(kind='TEXT',layer='BSA_FLOW',text=text,point=[x,y-height*(12+index*2),0.],height=height))
     return rows
 
 

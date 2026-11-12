@@ -63,3 +63,27 @@ coursework data or files were modified for this integration.
 
 Integration regression:30 related tests pass with actual MOOSAS execution enabled,
 including drawing task gating,forbidden overrides and wrong-parent rejection.
+
+## Readable schematic sheet iteration
+
+The current generator places only short terminal identifiers beside centres,
+with exact rounded source maximum/minimum flows in a separate keyed schedule.
+It adds a schematic title,centre/flow legend and explicit installation/routing
+limitation. These annotations reuse existing TEXT entities and ID bindings;no
+geometry,load,flow or source basis is changed. Three common notes add three
+entities. Generic offsets do not guarantee collision avoidance for every room.
+
+An actual six-terminal source produces27entities. AutoCAD saves/reopens and
+plots on A4 at1:75;explicit0.2m annotation gives2.6667mm on paper. This target is
+a design choice,not a cited regulatory minimum. The1800px native PDF render was
+inspected:all six identifiers and schedule rows,room outlines,units and scope
+notes are visible with no observed text collision/clipping. A separate hash-bound
+visual-review.json records this specific readability pass,while the native
+producer's automatic visual state and complete engineering acceptance remain
+pending. Earlier small-text/overlapping-flow trials are preserved. See
+evidence/spatial-sheet-readability.json. No physical duct routing,ADPI or complete
+design is accepted by this sheet review.
+
+Readability regression:35 related tests pass with actual MOOSAS enabled,covering
+source replay,title presence,modified annotation inventory,native comparison,
+plot references and complete spatial/candidate workflow controls.

@@ -40,3 +40,8 @@ acceptance and automatic native workflow-task integration remain unfinished.
 
 Validation:8 related tests pass,including POINT movement detection,straight
 polyline reference selection/rejection and existing CAD/drawing workflow controls.
+
+The later readability iteration addresses the small-text finding in this exact
+synthetic sheet through a keyed flow schedule and explicit paper-height target.
+See SPATIAL_TERMINAL_DRAWING.md and evidence/spatial-sheet-readability.json;the
+original finding remains historical evidence,not an automatically cleared gate.

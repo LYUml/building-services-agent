@@ -1,0 +1,39 @@
+{
+  "scope": "Visual readability of this specific synthetic terminal-centre schematic only",
+  "native_report": "runs\\spatial-sheet-schedule-native\\spatial-native.json",
+  "native_report_sha256": "909cda7f2dec015ced56d8790d2c2020b1537997712539ecd8276bae31429fd2",
+  "review": {
+    "scope": "Visual readability of this specific synthetic terminal-centre schematic only",
+    "pdf_sha256": "066df1339c65c8a6c216fb496ad841f91afe43cf289ec9ec72ba7b2447b6f1c6",
+    "render_sha256": "2e06913c9e5dea88a35ae3740d07d7fe2fcba8bbd07e838c0eb0d4eb64e60234",
+    "render_width_px": 1800,
+    "annotation_height_paper_mm": 2.6666666666666665,
+    "annotation_target_classification": "design_choice",
+    "native_reopen_pass": true,
+    "entity_count": 27,
+    "visual_readability_pass": true,
+    "findings": [
+      "All six terminal identifiers and room outlines visible",
+      "All six maximum/minimum flows in separate keyed schedule;no text obscures room boundaries",
+      "Title,units,centre-symbol legend and scope limitations visible",
+      "No observed text collisions or clipping in the inspected sheet"
+    ],
+    "design_accepted": false
+  },
+  "reference": {
+    "pdf_sha256": "066df1339c65c8a6c216fb496ad841f91afe43cf289ec9ec72ba7b2447b6f1c6",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 75,
+    "reference_handle": "33",
+    "reference_expected_mm": 66.66666666666666,
+    "reference_measured_mm": 66.675,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "previous_small_text_review_preserved": true
+}

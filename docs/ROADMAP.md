@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Spatial schematics now separate terminal IDs from a keyed airflow schedule and
+include legend/scope notes. Actual AutoCAD1:75PDF inspection resolves the prior
+small-text/overlap findings for one synthetic sheet;full engineering stays pending.
+See SPATIAL_TERMINAL_DRAWING.md. Reuses existing ezdxf TEXT,not a new engine.
+
 Actual AutoCAD save/reopen and fixed-scale PDF checks now run on spatial airflow
 schematics through existing adapters.24entities reconcile;visual review flags
 small text,so sheet/engineering acceptance remains pending. See
