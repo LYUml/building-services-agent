@@ -1,5 +1,11 @@
 # Building Services Agent
 
+Pinned MOOSAS surface recognition now has a common polygon-space provider.
+Three actual nonrectangular/rotated/detail fixtures and23related tests pass;
+source IDs,height/elevation and geometry checks survive the boundary. Automatic
+workflow dispatch,thermal readiness and complete engineering acceptance remain
+unfinished. See docs/MODULAR_SPACE_RECOGNITION.md.
+
 Saved-native duct equation review now runs in the explicit coursework workspace:
 47sections and16,779candidates reconcile;25 related tests pass. Chart readings
 and physical applicability remain unresolved. See

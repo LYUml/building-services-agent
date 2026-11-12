@@ -1,5 +1,11 @@
 # MOOSAS priority reuse map
 
+Surface recognition now has a registered common provider and polygon-space
+contract preserving concave boundaries,source IDs,height and elevation. Actual
+three-fixture source/reload trials and23related tests pass. No automatic workflow
+or polygon-to-thermal consumer is implemented. See MODULAR_SPACE_RECOGNITION.md
+and evidence/common-moosas-recognition.json.
+
 A subsequent explicit1e-9m process-local grid trial resolves the rotated and
 narrow-notch source correspondence failures under unchanged fixture acceptance
 targets. Default1mm behavior and its failures remain reproducible. Eight tests,

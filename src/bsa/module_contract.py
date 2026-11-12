@@ -13,6 +13,7 @@ SCHEMAS['bsa.requirements-inventory/1']='requirements-inventory-v1.json'
 SCHEMAS[RULE_SCHEMA]='rule-assessment-v1.json'
 SCHEMAS['bsa.electrical-circuits/1']='electrical-circuits-v1.json'
 SCHEMAS['bsa.air-allocation/1']='air-allocation-v1.json'
+SCHEMAS['bsa.spatial-polygons/1']='spatial-polygons-v1.json'
 
 
 def artifact_references(schema,data):
@@ -62,6 +63,15 @@ def validate(data,schema=None):
     spec=read_json(ROOT/'contracts/modules'/SCHEMAS[schema]);jsonschema.Draft202012Validator.check_schema(spec)
     errors=list(jsonschema.Draft202012Validator(spec).iter_errors(data))
     if errors:raise ValueError('Contract violation: '+errors[0].message)
+    if schema=='bsa.spatial-polygons/1':
+        from shapely.geometry import Polygon
+        frame_spec=read_json(ROOT/'contracts/modules/request-v1.json')['properties']['coordinate_frame']
+        if list(jsonschema.Draft202012Validator(frame_spec).iter_errors(data['coordinate_frame'])):raise ValueError('Invalid polygon coordinate frame')
+        ids=[r['id'] for r in data['spaces']];native=[r['recognized_id'] for r in data['spaces']]
+        if len(ids)!=len(set(ids)) or len(native)!=len(set(native)):raise ValueError('Duplicate common polygon room identities')
+        for room in data['spaces']:
+            boundary=Polygon(room['boundary_vertices'])
+            if not boundary.is_valid or boundary.is_empty or not math.isclose(boundary.area,room['floor_area_m2'],rel_tol=1e-10,abs_tol=1e-8):raise ValueError('Polygon area differs from actual boundary')
     if schema=='bsa.air-allocation/1':
         frame_spec=read_json(ROOT/'contracts/modules/request-v1.json')['properties']['coordinate_frame']
         if list(jsonschema.Draft202012Validator(frame_spec).iter_errors(data['coordinate_frame'])):raise ValueError('Invalid allocation coordinate frame')

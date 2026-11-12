@@ -1,0 +1,154 @@
+{
+  "scope": "Actual standalone common polygon-space provider over three original synthetic geometry sources",
+  "provider": {
+    "id": "moosas.surface-room-recognition",
+    "version": "1",
+    "license": "Apache-2.0",
+    "upstream_commit": "dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c"
+  },
+  "cases": {
+    "l-shaped-room": {
+      "execution": "completed",
+      "acceptance": "pending",
+      "spaces": [
+        {
+          "id": "l-shaped-room",
+          "recognized_id": "0x0100010e90602k",
+          "boundary_vertices": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              5.0,
+              0.0
+            ],
+            [
+              5.0,
+              2.0
+            ],
+            [
+              2.0,
+              2.0
+            ],
+            [
+              2.0,
+              4.0
+            ],
+            [
+              0.0,
+              4.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "floor_area_m2": 14.0,
+          "height_m": 3.0,
+          "floor_elevation_m": 0.0
+        }
+      ],
+      "simulation_ready": false,
+      "result_sha256": "8cfa949d89928bb79b067c232bfc7278d57d17ce8d158d73306347323aa0220f"
+    },
+    "rotated-room": {
+      "execution": "completed",
+      "acceptance": "pending",
+      "spaces": [
+        {
+          "id": "rotated-room",
+          "recognized_id": "0x0100050b90406j",
+          "boundary_vertices": [
+            [
+              10.1234,
+              -2.5678
+            ],
+            [
+              13.587501615,
+              -0.5678
+            ],
+            [
+              12.087501615,
+              2.030276211
+            ],
+            [
+              8.6234,
+              0.030276211
+            ],
+            [
+              10.1234,
+              -2.5678
+            ]
+          ],
+          "floor_area_m2": 11.999999998418184,
+          "height_m": 3.0,
+          "floor_elevation_m": 0.0
+        }
+      ],
+      "simulation_ready": false,
+      "result_sha256": "4aac0da01446b5b47f330c21cb6ff0ef4888dcf43ebf1055b0b63b609ec7e91e"
+    },
+    "narrow-notch": {
+      "execution": "completed",
+      "acceptance": "pending",
+      "spaces": [
+        {
+          "id": "narrow-notch",
+          "recognized_id": "0x0100001b9080k0",
+          "boundary_vertices": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              4.0,
+              0.0
+            ],
+            [
+              4.0,
+              3.0
+            ],
+            [
+              2.0004,
+              3.0
+            ],
+            [
+              2.0004,
+              2.5
+            ],
+            [
+              2.0,
+              2.5
+            ],
+            [
+              2.0,
+              3.0
+            ],
+            [
+              0.0,
+              3.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "floor_area_m2": 11.9998,
+          "height_m": 3.0,
+          "floor_elevation_m": 0.0
+        }
+      ],
+      "simulation_ready": false,
+      "result_sha256": "1333ac8f5a09146e7755a96413621f531dab8337b87f93924f04208c6ca17503"
+    }
+  },
+  "targeted_tests_passed": 23,
+  "design_accepted": false,
+  "limitations": [
+    "Repository-local worker sources/runtime/output only",
+    "No automatic workflow dispatch or thermal consumer yet",
+    "No arbitrary DWG/RVT recognition or physical/MEP/regulatory acceptance",
+    "Explicit empty catalogue and finer coordinate grid remain declared compatibility settings"
+  ]
+}

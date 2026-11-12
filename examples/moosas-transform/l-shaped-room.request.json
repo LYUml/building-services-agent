@@ -1,0 +1,22 @@
+{
+  "schema": "bsa.module-request/1",
+  "project_id": "public-synthetic-geometry",
+  "scenario_id": "l-shaped-room",
+  "capability": "spatial.surface-room-recognition",
+  "coordinate_frame": {
+    "id": "declared-planar-metres",
+    "kind": "source-world-si",
+    "length_unit": "m",
+    "georeferenced": false
+  },
+  "sources": {
+    "geometry": {
+      "path": "l-shaped-room.geo",
+      "sha256": "9eb3faf3fb777c8cc1d151f6a438d34fd08ffdee8ad6442515ce315dad7ed69f"
+    },
+    "expectations": {
+      "path": "l-shaped-room.expected.json",
+      "sha256": "bbec08f805f1c13ef05de34bf869adcd3b6b147b5b94ecf3059b93dc9a3eaee2"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "schema": "bsa.module-request/1",
+  "project_id": "public-synthetic-geometry",
+  "scenario_id": "rotated-room",
+  "capability": "spatial.surface-room-recognition",
+  "coordinate_frame": {
+    "id": "declared-planar-metres",
+    "kind": "source-world-si",
+    "length_unit": "m",
+    "georeferenced": false
+  },
+  "sources": {
+    "geometry": {
+      "path": "rotated-room.geo",
+      "sha256": "c4cce965036822ced29564e331c18d65a83e38deee8154c7c1c27c870de520c3"
+    },
+    "expectations": {
+      "path": "rotated-room.expected.json",
+      "sha256": "36c550814405495b2e45a1c088584a04cc66599a1123b3f668ec7772763f5844"
+    }
+  }
+}

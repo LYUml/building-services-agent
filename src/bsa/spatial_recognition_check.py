@@ -36,7 +36,12 @@ def check(spaces, expected, *, length_tolerance_m, area_tolerance_m2):
             difference=boundary.symmetric_difference(geometry).area
             height_error=abs(h-height(room['height_m']))
             passed=distance<=length_tolerance_m and difference<=area_tolerance_m2 and height_error<=length_tolerance_m and room['is_open'] is False
-            candidates.append(dict(recognized_id=room['id'],boundary_hausdorff_m=distance,symmetric_difference_m2=difference,height_error_m=height_error,passes=passed))
+            elevation_error=None
+            if 'floor_elevation_m' in source:
+                values=(source['floor_elevation_m'],room.get('floor_elevation_m'))
+                if any(type(v) not in (int,float) or not math.isfinite(v) for v in values):raise ValueError('Finite floor elevations required')
+                elevation_error=abs(values[0]-values[1]);passed=passed and elevation_error<=length_tolerance_m
+            candidates.append(dict(recognized_id=room['id'],boundary_hausdorff_m=distance,symmetric_difference_m2=difference,height_error_m=height_error,floor_elevation_error_m=elevation_error,passes=passed))
         accepted=[r['recognized_id'] for r in candidates if r['passes']]
         if len(accepted)==1:matches.extend(accepted)
         rows.append(dict(source_id=source['id'],source_area_m2=boundary.area,matching_ids=accepted,candidates=candidates,pass_check=len(accepted)==1))

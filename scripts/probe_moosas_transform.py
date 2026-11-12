@@ -72,6 +72,7 @@ def main():
                     from shapely import get_coordinates
                     for space in model.spaceList:
                         result['spaces'].append(dict(id=str(space.id),area_m2=float(space.area),height_m=float(space.height),
+                            floor_elevation_m=float(space.floor.level+space.floor.offset),
                             is_open=bool(space.is_open()),boundary_vertices=get_coordinates(space.force_2d()).tolist()))
                     model.save(str(out/'recognized.xml'))
                     from MoosasPy.model import MoosasModel
@@ -83,6 +84,7 @@ def main():
                     finally:
                         building_templates.DEFAULT_LIBRARY=previous
                     actual=[dict(id=str(s.id),area_m2=float(s.area),height_m=float(s.height),is_open=bool(s.is_open()),
+                        floor_elevation_m=float(s.floor.level+s.floor.offset),
                         boundary_vertices=get_coordinates(s.force_2d()).tolist()) for s in loaded.spaceList]
                     result['saved_reload_matches']=sorted(actual,key=lambda r:r['id'])==sorted(result['spaces'],key=lambda r:r['id'])
                     if not result['saved_reload_matches']:raise ValueError('Saved recognized spaces differ after native XML reload')

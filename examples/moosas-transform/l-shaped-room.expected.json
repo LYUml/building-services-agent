@@ -31,7 +31,8 @@
           0.0
         ]
       ],
-      "height_m": 3.0
+      "height_m": 3.0,
+      "floor_elevation_m": 0.0
     }
   ],
   "length_tolerance_m": 1e-06,

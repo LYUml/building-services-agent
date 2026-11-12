@@ -1,0 +1,22 @@
+{
+  "schema": "bsa.module-request/1",
+  "project_id": "public-synthetic-geometry",
+  "scenario_id": "narrow-notch",
+  "capability": "spatial.surface-room-recognition",
+  "coordinate_frame": {
+    "id": "declared-planar-metres",
+    "kind": "source-world-si",
+    "length_unit": "m",
+    "georeferenced": false
+  },
+  "sources": {
+    "geometry": {
+      "path": "narrow-notch.geo",
+      "sha256": "fa69661e058c44fc45622dd09e19a83b58f317305116de88a29ae799255b3c8f"
+    },
+    "expectations": {
+      "path": "narrow-notch.expected.json",
+      "sha256": "f40d223acf88e94c1ec8a84353a4c4ca502d528e18d9cd13a5fc1686e8f6b739"
+    }
+  }
+}

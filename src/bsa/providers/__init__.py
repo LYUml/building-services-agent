@@ -2,6 +2,9 @@
 
 
 def get_provider(id):
+    if id=='moosas.surface-room-recognition':
+        from . import moosas_recognition
+        return moosas_recognition
     if id=='bsa.classified-air-allocation':
         from . import air_allocation
         return air_allocation

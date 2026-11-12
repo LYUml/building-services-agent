@@ -1,5 +1,12 @@
 # Reuse survey â€” 2026-11-09
 
+Common recognition boundary: wrap the already executed pinned MOOSAS probe and
+existing Shapely source-boundary checker in the trusted module runner. Add a
+polygon-space contract rather than forcing nonrectangular rooms into box fields.
+No new geometry engine/dependency;Apache-2.0 attribution remains. Three actual
+standalone provider trials and23related tests pass. Runtime scope and missing
+workflow/thermal consumers remain explicit in MODULAR_SPACE_RECOGNITION.md.
+
 MOOSAS coordinate fidelity follow-up: source inspection found geom.POINT_PRECISION
 controls importer quantization and recognition snapping. Add an explicit process-
 local host grid option to the existing probe,restoring it after native reload or

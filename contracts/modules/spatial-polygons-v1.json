@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "coordinate_frame",
+    "units",
+    "spaces",
+    "point_grid_m",
+    "source_geometry_matches",
+    "simulation_ready",
+    "design_accepted"
+  ],
+  "properties": {
+    "schema": {
+      "const": "bsa.spatial-polygons/1"
+    },
+    "coordinate_frame": {
+      "type": "object"
+    },
+    "units": {
+      "const": {
+        "length": "m",
+        "area": "m2"
+      }
+    },
+    "spaces": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "recognized_id",
+          "boundary_vertices",
+          "floor_area_m2",
+          "height_m",
+          "floor_elevation_m"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "recognized_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "boundary_vertices": {
+            "type": "array",
+            "minItems": 4,
+            "items": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "floor_area_m2": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "height_m": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "floor_elevation_m": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "point_grid_m": {
+      "const": 1e-09
+    },
+    "source_geometry_matches": {
+      "const": true
+    },
+    "simulation_ready": {
+      "const": false
+    },
+    "design_accepted": {
+      "const": false
+    }
+  }
+}
