@@ -1,0 +1,47 @@
+{
+  "scope": "Verified synthetic retained-payload engineering review requests; no automatic engineering repair or acceptance",
+  "tests_passed": 11,
+  "cases": {
+    "native": {
+      "diagnosis": "runs/friction-review-diagnosis/native.json",
+      "sha256": "104f44127a7a54276bce928fad0e85689bda6db1b5d5e13ecb5522e55cb11980",
+      "integrity_pass": true,
+      "execution_pass": false,
+      "design_accepted": false,
+      "engineering_action_count": 1,
+      "request_codes": {
+        "flow_development_applicability_unverified": 6,
+        "air_property_basis_review_required": 1,
+        "whole_system_pressure_incomplete": 1
+      },
+      "execution_action_tasks": [
+        "terminal-coordination"
+      ]
+    },
+    "analysis-disabled": {
+      "diagnosis": "runs/friction-review-diagnosis/analysis-disabled.json",
+      "sha256": "286e9c5e2b8e9f32e2d83feadf9d85640bb16b27169e05971bc097c1a481330a",
+      "integrity_pass": true,
+      "execution_pass": false,
+      "design_accepted": false,
+      "engineering_action_count": 0,
+      "request_codes": {},
+      "execution_action_tasks": [
+        "terminal-coordination",
+        "straight-friction"
+      ]
+    },
+    "geometry-disabled": {
+      "diagnosis": "runs/friction-review-diagnosis/geometry-disabled.json",
+      "sha256": "f1e89c74b987e955f0a47c06bc0b25106297a0dd5b33295f4f5c398cab3104b5",
+      "integrity_pass": true,
+      "execution_pass": false,
+      "design_accepted": false,
+      "engineering_action_count": 0,
+      "request_codes": {},
+      "execution_action_tasks": [
+        "recognition"
+      ]
+    }
+  }
+}

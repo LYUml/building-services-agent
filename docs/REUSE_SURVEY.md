@@ -1159,3 +1159,9 @@ jsonschema contracts and workflow materialization/disable gates. No new solver
 or dependency. Exact source/model correspondence is retained; numerical case
 completion cannot clear physical-development, joint, fan or full acceptance.
 See MODULAR_STUB_FRICTION.md for executed cases and remaining scope.
+
+Straight-friction review visibility gap: reuse verified common friction payloads,
+module verifier and workflow_status diagnosis. No new solver, dependency or
+regulatory threshold. Project source-classified applicability/property/network
+review requests separately from numerical execution failures. See
+FRICTION_REVIEW_QUEUE.md for executed evidence and limitations.

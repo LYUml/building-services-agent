@@ -73,7 +73,9 @@ def module_state(run,report,task):
     if relative not in report['artifact_hashes']:return {}
     from .modules import verify_result
     result=verify_result(run/relative)
-    return dict(provider=result['provider'],execution=result['execution'],acceptance=result['acceptance'],
+    from .friction_review import requests as friction_requests
+    return dict(engineering_review_requests=friction_requests(result['payload']) if result['execution']['status']=='completed' else [],
+        provider=result['provider'],execution=result['execution'],acceptance=result['acceptance'],
         numerical_result=dict(status=result['payload']['status'],checks=result['payload']['checks']) if result['execution']['status']=='completed' and result['payload_schema'] in ('bsa.straight-friction-components/1','bsa.electrical-circuits/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1') else {},
         regulatory_result=dict(status=result['payload']['status']) if result['execution']['status']=='completed' and result['payload_schema']=='bsa.rule-assessment/1' else {},
         evidence=relative,evidence_sha256=report['artifact_hashes'][relative],design_accepted=False)
@@ -179,9 +181,14 @@ def diagnose(plan, run):
             module_state=row['module_state'],
             affected_tasks=[child['id'] for child in affected],
             affected_requirements=[r for r in source['requirements'] if r['id'] in requirement_ids]))
+    engineering_actions=[dict(task=row['id'],status='pending',
+        requirement_ids=row['requirement_ids'],evidence=row['module_state']['evidence'],
+        evidence_sha256=row['module_state']['evidence_sha256'],
+        data_requests=row['module_state']['engineering_review_requests'])
+        for row in rows if row['module_state'].get('engineering_review_requests')]
     return dict(plan_sha256=digest(plan), workflow_sha256=digest(run/'workflow.json'),
                 integrity_pass=True, tasks=rows,
-                actions=actions,
+                actions=actions, engineering_actions=engineering_actions,
                 execution_pass=all(t['status'] == 'pass' for t in rows),
                 design_accepted=False,
                 scope='Recorded execution and declared dependency graph only; no engine invocation, automatic repair, or engineering acceptance')

@@ -1,5 +1,9 @@
 # Scope and acceptance
 
+Numerically completed native friction now retains source-bound engineering
+review requests in a separate diagnosis queue. Physical applicability and
+whole-system acceptance remain pending. See FRICTION_REVIEW_QUEUE.md.
+
 Native stub friction now uses the common analysis contract and exact inherited
 workflow source. Geometry/analysis disable controls are isolated; numerical
 completion remains separate from engineering acceptance. See MODULAR_STUB_FRICTION.md.
