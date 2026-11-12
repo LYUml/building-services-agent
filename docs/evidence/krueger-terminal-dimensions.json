@@ -89,10 +89,20 @@
     "archive_url": "https://www.krueger-hvac.com/files/revit/Krueger_Revit_Models.zip",
     "manufacturer_caveat": "Generalized design/layout representations; dimensional and performance documentation must come from product submittals/catalogues.",
     "native_model_verified": false,
-    "archive_transfer_status": "in_progress_not_validated",
+    "archive_transfer_status": "complete_crc_verified",
     "observed_content_length_bytes": 171001369,
     "observed_etag": "9adf37e2171edd1:0",
-    "archive_inventory_verified": false
+    "archive_inventory_verified": true,
+    "archive_receipt": {
+      "archive_sha256": "cb77e5922f1276b74437f04b92dad11fb36bfeb594f78f87db019d1cbfb5befc",
+      "archive_size_bytes": 171001369,
+      "member_count": 245,
+      "all_member_crc_checks_pass": true,
+      "selected_member": "Krueger_Revit_Models/Diffusers/Krueger_1400-51400-Louvered_Face_Diffuser-Face_Mounted-Revit 2017-v4.rfa",
+      "selected_sha256": "36f2a138c2713cb605997f7503341f6c026de513c44c5f2ee7967e03a9a6d490",
+      "candidate_matches_final_member": true,
+      "native_geometry_verified": false
+    }
   },
   "existing_study": {
     "nominal_port_m": 0.2032,

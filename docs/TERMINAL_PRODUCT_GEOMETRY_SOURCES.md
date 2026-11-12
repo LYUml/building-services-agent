@@ -42,6 +42,12 @@ error in the BSE3227 coursework. Six interface-clearance failures remain.
 Executed verification: 24 related tests pass. A fresh source-bound diagnosis of
 the saved native study retains six assumed-bore requests, fourteen engineering
 requests in total, numerical completion and the original coordination failure.
-The manufacturer archive transfer is still in progress; its contents and native
-model fidelity are not yet verified. The live HTTP header reports 171001369
-bytes, differing from the index download label; use actual byte evidence.
+The official archive is now complete:171001369bytes,245members, all ZIP CRC
+checks pass. The selected final RFA matches the earlier candidate hash. Native
+model fidelity remains unverified. The actual size differs from the index
+download label; use retained byte evidence.
+
+Normal Revit2027.3 startup was attempted for UI-only inspection. It stopped at
+the existing BSA add-in unsigned-publisher security prompt. No prompt action,
+family open, model change or new native geometry check occurred; no loader or
+security-policy modification was attempted.

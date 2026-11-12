@@ -42,6 +42,7 @@ vendored. The optional dependency and executed wheel/source hashes pin reuse.
 Executed evidence: evidence/rfa-metadata-review.json records the actual
 manufacturer candidate read, two retained types, source/wheel/license hashes
 and changed-parameter rejection. Twenty related tests pass. The candidate
-was obtained from the received prefix of the still-incomplete official archive;
-complete ZIP verification and matching final extraction remain pending. Stored
+was first obtained from the received prefix. The completed official archive
+has now passed all245member CRC checks; the final selected RFA bytes match
+the candidate exactly. Native Revit geometry verification remains pending. Stored
 12-inch default connection parameters are not the requested 8-inch design.

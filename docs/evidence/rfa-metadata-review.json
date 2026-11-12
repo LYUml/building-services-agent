@@ -1,8 +1,8 @@
 {
-  "scope": "Actual saved RFA candidate CFB/PartAtom read; complete archive and native geometry verification remain pending",
+  "scope": "Actual saved RFA CFB/PartAtom read; complete official archive CRC and final selected member correspondence verified; native geometry remains unverified",
   "source_sha256": "36f2a138c2713cb605997f7503341f6c026de513c44c5f2ee7967e03a9a6d490",
   "metadata_report_sha256": "25fada112107eb5ae70573094357e69664a44e0ae6b01cf27994a59526139a93",
-  "source_archive_complete": false,
+  "source_archive_complete": true,
   "olefile_version": "0.47",
   "olefile_wheel_sha256": "543c7da2a7adadf21214938bb79c83ea12b473a4b6ee4ad4bf854e7715e13d1f",
   "olefile_source_sha256": "dcce514efdcbd04fa689bc920531a1985df0837c92b57fe3af0c45c46f1bbd87",
@@ -126,5 +126,15 @@
   "native_revit_executed": false,
   "geometry_verified": false,
   "connectors_verified": false,
-  "design_accepted": false
+  "design_accepted": false,
+  "archive_receipt": {
+    "archive_sha256": "cb77e5922f1276b74437f04b92dad11fb36bfeb594f78f87db019d1cbfb5befc",
+    "archive_size_bytes": 171001369,
+    "member_count": 245,
+    "all_member_crc_checks_pass": true,
+    "selected_member": "Krueger_Revit_Models/Diffusers/Krueger_1400-51400-Louvered_Face_Diffuser-Face_Mounted-Revit 2017-v4.rfa",
+    "selected_sha256": "36f2a138c2713cb605997f7503341f6c026de513c44c5f2ee7967e03a9a6d490",
+    "candidate_matches_final_member": true,
+    "native_geometry_verified": false
+  }
 }
