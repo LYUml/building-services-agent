@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Tool-only drift can now prepare a fresh HVAC configuration/requirements inventory
+while preserving every original project source and review. Actual private-project
+replay reopens DWG and reproduces the reviewed 24-page report with all gaps retained;
+this is repeatability evidence, not complete engineering acceptance.
+See HVAC_REFRESH.md.
+
 The shared-model handoff now optionally gates IFC/drawing release on the existing
 source-pinned Hong Kong voltage-drop path, preserving its mixed-phase baseline
 through explicitly independent single-phase radials. Actual native positive and

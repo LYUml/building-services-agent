@@ -5,6 +5,14 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+When an interpreted HVAC project's pinned configuration is stale after tool
+changes, use bsa.hvac_refresh per docs/HVAC_REFRESH.md. Inspect drift first;
+changed project data require source review, while unchanged project inputs may
+prepare a new requirements inventory and configuration. Keep the same explicit
+host BSA_PROJECT_ROOT, old configs/runs and all input gaps. Verify preparation,
+then execute the full package and inspect actual outputs. Never patch old hashes
+or transfer old engineering/visual acceptance just to make a replay pass.
+
 For source-to-execution handoff after actual host interpretation, route through
 mep-requirements and bsa.engineering_handoff (docs/ENGINEERING_HANDOFF.md). Supply
 explicit existing-adapter tasks and complete source requirement bindings. It

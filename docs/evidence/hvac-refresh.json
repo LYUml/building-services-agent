@@ -1,0 +1,76 @@
+{
+  "scope": "Tool-only HVAC refresh plus actual authorized private-project full replay; no new engineering acceptance",
+  "design_accepted": false,
+  "methods": {
+    "hvac_refresh.py": "0e8d81126bf545b5af4a071572172701087d999f2b9119d0ab8688e401302f8c",
+    "hvac_project.py": "991f5d57ff8b7bbd520ff2acd6c23853144b139f42cb96554cc16715caab3791",
+    "workspace.py": "217d3a491408715ebee7f4fbf7cee5b4a560eb7d62c1377ba47600d816220008"
+  },
+  "tests": {
+    "passed": 46,
+    "skipped": 0,
+    "suite": [
+      "test_hvac_refresh",
+      "test_hvac_project",
+      "test_project_workspace",
+      "test_requirements_provider",
+      "test_hvac_package_paths",
+      "test_hvac_package_actions",
+      "test_hvac_package_performance",
+      "test_terminal_performance"
+    ]
+  },
+  "private_project": {
+    "project": "polyu_bse3227",
+    "project_files_unchanged": true,
+    "original_configuration_preserved": true,
+    "tool_drift_counts": {
+      "changed": 17,
+      "removed": 0,
+      "added": 34
+    },
+    "requirements": 33,
+    "unresolved_inputs": 6,
+    "full_package_executed": true,
+    "workflow_integrity": true,
+    "passing_tasks": 5,
+    "package_stages": [
+      "system_paths",
+      "junction_review",
+      "adpi_review",
+      "terminal_review",
+      "report",
+      "report_pdf"
+    ],
+    "stage_errors": {},
+    "terminals": 80,
+    "vav_groups": 20,
+    "duct_sections": 47,
+    "native_reopen": true,
+    "generated_native_entities": 718,
+    "plot_reference_expected_mm": 100.0,
+    "plot_reference_measured_mm": 99.99133333333334,
+    "report_pages": 24,
+    "report_numerical_rows_checked": 388,
+    "report_requirement_rows": 33,
+    "report_pages_visually_inspected": 24,
+    "drawing_pages_visually_inspected": 1,
+    "visual_format_pass": true,
+    "report_page_streams_identical_to_prior": true,
+    "drawing_page_streams_identical_to_prior": true,
+    "old_review_acceptance_transferred": false,
+    "ADPI_applicability": "pending",
+    "ADPI_verified": false,
+    "ADPI_cases": 640
+  },
+  "privacy": {
+    "private_sources_configs_runs_and_images_committed": false,
+    "aggregate_counts_only": true
+  },
+  "limitations": [
+    "Original six project input gaps retained",
+    "No new physical scale/installation/ADPI verification",
+    "Native graphical/reference checks are not full engineering acceptance",
+    "Existing interpreted plan replay, not arbitrary raw-brief interpretation"
+  ]
+}

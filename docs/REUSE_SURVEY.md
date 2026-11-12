@@ -1,5 +1,11 @@
 # Reuse survey â€” 2026-11-09
 
+Tool-change HVAC replay reuses hvac_project source/method inventory and config
+creation, the common source-requirements provider, workspace validation and the
+existing full package runner. The actual gap was stale-tool versus changed-data
+diagnosis and fresh requirement binding, not another engine. Private-project
+native/report replay was executed; see HVAC_REFRESH.md for aggregate evidence.
+
 HK shared-model release reuses existing electrical_paths same-phase calculation,
 electrical_regulations and the pinned 2025 EMSD rule pack; no new solver/package.
 The actual input has L1/L2 circuits, so explicit dedicated-return group glue is
