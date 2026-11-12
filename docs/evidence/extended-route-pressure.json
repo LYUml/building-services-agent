@@ -1,0 +1,200 @@
+{
+  "scope": "Explicit extended uniform-bore local prescribed-flow chain; not ambient-gauge fan duty or complete engineering",
+  "design_accepted": false,
+  "tests": {
+    "passed": 55,
+    "skipped": 0,
+    "suite": "test_circular_native test_route_pressure test_route_material test_route_join test_route_ports test_route_workflow test_route_search test_route_model test_route_optimize test_route_obstacles",
+    "upstream_warning": "IfcOpenShell ResourceWarning for unclosed IFC4.py"
+  },
+  "workflows": {
+    "source-port-pressure-final-workflow": {
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "tasks": {
+        "source": {
+          "kind": "bim",
+          "status": "pass",
+          "scope": "IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending"
+        },
+        "route": {
+          "kind": "route_ports",
+          "status": "pass",
+          "scope": "Source-guided separate route IFC only; no merged logical connections, physical joints, full equipment geometry, obstacle completeness or regulatory acceptance"
+        },
+        "join": {
+          "kind": "route_join",
+          "status": "pass",
+          "scope": "Saved same-file local logical chain; no physical joint, whole-network pressure, clearance, manufacturer or regulatory acceptance"
+        },
+        "material": {
+          "kind": "route_material",
+          "status": "pass",
+          "scope": "Ideal local circular-wall material union, topology and finite centre-core probes only; no whole-model clearance, product joints, whole-network pressure, full-bore CFD, installation or regulatory acceptance"
+        },
+        "pressure": {
+          "kind": "route_pressure",
+          "status": "pass",
+          "scope": "Uniform-bore prescribed-flow local chain including both source walls; explicit common-reference pressure/boundary/roughness/K assumptions. No ambient-gauge fan duty, operating-point solution, intermediate pressure acceptance, product or regulatory approval"
+        },
+        "drawing": {
+          "kind": "ifc_route_drawing",
+          "status": "pass",
+          "scope": "source-checked saved circular walls and finite arcs to GUID-linked planar axes/OD outlines; product and installation acceptance pending"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "Review source completeness, physical joints and merged connectivity, full network pressure and installation, native plot and applicable Hong Kong rules before full engineering acceptance."
+        }
+      },
+      "source_and_method_hashes_current": true,
+      "summary": {
+        "length_m": 6.4283185307179584,
+        "aggregate_excess_k": 0.8,
+        "friction_pa": 2.879341826837887,
+        "minor_pa": 3.0428139675026564,
+        "elevation_pressure_pa": 0.0,
+        "outlet_total_pressure_pa": 4.077844205659456,
+        "required_source_total_pressure_pa": 6.922155794340544,
+        "boundary_points_m": [
+          [
+            0.0,
+            1.5,
+            1.2
+          ],
+          [
+            4.0,
+            1.5,
+            1.2
+          ]
+        ],
+        "runtime_versions": {
+          "fluids": "1.3.1",
+          "ifcopenshell": "0.8.5",
+          "numpy": "2.5.4"
+        }
+      },
+      "files": {
+        "runs\\source-port-pressure-final-workflow\\workflow.json": "fce60248171bbafc28919fc704c64f29e117b2e59afcd5b1b4e4811041475bdc",
+        "runs\\source-port-pressure-final-workflow\\join\\joined.ifc": "84d618b3bd857465197b4b62a46d6b33150e355468ca50aa5f9b401aa1656bbf",
+        "runs\\source-port-pressure-final-workflow\\material\\route-material.json": "f6a5637d026d6f1ed660b1bd249f1a5a82658f5ce8c0de33153bde33aacba8c3",
+        "runs\\source-port-pressure-final-workflow\\pressure\\route-pressure.json": "c57979e560ec252d5f333c3c3bf84ff924e6231bca100dac9f924e8056a025b0",
+        "runs\\source-port-pressure-final-workflow\\pressure\\network-input.json": "4e282f3c2c9b3507d45662efb89d06e906b4ffa207e652a8045067ff8c85ffaf",
+        "runs\\source-port-pressure-final-workflow\\pressure\\analysis\\network.json": "c868e9dcb15cd5920e02bfa9658cd48e414d4a9340ac3b6b143c53cbd5b9a568",
+        "runs\\source-port-pressure-final-workflow\\drawing\\drawing.json": "8ada20b2740a4a4b34192ca8ee5120fd5c5c5229aba2a83228eba78d64252790",
+        "runs\\source-port-pressure-final-workflow\\drawing\\segments.dxf": "db83d4a23a640c91c58b51d9667211cc48d90b0f097ae833396aa32dbc271456"
+      }
+    },
+    "source-port-pressure-final-joint-workflow": {
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "tasks": {
+        "source": {
+          "kind": "bim",
+          "status": "pass",
+          "scope": "IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending"
+        },
+        "route": {
+          "kind": "route_ports",
+          "status": "pass",
+          "scope": "Source-guided separate route IFC only; no merged logical connections, physical joints, full equipment geometry, obstacle completeness or regulatory acceptance"
+        },
+        "join": {
+          "kind": "route_join",
+          "status": "pass",
+          "scope": "Saved same-file local logical chain; no physical joint, whole-network pressure, clearance, manufacturer or regulatory acceptance"
+        },
+        "material": {
+          "kind": "route_material",
+          "status": "pass",
+          "scope": "Ideal local circular-wall material union, topology and finite centre-core probes only; no whole-model clearance, product joints, whole-network pressure, full-bore CFD, installation or regulatory acceptance"
+        },
+        "pressure": {
+          "kind": "route_pressure",
+          "status": "fail",
+          "scope": "Uniform-bore prescribed-flow local chain including both source walls; explicit common-reference pressure/boundary/roughness/K assumptions. No ambient-gauge fan duty, operating-point solution, intermediate pressure acceptance, product or regulatory approval"
+        },
+        "drawing": {
+          "kind": "ifc_route_drawing",
+          "status": "pending",
+          "scope": "required checks unresolved: pressure (fail); adapter not executed"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: drawing (pending), pressure (fail); adapter not executed"
+        }
+      },
+      "source_and_method_hashes_current": true,
+      "summary": {
+        "length_m": 6.4283185307179584,
+        "aggregate_excess_k": 2.0,
+        "friction_pa": 2.879341826837887,
+        "minor_pa": 7.607034918756641,
+        "elevation_pressure_pa": 0.0,
+        "outlet_total_pressure_pa": -0.48637674559452826,
+        "required_source_total_pressure_pa": 11.486376745594528,
+        "boundary_points_m": [
+          [
+            0.0,
+            1.5,
+            1.2
+          ],
+          [
+            4.0,
+            1.5,
+            1.2
+          ]
+        ],
+        "runtime_versions": {
+          "fluids": "1.3.1",
+          "ifcopenshell": "0.8.5",
+          "numpy": "2.5.4"
+        }
+      },
+      "files": {
+        "runs\\source-port-pressure-final-joint-workflow\\workflow.json": "fe538d58827cc13747d00eff143434c03c190e2e94931fc79649f47b2a7b6e0f",
+        "runs\\source-port-pressure-final-joint-workflow\\join\\joined.ifc": "b7f9eeeb283758c6d4eff64f2c90f0cc06e755a7674fa3443520cc43bfa0b2e3",
+        "runs\\source-port-pressure-final-joint-workflow\\material\\route-material.json": "b5837b0727598e28cff75e360ca3b72dc6d21191d3fe9122b2a7cb09a3dcf8ee",
+        "runs\\source-port-pressure-final-joint-workflow\\pressure\\route-pressure.json": "aae249ff5706df26671764e2e3d3a6ec2cc98de1356cf608854868b144a929ca",
+        "runs\\source-port-pressure-final-joint-workflow\\pressure\\network-input.json": "62e3d0e326f59bedebe65bb23901d0129a3242ff499cdfb9b51a492b89452cce",
+        "runs\\source-port-pressure-final-joint-workflow\\pressure\\analysis\\network.json": "a1574f35c76fc9101b7cf5c496b5d699d532c359c7945443fdaaebc3ad3fcd4d"
+      }
+    }
+  },
+  "control": {
+    "canonical_geometry_identical": true,
+    "fluid_supply_demand_targets_geometry_roughness_identical": true,
+    "additional_assumed_K_per_interface": 0.2,
+    "interface_count": 6,
+    "interpretation": "Synthetic loss-assumption comparison; no manufacturer or installed rating inferred"
+  },
+  "executed_regressions": [
+    "actual outer native cap required even when false port distance equals depth",
+    "outer boundary with external peer rejects",
+    "saved source K cannot be silently overridden",
+    "matching compiler straight aggregate counted once; mismatch rejects",
+    "missing boundary/loss policy rejects",
+    "missing link/wrong flow rejects",
+    "failed material skips pressure; failed pressure blocks drawing"
+  ],
+  "reuse": "Pinned existing network/fluids calculator, native circular profiles, proper-rigid guard and saved circular elbow arc reader; no new solver/dependency",
+  "pending": [
+    "actual boundary pressure/ambient reference applicability",
+    "source/product K and roughness, clear bore and entry/development effects",
+    "intermediate pressure suitability",
+    "fan curve/operating point and electrical power",
+    "full multibranch network balancing",
+    "joined-model native drawing/visual review",
+    "installation and Hong Kong engineering acceptance"
+  ]
+}

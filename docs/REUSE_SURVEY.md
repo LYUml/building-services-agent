@@ -1255,3 +1255,20 @@ bore probes. Reuse these engines and tests' physical counterexamples in a thin
 local circular-chain QA adapter. Do not replace the raw clash/clearance policy,
 repair models, infer joints or reinterpret probe success as full-bore/CFD or
 installation acceptance. No new dependency; existing attribution/licenses apply.
+
+Joined-chain pressure gap: existing ifc_network/network_binding reconcile
+original per-body K stored in IFC; they cannot silently assign missing source-wall
+or interface losses, nor move original pressure stations. Reuse the existing
+network/fluids prescribed-flow calculator, circular specification and saved elbow
+arc-length reader. Add an explicit source-classified boundary/roughness/loss
+policy, derive the full local chain from saved directed ports, and retain a
+per-body ledger. Do not write assumed K into the source IFC or call this a fan
+operating point/ambient-gauge model. No new solver or dependency.
+
+Full source-wall pressure stations also need both true native end caps, not only
+the selected join port. Reuse the route_ports native extrusion/placement approach
+and existing product_alignment proper-rigid guard in circular_native.straight_wall.
+Reject a displaced free port even if its distance equals the extrusion depth,
+and reject an outer boundary with an actual external peer. No coordinate repair,
+extra component or new engine is inferred. Preserve matching compiler-generated
+straight-only aggregate K once through its canonical body ledger.

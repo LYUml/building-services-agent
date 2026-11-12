@@ -33,6 +33,7 @@ class RouteJoinTests(unittest.TestCase):
         route['project_uuid'] = str(uuid.uuid5(uuid.NAMESPACE_URL, 'bsa/route-join-test'))
         route['devices'] = [copy.deepcopy(source['devices'][0])]
         route['devices'][0].update(id='ROUTE', origin_m=[0, -.1024, 1.3976], size_m=[4, .2048, .2048])
+        route['devices'][0]['properties'].update(LocalLossCoefficient=0.,LocalLossBasis='excess over centreline Darcy friction')
         route['devices'][0]['ports'][1]['offset_m'][0] = 4
         for name, data in [('source', source), ('route', route)]:
             path = cls.folder/(name+'.json'); path.write_text(json.dumps(data), encoding='utf-8')

@@ -12,6 +12,21 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 class RouteWorkflowTests(unittest.TestCase):
+    def test_extended_pressure_inherits_material_and_blocks_drawing_on_failure(self):
+        plan=ROOT/'examples/route-search/port-pressure-plan.json';validate_plan(plan)
+        for fault in ('none','material','pressure'):
+            with self.subTest(fault=fault),tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+                out=(Path(folder)/'run').resolve()
+                with patch('bsa.bim.run',return_value={}),patch('bsa.route_ports.run',return_value={'calculated_checks_pass':True,'scope':'dispatch-only test'}),patch('bsa.route_join.run',return_value={'calculated_checks_pass':True,'scope':'dispatch-only test'}),patch('bsa.route_material.run',return_value={'calculated_checks_pass':fault!='material','scope':'dispatch-only test'}),patch('bsa.route_pressure.run',return_value={'calculated_checks_pass':fault!='pressure','scope':'dispatch-only test'}) as pressure,patch('bsa.ifc_route_drawing.run',return_value={'calculated_checks_pass':True}) as drawing:
+                    result=execute(plan,out)
+                if fault=='material':pressure.assert_not_called()
+                else:
+                    self.assertEqual(pressure.call_args.args[0],out/'material')
+                    self.assertEqual(pressure.call_args.args[2],out/'pressure')
+                if fault=='none':self.assertEqual(result['tasks']['drawing']['status'],'pass')
+                else:drawing.assert_not_called()
+                self.assertEqual(result['tasks']['review']['status'],'pending')
+
     def test_material_qa_receives_exact_join_and_gates_route_drawing(self):
         plan=ROOT/'examples/route-search/port-material-plan.json'
         validate_plan(plan)

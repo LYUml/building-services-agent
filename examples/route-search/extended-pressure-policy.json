@@ -1,0 +1,30 @@
+{
+  "source": "Synthetic boundary extension decision: apply the inherited numeric 10Pa supply and 1Pa terminal target at the outer open source-wall caps, not the old route interfaces. Apply inherited roughness uniformly; original construction/fluid/loss assumptions remain unverified.",
+  "classification": "design_choice",
+  "pressure_reference": "common-elevation-datum",
+  "boundary_values": "inherit_numeric_values_at_extended_open_caps",
+  "roughness_scope": "apply_original_segment_roughness_to_all_local_walls",
+  "source_wall_excess_k": {
+    "start": {
+      "value": 0,
+      "unit": "dimensionless",
+      "source": "Assumed ideal source straight wall, zero excess K beyond its freshly derived Darcy friction",
+      "classification": "assumed",
+      "loss_basis": "excess over centreline Darcy friction"
+    },
+    "end": {
+      "value": 0,
+      "unit": "dimensionless",
+      "source": "Assumed ideal receiving straight wall, zero excess K beyond its freshly derived Darcy friction",
+      "classification": "assumed",
+      "loss_basis": "excess over centreline Darcy friction"
+    }
+  },
+  "interface_excess_k": {
+    "value": 0,
+    "unit": "dimensionless",
+    "source": "Assumed ideal coincident logical interfaces: zero additional joint K beyond existing per-body bend/straight K; not a manufacturer fitting rating",
+    "classification": "assumed",
+    "loss_basis": "excess over centreline Darcy friction"
+  }
+}

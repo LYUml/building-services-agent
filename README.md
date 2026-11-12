@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Material-checked local circular chains now support an explicit outer-cap pressure
+budget including both source walls. Saved cap geometry, genuine open boundaries,
+original body K and separately classified added losses feed the existing solver.
+Full pressure/product/installation acceptance remains pending. See docs/EXTENDED_ROUTE_PRESSURE.md.
+
 Ideal circular-chain material QA now follows source-preserving same-file joining:
 actual seven-body union, independent volume, bore topology and six finite centre
 probes pass, with geometry QA gating route-only DXF. Generated canonical model
