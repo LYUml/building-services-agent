@@ -85,6 +85,8 @@ def main():
     s.add_argument('--disable-module-provider',action='append',default=[])
     s=sub.add_parser('handoff-verify',help='Reconstruct source and execution correspondence; not design acceptance')
     s.add_argument('out',type=Path)
+    s=sub.add_parser('handoff-template',help='Prepare the exact blocked engineering interpretation contract')
+    s.add_argument('plan',type=Path);s.add_argument('--out',type=Path,required=True)
     for command in ("validate","run"):
         s=sub.add_parser(command);s.add_argument("project",type=Path)
         if command=="run": s.add_argument("--out",type=Path,required=True)
@@ -101,6 +103,9 @@ def main():
             result=start(a.brief,a.out,supplements=a.supplement,references=a.reference)
             print(json.dumps({key:result[key] for key in ('status','effective_plan','interpretation_template_ready','stage_errors','design_accepted')},indent=2))
             return 2
+        elif a.command=='handoff-template':
+            from .engineering_handoff import template
+            print(json.dumps(template(a.plan,a.out),indent=2));return 2
         elif a.command=='handoff':
             from .engineering_handoff import run as handoff
             from .workflow_modules import parse_provider_options

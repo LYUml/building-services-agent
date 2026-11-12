@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Exact engineering-handoff template generation now bridges shared intake and
+execution contracts. Original requirement/generic-gap IDs and source hash survive;
+unfilled templates and replacing existing engineering tasks reject. Nineteen
+related tests and a fresh actual cross-discipline replay pass correspondence;
+semantic interpretation and engineering acceptance remain pending.
+
 Shared bsa project-start/handoff/handoff-verify commands now route through the
 existing intake, engineering handoff and verifier with explicit host runtime and
 provider selection. Actual four-domain execution and disabled inventory controls

@@ -1,0 +1,43 @@
+{
+  "scope": "Exact source-pinned interpretation template and fresh authored synthetic handoff replay",
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/cli.py": "b2dcea180334a93e866e81c8931f16c0ab3421e3e1637f5d3828c679642f99f0",
+    "src/bsa/engineering_handoff.py": "9ddac3bd556972137eccba3da9b9985dcb119386a5ee0a1205b010b2332201c6"
+  },
+  "tests": {
+    "passed": 19,
+    "skipped": 0,
+    "suites": [
+      "test_project_cli",
+      "test_project_start",
+      "test_engineering_handoff",
+      "test_workflow_cli"
+    ]
+  },
+  "template": {
+    "requirements": 5,
+    "interpretation_notes": 5,
+    "source_plan_hash_matches": true,
+    "unfilled_execution_rejected": true,
+    "template_sha256": "1e16e0ebdaf01801c4e87851c15534e0fbb55dbdda5172167b0bb16c6d50f781"
+  },
+  "replay": {
+    "integrity_pass": true,
+    "task_statuses": {
+      "electrical": "pass",
+      "air": "pass",
+      "water": "pass",
+      "envelopes": "pass",
+      "review": "pending"
+    },
+    "original_requirements": 5,
+    "receipt_sha256": "b9efa6e27e51bf8b3e4d9eac58bd3f27a174c39dbe66508ef7ee4525dd998ac5"
+  },
+  "limitations": [
+    "Source inspection and explicit host interpretation required",
+    "Template lists identifiers; original quotes remain in source plan",
+    "Ordinary input gaps are inherited, not cleared",
+    "Public synthetic independent discipline case; manual engineering review remains pending"
+  ]
+}

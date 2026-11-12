@@ -1,5 +1,9 @@
 # Building Services Agent
 
+Shared `bsa handoff-template` now prepares the exact source-pinned interpretation
+contract with every requirement/generic-gap ID and deliberately empty decisions.
+Unfilled templates reject; existing engineering tasks cannot be replaced. See docs/PROJECT_CLI.md.
+
 The shared `bsa` CLI now exposes project-start, reviewed engineering handoff and
 independent handoff verification. Actual cross-discipline and disabled-inventory
 trials retain source requirements and incomplete acceptance. See docs/PROJECT_CLI.md.

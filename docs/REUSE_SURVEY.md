@@ -1351,3 +1351,9 @@ workflow provider parsing rather than adding an agent framework, LLM service or
 new engineering engine. No third-party code/dependency is added; upstream engines
 retain their existing pins and attribution. Actual positive and disabled-provider
 CLI execution is recorded in docs/evidence/project-cli.json.
+
+Engineering interpretation preparation gap: reuse existing workflow.validate_plan,
+engineering_handoff schema/generic-gap logic and shared CLI. The old work-review
+template has a different contract; do not repurpose it or add another agent
+framework. No external dependency/engine/code is added. Source-preserving blank
+template rejection and actual replay evidence: docs/evidence/handoff-template.json.

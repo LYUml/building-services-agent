@@ -15,6 +15,26 @@ GENERIC='Source meaning, design inputs and acceptance criteria have not been int
 SCOPE='Host-reviewed source-to-adapter handoff; source coverage is checked, semantic completeness and full engineering acceptance are not established'
 
 
+def template(plan,output):
+    """Create the exact review contract, with unresolved decisions deliberately empty."""
+    plan,output=[Path(p).resolve() for p in (plan,output)]
+    if not all(allowed(p) for p in (plan,output)) or output.parent!=plan.parent or output.exists():
+        raise ValueError('Fresh sibling engineering interpretation required')
+    source,inputs=workflow.validate_plan(plan)
+    if any(t['kind']!='manual' for t in source['tasks']):
+        raise ValueError('Manual interpretation plan required; existing engineering tasks cannot be replaced')
+    pins={p:digest(p) for p in (plan,*inputs)}
+    generic={i['id'] for i in source.get('unresolved_inputs',[]) if i['kind']=='missing' and i['id'].startswith('interpretation-') and i['description']==GENERIC}
+    record=dict(schema='bsa.engineering-handoff/1',source_plan_sha256=pins[plan],tasks=[],
+        requirement_bindings={r['id']:dict(tasks=[],acceptance='') for r in source['requirements']},
+        interpretation_notes={key:'' for key in sorted(generic)},extra_unresolved_inputs=[])
+    if any(digest(p)!=sha for p,sha in pins.items()):raise ValueError('Source changed during interpretation preparation')
+    with output.open('x',encoding='utf-8') as stream:json.dump(record,stream,indent=2,ensure_ascii=False)
+    return dict(status='needs_interpretation',review=str(output),source_plan_sha256=pins[plan],
+        original_requirements=len(source['requirements']),retained_input_gaps=len(source.get('unresolved_inputs',[])),
+        executable=False,design_accepted=False)
+
+
 def materialize(source,record):
     if any(t['kind']!='manual' for t in source['tasks']):raise ValueError('Manual interpretation plan required; existing engineering tasks cannot be replaced')
     fields={'schema','source_plan_sha256','tasks','requirement_bindings','interpretation_notes','extra_unresolved_inputs'}

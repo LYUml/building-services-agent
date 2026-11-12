@@ -46,5 +46,38 @@ class ProjectCLITests(unittest.TestCase):
             with self.assertRaises(SystemExit):main()
         run.assert_not_called()
 
+    def test_generated_interpretation_preserves_all_ids_and_cannot_execute_unfilled(self):
+        from bsa.engineering_handoff import apply
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+            root=Path(folder);brief=root/'brief.md';brief.write_text('Calculate airflow.\n\nProvide editable drawings.')
+            self.invoke(['project-start',brief,'--out',root/'project'])
+            plan=root/'project/plan.json';review=plan.with_name('interpretation.json')
+            before=plan.read_bytes()
+            code,result=self.invoke(['handoff-template',plan,'--out',review])
+            self.assertEqual(code,2);self.assertFalse(result['executable'])
+            source=json.loads(before);record=json.loads(review.read_text())
+            self.assertEqual(set(record['requirement_bindings']),{r['id'] for r in source['requirements']})
+            self.assertEqual(set(record['interpretation_notes']),{i['id'] for i in source['unresolved_inputs']})
+            self.assertTrue(all(not b['tasks'] and not b['acceptance'] for b in record['requirement_bindings'].values()))
+            with self.assertRaises(ValueError):apply(plan,review,plan.with_name('engineering-plan.json'))
+            self.assertFalse(plan.with_name('engineering-plan.json').exists())
+            self.assertEqual(plan.read_bytes(),before)
+            with patch('sys.argv',['bsa','handoff-template',str(plan),'--out',str(review)]),contextlib.redirect_stderr(io.StringIO()):
+                with self.assertRaises(SystemExit):main()
+
+    def test_interpretation_template_rejects_unsafe_output_and_existing_engineering_plan(self):
+        from bsa.engineering_handoff import template
+        from bsa.workflow_draft import draft
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+            root=Path(folder);brief=root/'brief.md';brief.write_text('Review supplied inputs.')
+            plan=root/'plan.json';draft(brief,plan)
+            with self.assertRaises(ValueError):template(plan,root/'nested/review.json')
+            data=json.loads(plan.read_text());data['tasks'][0]=dict(id='interpret-001',kind='electrical',project='electrical.json')
+            import shutil
+            shutil.copyfile(ROOT/'examples/office-electrical/project.json',root/'electrical.json')
+            plan.write_text(json.dumps(data))
+            with self.assertRaisesRegex(ValueError,'existing engineering tasks'):template(plan,root/'review.json')
+            self.assertFalse((root/'review.json').exists())
+
 
 if __name__=='__main__':unittest.main()

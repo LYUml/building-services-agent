@@ -10,6 +10,9 @@ for source intake and host-reviewed execution. Read effective_plan and inspect
 all source/extraction issues before writing the exact engineering-handoff review;
 the intake work-review template is a different contract. Keep pending status and
 ordinary gaps; verification is evidence correspondence, not design approval.
+Generate the exact review with bsa handoff-template EFFECTIVE_PLAN --out a fresh
+sibling JSON; then explicitly fill every binding, acceptance and note from source
+inspection. Blank templates cannot execute and do not clear ordinary input gaps.
 
 When an interpreted HVAC project's pinned configuration is stale after tool
 changes, use bsa.hvac_refresh per docs/HVAC_REFRESH.md. Inspect drift first;

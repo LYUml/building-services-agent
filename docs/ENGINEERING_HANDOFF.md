@@ -9,6 +9,10 @@ prove the semantic completeness or engineering correctness of the host review.
 Start with `bsa.project_start` or `bsa.workflow_draft`, inspect all source pages
 and extraction issues, then author a sibling review JSON with exactly:
 
+The shared CLI `bsa handoff-template PLAN --out FRESH_SIBLING_REVIEW` prepares
+these exact fields and all original requirement/generic-gap IDs. It leaves
+engineering decisions empty and cannot execute until explicitly interpreted.
+
 | Field | Required content |
 |---|---|
 | schema | `bsa.engineering-handoff/1` |
