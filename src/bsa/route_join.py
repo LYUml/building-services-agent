@@ -145,10 +145,12 @@ def run(producer, out):
         raise ProjectError('Selected route report changed')
     inputs[str(route_report)] = digest(route_report)
     selected = producer/'route/selected'; native = read_json(selected/'route-model.json')
+    inputs[str(selected/'route-model.json')] = digest(selected/'route-model.json')
     if read_json(route_report).get('selected_model') != native or native.get('saved_ifc_geometry_match') is not True or native.get('calculated_checks_pass') is not True:
         raise ProjectError('Exact passing native selected-model report required')
     inputs.update(native['inputs']); inputs.update(native['method_inputs'])
     bound = read_json(selected/'bound/network-binding.json')
+    inputs.update(bound['inputs'])
     inputs[str(selected/'bound/network-binding.json')] = digest(selected/'bound/network-binding.json')
     for name, sha in bound['artifacts'].items():
         path = (selected/'bound'/name).resolve()

@@ -1,0 +1,171 @@
+{
+  "scope": "Synthetic ideal local wall-material QA and drawing gates; full engineering acceptance pending",
+  "design_accepted": false,
+  "tests": {
+    "passed": 44,
+    "skipped": 0,
+    "suite": "test_route_material test_route_join test_route_ports test_route_workflow test_route_search test_route_model test_route_optimize test_route_obstacles",
+    "upstream_warning": "IfcOpenShell ResourceWarning for unclosed IFC4.py"
+  },
+  "workflows": {
+    "source-port-material-workflow": {
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "tasks": {
+        "source": {
+          "kind": "bim",
+          "status": "pass",
+          "scope": "IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending"
+        },
+        "route": {
+          "kind": "route_ports",
+          "status": "pass",
+          "scope": "Source-guided separate route IFC only; no merged logical connections, physical joints, full equipment geometry, obstacle completeness or regulatory acceptance"
+        },
+        "join": {
+          "kind": "route_join",
+          "status": "pass",
+          "scope": "Saved same-file local logical chain; no physical joint, whole-network pressure, clearance, manufacturer or regulatory acceptance"
+        },
+        "material": {
+          "kind": "route_material",
+          "status": "pass",
+          "scope": "Ideal local circular-wall material union, topology and finite centre-core probes only; no whole-model clearance, product joints, whole-network pressure, full-bore CFD, installation or regulatory acceptance"
+        },
+        "drawing": {
+          "kind": "ifc_route_drawing",
+          "status": "pass",
+          "scope": "source-checked saved circular walls and finite arcs to GUID-linked planar axes/OD outlines; product and installation acceptance pending"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "Review source completeness, physical joints and merged connectivity, full network pressure and installation, native plot and applicable Hong Kong rules before full engineering acceptance."
+        }
+      },
+      "source_and_method_hashes_current": true,
+      "canonical_route_model_pinned": true,
+      "summary": {
+        "checks": {
+          "no_material_interpenetration": true,
+          "one_connected_material": true,
+          "independent_volume": true,
+          "two_boundary_bore_topology": true,
+          "sampled_centre_bore_clear": true
+        },
+        "triangle_count": 272904,
+        "union_components": 1,
+        "union_volume_m3": 0.0032957650706461083,
+        "independent_volume_m3": 0.003295849829833521,
+        "relative_volume_difference": 2.5716944578415847e-05,
+        "euler_characteristic": 0,
+        "boundary_ports": 2
+      },
+      "pairs_checked": 21,
+      "interface_probes": 6,
+      "maximum_absolute_intersection_residual_m3": 1.743437934397772e-21,
+      "files": {
+        "runs\\source-port-material-workflow\\workflow.json": "dc328f518444560b2ccaac67f8a84cb054ac3cc12b0c531f13fb277f496ca2df",
+        "runs\\source-port-material-workflow\\join\\route-join.json": "663aacb19e64e90e8c676693b76b65fd05f8bf867ff2b41b791b68f5f69bb6fd",
+        "runs\\source-port-material-workflow\\join\\joined.ifc": "f7a5e67de3ca935a821a01347b2713a0c1555a7967ceb4d1d858c7f16e7a41c6",
+        "runs\\source-port-material-workflow\\material\\route-material.json": "3c3aeecc9b448b0ee0601a75ee4cd30e139663d7c5f55fc5a61a6aff63ec70b0",
+        "runs\\source-port-material-workflow\\drawing\\segments.dxf": "18bc1b583d1b0e57de41711691492a1482df8777661f93ff463aa74500a15574",
+        "runs\\source-port-material-workflow\\drawing\\drawing.json": "221e501c3fa527b1ffa07ef1536a86342cab3caa35bd4b0132067ceb2d94c0bd"
+      }
+    },
+    "source-port-material-strict-workflow": {
+      "integrity": {
+        "integrity_pass": true,
+        "issues": [],
+        "design_accepted": false,
+        "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+      },
+      "tasks": {
+        "source": {
+          "kind": "bim",
+          "status": "pass",
+          "scope": "IFC4 envelope geometry, schema, spatial/system/port relationships checked; detailed shape and routing acceptance pending"
+        },
+        "route": {
+          "kind": "route_ports",
+          "status": "pass",
+          "scope": "Source-guided separate route IFC only; no merged logical connections, physical joints, full equipment geometry, obstacle completeness or regulatory acceptance"
+        },
+        "join": {
+          "kind": "route_join",
+          "status": "pass",
+          "scope": "Saved same-file local logical chain; no physical joint, whole-network pressure, clearance, manufacturer or regulatory acceptance"
+        },
+        "material": {
+          "kind": "route_material",
+          "status": "fail",
+          "scope": "Ideal local circular-wall material union, topology and finite centre-core probes only; no whole-model clearance, product joints, whole-network pressure, full-bore CFD, installation or regulatory acceptance"
+        },
+        "drawing": {
+          "kind": "ifc_route_drawing",
+          "status": "pending",
+          "scope": "required checks unresolved: material (fail); adapter not executed"
+        },
+        "review": {
+          "kind": "manual",
+          "status": "pending",
+          "scope": "required checks unresolved: drawing (pending), material (fail); adapter not executed"
+        }
+      },
+      "source_and_method_hashes_current": true,
+      "canonical_route_model_pinned": true,
+      "summary": {
+        "checks": {
+          "no_material_interpenetration": true,
+          "one_connected_material": true,
+          "independent_volume": false,
+          "two_boundary_bore_topology": true,
+          "sampled_centre_bore_clear": true
+        },
+        "triangle_count": 272904,
+        "union_components": 1,
+        "union_volume_m3": 0.0032957650706461083,
+        "independent_volume_m3": 0.003295849829833521,
+        "relative_volume_difference": 2.5716944578415847e-05,
+        "euler_characteristic": 0,
+        "boundary_ports": 2
+      },
+      "pairs_checked": 21,
+      "interface_probes": 6,
+      "maximum_absolute_intersection_residual_m3": 1.743437934397772e-21,
+      "files": {
+        "runs\\source-port-material-strict-workflow\\workflow.json": "c80d7d187abce38b43107996052fd3031d87cf25748fee66b11a3860bad172e9",
+        "runs\\source-port-material-strict-workflow\\join\\route-join.json": "68d6f638e338004b961a4b48da678d913e52206d2285db9101d1ad494c40200e",
+        "runs\\source-port-material-strict-workflow\\join\\joined.ifc": "9e9b8e947967710704596eb2b60e7a837dcbf57adf897b6236c77a17dfb76a59",
+        "runs\\source-port-material-strict-workflow\\material\\route-material.json": "b5dc2ca14efda7847237093851a8cb3d439679a2724123f0f5d5bddc32e3a1a8"
+      }
+    }
+  },
+  "strict_volume_control": {
+    "canonical_models_identical": true,
+    "source_wall_network_settings_endpoint_template_inputs_identical": true,
+    "positive_relative_tolerance": 0.001,
+    "negative_relative_tolerance": 1e-08,
+    "interpretation": "Finite tessellation volume precision control; not a physical installation defect"
+  },
+  "executed_unit_controls": [
+    "material gap -> disconnected union",
+    "interpenetration -> pair overlap",
+    "centre plug -> bore probe/topology failure",
+    "wrong analytic volume -> independent-volume failure",
+    "changed canonical route input -> rejected before merge; output absent"
+  ],
+  "reuse": "Existing IfcOpenShell mesh extraction, Manifold3D unions/intersections/probes, solid_clash.from_mesh and circular source volume specifications; no new engine/dependency",
+  "pending": [
+    "full-bore geometry and flow domain/CFD",
+    "real manufacturer joints/fabrication/installability",
+    "whole-model clearance/source completeness",
+    "full-network pressure including source walls",
+    "joined-model native drawing/visual review",
+    "Hong Kong engineering acceptance"
+  ]
+}

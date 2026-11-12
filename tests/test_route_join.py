@@ -4,6 +4,7 @@ from pathlib import Path
 import tempfile
 import unittest
 import uuid
+from unittest.mock import patch
 
 import ifcopenshell
 import ifcopenshell.util.placement as placement
@@ -12,7 +13,7 @@ import ifcopenshell.util.system as system
 from bsa.bim import run as author
 from bsa.cli import digest
 from bsa.engine import ProjectError
-from bsa.route_join import inspect, merge
+from bsa.route_join import inspect, merge, run
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -89,3 +90,27 @@ class RouteJoinTests(unittest.TestCase):
         frames={role:dict(port_guid=mapping[row['port_guid']]) for role,row in self.frames.items()}
         with self.assertRaises(ProjectError):
             merge(self.joined,target,self.folder/'occupied.ifc',self.endpoints,frames)
+
+    def test_changed_canonical_route_input_blocks_before_merge(self):
+        # Dispatch-only producer fixture: this tests source pinning, not native design.
+        producer=self.folder/'pin-control';selected=producer/'route/selected'
+        (selected/'bound').mkdir(parents=True)
+        def write(path,data):
+            path.write_text(json.dumps(data),encoding='utf-8');return digest(path)
+        canonical=selected/'model-input.json'
+        canonical_sha=write(canonical,{'source':'original canonical source'})
+        settings=producer/'settings.json';write(settings,{'plane_frame':{}})
+        binding=selected/'binding-input.json';write(binding,{})
+        network=selected/'network-source.json';write(network,{})
+        write(producer/'route/selected-routing.json',{})
+        native=dict(inputs={str(settings):digest(settings)},method_inputs={},saved_ifc_geometry_match=True,calculated_checks_pass=True)
+        write(selected/'route-model.json',native)
+        write(selected/'bound/network-binding.json',dict(inputs={str(canonical):canonical_sha,str(binding):digest(binding),str(network):digest(network)},artifacts={}))
+        route_report=producer/'route/route-optimisation.json';write(route_report,dict(selected_model=native))
+        endpoints={role:dict(row,point_m=point,travel_direction=[1,0,0]) for (role,row),point in zip(self.endpoints.items(),[[0,0,1.5],[4,0,1.5]])}
+        write(producer/'port-route.json',dict(inputs={str(self.source):digest(self.source)},method_inputs={},saved_endpoint_correspondence=True,calculated_checks_pass=True,design_accepted=False,route_report_sha256=digest(route_report),endpoints=endpoints))
+        write(canonical,{'source':'changed canonical source'})
+        with patch('bsa.route_join.endpoint_frames',return_value=endpoints),patch('bsa.route_join.merge',side_effect=AssertionError('changed canonical input must not merge')) as join:
+            with self.assertRaises(ProjectError):run(producer,self.folder/'pin-control-output')
+        join.assert_not_called()
+        self.assertFalse((self.folder/'pin-control-output').exists())

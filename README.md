@@ -1,5 +1,11 @@
 # Building Services Agent
 
+Ideal circular-chain material QA now follows source-preserving same-file joining:
+actual seven-body union, independent volume, bore topology and six finite centre
+probes pass, with geometry QA gating route-only DXF. Generated canonical model
+inputs are now retained in join provenance. Product joints and complete design
+remain pending. See docs/ROUTE_MATERIAL.md.
+
 Source-guided routes now append into the original source IFC with exact saved
 geometry/port preservation and directed same-file links. An actual seven-body
 six-link local chain passes; higher-endpoint pressure failure blocks joining and

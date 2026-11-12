@@ -1,0 +1,9 @@
+{
+  "source": "Explicit synthetic numerical QA only: volume residual thresholds are kernel/tessellation checks, not installation clearance or manufacturer acceptance. Probes examine a finite central quarter-radius core around each saved interface.",
+  "classification": "design_choice",
+  "overlap_volume_tolerance_m3": 1e-12,
+  "relative_volume_tolerance": 0.001,
+  "probe_radius_fraction": 0.25,
+  "probe_half_length_m": 0.005,
+  "maximum_triangles": 1000000
+}

@@ -1,5 +1,9 @@
 # Saved same-file source and route chain
 
+Optional downstream ideal wall-material/topology QA now consumes this exact
+joined result; see [local material checks](ROUTE_MATERIAL.md). It does not approve
+manufacturer joints or replace the original clearance/pressure obligations.
+
 `bsa.route_join` appends a passing `route_ports` candidate into its exact original
 source IFC using pinned IfcOpenShell's `project.append_asset`. It reuses the
 existing fitting-chain native representation/property fingerprint helpers and

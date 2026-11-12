@@ -1245,3 +1245,13 @@ API's unit and name-reuse contracts; require metre IFC4 and disable name-only
 reuse. Existing IfcOpenShell LGPL attribution/licensing remains unchanged; no
 new dependency. See JOINED_ROUTE.md for executed limits, including logical-only
 interfaces and unchanged original pressure boundaries.
+
+Circular joined-material gap: retain existing IfcOpenShell mesh extraction,
+circular wall/finite-elbow analytic volume specifications, solid_clash.from_mesh,
+and pinned Manifold3D intersection/union. Existing duct_fitting_chain and
+rectangular_tee_assembly already check material unions, independent volumes and
+boundary-bore Euler topology; tee_geometry/product_ports already use cylindrical
+bore probes. Reuse these engines and tests' physical counterexamples in a thin
+local circular-chain QA adapter. Do not replace the raw clash/clearance policy,
+repair models, infer joints or reinterpret probe success as full-bore/CFD or
+installation acceptance. No new dependency; existing attribution/licenses apply.
