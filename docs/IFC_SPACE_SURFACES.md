@@ -1,5 +1,35 @@
 # Saved IFC spaces to recognition input
 
+Provider `moosas.ifc-room-recognition`,capability `spatial.ifc-room-recognition`,
+now accepts original `ifc` and `settings` sources directly through bsa.modules
+or an existing module_exchange workflow task. Settings contain exactly explicit
+positive length_tolerance_m and area_tolerance_m2. The provider composes this
+intake and the existing moosas.surface-room-recognition provider;no second engine
+or orchestration framework is introduced. It forwards the declared common frame
+and source IDs and verifies the retained nested result and original IFC lineage.
+
+Three actual direct-IFC workflows with pinned official BEC source bytes verify
+enabled,disabled and missing-runtime states. Complete three-space recognition
+feeds geometry-derived areas into the existing HK LPD consumer. Independent
+electrical work continues when recognition is unavailable. Twenty-five related
+tests pass,including unknown settings,no extraction on missing/disabled runtime,
+altered public payload and dropped lighting-space GUID. Test rule-source controls
+use synthetic bytes;the retained scenario evidence uses the actual pinned file.
+See evidence/direct-ifc-recognition-workflow.json.
+
+For the synthetic native fixture,generate a complete test workflow with:
+
+```powershell
+.venv/Scripts/python examples/moosas-transform/build_workflow.py --out runs/new-ifc-inputs --ifc runs/new-native-fixture/polygonal-spaces.ifc --length-tolerance-m 1e-6 --area-tolerance-m2 1e-8 --sources runs/existing-official-cache
+.venv/Scripts/python -m bsa.workflow execute runs/new-ifc-inputs/plan.json --out runs/new-ifc-workflow --moosas-upstream tools/moosas-review --moosas-deps tools/moosas-exchange-deps
+```
+
+The builder's watts and applicability facts remain explicitly synthetic;passing
+this example does not establish real equipment data or statutory conformity.
+Disable the composed task provider with `--disable-module-provider
+moosas.ifc-room-recognition`;provider selection applies to declared workflow tasks.
+Standalone surface recognition remains available for its separate source contract.
+
 `bsa.ifc_space_surfaces` reads every saved IfcSpace Body and generates MOOSAS
 surface geometry,source expectations and a common recognition request. It reuses
 IfcOpenShell0.8.5 world-SI geometry,Manifold3D3.5.4 closed-solid validation and

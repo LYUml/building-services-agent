@@ -1,0 +1,58 @@
+{
+  "scope": "Actual direct saved-IFC common recognition provider in automatic recognition-to-HK-LPD workflow",
+  "provider": {
+    "id": "moosas.ifc-room-recognition",
+    "version": "1",
+    "license": "Apache-2.0",
+    "upstream_commit": "dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c"
+  },
+  "space_ids": [
+    "05Q4lNZvfMjRB3$ExNimBH",
+    "0CWbJCzJzH9wlEfBdo1lqM",
+    "2XcneOpvjTTuGBPHTpB5KV"
+  ],
+  "areas_m2": [
+    14.0,
+    24.0,
+    30.0
+  ],
+  "cases": {
+    "disabled": {
+      "tasks": {
+        "recognition": "pending",
+        "lighting-rules": "pending",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "workflow_sha256": "c60dacfedc268a7757d0d9e894b0784074e7bc6d4bdaae1567ac98298a7ca030"
+    },
+    "missing-runtime": {
+      "tasks": {
+        "recognition": "pending",
+        "lighting-rules": "pending",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "workflow_sha256": "e9b38a0b726fa37161a0cefb9034fea31fdd5e16125ba20eedbe2b8f74a2bce6"
+    },
+    "enabled": {
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "workflow_sha256": "200ba5bdedf26c5bf4560c1d3edfb73418e52927fc7bbdac673fabfa2ed273e3"
+    }
+  },
+  "official_source_sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+  "design_accepted": false,
+  "limitations": [
+    "Synthetic native geometry and lighting/applicability assertions;official source bytes are actual pinned BEC snapshot",
+    "Selected LPD arithmetic only;no photometry,thermal or complete conformity",
+    "Repository-local recognition worker and restricted vertical space prisms only"
+  ],
+  "targeted_tests_passed": 25,
+  "original_ifc_sha256": "90701113e10d3140c298cd3b357865076ce769bf5402db69b0b26f4bf08b2424",
+  "original_ifc_pinned": true
+}

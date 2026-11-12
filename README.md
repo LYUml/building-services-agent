@@ -1,5 +1,11 @@
 # Building Services Agent
 
+Direct saved-IFC recognition now runs as a common provider through the existing
+automatic workflow and selected HK office LPD consumer. Three actual scenario
+runs and25related tests pass;raw IFC/space identity and pending gates survive.
+Real building/thermal/MEP and complete regulatory acceptance remain unfinished.
+See docs/IFC_SPACE_SURFACES.md.
+
 Saved IFC space bodies now feed source-replayed MOOSAS recognition without
 manually duplicating room geometry. An actual synthetic concave/box IFC trial
 and19distinct related tests pass. Curves,holes/slopes and unsupported bodies

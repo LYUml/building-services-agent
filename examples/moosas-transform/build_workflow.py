@@ -4,6 +4,7 @@ All project facts here are explicit synthetic software controls. Official PDF
 bytes may be copied from a host-selected cache;no missing source is fabricated.
 """
 import argparse
+import copy
 import json
 from pathlib import Path
 import shutil
@@ -13,12 +14,23 @@ from bsa.documents import extract
 ROOT=Path(__file__).resolve().parents[2]
 
 
-def build(out, sources=None):
+def build(out, sources=None, *, ifc_source=None, tolerances=None):
     out=Path(out).resolve()
     if out.exists():raise ValueError('New workflow input directory required')
     out.mkdir(parents=True);(out/'sources').mkdir()
-    for name in ('l-shaped-room.geo','l-shaped-room.expected.json','l-shaped-room.request.json'):
-        shutil.copyfile(ROOT/'examples/moosas-transform'/name,out/name)
+    if ifc_source is None:
+        for name in ('l-shaped-room.geo','l-shaped-room.expected.json','l-shaped-room.request.json'):
+            shutil.copyfile(ROOT/'examples/moosas-transform'/name,out/name)
+        request_name='l-shaped-room.request.json';provider='moosas.surface-room-recognition';space_ids=['l-shaped-room']
+    else:
+        import ifcopenshell
+        if not isinstance(tolerances,dict) or set(tolerances)!={'length_tolerance_m','area_tolerance_m2'}:raise ValueError('Explicit native source tolerances required')
+        source=out/'native-source.ifc';shutil.copyfile(ifc_source,source)
+        settings=out/'native-settings.json';settings.write_text(json.dumps(tolerances,indent=2))
+        space_ids=[s.GlobalId for s in ifcopenshell.open(str(source)).by_type('IfcSpace')]
+        request_name='native-request.json';provider='moosas.ifc-room-recognition'
+        request=dict(schema='bsa.module-request/1',project_id='synthetic-native-ifc-workflow',scenario_id='source-inheritance',capability='spatial.ifc-room-recognition',coordinate_frame=dict(id='ifc-world-si',kind='source-world-si',length_unit='m',georeferenced=False),sources={role:dict(path=p.name,sha256=digest(p)) for role,p in [('ifc',source),('settings',settings)]})
+        (out/request_name).write_text(json.dumps(request,indent=2))
     pack=ROOT/'regulations/hk/lighting-2026.11.08/pack.json'
     shutil.copyfile(pack,out/'lighting-pack.json')
     definition=json.loads(pack.read_text())
@@ -28,11 +40,18 @@ def build(out, sources=None):
         shutil.copyfile(source,out/'sources'/source.name)
     basis=json.loads((ROOT/'examples/regulations-hk-lighting/project.json').read_text())
     basis['lighting_space'].pop('internal_floor_area')
-    (out/'lighting-basis.json').write_text(json.dumps({'l-shaped-room':basis},indent=2))
+    bases={}
+    for guid in space_ids:
+        row=copy.deepcopy(basis)
+        for light in row['lighting_space']['luminaires']:light['id']=guid+':'+light['id']
+        bases[guid]=row
+    (out/'lighting-basis.json').write_text(json.dumps(bases,indent=2))
     shutil.copyfile(ROOT/'examples/office-electrical/project.json',out/'electrical.json')
     brief=out/'brief.md'
+    geometry_requirement=('Recognize the declared concave room from its surface geometry and preserve its source identity and boundary.' if ifc_source is None else
+        'Recognize every supported saved IFC space,including concave boundaries,and preserve complete native GUID coverage without repeated room dimensions.')
     brief.write_text('# Synthetic source-recognition and lighting integration\n\n'
-        'Recognize the declared concave room from its surface geometry and preserve its source identity and boundary.\n\n'
+        +geometry_requirement+'\n\n'
         'Inherit its recognized floor area into the existing selected Hong Kong office LPD check using the explicit synthetic luminaire inventory and applicability assertions.\n\n'
         'Review downstream engineering applicability only after geometry and selected rules pass; no physical or complete compliance claim follows from numerical checks.\n\n'
         'Execute the independent synthetic single-phase electrical calculation even when the recognition provider is unavailable.\n',encoding='utf-8')
@@ -40,7 +59,7 @@ def build(out, sources=None):
     ids=['recognition','lighting-rules','review','independent-electrical']
     plan=dict(version=1,brief=brief.name,brief_sha256=digest(brief),
         passage_dispositions={r['id']:'context' if i==0 else 'requirement' for i,r in enumerate(passages)},
-        tasks=[dict(id='recognition',kind='module_exchange',provider='moosas.surface-room-recognition',request='l-shaped-room.request.json'),
+        tasks=[dict(id='recognition',kind='module_exchange',provider=provider,request=request_name),
             dict(id='lighting-rules',kind='spatial_lighting_rules',depends_on='recognition',basis='lighting-basis.json',pack='lighting-pack.json',sources='sources'),
             dict(id='review',kind='manual',requires_pass=['recognition','lighting-rules'],description='Actual source interpretation,installation,photometry and full acceptance remain pending'),
             dict(id='independent-electrical',kind='electrical',project='electrical.json')],
@@ -51,4 +70,7 @@ def build(out, sources=None):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--out',required=True,type=Path);parser.add_argument('--sources',type=Path)
-    args=parser.parse_args();print(build(args.out,args.sources))
+    parser.add_argument('--ifc',type=Path);parser.add_argument('--length-tolerance-m',type=float);parser.add_argument('--area-tolerance-m2',type=float)
+    args=parser.parse_args()
+    if args.ifc and (args.length_tolerance_m is None or args.area_tolerance_m2 is None):parser.error('Explicit IFC source length/area tolerances required')
+    print(build(args.out,args.sources,ifc_source=args.ifc,tolerances=None if args.ifc is None else dict(length_tolerance_m=args.length_tolerance_m,area_tolerance_m2=args.area_tolerance_m2)))

@@ -1,5 +1,12 @@
 # MOOSAS priority reuse map
 
+Direct saved-IFC recognition is now a composed trusted provider,so the existing
+workflow accepts IFC/settings without manually generated geometry inputs. Three
+actual source-pinned IFC-to-HK-LPD scenario workflows and25related tests pass.
+It reuses the existing intake and surface provider;full engineering/conformity
+remain unfinished. See IFC_SPACE_SURFACES.md and
+evidence/direct-ifc-recognition-workflow.json.
+
 A saved IFC space intake now derives polygonal surface/expectation inputs from
 native bodies and binds the original IFC through common MOOSAS recognition.
 Actual concave/box three-space source,IFC4 validation,complete GUID coverage and

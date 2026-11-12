@@ -1,5 +1,11 @@
 # Reuse survey â€” 2026-11-09
 
+Direct native recognition dispatch gap: compose the existing ifc_space_surfaces
+and moosas.surface-room-recognition through a thin registered provider and reuse
+module_exchange orchestration. Source tolerances,frame,GUIDs,raw IFC pins and
+nested evidence are preserved. Three actual IFC-to-LPD workflows and25related
+tests pass;no new kernel,solver or framework. See IFC_SPACE_SURFACES.md.
+
 Native IFC recognition intake gap: inspect existing thermal_binding/box_geometry,
 cad_ifc/solid_clash and reuse IfcOpenShell0.8.5 world-SI meshes,Manifold3D3.5.4
 closed-solid validation,Shapely2.2.0 planar unions and NumPy2.5.4. A thin vertical-

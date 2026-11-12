@@ -2,6 +2,9 @@
 
 
 def get_provider(id):
+    if id=='moosas.ifc-room-recognition':
+        from . import moosas_ifc_recognition
+        return moosas_ifc_recognition
     if id=='moosas.surface-room-recognition':
         from . import moosas_recognition
         return moosas_recognition
