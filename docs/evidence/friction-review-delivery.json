@@ -1,0 +1,62 @@
+{
+  "scope": "Actual synthetic source-bound delivery review audits; no complete engineering acceptance or coursework modification",
+  "tests_passed": 23,
+  "cases": {
+    "native": {
+      "audit": "runs/friction-review-delivery/native/audit.json",
+      "sha256": "053426fcb16f98eccafbfd5f88bf45dc365fdee78f0a20bee01873a05ff06fcf",
+      "html": "runs/friction-review-delivery/native/report.html",
+      "html_sha256": "a1353b18a5741e17e76377357681cca057d455e842bd56903d03e809a6e6cf2e",
+      "status": "failed",
+      "engineering_request_count": 8,
+      "requirement_count": 13,
+      "source_integrity_pass": true,
+      "engineering_acceptance": "not_established",
+      "effective_states": {
+        "pass": 0,
+        "fail": 1,
+        "pending": 12
+      }
+    },
+    "analysis-disabled": {
+      "audit": "runs/friction-review-delivery/analysis-disabled/audit.json",
+      "sha256": "a3f40bf5c539573fc5ad6cd4289cd74f719273795a0a2200b43055bad0716a4b",
+      "html": "runs/friction-review-delivery/analysis-disabled/report.html",
+      "html_sha256": "c09395d9fa1eb7ac7cb34ed59bb68a160cdb676e06527da1a0539f7bc58afc14",
+      "status": "failed",
+      "engineering_request_count": 0,
+      "requirement_count": 13,
+      "source_integrity_pass": true,
+      "engineering_acceptance": "not_established",
+      "effective_states": {
+        "pass": 0,
+        "fail": 1,
+        "pending": 12
+      }
+    },
+    "geometry-disabled": {
+      "audit": "runs/friction-review-delivery/geometry-disabled/audit.json",
+      "sha256": "5a89681d20ab3f0db7922435d5a11c497385adb9a28daa1e190f121ebe21b519",
+      "html": "runs/friction-review-delivery/geometry-disabled/report.html",
+      "html_sha256": "b3f13863dba91cb92a3cd4ac66f45ef68f6a7a2edef6aa0e98dd886bce2bec8d",
+      "status": "needs_review",
+      "engineering_request_count": 0,
+      "requirement_count": 13,
+      "source_integrity_pass": true,
+      "engineering_acceptance": "not_established",
+      "effective_states": {
+        "pass": 0,
+        "fail": 0,
+        "pending": 13
+      }
+    }
+  },
+  "visual_review": {
+    "image": "runs/friction-review-delivery/narrow.png",
+    "image_sha256": "141be53dc95abedf64599788ca5775579063034ade26a27ff96cbad5bdba7431",
+    "source_html_sha256": "a1353b18a5741e17e76377357681cca057d455e842bd56903d03e809a6e6cf2e",
+    "viewport_width_px": 600,
+    "scope": "Visible retained request overview and source evidence controls; no complete requirement-detail or installation review",
+    "observations": "Visible text and terminal IDs wrap without horizontal clipping; original failed review and eight engineering requests remain explicit."
+  }
+}

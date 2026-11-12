@@ -122,6 +122,7 @@ def assess(plan,root,review_path):
     plan,root,review_path=Path(plan).resolve(),Path(root).resolve(),Path(review_path).resolve()
     before={str(p):digest(p) for p in (plan,root/'workflow.json',review_path)}
     result=dict(design_accepted=False,review_checks_pass=False,source_integrity_pass=False,requirements=[],issues=[],
+                engineering_actions=[],engineering_acceptance='not_established',
                 scope='Source/byte consistency, recorded reviewer assertions and optional adapter-reported Boolean facts; not reviewer authentication, semantic completeness or engineering certification')
     context_loaded=False;attachments_seen={}
     try:
@@ -130,7 +131,9 @@ def assess(plan,root,review_path):
         recorded_requirements={r['id']:r for r in report['requirements']}
         result['issues'].extend(integrity['issues'])
         from .workflow_status import diagnose
-        dependency_rows = {r['id']: r for r in diagnose(plan, root)['tasks']}
+        diagnosis=diagnose(plan,root)
+        dependency_rows = {r['id']: r for r in diagnosis['tasks']}
+        result['engineering_actions']=diagnosis.get('engineering_actions',[])
         review=json.loads(review_path.read_text(encoding='utf-8-sig'))
         if not isinstance(review,dict) or set(review)!={'version','plan_sha256','workflow_sha256','requirements'} or type(review['version']) is not int or review['version']!=1:
             raise ProjectError('review version 1 and exact source/report hashes required')
@@ -187,6 +190,7 @@ def assess(plan,root,review_path):
                 passage=requirement['passage'],source_locator=recorded_requirements[requirement['id']]['source_locator'],
                 execution_status=task['status'],recorded_review_status=status,effective_review_status=effective,blocked_by=blocked_by,
                 input_blockers=input_blockers,
+                engineering_review_requests=dependency_rows[requirement['task']].get('module_state',{}).get('engineering_review_requests',[]),
                 reviewer=row['reviewer'],reviewed_at_utc=row['reviewed_at_utc'],notes=row['notes'],evidence=row['evidence'],attachments=row['attachments'],facts=facts,issues=issues))
         result['review_checks_pass']=integrity['integrity_pass'] and all(r['effective_review_status']=='pass' for r in result['requirements'])
     except (ProjectError,ValueError,TypeError,KeyError,IndexError,AttributeError,OSError) as exc:
@@ -222,8 +226,16 @@ def render(result):
             '<h3>Acceptance target</h3><p>'+esc(row['acceptance'])+'</p><h3>Review observations</h3><p class="notes">'+esc(row['notes'] or 'No review observations recorded.')+'</p>'+
             '<details><summary>Original source and review evidence</summary><h3>Source locator</h3><pre>'+structured(row['source_locator'])+'</pre><h3>Original quote</h3><blockquote>'+esc(row['quote'])+'</blockquote>'+
             '<h3>Reviewer assertion</h3><p>'+esc(row['reviewer'] or 'Unrecorded')+' · '+esc(row['reviewed_at_utc'] or 'Unrecorded')+'</p>'+
-            ''.join('<h3>'+esc(label)+'</h3><pre>'+structured(row[key])+'</pre>' for label,key in [('Blocking tasks','blocked_by'),('Input blockers','input_blockers'),('Cited artifacts','evidence'),('Supplemental attachments','attachments'),('Reported Boolean facts','facts'),('Review issues','issues')])+'</details></article>')
-    return '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Delivery review evidence</title><style>body{font:16px/1.5 Arial,sans-serif;color:#20343c;max-width:1050px;margin:32px auto;padding:0 18px;overflow-wrap:anywhere}h1{line-height:1.2}h2{font-size:21px}h3{font-size:16px;margin-bottom:6px}.notice{background:#fff1d6;border-left:5px solid #a96a10;padding:16px}.counts{display:flex;gap:16px;flex-wrap:wrap}.status{font-size:14px;padding:3px 8px;border-radius:4px;background:#edf0f2}.pass{background:#e1f0e7}.fail{background:#f9e3e0}.pending{background:#fff1d6}article{border:1px solid #cad3d7;border-radius:6px;margin:22px 0;padding:18px}dl{display:flex;flex-wrap:wrap;gap:12px 30px}dl div{min-width:140px}dt{font-size:13px;color:#52656c}dd{margin:0}p,blockquote,pre{white-space:pre-wrap}blockquote{margin:12px 0;padding:12px 16px;background:#f4f6f7}pre{font:13px/1.5 Consolas,monospace;overflow-wrap:anywhere}summary{cursor:pointer;color:#075665}details{border-top:1px solid #dce2e5;padding-top:12px}a{color:#075665}</style><h1>Delivery review evidence</h1><p class="notice"><strong>'+esc(result['status'])+'</strong>. Design accepted: false. Scoped review passes do not establish whole-design acceptance.</p><p>'+esc(result['scope'])+'</p><div class="counts">'+''.join('<p class="status '+state+'">'+esc(state)+': <strong>'+str(count)+'</strong></p>' for state,count in counts.items())+'</div><p>Execution, recorded review and effective review are separate. Expand each requirement to inspect the original quote, source locator, blockers and evidence. <a href="audit.json">Complete audit JSON</a>.</p>'+(''.join('<p class="notice">'+esc(issue)+'</p>' for issue in result['issues']))+''.join(cards)+'</html>'
+            ''.join('<h3>'+esc(label)+'</h3><pre>'+structured(row.get(key,[]))+'</pre>' for label,key in [('Blocking tasks','blocked_by'),('Input blockers','input_blockers'),('Engineering review requests','engineering_review_requests'),('Cited artifacts','evidence'),('Supplemental attachments','attachments'),('Reported Boolean facts','facts'),('Review issues','issues')])+'</details></article>')
+    def request_title(request):
+        identity=' / '.join(str(request[k]) for k in ('terminal','condition') if k in request)
+        return (identity+': ' if identity else '')+request['code'].replace('_',' ')
+    engineering=[]
+    for action in result.get('engineering_actions',[]):
+        requests=action['data_requests']
+        engineering.append('<section class="notice"><h3>'+esc(action['task'])+' — engineering review pending</h3><p>Requirements: '+esc(', '.join(action['requirement_ids']))+'</p><ul>'+''.join('<li><strong>'+esc(request_title(request))+'</strong><p>'+esc(request['requested'])+'</p><details><summary>Retained engineering evidence</summary><pre>'+structured(request)+'</pre></details></li>' for request in requests)+'</ul><p>Source artifact: '+esc(action['evidence'])+'</p><details><summary>Source SHA256</summary><pre>'+esc(action['evidence_sha256'])+'</pre></details></section>')
+    engineering_section='<section><h2>Engineering review requests</h2><p>Engineering acceptance: not established. '+str(sum(len(a['data_requests']) for a in result.get('engineering_actions',[])))+' retained requests. An empty queue does not establish complete engineering coverage.</p>'+''.join(engineering)+'</section>'
+    return '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Delivery review evidence</title><style>body{font:16px/1.5 Arial,sans-serif;color:#20343c;max-width:1050px;margin:32px auto;padding:0 18px;overflow-wrap:anywhere}h1{line-height:1.2}h2{font-size:21px}h3{font-size:16px;margin-bottom:6px}.notice{background:#fff1d6;border-left:5px solid #a96a10;padding:16px}.counts{display:flex;gap:16px;flex-wrap:wrap}.status{font-size:14px;padding:3px 8px;border-radius:4px;background:#edf0f2}.pass{background:#e1f0e7}.fail{background:#f9e3e0}.pending{background:#fff1d6}article{border:1px solid #cad3d7;border-radius:6px;margin:22px 0;padding:18px}dl{display:flex;flex-wrap:wrap;gap:12px 30px}dl div{min-width:140px}dt{font-size:13px;color:#52656c}dd{margin:0}p,blockquote,pre{white-space:pre-wrap}blockquote{margin:12px 0;padding:12px 16px;background:#f4f6f7}pre{font:13px/1.5 Consolas,monospace;overflow-wrap:anywhere}summary{cursor:pointer;color:#075665}details{border-top:1px solid #dce2e5;padding-top:12px}a{color:#075665}</style><h1>Delivery review evidence</h1><p class="notice"><strong>'+esc(result['status'])+'</strong>. Design accepted: false. Scoped review passes do not establish whole-design acceptance.</p><p>'+esc(result['scope'])+'</p><div class="counts">'+''.join('<p class="status '+state+'">'+esc(state)+': <strong>'+str(count)+'</strong></p>' for state,count in counts.items())+'</div><p>Execution, recorded review and effective review are separate. Expand each requirement to inspect the original quote, source locator, blockers and evidence. <a href="audit.json">Complete audit JSON</a>.</p>'+(''.join('<p class="notice">'+esc(issue)+'</p>' for issue in result['issues']))+engineering_section+''.join(cards)+'</html>'
 
 
 def run(plan,root,review,out):

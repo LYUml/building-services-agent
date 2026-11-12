@@ -32,6 +32,26 @@ class DeliveryReviewTests(unittest.TestCase):
             self.assertIn('Source locator',text);self.assertIn('Input blockers',text)
             self.assertFalse(result['design_accepted'])
 
+    def test_retained_engineering_requests_survive_scoped_review_and_escape_html(self):
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as folder:
+            plan,root,path,review=self.fixture(Path(folder));self.fill(root,review);path.write_text(json.dumps(review))
+            from bsa.workflow_status import diagnose
+            diagnosis=diagnose(plan,root)
+            request=dict(terminal='T<1>',condition='maximum',code='applicability_review',requested='<script>untrusted()</script> & source',evidence=dict(classification='assumed'))
+            diagnosis['tasks'][0]['module_state']=dict(engineering_review_requests=[request])
+            diagnosis['engineering_actions']=[dict(task='electrical',status='pending',requirement_ids=['R0'],data_requests=[request],evidence='electrical/calculations.json',evidence_sha256=digest(root/'electrical/calculations.json'))]
+            with patch('bsa.workflow_status.diagnose',return_value=diagnosis):
+                out=Path(folder)/'engineering-audit';result=run(plan,root,path,out)
+            self.assertTrue(result['review_checks_pass']);self.assertFalse(result['design_accepted'])
+            self.assertEqual(result['requirements'][0]['engineering_review_requests'],[request])
+            self.assertEqual(result['requirements'][1]['engineering_review_requests'],[])
+            text=(out/'report.html').read_text()
+            self.assertIn('1 retained requests',text);self.assertIn('Requirements: R0',text)
+            self.assertIn('T&lt;1&gt; / maximum: applicability review',text)
+            self.assertIn('electrical/calculations.json',text)
+            self.assertIn('&lt;script&gt;untrusted()&lt;/script&gt; &amp; source',text);self.assertNotIn('<script>',text)
+
     def test_manual_review_cannot_clear_its_required_pending_parent(self):
         with tempfile.TemporaryDirectory() as folder:
             outer=Path(folder);plan,root,path,review=self.fixture(outer)

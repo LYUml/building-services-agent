@@ -1,5 +1,9 @@
 # Building Services Agent
 
+Delivery audits now expose retained engineering requests alongside scoped
+review and execution results, with requirement and source evidence bindings.
+Whole-design acceptance remains unestablished. See docs/DELIVERY_REVIEW.md.
+
 Numerically completed native friction now retains source-bound engineering
 review requests in a separate diagnosis queue. Physical applicability and
 whole-system acceptance remain pending. See docs/FRICTION_REVIEW_QUEUE.md.

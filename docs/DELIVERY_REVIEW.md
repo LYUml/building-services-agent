@@ -51,3 +51,30 @@ A false fact overrides a recorded pass. This reads an adapter-reported assertion
 The output is `audit.json` and a readable `report.html`. Each row preserves the source quote/acceptance, execution status, recorded and effective review statuses, evidence, facts, observations and issues. Overall status is `failed`, `needs_review` or `review_complete`. CLI exit 0 means all defined review-record checks passed; exit 2 means failed or unresolved review. `review_checks_pass` is specifically source/byte, review-record and defined Boolean-fact consistency. It does not prove the review covered every engineering implication. `design_accepted` always stays false in this tool; complete design acceptance requires the actual domain and visual evidence, not a blanket software flag.
 
 The runnable synthetic example has three requirements: conditional three-light electrical outputs, actual SVG preview review and fault/protection evidence. The retained demonstration checks source formulas and inspects a real rendered image, recording two scoped passes. Fault disconnection/breaking-capacity data is absent, so that requirement remains pending and overall review stays incomplete. No native DWG, PDF scale or full electrical design acceptance is claimed by the SVG review. See docs/evidence/delivery for actual records. The test suite also exercises a complete **synthetic record** without changing `design_accepted`; that is a consistency fixture, not a certified engineering design.
+
+
+## Retained engineering requests
+
+The audit JSON and HTML now retain workflow_status.engineering_actions and
+per-requirement engineering_review_requests. The HTML displays the task, source
+requirement IDs, requested next evidence and original module artifact/hash.
+Source strings are escaped as text. Existing reviewer assertions, effective
+scoped review states and execution results stay distinct from engineering
+acceptance, which is not_established; design_accepted remains false.
+
+A zero request count does not establish complete engineering coverage. Disabled
+or unexecuted components create no successful-payload requests. Original failed
+coordination tasks and pending reviews remain. No reviewer entries are generated
+as pass, no model is modified and no engine is selected by the HTML page.
+Existing commands and separate output-directory guards are unchanged.
+
+See evidence/friction-review-delivery.json for actual synthetic native and
+module-disabled audit evidence. This is an internal diagnostic report, not a
+coursework engineering deliverable or proof of complete design acceptance.
+
+Validation: 23 related tests pass, including source-field escaping and scoped
+review/engineering-state separation. Actual three-scenario audits retain all
+13 requirements. The native study retains eight requests and a failed
+coordination requirement; disabled cases retain zero component requests.
+The visible request overview was inspected at 600px; full detail/engineering
+acceptance remains pending.

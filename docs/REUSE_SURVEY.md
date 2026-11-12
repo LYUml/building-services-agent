@@ -1165,3 +1165,9 @@ module verifier and workflow_status diagnosis. No new solver, dependency or
 regulatory threshold. Project source-classified applicability/property/network
 review requests separately from numerical execution failures. See
 FRICTION_REVIEW_QUEUE.md for executed evidence and limitations.
+
+Engineering-review presentation gap: reuse delivery.assess/render and verified
+workflow_status requests, existing HTML escaping and source-bound review
+records. No new calculation, geometry engine, dependency or regulatory method.
+Preserve scoped reviewer assertions separately from engineering acceptance and
+retain original failure gates. See DELIVERY_REVIEW.md.
