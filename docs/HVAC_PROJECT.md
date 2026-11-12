@@ -1,5 +1,13 @@
 # Repeatable HVAC project settings
 
+A fresh actual coursework replay at agent code4f66ada now includes the existing
+source-pinned ADPI and saved-terminal reviews as well as native/junction/path
+stages. Six package stages have no execution errors;five workflow tasks pass.
+The24-page report retains33requirements and six unresolved inputs. ADPI remains
+pending with unknown room load,L/installation and a declared load-domain mismatch.
+Actual report contact sheets,selected detailed pages and native plot were reviewed.
+See evidence/current-coursework-hvac-replay.json;full acceptance is not established.
+
 Both `hvac_project run` and `hvac_package` accept repeated host options
 `--module-provider TASK=PROVIDER` and `--disable-module-provider PROVIDER`.
 These use the existing workflow registry/selection checks;duplicate or malformed

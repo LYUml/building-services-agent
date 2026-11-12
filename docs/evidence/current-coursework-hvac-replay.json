@@ -1,0 +1,33 @@
+{
+  "scope": "Actual coursework replay using current general agent;source documents retained locally",
+  "stage_errors": {},
+  "stages": [
+    "system_paths",
+    "junction_review",
+    "adpi_review",
+    "terminal_review",
+    "report",
+    "report_pdf"
+  ],
+  "requirements": 33,
+  "unresolved_inputs": 6,
+  "passing_tasks": 5,
+  "terminal_count": 80,
+  "vav_groups": 20,
+  "duct_sections": 47,
+  "report_pages": 24,
+  "native_save_reopen": true,
+  "workflow_integrity_and_delivery_context_pass": true,
+  "terminal_correspondence_pass": true,
+  "adpi_applicability": "pending",
+  "ADPI_verified": false,
+  "design_accepted": false,
+  "receipt_sha256": "e56bcbf55480bb5ae7dadc076be6cb7ac0f226fc67238a968e9911a5f09aa187",
+  "visual_review_sha256": "b8ae18be0d643a75c817a1d97d4185feb3f9075fdbc8274d6a58bd3306aa6e69",
+  "limitations": [
+    "Six original project input gaps remain",
+    "Classroom criterion load range mismatch and unknown room load,L/installation facts retained",
+    "Current report is a design study;not complete engineering acceptance",
+    "Manual acceptance assertions from prior runs not automatically transferred"
+  ]
+}
