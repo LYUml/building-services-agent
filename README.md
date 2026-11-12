@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Explicit terminal candidates now rerun existing allocation/performance engines
+against the same verified room balance. Native/MOOSAS synthetic trials remove
+two catalogue-range gaps without changing total airflow or accepting the design.
+See docs/SPATIAL_TERMINAL_REVISION.md.
+
 Inherited terminal flows now query pinned product T0.25/Ps/Pt tables through the
 existing fluids-backed calculator. Native/MOOSAS trials agree and retain two
 out-of-range cases as pending;ADPI/product/installation/full acceptance remain

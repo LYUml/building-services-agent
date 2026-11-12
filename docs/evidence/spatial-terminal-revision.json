@@ -1,0 +1,25 @@
+{
+  "scope": "Explicit synthetic candidate iteration;not coursework design",
+  "comparison": {
+    "original_outside_cases": 2,
+    "candidate_outside_cases": 0,
+    "original_terminal_count": 3,
+    "candidate_terminal_count": 6,
+    "original_maximum_flow_L_s": 870.4,
+    "candidate_maximum_flow_L_s": 870.4,
+    "catalogue_range_covered": true,
+    "design_accepted": false,
+    "scope": "Explicit candidate comparison only;range coverage is not product selection,ADPI,acoustics,physical installation,regulatory or full engineering acceptance"
+  },
+  "provider_comparisons_equal": true,
+  "reports": {
+    "native": {
+      "path": "runs/spatial-terminal-candidate-native/candidate-comparison.json",
+      "sha256": "735c53e35ccfa0304427013c30a2e12b30fb7b5a661db8e20ca8463e48bc25c6"
+    },
+    "moosas": {
+      "path": "runs/spatial-terminal-candidate-moosas/candidate-comparison.json",
+      "sha256": "a4b810590d15ac030fd306b2b007e705f06bdad011790d1384ef01c95a96e5e6"
+    }
+  }
+}
