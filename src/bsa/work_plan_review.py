@@ -6,6 +6,7 @@ from pathlib import Path
 from .cli import digest
 from .engine import ProjectError
 from .workflow import plan_documents,validate_plan,local_path
+from .workspace import allowed
 
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -14,7 +15,7 @@ ROOT=Path(__file__).resolve().parents[2]
 def template(plan,output):
     """Prepare source coverage for host-agent interpretation, without choosing tasks."""
     plan,output=Path(plan).resolve(),Path(output).resolve()
-    if not output.is_relative_to(ROOT) or output.parent!=plan.parent or output.exists():
+    if not allowed(output) or output.parent!=plan.parent or output.exists():
         raise ProjectError('new repository project-local review file beside plan required')
     original,inputs=validate_plan(plan)
     pins={str(p):digest(p) for p in [plan,*inputs]}
@@ -34,7 +35,7 @@ def apply(plan,review,output=None):
     plan,review=Path(plan).resolve(),Path(review).resolve();root=plan.parent
     if not review.is_relative_to(root):raise ProjectError('planning review must be repository project-local')
     destination=plan if output is None else Path(output).resolve()
-    if output is not None and (not destination.is_relative_to(ROOT) or destination.parent!=root or destination.exists()):
+    if output is not None and (not allowed(destination) or destination.parent!=root or destination.exists()):
         raise ProjectError('new repository project-local output plan beside original required')
     _,inputs=validate_plan(plan)
     before={str(p):digest(p) for p in (plan,review,*inputs)}

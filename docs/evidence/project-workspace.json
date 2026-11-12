@@ -1,0 +1,40 @@
+{
+  "scope": "Explicit host-selected external coursework workspace with reusable tool source retained in its repository",
+  "migration": {
+    "files": 32,
+    "historical_source_files_unchanged": true,
+    "existing_project_originals_preserved": true
+  },
+  "actual_execution": {
+    "project_directory_as_cwd": true,
+    "outputs_inside_project": true,
+    "requirements": 33,
+    "unresolved_inputs": 8,
+    "calculation_drafting_stages_pass": 4,
+    "native_host_not_supplied": true,
+    "integrity_pass": true,
+    "delivery_context_pass": true
+  },
+  "arithmetic_review": {
+    "terminals": 80,
+    "factor": "0.4",
+    "independent_decimal": true,
+    "maximum_row_error_L_s": "1.2e-14",
+    "scoped_manual_requirements_pass": 2,
+    "remaining_review_rows": 31,
+    "conditional_on_current_maximum_flow_allocation": true
+  },
+  "tests": {
+    "invocations": 42,
+    "passes": 42,
+    "failures": 0,
+    "errors": 0,
+    "command": "python -m unittest tests.test_project_workspace tests.test_project_start tests.test_requirements_provider tests.test_work_plan_review tests.test_modules tests.test_delivery tests.test_workflow_cli"
+  },
+  "limitations": [
+    "External support covers selected core entry points,not every domain adapter",
+    "Source geometry,actual loads,product throw,ADPI and installation remain unresolved",
+    "Private coursework artifacts remain in the coursework workspace and are not published"
+  ],
+  "design_accepted": false
+}

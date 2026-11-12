@@ -1,5 +1,10 @@
 # Start from original requirement documents
 
+User-selected coursework workspaces now separate project inputs/runs/deliverables
+from reusable tool source. Supported entry points use explicit host BSA_PROJECT_ROOT;
+actual BSE3227 execution now occurs in its own project directory. Other adapters
+are not all migrated. See PROJECT_WORKSPACE.md.
+
 
 A workflow can now require the exact common inventory using host option
 `--requirements-result`. This checks the original plan path/hash,complete

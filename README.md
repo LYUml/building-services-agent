@@ -1,5 +1,10 @@
 # Building Services Agent
 
+User-selected coursework workspaces now separate project inputs/runs/deliverables
+from reusable tool source. Supported entry points use explicit host BSA_PROJECT_ROOT;
+actual BSE3227 execution now occurs in its own project directory. Other adapters
+are not all migrated. See docs/PROJECT_WORKSPACE.md.
+
 Workflows now bind an exact common requirements inventory before engineering
 execution and recheck it at delivery. Actual electrical/water/BSE3227 runs and
 63related tests pass scoped checks. BSE3227 retains9unresolved inputs and12pending

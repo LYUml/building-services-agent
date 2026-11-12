@@ -70,3 +70,7 @@ registers,artifact mutations and preserved pending acceptance. These controls
 check review consistency,not an automatic interpretation of arbitrary briefs.
 See evidence/coursework-preliminary-review.json. Private course documents,
 requirement quotes,calculations and review records remain local.
+
+## Conditional turndown arithmetic
+
+When the brief explicitly supplies a minimum-flow factor,independently check every current terminal ID and multiply its retained maximum flow by that factor. A scoped arithmetic review can depend on the passing allocation rather than physical-layout acceptance,provided the result is explicitly conditional on that maximum-flow allocation. Preserve the original issue and dependency change in a planning record,new plan and fresh run;keep all original requirement IDs/quotes and unrelated blockers. Product throw,ratios,ADPI,actual room loads and installation remain separate requirements,even when the same source paragraph contains all of them. The actual coursework trial checked80terminals at0.4,retained33requirements,resolved only the arithmetic issue,and recorded2scoped manual passes with31review rows still pending. Coursework evidence stays in its project workspace.

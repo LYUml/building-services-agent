@@ -5,25 +5,26 @@ from pathlib import Path
 from .cli import digest
 from . import module_contract
 from .providers import get_provider
+from .workspace import allowed
 
 ROOT=Path(__file__).resolve().parents[2]
 
 
 def method_paths(provider):
     schemas=[ROOT/'contracts/modules'/module_contract.SCHEMAS[id] for id in ('bsa.module-request/1','bsa.module-result/1',provider.PAYLOAD)]
-    return [Path(__file__),Path(module_contract.__file__),Path(provider.__file__),ROOT/'src/bsa/providers/__init__.py',*schemas]
+    return [Path(__file__),Path(module_contract.__file__),ROOT/'src/bsa/workspace.py',Path(provider.__file__),ROOT/'src/bsa/providers/__init__.py',*schemas]
 
 
 def run(request_path,provider_id,out,*,runtime=None,disabled=False):
     request_path,out=Path(request_path).resolve(),Path(out).resolve()
-    if not request_path.is_relative_to(ROOT) or not out.is_relative_to(ROOT):raise ValueError('Repository-local request and output required')
+    if not allowed(request_path) or not allowed(out):raise ValueError('Request and output must be in the tool repository or explicit host project workspace')
     request_sha=digest(request_path);request=module_contract.validate(module_contract.read_json(request_path),'bsa.module-request/1')
     provider=get_provider(provider_id);provider.validate_request(request)
     pins={str(request_path):request_sha};paths={}
     for role,row in request['sources'].items():
         if Path(row['path']).is_absolute():raise ValueError('Relative repository-local source paths required')
         p=(request_path.parent/row['path']).resolve()
-        if not p.is_relative_to(ROOT) or not p.is_file() or digest(p)!=row['sha256']:raise ValueError('Module source missing or changed')
+        if not allowed(p) or not p.is_file() or digest(p)!=row['sha256']:raise ValueError('Module source missing or changed')
         pins[str(p)]=row['sha256'];paths[role]=p
     for p in method_paths(provider):pins[str(p.resolve())]=digest(p)
     runtime=runtime or {}
@@ -54,7 +55,7 @@ def verify_result(path):
     path=Path(path).resolve();result=module_contract.validate(module_contract.read_json(path),'bsa.module-result/1')
     for name,sha in result['inputs'].items():
         p=Path(name).resolve()
-        if not p.is_relative_to(ROOT) or digest(p)!=sha:raise ValueError('Module input evidence changed')
+        if not allowed(p) or digest(p)!=sha:raise ValueError('Module input evidence changed')
     for name,sha in result['artifacts'].items():
         p=(path.parent/name).resolve()
         if not p.is_relative_to(path.parent) or digest(p)!=sha:raise ValueError('Module artifact evidence changed')

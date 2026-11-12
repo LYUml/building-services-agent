@@ -56,7 +56,10 @@ Plans,contract drafts,compiled bridges,synthetic examples and successful narrow
 tasks do not establish the complete agent. Missing inputs,blocked engines,
 failed designs and unverified integrations remain explicit.
 
-All development/generated files stay in this repository. Completed polyu_bse3124
+User correction recorded2026-11-12:general agent development/skills/tests stay
+in this repository;coursework inputs,runs and deliverables belong in the explicit
+user project directory (BSE3227 uses Desktop/polyu_bse3227). Historical runs remain
+preserved. Completed polyu_bse3124
 remains read-only. Do not publish private coursework,credentials or generated
 environments. Preserve third-party attribution and push verified milestones.
 Retain all original requirements and distinguish thermal/electrical power.

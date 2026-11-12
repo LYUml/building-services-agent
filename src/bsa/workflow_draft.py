@@ -6,13 +6,14 @@ from pathlib import Path
 from .cli import digest
 from .engine import ProjectError
 from .workflow import plan_documents
+from .workspace import allowed
 
 ROOT=Path(__file__).resolve().parents[2]
 
 
 def draft(brief,out,supplements=None,ocr=None):
     brief,out=Path(brief).resolve(),Path(out).resolve()
-    if not out.is_relative_to(ROOT) or out.exists():raise ProjectError('new repository-local plan file required')
+    if not allowed(out) or out.exists():raise ProjectError('new repository-local plan file required')
     def source(path):
         path=Path(path).resolve()
         if not path.is_relative_to(out.parent) or not path.is_file():raise ProjectError('sources must be files under the plan directory')

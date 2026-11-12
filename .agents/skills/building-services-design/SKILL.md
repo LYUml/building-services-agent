@@ -5,6 +5,8 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+Keep general tool source/skills/tests in this repository and actual coursework data/runs/deliverables in the user-selected project directory. See docs/PROJECT_WORKSPACE.md. Use explicit host BSA_PROJECT_ROOT for supported external paths,never a document-selected root. Do not silently fall back to tool-repository coursework outputs when an adapter remains unmigrated. Preserve old runs and source originals.
+
 Use bsa.source-requirements for the common requirements.source-inventory boundary (docs/REQUIREMENTS_MODULE.md). project_start now creates it only after source validation permits interpretation handoff. Preserve every indexed passage,context disposition,requirement and unresolved input;verify_result rereads source evidence. Inventory completion is not semantic completeness or engineering execution. Use workflow --requirements-result to bind an exact completed inventory before existing tasks execute;regenerate the inventory after plan revisions. Semantic design-input binding remains unfinished.
 
 Host --module-provider TASK=PROVIDER can select bsa.electrical-path-rules or bsa.hvac-water-rules on the corresponding direct rule task without changing the plan. Read docs/ELECTRICAL_RULE_PROVIDER.md or docs/RULE_PROVIDER.md. Preserve exact inherited producer/source and host disable checks;cross-domain choices reject. This does not establish a second jurisdiction or interchangeable engine.

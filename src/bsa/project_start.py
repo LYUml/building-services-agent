@@ -6,6 +6,7 @@ import shutil
 from .cli import digest
 from .workflow_draft import draft
 from .work_plan_review import template
+from .workspace import intake_output
 
 ROOT=Path(__file__).resolve().parents[2]
 
@@ -13,7 +14,7 @@ ROOT=Path(__file__).resolve().parents[2]
 def start(brief,out,*,supplements=(),references=()):
     supplements,references=tuple(supplements),tuple(references)
     originals=[Path(p).resolve() for p in (brief,*supplements,*references)];out=Path(out).resolve()
-    if not out.is_relative_to(ROOT/'runs') or out.exists():raise ValueError('New repository runs project directory required')
+    if not intake_output(out) or out.exists():raise ValueError('New project directory under repository runs or explicit host workspace required')
     if len(originals)!=len(set(originals)):raise ValueError('Distinct original source documents required')
     for p in originals:
         if not p.is_file() or p.suffix.lower() not in ('.pdf','.docx','.md','.txt'):raise ValueError('Existing PDF,DOCX,Markdown or text briefs required')
