@@ -1,0 +1,36 @@
+{
+  "scope": "Synthetic full candidate workflow replay;not coursework or full engineering acceptance",
+  "runs": {
+    "native": {
+      "workflow": "runs\\spatial-terminal-candidate-workflow-native\\workflow.json",
+      "sha256": "01bec1ecae5059cd78c978202c09bf5cd0612a7c8d5495cdec05c061ed0493f2",
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "air-balance": "pass",
+        "terminal-allocation": "pass",
+        "terminal-performance": "pass",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "requirements": 7
+    },
+    "moosas": {
+      "workflow": "runs\\spatial-terminal-candidate-workflow-moosas\\workflow.json",
+      "sha256": "9572f14057fab48d0ff6ec644a8334acfd6f8a3bc308680ecb9e494bd8267dc6",
+      "tasks": {
+        "recognition": "pass",
+        "lighting-rules": "pass",
+        "air-balance": "pass",
+        "terminal-allocation": "pass",
+        "terminal-performance": "pass",
+        "review": "pending",
+        "independent-electrical": "pass"
+      },
+      "requirements": 7
+    }
+  },
+  "original_requirements_preserved": true,
+  "original_pending_reviews_preserved": true,
+  "design_accepted": false
+}

@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Studied terminal candidates now materialize as complete new workflow plans with
+all original requirements and dependencies preserved. Native/MOOSAS replays pass
+the scoped numeric chain while manual engineering review remains pending. See
+docs/SPATIAL_TERMINAL_CANDIDATE_PLAN.md.
+
 Explicit terminal candidates now rerun existing allocation/performance engines
 against the same verified room balance. Native/MOOSAS synthetic trials remove
 two catalogue-range gaps without changing total airflow or accepting the design.
