@@ -1334,10 +1334,17 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 status={'calculated':'pass','pending':'pending','inapplicable':'fail'}[payload['status']]
                 reason=payload['scope']+'; mathematical task only, full engineering acceptance pending'
             elif t['kind']=='air_allocation':
-                from .air_allocation import run
-                payload=run(local_path(root,t['project']),folder)
-                status='pass';reason=payload['scope']
-                allocation_pins[t['id']]=digest(folder/'allocation.json')
+                if t['id'] in module_selection['providers']:
+                    from .module_air_allocation import run as allocation_module
+                    payload=allocation_module(local_path(root,t['project']),folder,disabled=module_selection['providers'][t['id']] in module_selection['disabled_providers'])
+                    module_results.append(folder/'module/result.json')
+                    status={'completed':'pass','failed':'fail','unavailable':'pending','pending':'pending'}[payload['execution']['status']]
+                    reason=payload['acceptance']['scope']
+                else:
+                    from .air_allocation import run
+                    payload=run(local_path(root,t['project']),folder)
+                    status='pass';reason=payload['scope']
+                if status=='pass':allocation_pins[t['id']]=digest(folder/'allocation.json')
             elif t['kind']=='duct_schedule':
                 from .duct_schedule import run
                 parent=t.get('depends_on')
@@ -2117,6 +2124,16 @@ def verify(run_directory):
         if not path.is_relative_to(root) or not path.is_file() or digest(path)!=expected:
             issues.append(f"artifact changed or missing: {name}")
     for name,task in report['tasks'].items():
+        if task['kind']=='air_allocation' and name in report.get('module_selection',{}).get('providers',{}):
+            try:
+                from .module_air_allocation import verify as verify_allocation
+                request_path=root/name/'request.json'
+                if request_path.is_file():
+                    request=read_json(request_path)
+                    project=(request_path.parent/request['sources']['project']['path']).resolve()
+                    selection=report['module_selection']
+                    verify_allocation(project,root/name,selection['providers'][name] in selection['disabled_providers'],task['status'])
+            except (OSError,ValueError,KeyError,TypeError) as exc:issues.append('allocation module evidence invalid: '+name+': '+str(exc))
         if task['kind']=='rectangular_fan_operating_point' and (root/name/'fan.json').is_file():
             try:
                 if 'module_parent' in read_json(root/name/'fan.json'):

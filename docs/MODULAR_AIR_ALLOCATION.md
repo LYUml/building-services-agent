@@ -1,5 +1,22 @@
 # Classified airflow allocation module
 
+Existing `air_allocation` workflow tasks can now select this provider through
+the host option `--module-provider TASK_ID=bsa.classified-air-allocation`.
+No source-plan edit is required. Other providers reject for this task kind.
+Without the override,the existing direct adapter remains available.
+
+The bridge materializes an exact source-project request and exports the verified
+analysis artifact as allocation.json for existing terminal_throw and duct_schedule
+consumers. Delivery rechecks request/source identity,provider selection,disabled
+state,task status and exact exported bytes. Disabled/unavailable becomes pending;
+failure becomes fail;neither exports downstream evidence. Numerical completion
+does not change engineering acceptance. See evidence/common-air-allocation-workflow.json.
+
+Actual coursework execution with refreshed source-pinned requirements passes
+allocation,terminal lookup,schedule and DXF preparation,retaining33requirements
+and six unresolved inputs. The allocation export is byte-identical to the prior
+native workflow. AutoCAD was not supplied for this run;native work stays pending.
+
 Provider `bsa.classified-air-allocation` exposes capability
 `analysis.air.classified-allocation` through the existing module request/result
 runner. It reuses air_allocation, air_load and service_areas unchanged, including
@@ -33,7 +50,7 @@ rule tests pass. A separate water-rule class setup failed with a retained
 application_control_block diagnostic;this is not included in the passing set.
 Source mutation, rewritten artifact/payload, duplicate ID, unsafe path, invalid
 frame, disabled-provider and unsupported-runtime controls execute in tests.
-Automatic workflow dispatch through this provider remains unfinished.
+This standalone entry point remains available alongside host-selected workflow dispatch.
 
 Execution completion retains acceptance pending, geometry_bound false,
 room_sensible_load_verified false and design_accepted false. This is a uniform

@@ -8,8 +8,10 @@ description: Calculate source-linked air/water networks, pump operating points a
 For standalone common-interface airflow allocation, reuse provider
 bsa.classified-air-allocation with analysis.air.classified-allocation and an
 existing source-backed allocation project. See docs/MODULAR_AIR_ALLOCATION.md.
-It retains thermal units and source replay;workflow dispatch, room loads,ADPI
-and physical/native acceptance remain separate and unfinished.
+It retains thermal units and source replay. For an existing air_allocation task,
+host --module-provider TASK_ID=bsa.classified-air-allocation selects it without
+editing the plan;disabled/failed results gate downstream consumers. Room loads,
+ADPI and physical/native acceptance remain separate and unfinished.
 
 duct_system_paths now also supports explicit host BSA_PROJECT_ROOT output.
 Reuse the exact passing source-native workflow;preserve all original requirements

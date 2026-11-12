@@ -1,5 +1,12 @@
 # Reuse survey â€” 2026-11-09
 
+Workflow allocation gap: reuse the registered classified-air-allocation provider
+and existing downstream allocation.json contract through a thin source-bound
+bridge. Host provider selection,disabled/failure gates and delivery replay now
+execute;no solver/dependency added. Actual external coursework passes four stages
+without a native host;48related tests pass. Full engineering acceptance remains
+pending. See MODULAR_AIR_ALLOCATION.md.
+
 Common airflow allocation gap: wrap existing air_allocation/air_load/service_areas
 and pinned Shapely2.2.0 behind the existing trusted module runner. No new engine
 or dependency. Preserve original classified-source result with source replay and

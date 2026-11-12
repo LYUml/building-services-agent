@@ -8,6 +8,7 @@ from .modules import ROOT,method_paths
 from .providers import get_provider
 
 RULE_PROVIDERS={'module_electrical_rules':'bsa.electrical-path-rules','module_water_rules':'bsa.hvac-water-rules'}
+DIRECT_PROVIDERS={'air_allocation':'bsa.classified-air-allocation'}
 
 def selected_rule_provider(task,selection):
     provider=selection['providers'].get(task['id'],task.get('provider'))
@@ -17,13 +18,14 @@ def selected_rule_provider(task,selection):
 
 def host_selection(tasks,overrides=None,disabled=()):
     """Validate trusted host choices separately from source plan task data."""
-    known={t['id']:t for t in tasks if t['kind'] in ('module_exchange','module_authoring','module_analysis',*RULE_PROVIDERS)}
+    known={t['id']:t for t in tasks if t['kind'] in ('module_exchange','module_authoring','module_analysis',*RULE_PROVIDERS,*DIRECT_PROVIDERS)}
     overrides={} if overrides is None else overrides
     if not isinstance(overrides,dict) or set(overrides)-set(known):raise ValueError('Module overrides must name existing module tasks')
     if not isinstance(disabled,(list,tuple)) or any(not isinstance(p,str) for p in disabled) or len(set(disabled))!=len(disabled):raise ValueError('Unique disabled provider IDs required')
     for provider in [*overrides.values(),*disabled]:get_provider(provider)
     for task in known.values():
         if task['kind'] in RULE_PROVIDERS:selected_rule_provider(task,dict(providers=overrides))
+        if task['kind'] in DIRECT_PROVIDERS and task['id'] in overrides and overrides[task['id']]!=DIRECT_PROVIDERS[task['kind']]:raise ValueError('Compatible direct analysis provider required')
     return dict(schema='bsa.workflow-module-selection/1',providers=dict(overrides),disabled_providers=sorted(disabled))
 
 
@@ -41,6 +43,10 @@ def selection_inputs(tasks,root,selection):
     if selection!=expected:raise ValueError('Noncanonical module host selection')
     paths=set()
     for task in tasks:
+        if task['kind'] in DIRECT_PROVIDERS and task['id'] in selection['providers']:
+            from . import module_air_allocation
+            paths.update(method_paths(get_provider(selection['providers'][task['id']])))
+            paths.add(Path(module_air_allocation.__file__).resolve())
         if task['kind'] in ('module_exchange','module_authoring','module_analysis'):
             paths.update(inputs(Path(root)/task['request'],selection['providers'].get(task['id'],task['provider']),inherited=bool(task.get('depends_on'))))
         elif task['kind'] in RULE_PROVIDERS:
@@ -116,6 +122,12 @@ def verify_selection(tasks,run,selection,root=None,report_tasks=None):
     """Bind selected provider and disabled state to actual retained module results."""
     from .modules import verify_result
     for task in tasks:
+        if task['kind']=='air_allocation' and task['id'] in selection['providers']:
+            from .module_air_allocation import verify
+            folder=Path(run)/task['id']
+            if folder.exists():
+                if root is None:raise ValueError('Allocation source plan directory required')
+                verify(Path(root)/task['project'],folder,selection['providers'][task['id']] in selection['disabled_providers'],None if report_tasks is None else report_tasks[task['id']]['status'])
         if task['kind'] not in ('module_exchange','module_authoring','module_analysis'):continue
         path=result_path(run,task)
         if not path.is_file():continue

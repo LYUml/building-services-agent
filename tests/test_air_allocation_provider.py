@@ -18,6 +18,7 @@ class AirAllocationProviderTests(unittest.TestCase):
         self.temp=tempfile.TemporaryDirectory(dir=ROOT/'runs');self.addCleanup(self.temp.cleanup)
         self.root=Path(self.temp.name)
         plan=runpy.run_path(str(ROOT/'examples/hvac-package/build_inputs.py'))['build'](self.root/'inputs')
+        self.plan=plan
         data=json.loads(plan.read_text())
         task=next(t for t in data['tasks'] if t['kind']=='air_allocation')
         self.project=(plan.parent/task['project']).resolve()
@@ -72,3 +73,47 @@ class AirAllocationProviderTests(unittest.TestCase):
             result=run(self.request,'bsa.classified-air-allocation',self.root/'unavailable')
         self.assertEqual(result['execution']['status'],'unavailable')
         self.assertIsNone(result['payload'])
+
+    def test_workflow_provider_selection_exports_exact_downstream_input_and_gates(self):
+        from bsa.workflow import execute,verify
+        from bsa.delivery import context
+        plan=json.loads(self.plan.read_text())
+        allocation=next(t['id'] for t in plan['tasks'] if t['kind']=='air_allocation')
+        selection={allocation:'bsa.classified-air-allocation'}
+        legacy=execute(self.plan,self.root/'legacy')
+        result=execute(self.plan,self.root/'selected',module_providers=selection)
+        self.assertEqual(result['tasks'][allocation]['status'],'pass')
+        for task in plan['tasks']:
+            if task['kind'] in ('terminal_throw','duct_schedule'):
+                self.assertEqual(result['tasks'][task['id']]['status'],legacy['tasks'][task['id']]['status'])
+                self.assertEqual(result['tasks'][task['id']]['status'],'pass')
+        self.assertEqual((self.root/'legacy'/allocation/'allocation.json').read_bytes(),(self.root/'selected'/allocation/'allocation.json').read_bytes())
+        self.assertTrue(verify(self.root/'selected')['integrity_pass'])
+        context(self.plan,self.root/'selected')
+        disabled=execute(self.plan,self.root/'disabled-workflow',module_providers=selection,disabled_module_providers=['bsa.classified-air-allocation'])
+        self.assertEqual(disabled['tasks'][allocation]['status'],'pending')
+        self.assertFalse((self.root/'disabled-workflow'/allocation/'allocation.json').exists())
+        for task in plan['tasks']:
+            if task['kind'] in ('terminal_throw','duct_schedule'):
+                self.assertEqual(disabled['tasks'][task['id']]['status'],'pending')
+        context(self.plan,self.root/'disabled-workflow')
+        with self.assertRaisesRegex(ValueError,'Compatible direct'):
+            execute(self.plan,self.root/'wrong-provider',module_providers={allocation:'bsa.single-phase-circuits'})
+        exported=self.root/'selected'/allocation/'allocation.json'
+        exported.write_bytes(exported.read_bytes()+b' ')
+        with self.assertRaisesRegex(ValueError,'export differs'):
+            context(self.plan,self.root/'selected')
+
+    def test_failed_allocation_module_does_not_execute_downstream(self):
+        from bsa.workflow import execute
+        from bsa.delivery import context
+        plan=json.loads(self.plan.read_text())
+        allocation=next(t['id'] for t in plan['tasks'] if t['kind']=='air_allocation')
+        project=json.loads(self.project.read_text());project['turndown']=0
+        self.project.write_text(json.dumps(project))
+        result=execute(self.plan,self.root/'failed-workflow',module_providers={allocation:'bsa.classified-air-allocation'})
+        self.assertEqual(result['tasks'][allocation]['status'],'fail')
+        for task in plan['tasks']:
+            if task['kind'] in ('terminal_throw','duct_schedule'):
+                self.assertEqual(result['tasks'][task['id']]['status'],'pending')
+        context(self.plan,self.root/'failed-workflow')

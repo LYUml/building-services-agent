@@ -1,0 +1,39 @@
+{
+  "scope": "Actual source-bound external coursework workflow with host-selected common allocation provider",
+  "module_selection": {
+    "schema": "bsa.workflow-module-selection/1",
+    "providers": {
+      "air-allocation": "bsa.classified-air-allocation"
+    },
+    "disabled_providers": []
+  },
+  "requirements": 33,
+  "unresolved_inputs": 6,
+  "task_statuses": {
+    "air-allocation": "pass",
+    "terminal-lookup": "pass",
+    "duct-schedule": "pass",
+    "duct-sheet": "pass",
+    "native-sheet": "pending",
+    "hk-flex-length": "pending",
+    "work-identity": "pending",
+    "work-load": "pending",
+    "work-layout": "pending",
+    "work-minimum": "pending",
+    "work-terminal": "pending",
+    "work-adpi": "pending",
+    "work-routing": "pending",
+    "work-sizing": "pending",
+    "work-schedule": "pending",
+    "work-delivery": "pending"
+  },
+  "workflow_sha256": "0703e3f8e4ea264e8dae4ee1858b28f72b79693fc78f00215754aae6123929ed",
+  "allocation_matches_prior_native_workflow_bytes": true,
+  "workflow_integrity_and_delivery_context_pass": true,
+  "design_accepted": false,
+  "limitations": [
+    "No AutoCAD host supplied in this run;native sheet pending",
+    "No room-load,ADPI,installation or full engineering acceptance",
+    "Existing code-pinned requirements inventory was re-exported after method change;original inventory preserved"
+  ]
+}
