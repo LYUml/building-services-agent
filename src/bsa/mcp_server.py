@@ -1,5 +1,6 @@
 """Local stdio MCP access to existing source-backed engineering workflows."""
 import argparse
+import base64
 import importlib.metadata
 import json
 from pathlib import Path
@@ -7,18 +8,19 @@ import re
 import sys
 import subprocess
 import threading
-from typing import Any
+from typing import Any,Annotated
 
-from . import engineering_handoff,project_start,workflow,workflow_status,workspace,mcp_worker
+from . import engineering_handoff,project_start,workflow,workflow_status,workspace,mcp_worker,source_page
 from .cli import digest
 from .terminal_iteration import OPTIONS
 
 SDK_VERSION='1.30.0'
 
 
-def create_server(*,execute_options=None):
+def create_server(*,execute_options=None,pdftoppm=None):
     from mcp.server.fastmcp import FastMCP
-    from mcp.types import ToolAnnotations
+    from mcp.types import ToolAnnotations,CallToolResult,ImageContent,TextContent
+    from pydantic import Field
     if importlib.metadata.version('mcp')!=SDK_VERSION:raise ValueError('Pinned mcp=='+SDK_VERSION+' required')
     options=dict(execute_options or {})
     if set(options)-OPTIONS:raise ValueError('Supported explicit host runtime options required')
@@ -103,6 +105,16 @@ def create_server(*,execute_options=None):
         """Verify and diagnose an existing source-linked workflow without resuming engines."""
         return invoke(workflow_status.diagnose,local(plan),local(out))
 
+    @server.tool(annotations=write)
+    def bsa_render_source_page(source:str,page:Annotated[int,Field(strict=True,ge=1)],out:str,max_side:Annotated[int,Field(strict=True,ge=512,le=2560)]=2048)->CallToolResult:
+        """Return an actual PDF page image plus pinned source/page metadata. Rendering never clears extraction or engineering review. Poppler is host-configured."""
+        folder=local(out)
+        with lock:
+            result=invoke(source_page.run,local(source),page,folder,renderer=pdftoppm,max_side=max_side)
+            image=folder/'page.png'
+            if digest(image)!=result['image_sha256']:raise ValueError('Rendered page changed before MCP delivery')
+            return CallToolResult(content=[TextContent(type='text',text=json.dumps(result)),ImageContent(type='image',mimeType='image/png',data=base64.b64encode(image.read_bytes()).decode('ascii'))],structuredContent=result)
+
     @server.resource('bsa://guide')
     def guide()->str:
         return '\n\n'.join((workspace.ROOT/'docs'/name).read_text(encoding='utf-8') for name in ['PROJECT_CLI.md','ENGINEERING_HANDOFF.md'])
@@ -124,10 +136,11 @@ def main():
     for name in ('energyplus','autocad','radiance-bin','ifcmcp-python','three-phase-python','graphviz','pdf2plot-python','honeybee-python','moosas-upstream','moosas-deps'):
         p.add_argument('--'+name,type=Path)
     p.add_argument('--disable-module-provider',action='append',default=[])
+    p.add_argument('--pdftoppm',type=Path)
     a=p.parse_args();names=('energyplus','autocad','radiance_bin','ifcmcp_python','three_phase_python','graphviz','pdf2plot_python','honeybee_python')
     options={key:getattr(a,key).resolve() for key in names if getattr(a,key) is not None}
     options.update(disabled_module_providers=a.disable_module_provider,module_runtime={key:value.resolve() for key,value in dict(upstream=a.moosas_upstream,deps=a.moosas_deps).items() if value is not None})
-    create_server(execute_options=options).run(transport='stdio')
+    create_server(execute_options=options,pdftoppm=a.pdftoppm.resolve() if a.pdftoppm else None).run(transport='stdio')
 
 
 if __name__=='__main__':main()

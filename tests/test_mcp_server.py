@@ -1,4 +1,6 @@
 import asyncio
+import base64
+import hashlib
 import contextlib
 import importlib.metadata
 import importlib.util
@@ -30,14 +32,16 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
         else:directory=tempfile.TemporaryDirectory(dir=ROOT/'runs')
         with directory as folder:
             root=Path(folder);shutil.copyfile(ROOT/'examples/engineering-handoff/brief.md',root/'brief.md')
+            shutil.copyfile(ROOT/'docs/evidence/document-intake/source.pdf',root/'source.pdf')
             records=[];rejections=[]
-            params=StdioServerParameters(command=sys.executable,args=['-X','utf8','-m','bsa.mcp_server'],cwd=str(ROOT),env={**os.environ,'BSA_PROJECT_ROOT':str(root),'PYTHONUTF8':'1'})
+            renderer=shutil.which('pdftoppm');preview=None
+            params=StdioServerParameters(command=sys.executable,args=['-X','utf8','-m','bsa.mcp_server',*(['--pdftoppm',renderer] if renderer else [])],cwd=str(ROOT),env={**os.environ,'BSA_PROJECT_ROOT':str(root),'PYTHONUTF8':'1'})
             with (root/'server.log').open('w',encoding='utf-8') as errors:
                 async with stdio_client(params,errlog=errors) as (read,write):
                     async with ClientSession(read,write) as session:
                         initialized=(await session.initialize()).model_dump(mode='json')
                         tools=(await session.list_tools()).tools
-                        self.assertEqual(len(tools),8)
+                        self.assertEqual(len(tools),9)
                         for tool in tools:
                             self.assertFalse({'autocad','command','project_root'} & set(tool.inputSchema.get('properties',{})))
                         async def call(name,args):
@@ -45,6 +49,24 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                             self.assertFalse(result.isError,str(result.content))
                             records.append(dict(tool=name,arguments=args,result=result.model_dump(mode='json')))
                             return result.structuredContent
+                        graphical=await call('bsa_project_start',dict(brief='source.pdf',out='graphic-intake'))
+                        self.assertEqual(graphical['status'],'needs_source_review')
+                        before_review=(root/'graphic-intake/intake.json').read_bytes()
+                        page=await session.call_tool('bsa_render_source_page',dict(source='source.pdf',page=1,out='source-page'))
+                        if renderer:
+                            self.assertFalse(page.isError,str(page.content));meta=page.structuredContent
+                            image=next(c for c in page.content if c.type=='image')
+                            self.assertEqual(hashlib.sha256(base64.b64decode(image.data)).hexdigest(),meta['image_sha256'])
+                            self.assertEqual(base64.b64decode(image.data),(root/'source-page/page.png').read_bytes())
+                            self.assertFalse(meta['extraction_review_cleared']);self.assertFalse(meta['design_accepted'])
+                            self.assertEqual((root/'graphic-intake/intake.json').read_bytes(),before_review)
+                            preview=dict(metadata=meta,base64_matches_saved_png=True,extraction_review_unchanged=True)
+                            records.append(dict(tool='bsa_render_source_page',arguments=dict(source='source.pdf',page=1,out='source-page'),result=page.model_dump(mode='json')))
+                            for bad in [dict(page=2),dict(page=True),dict(page=1,max_side=3000)]:
+                                invalid=await session.call_tool('bsa_render_source_page',dict(source='source.pdf',out='invalid-page',**bad))
+                                self.assertTrue(invalid.isError);self.assertFalse((root/'invalid-page').exists())
+                        else:
+                            self.assertTrue(page.isError);self.assertFalse((root/'source-page').exists())
                         intake=await call('bsa_project_start',dict(brief='brief.md',out='project'))
                         self.assertEqual(intake['status'],'needs_interpretation')
                         source=await call('bsa_read_source_plan',dict(plan='project/plan.json'))
@@ -82,7 +104,7 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
             (root/'protocol.json').write_text(json.dumps(dict(sdk_version=importlib.metadata.version('mcp'),initialize=initialized,
                 tools=[tool.model_dump(mode='json') for tool in tools],calls=records,rejected_paths=rejections,
                 blank_interpretation_rejected=blank.isError,absolute_path_rejected=outside.isError,
-                engineering_verification=checked,uninterpreted_execution_pass=blocked['execution_pass'],design_accepted=False),indent=2),encoding='utf-8')
+                page_preview=preview,engineering_verification=checked,uninterpreted_execution_pass=blocked['execution_pass'],design_accepted=False),indent=2),encoding='utf-8')
 
 
 class MCPWorkerTests(unittest.TestCase):

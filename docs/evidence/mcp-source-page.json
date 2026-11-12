@@ -1,0 +1,73 @@
+{
+  "scope": "Actual source-preserving PDF page PNG through local MCP, not diagram interpretation or engineering acceptance",
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/source_page.py": "d82b779b809283d3513073b8b6618318ce62c245615feb04d8489c305348f7ca",
+    "src/bsa/ocr.py": "c2ea311d715ee35fc0e2b80dbbbcf9f29bc4120e88e697178e1f92f3e21ccb09",
+    "src/bsa/mcp_server.py": "f7a5bc61e54ba2462772b62cec434030b657b491ca5d051a9e610116c9580044",
+    "src/bsa/mcp_worker.py": "2a10c2b71df031cd28da63aceae6a333b0c487d49e9841221ebd5fb49d6488a0",
+    "pyproject.toml": "5adbf89b3de2e383ae4222df254094b6b650535cd2ce5337353129df0457c436"
+  },
+  "renderer": {
+    "name": "Poppler pdftoppm",
+    "version": "26.07.0",
+    "sha256": "5b6ff07d229b8a8baca960751d5c591dbc7504efec529a1f5c22f5fd9e3b7220",
+    "redistributed": false
+  },
+  "runtime": {
+    "mcp": "1.30.0",
+    "Pillow": "13.0.0",
+    "pypdf": "7.0.0"
+  },
+  "protocol": {
+    "tools": 9,
+    "successful_calls": 15,
+    "image_bytes_match_saved": true,
+    "protocol_record_sha256": "33a3c95c86503dc995887eddc6c28b31b7726876b9dd1b59e08c977de1bdffa1",
+    "page_receipt_sha256": "39b85cad39ef7363bde148fd44c5cdee2b3ee550abdfb3006b5a9a6835be4079"
+  },
+  "page": {
+    "page": 1,
+    "count": 1,
+    "size_px": [
+      2048,
+      1448
+    ],
+    "source_sha256": "7c0e3832516f1895adf9723751e7ea5e23134fd73ed0c3dfe7acfdccd74bc6cb",
+    "image_sha256": "5f808ddb135693bb318a7e7ccc13337c7e54d77db3064a17cfec8e2c5eccf09a",
+    "source_unchanged": true
+  },
+  "review": {
+    "renderer_does_not_perform_visual_review": true,
+    "host_visual_observation": "Actual returned full page inspected; source diagram linework/annotations legible, no clipping observed",
+    "graphical_intake_remains": "needs_source_review",
+    "extraction_review_cleared": false,
+    "engineering_handoff_integrity": true
+  },
+  "tests": {
+    "passed": 23,
+    "skipped": 1,
+    "skip_reason": "Existing real offline OCR test requires explicit BSA_TEST_OCR_INPUT; no OCR execution added",
+    "suites": [
+      "test_source_page",
+      "test_mcp_server",
+      "test_documents",
+      "test_document_bundle"
+    ]
+  },
+  "controls": [
+    "Missing host renderer",
+    "Invalid one-based page and pixel bounds",
+    "Out-of-range page before output",
+    "Renderer failure log without success receipt",
+    "Mid-render source mutation rejects",
+    "Legacy OCR 180 dpi rendering unchanged",
+    "Actual MCP rejects boolean page and oversized pixel request before output"
+  ],
+  "limitations": [
+    "Full-page bounded preview, no crop/zoom or automatic dimension extraction",
+    "Not an engineering plot-scale or measured-length check",
+    "No named desktop client/vision UI acceptance",
+    "No new OCR/model/Hong Kong/full engineering acceptance"
+  ]
+}

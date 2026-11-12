@@ -9,6 +9,19 @@ from .cli import digest
 from .engine import ProjectError
 
 
+def render_pdf_page(source,prefix,executable,page,*,dpi=180,max_side=None):
+    """Shared existing Poppler invocation; no OCR or dimensional interpretation."""
+    scale=['-r',str(dpi)] if max_side is None else ['-scale-to',str(max_side)]
+    try:
+        subprocess.run([str(executable),*scale,'-f',str(page),'-l',str(page),'-singlefile','-png',str(source),str(prefix)],
+                       check=True,timeout=120,capture_output=True)
+    except (subprocess.CalledProcessError,subprocess.TimeoutExpired) as exc:
+        log=Path(prefix).with_suffix('.renderer.log');error=exc.stderr or b''
+        log.write_bytes(error if isinstance(error,bytes) else error.encode('utf-8'))
+        raise ProjectError('PDF renderer failed or timed out; inspect '+str(log)) from exc
+    return Path(prefix).with_suffix('.png')
+
+
 def run(source, out, renderer=None):
     from pypdf import PdfReader
     import rapidocr_onnxruntime
@@ -26,9 +39,7 @@ def run(source, out, renderer=None):
     pages=[]
     for n in range(1,len(reader.pages)+1):
         prefix=out/f'page-{n:04}'
-        subprocess.run([str(executable),'-r','180','-f',str(n),'-l',str(n),'-singlefile','-png',str(source),str(prefix)],
-                       check=True,timeout=120,capture_output=True)
-        image=prefix.with_suffix('.png')
+        image=render_pdf_page(source,prefix,executable,n)
         result,_=engine(str(image),text_score=0.1)
         lines=[dict(box=[[float(v) for v in point] for point in box],text=text,confidence=float(score))
                for box,text,score in (result or [])]

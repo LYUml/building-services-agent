@@ -10,7 +10,7 @@ requires-python = ">=3.11"
 dependencies = ["ezdxf==1.4.5"]
 
 [project.optional-dependencies]
-mcp = ["mcp==1.30.0"]
+mcp = ["mcp==1.30.0", "pypdf==7.0.0", "Pillow==13.0.0"]
 vendor-bim = ["olefile==0.47"]
 modules = ["jsonschema==4.26.0"]
 demand = ["scipy==1.18.1", "numpy==2.5.4"]

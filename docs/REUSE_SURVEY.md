@@ -1398,3 +1398,11 @@ docs/evidence/pump-electrical-catalogue.json. Existing motor/protection/NPSH/ful
 engineering limitations and upstream attribution remain.
 
 MCP host-access gap: reuse installed official MCP Python SDK1.30.0 (MIT), pin the optional extra and retain its license. Official v1 server/client documentation and release were inspected; v2 exists but is not assumed compatible. Existing IFC/OpenStudio MCP clients do not expose this agent orchestration. Add a thin eight-tool stdio server over existing intake/engineering/verification APIs, fixed host roots/runtimes and an isolated JSON worker after an observed in-process SciPy import stall. No protocol/solver rewrite, native-policy change or new LLM service. Actual client execution, controls and22tests: docs/evidence/mcp-server.json.
+
+MCP source-visual gap: reuse the existing Poppler pdftoppm call in ocr.py,
+extract it into a shared renderer without OCR inference, and reuse existing
+pypdf7.0.0/Pillow13.0.0 for source/page/image checks. Return standard SDK1.30.0
+ImageContent plus metadata through the fixed worker. Installed Poppler26.07.0
+help/version and actual executable hash are recorded; no renderer binary,
+engine implementation or new OCR service copied. Actual protocol PNG bytes,
+visual inspection and23passing/1optional-skipped tests: docs/evidence/mcp-source-page.json.

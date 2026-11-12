@@ -1,5 +1,9 @@
 # Building Services Agent
 
+MCP now returns actual source PDF page PNGs with pinned metadata through a ninth
+tool. Real client image bytes match saved output; viewing preserves extraction
+review. Original-page understanding and full design remain pending. See docs/MCP_SOURCE_PAGE.md.
+
 The agent now has an actual local stdio MCP server, using pinned official SDK
 and isolated engineering workers. Real client calls execute four public domains
 and retain manual review; workspace/overwrite/unfilled-input controls reject.

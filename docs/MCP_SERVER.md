@@ -1,5 +1,9 @@
 # Building Services Agent stdio MCP server
 
+The current server has nine tools, including actual source-page PNG delivery;
+see [PDF page viewing](MCP_SOURCE_PAGE.md). The initial eight-tool trial below
+remains historical evidence; preserve its method hashes rather than updating them.
+
 The agent now exposes existing source intake, interpretation preparation,
 engineering execution and evidence verification through a real local MCP server.
 It reuses the official [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk/releases/tag/v1.30.0),
@@ -56,6 +60,7 @@ those paths. Existing source, runtime and application-control failures remain.
 | bsa_verify_handoff | Reconstruct source/requirement/artifact correspondence; not approval |
 | bsa_execute_workflow | Execute an already interpreted plan with fixed host runtimes and saved diagnosis |
 | bsa_diagnose_workflow | Source-verify existing results and expose pending recovery actions |
+| bsa_render_source_page | Return actual PDF page image and source/page metadata; preserve extraction/engineering review |
 
 Resources `bsa://guide`, `bsa://skills` and `bsa://skills/{name}` expose the existing
 workflow guide and repository skill instructions. Source text is project data,

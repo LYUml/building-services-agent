@@ -5,11 +5,15 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
-For a local MCP-capable host, use the eight existing engineering tools exposed
+For a local MCP-capable host, use the existing engineering tools exposed
 by bsa.mcp_server per docs/MCP_SERVER.md. Fix BSA_PROJECT_ROOT and native runtime
 paths at process startup; calls cannot choose executables or change roots. Read
 source issues, save fresh declarative JSON only, fill exact interpretation and
 verify actual results. Protocol success and listed tools do not imply acceptance.
+For PDF diagrams/tables through MCP, use bsa_render_source_page with a host-startup
+--pdftoppm path per docs/MCP_SOURCE_PAGE.md. Actually inspect returned images;
+page rendering does not clear extraction review or establish physical scale.
+Request original/higher-detail evidence when dimensions are unreadable.
 
 For a ready failed pump with several explicitly supplied sourced curves, use
 bsa.pump_catalogue_iteration per docs/PUMP_CATALOGUE_ITERATION.md. It compares on

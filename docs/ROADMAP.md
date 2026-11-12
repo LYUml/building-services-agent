@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+The ninth MCP tool now renders source PDF pages through existing Poppler and
+returns actual PNG content plus source/page/runtime hashes. Actual byte identity,
+visual inspection and rejection controls execute; source-review gates remain.
+23related tests pass/1explicit-input OCR test skips. No new OCR/engineering or
+desktop client acceptance. See MCP_SOURCE_PAGE.md.
+
 Local stdio MCP now exposes eight existing intake/engineering/verification tools
 and skill resources through pinned official SDK1.30.0. A real client completes
 public source-to-four-domain execution with manual review pending;22related tests
