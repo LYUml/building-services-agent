@@ -118,6 +118,9 @@ def diagnose(plan, run):
         runtime_failures=water_runtime_failures(run,report,name) if state['status']=='fail' else []
         if state['status']=='fail' and task['kind'] in ('annual_energy','annual_energy_ifc'):runtime_failures+=annual_runtime_failures(run,report,name)
         engineering_data_requests=fitting_data_recovery(run,report,name) if task['kind']=='duct_fitting_data' else {}
+        if task['kind']=='spatial_terminal_coordination':
+            from .coordination_recovery import recover
+            engineering_data_requests=recover(run,report,name)
         module=module_state(run,report,task)
         module_codes={r['code'] for r in module.get('execution',{}).get('diagnostics',[])}
         if input_blockers:
@@ -138,6 +141,8 @@ def diagnose(plan, run):
             action = 'review the failed declared numerical checks and source design assumptions before revising the design and executing a new run;retain original targets and unresolved engineering acceptance'
         elif module.get('regulatory_result',{}).get('status') in ('fail','pending'):
             action = 'review retained rule assessment and cited source/applicability requirements;resolve failed or unknown checks before a new source-bound run'
+        elif engineering_data_requests and task['kind']=='spatial_terminal_coordination':
+            action = 'resolve each retained native interface/geometry/policy source request and execute a fresh complete study;do not waive findings or alter targets merely to pass'
         elif state['status'] == 'fail':
             action = 'inspect retained failure evidence and correct source or adapter before a new run'
         elif task['kind'] == 'manual':

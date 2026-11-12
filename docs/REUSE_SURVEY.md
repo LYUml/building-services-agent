@@ -1,5 +1,10 @@
 # Reuse survey â€” 2026-11-09
 
+Retained coordination failures now enter the existing source-backed action queue
+with native element/port evidence and affected requirements. Two actual diagnoses
+retain6interface requests each;disabled source creates none. No repair or waiver
+is applied. See COORDINATION_RECOVERY.md.
+
 Short-stub authoring and exact-model consumers now run automatically. Two actual
 14element studies retain6interface clearance failures under the unchanged
 synthetic policy;required review blocks,12requirements remain. See

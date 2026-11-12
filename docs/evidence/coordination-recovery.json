@@ -1,0 +1,50 @@
+{
+  "scope": "Read-only source-acquisition queue from synthetic retained coordination failures",
+  "runs": {
+    "native": {
+      "diagnosis": "runs\\spatial-stub-recovery\\native.json",
+      "sha256": "9d1d914641d85566a39a410f15abd36dcea6cebeaa1740cd8a8d5f5fce40f5d1",
+      "request_count": 6,
+      "codes": [
+        "connected_interface_geometry_policy_review"
+      ],
+      "execution_pass": false,
+      "affected_tasks": [
+        "terminal-coordination",
+        "review"
+      ],
+      "affected_requirement_ids": [
+        "R6",
+        "R11"
+      ]
+    },
+    "moosas": {
+      "diagnosis": "runs\\spatial-stub-recovery\\moosas.json",
+      "sha256": "6c6e365231030847032bb5eee39cd84a8310df32774293f5243945c8624c3142",
+      "request_count": 6,
+      "codes": [
+        "connected_interface_geometry_policy_review"
+      ],
+      "execution_pass": false,
+      "affected_tasks": [
+        "terminal-coordination",
+        "review"
+      ],
+      "affected_requirement_ids": [
+        "R6",
+        "R11"
+      ]
+    },
+    "disabled": {
+      "diagnosis": "runs\\spatial-stub-recovery\\disabled.json",
+      "sha256": "9c236270e4db4320b2d3dcf921e6133182ef9240822806ef54721a1afaf73148",
+      "request_count": 0,
+      "codes": [],
+      "execution_pass": false,
+      "affected_tasks": [],
+      "affected_requirement_ids": []
+    }
+  },
+  "design_accepted": false,
+  "original_model_and_policy_unchanged": true
+}
