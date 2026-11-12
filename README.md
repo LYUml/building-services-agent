@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Pump catalogue ranking now optionally includes the original downstream steady
+electrical checks via the same load projection as final IFC handoff. Actual
+electrical-fail/eligible/preferred-unknown controls execute; full product and
+engineering acceptance remain pending. See docs/PUMP_ELECTRICAL_CATALOGUE.md.
+
 Supplied finite pump curves can now be screened and ranked before automatic
 full-plan curve revision. Actual eligible/no-feasible trials preserve original
 hydraulic targets and coupled requirements; complete product/engineering approval

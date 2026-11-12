@@ -1385,3 +1385,14 @@ network; no engine rewrite, curve extrapolation or new search objective. No
 external dependency or third-party code is added. Actual coupled eligible/
 no-feasible trials and31tests: docs/evidence/pump-catalogue-iteration.json.
 Manufacturer identity, motor/NPSH and complete engineering remain unresolved.
+
+Pump electrical-aware ranking gap: reuse the exact pump_electrical operating
+project projection via an extracted pure helper, existing engine.calculate
+steady circuit checks and shared preference screen. Explicitly bind the original
+downstream pump_electrical task rather than accepting new ratings/PF/projects.
+Add a domain-neutral pending eligibility flag to the existing preference blocker;
+missing wire-to-water efficiency is unknown, not assumed. No new solver, rating,
+rule or third-party dependency. Actual positive/all-electrical-fail/preferred-
+unknown coupled trials, final circuit correspondence and26tests are recorded in
+docs/evidence/pump-electrical-catalogue.json. Existing motor/protection/NPSH/full
+engineering limitations and upstream attribution remain.

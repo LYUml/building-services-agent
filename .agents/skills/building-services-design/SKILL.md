@@ -11,6 +11,11 @@ the unchanged hydraulic network/targets and replays the preferred passing curve
 through the full original plan. No feasible candidate means no new plan/replay.
 Preserve actual manufacturer/motor/NPSH/regulatory applicability gaps; hydraulic
 preference ranking is not product approval or electrical-aware optimization.
+When original downstream steady electrical constraints must affect selection,
+explicitly pass --electrical-task with that original pump_electrical task ID,
+per docs/PUMP_ELECTRICAL_CATALOGUE.md. Keep motor/NPSH/protection/full-code gaps.
+Preferred missing efficiency blocks fallback; never invent an efficiency or
+relax original electrical ratings. Verify source-replayed screening and final run.
 
 For a ready failed pump_operating_point with an explicit sourced replacement
 curve, reuse bsa.catalogue_iteration --curve per docs/PUMP_CURVE_ITERATION.md.

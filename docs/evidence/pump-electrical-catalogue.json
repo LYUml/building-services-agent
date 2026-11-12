@@ -1,0 +1,327 @@
+{
+  "scope": "Optional explicit original downstream steady electrical eligibility in supplied pump ranking; synthetic coupled studies",
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/pump_catalogue_iteration.py": "749ef5a3400dea05ee0422d916e14475915993ae390a3196352a2b6dead03461",
+    "src/bsa/pump_electrical.py": "83be2b9ed8a43d8f0f80f64044f147ab358f787d3820a39b1f2f9d29f4624b7c",
+    "src/bsa/rectangular_fan_selection.py": "e3aa1956eafddd5eab2922190d564c9d8a1b33e4ce71f84c56751fefd50d1629",
+    "scripts/run_pump_electrical_catalogue_demo.py": "06e523e12fcb271a0f857609ae499130e4e8453c41b25ec074ee79c756529ab4"
+  },
+  "runs": {
+    "pump-electrical-catalogue-verified": {
+      "verification": {
+        "integrity_pass": true,
+        "candidates": 2,
+        "selected": "eligible",
+        "requirements_preserved": true,
+        "full_plan_executed": true,
+        "design_accepted": false
+      },
+      "status": "needs_engineering_review",
+      "requirements": 8,
+      "unresolved_preference": [],
+      "receipt_sha256": "0974e8410129c984adb2055f7d598a454e8b4051fa93b41d9b29949c0caedddb",
+      "candidates": [
+        {
+          "id": "preferred",
+          "hydraulic_checks_pass": true,
+          "eligible": false,
+          "electrical": {
+            "status": "fail",
+            "operating_input_kw": 9.8602742056113,
+            "power_factor": 0.85,
+            "circuits": [
+              {
+                "id": "PUMP-SUPPLY",
+                "phase": "L1",
+                "device_ids": [
+                  "BOOSTER"
+                ],
+                "connected_electrical_kw": 9.8602742056113,
+                "connected_va": 11600.322594836824,
+                "demand_va": 11600.322594836824,
+                "design_current_a": 50.43618519494271,
+                "effective_ampacity_a": 16.0,
+                "voltage_drop_v": 10.894216002107624,
+                "voltage_drop_percent": 4.736615653090272,
+                "checks": {
+                  "ib_le_in": false,
+                  "in_le_iz": true,
+                  "voltage_drop": false
+                },
+                "source": "test"
+              },
+              {
+                "id": "SERVICE-LIGHTS",
+                "phase": "L2",
+                "device_ids": [
+                  "SHAFT-L1",
+                  "SHAFT-L2"
+                ],
+                "connected_electrical_kw": 0.036,
+                "connected_va": 40.0,
+                "demand_va": 40.0,
+                "design_current_a": 0.17391304347826086,
+                "effective_ampacity_a": 12.8,
+                "voltage_drop_v": 0.056347826086956515,
+                "voltage_drop_percent": 0.024499054820415877,
+                "checks": {
+                  "ib_le_in": true,
+                  "in_le_iz": true,
+                  "voltage_drop": true
+                },
+                "source": "test"
+              }
+            ],
+            "scope": "Original steady-load current,ampacity and branch voltage-drop checks only; no motor starting,protection or full statutory acceptance"
+          }
+        },
+        {
+          "id": "eligible",
+          "hydraulic_checks_pass": true,
+          "eligible": true,
+          "electrical": {
+            "status": "pass",
+            "operating_input_kw": 0.43782750125019576,
+            "power_factor": 0.85,
+            "circuits": [
+              {
+                "id": "PUMP-SUPPLY",
+                "phase": "L1",
+                "device_ids": [
+                  "BOOSTER"
+                ],
+                "connected_electrical_kw": 0.43782750125019576,
+                "connected_va": 515.0911779414068,
+                "demand_va": 515.0911779414068,
+                "design_current_a": 2.2395268606148124,
+                "effective_ampacity_a": 16.0,
+                "voltage_drop_v": 0.48373780189279947,
+                "voltage_drop_percent": 0.21032078343165192,
+                "checks": {
+                  "ib_le_in": true,
+                  "in_le_iz": true,
+                  "voltage_drop": true
+                },
+                "source": "test"
+              },
+              {
+                "id": "SERVICE-LIGHTS",
+                "phase": "L2",
+                "device_ids": [
+                  "SHAFT-L1",
+                  "SHAFT-L2"
+                ],
+                "connected_electrical_kw": 0.036,
+                "connected_va": 40.0,
+                "demand_va": 40.0,
+                "design_current_a": 0.17391304347826086,
+                "effective_ampacity_a": 12.8,
+                "voltage_drop_v": 0.056347826086956515,
+                "voltage_drop_percent": 0.024499054820415877,
+                "checks": {
+                  "ib_le_in": true,
+                  "in_le_iz": true,
+                  "voltage_drop": true
+                },
+                "source": "test"
+              }
+            ],
+            "scope": "Original steady-load current,ampacity and branch voltage-drop checks only; no motor starting,protection or full statutory acceptance"
+          }
+        }
+      ],
+      "task_statuses": {
+        "electrical": "pass",
+        "water": "pass",
+        "qa": "pass",
+        "drawing": "pass",
+        "pump": "pass",
+        "coupled": "pass",
+        "coupled-qa": "pass",
+        "coupled-drawing": "pass"
+      },
+      "screening_matches_final_electrical": true,
+      "baseline_electrical_kw": 0.75,
+      "baseline_hardware_retained": true,
+      "target_created": true,
+      "replay_created": true
+    },
+    "pump-electrical-catalogue-verified-none": {
+      "verification": {
+        "integrity_pass": true,
+        "candidates": 1,
+        "selected": null,
+        "requirements_preserved": true,
+        "full_plan_executed": false,
+        "design_accepted": false
+      },
+      "status": "no_feasible_candidate",
+      "requirements": 8,
+      "unresolved_preference": [],
+      "receipt_sha256": "11180cf98e80da50fa92784802d78c346e66a56afefdbc585db2c016a8ad32c9",
+      "candidates": [
+        {
+          "id": "preferred",
+          "hydraulic_checks_pass": true,
+          "eligible": false,
+          "electrical": {
+            "status": "fail",
+            "operating_input_kw": 9.8602742056113,
+            "power_factor": 0.85,
+            "circuits": [
+              {
+                "id": "PUMP-SUPPLY",
+                "phase": "L1",
+                "device_ids": [
+                  "BOOSTER"
+                ],
+                "connected_electrical_kw": 9.8602742056113,
+                "connected_va": 11600.322594836824,
+                "demand_va": 11600.322594836824,
+                "design_current_a": 50.43618519494271,
+                "effective_ampacity_a": 16.0,
+                "voltage_drop_v": 10.894216002107624,
+                "voltage_drop_percent": 4.736615653090272,
+                "checks": {
+                  "ib_le_in": false,
+                  "in_le_iz": true,
+                  "voltage_drop": false
+                },
+                "source": "test"
+              },
+              {
+                "id": "SERVICE-LIGHTS",
+                "phase": "L2",
+                "device_ids": [
+                  "SHAFT-L1",
+                  "SHAFT-L2"
+                ],
+                "connected_electrical_kw": 0.036,
+                "connected_va": 40.0,
+                "demand_va": 40.0,
+                "design_current_a": 0.17391304347826086,
+                "effective_ampacity_a": 12.8,
+                "voltage_drop_v": 0.056347826086956515,
+                "voltage_drop_percent": 0.024499054820415877,
+                "checks": {
+                  "ib_le_in": true,
+                  "in_le_iz": true,
+                  "voltage_drop": true
+                },
+                "source": "test"
+              }
+            ],
+            "scope": "Original steady-load current,ampacity and branch voltage-drop checks only; no motor starting,protection or full statutory acceptance"
+          }
+        }
+      ],
+      "target_created": false,
+      "replay_created": false
+    },
+    "pump-electrical-catalogue-verified-unknown": {
+      "verification": {
+        "integrity_pass": true,
+        "candidates": 2,
+        "selected": null,
+        "requirements_preserved": true,
+        "full_plan_executed": false,
+        "design_accepted": false
+      },
+      "status": "needs_candidate_evidence",
+      "requirements": 8,
+      "unresolved_preference": [
+        "preferred"
+      ],
+      "receipt_sha256": "288cc36f1d1a4d360f8d971cc9ca9b7ac5d8ea8b4343c9791bac771494d1b90d",
+      "candidates": [
+        {
+          "id": "preferred",
+          "hydraulic_checks_pass": true,
+          "eligible": false,
+          "electrical": {
+            "status": "pending",
+            "reason": "Combined wire-to-water efficiency is missing; operating electrical input is unknown"
+          }
+        },
+        {
+          "id": "eligible",
+          "hydraulic_checks_pass": true,
+          "eligible": true,
+          "electrical": {
+            "status": "pass",
+            "operating_input_kw": 0.43782750125019576,
+            "power_factor": 0.85,
+            "circuits": [
+              {
+                "id": "PUMP-SUPPLY",
+                "phase": "L1",
+                "device_ids": [
+                  "BOOSTER"
+                ],
+                "connected_electrical_kw": 0.43782750125019576,
+                "connected_va": 515.0911779414068,
+                "demand_va": 515.0911779414068,
+                "design_current_a": 2.2395268606148124,
+                "effective_ampacity_a": 16.0,
+                "voltage_drop_v": 0.48373780189279947,
+                "voltage_drop_percent": 0.21032078343165192,
+                "checks": {
+                  "ib_le_in": true,
+                  "in_le_iz": true,
+                  "voltage_drop": true
+                },
+                "source": "test"
+              },
+              {
+                "id": "SERVICE-LIGHTS",
+                "phase": "L2",
+                "device_ids": [
+                  "SHAFT-L1",
+                  "SHAFT-L2"
+                ],
+                "connected_electrical_kw": 0.036,
+                "connected_va": 40.0,
+                "demand_va": 40.0,
+                "design_current_a": 0.17391304347826086,
+                "effective_ampacity_a": 12.8,
+                "voltage_drop_v": 0.056347826086956515,
+                "voltage_drop_percent": 0.024499054820415877,
+                "checks": {
+                  "ib_le_in": true,
+                  "in_le_iz": true,
+                  "voltage_drop": true
+                },
+                "source": "test"
+              }
+            ],
+            "scope": "Original steady-load current,ampacity and branch voltage-drop checks only; no motor starting,protection or full statutory acceptance"
+          }
+        }
+      ],
+      "target_created": false,
+      "replay_created": false
+    }
+  },
+  "rejected_controls": [
+    "Forged electrical pass rejected by source replay",
+    "Removed preferred-unknown blocker rejected by source replay"
+  ],
+  "limitations": [
+    "Original steady Ib/In/Iz and branch drop only",
+    "No motor starting, fault protection, NPSH, real product or full statutory acceptance",
+    "Unknown preferred electrical input blocks selection; no assumed efficiency",
+    "Synthetic curves, no new native DWG/visual acceptance"
+  ],
+  "tests": {
+    "passed": 26,
+    "skipped": 0,
+    "suites": [
+      "test_pump_electrical_catalogue",
+      "test_pump_catalogue_iteration",
+      "test_pump_electrical",
+      "test_rectangular_fan_selection",
+      "test_circular_fan_selection"
+    ]
+  }
+}

@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Optional original downstream electrical eligibility now precedes finite pump
+ranking. Actual synthetic electrical-fail, eligible and preferred-unknown cases
+retain source targets/hardware; screening and final electrical circuits match.
+No-feasible/unknown controls create no replay. Complete equipment/native/regulatory
+acceptance stays pending. See PUMP_ELECTRICAL_CATALOGUE.md.
+
 Finite supplied pump catalogue screening now reuses shared preference ranking
 and original-network pump solving before full-plan iteration. Actual positive
 selects an eligible curve and reruns eight tasks; no-feasible control creates no

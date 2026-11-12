@@ -65,6 +65,22 @@ def read_pump(report_path):
     return replay,network,files['network'],verified
 
 
+def operating_project(baseline,link,point,evidence):
+    """Reuse the exact steady-load projection for screening and saved IFC handoff."""
+    validate(baseline);validate_link(link)
+    if not isinstance(evidence,str) or not evidence.strip():raise ProjectError('Explicit operating source evidence required')
+    target=next((d for d in baseline['devices'] if d['id']==link['electrical_device_id']),None)
+    if target is None:raise ProjectError('unknown electrical device ID')
+    operating=copy.deepcopy(baseline);operating['name']+=' / pump steady operating scenario'
+    revised=next(d for d in operating['devices'] if d['id']==target['id'])
+    source_key='pump-electrical/'+target['id']
+    if source_key in operating['sources']:raise ProjectError('reserved operating-source namespace exists')
+    operating['sources'][source_key]=link['source']+'; '+evidence+'; steady operating estimate only; baseline design load/hardware retained separately; original device basis: '+baseline['sources'][target['source']]
+    revised.update(electrical_kw=point['estimated_electrical_kw'],power_factor=link['operating_power_factor'],source=source_key)
+    validate(operating)
+    return operating
+
+
 def run(project,pump_report,ifc_path,network_binding,link_path,out):
     import numpy as np
     import ifcopenshell
@@ -110,13 +126,9 @@ def run(project,pump_report,ifc_path,network_binding,link_path,out):
     if not len(vertices) or not np.all(np.isfinite(vertices)):raise ProjectError('finite pump body geometry required')
     centre=(vertices.min(axis=0)+vertices.max(axis=0))/2
     if math.dist(centre[:2],[target['x_m'],target['y_m']])>link['position_tolerance_m']:raise ProjectError('pump body centre differs from electrical XY')
-    operating=copy.deepcopy(baseline);operating['name']+=' / pump steady operating scenario'
-    revised=next(d for d in operating['devices'] if d['id']==target['id']);point=pump['operating_point']
+    point=pump['operating_point']
+    operating=operating_project(baseline,link,point,'source pump report SHA256 '+digest(pump_report))
     source_key='pump-electrical/'+target['id']
-    if source_key in operating['sources']:raise ProjectError('reserved operating-source namespace exists')
-    operating['sources'][source_key]=link['source']+'; source pump report SHA256 '+digest(pump_report)+'; steady operating estimate only; baseline design load/hardware retained separately; original device basis: '+baseline['sources'][target['source']]
-    revised.update(electrical_kw=point['estimated_electrical_kw'],power_factor=link['operating_power_factor'],source=source_key)
-    validate(operating)
     out.mkdir(parents=True,exist_ok=False)
     baseline_result=electrical_run(project,out/'baseline-electrical')
     operating_path=out/'operating-electrical.json';operating_path.write_text(json.dumps(operating,indent=2),encoding='utf-8')

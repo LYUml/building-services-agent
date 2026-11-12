@@ -58,7 +58,7 @@ def eligibility(record,mechanical):
 
 def unresolved_preference(records,passing):
     first=min(((r['preference'],r['id']) for r in passing),default=None)
-    return [r['id'] for r in records if r.get('numerical_checks_pass') and r.get('mechanical',{}).get('status')=='pending' and (first is None or (r['preference'],r['id'])<first)]
+    return [r['id'] for r in records if r.get('numerical_checks_pass') and (r.get('mechanical',{}).get('status')=='pending' or r.get('eligibility_pending') is True) and (first is None or (r['preference'],r['id'])<first)]
 
 
 def screen(options,evaluate):

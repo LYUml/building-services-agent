@@ -1,5 +1,10 @@
 # Supplied pump catalogue to full-plan iteration
 
+An optional explicit original downstream electrical-task eligibility check now
+precedes ranking; see [coupled eligibility](PUMP_ELECTRICAL_CATALOGUE.md). Omission
+retains the hydraulic-only mode described below. Current method-pinned receipts
+require fresh runs rather than editing old hashes.
+
 `bsa.pump_catalogue_iteration` now compares a bounded set of supplied curves on
 the original failed pump's exact network and hydraulic targets, ranks passing
 candidates, independently reruns the preferred candidate, then delegates the

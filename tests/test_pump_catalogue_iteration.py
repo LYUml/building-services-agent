@@ -27,9 +27,13 @@ class PumpCatalogueIterationTests(unittest.TestCase):
         self.catalogue=self.root/'catalogue.json'
         self.data=dict(objective=selection.preference.OBJECTIVE,source='Explicit synthetic analytic curves, not real equipment',candidates=[dict(id='weak',source='Synthetic insufficient flow',preference=0,curve=weak),dict(id='eligible',source='Synthetic eligible curve',preference=1,curve=self.good)])
 
-    def run_selection(self):
+    def run_selection(self,**options):
         self.catalogue.write_text(json.dumps(self.data))
-        return selection.run(self.plan,self.root/'original','pump',self.catalogue,self.target,self.out)
+        return selection.run(self.plan,self.root/'original','pump',self.catalogue,self.target,self.out,**options)
+
+    def test_electrical_mode_cannot_bind_an_unrelated_original_task(self):
+        with self.assertRaisesRegex(ValueError,'downstream pump-electrical'):self.run_selection(electrical_task='review')
+        self.assertFalse(self.out.exists());self.assertFalse(self.target.exists())
 
     def test_selects_passing_curve_and_runs_original_graph_with_pending_review(self):
         before=self.plan.read_bytes();result=self.run_selection();checked=selection.verify(self.out)
