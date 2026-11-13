@@ -19,12 +19,13 @@ from .duct_fitting_chain import shape_hash
 from .cli import digest
 from .workspace import allowed
 from .duct_transition_quantities import QUANTITIES as TRANSITION_QUANTITIES, ANGLE_QUANTITIES
+from .duct_elbow_quantities import QUANTITIES as ELBOW_QUANTITIES
 
 ROOT = Path(__file__).resolve().parents[2]
 QUANTITIES = {'outlet_to_inlet_flow_ratio', 'outlet_to_inlet_area_ratio',
     'outlet_to_inlet_width_ratio', 'outlet_to_inlet_height_ratio',
-    'outlet_to_inlet_velocity_ratio', 'inlet_aspect_ratio', 'outlet_aspect_ratio', 'deflection_deg', 'inlet_to_outlet_area_ratio'} | TRANSITION_QUANTITIES
-ANGLES = ANGLE_QUANTITIES | {'deflection_deg'}
+    'outlet_to_inlet_velocity_ratio', 'inlet_aspect_ratio', 'outlet_aspect_ratio', 'deflection_deg', 'inlet_to_outlet_area_ratio'} | TRANSITION_QUANTITIES | ELBOW_QUANTITIES
+ANGLES = ANGLE_QUANTITIES | {'deflection_deg','bend_angle_deg'}
 
 
 def render(result, case):
@@ -169,6 +170,7 @@ def request_status(result):
 def calculate(model, case, data):
     requested = {(r['product_guid'], r['inlet_port_guid'], r['outlet_port_guid']): r for r in case['missing_fitting_path_losses']}
     geometries = {r['guid']:r.get('transition_geometry') for r in case['products']}
+    elbows = {r['guid']:r.get('elbow_geometry') for r in case['products']}
     results = {}
     for table in data['tables']:
         key = tuple(table[k] for k in ('product_guid', 'inlet_port_guid', 'outlet_port_guid'))
@@ -187,6 +189,7 @@ def calculate(model, case, data):
             outlet_to_inlet_velocity_ratio=b['actual_velocity_m_s']/a['actual_velocity_m_s'],
             inlet_aspect_ratio=a['width_m']/a['height_m'], outlet_aspect_ratio=b['width_m']/b['height_m'], deflection_deg=deflection)
         if geometries[obj.GlobalId]: quantities.update(geometries[obj.GlobalId]['quantities'])
+        if elbows[obj.GlobalId]: quantities.update(elbows[obj.GlobalId]['quantities'])
         if any(r['quantity'] not in quantities for r in table['axes']+table.get('conditions',[])):
             raise ValueError('Requested native quantity is unavailable on this fitting class')
         if obj.PredefinedType=='TRANSITION' and geometries[obj.GlobalId] is None:
@@ -218,6 +221,7 @@ def calculate(model, case, data):
         requests.append(dict(product_guid=key[0], geometry_sha256=shape_hash(obj), predefined_type=obj.PredefinedType,
             saved_design_inputs=design_inputs, geometry_interpretation='Saved model geometry with its original source/classification;not newly measured installation or verified manufacturer construction',
             transition_geometry=geometries[obj.GlobalId],
+            elbow_geometry=elbows[obj.GlobalId],
             inlet_port_guid=key[1], outlet_port_guid=key[2], inlet=ports[key[1]], outlet=ports[key[2]],
             available_reference_ports=references, affected_outlet_port_guids=affected,
             status=request_status(table_result),

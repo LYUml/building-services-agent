@@ -1,0 +1,48 @@
+{
+  "scope": "Source-linked table interpolation with actual native-port reference pressures only. Source transcription, physical applicability, friction inclusion, fitting interaction/joints, boundary pressure requirements and complete engineering acceptance remain unverified. Partial sums are not lower bounds or fan duties.",
+  "unique_fitting_paths": 76,
+  "supplied_table_paths": 36,
+  "calculated_conditional_table_paths": 23,
+  "added_conditional_bend_paths": 10,
+  "paths_without_numerical_coefficient": 53,
+  "unsupplied_table_paths": 40,
+  "request_states": {
+    "physical_review_required": 23,
+    "source_data_required": 40,
+    "table_support_missing": 13
+  },
+  "native_bend_requests": 10,
+  "native_transition_requests": 31,
+  "outlet_paths": 20,
+  "original_requirement_ids_retained": 33,
+  "source_edition": "2021",
+  "additional_source_page_reviewed": 12,
+  "reynolds_corrected_bends": 7,
+  "high_re_plateau_bends": 3,
+  "reynolds_interpretation": "Source design air/flow with actual clear-area velocity and hydraulic diameter; detailed source/test/product applicability remains review-required.",
+  "source_tables_grids_pdf_distributed": false,
+  "pressure_budget_complete": false,
+  "critical_path": null,
+  "design_accepted": false,
+  "case_record_sha256": "5eb31d47dbf9e98c513678556e89ef1caef4ac313807d9170f9e108d31708aec",
+  "independent_source_checks": {
+    "checked": 10,
+    "bilinear_base_times_independent_reynolds_factor_pass": true,
+    "native_reference_pressure_pass": true,
+    "receipt_sha256": "6819536ba3b3f85f092d250738e2c6cfec8d772a505433d4ecd2ba74d987779a"
+  },
+  "tests": {
+    "tests_run": 11,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "receipt_sha256": "f02588b6974864a2cedaa748c65c4ceb9b6991d66f7f3773a210d9b54d92b161"
+  },
+  "observed_independent_replay": {
+    "integrity_pass": true,
+    "unique_fitting_paths": 76,
+    "calculated_table_paths": 23,
+    "unsupplied_table_paths": 40,
+    "scope": "Actual standalone source_fitting_data verify CLI recomputes source/native flow, elbow/transition quantities, protected source hashes, corrections and bounded table results; physical/pressure acceptance remains pending."
+  }
+}

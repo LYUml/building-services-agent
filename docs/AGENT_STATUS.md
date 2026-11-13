@@ -1,5 +1,11 @@
 # Whole-agent status
 
+Ten native rectangular bend paths now have source-bound conditional values with
+explicit angle/Reynolds interpretation. The fresh study has 23 finite table
+paths, 13 sparse-support requests and 40 unsupplied paths; all 76 remain explicit.
+Full pressure, friction/interaction/product and engineering acceptance stay
+pending. See DUCT_ELBOW_QUANTITIES.md.
+
 The original fitting-table engine now consumes complete source/native analysis.
 Of 76 fitting flow paths, 13 have conditional bounded table values, 13 need
 unpublished support and 50 have no supplied table. All 31 native transition

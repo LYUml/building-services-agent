@@ -1548,3 +1548,11 @@ network and explicit external project, with canonical native profile dimensions
 checked against independently extracted caps. The existing official 2021 source
 pages 38/42 were visually rechecked; private cells/PDFs remain undistributed.
 No new coefficient database/engine is adopted. See SOURCE_FITTING_DATA.md.
+
+Rectangular bend queries reuse native IfcRevolvedAreaSolid/hollow-profile and
+saved circular Axis reading plus the existing pinned SciPy table engine. The
+actual gap is source radial-width/radius/normal-height and hydraulic-Reynolds
+quantity binding, not another fitting solver. Official supplement page12 and
+ASHRAE fluid-flow convention were checked; correction grids remain private.
+No round-pipe diameter substitution, new engine or redistributed coefficient
+database is added. See DUCT_ELBOW_QUANTITIES.md.

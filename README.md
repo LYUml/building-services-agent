@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Native rectangular bend radius/section/Axis/Reynolds quantities now feed the
+existing source-table engine. Ten corrected conditional bend values bring the
+study to 23 of 76 paths; physical applicability and full pressure remain pending.
+See docs/DUCT_ELBOW_QUANTITIES.md for independent checks and protected-source scope.
+
 Source-linked bounded fitting tables now query the complete represented network:
 13 conditional main-path values, 13 sparse-support queries and 50 unsupplied
 paths. Full pressure/physical applicability remain pending; publisher data stays

@@ -5,6 +5,13 @@ description: Calculate source-linked air/water networks, fan/pump operating poin
 
 # Network pressure analysis
 
+For native rectangular quarter-bend source queries, use duct_elbow_quantities
+through source_fitting_data per docs/DUCT_ELBOW_QUANTITIES.md. Read actual
+radial W, normal H, profile/Axis radius and source hydraulic Reynolds; never
+infer a round diameter or skip angle/Reynolds corrections. Source plateau versus
+bounded-grid interpretations must be explicit, and complete physical/friction/
+interaction and pressure acceptance remains pending.
+
 For source-linked coefficient tables on the complete native source network, use
 source_fitting_data per docs/SOURCE_FITTING_DATA.md. Reuse the existing bounded
 sparse-table engine and native transition guards. Canonical profile dimensions

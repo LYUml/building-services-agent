@@ -9,6 +9,7 @@ import ifcopenshell.util.system as system
 import numpy as np
 from . import source_network_analysis as analysis,duct_fitting_data as tables
 from . import duct_transition_quantities as quantities
+from . import duct_elbow_quantities as elbow_quantities
 from .cli import digest
 from .workspace import allowed
 
@@ -18,14 +19,19 @@ def native_case(model,case):
     case=copy.deepcopy(case);products={p['guid']:p for p in case['products']};rho=case['air']['density_kg_m3']
     for obj in model.by_type('IfcDistributionElement'):
         body=obj.Representation.Representations[0].Items[0];canonical=False
+        bend=None
         if obj.is_a('IfcDuctFitting') and obj.PredefinedType=='TRANSITION':
             owned=system.get_ports(obj);incoming=[p for p in owned if p.FlowDirection=='SINK'];outgoing=[p for p in owned if p.FlowDirection=='SOURCE']
             if len(incoming)!=1 or len(outgoing)!=1:raise ValueError('One native transition flow path required')
             products[obj.GlobalId]['transition_geometry']=quantities.calculate(obj,incoming[0].Name,outgoing[0].Name);canonical=True
+        elif obj.is_a('IfcDuctFitting') and obj.PredefinedType=='BEND':
+            owned=system.get_ports(obj);incoming=[p for p in owned if p.FlowDirection=='SINK'];outgoing=[p for p in owned if p.FlowDirection=='SOURCE']
+            if len(incoming)!=1 or len(outgoing)!=1:raise ValueError('One native bend flow path required')
+            bend=elbow_quantities.calculate(obj,incoming[0].Name,outgoing[0].Name,case['port_flows'][incoming[0].GlobalId]['flow_m3_s'],case['air']);products[obj.GlobalId]['elbow_geometry']=bend;canonical=True
         elif obj.is_a('IfcDuctFitting') and obj.PredefinedType=='JUNCTION' and body.is_a('IfcBooleanResult') and body.SecondOperand.is_a('IfcBooleanResult') and body.SecondOperand.FirstOperand.is_a('IfcExtrudedAreaSolid'):canonical=True
         if canonical:
             for port in system.get_ports(obj):
-                w,h=analysis.local.section_at_port(obj,port);row=case['port_flows'][port.GlobalId]
+                w,h=bend['inlet_section_m'] if bend else analysis.local.section_at_port(obj,port);row=case['port_flows'][port.GlobalId]
                 if not np.allclose([w,h],[row['width_m'],row['height_m']],atol=1e-8,rtol=0):raise ValueError('Native literal profiles differ from independently recovered material cap')
                 velocity=row['flow_m3_s']/(w*h);row.update(width_m=w,height_m=h,actual_velocity_m_s=velocity,actual_velocity_pressure_Pa=rho*velocity**2/2,
                     fitting_query_geometry_basis='Exact saved local profile/ring dimensions checked against native mesh material caps; table bounds are not enlarged or snapped')
@@ -41,7 +47,7 @@ def evaluate(directory,basis):
 def methods():
     import scipy.interpolate._rgi as rgi
     if importlib.metadata.version('scipy')!='1.18.1':raise ValueError('Pinned SciPy 1.18.1 required')
-    return [Path(__file__),Path(analysis.__file__),Path(tables.__file__),Path(quantities.__file__),Path(rgi.__file__)]
+    return [Path(__file__),Path(analysis.__file__),Path(tables.__file__),Path(quantities.__file__),Path(elbow_quantities.__file__),Path(rgi.__file__)]
 
 
 def run(directory,basis,out):

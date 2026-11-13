@@ -138,6 +138,12 @@ remain unverified. A declared friction-scope string cannot release this gate.
 
 ## Unified workflow
 
+The complete represented network adapter also supplies native rectangular bend
+radius/width, normal-height/width, quarter angle and hydraulic Reynolds quantities.
+See DUCT_ELBOW_QUANTITIES.md. Source-specific correction factors remain explicit
+table data; no default bend coefficient or extrapolation is introduced. These
+axes are unavailable on tees/transitions without matching fresh native geometry.
+
 Task kind `duct_fitting_data` accepts `basis` and `depends_on` on an earlier
 duct_fitting_chain,plus normal id/description/requires_pass fields. It inherits
 the exact producer project/IFC; IFC inventory and downstream data gates must refer

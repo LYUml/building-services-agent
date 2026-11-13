@@ -1,5 +1,11 @@
 # Attribution and upstream integration register
 
+Native rectangular bend quantity binding reuses the existing pinned IfcOpenShell
+profile/Axis reader and SciPy 1.18.1 table engine. Publisher base/correction grids,
+derived grids, PDF and images remain private; no coefficient database is
+distributed. Generic quantity code and fictional controls are local adapters;
+see docs/DUCT_ELBOW_QUANTITIES.md for primary references and executed scope.
+
 Complete-network fitting-table studies reuse pinned SciPy 1.18.1 (BSD-3-Clause)
 RegularGridInterpolator and the repository's existing source/native guards.
 Publisher fitting tables, source PDFs and their transcriptions remain private

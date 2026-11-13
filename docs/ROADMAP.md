@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Native rectangular elbow quantities now support bounded source queries with
+explicit Reynolds corrections: 23 conditional fitting paths in total, 53 still
+without numerical coefficients. Independent source/native/table replay passes;
+full physical applicability and pressure/fan acceptance remain pending. See
+DUCT_ELBOW_QUANTITIES.md.
+
 Source fitting tables now bind the complete represented native network through
 the existing engine: 13 conditional values, 13 sparse-support requests and
 50 unsupplied paths. Independent source/native/table replay passes; physical
