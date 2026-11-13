@@ -1,0 +1,27 @@
+{
+  "recorded_utc": "2026-11-13T20:05:59.082100+00:00",
+  "scope": "One actual AutoCAD integration test on isolated public IFC fixture; three orthographic sheets, not real project delivery",
+  "receipt_sha256": "847dfeb59d2b0e01fb83533f7da078990c58a4430596f5dd451d18f252ed621e",
+  "verification": {
+    "integrity_pass": true,
+    "tests_run": 1,
+    "passed": 1,
+    "suite_pass": true,
+    "all_tests_pass": true,
+    "design_accepted": false,
+    "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance"
+  },
+  "executed_test": [
+    "tests.test_ifc_views.IFCViewsTests.test_actual_three_native_reopens_and_merged_pdf_references"
+  ],
+  "native_sheet_count": 3,
+  "merged_pdf_pages": 3,
+  "reference_expected_mm": 100,
+  "reference_tolerance_mm": 0.2,
+  "model_entities_and_ifc_xdata_checked": true,
+  "merged_page_content_checked": true,
+  "visual_review": "pending",
+  "temporary_fixture_retained": false,
+  "original_batch_skip_preserved": true,
+  "design_accepted": false
+}

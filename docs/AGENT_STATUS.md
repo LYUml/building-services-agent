@@ -7,20 +7,23 @@ This is a reusable multi-discipline agent under development, not a completed
 arbitrary-brief-to-accepted-design system. The capability/gap matrix below remains
 the whole-agent scope; a coursework replay does not replace it.
 
-All 385 test modules load. Eight completed regression batches cover 160 modules
-and 676 executed instances: 645 pass, 26 skip, one failure and four errors.
-All eight terminal receipts independently verify against current selected source
+All 385 test modules load. Nine completed regression batches cover 180 modules
+and 755 executed instances: 716 pass, 34 skip, one failure and four errors.
+All nine terminal receipts independently verify against current selected source
 bytes. The four errors directly record an OpenStudio Application Control block;
 the failure is a dependent HVAC rule assertion whose upstream energy task did not
 pass. These remain failures, not converted skips. Remaining batches are unfinished;
-see [aggregate evidence](evidence/agent-regression-eight-batches.json) and
+see [aggregate evidence](evidence/agent-regression-nine-batches.json) and
 [execution limits](DURABLE_CHECKS.md). Test counts are not a completion percentage.
 
-Separate opt-in runs reverify four actual AutoCAD integration cases and nine
+Separate opt-in runs reverify five actual AutoCAD integration cases and nine
 source-gated Hong Kong cable controls. Their scopes and remaining visual/design
 gates are preserved in [native route evidence](evidence/native-riser-route-regression.json),
 [initial native checkpoint](evidence/agent-regression-checkpoint.json) and
 [Hong Kong source evidence](evidence/hk-cable-regression-source-check.json).
+A separate [three-view native test](evidence/native-multiview-regression.json)
+passes actual save/reopen, merged-page and 100 mm reference checks, with visual
+review pending.
 Revit native creation/save/reopen remains unverified; opening a test copy alone
 is not that acceptance. See [actual Revit observation](REVIT_BUILTIN_INTERCHANGE.md).
 

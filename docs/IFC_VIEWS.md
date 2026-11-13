@@ -1,5 +1,10 @@
 # Orthographic IFC pipe drawing sets
 
+A fresh explicit-runtime integration test executes all three actual AutoCAD
+reopens and merged PDF reference checks without skips. Its receipt independently
+verifies; visual review and design acceptance remain pending. See
+[evidence](evidence/native-multiview-regression.json).
+
 Optional annotation_mode:keyed-schedule replaces straight leaders with numbered
 tags near the source projections and matching full parameter rows. Numbers are
 deterministic from source GUID order;original callouts/names and true lengths
