@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Reference arithmetic now rejects reproduced tiny-value false matches and
+nonzero underflow instead of silently accepting zero. Nine tests pass; fresh
+real-source audit retains all four differences and adds no formal loss values.
+See docs/LOSS_REFERENCE.md.
+
 Signed coefficient reference review now verifies common-port pressure
 invariance and source/native arithmetic. Four candidate differences remain
 after normalization; seven tests and saved replay pass. No method is adopted.

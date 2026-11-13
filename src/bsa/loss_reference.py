@@ -13,10 +13,15 @@ def finite(value,positive=False):
     return value
 
 
+def same(a,b):
+    return math.isclose(finite(a),finite(b),rel_tol=1e-12,abs_tol=0.)
+
+
 def rebase(coefficient,source_velocity_pressure_Pa,target_velocity_pressure_Pa):
     k=finite(coefficient);source=finite(source_velocity_pressure_Pa,True);target=finite(target_velocity_pressure_Pa,True)
     pressure=finite(k*source);converted=finite(pressure/target)
-    if not math.isclose(converted*target,pressure,rel_tol=1e-12,abs_tol=1e-10):raise ValueError('Pressure invariant not retained')
+    if (k!=0 and pressure==0) or (pressure!=0 and converted==0):raise ValueError('Nonzero pressure/coefficient underflow')
+    if not same(converted*target,pressure):raise ValueError('Pressure invariant not retained')
     return converted
 
 
@@ -27,18 +32,18 @@ def compare(request,probe):
     ports={request['inlet_port_guid']:request['inlet'],request['outlet_port_guid']:request['outlet']}
     if table['reference_port_guid'] not in ports:raise ValueError('Owned reference port required')
     inlet,outlet=request['inlet'],request['outlet']
-    if not math.isclose(inlet['flow_m3_s'],outlet['flow_m3_s'],rel_tol=1e-12,abs_tol=1e-10):raise ValueError('Same-flow transition required')
+    if not same(inlet['flow_m3_s'],outlet['flow_m3_s']):raise ValueError('Same-flow transition required')
     implied=[]
     for row in (inlet,outlet):
-        q=finite(row['flow_m3_s'],True);area=finite(row['width_m'],True)*finite(row['height_m'],True);velocity=q/area
-        if not math.isclose(velocity,row['actual_velocity_m_s'],rel_tol=1e-12,abs_tol=1e-10):raise ValueError('Port velocity/area differs')
-        implied.append(finite(row['actual_velocity_pressure_Pa'],True)/velocity**2)
-    if not math.isclose(*implied,rel_tol=1e-12,abs_tol=1e-10):raise ValueError('Common fluid density convention required')
+        q=finite(row['flow_m3_s'],True);area=finite(finite(row['width_m'],True)*finite(row['height_m'],True),True);velocity=finite(q/area,True)
+        if not same(velocity,row['actual_velocity_m_s']):raise ValueError('Port velocity/area differs')
+        implied.append(finite(finite(row['actual_velocity_pressure_Pa'],True)/finite(velocity*velocity,True),True))
+    if not same(*implied):raise ValueError('Common fluid density convention required')
     old_vp=ports[table['reference_port_guid']]['actual_velocity_pressure_Pa'];target=outlet['actual_velocity_pressure_Pa']
-    if not math.isclose(old_vp,finite(table['reference_velocity_pressure_Pa'],True),rel_tol=1e-12,abs_tol=1e-10):raise ValueError('Recorded reference velocity pressure differs')
+    if not same(old_vp,finite(table['reference_velocity_pressure_Pa'],True)):raise ValueError('Recorded reference velocity pressure differs')
     old_k=rebase(table['coefficient'],old_vp,target);old_pa=old_k*target;new_k=finite(probe['candidate_coefficient']);new_pa=finite(new_k*target)
-    if not math.isclose(old_pa,finite(table['signed_tabulated_contribution_Pa']),rel_tol=1e-12,abs_tol=1e-10) or not math.isclose(new_pa,finite(probe['candidate_signed_Pa']),rel_tol=1e-12,abs_tol=1e-10):raise ValueError('Stored contribution/reference differs')
-    return dict(product_guid=request['product_guid'],common_reference_port_guid=request['outlet_port_guid'],common_reference_velocity_pressure_Pa=target,existing_coefficient_on_common_reference=old_k,candidate_coefficient_on_common_reference=new_k,existing_conditional_signed_Pa=old_pa,candidate_signed_Pa=new_pa,difference_Pa=new_pa-old_pa,reference_conversion_removes_numeric_difference=math.isclose(old_pa,new_pa,rel_tol=1e-12,abs_tol=1e-10),physical_method_selected=False,design_accepted=False)
+    if (new_k!=0 and new_pa==0) or not same(old_pa,table['signed_tabulated_contribution_Pa']) or not same(new_pa,probe['candidate_signed_Pa']):raise ValueError('Stored contribution/reference differs')
+    return dict(product_guid=request['product_guid'],common_reference_port_guid=request['outlet_port_guid'],common_reference_velocity_pressure_Pa=target,existing_coefficient_on_common_reference=old_k,candidate_coefficient_on_common_reference=new_k,existing_conditional_signed_Pa=old_pa,candidate_signed_Pa=new_pa,difference_Pa=finite(new_pa-old_pa),reference_conversion_removes_numeric_difference=same(old_pa,new_pa),physical_method_selected=False,design_accepted=False)
 
 
 def evaluate(source):

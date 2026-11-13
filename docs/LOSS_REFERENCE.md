@@ -26,8 +26,9 @@ contributions. Source coefficients and candidate numbers remain unchanged.
 No differing flows, negative/zero reference pressures or nonfinite values are
 silently accepted. Negative coefficients preserve their signed contributions.
 
-Arithmetic checks use1e-12 relative/1e-10 absolute tolerances; these are numerical
-correspondence checks, not engineering or method-selection thresholds. Even
+Current arithmetic checks use1e-12 relative tolerance and zero absolute floor;
+zero agrees only with zero. These are numerical correspondence checks, not
+engineering or method-selection thresholds. Even
 identical normalized numbers would not establish source applicability. Unequal
 normalized numbers do not identify which physical correlation is appropriate.
 The original correlation, construction, stations/friction and interaction basis
@@ -47,3 +48,25 @@ does not remove them. The original formal fitting record is not changed and no
 physical method is selected. This does not prove a source error or permit
 averaging/replacing values. Original correlation applicability and pressure
 station/friction/interaction scope still require evidence.
+
+## Small-value correspondence correction
+
+The previous fixed1e-10 absolute tolerance was reproduced accepting differing
+very small transition flows, velocities and pressure contributions. A separate
+reproduction also returned zero after nonzero coefficient/pressure underflow.
+The current guard validates finite scalar types, uses relative-only equality,
+checks finite positive derived area/velocity/density quantities and rejects
+nonzero underflow and nonfinite intermediate results. Genuine zero coefficients
+remain supported. It rejects unrepresentable calculations rather than silently
+returning zero. This does not extend physical correlation validity.
+
+Nine candidate/reference/ledger tests pass with a verified durable receipt,
+including unequal tiny flows and velocities, low-pressure disagreement, changed
+stored contributions, underflow and genuine zero. Older receipts retain their
+original method hashes; they are historical evidence, not current verification
+after this method change. Fresh real-source audits are stored separately.
+
+Fresh source/native generation and independent saved-audit reconstruction both
+pass with the stricter guard. All four candidate differences remain; formal
+loss values are unchanged. Previous audit directories and receipts are retained
+without rewriting method hashes.

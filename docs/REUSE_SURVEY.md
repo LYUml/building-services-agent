@@ -1668,3 +1668,9 @@ Fluids1.3.1 change_K_basis first. It reuses existing verified native velocity
 pressures and candidate/source replay with minimal pressure-invariance glue; no
 round diameter is invented for rectangular ports and no fitting engine or
 dependency is added. Original protected data stays private. See LOSS_REFERENCE.md.
+
+The reference arithmetic correction reuses the same verified source/candidate
+chain and Python math; no solver/correlation/dependency is added. Reproduced
+absolute-floor and underflow errors in our adapter now reject explicitly, while
+true zeros remain valid. Historical method receipts are not rehashed. See
+LOSS_REFERENCE.md for scope and fresh replay evidence.

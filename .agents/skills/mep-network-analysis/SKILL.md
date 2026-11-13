@@ -9,6 +9,9 @@ For comparing coefficients with different actual port references, use
 loss_reference per docs/LOSS_REFERENCE.md. Preserve signed pressure; validate
 owned ports, same transition flow and common density convention. Reference
 normalization cannot select a physical correlation or complete fan duty.
+Current reference correspondence uses relative-only arithmetic checks and
+rejects nonzero underflow; do not reinterpret failed small values as zero.
+Keep old method-bound receipts historical after a guard change.
 
 For a pinned python-hvac contraction data-only crosscheck, use
 contraction_candidate per docs/CONTRACTION_CANDIDATE.md. This does not execute

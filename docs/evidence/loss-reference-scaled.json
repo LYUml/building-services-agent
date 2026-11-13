@@ -1,0 +1,17 @@
+{
+  "scope": "Scale-aware signed reference correspondence correction",
+  "small_flow_and_pressure_false_acceptance_reproduced": true,
+  "nonzero_underflow_false_zero_reproduced": true,
+  "relative_tolerance": 1e-12,
+  "absolute_tolerance": 0,
+  "nonzero_underflow_rejected": true,
+  "genuine_zero_preserved": true,
+  "comparisons": 4,
+  "remaining_numeric_differences": 4,
+  "tests_passed": 9,
+  "source_native_replay_pass": true,
+  "saved_audit_replay": "passed",
+  "historical_receipts_preserved": true,
+  "formal_loss_values_added": 0,
+  "design_accepted": false
+}

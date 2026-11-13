@@ -4,6 +4,30 @@ from bsa.loss_reference import rebase,compare
 
 
 class LossReferenceTests(unittest.TestCase):
+    def small_fixture(self,q=2e-6):
+        request,probe=self.fixture()
+        for port,area in [('inlet',1.),('outlet',.5)]:
+            v=q/area;request[port].update(flow_m3_s=q,actual_velocity_m_s=v,actual_velocity_pressure_Pa=v*v/2)
+        request['recorded_table_result'].update(reference_velocity_pressure_Pa=q*q/2,signed_tabulated_contribution_Pa=q*q)
+        probe['candidate_signed_Pa']=q*q
+        return request,probe
+
+    def test_small_pressures_remain_distinct_and_small_equal_values_pass(self):
+        request,probe=self.small_fixture();self.assertTrue(compare(request,probe)['reference_conversion_removes_numeric_difference'])
+        probe.update(candidate_coefficient=1.,candidate_signed_Pa=8e-12)
+        self.assertFalse(compare(request,probe)['reference_conversion_removes_numeric_difference'])
+        probe['candidate_signed_Pa']=9e-12
+        with self.assertRaisesRegex(ValueError,'Stored contribution'):compare(request,probe)
+
+    def test_small_flow_mismatch_and_nonzero_underflow_reject(self):
+        request,probe=self.small_fixture(2e-12);request['outlet'].update(flow_m3_s=3e-12,actual_velocity_m_s=6e-12,actual_velocity_pressure_Pa=18e-24)
+        with self.assertRaisesRegex(ValueError,'Same-flow'):compare(request,probe)
+        request,probe=self.small_fixture(2e-12);request['inlet']['actual_velocity_m_s']=3e-12
+        with self.assertRaisesRegex(ValueError,'Port velocity/area'):compare(request,probe)
+        for args in [(1e-300,1e-300,1e-300),(1e-300,1.,1e300)]:
+            with self.assertRaisesRegex(ValueError,'underflow'):rebase(*args)
+        self.assertEqual(rebase(0.,1e-300,1e-300),0.)
+
     def fixture(self):
         request=dict(product_guid='fictional',inlet_port_guid='in',outlet_port_guid='out',inlet=dict(flow_m3_s=2.,width_m=1.,height_m=1.,actual_velocity_m_s=2.,actual_velocity_pressure_Pa=2.),outlet=dict(flow_m3_s=2.,width_m=.5,height_m=1.,actual_velocity_m_s=4.,actual_velocity_pressure_Pa=8.),recorded_table_result=dict(reference_port_guid='in',coefficient=2.,reference_velocity_pressure_Pa=2.,signed_tabulated_contribution_Pa=4.))
         probe=dict(product_guid='fictional',status='bounded_numerical_crosscheck_only',candidate_coefficient=.5,candidate_signed_Pa=4.)
