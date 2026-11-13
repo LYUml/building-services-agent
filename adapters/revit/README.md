@@ -1,5 +1,11 @@
 # Native Revit adapter (development)
 
+A fresh built-in Revit2027.3 test-copy opening now executes, preserving both RVT
+files and39warnings/four unresolved links. Export menu navigation remains blocked
+by the observed UI-control failure, with no IFC produced. This is separate from
+the original unsigned-adapter policy block; no adapter was retried. See
+../../docs/REVIT_BUILTIN_INTERCHANGE.md for actual scope and remaining checks.
+
 See [signing investigation](../../docs/REVIT_SIGNING.md) for provider eligibility, current gaps and required post-signing native verification. Build metadata evidence is [revit-signing-metadata-build.json](../../docs/evidence/moosas-review/revit-signing-metadata-build.json); this newer unsigned DLL does not replace the historical hash from the blocked host attempt.
 
 Current live status: Revit discovered and registered the inventory command in-session, and the user-authorized Load Once action was accepted. Actual invocation then triggered Windows Application Control: Code Integrity events 3077/3033 identify Bsa.Revit.dll as failing Enterprise signing requirements. Authenticode reports NotSigned. No inventory was produced. Evidence: ../../docs/evidence/moosas-review/revit-native-policy-block.json. Compilation, manifest parsing and button registration must not be reported as executable native integration. Do not retry via another loader, move the DLL to evade policy, or change security settings. A supported signing/deployment route requires the applicable policy's approved trust basis; adding a self-signed certificate alone does not establish it.

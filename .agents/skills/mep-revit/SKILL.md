@@ -5,6 +5,12 @@ description: Develop and validate native Revit MEP adapters, inspect saved pipe 
 
 # Revit MEP integration
 
+See docs/REVIT_BUILTIN_INTERCHANGE.md for the actual built-in test-copy opening.
+Preserve the39warnings and four missing links; export menu navigation did not
+produce IFC. Distinguish this observed UI limitation from the historical unsigned
+adapter policy block. Built-in model opening does not establish native API access,
+creation, saved authored persistence or successful IFC interchange.
+
 Read [the native adapter guide](../../../adapters/revit/README.md) for invocation, request fields, supported observations and current evidence. Use [the Revit/MOOSAS review](../../../docs/REVIT_MOOSAS_DIRECTION.md) when choosing a bridge or analysis interface. Commands below run from the repository root.
 
 ## Select the actual capability

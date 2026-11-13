@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Actual Revit2027.3 test-copy opening now preserves original/copy bytes and observed
+warnings/missing links. Built-in export navigation exposes a UI-control failure;
+no IFC or native API execution is claimed. Signing/deployment and native authoring
+remain open. See docs/REVIT_BUILTIN_INTERCHANGE.md.
+
 Manual round-duct curve points now replay from original raster inputs and compare
 with the existing friction engine. Fourteen tests and actual two-point CLI study
 pass execution; center differences remain3.9%/4.6% despite endpoint-range overlap.

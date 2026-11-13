@@ -1,0 +1,29 @@
+{
+  "scope": "Actual Revit UI test-copy opening and attempted built-in export navigation; not native API inventory, IFC export or authoring acceptance",
+  "revit_observed_version": "2027.3",
+  "test_model_opened": true,
+  "original_and_test_copy_sha256": "638ee19b1351bdf57d0af2b53ca5ea70f59beaa288afc53cdec16b0f7f3f753b",
+  "original_and_test_copy_bytes_preserved": true,
+  "load_error_count": 0,
+  "load_warning_count": 39,
+  "observed_warning": "Space is not in a properly enclosed region",
+  "unresolved_reference_count": 4,
+  "unresolved_reference_disciplines": [
+    "architectural",
+    "electrical",
+    "HVAC",
+    "structural"
+  ],
+  "warnings_retained": true,
+  "ifc_export_availability_verified": false,
+  "ifc_file_generated": false,
+  "native_api_invoked": false,
+  "native_creation_verified": false,
+  "save_or_reopen_persistence_verified": false,
+  "adapter_registration_repeated": false,
+  "security_settings_changed": false,
+  "observed_ui_failure": "Accessibility state unavailable after File menu; subsequent coordinate inputs dismissed the menu instead of opening an export dialog",
+  "application_left_open": true,
+  "model_saved_by_agent": false,
+  "design_accepted": false
+}
