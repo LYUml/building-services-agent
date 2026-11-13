@@ -1461,3 +1461,11 @@ workflow checks through the already pinned official SDK1.30.0. Existing source
 page PNG delivery is reused for package PDFs. Public SDK list_tools/call_tool
 interfaces add strict top-level argument rejection without modifying upstream.
 The gap is AI-client whole-package access, not an engineering solver.
+
+
+Coupled elbow radius choices use existing source/native elbow compilation plus
+SciPy1.18.1 optimize.milp (embedded HiGHS1.12.0), already installed/pinned through
+the tee extra. Existing pump/tee catalogue glue does not solve both-end radius
+constraints; a thin binary-choice adapter avoids rebuilding an optimizer. Official
+SciPy MILP documentation was checked. Actual positive/infeasible/native/tamper
+results and retained failed coordination are in ELBOW_RADIUS_SELECTION.md.

@@ -5,6 +5,11 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For source-backed equal-section elbows with explicit alternative radii, use
+bsa.elbow_radius_selection per docs/ELBOW_RADIUS_SELECTION.md. Preserve original
+candidates/source constraints, verify native outputs and run separate coordination.
+No feasible radius combination means no authoring; geometric fit is not installation approval.
+
 Circular elbows now use compact native IfcTriangulatedFaceSet storage per
 docs/IFC_MESH_STORAGE.md; legacy polygonal meshes remain readable. Preserve
 exact source coordinates/indices and full native/bore/volume/EXPRESS checks.

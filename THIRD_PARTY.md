@@ -278,3 +278,12 @@ AutoCAD schedule writing also reuses the exact MIT U-C4N backend above for bound
 TEXT edits and arrow LINE creation. Existing calculation/native engines remain.
 Actual same-task comparison, source preservation and native/visual results are
 recorded in docs/AUTOCAD_SCHEDULE_PROVIDER.md and its aggregate evidence.
+
+
+Finite elbow-radius selection reuses SciPy1.18.1 scipy.optimize.milp with embedded
+HiGHS1.12.0 (actual core version constants and binary SHA recorded), and existing
+NumPy2.5.4/IfcOpenShell authoring. SciPy contributors retain BSD-3-Clause rights;
+HiGHS is MIT. Exact installed SciPy wheel notices and upstream HiGHS1.12.0 notice
+are retained under third_party/licenses/scipy-1.18.1.txt and highs-1.12.0.txt.
+No solver implementation or native binary is vendored. See ELBOW_RADIUS_SELECTION.md
+and https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.milp.html .

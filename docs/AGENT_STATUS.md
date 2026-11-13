@@ -1,5 +1,9 @@
 # Whole-agent status
 
+Finite supplied elbow-radius selection now reuses SciPy/HiGHS and existing
+native IFC authoring. The real source study authors all ten equal-section elbows;
+coordination still fails and remains explicit. See ELBOW_RADIUS_SELECTION.md.
+
 AI clients can now prepare, execute and inspect the complete interpreted HVAC
 package through MCP, using fixed host runtimes and existing PDF image delivery.
 Actual real-project protocol execution passes; see MCP_HVAC_PROJECT.md.

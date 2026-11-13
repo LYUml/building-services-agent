@@ -5,6 +5,11 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For source-backed equal-section elbows with explicit alternative radii, use
+bsa.elbow_radius_selection per docs/ELBOW_RADIUS_SELECTION.md. Preserve original
+candidates/source constraints, verify native outputs and run separate coordination.
+No feasible radius combination means no authoring; geometric fit is not installation approval.
+
 For full interpreted HVAC execution through MCP, use bsa_prepare_hvac_project,
 bsa_run_hvac_project and bsa_inspect_hvac_project per docs/MCP_HVAC_PROJECT.md.
 Host startup fixes report font/AutoCAD/Poppler. Inspect stage_errors, pending

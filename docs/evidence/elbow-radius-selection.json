@@ -1,0 +1,76 @@
+{
+  "scope": "Finite classified radius candidates under original known-elbow two-end budgets; not complete physical or pressure design",
+  "runtime": {
+    "scipy": "1.18.1",
+    "numpy": "2.5.4"
+  },
+  "highs_version": "1.12.0",
+  "highs_binary_sha256": "e6beb8321a4905c9bd0ba0eec2dfa7e27d76a01ab7d0abeab81fcce9ae6732e1",
+  "selected_elbows": 10,
+  "changed_from_original": [
+    "CORRIDOR-A",
+    "CORRIDOR-B"
+  ],
+  "objective": 3.0,
+  "selected_checks": {
+    "body_count": 57,
+    "owned_ports": 114,
+    "actual_links": 20,
+    "coincident_opposed_linked_ports": true,
+    "native_geometry_pass": true,
+    "complete_network": false
+  },
+  "blocked_equal_section_elbows": {},
+  "remaining_other_connection_nodes": 17,
+  "full_fitting_trim_complete": false,
+  "original_requirement_count": 33,
+  "original_only_control": {
+    "status": "no_feasible_candidate",
+    "native_directory_created": false
+  },
+  "verification": {
+    "positive": {
+      "integrity_pass": true,
+      "status": "candidate_selected",
+      "selected_elbows": 10,
+      "design_accepted": false
+    },
+    "negative": {
+      "integrity_pass": true,
+      "status": "no_feasible_candidate",
+      "selected_elbows": 0,
+      "design_accepted": false
+    },
+    "forged_objective_rejected": "Radius selection differs from source replay"
+  },
+  "coordination": {
+    "checks": {
+      "geometry_coverage": true,
+      "no_intersections": false,
+      "clearance": false
+    },
+    "intersections": 76,
+    "clearance_violations": 31,
+    "missing_geometry": 0,
+    "invalid_geometry": 0,
+    "unverified_pairs": 0,
+    "contact_waivers": 0
+  },
+  "selection_sha256": "3ef687e77f49aaf1b31f4fdfbca07ff3515d1b84787cd02114185497287ffbfb",
+  "ifc_sha256": "876fd66812ac08220cde27ee97fd5ffa1753784cf08196fb31fa3298c289c3cf",
+  "tests": {
+    "tests_run": 12,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test_receipt_sha256": "0c6609a97fd684a074c2d0283aafddf23c23849fe4a9fe798a31b73f1cd24bfd",
+  "preview": {
+    "source_ifc_sha256": "876fd66812ac08220cde27ee97fd5ffa1753784cf08196fb31fa3298c289c3cf",
+    "whole_source_image_sha256": "f910c0643ccc01775ff9088af3ca66bec2ace7f4a77a40cee40c2ae1263e585c",
+    "local_image_sha256": "08a09571b2170b889cb78dcbba232ead67593b57f47cd9ec8574f9dbd2a6e041",
+    "observations": "Actual saved IFC source/context previews inspected. Whole-model labels overlap; local view shows two selected bends with three adjacent straight contexts. Preview is not a delivery/installation drawing.",
+    "visual_delivery_accepted": false
+  },
+  "design_accepted": false
+}

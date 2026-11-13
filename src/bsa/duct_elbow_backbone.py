@@ -102,8 +102,9 @@ def run(plan,workflow,native_task,basis_path,radii_path,out):
     import ifcopenshell
     import ifcopenshell.api as api
     plan,workflow,basis_path,radii_path,out=[Path(p).resolve() for p in (plan,workflow,basis_path,radii_path,out)]
-    root=Path(__file__).resolve().parents[2]
-    if out.exists() or not out.is_relative_to(root) or out.is_relative_to(workflow) or workflow.is_relative_to(out) or any(out==p or out in p.parents for p in (plan,basis_path,radii_path)):raise ValueError('New repository output separate from all source files required')
+    from .workspace import allowed
+    if not all(allowed(p) for p in (plan,workflow,basis_path,radii_path,out)):raise ValueError('Selected project or repository paths required')
+    if out.exists() or not allowed(out) or out.is_relative_to(workflow) or workflow.is_relative_to(out) or any(out==p or out in p.parents for p in (plan,basis_path,radii_path)):raise ValueError('New selected workspace output separate from all source files required')
     _,record,integrity=context(plan,workflow)
     if not integrity['integrity_pass']:raise ValueError('Current source workflow required')
     pins={str(p):digest(p) for p in (plan,workflow/'workflow.json',basis_path,radii_path)}
