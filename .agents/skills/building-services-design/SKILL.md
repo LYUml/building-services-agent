@@ -5,6 +5,21 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For local Codex startup use docs/CODEX_LOCAL_SETUP.md. Keep development data
+in repository runs and coursework in the explicitly selected host project.
+A configured/listed tool is not an accepted engineering capability. Do not
+change global trust/approval settings or restart user applications for setup.
+
+For tagged source-native delivery with an existing verified schedule, use
+bsa_run_tagged_network_delivery then bsa_inspect_tagged_network_delivery per
+docs/MCP_TAGGED_NETWORK_DELIVERY.md. Render and inspect the exact returned PDF;
+source/native/tag consistency never clears full engineering acceptance.
+
+For per-outlet pressure gaps use the run/inspect pressure-ledger tools then
+bounded gap/outlet reads per docs/MCP_PRESSURE_LEDGER.md. Bind inspected hashes,
+retain signed/null values and global gaps, and never rank hydraulic criticality
+from affected-outlet coverage. No complete fan duty follows from partial sums.
+
 For composed source-native delivery through an AI client, use
 bsa_run_native_network_delivery then bsa_inspect_native_network_delivery per
 docs/MCP_SOURCE_NETWORK_DELIVERY.md. AutoCAD comes only from host startup.

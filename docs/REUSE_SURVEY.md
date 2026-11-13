@@ -1694,3 +1694,10 @@ replay already uses this helper; the gap is the ledger layer relying on cached
 paths without direct reconstruction. It now pins and executes the same method
 against source port/interface/span/boundary records. No new dependency or
 physical connection/loss acceptance. See SOURCE_PRESSURE_LEDGER.md.
+
+Local Codex startup reuses the existing38-tool BSA stdio server, installed
+Codex project-scoped configuration and its generated app-server protocol.
+Official OpenAI MCP docs and actual CLI/schema were checked first. The gap is
+manual server startup/runtime selection, not another AI or engineering engine.
+No new dependency, model turn or source dataset. Actual backend/live-chat
+read-only calls execute; see CODEX_LOCAL_SETUP.md.

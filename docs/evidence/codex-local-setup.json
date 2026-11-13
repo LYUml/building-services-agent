@@ -1,0 +1,18 @@
+{
+  "scope": "Project-scoped local Codex startup and actual tool connection",
+  "configured_workspaces": 2,
+  "development_data_is_ignored_runs": true,
+  "coursework_data_is_separate_selected_workspace": true,
+  "actual_codex_backend_tool_count": 38,
+  "both_effective_configs_match_local": true,
+  "both_actual_codex_readonly_calls_pass": true,
+  "coursework_backend_numeric_gap_count": 45,
+  "current_development_chat_native_tool_call_pass": true,
+  "current_development_chat_project_escape_rejected": true,
+  "model_turns_sent_by_diagnostics": 0,
+  "ephemeral_diagnostic_contexts": true,
+  "installer_tests_passed": 3,
+  "global_config_written_by_installer": false,
+  "local_configs_excluded_from_git": true,
+  "design_accepted": false
+}

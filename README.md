@@ -1,5 +1,11 @@
 # Building Services Agent
 
+Project-scoped local Codex startup now separates development and coursework
+data roots. Both actual Codex backends discover 38 BSA tools and execute reads;
+the active development chat also calls BSA and rejects an outside-root read.
+Three installer tests pass; full engineering acceptance remains open.
+See docs/CODEX_LOCAL_SETUP.md.
+
 The pressure ledger now directly reconstructs cached paths using the existing
 port-topology router. Thirteen tests and complete real-client replay pass;
 all 20 outlet/45 gap reads match. Physical joints and full pressure remain open.
