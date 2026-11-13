@@ -19,6 +19,13 @@ class NativeNetworkMCPTests(unittest.IsolatedAsyncioTestCase):
                         'bsa_inspect_native_network_analysis','bsa_inspect_native_fitting_analysis')
                     for name in names:
                         self.assertFalse(tools[name].inputSchema['additionalProperties'])
+                    for name in ('bsa_run_native_network_delivery','bsa_inspect_native_network_delivery'):
+                        self.assertFalse(tools[name].inputSchema['additionalProperties'])
+                        self.assertNotIn('autocad',tools[name].inputSchema.get('properties',{}))
+                    for args in [dict(source='missing',out='delivery'),dict(source='missing',out='delivery',autocad='override'),dict(source='missing',out='delivery',scale=True)]:
+                        r=await session.call_tool('bsa_run_native_network_delivery',args);self.assertTrue(r.isError)
+                    r=await session.call_tool('bsa_inspect_native_network_delivery',dict(out='../escape'));self.assertTrue(r.isError)
+                    self.assertFalse((Path(folder)/'delivery').exists())
                     controls=[(names[0],dict(source='../escape',out='new')),
                         (names[1],dict(analysis='missing',basis='missing.json',out='new',python='override')),
                         (names[1],dict(analysis='missing',basis='../escape.json',out='new')),

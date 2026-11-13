@@ -1,0 +1,23 @@
+{
+  "scope": "Actual stdio MCP composed geometry-study delivery; not arbitrary-brief engineering completion",
+  "executed_tools": [
+    "bsa_run_native_network_delivery",
+    "bsa_inspect_native_network_delivery",
+    "bsa_render_source_page"
+  ],
+  "products": 102,
+  "original_requirements": 33,
+  "native_reopen_pass": true,
+  "pdf_reference_pass": true,
+  "independent_mcp_inspection_integrity_pass": true,
+  "execution_inspection_summaries_agree": true,
+  "rendered_page_source_and_image_hashes_match": true,
+  "scoped_visual_review_pass": true,
+  "targeted_tests_passed": 6,
+  "regression_tests_passed": 4,
+  "skipped_in_final_suites": 0,
+  "pressure_budget_complete": false,
+  "design_accepted": false,
+  "delivery_record_sha256": "c6e7ca4d73dd864c496c374b7a23707e391590c1331ae61a784c820fdd8517a0",
+  "protected_coursework_geometry_redistributed": false
+}

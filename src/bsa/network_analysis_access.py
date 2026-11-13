@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 from . import source_network_analysis as network, source_fitting_data as fittings
 from . import workspace
+from . import source_network_delivery as delivery
 from .artifact_access import LIMIT
 from .cli import digest
 
@@ -85,3 +86,33 @@ def read_request(out,record_sha256,product_guid,inlet_port_guid,outlet_port_guid
     return dict(record_sha256=record_sha256,request=rows[0],
         transition_end_straight_study=[r for r in data.get('transition_end_straight_study',[]) if r['product_guid']==product_guid],
         verification='Recorded bytes only; use inspect for current source/native replay',design_accepted=False)
+
+
+def delivery_summary(out,data):
+    out=Path(out).resolve();root=(workspace.project_root() or workspace.ROOT/'runs').resolve()
+    artifacts=[]
+    for name in ('delivery.json','native/section.dwg','native/sheet.pdf'):
+        path=out/name;sha=digest(path)
+        if name!='delivery.json' and sha!=data['artifacts'][name]:
+            raise ValueError('Delivery output differs from producer identity')
+        artifacts.append(dict(path=str(path),project_path=path.relative_to(root).as_posix(),sha256=sha,bytes=path.stat().st_size))
+    return dict(status='review_required',product_count=data['product_count'],
+        original_requirement_count=len(data['original_requirement_ids']),
+        native_reopen_pass=data['native_reopen_pass'],pdf_reference_pass=data['pdf_reference_pass'],
+        scale_denominator=data['scale_denominator'],plot_visual_review=data['plot_visual_review'],
+        pressure_budget_complete=False,design_accepted=False,artifacts=artifacts,
+        scope='Composed geometry-study delivery only; render and inspect the actual page. Source assumptions, pressure, products, installation and complete engineering acceptance remain unresolved.')
+
+
+def run_delivery(source,out,autocad,scale=None):
+    if autocad is None:raise ValueError('Explicit host AutoCAD startup configuration required')
+    return delivery_summary(out,delivery.run(source,out,autocad,scale))
+
+
+def inspect_delivery(out):
+    out=Path(out).resolve();before=digest(out/'delivery.json')
+    checked=delivery.verify(out);data=json.loads((out/'delivery.json').read_text())
+    result=delivery_summary(out,data)
+    if digest(out/'delivery.json')!=before or result['artifacts'][0]['sha256']!=before:
+        raise ValueError('Delivery record changed during inspection')
+    result['integrity_pass']=checked['integrity_pass'];return result

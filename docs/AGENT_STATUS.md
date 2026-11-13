@@ -1,5 +1,9 @@
 # Whole-agent status
 
+The composed native-network delivery pipeline now has fixed-host MCP run and
+independent-inspect access, returning pinned DWG/PDF paths for existing page
+rendering. Engineering/visual scope remains explicit. See docs/MCP_SOURCE_NETWORK_DELIVERY.md.
+
 Source-native projection, automatic review layout and native DWG/PDF delivery now
 compose in one command, with independent native-source and PDF reconstruction.
 Actual102-product/33-requirement execution and13 tests pass; engineering review

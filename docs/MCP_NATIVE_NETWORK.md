@@ -1,7 +1,10 @@
 # Native source-network analysis through MCP
 
+For composed projection/layout/native delivery and inspection from an AI client,
+see [MCP source-network delivery](MCP_SOURCE_NETWORK_DELIVERY.md).
+
 Additional paginated fitting-request and directed-detail read tools are described
-in [fitting request access](MCP_FITTING_REQUESTS.md); current inventory has30 tools.
+in [fitting request access](MCP_FITTING_REQUESTS.md); current inventory has32 tools.
 The four analysis/inspection tools below keep their existing roles.
 
 Four tools connect the existing source_network_analysis and source_fitting_data

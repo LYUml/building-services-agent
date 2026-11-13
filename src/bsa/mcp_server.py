@@ -67,6 +67,17 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None):
     read=ToolAnnotations(readOnlyHint=True,destructiveHint=False,idempotentHint=True,openWorldHint=False)
     write=ToolAnnotations(readOnlyHint=False,destructiveHint=False,idempotentHint=False,openWorldHint=False)
 
+    @server.tool(annotations=write)
+    def bsa_run_native_network_delivery(source:str,out:str,scale:Annotated[float,Field(strict=True,gt=0)]|None=None)->dict[str,Any]:
+        """Compose verified source-native projection, review layout and actual DWG/PDF delivery. AutoCAD is fixed at host startup; visual/engineering acceptance remains pending."""
+        if options.get('autocad') is None:raise ValueError('Explicit host AutoCAD startup configuration required')
+        return invoke(network_analysis_access.run_delivery,local(source),local(out),options['autocad'],scale=scale)
+
+    @server.tool(annotations=read)
+    def bsa_inspect_native_network_delivery(out:str)->dict[str,Any]:
+        """Independently reconstruct native contours/layout, native re-export and actual PDF calibration. Return pinned output paths for page rendering; no design approval."""
+        return invoke(network_analysis_access.inspect_delivery,local(out))
+
     @server.tool(annotations=read)
     def bsa_list_native_fitting_requests(out:str,record_sha256:str,offset:Annotated[int,Field(strict=True,ge=0)]=0,limit:Annotated[int,Field(strict=True,ge=1,le=20)]=20,status:str|None=None)->dict[str,Any]:
         """Page saved fitting requests using the exact inspected record SHA256. Reads saved bytes only, not fresh engineering/source verification."""

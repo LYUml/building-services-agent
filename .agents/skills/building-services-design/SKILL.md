@@ -5,6 +5,12 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For composed source-native delivery through an AI client, use
+bsa_run_native_network_delivery then bsa_inspect_native_network_delivery per
+docs/MCP_SOURCE_NETWORK_DELIVERY.md. AutoCAD comes only from host startup.
+Use the returned PDF project_path with existing source-page rendering, bind
+its SHA and actually inspect the page; preserve engineering pending states.
+
 For already verified source-native network analysis, source_network_delivery
 composes projection, automatic review layout and real native DWG/PDF delivery
 per docs/SOURCE_NETWORK_DELIVERY.md. Use the explicit host project/runtime,

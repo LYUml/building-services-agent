@@ -1605,3 +1605,9 @@ cad_sheet PDF-vector reading. The gap was manual stage/layout handoff, not a
 new drawing engine. Native-source contour reconstruction and model-reference
 remeasurement execute independently of saved success flags. No new dependency,
 source model change or publisher dataset. See SOURCE_NETWORK_DELIVERY.md.
+
+Composed native-network MCP delivery reuses source_network_delivery and existing
+network_analysis_access, fixed worker/host settings and PDF source-page rendering.
+The access gap was AI-client invocation and artifact handoff, not a new solver,
+CAD engine or runtime. Existing MCP SDK1.30.0 and dependency notices apply. No
+new dependency or protected dataset. See MCP_SOURCE_NETWORK_DELIVERY.md.

@@ -1,5 +1,9 @@
 # Building Services Agent stdio MCP server
 
+For the composed source-native DWG/PDF run and independent-inspect tools, see
+[MCP source-network delivery](MCP_SOURCE_NETWORK_DELIVERY.md); AutoCAD stays a
+host startup setting and returned project paths feed existing PDF-page viewing.
+
 For bounded saved fitting-request pages and exact directed details, see
 [fitting request access](MCP_FITTING_REQUESTS.md). Inspect source/native ancestry
 first, then bind reads to the returned record SHA256.
