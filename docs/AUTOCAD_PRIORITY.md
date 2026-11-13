@@ -8,7 +8,10 @@ closing unsaved documents or retroactively changing old hashes.
 
 ## Upstream comparison candidates
 
-These are source-reviewed candidates, not installed or verified integrations.
+The original review was source-only. Actual follow-up: the dcc framework import is
+blocked by host Application Control; the U-C4N independent DXF backend now reads
+the same real native-exported source successfully. Full MCP/COM/write/plot
+integration is not established. See AUTOCAD_SOURCE_PROVIDER.md.
 They were cloned under ignored tools and their clean commit/license/source hashes
 are recorded in evidence/autocad-reuse-review.json.
 

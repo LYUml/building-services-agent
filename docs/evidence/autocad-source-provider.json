@@ -1,0 +1,63 @@
+{
+  "scope": "Real source-DWG read-only intake and independent upstream DXF inspection; no design/native-write/plot acceptance",
+  "source_dwg_sha256": "5c5f0360987784171dc3b798132b25046cbd8253cf5566ba8eb2d110d1315c20",
+  "actual_verification": {
+    "integrity_pass": true,
+    "entities": 3894,
+    "layers": 16,
+    "layouts": 3,
+    "insunits": 4,
+    "design_accepted": false,
+    "scope": "Native-exported source inventory with pinned upstream DXF inspection; not physical scale, design, native write or plot acceptance"
+  },
+  "upstream": {
+    "repository": "https://github.com/U-C4N/Autocad-MCP",
+    "commit": "6f6a538255ca9f885232e845ac32f10b4433fe3e",
+    "license": "MIT",
+    "mode": "independent EzdxfBackend, not complete MCP server or COM integration",
+    "versions": {
+      "ezdxf": "1.4.5",
+      "pydantic": "2.14.3",
+      "numpy": "2.5.4"
+    }
+  },
+  "dcc_trial": {
+    "commit": "d2acd4859b5a724b6032bd3044684291972a26e2",
+    "versions": {
+      "dcc-mcp-autocad": "0.1.3",
+      "dcc-mcp-core": "0.20.36",
+      "dcc-mcp-server": "0.20.53"
+    },
+    "probe_completed": false,
+    "native_calls": 0,
+    "source_unchanged": true,
+    "error": "ImportError: DLL load failed while importing _core: An Application Control policy has blocked this file.",
+    "record_sha256": "a8a69b206a770a46b05fd95b3442bc1eb330fd06677cda272e903d03487912e7"
+  },
+  "tests": {
+    "integrity_pass": true,
+    "tests_run": 4,
+    "passed": 4,
+    "suite_pass": true,
+    "all_tests_pass": true,
+    "design_accepted": false,
+    "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance"
+  },
+  "retained_project_run": "07_Agent_Work/runs/autocad-source-provider",
+  "inspection_sha256": "ccaba2f125456c4216da8bb5ea63aad4f79c96acbbc80d96ca29185efbcc58b3",
+  "ordinary_gaps": [
+    "Independent physical building dimension/scale confirmation",
+    "Block/xref/proxy/nested geometry interpretation",
+    "Paper-space/viewport scale and original drawing visual review",
+    "Native DWG write/reopen and actual plot review for future modifications",
+    "Requirement-specific engineering and Hong Kong applicability"
+  ],
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/autocad_source.py": "a2a85e7ba69174aa132808e8875020fc0487cb8e73ca1f7abb217644500026cb",
+    "scripts/probe_uc4n_inventory.py": "892e79136fdee23997282f7063339ecff1d0f8e597f4a4afc105074c95ff8d7e",
+    "scripts/probe_dcc_autocad.py": "054309ca9633bfa80be45790c14878e67175d67f82cc5335beab20e479b0d727",
+    "tests/test_autocad_source.py": "23ba13d9291858f0166fffb0e74305ced6f87d34edef6c3e1c19bd90ccde7035",
+    "pyproject.toml": "dd6320b028188956c311f2b47f6b8c965dae0fb38d8000689f662ee5ded1caca"
+  }
+}

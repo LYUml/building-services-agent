@@ -5,6 +5,12 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For current AutoCAD-first real source intake, use bsa.autocad_source per
+docs/AUTOCAD_SOURCE_PROVIDER.md with explicit host BSA_PROJECT_ROOT and
+AutoCAD executable. Reuse the exact clean upstream backend and verify the
+result. Header units are not physical scale; keep block/viewport/visual and
+engineering gaps. The blocked dcc framework is not the selected native route.
+
 For long host validation, retain bsa.check_runner receipts per docs/DURABLE_CHECKS.md.
 Inspect actual process/session for live state; verify terminal evidence after
 completion. Test success is separate from engineering acceptance, skipped checks

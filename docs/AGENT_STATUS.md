@@ -26,6 +26,8 @@ from a different engine, build, model or run.
 
 ## Evidence entry points
 
+- [Actual AutoCAD source intake](AUTOCAD_SOURCE_PROVIDER.md): native export plus pinned independent upstream reader on the real BSE3227 source; writing/plot/engineering gates remain open.
+
 - [Source-to-engineering handoff](ENGINEERING_HANDOFF.md) and [shared CLI](PROJECT_CLI.md).
 - [MCP tools and host setup](MCP_SERVER.md), [artifact reads](MCP_ARTIFACTS.md), [recorded PDF pages](MCP_ARTIFACT_PAGES.md).
 - [Bounded recovery](RECOVERY_CONTROLLER.md) and [source-bound delivery review](DELIVERY_REVIEW.md).

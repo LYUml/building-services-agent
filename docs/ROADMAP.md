@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Real AutoCAD source intake now reuses a pinned upstream DXF backend after native
+DWG export, preserving source bytes and checking actual handle/layer/layout
+coverage. Native writing and plot/engineering acceptance remain the next gate.
+See AUTOCAD_SOURCE_PROVIDER.md.
+
 Current user priority: AutoCAD and real assignment end-to-end delivery; pause new
 Revit adaptation/debugging. Compare pinned existing AutoCAD bridges on the same
 real DWG task, then use thin proven adapters. Keep the complete MEP/Hong Kong
