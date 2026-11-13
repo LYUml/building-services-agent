@@ -1,0 +1,15 @@
+{
+  "scope": "Actual MCP tagged native delivery, inspection and page retrieval",
+  "tool_inventory": 34,
+  "components": 102,
+  "native_reopen_verified": true,
+  "ancestry_verified": true,
+  "independent_inspection_agrees": true,
+  "pdf_and_image_identities_match": true,
+  "actual_page_visually_reviewed": true,
+  "tests_passed": 8,
+  "tests_skipped": 1,
+  "skipped_scope": "Existing generated-workflow PDF test requires explicit external sample; actual tagged PDF retrieval separately executed",
+  "pressure_budget_complete": false,
+  "design_accepted": false
+}

@@ -13,6 +13,7 @@ from typing import Any,Annotated
 from . import engineering_handoff,project_start,workflow,workflow_status,workspace,mcp_worker,source_page,visual_transcription,source_review,reference_library,pump_catalogue_iteration,artifact_access,delivery,recovery_controller,hvac_package_access
 from .cli import digest
 from . import network_analysis_access
+from . import tag_delivery_access
 from .terminal_iteration import OPTIONS
 
 SDK_VERSION='1.30.0'
@@ -66,6 +67,17 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None):
 
     read=ToolAnnotations(readOnlyHint=True,destructiveHint=False,idempotentHint=True,openWorldHint=False)
     write=ToolAnnotations(readOnlyHint=False,destructiveHint=False,idempotentHint=False,openWorldHint=False)
+
+    @server.tool(annotations=write)
+    def bsa_run_tagged_network_delivery(delivery:str,schedule:str,out:str)->dict[str,Any]:
+        """Place all model tags, generate/reopen DWG and plot PDF, then replay source review. Existing delivery/schedule required; host fixes AutoCAD. No engineering approval."""
+        if options.get('autocad') is None:raise ValueError('Explicit host AutoCAD startup configuration required')
+        return invoke(tag_delivery_access.run,local(delivery),local(schedule),local(out),options['autocad'])
+
+    @server.tool(annotations=read)
+    def bsa_inspect_tagged_network_delivery(out:str)->dict[str,Any]:
+        """Independently replay the complete tagged native delivery package and return pinned DWG/PDF paths for actual page inspection. No design approval."""
+        return invoke(tag_delivery_access.inspect,local(out))
 
     @server.tool(annotations=write)
     def bsa_run_native_network_delivery(source:str,out:str,scale:Annotated[float,Field(strict=True,gt=0)]|None=None)->dict[str,Any]:

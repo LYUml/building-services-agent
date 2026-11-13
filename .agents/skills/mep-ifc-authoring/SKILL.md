@@ -5,6 +5,12 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+AI clients can use bsa_run_tagged_network_delivery and
+bsa_inspect_tagged_network_delivery per docs/MCP_TAGGED_NETWORK_DELIVERY.md.
+Host fixes project root/AutoCAD; client paths are project-relative. Compare
+returned PDF/page identities and inspect the actual image; tool success does
+not establish complete engineering acceptance.
+
 For a single composed tagged-source delivery command, use
 source_network_tag_pipeline per docs/SOURCE_NETWORK_TAG_PIPELINE.md. Require
 fresh host-selected output, complete finite tag coverage and native/source

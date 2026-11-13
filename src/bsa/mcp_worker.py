@@ -6,6 +6,7 @@ import sys
 from . import engineering_handoff,project_start,workflow,workflow_status,source_page,visual_transcription,source_review,reference_library,pump_catalogue_iteration,artifact_access,delivery,recovery_controller,hvac_package_access
 from .cli import digest
 from . import network_analysis_access
+from . import tag_delivery_access
 from .module_contract import read_json
 
 
@@ -22,6 +23,8 @@ OPERATIONS={function.__module__+'.'+function.__name__:function for function in
      pump_catalogue_iteration.run,pump_catalogue_iteration.verify,artifact_access.index,artifact_access.read,artifact_access.render_page,delivery.template,delivery.assess,recovery_controller.run,recovery_controller.verify,hvac_package_access.prepare,hvac_package_access.run,hvac_package_access.inspect)}
 OPERATIONS['bsa.mcp_worker.read_source_plan']=read_source_plan
 for function in (network_analysis_access.run_network,network_analysis_access.run_fittings,network_analysis_access.inspect,network_analysis_access.list_requests,network_analysis_access.read_request,network_analysis_access.run_delivery,network_analysis_access.inspect_delivery):
+    OPERATIONS[function.__module__+'.'+function.__name__]=function
+for function in (tag_delivery_access.run,tag_delivery_access.inspect):
     OPERATIONS[function.__module__+'.'+function.__name__]=function
 
 

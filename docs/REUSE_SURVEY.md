@@ -1640,3 +1640,9 @@ source_network_tag_review without changing their engines or source contracts.
 The gap is manual orchestration of already-tested finite placement/native/review
 stages. Existing SciPy/HiGHS, Shapely, ezdxf and AutoCAD runtime attribution/pins
 apply; no new dependency. See SOURCE_NETWORK_TAG_PIPELINE.md.
+
+Tagged native MCP delivery reuses source_network_tag_pipeline, fixed mcp_worker
+operations, existing host path/runtime guards and source-page rendering. The
+gap is AI-client orchestration and artifact handoff, not a new engine. Existing
+pinned MCP SDK1.30.0 and CAD/scientific dependency notices apply. No new
+dependency or protected dataset. See MCP_TAGGED_NETWORK_DELIVERY.md.

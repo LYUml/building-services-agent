@@ -1,5 +1,10 @@
 # Whole-agent status
 
+AI-client MCP now executes tagged native delivery, independent package replay
+and actual PDF-page retrieval. Real 102-component summaries and file/image
+identities agree; actual page inspected. Engineering acceptance remains pending.
+See docs/MCP_TAGGED_NETWORK_DELIVERY.md.
+
 A single tagged-network delivery command now executes finite label placement,
 native DWG/PDF and independent source review on the real 102-component model.
 The actual plot is inspected; complete engineering acceptance remains pending.
