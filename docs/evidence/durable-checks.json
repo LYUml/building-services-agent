@@ -1,0 +1,43 @@
+{
+  "scope": "Durable trusted-host unittest process/count/source-byte records; not engineering acceptance",
+  "verification": {
+    "integrity_pass": true,
+    "tests_run": 34,
+    "passed": 34,
+    "suite_pass": true,
+    "all_tests_pass": true,
+    "design_accepted": false,
+    "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance"
+  },
+  "returncode": 0,
+  "elapsed_seconds": 9.906000000002678,
+  "selected_source_files": 655,
+  "unique_test_ids": 34,
+  "tests": [
+    "tests.test_check_runner",
+    "tests.test_recovery_controller",
+    "tests.test_catalogue_iteration",
+    "tests.test_circular_fan_selection",
+    "tests.test_pump_catalogue_iteration",
+    "tests.test_pump_electrical_catalogue"
+  ],
+  "retained_run": "runs/durable-checks-verified",
+  "receipt_sha256": "c59b3f2009f0482fe6227a3486d796ef8b2044e98dde5fbad67222d0b8169b71",
+  "log_sha256": "0ee8f42955a4a676ea26656d8cb2dd21433e52dddbccd835ccb9e2375796b035",
+  "request_sha256": "9f787f66a41d216a1627022bcd051b06b8d760d437dfe9dc6ae9aa8932b7c770",
+  "controls": [
+    "Actual passing and skipped callback counts remain distinct",
+    "Failed subtests retain multiple failures for one test",
+    "Class setup error with zero executed tests remains failed",
+    "All-skipped suite cannot pass",
+    "Source changed by a controlled child invalidates current pass",
+    "Changed log or missing terminal receipt rejects",
+    "Unknown selector rejects before output",
+    "Repeated worker cannot overwrite terminal result"
+  ],
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/check_runner.py": "fe7f17a220beb1e3a8881458e9fa64da028d948a442325dcb7ed0172d0bd8862",
+    "tests/test_check_runner.py": "605d207bd29056f648b758e86cc21539f94143155597076e4b196091a85bd3d1"
+  }
+}

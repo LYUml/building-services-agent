@@ -1,6 +1,7 @@
 # Building Services Agent
 
 For overall verified coverage and remaining work, read [whole-agent status](docs/AGENT_STATUS.md).
+Use [durable check receipts](docs/DURABLE_CHECKS.md) for long host validation; test success remains separate from engineering acceptance.
 
 A bounded recovery controller now chains ready failed pump and circular-fan actions using explicit
 source catalogues, independent replay verification and fresh whole-plan diagnosis.

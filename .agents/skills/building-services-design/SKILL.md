@@ -5,6 +5,11 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For long host validation, retain bsa.check_runner receipts per docs/DURABLE_CHECKS.md.
+Inspect actual process/session for live state; verify terminal evidence after
+completion. Test success is separate from engineering acceptance, skipped checks
+and domain runtime/source verification. Never rehash old receipts to clear drift.
+
 For ready pump and circular-fan selection failures with explicit sourced catalogues, use
 bsa_run_recovery / bsa_verify_recovery per docs/RECOVERY_CONTROLLER.md. Declare
 original electrical consumers where applicable. Inspect final diagnosis and

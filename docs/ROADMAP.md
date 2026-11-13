@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Host checks now retain actual unittest counts, process exit, logs and selected
+source/interpreter hashes independently of the terminal view. Missing terminal
+receipts and source changes remain incomplete; engineering acceptance is separate.
+See DURABLE_CHECKS.md.
+
 A bounded recovery controller now chains ready failed pump and circular-fan actions using explicit
 source catalogues, independent replay verification and fresh whole-plan diagnosis.
 Unknown/no-feasible candidates stop; manual/full engineering review remains.
