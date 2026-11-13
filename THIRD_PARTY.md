@@ -1,5 +1,11 @@
 # Attribution and upstream integration register
 
+Complete-network fitting-table studies reuse pinned SciPy 1.18.1 (BSD-3-Clause)
+RegularGridInterpolator and the repository's existing source/native guards.
+Publisher fitting tables, source PDFs and their transcriptions remain private
+and are not distributed. Only the generic adapter, fictional numerical tests
+and safe aggregate evidence are committed; see docs/SOURCE_FITTING_DATA.md.
+
 Complete represented source-network flow/path analysis reuses existing native
 cap and graph adapters and pinned fluids 1.3.1 (MIT, Caleb Bell) Colebrook/Darcy
 through duct_equivalent. Source binding/reconciliation is local orchestration;

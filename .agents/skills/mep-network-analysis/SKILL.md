@@ -5,6 +5,14 @@ description: Calculate source-linked air/water networks, fan/pump operating poin
 
 # Network pressure analysis
 
+For source-linked coefficient tables on the complete native source network, use
+source_fitting_data per docs/SOURCE_FITTING_DATA.md. Reuse the existing bounded
+sparse-table engine and native transition guards. Canonical profile dimensions
+must match actual material caps; never round ratios or widen source bounds.
+Preserve signed partial values, null cells, unsupplied paths and all original
+requirements. Physical/friction/interaction review and complete fan pressure
+remain pending even when a numerical table query succeeds.
+
 For the verified source compound network, use source_network_analysis per
 docs/SOURCE_NETWORK_ANALYSIS.md. Inherit exact schedule air/flows, bind every
 native port, independently accumulate actual saved downstream demands and retain

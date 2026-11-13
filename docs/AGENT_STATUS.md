@@ -1,5 +1,11 @@
 # Whole-agent status
 
+The original fitting-table engine now consumes complete source/native analysis.
+Of 76 fitting flow paths, 13 have conditional bounded table values, 13 need
+unpublished support and 50 have no supplied table. All 31 native transition
+requests and all original requirements remain. Physical applicability, friction,
+interactions and complete pressure stay unresolved. See SOURCE_FITTING_DATA.md.
+
 All 223 native ports now reconcile original design flows through the actual
 saved network. Forty-five retained straight contributions and all 20 outlet
 paths are checked; the absorbed common section's flow obligation survives.

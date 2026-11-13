@@ -1540,3 +1540,11 @@ friction documentation was checked. The actual gap is complete stable-port
 source binding, independent downstream-demand accumulation and reconciliation
 of the explicitly absorbed common source section. No solver is rebuilt; full
 fitting/joint/boundary pressure remains unknown. See SOURCE_NETWORK_ANALYSIS.md.
+
+Full-network fitting data reuses duct_fitting_data's pinned SciPy interpolation,
+source/schema/sparse-cell/reference-port guards and transition quantity reader.
+The gap is applying those existing capabilities to the complete source-bound
+network and explicit external project, with canonical native profile dimensions
+checked against independently extracted caps. The existing official 2021 source
+pages 38/42 were visually rechecked; private cells/PDFs remain undistributed.
+No new coefficient database/engine is adopted. See SOURCE_FITTING_DATA.md.

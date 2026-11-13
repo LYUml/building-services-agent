@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Source-linked bounded fitting tables now query the complete represented network:
+13 conditional main-path values, 13 sparse-support queries and 50 unsupplied
+paths. Full pressure/physical applicability remain pending; publisher data stays
+private. See docs/SOURCE_FITTING_DATA.md for independent replay and scope.
+
 Complete represented network analysis now reconciles all 223 native ports to
 source design flows, checks 45 retained straights and traces 20 outlet paths.
 Seventy-six fitting loss paths remain unknown; fan duty is not inferred. See

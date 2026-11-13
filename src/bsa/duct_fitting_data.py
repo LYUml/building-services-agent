@@ -17,6 +17,7 @@ from scipy.interpolate import RegularGridInterpolator
 from . import duct_chain_analysis as analysis
 from .duct_fitting_chain import shape_hash
 from .cli import digest
+from .workspace import allowed
 from .duct_transition_quantities import QUANTITIES as TRANSITION_QUANTITIES, ANGLE_QUANTITIES
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -65,7 +66,7 @@ def number(x):
 
 def prepare(path):
     path = Path(path).resolve()
-    if not path.is_relative_to(ROOT): raise ValueError('Repository-local fitting basis required')
+    if not allowed(path): raise ValueError('Selected workspace fitting basis required')
     data = json.loads(path.read_text(encoding='utf-8-sig'))
     if set(data) != {'sources', 'tables'} or not isinstance(data['sources'], dict) or not data['sources'] or not isinstance(data['tables'], list) or not data['tables']:
         raise ValueError('Nonempty source map and fitting tables required')
@@ -74,7 +75,7 @@ def prepare(path):
         if set(source) != {'document', 'sha256', 'citation', 'edition'} or any(not isinstance(source[k], str) or not source[k].strip() for k in source):
             raise ValueError('Exact source document,hash,citation,edition required')
         document = (path.parent/source['document']).resolve()
-        if not document.is_relative_to(ROOT) or not document.is_file() or digest(document) != source['sha256']:
+        if not allowed(document) or not document.is_file() or digest(document) != source['sha256']:
             raise ValueError('Source document hash or repository location differs')
         pins[str(document)] = source['sha256']
     keys = set()

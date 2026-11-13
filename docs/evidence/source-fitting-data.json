@@ -1,0 +1,49 @@
+{
+  "scope": "Source-linked table interpolation with actual native-port reference pressures only. Source transcription, physical applicability, friction inclusion, fitting interaction/joints, boundary pressure requirements and complete engineering acceptance remain unverified. Partial sums are not lower bounds or fan duties.",
+  "unique_fitting_paths": 76,
+  "supplied_table_paths": 26,
+  "calculated_conditional_table_paths": 13,
+  "table_support_missing_paths": 13,
+  "unsupplied_table_paths": 50,
+  "paths_without_numerical_coefficient": 63,
+  "request_states": {
+    "source_data_required": 50,
+    "physical_review_required": 13,
+    "table_support_missing": 13
+  },
+  "native_transition_requests": 31,
+  "outlet_paths": 20,
+  "original_requirement_ids_retained": 33,
+  "source_edition": "2021",
+  "source_pages_visually_reviewed": [
+    38,
+    42
+  ],
+  "licensed_pdf_tables_transcriptions_distributed": false,
+  "original_analysis_unchanged": true,
+  "all_calculated_values_require_physical_review": true,
+  "pressure_budget_complete": false,
+  "critical_path": null,
+  "design_accepted": false,
+  "case_record_sha256": "2fccea507bee43e34624b9daafa104cdc98d889a0916721f986caba6731736a9",
+  "independent_linear_reference_checks": {
+    "checked": 13,
+    "linear_interpolation_pass": true,
+    "actual_common_native_profile_velocity_reference_pass": true,
+    "receipt_sha256": "4883fbe27ee8cd58db9586eb6ea33562f1a6e38abd744b3d0877e4a9a32617d5"
+  },
+  "tests": {
+    "tests_run": 8,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "receipt_sha256": "3d653c6891de47412ad8a708392d7eba62a7cc882f5eec90c097df994d998d1a"
+  },
+  "observed_independent_replay": {
+    "integrity_pass": true,
+    "unique_fitting_paths": 76,
+    "calculated_table_paths": 13,
+    "unsupplied_table_paths": 50,
+    "scope": "Actual standalone source_fitting_data verify CLI replays source/native analysis, protected source hashes and bounded interpolation; physical source/friction/interaction and complete pressure remain unresolved."
+  }
+}

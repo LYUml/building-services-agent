@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Source fitting tables now bind the complete represented native network through
+the existing engine: 13 conditional values, 13 sparse-support requests and
+50 unsupplied paths. Independent source/native/table replay passes; physical
+acceptance and full pressure/fan duty remain pending. See SOURCE_FITTING_DATA.md.
+
 Source flow/native geometry analysis now covers all 223 represented ports,
 45 retained straights and 20 outlet paths, with absorbed-section continuity.
 Full fitting/joint/boundary pressure remains unresolved (76 fitting flow paths);

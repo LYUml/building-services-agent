@@ -12,9 +12,15 @@ or establish installed fitting losses from a table name.
 
 The basis has exactly `sources` and `tables`. Each source ID maps to `document`
 (relative to the basis), `sha256`, `citation` and `edition`. Source documents must
-exist within the repository and match their hashes. Keep private/licensed source
+exist within the repository or explicit host-selected project and match their
+hashes. Keep private/licensed source
 files and transcriptions in ignored local runs; this repository distributes no
 coefficient database. Missing or changed source files reject before native work.
+
+The shared basis parser also supports explicit host BSA_PROJECT_ROOT source
+documents. The legacy local-chain command keeps its existing output scope;
+source_fitting_data provides the complete represented external-network adapter.
+See SOURCE_FITTING_DATA.md. Unselected/protected source workspaces still reject.
 
 Each table has these required fields:
 
