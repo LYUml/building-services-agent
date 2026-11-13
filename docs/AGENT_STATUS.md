@@ -1,5 +1,9 @@
 # Whole-agent status
 
+The upstream writer and related requirement evidence now execute through the
+complete existing HVAC package: native DWG, source-tree reviews and an actually
+inspected 24-page report. Engineering gaps remain; see INTEGRATED_HVAC_REPLAY.md.
+
 Source requirements can now link related calculation evidence beside their
 primary review, preserving pending acceptance and all missing inputs. Actual
 common-provider/project replay passes; see SUPPORTING_REQUIREMENT_EVIDENCE.md.

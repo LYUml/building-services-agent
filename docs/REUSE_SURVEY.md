@@ -1448,3 +1448,9 @@ Supporting requirement evidence reuses the existing workflow/source inventory,
 HTML links and delivery path/hash audit. The actual gap was related-artifact
 discovery beside a broad primary requirement, not a missing engineering solver.
 No new upstream dependency is needed; see SUPPORTING_REQUIREMENT_EVIDENCE.md.
+
+
+Integrated HVAC replay uses the existing hvac_project/package, duct_system_paths,
+junction/terminal/ADPI reviews and ReportLab report flow with the pinned upstream
+writer. The gap was whole-package executed interoperability, not another engine.
+Fresh native and full report visual evidence is recorded in INTEGRATED_HVAC_REPLAY.md.

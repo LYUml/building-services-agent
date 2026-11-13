@@ -5,6 +5,12 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For the complete interpreted HVAC package using the upstream writer, follow
+docs/INTEGRATED_HVAC_REPLAY.md. Regenerate the exact-plan requirements inventory,
+preserve original review settings and inspect every stage/error. Source-centreline
+friction is not installed pressure or fan duty; review_required remains incomplete.
+
+
 For a broad source requirement with related existing calculations, explicitly
 declare supporting_tasks per docs/SUPPORTING_REQUIREMENT_EVIDENCE.md. Retain its
 full original quote, primary task and review gates; inspect each supporting scope.
