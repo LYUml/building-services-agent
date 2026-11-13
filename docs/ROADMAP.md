@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Raster chart points now reuse pinned MIT upstream axis conversion with explicit
+units, held-out ticks and declared pixel bounds. Eight targeted tests and actual
+classroom log-axis CLI conversion pass. Separate47section/16,779candidate equation
+replay passes; curve extraction and full sizing acceptance remain open.
+See docs/RASTER_CHART_POINTS.md and evidence/raster-chart-calibration.json.
+
 Delivery audits now expose a remaining-review agenda using existing effective
 review states and dependency diagnosis. Twenty-seven tests pass; actual project
 audit retains four scoped passes and29 pending requirements across14 tasks.

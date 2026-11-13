@@ -1,5 +1,16 @@
 # Reuse survey â€” 2026-11-09
 
+Raster chart gap survey: dilawar/PlotDigitizer at8e0613a712b9a086fcf0cb2ffaeceea666c0a26c
+(GPL3) documents single-trajectory limitations; dense same-colour friction curves
+are not a verified automatic extraction target. WebPlotDigitizer at
+3a3ecb11606945d0701c8a488777e6861be70056 (AGPL3 frontend) supplies an interactive
+alternative, not an executed CLI integration. Huang Jianing's MIT scientific-plot-
+digitizer at165b2b3e954e7185359e37f274d9c2dc5b1304f6 has a small independent
+axis-calibration function. Its unmodified script/license are retained and pinned;
+only pixel_to_data is reused through a source-bound manual-point adapter. Actual
+log-axis tick conversion executes, not automatic curve extraction or full upstream
+skill installation. See docs/RASTER_CHART_POINTS.md for evidence and limitations.
+
 Remaining-review scheduling reuses delivery.assess effective review states and
 workflow_status dependency/input diagnosis. No new solver, parser or dependency
 is introduced. The gap was that reviewed manual obligations remained in the

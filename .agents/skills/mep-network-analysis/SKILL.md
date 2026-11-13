@@ -5,6 +5,13 @@ description: Calculate source-linked air/water networks, fan/pump operating poin
 
 # Network pressure analysis
 
+For a raster engineering chart, docs/RASTER_CHART_POINTS.md provides a pinned MIT
+upstream axis converter for explicitly selected pixels with units, held-out ticks
+and declared pixel bounds. Use the host-selected project workspace. Inspect the
+original image and record point identities; this does not separate overlapping
+black curves, validate image derivation or provide accepted chart readings.
+Do not substitute equation replay for an original requested graphical method.
+
 AI clients can run/inspect the pressure evidence ledger, page numerical gaps
 and read exact outlet evidence per docs/MCP_PRESSURE_LEDGER.md. Use the inspected
 record SHA256 for bounded reads; reads do not repeat source/native verification.

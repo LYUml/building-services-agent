@@ -1,0 +1,9 @@
+{
+  "repository": "https://github.com/huangjn58/scientific-plot-digitizer",
+  "commit": "165b2b3e954e7185359e37f274d9c2dc5b1304f6",
+  "license": "MIT",
+  "files": {
+    "digitize_plot.py": "04c988d25acf72c127d9b575a44df22c8823a1d8d4f02b5c3c4f96405050834c",
+    "LICENSE": "78fc309c95608b220e42b4fd556d0ce3442ce67f7cbb2c0c694c567e31fa2a66"
+  }
+}

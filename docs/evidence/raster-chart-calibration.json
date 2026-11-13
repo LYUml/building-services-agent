@@ -1,0 +1,26 @@
+{
+  "scope": "Pinned upstream raster axis conversion and existing independent schedule equation review; no extracted friction curves or complete sizing acceptance",
+  "upstream_repository": "https://github.com/huangjn58/scientific-plot-digitizer",
+  "upstream_commit": "165b2b3e954e7185359e37f274d9c2dc5b1304f6",
+  "upstream_license": "MIT",
+  "upstream_sha256": "04c988d25acf72c127d9b575a44df22c8823a1d8d4f02b5c3c4f96405050834c",
+  "wrapper_sha256": "31ce0c31441835e66f42fa27f5144c6d8bb399bc036e6d1bd2e4e5b175e5733b",
+  "targeted_tests": 8,
+  "real_cli_executed": true,
+  "actual_chart_held_out_ticks": 2,
+  "actual_reference_points": 2,
+  "axis_tick_checks_pass": true,
+  "initial_endpoint_trial_rejected": true,
+  "pixel_uncertainty_not_widened": true,
+  "runtime_dependencies": {
+    "numpy": "2.5.4",
+    "Pillow": "13.0.0"
+  },
+  "schedule_sections": 47,
+  "schedule_candidates": 16779,
+  "maximum_absolute_colebrook_residual": 3.375077994860476e-14,
+  "curve_identity_verified": false,
+  "scanned_chart_readings_verified": false,
+  "physical_applicability_verified": false,
+  "design_accepted": false
+}

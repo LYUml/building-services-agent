@@ -1,5 +1,10 @@
 # Independent saved-schedule equation checks
 
+For raster coordinate calibration and declared manual point uncertainty, reuse
+the new pinned upstream adapter in RASTER_CHART_POINTS.md. Actual chart grid
+checks are available, but diameter/velocity curves are not automatically isolated
+or accepted. Existing equation replay remains distinct from source chart readings.
+
 
 This review and its existing duct_junction_review ancestry check now support
 explicit host BSA_PROJECT_ROOT output workspaces. Repository-only operation
