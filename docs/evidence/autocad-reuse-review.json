@@ -1,0 +1,34 @@
+{
+  "scope": "Pinned source review only, not integration evidence",
+  "candidates": [
+    {
+      "repository": "https://github.com/dcc-mcp/dcc-mcp-autocad",
+      "commit": "d2acd4859b5a724b6032bd3044684291972a26e2",
+      "license": "MIT",
+      "license_sha256": "db712c92be010d9bf621dd609b3202cd23247d49e3bc6dd1c640922069444462",
+      "reviewed_files": {
+        "pyproject.toml": "d766154c33b178681a5e6066d93f9413134f6ca631ad73054a89ee037e678cca",
+        "README.md": "650696da7a3cdbe42b1870f0acbf102f10f0336679bcb64e34bc0a55017f7265",
+        "src/dcc_mcp_autocad/transports/core_console.py": "4b48036116dcdddf9ee7efd5bcd8455385c755235d275a1970c81c929013c74d",
+        "src/dcc_mcp_autocad/bridge.py": "c88fe640ff4050a69fceddaae52c7eade2bd0b225ae86aa7b0e428668e312cef"
+      },
+      "installed": false,
+      "native_execution_verified": false
+    },
+    {
+      "repository": "https://github.com/U-C4N/Autocad-MCP",
+      "commit": "6f6a538255ca9f885232e845ac32f10b4433fe3e",
+      "license": "MIT",
+      "license_sha256": "8dd43414238e9cc0bb88cae53c0549fc6c4097a67288af0212048bd9a6defbf3",
+      "reviewed_files": {
+        "pyproject.toml": "87c8f42ce6569fd65aa301e878c50fdce2824343896d0a3df7e477b4db1032e2",
+        "README.md": "72cdaeddb3da33b5f23df20b4fd5d374faa07d94cbc6b0917d799de1e4046871",
+        "backends/document_guard.py": "30ed7e2ebc6732e8b762cc28d23dadded257a123c8b25ca03d70b9b65ad95798",
+        "backends/com_backend.py": "e9df9ed000cbcaddbf449fcbfab576110a4881a9cf775587715c4e935d1ac62e"
+      },
+      "installed": false,
+      "native_execution_verified": false
+    }
+  ],
+  "design_accepted": false
+}

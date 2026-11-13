@@ -20,7 +20,7 @@ class CircularElbowTests(unittest.TestCase):
     def setUpClass(cls):
         cls.inputs = [json.loads((ROOT/'examples/circular-elbow'/name).read_text())
                       for name in ('network.json', 'project.json', 'binding.json')]
-        cls.folder = tempfile.TemporaryDirectory()
+        cls.folder = tempfile.TemporaryDirectory(dir=ROOT/'runs')
         cls.out = Path(cls.folder.name)/'result'
         paths = [ROOT/'examples/circular-elbow'/name for name in ('network.json', 'project.json', 'binding.json')]
         cls.result = run(*paths, cls.out)
@@ -50,6 +50,15 @@ class CircularElbowTests(unittest.TestCase):
         body = next(r for r in obj.Representation.Representations if r.RepresentationIdentifier == 'Body')
         self.assertEqual(body.RepresentationType, 'Tessellation')
         self.assertTrue(body.Items[0].Closed)
+        self.assertTrue(body.Items[0].is_a('IfcTriangulatedFaceSet'))
+
+    def test_legacy_polygonal_mesh_still_reopens_with_same_checks(self):
+        from unittest.mock import patch
+        from ifcopenshell.util.shape_builder import ShapeBuilder
+        paths=[ROOT/'examples/circular-elbow'/name for name in ('network.json','project.json','binding.json')]
+        with patch.object(ShapeBuilder,'triangulated_face_set',ShapeBuilder.polygonal_face_set):
+            result=run(*paths,Path(self.folder.name)/'legacy')
+        self.assertTrue(result['calculated_checks_pass']);self.assertFalse(result['design_accepted'])
 
     def test_invalid_source_geometry_and_loss_basis(self):
         for mutate in (
@@ -95,6 +104,24 @@ class CircularElbowTests(unittest.TestCase):
                 self.assertEqual(spec['normals']['out'], (-u).tolist())
                 count += 1
         self.assertEqual(count, 24)
+
+    def test_saved_triangle_mesh_tampering_rejected_by_geometry_verifier(self):
+        import ifcopenshell
+        import ifcopenshell.geom
+        from bsa import circular_geometry
+        for kind in ('indices','coordinates'):
+            native=ifcopenshell.open(str(self.out/'bim/model.ifc'))
+            obj=native.by_type('IfcPipeFitting')[0]
+            settings=ifcopenshell.geom.settings();settings.set(settings.USE_WORLD_COORDS,True);circular_geometry.configure(settings)
+            original_shape=ifcopenshell.geom.create_shape(settings,obj)
+            body=next(r for r in obj.Representation.Representations if r.RepresentationIdentifier=='Body').Items[0]
+            if kind=='indices':
+                rows=[list(f) for f in body.CoordIndex];rows[0][0]=rows[0][1];body.CoordIndex=rows
+            else:
+                points=[list(p) for p in body.Coordinates.CoordList];points[0][0]+=.01;body.Coordinates.CoordList=points
+            target=Path(self.folder.name)/(kind+'.ifc');native.write(str(target))
+            reopened=ifcopenshell.open(str(target))
+            with self.assertRaises(ProjectError):elbow.verify(reopened.by_type('IfcPipeFitting')[0],self.inputs[1]['devices'][1],original_shape)
 
     def test_saved_axis_and_loss_tampering_rejected(self):
         import ifcopenshell

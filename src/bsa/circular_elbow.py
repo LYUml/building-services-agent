@@ -74,8 +74,12 @@ def author(model,context,obj,d):
     import numpy as np
     spec=specification(d);obj.PredefinedType='BEND'
     vertices,faces,quality=tessellate(spec)
-    rep=api.run('geometry.add_mesh_representation',model,context=context,vertices=[vertices],faces=[faces])
-    rep.Items[0].Closed=True
+    from ifcopenshell.util.shape_builder import ShapeBuilder
+    from ifcopenshell.util.unit import calculate_unit_scale
+    if any(len(face)!=3 for face in faces):raise ProjectError('Explicit triangular elbow mesh required')
+    body=ShapeBuilder(model).triangulated_face_set(np.asarray(vertices)/calculate_unit_scale(model),faces)
+    body.Closed=True
+    rep=model.create_entity('IfcShapeRepresentation',ContextOfItems=context,RepresentationIdentifier=context.ContextIdentifier,RepresentationType='Tessellation',Items=[body])
     api.run('geometry.assign_representation',model,product=obj,representation=rep)
     points=model.create_entity('IfcCartesianPointList3D',CoordList=spec['arc_points_local_m'])
     segment=model.create_entity('IfcArcIndex',(1,2,3))
@@ -98,8 +102,10 @@ def verify(obj,d,shape):
     if not curve.is_a('IfcIndexedPolyCurve') or not curve.Points.is_a('IfcCartesianPointList3D') or len(curve.Segments or [])!=1 or not curve.Segments[0].is_a('IfcArcIndex') or tuple(curve.Segments[0].wrappedValue)!=(1,2,3) or curve.SelfIntersect is not False:raise ProjectError('saved elbow lost exact circular arc reference')
     if not np.allclose(curve.Points.CoordList,spec['arc_points_local_m'],atol=1e-10,rtol=0):raise ProjectError('saved elbow arc points differ from source')
     expected_vertices,expected_faces,quality=tessellate(spec);body=bodies[0].Items[0]
-    if not body.is_a('IfcPolygonalFaceSet') or body.Closed is not True or body.PnIndex is not None or not body.Coordinates.is_a('IfcCartesianPointList3D'):raise ProjectError('saved elbow lost explicit closed indexed wall mesh')
-    coordinates=np.asarray(body.Coordinates.CoordList);indices=[list(f.CoordIndex) for f in body.Faces]
+    if not (body.is_a('IfcPolygonalFaceSet') or body.is_a('IfcTriangulatedFaceSet')) or body.Closed is not True or body.PnIndex is not None or not body.Coordinates.is_a('IfcCartesianPointList3D'):raise ProjectError('saved elbow lost explicit closed indexed wall mesh')
+    if body.is_a('IfcTriangulatedFaceSet') and body.Normals is not None:raise ProjectError('Source elbow does not declare custom mesh normals')
+    coordinates=np.asarray(body.Coordinates.CoordList)
+    indices=[list(f.CoordIndex) for f in body.Faces] if body.is_a('IfcPolygonalFaceSet') else [list(f) for f in body.CoordIndex]
     if coordinates.shape!=np.asarray(expected_vertices).shape or not np.allclose(coordinates,expected_vertices,atol=1e-10,rtol=0) or indices!=(np.asarray(expected_faces)+1).tolist():raise ProjectError('saved elbow tessellation differs from source parameters/deflection')
     matrix=placement.get_local_placement(obj.ObjectPlacement);expected=np.eye(4);expected[:3,3]=spec['centre_m']
     if not np.allclose(matrix,expected,atol=1e-9,rtol=0):raise ProjectError('saved elbow world placement differs')

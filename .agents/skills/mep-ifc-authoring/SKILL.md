@@ -5,6 +5,12 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+Circular elbows now use compact native IfcTriangulatedFaceSet storage per
+docs/IFC_MESH_STORAGE.md; legacy polygonal meshes remain readable. Preserve
+exact source coordinates/indices and full native/bore/volume/EXPRESS checks.
+Do not lower geometric resolution, waive checks or infer viewer/DWG acceptance
+from the smaller file or a successful network-only reconciliation.
+
 For the optional native sheet after the shared water/pump/electrical handoff,
 read docs/COUPLED_NATIVE_HANDOFF.md. Use the existing ifc_native consumer after
 the exact passing drawing, with explicit host AutoCAD and source sheet settings.

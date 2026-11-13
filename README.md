@@ -1,5 +1,8 @@
 # Building Services Agent
 
+Current focus: [AutoCAD and real assignment delivery](docs/AUTOCAD_PRIORITY.md).
+New Revit adapter work is deferred; the full general MEP goal remains active.
+
 For overall verified coverage and remaining work, read [whole-agent status](docs/AGENT_STATUS.md).
 Use [durable check receipts](docs/DURABLE_CHECKS.md) for long host validation; test success remains separate from engineering acceptance.
 

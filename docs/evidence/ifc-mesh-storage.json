@@ -1,0 +1,70 @@
+{
+  "scope": "IFC4 circular-elbow triangle storage only; unchanged geometric resolution and checks",
+  "verification": {
+    "integrity_pass": true,
+    "tests_run": 16,
+    "passed": 16,
+    "suite_pass": true,
+    "all_tests_pass": true,
+    "design_accepted": false,
+    "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance"
+  },
+  "controlled_comparison": {
+    "compact": {
+      "seconds": 28.262261500000022,
+      "file_bytes": 6821662,
+      "entity_count": 171,
+      "body_class": "IfcTriangulatedFaceSet",
+      "vertices": 66360,
+      "triangles": 132720,
+      "model_checks_pass": true,
+      "ifc_sha256": "28ad61f55697c6d981b9a7f9b280ae4d4c90b05ff5ffbb09fc0ca81e10e7366c"
+    },
+    "legacy_polygonal": {
+      "seconds": 33.4527068999887,
+      "file_bytes": 12307662,
+      "entity_count": 132891,
+      "body_class": "IfcPolygonalFaceSet",
+      "vertices": 66360,
+      "triangles": 132720,
+      "model_checks_pass": true,
+      "ifc_sha256": "2a07247c9934f4bda9958ac738cdc592e13580f69c292c6dfa7bc5441e6ce83b"
+    }
+  },
+  "exact_coordinates_and_triangles_preserved": true,
+  "device_identity_space_system_preserved": true,
+  "full_airflow_graph": {
+    "seconds": 164.85437059999094,
+    "tasks": {
+      "source": "pass",
+      "route": "pass",
+      "join": "pass",
+      "material": "pass",
+      "pressure": "pass",
+      "selection": "pass",
+      "fan": "pass",
+      "state": "pass",
+      "drawing": "pass",
+      "review": "pending"
+    },
+    "integrity_pass": true
+  },
+  "baseline_profile": {
+    "seconds": 41.13491100000101,
+    "validation_seconds": 36.3271881,
+    "scope": "Different saved route-join case with profiler overhead; not directly comparable with unprofiled elbow author timings"
+  },
+  "initial_test_failure": "Expanded body-tamper assertion incorrectly used the network topology/arc/K reconciliation entry point. Corrected to saved geometry verifier; no network-reconciliation full-body claim is made.",
+  "limitations": [
+    "Single controlled storage trial, concurrent host load; no whole-workflow speedup guarantee",
+    "No new native DWG/RVT or BIM viewer acceptance",
+    "Original tessellation limits and geometry/pressure tolerances unchanged"
+  ],
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/circular_elbow.py": "920368433c1af18b4a7ac0c43b8578929aae683a0eaab8c9eeabdf011f9d103f",
+    "tests/test_circular_elbow.py": "7d1d8ec1f2a0c29020e17383270e88ad8d1b2ca780299cb0311bdf54cf7cca67",
+    "scripts/benchmark_elbow_storage.py": "61f9f3c24b5f2dda74a850e9608235750a97fcaa1018f88ddc842c11531f0cbf",
+    "scripts/run_compact_airflow_demo.py": "596b2b9b4bed84075e8bd966b61f223815119ca35763c340d7452c3dfe76c7bc"
+  }
+}

@@ -1,5 +1,14 @@
 # Scope and acceptance
 
+Current user priority: AutoCAD and real assignment end-to-end delivery; pause new
+Revit adaptation/debugging. Compare pinned existing AutoCAD bridges on the same
+real DWG task, then use thin proven adapters. Keep the complete MEP/Hong Kong
+goal and source/native/visual gates. See AUTOCAD_PRIORITY.md.
+
+Compact circular-elbow triangle storage preserves every mesh sample and check;
+controlled comparison and the complete public air graph execute. This supporting
+milestone does not replace the current AutoCAD main line. See IFC_MESH_STORAGE.md.
+
 Host checks now retain actual unittest counts, process exit, logs and selected
 source/interpreter hashes independently of the terminal view. Missing terminal
 receipts and source changes remain incomplete; engineering acceptance is separate.
