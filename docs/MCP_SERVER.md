@@ -1,6 +1,6 @@
 # Building Services Agent stdio MCP server
 
-The current server has twenty-one tools, including [bounded recovery](RECOVERY_CONTROLLER.md), [recorded PDF pages](MCP_ARTIFACT_PAGES.md), [artifact reads](MCP_ARTIFACTS.md),
+The current server includes [complete interpreted HVAC execution](MCP_HVAC_PROJECT.md), [bounded recovery](RECOVERY_CONTROLLER.md), [recorded PDF pages](MCP_ARTIFACT_PAGES.md), [artifact reads](MCP_ARTIFACTS.md),
 [source-bound delivery review](MCP_DELIVERY.md), [pump recovery](MCP_PUMP_RECOVERY.md), a [committed reference library](REFERENCE_LIBRARY.md), actual source-page PNG delivery
 and [explicit visual transcription/source review](VISUAL_TRANSCRIPTION.md);
 see also [PDF page viewing](MCP_SOURCE_PAGE.md). The initial eight-tool trial below

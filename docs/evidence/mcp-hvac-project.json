@@ -1,0 +1,62 @@
+{
+  "scope": "Actual stdio client prepares, runs and audits complete interpreted HVAC package, then retrieves PDF page images",
+  "protocol_sha256": "51a29b246f825ef5cf8aab551504514f1dc32b1f2e47902ecab594f6170d961b",
+  "protocol_calls": [
+    "bsa_prepare_hvac_project",
+    "bsa_run_hvac_project",
+    "bsa_inspect_hvac_project",
+    "bsa_render_source_page",
+    "bsa_render_source_page",
+    "bsa_render_source_page"
+  ],
+  "stage_errors": {},
+  "status": "review_required",
+  "artifacts": 49,
+  "requirements": 33,
+  "unresolved_inputs": 6,
+  "native_reopen_pass": true,
+  "generated_native_entities": 718,
+  "report_pdf": {
+    "pages": 24,
+    "numerical_rows_checked": 388,
+    "requirement_rows": 33
+  },
+  "pdf_comparisons": {
+    "report": {
+      "pages": 24,
+      "public_page_content_equal": true
+    },
+    "drawing": {
+      "pages": 1,
+      "public_page_content_equal": true
+    }
+  },
+  "visual_review": {
+    "report_pages_inspected": [
+      1,
+      24
+    ],
+    "drawing_pages_inspected": [
+      1
+    ],
+    "observations": [
+      "Actual MCP-delivered source-bound page images inspected",
+      "Report first/last page source classifications and pending rule statement remain visible",
+      "Full A1 layout visible; detailed all-page/table visual acceptance not repeated by this protocol trial"
+    ],
+    "full_visual_acceptance": false,
+    "design_accepted": false
+  },
+  "tests": {
+    "tests_run": 17,
+    "passed": 16,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "skipped_scope": "Existing test requires an explicitly supplied prior PDF workflow; new report-page protocol test executes separately",
+  "test_receipt_sha256": "1383508f4f8108aa706090a820b974024340643dfec675e0bfea2d9e9a554471",
+  "package_sha256": "0452bc1276d1368a2775194f4895c95cb9feb5c9991dbca41ec48256b1f2f9e9",
+  "runtime_selection": "Fixed host startup only; unknown top-level call arguments reject",
+  "design_accepted": false
+}

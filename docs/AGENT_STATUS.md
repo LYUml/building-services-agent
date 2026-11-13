@@ -1,5 +1,9 @@
 # Whole-agent status
 
+AI clients can now prepare, execute and inspect the complete interpreted HVAC
+package through MCP, using fixed host runtimes and existing PDF image delivery.
+Actual real-project protocol execution passes; see MCP_HVAC_PROJECT.md.
+
 The upstream writer and related requirement evidence now execute through the
 complete existing HVAC package: native DWG, source-tree reviews and an actually
 inspected 24-page report. Engineering gaps remain; see INTEGRATED_HVAC_REPLAY.md.
@@ -31,7 +35,7 @@ claimed because this requires task-specific acceptance evidence.
 | Area | Executed coverage | Remaining scope |
 |---|---|---|
 | Intake and host interpretation | Source-hashed passages, PDF images, explicit visual transcription, reviewed task/requirement handoff | General autonomous understanding of arbitrary briefs and complex drawings |
-| AI interface | Local stdio MCP with 21 tools, committed reference resources, source/artifact reads and PDF page images | Named desktop-client setup and general deployment acceptance |
+| AI interface | Local stdio MCP with project execution, committed reference resources, source/artifact reads and PDF page images | Named desktop-client setup and general deployment acceptance |
 | Professional calculations | Existing bounded electrical, air/water network, fan/pump and other domain adapters | Applicability and missing evidence for each real assignment; no universal engine acceptance |
 | CAD/BIM | Editable IFC/DXF; scoped native AutoCAD save/reopen and actual plot review | Arbitrary installation layouts, complete equipment/fittings/coordination and verified native Revit authoring |
 | Cross-domain exchange | Source-bound water/pump/electrical shared identity and separate public multi-domain handoffs | Complete physical system integration across all MEP disciplines |

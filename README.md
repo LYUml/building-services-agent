@@ -1,5 +1,9 @@
 # Building Services Agent
 
+AI clients can now prepare, execute and inspect the complete interpreted HVAC
+package through MCP, using fixed host runtimes and existing PDF image delivery.
+Actual real-project protocol execution passes; see docs/MCP_HVAC_PROJECT.md.
+
 The upstream writer and related requirement evidence now execute through the
 complete existing HVAC package: native DWG, source-tree reviews and an actually
 inspected 24-page report. Engineering gaps remain; see docs/INTEGRATED_HVAC_REPLAY.md.

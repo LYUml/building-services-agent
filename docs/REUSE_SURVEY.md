@@ -1454,3 +1454,10 @@ Integrated HVAC replay uses the existing hvac_project/package, duct_system_paths
 junction/terminal/ADPI reviews and ReportLab report flow with the pinned upstream
 writer. The gap was whole-package executed interoperability, not another engine.
 Fresh native and full report visual evidence is recorded in INTEGRATED_HVAC_REPLAY.md.
+
+
+MCP HVAC project access wraps existing hvac_project/package and source-bound
+workflow checks through the already pinned official SDK1.30.0. Existing source
+page PNG delivery is reused for package PDFs. Public SDK list_tools/call_tool
+interfaces add strict top-level argument rejection without modifying upstream.
+The gap is AI-client whole-package access, not an engineering solver.

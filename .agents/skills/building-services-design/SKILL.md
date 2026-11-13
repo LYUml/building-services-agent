@@ -5,6 +5,12 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For full interpreted HVAC execution through MCP, use bsa_prepare_hvac_project,
+bsa_run_hvac_project and bsa_inspect_hvac_project per docs/MCP_HVAC_PROJECT.md.
+Host startup fixes report font/AutoCAD/Poppler. Inspect stage_errors, pending
+tasks and inventoried PDF hashes before actual page review; never infer approval.
+
+
 For the complete interpreted HVAC package using the upstream writer, follow
 docs/INTEGRATED_HVAC_REPLAY.md. Regenerate the exact-plan requirements inventory,
 preserve original review settings and inspect every stage/error. Source-centreline
