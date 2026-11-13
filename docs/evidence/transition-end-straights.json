@@ -1,0 +1,19 @@
+{
+  "transitions": 31,
+  "ends": 62,
+  "max_colebrook_residual": 1.7763568394002505e-15,
+  "all_darcy_arithmetic_agree": true,
+  "table_results_and_pressure_paths_unchanged": true,
+  "pressure_budget_complete": false,
+  "design_accepted": false,
+  "source_record_sha256": "437dd26b5aeec5a4a95bfa3cc09009765edf458557d00be14b4c6b84aa77c824",
+  "scope": "Conditional developed-flow study of native constant-section transition ends only",
+  "tests_passed": 8,
+  "new_fitting_coefficients": 0,
+  "conditional_fitting_paths": 31,
+  "total_fitting_paths": 76,
+  "pressure_path_additions": 0,
+  "protected_source_data_redistributed": false,
+  "workflow_regression_tests_passed": 3,
+  "standalone_source_native_replay_integrity_pass": true
+}

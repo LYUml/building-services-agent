@@ -5,6 +5,11 @@ description: Calculate source-linked air/water networks, fan/pump operating poin
 
 # Network pressure analysis
 
+For saved transition end-straight friction, source_fitting_data now records a
+separate developed-flow study per docs/TRANSITION_END_STRAIGHTS.md. Do not add
+it to source-table or outlet-path totals without resolving station/friction
+inclusion and physical development/interaction. Taper friction stays unknown.
+
 For centred transition source tables, declare transition_family when the diagram
 requires one-plane or equal-angle pyramidal geometry. See docs/TRANSITION_FAMILY_CHECK.md.
 For a conditional equal-angle contraction query and independent controls, read

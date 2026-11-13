@@ -10,6 +10,7 @@ import numpy as np
 from . import source_network_analysis as analysis,duct_fitting_data as tables
 from . import duct_transition_quantities as quantities
 from . import duct_elbow_quantities as elbow_quantities
+from . import transition_straight_friction
 from .cli import digest
 from .workspace import allowed
 
@@ -41,13 +42,15 @@ def native_case(model,case):
 def evaluate(directory,basis):
     case=json.loads((directory/'analysis.json').read_text());source=Path(case['source']);model=ifcopenshell.open(str(source/'Supply Network.ifc'));case=native_case(model,case);data,pins=tables.prepare(basis);result=tables.calculate(model,case,data)
     result.update(original_requirement_ids=case['original_requirement_ids'],source_analysis=str(directory),source_basis=str(basis),original_analysis_unchanged=True,complete_network=False)
+    result['transition_end_straight_study']=[transition_straight_friction.calculate(r,case['air'])
+        for r in result['data_requests'] if r['transition_geometry'] is not None]
     return result,pins
 
 
 def methods():
     import scipy.interpolate._rgi as rgi
     if importlib.metadata.version('scipy')!='1.18.1':raise ValueError('Pinned SciPy 1.18.1 required')
-    return [Path(__file__),Path(analysis.__file__),Path(tables.__file__),Path(quantities.__file__),Path(elbow_quantities.__file__),Path(rgi.__file__)]
+    return [Path(__file__),Path(analysis.__file__),Path(tables.__file__),Path(quantities.__file__),Path(elbow_quantities.__file__),Path(transition_straight_friction.__file__),Path(transition_straight_friction.duct_equivalent.__file__),Path(rgi.__file__)]
 
 
 def run(directory,basis,out):

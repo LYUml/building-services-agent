@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Native transition end straights now have a separate developed-flow friction
+study through the existing equivalent-round/Fluids engine. It is not added to
+pressure paths or source tables; taper friction, interaction and source inclusion
+remain unresolved. See docs/TRANSITION_END_STRAIGHTS.md (repository root).
+
 Latest transition source queries add eight conditional values, bringing the
 represented network to31/76 finite paths;45 still lack numerical coefficients.
 Source contraction caveats, physical review and complete pressure/fan acceptance

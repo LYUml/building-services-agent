@@ -1564,3 +1564,9 @@ SciPy1.18.1 bounded interpolator without a new engine. Protected ASHRAE2021
 Fitting4-4 data stays private, with tentative contraction caveats. Native/source
 replay, independent arithmetic and wrong-family null controls execute; see
 TRANSITION_SOURCE_QUERIES.md.
+
+Transition end-straight friction reuses duct_equivalent and installed MIT
+Fluids1.3.1 Colebrook after native ring/port reconciliation. Official Fluids
+conical-method documentation and ASHRAE/SMACNA product descriptions were checked;
+no applicable unequal-angle rectangular CLI/MCP integration was established.
+No new engine, dataset or product purchase. See TRANSITION_END_STRAIGHTS.md.
