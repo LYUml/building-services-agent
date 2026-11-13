@@ -42,7 +42,10 @@ def outcome(result):
     if any(type(v) is not int or v<0 for v in counts.values()):raise ValueError('Nonnegative actual test counts required')
     passed=len(result['passed_tests'])
     if passed>counts['tests_run'] or len(result['executed_tests'])!=counts['tests_run'] or any(t not in result['executed_tests'] for t in result['passed_tests']):raise ValueError('Test counts contradict executed inventory')
-    success=not any(counts[k] for k in ('failures','errors','unexpected_successes'))
+    loading_errors=result.get('loading_errors',[])
+    if not isinstance(loading_errors,list) or any(not isinstance(e,str) or not e.strip() for e in loading_errors):raise ValueError('Explicit unittest loading error text required')
+    if loading_errors and (counts['tests_run'] or result['executed_tests'] or result['passed_tests'] or any(counts[k] for k in counts if k!='tests_run')):raise ValueError('Loading failure must precede all test execution')
+    success=not loading_errors and not any(counts[k] for k in ('failures','errors','unexpected_successes'))
     if result['successful'] is not success:raise ValueError('Unittest success contradicts test counts')
     suite_pass=success and passed>0
     return dict(passed=passed,suite_pass=suite_pass,all_tests_pass=suite_pass and passed==counts['tests_run'] and not any(counts[k] for k in counts if k!='tests_run'))
@@ -57,12 +60,20 @@ def worker(folder):
             self.executed.append(test.id());super().startTest(test)
         def addSuccess(self,test):
             self.passed.append(test.id());super().addSuccess(test)
+    loader=unittest.TestLoader();suite=loader.loadTestsFromNames(names)
+    if loader.errors:
+        for error in loader.errors:print(error,file=sys.stderr,flush=True)
+        data=dict(tests_run=0,failures=0,errors=0,skipped=0,expected_failures=0,
+            unexpected_successes=0,successful=False,executed_tests=[],passed_tests=[],
+            loading_errors=list(loader.errors),finished_utc=stamp())
+        data.update(outcome(data));write(folder/'tests.json',data)
+        return 1
     runner=unittest.TextTestRunner(verbosity=2,resultclass=Observed)
     def create(*args,**kwargs):
         result=Observed(*args,**kwargs);result.executed=[];result.passed=[];return result
     runner.resultclass=create
-    result=runner.run(unittest.defaultTestLoader.loadTestsFromNames(names))
-    data=dict(tests_run=result.testsRun,failures=len(result.failures),errors=len(result.errors),skipped=len(result.skipped),expected_failures=len(result.expectedFailures),unexpected_successes=len(result.unexpectedSuccesses),successful=result.wasSuccessful(),executed_tests=result.executed,passed_tests=result.passed,finished_utc=stamp())
+    result=runner.run(suite)
+    data=dict(tests_run=result.testsRun,failures=len(result.failures),errors=len(result.errors),skipped=len(result.skipped),expected_failures=len(result.expectedFailures),unexpected_successes=len(result.unexpectedSuccesses),successful=result.wasSuccessful(),executed_tests=result.executed,passed_tests=result.passed,loading_errors=[],finished_utc=stamp())
     data.update(outcome(data));write(folder/'tests.json',data)
     return 0 if data['suite_pass'] else 1
 

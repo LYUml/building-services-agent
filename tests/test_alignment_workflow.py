@@ -5,7 +5,7 @@ import unittest
 from unittest.mock import patch
 from bsa.workflow import execute, validate_plan, inventory_source_bindings
 from bsa.engine import ProjectError
-from test_product_workflow import fixture, ROOT
+from tests.test_product_workflow import fixture, ROOT
 
 
 def plan_fixture(root):

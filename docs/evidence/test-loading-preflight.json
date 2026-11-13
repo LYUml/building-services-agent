@@ -1,0 +1,20 @@
+{
+  "scope": "Fixture import repair and fail-before-test-body loading preflight; not completed full-suite or engineering acceptance",
+  "baseline_module_load_errors": 5,
+  "repaired_fixture_imports": 5,
+  "verified_test_instances": 23,
+  "passed_test_instances": 22,
+  "skipped_test_instances": 1,
+  "skip_reason": "Existing explicit local AutoCAD integration opt-in required",
+  "suite_pass": true,
+  "all_tests_pass": false,
+  "receipt_integrity_pass": true,
+  "all_module_preflight_count": 385,
+  "planned_test_instances": 1617,
+  "preflight_loading_errors": 0,
+  "preflight_test_bodies_executed": 0,
+  "load_failure_prevents_other_test_bodies": true,
+  "initial_broad_batch_status": "worker_incomplete",
+  "full_suite_completed": false,
+  "design_accepted": false
+}

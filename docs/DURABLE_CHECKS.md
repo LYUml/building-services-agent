@@ -1,5 +1,27 @@
 # Durable host check receipts
 
+The worker now loads all selected unittest names with a fresh TestLoader before
+starting any test body. If loading fails, tests.json retains the loader's actual
+tracebacks in loading_errors, with zero executed cases, zero test-body errors and
+an unsuccessful result. No valid test in that request starts. This avoids spending
+minutes in engineering fixtures after an already-known missing module/fixture.
+Imports themselves still execute trusted test-module initialization; this is not
+an import sandbox or proof of engine availability.
+
+Five legacy fixture imports now use the repository tests namespace, supporting
+the check runner's explicit module selection. A baseline reproduces all five
+import failures. The repaired combined check executes23cases:22pass and one native
+AutoCAD integration case retains its original explicit-runtime skip. Receipt
+verification passes; all_tests_pass remains false. Separate preflight imports all
+385current modules and collects1,617planned test instances without running their
+bodies. This is not a completed full-suite run.
+
+The initial broad batch was stopped after observing loading failures so that the
+defect could be repaired first. Its receipt remains worker_incomplete; no pass
+count is inferred from its partial log and it is never promoted to completed.
+Old baseline receipts remain historical after the source changes. See
+evidence/test-loading-preflight.json for aggregate evidence.
+
 Long native checks can finish after a terminal/session view disappears. Use the
 standard-library unittest runner with durable local log, actual test counts and
 process return code instead of inferring success from the last console message.

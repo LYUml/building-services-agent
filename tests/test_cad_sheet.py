@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from bsa.cad_sheet import pdf_lines,plot
 from bsa.engine import ProjectError
-from test_cad_overlay import inputs
+from tests.test_cad_overlay import inputs
 
 
 class CADSheetTests(unittest.TestCase):

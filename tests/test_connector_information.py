@@ -3,7 +3,7 @@ import tempfile
 import unittest
 import ifcopenshell.api as api
 from bsa.ids_check import run
-from test_product_information import model,ROOT
+from tests.test_product_information import model,ROOT
 
 
 class ConnectorInformationTests(unittest.TestCase):

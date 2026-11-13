@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Whole-agent test loading now checks all selected modules before test bodies.
+Five fixture imports are repaired;23targeted instances yield22passes/one existing
+native skip. All385modules collect1,617planned instances without import errors.
+The interrupted broad batch remains incomplete; full-suite pass is not claimed.
+See docs/DURABLE_CHECKS.md and evidence/test-loading-preflight.json.
+
 Actual Revit2027.3 test-copy opening now preserves original/copy bytes and observed
 warnings/missing links. Built-in export navigation exposes a UI-control failure;
 no IFC or native API execution is claimed. Signing/deployment and native authoring

@@ -9,7 +9,7 @@ from bsa.cad_overlay import run,snapshot,reconcile,validate_settings
 from bsa.cli import digest
 from bsa.engine import ProjectError
 from bsa.native_cad import DEFAULT_EXE
-from test_cad_intake import fixture
+from tests.test_cad_intake import fixture
 
 ROOT=Path(__file__).resolve().parents[1]
 

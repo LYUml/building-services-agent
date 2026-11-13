@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Test execution now rejects module-loading errors before running engineering test
+bodies. Five fixture imports are repaired;23targeted cases run with22passes and
+one native skip. All385test modules load, but the full suite is not yet complete.
+See docs/DURABLE_CHECKS.md for evidence and remaining verification scope.
+
 Explicit local runtime refresh now preserves user controls and unspecified
 programs, with pinned TOML Kit, backups and atomic replacement. Seven tests and
 actual Codex backend reads pass; both live workspace configs remain unchanged.

@@ -62,4 +62,22 @@ class CheckRunnerTests(unittest.TestCase):
         with self.assertRaises(ValueError):runner.run(['os.system'],self.out)
         self.assertFalse(self.out.exists())
 
+    def test_missing_module_prevents_valid_tests_from_starting(self):
+        marker=Path(self.temporary.name)/'should-not-exist.txt'
+        self.module.write_text('import unittest\nfrom pathlib import Path\nclass Fixture(unittest.TestCase):\n    def test_never_runs(self): Path('+repr(marker.as_posix())+').write_text("ran")\n',encoding='utf-8')
+        result=runner.run(['tests.'+self.name,'tests.test_missing_'+uuid.uuid4().hex],self.out)
+        checked=runner.verify(self.out)
+        self.assertEqual(result['result']['tests_run'],0)
+        self.assertEqual(result['result']['errors'],0)
+        self.assertEqual(len(result['result']['loading_errors']),1)
+        self.assertFalse(marker.exists());self.assertFalse(checked['suite_pass'])
+        self.assertEqual(result['returncode'],1)
+
+    def test_broken_fixture_import_is_loading_error_not_executed_case(self):
+        result=self.execute('    raise ImportError("Deliberate unavailable fixture")\n    def test_never_runs(self): pass\n')
+        self.assertEqual(result['result']['tests_run'],0)
+        self.assertEqual(len(result['result']['loading_errors']),1)
+        self.assertIn('Deliberate unavailable fixture',result['result']['loading_errors'][0])
+        self.assertFalse(runner.verify(self.out)['suite_pass'])
+
 if __name__=='__main__':unittest.main()
