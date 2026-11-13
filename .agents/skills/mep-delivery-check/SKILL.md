@@ -5,6 +5,12 @@ description: Audit building services models, drawings, calculations and reports 
 
 # mep-delivery-check
 
+After recording actual scoped observations, run a fresh delivery audit and use
+its `review_agenda` to select remaining source requirement reviews. Null means
+the audit is invalid, not that work is finished. Keep every returned dependency
+and input blocker; scoped manual passes do not authorize downstream execution.
+Use workflow_status separately for execution recovery. Read docs/DELIVERY_REVIEW.md.
+
 For closed GUID-linked source-network outlines, ifc_native now supports scoped
 planar zero-width LWPOLYLINE contours per docs/NATIVE_NETWORK_CONTOURS.md. Require
 actual save/reopen/export, unchanged geometry/identity and fixed-scale PDF review.

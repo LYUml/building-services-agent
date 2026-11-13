@@ -1,5 +1,26 @@
 # Source-bound delivery review
 
+Audits now include `review_agenda`: source-bound effective passes are listed by
+requirement ID, while every remaining requirement is grouped once by its original
+task. Groups retain full quote, acceptance target, source locator, review evidence,
+execution status, input blockers, dependency blockers and the existing diagnosis
+next action. The HTML displays the remaining task/requirement list. This closes
+the gap between separately recorded scoped reviews and the agent's next work list.
+
+The agenda is unavailable (`null`) after a global review/source integrity error,
+instead of presenting a partial list as complete. Failed recorded reviews and
+failed fact checks remain work items. A recorded pass for an unexecuted automated
+task remains pending. A scoped manual pass does not change workflow task status,
+unblock its dependent tasks, authorize execution or establish design acceptance.
+An empty agenda only means the defined review records passed their scoped checks.
+
+Twenty-seven delivery/status tests pass, including grouping multiple obligations
+on one task, stale review rejection and manual-review dependency preservation.
+An actual private project audit retains four scoped arithmetic passes and all
+29 remaining requirements; work-load/work-minimum leave this review queue while
+their original execution statuses and downstream blockers remain unchanged.
+See evidence/remaining-review-agenda.json. Existing previous audits are preserved.
+
 The HTML audit now shows effective pass/fail/pending counts and one readable
 section per original requirement. Execution,recorded review and effective review
 stay separately visible. Expand the source/evidence section for exact quotes,

@@ -1,0 +1,16 @@
+{
+  "scope": "Actual saved-project review agenda; no engineering rerun, dependency waiver or whole-design acceptance",
+  "method_sha256": "767a526b722ba60f09d10c2fd65f66edaebb11e6dcfbe660304699d747c10fca",
+  "targeted_tests": 27,
+  "total_requirements": 33,
+  "scoped_reviewed_count": 4,
+  "remaining_requirement_count": 29,
+  "remaining_task_count": 14,
+  "every_requirement_preserved_once": true,
+  "reviewed_manual_execution_still_pending": true,
+  "execution_gates_unchanged": true,
+  "audit_status": "needs_review",
+  "audit_issues": [],
+  "engineering_reexecuted": false,
+  "design_accepted": false
+}

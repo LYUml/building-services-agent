@@ -1,5 +1,11 @@
 # Reuse survey â€” 2026-11-09
 
+Remaining-review scheduling reuses delivery.assess effective review states and
+workflow_status dependency/input diagnosis. No new solver, parser or dependency
+is introduced. The gap was that reviewed manual obligations remained in the
+execution recovery list with no separate remaining-review queue. Source records
+and original execution gates stay intact; see docs/DELIVERY_REVIEW.md.
+
 Tool-change HVAC replay reuses hvac_project source/method inventory and config
 creation, the common source-requirements provider, workspace validation and the
 existing full package runner. The actual gap was stale-tool versus changed-data

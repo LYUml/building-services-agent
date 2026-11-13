@@ -13,6 +13,70 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 class DeliveryReviewTests(unittest.TestCase):
+    def test_remaining_review_agenda_preserves_manual_execution_and_source(self):
+        with tempfile.TemporaryDirectory() as folder:
+            plan,root,path,review=self.fixture(Path(folder));self.fill(root,review)
+            review['requirements'][0]['status']='pending'
+            path.write_text(json.dumps(review));before=digest(root/'workflow.json')
+            result=run(plan,root,path,Path(folder)/'agenda')
+            agenda=result['review_agenda']
+            self.assertEqual(agenda['scoped_reviewed_requirement_ids'],['R1'])
+            self.assertEqual(agenda['remaining_requirement_count'],1)
+            self.assertEqual([g['task'] for g in agenda['remaining_tasks']],['electrical'])
+            self.assertEqual(agenda['remaining_tasks'][0]['requirements'][0]['quote'],result['requirements'][0]['quote'])
+            self.assertEqual(result['requirements'][1]['execution_status'],'pending')
+            self.assertTrue(agenda['execution_gates_unchanged'])
+            self.assertEqual(before,digest(root/'workflow.json'))
+            self.assertIn('Remaining requirement reviews',(Path(folder)/'agenda/report.html').read_text())
+            self.assertFalse(result['design_accepted'])
+
+    def test_invalid_review_has_no_remaining_agenda(self):
+        with tempfile.TemporaryDirectory() as folder:
+            plan,root,path,review=self.fixture(Path(folder));self.fill(root,review)
+            review['plan_sha256']='0'*64;path.write_text(json.dumps(review))
+            result=assess(plan,root,path)
+            self.assertEqual(result['status'],'failed')
+            self.assertIsNone(result['review_agenda'])
+
+    def test_manual_scoped_pass_does_not_unblock_dependent_review(self):
+        with tempfile.TemporaryDirectory() as folder:
+            outer=Path(folder);plan,root,path,review=self.fixture(outer)
+            data=json.loads(plan.read_text())
+            data['tasks'].append(dict(id='downstream',kind='manual',description='Requires original manual execution gate',requires_pass=['review']))
+            data['requirements'].append(dict(data['requirements'][1],id='R2',task='downstream'))
+            plan.write_text(json.dumps(data));root=outer/'dependent-run';execute(plan,root)
+            path=outer/'dependent-review.json';review=template(plan,root,path);self.fill(root,review);path.write_text(json.dumps(review))
+            result=assess(plan,root,path);agenda=result['review_agenda']
+            self.assertEqual(agenda['scoped_reviewed_requirement_ids'],['R0','R1'])
+            group=agenda['remaining_tasks'][0]
+            self.assertEqual(group['task'],'downstream')
+            self.assertEqual(group['blocked_by'],['review'])
+            self.assertEqual(group['requirements'][0]['effective_review_status'],'pending')
+
+    def test_multiple_remaining_requirements_share_one_task_without_losing_quotes(self):
+        with tempfile.TemporaryDirectory() as folder:
+            outer=Path(folder);plan,root,path,review=self.fixture(outer)
+            data=json.loads(plan.read_text())
+            data['requirements'].append(dict(data['requirements'][0],id='R2',acceptance='Separate full source obligation'))
+            plan.write_text(json.dumps(data));root=outer/'grouped-run';execute(plan,root)
+            path=outer/'grouped-review.json';template(plan,root,path)
+            result=assess(plan,root,path);agenda=result['review_agenda']
+            self.assertEqual(agenda['remaining_requirement_count'],3)
+            self.assertEqual(len(agenda['remaining_tasks']),2)
+            group=agenda['remaining_tasks'][0]
+            self.assertEqual([row['id'] for row in group['requirements']],['R0','R2'])
+            self.assertEqual(group['requirements'][1]['acceptance'],'Separate full source obligation')
+
+    def test_pending_automated_execution_stays_in_review_agenda(self):
+        with tempfile.TemporaryDirectory() as folder:
+            plan,root,path,review=self.fixture(Path(folder),native=True);self.fill(root,review)
+            path.write_text(json.dumps(review));result=assess(plan,root,path)
+            agenda=result['review_agenda']
+            self.assertEqual(agenda['scoped_reviewed_requirement_ids'],['R0'])
+            self.assertEqual(agenda['remaining_tasks'][0]['requirements'][0]['recorded_review_status'],'pass')
+            self.assertEqual(agenda['remaining_tasks'][0]['requirements'][0]['effective_review_status'],'pending')
+            self.assertEqual(agenda['remaining_tasks'][0]['execution_status'],'pending')
+
     def test_readable_review_keeps_effective_counts_source_and_escaped_observations(self):
         with tempfile.TemporaryDirectory() as folder:
             plan,root,path,review=self.fixture(Path(folder));self.fill(root,review)

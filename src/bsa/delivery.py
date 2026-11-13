@@ -121,11 +121,28 @@ def pointer(value,path):
     return value
 
 
+def review_agenda(rows,diagnosis):
+    """Schedule remaining requirement reviews without changing execution gates."""
+    tasks={task['id']:task for task in diagnosis['tasks']}
+    groups={}
+    for row in rows:
+        if row['effective_review_status']=='pass':continue
+        task=tasks[row['task']]
+        group=groups.setdefault(row['task'],dict(task=row['task'],execution_status=task['status'],
+            blocked_by=task['blocked_by'],input_blockers=task['input_blockers'],
+            next_action=task['next_action'],requirements=[]))
+        group['requirements'].append(row)
+    return dict(scoped_reviewed_requirement_ids=[row['id'] for row in rows if row['effective_review_status']=='pass'],
+        remaining_requirement_count=sum(len(group['requirements']) for group in groups.values()),
+        remaining_tasks=list(groups.values()),execution_gates_unchanged=True,design_accepted=False,
+        scope='Remaining source requirement reviews only; scoped passes do not authorize dependent execution or establish whole-design acceptance')
+
+
 def assess(plan,root,review_path):
     plan,root,review_path=Path(plan).resolve(),Path(root).resolve(),Path(review_path).resolve()
     before={str(p):digest(p) for p in (plan,root/'workflow.json',review_path)}
     result=dict(design_accepted=False,review_checks_pass=False,source_integrity_pass=False,requirements=[],issues=[],
-                engineering_actions=[],engineering_acceptance='not_established',
+                engineering_actions=[],review_agenda=None,engineering_acceptance='not_established',
                 scope='Source/byte consistency, recorded reviewer assertions and optional adapter-reported Boolean facts; not reviewer authentication, semantic completeness or engineering certification')
     context_loaded=False;attachments_seen={}
     try:
@@ -210,6 +227,8 @@ def assess(plan,root,review_path):
     result['inputs']=before
     result['inputs_unchanged']=all(Path(p).is_file() and digest(Path(p))==sha for p,sha in before.items())
     if not result['inputs_unchanged']:result['issues'].append('source plan/report/review changed during audit');result['review_checks_pass']=False
+    if result['source_integrity_pass'] and result['inputs_unchanged'] and not result['issues']:
+        result['review_agenda']=review_agenda(result['requirements'],diagnosis)
     result['status']='failed' if result['issues'] or any(r['effective_review_status']=='fail' for r in result['requirements']) else 'review_complete' if result['review_checks_pass'] else 'needs_review'
     return result
 
@@ -238,6 +257,9 @@ def render(result):
         requests=action['data_requests']
         engineering.append('<section class="notice"><h3>'+esc(action['task'])+' — engineering review pending</h3><p>Requirements: '+esc(', '.join(action['requirement_ids']))+'</p><ul>'+''.join('<li><strong>'+esc(request_title(request))+'</strong><p>'+esc(request['requested'])+'</p><details><summary>Retained engineering evidence</summary><pre>'+structured(request)+'</pre></details></li>' for request in requests)+'</ul><p>Source artifact: '+esc(action['evidence'])+'</p><details><summary>Source SHA256</summary><pre>'+esc(action['evidence_sha256'])+'</pre></details></section>')
     engineering_section='<section><h2>Engineering review requests</h2><p>Engineering acceptance: not established. '+str(sum(len(a['data_requests']) for a in result.get('engineering_actions',[])))+' retained requests. An empty queue does not establish complete engineering coverage.</p>'+''.join(engineering)+'</section>'
+    agenda=result.get('review_agenda')
+    if agenda is not None:
+        engineering_section+='<section><h2>Remaining requirement reviews</h2><p>'+str(agenda['remaining_requirement_count'])+' requirements remain. Execution prerequisites are unchanged.</p><ul>'+''.join('<li><strong>'+esc(group['task'])+'</strong> — '+esc(', '.join(row['id'] for row in group['requirements']))+'<p>'+esc(group['next_action'])+'</p></li>' for group in agenda['remaining_tasks'])+'</ul></section>'
     return '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Delivery review evidence</title><style>body{font:16px/1.5 Arial,sans-serif;color:#20343c;max-width:1050px;margin:32px auto;padding:0 18px;overflow-wrap:anywhere}h1{line-height:1.2}h2{font-size:21px}h3{font-size:16px;margin-bottom:6px}.notice{background:#fff1d6;border-left:5px solid #a96a10;padding:16px}.counts{display:flex;gap:16px;flex-wrap:wrap}.status{font-size:14px;padding:3px 8px;border-radius:4px;background:#edf0f2}.pass{background:#e1f0e7}.fail{background:#f9e3e0}.pending{background:#fff1d6}article{border:1px solid #cad3d7;border-radius:6px;margin:22px 0;padding:18px}dl{display:flex;flex-wrap:wrap;gap:12px 30px}dl div{min-width:140px}dt{font-size:13px;color:#52656c}dd{margin:0}p,blockquote,pre{white-space:pre-wrap}blockquote{margin:12px 0;padding:12px 16px;background:#f4f6f7}pre{font:13px/1.5 Consolas,monospace;overflow-wrap:anywhere}summary{cursor:pointer;color:#075665}details{border-top:1px solid #dce2e5;padding-top:12px}a{color:#075665}</style><h1>Delivery review evidence</h1><p class="notice"><strong>'+esc(result['status'])+'</strong>. Design accepted: false. Scoped review passes do not establish whole-design acceptance.</p><p>'+esc(result['scope'])+'</p><div class="counts">'+''.join('<p class="status '+state+'">'+esc(state)+': <strong>'+str(count)+'</strong></p>' for state,count in counts.items())+'</div><p>Execution, recorded review and effective review are separate. Expand each requirement to inspect the original quote, source locator, blockers and evidence. <a href="audit.json">Complete audit JSON</a>.</p>'+(''.join('<p class="notice">'+esc(issue)+'</p>' for issue in result['issues']))+engineering_section+''.join(cards)+'</html>'
 
 

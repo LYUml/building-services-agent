@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Delivery audits now expose a remaining-review agenda using existing effective
+review states and dependency diagnosis. Twenty-seven tests pass; actual project
+audit retains four scoped passes and29 pending requirements across14 tasks.
+Original execution gates and full design acceptance remain unchanged.
+See docs/DELIVERY_REVIEW.md and evidence/remaining-review-agenda.json.
+
 Current-agent full HVAC replay now retains all33 requirements and six input
 gaps with no postprocessing errors. Fresh native drawing/report output is
 rendered; independent preliminary load/turndown review records four scoped
