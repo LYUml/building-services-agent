@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Current-agent full HVAC replay now retains all33 requirements and six input
+gaps with no postprocessing errors. Fresh native drawing/report output is
+rendered; independent preliminary load/turndown review records four scoped
+passes and retains29 pending requirements. Full design remains unaccepted.
+See docs/COURSEWORK_SCOPE.md and evidence/current-hvac-scoped-replay.json.
+
 Explicit local runtime refresh now preserves user controls and unspecified
 programs, with pinned TOML Kit, backups and atomic replacement. Seven tests and
 actual Codex backend reads pass; both live workspace configs remain unchanged.

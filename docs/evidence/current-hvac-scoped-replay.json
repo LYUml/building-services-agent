@@ -1,0 +1,22 @@
+{
+  "scope": "Actual current-agent interpreted HVAC package replay and source-bound scoped host AI review; not arbitrary-brief automation or full engineering acceptance",
+  "requirements": 33,
+  "unresolved_inputs": 6,
+  "postprocessing_stages": 6,
+  "stage_errors": {},
+  "package_integrity_pass": true,
+  "native_save_reopen_executed": true,
+  "report_pages_rendered": 24,
+  "drawing_pages_rendered": 1,
+  "visual_review_scope": "Page overviews and drawing; not physical applicability",
+  "prior_page_content_and_text_identical": true,
+  "source_terminal_count": 80,
+  "independent_load_air_balance_pass": true,
+  "all_terminal_turndown_checks_pass": true,
+  "scoped_effective_passes": 4,
+  "remaining_review_pending": 29,
+  "review_status": "needs_review",
+  "review_issues": [],
+  "original_workflow_statuses_preserved": true,
+  "design_accepted": false
+}

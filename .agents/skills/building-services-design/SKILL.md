@@ -5,6 +5,14 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+After a fresh HVAC execution, use docs/COURSEWORK_SCOPE.md to review the actual
+preliminary load and per-terminal turndown independently. Record examined
+subrequirements in a separate source-bound delivery review, identifying the host
+AI reviewer and assumptions. Preserve every original quote and other obligations;
+do not leave verified arithmetic perpetually pending merely because ADPI or
+installation requires different evidence. A scoped manual review never rewrites
+workflow execution or clears downstream prerequisites.
+
 For local Codex startup use docs/CODEX_LOCAL_SETUP.md. Keep development data
 in repository runs and coursework in the explicitly selected host project.
 Use explicit --refresh for changed host runtime paths; preserve user controls

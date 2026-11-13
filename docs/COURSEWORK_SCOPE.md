@@ -1,5 +1,36 @@
 # Reviewing coursework scope and design assumptions
 
+## Executed current-agent replay
+
+A fresh private-project refresh and full HVAC execution retained all 33 source
+requirements and six unresolved inputs. Six postprocessing/report stages completed
+without execution errors. The source-bound package inspection passes; native DWG
+was freshly saved/reopened and its plotted reference passes. Both the one-page
+drawing and all 24 report pages were rendered; overview inspection found no
+clipping or overlap. Report and drawing page content streams and extracted text
+match the previous outputs; this comparison does not independently prove building
+scale, engineering applicability or installed geometry.
+
+The host AI separately recomputed rule-of-thumb total/sensible thermal power and
+air balance using Decimal arithmetic, preserving given and assumed inputs. All
+80 source terminal IDs and each 40-percent minimum flow reconcile, with maximum
+and minimum flow conservation. Four explicitly scoped load/turndown requirements
+now have evidence-backed effective review passes; the other 29 remain pending.
+The separate audit has no consistency issues and remains needs_review, with
+design_accepted=false. Original execution statuses and source quotes are unchanged;
+the review is a host AI assertion, not authenticated professional signoff.
+See evidence/current-hvac-scoped-replay.json. Private sources, runs and detailed
+review records remain in the selected coursework workspace.
+
+The official [Krueger engineering guide](https://www.krueger-hvac.com/file/9261/GRD_Engineering.pdf),
+printed page a1-11 (PDF page 11), explicitly associates Model 1400 with Type 3
+circular ceiling airflow. This differs from merely classifying the product by its
+square face or louvered family. Its cooling-load graphs do not authorize replacing
+a classroom table, inventing interpolated graph values or clearing unknown load,
+characteristic length or installation facts. Keep each category assertion bound
+to its selected source/edition. The existing course-specific mapping remains
+limited to that classroom method; this replay does not change the ADPI criterion.
+
 Read the original brief and its referenced material before using a pending-input
 register as a work list. Preserve every actual deliverable and engineering
 obligation. A deliberately preliminary calculation can use declared design
