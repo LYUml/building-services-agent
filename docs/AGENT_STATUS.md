@@ -1,5 +1,10 @@
 # Whole-agent status
 
+Pinned upstream contraction data now supports a bounded data-only crosscheck:
+4 of 31 native transitions are numerically bounded; 27 retain explicit angle/
+range rejection. No upstream package integration or new formal loss is claimed.
+See docs/CONTRACTION_CANDIDATE.md.
+
 Independent pressure evidence now reconciles all 20 outlet paths and maps 45
 numerical fitting gaps to affected outlets. Source/saved-ledger replay and two
 tests pass. No new loss data or complete fan duty is inferred.

@@ -1,0 +1,21 @@
+{
+  "scope": "Pinned upstream contraction data-only numerical probe",
+  "upstream_repository": "https://github.com/TomLXXVI/python-hvac",
+  "upstream_commit": "94247560a667905bfbf67e45a58965a58254fce8",
+  "upstream_license": "MIT; Copyright (c) 2023 Tom Christiaens",
+  "transition_count": 31,
+  "statuses": {
+    "no_single_equal_wall_angle": 23,
+    "outside_candidate_axes": 4,
+    "bounded_numerical_crosscheck_only": 4
+  },
+  "upstream_package_executed": false,
+  "data_only_interpolation_probe": true,
+  "formal_loss_values_added": 0,
+  "tests_passed": 4,
+  "source_native_replay_pass": true,
+  "independent_saved_probe_replay": "passed",
+  "design_accepted": false,
+  "formal_source_unchanged": true,
+  "bounded_crosschecks_with_different_signed_contributions": 4
+}

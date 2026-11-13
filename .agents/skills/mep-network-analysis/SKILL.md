@@ -5,6 +5,12 @@ description: Calculate source-linked air/water networks, fan/pump operating poin
 
 # Network pressure analysis
 
+For a pinned python-hvac contraction data-only crosscheck, use
+contraction_candidate per docs/CONTRACTION_CANDIDATE.md. This does not execute
+the upstream package or accept its physical correlation. Require source/license
+pins, actual equal wall-angle screening and bounded small-duct-reference inputs.
+Never feed probe coefficients into production paths or collapse unequal angles.
+
 For independently reconciled outlet pressure evidence and shared missing-data
 coverage, use source_pressure_ledger per docs/SOURCE_PRESSURE_LEDGER.md. Keep
 signed partial sums, null values and excluded end-straight studies. Coverage

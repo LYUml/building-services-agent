@@ -1653,3 +1653,12 @@ subtotals and MCP missing-request reads were checked first. The actual gap is
 independent per-path reconciliation plus shared missing-evidence coverage; no new
 solver, routing engine, correlation or dependency. Signed/null/parallel semantics
 and separate end-friction exclusion are retained. See SOURCE_PRESSURE_LEDGER.md.
+
+The previously inspected python-hvac ConvergingTransitionA9B candidate now has
+a data-only bounded probe at commit94247560a667905bfbf67e45a58965a58254fce8.
+Exact source/MIT notice pins and AST literal reading avoid executing upstream
+code or copying its grid into public snapshots. Existing SciPy1.18.1 supplies
+bounded regular-grid interpolation per the official migration guide. This does
+not repair/execute the full package or establish physical applicability. Actual
+native wall angles/range screening is retained; no formal loss values are added.
+See CONTRACTION_CANDIDATE.md for attribution, use and evidence.
