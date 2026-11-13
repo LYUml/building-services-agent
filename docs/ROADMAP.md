@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Whole-agent batch7 retains four observed OpenStudio policy-block setup errors
+and one dependent HVAC assertion failure. Its failed receipt verifies; later
+batches continue. This does not clear the runtime/energy gap or establish a green
+full suite. See docs/DURABLE_CHECKS.md for current failure evidence.
+
 Nine source-gated Hong Kong cable rule controls now execute against the unchanged
 pinned official cache, with no skips and a verified receipt. Main regression
 continues separately; synthetic rule tests do not accept real product/edition

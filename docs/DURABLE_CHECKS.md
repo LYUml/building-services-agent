@@ -1,5 +1,17 @@
 # Durable host check receipts
 
+The continuing regression has now retained a nonpassing batch7:70passes,
+two skips, four setup errors and one failed assertion across77instances. Its
+receipt independently verifies as a valid failed record. All four errors report
+Windows Application Control blocking OpenStudio _openstudioutilitiesunits. The
+failed HVAC workflow assertion expected a rule pass but observed pending because
+the energy producer did not pass. No engineering checks were lowered and no
+failed tests were converted to skips. Subsequent batches continue to establish
+the remaining failure scope; overall regression is not green. See
+evidence/agent-regression-startup-failures.json. This preserves the earlier
+runtime finding in REGRESSION_20261109.md without retrying a blocked binary
+through a different loader or changing policy.
+
 The continuing whole-agent regression checkpoint now independently verifies four
 completed20-module batches:383instances,366passes,17skips and no failures/errors.
 Later batches are still running; this is not full-suite completion. Two original
