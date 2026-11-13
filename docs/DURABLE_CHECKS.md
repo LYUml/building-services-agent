@@ -1,5 +1,15 @@
 # Durable host check receipts
 
+The continuing whole-agent regression checkpoint now independently verifies four
+completed20-module batches:383instances,366passes,17skips and no failures/errors.
+Later batches are still running; this is not full-suite completion. Two original
+AutoCAD opt-in cases were separately executed with the actual installed engine,
+both passing without skips. They check isolated synthetic DWG export/save/reopen
+and numerical plotted-reference scale; their visual-review state remains pending.
+They do not erase the skips in the original batch receipts or accept a real design.
+See evidence/agent-regression-checkpoint.json. Runtime logs and generated fixtures
+remain excluded from public snapshots.
+
 The worker now loads all selected unittest names with a fresh TestLoader before
 starting any test body. If loading fails, tests.json retains the loader's actual
 tracebacks in loading_errors, with zero executed cases, zero test-body errors and

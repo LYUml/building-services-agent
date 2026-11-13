@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+The ongoing whole-agent regression has four completed batches with no failures:
+366passes/17skips across383instances. Two separately enabled actual AutoCAD
+export/reopen/plot-reference tests pass. Full-suite execution and engineering
+acceptance remain incomplete. See docs/DURABLE_CHECKS.md and the checkpoint record.
+
 Whole-agent test loading now checks all selected modules before test bodies.
 Five fixture imports are repaired;23targeted instances yield22passes/one existing
 native skip. All385modules collect1,617planned instances without import errors.

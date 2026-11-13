@@ -1,0 +1,63 @@
+{
+  "scope": "Checkpoint of completed regression batches plus separate actual AutoCAD test opt-in; not full-suite or engineering acceptance",
+  "recorded_utc": "2026-11-13T19:24:15.077409+00:00",
+  "selected_module_count": 385,
+  "completed_module_count": 80,
+  "completed_batches": [
+    {
+      "batch": 1,
+      "tests_run": 104,
+      "passed": 90,
+      "skipped": 14,
+      "failures": 0,
+      "errors": 0,
+      "receipt_integrity_pass": true,
+      "receipt_sha256": "a95ad25bc324779906a87207d4aca5d32b62ffcda397ff349145a74055362eb6"
+    },
+    {
+      "batch": 2,
+      "tests_run": 108,
+      "passed": 106,
+      "skipped": 2,
+      "failures": 0,
+      "errors": 0,
+      "receipt_integrity_pass": true,
+      "receipt_sha256": "434c469a366bd0de6fb961c4e896ca2172c461e1dcb86d12ff59d45d1609b161"
+    },
+    {
+      "batch": 3,
+      "tests_run": 87,
+      "passed": 87,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0,
+      "receipt_integrity_pass": true,
+      "receipt_sha256": "4759519dae828dbd1a264bbe0fdb66a2d2babf1fe7e740567f6a26450cf3a933"
+    },
+    {
+      "batch": 4,
+      "tests_run": 84,
+      "passed": 83,
+      "skipped": 1,
+      "failures": 0,
+      "errors": 0,
+      "receipt_integrity_pass": true,
+      "receipt_sha256": "4754f74c9ee714c23b2dbe0c5249aa4cbd28876a6ac379c0761b341b395f1ce5"
+    }
+  ],
+  "main_tests_run": 383,
+  "main_passed": 366,
+  "main_skipped": 17,
+  "main_failures": 0,
+  "main_errors": 0,
+  "native_cad_opt_in": {
+    "tests_run": 2,
+    "passed": 2,
+    "receipt_integrity_pass": true,
+    "receipt_sha256": "970f8d677737018ab61257da69477708160db7e6afe8a988e5d30cb7ef0a6739",
+    "scope": "Actual isolated synthetic DWG export/save/reopen and numerical plot-reference checks; visual review and complete design acceptance remain pending"
+  },
+  "main_suite_status_at_checkpoint": "running",
+  "full_suite_completed": false,
+  "design_accepted": false
+}
