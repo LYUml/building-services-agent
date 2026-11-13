@@ -1,5 +1,12 @@
 # Reuse survey â€” 2026-11-09
 
+Round-duct graphical comparison reuses the pinned MIT raster calibrator and the
+existing fluids1.3.1 equivalent-round engine. It replays original manual points,
+then compares declared diameter/flow endpoints without another friction solver.
+Automatic black-curve separation remains unsupported; overlap is not acceptance.
+Actual two-point execution and fourteen related tests are documented in
+docs/ROUND_DUCT_CHART_CHECK.md.
+
 Raster chart gap survey: dilawar/PlotDigitizer at8e0613a712b9a086fcf0cb2ffaeceea666c0a26c
 (GPL3) documents single-trajectory limitations; dense same-colour friction curves
 are not a verified automatic extraction target. WebPlotDigitizer at

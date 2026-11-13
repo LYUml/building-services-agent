@@ -1,5 +1,9 @@
 # Reading declared points from raster charts
 
+For source-labelled circular-duct curve points, ROUND_DUCT_CHART_CHECK.md adds
+complete point replay and descriptive comparison with the existing friction
+engine. It preserves point-identity uncertainty and does not accept the schedule.
+
 `python -m bsa.raster_chart_points INPUT.json --out NEW_DIRECTORY` converts
 explicitly selected image pixels using a pinned, unmodified upstream calibration
 function. Install the optional `raster` dependencies (NumPy2.5.4, Pillow13.0.0).

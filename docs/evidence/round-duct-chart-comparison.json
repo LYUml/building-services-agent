@@ -1,0 +1,22 @@
+{
+  "scope": "Two manually identified original round-duct chart points compared with the existing engine; not automatic curve extraction or complete schedule acceptance",
+  "method_sha256": "ca6d91172b7bd724d8018ac413a0f7e5ad236d0e68d523145bdb4dd517c9bbb8",
+  "targeted_tests": 14,
+  "real_cli_executed": true,
+  "manual_curve_point_count": 2,
+  "diameter_curve_count": 1,
+  "complete_parent_points_replayed": true,
+  "fluids_version": "1.3.1",
+  "center_relative_differences": [
+    0.03907603698479292,
+    0.045911165430630806
+  ],
+  "endpoint_range_overlap_count": 2,
+  "original_reading_pixels_preserved": true,
+  "pixel_uncertainty_not_widened": true,
+  "viscosity_assumed": true,
+  "curve_identity_verified": false,
+  "scanned_chart_readings_accepted": false,
+  "full_schedule_graphical_verification": false,
+  "design_accepted": false
+}

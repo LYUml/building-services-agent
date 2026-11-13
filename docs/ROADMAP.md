@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Manual round-duct curve points now replay from original raster inputs and compare
+with the existing friction engine. Fourteen tests and actual two-point CLI study
+pass execution; center differences remain3.9%/4.6% despite endpoint-range overlap.
+Full graphical schedule verification and engineering acceptance remain open.
+See docs/ROUND_DUCT_CHART_CHECK.md.
+
 Raster chart points now reuse pinned MIT upstream axis conversion with explicit
 units, held-out ticks and declared pixel bounds. Eight targeted tests and actual
 classroom log-axis CLI conversion pass. Separate47section/16,779candidate equation

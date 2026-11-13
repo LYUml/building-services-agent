@@ -5,6 +5,12 @@ description: Calculate source-linked air/water networks, fan/pump operating poin
 
 # Network pressure analysis
 
+After explicitly identifying manual round-duct chart points, use
+docs/ROUND_DUCT_CHART_CHECK.md to replay source points and compare the declared
+diameter/air conditions with the existing friction engine. Preserve center
+differences and non-overlap. Endpoint-range overlap never clears curve identity,
+graphical method coverage, physical applicability or the full sizing requirement.
+
 For a raster engineering chart, docs/RASTER_CHART_POINTS.md provides a pinned MIT
 upstream axis converter for explicitly selected pixels with units, held-out ticks
 and declared pixel bounds. Use the host-selected project workspace. Inspect the
