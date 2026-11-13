@@ -1590,3 +1590,11 @@ different source device schema and limited profiles; this adapter covers the
 actual saved compound network instead. Fixed numerical cleanup is independently
 bounded; no new geometry engine/library or native acceptance is claimed.
 See SOURCE_NETWORK_DRAWING.md.
+
+Native network contours extend existing ifc_native rather than adding another
+DWG engine: cad_overlay already snapshots LWPOLYLINE and AutoCAD export preserves
+it. Existing Shapely2.2.0 validates scoped polygon topology, and NumPy scalars are
+normalized in this adapter before the unchanged numeric comparator. Real saved/
+reopened/re-exported DWG and fixed-scale inspected PDF execute. Shared overlay
+code, tolerances and historical source records remain unchanged. See
+NATIVE_NETWORK_CONTOURS.md.

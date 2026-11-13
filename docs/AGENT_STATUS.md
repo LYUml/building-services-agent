@@ -1,5 +1,10 @@
 # Whole-agent status
 
+Closed native-network contours now pass real AutoCAD DWG save/reopen and a
+rendered, visually inspected fixed-scale PDF study sheet. All102 product IDs and
+286 contours survive; seven native/workflow tests pass. Installation and complete
+engineering acceptance remain pending. See docs/NATIVE_NETWORK_CONTOURS.md.
+
 The verified source network now exports an editable GUID-linked XY silhouette:
 102 native products, all33 requirements retained, independent saved-contour
 area/bounds checks and inspected preview. Native DWG/plot and installation detail

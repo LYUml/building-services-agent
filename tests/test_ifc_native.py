@@ -9,7 +9,7 @@ from unittest.mock import patch
 import ezdxf
 from bsa.cli import digest
 from bsa.engine import ProjectError
-from bsa.ifc_native import validate_settings, verify_dxf, run
+from bsa.ifc_native import validate_settings, validate_contours, verify_dxf, run
 from bsa.native_cad import DEFAULT_EXE
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -18,6 +18,28 @@ SETTINGS=ROOT/'examples/water-riser/native-sheet.json'
 
 
 class NativeDiagramTests(unittest.TestCase):
+    def test_closed_contours_validate_and_native_reconciliation_rejects_mutations(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);doc=ezdxf.new('R2018');doc.units=6;doc.appids.new('BSA_IFC')
+            poly=doc.modelspace().add_lwpolyline([(0,0),(2,0),(2,1),(0,1)],close=True)
+            poly.set_xdata('BSA_IFC',[(1000,'fictional-contour')]);validate_contours(doc)
+            original=root/'original.dxf';doc.saveas(original)
+            rounded=ezdxf.readfile(original);p=rounded.modelspace().query('LWPOLYLINE')[0]
+            points=list(p.get_points());points[0]=tuple([points[0][0]+1e-12,*points[0][1:]])
+            p.set_points(points);rounded.saveas(root/'rounded.dxf')
+            self.assertTrue(verify_dxf(original,root/'rounded.dxf')['geometry_layers_and_annotations_match'])
+            for mutation in ('open','bulge','width','elevation','identity','self_intersection'):
+                changed=ezdxf.readfile(original);p=changed.modelspace().query('LWPOLYLINE')[0]
+                if mutation=='open':p.closed=False
+                if mutation=='bulge':p.set_points([(0,0,0,0,.2),(2,0,0,0,0),(2,1,0,0,0),(0,1,0,0,0)])
+                if mutation=='width':p.dxf.const_width=.01
+                if mutation=='elevation':p.dxf.elevation=.1
+                if mutation=='identity':p.discard_xdata('BSA_IFC')
+                if mutation=='self_intersection':p.set_points([(0,0),(2,1),(2,0),(0,1)],format='xy')
+                with self.subTest(mutation=mutation),self.assertRaises(ProjectError):validate_contours(changed)
+                target=root/'changed.dxf';changed.saveas(target)
+                with self.assertRaises(ProjectError):verify_dxf(original,target)
+
     def test_explicit_sheet_contract(self):
         for update in ({'scale_denominator':0},{'pdf_tolerance_mm':True},
                        {'reference_ifc_guid':''},{'window_drawing_units':[0,0,100,100]}):

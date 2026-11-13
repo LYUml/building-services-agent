@@ -1,0 +1,20 @@
+{
+  "pdf_sha256": "f913acfceb76416ce82890c6df85d95aeff9a53d4eabbf94d2741c23d1cd8bdf",
+  "png_sha256": "140d4cb11c7c78c9ac4484bd45b4c3fa6f6295dd391b807feed57248b34a255b",
+  "dwg_sha256": "4b0e1cd9504151fabf510c1810941d60df9cb7d72f3b4d248e655407edb6ce50",
+  "native_reopen_pass": true,
+  "source_native_entities_and_identity_match": true,
+  "model_product_guids": 102,
+  "contours": 286,
+  "paper_scale_denominator": 150,
+  "reference_expected_mm": 6.666666666666668,
+  "reference_measured_mm": 6.6463333333333345,
+  "plot_visual_review": "passed for scoped geometry-study coverage and readable annotations",
+  "engineering_acceptance": false,
+  "scope": "Source-native geometry-study DWG reopening and scoped PDF review only",
+  "tests_passed": 7,
+  "all_source_contours_unchanged_by_annotation_layout": true,
+  "original_requirement_count": 33,
+  "design_accepted": false,
+  "protected_coursework_geometry_redistributed": false
+}

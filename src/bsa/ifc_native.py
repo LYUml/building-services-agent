@@ -1,4 +1,4 @@
-"""Isolated native AutoCAD delivery of GUID-linked IFC line/arc/text diagrams."""
+"""Isolated native AutoCAD delivery of GUID-linked IFC diagrams and closed contours."""
 import argparse
 import json
 import math
@@ -7,7 +7,7 @@ import shutil
 from .cli import digest
 from .engine import ProjectError
 from .native_cad import DEFAULT_EXE, execute, lisp_string
-from .cad_overlay import snapshot, reconcile
+from .cad_overlay import snapshot, equivalent
 from .cad_intake import export_dwg
 
 
@@ -35,10 +35,38 @@ def identity(doc):
             for e in doc.modelspace()}
 
 
+def validate_contours(doc):
+    """Only closed, zero-width straight-edge WCS XY source-linked outlines."""
+    contours=list(doc.modelspace().query('LWPOLYLINE'))
+    if not contours:return
+    from importlib.metadata import version
+    if version('shapely')!='2.2.0':raise ProjectError('Pinned Shapely2.2.0 required for contour validation')
+    from shapely.geometry import Polygon
+    for contour in contours:
+        points=list(contour.get_points('xyseb'))
+        if not contour.closed or len(points)<3 or any(not math.isfinite(v) for point in points for v in point):
+            raise ProjectError('Closed finite polygonal contour required')
+        if any(v!=0 for point in points for v in point[2:]) or contour.dxf.const_width!=0 or contour.dxf.elevation!=0 or not contour.dxf.extrusion.isclose((0,0,1),rel_tol=0,abs_tol=1e-12):
+            raise ProjectError('Zero-width straight-edge WCS XY contour required')
+        polygon=Polygon([p[:2] for p in points])
+        if not polygon.is_valid or polygon.area<=0:
+            raise ProjectError('Simple positive-area contour required')
+        tags=[(t.code,t.value) for t in contour.get_xdata('BSA_IFC')] if contour.has_xdata('BSA_IFC') else []
+        if len(tags)!=1 or tags[0][0]!=1000 or not isinstance(tags[0][1],str) or not tags[0][1]:
+            raise ProjectError('Explicit IFC identity required on each contour')
+
+
 def verify_dxf(source, exported):
     import ezdxf
+    import numpy as np
     expected=ezdxf.readfile(source);actual=ezdxf.readfile(exported)
-    reconcile(snapshot(expected),exported)
+    def plain(value):
+        if isinstance(value,dict):return {k:plain(v) for k,v in value.items()}
+        if isinstance(value,list):return [plain(v) for v in value]
+        return value.item() if isinstance(value,np.generic) else value
+    before,after=plain(snapshot(expected)),plain(snapshot(actual))
+    if any(key not in after or not equivalent(row,after[key]) for key,row in before.items()):
+        raise ProjectError('preserved drawing entity geometry/attributes mismatch')
     if identity(expected)!=identity(actual):raise ProjectError('native model entity handles/counts or IFC XDATA changed')
     return dict(model_entity_count=len(identity(expected)),linked_entity_count=sum(bool(v) for v in identity(expected).values()),
                 model_entities_and_ifc_xdata_match=True,geometry_layers_and_annotations_match=True,
@@ -55,7 +83,8 @@ def run(source, settings_path, out, exe=DEFAULT_EXE):
     before={str(p):digest(p) for p in (source,settings_path)}
     doc=ezdxf.readfile(source)
     if doc.header.get('$INSUNITS')!=6 or not list(doc.modelspace()):raise ProjectError('nonempty metre diagram required')
-    if any(e.dxftype() not in ('LINE','ARC','TEXT') for e in doc.modelspace()):raise ProjectError('native IFC diagram supports LINE/ARC/TEXT only')
+    if any(e.dxftype() not in ('LINE','ARC','TEXT','LWPOLYLINE') for e in doc.modelspace()):raise ProjectError('native IFC diagram supports LINE/ARC/TEXT and scoped closed contours only')
+    validate_contours(doc)
     for arc in doc.modelspace().query('ARC'):
         if any(not math.isfinite(v) for v in (*arc.dxf.center,arc.dxf.radius,arc.dxf.start_angle,arc.dxf.end_angle)) or arc.dxf.radius<=0 or (arc.dxf.end_angle-arc.dxf.start_angle)%360<=1e-9 or not arc.dxf.extrusion.isclose((0,0,1),rel_tol=0,abs_tol=1e-9) or abs(arc.dxf.center.z)>1e-9:
             raise ProjectError('finite nonzero positive-radius WCS XY arc required')

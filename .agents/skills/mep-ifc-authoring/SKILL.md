@@ -5,6 +5,12 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For closed GUID-linked source-network outlines, ifc_native now supports scoped
+planar zero-width LWPOLYLINE contours per docs/NATIVE_NETWORK_CONTOURS.md. Require
+actual save/reopen/export, unchanged geometry/identity and fixed-scale PDF review.
+Keep standalone visual-review receipts separate from producer pending states;
+this does not accept installation detail, products or complete engineering.
+
 For an already verified complete source network, source_network_drawing exports
 GUID-linked editable XY silhouettes per docs/SOURCE_NETWORK_DRAWING.md. Keep
 source scale/elevation/gauge assumptions and bounded numerical cleanup explicit.

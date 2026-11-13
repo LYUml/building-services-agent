@@ -1,5 +1,9 @@
 # Native source-network XY drawing
 
+The subsequent scoped native DWG/PDF handoff is now executed; see
+[NATIVE_NETWORK_CONTOURS.md](NATIVE_NETWORK_CONTOURS.md). Pending native claims
+below describe the original projection-only milestone, not that later handoff.
+
 source_network_drawing reuses source_network_analysis.verify and the saved model,
 IfcOpenShell native world-coordinate tessellation, Shapely2.2.0 union_all and
 pinned ezdxf. Existing rectangular_drawing requires its separate device schema
