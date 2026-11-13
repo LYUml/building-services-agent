@@ -1,0 +1,14 @@
+{
+  "scope": "Read-only real-project stale configuration diagnosis; no engineering replay or acceptance",
+  "project_sources_unchanged": true,
+  "configuration_preserved": true,
+  "tool_changes": {
+    "changed": 11,
+    "removed": 0,
+    "added": 30
+  },
+  "project_change_count": 0,
+  "actionable_rejection": true,
+  "targeted_tests": 14,
+  "design_accepted": false
+}

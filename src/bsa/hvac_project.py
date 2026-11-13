@@ -105,8 +105,20 @@ def load(configuration):
     pins = {resolve(p): sha for p, sha in expected.items()}
     if len(pins) != len(expected) or configuration in pins:
         raise ValueError('Distinct source paths separate from configuration required')
-    if any(digest(p) != sha for p, sha in pins.items()):
-        raise ValueError('Project source changed; review and create a new configuration')
+    if any(not p.is_file() or digest(p) != sha for p, sha in pins.items()):
+        # Reuse the existing read-only classifier; never refresh sources implicitly.
+        from .hvac_refresh import inspect as inspect_drift
+        drift = inspect_drift(configuration)
+        changes = drift['project_changes']
+        methods = drift['tool_drift']
+        summary = ('project inputs changed or missing; source review required' if changes else
+                   'project inputs unchanged; tool-only drift requires fresh configuration and execution')
+        details = [row['path'] for row in changes]
+        details += [row['path'] for row in methods['changed'] + methods['removed']]
+        details += methods['added']
+        raise ValueError('Project source changed: '+summary+'; '+str(len(details))+
+                         ' affected files. First paths: '+', '.join(details[:5])+
+                         '. Full read-only diagnosis: python -m bsa.hvac_refresh inspect "'+str(configuration)+'"')
     actual = inventory(files, data['selectors'])
     if pins != actual:
         raise ValueError('Complete current plan/settings input inventory required')

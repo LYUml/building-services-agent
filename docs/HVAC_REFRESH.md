@@ -1,5 +1,15 @@
 # Replaying a project after a tool upgrade
 
+Normal project loading now points to this existing read-only diagnosis when
+pinned files change or disappear. The error distinguishes tool-only drift from
+changed/missing project inputs, lists at most five affected paths and provides
+the full inspect command. Missing inputs reject before engine execution instead
+of leaking an unhandled missing-file error. No configuration is refreshed
+implicitly. Fourteen project tests pass; a real stale coursework configuration
+reports eleven changed and thirty added tool files, zero changed project inputs,
+and remains byte-identical. See evidence/hvac-stale-guidance.json. This is a
+diagnostic check, not a new engineering replay or transferred acceptance.
+
 `hvac_project.load` deliberately rejects stale source/method hashes. The new
 `hvac_refresh` adapter diagnoses drift and prepares a fresh configuration when
 the original project inputs remain unchanged. It preserves the old configuration,

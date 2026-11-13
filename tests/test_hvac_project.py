@@ -11,6 +11,36 @@ from bsa.hvac_project import ROOT, create, load, run
 
 
 class HVACProjectTests(unittest.TestCase):
+    def test_stale_project_reports_existing_drift_recovery_without_writing(self):
+        self.create()
+        data=json.loads(self.configuration.read_text())
+        method=next(name for name in data['input_hashes'] if (self.configuration.parent/name).resolve()==ROOT/'src/bsa/hvac_project.py')
+        data['input_hashes'][method]='0'*64
+        self.configuration.write_text(json.dumps(data))
+        before=self.configuration.read_bytes()
+        with patch('bsa.hvac_project.hvac_package.run') as engine:
+            with self.assertRaisesRegex(ValueError,'project inputs unchanged; tool-only drift') as caught:
+                run(self.configuration,self.root/'blocked-tool',font='unused')
+            engine.assert_not_called()
+        self.assertIn('python -m bsa.hvac_refresh inspect',str(caught.exception))
+        self.assertIn('hvac_project.py',str(caught.exception))
+        self.assertEqual(before,self.configuration.read_bytes())
+        self.assertFalse((self.root/'blocked-tool').exists())
+
+    def test_missing_project_source_is_actionable_and_never_refreshes(self):
+        self.create()
+        data=json.loads(self.configuration.read_text())
+        source=next((self.configuration.parent/name).resolve() for name in data['input_hashes'] if name.endswith('source.dxf'))
+        source.unlink()
+        before=self.configuration.read_bytes()
+        with patch('bsa.hvac_project.hvac_package.run') as engine:
+            with self.assertRaisesRegex(ValueError,'project inputs changed or missing; source review required') as caught:
+                run(self.configuration,self.root/'blocked-data',font='unused')
+            engine.assert_not_called()
+        self.assertIn('source.dxf',str(caught.exception))
+        self.assertEqual(before,self.configuration.read_bytes())
+        self.assertFalse((self.root/'blocked-data').exists())
+
     def test_host_provider_options_reach_package_and_invalid_selection_creates_no_output(self):
         from bsa.workflow_modules import parse_provider_options
         from bsa.hvac_package import run as package_run
