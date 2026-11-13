@@ -7,6 +7,9 @@ description: Orchestrate building services assignments from a brief and source d
 
 For local Codex startup use docs/CODEX_LOCAL_SETUP.md. Keep development data
 in repository runs and coursework in the explicitly selected host project.
+Use explicit --refresh for changed host runtime paths; preserve user controls
+and unspecified runtimes, then repeat actual startup/task checks. Do not edit
+old backups or rehash engineering receipts for a changed engine.
 A configured/listed tool is not an accepted engineering capability. Do not
 change global trust/approval settings or restart user applications for setup.
 

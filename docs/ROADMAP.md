@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Explicit local runtime refresh now preserves user controls and unspecified
+programs, with pinned TOML Kit, backups and atomic replacement. Seven tests and
+actual Codex backend reads pass; both live workspace configs remain unchanged.
+See docs/CODEX_LOCAL_SETUP.md.
+
 Project-scoped local Codex startup now separates development and coursework
 data roots. Both actual Codex backends discover 38 BSA tools and execute reads;
 the active development chat also calls BSA and rejects an outside-root read.

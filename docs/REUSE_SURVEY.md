@@ -1701,3 +1701,10 @@ Official OpenAI MCP docs and actual CLI/schema were checked first. The gap is
 manual server startup/runtime selection, not another AI or engineering engine.
 No new dependency, model turn or source dataset. Actual backend/live-chat
 read-only calls execute; see CODEX_LOCAL_SETUP.md.
+
+Explicit Codex runtime refresh now reuses MIT TOML Kit0.15.1 for preservation-
+aware editing, with stdlib TOML semantic validation, backups and atomic replace.
+Official OpenAI project-config docs and upstream PyPI documentation/license
+were checked first. The optional codex-setup extra pins the version; no upstream
+source is copied, and the MIT notice is retained. Executed real-profile update,
+actual Codex startup/read and seven controls pass. See CODEX_LOCAL_SETUP.md.

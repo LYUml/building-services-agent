@@ -1,0 +1,19 @@
+{
+  "scope": "Explicit project-scoped runtime refresh with preserved user controls",
+  "dependency": "tomlkit==0.15.1",
+  "license": "MIT",
+  "license_sha256": "f2f9b460ba719da6626add264d3782f275a4ff7aab677beda08b330911e23adb",
+  "installer_and_refresh_tests_passed": 7,
+  "actual_isolated_runtime_refresh_pass": true,
+  "backup_and_no_op_verified": true,
+  "actual_refreshed_codex_backend_tool_count": 38,
+  "actual_refreshed_backend_read_pass": true,
+  "both_live_configs_byte_unchanged": true,
+  "both_live_codex_backend_rechecks_pass": true,
+  "existing_coursework_numeric_gaps_read": 45,
+  "atomic_replace_failure_control_pass": true,
+  "formal_engineering_values_added": 0,
+  "design_accepted": false,
+  "user_enable_timeout_policy_and_unrelated_environment_preserved": true,
+  "ambiguous_updated_flag_and_layout_normalization_rejected": true
+}

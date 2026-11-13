@@ -51,3 +51,44 @@ Python/AutoCAD/Poppler only. Source assumptions, pressure/physical/regulatory
 and full-project acceptance remain explicit. Workspace selection still matters:
 use the coursework workspace for coursework and the agent workspace for general
 development. The development profile cannot write to a coursework data root.
+
+## Explicit runtime refresh
+
+Install the optional codex-setup extra for tomlkit==0.15.1, then add --refresh to
+the setup command when updating existing runtime locations. Fresh installation
+still uses the standard-library renderer. Refresh reuses upstream TOML Kit
+instead of implementing a TOML editor:
+https://pypi.org/project/tomlkit/0.15.1/
+MIT copyright/notice is retained in third_party/licenses/tomlkit-0.15.1.txt.
+
+Refresh updates the known BSA module launcher's Python command, source cwd,
+selected data-root binding and only the optional runtime flags explicitly
+provided. Unspecified AutoCAD/Poppler and other launcher arguments remain.
+User enabled state, timeouts, approval policies, other environment values and
+unrelated settings remain unchanged. Unknown launchers and ambiguous flags being updated
+reject before writing. An exact baseline TOML roundtrip is required, and parsed
+post-update data must match only the intended changes. A library layout that
+cannot be reproduced byte-for-byte is rejected rather than normalized silently.
+This guards the upstream documented out-of-order array-table layout limitation.
+
+Writes flush a same-directory temporary file before atomic replacement, with
+observed concurrent-change checks. Existing config is backed up; differing
+snapshots get content-derived backup names instead of overwriting old backups.
+Failure controls preserve the original and remove the temporary file. These
+are local recovery/correspondence controls, not authenticated or adversarial
+filesystem transaction guarantees. No global trust, policy or model setting is
+changed, and no user application is restarted.
+
+Seven installer/refresh tests and the durable receipt verifier pass. Actual host
+execution creates an isolated project profile, refreshes real AutoCAD/Poppler
+arguments and verifies backup plus subsequent no-op. The actual Codex backend
+still discovers38 tools and executes a read. Both existing development/course
+config files remain byte-identical, and both actual backends pass read-only
+rechecks; coursework returns45 existing ledger gaps. Configuration correctness
+is separate from physical/model/engineering acceptance or a changed engine's
+native verification. No new engineering loss value is introduced.
+
+The final suite also rejects an ambiguous updated flag and a library
+normalization result while preserving original bytes. Apply runtime refresh
+between engineering operations and repeat engine-specific native acceptance
+when an executable changes; tool discovery alone is not engine validation.
