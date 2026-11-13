@@ -1,0 +1,49 @@
+{
+  "scope": "Source-incidence association of independently replayed native clash pairs; not causal proof, a contact exemption, connection authoring or installation/pressure approval",
+  "status": "coordination_failed",
+  "raw_checks": {
+    "geometry_coverage": true,
+    "no_intersections": false,
+    "clearance": false
+  },
+  "raw_intersection_records": 76,
+  "unique_intersection_pairs": 38,
+  "raw_clearance_records": 31,
+  "unique_clearance_pairs": 31,
+  "intersection_associations": {
+    "unresolved_source_connection": 38
+  },
+  "clearance_associations": {
+    "linked_interface_clearance": 20,
+    "unresolved_source_connection": 11
+  },
+  "remaining_source_connections": 17,
+  "connection_type_counts": {
+    "unequal_section_tee_required": 15,
+    "multi_branch_connection_required": 2
+  },
+  "intersection_pairs_by_connection_type": {
+    "unequal_section_tee_required": 30,
+    "multi_branch_connection_required": 8
+  },
+  "original_requirement_ids_retained": 33,
+  "policy_unchanged": true,
+  "source_unchanged": true,
+  "geometry_or_contacts_modified": false,
+  "node_specific_authoring_executed": false,
+  "diagnosis_sha256": "057a60e3a0885b8f7a2afa666e4813ada8d4eed9e5da97c3cba261a250c5fc7d",
+  "native_replay_sha256": "48ac44e4bed8629808195142d52be312aad885a5548398a1e73d4684336bb4bb",
+  "negative_control": {
+    "rejected": true,
+    "reason": "Recorded clash pair inventory differs from native replay",
+    "output_created": false
+  },
+  "tests": {
+    "tests_run": 12,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test_receipt_sha256": "090ab74c45a3f15e057929da226b77db202000a25a7026581aafe6b82618b9c1",
+  "design_accepted": false
+}

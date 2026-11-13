@@ -1,5 +1,9 @@
 # Scope and acceptance
 
+Native coordination failures now map to original unresolved source connections.
+The real model has 38 unique intersection pairs at 17 unfinished nodes; all raw
+failures remain. See DUCT_COORDINATION_DIAGNOSIS.md.
+
 Finite supplied elbow-radius selection now reuses SciPy/HiGHS and existing
 native IFC authoring. The real source study authors all ten equal-section elbows;
 coordination still fails and remains explicit. See ELBOW_RADIUS_SELECTION.md.

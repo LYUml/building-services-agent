@@ -5,6 +5,11 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For a selected source elbow backbone with failed native clash evidence, use
+bsa.duct_coordination_diagnosis per docs/DUCT_COORDINATION_DIAGNOSIS.md. Inspect
+unique pairs and unresolved source-node actions; linked contacts and source
+adjacency never automatically waive raw failures or prove installation fit.
+
 For source-backed equal-section elbows with explicit alternative radii, use
 bsa.elbow_radius_selection per docs/ELBOW_RADIUS_SELECTION.md. Preserve original
 candidates/source constraints, verify native outputs and run separate coordination.

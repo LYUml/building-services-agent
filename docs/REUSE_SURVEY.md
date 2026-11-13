@@ -1469,3 +1469,11 @@ the tee extra. Existing pump/tee catalogue glue does not solve both-end radius
 constraints; a thin binary-choice adapter avoids rebuilding an optimizer. Official
 SciPy MILP documentation was checked. Actual positive/infeasible/native/tamper
 results and retained failed coordination are in ELBOW_RADIUS_SELECTION.md.
+
+
+Source coordination diagnosis reuses existing radius/native replay, clash.inspect
+and actual IFC port ownership plus source junction incidents. The actual gap is
+a deduplicated source-node work list, not another collision/geometry engine.
+The existing tee-transition composer is only a candidate building block for
+unfinished nodes; no source-node authoring integration is claimed. See
+DUCT_COORDINATION_DIAGNOSIS.md for executed/negative evidence and retained failures.

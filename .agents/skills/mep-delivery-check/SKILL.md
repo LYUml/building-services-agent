@@ -5,6 +5,11 @@ description: Audit building services models, drawings, calculations and reports 
 
 # mep-delivery-check
 
+For a selected source elbow backbone with failed native clash evidence, use
+bsa.duct_coordination_diagnosis per docs/DUCT_COORDINATION_DIAGNOSIS.md. Inspect
+unique pairs and unresolved source-node actions; linked contacts and source
+adjacency never automatically waive raw failures or prove installation fit.
+
 For recorded PDF output, use bsa_render_artifact_page after bsa_artifact_index
 per docs/MCP_ARTIFACT_PAGES.md. Actually inspect every required page, retain
 workflow/PDF/image hashes and separate scoped observations. A rendered image
