@@ -67,6 +67,16 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None):
     read=ToolAnnotations(readOnlyHint=True,destructiveHint=False,idempotentHint=True,openWorldHint=False)
     write=ToolAnnotations(readOnlyHint=False,destructiveHint=False,idempotentHint=False,openWorldHint=False)
 
+    @server.tool(annotations=read)
+    def bsa_list_native_fitting_requests(out:str,record_sha256:str,offset:Annotated[int,Field(strict=True,ge=0)]=0,limit:Annotated[int,Field(strict=True,ge=1,le=20)]=20,status:str|None=None)->dict[str,Any]:
+        """Page saved fitting requests using the exact inspected record SHA256. Reads saved bytes only, not fresh engineering/source verification."""
+        return invoke(network_analysis_access.list_requests,local(out),record_sha256,offset,limit,status)
+
+    @server.tool(annotations=read)
+    def bsa_read_native_fitting_request(out:str,record_sha256:str,product_guid:str,inlet_port_guid:str,outlet_port_guid:str)->dict[str,Any]:
+        """Read one exact directed path's native quantities, missing evidence, recorded table result and separate straight study. Requires inspected record identity."""
+        return invoke(network_analysis_access.read_request,local(out),record_sha256,product_guid,inlet_port_guid,outlet_port_guid)
+
     @server.tool(annotations=write)
     def bsa_run_native_network_analysis(source:str,out:str)->dict[str,Any]:
         """Replay an existing source-bound native network and calculate inherited flows/straight friction. No model or source overrides."""

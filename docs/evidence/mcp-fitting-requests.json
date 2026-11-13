@@ -1,0 +1,19 @@
+{
+  "scope": "Bounded saved-byte MCP fitting reads following actual source/native inspection",
+  "pages": 4,
+  "requests_read": 76,
+  "detail_reads": 4,
+  "all_three_statuses_preserved": true,
+  "transition_geometry_and_straight_study_read": true,
+  "wrong_record_hash_rejected": true,
+  "invalid_pagination_values_rejected": 4,
+  "source_inspection_integrity_pass": true,
+  "read_performs_fresh_native_replay": false,
+  "record_sha256": "437dd26b5aeec5a4a95bfa3cc09009765edf458557d00be14b4c6b84aa77c824",
+  "targeted_tests_passed": 3,
+  "design_accepted": false,
+  "protected_source_documents_or_grids_redistributed": false,
+  "regression_tests_passed": 4,
+  "final_receipts_integrity_pass": true,
+  "skipped_in_final_suites": 0
+}

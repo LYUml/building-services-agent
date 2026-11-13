@@ -1,5 +1,9 @@
 # Building Services Agent stdio MCP server
 
+For bounded saved fitting-request pages and exact directed details, see
+[fitting request access](MCP_FITTING_REQUESTS.md). Inspect source/native ancestry
+first, then bind reads to the returned record SHA256.
+
 For the four executed native source-network/fitting run and independent-inspect
 tools, see [native network access](MCP_NATIVE_NETWORK.md). They retain the same
 fixed host workspace/runtime and isolated-worker controls.

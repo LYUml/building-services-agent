@@ -21,7 +21,7 @@ OPERATIONS={function.__module__+'.'+function.__name__:function for function in
      workflow.execute,workflow_status.diagnose,source_page.run,visual_transcription.prepare,source_review.run,reference_library.catalogue,reference_library.read,
      pump_catalogue_iteration.run,pump_catalogue_iteration.verify,artifact_access.index,artifact_access.read,artifact_access.render_page,delivery.template,delivery.assess,recovery_controller.run,recovery_controller.verify,hvac_package_access.prepare,hvac_package_access.run,hvac_package_access.inspect)}
 OPERATIONS['bsa.mcp_worker.read_source_plan']=read_source_plan
-for function in (network_analysis_access.run_network,network_analysis_access.run_fittings,network_analysis_access.inspect):
+for function in (network_analysis_access.run_network,network_analysis_access.run_fittings,network_analysis_access.inspect,network_analysis_access.list_requests,network_analysis_access.read_request):
     OPERATIONS[function.__module__+'.'+function.__name__]=function
 
 

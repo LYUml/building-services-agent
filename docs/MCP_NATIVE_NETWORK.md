@@ -1,5 +1,9 @@
 # Native source-network analysis through MCP
 
+Additional paginated fitting-request and directed-detail read tools are described
+in [fitting request access](MCP_FITTING_REQUESTS.md); current inventory has30 tools.
+The four analysis/inspection tools below keep their existing roles.
+
 Four tools connect the existing source_network_analysis and source_fitting_data
 adapters to the fixed local MCP host. No new engine or dependency is introduced.
 They reuse official MCP SDK1.30.0, strict existing argument validation, isolated
@@ -54,8 +58,8 @@ production and its independent inspection (33 requirements,20 outlet paths,
 summaries exactly, with integrity_pass=true. Five targeted protocol/native
 checks and four existing-source/recovery/package regressions pass with verified
 runner receipts and no final-suite skips. The earlier regression attempt retains
-its failure caused by the old24-tool inventory assertion; the new inventory has
-28 tools and the fresh four-test regression passes. An optional unrelated PDF
+its failure caused by the old24-tool inventory assertion; that milestone had
+28 tools and its fresh four-test regression passed. An optional unrelated PDF
 trial was skipped in that earlier broad attempt and is not counted as passed.
 No application UI setup, native model writing or whole-design acceptance is
 claimed. See evidence/mcp-native-network.json for safe aggregate evidence.

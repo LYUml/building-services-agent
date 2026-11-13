@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+MCP now provides bounded pages and exact directed-path detail reads for saved
+native fitting requests, tied to the inspected record identity. Reads retain
+missing evidence and do not replace source/native verification or design review.
+See docs/MCP_FITTING_REQUESTS.md.
+
 Native source-network and fitting analysis now have MCP run/independent-inspect
 entry points through existing isolated workers. Source assumptions and incomplete
 pressure/design acceptance remain explicit. See docs/MCP_NATIVE_NETWORK.md.

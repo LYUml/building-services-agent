@@ -27,3 +27,17 @@ class NativeNetworkMCPTests(unittest.IsolatedAsyncioTestCase):
                     for name,args in controls:
                         r=await session.call_tool(name,args);self.assertTrue(r.isError)
                     self.assertFalse((Path(folder)/'new').exists())
+                    from tests.test_network_analysis_access import RecordedFittingAccessTests
+                    _,sha=RecordedFittingAccessTests().fixture(Path(folder))
+                    r=await session.call_tool('bsa_list_native_fitting_requests',dict(out='.',record_sha256=sha))
+                    # The existing host path contract excludes the root itself.
+                    self.assertTrue(r.isError)
+                    child=Path(folder)/'record';child.mkdir()
+                    (Path(folder)/'fitting-data.json').rename(child/'fitting-data.json')
+                    r=await session.call_tool('bsa_list_native_fitting_requests',dict(out='record',record_sha256=sha,limit=2))
+                    self.assertFalse(r.isError);self.assertEqual(len(r.structuredContent['requests']),2)
+                    r=await session.call_tool('bsa_read_native_fitting_request',dict(out='record',record_sha256=sha,product_guid='same-body',inlet_port_guid='in',outlet_port_guid='17'))
+                    self.assertFalse(r.isError);self.assertEqual(r.structuredContent['request']['outlet_port_guid'],'17')
+                    for value in (True,'2',21,0):
+                        r=await session.call_tool('bsa_list_native_fitting_requests',dict(out='record',record_sha256=sha,limit=value))
+                        self.assertTrue(r.isError)

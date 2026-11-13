@@ -1576,3 +1576,9 @@ source_fitting_data, MCP SDK1.30.0 and isolated fixed-operation worker plumbing.
 The actual gap was access to these newer adapters, not another solver or MCP
 server. No new dependency, copied upstream implementation or native runtime.
 See MCP_NATIVE_NETWORK.md for protocol and real-project evidence.
+
+Fitting-request access reuses artifact_access.LIMIT, workspace/SHA rules and the
+existing fixed MCP worker. The gap was bounded reads of newer standalone native
+records, not another artifact engine. No new dependency or coefficient dataset.
+Native ancestry inspection stays separate from saved-byte reads; see
+MCP_FITTING_REQUESTS.md.

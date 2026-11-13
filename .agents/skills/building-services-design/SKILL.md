@@ -5,6 +5,11 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For fitting details after inspection, use bsa_list_native_fitting_requests and
+bsa_read_native_fitting_request per docs/MCP_FITTING_REQUESTS.md. Bind the exact
+record SHA and full directed path; these saved-byte reads do not refresh source
+or native/physical verification. Preserve null coefficients and missing evidence.
+
 For an already source-bound native network, use the four native-network MCP
 run/inspect tools per docs/MCP_NATIVE_NETWORK.md. Inspect source/native ancestry
 and the actual saved record; retain all missing losses, construction assumptions
