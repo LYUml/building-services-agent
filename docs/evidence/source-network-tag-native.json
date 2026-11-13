@@ -1,0 +1,26 @@
+{
+  "scope": "Source-model tagged native drawing study",
+  "components": 102,
+  "base_entities": 292,
+  "added_tags": 102,
+  "added_leaders": 102,
+  "native_entities": 496,
+  "native_linked_entities": 491,
+  "native_reopen_verified": true,
+  "source_ancestry_verified": true,
+  "pdf_scale_denominator": 150,
+  "reference_expected_mm": 6.666666666666668,
+  "reference_measured_mm": 6.6463333333333345,
+  "pdf_tolerance_mm": 0.3,
+  "plot_visual_review": "reviewed separately; producer remains pending",
+  "tests_passed": 10,
+  "independent_review_run": true,
+  "independent_review_replay": "passed",
+  "design_accepted": false,
+  "remaining": [
+    "physical source calibration",
+    "complete pressure budget and fan duty",
+    "product selection and installation details",
+    "complete engineering acceptance"
+  ]
+}

@@ -1,5 +1,10 @@
 # Building Services Agent
 
+The102-tag drawing now passes actual AutoCAD DWG save/reopen/export and
+fixed-scale PDF calibration; the rendered plot is visually inspected. Ten
+annotation/native/layout checks pass. Full engineering remains pending.
+See docs/SOURCE_NETWORK_TAGS.md.
+
 Finite model-linked annotation now selects all102 source tags. Independent
 graphic and saved-DXF checks pass; preview inspected. Tagged native DWG/PDF,
 source ancestry and engineering acceptance remain pending. See docs/SOURCE_NETWORK_TAGS.md.

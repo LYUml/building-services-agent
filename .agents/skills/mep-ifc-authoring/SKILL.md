@@ -9,6 +9,9 @@ For finite projected-network tag studies, use source_network_tags per
 docs/SOURCE_NETWORK_TAGS.md. Require complete GUID/tag coverage, independent
 graphic replay and saved-base preservation. Keep source ancestry/native/plot
 acceptance separate; preview/solver success is not engineering acceptance.
+Use source_network_tag_review to replay saved tags against common verified
+schedule/delivery ancestry and native export/PDF. Keep actual visual inspection
+in a separate source-hashed receipt; complete engineering remains pending.
 
 For model-linked component/port/flow-path schedules, use source_network_schedule
 per docs/SOURCE_NETWORK_SCHEDULE.md after verified source fitting analysis.

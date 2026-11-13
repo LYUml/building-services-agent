@@ -1627,3 +1627,10 @@ actual polygon/exposed-boundary candidates and finite binary selection. No new
 engine or dependency. Actual102-tag selection, independent saved/graphic audits
 and three tests execute; native/source/engineering acceptance remains pending.
 See SOURCE_NETWORK_TAGS.md.
+
+Native tag review reuses ifc_native save/reopen/geometry checks, cad_sheet PDF
+vector measurements and the original schedule/delivery ancestry verifiers.
+The gap is complete tagged-source/native binding, not a new CAD engine. Actual
+AutoCAD execution and inspected PDF are retained privately; ten scoped tests
+pass, including rehashed native geometry rejection. Existing dependency
+licenses/attribution remain unchanged. See SOURCE_NETWORK_TAGS.md.
