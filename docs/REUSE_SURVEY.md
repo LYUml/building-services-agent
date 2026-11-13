@@ -1436,3 +1436,9 @@ AutoCAD schedule writing also reuses the exact MIT U-C4N backend above for bound
 TEXT edits and arrow LINE creation. Existing calculation/native engines remain.
 Actual same-task comparison, source preservation and native/visual results are
 recorded in docs/AUTOCAD_SCHEDULE_PROVIDER.md and its aggregate evidence.
+
+
+The task-chain writer bridge reuses autocad_schedule, its exact pinned MIT backend,
+existing numerical replay and duct_sheet_native. Only source/producer binding and
+selection glue are added. Actual full-plan/native/visual evidence is recorded in
+AUTOCAD_WORKFLOW_PROVIDER.md; no additional engine/dependency is introduced.

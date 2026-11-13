@@ -1,0 +1,92 @@
+{
+  "scope": "Optional upstream writer in existing inherited duct_schedule -> duct_sheet -> duct_sheet_native task chain",
+  "source_plan_preserved": true,
+  "only_plan_change": "duct-sheet writer=uc4n",
+  "requirements_retained": 33,
+  "unresolved_inputs_retained": 6,
+  "task_statuses": {
+    "air-allocation": "pass",
+    "terminal-lookup": "pass",
+    "duct-schedule": "pass",
+    "duct-sheet": "pass",
+    "native-sheet": "pass",
+    "hk-flex-length": "pending",
+    "work-identity": "pending",
+    "work-load": "pending",
+    "work-layout": "pending",
+    "work-minimum": "pending",
+    "work-terminal": "pending",
+    "work-adpi": "pending",
+    "work-routing": "pending",
+    "work-sizing": "pending",
+    "work-schedule": "pending",
+    "work-delivery": "pending"
+  },
+  "workflow_sha256": "4581f52195199f16dfaeb8a8d09a76585af4bdab02707d3f81859d72a28e1928",
+  "source_plan_sha256": "fe251ca0cafef151920d8b902fb47bcd54bb32fedd11204774868ad9b0f87154",
+  "selected_plan_sha256": "9ae143f8540a1adc0cafeaf5bf5050336a16cbee16558c8ee6b8b8ba62de71f8",
+  "writer_receipt_sha256": "fe6abff9fdb98d9b22e426aede8789ce51b97aa40e4ef55fdf341116c898b26f",
+  "native_reopen_pass": true,
+  "generated_geometry": {
+    "generated_entity_count": 718,
+    "layers": [
+      "BSA_DIFFUSER",
+      "BSA_FLEX",
+      "BSA_LABEL",
+      "BSA_NOTES",
+      "BSA_SCHEDULE",
+      "BSA_SOURCE_TEXT",
+      "BSA_SUPPLY",
+      "BSA_VAV",
+      "BSA_FLOW_DIRECTION"
+    ],
+    "comparison": "Ordered effective DXF attributes and polyline vertices; handles/owners excluded; 1e-7 drawing-unit absolute tolerance",
+    "generated_native_correspondence": true
+  },
+  "plot": {
+    "pdf_sha256": "2142ce19bc8523bb2e6884ef069349cdf966fdee6e36d35522010cc57b4de2e5",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      841.0222222222221,
+      594.0777777777777
+    ],
+    "scale_denominator": 100,
+    "reference_handle": "8FFD",
+    "reference_expected_mm": 100.0,
+    "reference_measured_mm": 99.99133333333334,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "visual_review": {
+    "pdf_sha256": "2142ce19bc8523bb2e6884ef069349cdf966fdee6e36d35522010cc57b4de2e5",
+    "image_sha256": "4435cc4f73f9921234c4a21f21fd2214f76eba08e9166e2d964de199ad41670a",
+    "renderer_sha256": "5b6ff07d229b8a8baca960751d5c591dbc7504efec529a1f5c22f5fd9e3b7220",
+    "pages": 1,
+    "public_page_content_equal": true,
+    "workflow_sha256": "4581f52195199f16dfaeb8a8d09a76585af4bdab02707d3f81859d72a28e1928",
+    "scoped_visual_pass": true,
+    "observations": [
+      "Actually inspected full A1 and enlarged table/notes",
+      "47 rows readable; no observed table clipping or overlap",
+      "Schematic VAV, AHU connection/penetration and ADPI limitations remain visible"
+    ],
+    "design_accepted": false
+  },
+  "verification": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "process_returncode": 2,
+  "process_scope": "Pending regulation/manual tasks retain nonzero whole-plan result; five scoped executable tasks pass",
+  "design_accepted": false,
+  "tests": {
+    "tests_run": 31,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test_receipt_sha256": "849b25f89c64777e965ccebea06581ce4d08e83e8953622fd9a7bc9ac4153cc4"
+}

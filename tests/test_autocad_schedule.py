@@ -70,6 +70,38 @@ class AutoCADScheduleTests(unittest.TestCase):
         result=json.loads(output.getvalue());self.assertEqual(result['status'],'failed')
         self.assertFalse(result['native_reopen_pass']);self.assertFalse((self.out/'writer.json').exists())
 
+    def workflow_plan(self):
+        brief=self.root/'brief.md';brief.write_text('Size ducts and update drawing.\n')
+        tasks=[dict(id='duct',kind='duct_schedule',project=self.project.name),dict(id='sheet',kind='duct_sheet',depends_on='duct',drawing=self.source.name,binding=self.binding.name,writer='uc4n')]
+        plan=dict(version=1,brief=brief.name,brief_sha256=digest(brief),passage_dispositions={'P001':'requirement'},tasks=tasks,
+            requirements=[dict(id='R'+str(i),passage='P001',quote='Size ducts and update drawing.',task=t,acceptance='Scoped execution; physical design review pending') for i,t in enumerate(['duct','sheet'])])
+        path=self.root/'plan.json';path.write_text(json.dumps(plan));return path
+
+    def test_workflow_upstream_writer_inherits_schedule_and_rejects_rehashed_forgery(self):
+        from bsa.workflow import execute,verify
+        plan=self.workflow_plan();out=self.root/'workflow'
+        result=execute(plan,out);self.assertEqual(result['tasks']['sheet']['status'],'pass',result['tasks']['sheet'])
+        self.assertEqual(result['tasks']['sheet']['writer'],'uc4n');self.assertTrue(verify(out)['integrity_pass'])
+        self.assertFalse(result['design_accepted'])
+        receipt=out/'sheet/schedule-drawing.json';record=json.loads(receipt.read_text());record['sections']=999;receipt.write_text(json.dumps(record))
+        path=out/'workflow.json';record=json.loads(path.read_text());record['artifact_hashes']['sheet/schedule-drawing.json']=digest(receipt);path.write_text(json.dumps(record))
+        self.assertFalse(verify(out)['integrity_pass'])
+
+    def test_workflow_failed_schedule_blocks_upstream_and_native(self):
+        from bsa.workflow import execute,validate_plan
+        plan=self.workflow_plan();data=json.loads(plan.read_text())
+        settings=self.root/'native.json';settings.write_text(json.dumps(dict(layers=['SCHEDULE'],sheet={})))
+        data['tasks'].append(dict(id='native',kind='duct_sheet_native',depends_on='sheet',settings=settings.name))
+        data['requirements'].append(dict(data['requirements'][0],id='RN',task='native'))
+        plan.write_text(json.dumps(data))
+        self.data['sections'][0]['limits']['actual_velocity_m_s']=.01;self.project.write_text(json.dumps(self.data))
+        out=self.root/'failed-workflow';result=execute(plan,out)
+        self.assertEqual(result['tasks']['duct']['status'],'fail')
+        for task in ['sheet','native']:
+            self.assertEqual(result['tasks'][task]['status'],'pending');self.assertFalse((out/task).exists())
+        data['tasks'][1]['writer']='unreviewed-executable';plan.write_text(json.dumps(data))
+        with self.assertRaisesRegex(ValueError,'Unknown duct sheet writer'):validate_plan(plan)
+
     def test_failed_source_section_never_reaches_writer(self):
         self.data['sections'][0]['limits']['actual_velocity_m_s']=.01;self.project.write_text(json.dumps(self.data))
         record=self.execute();self.assertEqual(record['status'],'failed');self.assertFalse((self.out/'writer.json').exists())

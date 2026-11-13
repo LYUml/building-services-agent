@@ -1,5 +1,9 @@
 # Scope and acceptance
 
+Optional upstream AutoCAD writing now participates in the original calculation
+→ drawing → native task chain, with producer/source replay and failure blocking.
+Real full-plan replay retains all pending reviews; see AUTOCAD_WORKFLOW_PROVIDER.md.
+
 Shared `bsa autocad-source` and `bsa autocad-sheet` commands now reach the
 existing verified AutoCAD adapters; fresh real sheet execution and installed-entry
 checks pass. See PROJECT_CLI.md. Complete design acceptance remains pending.

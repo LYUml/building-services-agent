@@ -609,8 +609,14 @@ def validate_plan(path):
             inputs.update(Path(m.__file__).resolve() for m in (duct_sheet_native,cad_sheet,cad_intake,native_cad))
         if kind=='duct_sheet':
             from . import duct_sheet,cad_intake
-            if set(t)-{'id','kind','depends_on','drawing','binding','requires_pass','description'}:
+            if set(t)-{'id','kind','depends_on','drawing','binding','writer','requires_pass','description'}:
                 raise ProjectError('duct sheet inherits schedule; replacement inputs forbidden')
+            if t.get('writer','builtin') not in ('builtin','uc4n'):
+                raise ProjectError('Unknown duct sheet writer')
+            if t.get('writer')=='uc4n':
+                from . import duct_sheet_provider,autocad_schedule
+                inputs.update([Path(duct_sheet_provider.__file__),Path(autocad_schedule.__file__),autocad_schedule.WORKER])
+                inputs.update(Path(m.__file__) for m in autocad_schedule.CONTROLS)
             parent=t.get('depends_on')
             if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='duct_schedule':
                 raise ProjectError('duct sheet requires an earlier duct schedule')
@@ -1539,8 +1545,12 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 if tasks[parent]['status']!='pass':
                     reason='upstream duct schedule '+parent+' did not pass; sheet update not executed'
                 else:
-                    payload=run(local_path(root,t['drawing']),out/parent/'results.json',local_path(root,t['binding']),folder,
-                        inherited_schedule_sha256=duct_schedule_pins[parent])
+                    if t.get('writer')=='uc4n':
+                        from .duct_sheet_provider import run as run_provider
+                        payload=run_provider(plan,t,out/parent/'results.json',duct_schedule_pins[parent],folder)
+                    else:
+                        payload=run(local_path(root,t['drawing']),out/parent/'results.json',local_path(root,t['binding']),folder,
+                            inherited_schedule_sha256=duct_schedule_pins[parent])
                     status='pass';reason=payload['scope']+'; DXF preparation only, native reopening and actual plot review remain pending'
                     duct_sheet_pins[t['id']]=digest(folder/'Supply Air Distribution.dxf')
             elif t['kind']=='duct_sheet_native':
@@ -2313,6 +2323,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
         except Exception as exc:
             status="fail";reason=f"{type(exc).__name__}: {exc}"
         tasks[t["id"]]=dict(kind=t["kind"],status=status,scope=reason)
+        if t['kind']=='duct_sheet':tasks[t['id']]['writer']=t.get('writer','builtin')
         # An executed adapter is evidence for its narrow scope, not every interpreted requirement.
         evidence[t["id"]]=[f.relative_to(out).as_posix() for f in folder.rglob("*") if f.is_file()] if folder.exists() else []
         if status=='pass' and any(child['kind']=='module_exchange' and child.get('depends_on')==t['id'] for child in p['tasks']):
@@ -2367,6 +2378,12 @@ def verify(run_directory):
         if not path.is_relative_to(root) or not path.is_file() or digest(path)!=expected:
             issues.append(f"artifact changed or missing: {name}")
     for name,task in report['tasks'].items():
+        if task['kind']=='duct_sheet' and task.get('writer')=='uc4n' and task['status']=='pass':
+            try:
+                from .duct_sheet_provider import verify as verify_duct_provider
+                verify_duct_provider(root/name)
+            except (OSError,ValueError,KeyError,TypeError) as exc:issues.append('upstream duct writer evidence invalid: '+name+': '+str(exc))
+
         if task['kind']=='air_allocation' and name in report.get('module_selection',{}).get('providers',{}):
             try:
                 from .module_air_allocation import verify as verify_allocation

@@ -5,6 +5,12 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For an existing duct_schedule -> duct_sheet -> duct_sheet_native plan, select
+writer=uc4n on the sheet task per docs/AUTOCAD_WORKFLOW_PROVIDER.md. Preserve all
+requirements/gaps and original producers; verify full workflow and separately
+inspect native plot. Pending rules/manual tasks remain pending.
+
+
 Use shared `bsa autocad-source run/verify` and `bsa autocad-sheet run/verify`
 per docs/PROJECT_CLI.md for host CLI access to the proven AutoCAD adapters.
 The standalone module commands remain available; this adds no new design engine.
