@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Four-arm source junctions now use native cross/transition candidates. Both original
+nodes are covered: J1 authors and independently replays; J2 stays blocked by its
+inherited source budget. The candidate is not merged into the parent network;
+see docs/SOURCE_CROSS_CANDIDATES.md.
+
 Verified source tee candidates now integrate into a fresh trimmed native network:
 99 bodies and 90 actual links independently replay. Raw intersection pairs fall
 from 38 to 10 under unchanged policy; coordination still fails. See

@@ -5,6 +5,13 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For original four-arm multi-branch nodes, use source_cross_candidates and the
+native rectangular_cross/rectangular_cross_transitions adapters per
+docs/SOURCE_CROSS_CANDIDATES.md. Cover every source node, inherit the verified
+parent straight budgets and blocked tees, and reject unsupported/opposed-ray or
+overrun cases. Isolated cross candidates do not repair the parent network until
+trimmed, connected and independently rechecked with all raw clash findings.
+
 For partial integration after source_tee_candidates, use source_tee_network per
 docs/SOURCE_TEE_NETWORK.md. Require independent source/component replay, both-end
 straight trims, native cap/section-roll agreement and exact saved same-file links.

@@ -1,0 +1,44 @@
+{
+  "scope": "Isolated source cross candidates only; no merge, full coordination, pressure, product or installation acceptance",
+  "source_nodes": 2,
+  "authored": 1,
+  "blocked": {
+    "J2": [
+      "Combined source cross reach exceeds inherited budget on D-01"
+    ]
+  },
+  "native_components": 4,
+  "owned_ports": 10,
+  "internal_links": 3,
+  "inherited_blocked_nodes": {
+    "ROOT": [
+      "Known both-end fitting reach exceeds source budget on A-03",
+      "Known both-end fitting reach exceeds source budget on D-01"
+    ]
+  },
+  "requirement_ids_retained": 33,
+  "original_network_modified": false,
+  "complete_network": false,
+  "design_accepted": false,
+  "candidate_record_sha256": "48d0fd00b4fba2a7616633b1768f3a4830484e2da6f84eb4d79f39b3b785fa95",
+  "tests": {
+    "tests_run": 10,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "receipt_sha256": "cc10d7b2afb296effb505996b00b3bb86709223fe03819bc475073b70dbb40a1"
+  },
+  "preview": {
+    "source_node": "J1",
+    "image_sha256": "2b8fed9111132f910df3c4022e2d20a6c78382b540c908652b5d17a57f6dbf5f",
+    "observations": "Actual saved four-body cross/transition assembly inspected. Some port labels overlap; not a delivery/installation drawing.",
+    "visual_delivery_accepted": false
+  },
+  "observed_independent_replay": {
+    "integrity_pass": true,
+    "source_nodes": 2,
+    "authored": 1,
+    "blocked": 1,
+    "scope": "Actual standalone verify CLI replayed original ancestry, source budgets and saved local native assembly; not authenticated certification"
+  }
+}

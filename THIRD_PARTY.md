@@ -1,5 +1,11 @@
 # Attribution and upstream integration register
 
+Four-port rectangular crosses reuse the existing pinned IfcOpenShell 0.8.5
+ShapeBuilder/Boolean APIs and Manifold3D 3.5.4 checks under the upstream licenses
+recorded below. The source mapping, explicit prism construction and independent
+QA adapter are local code; no new upstream engine or dependency was copied.
+See docs/SOURCE_CROSS_CANDIDATES.md for references and executed scope.
+
 - KLEGB/MOOSAS, Apache-2.0, https://github.com/KLEGB/MOOSAS, fixed commit
   dbf4eb6ed955a1ba9d5052ed0e1d4a9f3411a66c. Direct transform/model API calls in
   scripts/probe_moosas_transform.py use an unmodified external checkout. Upstream

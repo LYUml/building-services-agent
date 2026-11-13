@@ -1495,3 +1495,10 @@ the existing local-chain solver requires a single connected tree and cannot
 represent the explicitly unfinished source nodes. The new adapter preserves
 those disconnected obligations instead of forcing artificial links. No new
 geometry engine or dependency is added. See SOURCE_TEE_NETWORK.md.
+
+Four-arm junctions reuse pinned IfcOpenShell ShapeBuilder extrusions/Boolean API,
+native mesh/Manifold checks, tee dimension/source/frame guards and centred
+transition authoring. Official upstream junction discussion and geometry docs
+were checked; these do not establish an executed ready-made cross integration.
+The actual gap is the fourth source arm and native geometry/port/budget checks.
+No new kernel or dependency is added. See SOURCE_CROSS_CANDIDATES.md.

@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Native four-port cross plus existing centred transitions now covers the two
+original multi-branch nodes: one source candidate authors/replays, one stays
+blocked by inherited D-01 space. Parent network integration, remaining redesign
+and whole-network/engineering acceptance stay open. See SOURCE_CROSS_CANDIDATES.md.
+
 Fourteen verified source tee candidates now integrate into a freshly trimmed
 native network; 99 bodies/90 links independently replay. Same-policy raw clashes
 reduce from 38 to 10 unique intersection pairs and still fail. Blocked ROOT,

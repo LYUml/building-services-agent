@@ -1,5 +1,11 @@
 # Whole-agent status
 
+Source four-arm junction coverage now includes a native cross/transition adapter.
+J1 authors/replays as four components, ten ports and three internal links; J2
+remains blocked on D-01. ROOT and all original requirements remain explicit.
+This isolated candidate has not changed the parent network or its failed
+coordination. See SOURCE_CROSS_CANDIDATES.md.
+
 Fourteen source tee assemblies now integrate into a fresh trimmed network with
 99 native bodies and 90 actual links. Independent source/native replay passes;
 unchanged raw clash policy retains 10 intersection pairs and 66 unique clearance
