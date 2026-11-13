@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+The pressure ledger now directly reconstructs cached paths using the existing
+port-topology router. Thirteen tests and complete real-client replay pass;
+all 20 outlet/45 gap reads match. Physical joints and full pressure remain open.
+See docs/SOURCE_PRESSURE_LEDGER.md.
+
 Ledger checks now reject tiny wrong subtotals, duplicate/unused straight
 definitions and boolean counts. Twelve tests and fresh complete MCP replay pass;
 the real 20-outlet ledger payload is unchanged. Engineering remains incomplete.

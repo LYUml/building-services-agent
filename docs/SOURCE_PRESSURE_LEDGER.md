@@ -67,3 +67,33 @@ all 20 exact outlet reads pass with the stricter method. The real ledger payload
 is byte-identical to the prior execution; only provenance binds the changed
 method. Forty-five numerical gaps and complete engineering limitations remain.
 Historical manifests are preserved unchanged.
+
+## Independent port-topology reconstruction
+
+The parent native/source verifier already reconstructs model paths. The ledger
+now also calls the existing duct_chain_analysis.boundary_paths helper directly
+and requires exact agreement with the cached original boundary-path records
+before accounting. This closes a direct-accounting weakness: reversing cached
+steps previously preserved subtotal/coverage checks despite losing continuity.
+It is not evidence of a bypass of the separate parent native verifier.
+
+The helper reuses original port ownership/direction, interfaces, straight and
+fitting spans and boundary ports. Existing single-inlet divergent-tree, cycle,
+leaf and whole-model coverage guards remain; no second routing engine is built.
+Its method bytes now have a direct ledger provenance pin. Source data cannot
+omit graph fields to skip reconstruction. Reconstructed graph order does not
+accept physical joints, products, installation, losses or full fan duty.
+
+Thirteen ledger/access/actual-protocol/reference tests pass with verified durable
+receipt. The arithmetic fixture now has a connected source/split graph with an
+explicit known-zero fitting path separate from unknown loss. Controls reject
+reversed paths, disconnected interfaces, missing boundary outlets and incorrect
+straight-port ownership. Historical method-bound ledgers remain unchanged;
+current verification requires fresh generation and inspection.
+
+Fresh real-client generation and independent inspection both pass with direct
+port reconstruction. All 45 gap rows and all 20 outlet reads match saved data;
+all 33 requirements remain. The real ledger payload is byte-identical to the
+previous numerical-guard execution. Native-source/provenance receipts bind the
+changed method without rewriting historical manifests. Full pressure, physical
+joints and installation acceptance remain open.

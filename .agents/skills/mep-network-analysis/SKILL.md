@@ -13,6 +13,9 @@ order is research priority, never critical-path or fan-duty acceptance.
 Current ledger joins require unique, fully represented straights and relative-
 only subtotal correspondence. Generate fresh outputs after method changes;
 do not rehash old manifests or treat boolean values as missing-path counts.
+The ledger also reconstructs the cached paths from the existing complete
+port/interface/span/boundary graph; missing graph fields cannot skip this gate.
+Divergent-tree continuity is not physical joint or installation acceptance.
 
 For comparing coefficients with different actual port references, use
 loss_reference per docs/LOSS_REFERENCE.md. Preserve signed pressure; validate

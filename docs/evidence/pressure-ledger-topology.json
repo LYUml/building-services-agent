@@ -1,0 +1,19 @@
+{
+  "scope": "Direct ledger port-topology reconstruction using existing router",
+  "direct_accounting_reversed_path_false_acceptance_reproduced": true,
+  "parent_native_verifier_already_reconstructed_paths": true,
+  "existing_router_reused": true,
+  "reconstructed_outlet_count": 20,
+  "missing_numerical_paths": 45,
+  "original_requirement_count": 33,
+  "tests_passed": 13,
+  "tests_skipped": 0,
+  "fresh_actual_mcp_generation_and_independent_inspection_pass": true,
+  "all_gap_pages_match": true,
+  "all_outlet_reads_match": true,
+  "real_ledger_payload_unchanged": true,
+  "historical_receipts_preserved": true,
+  "physical_joint_or_installation_accepted": false,
+  "formal_loss_values_added": 0,
+  "design_accepted": false
+}

@@ -4,6 +4,7 @@ import json
 import math
 from pathlib import Path
 from . import source_fitting_data as fitting
+from . import duct_chain_analysis as chain
 from .cli import digest
 from .workspace import allowed
 
@@ -23,6 +24,8 @@ def matches(a,b):return math.isclose(number(a),number(b),rel_tol=1e-12,abs_tol=0
 
 
 def calculate(case,data):
+    rebuilt=chain.boundary_paths(case['port_flows'],case['products'],case['interfaces'],case['straight_sections'],case['missing_fitting_path_losses'],case['boundary_ports'])
+    if rebuilt!=case['boundary_paths']:raise ValueError('Pressure paths differ from reconstructed port topology')
     if case['original_requirement_ids']!=data['original_requirement_ids']:raise ValueError('Original requirements differ')
     requests={key(r):r for r in data['data_requests']};tables={key(r):r for r in data['table_results']}
     if len(requests)!=len(data['data_requests']) or len(tables)!=len(data['table_results']):raise ValueError('Duplicate directed fitting identity')
@@ -73,7 +76,7 @@ def evaluate(source):
     data=json.loads((source/'fitting-data.json').read_text());analysis=Path(data['source_analysis']).resolve()
     if not allowed(analysis):raise ValueError('Host-selected source analysis required')
     case=json.loads((analysis/'analysis.json').read_text())
-    return calculate(case,data),{str(p):digest(p) for p in (source/'fitting-data.json',analysis/'analysis.json',Path(__file__).resolve(),Path(fitting.__file__).resolve())}
+    return calculate(case,data),{str(p):digest(p) for p in (source/'fitting-data.json',analysis/'analysis.json',Path(__file__).resolve(),Path(fitting.__file__).resolve(),Path(chain.__file__).resolve())}
 
 
 def run(source,out):

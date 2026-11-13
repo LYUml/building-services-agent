@@ -53,3 +53,8 @@ unique/fully represented straight definitions. Older produced ledgers retain
 old method identities and are historical; generate a fresh directory for
 current native/source inspection. Saved-byte reads remain explicitly distinct
 from fresh verification. See SOURCE_PRESSURE_LEDGER.md.
+
+The current producer/inspector also reconstructs cached boundary paths directly
+from port topology before subtotal checks. Graph continuity is separate from
+physical joint/installation acceptance. Prior method-bound manifests remain
+historical; see SOURCE_PRESSURE_LEDGER.md for reconstruction scope.

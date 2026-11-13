@@ -1687,3 +1687,10 @@ no solver, physical correlation, dependency or source table is introduced.
 Duplicate/unused definitions, tiny wrong totals and boolean counts now reject.
 Historical evidence remains unchanged; fresh client replay is required.
 See SOURCE_PRESSURE_LEDGER.md.
+
+Independent ledger topology checking reuses duct_chain_analysis.boundary_paths
+instead of implementing another graph traversal. The existing parent native
+replay already uses this helper; the gap is the ledger layer relying on cached
+paths without direct reconstruction. It now pins and executes the same method
+against source port/interface/span/boundary records. No new dependency or
+physical connection/loss acceptance. See SOURCE_PRESSURE_LEDGER.md.
