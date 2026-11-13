@@ -5,10 +5,12 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
-For multiple ready pump failures with explicit sourced catalogues, use
+For ready pump and circular-fan selection failures with explicit sourced catalogues, use
 bsa_run_recovery / bsa_verify_recovery per docs/RECOVERY_CONTROLLER.md. Declare
 original electrical consumers where applicable. Inspect final diagnosis and
 engineering actions; no-feasible/unknown candidates stop and review stays open.
+Fan actions retain catalogue mechanical gates and cannot use pump electrical_task.
+Inspect the actual final revised run even when fan selection fails.
 The controller does not invent candidates or repair arbitrary tasks.
 
 For recorded PDF output, use bsa_render_artifact_page after bsa_artifact_index

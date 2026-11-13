@@ -1,7 +1,7 @@
-"""Bounded diagnosed pump recovery using declared source catalogues and full replays."""
+"""Bounded diagnosed pump and circular-fan recovery using declared source catalogues and full replays."""
 import json
 from pathlib import Path
-from . import delivery,workflow,workflow_status,pump_catalogue_iteration as pump
+from . import delivery,workflow,workflow_status,pump_catalogue_iteration as pump,catalogue_iteration as fan,catalogue_iteration_verify as fan_verify,rectangular_fan_selection as fan_catalogue
 from .cli import digest
 from .module_contract import read_json
 from .terminal_iteration import OPTIONS
@@ -17,12 +17,31 @@ def policy(plan,path):
     for row in data['actions']:
         if not isinstance(row,dict) or set(row)-{'task','catalogue','electrical_task'} or not {'task','catalogue'}<=set(row):raise ValueError('Explicit task and catalogue action required')
         task=row['task']
-        if task in seen or tasks.get(task,{}).get('kind')!='pump_operating_point':raise ValueError('Unique existing pump task required')
-        seen.add(task);catalogue=workflow.local_path(Path(plan).parent,row['catalogue']);pump.candidates(read_json(catalogue))
+        if task in seen or tasks.get(task,{}).get('kind') not in ('pump_operating_point','circular_fan_selection'):raise ValueError('Unique existing supported pump or circular fan task required')
+        seen.add(task);catalogue=workflow.local_path(Path(plan).parent,row['catalogue'])
+        if tasks[task]['kind']=='pump_operating_point':pump.candidates(read_json(catalogue))
+        else:
+            if 'electrical_task' in row:raise ValueError('Fan action cannot declare a pump-electrical consumer')
+            fan_catalogue.mechanical_context(catalogue)
         if row.get('electrical_task') is not None:
             linked=tasks.get(row['electrical_task'],{})
             if linked.get('kind')!='pump_electrical' or linked.get('depends_on')!=task:raise ValueError('Original downstream electrical consumer required')
     return data
+
+
+def action_kind(plan,action):
+    return next(t['kind'] for t in read_json(plan)['tasks'] if t['id']==action['task'])
+
+
+def checked_action(plan,action,folder):
+    if action_kind(plan,action)=='pump_operating_point':
+        checked=pump.verify(folder);child=read_json(folder/'selection.json')
+        return child,checked['selected'],child['status'],folder/'replay/workflow' if checked['selected'] else None
+    fan_verify.verify(folder);child=read_json(folder/'iteration.json')
+    screening=read_json(folder/'workflow'/action['task']/'fan-selection.json')
+    selected=screening['selected']['id'] if screening['selected'] else None
+    status=child['status'] if selected else 'needs_candidate_evidence' if screening['unresolved_preference'] else 'no_feasible_candidate'
+    return child,selected,status,folder/'workflow'
 
 
 def decision(diagnosis,data,attempted):
@@ -48,6 +67,9 @@ def run(plan,original,policy_path,out,*,execute_options=None):
     pins={str(plan):digest(plan),str(policy_path):digest(policy_path),str(original/'workflow.json'):digest(original/'workflow.json'),str(Path(__file__).resolve()):digest(Path(__file__))}
     for row in data['actions']:
         path=workflow.local_path(plan.parent,row['catalogue']);pins[str(path)]=digest(path)
+        if next(t for t in source['tasks'] if t['id']==row['task'])['kind']=='circular_fan_selection':
+            files,_=fan_catalogue.mechanical_context(path)
+            pins.update({str(p):digest(p) for p in files})
     out.mkdir(parents=True);current_plan,current_run=plan,original;steps=[];attempted=set()
     while len(steps)<data['max_steps']:
         action=decision(diagnosis,data,attempted)
@@ -55,12 +77,16 @@ def run(plan,original,policy_path,out,*,execute_options=None):
         task=action['task'];attempted.add(task);number=len(steps)+1
         target=plan.parent/(out.name+'-step-'+str(number)+'-plan.json');folder=out/('step-'+str(number))
         if any(digest(Path(p))!=sha for p,sha in pins.items()):raise ValueError('Controller sources changed')
-        result=pump.run(current_plan,current_run,task,workflow.local_path(plan.parent,action['catalogue']),target,folder,electrical_task=action.get('electrical_task'),execute_options=execute_options)
-        checked=pump.verify(folder);selected=checked['selected']
-        steps.append(dict(task=task,input_plan=str(current_plan),input_run=str(current_run),output=str(folder),target=str(target),selected=selected,status=result['status']))
+        catalogue=workflow.local_path(plan.parent,action['catalogue'])
+        if action_kind(current_plan,action)=='pump_operating_point':
+            pump.run(current_plan,current_run,task,catalogue,target,folder,electrical_task=action.get('electrical_task'),execute_options=execute_options)
+        else:fan.run(current_plan,current_run,task,catalogue,target,folder,execute_options=execute_options)
+        child,selected,status,replay_run=checked_action(current_plan,action,folder)
+        steps.append(dict(task=task,input_plan=str(current_plan),input_run=str(current_run),output=str(folder),target=str(target),selected=selected,status=status))
+        if replay_run is not None:
+            current_plan,current_run=target,replay_run
+            diagnosis=workflow_status.diagnose(current_plan,current_run)
         if not selected:break
-        current_plan,current_run=target,folder/'replay/workflow'
-        diagnosis=workflow_status.diagnose(current_plan,current_run)
     if any(digest(Path(p))!=sha for p,sha in pins.items()):raise ValueError('Controller sources changed')
     result=dict(schema='bsa.recovery-controller/1',plan=str(plan),original_run=str(original),policy=str(policy_path),inputs=pins,steps=steps,final_plan=str(current_plan),final_run=str(current_run),diagnosis=diagnosis,status=final_status(diagnosis,data,attempted,steps),design_accepted=False)
     (out/'recovery.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
@@ -78,6 +104,9 @@ def verify(out):
     expected={str(plan):digest(plan),str(path):digest(path),str(original/'workflow.json'):digest(original/'workflow.json'),str(Path(__file__).resolve()):digest(Path(__file__))}
     for row in data['actions']:
         p=workflow.local_path(plan.parent,row['catalogue']);expected[str(p)]=digest(p)
+        if next(t for t in read_json(plan)['tasks'] if t['id']==row['task'])['kind']=='circular_fan_selection':
+            files,_=fan_catalogue.mechanical_context(p)
+            expected.update({str(f):digest(f) for f in files})
     if result.get('inputs')!=expected:raise ValueError('Controller source pins changed')
     diagnosis=workflow_status.diagnose(plan,original);current_plan,current_run=plan,original;attempted=set()
     if len(result['steps'])>data['max_steps']:raise ValueError('Controller exceeded declared step limit')
@@ -85,14 +114,15 @@ def verify(out):
         action=decision(diagnosis,data,attempted)
         if action is None or row['task']!=action['task']:raise ValueError('Controller action differs from fresh ready diagnosis')
         folder=out/('step-'+str(number));target=plan.parent/(out.name+'-step-'+str(number)+'-plan.json')
-        checked=pump.verify(folder);child=read_json(folder/'selection.json')
-        expected_row=dict(task=action['task'],input_plan=str(current_plan),input_run=str(current_run),output=str(folder),target=str(target),selected=checked['selected'],status=child['status'])
-        if row!=expected_row or child['plan']!=str(current_plan) or child['original_run']!=str(current_run) or child['task']!=action['task'] or child['target_plan']!=str(target) or child['catalogue']!=str(workflow.local_path(plan.parent,action['catalogue'])) or child['electrical_task']!=action.get('electrical_task'):raise ValueError('Controller replaced a declared recovery action')
+        child,selected,status,replay_run=checked_action(current_plan,action,folder)
+        expected_row=dict(task=action['task'],input_plan=str(current_plan),input_run=str(current_run),output=str(folder),target=str(target),selected=selected,status=status)
+        if row!=expected_row or child['plan']!=str(current_plan) or child['original_run']!=str(current_run) or child['task']!=action['task'] or child['target_plan']!=str(target) or child['catalogue']!=str(workflow.local_path(plan.parent,action['catalogue'])) or child.get('electrical_task')!=action.get('electrical_task'):raise ValueError('Controller replaced a declared recovery action')
         attempted.add(action['task'])
-        if not checked['selected']:
+        if replay_run is not None:
+            current_plan,current_run=target,replay_run;diagnosis=workflow_status.diagnose(current_plan,current_run)
+        if not selected:
             if number!=len(result['steps']):raise ValueError('Controller continued after inconclusive screening')
             break
-        current_plan,current_run=target,folder/'replay/workflow';diagnosis=workflow_status.diagnose(current_plan,current_run)
     stopped=bool(result['steps'] and not result['steps'][-1]['selected'])
     if not stopped and len(result['steps'])<data['max_steps'] and decision(diagnosis,data,attempted):raise ValueError('Controller omitted a ready declared recovery')
     if result.get('final_plan')!=str(current_plan) or result.get('final_run')!=str(current_run) or result.get('diagnosis')!=diagnosis or result.get('status')!=final_status(diagnosis,data,attempted,result['steps']):raise ValueError('Controller final diagnosis differs')

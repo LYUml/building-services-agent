@@ -1,6 +1,8 @@
 # Building Services Agent
 
-A bounded recovery controller now chains ready failed pump actions using explicit
+For overall verified coverage and remaining work, read [whole-agent status](docs/AGENT_STATUS.md).
+
+A bounded recovery controller now chains ready failed pump and circular-fan actions using explicit
 source catalogues, independent replay verification and fresh whole-plan diagnosis.
 Unknown/no-feasible candidates stop; manual/full engineering review remains.
 See docs/RECOVERY_CONTROLLER.md.

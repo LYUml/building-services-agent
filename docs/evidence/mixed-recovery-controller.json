@@ -1,0 +1,145 @@
+{
+  "scope": "Declared-catalogue mixed circular-fan and independent water-pump recovery; not physically coupled whole-building design",
+  "confirmed_tests": [
+    {
+      "command": ".venv/Scripts/python -X utf8 -m unittest tests.test_recovery_controller tests.test_catalogue_iteration tests.test_circular_fan_selection tests.test_pump_catalogue_iteration tests.test_pump_electrical_catalogue",
+      "passed": 27,
+      "skips": 0,
+      "seconds": 8.348
+    },
+    {
+      "command": ".venv/Scripts/python -X utf8 -m unittest tests.test_mixed_recovery_controller.MixedRecoveryTests.test_unselected_fan_retains_failed_replay_and_stops_before_pump",
+      "passed": 1,
+      "skips": 0,
+      "seconds": 360.948,
+      "log_sha256": "16fbcfaef0584f32212d4feeec40653d1689d7b5bf3bb729aa1f5e20619b9b87"
+    }
+  ],
+  "initial_mixed_suite": "Three individual test dots were observed, but the final session/exit result was unavailable after tool context changed. No whole-suite pass is claimed; the remaining negative case was rerun with retained log and output.",
+  "actual_stdio_command": ".venv/Scripts/python -X utf8 scripts/run_recovery_mcp_demo.py --project-root runs/mixed-recovery-study --plan plan.json --original-run original --policy policy.json --out mcp-controller --receipt mcp-protocol.json",
+  "mcp_receipt_sha256": "e3790bd46509d3d4090f4a6bdd1804aaf0417ecb3ef71efe3b8760db8bed1d96",
+  "cases": {
+    "direct": {
+      "retained_run": "runs/mixed-recovery-study/controller",
+      "verification": {
+        "integrity_pass": true,
+        "steps": 2,
+        "status": "needs_action_or_review",
+        "execution_pass": false,
+        "design_accepted": false
+      },
+      "steps": [
+        {
+          "task": "selection",
+          "selected": "supported",
+          "status": "execution_incomplete"
+        },
+        {
+          "task": "pump",
+          "selected": "adequate-pump",
+          "status": "execution_incomplete"
+        }
+      ],
+      "final_tasks": {
+        "source": "pass",
+        "route": "pass",
+        "join": "pass",
+        "material": "pass",
+        "pressure": "pass",
+        "selection": "pass",
+        "fan": "pass",
+        "state": "pass",
+        "drawing": "pass",
+        "pump": "pass",
+        "review": "pending"
+      },
+      "requirements": 11,
+      "original_requirements_preserved": true,
+      "final_run": "controller/step-2/replay/workflow",
+      "receipt_sha256": "209dff62693f1d46ab14f147a75a33413a337ea17a3bc1f679daa5764a63b2b1"
+    },
+    "mcp": {
+      "retained_run": "runs/mixed-recovery-study/mcp-controller",
+      "verification": {
+        "integrity_pass": true,
+        "steps": 2,
+        "status": "needs_action_or_review",
+        "execution_pass": false,
+        "design_accepted": false
+      },
+      "steps": [
+        {
+          "task": "selection",
+          "selected": "supported",
+          "status": "execution_incomplete"
+        },
+        {
+          "task": "pump",
+          "selected": "adequate-pump",
+          "status": "execution_incomplete"
+        }
+      ],
+      "final_tasks": {
+        "source": "pass",
+        "route": "pass",
+        "join": "pass",
+        "material": "pass",
+        "pressure": "pass",
+        "selection": "pass",
+        "fan": "pass",
+        "state": "pass",
+        "drawing": "pass",
+        "pump": "pass",
+        "review": "pending"
+      },
+      "requirements": 11,
+      "original_requirements_preserved": true,
+      "final_run": "mcp-controller/step-2/replay/workflow",
+      "receipt_sha256": "c59c515260215976527dcd5b1cd74cd719f4b177213d0a90eb9d87b623f47fd5"
+    },
+    "no_feasible_fan": {
+      "retained_run": "runs/mixed-recovery-negative-release/controller",
+      "verification": {
+        "integrity_pass": true,
+        "steps": 1,
+        "status": "no_feasible_candidate",
+        "execution_pass": false,
+        "design_accepted": false
+      },
+      "steps": [
+        {
+          "task": "selection",
+          "selected": null,
+          "status": "no_feasible_candidate"
+        }
+      ],
+      "final_tasks": {
+        "source": "pass",
+        "route": "pass",
+        "join": "pass",
+        "material": "pass",
+        "pressure": "pass",
+        "selection": "fail",
+        "fan": "pending",
+        "state": "pending",
+        "drawing": "pending",
+        "pump": "fail",
+        "review": "pending"
+      },
+      "requirements": 11,
+      "original_requirements_preserved": true,
+      "final_run": "controller/step-1/workflow",
+      "receipt_sha256": "af29c0f109fef59e1aca3e14d3902104a8611570707eff68b7f1539655c6ed02"
+    }
+  },
+  "warnings": [
+    "Existing IfcOpenShell IFC4 schema-file ResourceWarning retained; terminal negative test still passed"
+  ],
+  "design_accepted": false,
+  "methods": {
+    "src/bsa/recovery_controller.py": "1cc4a6fec559e12bffe873ee0e665f1b7e371efefd55a90f047b7ea7a2b755d3",
+    "src/bsa/mcp_server.py": "bcb1234c030a2d2f549ccd94ab836a0f3d51f9576ae18b249cc35a76ae3c58e3",
+    "scripts/run_recovery_mcp_demo.py": "8e12c77fa1d2be10c297732f921bf82c95e634c5ff7dac960c27922be1c081d0",
+    "tests/test_mixed_recovery_controller.py": "12e535581c3306d5ad477ab114433b8dc2b852a9e726c58cce6df4e38442236e"
+  }
+}

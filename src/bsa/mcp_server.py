@@ -179,7 +179,7 @@ def create_server(*,execute_options=None,pdftoppm=None):
 
     @server.tool(annotations=write)
     def bsa_run_recovery(plan:str,original_run:str,policy:str,out:str)->dict[str,Any]:
-        """Process ready failed pumps with explicitly sourced catalogue actions and bounded fresh diagnosis/full-plan replay. Stop on unknown or no-feasible evidence; never accept a design."""
+        """Process ready failed pumps and circular fan selections with explicitly sourced catalogue actions and bounded fresh diagnosis/full-plan replay. Stop on unknown or no-feasible evidence; never accept a design."""
         return invoke(recovery_controller.run,local(plan),local(original_run),local(policy),local(out),execute_options=options)
 
     @server.tool(annotations=read)
