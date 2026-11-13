@@ -19,13 +19,17 @@ def render(report):
         input_notice='<h3>Unresolved design inputs</h3><ul>'+''.join('<li>'+esc(i['id'])+' ('+esc(i['kind'])+'): '+esc(i['description'])+'<br>Source citations: '+esc(i['sources'])+'</li>' for i in inputs)+'</ul>' if inputs else ''
         files=sorted(set(row['evidence']))
         evidence='<ul>'+''.join('<li>'+link(name)+'</li>' for name in files)+'</ul>' if files else '<p>No artifacts generated for this task.</p>'
+        supporting=''
+        for name,related in row.get('supporting_evidence',{}).items():
+            supporting+='<h3>Supporting task: '+esc(name)+' · '+esc(related['status'])+'</h3><p>'+esc(related['scope'])+'</p><ul>'+''.join('<li>'+link(path)+'</li>' for path in related['evidence'])+'</ul>'
+        if supporting:supporting='<details><summary>Related evidence; primary acceptance remains pending</summary>'+supporting+'</details>'
         sections.append('<section><h2>'+esc(row['id'])+' · '+esc(row['task'])+'</h2>'
             '<p><strong>Execution: '+esc(row['execution_status'])+'</strong> · Acceptance: pending review</p>'
             '<h3>Source requirement</h3><blockquote>'+esc(row['quote'])+'</blockquote>'
             '<p>Source locator: '+esc(row.get('source_locator',{}))+'</p>'
             '<h3>Acceptance target</h3><p>'+esc(row['acceptance'])+'</p>'
             '<h3>Executed scope</h3><p>'+esc(row['execution_scope'])+'</p>'
-            +input_notice+
+            +input_notice+supporting+
             '<details><summary>Task artifacts ('+str(len(files))+')</summary>'+evidence+'</details></section>')
     statuses={s:sum(t['status']==s for t in report['tasks'].values()) for s in ('pass','fail','pending')}
     return '''<!doctype html><html lang="en"><head><meta charset="utf-8">

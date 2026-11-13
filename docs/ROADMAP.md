@@ -1,5 +1,9 @@
 # Scope and acceptance
 
+Source requirements can now link related calculation evidence beside their
+primary review, preserving pending acceptance and all missing inputs. Actual
+common-provider/project replay passes; see SUPPORTING_REQUIREMENT_EVIDENCE.md.
+
 Optional upstream AutoCAD writing now participates in the original calculation
 → drawing → native task chain, with producer/source replay and failure blocking.
 Real full-plan replay retains all pending reviews; see AUTOCAD_WORKFLOW_PROVIDER.md.

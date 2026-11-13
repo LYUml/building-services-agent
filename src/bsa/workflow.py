@@ -1174,6 +1174,9 @@ def validate_plan(path):
             raise ProjectError("requirement quote does not match source")
         if r.get("task") not in ids:raise ProjectError("unknown requirement task")
         if not isinstance(r.get("acceptance"),str) or not r["acceptance"].strip():raise ProjectError("acceptance description required")
+        supporting=r.get('supporting_tasks',[])
+        if not isinstance(supporting,list) or any(not isinstance(t,str) or t not in ids or t==r['task'] for t in supporting) or len(set(supporting))!=len(supporting):
+            raise ProjectError('Supporting tasks must be unique known tasks distinct from primary task')
         cited.add(passage)
     if cited!={k for k,v in dispositions.items() if v=="requirement"}:
         raise ProjectError("requirement passage omitted from matrix")
@@ -1206,6 +1209,13 @@ def three_phase_locations(root,out,producer):
     if producer['kind']=='three_phase_ifc_project':return out/producer['id']/'project.json',out/producer['id']/'study'
     if producer['kind']=='three_phase':return local_path(root,producer['project']),out/producer['id']
     raise ProjectError('not a three-phase numerical producer')
+
+
+def requirement_support(requirement,tasks,artifacts):
+    """Related calculation evidence never changes primary execution/acceptance."""
+    return {name:dict(status=tasks[name]['status'],scope=tasks[name]['scope'],
+        evidence=sorted(path for path in artifacts if path.startswith(name+'/')))
+        for name in requirement.get('supporting_tasks',[])}
 
 
 def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_python=None,three_phase_python=None,graphviz=None,pdf2plot_python=None,honeybee_python=None,module_providers=None,module_runtime=None,disabled_module_providers=(),requirements_result=None):
@@ -2343,6 +2353,8 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
         matrix.append(dict(**r,execution_status=task["status"],acceptance_status="pending review",
                            source_locator={k:v for k,v in source_rows[r["passage"]].items() if k not in ("id","text")},
                            execution_scope=task["scope"],evidence=evidence[r["task"]]))
+        if r.get('supporting_tasks'):
+            matrix[-1]['supporting_evidence']=requirement_support(r,tasks,[name for files in evidence.values() for name in files])
     result=dict(source_plan=dict(path=str(plan),sha256=digest(plan)),inputs=before,runtime_inputs=runtime_inputs,requirements_inventory=requirements_inventory,module_selection=module_selection,inputs_unchanged=unchanged,tasks=tasks,requirements=matrix,
         unresolved_inputs=p.get('unresolved_inputs',[]),three_phase_source_bindings=three_phase_rule_bindings(p['tasks']),
         three_phase_model_bindings=three_phase_model_bindings(root,p['tasks']) if unchanged else [],
@@ -2384,13 +2396,19 @@ def verify(run_directory):
             plan_path=Path(source_plan['path']).resolve()
             if report['inputs'].get(str(plan_path))!=source_plan['sha256'] or digest(plan_path)!=source_plan['sha256']:
                 raise ValueError('Source plan identity differs')
-            declared={t['id']:t for t in read_json(plan_path)['tasks']}
+            original_plan=read_json(plan_path)
+            declared={t['id']:t for t in original_plan['tasks']}
             if set(declared)!=set(report['tasks']):raise ValueError('Recorded task coverage differs from source plan')
             for task_id,original in declared.items():
                 recorded=report['tasks'][task_id]
                 if recorded['kind']!=original['kind']:raise ValueError('Recorded task kind differs from source plan: '+task_id)
                 if original['kind']=='duct_sheet' and recorded.get('writer','builtin')!=original.get('writer','builtin'):
                     raise ValueError('Recorded writer differs from source plan: '+task_id)
+            rows={row['id']:row for row in report['requirements']}
+            for requirement in original_plan['requirements']:
+                row=rows[requirement['id']]
+                if row.get('supporting_tasks',[])!=requirement.get('supporting_tasks',[]) or row.get('supporting_evidence',{})!=requirement_support(requirement,report['tasks'],report['artifact_hashes']):
+                    raise ValueError('Supporting requirement evidence differs from source: '+requirement['id'])
         except (OSError,ValueError,KeyError,TypeError) as exc:issues.append('workflow source identity invalid: '+str(exc))
     elif any(t.get('writer')=='uc4n' for t in report['tasks'].values()) or any((root/name/'workflow-binding.json').is_file() for name in report['tasks']):
         issues.append('upstream writer requires explicit workflow source plan identity')

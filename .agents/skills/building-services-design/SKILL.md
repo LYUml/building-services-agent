@@ -5,6 +5,12 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For a broad source requirement with related existing calculations, explicitly
+declare supporting_tasks per docs/SUPPORTING_REQUIREMENT_EVIDENCE.md. Retain its
+full original quote, primary task and review gates; inspect each supporting scope.
+Supporting evidence never clears primary/manual/engineering acceptance.
+
+
 Preserve source_plan path/hash in new workflow receipts. The original declared
 writer chooses verification; changing recorded writer/status must not skip it.
 Do not patch historical receipts to satisfy this newer check.

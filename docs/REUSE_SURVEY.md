@@ -1442,3 +1442,9 @@ The task-chain writer bridge reuses autocad_schedule, its exact pinned MIT backe
 existing numerical replay and duct_sheet_native. Only source/producer binding and
 selection glue are added. Actual full-plan/native/visual evidence is recorded in
 AUTOCAD_WORKFLOW_PROVIDER.md; no additional engine/dependency is introduced.
+
+
+Supporting requirement evidence reuses the existing workflow/source inventory,
+HTML links and delivery path/hash audit. The actual gap was related-artifact
+discovery beside a broad primary requirement, not a missing engineering solver.
+No new upstream dependency is needed; see SUPPORTING_REQUIREMENT_EVIDENCE.md.

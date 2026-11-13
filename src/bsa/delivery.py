@@ -81,6 +81,9 @@ def context(plan,root):
         if row.get('execution_status')!=report['tasks'][requirement['task']]['status']:raise ProjectError('run execution matrix contradicts task status')
         locator=json.loads(json.dumps({k:v for k,v in source_rows[requirement['passage']].items() if k not in ('id','text')}))
         if row.get('source_locator')!=locator:raise ProjectError('run source locator differs from current brief passage')
+        from .workflow import requirement_support
+        if row.get('supporting_evidence',{})!=requirement_support(requirement,report['tasks'],artifacts):
+            raise ProjectError('run supporting evidence differs from declared tasks')
         expected={name for name in artifacts if name.startswith(requirement['task']+'/')}
         if set(row.get('evidence',[]))!=expected:raise ProjectError('run requirement artifact inventory differs from task evidence')
     return source,report,verify(root)

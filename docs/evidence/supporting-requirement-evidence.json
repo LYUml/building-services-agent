@@ -1,0 +1,73 @@
+{
+  "scope": "Declared supporting calculation evidence for broad primary requirements; no primary execution/acceptance promotion",
+  "source_plan_other_fields_preserved": true,
+  "requirements": 33,
+  "unresolved_inputs": 6,
+  "requirements_with_support": 5,
+  "supporting_rows": [
+    {
+      "id": "R006-load",
+      "primary_execution": "pending",
+      "supporting_statuses": {
+        "air-allocation": "pass"
+      },
+      "supporting_artifact_count": 1
+    },
+    {
+      "id": "R007-load",
+      "primary_execution": "pending",
+      "supporting_statuses": {
+        "air-allocation": "pass",
+        "terminal-lookup": "pass",
+        "duct-sheet": "pass"
+      },
+      "supporting_artifact_count": 15
+    },
+    {
+      "id": "R008-minimum",
+      "primary_execution": "pending",
+      "supporting_statuses": {
+        "air-allocation": "pass"
+      },
+      "supporting_artifact_count": 1
+    },
+    {
+      "id": "R009-minimum",
+      "primary_execution": "pending",
+      "supporting_statuses": {
+        "air-allocation": "pass",
+        "terminal-lookup": "pass"
+      },
+      "supporting_artifact_count": 2
+    },
+    {
+      "id": "R014-schedule",
+      "primary_execution": "pending",
+      "supporting_statuses": {
+        "duct-schedule": "pass",
+        "duct-sheet": "pass",
+        "native-sheet": "pending"
+      },
+      "supporting_artifact_count": 15
+    }
+  ],
+  "workflow_sha256": "da2a47e75c8c6d467221538ac9c7e33717c8a98ac4823579b5405ef5adf04fdf",
+  "inventory_sha256": "fc083e3df448949ad7a15da66a448e989111e95b00f082af62031ee3335759f5",
+  "requirements_provider_status": "completed",
+  "verification": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "tests": {
+    "tests_run": 48,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test_receipt_sha256": "0ccd47f28f0cea85ea3571d2de288fa68bbf3fb0a72d4c70f091577763f06152",
+  "native_repeated": false,
+  "plot_visual_repeated": false,
+  "design_accepted": false
+}
