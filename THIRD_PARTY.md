@@ -287,3 +287,10 @@ HiGHS is MIT. Exact installed SciPy wheel notices and upstream HiGHS1.12.0 notic
 are retained under third_party/licenses/scipy-1.18.1.txt and highs-1.12.0.txt.
 No solver implementation or native binary is vendored. See ELBOW_RADIUS_SELECTION.md
 and https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.milp.html .
+
+
+The explicit source-station transition variant calls the existing pinned
+IfcOpenShell0.8.5 ShapeBuilder.faceted_brep API. Source ring/face connectivity and
+source-node/budget glue are original adapter code; no upstream implementation or
+new binary is copied. Existing IfcOpenShell/Manifold attribution and license
+notices apply. The original MEP-helper authoring path remains separately checked.

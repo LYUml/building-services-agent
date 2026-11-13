@@ -5,6 +5,11 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For unequal source tees after a verified elbow selection, use source_tee_candidates
+per docs/SOURCE_TEE_CANDIDATES.md with explicit construction/method choices. Keep
+both-end blocked nodes and unattempted multi-branch obligations. Local native
+assemblies do not repair/trim/accept the original network until a verified merge.
+
 For source-backed equal-section elbows with explicit alternative radii, use
 bsa.elbow_radius_selection per docs/ELBOW_RADIUS_SELECTION.md. Preserve original
 candidates/source constraints, verify native outputs and run separate coordination.

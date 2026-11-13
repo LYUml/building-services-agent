@@ -61,7 +61,7 @@ end must lie forward on its exact source ray. The resulting outward reach is
 compared with saved source centreline length. Overrun is retained as fail; it is
 not truncated or hidden. No source drawing or existing immutable run is modified.
 Current project/model/component pins and source workflow integrity are checked
-again after the review. The new output remains repository-local and separate.
+again after the review. The new output remains in the repository or explicit host-selected project workspace, separate from original runs.
 
 This is a necessary local **plan extent** test. Remaining centreline is not an
 installed straight length or proof of available space. Opposite-end fitting
@@ -83,3 +83,5 @@ same-model clash inheritance and real producer failure blocking the consumer.
 Plan-fit tests independently verify reaches, retained overrun and size/ray/origin/
 direction/mapping rejection. Existing standalone transition workflow tests remain
 passing. Evidence is in evidence/rectangular-tee-transitions.json.
+
+Transition arms may explicitly declare geometry_method as documented in RECTANGULAR_TRANSITIONS.md. For source-wide candidate compilation and both-end budgets, see SOURCE_TEE_CANDIDATES.md; isolated assemblies do not replace the original connected backbone.

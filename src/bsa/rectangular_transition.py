@@ -20,6 +20,7 @@ import manifold3d as m
 import numpy as np
 
 from .cli import digest
+from .workspace import allowed
 from .circular_geometry import verify_closed_wall
 from .cad_ifc import mesh_properties
 from .solid_clash import from_mesh
@@ -33,7 +34,8 @@ KEY = 'RECTANGULAR-TRANSITION'
 def validate(data):
     fields = {'project_uuid', 'source', 'classification', 'placement', 'wall_model', 'start_section_m', 'end_section_m',
         'section_offset_m', 'start_length_m', 'end_length_m', 'upstream_angle_degrees', 'transition_length_m', 'port_directions'}
-    if not isinstance(data, dict) or set(data) != fields: raise ValueError('Exact sourced transition fields required')
+    if not isinstance(data, dict) or set(data)-{'geometry_method'} != fields: raise ValueError('Exact sourced transition fields required')
+    if data.get('geometry_method','upstream_mep_shape') not in ('upstream_mep_shape','explicit_station_brep'):raise ValueError('Explicit supported geometry method required')
     project_namespace(data); placement_matrix(data)
     if not isinstance(data['source'], str) or not data['source'].strip() or data['classification'] not in ('given', 'assumed', 'secondary_transcription'):
         raise ValueError('Transition source and classification required')
@@ -94,6 +96,7 @@ def inspect(path, data, *, component=False):
     if (not component and len(model.by_type('IfcDistributionElement')) != 1) or fitting.PredefinedType != 'TRANSITION' or not np.allclose(placement.get_local_placement(fitting.ObjectPlacement), placement_matrix(data), atol=1e-9, rtol=0):
         raise ValueError('Exact single transition type/placement required')
     props = element.get_psets(fitting).get('BSA_DesignInputs', {})
+    if props.get('GeometryMethod','upstream_mep_shape')!=data.get('geometry_method','upstream_mep_shape'):raise ValueError('Saved geometry method differs from source')
     if any(props.get(k) != v for k, v in dict(Source=data['source'], Classification=data['classification'], WallModel=data['wall_model'], SectionOffset_m=data['section_offset_m']).items()):
         raise ValueError('Transition source/wall metadata differs')
     body = fitting.Representation.Representations
@@ -101,7 +104,7 @@ def inspect(path, data, *, component=False):
     wall = body[0].Items[0]
     if not wall.is_a('IfcBooleanResult') or wall.Operator != 'DIFFERENCE': raise ValueError('Explicit outer-minus-inner transition required')
     for inner, brep in ((False, wall.FirstOperand), (True, wall.SecondOperand)):
-        if not brep.is_a('IfcFacetedBrep'): raise ValueError('Upstream-derived faceted BRep operands required')
+        if not brep.is_a('IfcFacetedBrep'): raise ValueError('Native faceted BRep operands required')
         coordinates = []; faces = brep.Outer.CfsFaces
         if len(faces) != 14: raise ValueError('Expected centred rectangular transition face coverage')
         for face in faces:
@@ -159,10 +162,18 @@ def upstream_brep(model, builder, sections, a, b, angle, expected_length, transl
     return brep
 
 
+def station_brep(builder,data,inner):
+    """Official native BRep builder from explicit source rings; no MEP angle fallback."""
+    points=expected_rings(data,inner).tolist()
+    faces=[[3,2,1,0],[12,13,14,15]]
+    faces += [[4*s+i,4*s+(i+1)%4,4*(s+1)+(i+1)%4,4*(s+1)+i] for s in range(3) for i in range(4)]
+    return builder.faceted_brep(points,faces)
+
+
 def run(project, out):
     project, out = Path(project).resolve(), Path(out).resolve()
     data = validate(json.loads(project.read_text(encoding='utf-8-sig')))
-    if out.exists() or not out.is_relative_to(ROOT) or out == project or out in project.parents: raise ValueError('New repository-local output outside source required')
+    if out.exists() or not all(allowed(p) for p in (project,out)) or out == project or out in project.parents: raise ValueError('New selected workspace output outside source required')
     versions = {name: importlib.metadata.version(name) for name in ('ifcopenshell', 'manifold3d')}
     if versions != {'ifcopenshell': '0.8.5', 'manifold3d': '3.5.4'}: raise ValueError('Pinned IFC/Boolean runtimes required')
     before = digest(project); out.mkdir(parents=True)
@@ -175,8 +186,12 @@ def run(project, out):
     log = io.StringIO()
     try:
         with redirect_stdout(log):
-            outer = upstream_brep(model, builder, [[v+2*offset for v in dims] for dims in sections], a, b, angle, taper)
-            inner = upstream_brep(model, builder, sections, a+EXTENSION_M, b+EXTENSION_M, angle, taper, -EXTENSION_M)
+            if data.get('geometry_method','upstream_mep_shape')=='explicit_station_brep':
+                print('Explicit source-station ShapeBuilder.faceted_brep; MEP angle helper not used')
+                outer=station_brep(builder,data,False);inner=station_brep(builder,data,True)
+            else:
+                outer = upstream_brep(model, builder, [[v+2*offset for v in dims] for dims in sections], a, b, angle, taper)
+                inner = upstream_brep(model, builder, sections, a+EXTENSION_M, b+EXTENSION_M, angle, taper, -EXTENSION_M)
     finally:
         (out/'upstream.log').write_text(log.getvalue(), encoding='utf-8')
     wall = model.create_entity('IfcBooleanResult', Operator='DIFFERENCE', FirstOperand=outer, SecondOperand=inner)
@@ -191,10 +206,10 @@ def run(project, out):
         port.PredefinedType = 'DUCT'; port.SystemType = 'VENTILATION'
         api.run('geometry.edit_object_placement', model, product=port, matrix=matrix, is_si=True)
     pset = api.run('pset.add_pset', model, product=fitting, name='BSA_DesignInputs')
-    api.run('pset.edit_pset', model, pset=pset, properties=dict(Source=data['source'], Classification=data['classification'], WallModel=data['wall_model'], SectionOffset_m=offset))
+    api.run('pset.edit_pset', model, pset=pset, properties=dict(Source=data['source'], Classification=data['classification'], WallModel=data['wall_model'], SectionOffset_m=offset,GeometryMethod=data.get('geometry_method','upstream_mep_shape')))
     target = out/'transition.ifc'; model.write(str(target)); checks = inspect(target, data)
     if digest(project) != before: raise ValueError('Transition source changed')
-    result = dict(inputs={str(project): before}, versions=versions, upstream_builder_sha256=digest(Path(shape_builder.__file__)), generator_sha256=digest(Path(__file__)),
+    result = dict(inputs={str(project): before}, versions=versions,geometry_method=data.get('geometry_method','upstream_mep_shape'), upstream_builder_sha256=digest(Path(shape_builder.__file__)), generator_sha256=digest(Path(__file__)),
         ifc_sha256=digest(target), upstream_log_sha256=digest(out/'upstream.log'), checks=checks, geometry_checks_pass=True, design_accepted=False, numerical_bore_extension_m=EXTENSION_M,
         scope='Centred rectangular section-plane-offset transition only; not constant sheet-normal thickness, products, joints, loss coefficients, assembly or jurisdiction acceptance')
     (out/'transition.json').write_text(json.dumps(result, indent=2), encoding='utf-8')

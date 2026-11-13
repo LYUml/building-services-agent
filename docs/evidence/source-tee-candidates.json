@@ -1,0 +1,50 @@
+{
+  "scope": "Source-matched isolated tee/centred-transition candidates and known both-end budgets only; no insertion into original backbone, physical joints, full clearance or pressure approval",
+  "source_tees": 15,
+  "authored": 14,
+  "blocked": {
+    "ROOT": [
+      "Known both-end fitting reach exceeds source budget on A-03",
+      "Known both-end fitting reach exceeds source budget on D-01"
+    ]
+  },
+  "native_components": 42,
+  "owned_ports": 98,
+  "internal_links": 28,
+  "other_source_connections": 2,
+  "original_requirement_ids_retained": 33,
+  "original_backbone_modified": false,
+  "complete_network": false,
+  "design_accepted": false,
+  "candidate_record_sha256": "1a82f27fd482185fe09e0aecd1f274ef3d15f82f78fdefc84ce6514d2b7fd452",
+  "observed_independent_replay": {
+    "integrity_pass": true,
+    "source_tees": 15,
+    "authored": 14,
+    "blocked": 1,
+    "scope": "Actual source_tee_candidates verify CLI completed; original source and saved native compositions replayed"
+  },
+  "selected_external_source_fit": true,
+  "tests": {
+    "source-tee-station-checks": {
+      "tests_run": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "receipt_sha256": "f921aad3078efe84e014c313b74b58d49b0fb504f0ecddde809c59444f2a4032"
+    },
+    "source-tee-workflow-regression": {
+      "tests_run": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "receipt_sha256": "052c412320030214e0e01e1bb18e2d10ebed6dff432db5f88423053cc68ed9ce"
+    }
+  },
+  "preview": {
+    "source_node": "J0",
+    "image_sha256": "45328f1533e7e12ee60d1ba37947d2eec9b8f39a979d5f520626a513ff83ea14",
+    "observations": "Actual saved local core/transition IFC preview inspected; source-normal section geometry visible, some port/element labels overlap. This preview is not a plotted delivery or installation drawing.",
+    "visual_delivery_accepted": false
+  }
+}

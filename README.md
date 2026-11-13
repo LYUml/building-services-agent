@@ -1,5 +1,9 @@
 # Building Services Agent
 
+Source unequal-tee candidates now compile through native tee/transition tools
+with both-end budgets: 14 local assemblies verify, one source node stays blocked.
+They are not merged into the network; see docs/SOURCE_TEE_CANDIDATES.md.
+
 Native coordination failures now map to original unresolved source connections.
 The real model has 38 unique intersection pairs at 17 unfinished nodes; all raw
 failures remain. See docs/DUCT_COORDINATION_DIAGNOSIS.md.

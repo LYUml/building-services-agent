@@ -10,6 +10,7 @@ from . import rectangular_tee as tee
 from . import rectangular_transition as transition
 from . import rectangular_tee_transitions as composition
 from .cli import digest
+from .workspace import allowed
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -59,8 +60,8 @@ def run(plan, workflow, native_task, project, model_directory, binding_path, out
     plan, workflow, project, model_directory, binding_path, out = [Path(p).resolve() for p in (plan, workflow, project, model_directory, binding_path, out)]
     project, data, source, spec, children = composition.prepare(project)
     paths = [plan, project, source, binding_path, model_directory/'assembly.json', model_directory/'assembly.ifc']
-    if out.exists() or not out.is_relative_to(ROOT) or any(out == p or out in p.parents for p in paths) or any(out.is_relative_to(p) or p.is_relative_to(out) for p in (workflow, model_directory)):
-        raise ValueError('New repository-local review directory outside source/model/workflow required')
+    if out.exists() or not all(allowed(p) for p in (plan,workflow,project,model_directory,binding_path,out)) or any(out == p or out in p.parents for p in paths) or any(out.is_relative_to(p) or p.is_relative_to(out) for p in (workflow, model_directory)):
+        raise ValueError('New selected workspace review directory outside source/model/workflow required')
     bundle = json.loads((model_directory/'assembly.json').read_text(encoding='utf-8'))
     if bundle['inputs'].get(str(project)) != digest(project) or bundle['ifc_sha256'] != digest(model_directory/'assembly.ifc'):
         raise ValueError('Saved composition does not match project or IFC')

@@ -18,6 +18,7 @@ import numpy as np
 import manifold3d as m
 
 from .cli import digest
+from .workspace import allowed
 from .solid_clash import from_mesh
 from .tee_geometry import project_namespace,stable_guid,placement_matrix
 
@@ -114,8 +115,8 @@ def inspect(path,data):
 def run(project,out):
     project,out=Path(project).resolve(),Path(out).resolve();data=json.loads(project.read_text(encoding='utf-8'))
     w,h,t,L,B=validate(data)
-    if out.exists() or not out.is_relative_to(Path(__file__).resolve().parents[2]) or out==project or out in project.parents:
-        raise ValueError('New repository-local output outside source required')
+    if out.exists() or not all(allowed(p) for p in (project,out)) or out==project or out in project.parents:
+        raise ValueError('New selected workspace output outside source required')
     versions={name:importlib.metadata.version(name) for name in ('ifcopenshell','manifold3d')}
     if versions!={'ifcopenshell':'0.8.5','manifold3d':'3.5.4'}:raise ValueError('Pinned IFC/Boolean runtimes required')
     before=digest(project);out.mkdir(parents=True)

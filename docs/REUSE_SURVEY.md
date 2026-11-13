@@ -1477,3 +1477,12 @@ a deduplicated source-node work list, not another collision/geometry engine.
 The existing tee-transition composer is only a candidate building block for
 unfinished nodes; no source-node authoring integration is claimed. See
 DUCT_COORDINATION_DIAGNOSIS.md for executed/negative evidence and retained failures.
+
+
+Source tee compilation reuses the existing tee/centred-transition composer and
+source fit assessor. The pinned ShapeBuilder MEP length helper was executed and
+its one-dimension station convention did not match some explicit source inputs.
+A separately declared source-station path uses official ShapeBuilder.faceted_brep,
+not a replacement kernel; legacy mismatch rejection and independent material,
+bore, geometry and schema checks remain. Both-end budget/source-ray glue fills
+the actual gap. See SOURCE_TEE_CANDIDATES.md and RECTANGULAR_TRANSITIONS.md.

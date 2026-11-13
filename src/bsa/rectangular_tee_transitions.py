@@ -21,6 +21,7 @@ from . import rectangular_transition as transition
 from .rectangular_tee_assembly import local_anchors, opposite
 from .tee_geometry import project_namespace, stable_guid
 from .cli import digest
+from .workspace import allowed
 from .solid_clash import from_mesh
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -40,7 +41,7 @@ def prepare(project):
     children = {}; anchors = tee.port_frames(spec)
     for arm, row in data['arms'].items():
         if row == {'kind': 'bare'}: continue
-        if not isinstance(row, dict) or set(row) != {'kind', 'end_section_m', 'start_length_m', 'end_length_m', 'upstream_angle_degrees', 'transition_length_m'} or row['kind'] != 'transition':
+        if not isinstance(row, dict) or set(row)-{'geometry_method'} != {'kind', 'end_section_m', 'start_length_m', 'end_length_m', 'upstream_angle_degrees', 'transition_length_m'} or row['kind'] != 'transition':
             raise ValueError('Each arm requires explicit bare or complete transition declaration')
         direction = spec['port_directions'][arm]; frame = anchors[arm]
         child = dict(project_uuid=str(uuid.uuid5(project_namespace(spec), KEY+':'+arm)),
@@ -49,6 +50,7 @@ def prepare(project):
             port_directions={'start': opposite(direction), 'end': direction},
             placement=dict(source='Derived from source tee port '+arm+'; '+spec['placement']['source'], origin_m=frame[:3, 3].tolist(), rotation=frame[:3, :3].tolist()),
             **{k: row[k] for k in ('end_section_m', 'start_length_m', 'end_length_m', 'upstream_angle_degrees', 'transition_length_m')})
+        if 'geometry_method' in row:child['geometry_method']=row['geometry_method']
         transition.validate(child); children[arm] = child
     if not children: raise ValueError('At least one declared transition required; use tee adapter for a bare tee')
     return project, data, source, spec, children
@@ -124,7 +126,7 @@ def inspect(path, spec, data, children):
 
 def run(project, out):
     project, data, source, spec, children = prepare(project); out = Path(out).resolve()
-    if out.exists() or not out.is_relative_to(ROOT) or any(out == p or out in p.parents for p in (project, source)): raise ValueError('New repository-local output outside sources required')
+    if out.exists() or not all(allowed(p) for p in (project,out)) or any(out == p or out in p.parents for p in (project, source)): raise ValueError('New selected workspace output outside sources required')
     inputs = {str(p): digest(p) for p in (project, source)}
     tee.run(source, out/'tee'); model = ifcopenshell.open(str(out/'tee/rectangular-tee.ifc'))
     fitting = model.by_guid(stable_guid(spec, 'IfcDuctFitting', 'RECTANGULAR-TEE')); tee_ports = {p.Name: p for p in system.get_ports(fitting)}

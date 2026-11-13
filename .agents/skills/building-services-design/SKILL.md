@@ -5,6 +5,11 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For unequal source tees after a verified elbow selection, use source_tee_candidates
+per docs/SOURCE_TEE_CANDIDATES.md with explicit construction/method choices. Keep
+both-end blocked nodes and unattempted multi-branch obligations. Local native
+assemblies do not repair/trim/accept the original network until a verified merge.
+
 For a selected source elbow backbone with failed native clash evidence, use
 bsa.duct_coordination_diagnosis per docs/DUCT_COORDINATION_DIAGNOSIS.md. Inspect
 unique pairs and unresolved source-node actions; linked contacts and source

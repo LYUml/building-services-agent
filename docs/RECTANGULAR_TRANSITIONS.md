@@ -69,3 +69,23 @@ composition, adjacent straight assemblies, source-backed end stations and trims,
 real VAV/product ports, pressure losses and regional/installation acceptance remain
 pending. The real HVAC layout's15 unequal-section tees are not replaced by this
 independent synthetic transition example. design_accepted remains false.
+
+## Explicit source-station BRep variant
+
+An optional geometry_method=explicit_station_brep now uses the pinned official
+ShapeBuilder.faceted_brep interface with the declared four rectangular stations
+and closed face connectivity. It retains outer-minus-inner native CSG and every
+existing source-corner, schema, volume/centroid, Euler, port and bore check.
+The unchanged default is upstream_mep_shape; a length disagreement still rejects.
+There is no automatic fallback or tolerance reduction.
+
+This explicit variant addresses the observed one-dimension-change branch of the
+upstream MEP angle helper, which may choose stations inconsistent with the source
+maximum included wall angle. The existing upstream_angle_degrees input name is
+retained for compatibility: in explicit mode it is the requested maximum included
+source wall-plane angle, not a claim that the MEP helper selected the length.
+The saved GeometryMethod property and generated child specs distinguish the paths;
+legacy files without it retain their original upstream mode. Both modes still
+require angle/length correspondence under independent inspection. The geometry
+is source-defined, centred and sharp, with the same section-plane-offset wall
+limitation. No manufacturer/loss/fabrication claim is added.
