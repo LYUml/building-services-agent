@@ -76,3 +76,32 @@ related CLI/intake/handoff/workflow tests pass. See
 [aggregate evidence](evidence/project-cli.json). This is unified access to scoped
 existing tools; full integrated design, native delivery and arbitrary brief
 interpretation remain unfinished. Existing upstream attribution is unchanged.
+
+## AutoCAD source and drawing commands
+
+The shared command now exposes the existing pinned upstream-backed adapters:
+
+```powershell
+$env:BSA_PROJECT_ROOT='C:/ABSOLUTE/COURSEWORK'
+bsa autocad-source run --source C:/ABSOLUTE/COURSEWORK/source.dwg --out C:/ABSOLUTE/COURSEWORK/fresh-intake --autocad "C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe"
+bsa autocad-source verify C:/ABSOLUTE/COURSEWORK/fresh-intake
+bsa autocad-sheet run --source C:/ABSOLUTE/COURSEWORK/source.dxf --project C:/ABSOLUTE/COURSEWORK/ducts.json --binding C:/ABSOLUTE/COURSEWORK/binding.json --out C:/ABSOLUTE/COURSEWORK/fresh-sheet
+bsa autocad-sheet verify C:/ABSOLUTE/COURSEWORK/fresh-sheet
+```
+
+Optional sheet flags are --allocation-project, --original-plan, and the paired
+--native-settings/--autocad. All are host arguments; document content cannot
+select workspaces or runtimes. Source bindings must already be reviewed.
+Setup and exact dependency/upstream pins remain in AUTOCAD_SOURCE_PROVIDER.md
+and AUTOCAD_SCHEDULE_PROVIDER.md. Success returns 0 for scoped execution or
+integrity, failed design limits return 2 before writing, and invalid inputs or
+changed evidence exit 2. No invocation means whole-design acceptance.
+
+Actual installed Windows entry runs the backend and verifier on a synthetic
+fixture. A fresh real 47-section coursework run also writes/recalculates through
+the installed command and independently verifies. This new CLI trial did not
+request native output; the preceding native/visual replay retains its own evidence.
+An initial shell invocation produced an argument-parsing error; direct repeated
+installed-entry calls and captured subprocess execution succeeded. The cause is
+unestablished, no launcher fix is claimed, and actual installed-entry coverage is
+retained. See evidence/autocad-shared-entry.json.

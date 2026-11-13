@@ -1,5 +1,9 @@
 # Scope and acceptance
 
+Shared `bsa autocad-source` and `bsa autocad-sheet` commands now reach the
+existing verified AutoCAD adapters; fresh real sheet execution and installed-entry
+checks pass. See PROJECT_CLI.md. Complete design acceptance remains pending.
+
 Source-backed duct schedule writing now reuses the pinned upstream DXF backend,
 with fresh calculations, native DWG save/reopen and actual A1 visual review.
 The real 47-section replay preserves original requirements and engineering gaps;

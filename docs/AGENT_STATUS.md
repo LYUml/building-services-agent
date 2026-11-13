@@ -1,5 +1,9 @@
 # Whole-agent status
 
+Shared `bsa autocad-source` and `bsa autocad-sheet` commands now reach the
+existing verified AutoCAD adapters; fresh real sheet execution and installed-entry
+checks pass. See PROJECT_CLI.md. Complete design acceptance remains pending.
+
 Current user priority is AutoCAD and real assignment delivery; new Revit work is deferred. See [priority and upstream comparison](AUTOCAD_PRIORITY.md).
 
 The whole agent is incomplete. Verified adapter execution and evidence consistency

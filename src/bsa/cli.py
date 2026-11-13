@@ -72,6 +72,15 @@ def run(project, out):
 def main():
     parser=argparse.ArgumentParser(description="Building Services Agent engineering tools")
     sub=parser.add_subparsers(dest="command",required=True)
+    for name in ('autocad-source','autocad-sheet'):
+        group=sub.add_parser(name,help='Source-bound AutoCAD intake or schedule writing; acceptance remains scoped')
+        commands=group.add_subparsers(dest='cad_command',required=True)
+        task=commands.add_parser('verify');task.add_argument('out',type=Path)
+        task=commands.add_parser('run');task.add_argument('--source',type=Path,required=True)
+        task.add_argument('--out',type=Path,required=True);task.add_argument('--autocad',type=Path)
+        if name=='autocad-sheet':
+            for flag in ('project','binding'):task.add_argument('--'+flag,type=Path,required=True)
+            for flag in ('allocation-project','native-settings','original-plan'):task.add_argument('--'+flag,type=Path)
     s=sub.add_parser('project-start',help='Stage a brief and build the source interpretation handoff')
     s.add_argument('brief',type=Path);s.add_argument('--out',type=Path,required=True)
     s.add_argument('--supplement',type=Path,action='append',default=[])
@@ -104,6 +113,24 @@ def main():
     s.add_argument('--moosas-deps',type=Path)
     a=parser.parse_args()
     try:
+        if a.command in ('autocad-source','autocad-sheet'):
+            # Paths and runtime are explicit host arguments; adapters retain all gates.
+            if a.command=='autocad-source':
+                from . import autocad_source as adapter
+            else:
+                from . import autocad_schedule as adapter
+            if a.cad_command=='verify':
+                print(json.dumps(adapter.verify(a.out),indent=2));return 0
+            if a.command=='autocad-source':
+                result=adapter.run(a.source,a.out,autocad=a.autocad)
+                expected='inspected'
+            else:
+                result=adapter.run(a.source,a.project,a.binding,a.out,allocation_project=a.allocation_project,
+                    native_settings=a.native_settings,autocad=a.autocad,original_plan=a.original_plan)
+                expected='written'
+            keys=('status','inputs_unchanged','native_reopen_pass','plot_visual_review','design_accepted','error')
+            print(json.dumps({k:result[k] for k in keys if k in result},indent=2))
+            return 0 if result['status']==expected else 2
         if a.command=='project-start':
             from .project_start import start
             result=start(a.brief,a.out,supplements=a.supplement,references=a.reference)

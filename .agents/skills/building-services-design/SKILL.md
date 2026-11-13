@@ -5,6 +5,10 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+Use shared `bsa autocad-source run/verify` and `bsa autocad-sheet run/verify`
+per docs/PROJECT_CLI.md for host CLI access to the proven AutoCAD adapters.
+The standalone module commands remain available; this adds no new design engine.
+
 For source-bound duct table/flow-arrow writing, use bsa.autocad_schedule per
 docs/AUTOCAD_SCHEDULE_PROVIDER.md. Supply reviewed bindings and fresh outputs;
 verify numeric/source replay, native reopening and separate actual plot inspection.

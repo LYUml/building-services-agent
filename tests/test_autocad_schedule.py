@@ -35,6 +35,41 @@ class AutoCADScheduleTests(unittest.TestCase):
         self.assertEqual(doc.entitydb[self.cells[2]].dxf.text,'800 x 400');self.assertEqual(doc.entitydb[self.base].dxf.radius,1)
         self.assertEqual(self.source.read_bytes(),before)
 
+    def test_shared_cli_executes_and_verifies_actual_upstream(self):
+        import contextlib, io
+        from bsa.cli import main
+        before=self.source.read_bytes()
+        for args in (['autocad-sheet','run','--source',self.source,'--project',self.project,'--binding',self.binding,'--out',self.out], ['autocad-sheet','verify',self.out]):
+            with patch('sys.argv',['bsa',*map(str,args)]),contextlib.redirect_stdout(io.StringIO()) as output:
+                self.assertEqual(main(),0)
+            result=json.loads(output.getvalue());self.assertFalse(result['design_accepted'])
+        self.assertTrue(result['integrity_pass']);self.assertEqual(self.source.read_bytes(),before)
+        self.source.write_bytes(self.source.read_bytes()+b'changed')
+        with patch('sys.argv',['bsa','autocad-sheet','verify',str(self.out)]),contextlib.redirect_stderr(io.StringIO()):
+            with self.assertRaises(SystemExit) as failed:main()
+        self.assertEqual(failed.exception.code,2)
+
+    @unittest.skipUnless((ROOT/'.venv/Scripts/bsa.exe').exists(),'requires installed Windows entry')
+    def test_installed_command_runs_actual_worker_and_verifier(self):
+        import subprocess
+        command=str(ROOT/'.venv/Scripts/bsa.exe')
+        for args in (['autocad-sheet','run','--source',self.source,'--project',self.project,'--binding',self.binding,'--out',self.out],['autocad-sheet','verify',self.out]):
+            completed=subprocess.run([command,*map(str,args)],cwd=ROOT,capture_output=True,text=True,encoding='utf-8')
+            self.assertEqual(completed.returncode,0,completed.stdout+completed.stderr)
+            result=json.loads(completed.stdout);self.assertFalse(result['design_accepted'])
+        self.assertTrue(result['integrity_pass'])
+
+    def test_shared_cli_failed_limits_return_failure_without_writer(self):
+        import contextlib, io
+        from bsa.cli import main
+        self.data['sections'][0]['limits']['actual_velocity_m_s']=.01
+        self.project.write_text(json.dumps(self.data))
+        args=['bsa','autocad-sheet','run','--source',self.source,'--project',self.project,'--binding',self.binding,'--out',self.out]
+        with patch('sys.argv',list(map(str,args))),contextlib.redirect_stdout(io.StringIO()) as output:
+            self.assertEqual(main(),2)
+        result=json.loads(output.getvalue());self.assertEqual(result['status'],'failed')
+        self.assertFalse(result['native_reopen_pass']);self.assertFalse((self.out/'writer.json').exists())
+
     def test_failed_source_section_never_reaches_writer(self):
         self.data['sections'][0]['limits']['actual_velocity_m_s']=.01;self.project.write_text(json.dumps(self.data))
         record=self.execute();self.assertEqual(record['status'],'failed');self.assertFalse((self.out/'writer.json').exists())

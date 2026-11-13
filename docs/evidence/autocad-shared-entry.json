@@ -1,0 +1,33 @@
+{
+  "scope": "Shared installed host CLI access to existing source intake and bounded duct-sheet adapters",
+  "cli_sha256": "dd748d0225a941047dc553a7b282784dce57eb9a67cdfff7871ba3481cd7e23a",
+  "tests": {
+    "tests_run": 19,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "receipt_sha256": "1e2bdceb3b530fd835ba77ea529e485df2b047f8df182dafad5899912106a01d",
+  "real_sheet": {
+    "status": "written",
+    "sections": 47,
+    "bound_cells": 235,
+    "changed_cells": 70,
+    "arrow_lines": 94,
+    "inputs_unchanged": true,
+    "native_reopen_pass": false,
+    "design_accepted": false
+  },
+  "requirements_retained": 33,
+  "input_gaps_retained": 6,
+  "real_sheet_receipt_sha256": "df33f6f91745dcf76ae8c07cf96fff1974a5d2e2cbb9f8ae0ad25016bae97d83",
+  "captured_verification_sha256": "3f0698c51bbc1991ccb7604c34ae82c7e9f7e59af2fac010b275ed0770ca033d",
+  "source_inventory_verified": {
+    "entities": 3894,
+    "layers": 16,
+    "layouts": 3
+  },
+  "native_visual_evidence": "Separate preceding native/visual replay; not repeated by this CLI-only trial",
+  "initial_invocation": "One shell argument-parsing error, unestablished cause; subsequent installed/captured calls passed; no launcher fix claimed",
+  "design_accepted": false
+}

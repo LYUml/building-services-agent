@@ -32,6 +32,20 @@ class AutoCADSourceTests(unittest.TestCase):
         self.assertIn('Declared Sheet',raw['layouts']['layouts'])
         self.assertTrue(any(r['name']=='DECLARED_BLOCK' for r in raw['blocks']))
 
+    def test_shared_cli_executes_and_verifies_actual_upstream(self):
+        import contextlib, io
+        from bsa.cli import main
+        before=self.source.read_bytes()
+        for args in (['autocad-source','run','--source',self.source,'--out',self.out], ['autocad-source','verify',self.out]):
+            with patch('sys.argv',['bsa',*map(str,args)]),contextlib.redirect_stdout(io.StringIO()) as output:
+                self.assertEqual(main(),0)
+            result=json.loads(output.getvalue());self.assertFalse(result['design_accepted'])
+        self.assertTrue(result['integrity_pass']);self.assertEqual(self.source.read_bytes(),before)
+        self.source.write_bytes(self.source.read_bytes()+b'changed')
+        with patch('sys.argv',['bsa','autocad-source','verify',str(self.out)]),contextlib.redirect_stderr(io.StringIO()):
+            with self.assertRaises(SystemExit) as failed:main()
+        self.assertEqual(failed.exception.code,2)
+
     def test_changed_source_cannot_keep_inspection_current(self):
         adapter.run(self.source,self.out);self.source.write_bytes(self.source.read_bytes()+b'changed')
         with self.assertRaisesRegex(ValueError,'Source, engine'):adapter.verify(self.out)
