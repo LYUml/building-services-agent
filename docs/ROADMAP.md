@@ -1,5 +1,9 @@
 # Scope and acceptance
 
+Finite model-linked annotation now selects all102 source tags. Independent
+graphic and saved-DXF checks pass; preview inspected. Tagged native DWG/PDF,
+source ancestry and engineering acceptance remain pending. See docs/SOURCE_NETWORK_TAGS.md.
+
 Source-native parameter schedules now cover102 components,223 owned ports and76
 fitting paths with model-keyed identifiers, typed lengths, source flows and
 explicit missing values. Independent numeric/HTML checks pass; drawing placement

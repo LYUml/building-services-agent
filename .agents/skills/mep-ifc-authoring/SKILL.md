@@ -5,6 +5,11 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For finite projected-network tag studies, use source_network_tags per
+docs/SOURCE_NETWORK_TAGS.md. Require complete GUID/tag coverage, independent
+graphic replay and saved-base preservation. Keep source ancestry/native/plot
+acceptance separate; preview/solver success is not engineering acceptance.
+
 For model-linked component/port/flow-path schedules, use source_network_schedule
 per docs/SOURCE_NETWORK_SCHEDULE.md after verified source fitting analysis.
 Keep GUID-keyed identities, inherited versus measured classification, typed

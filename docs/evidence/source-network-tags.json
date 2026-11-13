@@ -1,0 +1,16 @@
+{
+  "scope": "Finite source-network annotation study",
+  "components": 102,
+  "candidates": 2568,
+  "conflict_pairs": 30723,
+  "solver_optimal": true,
+  "independent_graphic_audit": true,
+  "base_entities_preserved": 292,
+  "saved_tags": 102,
+  "saved_leaders": 102,
+  "preview_inspected": true,
+  "tests_passed": 3,
+  "ancestry_verified": false,
+  "tagged_native_verified": false,
+  "design_accepted": false
+}

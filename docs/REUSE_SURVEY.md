@@ -1619,3 +1619,11 @@ compound fittings need a separate complete identity/port/path join, not a new
 solver or a copied engine. Native source replay and independent arithmetic/HTML
 checks execute. No new dependency or public coefficient database. See
 SOURCE_NETWORK_SCHEDULE.md.
+
+Finite network tag placement reuses view_tags, route_annotations, Shapely2.2.0
+and the existing pinned SciPy/NumPy/HiGHS runtime and notices. Existing circular
+context labels cannot cover compound projected bodies; this thin adapter adds
+actual polygon/exposed-boundary candidates and finite binary selection. No new
+engine or dependency. Actual102-tag selection, independent saved/graphic audits
+and three tests execute; native/source/engineering acceptance remains pending.
+See SOURCE_NETWORK_TAGS.md.
