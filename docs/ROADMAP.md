@@ -1,8 +1,14 @@
 # Scope and acceptance
 
+Source-backed duct schedule writing now reuses the pinned upstream DXF backend,
+with fresh calculations, native DWG save/reopen and actual A1 visual review.
+The real 47-section replay preserves original requirements and engineering gaps;
+see docs/AUTOCAD_SCHEDULE_PROVIDER.md. Whole-agent acceptance remains incomplete.
+
 Real AutoCAD source intake now reuses a pinned upstream DXF backend after native
 DWG export, preserving source bytes and checking actual handle/layer/layout
-coverage. Native writing and plot/engineering acceptance remain the next gate.
+coverage. A scoped writer/native/plot replay now also executes; full engineering
+acceptance remains open (see AUTOCAD_SCHEDULE_PROVIDER.md).
 See AUTOCAD_SOURCE_PROVIDER.md.
 
 Current user priority: AutoCAD and real assignment end-to-end delivery; pause new

@@ -24,9 +24,13 @@ failures. Their installation and interface code do not establish executed analys
 retain each actual runtime result. Do not bypass host policy or transfer acceptance
 from a different engine, build, model or run.
 
+The upstream-backed 47-section AutoCAD schedule/arrow replay now also passes
+native reopening and scoped A1 visual review; see [writer comparison](AUTOCAD_SCHEDULE_PROVIDER.md).
+This remains a bounded task with all six project input gaps retained.
+
 ## Evidence entry points
 
-- [Actual AutoCAD source intake](AUTOCAD_SOURCE_PROVIDER.md): native export plus pinned independent upstream reader on the real BSE3227 source; writing/plot/engineering gates remain open.
+- [Actual AutoCAD source intake](AUTOCAD_SOURCE_PROVIDER.md): native export plus pinned independent upstream reader on the real BSE3227 source; source interpretation and engineering gates remain open.
 
 - [Source-to-engineering handoff](ENGINEERING_HANDOFF.md) and [shared CLI](PROJECT_CLI.md).
 - [MCP tools and host setup](MCP_SERVER.md), [artifact reads](MCP_ARTIFACTS.md), [recorded PDF pages](MCP_ARTIFACT_PAGES.md).

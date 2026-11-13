@@ -5,6 +5,12 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For source-bound duct table/flow-arrow writing, use bsa.autocad_schedule per
+docs/AUTOCAD_SCHEDULE_PROVIDER.md. Supply reviewed bindings and fresh outputs;
+verify numeric/source replay, native reopening and separate actual plot inspection.
+Do not treat the scoped writer comparison as general layout or full engineering approval.
+
+
 For current AutoCAD-first real source intake, use bsa.autocad_source per
 docs/AUTOCAD_SOURCE_PROVIDER.md with explicit host BSA_PROJECT_ROOT and
 AutoCAD executable. Reuse the exact clean upstream backend and verify the

@@ -272,3 +272,9 @@ MCP pump recovery is an original thin protocol adapter around the existing pump 
 Circular-elbow compact storage reuses the installed pinned IfcOpenShell0.8.5 ShapeBuilder.triangulated_face_set, with existing source geometry/unit/native verification. No upstream implementation is copied, new dependency added or mesh resolution relaxed. Existing IfcOpenShell notices apply; controlled legacy comparison and executed evidence are in docs/IFC_MESH_STORAGE.md.
 
 U-C4N/Autocad-MCP independent EzdxfBackend is reused unmodified from commit6f6a538255ca9f885232e845ac32f10b4433fe3e (MIT), via a fixed isolated worker and existing native AutoCAD export. Original copyright/license retained at third_party/licenses/uc4n-autocad-mcp-6f6a5382.txt. No whole FastMCP server or COM integration is claimed; ezdxf1.4.5,pydantic2.14.3,numpy2.5.4 remain pinned. Actual real-source trial and the blocked alternative framework are recorded in docs/AUTOCAD_SOURCE_PROVIDER.md.
+
+
+AutoCAD schedule writing also reuses the exact MIT U-C4N backend above for bound
+TEXT edits and arrow LINE creation. Existing calculation/native engines remain.
+Actual same-task comparison, source preservation and native/visual results are
+recorded in docs/AUTOCAD_SCHEDULE_PROVIDER.md and its aggregate evidence.

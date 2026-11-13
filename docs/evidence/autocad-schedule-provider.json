@@ -1,0 +1,58 @@
+{
+  "sections": 47,
+  "bound_cells": 235,
+  "changed_cells": 70,
+  "arrow_lines": 94,
+  "native_reopen_pass": true,
+  "upstream_commit": "6f6a538255ca9f885232e845ac32f10b4433fe3e",
+  "original_blocks_preserved": true,
+  "original_modelspace_preserved_except_bound_cells": true,
+  "design_accepted": false,
+  "scope": "Same-task source-backed duct schedule and flow-arrow writer comparison; not arbitrary layout design",
+  "generated_entities": 718,
+  "requirements_retained": 33,
+  "unresolved_inputs_retained": 6,
+  "native_plot": {
+    "pdf_sha256": "7b07d82d16774edf049e71c3249c53d744026ffe2050f9d69591d57ceacda13d",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      841.0222222222221,
+      594.0777777777777
+    ],
+    "scale_denominator": 100,
+    "reference_handle": "8FFD",
+    "reference_expected_mm": 100.0,
+    "reference_measured_mm": 99.99133333333334,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "visual_review": {
+    "source_pdf_sha256": "7b07d82d16774edf049e71c3249c53d744026ffe2050f9d69591d57ceacda13d",
+    "image_sha256": "4435cc4f73f9921234c4a21f21fd2214f76eba08e9166e2d964de199ad41670a",
+    "renderer_sha256": "5b6ff07d229b8a8baca960751d5c591dbc7504efec529a1f5c22f5fd9e3b7220",
+    "pages": 1,
+    "pixels": [
+      4967,
+      3509
+    ],
+    "current_public_pdf_page_content_equal": true,
+    "scope": "A1 sheet and enlarged schedule/notes actually inspected; no observed clipping or table overlap; all 47 rows readable",
+    "observations": [
+      "Section/diffuser/VAV tags and flow layout visible",
+      "Schematic VAV, AHU port/penetration and ADPI limitations remain visible",
+      "Requested 1:100 reference caption visible; independent physical building scale remains unresolved"
+    ],
+    "scoped_visual_pass": true,
+    "design_accepted": false,
+    "run_receipt_sha256": "962c38009efb9f9c9f44fa1746dd053599f0ae58003783eca60b13d393899465"
+  },
+  "run_receipt_sha256": "962c38009efb9f9c9f44fa1746dd053599f0ae58003783eca60b13d393899465",
+  "tests": {
+    "executed": 15,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "public_drawing_files_unchanged": true
+}

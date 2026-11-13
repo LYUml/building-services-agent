@@ -1430,3 +1430,9 @@ IFC replay storage/performance gap: inspect installed IfcOpenShell0.8.5 geometry
 AutoCAD-first priority imported from the user side conversation: source-review and pin dcc-mcp-autocad d2acd4859b5a724b6032bd3044684291972a26e2 and U-C4N/Autocad-MCP 6f6a538255ca9f885232e845ac32f10b4433fe3e, both inspected MIT licenses. No installation or native integration claimed. Core Console layout coverage is incomplete in the dcc inspection result; COM guards/dependency ranges still need isolated local tests. Same real DWG task, native reopen/plot/visual acceptance and private-workspace boundary govern adoption. See AUTOCAD_PRIORITY.md and evidence/autocad-reuse-review.json.
 
 Actual AutoCAD same-source trial: dcc-mcp-autocad d2acd4859b5a724b6032bd3044684291972a26e2 installed separately with core0.20.36/server0.20.53, but _core import is host-policy blocked before native calls. Select an independent unmodified U-C4N EzdxfBackend at 6f6a538255ca9f885232e845ac32f10b4433fe3e instead, around the existing trusted native export. No blocked DLL is loaded or security policy changed. Real DWG handle/type/layer and three-layout correspondence executes; native writing/plot acceptance remains open. See AUTOCAD_SOURCE_PROVIDER.md.
+
+
+AutoCAD schedule writing also reuses the exact MIT U-C4N backend above for bound
+TEXT edits and arrow LINE creation. Existing calculation/native engines remain.
+Actual same-task comparison, source preservation and native/visual results are
+recorded in docs/AUTOCAD_SCHEDULE_PROVIDER.md and its aggregate evidence.

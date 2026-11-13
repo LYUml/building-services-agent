@@ -58,3 +58,7 @@ real-task gate. All original ordinary gaps and complete Hong Kong/engineering
 acceptance remain pending. Public evidence is aggregate only; private source,
 raw inventory and runtime records remain ignored in the project.
 See evidence/autocad-source-provider.json and AUTOCAD_PRIORITY.md.
+
+The subsequent [schedule writer comparison](AUTOCAD_SCHEDULE_PROVIDER.md) now
+executes bounded changes, native reopening and scoped visual review. The intake
+checkpoint above retains its original narrower scope.
