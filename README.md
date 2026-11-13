@@ -1,5 +1,10 @@
 # Building Services Agent
 
+All 101 connected native material cap pairs now match, and a separately assumed
+outside-interface numerical study passes 101 nonvacuous proofs. Original raw
+clearance failures and physical-joint/engineering review remain; historical pair
+counts are corrected to IFC GUID identity. See docs/INTERFACE_CONTACTS.md.
+
 A source-bound compound construction now connects the represented rigid network:
 102 bodies, 101 links, independently replayed. Unchanged raw policy reports zero
 intersections; clearance still fails. Explicit absorbed sections and remaining

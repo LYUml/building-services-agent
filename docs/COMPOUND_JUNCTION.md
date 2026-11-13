@@ -118,7 +118,7 @@ represented product tree. All 33 requirement identities remain.
 The exact preceding raw policy with zero contact waivers now reports zero
 intersections, down from six unique pairs. Geometry coverage passes, with no
 missing/invalid/unrepresented geometry or unverified solid pairs. Clearance still
-fails: 101 raw records represent 72 unique pairs. All remain visible. Neither
+fails: 101 raw records represent 101 unique pairs. All remain visible. Neither
 zero intersections nor a connected graph clears joints, loss/pressure, products,
 installation, architecture/equipment or complete engineering/code acceptance.
 

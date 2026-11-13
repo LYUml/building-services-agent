@@ -1524,3 +1524,11 @@ official pinned asset/port APIs. The new glue explicitly accounts for absorbed
 source sections, retained straight trims and full represented directed-tree
 coverage. Existing separate-core failures and raw clearance remain; a new engine
 or broad contact waiver is not required to author this construction revision.
+
+Native interface contact studies reuse the existing IFC mesh/owned-port APIs,
+clash.inspect and contact_clearance.prove outside-region implementation. The gap
+is source-bound native annular cap recovery/material matching and explicit
+nonvacuous-result reporting, not another proximity engine. Raw source policy and
+failures remain unchanged; numerical masks are classified assumptions. Earlier
+summary pair counts are corrected to IFC GUID identity, as documented in
+INTERFACE_CONTACTS.md; no dependency/kernel is added.

@@ -43,7 +43,7 @@
     "current_intersection_records": 20,
     "current_unique_intersection_pairs": 10,
     "clearance_violation_records": 93,
-    "unique_clearance_violation_pairs": 66,
+    "unique_clearance_violation_pairs": 93,
     "checks_pass": false
   },
   "negative_controls": {
@@ -69,5 +69,6 @@
     "actual_links": 90,
     "boundary_ports": 32,
     "scope": "Actual standalone verify CLI freshly replays original sources, native trims and saved merged model; design remains incomplete"
-  }
+  },
+  "pair_count_basis": "Actual sorted IFC body GUID pairs; repeated display names must not merge different physical pairs. Corrects earlier name-based summary only; raw model, policy and failures unchanged."
 }

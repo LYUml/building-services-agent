@@ -52,7 +52,7 @@ original backbone and existing DWG/PDF deliverables are unchanged.
 The same original raw clash policy, with zero contact waivers, was executed on
 the new saved IFC. Geometry coverage passes. Unique intersection pairs reduce
 from 38 to 10 (20 raw intersection records remain). Clearance still fails:
-93 raw violation records represent 66 unique pairs. These records include new
+93 raw violation records represent 93 unique pairs. These records include new
 interfaces; counts must not be compared as if the represented inventory were
 unchanged. No tolerance or contact exemption was changed to make them pass.
 The remaining intersections involve original source straight bodies, not a

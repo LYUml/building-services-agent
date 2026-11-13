@@ -54,7 +54,7 @@ contact waivers or tolerance changes. Geometry coverage passes. Ten unique
 intersection pairs reduce to six (12 raw intersection records), associated with
 the original ROOT and J2 incidents. This association is not a general causal
 proof or installation acceptance. Clearance remains failed: 99 raw records
-represent 70 unique pairs. The expanded represented inventory and new interfaces
+represent 99 unique pairs. The expanded represented inventory and new interfaces
 remain in those results; no failures are omitted to improve the apparent result.
 
 Six source/native regression tests pass, including distinct earlier tee/new

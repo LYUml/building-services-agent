@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Native material caps match at all 101 represented interfaces. Separately assumed
+outside-region numerical checks pass 101 nonvacuous proofs; source raw failures,
+physical joints, products, pressure and full design/agent acceptance remain.
+Historical physical-pair counts now use GUIDs. See INTERFACE_CONTACTS.md.
+
 A declared compound construction now connects the represented source network:
 102 native bodies and 101 links independently replay. Same-policy intersections
 are zero; raw clearance remains failed. Original separate-core failure, explicit

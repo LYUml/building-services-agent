@@ -1,16 +1,22 @@
 # Whole-agent status
 
+Native interface material now independently matches at all 101 actual links.
+All 101 separately assumed bounded-region numerical proofs pass with nonempty
+outside parts. Original raw clearance stays failed; numerical masks do not
+establish product joints or installation/code acceptance. Pair summaries now use
+physical IFC GUIDs (historical display-name undercounts corrected). See INTERFACE_CONTACTS.md.
+
 An explicit compound construction revision now resolves the remaining represented
 ROOT/J2 connections. The saved 102-body/101-link directed tree independently
 replays, with zero raw intersections under unchanged policy. Clearance still
-fails (101 records, 72 unique pairs). Absorbed sections/profile changes remain
+fails (101 records, 101 unique pairs). Absorbed sections/profile changes remain
 explicit; pressure/loss, products, installation, architecture/equipment and full
 agent/design acceptance are not established. See COMPOUND_JUNCTION.md.
 
 The authored cross now integrates into a fresh native tee/elbow network with
 103 bodies and 97 links. Raw intersection pairs reduce from ten to six under
 unchanged policy; all remaining pairs associate with ROOT/J2. Clearance still
-fails (99 records, 70 unique pairs). Full engineering and whole-agent acceptance
+fails (99 records, 99 unique pairs). Full engineering and whole-agent acceptance
 remain open. See SOURCE_CROSS_NETWORK.md.
 
 Source four-arm junction coverage now includes a native cross/transition adapter.
@@ -21,7 +27,7 @@ coordination. See SOURCE_CROSS_CANDIDATES.md.
 
 Fourteen source tee assemblies now integrate into a fresh trimmed network with
 99 native bodies and 90 actual links. Independent source/native replay passes;
-unchanged raw clash policy retains 10 intersection pairs and 66 unique clearance
+unchanged raw clash policy retains 10 intersection pairs and 93 unique clearance
 violation pairs. ROOT and two multi-branch nodes remain unresolved. This partial
 network is not complete installation or whole-agent acceptance. See SOURCE_TEE_NETWORK.md.
 

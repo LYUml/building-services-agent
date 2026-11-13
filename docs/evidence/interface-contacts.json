@@ -1,0 +1,45 @@
+{
+  "scope": "Native matching material cap and assumed bounded-region numerical study; raw failures remain, empty outside-body results stay pending, no physical joint/product/installation or code acceptance",
+  "actual_interfaces": 101,
+  "raw_clearance_records": 101,
+  "raw_unique_clearance_pairs": 101,
+  "raw_linked_clearance_pairs": 101,
+  "raw_unlinked_clearance_pairs": 0,
+  "outside_region_proofs": 101,
+  "nonvacuous_passes": 101,
+  "vacuous_passes_retained_pending": 0,
+  "not_proven": 0,
+  "study_checks": {
+    "geometry_coverage": true,
+    "no_intersections": true,
+    "clearance": true
+  },
+  "study_policy_is_assumed": true,
+  "numerical_mask": {
+    "radius_factor": 1.1,
+    "radial_allowance_m": 0.0001,
+    "sphere_segments": 64,
+    "scope": "Assumed numerical region, not product or installation/code clearance"
+  },
+  "original_raw_result_unchanged": true,
+  "original_requirement_ids_retained": 33,
+  "design_accepted": false,
+  "complete_network": false,
+  "study_receipt_sha256": "6f176da93cc7ac3c3217402036d7fca754990b289cb28ed12dd7bcaa5ea6f22b",
+  "tests": {
+    "tests_run": 15,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "receipt_sha256": "55fcea53a4a7a92b4946f603d8dc9a240c512d43697d2018136616a58f114896"
+  },
+  "historical_count_correction": "Use IFC GUID pairs; earlier name-based counts 66/70/72 corrected to actual 93/99/101. Raw models, policies and failures unchanged.",
+  "observed_independent_replay": {
+    "integrity_pass": true,
+    "raw_unique_clearance_pairs": 101,
+    "nonvacuous_passes": 101,
+    "vacuous_passes_retained_pending": 0,
+    "not_proven": 0,
+    "scope": "Actual standalone interface_contacts verify CLI freshly recomputed source ancestry, native material caps, original raw findings and both-direction numerical proofs. Physical joint/design acceptance remains unestablished."
+  }
+}

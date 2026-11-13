@@ -5,6 +5,13 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For actual material-cap matching and separately assumed outside-interface
+clearance studies on the source compound network, use interface_contacts per
+docs/INTERFACE_CONTACTS.md. Identify physical pairs by IFC GUID, never display
+names. Preserve the raw no-waiver result, source-bound numerical mask choices,
+nonvacuous proof scope and all physical/product/installation review. Fresh
+source/cap/proof replay is required; study pass is not design acceptance.
+
 For an explicitly declared adjacent three/four-arm compound construction, use
 source_compound_junction and compound_junction per docs/COMPOUND_JUNCTION.md.
 Require exact original source coverage, existing elbow-cap identity, explicit

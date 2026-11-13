@@ -67,7 +67,7 @@
     "intersection_records": 0,
     "unique_intersection_pairs": 0,
     "clearance_violation_records": 101,
-    "unique_clearance_violation_pairs": 72,
+    "unique_clearance_violation_pairs": 101,
     "missing_geometry": 0,
     "invalid_geometry": 0,
     "unrepresented_elements": 0,
@@ -104,5 +104,6 @@
     "boundary_ports": 21,
     "one_connected_directed_product_tree": true,
     "scope": "Actual standalone source_compound_network verify CLI replays original source ancestry, explicit absorbed/trimmed revision and saved native model; not authenticated certification or full engineering acceptance"
-  }
+  },
+  "pair_count_basis": "Actual sorted IFC body GUID pairs; repeated display names must not merge different physical pairs. Corrects earlier name-based summary only; raw model, policy and failures unchanged."
 }
