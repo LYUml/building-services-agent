@@ -1,5 +1,21 @@
 # Scoped Hong Kong cable bend table
 
+Supplemental current-source regression now executes all nine previously
+source-gated controls with the existing hash-matching official cache. All pass
+without skips, and independent test-receipt verification passes. The original
+cached PDF is unchanged. This includes expected scoped pass/fail/unknown/HV
+behavior and rejection of changed classifications, diameter/product mismatches
+and invalid source associations. Synthetic assumptions remain synthetic; edition
+applicability and full project conformity are not authenticated by these tests.
+Original full-suite skip records remain unchanged. See
+evidence/hk-cable-regression-source-check.json.
+
+To reproduce, explicitly set the host environment BSA_TEST_HK_CABLE_SOURCES to
+the existing selected cache directory, then run tests.test_cable_bend_regulations
+through bsa.check_runner. The directory must contain the filename and exact bytes
+required by the selected rule pack. Do not change source hashes or thresholds to
+turn a source-gated test into an executed result.
+
 Select `regulations/hk/cable-bends-2026.11.10/pack.json` explicitly. Its official basis is [EMSD Wiring CoP 2025](https://www.emsd.gov.hk/filemanager/en/content_443/COP_E_2025.pdf#page=190), 25C(1)(h), printed page 189 / PDF page 190. The heading is on PDF 189. The table page was text-inspected and rendered; a fresh official download matches SHA256 d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b.
 
 For the selected LV PVC-insulated stranded-copper path, the internal-radius factors for non-armoured cable are 3D at D≤10 mm, 4D at 10<D≤25 mm and 6D above 25 mm. Armoured cable uses 6D. D is overall cable diameter, and the radius is internal, not centreline. Adjacent 25C(1)(i) refers HV installation to manufacturer recommendations, so this implementation does not clear HV cables. The [official edition notice](https://www.emsd.gov.hk/en/electricity_safety/new_edition_cop/new_edition_cop_electricity_wiring_regulations/index.html) has a qualified 2020 transition route through 2026-12-31; project edition selection remains explicit. The selected table does not replace 15G(c)'s no-damage requirement or manufacturer instructions.

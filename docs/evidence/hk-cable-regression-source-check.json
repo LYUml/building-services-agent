@@ -1,0 +1,25 @@
+{
+  "scope": "Supplemental execution of existing source-bound Hong Kong cable rule controls; synthetic geometry/classifications, not real project conformity",
+  "tests_run": 9,
+  "passed": 9,
+  "skipped": 0,
+  "receipt_integrity_pass": true,
+  "receipt_sha256": "a2b6fa2c715af92ce82aea2e0422c292bdc21a38aa24d2b13ddbc5d616fada34",
+  "source_sha256": "d69ae0c53972cc583de64b8e83ca7428460419b7f06ffa2f4f3db79e7b165c3b",
+  "source_bytes_match_pack": true,
+  "source_cache_preserved": true,
+  "source_downloaded_this_check": false,
+  "rule_pack_sha256": "f0e931819cd604f757342fbd595f7c17b0f0bdd72ac5f7ba034577844a0c90d7",
+  "expected_scenarios": [
+    "scoped-pass",
+    "too-tight-fail",
+    "unknown-construction-pending",
+    "unsupported-hv-pending"
+  ],
+  "source_and_product_mismatch_controls_pass": true,
+  "original_main_batch_skips_preserved": true,
+  "edition_applicability_authenticated": false,
+  "full_hong_kong_conformity_established": false,
+  "full_agent_regression_completed": false,
+  "design_accepted": false
+}

@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Nine source-gated Hong Kong cable rule controls now execute against the unchanged
+pinned official cache, with no skips and a verified receipt. Main regression
+continues separately; synthetic rule tests do not accept real product/edition
+applicability or full Hong Kong conformity. See docs/HK_CABLE_BENDS.md.
+
 The ongoing whole-agent regression has four completed batches with no failures:
 366passes/17skips across383instances. Two separately enabled actual AutoCAD
 export/reopen/plot-reference tests pass. Full-suite execution and engineering
