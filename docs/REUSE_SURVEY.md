@@ -1662,3 +1662,9 @@ bounded regular-grid interpolation per the official migration guide. This does
 not repair/execute the full package or establish physical applicability. Actual
 native wall angles/range screening is retained; no formal loss values are added.
 See CONTRACTION_CANDIDATE.md for attribution, use and evidence.
+
+Signed reference review checked existing python-hvac convert_zeta and installed
+Fluids1.3.1 change_K_basis first. It reuses existing verified native velocity
+pressures and candidate/source replay with minimal pressure-invariance glue; no
+round diameter is invented for rectangular ports and no fitting engine or
+dependency is added. Original protected data stays private. See LOSS_REFERENCE.md.

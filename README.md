@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Signed coefficient reference review now verifies common-port pressure
+invariance and source/native arithmetic. Four candidate differences remain
+after normalization; seven tests and saved replay pass. No method is adopted.
+See docs/LOSS_REFERENCE.md.
+
 Pinned upstream contraction data now supports a bounded data-only crosscheck:
 4 of 31 native transitions are numerically bounded; 27 retain explicit angle/
 range rejection. No upstream package integration or new formal loss is claimed.

@@ -5,6 +5,11 @@ description: Calculate source-linked air/water networks, fan/pump operating poin
 
 # Network pressure analysis
 
+For comparing coefficients with different actual port references, use
+loss_reference per docs/LOSS_REFERENCE.md. Preserve signed pressure; validate
+owned ports, same transition flow and common density convention. Reference
+normalization cannot select a physical correlation or complete fan duty.
+
 For a pinned python-hvac contraction data-only crosscheck, use
 contraction_candidate per docs/CONTRACTION_CANDIDATE.md. This does not execute
 the upstream package or accept its physical correlation. Require source/license

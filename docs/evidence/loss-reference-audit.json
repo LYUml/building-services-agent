@@ -1,0 +1,12 @@
+{
+  "scope": "Signed common-port coefficient reference arithmetic audit",
+  "compared_candidates": 4,
+  "reference_normalization_remaining_differences": 4,
+  "source_transition_count": 31,
+  "source_native_replay_pass": true,
+  "saved_audit_reconstruction_pass": true,
+  "tests_passed": 7,
+  "formal_loss_values_added": 0,
+  "physical_method_selected": false,
+  "design_accepted": false
+}
