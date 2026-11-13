@@ -1,0 +1,73 @@
+{
+  "scope": "Partial source tee integration with trimmed native straights and actual IFC connections; no whole-network clash, fitting loss, products, installation or design acceptance",
+  "integrated_tee_assemblies": 14,
+  "external_source_interfaces": 42,
+  "native_checks": {
+    "bodies": 99,
+    "owned_ports": 212,
+    "actual_links": 90,
+    "boundary_ports": 32,
+    "source_geometry_properties_frames_preserved": true,
+    "coincident_opposed_interfaces": true,
+    "schema_express_pass": true,
+    "complete_network": false,
+    "design_accepted": false
+  },
+  "blocked_nodes": {
+    "ROOT": [
+      "Known both-end fitting reach exceeds source budget on A-03",
+      "Known both-end fitting reach exceeds source budget on D-01"
+    ]
+  },
+  "other_unresolved_nodes": [
+    {
+      "node": "J1",
+      "requirement": "multi_branch_connection_required"
+    },
+    {
+      "node": "J2",
+      "requirement": "multi_branch_connection_required"
+    }
+  ],
+  "requirement_ids_retained": 33,
+  "original_backbone_modified": false,
+  "complete_network": false,
+  "design_accepted": false,
+  "network_record_sha256": "902b7ef63290195534864f24fc84a83b1aefecbfceb67f5cdceee0a7797ac95a",
+  "clash_record_sha256": "46e582d66112b61963bbb832d0f2ec1ae11d7d68c952cc48db08a52a476afb45",
+  "clash": {
+    "same_original_policy": true,
+    "contact_waivers": 0,
+    "geometry_coverage": true,
+    "baseline_unique_intersection_pairs": 38,
+    "current_intersection_records": 20,
+    "current_unique_intersection_pairs": 10,
+    "clearance_violation_records": 93,
+    "unique_clearance_violation_pairs": 66,
+    "checks_pass": false
+  },
+  "negative_controls": {
+    "deleted_connection": {
+      "rejected": true,
+      "reason": "Merged body/port/link inventory differs"
+    },
+    "shifted_body": {
+      "rejected": true,
+      "reason": "Merged native geometry,properties,identity or placement differs"
+    }
+  },
+  "tests": {
+    "receipt_sha256": "e6c46d2b93373df44ca33af74d6cc709b8c284fa3ae1407de7ff51708a88a801",
+    "tests_run": 9,
+    "suite_pass": true,
+    "scope": "Source trim/cap/roll rejection and existing native tee tests; not complete engineering acceptance"
+  },
+  "observed_independent_replay": {
+    "integrity_pass": true,
+    "bodies": 99,
+    "owned_ports": 212,
+    "actual_links": 90,
+    "boundary_ports": 32,
+    "scope": "Actual standalone verify CLI freshly replays original sources, native trims and saved merged model; design remains incomplete"
+  }
+}

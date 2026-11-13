@@ -1,5 +1,11 @@
 # Whole-agent status
 
+Fourteen source tee assemblies now integrate into a fresh trimmed network with
+99 native bodies and 90 actual links. Independent source/native replay passes;
+unchanged raw clash policy retains 10 intersection pairs and 66 unique clearance
+violation pairs. ROOT and two multi-branch nodes remain unresolved. This partial
+network is not complete installation or whole-agent acceptance. See SOURCE_TEE_NETWORK.md.
+
 Source unequal-tee candidates now compile through native tee/transition tools
 with both-end budgets: 14 local assemblies verify, one source node stays blocked.
 They are not merged into the network; see SOURCE_TEE_CANDIDATES.md.

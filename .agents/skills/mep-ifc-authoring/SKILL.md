@@ -5,6 +5,12 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For partial integration after source_tee_candidates, use source_tee_network per
+docs/SOURCE_TEE_NETWORK.md. Require independent source/component replay, both-end
+straight trims, native cap/section-roll agreement and exact saved same-file links.
+Keep blocked/multi-branch nodes explicit and run full raw clash analysis on the
+new model; a successful append or schema check cannot clear coordination.
+
 For unequal source tees after a verified elbow selection, use source_tee_candidates
 per docs/SOURCE_TEE_CANDIDATES.md with explicit construction/method choices. Keep
 both-end blocked nodes and unattempted multi-branch obligations. Local native

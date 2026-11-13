@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Verified source tee candidates now integrate into a fresh trimmed native network:
+99 bodies and 90 actual links independently replay. Raw intersection pairs fall
+from 38 to 10 under unchanged policy; coordination still fails. See
+docs/SOURCE_TEE_NETWORK.md for retained blocked nodes and full scope limits.
+
 Source unequal-tee candidates now compile through native tee/transition tools
 with both-end budgets: 14 local assemblies verify, one source node stays blocked.
 They are not merged into the network; see docs/SOURCE_TEE_CANDIDATES.md.

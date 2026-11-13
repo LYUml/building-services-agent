@@ -1486,3 +1486,12 @@ A separately declared source-station path uses official ShapeBuilder.faceted_bre
 not a replacement kernel; legacy mismatch rejection and independent material,
 bore, geometry and schema checks remain. Both-end budget/source-ray glue fills
 the actual gap. See SOURCE_TEE_CANDIDATES.md and RECTANGULAR_TRANSITIONS.md.
+
+Source tee integration reuses the existing BIM author, rectangular native solid
+checks, reference-storey export, IFC representation/property fingerprints and
+the pinned official `project.append_asset` API already used by the local chain.
+The actual gap is whole-source endpoint trimming and partial-network assembly;
+the existing local-chain solver requires a single connected tree and cannot
+represent the explicitly unfinished source nodes. The new adapter preserves
+those disconnected obligations instead of forcing artificial links. No new
+geometry engine or dependency is added. See SOURCE_TEE_NETWORK.md.

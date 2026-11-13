@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Fourteen verified source tee candidates now integrate into a freshly trimmed
+native network; 99 bodies/90 links independently replay. Same-policy raw clashes
+reduce from 38 to 10 unique intersection pairs and still fail. Blocked ROOT,
+two multi-branch nodes, full pressure/products/installation and whole-agent
+acceptance remain open. See SOURCE_TEE_NETWORK.md.
+
 Source unequal-tee candidates now compile through native tee/transition tools
 with both-end budgets: 14 local assemblies verify, one source node stays blocked.
 They are not merged into the network; see SOURCE_TEE_CANDIDATES.md.
