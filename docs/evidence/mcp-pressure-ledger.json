@@ -1,0 +1,19 @@
+{
+  "scope": "Actual AI-client pressure evidence generation, inspection and bounded reads",
+  "tool_inventory": 38,
+  "outlet_count": 20,
+  "unique_fitting_path_count": 76,
+  "conditional_numerical_path_count": 31,
+  "numerically_unresolved_fitting_path_count": 45,
+  "original_requirement_count": 33,
+  "gap_pages": 3,
+  "all_45_gap_rows_match_saved": true,
+  "all_20_outlet_rows_match_saved": true,
+  "independent_inspection_agrees": true,
+  "tests_passed": 7,
+  "tests_skipped": 0,
+  "pressure_budget_complete": false,
+  "critical_path": null,
+  "fan_duty_Pa": null,
+  "design_accepted": false
+}

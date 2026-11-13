@@ -7,6 +7,7 @@ from . import engineering_handoff,project_start,workflow,workflow_status,source_
 from .cli import digest
 from . import network_analysis_access
 from . import tag_delivery_access
+from . import pressure_ledger_access
 from .module_contract import read_json
 
 
@@ -25,6 +26,8 @@ OPERATIONS['bsa.mcp_worker.read_source_plan']=read_source_plan
 for function in (network_analysis_access.run_network,network_analysis_access.run_fittings,network_analysis_access.inspect,network_analysis_access.list_requests,network_analysis_access.read_request,network_analysis_access.run_delivery,network_analysis_access.inspect_delivery):
     OPERATIONS[function.__module__+'.'+function.__name__]=function
 for function in (tag_delivery_access.run,tag_delivery_access.inspect):
+    OPERATIONS[function.__module__+'.'+function.__name__]=function
+for function in (pressure_ledger_access.run,pressure_ledger_access.inspect,pressure_ledger_access.list_gaps,pressure_ledger_access.read_outlet):
     OPERATIONS[function.__module__+'.'+function.__name__]=function
 
 

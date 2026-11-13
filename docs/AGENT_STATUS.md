@@ -1,5 +1,10 @@
 # Whole-agent status
 
+AI clients now generate/independently inspect pressure evidence ledgers and
+read exact signed/null outlet records. Actual 45-gap pagination and all 20
+outlet reads match saved evidence; seven tests pass. Full fan duty remains open.
+See docs/MCP_PRESSURE_LEDGER.md.
+
 Reference arithmetic now rejects reproduced tiny-value false matches and
 nonzero underflow instead of silently accepting zero. Nine tests pass; fresh
 real-source audit retains all four differences and adds no formal loss values.

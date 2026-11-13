@@ -1674,3 +1674,9 @@ chain and Python math; no solver/correlation/dependency is added. Reproduced
 absolute-floor and underflow errors in our adapter now reject explicitly, while
 true zeros remain valid. Historical method receipts are not rehashed. See
 LOSS_REFERENCE.md for scope and fresh replay evidence.
+
+Pressure ledger MCP access reuses source_pressure_ledger, fixed isolated worker
+operations, artifact_access.LIMIT and existing inspected-hash pagination/read
+patterns. The gap is AI access to reconciled outlet/missing-evidence records, not
+a new pressure solver, source table or runtime. Pinned MCP SDK1.30.0 and existing
+scientific/native licenses apply. See MCP_PRESSURE_LEDGER.md.

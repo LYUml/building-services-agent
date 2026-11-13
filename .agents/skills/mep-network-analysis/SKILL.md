@@ -5,6 +5,12 @@ description: Calculate source-linked air/water networks, fan/pump operating poin
 
 # Network pressure analysis
 
+AI clients can run/inspect the pressure evidence ledger, page numerical gaps
+and read exact outlet evidence per docs/MCP_PRESSURE_LEDGER.md. Use the inspected
+record SHA256 for bounded reads; reads do not repeat source/native verification.
+Preserve signed partials, nulls and global engineering gaps. Outlet-coverage
+order is research priority, never critical-path or fan-duty acceptance.
+
 For comparing coefficients with different actual port references, use
 loss_reference per docs/LOSS_REFERENCE.md. Preserve signed pressure; validate
 owned ports, same transition flow and common density convention. Reference

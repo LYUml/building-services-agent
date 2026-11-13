@@ -14,6 +14,7 @@ from . import engineering_handoff,project_start,workflow,workflow_status,workspa
 from .cli import digest
 from . import network_analysis_access
 from . import tag_delivery_access
+from . import pressure_ledger_access
 from .terminal_iteration import OPTIONS
 
 SDK_VERSION='1.30.0'
@@ -67,6 +68,26 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None):
 
     read=ToolAnnotations(readOnlyHint=True,destructiveHint=False,idempotentHint=True,openWorldHint=False)
     write=ToolAnnotations(readOnlyHint=False,destructiveHint=False,idempotentHint=False,openWorldHint=False)
+
+    @server.tool(annotations=write)
+    def bsa_run_pressure_evidence_ledger(source:str,out:str)->dict[str,Any]:
+        """Reconcile existing native fitting evidence per outlet and map missing numerical data. No new loss coefficients or fan-duty acceptance."""
+        return invoke(pressure_ledger_access.run,local(source),local(out))
+
+    @server.tool(annotations=read)
+    def bsa_inspect_pressure_evidence_ledger(out:str)->dict[str,Any]:
+        """Independently reconstruct a pressure ledger from original native/source evidence; return exact record identity for bounded reads."""
+        return invoke(pressure_ledger_access.inspect,local(out))
+
+    @server.tool(annotations=read)
+    def bsa_list_pressure_evidence_gaps(out:str,record_sha256:str,offset:Annotated[int,Field(strict=True,ge=0)]=0,limit:Annotated[int,Field(strict=True,ge=1,le=20)]=20)->dict[str,Any]:
+        """Page numerical pressure gaps by affected-outlet coverage using the inspected ledger hash. Coverage is not hydraulic criticality."""
+        return invoke(pressure_ledger_access.list_gaps,local(out),record_sha256,offset,limit)
+
+    @server.tool(annotations=read)
+    def bsa_read_outlet_pressure_evidence(out:str,record_sha256:str,outlet_port_guid:str)->dict[str,Any]:
+        """Read one exact outlet's signed partial contributions, missing numerical paths and global unresolved engineering scope. Not complete fan pressure."""
+        return invoke(pressure_ledger_access.read_outlet,local(out),record_sha256,outlet_port_guid)
 
     @server.tool(annotations=write)
     def bsa_run_tagged_network_delivery(delivery:str,schedule:str,out:str)->dict[str,Any]:
