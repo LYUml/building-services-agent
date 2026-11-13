@@ -4,6 +4,24 @@ from bsa.source_pressure_ledger import calculate
 
 
 class PressureLedgerTests(unittest.TestCase):
+    def test_small_signed_subtotal_changes_are_not_hidden_by_absolute_floor(self):
+        case,data=self.fixture();data['table_results'][0]['signed_tabulated_contribution_Pa']=-2e-12
+        for row in data['boundary_paths']:
+            row['supplied_table_contribution_Pa']=-2e-12
+            if not row['unresolved_fitting_path_count']:row['tabulated_plus_separate_straight_Pa']=3.-2e-12
+        self.assertEqual(calculate(case,data)['outlet_count'],2)
+        data['boundary_paths'][0]['supplied_table_contribution_Pa']=-9e-12
+        with self.assertRaisesRegex(ValueError,'subtotal differs'):calculate(case,data)
+
+    def test_duplicate_unused_repeated_straights_and_boolean_counts_reject(self):
+        for change in ('duplicate','unused','repeated','boolean'):
+            case,data=self.fixture()
+            if change=='duplicate':case['straight_sections'].append(dict(case['straight_sections'][0]))
+            if change=='unused':case['straight_sections'].append(dict(guid='unused',straight_friction_Pa=1.))
+            if change=='repeated':case['boundary_paths'][0]['steps'].insert(0,dict(case['boundary_paths'][0]['steps'][0]))
+            if change=='boolean':data['boundary_paths'][1]['unresolved_fitting_path_count']=True
+            with self.subTest(change=change),self.assertRaises(ValueError):calculate(case,data)
+
     def fixture(self):
         straight=dict(kind='straight',product_guid='s',straight_friction_Pa=3.)
         shared=dict(kind='fitting',product_guid='f',inlet_port_guid='in',outlet_port_guid='out')

@@ -47,3 +47,9 @@ return across three pages; all 20 exact outlet reads match saved contributions,
 nulls and global scope. All 33 requirements remain. Inventory is 38 tools;
 critical path/fan duty/full engineering acceptance remain undetermined. Private
 client records and source data stay in the selected coursework workspace.
+
+Current ledger arithmetic requires relative-only subtotal correspondence and
+unique/fully represented straight definitions. Older produced ledgers retain
+old method identities and are historical; generate a fresh directory for
+current native/source inspection. Saved-byte reads remain explicitly distinct
+from fresh verification. See SOURCE_PRESSURE_LEDGER.md.

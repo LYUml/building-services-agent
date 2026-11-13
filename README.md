@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Ledger checks now reject tiny wrong subtotals, duplicate/unused straight
+definitions and boolean counts. Twelve tests and fresh complete MCP replay pass;
+the real 20-outlet ledger payload is unchanged. Engineering remains incomplete.
+See docs/SOURCE_PRESSURE_LEDGER.md.
+
 AI clients now generate/independently inspect pressure evidence ledgers and
 read exact signed/null outlet records. Actual 45-gap pagination and all 20
 outlet reads match saved evidence; seven tests pass. Full fan duty remains open.

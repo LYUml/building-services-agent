@@ -1680,3 +1680,10 @@ operations, artifact_access.LIMIT and existing inspected-hash pagination/read
 patterns. The gap is AI access to reconciled outlet/missing-evidence records, not
 a new pressure solver, source table or runtime. Pinned MCP SDK1.30.0 and existing
 scientific/native licenses apply. See MCP_PRESSURE_LEDGER.md.
+
+The ledger correspondence correction keeps existing fitting/source replay and
+bounded MCP access. It fixes our subtotal tolerance and straight-identity joins;
+no solver, physical correlation, dependency or source table is introduced.
+Duplicate/unused definitions, tiny wrong totals and boolean counts now reject.
+Historical evidence remains unchanged; fresh client replay is required.
+See SOURCE_PRESSURE_LEDGER.md.

@@ -10,6 +10,9 @@ and read exact outlet evidence per docs/MCP_PRESSURE_LEDGER.md. Use the inspecte
 record SHA256 for bounded reads; reads do not repeat source/native verification.
 Preserve signed partials, nulls and global engineering gaps. Outlet-coverage
 order is research priority, never critical-path or fan-duty acceptance.
+Current ledger joins require unique, fully represented straights and relative-
+only subtotal correspondence. Generate fresh outputs after method changes;
+do not rehash old manifests or treat boolean values as missing-path counts.
 
 For comparing coefficients with different actual port references, use
 loss_reference per docs/LOSS_REFERENCE.md. Preserve signed pressure; validate

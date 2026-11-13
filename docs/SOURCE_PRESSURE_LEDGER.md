@@ -40,3 +40,30 @@ missing-data path affects 12 outlets. All 31 separate transition end studies
 remain excluded. Full pressure/critical path/fan duty stay unresolved. Only
 aggregate evidence is public; protected sources and actual ledger remain in the
 selected coursework workspace.
+
+## Numerical and straight-identity correction
+
+Two false acceptances were reproduced in the earlier adapter: a wrong signed
+subtotal below its fixed absolute tolerance, and duplicate straight definitions
+silently collapsed by a dictionary. Current subtotal correspondence uses1e-12
+relative tolerance with zero absolute floor. Finite signed values remain signed;
+zero only matches zero. Numerical tolerance is not engineering acceptance.
+
+Straight definitions must be unique and every one must appear on at least one
+outlet path. A straight may occur on different parallel paths, but never twice
+on one path. Directed fitting duplicates remain rejected. Stored step pressure
+and conditional arithmetic are explicitly numeric, and unresolved counts require
+actual integers rather than boolean values. Global missing engineering scope,
+null losses, partial sums and excluded end-straight studies are unchanged.
+
+Twelve ledger/access/actual-protocol/reference tests pass with a verified durable
+receipt. New controls reproduce the old tiny-subtotal and duplicate-definition
+errors and reject unused/repeated straights and boolean counts. Old manifests
+retain their original method hashes. Use fresh generation and independent
+inspection after this change; never rehash old receipts to manufacture a pass.
+
+Fresh actual MCP generation, independent inspection, all three gap pages and
+all 20 exact outlet reads pass with the stricter method. The real ledger payload
+is byte-identical to the prior execution; only provenance binds the changed
+method. Forty-five numerical gaps and complete engineering limitations remain.
+Historical manifests are preserved unchanged.

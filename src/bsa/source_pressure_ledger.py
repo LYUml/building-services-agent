@@ -19,14 +19,18 @@ def number(value):
     return value
 
 
+def matches(a,b):return math.isclose(number(a),number(b),rel_tol=1e-12,abs_tol=0.)
+
+
 def calculate(case,data):
     if case['original_requirement_ids']!=data['original_requirement_ids']:raise ValueError('Original requirements differ')
     requests={key(r):r for r in data['data_requests']};tables={key(r):r for r in data['table_results']}
     if len(requests)!=len(data['data_requests']) or len(tables)!=len(data['table_results']):raise ValueError('Duplicate directed fitting identity')
     straights={r['guid']:r for r in case['straight_sections']}
+    if len(straights)!=len(case['straight_sections']):raise ValueError('Duplicate straight definition')
     supplied={p['outlet_port_guid']:p for p in data['boundary_paths']}
     if len(supplied)!=len(data['boundary_paths']):raise ValueError('Duplicate outlet summary')
-    affected={k:set() for k in requests};paths=[];outlets=set()
+    affected={k:set() for k in requests};paths=[];outlets=set();used_straights=set()
     for path in case['boundary_paths']:
         outlet=path['outlet_port_guid']
         if outlet in outlets:raise ValueError('Duplicate original outlet')
@@ -36,8 +40,8 @@ def calculate(case,data):
             if step['kind']=='straight':
                 r=straights[step['product_guid']];value=number(r['straight_friction_Pa'])
                 if r['guid'] in seen_straight:raise ValueError('Repeated straight in one outlet path')
-                seen_straight.add(r['guid'])
-                if value!=step['straight_friction_Pa']:raise ValueError('Straight path contribution differs')
+                seen_straight.add(r['guid']);used_straights.add(r['guid'])
+                if value!=number(step['straight_friction_Pa']):raise ValueError('Straight path contribution differs')
                 straight.append(value);steps.append(dict(kind='straight',product_guid=r['guid'],signed_Pa=value));continue
             if step['kind']!='fitting':raise ValueError('Unsupported pressure step')
             k=key(step)
@@ -48,13 +52,13 @@ def calculate(case,data):
             if value is None:missing.append(dict(zip(KEY,k)))
             else:conditional.append(number(value))
             steps.append(dict(kind='fitting',**dict(zip(KEY,k)),signed_Pa=value,status=request['status'],source_id=table.get('source_id') if table else None,citation_location=table.get('citation_location') if table else None))
-        a=math.fsum(straight);b=math.fsum(conditional);old=supplied.get(outlet)
-        if old is None or old['inlet_port_guid']!=path['inlet_port_guid'] or not math.isclose(a,number(path['known_straight_friction_Pa']),rel_tol=1e-12,abs_tol=1e-10):raise ValueError('Original outlet accounting differs')
-        if not math.isclose(a,number(old['known_straight_friction_Pa']),rel_tol=1e-12,abs_tol=1e-10) or not math.isclose(b,number(old['supplied_table_contribution_Pa']),rel_tol=1e-12,abs_tol=1e-10) or old['unresolved_fitting_path_count']!=len(missing):raise ValueError('Recorded fitting outlet subtotal differs')
+        a=number(math.fsum(straight));b=number(math.fsum(conditional));old=supplied.get(outlet)
+        if old is None or old['inlet_port_guid']!=path['inlet_port_guid'] or not matches(a,path['known_straight_friction_Pa']):raise ValueError('Original outlet accounting differs')
+        if not matches(a,old['known_straight_friction_Pa']) or not matches(b,old['supplied_table_contribution_Pa']) or type(old['unresolved_fitting_path_count']) is not int or old['unresolved_fitting_path_count']!=len(missing):raise ValueError('Recorded fitting outlet subtotal differs')
         partial=None if missing else a+b
-        if old['tabulated_plus_separate_straight_Pa']!=partial or old['complete_total_pressure_drop_Pa'] is not None:raise ValueError('Unsupported complete pressure assertion')
+        if (old['tabulated_plus_separate_straight_Pa'] is not None if partial is None else not matches(old['tabulated_plus_separate_straight_Pa'],partial)) or old['complete_total_pressure_drop_Pa'] is not None:raise ValueError('Unsupported complete pressure assertion')
         paths.append(dict(inlet_port_guid=path['inlet_port_guid'],outlet_port_guid=outlet,known_straight_friction_Pa=a,conditional_signed_table_subtotal_Pa=b,numerically_unresolved_fitting_paths=missing,conditional_arithmetic_only_Pa=partial,shared_interfaces_requiring_joint_review=interfaces,contributions=steps,unresolved_scope=GAPS,complete_total_pressure_drop_Pa=None))
-    if outlets!=set(supplied) or any(not v for v in affected.values()) or set(tables)-set(requests):raise ValueError('Complete path/evidence coverage required')
+    if outlets!=set(supplied) or used_straights!=set(straights) or any(not v for v in affected.values()) or set(tables)-set(requests):raise ValueError('Complete path/evidence coverage required')
     gaps=[];finite=0
     for k,request in requests.items():
         if set(request['affected_outlet_port_guids'])!=affected[k] or len(request['affected_outlet_port_guids'])!=len(affected[k]):raise ValueError('Affected outlet evidence differs')

@@ -1,0 +1,21 @@
+{
+  "scope": "Corrected ledger subtotal and straight-identity correspondence",
+  "tiny_wrong_subtotal_false_acceptance_reproduced": true,
+  "duplicate_straight_definition_false_acceptance_reproduced": true,
+  "relative_tolerance": 1e-12,
+  "absolute_tolerance": 0,
+  "unique_and_fully_represented_straights_required": true,
+  "boolean_counts_rejected": true,
+  "tests_passed": 12,
+  "tests_skipped": 0,
+  "actual_mcp_generation_and_independent_inspection_pass": true,
+  "all_gap_reads_match": true,
+  "all_outlet_reads_match": true,
+  "outlet_count": 20,
+  "numerical_gaps": 45,
+  "gap_pages": 3,
+  "real_ledger_payload_unchanged": true,
+  "historical_receipts_preserved": true,
+  "formal_loss_values_added": 0,
+  "design_accepted": false
+}
