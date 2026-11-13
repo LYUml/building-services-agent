@@ -5,6 +5,12 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For an already verified complete source network, source_network_drawing exports
+GUID-linked editable XY silhouettes per docs/SOURCE_NETWORK_DRAWING.md. Keep
+source scale/elevation/gauge assumptions and bounded numerical cleanup explicit.
+DXF/preview success does not establish DWG reopening, plot or installation
+acceptance. Preserve all original requirements and source models.
+
 For actual material-cap matching and separately assumed outside-interface
 clearance studies on the source compound network, use interface_contacts per
 docs/INTERFACE_CONTACTS.md. Identify physical pairs by IFC GUID, never display

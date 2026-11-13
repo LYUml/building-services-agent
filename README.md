@@ -1,5 +1,10 @@
 # Building Services Agent
 
+The verified source network now exports an editable GUID-linked XY silhouette:
+102 native products, all33 requirements retained, independent saved-contour
+area/bounds checks and inspected preview. Native DWG/plot and installation detail
+remain pending. See docs/SOURCE_NETWORK_DRAWING.md.
+
 MCP now provides bounded pages and exact directed-path detail reads for saved
 native fitting requests, tied to the inspected record identity. Reads retain
 missing evidence and do not replace source/native verification or design review.

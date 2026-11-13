@@ -1582,3 +1582,11 @@ existing fixed MCP worker. The gap was bounded reads of newer standalone native
 records, not another artifact engine. No new dependency or coefficient dataset.
 Native ancestry inspection stays separate from saved-byte reads; see
 MCP_FITTING_REQUESTS.md.
+
+Complete native-network plan projection reuses source_network_analysis.verify,
+IfcOpenShell tessellation, existing Shapely2.2.0/GEOS and ezdxf. Official union_all
+precision behaviour was inspected. Existing rectangular_drawing requires a
+different source device schema and limited profiles; this adapter covers the
+actual saved compound network instead. Fixed numerical cleanup is independently
+bounded; no new geometry engine/library or native acceptance is claimed.
+See SOURCE_NETWORK_DRAWING.md.

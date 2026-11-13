@@ -1,0 +1,20 @@
+{
+  "products_checked": 102,
+  "all_guid_contours_bounds_and_shoelace_areas_match": true,
+  "original_requirements": 33,
+  "contours": 286,
+  "maximum_native_bound_difference_m": 1.513782876827463e-09,
+  "projection_grid_m": 1e-08,
+  "native_reopen_pass": false,
+  "plot_visual_review": "pending",
+  "design_accepted": false,
+  "scope": "Verified native-network editable XY silhouette study only",
+  "tests_passed": 3,
+  "preview_visually_inspected": true,
+  "preview_observations": [
+    "All three main rows and branch/bend silhouettes visible",
+    "No clipped geometry in generated preview",
+    "Professional title/annotation composition, architectural context and native plot acceptance remain pending"
+  ],
+  "protected_source_model_or_coursework_geometry_redistributed": false
+}
