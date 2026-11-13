@@ -39,3 +39,23 @@ content matches current public delivery, so existing binaries remain unchanged.
 This is a repeat of the interpreted task graph, not autonomous interpretation,
 complete professional design or full Hong Kong compliance. See the aggregate
 in evidence/autocad-workflow-provider.json; raw coursework/runtime remains private.
+
+## Bind verifier selection to the source plan
+
+A reproduced failure showed that changing the recorded writer to builtin could
+skip upstream verification even after corrupting and rehashing its receipt.
+New workflows record the exact source plan path/hash, already included in their
+input inventory. Verification checks task coverage, kinds and declared sheet
+writer against that source. The declared writer selects the verifier, including
+when a saved writer binding exists but task status was changed to pending.
+Missing source identity on upstream runs is incomplete; historical records are
+preserved rather than patched. Legacy non-upstream receipts retain their original
+byte-only scope. This is source/evidence consistency, not authenticated provenance
+or protection against replacing an entire source/trust chain.
+
+The regression failed before repair and passes after it; independent mutations
+cover writer changes/omission, pending status, task kind/coverage and omitted plan
+identity. A fresh real full-plan replay passes source-bound verification with
+four scoped executable stages passing. Native was deliberately not requested in
+this verification trial; its task remains pending. Previous native/visual evidence
+is retained at its original scope. See evidence/autocad-source-plan-verification.json.

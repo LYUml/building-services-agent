@@ -5,6 +5,10 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+Preserve source_plan path/hash in new workflow receipts. The original declared
+writer chooses verification; changing recorded writer/status must not skip it.
+Do not patch historical receipts to satisfy this newer check.
+
 For an existing duct_schedule -> duct_sheet -> duct_sheet_native plan, select
 writer=uc4n on the sheet task per docs/AUTOCAD_WORKFLOW_PROVIDER.md. Preserve all
 requirements/gaps and original producers; verify full workflow and separately

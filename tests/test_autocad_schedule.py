@@ -87,6 +87,25 @@ class AutoCADScheduleTests(unittest.TestCase):
         path=out/'workflow.json';record=json.loads(path.read_text());record['artifact_hashes']['sheet/schedule-drawing.json']=digest(receipt);path.write_text(json.dumps(record))
         self.assertFalse(verify(out)['integrity_pass'])
 
+    def test_workflow_cannot_hide_provider_verification_by_changing_recorded_writer(self):
+        from bsa.workflow import execute,verify
+        plan=self.workflow_plan();out=self.root/'writer-bypass';execute(plan,out)
+        receipt=out/'sheet/schedule-drawing.json';record=json.loads(receipt.read_text());record['sections']=999;receipt.write_text(json.dumps(record))
+        path=out/'workflow.json';report=json.loads(path.read_text());report['artifact_hashes']['sheet/schedule-drawing.json']=digest(receipt)
+        valid_selector=json.loads(json.dumps(report))
+        report['tasks']['sheet']['writer']='builtin';path.write_text(json.dumps(report))
+        checked=verify(out);self.assertFalse(checked['integrity_pass'],checked)
+        for change in ('omit-plan','omit-writer','pending','change-kind','omit-task'):
+            altered=json.loads(json.dumps(valid_selector))
+            if change=='omit-plan':altered.pop('source_plan')
+            if change=='omit-writer':altered['tasks']['sheet'].pop('writer')
+            if change=='pending':altered['tasks']['sheet']['status']='pending'
+            if change=='change-kind':altered['tasks']['sheet']['kind']='manual'
+            if change=='omit-task':altered['tasks'].pop('sheet')
+            path.write_text(json.dumps(altered))
+            self.assertFalse(verify(out)['integrity_pass'],change)
+            path.write_text(json.dumps(report))
+
     def test_workflow_failed_schedule_blocks_upstream_and_native(self):
         from bsa.workflow import execute,validate_plan
         plan=self.workflow_plan();data=json.loads(plan.read_text())

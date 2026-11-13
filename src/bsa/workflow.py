@@ -2343,7 +2343,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
         matrix.append(dict(**r,execution_status=task["status"],acceptance_status="pending review",
                            source_locator={k:v for k,v in source_rows[r["passage"]].items() if k not in ("id","text")},
                            execution_scope=task["scope"],evidence=evidence[r["task"]]))
-    result=dict(inputs=before,runtime_inputs=runtime_inputs,requirements_inventory=requirements_inventory,module_selection=module_selection,inputs_unchanged=unchanged,tasks=tasks,requirements=matrix,
+    result=dict(source_plan=dict(path=str(plan),sha256=digest(plan)),inputs=before,runtime_inputs=runtime_inputs,requirements_inventory=requirements_inventory,module_selection=module_selection,inputs_unchanged=unchanged,tasks=tasks,requirements=matrix,
         unresolved_inputs=p.get('unresolved_inputs',[]),three_phase_source_bindings=three_phase_rule_bindings(p['tasks']),
         three_phase_model_bindings=three_phase_model_bindings(root,p['tasks']) if unchanged else [],
         regulatory_source_bindings=regulatory_source_bindings(p['tasks'],root) if unchanged else [],
@@ -2377,8 +2377,25 @@ def verify(run_directory):
         path=(root/name).resolve()
         if not path.is_relative_to(root) or not path.is_file() or digest(path)!=expected:
             issues.append(f"artifact changed or missing: {name}")
+    declared={}
+    source_plan=report.get('source_plan')
+    if source_plan:
+        try:
+            plan_path=Path(source_plan['path']).resolve()
+            if report['inputs'].get(str(plan_path))!=source_plan['sha256'] or digest(plan_path)!=source_plan['sha256']:
+                raise ValueError('Source plan identity differs')
+            declared={t['id']:t for t in read_json(plan_path)['tasks']}
+            if set(declared)!=set(report['tasks']):raise ValueError('Recorded task coverage differs from source plan')
+            for task_id,original in declared.items():
+                recorded=report['tasks'][task_id]
+                if recorded['kind']!=original['kind']:raise ValueError('Recorded task kind differs from source plan: '+task_id)
+                if original['kind']=='duct_sheet' and recorded.get('writer','builtin')!=original.get('writer','builtin'):
+                    raise ValueError('Recorded writer differs from source plan: '+task_id)
+        except (OSError,ValueError,KeyError,TypeError) as exc:issues.append('workflow source identity invalid: '+str(exc))
+    elif any(t.get('writer')=='uc4n' for t in report['tasks'].values()) or any((root/name/'workflow-binding.json').is_file() for name in report['tasks']):
+        issues.append('upstream writer requires explicit workflow source plan identity')
     for name,task in report['tasks'].items():
-        if task['kind']=='duct_sheet' and task.get('writer')=='uc4n' and task['status']=='pass':
+        if declared.get(name,task).get('kind')=='duct_sheet' and declared.get(name,task).get('writer')=='uc4n' and (task['status']=='pass' or (root/name/'workflow-binding.json').is_file()):
             try:
                 from .duct_sheet_provider import verify as verify_duct_provider
                 verify_duct_provider(root/name)

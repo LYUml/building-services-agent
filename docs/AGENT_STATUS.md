@@ -10,6 +10,10 @@ checks pass. See PROJECT_CLI.md. Complete design acceptance remains pending.
 
 Current user priority is AutoCAD and real assignment delivery; new Revit work is deferred. See [priority and upstream comparison](AUTOCAD_PRIORITY.md).
 
+Workflow verification now binds recorded writer/task identity to the original plan,
+closing an actually reproduced verifier-selection bypass. This preserves scoped
+engineering/native/visual acceptance; see AUTOCAD_WORKFLOW_PROVIDER.md.
+
 The whole agent is incomplete. Verified adapter execution and evidence consistency
 must not be reported as autonomous professional design. The intended scope remains
 requirements intake, CAD/BIM authoring, analysis, jurisdiction rules, iteration and

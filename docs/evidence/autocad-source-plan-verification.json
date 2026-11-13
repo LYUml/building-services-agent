@@ -1,0 +1,46 @@
+{
+  "scope": "Source-plan-bound writer/task identity and independent upstream verification selection",
+  "reproduced_before": {
+    "tests_run": 1,
+    "failures": 1,
+    "receipt_sha256": "fe5c0b02383f60dd2c164998eb3f6338efa0ae6cb0d341303b3f1b2e3f39d265"
+  },
+  "verified_after": {
+    "tests_run": 32,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "verified_receipt_sha256": "98608f373a2cba54424d464f993f0ad22920a38736c2bfa143e9b525b955e307",
+  "real_workflow_sha256": "45a7c800d7b015738afb63e94d8e266962f8e6c207468c3218db0abeb68565f9",
+  "source_plan_sha256": "9ae143f8540a1adc0cafeaf5bf5050336a16cbee16558c8ee6b8b8ba62de71f8",
+  "requirements_retained": 33,
+  "unresolved_inputs_retained": 6,
+  "task_statuses": {
+    "air-allocation": "pass",
+    "terminal-lookup": "pass",
+    "duct-schedule": "pass",
+    "duct-sheet": "pass",
+    "native-sheet": "pending",
+    "hk-flex-length": "pending",
+    "work-identity": "pending",
+    "work-load": "pending",
+    "work-layout": "pending",
+    "work-minimum": "pending",
+    "work-terminal": "pending",
+    "work-adpi": "pending",
+    "work-routing": "pending",
+    "work-sizing": "pending",
+    "work-schedule": "pending",
+    "work-delivery": "pending"
+  },
+  "verification": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "native_repeated": false,
+  "plot_visual_repeated": false,
+  "design_accepted": false
+}
