@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+A single tagged-network delivery command now executes finite label placement,
+native DWG/PDF and independent source review on the real 102-component model.
+The actual plot is inspected; complete engineering acceptance remains pending.
+See docs/SOURCE_NETWORK_TAG_PIPELINE.md.
+
 The102-tag drawing now passes actual AutoCAD DWG save/reopen/export and
 fixed-scale PDF calibration; the rendered plot is visually inspected. Ten
 annotation/native/layout checks pass. Full engineering remains pending.

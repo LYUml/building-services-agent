@@ -1634,3 +1634,9 @@ The gap is complete tagged-source/native binding, not a new CAD engine. Actual
 AutoCAD execution and inspected PDF are retained privately; ten scoped tests
 pass, including rehashed native geometry rejection. Existing dependency
 licenses/attribution remain unchanged. See SOURCE_NETWORK_TAGS.md.
+
+Composed tag delivery reuses source_network_tags, ifc_native and
+source_network_tag_review without changing their engines or source contracts.
+The gap is manual orchestration of already-tested finite placement/native/review
+stages. Existing SciPy/HiGHS, Shapely, ezdxf and AutoCAD runtime attribution/pins
+apply; no new dependency. See SOURCE_NETWORK_TAG_PIPELINE.md.

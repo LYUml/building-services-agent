@@ -1,0 +1,20 @@
+{
+  "scope": "Composed tagged source-model native delivery",
+  "single_command_execution": true,
+  "components": 102,
+  "native_entities": 496,
+  "native_linked_entities": 491,
+  "source_ancestry_verified": true,
+  "native_reopen_verified": true,
+  "plot_visual_review": "reviewed separately; producer remains pending",
+  "tests_passed": 12,
+  "independent_package_replay": "passed",
+  "design_accepted": false,
+  "starts_from": "Existing source-native delivery and parameter schedule",
+  "remaining": [
+    "arbitrary brief interpretation and design",
+    "physical source calibration",
+    "complete pressure and equipment selection",
+    "installation detail and engineering acceptance"
+  ]
+}

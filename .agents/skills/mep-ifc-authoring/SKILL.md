@@ -5,6 +5,12 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For a single composed tagged-source delivery command, use
+source_network_tag_pipeline per docs/SOURCE_NETWORK_TAG_PIPELINE.md. Require
+fresh host-selected output, complete finite tag coverage and native/source
+review; independently verify the package and inspect its actual PDF. This
+starts from existing source-native delivery/schedule, not an arbitrary brief.
+
 For finite projected-network tag studies, use source_network_tags per
 docs/SOURCE_NETWORK_TAGS.md. Require complete GUID/tag coverage, independent
 graphic replay and saved-base preservation. Keep source ancestry/native/plot
@@ -16,8 +22,9 @@ in a separate source-hashed receipt; complete engineering remains pending.
 For model-linked component/port/flow-path schedules, use source_network_schedule
 per docs/SOURCE_NETWORK_SCHEDULE.md after verified source fitting analysis.
 Keep GUID-keyed identities, inherited versus measured classification, typed
-lengths, absorbed sections and null/signed losses. N-tags are not placed drawing
-annotations and must not be carried across changed identity sets without review.
+lengths, absorbed sections and null/signed losses. Schedule generation alone
+does not place N-tags; use the tagged-source pipeline for drawing placement.
+Do not carry tags across changed identity sets without review.
 
 For closed GUID-linked source-network outlines, ifc_native now supports scoped
 planar zero-width LWPOLYLINE contours per docs/NATIVE_NETWORK_CONTOURS.md. Require
