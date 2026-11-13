@@ -1558,3 +1558,9 @@ No round-pipe diameter substitution, new engine or redistributed coefficient
 database is added. See DUCT_ELBOW_QUANTITIES.md.
 
 Transition family applicability reuses native transition quantities and the existing bounded fitting-table adapter; no new engine/dependency. ASHRAE2021 supplement pages19-20 were visually inspected; protected data remains private. See TRANSITION_FAMILY_CHECK.md.
+
+The eight transition source queries reuse the exact family guards and pinned
+SciPy1.18.1 bounded interpolator without a new engine. Protected ASHRAE2021
+Fitting4-4 data stays private, with tentative contraction caveats. Native/source
+replay, independent arithmetic and wrong-family null controls execute; see
+TRANSITION_SOURCE_QUERIES.md.

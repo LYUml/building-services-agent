@@ -1,5 +1,9 @@
 # Source-linked fitting tables on the represented network
 
+For the latest31-path conditional study and independent transition checks, see
+[transition source queries](TRANSITION_SOURCE_QUERIES.md). Counts below retain
+the original tee-only milestone and do not describe the latest cumulative run.
+
 `bsa.source_fitting_data` reuses the existing bounded fitting-table engine after
 the complete represented network's native/source/flow/path verification.
 

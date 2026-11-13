@@ -1,0 +1,27 @@
+{
+  "scope": "Conditional source-bound native transition loss queries; not whole design acceptance",
+  "total_fitting_paths": 76,
+  "conditional_numeric_paths": 31,
+  "new_transition_paths": 8,
+  "unpublished_support_paths": 13,
+  "unsupplied_paths": 32,
+  "paths_without_numeric_value": 45,
+  "original_requirements": 33,
+  "outlet_paths": 20,
+  "transition_requests": 31,
+  "independent_controls": 8,
+  "independent_arithmetic_all_agree": true,
+  "wrong_family_queries_rejected": 8,
+  "tests_passed": 9,
+  "pressure_budget_complete": false,
+  "critical_path": null,
+  "design_accepted": false,
+  "source_record_sha256": "4c4ef2cc2738a24e41acd3ddb66f22cc585abded6a38f1e41587daa3fc957f75",
+  "source_cautions": [
+    "ASHRAE2021 Fitting4-4 contraction region is tentative, adapted from round4-1",
+    "One-plane Fitting4-2 header ambiguity retained; no assigned value",
+    "Physical applicability, products, friction, interactions and full pressure remain pending"
+  ],
+  "protected_source_data_redistributed": false,
+  "standalone_source_native_table_replay_integrity_pass": true
+}

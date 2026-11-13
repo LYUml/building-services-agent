@@ -7,6 +7,9 @@ description: Calculate source-linked air/water networks, fan/pump operating poin
 
 For centred transition source tables, declare transition_family when the diagram
 requires one-plane or equal-angle pyramidal geometry. See docs/TRANSITION_FAMILY_CHECK.md.
+For a conditional equal-angle contraction query and independent controls, read
+docs/TRANSITION_SOURCE_QUERIES.md. Keep inlet A0/V0 reference and tentative
+source-region caveats. A matching geometry is only a candidate.
 Never substitute maximum angle for family matching, silently repair ambiguous
 source headers, or discard tentative contraction-data caveats.
 

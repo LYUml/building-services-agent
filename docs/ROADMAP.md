@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+Latest transition source queries add eight conditional values, bringing the
+represented network to31/76 finite paths;45 still lack numerical coefficients.
+Source contraction caveats, physical review and complete pressure/fan acceptance
+remain pending. See docs/TRANSITION_SOURCE_QUERIES.md (repository root).
+
+Earlier milestone records follow; their counts describe those earlier runs.
+
 Centred transition family checks now gate source-table lookup using both native
 wall angles and source flow direction. Real-project screening finds nine geometry
 candidates and22 unmatched transitions; no new coefficient or full pressure
