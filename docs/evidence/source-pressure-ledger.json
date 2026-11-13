@@ -1,0 +1,17 @@
+{
+  "outlet_count": 20,
+  "unique_fitting_path_count": 76,
+  "conditional_numerical_path_count": 31,
+  "numerically_unresolved_fitting_path_count": 45,
+  "excluded_transition_end_straight_study_count": 31,
+  "pressure_budget_complete": false,
+  "critical_path": null,
+  "fan_duty_Pa": null,
+  "design_accepted": false,
+  "scope": "Independently reconciled source-network pressure evidence; no new loss values",
+  "original_requirement_count": 33,
+  "largest_missing_evidence_outlet_coverage": 12,
+  "source_replay_pass": true,
+  "saved_ledger_reconstruction_pass": true,
+  "tests_passed": 2
+}

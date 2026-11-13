@@ -1646,3 +1646,10 @@ operations, existing host path/runtime guards and source-page rendering. The
 gap is AI-client orchestration and artifact handoff, not a new engine. Existing
 pinned MCP SDK1.30.0 and CAD/scientific dependency notices apply. No new
 dependency or protected dataset. See MCP_TAGGED_NETWORK_DELIVERY.md.
+
+Source pressure evidence accounting reuses existing source_fitting_data native/
+source/table verification and duct_chain_analysis outlet paths. Existing fitting
+subtotals and MCP missing-request reads were checked first. The actual gap is
+independent per-path reconciliation plus shared missing-evidence coverage; no new
+solver, routing engine, correlation or dependency. Signed/null/parallel semantics
+and separate end-friction exclusion are retained. See SOURCE_PRESSURE_LEDGER.md.

@@ -5,6 +5,12 @@ description: Calculate source-linked air/water networks, fan/pump operating poin
 
 # Network pressure analysis
 
+For independently reconciled outlet pressure evidence and shared missing-data
+coverage, use source_pressure_ledger per docs/SOURCE_PRESSURE_LEDGER.md. Keep
+signed partial sums, null values and excluded end-straight studies. Coverage
+ordering prioritizes source research, not hydraulic criticality. No complete
+pressure/fan duty or physical acceptance follows from numerical coverage.
+
 For saved transition end-straight friction, source_fitting_data now records a
 separate developed-flow study per docs/TRANSITION_END_STRAIGHTS.md. Do not add
 it to source-table or outlet-path totals without resolving station/friction

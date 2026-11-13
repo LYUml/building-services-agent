@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Independent pressure evidence now reconciles all 20 outlet paths and maps 45
+numerical fitting gaps to affected outlets. Source/saved-ledger replay and two
+tests pass. No new loss data or complete fan duty is inferred.
+See docs/SOURCE_PRESSURE_LEDGER.md.
+
 AI-client MCP now executes tagged native delivery, independent package replay
 and actual PDF-page retrieval. Real 102-component summaries and file/image
 identities agree; actual page inspected. Engineering acceptance remains pending.
