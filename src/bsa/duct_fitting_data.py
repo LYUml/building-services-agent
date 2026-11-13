@@ -83,7 +83,7 @@ def prepare(path):
     required = {'source_id', 'citation_location', 'classification', 'applicability_note', 'friction_scope',
         'product_guid', 'geometry_sha256', 'inlet_port_guid', 'outlet_port_guid', 'reference_port_guid', 'axes', 'coefficients'}
     for table in data['tables']:
-        if not required <= set(table) or set(table)-required-{'conditions','transition_flow_change'} or any(not isinstance(table[k], str) or not table[k].strip() for k in required-{'axes', 'coefficients'}):
+        if not required <= set(table) or set(table)-required-{'conditions','transition_flow_change','transition_family'} or any(not isinstance(table[k], str) or not table[k].strip() for k in required-{'axes', 'coefficients'}):
             raise ValueError('Exact source-linked fitting-table record required')
         if table['source_id'] not in data['sources'] or not re.fullmatch('[0-9a-f]{64}', table['geometry_sha256']):
             raise ValueError('Known source and native body hash required')
@@ -91,6 +91,10 @@ def prepare(path):
             raise ValueError('Explicit source classification and friction convention required')
         if 'transition_flow_change' in table and (not isinstance(table['transition_flow_change'],str) or table['transition_flow_change'] not in ('contraction','expansion','mixed_width_height_change')):
             raise ValueError('Explicit supported transition source flow class required')
+        if 'transition_family' in table:
+            from .duct_transition_quantities import FAMILIES
+            if not isinstance(table['transition_family'],str) or table['transition_family'] not in FAMILIES:
+                raise ValueError('Supported centred transition family required')
         key = tuple(table[k] for k in ('product_guid', 'inlet_port_guid', 'outlet_port_guid'))
         if key in keys: raise ValueError('Duplicate fitting path table')
         keys.add(key)
@@ -150,12 +154,15 @@ def lookup(table, quantities):
 def flow_guard(table, geometry):
     """A declared source flow class is a necessary check,not applicability proof."""
     expected = table.get('transition_flow_change')
+    from .duct_transition_quantities import family_check
+    family = family_check(table['transition_family'],geometry) if 'transition_family' in table else None
     if geometry is None:
         if expected is not None: raise ValueError('Transition flow guard is unavailable on this fitting class')
         return None
     required = table['classification'] != 'synthetic'
     return dict(expected=expected, actual=geometry['flow_change'], required_for_source_class=required,
-        pass_check=(False if required else None) if expected is None else expected==geometry['flow_change'],
+        pass_check=((False if required else None) if expected is None else expected==geometry['flow_change']) if family is None else bool(expected==geometry['flow_change'] and family['pass_check']),
+        family_check=family,
         physical_applicability_verified=False)
 
 
@@ -163,7 +170,7 @@ def request_status(result):
     if result is None: return 'source_data_required'
     if result['coefficient'] is not None: return 'physical_review_required'
     if result['reason']=='source transition flow class required': return 'source_applicability_required'
-    if result['reason'] in ('declared native condition not met','declared transition flow change not met'): return 'native_condition_failed'
+    if result['reason'] in ('declared native condition not met','declared transition flow change not met','declared transition family not met'): return 'native_condition_failed'
     return 'table_support_missing'
 
 
@@ -197,7 +204,7 @@ def calculate(model, case, data):
         guard = flow_guard(table,geometries[obj.GlobalId])
         if guard and guard['pass_check'] is False:
             value = dict(status='pending', coefficient=None, native_condition_checks=[],
-                reason='source transition flow class required' if guard['expected'] is None else 'declared transition flow change not met')
+                reason='source transition flow class required' if guard['expected'] is None else 'declared transition family not met' if guard['family_check'] is not None and not guard['family_check']['pass_check'] else 'declared transition flow change not met')
         else: value = lookup(table, quantities)
         value.update(product_guid=key[0], inlet_port_guid=key[1], outlet_port_guid=key[2],
             transition_flow_check=guard,

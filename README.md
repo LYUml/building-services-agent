@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Centred transition family checks now gate source-table lookup using both native
+wall angles and source flow direction. Real-project screening finds nine geometry
+candidates and22 unmatched transitions; no new coefficient or full pressure
+acceptance is claimed. See docs/TRANSITION_FAMILY_CHECK.md (repository root).
+
 Native rectangular bend radius/section/Axis/Reynolds quantities now feed the
 existing source-table engine. Ten corrected conditional bend values bring the
 study to 23 of 76 paths; physical applicability and full pressure remain pending.

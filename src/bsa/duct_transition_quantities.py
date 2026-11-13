@@ -9,6 +9,30 @@ QUANTITIES = ANGLE_QUANTITIES | {'taper_length_m', 'inlet_straight_length_m', 'o
     'total_length_m', 'outlet_hydraulic_diameter_m', 'taper_length_over_outlet_hydraulic_diameter',
     'total_length_over_outlet_hydraulic_diameter'}
 
+FAMILIES = {'centred_one_plane', 'centred_equal_angle_pyramidal'}
+
+
+def family_check(family, geometry):
+    """Necessary diagram geometry only; numerical equality is not fabrication tolerance."""
+    if family not in FAMILIES:
+        raise ValueError('Supported centred transition family required')
+    if geometry is None:
+        raise ValueError('Native transition geometry required for family check')
+    q = geometry['quantities']
+    angles = [q['taper_width_angle_deg'], q['taper_height_angle_deg']]
+    if any(not math.isfinite(v) or not 0 <= v < 180 for v in angles):
+        raise ValueError('Finite native wall angles required')
+    same_direction = geometry['flow_change'] in ('contraction', 'expansion')
+    # An unchanged plane must actually be unchanged. Do not turn a shallow
+    # two-plane taper into a one-plane fitting by an angular tolerance.
+    if family == 'centred_one_plane':
+        matches = min(angles) == 0 and max(angles) > 0
+    else:
+        matches = min(angles) > 0 and abs(angles[0]-angles[1]) <= 1e-6
+    return dict(family=family, pass_check=bool(matches and same_direction),
+        numerical_equal_angle_bound_deg=1e-6 if family=='centred_equal_angle_pyramidal' else None,
+        physical_applicability_verified=False)
+
 
 def rings(brep):
     if not brep.is_a('IfcFacetedBrep'): raise ValueError('Supported faceted transition BRep required')

@@ -1,5 +1,10 @@
 # Whole-agent status
 
+Centred transition family checks now gate source-table lookup using both native
+wall angles and source flow direction. Real-project screening finds nine geometry
+candidates and22 unmatched transitions; no new coefficient or full pressure
+acceptance is claimed. See docs/TRANSITION_FAMILY_CHECK.md (repository root).
+
 Ten native rectangular bend paths now have source-bound conditional values with
 explicit angle/Reynolds interpretation. The fresh study has 23 finite table
 paths, 13 sparse-support requests and 40 unsupplied paths; all 76 remain explicit.

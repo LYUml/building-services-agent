@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Centred transition family checks now gate source-table lookup using both native
+wall angles and source flow direction. Real-project screening finds nine geometry
+candidates and22 unmatched transitions; no new coefficient or full pressure
+acceptance is claimed. See docs/TRANSITION_FAMILY_CHECK.md (repository root).
+
 Native rectangular elbow quantities now support bounded source queries with
 explicit Reynolds corrections: 23 conditional fitting paths in total, 53 still
 without numerical coefficients. Independent source/native/table replay passes;

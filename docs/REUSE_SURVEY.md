@@ -1556,3 +1556,5 @@ quantity binding, not another fitting solver. Official supplement page12 and
 ASHRAE fluid-flow convention were checked; correction grids remain private.
 No round-pipe diameter substitution, new engine or redistributed coefficient
 database is added. See DUCT_ELBOW_QUANTITIES.md.
+
+Transition family applicability reuses native transition quantities and the existing bounded fitting-table adapter; no new engine/dependency. ASHRAE2021 supplement pages19-20 were visually inspected; protected data remains private. See TRANSITION_FAMILY_CHECK.md.

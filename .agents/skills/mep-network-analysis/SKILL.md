@@ -5,6 +5,11 @@ description: Calculate source-linked air/water networks, fan/pump operating poin
 
 # Network pressure analysis
 
+For centred transition source tables, declare transition_family when the diagram
+requires one-plane or equal-angle pyramidal geometry. See docs/TRANSITION_FAMILY_CHECK.md.
+Never substitute maximum angle for family matching, silently repair ambiguous
+source headers, or discard tentative contraction-data caveats.
+
 For native rectangular quarter-bend source queries, use duct_elbow_quantities
 through source_fitting_data per docs/DUCT_ELBOW_QUANTITIES.md. Read actual
 radial W, normal H, profile/Axis radius and source hydraulic Reynolds; never

@@ -7,13 +7,21 @@ import unittest
 import ifcopenshell
 
 from bsa.rectangular_transition import run
-from bsa.duct_transition_quantities import calculate
+from bsa.duct_transition_quantities import calculate, family_check
 from bsa.duct_fitting_data import flow_guard, lookup
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 class TransitionQuantityTests(unittest.TestCase):
+    def test_family_does_not_accept_shallow_second_plane_or_mixed_flow(self):
+        geometry=dict(flow_change='contraction',quantities=dict(taper_width_angle_deg=30.,taper_height_angle_deg=1e-9))
+        self.assertFalse(family_check('centred_one_plane',geometry)['pass_check'])
+        geometry['quantities']['taper_height_angle_deg']=30.
+        geometry['flow_change']='mixed_width_height_change'
+        self.assertFalse(family_check('centred_equal_angle_pyramidal',geometry)['pass_check'])
+        with self.assertRaises(ValueError):flow_guard(dict(classification='published correlation',transition_family='centred_one_plane'),None)
+
     def test_native_stations_angles_direction_and_mutations(self):
         with tempfile.TemporaryDirectory(dir=ROOT/'runs') as tmp:
             root=Path(tmp)
@@ -52,6 +60,12 @@ class TransitionQuantityTests(unittest.TestCase):
                 self.assertEqual(result['flow_change'],dict(reduction='contraction',expansion='expansion',mixed_oblique='mixed_width_height_change',one_plane='contraction',equal_angles='contraction')[case])
                 declared=dict(classification='published correlation',transition_flow_change=result['flow_change'])
                 self.assertTrue(flow_guard(declared,result)['pass_check'])
+                for family,eligible in [('centred_one_plane',case=='one_plane'),
+                        ('centred_equal_angle_pyramidal',case=='equal_angles')]:
+                    self.assertEqual(family_check(family,result)['pass_check'],eligible)
+                    self.assertEqual(flow_guard(dict(declared,transition_family=family),result)['pass_check'],eligible)
+                with self.assertRaises(ValueError):family_check('three_sides_straight',result)
+                with self.assertRaises(ValueError):family_check('centred_one_plane',None)
                 wrong=dict(declared,transition_flow_change='expansion' if result['flow_change']!='expansion' else 'contraction')
                 self.assertFalse(flow_guard(wrong,result)['pass_check'])
                 self.assertFalse(flow_guard(dict(classification='manufacturer data'),result)['pass_check'])

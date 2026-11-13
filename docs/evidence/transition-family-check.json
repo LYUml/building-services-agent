@@ -1,0 +1,22 @@
+{
+  "scope": "Native centred transition source-family screening only",
+  "transition_paths": 31,
+  "centred_one_plane": 1,
+  "centred_equal_angle_pyramidal": 8,
+  "unmatched": 22,
+  "matching_contractions": 9,
+  "new_coefficients": 0,
+  "existing_conditional_fitting_paths": 23,
+  "total_fitting_paths": 76,
+  "pressure_budget_complete": false,
+  "design_accepted": false,
+  "source_cautions": [
+    "Both sources label contraction region A0/A1>1 tentative, adapted from round Fitting4-1.",
+    "Page19 Fitting4-2 has duplicated 30-degree column labels; do not silently replace one with20 or interpolate through an ambiguous header.",
+    "Fitting4-3 three sides straight does not match these centred tapers.",
+    "Geometry screening does not establish coefficient, product, friction, interaction or full pressure acceptance."
+  ],
+  "tests_run": 9,
+  "tests_passed": 9,
+  "protected_source_data_redistributed": false
+}
