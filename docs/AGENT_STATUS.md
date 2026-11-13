@@ -1,5 +1,9 @@
 # Whole-agent status
 
+Native source-network and fitting analysis now have MCP run/independent-inspect
+entry points through existing isolated workers. Source assumptions and incomplete
+pressure/design acceptance remain explicit. See docs/MCP_NATIVE_NETWORK.md.
+
 Native transition end straights now have a separate developed-flow friction
 study through the existing equivalent-round/Fluids engine. It is not added to
 pressure paths or source tables; taper friction, interaction and source inclusion

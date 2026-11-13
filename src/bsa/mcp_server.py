@@ -12,6 +12,7 @@ from typing import Any,Annotated
 
 from . import engineering_handoff,project_start,workflow,workflow_status,workspace,mcp_worker,source_page,visual_transcription,source_review,reference_library,pump_catalogue_iteration,artifact_access,delivery,recovery_controller,hvac_package_access
 from .cli import digest
+from . import network_analysis_access
 from .terminal_iteration import OPTIONS
 
 SDK_VERSION='1.30.0'
@@ -65,6 +66,26 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None):
 
     read=ToolAnnotations(readOnlyHint=True,destructiveHint=False,idempotentHint=True,openWorldHint=False)
     write=ToolAnnotations(readOnlyHint=False,destructiveHint=False,idempotentHint=False,openWorldHint=False)
+
+    @server.tool(annotations=write)
+    def bsa_run_native_network_analysis(source:str,out:str)->dict[str,Any]:
+        """Replay an existing source-bound native network and calculate inherited flows/straight friction. No model or source overrides."""
+        return invoke(network_analysis_access.run_network,local(source),local(out))
+
+    @server.tool(annotations=write)
+    def bsa_run_native_fitting_analysis(analysis:str,basis:str,out:str)->dict[str,Any]:
+        """Apply explicit source tables to verified native analysis and record separate transition end-straight studies. No complete fan pressure acceptance."""
+        return invoke(network_analysis_access.run_fittings,local(analysis),local(basis),local(out))
+
+    @server.tool(annotations=read)
+    def bsa_inspect_native_network_analysis(out:str)->dict[str,Any]:
+        """Independently replay source/native correspondence and return compact artifact identity and unresolved scope."""
+        return invoke(network_analysis_access.inspect,local(out),'network')
+
+    @server.tool(annotations=read)
+    def bsa_inspect_native_fitting_analysis(out:str)->dict[str,Any]:
+        """Independently replay native/table/source correspondence. Integrity success does not approve engineering design."""
+        return invoke(network_analysis_access.inspect,local(out),'fittings')
 
     @server.tool(annotations=write)
     def bsa_project_start(brief:str,out:str,supplements:list[str]|None=None,references:list[str]|None=None)->dict[str,Any]:

@@ -5,6 +5,11 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For an already source-bound native network, use the four native-network MCP
+run/inspect tools per docs/MCP_NATIVE_NETWORK.md. Inspect source/native ancestry
+and the actual saved record; retain all missing losses, construction assumptions
+and incomplete fan/design acceptance. This does not interpret arbitrary briefs.
+
 For unequal source tees after a verified elbow selection, use source_tee_candidates
 per docs/SOURCE_TEE_CANDIDATES.md with explicit construction/method choices. Keep
 both-end blocked nodes and unattempted multi-branch obligations. Local native

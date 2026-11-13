@@ -1570,3 +1570,9 @@ Fluids1.3.1 Colebrook after native ring/port reconciliation. Official Fluids
 conical-method documentation and ASHRAE/SMACNA product descriptions were checked;
 no applicable unequal-angle rectangular CLI/MCP integration was established.
 No new engine, dataset or product purchase. See TRANSITION_END_STRAIGHTS.md.
+
+Native-network MCP access reuses existing source_network_analysis,
+source_fitting_data, MCP SDK1.30.0 and isolated fixed-operation worker plumbing.
+The actual gap was access to these newer adapters, not another solver or MCP
+server. No new dependency, copied upstream implementation or native runtime.
+See MCP_NATIVE_NETWORK.md for protocol and real-project evidence.

@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 from . import engineering_handoff,project_start,workflow,workflow_status,source_page,visual_transcription,source_review,reference_library,pump_catalogue_iteration,artifact_access,delivery,recovery_controller,hvac_package_access
 from .cli import digest
+from . import network_analysis_access
 from .module_contract import read_json
 
 
@@ -20,6 +21,8 @@ OPERATIONS={function.__module__+'.'+function.__name__:function for function in
      workflow.execute,workflow_status.diagnose,source_page.run,visual_transcription.prepare,source_review.run,reference_library.catalogue,reference_library.read,
      pump_catalogue_iteration.run,pump_catalogue_iteration.verify,artifact_access.index,artifact_access.read,artifact_access.render_page,delivery.template,delivery.assess,recovery_controller.run,recovery_controller.verify,hvac_package_access.prepare,hvac_package_access.run,hvac_package_access.inspect)}
 OPERATIONS['bsa.mcp_worker.read_source_plan']=read_source_plan
+for function in (network_analysis_access.run_network,network_analysis_access.run_fittings,network_analysis_access.inspect):
+    OPERATIONS[function.__module__+'.'+function.__name__]=function
 
 
 def main():

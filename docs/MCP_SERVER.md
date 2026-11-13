@@ -1,5 +1,9 @@
 # Building Services Agent stdio MCP server
 
+For the four executed native source-network/fitting run and independent-inspect
+tools, see [native network access](MCP_NATIVE_NETWORK.md). They retain the same
+fixed host workspace/runtime and isolated-worker controls.
+
 The current server includes [complete interpreted HVAC execution](MCP_HVAC_PROJECT.md), [bounded recovery](RECOVERY_CONTROLLER.md), [recorded PDF pages](MCP_ARTIFACT_PAGES.md), [artifact reads](MCP_ARTIFACTS.md),
 [source-bound delivery review](MCP_DELIVERY.md), [pump recovery](MCP_PUMP_RECOVERY.md), a [committed reference library](REFERENCE_LIBRARY.md), actual source-page PNG delivery
 and [explicit visual transcription/source review](VISUAL_TRANSCRIPTION.md);

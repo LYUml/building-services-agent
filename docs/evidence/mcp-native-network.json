@@ -1,0 +1,25 @@
+{
+  "scope": "Executed stdio MCP access to source-native analysis; not general autonomous design",
+  "tools_executed": [
+    "bsa_run_native_network_analysis",
+    "bsa_inspect_native_network_analysis",
+    "bsa_run_native_fitting_analysis",
+    "bsa_inspect_native_fitting_analysis"
+  ],
+  "network_inspection_integrity_pass": true,
+  "fitting_inspection_integrity_pass": true,
+  "fitting_paths": 76,
+  "conditional_table_paths": 31,
+  "transition_end_straight_studies": 31,
+  "original_requirements": 33,
+  "outlet_paths": 20,
+  "targeted_tests_passed": 5,
+  "regression_tests_passed": 4,
+  "skipped_in_final_suites": 0,
+  "network_record_sha256": "5fc8eeca33120dec35c2898927edc6ceecd4ed2d17a2bf83c7fad596b7bafd06",
+  "fitting_record_sha256": "437dd26b5aeec5a4a95bfa3cc09009765edf458557d00be14b4c6b84aa77c824",
+  "pressure_budget_complete": false,
+  "critical_path": null,
+  "design_accepted": false,
+  "protected_source_data_redistributed": false
+}
