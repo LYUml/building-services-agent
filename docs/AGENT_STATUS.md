@@ -1,5 +1,11 @@
 # Whole-agent status
 
+All 223 native ports now reconcile original design flows through the actual
+saved network. Forty-five retained straight contributions and all 20 outlet
+paths are checked; the absorbed common section's flow obligation survives.
+Seventy-six loss paths across 57 fittings remain unresolved, so complete path
+pressure, critical path and fan duty stay unknown. See SOURCE_NETWORK_ANALYSIS.md.
+
 Native interface material now independently matches at all 101 actual links.
 All 101 separately assumed bounded-region numerical proofs pass with nonempty
 outside parts. Original raw clearance stays failed; numerical masks do not

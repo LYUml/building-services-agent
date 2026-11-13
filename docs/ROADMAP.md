@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Source flow/native geometry analysis now covers all 223 represented ports,
+45 retained straights and 20 outlet paths, with absorbed-section continuity.
+Full fitting/joint/boundary pressure remains unresolved (76 fitting flow paths);
+no full critical path or fan duty is inferred. See SOURCE_NETWORK_ANALYSIS.md.
+
 Native material caps match at all 101 represented interfaces. Separately assumed
 outside-region numerical checks pass 101 nonvacuous proofs; source raw failures,
 physical joints, products, pressure and full design/agent acceptance remain.

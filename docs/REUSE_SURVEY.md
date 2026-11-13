@@ -1532,3 +1532,11 @@ nonvacuous-result reporting, not another proximity engine. Raw source policy and
 failures remain unchanged; numerical masks are classified assumptions. Earlier
 summary pair counts are corrected to IFC GUID identity, as documented in
 INTERFACE_CONTACTS.md; no dependency/kernel is added.
+
+Complete represented source-network analysis reuses the original selected-schedule
+handoff, duct_chain_analysis.boundary_paths, native material-cap recovery and
+duct_equivalent with pinned MIT fluids 1.3.1 Colebrook/Darcy. Official fluids
+friction documentation was checked. The actual gap is complete stable-port
+source binding, independent downstream-demand accumulation and reconciliation
+of the explicitly absorbed common source section. No solver is rebuilt; full
+fitting/joint/boundary pressure remains unknown. See SOURCE_NETWORK_ANALYSIS.md.

@@ -1,5 +1,11 @@
 # Attribution and upstream integration register
 
+Complete represented source-network flow/path analysis reuses existing native
+cap and graph adapters and pinned fluids 1.3.1 (MIT, Caleb Bell) Colebrook/Darcy
+through duct_equivalent. Source binding/reconciliation is local orchestration;
+no new solver or upstream implementation is copied. Existing license notices
+remain, and docs/SOURCE_NETWORK_ANALYSIS.md records primary references and limits.
+
 Compound rectangular junctions reuse pinned IfcOpenShell 0.8.5 ShapeBuilder
 faceted BRep/extrusion/Boolean/port APIs and existing Manifold3D 3.5.4 QA under
 the licenses below. The explicit source compiler and polynomial volume/moment

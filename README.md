@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Complete represented network analysis now reconciles all 223 native ports to
+source design flows, checks 45 retained straights and traces 20 outlet paths.
+Seventy-six fitting loss paths remain unknown; fan duty is not inferred. See
+docs/SOURCE_NETWORK_ANALYSIS.md for native/source replay and scope limits.
+
 All 101 connected native material cap pairs now match, and a separately assumed
 outside-interface numerical study passes 101 nonvacuous proofs. Original raw
 clearance failures and physical-joint/engineering review remain; historical pair

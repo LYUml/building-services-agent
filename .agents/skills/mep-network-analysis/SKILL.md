@@ -5,6 +5,14 @@ description: Calculate source-linked air/water networks, fan/pump operating poin
 
 # Network pressure analysis
 
+For the verified source compound network, use source_network_analysis per
+docs/SOURCE_NETWORK_ANALYSIS.md. Inherit exact schedule air/flows, bind every
+native port, independently accumulate actual saved downstream demands and retain
+absorbed-section flow obligations. Read native cap sizes/straight lengths and
+trace all outlet paths. Missing fitting/joint/terminal/equipment losses stay
+explicit; neither whole-model straight subtotal nor a known straight-only path
+is complete fan duty. Require fresh source/native/path replay.
+
 For a material-checked circular local chain, use `route_pressure` with explicit
 outer-boundary, roughness and source/interface loss decisions; read
 [extended pressure](../../../docs/EXTENDED_ROUTE_PRESSURE.md). To solve a supplied

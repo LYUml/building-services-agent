@@ -1,0 +1,59 @@
+{
+  "scope": "Source-prescribed complete represented graph flow continuity, native-cap velocities, saved straight-friction contributions and all boundary paths; missing fitting/joint, terminal/equipment and pressure requirements prevent fan duty or full engineering acceptance. Across-product straight subtotal is not system pressure.",
+  "ports": 223,
+  "products": 102,
+  "interfaces": 101,
+  "straight_sections": 45,
+  "outlet_paths": 20,
+  "missing_fitting_path_losses": 76,
+  "boundary_inlet_flow_m3_s": 12.000372763419485,
+  "boundary_outlet_flow_m3_s": 12.000372763419485,
+  "flow_continuity_pass": true,
+  "internal_compound_source_flows": [
+    {
+      "source_section": "D-01",
+      "flow_m3_s": 10.579737826899992,
+      "upstream_derived_m3_s": 10.57973782689999,
+      "downstream_derived_m3_s": 10.57973782689999,
+      "continuity_pass": true
+    }
+  ],
+  "known_straight_only_path_range_Pa": [
+    5.670655559396387,
+    31.855598658232612
+  ],
+  "pressure_budget_complete": false,
+  "critical_path": null,
+  "complete_total_pressure_drop_Pa": null,
+  "original_requirement_ids_retained": 33,
+  "design_accepted": false,
+  "analysis_record_sha256": "5fc8eeca33120dec35c2898927edc6ceecd4ed2d17a2bf83c7fad596b7bafd06",
+  "html_report": {
+    "sha256": "b793684b93c7f96143a592160e922a5fa1092a2f62127bf3e1d651b893c0cca8",
+    "path_rows": 20,
+    "straight_rows": 45,
+    "numerical_table_review_pass": true,
+    "visual_delivery_accepted": false,
+    "scope": "Actual saved HTML numeric/path inventory checked; not full visual or engineering acceptance",
+    "straight_numeric_rows_checked": 45,
+    "path_numeric_rows_checked": 20
+  },
+  "tests": {
+    "tests_run": 11,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "receipt_sha256": "812f03774499b7817fbe0039703cb3d89fee38cc678d8bd0a4f1b37a8e5ceb58"
+  },
+  "fitting_bodies_with_unknown_losses": 57,
+  "observed_independent_replay": {
+    "integrity_pass": true,
+    "ports": 223,
+    "straight_sections": 45,
+    "outlet_paths": 20,
+    "missing_fitting_paths": 76,
+    "flow_continuity_pass": true,
+    "pressure_budget_complete": false,
+    "scope": "Actual standalone source_network_analysis verify CLI replays original source/native quantities, full prescribed-flow graph, missing losses, all boundary paths and report; full pressure and design remain unresolved."
+  }
+}
