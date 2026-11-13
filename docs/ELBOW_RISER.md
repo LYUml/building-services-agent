@@ -1,5 +1,11 @@
 # Independent finite-elbow riser
 
+The current actual AutoCAD opt-in regression reexecutes this synthetic elevation
+and the true-arc route native check: both tests pass, with independent receipt
+verification. Native save/reopen and numerical plot-reference checks execute;
+visual plot review remains pending. This does not accept a real installation or
+coursework design. See evidence/native-riser-route-regression.json.
+
 `examples/elbow-riser` reuses the actual IFC/pressure/clash/route/native adapters with a new namespace and explicit independent inputs. The source data declares a 60/75 mm bore/OD, 0.24 m radius, negative-X/positive-Z elbow, 1.8 m vertical riser, 1.2 m horizontal branch and 2.04 m endpoint rise. Density 997 kg/m3, viscosity 0.0012 Pa s, 0.00006 m3/s demand, excess K 0.6, 25000 Pa supply total pressure and 2000 Pa terminal target are synthetic assumptions, not inherited measurements or product ratings.
 
 ```powershell

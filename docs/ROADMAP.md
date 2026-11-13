@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Two supplemental actual AutoCAD tests now reverify synthetic riser elevation and
+true-arc route save/reopen/identity/plot-reference behavior. Both pass with a
+verified receipt; visual and full engineering acceptance remain pending. Main
+regression continues with its recorded energy-runtime failures preserved.
+See docs/ELBOW_RISER.md and evidence/native-riser-route-regression.json.
+
 Whole-agent batch7 retains four observed OpenStudio policy-block setup errors
 and one dependent HVAC assertion failure. Its failed receipt verifies; later
 batches continue. This does not clear the runtime/energy gap or establish a green

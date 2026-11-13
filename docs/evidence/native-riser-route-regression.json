@@ -1,0 +1,15 @@
+{
+  "scope": "Supplemental actual AutoCAD regression on synthetic riser elevation and true-arc route drawing; not accepted coursework or complete engineering design",
+  "tests_run": 2,
+  "passed": 2,
+  "skipped": 0,
+  "receipt_integrity_pass": true,
+  "receipt_sha256": "a1a1ad280aa1c4d497e094af68ff3d03159190f11afca87b565a83482feab0db",
+  "riser_elevation_native_save_reopen": true,
+  "route_native_arc_and_identity_checks": true,
+  "numerical_plot_reference_checks": true,
+  "source_unchanged": true,
+  "visual_plot_review_performed": false,
+  "full_agent_regression_completed": false,
+  "design_accepted": false
+}
