@@ -1,5 +1,12 @@
 # Whole-agent status
 
+An explicit compound construction revision now resolves the remaining represented
+ROOT/J2 connections. The saved 102-body/101-link directed tree independently
+replays, with zero raw intersections under unchanged policy. Clearance still
+fails (101 records, 72 unique pairs). Absorbed sections/profile changes remain
+explicit; pressure/loss, products, installation, architecture/equipment and full
+agent/design acceptance are not established. See COMPOUND_JUNCTION.md.
+
 The authored cross now integrates into a fresh native tee/elbow network with
 103 bodies and 97 links. Raw intersection pairs reduce from ten to six under
 unchanged policy; all remaining pairs associate with ROOT/J2. Clearance still

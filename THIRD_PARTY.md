@@ -1,5 +1,11 @@
 # Attribution and upstream integration register
 
+Compound rectangular junctions reuse pinned IfcOpenShell 0.8.5 ShapeBuilder
+faceted BRep/extrusion/Boolean/port APIs and existing Manifold3D 3.5.4 QA under
+the licenses below. The explicit source compiler and polynomial volume/moment
+checks are local adapters. No new kernel/dependency was copied or installed;
+see docs/COMPOUND_JUNCTION.md for upstream references and scoped execution.
+
 Four-port rectangular crosses reuse the existing pinned IfcOpenShell 0.8.5
 ShapeBuilder/Boolean APIs and Manifold3D 3.5.4 checks under the upstream licenses
 recorded below. The source mapping, explicit prism construction and independent

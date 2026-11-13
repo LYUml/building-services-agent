@@ -1,0 +1,108 @@
+{
+  "scope": "Connected represented rigid source network with explicit compound revision; original separate-core failures preserved, raw clashes, pressure/loss, products, architecture/equipment and full engineering acceptance remain pending",
+  "construction_revision": {
+    "source_nodes": [
+      "ROOT",
+      "J2"
+    ],
+    "absorbed_straight_sections": [
+      "A-03",
+      "D-01"
+    ],
+    "internal_profile_change": "Original short inlet straight replaced by explicit taper; shared source section profile retained inside compound body",
+    "source_routes_preserved": true,
+    "source_profiles_at_external_caps_preserved": true,
+    "trunk_included_angles_degrees": [
+      22.61986494804043,
+      0.0,
+      19.731613886169136
+    ],
+    "all_choices_classified_as_study_assumptions": true,
+    "original_separate_core_failures_preserved": true
+  },
+  "candidate_native_checks": {
+    "ports": 5,
+    "one_connected_closed_material": true,
+    "euler_characteristic": -6,
+    "independent_material_volume_m3": 0.006886186028020269,
+    "native_material_volume_m3": 0.0068861860280206594,
+    "independent_centroid_m": [
+      0.02881950263520323,
+      0.007973278951782426,
+      0.0
+    ],
+    "all_centre_bores_open": true,
+    "schema_express_pass": true,
+    "design_accepted": false
+  },
+  "network_native_checks": {
+    "bodies": 102,
+    "owned_ports": 223,
+    "actual_links": 101,
+    "boundary_ports": 21,
+    "source_geometry_properties_frames_preserved": true,
+    "coincident_opposed_interfaces": true,
+    "schema_express_pass": true,
+    "complete_network": false,
+    "design_accepted": false,
+    "one_connected_directed_product_tree": true,
+    "source_connection_coverage_complete": true
+  },
+  "boundary_port_directions": {
+    "SOURCE": 20,
+    "SINK": 1
+  },
+  "original_requirement_ids_retained": 33,
+  "original_network_modified": false,
+  "complete_network": false,
+  "design_accepted": false,
+  "network_record_sha256": "2e4fceccf4f928df9d8a0152a72592a142b18e9a99c966bdccdddb5c55ddffa8",
+  "candidate_record_sha256": "0315167eeff6731a867cf7065d91546edf20803966f3b10324af50b48ee4f466",
+  "clash_record_sha256": "8e3e6da156c32b65be0bf98d989c9fc40ad8a475df94d8d0c5a63b6d4e38d144",
+  "clash": {
+    "same_original_policy": true,
+    "contact_waivers": 0,
+    "geometry_coverage": true,
+    "before_unique_intersection_pairs": 6,
+    "intersection_records": 0,
+    "unique_intersection_pairs": 0,
+    "clearance_violation_records": 101,
+    "unique_clearance_violation_pairs": 72,
+    "missing_geometry": 0,
+    "invalid_geometry": 0,
+    "unrepresented_elements": 0,
+    "unverified_solid_pairs": 0,
+    "checks_pass": false
+  },
+  "negative_controls": {
+    "deleted_compound_link": {
+      "rejected": true,
+      "reason": "Merged body/port/link inventory differs"
+    },
+    "altered_compound_station": {
+      "rejected": true,
+      "reason": "Merged native geometry,properties,identity or placement differs"
+    }
+  },
+  "tests": {
+    "tests_run": 9,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "receipt_sha256": "4c8bfab3fb9d1ed566f7da14fb28dcc0286031a39ba1adb88711e741da8edc1b"
+  },
+  "preview": {
+    "image_sha256": "3de4266e7ff86563efa3a48a181871581302990643d9f5a6b73d6764e4a32d26",
+    "scope": "Actual compound body selected from combined saved IFC; other bodies omitted, some port labels overlap. Not full-network visual or drawing acceptance.",
+    "visual_delivery_accepted": false
+  },
+  "observed_independent_replay": {
+    "integrity_pass": true,
+    "bodies": 102,
+    "owned_ports": 223,
+    "actual_links": 101,
+    "boundary_ports": 21,
+    "one_connected_directed_product_tree": true,
+    "scope": "Actual standalone source_compound_network verify CLI replays original source ancestry, explicit absorbed/trimmed revision and saved native model; not authenticated certification or full engineering acceptance"
+  }
+}

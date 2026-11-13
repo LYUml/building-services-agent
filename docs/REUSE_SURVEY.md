@@ -1509,3 +1509,18 @@ inspector and official pinned IfcOpenShell asset/port APIs. The gap is combining
 four-arm source identities with already authored tees without double-consuming
 straight lengths or overwriting earlier tee trim provenance. No new engine or
 dependency is needed. See SOURCE_CROSS_NETWORK.md for actual scope/evidence.
+
+Adjacent source junctions do not fit the separate maximum-section core model.
+Existing tee/cross composers cannot represent a continuous multi-outlet trunk.
+Official IfcOpenShell BRep/Boolean documentation and junction discussion were
+checked; the existing pinned ShapeBuilder/Boolean/port and Manifold APIs already
+supply the needed engines. A thin compound station/side-takeoff adapter adds
+explicit source binding and independent analytic volume/moment/topology checks;
+no new geometry kernel or dependency is introduced. See COMPOUND_JUNCTION.md.
+
+Compound network integration additionally reuses source_cross_network ancestry,
+the native BIM/backbone checks, source_tee_network fingerprints/inspection and
+official pinned asset/port APIs. The new glue explicitly accounts for absorbed
+source sections, retained straight trims and full represented directed-tree
+coverage. Existing separate-core failures and raw clearance remain; a new engine
+or broad contact waiver is not required to author this construction revision.

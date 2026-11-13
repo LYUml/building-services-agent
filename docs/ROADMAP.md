@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+A declared compound construction now connects the represented source network:
+102 native bodies and 101 links independently replay. Same-policy intersections
+are zero; raw clearance remains failed. Original separate-core failure, explicit
+absorbed/profile-revised sections and full engineering/whole-agent obligations
+remain. See COMPOUND_JUNCTION.md.
+
 The verified source cross now joins the native tee/elbow network: 103 bodies,
 97 directed links, with source trims preserved. Same-policy intersections reduce
 from ten to six unique pairs. ROOT/J2, raw clearance and full engineering/delivery

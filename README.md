@@ -1,5 +1,10 @@
 # Building Services Agent
 
+A source-bound compound construction now connects the represented rigid network:
+102 bodies, 101 links, independently replayed. Unchanged raw policy reports zero
+intersections; clearance still fails. Explicit absorbed sections and remaining
+engineering scope are in docs/COMPOUND_JUNCTION.md.
+
 The verified source cross now joins the trimmed tee/elbow network: 103 bodies
 and 97 actual links. Same-policy raw intersection pairs reduce from ten to six;
 ROOT/J2 and failed clearance remain. See docs/SOURCE_CROSS_NETWORK.md.

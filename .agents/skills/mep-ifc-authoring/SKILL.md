@@ -5,6 +5,20 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For an explicitly declared adjacent three/four-arm compound construction, use
+source_compound_junction and compound_junction per docs/COMPOUND_JUNCTION.md.
+Require exact original source coverage, existing elbow-cap identity, explicit
+absorbed sections/profile revision, retained-straight budgets and native
+station/branch/material/bore checks. This is a new isolated construction scenario;
+do not clear old failed models, new network coordination, product/loss or design
+acceptance from the candidate alone.
+
+Use source_compound_network for the separate verified integration. Only explicitly
+absorbed source bodies/links may be replaced; preserve prior tee/cross trims and
+all requirement IDs. Require actual saved native cap/geometry/link checks and a
+single represented directed tree, then repeat raw clash/clearance with the source
+policy. Zero intersections is not pressure/product/installation acceptance.
+
 For partial integration of verified source_cross_candidates, use
 source_cross_network per docs/SOURCE_CROSS_NETWORK.md. Reconstruct parent trims,
 preserve distinct tee/cross consumption, verify native cross cap/roll/flow and
