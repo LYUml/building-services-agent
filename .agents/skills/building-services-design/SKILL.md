@@ -5,6 +5,12 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For already verified source-native network analysis, source_network_delivery
+composes projection, automatic review layout and real native DWG/PDF delivery
+per docs/SOURCE_NETWORK_DELIVERY.md. Use the explicit host project/runtime,
+independently verify original native contours and saved PDF scale, then inspect
+the actual page. Preserve separate visual and complete engineering acceptance.
+
 For fitting details after inspection, use bsa_list_native_fitting_requests and
 bsa_read_native_fitting_request per docs/MCP_FITTING_REQUESTS.md. Bind the exact
 record SHA and full directed path; these saved-byte reads do not refresh source

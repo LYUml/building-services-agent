@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Source-native projection, automatic review layout and native DWG/PDF delivery now
+compose in one command, with independent native-source and PDF reconstruction.
+Actual102-product/33-requirement execution and13 tests pass; engineering review
+remains pending. See docs/SOURCE_NETWORK_DELIVERY.md.
+
 Closed native-network contours now pass real AutoCAD DWG save/reopen and a
 rendered, visually inspected fixed-scale PDF study sheet. All102 product IDs and
 286 contours survive; seven native/workflow tests pass. Installation and complete

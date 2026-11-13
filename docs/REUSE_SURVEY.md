@@ -1598,3 +1598,10 @@ normalized in this adapter before the unchanged numeric comparator. Real saved/
 reopened/re-exported DWG and fixed-scale inspected PDF execute. Shared overlay
 code, tolerances and historical source records remain unchanged. See
 NATIVE_NETWORK_CONTOURS.md.
+
+Composed source-network delivery reuses source_network_drawing, existing IFC
+native save/reopen/export, cad_overlay snapshots, Shapely/IfcOpenShell and
+cad_sheet PDF-vector reading. The gap was manual stage/layout handoff, not a
+new drawing engine. Native-source contour reconstruction and model-reference
+remeasurement execute independently of saved success flags. No new dependency,
+source model change or publisher dataset. See SOURCE_NETWORK_DELIVERY.md.

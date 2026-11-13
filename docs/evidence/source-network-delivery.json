@@ -1,0 +1,23 @@
+{
+  "scope": "Executed composed source-native geometry-study delivery only",
+  "product_count": 102,
+  "original_requirement_count": 33,
+  "recorded_artifacts": 21,
+  "scale_denominator": 150.0,
+  "native_reopen_pass": true,
+  "pdf_reference_pass": true,
+  "calibration": {
+    "reference_expected_mm": 6.666666666666668,
+    "reference_measured_mm": 6.6463333333333345
+  },
+  "independent_delivery_replay_pass": true,
+  "source_native_projection_reconstruction_pass": true,
+  "rehashed_10mm_contour_change_rejected": true,
+  "scoped_pdf_visual_review_pass": true,
+  "tests_passed": 13,
+  "skipped": 0,
+  "pressure_budget_complete": false,
+  "design_accepted": false,
+  "delivery_record_sha256": "ec466cd0b5be6d20a82b765aa3b800fdb09e0f9903f7f0fe1b75ab994266cdbe",
+  "protected_coursework_geometry_redistributed": false
+}
