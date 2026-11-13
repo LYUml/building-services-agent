@@ -1,0 +1,29 @@
+{
+  "components": 102,
+  "ports": 223,
+  "fitting_paths": 76,
+  "all_port_source_flows_and_velocity_formulas_agree": true,
+  "all_displayed_port_and_path_numbers_agree": true,
+  "conditional_values": 31,
+  "unknown_values": 45,
+  "statuses": {
+    "physical_review_required": 31,
+    "source_data_required": 32,
+    "table_support_missing": 13
+  },
+  "absorbed_source_sections_preserved": 2,
+  "original_requirements": 33,
+  "presentation_revision_did_not_change_raw_values": true,
+  "design_accepted": false,
+  "all_component_lengths_flows_and_separate_studies_agree": true,
+  "retained_straight_rows": 45,
+  "unique_route_length_unassigned_components": 16,
+  "all_displayed_component_rows_agree": true,
+  "scope": "Source-native parameter schedule and stable model-identity crosswalk only",
+  "standalone_source_native_schedule_replay_pass": true,
+  "tests_passed": 6,
+  "source_schedule_rows_visually_reviewed": true,
+  "drawing_tag_placement_completed": false,
+  "pressure_budget_complete": false,
+  "protected_source_tables_or_coursework_records_redistributed": false
+}

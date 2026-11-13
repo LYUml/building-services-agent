@@ -5,6 +5,12 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For model-linked component/port/flow-path schedules, use source_network_schedule
+per docs/SOURCE_NETWORK_SCHEDULE.md after verified source fitting analysis.
+Keep GUID-keyed identities, inherited versus measured classification, typed
+lengths, absorbed sections and null/signed losses. N-tags are not placed drawing
+annotations and must not be carried across changed identity sets without review.
+
 For closed GUID-linked source-network outlines, ifc_native now supports scoped
 planar zero-width LWPOLYLINE contours per docs/NATIVE_NETWORK_CONTOURS.md. Require
 actual save/reopen/export, unchanged geometry/identity and fixed-scale PDF review.

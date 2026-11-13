@@ -1611,3 +1611,11 @@ network_analysis_access, fixed worker/host settings and PDF source-page renderin
 The access gap was AI-client invocation and artifact handoff, not a new solver,
 CAD engine or runtime. Existing MCP SDK1.30.0 and dependency notices apply. No
 new dependency or protected dataset. See MCP_SOURCE_NETWORK_DELIVERY.md.
+
+Complete native parameter scheduling reuses verified source_fitting_data/native_case,
+source-network calculations and IfcOpenShell model identity/properties. The existing
+straight-profile schedule and circular-context view-tag helpers were checked;
+compound fittings need a separate complete identity/port/path join, not a new
+solver or a copied engine. Native source replay and independent arithmetic/HTML
+checks execute. No new dependency or public coefficient database. See
+SOURCE_NETWORK_SCHEDULE.md.

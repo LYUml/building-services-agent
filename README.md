@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Source-native parameter schedules now cover102 components,223 owned ports and76
+fitting paths with model-keyed identifiers, typed lengths, source flows and
+explicit missing values. Independent numeric/HTML checks pass; drawing placement
+and complete engineering acceptance remain pending. See docs/SOURCE_NETWORK_SCHEDULE.md.
+
 The composed native-network delivery pipeline now has fixed-host MCP run and
 independent-inspect access, returning pinned DWG/PDF paths for existing page
 rendering. Engineering/visual scope remains explicit. See docs/MCP_SOURCE_NETWORK_DELIVERY.md.
