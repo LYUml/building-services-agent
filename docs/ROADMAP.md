@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+The verified source cross now joins the native tee/elbow network: 103 bodies,
+97 directed links, with source trims preserved. Same-policy intersections reduce
+from ten to six unique pairs. ROOT/J2, raw clearance and full engineering/delivery
+acceptance remain pending. See SOURCE_CROSS_NETWORK.md.
+
 Native four-port cross plus existing centred transitions now covers the two
 original multi-branch nodes: one source candidate authors/replays, one stays
 blocked by inherited D-01 space. Parent network integration, remaining redesign

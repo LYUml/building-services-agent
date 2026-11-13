@@ -1,5 +1,11 @@
 # Whole-agent status
 
+The authored cross now integrates into a fresh native tee/elbow network with
+103 bodies and 97 links. Raw intersection pairs reduce from ten to six under
+unchanged policy; all remaining pairs associate with ROOT/J2. Clearance still
+fails (99 records, 70 unique pairs). Full engineering and whole-agent acceptance
+remain open. See SOURCE_CROSS_NETWORK.md.
+
 Source four-arm junction coverage now includes a native cross/transition adapter.
 J1 authors/replays as four components, ten ports and three internal links; J2
 remains blocked on D-01. ROOT and all original requirements remain explicit.

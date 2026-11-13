@@ -5,6 +5,12 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For partial integration of verified source_cross_candidates, use
+source_cross_network per docs/SOURCE_CROSS_NETWORK.md. Reconstruct parent trims,
+preserve distinct tee/cross consumption, verify native cross cap/roll/flow and
+all same-file links, then rerun raw clashes. Retain blocked nodes; native
+topology success does not complete physical/network/engineering acceptance.
+
 For original four-arm multi-branch nodes, use source_cross_candidates and the
 native rectangular_cross/rectangular_cross_transitions adapters per
 docs/SOURCE_CROSS_CANDIDATES.md. Cover every source node, inherit the verified

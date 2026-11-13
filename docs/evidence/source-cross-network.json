@@ -1,0 +1,108 @@
+{
+  "scope": "Partial source tee/cross integration; remaining blocked nodes, raw coordination, pressure, products and full engineering acceptance remain pending",
+  "native_checks": {
+    "bodies": 103,
+    "owned_ports": 222,
+    "actual_links": 97,
+    "boundary_ports": 28,
+    "source_geometry_properties_frames_preserved": true,
+    "coincident_opposed_interfaces": true,
+    "schema_express_pass": true,
+    "complete_network": false,
+    "design_accepted": false
+  },
+  "integrated_cross_nodes": [
+    "J1"
+  ],
+  "external_cross_interfaces": 4,
+  "unresolved_nodes": {
+    "ROOT": [
+      "Known both-end fitting reach exceeds source budget on A-03",
+      "Known both-end fitting reach exceeds source budget on D-01"
+    ],
+    "J2": [
+      "Combined source cross reach exceeds inherited budget on D-01"
+    ]
+  },
+  "original_requirement_ids_retained": 33,
+  "original_network_modified": false,
+  "complete_network": false,
+  "design_accepted": false,
+  "network_record_sha256": "ee9e67de65afeecb791158f9b99a05973f5a4f0b54fa10fe9a7403d92a96c284",
+  "clash_record_sha256": "971ee3233790b99224a11b9c3b413dacadbffcd4edbecab089e43c02bfd91dd6",
+  "clash": {
+    "same_original_policy": true,
+    "contact_waivers": 0,
+    "geometry_coverage": true,
+    "before_unique_intersection_pairs": 10,
+    "unique_intersection_pairs": 6,
+    "intersection_records": 12,
+    "clearance_violation_records": 99,
+    "unique_clearance_violation_pairs": 70,
+    "associated_original_source_nodes": {
+      "J2": [
+        [
+          "D-01",
+          "D-02"
+        ],
+        [
+          "D-01",
+          "D-05"
+        ],
+        [
+          "D-02",
+          "D-08"
+        ],
+        [
+          "D-05",
+          "D-08"
+        ]
+      ],
+      "ROOT": [
+        [
+          "A-03",
+          "D-22"
+        ],
+        [
+          "D-01",
+          "D-22"
+        ]
+      ]
+    },
+    "checks_pass": false
+  },
+  "negative_controls": {
+    "deleted_connection": {
+      "rejected": true,
+      "reason": "Merged body/port/link inventory differs"
+    },
+    "changed_cross_geometry": {
+      "rejected": true,
+      "reason": "Merged native geometry,properties,identity or placement differs"
+    }
+  },
+  "tests": {
+    "tests_run": 6,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "receipt_sha256": "10146310c823cffd79ebdcbe4081b8fa4f9f887e2bbf9d03f2e969b00ce90535"
+  },
+  "shared_section_construction_bound": {
+    "section": "D-01",
+    "root_core_minimum_reach_m": 0.6758000000000001,
+    "j2_core_minimum_reach_m": 0.6258,
+    "combined_strict_lower_bound_m": 1.3016,
+    "source_available_after_elbows_m": 0.619415999999994,
+    "inherited_minimum_remainder_m": 0.05,
+    "scope": "Only the currently declared separate maximum-incident equal-section tee/cross prism construction. Native guards require each reach strictly larger than half outside core width; excludes transition/end-straight allowances. Shows this construction needs deliberate route/construction redesign, not impossibility of every physical solution. Classified source scale/elevation/gauge assumptions remain."
+  },
+  "observed_independent_replay": {
+    "integrity_pass": true,
+    "bodies": 103,
+    "owned_ports": 222,
+    "actual_links": 97,
+    "boundary_ports": 28,
+    "scope": "Actual standalone verify CLI replays original source ancestry, trims, component fingerprints, frames and saved links; incomplete engineering scope remains"
+  }
+}

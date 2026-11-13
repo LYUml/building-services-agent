@@ -1502,3 +1502,10 @@ transition authoring. Official upstream junction discussion and geometry docs
 were checked; these do not establish an executed ready-made cross integration.
 The actual gap is the fourth source arm and native geometry/port/budget checks.
 No new kernel or dependency is added. See SOURCE_CROSS_CANDIDATES.md.
+
+Source cross network integration reuses the existing two-end source trim compiler,
+native BIM/backbone checks, source shape/property/frame snapshots, saved network
+inspector and official pinned IfcOpenShell asset/port APIs. The gap is combining
+four-arm source identities with already authored tees without double-consuming
+straight lengths or overwriting earlier tee trim provenance. No new engine or
+dependency is needed. See SOURCE_CROSS_NETWORK.md for actual scope/evidence.

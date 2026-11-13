@@ -1,5 +1,9 @@
 # Building Services Agent
 
+The verified source cross now joins the trimmed tee/elbow network: 103 bodies
+and 97 actual links. Same-policy raw intersection pairs reduce from ten to six;
+ROOT/J2 and failed clearance remain. See docs/SOURCE_CROSS_NETWORK.md.
+
 Four-arm source junctions now use native cross/transition candidates. Both original
 nodes are covered: J1 authors and independently replays; J2 stays blocked by its
 inherited source budget. The candidate is not merged into the parent network;
