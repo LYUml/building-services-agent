@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Actual source-native compound-junction CFD geometry and layered mesh execute; turbulent validation and accepted pressure remain open. See [air domain](CFD_AIR_DOMAIN.md).
+
 Separate VAVcandidate-station study now gives374conditional component values/
 84numericgaps perflowcase,with40VAVterms and160terminalbudgets. Manufacturer
 station/density/control correspondence remains unverified;fullpressure unknown.

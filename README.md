@@ -1,5 +1,7 @@
 # Building Services Agent
 
+Actual compound-junction air-domain export and layered meshing execute; pressure convergence remains unresolved. See [CFD air domain](docs/CFD_AIR_DOMAIN.md).
+
 Separate VAVcandidate-station study now gives374conditional component values/
 84numericgaps perflowcase,with40VAVterms and160terminalbudgets. Manufacturer
 station/density/control correspondence remains unverified;fullpressure unknown.

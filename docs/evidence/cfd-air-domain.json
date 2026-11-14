@@ -1,0 +1,113 @@
+{
+  "scope": "Actual upstream bends, compound junction, transitions and four downstream straights; geometry and mesh verification only",
+  "source_ifc_sha256": "6abd91101fc5411ad017b362b86f7098080183db7a3f7de12cf1b1a2b88c05e8",
+  "air_solid_count": 15,
+  "fused_volumes": 1,
+  "air_volume_m3": 16.462729591233128,
+  "method_sha256": "0f0a384b6f3d48ffcb784eb6b61b8dcbbf5b2a80caf819f65169043a29925c9f",
+  "brep_sha256": "981193e72523b441fbfde4aea8ea678dfa1436631af2a48bbc7c4c46d5b61a55",
+  "initial_mesh": {
+    "volume_elements": 34492,
+    "nodes": 8815,
+    "boundary_triangles": 10958,
+    "unmarked_exterior_faces": 0,
+    "nonexterior_marked_faces": 0,
+    "duplicate_boundary_triangles": 0,
+    "nonmanifold_volume_faces": 0,
+    "zero_volume_tetrahedra": 0,
+    "positive_orientation_tetrahedra": 34492,
+    "negative_orientation_tetrahedra": 0,
+    "mesh_volume_m3": 16.46232587600592,
+    "occ_volume_m3": 16.462729591233128,
+    "relative_volume_error": 2.452298235054548e-05,
+    "pressure_accepted": false
+  },
+  "layered_mesh": {
+    "volume_element_types": {
+      "13": 164580,
+      "10": 31319
+    },
+    "nodes": 90372,
+    "unmarked_exterior": 0,
+    "nonexterior_boundary": 0,
+    "nonmanifold_faces": 0,
+    "duplicate_boundary": 0,
+    "caps": [
+      {
+        "marker": "outlet_0",
+        "faces": 34,
+        "area_m2": 0.19999999999999996,
+        "inward": 0,
+        "plane_error_m": 0.0
+      },
+      {
+        "marker": "inlet",
+        "faces": 136,
+        "area_m2": 1.2149999999999945,
+        "inward": 0,
+        "plane_error_m": 0.0
+      },
+      {
+        "marker": "outlet_2",
+        "faces": 90,
+        "area_m2": 0.7224999999999951,
+        "inward": 0,
+        "plane_error_m": 1.0658141036401503e-14
+      },
+      {
+        "marker": "outlet_3",
+        "faces": 34,
+        "area_m2": 0.22499999999999998,
+        "inward": 0,
+        "plane_error_m": 1.4210854715202004e-14
+      },
+      {
+        "marker": "outlet_4",
+        "faces": 32,
+        "area_m2": 0.24000000000000055,
+        "inward": 0,
+        "plane_error_m": 2.842170943040401e-14
+      }
+    ],
+    "pressure_accepted": false
+  },
+  "layered_volume": {
+    "mesh_volume_m3": 16.46232529530468,
+    "source_volume_m3": 16.462729591233128,
+    "relative_volume_error": 2.4558256041749883e-05,
+    "elements": [
+      {
+        "type": 4,
+        "minimum_volume_m3": 9.656703422443278e-06,
+        "nonpositive": 0
+      },
+      {
+        "type": 6,
+        "minimum_volume_m3": 2.7143983334384036e-08,
+        "nonpositive": 0
+      }
+    ],
+    "mesh_accepted": false,
+    "pressure_accepted": false
+  },
+  "upstream": {
+    "ifcopenshell": "0.8.5",
+    "gmsh": "4.15.2",
+    "gmsh_wheel_sha256": "7b36083bb410fa27c5d0e052929d1a9844a5b09169d66017b72b41aabd49d711",
+    "su2": "8.6.0",
+    "su2_commit": "7048fd35f56d4bf52e586429d6746a36a10255f8",
+    "su2_archive_sha256": "4bc28b656def415b4d22c8274af2473dd719aa5ebfa6bc1c95c08b1bac26508c"
+  },
+  "pressure_accepted": false,
+  "turbulence_model_validated": false,
+  "mesh_independence_verified": false,
+  "roughness_equivalence_verified": false,
+  "inlet_profile_assumption": "Uniform non-wall inlet nodes, zero shared wall nodes, normalized by discrete face quadrature; not a measured inlet profile",
+  "remaining": [
+    "Converged mass flow at every outlet and global balance",
+    "Wall y-plus checks and mesh/near-wall refinement",
+    "Turbulent reference verification",
+    "Pressure station decomposition without double-counting included straights and bends",
+    "Sourced absolute roughness to equivalent sandgrain mapping or bounded sensitivity"
+  ]
+}

@@ -35,3 +35,6 @@ src/bsa/lined_plenum_geometry.py text eol=lf
 src/bsa/stepped_cuff_geometry.py text eol=lf
 src/bsa/static_total_balance.py text eol=lf
 tests/test_static_total_balance.py text eol=lf
+
+src/bsa/cfd_air_domain.py text eol=lf
+tests/test_cfd_air_domain.py text eol=lf

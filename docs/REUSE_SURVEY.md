@@ -1,5 +1,7 @@
 # Reuse survey â€” 2026-11-09
 
+Actual CFD geometry reuses IfcOpenShell 0.8.5, isolated Gmsh 4.15.2 and official SU2 8.6.0 Windows OpenMP. Fifteen real air solids fuse and mesh; RANS is not converged or accepted. Pins and licenses: [CFD air domain](CFD_AIR_DOMAIN.md).
+
 Actual164body constant-core candidate reuses pinned compound/transition native,
 source prescribed-flow, cap, bounded-table and AutoCAD adapters.22queries execute;
 no new dependency/engine. Primary5-35 equal opposed areas required revising the

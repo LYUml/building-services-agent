@@ -1,5 +1,7 @@
 # Whole-agent status
 
+Actual compound-junction analysis geometry and layered mesh now execute; pressure remains unaccepted. See [CFD air domain](CFD_AIR_DOMAIN.md).
+
 Separate VAVcandidate-station study now gives374conditional component values/
 84numericgaps perflowcase,with40VAVterms and160terminalbudgets. Manufacturer
 station/density/control correspondence remains unverified;fullpressure unknown.
