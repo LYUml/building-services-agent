@@ -5,6 +5,12 @@ description: Audit building services models, drawings, calculations and reports 
 
 # mep-delivery-check
 
+For an existing verified native HVAC workflow, use bsa.vav_schedule run/verify
+per docs/VAV_SCHEDULE.md to deliver a bounded group connection table. Reconstruct
+native membership/endpoints and inherited maximum/minimum flows; require actual
+DWG reopen and actual PDF inspection. Straight XY lengths remain lower bounds,
+not installed flex length or product/ADPI/regulatory acceptance.
+
 After recording actual scoped observations, run a fresh delivery audit and use
 its `review_agenda` to select remaining source requirement reviews. Null means
 the audit is invalid, not that work is finished. Keep every returned dependency

@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Actual inherited VAV connection delivery now provides 20 groups/80 terminals in
+editable native DWG, inspected A4 PDF and CSV. All 80 saved-native flex lengths,
+20 maximum/minimum group sums and 140 native cells independently reconcile;
+12 targeted tests pass. Installed length, hardware, ADPI and full engineering
+acceptance remain pending. See [VAV schedule](VAV_SCHEDULE.md).
+
 Eighteen supplemental three-phase/HK current-balance/IFC workflow controls
 now pass against the exact pinned official BEC cache. Receipt, source PDF,
 rulepack hashes and executed test identities match the saved public aggregate.

@@ -5,6 +5,12 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For an existing verified native HVAC workflow, use bsa.vav_schedule run/verify
+per docs/VAV_SCHEDULE.md to deliver a bounded group connection table. Reconstruct
+native membership/endpoints and inherited maximum/minimum flows; require actual
+DWG reopen and actual PDF inspection. Straight XY lengths remain lower bounds,
+not installed flex length or product/ADPI/regulatory acceptance.
+
 After a fresh HVAC execution, use docs/COURSEWORK_SCOPE.md to review the actual
 preliminary load and per-terminal turndown independently. Record examined
 subrequirements in a separate source-bound delivery review, identifying the host

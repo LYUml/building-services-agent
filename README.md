@@ -1,5 +1,11 @@
 # Building Services Agent
 
+Actual inherited VAV connection delivery now provides 20 groups/80 terminals in
+editable native DWG, inspected A4 PDF and CSV. All 80 saved-native flex lengths,
+20 maximum/minimum group sums and 140 native cells independently reconcile;
+12 targeted tests pass. Installed length, hardware, ADPI and full engineering
+acceptance remain pending. See [VAV schedule](docs/VAV_SCHEDULE.md).
+
 The whole-agent regression now completes all 385 selected test modules:
 1,617 executed instances, 1,477 passes, 126 skips, one failure and 13 errors.
 All 20 receipts verify; the full suite is not green. The errors record a host

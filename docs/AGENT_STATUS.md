@@ -1,5 +1,11 @@
 # Whole-agent status
 
+Actual inherited VAV connection delivery now provides 20 groups/80 terminals in
+editable native DWG, inspected A4 PDF and CSV. All 80 saved-native flex lengths,
+20 maximum/minimum group sums and 140 native cells independently reconcile;
+12 targeted tests pass. Installed length, hardware, ADPI and full engineering
+acceptance remain pending. See [VAV schedule](VAV_SCHEDULE.md).
+
 
 ## Current verification checkpoint — 2026-11-14
 

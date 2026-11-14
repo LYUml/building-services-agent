@@ -1,5 +1,13 @@
 # Reuse survey â€” 2026-11-09
 
+VAV connection tables reuse the already pinned MIT ezdxf 1.4.5 writer, existing
+source/native terminal inspector and isolated AutoCAD save/reopen/plot adapters.
+The actual gap is a readable group-level maximum/minimum flow and planar-length
+handoff, not a drawing transport or numerical engine. No additional upstream
+package is needed. Actual 20-group/80-terminal native execution, independent
+coordinate/flow/cell checks and inspected A4 output are in VAV_SCHEDULE.md.
+Installed length, hardware and complete engineering acceptance remain pending.
+
 Round-duct graphical comparison reuses the pinned MIT raster calibrator and the
 existing fluids1.3.1 equivalent-round engine. It replays original manual points,
 then compares declared diameter/flow endpoints without another friction solver.

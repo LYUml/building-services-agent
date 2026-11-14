@@ -1,0 +1,57 @@
+{
+  "scope": "Actual inherited project VAV connection table and native delivery; no whole-design acceptance",
+  "groups": 20,
+  "terminals": 80,
+  "independent_review": {
+    "scope": "Independent Decimal flow/line-coordinate replay and actual native text-position checks; not installed length or hardware acceptance",
+    "groups": 20,
+    "terminals": 80,
+    "native_cells": 140,
+    "raw_native_flex_lengths_checked": 80,
+    "total_maximum_L_s": "12000.37276341948377",
+    "total_minimum_L_s": "4800.149105367793898",
+    "all_groups_four_outlets": true,
+    "turndown": "0.4",
+    "all_checks_pass": true,
+    "design_accepted": false
+  },
+  "native_reopen_pass": true,
+  "native_generated_entities": 185,
+  "plot": {
+    "pdf_sha256": "dc1ddd1d3dc97508eff1152e119057542a707c4dab028c7cfcfc19c7a8d5f2f9",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 1,
+    "reference_handle": "E7",
+    "reference_expected_mm": 100.0,
+    "reference_measured_mm": 100.03366666666665,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "actual_plot_inspected": true,
+  "test_instances": 12,
+  "test_passes": 12,
+  "receipt_sha256": "614a612467a3c78f38fa5f93efea7a6c01c6fc0eb9b63aeb0f57accaab5e2d46",
+  "outputs": {
+    "03_Design_Drawings/Agent_Study/VAV Connection Schedule.dwg": "2e25714a6308ff091114dd110e0da00fda17e2b4fb365b0c806eb00fa73d0942",
+    "03_Design_Drawings/Agent_Study/VAV Connection Schedule.pdf": "dc1ddd1d3dc97508eff1152e119057542a707c4dab028c7cfcfc19c7a8d5f2f9",
+    "05_Calculations/VAV Connection Schedule.csv": "309f7dabfab4ad4ddb59ef513b77b3ec067f8fac032b4095baf179520f868f21"
+  },
+  "reuse": {
+    "engine": "Existing ezdxf 1.4.5 (MIT), native AutoCAD 2027 adapters and source-bound terminal inspector",
+    "new_dependency": false,
+    "new_solver": false
+  },
+  "limitations": [
+    "Conditional inherited allocation, not detailed room sensible load",
+    "Lengths are straight XY centre-to-centre lower bounds; installed length, elevation, bends and slack unknown",
+    "Actual VAV hardware and physical ports not selected",
+    "Original 33 requirements and six input gaps remain; no review or execution gate waived",
+    "ADPI, Hong Kong applicability, pressure and full engineering acceptance remain pending"
+  ],
+  "design_accepted": false
+}
