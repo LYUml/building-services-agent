@@ -1815,3 +1815,12 @@ checks. Sixactualtees/sixmaintransitions execute; three naturally source-matchin
 contractions obtain independently checked conditional values. No new engine,
 solver or stage joint; network merge and complete pressure remain pending.
 See RECENTERED_LOCAL_FITTINGS.md.
+
+
+Recentered whole-network composition reuses the existing source geometry,
+cap/tree/native inventory, loss-family and bounded interpolation, ledger,
+Manifold raw-clash and GUID-linked native CAD engines. Actual89body/197port/
+88link source-prescribed model and matching AutoCAD/report execute; no new
+solver/dependency and no contact waivers. Source family guards correctly drop
+two old values while three new transitions enter support, net31/32. See
+RECENTERED_NETWORK.md for scoped actual evidence.

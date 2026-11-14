@@ -35,3 +35,9 @@ be represented as this layout's completed pressure analysis.
 
 Private executed evidence is under
 `07_Agent_Work/runs/recentered-vav-connection-schedule`.
+
+
+The later [recentered network delivery](RECENTERED_NETWORK.md) now integrates
+these source revisions into the matching rigid network and native drawing.
+Earlier snapshots above remain historical; full pressure/installation acceptance
+continues to be unresolved.

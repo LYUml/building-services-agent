@@ -37,3 +37,9 @@ gaps. No whole-network pressure saving or gap reduction is claimed yet.
 Private sources/native cases/review are under
 `07_Agent_Work/runs/recentered-local-fittings`. Separate clean derived IFCs are
 delivered under Connection_Layout/Fitting_Study for review, not installation.
+
+
+The later [recentered network delivery](RECENTERED_NETWORK.md) now integrates
+these source revisions into the matching rigid network and native drawing.
+Earlier snapshots above remain historical; full pressure/installation acceptance
+continues to be unresolved.

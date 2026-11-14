@@ -1,6 +1,13 @@
 # Building Services Agent
 
-The 13 reduced-branch revisions now execute in a separate saved network:
+The optimized Connection_Layout now includes its matching finite rigid network,
+actual native coordination DWG/PDF and two-flow pressure report. All88material
+interfaces and21sourceboundaryframes match;89geometrychecks find zero solid
+intersections but88unwaivedclearanceviolations. Both flows retain31conditional
+values/32numericalgaps. Full engineering acceptance remains pending. See
+[coordinated network](docs/RECENTERED_NETWORK.md).
+
+Earlier reduced-branch revisions execute in a separate historical source network:
 89 bodies/197 ports/88 interfaces, unchanged 20 outlets and 45 retained straights.
 Both maximum and given 40 percent minimum cases retain 30 conditional values
 and 33 numerical gaps. Actual native whole-network DWG/PDF executes and is

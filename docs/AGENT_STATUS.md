@@ -1,5 +1,12 @@
 # Whole-agent status
 
+The optimized Connection_Layout now includes its matching finite rigid network,
+actual native coordination DWG/PDF and two-flow pressure report. All88material
+interfaces and21sourceboundaryframes match;89geometrychecks find zero solid
+intersections but88unwaivedclearanceviolations. Both flows retain31conditional
+values/32numericalgaps. Full engineering acceptance remains pending. See
+[coordinated network](RECENTERED_NETWORK.md).
+
 Connection_Layout now has its own matching native VAV schedule:20groups/
 80terminals,10updatedgroupconnectionlengths,unchangedflows. Actual AutoCAD
 reopening/plot and independent80line/140cell checks pass. The earlier network
@@ -15,7 +22,7 @@ integer CFM and total-pressure display reconcile; same-page feet/metres throw
 labels conflict and one octave-band difference remains. Minimum native export
 and numerical ADPI remain pending. See [export audit](KSELECT_EXPORT_AUDIT.md).
 
-The 13 reduced-branch revisions now execute in a separate saved network:
+Earlier reduced-branch revisions execute in a separate historical source network:
 89 bodies/197 ports/88 interfaces, unchanged 20 outlets and 45 retained straights.
 Both maximum and given 40 percent minimum cases retain 30 conditional values
 and 33 numerical gaps. Actual native whole-network DWG/PDF executes and is

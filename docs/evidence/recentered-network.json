@@ -1,0 +1,52 @@
+{
+  "bodies": 89,
+  "ports": 197,
+  "links": 88,
+  "native_material_cap_pairs_matched": 88,
+  "straight_profiles_reconciled": 45,
+  "resized_sections": [
+    "D-06",
+    "D-13",
+    "D-20"
+  ],
+  "boundary_frames_match_recentered_source": 21,
+  "unchanged_directed_topology": true,
+  "source_prescribed_flows_reconciled": true,
+  "source_requirements": 33,
+  "full_pressure_verified": false,
+  "design_accepted": false,
+  "ifc_sha256": "9001cfe4f75ea6ac54ca578480bdede88148a9d4ec850b275748239e4675b82b",
+  "network_integrated": true,
+  "maximum": {
+    "conditional_values": 31,
+    "numerical_gaps": 32,
+    "outlets": 20
+  },
+  "minimum": {
+    "conditional_values": 31,
+    "numerical_gaps": 32,
+    "outlets": 20
+  },
+  "newly_supported_transition_paths": 3,
+  "previous_transition_values_now_family_rejected": 2,
+  "net_numerical_gap_reduction": 1,
+  "raw_intersection_pairs": 0,
+  "raw_clearance_violation_pairs": 88,
+  "raw_contact_waivers": 0,
+  "native_DWG_reopen_pass": true,
+  "native_entity_count": 112,
+  "all89native_guids_in_drawing": true,
+  "plot_scale_denominator": 200,
+  "plot_reference_expected_mm": 50.0,
+  "plot_reference_measured_mm": 49.99566666666666,
+  "actual_PDF_page_visually_inspected": true,
+  "report_cells_reconciled": 240,
+  "local_source_query_Decimal_checks_match": true,
+  "scope": "Executed recentered rigid network and source-prescribed-flow pressure study; installed hardware, complete pressure and final design acceptance remain unresolved",
+  "deliverable_sha256": {
+    "03_Design_Drawings/Connection_Layout/Supply Network Coordination.ifc": "9001cfe4f75ea6ac54ca578480bdede88148a9d4ec850b275748239e4675b82b",
+    "03_Design_Drawings/Connection_Layout/Supply Network Coordination.dwg": "4ea759c635d66aeaa92bf6315d6c57d583f0c40da496e8e59a6f66499bef0536",
+    "03_Design_Drawings/Connection_Layout/Supply Network Coordination.pdf": "ef20678f1058f68ea4494840fc2fa198bf84186c57f98fda12ba6eb18869a3a6",
+    "05_Calculations/Connection_Layout/Coordinated Network Pressure Review.html": "d4962163af9c062369dc44f73d6077aeb1aff24403e2a8d61d9a5538f1c1740d"
+  }
+}
