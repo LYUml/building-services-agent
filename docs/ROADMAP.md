@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+A source-linked reduced-branch study now authors13saved IFC candidates,
+removing one separate branch taper per local candidate while preserving end
+frames. One revised branch enters published support; independent arithmetic
+agrees. A separate native DWG/A4 plot executes and its corrected PDF is inspected.
+Four targeted controls pass; parent network45gaps and full acceptance remain.
+See [reduced-branch study](REDUCED_BRANCH_TEE.md).
+
 K-Select MCP development is deferred to the user separate folder. Native
 K-Select/GRD performance calculation now executes; independent product/ADPI
 verification remains pending. Existing OpenStudio/EnergyPlus simulation now runs

@@ -1,5 +1,12 @@
 # Reuse survey â€” 2026-11-09
 
+Reduced-branch sharp tees reuse the original rectangular tee template, pinned
+IfcOpenShell0.8.5 ShapeBuilder/Boolean APIs, Manifold3D3.5.4 and existing
+SciPy bounded source lookup. No engine/table database is copied. The prior
+hvac-pressure rounded-branch source is not substituted for sharp geometry.
+Thirteen real local candidates, one supported source query and actual native
+local DWG/PDF execute; full-network merge remains pending. See REDUCED_BRANCH_TEE.md.
+
 Existing pinned OpenStudio3.11.0/EnergyPlus25.2.0 now execute through the unchanged
 energy adapter;14formerly failed/error cases pass targeted re-execution. No new
 solver or package is introduced. K-Select/GRD now execute, but their dedicated MCP

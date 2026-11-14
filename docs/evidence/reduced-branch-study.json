@@ -1,0 +1,23 @@
+{
+  "candidate_count": 13,
+  "saved_native_geometry_verified": 13,
+  "original_native_core_fingerprints_matched": 13,
+  "external_branch_frames_preserved": 13,
+  "separate_branch_tapers_removed_in_local_candidates": 13,
+  "nominal_model_material_volume_decreased_in_cases": 13,
+  "conditional_source_branch_values": 1,
+  "independent_decimal_source_point_check_pass": true,
+  "native_dwg_reopen_pass": true,
+  "native_entity_count": 10,
+  "plot_reference_expected_mm": 100.0,
+  "plot_reference_measured_mm": 99.99133333333332,
+  "actual_pdf_visual_review_pass": true,
+  "parent_network_modified": false,
+  "parent_numerical_pressure_gaps": 45,
+  "tests_run": 4,
+  "tests_passed": 4,
+  "source_study_sha256": "ea7b7868dfda8b5eeaf44eada893c09c3a2cd31b74140c88b478890bc09be5a2",
+  "independent_native_review_sha256": "f850875ace5244c2fec2eb6d898d02da3260b173b7f4e9bfe3ae25784d930eb3",
+  "design_accepted": false,
+  "scope": "Isolated branch fitting design studies and one native plan sheet; no full pressure, full network coordination, fabrication or installed geometry acceptance"
+}

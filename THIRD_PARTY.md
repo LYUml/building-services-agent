@@ -1,5 +1,12 @@
 # Attribution and upstream integration register
 
+Reduced-branch revision authoring uses the already pinned IfcOpenShell0.8.5
+ShapeBuilder/extrusion/Boolean APIs, Manifold3D3.5.4 checks and existing ezdxf/
+AutoCAD adapters. Source binding, unequal-section declarations and independent
+prism-volume/port checks are original glue. Existing notices below apply; no
+new dependency, upstream engine body or coefficient database is redistributed.
+See docs/REDUCED_BRANCH_TEE.md.
+
 Native rectangular bend quantity binding reuses the existing pinned IfcOpenShell
 profile/Axis reader and SciPy 1.18.1 table engine. Publisher base/correction grids,
 derived grids, PDF and images remain private; no coefficient database is

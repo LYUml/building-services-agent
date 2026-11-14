@@ -5,6 +5,13 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For a separately declared reduced-branch sharp rectangular tee study, use
+`bsa.unequal_rectangular_tee run/verify` per docs/REDUCED_BRANCH_TEE.md. Reuse
+the existing IFC/Boolean engines; preserve source main frames and independently
+check the revised branch external cap. Native local geometry never implies a
+whole-network merge, applicable loss data, full pressure or installation acceptance.
+Keep existing course scenarios and old method-bound receipts unchanged.
+
 AI clients can use bsa_run_tagged_network_delivery and
 bsa_inspect_tagged_network_delivery per docs/MCP_TAGGED_NETWORK_DELIVERY.md.
 Host fixes project root/AutoCAD; client paths are project-relative. Compare
