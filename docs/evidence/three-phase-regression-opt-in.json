@@ -1,0 +1,72 @@
+{
+  "recorded_utc": "2026-11-14T01:01:47.804591+00:00",
+  "scope": "Synthetic three-phase constant-PQ numerical and source/model workflow controls; not project electrical design acceptance",
+  "upstream": {
+    "package": "pandapower",
+    "version": "3.5.6",
+    "license": "BSD-3-Clause",
+    "license_path": "docs/evidence/pandapower/LICENSE",
+    "artifact_lock": "docs/evidence/pandapower/requirements-win-py312.lock.txt"
+  },
+  "numerical": {
+    "verification": {
+      "integrity_pass": true,
+      "tests_run": 10,
+      "passed": 10,
+      "suite_pass": true,
+      "all_tests_pass": true,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance"
+    },
+    "receipt_sha256": "bd63c4f8aa84b0a0a51da90d65785c74377ce31e99b3190e9de44013cb4d4955"
+  },
+  "design_accepted": false,
+  "workflow": {
+    "verification": {
+      "integrity_pass": true,
+      "tests_run": 26,
+      "passed": 26,
+      "suite_pass": true,
+      "all_tests_pass": true,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance"
+    },
+    "receipt_sha256": "5fbed65310a5202af4c9ef5384548bb0138fa220885637b56bf9c8275ab6bd9c",
+    "executed_tests": [
+      "tests.test_workflow_three_phase.ThreePhaseWorkflowTests.test_actual_pass_and_converged_overload_gate",
+      "tests.test_workflow_three_phase.ThreePhaseWorkflowTests.test_exit_zero_without_study_is_failure",
+      "tests.test_workflow_three_phase.ThreePhaseWorkflowTests.test_incomplete_or_contradictory_child_report_is_rejected",
+      "tests.test_workflow_three_phase.ThreePhaseWorkflowTests.test_missing_runtime_keeps_study_and_release_pending",
+      "tests.test_workflow_three_phase_ifc.CableWorkflowTests.test_actual_study_geometry_pass_and_delivery_remains_pending",
+      "tests.test_workflow_three_phase_ifc.CableWorkflowTests.test_changed_check_artifact_blocks_before_drawing",
+      "tests.test_workflow_three_phase_ifc.CableWorkflowTests.test_changed_geometry_blocks_drawing",
+      "tests.test_workflow_three_phase_ifc.CableWorkflowTests.test_no_runtime_blocks_geometry",
+      "tests.test_workflow_three_phase_ifc.CableWorkflowTests.test_replacement_project_and_other_study_gate_rejected",
+      "tests.test_workflow_three_phase_topology.ElectricalTopologyWorkflowTests.test_actual_passing_study_and_native_topology",
+      "tests.test_workflow_three_phase_topology.ElectricalTopologyWorkflowTests.test_byte_identical_model_and_binding_copies_allowed",
+      "tests.test_workflow_three_phase_topology.ElectricalTopologyWorkflowTests.test_changed_topology_evidence_blocks_drawing",
+      "tests.test_workflow_three_phase_topology.ElectricalTopologyWorkflowTests.test_delivery_rejects_removed_model_binding_record",
+      "tests.test_workflow_three_phase_topology.ElectricalTopologyWorkflowTests.test_different_role_binding_is_not_same_model_identity",
+      "tests.test_workflow_three_phase_topology.ElectricalTopologyWorkflowTests.test_disconnected_graph_blocks_drawing",
+      "tests.test_workflow_three_phase_topology.ElectricalTopologyWorkflowTests.test_drawing_cannot_combine_other_model_geometry_and_topology_gates",
+      "tests.test_workflow_three_phase_topology.ElectricalTopologyWorkflowTests.test_missing_runtime_blocks_topology",
+      "tests.test_workflow_three_phase_topology.ElectricalTopologyWorkflowTests.test_valid_same_geometry_alternate_model_cannot_borrow_derived_study",
+      "tests.test_workflow_three_phase_topology.ElectricalTopologyWorkflowTests.test_wrong_numerical_producer_gate_rejected",
+      "tests.test_three_phase_ifc_project.ModelDrivenProjectTests.test_actual_recalculation_uses_native_lengths_and_changes_voltages",
+      "tests.test_three_phase_ifc_project.ModelDrivenProjectTests.test_derivation_does_not_clear_failed_current_targets",
+      "tests.test_three_phase_ifc_project.ModelDrivenProjectTests.test_extraction_does_not_claim_old_length_correspondence",
+      "tests.test_three_phase_ifc_project.ModelDrivenProjectTests.test_missing_length_source_and_overwrite_rejected",
+      "tests.test_three_phase_ifc_project.ModelDrivenProjectTests.test_only_lengths_and_length_provenance_change",
+      "tests.test_three_phase_ifc_project.ModelDrivenProjectTests.test_repeated_derivation_retains_old_source_records",
+      "tests.test_three_phase_ifc_project.ModelDrivenProjectTests.test_saved_model_tamper_invalidates_derived_project"
+    ]
+  },
+  "combined_passed": 36,
+  "combined_skipped": 0,
+  "original_full_run_skips_preserved": true,
+  "scope_limits": [
+    "Explicit synthetic sequence-line constant-PQ wye networks",
+    "Actual product impedance, ampacity and protective-device evidence not supplied",
+    "No full Hong Kong electrical conformity or native drawing acceptance"
+  ]
+}

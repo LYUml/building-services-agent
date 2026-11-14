@@ -28,6 +28,10 @@ gates are preserved in [native route evidence](evidence/native-riser-route-regre
 A separate [three-view native test](evidence/native-multiview-regression.json)
 passes actual save/reopen, merged-page and 100 mm reference checks, with visual
 review pending.
+Separate three-phase opt-ins now execute 36 numerical/source/IFC workflow
+controls with no skips, using pinned pandapower and the existing isolated host.
+Both receipts verify. See [electrical evidence](evidence/three-phase-regression-opt-in.json).
+Product, protection and complete project/code acceptance remain open.
 Revit native creation/save/reopen remains unverified; opening a test copy alone
 is not that acceptance. See [actual Revit observation](REVIT_BUILTIN_INTERCHANGE.md).
 

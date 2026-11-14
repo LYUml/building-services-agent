@@ -50,6 +50,11 @@ Separately completed source-frozen opt-in runs provide narrower actual evidence:
   controls. This does not run MOOSAS airflow or thermal simulation. See
   [MOOSAS evidence](evidence/moosas-geometry-regression.json).
 
+- Thirty-six three-phase numerical/source/IFC workflow controls pass in two
+  separately verified runs, including actual pinned pandapower execution. Source
+  lengths drive fresh voltages; invalid/failed targets and model substitutions
+  remain blocked. See [electrical evidence](evidence/three-phase-regression-opt-in.json).
+
 Supplemental counts are not added to the primary1,617instances or used to rewrite
 its skipped outcomes. Test requirements and numerical tolerances stay unchanged.
 
@@ -59,6 +64,6 @@ This closes the interrupted/full-regression verification task. It does not close
 general document interpretation, complete multi-discipline physical design,
 Hong Kong applicability/coverage, native Revit authoring, performance simulation
 or full engineering and visual delivery acceptance. Continue the full capability
-and gap matrix in [whole-agent status](AGENT_STATUS.md). Additional isolated
-numerical-runtime opt-ins should be checked against their existing pinned hosts
-before claiming electrical/three-phase integration coverage.
+and gap matrix in [whole-agent status](AGENT_STATUS.md). The supplemental electrical tests establish their listed synthetic scope;
+remaining source-cache, drawing and other numerical opt-ins still need their
+exact existing host/fixture checks before broader integration claims.

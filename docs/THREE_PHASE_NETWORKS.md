@@ -1,5 +1,11 @@
 # Source-bound three-phase networks
 
+Fresh explicit-runtime regression executes36numerical/source/IFC workflow
+controls without skips. Both terminal receipts independently verify; the
+existing pinned pandapower engine and isolated host are reused. This is bounded
+synthetic evidence, not actual protection/product/code or project acceptance.
+See [regression evidence](evidence/three-phase-regression-opt-in.json).
+
 The passing workflow study can now feed [calculation-bound schematics and phase schedules](THREE_PHASE_DRAWINGS.md), including independently reopened DWG and reviewed PDF for the synthetic fixture. That standalone drawing path is separate from installation design, BIM topology and protection/regulatory acceptance.
 
 This standalone adapter reuses pinned pandapower 3.5.6, selected through the [executed upstream trial](THREE_PHASE_TRIAL.md). It accepts connected single-voltage networks of sequence-impedance lines and constant-PQ wye loads with one external source. It supports multiple buses/loads/branches and has executed a three-bus radial fixture, a mesh control and nonzero inductive/capacitive reactive loads. It is not a general electrical design or protection tool.
