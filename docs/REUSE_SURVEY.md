@@ -1776,3 +1776,11 @@ Official OpenAI project-config docs and upstream PyPI documentation/license
 were checked first. The optional codex-setup extra pins the version; no upstream
 source is copied, and the MIT notice is retained. Executed real-profile update,
 actual Codex startup/read and seven controls pass. See CODEX_LOCAL_SETUP.md.
+
+
+2026-11-14 remaining fitting screen: pinned python-hvac A11P data-only replay
+of13actualrevisedbranches adds zero support (1existingmatch,12sparsecells).
+NewRevit candidates prove angle-only injector/TODO fitting server. See
+[FITTING_UPSTREAM_SCREEN.md](FITTING_UPSTREAM_SCREEN.md) for pinned source
+inspections and decision to defer batch staged construction pending a valid
+combined-loss basis; no new dependency or accepted correlation.

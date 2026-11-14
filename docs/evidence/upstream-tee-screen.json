@@ -1,0 +1,18 @@
+{
+  "upstream_commit": "94247560a667905bfbf67e45a58965a58254fce8",
+  "source_sha256": "4c0f14a911784d76aa7c7212cd930608219547b8cc63535627b4c33b930c57a9",
+  "license_sha256": "1ad7f5d784476db176152001eeafcef6b8476feac1b79739cf5249c5b04eb950",
+  "candidate_class": "DivergingJunctionA11P",
+  "actual_branch_queries": 13,
+  "bounded_values": 1,
+  "newly_supported_paths": 0,
+  "unresolved_reasons": {
+    "query support contains unpublished or null cells": 12
+  },
+  "missing_sentinels_masked": true,
+  "upstream_package_executed": false,
+  "production_results_modified": false,
+  "physical_applicability_verified": false,
+  "design_accepted": false,
+  "method_sha256": "63c5975a14527d5c8d1284c1a3fdb5cb0ea4d5b9d4cf172ff810ba52f66b4fcc"
+}
