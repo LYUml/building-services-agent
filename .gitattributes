@@ -9,3 +9,8 @@ third_party/licenses/wntr-1.5.0.txt -text -whitespace
 third_party/licenses/epanet-2.2-authors.txt -text -whitespace
 third_party/licenses/energyplus.txt -text -whitespace
 third_party/licenses/swmm-toolkit-* -text -whitespace
+third_party/licenses/cadquery-2.6.1.txt -text -whitespace
+third_party/licenses/cadquery-ocp-7.8.1.1.post1.txt -text -whitespace
+third_party/licenses/occt-7.8.1-*.txt -text -whitespace
+adapters/cadquery/requirements.lock -text whitespace=cr-at-eol
+src/bsa/cadquery_rect_round.py text eol=lf

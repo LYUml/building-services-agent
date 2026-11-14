@@ -1,5 +1,11 @@
 # Building Services Agent
 
+Twenty actual VAV inlet assemblies now have40hollow IFC bodies/80ports/20local
+links,20editable STEP sources and inspected native AutoCAD sections. A pinned
+CadQuery/OCP worker reuses upstream loft/Boolean geometry; native caps, walls
+and source flows verify. Parent duct integration and complete pressure remain
+pending. See [inlet connections](docs/VAV_INLET_CONNECTIONS.md).
+
 The optimized Connection_Layout now includes its matching finite rigid network,
 actual native coordination DWG/PDF and two-flow pressure report. All88material
 interfaces and21sourceboundaryframes match;89geometrychecks find zero solid

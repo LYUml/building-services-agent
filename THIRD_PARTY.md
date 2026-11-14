@@ -341,3 +341,19 @@ Its NOTICE credits HKUDS/CLI-Anything REPL at
 `34f519533bc175d2fe287ab8316b0dd99bb9cc43`, Apache-2.0.
 Krueger GRD executables/databases remain separate manufacturer software.
 See docs/KSELECT_MCP_REUSE.md for actual executed scope and limitations.
+
+# CadQuery local loft worker
+
+CadQuery2.6.1 (CadQuery contributors), Apache-2.0:
+https://github.com/CadQuery/cadquery/tree/2.6.1
+cadquery-ocp7.8.1.1.post1 bindings (CadQuery/OCP contributors), Apache-2.0:
+https://github.com/CadQuery/OCP
+Linked Open CASCADE Technology7.8.1 is LGPL-2.1 with its additional exception:
+https://github.com/Open-Cascade-SAS/OCCT/tree/V7_8_1
+License copies:third_party/licenses/cadquery-2.6.1.txt,
+cadquery-ocp-7.8.1.1.post1.txt,occt-7.8.1-LGPL-2.1.txt and
+occt-7.8.1-exception.txt. No upstream source or native binary is vendored;
+this repository supplies a thin isolated API worker. Exact tested installed
+versions are in adapters/cadquery/requirements.lock. Existing IfcOpenShell,
+Manifold,fluids and trimesh notices continue to apply to downstream project
+composition. See docs/VAV_INLET_CONNECTIONS.md for actual scope/evidence.

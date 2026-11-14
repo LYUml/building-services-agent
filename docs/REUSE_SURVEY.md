@@ -1841,3 +1841,15 @@ exact context ID, with no implicit context deletion/merge.10targeted tests pass;
 actual80boxes169elements and193entitynativeDWG execute. Source catalogue/IOM
 supply dimensions/recommendations; datum and both-side reservations are declared
 assumptions. No new engine/dependency/waiver. See VAV_EQUIPMENT_SPACE.md.
+
+Actual rectangular/round inlet gap: unmodified pinned IfcOpenShell0.8.5 MEP
+helper executes20sourceprofiles but its fixed16vertex circle misses existing
+cap accuracy; reject without patching package or widening tolerance. Test
+CadQuery2.6.1/OCP7.8.1.1.post1 ruled loft/Boolean/STEP upstream in isolation;
+common thinworker executes20actual cases with matching BRep hashes and real
+STEP units reimports. Downstream project composes positive analytic operands
+through existing IFC CSG, canonical exact vertex identity, native ports and
+circle extrusions;40bodies80ports20links validate. No custom geometry kernel.
+Failed direct/large mesh conversions stay historical, not adopted. Native
+trimesh longitudinal sections/AutoCAD execute after raw silhouette union fails.
+See VAV_INLET_CONNECTIONS.md; no complete pressure, product or network adoption.
