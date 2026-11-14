@@ -1,0 +1,18 @@
+{
+  "stages": 2,
+  "native_schema_geometry_checks_pass": true,
+  "source_family_checks_pass": true,
+  "native_material_cap_pairs_matched": 3,
+  "internal_material_overlap_m3": 0.0,
+  "independent_decimal_queries_match": true,
+  "total_length_m": 0.28660254037844385,
+  "external_frames_preserved": true,
+  "original_network_modified": false,
+  "network_integrated": false,
+  "new_internal_interfaces": 1,
+  "interaction_and_joint_losses_unknown": true,
+  "combined_pressure_Pa": null,
+  "pressure_budget_complete": false,
+  "design_accepted": false,
+  "source_review_sha256": "fc1d586b9a8b8850f2972cf0636a20a1b5ddbc82432685b4013e655ecf85ff29"
+}
