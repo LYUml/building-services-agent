@@ -5,6 +5,13 @@ description: Calculate source-linked air/water networks, fan/pump operating poin
 
 # Network pressure analysis
 
+For declared static-to-total reference-station studies,see
+docs/VAV_CANDIDATE_STATION_PRESSURE.md. Use signed deltaPs+Pv_in-Pv_out,
+retain negative results and label candidate area/test-station correspondence.
+A fully-open source baseline is not the controlled-device operating loss;
+do not overwrite manufacturer-unknown areas or claim a published K.
+
+
 For source-bound terminal pressure comparisons,see docs/TERMINAL_PRESSURE_BUDGET.md.
 Keep squared-flow interpolation and display-rounding assumptions explicit.
 CataloguePt is a separate conditional boundary load;do not add Ps/neckVP again

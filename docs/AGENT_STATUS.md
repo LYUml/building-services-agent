@@ -1,5 +1,10 @@
 # Whole-agent status
 
+Separate VAVcandidate-station study now gives374conditional component values/
+84numericgaps perflowcase,with40VAVterms and160terminalbudgets. Manufacturer
+station/density/control correspondence remains unverified;fullpressure unknown.
+See [candidate station pressure](VAV_CANDIDATE_STATION_PRESSURE.md).
+
 Separate80joint custom-sleeve study now preserves allsourcegeometry/ports while
 adding160nonflowaccessories. Nominalradialcoverage/nativeairprobes/schema and
 actualreopenedDWG/PDFexecute;fasteners,cure,manufacturerapproval andpressure

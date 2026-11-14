@@ -1,0 +1,77 @@
+{
+  "source_ifc_sha256": "6abd91101fc5411ad017b362b86f7098080183db7a3f7de12cf1b1a2b88c05e8",
+  "source_catalogue_sha256": "ba747af8d424da4e59b0d4d93c888bd9b5df299d303c0824fa89f9305870d766",
+  "pressure_definition_pdf_sha256": "3bdcce59cc18b63bdefa9e0faf4b8cc445f484fe3c2649ce258a8ed81ee0c255",
+  "pressure_definition_page_actually_viewed": 7,
+  "method_sha256": "6ba65436dacc109f07cf7d85338c4b4b5d3286a517502375f9b73874419a5c28",
+  "source_pressure_ledger_sha256": "e741f578f6c7ba0bfebb4ce07af772cff2639a33e2ac52467e58a6dd7446907b",
+  "source_pressure_rows": 40,
+  "candidate_terminal_paths": 160,
+  "manufacturer_unknown_port_areas_preserved": 140,
+  "separate_candidate_geometric_port_areas": 100,
+  "unchanged584distribution_geometry_verified": true,
+  "current604product_graph_reconstructed": true,
+  "source_static_interpolation_and_Decimal_reconciled": true,
+  "cases": {
+    "maximum": {
+      "conditional_component_values": 374,
+      "numerical_gaps": 84,
+      "terminal_paths": 80,
+      "per_path_numerical_gaps": 2,
+      "new_VAV_pressure_range_Pa": [
+        24.96217302522297,
+        42.24179718107412
+      ],
+      "original1287flow_values_reconciled": true,
+      "complete_pressure_verified": false
+    },
+    "minimum": {
+      "conditional_component_values": 374,
+      "numerical_gaps": 84,
+      "terminal_paths": 80,
+      "per_path_numerical_gaps": 2,
+      "new_VAV_pressure_range_Pa": [
+        3.919169421718693,
+        7.026029275086341
+      ],
+      "original1287flow_values_reconciled": true,
+      "complete_pressure_verified": false
+    }
+  },
+  "remaining_unique_numeric_gaps": {
+    "compound_main": 4,
+    "Jplenum": 80
+  },
+  "pressure_algebra_tests_passed": 4,
+  "subtests_passed": 3,
+  "source_station_correspondence_verified": false,
+  "manufacturer_curve_density_verified": false,
+  "fully_open_baseline_only": true,
+  "actual_controlled_VAV_loss_verified": false,
+  "complete_pressure_verified": false,
+  "design_accepted": false,
+  "scope": "Separateconditionalstation-correspondence study,not actualmanufacturerfullunitloss/operatingbalance/fanduty;IOMDeltaVps column notusedas inletVP,old29/11baseline preserved.",
+  "published_file_sha256": {
+    "05_Calculations/Connection_Layout/VAV Candidate Station Pressure.csv": "44f1b6453e70ba751b114ccaf822149cfb4d2c17c9c366bb1feaef5fb9af084f",
+    "05_Calculations/Connection_Layout/Candidate Station Terminal Paths.csv": "c494fda5d59cc9a344f5dc42aa180bad3052f767306348bc0439da506086a354",
+    "05_Calculations/Connection_Layout/VAV Candidate Station Pressure Study.html": "13c738965f23b041bd3746c20b819b5925a3d3363703c645cb16c36e65593c81"
+  },
+  "terminal_pressure_source_csv_sha256": "42f0e9fbd6159601aab9e3d0b34186fb49c5685df274fe5b5a882e07bcff0e94",
+  "source_pressure_definition_url": "https://www.krueger-hvac.com/file/9262/Terminal_Unit_Engineering.pdf",
+  "pressure_identity_source_url": "https://handbook.ashrae.org/Handbooks/F21/SI/F21_Ch21/F21_Ch21_si.aspx",
+  "published_HTML_cells": 2240,
+  "terminal_Pt_included_once_as_separate_boundary_load": true,
+  "source_terminal_pressure_and_room_reference_assumptions_preserved": true,
+  "method_hashes": {
+    "src/bsa/static_total_balance.py": "6ba65436dacc109f07cf7d85338c4b4b5d3286a517502375f9b73874419a5c28",
+    "src/bsa/loss_reference.py": "f056a284f5d4fe877f953e42ae7abcd145467ac328d23136e4e0b364c475f19b",
+    "src/bsa/source_pressure_ledger.py": "e741f578f6c7ba0bfebb4ce07af772cff2639a33e2ac52467e58a6dd7446907b",
+    "src/bsa/duct_chain_analysis.py": "eca6983337fa3e846e6ba0c89c18b3c2b47edd3a5c406754db1ce1a018effe5c",
+    "src/bsa/source_network_analysis.py": "be2e422e34a6056094c0304644347b587825ef703acf4fe821fc26b665780f18"
+  },
+  "upstream_versions": {
+    "fluids": "1.3.1",
+    "ifcopenshell": "0.8.5"
+  },
+  "source_static_pressure_screen_sha256": "faaeffa1699b83dcd7559af0f16f973593e520884dd181ea85ba2d96cc24890f"
+}
