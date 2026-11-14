@@ -5,6 +5,12 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For declared lined four-outlet chamber construction,see docs/OPEN_LINED_PLENUM.md.
+Use native CSG with explicit metal/liner/collar assumptions;remove old assigned
+representations through official APIs. Require saved material topology,connected
+air probes and owned-cap checks;do not infer sealed joints or pressure loss.
+
+
 For source-positioned VAV/plenum logical closure,see docs/LOGICAL_SUPPLY_NETWORK.md.
 Preserve unknown internal areas and physical-cap status. boundary_paths propagates
 interface_basis/physical_cap_verified;logical joins cannot certify material caps.

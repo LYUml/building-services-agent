@@ -1,0 +1,2194 @@
+{
+  "source_ifc_sha256": "67e297b37448dfe196de0dd9e2b03bc75552cbfb9180fbdbf067a9aad5f74bd1",
+  "ifc_sha256": "0622d029f1c1560475845ac67ac1f1d143705ee2ebd4efdb58205e15311df533",
+  "catalogue_sha256": "ba747af8d424da4e59b0d4d93c888bd9b5df299d303c0824fa89f9305870d766",
+  "method_sha256": "c6472c63e5090255c02007deb57110ad21e3387d5a847b4c90ef55ff95c776d5",
+  "elements": 664,
+  "ports": 1287,
+  "interfaces": 603,
+  "modified_plenums": 20,
+  "unchanged_other_element_representations": 644,
+  "all664element_placements_unchanged": true,
+  "all1287port_frames_directions_unchanged": true,
+  "native_plenum_meshes_checked": 20,
+  "candidate_open_port_caps_checked": 100,
+  "schema_express_errors": 0,
+  "records": [
+    {
+      "id": "VAV-01",
+      "plenum_guid": "0HYVMlmZXU$vltJ0td80AQ",
+      "nominal_size_in": 12,
+      "frame": [
+        [
+          -0.0,
+          1.0,
+          0.0,
+          68.245932
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          19.041159
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "W": 0.4064,
+      "H": 0.381,
+      "L": 0.9144,
+      "metal": 0.0008,
+      "liner": 0.0127,
+      "collar_OD": 0.25082499999999996,
+      "projection": 0.085725,
+      "stations": [
+        0.396875,
+        0.752475
+      ],
+      "candidate_port_areas": [
+        {
+          "port_guid": "1Cc$YUqe1RkPDrweFH5rfd",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "1cACJ$r95UUfSElMvT2RNO",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "2JOjpWsjLHrunAiICQX3vE",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "37yD1_Q5XTDefq$7Vzdxll",
+          "area_m2": 0.13430759999999997,
+          "kind": "rectangular_chamber_entry"
+        },
+        {
+          "port_guid": "2sM9z$SxPIsAHdwFRZr$fx",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        }
+      ]
+    },
+    {
+      "id": "VAV-02",
+      "plenum_guid": "1hkqWVhDbU3u0fIMW4RWTm",
+      "nominal_size_in": 14,
+      "frame": [
+        [
+          -0.0,
+          1.0,
+          0.0,
+          75.68593200000001
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          19.041159
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "W": 0.508,
+      "H": 0.4445,
+      "L": 0.9144,
+      "metal": 0.0008,
+      "liner": 0.0127,
+      "collar_OD": 0.25082499999999996,
+      "projection": 0.085725,
+      "stations": [
+        0.396875,
+        0.752475
+      ],
+      "candidate_port_areas": [
+        {
+          "port_guid": "2Z$r9LTCzLaANbfVqnelBD",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "2IA3ZuxZDMDg$FrbH_9uBN",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "2UI9jTONfKmPl8KqD6afG3",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "0gXdbGBNvMgQy11KGDda3T",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "2DojJVefnJO9fHjMs$1BdN",
+          "area_m2": 0.20081749999999998,
+          "kind": "rectangular_chamber_entry"
+        }
+      ]
+    },
+    {
+      "id": "VAV-03",
+      "plenum_guid": "2fapkhRhHNRvvYC2WcJnBt",
+      "nominal_size_in": 14,
+      "frame": [
+        [
+          -0.0,
+          1.0,
+          0.0,
+          83.12593199999999
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          18.87225264905389
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "W": 0.508,
+      "H": 0.4445,
+      "L": 0.9144,
+      "metal": 0.0008,
+      "liner": 0.0127,
+      "collar_OD": 0.25082499999999996,
+      "projection": 0.085725,
+      "stations": [
+        0.396875,
+        0.752475
+      ],
+      "candidate_port_areas": [
+        {
+          "port_guid": "12GBZ4JNPUgwx8eHNO_o40",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "1CGaSz5SDJRBR9Fq$1aQLS",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "1wb$YEBVHSFgrxeoywTwAN",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "2gp$i9iCrRXxym5Ri37xr$",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "0uEW9usF5Rb9VTM8z4FgH0",
+          "area_m2": 0.20081749999999998,
+          "kind": "rectangular_chamber_entry"
+        }
+      ]
+    },
+    {
+      "id": "VAV-04",
+      "plenum_guid": "3dqKnBn1HMsx0_mb7ndsYS",
+      "nominal_size_in": 14,
+      "frame": [
+        [
+          -0.0,
+          1.0,
+          0.0,
+          90.56593199999999
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          18.87225264905389
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "W": 0.508,
+      "H": 0.4445,
+      "L": 0.9144,
+      "metal": 0.0008,
+      "liner": 0.0127,
+      "collar_OD": 0.25082499999999996,
+      "projection": 0.085725,
+      "stations": [
+        0.396875,
+        0.752475
+      ],
+      "candidate_port_areas": [
+        {
+          "port_guid": "3tlG3$kCrVpx$dxKMtnxHo",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "18FuReinTIngsvRwZLUtXv",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "0zOGB3pXHH9w2cBDaDarn6",
+          "area_m2": 0.20081749999999998,
+          "kind": "rectangular_chamber_entry"
+        },
+        {
+          "port_guid": "1JvmLgBxPVk9QCA2kBqnfZ",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "2onnQNcffMruYUQGo0YlO1",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        }
+      ]
+    },
+    {
+      "id": "VAV-05",
+      "plenum_guid": "1aBepUMgHS68$RyF9MWJ$d",
+      "nominal_size_in": 14,
+      "frame": [
+        [
+          -0.0,
+          1.0,
+          0.0,
+          98.6984325
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          18.990553919243112
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "W": 0.508,
+      "H": 0.4445,
+      "L": 0.9144,
+      "metal": 0.0008,
+      "liner": 0.0127,
+      "collar_OD": 0.25082499999999996,
+      "projection": 0.085725,
+      "stations": [
+        0.396875,
+        0.752475
+      ],
+      "candidate_port_areas": [
+        {
+          "port_guid": "3vgrG8Y8bUW9r4nrUu34lI",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "2wf6SOt_zHjxvn_mPy__YC",
+          "area_m2": 0.20081749999999998,
+          "kind": "rectangular_chamber_entry"
+        },
+        {
+          "port_guid": "2k4BwCAdfVculiOqhwW8dl",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "2i7sRbkx5LReLHrHHIudIL",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "1nZ608whbPpRKNblyIc_RT",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        }
+      ]
+    },
+    {
+      "id": "VAV-06",
+      "plenum_guid": "1EH7fSfDHVBABoNMHn0PvH",
+      "nominal_size_in": 12,
+      "frame": [
+        [
+          -0.0,
+          1.0,
+          0.0,
+          105.6767655
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          19.041159
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "W": 0.4064,
+      "H": 0.381,
+      "L": 0.9144,
+      "metal": 0.0008,
+      "liner": 0.0127,
+      "collar_OD": 0.25082499999999996,
+      "projection": 0.085725,
+      "stations": [
+        0.396875,
+        0.752475
+      ],
+      "candidate_port_areas": [
+        {
+          "port_guid": "3NyYdDFkjMTQvnlh$VWUC5",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "2JC7HHkKbRW8gOhe9ogKY6",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "1HYnZ49LXG9OEzUBBkRj6c",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "08cY9ZU2nOlfeL$HbNpz1n",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "1lwBDXXD1Qqw7oWN1FjgFm",
+          "area_m2": 0.13430759999999997,
+          "kind": "rectangular_chamber_entry"
+        }
+      ]
+    },
+    {
+      "id": "VAV-07",
+      "plenum_guid": "3EVZ5qX8vPJve4yEkIRZLg",
+      "nominal_size_in": 14,
+      "frame": [
+        [
+          -0.0,
+          1.0,
+          0.0,
+          68.245932
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          25.871159000000013
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "W": 0.508,
+      "H": 0.4445,
+      "L": 0.9144,
+      "metal": 0.0008,
+      "liner": 0.0127,
+      "collar_OD": 0.25082499999999996,
+      "projection": 0.085725,
+      "stations": [
+        0.396875,
+        0.752475
+      ],
+      "candidate_port_areas": [
+        {
+          "port_guid": "1tHczs$hnG4gmn676NtC2K",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "3uNLThXPXHSgHFVrD6nnau",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "1phl1cgUXTzRDuBNQzMzYY",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "2aQSaX8zbTwh81pa1F1i6O",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "0jEQXfWUXNMOWqZWtQf2Fv",
+          "area_m2": 0.20081749999999998,
+          "kind": "rectangular_chamber_entry"
+        }
+      ]
+    },
+    {
+      "id": "VAV-08",
+      "plenum_guid": "0EGzqXRvrS8eKo$Agw78eL",
+      "nominal_size_in": 14,
+      "frame": [
+        [
+          -0.0,
+          1.0,
+          0.0,
+          75.68593200000001
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          25.871159000000013
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "W": 0.508,
+      "H": 0.4445,
+      "L": 0.9144,
+      "metal": 0.0008,
+      "liner": 0.0127,
+      "collar_OD": 0.25082499999999996,
+      "projection": 0.085725,
+      "stations": [
+        0.396875,
+        0.752475
+      ],
+      "candidate_port_areas": [
+        {
+          "port_guid": "0B7W062THUgPBXN4896mAC",
+          "area_m2": 0.20081749999999998,
+          "kind": "rectangular_chamber_entry"
+        },
+        {
+          "port_guid": "3fpcSBmpLVVet7qQiSy3YR",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "2qy55aIZbG_RTyCAUUWRMY",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "1uWTUfZmHUOvFbEx3VZCxO",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "3QI71dfknOPvvj3G6gd3Yt",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        }
+      ]
+    },
+    {
+      "id": "VAV-09",
+      "plenum_guid": "2hZDxAb_jLqeCeRYlk9ARC",
+      "nominal_size_in": 14,
+      "frame": [
+        [
+          -0.0,
+          1.0,
+          0.0,
+          83.12593199999999
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          25.820553919243125
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "W": 0.508,
+      "H": 0.4445,
+      "L": 0.9144,
+      "metal": 0.0008,
+      "liner": 0.0127,
+      "collar_OD": 0.25082499999999996,
+      "projection": 0.085725,
+      "stations": [
+        0.396875,
+        0.752475
+      ],
+      "candidate_port_areas": [
+        {
+          "port_guid": "1BxViGhb1KFB4_lSL037rm",
+          "area_m2": 0.20081749999999998,
+          "kind": "rectangular_chamber_entry"
+        },
+        {
+          "port_guid": "3$$VQNHQ9Maufair7tdCkc",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "2JpIUyeLLV4xU3xXbWjesT",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "3MwETOV91K8PH83_lnjLr3",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "1Hoe3D$s1VwwY45W_xTGjf",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        }
+      ]
+    },
+    {
+      "id": "VAV-10",
+      "plenum_guid": "1yqrdj41bHcwzjjtxRNYKA",
+      "nominal_size_in": 14,
+      "frame": [
+        [
+          -0.0,
+          1.0,
+          0.0,
+          90.56593199999999
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          25.820553919243125
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "W": 0.508,
+      "H": 0.4445,
+      "L": 0.9144,
+      "metal": 0.0008,
+      "liner": 0.0127,
+      "collar_OD": 0.25082499999999996,
+      "projection": 0.085725,
+      "stations": [
+        0.396875,
+        0.752475
+      ],
+      "candidate_port_areas": [
+        {
+          "port_guid": "11jOMBrLXPyxkFulJzcXRp",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "0pkEBhsbHQnwUxwjn$n1tw",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "3DLbN8zYXVywG_YCMFMHXw",
+          "area_m2": 0.20081749999999998,
+          "kind": "rectangular_chamber_entry"
+        },
+        {
+          "port_guid": "0nBeG8QFjTafYJ3N2kjqwL",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "1TiOdLebnGp8QvdoFuWJ3J",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        }
+      ]
+    },
+    {
+      "id": "VAV-11",
+      "plenum_guid": "2_xHPpyfXPvBkAVErrUML2",
+      "nominal_size_in": 14,
+      "frame": [
+        [
+          -0.0,
+          1.0,
+          0.0,
+          98.6984325
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          25.871159000000013
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "W": 0.508,
+      "H": 0.4445,
+      "L": 0.9144,
+      "metal": 0.0008,
+      "liner": 0.0127,
+      "collar_OD": 0.25082499999999996,
+      "projection": 0.085725,
+      "stations": [
+        0.396875,
+        0.752475
+      ],
+      "candidate_port_areas": [
+        {
+          "port_guid": "1sj31e7F9T2goI5XcQFW4G",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "0KbelPeD9N1w1PNBJgGSb8",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "0wUDvWsPrUdgGGX3xLE3y1",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "1G5dGh7BDM_vzHVQpHxKjx",
+          "area_m2": 0.20081749999999998,
+          "kind": "rectangular_chamber_entry"
+        },
+        {
+          "port_guid": "3ojgRbMxLJvwKAigtFybUX",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        }
+      ]
+    },
+    {
+      "id": "VAV-12",
+      "plenum_guid": "3h8qMUGsTKkeuuRo57k0VL",
+      "nominal_size_in": 12,
+      "frame": [
+        [
+          -0.0,
+          1.0,
+          0.0,
+          105.6767655
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          25.871159000000013
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "W": 0.4064,
+      "H": 0.381,
+      "L": 0.9144,
+      "metal": 0.0008,
+      "liner": 0.0127,
+      "collar_OD": 0.25082499999999996,
+      "projection": 0.085725,
+      "stations": [
+        0.396875,
+        0.752475
+      ],
+      "candidate_port_areas": [
+        {
+          "port_guid": "1aALntQRjKshYHLeGjA3z8",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "0Pl6vsAYnRGOApXX3GuxPm",
+          "area_m2": 0.13430759999999997,
+          "kind": "rectangular_chamber_entry"
+        },
+        {
+          "port_guid": "1mZtbLV$vUWQ8Qv9KiHTO7",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "06aCO630bT1enBE10dkEH_",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "1XlyGDHsHUaBxSJR$lTPz7",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        }
+      ]
+    },
+    {
+      "id": "VAV-13",
+      "plenum_guid": "3Wds1Zma9QSPSQCQPonswa",
+      "nominal_size_in": 12,
+      "frame": [
+        [
+          -0.0,
+          1.0,
+          0.0,
+          68.245932
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          33.01461700000002
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "W": 0.4064,
+      "H": 0.381,
+      "L": 0.9144,
+      "metal": 0.0008,
+      "liner": 0.0127,
+      "collar_OD": 0.25082499999999996,
+      "projection": 0.085725,
+      "stations": [
+        0.396875,
+        0.752475
+      ],
+      "candidate_port_areas": [
+        {
+          "port_guid": "3uaZK2VUDIw8ZAaN_POY6V",
+          "area_m2": 0.13430759999999997,
+          "kind": "rectangular_chamber_entry"
+        },
+        {
+          "port_guid": "3pTjrIrrjNleyQ81f7UDSp",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "1Q6U0jCrPMKvYx3reVmI9P",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "3C3OcK5oLMKA9cpzTKT_A4",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "1usOl4DN9JM9KJ4n1zDBQe",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        }
+      ]
+    },
+    {
+      "id": "VAV-14",
+      "plenum_guid": "1WzvdZ6m9OyxtY270uNFgu",
+      "nominal_size_in": 12,
+      "frame": [
+        [
+          -0.0,
+          1.0,
+          0.0,
+          75.685932
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          33.01461700000002
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "W": 0.4064,
+      "H": 0.381,
+      "L": 0.9144,
+      "metal": 0.0008,
+      "liner": 0.0127,
+      "collar_OD": 0.25082499999999996,
+      "projection": 0.085725,
+      "stations": [
+        0.396875,
+        0.752475
+      ],
+      "candidate_port_areas": [
+        {
+          "port_guid": "0eH3_OUVXJVuMDMVFdlX5F",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "2U2N8hSDjLWPO$WDYXjQBe",
+          "area_m2": 0.13430759999999997,
+          "kind": "rectangular_chamber_entry"
+        },
+        {
+          "port_guid": "2ANF7Oan1Gn93F4NmKhr22",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "17jAAG_BLSGOncjSYJmqjn",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "2zDPkmbmPQ8RFBdZh5aH45",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        }
+      ]
+    },
+    {
+      "id": "VAV-15",
+      "plenum_guid": "1PItEEuo9SqBn$9PVWvHfj",
+      "nominal_size_in": 12,
+      "frame": [
+        [
+          -0.0,
+          1.0,
+          0.0,
+          83.12593199999999
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          32.878753919243124
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "W": 0.4064,
+      "H": 0.381,
+      "L": 0.9144,
+      "metal": 0.0008,
+      "liner": 0.0127,
+      "collar_OD": 0.25082499999999996,
+      "projection": 0.085725,
+      "stations": [
+        0.396875,
+        0.752475
+      ],
+      "candidate_port_areas": [
+        {
+          "port_guid": "0ujC9M$a1JgeQwdrULueKj",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "2RFFT_uZnL0uaTBvYEsYuy",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "3Ejz4BBuHIWRx67IDSCLZR",
+          "area_m2": 0.13430759999999997,
+          "kind": "rectangular_chamber_entry"
+        },
+        {
+          "port_guid": "0dIVxx$LHNn83Z94hm1pcL",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "0NQswWLMXV58$9hoKKgbGO",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        }
+      ]
+    },
+    {
+      "id": "VAV-16",
+      "plenum_guid": "20QpI7eMjK_eO4Ze7RucoL",
+      "nominal_size_in": 14,
+      "frame": [
+        [
+          -0.0,
+          1.0,
+          0.0,
+          90.56593200000002
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          32.532252649053895
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "W": 0.508,
+      "H": 0.4445,
+      "L": 0.9144,
+      "metal": 0.0008,
+      "liner": 0.0127,
+      "collar_OD": 0.25082499999999996,
+      "projection": 0.085725,
+      "stations": [
+        0.396875,
+        0.752475
+      ],
+      "candidate_port_areas": [
+        {
+          "port_guid": "1xrRwxyyXJzRllAExVmYAo",
+          "area_m2": 0.20081749999999998,
+          "kind": "rectangular_chamber_entry"
+        },
+        {
+          "port_guid": "276v5GFxvSxhnBUw0t52Tw",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "35Ru69WiDRfhXFXCO1_sbY",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "1DFPPlEZ1V$Brb4DSNHf8p",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "0R7jJDdjDIHRtGp5YfMLb8",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        }
+      ]
+    },
+    {
+      "id": "VAV-17",
+      "plenum_guid": "1Tep$V6hDIAPA6hkgdINcf",
+      "nominal_size_in": 14,
+      "frame": [
+        [
+          -0.0,
+          1.0,
+          0.0,
+          98.6984325
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          32.650553919243116
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "W": 0.508,
+      "H": 0.4445,
+      "L": 0.9144,
+      "metal": 0.0008,
+      "liner": 0.0127,
+      "collar_OD": 0.25082499999999996,
+      "projection": 0.085725,
+      "stations": [
+        0.396875,
+        0.752475
+      ],
+      "candidate_port_areas": [
+        {
+          "port_guid": "1VPw_C0CDMuQ0T6Ew7lJUK",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "1WIktK7QTH78RMlzHrKkmF",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "0gE4eV9EDNav43QiXsMg9P",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "2Od1LLn0DGgPWOi9lZ19Yr",
+          "area_m2": 0.20081749999999998,
+          "kind": "rectangular_chamber_entry"
+        },
+        {
+          "port_guid": "1TMi4k78TUJhuhdFddeD0m",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        }
+      ]
+    },
+    {
+      "id": "VAV-18",
+      "plenum_guid": "1DIELkv2vOPevrgKuqT_eh",
+      "nominal_size_in": 12,
+      "frame": [
+        [
+          -0.0,
+          1.0,
+          0.0,
+          105.6767655
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          33.01461700000002
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "W": 0.4064,
+      "H": 0.381,
+      "L": 0.9144,
+      "metal": 0.0008,
+      "liner": 0.0127,
+      "collar_OD": 0.25082499999999996,
+      "projection": 0.085725,
+      "stations": [
+        0.396875,
+        0.752475
+      ],
+      "candidate_port_areas": [
+        {
+          "port_guid": "1EerLWqC1TXg2ZQ8ba4$V5",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "1lyKoWZ9fI5hFsfJrYFbIQ",
+          "area_m2": 0.13430759999999997,
+          "kind": "rectangular_chamber_entry"
+        },
+        {
+          "port_guid": "1mbYz_7mrJZh7oEhz5$Vsj",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "25W7jF_9PGTg2CWQKs4Ysl",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "1bYFqEs0jOSfiq14y5imA7",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        }
+      ]
+    },
+    {
+      "id": "VAV-19",
+      "plenum_guid": "2xszVpI0HV1R3KAdkTSd6o",
+      "nominal_size_in": 14,
+      "frame": [
+        [
+          -0.0,
+          -1.0,
+          0.0,
+          98.6984325
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          41.640009
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "W": 0.508,
+      "H": 0.4445,
+      "L": 0.9144,
+      "metal": 0.0008,
+      "liner": 0.0127,
+      "collar_OD": 0.25082499999999996,
+      "projection": 0.085725,
+      "stations": [
+        0.396875,
+        0.752475
+      ],
+      "candidate_port_areas": [
+        {
+          "port_guid": "0nGbb5fFzQ7vWKjoB_VmZm",
+          "area_m2": 0.20081749999999998,
+          "kind": "rectangular_chamber_entry"
+        },
+        {
+          "port_guid": "31LIrI_FPRXRO$$pZBltsl",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "0jmd6fmHzSoeraDmIJsETp",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "3WnTJ14gjJvvo5SO0SbNVy",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "1uf80VDNHJYvBCJ6GQtk_H",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        }
+      ]
+    },
+    {
+      "id": "VAV-20",
+      "plenum_guid": "11$FT_d3zKJwN2GrkHlUh6",
+      "nominal_size_in": 14,
+      "frame": [
+        [
+          -0.0,
+          -1.0,
+          0.0,
+          105.6767655
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          41.640009
+        ],
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "W": 0.508,
+      "H": 0.4445,
+      "L": 0.9144,
+      "metal": 0.0008,
+      "liner": 0.0127,
+      "collar_OD": 0.25082499999999996,
+      "projection": 0.085725,
+      "stations": [
+        0.396875,
+        0.752475
+      ],
+      "candidate_port_areas": [
+        {
+          "port_guid": "2LrwHpurrINRZmYw9PjXPr",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "1YqqQJSuPHavrTsecGhC7H",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "2Veytw3dLNQ9d5CjFKD9L8",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "01YChqI19Vl8l8GrHU3bJP",
+          "area_m2": 0.048783515153795885,
+          "kind": "round_collar"
+        },
+        {
+          "port_guid": "11UWn9ZWTNAPS1IHv53$Kl",
+          "area_m2": 0.20081749999999998,
+          "kind": "rectangular_chamber_entry"
+        }
+      ]
+    }
+  ],
+  "native_checks": [
+    {
+      "id": "VAV-01",
+      "vertices": 5640,
+      "triangles": 11292,
+      "one_connected_material": true,
+      "euler_characteristic": -6,
+      "native_material_volume_m3": 0.01816781258447527,
+      "analytic_material_volume_m3": 0.01816767827092065,
+      "connected_air_probe_material_overlap_m3": 0.0,
+      "material_caps": [
+        {
+          "port_guid": "1Cc$YUqe1RkPDrweFH5rfd",
+          "native_material_cap_area_m2": 0.0006283627755206737,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "1cACJ$r95UUfSElMvT2RNO",
+          "native_material_cap_area_m2": 0.0006283627755206934,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "2JOjpWsjLHrunAiICQX3vE",
+          "native_material_cap_area_m2": 0.0006283627755206743,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "37yD1_Q5XTDefq$7Vzdxll",
+          "native_material_cap_area_m2": 0.020530799999995093,
+          "analytic_material_cap_area_m2": 0.020530800000000016
+        },
+        {
+          "port_guid": "2sM9z$SxPIsAHdwFRZr$fx",
+          "native_material_cap_area_m2": 0.0006283627755206943,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        }
+      ]
+    },
+    {
+      "id": "VAV-02",
+      "vertices": 5640,
+      "triangles": 11292,
+      "one_connected_material": true,
+      "euler_characteristic": -6,
+      "native_material_volume_m3": 0.023141817114482998,
+      "analytic_material_volume_m3": 0.02314168280092063,
+      "connected_air_probe_material_overlap_m3": 0.0,
+      "material_caps": [
+        {
+          "port_guid": "2Z$r9LTCzLaANbfVqnelBD",
+          "native_material_cap_area_m2": 0.0006283627755206938,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "2IA3ZuxZDMDg$FrbH_9uBN",
+          "native_material_cap_area_m2": 0.0006283627755206737,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "2UI9jTONfKmPl8KqD6afG3",
+          "native_material_cap_area_m2": 0.0006283627755206935,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "0gXdbGBNvMgQy11KGDda3T",
+          "native_material_cap_area_m2": 0.000628362775520674,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "2DojJVefnJO9fHjMs$1BdN",
+          "native_material_cap_area_m2": 0.024988500000006637,
+          "analytic_material_cap_area_m2": 0.024988500000000025
+        }
+      ]
+    },
+    {
+      "id": "VAV-03",
+      "vertices": 5640,
+      "triangles": 11292,
+      "one_connected_material": true,
+      "euler_characteristic": -6,
+      "native_material_volume_m3": 0.023141817114482998,
+      "analytic_material_volume_m3": 0.02314168280092063,
+      "connected_air_probe_material_overlap_m3": 0.0,
+      "material_caps": [
+        {
+          "port_guid": "12GBZ4JNPUgwx8eHNO_o40",
+          "native_material_cap_area_m2": 0.0006283627755206737,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "1CGaSz5SDJRBR9Fq$1aQLS",
+          "native_material_cap_area_m2": 0.0006283627755206935,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "1wb$YEBVHSFgrxeoywTwAN",
+          "native_material_cap_area_m2": 0.000628362775520674,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "2gp$i9iCrRXxym5Ri37xr$",
+          "native_material_cap_area_m2": 0.0006283627755206938,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "0uEW9usF5Rb9VTM8z4FgH0",
+          "native_material_cap_area_m2": 0.024988500000006637,
+          "analytic_material_cap_area_m2": 0.024988500000000025
+        }
+      ]
+    },
+    {
+      "id": "VAV-04",
+      "vertices": 5640,
+      "triangles": 11292,
+      "one_connected_material": true,
+      "euler_characteristic": -6,
+      "native_material_volume_m3": 0.023141817114482998,
+      "analytic_material_volume_m3": 0.02314168280092063,
+      "connected_air_probe_material_overlap_m3": 0.0,
+      "material_caps": [
+        {
+          "port_guid": "3tlG3$kCrVpx$dxKMtnxHo",
+          "native_material_cap_area_m2": 0.000628362775520674,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "18FuReinTIngsvRwZLUtXv",
+          "native_material_cap_area_m2": 0.0006283627755206938,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "0zOGB3pXHH9w2cBDaDarn6",
+          "native_material_cap_area_m2": 0.024988500000006637,
+          "analytic_material_cap_area_m2": 0.024988500000000025
+        },
+        {
+          "port_guid": "1JvmLgBxPVk9QCA2kBqnfZ",
+          "native_material_cap_area_m2": 0.0006283627755206737,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "2onnQNcffMruYUQGo0YlO1",
+          "native_material_cap_area_m2": 0.0006283627755206935,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        }
+      ]
+    },
+    {
+      "id": "VAV-05",
+      "vertices": 5640,
+      "triangles": 11292,
+      "one_connected_material": true,
+      "euler_characteristic": -6,
+      "native_material_volume_m3": 0.023141817114482998,
+      "analytic_material_volume_m3": 0.02314168280092063,
+      "connected_air_probe_material_overlap_m3": 0.0,
+      "material_caps": [
+        {
+          "port_guid": "3vgrG8Y8bUW9r4nrUu34lI",
+          "native_material_cap_area_m2": 0.000628362775520674,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "2wf6SOt_zHjxvn_mPy__YC",
+          "native_material_cap_area_m2": 0.024988500000006637,
+          "analytic_material_cap_area_m2": 0.024988500000000025
+        },
+        {
+          "port_guid": "2k4BwCAdfVculiOqhwW8dl",
+          "native_material_cap_area_m2": 0.0006283627755206938,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "2i7sRbkx5LReLHrHHIudIL",
+          "native_material_cap_area_m2": 0.0006283627755206737,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "1nZ608whbPpRKNblyIc_RT",
+          "native_material_cap_area_m2": 0.0006283627755206935,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        }
+      ]
+    },
+    {
+      "id": "VAV-06",
+      "vertices": 5640,
+      "triangles": 11292,
+      "one_connected_material": true,
+      "euler_characteristic": -6,
+      "native_material_volume_m3": 0.01816781258447527,
+      "analytic_material_volume_m3": 0.01816767827092065,
+      "connected_air_probe_material_overlap_m3": 0.0,
+      "material_caps": [
+        {
+          "port_guid": "3NyYdDFkjMTQvnlh$VWUC5",
+          "native_material_cap_area_m2": 0.0006283627755206743,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "2JC7HHkKbRW8gOhe9ogKY6",
+          "native_material_cap_area_m2": 0.0006283627755206943,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "1HYnZ49LXG9OEzUBBkRj6c",
+          "native_material_cap_area_m2": 0.0006283627755206934,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "08cY9ZU2nOlfeL$HbNpz1n",
+          "native_material_cap_area_m2": 0.0006283627755206737,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "1lwBDXXD1Qqw7oWN1FjgFm",
+          "native_material_cap_area_m2": 0.020530799999995093,
+          "analytic_material_cap_area_m2": 0.020530800000000016
+        }
+      ]
+    },
+    {
+      "id": "VAV-07",
+      "vertices": 5640,
+      "triangles": 11292,
+      "one_connected_material": true,
+      "euler_characteristic": -6,
+      "native_material_volume_m3": 0.023141817114482998,
+      "analytic_material_volume_m3": 0.02314168280092063,
+      "connected_air_probe_material_overlap_m3": 0.0,
+      "material_caps": [
+        {
+          "port_guid": "1tHczs$hnG4gmn676NtC2K",
+          "native_material_cap_area_m2": 0.0006283627755206737,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "3uNLThXPXHSgHFVrD6nnau",
+          "native_material_cap_area_m2": 0.0006283627755206935,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "1phl1cgUXTzRDuBNQzMzYY",
+          "native_material_cap_area_m2": 0.000628362775520674,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "2aQSaX8zbTwh81pa1F1i6O",
+          "native_material_cap_area_m2": 0.0006283627755206938,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "0jEQXfWUXNMOWqZWtQf2Fv",
+          "native_material_cap_area_m2": 0.024988500000006637,
+          "analytic_material_cap_area_m2": 0.024988500000000025
+        }
+      ]
+    },
+    {
+      "id": "VAV-08",
+      "vertices": 5640,
+      "triangles": 11292,
+      "one_connected_material": true,
+      "euler_characteristic": -6,
+      "native_material_volume_m3": 0.023141817114482998,
+      "analytic_material_volume_m3": 0.02314168280092063,
+      "connected_air_probe_material_overlap_m3": 0.0,
+      "material_caps": [
+        {
+          "port_guid": "0B7W062THUgPBXN4896mAC",
+          "native_material_cap_area_m2": 0.024988500000006637,
+          "analytic_material_cap_area_m2": 0.024988500000000025
+        },
+        {
+          "port_guid": "3fpcSBmpLVVet7qQiSy3YR",
+          "native_material_cap_area_m2": 0.0006283627755206938,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "2qy55aIZbG_RTyCAUUWRMY",
+          "native_material_cap_area_m2": 0.0006283627755206935,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "1uWTUfZmHUOvFbEx3VZCxO",
+          "native_material_cap_area_m2": 0.0006283627755206737,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "3QI71dfknOPvvj3G6gd3Yt",
+          "native_material_cap_area_m2": 0.000628362775520674,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        }
+      ]
+    },
+    {
+      "id": "VAV-09",
+      "vertices": 5640,
+      "triangles": 11292,
+      "one_connected_material": true,
+      "euler_characteristic": -6,
+      "native_material_volume_m3": 0.023141817114482998,
+      "analytic_material_volume_m3": 0.02314168280092063,
+      "connected_air_probe_material_overlap_m3": 0.0,
+      "material_caps": [
+        {
+          "port_guid": "1BxViGhb1KFB4_lSL037rm",
+          "native_material_cap_area_m2": 0.024988500000006637,
+          "analytic_material_cap_area_m2": 0.024988500000000025
+        },
+        {
+          "port_guid": "3$$VQNHQ9Maufair7tdCkc",
+          "native_material_cap_area_m2": 0.0006283627755206935,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "2JpIUyeLLV4xU3xXbWjesT",
+          "native_material_cap_area_m2": 0.000628362775520674,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "3MwETOV91K8PH83_lnjLr3",
+          "native_material_cap_area_m2": 0.0006283627755206737,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "1Hoe3D$s1VwwY45W_xTGjf",
+          "native_material_cap_area_m2": 0.0006283627755206938,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        }
+      ]
+    },
+    {
+      "id": "VAV-10",
+      "vertices": 5640,
+      "triangles": 11292,
+      "one_connected_material": true,
+      "euler_characteristic": -6,
+      "native_material_volume_m3": 0.023141817114482998,
+      "analytic_material_volume_m3": 0.02314168280092063,
+      "connected_air_probe_material_overlap_m3": 0.0,
+      "material_caps": [
+        {
+          "port_guid": "11jOMBrLXPyxkFulJzcXRp",
+          "native_material_cap_area_m2": 0.0006283627755206737,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "0pkEBhsbHQnwUxwjn$n1tw",
+          "native_material_cap_area_m2": 0.0006283627755206935,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "3DLbN8zYXVywG_YCMFMHXw",
+          "native_material_cap_area_m2": 0.024988500000006637,
+          "analytic_material_cap_area_m2": 0.024988500000000025
+        },
+        {
+          "port_guid": "0nBeG8QFjTafYJ3N2kjqwL",
+          "native_material_cap_area_m2": 0.000628362775520674,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "1TiOdLebnGp8QvdoFuWJ3J",
+          "native_material_cap_area_m2": 0.0006283627755206938,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        }
+      ]
+    },
+    {
+      "id": "VAV-11",
+      "vertices": 5640,
+      "triangles": 11292,
+      "one_connected_material": true,
+      "euler_characteristic": -6,
+      "native_material_volume_m3": 0.023141817114482998,
+      "analytic_material_volume_m3": 0.02314168280092063,
+      "connected_air_probe_material_overlap_m3": 0.0,
+      "material_caps": [
+        {
+          "port_guid": "1sj31e7F9T2goI5XcQFW4G",
+          "native_material_cap_area_m2": 0.0006283627755206737,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "0KbelPeD9N1w1PNBJgGSb8",
+          "native_material_cap_area_m2": 0.0006283627755206938,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "0wUDvWsPrUdgGGX3xLE3y1",
+          "native_material_cap_area_m2": 0.000628362775520674,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "1G5dGh7BDM_vzHVQpHxKjx",
+          "native_material_cap_area_m2": 0.024988500000006637,
+          "analytic_material_cap_area_m2": 0.024988500000000025
+        },
+        {
+          "port_guid": "3ojgRbMxLJvwKAigtFybUX",
+          "native_material_cap_area_m2": 0.0006283627755206935,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        }
+      ]
+    },
+    {
+      "id": "VAV-12",
+      "vertices": 5640,
+      "triangles": 11292,
+      "one_connected_material": true,
+      "euler_characteristic": -6,
+      "native_material_volume_m3": 0.01816781258447527,
+      "analytic_material_volume_m3": 0.01816767827092065,
+      "connected_air_probe_material_overlap_m3": 0.0,
+      "material_caps": [
+        {
+          "port_guid": "1aALntQRjKshYHLeGjA3z8",
+          "native_material_cap_area_m2": 0.0006283627755206743,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "0Pl6vsAYnRGOApXX3GuxPm",
+          "native_material_cap_area_m2": 0.020530799999995093,
+          "analytic_material_cap_area_m2": 0.020530800000000016
+        },
+        {
+          "port_guid": "1mZtbLV$vUWQ8Qv9KiHTO7",
+          "native_material_cap_area_m2": 0.0006283627755206943,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "06aCO630bT1enBE10dkEH_",
+          "native_material_cap_area_m2": 0.0006283627755206737,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "1XlyGDHsHUaBxSJR$lTPz7",
+          "native_material_cap_area_m2": 0.0006283627755206934,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        }
+      ]
+    },
+    {
+      "id": "VAV-13",
+      "vertices": 5640,
+      "triangles": 11292,
+      "one_connected_material": true,
+      "euler_characteristic": -6,
+      "native_material_volume_m3": 0.018167812584475248,
+      "analytic_material_volume_m3": 0.01816767827092065,
+      "connected_air_probe_material_overlap_m3": 0.0,
+      "material_caps": [
+        {
+          "port_guid": "3uaZK2VUDIw8ZAaN_POY6V",
+          "native_material_cap_area_m2": 0.020530799999995093,
+          "analytic_material_cap_area_m2": 0.020530800000000016
+        },
+        {
+          "port_guid": "3pTjrIrrjNleyQ81f7UDSp",
+          "native_material_cap_area_m2": 0.0006283627755206452,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "1Q6U0jCrPMKvYx3reVmI9P",
+          "native_material_cap_area_m2": 0.0006283627755206444,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "3C3OcK5oLMKA9cpzTKT_A4",
+          "native_material_cap_area_m2": 0.0006283627755206266,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "1usOl4DN9JM9KJ4n1zDBQe",
+          "native_material_cap_area_m2": 0.0006283627755206275,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        }
+      ]
+    },
+    {
+      "id": "VAV-14",
+      "vertices": 5640,
+      "triangles": 11292,
+      "one_connected_material": true,
+      "euler_characteristic": -6,
+      "native_material_volume_m3": 0.018167812584475248,
+      "analytic_material_volume_m3": 0.01816767827092065,
+      "connected_air_probe_material_overlap_m3": 0.0,
+      "material_caps": [
+        {
+          "port_guid": "0eH3_OUVXJVuMDMVFdlX5F",
+          "native_material_cap_area_m2": 0.0006283627755206444,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "2U2N8hSDjLWPO$WDYXjQBe",
+          "native_material_cap_area_m2": 0.020530799999995093,
+          "analytic_material_cap_area_m2": 0.020530800000000016
+        },
+        {
+          "port_guid": "2ANF7Oan1Gn93F4NmKhr22",
+          "native_material_cap_area_m2": 0.0006283627755206275,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "17jAAG_BLSGOncjSYJmqjn",
+          "native_material_cap_area_m2": 0.0006283627755206452,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "2zDPkmbmPQ8RFBdZh5aH45",
+          "native_material_cap_area_m2": 0.0006283627755206266,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        }
+      ]
+    },
+    {
+      "id": "VAV-15",
+      "vertices": 5640,
+      "triangles": 11292,
+      "one_connected_material": true,
+      "euler_characteristic": -6,
+      "native_material_volume_m3": 0.01816781258447525,
+      "analytic_material_volume_m3": 0.01816767827092065,
+      "connected_air_probe_material_overlap_m3": 0.0,
+      "material_caps": [
+        {
+          "port_guid": "0ujC9M$a1JgeQwdrULueKj",
+          "native_material_cap_area_m2": 0.0006283627755206619,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "2RFFT_uZnL0uaTBvYEsYuy",
+          "native_material_cap_area_m2": 0.0006283627755206167,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "3Ejz4BBuHIWRx67IDSCLZR",
+          "native_material_cap_area_m2": 0.020530799999995093,
+          "analytic_material_cap_area_m2": 0.020530800000000016
+        },
+        {
+          "port_guid": "0dIVxx$LHNn83Z94hm1pcL",
+          "native_material_cap_area_m2": 0.0006283627755206628,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "0NQswWLMXV58$9hoKKgbGO",
+          "native_material_cap_area_m2": 0.000628362775520616,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        }
+      ]
+    },
+    {
+      "id": "VAV-16",
+      "vertices": 5640,
+      "triangles": 11292,
+      "one_connected_material": true,
+      "euler_characteristic": -6,
+      "native_material_volume_m3": 0.023141817114482995,
+      "analytic_material_volume_m3": 0.02314168280092063,
+      "connected_air_probe_material_overlap_m3": 0.0,
+      "material_caps": [
+        {
+          "port_guid": "1xrRwxyyXJzRllAExVmYAo",
+          "native_material_cap_area_m2": 0.024988500000006637,
+          "analytic_material_cap_area_m2": 0.024988500000000025
+        },
+        {
+          "port_guid": "276v5GFxvSxhnBUw0t52Tw",
+          "native_material_cap_area_m2": 0.0006283627755206737,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "35Ru69WiDRfhXFXCO1_sbY",
+          "native_material_cap_area_m2": 0.0006283627755206446,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "1DFPPlEZ1V$Brb4DSNHf8p",
+          "native_material_cap_area_m2": 0.000628362775520674,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "0R7jJDdjDIHRtGp5YfMLb8",
+          "native_material_cap_area_m2": 0.0006283627755206448,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        }
+      ]
+    },
+    {
+      "id": "VAV-17",
+      "vertices": 5640,
+      "triangles": 11292,
+      "one_connected_material": true,
+      "euler_characteristic": -6,
+      "native_material_volume_m3": 0.023141817114483005,
+      "analytic_material_volume_m3": 0.02314168280092063,
+      "connected_air_probe_material_overlap_m3": 0.0,
+      "material_caps": [
+        {
+          "port_guid": "1VPw_C0CDMuQ0T6Ew7lJUK",
+          "native_material_cap_area_m2": 0.0006283627755206446,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "1WIktK7QTH78RMlzHrKkmF",
+          "native_material_cap_area_m2": 0.0006283627755207401,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "0gE4eV9EDNav43QiXsMg9P",
+          "native_material_cap_area_m2": 0.0006283627755207404,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "2Od1LLn0DGgPWOi9lZ19Yr",
+          "native_material_cap_area_m2": 0.024988500000006637,
+          "analytic_material_cap_area_m2": 0.024988500000000025
+        },
+        {
+          "port_guid": "1TMi4k78TUJhuhdFddeD0m",
+          "native_material_cap_area_m2": 0.0006283627755206448,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        }
+      ]
+    },
+    {
+      "id": "VAV-18",
+      "vertices": 5640,
+      "triangles": 11292,
+      "one_connected_material": true,
+      "euler_characteristic": -6,
+      "native_material_volume_m3": 0.018167812584475248,
+      "analytic_material_volume_m3": 0.01816767827092065,
+      "connected_air_probe_material_overlap_m3": 0.0,
+      "material_caps": [
+        {
+          "port_guid": "1EerLWqC1TXg2ZQ8ba4$V5",
+          "native_material_cap_area_m2": 0.0006283627755206266,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "1lyKoWZ9fI5hFsfJrYFbIQ",
+          "native_material_cap_area_m2": 0.020530799999995093,
+          "analytic_material_cap_area_m2": 0.020530800000000016
+        },
+        {
+          "port_guid": "1mbYz_7mrJZh7oEhz5$Vsj",
+          "native_material_cap_area_m2": 0.0006283627755206275,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "25W7jF_9PGTg2CWQKs4Ysl",
+          "native_material_cap_area_m2": 0.0006283627755206452,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "1bYFqEs0jOSfiq14y5imA7",
+          "native_material_cap_area_m2": 0.0006283627755206444,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        }
+      ]
+    },
+    {
+      "id": "VAV-19",
+      "vertices": 5640,
+      "triangles": 11292,
+      "one_connected_material": true,
+      "euler_characteristic": -6,
+      "native_material_volume_m3": 0.02314181711448298,
+      "analytic_material_volume_m3": 0.02314168280092063,
+      "connected_air_probe_material_overlap_m3": 0.0,
+      "material_caps": [
+        {
+          "port_guid": "0nGbb5fFzQ7vWKjoB_VmZm",
+          "native_material_cap_area_m2": 0.024988500000006637,
+          "analytic_material_cap_area_m2": 0.024988500000000025
+        },
+        {
+          "port_guid": "31LIrI_FPRXRO$$pZBltsl",
+          "native_material_cap_area_m2": 0.0006283627755206533,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "0jmd6fmHzSoeraDmIJsETp",
+          "native_material_cap_area_m2": 0.0006283627755206353,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "3WnTJ14gjJvvo5SO0SbNVy",
+          "native_material_cap_area_m2": 0.0006283627755206529,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "1uf80VDNHJYvBCJ6GQtk_H",
+          "native_material_cap_area_m2": 0.0006283627755206356,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        }
+      ]
+    },
+    {
+      "id": "VAV-20",
+      "vertices": 5640,
+      "triangles": 11292,
+      "one_connected_material": true,
+      "euler_characteristic": -6,
+      "native_material_volume_m3": 0.02314181711448298,
+      "analytic_material_volume_m3": 0.02314168280092063,
+      "connected_air_probe_material_overlap_m3": 0.0,
+      "material_caps": [
+        {
+          "port_guid": "2LrwHpurrINRZmYw9PjXPr",
+          "native_material_cap_area_m2": 0.0006283627755206533,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "1YqqQJSuPHavrTsecGhC7H",
+          "native_material_cap_area_m2": 0.0006283627755206356,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "2Veytw3dLNQ9d5CjFKD9L8",
+          "native_material_cap_area_m2": 0.0006283627755206353,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "01YChqI19Vl8l8GrHU3bJP",
+          "native_material_cap_area_m2": 0.0006283627755206529,
+          "analytic_material_cap_area_m2": 0.0006283813625710263
+        },
+        {
+          "port_guid": "11UWn9ZWTNAPS1IHv53$Kl",
+          "native_material_cap_area_m2": 0.024988500000006637,
+          "analytic_material_cap_area_m2": 0.024988500000000025
+        }
+      ]
+    }
+  ],
+  "full_network_collision_verified": false,
+  "pressure_verified": false,
+  "physical_equipment_joints_verified": false,
+  "manufacturer_internal_geometry_verified": false,
+  "design_accepted": false,
+  "scope": "Separatelinedchamberconstructioncandidate,combinedmetal+linervolume;0.8mmmetalassumption,half-inchlinerdefault,outsideW/Hinterpretation,unlinedcollars,no manualdamperblades orslipdriveoverlap.Originalsolidmodels preserved;no pressureorinstalledgeometryacceptance.",
+  "deliverable_sha256": {
+    "03_Design_Drawings/Connection_Layout/Open_Lined_Plenum_Candidate/Supply Air Open Plenum Candidate.ifc": "0622d029f1c1560475845ac67ac1f1d143705ee2ebd4efdb58205e15311df533",
+    "03_Design_Drawings/Connection_Layout/Open_Lined_Plenum_Candidate/Open Lined Plenum Details.dwg": "299e712c811d6e1ca8503436de7a118e0639493751739f73499b848404cec1b6",
+    "03_Design_Drawings/Connection_Layout/Open_Lined_Plenum_Candidate/Open Lined Plenum Details.pdf": "7d19997dd3c76d1b340a4e33e71f756b757becbd901bb61fefe8997cca0836a5",
+    "05_Calculations/Connection_Layout/Candidate Plenum Port Geometry.csv": "784db2590c941fb3239cc7206f7de78d767ff4c2caf14dd8db310f8b4a18e43d",
+    "05_Calculations/Connection_Layout/Candidate Plenum Joint Review.csv": "c048bc1856399bc4726ea582d1b0c5b942f5196e38afe4b456c6270d290fbe71"
+  },
+  "geometry_coordination_handoff": {
+    "unchanged584body_primitive_bounds_checked": true,
+    "all20old_box_bounds_match_new_chamber_envelopes": true,
+    "outside_collar_boxes_checked": 80,
+    "new_positive_AABB_overlap_candidates": 0,
+    "previous_collision_evidence_reused_only_for_unchanged_bodies_and_inside_old_solid_boxes": true,
+    "full_network_remesh": false,
+    "clearance_or_joint_acceptance": false
+  },
+  "blocked_airway_control": {
+    "original_probe_overlap_m3": 0.0,
+    "blocked_inlet_probe_overlap_m3": 0.00085956864,
+    "blocked_airway_rejected": true
+  },
+  "native_CAD_review": {
+    "native_reopen_pass": true,
+    "represented_size_families": 2,
+    "actual_sections": 6,
+    "model_entities": 225,
+    "linked_entities": 213,
+    "scale_denominator": 12.5,
+    "reference_expected_mm": 20.0,
+    "reference_measured_mm": 20.02366666666667
+  },
+  "actual_plot_review": {
+    "pdf_sha256": "7d19997dd3c76d1b340a4e33e71f756b757becbd901bb61fefe8997cca0836a5",
+    "reviewer": "HostAI actualrenderreview",
+    "six_sections_visible": true,
+    "headings_separated_after_plan_shift": true,
+    "scope_notes_visible": true,
+    "scale_reference_visible": true,
+    "observed_clipping": false,
+    "installation_accepted": false
+  },
+  "candidate_port_flow_rows": 200,
+  "joint_review_rows": 80,
+  "port_velocity_scope": "Nativecandidateareas+inheriteddesignQ+assumedrho1.2,not manufacturerinternalpressureacceptance",
+  "all80collar_joint_material_caps_unverified": true,
+  "source_clause_scope": "A2-10/11 dimensions/standardliner only;metal0.8mm and outsideW/H/unlinedcollar interpretations remainassumptions",
+  "native_volume_relative_tolerance": 0.002,
+  "native_material_cap_area_relative_tolerance": 0.005
+}

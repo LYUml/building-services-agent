@@ -1,5 +1,10 @@
 # Whole-agent status
 
+Separate open-lined-plenum candidate replaces20solid envelopes with five-mouth
+material walls.20native meshes/100caps,airway probes and schema pass;nativeDWG
+with six actual sections is reopened and PDF viewed. Joint/product/pressure
+acceptance remains pending. See [open lined plenums](OPEN_LINED_PLENUM.md).
+
 All80terminal necks now have source-bound pressure comparisons in both flows,
 with160conditional path budgets. Squared-flow interpolation reconciles both
 existing nativeKSelectPDFs at assumed display precision;fullpressure remains

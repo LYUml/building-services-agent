@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Separate open-lined-plenum candidate replaces20solid envelopes with five-mouth
+material walls.20native meshes/100caps,airway probes and schema pass;nativeDWG
+with six actual sections is reopened and PDF viewed. Joint/product/pressure
+acceptance remains pending. See [open lined plenums](docs/OPEN_LINED_PLENUM.md).
+
 Separate smooth rigid branch study now evaluates160native round bends in both
 flow cases. Fresh pressure reconstruction gives354conditional values/104gaps;
 all80complete pressures remain unknown. This does not accept installed flex.
