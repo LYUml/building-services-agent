@@ -96,3 +96,23 @@ ready command-line selection engine. No installer/payload/selection has run; its
 web feature list is not executed integration evidence. See
 [static review](evidence/k-select-static-review.json). A native application trial
 is the next step, subject to the Windows computer-use confirmation rule.
+
+## Authorized native launch outcome
+
+The user subsequently authorized installation and trial. The exact installer
+hash and valid Authenticode signature were rechecked. Actual Windows
+`sky.launch_app` did not expose a targetable installer window; the subsequent
+window/process inventory found no K-Select installer. Windows Code Integrity
+events 3033/3077 identify the installer attempting to load its extracted temporary
+component and rejecting that component under the enterprise signing policy.
+The outer valid signature therefore did not establish launchability of its
+embedded components. The original XML event records remain private and hashed.
+
+No installation or manufacturer selection executed. This is an actual runtime
+failure, not a withdrawn permission request or a successful integration. No
+policy was changed, blocked module retried through another loader, or user app
+restarted. Native selection now needs a publisher/IT-supported signed package or
+an approved execution environment. The checked official software page exposes
+the same setup endpoint; the scoped official-site search did not locate a
+separate MSI/portable selection engine. That search is not proof none exists.
+See [actual runtime record](evidence/k-select-runtime-block.json).

@@ -1,0 +1,22 @@
+{
+  "version": "13.3.54",
+  "installer_sha256": "386b3a71d41731c3d2c93dd17de50c0cc847ccf1620d6f1b2ee88f362350d8d4",
+  "user_authorized_install_and_trial": true,
+  "installer_authenticode": "Valid",
+  "attempted_launch": true,
+  "installer_window_available": false,
+  "code_integrity_block_observed": true,
+  "event_ids": [
+    3033,
+    3077,
+    3089
+  ],
+  "blocked_component_scope": "Installer-extracted temporary module",
+  "raw_event_record_sha256": "332a535e5540aa8b1dfcc44755214adafcad14a3e137c95b8fed7484e18dd3d1",
+  "installed": false,
+  "selection_executed": false,
+  "ADPI_verified": false,
+  "security_policy_changed": false,
+  "design_accepted": false,
+  "remaining_action": "Obtain a publisher/IT-supported signed package or approved execution environment; do not bypass application control"
+}

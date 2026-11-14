@@ -1,5 +1,11 @@
 # Whole-agent status
 
+Authorized K-Select13.3.54 GUI launch now records an actual Application Control
+block on an installer-extracted temporary module (3033/3077), despite the valid
+outer installer signature. No installer window, installation or selection result
+was obtained. Policy is unchanged; approved runtime/package remains necessary.
+See [actual runtime evidence](evidence/k-select-runtime-block.json).
+
 Mixed-neck checks now retain rejection of all eight sampled manufacturer layouts.
 A separate analytic necessary envelope for regular square interior grids gives
 about 39.4–39.8 W/m² at the inherited 12 K assumptions; independent dense/source-
