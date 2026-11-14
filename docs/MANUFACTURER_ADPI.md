@@ -59,8 +59,26 @@ failure records, not unique failed diffusers. The finite negative result is not
 a proof that all physical designs are infeasible.
 
 No candidate is selected and no new native layout is issued from rejected trials.
+Additional mixed-neck reconstruction finds zero terminals in each sampled layout
+that pass all declared conditions with any of the six necks, so mixing necks does
+not repair these particular layouts.
+
+An independent necessary-bound study considers only a regular square interior
+grid, spacing=2L and area=4L². Using the greatest represented paired-curve ratio
+1.186815 and both catalogue operating-flow bounds, it maximizes q/(4L²) over each
+original piecewise-linear throw segment. Endpoints, published knots and interior
+stationary points are considered; no airflow extrapolation occurs. The resulting
+optimistic bounds are 2.722–2.750 L/s/m², or about 39.4–39.8 W/m² at the inherited
+12 K, air density and specific heat. Lower ratio and minimum-load curve checks
+are omitted, so this necessary bound is not a sufficient design. It is not a
+bound for arbitrary irregular layouts or actual room loads. It highlights the
+conflict with the preliminary 170.1 W/m² basis under this regular-grid diagnostic.
+An independent 60,044-point scan including original table knots reconciles every
+analytic maximum. The initial uniform-only scan missed a knot maximum; source
+values and comparison tolerances were retained, with knots added to the scan.
+
 The course plan, source allocation, original DWG/report and recent connection
-layout remain byte-preserved. Five focused controls pass. Independent verification
+layout remain byte-preserved. Seven focused controls pass. Independent verification
 reopens the exact source PDF through the pinned helper/runtime, reconstructs the
 grid allocation, curve comparisons and CSV, and rejects mismatched saved output.
 This replay does not establish actual room-load, ceiling, installation, acoustics

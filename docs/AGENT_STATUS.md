@@ -1,5 +1,12 @@
 # Whole-agent status
 
+Mixed-neck checks now retain rejection of all eight sampled manufacturer layouts.
+A separate analytic necessary envelope for regular square interior grids gives
+about 39.4–39.8 W/m² at the inherited 12 K assumptions; independent dense/source-
+knot checks agree. This is not an arbitrary-layout or actual-load bound. Seven
+controls pass; K-Select native trial still awaits explicit Windows confirmation.
+See [manufacturer comparison](MANUFACTURER_ADPI.md).
+
 Separate manufacturer ADPI comparison now replays 365 native source points and
 six neck tables. Eight sampled layouts/48 neck pairs produce no whole-layout
 candidate under the explicit paired-curve diagnostic. Source extraction and

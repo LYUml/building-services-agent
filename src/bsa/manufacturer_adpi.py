@@ -118,6 +118,51 @@ def evaluate(allocation,directions,tables,curves):
     return attempts
 
 
+def square_grid_envelope(tables,curves,turndown,density,specific_heat,temperature_difference):
+    """Optimistic necessary bound for a regular square interior grid only."""
+    if type(turndown) not in (int,float) or not 0<turndown<=1:raise ValueError('Positive turndown required')
+    for value in (density,specific_heat,temperature_difference):
+        if type(value) not in (int,float) or not math.isfinite(value) or value<=0:raise ValueError('Positive finite inherited air/temperature values required')
+    limits=[]
+    level=80+curves['stroke_width_ADPI_points']
+    for load in (40,60):
+        supported=[]
+        for fragment in curves['fragments']:
+            if fragment['load_Btuh_ft2']!=load:continue
+            for a,b in zip(fragment['points'],fragment['points'][1:]):
+                if a[1]>=level:supported.append(a[0])
+                if b[1]>=level:supported.append(b[0])
+                if (a[1]-level)*(b[1]-level)<0:
+                    supported.append(a[0]+(b[0]-a[0])*(level-a[1])/(b[1]-a[1]))
+        if not supported:raise ValueError('Paired curve has no represented threshold support')
+        limits.append(max(supported)-curves['stroke_width_ratio'])
+    ratio_max=min(limits)
+    if ratio_max<=0:raise ValueError('Positive represented ratio bound required')
+    results=[]
+    for neck,rows in tables.items():
+        low=rows[0]['flow_L_s']/turndown;high=rows[-1]['flow_L_s']
+        if low>high:
+            results.append(dict(neck_inch=int(neck),status='no_simultaneous_catalogue_flow_domain'));continue
+        candidates=[low,high]
+        # Exact extrema of q/(a*q+b)^2 on each original piecewise-linear throw segment.
+        for a,b in zip(rows,rows[1:]):
+            qa,qb=a['flow_L_s'],b['flow_L_s'];slope=(b['T025_m']-a['T025_m'])/(qb-qa);intercept=a['T025_m']-slope*qa
+            candidates.extend(q for q in (qa,qb) if low<=q<=high)
+            if slope:
+                q=intercept/slope
+                if max(low,qa)<=q<=min(high,qb):candidates.append(q)
+        def at(q):
+            throw=interp(q,[r['flow_L_s'] for r in rows],[r['T025_m'] for r in rows])
+            length=throw/ratio_max;air_density=q/(4*length*length)
+            return dict(flow_L_s=q,minimum_required_L_m=length,airflow_density_L_s_m2=air_density,
+                conditional_sensible_W_m2=air_density/1000*density*specific_heat*temperature_difference)
+        best=max((at(q) for q in candidates),key=lambda v:v['airflow_density_L_s_m2'])
+        results.append(dict(neck_inch=int(neck),status='necessary_bound_only',**best))
+    return dict(maximum_paired_curve_ratio=ratio_max,neck_bounds=results,
+        scope='Optimistic necessary bound for regular square interior grid: spacing=2L, area=4L². Maximizes q/area across original catalogue segments with both operating flows in range. Ignores lower ratio limit and minimum-load curve test; not a sufficient design, arbitrary-layout bound or measured comfort prediction.',
+        actual_room_load_verified=False,ADPI_verified=False,design_accepted=False)
+
+
 def run(plan,workflow,curves_dir,performance_pdf,policy,output,pdf2plot_python):
     plan,workflow,curves_dir,performance_pdf,policy,output=map(local,(plan,workflow,curves_dir,performance_pdf,policy,output))
     if output.exists() or any(output==p or output in p.parents or p.is_dir() and p in output.parents for p in (plan,workflow,curves_dir,performance_pdf,policy)):raise ValueError('Fresh separate project output required')
@@ -162,8 +207,19 @@ def run(plan,workflow,curves_dir,performance_pdf,policy,output,pdf2plot_python):
             terminals=points,diagnostic_lengths_m=directions,neck_attempts=attempts))
     if any(digest(Path(path))!=sha for path,sha in pins.items()):raise ValueError('Source changed during comparison')
     candidates=[dict(scenario=s['id'],neck=a['neck_inch']) for s in scenarios for a in s['neck_attempts'] if a['status']=='conditional_candidate']
+    for scenario in scenarios:
+        options={t['id']:[] for t in scenario['terminals']}
+        for attempt in scenario['neck_attempts']:
+            failed={f['terminal'] for f in attempt['failures']}
+            for terminal in set(options)-failed:options[terminal].append(attempt['neck_inch'])
+        scenario['mixed_neck_options']=options
+        scenario['mixed_neck_covered_terminals']=sum(bool(v) for v in options.values())
+        scenario['mixed_neck_whole_layout_candidate']=all(options.values())
+    air=p['load_inputs']
+    envelope=square_grid_envelope(tables,curves,p['turndown'],air['density']['value'],air['specific_heat']['value'],air['temperature_difference']['value'])
     result=dict(plan=str(plan),workflow=str(workflow),curves=str(curves_dir),performance_pdf=str(performance_pdf),policy=str(policy),pdf2plot_python=str(runtime),inputs=pins,versions={k:importlib.metadata.version(k) for k in ('ezdxf','shapely','fluids','pypdf')},scenarios=scenarios,
         scenario_count=len(scenarios),neck_comparisons=len(scenarios)*len(tables),conditional_candidates=candidates,status='conditional_candidates' if candidates else 'no_feasible_sampled_candidate',
+        regular_square_grid_necessary_envelope=envelope,
         load_assumptions=dict(maximum_sensible_W_m2=maximum_load,minimum_sensible_W_m2=minimum_load,W_m2_per_Btuh_ft2=W_M2_PER_BTUH_FT2,minimum_load_basis='Declared constant-temperature-difference scenario: inherited 40% flow corresponds to 40% sensible load; actual part-load room load unverified',maximum_source_curves_Btuh_ft2=[40,60],minimum_source_curves_Btuh_ft2=[20,40],interpolation_between_loads=False),
         scope=SCOPE,lengths_scope='Actual polygon wall-ray and exactly aligned opposing-midplane diagnostic proxies; physical wall/jet/ceiling applicability remains unknown',
         source_curve_margin_scope='Full source stroke-width margin in both axes; not source testing/measurement/installation uncertainty',

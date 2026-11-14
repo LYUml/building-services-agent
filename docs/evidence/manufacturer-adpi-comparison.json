@@ -88,7 +88,9 @@
           },
           "evaluated_curve_cases": 640
         }
-      ]
+      ],
+      "mixed_neck_covered_terminals": 0,
+      "mixed_neck_whole_layout_candidate": false
     },
     {
       "id": "grid-1",
@@ -160,7 +162,9 @@
           },
           "evaluated_curve_cases": 128
         }
-      ]
+      ],
+      "mixed_neck_covered_terminals": 0,
+      "mixed_neck_whole_layout_candidate": false
     },
     {
       "id": "grid-2",
@@ -231,7 +235,9 @@
           },
           "evaluated_curve_cases": 352
         }
-      ]
+      ],
+      "mixed_neck_covered_terminals": 0,
+      "mixed_neck_whole_layout_candidate": false
     },
     {
       "id": "grid-3",
@@ -299,7 +305,9 @@
           },
           "evaluated_curve_cases": 576
         }
-      ]
+      ],
+      "mixed_neck_covered_terminals": 0,
+      "mixed_neck_whole_layout_candidate": false
     },
     {
       "id": "grid-4",
@@ -369,7 +377,9 @@
           },
           "evaluated_curve_cases": 464
         }
-      ]
+      ],
+      "mixed_neck_covered_terminals": 0,
+      "mixed_neck_whole_layout_candidate": false
     },
     {
       "id": "grid-5",
@@ -438,7 +448,9 @@
           },
           "evaluated_curve_cases": 640
         }
-      ]
+      ],
+      "mixed_neck_covered_terminals": 0,
+      "mixed_neck_whole_layout_candidate": false
     },
     {
       "id": "grid-6",
@@ -508,7 +520,9 @@
           },
           "evaluated_curve_cases": 96
         }
-      ]
+      ],
+      "mixed_neck_covered_terminals": 0,
+      "mixed_neck_whole_layout_candidate": false
     },
     {
       "id": "grid-7",
@@ -580,7 +594,9 @@
           },
           "evaluated_curve_cases": 64
         }
-      ]
+      ],
+      "mixed_neck_covered_terminals": 0,
+      "mixed_neck_whole_layout_candidate": false
     }
   ],
   "source_curves": {
@@ -628,9 +644,9 @@
     "pypdf": "7.0.0"
   },
   "tests": {
-    "passed": 5,
+    "passed": 7,
     "skipped": 0,
-    "receipt_sha256": "db38201a8e8575dc1663660c323cecbf91d9a38a2b2f1967d4666449a7eb3f27"
+    "receipt_sha256": "039505906d0c93ff3690c2f577f966203ba345e00f80d1f46f7172d1fde4d5b0"
   },
   "original_course_design_changed": false,
   "new_native_layout_authored": false,
@@ -659,5 +675,117 @@
     "executed": false,
     "selection_or_ADPI_result_obtained": false,
     "scope": "Official download and static package/signature review only; not verified selection integration"
+  },
+  "regular_square_grid_necessary_envelope": {
+    "maximum_paired_curve_ratio": 1.1868150137728133,
+    "neck_bounds": [
+      {
+        "neck_inch": 6,
+        "status": "necessary_bound_only",
+        "flow_L_s": 129.6666666666668,
+        "minimum_required_L_m": 3.4501896206118454,
+        "airflow_density_L_s_m2": 2.7232181103624646,
+        "conditional_sensible_W_m2": 39.44962683395481
+      },
+      {
+        "neck_inch": 8,
+        "status": "necessary_bound_only",
+        "flow_L_s": 82.5,
+        "minimum_required_L_m": 2.7384217104470614,
+        "airflow_density_L_s_m2": 2.7503837833282,
+        "conditional_sensible_W_m2": 39.84315963880563
+      },
+      {
+        "neck_inch": 10,
+        "status": "necessary_bound_only",
+        "flow_L_s": 412.0,
+        "minimum_required_L_m": 6.150916457311861,
+        "airflow_density_L_s_m2": 2.722435303479189,
+        "conditional_sensible_W_m2": 39.43828678032092
+      },
+      {
+        "neck_inch": 12,
+        "status": "necessary_bound_only",
+        "flow_L_s": 217.88888888888917,
+        "minimum_required_L_m": 4.465733866267518,
+        "airflow_density_L_s_m2": 2.731425861945117,
+        "conditional_sensible_W_m2": 39.56852760648174
+      },
+      {
+        "neck_inch": 14,
+        "status": "necessary_bound_only",
+        "flow_L_s": 252.5,
+        "minimum_required_L_m": 4.807726803861809,
+        "airflow_density_L_s_m2": 2.7310008088876048,
+        "conditional_sensible_W_m2": 39.5623701178694
+      },
+      {
+        "neck_inch": 15,
+        "status": "necessary_bound_only",
+        "flow_L_s": 347.0,
+        "minimum_required_L_m": 5.645361679998557,
+        "airflow_density_L_s_m2": 2.721986340443569,
+        "conditional_sensible_W_m2": 39.43178292220172
+      }
+    ],
+    "scope": "Optimistic necessary bound for regular square interior grid: spacing=2L, area=4L\u00b2. Maximizes q/area across original catalogue segments with both operating flows in range. Ignores lower ratio limit and minimum-load curve test; not a sufficient design, arbitrary-layout bound or measured comfort prediction.",
+    "actual_room_load_verified": false,
+    "ADPI_verified": false,
+    "design_accepted": false
+  },
+  "independent_envelope_review": {
+    "dense_catalogue_checks": [
+      {
+        "neck_inch": 6,
+        "analytic_L_s_m2": 2.7232181103624646,
+        "dense_scan_L_s_m2": 2.723218109803112,
+        "samples": 10007
+      },
+      {
+        "neck_inch": 8,
+        "analytic_L_s_m2": 2.7503837833282,
+        "dense_scan_L_s_m2": 2.7503837833282,
+        "samples": 10008
+      },
+      {
+        "neck_inch": 10,
+        "analytic_L_s_m2": 2.722435303479189,
+        "dense_scan_L_s_m2": 2.722435303479189,
+        "samples": 10008
+      },
+      {
+        "neck_inch": 12,
+        "analytic_L_s_m2": 2.731425861945117,
+        "dense_scan_L_s_m2": 2.7314258604747126,
+        "samples": 10008
+      },
+      {
+        "neck_inch": 14,
+        "analytic_L_s_m2": 2.7310008088876048,
+        "dense_scan_L_s_m2": 2.7310008088876048,
+        "samples": 10006
+      },
+      {
+        "neck_inch": 15,
+        "analytic_L_s_m2": 2.721986340443569,
+        "dense_scan_L_s_m2": 2.721986340443569,
+        "samples": 10007
+      }
+    ],
+    "total_independent_samples": 60044,
+    "scan_basis": "Uniform 10001-point scan plus original published row flows to include derivative-discontinuous knot maxima. Initial uniform-only scan missed the 15-inch peak at q347 L/s by 4.35e-6 relative; source and acceptance tolerance unchanged.",
+    "all_checks_pass": true,
+    "mixed_neck_covered_by_scenario": {
+      "original-80": 0,
+      "grid-1": 0,
+      "grid-2": 0,
+      "grid-3": 0,
+      "grid-4": 0,
+      "grid-5": 0,
+      "grid-6": 0,
+      "grid-7": 0
+    },
+    "ADPI_verified": false,
+    "design_accepted": false
   }
 }

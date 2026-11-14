@@ -1,6 +1,6 @@
 import unittest
 from shapely.geometry import Polygon,box,Point
-from bsa.manufacturer_adpi import curve_value,screen,lengths,grid,evaluate
+from bsa.manufacturer_adpi import curve_value,screen,lengths,grid,evaluate,square_grid_envelope
 
 
 class ManufacturerComparisonTests(unittest.TestCase):
@@ -41,6 +41,22 @@ class ManufacturerComparisonTests(unittest.TestCase):
         result=evaluate(allocation,directions,{'8':[row(50),row(150)]},self.curves)[0]
         self.assertEqual(result['status'],'rejected')
         self.assertEqual(result['failure_reason_counts'],dict(outside_original_performance_table=1))
+
+    def test_square_grid_envelope_uses_interior_stationary_point(self):
+        rows=[dict(flow_L_s=10,T025_m=3),dict(flow_L_s=100,T025_m=12)]
+        curves=dict(fragments=[dict(load_Btuh_ft2=k,points=[[.5,90],[1.5,90]]) for k in (40,60)],stroke_width_ratio=0,stroke_width_ADPI_points=0)
+        result=square_grid_envelope({'8':rows},curves,1,1.2,1006,12)
+        best=result['neck_bounds'][0]
+        self.assertEqual(best['flow_L_s'],20)
+        # T=.1q+2, interior extremum at q=20, L=T/1.5, A=4L².
+        self.assertAlmostEqual(best['airflow_density_L_s_m2'],20/(4*(4/1.5)**2),places=12)
+        self.assertAlmostEqual(best['conditional_sensible_W_m2'],best['airflow_density_L_s_m2']*.001*1.2*1006*12,places=12)
+        self.assertFalse(result['ADPI_verified'])
+
+    def test_square_grid_envelope_rejects_bad_air_and_retains_empty_flow_domain(self):
+        rows=[dict(flow_L_s=50,T025_m=2),dict(flow_L_s=100,T025_m=3)]
+        self.assertEqual(square_grid_envelope({'8':rows},self.curves,.4,1.2,1006,12)['neck_bounds'][0]['status'],'no_simultaneous_catalogue_flow_domain')
+        with self.assertRaises(ValueError):square_grid_envelope({'8':rows},self.curves,.4,True,1006,12)
 
 
 if __name__=='__main__':unittest.main()
