@@ -1,0 +1,15 @@
+{
+  "source_url": "https://www.krueger-hvac.com/public/software/k-select",
+  "download_url": "https://www.krueger-hvac.com/files/software/K-Select_Setup.exe",
+  "version": "13.3.54",
+  "size_bytes": 195687088,
+  "sha256": "386b3a71d41731c3d2c93dd17de50c0cc847ccf1620d6f1b2ee88f362350d8d4",
+  "authenticode_status": "Valid",
+  "observed_signer": "Revalize, Inc.",
+  "package": "Windows GUI bootstrapper; embedded Wise installer signature observed",
+  "archive_inspection": "7-Zip extracted PE resource section; resource is not a directly readable archive; no installer code executed",
+  "installed": false,
+  "executed": false,
+  "selection_or_ADPI_result_obtained": false,
+  "scope": "Official download and static package/signature review only; not verified selection integration"
+}

@@ -1,5 +1,12 @@
 # Whole-agent status
 
+Separate manufacturer ADPI comparison now replays 365 native source points and
+six neck tables. Eight sampled layouts/48 neck pairs produce no whole-layout
+candidate under the explicit paired-curve diagnostic. Source extraction and
+independent numerical replay pass; course designs remain unchanged. Official
+K-Select is downloaded/signature-checked but not installed or executed.
+See [manufacturer comparison](MANUFACTURER_ADPI.md).
+
 Actual source-bound layout revision now recentres ten VAV groups and compensates
 three duct sections using the inherited size grid. Planar flex shortens 0.951 m,
 rigid centreline 1.188 m; all twenty untrimmed straight-friction path estimates

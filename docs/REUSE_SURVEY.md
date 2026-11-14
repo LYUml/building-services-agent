@@ -1,5 +1,13 @@
 # Reuse survey â€” 2026-11-09
 
+Manufacturer ADPI comparison reuses pinned MIT pdf2plot linear calibration,
+existing native LINE splitting in the isolated PyMuPDF1.26.7 runtime, source
+polygon/service allocation and fluids terminal interpolation. No comfort solver
+is invented. Actual365points/54performance rows and48sampled neck/layout pairs
+replay; no whole-layout pair passes the declared diagnostic. K-Select13.3.54
+was then sourced from the official site, hash/signature verified and statically
+inspected; no install/run or integration is claimed. See MANUFACTURER_ADPI.md.
+
 Actual VAV placement revision reuses Shapely 2.2.0 rectangle centroids and existing
 source-native topology checks, fluids 1.3.1 finite candidate sizing and the pinned
 MIT U-C4N AutoCAD backend. The gap is source-preserving relocation and preventing

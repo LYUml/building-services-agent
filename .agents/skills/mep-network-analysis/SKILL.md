@@ -5,6 +5,12 @@ description: Calculate source-linked air/water networks, fan/pump operating poin
 
 # Network pressure analysis
 
+For an explicitly separate manufacturer ADPI study, use docs/MANUFACTURER_ADPI.md.
+Preserve the classroom basis and original designs; source-native chart extraction
+and bounded grid/neck comparisons cannot prove measured ADPI or global infeasibility.
+Do not interpolate between load curves or manufacture a native layout when the
+sampled family has no feasible candidate. K-Select static inspection is not execution.
+
 For a verified four-corner VAV single-line layout, bsa.vav_recenter run/verify
 per docs/VAV_RECENTER.md can relocate groups/taps without moving terminals or
 adding bends, then restrict lengthened-section friction through the inherited

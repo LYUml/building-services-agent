@@ -1,0 +1,663 @@
+{
+  "scope": "Paired published-load curve diagnostic at fixed inherited thermal/airflow assumptions; not interpolation to actual room load, measured ADPI, installed layout or engineering acceptance",
+  "status": "no_feasible_sampled_candidate",
+  "scenario_count": 8,
+  "neck_comparisons": 48,
+  "evaluated_curve_cases": 31832,
+  "conditional_candidate_count": 0,
+  "load_assumptions": {
+    "maximum_sensible_W_m2": 170.10000000000002,
+    "minimum_sensible_W_m2": 68.04,
+    "W_m2_per_Btuh_ft2": 3.1545907450630484,
+    "minimum_load_basis": "Declared constant-temperature-difference scenario: inherited 40% flow corresponds to 40% sensible load; actual part-load room load unverified",
+    "maximum_source_curves_Btuh_ft2": [
+      40,
+      60
+    ],
+    "minimum_source_curves_Btuh_ft2": [
+      20,
+      40
+    ],
+    "interpolation_between_loads": false
+  },
+  "scenarios": [
+    {
+      "id": "original-80",
+      "terminal_count": 80,
+      "neck_attempts": [
+        {
+          "neck_inch": 6,
+          "status": "rejected",
+          "failure_count": 960,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 687,
+            "below_paired_curve_threshold": 273
+          },
+          "evaluated_curve_cases": 1280
+        },
+        {
+          "neck_inch": 8,
+          "status": "rejected",
+          "failure_count": 839,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 656,
+            "below_paired_curve_threshold": 183
+          },
+          "evaluated_curve_cases": 1280
+        },
+        {
+          "neck_inch": 10,
+          "status": "rejected",
+          "failure_count": 677,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 640,
+            "outside_original_performance_table": 2,
+            "below_paired_curve_threshold": 35
+          },
+          "evaluated_curve_cases": 1264
+        },
+        {
+          "neck_inch": 12,
+          "status": "rejected",
+          "failure_count": 717,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 640,
+            "outside_original_performance_table": 77
+          },
+          "evaluated_curve_cases": 664
+        },
+        {
+          "neck_inch": 14,
+          "status": "rejected",
+          "failure_count": 720,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 626,
+            "outside_original_performance_table": 80,
+            "below_paired_curve_threshold": 14
+          },
+          "evaluated_curve_cases": 640
+        },
+        {
+          "neck_inch": 15,
+          "status": "rejected",
+          "failure_count": 720,
+          "failure_reason_counts": {
+            "below_paired_curve_threshold": 47,
+            "outside_published_curve_or_fragment_domain": 593,
+            "outside_original_performance_table": 80
+          },
+          "evaluated_curve_cases": 640
+        }
+      ]
+    },
+    {
+      "id": "grid-1",
+      "terminal_count": 12,
+      "neck_attempts": [
+        {
+          "neck_inch": 6,
+          "status": "rejected",
+          "failure_count": 33,
+          "failure_reason_counts": {
+            "outside_original_performance_table": 22,
+            "outside_published_curve_or_fragment_domain": 8,
+            "below_paired_curve_threshold": 3
+          },
+          "evaluated_curve_cases": 16
+        },
+        {
+          "neck_inch": 8,
+          "status": "rejected",
+          "failure_count": 43,
+          "failure_reason_counts": {
+            "outside_original_performance_table": 20,
+            "below_paired_curve_threshold": 7,
+            "outside_published_curve_or_fragment_domain": 16
+          },
+          "evaluated_curve_cases": 32
+        },
+        {
+          "neck_inch": 10,
+          "status": "rejected",
+          "failure_count": 55,
+          "failure_reason_counts": {
+            "outside_original_performance_table": 18,
+            "below_paired_curve_threshold": 9,
+            "outside_published_curve_or_fragment_domain": 28
+          },
+          "evaluated_curve_cases": 48
+        },
+        {
+          "neck_inch": 12,
+          "status": "rejected",
+          "failure_count": 69,
+          "failure_reason_counts": {
+            "outside_original_performance_table": 14,
+            "outside_published_curve_or_fragment_domain": 39,
+            "below_paired_curve_threshold": 16
+          },
+          "evaluated_curve_cases": 80
+        },
+        {
+          "neck_inch": 14,
+          "status": "rejected",
+          "failure_count": 84,
+          "failure_reason_counts": {
+            "outside_original_performance_table": 9,
+            "below_paired_curve_threshold": 35,
+            "outside_published_curve_or_fragment_domain": 40
+          },
+          "evaluated_curve_cases": 120
+        },
+        {
+          "neck_inch": 15,
+          "status": "rejected",
+          "failure_count": 87,
+          "failure_reason_counts": {
+            "outside_original_performance_table": 8,
+            "below_paired_curve_threshold": 31,
+            "outside_published_curve_or_fragment_domain": 48
+          },
+          "evaluated_curve_cases": 128
+        }
+      ]
+    },
+    {
+      "id": "grid-2",
+      "terminal_count": 22,
+      "neck_attempts": [
+        {
+          "neck_inch": 6,
+          "status": "rejected",
+          "failure_count": 59,
+          "failure_reason_counts": {
+            "outside_original_performance_table": 40,
+            "outside_published_curve_or_fragment_domain": 16,
+            "below_paired_curve_threshold": 3
+          },
+          "evaluated_curve_cases": 32
+        },
+        {
+          "neck_inch": 8,
+          "status": "rejected",
+          "failure_count": 126,
+          "failure_reason_counts": {
+            "outside_original_performance_table": 22,
+            "outside_published_curve_or_fragment_domain": 34,
+            "below_paired_curve_threshold": 70
+          },
+          "evaluated_curve_cases": 176
+        },
+        {
+          "neck_inch": 10,
+          "status": "rejected",
+          "failure_count": 152,
+          "failure_reason_counts": {
+            "outside_original_performance_table": 18,
+            "outside_published_curve_or_fragment_domain": 62,
+            "below_paired_curve_threshold": 72
+          },
+          "evaluated_curve_cases": 208
+        },
+        {
+          "neck_inch": 12,
+          "status": "rejected",
+          "failure_count": 147,
+          "failure_reason_counts": {
+            "outside_original_performance_table": 18,
+            "outside_published_curve_or_fragment_domain": 61,
+            "below_paired_curve_threshold": 68
+          },
+          "evaluated_curve_cases": 208
+        },
+        {
+          "neck_inch": 14,
+          "status": "rejected",
+          "failure_count": 198,
+          "failure_reason_counts": {
+            "outside_original_performance_table": 9,
+            "outside_published_curve_or_fragment_domain": 118,
+            "below_paired_curve_threshold": 71
+          },
+          "evaluated_curve_cases": 280
+        },
+        {
+          "neck_inch": 15,
+          "status": "rejected",
+          "failure_count": 257,
+          "failure_reason_counts": {
+            "below_paired_curve_threshold": 73,
+            "outside_published_curve_or_fragment_domain": 184
+          },
+          "evaluated_curve_cases": 352
+        }
+      ]
+    },
+    {
+      "id": "grid-3",
+      "terminal_count": 36,
+      "neck_attempts": [
+        {
+          "neck_inch": 6,
+          "status": "rejected",
+          "failure_count": 194,
+          "failure_reason_counts": {
+            "outside_original_performance_table": 36,
+            "outside_published_curve_or_fragment_domain": 50,
+            "below_paired_curve_threshold": 108
+          },
+          "evaluated_curve_cases": 288
+        },
+        {
+          "neck_inch": 8,
+          "status": "rejected",
+          "failure_count": 241,
+          "failure_reason_counts": {
+            "outside_original_performance_table": 34,
+            "outside_published_curve_or_fragment_domain": 72,
+            "below_paired_curve_threshold": 135
+          },
+          "evaluated_curve_cases": 304
+        },
+        {
+          "neck_inch": 10,
+          "status": "rejected",
+          "failure_count": 409,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 266,
+            "below_paired_curve_threshold": 143
+          },
+          "evaluated_curve_cases": 576
+        },
+        {
+          "neck_inch": 12,
+          "status": "rejected",
+          "failure_count": 361,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 258,
+            "below_paired_curve_threshold": 103
+          },
+          "evaluated_curve_cases": 576
+        },
+        {
+          "neck_inch": 14,
+          "status": "rejected",
+          "failure_count": 312,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 263,
+            "below_paired_curve_threshold": 49
+          },
+          "evaluated_curve_cases": 576
+        },
+        {
+          "neck_inch": 15,
+          "status": "rejected",
+          "failure_count": 302,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 270,
+            "below_paired_curve_threshold": 32
+          },
+          "evaluated_curve_cases": 576
+        }
+      ]
+    },
+    {
+      "id": "grid-4",
+      "terminal_count": 54,
+      "neck_attempts": [
+        {
+          "neck_inch": 6,
+          "status": "rejected",
+          "failure_count": 354,
+          "failure_reason_counts": {
+            "outside_original_performance_table": 43,
+            "outside_published_curve_or_fragment_domain": 137,
+            "below_paired_curve_threshold": 174
+          },
+          "evaluated_curve_cases": 520
+        },
+        {
+          "neck_inch": 8,
+          "status": "rejected",
+          "failure_count": 594,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 407,
+            "below_paired_curve_threshold": 183,
+            "outside_original_performance_table": 4
+          },
+          "evaluated_curve_cases": 832
+        },
+        {
+          "neck_inch": 10,
+          "status": "rejected",
+          "failure_count": 555,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 423,
+            "below_paired_curve_threshold": 132
+          },
+          "evaluated_curve_cases": 864
+        },
+        {
+          "neck_inch": 12,
+          "status": "rejected",
+          "failure_count": 471,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 428,
+            "below_paired_curve_threshold": 43
+          },
+          "evaluated_curve_cases": 864
+        },
+        {
+          "neck_inch": 14,
+          "status": "rejected",
+          "failure_count": 457,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 381,
+            "outside_original_performance_table": 50,
+            "below_paired_curve_threshold": 26
+          },
+          "evaluated_curve_cases": 464
+        },
+        {
+          "neck_inch": 15,
+          "status": "rejected",
+          "failure_count": 453,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 381,
+            "outside_original_performance_table": 50,
+            "below_paired_curve_threshold": 22
+          },
+          "evaluated_curve_cases": 464
+        }
+      ]
+    },
+    {
+      "id": "grid-5",
+      "terminal_count": 80,
+      "neck_attempts": [
+        {
+          "neck_inch": 6,
+          "status": "rejected",
+          "failure_count": 937,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 642,
+            "below_paired_curve_threshold": 295
+          },
+          "evaluated_curve_cases": 1280
+        },
+        {
+          "neck_inch": 8,
+          "status": "rejected",
+          "failure_count": 844,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 625,
+            "below_paired_curve_threshold": 219
+          },
+          "evaluated_curve_cases": 1280
+        },
+        {
+          "neck_inch": 10,
+          "status": "rejected",
+          "failure_count": 700,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 645,
+            "below_paired_curve_threshold": 55
+          },
+          "evaluated_curve_cases": 1280
+        },
+        {
+          "neck_inch": 12,
+          "status": "rejected",
+          "failure_count": 659,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 563,
+            "below_paired_curve_threshold": 19,
+            "outside_original_performance_table": 77
+          },
+          "evaluated_curve_cases": 664
+        },
+        {
+          "neck_inch": 14,
+          "status": "rejected",
+          "failure_count": 663,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 566,
+            "below_paired_curve_threshold": 17,
+            "outside_original_performance_table": 80
+          },
+          "evaluated_curve_cases": 640
+        },
+        {
+          "neck_inch": 15,
+          "status": "rejected",
+          "failure_count": 671,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 540,
+            "below_paired_curve_threshold": 51,
+            "outside_original_performance_table": 80
+          },
+          "evaluated_curve_cases": 640
+        }
+      ]
+    },
+    {
+      "id": "grid-6",
+      "terminal_count": 106,
+      "neck_attempts": [
+        {
+          "neck_inch": 6,
+          "status": "rejected",
+          "failure_count": 1275,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 888,
+            "below_paired_curve_threshold": 387
+          },
+          "evaluated_curve_cases": 1696
+        },
+        {
+          "neck_inch": 8,
+          "status": "rejected",
+          "failure_count": 938,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 859,
+            "below_paired_curve_threshold": 79
+          },
+          "evaluated_curve_cases": 1696
+        },
+        {
+          "neck_inch": 10,
+          "status": "rejected",
+          "failure_count": 933,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 805,
+            "below_paired_curve_threshold": 30,
+            "outside_original_performance_table": 98
+          },
+          "evaluated_curve_cases": 912
+        },
+        {
+          "neck_inch": 12,
+          "status": "rejected",
+          "failure_count": 915,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 797,
+            "below_paired_curve_threshold": 15,
+            "outside_original_performance_table": 103
+          },
+          "evaluated_curve_cases": 872
+        },
+        {
+          "neck_inch": 14,
+          "status": "rejected",
+          "failure_count": 892,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 617,
+            "below_paired_curve_threshold": 165,
+            "outside_original_performance_table": 110
+          },
+          "evaluated_curve_cases": 816
+        },
+        {
+          "neck_inch": 15,
+          "status": "rejected",
+          "failure_count": 294,
+          "failure_reason_counts": {
+            "outside_original_performance_table": 200,
+            "outside_published_curve_or_fragment_domain": 87,
+            "below_paired_curve_threshold": 7
+          },
+          "evaluated_curve_cases": 96
+        }
+      ]
+    },
+    {
+      "id": "grid-7",
+      "terminal_count": 136,
+      "neck_attempts": [
+        {
+          "neck_inch": 6,
+          "status": "rejected",
+          "failure_count": 1255,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 1055,
+            "outside_original_performance_table": 121,
+            "below_paired_curve_threshold": 79
+          },
+          "evaluated_curve_cases": 1208
+        },
+        {
+          "neck_inch": 8,
+          "status": "rejected",
+          "failure_count": 1141,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 1073,
+            "outside_original_performance_table": 18,
+            "below_paired_curve_threshold": 50
+          },
+          "evaluated_curve_cases": 2032
+        },
+        {
+          "neck_inch": 10,
+          "status": "rejected",
+          "failure_count": 1191,
+          "failure_reason_counts": {
+            "outside_published_curve_or_fragment_domain": 1045,
+            "outside_original_performance_table": 128,
+            "below_paired_curve_threshold": 18
+          },
+          "evaluated_curve_cases": 1152
+        },
+        {
+          "neck_inch": 12,
+          "status": "rejected",
+          "failure_count": 1142,
+          "failure_reason_counts": {
+            "outside_original_performance_table": 139,
+            "outside_published_curve_or_fragment_domain": 978,
+            "below_paired_curve_threshold": 25
+          },
+          "evaluated_curve_cases": 1064
+        },
+        {
+          "neck_inch": 14,
+          "status": "rejected",
+          "failure_count": 347,
+          "failure_reason_counts": {
+            "outside_original_performance_table": 261,
+            "outside_published_curve_or_fragment_domain": 85,
+            "below_paired_curve_threshold": 1
+          },
+          "evaluated_curve_cases": 88
+        },
+        {
+          "neck_inch": 15,
+          "status": "rejected",
+          "failure_count": 326,
+          "failure_reason_counts": {
+            "outside_original_performance_table": 264,
+            "outside_published_curve_or_fragment_domain": 57,
+            "below_paired_curve_threshold": 5
+          },
+          "evaluated_curve_cases": 64
+        }
+      ]
+    }
+  ],
+  "source_curves": {
+    "pdf_sha256": "f98aa9ded59150e157c83d5c5114faaa1a24c185928709ffe5d60c9b2f607988",
+    "printed_page": "a1-11",
+    "native_fragments": 5,
+    "native_points": 365,
+    "load_series_Btuh_ft2": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "upstream_commit": "99a8ee1d1e24a0859fea1cd06011280734ab82cb",
+    "upstream_license": "MIT",
+    "runtime_PyMuPDF": "1.26.7",
+    "runtime_license": "AGPL/commercial",
+    "original_fragments_preserved": true,
+    "no_load_interpolation": true
+  },
+  "performance_source": {
+    "pdf_sha256": "073c639219b28068a0c8190a926d493e42a12c0918db464ee8439c55a3994aef",
+    "printed_page": "B1-12",
+    "panel_mm": [
+      600,
+      600
+    ],
+    "damper": false,
+    "necks_inch": [
+      6,
+      8,
+      10,
+      12,
+      14,
+      15
+    ],
+    "rows": 54,
+    "original_eight_inch_nine_rows_reconciled": true
+  },
+  "source_replay_verification_pass": true,
+  "versions": {
+    "ezdxf": "1.4.5",
+    "shapely": "2.2.0",
+    "fluids": "1.3.1",
+    "pypdf": "7.0.0"
+  },
+  "tests": {
+    "passed": 5,
+    "skipped": 0,
+    "receipt_sha256": "db38201a8e8575dc1663660c323cecbf91d9a38a2b2f1967d4666449a7eb3f27"
+  },
+  "original_course_design_changed": false,
+  "new_native_layout_authored": false,
+  "reason_no_new_native_layout": "No sampled pair passed this conditional diagnostic; no rejected layout is promoted to design output",
+  "limitations": [
+    "Finite eight scenarios only, not global physical infeasibility",
+    "Paired source-curve threshold at 80 is a diagnostic design choice, not actual-load ADPI interpolation or proof",
+    "Uniform preliminary sensible load and 12 K difference remain assumptions; actual part-load load is unknown",
+    "Wall/aligned jet proxy lengths, ceiling/installation, room acoustics and actual measured ADPI remain unverified",
+    "Source stroke margins do not cover original testing/digitization/installation uncertainty",
+    "No course criterion, source plan, original drawing, airflow or review gate changed"
+  ],
+  "ADPI_verified": false,
+  "design_accepted": false,
+  "next_upstream_candidate": {
+    "source_url": "https://www.krueger-hvac.com/public/software/k-select",
+    "download_url": "https://www.krueger-hvac.com/files/software/K-Select_Setup.exe",
+    "version": "13.3.54",
+    "size_bytes": 195687088,
+    "sha256": "386b3a71d41731c3d2c93dd17de50c0cc847ccf1620d6f1b2ee88f362350d8d4",
+    "authenticode_status": "Valid",
+    "observed_signer": "Revalize, Inc.",
+    "package": "Windows GUI bootstrapper; embedded Wise installer signature observed",
+    "archive_inspection": "7-Zip extracted PE resource section; resource is not a directly readable archive; no installer code executed",
+    "installed": false,
+    "executed": false,
+    "selection_or_ADPI_result_obtained": false,
+    "scope": "Official download and static package/signature review only; not verified selection integration"
+  }
+}
