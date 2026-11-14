@@ -1888,3 +1888,6 @@ Diverging cross: PHVAC9printed47/48Fitting5-35 explicitly redirects to5-23. Exis
 
 
 Constant-height tee geometry: existing native unequal-tee profile/CSG,rectangular_transition,source-flow/pressureledger,SciPy,Manifold andAutoCAD engines execute9in-envelope tee/contraction replacements onactual145body network.65originalstraights andexternal endpoints preserved.54native queries independently match Decimal;16pinnedpython-hvacA11Abranchcells match official5-23,main differences not adopted. Equalheight algebra Ab/Ac=Wb/Wc avoids multiplication-rounding at a source boundary without clamping or padding. Both plan and9actualnative side-cuts execute and are visually reviewed. No new dependency/solver or generic MCP registration. See CONSTANT_HEIGHT_BRANCHES.md.
+
+
+Lasttwo sparsebranches: existing nativeCSG/unequalteeprofile/rectangular_transition,SciPy/ledger andAutoCAD adapters execute an opt-in440mmthroat,two45degreeoneplane construction inside originalreach. Actual149body network,16Decimalchecks and2assemblies/4nativeplan-sideviews execute.50mmcorestub is an internalcandidate target;actual118.913/53.021mm,not product approval. No newdependency/engine. See COMPACT_BRANCH_STAGES.md.

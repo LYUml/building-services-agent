@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+An opt-in440mmthroat/two45degree-stage candidate now has149bodies/317ports,
+90conditional values/13numerical gaps,with nativewholeplan and4detailviews.
+Original65straights/endpoints remain;fabrication/noise/interaction/fullpressure
+are unverified. See [compact branch stages](COMPACT_BRANCH_STAGES.md).
+
+Earlier145body constant-height scenario,preserved separately:
+
 Nine in-envelope constant-height tee branches now yield145bodies/309ports,
 84conditional fitting values/15numerical gaps. Original65straights/20equipment
 inlet datums are unchanged;native whole-network and9side-detail DWG/PDF execute.
