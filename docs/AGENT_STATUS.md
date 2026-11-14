@@ -1,5 +1,10 @@
 # Whole-agent status
 
+Existing native K-Select maximum export now has an independent source review:
+integer CFM and total-pressure display reconcile; same-page feet/metres throw
+labels conflict and one octave-band difference remains. Minimum native export
+and numerical ADPI remain pending. See [export audit](KSELECT_EXPORT_AUDIT.md).
+
 The 13 reduced-branch revisions now execute in a separate saved network:
 89 bodies/197 ports/88 interfaces, unchanged 20 outlets and 45 retained straights.
 Both maximum and given 40 percent minimum cases retain 30 conditional values

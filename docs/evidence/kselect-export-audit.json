@@ -1,0 +1,49 @@
+{
+  "terminal": "SD-01",
+  "model": "1400",
+  "neck_in": 8,
+  "module_in": [
+    24,
+    24
+  ],
+  "design_flow_L_s": 132.2079462708783,
+  "design_flow_CFM": 280.1327736293122,
+  "export_flow_CFM": 280,
+  "export_flow_L_s": 132.145284096,
+  "export_matches_integer_CFM_rounding": true,
+  "catalogue_total_pressure_Pa": 22.780657947492188,
+  "catalogue_static_pressure_Pa": 12.844739955249574,
+  "native_pressure_display_in_wc": 0.09,
+  "native_pressure_display_interval_Pa": [
+    21.17255735,
+    23.66344645
+  ],
+  "native_pressure_matches_catalogue_total_at_display_precision": true,
+  "native_pressure_matches_static": false,
+  "pressure_reference_interpretation": "Numerical correspondence to catalogue Pt; export field itself says only Pressure,w.c. Do not assert software documentation of its definition.",
+  "export_table_throw_value": 14,
+  "export_table_throw_unit": "ft",
+  "export_summary_throw_value": 14.0,
+  "export_summary_throw_unit": "m",
+  "throw_labels_consistent": false,
+  "summary_throw_metres_accepted": false,
+  "table_throw_converted_m": 4.2672,
+  "catalogue_interpolated_T025_m": 4.202520560859131,
+  "table_throw_matches_catalogue_at_published_display_precision": true,
+  "octave_band_difference_from_nearby_printed_point_dB": [
+    0,
+    0,
+    0,
+    1,
+    0,
+    0
+  ],
+  "acoustic_agreement_verified": false,
+  "minimum_native_export_available": false,
+  "ADPI_verified": false,
+  "fan_pressure_complete": false,
+  "design_accepted": false,
+  "original_sources_modified": false,
+  "source_pages_visually_inspected": true,
+  "independent_decimal_pressure_checks_match": true
+}
