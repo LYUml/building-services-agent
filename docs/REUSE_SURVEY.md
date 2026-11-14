@@ -1824,3 +1824,10 @@ Manifold raw-clash and GUID-linked native CAD engines. Actual89body/197port/
 solver/dependency and no contact waivers. Source family guards correctly drop
 two old values while three new transitions enter support, net31/32. See
 RECENTERED_NETWORK.md for scoped actual evidence.
+
+Actual VAV candidate gap: reuse pinned fluids1.3.1 interpolation with explicit
+range guards and pypdf source extraction; independent Decimal replay confirms
+supported queries. Official LMHS tables, not a new solver, supply capacity and
+static-pressure data. Existing K-Select MCP only supports GRD, so no unexecuted
+VAV integration is claimed.160candidate/condition cases retain rejections;
+static values do not enter total-pressure ledger. See VAV_MANUFACTURER_CANDIDATES.md.

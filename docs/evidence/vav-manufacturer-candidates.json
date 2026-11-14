@@ -1,0 +1,23 @@
+{
+  "groups": 20,
+  "evaluated_candidate_cases": 160,
+  "capacity_candidate_counts": {
+    "9": 2,
+    "10": 16,
+    "12": 2
+  },
+  "independent_Decimal_matches": true,
+  "source_pages_visually_reviewed": [
+    2,
+    5,
+    24
+  ],
+  "source_sha256": "ba747af8d424da4e59b0d4d93c888bd9b5df299d303c0824fa89f9305870d766",
+  "source_flow_sha256": "0894f45d8ea8a1e2ca7cc007c311875f2d2b48dd12e24eee39b8abf44d1b4069",
+  "pressure_type": "Minimum inlet-to-discharge static pressure difference, not total-pressure loss",
+  "interpolation": "Piecewise linear explicit design approximation; no extrapolation",
+  "report_sha256": "3a7456eae38cec23be6b982ec50ce01ab946375f5802791668fa9a3070ec5358",
+  "full_pressure_verified": false,
+  "product_selected": false,
+  "design_accepted": false
+}
