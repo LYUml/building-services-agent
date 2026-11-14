@@ -1,5 +1,12 @@
 # Whole-agent status
 
+Nine source-family contraction assemblies now yield158bodies/335ports,
+108conditional values/4numerical gaps,with nativewholeplan and9readable side-details.
+Remainingnumeric paths belong to one compound junction;interactions/friction/
+products and fullpressure remain unresolved. See [transition stages](SUPPORTED_TRANSITION_STAGES.md).
+
+Earlier149body compact-branch scenario,preserved separately:
+
 An opt-in440mmthroat/two45degree-stage candidate now has149bodies/317ports,
 90conditional values/13numerical gaps,with nativewholeplan and4detailviews.
 Original65straights/endpoints remain;fabrication/noise/interaction/fullpressure

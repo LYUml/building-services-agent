@@ -1891,3 +1891,6 @@ Constant-height tee geometry: existing native unequal-tee profile/CSG,rectangula
 
 
 Lasttwo sparsebranches: existing nativeCSG/unequalteeprofile/rectangular_transition,SciPy/ledger andAutoCAD adapters execute an opt-in440mmthroat,two45degreeoneplane construction inside originalreach. Actual149body network,16Decimalchecks and2assemblies/4nativeplan-sideviews execute.50mmcorestub is an internalcandidate target;actual118.913/53.021mm,not product approval. No newdependency/engine. See COMPACT_BRANCH_STAGES.md.
+
+
+Unequal-angle taper follow-up: existing pinned rectangular_transition nativeCSG author,strictoneplane/equalangle readers,SciPy/pressureledger/IfcOpenShell/Manifold/AutoCAD adapters execute9two-stageassemblies onactual158body network. Primary4-4area4row is visually/native-text checked before boundedlookup;36freshqueries Decimalmatch. Sixassemblies shorten,three lengthen;9straight adjustments preserve equipment datums. Sourcecontractions remain tentative/interaction unaccepted. No newengine/dependency or genericMCPregistration. See SUPPORTED_TRANSITION_STAGES.md.
