@@ -1,0 +1,7 @@
+# Four outlet equipment candidate
+
+A separate source-dimensioned LMHS J four-outlet attenuator candidate is appended to the current inlet network and casing envelopes. Twenty plenum envelopes and80outlet datums retain the original20groups and80terminal centres. Original209records are unchanged. Source: LMHS MiniCatalog printed A2-10/A2-11, J table row and4-outlet side/end diagrams. Catalogue SHA and explicit datum assumptions are retained in the calculation check.
+
+Each group checks all24outlet assignments, minimizing maximum planar distance then total. Maximum straight planar lower bound is3.457115m. This is not installed flex length or compliance. J outlets have9.875in bore; existing terminal collars require separate compatibility/adapters. Inlet sizes12/14 support J in the source table. The36in plenum and3.375in outlet projections are included in candidate datums. Slip-drive overlap, actual liner/opening dimensions and installed elevation remain unresolved.
+
+Native saved169physical-scope meshes (129network+20casings+20plenum envelopes) are positive closed solids; no intersections found under the existing20micrometre/1e-10m3 policy. Sixty nonphysical reservation proxies are excluded. New plenums are solid coordination envelopes, not fabricated walls or airflow topology. Existing129network pressure does not include them. No product selection, pressure, architecture clearance, installed route or final design acceptance follows. No new native DWG is asserted for this candidate.

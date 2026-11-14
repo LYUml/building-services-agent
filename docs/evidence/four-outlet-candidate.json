@@ -1,0 +1,32 @@
+{
+  "source_ifc_sha256": "25215de8ad232678c2874a44e410382e4ae0ec784a0a1f1b260811ae7285549f",
+  "catalogue_sha256": "ba747af8d424da4e59b0d4d93c888bd9b5df299d303c0824fa89f9305870d766",
+  "source_locator": "Printed A2-10/A2-11; visually reviewed 4-outlet side/end views and J table row",
+  "dimensions_in": {
+    "plenum_length": 36,
+    "outlet_collar_projection": 3.375,
+    "outlet_bore": 9.875,
+    "X": 6.375,
+    "Y": 14
+  },
+  "datum_assumptions": "Base discharge at inlet collar entrance+3.375+15.5in; plenum starts at base discharge, slip-drive overlap not inferred; outlet centre at casing midheight; z=0 inherited reference",
+  "candidate_count": 20,
+  "outlets": 80,
+  "terminal_count": 80,
+  "maximum_plan_lower_bound_m": 3.4571150028011766,
+  "original209records_unchanged": true,
+  "installed_length_verified": false,
+  "pressure_verified": false,
+  "design_accepted": false,
+  "intersection_review": {
+    "ifc_sha256": "45e71f1140e0acc5dd9221df4ae7400d46cf9e14ef1d2a0f0668c13db264435b",
+    "physical_scope_bodies": 169,
+    "excluded_nonphysical_reservations": 60,
+    "intersection_count": 0,
+    "unverified": [],
+    "boolean_candidates": 0,
+    "findings": [],
+    "design_accepted": false
+  },
+  "delivered_ifc_sha256": "45e71f1140e0acc5dd9221df4ae7400d46cf9e14ef1d2a0f0668c13db264435b"
+}
