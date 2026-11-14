@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+Twenty revised tapers now enter sourced correlation support. The current saved
+network has51conditional fitting values/32numerical gaps, with matching native
+DWG/PDF and candidate inlet coordinates. Full pressure remains incomplete.
+See [source-based inlet design](SOURCED_RECT_ROUND_TRANSITIONS.md).
+
+Earlier300mm inlet scenario, preserved separately:
+
 The saved inlet network now integrates129bodies/277ports/128links; all128material
 interfaces and both source-flow cases reconcile. Native whole-network DWG/PDF,
 updated candidate casing datums and fresh mixed-profile pressure execute.

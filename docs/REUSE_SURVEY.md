@@ -1864,3 +1864,6 @@ extend it without fake rectangle dimensions. Both flow cases re-query oldtables
 and trace the actualfullgraph:31conditional/52unknown,not a fullpressure pass.
 Updated20casing/inlet datums and inspected native129bodysection execute; no new
 solver/dependency/MCP producer. See INTEGRATED_INLET_NETWORK.md.
+
+
+Source-based rectangle-to-round study: see [executed design and reuse decision](SOURCED_RECT_ROUND_TRANSITIONS.md). Existing pinned geometry/interpolation engines execute; surveyed python-hvac Reynolds-only A9C is not adopted for the three-axis source table.
