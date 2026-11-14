@@ -1791,3 +1791,11 @@ stdio, with project-bound verify_result against existing112CFM native PDF.
 Seven request checks pass; original hash and actual rendered page inspected.
 No duplicate engine/MCP or bypass of blocked live dialog. Native/catalogue
 pressure mismatch and ADPI display-precision limits remain. See KSELECT_MCP_REUSE.md.
+
+
+Terminal pressure diagnostic reuses the user MCP/native112/280/300CFM PDFs,
+existing Krueger catalogue parser, pinned fluids1.3.1 linear comparison and
+Decimal interval intersection. Nine source rows calibrate; three native points
+are held out. No production engine/dependency/correlation replaces existing
+methods. See TERMINAL_PRESSURE_ENVELOPE.md for source-rounding-only limits
+and actual160case/960cell reconciliation.

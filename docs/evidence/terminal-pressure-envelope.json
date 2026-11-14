@@ -1,0 +1,28 @@
+{
+  "source_rows_reconciled": 9,
+  "native_held_out_points": 3,
+  "held_out_pressure_displays_match": true,
+  "fluids_version": "1.3.1",
+  "client_mcp_version": "1.30.0",
+  "external_toolkit_version": "0.1.1",
+  "operating_cases": 160,
+  "source_flow_bounds_CFM": [
+    70,
+    628
+  ],
+  "quadratic_coefficient_in_wc_per_CFM_squared": "0.000001168254008312836190828623684",
+  "coefficient_source_rounding_interval": [
+    "0.000001167643717797882267029088401",
+    "0.000001168864298827790114628158966"
+  ],
+  "maximum_linear_minus_diagnostic_Pa": 0.34842047917095,
+  "minimum_linear_minus_diagnostic_Pa": -0.05531472215021083,
+  "source_rounding_is_not_measurement_uncertainty": true,
+  "constant_quadratic_coefficient_is_explicit_diagnostic_assumption": true,
+  "source_definition_url": "https://www.krueger-hvac.com/file/9261/GRD_Engineering.pdf",
+  "production_pressure_method_replaced": false,
+  "native_software_rerun": false,
+  "pressure_budget_complete": false,
+  "ADPI_verified": false,
+  "design_accepted": false
+}
