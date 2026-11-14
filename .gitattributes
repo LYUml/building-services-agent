@@ -32,3 +32,4 @@ src/bsa/smooth_round_bend.py text eol=lf
 src/bsa/vav_operating_basis.py text eol=lf
 src/bsa/terminal_pressure_curve.py text eol=lf
 src/bsa/lined_plenum_geometry.py text eol=lf
+src/bsa/stepped_cuff_geometry.py text eol=lf

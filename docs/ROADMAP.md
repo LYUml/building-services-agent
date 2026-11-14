@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+Separate80joint custom-sleeve study now preserves allsourcegeometry/ports while
+adding160nonflowaccessories. Nominalradialcoverage/nativeairprobes/schema and
+actualreopenedDWG/PDFexecute;fasteners,cure,manufacturerapproval andpressure
+remainunverified. See [steppedjointcandidate](STEPPED_CUFF_JOINTS.md).
+
 Separate open-lined-plenum candidate replaces20solid envelopes with five-mouth
 material walls.20native meshes/100caps,airway probes and schema pass;nativeDWG
 with six actual sections is reopened and PDF viewed. Joint/product/pressure

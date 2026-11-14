@@ -5,6 +5,12 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For proposed stepped outside sleeves,see docs/STEPPED_CUFF_JOINTS.md. Keep
+nominal material coverage separate from tested sealing/cure/fastener approval.
+Source metal-mastic guidance is not approval of custom sleeve dimensions or
+UL181closure. Preserve unknown joint losses and original flow connections.
+
+
 For declared lined four-outlet chamber construction,see docs/OPEN_LINED_PLENUM.md.
 Use native CSG with explicit metal/liner/collar assumptions;remove old assigned
 representations through official APIs. Require saved material topology,connected

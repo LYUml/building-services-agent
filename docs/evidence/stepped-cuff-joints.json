@@ -1,0 +1,6660 @@
+{
+  "source_ifc_sha256": "0622d029f1c1560475845ac67ac1f1d143705ee2ebd4efdb58205e15311df533",
+  "ifc_sha256": "6abd91101fc5411ad017b362b86f7098080183db7a3f7de12cf1b1a2b88c05e8",
+  "method_sha256": "4ad3e97c8ba50c56a66505c540ef9f6db26dc212927a2ba9d9ea38d787860382",
+  "sealant_PDS_sha256": "fd9011c4b1c47891bc675371b94f6bfad3e4bc693b6be66ab4f9019118df87eb",
+  "elements": 824,
+  "unchanged_source_elements": 664,
+  "new_discrete_accessories": 160,
+  "new_joint_relationships": 80,
+  "distribution_elements": 604,
+  "ports": 1287,
+  "interfaces": 603,
+  "all664source_representations_placements_unchanged": true,
+  "all1287port_frames_directions_unchanged": true,
+  "shared_whole_product_shapes": 2,
+  "proper_rigid_instances_checked": 160,
+  "native_canonical_checks": [
+    {
+      "kind": "sleeve",
+      "canonical_product_guid": "2nqrwRMpvU_gmTJWr59IKC",
+      "native_connected_solids": 1,
+      "native_material_volume_m3": 8.148339136662083e-05,
+      "analytic_material_volume_m3": 8.148533286922105e-05
+    },
+    {
+      "kind": "bondlines",
+      "canonical_product_guid": "3vE1q45OHULwRsIf4zaoZ$",
+      "native_connected_solids": 2,
+      "native_material_volume_m3": 3.2429937014738564e-05,
+      "analytic_material_volume_m3": 3.243087459130769e-05
+    }
+  ],
+  "nominal_radial_sections_checked": 160,
+  "unrelated_positive_AABB_overlap_candidates": 0,
+  "related_contact_basis": "Exactsavedradialintervals,lapwithincollarprojections;notmeshclashwaiveroractualjointtest",
+  "omitted_bondline_control_gap_m": 0.0008,
+  "schema_express_errors": 0,
+  "records": [
+    {
+      "id": "VAV-01-J-1",
+      "plenum_guid": "0HYVMlmZXU$vltJ0td80AQ",
+      "reducer_guid": "2xjHm1KgzOmPzVMtyXl3Xb",
+      "sleeve_guid": "2nqrwRMpvU_gmTJWr59IKC",
+      "bondline_guid": "3vE1q45OHULwRsIf4zaoZ$",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          67.95700699999999
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          18.288684
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-01-J-2",
+      "plenum_guid": "0HYVMlmZXU$vltJ0td80AQ",
+      "reducer_guid": "3oNISlupnM4escXx3DsHbH",
+      "sleeve_guid": "1rq5DViQvVqefaraPrP81R",
+      "bondline_guid": "3uLMD$IBzH7Au3oJ4mPQ5j",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          68.534857
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          18.288684
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-01-J-3",
+      "plenum_guid": "0HYVMlmZXU$vltJ0td80AQ",
+      "reducer_guid": "0$htTyCevRqQK04zZicwwS",
+      "sleeve_guid": "3eFHQJgU9LXPNF159SDM_1",
+      "bondline_guid": "3P23OBivbIFO3yfWjXeP3Z",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          67.95700699999999
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          18.644284
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-01-J-4",
+      "plenum_guid": "0HYVMlmZXU$vltJ0td80AQ",
+      "reducer_guid": "0jRbV_G91SIhx00NkkC7Mz",
+      "sleeve_guid": "18V5y5iyrVogPELimdB2yp",
+      "bondline_guid": "0_kO96RizRb9IRLKkpTUT8",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          68.534857
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          18.644284
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-02-J-1",
+      "plenum_guid": "1hkqWVhDbU3u0fIMW4RWTm",
+      "reducer_guid": "0Dsp4vS5HP6vrx09wZJN5O",
+      "sleeve_guid": "3WvRUhRozQQ9eJqpCGRhEv",
+      "bondline_guid": "1PV4YyyPvQWQlI3xUqwBRm",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          75.346207
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          18.288684
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-02-J-2",
+      "plenum_guid": "1hkqWVhDbU3u0fIMW4RWTm",
+      "reducer_guid": "3u7vNKeETQQvft0ArkPgvP",
+      "sleeve_guid": "0PLaU9j8DPJA8zduLfjzc8",
+      "bondline_guid": "1XtiYHvXvOQedVXoS1ut99",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          76.02565700000001
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          18.288684
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-02-J-3",
+      "plenum_guid": "1hkqWVhDbU3u0fIMW4RWTm",
+      "reducer_guid": "1FCqJKV31SvRersnSCOUYM",
+      "sleeve_guid": "2BiWBQIeDQQ9GteKqyV$EV",
+      "bondline_guid": "1mgut93OzM1eUxJJ8J$pa4",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          75.346207
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          18.644284
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-02-J-4",
+      "plenum_guid": "1hkqWVhDbU3u0fIMW4RWTm",
+      "reducer_guid": "0e2AHWeWbSHumb2NxtKJtj",
+      "sleeve_guid": "0SXdzEJdvK$9Y3riPNCCY7",
+      "bondline_guid": "0R71FOAYbVRhNbGc6tzy$6",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          76.02565700000001
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          18.644284
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-03-J-1",
+      "plenum_guid": "2fapkhRhHNRvvYC2WcJnBt",
+      "reducer_guid": "2oT0lpERnS69YBwzNVJ_l3",
+      "sleeve_guid": "0EECiHwWjGmuQ5TsxiAa4F",
+      "bondline_guid": "2msvxCzkPS4OJMk7H$bBSD",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          82.78620699999999
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          18.11977764905389
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-03-J-2",
+      "plenum_guid": "2fapkhRhHNRvvYC2WcJnBt",
+      "reducer_guid": "16zrA8ykvSBQf1flckn6OV",
+      "sleeve_guid": "2eQg0JZlLK0QwJggAOr6s6",
+      "bondline_guid": "23vXEFpR1Pqfy1EgL3jYAK",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          83.465657
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          18.11977764905389
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-03-J-3",
+      "plenum_guid": "2fapkhRhHNRvvYC2WcJnBt",
+      "reducer_guid": "2LEPUMEVrMIPmi14ICSTen",
+      "sleeve_guid": "2oOMdF4W1Uu8KpzDfaOl0V",
+      "bondline_guid": "3cp4gHzkXULfCfwUGB62OX",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          82.78620699999999
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          18.47537764905389
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-03-J-4",
+      "plenum_guid": "2fapkhRhHNRvvYC2WcJnBt",
+      "reducer_guid": "1yo4vgekbSQuRi6qqT7U62",
+      "sleeve_guid": "2TK8Y1$CPRag6HuZCOfsy2",
+      "bondline_guid": "0mm1ksjPvK$xRcTe4wVELa",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          83.465657
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          18.47537764905389
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-04-J-1",
+      "plenum_guid": "3dqKnBn1HMsx0_mb7ndsYS",
+      "reducer_guid": "1px4WEaNTU3fR4rhmStyIS",
+      "sleeve_guid": "0voWKyS_fU3RT775CDisEe",
+      "bondline_guid": "3GsrDe5vnQZOU$RgkAjjiU",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          90.22620699999999
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          18.11977764905389
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-04-J-2",
+      "plenum_guid": "3dqKnBn1HMsx0_mb7ndsYS",
+      "reducer_guid": "3oznwqiADLHugiMOw$6$Ed",
+      "sleeve_guid": "1Uv1vkP65Tp907kawxfRZo",
+      "bondline_guid": "2ijA5OBnrJB9FHLI9ZOV5o",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          90.90565699999999
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          18.11977764905389
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-04-J-3",
+      "plenum_guid": "3dqKnBn1HMsx0_mb7ndsYS",
+      "reducer_guid": "208G_32n5UvwoVCwt9jP_Z",
+      "sleeve_guid": "2SRqG45qzNXBKwQjb3b2fV",
+      "bondline_guid": "3IpmR129nTshP3YY3N0sQZ",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          90.22620699999999
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          18.47537764905389
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-04-J-4",
+      "plenum_guid": "3dqKnBn1HMsx0_mb7ndsYS",
+      "reducer_guid": "0F0GG6UqzR_w6OSq3PsQzl",
+      "sleeve_guid": "1jqWBdE9rUoe69ptVuUTxT",
+      "bondline_guid": "3LhUFuD6HVEBFXn4h0oyvq",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          90.90565699999999
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          18.47537764905389
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-05-J-1",
+      "plenum_guid": "1aBepUMgHS68$RyF9MWJ$d",
+      "reducer_guid": "0haOSjoODTzREzpE8yCyxs",
+      "sleeve_guid": "3ujDKaV$9SzOy$cWbqORZy",
+      "bondline_guid": "2HZ6k$Sp5UKeSYsYFs$r3P",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          98.3587075
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          18.23807891924311
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-05-J-2",
+      "plenum_guid": "1aBepUMgHS68$RyF9MWJ$d",
+      "reducer_guid": "2FnOLJT1fNPRC$1b_SBZsm",
+      "sleeve_guid": "2mmVLou5DTbf5zL_DNL9ZR",
+      "bondline_guid": "1Z9hqNhqXKofHJjF30ygcX",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          99.0381575
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          18.23807891924311
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-05-J-3",
+      "plenum_guid": "1aBepUMgHS68$RyF9MWJ$d",
+      "reducer_guid": "0ugJ8o0PfSPupEvrwE_SEQ",
+      "sleeve_guid": "227NHs5SHOSuYz833k64CS",
+      "bondline_guid": "3l7TfgZgDSDhUpvvkE8tlC",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          98.3587075
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          18.59367891924311
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-05-J-4",
+      "plenum_guid": "1aBepUMgHS68$RyF9MWJ$d",
+      "reducer_guid": "3sb4tdbNXRavMClfb8N0$0",
+      "sleeve_guid": "3_t1s0MrnKRwDDpkVq$6wR",
+      "bondline_guid": "3n$fFHJ4zSFxxvzZZnCnGy",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          99.0381575
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          18.59367891924311
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-06-J-1",
+      "plenum_guid": "1EH7fSfDHVBABoNMHn0PvH",
+      "reducer_guid": "20w7MnUwbGPAMj3ynJOjhq",
+      "sleeve_guid": "3xJHte2_vJKBU5ITMHagzf",
+      "bondline_guid": "3j5mEZnxTSmObix6FdJyGU",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          105.3878405
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          18.288684
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-06-J-2",
+      "plenum_guid": "1EH7fSfDHVBABoNMHn0PvH",
+      "reducer_guid": "2QMS7DCorUfvhH7oJien$h",
+      "sleeve_guid": "2wA6QqEZjJlBk$wYt0jGX0",
+      "bondline_guid": "2KTHX6FYHLE9Pye7B6e2Cv",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          105.96569050000001
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          18.288684
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-06-J-3",
+      "plenum_guid": "1EH7fSfDHVBABoNMHn0PvH",
+      "reducer_guid": "0TjWURTFrR_9sRCCv4N1Rf",
+      "sleeve_guid": "0I5syU8EbUZOVj0vRm3sqn",
+      "bondline_guid": "2iWXgawifQBu3eiUKd0Vjg",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          105.3878405
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          18.644284
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-06-J-4",
+      "plenum_guid": "1EH7fSfDHVBABoNMHn0PvH",
+      "reducer_guid": "0yKFal0w9KHAQcRNHRN5Dn",
+      "sleeve_guid": "0RlQLYoP9QevUyJVP$qTcL",
+      "bondline_guid": "3ZmYw5wuHQOgcQxqIzxY3p",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          105.96569050000001
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          18.644284
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-07-J-1",
+      "plenum_guid": "3EVZ5qX8vPJve4yEkIRZLg",
+      "reducer_guid": "09n9jhDNbOXfmHFQSAaq_X",
+      "sleeve_guid": "3e_ykSwRbH5xWaz5XEM4XV",
+      "bondline_guid": "0amMrjveLT6AGZDkqrU7nc",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          67.906207
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          25.118684000000012
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-07-J-2",
+      "plenum_guid": "3EVZ5qX8vPJve4yEkIRZLg",
+      "reducer_guid": "0qFWc140rHh9oq76TB4nW0",
+      "sleeve_guid": "0yA$wkeYXVuxP500YUGqWV",
+      "bondline_guid": "1jGOsymRnSSRRhUsgdYiKe",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          68.585657
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          25.118684000000012
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-07-J-3",
+      "plenum_guid": "3EVZ5qX8vPJve4yEkIRZLg",
+      "reducer_guid": "28wrJXmd9GvO91NNyv1AhJ",
+      "sleeve_guid": "0_1M2Yl01TgPsUiX5JbSx8",
+      "bondline_guid": "109WcV5AzUUQN5hHTLj8oL",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          67.906207
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          25.47428400000001
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-07-J-4",
+      "plenum_guid": "3EVZ5qX8vPJve4yEkIRZLg",
+      "reducer_guid": "2sh3oVWUbTWv4TJJ0P5hCZ",
+      "sleeve_guid": "1ogp0mfDPT_gxtyEees9ff",
+      "bondline_guid": "253lF39qrTPPRFgTr$dQUP",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          68.585657
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          25.47428400000001
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-08-J-1",
+      "plenum_guid": "0EGzqXRvrS8eKo$Agw78eL",
+      "reducer_guid": "0Ut6LhXjPU98EF1HK74oxB",
+      "sleeve_guid": "2wm9342VfJQAYz3lnRthNW",
+      "bondline_guid": "2FthHOzP1S6xG$i24aWn6q",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          75.346207
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          25.118684000000012
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-08-J-2",
+      "plenum_guid": "0EGzqXRvrS8eKo$Agw78eL",
+      "reducer_guid": "3$v2lok6nVWuFm59fXvz68",
+      "sleeve_guid": "3$yP$mrFXKj9tkf4ivm5VS",
+      "bondline_guid": "3bWrTxkGDO_R134FsHaZNm",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          76.02565700000001
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          25.118684000000012
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-08-J-3",
+      "plenum_guid": "0EGzqXRvrS8eKo$Agw78eL",
+      "reducer_guid": "0yrU0KwNHNDx2nwHZo_Mun",
+      "sleeve_guid": "171Rn09kLKSv3uMAwgUwHg",
+      "bondline_guid": "1NWgoFLmHOJw$g8jy_WwWw",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          75.346207
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          25.47428400000001
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-08-J-4",
+      "plenum_guid": "0EGzqXRvrS8eKo$Agw78eL",
+      "reducer_guid": "3JU$2yelXNCvV0symJoKgn",
+      "sleeve_guid": "2L9NMP3R5TXPoUMun8Ki8O",
+      "bondline_guid": "2nIARjCYLGHRSu_BWDqkws",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          76.02565700000001
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          25.47428400000001
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-09-J-1",
+      "plenum_guid": "2hZDxAb_jLqeCeRYlk9ARC",
+      "reducer_guid": "3uUUhDm1fU79lqSYf_tY_E",
+      "sleeve_guid": "3LgGgcmCXUS8Do$CSSjt2I",
+      "bondline_guid": "1FQOi1CPnViwrdCzMiIAGp",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          82.78620699999999
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          25.068078919243124
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-09-J-2",
+      "plenum_guid": "2hZDxAb_jLqeCeRYlk9ARC",
+      "reducer_guid": "2gtGFIOwrSF9NajF41z$FW",
+      "sleeve_guid": "17KTuGldTVXhydb6_t1cv8",
+      "bondline_guid": "3enxlKIK1K9uHA_OKU9NjW",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          83.465657
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          25.068078919243124
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-09-J-3",
+      "plenum_guid": "2hZDxAb_jLqeCeRYlk9ARC",
+      "reducer_guid": "1KMj3VrG9HGP4uFW3m1gyC",
+      "sleeve_guid": "24QmSkDnfMAwUTQ$_E3k4Y",
+      "bondline_guid": "0seA9dJUfHE8l5s$WatQFG",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          82.78620699999999
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          25.423678919243123
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-09-J-4",
+      "plenum_guid": "2hZDxAb_jLqeCeRYlk9ARC",
+      "reducer_guid": "1Tn3Jl9abMe8fosRMujZm1",
+      "sleeve_guid": "29ZzMWBx1Ub8i5W893tQIA",
+      "bondline_guid": "323RpQU1PNchIVEb9EFkGz",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          83.465657
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          25.423678919243123
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-10-J-1",
+      "plenum_guid": "1yqrdj41bHcwzjjtxRNYKA",
+      "reducer_guid": "0vuBe5sA9I48IKCJZPAATh",
+      "sleeve_guid": "1cTuvfALjR$9b22MD9KQB4",
+      "bondline_guid": "124D50kn5Ih8XUQeaIiV0D",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          90.22620699999999
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          25.068078919243124
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-10-J-2",
+      "plenum_guid": "1yqrdj41bHcwzjjtxRNYKA",
+      "reducer_guid": "07JGZszOPPeA$C_44yqRA4",
+      "sleeve_guid": "1smnFHbHjLve6QTEJwgroH",
+      "bondline_guid": "091jiyH0TRph2r3EFE4XP8",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          90.90565699999999
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          25.068078919243124
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-10-J-3",
+      "plenum_guid": "1yqrdj41bHcwzjjtxRNYKA",
+      "reducer_guid": "1ypz_ORnbUQRQt2zSNP$JX",
+      "sleeve_guid": "3g0lZze_XTyP6EF_vLiHJc",
+      "bondline_guid": "3i2C5tYA5U5BvQuiQz7076",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          90.22620699999999
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          25.423678919243123
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-10-J-4",
+      "plenum_guid": "1yqrdj41bHcwzjjtxRNYKA",
+      "reducer_guid": "3S8mLqHvrVehvbM0C$Ka0G",
+      "sleeve_guid": "0WuxYp95vIYAZriiRNvgH9",
+      "bondline_guid": "3Cfw15BNbSAgpXldC7hPYD",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          90.90565699999999
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          25.423678919243123
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-11-J-1",
+      "plenum_guid": "2_xHPpyfXPvBkAVErrUML2",
+      "reducer_guid": "1cRECXV5jPqO4lo1eUpCC_",
+      "sleeve_guid": "0GLx13uR1GqQN2c5rMkn9C",
+      "bondline_guid": "2PKokB9lvUc9eNFGQtjlE3",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          98.3587075
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          25.118684000000012
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-11-J-2",
+      "plenum_guid": "2_xHPpyfXPvBkAVErrUML2",
+      "reducer_guid": "2DZnBWcvzJUQRWpHbdOD4W",
+      "sleeve_guid": "1MwFEpeu9VARALrDL4I_sH",
+      "bondline_guid": "2mhmWNC_PTIhbsZ6yP01of",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          99.0381575
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          25.118684000000012
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-11-J-3",
+      "plenum_guid": "2_xHPpyfXPvBkAVErrUML2",
+      "reducer_guid": "38Dqn9AcvIk968Y8TRoCVK",
+      "sleeve_guid": "21skDGIBLJJBk3lmgvSt18",
+      "bondline_guid": "3TyWGChObRhuakOYBlgtb_",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          98.3587075
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          25.47428400000001
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-11-J-4",
+      "plenum_guid": "2_xHPpyfXPvBkAVErrUML2",
+      "reducer_guid": "0oOT2fMZDNeuHz0UwUvOQD",
+      "sleeve_guid": "0jVLTlP2fJ_wecbohabi2z",
+      "bondline_guid": "0sA8A_BAXPlBX4UJRtATiU",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          99.0381575
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          25.47428400000001
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-12-J-1",
+      "plenum_guid": "3h8qMUGsTKkeuuRo57k0VL",
+      "reducer_guid": "2U5OUksRDKu8bZoCjzmQ5X",
+      "sleeve_guid": "0HIVCCc8fVfhsxw4iEpEno",
+      "bondline_guid": "3qSBaKo9zROR$Avs8qBNxr",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          105.3878405
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          25.118684000000012
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-12-J-2",
+      "plenum_guid": "3h8qMUGsTKkeuuRo57k0VL",
+      "reducer_guid": "3TW_Rwj0nIS9qutho2PZ6f",
+      "sleeve_guid": "1Uk3lv4KLPThIbg1Qpn7h5",
+      "bondline_guid": "1uSf40fb9IHhAqyHJZVKkm",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          105.96569050000001
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          25.118684000000012
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-12-J-3",
+      "plenum_guid": "3h8qMUGsTKkeuuRo57k0VL",
+      "reducer_guid": "3pSr_k885NrQRFdLyvM0ES",
+      "sleeve_guid": "0egFFa9NHNTRxBqelreat2",
+      "bondline_guid": "2Z32eICA1JmQ7jwVR_Gs9O",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          105.3878405
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          25.47428400000001
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-12-J-4",
+      "plenum_guid": "3h8qMUGsTKkeuuRo57k0VL",
+      "reducer_guid": "17xWv7xpDLO9T$Ac1x8xAE",
+      "sleeve_guid": "1HwsPL4rnPjOrJWakSQYR2",
+      "bondline_guid": "3u9jV6Bd5NuPp5GuYWqbMi",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          105.96569050000001
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          25.47428400000001
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-13-J-1",
+      "plenum_guid": "3Wds1Zma9QSPSQCQPonswa",
+      "reducer_guid": "3x5mLdJWXGrA4SV6kpUeu1",
+      "sleeve_guid": "22cappLpfUUhXs57r_4sGr",
+      "bondline_guid": "0q7FCfp8HLLO8xgcxKU6cF",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          67.95700699999999
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          32.26214200000002
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-13-J-2",
+      "plenum_guid": "3Wds1Zma9QSPSQCQPonswa",
+      "reducer_guid": "2ho42WRVTHk8xb3YzMGUJQ",
+      "sleeve_guid": "1IgyCkvRnKpOhg9d0jk7f$",
+      "bondline_guid": "0OKiVGbRfLxBNIOQ8w5H4q",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          68.534857
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          32.26214200000002
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-13-J-3",
+      "plenum_guid": "3Wds1Zma9QSPSQCQPonswa",
+      "reducer_guid": "3UJbtLVN5Q_RxyMtZOnqOV",
+      "sleeve_guid": "3b0pFfgHTGXgcdVJpcP$RH",
+      "bondline_guid": "1ThP0WMG1RYBAGC$aSYdT9",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          67.95700699999999
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          32.61774200000002
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-13-J-4",
+      "plenum_guid": "3Wds1Zma9QSPSQCQPonswa",
+      "reducer_guid": "2OhutttMrKe8A0IxrTbFX8",
+      "sleeve_guid": "0ZrWvd2yzU69W1XoSJzOk8",
+      "bondline_guid": "3nW8T03CTVs96Y3$iFOlfG",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          68.534857
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          32.61774200000002
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-14-J-1",
+      "plenum_guid": "1WzvdZ6m9OyxtY270uNFgu",
+      "reducer_guid": "1oCqj9601JVBm8PyDuvcFv",
+      "sleeve_guid": "1Ty3bQk6TIWQLxQYw6hDg7",
+      "bondline_guid": "2zPWlGsanV9eEZRE_jxTS9",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          75.39700699999999
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          32.26214200000002
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-14-J-2",
+      "plenum_guid": "1WzvdZ6m9OyxtY270uNFgu",
+      "reducer_guid": "0JKovyfdPMT8DW7XyoKwWN",
+      "sleeve_guid": "37xZWAPLfNF8pIB6ivw35f",
+      "bondline_guid": "1MDY56DNjMGxqG_DzpZ8Yl",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          75.974857
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          32.26214200000002
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-14-J-3",
+      "plenum_guid": "1WzvdZ6m9OyxtY270uNFgu",
+      "reducer_guid": "1fseIi_urMhhjK9GfWn67_",
+      "sleeve_guid": "32hmQQ16vI7Ql7bf3HcCeQ",
+      "bondline_guid": "27B_bDLabT2A2m5lgCzlRh",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          75.39700699999999
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          32.61774200000002
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-14-J-4",
+      "plenum_guid": "1WzvdZ6m9OyxtY270uNFgu",
+      "reducer_guid": "1enI0FVEjKbvoo0rFsLGtE",
+      "sleeve_guid": "359H_D$dbSBAusz_2qG_Q4",
+      "bondline_guid": "0jfHiXSSfVavH6tI_Kesrc",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          75.974857
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          32.61774200000002
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-15-J-1",
+      "plenum_guid": "1PItEEuo9SqBn$9PVWvHfj",
+      "reducer_guid": "0wOTES8t9I3953l2JsfpmU",
+      "sleeve_guid": "1p3oYP359OlQ1CCXmOWtDI",
+      "bondline_guid": "3EczkzljbN1wFflDDcUdDA",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          82.83700699999999
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          32.12627891924312
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-15-J-2",
+      "plenum_guid": "1PItEEuo9SqBn$9PVWvHfj",
+      "reducer_guid": "1bng7tkqXOPhfhplv5bfe9",
+      "sleeve_guid": "1P2Tu1AkrUvR7uolTlk_C7",
+      "bondline_guid": "2$HbB$kgjJ0vdXfQzRMGY4",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          83.414857
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          32.12627891924312
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-15-J-3",
+      "plenum_guid": "1PItEEuo9SqBn$9PVWvHfj",
+      "reducer_guid": "2ZvwDNtoPQFwzc1uds5rVl",
+      "sleeve_guid": "2viV9AeJLJvA2DKUsuqobI",
+      "bondline_guid": "14TqJ88gvJVwKLgSQREgQd",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          82.83700699999999
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          32.48187891924312
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-15-J-4",
+      "plenum_guid": "1PItEEuo9SqBn$9PVWvHfj",
+      "reducer_guid": "1xcL1epqTHYPOsWRw$rc3K",
+      "sleeve_guid": "3Z9D6hc1rMtAwc751Nq$9$",
+      "bondline_guid": "35KbG0xOHIPxLY3e3li4ly",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          83.414857
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          32.48187891924312
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-16-J-1",
+      "plenum_guid": "20QpI7eMjK_eO4Ze7RucoL",
+      "reducer_guid": "1fUYFsMULVc8cYT1ws2ZPk",
+      "sleeve_guid": "183Pns$i5VaONSRMJc93$H",
+      "bondline_guid": "10xfnf6JzI$BGezZndQ2dc",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          90.22620700000002
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          31.779777649053894
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-16-J-2",
+      "plenum_guid": "20QpI7eMjK_eO4Ze7RucoL",
+      "reducer_guid": "2b1f6jDwbTE8TtmCdXRgw3",
+      "sleeve_guid": "2fbK5zme9N1vGQCtbhUSnJ",
+      "bondline_guid": "34knFZIzzVHgP2Myjr5Jkv",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          90.90565700000002
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          31.779777649053894
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-16-J-3",
+      "plenum_guid": "20QpI7eMjK_eO4Ze7RucoL",
+      "reducer_guid": "068$YWTMDT6g0RuHwPa_yE",
+      "sleeve_guid": "0Cw$YJj8vHdBxAvf6sQDBH",
+      "bondline_guid": "1zrNdKJqrNyQqgx2bKUMOj",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          90.22620700000002
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          32.13537764905389
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-16-J-4",
+      "plenum_guid": "20QpI7eMjK_eO4Ze7RucoL",
+      "reducer_guid": "2wIWbkYmDLzut$soCFn6Yy",
+      "sleeve_guid": "0IWAvKTFLIWeuiCdCFWKWk",
+      "bondline_guid": "2jDBTB5hDUSxu7$olzwvrV",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          90.90565700000002
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          32.13537764905389
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-17-J-1",
+      "plenum_guid": "1Tep$V6hDIAPA6hkgdINcf",
+      "reducer_guid": "0o3weKnXzLXfEUdtgE71Z3",
+      "sleeve_guid": "0pLpuAshTVphLQguq$sWYC",
+      "bondline_guid": "1ecgax351UfOiKmr2cZtsG",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          98.3587075
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          31.898078919243115
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-17-J-2",
+      "plenum_guid": "1Tep$V6hDIAPA6hkgdINcf",
+      "reducer_guid": "3TcIsyPsvHsA1rM14PRoT$",
+      "sleeve_guid": "3i3vU8nlvNuA10xpiuMonp",
+      "bondline_guid": "1xZrSHOlXRieqP2dyvRfTk",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          99.0381575
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          31.898078919243115
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-17-J-3",
+      "plenum_guid": "1Tep$V6hDIAPA6hkgdINcf",
+      "reducer_guid": "0hq$GV2xfNRwb5hQylBR9I",
+      "sleeve_guid": "1y5pSVZ0jM3uF67tqLQhVQ",
+      "bondline_guid": "1bVDCsYlPSD93q_NNX4CjI",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          98.3587075
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          32.253678919243114
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-17-J-4",
+      "plenum_guid": "1Tep$V6hDIAPA6hkgdINcf",
+      "reducer_guid": "2pyep4OoLPZPzLEUYCssdY",
+      "sleeve_guid": "0TA00WzlDHpRPRWf0vtXiU",
+      "bondline_guid": "2XresZPE9PjPz8Le6eOqid",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          99.0381575
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          32.253678919243114
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-18-J-1",
+      "plenum_guid": "1DIELkv2vOPevrgKuqT_eh",
+      "reducer_guid": "17SBeq9wnUtfNZiFgE2hwA",
+      "sleeve_guid": "0D8DzKWB1P3xoE7b9BuALV",
+      "bondline_guid": "2i5KR084rGxeGl1PadAL4j",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          105.3878405
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          32.26214200000002
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-18-J-2",
+      "plenum_guid": "1DIELkv2vOPevrgKuqT_eh",
+      "reducer_guid": "0HYMumW8bJgw3qkjySW6gh",
+      "sleeve_guid": "2BWV5iOt1SG9nIgKci7WsU",
+      "bondline_guid": "2aMm2DtY5T2e_U2Hq4OWz2",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          105.96569050000001
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          32.26214200000002
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-18-J-3",
+      "plenum_guid": "1DIELkv2vOPevrgKuqT_eh",
+      "reducer_guid": "1agJB$terGHOKSAuU9A7U7",
+      "sleeve_guid": "1YLVqTbSPNqx1ejXJ1JdwT",
+      "bondline_guid": "1Rz9NhytHRk8bFTkTfJ525",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          105.3878405
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          32.61774200000002
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-18-J-4",
+      "plenum_guid": "1DIELkv2vOPevrgKuqT_eh",
+      "reducer_guid": "0qXHq9pKPUzvg$86W5qSOD",
+      "sleeve_guid": "3IRQf$m2jMAfY82NdOEQ9t",
+      "bondline_guid": "0rNYhOdUXJrA$6pdBWb3by",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          105.96569050000001
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          32.61774200000002
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-19-J-1",
+      "plenum_guid": "2xszVpI0HV1R3KAdkTSd6o",
+      "reducer_guid": "1bHpOOaKLQe9Y_RrglEMbi",
+      "sleeve_guid": "1X23giRX5JXRd9Qam8ZVKe",
+      "bondline_guid": "3Nr96qfrLKIfeYIbYTpU4p",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          99.0381575
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          42.392484
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-19-J-2",
+      "plenum_guid": "2xszVpI0HV1R3KAdkTSd6o",
+      "reducer_guid": "206XsNBVvTBh3QZgdKTDSm",
+      "sleeve_guid": "0PmVKjUsvRShZahnX3nbMf",
+      "bondline_guid": "1XE6qmAEbSfxzM4R5mmCRX",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          98.3587075
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          42.392484
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-19-J-3",
+      "plenum_guid": "2xszVpI0HV1R3KAdkTSd6o",
+      "reducer_guid": "3PteZvGCbGePRsooGxJnYs",
+      "sleeve_guid": "3W$a9btGPPxPL2ZtkwS6aw",
+      "bondline_guid": "1ZyCPveyLK3eciUN0byeCN",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          99.0381575
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          42.036884
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-19-J-4",
+      "plenum_guid": "2xszVpI0HV1R3KAdkTSd6o",
+      "reducer_guid": "0btPWnLKfON97cvgrLyHCr",
+      "sleeve_guid": "1IR_mO$jHQmPGrqRnfXwQk",
+      "bondline_guid": "18KUw3g1LMFuUAF7EsPhOR",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          98.3587075
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          42.036884
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-20-J-1",
+      "plenum_guid": "11$FT_d3zKJwN2GrkHlUh6",
+      "reducer_guid": "3cZD028f9JNPF4Df6Yb9z9",
+      "sleeve_guid": "37Hn_105vQNhvEd1A_qLlr",
+      "bondline_guid": "2U20KGczrO4QVxV1DlkhEV",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          106.0164905
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          42.392484
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-20-J-2",
+      "plenum_guid": "11$FT_d3zKJwN2GrkHlUh6",
+      "reducer_guid": "0FdH1D1unPu9o8HwbPcnkp",
+      "sleeve_guid": "28AxWHBo1OXOFW_wMyu47w",
+      "bondline_guid": "2YrRvv3MLTO9etgbO$0Cya",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          105.3370405
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          42.392484
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-20-J-3",
+      "plenum_guid": "11$FT_d3zKJwN2GrkHlUh6",
+      "reducer_guid": "2Th0_htdfKjOekvxIZsuDF",
+      "sleeve_guid": "39UDoyMufUKgefEXv4hrp4",
+      "bondline_guid": "2_UkX7K3vJpQLVRrRVxp9d",
+      "frame": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          106.0164905
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          42.036884
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    },
+    {
+      "id": "VAV-20-J-4",
+      "plenum_guid": "11$FT_d3zKJwN2GrkHlUh6",
+      "reducer_guid": "0NqDEtZxbMle3WxM45L9ep",
+      "sleeve_guid": "3DQ4S8_jDN0fUzuoTOWQiv",
+      "bondline_guid": "152OIcsEjVUAFlPvsFSguh",
+      "frame": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          105.3370405
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          42.036884
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "upstream_OD_m": 0.25082499999999996,
+      "upstream_ID_m": 0.24922499999999997,
+      "downstream_OD_m": 0.2556,
+      "downstream_ID_m": 0.254,
+      "half_length_m": 0.0254,
+      "bondline_m": 0.0008,
+      "min_wall_m": 0.0008,
+      "source_reducer_collar_m": 0.05,
+      "source_plenum_projection_m": 0.085725
+    }
+  ],
+  "nominal_radial_coverage": [
+    {
+      "joint": "VAV-01-J-1",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-01-J-1",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-01-J-2",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-01-J-2",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-01-J-3",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-01-J-3",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-01-J-4",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-01-J-4",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-02-J-1",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-02-J-1",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-02-J-2",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-02-J-2",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-02-J-3",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-02-J-3",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-02-J-4",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-02-J-4",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-03-J-1",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-03-J-1",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-03-J-2",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-03-J-2",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-03-J-3",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-03-J-3",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-03-J-4",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-03-J-4",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-04-J-1",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-04-J-1",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-04-J-2",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-04-J-2",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-04-J-3",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-04-J-3",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-04-J-4",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-04-J-4",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-05-J-1",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-05-J-1",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-05-J-2",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-05-J-2",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-05-J-3",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-05-J-3",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-05-J-4",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-05-J-4",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-06-J-1",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-06-J-1",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-06-J-2",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-06-J-2",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-06-J-3",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-06-J-3",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-06-J-4",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-06-J-4",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-07-J-1",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-07-J-1",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-07-J-2",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-07-J-2",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-07-J-3",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-07-J-3",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-07-J-4",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-07-J-4",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-08-J-1",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-08-J-1",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-08-J-2",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-08-J-2",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-08-J-3",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-08-J-3",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-08-J-4",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-08-J-4",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-09-J-1",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-09-J-1",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-09-J-2",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-09-J-2",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-09-J-3",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-09-J-3",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-09-J-4",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-09-J-4",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-10-J-1",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-10-J-1",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-10-J-2",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-10-J-2",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-10-J-3",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-10-J-3",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-10-J-4",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-10-J-4",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-11-J-1",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-11-J-1",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-11-J-2",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-11-J-2",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-11-J-3",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-11-J-3",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-11-J-4",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-11-J-4",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-12-J-1",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-12-J-1",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-12-J-2",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-12-J-2",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-12-J-3",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-12-J-3",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-12-J-4",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-12-J-4",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-13-J-1",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-13-J-1",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-13-J-2",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-13-J-2",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-13-J-3",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-13-J-3",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-13-J-4",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-13-J-4",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-14-J-1",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-14-J-1",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-14-J-2",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-14-J-2",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-14-J-3",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-14-J-3",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-14-J-4",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-14-J-4",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-15-J-1",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-15-J-1",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-15-J-2",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-15-J-2",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-15-J-3",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-15-J-3",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-15-J-4",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-15-J-4",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-16-J-1",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-16-J-1",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-16-J-2",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-16-J-2",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-16-J-3",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-16-J-3",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-16-J-4",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-16-J-4",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-17-J-1",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-17-J-1",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-17-J-2",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-17-J-2",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-17-J-3",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-17-J-3",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-17-J-4",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-17-J-4",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-18-J-1",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-18-J-1",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-18-J-2",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-18-J-2",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-18-J-3",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-18-J-3",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-18-J-4",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-18-J-4",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-19-J-1",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-19-J-1",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-19-J-2",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-19-J-2",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-19-J-3",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-19-J-3",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-19-J-4",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-19-J-4",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-20-J-1",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-20-J-1",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-20-J-2",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-20-J-2",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-20-J-3",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-20-J-3",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-20-J-4",
+      "side": "upstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.12461249999999999,
+          0.12541249999999998
+        ],
+        [
+          0.12541249999999998,
+          0.12621249999999998
+        ],
+        [
+          0.12621249999999998,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    },
+    {
+      "joint": "VAV-20-J-4",
+      "side": "downstream",
+      "nominal_radial_intervals_m": [
+        [
+          0.127,
+          0.1278
+        ],
+        [
+          0.1278,
+          0.1286
+        ],
+        [
+          0.1286,
+          0.1294
+        ]
+      ],
+      "radial_gap_m": 0.0,
+      "mechanical_seal_verified": false
+    }
+  ],
+  "physical_joint_acceptance": false,
+  "sealant_cure_geometry_verified": false,
+  "mechanical_fasteners_modelled": false,
+  "pressure_verified": false,
+  "design_accepted": false,
+  "scope": "Proposedcustomsteppedoutersleeveandtwobondlineproxies,notselectedmanufacturedconnectororverifiedairtightjoint.Onlynominalgeometryoccupancyandborepreservationarechecked.",
+  "deliverable_sha256": {
+    "03_Design_Drawings/Connection_Layout/Stepped_Joint_Candidate/Supply Air Stepped Joint Candidate.ifc": "6abd91101fc5411ad017b362b86f7098080183db7a3f7de12cf1b1a2b88c05e8",
+    "03_Design_Drawings/Connection_Layout/Stepped_Joint_Candidate/Stepped Sleeve Joint Detail.dwg": "2edf3925a1842de18dfb582520e259bd1bd6daf79af0275162f4ebadf057afce",
+    "03_Design_Drawings/Connection_Layout/Stepped_Joint_Candidate/Stepped Sleeve Joint Detail.pdf": "3740a5c1a9500e4c904deb58dc497c83c53f183b186b3a71bb8d94f78cdbcce8",
+    "05_Calculations/Connection_Layout/Stepped Sleeve Joint Schedule.csv": "a5e272d93ab2b6dc08803660469131b6c2797529d3eaaf5b9ba3f7faf29eb55c"
+  },
+  "airway_probe_review": {
+    "canonical_native_air_probes": [
+      {
+        "kind": "sleeve",
+        "native_air_probe_overlap_m3": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "kind": "bondlines",
+        "native_air_probe_overlap_m3": [
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "whole_product_shape_instances": 160,
+    "actual_bore_intrusion": false,
+    "pressure_or_leakage_test": false,
+    "radial_probe_inset_m": 5e-05,
+    "full_nominal_bore_preservation_basis": "Exactnativeprofileintervals plus insetmeshprobe,notairtightness"
+  },
+  "native_CAD_review": {
+    "native_reopen_pass": true,
+    "represented_source_products": 4,
+    "entities": 67,
+    "linked_entities": 47,
+    "scale_denominator": 2,
+    "reference_expected_mm": 10.0,
+    "reference_measured_mm": 9.99066666666667
+  },
+  "actual_plot_review": {
+    "pdf_sha256": "3740a5c1a9500e4c904deb58dc497c83c53f183b186b3a71bb8d94f78cdbcce8",
+    "reviewer": "HostAI actualPDFview",
+    "actual_section_visible": true,
+    "notes_reference_visible": true,
+    "monochrome_contour_legend_corrected": true,
+    "observed_clipping": false,
+    "physical_joint_approved": false
+  },
+  "schedule_rows": 80,
+  "sealant_source_url": "https://fosterproducts.com/wp-content/uploads/2017/01/Foster-PDS-32-19-R0519-NP.pdf",
+  "sealant_metal_application_page_actually_viewed": 2,
+  "source_scope": "Metalapplicationmethodonly;notUL181closureapproval,notapprovalofthiscustomsleeve,nominal0.8mmbondlineisnotmanufacturerspecifiedcuredthickness",
+  "native_volume_relative_tolerance": 0.005
+}
