@@ -18,3 +18,5 @@ src/bsa/cadquery_rect_round.py text eol=lf
 src/bsa/rect_round_quantities.py text eol=lf
 
 src/bsa/round_reducer_quantities.py text eol=lf
+
+src/bsa/rectangular_tee_profiles.py text eol=lf

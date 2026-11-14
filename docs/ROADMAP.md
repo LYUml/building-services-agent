@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+A source-area-sum J0 bullhead candidate now has134bodies/287ports,61conditional
+fitting values/27numerical gaps,matching nativeDWG/PDF and casing coordination.
+Source/profile/upstream checks execute;product/noise/interaction and full pressure
+remain unresolved. See [bullhead area candidate](BULLHEAD_AREA_CANDIDATE.md).
+
+Earlier132body throat scenario,preserved separately:
+
 A separate spatially feasible branch-throat candidate now has132bodies/283ports,
 57conditional fitting values/29numerical gaps, matching nativeDWG/PDF and casing
 coordination. Local speed increases;pressure/noise/product acceptance is pending.

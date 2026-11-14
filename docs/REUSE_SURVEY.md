@@ -1879,3 +1879,6 @@ Two unequal-angle main contractions: existing pinned rectangular_transition Shap
 
 
 Sharp tee missing-cell follow-up: existing pinned source5-28bounded lookup, literal unequal-tee profile reader, IfcOpenShell profile/CSG author, rectangular_transition and nativeCAD/pressure adapters execute on an actual spatially feasible throat/expansion candidate.12queries screened;7have lookup candidates under inherited50mmgrid/internal8m/s target,but6lack downstreamspace. Only1nativecandidate integrated,with4newDecimal checks. No new solver/dependency;higherlocalvelocity and closecoupling remain unaccepted. See BRANCH_THROAT_CANDIDATE.md.
+
+
+J0bullhead gap: existing pinned MIT python-hvac94247560a667905bfbf67e45a58965a58254fce8 A11X literal90degree row matches visually inspected PHVAC9printed45Fitting5-33. Package not executed;existing bounded SciPy engine runs8nativeflow queries. Existing IfcOpenShellCSG/profile authoring and thin strict opt-in area-sum reader support actual134body candidate. Shared main/common profiles are detached before resizing. Seven new controls plus one existing profile regression pass;no new dependency/solver. See BULLHEAD_AREA_CANDIDATE.md. Round-only fluids conical functions do not establish unequal-angle rectangular applicability;no such substitution adopted.

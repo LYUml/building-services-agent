@@ -7,11 +7,12 @@ from ifcopenshell.util.system import get_ports
 from ifcopenshell.util.unit import calculate_unit_scale
 
 
-def sections(obj):
+def sections(obj, *, bullhead_area_sum=False):
     """Validate literal CSG and relative cap frames; return clear internal sizes.
 
-    This reads the existing equal/reduced sharp-tee authoring family only. It
-    does not infer a manufactured fitting, physical applicability or loss data.
+    Default: equal/reduced branch. Explicit bullhead mode additionally requires
+    a common branch inlet and equal main outlets whose areas sum to the inlet.
+    Neither mode establishes source-correlation or product acceptance.
     """
     if not obj.is_a('IfcDuctFitting') or obj.PredefinedType!='JUNCTION':
         raise ValueError('Saved sharp rectangular junction required')
@@ -41,7 +42,8 @@ def sections(obj):
     thickness=(outer-inner)/2
     if not (np.all(thickness>0) and np.allclose(thickness,thickness[0,0],atol=1e-10,rtol=0)):
         raise ValueError('Uniform positive main and branch wall thickness required')
-    if np.any(inner[1]>inner[0]):raise ValueError('Only equal or reduced branch supported')
+    if type(bullhead_area_sum) is not bool:raise ValueError('Explicit boolean family selection required')
+    if not bullhead_area_sum and np.any(inner[1]>inner[0]):raise ValueError('Only equal or reduced branch supported')
     length=solids[1][0].Depth/2;branch=solids[1][1].Depth
     if length<=inner[1,0]/2 or branch<=outer[0,0]/2:
         raise ValueError('Distinct unobstructed end caps required')
@@ -65,6 +67,14 @@ def sections(obj):
         relative=np.linalg.solve(transform,get_local_placement(port.ObjectPlacement))
         if not np.allclose(relative,expected[port.Name],atol=1e-9,rtol=0):
             raise ValueError('Saved cap frame differs from literal prism end')
+    if bullhead_area_sum:
+        units=obj.file.by_type('IfcProject')
+        if obj.file.schema!='IFC4' or len(units)!=1 or not units[0].UnitsInContext or len([u for u in units[0].UnitsInContext.Units if getattr(u,'UnitType',None)=='LENGTHUNIT'])!=1:
+            raise ValueError('Explicit metre IFC4 project units required')
+        if any(p.FlowDirection!=('SINK' if p.Name=='branch' else 'SOURCE') for p in ports):
+            raise ValueError('Bullhead common inlet and two main outlets required')
+        if not math.isclose(float(np.prod(inner[1])),2*float(np.prod(inner[0])),rel_tol=0,abs_tol=1e-12):
+            raise ValueError('Common area must equal sum of equal outlet areas')
     return {p.GlobalId:inner[1 if p.Name=='branch' else 0].tolist() for p in ports}
 
 
