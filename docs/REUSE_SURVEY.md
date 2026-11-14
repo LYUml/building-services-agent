@@ -1885,3 +1885,6 @@ J0bullhead gap: existing pinned MIT python-hvac94247560a667905bfbf67e45a58965a58
 
 
 Diverging cross: PHVAC9printed47/48Fitting5-35 explicitly redirects to5-23. Existing pinned native IFC/CSG,pressure/ledger,SciPy andAutoCAD adapters execute an actual136body reduced-branch candidate. Thin literalcross reader has7actual controls;10newqueries agree with Decimal. Pinned MIT python-hvac A11A4selectedbranchcells match primary source;its main-row values differ and are NOTadopted. Package not executed. Reviewed official main row is used without clamping;no newdependency/engine. See REDUCED_CROSS_CANDIDATE.md.
+
+
+Constant-height tee geometry: existing native unequal-tee profile/CSG,rectangular_transition,source-flow/pressureledger,SciPy,Manifold andAutoCAD engines execute9in-envelope tee/contraction replacements onactual145body network.65originalstraights andexternal endpoints preserved.54native queries independently match Decimal;16pinnedpython-hvacA11Abranchcells match official5-23,main differences not adopted. Equalheight algebra Ab/Ac=Wb/Wc avoids multiplication-rounding at a source boundary without clamping or padding. Both plan and9actualnative side-cuts execute and are visually reviewed. No new dependency/solver or generic MCP registration. See CONSTANT_HEIGHT_BRANCHES.md.

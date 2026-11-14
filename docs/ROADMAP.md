@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+Nine in-envelope constant-height tee branches now yield145bodies/309ports,
+84conditional fitting values/15numerical gaps. Original65straights/20equipment
+inlet datums are unchanged;native whole-network and9side-detail DWG/PDF execute.
+Interactions/products/fullpressure remain unresolved. See [constant-height branches](CONSTANT_HEIGHT_BRANCHES.md).
+
+Earlier136body reduced-cross scenario,preserved separately:
+
 A source-directed reduced-cross candidate now has136bodies/291ports,66conditional
 fitting values/24numerical gaps,matching nativeDWG/PDF and casing coordination.
 Native/source/Decimal checks execute;closecoupling,products and full pressure
