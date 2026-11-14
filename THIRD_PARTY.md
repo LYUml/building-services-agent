@@ -341,4 +341,3 @@ Its NOTICE credits HKUDS/CLI-Anything REPL at
 `34f519533bc175d2fe287ab8316b0dd99bb9cc43`, Apache-2.0.
 Krueger GRD executables/databases remain separate manufacturer software.
 See docs/KSELECT_MCP_REUSE.md for actual executed scope and limitations.
-
