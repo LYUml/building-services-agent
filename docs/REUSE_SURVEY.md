@@ -1876,3 +1876,6 @@ Round reducer pressure: executed80nativeprofiles/160flow queries via existing bo
 
 
 Two unequal-angle main contractions: existing pinned rectangular_transition ShapeBuilder/nativeCSG author,Ifcopenshell append/ports/source-flow graph,table/ledger andAutoCAD adapters execute on actual131body network. No new solver/dependency. Existing sourced4-2one-plane and4-4equal-angle contraction tables reused without relaxing family checks. Actual4stageprofiles/130caps/8Decimalqueries verified;close-coupled interaction remains unverified. See STAGED_MAIN_TRANSITIONS.md.
+
+
+Sharp tee missing-cell follow-up: existing pinned source5-28bounded lookup, literal unequal-tee profile reader, IfcOpenShell profile/CSG author, rectangular_transition and nativeCAD/pressure adapters execute on an actual spatially feasible throat/expansion candidate.12queries screened;7have lookup candidates under inherited50mmgrid/internal8m/s target,but6lack downstreamspace. Only1nativecandidate integrated,with4newDecimal checks. No new solver/dependency;higherlocalvelocity and closecoupling remain unaccepted. See BRANCH_THROAT_CANDIDATE.md.

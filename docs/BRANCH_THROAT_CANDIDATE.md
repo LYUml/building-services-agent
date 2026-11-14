@@ -1,0 +1,9 @@
+# Branch throat candidate
+
+One source-support candidate is integrated into the current network. The selected sharp tee branch changes400x300 to300x300mm,then a centred one-plane15degree expansion returns to400x300mm. Gauge0.8mm and50mmcollars remain assumed. The added reach is taken from the actual downstream straight;the original20equipment inlet datums/flows are unchanged. Actual source geometry/family guards are retained.
+
+This is not a pressure reduction claim:local maximum velocity rises5.855168 to7.806891m/s. The8m/s ceiling is an internal comparison target only. Twelve actual missing-support branches were screened on the inherited50mmgrid;seven had lookup candidates,but six lacked downstream space without moving equipment. Only one is integrated. Five remaining branches have no supported candidate in this finite screen;no global infeasibility follows.
+
+Fresh132body/283port/131link saved network has65straight spans/86fitting paths,57conditional values/29numerical gaps in both flow cases(previous55/30over85paths). Four branch/expansion queries agree with independent Decimal interpolation. Source PHVAC9 printed42Fitting5-28branch(common-inlet reference) and printed19Fitting4-2expansion(small-inlet reference) are conditional. Close coupling,seams/friction,fabrication,noise and actual products remain unverified. Complete pressure remains unknown.
+
+Actual schema/EXPRESS and111rectangular/20circular material-cap checks pass;all283source flows reconcile. Raw network has0solid intersections and131unwaivedcontact-clearance findings. Separate152network/casing check finds0intersections,excluding60nonphysicalreservations;coordination IFC has212elements. Actual AutoCAD save/reopen and final material-sectionPDF inspection execute at assumed z=0. Equipment internal/discharge/plenum/reducer/8inbranch studies remain separate downstream candidates,not included in this pressure budget. No installed clearance or final engineering acceptance follows.

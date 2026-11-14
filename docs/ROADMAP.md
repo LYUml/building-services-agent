@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+A separate spatially feasible branch-throat candidate now has132bodies/283ports,
+57conditional fitting values/29numerical gaps, matching nativeDWG/PDF and casing
+coordination. Local speed increases;pressure/noise/product acceptance is pending.
+See [branch throat candidate](BRANCH_THROAT_CANDIDATE.md).
+
+Earlier131body staged-transition scenario, preserved separately:
+
 Two unsupported main contractions now use four sourced-family stages. The current
 131body/281port network has55conditional fitting values/30numerical gaps; actual
 DWG/PDF and updated casing coordination execute. Close-coupled interaction and
