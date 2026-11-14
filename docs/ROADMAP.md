@@ -1,5 +1,9 @@
 # Scope and acceptance
 
+Twenty currentVAVs now carry source-bound fully-open pressure baselines in a
+separate saved IFC;40propertyrows reconcile,29supported/11unknown,no total-loss
+claim. All original geometry/ports unchanged. See [operating baseline](VAV_OPERATING_BASELINE.md).
+
 Separate smooth rigid branch study now evaluates160native round bends in both
 flow cases. Fresh pressure reconstruction gives354conditional values/104gaps;
 all80complete pressures remain unknown. This does not accept installed flex.

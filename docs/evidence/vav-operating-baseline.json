@@ -1,0 +1,96 @@
+{
+  "source_ifc_sha256": "471a7ff22c889743ddef41cc465137fb79c289012ec913b82b58fa9d81262991",
+  "updated_ifc_sha256": "67e297b37448dfe196de0dd9e2b03bc75552cbfb9180fbdbf067a9aad5f74bd1",
+  "manufacturer_pdf_sha256": "ea1d801c7d69eee95d000c88994e9bd6e80d1670a386ddec89fd4f55b9e6bd69",
+  "source_url": "https://www.krueger-hvac.com/file/7365/SDIOM.pdf",
+  "source_page": 17,
+  "source_page_actually_viewed": true,
+  "source_table_column_sequences_checked": true,
+  "adapter_sha256": "e046ab04751abd11cfff217ec08a66d6d1c5c252c639c42c3716143871b46784",
+  "source_entity_count": 43459,
+  "all_original_IFC_entities_preserved_byte_for_byte": true,
+  "manufacturer_property_sets": 20,
+  "actual_saved_property_rows_checked": 40,
+  "conditional_rows": 29,
+  "unsupported_rows": [
+    {
+      "vav": "VAV-02",
+      "condition": "minimum",
+      "CFM": 495.3471331011993
+    },
+    {
+      "vav": "VAV-03",
+      "condition": "minimum",
+      "CFM": 496.4654992794197
+    },
+    {
+      "vav": "VAV-04",
+      "condition": "minimum",
+      "CFM": 522.714526495609
+    },
+    {
+      "vav": "VAV-05",
+      "condition": "minimum",
+      "CFM": 500.1953918379024
+    },
+    {
+      "vav": "VAV-07",
+      "condition": "minimum",
+      "CFM": 524.1485424391174
+    },
+    {
+      "vav": "VAV-08",
+      "condition": "minimum",
+      "CFM": 524.1485424391174
+    },
+    {
+      "vav": "VAV-09",
+      "condition": "minimum",
+      "CFM": 524.1485424391183
+    },
+    {
+      "vav": "VAV-10",
+      "condition": "minimum",
+      "CFM": 552.6074570223782
+    },
+    {
+      "vav": "VAV-11",
+      "condition": "minimum",
+      "CFM": 528.2141016652977
+    },
+    {
+      "vav": "VAV-16",
+      "condition": "minimum",
+      "CFM": 497.3907712428582
+    },
+    {
+      "vav": "VAV-17",
+      "condition": "minimum",
+      "CFM": 495.88134261291555
+    }
+  ],
+  "schema_express_errors": 0,
+  "source_pressure_reference_controls": 4,
+  "nominal_sizes": [
+    12,
+    14
+  ],
+  "pressure_ranges": {
+    "maximum": [
+      23.546924521453583,
+      47.007573738548395
+    ],
+    "minimum": [
+      5.419060627911094,
+      7.867920223431513
+    ]
+  },
+  "device_total_pressure_loss_verified": false,
+  "original_pressure_ledgers_unchanged": true,
+  "design_accepted": false,
+  "scope": "Manufacturer fully open operating baseline,not installed total-pressure loss/control duty;all original geometry/ports unchanged.Original native DWG remains geometry reference,not fresh equipment-property CAD delivery.",
+  "deliverable_sha256": {
+    "03_Design_Drawings/Connection_Layout/Manufacturer_Equipment_Baseline/Supply Air Equipment Baseline.ifc": "67e297b37448dfe196de0dd9e2b03bc75552cbfb9180fbdbf067a9aad5f74bd1",
+    "05_Calculations/Connection_Layout/VAV Manufacturer Operating Baseline.csv": "306435aa59df4aed7a47d977359dfb277c3f244dae8e69c8884add01cfa7860f"
+  }
+}
