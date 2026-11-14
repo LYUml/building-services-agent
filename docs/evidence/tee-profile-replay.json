@@ -1,0 +1,23 @@
+{
+  "cases": {
+    "maximum": {
+      "tee_bodies_reconciled": 14,
+      "tee_ports_reconciled": 42,
+      "all_fitting_results_match": true,
+      "conditional_paths": 30,
+      "numerical_gaps": 33
+    },
+    "minimum": {
+      "tee_bodies_reconciled": 14,
+      "tee_ports_reconciled": 42,
+      "all_fitting_results_match": true,
+      "conditional_paths": 30,
+      "numerical_gaps": 33
+    }
+  },
+  "method_sha256": "d296655c39cad725ace590e4e0f71f300b4cc588386868284efa9fc62ff747fc",
+  "source_ifc_sha256": "df434ed486a5025ca121737f40e4aba07039789587b5cb1e4a88325c23d38994",
+  "geometry_unchanged": true,
+  "pressure_budget_complete": false,
+  "design_accepted": false
+}

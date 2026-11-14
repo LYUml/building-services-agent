@@ -5,6 +5,11 @@ description: Calculate source-linked air/water networks, fan/pump operating poin
 
 # Network pressure analysis
 
+For saved equal/reduced sharp rectangular tees, use the explicit selection and
+literal branch-profile reconciliation in docs/RECTANGULAR_TEE_PROFILES.md. Do not
+feed crosses/compound junctions into this reader, assume the branch matches the
+main bore, or treat profile replay as complete network/MCP acceptance.
+
 For an explicitly separate manufacturer ADPI study, use docs/MANUFACTURER_ADPI.md.
 Preserve the classroom basis and original designs; source-native chart extraction
 and bounded grid/neck comparisons cannot prove measured ADPI or global infeasibility.
