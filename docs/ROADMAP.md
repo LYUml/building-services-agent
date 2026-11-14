@@ -1,5 +1,10 @@
 # Scope and acceptance
 
+A separate164body constant-core candidate has347ports/163verified material
+interfaces, six external contractions,22independent component source queries
+and actual nativeDWG/PDF. Close-coupled pressure remains unresolved; prior158body
+pressure coverage is NOT transferred. See [constant core](CONSTANT_JUNCTION_CORE.md).
+
 Nine source-family contraction assemblies now yield158bodies/335ports,
 108conditional values/4numerical gaps,with nativewholeplan and9readable side-details.
 Remainingnumeric paths belong to one compound junction;interactions/friction/

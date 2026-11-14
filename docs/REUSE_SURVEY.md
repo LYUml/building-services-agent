@@ -1,5 +1,11 @@
 # Reuse survey â€” 2026-11-09
 
+Actual164body constant-core candidate reuses pinned compound/transition native,
+source prescribed-flow, cap, bounded-table and AutoCAD adapters.22queries execute;
+no new dependency/engine. Primary5-35 equal opposed areas required revising the
+unequal-cross trial. Component support does not resolve69.416mmclose-coupling.
+See CONSTANT_JUNCTION_CORE.md.
+
 The existing native inventory/tree, source-prescribed flow, bounded fitting-table,
 pressure ledger and isolated native CAD engines now compose on the actual
 reduced-branch network copy. No new solver is introduced. One plateau-only

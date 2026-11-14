@@ -1,0 +1,501 @@
+{
+  "scope": "Separate geometric and source-family candidate; previous158body pressure scenario preserved and NOT transferred.",
+  "ifc_sha256": "e5702ac887365b267c213f4e871e18b9913a2ff2d7182639e4d81f2fd94c260e",
+  "parent_ifc_sha256": "ce4204747f1d0ccf9dc001e510a272da64004276d5deefffcfa093a3eb9190a5",
+  "bodies": 164,
+  "ports": 347,
+  "interfaces": 163,
+  "unchanged_parent_products": 153,
+  "upper_inlet_and_four_far_straight_caps_preserved": true,
+  "source_flow_cases_reconciled": [
+    "maximum",
+    "minimum"
+  ],
+  "native_material_interfaces_match": 163,
+  "duct_intersections": 0,
+  "intersection_scope_excludes_equipment_and_installation_clearance": true,
+  "schema_express_errors": 0,
+  "native_DWG_reopened": true,
+  "actual_PDF_visual_review": "Actual PDF rendered and viewed: header,20outlet labels,whole material outline and limitations visible; no observed clipping. Not fabrication or installation acceptance.",
+  "source_query_counts": {
+    "junction_components": 10,
+    "transitions": 12
+  },
+  "junction_source_review": {
+    "ifc_sha256": "e5702ac887365b267c213f4e871e18b9913a2ff2d7182639e4d81f2fd94c260e",
+    "native_core_matches_checked_local_body": true,
+    "source_family_geometry": {
+      "constant_main_area": true,
+      "branch_height_equals_main": true,
+      "lower_opposed_branch_areas_equal": true,
+      "deflection_deg": 90
+    },
+    "cases": {
+      "maximum": {
+        "upper_branch": {
+          "quantities": {
+            "area": 0.37037037037037035,
+            "flow": 0.11838256731907436
+          },
+          "coefficient": 1.0531621212083868,
+          "independent_decimal_match": true
+        },
+        "upper_main": {
+          "quantities": {
+            "velocity": 0.8816174326809257
+          },
+          "coefficient": 0.011838256731907429,
+          "independent_decimal_match": true
+        },
+        "lower_main": {
+          "quantities": {
+            "velocity": 0.6807660131228612
+          },
+          "coefficient": 0.04384679737542775,
+          "independent_decimal_match": true
+        },
+        "lower_left": {
+          "quantities": {
+            "area": 0.4444444444444444,
+            "flow": 0.15741040523583685
+          },
+          "coefficient": 1.0238499683422342,
+          "independent_decimal_match": true
+        },
+        "lower_right": {
+          "quantities": {
+            "area": 0.4444444444444444,
+            "flow": 0.1618235816413018
+          },
+          "coefficient": 1.027135332999636,
+          "independent_decimal_match": true
+        }
+      },
+      "minimum": {
+        "upper_branch": {
+          "quantities": {
+            "area": 0.37037037037037035,
+            "flow": 0.11838256731907434
+          },
+          "coefficient": 1.0531621212083866,
+          "independent_decimal_match": true
+        },
+        "upper_main": {
+          "quantities": {
+            "velocity": 0.8816174326809256
+          },
+          "coefficient": 0.01183825673190744,
+          "independent_decimal_match": true
+        },
+        "lower_main": {
+          "quantities": {
+            "velocity": 0.6807660131228613
+          },
+          "coefficient": 0.04384679737542774,
+          "independent_decimal_match": true
+        },
+        "lower_left": {
+          "quantities": {
+            "area": 0.4444444444444444,
+            "flow": 0.15741040523583688
+          },
+          "coefficient": 1.0238499683422344,
+          "independent_decimal_match": true
+        },
+        "lower_right": {
+          "quantities": {
+            "area": 0.4444444444444444,
+            "flow": 0.16182358164130187
+          },
+          "coefficient": 1.0271353329996358,
+          "independent_decimal_match": true
+        }
+      }
+    },
+    "source_query_count": 10,
+    "scope": "Separated component correlation screening on actual constant core, not a pressure-accepted compound fitting. Only69.416mm clear between apertures;source stations and close-coupled interaction unresolved.",
+    "source_pressure_ledger_integrated": false,
+    "full_pressure_accepted": false,
+    "design_accepted": false
+  },
+  "transition_source_review": {
+    "ifc_sha256": "e5702ac887365b267c213f4e871e18b9913a2ff2d7182639e4d81f2fd94c260e",
+    "native_transition_count": 6,
+    "source_query_count": 12,
+    "records": [
+      {
+        "product_guid": "0oNUS_6WfLAP_rMhRuL9Qr",
+        "family": "centred_one_plane",
+        "family_check": {
+          "family": "centred_one_plane",
+          "pass_check": true,
+          "numerical_equal_angle_bound_deg": null,
+          "physical_applicability_verified": false
+        },
+        "cases": {
+          "maximum": {
+            "quantities": {
+              "taper_length_m": 0.6035533905932737,
+              "inlet_straight_length_m": 0.05,
+              "outlet_straight_length_m": 0.050000000000000044,
+              "total_length_m": 0.7035533905932738,
+              "taper_width_angle_deg": 0.0,
+              "taper_height_angle_deg": 45.00000000000001,
+              "major_taper_angle_deg": 45.00000000000001,
+              "taper_angle_difference_deg": 45.00000000000001,
+              "outlet_hydraulic_diameter_m": 0.4444444444444445,
+              "taper_length_over_outlet_hydraulic_diameter": 1.3579951288348657,
+              "total_length_over_outlet_hydraulic_diameter": 1.582995128834866,
+              "inlet_to_outlet_area_ratio": 2.25
+            },
+            "coefficient": 0.32,
+            "independent_decimal_match": true,
+            "local_dynamic_loss_Pa": 1.913556027600351,
+            "inlet_reference": true
+          },
+          "minimum": {
+            "quantities": {
+              "taper_length_m": 0.6035533905932737,
+              "inlet_straight_length_m": 0.05,
+              "outlet_straight_length_m": 0.050000000000000044,
+              "total_length_m": 0.7035533905932738,
+              "taper_width_angle_deg": 0.0,
+              "taper_height_angle_deg": 45.00000000000001,
+              "major_taper_angle_deg": 45.00000000000001,
+              "taper_angle_difference_deg": 45.00000000000001,
+              "outlet_hydraulic_diameter_m": 0.4444444444444445,
+              "taper_length_over_outlet_hydraulic_diameter": 1.3579951288348657,
+              "total_length_over_outlet_hydraulic_diameter": 1.582995128834866,
+              "inlet_to_outlet_area_ratio": 2.25
+            },
+            "coefficient": 0.32,
+            "independent_decimal_match": true,
+            "local_dynamic_loss_Pa": 0.3061689644160562,
+            "inlet_reference": true
+          }
+        }
+      },
+      {
+        "product_guid": "1NoP3SgoHMvRMpekgvfxR3",
+        "family": "centred_one_plane",
+        "family_check": {
+          "family": "centred_one_plane",
+          "pass_check": true,
+          "numerical_equal_angle_bound_deg": null,
+          "physical_applicability_verified": false
+        },
+        "cases": {
+          "maximum": {
+            "quantities": {
+              "taper_length_m": 0.42248737341529163,
+              "inlet_straight_length_m": 0.05,
+              "outlet_straight_length_m": 0.04999999999999999,
+              "total_length_m": 0.5224873734152916,
+              "taper_width_angle_deg": 0.0,
+              "taper_height_angle_deg": 45.0,
+              "major_taper_angle_deg": 45.0,
+              "taper_angle_difference_deg": 45.0,
+              "outlet_hydraulic_diameter_m": 0.5739130434782609,
+              "taper_length_over_outlet_hydraulic_diameter": 0.7361522415569475,
+              "total_length_over_outlet_hydraulic_diameter": 0.9103946657993717,
+              "inlet_to_outlet_area_ratio": 1.6363636363636365
+            },
+            "coefficient": 0.15272727272727274,
+            "independent_decimal_match": true,
+            "local_dynamic_loss_Pa": 0.8715594430254382,
+            "inlet_reference": true
+          },
+          "minimum": {
+            "quantities": {
+              "taper_length_m": 0.42248737341529163,
+              "inlet_straight_length_m": 0.05,
+              "outlet_straight_length_m": 0.04999999999999999,
+              "total_length_m": 0.5224873734152916,
+              "taper_width_angle_deg": 0.0,
+              "taper_height_angle_deg": 45.0,
+              "major_taper_angle_deg": 45.0,
+              "taper_angle_difference_deg": 45.0,
+              "outlet_hydraulic_diameter_m": 0.5739130434782609,
+              "taper_length_over_outlet_hydraulic_diameter": 0.7361522415569475,
+              "total_length_over_outlet_hydraulic_diameter": 0.9103946657993717,
+              "inlet_to_outlet_area_ratio": 1.6363636363636365
+            },
+            "coefficient": 0.15272727272727274,
+            "independent_decimal_match": true,
+            "local_dynamic_loss_Pa": 0.13944951088407018,
+            "inlet_reference": true
+          }
+        }
+      },
+      {
+        "product_guid": "3ExHSrQ5TNOPsWO2Ms3$Sm",
+        "family": "centred_equal_angle_pyramidal",
+        "family_check": {
+          "family": "centred_equal_angle_pyramidal",
+          "pass_check": true,
+          "numerical_equal_angle_bound_deg": 1e-06,
+          "physical_applicability_verified": false
+        },
+        "cases": {
+          "maximum": {
+            "quantities": {
+              "taper_length_m": 0.12071067811865481,
+              "inlet_straight_length_m": 0.05,
+              "outlet_straight_length_m": 0.04999999999999999,
+              "total_length_m": 0.2207106781186548,
+              "taper_width_angle_deg": 44.99999999999997,
+              "taper_height_angle_deg": 44.99999999999999,
+              "major_taper_angle_deg": 44.99999999999999,
+              "taper_angle_difference_deg": 2.1316282072803006e-14,
+              "outlet_hydraulic_diameter_m": 0.4736842105263158,
+              "taper_length_over_outlet_hydraulic_diameter": 0.25483365380604905,
+              "total_length_over_outlet_hydraulic_diameter": 0.4659447649171601,
+              "inlet_to_outlet_area_ratio": 1.4666666666666668
+            },
+            "coefficient": 0.1026666666666667,
+            "independent_decimal_match": true,
+            "local_dynamic_loss_Pa": 1.5688069974457892,
+            "inlet_reference": true
+          },
+          "minimum": {
+            "quantities": {
+              "taper_length_m": 0.12071067811865481,
+              "inlet_straight_length_m": 0.05,
+              "outlet_straight_length_m": 0.04999999999999999,
+              "total_length_m": 0.2207106781186548,
+              "taper_width_angle_deg": 44.99999999999997,
+              "taper_height_angle_deg": 44.99999999999999,
+              "major_taper_angle_deg": 44.99999999999999,
+              "taper_angle_difference_deg": 2.1316282072803006e-14,
+              "outlet_hydraulic_diameter_m": 0.4736842105263158,
+              "taper_length_over_outlet_hydraulic_diameter": 0.25483365380604905,
+              "total_length_over_outlet_hydraulic_diameter": 0.4659447649171601,
+              "inlet_to_outlet_area_ratio": 1.4666666666666668
+            },
+            "coefficient": 0.1026666666666667,
+            "independent_decimal_match": true,
+            "local_dynamic_loss_Pa": 0.2510091195913263,
+            "inlet_reference": true
+          }
+        }
+      },
+      {
+        "product_guid": "0qWVDN7pXLcvgGsFdZXSej",
+        "family": "centred_one_plane",
+        "family_check": {
+          "family": "centred_one_plane",
+          "pass_check": true,
+          "numerical_equal_angle_bound_deg": null,
+          "physical_applicability_verified": false
+        },
+        "cases": {
+          "maximum": {
+            "quantities": {
+              "taper_length_m": 0.6035533905932737,
+              "inlet_straight_length_m": 0.05,
+              "outlet_straight_length_m": 0.050000000000000044,
+              "total_length_m": 0.7035533905932738,
+              "taper_width_angle_deg": 0.0,
+              "taper_height_angle_deg": 45.00000000000001,
+              "major_taper_angle_deg": 45.00000000000001,
+              "taper_angle_difference_deg": 45.00000000000001,
+              "outlet_hydraulic_diameter_m": 0.48,
+              "taper_length_over_outlet_hydraulic_diameter": 1.2574028970693203,
+              "total_length_over_outlet_hydraulic_diameter": 1.4657362304026538,
+              "inlet_to_outlet_area_ratio": 2.2500000000000004
+            },
+            "coefficient": 0.3200000000000002,
+            "independent_decimal_match": true,
+            "local_dynamic_loss_Pa": 1.9299548045129644,
+            "inlet_reference": true
+          },
+          "minimum": {
+            "quantities": {
+              "taper_length_m": 0.6035533905932737,
+              "inlet_straight_length_m": 0.05,
+              "outlet_straight_length_m": 0.050000000000000044,
+              "total_length_m": 0.7035533905932738,
+              "taper_width_angle_deg": 0.0,
+              "taper_height_angle_deg": 45.00000000000001,
+              "major_taper_angle_deg": 45.00000000000001,
+              "taper_angle_difference_deg": 45.00000000000001,
+              "outlet_hydraulic_diameter_m": 0.48,
+              "taper_length_over_outlet_hydraulic_diameter": 1.2574028970693203,
+              "total_length_over_outlet_hydraulic_diameter": 1.4657362304026538,
+              "inlet_to_outlet_area_ratio": 2.2500000000000004
+            },
+            "coefficient": 0.3200000000000002,
+            "independent_decimal_match": true,
+            "local_dynamic_loss_Pa": 0.30879276872207445,
+            "inlet_reference": true
+          }
+        }
+      },
+      {
+        "product_guid": "2kfZ4nd4nMOfzDwjjrQ9cX",
+        "family": "centred_one_plane",
+        "family_check": {
+          "family": "centred_one_plane",
+          "pass_check": true,
+          "numerical_equal_angle_bound_deg": null,
+          "physical_applicability_verified": false
+        },
+        "cases": {
+          "maximum": {
+            "quantities": {
+              "taper_length_m": 0.5431980515339465,
+              "inlet_straight_length_m": 0.05,
+              "outlet_straight_length_m": 0.050000000000000044,
+              "total_length_m": 0.6431980515339466,
+              "taper_width_angle_deg": 45.0,
+              "taper_height_angle_deg": 0.0,
+              "major_taper_angle_deg": 45.0,
+              "taper_angle_difference_deg": 45.0,
+              "outlet_hydraulic_diameter_m": 0.9,
+              "taper_length_over_outlet_hydraulic_diameter": 0.6035533905932738,
+              "total_length_over_outlet_hydraulic_diameter": 0.7146645017043851,
+              "inlet_to_outlet_area_ratio": 1.5
+            },
+            "coefficient": 0.12,
+            "independent_decimal_match": true,
+            "local_dynamic_loss_Pa": 2.530028907806662,
+            "inlet_reference": true
+          },
+          "minimum": {
+            "quantities": {
+              "taper_length_m": 0.5431980515339465,
+              "inlet_straight_length_m": 0.05,
+              "outlet_straight_length_m": 0.050000000000000044,
+              "total_length_m": 0.6431980515339466,
+              "taper_width_angle_deg": 45.0,
+              "taper_height_angle_deg": 0.0,
+              "major_taper_angle_deg": 45.0,
+              "taper_angle_difference_deg": 45.0,
+              "outlet_hydraulic_diameter_m": 0.9,
+              "taper_length_over_outlet_hydraulic_diameter": 0.6035533905932738,
+              "total_length_over_outlet_hydraulic_diameter": 0.7146645017043851,
+              "inlet_to_outlet_area_ratio": 1.5
+            },
+            "coefficient": 0.12,
+            "independent_decimal_match": true,
+            "local_dynamic_loss_Pa": 0.4048046252490659,
+            "inlet_reference": true
+          }
+        }
+      },
+      {
+        "product_guid": "3XENYXEljKoP1Y0IJSki3V",
+        "family": "centred_equal_angle_pyramidal",
+        "family_check": {
+          "family": "centred_equal_angle_pyramidal",
+          "pass_check": true,
+          "numerical_equal_angle_bound_deg": 1e-06,
+          "physical_applicability_verified": false
+        },
+        "cases": {
+          "maximum": {
+            "quantities": {
+              "taper_length_m": 0.060355339059327426,
+              "inlet_straight_length_m": 0.05,
+              "outlet_straight_length_m": 0.04999999999999999,
+              "total_length_m": 0.16035533905932742,
+              "taper_width_angle_deg": 45.00000000000001,
+              "taper_height_angle_deg": 45.00000000000001,
+              "major_taper_angle_deg": 45.00000000000001,
+              "taper_angle_difference_deg": 0.0,
+              "outlet_hydraulic_diameter_m": 0.85,
+              "taper_length_over_outlet_hydraulic_diameter": 0.07100628124626757,
+              "total_length_over_outlet_hydraulic_diameter": 0.18865334006979698,
+              "inlet_to_outlet_area_ratio": 1.1211072664359865
+            },
+            "coefficient": 0.02664359861591702,
+            "independent_decimal_match": true,
+            "local_dynamic_loss_Pa": 1.2639201507425177,
+            "inlet_reference": true
+          },
+          "minimum": {
+            "quantities": {
+              "taper_length_m": 0.060355339059327426,
+              "inlet_straight_length_m": 0.05,
+              "outlet_straight_length_m": 0.04999999999999999,
+              "total_length_m": 0.16035533905932742,
+              "taper_width_angle_deg": 45.00000000000001,
+              "taper_height_angle_deg": 45.00000000000001,
+              "major_taper_angle_deg": 45.00000000000001,
+              "taper_angle_difference_deg": 0.0,
+              "outlet_hydraulic_diameter_m": 0.85,
+              "taper_length_over_outlet_hydraulic_diameter": 0.07100628124626757,
+              "total_length_over_outlet_hydraulic_diameter": 0.18865334006979698,
+              "inlet_to_outlet_area_ratio": 1.1211072664359865
+            },
+            "coefficient": 0.02664359861591702,
+            "independent_decimal_match": true,
+            "local_dynamic_loss_Pa": 0.2022272241188029,
+            "inlet_reference": true
+          }
+        }
+      }
+    ],
+    "whole_network_pressure_verified": false,
+    "design_accepted": false
+  },
+  "adjusted_straights": [
+    {
+      "port": "D-22",
+      "new_external_point_m": [
+        87.92855339059327,
+        36.2,
+        0.0
+      ],
+      "additional_reach_m": 0.5285533905932596,
+      "adjacent_straight_guid": "1LnLmgXgrLMPCjBotJJT1X",
+      "old_straight_length_m": 10.54843249999999,
+      "remaining_straight_length_m": 10.01987910940673
+    },
+    {
+      "port": "D-02",
+      "new_external_point_m": [
+        85.03180194846605,
+        35.58058400000001,
+        0.0
+      ],
+      "additional_reach_m": 0.5681980515339404,
+      "adjacent_straight_guid": "3cmKKWOIXG2wIWIQw2L$Ga",
+      "old_straight_length_m": 2.1240680000000083,
+      "remaining_straight_length_m": 1.5558699484660679
+    },
+    {
+      "port": "D-05",
+      "new_external_point_m": [
+        87.92855339059327,
+        35.58058400000001,
+        0.0
+      ],
+      "additional_reach_m": 0.5285533905932596,
+      "adjacent_straight_guid": "16XnXAKsDR7fGY5Y8JvRrZ",
+      "old_straight_length_m": 2.765931999999978,
+      "remaining_straight_length_m": 2.2373786094067185
+    },
+    {
+      "port": "lower",
+      "new_external_point_m": [
+        86.5,
+        34.427030609406735,
+        0.0
+      ],
+      "additional_reach_m": 0.15355339059327378,
+      "adjacent_straight_guid": "1Ufk3tsn5INAsuK0h2HT1y",
+      "old_straight_length_m": 5.305,
+      "remaining_straight_length_m": 5.151446609406726
+    }
+  ],
+  "deliverable_sha256": {
+    "03_Design_Drawings/Connection_Layout/Constant_Junction_Core/Supply Network with Constant Junction Core.ifc": "e5702ac887365b267c213f4e871e18b9913a2ff2d7182639e4d81f2fd94c260e",
+    "03_Design_Drawings/Connection_Layout/Constant_Junction_Core/Supply Network with Constant Junction Core.dwg": "44399d4ec777bf0878a77c791d62a4bf81bf002aee4ce269933ccbd77b835dfa",
+    "03_Design_Drawings/Connection_Layout/Constant_Junction_Core/Supply Network with Constant Junction Core.pdf": "3bc3cf56cca5bdf03f30571197ea69d6550650c1a400676eeeed7f7afdd0bb9f"
+  },
+  "close_coupling_clear_length_m": 0.06941599999999398,
+  "source_pressure_ledger_integrated": false,
+  "full_pressure_verified": false,
+  "design_accepted": false
+}
