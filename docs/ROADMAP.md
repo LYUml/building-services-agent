@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+Two unsupported main contractions now use four sourced-family stages. The current
+131body/281port network has55conditional fitting values/30numerical gaps; actual
+DWG/PDF and updated casing coordination execute. Close-coupled interaction and
+full pressure remain unresolved. See [staged transitions](STAGED_MAIN_TRANSITIONS.md).
+
+Earlier129body inlet scenario, preserved separately:
+
 Twenty revised tapers now enter sourced correlation support. The current saved
 network has51conditional fitting values/32numerical gaps, with matching native
 DWG/PDF and candidate inlet coordinates. Full pressure remains incomplete.

@@ -1873,3 +1873,6 @@ Nominal10-to8in branch reducer gap: existing pinned IfcOpenShell native revolved
 
 
 Round reducer pressure: executed80nativeprofiles/160flow queries via existing bounded SciPy table engine and thin native revolved-solid reader. Pinned python-hvac A9A inspected but not adopted:minimum area ratio2 does not cover actual1.5625;do not extrapolate or confuse inlet/outlet reference. See EIGHT_INCH_BRANCH_CANDIDATE.md and evidence/round-reducer-loss.json. Seven targeted controls pass;no new dependency.
+
+
+Two unequal-angle main contractions: existing pinned rectangular_transition ShapeBuilder/nativeCSG author,Ifcopenshell append/ports/source-flow graph,table/ledger andAutoCAD adapters execute on actual131body network. No new solver/dependency. Existing sourced4-2one-plane and4-4equal-angle contraction tables reused without relaxing family checks. Actual4stageprofiles/130caps/8Decimalqueries verified;close-coupled interaction remains unverified. See STAGED_MAIN_TRANSITIONS.md.
