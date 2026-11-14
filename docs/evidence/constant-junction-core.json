@@ -491,11 +491,987 @@
   ],
   "deliverable_sha256": {
     "03_Design_Drawings/Connection_Layout/Constant_Junction_Core/Supply Network with Constant Junction Core.ifc": "e5702ac887365b267c213f4e871e18b9913a2ff2d7182639e4d81f2fd94c260e",
-    "03_Design_Drawings/Connection_Layout/Constant_Junction_Core/Supply Network with Constant Junction Core.dwg": "44399d4ec777bf0878a77c791d62a4bf81bf002aee4ce269933ccbd77b835dfa",
-    "03_Design_Drawings/Connection_Layout/Constant_Junction_Core/Supply Network with Constant Junction Core.pdf": "3bc3cf56cca5bdf03f30571197ea69d6550650c1a400676eeeed7f7afdd0bb9f"
+    "03_Design_Drawings/Connection_Layout/Constant_Junction_Core/Candidate Equipment Spaces.ifc": "2ecfe8677083f856621e805a9f32fa259cb6c6bb25a6169427f41bcf1534c292",
+    "03_Design_Drawings/Connection_Layout/Constant_Junction_Core/Supply Network with Constant Junction Core.dwg": "c2ac9370d485c17caf840da5b56e9533ece11f2e72a0ea542780671c3bb2c759",
+    "03_Design_Drawings/Connection_Layout/Constant_Junction_Core/Supply Network with Constant Junction Core.pdf": "533f290ef246c433cf21065fdf879b3284495a82fec44faec052aa2cde7cefe1",
+    "03_Design_Drawings/Connection_Layout/Constant_Junction_Core/Constant Junction Core Details.dwg": "7b7a285f6f14eae141e14f38daad29be7319c40e30bc975031072f6e4c284269",
+    "03_Design_Drawings/Connection_Layout/Constant_Junction_Core/Constant Junction Core Details.pdf": "6e2531edf0c2d5ae1da530f1b3fde5a8e3b5822a9faeedfe9e663e0ed1423cf2"
   },
   "close_coupling_clear_length_m": 0.06941599999999398,
-  "source_pressure_ledger_integrated": false,
+  "source_pressure_ledger_integrated": true,
   "full_pressure_verified": false,
-  "design_accepted": false
+  "design_accepted": false,
+  "pressure_recomputed_on_current_model": true,
+  "production_pressure": {
+    "maximum": {
+      "unique_fitting_path_count": 118,
+      "conditional_numerical_path_count": 114,
+      "numerically_unresolved_fitting_path_count": 4,
+      "outlet_count": 20,
+      "critical_path": null,
+      "fan_duty_Pa": null,
+      "pressure_budget_complete": false
+    },
+    "minimum": {
+      "unique_fitting_path_count": 118,
+      "conditional_numerical_path_count": 114,
+      "numerically_unresolved_fitting_path_count": 4,
+      "outlet_count": 20,
+      "critical_path": null,
+      "fan_duty_Pa": null,
+      "pressure_budget_complete": false
+    }
+  },
+  "production_pressure_rows": [
+    {
+      "condition": "maximum",
+      "outlet_source_section": "0WvdfA3zDKfO0CW$V5Jsne",
+      "outlet_port_guid": "0$iQoADbDIFP6aO3Yi4_Oc",
+      "known_straight_friction_Pa": 9.923776230479604,
+      "conditional_signed_fitting_Pa": 138.90744432021535,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "maximum",
+      "outlet_source_section": "1JDTIpFW5QSREtJ610AQ34",
+      "outlet_port_guid": "03ca1JnLjG7gceXjjtU5TO",
+      "known_straight_friction_Pa": 17.92900284352867,
+      "conditional_signed_fitting_Pa": 56.7389621239792,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "maximum",
+      "outlet_source_section": "2dwkXYndrQe8akRs1ziEM_",
+      "outlet_port_guid": "0CI$xPy$nOoQmwHjdwAjLE",
+      "known_straight_friction_Pa": 22.408286982115552,
+      "conditional_signed_fitting_Pa": 143.37722659402135,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "maximum",
+      "outlet_source_section": "1eFzE74j9IX9FCS_bpSZi8",
+      "outlet_port_guid": "0N_8ZHrmjQOv3eDx_LSQCR",
+      "known_straight_friction_Pa": 16.811182037212806,
+      "conditional_signed_fitting_Pa": 132.01111140649985,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "maximum",
+      "outlet_source_section": "3Y2iFalPLIjPgobiCbmlpM",
+      "outlet_port_guid": "0aSJlhhx9N2goyv7rs6Grd",
+      "known_straight_friction_Pa": 15.145423376033694,
+      "conditional_signed_fitting_Pa": 147.82013756218865,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "maximum",
+      "outlet_source_section": "3YEo7IX2vLHOZoUdtxYhkW",
+      "outlet_port_guid": "0qjKGdPovVTvPEUUC0DbI8",
+      "known_straight_friction_Pa": 24.495064025713127,
+      "conditional_signed_fitting_Pa": 117.65499682574814,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "maximum",
+      "outlet_source_section": "2A5hnkfKfVQA3ppPSDKTLp",
+      "outlet_port_guid": "0t24RykiTV3A1Mx7Q3gKxN",
+      "known_straight_friction_Pa": 16.74544786799761,
+      "conditional_signed_fitting_Pa": 56.16823522438148,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "maximum",
+      "outlet_source_section": "3UfxkNar9T3uv889TvBuZo",
+      "outlet_port_guid": "1JiggJBInVcfqALklD7mEk",
+      "known_straight_friction_Pa": 29.21186234584691,
+      "conditional_signed_fitting_Pa": 124.21120128672673,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "maximum",
+      "outlet_source_section": "0FMDd$bG1NneS7N2OdRFsP",
+      "outlet_port_guid": "1K38iW1SfHTwx0umfXesVW",
+      "known_straight_friction_Pa": 24.042532154731152,
+      "conditional_signed_fitting_Pa": 117.45763199896533,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "maximum",
+      "outlet_source_section": "2xxjOz63jHgeE8yuHmmyJ7",
+      "outlet_port_guid": "1SO2KrjUzMtQBWLv4vMT1J",
+      "known_straight_friction_Pa": 4.9911415994807315,
+      "conditional_signed_fitting_Pa": 79.4385052951885,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "maximum",
+      "outlet_source_section": "1I5d0BkIHT3A1NnC$0VWpB",
+      "outlet_port_guid": "1TUaKP9KHMnvz3e4p1t0T2",
+      "known_straight_friction_Pa": 9.007920063526953,
+      "conditional_signed_fitting_Pa": 141.2059241804789,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "maximum",
+      "outlet_source_section": "3ZeIIu8ZjLivD3$rEAqFH_",
+      "outlet_port_guid": "1aFMWquD1LhBYzkBn6nBgW",
+      "known_straight_friction_Pa": 16.04189815289257,
+      "conditional_signed_fitting_Pa": 150.30636822952985,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "maximum",
+      "outlet_source_section": "2NUeFlDmPKeAdID44c7Y3d",
+      "outlet_port_guid": "1dg3L3cN1JwPXP7QTftlD8",
+      "known_straight_friction_Pa": 22.583461243015535,
+      "conditional_signed_fitting_Pa": 101.02216684742747,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "maximum",
+      "outlet_source_section": "0hfguPDXzM4uq$XxvCCMMo",
+      "outlet_port_guid": "1o0rNmVMbMffWfqaf_T5et",
+      "known_straight_friction_Pa": 11.915865070732766,
+      "conditional_signed_fitting_Pa": 73.42072714219674,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "maximum",
+      "outlet_source_section": "10cDTQJo5IcPLAUKm5b$EG",
+      "outlet_port_guid": "21Gr8ySeTKJvZJWGXxSsih",
+      "known_straight_friction_Pa": 5.1803988074911995,
+      "conditional_signed_fitting_Pa": 78.9637449030056,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "maximum",
+      "outlet_source_section": "0JgqECwtPHrA0cyUHrcIbw",
+      "outlet_port_guid": "2GyaCxr2vTHu1DzdTPMY7i",
+      "known_straight_friction_Pa": 22.08651215664592,
+      "conditional_signed_fitting_Pa": 138.8759207703513,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "maximum",
+      "outlet_source_section": "2TYIpAGo5Jn84Ds4cFSqzD",
+      "outlet_port_guid": "3a_POezRTQSeJiiavNVqIw",
+      "known_straight_friction_Pa": 19.023262342501177,
+      "conditional_signed_fitting_Pa": 57.82922542315794,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "maximum",
+      "outlet_source_section": "3yhBBouBPRw8LwOEWLhhps",
+      "outlet_port_guid": "3ghabIwrDQLg6Y7VnT6k9S",
+      "known_straight_friction_Pa": 30.31860210291551,
+      "conditional_signed_fitting_Pa": 125.13423678705149,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "maximum",
+      "outlet_source_section": "1ljYkCFLnPd9wUABuPtBnw",
+      "outlet_port_guid": "3m2dRiJ1vGYQnnGVoXLXcf",
+      "known_straight_friction_Pa": 11.095428087122661,
+      "conditional_signed_fitting_Pa": 71.18704145731847,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "maximum",
+      "outlet_source_section": "1h76SSiWvQkv6hW9gZiAWw",
+      "outlet_port_guid": "3szP9lGPfSWx81bORgVyuh",
+      "known_straight_friction_Pa": 16.724428743763042,
+      "conditional_signed_fitting_Pa": 137.05976104940504,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "minimum",
+      "outlet_source_section": "0WvdfA3zDKfO0CW$V5Jsne",
+      "outlet_port_guid": "0$iQoADbDIFP6aO3Yi4_Oc",
+      "known_straight_friction_Pa": 1.8006346399283695,
+      "conditional_signed_fitting_Pa": 22.604475949753105,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "minimum",
+      "outlet_source_section": "1JDTIpFW5QSREtJ610AQ34",
+      "outlet_port_guid": "03ca1JnLjG7gceXjjtU5TO",
+      "known_straight_friction_Pa": 3.317450899582298,
+      "conditional_signed_fitting_Pa": 9.708340108194243,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "minimum",
+      "outlet_source_section": "2dwkXYndrQe8akRs1ziEM_",
+      "outlet_port_guid": "0CI$xPy$nOoQmwHjdwAjLE",
+      "known_straight_friction_Pa": 4.085429883082227,
+      "conditional_signed_fitting_Pa": 23.23764715375329,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "minimum",
+      "outlet_source_section": "1eFzE74j9IX9FCS_bpSZi8",
+      "outlet_port_guid": "0N_8ZHrmjQOv3eDx_LSQCR",
+      "known_straight_friction_Pa": 3.0735931104511938,
+      "conditional_signed_fitting_Pa": 21.464700839236567,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "minimum",
+      "outlet_source_section": "3Y2iFalPLIjPgobiCbmlpM",
+      "outlet_port_guid": "0aSJlhhx9N2goyv7rs6Grd",
+      "known_straight_friction_Pa": 2.7461137210273154,
+      "conditional_signed_fitting_Pa": 23.950003285627844,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "minimum",
+      "outlet_source_section": "3YEo7IX2vLHOZoUdtxYhkW",
+      "outlet_port_guid": "0qjKGdPovVTvPEUUC0DbI8",
+      "known_straight_friction_Pa": 4.498937942759252,
+      "conditional_signed_fitting_Pa": 19.346615763046252,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "minimum",
+      "outlet_source_section": "2A5hnkfKfVQA3ppPSDKTLp",
+      "outlet_port_guid": "0t24RykiTV3A1Mx7Q3gKxN",
+      "known_straight_friction_Pa": 3.07429529911947,
+      "conditional_signed_fitting_Pa": 9.786841322784275,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "minimum",
+      "outlet_source_section": "3UfxkNar9T3uv889TvBuZo",
+      "outlet_port_guid": "1JiggJBInVcfqALklD7mEk",
+      "known_straight_friction_Pa": 5.357100623803191,
+      "conditional_signed_fitting_Pa": 20.500799259498525,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "minimum",
+      "outlet_source_section": "0FMDd$bG1NneS7N2OdRFsP",
+      "outlet_port_guid": "1K38iW1SfHTwx0umfXesVW",
+      "known_straight_friction_Pa": 4.4178977206984955,
+      "conditional_signed_fitting_Pa": 19.509594766224584,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "minimum",
+      "outlet_source_section": "2xxjOz63jHgeE8yuHmmyJ7",
+      "outlet_port_guid": "1SO2KrjUzMtQBWLv4vMT1J",
+      "known_straight_friction_Pa": 0.9144461427691324,
+      "conditional_signed_fitting_Pa": 13.01017846473391,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "minimum",
+      "outlet_source_section": "1I5d0BkIHT3A1NnC$0VWpB",
+      "outlet_port_guid": "1TUaKP9KHMnvz3e4p1t0T2",
+      "known_straight_friction_Pa": 1.6331728461479555,
+      "conditional_signed_fitting_Pa": 22.930018968993263,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "minimum",
+      "outlet_source_section": "3ZeIIu8ZjLivD3$rEAqFH_",
+      "outlet_port_guid": "1aFMWquD1LhBYzkBn6nBgW",
+      "known_straight_friction_Pa": 2.9102751755861584,
+      "conditional_signed_fitting_Pa": 24.38403999191429,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "minimum",
+      "outlet_source_section": "2NUeFlDmPKeAdID44c7Y3d",
+      "outlet_port_guid": "1dg3L3cN1JwPXP7QTftlD8",
+      "known_straight_friction_Pa": 4.1594071274056335,
+      "conditional_signed_fitting_Pa": 17.13983040988466,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "minimum",
+      "outlet_source_section": "0hfguPDXzM4uq$XxvCCMMo",
+      "outlet_port_guid": "1o0rNmVMbMffWfqaf_T5et",
+      "known_straight_friction_Pa": 2.192122864587414,
+      "conditional_signed_fitting_Pa": 12.257683184117925,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "minimum",
+      "outlet_source_section": "10cDTQJo5IcPLAUKm5b$EG",
+      "outlet_port_guid": "21Gr8ySeTKJvZJWGXxSsih",
+      "known_straight_friction_Pa": 0.9475576460207135,
+      "conditional_signed_fitting_Pa": 13.147795396970663,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "minimum",
+      "outlet_source_section": "0JgqECwtPHrA0cyUHrcIbw",
+      "outlet_port_guid": "2GyaCxr2vTHu1DzdTPMY7i",
+      "known_straight_friction_Pa": 4.03033929840428,
+      "conditional_signed_fitting_Pa": 22.52393067993367,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "minimum",
+      "outlet_source_section": "2TYIpAGo5Jn84Ds4cFSqzD",
+      "outlet_port_guid": "3a_POezRTQSeJiiavNVqIw",
+      "known_straight_friction_Pa": 3.5172007740687614,
+      "conditional_signed_fitting_Pa": 9.915140188059315,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "minimum",
+      "outlet_source_section": "3yhBBouBPRw8LwOEWLhhps",
+      "outlet_port_guid": "3ghabIwrDQLg6Y7VnT6k9S",
+      "known_straight_friction_Pa": 5.556235309859238,
+      "conditional_signed_fitting_Pa": 20.725249771336394,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "minimum",
+      "outlet_source_section": "1ljYkCFLnPd9wUABuPtBnw",
+      "outlet_port_guid": "3m2dRiJ1vGYQnnGVoXLXcf",
+      "known_straight_friction_Pa": 2.0453825156340337,
+      "conditional_signed_fitting_Pa": 11.687928897012277,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    },
+    {
+      "condition": "minimum",
+      "outlet_source_section": "1h76SSiWvQkv6hW9gZiAWw",
+      "outlet_port_guid": "3szP9lGPfSWx81bORgVyuh",
+      "known_straight_friction_Pa": 3.0543251475217845,
+      "conditional_signed_fitting_Pa": 22.266632868021446,
+      "missing_fitting_paths": 1,
+      "complete_pressure_Pa": "Unknown"
+    }
+  ],
+  "equipment_casing_coordination": {
+    "physical_bodies": 184,
+    "nonphysical_reservations_excluded": 60,
+    "intersections": 0,
+    "scope": "164network+20candidatecasings;not installedclearance"
+  },
+  "native_detail_views": 3,
+  "native_detail_products": 7,
+  "isolated_component_sensitivity": {
+    "ifc_sha256": "e5702ac887365b267c213f4e871e18b9913a2ff2d7182639e4d81f2fd94c260e",
+    "hypothesis": "Isolated junction components summed at separate common-inlet reference velocities;interaction correction unknown. NOT a measured/validated compound coefficient,upper bound or fan duty.",
+    "case_records": {
+      "maximum": {
+        "components": {
+          "upper_branch": {
+            "coefficient": 1.0531621212083868,
+            "reference_flow_m3_s": 12.000372763419485,
+            "reference_area_m2": 1.215,
+            "reference_velocity_pressure_Pa": 58.5312996844059,
+            "isolated_component_dynamic_Pa": 61.6429477327127
+          },
+          "upper_main": {
+            "coefficient": 0.011838256731907429,
+            "reference_flow_m3_s": 12.000372763419485,
+            "reference_area_m2": 1.215,
+            "reference_velocity_pressure_Pa": 58.5312996844059,
+            "isolated_component_dynamic_Pa": 0.6929085525162093
+          },
+          "lower_main": {
+            "coefficient": 0.04384679737542775,
+            "reference_flow_m3_s": 10.579737826899992,
+            "reference_area_m2": 1.215,
+            "reference_velocity_pressure_Pa": 45.49341156772385,
+            "isolated_component_dynamic_Pa": 1.9947403989269286
+          },
+          "lower_left": {
+            "coefficient": 1.0238499683422342,
+            "reference_flow_m3_s": 10.579737826899992,
+            "reference_area_m2": 1.215,
+            "reference_velocity_pressure_Pa": 45.49341156772385,
+            "isolated_component_dynamic_Pa": 46.57842799339429
+          },
+          "lower_right": {
+            "coefficient": 1.027135332999636,
+            "reference_flow_m3_s": 10.579737826899992,
+            "reference_area_m2": 1.215,
+            "reference_velocity_pressure_Pa": 45.49341156772385,
+            "isolated_component_dynamic_Pa": 46.727890439903526
+          }
+        },
+        "path_components": {
+          "D-22": [
+            "upper_branch"
+          ],
+          "D-02": [
+            "upper_main",
+            "lower_left"
+          ],
+          "D-05": [
+            "upper_main",
+            "lower_right"
+          ],
+          "lower": [
+            "upper_main",
+            "lower_main"
+          ]
+        },
+        "isolated_compound_path_hypothesis_Pa": {
+          "D-22": 61.6429477327127,
+          "D-02": 47.2713365459105,
+          "D-05": 47.42079899241973,
+          "lower": 2.687648951443138
+        }
+      },
+      "minimum": {
+        "components": {
+          "upper_branch": {
+            "coefficient": 1.0531621212083866,
+            "reference_flow_m3_s": 4.800149105367794,
+            "reference_area_m2": 1.215,
+            "reference_velocity_pressure_Pa": 9.365007949504944,
+            "isolated_component_dynamic_Pa": 9.86287163723403
+          },
+          "upper_main": {
+            "coefficient": 0.01183825673190744,
+            "reference_flow_m3_s": 4.800149105367794,
+            "reference_area_m2": 1.215,
+            "reference_velocity_pressure_Pa": 9.365007949504944,
+            "isolated_component_dynamic_Pa": 0.11086536840259359
+          },
+          "lower_main": {
+            "coefficient": 0.04384679737542774,
+            "reference_flow_m3_s": 4.231895130759996,
+            "reference_area_m2": 1.215,
+            "reference_velocity_pressure_Pa": 7.2789458508358145,
+            "isolated_component_dynamic_Pa": 0.3191584638283084
+          },
+          "lower_left": {
+            "coefficient": 1.0238499683422344,
+            "reference_flow_m3_s": 4.231895130759996,
+            "reference_area_m2": 1.215,
+            "reference_velocity_pressure_Pa": 7.2789458508358145,
+            "isolated_component_dynamic_Pa": 7.452548478943087
+          },
+          "lower_right": {
+            "coefficient": 1.0271353329996358,
+            "reference_flow_m3_s": 4.231895130759996,
+            "reference_area_m2": 1.215,
+            "reference_velocity_pressure_Pa": 7.2789458508358145,
+            "isolated_component_dynamic_Pa": 7.476462470384561
+          }
+        },
+        "path_components": {
+          "D-22": [
+            "upper_branch"
+          ],
+          "D-02": [
+            "upper_main",
+            "lower_left"
+          ],
+          "D-05": [
+            "upper_main",
+            "lower_right"
+          ],
+          "lower": [
+            "upper_main",
+            "lower_main"
+          ]
+        },
+        "isolated_compound_path_hypothesis_Pa": {
+          "D-22": 9.86287163723403,
+          "D-02": 7.5634138473456805,
+          "D-05": 7.5873278387871546,
+          "lower": 0.430023832230902
+        }
+      }
+    },
+    "outlet_rows": [
+      {
+        "condition": "maximum",
+        "outlet_source_section": "0WvdfA3zDKfO0CW$V5Jsne",
+        "outlet_port_guid": "0$iQoADbDIFP6aO3Yi4_Oc",
+        "compound_exit": "lower",
+        "known_straight_Pa": 9.923776230479604,
+        "other_conditional_fittings_Pa": 138.90744432021535,
+        "isolated_compound_hypothesis_Pa": 2.687648951443138,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 151.5188695021381,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "maximum",
+        "outlet_source_section": "1JDTIpFW5QSREtJ610AQ34",
+        "outlet_port_guid": "03ca1JnLjG7gceXjjtU5TO",
+        "compound_exit": "D-05",
+        "known_straight_Pa": 17.92900284352867,
+        "other_conditional_fittings_Pa": 56.7389621239792,
+        "isolated_compound_hypothesis_Pa": 47.42079899241973,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 122.0887639599276,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "maximum",
+        "outlet_source_section": "2dwkXYndrQe8akRs1ziEM_",
+        "outlet_port_guid": "0CI$xPy$nOoQmwHjdwAjLE",
+        "compound_exit": "lower",
+        "known_straight_Pa": 22.408286982115552,
+        "other_conditional_fittings_Pa": 143.37722659402135,
+        "isolated_compound_hypothesis_Pa": 2.687648951443138,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 168.47316252758006,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "maximum",
+        "outlet_source_section": "1eFzE74j9IX9FCS_bpSZi8",
+        "outlet_port_guid": "0N_8ZHrmjQOv3eDx_LSQCR",
+        "compound_exit": "lower",
+        "known_straight_Pa": 16.811182037212806,
+        "other_conditional_fittings_Pa": 132.01111140649985,
+        "isolated_compound_hypothesis_Pa": 2.687648951443138,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 151.5099423951558,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "maximum",
+        "outlet_source_section": "3Y2iFalPLIjPgobiCbmlpM",
+        "outlet_port_guid": "0aSJlhhx9N2goyv7rs6Grd",
+        "compound_exit": "lower",
+        "known_straight_Pa": 15.145423376033694,
+        "other_conditional_fittings_Pa": 147.82013756218865,
+        "isolated_compound_hypothesis_Pa": 2.687648951443138,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 165.6532098896655,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "maximum",
+        "outlet_source_section": "3YEo7IX2vLHOZoUdtxYhkW",
+        "outlet_port_guid": "0qjKGdPovVTvPEUUC0DbI8",
+        "compound_exit": "lower",
+        "known_straight_Pa": 24.495064025713127,
+        "other_conditional_fittings_Pa": 117.65499682574814,
+        "isolated_compound_hypothesis_Pa": 2.687648951443138,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 144.8377098029044,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "maximum",
+        "outlet_source_section": "2A5hnkfKfVQA3ppPSDKTLp",
+        "outlet_port_guid": "0t24RykiTV3A1Mx7Q3gKxN",
+        "compound_exit": "D-22",
+        "known_straight_Pa": 16.74544786799761,
+        "other_conditional_fittings_Pa": 56.16823522438148,
+        "isolated_compound_hypothesis_Pa": 61.6429477327127,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 134.5566308250918,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "maximum",
+        "outlet_source_section": "3UfxkNar9T3uv889TvBuZo",
+        "outlet_port_guid": "1JiggJBInVcfqALklD7mEk",
+        "compound_exit": "lower",
+        "known_straight_Pa": 29.21186234584691,
+        "other_conditional_fittings_Pa": 124.21120128672673,
+        "isolated_compound_hypothesis_Pa": 2.687648951443138,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 156.1107125840168,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "maximum",
+        "outlet_source_section": "0FMDd$bG1NneS7N2OdRFsP",
+        "outlet_port_guid": "1K38iW1SfHTwx0umfXesVW",
+        "compound_exit": "lower",
+        "known_straight_Pa": 24.042532154731152,
+        "other_conditional_fittings_Pa": 117.45763199896533,
+        "isolated_compound_hypothesis_Pa": 2.687648951443138,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 144.18781310513964,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "maximum",
+        "outlet_source_section": "2xxjOz63jHgeE8yuHmmyJ7",
+        "outlet_port_guid": "1SO2KrjUzMtQBWLv4vMT1J",
+        "compound_exit": "D-05",
+        "known_straight_Pa": 4.9911415994807315,
+        "other_conditional_fittings_Pa": 79.4385052951885,
+        "isolated_compound_hypothesis_Pa": 47.42079899241973,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 131.85044588708897,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "maximum",
+        "outlet_source_section": "1I5d0BkIHT3A1NnC$0VWpB",
+        "outlet_port_guid": "1TUaKP9KHMnvz3e4p1t0T2",
+        "compound_exit": "lower",
+        "known_straight_Pa": 9.007920063526953,
+        "other_conditional_fittings_Pa": 141.2059241804789,
+        "isolated_compound_hypothesis_Pa": 2.687648951443138,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 152.90149319544898,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "maximum",
+        "outlet_source_section": "3ZeIIu8ZjLivD3$rEAqFH_",
+        "outlet_port_guid": "1aFMWquD1LhBYzkBn6nBgW",
+        "compound_exit": "lower",
+        "known_straight_Pa": 16.04189815289257,
+        "other_conditional_fittings_Pa": 150.30636822952985,
+        "isolated_compound_hypothesis_Pa": 2.687648951443138,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 169.03591533386557,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "maximum",
+        "outlet_source_section": "2NUeFlDmPKeAdID44c7Y3d",
+        "outlet_port_guid": "1dg3L3cN1JwPXP7QTftlD8",
+        "compound_exit": "D-22",
+        "known_straight_Pa": 22.583461243015535,
+        "other_conditional_fittings_Pa": 101.02216684742747,
+        "isolated_compound_hypothesis_Pa": 61.6429477327127,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 185.2485758231557,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "maximum",
+        "outlet_source_section": "0hfguPDXzM4uq$XxvCCMMo",
+        "outlet_port_guid": "1o0rNmVMbMffWfqaf_T5et",
+        "compound_exit": "D-02",
+        "known_straight_Pa": 11.915865070732766,
+        "other_conditional_fittings_Pa": 73.42072714219674,
+        "isolated_compound_hypothesis_Pa": 47.2713365459105,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 132.60792875884,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "maximum",
+        "outlet_source_section": "10cDTQJo5IcPLAUKm5b$EG",
+        "outlet_port_guid": "21Gr8ySeTKJvZJWGXxSsih",
+        "compound_exit": "D-02",
+        "known_straight_Pa": 5.1803988074911995,
+        "other_conditional_fittings_Pa": 78.9637449030056,
+        "isolated_compound_hypothesis_Pa": 47.2713365459105,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 131.4154802564073,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "maximum",
+        "outlet_source_section": "0JgqECwtPHrA0cyUHrcIbw",
+        "outlet_port_guid": "2GyaCxr2vTHu1DzdTPMY7i",
+        "compound_exit": "lower",
+        "known_straight_Pa": 22.08651215664592,
+        "other_conditional_fittings_Pa": 138.8759207703513,
+        "isolated_compound_hypothesis_Pa": 2.687648951443138,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 163.65008187844037,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "maximum",
+        "outlet_source_section": "2TYIpAGo5Jn84Ds4cFSqzD",
+        "outlet_port_guid": "3a_POezRTQSeJiiavNVqIw",
+        "compound_exit": "D-02",
+        "known_straight_Pa": 19.023262342501177,
+        "other_conditional_fittings_Pa": 57.82922542315794,
+        "isolated_compound_hypothesis_Pa": 47.2713365459105,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 124.12382431156962,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "maximum",
+        "outlet_source_section": "3yhBBouBPRw8LwOEWLhhps",
+        "outlet_port_guid": "3ghabIwrDQLg6Y7VnT6k9S",
+        "compound_exit": "lower",
+        "known_straight_Pa": 30.31860210291551,
+        "other_conditional_fittings_Pa": 125.13423678705149,
+        "isolated_compound_hypothesis_Pa": 2.687648951443138,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 158.14048784141016,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "maximum",
+        "outlet_source_section": "1ljYkCFLnPd9wUABuPtBnw",
+        "outlet_port_guid": "3m2dRiJ1vGYQnnGVoXLXcf",
+        "compound_exit": "D-05",
+        "known_straight_Pa": 11.095428087122661,
+        "other_conditional_fittings_Pa": 71.18704145731847,
+        "isolated_compound_hypothesis_Pa": 47.42079899241973,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 129.70326853686086,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "maximum",
+        "outlet_source_section": "1h76SSiWvQkv6hW9gZiAWw",
+        "outlet_port_guid": "3szP9lGPfSWx81bORgVyuh",
+        "compound_exit": "lower",
+        "known_straight_Pa": 16.724428743763042,
+        "other_conditional_fittings_Pa": 137.05976104940504,
+        "isolated_compound_hypothesis_Pa": 2.687648951443138,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 156.47183874461123,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "minimum",
+        "outlet_source_section": "0WvdfA3zDKfO0CW$V5Jsne",
+        "outlet_port_guid": "0$iQoADbDIFP6aO3Yi4_Oc",
+        "compound_exit": "lower",
+        "known_straight_Pa": 1.8006346399283695,
+        "other_conditional_fittings_Pa": 22.604475949753105,
+        "isolated_compound_hypothesis_Pa": 0.430023832230902,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 24.835134421912375,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "minimum",
+        "outlet_source_section": "1JDTIpFW5QSREtJ610AQ34",
+        "outlet_port_guid": "03ca1JnLjG7gceXjjtU5TO",
+        "compound_exit": "D-05",
+        "known_straight_Pa": 3.317450899582298,
+        "other_conditional_fittings_Pa": 9.708340108194243,
+        "isolated_compound_hypothesis_Pa": 7.5873278387871546,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 20.613118846563694,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "minimum",
+        "outlet_source_section": "2dwkXYndrQe8akRs1ziEM_",
+        "outlet_port_guid": "0CI$xPy$nOoQmwHjdwAjLE",
+        "compound_exit": "lower",
+        "known_straight_Pa": 4.085429883082227,
+        "other_conditional_fittings_Pa": 23.23764715375329,
+        "isolated_compound_hypothesis_Pa": 0.430023832230902,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 27.75310086906642,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "minimum",
+        "outlet_source_section": "1eFzE74j9IX9FCS_bpSZi8",
+        "outlet_port_guid": "0N_8ZHrmjQOv3eDx_LSQCR",
+        "compound_exit": "lower",
+        "known_straight_Pa": 3.0735931104511938,
+        "other_conditional_fittings_Pa": 21.464700839236567,
+        "isolated_compound_hypothesis_Pa": 0.430023832230902,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 24.968317781918664,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "minimum",
+        "outlet_source_section": "3Y2iFalPLIjPgobiCbmlpM",
+        "outlet_port_guid": "0aSJlhhx9N2goyv7rs6Grd",
+        "compound_exit": "lower",
+        "known_straight_Pa": 2.7461137210273154,
+        "other_conditional_fittings_Pa": 23.950003285627844,
+        "isolated_compound_hypothesis_Pa": 0.430023832230902,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 27.12614083888606,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "minimum",
+        "outlet_source_section": "3YEo7IX2vLHOZoUdtxYhkW",
+        "outlet_port_guid": "0qjKGdPovVTvPEUUC0DbI8",
+        "compound_exit": "lower",
+        "known_straight_Pa": 4.498937942759252,
+        "other_conditional_fittings_Pa": 19.346615763046252,
+        "isolated_compound_hypothesis_Pa": 0.430023832230902,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 24.275577538036405,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "minimum",
+        "outlet_source_section": "2A5hnkfKfVQA3ppPSDKTLp",
+        "outlet_port_guid": "0t24RykiTV3A1Mx7Q3gKxN",
+        "compound_exit": "D-22",
+        "known_straight_Pa": 3.07429529911947,
+        "other_conditional_fittings_Pa": 9.786841322784275,
+        "isolated_compound_hypothesis_Pa": 9.86287163723403,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 22.724008259137776,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "minimum",
+        "outlet_source_section": "3UfxkNar9T3uv889TvBuZo",
+        "outlet_port_guid": "1JiggJBInVcfqALklD7mEk",
+        "compound_exit": "lower",
+        "known_straight_Pa": 5.357100623803191,
+        "other_conditional_fittings_Pa": 20.500799259498525,
+        "isolated_compound_hypothesis_Pa": 0.430023832230902,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 26.287923715532617,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "minimum",
+        "outlet_source_section": "0FMDd$bG1NneS7N2OdRFsP",
+        "outlet_port_guid": "1K38iW1SfHTwx0umfXesVW",
+        "compound_exit": "lower",
+        "known_straight_Pa": 4.4178977206984955,
+        "other_conditional_fittings_Pa": 19.509594766224584,
+        "isolated_compound_hypothesis_Pa": 0.430023832230902,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 24.35751631915398,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "minimum",
+        "outlet_source_section": "2xxjOz63jHgeE8yuHmmyJ7",
+        "outlet_port_guid": "1SO2KrjUzMtQBWLv4vMT1J",
+        "compound_exit": "D-05",
+        "known_straight_Pa": 0.9144461427691324,
+        "other_conditional_fittings_Pa": 13.01017846473391,
+        "isolated_compound_hypothesis_Pa": 7.5873278387871546,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 21.511952446290195,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "minimum",
+        "outlet_source_section": "1I5d0BkIHT3A1NnC$0VWpB",
+        "outlet_port_guid": "1TUaKP9KHMnvz3e4p1t0T2",
+        "compound_exit": "lower",
+        "known_straight_Pa": 1.6331728461479555,
+        "other_conditional_fittings_Pa": 22.930018968993263,
+        "isolated_compound_hypothesis_Pa": 0.430023832230902,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 24.99321564737212,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "minimum",
+        "outlet_source_section": "3ZeIIu8ZjLivD3$rEAqFH_",
+        "outlet_port_guid": "1aFMWquD1LhBYzkBn6nBgW",
+        "compound_exit": "lower",
+        "known_straight_Pa": 2.9102751755861584,
+        "other_conditional_fittings_Pa": 24.38403999191429,
+        "isolated_compound_hypothesis_Pa": 0.430023832230902,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 27.724338999731348,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "minimum",
+        "outlet_source_section": "2NUeFlDmPKeAdID44c7Y3d",
+        "outlet_port_guid": "1dg3L3cN1JwPXP7QTftlD8",
+        "compound_exit": "D-22",
+        "known_straight_Pa": 4.1594071274056335,
+        "other_conditional_fittings_Pa": 17.13983040988466,
+        "isolated_compound_hypothesis_Pa": 9.86287163723403,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 31.16210917452432,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "minimum",
+        "outlet_source_section": "0hfguPDXzM4uq$XxvCCMMo",
+        "outlet_port_guid": "1o0rNmVMbMffWfqaf_T5et",
+        "compound_exit": "D-02",
+        "known_straight_Pa": 2.192122864587414,
+        "other_conditional_fittings_Pa": 12.257683184117925,
+        "isolated_compound_hypothesis_Pa": 7.5634138473456805,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 22.01321989605102,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "minimum",
+        "outlet_source_section": "10cDTQJo5IcPLAUKm5b$EG",
+        "outlet_port_guid": "21Gr8ySeTKJvZJWGXxSsih",
+        "compound_exit": "D-02",
+        "known_straight_Pa": 0.9475576460207135,
+        "other_conditional_fittings_Pa": 13.147795396970663,
+        "isolated_compound_hypothesis_Pa": 7.5634138473456805,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 21.658766890337056,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "minimum",
+        "outlet_source_section": "0JgqECwtPHrA0cyUHrcIbw",
+        "outlet_port_guid": "2GyaCxr2vTHu1DzdTPMY7i",
+        "compound_exit": "lower",
+        "known_straight_Pa": 4.03033929840428,
+        "other_conditional_fittings_Pa": 22.52393067993367,
+        "isolated_compound_hypothesis_Pa": 0.430023832230902,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 26.98429381056885,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "minimum",
+        "outlet_source_section": "2TYIpAGo5Jn84Ds4cFSqzD",
+        "outlet_port_guid": "3a_POezRTQSeJiiavNVqIw",
+        "compound_exit": "D-02",
+        "known_straight_Pa": 3.5172007740687614,
+        "other_conditional_fittings_Pa": 9.915140188059315,
+        "isolated_compound_hypothesis_Pa": 7.5634138473456805,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 20.99575480947376,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "minimum",
+        "outlet_source_section": "3yhBBouBPRw8LwOEWLhhps",
+        "outlet_port_guid": "3ghabIwrDQLg6Y7VnT6k9S",
+        "compound_exit": "lower",
+        "known_straight_Pa": 5.556235309859238,
+        "other_conditional_fittings_Pa": 20.725249771336394,
+        "isolated_compound_hypothesis_Pa": 0.430023832230902,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 26.711508913426535,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "minimum",
+        "outlet_source_section": "1ljYkCFLnPd9wUABuPtBnw",
+        "outlet_port_guid": "3m2dRiJ1vGYQnnGVoXLXcf",
+        "compound_exit": "D-05",
+        "known_straight_Pa": 2.0453825156340337,
+        "other_conditional_fittings_Pa": 11.687928897012277,
+        "isolated_compound_hypothesis_Pa": 7.5873278387871546,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 21.320639251433466,
+        "complete_pressure_Pa": "Unknown"
+      },
+      {
+        "condition": "minimum",
+        "outlet_source_section": "1h76SSiWvQkv6hW9gZiAWw",
+        "outlet_port_guid": "3szP9lGPfSWx81bORgVyuh",
+        "compound_exit": "lower",
+        "known_straight_Pa": 3.0543251475217845,
+        "other_conditional_fittings_Pa": 22.266632868021446,
+        "isolated_compound_hypothesis_Pa": 0.430023832230902,
+        "isolated_straight_plus_dynamic_hypothesis_Pa": 25.75098184777413,
+        "complete_pressure_Pa": "Unknown"
+      }
+    ],
+    "production_ledger_changed": false,
+    "production_numerical_gaps": 4,
+    "production_conditional_values": 114,
+    "full_pressure_verified": false,
+    "design_accepted": false,
+    "primary_research": {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3872430/",
+      "doi": "10.1155/2013/195763",
+      "applicability": "Flat-plate obstructions in100x100mmduct,not this branching/tapered assembly. No numerical correction adopted."
+    }
+  }
 }
