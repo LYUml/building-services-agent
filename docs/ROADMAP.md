@@ -1,5 +1,13 @@
 # Scope and acceptance
 
+The saved inlet network now integrates129bodies/277ports/128links; all128material
+interfaces and both source-flow cases reconcile. Native whole-network DWG/PDF,
+updated candidate casing datums and fresh mixed-profile pressure execute.
+Both cases retain31conditional values/52numerical gaps; installed equipment and
+full pressure remain unresolved. See [integrated network](INTEGRATED_INLET_NETWORK.md).
+
+Earlier local-only inlet milestone, before the integration above:
+
 Twenty actual VAV inlet assemblies now have40hollow IFC bodies/80ports/20local
 links,20editable STEP sources and inspected native AutoCAD sections. A pinned
 CadQuery/OCP worker reuses upstream loft/Boolean geometry; native caps, walls

@@ -1853,3 +1853,14 @@ circle extrusions;40bodies80ports20links validate. No custom geometry kernel.
 Failed direct/large mesh conversions stay historical, not adopted. Native
 trimesh longitudinal sections/AutoCAD execute after raw silhouette union fails.
 See VAV_INLET_CONNECTIONS.md; no complete pressure, product or network adoption.
+
+Full inlet-tree composition reuses existing IFC asset append, native straight
+trimming/owned ports, source snapshots/tree validation, material-cap readers,
+Manifold, generic prescribed flows/path tracing/table engine/pressure ledger,
+fluids Darcy friction, obstacle-box append, trimesh native sections and AutoCAD.
+Actual129body277port128link tree and108rectangular/20circular caps pass. An exact
+89body rectangular subgraph feeds the existing analysis;20truecircular spans
+extend it without fake rectangle dimensions. Both flow cases re-query oldtables
+and trace the actualfullgraph:31conditional/52unknown,not a fullpressure pass.
+Updated20casing/inlet datums and inspected native129bodysection execute; no new
+solver/dependency/MCP producer. See INTEGRATED_INLET_NETWORK.md.
