@@ -331,3 +331,14 @@ IfcOpenShell0.8.5 ShapeBuilder.faceted_brep API. Source ring/face connectivity a
 source-node/budget glue are original adapter code; no upstream implementation or
 new binary is copied. Existing IfcOpenShell/Manifold attribution and license
 notices apply. The original MEP-helper authoring path remains separately checked.
+# External K-Select MCP
+
+K-Select Agent Toolkit 0.1.1, LYUml and contributors, Apache-2.0,
+commit `3eecd3710e976927c4b7c639900e833d12150453`:
+https://github.com/LYUml/k-select-agent-toolkit
+Consumed as an existing external MCP stdio service; no source is vendored here.
+Its NOTICE credits HKUDS/CLI-Anything REPL at
+`34f519533bc175d2fe287ab8316b0dd99bb9cc43`, Apache-2.0.
+Krueger GRD executables/databases remain separate manufacturer software.
+See docs/KSELECT_MCP_REUSE.md for actual executed scope and limitations.
+

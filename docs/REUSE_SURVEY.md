@@ -1784,3 +1784,10 @@ NewRevit candidates prove angle-only injector/TODO fitting server. See
 [FITTING_UPSTREAM_SCREEN.md](FITTING_UPSTREAM_SCREEN.md) for pinned source
 inspections and decision to defer batch staged construction pending a valid
 combined-loss basis; no new dependency or accepted correlation.
+
+
+User K-Select Agent Toolkit0.1.1/3eecd371 is now consumed through actual MCP
+stdio, with project-bound verify_result against existing112CFM native PDF.
+Seven request checks pass; original hash and actual rendered page inspected.
+No duplicate engine/MCP or bypass of blocked live dialog. Native/catalogue
+pressure mismatch and ADPI display-precision limits remain. See KSELECT_MCP_REUSE.md.

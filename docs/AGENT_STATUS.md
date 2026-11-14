@@ -1,5 +1,10 @@
 # Whole-agent status
 
+The user K-Select MCP now executes project-bound verification of an existing
+minimum-flow native PDF: seven checks pass. Native/catalogue pressure differs
+at minimum flow; ADPI display uncertainty prevents acceptance. No new GUI run
+or duplicate MCP. See [MCP reuse](KSELECT_MCP_REUSE.md).
+
 Existing native K-Select maximum export now has an independent source review:
 integer CFM and total-pressure display reconcile; same-page feet/metres throw
 labels conflict and one octave-band difference remains. Minimum native export

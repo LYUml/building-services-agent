@@ -1,0 +1,30 @@
+{
+  "transport": "MCP stdio",
+  "toolkit_version": "0.1.1",
+  "toolkit_commit": "3eecd3710e976927c4b7c639900e833d12150453",
+  "existing_native_PDF_reused": true,
+  "independent_MCP_checks_all_pass": true,
+  "minimum_native_export_available": true,
+  "design_minimum_L_s": 52.88317850835132,
+  "effective_minimum_CFM": 112.0,
+  "effective_minimum_L_s": 52.858113638400006,
+  "native_throw_ft": 8.0,
+  "native_throw_m": 2.4384,
+  "native_total_pressure_display_in_wc": 0.01,
+  "native_pressure_display_rounding_interval_Pa": [
+    1.24544455,
+    3.73633365
+  ],
+  "catalogue_linear_total_pressure_at_effective_flow_Pa": 3.987572383185456,
+  "native_and_catalogue_linear_pressure_match_at_display_precision": false,
+  "native_pressure_reference_confirmed_by_prior_UI_total_pressure_label": true,
+  "minimum_nominal_paired_curve_screen_passes_four_directions": true,
+  "minimum_nearest_foot_uncertainty_screen_passes_four_directions": false,
+  "characteristic_lengths_physically_accepted": false,
+  "display_rounding_interval_is_diagnostic_assumption": true,
+  "acoustic_NC_accepted": false,
+  "ADPI_verified": false,
+  "fan_pressure_complete": false,
+  "design_accepted": false,
+  "native_PDF_sha256": "0dee7660b2aecd148e5e62dfdf39cb0e30ca9af595594e536db04bca8a1a3234"
+}
