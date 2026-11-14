@@ -34,12 +34,17 @@ def calculate(case,data):
     supplied={p['outlet_port_guid']:p for p in data['boundary_paths']}
     if len(supplied)!=len(data['boundary_paths']):raise ValueError('Duplicate outlet summary')
     affected={k:set() for k in requests};paths=[];outlets=set();used_straights=set()
+    logical_count=sum(r.get('interface_basis')=='logical_equipment_connection' for r in case['interfaces'])
     for path in case['boundary_paths']:
         outlet=path['outlet_port_guid']
         if outlet in outlets:raise ValueError('Duplicate original outlet')
-        outlets.add(outlet);straight=[];conditional=[];missing=[];steps=[];seen=set();seen_straight=set();interfaces=0
+        outlets.add(outlet);straight=[];conditional=[];missing=[];steps=[];seen=set();seen_straight=set();interfaces=0;logical_pairs=[]
         for step in path['steps']:
-            if step['kind']=='shared_cap_interface':interfaces+=1;continue
+            if step['kind']=='shared_cap_interface':
+                interfaces+=1
+                if step.get('interface_basis')=='logical_equipment_connection':
+                    logical_pairs.append([step['inlet_port_guid'],step['outlet_port_guid']])
+                continue
             if step['kind']=='straight':
                 r=straights[step['product_guid']];value=number(r['straight_friction_Pa'])
                 if r['guid'] in seen_straight:raise ValueError('Repeated straight in one outlet path')
@@ -61,6 +66,9 @@ def calculate(case,data):
         partial=None if missing else a+b
         if (old['tabulated_plus_separate_straight_Pa'] is not None if partial is None else not matches(old['tabulated_plus_separate_straight_Pa'],partial)) or old['complete_total_pressure_drop_Pa'] is not None:raise ValueError('Unsupported complete pressure assertion')
         paths.append(dict(inlet_port_guid=path['inlet_port_guid'],outlet_port_guid=outlet,known_straight_friction_Pa=a,conditional_signed_table_subtotal_Pa=b,numerically_unresolved_fitting_paths=missing,conditional_arithmetic_only_Pa=partial,shared_interfaces_requiring_joint_review=interfaces,contributions=steps,unresolved_scope=GAPS,complete_total_pressure_drop_Pa=None))
+        if logical_count:
+            paths[-1].update(logical_equipment_interfaces_requiring_physical_review=len(logical_pairs),
+                logical_equipment_interface_port_pairs=logical_pairs)
     if outlets!=set(supplied) or used_straights!=set(straights) or any(not v for v in affected.values()) or set(tables)-set(requests):raise ValueError('Complete path/evidence coverage required')
     gaps=[];finite=0
     for k,request in requests.items():
@@ -69,7 +77,10 @@ def calculate(case,data):
         if value is not None:finite+=1
         else:gaps.append(dict(**dict(zip(KEY,k)),predefined_type=request['predefined_type'],status=request['status'],affected_outlet_port_guids=sorted(affected[k]),affected_outlet_count=len(affected[k]),required_evidence=request['required_evidence']))
     gaps.sort(key=lambda r:(-r['affected_outlet_count'],r['product_guid'],r['inlet_port_guid'],r['outlet_port_guid']))
-    return dict(outlet_paths=sorted(paths,key=lambda p:p['outlet_port_guid']),outlet_count=len(paths),unique_fitting_path_count=len(requests),conditional_numerical_path_count=finite,numerically_unresolved_fitting_path_count=len(gaps),missing_evidence_by_outlet_coverage=gaps,original_requirement_ids=case['original_requirement_ids'],excluded_transition_end_straight_study_count=len(data.get('transition_end_straight_study',[])),pressure_budget_complete=False,critical_path=None,fan_duty_Pa=None,design_accepted=False,scope='Evidence accounting only. Coverage order is research priority, not hydraulic criticality. Signed partial subtotals are not lower bounds or fan duties. Separate end-straight studies are excluded; parallel outlet paths are never summed.')
+    result=dict(outlet_paths=sorted(paths,key=lambda p:p['outlet_port_guid']),outlet_count=len(paths),unique_fitting_path_count=len(requests),conditional_numerical_path_count=finite,numerically_unresolved_fitting_path_count=len(gaps),missing_evidence_by_outlet_coverage=gaps,original_requirement_ids=case['original_requirement_ids'],excluded_transition_end_straight_study_count=len(data.get('transition_end_straight_study',[])),pressure_budget_complete=False,critical_path=None,fan_duty_Pa=None,design_accepted=False,scope='Evidence accounting only. Coverage order is research priority, not hydraulic criticality. Signed partial subtotals are not lower bounds or fan duties. Separate end-straight studies are excluded; parallel outlet paths are never summed.')
+    if logical_count:
+        result.update(logical_equipment_interface_count=logical_count,physical_airway_continuity_verified=False)
+    return result
 
 
 def evaluate(source):

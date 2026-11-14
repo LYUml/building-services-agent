@@ -1,5 +1,11 @@
 # Whole-agent status
 
+Current logical supply model connects20VAVs/20plenums to80terminal planes in one
+1287port/603interface tree. Fresh expanded pressure evidence has194conditional
+values/264gaps over458component paths;physical device airways remain unverified.
+Actual native drawing covers604distributionGUIDs;15tests/20subtests pass. See
+[logical supply network](LOGICAL_SUPPLY_NETWORK.md).
+
 Current outlet candidate composes the164body main model with20casings,20plenum
 envelopes,80reducers and320new native branch pieces.664elements/1147ports,
 604body scoped collision review and actual native plan/detail DWGs execute.

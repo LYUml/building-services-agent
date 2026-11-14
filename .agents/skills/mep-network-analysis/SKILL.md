@@ -5,6 +5,12 @@ description: Calculate source-linked air/water networks, fan/pump operating poin
 
 # Network pressure analysis
 
+For source-positioned VAV/plenum logical closure,see docs/LOGICAL_SUPPLY_NETWORK.md.
+Preserve unknown internal areas and physical-cap status. boundary_paths propagates
+interface_basis/physical_cap_verified;logical joins cannot certify material caps.
+Use fresh annotated ledger outputs after method changes. One logical tree does
+not prove open device airways,pressure balance or complete pressure.
+
 After a verified VAV recenter revision, an old connection schedule is a different
 scenario. See docs/RECENTERED_VAV_SCHEDULE.md for actual native-plan/binding/
 allocation composition with existing table engines; require native reopening,

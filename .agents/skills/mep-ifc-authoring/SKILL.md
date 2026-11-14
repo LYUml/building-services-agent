@@ -5,6 +5,12 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For source-positioned VAV/plenum logical closure,see docs/LOGICAL_SUPPLY_NETWORK.md.
+Preserve unknown internal areas and physical-cap status. boundary_paths propagates
+interface_basis/physical_cap_verified;logical joins cannot certify material caps.
+Use fresh annotated ledger outputs after method changes. One logical tree does
+not prove open device airways,pressure balance or complete pressure.
+
 For a saved smooth minor circular duct bend, use round_bend_quantities per
 docs/THREE_DIMENSIONAL_OUTLETS.md. Require explicit metre/radian conventions,
 a hollow radial profile, independent Axis and actual owned caps. The actual

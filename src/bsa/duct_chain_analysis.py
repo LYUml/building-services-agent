@@ -126,6 +126,19 @@ def boundary_paths(ports, products, interfaces, straight, missing, boundaries):
         indegree[b] += 1
     for row in interfaces:
         add(row['source_port'], row['sink_port'], 'shared_cap_interface')
+        # The legacy kind denotes graph adjacency, not material-cap acceptance.
+        if 'interface_basis' in row or 'physical_cap_verified' in row:
+            basis = row.get('interface_basis')
+            verified = row.get('physical_cap_verified')
+            if basis is not None and (not isinstance(basis, str) or not basis.strip()):
+                raise ValueError('Nonempty interface basis required')
+            if verified is not None and type(verified) is not bool:
+                raise ValueError('Physical cap evidence must be boolean or unknown')
+            if basis == 'logical_equipment_connection':
+                if verified is True:
+                    raise ValueError('Logical equipment connection cannot certify physical caps')
+                verified = False
+            edges[row['source_port']][-1].update(interface_basis=basis, physical_cap_verified=verified)
     for row in straight:
         owned = {g: p for g, p in ports.items() if p['owner_guid'] == row['guid']}
         ins = [g for g, p in owned.items() if p['direction'] == 'SINK']
