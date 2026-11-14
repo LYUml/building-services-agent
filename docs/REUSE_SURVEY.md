@@ -1799,3 +1799,11 @@ Decimal interval intersection. Nine source rows calibrate; three native points
 are held out. No production engine/dependency/correlation replaces existing
 methods. See TERMINAL_PRESSURE_ENVELOPE.md for source-rounding-only limits
 and actual160case/960cell reconciliation.
+
+
+Recentered schedule composition reuses vav_recenter verification, existing
+air_terminal_drawing native geometry/flow correspondence, vav_schedule table
+authoring and duct_sheet_native AutoCAD save/reopen/plot. No new engine or
+dependency. Actual80line/140nativecell/140CSVcell reconciliation closes an old
+layout/table mismatch; not a registered MCP producer or full design acceptance.
+See RECENTERED_VAV_SCHEDULE.md.

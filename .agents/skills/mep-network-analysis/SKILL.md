@@ -5,6 +5,11 @@ description: Calculate source-linked air/water networks, fan/pump operating poin
 
 # Network pressure analysis
 
+After a verified VAV recenter revision, an old connection schedule is a different
+scenario. See docs/RECENTERED_VAV_SCHEDULE.md for actual native-plan/binding/
+allocation composition with existing table engines; require native reopening,
+raw line/cell reconciliation and actual plot review before delivery.
+
 For saved equal/reduced sharp rectangular tees, use the explicit selection and
 literal branch-profile reconciliation in docs/RECTANGULAR_TEE_PROFILES.md. Do not
 feed crosses/compound junctions into this reader, assume the branch matches the

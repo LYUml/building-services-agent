@@ -1,0 +1,30 @@
+{
+  "vav_groups": 20,
+  "terminal_count": 80,
+  "raw_native_flex_lengths_reconciled": 80,
+  "native_cells_reconciled": 140,
+  "csv_cells_reconciled": 140,
+  "changed_group_plan_lengths": 10,
+  "unchanged_flows_and_membership": true,
+  "maximum_flow_L_s": 12000.372763419484,
+  "minimum_flow_L_s": 4800.149105367794,
+  "total_plan_flex_m": 197.8940419203969,
+  "maximum_plan_flex_m": 2.8728691174818,
+  "native_DWG_reopen_pass": true,
+  "native_entity_count": 185,
+  "actual_PDF_page_visually_inspected": true,
+  "plot_reference_expected_mm": 100.0,
+  "plot_reference_measured_mm": 100.03366666666665,
+  "installed_flex_lengths_verified": false,
+  "hardware_selected": false,
+  "full_pressure_verified": false,
+  "ADPI_verified": false,
+  "design_accepted": false,
+  "source_revision_sha256": "78c95fd2fd6f804e5487d95991e556ef81fd60ae1fd73ab61f04366d61264363",
+  "scope": "Recentered Connection_Layout schedule only; earlier network study remains a separate scenario",
+  "deliverable_sha256": {
+    "03_Design_Drawings\\Connection_Layout\\VAV Connection Schedule.dwg": "079bf9d04e2f96c7f1948147d9dfdabf6ecc26ea95b2437b5d788c39723caf8a",
+    "03_Design_Drawings\\Connection_Layout\\VAV Connection Schedule.pdf": "4097ec5f6c05e257edf543b49f349d2173500a9db9910e2542c021597c82d5e6",
+    "05_Calculations\\Connection_Layout\\VAV Connection Schedule.csv": "cbf05b9ac84e06d6d93a5d30dce07a5a1e457b766c47d0eae99dc774e57e3ee5"
+  }
+}

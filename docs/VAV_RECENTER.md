@@ -89,3 +89,10 @@ guide uses a different Type 3 circular-pattern graph and cannot silently replace
 the classroom basis. A separate manufacturer-based design may alter neck sizes,
 terminal count and layout; keep original coursework evidence and seek the user's
 direction before that scope change. No load is clamped and no ADPI pass is given.
+
+
+The recentered Connection_Layout now has a separate matching connection table
+in actual native DWG/PDF/CSV, with80rawlines and140nativecells independently
+reconciled. Earlier Agent_Study tables remain preserved. See
+[coordinated schedule](RECENTERED_VAV_SCHEDULE.md). IFC/pressure scenario
+integration and installed-length acceptance remain pending.

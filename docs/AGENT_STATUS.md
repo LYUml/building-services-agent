@@ -1,5 +1,10 @@
 # Whole-agent status
 
+Connection_Layout now has its own matching native VAV schedule:20groups/
+80terminals,10updatedgroupconnectionlengths,unchangedflows. Actual AutoCAD
+reopening/plot and independent80line/140cell checks pass. The earlier network
+study remains separate. See RECENTERED_VAV_SCHEDULE.md.
+
 The user K-Select MCP now executes project-bound verification of an existing
 minimum-flow native PDF: seven checks pass. Native/catalogue pressure differs
 at minimum flow; ADPI display uncertainty prevents acceptance. No new GUI run
