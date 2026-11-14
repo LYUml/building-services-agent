@@ -1,5 +1,10 @@
 # Building Services Agent
 
+Separate smooth rigid branch study now evaluates160native round bends in both
+flow cases. Fresh pressure reconstruction gives354conditional values/104gaps;
+all80complete pressures remain unknown. This does not accept installed flex.
+See [smooth rigid bends](docs/SMOOTH_RIGID_BEND_STUDY.md).
+
 Current logical supply model connects20VAVs/20plenums to80terminal planes in one
 1287port/603interface tree. Fresh expanded pressure evidence has194conditional
 values/264gaps over458component paths;physical device airways remain unverified.

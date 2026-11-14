@@ -28,3 +28,4 @@ tests/test_round_bend_quantities.py text eol=lf
 src/bsa/duct_chain_analysis.py text eol=lf
 src/bsa/source_pressure_ledger.py text eol=lf
 tests/test_logical_equipment_interfaces.py text eol=lf
+src/bsa/smooth_round_bend.py text eol=lf

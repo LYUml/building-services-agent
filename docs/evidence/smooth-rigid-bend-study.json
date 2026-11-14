@@ -1,0 +1,52 @@
+{
+  "source_ifc_sha256": "471a7ff22c889743ddef41cc465137fb79c289012ec913b82b58fa9d81262991",
+  "source_network": "Existing logical network,geometry unchanged;separate smooth rigid pressure study",
+  "upstream_version": "fluids1.3.1 MIT",
+  "upstream_source_url": "https://fluids.readthedocs.io/fluids.fittings.html#fluids.fittings.bend_rounded",
+  "upstream_method_sha256": "4e2077df2dd29e01eb94a492ebefaa232c793f009440c24aa0ada5ba25cc771c",
+  "adapter_sha256": "2f7b7df001c76d7713839cd45ee41c1577cb6c86ee500986707b25db368aef00",
+  "geometry_reader_sha256": "eab3cb832a3a03443843dfe59ff3a92d7e5a44d84992529956e40ca9980926de",
+  "cases": {
+    "maximum": {
+      "conditional_component_values": 354,
+      "numerical_gaps": 104,
+      "outlet_paths": 80,
+      "gaps_per_outlet": 3,
+      "bend_loss_range_Pa": [
+        0.20701288596738726,
+        4.587844964960105
+      ]
+    },
+    "minimum": {
+      "conditional_component_values": 354,
+      "numerical_gaps": 104,
+      "outlet_paths": 80,
+      "gaps_per_outlet": 3,
+      "bend_loss_range_Pa": [
+        0.040394010644076314,
+        0.8506716795581859
+      ]
+    }
+  },
+  "executed_bend_rows": 320,
+  "terminal_rows": 160,
+  "rejection_controls_passed": 3,
+  "velocity_squared_control": true,
+  "arc_friction_included_once": true,
+  "roughness_m": 0.0,
+  "smooth_rigid_candidate_only": true,
+  "installed_flex_accepted": false,
+  "interaction_verified": false,
+  "main_pressure_accepted": false,
+  "complete_pressure_verified": false,
+  "remaining_numeric_gaps": {
+    "compound_main": 4,
+    "VAV": 20,
+    "plenum": 80
+  },
+  "scope": "Isolated smooth-wall bend correlation,not interacting assembly or installed product;140equipment areas remain unknown,physical joints and diffuser discharge unresolved;no fan duty.",
+  "published_csv_sha256": {
+    "Smooth Rigid Bend Study.csv": "de24a974560700006b274fb703140be48536c5f1f84f126178fd3345ec9c23e2",
+    "Smooth Rigid Terminal Pressure Study.csv": "5bdd8ce26105b0d4068fad25ad24628ccd7281afb10ee110b5e6bc916984ba7e"
+  }
+}
