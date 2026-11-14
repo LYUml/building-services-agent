@@ -1,0 +1,43 @@
+{
+  "recorded_utc": "2026-11-14T04:40:55.773904+00:00",
+  "scope": "18 synthetic three-phase numerical/HK current-balance/IFC workflow controls; not full project conformity",
+  "verification": {
+    "integrity_pass": true,
+    "tests_run": 18,
+    "passed": 18,
+    "suite_pass": true,
+    "all_tests_pass": true,
+    "design_accepted": false,
+    "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance"
+  },
+  "receipt_sha256": "1528c9d702badfe4cefc2f251e7c8f9f6c5bf8d0cc500afe50fba0baab468c02",
+  "official_source": {
+    "id": "emsd_bec_2024",
+    "sha256": "9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7",
+    "pack": "regulations/hk/phase-balance-2026.11.10/pack.json",
+    "pack_sha256": "8c8d5ca3b71b77acf2027acbcaef6351c4dc1150540b3610518c767fc086205b"
+  },
+  "executed_tests": [
+    "tests.test_three_phase_regulations.ThreePhaseRegulationTests.test_actual_study_feeder_pass_and_branch_below_protection_threshold",
+    "tests.test_three_phase_regulations.ThreePhaseRegulationTests.test_missing_rating_or_false_rms_basis_stays_pending",
+    "tests.test_three_phase_regulations.ThreePhaseRegulationTests.test_override_current_values_is_rejected",
+    "tests.test_three_phase_regulations.ThreePhaseRegulationTests.test_pack_defined_scope_fact_names_do_not_require_engine_changes",
+    "tests.test_three_phase_regulations.ThreePhaseRegulationTests.test_rating_boundary_and_exceeded_current_balance",
+    "tests.test_three_phase_regulations.ThreePhaseRegulationTests.test_regulatory_pass_does_not_clear_failed_study_target",
+    "tests.test_three_phase_regulations.ThreePhaseRegulationTests.test_rule_boundary_and_official_source_tampering",
+    "tests.test_three_phase_regulations.UnbalanceMathTests.test_definition_uses_maximum_deviation_not_phase_range",
+    "tests.test_workflow_three_phase_rules.RuleWorkflowTests.test_actual_scenarios_keep_missing_exceeded_and_full_acceptance_pending",
+    "tests.test_workflow_three_phase_rules.RuleWorkflowTests.test_changed_rule_artifact_stops_before_cad_call",
+    "tests.test_workflow_three_phase_rules.RuleWorkflowTests.test_replacement_project_and_changed_binding_record_rejected",
+    "tests.test_workflow_three_phase_rules.StudyBindingTests.test_direct_and_transitive_wrong_study_gates_rejected",
+    "tests.test_workflow_three_phase_ifc_project.DerivedWorkflowTests.test_actual_derived_projects_rules_and_blocking_scenarios",
+    "tests.test_workflow_three_phase_ifc_project.DerivedWorkflowTests.test_changed_derived_project_blocks_rules_and_drawing",
+    "tests.test_workflow_three_phase_ifc_project.DerivedWorkflowTests.test_failed_new_study_blocks_rules_and_drawing",
+    "tests.test_workflow_three_phase_ifc_project.DerivedWorkflowTests.test_geometry_consumer_inherits_derived_project",
+    "tests.test_workflow_three_phase_ifc_project.DerivedWorkflowTests.test_missing_runtime_does_not_derive_or_check_rules",
+    "tests.test_workflow_three_phase_ifc_project.DerivedWorkflowTests.test_replacement_project_or_runtime_options_forbidden"
+  ],
+  "original_full_run_skips_preserved": true,
+  "design_accepted": false,
+  "regulatory_compliance": "not_established"
+}

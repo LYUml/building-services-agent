@@ -8,6 +8,11 @@ Separate actual AutoCAD, official-source cable and MOOSAS geometry tests pass
 within their stated scopes. See docs/REGRESSION_20261114.md and docs/AGENT_STATUS.md.
 Whole-agent engineering acceptance remains incomplete.
 
+Eighteen supplemental three-phase/HK current-balance/IFC workflow controls
+pass against the exact pinned BEC cache, with an independently verified receipt.
+Original full-suite skips remain unchanged; regulatory/design acceptance stays
+open. See [scoped evidence](docs/evidence/three-phase-hk-regression.json).
+
 Explicit local runtime refresh now preserves user controls and unspecified
 programs, with pinned TOML Kit, backups and atomic replacement. Seven tests and
 actual Codex backend reads pass; both live workspace configs remain unchanged.
@@ -710,7 +715,7 @@ patterns and successful reporting controls do not replace a full regression.
 
 Keep numerical execution, geometric correspondence, source applicability, visual review and engineering acceptance explicit. Record unknowns rather than inventing values or changing a criterion to obtain a pass. Internal run/revision IDs belong in provenance; submitted titles, filenames and narrative omit internal iteration labels while preserving actual cited editions.
 
-The earlier [2026-11-09 regression](docs/REGRESSION_20261109.md) is historical; the 2026-11-11 complete regression above is the current full-suite record. Later focused tests do not supersede it. Historical engine execution must not be presented as current availability, and host policy is not changed to make tests pass.
+The [2026-11-09 regression](docs/REGRESSION_20261109.md) and 2026-11-11 regression are historical. The [2026-11-14 regression](docs/REGRESSION_20261114.md) is the current full-suite record; it completed with one failure and 13 errors. Later focused tests do not supersede it. Historical engine execution must not be presented as current availability, and host policy is not changed to make tests pass.
 
 ## Development and provenance
 

@@ -55,6 +55,11 @@ Separately completed source-frozen opt-in runs provide narrower actual evidence:
   lengths drive fresh voltages; invalid/failed targets and model substitutions
   remain blocked. See [electrical evidence](evidence/three-phase-regression-opt-in.json).
 
+- Eighteen additional three-phase/HK current-balance/IFC workflow controls pass
+  against the exact pinned official BEC cache, with independent receipt checks.
+  Missing facts and failed studies still block downstream release. See
+  [HK electrical evidence](evidence/three-phase-hk-regression.json).
+
 Supplemental counts are not added to the primary1,617instances or used to rewrite
 its skipped outcomes. Test requirements and numerical tolerances stay unchanged.
 

@@ -1,5 +1,12 @@
 # Hong Kong selected current-balance rule
 
+An 18-case explicit-runtime check now passes without skips against the exact
+pinned official BEC cache. It executes actual numerical studies, source-bound
+phase-balance checks and IFC-derived workflow gates, including missing-basis,
+exceeded-target and changed-source controls. The terminal receipt independently
+verifies; full regulatory/design acceptance remains unestablished. See
+[evidence](evidence/three-phase-hk-regression.json).
+
 The [EMSD BEC 2024](https://www.emsd.gov.hk/beeo/en/pee/BEC_2024_ENG.pdf) selected clause 7.6.3 applies to three-phase four-wire circuits with single-phase loads at a protective-device rating of at least 400 A, and sets a 10% current-unbalance limit at designed circuit current. Section 2 defines the percentage as maximum absolute deviation from the three-phase average, divided by that average, times 100. The design-current definition requires normal-service RMS design conditions. PDF pages 10 and 56 (printed pages 4 and 50) were visually inspected. This is a selected-clause implementation, not legal applicability advice or full electrical conformity.
 
 The independent official [TG-BEC 2024](https://www.emsd.gov.hk/beeo/en/pee/TG-BEC_2024.pdf), PDF pages 159–160, also discusses the selected clause, unbalance and harmonics. Its downloaded SHA256 is `2fce4b30773f1899635ee985876f418972fb3cacfccb176ba0df7283c4e61186`; it is supporting research, not an additional executable rule or a substitute for the primary code. Full PDFs and page renders remain in ignored repository runs.

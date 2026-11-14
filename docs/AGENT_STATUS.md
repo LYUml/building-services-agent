@@ -32,6 +32,9 @@ Separate three-phase opt-ins now execute 36 numerical/source/IFC workflow
 controls with no skips, using pinned pandapower and the existing isolated host.
 Both receipts verify. See [electrical evidence](evidence/three-phase-regression-opt-in.json).
 Product, protection and complete project/code acceptance remain open.
+A further 18 numerical/HK current-balance/IFC workflow controls pass with the
+exact pinned BEC cache, including fail/pending and source-substitution controls.
+See [Hong Kong electrical evidence](evidence/three-phase-hk-regression.json).
 Revit native creation/save/reopen remains unverified; opening a test copy alone
 is not that acceptance. See [actual Revit observation](REVIT_BUILTIN_INTERCHANGE.md).
 

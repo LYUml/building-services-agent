@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Eighteen supplemental three-phase/HK current-balance/IFC workflow controls
+now pass against the exact pinned official BEC cache. Receipt, source PDF,
+rulepack hashes and executed test identities match the saved public aggregate.
+Original whole-suite skips remain unchanged; full regulatory/design acceptance
+remains open. See [HK evidence](evidence/three-phase-hk-regression.json).
+
 Whole-agent regression completes all385selected modules:1,617instances,
 1,477passes,126skips,one failure and13errors. All20receipts independently
 verify; direct errors reproduce the OpenStudio policy block and the dependent
