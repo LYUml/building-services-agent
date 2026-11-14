@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-14",
+  "openstudio": "3.11.0",
+  "engine": "EnergyPlus, Version 25.2.0-cf7368216c",
+  "engine_sha256": "51715987663666eaff1c8d3bd6ac2d7fe0486d8bc93673eea87c6912a79103f0",
+  "executed_variants": [
+    "baseline",
+    "variant"
+  ],
+  "completion_status": {
+    "baseline": "verified_with_known_unwritten_sql_flags",
+    "variant": "verified_with_known_unwritten_sql_flags"
+  },
+  "input_unchanged": true,
+  "analysis_sha256": "0902e7b76fe2293fd17577955195c9dfde63569036fd786c8a837daf825d5a21",
+  "former_failures_sha256": "53728ad98d927c86e28d275eb4cc86b0ca06a8e965d15dc4dfd1cde73df6ba19",
+  "targeted_tests_run": 14,
+  "targeted_tests_passed": 14,
+  "synthetic_summer_cooling_peak_change_kw": -0.24000000000619925,
+  "scope": "Two synthetic design days, not annual energy; ideal loads are thermal demand, not plant electricity",
+  "project_load_verified": false,
+  "full_regression_rerun": false,
+  "design_accepted": false
+}

@@ -1,10 +1,11 @@
 # Whole-agent status
 
-Authorized K-Select13.3.54 GUI launch now records an actual Application Control
-block on an installer-extracted temporary module (3033/3077), despite the valid
-outer installer signature. No installer window, installation or selection result
-was obtained. Policy is unchanged; approved runtime/package remains necessary.
-See [actual runtime evidence](evidence/k-select-runtime-block.json).
+K-Select MCP development is deferred to the user separate folder. Native
+K-Select/GRD performance calculation now executes; independent product/ADPI
+verification remains pending. Existing OpenStudio/EnergyPlus simulation now runs
+and all14 formerly failed/error cases pass targeted re-execution. Historical
+full-suite results remain unchanged; real-project load/pressure remain incomplete.
+See [runtime recovery](ENERGY_RUNTIME_RECOVERY.md).
 
 Mixed-neck checks now retain rejection of all eight sampled manufacturer layouts.
 A separate analytic necessary envelope for regular square interior grids gives

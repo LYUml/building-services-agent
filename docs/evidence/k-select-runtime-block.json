@@ -18,5 +18,19 @@
   "ADPI_verified": false,
   "security_policy_changed": false,
   "design_accepted": false,
-  "remaining_action": "Obtain a publisher/IT-supported signed package or approved execution environment; do not bypass application control"
+  "remaining_action": "Obtain a publisher/IT-supported signed package or approved execution environment; do not bypass application control",
+  "smart_app_control_diagnosis": {
+    "retry_time_Hong_Kong": "2026-11-14 15:20:08",
+    "policy_name": "VerifiedAndReputableDesktop",
+    "VerifiedAndReputablePolicyState": 1,
+    "requested_signing_level": 2,
+    "validated_signing_level": 1,
+    "temporary_module_total_signature_count": 0,
+    "temporary_module_publisher": "Unknown",
+    "temporary_module_sha256_flat_hash": "2759a4c74040a039f232058daaa7c2b9082b1aa66b6c895dcc5b58fd396d640a",
+    "diagnosis": "Windows Smart App Control enforcement rejected unsigned installer-extracted module; does not establish corporate device management",
+    "citool_policy_inventory": "Read-only -lp returned access denied; no privilege escalation attempted",
+    "raw_events_sha256": "7a08c5550232f856838a4dfdcfd2bbb99b77e77757b4389490c70792b533fe10"
+  },
+  "microsoft_reference": "https://learn.microsoft.com/en-us/windows/apps/develop/smart-app-control/test-your-app-with-smart-app-control"
 }

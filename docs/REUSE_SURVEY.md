@@ -1,5 +1,10 @@
 # Reuse survey â€” 2026-11-09
 
+Existing pinned OpenStudio3.11.0/EnergyPlus25.2.0 now execute through the unchanged
+energy adapter;14formerly failed/error cases pass targeted re-execution. No new
+solver or package is introduced. K-Select/GRD now execute, but their dedicated MCP
+is deferred to the user separate folder. See ENERGY_RUNTIME_RECOVERY.md.
+
 Manufacturer ADPI comparison reuses pinned MIT pdf2plot linear calibration,
 existing native LINE splitting in the isolated PyMuPDF1.26.7 runtime, source
 polygon/service allocation and fluids terminal interpolation. No comfort solver

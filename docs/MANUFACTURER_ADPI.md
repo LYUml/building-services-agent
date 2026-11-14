@@ -1,5 +1,10 @@
 # Separate manufacturer ADPI comparison
 
+Latest status: K-Select13.3.54 and standalone GRD10.0.2 now execute. Two native
+performance PDFs were exported locally; independent crosscheck/ADPI remain
+pending. The user moved dedicated MCP development to a separate folder. Earlier
+blocked-launch records below remain historical. See ENERGY_RUNTIME_RECOVERY.md.
+
 The user selected a separate manufacturer-based comparison while preserving the
 coursework design. This study does not replace the historical classroom criterion,
 change its load range or approve the existing terminal layout.
@@ -116,3 +121,17 @@ an approved execution environment. The checked official software page exposes
 the same setup endpoint; the scoped official-site search did not locate a
 separate MSI/portable selection engine. That search is not proof none exists.
 See [actual runtime record](evidence/k-select-runtime-block.json).
+
+
+Further user-requested retry identifies the policy specifically as Windows Smart
+App Control: event PolicyName=VerifiedAndReputableDesktop and read-only registry
+state=1. Signature-information events for the extracted module report zero
+signatures and PublisherName=Unknown. This does not establish enterprise device
+management; earlier "enterprise signing level" wording came from the generic
+Windows event message. The actual outer package remains validly signed.
+Microsoft's signature-testing guidance identifies this enforcement policy and
+requires testing all installer binaries. A read-only CiTool policy inventory
+returned access denied; no elevation or policy modification was attempted.
+No distinct supported public installer was located. Common local Sandbox/VM
+executable paths were absent, which is not a complete virtualization inventory.
+A local sanitized support note is ready for the user; no message was sent.
