@@ -1,0 +1,50 @@
+{
+  "groups": 20,
+  "casing_envelopes": 20,
+  "inlet_reservations": 20,
+  "both_side_access_reservations": 40,
+  "original89network_entities_unchanged": true,
+  "native_box_reconciliation": 80,
+  "casing_network_overlap_pairs": 0,
+  "all_overlap_categories": {
+    "existing_network/inlet_reservation": 20
+  },
+  "contact_waivers": 0,
+  "candidate_inlet_counts": {
+    "12": 7,
+    "14": 13
+  },
+  "nominal_inlet_duct_maximum_velocity_range_m_s": [
+    5.884775698476208,
+    7.949631107600794
+  ],
+  "collar_over8m_s_groups": [
+    "VAV-01",
+    "VAV-12"
+  ],
+  "collar_velocity_note": "Course branch-duct target applies to proposed nominal inlet duct; no manufacturer internal-collar velocity limit claimed",
+  "native_reopen_pass": true,
+  "native_entity_count": 193,
+  "all169native_GUIDs_projected": true,
+  "actual_PDF_visually_inspected": true,
+  "actual_PDF_review": "Final rendered monochrome plot has bold casing outlines and dashed reservations; title/legend/notes/reference not visibly clipped or overlapping",
+  "reference_expected_mm": 50.0,
+  "reference_measured_mm": 49.99566666666666,
+  "source_catalogue_sha256": "ba747af8d424da4e59b0d4d93c888bd9b5df299d303c0824fa89f9305870d766",
+  "source_IOM_sha256": "ea1d801c7d69eee95d000c88994e9bd6e80d1670a386ddec89fd4f55b9e6bd69",
+  "assumptions": [
+    "Original abstract VAV node is proposed inlet collar entrance centre",
+    "Inherited centreline z=0, not installed elevation",
+    "Both-side access reservation includes conservative casing-length and height coverage; control handedness unselected"
+  ],
+  "upstream_rectangular_duct_replacements_required": 20,
+  "connected_equipment": false,
+  "full_pressure_verified": false,
+  "installation_verified": false,
+  "design_accepted": false,
+  "deliverable_sha256": {
+    "VAV Equipment Space.dwg": "72f4b800841ad0a8598f4b73ad59232946929c04627f108295a344ea39844698",
+    "VAV Equipment Space.ifc": "22b42ba43415e9316ff2555f4e64200370cf9358aaeadde986ec7574e50b34aa",
+    "VAV Equipment Space.pdf": "3f50017cc7d5121a2ee21cbe05da5369c46f10020aa8edd84a12ee886d6412f8"
+  }
+}

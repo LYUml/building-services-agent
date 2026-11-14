@@ -1831,3 +1831,13 @@ supported queries. Official LMHS tables, not a new solver, supply capacity and
 static-pressure data. Existing K-Select MCP only supports GRD, so no unexecuted
 VAV integration is claimed.160candidate/condition cases retain rejections;
 static values do not enter total-pressure ledger. See VAV_MANUFACTURER_CANDIDATES.md.
+
+Finite VAV placement reuses obstacle_boxes native IFC/source preservation,
+box_geometry independent corner/volume checks, solid_clash Manifold booleans,
+source_network_drawing projection and ifc_native AutoCAD reopening/plot. The
+existing author previously rejected the actual merged source's17Body contexts
+and external course output: add explicit host-workspace output and optional
+exact context ID, with no implicit context deletion/merge.10targeted tests pass;
+actual80boxes169elements and193entitynativeDWG execute. Source catalogue/IOM
+supply dimensions/recommendations; datum and both-side reservations are declared
+assumptions. No new engine/dependency/waiver. See VAV_EQUIPMENT_SPACE.md.

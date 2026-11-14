@@ -4,6 +4,7 @@ import runpy
 import shutil
 import tempfile
 import unittest
+from unittest.mock import patch
 from bsa.cli import digest
 from bsa.engine import ProjectError
 from bsa.ifc_obstacles import prepare,run
@@ -39,3 +40,35 @@ class GeneralObstacleTests(unittest.TestCase):
         inventory.write_bytes(original)
         with (folder/'basis.json').open('a') as f:f.write('changed')
         with self.assertRaisesRegex(ProjectError,'source path/hash'):prepare(inventory)
+
+    def test_external_output_requires_explicit_host_workspace(self):
+        with tempfile.TemporaryDirectory() as folder:
+            target=Path(folder)/'combined'
+            source=ROOT/'examples/cable-coordination/obstacles.json'
+            ifc=self.root/'cable/cables.ifc'
+            with patch.dict('os.environ',{},clear=True):
+                with self.assertRaisesRegex(ProjectError,'host-selected workspace'):
+                    run(ifc,source,target)
+            with patch.dict('os.environ',{'BSA_PROJECT_ROOT':folder}):
+                r=run(ifc,source,target)
+                self.assertTrue(r['original_entities_unchanged'])
+                self.assertTrue(r['calculated_checks_pass'])
+                self.assertFalse(r['design_accepted'])
+
+    def test_multiple_native_contexts_require_explicit_selection(self):
+        import ifcopenshell
+        from bsa.obstacle_boxes import append
+        model=ifcopenshell.open(str(self.root/'cable/cables.ifc'))
+        context=next(c for c in model.by_type('IfcGeometricRepresentationSubContext') if c.ContextIdentifier=='Body')
+        model.create_entity('IfcGeometricRepresentationSubContext',ContextIdentifier='Body',
+            ContextType='Model',ParentContext=context.ParentContext,TargetView='MODEL_VIEW')
+        path=self.root/'multiple-contexts.ifc';model.write(str(path))
+        rows=[dict(id='explicit',origin_m=[5.,5.,5.],size_m=[1.,1.,1.],source='Synthetic context selection control')]
+        kwargs=dict(prefix='CONTEXT_',pset_name='BSA_Test',metadata={})
+        with self.assertRaisesRegex(ProjectError,'body context'):
+            append(path,rows,set(),self.root/'ambiguous',**kwargs)
+        with self.assertRaisesRegex(ProjectError,'body context'):
+            append(path,rows,set(),self.root/'wrong-context',body_context_id=999999,**kwargs)
+        r=append(path,rows,set(),self.root/'explicit-context',body_context_id=context.id(),**kwargs)
+        self.assertEqual(r['body_context_id'],context.id())
+        self.assertTrue(r['original_entities_unchanged'])

@@ -7,9 +7,10 @@ import uuid
 from .cli import digest
 from .engine import ProjectError
 from .three_phase import ROOT
+from .workspace import allowed
 
 
-def append(ifc,rows,inputs,out,*,prefix,pset_name,metadata):
+def append(ifc,rows,inputs,out,*,prefix,pset_name,metadata,body_context_id=None):
     import ifcopenshell
     import ifcopenshell.api as api
     import ifcopenshell.geom
@@ -19,12 +20,15 @@ def append(ifc,rows,inputs,out,*,prefix,pset_name,metadata):
     from .box_geometry import box_mesh
     ifc,out=Path(ifc).resolve(),Path(out).resolve()
     paths={ifc,*(Path(p).resolve() for p in inputs)}
-    if not out.is_relative_to(ROOT) or out.exists() or any(out==p or out in p.parents for p in paths):raise ProjectError('new separate repository obstacle output required')
+    if not allowed(out) or out.exists() or any(out==p or out in p.parents for p in paths):raise ProjectError('new separate host-selected workspace obstacle output required')
     before={str(p):digest(p) for p in paths}
     model=ifcopenshell.open(str(ifc))
     if model.schema!='IFC4' or not math.isclose(ifcopenshell.util.unit.calculate_unit_scale(model),1,abs_tol=1e-12):raise ProjectError('explicit metre IFC4 required')
     projects=model.by_type('IfcProject');storeys=model.by_type('IfcBuildingStorey')
     bodies=[c for c in model.by_type('IfcGeometricRepresentationSubContext') if c.ContextIdentifier=='Body' and c.ContextType=='Model']
+    if body_context_id is not None:
+        if type(body_context_id) is not int:raise ProjectError('explicit integer body context ID required')
+        bodies=[c for c in bodies if c.id()==body_context_id]
     if len(projects)!=1 or len(storeys)!=1 or len(bodies)!=1:raise ProjectError('one project/storey/model body context required')
     original={e.id():hashlib.sha256(str(e).encode()).hexdigest() for e in model}
     namespace=uuid.UUID(hex=ifcopenshell.guid.expand(projects[0].GlobalId))
@@ -57,7 +61,7 @@ def append(ifc,rows,inputs,out,*,prefix,pset_name,metadata):
         if not np.allclose(lo,row['origin_m'],atol=1e-8,rtol=0) or not np.allclose(size,row['size_m'],atol=1e-8,rtol=0):raise ProjectError('saved obstacle differs from source bounds')
         row['saved_volume_m3']=volume
     if any(digest(Path(p))!=h for p,h in before.items()):raise ProjectError('obstacle source changed')
-    report=dict(inputs=before,inputs_unchanged=True,original_entities_unchanged=True,original_entity_count=len(original),obstacles=rows,
+    report=dict(inputs=before,inputs_unchanged=True,original_entities_unchanged=True,original_entity_count=len(original),obstacles=rows,body_context_id=bodies[0].id(),
                 saved_ifc_sha256=digest(target),calculated_checks_pass=True,design_accepted=False,
                 scope='explicit source-linked closed IFC obstacle boxes; original entities preserved',
                 pending=['source obstacle applicability/completeness','route-to-obstacle clearance/clash','BIM viewer and full engineering acceptance'])
