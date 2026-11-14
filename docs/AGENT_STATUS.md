@@ -1,5 +1,10 @@
 # Whole-agent status
 
+All80terminal necks now have source-bound pressure comparisons in both flows,
+with160conditional path budgets. Squared-flow interpolation reconciles both
+existing nativeKSelectPDFs at assumed display precision;fullpressure remains
+unknown. See [terminal pressure budget](TERMINAL_PRESSURE_BUDGET.md).
+
 Twenty currentVAVs now carry source-bound fully-open pressure baselines in a
 separate saved IFC;40propertyrows reconcile,29supported/11unknown,no total-loss
 claim. All original geometry/ports unchanged. See [operating baseline](VAV_OPERATING_BASELINE.md).

@@ -1,0 +1,201 @@
+{
+  "source_performance_pdf_sha256": "073c639219b28068a0c8190a926d493e42a12c0918db464ee8439c55a3994aef",
+  "source_locator": "PDF2/printedB1-12 nominal8in,24x24in/600x600mm panel,no damper",
+  "source_page_actually_viewed": true,
+  "source_logical_ifc_sha256": "471a7ff22c889743ddef41cc465137fb79c289012ec913b82b58fa9d81262991",
+  "pressure_method_sha256": "73a6d295a18ceb0ae86ab6a475e7f1e0357a0fbf208f1054af29b73cd9100111",
+  "source_catalogue_reader_sha256": "e4c95c4a7fd24ebf1c18ffb74d3b728515e96c9af71faedb95ba056b0aed6921",
+  "source_rows": 9,
+  "source_flow_domain_L_s": [
+    33,
+    297
+  ],
+  "pressure_method": "Piecewise linear pressure in squared flow;explicit study assumption supported by held-out source rows",
+  "held_out_pressure_checks": [
+    {
+      "held_out_flow_L_s": 66.0,
+      "field": "total_pressure_Pa",
+      "error_Pa": -0.025000000000001243,
+      "endpoint_and_target_0p1Pa_rounding_compatible": true
+    },
+    {
+      "held_out_flow_L_s": 66.0,
+      "field": "static_pressure_Pa",
+      "error_Pa": 0.0,
+      "endpoint_and_target_0p1Pa_rounding_compatible": true
+    },
+    {
+      "held_out_flow_L_s": 99.0,
+      "field": "total_pressure_Pa",
+      "error_Pa": -0.016666666666667496,
+      "endpoint_and_target_0p1Pa_rounding_compatible": true
+    },
+    {
+      "held_out_flow_L_s": 99.0,
+      "field": "static_pressure_Pa",
+      "error_Pa": 0.0,
+      "endpoint_and_target_0p1Pa_rounding_compatible": true
+    },
+    {
+      "held_out_flow_L_s": 132.0,
+      "field": "total_pressure_Pa",
+      "error_Pa": 0.03125000000000355,
+      "endpoint_and_target_0p1Pa_rounding_compatible": true
+    },
+    {
+      "held_out_flow_L_s": 132.0,
+      "field": "static_pressure_Pa",
+      "error_Pa": -0.043750000000001066,
+      "endpoint_and_target_0p1Pa_rounding_compatible": true
+    },
+    {
+      "held_out_flow_L_s": 165.0,
+      "field": "total_pressure_Pa",
+      "error_Pa": -0.01999999999999602,
+      "endpoint_and_target_0p1Pa_rounding_compatible": true
+    },
+    {
+      "held_out_flow_L_s": 165.0,
+      "field": "static_pressure_Pa",
+      "error_Pa": 0.054999999999999716,
+      "endpoint_and_target_0p1Pa_rounding_compatible": true
+    },
+    {
+      "held_out_flow_L_s": 198.0,
+      "field": "total_pressure_Pa",
+      "error_Pa": -0.01666666666666572,
+      "endpoint_and_target_0p1Pa_rounding_compatible": true
+    },
+    {
+      "held_out_flow_L_s": 198.0,
+      "field": "static_pressure_Pa",
+      "error_Pa": 0.0,
+      "endpoint_and_target_0p1Pa_rounding_compatible": true
+    },
+    {
+      "held_out_flow_L_s": 231.0,
+      "field": "total_pressure_Pa",
+      "error_Pa": 0.03214285714285836,
+      "endpoint_and_target_0p1Pa_rounding_compatible": true
+    },
+    {
+      "held_out_flow_L_s": 231.0,
+      "field": "static_pressure_Pa",
+      "error_Pa": -0.04642857142857082,
+      "endpoint_and_target_0p1Pa_rounding_compatible": true
+    },
+    {
+      "held_out_flow_L_s": 264.0,
+      "field": "total_pressure_Pa",
+      "error_Pa": -0.018749999999997158,
+      "endpoint_and_target_0p1Pa_rounding_compatible": true
+    },
+    {
+      "held_out_flow_L_s": 264.0,
+      "field": "static_pressure_Pa",
+      "error_Pa": 0.053124999999994316,
+      "endpoint_and_target_0p1Pa_rounding_compatible": true
+    }
+  ],
+  "rounding_compatibility_band": {
+    "fields": {
+      "total_pressure_Pa": {
+        "compatible": true,
+        "coefficient_low": 0.0012976484711531672,
+        "coefficient_high": 0.0013075538391976091,
+        "unit": "Pa/(L/s)^2"
+      },
+      "static_pressure_Pa": {
+        "compatible": true,
+        "coefficient_low": 0.0007293270249276181,
+        "coefficient_high": 0.000735249109743671,
+        "unit": "Pa/(L/s)^2"
+      }
+    },
+    "assumed_flow_half_step_L_s": 0.5,
+    "assumed_pressure_half_step_Pa": 0.05,
+    "manufacturer_accuracy_verified": false,
+    "installed_uncertainty_verified": false
+  },
+  "KSelect_toolkit_commit": "3eecd3710e976927c4b7c639900e833d12150453",
+  "native_comparisons": [
+    {
+      "condition": "maximum",
+      "effective_CFM": 280,
+      "effective_flow_L_s": 132.14528409599998,
+      "source_pdf_sha256": "41d84536c92e397a80e0830148bbae5930e6a9e4b7f9e942183975d01ea2d22d",
+      "native_display_in_wc": 0.09,
+      "assumed_display_interval_Pa": [
+        21.172557349999998,
+        23.66344645
+      ],
+      "squared_flow_catalogue_total_pressure_Pa": 22.750118783063012,
+      "linear_flow_catalogue_total_pressure_Pa": 22.75635261905454,
+      "squared_flow_matches_display": true,
+      "linear_flow_matches_display": true,
+      "software_accuracy_verified": false,
+      "native_software_rerun": false
+    },
+    {
+      "condition": "minimum",
+      "effective_CFM": 112,
+      "effective_flow_L_s": 52.8581136384,
+      "source_pdf_sha256": "0dee7660b2aecd148e5e62dfdf39cb0e30ca9af595594e536db04bca8a1a3234",
+      "native_display_in_wc": 0.01,
+      "assumed_display_interval_Pa": [
+        1.24544455,
+        3.7363336499999997
+      ],
+      "squared_flow_catalogue_total_pressure_Pa": 3.644081653768912,
+      "linear_flow_catalogue_total_pressure_Pa": 3.987572383185455,
+      "squared_flow_matches_display": true,
+      "linear_flow_matches_display": false,
+      "software_accuracy_verified": false,
+      "native_software_rerun": false
+    }
+  ],
+  "terminal_pressure_rows": 160,
+  "cases": {
+    "maximum": {
+      "terminals": 80,
+      "flow_range_L_s": [
+        123.03527672034707,
+        185.33996365406261
+      ],
+      "conditional_catalogue_Pt_range_Pa": [
+        19.730752360587502,
+        44.77991261254798
+      ],
+      "complete_pressure_verified": false,
+      "remaining_unique_component_gaps": 104
+    },
+    "minimum": {
+      "terminals": 80,
+      "flow_range_L_s": [
+        49.21411068813883,
+        74.13598546162505
+      ],
+      "conditional_catalogue_Pt_range_Pa": [
+        3.154521998942405,
+        7.186689589825638
+      ],
+      "complete_pressure_verified": false,
+      "remaining_unique_component_gaps": 104
+    }
+  },
+  "input_rejection_controls": 3,
+  "room_static_reference": "Assumed common0Pa gauge for conditional boundary-budget comparison,not measured room pressure",
+  "pressure_boundary_scope": "Study assumption:cataloguePt treated as nominal inlet total relative roomstatic;source test-plane/collar/installation correspondence not independently confirmed",
+  "original_pressure_ledgers_unchanged": true,
+  "course_and_manufacturer_ADPI_unchanged": true,
+  "installed_terminal_pressure_verified": false,
+  "physical_joint_verified": false,
+  "complete_pressure_verified": false,
+  "fan_duty_Pa": null,
+  "design_accepted": false,
+  "numerical_agreement_only_not_manufacturer_algorithm_proof": true,
+  "published_file_sha256": {
+    "05_Calculations/Connection_Layout/Terminal Pressure and Conditional Path Budget.csv": "42f0e9fbd6159601aab9e3d0b34186fb49c5685df274fe5b5a882e07bcff0e94",
+    "05_Calculations/Connection_Layout/Terminal Pressure and Conditional Path Budget.html": "462ea18265c6b34389b94ba97f703d974eef2bc2c5d9d3a1166957b6830f0be0"
+  }
+}

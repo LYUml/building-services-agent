@@ -5,6 +5,12 @@ description: Calculate source-linked air/water networks, fan/pump operating poin
 
 # Network pressure analysis
 
+For source-bound terminal pressure comparisons,see docs/TERMINAL_PRESSURE_BUDGET.md.
+Keep squared-flow interpolation and display-rounding assumptions explicit.
+CataloguePt is a separate conditional boundary load;do not add Ps/neckVP again
+or convert native display agreement into installed pressure/ADPI acceptance.
+
+
 For source-positioned VAV/plenum logical closure,see docs/LOGICAL_SUPPLY_NETWORK.md.
 Preserve unknown internal areas and physical-cap status. boundary_paths propagates
 interface_basis/physical_cap_verified;logical joins cannot certify material caps.
