@@ -1,5 +1,12 @@
 # Reuse survey â€” 2026-11-09
 
+The existing native inventory/tree, source-prescribed flow, bounded fitting-table,
+pressure ledger and isolated native CAD engines now compose on the actual
+reduced-branch network copy. No new solver is introduced. One plateau-only
+maximum-flow elbow binding is extended to the same publisher lower-Re row for
+minimum flow, with independent arithmetic; no extrapolation. The project-scoped
+trial is not a registered common MCP producer. See REDUCED_BRANCH_NETWORK.md.
+
 Reduced-branch sharp tees reuse the original rectangular tee template, pinned
 IfcOpenShell0.8.5 ShapeBuilder/Boolean APIs, Manifold3D3.5.4 and existing
 SciPy bounded source lookup. No engine/table database is copied. The prior

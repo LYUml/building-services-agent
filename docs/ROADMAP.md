@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+The 13 reduced-branch revisions now execute in a separate saved network:
+89 bodies/197 ports/88 interfaces, unchanged 20 outlets and 45 retained straights.
+Both maximum and given 40 percent minimum cases retain 29 conditional values
+and 34 numerical gaps. Actual native whole-network DWG/PDF executes and is
+visually inspected; raw clearance and full pressure remain unresolved.
+See [network study](REDUCED_BRANCH_NETWORK.md).
+
 A source-linked reduced-branch study now authors13saved IFC candidates,
 removing one separate branch taper per local candidate while preserving end
 frames. One revised branch enters published support; independent arithmetic
