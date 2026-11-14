@@ -1870,3 +1870,6 @@ Source-based rectangle-to-round study: see [executed design and reuse decision](
 
 
 Nominal10-to8in branch reducer gap: existing pinned IfcOpenShell native revolved-solid API plus existing Manifold/nativeCAD/fluids/SciPy engines execute on80project reducers and80revised branches. No new dependency/engine or generic MCP capability claim. Source collar dimensions are distinct from nominal assumed clear bores;see [executed evidence and scope](EIGHT_INCH_BRANCH_CANDIDATE.md).
+
+
+Round reducer pressure: executed80nativeprofiles/160flow queries via existing bounded SciPy table engine and thin native revolved-solid reader. Pinned python-hvac A9A inspected but not adopted:minimum area ratio2 does not cover actual1.5625;do not extrapolate or confuse inlet/outlet reference. See EIGHT_INCH_BRANCH_CANDIDATE.md and evidence/round-reducer-loss.json. Seven targeted controls pass;no new dependency.

@@ -15,3 +15,8 @@ Reuse: existing pinned IfcOpenShell0.8.5 native swept-solid API,Manifold3.5.4 sa
 Sources:
 https://www.krueger-hvac.com/file/3117/1400_1400FR_51400_M1400_M51400_Introduction.pdf
 https://www.flexmasterusa.com/products/triplelock/metalducttriplelock.aspx
+
+
+Source-based reducer loss review: the2021 Online Supplemental Material Accompanying Principles of HVAC,9th Edition, printed19 Fitting4-1 round transition (Idelchik et al1986 Diagrams5-2/5-22) explicitly references large inletAo/Vo for contractionAo/A1>1. All80savednativeprofiles give area ratio1.5625 and included angle15degrees. Existing bounded SciPy lookup executes160maximum/minimum queries;independent Decimal interpolation agrees,K=.1125 in this inlet reference. Maximum-flow reducer contributions range.397968–.903082Pa. These are conditional source-correlation results;collars/friction/interactions/product equivalence and complete system pressure remain unresolved. No whole-network gap count is reduced by adding these separate outlet components.
+
+The reusable thin native reader rejects unsupported revolutions/profiles,displaced owned ports,missing/nonmetre units and invalid flow. Seven targeted native controls pass. Source reader hash pins the executed160queries. Only derived queries are published,not the protected source grid/PDF. The previously pinned MIT python-hvac A9A was inspected but not adopted:its area-ratio support begins at2,above this1.5625 case,and its stated reference differs. Existing bounded table engine is reused without extrapolation or a new solver.

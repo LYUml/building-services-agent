@@ -1,0 +1,23 @@
+{
+  "ifc_sha256": "a46d7c59fb215603debcb884784e5e68d67c8bd89395864b340ac2135bab9a50",
+  "native_reader_sha256": "6aa30f004850b374fde19ec7ca20fda5236893850554bf6924afc0892eaf42bd",
+  "source_document_sha256": "746121b31696fd23cc11a39fd83d7be9ba3fec9bf0d81caa3b5e1ce6235abfbb",
+  "source_url": "https://xp20.ashrae.org/SupplementalFiles/PHVAC9/Fitting_Loss_Coefficients.pdf",
+  "source_locator": "2021 Online Supplemental Material Accompanying Principles of HVAC,9th Edition;printed19,Fitting4-1 round transition,contraction Ao/A1>1;Idelchik et al1986 Diagrams5-2/5-22",
+  "source_slice_visually_reviewed": true,
+  "query_count": 160,
+  "independent_Decimal_coefficients_match": true,
+  "source_reference": "Large inlet Ao/Vo,not small outlet",
+  "coefficient_range": [
+    0.1125,
+    0.1125
+  ],
+  "maximum_flow_loss_range_Pa": [
+    0.3979682674271601,
+    0.9030822173789677
+  ],
+  "physical_applicability_verified": false,
+  "full_pressure_verified": false,
+  "design_accepted": false,
+  "targeted_native_controls_passed": 7
+}
