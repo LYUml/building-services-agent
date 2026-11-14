@@ -22,3 +22,6 @@ src/bsa/round_reducer_quantities.py text eol=lf
 src/bsa/rectangular_tee_profiles.py text eol=lf
 
 src/bsa/rectangular_cross_profiles.py text eol=lf
+
+src/bsa/round_bend_quantities.py text eol=lf
+tests/test_round_bend_quantities.py text eol=lf

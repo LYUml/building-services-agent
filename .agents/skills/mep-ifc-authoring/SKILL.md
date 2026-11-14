@@ -5,6 +5,12 @@ description: Create and revise source-linked IFC4 MEP envelopes, straight circul
 
 # IFC MEP authoring
 
+For a saved smooth minor circular duct bend, use round_bend_quantities per
+docs/THREE_DIMENSIONAL_OUTLETS.md. Require explicit metre/radian conventions,
+a hollow radial profile, independent Axis and actual owned caps. The actual
+80branch candidate uses assumed terminal drop;81graph components and missing
+equipment/bend pressure remain explicit. Geometry is not installed flex approval.
+
 For a separately declared reduced-branch sharp rectangular tee study, use
 `bsa.unequal_rectangular_tee run/verify` per docs/REDUCED_BRANCH_TEE.md. Reuse
 the existing IFC/Boolean engines; preserve source main frames and independently

@@ -1,5 +1,11 @@
 # Whole-agent status
 
+Current outlet candidate composes the164body main model with20casings,20plenum
+envelopes,80reducers and320new native branch pieces.664elements/1147ports,
+604body scoped collision review and actual native plan/detail DWGs execute.
+Eleven native bend-reader controls pass. Equipment internal flow,actual heights,
+product/bend losses and full pressure remain unresolved. See [3D outlets](THREE_DIMENSIONAL_OUTLETS.md).
+
 Current164body candidate has fresh118path pressure reconstruction:114conditional
 values/4compound gaps in both flows,40outlet rows,184body casing coordination
 and3actual native detail views. Separate isolated-component sensitivity does not
