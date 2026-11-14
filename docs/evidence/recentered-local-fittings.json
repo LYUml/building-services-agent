@@ -1,0 +1,12 @@
+{
+  "rebuilt_tee_groups": 6,
+  "native_cap_pairs_matched": 6,
+  "native_external_main_sections_matched": 6,
+  "native_branch_sections_matched": 6,
+  "local_material_intersections": 0,
+  "network_integrated": false,
+  "current_network_numeric_gaps_unchanged": 33,
+  "design_accepted": false,
+  "scope": "Recentered local fittings only; no installed clearance, interaction, full pressure or native CAD acceptance",
+  "new_conditional_transition_values": 3
+}

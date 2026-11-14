@@ -1807,3 +1807,11 @@ authoring and duct_sheet_native AutoCAD save/reopen/plot. No new engine or
 dependency. Actual80line/140nativecell/140CSVcell reconciliation closes an old
 layout/table mismatch; not a registered MCP producer or full design acceptance.
 See RECENTERED_VAV_SCHEDULE.md.
+
+
+Recentered fitting rebase composes the existing source-node compiler, reduced
+tee/native station BREP authoring, source family/table lookup and cap/Manifold
+checks. Sixactualtees/sixmaintransitions execute; three naturally source-matching
+contractions obtain independently checked conditional values. No new engine,
+solver or stage joint; network merge and complete pressure remain pending.
+See RECENTERED_LOCAL_FITTINGS.md.
