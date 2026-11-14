@@ -11,10 +11,10 @@
   "maximum_flow_continuity_pass": true,
   "minimum_flow_continuity_pass": true,
   "maximum_fitting_paths": 63,
-  "maximum_conditional_values": 29,
-  "maximum_numeric_gaps": 34,
-  "minimum_conditional_values": 29,
-  "minimum_numeric_gaps": 34,
+  "maximum_conditional_values": 30,
+  "maximum_numeric_gaps": 33,
+  "minimum_conditional_values": 30,
+  "minimum_numeric_gaps": 33,
   "original_numeric_gaps": 45,
   "old_finite_values_retained": 28,
   "removed_finite_transition_values": 3,
@@ -45,5 +45,9 @@
     "03_Design_Drawings/Network_Study/Supply Network Study.ifc": "df434ed486a5025ca121737f40e4aba07039789587b5cb1e4a88325c23d38994",
     "03_Design_Drawings/Network_Study/Supply Network Study.pdf": "ef0ee9499e0a74044a1c01b6d6d0d0676e2f48695fdbbb4f70890ffeebe6ef69",
     "05_Calculations/Supply Network Pressure Review.html": "5a836902c29cb38d5d3e9efa7e96ef38f0fd81dbb05c78fcf3e69853d94a4ad3"
-  }
+  },
+  "new_supported_one_plane_transition_values": 1,
+  "one_plane_independent_decimal_verified": true,
+  "one_plane_review_sha256": "226a943ba1f3fa98c0c994da10cdced09af851743dc9483fef1b7a752b8c7863",
+  "pressure_report_sha256": "36227d5ea56a63c20fa90b4c6f221e8787226330ca2d87d4b7cfad7cd0cd1f47"
 }
