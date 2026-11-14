@@ -1,0 +1,34 @@
+{
+  "route_count": 80,
+  "distinct_terminals": 80,
+  "source_group_flows_reconciled": true,
+  "assumptions": {
+    "bore_m": 0.25082499999999996,
+    "radius_over_bore": 1.5,
+    "initial_straight_m": 0.15,
+    "elevation_m": 0,
+    "roughness_m": 9e-05
+  },
+  "maximum_plan_centreline_m": 3.6572407040119117,
+  "turn_range_deg": [
+    1.0620142995436521,
+    72.80614153765131
+  ],
+  "pressure_budget_complete": false,
+  "installed_length_verified": false,
+  "design_accepted": false,
+  "source_sha256": {
+    "review.json": "ba859b70cd8dacb13fb862141fd848444ddf76eadb8411cf7c71a3f1b5907d1f",
+    "allocation.json": "4aaf873093425d7499d89eb474d9b243f024e6ece1f72f2d02729b4ac7744681",
+    "route_j_outlets.py": "69b46263adf08d32524570346fc221199368a69dee848c8147a0e03eb5bcbe52"
+  },
+  "native80path_geometry_and_tangency_checks": true,
+  "native_reopen_pass": true,
+  "actual_PDF_visually_inspected": true,
+  "visual_review": "Viewed actual final PDF;20group labels,80paths and80terminal markers legible, no observed clipping. Vertical/physical routes not accepted.",
+  "print_reference_measured_mm": 49.99566666666666,
+  "deliverable_sha256": {
+    "Four Outlet Connection Routes.dwg": "e23f8e30b0c47fb311e14efb9fc446001e0be75db97178b264b02f8d3bd89742",
+    "Four Outlet Connection Routes.pdf": "49b9f23a5bf1a4afd02d43cbbb3be1fd472835992f5b5ffa77a2c9bafc965f93"
+  }
+}
