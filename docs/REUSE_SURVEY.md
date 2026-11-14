@@ -1867,3 +1867,6 @@ solver/dependency/MCP producer. See INTEGRATED_INLET_NETWORK.md.
 
 
 Source-based rectangle-to-round study: see [executed design and reuse decision](SOURCED_RECT_ROUND_TRANSITIONS.md). Existing pinned geometry/interpolation engines execute; surveyed python-hvac Reynolds-only A9C is not adopted for the three-axis source table.
+
+
+Nominal10-to8in branch reducer gap: existing pinned IfcOpenShell native revolved-solid API plus existing Manifold/nativeCAD/fluids/SciPy engines execute on80project reducers and80revised branches. No new dependency/engine or generic MCP capability claim. Source collar dimensions are distinct from nominal assumed clear bores;see [executed evidence and scope](EIGHT_INCH_BRANCH_CANDIDATE.md).

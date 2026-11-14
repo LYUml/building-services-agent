@@ -1,0 +1,80 @@
+{
+  "reducer": {
+    "source_ifc_sha256": "45e71f1140e0acc5dd9221df4ae7400d46cf9e14ef1d2a0f0668c13db264435b",
+    "ifc_sha256": "a46d7c59fb215603debcb884784e5e68d67c8bd89395864b340ac2135bab9a50",
+    "reducer_count": 80,
+    "new_ports": 160,
+    "original229element_model_records_unchanged": true,
+    "design_dimensions": {
+      "inlet_clear_bore_m": 0.254,
+      "outlet_clear_bore_m": 0.2032,
+      "radial_gauge_m": 0.0008,
+      "collar_each_m": 0.05,
+      "taper_included_angle_deg": 15.0,
+      "taper_m": 0.1929321544632189,
+      "total_m": 0.2929321544632189
+    },
+    "all80positive_closed_solids": true,
+    "maximum_mesh_volume_relative_error": 4.7358941741348914e-05,
+    "analytic_wall_volume_each_m3": 0.000168888593538842,
+    "source_collar_external_dimensions_m": {
+      "J_outlet": 0.25082499999999996,
+      "diffuser8_neck": 0.20002499999999998
+    },
+    "source_1400_dimensions_sha256": "5a3459034c1ab2fe89e2a28c2c498a39e80d88ee0e09bc0163a043ad4e494e49",
+    "collar_seam_or_insertion_verified": false,
+    "clashes_verified": false,
+    "pressure_verified": false,
+    "design_accepted": false
+  },
+  "schema_errors": 0,
+  "native_reducer_port_review": {
+    "native_reducers": 80,
+    "native_ports": 160,
+    "analytic_profile_dimensions_checked": true,
+    "owned_face_centres_and_normals_checked": true,
+    "design_accepted": false
+  },
+  "conservative_bounds_review": {
+    "physical_scope_bodies": 249,
+    "reducers": 80,
+    "excluded_nonphysical_reservations": 60,
+    "reducer_AABB_overlap_pairs": [],
+    "scope": "Conservative full upstream-diameter cylinder boxes for reducer vs existing physical scope and each other; previous169body solid check retained",
+    "no_reducer_intersection_proven_by_disjoint_bounds": true,
+    "installation_clearance_verified": false,
+    "design_accepted": false
+  },
+  "flex_source": {
+    "url": "https://www.flexmasterusa.com/products/triplelock/metalducttriplelock.aspx",
+    "sha256": "d57cee19104d591bcbf76dcb32498a006f3bb4ca1b3ae8c56a94e1bc91b4fbb1",
+    "manufacturer": "Flexmaster USA",
+    "product_family": "Triple Lock all-metal flexible duct",
+    "minimum_centreline_radius_over_D": 1,
+    "recommended_centreline_radius_over_D": 1.5,
+    "applies_to_selected_project_product": false,
+    "pressure_model_verified": false,
+    "design_accepted": false
+  },
+  "native80branch_paths_reconciled": true,
+  "actual_DWG_reopened": true,
+  "actual_PDF_visually_inspected": true,
+  "visual_review": "Final corrected-label PDF inspected:all20group labels and80routes shown, no observed page clipping; no3D/physical route acceptance",
+  "maximum_branch_XY_m": 3.5568754272338072,
+  "maximum_XY_including_rigid_reducer_m": 3.8498075816970263,
+  "vertical_envelope": {
+    "assumed_final_vertical_turn": "Quarter circle with same1.5D radius replacing last R metres of horizontal tangent, followed by vertical straight; not actual installation",
+    "flex_only_4m_budget_is_not_regulatory_acceptance": true,
+    "minimum_possible_drop_m": 0.3048,
+    "smallest_maximum_drop_budget_m": 0.5739458523591083,
+    "actual_drop_unknown": true,
+    "design_accepted": false
+  },
+  "friction_scope": "Equivalent nominal8in rigid round straight approximation at inherited0.09mm roughness, not a corrugated flexible-product pressure model; fitting/adapter/equipment/total pressure unknown",
+  "deliverable_sha256": {
+    "Candidate Branch Reducers.ifc": "a46d7c59fb215603debcb884784e5e68d67c8bd89395864b340ac2135bab9a50",
+    "Eight Inch Branch Connections.dwg": "e1fc5a89ddc0e09ed1f0362f4de4f295b58a68563c8177c27905312d49e472de",
+    "Eight Inch Branch Connections.pdf": "b3bcfa8741876705b2351704788ba4ddbc51d1a19f96c4748d4eeb8ee8afeccc"
+  },
+  "design_accepted": false
+}
