@@ -1,5 +1,12 @@
 # Building Services Agent
 
+A source-directed reduced-cross candidate now has136bodies/291ports,66conditional
+fitting values/24numerical gaps,matching nativeDWG/PDF and casing coordination.
+Native/source/Decimal checks execute;closecoupling,products and full pressure
+remain unresolved. See [reduced cross candidate](docs/REDUCED_CROSS_CANDIDATE.md).
+
+Earlier134body bullhead scenario,preserved separately:
+
 A source-area-sum J0 bullhead candidate now has134bodies/287ports,61conditional
 fitting values/27numerical gaps,matching nativeDWG/PDF and casing coordination.
 Source/profile/upstream checks execute;product/noise/interaction and full pressure

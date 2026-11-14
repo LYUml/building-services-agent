@@ -1882,3 +1882,6 @@ Sharp tee missing-cell follow-up: existing pinned source5-28bounded lookup, lite
 
 
 J0bullhead gap: existing pinned MIT python-hvac94247560a667905bfbf67e45a58965a58254fce8 A11X literal90degree row matches visually inspected PHVAC9printed45Fitting5-33. Package not executed;existing bounded SciPy engine runs8nativeflow queries. Existing IfcOpenShellCSG/profile authoring and thin strict opt-in area-sum reader support actual134body candidate. Shared main/common profiles are detached before resizing. Seven new controls plus one existing profile regression pass;no new dependency/solver. See BULLHEAD_AREA_CANDIDATE.md. Round-only fluids conical functions do not establish unequal-angle rectangular applicability;no such substitution adopted.
+
+
+Diverging cross: PHVAC9printed47/48Fitting5-35 explicitly redirects to5-23. Existing pinned native IFC/CSG,pressure/ledger,SciPy andAutoCAD adapters execute an actual136body reduced-branch candidate. Thin literalcross reader has7actual controls;10newqueries agree with Decimal. Pinned MIT python-hvac A11A4selectedbranchcells match primary source;its main-row values differ and are NOTadopted. Package not executed. Reviewed official main row is used without clamping;no newdependency/engine. See REDUCED_CROSS_CANDIDATE.md.
