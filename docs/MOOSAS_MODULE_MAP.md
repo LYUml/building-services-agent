@@ -1,5 +1,11 @@
 # MOOSAS priority reuse map
 
+A fresh explicit-runtime24case geometry/source/rule replay now passes without
+skips, with an independently verified terminal receipt. Existing pinned upstream
+and isolated dependencies are reused; no airflow/thermal engine is launched.
+Original broad-run skips remain unchanged. See
+[evidence](evidence/moosas-geometry-regression.json).
+
 The direct IFC polygon-space interface now supports actual native IfcOpenShell
 replacement without MOOSAS runtime arguments. Same-request geometry correspondence
 and downstream lighting-input equivalence pass in the synthetic native trial;

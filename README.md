@@ -1,9 +1,12 @@
 # Building Services Agent
 
-Test execution now rejects module-loading errors before running engineering test
-bodies. Five fixture imports are repaired;23targeted cases run with22passes and
-one native skip. All385test modules load, but the full suite is not yet complete.
-See docs/DURABLE_CHECKS.md for evidence and remaining verification scope.
+The whole-agent regression now completes all 385 selected test modules:
+1,617 executed instances, 1,477 passes, 126 skips, one failure and 13 errors.
+All 20 receipts verify; the full suite is not green. The errors record a host
+OpenStudio startup block and the failure is a dependent energy/rule check.
+Separate actual AutoCAD, official-source cable and MOOSAS geometry tests pass
+within their stated scopes. See docs/REGRESSION_20261114.md and docs/AGENT_STATUS.md.
+Whole-agent engineering acceptance remains incomplete.
 
 Explicit local runtime refresh now preserves user controls and unspecified
 programs, with pinned TOML Kit, backups and atomic replacement. Seven tests and

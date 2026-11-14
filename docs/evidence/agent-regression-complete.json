@@ -1,0 +1,397 @@
+{
+  "recorded_utc": "2026-11-14T00:58:23.343352+00:00",
+  "scope": "All 385 selected modules in 20 sequential completed batches; repeated imported test instances are not unique tests",
+  "selected_modules": 385,
+  "completed_modules": 385,
+  "batches": [
+    {
+      "batch": 1,
+      "receipt_sha256": "a95ad25bc324779906a87207d4aca5d32b62ffcda397ff349145a74055362eb6",
+      "integrity_pass": true,
+      "tests_run": 104,
+      "passed": 90,
+      "suite_pass": true,
+      "all_tests_pass": false,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+      "failures": 0,
+      "errors": 0,
+      "skipped": 14
+    },
+    {
+      "batch": 2,
+      "receipt_sha256": "434c469a366bd0de6fb961c4e896ca2172c461e1dcb86d12ff59d45d1609b161",
+      "integrity_pass": true,
+      "tests_run": 108,
+      "passed": 106,
+      "suite_pass": true,
+      "all_tests_pass": false,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+      "failures": 0,
+      "errors": 0,
+      "skipped": 2
+    },
+    {
+      "batch": 3,
+      "receipt_sha256": "4759519dae828dbd1a264bbe0fdb66a2d2babf1fe7e740567f6a26450cf3a933",
+      "integrity_pass": true,
+      "tests_run": 87,
+      "passed": 87,
+      "suite_pass": true,
+      "all_tests_pass": true,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "batch": 4,
+      "receipt_sha256": "4754f74c9ee714c23b2dbe0c5249aa4cbd28876a6ac379c0761b341b395f1ce5",
+      "integrity_pass": true,
+      "tests_run": 84,
+      "passed": 83,
+      "suite_pass": true,
+      "all_tests_pass": false,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    {
+      "batch": 5,
+      "receipt_sha256": "932d9d0446629c05da9823dd0f032db44da5ea141169312690b5994046c77025",
+      "integrity_pass": true,
+      "tests_run": 55,
+      "passed": 55,
+      "suite_pass": true,
+      "all_tests_pass": true,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "batch": 6,
+      "receipt_sha256": "4fdbb43a9f47734a7c76f32e529f318768ec31a0b900588b96c36958c2671950",
+      "integrity_pass": true,
+      "tests_run": 87,
+      "passed": 84,
+      "suite_pass": true,
+      "all_tests_pass": false,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+      "failures": 0,
+      "errors": 0,
+      "skipped": 3
+    },
+    {
+      "batch": 7,
+      "receipt_sha256": "4d3f582c9956b9dc973971fe1e3055519908d01734f534a0dad872e2a440233f",
+      "integrity_pass": true,
+      "tests_run": 77,
+      "passed": 70,
+      "suite_pass": false,
+      "all_tests_pass": false,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+      "failures": 1,
+      "errors": 4,
+      "skipped": 2
+    },
+    {
+      "batch": 8,
+      "receipt_sha256": "16e72ef9c14baf55005a6234f0456c9df7f90a5008dc9e7df52078f4470dcc4f",
+      "integrity_pass": true,
+      "tests_run": 74,
+      "passed": 70,
+      "suite_pass": true,
+      "all_tests_pass": false,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+      "failures": 0,
+      "errors": 0,
+      "skipped": 4
+    },
+    {
+      "batch": 9,
+      "receipt_sha256": "8c4d7e1aa632e1ac0a2da296f1bd401355ac9ddaee6e0e95cafabebc9b8816da",
+      "integrity_pass": true,
+      "tests_run": 79,
+      "passed": 71,
+      "suite_pass": true,
+      "all_tests_pass": false,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+      "failures": 0,
+      "errors": 0,
+      "skipped": 8
+    },
+    {
+      "batch": 10,
+      "receipt_sha256": "2face3e42a2226f44698229875b0d05bb171afbd5f6768e6f6f130f95ceec1bf",
+      "integrity_pass": true,
+      "tests_run": 98,
+      "passed": 82,
+      "suite_pass": true,
+      "all_tests_pass": false,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+      "failures": 0,
+      "errors": 0,
+      "skipped": 16
+    },
+    {
+      "batch": 11,
+      "receipt_sha256": "0006c0b65b57ce0b3f5606f24cd7d2b676c4b13e92dd9ac3e2945d3d979bdce7",
+      "integrity_pass": true,
+      "tests_run": 65,
+      "passed": 61,
+      "suite_pass": true,
+      "all_tests_pass": false,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+      "failures": 0,
+      "errors": 0,
+      "skipped": 4
+    },
+    {
+      "batch": 12,
+      "receipt_sha256": "836ac6a0f94cc6ac6bfabd474d74d2e799e61749f44736b0be62bfd7e694e7cd",
+      "integrity_pass": true,
+      "tests_run": 91,
+      "passed": 90,
+      "suite_pass": true,
+      "all_tests_pass": false,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    {
+      "batch": 13,
+      "receipt_sha256": "f10ce30b62b26c9bb2e1eeb070662faa06af24386df765a0e781df67dfb7c56a",
+      "integrity_pass": true,
+      "tests_run": 87,
+      "passed": 87,
+      "suite_pass": true,
+      "all_tests_pass": true,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "batch": 14,
+      "receipt_sha256": "5c3fb80936203ee76223db8d373a673aacbc20d0926347e9905555ccd866f0c5",
+      "integrity_pass": true,
+      "tests_run": 87,
+      "passed": 87,
+      "suite_pass": true,
+      "all_tests_pass": true,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "batch": 15,
+      "receipt_sha256": "63754cf0443b438bcf4e784b8ac0213756c580bbc642f29e893bf61d8dac3144",
+      "integrity_pass": true,
+      "tests_run": 89,
+      "passed": 85,
+      "suite_pass": false,
+      "all_tests_pass": false,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+      "failures": 0,
+      "errors": 4,
+      "skipped": 0
+    },
+    {
+      "batch": 16,
+      "receipt_sha256": "62048a684eaac9ef827dc7899e6fad7c0a61dd740f3c815768932a98d06c4f2f",
+      "integrity_pass": true,
+      "tests_run": 67,
+      "passed": 65,
+      "suite_pass": true,
+      "all_tests_pass": false,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+      "failures": 0,
+      "errors": 0,
+      "skipped": 2
+    },
+    {
+      "batch": 17,
+      "receipt_sha256": "bb870b61e10ec57620da301c8e9a6450388a0ed21e4773fe79f45770595fba61",
+      "integrity_pass": true,
+      "tests_run": 42,
+      "passed": 42,
+      "suite_pass": true,
+      "all_tests_pass": true,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "batch": 18,
+      "receipt_sha256": "00be25440c87d25c7e6b1f0ae05cf83de2f30bec5fa1748a1c8572351032a9d9",
+      "integrity_pass": true,
+      "tests_run": 117,
+      "passed": 76,
+      "suite_pass": false,
+      "all_tests_pass": false,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+      "failures": 0,
+      "errors": 5,
+      "skipped": 36
+    },
+    {
+      "batch": 19,
+      "receipt_sha256": "8f76cbc3cf79aa6ff88062211dd2d562d8c902d346fbce3f56ccaf969a32be33",
+      "integrity_pass": true,
+      "tests_run": 89,
+      "passed": 75,
+      "suite_pass": true,
+      "all_tests_pass": false,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+      "failures": 0,
+      "errors": 0,
+      "skipped": 14
+    },
+    {
+      "batch": 20,
+      "receipt_sha256": "bef3ca115c81424cb0ec3dd9f5081929d5c685063e1667467d1293c4ac9fc09c",
+      "integrity_pass": true,
+      "tests_run": 30,
+      "passed": 11,
+      "suite_pass": true,
+      "all_tests_pass": false,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+      "failures": 0,
+      "errors": 0,
+      "skipped": 19
+    }
+  ],
+  "totals": {
+    "tests_run": 1617,
+    "passed": 1477,
+    "failures": 1,
+    "errors": 13,
+    "skipped": 126
+  },
+  "skip_reason_counts": {
+    "requires actual EnergyPlus": 23,
+    "requires pinned official Wiring CoP PDF": 9,
+    "requires explicit AutoCAD test": 1,
+    "requires local AutoCAD": 4,
+    "requires explicit local OCR input": 1,
+    "requires explicit EnergyPlus executable": 1,
+    "requires actual EnergyPlus source report": 3,
+    "Explicit MOOSAS runtime required": 6,
+    "requires AutoCAD": 1,
+    "requires local Radiance binaries": 1,
+    "requires Radiance binaries and IFC library": 1,
+    "requires explicit executed public PDF workflow and fresh preview": 1,
+    "Explicit pinned MOOSAS runtime required": 5,
+    "Explicit pinned MOOSAS runtime trial required": 11,
+    "requires explicit local AutoCAD integration test": 1,
+    "requires isolated pandapower trial runtime": 2,
+    "requires isolated numerical runtime": 16,
+    "requires real EnergyPlus": 1,
+    "requires pinned isolated pandapower runtime": 8,
+    "requires explicit Graphviz and isolated three-phase runtime": 3,
+    "requires explicit isolated numerical runtime": 2,
+    "requires explicit isolated runtime and official source cache": 7,
+    "requires explicit isolated runtime": 9,
+    "requires isolated numerical runtime and official cached BEC": 6,
+    "requires explicit isolated runtime and official cache": 3
+  },
+  "failed_cases": [
+    {
+      "batch": 7,
+      "kind": "ERROR",
+      "test": "test_changed_native_controls_rejected (tests.test_hvac_idf_rules.NativeHVACRuleTests.test_changed_native_controls_rejected)"
+    },
+    {
+      "batch": 7,
+      "kind": "ERROR",
+      "test": "test_missing_zone_and_numeric_override_rejected (tests.test_hvac_idf_rules.NativeHVACRuleTests.test_missing_zone_and_numeric_override_rejected)"
+    },
+    {
+      "batch": 7,
+      "kind": "ERROR",
+      "test": "test_native_extrema_and_zone_coverage (tests.test_hvac_idf_rules.NativeHVACRuleTests.test_native_extrema_and_zone_coverage)"
+    },
+    {
+      "batch": 7,
+      "kind": "ERROR",
+      "test": "test_rule_failure_then_independent_native_revision (tests.test_hvac_idf_rules.NativeHVACRuleTests.test_rule_failure_then_independent_native_revision)"
+    },
+    {
+      "batch": 7,
+      "kind": "FAIL",
+      "test": "test_actual_variants_and_postrun_native_tampering (tests.test_hvac_energy_rules.HVACWorkflowTests.test_actual_variants_and_postrun_native_tampering)"
+    },
+    {
+      "batch": 15,
+      "kind": "ERROR",
+      "test": "test_changed_schedule_and_operating_override_rejected (tests.test_sizing_humidity.SizingHumidityTests.test_changed_schedule_and_operating_override_rejected)"
+    },
+    {
+      "batch": 15,
+      "kind": "ERROR",
+      "test": "test_invalid_percent_deadband_and_annual_use_rejected (tests.test_sizing_humidity.SizingHumidityTests.test_invalid_percent_deadband_and_annual_use_rejected)"
+    },
+    {
+      "batch": 15,
+      "kind": "ERROR",
+      "test": "test_native_method_tampering_rejected (tests.test_sizing_humidity.SizingHumidityTests.test_native_method_tampering_rejected)"
+    },
+    {
+      "batch": 15,
+      "kind": "ERROR",
+      "test": "test_saved_osm_and_idf_cover_all_zones (tests.test_sizing_humidity.SizingHumidityTests.test_saved_osm_and_idf_cover_all_zones)"
+    },
+    {
+      "batch": 18,
+      "kind": "ERROR",
+      "test": "test_stacked_saved_geometry (tests.test_thermal_geometry.ThermalGeometryTests.test_stacked_saved_geometry)"
+    },
+    {
+      "batch": 18,
+      "kind": "ERROR",
+      "test": "test_saved_layers_area_capacity_and_stacked_reverse_order (tests.test_thermal_materials.ThermalMaterialTests.test_saved_layers_area_capacity_and_stacked_reverse_order)"
+    },
+    {
+      "batch": 18,
+      "kind": "ERROR",
+      "test": "test_saved_property_order_and_source_tampering_rejected (tests.test_thermal_materials.ThermalMaterialTests.test_saved_property_order_and_source_tampering_rejected)"
+    },
+    {
+      "batch": 18,
+      "kind": "ERROR",
+      "test": "test_saved_four_faces_translated_vertices_and_net_opaque_area (tests.test_thermal_windows.WindowInputTests.test_saved_four_faces_translated_vertices_and_net_opaque_area)"
+    },
+    {
+      "batch": 18,
+      "kind": "ERROR",
+      "test": "test_saved_glazing_geometry_type_multiplier_and_source_tampering (tests.test_thermal_windows.WindowInputTests.test_saved_glazing_geometry_type_multiplier_and_source_tampering)"
+    }
+  ],
+  "full_suite_completed": true,
+  "full_suite_pass": false,
+  "design_accepted": false
+}

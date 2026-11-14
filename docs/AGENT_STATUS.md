@@ -7,17 +7,21 @@ This is a reusable multi-discipline agent under development, not a completed
 arbitrary-brief-to-accepted-design system. The capability/gap matrix below remains
 the whole-agent scope; a coursework replay does not replace it.
 
-All 385 test modules load. Nine completed regression batches cover 180 modules
-and 755 executed instances: 716 pass, 34 skip, one failure and four errors.
-All nine terminal receipts independently verify against current selected source
-bytes. The four errors directly record an OpenStudio Application Control block;
-the failure is a dependent HVAC rule assertion whose upstream energy task did not
-pass. These remain failures, not converted skips. Remaining batches are unfinished;
-see [aggregate evidence](evidence/agent-regression-nine-batches.json) and
-[execution limits](DURABLE_CHECKS.md). Test counts are not a completion percentage.
+All 385 selected modules have completed in 20 batches: 1,617 executed instances,
+1,477 passes, 126 skips, one failure and 13 errors. All terminal receipts
+independently verify against current selected source bytes. All 13 error traces
+record OpenStudio's `_openstudioutilitiesunits` blocked by Application Control.
+The failure is a dependent HVAC rule assertion whose upstream energy task did not
+pass. The full run completed but did not pass. Counts include imported repeated
+test instances and are not an agent completion percentage. See the
+[complete aggregate](evidence/agent-regression-complete.json) and
+[triage and remaining work](REGRESSION_20261114.md).
 
 Separate opt-in runs reverify five actual AutoCAD integration cases and nine
-source-gated Hong Kong cable controls. Their scopes and remaining visual/design
+source-gated Hong Kong cable controls. A separate 24-case pinned MOOSAS geometry
+and source/rule workflow replay also passes without skips; this does not run its
+airflow or thermal engines. See [MOOSAS evidence](evidence/moosas-geometry-regression.json).
+Their scopes and remaining visual/design
 gates are preserved in [native route evidence](evidence/native-riser-route-regression.json),
 [initial native checkpoint](evidence/agent-regression-checkpoint.json) and
 [Hong Kong source evidence](evidence/hk-cable-regression-source-check.json).

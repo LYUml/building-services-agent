@@ -1,5 +1,12 @@
 # Scope and acceptance
 
+Whole-agent regression completes all385selected modules:1,617instances,
+1,477passes,126skips,one failure and13errors. All20receipts independently
+verify; direct errors reproduce the OpenStudio policy block and the dependent
+energy-rule failure remains. Separate24case MOOSAS geometry replay passes.
+This closes the unfinished regression run, not whole-agent acceptance.
+See REGRESSION_20261114.md and evidence/agent-regression-complete.json.
+
 Two supplemental actual AutoCAD tests now reverify synthetic riser elevation and
 true-arc route save/reopen/identity/plot-reference behavior. Both pass with a
 verified receipt; visual and full engineering acceptance remain pending. Main
