@@ -5,6 +5,13 @@ description: Orchestrate building services assignments from a brief and source d
 
 # building-services-design
 
+For a verified four-corner VAV single-line layout, bsa.vav_recenter run/verify
+per docs/VAV_RECENTER.md can relocate groups/taps without moving terminals or
+adding bends, then restrict lengthened-section friction through the inherited
+finite candidate grid. Verify actual native geometry, selected sizes, all outlet
+straight-friction paths and the actual plot. Keep original IFC/report/pressure
+scenarios separate; do not infer installed length, full fan duty or ADPI approval.
+
 For an existing verified native HVAC workflow, use bsa.vav_schedule run/verify
 per docs/VAV_SCHEDULE.md to deliver a bounded group connection table. Reconstruct
 native membership/endpoints and inherited maximum/minimum flows; require actual

@@ -1,5 +1,12 @@
 # Building Services Agent
 
+Actual source-bound layout revision now recentres ten VAV groups and compensates
+three duct sections using the inherited size grid. Planar flex shortens 0.951 m,
+rigid centreline 1.188 m; all twenty untrimmed straight-friction path estimates
+are nonincreasing. Actual pinned upstream writing, native DWG reopening and A1
+visual review execute. Installed geometry, full pressure and ADPI remain open.
+See [design revision](docs/VAV_RECENTER.md).
+
 Actual inherited VAV connection delivery now provides 20 groups/80 terminals in
 editable native DWG, inspected A4 PDF and CSV. All 80 saved-native flex lengths,
 20 maximum/minimum group sums and 140 native cells independently reconcile;

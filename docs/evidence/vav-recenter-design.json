@@ -1,0 +1,128 @@
+{
+  "scope": "Actual source-bound VAV placement and duct-size design improvement with original terminal positions and allocation preserved; standalone revised single-line scenario, not full project acceptance",
+  "moved_vav_groups": 10,
+  "terminals": 80,
+  "rigid_sections": 47,
+  "baseline_total_flex_plan_m": 198.84520332707805,
+  "revised_total_flex_plan_m": 197.89404192039655,
+  "baseline_total_rigid_centreline_m": 202.71676550000007,
+  "revised_total_rigid_centreline_m": 201.52851800000008,
+  "baseline_max_flex_plan_m": 2.9757240219002283,
+  "revised_max_flex_plan_m": 2.8728691174817858,
+  "largest_group_maximum_length_reduction_m": 0.7425818826836945,
+  "resized_sections": [
+    {
+      "id": "D-06",
+      "baseline_mm": [
+        500.0,
+        350.0
+      ],
+      "revised_mm": [
+        550.0,
+        350.0
+      ]
+    },
+    {
+      "id": "D-13",
+      "baseline_mm": [
+        500.0,
+        350.0
+      ],
+      "revised_mm": [
+        550.0,
+        350.0
+      ]
+    },
+    {
+      "id": "D-20",
+      "baseline_mm": [
+        500.0,
+        350.0
+      ],
+      "revised_mm": [
+        550.0,
+        350.0
+      ]
+    }
+  ],
+  "candidate_dimension_grid_unchanged": true,
+  "original_source_velocity_friction_aspect_caps_not_relaxed": true,
+  "added_bends": 0,
+  "rigid_obstacle_pairs": 376,
+  "flex_centreline_obstacle_pairs": 640,
+  "tested_closed_columns": 8,
+  "coverage_complete": false,
+  "straight_path_diagnostic": {
+    "outlet_paths": 20,
+    "increased": 0,
+    "decreased": 10,
+    "unchanged": 10,
+    "maximum_reduction_Pa": 1.851926976940149,
+    "scope": "Existing equivalent-round engine on untrimmed centreline lengths only; flexible duct, fittings, transitions, equipment and fan duty remain unknown"
+  },
+  "independent_review": {
+    "terminal_symbols_preserved": 80,
+    "group_centres_independently_recomputed": 20,
+    "raw_flex_lengths_checked": 80,
+    "raw_rigid_lengths_and_directions_checked": 47,
+    "native_table_cells_checked": 235,
+    "all_original_allocation_bytes_equal": true,
+    "independent_colebrook_sections": 47,
+    "maximum_colebrook_residual": 1.7763568394002505e-15,
+    "revised_total_flex_plan_m": "197.8940419203967907561793572",
+    "revised_total_rigid_centreline_m": "201.528517999999910000000000",
+    "baseline_total_rigid_centreline_m": "202.716765500000060000000000",
+    "all_checks_pass": true,
+    "scope": "Raw reopened native coordinates, unchanged terminal symbol vertices, conditional calculation checks and source allocation; not installed geometry or complete pressure",
+    "design_accepted": false
+  },
+  "native_reopen_pass": true,
+  "generated_entity_count": 718,
+  "plot": {
+    "pdf_sha256": "12103d9a2bd978cdd725be89f8ae56c7b85dc354f1af2ea485fcb41285c5b2e5",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      841.0222222222221,
+      594.0777777777777
+    ],
+    "scale_denominator": 100,
+    "reference_handle": "8FFD",
+    "reference_expected_mm": 100.0,
+    "reference_measured_mm": 99.99133333333334,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "actual_plot_inspected": true,
+  "moved_label_conflict_corrected": true,
+  "tests": {
+    "executed": 10,
+    "passed": 10,
+    "skipped": 0,
+    "receipt_sha256": "9bdebfee7c80bbc3c3702b8045b5b5f0bf9dec6cb28ca05213dd5b7fc5e0c8d0"
+  },
+  "reuse": {
+    "uc4n_commit": "6f6a538255ca9f885232e845ac32f10b4433fe3e",
+    "uc4n_license": "MIT",
+    "ezdxf": "1.4.5",
+    "shapely": "2.2.0",
+    "fluids": "1.3.1",
+    "new_dependency": false,
+    "new_engine": false
+  },
+  "original_requirements": 33,
+  "original_input_gaps": 6,
+  "outputs": {
+    "03_Design_Drawings/Connection_Layout/Supply Air Distribution.dwg": "c76a643d224889bae56ff96c91d5df160e4b75e154faf9d0829ec75749283115",
+    "03_Design_Drawings/Connection_Layout/Supply Air Distribution.pdf": "12103d9a2bd978cdd725be89f8ae56c7b85dc354f1af2ea485fcb41285c5b2e5",
+    "05_Calculations/Connection Layout Duct Sizing.csv": "7db3280370d77b274717fefa3be223636682c3d27c31c56d93f9e156e465dc21"
+  },
+  "limitations": [
+    "New single-line design scenario; original drawings/reports, old IFC network and old pressure ledgers remain unchanged and must not be combined with this revised geometry",
+    "Straight XY flex lengths remain lower bounds; elevation, slack, physical VAV ports/hardware and installed clearances unknown",
+    "Eight closed source columns only; open ninth column, walls, fitting/insulation envelopes and obstacle completeness remain unresolved",
+    "Sizing remains conditional equivalent-round calculation on the inherited assumed dimension grid; required chart-method applicability remains pending",
+    "Complete fitting/flex/equipment losses, fan duty, room sensible load, characteristic-length/ceiling applicability, ADPI and full statutory/design acceptance remain unknown"
+  ],
+  "design_accepted": false
+}

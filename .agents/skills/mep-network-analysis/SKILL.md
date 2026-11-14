@@ -5,6 +5,13 @@ description: Calculate source-linked air/water networks, fan/pump operating poin
 
 # Network pressure analysis
 
+For a verified four-corner VAV single-line layout, bsa.vav_recenter run/verify
+per docs/VAV_RECENTER.md can relocate groups/taps without moving terminals or
+adding bends, then restrict lengthened-section friction through the inherited
+finite candidate grid. Verify actual native geometry, selected sizes, all outlet
+straight-friction paths and the actual plot. Keep original IFC/report/pressure
+scenarios separate; do not infer installed length, full fan duty or ADPI approval.
+
 After explicitly identifying manual round-duct chart points, use
 docs/ROUND_DUCT_CHART_CHECK.md to replay source points and compare the declared
 diameter/air conditions with the existing friction engine. Preserve center

@@ -1,5 +1,14 @@
 # Reuse survey â€” 2026-11-09
 
+Actual VAV placement revision reuses Shapely 2.2.0 rectangle centroids and existing
+source-native topology checks, fluids 1.3.1 finite candidate sizing and the pinned
+MIT U-C4N AutoCAD backend. The gap is source-preserving relocation and preventing
+longer trunk sections from worsening the existing straight-friction diagnostic,
+not another optimizer, pressure solver or CAD transport. Ten groups move, three
+inherited sections resize, all twenty path estimates are nonincreasing and native
+DWG/A1 visual checks execute. No dependency is added; see VAV_RECENTER.md. Original
+IFC/pressure/report scenarios are retained separately; full engineering is open.
+
 VAV connection tables reuse the already pinned MIT ezdxf 1.4.5 writer, existing
 source/native terminal inspector and isolated AutoCAD save/reopen/plot adapters.
 The actual gap is a readable group-level maximum/minimum flow and planar-length
