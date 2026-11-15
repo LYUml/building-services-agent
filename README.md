@@ -1,5 +1,7 @@
 # Building Services Agent
 
+Two current plenum geometry families now have source-native air volumes with independent volume, five-port and material-overlap checks. Pressure remains pending. See [plenum air domains](docs/PLENUM_AIR_DOMAIN.md).
+
 Saved CFD native-line probes now execute on a frozen upstream bend field with complete mesh/node binding and host/output controls. Experimental agreement and project pressure remain unaccepted. See [native probes](docs/CFD_NATIVE_PROBE.md).
 
 Current source IFC now has a refreshed 764-GUID reopened native plan and matching detail/calculation candidate package. Full pressure and design acceptance remain pending. See [coordinated candidate](docs/COORDINATED_SUPPLY_CANDIDATE.md).

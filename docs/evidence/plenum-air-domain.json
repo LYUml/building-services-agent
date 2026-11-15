@@ -1,0 +1,154 @@
+{
+  "source_ifc_sha256": "6abd91101fc5411ad017b362b86f7098080183db7a3f7de12cf1b1a2b88c05e8",
+  "existing_air_adapter_sha256": "0f0a384b6f3d48ffcb784eb6b61b8dcbbf5b2a80caf819f65169043a29925c9f",
+  "upstream_runtimes": {
+    "ifcopenshell": "0.8.5",
+    "gmsh": "4.15.2"
+  },
+  "current_20_native_representations_and_all_ports_match_verified_construction": true,
+  "assets": [
+    {
+      "filename": "Small Plenum Air.brep",
+      "sha256": "bc04be931dfe1bb7d1714d54c768496dda61bbc1aa12cb8fb1456f2b4906dedd"
+    },
+    {
+      "filename": "Large Plenum Air.brep",
+      "sha256": "59555c5bdd1b83a81f554533117f688af9340d7dec59a1a08e1bdc653462874d"
+    }
+  ],
+  "families": [
+    {
+      "family": 1,
+      "nominal_vav_size_in": 12,
+      "source_candidate_count": 7,
+      "representative_guid": "0HYVMlmZXU$vltJ0td80AQ",
+      "geometry": {
+        "family": 1,
+        "native_connected_fluid_volumes": 1,
+        "native_air_volume_m3": 0.14035989400454135,
+        "analytic_air_volume_m3": 0.14035989400454157,
+        "source_caps": [
+          {
+            "port_guid": "1Cc$YUqe1RkPDrweFH5rfd",
+            "surface": 2,
+            "native_area_m2": 0.048783515153795996
+          },
+          {
+            "port_guid": "1cACJ$r95UUfSElMvT2RNO",
+            "surface": 10,
+            "native_area_m2": 0.048783515153795996
+          },
+          {
+            "port_guid": "2JOjpWsjLHrunAiICQX3vE",
+            "surface": 13,
+            "native_area_m2": 0.048783515153795996
+          },
+          {
+            "port_guid": "37yD1_Q5XTDefq$7Vzdxll",
+            "surface": 4,
+            "native_area_m2": 0.13430759999999994
+          },
+          {
+            "port_guid": "2sM9z$SxPIsAHdwFRZr$fx",
+            "surface": 14,
+            "native_area_m2": 0.048783515153795996
+          }
+        ],
+        "air_material_overlap_m3": 0
+      },
+      "design_flow_range_m3_s": [
+        0.2155937757602848,
+        0.5800518055133923
+      ],
+      "componentwise_outlet_fraction_bounds": [
+        [
+          0.2407820450040987,
+          0.24078204500409967,
+          0.2296572085446997,
+          0.22827240960267423
+        ],
+        [
+          0.26097010719458286,
+          0.26097010719458286,
+          0.2658657642488072,
+          0.26789991872628954
+        ]
+      ],
+      "bounds_are_not_a_single_simultaneous_operating_case": true,
+      "pressure_loss_Pa": null,
+      "loss_coefficient": null
+    },
+    {
+      "family": 2,
+      "nominal_vav_size_in": 14,
+      "source_candidate_count": 13,
+      "representative_guid": "1hkqWVhDbU3u0fIMW4RWTm",
+      "geometry": {
+        "family": 2,
+        "native_connected_fluid_volumes": 1,
+        "native_air_volume_m3": 0.2002786629145412,
+        "analytic_air_volume_m3": 0.20027866291454158,
+        "source_caps": [
+          {
+            "port_guid": "2Z$r9LTCzLaANbfVqnelBD",
+            "surface": 14,
+            "native_area_m2": 0.048783515153795996
+          },
+          {
+            "port_guid": "2IA3ZuxZDMDg$FrbH_9uBN",
+            "surface": 2,
+            "native_area_m2": 0.048783515153795996
+          },
+          {
+            "port_guid": "2UI9jTONfKmPl8KqD6afG3",
+            "surface": 10,
+            "native_area_m2": 0.048783515153795996
+          },
+          {
+            "port_guid": "0gXdbGBNvMgQy11KGDda3T",
+            "surface": 13,
+            "native_area_m2": 0.048783515153795996
+          },
+          {
+            "port_guid": "2DojJVefnJO9fHjMs$1BdN",
+            "surface": 4,
+            "native_area_m2": 0.20081749999999995
+          }
+        ],
+        "air_material_overlap_m3": 0
+      },
+      "design_flow_range_m3_s": [
+        0.2337778129635611,
+        0.7180147332359453
+      ],
+      "componentwise_outlet_fraction_bounds": [
+        [
+          0.22876829466724574,
+          0.2349338885217026,
+          0.22672001313269335,
+          0.22247200151346375
+        ],
+        [
+          0.279047823812625,
+          0.27440989323991355,
+          0.2606321710533784,
+          0.26573241543752685
+        ]
+      ],
+      "bounds_are_not_a_single_simultaneous_operating_case": true,
+      "pressure_loss_Pa": null,
+      "loss_coefficient": null
+    }
+  ],
+  "scope": "Two real candidate plenum air volumes only; geometry families share mesh preparation, not automatically pressure coefficients or operating cases.",
+  "assumptions": [
+    "0.8mm metal and selected12.7mm liner",
+    "Catalogue W/H interpreted as outside envelope",
+    "Unlined nominal collars; manual balancing damper blades not modelled",
+    "Inherited design flows and1.2kg/m3 assumed density; not measured operation"
+  ],
+  "meshed": false,
+  "pressure_verified": false,
+  "manufacturer_internals_verified": false,
+  "engineering_accepted": false
+}

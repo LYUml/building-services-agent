@@ -1,5 +1,7 @@
 # Whole-agent status
 
+Two current plenum geometry families now have source-native air volumes with independent volume, five-port and material-overlap checks. Pressure remains pending. See [plenum air domains](PLENUM_AIR_DOMAIN.md).
+
 Saved CFD native-line probes now execute on a frozen upstream bend field with complete mesh/node binding and host/output controls. Experimental agreement and project pressure remain unaccepted. See [native probes](CFD_NATIVE_PROBE.md).
 
 Actual compound-junction analysis geometry and layered mesh now execute; pressure remains unaccepted. See [CFD air domain](CFD_AIR_DOMAIN.md).

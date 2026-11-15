@@ -1,5 +1,7 @@
 # Reuse survey â€” 2026-11-09
 
+Two current plenum geometry families now have source-native air volumes with independent volume, five-port and material-overlap checks. Pressure remains pending. See [plenum air domains](PLENUM_AIR_DOMAIN.md).
+
 Saved CFD native-line probes now execute on a frozen upstream bend field with complete mesh/node binding and host/output controls. Experimental agreement and project pressure remain unaccepted. See [native probes](CFD_NATIVE_PROBE.md).
 
 Actual CFD geometry reuses IfcOpenShell 0.8.5, isolated Gmsh 4.15.2 and official SU2 8.6.0 Windows OpenMP. Fifteen real air solids fuse and mesh; RANS is not converged or accepted. Pins and licenses: [CFD air domain](CFD_AIR_DOMAIN.md).

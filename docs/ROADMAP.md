@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Two current plenum geometry families now have source-native air volumes with independent volume, five-port and material-overlap checks. Pressure remains pending. See [plenum air domains](PLENUM_AIR_DOMAIN.md).
+
 Saved CFD native-line probes now execute on a frozen upstream bend field with complete mesh/node binding and host/output controls. Experimental agreement and project pressure remain unaccepted. See [native probes](CFD_NATIVE_PROBE.md).
 
 Current 764-GUID candidate plan is saved/reopened and visually checked with matching model/detail/calculation assets. Complete design remains pending. See [coordinated supply candidate](COORDINATED_SUPPLY_CANDIDATE.md).
