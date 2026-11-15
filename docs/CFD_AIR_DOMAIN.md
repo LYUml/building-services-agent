@@ -52,3 +52,9 @@ Upstream reuse and attribution:
   7048fd35f56d4bf52e586429d6746a36a10255f8. Configuration and boundary behavior
   were checked in that source. Synthetic laminar runtime checks do not validate
   this turbulent multi-branch project. Binaries/environments stay private.
+
+## Executed numerical-window assessment
+
+`python -m bsa.cfd_convergence --history RELATIVE_HISTORY --targets RELATIVE_TARGETS --output NEW_REPORT` requires an explicit host `BSA_PROJECT_ROOT`. It reads saved SU2 history using Python CSV and the pinned SU2 output field meanings; it does not rebuild a flow solver. Paths stay within the host project, existing evidence is preserved, and observation changes fail for retry of the same run. Signed conservative targets are required. All flow and global mass checks must pass throughout 200 consecutive iterations; positive whole-domain pressure differences must also remain within the stated relative range. Default flow/mass targets are 0.1%, pressure range 0.5%; these are numerical design targets, not regulations. Common gauge drift cancels when forming total-pressure differences.
+
+Six tests pass, including actual CLI execution, outside-project rejection, existing-evidence preservation and false-pass controls. The command executed on actual first-order, coarse second-order and fine second-order histories. All three recorded windows remain numerically pending; engineering acceptance is always false, including for a passing numerical window. Evidence: [cfd-convergence.json](evidence/cfd-convergence.json). Raw histories and fields stay private. The coursework target file records inherited design mass flows and assumed density, not measured operation. No complete fan duty, junction-only loss or ADPI acceptance follows.

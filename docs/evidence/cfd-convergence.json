@@ -1,0 +1,46 @@
+{
+  "scope": "Executed numerical-window assessment snapshots; not accepted CFD pressure or complete BSE3227 design",
+  "method_sha256": "256877f3486b8c681fd255293b6834761fec91bb130c1690cd62332a60283092",
+  "targets_sha256": "b54b7fa5b0a62e5b218ea5d80e40c45e4fc3d96dc585c7ae3cba889dfe8d8f73",
+  "unit_tests_passed": 6,
+  "cases": [
+    {
+      "study": "same-mesh-continuation",
+      "window_iterations": [
+        4048,
+        4247
+      ],
+      "numerical_window_pass": false,
+      "engineering_accepted": false,
+      "source_history_sha256": "a46a4bc801feec20d1bd3f5ba6cb590cc9d2bf23ec2c84148ff83509ceac0199"
+    },
+    {
+      "study": "second-order-study",
+      "window_iterations": [
+        2800,
+        2999
+      ],
+      "numerical_window_pass": false,
+      "engineering_accepted": false,
+      "source_history_sha256": "fb3bfd981b553892cfc822798b49995b0e62d7b3a0ec81144f27eeed91706438"
+    },
+    {
+      "study": "refined-second-order-study",
+      "window_iterations": [
+        60,
+        259
+      ],
+      "numerical_window_pass": false,
+      "engineering_accepted": false,
+      "source_history_sha256": "17e1dbe09e263b6d93fea04283f2ebaf65bdaacbef5709b169ae421abd2d6754"
+    }
+  ],
+  "pressure_accepted": false,
+  "remaining": [
+    "Converged flow, global conservation and total-pressure stability",
+    "Fine-wall y-plus resolution review after convergence",
+    "Spatial-order and mesh sensitivity",
+    "Turbulent reference verification and roughness applicability",
+    "Full system and ADPI obligations"
+  ]
+}

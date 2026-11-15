@@ -473,3 +473,5 @@ completed polyu_bse3124 project remains read-only historical context.
 Next major acceptance needs remain general source interpretation, broader
 cross-discipline physical design, applicable regulations, native delivery and
 full-project review. Adding a tool entry alone does not satisfy them.
+
+Saved CFD numerical-window CLI now executes on three actual studies with six controls; no pressure/design acceptance. See CFD_AIR_DOMAIN.md.
