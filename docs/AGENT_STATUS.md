@@ -1,5 +1,7 @@
 # Whole-agent status
 
+Two actual plenum layered meshes now pass independent boundary/port checks. A thin adapter removes only proven internal wall markers while preserving volume connectivity and coordinates. Pressure remains unaccepted. See [mesh boundary verification](CFD_MESH_BOUNDARY.md).
+
 Two current plenum geometry families now have source-native air volumes with independent volume, five-port and material-overlap checks. Pressure remains pending. See [plenum air domains](PLENUM_AIR_DOMAIN.md).
 
 Saved CFD native-line probes now execute on a frozen upstream bend field with complete mesh/node binding and host/output controls. Experimental agreement and project pressure remain unaccepted. See [native probes](CFD_NATIVE_PROBE.md).

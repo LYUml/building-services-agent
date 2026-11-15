@@ -1,4 +1,6 @@
 # Source-linked fixtures and recorded artifacts must keep their exact hashed bytes
+src/bsa/cfd_mesh_boundary.py text eol=lf
+tests/test_cfd_mesh_boundary.py text eol=lf
 src/bsa/cfd_native_probe.py text eol=lf
 tests/test_cfd_native_probe.py text eol=lf
 # on every checkout, regardless of the user's core.autocrlf setting.

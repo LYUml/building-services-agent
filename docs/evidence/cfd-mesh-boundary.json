@@ -1,0 +1,166 @@
+{
+  "scope": "Actual two-family candidate plenum mesh boundary verification; no accepted pressure.",
+  "source_ifc_sha256": "6abd91101fc5411ad017b362b86f7098080183db7a3f7de12cf1b1a2b88c05e8",
+  "method_sha256": "034aef0187a28e4b699b0e71654e2b1f1f0a7eeff5ee1a6ef401cd3a2bb5add9",
+  "families": [
+    {
+      "family": 1,
+      "agent_boundary_check": {
+        "points": 340380,
+        "volume_cells": 823552,
+        "exterior_faces": 50334,
+        "removed_internal_wall_faces": {
+          "wall": 1496
+        },
+        "boundary_face_incidence_pass": true,
+        "outward_boundary_orientation_pass": true,
+        "source_sha256": "23203a39c3c36cd117d8b1529507d5fbcc296abda02132650d7e417cea79127e",
+        "output_sha256": "07998c8e563341aa602a26cb607d2d4728f8d8ebc6b034d55a17d4fb43d5dc64",
+        "volume_and_point_prefix_sha256": "ddc53d1776eb081b7a35d73930fbf42b35cddcfb9111639f7b0fa865e160a473",
+        "volume_and_coordinates_byte_unchanged": true,
+        "engineering_accepted": false,
+        "scope": "Boundary connectivity and orientation only. Separate source geometry, Jacobian, port, mesh, convergence and physical checks required.",
+        "method_sha256": "034aef0187a28e4b699b0e71654e2b1f1f0a7eeff5ee1a6ef401cd3a2bb5add9"
+      },
+      "independent_geometry_check": {
+        "nodes": 340380,
+        "elements": 823552,
+        "closed_exterior_face_incidence": true,
+        "boundary_inward_faces": {
+          "inlet": 0,
+          "outlet_0": 0,
+          "outlet_1": 0,
+          "outlet_2": 0,
+          "outlet_3": 0,
+          "wall": 0
+        },
+        "caps": [
+          {
+            "marker": "inlet",
+            "area_m2": 0.13430760000000158,
+            "relative_area_error": 1.199040866595169e-14,
+            "zero_wall_edge_effective_area_m2": 0.1343004923990645,
+            "maximum_plane_error_m": 0.0
+          },
+          {
+            "marker": "outlet_0",
+            "area_m2": 0.0487639262869383,
+            "relative_area_error": 0.00040154685032089965,
+            "zero_wall_edge_effective_area_m2": 0.04876001313144427,
+            "maximum_plane_error_m": 0.0
+          },
+          {
+            "marker": "outlet_1",
+            "area_m2": 0.04876392628693824,
+            "relative_area_error": 0.0004015468503220099,
+            "zero_wall_edge_effective_area_m2": 0.0487600131313708,
+            "maximum_plane_error_m": 0.0
+          },
+          {
+            "marker": "outlet_2",
+            "area_m2": 0.04876392628693791,
+            "relative_area_error": 0.00040154685032878223,
+            "zero_wall_edge_effective_area_m2": 0.04876001313088597,
+            "maximum_plane_error_m": 0.0
+          },
+          {
+            "marker": "outlet_3",
+            "area_m2": 0.04876392628693803,
+            "relative_area_error": 0.00040154685032645077,
+            "zero_wall_edge_effective_area_m2": 0.04876001313126961,
+            "maximum_plane_error_m": 0.0
+          }
+        ],
+        "mesh_sha256": "aa1768b350dc0fec73da8fd129d744d67869eb2b62ef3ef8c34d2d0620b631ea",
+        "engineering_accepted": false
+      },
+      "ordered_line_content_matches_independent_mesh": true,
+      "volume_point_prefix_matches_independent_mesh_byte_exactly": true,
+      "whole_file_byte_identity_claimed": false
+    },
+    {
+      "family": 2,
+      "agent_boundary_check": {
+        "points": 359493,
+        "volume_cells": 869970,
+        "exterior_faces": 52148,
+        "removed_internal_wall_faces": {
+          "wall": 1496
+        },
+        "boundary_face_incidence_pass": true,
+        "outward_boundary_orientation_pass": true,
+        "source_sha256": "6051779d37450492d8c06ecddafdf124991eaa41c4ef35e80f433f057abaed10",
+        "output_sha256": "9822f2c2c28fbff74bf155eda393a248adf62037f1a3e4e2e66001761238fea3",
+        "volume_and_point_prefix_sha256": "0d0139eae4fd6736c923eb838d001ac800367b138123a91ea383b1ee969fde84",
+        "volume_and_coordinates_byte_unchanged": true,
+        "engineering_accepted": false,
+        "scope": "Boundary connectivity and orientation only. Separate source geometry, Jacobian, port, mesh, convergence and physical checks required.",
+        "method_sha256": "034aef0187a28e4b699b0e71654e2b1f1f0a7eeff5ee1a6ef401cd3a2bb5add9"
+      },
+      "independent_geometry_check": {
+        "nodes": 359493,
+        "elements": 869970,
+        "closed_exterior_face_incidence": true,
+        "boundary_inward_faces": {
+          "inlet": 0,
+          "outlet_0": 0,
+          "outlet_1": 0,
+          "outlet_2": 0,
+          "outlet_3": 0,
+          "wall": 0
+        },
+        "caps": [
+          {
+            "marker": "inlet",
+            "area_m2": 0.20081749999999723,
+            "relative_area_error": 1.3655743202889425e-14,
+            "zero_wall_edge_effective_area_m2": 0.20080873460748752,
+            "maximum_plane_error_m": 0.0
+          },
+          {
+            "marker": "outlet_0",
+            "area_m2": 0.04876392628693814,
+            "relative_area_error": 0.0004015468503241193,
+            "zero_wall_edge_effective_area_m2": 0.048760013130742685,
+            "maximum_plane_error_m": 0.0
+          },
+          {
+            "marker": "outlet_1",
+            "area_m2": 0.04876392628693812,
+            "relative_area_error": 0.0004015468503245634,
+            "zero_wall_edge_effective_area_m2": 0.04876001313141032,
+            "maximum_plane_error_m": 0.0
+          },
+          {
+            "marker": "outlet_2",
+            "area_m2": 0.048763926286938354,
+            "relative_area_error": 0.0004015468503196784,
+            "zero_wall_edge_effective_area_m2": 0.04876001313088073,
+            "maximum_plane_error_m": 0.0
+          },
+          {
+            "marker": "outlet_3",
+            "area_m2": 0.04876392628693783,
+            "relative_area_error": 0.0004015468503305586,
+            "zero_wall_edge_effective_area_m2": 0.04876001313126944,
+            "maximum_plane_error_m": 0.0
+          }
+        ],
+        "mesh_sha256": "9867251ebc3c79c24dc998166aa4938beda65e215ea7e2481341011f307f62e3",
+        "engineering_accepted": false
+      },
+      "ordered_line_content_matches_independent_mesh": true,
+      "volume_point_prefix_matches_independent_mesh_byte_exactly": true,
+      "whole_file_byte_identity_claimed": false
+    }
+  ],
+  "tests": {
+    "command": "python -m unittest discover -s tests -p test_cfd_mesh_boundary.py",
+    "passed": 4
+  },
+  "engineering_accepted": false,
+  "pressure_accepted": false,
+  "mesh_independence_verified": false,
+  "plenum_pressure_gaps_remaining": 80,
+  "full_pressure_gaps_per_flowcase": 84
+}
