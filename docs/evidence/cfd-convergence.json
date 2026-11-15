@@ -1,18 +1,18 @@
 {
   "scope": "Executed numerical-window assessment snapshots; not accepted CFD pressure or complete BSE3227 design",
   "method_sha256": "256877f3486b8c681fd255293b6834761fec91bb130c1690cd62332a60283092",
-  "targets_sha256": "b54b7fa5b0a62e5b218ea5d80e40c45e4fc3d96dc585c7ae3cba889dfe8d8f73",
+  "targets_sha256": "86d7e8e32c6fa8986abc6dfd5d040e8bf772341b35c8789a5bdcd82a24cedd50",
   "unit_tests_passed": 6,
   "cases": [
     {
       "study": "same-mesh-continuation",
       "window_iterations": [
-        4048,
-        4247
+        4308,
+        4507
       ],
       "numerical_window_pass": false,
       "engineering_accepted": false,
-      "source_history_sha256": "a46a4bc801feec20d1bd3f5ba6cb590cc9d2bf23ec2c84148ff83509ceac0199"
+      "source_history_sha256": "f09b5884983d5e13c3e275498a7805e3f110250ef0916312ecbf2ddcadfc159d"
     },
     {
       "study": "second-order-study",
@@ -27,12 +27,12 @@
     {
       "study": "refined-second-order-study",
       "window_iterations": [
-        60,
-        259
+        171,
+        370
       ],
       "numerical_window_pass": false,
       "engineering_accepted": false,
-      "source_history_sha256": "17e1dbe09e263b6d93fea04283f2ebaf65bdaacbef5709b169ae421abd2d6754"
+      "source_history_sha256": "2437bf3e6386f2ec1efe021259a62ecfc844d94bfa6f1d4b5de2335078e8dcec"
     }
   ],
   "pressure_accepted": false,
