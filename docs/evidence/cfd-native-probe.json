@@ -1,0 +1,19 @@
+{
+  "scope": "Actual native-node postprocessing only",
+  "native_nodes": 40,
+  "mesh_points": 75396,
+  "provenance": {
+    "mesh_sha256": "07226955475639b36986db1798d3c0d6753d5799d0110f6853d75aff190ec4ed",
+    "field_sha256": "929f635ac1cd5130341b7873b48e091681fc09367685691fd34c8d5f2a424712",
+    "spec_sha256": "e9687b37af0c73fb2e815500f547100cb3b27d9745aa2f62fd40c549d1b726a1",
+    "method_sha256": "13bb43480546e47b666c3647351695d66fb9f9e01a560b6340c52a4439001552"
+  },
+  "focused_unit_tests": 4,
+  "actual_cli_executed": true,
+  "existing_output_preserved": true,
+  "outside_host_output_rejected": true,
+  "engineering_accepted": false,
+  "experimental_agreement_accepted": false,
+  "upstream_tutorial_commit": "ce41729be812da70f06bea0fd1a97a6ce4da14aa",
+  "private_checkpoint_frozen": true
+}

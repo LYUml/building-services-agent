@@ -1,5 +1,7 @@
 # Building Services Agent
 
+Saved CFD native-line probes now execute on a frozen upstream bend field with complete mesh/node binding and host/output controls. Experimental agreement and project pressure remain unaccepted. See [native probes](docs/CFD_NATIVE_PROBE.md).
+
 Current source IFC now has a refreshed 764-GUID reopened native plan and matching detail/calculation candidate package. Full pressure and design acceptance remain pending. See [coordinated candidate](docs/COORDINATED_SUPPLY_CANDIDATE.md).
 
 Actual compound-junction air-domain export and layered meshing execute; pressure convergence remains unresolved. See [CFD air domain](docs/CFD_AIR_DOMAIN.md).
