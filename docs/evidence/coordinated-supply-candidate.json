@@ -1,0 +1,98 @@
+{
+  "scope": "Coordinated editable candidate package, not final BSE3227 acceptance or construction approval",
+  "model_ifc_sha256": "6abd91101fc5411ad017b362b86f7098080183db7a3f7de12cf1b1a2b88c05e8",
+  "model_elements": 824,
+  "flow_products": 604,
+  "nominal_accessories": 160,
+  "nonphysical_reservations": 60,
+  "plan_represented_guids": 764,
+  "native_plan_model_entities": 26856,
+  "prior664_geometries_and_placements_literal_match": true,
+  "prior584_nonplenum_flow_geometries_and_placements_literal_match": true,
+  "plan_native_reopen_verified": true,
+  "plan_all_entity_ifc_identity_preserved": true,
+  "actual_plot_visual_review": "Inspected actual rendered PDF; no observed clipping or new label overlap. Fine wall/film dimensions require detail views.",
+  "plan_reference_expected_mm": 50.0,
+  "plan_reference_measured_mm": 49.99566666666666,
+  "detail_handoff": "Existing reopened/visually reviewed detail bytes, with matching current source representations and placements; not fresh detail reruns",
+  "assets": [
+    {
+      "file": "Supply Air Candidate.ifc",
+      "sha256": "6abd91101fc5411ad017b362b86f7098080183db7a3f7de12cf1b1a2b88c05e8",
+      "role": "Unified current source model"
+    },
+    {
+      "file": "Supply Air Plan.dwg",
+      "sha256": "3e867dbd8d0d497a5f68874da54ea4ea4ab3f6ce29d2d63037c9b5050b41c110",
+      "role": "Actual reopened coordinated plan"
+    },
+    {
+      "file": "Supply Air Plan.pdf",
+      "sha256": "db213cf02589fd8896e5ecb7eab98f4a1b7a6d3194b9a7af31e51b083e9395a4",
+      "role": "Actual inspected 1:200 plot"
+    },
+    {
+      "file": "Plenum Construction.dwg",
+      "sha256": "299e712c811d6e1ca8503436de7a118e0639493751739f73499b848404cec1b6",
+      "role": "Previously reopened two-size construction detail"
+    },
+    {
+      "file": "Plenum Construction.pdf",
+      "sha256": "7d19997dd3c76d1b340a4e33e71f756b757becbd901bb61fefe8997cca0836a5",
+      "role": "Previously inspected 1:12.5 detail"
+    },
+    {
+      "file": "Sleeve Joint.dwg",
+      "sha256": "2edf3925a1842de18dfb582520e259bd1bd6daf79af0275162f4ebadf057afce",
+      "role": "Previously reopened representative nominal custom joint"
+    },
+    {
+      "file": "Sleeve Joint.pdf",
+      "sha256": "3740a5c1a9500e4c904deb58dc497c83c53f183b186b3a71bb8d94f78cdbcce8",
+      "role": "Previously inspected 1:2 detail"
+    },
+    {
+      "file": "Calculations/VAV Conditional Pressure.csv",
+      "sha256": "44f1b6453e70ba751b114ccaf822149cfb4d2c17c9c366bb1feaef5fb9af084f",
+      "role": "Existing source-bound conditional calculation; no CFD loss adopted"
+    },
+    {
+      "file": "Calculations/Conditional Terminal Budgets.csv",
+      "sha256": "c494fda5d59cc9a344f5dc42aa180bad3052f767306348bc0439da506086a354",
+      "role": "Existing source-bound conditional calculation; no CFD loss adopted"
+    },
+    {
+      "file": "Calculations/Nominal Joint Schedule.csv",
+      "sha256": "a5e272d93ab2b6dc08803660469131b6c2797529d3eaaf5b9ba3f7faf29eb55c",
+      "role": "Existing source-bound conditional calculation; no CFD loss adopted"
+    }
+  ],
+  "pressure_numeric_coverage_per_case": {
+    "conditional": 374,
+    "missing": 84
+  },
+  "calculation_rows": {
+    "VAV": 40,
+    "terminal_cases": 160,
+    "joints": 80
+  },
+  "full_pressure_accepted": false,
+  "ADPI_accepted": false,
+  "physical_joint_accepted": false,
+  "design_accepted": false,
+  "limits": [
+    "VAV outside envelopes and dashed internal flow axes remain schematic",
+    "Branch geometry uses assumed 304.8 mm terminal drop; installed flexible length is not proved",
+    "Metal, liner, sleeve laps and nominal bondlines retain source-linked design assumptions",
+    "Custom joint fasteners, cure, pressure class and manufacturer approval remain unverified",
+    "Missing compound-junction and four-outlet plenum losses remain unresolved; no CFD result is adopted",
+    "Conditional fully-open VAV station balance is not controlled operating loss",
+    "Manufacturer ADPI/load applicability and complete unified final report remain open"
+  ],
+  "executed_libraries": {
+    "ifcopenshell": "0.8.5",
+    "ezdxf": "1.4.5",
+    "trimesh": "5.2.0",
+    "shapely": "2.2.0"
+  }
+}

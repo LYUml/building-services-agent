@@ -475,3 +475,5 @@ cross-discipline physical design, applicable regulations, native delivery and
 full-project review. Adding a tool entry alone does not satisfy them.
 
 Saved CFD numerical-window CLI now executes on three actual studies with six controls; no pressure/design acceptance. See CFD_AIR_DOMAIN.md.
+
+Actual current-model plan refresh reuses the existing pinned native/IFC stack: 764 GUIDs, saved DWG reopening and inspected plot, matching details and conditional calculations. No complete engineering acceptance. See COORDINATED_SUPPLY_CANDIDATE.md.

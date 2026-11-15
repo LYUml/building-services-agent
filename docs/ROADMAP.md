@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Current 764-GUID candidate plan is saved/reopened and visually checked with matching model/detail/calculation assets. Complete design remains pending. See [coordinated supply candidate](COORDINATED_SUPPLY_CANDIDATE.md).
+
 Actual source-native compound-junction CFD geometry and layered mesh execute; turbulent validation and accepted pressure remain open. See [air domain](CFD_AIR_DOMAIN.md).
 
 Separate VAVcandidate-station study now gives374conditional component values/

@@ -1,5 +1,7 @@
 # Building Services Agent
 
+Current source IFC now has a refreshed 764-GUID reopened native plan and matching detail/calculation candidate package. Full pressure and design acceptance remain pending. See [coordinated candidate](docs/COORDINATED_SUPPLY_CANDIDATE.md).
+
 Actual compound-junction air-domain export and layered meshing execute; pressure convergence remains unresolved. See [CFD air domain](docs/CFD_AIR_DOMAIN.md).
 
 Separate VAVcandidate-station study now gives374conditional component values/
