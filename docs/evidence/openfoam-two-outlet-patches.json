@@ -1,0 +1,39 @@
+{
+  "window": [
+    401,
+    600
+  ],
+  "samples": 200,
+  "max_relative_flux_errors": {
+    "inlet": 0.0,
+    "outlet_a": 6.402768735150617e-16,
+    "outlet_b": 6.402768735150617e-16
+  },
+  "max_relative_global_imbalance": 5.869204673888065e-16,
+  "relative_tolerance": 1e-10,
+  "signed_flux_window_passed": true,
+  "pressure_accepted": false,
+  "engineering_accepted": false,
+  "scope": "Two partitions of ONE official tutorial outlet, not distinct physical branch ducts",
+  "backend": "OpenFOAM12 build12-8e8552546d20 serial blueCFD2024-1",
+  "targets_m3_s": {
+    "inlet": -0.000254,
+    "outlet_a": 8.466666666666666e-05,
+    "outlet_b": 0.00016933333333333332
+  },
+  "source_geometry_connectivity_unchanged": true,
+  "checkMesh": {
+    "returncode": 0,
+    "completed": true,
+    "reported_failed_checks": [],
+    "native_mesh_checks_passed": true,
+    "engineering_accepted": false
+  },
+  "independent_saved_U_dot_Sf_m3_s": {
+    "outlet_a": 8.466666666666667e-05,
+    "outlet_b": 0.0001693333333333333
+  },
+  "independent_saved_field_time": 600,
+  "physical_multi_branch_pressure_validated": false,
+  "source_setup_sha256": "2a07ae34596d5ce98415499137a6c4efcd8ae783ba72df2268b84a9261829b6c"
+}

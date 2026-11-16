@@ -92,3 +92,24 @@ ignored observer is preserved and corrected. End489fields were not written under
 the inherited100step cadence, so independent checking uses saved400within the
 window. Multi-outlet operation and actual project physics remain unverified.
 [Executed flow receipt](evidence/openfoam-prescribed-flow.json).
+
+
+## Two independently prescribed outlet patches
+
+The same official tutorial mesh has its57outlet faces partitioned into30and27
+faces without changing points, faces, owner or neighbour arrays. Targets are
+one-third and two-thirds of0.000254m3/s; these are explicit numerical test values,
+not project design inputs. Mesh OK and600native steady steps complete. Over
+steps401..600 each target is met within6.403e-16relative and signed global
+imbalance within5.870e-16. Independent600U polygon-area integration agrees for
+both patches. This tests two independently controlled boundary partitions on
+ONE outlet, not actual separate duct branches or physical pressure accuracy.
+[Executed two-patch receipt](evidence/openfoam-two-outlet-patches.json).
+
+The stdlib bsa.cfd_flux_window.assess_flux_window requires conservative signed
+targets, exact finite named fluxes and a complete consecutive integer-step
+window. It checks each branch and signed total, without absolute-value masking.
+Four targeted tests include wrong split despite exact total balance, reversal,
+missing/nonfinite data and duplicate steps. Actual200native samples pass with
+an explicit1e-10boundary-algebra target. Pressure and engineering acceptance
+always remain false. Caller must separately bind patch names, steps and units.
