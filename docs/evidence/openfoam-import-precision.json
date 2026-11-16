@@ -1,0 +1,96 @@
+{
+  "scope": "Actual existing main mesh import; no remeshing or pressure solve",
+  "source_mesh_sha256": "a34324d73e65a4d10abcc102451b06c0ed3388300d5e01e051bfbd811b550fd0",
+  "runtime": "blueCFD-Core 2024-1 / OpenFOAM 12 build 12-8e8552546d20",
+  "process_local_serial_dummy_library": true,
+  "system_mpi_installed": false,
+  "points": 126183,
+  "cells": 265741,
+  "patch_face_counts": {
+    "outlet_0": 342,
+    "inlet": 792,
+    "outlet_2": 618,
+    "outlet_3": 342,
+    "outlet_4": 340,
+    "wall": 10646
+  },
+  "default_precision": {
+    "max_coordinate_error_m": 5.000000000165983e-05,
+    "checkMesh_returncode": 3,
+    "negative_volume_cells": 14043,
+    "open_cells": 41
+  },
+  "writePrecision_17": {
+    "max_coordinate_error_m": 0.0,
+    "gmshToFoam_returncode": 0,
+    "checkMesh_returncode": 0,
+    "failed_mesh_checks": 3,
+    "minimum_face_area_m2": 3.2008586775755434e-07,
+    "minimum_cell_volume_m3": 6.786172264267356e-09,
+    "volume_m3": 16.46232529530215,
+    "maximum_nonorthogonality_deg": 74.45871191271489,
+    "maximum_skewness": 3.3895778603952897,
+    "high_aspect_ratio_cells": 76317,
+    "small_determinant_cells": 219268,
+    "small_interpolation_weight_faces": 9953,
+    "source_point_order_preserved": true
+  },
+  "mesh_quality_accepted": false,
+  "pressure_solve_executed": false,
+  "engineering_accepted": false,
+  "interpretation": "17-digit output removes precision-induced collapse; three native quality checks still fail despite exit code zero.",
+  "native_log_reviews": {
+    "main-native-import": {
+      "returncode": 3,
+      "completed": false,
+      "reported_failed_checks": [],
+      "native_mesh_checks_passed": false,
+      "engineering_accepted": false
+    },
+    "main-native-import-precision17": {
+      "returncode": 0,
+      "completed": true,
+      "reported_failed_checks": [
+        3
+      ],
+      "native_mesh_checks_passed": false,
+      "engineering_accepted": false
+    }
+  },
+  "plenum_native_imports": [
+    {
+      "family": 1,
+      "source_mesh_sha256": "d14d71ad6ce2d9751a52cd2267e64dd4bd9e4276df16acfc2411b72aebcdc4fa",
+      "points": 340380,
+      "max_coordinate_error_m": 0.0,
+      "gmshToFoam_returncode": 0,
+      "checkMesh": {
+        "returncode": 0,
+        "completed": true,
+        "reported_failed_checks": [
+          3
+        ],
+        "native_mesh_checks_passed": false,
+        "engineering_accepted": false
+      },
+      "native_geometry_summary": "Checking geometry...\n    Overall domain bounding box (67.95700699999999 18.140259 -0.17699999999999999) (68.534857000000002 19.041159 0.17699999999999999)\n    Patch bounding boxes\n        wall                 (67.95700699999999 18.140259 -0.17699999999999999) (68.534857000000002 19.041159 0.17699999999999999)\n        outlet_0             (67.95700699999999 18.519671500000001 -0.1246125) (67.95700699999999 18.7688965 0.1246125)\n        inlet                (68.056231999999994 19.041159 -0.17699999999999999) (68.435631999999998 19.041159 0.17699999999999999)\n        outlet_2             (67.95700699999999 18.164071499999999 -0.1246125) (67.95700699999999 18.413296500000001 0.1246125)\n        outlet_1             (68.534857000000002 18.519671500000001 -0.1246125) (68.534857000000002 18.7688965 0.1246125)\n        outlet_3             (68.534857000000002 18.164071499999999 -0.1246125) (68.534857000000002 18.413296500000001 0.1246125)\n    Mesh has 3 geometric (non-empty/wedge) directions (1 1 1)\n    Mesh has 3 solution (non-empty) directions (1 1 1)\n ***High aspect ratio cells found, Max aspect ratio: 2492.6342428977091, number of cells 5552\n    Minimum face area = 3.6766882107063386e-08. Maximum face area = 0.0019652257488242818.  Face area magnitudes OK.\n    Min volume = 7.4524749598454032e-11. Max volume = 2.3387124467408187e-05.  Total volume = 0.14035404286093578.  Cell volumes OK.\n    Mesh non-orthogonality Max: 84.255422925263957 average: 12.49236670839073\n   *Number of severely non-orthogonal (> 70 degrees) faces: 2.\n    Non-orthogonality check OK.\n    Face pyramids OK.\n    Max skewness = 3.3191935786949878 OK.\n    Coupled point location match (average 0) OK.\n    Face tets OK.\n    Min/max edge length = 9.9999222962893898e-06 0.078676350180491669 OK.\n    All angles in faces OK.\n    Face flatness (1 = flat, 0 = butterfly) : min = 0.96102068149498321  average = 0.99919582555759356\n    All face flatness OK.\n    Cell determinant (wellposedness) : minimum: 2.5154424215833368e-11 average: 0.80633126912402586\n ***Cells with small determinant (< 0.001) found, number of cells: 250706\n    Concave cell check OK.\n    Face interpolation weight : minimum: 0.024505798893377791 average: 0.45485449114129661\n ***Faces with small interpolation weight (< 0.050000000000000003) found, number of faces: 6\n    Face volume ratio : minimum: 0.025121419345178791 average: 0.84653717749230306\n    Face volume ratio check OK.\n\nFailed 3 mesh checks.\n"
+    },
+    {
+      "family": 2,
+      "source_mesh_sha256": "c6303b5757f380a3e62e863e53c32854c76dac930fca422973d83ec09f51fc78",
+      "points": 359493,
+      "max_coordinate_error_m": 0.0,
+      "gmshToFoam_returncode": 0,
+      "checkMesh": {
+        "returncode": 0,
+        "completed": true,
+        "reported_failed_checks": [
+          3
+        ],
+        "native_mesh_checks_passed": false,
+        "engineering_accepted": false
+      },
+      "native_geometry_summary": "Checking geometry...\n    Overall domain bounding box (75.346207000000007 18.140259 -0.20874999999999999) (76.02565700000001 19.041159 0.20874999999999999)\n    Patch bounding boxes\n        wall                 (75.346207000000007 18.140259 -0.20874999999999999) (76.02565700000001 19.041159 0.20874999999999999)\n        outlet_0             (75.346207000000007 18.519671500000001 -0.1246125) (75.346207000000007 18.7688965 0.1246125)\n        inlet                (75.445432000000011 19.041159 -0.20874999999999999) (75.926432000000005 19.041159 0.20874999999999999)\n        outlet_2             (75.346207000000007 18.164071499999999 -0.1246125) (75.346207000000007 18.413296500000001 0.1246125)\n        outlet_1             (76.02565700000001 18.519671500000001 -0.1246125) (76.02565700000001 18.7688965 0.1246125)\n        outlet_3             (76.02565700000001 18.164071499999999 -0.1246125) (76.02565700000001 18.413296500000001 0.1246125)\n    Mesh has 3 geometric (non-empty/wedge) directions (1 1 1)\n    Mesh has 3 solution (non-empty) directions (1 1 1)\n ***High aspect ratio cells found, Max aspect ratio: 2553.435946406833, number of cells 6917\n    Minimum face area = 3.6766882115944857e-08. Maximum face area = 0.0020014405920426438.  Face area magnitudes OK.\n    Min volume = 7.4524749621235917e-11. Max volume = 2.4725465524535903e-05.  Total volume = 0.20027281248911832.  Cell volumes OK.\n    Mesh non-orthogonality Max: 70.518678561684084 average: 12.411972775691806\n   *Number of severely non-orthogonal (> 70 degrees) faces: 1.\n    Non-orthogonality check OK.\n    Face pyramids OK.\n    Max skewness = 3.2862217864881407 OK.\n    Coupled point location match (average 0) OK.\n    Face tets OK.\n    Min/max edge length = 9.9999222962893898e-06 0.075012531921754763 OK.\n    All angles in faces OK.\n    Face flatness (1 = flat, 0 = butterfly) : min = 0.96100222497957954  average = 0.99922343461278462\n    All face flatness OK.\n    Cell determinant (wellposedness) : minimum: 2.9030063723639449e-11 average: 0.79583099510323851\n ***Cells with small determinant (< 0.001) found, number of cells: 269189\n    Concave cell check OK.\n    Face interpolation weight : minimum: 0.034213152297461871 average: 0.45477315386596623\n ***Faces with small interpolation weight (< 0.050000000000000003) found, number of faces: 1\n    Face volume ratio : minimum: 0.035425158645606004 average: 0.84608685668653794\n    Face volume ratio check OK.\n\nFailed 3 mesh checks.\n"
+    }
+  ]
+}

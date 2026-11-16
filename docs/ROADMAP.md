@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+Native OpenFOAM imports now preserve all source coordinates for the main and both plenum meshes using 17-digit output. Three mesh-quality checks still fail; zero exit codes are not acceptance. See [native import](OPENFOAM_IMPORT_PRECISION.md).
+
 A thin pinned node-order adapter now passes tests and all265741actual main-cell correspondence checks. No solver or pressure acceptance. See [node ordering](CFD_NODE_ORDER.md).
 
 An executed 30/60-layer axial bend comparison passes numerical checks, with pressure change about0.061% but unresolved conditional velocity discrepancy. No full grid independence. See [axial follow-up](DEVELOPED_BEND_CHECK.md#axial-grid-follow-up).

@@ -1938,3 +1938,6 @@ VAVstatic-to-totalgap: primary2012TerminalUnitEngineeringa2-7 pressuredefinition
 CFD convergence assessment reuses standard-library CSV/math and pinned SU2 history semantics. Actual three-study CLI replay and six controls execute; no new solver/dependency/MCP. See CFD_AIR_DOMAIN.md; numerical snapshots remain pending.
 
 Actual current-model plan refresh reuses the existing pinned native/IFC stack: 764 GUIDs, saved DWG reopening and inspected plot, matching details and conditional calculations. No complete engineering acceptance. See COORDINATED_SUPPLY_CANDIDATE.md.
+
+
+Native pressure backend: official blueCFD-Core 2024-1 / OpenFOAM12 build12-8e8552546d20 GPL3+ runs serial dummy Pstream from isolated runtime files extracted with official innoextract1.9 zlib/libpng. No system MPI or installer scripts. Existing Gmsh2.2 main/two-plenum meshes import without remeshing; writePrecision17 fixes coordinate collapse and all points exactly match source. Three native quality checks still fail in all cases. Thin standard-library log adapter rejects zero-exit failed checks; three tests and actual native log replay execute. No new CFD engine, mesh acceptance or pressure result. See OPENFOAM_IMPORT_PRECISION.md.
