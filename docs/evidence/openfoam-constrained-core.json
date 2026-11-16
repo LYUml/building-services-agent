@@ -1,0 +1,55 @@
+{
+  "scope": "Actual mesh optimization candidates, not pressure acceptance",
+  "candidates": [
+    {
+      "method": "Gmsh4.15.2 Relocate3D five iterations on extracted original tetrahedral core with explicit discrete triangular boundary",
+      "source_sha256": "d14d71ad6ce2d9751a52cd2267e64dd4bd9e4276df16acfc2411b72aebcdc4fa",
+      "core_tetrahedra": 256436,
+      "core_boundary_triangles": 38234,
+      "moved_nodes": 22843,
+      "moved_protected_nodes": 0,
+      "volume_connectivity_unchanged": true,
+      "surface_connectivity_unchanged": true,
+      "engineering_accepted": false,
+      "native_check": {
+        "returncode": 0,
+        "completed": true,
+        "reported_failed_checks": [
+          3
+        ],
+        "native_mesh_checks_passed": false,
+        "engineering_accepted": false
+      },
+      "native_geometry_summary": "Checking geometry...\n    Overall domain bounding box (67.95700699999999 18.140259 -0.17699999999999999) (68.534857000000002 19.041159 0.17699999999999999)\n    Patch bounding boxes\n        wall                 (67.95700699999999 18.140259 -0.17699999999999999) (68.534857000000002 19.041159 0.17699999999999999)\n        outlet_0             (67.95700699999999 18.519671500000001 -0.1246125) (67.95700699999999 18.7688965 0.1246125)\n        inlet                (68.056231999999994 19.041159 -0.17699999999999999) (68.435631999999998 19.041159 0.17699999999999999)\n        outlet_2             (67.95700699999999 18.164071499999999 -0.1246125) (67.95700699999999 18.413296500000001 0.1246125)\n        outlet_1             (68.534857000000002 18.519671500000001 -0.1246125) (68.534857000000002 18.7688965 0.1246125)\n        outlet_3             (68.534857000000002 18.164071499999999 -0.1246125) (68.534857000000002 18.413296500000001 0.1246125)\n    Mesh has 3 geometric (non-empty/wedge) directions (1 1 1)\n    Mesh has 3 solution (non-empty) directions (1 1 1)\n ***High aspect ratio cells found, Max aspect ratio: 2492.6342428977091, number of cells 5552\n  <<Writing 5552 cells with high aspect ratio to set highAspectRatioCells\n    Minimum face area = 3.6766882107063386e-08. Maximum face area = 0.0019763508176197705.  Face area magnitudes OK.\n    Min volume = 7.4524749598454032e-11. Max volume = 2.4015010854186686e-05.  Total volume = 0.14035404286093592.  Cell volumes OK.\n    Mesh non-orthogonality Max: 84.255422925263957 average: 11.911075281217956\n   *Number of severely non-orthogonal (> 70 degrees) faces: 1.\n    Non-orthogonality check OK.\n  <<Writing 1 non-orthogonal faces to set nonOrthoFaces\n    Face pyramids OK.\n    Max skewness = 3.3191935786949878 OK.\n    Coupled point location match (average 0) OK.\n    Face tets OK.\n    Min/max edge length = 9.9999222962893898e-06 0.07578047605533815 OK.\n    All angles in faces OK.\n    Face flatness (1 = flat, 0 = butterfly) : min = 0.96102068149498321  average = 0.99919582555759356\n    All face flatness OK.\n    Cell determinant (wellposedness) : minimum: 2.5154424215833368e-11 average: 0.82120577722288302\n ***Cells with small determinant (< 0.001) found, number of cells: 250706\n  <<Writing 250706 under-determined cells to set underdeterminedCells\n    Concave cell check OK.\n    Face interpolation weight : minimum: 0.030636031605288081 average: 0.45584121623408363\n ***Faces with small interpolation weight (< 0.050000000000000003) found, number of faces: 6\n  <<Writing 6 faces with low interpolation weights to set lowWeightFaces\n    Face volume ratio : minimum: 0.031604260737471961 average: 0.8480432427874296\n    Face volume ratio check OK.\n\nFailed 3 mesh checks.\n",
+      "pressure_solve_executed": false,
+      "candidate_accepted_for_pressure": false
+    },
+    {
+      "method": "Gmsh4.15.2 default tetrahedral optimizer five iterations threshold0.8 on extracted original tetrahedral core with explicit discrete triangular boundary",
+      "source_sha256": "d14d71ad6ce2d9751a52cd2267e64dd4bd9e4276df16acfc2411b72aebcdc4fa",
+      "core_tetrahedra": 256436,
+      "core_boundary_triangles": 38234,
+      "moved_nodes": 23048,
+      "moved_protected_nodes": 0,
+      "prism_connectivity_unchanged": true,
+      "core_boundary_faces_unchanged": true,
+      "optimized_core_tetrahedra": 246504,
+      "surface_connectivity_unchanged": true,
+      "engineering_accepted": false,
+      "native_check": {
+        "returncode": 0,
+        "completed": true,
+        "reported_failed_checks": [
+          3
+        ],
+        "native_mesh_checks_passed": false,
+        "engineering_accepted": false
+      },
+      "native_geometry_summary": "Checking geometry...\n    Overall domain bounding box (67.95700699999999 18.140259 -0.17699999999999999) (68.534857000000002 19.041159 0.17699999999999999)\n    Patch bounding boxes\n        wall                 (67.95700699999999 18.140259 -0.17699999999999999) (68.534857000000002 19.041159 0.17699999999999999)\n        outlet_0             (67.95700699999999 18.519671500000001 -0.1246125) (67.95700699999999 18.7688965 0.1246125)\n        inlet                (68.056231999999994 19.041159 -0.17699999999999999) (68.435631999999998 19.041159 0.17699999999999999)\n        outlet_2             (67.95700699999999 18.164071499999999 -0.1246125) (67.95700699999999 18.413296500000001 0.1246125)\n        outlet_1             (68.534857000000002 18.519671500000001 -0.1246125) (68.534857000000002 18.7688965 0.1246125)\n        outlet_3             (68.534857000000002 18.164071499999999 -0.1246125) (68.534857000000002 18.413296500000001 0.1246125)\n    Mesh has 3 geometric (non-empty/wedge) directions (1 1 1)\n    Mesh has 3 solution (non-empty) directions (1 1 1)\n ***High aspect ratio cells found, Max aspect ratio: 2492.6342428977091, number of cells 5552\n  <<Writing 5552 cells with high aspect ratio to set highAspectRatioCells\n    Minimum face area = 3.6766882107063386e-08. Maximum face area = 0.0020225438389603039.  Face area magnitudes OK.\n    Min volume = 7.4524749598454032e-11. Max volume = 2.6480708309180579e-05.  Total volume = 0.14035404286093711.  Cell volumes OK.\n    Mesh non-orthogonality Max: 84.255422925263957 average: 11.070339939517158\n   *Number of severely non-orthogonal (> 70 degrees) faces: 2.\n    Non-orthogonality check OK.\n  <<Writing 2 non-orthogonal faces to set nonOrthoFaces\n    Face pyramids OK.\n    Max skewness = 3.3191935786949878 OK.\n    Coupled point location match (average 0) OK.\n    Face tets OK.\n    Min/max edge length = 9.9999222962893898e-06 0.080982453399891421 OK.\n    All angles in faces OK.\n    Face flatness (1 = flat, 0 = butterfly) : min = 0.96102068149498321  average = 0.99919582555759356\n    All face flatness OK.\n    Cell determinant (wellposedness) : minimum: 2.5154424215833368e-11 average: 0.85177511320453325\n ***Cells with small determinant (< 0.001) found, number of cells: 250705\n  <<Writing 250705 under-determined cells to set underdeterminedCells\n    Concave cell check OK.\n    Face interpolation weight : minimum: 0.024505798893377791 average: 0.45874279282855451\n ***Faces with small interpolation weight (< 0.050000000000000003) found, number of faces: 4\n  <<Writing 4 faces with low interpolation weights to set lowWeightFaces\n    Face volume ratio : minimum: 0.025121419345178791 average: 0.85734891975536209\n    Face volume ratio check OK.\n\nFailed 3 mesh checks.\n",
+      "pressure_solve_executed": false,
+      "candidate_accepted_for_pressure": false
+    }
+  ],
+  "netgen_trial": "Rejected before export: core boundary face set changed",
+  "pressure_accepted": false
+}

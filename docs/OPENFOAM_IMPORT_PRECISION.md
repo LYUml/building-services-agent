@@ -61,3 +61,34 @@ tetrahedra. Their vertex-average locations are recorded (not volume centroids).
 Thus thin layers explain much of the failure but do not explain all defects;
 local tetrahedral quality also needs correction. No threshold was relaxed.
 See [location receipt](evidence/openfoam-plenum-quality-location.json).
+
+
+## Constrained core and prescribed outlet flow
+
+Extracting the original256436tetrahedra with38234explicit boundary triangles
+and reclassifying nodes lets pinned Gmsh4.15.2 operate on the core while fixing
+the prism interface. Relocate3D changes22843internal nodes only; source surface
+and all volume connectivity are unchanged. Native minimum interpolation weight
+improves0.0245058to0.0306360, but six failing faces remain. A separate default
+tetrahedral optimizer with threshold0.8 (an optimization target, not a native
+check relaxation) yields246504tetrahedra with all567116prisms and core boundary
+faces preserved. Native low-weight failures decrease6to4 and small-determinant
+cells250706to250705. Three failed check categories remain. All volumes remain
+positive and total volume matches source within1.4e-15m3. Netgen changes core
+boundary connectivity and is rejected before export. No pressure acceptance.
+[Executed candidate receipt](evidence/openfoam-constrained-core.json).
+
+A separate adaptation of the already-executed official pitzDailySteady case now
+executes flowRateOutletVelocity at0.000254m3/s (positive outward). All pressure
+patches use zeroGradient with pRefCell0/pRefValue0. Native surfaceFieldValue
+signed phi sums over200consecutive iterations290..489 give maximum relative
+outlet error and global imbalance1.0672e-15. Independent polygon-area integration
+of saved400U yields0.00025399999999999994m3/s. The1e-10 comparison target checks
+boundary algebra, not physical accuracy. Native initial convergence occurs289;
+its original loose residual stopping is then removed solely to collect a fixed
+200step observation window. No pressure-stability or physical-validation claim.
+OpenFOAM12 reads system/functions ahead of controlDict/functions; the initially
+ignored observer is preserved and corrected. End489fields were not written under
+the inherited100step cadence, so independent checking uses saved400within the
+window. Multi-outlet operation and actual project physics remain unverified.
+[Executed flow receipt](evidence/openfoam-prescribed-flow.json).

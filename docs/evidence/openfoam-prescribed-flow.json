@@ -1,0 +1,51 @@
+{
+  "scope": "Single-outlet prescribed-flow native verification; no physical or project pressure acceptance",
+  "backend": "OpenFOAM12 build12-8e8552546d20 serial blueCFD2024-1",
+  "boundary": "flowRateOutletVelocity volumetricFlowRate positive outward",
+  "target_m3_s": 0.000254,
+  "pressure_boundaries": "zeroGradient all flow patches pRefCell0/pRefValue0",
+  "initial_native_convergence_iteration": 289,
+  "window": [
+    290,
+    489
+  ],
+  "samples": 200,
+  "max_outlet_relative_error": 1.0671281225251027e-15,
+  "max_signed_flux_imbalance_relative": 1.0671281225251027e-15,
+  "independent_saved_U_dot_Sf_m3_s": 0.00025399999999999994,
+  "independent_saved_field_time": 400,
+  "relative_algebra_check_target": 1e-10,
+  "multi_outlet_verified": false,
+  "physical_validation": false,
+  "project_pressure_accepted": false,
+  "notes": [
+    "First controlDict observer ignored because system/functions exists; moved observer to system/functions, preserved failed observation log.",
+    "Continued same saved solution for200iterations with early residual stop removed only to collect flow window; no pressure stability claim.",
+    "Final489 fields not written at inherited100step cadence; independent field400 is inside observed window."
+  ],
+  "input_sha256": {
+    "0/epsilon": "00a2789732f52e6e0644be19a86caff7953b638756c29ee1aad75e1221e92fe8",
+    "0/f": "3512953790ca2c8509601fb46b7ce9b829477efcffa85de412131cc735862a32",
+    "0/k": "dd7c8bdd377fadcfdefbf27787f167cdd353a4a86969e7b1c8951f024b74b8a1",
+    "0/nut": "c398846dd7a18978ca31faa5f5eaf186a160e5a7c8b4bad48d5247c5d6e216cf",
+    "0/nuTilda": "30df21333ea0dfa906a48a867582e6fe501b5f2064080a14ae0100484bad2b45",
+    "0/omega": "e0fdda0266ad36a4864ab777e75033a067aeac970c098630cbc06f9a9b16ae50",
+    "0/p": "739fbd5d0ede902609fa8d07902a7918d21bb82d37622be9230737f6b9190d1e",
+    "0/U": "0058fcc81bdc7d000d5ac65d2078a8ab2b0e10eac04fc9bc78e6e74f4f5fba92",
+    "0/v2": "7736788d50b0aa88fcad7db160e2e273ac7b00f8bc2afb4a39f63ef87d8a920d",
+    "system/blockMeshDict": "6dabf9b7f2d62dfd33ad4ce2318259bfabb87338e6a26b89b2ee12e9bcdcdd72",
+    "system/controlDict": "94ccffda6404992578cd34afde109cf566dcda02dd671288735c2d279b1114d8",
+    "system/functions": "fa0d1b6eeb7aaff3767935cd1041367f2bc0797189341722339d4a60c3318f3b",
+    "system/fvSchemes": "7656210b3daee41a65509dac6a4bb66afcb5303c7bf56130530a96d905a26335",
+    "system/fvSolution": "38bc8f3064cb5941e27722ca236871201b52be5720f1559fffe2102f82b652d3",
+    "constant/momentumTransport": "689d0f05e900650d37ebb13602ffdd1a154601b1b15356e8245b89a271e69aeb",
+    "constant/physicalProperties": "0ca8cbd26799972151b4fdff67c01cb15c34006ca6f806966bb4d471021125c9",
+    "constant/polyMesh/boundary": "c6792ab2ee1edd509b9e2f6f5982a6feec324b6dd8db1a005defa14f3abb1f74",
+    "constant/polyMesh/faces": "f1db1f2ee07a709494eaf38170b1613e458c7449cbb6fc55a0f3be4aedb6d824",
+    "constant/polyMesh/neighbour": "b635fc3c50fd4bbff7d057b1040647ab0e07f5772ea144bb5e3b16a6fbdc8a82",
+    "constant/polyMesh/owner": "f4cdc789c620a6a52eab3b208a6bb7fa806c83a0649e713b72516d33be8798c5",
+    "constant/polyMesh/points": "c69723b70cb37af074b4d5ce1846552813974be2782a85923f1dd5edfd67dcb3"
+  },
+  "upstream_reference": "https://github.com/OpenFOAM/OpenFOAM-12/blob/master/src/finiteVolume/fields/fvPatchFields/derived/flowRateOutletVelocity/flowRateOutletVelocityFvPatchVectorField.H",
+  "runtime_installer_sha256": "7f2d036698dc6a5385bda665a71feef9e81b065abf7d013571a6e9afaf585baa"
+}
