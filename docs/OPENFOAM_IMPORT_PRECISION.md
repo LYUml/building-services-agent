@@ -113,3 +113,25 @@ Four targeted tests include wrong split despite exact total balance, reversal,
 missing/nonfinite data and duplicate steps. Actual200native samples pass with
 an explicit1e-10boundary-algebra target. Pressure and engineering acceptance
 always remain false. Caller must separately bind patch names, steps and units.
+
+
+## Analytic laminar pressure and units
+
+The existing synthetic channel benchmark parameters are reused in a native
+OpenFOAM planar Poiseuille case: L1m,H0.1m,Umean1m/s,nu0.01m2/s,48x32cells and
+explicit0.01mempty-direction depth. These are benchmark values, not project air
+properties. This is a native blockMesh case, not byte-identical to the SU2 mesh.
+The inlet parabola is sampled at actual native face centres. Mesh OK and1000
+steady steps complete with no turbulence model. The1%relative target is written
+before execution. Actual1536cell centres are independently reconstructed from
+owner/neighbour face vertices;896cells within0.2<x<0.8m are compared.
+
+The analytic solution u=6Umean(y/H)(1-y/H) gives
+ d(p/rho)/dx=-12nuUmean/H^2=-12m/s2.
+Native slope is-11.98246208, relative error0.14615%; native velocity-profile L2
+error is0.05954%. Both pass the declared1%synthetic check. Native saved p has
+dimensions[0 2 -2 0 0 0 0], so it is kinematic pressure, not Pa. Multiplying by
+an explicit test density1.2kg/m3 gives-14.37895450Pa/m against-14.4Pa/m.
+This checks laminar pressure handling and conversion only; turbulent fittings,
+actual branch pressure, station correspondence and project acceptance remain
+unverified. [Executed analytic receipt](evidence/openfoam-analytic-channel.json).

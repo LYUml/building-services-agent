@@ -1,0 +1,72 @@
+{
+  "scope": "Synthetic laminar planar Poiseuille check, not project turbulent physics",
+  "formula": "u=6 Umean y/H (1-y/H); d(p/rho)/dx=-12 nu Umean/H^2",
+  "native_cells": 1536,
+  "native_cell_centres_reconstructed_from_all_owner_neighbour_faces": true,
+  "native_pressure_dimensions": [
+    0,
+    2,
+    -2,
+    0,
+    0,
+    0,
+    0
+  ],
+  "interior_scope_x_m": [
+    0.2,
+    0.8
+  ],
+  "cells_examined": 896,
+  "native_kinematic_pressure_slope": -11.982462080452498,
+  "expected_kinematic_pressure_slope": -12,
+  "density_for_conversion_kg_m3": 1.2,
+  "native_pressure_slope_Pa_m": -14.378954496542997,
+  "expected_pressure_slope_Pa_m": -14.4,
+  "pressure_slope_relative_error": 0.0014614932956251714,
+  "velocity_profile_relative_l2_error": 0.0005953930890029572,
+  "predeclared_relative_check_target": 0.01,
+  "analytic_checks_passed": true,
+  "engineering_accepted": false,
+  "turbulent_or_multi_branch_pressure_validated": false,
+  "inputs": {
+    "scope": "Synthetic analytic benchmark, not project air properties",
+    "length_m": 1,
+    "height_m": 0.1,
+    "depth_m": 0.01,
+    "nx": 48,
+    "ny": 32,
+    "mean_velocity_m_s": 1,
+    "kinematic_viscosity_m2_s": 0.01,
+    "density_for_pressure_conversion_kg_m3": 1.2,
+    "expected_kinematic_pressure_slope": -12,
+    "expected_pressure_slope_Pa_m": -14.4,
+    "profile": "6 Umean y/H (1-y/H), sampled at inlet face centres",
+    "verification_relative_target": 0.01
+  },
+  "checkMesh": {
+    "returncode": 0,
+    "completed": true,
+    "reported_failed_checks": [],
+    "native_mesh_checks_passed": true,
+    "engineering_accepted": false
+  },
+  "terminal_step": 1000,
+  "foamRun_returncode": 0,
+  "input_sha256": {
+    "0/p": "9faf775993219689ca15c5b2a51a49bd6f7d92d9593580fbfb23c618f8262430",
+    "0/U": "5cbacc9d14ae7a53402a14c166045ece99d6b1c4f5767fc50271ac2f5466775d",
+    "system/blockMeshDict": "4c20e1d80b0a1ff10f7dbfc7efde02a3987170835edfa73189d567fa10cbdfba",
+    "system/controlDict": "9d2de87257c7c24cf3a16518a8de438e5d6d4be84cff958631ec1290e18f5a83",
+    "system/fvSchemes": "7656210b3daee41a65509dac6a4bb66afcb5303c7bf56130530a96d905a26335",
+    "system/fvSolution": "b417212efbffb7cf9864e349aa05f24d5740fad275cd9cfaa7fe69fb43830129",
+    "constant/momentumTransport": "1647163f0ebd7f6d5cb54cad06df6542280ece0451207e0f25ea43b0e25e0cb0",
+    "constant/physicalProperties": "21c713e96e28d019a291423db62a135ecf5c73a468454b6fdffc228ac45ea68d",
+    "constant/polyMesh/boundary": "a5400858dd5455f2eacfb522517bc3493c90ef8855f5065424413b3066c75690",
+    "constant/polyMesh/faces": "9c4d5cd19c031286c42f89704959768295750b9b9eba6f39173aac1926f7fb16",
+    "constant/polyMesh/neighbour": "9f71a158ed7ff5ec34ae3a69d8672166f857699cc3b0582b98202fde20359029",
+    "constant/polyMesh/owner": "6b14aa65e5e1975d205d0059904e0ec3c9eb80222dddc45c84323238bdc187a1",
+    "constant/polyMesh/points": "75ddd07d3c7182c2cd6d3a23cfab671a9d382df3acd1660992e7c2c1ef1b3fe8"
+  },
+  "runtime_installer_sha256": "7f2d036698dc6a5385bda665a71feef9e81b065abf7d013571a6e9afaf585baa",
+  "reused_geometry_basis": "Existing synthetic SU2 laminar benchmark L1m H0.1m Umean1m/s nu0.01m2/s; native blockMesh48x32, explicit0.01m depth, not same mesh bytes."
+}
