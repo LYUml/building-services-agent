@@ -1,0 +1,24 @@
+{
+  "cases": {
+    "maximum": {
+      "straight_rows": 225,
+      "smooth_rigid_branch_rows": 160,
+      "source_roughness_main_rows": 65,
+      "independent_colebrook_max_error_Pa": 4.3520742565306136e-14
+    },
+    "minimum": {
+      "straight_rows": 225,
+      "smooth_rigid_branch_rows": 160,
+      "source_roughness_main_rows": 65,
+      "independent_colebrook_max_error_Pa": 3.774758283725532e-15
+    }
+  },
+  "method": "Independent implicit Colebrook root; source-scoped roughness override for160branch rows, original main roughness for65rows",
+  "scope": "Arithmetic cross-check only; roughness is an assumption, not measured",
+  "design_accepted": false,
+  "source_ifc_sha256": "653b452980a6a1e2b328ac1984ad621c63f1b7a40b4bacf96571f3b2055d818c",
+  "analysis_sha256": {
+    "maximum": "2b6fccc5b9c2c460218e0f018ca13963cc517f50cd23de36deaffc309674b254",
+    "minimum": "0fdb0f1e5f92fd89193f5afca2c117ba5323ae44bc70ce11eee3ec0796390bab"
+  }
+}

@@ -59,4 +59,85 @@ class IFCSectionDrawingTests(unittest.TestCase):
         with self.assertRaises(ValueError):sections.compose(self.project)
 
 
+    def test_repeated_native_geometry_cache_preserves_rotated_world_projection(self):
+        import numpy as np
+        import ifcopenshell.api as api
+        import ifcopenshell.geom as geom
+        from ifcopenshell.util.element import copy_deep
+        from unittest.mock import patch
+        from shapely.geometry import Polygon
+        from shapely import union_all
+        from bsa.circular_geometry import configure
+        from bsa.source_network_drawing import project
+        path=self.root/'model/transition.ifc';model=ifcopenshell.open(str(path));original=model.by_type('IfcDuctFitting')[0]
+        clone=api.run('root.create_entity',model,ifc_class='IfcDuctFitting',predefined_type='TRANSITION')
+        clone.Representation=copy_deep(model,original.Representation)
+        matrix=np.eye(4);matrix[:3,:3]=[[0,-1,0],[1,0,0],[0,0,1]];matrix[:3,3]=[0,.4,.8]
+        api.run('geometry.edit_object_placement',model,product=clone,matrix=matrix,is_si=True);model.write(str(path))
+        spec=copy.deepcopy(self.spec);spec['ifc_sha256']=digest(path);view=spec['views'][0];view.update(kind='projection',guids=[original.GlobalId,clone.GlobalId],port_dimensions=[],frame=np.eye(4).tolist());self.save(spec)
+        native=geom.create_shape
+        with patch.object(geom,'create_shape',wraps=native) as calls:
+            layout,binding=sections.compose(self.project)
+            self.assertEqual(calls.call_count,1);self.assertEqual(binding['native_mesh_builds'],1);self.assertEqual(binding['native_projection_builds'],1)
+        frame=np.asarray(view['frame']);settings=geom.settings();settings.set(settings.USE_WORLD_COORDS,True);configure(settings)
+        for obj in [original,clone]:
+            shape=native(settings,obj);vertices=np.asarray(shape.geometry.verts).reshape(-1,3);faces=np.asarray(shape.geometry.faces).reshape(-1,3)
+            reference=project((vertices-frame[:3,3])@frame[:3,:3],faces)
+            actual=[Polygon(e['points']) for e in layout['views'][0]['entities'] if e['id'].startswith('side:'+obj.GlobalId+':')]
+            expected=[Polygon(ring.coords) for poly in reference for ring in [poly.exterior,*poly.interiors]]
+            a,b=union_all(actual),union_all(expected)
+            self.assertTrue(a.buffer(2e-8).covers(b) and b.buffer(2e-8).covers(a))
+
+
+    def test_failed_cleanup_keeps_raw_geometry_only_with_explicit_review(self):
+        from unittest.mock import patch
+        from shapely.geometry import Polygon
+        from shapely.affinity import translate
+        from bsa.source_network_drawing import project
+        raw=Polygon([(0,0),(1,0),(0,1)]);bad=translate(raw,xoff=.1)
+        args=([[0,0,0],[1,0,0],[0,1,0]],[[0,1,2]])
+        with patch('bsa.source_network_drawing.union_all',side_effect=[raw,bad]):
+            with self.assertRaisesRegex(ValueError,'cleanup exceeds'):project(*args)
+        with patch('bsa.source_network_drawing.union_all',side_effect=[raw,bad]):
+            with self.assertRaisesRegex(ValueError,'review record'):project(*args,retain_raw_on_cleanup_failure=True)
+        review=[]
+        with patch('bsa.source_network_drawing.union_all',side_effect=[raw,bad]):
+            result=project(*args,retain_raw_on_cleanup_failure=True,review=review)
+        self.assertTrue(result[0].equals(raw));self.assertTrue(review)
+
+
+    def test_identical_representations_with_inverse_opening_do_not_share_mesh(self):
+        import numpy as np
+        import ifcopenshell.api as api
+        import ifcopenshell.geom as geom
+        from ifcopenshell.util.element import copy_deep
+        from unittest.mock import patch
+        path=self.root/'model/transition.ifc';model=ifcopenshell.open(str(path));original=model.by_type('IfcDuctFitting')[0]
+        clone=api.run('root.create_entity',model,ifc_class='IfcDuctFitting',predefined_type='TRANSITION');clone.Representation=copy_deep(model,original.Representation)
+        move=np.eye(4);move[0,3]=.8;api.run('geometry.edit_object_placement',model,product=clone,matrix=move,is_si=True)
+        opening=api.run('root.create_entity',model,ifc_class='IfcOpeningElement',predefined_type='OPENING')
+        context=original.Representation.Representations[0].ContextOfItems
+        representation=api.run('geometry.add_wall_representation',model,context=context,length=.4,height=.1,thickness=.4)
+        api.run('geometry.assign_representation',model,product=opening,representation=representation)
+        position=np.eye(4);position[:3,3]=[.15,-.2,.15];api.run('geometry.edit_object_placement',model,product=opening,matrix=position,is_si=True)
+        api.run('feature.add_feature',model,feature=opening,element=original);model.write(str(path))
+        spec=copy.deepcopy(self.spec);spec['ifc_sha256']=digest(path);view=spec['views'][0];frame=np.eye(4);frame[2,3]=.2
+        view.update(guids=[original.GlobalId,clone.GlobalId],frame=frame.tolist(),port_dimensions=[]);self.save(spec)
+        with patch.object(geom,'create_shape',wraps=geom.create_shape) as calls:
+            layout,binding=sections.compose(self.project)
+        self.assertEqual(calls.call_count,2);self.assertEqual(binding['native_mesh_builds'],2)
+        lengths={g:sum(np.linalg.norm(np.asarray(e['end'])-e['start']) for e in layout['views'][0]['entities'] if e['id'].startswith('side:'+g+':')) for g in view['guids']}
+        self.assertGreater(abs(lengths[original.GlobalId]-lengths[clone.GlobalId]),.001)
+
+
+    def test_explicit_drawing_mesh_quality_and_invalid_targets(self):
+        quality=dict(source='Synthetic drawing target; no physical acceptance',classification='design_target',linear_deflection_m=.0001,angular_deflection_rad=.05)
+        spec=copy.deepcopy(self.spec);spec['mesh_quality']=quality;self.save(spec)
+        _,binding=sections.compose(self.project);self.assertEqual(binding['mesh_quality'],quality)
+        for key in ('linear_deflection_m','angular_deflection_rad'):
+            for bad in (0,-1,float('nan')):
+                spec['mesh_quality']=dict(quality,**{key:bad});self.save(spec)
+                with self.assertRaisesRegex(ValueError,'mesh targets'):sections.compose(self.project)
+
+
 if __name__=='__main__':unittest.main()

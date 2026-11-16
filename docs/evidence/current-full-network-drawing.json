@@ -1,0 +1,143 @@
+{
+  "scope": "Native source-bound full terminal coordination study; no physical installation or engineering acceptance",
+  "source_ifc_sha256": "653b452980a6a1e2b328ac1984ad621c63f1b7a40b4bacf96571f3b2055d818c",
+  "source_model": "05_Calculations/Connection_Layout/Current Supply Network/Supply Air Candidate.ifc",
+  "cli_run_completed": true,
+  "independent_source_reconstruction_passed": true,
+  "native_reopen_pass": true,
+  "native_editable_audit": {
+    "model_entities": 12912,
+    "entity_types": {
+      "TEXT": 6,
+      "LWPOLYLINE": 12905,
+      "LINE": 1
+    },
+    "editable_entity_correspondence": true,
+    "dimension_rendering_visual_review": "pending"
+  },
+  "plot": {
+    "pdf_sha256": "b401c7f467f5eb188f6855ddb14d7bb4c0475280b2fe0f6227ccfa78acc50ccd",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 200,
+    "reference_handle": "32FD",
+    "reference_expected_mm": 50.0,
+    "reference_measured_mm": 50.03799999999999,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "independent_native": {
+    "source_guid_count": 598,
+    "saved_guid_count": 598,
+    "native_material_contours": 12904,
+    "all_source_guid_contour_counts_match": true,
+    "all_saved_source_contours_closed": true,
+    "model_units": "mm",
+    "max_per_product_bounds_error_mm": 1.4551915228366852e-11,
+    "scope": "Independent reopened DXF identity/count/XY bounds versus source-bound declared projections; not full physical or hidden-line acceptance",
+    "design_accepted": false
+  },
+  "mesh_quality": {
+    "source": "Host drawing-only target0.1mm in model =0.0005mm on1:200 paper; separate from source engineering verification mesh",
+    "classification": "design_target",
+    "linear_deflection_m": 0.0001,
+    "angular_deflection_rad": 0.05
+  },
+  "mesh_builds": 182,
+  "projection_builds": 217,
+  "raw_projection_products": [
+    {
+      "view": "network-plan",
+      "guid": "0KiVh_8_DSEg1rEOhrDUYa"
+    },
+    {
+      "view": "network-plan",
+      "guid": "2Dsp0tDUbIPeYXMKPfWKVu"
+    },
+    {
+      "view": "network-plan",
+      "guid": "2d3C3bkV5TKOINf_o71Axc"
+    },
+    {
+      "view": "network-plan",
+      "guid": "3SjAYwusXSRgAukI$PZulK"
+    }
+  ],
+  "roundoff_review_product_count": 341,
+  "roundoff_omitted_total_area_m2": 6.4845507860684804e-15,
+  "ifc_methods": {
+    "drawing_ifc_sections.py": "3f22c45c75e6abbb01951d5756068286e4dc43e8a2712c8bbc84ed7e7cd358a3",
+    "circular_geometry.py": "b907345bd2904bf313b017cc1c7e1a07e403ff726bbb8a85e476ae538ea25cb9",
+    "drawing_layout.py": "58a33b3bf9c0e13c0303556c9c616070f9b28087309d3c57b3151b9040a36ad8",
+    "source_network_drawing.py": "3ffbc699e15861b7ce6394419192abc81e602ffa2f02004cf9af4ad8100cb03b",
+    "duct_fitting_chain.py": "b842765beaac0469908cc0f989ba9fac4062dd08e948abfd20134607f022143b"
+  },
+  "native_methods": {
+    "drawing_document.py": "424a8d8a40fa9a09ee7282f984807c9977529a6c48615c09367bdf1ff26b0881",
+    "cad_sheet.py": "2aa3880343af74c7dea09e329266651f5152badbf3e12befb8e5dc2f9a60c315",
+    "cad_intake.py": "ab8f7dd945134dc824de2a25cfb2d8423752c190baa150fedb81d87e93242bd0",
+    "cad_overlay.py": "91c4c9e2802a76f5516ca92c3438766cd472a0cbf797da0b1b3e8bfa688a9e49",
+    "native_cad.py": "d6a8b81b11bb2b422fdfbfa4ba3fc6b26557b5cfd0a8fc66a91c52cb74a180a0"
+  },
+  "runtimes": {
+    "ifcopenshell": "0.8.5",
+    "trimesh": "5.2.0",
+    "numpy": "2.5.4",
+    "shapely": "2.2.0"
+  },
+  "visual_review": {
+    "reviewer": "Codex host AI",
+    "actual_whole_pdf_and_four_raw_projection_crops_inspected": true,
+    "notes_overlap_fixed": true,
+    "finding": "Readable overall coordination plan and notes; minor tessellation seam traces remain in enlarged material projection; not a fabrication drawing"
+  },
+  "drawing_mesh_sample": {
+    "ifc_sha256": "653b452980a6a1e2b328ac1984ad621c63f1b7a40b4bacf96571f3b2055d818c",
+    "product_guid": "0npTblsDXMre0TvkV19h9h",
+    "vertices": 32256,
+    "faces": 64512,
+    "previous_fine_faces": 402560,
+    "curved_face_centroid_max_surface_error_m": 3.519828929626767e-05,
+    "relative_wall_volume_error": 0.00020720555880927402,
+    "paper_surface_error_mm_at_1_to_200": 0.00017599144648133835,
+    "scope": "Actual drawing tessellation sample versus analytic torus; not analysis mesh acceptance",
+    "design_accepted": false
+  },
+  "native_local_world_mesh_samples": {
+    "ifc_sha256": "653b452980a6a1e2b328ac1984ad621c63f1b7a40b4bacf96571f3b2055d818c",
+    "scope": "Actual curved bend and mapped rectangle-round transition local/world kernel mesh correspondence",
+    "samples": [
+      {
+        "guid": "0npTblsDXMre0TvkV19h9h",
+        "name": "SD-12/terminal-bend",
+        "vertices": 201280,
+        "faces": 402560,
+        "world_transform_max_error_m": 1.4210854715202004e-14
+      },
+      {
+        "guid": "0ZvL2d7mjHBgUb$BMNqc3$",
+        "name": "VAV-01-INLET-TRANSITION",
+        "vertices": 96259,
+        "faces": 192518,
+        "world_transform_max_error_m": 0.0
+      }
+    ],
+    "design_accepted": false,
+    "unique_products": 2,
+    "repeated_mapped_transition_result_identical": true
+  },
+  "related_tests_passed": 19,
+  "desktop_server_reloaded": false,
+  "full_pressure_verified": false,
+  "remaining_full_network_numeric_gaps": 104,
+  "adpi_basis_pending": true,
+  "design_accepted": false,
+  "artifacts": {
+    "Supply Air Coordination.dwg": "02e9e5378679bf52970ff0ed39c10d09136093f99c4a477e728fec619c4a9ab3",
+    "Supply Air Coordination.pdf": "b401c7f467f5eb188f6855ddb14d7bb4c0475280b2fe0f6227ccfa78acc50ccd"
+  }
+}

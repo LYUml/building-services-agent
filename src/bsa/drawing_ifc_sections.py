@@ -6,6 +6,7 @@ from pathlib import Path
 
 from . import drawing_document as drawing, drawing_layout, workspace
 from .cli import digest
+from .duct_fitting_chain import shape_hash,value
 
 PINS={'ifcopenshell':'0.8.5','trimesh':'5.2.0','numpy':'2.5.4'}
 
@@ -22,7 +23,7 @@ def frame_matrix(value):
 
 def methods():
     return {name:digest(Path(__file__).with_name(name)) for name in
-            ('drawing_ifc_sections.py','circular_geometry.py','drawing_layout.py','source_network_drawing.py')}
+            ('drawing_ifc_sections.py','circular_geometry.py','drawing_layout.py','source_network_drawing.py','duct_fitting_chain.py')}
 
 
 def compose(project):
@@ -30,11 +31,12 @@ def compose(project):
     import ifcopenshell,ifcopenshell.geom,ifcopenshell.util.unit,ifcopenshell.util.system
     import trimesh
     from ifcopenshell.util.placement import get_local_placement
+    from ifcopenshell.util.shape import get_shape_matrix
     from .circular_geometry import configure
     project=Path(project).resolve()
     if not workspace.allowed(project):raise ValueError('Host project workspace required')
     spec=json.loads(project.read_text(encoding='utf-8-sig'))
-    if not isinstance(spec,dict) or set(spec)!={'schema','source','ifc','ifc_sha256','layout','views'} or spec['schema']!='bsa.drawing-ifc-sections/1':
+    if not isinstance(spec,dict) or set(spec) not in ({'schema','source','ifc','ifc_sha256','layout','views'},{'schema','source','ifc','ifc_sha256','layout','views','mesh_quality'}) or spec['schema']!='bsa.drawing-ifc-sections/1':
         raise ValueError('Exact IFC section drawing fields required')
     drawing.text(spec['source'])
     if not isinstance(spec['ifc'],str) or Path(spec['ifc']).is_absolute():raise ValueError('Recipe-relative IFC required')
@@ -47,7 +49,17 @@ def compose(project):
     if not isinstance(spec['views'],list) or not spec['views']:raise ValueError('Explicit nonempty section views required')
     model=ifcopenshell.open(str(source))
     if ifcopenshell.util.unit.calculate_unit_scale(model)!=1:raise ValueError('Current IFC section reader requires metre source units')
-    settings=ifcopenshell.geom.settings();settings.set(settings.USE_WORLD_COORDS,True);configure(settings)
+    settings=ifcopenshell.geom.settings();settings.set(settings.USE_WORLD_COORDS,False);configure(settings)
+    quality=spec.get('mesh_quality')
+    if quality is not None:
+        import math
+        if not isinstance(quality,dict) or set(quality)!={'source','classification','linear_deflection_m','angular_deflection_rad'} or quality['classification']!='design_target':raise ValueError('Explicit drawing mesh design target required')
+        drawing.text(quality['source'])
+        for key in ('linear_deflection_m','angular_deflection_rad'):
+            if type(quality[key]) not in (int,float) or not math.isfinite(quality[key]) or quality[key]<=0:raise ValueError('Positive finite drawing mesh targets required')
+        if quality['angular_deflection_rad']>math.pi:raise ValueError('Drawing mesh angle must not exceed pi')
+        settings.set('mesher-linear-deflection',quality['linear_deflection_m']);settings.set('mesher-angular-deflection',quality['angular_deflection_rad'])
+    native_mesh_cache={};projection_cache={};raw_projection_products=[];projection_review_records=[]
     factor=1000 if layout['units']=='mm' else 1;views=[];coverage={};names=set();kinds={};runtimes=dict(PINS)
     for view in spec['views']:
         fields={'id','guids','frame','layer','annotations','port_dimensions'}
@@ -70,16 +82,39 @@ def compose(project):
         for guid in view['guids']:
             obj=model.by_guid(guid)
             if not obj.is_a('IfcProduct') or not obj.Representation:raise ValueError('Represented IFC product required')
-            shape=ifcopenshell.geom.create_shape(settings,obj);mesh=shape.geometry
-            vertices=np.asarray(mesh.verts).reshape(-1,3);faces=np.asarray(mesh.faces).reshape(-1,3)
+            # Cache only exact forward geometry within this immutable model/run.
+            # Openings are inverse geometry and must never share this cache.
+            contexts=tuple(json.dumps(value(r.ContextOfItems),separators=(',',':')) for r in obj.Representation.Representations)
+            cache_key=(shape_hash(obj),contexts) if not getattr(obj,'HasOpenings',()) else ('uncached',guid)
+            if cache_key not in native_mesh_cache:
+                shape=ifcopenshell.geom.create_shape(settings,obj);mesh=shape.geometry
+                if not np.allclose(get_shape_matrix(shape),get_local_placement(obj.ObjectPlacement),atol=1e-10,rtol=0):raise ValueError('Native shape placement differs from supported local placement')
+                native_mesh_cache[cache_key]=(np.asarray(mesh.verts).reshape(-1,3).copy(),np.asarray(mesh.faces).reshape(-1,3).copy())
+            local_vertices,faces=native_mesh_cache[cache_key]
+            world=get_local_placement(obj.ObjectPlacement)
+            vertices=local_vertices@world[:3,:3].T+world[:3,3]
             counts[guid]=0
             binding=dict(layer=view['layer'],source=f'{spec["source"]}; IFC {spec["ifc_sha256"]}; {guid}',classification='secondary_transcription')
             if kind=='projection':
-                polygons=project_mesh((vertices-origin)@frame[:3,:3],faces)
-                for polygon in polygons:
-                    for ring in [polygon.exterior,*polygon.interiors]:
-                        entities.append(dict(binding,id=f'{name}:{guid}:outline:{counts[guid]}',kind='polyline',points=(np.asarray(ring.coords)[:-1]*factor).tolist(),closed=True))
-                        counts[guid]+=1
+                # Equal local viewing normals differ only by an in-plane rotation.
+                rotation=frame[:3,:3].T@world[:3,:3]
+                projection_key=(cache_key,tuple(rotation[2]))
+                if projection_key not in projection_cache:
+                    projection_review=[]
+                    try:polygons=project_mesh(local_vertices@rotation.T,faces,retain_raw_on_cleanup_failure=True,review=projection_review)
+                    except Exception as exc:raise ValueError(f'IFC projection failed for {guid}: {exc}') from exc
+                    rings=[np.asarray(ring.coords)[:-1].copy() for polygon in polygons for ring in [polygon.exterior,*polygon.interiors]]
+                    projection_cache[projection_key]=(rotation.copy(),rings,projection_review)
+                reference,rings,projection_review=projection_cache[projection_key]
+                if projection_review:projection_review_records.append(dict(view=name,guid=guid,items=projection_review))
+                if any(r['kind']=='raw_retained' for r in projection_review):raw_projection_products.append(dict(view=name,guid=guid))
+                plane_rotation=rotation@reference.T
+                if not np.allclose(plane_rotation[2],[0,0,1],atol=1e-10,rtol=0) or not np.allclose(plane_rotation[:2,2],[0,0],atol=1e-10,rtol=0):raise ValueError('Cached projection planes differ')
+                shift=((world[:3,3]-origin)@frame[:3,:3])[:2]
+                for ring in rings:
+                    points=(ring@plane_rotation[:2,:2].T+shift)*factor
+                    entities.append(dict(binding,id=f'{name}:{guid}:outline:{counts[guid]}',kind='polyline',points=points.tolist(),closed=True))
+                    counts[guid]+=1
             else:
                 segments=trimesh.intersections.mesh_plane(trimesh.Trimesh(vertices,faces,process=False),normal,origin)
                 for i,segment in enumerate(segments):
@@ -104,7 +139,7 @@ def compose(project):
     layout.update(schema='bsa.drawing-layout/1',views=views)
     drawing_layout.compose(layout)
     if digest(source)!=spec['ifc_sha256']:raise ValueError('IFC changed during section extraction')
-    return layout,dict(ifc_sha256=spec['ifc_sha256'],coverage=coverage,view_kinds=kinds,runtimes=runtimes,methods=methods(),design_accepted=False)
+    return layout,dict(ifc_sha256=spec['ifc_sha256'],coverage=coverage,mesh_quality=quality,native_mesh_builds=len(native_mesh_cache),native_projection_builds=len(projection_cache),raw_projection_products=raw_projection_products,projection_review_records=projection_review_records,view_kinds=kinds,runtimes=runtimes,methods=methods(),design_accepted=False)
 
 
 def verify(project,out):

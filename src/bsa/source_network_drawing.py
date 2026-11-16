@@ -12,20 +12,35 @@ from . import source_network_analysis as analysis
 
 GRID_M=1e-8
 
-def project(vertices,faces):
+def project(vertices,faces,*,retain_raw_on_cleanup_failure=False,review=None):
     v=np.asarray(vertices,dtype=float);f=np.asarray(faces)
     if v.ndim!=2 or v.shape[1]!=3 or not np.isfinite(v).all() or f.ndim!=2 or f.shape[1]!=3 or not np.issubdtype(f.dtype,np.integer) or np.any(f<0) or np.any(f>=len(v)):
         raise ValueError('Finite native vertices and triangular index faces required')
-    pieces=[Polygon(v[row,:2]) for row in f]
+    selected=f
+    if retain_raw_on_cleanup_failure:
+        if review is None or not isinstance(review,list):raise ValueError('Explicit raw-projection review record required')
+        triangles=v[f,:2];edges=triangles[:,1:]-triangles[:,0,None]
+        areas=abs(edges[:,0,0]*edges[:,1,1]-edges[:,0,1]*edges[:,1,0])/2
+        # Conservative IEEE arithmetic envelope for subtractions and products.
+        bound=32*np.finfo(float).eps*float(abs(v[:,:2]).max())**2
+        omitted=(areas>0)&(areas<=bound)
+        if np.any(omitted):review.append(dict(kind='projected_roundoff_triangles',count=int(omitted.sum()),total_area_m2=float(areas[omitted].sum()),per_triangle_area_bound_m2=bound))
+        selected=f[areas>bound]
+    pieces=[Polygon(v[row,:2]) for row in selected]
     pieces=[p for p in pieces if p.area>0]
-    raw=union_all(pieces,grid_size=0)
+    raw=union_all(pieces)
     shape=union_all(pieces,grid_size=GRID_M)
     if shape.is_empty or not shape.is_valid or shape.geom_type not in ('Polygon','MultiPolygon'):
         raise ValueError('Valid positive polygonal XY silhouette required')
     # GEOS discrete Hausdorff compares polygon ring vertices, including spurious
     # internal seam boundaries. Bound the filled sets by mutual offset coverage.
     if not raw.buffer(2*GRID_M).covers(shape) or not shape.buffer(2*GRID_M).covers(raw) or abs(shape.area-raw.area)>2*raw.length*GRID_M+4*GRID_M**2:
-        raise ValueError('Projection cleanup exceeds numerical displacement/area bound')
+        if not retain_raw_on_cleanup_failure:
+            raise ValueError('Projection cleanup exceeds numerical displacement/area bound')
+        if review is None or not isinstance(review,list):raise ValueError('Explicit raw-projection review record required')
+        if raw.is_empty or not raw.is_valid or raw.geom_type not in ('Polygon','MultiPolygon'):raise ValueError('Valid raw polygonal projection required')
+        review.append(dict(kind='raw_retained',reason='Cleanup failed original displacement/area bound'))
+        shape=raw
     return list(shape.geoms) if shape.geom_type=='MultiPolygon' else [shape]
 
 

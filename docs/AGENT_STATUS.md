@@ -1,3 +1,5 @@
+Full terminal coordination now has an actual saved/reopened598product native drawing and reviewed PDF, with12,904source contours independently reconciled. Exact geometry reuse and explicit drawing-mesh targets execute;19related tests pass. Physical airways,104numeric pressure gaps and ADPI remain unresolved. See [current network](CURRENT_LOGICAL_SUPPLY_NETWORK.md).
+
 Saved IFC directed port topology now extracts into the shared system-graph CLI/MCP:actual118products255ports117links and native drawing verified. Explicit cropped boundaries and ambiguous-direction rejection are supported; geometry/pressure acceptance remains separate. ADPI basis selection remains pending. See [drawing document](DRAWING_DOCUMENT.md).
 
 Remaining compound geometry exactly matches the earlier studied body; current native detail verifies aperture/taper overlap and nominal69.416mm opening gap. Four pressure paths remain unknown. Continue independent ADPI/course-delivery work rather than repeat the same unsupported coefficient assignment. See [compound applicability](CURRENT_COMPOUND_APPLICABILITY.md).
