@@ -267,7 +267,7 @@
     "L/s inputs are represented by nearest whole CFM; effective flows retained for every row",
     "Selected throw is reported in feet despite misleading Throw m label; table unit independently checked",
     "Native throw output has finite display resolution; no unverified precision or uncertainty model added",
-    "Raw native pressure w.c. is not adopted as total or static pressure without reference confirmation",
+    "Publisher identifies report pressure as total; installed reference planes remain unverified. See pressure_quantity_followup.",
     "Native selected NC10 with table dash is retained as qualified null, not NC10 compliance",
     "Original classroom170.1W/m2 versus160W/m2 load-band conflict remains",
     "All49 native source PDFs and runtime records remain private; no design or ADPI acceptance follows"
@@ -275,8 +275,8 @@
   "ADPI_verified": false,
   "design_accepted": false,
   "course_report_update": {
-    "report_sha256": "c2f9f2e9fd1a84572f1de389e9224b1c4aa43b568ca10d9eef8159e13459590c",
-    "previous_report_preserved_sha256": "ab24a9b39eabb561190aff65dfef7be7585ce112fc17afd60984b7135b5aa9a1",
+    "report_sha256": "c35859226501060bc1389c0a742634be03b0fec1805104e747bb2c8b10deaabc",
+    "previous_report_preserved_sha256": "c2f9f2e9fd1a84572f1de389e9224b1c4aa43b568ca10d9eef8159e13459590c",
     "pages": 12,
     "render_comparison": {
       "pages": 12,
@@ -296,15 +296,14 @@
         3,
         11
       ],
-      "appended_native_plan_pixel_identical": true,
-      "original_calculation_and_schedule_pages_pixel_identical": true
+      "appended_native_plan_pixel_identical": true
     },
     "visual_review": {
       "reviewer": "Codex host AI",
       "actual_changed_pages3_and11_inspected": true,
-      "finding": "Readable native comparison text and two-case table; no observed clipping or overlap"
+      "finding": "Updated reported-total-pressure explanation and reference readable; no observed clipping or overlap"
     },
-    "same_original_plan_and_DWG_unchanged": true
+    "source_native_plan_and_DWG_unchanged": true
   },
   "project_composition_sha256": {
     "run_current_kselect_conditions.py": "9951a964a6d4181e7351bcaaf1f4735d0a3f744588cb5876445516bb88ffb67a",
@@ -316,5 +315,47 @@
     "commit": "3eecd3710e976927c4b7c639900e833d12150453",
     "license": "Apache-2.0; bundled CLI-Anything attribution retained in upstream NOTICE",
     "scope": "Existing supported native performance CLI reused without third-repository code changes"
+  },
+  "course_report_history": [
+    {
+      "report_sha256": "c2f9f2e9fd1a84572f1de389e9224b1c4aa43b568ca10d9eef8159e13459590c",
+      "previous_report_preserved_sha256": "ab24a9b39eabb561190aff65dfef7be7585ce112fc17afd60984b7135b5aa9a1",
+      "pages": 12,
+      "render_comparison": {
+        "pages": 12,
+        "unchanged_rendered_pages": [
+          1,
+          2,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          12
+        ],
+        "changed_pages": [
+          3,
+          11
+        ],
+        "appended_native_plan_pixel_identical": true,
+        "original_calculation_and_schedule_pages_pixel_identical": true
+      },
+      "visual_review": {
+        "reviewer": "Codex host AI",
+        "actual_changed_pages3_and11_inspected": true,
+        "finding": "Readable native comparison text and two-case table; no observed clipping or overlap"
+      },
+      "same_original_plan_and_DWG_unchanged": true
+    }
+  ],
+  "pressure_quantity_followup": {
+    "manufacturer_url": "https://www.krueger-hvac.com/public/software/k-select",
+    "manufacturer_page_sha256": "78ac25cb8b3bfda7e9afe85c991b59a7faf5f7880e05475dcf13fd073f6a8bcb",
+    "reported_quantity": "total pressure",
+    "initial_quantity_status": "Previously unclassified; initial receipt/private native run evidence preserved unchanged",
+    "current_native_terminal_pressure_check_sha256": "a90b776e4a87f044fb02103fcce7644c79ecbbf2f28aae700326d5d9af8334b8",
+    "actual_installation_test_plane_verified": false
   }
 }

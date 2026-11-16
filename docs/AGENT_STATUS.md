@@ -1,4 +1,4 @@
-All current coursework diffuser conditions now have49native K-Select reports/2,401independent PDF checks;640reported ratios are1.2066–3.2797 within the classroom example interval.12page report updated and actual changed pages reviewed; ADPI load applicability remains open. See [native check](CURRENT_COURSE_KSELECT.md).
+Current coursework diffuser verification covers 49 native K-Select conditions and 640 classroom ratio checks. A separate 160-row terminal-pressure comparison now has publisher-backed total-pressure identification; 84 component gaps and ADPI load applicability remain unresolved. See [native performance](CURRENT_COURSE_KSELECT.md) and [pressure comparison](CURRENT_NATIVE_TERMINAL_PRESSURE.md).
 
 Three same-source A1 system drawings now have saved/reopened native DWGs, reviewed plots and independent 598-label/80-flow checks. Full pressure and ADPI remain open. See [system drawings](CURRENT_SYSTEM_DRAWINGS.md).
 

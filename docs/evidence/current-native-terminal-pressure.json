@@ -1,0 +1,375 @@
+{
+  "scope": "Separate current-source native terminal total-pressure comparison; not replacement/adoption of original pressure budget",
+  "pressure_quantity_source": {
+    "url": "https://www.krueger-hvac.com/public/software/k-select",
+    "retrieved_UTC": "2026-11-16T21:08:27.828809+00:00",
+    "sha256": "78ac25cb8b3bfda7e9afe85c991b59a7faf5f7880e05475dcf13fd073f6a8bcb",
+    "section": "Reports and Printouts",
+    "quote": "Neck velocity and total pressure at a given CFM.",
+    "classification": "Manufacturer description of reported pressure quantity; actual installation/test-plane correspondence not proved"
+  },
+  "guide_source": {
+    "sha256": "f98aa9ded59150e157c83d5c5114faaa1a24c185928709ffe5d60c9b2f607988",
+    "page": 8,
+    "printed_page": "a1-8",
+    "actual_page_rendered_and_viewed": true,
+    "finding": "Manufacturer describes inlet total/static pressure measurement at least1.5duct diameters upstream, with traverse/static-regain qualifications; actual IFC station correspondence not verified"
+  },
+  "native_catalogue_equal_effective_flow_check": {
+    "native_conditions": 49,
+    "native_minus_catalogue_Pt_range_Pa": [
+      -1.1531925537689145,
+      1.205187651606547
+    ],
+    "assumed_native_display_half_step_in_wc": 0.005,
+    "outside_assumed_native_display_bands": [],
+    "scope": "Display-rounding compatibility diagnostic only; not manufacturer accuracy or software interpolation proof"
+  },
+  "native_conditions": 49,
+  "terminal_rows": 160,
+  "native_IFC_endpoint_and_drawing_index_matches": 160,
+  "course_flow_and_report_hash_matches": 160,
+  "independent_Decimal_interpolation_checks": 160,
+  "source_ifc_sha256": "a26626e4359ca82ca90de33423d46819b66bd78e54f22a0f52e221ff18ce2937",
+  "source_budget_sha256": "31c97db53d08d34e6d79138be8fda2504c49c5edc78be873d33e9f85034d8c8d",
+  "source_budget_and_IFC_unchanged": true,
+  "drawing_index_sha256": "7d16a08fab30e2806d3367082e7c27a49acfa3c9428832f602a215f2526deff4",
+  "comparison_csv_sha256": "cadb691e115ab93092e31ceeb37f1a9ace756dfa26aa809d30c61054cfa7cedf",
+  "cases": {
+    "maximum": {
+      "terminals": 80,
+      "reported_native_terminal_Pt_range_Pa": [
+        19.9271128,
+        44.8360038
+      ],
+      "comparison_native_table_Pt_at_design_flow_range_Pa": [
+        19.85804380767544,
+        44.7738195224721
+      ],
+      "comparison_minus_catalogue_Pt_range_Pa": [
+        -1.0431161108805256,
+        1.0817797829140154
+      ],
+      "remaining_unique_numeric_component_gaps": 84
+    },
+    "minimum": {
+      "terminals": 80,
+      "reported_native_terminal_Pt_range_Pa": [
+        2.4908891,
+        7.4726672999999995
+      ],
+      "comparison_native_table_Pt_at_design_flow_range_Pa": [
+        2.4959692737568213,
+        7.482652485399615
+      ],
+      "comparison_minus_catalogue_Pt_range_Pa": [
+        -1.1477854413038462,
+        1.1791020237423053
+      ],
+      "remaining_unique_numeric_component_gaps": 84
+    }
+  },
+  "interpolation_basis": "Bounded piecewise linear pressure versus squared CFM using actual nine-column native report tables; comparison assumption, not verified manufacturer algorithm",
+  "pressure_added_once": true,
+  "static_and_velocity_pressure_added_again": false,
+  "limits": [
+    "Native pressure has0.01in.wc display resolution; assumed half-step compatibility is not accuracy",
+    "Interpolated displayed table values are conditional comparisons, not higher-precision native results",
+    "Room static common0Pa and installation/test-plane correspondence remain assumptions",
+    "Fully-open VAV comparison does not establish controlled VAV operating loss",
+    "Each path retains2numeric component gaps;84unique gaps overall",
+    "No complete pressure, critical path, fan duty or ADPI acceptance"
+  ],
+  "complete_pressure_Pa": null,
+  "hydraulic_critical_path": null,
+  "fan_duty_Pa": null,
+  "ADPI_verified": false,
+  "design_accepted": false,
+  "independent_saved_CSV_budget_difference_checks": 160,
+  "reported_pressure_quantity_identified_by_publisher_as_total": true,
+  "project_composition_sha256": "3bee82bbcbef4e7cd9a1d660ada19645ab054192cc26666a54836f77a8a9861c",
+  "course_report_update": {
+    "report_sha256": "c35859226501060bc1389c0a742634be03b0fec1805104e747bb2c8b10deaabc",
+    "previous_report_preserved_sha256": "c2f9f2e9fd1a84572f1de389e9224b1c4aa43b568ca10d9eef8159e13459590c",
+    "pages": 12,
+    "render_comparison": {
+      "pages": 12,
+      "unchanged_rendered_pages": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12
+      ],
+      "changed_pages": [
+        3,
+        11
+      ],
+      "appended_native_plan_pixel_identical": true
+    },
+    "visual_review": {
+      "reviewer": "Codex host AI",
+      "actual_changed_pages3_and11_inspected": true,
+      "finding": "Updated reported-total-pressure explanation and reference readable; no observed clipping or overlap"
+    },
+    "source_native_plan_and_DWG_unchanged": true
+  },
+  "fresh_independent_native_pressure_source_check": {
+    "scope": "Fresh independent native-PDF pressure-field check for this pressure comparison; no software re-execution",
+    "native_pressure_scalar_checks": 490,
+    "all49_nine_column_pressure_tables_and_selected_pressures_match": true,
+    "native_PDFs_unchanged": true,
+    "source_records": [
+      {
+        "effective_CFM": 104,
+        "pdf_sha256": "d3f252f4eaae23cfa5bb3a61692294c218eb00c54257f8d5b238b103258a137b",
+        "result_json_sha256": "e4bd3ac12df9d3b60f853befdb15dd9444a9d601602b017e7eab997b34690940"
+      },
+      {
+        "effective_CFM": 107,
+        "pdf_sha256": "13a5e4cc7b8164017047c716dff3c194898da91b5c65391db46a3873fbfcac16",
+        "result_json_sha256": "4e0c9a0175d5f741d177e4f60700991b02eead3861549ed7285a41ca6e84e237"
+      },
+      {
+        "effective_CFM": 112,
+        "pdf_sha256": "a963d3b37bd29f88fc6ca6dcd1427e6f813b16318302a64c468247d8ce776426",
+        "result_json_sha256": "4283c3bea861e892a75a05e64e2893f7b3d0116a8cff36d55958d8253246feb1"
+      },
+      {
+        "effective_CFM": 114,
+        "pdf_sha256": "2903b0f1f394d30a2793a127d9bf7b705f86ce8e31b4bda3e502ab620019d487",
+        "result_json_sha256": "54c606d312510e30380bf9c0e796eb5225d9d1d96f2b681bad9bf08ea83eacf4"
+      },
+      {
+        "effective_CFM": 115,
+        "pdf_sha256": "859b8ddb0f47a5c45e233821d83dab1e26bfdb0d5c702d2d4c6e13aec0c65729",
+        "result_json_sha256": "c92f7869ae1d9f1f8904b57957bcd5ad1f70d2f7fa958e9ec59aec0e2a6fe484"
+      },
+      {
+        "effective_CFM": 117,
+        "pdf_sha256": "1c78c9ad7c1f5fcee31df895a036d1d0c4871eafbf93bf65cef439bd7f1c01c3",
+        "result_json_sha256": "7b7cdda82244ec7b05fcbcaf8268c0806a4c47596f5cb5aba220908e577ecbc4"
+      },
+      {
+        "effective_CFM": 118,
+        "pdf_sha256": "a93c677256601ca27e1390ff570643778842e227cd6c88f49b81d25bc8b558ca",
+        "result_json_sha256": "0568627c841c4749d7f07622be025093745337d05f346f8f90b7682980da676e"
+      },
+      {
+        "effective_CFM": 119,
+        "pdf_sha256": "0a8b42ed584ab0b6eb821b52e83cbaff844792f8e2a099a94fb00547677caa3e",
+        "result_json_sha256": "c24b1a8bcd0660227c9a033fa27543ebf9d4f53d5a63e708fb5433352b950671"
+      },
+      {
+        "effective_CFM": 120,
+        "pdf_sha256": "e78134d1db88d9536a46fef7233110ca5a8b0e203b829acc1856098fa9feb41a",
+        "result_json_sha256": "cc2a10d0638b737fb03ab72f6f90be0398ad4006bff121ac2d2957e098685217"
+      },
+      {
+        "effective_CFM": 121,
+        "pdf_sha256": "0d6a0e19cdd63d0ed5440625663e0ff05f15d56846e66dd437f2aa52da681f93",
+        "result_json_sha256": "96168f7905c4c7666deb64e011a846d850f95c57cb5ff5a0605322b2c9721945"
+      },
+      {
+        "effective_CFM": 125,
+        "pdf_sha256": "2cc57e5536304f4fe1c5b95f5602ef4bc137f760bf6189f9a45139adfb2a4576",
+        "result_json_sha256": "d5049f0e470ab1823c0bc065fbd5fd4b3e81cc86510416faf3607aa424ae8ba7"
+      },
+      {
+        "effective_CFM": 126,
+        "pdf_sha256": "61368a2de44e9c551173cea3b5b2e7d77a3fd849e309c3ac4b87610f87dc6e8c",
+        "result_json_sha256": "9cce9f6d1d96547ee101fda02c950b0c2dacb0e65803487a02e83945cd6dd841"
+      },
+      {
+        "effective_CFM": 128,
+        "pdf_sha256": "519b640ca723daefd3dbf556e971355c2e23d0bd2eaab4bd9e9b6115b50bbe6a",
+        "result_json_sha256": "36dc2acb16e4305c1bd0e2318e792b3ba53df6a29a3457eb400a688f906cdd38"
+      },
+      {
+        "effective_CFM": 129,
+        "pdf_sha256": "1a04bb514996d555f4296ec13ec4ac74b147ca1aea5d9e5f22ee3392e3fd2a6a",
+        "result_json_sha256": "07febf5c25f548f2a1fab0f9591157ecb09eaf8e8691515106608b246673507a"
+      },
+      {
+        "effective_CFM": 130,
+        "pdf_sha256": "7de1f717f93af6cd2b227cd9237f368df95abc7a2aa8b32dcca9c77afc470551",
+        "result_json_sha256": "6114373da8e7f5ad8b063b08f5fe6d9092d4b1f1ce5ef35641ab3ae9dc8be9aa"
+      },
+      {
+        "effective_CFM": 132,
+        "pdf_sha256": "7c2b8dff3e8e460b29208ca5fe788057112681c00f6130ff6100574dfd9efc57",
+        "result_json_sha256": "14f716ec42c70be6d4ee2d0abe5759140c210656156590293231044008271620"
+      },
+      {
+        "effective_CFM": 133,
+        "pdf_sha256": "10119b11573ae289a2333df0fa3f975faf453b7bac28e3897f7eccd30c4195ad",
+        "result_json_sha256": "8718eab90f73b4b959aa06b8f8237ba736e74f5ac57351b6fa5445541c7f0db8"
+      },
+      {
+        "effective_CFM": 135,
+        "pdf_sha256": "4cbe14b9dc1a35af3738dcf1783cecbb0beb2aa85a6b71d5909cd4e323df202b",
+        "result_json_sha256": "1c56b020ba843d50302ef99b6a81bab02bd6f2f6904e9f590ba55e3a0fe81c82"
+      },
+      {
+        "effective_CFM": 137,
+        "pdf_sha256": "4716b4ba0166d5a93c625c22a4e94b489a004ab6caa4c291d24f6cf5bc26321d",
+        "result_json_sha256": "8233c9382a483dc01b5469254a78853262c72b5211d071b9a86449c40f24d364"
+      },
+      {
+        "effective_CFM": 139,
+        "pdf_sha256": "ddfc187e4c2cbb4af3602c7fac2bdb7b0933bdff00590255ef158cb913af5562",
+        "result_json_sha256": "2fb4e7a5aeb96f98573488c2800c79f55a263b2b35567a0da2fcb8b999bcfb68"
+      },
+      {
+        "effective_CFM": 144,
+        "pdf_sha256": "ba92666e21609442325d5162e6a7a985abb43b42533f0fe4281223731204f304",
+        "result_json_sha256": "421d6ad2d7def7dbafdb9abd05efe5f1cd5f2886431af13301e31d3e1ede798c"
+      },
+      {
+        "effective_CFM": 147,
+        "pdf_sha256": "106153003ecabb0841f5a29725272f37ba81cff7a99465c08d381b0b1941d696",
+        "result_json_sha256": "4ca969b9c8cf213c801e2a27d2ff4d6024f62d64c7b90c2a9bf8ba90cea69ff4"
+      },
+      {
+        "effective_CFM": 152,
+        "pdf_sha256": "e95c40ec8340ada68854b4238b37269db9687b28d43de8eadca1c554a039a014",
+        "result_json_sha256": "90e918b373f5cfef2b092499c8a5a306f270beb7a24c237d8544b08329a47f2c"
+      },
+      {
+        "effective_CFM": 157,
+        "pdf_sha256": "b037c4d50ce49aa53f9bc748d3efb515b2856db4e00a3e57f1a894898e171846",
+        "result_json_sha256": "3a9f37edfc12aae97c8b412c645ec33ae1bf2d1dd66d4488114c7ac7973aeab3"
+      },
+      {
+        "effective_CFM": 261,
+        "pdf_sha256": "b1b2ec9e0ebd7672d64e6b46fe9a272588ed160391e2c6424dbbca1214822206",
+        "result_json_sha256": "aa94668c74fd355978759045e68d95729b165dfa2919e5d054bdc96b9d02a318"
+      },
+      {
+        "effective_CFM": 268,
+        "pdf_sha256": "f21a0f2bb92d470cdbe4bff72ed2c73b98a45f0d339b3f06c30204a7df6a363c",
+        "result_json_sha256": "865c7de4391d3a2fcdb39386d27336081d8b83244a21cb22e00113e74102cf8d"
+      },
+      {
+        "effective_CFM": 280,
+        "pdf_sha256": "4039bdfbf82607b558c385a338c0356df1c3ab2d038250bc8d5c6307a83d1d83",
+        "result_json_sha256": "680a62aef1f1cb594df567f5de19ab0814348b143437db5692d44a6b2ca4aabf"
+      },
+      {
+        "effective_CFM": 284,
+        "pdf_sha256": "044d7f4db6bdc66e5823d2efb180394dc173243c4e92250b3a23e2cdbeec5f2c",
+        "result_json_sha256": "a5d599dadfe74ed3d3d0671afd1a0bae457918117bd512e1d575696c516aa4b2"
+      },
+      {
+        "effective_CFM": 287,
+        "pdf_sha256": "d272126de218ee6a640b575e955e8e3863b9d33a124c85c8cafec74783775ea7",
+        "result_json_sha256": "ce41470cd2c9295f1d796f500f805950f08a5a249d0482c0eea373e1271b7aae"
+      },
+      {
+        "effective_CFM": 292,
+        "pdf_sha256": "6128b8b66d19ba75fe11a2a35326880df32d3492cb739b304cf1853e606546ed",
+        "result_json_sha256": "ba2d980d5e5ef134efa00b43407e19cc242edebb580be9b28a2c16892f71ef68"
+      },
+      {
+        "effective_CFM": 294,
+        "pdf_sha256": "63164d2e9ea6554da7a378c2e966536c007fe66a807040f335092137b2c4acdb",
+        "result_json_sha256": "fe2b61823dd829c4004dc9d7eb5eacfdfc83471ee21894fcebe3d8df119c8440"
+      },
+      {
+        "effective_CFM": 296,
+        "pdf_sha256": "2957e2319b94ed1ec1cddccc8005855605f3b7c7c16a80ff5ab8d3af69989660",
+        "result_json_sha256": "596e1d8f53545f621c7f1146e30ef9c49f6b5f67cd721c2acc49560e2d289634"
+      },
+      {
+        "effective_CFM": 299,
+        "pdf_sha256": "64854cc9cb8e1c402aa41334645521fff747f65db8ea50b9df519f70bd4dac38",
+        "result_json_sha256": "313b5dec4545e7bff8d07d539984458b8087d914e336272cca2895100f7a7d92"
+      },
+      {
+        "effective_CFM": 302,
+        "pdf_sha256": "b3900c80e97b1bf900c9e20725cc931b59e93296c321a0b910b72702ed5d74a6",
+        "result_json_sha256": "07be6191492ca3f45b4184ee56537dbd43a5507ac8a9f31aea6bd756212237ed"
+      },
+      {
+        "effective_CFM": 313,
+        "pdf_sha256": "27040decf0f7d0665c648f0e70350700c3b86bc7728d49b0820c0b0c3ceaa801",
+        "result_json_sha256": "9ec081c00a1265b574aff559d5627b96c14ce63d592cad8a67e84c3020149297"
+      },
+      {
+        "effective_CFM": 315,
+        "pdf_sha256": "fd6f8119d7eeda54b59d0f701b33d9b5ebfb23159de16e8d271ecd7bec8f8849",
+        "result_json_sha256": "805a34c17afb0522b6acdd59e76205897986f152b49ea3a726074606fdae6986"
+      },
+      {
+        "effective_CFM": 321,
+        "pdf_sha256": "3265f3c2d0e88314e9e07b685e66be3aec1262ca691c4b61cbc5a0e12323676c",
+        "result_json_sha256": "3643f895d879503e5cf820564fb4362638b3f7e3d42c2c6964f0e3580cdeda89"
+      },
+      {
+        "effective_CFM": 323,
+        "pdf_sha256": "fa06ab6384c2ae5c24cd61b8ce49bc8a2adf1d78ca92b565f82b5834538bbeec",
+        "result_json_sha256": "5b89ab0f1c0d62be95129718683e454fdea7e4fdd8949b3df0d3f872856b6b87"
+      },
+      {
+        "effective_CFM": 325,
+        "pdf_sha256": "b52c59517884e291878fb156759074cb9236fb55f5ec3f3ae5a155e0a7321d8d",
+        "result_json_sha256": "715520946b2b92b42ef56bfb06f4ae457bf6072424112eab40cf5e5c450d2546"
+      },
+      {
+        "effective_CFM": 330,
+        "pdf_sha256": "d839991e89b2ec623ec253a8e4660d9eed5fe0451cacc8b4cf85c06c7e824cf4",
+        "result_json_sha256": "39e3089a7fa33951804d024158b10a1e44cb24c985b749827e0fa9a41a870ed5"
+      },
+      {
+        "effective_CFM": 331,
+        "pdf_sha256": "c1f195a406359f207a9bd31335f4f8c4bec9ae30c4b113321c2a609626c48413",
+        "result_json_sha256": "ead3899eff1e86bcfff94ea332ace02d78e4e6dc8f6eefce2a077ff1b6ab75af"
+      },
+      {
+        "effective_CFM": 333,
+        "pdf_sha256": "677ff66d1c7d5e2db304742cb1c156d68db0e8c2b24aa4ca489f3106260052d4",
+        "result_json_sha256": "f1fe489fbc20744a1acf8b0ea8aa1ab181eded8ee0dd21324bb6082c1bd5e97c"
+      },
+      {
+        "effective_CFM": 338,
+        "pdf_sha256": "10c67ef802bf41332bf045762607c64d443fe2e8204de13465080e50018b5f38",
+        "result_json_sha256": "942cd8078352aa3fe5adaaa565e195d11e5a3337e6ee0fca75cc6984b4318b33"
+      },
+      {
+        "effective_CFM": 342,
+        "pdf_sha256": "563c5924836e7b22614656975e80ce6abd37d957b021a86854b7acf40bf056c0",
+        "result_json_sha256": "0693e3aa0fc03787f5475446065124a695c0f1225389730447c274a6baf48012"
+      },
+      {
+        "effective_CFM": 347,
+        "pdf_sha256": "bdd7df35e0f59e5f9f1de5454e27ac982b62524f3157c09dc3442ce4973e1e17",
+        "result_json_sha256": "5d43aaa3abc8ad0ff6c5297e73588d0a46ea23587a781f5a76eda0e335c1fe07"
+      },
+      {
+        "effective_CFM": 360,
+        "pdf_sha256": "d41724ae5209ed2360ff0ec3f71aaad6a5ef4fd56d5073ff165e951971ef9731",
+        "result_json_sha256": "e5a20649454a0af1e0a3805fc4cca605364aa9eaab8a69ed65908ea5c2b36270"
+      },
+      {
+        "effective_CFM": 368,
+        "pdf_sha256": "893ada7cea90890bd6960ee6bb733193cc4d816252e15feb60f6a27ea1a4852c",
+        "result_json_sha256": "e6b158060331e8bd263d12dc95686e650276c1b7772901bacd0b0e8d4374e7e1"
+      },
+      {
+        "effective_CFM": 379,
+        "pdf_sha256": "2de61bc0114b39dbcdaf3ef010c4ac83d113339de38ce6a45668d8be9095c3f8",
+        "result_json_sha256": "d39db3d296f25009d91c17ed70c0942f429288c4395dffe4d0a730376fc135c4"
+      },
+      {
+        "effective_CFM": 393,
+        "pdf_sha256": "98e1f38fc2d6ca478cd53c0ff9c370889bf063f74e1cdd46ab636d113b492f3d",
+        "result_json_sha256": "47f7d6e26502769f69ade74c6dd337801bdaf200b88047f257c71102e952a112"
+      }
+    ]
+  }
+}

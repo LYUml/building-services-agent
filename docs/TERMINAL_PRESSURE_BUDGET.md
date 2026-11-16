@@ -67,3 +67,5 @@ curve. The held ASHRAE fan-discharge-to-plenum data and the upstream Crane
 single-tee function are not substituted for this lined four-outlet attenuator.
 The Illinois primary research PDF endpoint returned403 in both browser and
 direct fetch; its equations were not read or adopted. Plenum losses remain null.
+
+A later current-source comparison now identifies native K-Select pressure as publisher-described total pressure and binds 160 endpoints to the actual 49 reports. Native displayed-table interpolation and separate partial budgets retain all 84 numeric gaps and controlled/station limitations; the original catalogue budgets are unchanged. See [native pressure comparison](CURRENT_NATIVE_TERMINAL_PRESSURE.md).
