@@ -169,7 +169,7 @@ def _record(entity):
     if entity.dxf.is_supported('extrusion'):r['extrusion']=plain(entity.dxf.extrusion)
     for f in fields:r[f]=plain(getattr(entity.dxf,f))
     if k=='TEXT' and (entity.dxf.halign or entity.dxf.valign):r['align_point']=plain(entity.dxf.align_point)
-    if k=='LWPOLYLINE':r.update(points=[list(v) for v in entity.get_points()],closed=entity.closed)
+    if k=='LWPOLYLINE':r.update(points=[[float(c) for c in v] for v in entity.get_points()],closed=entity.closed)
     if k=='DIMENSION':
         r['measurement']=float(entity.get_measurement())
         style=entity.get_dim_style()

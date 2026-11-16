@@ -44,6 +44,15 @@ class DrawingDocumentTests(unittest.TestCase):
                 d.saveas(b)
                 with self.assertRaises(ValueError):audit(a,b)
 
+    def test_polyline_roundtrip_noise_uses_existing_numeric_bound(self):
+        from bsa.drawing_document import compare_documents
+        a,_=author(self.spec);b,_=author(self.spec)
+        obj=b.modelspace().query('LWPOLYLINE')[0]
+        points=[list(v) for v in obj.get_points()];points[0][0]+=1e-10;obj.set_points(points)
+        self.assertTrue(compare_documents(a,b)['editable_entity_correspondence'])
+        points=[list(v) for v in obj.get_points()];points[0][0]+=.01;obj.set_points(points)
+        with self.assertRaises(ValueError):compare_documents(a,b)
+
     def test_bad_coordinates_duplicate_identity_and_nested_blocks_rejected(self):
         for mutation in ('nan','identity','nested','runtime'):
             with self.subTest(mutation=mutation):

@@ -210,3 +210,20 @@ Unknown schemas fail explicitly. Native run requires an explicit executable;
 inspection retains pending visual/design acceptance rather than granting it.
 All four existing actual BSE native workflows were checked through this CLI;
 see evidence/drawing-cli.json. No new geometry engine or dependency was added.
+
+## Actual current network coverage
+
+The shared CLI now authors the saved 110-body constant-height candidate as an
+A4 1:200 coordination plan:301 model entities,294 editable polylines and full
+110-product source identity/contour-count coverage after native DWG reopening.
+The actual PDF was inspected; its50mm reference measures50.038mm. Existing
+source_network_drawing.project and pinned IfcOpenShell/Shapely supply native
+material silhouettes; the generic document engine remains discipline independent.
+This drawing is separate from the course submission baseline.
+
+This real trial exposed NumPy scalar coordinates in ezdxf polyline records being
+compared exactly rather than through the existing numeric bound. Records now
+normalize these coordinates to Python float, preserving that bound unchanged.
+A regression accepts1e-10drawing-unit noise and rejects a0.01unit vertex change.
+The first rejected native run remains private history. See
+evidence/current-network-general-drawing.json.
