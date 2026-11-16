@@ -1,5 +1,7 @@
 # Building Services Agent
 
+One source-feature-aware unlayered plenum mesh now passes full native OpenFOAM topology/geometry checks. Near-wall treatment, mesh sensitivity and pressure acceptance remain open. See [native study](docs/OPENFOAM_IMPORT_PRECISION.md).
+
 General AutoCAD 2D authoring now has a shared declarative entry with reusable
 symbols, native editable dimensions and explicit sheet frames. Synthetic and
 actual BSE3227 drawings execute through saved/reopened DWG and inspected PDF.

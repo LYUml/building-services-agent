@@ -1,0 +1,210 @@
+{
+  "scope": "One representative first-family plenum numerical mesh; not80paths or max/min design validation",
+  "upstream_native_engine": "Isolated OpenFOAM12 build12-8e8552546d20 GPL-3.0-or-later, serial",
+  "native_review": {
+    "returncode": 0,
+    "completed": true,
+    "reported_failed_checks": [],
+    "native_mesh_checks_passed": true,
+    "engineering_accepted": false,
+    "native_returncodes": {
+      "surfaceFeatures": 0,
+      "blockMesh": 0,
+      "snappyHexMesh": 0,
+      "checkMesh": 0
+    },
+    "scope": "Coarse no-layer hex-dominant mesh feasibility; geometry/wall resolution/pressure not accepted"
+  },
+  "quality_metrics": {
+    "maximum_aspect_ratio": 3.3457869890152416,
+    "maximum_nonorthogonality_degrees": 31.323707503860184,
+    "maximum_skewness": 0.6041126590168984,
+    "minimum_cell_determinant": 0.5453494005445245,
+    "minimum_face_interpolation_weight": 0.2733573384304762
+  },
+  "geometry_review": {
+    "scope": "Measured uniform explicit-feature hex mesh geometry correspondence; no pressure acceptance",
+    "native_cells": 142480,
+    "native_points": 151473,
+    "source_reference_mesh_volume_m3": 0.1403540428609383,
+    "native_volume_m3": 0.14032277463502577,
+    "relative_volume_change": -0.00022278108471385227,
+    "ports": [
+      {
+        "source_port": "inlet",
+        "native_patch": "air_inlet",
+        "native_faces": 1368,
+        "source_tessellated_area_m2": 0.13430760000000136,
+        "native_area_m2": 0.1343076000000014,
+        "relative_area_change": 2.220446049250313e-16,
+        "maximum_plane_distance_m": 0.0,
+        "minimum_outward_normal_alignment": 1.0
+      },
+      {
+        "source_port": "outlet_0",
+        "native_patch": "air_outlet_0",
+        "native_faces": 484,
+        "source_tessellated_area_m2": 0.048763926286938236,
+        "native_area_m2": 0.048688435422558,
+        "relative_area_change": -0.0015480883129884715,
+        "maximum_plane_distance_m": 0.0,
+        "minimum_outward_normal_alignment": 1.0
+      },
+      {
+        "source_port": "outlet_1",
+        "native_patch": "air_outlet_1",
+        "native_faces": 484,
+        "source_tessellated_area_m2": 0.048763926286938236,
+        "native_area_m2": 0.048688460702124625,
+        "relative_area_change": -0.001547569905867574,
+        "maximum_plane_distance_m": 0.0,
+        "minimum_outward_normal_alignment": 1.0
+      },
+      {
+        "source_port": "outlet_2",
+        "native_patch": "air_outlet_2",
+        "native_faces": 484,
+        "source_tessellated_area_m2": 0.04876392628693806,
+        "native_area_m2": 0.048690322631854945,
+        "relative_area_change": -0.001509387383001437,
+        "maximum_plane_distance_m": 0.0,
+        "minimum_outward_normal_alignment": 1.0
+      },
+      {
+        "source_port": "outlet_3",
+        "native_patch": "air_outlet_3",
+        "native_faces": 484,
+        "source_tessellated_area_m2": 0.04876392628693806,
+        "native_area_m2": 0.048690227327784136,
+        "relative_area_change": -0.00151134177999257,
+        "maximum_plane_distance_m": 0.0,
+        "minimum_outward_normal_alignment": 1.0
+      }
+    ],
+    "boundary_layers_present": false,
+    "native_mesh_quality_accepted": true,
+    "pressure_run": false,
+    "source_physical_model_changed": false,
+    "design_accepted": false
+  },
+  "inputs": {
+    "source_surface_sha256": "5cd21b70529f1c26ae07deadf485013d07928dc24a6a0a49b718ac82c9e39479",
+    "inside_point_local_m": [
+      0.001,
+      0.002,
+      0.003
+    ],
+    "inside_point_signed_winding_number": 1.0,
+    "background_cell_size_m": 0.04,
+    "surface_refinement_level": 2,
+    "inside_refinement_level": 2,
+    "maximum_cells_design_target": 500000,
+    "layers_enabled": false,
+    "scope": "Coarse topology/geometry feasibility only, not wall-resolved or pressure-ready",
+    "official_mesh_quality_template_sha256": "dc29d9e02def476d5b53f7c07ac0fd7452d17de1d1e3a4755432f10f3d8839b7",
+    "engineering_accepted": false,
+    "only_active_control_change": "Interior refinement1\u21922, matching surface level; same geometry/background/snap/quality controls",
+    "feature_policy": "Official surfaceFeatures150deg and region edges, explicit feature snap instead of implicit; same source surface/background/uniform refinement/quality criteria"
+  },
+  "source_local_frame": {
+    "scope": "Source-bound surface and rigid numerical-coordinate-frame preparation; no hex mesh or pressure acceptance",
+    "source_surface_sha256": "f382ecd713c715a7e5564db9a1688189fbd8b9f5216abc2a276a6f03ee5fc7e1",
+    "existing_native_triangulation_sha256": "69278785ca478e93299a4e821154e32de1712d9914023a600d12d8dcde8178b3",
+    "local_surface_sha256": "5cd21b70529f1c26ae07deadf485013d07928dc24a6a0a49b718ac82c9e39479",
+    "vertices": 29019,
+    "source_polygons": 48134,
+    "native_triangles": 58034,
+    "all_source_polygons_partitioned_with_same_group_and_orientation": true,
+    "max_polygon_area_vector_error_m2": 0,
+    "world_from_local_translation_m": [
+      68.245932,
+      18.590709,
+      0.0
+    ],
+    "maximum_inverse_coordinate_error_m": 0.0,
+    "local_bounds_m": [
+      [
+        -0.2889250000000061,
+        -0.45045,
+        -0.177
+      ],
+      [
+        0.2889250000000061,
+        0.45045,
+        0.177
+      ]
+    ],
+    "world_surface_zero_vertices": 0,
+    "source_geometry_modified": false,
+    "engineering_accepted": false
+  },
+  "native_source_semantics": {
+    "checkGeometry_sha256": "cc8031aa9bba3d808043af2c5cf0b6c3533534743ac043b0a53319122ba51b81",
+    "primitiveMeshCheck_sha256": "3c5fcc2c9fef5e4684ed2796e9d24d9f8b59c2ae871904ae12ae3462f9f4753a",
+    "concave_check_includes_planar_face_centres": true,
+    "snap_parameter_reference": "https://cpp.openfoam.org/v12/snapParameters_8C_source.html",
+    "unavailable_other_fork_nSmoothInternal_not_used": true
+  },
+  "executed_comparisons": {
+    "mixed_resolution_implicit": {
+      "cells": 62995,
+      "native_concave_cells": 2004,
+      "native_quality_pass": false
+    },
+    "uniform_resolution_implicit": {
+      "cells": 142480,
+      "native_concave_cells": 4,
+      "native_quality_pass": false,
+      "localization_sha256": "c8edc1a9f2f5348f13c86312eee0948f01ad2e9b845dbfece97717aa6d3682d5"
+    },
+    "uniform_manual_cap_projection": {
+      "native_quality_pass": false,
+      "native_failed_checks": 2,
+      "new_low_quality_or_negative_decomposition_faces": 17,
+      "rejected": true,
+      "correction_review_sha256": "90e4e802ee53d1198bdb72580bba71b3c6b08aeca66579cd3967809730a26369"
+    },
+    "uniform_explicit_source_features": {
+      "cells": 142480,
+      "native_concave_cells": 0,
+      "native_quality_pass": true,
+      "manual_cap_projection_used": false
+    }
+  },
+  "native_inputs_logs_sha256": {
+    "system/controlDict": "3beea52a550a10dc9580b3400df65de005243413f4414de532583055d86f3d7f",
+    "system/blockMeshDict": "a338a84fce543529a35d2e2715abbcaa9bfcaa636e27ba24d579fdec053d8a00",
+    "system/snappyHexMeshDict": "7cc4031681dd11ae9271ee8b65505ac28ef5ef782387b44dba04f0cd6ab065ce",
+    "system/surfaceFeaturesDict": "d77271dfc0a7b188a9f10ac5a255627e27baf2d26399d3b8387a9599d182cf20",
+    "system/meshQualityDict": "dc29d9e02def476d5b53f7c07ac0fd7452d17de1d1e3a4755432f10f3d8839b7",
+    "constant/triSurface/air.obj": "5cd21b70529f1c26ae07deadf485013d07928dc24a6a0a49b718ac82c9e39479",
+    "constant/triSurface/air.eMesh": "e36e8f68ed13463a8161d4a0053f89d493c2eb4f98d5247a9100957de098c3cc",
+    "surfaceFeatures.log": "006273b34724bd1790e6de54a92dcf7213cce398eee5dfc587aab9c032ef35dd",
+    "blockMesh.log": "2658e0634a2f39830524433db4276a1627868e1b6c408732297ec2cf02069555",
+    "snappyHexMesh.log": "5ff5579b7b1f40ace97abd2b27e67d3471871eb0c469e37357fd64187bf4effc",
+    "checkMesh.log": "985cdebf7e658175a922fb33c680585c5620a5d92f40ed3aaef147cbe44a218a"
+  },
+  "native_mesh_sha256": {
+    "points": "b4c6897a08fd091cfc1737e13854895acc8e80b387bdbb834a4d64ef2de25ef9",
+    "faces": "c1fd7d90121e53d1a26634737fc257e75a66d2a3028d5c277a3abcd82e169da4",
+    "owner": "e2003d703e1d218ef450322b9f652bfcfd8a5b2f1a15a02ef9fd6f62ec4ad481",
+    "neighbour": "bd6597db8bd35d0a6124dcf4fb32ac24de337049ca29ff24c6cdfe6083603671",
+    "boundary": "7af6c3a72899f1eb4539512b8e1ef115d5eb94888d16887c8cc4524b8affed97"
+  },
+  "no_mesh_quality_criteria_relaxed": true,
+  "boundary_layers_present": false,
+  "yPlus_verified": false,
+  "grid_independence_verified": false,
+  "source_physical_model_changed": false,
+  "pressure_solver_executed": false,
+  "pressure_adopted": false,
+  "complete_pressure_verified": false,
+  "ADPI_verified": false,
+  "design_accepted": false,
+  "remaining_work": [
+    "near-wall treatment and coverage/yPlus",
+    "mesh-resolution/geometry sensitivity; outlet area changes remain measured",
+    "source station/model correspondence and physical validation",
+    "pressure convergence and remaining network components"
+  ]
+}

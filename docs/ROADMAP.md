@@ -1,3 +1,5 @@
+A source-feature-aware uniform native plenum mesh now passes full OpenFOAM topology/geometry checks:142480cells, five source port planes/outward normals exact. No quality criteria relaxed. Wall treatment/yPlus, area/mesh sensitivity, pressure and physical acceptance remain open. See [native study](OPENFOAM_IMPORT_PRECISION.md).
+
 Current open-plenum candidate now has same-source40VAV station comparisons,160terminal path rows and A1 native coordination with100visible IDs/20row schedule.368conditional values/84numeric gaps per case; controlled VAV loss, full pressure and ADPI remain unresolved. Existing block/textalloc/static-balance tools reused with actual native and numerical checks. See [current package](CURRENT_VAV_STATION_PACKAGE.md).
 
 Full terminal coordination now has an actual saved/reopened598product native drawing and reviewed PDF, with12,904source contours independently reconciled. Exact geometry reuse and explicit drawing-mesh targets execute;19related tests pass. Physical airways,104numeric pressure gaps and ADPI remain unresolved. See [current network](CURRENT_LOGICAL_SUPPLY_NETWORK.md).

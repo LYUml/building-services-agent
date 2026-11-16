@@ -1,3 +1,5 @@
+A source-feature-aware uniform native plenum mesh now passes full OpenFOAM topology/geometry checks:142480cells, five source port planes/outward normals exact. No quality criteria relaxed. Wall treatment/yPlus, area/mesh sensitivity, pressure and physical acceptance remain open. See [native study](OPENFOAM_IMPORT_PRECISION.md).
+
 Native hex-dominant meshing now actually executes on the same source plenum:62995cells pass old determinant/weight checks but fail2004concave cells; no wall layers/pressure acceptance. Source surface and17digit native roundtrip reconcile exactly; measured port drift remains. See [native study](OPENFOAM_IMPORT_PRECISION.md).
 
 Limited-vector plenum trial now finishes its full200sample window:flow/mass pass, pressure ranges5.59–27.92% andyPlus1.25667 fail unchanged targets. No pressure adopted or further unchanged continuation; native failure localization separates4tetrahedral low-weight faces from117366small-determinant cells. See [native study](OPENFOAM_IMPORT_PRECISION.md).
