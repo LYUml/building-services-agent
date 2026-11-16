@@ -72,5 +72,52 @@
     "No pressure or plenum performance accepted",
     "Published length multiplier inconsistency unresolved; only direct4ft data used"
   ],
-  "design_accepted": false
+  "design_accepted": false,
+  "even_slot_source_followup": {
+    "published_variants": 14,
+    "independent_scalar_checks": 350,
+    "passed": true,
+    "direct_4ft_data_only": true
+  },
+  "explicit_service_partition_followup": {
+    "scope": "Design-assumed clipped row/column service cells; not measured zone load or proven air coverage",
+    "source_boundary_sha256": "c64f5b2df5be607b7aebc978a51d3a168b45ca9e057135f0df6540e651a4a617",
+    "two_source_interior_column_voids_preserved": true,
+    "candidates": [
+      {
+        "candidate": "uniform-main-15-rows-strip-services",
+        "terminals": 66,
+        "paired_curve_sample_passing_terminals": 58,
+        "flow_domain_gap_terminals": 0,
+        "samples_per_slot": 33,
+        "service_partition_symmetric_difference_m2": 0.0,
+        "service_partition_overlap_m2": -2.2737367544323206e-13,
+        "all_terminal_centers_inside_assigned_cells": true,
+        "area_flow_conserved": true
+      },
+      {
+        "candidate": "column-avoiding-strip-services",
+        "terminals": 60,
+        "paired_curve_sample_passing_terminals": 49,
+        "flow_domain_gap_terminals": 0,
+        "samples_per_slot": 33,
+        "service_partition_symmetric_difference_m2": 0.0,
+        "service_partition_overlap_m2": -2.2737367544323206e-13,
+        "all_terminal_centers_inside_assigned_cells": true,
+        "area_flow_conserved": true
+      },
+      {
+        "candidate": "three-column-edges-strip-services",
+        "terminals": 64,
+        "paired_curve_sample_passing_terminals": 57,
+        "flow_domain_gap_terminals": 0,
+        "samples_per_slot": 33,
+        "service_partition_symmetric_difference_m2": 0.0,
+        "service_partition_overlap_m2": -2.2737367544323206e-13,
+        "all_terminal_centers_inside_assigned_cells": true,
+        "area_flow_conserved": true
+      }
+    ],
+    "all_candidates_still_fail_complete_diagnostic": true
+  }
 }
