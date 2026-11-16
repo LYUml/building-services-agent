@@ -290,3 +290,22 @@ by at most4.71e-9m. The actual A4 PDF was inspected. Twelve related tests pass,
 including projection-normal translation invariance and unknown-kind rejection.
 The old private projection script is no longer needed to execute this recipe.
 See evidence/generic-ifc-plan-drawing.json.
+
+## Actual system-schematic trial
+
+The current110body candidate now also has a directed source topology schematic.
+Existing evaluated Graphviz13.1.2(executable hash ff1ce5f13caf4ed7dddb7327b94781e751e4a7e693b4655287b6647d959c879a),
+ezdxf Bezier utilities and the generic drawing entry are reused. Native IFC
+links yield109directed interfaces; prescribed_flows reconciles all239ports
+against the inherited current analysis. Saved native output retains110node
+labels and109arrowheads. One inlet and20outlet boundaries exactly match the
+pressure ledger. A component-key CSV binds short diagram IDs to native GUIDs,
+source names, inherited flows and numerical-gap flags.
+
+Five marked products account for11numerically unresolved fitting paths. Their
+outlet coverage is20,12,6,1,1 respectively; coverage is not hydraulic criticality.
+The actual A1 whole PDF and enlarged area were inspected after enlarging the
+schematic paper layout for readability. Paper geometry has no route-length
+meaning. Full pressure and engineering acceptance remain open. Topology-to-
+document preparation still uses a project script; this evidence does not claim
+a general schematic MCP adapter. See evidence/current-system-schematic.json.

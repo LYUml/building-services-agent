@@ -1,0 +1,863 @@
+{
+  "scope": "Actual110product IFC directed system schematic via existing pinned Graphviz and generic drawing entry",
+  "topology": {
+    "source_sha256": {
+      "Supply Network.ifc": "8279155fac0fbc70c57d6eaf00bd9daca72a783eab9cda44e73ef075b4929406",
+      "pressure-ledger.json": "540770627901d574e92b097b37e11db003913641290c44ee52ac524aa8f72828",
+      "analysis.json": "91910c089fba06563878ccd0715668980a9991dee333fc341cc1c68b5849e1cc"
+    },
+    "graphviz_sha256": "ff1ce5f13caf4ed7dddb7327b94781e751e4a7e693b4655287b6647d959c879a",
+    "nodes": {
+      "00GeeqwXDGqujg1GB$eSes": "N001",
+      "01iiRNwCPHCg2TQaDQTBPh": "N002",
+      "04F5YvifTSJg7FlI6PRqZ5": "N003",
+      "07b4f9lQPRehcpJNvrJdoA": "N004",
+      "0AKG640HHRCvsX97I0rPis": "N005",
+      "0FMDd$bG1NneS7N2OdRFsP": "N006",
+      "0GlYPBdTrOk9iSc8VSdy5M": "N007",
+      "0JgqECwtPHrA0cyUHrcIbw": "N008",
+      "0KANCt4H1OwBz_XiEYPohN": "N009",
+      "0RZ5PgHVXJLvQNvy$btRzb": "N010",
+      "0SUZH4h0PHngnCHgcUSoRv": "N011",
+      "0UHvCBIGrKUh162tPWAMb6": "N012",
+      "0V2LoAkZ5G5gS9d5BbC$m4": "N013",
+      "0WD0vb27TQyg59IaExUFo$": "N014",
+      "0WTAykFzDO6g74PUW_qYSH": "N015",
+      "0WvdfA3zDKfO0CW$V5Jsne": "N016",
+      "0g9bpYq$DOCvGnKRTNdtFF": "N017",
+      "0hfguPDXzM4uq$XxvCCMMo": "N018",
+      "0ibn1oYr9NqAKrRPJhTTLc": "N019",
+      "0jkIpE339UJuVju7ICXFwa": "N020",
+      "0jrW4IiM9QGe5EURDoYzuc": "N021",
+      "0qNVk8Gl5MtunvH8kUxih0": "N022",
+      "0rXojppeTH0BTVX2pgkVrd": "N023",
+      "0xQD0bae1JS9QSYLjgwgUq": "N024",
+      "10cDTQJo5IcPLAUKm5b$EG": "N025",
+      "10hC2HAf5QjBh8eHXVJY72": "N026",
+      "16XnXAKsDR7fGY5Y8JvRrZ": "N027",
+      "1GS8rKBADM7RZvHhbL6Ep3": "N028",
+      "1I5d0BkIHT3A1NnC$0VWpB": "N029",
+      "1JDTIpFW5QSREtJ610AQ34": "N030",
+      "1LnLmgXgrLMPCjBotJJT1X": "N031",
+      "1NNygbUo1H2gfBYTyXz_Mi": "N032",
+      "1PiEAHH0TK3gfwO81Khyfo": "N033",
+      "1T1iJcPpbHQe9NXE03EuZB": "N034",
+      "1TIfjG5dDG7vbAe6RHp7j4": "N035",
+      "1TWK5B6RfT_AFHX9Xe4Kgi": "N036",
+      "1Ufk3tsn5INAsuK0h2HT1y": "N037",
+      "1YJt4TrT9S8BByBTRqevjy": "N038",
+      "1ZMsCt7frSIOnceShsMcSz": "N039",
+      "1eFzE74j9IX9FCS_bpSZi8": "N040",
+      "1h76SSiWvQkv6hW9gZiAWw": "N041",
+      "1hJrcsal9PEeDP4SMx$KOp": "N042",
+      "1ljYkCFLnPd9wUABuPtBnw": "N043",
+      "1pO1kxbLLHgeS$_8xwTnCF": "N044",
+      "223pk9Z9fHyP3zWtKUZIvr": "N045",
+      "26EjKRjm1Oaf1Pm8QC5__S": "N046",
+      "27IHODPwvOcvX4rYmwPpKF": "N047",
+      "2A5hnkfKfVQA3ppPSDKTLp": "N048",
+      "2Acysx8AbINgOLlSWUMu3$": "N049",
+      "2Ak1om3Z1N5xCmvkzr$r14": "N050",
+      "2Dsp0tDUbIPeYXMKPfWKVu": "N051",
+      "2FvdFUVL5HUxtti7erekMp": "N052",
+      "2GbZoz5nfRsPMRMT$Zb04z": "N053",
+      "2Hhpdn9zvHWgPTh84ov2v6": "N054",
+      "2JMPWE5frHZh$wlOnAqtDb": "N055",
+      "2JsVFcCh5MBxs36NfRYoo1": "N056",
+      "2K8VLv$mHMsBKiV6ZO9m6P": "N057",
+      "2NUeFlDmPKeAdID44c7Y3d": "N058",
+      "2S6vsh9WvK7QxoNkNqHEuL": "N059",
+      "2TYIpAGo5Jn84Ds4cFSqzD": "N060",
+      "2XEZn9xizSj8RijhAxhINj": "N061",
+      "2XwTInSaDUehdxilTykrGb": "N062",
+      "2ccvQtxx1NM9BcgfkkqDoa": "N063",
+      "2d3C3bkV5TKOINf_o71Axc": "N064",
+      "2dKtjbtJ5GG9NXTFtT112S": "N065",
+      "2dn9VHyVbTPeHkLMTVDJUw": "N066",
+      "2dwkXYndrQe8akRs1ziEM_": "N067",
+      "2fieqZej5SJAaqHsMO0oF8": "N068",
+      "2gx8F2$bXVygUIF5pMJ0LR": "N069",
+      "2itLDYgonR0OKoH78TWU_m": "N070",
+      "2qcqvYPk5G8vc$41LcIAkK": "N071",
+      "2rKpl9k2TUAhJWrPrXQmSK": "N072",
+      "2s98LbeQnOCR5h4UlU$jeq": "N073",
+      "2v8d4ojL5QafzZ9D0Bm0K7": "N074",
+      "2ww9pYvAfSyx5JhKUO62Me": "N075",
+      "2xxjOz63jHgeE8yuHmmyJ7": "N076",
+      "2z0OsSxEPMxe7bw868aznG": "N077",
+      "313870AqbVSRXmShgN8WDS": "N078",
+      "32SL8_FtLLxRDkUZc7lzNQ": "N079",
+      "34mxrHmz5STv2lghv93cpE": "N080",
+      "38dK30VmnKehhKPOSvl9WN": "N081",
+      "3BAXRbMxzN3eioe3GnwiQn": "N082",
+      "3DcSerARnJc8mAlL$xnPwO": "N083",
+      "3DhC$V0cPTkO8XfPybGL1V": "N084",
+      "3EOykJlO1HYxMOUeXGrm9C": "N085",
+      "3GLkYHze9Uw8_FjhVKOzKc": "N086",
+      "3IGC6EqWfHaQxpwnA5F9ZZ": "N087",
+      "3KVa$eR3TNbgQrEvSpYAD8": "N088",
+      "3MrppTZp9HmPVxHHgd4Sv1": "N089",
+      "3MshfZ5Q5K_eON58DjXDyB": "N090",
+      "3TG4i8QwvGw8JWXR1SDbXG": "N091",
+      "3Tf1SEAG9NLxz6miD8JeEM": "N092",
+      "3UfxkNar9T3uv889TvBuZo": "N093",
+      "3Y2iFalPLIjPgobiCbmlpM": "N094",
+      "3YEo7IX2vLHOZoUdtxYhkW": "N095",
+      "3YrSwlhyvPVRNUSDnDuRY$": "N096",
+      "3ZeIIu8ZjLivD3$rEAqFH_": "N097",
+      "3_1R9TjS5TtxR81DWGT3Tt": "N098",
+      "3_2J5UZTzTsQMQxcqWPfNK": "N099",
+      "3_3cf04PnN2xcqwNqA9Dlz": "N100",
+      "3__drCT4XK$8OhZtbklpLq": "N101",
+      "3a7$AHZw5N4Q86Z0VE5lAm": "N102",
+      "3bnJDrEfPJpOdFEQN7QpDb": "N103",
+      "3cmKKWOIXG2wIWIQw2L$Ga": "N104",
+      "3h3LVEhmLMw8Yn5iIujoaS": "N105",
+      "3nUnywxFXUIfHj1ihinFuB": "N106",
+      "3tK$ugPAvIAAusb9mKjQEp": "N107",
+      "3wTmMPy0nMnuyTKqqLAA0H": "N108",
+      "3yhBBouBPRw8LwOEWLhhps": "N109",
+      "3ysY1EiSPKuwnw9GCI$6QR": "N110"
+    },
+    "interfaces": [
+      {
+        "from_guid": "3Tf1SEAG9NLxz6miD8JeEM",
+        "to_guid": "1GS8rKBADM7RZvHhbL6Ep3",
+        "source_port": "3Z$IVZpT9Qsv$NJERunZYq",
+        "sink_port": "2tD0ljWczL0eLHvQXj1YmQ"
+      },
+      {
+        "from_guid": "1GS8rKBADM7RZvHhbL6Ep3",
+        "to_guid": "2ww9pYvAfSyx5JhKUO62Me",
+        "source_port": "3AHfHBmovMox314OcElvL$",
+        "sink_port": "2cO1LFWE5GoeQ3L2z_4o$q"
+      },
+      {
+        "from_guid": "2ww9pYvAfSyx5JhKUO62Me",
+        "to_guid": "3__drCT4XK$8OhZtbklpLq",
+        "source_port": "10mYAu9$nPXx394eyg20Nz",
+        "sink_port": "0QMAjz$MDG99BRVSWGakej"
+      },
+      {
+        "from_guid": "10hC2HAf5QjBh8eHXVJY72",
+        "to_guid": "1T1iJcPpbHQe9NXE03EuZB",
+        "source_port": "1v_Ja4ZjHTgflfseZrCMVo",
+        "sink_port": "0j1OuFfI1UYuWN5GaStw1Z"
+      },
+      {
+        "from_guid": "1T1iJcPpbHQe9NXE03EuZB",
+        "to_guid": "3yhBBouBPRw8LwOEWLhhps",
+        "source_port": "1oHMyDUUDOGw0kmQR75W9w",
+        "sink_port": "2Mcz75$mbGDf7NmerFwH1Q"
+      },
+      {
+        "from_guid": "0KANCt4H1OwBz_XiEYPohN",
+        "to_guid": "0ibn1oYr9NqAKrRPJhTTLc",
+        "source_port": "3jeX4s4Z5IYeuE$7WMm0Qx",
+        "sink_port": "1wmPghLTzMc9crpVwFcXDv"
+      },
+      {
+        "from_guid": "0ibn1oYr9NqAKrRPJhTTLc",
+        "to_guid": "3UfxkNar9T3uv889TvBuZo",
+        "source_port": "1QyjMIWCjSHQTRaBRhP8p2",
+        "sink_port": "2Sw6qrqbjPcP_mfpEJuyNt"
+      },
+      {
+        "from_guid": "01iiRNwCPHCg2TQaDQTBPh",
+        "to_guid": "0WD0vb27TQyg59IaExUFo$",
+        "source_port": "2Aesy4qBjQfPyKBz_EtKK9",
+        "sink_port": "38yy7kNGzGxxIfsZILjcOU"
+      },
+      {
+        "from_guid": "0WD0vb27TQyg59IaExUFo$",
+        "to_guid": "3YEo7IX2vLHOZoUdtxYhkW",
+        "source_port": "3qCmCCPGzIA8Av$hAWq5H_",
+        "sink_port": "2QPuMlxgfNPxVEGZEUOXtQ"
+      },
+      {
+        "from_guid": "2Acysx8AbINgOLlSWUMu3$",
+        "to_guid": "0jrW4IiM9QGe5EURDoYzuc",
+        "source_port": "1wZcj5l45Gt9AbNhHo_A2P",
+        "sink_port": "0tezDgJE9RvP8RzXgaa5tB"
+      },
+      {
+        "from_guid": "0jrW4IiM9QGe5EURDoYzuc",
+        "to_guid": "0FMDd$bG1NneS7N2OdRFsP",
+        "source_port": "3xUCeixorQyByUoyI1gNC3",
+        "sink_port": "39AG_b47bHrwMOVosoYUT5"
+      },
+      {
+        "from_guid": "38dK30VmnKehhKPOSvl9WN",
+        "to_guid": "1hJrcsal9PEeDP4SMx$KOp",
+        "source_port": "2K4tWhXKnQ4vC0y6Yjy9QX",
+        "sink_port": "3MDpUslpfUHeT50dWeoVww"
+      },
+      {
+        "from_guid": "1hJrcsal9PEeDP4SMx$KOp",
+        "to_guid": "2TYIpAGo5Jn84Ds4cFSqzD",
+        "source_port": "0wYPAheBrJI9Q5$QQtsU47",
+        "sink_port": "1kl2VoWSjIvAViRjR4TPIE"
+      },
+      {
+        "from_guid": "00GeeqwXDGqujg1GB$eSes",
+        "to_guid": "1TWK5B6RfT_AFHX9Xe4Kgi",
+        "source_port": "3S5I7mBSnO9fJRtqwH97CJ",
+        "sink_port": "1wLl5BuijGh8Fl74e_vajg"
+      },
+      {
+        "from_guid": "1TWK5B6RfT_AFHX9Xe4Kgi",
+        "to_guid": "1JDTIpFW5QSREtJ610AQ34",
+        "source_port": "39NU49EXfUafAGD0acjryX",
+        "sink_port": "3lEaNmbGLPHfJHTzQcYc6x"
+      },
+      {
+        "from_guid": "3bnJDrEfPJpOdFEQN7QpDb",
+        "to_guid": "3GLkYHze9Uw8_FjhVKOzKc",
+        "source_port": "2iylxtA39V$R98O9dQ71w8",
+        "sink_port": "3U04xaSwHI3BeIodELIqRd"
+      },
+      {
+        "from_guid": "3GLkYHze9Uw8_FjhVKOzKc",
+        "to_guid": "2NUeFlDmPKeAdID44c7Y3d",
+        "source_port": "3Ii_jGjozMsBXMUkcBY5I8",
+        "sink_port": "3L3OoG5BPSPQRiGNL8iyi8"
+      },
+      {
+        "from_guid": "1LnLmgXgrLMPCjBotJJT1X",
+        "to_guid": "32SL8_FtLLxRDkUZc7lzNQ",
+        "source_port": "32VFhOgTjMlRJM2S1ngjOf",
+        "sink_port": "0BcuWcI55HuhPJ79uWa9vR"
+      },
+      {
+        "from_guid": "32SL8_FtLLxRDkUZc7lzNQ",
+        "to_guid": "3TG4i8QwvGw8JWXR1SDbXG",
+        "source_port": "188Z9OroPL5OmEPyfb3xoZ",
+        "sink_port": "2g$VDkD5jRYuxq4vYNe72A"
+      },
+      {
+        "from_guid": "2GbZoz5nfRsPMRMT$Zb04z",
+        "to_guid": "2v8d4ojL5QafzZ9D0Bm0K7",
+        "source_port": "0$eywnGm1P_vjAxP4lFxWO",
+        "sink_port": "0hyS6ic$fUGw2K_wd42UCL"
+      },
+      {
+        "from_guid": "2JMPWE5frHZh$wlOnAqtDb",
+        "to_guid": "38dK30VmnKehhKPOSvl9WN",
+        "source_port": "051NCvL2bI7B9BhgLTja3E",
+        "sink_port": "0G6DhiXbfRHvy7otAfVi6E"
+      },
+      {
+        "from_guid": "1pO1kxbLLHgeS$_8xwTnCF",
+        "to_guid": "2Hhpdn9zvHWgPTh84ov2v6",
+        "source_port": "08fu5hXC5UHwzWpe13ncd7",
+        "sink_port": "2wFgskqxTR99DbMrLsYlzl"
+      },
+      {
+        "from_guid": "2GbZoz5nfRsPMRMT$Zb04z",
+        "to_guid": "1YJt4TrT9S8BByBTRqevjy",
+        "source_port": "0B$TVH4_vT_xlrygN9n2g5",
+        "sink_port": "1rS_9IcmfSqfvyOANBe7zg"
+      },
+      {
+        "from_guid": "3_2J5UZTzTsQMQxcqWPfNK",
+        "to_guid": "2Acysx8AbINgOLlSWUMu3$",
+        "source_port": "0EvGYEXPfHA8XCZDkoFbUT",
+        "sink_port": "2zUCN1hfXRNhCBURkEVZXf"
+      },
+      {
+        "from_guid": "3_3cf04PnN2xcqwNqA9Dlz",
+        "to_guid": "2qcqvYPk5G8vc$41LcIAkK",
+        "source_port": "0ExIwBlv5NavFWBhKTbaN_",
+        "sink_port": "1oMbOVJKbPbhrv1da6Qnrg"
+      },
+      {
+        "from_guid": "0UHvCBIGrKUh162tPWAMb6",
+        "to_guid": "3EOykJlO1HYxMOUeXGrm9C",
+        "source_port": "0VkTZ2pMbK4xpjp9ffynIe",
+        "sink_port": "2aGVDvF3rSUxtXb5pwjpJD"
+      },
+      {
+        "from_guid": "313870AqbVSRXmShgN8WDS",
+        "to_guid": "1TIfjG5dDG7vbAe6RHp7j4",
+        "source_port": "0jfQ4MGwTUzO$zFUeXlyp5",
+        "sink_port": "1O95hY4IHG7P4ujOgw4o6I"
+      },
+      {
+        "from_guid": "3MshfZ5Q5K_eON58DjXDyB",
+        "to_guid": "1PiEAHH0TK3gfwO81Khyfo",
+        "source_port": "0lj9zTt0HRHeiXhV7kTYxb",
+        "sink_port": "1xPf9_NwnUsPPGD2kkbW_O"
+      },
+      {
+        "from_guid": "3tK$ugPAvIAAusb9mKjQEp",
+        "to_guid": "1LnLmgXgrLMPCjBotJJT1X",
+        "source_port": "0p9MUXr_HGLPv9CJE2cNDO",
+        "sink_port": "0vSb1JZD5TzAnhYpQZsRFE"
+      },
+      {
+        "from_guid": "3DcSerARnJc8mAlL$xnPwO",
+        "to_guid": "0xQD0bae1JS9QSYLjgwgUq",
+        "source_port": "0s2rFFocjUO97pw1w_LPsN",
+        "sink_port": "3sOMkKWwLJSANSoe$H_BdC"
+      },
+      {
+        "from_guid": "27IHODPwvOcvX4rYmwPpKF",
+        "to_guid": "0RZ5PgHVXJLvQNvy$btRzb",
+        "source_port": "0y2UyKXe9G$8OfcxWvJsB6",
+        "sink_port": "0ygT3j5qrHHgAlcCJTfrXw"
+      },
+      {
+        "from_guid": "0g9bpYq$DOCvGnKRTNdtFF",
+        "to_guid": "3DcSerARnJc8mAlL$xnPwO",
+        "source_port": "0zR2sFd7PI0QQ$97eg2mOh",
+        "sink_port": "1l83sKCWfNBhPBByroHfdh"
+      },
+      {
+        "from_guid": "1pO1kxbLLHgeS$_8xwTnCF",
+        "to_guid": "2z0OsSxEPMxe7bw868aznG",
+        "source_port": "0zXiOuMfbVnAg_KHbIFAy3",
+        "sink_port": "2pVHr334XIg8naxCs33_Pt"
+      },
+      {
+        "from_guid": "3BAXRbMxzN3eioe3GnwiQn",
+        "to_guid": "3_1R9TjS5TtxR81DWGT3Tt",
+        "source_port": "18l_BQy7bMuxYSDHZFCBop",
+        "sink_port": "1oqFi$Z8XOKfTGhetCDnlA"
+      },
+      {
+        "from_guid": "2itLDYgonR0OKoH78TWU_m",
+        "to_guid": "3_3cf04PnN2xcqwNqA9Dlz",
+        "source_port": "18v6pdZarO0RNoVJv8ud19",
+        "sink_port": "1UbGPGhzvOo8CGZRTtpoq6"
+      },
+      {
+        "from_guid": "3TG4i8QwvGw8JWXR1SDbXG",
+        "to_guid": "3MshfZ5Q5K_eON58DjXDyB",
+        "source_port": "19gnO84sLS0OzkuF6EStT5",
+        "sink_port": "1Xg7RqPGrRxOQWFtXuTK9i"
+      },
+      {
+        "from_guid": "0rXojppeTH0BTVX2pgkVrd",
+        "to_guid": "2s98LbeQnOCR5h4UlU$jeq",
+        "source_port": "1JWwvHqZ5Pk8QXvkqnkPUt",
+        "sink_port": "0NmDVlADfVUffDKlSR1fOI"
+      },
+      {
+        "from_guid": "3tK$ugPAvIAAusb9mKjQEp",
+        "to_guid": "16XnXAKsDR7fGY5Y8JvRrZ",
+        "source_port": "1JXx68DOjGoB7rRh$1wW9w",
+        "sink_port": "2sX0$TTO9VLPBcJ6WmhwDf"
+      },
+      {
+        "from_guid": "1Ufk3tsn5INAsuK0h2HT1y",
+        "to_guid": "1pO1kxbLLHgeS$_8xwTnCF",
+        "source_port": "1Kmkyb5kbK2hnCzoEJNKPU",
+        "sink_port": "1mDKJuBeTQnf_0HHwfZ5TI"
+      },
+      {
+        "from_guid": "0qNVk8Gl5MtunvH8kUxih0",
+        "to_guid": "2Dsp0tDUbIPeYXMKPfWKVu",
+        "source_port": "1L1OqNwV5Po99U1MQrEyJK",
+        "sink_port": "26IKQzvmLVcgbajEDuD3Xx"
+      },
+      {
+        "from_guid": "0xQD0bae1JS9QSYLjgwgUq",
+        "to_guid": "2Ak1om3Z1N5xCmvkzr$r14",
+        "source_port": "1R2J3rTFXJY8ftlMqOvi8j",
+        "sink_port": "3GHOKFKgvRLuSRvuXUYu5I"
+      },
+      {
+        "from_guid": "1NNygbUo1H2gfBYTyXz_Mi",
+        "to_guid": "223pk9Z9fHyP3zWtKUZIvr",
+        "source_port": "1TTm_5Ue5H3h1ESptg8FlK",
+        "sink_port": "3YFNW55$POZBf84AWYuRUT"
+      },
+      {
+        "from_guid": "2JsVFcCh5MBxs36NfRYoo1",
+        "to_guid": "0WTAykFzDO6g74PUW_qYSH",
+        "source_port": "1ZOyco7kTG3RG07Uim3ZW8",
+        "sink_port": "3sLDGk2DzT08jNltux$XO3"
+      },
+      {
+        "from_guid": "3cmKKWOIXG2wIWIQw2L$Ga",
+        "to_guid": "0UHvCBIGrKUh162tPWAMb6",
+        "source_port": "1epqkUk2bROhKeOzefYom1",
+        "sink_port": "2HxAY926DRIOGl0bjGsiSB"
+      },
+      {
+        "from_guid": "223pk9Z9fHyP3zWtKUZIvr",
+        "to_guid": "34mxrHmz5STv2lghv93cpE",
+        "source_port": "1hyjTwMR5Nae9qEEtNmnoX",
+        "sink_port": "3F1GuPkT1LqAkuzNso3YGc"
+      },
+      {
+        "from_guid": "3tK$ugPAvIAAusb9mKjQEp",
+        "to_guid": "3cmKKWOIXG2wIWIQw2L$Ga",
+        "source_port": "1nZG_eMK1Gye1MngM01C4c",
+        "sink_port": "245x2h9xjVCOUeWFE$DKAr"
+      },
+      {
+        "from_guid": "3__drCT4XK$8OhZtbklpLq",
+        "to_guid": "3tK$ugPAvIAAusb9mKjQEp",
+        "source_port": "1w77cfnQrNmwPXHKl1eHli",
+        "sink_port": "1eaqInnnrTIwoGGSUzFSzP"
+      },
+      {
+        "from_guid": "2gx8F2$bXVygUIF5pMJ0LR",
+        "to_guid": "2JsVFcCh5MBxs36NfRYoo1",
+        "source_port": "1wX6A_LhXMwAT5sxQtr6W7",
+        "sink_port": "1oGr7$WYDJ8hyfAyQtKjh1"
+      },
+      {
+        "from_guid": "1PiEAHH0TK3gfwO81Khyfo",
+        "to_guid": "2A5hnkfKfVQA3ppPSDKTLp",
+        "source_port": "1x2hi6q2jJQPf0Pjv1hQ1y",
+        "sink_port": "16z_IT8SXSuw6YVju7qqxd"
+      },
+      {
+        "from_guid": "3tK$ugPAvIAAusb9mKjQEp",
+        "to_guid": "1Ufk3tsn5INAsuK0h2HT1y",
+        "source_port": "1x9U27nGzJ4Q1jY7FHDFze",
+        "sink_port": "3pj1s13iHGXxItqamkCra$"
+      },
+      {
+        "from_guid": "2FvdFUVL5HUxtti7erekMp",
+        "to_guid": "01iiRNwCPHCg2TQaDQTBPh",
+        "source_port": "1zpj_pI8DU$enV_vvprOJv",
+        "sink_port": "25iSNidCvNbRMagRDWEJTD"
+      },
+      {
+        "from_guid": "2fieqZej5SJAaqHsMO0oF8",
+        "to_guid": "2K8VLv$mHMsBKiV6ZO9m6P",
+        "source_port": "25dUuZGd9RlPwVhYTZdJAj",
+        "sink_port": "3H866S3rfOHvzLKNGUAT1n"
+      },
+      {
+        "from_guid": "3a7$AHZw5N4Q86Z0VE5lAm",
+        "to_guid": "0GlYPBdTrOk9iSc8VSdy5M",
+        "source_port": "28BBe1LdPLF8FaN_NcfClv",
+        "sink_port": "1FmTpqj6jGbxJd8cQacamm"
+      },
+      {
+        "from_guid": "3YrSwlhyvPVRNUSDnDuRY$",
+        "to_guid": "0g9bpYq$DOCvGnKRTNdtFF",
+        "source_port": "29mH$Ion1ULwX4L96Nz8rZ",
+        "sink_port": "2es9LeJgfS1B9eKuf2F4$q"
+      },
+      {
+        "from_guid": "16XnXAKsDR7fGY5Y8JvRrZ",
+        "to_guid": "3BAXRbMxzN3eioe3GnwiQn",
+        "source_port": "2Bszff$LTO_9a0dglP6_tY",
+        "sink_port": "2xpbJX7jnQgO2grYaphpZx"
+      },
+      {
+        "from_guid": "2s98LbeQnOCR5h4UlU$jeq",
+        "to_guid": "2d3C3bkV5TKOINf_o71Axc",
+        "source_port": "2Dv5XrU_zQduRTd58zZ62d",
+        "sink_port": "0$7xLgTjbUHRLIu6TQcqLM"
+      },
+      {
+        "from_guid": "3KVa$eR3TNbgQrEvSpYAD8",
+        "to_guid": "10hC2HAf5QjBh8eHXVJY72",
+        "source_port": "2EjiMHLC9LBBzUh2cH8p5c",
+        "sink_port": "2K$upTuUHGQvxWnUUJB4AO"
+      },
+      {
+        "from_guid": "0GlYPBdTrOk9iSc8VSdy5M",
+        "to_guid": "2GbZoz5nfRsPMRMT$Zb04z",
+        "source_port": "2FBapol$nNiReFqqPcNNGF",
+        "sink_port": "0dR44ah91JrwoF3lu_418z"
+      },
+      {
+        "from_guid": "0SUZH4h0PHngnCHgcUSoRv",
+        "to_guid": "0KANCt4H1OwBz_XiEYPohN",
+        "source_port": "2Fese000fPyOpofbM3XvoW",
+        "sink_port": "1BEgzJUFbM_Rq_Q3edpySP"
+      },
+      {
+        "from_guid": "2rKpl9k2TUAhJWrPrXQmSK",
+        "to_guid": "00GeeqwXDGqujg1GB$eSes",
+        "source_port": "2HLqNrtUDQd9MK97gKpnzs",
+        "sink_port": "3Aabk8yE9NMQpZ4FUytcbP"
+      },
+      {
+        "from_guid": "34mxrHmz5STv2lghv93cpE",
+        "to_guid": "3ysY1EiSPKuwnw9GCI$6QR",
+        "source_port": "2KJBFJeYXV_eblaFt$mMtm",
+        "sink_port": "0k4loRkPHQiw$mcn9jjSrb"
+      },
+      {
+        "from_guid": "0AKG640HHRCvsX97I0rPis",
+        "to_guid": "3h3LVEhmLMw8Yn5iIujoaS",
+        "source_port": "2Mw4_k0ETQdhCWoR$m26S6",
+        "sink_port": "0qAVw_HpLI6hYe5UzzALmj"
+      },
+      {
+        "from_guid": "2qcqvYPk5G8vc$41LcIAkK",
+        "to_guid": "07b4f9lQPRehcpJNvrJdoA",
+        "source_port": "2P_zK_1S1L6Pd_3Ph2n5cO",
+        "sink_port": "38l7dDSVbTPvdCZLLVqB1V"
+      },
+      {
+        "from_guid": "2XEZn9xizSj8RijhAxhINj",
+        "to_guid": "2FvdFUVL5HUxtti7erekMp",
+        "source_port": "2XVFgFS9HLqga3vlsxPQcS",
+        "sink_port": "2ztp7Y0mfPTwv3dOWeYYlO"
+      },
+      {
+        "from_guid": "3EOykJlO1HYxMOUeXGrm9C",
+        "to_guid": "2fieqZej5SJAaqHsMO0oF8",
+        "source_port": "2ZgPCBlYTInRH24B_VNV18",
+        "sink_port": "3uGDIrLV9RlBdYlMNVQ8tm"
+      },
+      {
+        "from_guid": "2Ak1om3Z1N5xCmvkzr$r14",
+        "to_guid": "0AKG640HHRCvsX97I0rPis",
+        "source_port": "2c24JEoCzSTwoiOcuRQdra",
+        "sink_port": "1vHPf3YCPJePl4FpDGGXZg"
+      },
+      {
+        "from_guid": "1TIfjG5dDG7vbAe6RHp7j4",
+        "to_guid": "3nUnywxFXUIfHj1ihinFuB",
+        "source_port": "2f9Gv$aWbRRhuLabYDW7Hh",
+        "sink_port": "2eDy1o6TfJVe8S7L6Ku49B"
+      },
+      {
+        "from_guid": "1pO1kxbLLHgeS$_8xwTnCF",
+        "to_guid": "2dn9VHyVbTPeHkLMTVDJUw",
+        "source_port": "2sY$pT2HLT_vGIq2bU2aaj",
+        "sink_port": "34aZ0QXkHL1hfjJaQvI$Pl"
+      },
+      {
+        "from_guid": "2K8VLv$mHMsBKiV6ZO9m6P",
+        "to_guid": "2JMPWE5frHZh$wlOnAqtDb",
+        "source_port": "2tNGgXY0XKReKAWgYkwGtg",
+        "sink_port": "15zFWxHNfNbPw3ZRK36Vdk"
+      },
+      {
+        "from_guid": "2d3C3bkV5TKOINf_o71Axc",
+        "to_guid": "2S6vsh9WvK7QxoNkNqHEuL",
+        "source_port": "3CpLmocJPUOReUAQBRYuXq",
+        "sink_port": "1aTCnctAzNnPvODOWALaHX"
+      },
+      {
+        "from_guid": "3nUnywxFXUIfHj1ihinFuB",
+        "to_guid": "0jkIpE339UJuVju7ICXFwa",
+        "source_port": "3Eml8WTKPU2hjYyow37wiq",
+        "sink_port": "3feqvu8S5SWRQiRbBPK2Kq"
+      },
+      {
+        "from_guid": "0RZ5PgHVXJLvQNvy$btRzb",
+        "to_guid": "2XEZn9xizSj8RijhAxhINj",
+        "source_port": "3G_3oiciXM2fbKSfoonkkB",
+        "sink_port": "1hlzxYpazLqPqLMGuB8JwP"
+      },
+      {
+        "from_guid": "3_1R9TjS5TtxR81DWGT3Tt",
+        "to_guid": "0qNVk8Gl5MtunvH8kUxih0",
+        "source_port": "3RNb2Epq1UHu8ZiPMBD4Wp",
+        "sink_port": "14sV276gjReA5UtfkUd9SF"
+      },
+      {
+        "from_guid": "2Dsp0tDUbIPeYXMKPfWKVu",
+        "to_guid": "0V2LoAkZ5G5gS9d5BbC$m4",
+        "source_port": "3cuQS10H5QHxLhP3oQCW_D",
+        "sink_port": "1p6TIdnIbSjBYvAs4khC5G"
+      },
+      {
+        "from_guid": "0WTAykFzDO6g74PUW_qYSH",
+        "to_guid": "0rXojppeTH0BTVX2pgkVrd",
+        "source_port": "3e27f9dJDQVRpPQ0nZq1Dz",
+        "sink_port": "0rn3VgsATOYO_4EsETpjkR"
+      },
+      {
+        "from_guid": "3nUnywxFXUIfHj1ihinFuB",
+        "to_guid": "2XwTInSaDUehdxilTykrGb",
+        "source_port": "2iuBlXixfUgg54RbHw2A0c",
+        "sink_port": "0ElX93GCPRjO7OcHzIeEsz"
+      },
+      {
+        "from_guid": "34mxrHmz5STv2lghv93cpE",
+        "to_guid": "26EjKRjm1Oaf1Pm8QC5__S",
+        "source_port": "2z22jWXSrP_vk2MXukh_67",
+        "sink_port": "22zGUVQojP$A9pTz3iiovn"
+      },
+      {
+        "from_guid": "0WTAykFzDO6g74PUW_qYSH",
+        "to_guid": "3ZeIIu8ZjLivD3$rEAqFH_",
+        "source_port": "1Rkc5yZ21KGPvafajWvd9r",
+        "sink_port": "1kfE3Ou1jT899k6Xyn0qIj"
+      },
+      {
+        "from_guid": "2d3C3bkV5TKOINf_o71Axc",
+        "to_guid": "2ccvQtxx1NM9BcgfkkqDoa",
+        "source_port": "1gNMdIL3nRCfHcGS3hfTKn",
+        "sink_port": "3xAYLD0x1R8OzqspQ0cyI$"
+      },
+      {
+        "from_guid": "2XEZn9xizSj8RijhAxhINj",
+        "to_guid": "3IGC6EqWfHaQxpwnA5F9ZZ",
+        "source_port": "382kKKzb1POROR8L3525QG",
+        "sink_port": "2a8gmsHZ1Lpubed0c9UeLO"
+      },
+      {
+        "from_guid": "2qcqvYPk5G8vc$41LcIAkK",
+        "to_guid": "2dKtjbtJ5GG9NXTFtT112S",
+        "source_port": "1Lo4fCHwHKpBgehtk1ZQtH",
+        "sink_port": "3qGMKACmfKwPz7s9Q4taU8"
+      },
+      {
+        "from_guid": "3DcSerARnJc8mAlL$xnPwO",
+        "to_guid": "0WvdfA3zDKfO0CW$V5Jsne",
+        "source_port": "1bEO4yEs9I1RzXgutXD9QZ",
+        "sink_port": "3Coz8G33DQ99OhGHJ0RlI1"
+      },
+      {
+        "from_guid": "0AKG640HHRCvsX97I0rPis",
+        "to_guid": "1eFzE74j9IX9FCS_bpSZi8",
+        "source_port": "0$3siXB_jSIvotCZZMg48B",
+        "sink_port": "0wy1Bi2SfLwQ9xDpcuDFvo"
+      },
+      {
+        "from_guid": "2K8VLv$mHMsBKiV6ZO9m6P",
+        "to_guid": "1ZMsCt7frSIOnceShsMcSz",
+        "source_port": "1S_N5GN_LIvgSglN69NqHL",
+        "sink_port": "0WHrEPVpTHEuTOrL9ud$zk"
+      },
+      {
+        "from_guid": "0UHvCBIGrKUh162tPWAMb6",
+        "to_guid": "3wTmMPy0nMnuyTKqqLAA0H",
+        "source_port": "1ZL_8UkvTGrPV04vRTWkiC",
+        "sink_port": "3WeVxCOA1TAez0$J5KPTNi"
+      },
+      {
+        "from_guid": "3BAXRbMxzN3eioe3GnwiQn",
+        "to_guid": "04F5YvifTSJg7FlI6PRqZ5",
+        "source_port": "0UmgjQTyDLw8DyPQHYOLYH",
+        "sink_port": "0vX9wxjufIiu9$Dx93H8XQ"
+      },
+      {
+        "from_guid": "2Dsp0tDUbIPeYXMKPfWKVu",
+        "to_guid": "3MrppTZp9HmPVxHHgd4Sv1",
+        "source_port": "3W7N38onzQ5fWBxRBucUYC",
+        "sink_port": "0ucHsJHbvQuuGzvdDbHdiP"
+      },
+      {
+        "from_guid": "3MshfZ5Q5K_eON58DjXDyB",
+        "to_guid": "3DhC$V0cPTkO8XfPybGL1V",
+        "source_port": "3ekUOlKIvPDOL6tapAxwgR",
+        "sink_port": "3iWFuHnmHQtBaLUNe0Onmf"
+      },
+      {
+        "from_guid": "2S6vsh9WvK7QxoNkNqHEuL",
+        "to_guid": "0SUZH4h0PHngnCHgcUSoRv",
+        "source_port": "3kLRCi0OHSUuerB8m65pZ_",
+        "sink_port": "2302mRacrI$OI2LuTeukS4"
+      },
+      {
+        "from_guid": "0V2LoAkZ5G5gS9d5BbC$m4",
+        "to_guid": "2rKpl9k2TUAhJWrPrXQmSK",
+        "source_port": "0s8otnNxrG882wR6ajB9wc",
+        "sink_port": "1z$R6hlkzGxPzeqR_vFKHk"
+      },
+      {
+        "from_guid": "1YJt4TrT9S8BByBTRqevjy",
+        "to_guid": "1NNygbUo1H2gfBYTyXz_Mi",
+        "source_port": "04nmuN2u1J3eOaMizp3Mco",
+        "sink_port": "0fCuBSHLDKpOb2I8$l0YZY"
+      },
+      {
+        "from_guid": "2v8d4ojL5QafzZ9D0Bm0K7",
+        "to_guid": "2gx8F2$bXVygUIF5pMJ0LR",
+        "source_port": "3gTwB9qL1PwOs9X8T685c2",
+        "sink_port": "0OMXcCPzXPq8PhHsdhSEMc"
+      },
+      {
+        "from_guid": "0jkIpE339UJuVju7ICXFwa",
+        "to_guid": "3KVa$eR3TNbgQrEvSpYAD8",
+        "source_port": "28DYiyNf9VYRLwzcSfzvtq",
+        "sink_port": "1ZUg$uCWTOzwpBp8LbWoeF"
+      },
+      {
+        "from_guid": "3ysY1EiSPKuwnw9GCI$6QR",
+        "to_guid": "313870AqbVSRXmShgN8WDS",
+        "source_port": "29d4g7OQbRXwjXemZUMx_V",
+        "sink_port": "1iMoCEMgHJevWnZqQ5IUFS"
+      },
+      {
+        "from_guid": "07b4f9lQPRehcpJNvrJdoA",
+        "to_guid": "27IHODPwvOcvX4rYmwPpKF",
+        "source_port": "02sJllga9KqeAoH10kRfqz",
+        "sink_port": "3v6c4joeLK_fhh2T_bI1HK"
+      },
+      {
+        "from_guid": "3h3LVEhmLMw8Yn5iIujoaS",
+        "to_guid": "3_2J5UZTzTsQMQxcqWPfNK",
+        "source_port": "0fw_KGnt5Tqgy22oncROR1",
+        "sink_port": "1L85n5moXQVPA6piSv0pLE"
+      },
+      {
+        "from_guid": "2Hhpdn9zvHWgPTh84ov2v6",
+        "to_guid": "3a7$AHZw5N4Q86Z0VE5lAm",
+        "source_port": "0eH2JEN2bPFB3AtFVqW19u",
+        "sink_port": "0sAvzqB1PGUgrhLLkohPBT"
+      },
+      {
+        "from_guid": "2z0OsSxEPMxe7bw868aznG",
+        "to_guid": "2itLDYgonR0OKoH78TWU_m",
+        "source_port": "2tHEICtLrImAMkL__rUAr0",
+        "sink_port": "1feJ2cfKbURecxneSxRPla"
+      },
+      {
+        "from_guid": "2dn9VHyVbTPeHkLMTVDJUw",
+        "to_guid": "3YrSwlhyvPVRNUSDnDuRY$",
+        "source_port": "0XAS3hVRbV_uQzzNHui1xC",
+        "sink_port": "0CGvss2bzPVQPMVAiCLEFh"
+      },
+      {
+        "from_guid": "3wTmMPy0nMnuyTKqqLAA0H",
+        "to_guid": "10cDTQJo5IcPLAUKm5b$EG",
+        "source_port": "0kmfTHPULHePECZOzJHqJE",
+        "sink_port": "0QpK1ZltvKExiCvJIe5Aka"
+      },
+      {
+        "from_guid": "3MrppTZp9HmPVxHHgd4Sv1",
+        "to_guid": "1ljYkCFLnPd9wUABuPtBnw",
+        "source_port": "21KyqpQRDG8vQ5oYrjuw7c",
+        "sink_port": "2aGph530jTqBfncQCLQ0Q9"
+      },
+      {
+        "from_guid": "1ZMsCt7frSIOnceShsMcSz",
+        "to_guid": "0hfguPDXzM4uq$XxvCCMMo",
+        "source_port": "13ZnKIhQnRjgMr5hzuR$bn",
+        "sink_port": "34MP8mJ$5TquQUAfNLwIu2"
+      },
+      {
+        "from_guid": "3IGC6EqWfHaQxpwnA5F9ZZ",
+        "to_guid": "1h76SSiWvQkv6hW9gZiAWw",
+        "source_port": "1KQ6QXPunPiwVKaXddFhN_",
+        "sink_port": "2lCUI3zqnGPPgpNGCQSXs5"
+      },
+      {
+        "from_guid": "2ccvQtxx1NM9BcgfkkqDoa",
+        "to_guid": "0JgqECwtPHrA0cyUHrcIbw",
+        "source_port": "1LTjOX0nnPFP1pR8xYY3dw",
+        "sink_port": "1koRi1_bzG2gtB6AbpFNtY"
+      },
+      {
+        "from_guid": "2dKtjbtJ5GG9NXTFtT112S",
+        "to_guid": "1I5d0BkIHT3A1NnC$0VWpB",
+        "source_port": "06HJV7q5nVUvn6CrlLPuR6",
+        "sink_port": "340uDoGwDHg9qXrw0AI2Qp"
+      },
+      {
+        "from_guid": "26EjKRjm1Oaf1Pm8QC5__S",
+        "to_guid": "3Y2iFalPLIjPgobiCbmlpM",
+        "source_port": "2jmpM9KizVlQn5m8h6UeC7",
+        "sink_port": "39TvK_HIvHLREOnz5qrsDY"
+      },
+      {
+        "from_guid": "04F5YvifTSJg7FlI6PRqZ5",
+        "to_guid": "2xxjOz63jHgeE8yuHmmyJ7",
+        "source_port": "0mKMIf4PLVxPxT9zrJpwAu",
+        "sink_port": "1YRfnAngvJRxZhNbr9WgoE"
+      },
+      {
+        "from_guid": "3DhC$V0cPTkO8XfPybGL1V",
+        "to_guid": "3bnJDrEfPJpOdFEQN7QpDb",
+        "source_port": "2FDCMe5OjRLhOX$VaPRdjs",
+        "sink_port": "0DBFIu2JDVHQPpe5f5ihoy"
+      },
+      {
+        "from_guid": "2XwTInSaDUehdxilTykrGb",
+        "to_guid": "2dwkXYndrQe8akRs1ziEM_",
+        "source_port": "125KqWp99MVf6mBR$mJH$7",
+        "sink_port": "0rhbB3hp9PCPRGEHceWB63"
+      }
+    ],
+    "flow_ports_reconciled": 239,
+    "unresolved_product_guids": [
+      "0AKG640HHRCvsX97I0rPis",
+      "1pO1kxbLLHgeS$_8xwTnCF",
+      "2GbZoz5nfRsPMRMT$Zb04z",
+      "3DcSerARnJc8mAlL$xnPwO",
+      "3tK$ugPAvIAAusb9mKjQEp"
+    ],
+    "numeric_fitting_gaps": 11,
+    "layout_size_mm": [
+      432.64666666666665,
+      115.7111111111111
+    ],
+    "design_accepted": false,
+    "schematic_paper_coordinate_enlargement": 1.65,
+    "schematic_paper_translation_mm": [
+      25,
+      170
+    ]
+  },
+  "saved_identity_checks": {
+    "node_labels": 110,
+    "directed_arrowheads": 109,
+    "unresolved_product_marks": 5,
+    "native_boundary_inlets": 1,
+    "native_boundary_outlets": 20,
+    "all_ledger_outlet_boundaries_match": true
+  },
+  "unresolved_product_outlet_coverage": {
+    "N107": 20,
+    "N044": 12,
+    "N053": 6,
+    "N005": 1,
+    "N083": 1
+  },
+  "coverage_is_not_hydraulic_criticality": true,
+  "native_audit": {
+    "model_entities": 1838,
+    "entity_types": {
+      "LWPOLYLINE": 220,
+      "TEXT": 116,
+      "LINE": 1502
+    },
+    "editable_entity_correspondence": true,
+    "dimension_rendering_visual_review": "pending"
+  },
+  "native_methods": {
+    "drawing_document.py": "424a8d8a40fa9a09ee7282f984807c9977529a6c48615c09367bdf1ff26b0881",
+    "cad_sheet.py": "2aa3880343af74c7dea09e329266651f5152badbf3e12befb8e5dc2f9a60c315",
+    "cad_intake.py": "ab8f7dd945134dc824de2a25cfb2d8423752c190baa150fedb81d87e93242bd0",
+    "cad_overlay.py": "91c4c9e2802a76f5516ca92c3438766cd472a0cbf797da0b1b3e8bfa688a9e49",
+    "native_cad.py": "d6a8b81b11bb2b422fdfbfa4ba3fc6b26557b5cfd0a8fc66a91c52cb74a180a0"
+  },
+  "plot": {
+    "pdf_sha256": "511119517b4e1531275ed47bbf997589f0fe2ed048f3ad0f28feab2333bb1a23",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      841.0222222222221,
+      594.0777777777777
+    ],
+    "scale_denominator": 1,
+    "reference_handle": "7BC",
+    "reference_expected_mm": 50.0,
+    "reference_measured_mm": 49.99566666666666,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "artifacts": {
+    "Supply Network System Schematic.dwg": "486f56ae66d581ebb68717b7548f8a9af8116e888c24a44b97ea60eabbe4f8e5",
+    "Supply Network System Schematic.pdf": "511119517b4e1531275ed47bbf997589f0fe2ed048f3ad0f28feab2333bb1a23"
+  },
+  "native_reopen_pass": true,
+  "visual_review": {
+    "reviewer": "Codex host AI",
+    "actual_whole_pdf_and_enlarged_area_inspected": true,
+    "finding": "Node labels, five gap markers and directed arrows readable; no observed clipping in examined sheet"
+  },
+  "design_accepted": false,
+  "limitations": [
+    "Topology preparation still uses a project script; no general schematic MCP adapter claimed",
+    "Schematic line lengths are not installation route lengths",
+    "11numeric fitting gaps plus conditional physical evidence remain unresolved",
+    "No complete fan duty or ADPI acceptance"
+  ]
+}
