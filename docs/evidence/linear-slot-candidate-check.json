@@ -1,0 +1,76 @@
+{
+  "scope": "Executed separate linear-slot candidate comparison; rejected as complete ADPI designs, original coursework unchanged",
+  "manufacturer_source": "https://www.krueger-hvac.com/file/6830/1900_Supply_PublishedPerformanceData.pdf",
+  "manufacturer_source_sha256": "86f81caae86ec36357ea39878a4c1a134b9c139102b12bbc92b0ea849a2e8edf",
+  "performance_pages": [
+    1,
+    4,
+    7,
+    10
+  ],
+  "independent_source_scalar_checks": 100,
+  "product": "1900 two slots two-way horizontal; four widths; direct 4ft base data only",
+  "curve_basis": "Engineering guide Type4 T100/L: paired40/60 maximum and20/40 minimum, not actual-load interpolation",
+  "finite_slot_sampling": "nine source-length samples, opposing finite-segment overlap and polygon wall rays; not continuous coverage proof",
+  "reuse": {
+    "Shapely": "2.2.0 BSD-3-Clause",
+    "fluids": "1.3.1 MIT",
+    "pypdf": "7.0.0 BSD-3-Clause",
+    "PyMuPDF": "1.26.7 AGPL-3.0; isolated private source check"
+  },
+  "candidates": [
+    {
+      "candidate": "boundary-corrected",
+      "terminals": 80,
+      "sample_checks_passing_terminals": 45,
+      "flow_domain_gap_terminals": 2,
+      "slot_segments_outside_boundary": 0,
+      "area_conserved": true,
+      "flow_conserved": true
+    },
+    {
+      "candidate": "bay-two-by-six",
+      "terminals": 76,
+      "sample_checks_passing_terminals": 46,
+      "flow_domain_gap_terminals": 3,
+      "slot_segments_outside_boundary": 0,
+      "area_conserved": true,
+      "flow_conserved": true
+    },
+    {
+      "candidate": "bay-2-by-4",
+      "terminals": 72,
+      "sample_checks_passing_terminals": 46,
+      "flow_domain_gap_terminals": 3,
+      "slot_segments_outside_boundary": 0,
+      "area_conserved": true,
+      "flow_conserved": true
+    },
+    {
+      "candidate": "bay-2-by-5",
+      "terminals": 74,
+      "sample_checks_passing_terminals": 46,
+      "flow_domain_gap_terminals": 3,
+      "slot_segments_outside_boundary": 0,
+      "area_conserved": true,
+      "flow_conserved": true
+    },
+    {
+      "candidate": "bay-3-by-4",
+      "terminals": 76,
+      "sample_checks_passing_terminals": 45,
+      "flow_domain_gap_terminals": 3,
+      "slot_segments_outside_boundary": 0,
+      "area_conserved": true,
+      "flow_conserved": true
+    }
+  ],
+  "limitations": [
+    "All candidates still fail complete paired-curve diagnostic",
+    "No native CAD authored or adopted",
+    "No physical ADPI acceptance",
+    "No pressure or plenum performance accepted",
+    "Published length multiplier inconsistency unresolved; only direct4ft data used"
+  ],
+  "design_accepted": false
+}
