@@ -1,0 +1,54 @@
+{
+  "scope": "Thin pinned node-order adapter verified against actual main source and native Gmsh mesh; no target solver or engineering acceptance.",
+  "actual_replay": {
+    "source_sha256": "5bc3e3291686deb5b16df8a5eeecb2b2b3edf5bfc7b9a27d25125e4e41b1a185",
+    "target_mesh_sha256": "a34324d73e65a4d10abcc102451b06c0ed3388300d5e01e051bfbd811b550fd0",
+    "agent_method_sha256": "80978cd6eb1fa5d7610d9eb41083376a5914f1bda55712d0c7a435f0b8666d6b",
+    "verification_method_sha256": "6ba8c7953ce19ac88a07b32cd73fdd30472eb2682686413c7ea4e6d0e68513a7",
+    "gmsh_version": "4.15.2",
+    "cells_checked": 265741,
+    "source_cell_type_counts": {
+      "13": 234212,
+      "10": 31529
+    },
+    "nodes_checked": 126183,
+    "maximum_coordinate_difference_m": 7.105427357601002e-15,
+    "all_source_cells_roundtrip_pass": true,
+    "all_native_gmsh_cells_match_source_ordering": true,
+    "canonical_volume_connectivity_sha256": "e47d2cb162c147c0ca7c2c34f189148c41eaeed283e7ed7f7016281764e984f6",
+    "minimum_native_SICN": 4.976009600201703e-05,
+    "minimum_native_signed_volume_m3": 6.786172264261679e-09,
+    "target_solver_import_executed": false,
+    "engineering_accepted": false,
+    "scope": "Existing Gmsh mesh plus new thin ordering helper replay on all actual main cells. Node ordering only; no new solver, geometry, pressure or general mesh-format acceptance."
+  },
+  "upstream_ordering": {
+    "gmsh_tag": "gmsh_4_15_2",
+    "source_pins": {
+      "MPrism.h": {
+        "url": "https://raw.githubusercontent.com/live-clones/gmsh/gmsh_4_15_2/src/geo/MPrism.h",
+        "sha256": "cd1ba66bb32aa654f12ec155e0132da85fb7049c0af431e94487f8f2ca37e1fc"
+      },
+      "GModelIO_SU2.cpp": {
+        "url": "https://raw.githubusercontent.com/live-clones/gmsh/gmsh_4_15_2/src/geo/GModelIO_SU2.cpp",
+        "sha256": "467a66e6494dc255f74ae541ad7fbb6d263fd07df93518aaad5782f5b1c0085e"
+      }
+    },
+    "permutation": [
+      0,
+      2,
+      1,
+      3,
+      5,
+      4
+    ],
+    "scope": "Pinned native SU2 writer uses VTK order, MPrism getVertexVTK explicit map; inverse is identical."
+  },
+  "upstream_license": "Gmsh4.15.2 GPL-2.0-or-later; existing isolated runtime, ordering convention reused with attribution, no new engine dependency.",
+  "tests": {
+    "command": "python -m unittest discover -s tests -p test_cfd_node_order.py",
+    "passed": 3
+  },
+  "engineering_accepted": false,
+  "full_project_pressure_gaps_per_flowcase": 84
+}

@@ -1,5 +1,7 @@
 # Reuse survey â€” 2026-11-09
 
+A thin pinned node-order adapter now passes tests and all265741actual main-cell correspondence checks. No solver or pressure acceptance. See [node ordering](CFD_NODE_ORDER.md).
+
 An executed 30/60-layer axial bend comparison passes numerical checks, with pressure change about0.061% but unresolved conditional velocity discrepancy. No full grid independence. See [axial follow-up](DEVELOPED_BEND_CHECK.md#axial-grid-follow-up).
 
 The developed-inlet bend now passes complete numerical-window checks; conditional experimental discrepancy remains. See [bend check](DEVELOPED_BEND_CHECK.md).
