@@ -46,5 +46,15 @@
     "SD labels identify terminal connection planes, not modeled diffuser bodies",
     "Full pressure, controlled VAV losses, installation and ADPI applicability remain unaccepted"
   ],
-  "design_accepted": false
+  "design_accepted": false,
+  "connection_review": {
+    "all597_directed_source_interfaces_partitioned_exactly_once": true,
+    "main_internal_interfaces": 117,
+    "terminal_internal_interfaces": 460,
+    "cross_sheet_connections": 20,
+    "all20_cross_sheet_port_owners_directions_and_inverse_records_match": true,
+    "all20_native_group_flow_headings_match_source_cases": true,
+    "connection_csv_sha256": "ec79a6a3dd0d55aafb27e9e725badbb6d323d1dce66d76f77e2e38bd76fa45a7",
+    "scope": "Native IFC topology and saved drawing group flow text; not pressure or physical port acceptance"
+  }
 }
