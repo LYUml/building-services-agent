@@ -227,3 +227,14 @@ normalize these coordinates to Python float, preserving that bound unchanged.
 A regression accepts1e-10drawing-unit noise and rejects a0.01unit vertex change.
 The first rejected native run remains private history. See
 evidence/current-network-general-drawing.json.
+
+The same110body candidate now also has an A1 1:5 branch-detail sheet through
+the shared layout/CLI entry. Ten actual native side cuts cover20saved products;
+615model entities include10editable dimensions. Independent saved IFC port
+separations match all10reopened DWG dimensions within9.4e-13mm. The100mm
+paper reference measures100.034mm. Actual whole PDF and enlarged detail were
+inspected after correcting a title-line overlap in a preserved earlier trial.
+Pinned trimesh plane intersection, existing IfcOpenShell native meshes, rectpack
+and generic drawing authoring were reused without new dependencies. This is
+a candidate construction study, not product/full-pressure/course acceptance.
+See evidence/current-branch-general-drawing.json.
