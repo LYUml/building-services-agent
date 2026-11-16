@@ -1,3 +1,5 @@
+Three same-source A1 system drawings now have saved/reopened native DWGs, reviewed plots and independent 598-label/80-flow checks. Full pressure and ADPI remain open. See [system drawings](CURRENT_SYSTEM_DRAWINGS.md).
+
 A source-feature-aware uniform native plenum mesh now passes full OpenFOAM topology/geometry checks:142480cells, five source port planes/outward normals exact. No quality criteria relaxed. Wall treatment/yPlus, area/mesh sensitivity, pressure and physical acceptance remain open. See [native study](OPENFOAM_IMPORT_PRECISION.md).
 
 Current open-plenum candidate now has same-source40VAV station comparisons,160terminal path rows and A1 native coordination with100visible IDs/20row schedule.368conditional values/84numeric gaps per case; controlled VAV loss, full pressure and ADPI remain unresolved. Existing block/textalloc/static-balance tools reused with actual native and numerical checks. See [current package](CURRENT_VAV_STATION_PACKAGE.md).

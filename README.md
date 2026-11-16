@@ -1,3 +1,5 @@
+Three same-source A1 system drawings now have saved/reopened native DWGs, reviewed plots and independent 598-label/80-flow checks. Full pressure and ADPI remain open. See [system drawings](docs/CURRENT_SYSTEM_DRAWINGS.md).
+
 # Building Services Agent
 
 One source-feature-aware unlayered plenum mesh now passes full native OpenFOAM topology/geometry checks. Near-wall treatment, mesh sensitivity and pressure acceptance remain open. See [native study](docs/OPENFOAM_IMPORT_PRECISION.md).

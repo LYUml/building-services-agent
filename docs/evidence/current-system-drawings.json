@@ -1,0 +1,50 @@
+{
+  "scope": "Same-source editable system topology drawings; separate open-plenum study, not replacement of course baseline",
+  "source_ifc_sha256": "a26626e4359ca82ca90de33423d46819b66bd78e54f22a0f52e221ff18ce2937",
+  "source_products": 598,
+  "source_ports": 1275,
+  "source_interfaces": 597,
+  "all598_native_visible_labels_match_source_index": true,
+  "all80_native_terminal_maximum_minimum_flow_labels_match_source_cases": true,
+  "flow_basis": "Prescribed preliminary design demand, rounded to nearest L/s on drawings; not measured",
+  "artifacts": [
+    {
+      "title": "Supply Air Main System",
+      "run": "current-source-main-system-readable-native",
+      "native_entities": 3228,
+      "native_reopen_pass": true,
+      "editable_entity_correspondence": true,
+      "dwg_sha256": "31d88dbb457466da961b0735e95472092d53758b1b8ac87d25cca7e4145b8bb8",
+      "pdf_sha256": "40ffc3b835cbce58aa836a510aa32ff308b580937c82fb4d021af57a434a5852"
+    },
+    {
+      "title": "Terminal Systems - VAV 01 to 10",
+      "run": "current-source-terminal-systems-01-10-native",
+      "native_entities": 3650,
+      "native_reopen_pass": true,
+      "editable_entity_correspondence": true,
+      "dwg_sha256": "356c4f88aa9d5143105642c861d712f58fe0fa18b501b9798985070d27f6c275",
+      "pdf_sha256": "a998b7e163bb55312aa27ccf11fb88dfbd9ce87726a97ab7bbecf7ec95566178"
+    },
+    {
+      "title": "Terminal Systems - VAV 11 to 20",
+      "run": "current-source-terminal-systems-11-20-native",
+      "native_entities": 3650,
+      "native_reopen_pass": true,
+      "editable_entity_correspondence": true,
+      "dwg_sha256": "f0e44489c0473e87f3380df3bf897c6c7ced437da5318b7d83fd7870bd921c6a",
+      "pdf_sha256": "00bb43a2d0fd0fa2dc17085d282c46f145f497caf042b689230c3ff2a56a8c20"
+    }
+  ],
+  "visual_review": {
+    "reviewer": "Codex host AI",
+    "main": "Actual final PDF whole page inspected; no observed clipping or text overlap",
+    "terminal": "Final whole pages and representative VAV-01/VAV-11 crops inspected; no observed clipping or text overlap"
+  },
+  "limits": [
+    "Schematic links do not prove installed lengths or physical clearance",
+    "SD labels identify terminal connection planes, not modeled diffuser bodies",
+    "Full pressure, controlled VAV losses, installation and ADPI applicability remain unaccepted"
+  ],
+  "design_accepted": false
+}
