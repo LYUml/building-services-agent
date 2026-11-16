@@ -1,0 +1,27 @@
+{
+  "scope": "Actual assignment-linked OnlineDuctulator fixed-section sizing check, not full pressure or wholeproject acceptance",
+  "url": "https://ductulator.com/metric/",
+  "help_url": "https://ductulator.com/metric/help.html",
+  "observed_version": "V1.0.8",
+  "observed_copyright": "Miro Zaroukian;allrightsreserved;noenginecodecopied",
+  "source_of_url": "Originalbriefp2 embeddedOnlineDuctular hyperlink",
+  "ui_execution": "Nativebrowser36uniqueinputqueries,47sectionsusingexactduplicate-cache only; inputvalues andvisibleoutputcells observed",
+  "source_schedule_sha256": "7db3280370d77b274717fefa3be223636682c3d27c31c56d93f9e156e465dc21",
+  "source_limits_sha256": "c8177012d162f5d22cf3fad76f3bdad2aac7cb641d644c4c9d93006afa58e6b6",
+  "sections": 47,
+  "unique_queries": 36,
+  "online_friction_max_Pa_m": 1.2,
+  "online_friction_all_with_half_last_digit_margin_below_section_caps": true,
+  "exact_velocity_all_below_bound_section_caps": true,
+  "velocity_display_matches_exact_geometry_at_one_decimal": true,
+  "relative_friction_differences_range": [
+    -0.017216597483861285,
+    -0.009998574900853208
+  ],
+  "formula_and_online_values_not_equal": true,
+  "website_air_properties_not_exposed_in_help": true,
+  "pressure_ledger_unchanged": true,
+  "csv_sha256": "7156a5eebc9998c728de7356f1644ab1e40810d473978c6677205f09fc2cf7b5",
+  "engineering_accepted": false,
+  "matching_report_sha256": "3ff4678c962725aa641470f06a1865d6ced1b50c51f4544d93632f9dd860d564"
+}

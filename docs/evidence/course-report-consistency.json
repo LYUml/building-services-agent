@@ -1,13 +1,14 @@
 {
   "scope": "Matching coursework review report for current47section singleline scenario; not final acceptance",
   "report_pages": 12,
-  "report_sha256": "92dc750efc2d12e3961ad84b72b0f72d403466b30d433f2db4ea5c3d351e089f",
+  "report_sha256": "3ff4678c962725aa641470f06a1865d6ced1b50c51f4544d93632f9dd860d564",
   "source_inputs_sha256": {
     "ratios": "45fb301e55af2132ca1e5cb01a67ddfccafa362aced04e567272f124f675a462",
     "ducts": "7db3280370d77b274717fefa3be223636682c3d27c31c56d93f9e156e465dc21",
     "vav": "cbf05b9ac84e06d6d93a5d30dce07a5a1e457b766c47d0eae99dc774e57e3ee5",
     "plan": "12103d9a2bd978cdd725be89f8ae56c7b85dc354f1af2ea485fcb41285c5b2e5",
-    "allocation": "4aaf873093425d7499d89eb474d9b243f024e6ece1f72f2d02729b4ac7744681"
+    "allocation": "4aaf873093425d7499d89eb474d9b243f024e6ece1f72f2d02729b4ac7744681",
+    "online": "7156a5eebc9998c728de7356f1644ab1e40810d473978c6677205f09fc2cf7b5"
   },
   "printed_table_checks": {
     "all80_diffuser_sixvalue_rows_reconciled": true,
@@ -17,7 +18,8 @@
     "no_internal_revision_labels": true,
     "body_and_plan_pages": 12,
     "final_native_reopen_pending": true,
-    "engineering_accepted": false
+    "engineering_accepted": false,
+    "all47_online_and_formula_rows_reconciled": true
   },
   "visual_review": {
     "all12_pages_rendered": true,
@@ -28,13 +30,29 @@
       8
     ],
     "orphan_row_pages_removed": true,
-    "remaining": "No fresh finalDWGreopening performed; sourceplan is unchanged previouslycheckedPDF."
+    "remaining": "No fresh finalDWGreopening performed; sourceplan is unchanged previouslycheckedPDF.",
+    "changed_fullsize_pages_inspected": [
+      9,
+      10,
+      11
+    ],
+    "unchanged_previously_reconciled_content_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      12
+    ]
   },
   "remaining": [
     "ADPIloadband qualification and oral/writtenloadinterpretation conflict",
     "Originalscale/semanticboundary/ceiling andinstalledflexlength checks",
-    "CurrentrequiredfrictionchartorOnlineDuctular method coverage",
-    "FinalnativeDWGreopenandplot/packageacceptance"
+    "FinalnativeDWGreopenandplot/packageacceptance",
+    "Website air properties and installed physical applicability not independently established"
   ],
   "engineering_accepted": false
 }

@@ -111,7 +111,7 @@ When the brief explicitly supplies a minimum-flow factor,independently check eve
 
 Current Canvas lecture file320901 was downloaded through the authenticated native
 browser and matches the held SHA210d482549a3fbab5b4aef0db7c159cec9d36eae336a1e4ca64f3b30f3a9acf0.
-Page5 explicitly selects1400 sixinch and applies1.0–3.4; page4 defines wall/
+Page5 explicitly selects1400 sixinch and applies1.0â€“3.4; page4 defines wall/
 opposing-midplane lengths and requires maximum plus40percent minimum checks.
 All seven currently visible announcements and the assignment submission page
 contain no located explanation for the170.1versus160load-band issue. This review
@@ -123,10 +123,10 @@ the interpreted source polygon:40boundary directions and280opposing-midplane
 directions. Source geometry semantics, scale, ceiling and jet applicability remain
 qualified. Independent Decimal interpolation from the original pinnedB1-12 eightinch
 nine-row table matches all640direction/case throws within8.89e-16m. All ratios
-are1.109829–3.224458, inside the explicit classroom1.0–3.4 interval.
+are1.109829â€“3.224458, inside the explicit classroom1.0â€“3.4 interval.
 
 This is a classroom ratio-arithmetic and plan-correspondence result, NOT accepted
-ADPI applicability:170.1W/m2 remains outside the printed35–160band; no exemption
+ADPI applicability:170.1W/m2 remains outside the printed35â€“160band; no exemption
 was found. Keep2012manufacturer paired-curve diagnostics separate, without
 claiming their negative result disproves all layouts or the prescribed course
 method. A fresh K-Select critical-case request failed its product identity guard;
@@ -143,3 +143,26 @@ initialorphanrowpages fixed beforehandoff. No internalrevisionlabels remain.
 This replaces no historicalsource and does not establish newnativeDWGacceptance
 or resolveADPIloadband/applicability/ductchart coverage. See
 [report consistency evidence](evidence/course-report-consistency.json).
+
+
+## Assignment-linked online sizing execution
+
+The original briefp2 hyperlink selects https://ductulator.com/metric/. Actual
+nativebrowserUI execution on observedV1.0.8 covers47currentfixedsections using
+36uniqueQ/width/height tuples. Only exactduplicate tuples reuse an output. No
+websiteJavaScript/engine code was copied. Publishedhelp exposes units and input
+workflow but not airproperties; preserve this limit rather than asserting
+physicalidentity with fluids.
+
+All observed rectangle dimensions and flows correspond to the currentCSV.
+Displayed velocities reconcile at0.1m/s precision with exactQ/area; exact
+geometric velocities satisfy each bound10or8m/s cap. All3decimalfriction
+results plus0.0005Pa/m display margin are below the original section-specific
+caps, including the three compensated sections. Highestonlinevalue1.200Pa/m.
+Onlinefriction is1.00â€“1.72%lower than the independent formula, so agreement at
+displayprecision is NOT claimed. Bothcolumns now appear in the matching12page
+report; all47printedrows reconcile and changedpages9/10/11 are rendered/viewed.
+Unchangedpages1â€“8/12 have identical contentstreams to the priorcheckedreport.
+This supplies execution of the assignment-linked sizing route, not fullnetwork
+pressure,ADPI orinstalled-systemacceptance. See
+[executed sizing evidence](evidence/online-ductulator-check.json).

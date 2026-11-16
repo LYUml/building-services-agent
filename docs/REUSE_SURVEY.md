@@ -1953,3 +1953,12 @@ NativehistoryCLI reuses existingparser/cfd_convergence withoutthresholdchanges; 
 Wallresolutiongap: actualpinnednativefoamPostProcess/incompressibleFluid/yPlus executesonstable1050withoutchangingexistingfields. ExistingpinnedGmsh4.15.2BREP/layers/caps/exterior/verifier/coreoptimizer reused for40um17layer same-depthmesh. Aspectchecknowpasses but2qualitycategoriesremain; nativeportareasidentical. mapFieldsactualbundledsourcecheckedafterunsupportedcellVolumeWeight rejected; interpolate inverse-distance initialization pending, notconservative/pressureapproval. No newengine/dependency. See OPENFOAM_IMPORT_PRECISION.md.
 
 Native mapping follow-up: packaged mapFields inverse-distance interpolation now executes after target boundary-size validation; original six source field hashes unchanged and all mapped684730cell fields finite. Native postprocess recomputes Pt/yPlus rather than adopting interpolated derived fields. New-grid full-order screen fails; controlled higher-order-U/upwind-k-omega20step counterpart has no negative-k events and measured yPlus<1, but no full-window or engineering acceptance. Existing native engines only; no new dependency. See OPENFOAM_IMPORT_PRECISION.md.
+
+
+Course sizing gap: reuse the originalbrief-linked ductulator.com/metric/ V1.0.8
+through actual nativebrowserUI for47fixedsections/36uniqueinputtuples. This is
+a websitecalculator, not a newlyintegrated open-sourceengine; allrightsreserved,
+noenginecodecopied, no dependency added. Existingfluids/csv/sourceboundlimits
+provide independent velocity/friction comparison and reportlab/pypdf produce
+the matchingreport. Airpropertyidentity and wholeprojectacceptance remainopen.
+See COURSEWORK_SCOPE.md.
