@@ -166,3 +166,26 @@ component is filled in the project ledger. Next: localize this spike before
 further iteration. Native smooth low-Re nut0/k0/omegaWallFunction equivalence to
 previous SU2 settings, SST applicability and three mesh-quality checks all remain
 unverified. [Actual startup receipt](evidence/openfoam-actual-plenum-startup.json).
+
+
+## Source-preserving history adapter
+
+bsa.openfoam_history reads pinned two-column surfaceFieldValue sum(phi) and
+average(Pt) records for steady deltaT1cases. It requires exact column headers,
+finite values, consecutive integer times and complete newline-terminated rows.
+It rejects duplicate restart times, missing rows and misaligned patch histories;
+it does not silently merge or trim segments. Caller binds phi=m3/s, verified
+Pt=Pa, actual weighting and an explicit source density. Conversion uses
+inward-positive mass=-rho*phi and leaves Pt unchanged, then reuses the existing
+cfd_convergence numerical assessor without changing its thresholds. Three tests
+cover sign/density/pressure handling, incomplete/nonfinite/duplicate rows and
+cross-channel misalignment. Actual frozen first-family startup0segment replay
+passes flow/mass but correctly FAILS pressure stability across20samples. This
+is deliberately not a200step assessment. [Executed adapter receipt](evidence/openfoam-history-adapter.json).
+
+Cold-start source-flow diagnostics reduce global peak speed205.290at saved10
+to39.151at20,18.386at30 and7.031at50. The60step run completes normally but its
+latest saved field is50, because native time indices inherited an offset from
+copied initialization metadata. A bounded200step continuation therefore resumes
+from actual saved50, retaining old51..60observations separately instead of
+counting overlap twice. This live continuation has no acceptance result yet.

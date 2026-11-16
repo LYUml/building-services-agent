@@ -53,3 +53,6 @@ tests/test_openfoam_mesh_review.py text eol=lf
 
 src/bsa/cfd_flux_window.py text eol=lf
 tests/test_cfd_flux_window.py text eol=lf
+
+src/bsa/openfoam_history.py text eol=lf
+tests/test_openfoam_history.py text eol=lf
