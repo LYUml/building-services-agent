@@ -1,3 +1,5 @@
+Rebased reduced-cross candidate now has118bodies and88conditional/4numeric gaps per flowcase; remaining numeric gaps all belong to the compound junction. Native interfaces/unchanged boundaries/arithmetic/actual drawing checked; full engineering acceptance remains open. See [current reduced cross](RECENTERED_CROSS.md).
+
 Rebased equal-area bullhead candidate now has116bodies and83conditional/7numeric gaps per flowcase. All21external boundaries preserved; native caps/arithmetic/actual detail drawing checked. Local throat velocity doubles; full engineering acceptance remains open. See [current bullhead](RECENTERED_BULLHEAD.md).
 
 Current-layout compact branch reuse now gives114bodies and79conditional/9numeric fitting gaps per flowcase, preserving all21external boundaries. Native caps, independent arithmetic and actual reopened detail sheet verified; full pressure remains unknown. See [current compact branches](RECENTERED_COMPACT_BRANCHES.md).

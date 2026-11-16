@@ -1,0 +1,128 @@
+{
+  "scope": "Separate current-layout reduced-branch cross candidate; course baseline preserved",
+  "ifc_sha256": "d11d94b6725b9284ce175e9abf75785d2b70e8beb0487d084a3a82dc8981c67b",
+  "source_ifc_sha256": "a607abab13e0e2f3e885ff7a2e750de88ca3e17bdf66689f1d5f0690707c68a6",
+  "bodies": 118,
+  "ports": 255,
+  "links": 117,
+  "schema_issues": 0,
+  "unchanged_parent_products": 109,
+  "unchanged_external_boundary_frames": 21,
+  "actual_material_interfaces": 117,
+  "solid_intersections": 0,
+  "unwaived_linked_clearance_findings": 117,
+  "independent_decimal_queries": 10,
+  "maximum_pressure_difference_Pa": 7.105427357601002e-15,
+  "trimmed_straights": [
+    {
+      "trimmed_straight_guid": "3_3cf04PnN2xcqwNqA9Dlz",
+      "old_depth_m": 1.7912252875253785,
+      "new_depth_m": 0.9316498762528624,
+      "additional_reach_m": 0.859575411272515
+    },
+    {
+      "trimmed_straight_guid": "0g9bpYq$DOCvGnKRTNdtFF",
+      "old_depth_m": 2.4830892875253596,
+      "new_depth_m": 1.6235138762528436,
+      "additional_reach_m": 0.859575411272515
+    }
+  ],
+  "both_flow_cases": {
+    "conditional_values": 88,
+    "numeric_gaps": 4,
+    "fitting_paths": 92
+  },
+  "prior_both_flow_cases": {
+    "conditional_values": 83,
+    "numeric_gaps": 7,
+    "fitting_paths": 90
+  },
+  "design_accepted": false,
+  "complete_pressure_Pa": null,
+  "source": "Previously reviewed PHVAC9 supplement2021 Fitting5-35 printed47/48 diverging instruction to5-23,printed38/39 correlations and4-2printed19; original48page visually rechecked",
+  "assumptions": "850x850mm main unchanged;two650x850mm branches;15degree expansions,50mmcollars,0.8mmoffset;80mm minimum remaining straight is an internal comparison target",
+  "local_branch_velocity_review": [
+    {
+      "port_guid": "0zXiOuMfbVnAg_KHbIFAy3",
+      "prior_mean_velocity_m_s": 2.5678605307385634,
+      "candidate_mean_velocity_m_s": 3.3579714632735054
+    },
+    {
+      "port_guid": "2sY$pT2HLT_vGIq2bU2aaj",
+      "prior_mean_velocity_m_s": 2.5678605307385616,
+      "candidate_mean_velocity_m_s": 3.357971463273503
+    }
+  ],
+  "remaining_numeric_gap_product_guids": [
+    "3tK$ugPAvIAAusb9mKjQEp"
+  ],
+  "native_drawing": {
+    "native_audit": {
+      "model_entities": 236,
+      "entity_types": {
+        "TEXT": 7,
+        "LINE": 225,
+        "DIMENSION": 3,
+        "LWPOLYLINE": 1
+      },
+      "editable_entity_correspondence": true,
+      "dimension_rendering_visual_review": "pending"
+    },
+    "methods": {
+      "drawing_document.py": "424a8d8a40fa9a09ee7282f984807c9977529a6c48615c09367bdf1ff26b0881",
+      "cad_sheet.py": "2aa3880343af74c7dea09e329266651f5152badbf3e12befb8e5dc2f9a60c315",
+      "cad_intake.py": "ab8f7dd945134dc824de2a25cfb2d8423752c190baa150fedb81d87e93242bd0",
+      "cad_overlay.py": "91c4c9e2802a76f5516ca92c3438766cd472a0cbf797da0b1b3e8bfa688a9e49",
+      "native_cad.py": "d6a8b81b11bb2b422fdfbfa4ba3fc6b26557b5cfd0a8fc66a91c52cb74a180a0"
+    },
+    "plot": {
+      "pdf_sha256": "a83708c02d39ecbbf455aa06f321366e1f6b1820e5bb60c20be4170796017e36",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 20,
+      "reference_handle": "1A4",
+      "reference_expected_mm": 50.0,
+      "reference_measured_mm": 50.03799999999999,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "native_reopen_pass": true,
+    "independent_port_dimension_checks": [
+      {
+        "dimension": "expansion-1",
+        "native_port_separation_mm": 859.575411272516,
+        "reopened_dimension_mm": 859.5754112725161
+      },
+      {
+        "dimension": "expansion-2",
+        "native_port_separation_mm": 859.575411272516,
+        "reopened_dimension_mm": 859.5754112725158
+      },
+      {
+        "dimension": "cross-port-span",
+        "native_port_separation_mm": 1050.0000000000114,
+        "reopened_dimension_mm": 1050.000000000011
+      }
+    ],
+    "visual_review": {
+      "reviewer": "Codex host AI",
+      "actual_whole_pdf_inspected": true,
+      "finding": "Readable dimensions and notes; no observed clipping in examined sheet"
+    }
+  },
+  "drawing_artifacts": {
+    "Reduced Branch Cross Construction.dwg": "10201a3d6695c622a25a00eb6b973ed117e2f303e990c04b00b0fa26ab89383d",
+    "Reduced Branch Cross Construction.pdf": "a83708c02d39ecbbf455aa06f321366e1f6b1820e5bb60c20be4170796017e36"
+  },
+  "remaining": [
+    "4numeric compound-junction paths",
+    "117unwaived linked contact-clearance findings",
+    "Whole-fitting friction/stations and short-fitting interactions",
+    "Higher local branch velocity:noise/products/actual performance unverified",
+    "Equipment/terminal/flex/boundary pressure and ADPI basis"
+  ]
+}
