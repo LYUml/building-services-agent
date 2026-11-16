@@ -133,3 +133,13 @@ method. A fresh K-Select critical-case request failed its product identity guard
 no new native throw was adopted. Existing adpi_screen applicability gates remain
 unchanged. The coursework companionCSV binds the actual directional results.
 See [current ratio evidence](evidence/course-current-ratio-check.json).
+
+
+The current scenario now has a matching12page coursework reviewPDF, including
+the unchanged previouslycheckedA1plan. All80diffuser printed flow/throw/ratio
+rows,320printedLvalues,47duct rows and20VAVrows reconcile to their CSV
+producers. Allpages rendered; pageoverviews andfullsize1/4/8 inspected, with
+initialorphanrowpages fixed beforehandoff. No internalrevisionlabels remain.
+This replaces no historicalsource and does not establish newnativeDWGacceptance
+or resolveADPIloadband/applicability/ductchart coverage. See
+[report consistency evidence](evidence/course-report-consistency.json).
