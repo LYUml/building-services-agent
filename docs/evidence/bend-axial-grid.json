@@ -1,0 +1,142 @@
+{
+  "scope": "Two-level axial bend mesh follow-up only, no full grid independence or engineering acceptance.",
+  "upstream_geometry": {
+    "upstream_commit": "ce41729be812da70f06bea0fd1a97a6ce4da14aa",
+    "source_geo_sha256": "8720083ad90eb3c5b8e237bee902b299780883efcd5cccadf8338111a6f53084",
+    "changes": [
+      "Nbend30to60 only"
+    ],
+    "scope": "Targeted axial bend mesh preparation; geometry dimensions and cross-section settings unchanged. Actual inlet correspondence and mesh quality must be checked. No mesh independence or pressure acceptance.",
+    "engineering_accepted": false
+  },
+  "mesh_quality": {
+    "elements_by_gmsh_type": {
+      "5": 87278
+    },
+    "minimum_SICN": 0.05953920020016378,
+    "minimum_signed_volume_m3": 1.1188737755701156e-08,
+    "total_cell_volume_m3": 0.008003959357183179,
+    "mesh_sha256": "08eab72c28d173d90987915da45b084310c205ced5f3d4f4d0f02aedee547dc8",
+    "engineering_accepted": false,
+    "scope": "Native Gmsh generation and cell quality only; boundary geometry/flow/source validation pending."
+  },
+  "boundary_and_inlet_check": {
+    "mesh_sha256": "08eab72c28d173d90987915da45b084310c205ced5f3d4f4d0f02aedee547dc8",
+    "points": 93936,
+    "cells": 87278,
+    "all_exterior_faces_exactly_once": true,
+    "maximum_volume_face_incidence": 2,
+    "inward_boundary_faces": {
+      "inlet": 0,
+      "outlet": 0,
+      "wall_2": 0,
+      "wall_bend": 0,
+      "wall_1": 0,
+      "symmetry_1": 0,
+      "symmetry_bend": 0,
+      "symmetry_2": 0
+    },
+    "marker_areas_m2": {
+      "inlet": 0.004242332606847506,
+      "outlet": 0.004242332606847513,
+      "wall_2": 0.16984643267185387,
+      "wall_bend": 0.05335502118047711,
+      "wall_1": 0.08492321633592684,
+      "symmetry_1": 0.054080077919534175,
+      "symmetry_bend": 0.03397563370045056,
+      "symmetry_2": 0.10816015583906899
+    },
+    "inlet_matching_tolerance_m": 1e-09,
+    "maximum_inlet_coordinate_difference_m": 1.323031267874697e-11,
+    "engineering_accepted": false,
+    "scope": "Native cell/exterior checks and one-to-one coordinate correspondence only. Exact1e-12 matching failed at1.323e-11 numerical mesher displacement;1e-9 geometric threshold explicit. No solver tolerance change."
+  },
+  "initialization": {
+    "source_field_sha256": "a93d8110def654ed8777490dc775d97c45b21027b664bd668b3c3ef43b21398e",
+    "input_field_sha256": "9e89e1cf5ebeb7187a633a7afcc56e53efd0ae008e0ca8e1d9a7878721c8e6b7",
+    "profile_sha256": "5b7d7df7c7d1c58020ea57be757ea9c6af0cb69e684e7e931346d4bf06273b64",
+    "mesh_sha256": "08eab72c28d173d90987915da45b084310c205ced5f3d4f4d0f02aedee547dc8",
+    "initialization_method": "SciPy cKDTree nearest native node; initialization only, nonconservative and not a final interpolated engineering field.",
+    "mapping_distance_median_m": 1.0408340855860843e-17,
+    "mapping_distance_max_m": 0.006806591658512965,
+    "wall_velocity_zeroed_nodes": 5776,
+    "native_inlet_quadrature_kg_s": 0.04375608945882391,
+    "scope": "Same source geometry and cross section, Nbend30to60 only; same developed inlet and physical model. Actual solve and separate numerical/curve checks pending.",
+    "engineering_accepted": false
+  },
+  "terminal_iteration": 431,
+  "normal_exit": true,
+  "all_six_log_rms_at_most_minus10": true,
+  "numerical_window": {
+    "window_iterations": [
+      232,
+      431
+    ],
+    "maximum_relative_flow_errors": {
+      "inlet": 2.7559190169522565e-07,
+      "outlet": 1.1352275357283532e-05
+    },
+    "maximum_relative_mass_imbalance": 1.122358067353749e-05,
+    "pressures": {
+      "outlet": {
+        "mean_Pa": 21.586714567650002,
+        "range_Pa": 0.0006587099999961765,
+        "relative_range": 3.0514601836785475e-05,
+        "positive": true,
+        "stable": true
+      }
+    },
+    "numerical_targets": {
+      "flow": 0.001,
+      "mass": 0.001,
+      "pressure_range": 0.005
+    },
+    "flow_pass": true,
+    "mass_pass": true,
+    "pressure_stability_pass": true,
+    "numerical_window_pass": true,
+    "engineering_accepted": false,
+    "scope": "Complete supplied domain; numerical window only. Requires separate model, turbulence, mesh and source applicability verification.",
+    "provenance": {
+      "history_sha256": "512d378c55d758ae6f8e93b1505cca02d8a87db3a2e51afa04d567039b5652a8",
+      "targets_sha256": "3a31196e8f8aa8f307f16e6a1ac92b6d1ad79a7ab583940b92d5d75898f0ac01",
+      "method_sha256": "256877f3486b8c681fd255293b6834761fec91bb130c1690cd62332a60283092"
+    }
+  },
+  "probe": {
+    "nodes": 40,
+    "mesh_points": 93936,
+    "provenance": {
+      "mesh_sha256": "08eab72c28d173d90987915da45b084310c205ced5f3d4f4d0f02aedee547dc8",
+      "field_sha256": "791e234c62427e0fae4de678a3880be55e626c4bb7f0968b76c0fa3affde8998",
+      "spec_sha256": "bf2259c03227242da6e7df0d68236c767cc7e92d5ca434a44d52235238af953c",
+      "method_sha256": "13bb43480546e47b666c3647351695d66fb9f9e01a560b6340c52a4439001552"
+    }
+  },
+  "conditional_comparison": {
+    "scope": "Two-level axial bend grid comparison only. Same cross-section discretization and unchanged developed inlet; not complete grid independence.",
+    "metrics": {
+      "30 bend layers": {
+        "conditional_normalized_RMSE": 0.1781796366275593,
+        "conditional_maximum_absolute_error": 0.408656296566835
+      },
+      "60 bend layers": {
+        "conditional_normalized_RMSE": 0.18797342786221227,
+        "conditional_maximum_absolute_error": 0.445485327649399
+      }
+    },
+    "coarse_complete_domain_pressure_Pa": 21.573568240700002,
+    "fine_complete_domain_pressure_Pa": 21.586714567650002,
+    "relative_pressure_change": 0.0006093719315842794,
+    "maximum_normalized_native_curve_change": 0.03761473542678667,
+    "experimental_csv_sha256": "c08bf6940c3f9cc5172d0b9e2fb647d44274ceecbc5ef35f9167669d8ed6922f",
+    "normalization_assumptions": {
+      "r": "(z-.208)/.104",
+      "Un": "global Ux/8.7"
+    },
+    "engineering_accepted": false,
+    "experimental_agreement_accepted": false
+  },
+  "engineering_accepted": false,
+  "full_project_pressure_gaps_per_flowcase": 84
+}

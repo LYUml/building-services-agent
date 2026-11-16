@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+An executed 30/60-layer axial bend comparison passes numerical checks, with pressure change about0.061% but unresolved conditional velocity discrepancy. No full grid independence. See [axial follow-up](DEVELOPED_BEND_CHECK.md#axial-grid-follow-up).
+
 The developed-inlet bend now passes complete numerical-window checks; conditional experimental discrepancy remains. See [bend check](DEVELOPED_BEND_CHECK.md).
 
 A native developed reference inlet now passes terminal residual, flow, axial and export-flux checks. Actual bend validation and project pressure remain pending. See [developed inlet](DEVELOPED_REFERENCE_INLET.md).
