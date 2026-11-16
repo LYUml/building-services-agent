@@ -1,0 +1,21 @@
+{
+  "scope": "Separate unadopted sizing sensitivity:189 W/m2 interpreted as sensible, existing allocation fractions retained; current coursework unchanged",
+  "source_schedule_sha256": "c8177012d162f5d22cf3fad76f3bdad2aac7cb641d644c4c9d93006afa58e6b6",
+  "flow_multiplier": 1.1111111111111112,
+  "sections": 47,
+  "current_sizes_failing": 47,
+  "velocity_failures": 10,
+  "friction_failures": 43,
+  "all_selected_candidates_pass_declared_section_limits": true,
+  "candidate_basis": "Existing source candidate grid, width and height each >= current size; unchanged selection engine ranks by area/perimeter",
+  "engine": "existing bsa.duct_equivalent; fluids1.3.1 MIT Colebrook",
+  "geometry_fit_verified": false,
+  "online_ductulator_verified": false,
+  "ADPI_applicability_resolved": false,
+  "design_adopted": false,
+  "design_accepted": false,
+  "independent_direct_Colebrook_max_pressure_difference_Pa_m": 1.3322676295501878e-15,
+  "friction_above_general_1_23_cap": 43,
+  "fluids_version": "1.3.1",
+  "csv_sha256": "5ac024447ac29527d33b06799217ecb95ce5371cc52a96b815f667ad5b607510"
+}

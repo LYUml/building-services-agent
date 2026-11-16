@@ -166,3 +166,7 @@ Unchangedpages1–8/12 have identical contentstreams to the priorcheckedreport.
 This supplies execution of the assignment-linked sizing route, not fullnetwork
 pressure,ADPI orinstalled-systemacceptance. See
 [executed sizing evidence](evidence/online-ductulator-check.json).
+
+## Executed load-interpretation duct sensitivity
+The separate unadopted 189 W/m2 sensible interpretation increases every prescribed flow by1/0.9. All47current section sizes then fail at least one original limit:10velocity and43friction failures (all43also exceed the general1.23Pa/m cap). Existing bsa.duct_equivalent with pinned fluids1.3.1 MIT selects nonshrinking candidates from the original finite grid for all47; direct Colebrook reconstruction differs by at most1.34e-15Pa/m. Example A-01 changes1350x900 to1350x1000mm; D-01 1250x850 to1250x950mm. This is not adopted, spatially verified, online-chart verified or an ADPI resolution. Current written189total times0.9 coursework remains unchanged. See evidence/load-interpretation-duct-sensitivity.json and the separate course Load Interpretation Study.
+K-Select critical maximum retry was based on freshly observed ready status, but the existing toolkit selected51450A and returned Nothing to Display. No native performance result adopted; toolkit source remains unchanged.
