@@ -1,0 +1,154 @@
+{
+  "scope": "Current open-plenum source and conditional VAV station comparison with visible equipment/terminal IDs",
+  "source_ifc_sha256": "a26626e4359ca82ca90de33423d46819b66bd78e54f22a0f52e221ff18ce2937",
+  "source_model": "05_Calculations/Connection_Layout/Current Open Plenum Study/Supply Air Open Plenum Candidate.ifc",
+  "source_geometry_reconstruction_completed": true,
+  "native_reopen_pass": true,
+  "native_editable_audit": {
+    "model_entities": 1043,
+    "entity_types": {
+      "TEXT": 237,
+      "INSERT": 598,
+      "LINE": 207,
+      "LWPOLYLINE": 1
+    },
+    "editable_entity_correspondence": true,
+    "dimension_rendering_visual_review": "pending"
+  },
+  "plot": {
+    "pdf_sha256": "8c04c2dbb240f910e3bb4a3623401b2d2dca521ce18ae35e6a56c809fa6b1d11",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      841.0222222222221,
+      594.0777777777777
+    ],
+    "scale_denominator": 100,
+    "reference_handle": "4063",
+    "reference_expected_mm": 100.0,
+    "reference_measured_mm": 100.03366666666665,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "independent_native": {
+    "native_component_blocks": 598,
+    "block_material_contours": 12904,
+    "max_source_point_difference_mm": 2.1827872842550278e-11,
+    "all100_visible_ids_and_native_port_owners_match": true,
+    "source_schedule_cells_checked": 120,
+    "all_schedule_strings_match_calculations": true,
+    "model_units": "mm",
+    "scope": "Source geometry under declared drawing translation; visible identity/schedule correspondence; no physical airway/controlled-loss acceptance",
+    "design_accepted": false
+  },
+  "label_placement": {
+    "labels": 100,
+    "leaders": 100,
+    "leader_segments": 177,
+    "protected_source_text_boxes": 134,
+    "textalloc_version": "1.2.4",
+    "all_source_geometry_unchanged": true,
+    "source_entities_reconciled": 861,
+    "scope": "Declared geometry anchors and obstacles; approximate CAD font boxes and straight leaders; native visual/engineering approval separate"
+  },
+  "drawing_translation_mm": [
+    2500.0,
+    12000.0
+  ],
+  "labels_source_basis": "20VAVcandidate envelopes and80owning terminal-bend assemblies from native port identities; no physical diffuser-body claim",
+  "pressure": {
+    "source_ifc_sha256": "a26626e4359ca82ca90de33423d46819b66bd78e54f22a0f52e221ff18ce2937",
+    "source_catalogue_sha256": "ba747af8d424da4e59b0d4d93c888bd9b5df299d303c0824fa89f9305870d766",
+    "pressure_definition_pdf_sha256": "3bdcce59cc18b63bdefa9e0faf4b8cc445f484fe3c2649ce258a8ed81ee0c255",
+    "pressure_definition_page_actually_viewed": 7,
+    "method_sha256": "6ba65436dacc109f07cf7d85338c4b4b5d3286a517502375f9b73874419a5c28",
+    "source_pressure_ledger_sha256": "e741f578f6c7ba0bfebb4ce07af772cff2639a33e2ac52467e58a6dd7446907b",
+    "source_pressure_rows": 40,
+    "candidate_terminal_paths": 160,
+    "manufacturer_unknown_port_areas_preserved": 140,
+    "separate_candidate_geometric_port_areas": 100,
+    "unchanged578distribution_geometry_verified": true,
+    "current598product_graph_reconstructed": true,
+    "source_static_interpolation_and_Decimal_reconciled": true,
+    "cases": {
+      "maximum": {
+        "conditional_component_values": 368,
+        "numerical_gaps": 84,
+        "terminal_paths": 80,
+        "per_path_numerical_gaps": 2,
+        "new_VAV_pressure_range_Pa": [
+          24.96217302522297,
+          42.24179718107412
+        ],
+        "original1275flow_values_reconciled": true,
+        "complete_pressure_verified": false
+      },
+      "minimum": {
+        "conditional_component_values": 368,
+        "numerical_gaps": 84,
+        "terminal_paths": 80,
+        "per_path_numerical_gaps": 2,
+        "new_VAV_pressure_range_Pa": [
+          3.919169421718693,
+          7.026029275086341
+        ],
+        "original1275flow_values_reconciled": true,
+        "complete_pressure_verified": false
+      }
+    },
+    "remaining_unique_numeric_gaps": {
+      "compound_main": 4,
+      "Jplenum": 80
+    },
+    "source_station_correspondence_verified": false,
+    "manufacturer_curve_density_verified": false,
+    "fully_open_baseline_only": true,
+    "actual_controlled_VAV_loss_verified": false,
+    "complete_pressure_verified": false,
+    "design_accepted": false,
+    "scope": "Separateconditionalstation-correspondence study,not actualmanufacturerfullunitloss/operatingbalance/fanduty;IOMDeltaVps column notusedas inletVP,old29/11baseline preserved.",
+    "previously_verified_pressure_algebra_tests": 4,
+    "previously_verified_pressure_algebra_subtests": 3,
+    "original_study_method_hash_matches": true
+  },
+  "visual_review": {
+    "reviewer": "Codex host AI",
+    "actual_whole_A1_and_diagram_schedule_crops_inspected": true,
+    "finding": "100visible IDs and20row table readable; no observed note/table clipping; minor tessellation seam traces remain"
+  },
+  "desktop_server_reloaded": false,
+  "design_accepted": false,
+  "artifacts": {
+    "Supply Air Coordination.dwg": "00e6114a535023b607299ba3f422c4fbfcc19385e06528ab0698a53ee9db502e",
+    "Supply Air Coordination.pdf": "8c04c2dbb240f910e3bb4a3623401b2d2dca521ce18ae35e6a56c809fa6b1d11",
+    "Drawing Component Index.csv": "7d16a08fab30e2806d3367082e7c27a49acfa3c9428832f602a215f2526deff4"
+  },
+  "native_methods": {
+    "drawing_document.py": "424a8d8a40fa9a09ee7282f984807c9977529a6c48615c09367bdf1ff26b0881",
+    "cad_sheet.py": "2aa3880343af74c7dea09e329266651f5152badbf3e12befb8e5dc2f9a60c315",
+    "cad_intake.py": "ab8f7dd945134dc824de2a25cfb2d8423752c190baa150fedb81d87e93242bd0",
+    "cad_overlay.py": "91c4c9e2802a76f5516ca92c3438766cd472a0cbf797da0b1b3e8bfa688a9e49",
+    "native_cad.py": "d6a8b81b11bb2b422fdfbfa4ba3fc6b26557b5cfd0a8fc66a91c52cb74a180a0"
+  },
+  "label_generator_sha256": "0fa0089ffd00ebba247d555ecb82ea5b379166d7ea06924b271aa4e599b8d892",
+  "label_recipe_sha256": "3c301cc78998dc697c24d1318e7b7700683f267ad83e36d771f11f1bdce71a2d",
+  "source_projection_methods": {
+    "drawing_ifc_sections.py": "3f22c45c75e6abbb01951d5756068286e4dc43e8a2712c8bbc84ed7e7cd358a3",
+    "circular_geometry.py": "b907345bd2904bf313b017cc1c7e1a07e403ff726bbb8a85e476ae538ea25cb9",
+    "drawing_layout.py": "58a33b3bf9c0e13c0303556c9c616070f9b28087309d3c57b3151b9040a36ad8",
+    "source_network_drawing.py": "3ffbc699e15861b7ce6394419192abc81e602ffa2f02004cf9af4ad8100cb03b",
+    "duct_fitting_chain.py": "b842765beaac0469908cc0f989ba9fac4062dd08e948abfd20134607f022143b"
+  },
+  "source_projection_mesh_quality": {
+    "source": "Host drawing-only target0.1mm in model =0.0005mm on1:200 paper; separate from source engineering verification mesh",
+    "classification": "design_target",
+    "linear_deflection_m": 0.0001,
+    "angular_deflection_rad": 0.05
+  },
+  "textalloc_manifest_sha256": "f4b1942682564fbe347df899efca17916bcd2c42dc4361efa1931acd544d7272",
+  "calculation_artifacts": {
+    "VAV Station Pressure.csv": "8a31e05d5142a5737501ba8a2f6be64789ddd867a63e9878758c1d02704eb4d6",
+    "Terminal Conditional Pressure.csv": "60d4a3ae94e213b2846edd849289f5745972e5cc0ff62a348321d7708877f3a8",
+    "VAV Station Pressure Check.json": "9b01e3d33f446bb68ea9622353b9b7f1719156a17d44f7091dec1f5351d3be1c"
+  }
+}
