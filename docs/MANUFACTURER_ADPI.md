@@ -1,3 +1,5 @@
+Current source audit: manufacturer guide explicitly maps1400toType3; independent native PDF-coordinate extraction of all54metric flow/T025 rows matches the current parser. No type/throw-column error was found. The170.1vs160W/m2 coursework applicability conflict remains; final basis choice requires clarification. The12page coursework review report now binds the completed DWG recheck. See [audit](evidence/course-adpi-source-audit.json).
+
 # Separate manufacturer ADPI comparison
 
 Latest status: K-Select13.3.54 and standalone GRD10.0.2 now execute. Two native

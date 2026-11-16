@@ -1,0 +1,48 @@
+{
+  "source_audit": {
+    "scope": "Independent source/classification/throw-column audit and binding of previously executed native drawing evidence",
+    "performance_pdf_sha256": "073c639219b28068a0c8190a926d493e42a12c0918db464ee8439c55a3994aef",
+    "manufacturer_guide_sha256": "f98aa9ded59150e157c83d5c5114faaa1a24c185928709ffe5d60c9b2f607988",
+    "independent_coordinate_rows": 54,
+    "all_metric_flows_and_T025_values_match": true,
+    "model1400_type3_explicit_in_manufacturer_guide": true,
+    "curve_type_or_throw_column_error_found": false,
+    "classroom_sensible_load_W_m2": 170.1,
+    "classroom_table_upper_load_W_m2": 160,
+    "adpi_physical_acceptance": false,
+    "existing_native_drawing_evidence_hashes_rechecked": true,
+    "native_generated_entities": 718,
+    "native_flex_routes": 80,
+    "physical_or_basis_decision_pending": true
+  },
+  "report_sha256": "ab24a9b39eabb561190aff65dfef7be7585ce112fc17afd60984b7135b5aa9a1",
+  "report_pages": 12,
+  "render_comparison": {
+    "pages": 12,
+    "unchanged_rendered_pages": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      12
+    ],
+    "changed_pages": [
+      1,
+      11
+    ],
+    "calculation_schedule_pages_identical": true,
+    "appended_plan_identical": true
+  },
+  "native_recheck_bound": true,
+  "visual_review": {
+    "reviewer": "Codex host AI",
+    "changed_pages_1_and_11_inspected": true,
+    "finding": "Readable tables/references and native-check statement; no observed clipping"
+  },
+  "engineering_accepted": false
+}
