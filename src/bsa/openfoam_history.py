@@ -110,6 +110,12 @@ def review_project(manifest_name, output_name, *, window=200):
             or manifest['units'] != {'phi': 'm3/s', 'Pt': 'Pa'}
             or manifest['time_basis'] != 'steady_deltaT_1'):
         raise ValueError('Explicit supported schema, units and steady time basis required')
+    expected = manifest.get('expected_window')
+    if expected is not None and (
+            not isinstance(expected, list) or len(expected) != 2
+            or any(type(t) is not int for t in expected)
+            or expected[1] - expected[0] + 1 != window):
+        raise ValueError('Expected window must match the requested integer-step count')
     targets = manifest['outward_volume_targets_m3_s']
     if set(manifest['patches']) != set(targets):
         raise ValueError('Native patch set must equal source target set')
@@ -127,6 +133,8 @@ def review_project(manifest_name, output_name, *, window=200):
     rows = to_convergence_rows(flux, pressure, rho)
     result = cfd_convergence.assess(
         rows, {name: -rho*q for name, q in targets.items()}, manifest['inlet'], window=window)
+    if expected is not None and expected != result['window_iterations']:
+        raise ValueError('Native observations do not match the explicitly required window')
     result['complete_200_step_window'] = window >= 200
     result['declared_native_units'] = manifest['units']
     result['scope'] = ('Selected native segment only; caller binds units, density, weighting and '

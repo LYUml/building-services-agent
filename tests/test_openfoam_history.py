@@ -72,10 +72,18 @@ class ProjectReviewTests(unittest.TestCase):
         self.write_manifest()
         with self.assertRaises(ValueError):
             review_project('manifest.json', 'review.json', window=2)
+        self.manifest['basis_files'] = {'fixture': 'basis.txt'}
         self.manifest['units']['Pt'] = 'm2/s2'
         self.write_manifest()
         with self.assertRaises(ValueError):
             review_project('manifest.json', 'review.json', window=2)
+
+    def test_wrong_observation_window_cannot_be_accepted(self):
+        self.manifest['expected_window'] = [2, 3]
+        self.write_manifest()
+        with self.assertRaises(ValueError):
+            review_project('manifest.json', 'review.json', window=2)
+        self.assertFalse((self.root/'review.json').exists())
 
 
 if __name__ == '__main__':

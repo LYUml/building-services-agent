@@ -231,3 +231,22 @@ the frozen native51..250segment reproduces all previous numerical values and
 correctly returns complete200=true,numerical=false,engineering=false. Provenance
 binds manifest, all10native files, four basis files and both method hashes.
 [Actual CLI receipt](evidence/openfoam-history-cli.json).
+
+
+## Bound observation window and startup figure
+
+An optional manifest expected_window binds exact integer endpoints and count.
+A complete but different200step segment is rejected before output. Actual CLI
+replay with expected51..250 matches the frozen dataset; an explicit wrong451..650
+control using the same frozen data rejects and creates no review. Six targeted
+tests pass. The pending native650manifest requires451..650; earlier observations
+cannot be mistaken for that final window. [Bound-window receipt](evidence/openfoam-bound-window.json).
+
+The frozen first-window pressure curves and saved-field velocity checkpoints
+are plotted below. Velocity uses a logarithmic scale and only actual saved-field
+checkpoints; dashed joins do not assert intermediate values. The plotted stage
+fails pressure stability. Actual PNG visual inspection corrected initial title,
+legend and annotation overlap; identical clean figure bytes are copied to the
+course calculation figures. [Figure source hashes](evidence/openfoam-startup-figure.json).
+
+![Unaccepted plenum numerical startup](figures/openfoam-plenum-startup.png)

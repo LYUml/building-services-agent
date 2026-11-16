@@ -1,0 +1,40 @@
+{
+  "source_pressure_sha256": {
+    "inlet": "e08fca6934033b750b8cb62e0960c09341dcb7eeb02e4c83f36ac258f789e8f8",
+    "outlet_0": "40fc3c7899f5707c32f3b7766e39a3a0a7b66c3ebb68a5519925d2bb4744a60a",
+    "outlet_1": "bc78cea527d9089ba70b5731d5a87253fad8f66b1a3918a4103aeecc541c7876",
+    "outlet_2": "9cc1e891f4516f61ef64a341645655b4608c2e9aa13f0b7357c85a9c40be407c",
+    "outlet_3": "61ca534b23af7d8556ab5087cb61e708c5825dad19e65f58c56139b398accf92"
+  },
+  "velocity_checkpoints": [
+    [
+      10,
+      205.29020708275144
+    ],
+    [
+      20,
+      39.1506314189789
+    ],
+    [
+      30,
+      18.385542028186826
+    ],
+    [
+      50,
+      7.030878398062594
+    ],
+    [
+      120,
+      7.281812446513092
+    ],
+    [
+      250,
+      6.696994846801551
+    ]
+  ],
+  "figure_sha256": "170ccff1b4dda8622e1cf71ad2907587c6113c56db616e2f999d9ea1eba8e01b",
+  "pressure_accepted": false,
+  "plot_runtime": "Matplotlib3.11.2",
+  "visual_review": "Actual PNG inspected after correcting title, legend and annotation overlap",
+  "scope": "Frozen first200step study, not accepted pressure"
+}
