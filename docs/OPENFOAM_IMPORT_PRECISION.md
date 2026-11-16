@@ -500,3 +500,30 @@ Native full geometry/topology check passes Mesh OK; a subsequent native read wit
 the four faceZones also passes. No criteria are relaxed. The extended mesh has
 not yet executed a pressure solver or established domain independence. The existing
 course design and pressure ledger are unchanged. See [receipt](evidence/plenum-outlet-extension.json).
+
+
+### Executed paired outlet-boundary comparison
+
+Native mapFields mapNearest in a separate nonconsistent-domain copy preserves
+all five142480original cell fields exactly; new extension cells retain explicit
+initial seeds. The faceZone header is corrected to faceZoneList in the mapped
+copy. Direct volume-Pt averaging on internal faces is rejected by native
+surfaceFieldValue. A preserved failed startup is followed by executed native
+surfaceInterpolate(Pt)->Ptf and flux-weighted faceZone averages; no copied engine.
+
+Both paired continuations now reach0.50s with exit zero (baseline1318.3s,
+extended1693.6s). Complete native histories match1000/980additional steps and
+1001/981samples including each restart. Five imposed flux histories, four extended
+internal flux histories, both final fields and source preservation checks pass.
+Saved final native field reconstructions match all original-station pressure
+observers and extended internal flux sums. The shared physical-time adapter
+executes the predeclared0.45-0.50s comparison and0.40-0.45s drift diagnostic.
+
+Original-station means change from7.513/7.537/3.834/4.382Pa to
+6.061/6.072/3.732/4.270Pa after outlet extension: approximately
+-19.33/-19.44/-2.65/-2.54percent. This is observed domain sensitivity, not an
+experimental error estimate or accepted component pressure. Small within-run
+late-window drift does not erase cross-domain differences. Wall/inlet, mesh/time
+and longer-domain validation remain open. Neither case fills a project pressure
+gap. No new CFD jobs are launched from this result; coursework ADPI basis remains
+the user-selected acceptance priority. See [paired receipt](evidence/plenum-boundary-comparison.json).

@@ -1,0 +1,609 @@
+{
+  "scope": "Same-original-station prescribed-flow outlet extension diagnostic; not validated fitting losses",
+  "window_s": [
+    0.45,
+    0.5
+  ],
+  "cases": {
+    "baseline": {
+      "run": {
+        "returncode": 0,
+        "elapsed_s": 1318.328999999998,
+        "source_preserved": true,
+        "end_U_exists": true,
+        "pressure_adopted": false
+      },
+      "histories_sha256": {
+        "flux_inlet": "cf0c09b161927cfc7a28b4fa3680b3472173c2198a73603e4cb9cacfa494d0cc",
+        "flux_outlet_0": "626cc53bbc461c4f9e3667a93a8c0a6a86847ee58537b25127078b01c2c92a24",
+        "flux_outlet_1": "6a727ac22179119432d8c1a29e7c7401ed557da27710105728a1defe93e52ba8",
+        "flux_outlet_2": "deb666f6a3685b8ca6e1fee0820568ebcb080ae87612f210db3f2352a8bef930",
+        "flux_outlet_3": "4a034a80c1a3e9df1648cf4834a5dde723e66218ed630c4daaddd030003934fb",
+        "pressure_inlet": "70d947bf2083c4cfc0d2942e1998b9cdbb101861ca54638804927c92b744f2d3",
+        "pressure_outlet_0": "17ba42929595ef817678454248efc0ccede2cd635620e7e62530d935bfbed6a4",
+        "pressure_outlet_1": "421723efeb3a1c18a03b50339a641ecbd815c652ae5d5494c7d2199fbfc77097",
+        "pressure_outlet_2": "f16b6374dd60fc8ce23dd47f89114f353baf074fbd9c16fc7294e4fc7f680758",
+        "pressure_outlet_3": "382b2f9e4e9cc9e569bfb52bfc266b9f8e133e0bcff13d550ff7e49a7d0cc832"
+      },
+      "flux_checks": {
+        "inlet": {
+          "samples": 1001,
+          "maximum_relative_error": 1.3499907495918863e-15
+        },
+        "outlet_0": {
+          "samples": 1001,
+          "maximum_relative_error": 2.440918873022563e-15
+        },
+        "outlet_1": {
+          "samples": 1001,
+          "maximum_relative_error": 2.628681863255068e-15
+        },
+        "outlet_2": {
+          "samples": 1001,
+          "maximum_relative_error": 2.729204205803891e-15
+        },
+        "outlet_3": {
+          "samples": 1001,
+          "maximum_relative_error": 3.0042078437200806e-15
+        }
+      },
+      "final_fields": {
+        "U": {
+          "cells": 142480,
+          "sha256": "94e774e281653886b01a1fb47301e32a9cd80432012b98cc08edd243a261a7d8"
+        },
+        "p": {
+          "cells": 142480,
+          "sha256": "16dfcfa1c03082f1bcf72feeb322585b298c8a32939cfd23cdf214110fb3d015"
+        },
+        "k": {
+          "cells": 142480,
+          "sha256": "ace83e36eebfdcc123b350ce2e7650eff82b0c520ef8afc8cb7286c695552242"
+        },
+        "epsilon": {
+          "cells": 142480,
+          "sha256": "e7e080ddcb4ef89f5d69c718aaf9af28dc9eca8327f45d4999b0116ae2ff1b62"
+        },
+        "nut": {
+          "cells": 142480,
+          "sha256": "722af41d72cc85dde1590ca2008c60739a6625a21139fcb8286af8bc1437fdb6"
+        }
+      },
+      "path_pressure_diagnostics": {
+        "outlet_0": {
+          "previous_window": {
+            "start_s": "0.40",
+            "end_s": "0.45",
+            "samples": 201,
+            "time_weighted_mean": 7.512433510518002,
+            "time_weighted_rms": 3.561841112794273e-05,
+            "range": 0.00014344286537859574,
+            "diagnostic_only": true,
+            "stationarity_accepted": false,
+            "pressure_adopted": false
+          },
+          "comparison_window": {
+            "start_s": "0.45",
+            "end_s": "0.50",
+            "samples": 201,
+            "time_weighted_mean": 7.5125256176567445,
+            "time_weighted_rms": 3.2852682779845076e-05,
+            "range": 0.0001151406647492692,
+            "diagnostic_only": true,
+            "stationarity_accepted": false,
+            "pressure_adopted": false
+          },
+          "mean_drift_Pa": 9.210713874274745e-05
+        },
+        "outlet_1": {
+          "previous_window": {
+            "start_s": "0.40",
+            "end_s": "0.45",
+            "samples": 201,
+            "time_weighted_mean": 7.536779017262716,
+            "time_weighted_rms": 0.00020107244907812262,
+            "range": 0.0006966090902258415,
+            "diagnostic_only": true,
+            "stationarity_accepted": false,
+            "pressure_adopted": false
+          },
+          "comparison_window": {
+            "start_s": "0.45",
+            "end_s": "0.50",
+            "samples": 201,
+            "time_weighted_mean": 7.537433208500271,
+            "time_weighted_rms": 0.00019326249258969026,
+            "range": 0.0006759272882552736,
+            "diagnostic_only": true,
+            "stationarity_accepted": false,
+            "pressure_adopted": false
+          },
+          "mean_drift_Pa": 0.0006541912375555015
+        },
+        "outlet_2": {
+          "previous_window": {
+            "start_s": "0.40",
+            "end_s": "0.45",
+            "samples": 201,
+            "time_weighted_mean": 3.8215363255041135,
+            "time_weighted_rms": 0.0044090339321405944,
+            "range": 0.015382882964870337,
+            "diagnostic_only": true,
+            "stationarity_accepted": false,
+            "pressure_adopted": false
+          },
+          "comparison_window": {
+            "start_s": "0.45",
+            "end_s": "0.50",
+            "samples": 201,
+            "time_weighted_mean": 3.8336734716643965,
+            "time_weighted_rms": 0.002862775519667296,
+            "range": 0.009919607046589896,
+            "diagnostic_only": true,
+            "stationarity_accepted": false,
+            "pressure_adopted": false
+          },
+          "mean_drift_Pa": 0.012137146160283052
+        },
+        "outlet_3": {
+          "previous_window": {
+            "start_s": "0.40",
+            "end_s": "0.45",
+            "samples": 201,
+            "time_weighted_mean": 4.374405119943889,
+            "time_weighted_rms": 0.003025942260155082,
+            "range": 0.010699792264113661,
+            "diagnostic_only": true,
+            "stationarity_accepted": false,
+            "pressure_adopted": false
+          },
+          "comparison_window": {
+            "start_s": "0.45",
+            "end_s": "0.50",
+            "samples": 201,
+            "time_weighted_mean": 4.381652837341319,
+            "time_weighted_rms": 0.0014315873187005154,
+            "range": 0.005093053468506525,
+            "diagnostic_only": true,
+            "stationarity_accepted": false,
+            "pressure_adopted": false
+          },
+          "mean_drift_Pa": 0.007247717397429909
+        }
+      },
+      "maximum_Courant": 0.3299288780561343
+    },
+    "extended": {
+      "run": {
+        "returncode": 0,
+        "elapsed_s": 1693.6410000000033,
+        "source_preserved": true,
+        "end_U_exists": true,
+        "pressure_adopted": false
+      },
+      "histories_sha256": {
+        "flux_inlet": "f7edcce06c4cd9aaae80f44ce473e2ae4ae0ece3bc27e8769f86dbaa9405d67b",
+        "flux_outlet_0": "d6fe28a38f5d24dad60a74730bbd0162ea3542bf309b9094b2e1031d1ebe835c",
+        "flux_outlet_1": "7955613d29d6004baa4da2b5b45c2860ad6a1be58fc4aef596a3b001d864a459",
+        "flux_outlet_2": "73cff4d0ba4714d6d4fe36a3175f2bfc8e8dca0af0133aec56f07f4a8b0238b7",
+        "flux_outlet_3": "6baef63f06fa5c3d56fcaf62a9fd796d9dc3a8710f479d3508ebe3f05303e588",
+        "pressure_inlet": "cc4d6d6e991863be5e660cb917483aa34583d096b8cf56cd9f06c50278cb4478",
+        "original_pressure_0": "35d1adfc314bb11e6c998e887d2e6768c76d00b6972757e62abc7362efac51c3",
+        "original_flux_0": "f53235a91cca4900a361d0fb482290cdc70c2247ffb07049a778df655f08780d",
+        "original_pressure_1": "c2242932ef6c3c8e19f841282e7f3b2015a3c38028c645965198fab42548482e",
+        "original_flux_1": "12db60ad6b3f6b770fc522bee735532305971abc776f33d2c983710b3764105c",
+        "original_pressure_2": "668aec9709b42c15533fd9520e8ae131fa8432102d970e37552d50238565c625",
+        "original_flux_2": "02a7d2ae90aa4e576467c37779a45348a83cc8c1b4f9059ed8ceb1b18b309a29",
+        "original_pressure_3": "fa7c3e23ffabb91fdb94ff6c0c8b94d74dfe8dfe3fb8d2927db25947c3f22876",
+        "original_flux_3": "b5c9a27a06575736832d8f442977fe876dbb22bfffdccab331a2ee13f702c959"
+      },
+      "flux_checks": {
+        "inlet": {
+          "samples": 981,
+          "maximum_relative_error": 1.3499907495918863e-15
+        },
+        "outlet_0": {
+          "samples": 981,
+          "maximum_relative_error": 2.628681863255068e-15
+        },
+        "outlet_1": {
+          "samples": 981,
+          "maximum_relative_error": 2.816444853487573e-15
+        },
+        "outlet_2": {
+          "samples": 981,
+          "maximum_relative_error": 2.729204205803891e-15
+        },
+        "outlet_3": {
+          "samples": 981,
+          "maximum_relative_error": 3.1919708339525855e-15
+        },
+        "original_outlet_0": {
+          "samples": 981,
+          "maximum_relative_error": 8.694742666326505e-10
+        },
+        "original_outlet_1": {
+          "samples": 981,
+          "maximum_relative_error": 9.934504138233689e-10
+        },
+        "original_outlet_2": {
+          "samples": 981,
+          "maximum_relative_error": 7.644479986578193e-10
+        },
+        "original_outlet_3": {
+          "samples": 981,
+          "maximum_relative_error": 5.211694134395889e-10
+        }
+      },
+      "final_fields": {
+        "U": {
+          "cells": 190880,
+          "sha256": "65ed5971ed49001f7348b84e55cb647d0d05e93ba6f99c3f2386561c939896f3"
+        },
+        "p": {
+          "cells": 190880,
+          "sha256": "f614b1bdffab95f774e615c3584341d22960d90610b59f690295169c642b4cc1"
+        },
+        "k": {
+          "cells": 190880,
+          "sha256": "414ddcaa2d40b4a1f6cacd70e614c50a56cb33dbdbd48d7aac7f6a388fcf0ea2"
+        },
+        "epsilon": {
+          "cells": 190880,
+          "sha256": "8f762f8c2620e6c9da2b9b76c694102502859a9c2c9bbcbff6afed31dcae6504"
+        },
+        "nut": {
+          "cells": 190880,
+          "sha256": "0662459eafc2114902ecedc3aa3046214e33e1ec09a51caa4217b08581d02e4c"
+        }
+      },
+      "path_pressure_diagnostics": {
+        "outlet_0": {
+          "previous_window": {
+            "start_s": "0.40",
+            "end_s": "0.45",
+            "samples": 201,
+            "time_weighted_mean": 6.061267525374281,
+            "time_weighted_rms": 0.013914889545788943,
+            "range": 0.0489146315358866,
+            "diagnostic_only": true,
+            "stationarity_accepted": false,
+            "pressure_adopted": false
+          },
+          "comparison_window": {
+            "start_s": "0.45",
+            "end_s": "0.50",
+            "samples": 201,
+            "time_weighted_mean": 6.060589724732723,
+            "time_weighted_rms": 0.00689801852829425,
+            "range": 0.022851280196568347,
+            "diagnostic_only": true,
+            "stationarity_accepted": false,
+            "pressure_adopted": false
+          },
+          "mean_drift_Pa": -0.0006778006415579796
+        },
+        "outlet_1": {
+          "previous_window": {
+            "start_s": "0.40",
+            "end_s": "0.45",
+            "samples": 201,
+            "time_weighted_mean": 6.071938010987475,
+            "time_weighted_rms": 0.013530459004511015,
+            "range": 0.047497992897262975,
+            "diagnostic_only": true,
+            "stationarity_accepted": false,
+            "pressure_adopted": false
+          },
+          "comparison_window": {
+            "start_s": "0.45",
+            "end_s": "0.50",
+            "samples": 201,
+            "time_weighted_mean": 6.072375641427832,
+            "time_weighted_rms": 0.007096987968323036,
+            "range": 0.02358140834757716,
+            "diagnostic_only": true,
+            "stationarity_accepted": false,
+            "pressure_adopted": false
+          },
+          "mean_drift_Pa": 0.0004376304403566067
+        },
+        "outlet_2": {
+          "previous_window": {
+            "start_s": "0.40",
+            "end_s": "0.45",
+            "samples": 201,
+            "time_weighted_mean": 3.729684042838549,
+            "time_weighted_rms": 0.0023421421981932506,
+            "range": 0.008887693400193353,
+            "diagnostic_only": true,
+            "stationarity_accepted": false,
+            "pressure_adopted": false
+          },
+          "comparison_window": {
+            "start_s": "0.45",
+            "end_s": "0.50",
+            "samples": 201,
+            "time_weighted_mean": 3.732219068961756,
+            "time_weighted_rms": 0.0021473647213968118,
+            "range": 0.007899108286976375,
+            "diagnostic_only": true,
+            "stationarity_accepted": false,
+            "pressure_adopted": false
+          },
+          "mean_drift_Pa": 0.002535026123207107
+        },
+        "outlet_3": {
+          "previous_window": {
+            "start_s": "0.40",
+            "end_s": "0.45",
+            "samples": 201,
+            "time_weighted_mean": 4.272158745760062,
+            "time_weighted_rms": 0.004016606470314362,
+            "range": 0.015816693087893796,
+            "diagnostic_only": true,
+            "stationarity_accepted": false,
+            "pressure_adopted": false
+          },
+          "comparison_window": {
+            "start_s": "0.45",
+            "end_s": "0.50",
+            "samples": 201,
+            "time_weighted_mean": 4.2702011747817785,
+            "time_weighted_rms": 0.004109639496429504,
+            "range": 0.009828417869512052,
+            "diagnostic_only": true,
+            "stationarity_accepted": false,
+            "pressure_adopted": false
+          },
+          "mean_drift_Pa": -0.0019575709782833073
+        }
+      },
+      "maximum_Courant": 0.3305993929985603
+    }
+  },
+  "comparison": {
+    "outlet_0": {
+      "baseline_mean_Pa": 7.5125256176567445,
+      "extended_original_station_mean_Pa": 6.060589724732723,
+      "difference_Pa": -1.4519358929240216,
+      "relative_difference_baseline_reference": -0.19326867778148082
+    },
+    "outlet_1": {
+      "baseline_mean_Pa": 7.537433208500271,
+      "extended_original_station_mean_Pa": 6.072375641427832,
+      "difference_Pa": -1.4650575670724395,
+      "relative_difference_baseline_reference": -0.19437088549192505
+    },
+    "outlet_2": {
+      "baseline_mean_Pa": 3.8336734716643965,
+      "extended_original_station_mean_Pa": 3.732219068961756,
+      "difference_Pa": -0.1014544027026405,
+      "relative_difference_baseline_reference": -0.026464017724126588
+    },
+    "outlet_3": {
+      "baseline_mean_Pa": 4.381652837341319,
+      "extended_original_station_mean_Pa": 4.2702011747817785,
+      "difference_Pa": -0.11145166255954031,
+      "relative_difference_baseline_reference": -0.025435986532234372
+    }
+  },
+  "stationarity_accepted": false,
+  "domain_independence_accepted": false,
+  "time_mesh_independence_accepted": false,
+  "physical_inlet_wall_validation_accepted": false,
+  "pressure_adopted": false,
+  "independent_final_saved_field_observer_check": {
+    "baseline": {
+      "inlet": {
+        "difference_Pa": 7.771561172376096e-16
+      },
+      "outlet_0": {
+        "difference_Pa": 3.552713678800501e-15
+      },
+      "outlet_1": {
+        "difference_Pa": 7.105427357601002e-15
+      },
+      "outlet_2": {
+        "difference_Pa": 4.884981308350689e-15
+      },
+      "outlet_3": {
+        "difference_Pa": 8.881784197001252e-16
+      }
+    },
+    "extended": {
+      "inlet": {
+        "difference_Pa": 3.3306690738754696e-16
+      },
+      "original_0": {
+        "difference_Pa": 3.552713678800501e-15,
+        "flux_difference_m3_s": 2.7755575615628914e-17
+      },
+      "original_1": {
+        "difference_Pa": 1.7763568394002505e-15,
+        "flux_difference_m3_s": 0.0
+      },
+      "original_2": {
+        "difference_Pa": 8.881784197001252e-16,
+        "flux_difference_m3_s": 2.7755575615628914e-17
+      },
+      "original_3": {
+        "difference_Pa": 3.552713678800501e-15,
+        "flux_difference_m3_s": 8.326672684688674e-17
+      }
+    }
+  },
+  "interpretation": "Observed outlet-domain sensitivity at original stations, not a calibrated boundary-error estimate or accepted fitting loss",
+  "engine": "OpenFOAM12 build12-8e8552546d20 GPL-3.0-or-later",
+  "history_sha256": "e2a7c313a908f3b42a64c6d6e4af2bde81f7d0aeb5a4a681ec94c801cd010bc3",
+  "extended_mapping_startup": {
+    "scope": "Extended-domain20step mapped startup and original-station monitor execution; not developed comparison or pressure acceptance",
+    "native_run": {
+      "returncode": 0,
+      "elapsed_s": 36.71899999999732,
+      "final_U_exists": true,
+      "pressure_adopted": false
+    },
+    "original_core_mapping": {
+      "native_mapFields_returncode": 0,
+      "method": "mapNearest",
+      "consistent_flag_used": false,
+      "fields": {
+        "U": {
+          "source_cells": 142480,
+          "target_cells": 190880,
+          "all_original_cell_values_exact": true,
+          "added_cell_min_component": 0.0,
+          "added_cell_max_component": 0.0,
+          "target_sha256": "a54f5dca9b355bc58e52cb945b11c384f1bcfc683f6090a078c41f6fd74945ce"
+        },
+        "p": {
+          "source_cells": 142480,
+          "target_cells": 190880,
+          "all_original_cell_values_exact": true,
+          "added_cell_min_component": 0.0,
+          "added_cell_max_component": 0.0,
+          "target_sha256": "5bbb4e382191c3afbbbe81d05cfe1ec7deb2ede3ca2f0b5d403ffafa7fab59f1"
+        },
+        "k": {
+          "source_cells": 142480,
+          "target_cells": 190880,
+          "all_original_cell_values_exact": true,
+          "added_cell_min_component": 0.06889457810401924,
+          "added_cell_max_component": 0.06889457810401924,
+          "target_sha256": "c9ef3801926540de04e97c824801e082fe9417c3bec363165081ebc0a1f2068b"
+        },
+        "epsilon": {
+          "source_cells": 142480,
+          "target_cells": 190880,
+          "all_original_cell_values_exact": true,
+          "added_cell_min_component": 0.115896876310234,
+          "added_cell_max_component": 0.115896876310234,
+          "target_sha256": "12ad076391a103642082c44a5fad1b62727998036dd5a466b8e4b91bee7a7a63"
+        },
+        "nut": {
+          "source_cells": 142480,
+          "target_cells": 190880,
+          "all_original_cell_values_exact": true,
+          "added_cell_min_component": 0.0,
+          "added_cell_max_component": 0.0,
+          "target_sha256": "4691780eefa375f6441650dd2c724e24fa8ae7747828cd4660aa8611d61c8c28"
+        }
+      },
+      "source_fields_preserved": true,
+      "faceZone_header_correction": {
+        "previous_sha256": "d9bc32d4eeed3bfa0926f79be1709595a42f3c46c5b66193e5d62f54bd448b45",
+        "new_sha256": "0bdfdd68b399d3680bcf897208fda2119c8a810ec64294f40231f0914a53f48b",
+        "change": "class regIOobject -> faceZoneList; labels/orientations unchanged"
+      },
+      "new_extension_cells_are_initial_seed_not_solved_values": true,
+      "pressure_adopted": false
+    },
+    "final_fields": {
+      "U": {
+        "cells": 190880,
+        "min_component": -6.455191543884272,
+        "max_component": 4.671810074202112
+      },
+      "p": {
+        "cells": 190880,
+        "min_component": -41.90035062789773,
+        "max_component": 0.8709222271745556
+      },
+      "k": {
+        "cells": 190880,
+        "min_component": 0.005270214069101847,
+        "max_component": 1.2047775239081722
+      },
+      "epsilon": {
+        "cells": 190880,
+        "min_component": 0.00830485706205559,
+        "max_component": 98.65903849699066
+      },
+      "nut": {
+        "cells": 190880,
+        "min_component": 7.122981713687995e-05,
+        "max_component": 0.019078947981942443
+      }
+    },
+    "internal_surface_field_faces": 557752,
+    "original_station_checks": {
+      "0": {
+        "independent_observers": {
+          "original_flux_0": {
+            "samples": 21,
+            "reconstructed": 0.14782239884022955,
+            "native": 0.14782239884022963
+          },
+          "original_pressure_0": {
+            "samples": 21,
+            "reconstructed": -7.685340565207285,
+            "native": -7.68534056520728
+          }
+        },
+        "internal_station_reverse_flux_faces": 0,
+        "reverse_to_forward_volume_flux_ratio": -0.0
+      },
+      "1": {
+        "independent_observers": {
+          "original_flux_1": {
+            "samples": 21,
+            "reconstructed": 0.14782239882808096,
+            "native": 0.147822398828081
+          },
+          "original_pressure_1": {
+            "samples": 21,
+            "reconstructed": -7.7122835304014,
+            "native": -7.712283530401402
+          }
+        },
+        "internal_station_reverse_flux_faces": 0,
+        "reverse_to_forward_volume_flux_ratio": -0.0
+      },
+      "2": {
+        "independent_observers": {
+          "original_flux_2": {
+            "samples": 21,
+            "reconstructed": 0.1322079461698121,
+            "native": 0.13220794616981218
+          },
+          "original_pressure_2": {
+            "samples": 21,
+            "reconstructed": -3.402889924860183,
+            "native": -3.4028899248601783
+          }
+        },
+        "internal_station_reverse_flux_faces": 0,
+        "reverse_to_forward_volume_flux_ratio": -0.0
+      },
+      "3": {
+        "independent_observers": {
+          "original_flux_3": {
+            "samples": 21,
+            "reconstructed": 0.14782239870700864,
+            "native": 0.1478223987070085
+          },
+          "original_pressure_3": {
+            "samples": 21,
+            "reconstructed": -4.019105364410599,
+            "native": -4.019105364410602
+          }
+        },
+        "internal_station_reverse_flux_faces": 0,
+        "reverse_to_forward_volume_flux_ratio": -0.0
+      }
+    },
+    "field_hashes": {
+      "U": "4054f2b192356702d6902424bd0ddba18faf76c66d29410873e39dba156e57e6",
+      "p": "0eab415a97da961febf1dea32c684ca34034c632eff0c67b85dc65241de6d5ed",
+      "phi": "348c5ef6afa3fcb3f803593b4fd2cc331200ae62eb844a1c0b982bd4fadfe2e1",
+      "Ptf": "b8a1efcc402cea1eecfbe558e30559d9d1cd1807a3059e4298b6e933b3245336"
+    },
+    "no_faceZone_header_warning": true,
+    "maximum_Courant": 0.3378572807269483,
+    "new_extension_flow_developed": false,
+    "domain_independence_accepted": false,
+    "pressure_adopted": false
+  },
+  "course_baseline_changed": false
+}

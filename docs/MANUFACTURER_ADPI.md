@@ -160,3 +160,5 @@ This rejects this bounded unchanged-layout candidate, not all PLQR layouts or
 actual-load comfort. No geometry/product/ADPI adoption. Explicit user decision now
 defers course acceptance until an applicable ADPI basis is established.
 See [source-bound receipt](evidence/plqr-adpi-diagnostic.json).
+
+PLQR necessary-bound follow-up reuses the existing analytical catalogue-segment maximizer. Under regular square interior spacing=2L,12K/40percent turndown and the unchanged paired-load diagnostic, the greatest optimistic bound is156.414W/m2 (6inch). This is below trial170.1, but is neither an arbitrary-layout/product limit nor permission to reduce the supplied load. See [bounded assumptions/results](evidence/plqr-grid-bound.json).

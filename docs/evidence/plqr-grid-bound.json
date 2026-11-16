@@ -1,0 +1,61 @@
+{
+  "maximum_paired_curve_ratio": 1.187163634971313,
+  "neck_bounds": [
+    {
+      "neck_inch": 6,
+      "status": "necessary_bound_only",
+      "flow_L_s": 47.5,
+      "minimum_required_L_m": 1.0487181070283411,
+      "airflow_density_L_s_m2": 10.79732279631285,
+      "conditional_sensible_W_m2": 156.41433695650647
+    },
+    {
+      "neck_inch": 8,
+      "status": "necessary_bound_only",
+      "flow_L_s": 82.5,
+      "minimum_required_L_m": 1.6945976499111395,
+      "airflow_density_L_s_m2": 7.1822539634220774,
+      "conditional_sensible_W_m2": 104.04500381571759
+    },
+    {
+      "neck_inch": 10,
+      "status": "necessary_bound_only",
+      "flow_L_s": 127.5,
+      "minimum_required_L_m": 2.3318345923189634,
+      "airflow_density_L_s_m2": 5.862120103757979,
+      "conditional_sensible_W_m2": 84.92101667107958
+    },
+    {
+      "neck_inch": 12,
+      "status": "necessary_bound_only",
+      "flow_L_s": 234.33333333333363,
+      "minimum_required_L_m": 3.200906672054377,
+      "airflow_density_L_s_m2": 5.717788087646615,
+      "conditional_sensible_W_m2": 82.83016535288392
+    },
+    {
+      "neck_inch": 14,
+      "status": "necessary_bound_only",
+      "flow_L_s": 303.0,
+      "minimum_required_L_m": 3.6220786025878446,
+      "airflow_density_L_s_m2": 5.773868595836739,
+      "conditional_sensible_W_m2": 83.64257002672935
+    },
+    {
+      "neck_inch": 15,
+      "status": "necessary_bound_only",
+      "flow_L_s": 405.0,
+      "minimum_required_L_m": 4.211719305334704,
+      "airflow_density_L_s_m2": 5.7078978596031185,
+      "conditional_sensible_W_m2": 82.68689155335463
+    }
+  ],
+  "scope": "Optimistic necessary bound for regular square interior grid: spacing=2L, area=4L\u00b2. Maximizes q/area across original catalogue segments with both operating flows in range. Ignores lower ratio limit and minimum-load curve test; not a sufficient design, arbitrary-layout bound or measured comfort prediction.",
+  "actual_room_load_verified": false,
+  "ADPI_verified": false,
+  "design_accepted": false,
+  "source_pdf_sha256": "5fa0a1941d1aeaa066a6745ab5e040d18357eee9eb80a7981f8e92eb3869bd46",
+  "guide_sha256": "f98aa9ded59150e157c83d5c5114faaa1a24c185928709ffe5d60c9b2f607988",
+  "actual_trial_sensible_W_m2": 170.1,
+  "not_a_reason_to_reduce_course_load": true
+}
