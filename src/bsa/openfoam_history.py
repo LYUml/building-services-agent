@@ -69,3 +69,92 @@ def to_convergence_rows(flux, total_pressure, density_kg_m3):
             row[f'Avg_TotalPress({name})'] = total_pressure[name][i][1]
         rows.append(row)
     return rows
+
+
+def review_project(manifest_name, output_name, *, window=200):
+    """Review one explicit segment inside the host BSA_PROJECT_ROOT."""
+    import hashlib
+    import json
+    from pathlib import Path
+    from .workspace import project_root
+    from . import cfd_convergence
+
+    root = project_root()
+    if root is None:
+        raise ValueError('Explicit host BSA_PROJECT_ROOT required')
+
+    def path(name):
+        if not isinstance(name, str) or Path(name).is_absolute():
+            raise ValueError('Project-relative path required')
+        resolved = (root / name).resolve()
+        if not resolved.is_relative_to(root):
+            raise ValueError('Files must remain inside the host project')
+        return resolved
+
+    def read(name):
+        file = path(name)
+        before = file.stat()
+        data = file.read_bytes()
+        after = file.stat()
+        if (before.st_size != after.st_size or len(data) != after.st_size
+                or before.st_mtime_ns != after.st_mtime_ns):
+            raise ValueError('Native input changed; retry the same run')
+        return data, hashlib.sha256(data).hexdigest()
+
+    output = path(output_name)
+    if output.exists():
+        raise ValueError('Preserve existing evidence: select a new output')
+    data, digest = read(manifest_name)
+    manifest = json.loads(data)
+    if (manifest['schema'] != 'bsa.openfoam-history.v1'
+            or manifest['units'] != {'phi': 'm3/s', 'Pt': 'Pa'}
+            or manifest['time_basis'] != 'steady_deltaT_1'):
+        raise ValueError('Explicit supported schema, units and steady time basis required')
+    targets = manifest['outward_volume_targets_m3_s']
+    if set(manifest['patches']) != set(targets):
+        raise ValueError('Native patch set must equal source target set')
+    if not manifest['basis_files']:
+        raise ValueError('Source and observer basis files required')
+    basis_hashes = {name: read(file)[1] for name, file in manifest['basis_files'].items()}
+    flux, pressure, hashes = {}, {}, {}
+    for name, files in manifest['patches'].items():
+        for key, column, destination in [('flux', 'sum(phi)', flux),
+                                          ('total_pressure', 'average(Pt)', pressure)]:
+            data, file_hash = read(files[key])
+            destination[name] = read_samples(data.decode('utf-8-sig'), column)
+            hashes[f'{name}/{key}'] = file_hash
+    rho = manifest['density_kg_m3']
+    rows = to_convergence_rows(flux, pressure, rho)
+    result = cfd_convergence.assess(
+        rows, {name: -rho*q for name, q in targets.items()}, manifest['inlet'], window=window)
+    result['complete_200_step_window'] = window >= 200
+    result['declared_native_units'] = manifest['units']
+    result['scope'] = ('Selected native segment only; caller binds units, density, weighting and '
+                       'source applicability. Numerical stability is not engineering acceptance.')
+    result['provenance'] = {
+        'manifest_sha256': digest, 'native_input_sha256': hashes,
+        'basis_file_sha256': basis_hashes,
+        'adapter_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        'assessor_sha256': hashlib.sha256(Path(cfd_convergence.__file__).read_bytes()).hexdigest(),
+    }
+    with output.open('x', encoding='utf-8') as stream:
+        json.dump(result, stream, indent=2, allow_nan=False)
+        stream.write('\n')
+    return result
+
+
+def main():
+    import argparse
+    import json
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--manifest', required=True)
+    parser.add_argument('--output', required=True)
+    parser.add_argument('--window', type=int, default=200)
+    args = parser.parse_args()
+    result = review_project(args.manifest, args.output, window=args.window)
+    print(json.dumps({k: result[k] for k in (
+        'window_iterations', 'complete_200_step_window', 'numerical_window_pass', 'engineering_accepted')}))
+
+
+if __name__ == '__main__':
+    main()

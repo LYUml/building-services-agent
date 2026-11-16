@@ -208,3 +208,26 @@ a further bounded source-identical continuation with only equation relaxation
 will assess only451..650. Source physics, grid, exact flow targets and numerical
 acceptance thresholds are unchanged. Mesh, model, higher-order and physical
 validation remain open. [Executed failed window](evidence/openfoam-plenum-window.json).
+
+
+## Project command
+
+Run `python -m bsa.openfoam_history --manifest <project-relative.json>
+--output <new-project-relative.json>` with host BSA_PROJECT_ROOT explicitly set.
+The manifest uses schema bsa.openfoam-history.v1, units {phi:m3/s,Pt:Pa},
+time_basis steady_deltaT_1, positive density_kg_m3, inlet name,
+outward_volume_targets_m3_s, basis_files mapping and patches mapping. Each patch
+supplies flux and total_pressure project-relative native file paths from ONE
+explicitly selected segment. Basis files bind source and observer records by
+hash; their presence is not independent engineering approval. All paths resolve
+inside the host project; documents cannot select the workspace. Changed inputs,
+wrong units, path escape and existing outputs are rejected. Default window200;
+smaller explicitly requested windows are flagged complete_200_step_window=false.
+
+The command reuses the same parser and convergence assessor. Five targeted tests
+now cover parser controls, source-unit sign conversion, project path containment,
+small-window scope and preserved existing output. Actual CLI execution against
+the frozen native51..250segment reproduces all previous numerical values and
+correctly returns complete200=true,numerical=false,engineering=false. Provenance
+binds manifest, all10native files, four basis files and both method hashes.
+[Actual CLI receipt](evidence/openfoam-history-cli.json).

@@ -1,5 +1,9 @@
 import unittest
-from bsa.openfoam_history import read_samples, to_convergence_rows
+import json
+import tempfile
+from pathlib import Path
+from unittest.mock import patch
+from bsa.openfoam_history import read_samples, to_convergence_rows, review_project
 
 
 class NativeHistoryTests(unittest.TestCase):
@@ -25,6 +29,53 @@ class NativeHistoryTests(unittest.TestCase):
                        ({'a': [(1, 3.)]}, float('nan'))]:
             with self.subTest(p=p, rho=rho), self.assertRaises(ValueError):
                 to_convergence_rows({'a': [(1, 2.)]}, p, rho)
+
+
+class ProjectReviewTests(unittest.TestCase):
+    def setUp(self):
+        temp = tempfile.TemporaryDirectory()
+        self.addCleanup(temp.cleanup)
+        self.root = Path(temp.name)
+        env = patch.dict('os.environ', {'BSA_PROJECT_ROOT': str(self.root)})
+        env.start()
+        self.addCleanup(env.stop)
+        (self.root/'basis.txt').write_text('Synthetic fixture, not engineering evidence')
+        patches = {}
+        for name, q, p in [('in', -2., -7.), ('out', 2., -9.)]:
+            files = {'flux': f'{name}-q.dat', 'total_pressure': f'{name}-p.dat'}
+            for key, column, value in [('flux', 'sum(phi)', q), ('total_pressure', 'average(Pt)', p)]:
+                (self.root/files[key]).write_text(f'# Time {column}\n1 {value}\n2 {value}\n')
+            patches[name] = files
+        self.manifest = {
+            'schema': 'bsa.openfoam-history.v1', 'units': {'phi': 'm3/s', 'Pt': 'Pa'},
+            'time_basis': 'steady_deltaT_1', 'density_kg_m3': 1.2, 'inlet': 'in',
+            'outward_volume_targets_m3_s': {'in': -2., 'out': 2.},
+            'basis_files': {'fixture': 'basis.txt'}, 'patches': patches,
+        }
+
+    def write_manifest(self):
+        (self.root/'manifest.json').write_text(json.dumps(self.manifest))
+
+    def test_small_window_is_explicit_and_existing_output_preserved(self):
+        self.write_manifest()
+        result = review_project('manifest.json', 'review.json', window=2)
+        self.assertTrue(result['numerical_window_pass'])
+        self.assertFalse(result['complete_200_step_window'])
+        self.assertFalse(result['engineering_accepted'])
+        before = (self.root/'review.json').read_bytes()
+        with self.assertRaises(ValueError):
+            review_project('manifest.json', 'review.json', window=2)
+        self.assertEqual(before, (self.root/'review.json').read_bytes())
+
+    def test_basis_escape_and_wrong_units_rejected(self):
+        self.manifest['basis_files'] = {'escape': '../outside.txt'}
+        self.write_manifest()
+        with self.assertRaises(ValueError):
+            review_project('manifest.json', 'review.json', window=2)
+        self.manifest['units']['Pt'] = 'm2/s2'
+        self.write_manifest()
+        with self.assertRaises(ValueError):
+            review_project('manifest.json', 'review.json', window=2)
 
 
 if __name__ == '__main__':
