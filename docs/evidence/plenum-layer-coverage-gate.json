@@ -1,0 +1,78 @@
+{
+  "scope": "Executed native zero-layer counterexample and reusable declared face-count gate only",
+  "source_native_mesh_review": {
+    "returncode": 0,
+    "completed": true,
+    "reported_failed_checks": [],
+    "native_mesh_checks_passed": true,
+    "engineering_accepted": false,
+    "native_returncodes": {
+      "snappyHexMesh": 0,
+      "checkMesh": 0
+    },
+    "scope": "Layered native mesh trial; coverage/first-height/yPlus/pressure require separate review"
+  },
+  "coverage": {
+    "scope": "Declared native wall-face counts only; caller binds patch/field/source evidence",
+    "requested_layers": 18,
+    "patches": {
+      "air_wall": {
+        "face_count": 15438,
+        "faces_with_any_layers": 0,
+        "faces_with_requested_layers": 0,
+        "any_layer_face_fraction": 0.0,
+        "requested_layer_face_fraction": 0.0
+      }
+    },
+    "wall_faces": 15438,
+    "any_layer_face_fraction": 0.0,
+    "requested_layer_face_fraction": 0.0,
+    "all_wall_faces_have_requested_layers": false,
+    "wall_area_coverage_verified": false,
+    "actual_first_layer_height_verified": false,
+    "yPlus_verified": false,
+    "engineering_accepted": false,
+    "provenance": {
+      "native_foamDictionary_read_sha256": "9d5a4ad5704b4dfd84925a05a8fa3100a70f8ea550d148f9d060dc6c99fe9387",
+      "field_sha256": "d8d8ad3dabd90ebb86d9a150097c439e68e7dfb9ca0bc0a9edb8f6134b5f162e",
+      "boundary_sha256": "2e189883e4050cf3b7696f8f2b48547c006ffeb38b687264500348e5d4b04fe7",
+      "reviewer_module_sha256": "886a692f2444dab0b24e8647842193bf6e26a0fd6f81cd313bfba58363108db0"
+    },
+    "native_reader": "Pinned OpenFOAM12 foamDictionary, case cwd and relative field path; no new dictionary parser"
+  },
+  "generation_diagnosis": {
+    "scope": "Actual native layer-coverage failure and ideal-cell generation compatibility diagnosis; not engineering acceptance",
+    "native_mesh_check_pass": true,
+    "requested_layers": 18,
+    "actual_wall_layer_count": 0,
+    "actual_wall_layer_face_coverage_fraction": 0.0,
+    "required_wall_layer_area_coverage_fraction": 1.0,
+    "coverage_pass": false,
+    "source_passing_mesh_unchanged": true,
+    "retained_field_sha256": "d8d8ad3dabd90ebb86d9a150097c439e68e7dfb9ca0bc0a9edb8f6134b5f162e",
+    "misleading_intermediate_added_cells100percent_not_used_as_final_coverage": true,
+    "generator_all_face_determinant_formula": "27*r^2/(1+2*r)^3 for an ideal orthogonal rectangular cell of thickness/tangent ratio r",
+    "formula_source_local_sha256": "a4b3be510bafcc136c972b991760ceda43a80c03a8c028ee334a8bf90e1430d2",
+    "generator_minDeterminant": 0.001,
+    "nominal_first_height_m": 3e-05,
+    "ideal_10mm_tangent_determinant": 0.00023867796780455407,
+    "ideal_4mm_tangent_determinant": 0.001452406434244182,
+    "ideal_maximum_tangent_size_m_at_threshold": 0.004839224621049261,
+    "ideal_bound_not_actual_layer_or_quality_acceptance": true,
+    "next_action": "Separate source-aware4mm-tangent fine mesh; preserve original strict criteria and verify all native quality/coverage/firstheight before solving",
+    "pressure_adopted": false,
+    "engineering_accepted": false
+  },
+  "upstream_native_reader": "OpenFOAM12 foamDictionary; pinned Windows binary needs case cwd and relative field path",
+  "native_reader_executable_sha256": "2cf5f3d6703c6c040aecb92e42410becfce9462ca86073f5f9a550ea84628753",
+  "new_module_engine_or_parser": false,
+  "new_generic_helper": "bsa.openfoam_mesh_review.assess_layer_coverage",
+  "related_tests_passed": 14,
+  "new_layer_tests_passed": 5,
+  "mean_count_cannot_hide_missing_faces_tested": true,
+  "saved_native_field_and_boundary_source_binding_executed": true,
+  "mesh_OK_does_not_clear_layer_coverage": true,
+  "source_mesh_or_design_changed_by_reviewer": false,
+  "wall_area_height_yPlus_and_pressure_acceptance": false,
+  "engineering_accepted": false
+}

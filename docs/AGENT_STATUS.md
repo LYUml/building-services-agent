@@ -1,3 +1,5 @@
+Actual zero-layer MeshOK result now fails a separate reusable layer-count gate;14related tests pass. Source-bound4mm fine/source-wall-region candidates still fail28/84concave cells, so no layer/pressure adoption. The prior coarse feature mesh remains native-quality passed. See [native study](OPENFOAM_IMPORT_PRECISION.md).
+
 A source-feature-aware uniform native plenum mesh now passes full OpenFOAM topology/geometry checks:142480cells, five source port planes/outward normals exact. No quality criteria relaxed. Wall treatment/yPlus, area/mesh sensitivity, pressure and physical acceptance remain open. See [native study](OPENFOAM_IMPORT_PRECISION.md).
 
 Native hex-dominant meshing now actually executes on the same source plenum:62995cells pass old determinant/weight checks but fail2004concave cells; no wall layers/pressure acceptance. Source surface and17digit native roundtrip reconcile exactly; measured port drift remains. See [native study](OPENFOAM_IMPORT_PRECISION.md).

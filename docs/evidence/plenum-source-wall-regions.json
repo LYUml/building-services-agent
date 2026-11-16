@@ -1,0 +1,69 @@
+{
+  "scope": "Executed source-wall-region handoff and failed fine-mesh comparison; not an adopted mesh",
+  "source_region_mapping": {
+    "scope": "Restore existing Gmsh wall-entity regions for native mesh alignment; no geometry/face edit",
+    "source_gmsh_mesh_sha256": "e6c4bc50f06da95ad8303b037464d58714281e25413f76ce0bcb7989003c92f9",
+    "source_surface_sha256": "5cd21b70529f1c26ae07deadf485013d07928dc24a6a0a49b718ac82c9e39479",
+    "regrouped_surface_sha256": "7705f94f19323797ebe5dedd453c9c3895c758f33c42f76d58fc601995a2276b",
+    "vertices_preserved_byte_exact": true,
+    "ordered_oriented_triangles_preserved_byte_exact": true,
+    "all25778wall_triangles_bound_to_source_entities": true,
+    "wall_regions": 9,
+    "port_regions_unchanged": 5,
+    "region_triangle_counts": {
+      "inlet": 1576,
+      "outlet_0": 7672,
+      "outlet_1": 7670,
+      "outlet_2": 7670,
+      "outlet_3": 7668,
+      "wall_1": 4932,
+      "wall_3": 2434,
+      "wall_5": 556,
+      "wall_6": 226,
+      "wall_7": 546,
+      "wall_8": 4882,
+      "wall_9": 2434,
+      "wall_11": 4876,
+      "wall_12": 4892
+    },
+    "feature_policy": "Same explicit150degree features plus source-region boundaries and multiRegionFeatureSnap; same fine mesh density and strict criteria",
+    "source_geometry_changed": false,
+    "engineering_accepted": false
+  },
+  "native_mesh_review": {
+    "returncode": 0,
+    "completed": true,
+    "reported_failed_checks": [
+      1
+    ],
+    "native_mesh_checks_passed": false,
+    "engineering_accepted": false,
+    "native_returncodes": {
+      "surfaceFeatures": 0,
+      "blockMesh": 0,
+      "snappyHexMesh": 0,
+      "checkMesh": 0
+    },
+    "scope": "Coarse no-layer hex-dominant mesh feasibility; geometry/wall resolution/pressure not accepted"
+  },
+  "native_cells": 2271248,
+  "native_concave_cells": 84,
+  "previous_single_wall_fine_mesh_concave_cells": 28,
+  "source_native_inputs_sha256": {
+    "system/snappyHexMeshDict": "56d7a685cbb44b47c15e2cf30dde9d92b3e1e3b2c7381e28417a750ea6a22e64",
+    "system/surfaceFeaturesDict": "e541c820aa717368e17bb77ef77bd87e7660f2dfe0df6e3430254c04311418d0",
+    "system/meshQualityDict": "dc29d9e02def476d5b53f7c07ac0fd7452d17de1d1e3a4755432f10f3d8839b7",
+    "constant/triSurface/air.obj": "7705f94f19323797ebe5dedd453c9c3895c758f33c42f76d58fc601995a2276b",
+    "constant/triSurface/air.eMesh": "86284cabd344b3663037bd00eb383e654688a64ec8e7fc8274be81e03dbcced5",
+    "surfaceFeatures.log": "a6247ff74e6bcfd8ef3f8716d1a86104cc21acb0a80c5d31f630979386d306d7",
+    "snappyHexMesh.log": "c06a96336b3593f10bd03f262c01edc7c45da20f790772d3ccab19fcb84fcb61",
+    "checkMesh.log": "30b5ea1cae9a6985cd23d17fc42cb23a985035279a4f0d8159110d9a04cd4e0d"
+  },
+  "source_geometry_and_ordered_faces_unchanged": true,
+  "quality_criteria_relaxed": false,
+  "passing_coarse_mesh_preserved": true,
+  "new_pressure_or_CAD_run": false,
+  "wall_layers_added": false,
+  "candidate_adopted": false,
+  "engineering_accepted": false
+}

@@ -5,6 +5,13 @@ description: Calculate source-linked air/water networks, fan/pump operating poin
 
 # Network pressure analysis
 
+For native CFD mesh evidence, see docs/OPENFOAM_IMPORT_PRECISION.md.
+Mesh OK and intermediate added-cell percentages do not prove wall layers.
+Bind actual nSurfaceLayers and patch face counts to source hashes and screen
+them separately with openfoam_mesh_review.assess_layer_coverage. Face-count
+coverage does not clear wall area, actual first height, yPlus or pressure.
+Use the pinned upstream native dictionary reader; do not invent layer values.
+
 For declared static-to-total reference-station studies,see
 docs/VAV_CANDIDATE_STATION_PRESSURE.md. Use signed deltaPs+Pv_in-Pv_out,
 retain negative results and label candidate area/test-station correspondence.
