@@ -1,0 +1,63 @@
+{
+  "scope": "Conditional PLQR square-pattern/Type9 diagnostic at original planar course lengths; both adjacent published loads required, not actual-load ADPI interpolation or verified product category",
+  "native_curve_points": 324,
+  "source_curve_checks_all_flow_eligible_necks": 2528,
+  "terminals": 80,
+  "best_neck_diagnostic_passing_terminals": 0,
+  "best_neck_failed_direction_operating_cases": 320,
+  "best_neck_failed_curve_checks": 626,
+  "ADPI_verified": false,
+  "design_adopted": false,
+  "performance_source": {
+    "url": "https://www.krueger-hvac.com/file/4047/PLQ_5PLQ_MiniCatalog.pdf",
+    "sha256": "5fa0a1941d1aeaa066a6745ab5e040d18357eee9eb80a7981f8e92eb3869bd46",
+    "printed_pages": [
+      "A1-12",
+      "A1-25"
+    ],
+    "pattern_statement": "PLQR described as expanding square discharge; PLQ square face described as radial360 discharge. Face outline alone is not pattern evidence."
+  },
+  "independent_performance_source_check": {
+    "source_pdf_sha256": "5fa0a1941d1aeaa066a6745ab5e040d18357eee9eb80a7981f8e92eb3869bd46",
+    "source_tables_sha256": "04d0a0102145f87b23be421d9b619f65430d3e1cba2f041f7163e1d9c9514f6b",
+    "independent_engine": "PyMuPDF1.26.7 native word coordinates/baselines versus pypdf7.0.0 token parser",
+    "metric_rows": 54,
+    "metric_throw_triplets": 54,
+    "scalar_checks": 378,
+    "actual_source_pages_rendered_and_viewed": [
+      2,
+      14,
+      15
+    ],
+    "all_match": true,
+    "ADPI_verified": false
+  },
+  "curve_source": {
+    "url": "https://www.krueger-hvac.com/file/9261/GRD_Engineering.pdf",
+    "sha256": "f98aa9ded59150e157c83d5c5114faaa1a24c185928709ffe5d60c9b2f607988",
+    "printed_page": "a1-12",
+    "pattern": "Type 9 square ceiling pattern",
+    "native_fragments": 6,
+    "native_points": 324,
+    "existing_pinned_pdf2plot_helper_reused": true,
+    "maximum_calibration_difference": 4.9718473860593804e-05,
+    "native_page_actually_rendered_and_viewed": true
+  },
+  "source_course_csv_sha256": "45fb301e55af2132ca1e5cb01a67ddfccafa362aced04e567272f124f675a462",
+  "initial_flow_domain_candidate_necks": {
+    "8_inch": 77,
+    "10_inch": 3
+  },
+  "all160_operating_flows_coverable": true,
+  "initial_candidate_ratio_range": [
+    0.6119107905283347,
+    2.222398775802559
+  ],
+  "basis_limits": [
+    "Current planar coursework length retained; manufacturer installation/category correspondence remains conditional",
+    "Both adjacent published load curves required; not an interpolation or prediction at170.1W/m2",
+    "Source pattern guide load distribution and actual room-load/ceiling conditions not verified",
+    "No source curves, product substitution, CAD changes or acceptance inferred from faceplate shape"
+  ],
+  "course_acceptance_deferred_by_explicit_user_decision": true
+}

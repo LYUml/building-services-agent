@@ -142,3 +142,21 @@ returned access denied; no elevation or policy modification was attempted.
 No distinct supported public installer was located. Common local Sandbox/VM
 executable paths were absent, which is not a complete virtualization inventory.
 A local sanitized support note is ready for the user; no message was sent.
+
+
+PLQR follow-up uses actual manufacturer square-discharge wording rather than face
+outline: PLQ square plaque is radial360, while PLQR round plaque expands as a
+square pattern. Own24x24/no-damper54metric rows pass378independent coordinate-based
+scalar checks. The unchanged actual80terminal flow pairs can be covered by77eight-
+inch and3ten-inch necks (flow-domain choice only). Own640planar ratios range
+0.612-2.222; no coursework1-3.4 interval is transferred to the alternative product.
+
+The same pinned pdf2plot engine now calibrates Type9's324native points in six
+preserved fragments. Conditional product/pattern mapping and both adjacent load
+curve diagnostic across every flow-eligible neck produce2528curve checks. Best
+per-terminal choices still leave320failed direction/operating cases and626failed
+curve checks; zero terminals fully pass this diagnostic at current positions.
+This rejects this bounded unchanged-layout candidate, not all PLQR layouts or
+actual-load comfort. No geometry/product/ADPI adoption. Explicit user decision now
+defers course acceptance until an applicable ADPI basis is established.
+See [source-bound receipt](evidence/plqr-adpi-diagnostic.json).
