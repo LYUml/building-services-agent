@@ -274,3 +274,19 @@ actual A1 PDF and enlarged detail were inspected. Eleven related tests pass,
 including mirrored/skew frames, missed sections, off-plane ports, changed source
 SHA and resolved-output tampering. The existing desktop connection was not
 reloaded. See evidence/generic-ifc-section-drawing.json.
+
+Views may now explicitly set kind=projection; omitted kind retains section.
+Projection transforms the saved world mesh into the declared orthonormal frame
+and reuses source_network_drawing.project's pinned Shapely2.2.0 material union.
+Exterior and interior rings become editable closed polylines with product IDs.
+This is a tessellated silhouette, not a section or hidden-line drawing. Port
+dimensions retain the same in-plane restriction, avoiding a foreshortened length
+being presented as actual3D separation. Both modes can share one layout recipe.
+
+The actual110body candidate plan now executes directly from its source IFC via
+MCP and independent inspection. All110source identity/contour counts reconcile;
+independent native mesh extent checks, after removing sheet translation, differ
+by at most4.71e-9m. The actual A4 PDF was inspected. Twelve related tests pass,
+including projection-normal translation invariance and unknown-kind rejection.
+The old private projection script is no longer needed to execute this recipe.
+See evidence/generic-ifc-plan-drawing.json.

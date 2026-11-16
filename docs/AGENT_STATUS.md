@@ -1,3 +1,5 @@
+Source-bound IFC projection now joins sections in the shared drawing recipe/CLI/MCP. Actual110product native plan and independent source bounds checked; no hidden-line or installation acceptance. See [drawing document](DRAWING_DOCUMENT.md).
+
 Generic source-bound IFC plane sections and native port dimensions now compose through the shared drawing CLI/MCP, verified on10actual branch assemblies. Source/method binding and regenerated inspection execute; explicit planes/annotations remain required. See [drawing document](DRAWING_DOCUMENT.md).
 
 Actual current110body candidate now has a shared-CLI native coordination plan with all110source identities and294contours verified after reopen, actual PDF reviewed. Course submission baseline unchanged; installation/full pressure remain open. See [drawing document](DRAWING_DOCUMENT.md).

@@ -46,5 +46,17 @@ class IFCSectionDrawingTests(unittest.TestCase):
             self.save(s)
             with self.subTest(kind=kind),self.assertRaises(ValueError):sections.compose(self.project)
 
+    def test_projection_retains_closed_outlines_and_ignores_plane_elevation(self):
+        s=copy.deepcopy(self.spec);view=s['views'][0];view['kind']='projection';view['port_dimensions']=[]
+        self.save(s);layout,binding=sections.compose(self.project)
+        self.assertEqual(binding['view_kinds'],{'side':'projection'})
+        before=layout['views'][0]['entities'];self.assertTrue(before)
+        self.assertTrue(all(e['kind']=='polyline' and e['closed'] for e in before))
+        # Move only along the view normal: projected XY geometry stays identical.
+        view['frame'][0][3]=10;self.save(s);after,_=sections.compose(self.project)
+        self.assertEqual(before,after['views'][0]['entities'])
+        view['kind']='unknown';self.save(s)
+        with self.assertRaises(ValueError):sections.compose(self.project)
+
 
 if __name__=='__main__':unittest.main()

@@ -1,4 +1,4 @@
-"""Source-bound IFC plane cuts composed by the existing general drawing engines."""
+"""Source-bound IFC cuts and projections using existing general drawing engines."""
 import copy
 import importlib.metadata as metadata
 import json
@@ -22,7 +22,7 @@ def frame_matrix(value):
 
 def methods():
     return {name:digest(Path(__file__).with_name(name)) for name in
-            ('drawing_ifc_sections.py','circular_geometry.py','drawing_layout.py')}
+            ('drawing_ifc_sections.py','circular_geometry.py','drawing_layout.py','source_network_drawing.py')}
 
 
 def compose(project):
@@ -48,12 +48,20 @@ def compose(project):
     model=ifcopenshell.open(str(source))
     if ifcopenshell.util.unit.calculate_unit_scale(model)!=1:raise ValueError('Current IFC section reader requires metre source units')
     settings=ifcopenshell.geom.settings();settings.set(settings.USE_WORLD_COORDS,True);configure(settings)
-    factor=1000 if layout['units']=='mm' else 1;views=[];coverage={};names=set()
+    factor=1000 if layout['units']=='mm' else 1;views=[];coverage={};names=set();kinds={};runtimes=dict(PINS)
     for view in spec['views']:
-        if not isinstance(view,dict) or set(view)!={'id','guids','frame','layer','annotations','port_dimensions'}:raise ValueError('Exact section view fields required')
+        fields={'id','guids','frame','layer','annotations','port_dimensions'}
+        if not isinstance(view,dict) or set(view) not in (fields,fields|{'kind'}):raise ValueError('Exact section view fields required')
+        kind=view.get('kind','section')
+        if kind not in ('section','projection'):raise ValueError('Supported section/projection view kind required')
         name=drawing.text(view['id'])
         if name in names:raise ValueError('Unique view IDs required')
         names.add(name)
+        kinds[name]=kind
+        if kind=='projection':
+            from .source_network_drawing import project as project_mesh
+            if metadata.version('shapely')!='2.2.0':raise ValueError('Pinned Shapely2.2.0 required')
+            runtimes['shapely']='2.2.0'
         if not isinstance(view['guids'],list) or not view['guids'] or len(set(view['guids']))!=len(view['guids']):raise ValueError('Unique nonempty product GUIDs required')
         if view['layer'] not in layout['layers']:raise ValueError('Declared section layer required')
         if not isinstance(view['annotations'],list) or not isinstance(view['port_dimensions'],list):raise ValueError('Explicit annotation/dimension lists required')
@@ -64,14 +72,22 @@ def compose(project):
             if not obj.is_a('IfcProduct') or not obj.Representation:raise ValueError('Represented IFC product required')
             shape=ifcopenshell.geom.create_shape(settings,obj);mesh=shape.geometry
             vertices=np.asarray(mesh.verts).reshape(-1,3);faces=np.asarray(mesh.faces).reshape(-1,3)
-            segments=trimesh.intersections.mesh_plane(trimesh.Trimesh(vertices,faces,process=False),normal,origin)
             counts[guid]=0
-            for i,segment in enumerate(segments):
-                xy=((segment-origin)@axes)*factor
-                if np.linalg.norm(xy[1]-xy[0])<1e-10*factor:continue
-                entities.append(dict(id=f'{name}:{guid}:cut:{i}',kind='line',layer=view['layer'],source=f'{spec["source"]}; IFC {spec["ifc_sha256"]}; {guid}',classification='secondary_transcription',start=xy[0].tolist(),end=xy[1].tolist()))
-                counts[guid]+=1
-            if not counts[guid]:raise ValueError('Every selected product must intersect the section plane')
+            binding=dict(layer=view['layer'],source=f'{spec["source"]}; IFC {spec["ifc_sha256"]}; {guid}',classification='secondary_transcription')
+            if kind=='projection':
+                polygons=project_mesh((vertices-origin)@frame[:3,:3],faces)
+                for polygon in polygons:
+                    for ring in [polygon.exterior,*polygon.interiors]:
+                        entities.append(dict(binding,id=f'{name}:{guid}:outline:{counts[guid]}',kind='polyline',points=(np.asarray(ring.coords)[:-1]*factor).tolist(),closed=True))
+                        counts[guid]+=1
+            else:
+                segments=trimesh.intersections.mesh_plane(trimesh.Trimesh(vertices,faces,process=False),normal,origin)
+                for i,segment in enumerate(segments):
+                    xy=((segment-origin)@axes)*factor
+                    if np.linalg.norm(xy[1]-xy[0])<1e-10*factor:continue
+                    entities.append(dict(binding,id=f'{name}:{guid}:cut:{i}',kind='line',start=xy[0].tolist(),end=xy[1].tolist()))
+                    counts[guid]+=1
+                if not counts[guid]:raise ValueError('Every selected product must intersect the section plane')
         for d in view['port_dimensions']:
             if not isinstance(d,dict) or set(d)!={'id','ports','layer','distance','text_height'} or not isinstance(d['ports'],list) or len(d['ports'])!=2:raise ValueError('Explicit two-port dimension fields required')
             points=[]
@@ -88,7 +104,7 @@ def compose(project):
     layout.update(schema='bsa.drawing-layout/1',views=views)
     drawing_layout.compose(layout)
     if digest(source)!=spec['ifc_sha256']:raise ValueError('IFC changed during section extraction')
-    return layout,dict(ifc_sha256=spec['ifc_sha256'],coverage=coverage,runtimes=PINS,methods=methods(),design_accepted=False)
+    return layout,dict(ifc_sha256=spec['ifc_sha256'],coverage=coverage,view_kinds=kinds,runtimes=runtimes,methods=methods(),design_accepted=False)
 
 
 def verify(project,out):
