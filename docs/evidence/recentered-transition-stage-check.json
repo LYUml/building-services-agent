@@ -1,0 +1,42 @@
+{
+  "scope": "Separate recentered two-stage contraction design candidate; current course submission unchanged",
+  "ifc_sha256": "a3ae38f81423ddfa1d66d0725fe6afa8505031cfd5f558ba2042d257a9eafc8b",
+  "bodies": 91,
+  "ports": 201,
+  "links": 90,
+  "material_cap_interfaces_verified": 90,
+  "schema_issues": 0,
+  "solid_intersections": 0,
+  "unverified_solid_pairs": 0,
+  "unwaived_clearance_findings": 90,
+  "all_clearance_findings_on_linked_body_pairs": true,
+  "maximum_and_minimum": {
+    "conditional_fitting_values": 35,
+    "numerical_gaps": 30,
+    "directed_fitting_paths": 65
+  },
+  "prior_maximum_and_minimum": {
+    "conditional_fitting_values": 31,
+    "numerical_gaps": 32,
+    "directed_fitting_paths": 63
+  },
+  "new_local_queries_independently_reconstructed": 8,
+  "Decimal_max_difference_Pa": 4.440892098500626e-16,
+  "additional_assembly_length_m": [
+    0.001162206610313521,
+    0.001162206610313521
+  ],
+  "dependencies": "Existing pinned IfcOpenShell0.8.5, Manifold3.5.4, NumPy2.5.4, fluids1.3.1; no new engine",
+  "source": "Previously held/source-reviewed PHVAC9 supplement2021 Fitting4-2/4-4, printed19/20; tentative contraction-data caveat retained",
+  "remaining": [
+    "30 numerical fitting gaps per case",
+    "90 unwaived contact-clearance findings",
+    "whole-fitting friction/station and short-fitting interactions",
+    "terminal/equipment/installed flex and boundary pressure",
+    "native candidate drawing and visual review"
+  ],
+  "design_adopted": false,
+  "pressure_budget_complete": false,
+  "fan_duty_Pa": null,
+  "design_accepted": false
+}

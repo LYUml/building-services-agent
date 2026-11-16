@@ -61,3 +61,6 @@ Installed VAV/flex/terminal/equipment data, real joints/clearances, elevations,
 nominal/internal conventions, boundary pressures, thermal/ADPI and final whole-
 submission consistency remain unresolved. Original study construction assumptions
 are retained. Full engineering acceptance is false.
+
+## Two-stage contraction candidate
+Two later source-family failures after resizing are addressed in a separate actual91body/201port/90link candidate: four45degree transition bodies replace two unequal-angle bodies. Existing pinned author/native/cap/pressure/clash engines are reused. All90actual material caps match, schema has0issues and raw solid intersections0. Ninety linked-contact clearance findings remain unwaived. Two adjacent straights shorten1.162207mm each;21external boundary frames stay unchanged. Fresh max/min ledgers each give35conditional values/30numerical gaps over65paths, versus31/32over63. Eight local queries match independent Decimal within4.45e-16Pa. Source tentative-data, friction/stations/short-fitting interaction limitations remain. This candidate has not replaced the course scheme; native candidate drawings, installation and fullpressure/fanduty remain pending. See evidence/recentered-transition-stage-check.json and the separate course Transition Construction Study.
