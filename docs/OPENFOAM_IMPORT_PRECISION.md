@@ -479,3 +479,24 @@ The total duration is only 1.026 reference residence times; stationary statistic
 mesh/time independence, inlet profile, roughness and wall treatment remain open.
 Maximum Courant is 0.453. No source geometry, coursework report, pressure ledger,
 ADPI result or fan duty changes. See [executed receipt](evidence/plenum-residence-evolution.json).
+
+
+### Outlet boundary diagnosis and retained-core computational extension
+
+Actual saved0.25s port-face/owner-cell reconstruction finds normal-velocity CV
+0.416/0.417/0.330/0.326. Four adjacent internal cell layers have reverse normal
+velocity over4.635/4.635/1.592/1.273% of port area. Foundation12's prescribed
+flowRateOutletVelocity clamps extrapolated reverse velocity; zero reverse flux at
+the imposed boundary is therefore not independent evidence of no recirculation.
+This motivates boundary-domain sensitivity before another unchanged extension in time.
+
+An isolated native extrudeMesh mesh-mode trial now appends25uniform layers over
+0.25m to each of four computational outlets:142480 ->190880cells. This length is
+an explicit numerical parameter, not an installed duct dimension. All151473original
+points,436228original faces, owner cells and original internal neighbours are
+independently preserved exactly. Each original484face outlet becomes an internal
+faceZone with retained coordinates/orientation for original-station comparisons.
+Native full geometry/topology check passes Mesh OK; a subsequent native read with
+the four faceZones also passes. No criteria are relaxed. The extended mesh has
+not yet executed a pressure solver or established domain independence. The existing
+course design and pressure ledger are unchanged. See [receipt](evidence/plenum-outlet-extension.json).
