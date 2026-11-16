@@ -1,0 +1,126 @@
+{
+  "scope": "Separate current-layout compact branch candidate; source course baseline preserved",
+  "ifc_sha256": "9a553e3c9023e5e3e332e7e822054bac016acc6dc1480897bd1ccec48b5cd8da",
+  "source_ifc_sha256": "8279155fac0fbc70c57d6eaf00bd9daca72a783eab9cda44e73ef075b4929406",
+  "schema_issues": 0,
+  "bodies": 114,
+  "ports": 247,
+  "links": 113,
+  "unchanged_parent_products": 108,
+  "unchanged_external_boundary_frames": 21,
+  "native_material_interfaces": 113,
+  "solid_intersections": 0,
+  "unwaived_linked_clearance_findings": 113,
+  "independent_decimal_queries": 16,
+  "maximum_pressure_difference_Pa": 3.552713678800501e-15,
+  "maximum_coefficient_difference": 1.1102230246251565e-16,
+  "minimum_core_straight_target_m": 0.05,
+  "actual_core_straights_m": [
+    0.11891265670771267,
+    0.053020794447923625
+  ],
+  "both_flow_cases": {
+    "conditional_values": 79,
+    "numeric_gaps": 9,
+    "fitting_paths": 88
+  },
+  "prior_both_flow_cases": {
+    "conditional_values": 73,
+    "numeric_gaps": 11,
+    "fitting_paths": 84
+  },
+  "design_accepted": false,
+  "complete_pressure_Pa": null,
+  "source": "Previously reviewed ASHRAE PHVAC9 supplement2021 Fitting5-23 printed38/39 and4-2 printed19; no source grids/PDF redistributed",
+  "assumptions": "440mm custom throat,45degree included angles,50mmcollars,0.8mmoffset;50mmcore-straight software comparison target,not manufacturer/statutory requirement",
+  "native_drawing": {
+    "native_audit": {
+      "model_entities": 179,
+      "entity_types": {
+        "TEXT": 11,
+        "LINE": 161,
+        "DIMENSION": 6,
+        "LWPOLYLINE": 1
+      },
+      "editable_entity_correspondence": true,
+      "dimension_rendering_visual_review": "pending"
+    },
+    "methods": {
+      "drawing_document.py": "424a8d8a40fa9a09ee7282f984807c9977529a6c48615c09367bdf1ff26b0881",
+      "cad_sheet.py": "2aa3880343af74c7dea09e329266651f5152badbf3e12befb8e5dc2f9a60c315",
+      "cad_intake.py": "ab8f7dd945134dc824de2a25cfb2d8423752c190baa150fedb81d87e93242bd0",
+      "cad_overlay.py": "91c4c9e2802a76f5516ca92c3438766cd472a0cbf797da0b1b3e8bfa688a9e49",
+      "native_cad.py": "d6a8b81b11bb2b422fdfbfa4ba3fc6b26557b5cfd0a8fc66a91c52cb74a180a0"
+    },
+    "plot": {
+      "pdf_sha256": "e5f921d9d30a11516830733df6cf00a562a4afb786486f1f0bbfeade3cbfc898",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 10,
+      "reference_handle": "195",
+      "reference_expected_mm": 50.0,
+      "reference_measured_mm": 50.03799999999999,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "native_reopen_pass": true,
+    "independent_port_dimension_checks": [
+      {
+        "view": "compact-branch-1",
+        "dimension": "length-1",
+        "native_port_separation_mm": 112.07106781186482,
+        "reopened_dimension_mm": 112.07106781186474
+      },
+      {
+        "view": "compact-branch-1",
+        "dimension": "length-2",
+        "native_port_separation_mm": 341.4213562373085,
+        "reopened_dimension_mm": 341.4213562373088
+      },
+      {
+        "view": "compact-branch-1",
+        "dimension": "length-3",
+        "native_port_separation_mm": 453.49242404917334,
+        "reopened_dimension_mm": 453.49242404917356
+      },
+      {
+        "view": "compact-branch-2",
+        "dimension": "length-1",
+        "native_port_separation_mm": 112.07106781186482,
+        "reopened_dimension_mm": 112.07106781186485
+      },
+      {
+        "view": "compact-branch-2",
+        "dimension": "length-2",
+        "native_port_separation_mm": 220.7106781186532,
+        "reopened_dimension_mm": 220.71067811865282
+      },
+      {
+        "view": "compact-branch-2",
+        "dimension": "length-3",
+        "native_port_separation_mm": 332.781745930518,
+        "reopened_dimension_mm": 332.7817459305177
+      }
+    ],
+    "visual_review": {
+      "reviewer": "Codex host AI",
+      "actual_whole_pdf_inspected": true,
+      "finding": "Clear notes after increased separation from dimension extensions; no observed clipping in examined sheet"
+    }
+  },
+  "remaining": [
+    "9numerical fitting gaps per flow case",
+    "113unwaived linked contact-clearance findings",
+    "Whole-fitting friction/stations and adjacent-fitting interaction",
+    "Products/fabrication/noise/installed clearances",
+    "Equipment,terminal,flex,boundary pressure and ADPI basis"
+  ],
+  "drawing_artifacts": {
+    "Compact Branch Construction Details.dwg": "4c7a5b7a59b5582b24292c95b2e5c6bc50515c7d0ca4ad1ae9b70b237e480058",
+    "Compact Branch Construction Details.pdf": "e5f921d9d30a11516830733df6cf00a562a4afb786486f1f0bbfeade3cbfc898"
+  }
+}
