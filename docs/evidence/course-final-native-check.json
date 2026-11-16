@@ -1,0 +1,55 @@
+{
+  "original_dwg_sha256": "c76a643d224889bae56ff96c91d5df160e4b75e154faf9d0829ec75749283115",
+  "saved_copy_dwg_sha256": "8e2eada1fb3450cafca239ba2a17d079faba45787e04f361c54fcecd5233da86",
+  "native_export_sha256": "d357d0f4b9ceb8499e7c1454fdaaacead14016c3e170af21a3c3a3026df1a23e",
+  "native_geometry": {
+    "generated_entity_count": 718,
+    "layers": [
+      "BSA_DIFFUSER",
+      "BSA_FLEX",
+      "BSA_LABEL",
+      "BSA_NOTES",
+      "BSA_SCHEDULE",
+      "BSA_SOURCE_TEXT",
+      "BSA_SUPPLY",
+      "BSA_VAV",
+      "BSA_FLOW_DIRECTION"
+    ],
+    "comparison": "Ordered effective DXF attributes and polyline vertices; handles/owners excluded; 1e-7 drawing-unit absolute tolerance",
+    "generated_native_correspondence": true
+  },
+  "plot": {
+    "pdf_sha256": "c2772101c615874fe9110e0344b883d1395dddabc843d55cc5914b81fc24b820",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      841.0222222222221,
+      594.0777777777777
+    ],
+    "scale_denominator": 100,
+    "reference_handle": "8FFD",
+    "reference_expected_mm": 100.0,
+    "reference_measured_mm": 99.99133333333334,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "source_unchanged": true,
+  "visual_review": {
+    "actual_A1_plot_inspected": true,
+    "observed_clipping_or_overlap": false,
+    "rendered_pixels_identical_to_report_plan": true,
+    "comparison_render_pixels": [
+      2384,
+      1684
+    ],
+    "scope": "Whole-sheet layout review, not independently legible inspection of every fine annotation"
+  },
+  "design_accepted": false,
+  "fresh_flex_check": {
+    "routes": 80,
+    "maximum_XY_m": 2.87286911748179,
+    "all_prior_lengths_match_1e_10m": true,
+    "installed_lengths_verified": false
+  },
+  "scope": "Current coursework DWG copied, saved in AutoCAD, reopened, generated layers compared, actual A1 plot inspected; full design acceptance remains false"
+}
