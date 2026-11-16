@@ -1,0 +1,44 @@
+{
+  "scope": "Separate current-layout constant-height tee and contraction candidate; course baseline unchanged",
+  "ifc_sha256": "8279155fac0fbc70c57d6eaf00bd9daca72a783eab9cda44e73ef075b4929406",
+  "source_ifc_sha256": "9c5dca882152ef76864f35feda97e1dbdb9c5d0311fb7a822496ccc2b41b8230",
+  "screened_simple_tees": 12,
+  "revised_tees": 10,
+  "remaining_screen_rejections": 2,
+  "bodies": 110,
+  "ports": 239,
+  "links": 109,
+  "schema_issues": 0,
+  "actual_material_interfaces_match": 109,
+  "unchanged_parent_product_shapes": 90,
+  "external_boundary_frames_unchanged": 21,
+  "solid_intersections": 0,
+  "unverified_solid_pairs": 0,
+  "unwaived_clearance_findings": 109,
+  "all_clearance_findings_on_linked_pairs": true,
+  "both_flow_cases": {
+    "conditional_values": 73,
+    "numerical_gaps": 11,
+    "fitting_paths": 84
+  },
+  "prior_both_flow_cases": {
+    "conditional_values": 53,
+    "numerical_gaps": 21,
+    "fitting_paths": 74
+  },
+  "independent_query_checks": 60,
+  "Decimal_max_pressure_difference_Pa": 7.105427357601002e-15,
+  "source": "Previously reviewed PHVAC9 supplement2021 Fitting5-23 printed38/39 and4-2 printed19; tentative contraction-data caveat retained",
+  "assumptions": "30degree height contraction,50mm collars,0.8mmoffset; inherited nominal sections/flow and source conditions",
+  "dependencies": "Existing pinned IfcOpenShell0.8.5, Manifold3.5.4, fluids1.3.1; no new engine",
+  "remaining": [
+    "11 numerical fitting gaps per case",
+    "109 unwaived contact-clearance findings",
+    "whole-fitting friction/station and adjacent-fitting interaction",
+    "new candidate native CAD drawing and visual review",
+    "equipment/terminal/flex/boundary pressure and ADPI basis"
+  ],
+  "design_adopted": false,
+  "complete_pressure_Pa": null,
+  "design_accepted": false
+}
