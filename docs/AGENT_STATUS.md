@@ -1,3 +1,5 @@
+Native hex-dominant meshing now actually executes on the same source plenum:62995cells pass old determinant/weight checks but fail2004concave cells; no wall layers/pressure acceptance. Source surface and17digit native roundtrip reconcile exactly; measured port drift remains. See [native study](OPENFOAM_IMPORT_PRECISION.md).
+
 Limited-vector plenum trial now finishes its full200sample window:flow/mass pass, pressure ranges5.59–27.92% andyPlus1.25667 fail unchanged targets. No pressure adopted or further unchanged continuation; native failure localization separates4tetrahedral low-weight faces from117366small-determinant cells. See [native study](OPENFOAM_IMPORT_PRECISION.md).
 
 Current same-model terminal boundary budgets now add the reviewed Model1400 Pt once for160endpoint/flow rows; native owners/drawing index, Decimal interpolation and saved partial budgets reconcile.84numeric gaps and controlled VAV/test-plane/ADPI uncertainty remain. See [current package](CURRENT_VAV_STATION_PACKAGE.md).

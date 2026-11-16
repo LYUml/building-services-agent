@@ -1,0 +1,207 @@
+{
+  "scope": "Executed core relocation and native coarse hex-dominant plenum feasibility; no pressure or engineering acceptance",
+  "upstream": "Gmsh4.15.2 GPL-2.0-or-later; OpenFOAM12 build12-8e8552546d20 GPL-3.0-or-later isolated serial",
+  "protected_core_relocation": {
+    "method": "Gmsh4.15.2 Relocate3D five iterations on existing resolution-core-optimized tetrahedra, fixed discrete boundary; core connectivity preserved",
+    "source_sha256": "5a1c39ce548f03089755ff361ddc593bff1bafd74b6a81ed59768027fb95babd",
+    "core_tetrahedra": 246504,
+    "core_boundary_triangles": 38234,
+    "moved_nodes": 20734,
+    "moved_protected_nodes": 0,
+    "prism_connectivity_unchanged": true,
+    "core_boundary_faces_unchanged": true,
+    "optimized_core_tetrahedra": 246504,
+    "surface_connectivity_unchanged": true,
+    "engineering_accepted": false
+  },
+  "core_relocation_native_mesh": {
+    "returncode": 0,
+    "completed": true,
+    "reported_failed_checks": [
+      2
+    ],
+    "native_mesh_checks_passed": false,
+    "engineering_accepted": false
+  },
+  "core_relocation_native_coordinates_ports": {
+    "scope": "Native 17-digit import coordinate and five port-area correspondence only",
+    "native_points": 274575,
+    "all_source_coordinates_exact": false,
+    "maximum_coordinate_difference_m": 3.552713678800501e-15,
+    "coordinate_correspondence_unique": true,
+    "coordinate_tolerance_m": 1e-12,
+    "exact_equality_comparison_failed": true,
+    "areas_m2": {
+      "inlet": 0.1343076000000002,
+      "outlet_0": 0.04876392628693841,
+      "outlet_1": 0.048763926286938444,
+      "outlet_2": 0.04876392628693766,
+      "outlet_3": 0.048763926286937674
+    },
+    "maximum_absolute_area_difference_m2": 1.1934897514720433e-15,
+    "engineering_accepted": false
+  },
+  "surface_frame": {
+    "scope": "Source-bound surface and rigid numerical-coordinate-frame preparation; no hex mesh or pressure acceptance",
+    "source_surface_sha256": "f382ecd713c715a7e5564db9a1688189fbd8b9f5216abc2a276a6f03ee5fc7e1",
+    "existing_native_triangulation_sha256": "69278785ca478e93299a4e821154e32de1712d9914023a600d12d8dcde8178b3",
+    "local_surface_sha256": "5cd21b70529f1c26ae07deadf485013d07928dc24a6a0a49b718ac82c9e39479",
+    "vertices": 29019,
+    "source_polygons": 48134,
+    "native_triangles": 58034,
+    "all_source_polygons_partitioned_with_same_group_and_orientation": true,
+    "max_polygon_area_vector_error_m2": 0,
+    "world_from_local_translation_m": [
+      68.245932,
+      18.590709,
+      0.0
+    ],
+    "maximum_inverse_coordinate_error_m": 0.0,
+    "local_bounds_m": [
+      [
+        -0.2889250000000061,
+        -0.45045,
+        -0.177
+      ],
+      [
+        0.2889250000000061,
+        0.45045,
+        0.177
+      ]
+    ],
+    "world_surface_zero_vertices": 0,
+    "source_geometry_modified": false,
+    "engineering_accepted": false
+  },
+  "native_surface_roundtrip_vertices_faces_groups_exact": true,
+  "native_surface_closed_single_connected_oriented_zone": true,
+  "hex_trial_inputs": {
+    "source_surface_sha256": "5cd21b70529f1c26ae07deadf485013d07928dc24a6a0a49b718ac82c9e39479",
+    "inside_point_local_m": [
+      0.001,
+      0.002,
+      0.003
+    ],
+    "inside_point_signed_winding_number": 1.0,
+    "background_cell_size_m": 0.04,
+    "surface_refinement_level": 2,
+    "inside_refinement_level": 1,
+    "maximum_cells_design_target": 500000,
+    "layers_enabled": false,
+    "scope": "Coarse topology/geometry feasibility only, not wall-resolved or pressure-ready",
+    "official_mesh_quality_template_sha256": "dc29d9e02def476d5b53f7c07ac0fd7452d17de1d1e3a4755432f10f3d8839b7",
+    "engineering_accepted": false
+  },
+  "hex_native_review": {
+    "returncode": 0,
+    "completed": true,
+    "reported_failed_checks": [
+      1
+    ],
+    "native_mesh_checks_passed": false,
+    "engineering_accepted": false,
+    "native_returncodes": {
+      "blockMesh": 0,
+      "snappyHexMesh": 0,
+      "checkMesh": 0
+    },
+    "scope": "Coarse no-layer hex-dominant mesh feasibility; geometry/wall resolution/pressure not accepted"
+  },
+  "hex_geometry": {
+    "scope": "Measured coarse native hex mesh geometry correspondence only; no acceptance thresholds invented",
+    "native_cells": 62995,
+    "native_points": 77584,
+    "source_reference_mesh_volume_m3": 0.1403540428609383,
+    "native_volume_m3": 0.14032488159051282,
+    "relative_volume_change": -0.00020776936546373914,
+    "ports": [
+      {
+        "source_port": "inlet",
+        "native_patch": "air_inlet",
+        "native_faces": 1368,
+        "source_tessellated_area_m2": 0.13430760000000136,
+        "native_area_m2": 0.1343076000000014,
+        "relative_area_change": 2.220446049250313e-16,
+        "maximum_plane_distance_m": 0.0
+      },
+      {
+        "source_port": "outlet_0",
+        "native_patch": "air_outlet_0",
+        "native_faces": 484,
+        "source_tessellated_area_m2": 0.048763926286938236,
+        "native_area_m2": 0.04875907971773878,
+        "relative_area_change": -9.938841205969773e-05,
+        "maximum_plane_distance_m": 8.294251719392909e-05
+      },
+      {
+        "source_port": "outlet_1",
+        "native_patch": "air_outlet_1",
+        "native_faces": 484,
+        "source_tessellated_area_m2": 0.048763926286938236,
+        "native_area_m2": 0.048763548287087836,
+        "relative_area_change": -7.751628697372226e-06,
+        "maximum_plane_distance_m": 8.2933037903965e-05
+      },
+      {
+        "source_port": "outlet_2",
+        "native_patch": "air_outlet_2",
+        "native_faces": 484,
+        "source_tessellated_area_m2": 0.04876392628693806,
+        "native_area_m2": 0.048759694031676265,
+        "relative_area_change": -8.679069927419736e-05,
+        "maximum_plane_distance_m": 0.00013397542014459418
+      },
+      {
+        "source_port": "outlet_3",
+        "native_patch": "air_outlet_3",
+        "native_faces": 484,
+        "source_tessellated_area_m2": 0.04876392628693806,
+        "native_area_m2": 0.04875581004701195,
+        "relative_area_change": -0.00016643942652116994,
+        "maximum_plane_distance_m": 0.00013021178355210328
+      }
+    ],
+    "port_plane_correspondence_exact": false,
+    "boundary_layers_present": false,
+    "native_mesh_quality_accepted": false,
+    "pressure_run": false,
+    "source_physical_model_changed": false,
+    "design_accepted": false
+  },
+  "hex_quality_metrics": {
+    "maximum_aspect_ratio": 4.090254384160286,
+    "maximum_nonorthogonality_degrees": 33.70871171520347,
+    "minimum_cell_determinant": 0.5409936545585646,
+    "minimum_face_interpolation_weight": 0.2482910164479968,
+    "concave_cells": 2004
+  },
+  "source_hashes": {
+    "system/controlDict": "3beea52a550a10dc9580b3400df65de005243413f4414de532583055d86f3d7f",
+    "system/blockMeshDict": "a338a84fce543529a35d2e2715abbcaa9bfcaa636e27ba24d579fdec053d8a00",
+    "system/snappyHexMeshDict": "15f75dde7b7a586c58bf80e286fcaa8aed52be0503fd23d7690c5222c9401761",
+    "system/meshQualityDict": "dc29d9e02def476d5b53f7c07ac0fd7452d17de1d1e3a4755432f10f3d8839b7",
+    "blockMesh.log": "5b7364b9dc1786e427b279acde5582d030cbc372821395859147f8b804eb518b",
+    "snappyHexMesh.log": "c21c9308aa211e2a00bfd44a7d466286b33033f6dedf351d8b21bbd32e8ccb7d",
+    "checkMesh.log": "6a8af7ddebac46374b1689504f9f16a8f69390806dcf5ecaf822b10e7a086058",
+    "surfaceCheck.log": "f983a258003afef8419c9b4e2f79d02b169dcd2cdcf8e6f6fc3ad4447bd221c4"
+  },
+  "native_executable_sha256": {
+    "blockMesh.exe": "78854b18133c023bb1c28d04c6a80ee9a8de9b91d647fdbe18c012cf4007a396",
+    "snappyHexMesh.exe": "fa335ec095a0d15539b2b1b7466d48954772a22e425d6bf958b61b54b040a810",
+    "checkMesh.exe": "3182e411f23f5f4e56e8fb87d25b619f918dc0f5e5beb79c0844230049b5ab6b",
+    "surfaceConvert.exe": "be2619af994255214104e8578f291610a56bcea11fc6891337422f590c80e5d1"
+  },
+  "source_geometry_changed": false,
+  "pressure_solver_executed": false,
+  "new_CAD_execution": false,
+  "numerical_target_relaxed": false,
+  "design_pressure_adopted": false,
+  "design_accepted": false,
+  "remaining_work": [
+    "concave native cells",
+    "port plane drift up to0.134mm",
+    "wall layers/yPlus",
+    "mesh sensitivity and pressure convergence",
+    "source physical/test-station applicability"
+  ]
+}
