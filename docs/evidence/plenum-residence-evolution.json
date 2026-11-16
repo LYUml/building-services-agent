@@ -1,0 +1,242 @@
+{
+  "scope": "One-reference-residence transient evolution; not validated design pressure",
+  "run": {
+    "returncode": 0,
+    "elapsed_s": 1166.9060000000027,
+    "source_inputs_preserved": true,
+    "final_U_exists": true,
+    "pressure_adopted": false
+  },
+  "physical_times_match980steps": true,
+  "history_samples_including_restart": 981,
+  "flow_checks": {
+    "inlet": {
+      "samples": 981,
+      "maximum_relative_error": 1.3499907495918863e-15
+    },
+    "outlet_0": {
+      "samples": 981,
+      "maximum_relative_error": 3.3797338241850877e-15
+    },
+    "outlet_1": {
+      "samples": 981,
+      "maximum_relative_error": 3.004207843720078e-15
+    },
+    "outlet_2": {
+      "samples": 981,
+      "maximum_relative_error": 2.5192654207420535e-15
+    },
+    "outlet_3": {
+      "samples": 981,
+      "maximum_relative_error": 3.1919708339525855e-15
+    }
+  },
+  "final_fields": {
+    "U": {
+      "cells": 142480,
+      "component_min": -6.433047402968602,
+      "component_max": 4.8054350094057945,
+      "sha256": "380e26d6a4f6b4ef22b9d54565a36be5378d2abc6287ba337fcf205918f10f35"
+    },
+    "p": {
+      "cells": 142480,
+      "component_min": -43.3446243658256,
+      "component_max": 1.0896094083868433,
+      "sha256": "0a23aef13881ad4dad32552fe989fef868b08b71599749cba3dffb8dc15d504f"
+    },
+    "k": {
+      "cells": 142480,
+      "component_min": 0.005357978866751093,
+      "component_max": 1.2614661613683587,
+      "sha256": "b3636baf1abc132ea9a89d78a2b5000680a4cf5eb37a44e24c10da8e00f4e0c5"
+    },
+    "epsilon": {
+      "cells": 142480,
+      "component_min": 0.012940426497579836,
+      "component_max": 98.65187615138865,
+      "sha256": "6353f4dc8565e9f921ebf832ced06bc0fd236f4860e7548996b8aac592cf6a88"
+    },
+    "nut": {
+      "cells": 142480,
+      "component_min": 7.125632536232136e-05,
+      "component_max": 0.01902220320865676,
+      "sha256": "c75bfc811061e59e8216b7fba5c6c42fde1bb102ae384ae055f529179878608d"
+    }
+  },
+  "physical_end_s": 0.25,
+  "nominal_residence_s": 0.24375340232499723,
+  "nominal_residence_fraction": 1.0256267096804423,
+  "pressure_window_diagnostics": {
+    "outlet_0": {
+      "windows": [
+        {
+          "from_s": 0.15,
+          "to_s": 0.2,
+          "samples_including_both_endpoints": 201,
+          "time_weighted_mean_Pa": 7.5003266220569875,
+          "time_weighted_rms_Pa": 0.005007465313760456,
+          "range_Pa": 0.017826674926268105
+        },
+        {
+          "from_s": 0.2,
+          "to_s": 0.25,
+          "samples_including_both_endpoints": 201,
+          "time_weighted_mean_Pa": 7.509679301752245,
+          "time_weighted_rms_Pa": 0.000964216069448072,
+          "range_Pa": 0.0034592803240851566
+        }
+      ],
+      "mean_change_Pa": 0.009352679695257216,
+      "stationary_statistics_accepted": false,
+      "relative_mean_change_second_window_reference": 0.0012454166575495361
+    },
+    "outlet_1": {
+      "windows": [
+        {
+          "from_s": 0.15,
+          "to_s": 0.2,
+          "samples_including_both_endpoints": 201,
+          "time_weighted_mean_Pa": 7.5229600019445675,
+          "time_weighted_rms_Pa": 0.005099321299849039,
+          "range_Pa": 0.01815956061696422
+        },
+        {
+          "from_s": 0.2,
+          "to_s": 0.25,
+          "samples_including_both_endpoints": 201,
+          "time_weighted_mean_Pa": 7.532513829693886,
+          "time_weighted_rms_Pa": 0.0009885743795652068,
+          "range_Pa": 0.0034631429678286807
+        }
+      ],
+      "mean_change_Pa": 0.009553827749318344,
+      "stationary_statistics_accepted": false,
+      "relative_mean_change_second_window_reference": 0.0012683451986050455
+    },
+    "outlet_2": {
+      "windows": [
+        {
+          "from_s": 0.15,
+          "to_s": 0.2,
+          "samples_including_both_endpoints": 201,
+          "time_weighted_mean_Pa": 3.565674405635124,
+          "time_weighted_rms_Pa": 0.02310881416672013,
+          "range_Pa": 0.07987745989506267
+        },
+        {
+          "from_s": 0.2,
+          "to_s": 0.25,
+          "samples_including_both_endpoints": 201,
+          "time_weighted_mean_Pa": 3.642706910124611,
+          "time_weighted_rms_Pa": 0.021108787629529235,
+          "range_Pa": 0.07307807494460672
+        }
+      ],
+      "mean_change_Pa": 0.07703250448948662,
+      "stationary_statistics_accepted": false,
+      "relative_mean_change_second_window_reference": 0.02114704981490028
+    },
+    "outlet_3": {
+      "windows": [
+        {
+          "from_s": 0.15,
+          "to_s": 0.2,
+          "samples_including_both_endpoints": 201,
+          "time_weighted_mean_Pa": 4.125491643372421,
+          "time_weighted_rms_Pa": 0.02409727164085718,
+          "range_Pa": 0.08345040908070178
+        },
+        {
+          "from_s": 0.2,
+          "to_s": 0.25,
+          "samples_including_both_endpoints": 201,
+          "time_weighted_mean_Pa": 4.2045593617712065,
+          "time_weighted_rms_Pa": 0.02154896360669708,
+          "range_Pa": 0.07459941310971008
+        }
+      ],
+      "mean_change_Pa": 0.07906771839878513,
+      "stationary_statistics_accepted": false,
+      "relative_mean_change_second_window_reference": 0.018805232985336463
+    }
+  },
+  "maximum_Courant": 0.45286346857005577,
+  "mesh_independence_accepted": false,
+  "temporal_independence_accepted": false,
+  "near_wall_physics_accepted": false,
+  "stationary_statistics_accepted": false,
+  "pressure_adopted": false,
+  "design_accepted": false,
+  "mesh_sha256": {
+    "boundary": "7af6c3a72899f1eb4539512b8e1ef115d5eb94888d16887c8cc4524b8affed97",
+    "cellLevel": "8ef20e238205a9c43d30a2488417a4443e39591b523d61c9df1577e201cc838a",
+    "faces": "c1fd7d90121e53d1a26634737fc257e75a66d2a3028d5c277a3abcd82e169da4",
+    "level0Edge": "baf02ca170597045942399cdae94803a83ea27287ce04614a347127293855f06",
+    "neighbour": "bd6597db8bd35d0a6124dcf4fb32ac24de337049ca29ff24c6cdfe6083603671",
+    "owner": "e2003d703e1d218ef450322b9f652bfcfd8a5b2f1a15a02ef9fd6f62ec4ad481",
+    "pointLevel": "51a47f754174c764e2ab0ade95b7f668f2ec0772f3d6e1141acc95191aa658df",
+    "points": "b4c6897a08fd091cfc1737e13854895acc8e80b387bdbb834a4d64ef2de25ef9",
+    "surfaceIndex": "7c6bf592bac5581a417e226ed7dff6b634c7e4438fbb996045a5ddf23b784a13"
+  },
+  "source_and_calculated_mesh_unchanged": true,
+  "native_total_pressure_observer_independent_check": {
+    "scope": "Independent saved-field reconstruction of five native total-pressure observers at specified saved time only; not pressure/design acceptance",
+    "time_s": 0.25,
+    "assumed_density_kg_m3": 1.2,
+    "formula": "sum(phi*rho*(p_kinematic+0.5*mag(U)^2))/sum(phi)",
+    "all5_observers_match": true,
+    "fields_sha256": {
+      "p": "0a23aef13881ad4dad32552fe989fef868b08b71599749cba3dffb8dc15d504f",
+      "U": "380e26d6a4f6b4ef22b9d54565a36be5378d2abc6287ba337fcf205918f10f35",
+      "phi": "a0b7551b815c614571db25d6a94cf94172311a9233ac5b9c9580388e8f39583f"
+    },
+    "results": {
+      "inlet": {
+        "faces": 1368,
+        "reconstructed_Pa": 0.5465882183193737,
+        "native_Pa": 0.5465882183193742,
+        "absolute_difference_Pa": 5.551115123125783e-16,
+        "signed_flux_sum_m3_s": -0.575675142568607
+      },
+      "outlet_0": {
+        "faces": 484,
+        "reconstructed_Pa": -6.964208984339062,
+        "native_Pa": -6.964208984339056,
+        "absolute_difference_Pa": 6.217248937900877e-15,
+        "signed_flux_sum_m3_s": 0.1478223987659096
+      },
+      "outlet_1": {
+        "faces": 484,
+        "reconstructed_Pa": -6.987049938564754,
+        "native_Pa": -6.987049938564752,
+        "absolute_difference_Pa": 1.7763568394002505e-15,
+        "signed_flux_sum_m3_s": 0.1478223987659096
+      },
+      "outlet_2": {
+        "faces": 484,
+        "reconstructed_Pa": -3.132009662670888,
+        "native_Pa": -3.132009662670885,
+        "absolute_difference_Pa": 3.1086244689504383e-15,
+        "signed_flux_sum_m3_s": 0.13220794627087817
+      },
+      "outlet_3": {
+        "faces": 484,
+        "reconstructed_Pa": -3.6946269584752205,
+        "native_Pa": -3.6946269584752174,
+        "absolute_difference_Pa": 3.1086244689504383e-15,
+        "signed_flux_sum_m3_s": 0.14782239876590939
+      }
+    },
+    "pressure_adopted": false
+  },
+  "engine": "OpenFOAM12 build12-8e8552546d20, GPL-3.0-or-later",
+  "history_csv_sha256": "7f976f580a82069dbdfcaa0d0fab6dcf5bdf8c71cd603bf33c457b8de7071d4c",
+  "latest_native_yPlus": {
+    "time_s": 0.25,
+    "wall": "air_wall",
+    "minimum": 10.740580595487991,
+    "maximum": 209.213163099713,
+    "average": 53.90343095258946,
+    "physical_wall_treatment_accepted": false
+  }
+}

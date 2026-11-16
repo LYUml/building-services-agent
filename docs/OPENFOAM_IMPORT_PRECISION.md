@@ -460,3 +460,22 @@ pressure prediction. The 0.005 s duration remains about 2.05% of one reference
 residence time. Stationary statistics, temporal/mesh sensitivity, inlet profile,
 roughness and near-wall physical applicability remain open. No coursework drawing,
 load, ADPI conclusion, pressure ledger or fan duty changes.
+
+
+### One-reference-residence continuation
+
+The same initialized state now continues from 0.005 to 0.25 s in 980 native steps,
+exit zero (1166.9 s wall time). All 981 physical-time samples, including restart,
+are preserved; five flux histories match prescribed flows to 3.38e-15 relative.
+Five final volume fields have 142480 finite cell values, with nonnegative turbulence
+fields. Source and calculated meshes retain identical hashes. Independent saved
+p/U/phi reconstruction agrees with all five native flux-weighted total-pressure
+observers at the final time (maximum absolute difference 6.22e-15 Pa).
+
+The final 0.20-0.25 s means are approximately 7.510, 7.533, 3.643 and 4.205 Pa.
+Changes from 0.15-0.20 s are approximately 0.125%, 0.127%, 2.115% and 1.880%,
+respectively. These are transient diagnostics, not accepted fitting losses.
+The total duration is only 1.026 reference residence times; stationary statistics,
+mesh/time independence, inlet profile, roughness and wall treatment remain open.
+Maximum Courant is 0.453. No source geometry, coursework report, pressure ledger,
+ADPI result or fan duty changes. See [executed receipt](evidence/plenum-residence-evolution.json).
