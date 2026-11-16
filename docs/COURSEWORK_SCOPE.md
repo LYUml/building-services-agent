@@ -105,3 +105,31 @@ requirement quotes,calculations and review records remain local.
 ## Conditional turndown arithmetic
 
 When the brief explicitly supplies a minimum-flow factor,independently check every current terminal ID and multiply its retained maximum flow by that factor. A scoped arithmetic review can depend on the passing allocation rather than physical-layout acceptance,provided the result is explicitly conditional on that maximum-flow allocation. Preserve the original issue and dependency change in a planning record,new plan and fresh run;keep all original requirement IDs/quotes and unrelated blockers. Product throw,ratios,ADPI,actual room loads and installation remain separate requirements,even when the same source paragraph contains all of them. The actual coursework trial checked80terminals at0.4,retained33requirements,resolved only the arithmetic issue,and recorded2scoped manual passes with31review rows still pending. Coursework evidence stays in its project workspace.
+
+
+## Current-layout classroom ratio reconciliation
+
+Current Canvas lecture file320901 was downloaded through the authenticated native
+browser and matches the held SHA210d482549a3fbab5b4aef0db7c159cec9d36eae336a1e4ca64f3b30f3a9acf0.
+Page5 explicitly selects1400 sixinch and applies1.0–3.4; page4 defines wall/
+opposing-midplane lengths and requires maximum plus40percent minimum checks.
+All seven currently visible announcements and the assignment submission page
+contain no located explanation for the170.1versus160load-band issue. This review
+does not cover recordings/private messages/unexposed discussion threads.
+
+For the newer47-section recentered scenario, all80terminal identities and flows
+reconcile to its preserved allocation.320directional lengths independently match
+the interpreted source polygon:40boundary directions and280opposing-midplane
+directions. Source geometry semantics, scale, ceiling and jet applicability remain
+qualified. Independent Decimal interpolation from the original pinnedB1-12 eightinch
+nine-row table matches all640direction/case throws within8.89e-16m. All ratios
+are1.109829–3.224458, inside the explicit classroom1.0–3.4 interval.
+
+This is a classroom ratio-arithmetic and plan-correspondence result, NOT accepted
+ADPI applicability:170.1W/m2 remains outside the printed35–160band; no exemption
+was found. Keep2012manufacturer paired-curve diagnostics separate, without
+claiming their negative result disproves all layouts or the prescribed course
+method. A fresh K-Select critical-case request failed its product identity guard;
+no new native throw was adopted. Existing adpi_screen applicability gates remain
+unchanged. The coursework companionCSV binds the actual directional results.
+See [current ratio evidence](evidence/course-current-ratio-check.json).

@@ -1,0 +1,43 @@
+{
+  "scope": "Current proposed singleline layout classroom ratio and sourceplan geometry correspondence; not measuredADPI",
+  "source_hashes": {
+    "runs\\vav-recenter-design-reviewed\\delivery\\allocation\\allocation.json": "4aaf873093425d7499d89eb474d9b243f024e6ece1f72f2d02729b4ac7744681",
+    "runs\\current-reviewed-hvac-package\\workflow\\terminal-lookup\\terminal-results.json": "e86e33a0ac578bdf4aa6d12704ed70d356ecc8c1471c7ec07c6c83ea0a999203",
+    "project\\bse3227-column-row-candidate\\office-boundary.geojson": "c64f5b2df5be607b7aebc978a51d3a168b45ca9e057135f0df6540e651a4a617"
+  },
+  "cases": 640,
+  "course_ratio_met": 640,
+  "ratio_range": [
+    1.1098292946938346,
+    3.2244579988827313
+  ],
+  "L_direction_count": 320,
+  "L_source_polygon_boundary_directions": 40,
+  "L_opposing_midplane_directions": 280,
+  "remaining": [
+    "Original drawing scale/doorclosure and ceiling/jetphysical interpretation are assumptions underreview",
+    "170.1W/m2 outside35to160 class table band; no exceptionfound",
+    "Native roundedKSelect throws not identicaltocataloguelinear interpolation"
+  ],
+  "engineering_accepted": false,
+  "source_catalogue_sha256": "073c639219b28068a0c8190a926d493e42a12c0918db464ee8439c55a3994aef",
+  "catalogue_neck_in": 8,
+  "catalogue_source_rows": 9,
+  "independent_decimal_throw_maximum_difference_m": 8.881784197001252e-16,
+  "current_Canvas_lecture_sha256": "210d482549a3fbab5b4aef0db7c159cec9d36eae336a1e4ca64f3b30f3a9acf0",
+  "course_ratio_range": [
+    1,
+    3.4
+  ],
+  "preliminary_sensible_load_W_m2": 170.1,
+  "class_table_load_range_W_m2": [
+    35,
+    160
+  ],
+  "classroom_ratio_arithmetic_pass": true,
+  "ADPI_applicability_accepted": false,
+  "native_KSelect_critical_case_status": "Failed product-selection identity guard; no new native performance or throw adopted",
+  "outputs_sha256": {
+    "directional_csv": "45fb301e55af2132ca1e5cb01a67ddfccafa362aced04e567272f124f675a462"
+  }
+}
