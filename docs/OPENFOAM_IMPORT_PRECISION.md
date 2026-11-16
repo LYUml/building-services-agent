@@ -135,3 +135,34 @@ an explicit test density1.2kg/m3 gives-14.37895450Pa/m against-14.4Pa/m.
 This checks laminar pressure handling and conversion only; turbulent fittings,
 actual branch pressure, station correspondence and project acceptance remain
 unverified. [Executed analytic receipt](evidence/openfoam-analytic-channel.json).
+
+
+## Actual first-family startup, rejected pressure
+
+The existing optimized first-family813620cell mesh executes a bounded10step
+native kOmegaSST startup. Inheriting old uniform inlet speed over the native
+inlet area changes Q by0.0052923%relative to source design; this first trial is
+retained and not adopted. A separate trial directly binds flowRateInletVelocity
+and all four flowRateOutletVelocity targets to the current family-review VAV-01
+maximum flow0.5756751425686069m3/s and its four source fractions. Density1.2,
+mu1.81e-5 and inletI0.05/viscosity-ratio10 are inherited explicit assumptions.
+The previous10field is numerical initialization only. Bounded first-order
+upwind replaces higher-order convection for diagnosis. Ten steps preserve all
+five signed source targets within1.221e-14relative; negative-k bounding events
+fall from5to0. This is neither a200step window nor pressure convergence.
+
+A single additional step verifies native pressure output. The packaged pressure
+function creates Pt in Pa, and surfaceFieldValue average with weightField phi
+computes signed flux-weighted averages (not areaAverage or an unsupported
+weightedAverage operation). Independent saved11U/p/phi reconstruction checks
+all24556port faces; zeroGradient p comes from native owner-cell internal values
+because the saved boundary does not serialize values. Native Pt agrees with
+rho*(p+|U|^2/2) within7.276e-12Pa and averages within7.276e-12Pa.
+
+Crucially outlet_1 has maximum local speed357.880m/s, while other ports are
+approximately3.6--4.3m/s. The unconverged pressure field is REJECTED; successful
+flow control and exact observer algebra do not make it usable. No pressure
+component is filled in the project ledger. Next: localize this spike before
+further iteration. Native smooth low-Re nut0/k0/omegaWallFunction equivalence to
+previous SU2 settings, SST applicability and three mesh-quality checks all remain
+unverified. [Actual startup receipt](evidence/openfoam-actual-plenum-startup.json).

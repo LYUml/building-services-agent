@@ -1,0 +1,116 @@
+{
+  "scope": "Actual first-family startup diagnostics ONLY; pressure rejected",
+  "design_flow_startup": {
+    "window": [
+      1,
+      10
+    ],
+    "samples": 10,
+    "max_relative_flux_errors": {
+      "inlet": 3.0856931419243115e-15,
+      "outlet_0": 4.318548775347612e-15,
+      "outlet_1": 6.9472306386026794e-15,
+      "outlet_2": 6.718041121978809e-15,
+      "outlet_3": 1.2204594365112827e-14
+    },
+    "max_relative_global_imbalance": 6.171386283848623e-15,
+    "relative_tolerance": 1e-10,
+    "signed_flux_window_passed": true,
+    "pressure_accepted": false,
+    "engineering_accepted": false,
+    "source_inputs": {
+      "scope": "Actual source design-flow startup diagnostic; not accepted pressure",
+      "source_family_review_sha256": "2389557b1a5d60a9aabfeaf1dee619e0735fcf5b7836cd60a801c3825dca3d68",
+      "source_member": "VAV-01",
+      "flow_case": "maximum",
+      "targets_outward_m3_s": {
+        "inlet": -0.5756751425686069,
+        "outlet_0": 0.14782239876590955,
+        "outlet_1": 0.14782239876590955,
+        "outlet_2": 0.13220794627087828,
+        "outlet_3": 0.1478223987659094
+      },
+      "source_inlet_turbulence_intensity_assumption": 0.05,
+      "source_turbulent_viscosity_ratio_assumption": 10,
+      "source_mesh_failed_checks": 3,
+      "initializer": "Saved unconverged field10 from preceding startup, copied to time0; no geometry regeneration",
+      "inlet_k_m2_s2": 0.06889457810401924,
+      "inlet_omega_s_1": 456.75963383880156,
+      "changed_numerics": "Bounded Gauss upwind replaces higher-order convection for startup diagnosis only",
+      "steps_budget": 10,
+      "engineering_accepted": false
+    },
+    "negative_k_bounding_events": 0,
+    "foamRun_returncode": 0,
+    "complete_pressure_verified": false,
+    "scope": "Ten-step first-order diagnostic, not a complete200step window or pressure acceptance"
+  },
+  "pressure_observer": {
+    "scope": "Saved step11 observer algebra only, unconverged actual startup",
+    "ports": {
+      "inlet": {
+        "faces": 1044,
+        "maximum_face_formula_error_Pa": 2.842170943040401e-14,
+        "native_weighted_average_Pa": -212.41950775510023,
+        "independent_signed_phi_weighted_average_Pa": -212.41950775509883,
+        "average_absolute_difference_Pa": 1.3926637620897964e-12,
+        "maximum_face_speed_m_s": 4.2862439844699995,
+        "negative_face_flux_count": 1044,
+        "positive_face_flux_count": 0
+      },
+      "outlet_0": {
+        "faces": 5880,
+        "maximum_face_formula_error_Pa": 5.684341886080802e-14,
+        "native_weighted_average_Pa": -224.69599975704375,
+        "independent_signed_phi_weighted_average_Pa": -224.69599975704278,
+        "average_absolute_difference_Pa": 9.663381206337363e-13,
+        "maximum_face_speed_m_s": 3.944096972544667,
+        "negative_face_flux_count": 0,
+        "positive_face_flux_count": 5252
+      },
+      "outlet_1": {
+        "faces": 5878,
+        "maximum_face_formula_error_Pa": 7.275957614183426e-12,
+        "native_weighted_average_Pa": 9685.39508719792,
+        "independent_signed_phi_weighted_average_Pa": 9685.395087197912,
+        "average_absolute_difference_Pa": 7.275957614183426e-12,
+        "maximum_face_speed_m_s": 357.87982313373203,
+        "negative_face_flux_count": 0,
+        "positive_face_flux_count": 4107
+      },
+      "outlet_2": {
+        "faces": 5878,
+        "maximum_face_formula_error_Pa": 2.842170943040401e-14,
+        "native_weighted_average_Pa": -211.5820256336021,
+        "independent_signed_phi_weighted_average_Pa": -211.58202563360288,
+        "average_absolute_difference_Pa": 7.958078640513122e-13,
+        "maximum_face_speed_m_s": 3.6076873593616843,
+        "negative_face_flux_count": 0,
+        "positive_face_flux_count": 5128
+      },
+      "outlet_3": {
+        "faces": 5876,
+        "maximum_face_formula_error_Pa": 2.842170943040401e-14,
+        "native_weighted_average_Pa": -212.38498806859883,
+        "independent_signed_phi_weighted_average_Pa": -212.38498806859982,
+        "average_absolute_difference_Pa": 9.947598300641403e-13,
+        "maximum_face_speed_m_s": 3.8638517532900227,
+        "negative_face_flux_count": 0,
+        "positive_face_flux_count": 5331
+      }
+    },
+    "pressure_accepted": false,
+    "field_Pt_dimensions": [
+      1,
+      -1,
+      -2,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "unacceptable_local_velocity_spike_m_s": 357.87982313373203,
+  "pressure_usable": false,
+  "next_action": "Localize peak face and adjacent native cell before further iteration; retain mesh, boundary and model applicability gaps."
+}
