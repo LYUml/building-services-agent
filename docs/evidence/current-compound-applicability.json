@@ -1,0 +1,118 @@
+{
+  "scope": "Actual current compound junction applicability diagnostic;nominal clear-opening intervals,not installed clearance or pressure acceptance",
+  "ifc_sha256": "d11d94b6725b9284ce175e9abf75785d2b70e8beb0487d084a3a82dc8981c67b",
+  "product_guid": "3tK$ugPAvIAAusb9mKjQEp",
+  "geometry_sha256": "d73c3c9def531cdd9bdfc6edbe783d9bd001bdc542619a05c79527d227ec579a",
+  "literal_body_matches_original_verified_native": true,
+  "all_five_native_frames_match_original_spec": true,
+  "branches": [
+    {
+      "branch": "D-22",
+      "clear_opening_y_interval_m": [
+        0.36941599999999397,
+        0.869415999999994
+      ],
+      "taper_overlaps": [
+        {
+          "taper_y_interval_m": [
+            0.619415999999994,
+            0.9069159999999883
+          ],
+          "overlap_mm": 250.0
+        }
+      ]
+    },
+    {
+      "branch": "D-02",
+      "clear_opening_y_interval_m": [
+        -0.25,
+        0.25
+      ],
+      "taper_overlaps": [
+        {
+          "taper_y_interval_m": [
+            -1.0,
+            0
+          ],
+          "overlap_mm": 250.0
+        }
+      ]
+    },
+    {
+      "branch": "D-05",
+      "clear_opening_y_interval_m": [
+        -0.3,
+        0.3
+      ],
+      "taper_overlaps": [
+        {
+          "taper_y_interval_m": [
+            -1.0,
+            0
+          ],
+          "overlap_mm": 300.0
+        }
+      ]
+    }
+  ],
+  "same_side_clear_opening_interval_gap_mm": 69.41599999999399,
+  "remaining_numeric_pressure_paths": 4,
+  "design_accepted": false,
+  "native_drawing": {
+    "native_audit": {
+      "model_entities": 89,
+      "entity_types": {
+        "TEXT": 13,
+        "DIMENSION": 2,
+        "LINE": 73,
+        "LWPOLYLINE": 1
+      },
+      "editable_entity_correspondence": true,
+      "dimension_rendering_visual_review": "pending"
+    },
+    "methods": {
+      "drawing_document.py": "424a8d8a40fa9a09ee7282f984807c9977529a6c48615c09367bdf1ff26b0881",
+      "cad_sheet.py": "2aa3880343af74c7dea09e329266651f5152badbf3e12befb8e5dc2f9a60c315",
+      "cad_intake.py": "ab8f7dd945134dc824de2a25cfb2d8423752c190baa150fedb81d87e93242bd0",
+      "cad_overlay.py": "91c4c9e2802a76f5516ca92c3438766cd472a0cbf797da0b1b3e8bfa688a9e49",
+      "native_cad.py": "d6a8b81b11bb2b422fdfbfa4ba3fc6b26557b5cfd0a8fc66a91c52cb74a180a0"
+    },
+    "plot": {
+      "pdf_sha256": "84225ff6ff9f0fc8e66e4dc4f6d2f24ba4295133a288f42a38b624df2f640519",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 15,
+      "reference_handle": "104",
+      "reference_expected_mm": 50.0,
+      "reference_measured_mm": 50.03799999999999,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "native_reopen_pass": true,
+    "reopened_dimensions_mm": {
+      "opening-gap-dimension": 69.41599999999403,
+      "compound-plan:dimension:branch-centre-spacing": 619.4159999999947
+    },
+    "visual_review": {
+      "reviewer": "Codex host AI",
+      "actual_whole_pdf_inspected": true,
+      "finding": "Native material cut, nominal axes, five port labels and two dimensions readable; no observed clipping"
+    }
+  },
+  "artifacts": {
+    "Compound Junction Applicability.dwg": "48d8ae22a229c3134a1c1408fba2ee4c66ceb5b35840a4ac4284a04b412f255a",
+    "Compound Junction Applicability.pdf": "84225ff6ff9f0fc8e66e4dc4f6d2f24ba4295133a288f42a38b624df2f640519"
+  },
+  "existing_constant_core_alternative": "Previously executed geometry-only alternative still has unverified interactions/reference stations;not adopted or rerun here",
+  "kselect_read_only_check": {
+    "toolkit_head": "3eecd3710e976927c4b7c639900e833d12150453",
+    "capability_lists_adpi_automation": false,
+    "no_third_repo_changes": true
+  },
+  "complete_pressure_Pa": null,
+  "next_work": "Preserve four compound gaps; continue independent ADPI/source and course-delivery work before additional compound validation research"
+}
