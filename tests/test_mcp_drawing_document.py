@@ -14,6 +14,25 @@ AUTOCAD=Path('C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe')
 
 @unittest.skipUnless(importlib.util.find_spec('mcp'),'MCP SDK required')
 class MCPDrawingTests(unittest.IsolatedAsyncioTestCase):
+    @unittest.skipUnless(AUTOCAD.is_file() and importlib.util.find_spec('textalloc'),'AutoCAD and pinned textalloc required')
+    async def test_actual_native_label_allocation_protocol(self):
+        from mcp import ClientSession,StdioServerParameters
+        from mcp.client.stdio import stdio_client
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as directory:
+            root=Path(directory);shutil.copyfile(ROOT/'examples/drawing-labels.json',root/'labels.json')
+            params=StdioServerParameters(command=sys.executable,args=['-m','bsa.mcp_server','--autocad',str(AUTOCAD)],cwd=str(ROOT),env={**os.environ,'BSA_PROJECT_ROOT':str(root)})
+            async with stdio_client(params) as streams:
+                async with ClientSession(*streams) as session:
+                    await session.initialize()
+                    args={'project':'labels.json','out':'labels'}
+                    response=await session.call_tool('bsa_draw_document',args,read_timeout_seconds=timedelta(seconds=180))
+                    self.assertFalse(response.isError,str(response));r=response.structuredContent
+                    self.assertTrue(r['native_reopen_pass']);self.assertEqual(r['label_placement']['labels'],3);self.assertFalse(r['design_accepted'])
+                    self.assertGreaterEqual(r['label_placement']['protected_source_text_boxes'],1)
+                    inspected=await session.call_tool('bsa_inspect_drawing_document',args)
+                    self.assertFalse(inspected.isError,str(inspected));self.assertEqual(inspected.structuredContent,r)
+                    for artifact in r['artifacts']:self.assertTrue((root/'labels'/artifact['path']).is_file())
+
     async def test_protocol_inspection_host_boundary_and_forged_drawing(self):
         from mcp import ClientSession,StdioServerParameters
         from mcp.client.stdio import stdio_client

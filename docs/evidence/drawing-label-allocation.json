@@ -1,0 +1,246 @@
+{
+  "scope": "Source-linked within-view text allocation; actual native CAD and protected dimension text review, not full engineering acceptance",
+  "upstream": {
+    "name": "textalloc",
+    "version": "1.2.4",
+    "upstream": "https://github.com/ckjellson/textalloc",
+    "wheel_sha256": "3c148a2d2eacffe7d83c44d00d81fd50186288ad801da9c8dacf02d840862f0b",
+    "license": "MIT",
+    "dependencies": {
+      "numpy": "2.5.4",
+      "matplotlib": "3.11.2",
+      "tqdm": "4.70.1",
+      "packaging": "26.3"
+    }
+  },
+  "implementation_sha256": "0fa0089ffd00ebba247d555ecb82ea5b379166d7ea06924b271aa4e599b8d892",
+  "actual_course_protocol": {
+    "result": {
+      "integrity_pass": true,
+      "native_reopen_pass": true,
+      "editable_entities": {
+        "model_entities": 143,
+        "entity_types": {
+          "LINE": 128,
+          "TEXT": 12,
+          "DIMENSION": 2,
+          "LWPOLYLINE": 1
+        },
+        "editable_entity_correspondence": true,
+        "dimension_rendering_visual_review": "pending"
+      },
+      "artifacts": [
+        {
+          "path": "drawing/Drawing.dxf",
+          "sha256": "eea2dab7649877b5a77cccaf7ae34a7bb07097ed00fe8066482a9283e9d35949",
+          "bytes": 107711
+        },
+        {
+          "path": "drawing/Drawing.dwg",
+          "sha256": "b5becec4cfadc59459391a0fce5eb7c639c10433f922399d75cb98ffcd86a8dd",
+          "bytes": 29395
+        },
+        {
+          "path": "drawing/Drawing.pdf",
+          "sha256": "d58447a9db9cd45e36714f953acb53aaf2db15c210d94482c66e60bbba769c5f",
+          "bytes": 14367
+        }
+      ],
+      "visual_review": "pending",
+      "design_accepted": false,
+      "label_placement": {
+        "placements": [
+          {
+            "id": "stage-label-side-2",
+            "target": "side-0SUZH4h0PHngnCHgcUSoRv-17",
+            "anchor": [
+              372.1815781100051,
+              1159.3142628888888
+            ],
+            "before_insert": [
+              500,
+              1100
+            ],
+            "after_insert": [
+              101.23608685832272,
+              994.9058424475246
+            ],
+            "box": [
+              101.23608685832272,
+              986.4771748835946,
+              643.1270693616875,
+              1019.5357213169729
+            ],
+            "leader_vertices": [
+              [
+                372.1815781100051,
+                1159.3142628888888
+              ],
+              [
+                380.2391449183735,
+                1159.3142628888888
+              ],
+              [
+                380.2391449183735,
+                1019.5357213169729
+              ],
+              [
+                372.1815781100051,
+                1019.5357213169729
+              ]
+            ]
+          },
+          {
+            "id": "stage-label-plan-2",
+            "target": "plan-0SUZH4h0PHngnCHgcUSoRv-17",
+            "anchor": [
+              501.5414742018169,
+              347.87882846216917
+            ],
+            "before_insert": [
+              500,
+              1100
+            ],
+            "after_insert": [
+              521.541474201817,
+              303.2489495927209
+            ],
+            "box": [
+              521.541474201817,
+              294.82028202879087,
+              1063.4324567051817,
+              327.87882846216917
+            ],
+            "leader_vertices": [
+              [
+                501.5414742018169,
+                347.87882846216917
+              ],
+              [
+                501.5414742018169,
+                327.87882846216917
+              ],
+              [
+                521.541474201817,
+                327.87882846216917
+              ]
+            ]
+          },
+          {
+            "id": "stage-label-side-1",
+            "target": "side-2S6vsh9WvK7QxoNkNqHEuL-14",
+            "anchor": [
+              157.19808393008663,
+              1145.425374
+            ],
+            "before_insert": [
+              500,
+              1100
+            ],
+            "after_insert": [
+              89.28909671443637,
+              1338.2919587897331
+            ],
+            "box": [
+              89.28909671443637,
+              1329.863291225803,
+              627.0414520307219,
+              1362.9218376591814
+            ],
+            "leader_vertices": [
+              [
+                157.19808393008663,
+                1145.425374
+              ],
+              [
+                157.19808393008663,
+                1329.863291225803
+              ]
+            ]
+          },
+          {
+            "id": "stage-label-plan-1",
+            "target": "plan-2S6vsh9WvK7QxoNkNqHEuL-12",
+            "anchor": [
+              351.24535831904956,
+              326.24549512883345
+            ],
+            "before_insert": [
+              500,
+              1100
+            ],
+            "after_insert": [
+              283.3363711033993,
+              407.4636407838488
+            ],
+            "box": [
+              283.3363711033993,
+              399.03497321991875,
+              821.0887264196848,
+              432.09351965329705
+            ],
+            "leader_vertices": [
+              [
+                351.24535831904956,
+                326.24549512883345
+              ],
+              [
+                351.24535831904956,
+                399.03497321991875
+              ]
+            ]
+          }
+        ],
+        "labels": 4,
+        "leaders": 4,
+        "leader_segments": 7,
+        "protected_source_text_boxes": 7,
+        "textalloc_version": "1.2.4",
+        "all_source_geometry_unchanged": true,
+        "source_entities_reconciled": 131,
+        "scope": "Declared geometry anchors and obstacles; approximate CAD font boxes and straight leaders; native visual/engineering approval separate"
+      }
+    },
+    "escape_rejected": true,
+    "listed_tools": true,
+    "same_inspection_result": true,
+    "desktop_existing_connection_reloaded": false
+  },
+  "plot": {
+    "pdf_sha256": "d58447a9db9cd45e36714f953acb53aaf2db15c210d94482c66e60bbba769c5f",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 10,
+    "reference_handle": "139",
+    "reference_expected_mm": 50.0,
+    "reference_measured_mm": 50.03799999999999,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "actual_visual_review": {
+    "whole_sheet_rendered_and_inspected": true,
+    "dimension_area_enlarged_and_inspected": true,
+    "initial_leader_dimension_collision_rejected": true,
+    "corrected_route_clear_in_examined_plot": true,
+    "printed_dimension_values_mm": [
+      550,
+      381.07
+    ],
+    "observed_clipping_or_overlap": false
+  },
+  "tests": {
+    "passed": 14,
+    "skipped": 0,
+    "actual_native_mcp_label_test": true
+  },
+  "remaining": [
+    "Actual font substitution and general glyph bounds",
+    "Native associative leaders and arbitrary geometry/MTEXT edits",
+    "ADPI basis and complete pressure/design acceptance"
+  ],
+  "design_accepted": false
+}

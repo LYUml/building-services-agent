@@ -5,6 +5,9 @@ from pathlib import Path
 
 def engine(project):
     schema=json.loads(Path(project).read_text(encoding='utf-8-sig')).get('schema')
+    if schema=='bsa.drawing-labels/1':
+        from . import drawing_labels
+        return drawing_labels
     if schema=='bsa.drawing-revision/1':
         from . import drawing_revision
         return drawing_revision

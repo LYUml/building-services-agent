@@ -4,8 +4,9 @@ Current user priority: expand reusable AutoCAD2D drawing for plans, systems,
 details, dimensions and frames before later convergence. Shared declarative
 authoring, MCP execution/inspection and pinned upstream inter-view packing now
 have actual native trials. Source-bound existing-DWG ASCII TEXT revisions now
-also execute; within-view label placement and arbitrary geometry/MTEXT editing
-remain open. See [drawing document](DRAWING_DOCUMENT.md).
+also execute. Declared within-view label/obstacle allocation now reuses pinned
+textalloc and existing leader routing with actual native evidence; arbitrary
+geometry/MTEXT editing remains open. See [drawing document](DRAWING_DOCUMENT.md).
 The full multi-service design/delivery goal and engineering gaps remain active.
 
 One actual plenum first-order case now passes the complete200sample numerical window. Mesh, higher-order and physical acceptance remain open; no design pressure adopted. See [native study](OPENFOAM_IMPORT_PRECISION.md).

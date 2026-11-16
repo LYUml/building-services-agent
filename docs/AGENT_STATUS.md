@@ -6,8 +6,10 @@ documents now have native editable dimensions/symbols, guarded DWG/PDF execution
 and actual MCP stdio author/inspect evidence, including BSE3227 geometry.
 Automatic inter-view packing now reuses pinned rectpack with actual BSE3227
 MCP/native/plot evidence. Source-bound existing-DWG ASCII TEXT edits now also execute
-with whole saved entity/block/paper/style preservation checks. Within-view label
-placement, arbitrary geometry/MTEXT edits and unified workflow registration remain
+with whole saved entity/block/paper/style preservation checks. Within-view labels
+now reuse pinned textalloc plus existing leader routing, including dimension-text
+protection and actual native BSE3227 plots. General arbitrary geometry/MTEXT edits,
+font/leader-object expansion and unified workflow registration remain
 unfinished; the desktop connection was not restarted. See [drawing document](DRAWING_DOCUMENT.md).
 
 One actual plenum first-order case now passes the complete200sample numerical window. Mesh, higher-order and physical acceptance remain open; no design pressure adopted. See [native study](OPENFOAM_IMPORT_PRECISION.md).

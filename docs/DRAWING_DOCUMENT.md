@@ -133,3 +133,45 @@ not authenticated provenance or complete arbitrary object/dictionary fidelity.
 MTEXT, block-attribute editing, arbitrary geometry revisions, external-reference
 packaging, Unicode/font review and general within-view label placement remain open.
 See evidence/existing-dwg-text-revision.json.
+
+## Within-view text allocation
+
+The same MCP tools accept `bsa.drawing-labels/1`; see
+`examples/drawing-labels.json`. The document is embedded with explicit label IDs,
+source target IDs, obstacle IDs, bounds, paper-distance limits and candidate budget.
+Targets retain source line midpoints, circle centres, block insertions or polyline
+bounds centres. The caller specifies the semantic association; the adapter never
+guesses a label's engineering meaning from proximity.
+
+Pinned MIT textalloc1.2.4 allocates actual ezdxf text-box sizes against selected
+lines/boxes/anchors. Its lower-level entry avoids substituting Matplotlib font
+measurements for CAD boxes. All requested labels must be placed; draw_all=false
+and unplaced candidates fail explicitly. Dimensions, source geometry and all
+unapproved label fields remain unchanged. The existing route_annotations.path
+engine then routes orthogonal LINE segments around other labels and protected
+source/native-dimension text. Independent existing clipping and CAD-box checks
+reject residual collisions. These are ordinary editable LINE segments, not native
+associative LEADER/MLEADER objects. Fixed text is always protected; geometric
+obstacles must be explicitly selected. Curve/block boxes are conservative.
+
+The optional drawing-labels extra pins textalloc plus existing NumPy/Matplotlib/
+tqdm/packaging versions. The verified PyPI wheel SHA256, all four runtime source
+hashes, dependency versions and MIT license are retained under third_party.
+adjustText was surveyed but not installed/integrated: textalloc's direct box and
+line inputs better match this CAD gap. No allocation algorithm was copied or
+rewritten. Exact version/internal API checks are intentional.
+
+Four actual BSE3227 source-linked stage labels execute through MCP, native save/
+reopen and independent inspection:143entities,2unchanged native dimensions,
+4labels/7leader segments and7protected text boxes. A tighter30mm maximum with500
+candidates did not place every label and was rejected; a separate explicit60mm/
+1500candidate input succeeds. These are graphic preferences, not duct design
+changes. The first actual plot exposed a leader crossing381.07dimension text;
+that failed output remains preserved. The revised plot and enlarged dimension
+area were actually inspected after adding existing dimension-text extraction and
+leader routing. No observed overlap/clipping remains in the examined sheet.
+Fourteen focused/related tests pass without skips, including a true native MCP
+label trial. Geometry/550and381.07printed dimensions stay unchanged. General
+font substitution, Unicode, dense-layout optimality, richer leader objects,
+arbitrary obstacles and engineering acceptance remain separate. See
+evidence/drawing-label-allocation.json.

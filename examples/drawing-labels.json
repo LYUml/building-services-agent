@@ -1,0 +1,181 @@
+{
+  "schema": "bsa.drawing-labels/1",
+  "source": "Synthetic label-allocation control, not an engineering design",
+  "document": {
+    "schema": "bsa.drawing-document/1",
+    "source": "Synthetic label-allocation control, not an engineering design",
+    "units": "mm",
+    "layers": {
+      "GEOMETRY": {
+        "color": 7,
+        "lineweight": 25
+      },
+      "ANNOTATION": {
+        "color": 7,
+        "lineweight": 18
+      },
+      "SYMBOL": {
+        "color": 7,
+        "lineweight": 18
+      }
+    },
+    "blocks": {},
+    "entities": [
+      {
+        "id": "pipe",
+        "kind": "line",
+        "layer": "GEOMETRY",
+        "source": "Synthetic label-allocation control, not an engineering design",
+        "classification": "assumed",
+        "start": [
+          50,
+          110
+        ],
+        "end": [
+          120,
+          110
+        ]
+      },
+      {
+        "id": "length",
+        "kind": "dimension",
+        "layer": "ANNOTATION",
+        "source": "Synthetic label-allocation control, not an engineering design",
+        "classification": "assumed",
+        "p1": [
+          50,
+          110
+        ],
+        "p2": [
+          120,
+          110
+        ],
+        "distance": -20,
+        "text_height": 2.5
+      },
+      {
+        "id": "node1",
+        "kind": "circle",
+        "layer": "GEOMETRY",
+        "source": "Synthetic label-allocation control, not an engineering design",
+        "classification": "assumed",
+        "center": [
+          60,
+          110
+        ],
+        "radius": 1
+      },
+      {
+        "id": "label1",
+        "kind": "text",
+        "layer": "ANNOTATION",
+        "source": "Synthetic label-allocation control, not an engineering design",
+        "classification": "assumed",
+        "insert": [
+          70,
+          110
+        ],
+        "text": "SD-01",
+        "height": 3,
+        "rotation": 0
+      },
+      {
+        "id": "node2",
+        "kind": "circle",
+        "layer": "GEOMETRY",
+        "source": "Synthetic label-allocation control, not an engineering design",
+        "classification": "assumed",
+        "center": [
+          70,
+          110
+        ],
+        "radius": 1
+      },
+      {
+        "id": "label2",
+        "kind": "text",
+        "layer": "ANNOTATION",
+        "source": "Synthetic label-allocation control, not an engineering design",
+        "classification": "assumed",
+        "insert": [
+          70,
+          110
+        ],
+        "text": "SD-02",
+        "height": 3,
+        "rotation": 0
+      },
+      {
+        "id": "node3",
+        "kind": "circle",
+        "layer": "GEOMETRY",
+        "source": "Synthetic label-allocation control, not an engineering design",
+        "classification": "assumed",
+        "center": [
+          80,
+          110
+        ],
+        "radius": 1
+      },
+      {
+        "id": "label3",
+        "kind": "text",
+        "layer": "ANNOTATION",
+        "source": "Synthetic label-allocation control, not an engineering design",
+        "classification": "assumed",
+        "insert": [
+          70,
+          110
+        ],
+        "text": "SD-03",
+        "height": 3,
+        "rotation": 0
+      }
+    ],
+    "sheet": {
+      "paper": "A4",
+      "window": [
+        0,
+        0,
+        290,
+        200
+      ],
+      "scale": 1,
+      "title": "AUTOMATIC LABEL ALLOCATION",
+      "number": "DEMO-01",
+      "reference_length": 50
+    }
+  },
+  "labels": [
+    {
+      "id": "label1",
+      "target": "node1"
+    },
+    {
+      "id": "label2",
+      "target": "node2"
+    },
+    {
+      "id": "label3",
+      "target": "node3"
+    }
+  ],
+  "avoid": [
+    "pipe",
+    "node1",
+    "node2",
+    "node3",
+    "length"
+  ],
+  "bounds": [
+    8,
+    28,
+    282,
+    182
+  ],
+  "gap_mm": 1,
+  "min_distance_mm": 1,
+  "max_distance_mm": 20,
+  "candidates": 300,
+  "leader_layer": "ANNOTATION"
+}

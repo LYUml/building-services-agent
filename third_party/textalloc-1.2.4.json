@@ -1,0 +1,20 @@
+{
+  "name": "textalloc",
+  "version": "1.2.4",
+  "upstream": "https://github.com/ckjellson/textalloc",
+  "survey_commit": "5ab4319e9798e76e07d05eb105b555855061e05f",
+  "wheel_sha256": "3c148a2d2eacffe7d83c44d00d81fd50186288ad801da9c8dacf02d840862f0b",
+  "license": "MIT",
+  "runtime_files": {
+    "candidates.py": "322873a2f0af7ee6fc5991dbfb894329157d217701e6d09861c9f95ce89a3954",
+    "non_overlapping_boxes.py": "3c85397fad53df6649abf7c04a8b5d8af4de58954fb9ce75f543d4a710ca9f20",
+    "overlap_functions.py": "705bb9599f645d48b25b8dff063f66dec32eac9b796e4650f807b01b2635a655",
+    "__init__.py": "a2cf8bcfd9f5edcafc7f9f7deea2005f336374945a939b3a9480f4b8435180c7"
+  },
+  "dependencies": {
+    "numpy": "2.5.4",
+    "matplotlib": "3.11.2",
+    "tqdm": "4.70.1",
+    "packaging": "26.3"
+  }
+}
