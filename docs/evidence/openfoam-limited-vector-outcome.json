@@ -1,0 +1,138 @@
+{
+  "scope": "Representative first-family maximum-flow plenum only; not80path/40case validation",
+  "native_engine": "Isolated OpenFOAM12 build12-8e8552546d20 serial",
+  "native_returncode": 0,
+  "source_review_hashes": {
+    "window220-review.json": "0db089671cb5ae5720d951ad53650cf9f85a1b64f1cd5e81c10f71754e26cfb6",
+    "saved220-field-review.json": "9ae9ed2073714cd4b4f0da107c94170d184d651241d959d081f56f62b32f4e00",
+    "yPlus-step220-review.json": "921608a02a957efb9237868cf7213936b96d1a4d92cec9b962b7d8ed5f76c551",
+    "limited-vector-inputs.json": "82a78f7b79c4f8deb9a081129ae79305d3f6808cc096af9f6afa55a02e4efce7"
+  },
+  "shared_initial_fields_and_settings_sha256": {
+    "0/U": "a5fbd951f92e5ccbf2a224736721982a22d0906ff23da7fc6ecfe6dd0d67c17d",
+    "0/p": "0be5229be33bcd51063eb363c2185fbba178ce3feec9f5867b5d5ee8b3496ea2",
+    "0/k": "39d77a91fb218819b92d396f50b6536a7fdbc7501461d663e51f60bb10ca4c09",
+    "0/omega": "2ed9d6ecf15f58075d47cc1bf99b5eac2517698bf6fe579bcbba9f32a8d80971",
+    "0/nut": "96ae63fd0183be23cc99bfb113a03ad36a37d47497f61e30ad24cb6866a1c028",
+    "system/fvSolution": "f1dd95b5833cec85413842e53315fc46c424a07163d0391f484ad1e37ea2399f",
+    "system/functions": "816266fe0aaca98f623cd88447045a2c7c5cc6191f597d665b7ab04ceab19686",
+    "constant/momentumTransport": "4ff605229f387b3d8548a31a6b2d9bae77c20b5ccc190f233d64493dcf013cf2",
+    "constant/physicalProperties": "f2c715ef8bf9b20ff74df088d904c2460b8beb1b97cd6e17636d66d4aa7cd642"
+  },
+  "identical_native_mesh_verified": true,
+  "only_active_scheme_change": "U convection linearUpwind grad(U) to limitedLinearV1; cellLimited gradient and turbulence upwind unchanged",
+  "controlled_comparison": {
+    "limited_gradient": {
+      "full_window": [
+        21,
+        220
+      ],
+      "flow_pass": true,
+      "mass_pass": true,
+      "pressure_relative_ranges": {
+        "outlet_0": 0.11828219534395414,
+        "outlet_1": 0.06422473117924667,
+        "outlet_2": 0.4383308044930367,
+        "outlet_3": 0.4933047930182005
+      },
+      "numerical_window_pass": false,
+      "yPlus_max": 1.0896601123170202
+    },
+    "limited_vector": {
+      "full_window": [
+        21,
+        220
+      ],
+      "flow_pass": true,
+      "mass_pass": true,
+      "pressure_relative_ranges": {
+        "outlet_0": 0.07436083510854417,
+        "outlet_1": 0.05592254224880637,
+        "outlet_2": 0.27923290060413575,
+        "outlet_3": 0.2763931101956509
+      },
+      "numerical_window_pass": false,
+      "yPlus_max": 1.2566706570631156
+    }
+  },
+  "saved_fields": {
+    "U": {
+      "native_cell_values": 684730,
+      "minimum": 0.00036516884688095867,
+      "maximum": 10.413929002041543,
+      "sha256": "24a5c495e5a951377dd42406e29ea6010db0a7a13320e0fd133dc6bdfd6c6bd0"
+    },
+    "p": {
+      "native_cell_values": 684730,
+      "minimum": -35.124947214484784,
+      "maximum": 28.627810089530374,
+      "sha256": "85169746a0299301e44132c539d1a5c7efe2c3910544e35f236f640be83bd50b"
+    },
+    "Pt": {
+      "native_cell_values": 684730,
+      "minimum": -42.077234876037025,
+      "maximum": 89.46860840335495,
+      "sha256": "9c292f088c74dcf29f63148ae3662a38a6d4950a7ec9e8e3eeaf6b6a97c6302d"
+    },
+    "k": {
+      "native_cell_values": 684730,
+      "minimum": 2.507472713111941e-05,
+      "maximum": 1.9837324210666212,
+      "sha256": "4545d93d600158ded650ac82df2ffaddc02e8a8a8dc811602adc9080f147b462"
+    },
+    "omega": {
+      "native_cell_values": 684730,
+      "minimum": 53.10090078614564,
+      "maximum": 5072167.449758814,
+      "sha256": "22b0a12ffab7115b125e85aff8308b0c992aae345e5e5ce0635c89d47af005bd"
+    },
+    "nut": {
+      "native_cell_values": 684730,
+      "minimum": 7.774938710015042e-10,
+      "maximum": 0.003271485653979692,
+      "sha256": "991b8dcbaa0b0d20dcfd556882983107b78e8b982fff750d7074d1435e077d59"
+    }
+  },
+  "negative_k_bounding_events": 0,
+  "terminal_initial_residuals": {
+    "Ux": 0.0030153196463064157,
+    "Uy": 0.0021823232079280753,
+    "Uz": 0.008951301610308923,
+    "p": 0.002486436470664316,
+    "omega": 1.813784443346175e-06,
+    "k": 0.00163617014996357
+  },
+  "yPlus": {
+    "minimum": 0.02200458556572506,
+    "maximum": 1.2566706570631156,
+    "average": 0.38443566391944967
+  },
+  "postprocessing_preserved_six_primary_fields": true,
+  "independent_window_mean_range_checks": 4,
+  "pressure_relative_range_target": 0.005,
+  "yPlus_target": 1,
+  "pressure_stability_pass": false,
+  "yPlus_pass": false,
+  "remaining_native_mesh_quality_failures": [
+    "small determinant cells",
+    "low weight faces"
+  ],
+  "higher_order_or_grid_independence_verified": false,
+  "source_design_pressure_adopted": false,
+  "complete_pressure_verified": false,
+  "design_accepted": false,
+  "next_action": "Do not extend this unchanged steady case; resolve mesh quality and method sensitivity before pressure use",
+  "pressure_history_sha256": "f7f61de34d6b2700823bb371dde1c96a3d076d8df0fdadafbe69b4e2b9846376",
+  "mesh_failure_localization": {
+    "source_review_sha256": "c8ca4fb3c425578d4c2f9416ff27f9666e4bfd3c47bc9d2becd4ba452a4e6d68",
+    "small_determinant_cell_count": 117366,
+    "cell_face_count_histogram": {
+      "4": 3,
+      "5": 117363
+    },
+    "four_low_weight_faces_all_between_tetrahedra": true,
+    "distinct_adjacent_tetrahedral_cells": 7,
+    "distinct_adjacent_tetrahedra_also_small_determinant": 3,
+    "native_mesh_modified": false
+  }
+}

@@ -1,3 +1,5 @@
+Limited-vector plenum trial now finishes its full200sample window:flow/mass pass, pressure ranges5.59–27.92% andyPlus1.25667 fail unchanged targets. No pressure adopted or further unchanged continuation; native failure localization separates4tetrahedral low-weight faces from117366small-determinant cells. See [native study](OPENFOAM_IMPORT_PRECISION.md).
+
 Current same-model terminal boundary budgets now add the reviewed Model1400 Pt once for160endpoint/flow rows; native owners/drawing index, Decimal interpolation and saved partial budgets reconcile.84numeric gaps and controlled VAV/test-plane/ADPI uncertainty remain. See [current package](CURRENT_VAV_STATION_PACKAGE.md).
 
 Current open-plenum candidate now has same-source40VAV station comparisons,160terminal path rows and A1 native coordination with100visible IDs/20row schedule.368conditional values/84numeric gaps per case; controlled VAV loss, full pressure and ADPI remain unresolved. Existing block/textalloc/static-balance tools reused with actual native and numerical checks. See [current package](CURRENT_VAV_STATION_PACKAGE.md).
