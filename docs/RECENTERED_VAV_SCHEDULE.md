@@ -41,3 +41,5 @@ The later [recentered network delivery](RECENTERED_NETWORK.md) now integrates
 these source revisions into the matching rigid network and native drawing.
 Earlier snapshots above remain historical; full pressure/installation acceptance
 continues to be unresolved.
+
+A later course-report follow-up reconstructs all80 native flex LINE lengths from the unchanged reopened DXF (millimetre units), matching the saved receipt within1e-10m. Maximum2.872869m leaves minimum2.127131m additional-length budget to the assignment5m cap. Separately retaining the original .50m connection allowance assumption gives maximum3.372869m/minimum1.627131m margin. Actual ports, elevations, slack and installed length remain unverified. The12page matching report now states this bounded check; changed page2 was rendered and visually inspected, other11page content streams are identical to the prior checked report. No new dependency or pressure/ADPI acceptance.

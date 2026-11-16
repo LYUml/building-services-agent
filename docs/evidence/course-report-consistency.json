@@ -1,14 +1,15 @@
 {
   "scope": "Matching coursework review report for current47section singleline scenario; not final acceptance",
   "report_pages": 12,
-  "report_sha256": "3ff4678c962725aa641470f06a1865d6ced1b50c51f4544d93632f9dd860d564",
+  "report_sha256": "4fa15941ef541a0767e83819d414f85d443fc683602541879714bae4ebb8af40",
   "source_inputs_sha256": {
     "ratios": "45fb301e55af2132ca1e5cb01a67ddfccafa362aced04e567272f124f675a462",
     "ducts": "7db3280370d77b274717fefa3be223636682c3d27c31c56d93f9e156e465dc21",
     "vav": "cbf05b9ac84e06d6d93a5d30dce07a5a1e457b766c47d0eae99dc774e57e3ee5",
     "plan": "12103d9a2bd978cdd725be89f8ae56c7b85dc354f1af2ea485fcb41285c5b2e5",
     "allocation": "4aaf873093425d7499d89eb474d9b243f024e6ece1f72f2d02729b4ac7744681",
-    "online": "7156a5eebc9998c728de7356f1644ab1e40810d473978c6677205f09fc2cf7b5"
+    "online": "7156a5eebc9998c728de7356f1644ab1e40810d473978c6677205f09fc2cf7b5",
+    "flex_budget_review": "837154352299c7d4ecaef19180c58c240613468915ed7e9f0be8573213da4701"
   },
   "printed_table_checks": {
     "all80_diffuser_sixvalue_rows_reconciled": true,
@@ -19,7 +20,8 @@
     "body_and_plan_pages": 12,
     "final_native_reopen_pending": true,
     "engineering_accepted": false,
-    "all47_online_and_formula_rows_reconciled": true
+    "all47_online_and_formula_rows_reconciled": true,
+    "flex_budget_values_extracted": true
   },
   "visual_review": {
     "all12_pages_rendered": true,
@@ -46,6 +48,22 @@
       7,
       8,
       12
+    ],
+    "latest_changed_fullsize_pages_inspected": [
+      2
+    ],
+    "latest_unchanged_content_pages": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
     ]
   },
   "remaining": [
@@ -54,5 +72,13 @@
     "FinalnativeDWGreopenandplot/packageacceptance",
     "Website air properties and installed physical applicability not independently established"
   ],
-  "engineering_accepted": false
+  "engineering_accepted": false,
+  "flex_length_budget": {
+    "native_routes_recomputed": 80,
+    "maximum_plan_m": 2.87286911748179,
+    "assumed_connection_allowance_m": 0.5,
+    "maximum_conditional_length_m": 3.37286911748179,
+    "minimum_conditional_margin_to_5m_m": 1.6271308825182098,
+    "installed_length_verified": false
+  }
 }
