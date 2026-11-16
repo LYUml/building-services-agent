@@ -1,0 +1,71 @@
+{
+  "integration": {
+    "source_logical_sha256": "471a7ff22c889743ddef41cc465137fb79c289012ec913b82b58fa9d81262991",
+    "source_main_sha256": "d11d94b6725b9284ce175e9abf75785d2b70e8beb0487d084a3a82dc8981c67b",
+    "ifc_sha256": "653b452980a6a1e2b328ac1984ad621c63f1b7a40b4bacf96571f3b2055d818c",
+    "distribution_elements": 598,
+    "ports": 1275,
+    "interfaces": 597,
+    "downstream480_shapes_unchanged": true,
+    "current98_untrimmed_main_shapes_unchanged": true,
+    "trimmed_straights": 20,
+    "terminal_positions_unchanged": true,
+    "physical_airways_verified": false,
+    "full_pressure_verified": false,
+    "design_accepted": false
+  },
+  "schema_express_issues": 0,
+  "all597_interface_frames_match": true,
+  "new20_actual_rectangular_material_caps_match": true,
+  "flow_cases": {
+    "maximum": {
+      "boundary_inlet_guid": "3AOjmbQnjTpeyEM$lei29G",
+      "inlet_m3_s": 12.000372763419485,
+      "outlets": 80,
+      "connected_components": 1
+    },
+    "minimum": {
+      "boundary_inlet_guid": "3AOjmbQnjTpeyEM$lei29G",
+      "inlet_m3_s": 4.800149105367794,
+      "outlets": 80,
+      "connected_components": 1
+    }
+  },
+  "pressure": {
+    "cases": {
+      "maximum": {
+        "products": 598,
+        "ports": 1275,
+        "outlets": 80,
+        "conditional_values": 348,
+        "numeric_gaps": 104,
+        "logical_equipment_connections": 120,
+        "complete_pressure_verified": false
+      },
+      "minimum": {
+        "products": 598,
+        "ports": 1275,
+        "outlets": 80,
+        "conditional_values": 348,
+        "numeric_gaps": 104,
+        "logical_equipment_connections": 120,
+        "complete_pressure_verified": false
+      }
+    },
+    "source_ifc_sha256": "653b452980a6a1e2b328ac1984ad621c63f1b7a40b4bacf96571f3b2055d818c",
+    "downstream_scope": "Previously verified unchanged smooth rigid candidate; not installed flex",
+    "remaining_gaps": {
+      "compound": 4,
+      "VAV": 20,
+      "plenum": 80
+    },
+    "full_pressure_verified": false,
+    "design_accepted": false
+  },
+  "native_drawing_status": "running; not yet accepted",
+  "design_accepted": false,
+  "artifacts": {
+    "Supply Air Candidate.ifc": "653b452980a6a1e2b328ac1984ad621c63f1b7a40b4bacf96571f3b2055d818c",
+    "Terminal Conditional Pressure.csv": "3f220b76b7d3f7edf5139943366813d4b9264ff6ae2087ae284f3ba3284f95a2"
+  }
+}
