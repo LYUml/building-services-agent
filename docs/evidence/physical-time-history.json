@@ -1,0 +1,115 @@
+{
+  "scope": "Reusable physical-time reader and NumPy quadrature replay against completed actual residence study; no new solver or pressure acceptance",
+  "numpy_version": "2.5.4",
+  "source_native_history_sha256": {
+    "pressure_inlet": "01f07dc860300b7b6de26fc709d424d45e3967574bfbd8793aba58bed526ff45",
+    "pressure_outlet_0": "b47edba842c447edcfd3598fd2b085fc3e1c0b0ba2ae09303846ea9527eac94a",
+    "pressure_outlet_1": "2d295df5631ba51f9022094acecd98479a383f62b3780e7791ab82763a409461",
+    "pressure_outlet_2": "aeafe5a81026df9ccc59d21f5ab38ac0df10882c57f18988275fe24924ff7625",
+    "pressure_outlet_3": "5899fd28089303839818c26fb05d48db7e4a5fc6ea4939ef9c0633021daf48a6"
+  },
+  "native_samples_per_history": 981,
+  "independently_preexisting_window_statistics_match": true,
+  "scalar_checks": 24,
+  "path_window_diagnostics": {
+    "outlet_0": [
+      {
+        "start_s": "0.15",
+        "end_s": "0.20",
+        "samples": 201,
+        "time_weighted_mean": 7.5003266220569875,
+        "time_weighted_rms": 0.005007465313760454,
+        "range": 0.017826674926268105,
+        "diagnostic_only": true,
+        "stationarity_accepted": false,
+        "pressure_adopted": false
+      },
+      {
+        "start_s": "0.20",
+        "end_s": "0.25",
+        "samples": 201,
+        "time_weighted_mean": 7.509679301752246,
+        "time_weighted_rms": 0.0009642160694480727,
+        "range": 0.0034592803240851566,
+        "diagnostic_only": true,
+        "stationarity_accepted": false,
+        "pressure_adopted": false
+      }
+    ],
+    "outlet_1": [
+      {
+        "start_s": "0.15",
+        "end_s": "0.20",
+        "samples": 201,
+        "time_weighted_mean": 7.5229600019445675,
+        "time_weighted_rms": 0.0050993212998490375,
+        "range": 0.01815956061696422,
+        "diagnostic_only": true,
+        "stationarity_accepted": false,
+        "pressure_adopted": false
+      },
+      {
+        "start_s": "0.20",
+        "end_s": "0.25",
+        "samples": 201,
+        "time_weighted_mean": 7.532513829693886,
+        "time_weighted_rms": 0.0009885743795652073,
+        "range": 0.0034631429678286807,
+        "diagnostic_only": true,
+        "stationarity_accepted": false,
+        "pressure_adopted": false
+      }
+    ],
+    "outlet_2": [
+      {
+        "start_s": "0.15",
+        "end_s": "0.20",
+        "samples": 201,
+        "time_weighted_mean": 3.565674405635124,
+        "time_weighted_rms": 0.023108814166720126,
+        "range": 0.07987745989506267,
+        "diagnostic_only": true,
+        "stationarity_accepted": false,
+        "pressure_adopted": false
+      },
+      {
+        "start_s": "0.20",
+        "end_s": "0.25",
+        "samples": 201,
+        "time_weighted_mean": 3.6427069101246112,
+        "time_weighted_rms": 0.021108787629529238,
+        "range": 0.07307807494460672,
+        "diagnostic_only": true,
+        "stationarity_accepted": false,
+        "pressure_adopted": false
+      }
+    ],
+    "outlet_3": [
+      {
+        "start_s": "0.15",
+        "end_s": "0.20",
+        "samples": 201,
+        "time_weighted_mean": 4.125491643372421,
+        "time_weighted_rms": 0.024097271640857176,
+        "range": 0.08345040908070178,
+        "diagnostic_only": true,
+        "stationarity_accepted": false,
+        "pressure_adopted": false
+      },
+      {
+        "start_s": "0.20",
+        "end_s": "0.25",
+        "samples": 201,
+        "time_weighted_mean": 4.204559361771206,
+        "time_weighted_rms": 0.021548963606697086,
+        "range": 0.07459941310971008,
+        "diagnostic_only": true,
+        "stationarity_accepted": false,
+        "pressure_adopted": false
+      }
+    ]
+  },
+  "pressure_adopted": false,
+  "adapter_sha256": "0f85887ea8a0fafe872fc963147b65c45136e087fe933d452a41240a7cdbc25f",
+  "reuse": "NumPy2.5.4 pinned existing upstream trapezoidal quadrature; no copied CFD or integration engine"
+}
