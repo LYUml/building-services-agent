@@ -197,3 +197,16 @@ Detail. This is a drawing improvement, not a changed HVAC design.
 Geometry edits do not recalculate loads, networks or guarantee associative
 dimension updates. Polylines, MTEXT and arbitrary object edits remain open.
 See evidence/existing-dwg-geometry-revision.json.
+
+## Unified command line
+
+`python -m bsa.drawing_access run PROJECT.json --out FRESH_OUTPUT --autocad "HOST_EXECUTABLE"`
+authors any of the four supported schemas through the same engines used by MCP.
+`python -m bsa.drawing_access inspect PROJECT.json --out EXISTING_OUTPUT` checks
+saved evidence without starting AutoCAD. Set the host environment variable
+BSA_PROJECT_ROOT to the explicit external project directory first. Neither a
+recipe nor a result file chooses the host workspace or AutoCAD executable.
+Unknown schemas fail explicitly. Native run requires an explicit executable;
+inspection retains pending visual/design acceptance rather than granting it.
+All four existing actual BSE native workflows were checked through this CLI;
+see evidence/drawing-cli.json. No new geometry engine or dependency was added.

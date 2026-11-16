@@ -1,0 +1,28 @@
+{
+  "scope": "Unified CLI inspection of four existing actual native drawing workflows",
+  "cases": [
+    {
+      "schema": "drawing-document",
+      "integrity_pass": true,
+      "native_reopen_pass": true
+    },
+    {
+      "schema": "drawing-layout",
+      "integrity_pass": true,
+      "native_reopen_pass": true
+    },
+    {
+      "schema": "drawing-labels",
+      "integrity_pass": true,
+      "native_reopen_pass": true
+    },
+    {
+      "schema": "drawing-revision",
+      "integrity_pass": true,
+      "native_reopen_pass": true
+    }
+  ],
+  "design_accepted": false,
+  "unknown_schema_rejected": true,
+  "missing_host_autocad_rejected": true
+}
