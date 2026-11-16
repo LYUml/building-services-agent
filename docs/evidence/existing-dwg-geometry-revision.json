@@ -1,0 +1,75 @@
+{
+  "scope": "Bounded existing-DWG LINE geometry revision; annotation clearance only",
+  "actual_protocol": {
+    "result": {
+      "integrity_pass": true,
+      "native_reopen_pass": true,
+      "preservation": {
+        "preserved_records": 231,
+        "edited_texts": 0,
+        "edited_entities": 3,
+        "edited_kinds": {
+          "line": 3
+        },
+        "blocks_and_paper_entities_preserved": true,
+        "numeric_absolute_tolerance_drawing_units": 1e-07,
+        "maximum_numeric_difference_drawing_units": 1.1368683772161603e-12,
+        "scope": "Saved entity/block/paper and layer/style tags, exact strings/integers and 1e-7 drawing-unit float bound; unexamined dictionaries/product semantics and visual acceptance remain separate"
+      },
+      "artifacts": [
+        {
+          "path": "Revised Drawing.dwg",
+          "sha256": "0cdce56bc45dadfc008dfe29ea4e3a787555dcad9fae89120cce79ed7e089fd4"
+        },
+        {
+          "path": "Revised Drawing.pdf",
+          "sha256": "02305586d611735bacf42ee1057f602ee269debc3483ac4ecf733be2c1ce768e"
+        }
+      ],
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "escape_rejected": true,
+    "listed_tools": true,
+    "same_inspection_result": true,
+    "desktop_existing_connection_reloaded": false
+  },
+  "independent_geometry": {
+    "source_anchor_and_label_endpoint_preserved": true,
+    "all_three_segments_connected": true,
+    "before_gap_drawing_mm": 8.0,
+    "after_gap_drawing_mm": 37.99999999999994,
+    "paper_gap_increase_mm": 2.9999999999999942,
+    "dimension_values_mm": [
+      381.0660171779857,
+      549.9999999999997
+    ],
+    "scope": "Approximate CAD text box gap; actual native plot review separate"
+  },
+  "visual_review": {
+    "reviewer": "Codex host AI",
+    "whole_native_pdf_inspected": true,
+    "enlarged_dimension_area_inspected": true,
+    "finding": "Leader clears 381.07 dimension text; no observed clipping in examined sheet"
+  },
+  "limitations": [
+    "Explicit before/after handle geometry required",
+    "No automatic engineering recalculation or dimension-association acceptance",
+    "MTEXT, polylines and arbitrary objects unsupported"
+  ],
+  "design_accepted": false,
+  "methods": {
+    "drawing_revision.py": "d784c1ba4b83a28ef1946e28b93655c016746917b54156628a0679e452b01b0f",
+    "drawing_document.py": "92e6a895c8ef66e6748689318af2119ddf15d2e68e3b35335ef45b7737ad75e8"
+  },
+  "public_artifacts": {
+    "Leader Clearance Detail.dwg": "0cdce56bc45dadfc008dfe29ea4e3a787555dcad9fae89120cce79ed7e089fd4",
+    "Leader Clearance Detail.pdf": "02305586d611735bacf42ee1057f602ee269debc3483ac4ecf733be2c1ce768e"
+  },
+  "tests": {
+    "command": "python -m unittest tests.test_drawing_revision tests.test_mcp_drawing_document -q",
+    "passed": 9,
+    "skipped": 0,
+    "actual_native_geometry_protocol": true
+  }
+}

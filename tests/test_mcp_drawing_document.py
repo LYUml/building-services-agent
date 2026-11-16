@@ -81,6 +81,19 @@ class MCPDrawingTests(unittest.IsolatedAsyncioTestCase):
                     self.assertFalse(changed.isError,str(changed));self.assertEqual(changed.structuredContent['preservation']['edited_texts'],1)
                     self.assertTrue(changed.structuredContent['preservation']['blocks_and_paper_entities_preserved'])
                     self.assertEqual(digest(root/'native/Drawing.dwg'),recipe['drawing_sha256'])
+                    from bsa.drawing_revision import geometry
+                    doc=ezdxf.readfile(root/'revision/reopened/source-export.dxf');edits=[]
+                    for kind in ('line','circle','arc'):
+                        obj=doc.modelspace().query(kind.upper())[0];old=geometry(obj,kind);new=json.loads(json.dumps(old))
+                        if kind=='line':new['end'][0]+=2
+                        else:new['radius']+=1
+                        if kind=='arc':new['end_angle']=120
+                        edits.append(dict(handle=obj.dxf.handle,kind=kind,expected=dict(old,layer=obj.dxf.layer),replacement=new))
+                    geometric=dict(recipe,drawing='revision/Revised Drawing.dwg',drawing_sha256=digest(root/'revision/Revised Drawing.dwg'),edits=edits)
+                    (root/'geometry.json').write_text(json.dumps(geometric))
+                    changed=await session.call_tool('bsa_draw_document',{'project':'geometry.json','out':'geometry'},read_timeout_seconds=timedelta(seconds=180))
+                    self.assertFalse(changed.isError,str(changed));self.assertEqual(changed.structuredContent['preservation']['edited_kinds'],{'line':1,'circle':1,'arc':1})
+                    self.assertEqual(digest(root/'revision/Revised Drawing.dwg'),geometric['drawing_sha256'])
 
 
 if __name__=='__main__':unittest.main()

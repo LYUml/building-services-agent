@@ -1,4 +1,4 @@
-"""Bounded native DWG text revisions with whole-entity preservation checks."""
+"""Bounded native DWG revisions with whole-entity preservation checks."""
 import json
 import math
 from pathlib import Path
@@ -13,6 +13,49 @@ from .native_cad import execute,lisp_string
 from .cad_intake import export_dwg
 from .cad_sheet import plot
 
+FIELDS={'text':{'text','insert'},'line':{'start','end'},'circle':{'center','radius'},
+        'arc':{'center','radius','start_angle','end_angle'}}
+
+
+def validate_edits(edits):
+    if not isinstance(edits,list) or not edits:raise ValueError('Explicit nonempty edits required')
+    seen=set()
+    for e in edits:
+        if not isinstance(e,dict) or set(e) not in ({'handle','expected','replacement'},{'handle','kind','expected','replacement'}):raise ValueError('Exact edit fields required')
+        kind=e.get('kind','text')
+        if kind not in FIELDS or not isinstance(e['handle'],str) or not e['handle'] or any(c not in '0123456789ABCDEFabcdef' for c in e['handle']):raise ValueError('Supported entity kind and hexadecimal handle required')
+        if e['handle'].upper() in seen:raise ValueError('Duplicate edit target')
+        seen.add(e['handle'].upper())
+        if set(e['expected'])!=FIELDS[kind]|{'layer'} or set(e['replacement'])!=FIELDS[kind]:raise ValueError('Exact source and replacement geometry fields required')
+        drawing_document.text(e['expected']['layer'])
+        for values in (e['expected'],e['replacement']):
+            for k in ('start','end','insert','center'):
+                if k in values:drawing_document.point(values[k])
+            if kind=='text':
+                drawing_document.text(values['text'])
+                if not values['text'].isascii():raise ValueError('Current text revision requires ASCII; Unicode not verified')
+            if kind=='line' and values['start']==values['end']:raise ValueError('Nonzero replacement line required')
+            if 'radius' in values:drawing_document.number(values['radius'],positive=True)
+            if kind=='arc':
+                drawing_document.number(values['start_angle']);drawing_document.number(values['end_angle'])
+                if not all(0<=values[k]<360 for k in ('start_angle','end_angle')):raise ValueError('Normalized arc angles in0..360required')
+                if (values['end_angle']-values['start_angle'])%360==0:raise ValueError('Nonzero arc sweep required')
+
+
+def geometry(obj,kind):
+    xy=lambda p:[float(p.x),float(p.y)]
+    if kind=='text':return dict(text=obj.dxf.text,insert=xy(obj.dxf.insert))
+    if kind=='line':return dict(start=xy(obj.dxf.start),end=xy(obj.dxf.end))
+    result=dict(center=xy(obj.dxf.center),radius=float(obj.dxf.radius))
+    if kind=='arc':result.update(start_angle=float(obj.dxf.start_angle),end_angle=float(obj.dxf.end_angle))
+    return result
+
+
+def precondition_equal(a,b):
+    if isinstance(a,list):return isinstance(b,list) and len(a)==len(b) and all(precondition_equal(x,y) for x,y in zip(a,b))
+    if type(a) in (int,float) and type(b) in (int,float):return math.isclose(a,b,abs_tol=1e-8,rel_tol=0)
+    return a==b
+
 
 def configuration(project):
     project=Path(project).resolve()
@@ -25,31 +68,26 @@ def configuration(project):
     source=(project.parent/data['drawing']).resolve()
     if not workspace.allowed(source) or source.suffix.lower()!='.dwg' or digest(source)!=data['drawing_sha256']:
         raise ValueError('Drawing source escaped workspace or changed')
-    if not isinstance(data['edits'],list) or not data['edits']:raise ValueError('Explicit nonempty edits required')
-    seen=set()
-    for e in data['edits']:
-        if set(e)!={'handle','expected','replacement'} or not isinstance(e['handle'],str) or not e['handle'] or any(c not in '0123456789ABCDEFabcdef' for c in e['handle']):
-            raise ValueError('Explicit hexadecimal TEXT handle required')
-        if e['handle'].upper() in seen:raise ValueError('Duplicate edit target')
-        seen.add(e['handle'].upper())
-        if set(e['expected'])!={'text','layer','insert'} or set(e['replacement'])!={'text','insert'}:raise ValueError('Exact before/after text and insertion fields required')
-        drawing_document.text(e['expected']['layer'])
-        for values in (e['expected'],e['replacement']):
-            drawing_document.text(values['text']);drawing_document.point(values['insert'])
-            if not values['text'].isascii():raise ValueError('Current native text revision requires ASCII; Unicode not verified')
+    validate_edits(data['edits'])
     return data,source,raw
 
 
 def revised(doc,edits):
+    validate_edits(edits)
     for e in edits:
-        obj=doc.entitydb.get(e['handle'].upper());expected=e['expected']
-        if obj is None or obj.dxftype()!='TEXT' or obj.dxf.layer!=expected['layer'] or obj.dxf.text!=expected['text']:
-            raise ValueError('TEXT target/type/layer/content precondition failed')
-        if obj.get_layout().name!='Model' or doc.layers.get(obj.dxf.layer).is_locked() or obj.dxf.paperspace or obj.dxf.halign or obj.dxf.valign or not all(math.isclose(obj.dxf.insert[i],expected['insert'][i],abs_tol=1e-8,rel_tol=0) for i in range(2)):
-            raise ValueError('Unaligned model-space TEXT insertion precondition required')
+        obj=doc.entitydb.get(e['handle'].upper());expected=e['expected'];kind=e.get('kind','text')
+        if obj is None or obj.dxftype()!=kind.upper() or obj.dxf.layer!=expected['layer']:raise ValueError('Entity target/type/layer precondition failed')
+        if obj.get_layout().name!='Model' or doc.layers.get(obj.dxf.layer).is_locked() or obj.dxf.paperspace:raise ValueError('Unlocked model-space entity precondition required')
+        if kind=='text' and (obj.dxf.halign or obj.dxf.valign):raise ValueError('Unaligned TEXT precondition required')
+        if kind=='line' and abs(obj.dxf.start.z-obj.dxf.end.z)>1e-10:raise ValueError('Planar line precondition required')
+        if kind!='line' and not obj.dxf.extrusion.isclose((0,0,1),abs_tol=1e-12):raise ValueError('WCS XY entity precondition required')
+        actual=geometry(obj,kind)
+        if any(not precondition_equal(v,expected[k]) for k,v in actual.items()):raise ValueError('Source geometry/content precondition failed')
     for e in edits:
-        obj=doc.entitydb[e['handle'].upper()];obj.dxf.text=e['replacement']['text']
-        obj.dxf.insert=(*e['replacement']['insert'],obj.dxf.insert.z)
+        obj=doc.entitydb[e['handle'].upper()]
+        for key,value in e['replacement'].items():
+            if key in ('insert','start','end','center'):value=(*value,getattr(obj.dxf,key).z)
+            setattr(obj.dxf,key,value)
     return doc
 
 
@@ -82,7 +120,8 @@ def compare(before,actual,edits):
     differences=[k for k in wanted.keys()|saved.keys() if not same(wanted.get(k),saved.get(k))]
     if differences:
         raise ValueError('Native revision differs outside approved changes: '+str(differences[:8]))
-    return dict(preserved_records=len(wanted),edited_texts=len(edits),blocks_and_paper_entities_preserved=True,
+    return dict(preserved_records=len(wanted),edited_texts=sum(e.get('kind','text')=='text' for e in edits),
+                edited_entities=len(edits),edited_kinds={k:sum(e.get('kind','text')==k for e in edits) for k in FIELDS if any(e.get('kind','text')==k for e in edits)},blocks_and_paper_entities_preserved=True,
                 numeric_absolute_tolerance_drawing_units=1e-7,maximum_numeric_difference_drawing_units=maximum,
                 scope='Saved entity/block/paper and layer/style tags, exact strings/integers and 1e-7 drawing-unit float bound; unexamined dictionaries/product semantics and visual acceptance remain separate')
 

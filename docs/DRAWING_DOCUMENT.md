@@ -175,3 +175,25 @@ label trial. Geometry/550and381.07printed dimensions stay unchanged. General
 font substitution, Unicode, dense-layout optimality, richer leader objects,
 arbitrary obstacles and engineering acceptance remain separate. See
 evidence/drawing-label-allocation.json.
+
+## Bounded existing-DWG geometry edits
+
+The existing revision schema now accepts explicit `kind` values `line`, `circle`
+and `arc`, alongside legacy text edits. Each edit declares a hexadecimal handle,
+expected layer and all source geometry fields, plus all replacement geometry
+fields. LINE uses start/end XY; CIRCLE uses center/radius; ARC also requires
+normalized start_angle/end_angle. All preconditions are checked before mutation.
+Targets must be unlocked model-space entities with supported planar geometry.
+Source SHA, native reopening and whole-record preservation remain mandatory.
+
+The actual BSE3227 trial changes three annotation leader segments, preserving
+the source anchor and label endpoint. Independent geometry checks show the
+approximate dimension-text clearance increases from 8 to 38 drawing mm, or
+3 paper mm at 1:10. Both original dimensions remain 550 and 381.07 mm. The
+actual whole PDF and enlarged dimension area were inspected. The source drawing
+remains unchanged; the derivative is delivered separately as Leader Clearance
+Detail. This is a drawing improvement, not a changed HVAC design.
+
+Geometry edits do not recalculate loads, networks or guarantee associative
+dimension updates. Polylines, MTEXT and arbitrary object edits remain open.
+See evidence/existing-dwg-geometry-revision.json.

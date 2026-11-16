@@ -1,3 +1,5 @@
+Bounded existing-DWG LINE/CIRCLE/ARC revisions now extend the shared drawing entry. Actual three-segment BSE annotation clearance improved by 3 paper mm with native reopen and plot review; engineering acceptance remains open. See [drawing document](DRAWING_DOCUMENT.md).
+
 # Whole-agent status
 
 Current priority follows the user's explicit addition-first direction: general
@@ -193,7 +195,7 @@ See [runtime recovery](ENERGY_RUNTIME_RECOVERY.md).
 
 Mixed-neck checks now retain rejection of all eight sampled manufacturer layouts.
 A separate analytic necessary envelope for regular square interior grids gives
-about 39.4–39.8 W/m² at the inherited 12 K assumptions; independent dense/source-
+about 39.4â€“39.8 W/mÂ² at the inherited 12 K assumptions; independent dense/source-
 knot checks agree. This is not an arbitrary-layout or actual-load bound. Seven
 controls pass; K-Select native trial still awaits explicit Windows confirmation.
 See [manufacturer comparison](MANUFACTURER_ADPI.md).
@@ -219,7 +221,7 @@ editable native DWG, inspected A4 PDF and CSV. All 80 saved-native flex lengths,
 acceptance remain pending. See [VAV schedule](VAV_SCHEDULE.md).
 
 
-## Current verification checkpoint — 2026-11-14
+## Current verification checkpoint â€” 2026-11-14
 
 This is a reusable multi-discipline agent under development, not a completed
 arbitrary-brief-to-accepted-design system. The capability/gap matrix below remains
@@ -445,7 +447,7 @@ primary review, preserving pending acceptance and all missing inputs. Actual
 common-provider/project replay passes; see SUPPORTING_REQUIREMENT_EVIDENCE.md.
 
 Optional upstream AutoCAD writing now participates in the original calculation
-→ drawing → native task chain, with producer/source replay and failure blocking.
+â†’ drawing â†’ native task chain, with producer/source replay and failure blocking.
 Real full-plan replay retains all pending reviews; see AUTOCAD_WORKFLOW_PROVIDER.md.
 
 Shared `bsa autocad-source` and `bsa autocad-sheet` commands now reach the

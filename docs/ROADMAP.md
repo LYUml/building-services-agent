@@ -1,3 +1,5 @@
+Bounded existing-DWG LINE/CIRCLE/ARC revisions now extend the shared drawing entry. Actual three-segment BSE annotation clearance improved by 3 paper mm with native reopen and plot review; engineering acceptance remains open. See [drawing document](DRAWING_DOCUMENT.md).
+
 # Scope and acceptance
 
 Current user priority: expand reusable AutoCAD2D drawing for plans, systems,
@@ -177,7 +179,7 @@ See [runtime recovery](ENERGY_RUNTIME_RECOVERY.md).
 
 Mixed-neck checks now retain rejection of all eight sampled manufacturer layouts.
 A separate analytic necessary envelope for regular square interior grids gives
-about 39.4–39.8 W/m² at the inherited 12 K assumptions; independent dense/source-
+about 39.4â€“39.8 W/mÂ² at the inherited 12 K assumptions; independent dense/source-
 knot checks agree. This is not an arbitrary-layout or actual-load bound. Seven
 controls pass; K-Select native trial still awaits explicit Windows confirmation.
 See [manufacturer comparison](MANUFACTURER_ADPI.md).
@@ -454,7 +456,7 @@ primary review, preserving pending acceptance and all missing inputs. Actual
 common-provider/project replay passes; see SUPPORTING_REQUIREMENT_EVIDENCE.md.
 
 Optional upstream AutoCAD writing now participates in the original calculation
-→ drawing → native task chain, with producer/source replay and failure blocking.
+â†’ drawing â†’ native task chain, with producer/source replay and failure blocking.
 Real full-plan replay retains all pending reviews; see AUTOCAD_WORKFLOW_PROVIDER.md.
 
 Shared `bsa autocad-source` and `bsa autocad-sheet` commands now reach the
@@ -791,7 +793,7 @@ locations reject. Both reviews pin workspace.py along with their own methods.
 Actual external coursework execution checks47sections and16,779candidates with
 maximum absolute Colebrook residual3.3751e-14. Twenty-five related tests pass.
 
-Actual classroom pages7–9were inspected. The chart is labelled2013and uses
+Actual classroom pages7â€“9were inspected. The chart is labelled2013and uses
 1.20kg/m3and0.09mm as reference conditions;viscosity and size grid remain declared
 assumptions. The official [2021chapter](https://handbook.ashrae.org/Handbooks/F21/SI/F21_Ch21/F21_Ch21_si.aspx)
 corroborates the Darcy/Colebrook/equal-resistance conversion family. This does
@@ -1528,7 +1530,7 @@ seven bodies,16 owned ports,six directed interfaces,four external boundaries and
 one ventilation system. Native cap-derived port frames resolve the reproduced
 raw-port precision failure without changing wall geometry. Source fingerprints,
 21 material pairs, connected union/independent volume and Euler-4 pass. Three
-targeted test methods and actual chain→official-IfcMCP workflow execute;88 nested
+targeted test methods and actual chainâ†’official-IfcMCP workflow execute;88 nested
 source pins and independent duct-count/shortage controls verify. The diagnostic
 projection remains scoped. Remaining network branches, products/construction,
 installation/elevation, pressure and full coursework acceptance stay pending.
