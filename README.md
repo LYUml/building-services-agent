@@ -1,3 +1,5 @@
+All current coursework diffuser conditions now have49native K-Select reports/2,401independent PDF checks;640reported ratios are1.2066–3.2797 within the classroom example interval.12page report updated and actual changed pages reviewed; ADPI load applicability remains open. See [native check](docs/CURRENT_COURSE_KSELECT.md).
+
 Three same-source A1 system drawings now have saved/reopened native DWGs, reviewed plots and independent 598-label/80-flow checks. Full pressure and ADPI remain open. See [system drawings](docs/CURRENT_SYSTEM_DRAWINGS.md).
 
 # Building Services Agent

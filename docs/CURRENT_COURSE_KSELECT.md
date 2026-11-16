@@ -1,0 +1,15 @@
+# Current coursework native K-Select check
+
+The existing user-owned [K-Select toolkit](https://github.com/LYUml/k-select-agent-toolkit), Apache-2.0, commit 3eecd3710e976927c4b7c639900e833d12150453, now executes all current coursework conditions through its supported native GRD 10.0.2 CLI. Read-only capabilities and status confirmed support and an initially stopped application; launch produced a clean Project Screen. No user app was restarted or third-repository code changed. The desktop is left ready with no dialogs.
+
+Two critical native requests completed, then a sequential batch reused those exact effective-CFM reports and executed the remaining 47 conditions. All 49 model/neck/module/border/flow/50-fpm/horizontal guards pass. The 90 distinct exact source flows map to 49 whole-CFM inputs. All 160 terminal operating cases and 640 directional checks retain the prescribed and effective flows separately.
+
+Independent PyMuPDF 1.26.7 native word-coordinate reads reconcile all selected fields and all nine-column tables against the toolkit's separate pypdf parsing: 2,401 scalar checks. Independent Decimal reconstruction reconciles all 640 original catalogue throws. Actual critical maximum/minimum native PDF pages were rendered and viewed; all 49 pages were not manually visually reviewed.
+
+Native reported T0.25/L ranges from 1.2065564945 to 3.2796716311, inside the classroom example's 1.0–3.4 interval. Original catalogue interpolation remains separately recorded at 1.1098292947–3.2244579989. Nearest-CFM conversion changes input by at most 0.2330239823 L/s. Native reported throw differs from old metric-table interpolation at equal effective flow by up to 0.2450282799 m; no verified cause or unqualified numerical agreement is claimed.
+
+The native report's selected Throw m label is misleading: its Throw Feet table establishes imperial units and is independently checked before conversion. Low-flow selected NC10 with table dash remains usable NC null. Raw Pressure w.c. is not newly adopted as static or total loss without reference-plane/type confirmation. Existing pressure ledgers remain unchanged.
+
+Course outputs now include Native K-Select Ratio Check.csv and Native K-Select Check.json in 05_Calculations/Connection_Layout. The 12-page BSE3227 report now includes the native comparison and two-case table. Actual changed pages 3 and 11 were viewed; all other pages, including original schedules/calculations and the appended native plan, render pixel-identically. Previous report bytes remain in private run history.
+
+The 170.1 W/m² versus classroom 160 W/m² load-band conflict remains. Native performance/interval verification is not physical ADPI acceptance, installed design approval or complete fan pressure. No new geometry, engine, dependency, MCP capability or unit-test execution is claimed. See [source-bound receipt](evidence/current-course-kselect.json).

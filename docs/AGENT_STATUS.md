@@ -1,3 +1,5 @@
+All current coursework diffuser conditions now have49native K-Select reports/2,401independent PDF checks;640reported ratios are1.2066–3.2797 within the classroom example interval.12page report updated and actual changed pages reviewed; ADPI load applicability remains open. See [native check](CURRENT_COURSE_KSELECT.md).
+
 Three same-source A1 system drawings now have saved/reopened native DWGs, reviewed plots and independent 598-label/80-flow checks. Full pressure and ADPI remain open. See [system drawings](CURRENT_SYSTEM_DRAWINGS.md).
 
 Actual zero-layer MeshOK result now fails a separate reusable layer-count gate;14related tests pass. Source-bound4mm fine/source-wall-region candidates still fail28/84concave cells, so no layer/pressure adoption. The prior coarse feature mesh remains native-quality passed. See [native study](OPENFOAM_IMPORT_PRECISION.md).

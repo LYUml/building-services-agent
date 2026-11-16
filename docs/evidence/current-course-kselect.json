@@ -1,0 +1,320 @@
+{
+  "scope": "Actual current-course Model1400/24x24/8inch/F23 horizontal50fpm native GRD verification; old catalogue coursework calculation retained separately",
+  "toolkit_HEAD": "3eecd3710e976927c4b7c639900e833d12150453",
+  "toolkit_version": "0.1.1",
+  "native_backend": "Krueger GRD10.0.2",
+  "native_conditions": 49,
+  "new_native_executions": 49,
+  "within_batch_new_executions": 47,
+  "within_batch_reused_critical_reports": 2,
+  "terminal_operating_cases": 160,
+  "directional_operating_checks": 640,
+  "all640_reported_native_ratios_within_classroom_interval": true,
+  "native_ratio_minimum": 1.206556494494195,
+  "native_ratio_maximum": 3.2796716311273206,
+  "minimum_case": {
+    "terminal": "SD-49",
+    "direction": "south",
+    "case": "minimum",
+    "flow_L_s": "54.180716317190154",
+    "L_m": "2.0209580000000003",
+    "effective_cfm": 115,
+    "effective_flow_L_s": "54.27395596800001063067188563409513823600",
+    "native_reported_throw_ft": "8.0",
+    "native_T025_m": "2.43840",
+    "native_ratio": "1.206556494494195148060005033128573469611",
+    "classroom_interval_met": true,
+    "original_catalogue_T025_m": "2.398575843759582290909090909090909090909",
+    "original_catalogue_ratio": "1.18685091118152",
+    "catalogue_T025_at_effective_flow_m": "2.402531465309091360089110299628278591830",
+    "native_minus_catalogue_T025_at_effective_flow_m": "0.035868534690908639910889700371721408170",
+    "native_pdf_sha256": "859b8ddb0f47a5c45e233821d83dab1e26bfdb0d5c702d2d4c6e13aec0c65729"
+  },
+  "maximum_case": {
+    "terminal": "SD-56",
+    "direction": "north",
+    "case": "maximum",
+    "flow_L_s": "155.94659779401857",
+    "L_m": "1.3940420000000024",
+    "effective_cfm": 330,
+    "effective_flow_L_s": "155.7426562560000305054062805152295271120",
+    "native_reported_throw_ft": "15.0",
+    "native_T025_m": "4.57200",
+    "native_ratio": "3.279671631127320503103984883117433011657",
+    "classroom_interval_met": true,
+    "original_catalogue_T025_m": "4.490261791442649333333333333333333333333",
+    "original_catalogue_ratio": "3.221037667044925",
+    "catalogue_T025_at_effective_flow_m": "4.4877897728000003697625003698815700256",
+    "native_minus_catalogue_T025_at_effective_flow_m": "0.0842102271999996302374996301184299744",
+    "native_pdf_sha256": "d839991e89b2ec623ec253a8e4660d9eed5fe0451cacc8b4cf85c06c7e824cf4"
+  },
+  "maximum_absolute_input_rounding_L_s": 0.23302398220987186,
+  "maximum_absolute_throw_difference_at_equal_effective_flow_m": 0.24502827985454492,
+  "independent_native_pdf_check": {
+    "independent_reader": "PyMuPDF1.26.7 native word bounding boxes; separate from toolkit pypdf parsing",
+    "native_reports": 49,
+    "scalar_checks": 2401,
+    "all_native_selected_fields_and9column_tables_match": true,
+    "engineering_accepted": false
+  },
+  "all640_catalogue_interpolations_independently_reconciled_by_Decimal": true,
+  "source_ratio_csv_sha256": "45fb301e55af2132ca1e5cb01a67ddfccafa362aced04e567272f124f675a462",
+  "native_ratio_csv_sha256": "33a45e0842986ad30c01c996f81f646b2bb3aefdaaac4e57b56e909be673c05c",
+  "performance_source_sha256": "073c639219b28068a0c8190a926d493e42a12c0918db464ee8439c55a3994aef",
+  "native_reports": [
+    {
+      "effective_cfm": 104,
+      "pdf_sha256": "d3f252f4eaae23cfa5bb3a61692294c218eb00c54257f8d5b238b103258a137b"
+    },
+    {
+      "effective_cfm": 107,
+      "pdf_sha256": "13a5e4cc7b8164017047c716dff3c194898da91b5c65391db46a3873fbfcac16"
+    },
+    {
+      "effective_cfm": 112,
+      "pdf_sha256": "a963d3b37bd29f88fc6ca6dcd1427e6f813b16318302a64c468247d8ce776426"
+    },
+    {
+      "effective_cfm": 114,
+      "pdf_sha256": "2903b0f1f394d30a2793a127d9bf7b705f86ce8e31b4bda3e502ab620019d487"
+    },
+    {
+      "effective_cfm": 115,
+      "pdf_sha256": "859b8ddb0f47a5c45e233821d83dab1e26bfdb0d5c702d2d4c6e13aec0c65729"
+    },
+    {
+      "effective_cfm": 117,
+      "pdf_sha256": "1c78c9ad7c1f5fcee31df895a036d1d0c4871eafbf93bf65cef439bd7f1c01c3"
+    },
+    {
+      "effective_cfm": 118,
+      "pdf_sha256": "a93c677256601ca27e1390ff570643778842e227cd6c88f49b81d25bc8b558ca"
+    },
+    {
+      "effective_cfm": 119,
+      "pdf_sha256": "0a8b42ed584ab0b6eb821b52e83cbaff844792f8e2a099a94fb00547677caa3e"
+    },
+    {
+      "effective_cfm": 120,
+      "pdf_sha256": "e78134d1db88d9536a46fef7233110ca5a8b0e203b829acc1856098fa9feb41a"
+    },
+    {
+      "effective_cfm": 121,
+      "pdf_sha256": "0d6a0e19cdd63d0ed5440625663e0ff05f15d56846e66dd437f2aa52da681f93"
+    },
+    {
+      "effective_cfm": 125,
+      "pdf_sha256": "2cc57e5536304f4fe1c5b95f5602ef4bc137f760bf6189f9a45139adfb2a4576"
+    },
+    {
+      "effective_cfm": 126,
+      "pdf_sha256": "61368a2de44e9c551173cea3b5b2e7d77a3fd849e309c3ac4b87610f87dc6e8c"
+    },
+    {
+      "effective_cfm": 128,
+      "pdf_sha256": "519b640ca723daefd3dbf556e971355c2e23d0bd2eaab4bd9e9b6115b50bbe6a"
+    },
+    {
+      "effective_cfm": 129,
+      "pdf_sha256": "1a04bb514996d555f4296ec13ec4ac74b147ca1aea5d9e5f22ee3392e3fd2a6a"
+    },
+    {
+      "effective_cfm": 130,
+      "pdf_sha256": "7de1f717f93af6cd2b227cd9237f368df95abc7a2aa8b32dcca9c77afc470551"
+    },
+    {
+      "effective_cfm": 132,
+      "pdf_sha256": "7c2b8dff3e8e460b29208ca5fe788057112681c00f6130ff6100574dfd9efc57"
+    },
+    {
+      "effective_cfm": 133,
+      "pdf_sha256": "10119b11573ae289a2333df0fa3f975faf453b7bac28e3897f7eccd30c4195ad"
+    },
+    {
+      "effective_cfm": 135,
+      "pdf_sha256": "4cbe14b9dc1a35af3738dcf1783cecbb0beb2aa85a6b71d5909cd4e323df202b"
+    },
+    {
+      "effective_cfm": 137,
+      "pdf_sha256": "4716b4ba0166d5a93c625c22a4e94b489a004ab6caa4c291d24f6cf5bc26321d"
+    },
+    {
+      "effective_cfm": 139,
+      "pdf_sha256": "ddfc187e4c2cbb4af3602c7fac2bdb7b0933bdff00590255ef158cb913af5562"
+    },
+    {
+      "effective_cfm": 144,
+      "pdf_sha256": "ba92666e21609442325d5162e6a7a985abb43b42533f0fe4281223731204f304"
+    },
+    {
+      "effective_cfm": 147,
+      "pdf_sha256": "106153003ecabb0841f5a29725272f37ba81cff7a99465c08d381b0b1941d696"
+    },
+    {
+      "effective_cfm": 152,
+      "pdf_sha256": "e95c40ec8340ada68854b4238b37269db9687b28d43de8eadca1c554a039a014"
+    },
+    {
+      "effective_cfm": 157,
+      "pdf_sha256": "b037c4d50ce49aa53f9bc748d3efb515b2856db4e00a3e57f1a894898e171846"
+    },
+    {
+      "effective_cfm": 261,
+      "pdf_sha256": "b1b2ec9e0ebd7672d64e6b46fe9a272588ed160391e2c6424dbbca1214822206"
+    },
+    {
+      "effective_cfm": 268,
+      "pdf_sha256": "f21a0f2bb92d470cdbe4bff72ed2c73b98a45f0d339b3f06c30204a7df6a363c"
+    },
+    {
+      "effective_cfm": 280,
+      "pdf_sha256": "4039bdfbf82607b558c385a338c0356df1c3ab2d038250bc8d5c6307a83d1d83"
+    },
+    {
+      "effective_cfm": 284,
+      "pdf_sha256": "044d7f4db6bdc66e5823d2efb180394dc173243c4e92250b3a23e2cdbeec5f2c"
+    },
+    {
+      "effective_cfm": 287,
+      "pdf_sha256": "d272126de218ee6a640b575e955e8e3863b9d33a124c85c8cafec74783775ea7"
+    },
+    {
+      "effective_cfm": 292,
+      "pdf_sha256": "6128b8b66d19ba75fe11a2a35326880df32d3492cb739b304cf1853e606546ed"
+    },
+    {
+      "effective_cfm": 294,
+      "pdf_sha256": "63164d2e9ea6554da7a378c2e966536c007fe66a807040f335092137b2c4acdb"
+    },
+    {
+      "effective_cfm": 296,
+      "pdf_sha256": "2957e2319b94ed1ec1cddccc8005855605f3b7c7c16a80ff5ab8d3af69989660"
+    },
+    {
+      "effective_cfm": 299,
+      "pdf_sha256": "64854cc9cb8e1c402aa41334645521fff747f65db8ea50b9df519f70bd4dac38"
+    },
+    {
+      "effective_cfm": 302,
+      "pdf_sha256": "b3900c80e97b1bf900c9e20725cc931b59e93296c321a0b910b72702ed5d74a6"
+    },
+    {
+      "effective_cfm": 313,
+      "pdf_sha256": "27040decf0f7d0665c648f0e70350700c3b86bc7728d49b0820c0b0c3ceaa801"
+    },
+    {
+      "effective_cfm": 315,
+      "pdf_sha256": "fd6f8119d7eeda54b59d0f701b33d9b5ebfb23159de16e8d271ecd7bec8f8849"
+    },
+    {
+      "effective_cfm": 321,
+      "pdf_sha256": "3265f3c2d0e88314e9e07b685e66be3aec1262ca691c4b61cbc5a0e12323676c"
+    },
+    {
+      "effective_cfm": 323,
+      "pdf_sha256": "fa06ab6384c2ae5c24cd61b8ce49bc8a2adf1d78ca92b565f82b5834538bbeec"
+    },
+    {
+      "effective_cfm": 325,
+      "pdf_sha256": "b52c59517884e291878fb156759074cb9236fb55f5ec3f3ae5a155e0a7321d8d"
+    },
+    {
+      "effective_cfm": 330,
+      "pdf_sha256": "d839991e89b2ec623ec253a8e4660d9eed5fe0451cacc8b4cf85c06c7e824cf4"
+    },
+    {
+      "effective_cfm": 331,
+      "pdf_sha256": "c1f195a406359f207a9bd31335f4f8c4bec9ae30c4b113321c2a609626c48413"
+    },
+    {
+      "effective_cfm": 333,
+      "pdf_sha256": "677ff66d1c7d5e2db304742cb1c156d68db0e8c2b24aa4ca489f3106260052d4"
+    },
+    {
+      "effective_cfm": 338,
+      "pdf_sha256": "10c67ef802bf41332bf045762607c64d443fe2e8204de13465080e50018b5f38"
+    },
+    {
+      "effective_cfm": 342,
+      "pdf_sha256": "563c5924836e7b22614656975e80ce6abd37d957b021a86854b7acf40bf056c0"
+    },
+    {
+      "effective_cfm": 347,
+      "pdf_sha256": "bdd7df35e0f59e5f9f1de5454e27ac982b62524f3157c09dc3442ce4973e1e17"
+    },
+    {
+      "effective_cfm": 360,
+      "pdf_sha256": "d41724ae5209ed2360ff0ec3f71aaad6a5ef4fd56d5073ff165e951971ef9731"
+    },
+    {
+      "effective_cfm": 368,
+      "pdf_sha256": "893ada7cea90890bd6960ee6bb733193cc4d816252e15feb60f6a27ea1a4852c"
+    },
+    {
+      "effective_cfm": 379,
+      "pdf_sha256": "2de61bc0114b39dbcdaf3ef010c4ac83d113339de38ce6a45668d8be9095c3f8"
+    },
+    {
+      "effective_cfm": 393,
+      "pdf_sha256": "98e1f38fc2d6ca478cd53c0ff9c370889bf063f74e1cdd46ab636d113b492f3d"
+    }
+  ],
+  "visual_review": {
+    "critical_maximum_and_minimum_actual_native_pdf_pages_inspected": true,
+    "all49_actual_pdf_pages_visually_inspected": false
+  },
+  "limits": [
+    "L/s inputs are represented by nearest whole CFM; effective flows retained for every row",
+    "Selected throw is reported in feet despite misleading Throw m label; table unit independently checked",
+    "Native throw output has finite display resolution; no unverified precision or uncertainty model added",
+    "Raw native pressure w.c. is not adopted as total or static pressure without reference confirmation",
+    "Native selected NC10 with table dash is retained as qualified null, not NC10 compliance",
+    "Original classroom170.1W/m2 versus160W/m2 load-band conflict remains",
+    "All49 native source PDFs and runtime records remain private; no design or ADPI acceptance follows"
+  ],
+  "ADPI_verified": false,
+  "design_accepted": false,
+  "course_report_update": {
+    "report_sha256": "c2f9f2e9fd1a84572f1de389e9224b1c4aa43b568ca10d9eef8159e13459590c",
+    "previous_report_preserved_sha256": "ab24a9b39eabb561190aff65dfef7be7585ce112fc17afd60984b7135b5aa9a1",
+    "pages": 12,
+    "render_comparison": {
+      "pages": 12,
+      "unchanged_rendered_pages": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12
+      ],
+      "changed_pages": [
+        3,
+        11
+      ],
+      "appended_native_plan_pixel_identical": true,
+      "original_calculation_and_schedule_pages_pixel_identical": true
+    },
+    "visual_review": {
+      "reviewer": "Codex host AI",
+      "actual_changed_pages3_and11_inspected": true,
+      "finding": "Readable native comparison text and two-case table; no observed clipping or overlap"
+    },
+    "same_original_plan_and_DWG_unchanged": true
+  },
+  "project_composition_sha256": {
+    "run_current_kselect_conditions.py": "9951a964a6d4181e7351bcaaf1f4735d0a3f744588cb5876445516bb88ffb67a",
+    "verify_current_kselect_pdfs.py": "9de407384b7f82e7d45de146a7834fa14d26e3a594699339702c0968e90e0c0e",
+    "audit_current_kselect_conditions.py": "e5c69bd369620649c38b62c3b7e7fb6f6dd9fde7242abce640aaf7c90cb659e0"
+  },
+  "upstream_attribution": {
+    "repository": "https://github.com/LYUml/k-select-agent-toolkit",
+    "commit": "3eecd3710e976927c4b7c639900e833d12150453",
+    "license": "Apache-2.0; bundled CLI-Anything attribution retained in upstream NOTICE",
+    "scope": "Existing supported native performance CLI reused without third-repository code changes"
+  }
+}

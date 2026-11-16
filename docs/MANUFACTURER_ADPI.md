@@ -10,10 +10,7 @@ Current source audit: manufacturer guide explicitly maps1400toType3; independent
 
 # Separate manufacturer ADPI comparison
 
-Latest status: K-Select13.3.54 and standalone GRD10.0.2 now execute. Two native
-performance PDFs were exported locally; independent crosscheck/ADPI remain
-pending. The user moved dedicated MCP development to a separate folder. Earlier
-blocked-launch records below remain historical. See ENERGY_RUNTIME_RECOVERY.md.
+Latest native status: all current coursework demands now have 49 actual GRD10.0.2 native reports, 2,401 independent PDF scalar checks and 640 native-reported classroom ratio checks. Original load-domain applicability and ADPI remain pending. The separate user-owned MCP toolkit is reused unchanged. Earlier blocked-launch records below remain historical. See CURRENT_COURSE_KSELECT.md.
 
 The user selected a separate manufacturer-based comparison while preserving the
 coursework design. This study does not replace the historical classroom criterion,

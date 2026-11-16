@@ -1,3 +1,5 @@
+All current coursework diffuser conditions now have49native K-Select reports/2,401independent PDF checks;640reported ratios are1.2066–3.2797 within the classroom example interval.12page report updated and actual changed pages reviewed; ADPI load applicability remains open. See [native check](CURRENT_COURSE_KSELECT.md).
+
 Current Connection_Layout report has12pages and now binds the existing saved-copy native recheck after originalDWG/copy/export/plot hashes reconcile. Calculations/schedule pages2-10 and plan12 remain pixel-identical; basis/references pages were inspected. ADPI remains unaccepted: all54manufacturer metric throw rows match an independent coordinate extraction, and the1400/Type3 mapping is explicit. No load/criterion change was adopted while clarification is pending. See [source audit](evidence/course-adpi-source-audit.json).
 
 # Reviewing coursework scope and design assumptions
