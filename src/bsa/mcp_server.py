@@ -74,7 +74,7 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None):
     def bsa_draw_document(project:str,out:str)->dict[str,Any]:
         """Author a declared general 2D document with host AutoCAD; save/reopen DWG and plot PDF. Layout/visual/engineering approval remain separate."""
         if options.get('autocad') is None:raise ValueError('Explicit host AutoCAD startup configuration required')
-        return invoke(drawing_access.run,local(project),local(out),autocad=options['autocad'])
+        return invoke(drawing_access.run,local(project),local(out),autocad=options['autocad'],graphviz=options.get('graphviz'))
 
     @server.tool(annotations=read)
     def bsa_inspect_drawing_document(project:str,out:str)->dict[str,Any]:

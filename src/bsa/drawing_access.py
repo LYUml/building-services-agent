@@ -8,6 +8,9 @@ def engine(project):
     from . import workspace
     if not workspace.allowed(project):raise ValueError('Host project workspace required')
     schema=json.loads(Path(project).read_text(encoding='utf-8-sig')).get('schema')
+    if schema=='bsa.drawing-graph/1':
+        from . import drawing_graph
+        return drawing_graph
     if schema=='bsa.drawing-ifc-sections/1':
         from . import drawing_ifc_sections
         return drawing_ifc_sections
@@ -26,9 +29,12 @@ def engine(project):
     raise ValueError('Unsupported drawing schema')
 
 
-def run(project,out,*,autocad):
+def run(project,out,*,autocad,graphviz=None):
     if autocad is None:raise ValueError('Explicit host AutoCAD startup configuration required')
-    selected=engine(project);selected.run(project,out,autocad=autocad)
+    selected=engine(project)
+    options={'autocad':autocad}
+    if selected.__name__=='bsa.drawing_graph':options['graphviz']=graphviz
+    selected.run(project,out,**options)
     return selected.verify(project,out)
 
 
@@ -43,10 +49,12 @@ def main(argv=None):
         command=sub.add_parser(action)
         command.add_argument('project')
         command.add_argument('--out',required=True)
-        if action=='run':command.add_argument('--autocad',required=True)
+        if action=='run':
+            command.add_argument('--autocad',required=True)
+            command.add_argument('--graphviz')
     args=parser.parse_args(argv)
     try:
-        result=(run(args.project,args.out,autocad=args.autocad)
+        result=(run(args.project,args.out,autocad=args.autocad,graphviz=args.graphviz)
                 if args.action=='run' else inspect(args.project,args.out))
     except (ValueError,OSError,KeyError,TypeError) as error:
         parser.exit(1,f'Drawing {args.action} failed: {error}\n')

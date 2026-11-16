@@ -309,3 +309,39 @@ schematic paper layout for readability. Paper geometry has no route-length
 meaning. Full pressure and engineering acceptance remain open. Topology-to-
 document preparation still uses a project script; this evidence does not claim
 a general schematic MCP adapter. See evidence/current-system-schematic.json.
+
+## Generic declared system graphs
+
+The same CLI/MCP now accepts `bsa.drawing-graph/1`; see the explicitly synthetic
+`examples/drawing-graph.json`. The recipe requires source, source_files, nodes,
+edges, layers, sheet, notes and layout. Source files use recipe-relative path
+and SHA256 pairs, constrained to the host workspace. Nodes declare id, label,
+layer, source and classification; edges declare id, from, to, layer, source and
+classification. The adapter validates identity coverage and declared endpoints;
+it does not infer engineering topology from file contents.
+
+Layout explicitly supplies origin, factor, node_width_mm, node_height_mm,
+text_height_mm, ranksep_mm, nodesep_mm and rankdir(LR/TB). Nodes are boxes with
+ASCII single-line labels; labels that do not fit fail. Paper coordinate scale
+is1:1 and has no installation-length meaning. Notes are ordinary declared text
+entities. Sheet containment is checked against reserved margins.
+
+Run with the existing evaluated host Graphviz executable as well as AutoCAD:
+`python -m bsa.drawing_access run PROJECT.json --out FRESH_OUTPUT --autocad HOST_AUTOCAD --graphviz HOST_DOT`.
+For MCP, Graphviz comes only from server startup --graphviz; neither recipes nor
+tool arguments can choose executables. The existing desktop server was not
+restarted/reconfigured. Pinned Graphviz13.1.2, existing ezdxf Bezier4P flattening
+at0.01paper mm and native drawing adapters are reused; no layout algorithm or
+new dependency was introduced.
+
+Inspection checks source files, recipe/method/artifact binding and regenerates
+editable entities from the saved Graphviz JSON. It checks every node/edge identity
+and endpoint mapping. It does not rerun Graphviz or authenticate its provenance.
+Source interpretation and actual visual/engineering acceptance remain separate.
+
+Actual BSE MCP author/inspect execution covers110nodes/109edges. Reopened labels
+and arrowheads match the recipe, and a separate host check reconciles all edges
+against the saved native IFC connections. Actual whole PDF and enlarged detail
+were inspected; all5numerical-gap marks remain. Eight targeted/related tests
+pass, covering changed source, swapped endpoints, geometry tampering, label fit
+and missing runtime. See evidence/generic-system-graph-drawing.json.

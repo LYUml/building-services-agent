@@ -1,0 +1,64 @@
+{
+  "schema": "bsa.drawing-graph/1",
+  "source": "Explicit synthetic topology fixture; not an engineering design",
+  "source_files": [],
+  "nodes": [
+    {
+      "layer": "GRAPH",
+      "source": "Explicit synthetic topology fixture; not an engineering design",
+      "classification": "assumed",
+      "id": "A",
+      "label": "SOURCE"
+    },
+    {
+      "layer": "GRAPH",
+      "source": "Explicit synthetic topology fixture; not an engineering design",
+      "classification": "assumed",
+      "id": "B",
+      "label": "LOAD"
+    }
+  ],
+  "edges": [
+    {
+      "layer": "GRAPH",
+      "source": "Explicit synthetic topology fixture; not an engineering design",
+      "classification": "assumed",
+      "id": "AB",
+      "from": "A",
+      "to": "B"
+    }
+  ],
+  "layers": {
+    "GRAPH": {
+      "color": 7,
+      "lineweight": 18
+    }
+  },
+  "notes": [],
+  "sheet": {
+    "paper": "A4",
+    "window": [
+      0,
+      0,
+      290,
+      200
+    ],
+    "scale": 1,
+    "title": "SYNTHETIC SYSTEM SCHEMATIC",
+    "number": "EXAMPLE",
+    "reference_length": 50
+  },
+  "layout": {
+    "origin": [
+      15,
+      50
+    ],
+    "factor": 1,
+    "node_width_mm": 24,
+    "node_height_mm": 8,
+    "text_height_mm": 2,
+    "ranksep_mm": 8,
+    "nodesep_mm": 8,
+    "rankdir": "LR"
+  }
+}

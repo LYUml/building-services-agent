@@ -1,0 +1,73 @@
+{
+  "scope": "Declared source-bound topology through generic graph drawing MCP",
+  "graph": {
+    "nodes": 110,
+    "edges": 109,
+    "graphviz_sha256": "ff1ce5f13caf4ed7dddb7327b94781e751e4a7e693b4655287b6647d959c879a",
+    "layout_reexecuted_during_inspection": false,
+    "scope": "Declared topology; stored Graphviz layout replay, not independent source interpretation or authenticated provenance"
+  },
+  "source_file_hashes": {
+    "Supply Network.ifc": "8279155fac0fbc70c57d6eaf00bd9daca72a783eab9cda44e73ef075b4929406",
+    "analysis.json": "91910c089fba06563878ccd0715668980a9991dee333fc341cc1c68b5849e1cc",
+    "pressure-ledger.json": "540770627901d574e92b097b37e11db003913641290c44ee52ac524aa8f72828"
+  },
+  "graph_generator_sha256": "dafd0ae7c6a0f6f0158a7f5f106a45f2b272cb250775b6b9502b0e66501d1077",
+  "independent_native_ifc_connections_match": true,
+  "saved_node_labels_match": 110,
+  "saved_directed_arrowheads_match": 109,
+  "marked_unresolved_products": 5,
+  "native_audit": {
+    "model_entities": 2088,
+    "entity_types": {
+      "LWPOLYLINE": 220,
+      "TEXT": 116,
+      "LINE": 1752
+    },
+    "editable_entity_correspondence": true,
+    "dimension_rendering_visual_review": "pending"
+  },
+  "native_methods": {
+    "drawing_document.py": "424a8d8a40fa9a09ee7282f984807c9977529a6c48615c09367bdf1ff26b0881",
+    "cad_sheet.py": "2aa3880343af74c7dea09e329266651f5152badbf3e12befb8e5dc2f9a60c315",
+    "cad_intake.py": "ab8f7dd945134dc824de2a25cfb2d8423752c190baa150fedb81d87e93242bd0",
+    "cad_overlay.py": "91c4c9e2802a76f5516ca92c3438766cd472a0cbf797da0b1b3e8bfa688a9e49",
+    "native_cad.py": "d6a8b81b11bb2b422fdfbfa4ba3fc6b26557b5cfd0a8fc66a91c52cb74a180a0"
+  },
+  "plot": {
+    "pdf_sha256": "477c14511a7b2331e35734ba0f8692d62a8942b8e750371bd717f1ceff272b16",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      841.0222222222221,
+      594.0777777777777
+    ],
+    "scale_denominator": 1,
+    "reference_handle": "8B6",
+    "reference_expected_mm": 50.0,
+    "reference_measured_mm": 49.99566666666666,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "same_mcp_inspection_result": true,
+  "desktop_existing_connection_reloaded": false,
+  "artifacts": {
+    "Supply Network System Schematic.dwg": "d5ccc44a2db318a3d69d195dba56223a70115ac723bd4652a3e2559b09217169",
+    "Supply Network System Schematic.pdf": "477c14511a7b2331e35734ba0f8692d62a8942b8e750371bd717f1ceff272b16"
+  },
+  "tests": {
+    "passed": 8,
+    "skipped": 0
+  },
+  "visual_review": {
+    "reviewer": "Codex host AI",
+    "actual_whole_pdf_and_enlarged_detail_inspected": true,
+    "finding": "Readable labels and gap marks; no observed clipping in examined sheet"
+  },
+  "design_accepted": false,
+  "limitations": [
+    "Declared graph; semantic source interpretation still belongs to caller",
+    "Inspection replays stored Graphviz layout rather than executing Graphviz",
+    "No installation lengths, complete pressure or ADPI acceptance"
+  ]
+}

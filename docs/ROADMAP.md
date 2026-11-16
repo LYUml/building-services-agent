@@ -1,3 +1,5 @@
+Generic declared system graphs now execute through shared CLI/MCP with host-pinned Graphviz and source-bound node/edge inputs. Actual110node109edge native trial verified; automatic source interpretation/engineering acceptance remain open. See [drawing document](DRAWING_DOCUMENT.md).
+
 Source-bound IFC projection now joins sections in the shared drawing recipe/CLI/MCP. Actual110product native plan and independent source bounds checked; no hidden-line or installation acceptance. See [drawing document](DRAWING_DOCUMENT.md).
 
 Generic source-bound IFC plane sections and native port dimensions now compose through the shared drawing CLI/MCP, verified on10actual branch assemblies. Source/method binding and regenerated inspection execute; explicit planes/annotations remain required. See [drawing document](DRAWING_DOCUMENT.md).
