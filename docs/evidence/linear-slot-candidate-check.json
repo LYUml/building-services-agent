@@ -119,5 +119,34 @@
       }
     ],
     "all_candidates_still_fail_complete_diagnostic": true
+  },
+  "native_63_terminal_milestone": {
+    "scope": "Separate manufacturer candidate; not replacement coursework or accepted physical ADPI",
+    "terminals": 63,
+    "same_selected_specs_passing_33_sample_and_geometry_event_checks": 63,
+    "flow_domain_gaps": 0,
+    "frame_B_rectangles_inside": true,
+    "frame_B_rectangle_intersections": 0,
+    "frame_B_and_ordered_vs_tested_length_correspondence": "design assumption, not final installation approval",
+    "native_reopen_pass": true,
+    "native_entities": 202,
+    "native_editable_blocks": 63,
+    "independent_spec_position_checks": 63,
+    "unique_labels": 63,
+    "dwg_sha256": "70a57f64d384624adf8952e45ec47b0afbfaf32d4800122a294e1e60584c47d9",
+    "pdf_sha256": "93279a0cd06e1ecea3c75917c1dd242d947458733c38eb76d41f3f16f2e04a8f",
+    "paper": "A1",
+    "scale": 75,
+    "reference_expected_mm": 50,
+    "reference_measured_mm": 49.995666666666665,
+    "actual_plot_visually_reviewed": true,
+    "remaining": [
+      "Manufacturer basis for mixed-jet downward characteristic length",
+      "Ordered vs tested active length correspondence",
+      "Ceiling/occupied-zone height and actual mounting",
+      "Plenum/inlet performance and complete pressure",
+      "Course submission decision remains deferred"
+    ],
+    "design_accepted": false
   }
 }
