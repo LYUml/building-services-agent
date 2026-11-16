@@ -1,0 +1,62 @@
+{
+  "source_ifc_sha256": "a26626e4359ca82ca90de33423d46819b66bd78e54f22a0f52e221ff18ce2937",
+  "drawing_component_index_sha256": "7d16a08fab30e2806d3367082e7c27a49acfa3c9428832f602a215f2526deff4",
+  "native_endpoint_and_drawing_index_checks": 160,
+  "source_performance_pdf_sha256": "073c639219b28068a0c8190a926d493e42a12c0918db464ee8439c55a3994aef",
+  "source_locator": "PDF2/B1-12 Model1400 nominal8inch 600x600mm panel without damper",
+  "previously_reviewed_source_and_method_hashes_match": true,
+  "method_sha256": "73a6d295a18ceb0ae86ab6a475e7f1e0357a0fbf208f1054af29b73cd9100111",
+  "input_sha256": {
+    "maximum": {
+      "analysis.json": "7113ca627ed38de02d9108381600ba0645c3208c19dd616b79cdab2983245d6c",
+      "fitting-data.json": "483f90048eaab56a5042d88600cab4fa5ee1b8fd9cdacda291ceeedb837d163a",
+      "pressure-ledger.json": "2b2f36dc14e25d829d58d33f8c1e84695460a52a0212812d03ac1c1d0f22ede3"
+    },
+    "minimum": {
+      "analysis.json": "07e963c55fc9c9b04efd4adff9566dbf53ea3b983df25b54970db6cec325f9a9",
+      "fitting-data.json": "991ce8b4f42784532b09eabdd2d88e0abb0aac7c85e2079ea4ab2971aaf1b80c",
+      "pressure-ledger.json": "99421930358ce5e01f565d2e9175a8acb52d9ed18bf55fe71669364aff1bc0e3"
+    }
+  },
+  "terminal_rows": 160,
+  "independent_Decimal_pressure_checks": 160,
+  "cases": {
+    "maximum": {
+      "terminals": 80,
+      "conditional_terminal_Pt_range_Pa": [
+        19.730752360587502,
+        44.77991261254798
+      ],
+      "remaining_unique_component_gaps": 84,
+      "complete_pressure_verified": false
+    },
+    "minimum": {
+      "terminals": 80,
+      "conditional_terminal_Pt_range_Pa": [
+        3.154521998942405,
+        7.186689589825638
+      ],
+      "remaining_unique_component_gaps": 84,
+      "complete_pressure_verified": false
+    }
+  },
+  "source_ledgers_unchanged": true,
+  "terminal_Pt_added_once": true,
+  "static_or_neck_velocity_pressure_added_again": false,
+  "interpolation_basis": "Piecewise linear pressure in squared flow; comparison assumption",
+  "room_static_reference": "Assumed common0Pa gauge; not measured",
+  "installed_terminal_and_catalogue_test_plane_correspondence_verified": false,
+  "fully_open_VAV_comparison_only": true,
+  "actual_controlled_VAV_loss_verified": false,
+  "ADPI_verified": false,
+  "complete_pressure_verified": false,
+  "hydraulic_critical_path": null,
+  "fan_duty_Pa": null,
+  "design_accepted": false,
+  "independent_saved_CSV_and_current_public_partial_checks": 160,
+  "budget_csv_sha256": "31c97db53d08d34e6d79138be8fda2504c49c5edc78be873d33e9f85034d8c8d",
+  "previous_KSelect_PDF_comparison_reused": true,
+  "new_KSelect_execution": false,
+  "new_native_CAD_execution": false,
+  "source_geometry_changed": false
+}
