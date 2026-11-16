@@ -1,0 +1,241 @@
+{
+  "scope": "Mapped initialization and controlled twenty-step discretization diagnosis only; not a complete pressure window",
+  "mapping": {
+    "mapFields_returncode": 0,
+    "method": "Native inverse-distance initialization only",
+    "source_field_sha256": {
+      "U": "eba13a19182a11dc9967491d68ed228fba3dbbe572d75d562a85f928c7da2e72",
+      "p": "4d9307b3b8250dd49f66f0f6acb207e86fd6a2720f5c5369ebcd5d2a9802368c",
+      "k": "6977381db9e70f79ee50c486e4561fef7edd771f8a82af1ac69b27dfa955e8d4",
+      "omega": "26bade0ed898a69aca8ed847e00fc71cea378b458ff0d788f084ef3aadbd4fea",
+      "nut": "1e3eefd33bbe52f8351652eca3a385d473a48dd2fce21f2d0cc1c4b7c77f2b98",
+      "Pt": "1090104e8ff627426c93810fbae93d1bdd112454e65b57bc720d089e18feed95"
+    },
+    "source_fields_unchanged": true,
+    "engineering_accepted": false
+  },
+  "mapped_fields": {
+    "scope": "Mapped numerical initialization only; no new solved pressure",
+    "mapFields_returncode": 0,
+    "fields": {
+      "U": {
+        "cells": 684730,
+        "minimum": 0.00018310243080082726,
+        "maximum": 6.702220847890143,
+        "sha256": "a5fbd951f92e5ccbf2a224736721982a22d0906ff23da7fc6ecfe6dd0d67c17d"
+      },
+      "p": {
+        "cells": 684730,
+        "minimum": -26.88533414845236,
+        "maximum": 28.860790570343745,
+        "sha256": "0be5229be33bcd51063eb363c2185fbba178ce3feec9f5867b5d5ee8b3496ea2"
+      },
+      "Pt": {
+        "cells": 684730,
+        "minimum": -32.2205410392252,
+        "maximum": 46.79220037095885,
+        "sha256": "ee0db1c5b750e395711ba4aa2a64bdfc232eeffcca8cb70712b612a1e4ef5479"
+      },
+      "k": {
+        "cells": 684730,
+        "minimum": 3.297962217279299e-06,
+        "maximum": 1.4654545741868663,
+        "sha256": "39d77a91fb218819b92d396f50b6536a7fdbc7501461d663e51f60bb10ca4c09"
+      },
+      "omega": {
+        "cells": 684730,
+        "minimum": 50.00658222987612,
+        "maximum": 11446560.531415489,
+        "sha256": "2ed9d6ecf15f58075d47cc1bf99b5eac2517698bf6fe579bcbba9f32a8d80971"
+      },
+      "nut": {
+        "cells": 684730,
+        "minimum": 4.4335333471612496e-11,
+        "maximum": 0.0030272545535621554,
+        "sha256": "96ae63fd0183be23cc99bfb113a03ad36a37d47497f61e30ad24cb6866a1c028"
+      }
+    },
+    "engineering_accepted": false
+  },
+  "initial_wall_review": {
+    "scope": "Mapped initialization diagnostic only; not converged new-grid pressure",
+    "native_y_plus_minimum": 0.014021624926055451,
+    "native_y_plus_maximum": 0.8440536185288902,
+    "native_y_plus_average": 0.3317766423003137,
+    "numerical_y_plus_target": 1.0,
+    "target_kind": "Declared wall-resolved numerical target, not a regulation",
+    "derived_Pt_recomputed_natively": true,
+    "basic_mapped_fields_unchanged": true,
+    "steps_budget": 20,
+    "engineering_accepted": false
+  },
+  "new_grid_full_order_screen": {
+    "window_iterations": [
+      1,
+      20
+    ],
+    "maximum_relative_flow_errors": {
+      "inlet": 9.803504252988697e-15,
+      "outlet_0": 6.4152354996105825e-15,
+      "outlet_1": 5.94582802402932e-15,
+      "outlet_2": 7.522806464715855e-15,
+      "outlet_3": 1.1109310255423214e-14
+    },
+    "maximum_relative_mass_imbalance": 1.4303473418294987e-14,
+    "pressures": {
+      "outlet_0": {
+        "mean_Pa": 5.082281605393755,
+        "range_Pa": 0.3842434263091512,
+        "relative_range": 0.07560451311894228,
+        "positive": true,
+        "stable": false
+      },
+      "outlet_1": {
+        "mean_Pa": 5.236023042497671,
+        "range_Pa": 0.3901346296098147,
+        "relative_range": 0.07450972359046647,
+        "positive": true,
+        "stable": false
+      },
+      "outlet_2": {
+        "mean_Pa": 3.302239118560557,
+        "range_Pa": 0.7159750861692586,
+        "relative_range": 0.21681503381903838,
+        "positive": true,
+        "stable": false
+      },
+      "outlet_3": {
+        "mean_Pa": 3.709419025617611,
+        "range_Pa": 0.7441996045482071,
+        "relative_range": 0.2006243024604909,
+        "positive": true,
+        "stable": false
+      }
+    },
+    "numerical_targets": {
+      "flow": 0.001,
+      "mass": 0.001,
+      "pressure_range": 0.005
+    },
+    "flow_pass": true,
+    "mass_pass": true,
+    "pressure_stability_pass": false,
+    "numerical_window_pass": false,
+    "engineering_accepted": false,
+    "scope": "New-grid twenty-step higher-order screen only",
+    "complete_200_step_window": false,
+    "negative_k_events": 19,
+    "minimum_prebounding_k": -0.2611559520389377,
+    "startup_accepted": false
+  },
+  "mixed_screen": {
+    "window_iterations": [
+      1,
+      20
+    ],
+    "maximum_relative_flow_errors": {
+      "inlet": 9.803504252988697e-15,
+      "outlet_0": 8.292865401935631e-15,
+      "outlet_1": 8.605803718989806e-15,
+      "outlet_2": 7.697755452267387e-15,
+      "outlet_3": 7.666988767827289e-15
+    },
+    "maximum_relative_mass_imbalance": 1.3419550903681251e-14,
+    "pressures": {
+      "outlet_0": {
+        "mean_Pa": 5.085177143627495,
+        "range_Pa": 0.40646984694671673,
+        "relative_range": 0.0799322885842995,
+        "positive": true,
+        "stable": false
+      },
+      "outlet_1": {
+        "mean_Pa": 5.236692152933956,
+        "range_Pa": 0.4273591034845907,
+        "relative_range": 0.081608597756726,
+        "positive": true,
+        "stable": false
+      },
+      "outlet_2": {
+        "mean_Pa": 3.2889793369199145,
+        "range_Pa": 0.6551517854189761,
+        "relative_range": 0.1991960782680128,
+        "positive": true,
+        "stable": false
+      },
+      "outlet_3": {
+        "mean_Pa": 3.7014115918888706,
+        "range_Pa": 0.673534576361245,
+        "relative_range": 0.18196694953817147,
+        "positive": true,
+        "stable": false
+      }
+    },
+    "numerical_targets": {
+      "flow": 0.001,
+      "mass": 0.001,
+      "pressure_range": 0.005
+    },
+    "flow_pass": true,
+    "mass_pass": true,
+    "pressure_stability_pass": false,
+    "numerical_window_pass": false,
+    "engineering_accepted": false,
+    "scope": "Twenty-step mixed velocity-higher-order/turbulence-upwind screen, not complete200step acceptance",
+    "complete_200_step_window": false,
+    "negative_k_events": 0,
+    "fields": {
+      "U": {
+        "cells": 684730,
+        "minimum": 0.00013237813920138777,
+        "maximum": 8.981270288994555,
+        "sha256": "d2315822a8546100061db6232e2d2f610a8baa72063d56988a5a62d8d126478c"
+      },
+      "p": {
+        "cells": 684730,
+        "minimum": -27.10799838614774,
+        "maximum": 27.233102297626345,
+        "sha256": "aadfa2fceab26579df192f167c08e05847c99a2e760bc869ffb6cd14bdf856bd"
+      },
+      "Pt": {
+        "cells": 684730,
+        "minimum": -32.49500021913309,
+        "maximum": 64.9492389646218,
+        "sha256": "c9b490e7c276a0818ff3ace9e102e8de23a71fddf23c3aa1f6129cdc112e7bed"
+      },
+      "k": {
+        "cells": 684730,
+        "minimum": 1.692245773328485e-05,
+        "maximum": 1.6500919685373778,
+        "sha256": "b14f4174eac487638fa823bfd200671b140c60353262232c51c62ff4897f15b7"
+      },
+      "omega": {
+        "cells": 684730,
+        "minimum": 52.41118910995076,
+        "maximum": 5072167.449758814,
+        "sha256": "77530ad32ccb67c2b05e303b63e194982e286e48b069b6263832efbaabc8ee11"
+      },
+      "nut": {
+        "cells": 684730,
+        "minimum": 7.505319676444992e-10,
+        "maximum": 0.003087613388610083,
+        "sha256": "14700cdc25641af0266696ec7fe19ff7ee0c84a974cef0d15a496f322062e5a6"
+      }
+    }
+  },
+  "engineering_accepted": false,
+  "mixed_solved20_y_plus": {
+    "minimum": 0.011920772047878501,
+    "maximum": 0.9734504249521854,
+    "average": 0.3673787710390278,
+    "native_postprocess_returncode": 0,
+    "existing_field_hashes_unchanged": true
+  },
+  "identical_basic_initial_fields_sha256": {
+    "U": "a5fbd951f92e5ccbf2a224736721982a22d0906ff23da7fc6ecfe6dd0d67c17d",
+    "p": "0be5229be33bcd51063eb363c2185fbba178ce3feec9f5867b5d5ee8b3496ea2",
+    "k": "39d77a91fb218819b92d396f50b6536a7fdbc7501461d663e51f60bb10ca4c09",
+    "omega": "2ed9d6ecf15f58075d47cc1bf99b5eac2517698bf6fe579bcbba9f32a8d80971",
+    "nut": "96ae63fd0183be23cc99bfb113a03ad36a37d47497f61e30ad24cb6866a1c028"
+  }
+}

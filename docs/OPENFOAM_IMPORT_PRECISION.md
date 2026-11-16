@@ -339,3 +339,30 @@ A separate new case is being initialized from the preserved first-order1050field
 The packaged mapFields rejects cellVolumeWeight; its actual source exposes
 interpolate/inverse-distance mapping. That corrected mapping is initialization
 only and does not claim conservative transfer or accepted pressure.
+
+
+## Native mapping and controlled scalar-transport diagnosis
+
+The corrected native interpolate mapping finishes successfully. A failed earlier
+attempt had an old-size target nut boundary array; its target fields and log are
+preserved. Rebuilding that calculated initialization boundary and checking all
+serialized patch sizes precedes the successful retry. Original six source field
+hashes remain unchanged. All six mapped fields have684730finite cell values;
+k,omega,nut are nonnegative. Inverse-distance mapping is an initializer, not a
+conservative transfer or a solved pressure result. Mapped Pt and yPlus are not
+trusted as new derived fields: native postprocessing regenerates them while
+preserving the five basic field hashes. Initial new-grid max y-plus0.84405.
+
+The same full-order20step screen on the improved grid still produces19negative-k
+bounding events and fails; the mesh change alone does not resolve this behavior.
+A controlled counterpart copies all five initial fields byte-identically and
+changes ONLY k/omega convection to bounded upwind, retaining higher-order U.
+It finishes20steps without negative-k bounding, all five signed flows and mass
+pass, all six fields are finite, turbulence fields nonnegative and speed maximum
+8.981m/s. Native solved20y-plus max0.97345meets the declared numerical target1.
+Pressure stability still fails and this is NOT a complete200step window or fully
+higher-order solution. [Executed mapping and diagnosis](evidence/openfoam-resolution-initialization.json).
+
+The mixed case now has a bounded unchanged-parameter continuation from saved20
+to420, expected fields210/420 and required window221..420. No design-ledger
+pressure is adopted and both native mesh-quality failure categories remain open.
