@@ -1,3 +1,5 @@
+Length-basis follow-up: source a1-10 prose includes downward mixed-jet travel, while its adjacent table uses abbreviated wording. The earlier planar-length diagnostic and square-grid density bound do not cover that interpretation. A separate actual80terminal/8inch sensitivity sweep preserves walls, flow, loads, source curves and margins:462failed direction/case combinations at zero added distance; best sampled70 at hypothetical2.32m, including55unchanged wall-limited failures. No full pass among301samples; no actual height or length rule adopted. See [review](evidence/adpi-length-sensitivity.json).
+
 Current source audit: manufacturer guide explicitly maps1400toType3; independent native PDF-coordinate extraction of all54metric flow/T025 rows matches the current parser. No type/throw-column error was found. The170.1vs160W/m2 coursework applicability conflict remains; final basis choice requires clarification. The12page coursework review report now binds the completed DWG recheck. See [audit](evidence/course-adpi-source-audit.json).
 
 # Separate manufacturer ADPI comparison
@@ -70,7 +72,7 @@ Additional mixed-neck reconstruction finds zero terminals in each sampled layout
 that pass all declared conditions with any of the six necks, so mixing necks does
 not repair these particular layouts.
 
-An independent necessary-bound study considers only a regular square interior
+An independent planar-length necessary-bound study (L=half horizontal spacing, excluding downward mixed-jet travel) considers only a regular square interior
 grid, spacing=2L and area=4L². Using the greatest represented paired-curve ratio
 1.186815 and both catalogue operating-flow bounds, it maximizes q/(4L²) over each
 original piecewise-linear throw segment. Endpoints, published knots and interior

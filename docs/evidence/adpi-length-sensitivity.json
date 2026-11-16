@@ -1,0 +1,39 @@
+{
+  "source_guide_sha256": "f98aa9ded59150e157c83d5c5114faaa1a24c185928709ffe5d60c9b2f607988",
+  "source_pages_actually_rendered_and_viewed": [
+    10,
+    13
+  ],
+  "scope": "Existing 80-terminal nominal8in scenario only; diagnostic ambiguity study, not adopted length rule or actual height",
+  "source_issue": "Guide prose includes downward mixed-jet travel to occupied zone; adjacent table is abbreviated. Existing length proxy was planar. Installation and definition applicability unresolved.",
+  "case_count": 640,
+  "opposing_midplane_cases": 560,
+  "wall_limited_cases": 80,
+  "sweep": "0 to 3m inclusive in0.01m increments; hypothetical parameter only, not building dimensions",
+  "unchanged": [
+    "thermal load",
+    "airflow",
+    "terminal positions",
+    "catalogue",
+    "paired source curves",
+    "stroke margins",
+    "wall-limited lengths"
+  ],
+  "baseline": {
+    "hypothetical_downward_distance_m": 0.0,
+    "failed_directional_operating_cases": 462,
+    "failed_wall_limited_cases": 55,
+    "terminals_with_any_failure": 80
+  },
+  "best_sample": {
+    "hypothetical_downward_distance_m": 2.32,
+    "failed_directional_operating_cases": 70,
+    "failed_wall_limited_cases": 55,
+    "terminals_with_any_failure": 39
+  },
+  "any_whole_scenario_pass": false,
+  "ADPI_verified": false,
+  "design_accepted": false,
+  "independent_baseline_correspondence": "462 unique terminal/operating/direction failures reconcile to preserved original comparison failure records",
+  "prior_square_grid_bound_scope_correction": "39.4\u201339.8 W/m2 diagnostic bound assumes planar L=spacing/2. It is not a bound under a definition including downward mixed-jet travel."
+}
