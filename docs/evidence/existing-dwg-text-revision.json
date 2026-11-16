@@ -1,0 +1,72 @@
+{
+  "scope": "Existing-DWG bounded text revision via shared drawing MCP; source design geometry preserved within declared numeric bound",
+  "methods": {
+    "drawing_revision.py": "1e0d35026f3b0a2ed44f71212712feb8c3bf29387a208f9ca2084809cfc3c202",
+    "drawing_document.py": "92e6a895c8ef66e6748689318af2119ddf15d2e68e3b35335ef45b7737ad75e8",
+    "native_cad.py": "d6a8b81b11bb2b422fdfbfa4ba3fc6b26557b5cfd0a8fc66a91c52cb74a180a0",
+    "cad_intake.py": "ab8f7dd945134dc824de2a25cfb2d8423752c190baa150fedb81d87e93242bd0",
+    "cad_sheet.py": "2aa3880343af74c7dea09e329266651f5152badbf3e12befb8e5dc2f9a60c315"
+  },
+  "source_dwg_sha256": "c76a643d224889bae56ff96c91d5df160e4b75e154faf9d0829ec75749283115",
+  "actual_protocol": {
+    "result": {
+      "integrity_pass": true,
+      "native_reopen_pass": true,
+      "preservation": {
+        "preserved_records": 4885,
+        "edited_texts": 3,
+        "blocks_and_paper_entities_preserved": true,
+        "numeric_absolute_tolerance_drawing_units": 1e-07,
+        "maximum_numeric_difference_drawing_units": 2.9103830456733704e-11,
+        "scope": "Saved entity/block/paper and layer/style tags, exact strings/integers and 1e-7 drawing-unit float bound; unexamined dictionaries/product semantics and visual acceptance remain separate"
+      },
+      "artifacts": [
+        {
+          "path": "Revised Drawing.dwg",
+          "sha256": "89e16c2289188c11333e9121ec55226f7e8011d65c897b748e09e655548ea08f"
+        },
+        {
+          "path": "Revised Drawing.pdf",
+          "sha256": "f891deb082b0ed71163cc7319519ae25c34bd86a6cbbfe3b94c3e16014159907"
+        }
+      ],
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "escape_rejected": true,
+    "listed_tools": true,
+    "same_inspection_result": true,
+    "desktop_existing_connection_reloaded": false
+  },
+  "plot": {
+    "pdf_sha256": "f891deb082b0ed71163cc7319519ae25c34bd86a6cbbfe3b94c3e16014159907",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      841.0222222222221,
+      594.0777777777777
+    ],
+    "scale_denominator": 100,
+    "reference_handle": "8FFD",
+    "reference_expected_mm": 100.0,
+    "reference_measured_mm": 99.99133333333334,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "visual_review": {
+    "rendered_pixels_equal_previous_actually_inspected_revision": true,
+    "actual_whole_sheet_and_enlarged_notes_previously_viewed": true,
+    "observed_clipping_or_overlap": false,
+    "ADPI_scope_limitation_visible": true
+  },
+  "original_course_drawing_unchanged": true,
+  "main_report_not_replaced": true,
+  "tests": {
+    "focused_revision_tests_passed": 4,
+    "mcp_protocol_tests_passed": 2,
+    "native_dimensional_symbol_fixture_revised": true,
+    "skips": 0
+  },
+  "implemented_scope": "ASCII unlocked unaligned model-space TEXT; complete native artifact inventory mandatory",
+  "design_accepted": false
+}

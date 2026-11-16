@@ -4,7 +4,11 @@ from pathlib import Path
 
 
 def engine(project):
-    if json.loads(Path(project).read_text(encoding='utf-8-sig')).get('schema')=='bsa.drawing-layout/1':
+    schema=json.loads(Path(project).read_text(encoding='utf-8-sig')).get('schema')
+    if schema=='bsa.drawing-revision/1':
+        from . import drawing_revision
+        return drawing_revision
+    if schema=='bsa.drawing-layout/1':
         from . import drawing_layout
         return drawing_layout
     from . import drawing_document

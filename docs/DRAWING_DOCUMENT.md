@@ -97,3 +97,39 @@ the actual PDF is rendered and visually inspected without observed view overlap
 or clipping. Printed550/381.07mm dimensions and1:10 scale stay unchanged. This is
 inter-view approximate bounding-box layout; font substitution and intra-view text
 collisions still require separate review. See evidence/automatic-drawing-layout.json.
+
+## Existing DWG text revisions
+
+The same MCP tools also accept `bsa.drawing-revision/1`: an existing recipe-relative
+DWG and SHA256, explicit TEXT handles, expected text/layer/insertion point,
+replacement text/insertion point and reviewed plot settings. Current scope is
+ASCII unaligned unlocked model-space TEXT. Preconditions for all edits are checked
+before changing anything. The source DWG is copied/exported by AutoCAD; existing
+pinned ezdxf edits only the declared fields, then the existing guarded native
+adapter saves/reopens a new DWG and plots it. Original bytes remain unchanged.
+No new dependency, CAD engine or security-setting change is introduced.
+
+Preservation covers every saved model/paper/block entity and layer/text/linetype/
+dimension-style record using ordered DXF tags. Strings and integers are exact;
+floating values use the existing native-adapter1e-7drawing-unit absolute bound,
+not an installation tolerance. The actual4609model-entity BSE3227 trial compares
+4885records, edits3notes and observes maximum2.91e-11drawing-unit numeric difference.
+Paper layouts, architectural blocks and all remaining drawing entities reconcile.
+The A1 plot and enlarged notes were actually inspected. The inherited10m reference
+is100mm on the1:100 drawing and is checked by the existing plot adapter.
+The revision states the ADPI load-band qualification; it does not resolve it or
+replace the existing report/main drawing automatically.
+
+Four focused revision tests plus two MCP protocol tests pass, including an actual
+native existing-DWG edit retaining symbol blocks and three original DIMENSION
+entities. Missing target/position, unintended dimension/paper changes and missing
+artifact inventory are rejected. An initial inline-LISP prototype was not adopted:
+its malformed/command-reader trials failed, loading its own LISP file was blocked,
+and only the verified isolated helper processes were stopped. Those trials remain
+private history. The accepted implementation uses the previously verified DXF
+writer path; no trust settings were changed. Independent inspection replays source
+preconditions and approved edits with exact artifact/method/source binding. It is
+not authenticated provenance or complete arbitrary object/dictionary fidelity.
+MTEXT, block-attribute editing, arbitrary geometry revisions, external-reference
+packaging, Unicode/font review and general within-view label placement remain open.
+See evidence/existing-dwg-text-revision.json.

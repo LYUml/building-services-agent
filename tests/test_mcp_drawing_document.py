@@ -49,6 +49,19 @@ class MCPDrawingTests(unittest.IsolatedAsyncioTestCase):
                     self.assertTrue(r['integrity_pass']);self.assertTrue(r['native_reopen_pass']);self.assertEqual(r['editable_entities']['entity_types']['DIMENSION'],3);self.assertFalse(r['design_accepted'])
                     inspected=await session.call_tool('bsa_inspect_drawing_document',{'project':'drawing.json','out':'native'})
                     self.assertFalse(inspected.isError,str(inspected));self.assertEqual(inspected.structuredContent,r)
+                    import ezdxf
+                    from bsa.cli import digest
+                    doc=ezdxf.readfile(root/'native/reopened/source-export.dxf')
+                    label=next(e for e in doc.modelspace().query('TEXT') if e.dxf.text=='PLAN')
+                    reference=next(e for e in doc.modelspace().query('LINE') if e.dxf.layer=='BSA_DOC_REFERENCE')
+                    recipe={'schema':'bsa.drawing-revision/1','source':'Synthetic existing-DWG edit control','drawing':'native/Drawing.dwg','drawing_sha256':digest(root/'native/Drawing.dwg'),
+                            'edits':[{'handle':label.dxf.handle,'expected':{'text':'PLAN','layer':label.dxf.layer,'insert':list(label.dxf.insert)[:2]},'replacement':{'text':'PLAN REVIEWED','insert':list(label.dxf.insert)[:2]}}],
+                            'sheet':{'source':'Original test sheet','paper':'A4','window_drawing_units':[0,0,290,200],'scale_denominator':1,'reference_handle':reference.dxf.handle,'pdf_tolerance_mm':.2}}
+                    (root/'revision.json').write_text(json.dumps(recipe))
+                    changed=await session.call_tool('bsa_draw_document',{'project':'revision.json','out':'revision'},read_timeout_seconds=timedelta(seconds=180))
+                    self.assertFalse(changed.isError,str(changed));self.assertEqual(changed.structuredContent['preservation']['edited_texts'],1)
+                    self.assertTrue(changed.structuredContent['preservation']['blocks_and_paper_entities_preserved'])
+                    self.assertEqual(digest(root/'native/Drawing.dwg'),recipe['drawing_sha256'])
 
 
 if __name__=='__main__':unittest.main()
