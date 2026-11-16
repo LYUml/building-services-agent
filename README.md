@@ -3,6 +3,7 @@
 General AutoCAD 2D authoring now has a shared declarative entry with reusable
 symbols, native editable dimensions and explicit sheet frames. Synthetic and
 actual BSE3227 drawings execute through saved/reopened DWG and inspected PDF.
+Source-bound IFC plane cuts and saved-port dimensions also compose through the shared CLI/MCP.
 See [drawing document](docs/DRAWING_DOCUMENT.md) for current scope and gaps.
 
 One actual plenum first-order case now passes the complete200sample numerical window. Mesh, higher-order and physical acceptance remain open; no design pressure adopted. See [native study](docs/OPENFOAM_IMPORT_PRECISION.md).

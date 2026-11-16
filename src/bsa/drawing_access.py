@@ -8,6 +8,9 @@ def engine(project):
     from . import workspace
     if not workspace.allowed(project):raise ValueError('Host project workspace required')
     schema=json.loads(Path(project).read_text(encoding='utf-8-sig')).get('schema')
+    if schema=='bsa.drawing-ifc-sections/1':
+        from . import drawing_ifc_sections
+        return drawing_ifc_sections
     if schema=='bsa.drawing-labels/1':
         from . import drawing_labels
         return drawing_labels

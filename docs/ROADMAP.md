@@ -1,3 +1,5 @@
+Generic source-bound IFC plane sections and native port dimensions now compose through the shared drawing CLI/MCP, verified on10actual branch assemblies. Source/method binding and regenerated inspection execute; explicit planes/annotations remain required. See [drawing document](DRAWING_DOCUMENT.md).
+
 Actual current110body candidate now has a shared-CLI native coordination plan with all110source identities and294contours verified after reopen, actual PDF reviewed. Course submission baseline unchanged; installation/full pressure remain open. See [drawing document](DRAWING_DOCUMENT.md).
 
 Bounded existing-DWG LINE/CIRCLE/ARC revisions now extend the shared drawing entry. Actual three-segment BSE annotation clearance improved by 3 paper mm with native reopen and plot review; engineering acceptance remains open. See [drawing document](DRAWING_DOCUMENT.md).

@@ -238,3 +238,39 @@ Pinned trimesh plane intersection, existing IfcOpenShell native meshes, rectpack
 and generic drawing authoring were reused without new dependencies. This is
 a candidate construction study, not product/full-pressure/course acceptance.
 See evidence/current-branch-general-drawing.json.
+
+## Source-bound generic IFC sections
+
+`bsa.drawing-ifc-sections/1` is accepted by the same CLI and two MCP tools.
+Install the existing section and drawing-layout extras. The recipe has exact
+fields schema, source, ifc, ifc_sha256, layout and views. IFC is recipe-relative,
+host-workspace-contained and SHA256-bound. Only metre IFC source models are
+supported; layout units may be m or mm. Source originals are never written.
+
+`layout` contains the existing layout fields source, units, layers, blocks, sheet,
+content_window and gap_mm. Each view requires id, guids, frame, layer, annotations
+and port_dimensions. The4x4 frame is in source world metres: columns0/1 are the
+drawing X/Y axes, column2 is the plane normal, and column3 is the origin. A finite
+right-handed orthonormal frame is mandatory. Every selected represented product
+must intersect the plane; empty views are rejected rather than silently omitted.
+Annotations are existing explicit drawing entities in local plane coordinates.
+
+Each port dimension requires id, ports(two GUIDs), layer, distance and text_height.
+Both ports must belong to selected products and lie within1e-8m of the plane.
+The author derives definition points from saved native port placements; distance
+is the caller's dimension-line offset in output units. This avoids copying a
+length into dimension text or inventing installed dimensions.
+
+Pinned IfcOpenShell0.8.5 native meshes, trimesh5.2.0 mesh_plane and NumPy2.5.4
+are reused with existing rectpack/layout/document/native adapters. No geometry
+engine was reimplemented. Inspection regenerates all cuts and dimensions from
+the current source, validates source/method/runtime binding and the nested native
+artifacts. This can be more expensive than merely reading a manifest. It does
+not perform hidden-line removal or accept engineering correctness.
+
+Actual BSE3227 MCP execution and independent inspection cover10views/20products/
+10editable dimensions, all checked against saved native port separations. The
+actual A1 PDF and enlarged detail were inspected. Eleven related tests pass,
+including mirrored/skew frames, missed sections, off-plane ports, changed source
+SHA and resolved-output tampering. The existing desktop connection was not
+reloaded. See evidence/generic-ifc-section-drawing.json.

@@ -1,0 +1,177 @@
+{
+  "scope": "Source-bound generic IFC section/layout through actual MCP author and inspect",
+  "ifc_sections": {
+    "ifc_sha256": "8279155fac0fbc70c57d6eaf00bd9daca72a783eab9cda44e73ef075b4929406",
+    "coverage": {
+      "branch-1": {
+        "0UHvCBIGrKUh162tPWAMb6": 24,
+        "3wTmMPy0nMnuyTKqqLAA0H": 32
+      },
+      "branch-2": {
+        "2Dsp0tDUbIPeYXMKPfWKVu": 24,
+        "3MrppTZp9HmPVxHHgd4Sv1": 32
+      },
+      "branch-3": {
+        "2K8VLv$mHMsBKiV6ZO9m6P": 24,
+        "1ZMsCt7frSIOnceShsMcSz": 32
+      },
+      "branch-4": {
+        "2XEZn9xizSj8RijhAxhINj": 24,
+        "3IGC6EqWfHaQxpwnA5F9ZZ": 32
+      },
+      "branch-5": {
+        "2d3C3bkV5TKOINf_o71Axc": 24,
+        "2ccvQtxx1NM9BcgfkkqDoa": 32
+      },
+      "branch-6": {
+        "2qcqvYPk5G8vc$41LcIAkK": 24,
+        "2dKtjbtJ5GG9NXTFtT112S": 32
+      },
+      "branch-7": {
+        "34mxrHmz5STv2lghv93cpE": 24,
+        "26EjKRjm1Oaf1Pm8QC5__S": 32
+      },
+      "branch-8": {
+        "3BAXRbMxzN3eioe3GnwiQn": 24,
+        "04F5YvifTSJg7FlI6PRqZ5": 32
+      },
+      "branch-9": {
+        "3MshfZ5Q5K_eON58DjXDyB": 24,
+        "3DhC$V0cPTkO8XfPybGL1V": 32
+      },
+      "branch-10": {
+        "3nUnywxFXUIfHj1ihinFuB": 24,
+        "2XwTInSaDUehdxilTykrGb": 32
+      }
+    },
+    "runtimes": {
+      "ifcopenshell": "0.8.5",
+      "trimesh": "5.2.0",
+      "numpy": "2.5.4"
+    },
+    "methods": {
+      "drawing_ifc_sections.py": "2ba2b6dac73dd27fd428015f0bdce8a548e1fb0a67d819418b19e0811a012c90",
+      "circular_geometry.py": "b907345bd2904bf313b017cc1c7e1a07e403ff726bbb8a85e476ae538ea25cb9",
+      "drawing_layout.py": "58a33b3bf9c0e13c0303556c9c616070f9b28087309d3c57b3151b9040a36ad8"
+    },
+    "design_accepted": false
+  },
+  "native_audit": {
+    "model_entities": 615,
+    "entity_types": {
+      "TEXT": 43,
+      "LINE": 561,
+      "DIMENSION": 10,
+      "LWPOLYLINE": 1
+    },
+    "editable_entity_correspondence": true,
+    "dimension_rendering_visual_review": "pending"
+  },
+  "native_methods": {
+    "drawing_document.py": "424a8d8a40fa9a09ee7282f984807c9977529a6c48615c09367bdf1ff26b0881",
+    "cad_sheet.py": "2aa3880343af74c7dea09e329266651f5152badbf3e12befb8e5dc2f9a60c315",
+    "cad_intake.py": "ab8f7dd945134dc824de2a25cfb2d8423752c190baa150fedb81d87e93242bd0",
+    "cad_overlay.py": "91c4c9e2802a76f5516ca92c3438766cd472a0cbf797da0b1b3e8bfa688a9e49",
+    "native_cad.py": "d6a8b81b11bb2b422fdfbfa4ba3fc6b26557b5cfd0a8fc66a91c52cb74a180a0"
+  },
+  "plot": {
+    "pdf_sha256": "0e381be50221c2599c60247d35fac37fad471b61c4edf636204566f59431d2c0",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      841.0222222222221,
+      594.0777777777777
+    ],
+    "scale_denominator": 5,
+    "reference_handle": "381",
+    "reference_expected_mm": 100.0,
+    "reference_measured_mm": 100.03366666666668,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "native_reopen_pass": true,
+  "same_mcp_inspection_result": true,
+  "desktop_existing_connection_reloaded": false,
+  "independent_dimensions": [
+    {
+      "branch": 1,
+      "native_port_distance_mm": 473.20508075689105,
+      "reopened_dimension_mm": 473.20508075689077,
+      "difference_mm": 2.8421709430404007e-13
+    },
+    {
+      "branch": 2,
+      "native_port_distance_mm": 193.30127018922383,
+      "reopened_dimension_mm": 193.30127018922394,
+      "difference_mm": 1.1368683772161603e-13
+    },
+    {
+      "branch": 3,
+      "native_port_distance_mm": 286.60254037844624,
+      "reopened_dimension_mm": 286.602540378447,
+      "difference_mm": 7.389644451905042e-13
+    },
+    {
+      "branch": 4,
+      "native_port_distance_mm": 286.60254037844265,
+      "reopened_dimension_mm": 286.6025403784429,
+      "difference_mm": 2.2737367544323206e-13
+    },
+    {
+      "branch": 5,
+      "native_port_distance_mm": 193.30127018922028,
+      "reopened_dimension_mm": 193.3012701892212,
+      "difference_mm": 9.379164112033322e-13
+    },
+    {
+      "branch": 6,
+      "native_port_distance_mm": 379.9038105676651,
+      "reopened_dimension_mm": 379.90381056766535,
+      "difference_mm": 2.2737367544323206e-13
+    },
+    {
+      "branch": 7,
+      "native_port_distance_mm": 286.60254037844265,
+      "reopened_dimension_mm": 286.6025403784429,
+      "difference_mm": 2.2737367544323206e-13
+    },
+    {
+      "branch": 8,
+      "native_port_distance_mm": 286.60254037844624,
+      "reopened_dimension_mm": 286.60254037844607,
+      "difference_mm": 1.7053025658242404e-13
+    },
+    {
+      "branch": 9,
+      "native_port_distance_mm": 286.60254037843913,
+      "reopened_dimension_mm": 286.6025403784388,
+      "difference_mm": 3.410605131648481e-13
+    },
+    {
+      "branch": 10,
+      "native_port_distance_mm": 193.30127018922028,
+      "reopened_dimension_mm": 193.30127018922076,
+      "difference_mm": 4.831690603168681e-13
+    }
+  ],
+  "artifacts": {
+    "Constant Height Branch Details.dwg": "ce47c697e12e27c389afc9d036fb043584dc3398b5cd6df13a0f1b75b00e1349",
+    "Constant Height Branch Details.pdf": "0e381be50221c2599c60247d35fac37fad471b61c4edf636204566f59431d2c0"
+  },
+  "tests": {
+    "passed": 11,
+    "skipped": 0
+  },
+  "visual_review": {
+    "reviewer": "Codex host AI",
+    "actual_whole_pdf_and_enlarged_detail_inspected": true,
+    "finding": "No observed label overlap or clipping in examined final sheet"
+  },
+  "design_accepted": false,
+  "limitations": [
+    "Explicit source model, GUIDs, orthonormal plane and annotations required",
+    "Metre IFC source only; m or mm drawing units",
+    "Native ports must belong to selected products and lie in section plane",
+    "No hidden-line removal, installed dimensions, product or pressure acceptance"
+  ]
+}
