@@ -1,0 +1,100 @@
+{
+  "schema_express_issues": 0,
+  "solid_checks": {
+    "geometry_coverage": true,
+    "no_intersections": true,
+    "clearance": false
+  },
+  "intersections": 0,
+  "unwaived_clearance_pairs": 117,
+  "independent_changes": {
+    "maximum": {
+      "independent_local_bend_change_Pa": -1.268178159828795,
+      "native_straight_change_Pa": -0.5075635167656556,
+      "partial_change_Pa": -1.775741676594464,
+      "error_Pa": 1.354472090042691e-14
+    },
+    "minimum": {
+      "independent_local_bend_change_Pa": -0.20290850557260717,
+      "native_straight_change_Pa": -0.09124910431543645,
+      "partial_change_Pa": -0.2941576098880425,
+      "error_Pa": 1.1102230246251565e-15
+    }
+  },
+  "design_accepted": false,
+  "integration": {
+    "source_ifc_sha256": "d11d94b6725b9284ce175e9abf75785d2b70e8beb0487d084a3a82dc8981c67b",
+    "ifc_sha256": "508b6fb480fa5153a265a091396610a0c60880a07b3ac89fa1f385fdb8f6d553",
+    "radius_before_m": 1.35,
+    "radius_after_m": 1.6875,
+    "classification": "design_target",
+    "basis": "Explicit finite radius choice within source table; no manufacturer/installation acceptance",
+    "changed_straights": [
+      {
+        "guid": "3Tf1SEAG9NLxz6miD8JeEM",
+        "old_length_m": 1.1499999999999986,
+        "new_length_m": 0.8125
+      },
+      {
+        "guid": "2ww9pYvAfSyx5JhKUO62Me",
+        "old_length_m": 0.6375000000000028,
+        "new_length_m": 0.29999999999999716
+      }
+    ],
+    "unchanged_product_shapes": 115,
+    "external_frames_unchanged": 21,
+    "native_bend_quantities": {
+      "quantities": {
+        "bend_radius_over_radial_width": 1.25,
+        "bend_height_over_radial_width": 0.6666666666666666,
+        "bend_angle_deg": 90.0,
+        "bend_centerline_radius_m": 1.6875,
+        "bend_centerline_arc_length_m": 2.650718801466386,
+        "bend_radial_internal_width_m": 1.35,
+        "bend_normal_internal_height_m": 0.9,
+        "bend_hydraulic_diameter_m": 1.08,
+        "bend_hydraulic_reynolds": 707204.2880836528
+      },
+      "inlet_section_m": [
+        1.35,
+        0.9
+      ],
+      "outlet_section_m": [
+        1.35,
+        0.9
+      ],
+      "construction": "Native smooth quarter-revolved hollow rectangular profile; no vanes represented",
+      "reynolds_basis": "Source design flow and air properties; actual clear area velocity and hydraulic diameter 4A/P. Source-correlation applicability remains review-required.",
+      "scope": "Native dimensions/Axis/port correspondence after full producer inspection; not a loss correlation, fabricated product or measured installation acceptance"
+    },
+    "design_accepted": false
+  },
+  "pressure": {
+    "cases": {
+      "maximum": {
+        "outlets": 20,
+        "conditional_partial_sum_change_Pa": -1.775741676594464,
+        "numerical_gaps": 4
+      },
+      "minimum": {
+        "outlets": 20,
+        "conditional_partial_sum_change_Pa": -0.2941576098880425,
+        "numerical_gaps": 4
+      }
+    },
+    "port_dimensions_basis": "Unchanged clear sections verified by native caps; original actual-port flow/velocity bindings retained",
+    "adjacent_bend_interaction_unverified": true,
+    "whole_fitting_friction_unverified": true,
+    "full_pressure_verified": false,
+    "design_accepted": false
+  },
+  "actual_native_dwg_saved_and_reopened": true,
+  "actual_whole_pdf_viewed": true,
+  "visual_finding": "Readable notes and full plan; projected tessellation traces remain, no hidden-line removal",
+  "decision": "Not adopted: small conditional reduction; adjacent-bend interaction and fitting-body friction remain unknown",
+  "artifacts": {
+    "Candidate Supply Network.ifc": "508b6fb480fa5153a265a091396610a0c60880a07b3ac89fa1f385fdb8f6d553",
+    "Inlet Radius Coordination.dwg": "195bdc9d94a20e0d399c348d62e8a227f3170ddb3bc1cd7e75e6b65577e2d6f4",
+    "Inlet Radius Coordination.pdf": "0ec2acad62dfd84663e918484eb195949ec6067362d982461f7da1d8a3d21af5"
+  }
+}
