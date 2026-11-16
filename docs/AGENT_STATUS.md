@@ -1,3 +1,5 @@
+Saved IFC directed port topology now extracts into the shared system-graph CLI/MCP:actual118products255ports117links and native drawing verified. Explicit cropped boundaries and ambiguous-direction rejection are supported; geometry/pressure acceptance remains separate. ADPI basis selection remains pending. See [drawing document](DRAWING_DOCUMENT.md).
+
 Remaining compound geometry exactly matches the earlier studied body; current native detail verifies aperture/taper overlap and nominal69.416mm opening gap. Four pressure paths remain unknown. Continue independent ADPI/course-delivery work rather than repeat the same unsupported coefficient assignment. See [compound applicability](CURRENT_COMPOUND_APPLICABILITY.md).
 
 Rebased reduced-cross candidate now has118bodies and88conditional/4numeric gaps per flowcase; remaining numeric gaps all belong to the compound junction. Native interfaces/unchanged boundaries/arithmetic/actual drawing checked; full engineering acceptance remains open. See [current reduced cross](RECENTERED_CROSS.md).

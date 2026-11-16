@@ -1,0 +1,75 @@
+{
+  "scope": "Native IFC directed topology extraction through shared CLI/MCP and editable CAD",
+  "ifc_sha256": "d11d94b6725b9284ce175e9abf75785d2b70e8beb0487d084a3a82dc8981c67b",
+  "adapter_sha256": "55a7647a3721a994c6e28335f8a9b579a1d14494d43423bb987e7789c67cb93c",
+  "source_runtime": "IfcOpenShell0.8.5",
+  "source_products": 118,
+  "source_ports": 255,
+  "directed_interfaces": 117,
+  "independent_ifc_relnests_and_connectsport_checks_match": true,
+  "open_boundary_ports": {
+    "inlets": 1,
+    "outlets": 20
+  },
+  "external_selected_connections": 0,
+  "saved_node_labels_match": 118,
+  "saved_directed_arrowheads_match": 117,
+  "component_key_rows_match_native_names": 118,
+  "marked_compound_products": 1,
+  "numeric_pressure_gaps_unchanged": 4,
+  "native_audit": {
+    "model_entities": 2203,
+    "entity_types": {
+      "LWPOLYLINE": 236,
+      "TEXT": 124,
+      "LINE": 1843
+    },
+    "editable_entity_correspondence": true,
+    "dimension_rendering_visual_review": "pending"
+  },
+  "native_methods": {
+    "drawing_document.py": "424a8d8a40fa9a09ee7282f984807c9977529a6c48615c09367bdf1ff26b0881",
+    "cad_sheet.py": "2aa3880343af74c7dea09e329266651f5152badbf3e12befb8e5dc2f9a60c315",
+    "cad_intake.py": "ab8f7dd945134dc824de2a25cfb2d8423752c190baa150fedb81d87e93242bd0",
+    "cad_overlay.py": "91c4c9e2802a76f5516ca92c3438766cd472a0cbf797da0b1b3e8bfa688a9e49",
+    "native_cad.py": "d6a8b81b11bb2b422fdfbfa4ba3fc6b26557b5cfd0a8fc66a91c52cb74a180a0"
+  },
+  "plot": {
+    "pdf_sha256": "5aaa937c8ddb5670d0cbdb820270b6d1a993c2ff139cac50927ede9670868d99",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      841.0222222222221,
+      594.0777777777777
+    ],
+    "scale_denominator": 1,
+    "reference_handle": "929",
+    "reference_expected_mm": 50.0,
+    "reference_measured_mm": 49.99566666666666,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "same_mcp_inspection_result": true,
+  "desktop_existing_connection_reloaded": false,
+  "tests": {
+    "passed": 11,
+    "skipped": 0
+  },
+  "visual_review": {
+    "reviewer": "Codex host AI",
+    "actual_whole_pdf_and_enlarged_detail_inspected": true,
+    "finding": "Readable node labels and compound marker; no observed clipping in examined sheet"
+  },
+  "artifacts": {
+    "Supply Network System Schematic.dwg": "f7e9f5fe23f6a75dd1c4c94b0966f5d6606a600513123a380e0bed0f35830efc",
+    "Supply Network System Schematic.pdf": "5aaa937c8ddb5670d0cbdb820270b6d1a993c2ff139cac50927ede9670868d99"
+  },
+  "design_accepted": false,
+  "limitations": [
+    "Explicit IFC4 selection and SOURCE/SINK ports; bidirectional/unknown directions rejected",
+    "Connectivity only; no coordinate/material/contact or pressure validation",
+    "Marked products are caller-declared and source-bound, not automatically inferred",
+    "Stored Graphviz layout replay; no authenticated provenance",
+    "ADPI final-basis decision still pending"
+  ]
+}

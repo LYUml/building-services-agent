@@ -345,3 +345,41 @@ against the saved native IFC connections. Actual whole PDF and enlarged detail
 were inspected; all5numerical-gap marks remain. Eight targeted/related tests
 pass, covering changed source, swapped endpoints, geometry tampering, label fit
 and missing runtime. See evidence/generic-system-graph-drawing.json.
+
+## Directed system graphs from saved IFC
+
+`bsa.drawing-ifc-graph/1` extracts native port relations before calling the
+existing declared-graph adapter. It uses the same CLI/MCP entry and host
+AutoCAD/Graphviz configuration. The recipe has exact fields schema, source,
+ifc, ifc_sha256, products, marked_products and graph. IFC paths are recipe-
+relative, host-workspace-contained and SHA256-bound. IfcOpenShell0.8.5/IFC4
+are required. Select an explicit unique GUID list or products=all_distribution.
+Every selected distribution element must have uniquely owned SOURCE/SINK ports.
+Bidirectional/unknown directions and multiple peers per selected port fail.
+No direction is guessed from element names or coordinates.
+
+The graph base supplies existing source/source_files/layers/sheet/notes/layout
+fields plus node_layer, marked_layer and edge_layer. The IFC source is bound
+automatically; additional source_files must not repeat it. Marked products are
+explicit caller-declared highlights within the selected scope, not inferred
+pressure or engineering failures. Nodes receive N-prefixed labels sorted by
+GUID; those labels are stable only for the same model/selection. Native GUIDs
+remain the persistent identity. Component Key.csv maps labels to GUIDs/names.
+
+Relations with both endpoints selected become directed edges. Connections to
+unselected products are retained as external_selected_connections, separately
+from genuinely open_boundary_ports. Cropping a graph therefore does not turn
+connected ports into unconnected model boundaries. Inspection reextracts this
+source topology, validates the resolved graph and exact component-key bytes,
+then replays the existing stored Graphviz/native drawing checks. No coordinate,
+material/contact, fluid/electrical calculation or pressure validation is implied.
+
+Actual BSE execution through an independently launched MCP process extracts
+118products/255ports/117interfaces,1open inlet and20open outlets. A separate
+raw IfcRelNests/IfcRelConnectsPorts reconciliation matches every ownership/link
+and open boundary. Reopened118node labels/117arrowheads and118component-key
+rows agree. Actual whole A1 PDF and enlarged area were inspected. Eleven related
+tests pass, including ambiguous flow, changed source, explicit cropped scope
+and component-key tampering. The4compound pressure gaps and ADPI basis decision
+remain unchanged. Desktop server configuration was not reloaded. See
+evidence/native-ifc-system-graph.json.

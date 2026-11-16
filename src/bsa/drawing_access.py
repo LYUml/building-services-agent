@@ -8,6 +8,9 @@ def engine(project):
     from . import workspace
     if not workspace.allowed(project):raise ValueError('Host project workspace required')
     schema=json.loads(Path(project).read_text(encoding='utf-8-sig')).get('schema')
+    if schema=='bsa.drawing-ifc-graph/1':
+        from . import drawing_ifc_graph
+        return drawing_ifc_graph
     if schema=='bsa.drawing-graph/1':
         from . import drawing_graph
         return drawing_graph
@@ -33,7 +36,7 @@ def run(project,out,*,autocad,graphviz=None):
     if autocad is None:raise ValueError('Explicit host AutoCAD startup configuration required')
     selected=engine(project)
     options={'autocad':autocad}
-    if selected.__name__=='bsa.drawing_graph':options['graphviz']=graphviz
+    if selected.__name__ in ('bsa.drawing_graph','bsa.drawing_ifc_graph'):options['graphviz']=graphviz
     selected.run(project,out,**options)
     return selected.verify(project,out)
 
