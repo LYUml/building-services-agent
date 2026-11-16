@@ -1,0 +1,85 @@
+{
+  "scope": "Native failed-set localization on actual family-1 mesh; no thresholds changed",
+  "native_cell_type_counts": {
+    "tetrahedron": 256436,
+    "prism": 567116
+  },
+  "failed_sets": {
+    "highAspectRatioCells": {
+      "count": 5552,
+      "native_cell_types": {
+        "prism": 5552
+      }
+    },
+    "underdeterminedCells": {
+      "count": 250706,
+      "native_cell_types": {
+        "prism": 250702,
+        "tetrahedron": 4
+      }
+    }
+  },
+  "low_weight_internal_faces": [
+    {
+      "face_id": 429372,
+      "owner_cell_type": "tetrahedron",
+      "neighbour_cell_type": "tetrahedron",
+      "vertex_average_m": [
+        68.4259860673504,
+        18.766533603192254,
+        -0.029277918148948635
+      ]
+    },
+    {
+      "face_id": 37756,
+      "owner_cell_type": "tetrahedron",
+      "neighbour_cell_type": "tetrahedron",
+      "vertex_average_m": [
+        68.06587918180885,
+        18.676700312968645,
+        -0.12139952201963237
+      ]
+    },
+    {
+      "face_id": 42963,
+      "owner_cell_type": "tetrahedron",
+      "neighbour_cell_type": "tetrahedron",
+      "vertex_average_m": [
+        68.42701189877285,
+        18.76177272492993,
+        -0.028682576122546377
+      ]
+    },
+    {
+      "face_id": 510061,
+      "owner_cell_type": "tetrahedron",
+      "neighbour_cell_type": "tetrahedron",
+      "vertex_average_m": [
+        68.0648546250102,
+        18.678763180698244,
+        -0.11638569946357746
+      ]
+    },
+    {
+      "face_id": 59440,
+      "owner_cell_type": "tetrahedron",
+      "neighbour_cell_type": "tetrahedron",
+      "vertex_average_m": [
+        68.4316882346936,
+        18.400968660348628,
+        -0.029139716296483403
+      ]
+    },
+    {
+      "face_id": 29680,
+      "owner_cell_type": "tetrahedron",
+      "neighbour_cell_type": "tetrahedron",
+      "vertex_average_m": [
+        68.43598544779502,
+        18.399744403296417,
+        -0.029638201630065104
+      ]
+    }
+  ],
+  "pressure_accepted": false
+}

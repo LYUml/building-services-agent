@@ -1,0 +1,49 @@
+{
+  "scope": "Executed unmodified packaged official pitzDailySteady tutorial; backend smoke check, not project validation",
+  "runtime": "OpenFOAM12 build12-8e8552546d20 / blueCFD-Core2024-1",
+  "installer_sha256": "7f2d036698dc6a5385bda665a71feef9e81b065abf7d013571a6e9afaf585baa",
+  "license": "OpenFOAM GPL-3.0-or-later; blueCFD upstream attribution retained in runtime",
+  "source_files_sha256": {
+    "Allrun": "d0591545798952b713849e32eaf66ee0e8b766c92b8caf8665b939fcc6b65548",
+    "0/epsilon": "00a2789732f52e6e0644be19a86caff7953b638756c29ee1aad75e1221e92fe8",
+    "0/f": "3512953790ca2c8509601fb46b7ce9b829477efcffa85de412131cc735862a32",
+    "0/k": "dd7c8bdd377fadcfdefbf27787f167cdd353a4a86969e7b1c8951f024b74b8a1",
+    "0/nut": "c398846dd7a18978ca31faa5f5eaf186a160e5a7c8b4bad48d5247c5d6e216cf",
+    "0/nuTilda": "30df21333ea0dfa906a48a867582e6fe501b5f2064080a14ae0100484bad2b45",
+    "0/omega": "e0fdda0266ad36a4864ab777e75033a067aeac970c098630cbc06f9a9b16ae50",
+    "0/p": "e7acc5ce6106ebf757d95e011029ef5bfc501442cbfa3454269adb84d359224e",
+    "0/U": "9ba1a81f047515fa64f01ee8007ca62d92e59c76f5c203b17009474288a4ef2b",
+    "0/v2": "7736788d50b0aa88fcad7db160e2e273ac7b00f8bc2afb4a39f63ef87d8a920d",
+    "constant/momentumTransport": "689d0f05e900650d37ebb13602ffdd1a154601b1b15356e8245b89a271e69aeb",
+    "constant/physicalProperties": "0ca8cbd26799972151b4fdff67c01cb15c34006ca6f806966bb4d471021125c9",
+    "system/blockMeshDict": "6dabf9b7f2d62dfd33ad4ce2318259bfabb87338e6a26b89b2ee12e9bcdcdd72",
+    "system/controlDict": "90899b1f324c3d39b1d7bbc7c6b16c56a8fea2a17dd97dc747c61db35e7b1633",
+    "system/functions": "3d8697b8fc07892ff5327252db3a55a84d0c416f0fd6256c0eb3efdd02be9592",
+    "system/fvSchemes": "7656210b3daee41a65509dac6a4bb66afcb5303c7bf56130530a96d905a26335",
+    "system/fvSolution": "5713d42738cd87087d9756eb3baf9f0b6c7f6d909171085c8ea06bf32092b989"
+  },
+  "copied_inputs_byte_identical": true,
+  "blockMeshDict_semantically_matches_Allrun_shared_resource": true,
+  "shared_resource_sha256": "2c34a6444f7e417e1259271c70483432a340703b0b1ff83a557b91d9802b0d8c",
+  "blockMesh_returncode": 0,
+  "checkMesh": {
+    "returncode": 0,
+    "completed": true,
+    "reported_failed_checks": [],
+    "native_mesh_checks_passed": true,
+    "engineering_accepted": false
+  },
+  "foamRun_returncode": 0,
+  "native_convergence_iteration": 286,
+  "native_original_residual_controls": {
+    "p": 0.01,
+    "U": 0.001,
+    "turbulence": 0.001
+  },
+  "last_reported_continuity_global": 0.000501573,
+  "initial_absolute_windows_dict_attempt_failed": true,
+  "correction": "Use packaged local system/blockMeshDict; it differs from shared resource only by copy comment and whitespace.",
+  "project_pressure_accepted": false,
+  "physical_validation": false,
+  "system_mpi_installed": false
+}

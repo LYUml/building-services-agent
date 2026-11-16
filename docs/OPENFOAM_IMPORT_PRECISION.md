@@ -38,3 +38,26 @@ quality-check categories failed, despite exit code zero. Their positive volumes,
 face checks and remaining quality statistics are retained in the receipt.
 Next: diagnose the retained layered-cell quality and establish a source-backed
 solver benchmark before accepting project pressure results.
+
+
+## Executed native solver and defect locations
+
+The packaged official pitzDailySteady case now completes native blockMesh,
+checkMesh and foamRun under the same isolated serial environment. All copied
+case inputs remain byte-identical to the packaged tutorial. The local mesh
+dictionary differs from the Allrun shared resource only by its copy comment
+and whitespace. An initial absolute Windows -dict path failed native path
+resolution; the packaged local dictionary succeeds. Mesh OK and native SIMPLE
+convergence at iteration286 are recorded, using unchanged tutorial residual
+controls. This is an executed backend smoke check, not physical validation or
+project pressure acceptance. See [runtime receipt](evidence/openfoam-native-tutorial.json).
+
+Native -writeSets on the existing first plenum provides actual failed-cell and
+face IDs. Cell classification independently counts owner/neighbour face
+incidence:256436four-face tetrahedra and567116five-face prisms, agreeing with
+native stats. All5552high-aspect cells are prisms. Of250706small-determinant
+cells,250702are prisms and4are tetrahedra. All6low-weight internal faces join
+tetrahedra. Their vertex-average locations are recorded (not volume centroids).
+Thus thin layers explain much of the failure but do not explain all defects;
+local tetrahedral quality also needs correction. No threshold was relaxed.
+See [location receipt](evidence/openfoam-plenum-quality-location.json).
