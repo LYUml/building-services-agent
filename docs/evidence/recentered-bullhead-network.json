@@ -1,0 +1,125 @@
+{
+  "scope": "Separate current-layout equal-area bullhead candidate; course baseline preserved",
+  "ifc_sha256": "a607abab13e0e2f3e885ff7a2e750de88ca3e17bdf66689f1d5f0690707c68a6",
+  "source_ifc_sha256": "9a553e3c9023e5e3e332e7e822054bac016acc6dc1480897bd1ccec48b5cd8da",
+  "bodies": 116,
+  "ports": 251,
+  "links": 115,
+  "schema_issues": 0,
+  "unchanged_parent_products": 107,
+  "unchanged_external_boundary_frames": 21,
+  "actual_material_interfaces": 115,
+  "solid_intersections": 0,
+  "unwaived_linked_clearance_findings": 115,
+  "independent_decimal_queries": 8,
+  "maximum_pressure_difference_Pa": 0.0,
+  "trimmed_straights": [
+    {
+      "trimmed_straight_guid": "2JsVFcCh5MBxs36NfRYoo1",
+      "old_depth_m": 2.799510643762673,
+      "new_depth_m": 1.465200600444831,
+      "additional_reach_m": 1.3343100433178372
+    },
+    {
+      "trimmed_straight_guid": "223pk9Z9fHyP3zWtKUZIvr",
+      "old_depth_m": 2.107646643762692,
+      "new_depth_m": 0.7733366004448499,
+      "additional_reach_m": 1.3343100433178372
+    }
+  ],
+  "both_flow_cases": {
+    "conditional_values": 83,
+    "numeric_gaps": 7,
+    "fitting_paths": 90
+  },
+  "prior_both_flow_cases": {
+    "conditional_values": 79,
+    "numeric_gaps": 9,
+    "fitting_paths": 88
+  },
+  "design_accepted": false,
+  "complete_pressure_Pa": null,
+  "source": "Previously reviewed PHVAC9 supplement2021 Fitting5-33 printed45 and4-2 printed19; original45page visually rechecked",
+  "assumptions": "325x600mm equal outlets from650x600mm common inlet;15degree expansions,50mmcollars,0.8mmoffset;80mm minimum remaining straight is an internal comparison target",
+  "local_outlet_velocity_review": [
+    {
+      "port_guid": "0$eywnGm1P_vjAxP4lFxWO",
+      "prior_mean_velocity_m_s": 4.476624976549399,
+      "candidate_mean_velocity_m_s": 8.953249953098798
+    },
+    {
+      "port_guid": "0B$TVH4_vT_xlrygN9n2g5",
+      "prior_mean_velocity_m_s": 4.476624955211136,
+      "candidate_mean_velocity_m_s": 8.953249910422272
+    }
+  ],
+  "native_drawing": {
+    "native_audit": {
+      "model_entities": 236,
+      "entity_types": {
+        "TEXT": 7,
+        "LINE": 225,
+        "DIMENSION": 3,
+        "LWPOLYLINE": 1
+      },
+      "editable_entity_correspondence": true,
+      "dimension_rendering_visual_review": "pending"
+    },
+    "methods": {
+      "drawing_document.py": "424a8d8a40fa9a09ee7282f984807c9977529a6c48615c09367bdf1ff26b0881",
+      "cad_sheet.py": "2aa3880343af74c7dea09e329266651f5152badbf3e12befb8e5dc2f9a60c315",
+      "cad_intake.py": "ab8f7dd945134dc824de2a25cfb2d8423752c190baa150fedb81d87e93242bd0",
+      "cad_overlay.py": "91c4c9e2802a76f5516ca92c3438766cd472a0cbf797da0b1b3e8bfa688a9e49",
+      "native_cad.py": "d6a8b81b11bb2b422fdfbfa4ba3fc6b26557b5cfd0a8fc66a91c52cb74a180a0"
+    },
+    "plot": {
+      "pdf_sha256": "e86271cf9d062723fab84805c3004371cf8ef17c7da21aeb41a690b380b346cd",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 20,
+      "reference_handle": "1A4",
+      "reference_expected_mm": 50.0,
+      "reference_measured_mm": 50.03799999999999,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "native_reopen_pass": true,
+    "independent_port_dimension_checks": [
+      {
+        "dimension": "expansion-1",
+        "native_port_separation_mm": 1334.310043317842,
+        "reopened_dimension_mm": 1334.310043317841
+      },
+      {
+        "dimension": "expansion-2",
+        "native_port_separation_mm": 1334.310043317842,
+        "reopened_dimension_mm": 1334.310043317842
+      },
+      {
+        "dimension": "core-length",
+        "native_port_separation_mm": 849.9999999999943,
+        "reopened_dimension_mm": 849.9999999999961
+      }
+    ],
+    "visual_review": {
+      "reviewer": "Codex host AI",
+      "actual_whole_pdf_inspected": true,
+      "finding": "Corrected left dimension direction; readable dimensions and notes without observed clipping"
+    }
+  },
+  "drawing_artifacts": {
+    "Bullhead Branch Construction.dwg": "c42b1b3a09a915b06a91c370d15e928d368e4f11aee3672ec205ba3838ac9661",
+    "Bullhead Branch Construction.pdf": "e86271cf9d062723fab84805c3004371cf8ef17c7da21aeb41a690b380b346cd"
+  },
+  "remaining": [
+    "7numeric fitting gaps:3cross and4compound-junction paths",
+    "115unwaived linked contact-clearance findings",
+    "Whole-fitting friction/stations and short-fitting interactions",
+    "Higher local outlet velocity:noise/products/actual performance unverified",
+    "Equipment/terminal/flex/boundary pressure and ADPI basis"
+  ]
+}

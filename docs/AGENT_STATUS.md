@@ -1,3 +1,5 @@
+Rebased equal-area bullhead candidate now has116bodies and83conditional/7numeric gaps per flowcase. All21external boundaries preserved; native caps/arithmetic/actual detail drawing checked. Local throat velocity doubles; full engineering acceptance remains open. See [current bullhead](RECENTERED_BULLHEAD.md).
+
 Current-layout compact branch reuse now gives114bodies and79conditional/9numeric fitting gaps per flowcase, preserving all21external boundaries. Native caps, independent arithmetic and actual reopened detail sheet verified; full pressure remains unknown. See [current compact branches](RECENTERED_COMPACT_BRANCHES.md).
 
 Generic declared system graphs now execute through shared CLI/MCP with host-pinned Graphviz and source-bound node/edge inputs. Actual110node109edge native trial verified; automatic source interpretation/engineering acceptance remain open. See [drawing document](DRAWING_DOCUMENT.md).
