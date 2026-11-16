@@ -1962,3 +1962,5 @@ noenginecodecopied, no dependency added. Existingfluids/csv/sourceboundlimits
 provide independent velocity/friction comparison and reportlab/pypdf produce
 the matchingreport. Airpropertyidentity and wholeprojectacceptance remainopen.
 See COURSEWORK_SCOPE.md.
+
+General2DCADgap: existing discipline-specific writers and U-C4N schedule adapter cannot accept arbitrary declared symbol/dimension sheets. Reuse pinned ezdxf1.4.5 MIT native aligned-DIMENSION/render and block-reference APIs, checked official documentation and installed code, with existing guardedAutoCAD/export/PDFreference adapters. Thin drawing_document adds declarative fields/identity/source/layer/frame composition and independent native semantic comparison; no newgeometrykernel/dependency. Actual synthetic18entity and realcourse132entityDWG/PDF run. First multiplier100/labeloverlap trials rejected/corrected via actualvisualreview. Scope/remaining in DRAWING_DOCUMENT.md.

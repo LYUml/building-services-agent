@@ -1,5 +1,10 @@
 # Building Services Agent
 
+General AutoCAD 2D authoring now has a shared declarative entry with reusable
+symbols, native editable dimensions and explicit sheet frames. Synthetic and
+actual BSE3227 drawings execute through saved/reopened DWG and inspected PDF.
+See [drawing document](docs/DRAWING_DOCUMENT.md) for current scope and gaps.
+
 One actual plenum first-order case now passes the complete200sample numerical window. Mesh, higher-order and physical acceptance remain open; no design pressure adopted. See [native study](docs/OPENFOAM_IMPORT_PRECISION.md).
 
 Native OpenFOAM imports now preserve all source coordinates for the main and both plenum meshes using 17-digit output. Three mesh-quality checks still fail; zero exit codes are not acceptance. See [native import](docs/OPENFOAM_IMPORT_PRECISION.md).

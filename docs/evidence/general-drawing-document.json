@@ -1,0 +1,96 @@
+{
+  "scope": "Executed first general 2D authoring capability, not complete arbitrary drawing agent or engineering acceptance",
+  "implementation_sha256": "3549dd8e77ec2166c05eee5f750852553f1b9a42c8c2fea1e9b17f155103d2e0",
+  "synthetic_native": {
+    "schema": "bsa.drawing-result/1",
+    "source_sha256": "2f897881e8e8263914bce083452395d35b7ab985c5b36d1b60362b353ad0fa96",
+    "dxf_sha256": "a000dee640aa9c88476ecc6a59fcc309a976eea2245c220ba25402bc5bfeaa88",
+    "native_reopen_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false,
+    "native_audit": {
+      "model_entities": 18,
+      "entity_types": {
+        "LWPOLYLINE": 2,
+        "TEXT": 6,
+        "DIMENSION": 3,
+        "LINE": 4,
+        "INSERT": 1,
+        "CIRCLE": 1,
+        "ARC": 1
+      },
+      "editable_entity_correspondence": true,
+      "dimension_rendering_visual_review": "pending"
+    },
+    "plot": {
+      "pdf_sha256": "b5a76c567d12ff24837661910324868fbce5ce775ca58c4d53bb29b4a723046f",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 1,
+      "reference_handle": "D0",
+      "reference_expected_mm": 50.0,
+      "reference_measured_mm": 50.03799999999999,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "dwg_sha256": "84e81a631434e9a89f8c3bb1f75395c5c0ef10dac88af960c86c07c0efbbf3d3",
+    "autocad_sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2"
+  },
+  "actual_course_native": {
+    "schema": "bsa.drawing-result/1",
+    "source_sha256": "77db197755d28c895fec14f9e6074994b0b3f3744281739ab1f815a1a188648a",
+    "dxf_sha256": "68486f0801313d069cd9d9e9e62082fa9ea129e53a3f8ab51bf13d09cbc71178",
+    "native_reopen_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false,
+    "native_audit": {
+      "model_entities": 132,
+      "entity_types": {
+        "LINE": 121,
+        "TEXT": 8,
+        "DIMENSION": 2,
+        "LWPOLYLINE": 1
+      },
+      "editable_entity_correspondence": true,
+      "dimension_rendering_visual_review": "pending"
+    },
+    "plot": {
+      "pdf_sha256": "5b440a1cc11e9ca6b87d0ed001a78e411e236e3465f2ba8ff21763c0cd609bd4",
+      "dwg_unchanged": true,
+      "paper_mm": [
+        297.03888888888883,
+        209.90277777777777
+      ],
+      "scale_denominator": 10,
+      "reference_handle": "12E",
+      "reference_expected_mm": 50.0,
+      "reference_measured_mm": 50.03799999999999,
+      "pdf_reference_pass": true,
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "dwg_sha256": "2e4cfebd90b94236250657395b8db5565902fa8e5639f5341f53fa3b98af6e7d",
+    "autocad_sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2"
+  },
+  "actual_pdf_visual_review": {
+    "synthetic": true,
+    "coursework": true,
+    "course_labels_corrected_after_initial_overlap": true,
+    "printed_dimensions_observed_mm": [
+      550,
+      381.07
+    ],
+    "final_observed_clipping_or_overlap": false
+  },
+  "tests": {
+    "new_tests_passed": 4,
+    "related_total_passed": 10,
+    "existing_optional_skips": 1
+  },
+  "dependencies": "Existing ezdxf1.4.5 MIT and existing isolated AutoCAD adapters; no new engine",
+  "design_accepted": false
+}
