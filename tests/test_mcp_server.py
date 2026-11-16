@@ -41,7 +41,8 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                     async with ClientSession(read,write) as session:
                         initialized=(await session.initialize()).model_dump(mode='json')
                         tools=(await session.list_tools()).tools
-                        self.assertEqual(len(tools),38)
+                        self.assertEqual(len(tools),40)
+                        self.assertTrue({'bsa_draw_document','bsa_inspect_drawing_document'} <= {tool.name for tool in tools})
                         for tool in tools:
                             self.assertFalse({'autocad','command','project_root'} & set(tool.inputSchema.get('properties',{})))
                         async def call(name,args):

@@ -1,0 +1,88 @@
+{
+  "scope": "General drawing MCP authoring and independent inspection; not complete design acceptance",
+  "tools": [
+    "bsa_draw_document",
+    "bsa_inspect_drawing_document"
+  ],
+  "method_sha256": {
+    "drawing_document.py": "92e6a895c8ef66e6748689318af2119ddf15d2e68e3b35335ef45b7737ad75e8",
+    "cad_sheet.py": "2aa3880343af74c7dea09e329266651f5152badbf3e12befb8e5dc2f9a60c315",
+    "cad_intake.py": "ab8f7dd945134dc824de2a25cfb2d8423752c190baa150fedb81d87e93242bd0",
+    "cad_overlay.py": "91c4c9e2802a76f5516ca92c3438766cd472a0cbf797da0b1b3e8bfa688a9e49",
+    "native_cad.py": "d6a8b81b11bb2b422fdfbfa4ba3fc6b26557b5cfd0a8fc66a91c52cb74a180a0"
+  },
+  "tests": {
+    "targeted_tests_passed": 7,
+    "actual_native_protocol_roundtrip": true,
+    "source_and_rehashed_geometry_forgery_rejected": true,
+    "host_runtime_override_rejected": true,
+    "existing_mcp_server_regression_passed": 3,
+    "existing_mcp_optional_skip": 1,
+    "old_tool_count_assertion_updated_for_two_new_tools": true
+  },
+  "actual_course_protocol": {
+    "result": {
+      "integrity_pass": true,
+      "native_reopen_pass": true,
+      "editable_entities": {
+        "model_entities": 132,
+        "entity_types": {
+          "LINE": 121,
+          "TEXT": 8,
+          "DIMENSION": 2,
+          "LWPOLYLINE": 1
+        },
+        "editable_entity_correspondence": true,
+        "dimension_rendering_visual_review": "pending"
+      },
+      "artifacts": [
+        {
+          "path": "Drawing.dxf",
+          "sha256": "4c013806ff2f5307823ecf5f897d9cf385d526561d2e142c3cf8c3c6006458b4",
+          "bytes": 103080
+        },
+        {
+          "path": "Drawing.dwg",
+          "sha256": "e99a1535795d31fb9d43581a4630c92fe208c6d02d394f8b8e007ce76d984da7",
+          "bytes": 27992
+        },
+        {
+          "path": "Drawing.pdf",
+          "sha256": "97e1bdd6b4ee002be6423b5a8e786b2bb633ab58020ab59eda52fe1b075eb418",
+          "bytes": 11109
+        }
+      ],
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "escape_rejected": true,
+    "listed_tools": true,
+    "same_inspection_result": true,
+    "desktop_existing_connection_reloaded": false
+  },
+  "actual_course_plot": {
+    "pdf_sha256": "97e1bdd6b4ee002be6423b5a8e786b2bb633ab58020ab59eda52fe1b075eb418",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 10,
+    "reference_handle": "12E",
+    "reference_expected_mm": 50.0,
+    "reference_measured_mm": 50.03799999999999,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "rendered_review": {
+    "rendered_pixels_identical_to_previous_visually_checked_pdf": true,
+    "render_size": [
+      1684,
+      1190
+    ],
+    "visual_scope": "Unchanged reviewed material sections and two dimensions; no new full engineering acceptance"
+  },
+  "existing_desktop_connection_reloaded": false,
+  "design_accepted": false
+}

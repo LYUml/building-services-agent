@@ -14,7 +14,7 @@ import ezdxf
 from . import workspace
 from .cad_intake import export_dwg
 from .cad_overlay import equivalent
-from .cad_sheet import plot
+from .cad_sheet import plot, pdf_lines
 from .cli import digest
 from .native_cad import execute, lisp_string
 
@@ -181,7 +181,10 @@ def _record(entity):
 
 def audit(source, actual):
     """Compare editable model entities and authored symbol definitions after reopening."""
-    a,b=ezdxf.readfile(source),ezdxf.readfile(actual)
+    return compare_documents(ezdxf.readfile(source),ezdxf.readfile(actual))
+
+
+def compare_documents(a,b):
     if a.units!=b.units: raise ValueError('Native drawing units changed')
     for layer in a.layers:
         if layer.dxf.name not in b.layers or any(getattr(layer.dxf,k)!=getattr(b.layers.get(layer.dxf.name).dxf,k)
@@ -195,13 +198,54 @@ def audit(source, actual):
             'editable_entity_correspondence':True,'dimension_rendering_visual_review':'pending'}
 
 
+def methods():
+    return {name:digest(Path(__file__).with_name(name)) for name in
+            ('drawing_document.py','cad_sheet.py','cad_intake.py','cad_overlay.py','native_cad.py')}
+
+
+def verify(project, output):
+    """Reconstruct declared geometry and check actual saved artifacts, without CAD execution."""
+    project,output=Path(project).resolve(),Path(output).resolve()
+    if not workspace.allowed(project) or not workspace.intake_output(output):raise ValueError('Host project workspace required')
+    before=digest(project);result=json.loads((output/'drawing-result.json').read_text(encoding='utf-8'))
+    if result['source_sha256']!=before or result['methods']!=methods() or result['design_accepted'] is not False:
+        raise ValueError('Drawing source, methods or acceptance record changed')
+    expected,reference=author(json.loads(project.read_text(encoding='utf-8-sig')))
+    dxf=output/'Drawing.dxf'
+    if digest(dxf)!=result['dxf_sha256']:raise ValueError('Drawing DXF changed')
+    checked=compare_documents(expected,ezdxf.readfile(dxf))
+    if result['native_reopen_pass']:
+        if digest(output/'Drawing.dwg')!=result['dwg_sha256'] or digest(output/'Drawing.pdf')!=result['plot']['pdf_sha256']:
+            raise ValueError('Drawing DWG or PDF changed')
+        exported=output/'reopened/source-export.dxf'
+        if digest(exported)!=result['native_export_sha256']:raise ValueError('Native export changed')
+        native=audit(dxf,exported)
+        if native!=result['native_audit']:raise ValueError('Native drawing audit changed')
+        s=json.loads(project.read_text(encoding='utf-8-sig'))['sheet'];window=s['window']
+        factor=(1 if expected.units==4 else 1000)/s['scale']
+        paper,lines=pdf_lines(output/'Drawing.pdf');target={'A4':[297,210],'A1':[841,594]}[s['paper']]
+        if any(abs(v-e)>.2 for v,e in zip(paper,target)):raise ValueError('Drawing PDF paper changed')
+        width=(window[2]-window[0])*factor;height=(window[3]-window[1])*factor
+        ref=expected.entitydb[reference]
+        def paper_point(p):return [(paper[0]-width)/2+(p.x-window[0])*factor,(paper[1]-height)/2+(p.y-window[1])*factor]
+        a,b=paper_point(ref.dxf.start),paper_point(ref.dxf.end)
+        if not any(min(max(math.dist(a,x),math.dist(b,y)),max(math.dist(a,y),math.dist(b,x)))<=.2 for x,y in lines):
+            raise ValueError('Actual drawing PDF reference does not match the source sheet')
+    if digest(project)!=before:raise ValueError('Drawing source changed during inspection')
+    artifacts=[]
+    for name in ['Drawing.dxf']+(['Drawing.dwg','Drawing.pdf'] if result['native_reopen_pass'] else []):
+        path=output/name;artifacts.append(dict(path=name,sha256=digest(path),bytes=path.stat().st_size))
+    return dict(integrity_pass=True,native_reopen_pass=result['native_reopen_pass'],editable_entities=checked,
+                artifacts=artifacts,visual_review='pending',design_accepted=False)
+
+
 def run(project, output, *, autocad=None):
     project,output=Path(project).resolve(),Path(output).resolve()
     if not workspace.allowed(project) or not workspace.intake_output(output): raise ValueError('Host project workspace required')
     if output.exists() or output==project or output in project.parents: raise ValueError('Fresh output outside inputs required')
     raw=project.read_bytes();spec=validate(json.loads(raw.decode('utf-8-sig')));doc,ref=author(spec)
     output.mkdir(parents=True);dxf=output/'Drawing.dxf';doc.saveas(dxf)
-    result={'schema':'bsa.drawing-result/1','source_sha256':digest(project),'dxf_sha256':digest(dxf),
+    result={'schema':'bsa.drawing-result/1','source_sha256':digest(project),'dxf_sha256':digest(dxf),'methods':methods(),
             'native_reopen_pass':False,'visual_review':'pending','design_accepted':False}
     if autocad is not None:
         exe=Path(autocad).resolve()
@@ -211,11 +255,13 @@ def run(project, output, *, autocad=None):
         scr.write_text(f'(if {condition} (progn (setvar "FILEDIA" 0) (setvar "CMDDIA" 0) (command "_.SAVEAS" "2018" {lisp_string(dwg)})))\n_.QUIT\n_Y\n',encoding='ascii')
         execute(exe,dxf,scr,output/'save.log',120)
         exported=export_dwg(dwg,output/'reopened',exe)
+        result['native_export_sha256']=digest(exported)
         result['native_audit']=audit(dxf,exported)
         s=spec['sheet'];result['plot']=plot(dwg,dxf,dict(paper=s['paper'],source=spec['source'],window_drawing_units=s['window'],scale_denominator=s['scale'],reference_handle=ref,pdf_tolerance_mm=.2),output/'Drawing.pdf',exe)
         result.update(native_reopen_pass=True,dwg_sha256=digest(dwg),autocad_sha256=digest(exe))
     if project.read_bytes()!=raw: raise ValueError('Drawing input changed during authoring')
     (output/'drawing-result.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
+    verify(project,output)
     return result
 
 

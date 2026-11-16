@@ -1,5 +1,11 @@
 # Scope and acceptance
 
+Current user priority: expand reusable AutoCAD2D drawing for plans, systems,
+details, dimensions and frames before later convergence. Shared declarative
+authoring and MCP execution/inspection now have actual native trials; automatic
+layout and existing-DWG editing remain open. See [drawing document](DRAWING_DOCUMENT.md).
+The full multi-service design/delivery goal and engineering gaps remain active.
+
 One actual plenum first-order case now passes the complete200sample numerical window. Mesh, higher-order and physical acceptance remain open; no design pressure adopted. See [native study](OPENFOAM_IMPORT_PRECISION.md).
 
 Native OpenFOAM imports now preserve all source coordinates for the main and both plenum meshes using 17-digit output. Three mesh-quality checks still fail; zero exit codes are not acceptance. See [native import](OPENFOAM_IMPORT_PRECISION.md).

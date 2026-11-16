@@ -5,7 +5,7 @@ import tempfile
 import unittest
 
 import ezdxf
-from bsa.drawing_document import author, audit, run, validate
+from bsa.drawing_document import author, audit, run, validate, verify
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -58,6 +58,17 @@ class DrawingDocumentTests(unittest.TestCase):
         p=self.root/'drawing.json';p.write_text(json.dumps(self.spec));out=self.root/'result'
         r=run(p,out);self.assertFalse(r['native_reopen_pass']);self.assertFalse((out/'Drawing.dwg').exists())
         with self.assertRaises(ValueError):run(p,out)
+
+    def test_rehashed_geometry_forgery_and_source_changes_rejected(self):
+        from bsa.cli import digest
+        p=self.root/'drawing.json';p.write_text(json.dumps(self.spec));out=self.root/'result';run(p,out)
+        self.assertTrue(verify(p,out)['integrity_pass'])
+        doc=ezdxf.readfile(out/'Drawing.dxf');doc.modelspace().query('CIRCLE')[0].dxf.radius=12;doc.saveas(out/'Drawing.dxf')
+        result=json.loads((out/'drawing-result.json').read_text());result['dxf_sha256']=digest(out/'Drawing.dxf')
+        (out/'drawing-result.json').write_text(json.dumps(result))
+        with self.assertRaisesRegex(ValueError,'entity or symbol mismatch'):verify(p,out)
+        p.write_text(json.dumps(dict(self.spec,source='Changed source')))
+        with self.assertRaisesRegex(ValueError,'source, methods'):verify(p,out)
 
 
 if __name__=='__main__':unittest.main()

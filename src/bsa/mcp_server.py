@@ -15,6 +15,7 @@ from .cli import digest
 from . import network_analysis_access
 from . import tag_delivery_access
 from . import pressure_ledger_access
+from . import drawing_access
 from .terminal_iteration import OPTIONS
 
 SDK_VERSION='1.30.0'
@@ -68,6 +69,17 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None):
 
     read=ToolAnnotations(readOnlyHint=True,destructiveHint=False,idempotentHint=True,openWorldHint=False)
     write=ToolAnnotations(readOnlyHint=False,destructiveHint=False,idempotentHint=False,openWorldHint=False)
+
+    @server.tool(annotations=write)
+    def bsa_draw_document(project:str,out:str)->dict[str,Any]:
+        """Author a declared general 2D document with host AutoCAD; save/reopen DWG and plot PDF. Layout/visual/engineering approval remain separate."""
+        if options.get('autocad') is None:raise ValueError('Explicit host AutoCAD startup configuration required')
+        return invoke(drawing_access.run,local(project),local(out),autocad=options['autocad'])
+
+    @server.tool(annotations=read)
+    def bsa_inspect_drawing_document(project:str,out:str)->dict[str,Any]:
+        """Reconstruct source geometry and audit saved drawing artifacts, native entities and PDF reference. Does not execute CAD or accept the design."""
+        return invoke(drawing_access.inspect,local(project),local(out))
 
     @server.tool(annotations=write)
     def bsa_run_pressure_evidence_ledger(source:str,out:str)->dict[str,Any]:

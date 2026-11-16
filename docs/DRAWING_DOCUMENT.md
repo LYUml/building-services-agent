@@ -32,8 +32,8 @@ separate: the first visual trial exposed EZDXF's default dimension multiplier100
 the author now explicitly sets dimlfac1/dimscale1 and the audit rejects changes.
 The failed trial is retained. Automatic label placement, arbitrary existing-DWG
 editing, paper-space viewports, rich title-block attributes, hatches, leaders,
-diameter/angular dimensions, symbol catalogues and MCP/workflow registration are
-not yet implemented. The author does not infer engineering topology or dimensions.
+diameter/angular dimensions, symbol catalogues and workflow registration remain
+unfinished. The author does not infer engineering topology or dimensions.
 
 Executed evidence: synthetic plan/system/detail sheet saved/reopened with18model
 entities including3native dimensions and one symbol INSERT. Corrected printed
@@ -45,3 +45,24 @@ inputs, document mutation, symbol/style/visibility/unit tampering and no-overwri
 related sheet/overlay tests report10passes/1existing optional skip. Independent
 actual AutoCAD execution is not that skipped test. Full engineering acceptance
 remains false. See evidence/general-drawing-document.json.
+
+## MCP access
+
+The follow-up registers `bsa_draw_document(project,out)` and
+`bsa_inspect_drawing_document(project,out)` in the existing fixed-worker server.
+Paths are relative to the host-selected project; AutoCAD is selected only by host
+`--autocad`, not by tool arguments or document contents. The writer requires that
+host runtime. Inspection does not run AutoCAD: it reconstructs declared entities,
+checks source/method/artifact hashes, native entity/symbol/style correspondence
+and the actual PDF reference position. Rehashed forged DXF geometry is rejected.
+Native/visual/design states remain separate, with design_accepted=false.
+
+Seven targeted tests execute, including actual MCP stdio native drawing and
+inspection, no-host runtime, extra runtime arguments, corrupt artifacts and
+source/geometry tampering. A separate actual BSE3227 stdio run authors132entities
+and2native dimensions; read-only inspection returns the same result. Its rendered
+pixels exactly match the previously visually inspected material-section drawing.
+This tests an independently started MCP process; it does not assert the desktop's
+already-running connection has reloaded the new tools. Unified workflow task
+registration and automatic layout remain open. See
+evidence/mcp-drawing-document.json.

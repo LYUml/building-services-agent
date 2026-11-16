@@ -8,6 +8,7 @@ from .cli import digest
 from . import network_analysis_access
 from . import tag_delivery_access
 from . import pressure_ledger_access
+from . import drawing_access
 from .module_contract import read_json
 
 
@@ -28,6 +29,8 @@ for function in (network_analysis_access.run_network,network_analysis_access.run
 for function in (tag_delivery_access.run,tag_delivery_access.inspect):
     OPERATIONS[function.__module__+'.'+function.__name__]=function
 for function in (pressure_ledger_access.run,pressure_ledger_access.inspect,pressure_ledger_access.list_gaps,pressure_ledger_access.read_outlet):
+    OPERATIONS[function.__module__+'.'+function.__name__]=function
+for function in (drawing_access.run,drawing_access.inspect):
     OPERATIONS[function.__module__+'.'+function.__name__]=function
 
 
