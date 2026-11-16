@@ -1,0 +1,21 @@
+{
+  "source_current_ifc_sha256": "653b452980a6a1e2b328ac1984ad621c63f1b7a40b4bacf96571f3b2055d818c",
+  "source_verified_open_plenum_ifc_sha256": "0622d029f1c1560475845ac67ac1f1d143705ee2ebd4efdb58205e15311df533",
+  "ifc_sha256": "a26626e4359ca82ca90de33423d46819b66bd78e54f22a0f52e221ff18ce2937",
+  "reused_open_plenum_shapes": 20,
+  "other_element_shapes_preserved": 638,
+  "all1275_port_frames_preserved": true,
+  "distribution_elements": 598,
+  "logical_interfaces": 597,
+  "manufacturer_clear_areas_verified": false,
+  "device_joints_verified": false,
+  "pressure_unchanged_not_recalculated": true,
+  "design_accepted": false,
+  "orphaned_superseded_shape_records_removed": 20,
+  "orphaned_superseded_representation_trees_removed": 20,
+  "schema_express_issues": 0,
+  "native_current_full_plan_status": "Separate base coordination projection still running; no current open-plenum DWG acceptance claimed",
+  "source_shape_checks_count": 20,
+  "candidate_open_port_count": 100,
+  "candidate_shape_evidence": "Exact shape identity and world placement with previously native-verified20plenum100cap construction; no new whole-model meshing claimed"
+}
