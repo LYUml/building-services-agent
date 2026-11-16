@@ -1,0 +1,75 @@
+{
+  "scope": "Executed native ADPI feature and two explicitly rounded/hypothetical diagnostics; not exact coursework verification",
+  "backend": "Krueger GRD10.0.2",
+  "method": "Authorized temporary native UI using computer-use sky API; existing MCP and both third repositories unchanged",
+  "native_product": {
+    "model": "1400",
+    "module": "24x24",
+    "neck_inch": 8,
+    "pattern": "Type3 Circular Ceiling Pattern",
+    "throw_pattern": "Horizontal",
+    "terminal_velocity_fpm": 50,
+    "border": "F23 T-Bar"
+  },
+  "native_input_units": {
+    "airflow": "CFM",
+    "characteristic_length": "ft",
+    "cooling_deltaT": "degF",
+    "area": "sf",
+    "sensible_load": "BTUh/sf"
+  },
+  "area_tooltip": "Area covered by a single diffuser",
+  "length_tooltip": "The distance between device and wall or midplane between diffusers",
+  "observed_fractional_input_issue": "Current UI input path did not preserve decimal point in length; exact-input capability unresolved, not proof all application controls are integer-only",
+  "reference_exact_course_case": {
+    "terminal": "SD-78",
+    "case": "maximum",
+    "direction": "east",
+    "flow_cfm": 392.7131427969618,
+    "length_ft": 5.72369832677167,
+    "deltaT_F": 21.6,
+    "allocated_load_area_ft2": 169.90075445511258
+  },
+  "executed_diagnostics": [
+    {
+      "airflow_cfm": 393,
+      "length_ft": 6,
+      "deltaT_F": 22,
+      "area_ft2": 170,
+      "native_sensible_load_display_Btuh_ft2": 55,
+      "status": "ADPI Range Check rejection",
+      "valid_ADPI": null,
+      "native_reported_throw_ft": 16,
+      "reported_throw_ratio_calculation_range": [
+        0.1,
+        1.9
+      ],
+      "native_minimum_ADPI_display": 70.0,
+      "native_maximum_ADPI_display": 84.3,
+      "warning_not_overridden": true
+    },
+    {
+      "airflow_cfm": 393,
+      "length_ft": 16,
+      "deltaT_F": 22,
+      "area_ft2": 170,
+      "native_sensible_load_display_Btuh_ft2": 55,
+      "status": "Native displayed prediction",
+      "native_ADPI_display": 82.9,
+      "native_maximum_ADPI_display": 84.3,
+      "native_minimum_ADPI_display": 70.0,
+      "length_is_hypothetical_not_existing_layout": true
+    }
+  ],
+  "private_native_evidence_sha256": {
+    "diagnostic_screenshot": "71d8878813b1447c1440e4b92d359323e7b55284fb85f9b2cab8a01a1513bcda",
+    "range_accessibility": "a7aecf2cad672bbb4504335d35003bece1b1fe5d7865527254fb6c9511ff21b8"
+  },
+  "native_pdf_exported": false,
+  "exact_32_critical_cases_executed": false,
+  "final_app_state": "Performance values restored at393CFM; no dialogs. Native ADPI row label/info persists after switching modes; no project schedule saved.",
+  "course_ADPI_verified": false,
+  "design_adopted": false,
+  "course_acceptance_deferred": true,
+  "no_new_software_or_MCP_changes": true
+}
