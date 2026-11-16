@@ -307,3 +307,35 @@ cannot validate accuracy. The passing first-order1050case remains preserved and
 unadopted. Next: inspect the existing wall-layer/core transition mesh and actual
 y-plus before another higher-order run, rather than extending this unstable
 trial. [Rejected higher-order screen](evidence/openfoam-plenum-high-order-screen.json).
+
+
+## Measured wall resolution and same-geometry mesh candidate
+
+Native foamPostProcess with incompressibleFluid/yPlus reads the preserved1050
+field: wall y-plus min0.004127,max0.237563,mean0.091672. All pre-existing saved
+field hashes remain unchanged. This is measured output of the numerical model,
+not an installation measurement or validation of smooth-wall applicability.
+
+The same pinned Gmsh4.15.2/BRep workflow generates a separate mesh with40micrometre
+first layer and17layers instead of10micrometre/22layers. Growth1.2933369509
+preserves total wall-layer depth0.01067279626m. A same-shear scaling suggests
+max y-plus0.9503, but the new model must reverify it. Tangential mesh controls
+and source BRep remain unchanged. Five generation warnings were observed;
+full generation warning text was not persisted, so this is not a clean-generation
+acceptance claim. Independent coordinate/connectivity/exterior/orientation checks
+pass for the exchange; exactly1156proven internal wall marker faces are removed.
+The old22layer1496count check is preserved as an initial failed verifier attempt,
+then replaced with the actual17layer1156expectation, without changing geometry.
+
+The existing constrained tetra-core optimizer preserves all prism/interface and
+surface connectivity, moving23047unprotected internal nodes. Native optimized
+mesh has684730cells (438226prisms,246504tetrahedra), positive volumes and identical
+five native port areas. Maximum aspect ratio drops2493to623and passes. Remaining
+native failures are117366small-determinant cells and4low-weight faces; maximum
+nonorthogonality84.255degrees remains. The same two quality categories remain
+unaccepted. [Executed wall-resolution receipt](evidence/openfoam-wall-resolution.json).
+
+A separate new case is being initialized from the preserved first-order1050field.
+The packaged mapFields rejects cellVolumeWeight; its actual source exposes
+interpolate/inverse-distance mapping. That corrected mapping is initialization
+only and does not claim conservative transfer or accepted pressure.
