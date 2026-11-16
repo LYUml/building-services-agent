@@ -1,0 +1,54 @@
+{
+  "scope": "Separate recentered source-supported transition candidate; coursework baseline not replaced",
+  "source_ifc_sha256": "a3ae38f81423ddfa1d66d0725fe6afa8505031cfd5f558ba2042d257a9eafc8b",
+  "ifc_sha256": "9c5dca882152ef76864f35feda97e1dbdb9c5d0311fb7a822496ccc2b41b8230",
+  "bodies": 100,
+  "ports": 219,
+  "links": 99,
+  "new_two_stage_assemblies": 9,
+  "new_transition_bodies": 18,
+  "unchanged_parent_products_verified": 73,
+  "schema_issues": 0,
+  "actual_material_interfaces_match": 99,
+  "external_boundary_frames_unchanged": 21,
+  "solid_intersections": 0,
+  "unverified_solid_pairs": 0,
+  "unwaived_clearance_findings": 99,
+  "all_clearance_findings_on_linked_pairs": true,
+  "both_flow_cases": {
+    "conditional_values": 53,
+    "numerical_gaps": 21,
+    "fitting_paths": 74
+  },
+  "prior_both_flow_cases": {
+    "conditional_values": 35,
+    "numerical_gaps": 30,
+    "fitting_paths": 65
+  },
+  "independent_new_query_checks": 36,
+  "Decimal_max_pressure_difference_Pa": 9.992007221626409e-16,
+  "additional_assembly_lengths_m": [
+    -0.03178372451957445,
+    -0.03178372451957445,
+    0.001162206610313521,
+    0.034108137740215594,
+    0.034108137740215705,
+    -0.03178372451957434,
+    -0.06472965564947297,
+    -0.16356744903915454,
+    -0.16356744903915454
+  ],
+  "assumptions": "45 degree stages,50 mm collars,0.8 mm section offset; inherited nominal profiles/air/flows",
+  "source": "Previously reviewed PHVAC9 supplement2021 printed19/20 Fitting4-2/4-4; tentative contraction-data caveat retained",
+  "dependencies": "Existing pinned IfcOpenShell0.8.5, Manifold3.5.4, fluids1.3.1; no new engine",
+  "remaining": [
+    "21 junction numerical gaps per case",
+    "whole-fitting friction/stations and short-fitting interactions",
+    "99 unwaived contact-clearance findings",
+    "new candidate native drawing and physical installation review",
+    "equipment/terminal/flex/boundary pressure and ADPI basis"
+  ],
+  "design_adopted": false,
+  "complete_pressure_Pa": null,
+  "design_accepted": false
+}
