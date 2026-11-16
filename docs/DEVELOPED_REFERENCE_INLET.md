@@ -1,0 +1,13 @@
+# Developed reference inlet
+
+The original upstream smooth-bend mesh now has a numerically verified developed inlet derived from its own native straight-pipe subset. This addresses the inlet-development uncertainty in the benchmark. It does not validate the bend, turbulence model, grid, experimental normalization or BSE3227 pressure.
+
+Pinned SU2 8.6.0 (commit 7048fd35f56d4bf52e586429d6746a36a10255f8, LGPL-2.1) supplies the periodic density-based SST2003m solver and smooth-wall functions. The original mesh is reused without remeshing: 21386 hexahedra, 23484 nodes, 618 cross-section columns and 38 stations. The official periodic workflow is at https://su2code.github.io/tutorials/Inc_Streamwise_Periodic/ . No new solver, dependency or MCP was built.
+
+The fixed pressure gradient was numerically adjusted to nominal flow without scaling velocity, k or omega. Final CFL30 continuation exited normally at iteration 4119 with all six logRMS residuals <= -10. The last 200-step maximum relative nominal-flow error is approximately 0.0452 percent; relative flow range is 1.4832e-7. Imposed constant pressure drop is not an independent pressure stability test. A CFL60 acceleration attempt grew residuals by more than two orders and was stopped; its results were not adopted.
+
+Full saved-field point IDs and coordinates match the native subset. All 618 original bend inlet nodes map by original node identity with zero coordinate difference. Maximum axial velocity spread is about 1.002e-8 m/s. The exported ten-column SU2 inlet preserves actual velocity components and turbulence values, retaining the official 300 K temperature with energy inactive. Original-face median-dual quadrature gives 0.04375608946085234 kg/s both before and after export, agreeing with solver history. No interpolation, experimental curve fitting or field rescaling is used.
+
+[Executed aggregate evidence](evidence/developed-reference-inlet.json) records hashes, thresholds and checks. Raw mesh, field, profile and private run records remain in the selected coursework workspace. No new general agent export API is claimed: existing pinned upstream mechanisms plus the private source-bound preparation were executed on this case.
+
+The next actual smooth-bend solve uses this profile on the unchanged original mesh, starting from the earlier saved supplied-profile field. All-six residual, full flow/pressure window and conditional experimental-line comparisons remain required. A different developed inlet cannot remove the unresolved experimental abscissa/normalization or grid uncertainty. All 80 plenum and four compound-main numerical losses per project flow case remain open. Final fan duty and design acceptance remain unknown.

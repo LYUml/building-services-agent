@@ -1,5 +1,7 @@
 # Scope and acceptance
 
+A native developed reference inlet now passes terminal residual, flow, axial and export-flux checks. Actual bend validation and project pressure remain pending. See [developed inlet](DEVELOPED_REFERENCE_INLET.md).
+
 Two actual plenum layered meshes now pass independent boundary/port checks. A thin adapter removes only proven internal wall markers while preserving volume connectivity and coordinates. Pressure remains unaccepted. See [mesh boundary verification](CFD_MESH_BOUNDARY.md).
 
 Two current plenum geometry families now have source-native air volumes with independent volume, five-port and material-overlap checks. Pressure remains pending. See [plenum air domains](PLENUM_AIR_DOMAIN.md).

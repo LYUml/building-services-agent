@@ -1,0 +1,65 @@
+{
+  "scope": "Numerically verified developed reference inlet for upstream smooth bend; not project pressure acceptance.",
+  "solver": {
+    "name": "SU2",
+    "version": "8.6.0",
+    "commit": "7048fd35f56d4bf52e586429d6746a36a10255f8",
+    "license": "LGPL-2.1",
+    "turbulence": "SST2003m, smooth wall functions",
+    "CFL": 30
+  },
+  "terminal_iteration": 4119,
+  "normal_exit": true,
+  "executed_inlet_check": {
+    "source_field_sha256": "7325e9b39a4c80c8ee51d4c4a1e69a88e07315ac0a28629706f946d8155f41d0",
+    "source_history_sha256": "374d578f1f38a7d149bfb131d061d6124dcd64968ae3159d8c42de5eb3b91bfa",
+    "native_node_mapping_sha256": "f6f99f95db85a5fe6bb6ab9b9cffb21ea8aa5acde9babf5822fdbbe0ff1b6b68",
+    "profile_sha256": "938c2c5850557688623518cb4f20ab0943f007a0027e4643dde8f3d562a56e48",
+    "mass_flow_before_after_kg_s": [
+      0.04375608946085234,
+      0.04375608946085234
+    ],
+    "final_reported_mass_flow_kg_s": 0.04375608946,
+    "maximum_relative_nominal_flow_error": 0.00045197986673461976,
+    "last200_relative_flow_range": 1.483222018455929e-07,
+    "maximum_axial_spreads": {
+      "Velocity_x": 8.573515487671903e-10,
+      "Velocity_y": 1.015581117667028e-09,
+      "Velocity_z": 1.0019152618667704e-08,
+      "Turb_Kin_Energy": 2.3546385952144533e-09,
+      "Omega": 1.560630971653154e-05
+    },
+    "all_six_residual_targets_pass": true,
+    "velocity_or_turbulence_rescaled": false,
+    "interpolation": false,
+    "engineering_accepted": false,
+    "scope": "Numerically verified developed reference inlet only. Original experimental normalization, wall model and grid independence remain unaccepted. Temperature300K retained from official inlet; energy inactive."
+  },
+  "native_mesh_binding": {
+    "original_mesh_sha256": "07226955475639b36986db1798d3c0d6753d5799d0110f6853d75aff190ec4ed",
+    "periodic_mesh_sha256": "b2e00bdfebc04f44bbabff9d49d2026f865aa080a815c9f09c7c8bdaffadb90e",
+    "source_node_map_sha256": "f4dc448dce7eeabc2875fb7b481d2024f162423e3e30e8faad730788b5ecb491",
+    "inlet_points": 618,
+    "all_inlet_ids_covered": true,
+    "maximum_coordinate_distance_m": 0.0,
+    "interpolation": false,
+    "profile_generated": false,
+    "engineering_accepted": false
+  },
+  "export_method_sha256": "c3c54f6f5ff1f6663b3eee30549f76ab8a296e34f75965dd97bea3d868498313",
+  "numerical_thresholds": {
+    "all_six_log_rms_max": -10,
+    "maximum_relative_nominal_flow_error": 0.001,
+    "last200_flow_relative_range": 0.0001,
+    "axial_velocity_spread_m_s": 1e-06,
+    "axial_k_spread_m2_s2": 1e-06,
+    "axial_omega_spread_s_inverse": 0.001
+  },
+  "temperature_basis": "300 K retained from official inlet; energy inactive.",
+  "failed_acceleration": "CFL60 residual grew more than two orders and was stopped; original finite CFL30 checkpoint resumed.",
+  "next_stage": "Actual original bend solve with this inlet started; results pending.",
+  "engineering_accepted": false,
+  "experimental_agreement_verified": false,
+  "mesh_independence_verified": false,
+  "full_pressure_gaps_per_flowcase": 84
+}
