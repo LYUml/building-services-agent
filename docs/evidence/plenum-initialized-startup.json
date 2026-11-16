@@ -1,0 +1,129 @@
+{
+  "scope": "Potential-flow-initialized20step transient startup only",
+  "engine": "OpenFOAM12 build12-8e8552546d20 GPL-3.0-or-later",
+  "potentialFoam_sha256": "a9b5477f6aa96b1a2d1a67bd6b20fe9f607eea194c9a33350d0a3b8294d62a39",
+  "official_source": "https://cpp.openfoam.org/v12/potentialFoam_8C_source.html",
+  "failed_all_fixed_flux_initialization_preserved": true,
+  "auxiliary_initialization_reference": "pPotential outlet0 fixedValue; actual transient p unchanged; no -writep",
+  "initialization": {
+    "returncode": 0,
+    "elapsed_s": 3.437000000005355,
+    "actual_p_preserved": true,
+    "U_changed": true,
+    "phi_written": true,
+    "pressure_adopted": false
+  },
+  "initial_fields": {
+    "five_port_fluxes": {
+      "inlet": {
+        "sum_m3_s": -0.575675142568607,
+        "target_m3_s": -0.5756751425686069,
+        "relative_error": 1.9285582137026947e-16
+      },
+      "outlet_0": {
+        "sum_m3_s": 0.14782239874048844,
+        "target_m3_s": 0.14782239876590955,
+        "relative_error": 1.7197062065002934e-10
+      },
+      "outlet_1": {
+        "sum_m3_s": 0.14782239876590952,
+        "target_m3_s": 0.14782239876590955,
+        "relative_error": 1.8776299023250487e-16
+      },
+      "outlet_2": {
+        "sum_m3_s": 0.13220794627087823,
+        "target_m3_s": 0.13220794627087828,
+        "relative_error": 4.1987757012367557e-16
+      },
+      "outlet_3": {
+        "sum_m3_s": 0.1478223987659094,
+        "target_m3_s": 0.1478223987659094,
+        "relative_error": 0.0
+      }
+    },
+    "native_cells": 142480,
+    "initial_speed_min_m_s": 0.024050190380525648,
+    "initial_speed_max_m_s": 11.496816629769402,
+    "initial_speed_mean_unweighted_m_s": 2.8089169435554937,
+    "initialization_only": true,
+    "pressure_adopted": false
+  },
+  "transient_run": {
+    "returncode": 0,
+    "elapsed_s": 28.468000000008033,
+    "pressure_adopted": false
+  },
+  "final_fields": {
+    "U": {
+      "cells": 142480,
+      "component_min": -8.10132801805672,
+      "component_max": 5.745092833082841,
+      "sha256": "fe0a634d2761f0427bb404a0502987d2393bb6a9057794516135faf860c45837"
+    },
+    "p": {
+      "cells": 142480,
+      "component_min": -88.63134924283621,
+      "component_max": 0.602677545113487,
+      "sha256": "58d0949a3d994ffe760a5cd7bc3d03d0def4c920e5ed9fbb556973f2302ddabd"
+    },
+    "k": {
+      "cells": 142480,
+      "component_min": 0.06037374205563159,
+      "component_max": 3.3700338506266045,
+      "sha256": "aa1694a7e8eb7f733ee499166b236d89603590148cdf92a36892d49a4ad72008"
+    },
+    "epsilon": {
+      "cells": 142480,
+      "component_min": 0.11406466739720758,
+      "component_max": 212.36215033603122,
+      "sha256": "f7fe4065822d5ec62262925d3d3ff34afb02091694dab5db62765224494957f2"
+    },
+    "nut": {
+      "cells": 142480,
+      "component_min": 0.000109710377650707,
+      "component_max": 0.01761644071868004,
+      "sha256": "5194f64e2e521967fa52c96fb4ed74a7059e9374025262bd43a8317e2172034a"
+    }
+  },
+  "native_flux_history": {
+    "inlet": {
+      "samples_including_initialized_time0": 21,
+      "maximum_relative_error": 1.3499907495918863e-15
+    },
+    "outlet_0": {
+      "samples_including_initialized_time0": 21,
+      "maximum_relative_error": 1.7197024512404887e-10
+    },
+    "outlet_1": {
+      "samples_including_initialized_time0": 21,
+      "maximum_relative_error": 2.440918873022563e-15
+    },
+    "outlet_2": {
+      "samples_including_initialized_time0": 21,
+      "maximum_relative_error": 1.88944906555654e-15
+    },
+    "outlet_3": {
+      "samples_including_initialized_time0": 21,
+      "maximum_relative_error": 1.6898669120925454e-15
+    }
+  },
+  "mesh_sha256": {
+    "boundary": "7af6c3a72899f1eb4539512b8e1ef115d5eb94888d16887c8cc4524b8affed97",
+    "cellLevel": "8ef20e238205a9c43d30a2488417a4443e39591b523d61c9df1577e201cc838a",
+    "faces": "c1fd7d90121e53d1a26634737fc257e75a66d2a3028d5c277a3abcd82e169da4",
+    "level0Edge": "baf02ca170597045942399cdae94803a83ea27287ce04614a347127293855f06",
+    "neighbour": "bd6597db8bd35d0a6124dcf4fb32ac24de337049ca29ff24c6cdfe6083603671",
+    "owner": "e2003d703e1d218ef450322b9f652bfcfd8a5b2f1a15a02ef9fd6f62ec4ad481",
+    "pointLevel": "51a47f754174c764e2ab0ade95b7f668f2ec0772f3d6e1141acc95191aa658df",
+    "points": "b4c6897a08fd091cfc1737e13854895acc8e80b387bdbb834a4d64ef2de25ef9",
+    "surfaceIndex": "7c6bf592bac5581a417e226ed7dff6b634c7e4438fbb996045a5ddf23b784a13"
+  },
+  "source_mesh_preserved": true,
+  "maximum_Courant": 0.6026421354605319,
+  "physical_end_time_s": 0.005,
+  "stationary_statistics_accepted": false,
+  "temporal_independence_accepted": false,
+  "near_wall_physics_accepted": false,
+  "pressure_adopted": false,
+  "design_accepted": false
+}

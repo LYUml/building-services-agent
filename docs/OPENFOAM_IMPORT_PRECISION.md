@@ -432,3 +432,31 @@ A new bounded 20-step transient case reuses the preserved native-quality-passed 
 Pinned OpenFOAM12 runs incompressibleFluid/PIMPLE with physical deltaT0.00025s, Euler/upwind startup schemes and endTime0.005s in28.547s. All20native time labels match exactly. Saved U/p/k/epsilon/nut each contain142480finite cell values and turbulence quantities are nonnegative. Native integrated five-port fluxes match prescribed flows to1.35e-15relative; net outward volume flow is7.49e-16m3/s. Mesh and all six primary field hashes remain unchanged through native postprocessing. Maximum reported Courant is0.570661. Startup yPlus is17.172..347.114, average44.404; no wall-treatment acceptance follows.
 
 Physical duration covers only0.020513of the estimated0.243753s residence time. No stationary pressure statistics, mesh/time-step independence, roughness calibration, developed inlet, test-station or physical-design acceptance is claimed. This is optional agent research, not a new BSE3227 submission prerequisite. Original source model, course report and CAD remain unchanged. The existing steady_deltaT_1 history adapter is not applied to physical-time observations. Course Plenum Numerical Study now contains20-row Transient Startup History.csv and a scoped check. See [receipt](evidence/plenum-transient-startup.json).
+
+
+### Same-time step sensitivity and potential initialization
+
+The preserved cold-start case now has an executed 40-step comparison at half deltaT,
+with the same physical end time 0.005 s. Fine-reference, unweighted cell/component
+L2 changes are U 0.605%, kinematic p 1.756%, k 9.435%, epsilon 16.110% and nut
+5.787%. These two early-time samples do not establish temporal independence or
+convergence order. The native time-zero flux row is retained separately from the
+40 advanced states. See [comparison receipt](evidence/plenum-startup-time-step.json).
+
+A separate copy now reuses native OpenFOAM12 potentialFoam, GPL-3.0-or-later,
+to initialize U and phi. The first all-fixed-flux attempt fails adjustPhi on
+roundoff against the zero internal-flux normalization; its log remains private.
+The executed alternative uses an auxiliary pPotential outlet reference only for
+initialization, then retains the original transient p and all flow-rate boundaries.
+No potential pressure is written or adopted. The actual source mesh is unchanged.
+The initialized five-port flux maximum relative difference is 1.72e-10. A subsequent
+20-step transient exits zero; all five final volume fields have 142480 finite cell
+values and nonnegative turbulence fields. Native histories retain 21 samples,
+including the initialized time zero. Maximum Courant is 0.603. See
+[initialized startup receipt](evidence/plenum-initialized-startup.json).
+
+This establishes an executable nonzero initialization path, not an improved
+pressure prediction. The 0.005 s duration remains about 2.05% of one reference
+residence time. Stationary statistics, temporal/mesh sensitivity, inlet profile,
+roughness and near-wall physical applicability remain open. No coursework drawing,
+load, ADPI conclusion, pressure ledger or fan duty changes.

@@ -1,0 +1,98 @@
+{
+  "scope": "Same physical0.005s startup comparison, not statistically developed pressure",
+  "coarse_deltaT_s": 0.00025,
+  "fine_deltaT_s": 0.000125,
+  "same_end_time_s": 0.005,
+  "only_solver_input_change": "deltaT halved; output writeInterval doubled to retain same physical final write",
+  "mesh_initial_fields_model_schemes_BCs_preserved": true,
+  "fine_time_labels_exact": true,
+  "fine_native_returncode": 0,
+  "fields": {
+    "U": {
+      "native_cells": 142480,
+      "coarse_min": -8.1037970516378,
+      "coarse_max": 5.981211926058486,
+      "fine_min": -8.211288270770956,
+      "fine_max": 6.032808480849725,
+      "relative_L2_change_fine_reference": 0.006045951613002343,
+      "maximum_absolute_component_change": 0.7101888495209723
+    },
+    "p": {
+      "native_cells": 142480,
+      "coarse_min": -88.67373783087145,
+      "coarse_max": 0.2349755429932489,
+      "fine_min": -92.3299943537206,
+      "fine_max": 0.2557873810139997,
+      "relative_L2_change_fine_reference": 0.017564802173692256,
+      "maximum_absolute_component_change": 3.656256522849148
+    },
+    "k": {
+      "native_cells": 142480,
+      "coarse_min": 0.060371939019221284,
+      "coarse_max": 3.519903399515447,
+      "fine_min": 0.060361226839646835,
+      "fine_max": 3.5912817087378346,
+      "relative_L2_change_fine_reference": 0.09434918842656302,
+      "maximum_absolute_component_change": 0.3900478743900506
+    },
+    "epsilon": {
+      "native_cells": 142480,
+      "coarse_min": 0.11414975699260407,
+      "coarse_max": 230.22395998461084,
+      "fine_min": 0.11414234271239483,
+      "fine_max": 217.60773157319926,
+      "relative_L2_change_fine_reference": 0.16110395259580187,
+      "maximum_absolute_component_change": 57.33697817416635
+    },
+    "nut": {
+      "native_cells": 142480,
+      "coarse_min": 0.00010670141208178861,
+      "coarse_max": 0.01759775842136998,
+      "fine_min": 0.00010664159769662183,
+      "fine_max": 0.014120731364083936,
+      "relative_L2_change_fine_reference": 0.05786801128791766,
+      "maximum_absolute_component_change": 0.003501629749054167
+    }
+  },
+  "five_port_flux_checks": {
+    "inlet": {
+      "native_samples_preserved": 41,
+      "initial_unadvanced_time0_flux_m3_s": 0.0,
+      "advanced_samples": 40,
+      "maximum_relative_error": 1.3499907495918863e-15
+    },
+    "outlet_0": {
+      "native_samples_preserved": 41,
+      "initial_unadvanced_time0_flux_m3_s": 0.0,
+      "advanced_samples": 40,
+      "maximum_relative_error": 2.440918873022563e-15
+    },
+    "outlet_1": {
+      "native_samples_preserved": 41,
+      "initial_unadvanced_time0_flux_m3_s": 0.0,
+      "advanced_samples": 40,
+      "maximum_relative_error": 2.0653928925575534e-15
+    },
+    "outlet_2": {
+      "native_samples_preserved": 41,
+      "initial_unadvanced_time0_flux_m3_s": 0.0,
+      "advanced_samples": 40,
+      "maximum_relative_error": 2.3093266356802156e-15
+    },
+    "outlet_3": {
+      "native_samples_preserved": 41,
+      "initial_unadvanced_time0_flux_m3_s": 0.0,
+      "advanced_samples": 40,
+      "maximum_relative_error": 1.3143409316275352e-15
+    }
+  },
+  "fine_maximum_reported_Courant": 0.2895993213524417,
+  "fine_final_native_yPlus": {
+    "minimum": 17.20142232572121,
+    "maximum": 324.255497380405,
+    "average": 44.2065664543099
+  },
+  "interpretation": "Two early-time step sizes quantify startup sensitivity only; not convergence order, temporal independence, stationary statistics or physical validation",
+  "pressure_adopted": false,
+  "design_accepted": false
+}
