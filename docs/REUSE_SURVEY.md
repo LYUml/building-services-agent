@@ -1,5 +1,7 @@
 # Reuse survey â€” 2026-11-09
 
+The developed-inlet bend now passes complete numerical-window checks; conditional experimental discrepancy remains. See [bend check](DEVELOPED_BEND_CHECK.md).
+
 A native developed reference inlet now passes terminal residual, flow, axial and export-flux checks. Actual bend validation and project pressure remain pending. See [developed inlet](DEVELOPED_REFERENCE_INLET.md).
 
 Two actual plenum layered meshes now pass independent boundary/port checks. A thin adapter removes only proven internal wall markers while preserving volume connectivity and coordinates. Pressure remains unaccepted. See [mesh boundary verification](CFD_MESH_BOUNDARY.md).
