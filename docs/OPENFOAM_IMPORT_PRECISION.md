@@ -366,3 +366,29 @@ higher-order solution. [Executed mapping and diagnosis](evidence/openfoam-resolu
 The mixed case now has a bounded unchanged-parameter continuation from saved20
 to420, expected fields210/420 and required window221..420. No design-ledger
 pressure is adopted and both native mesh-quality failure categories remain open.
+
+
+## Controlled wall-normal resolution outcome
+
+New-grid first-order420 finishes normally and its221..420 native200-sample
+window passes unchanged flow, mass and0.5%pressure-range criteria. All six
+684730cell fields are finite, turbulence fields nonnegative, no negative-k
+bounding is recorded. Native yPlus max0.968818 meets the predeclared target1;
+postprocessing preserves all six saved field hashes. Qualified first-order
+mean pressure changes versus old-grid851..1050 are -0.4522%, -0.3987%,
+-0.5468%, -0.6410%. This compares wall-normal distribution only, not full
+grid independence or physical validation.
+
+Same-grid mixed convection420 also finishes normally with finite fields and
+no negative-k bounding, but pressure ranges5.44–21.17%fail the unchanged
+0.5%criterion. Last50-step outlet2/3 ranges worsen, residuals remain around
+1e-3, and final max yPlus1.18165 exceeds target1. Do not blindly extend or
+adopt these pressures. This demonstrates scheme sensitivity, not its unique
+physical cause. Both native mesh-quality failures remain open.
+
+A separate official OpenFOAM12 cellLimited Gauss linear1 grad(U) trial keeps
+all other methods and initial fields unchanged. Startup20 is finite, has no
+negative-k bounding and max yPlus0.962587; its bounded21..220 window is pending.
+It is not a higher-order acceptance. See the
+[executed comparison](evidence/openfoam-controlled-resolution.json) and
+[official numerical schemes](https://doc.cfd.direct/openfoam/user-guide-v12/fvschemes).

@@ -1,0 +1,550 @@
+{
+  "scope": "Executed controlled wall-normal resolution and convection diagnosis; no design pressure adoption",
+  "native_engine": "Isolated blueCFD OpenFOAM12 build12-8e8552546d20, serial dummy Pstream",
+  "first_order_window": {
+    "window_iterations": [
+      221,
+      420
+    ],
+    "maximum_relative_flow_errors": {
+      "inlet": 9.803504252988697e-15,
+      "outlet_0": 1.1422248572477379e-14,
+      "outlet_1": 1.1422248572477379e-14,
+      "outlet_2": 1.049693925309189e-14,
+      "outlet_3": 9.701087828679427e-15
+    },
+    "maximum_relative_mass_imbalance": 1.5267752525146334e-14,
+    "pressures": {
+      "outlet_0": {
+        "mean_Pa": 5.8038111435111865,
+        "range_Pa": 0.0010655584151884057,
+        "relative_range": 0.00018359632814374534,
+        "positive": true,
+        "stable": true
+      },
+      "outlet_1": {
+        "mean_Pa": 5.986724042144885,
+        "range_Pa": 0.00218608874646975,
+        "relative_range": 0.00036515609055641924,
+        "positive": true,
+        "stable": true
+      },
+      "outlet_2": {
+        "mean_Pa": 3.2705821230628738,
+        "range_Pa": 0.000802318041120742,
+        "relative_range": 0.0002453135285804649,
+        "positive": true,
+        "stable": true
+      },
+      "outlet_3": {
+        "mean_Pa": 3.7331007017658866,
+        "range_Pa": 0.0005289036014914927,
+        "relative_range": 0.00014167943587519696,
+        "positive": true,
+        "stable": true
+      }
+    },
+    "numerical_targets": {
+      "flow": 0.001,
+      "mass": 0.001,
+      "pressure_range": 0.005
+    },
+    "flow_pass": true,
+    "mass_pass": true,
+    "pressure_stability_pass": true,
+    "numerical_window_pass": true,
+    "engineering_accepted": false,
+    "scope": "Selected native segment only; caller binds units, density, weighting and source applicability. Numerical stability is not engineering acceptance.",
+    "complete_200_step_window": true,
+    "declared_native_units": {
+      "phi": "m3/s",
+      "Pt": "Pa"
+    },
+    "provenance": {
+      "manifest_sha256": "1ec470582189929b1ce1246163a3318c0ce43e23b8cfc876b2a2aab0293682e1",
+      "native_input_sha256": {
+        "inlet/flux": "744c5017d0f5295c2697d1af1c72e7183fba06fdbd97aa91083f99cd231ca18c",
+        "inlet/total_pressure": "682626631f957153150a77ee147f005f56ce59784384e77aba9d8a24dc655fb5",
+        "outlet_0/flux": "6e473a4426da6659ed9e42ba16ebc755bb6bc1e5814e85aa858afe50d724527d",
+        "outlet_0/total_pressure": "70fbfae5fd0918ae3979de675364905e26aa9f0f95dc410664f93157dd6d73e6",
+        "outlet_1/flux": "beb3df2edc5d5e4f5fa0a282e884443d8b6a7869893591cd9dbb8425e5af1470",
+        "outlet_1/total_pressure": "86a616eb082b7639fdb12dbe780902fa506ae83ec773d1f5fd639e817f35448e",
+        "outlet_2/flux": "e5262298b75e3a780e7aef6de2c59b670f73bae7b002630eaedffc5da27169d0",
+        "outlet_2/total_pressure": "6a40c458e76a65ffed5f503744b1a7bf86df6eba46bdba855cf581aef9ea7a42",
+        "outlet_3/flux": "eee6f0f4b1b185ad34f040ec25f1421732d6ca27b3c8110c9b4cdac5fdfb01a5",
+        "outlet_3/total_pressure": "3433c07d923f3c5f3cac9429794681845abad3ec88279eac3a899c11df6bb7d3"
+      },
+      "basis_file_sha256": {
+        "source_design_flows": "455fb85366fc5496510b3c954cf2d28fd2eecf68e01cc8f72ab1c0e06fbaf2dd",
+        "discretization": "28e574d4a9c6498ed6594919670ba02a5089705946ecbb84217482b1a304e290",
+        "phase_control": "9b7f79cac60f93eeb9bbe8dab28d23377dc1c14b85d8485ad12bb2c36fa36d17",
+        "model": "4ff605229f387b3d8548a31a6b2d9bae77c20b5ccc190f233d64493dcf013cf2",
+        "counterpart_inputs": "0096a7bfdd6a2f579ef96d8373808cb39be3a950ee4f53de5429c8c0a9293a6f"
+      },
+      "adapter_sha256": "201a0e0069f19604f9000e1388015f7cac202916a99930ed90e494b0a469ae0e",
+      "assessor_sha256": "256877f3486b8c681fd255293b6834761fec91bb130c1690cd62332a60283092"
+    }
+  },
+  "first_order_saved_fields": {
+    "scope": "Saved420 first-order native fields and residual diagnostics only",
+    "field_time": 420,
+    "engineering_accepted": false,
+    "fields": {
+      "U": {
+        "native_cell_values": 684730,
+        "minimum": 0.00028828500032883976,
+        "maximum": 6.729583859093502,
+        "sha256": "4c211aefbbba1b614b1d6dcdb00b47221b179abe5e8e86dae5704f0cae0472e2"
+      },
+      "p": {
+        "native_cell_values": 684730,
+        "minimum": -26.331437091759163,
+        "maximum": 28.63293560950502,
+        "sha256": "0009e2a6c6804749e54016d39c08d63a0dbd72cb305d644918b372d89131b152"
+      },
+      "Pt": {
+        "native_cell_values": 684730,
+        "minimum": -31.536227958431084,
+        "maximum": 46.95837434610584,
+        "sha256": "819b79567748e4f88ff03c9014eeef25ab74c93f9e5e9734fad64d67eeea600d"
+      },
+      "k": {
+        "native_cell_values": 684730,
+        "minimum": 1.9055499097991268e-05,
+        "maximum": 1.4660909937826636,
+        "sha256": "ca676c4546960e3499b69d171fc9f703ee863f55144896407302cf2783609e30"
+      },
+      "omega": {
+        "native_cell_values": 684730,
+        "minimum": 49.93930303019186,
+        "maximum": 5072167.449758814,
+        "sha256": "9c9baa2eda0bc8daaad8536513d68723c8df4e0c7d76d9c64141528b6cca40b1"
+      },
+      "nut": {
+        "native_cell_values": 684730,
+        "minimum": 7.473734757623925e-10,
+        "maximum": 0.0029897653353249546,
+        "sha256": "3052c04a5159b51fc4b352c4804c3bd045127bb735efd07b5bfe325a0ade3642"
+      }
+    },
+    "initial_residual_ranges_last200": {
+      "Ux": {
+        "minimum": 1.596975037143298e-06,
+        "maximum": 3.126556498449552e-06,
+        "terminal": 1.596975037143298e-06
+      },
+      "Uy": {
+        "minimum": 1.2066666628732692e-06,
+        "maximum": 2.5226007338649856e-06,
+        "terminal": 1.2066666628732692e-06
+      },
+      "Uz": {
+        "minimum": 6.7324911315985385e-06,
+        "maximum": 1.5747513088012087e-05,
+        "terminal": 6.7324911315985385e-06
+      },
+      "p": {
+        "minimum": 3.9923411120831414e-07,
+        "maximum": 1.331288522525339e-05,
+        "terminal": 3.9923411120831414e-07
+      },
+      "omega": {
+        "minimum": 3.6632487744182445e-09,
+        "maximum": 1.1174258822566196e-08,
+        "terminal": 9.245086263181432e-09
+      },
+      "k": {
+        "minimum": 3.9445505321989714e-06,
+        "maximum": 6.96990213918088e-06,
+        "terminal": 4.210378358050027e-06
+      }
+    },
+    "negative_k_bounding_events": 0,
+    "residual_acceptance_target_not_defined_by_this_review": true
+  },
+  "first_order_yPlus": {
+    "native_returncode": 0,
+    "six_fields_unchanged": true,
+    "field_sha256": {
+      "U": "4c211aefbbba1b614b1d6dcdb00b47221b179abe5e8e86dae5704f0cae0472e2",
+      "p": "0009e2a6c6804749e54016d39c08d63a0dbd72cb305d644918b372d89131b152",
+      "Pt": "819b79567748e4f88ff03c9014eeef25ab74c93f9e5e9734fad64d67eeea600d",
+      "k": "ca676c4546960e3499b69d171fc9f703ee863f55144896407302cf2783609e30",
+      "omega": "9c9baa2eda0bc8daaad8536513d68723c8df4e0c7d76d9c64141528b6cca40b1",
+      "nut": "3052c04a5159b51fc4b352c4804c3bd045127bb735efd07b5bfe325a0ade3642"
+    },
+    "yPlus": {
+      "minimum": 0.017593907888278155,
+      "maximum": 0.9688182612212847,
+      "average": 0.36475884161892586
+    },
+    "target_maximum": 1,
+    "engineering_accepted": false
+  },
+  "wall_normal_comparison": {
+    "scope": "Qualified first-order wall-normal-distribution comparison only; not full grid independence",
+    "old_window": [
+      851,
+      1050
+    ],
+    "new_window": [
+      221,
+      420
+    ],
+    "pressures": {
+      "outlet_0": {
+        "old_mean_Pa": 5.830176087073679,
+        "new_mean_Pa": 5.8038111435111865,
+        "relative_change": -0.004522152190385293,
+        "new_relative_range": 0.00018359632814374534
+      },
+      "outlet_1": {
+        "old_mean_Pa": 6.010687841117877,
+        "new_mean_Pa": 5.986724042144885,
+        "relative_change": -0.003986864666146948,
+        "new_relative_range": 0.00036515609055641924
+      },
+      "outlet_2": {
+        "old_mean_Pa": 3.2885640145421022,
+        "new_mean_Pa": 3.2705821230628738,
+        "relative_change": -0.005468007130076271,
+        "new_relative_range": 0.0002453135285804649
+      },
+      "outlet_3": {
+        "old_mean_Pa": 3.7571839131596545,
+        "new_mean_Pa": 3.7331007017658866,
+        "relative_change": -0.0064099101748561465,
+        "new_relative_range": 0.00014167943587519696
+      }
+    },
+    "engineering_accepted": false
+  },
+  "mixed_window": {
+    "window_iterations": [
+      221,
+      420
+    ],
+    "maximum_relative_flow_errors": {
+      "inlet": 9.803504252988697e-15,
+      "outlet_0": 9.54461867015233e-15,
+      "outlet_1": 1.0952841096896116e-14,
+      "outlet_2": 1.0147041277988827e-14,
+      "outlet_3": 1.1109310255423214e-14
+    },
+    "maximum_relative_mass_imbalance": 1.458472149112663e-14,
+    "pressures": {
+      "outlet_0": {
+        "mean_Pa": 4.878238731348556,
+        "range_Pa": 0.5042682289108775,
+        "relative_range": 0.10337096166908503,
+        "positive": true,
+        "stable": false
+      },
+      "outlet_1": {
+        "mean_Pa": 5.006607889041058,
+        "range_Pa": 0.27256726111941276,
+        "relative_range": 0.05444150354095715,
+        "positive": true,
+        "stable": false
+      },
+      "outlet_2": {
+        "mean_Pa": 4.6675045698036275,
+        "range_Pa": 0.9882986891812777,
+        "relative_range": 0.21174027243059726,
+        "positive": true,
+        "stable": false
+      },
+      "outlet_3": {
+        "mean_Pa": 4.756240745964799,
+        "range_Pa": 0.8410501731646427,
+        "relative_range": 0.1768308666625403,
+        "positive": true,
+        "stable": false
+      }
+    },
+    "numerical_targets": {
+      "flow": 0.001,
+      "mass": 0.001,
+      "pressure_range": 0.005
+    },
+    "flow_pass": true,
+    "mass_pass": true,
+    "pressure_stability_pass": false,
+    "numerical_window_pass": false,
+    "engineering_accepted": false,
+    "scope": "Selected native segment only; caller binds units, density, weighting and source applicability. Numerical stability is not engineering acceptance.",
+    "complete_200_step_window": true,
+    "declared_native_units": {
+      "phi": "m3/s",
+      "Pt": "Pa"
+    },
+    "provenance": {
+      "manifest_sha256": "d010f690bf88f9a48c3a2bc8a2970cd45f79e554b13b52cf5111b6c967e48852",
+      "native_input_sha256": {
+        "inlet/flux": "88badecbf9c1d0359af915f5d6465a2a6d623e2e91f553fb5b6ed7e445f0fb16",
+        "inlet/total_pressure": "4a7b9b4bf8c8f62e4fb3fad7e441ea5ff44d26cb89551ad80d2a572d050596e3",
+        "outlet_0/flux": "93d361205866a32494997dc0a957dc3ba4f99b04f1e323da1ddf170f8805585e",
+        "outlet_0/total_pressure": "026f772d8eb491437bb290dcf60bec2e6fad7106ada7e8468139777ba57b6099",
+        "outlet_1/flux": "b2f89d0afce8e26ea7cb25655cfd027dcb75e3c719f8bbad60415d5f2c616df3",
+        "outlet_1/total_pressure": "e022fb7f19079e8a4033da69bf93b5c3f472af41d2637d67b1de7d7c3e8d6bbf",
+        "outlet_2/flux": "d80ee6f32ceafbb64b4899aa60c18d6f334ed449cb7736e2a3b2521996d45a15",
+        "outlet_2/total_pressure": "172148772286fc50326df2eefab973a5f213a534a3a62dac0c60b8939826c8d4",
+        "outlet_3/flux": "e50b03bcb9adb0bdeda043e38c3ac33bcd210abed2e4ea013cd8861172393158",
+        "outlet_3/total_pressure": "ae0ad9516fa8e231744ab88989c6dcb760bb0ea37b4f3c383fa92bc36da18aaa"
+      },
+      "basis_file_sha256": {
+        "source_design_flows": "455fb85366fc5496510b3c954cf2d28fd2eecf68e01cc8f72ab1c0e06fbaf2dd",
+        "mixed_schemes": "7c2a862151b524f282ba086ec41e98df343114db736c3256c595e560d0689dd6",
+        "phase_control": "b96201c09b48108bf2210232c95bd47a16aaf9cf58dca19db616462660850ed8",
+        "model": "4ff605229f387b3d8548a31a6b2d9bae77c20b5ccc190f233d64493dcf013cf2",
+        "startup": "842290b2002b8c072b761681a2b08c9bc37a5402592f9c64756caff9a77c33e6"
+      },
+      "adapter_sha256": "201a0e0069f19604f9000e1388015f7cac202916a99930ed90e494b0a469ae0e",
+      "assessor_sha256": "256877f3486b8c681fd255293b6834761fec91bb130c1690cd62332a60283092"
+    }
+  },
+  "mixed_saved_fields": {
+    "scope": "Saved420 mixed-order native fields and residual diagnostics only",
+    "field_time": 420,
+    "engineering_accepted": false,
+    "fields": {
+      "U": {
+        "native_cell_values": 684730,
+        "minimum": 0.00044886161850049593,
+        "maximum": 10.931880111050095,
+        "sha256": "bd255a9c62c87277fa2efcb6c3fd58d415f3126a393356625360e5d4a2e75777"
+      },
+      "p": {
+        "native_cell_values": 684730,
+        "minimum": -40.32765695086276,
+        "maximum": 30.63492355490633,
+        "sha256": "9437055e6592dcd1e928dcf66343bf55e6eb45fdf299c8cf17b69d9315379322"
+      },
+      "Pt": {
+        "native_cell_values": 684730,
+        "minimum": -47.23717794601382,
+        "maximum": 93.6499220832885,
+        "sha256": "4075b1e64840302886f2823dc2b87c1b226d6b4c69cd32c7f3233adeab268ceb"
+      },
+      "k": {
+        "native_cell_values": 684730,
+        "minimum": 3.2126253642782305e-05,
+        "maximum": 1.9243994219978324,
+        "sha256": "c283a08ba35369a9c363564eb0776cbb176e08aa106bb80ff64ce65a45a3869a"
+      },
+      "omega": {
+        "native_cell_values": 684730,
+        "minimum": 58.01772558991773,
+        "maximum": 5072167.449758814,
+        "sha256": "715ddbd11c4dceab90959ae4a80927015b59df7000b14d4c2ddc2d52aa984aed"
+      },
+      "nut": {
+        "native_cell_values": 684730,
+        "minimum": 7.858970295294301e-10,
+        "maximum": 0.003482623930777313,
+        "sha256": "69abbd92d3acda878711c621106cb6e2ec173e24177992d61f69eab2ea2f641e"
+      }
+    },
+    "initial_residual_ranges_last200": {
+      "Ux": {
+        "minimum": 0.0012782941818568407,
+        "maximum": 0.00181837041101259,
+        "terminal": 0.0015100165489402141
+      },
+      "Uy": {
+        "minimum": 0.000980976040121316,
+        "maximum": 0.0013590527572701853,
+        "terminal": 0.0012352118880636224
+      },
+      "Uz": {
+        "minimum": 0.0031497973465892098,
+        "maximum": 0.0047654626158802164,
+        "terminal": 0.004100960846331566
+      },
+      "p": {
+        "minimum": 0.0004029338311007232,
+        "maximum": 0.00811012805727951,
+        "terminal": 0.0005767638659604886
+      },
+      "omega": {
+        "minimum": 7.230788665319945e-07,
+        "maximum": 1.181488314511219e-06,
+        "terminal": 1.0637410599305928e-06
+      },
+      "k": {
+        "minimum": 0.0012745422794057557,
+        "maximum": 0.0018971566181161604,
+        "terminal": 0.001606519887687648
+      }
+    },
+    "negative_k_bounding_events": 0,
+    "residual_acceptance_target_not_defined_by_this_review": true
+  },
+  "mixed_yPlus_maximum_420": 1.181652257003276,
+  "mixed_last50_trend": {
+    "scope": "Four consecutive 50-step subwindows of failed mixed-order final200; diagnostic only",
+    "pressures": {
+      "outlet_0": [
+        {
+          "steps": [
+            221,
+            270
+          ],
+          "mean_Pa": 4.757608098903316,
+          "range_Pa": 0.08987009764004839,
+          "relative_range": 0.01888976472458177
+        },
+        {
+          "steps": [
+            271,
+            320
+          ],
+          "mean_Pa": 4.693713746781068,
+          "range_Pa": 0.12704116371853047,
+          "relative_range": 0.02706623594284054
+        },
+        {
+          "steps": [
+            321,
+            370
+          ],
+          "mean_Pa": 4.98653653132545,
+          "range_Pa": 0.33234026146289963,
+          "relative_range": 0.06664751363499219
+        },
+        {
+          "steps": [
+            371,
+            420
+          ],
+          "mean_Pa": 5.075096548384387,
+          "range_Pa": 0.2086881959308151,
+          "relative_range": 0.04112004450383298
+        }
+      ],
+      "outlet_1": [
+        {
+          "steps": [
+            221,
+            270
+          ],
+          "mean_Pa": 5.0593279136139895,
+          "range_Pa": 0.09055201655248624,
+          "relative_range": 0.017898032722651284
+        },
+        {
+          "steps": [
+            271,
+            320
+          ],
+          "mean_Pa": 5.043063236024434,
+          "range_Pa": 0.04203734733775022,
+          "relative_range": 0.008335677220436611
+        },
+        {
+          "steps": [
+            321,
+            370
+          ],
+          "mean_Pa": 4.9714923508106175,
+          "range_Pa": 0.06937814511056573,
+          "relative_range": 0.013955194982700396
+        },
+        {
+          "steps": [
+            371,
+            420
+          ],
+          "mean_Pa": 4.9525480557151935,
+          "range_Pa": 0.16964836040101972,
+          "relative_range": 0.03425476310224736
+        }
+      ],
+      "outlet_2": [
+        {
+          "steps": [
+            221,
+            270
+          ],
+          "mean_Pa": 4.7419214043823805,
+          "range_Pa": 0.23301489826759791,
+          "relative_range": 0.04913934213507854
+        },
+        {
+          "steps": [
+            271,
+            320
+          ],
+          "mean_Pa": 4.767150538915905,
+          "range_Pa": 0.30131256777763227,
+          "relative_range": 0.06320601065938933
+        },
+        {
+          "steps": [
+            321,
+            370
+          ],
+          "mean_Pa": 4.617624252555028,
+          "range_Pa": 0.8039746146125033,
+          "relative_range": 0.17411001212748037
+        },
+        {
+          "steps": [
+            371,
+            420
+          ],
+          "mean_Pa": 4.543322083361198,
+          "range_Pa": 0.9882986891812777,
+          "relative_range": 0.21752776295580697
+        }
+      ],
+      "outlet_3": [
+        {
+          "steps": [
+            221,
+            270
+          ],
+          "mean_Pa": 4.8292947501894075,
+          "range_Pa": 0.061765520973857235,
+          "relative_range": 0.012789760030993089
+        },
+        {
+          "steps": [
+            271,
+            320
+          ],
+          "mean_Pa": 4.817884043845598,
+          "range_Pa": 0.11372904539203077,
+          "relative_range": 0.023605600374983937
+        },
+        {
+          "steps": [
+            321,
+            370
+          ],
+          "mean_Pa": 4.5156580023636765,
+          "range_Pa": 0.3081320703624293,
+          "relative_range": 0.06823636116843672
+        },
+        {
+          "steps": [
+            371,
+            420
+          ],
+          "mean_Pa": 4.862126187460515,
+          "range_Pa": 0.8326249255127927,
+          "relative_range": 0.17124708273926392
+        }
+      ]
+    },
+    "engineering_accepted": false
+  },
+  "remaining": [
+    "Two native mesh-quality failure categories",
+    "Higher-accuracy stable solution",
+    "Physical wall roughness and rating station applicability",
+    "Other component families and flow cases",
+    "Full network pressure, load/ADPI and final coordinated delivery"
+  ],
+  "engineering_accepted": false
+}
