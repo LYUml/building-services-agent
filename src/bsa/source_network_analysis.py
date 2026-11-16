@@ -85,14 +85,23 @@ def source_bindings(model,data,junction,schedule):
     return expected
 
 
-def calculate(model,expected,air):
+def calculate(model,expected,air,*,native_tee_guids=None):
     if set(air)!={'density_kg_m3','viscosity_Pa_s','roughness_m'} or any(type(air[k]) not in (int,float) or not math.isfinite(air[k]) or air[k]<=0 for k in ('density_kg_m3','viscosity_Pa_s')) or type(air['roughness_m']) not in (int,float) or not math.isfinite(air['roughness_m']) or air['roughness_m']<0:raise ValueError('Exact source air conditions required')
+    from .rectangular_tee_profiles import sections as tee_sections
+    selected=[] if native_tee_guids is None else native_tee_guids
+    if not isinstance(selected,list) or any(not isinstance(g,str) for g in selected) or len(set(selected))!=len(selected):raise ValueError('Explicit unique native tee selection required')
+    native_sections={g:tee_sections(model.by_guid(g)) for g in selected}
     objects=model.by_type('IfcDistributionElement');owned={o.GlobalId:[p.GlobalId for p in system.get_ports(o)] for o in objects};directions={p.GlobalId:p.FlowDirection for p in model.by_type('IfcDistributionPort')};links=[(r.RelatingPort.GlobalId,r.RelatedPort.GlobalId) for r in model.by_type('IfcRelConnectsPorts')];values=prescribed_flows(owned,directions,links,expected)
     settings=ifcopenshell.geom.settings();settings.set(settings.USE_WORLD_COORDS,True);ports={};products=[];straight=[];missing=[]
     for obj in objects:
         shape=ifcopenshell.geom.create_shape(settings,obj);vertices=np.array(shape.geometry.verts).reshape(-1,3);faces=np.array(shape.geometry.faces).reshape(-1,3)
         for p in system.get_ports(obj):
-            cap=interface_contacts.cap(vertices,faces,placement.get_local_placement(p.ObjectPlacement));w,h=cap['inner_section_m'];q=values[p.GlobalId];velocity=q/(w*h)
+            cap=interface_contacts.cap(vertices,faces,placement.get_local_placement(p.ObjectPlacement));w,h=cap['inner_section_m']
+            if obj.GlobalId in native_sections:
+                native=native_sections[obj.GlobalId][p.GlobalId]
+                if not np.allclose([w,h],native,atol=1e-8,rtol=0):raise ValueError('Literal tee section differs from recovered material cap')
+                w,h=native
+            q=values[p.GlobalId];velocity=q/(w*h)
             ports[p.GlobalId]=dict(**expected[p.GlobalId],graph_derived_flow_m3_s=q,owner_guid=obj.GlobalId,direction=p.FlowDirection,width_m=w,height_m=h,actual_velocity_m_s=velocity,actual_velocity_pressure_Pa=air['density_kg_m3']*velocity**2/2,flow_derivation='Actual saved downstream boundary-demand accumulation, reconciled against every original source section')
         incoming=[g for g in owned[obj.GlobalId] if directions[g]=='SINK'];outgoing=[g for g in owned[obj.GlobalId] if directions[g]=='SOURCE'];qin=math.fsum(values[g] for g in incoming);qout=math.fsum(values[g] for g in outgoing)
         if not math.isclose(qin,qout,rel_tol=1e-12,abs_tol=1e-12):raise ValueError('Saved product flow continuity differs')
@@ -131,8 +140,9 @@ def prepare(source,folder):
 
 def methods():
     import fluids.friction as friction
+    from . import rectangular_tee_profiles
     if importlib.metadata.version('fluids')!='1.3.1':raise ValueError('Pinned fluids 1.3.1 required')
-    return [Path(m.__file__) for m in (producer,local,duct_equivalent,interface_contacts,friction)]+[Path(__file__)]
+    return [Path(m.__file__) for m in (producer,local,duct_equivalent,interface_contacts,friction,rectangular_tee_profiles)]+[Path(__file__)]
 
 
 def render(result):

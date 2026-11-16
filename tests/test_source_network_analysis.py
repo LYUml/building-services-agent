@@ -35,6 +35,18 @@ class SourceNetworkAnalysisTests(unittest.TestCase):
             result=tool.calculate(model,expected,dict(density_kg_m3=1.2,viscosity_Pa_s=1.81e-5,roughness_m=.00009))
             self.assertEqual(len(result['boundary_paths']),2);self.assertEqual(len(result['missing_fitting_path_losses']),2);self.assertFalse(result['pressure_budget_complete']);self.assertIsNone(result['critical_path']);self.assertEqual(result['straight_friction_subtotal_Pa'],0)
             self.assertAlmostEqual(result['boundary_inlet_flow_m3_s'],.5)
+            tee=model.by_type('IfcDuctFitting')[0]
+            exact=tool.calculate(model,expected,dict(density_kg_m3=1.2,viscosity_Pa_s=1.81e-5,roughness_m=.00009),native_tee_guids=[tee.GlobalId])
+            self.assertEqual(len(exact['boundary_paths']),2)
+            with self.assertRaisesRegex(ValueError,'unique'):
+                tool.calculate(model,expected,dict(density_kg_m3=1.2,viscosity_Pa_s=1.81e-5,roughness_m=.00009),native_tee_guids=[tee.GlobalId,tee.GlobalId])
+            realcap=tool.interface_contacts.cap
+            def altered(*args):
+                value=realcap(*args);value['inner_section_m']=[value['inner_section_m'][0]+.001,value['inner_section_m'][1]];return value
+            with patch.object(tool.interface_contacts,'cap',side_effect=altered):
+                with self.assertRaisesRegex(ValueError,'material cap'):
+                    tool.calculate(model,expected,dict(density_kg_m3=1.2,viscosity_Pa_s=1.81e-5,roughness_m=.00009),native_tee_guids=[tee.GlobalId])
+
             port=next(p for p in model.by_type('IfcDistributionPort') if p.Name=='branch');self.assertAlmostEqual(result['port_flows'][port.GlobalId]['actual_velocity_m_s'],.2/(.6*.3))
             changed=copy.deepcopy(expected);changed[port.GlobalId]['flow_m3_s']+=.01
             with self.assertRaisesRegex(ValueError,'inherited'):tool.calculate(model,changed,dict(density_kg_m3=1.2,viscosity_Pa_s=1.81e-5,roughness_m=.00009))

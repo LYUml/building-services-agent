@@ -1,0 +1,23 @@
+{
+  "scope": "Explicit native tee profiles reconciled against independently meshed caps inside source network calculation; strict interpolation unchanged",
+  "ifc_sha256": "d11d94b6725b9284ce175e9abf75785d2b70e8beb0487d084a3a82dc8981c67b",
+  "cases": {
+    "maximum": {
+      "native_tee_products": 13,
+      "port_count": 255,
+      "calculated_paths": 88,
+      "max_contribution_difference_Pa": 8.384404281969182e-13,
+      "no_previous_port_dimensions_copied": true
+    },
+    "minimum": {
+      "native_tee_products": 13,
+      "port_count": 255,
+      "calculated_paths": 88,
+      "max_contribution_difference_Pa": 1.3500311979441904e-13,
+      "no_previous_port_dimensions_copied": true
+    }
+  },
+  "tests_passed": 5,
+  "design_accepted": false,
+  "remaining_compound_gaps": 4
+}
