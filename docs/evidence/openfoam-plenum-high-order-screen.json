@@ -1,0 +1,74 @@
+{
+  "window_iterations": [
+    1051,
+    1070
+  ],
+  "maximum_relative_flow_errors": {
+    "inlet": 3.0535505050292667e-15,
+    "outlet_0": 1.0326964462787767e-14,
+    "outlet_1": 1.2361063523639904e-14,
+    "outlet_2": 9.4472453277827e-15,
+    "outlet_3": 7.823457926354376e-15
+  },
+  "maximum_relative_mass_imbalance": 7.473163078097942e-15,
+  "pressures": {
+    "outlet_0": {
+      "mean_Pa": 5.110531009594334,
+      "range_Pa": 0.32147663252323966,
+      "relative_range": 0.06290474158550463,
+      "positive": true,
+      "stable": false
+    },
+    "outlet_1": {
+      "mean_Pa": 5.259255704032873,
+      "range_Pa": 0.34753957633650856,
+      "relative_range": 0.06608151341073037,
+      "positive": true,
+      "stable": false
+    },
+    "outlet_2": {
+      "mean_Pa": 3.3068735734525463,
+      "range_Pa": 0.6797612918737741,
+      "relative_range": 0.20556010889889217,
+      "positive": true,
+      "stable": false
+    },
+    "outlet_3": {
+      "mean_Pa": 3.7261448345320263,
+      "range_Pa": 0.7182150754302619,
+      "relative_range": 0.19275017674412645,
+      "positive": true,
+      "stable": false
+    }
+  },
+  "numerical_targets": {
+    "flow": 0.001,
+    "mass": 0.001,
+    "pressure_range": 0.005
+  },
+  "flow_pass": true,
+  "mass_pass": true,
+  "pressure_stability_pass": false,
+  "numerical_window_pass": false,
+  "engineering_accepted": false,
+  "scope": "Twenty-step higher-order screen only; not complete200step convergence",
+  "complete_200_step_window": false,
+  "negative_k_bounding_events": 19,
+  "minimum_prebounding_k": -0.2073393993218499,
+  "startup_accepted": false,
+  "saved1070_Umax_m_s": 20.161063419440726,
+  "input_provenance": {
+    "scope": "Higher-order startup comparison only, not engineering pressure acceptance",
+    "source_saved_time": 1050,
+    "source_native_index": 1060,
+    "source_U_sha256": "eba13a19182a11dc9967491d68ed228fba3dbbe572d75d562a85f928c7da2e72",
+    "copied_U_sha256": "eba13a19182a11dc9967491d68ed228fba3dbbe572d75d562a85f928c7da2e72",
+    "stock_fvSchemes_sha256": "7656210b3daee41a65509dac6a4bb66afcb5303c7bf56130530a96d905a26335",
+    "changes": "Restore executed official tutorial bounded linearUpwind grad(U) and limitedLinear turbulence convection; exact source flow, mesh, fluid, model and relaxation unchanged.",
+    "end_time": 1070,
+    "new_steps_budget": 20,
+    "expected_field_time": 1070,
+    "engineering_accepted": false
+  },
+  "foamRun_returncode": 0
+}

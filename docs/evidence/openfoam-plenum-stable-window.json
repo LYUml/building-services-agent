@@ -1,0 +1,164 @@
+{
+  "window_iterations": [
+    851,
+    1050
+  ],
+  "maximum_relative_flow_errors": {
+    "inlet": 3.0535505050292667e-15,
+    "outlet_0": 1.1578717731004466e-14,
+    "outlet_1": 1.0326964462787767e-14,
+    "outlet_2": 1.1196735203298016e-14,
+    "outlet_3": 9.388149511625252e-15
+  },
+  "maximum_relative_mass_imbalance": 9.441899587919443e-15,
+  "pressures": {
+    "outlet_0": {
+      "mean_Pa": 5.830176087073679,
+      "range_Pa": 0.0005111301700146953,
+      "relative_range": 8.766976543777861e-05,
+      "positive": true,
+      "stable": true
+    },
+    "outlet_1": {
+      "mean_Pa": 6.010687841117877,
+      "range_Pa": 0.0003548727925206663,
+      "relative_range": 5.904029653529079e-05,
+      "positive": true,
+      "stable": true
+    },
+    "outlet_2": {
+      "mean_Pa": 3.2885640145421022,
+      "range_Pa": 0.005006196133720664,
+      "relative_range": 0.001522304602125169,
+      "positive": true,
+      "stable": true
+    },
+    "outlet_3": {
+      "mean_Pa": 3.7571839131596545,
+      "range_Pa": 0.0008249913620801408,
+      "relative_range": 0.00021957705056454188,
+      "positive": true,
+      "stable": true
+    }
+  },
+  "numerical_targets": {
+    "flow": 0.001,
+    "mass": 0.001,
+    "pressure_range": 0.005
+  },
+  "flow_pass": true,
+  "mass_pass": true,
+  "pressure_stability_pass": true,
+  "numerical_window_pass": true,
+  "engineering_accepted": false,
+  "scope": "One actual first-family representative maximum-flow smooth-wall FIRST-ORDER numerical window only; mesh, accuracy, model and station applicability remain unverified",
+  "complete_200_step_window": true,
+  "declared_native_units": {
+    "phi": "m3/s",
+    "Pt": "Pa"
+  },
+  "provenance": {
+    "manifest_sha256": "df34f38563f3131ad06f075d181f913456d16f8584696fb1c5d67f434ee45347",
+    "native_input_sha256": {
+      "inlet/flux": "5080f228848050284af5888e7708861e22a14703935cb946edec95fc8894a911",
+      "inlet/total_pressure": "c29dca0c98681d767480ad9ab5450e3e383fc28d0cf26711e78382c5e8ebe9e8",
+      "outlet_0/flux": "fba1d9765467671fefdb068d3ab354f1ce7bfe78a50fd3aac245f98b565887e0",
+      "outlet_0/total_pressure": "ebff64be89162a0307a26d4039921a84f7133f1e9a6d9233f4443887c212ddf5",
+      "outlet_1/flux": "5a866531d8c938029001440c5c4ec20a83ba7cfb5c5b49ad4e9fcc1c105fbdec",
+      "outlet_1/total_pressure": "fd119a8a1fdb7aaa8c4fe4deaad5f0690a5fe8f8317a4799c6f4c09563082723",
+      "outlet_2/flux": "1c036afe2aa5fbf04da0fbad5b9b5398b64588c0956efa8eb3fb11819ffc8bba",
+      "outlet_2/total_pressure": "5dfba1042e7d320461ed37ccf6c33c563a4db98ee1853b188e30810794ec2d68",
+      "outlet_3/flux": "7fed9b6298095d3d69c066ee054e7726679dd84c4b6cc81eb125f49586bb060d",
+      "outlet_3/total_pressure": "360c155e1727b821590b8bdd8a58cdc10b3fbdcf499dbdd853750f0587d0bba5"
+    },
+    "basis_file_sha256": {
+      "source_flow": "455fb85366fc5496510b3c954cf2d28fd2eecf68e01cc8f72ab1c0e06fbaf2dd",
+      "native_pressure_observer": "816266fe0aaca98f623cd88447045a2c7c5cc6191f597d665b7ab04ceab19686",
+      "phase_numerics": "f1dd95b5833cec85413842e53315fc46c424a07163d0391f484ad1e37ea2399f",
+      "phase_control": "95e88a15db62482b12d5b0f991955e588bc040676b5535dc416e1cb6a040b4d8"
+    },
+    "adapter_sha256": "201a0e0069f19604f9000e1388015f7cac202916a99930ed90e494b0a469ae0e",
+    "assessor_sha256": "256877f3486b8c681fd255293b6834761fec91bb130c1690cd62332a60283092"
+  },
+  "saved_field_review": {
+    "scope": "Saved1050 first-order native fields and residual diagnostics only",
+    "field_time": 1050,
+    "engineering_accepted": false,
+    "fields": {
+      "U": {
+        "native_cell_values": 813620,
+        "minimum": 6.344036286979097e-05,
+        "maximum": 6.714361142518909,
+        "sha256": "eba13a19182a11dc9967491d68ed228fba3dbbe572d75d562a85f928c7da2e72"
+      },
+      "p": {
+        "native_cell_values": 813620,
+        "minimum": -26.95134846755243,
+        "maximum": 28.887858228462587,
+        "sha256": "4d9307b3b8250dd49f66f0f6acb207e86fd6a2720f5c5369ebcd5d2a9802368c"
+      },
+      "Pt": {
+        "native_cell_values": 813620,
+        "minimum": -32.3371686573766,
+        "maximum": 48.2045017360761,
+        "sha256": "1090104e8ff627426c93810fbae93d1bdd112454e65b57bc720d089e18feed95"
+      },
+      "k": {
+        "native_cell_values": 813620,
+        "minimum": 3.297962217279299e-06,
+        "maximum": 1.4654545741868663,
+        "sha256": "6977381db9e70f79ee50c486e4561fef7edd771f8a82af1ac69b27dfa955e8d4"
+      },
+      "omega": {
+        "native_cell_values": 813620,
+        "minimum": 50.00658222987612,
+        "maximum": 81117186.45605958,
+        "sha256": "26bade0ed898a69aca8ed847e00fc71cea378b458ff0d788f084ef3aadbd4fea"
+      },
+      "nut": {
+        "native_cell_values": 813620,
+        "minimum": 4.342018912557785e-11,
+        "maximum": 0.0030272545535621554,
+        "sha256": "1e3eefd33bbe52f8351652eca3a385d473a48dd2fce21f2d0cc1c4b7c77f2b98"
+      }
+    },
+    "initial_residual_ranges_last200": {
+      "Ux": {
+        "minimum": 1.7561511536332547e-06,
+        "maximum": 6.442984260614286e-06,
+        "terminal": 1.7561511536332547e-06
+      },
+      "Uy": {
+        "minimum": 1.00599866568126e-06,
+        "maximum": 4.095980085157556e-06,
+        "terminal": 1.00599866568126e-06
+      },
+      "Uz": {
+        "minimum": 6.448519717239707e-06,
+        "maximum": 2.5258658563304487e-05,
+        "terminal": 6.448519717239707e-06
+      },
+      "p": {
+        "minimum": 4.793444236792285e-07,
+        "maximum": 2.7288126001886747e-05,
+        "terminal": 4.793444236792285e-07
+      },
+      "omega": {
+        "minimum": 1.8858266187598128e-09,
+        "maximum": 1.0082176211763857e-08,
+        "terminal": 5.361106456931743e-09
+      },
+      "k": {
+        "minimum": 1.6302454174865562e-06,
+        "maximum": 8.367171173959751e-06,
+        "terminal": 1.6302454174865562e-06
+      }
+    },
+    "negative_k_bounding_events": 0,
+    "residual_acceptance_target_not_defined_by_this_review": true,
+    "pressure_residual_statistics_include_all_nonorthogonal_corrections": true
+  },
+  "all_project_pressure_gaps_cleared": false,
+  "pressure_ledger_modified": false,
+  "runtime_installer_sha256": "7f2d036698dc6a5385bda665a71feef9e81b065abf7d013571a6e9afaf585baa"
+}

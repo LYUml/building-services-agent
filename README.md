@@ -1,5 +1,7 @@
 # Building Services Agent
 
+One actual plenum first-order case now passes the complete200sample numerical window. Mesh, higher-order and physical acceptance remain open; no design pressure adopted. See [native study](docs/OPENFOAM_IMPORT_PRECISION.md).
+
 Native OpenFOAM imports now preserve all source coordinates for the main and both plenum meshes using 17-digit output. Three mesh-quality checks still fail; zero exit codes are not acceptance. See [native import](docs/OPENFOAM_IMPORT_PRECISION.md).
 
 A thin pinned node-order adapter now passes tests and all265741actual main-cell correspondence checks. No solver or pressure acceptance. See [node ordering](docs/CFD_NODE_ORDER.md).

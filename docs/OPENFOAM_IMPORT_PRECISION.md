@@ -273,3 +273,37 @@ to fall, an explicitly bounded source-identical continuation resumes saved650
 (index660) to1050, with expected fields785/1050 and required window851..1050.
 No numerical or physical parameters or acceptance thresholds change in this
 continuation. [Executed later window](evidence/openfoam-plenum-window-650.json).
+
+
+## First passing actual plenum numerical window
+
+The unchanged continuation finishes1050normally. The exact required851..1050
+window passes signed flow, global conservation and all four positive pressure
+range/mean targets. Relative ranges are0.00877%,0.00590%,0.15223%,0.02196%, all
+below0.5%. Conditional window means are5.83018,6.01069,3.28856,3.75718Pa for
+outlets0..3. These are ONE representative first-family maximum-flow case under
+smooth-wall, first-order assumptions, not accepted component or network losses.
+
+All six saved1050fields contain813620finite cell values. k,omega,nut remain
+nonnegative; speed maximum6.71436m/s; no negative-k bounding events. Residual
+ranges are reported separately, including all pressure nonorthogonal correctors;
+the numerical-window assessor does not independently grant residual/model/mesh
+or physical accuracy approval. The original374conditional/84gap ledger is not
+filled from this result. Mesh-quality exceptions, source stations, roughness,
+product correspondence and higher-order accuracy remain open.
+
+A separate20step higher-order comparison copies the actual1050state without
+resetting time/index or changing geometry/flow/model. It restores the executed
+official tutorial linearUpwind grad(U) and limitedLinear turbulence convection.
+The stable first-order case is preserved; no higher-order acceptance follows
+from merely starting this trial. [Actual passing numerical receipt](evidence/openfoam-plenum-stable-window.json).
+
+
+Higher-order screen outcome: native1070finishes normally after20new steps, but
+19steps require negative-k bounding (minimum prebounding-0.20734), saved speed
+maximum20.161m/s and pressure stability fails. This is a rejected startup screen,
+not a complete200step higher-order assessment. Exact flow/conservation alone
+cannot validate accuracy. The passing first-order1050case remains preserved and
+unadopted. Next: inspect the existing wall-layer/core transition mesh and actual
+y-plus before another higher-order run, rather than extending this unstable
+trial. [Rejected higher-order screen](evidence/openfoam-plenum-high-order-screen.json).
