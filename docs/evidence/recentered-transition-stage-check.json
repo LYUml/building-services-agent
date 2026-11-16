@@ -33,10 +33,37 @@
     "90 unwaived contact-clearance findings",
     "whole-fitting friction/station and short-fitting interactions",
     "terminal/equipment/installed flex and boundary pressure",
-    "native candidate drawing and visual review"
+    "Full architecture/equipment coordination and final unified package acceptance"
   ],
   "design_adopted": false,
   "pressure_budget_complete": false,
   "fan_duty_Pa": null,
-  "design_accepted": false
+  "design_accepted": false,
+  "native_drawings": {
+    "Supply Network Candidate": {
+      "represented_product_guids": 91,
+      "native_entities": 114,
+      "native_reopen_pass": true,
+      "scale_denominator": 200,
+      "reference_expected_mm": 50.0,
+      "reference_measured_mm": 49.99566666666666,
+      "actual_pdf_visually_reviewed": true,
+      "observed_clipping_or_overlap": false,
+      "dwg_sha256": "20d00f80d8d8de821df8c2a43a2ec87a72e8d2fda03cdfbc4ec4b6eff3e975c7",
+      "pdf_sha256": "aa9b51f433161a9092f729851aafafd7972047d8a29dba4553c0d0947d95c302"
+    },
+    "Transition Details": {
+      "represented_product_guids": 4,
+      "native_entities": 122,
+      "native_reopen_pass": true,
+      "scale_denominator": 25,
+      "reference_expected_mm": 20.0,
+      "reference_measured_mm": 19.981333333333332,
+      "actual_pdf_visually_reviewed": true,
+      "observed_clipping_or_overlap": false,
+      "dwg_sha256": "2a8488983e0745b0f3af1183117af8973caf1eaa61ceda0b8455f3602b4733dd",
+      "pdf_sha256": "56417345986781afbd2113d12a2bf460b09503cddb0767d893e31bef8eebe2d3"
+    }
+  },
+  "outlet_pressure_review_rows": 40
 }
