@@ -1,0 +1,193 @@
+{
+  "scope": "Source-informed separate transient startup feasibility; no design-pressure or coursework acceptance",
+  "upstream_engine": "Isolated OpenFOAM12 build12-8e8552546d20 serial, GPL-3.0-or-later",
+  "upstream_engine_sha256": {
+    "foamRun": "5f73cdfd7843a3dfe00ea7160c883deaf223c599328b4f83c4897b4ae463280f",
+    "foamPostProcess": "51254c6d3f10ecbbe4ec334d134445560f9cf6ca275727f71c1b8c8e8e5504fe"
+  },
+  "primary_research": {
+    "url": "https://www1.eere.energy.gov/buildings/publications/pdfs/building_america/fluid_dynamics_flexduct.pdf",
+    "title": "Computational Fluid Dynamics Analysis of Flexible Duct Junction Box Design",
+    "authors": "Robert Beach, Duncan Prahl, Rich Lange",
+    "date": "December2013",
+    "pdf_sha256": "07b071a56db66d494116aca34422059270eb9828df2593691de2ff4d6641be34",
+    "actual_pages20_and21_rendered_viewed": true,
+    "applicability": "Motivates standard k-epsilon and investigation of oscillatory flow. Authors describe limited qualitative validation; report does not validate this mesh, actual geometry, uniform inlet or wall treatment."
+  },
+  "native_startup": {
+    "returncode": 0,
+    "elapsed_seconds": 28.546999999991385,
+    "source_mesh_unchanged": true,
+    "copied_mesh_unchanged": true,
+    "saved_final_time_exists": true,
+    "pressure_adopted": false,
+    "design_accepted": false
+  },
+  "inputs": {
+    "scope": "New source-informed physical-time k-epsilon startup on preserved quality-passed hex mesh; not a continuation/acceptance of failed steady SST studies",
+    "native_mesh_sha256": {
+      "points": "b4c6897a08fd091cfc1737e13854895acc8e80b387bdbb834a4d64ef2de25ef9",
+      "faces": "c1fd7d90121e53d1a26634737fc257e75a66d2a3028d5c277a3abcd82e169da4",
+      "owner": "e2003d703e1d218ef450322b9f652bfcfd8a5b2f1a15a02ef9fd6f62ec4ad481",
+      "neighbour": "bd6597db8bd35d0a6124dcf4fb32ac24de337049ca29ff24c6cdfe6083603671",
+      "boundary": "7af6c3a72899f1eb4539512b8e1ef115d5eb94888d16887c8cc4524b8affed97"
+    },
+    "source_geometry_and_mesh_unchanged": true,
+    "physical_time_seconds": {
+      "deltaT": 0.00025,
+      "endTime": 0.005,
+      "steps": 20
+    },
+    "nominal_residence_time_s": 0.24375340232499723,
+    "flow_m3_s": {
+      "inlet": 0.5756751425686069,
+      "outlet_0": 0.14782239876590955,
+      "outlet_1": 0.14782239876590955,
+      "outlet_2": 0.13220794627087828,
+      "outlet_3": 0.1478223987659094
+    },
+    "inlet_area_m2": 0.1343076000000014,
+    "initial_turbulence_assumptions": {
+      "intensity": 0.05,
+      "length_scale_fraction_Dh": 0.07,
+      "hydraulic_diameter_m": 0.3662601581674393,
+      "k_m2_s2": 0.06889457810401924,
+      "epsilon_m2_s3": 0.115896876310234
+    },
+    "wall_treatment": "New standard k-epsilon wall-function scenario; no claim of old low-Re yPlus<=1 acceptance or generated layers",
+    "scheme": "Euler physical time and upwind convection for startup only; not final high-order design pressure",
+    "source_research": {
+      "sha256": "07b071a56db66d494116aca34422059270eb9828df2593691de2ff4d6641be34",
+      "pages_actually_rendered_viewed": [
+        20,
+        21
+      ],
+      "scope": "DOE2013 report uses standard k-epsilon and documents sustained oscillations; does not validate this mesh or boundary model"
+    },
+    "boundary_assumptions": [
+      "Uniform flow-rate inlet, prescribed four outlet flows",
+      "Actual developed VAV discharge profile and installation reference planes unverified",
+      "Smooth wall-function numerical treatment, not calibrated lined-wall roughness"
+    ],
+    "pressure_acceptance_attempted": false,
+    "runtime_budget_seconds": 180,
+    "design_accepted": false
+  },
+  "saved_field_and_flux_review": {
+    "scope": "Twenty physical-time startup steps only; no stationary statistics or design pressure",
+    "physical_times_exactly_match20prescribed_steps": true,
+    "final_time_s": 0.005,
+    "reference_residence_time_s": 0.24375340232499723,
+    "fraction_of_one_residence_time": 0.020512534193608847,
+    "fields": {
+      "U": {
+        "values": 142480,
+        "minimum": 0.023207365576640257,
+        "maximum": 8.7862855678623,
+        "sha256": "8bbddb1b4a52597702627bc7c35ca383cc97ca412702b0f4f5fd8d40e59373a1"
+      },
+      "p": {
+        "values": 142480,
+        "minimum": -88.67373783087145,
+        "maximum": 0.2349755429932489,
+        "sha256": "7e8dcc5f6036dbcef49a24f0e3c8f334fd98d01baa106cc034eb6f342cde8f09"
+      },
+      "k": {
+        "values": 142480,
+        "minimum": 0.060371939019221284,
+        "maximum": 3.519903399515447,
+        "sha256": "339eff2e14f18ed90f48d5470e6814e6dfc62335d5e67720ac9836d22977ccf2"
+      },
+      "epsilon": {
+        "values": 142480,
+        "minimum": 0.11414975699260407,
+        "maximum": 230.22395998461084,
+        "sha256": "c6011e7a5dbf7faed5dfa0b900903b29d2133184cb2f6f8d58942bdc44ac678d"
+      },
+      "nut": {
+        "values": 142480,
+        "minimum": 0.00010670141208178861,
+        "maximum": 0.01759775842136998,
+        "sha256": "a51446b1bab183df1fd9f1976502b8f67bc6b80702d51755daa0ca9d20d2b4f1"
+      }
+    },
+    "native_postprocess_returncode": 0,
+    "all6primary_fields_unchanged_by_postprocess": true,
+    "fluxes": {
+      "inlet": {
+        "measured_outward_m3_s": -0.5756751425686061,
+        "prescribed_outward_m3_s": -0.5756751425686069,
+        "relative_difference": 1.3499907495918863e-15
+      },
+      "outlet_0": {
+        "measured_outward_m3_s": 0.14782239876590966,
+        "prescribed_outward_m3_s": 0.14782239876590955,
+        "relative_difference": 7.510519609300195e-16
+      },
+      "outlet_1": {
+        "measured_outward_m3_s": 0.14782239876590958,
+        "prescribed_outward_m3_s": 0.14782239876590955,
+        "relative_difference": 1.8776299023250487e-16
+      },
+      "outlet_2": {
+        "measured_outward_m3_s": 0.1322079462708782,
+        "prescribed_outward_m3_s": 0.13220794627087828,
+        "relative_difference": -6.298163551855134e-16
+      },
+      "outlet_3": {
+        "measured_outward_m3_s": 0.14782239876590939,
+        "prescribed_outward_m3_s": 0.1478223987659094,
+        "relative_difference": -1.8776299023250504e-16
+      }
+    },
+    "net_outward_volume_flow_m3_s": 7.494005416219807e-16,
+    "native_yPlus_startup_only": {
+      "minimum": 17.1719813615974,
+      "maximum": 347.11354300729846,
+      "average": 44.40390744515727
+    },
+    "maximum_reported_Courant": 0.5706607344089858,
+    "old_SST_lowRe_yPlus_or_steady_window_reclassified": false,
+    "near_wall_or_statistical_acceptance": false,
+    "pressure_adopted": false,
+    "design_accepted": false
+  },
+  "native_mesh_quality_basis": "Copied mesh hashes exactly match prior full native quality-passed142480cell case; no remeshing or quality criteria change",
+  "input_and_log_sha256": {
+    "pilot-inputs.json": "0909a8c20baefa63a0b295d4d5328b95a1704e7651f478a9f9eb120d4878b392",
+    "system/controlDict": "79e04429a514d411e07cf74f8949bd0bc3f217e846ff508394a5d7065fb6fd2f",
+    "system/fvSchemes": "4293e7973614f1031de14b7daffd1c0e8857c5a414828bd6f9241be37fc975bc",
+    "system/fvSolution": "6c5c665bbc8f822a412905c4da9f70cec7fa6c3581a5fe4c3515470b56d83c8d",
+    "system/functions": "8f07da81943fc0184294b0f06509bb0d16c460b1765d9528416eb3c7798f5e6d",
+    "constant/momentumTransport": "a1a6403646fb6df9267799fdabdab26dbb834657a91d51babfa824b7dc15361c",
+    "constant/physicalProperties": "f2c715ef8bf9b20ff74df088d904c2460b8beb1b97cd6e17636d66d4aa7cd642",
+    "foamRun.log": "e56f1a234cf89f9cebda13e7e040ed03f377d691f3684412fb34a8c64f021469",
+    "postprocess-startup.log": "b875ce55a59e7c5a577d512185d05b962d4489a5ee6aff5116b36b7637c5c5f8"
+  },
+  "saved_native_field_sha256": {
+    "U": "8bbddb1b4a52597702627bc7c35ca383cc97ca412702b0f4f5fd8d40e59373a1",
+    "p": "7e8dcc5f6036dbcef49a24f0e3c8f334fd98d01baa106cc034eb6f342cde8f09",
+    "k": "339eff2e14f18ed90f48d5470e6814e6dfc62335d5e67720ac9836d22977ccf2",
+    "epsilon": "c6011e7a5dbf7faed5dfa0b900903b29d2133184cb2f6f8d58942bdc44ac678d",
+    "nut": "a51446b1bab183df1fd9f1976502b8f67bc6b80702d51755daa0ca9d20d2b4f1",
+    "phi": "cb23bef69fc6b2957654c69861ad77cce283bb184f54bf7a801c7348ede315b2"
+  },
+  "history_csv_sha256": "547b3bebf5f13f7fe2a73b6011c7907802534ffee747396966fac0bb535e60eb",
+  "project_composition_sha256": {
+    "run_transient_kepsilon_pilot.py": "fef0da3bb98ee1c15f552dc4ed82cea52cacf4412100dc0c9aef5794811dbf5b",
+    "review_transient_kepsilon_pilot.py": "a0b872dc5ca0e31da7eac88499229d864e37a46854046a709c0a8fbd101a8e0a"
+  },
+  "remaining": [
+    "Physical run duration and stationary/statistical evidence",
+    "Time-step and mesh sensitivity",
+    "Wall-function validity and calibrated roughness",
+    "Developed inlet, outlet/test-plane and installation applicability",
+    "Actual reference-data calibration and all remaining network components"
+  ],
+  "previous_failed_steady_or_zero_layer_results_reclassified": false,
+  "course_baseline_report_DWG_IFC_changed": false,
+  "pressure_adopted": false,
+  "complete_pressure_verified": false,
+  "ADPI_verified": false,
+  "design_accepted": false
+}
