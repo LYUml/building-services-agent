@@ -1,0 +1,81 @@
+{
+  "source_downloads": [
+    {
+      "url": "https://www.krueger-hvac.com/file/3256/124051240_PerformanceData.pdf",
+      "file": "124051240_PerformanceData.pdf",
+      "sha256": "92ce989dc0761fcba6630916713c4b1f7dd2900eb4a120401ae158eda0b08cdb",
+      "bytes": 231062
+    },
+    {
+      "url": "https://www.krueger-hvac.com/file/3254/124051240_DimensionalData.pdf",
+      "file": "124051240_DimensionalData.pdf",
+      "sha256": "76d68bc80b3f6c6078a8cf26027f4928f3cec364f3fa5bab25be7895c4904d82",
+      "bytes": 288664
+    },
+    {
+      "url": "https://www.krueger-hvac.com/file/4081/124051240_MiniCatalog.pdf",
+      "file": "124051240_MiniCatalog.pdf",
+      "sha256": "2654a6e3e291ea8c9fd9a8fcde0eafcbc7cb4c58785cbe3c703e2323db2d8909",
+      "bytes": 631846
+    }
+  ],
+  "rows": 90,
+  "source_throw_triplets": 360,
+  "terminal_count": 80,
+  "terminals_with_no_both_flow_neck": 57,
+  "pattern_mapping": {
+    "1_core_throw": "four-way, one core per direction",
+    "2_core_throw": "stronger jet in some three-way arrangements, or each jet in opposite two-way arrangement",
+    "3_core_throw": "stronger jet in shown adjacent two-way arrangement",
+    "4_core_throw": "one-way arrangement"
+  },
+  "manufacturer_ADPI_chart_load_Btuh_ft2": 20,
+  "current_maximum_conditional_load_Btuh_ft2": 53.92141603984841,
+  "source_pages_rendered_viewed": {
+    "dimension": [
+      2
+    ],
+    "performance": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "minicatalog": [
+      5
+    ]
+  },
+  "limits": [
+    "No Model1400 ADPI curves transferred to1240",
+    "Published4way ADPI spacing charts are20Btuh/ft2, not current~53.92",
+    "Unsupported minimum operating flow is missing data, not proven equipment failure",
+    "No product/pattern adopted or native candidate issued"
+  ],
+  "design_accepted": false,
+  "wall_terminals_with_both_flows_in_published_neck_domain": 9,
+  "wall_terminals_total": 35,
+  "independent_source_transcription": {
+    "independent_engine": "PyMuPDF1.26.7 native word bounding boxes and row baselines; independent of pypdf token order parser",
+    "all90_flow_rows_and360_metric_throw_triplets_match": true,
+    "scalar_checks": 1530,
+    "original_pdf_sha256": "92ce989dc0761fcba6630916713c4b1f7dd2900eb4a120401ae158eda0b08cdb",
+    "extracted_rows_sha256": "20c7e84921314730c860ef200913e30fc6c1dce58c594e8e97347f6b22af658e",
+    "scope": "Source transcription only, not physical product/ADPI acceptance"
+  },
+  "executed_project_adapter_sha256": {
+    "extract_modular_core_source.py": "1732fd3eafd07fe05e0ff48c15c7ea4b60fee79f717f4ad26d43dacc68a4d5e1",
+    "verify_modular_core_source.py": "d4e337bc88e51b9c0e8b8ffb74c45263b72ca6d6511b57e1929231197a30a334"
+  },
+  "existing_KSelect_workspaces": {
+    "both_read_only_HEAD": "3eecd3710e976927c4b7c639900e833d12150453",
+    "documented_scope": "Model1400 performance and native PDF export; no1240/ADPI/project schedules",
+    "new_native_execution": false,
+    "modified": false
+  },
+  "reuse": {
+    "source_reader": "existing pypdf7.0.0",
+    "independent_coordinate_reader": "existing isolated PyMuPDF1.26.7 AGPL/commercial",
+    "new_engine_or_dependency": false
+  },
+  "decision": "Do not substitute Model1240 into current layout: source operating-flow and actual-load/pattern ADPI evidence incomplete. Keep verified data private for future explicit per-jet studies."
+}
