@@ -14,7 +14,7 @@
     "source_field_sha256": "7325e9b39a4c80c8ee51d4c4a1e69a88e07315ac0a28629706f946d8155f41d0",
     "source_history_sha256": "374d578f1f38a7d149bfb131d061d6124dcd64968ae3159d8c42de5eb3b91bfa",
     "native_node_mapping_sha256": "f6f99f95db85a5fe6bb6ab9b9cffb21ea8aa5acde9babf5822fdbbe0ff1b6b68",
-    "profile_sha256": "938c2c5850557688623518cb4f20ab0943f007a0027e4643dde8f3d562a56e48",
+    "profile_sha256": "5b7d7df7c7d1c58020ea57be757ea9c6af0cb69e684e7e931346d4bf06273b64",
     "mass_flow_before_after_kg_s": [
       0.04375608946085234,
       0.04375608946085234
@@ -33,7 +33,11 @@
     "velocity_or_turbulence_rescaled": false,
     "interpolation": false,
     "engineering_accepted": false,
-    "scope": "Numerically verified developed reference inlet only. Original experimental normalization, wall model and grid independence remain unaccepted. Temperature300K retained from official inlet; energy inactive."
+    "scope": "Numerically verified developed reference inlet only. Original experimental normalization, wall model and grid independence remain unaccepted. Temperature300K retained from official inlet; energy inactive.",
+    "original_profile_sha256": "938c2c5850557688623518cb4f20ab0943f007a0027e4643dde8f3d562a56e48",
+    "source_export_review_sha256": "e2bdc14622caa7bcc5403a31d0795787fab611ec72cee1c0e1d7e30e307447fb",
+    "su2_header_compatibility": "Pinned CMarkerProfileReaderFVM recognizes optional header only when it begins # COORD. Replaced header only; every numerical row is byte-identical.",
+    "numeric_rows_byte_unchanged": true
   },
   "native_mesh_binding": {
     "original_mesh_sha256": "07226955475639b36986db1798d3c0d6753d5799d0110f6853d75aff190ec4ed",
@@ -57,9 +61,16 @@
   },
   "temperature_basis": "300 K retained from official inlet; energy inactive.",
   "failed_acceleration": "CFL60 residual grew more than two orders and was stopped; original finite CFL30 checkpoint resumed.",
-  "next_stage": "Actual original bend solve with this inlet started; results pending.",
+  "next_stage": "Original bend solver consumed corrected native profile and entered actual iterations; convergence and experimental agreement pending.",
   "engineering_accepted": false,
   "experimental_agreement_verified": false,
   "mesh_independence_verified": false,
-  "full_pressure_gaps_per_flowcase": 84
+  "full_pressure_gaps_per_flowcase": 84,
+  "native_solver_profile_read_executed": true,
+  "header_compatibility": {
+    "profile_sha256": "5b7d7df7c7d1c58020ea57be757ea9c6af0cb69e684e7e931346d4bf06273b64",
+    "numeric_rows_byte_unchanged": true,
+    "pinned_reader": "SU2 7048fd35 CMarkerProfileReaderFVM.cpp optional-header detection # COORD",
+    "scope": "Header-only correction; failed startup log preserved, no tolerance relaxation."
+  }
 }
