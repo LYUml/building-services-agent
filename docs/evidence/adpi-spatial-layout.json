@@ -1,0 +1,86 @@
+{
+  "search_state": "finite search completed",
+  "message": "Maximum number of iterations has been exceeded.",
+  "best": {
+    "score": 35.115969690371415,
+    "parameters": [
+      1.3943536830957037,
+      1.023325630591359,
+      0.48060593801236173,
+      -0.7767543676430043,
+      1.5677893935372513,
+      -0.9049399831047826,
+      -0.9035521835686793,
+      -0.9436325402237352,
+      2.2782688941170015
+    ],
+    "calls": 1473,
+    "elapsed_seconds": 25.156000000002678,
+    "necessary_envelope_failing_terminals": 35,
+    "maximum_terminal_penalty": 1.4922333696410692
+  },
+  "versions": {
+    "scipy": "1.18.1",
+    "numpy": "2.5.4",
+    "shapely": "2.2.0",
+    "fluids": "1.3.1"
+  },
+  "source_boundary_sha256": "c64f5b2df5be607b7aebc978a51d3a168b45ca9e057135f0df6540e651a4a617",
+  "curve_sha256": "f98aa9ded59150e157c83d5c5114faaa1a24c185928709ffe5d60c9b2f607988",
+  "scope": "Separate80terminal two-zone row/column candidate; actual source boundary and full fresh nearest-centre area allocation each evaluation. Hypothetical downward travel only on aligned opposing jets. Necessary ratio envelope objective; exact source screen required after search. No actual building height claimed.",
+  "design_accepted": false,
+  "objective": "Failed-terminal count first, then small ratio penalty; fresh allocations and unchanged source limits",
+  "independent_geometry_balance_review": {
+    "all80_inside_original_boundary": true,
+    "source_load_unchanged": true,
+    "source_total_flow_conserved": true,
+    "all80_minimum_flow40percent": true,
+    "uncovered_area_m2": 0.0,
+    "overlap_m2": 0.0
+  },
+  "exact_source_screen": {
+    "failed_curve_tests": 145,
+    "failed_direction_operating_cases": 104,
+    "failed_terminals": 35,
+    "passing_terminals": 45,
+    "whole_candidate_pass": false
+  },
+  "comparison": {
+    "original_layout_at_hypothetical2_32m_failed_terminals": 39,
+    "refined_layout_failed_terminals": 35,
+    "same_fixed_total_flow": true,
+    "actual_allocation_recomputed_after_movement": true,
+    "both_are_unaccepted_hypothetical_length_scenarios": true
+  },
+  "limits": [
+    "Course lecture explicitly uses planar half spacing; added downward distance is not a coursework rule",
+    "No actual ceiling or occupied-zone height supplied",
+    "Bounded search stopped at35iterations, not proof of global infeasibility or optimizer convergence",
+    "No failed candidate substituted into course plan, report or native drawings",
+    "Full pressure, physical installation, acoustics and ADPI remain unresolved"
+  ],
+  "source_inputs_sha256": {
+    "guide": "f98aa9ded59150e157c83d5c5114faaa1a24c185928709ffe5d60c9b2f607988",
+    "performance": "073c639219b28068a0c8190a926d493e42a12c0918db464ee8439c55a3994aef",
+    "source_allocation": "4aaf873093425d7499d89eb474d9b243f024e6ece1f72f2d02729b4ac7744681"
+  },
+  "parameter_count": 9,
+  "reuse": {
+    "optimizer": "SciPy1.18.1 differential_evolution, BSD-3-Clause",
+    "optimizer_source_sha256": "04134c8ce29e7f02c9af6902bea5f16ff09d82147df5b1dffb295b8ac2b6f6d5",
+    "upstream_license_sha256": "f0f5c56b298ec9795df1199edc328a987242716d14a1bde6813112e22dc15f99",
+    "geometry": "Existing Shapely2.2.0 service-area allocation and source-ray lengths",
+    "performance": "Existing fluids1.3.1-backed original catalogue interpolation and original source-curve screen",
+    "new_dependency": false,
+    "new_general_agent_engine": false
+  },
+  "private_executed_artifact_sha256": {
+    "search-policy.json": "34b7138ba994f5ead71a3878b96ac3600331aa58ee26d6b14e2c2bbc83094a4a",
+    "allocation.json": "341464d78bcd8b9cc56d9681a89c360b4233aa8adb78e7bd989777ad80839a08",
+    "candidate.json": "0c6a8e4d39c917914c5110571425d86ffaad62e2d121d8d0d626ba855a58c35b",
+    "baseline.json": "c1fdc80d8e61bc6049f43a71e8f4057257507717679918c641503a0c32a81a8a",
+    "search-result.json": "5fedfcf371f48eba5cb451d5a5c87750170eb9bad3f79e986c216e746e3ae006"
+  },
+  "private_project_adapter_sha256": "b484e7ad932c8071472b87914b7496a58a72e61b3f6f162d68699e04dccf38bf",
+  "decision": "Reject candidate for adoption and native drawing; investigate product/pattern/length applicability instead of extending this unchanged search."
+}
