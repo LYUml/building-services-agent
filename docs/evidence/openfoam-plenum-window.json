@@ -1,0 +1,100 @@
+{
+  "window_iterations": [
+    51,
+    250
+  ],
+  "maximum_relative_flow_errors": {
+    "inlet": 3.0535505050292667e-15,
+    "outlet_0": 1.1109310255423205e-14,
+    "outlet_1": 1.189165604805864e-14,
+    "outlet_2": 1.3646021029019458e-14,
+    "outlet_3": 1.1265779413950301e-14
+  },
+  "maximum_relative_mass_imbalance": 7.151736709147493e-15,
+  "pressures": {
+    "outlet_0": {
+      "mean_Pa": 6.574237181205357,
+      "range_Pa": 3.298196763117108,
+      "relative_range": 0.5016850886588181,
+      "positive": true,
+      "stable": false
+    },
+    "outlet_1": {
+      "mean_Pa": 6.654953505332311,
+      "range_Pa": 2.6156139449210674,
+      "relative_range": 0.393032639946364,
+      "positive": true,
+      "stable": false
+    },
+    "outlet_2": {
+      "mean_Pa": 3.371820903255493,
+      "range_Pa": 2.009884186447895,
+      "relative_range": 0.5960827232868008,
+      "positive": true,
+      "stable": false
+    },
+    "outlet_3": {
+      "mean_Pa": 3.8826470884186937,
+      "range_Pa": 2.2687586422662847,
+      "relative_range": 0.5843329539358917,
+      "positive": true,
+      "stable": false
+    }
+  },
+  "numerical_targets": {
+    "flow": 0.001,
+    "mass": 0.001,
+    "pressure_range": 0.005
+  },
+  "flow_pass": true,
+  "mass_pass": true,
+  "pressure_stability_pass": false,
+  "numerical_window_pass": false,
+  "engineering_accepted": false,
+  "scope": "Actual first-order four-outlet complete200step numerical window only; no project pressure acceptance",
+  "native_segment_start": 50,
+  "native_input_sha256": {
+    "flux_inlet": "89be87409e7256f449b33a26cbf65090c4229f7ebf27651ca6576c2cec7b0bfe",
+    "pressure_inlet": "e08fca6934033b750b8cb62e0960c09341dcb7eeb02e4c83f36ac258f789e8f8",
+    "flux_outlet_0": "c9200eca965018e585995e2a70b5ac3f56c5f3ce340f51beedde720f5939b317",
+    "pressure_outlet_0": "40fc3c7899f5707c32f3b7766e39a3a0a7b66c3ebb68a5519925d2bb4744a60a",
+    "flux_outlet_1": "8145e63b8f4dbdff745d38d9b6fcfb603c4e4287513324553c936ef2e848f6af",
+    "pressure_outlet_1": "bc78cea527d9089ba70b5731d5a87253fad8f66b1a3918a4103aeecc541c7876",
+    "flux_outlet_2": "7b9ead58f403ae2855fe37024d238dccf159b16610f6b9482667af7108608f54",
+    "pressure_outlet_2": "9cc1e891f4516f61ef64a341645655b4608c2e9aa13f0b7357c85a9c40be407c",
+    "flux_outlet_3": "0975eb46f3fcac94feb5dbe391c47b4e87906aee87e32f1b9e8c9232ad3e3cbe",
+    "pressure_outlet_3": "61ca534b23af7d8556ab5087cb61e708c5825dad19e65f58c56139b398accf92"
+  },
+  "terminal_step": 250,
+  "native_field250_available": true,
+  "terminal_field_diagnostic": {
+    "scope": "Terminal250 trend diagnostic, not acceptance",
+    "peak_cell": 578965,
+    "peak_speed_m_s": 6.696994846801551,
+    "last50_path_trends": {
+      "outlet_0": {
+        "at201_Pa": 6.108727375111304,
+        "at250_Pa": 6.134022951112012,
+        "last50_range_over_mean": 0.009410758287538906
+      },
+      "outlet_1": {
+        "at201_Pa": 6.190265199601495,
+        "at250_Pa": 6.137354848144589,
+        "last50_range_over_mean": 0.013537774570905074
+      },
+      "outlet_2": {
+        "at201_Pa": 3.435715011330089,
+        "at250_Pa": 3.38661141027886,
+        "last50_range_over_mean": 0.014494722755926195
+      },
+      "outlet_3": {
+        "at201_Pa": 3.8525603608572254,
+        "at250_Pa": 3.8378711495315194,
+        "last50_range_over_mean": 0.0039428371415476966
+      }
+    },
+    "negative_k_events": 0,
+    "pressure_accepted": false
+  },
+  "physical_and_pressure_acceptance": false
+}

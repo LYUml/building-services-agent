@@ -189,3 +189,22 @@ latest saved field is50, because native time indices inherited an offset from
 copied initialization metadata. A bounded200step continuation therefore resumes
 from actual saved50, retaining old51..60observations separately instead of
 counting overlap twice. This live continuation has no acceptance result yet.
+
+
+## First actual complete numerical window
+
+The bounded continuation finishes250normally and writes the complete250field.
+The adapter uses only native postProcessing50times51..250 (200consecutive
+samples), without stitching the overlapping older51..60segment. All signed
+source flows and global conservation pass. All four total-pressure differences
+are positive, but their range/mean is39.3%--59.6%, exceeding the unchanged0.5%
+numerical target. The complete window FAILS; no design pressure is adopted.
+
+Final250global peak speed is6.697m/s with no negative-k bounding events. Last50
+pressure ranges are0.941%,1.354%,1.449%,0.394% for outlets0..3: substantial
+settling versus the full early window, but not a200step acceptance. This supports
+a further bounded source-identical continuation with only equation relaxation
+0.5to0.7. It starts from actual saved250, caps at650, expects fields430/650 and
+will assess only451..650. Source physics, grid, exact flow targets and numerical
+acceptance thresholds are unchanged. Mesh, model, higher-order and physical
+validation remain open. [Executed failed window](evidence/openfoam-plenum-window.json).
