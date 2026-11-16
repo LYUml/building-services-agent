@@ -1,0 +1,302 @@
+{
+  "schema": "bsa.drawing-layout/1",
+  "source": "Explicit synthetic drawing acceptance fixture; dimensions are illustrative, not a building design",
+  "units": "mm",
+  "layers": {
+    "GEOMETRY": {
+      "color": 7,
+      "lineweight": 25
+    },
+    "ANNOTATION": {
+      "color": 7,
+      "lineweight": 18
+    },
+    "SYMBOL": {
+      "color": 7,
+      "lineweight": 18
+    }
+  },
+  "blocks": {
+    "VALVE": [
+      {
+        "id": "symbol-left",
+        "kind": "polyline",
+        "layer": "GEOMETRY",
+        "source": "Explicit synthetic drawing acceptance fixture; dimensions are illustrative, not a building design",
+        "classification": "assumed",
+        "points": [
+          [
+            -4,
+            -3
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            4,
+            -3
+          ],
+          [
+            -4,
+            3
+          ]
+        ],
+        "closed": true
+      },
+      {
+        "id": "symbol-center",
+        "kind": "circle",
+        "layer": "GEOMETRY",
+        "source": "Explicit synthetic drawing acceptance fixture; dimensions are illustrative, not a building design",
+        "classification": "assumed",
+        "center": [
+          0,
+          0
+        ],
+        "radius": 0.7
+      }
+    ]
+  },
+  "sheet": {
+    "paper": "A4",
+    "window": [
+      0,
+      0,
+      290,
+      200
+    ],
+    "scale": 1,
+    "title": "AUTOMATIC VIEW LAYOUT",
+    "number": "DEMO-01",
+    "reference_length": 50
+  },
+  "content_window": [
+    8,
+    28,
+    282,
+    182
+  ],
+  "gap_mm": 8,
+  "views": [
+    {
+      "id": "plan",
+      "entities": [
+        {
+          "id": "plan",
+          "kind": "polyline",
+          "layer": "GEOMETRY",
+          "source": "Explicit synthetic drawing acceptance fixture; dimensions are illustrative, not a building design",
+          "classification": "assumed",
+          "points": [
+            [
+              20,
+              110
+            ],
+            [
+              125,
+              110
+            ],
+            [
+              125,
+              165
+            ],
+            [
+              20,
+              165
+            ]
+          ],
+          "closed": true
+        },
+        {
+          "id": "plan-label",
+          "kind": "text",
+          "layer": "ANNOTATION",
+          "source": "Explicit synthetic drawing acceptance fixture; dimensions are illustrative, not a building design",
+          "classification": "assumed",
+          "insert": [
+            20,
+            174
+          ],
+          "text": "PLAN",
+          "height": 3,
+          "rotation": 0
+        },
+        {
+          "id": "room-width",
+          "kind": "dimension",
+          "layer": "ANNOTATION",
+          "source": "Explicit synthetic drawing acceptance fixture; dimensions are illustrative, not a building design",
+          "classification": "assumed",
+          "p1": [
+            20,
+            110
+          ],
+          "p2": [
+            125,
+            110
+          ],
+          "distance": -10,
+          "text_height": 2.5
+        },
+        {
+          "id": "room-height",
+          "kind": "dimension",
+          "layer": "ANNOTATION",
+          "source": "Explicit synthetic drawing acceptance fixture; dimensions are illustrative, not a building design",
+          "classification": "assumed",
+          "p1": [
+            125,
+            110
+          ],
+          "p2": [
+            125,
+            165
+          ],
+          "distance": -10,
+          "text_height": 2.5
+        }
+      ]
+    },
+    {
+      "id": "system",
+      "entities": [
+        {
+          "id": "system-label",
+          "kind": "text",
+          "layer": "ANNOTATION",
+          "source": "Explicit synthetic drawing acceptance fixture; dimensions are illustrative, not a building design",
+          "classification": "assumed",
+          "insert": [
+            165,
+            174
+          ],
+          "text": "SYSTEM",
+          "height": 3,
+          "rotation": 0
+        },
+        {
+          "id": "system-line",
+          "kind": "line",
+          "layer": "GEOMETRY",
+          "source": "Explicit synthetic drawing acceptance fixture; dimensions are illustrative, not a building design",
+          "classification": "assumed",
+          "start": [
+            165,
+            140
+          ],
+          "end": [
+            260,
+            140
+          ]
+        },
+        {
+          "id": "valve",
+          "kind": "insert",
+          "layer": "SYMBOL",
+          "source": "Explicit synthetic drawing acceptance fixture; dimensions are illustrative, not a building design",
+          "classification": "assumed",
+          "block": "VALVE",
+          "insert": [
+            200,
+            140
+          ],
+          "scale": 1,
+          "rotation": 0
+        },
+        {
+          "id": "system-branch",
+          "kind": "line",
+          "layer": "GEOMETRY",
+          "source": "Explicit synthetic drawing acceptance fixture; dimensions are illustrative, not a building design",
+          "classification": "assumed",
+          "start": [
+            240,
+            140
+          ],
+          "end": [
+            240,
+            115
+          ]
+        },
+        {
+          "id": "end-terminal",
+          "kind": "circle",
+          "layer": "GEOMETRY",
+          "source": "Explicit synthetic drawing acceptance fixture; dimensions are illustrative, not a building design",
+          "classification": "assumed",
+          "center": [
+            240,
+            112
+          ],
+          "radius": 3
+        }
+      ]
+    },
+    {
+      "id": "detail",
+      "entities": [
+        {
+          "id": "detail-label",
+          "kind": "text",
+          "layer": "ANNOTATION",
+          "source": "Explicit synthetic drawing acceptance fixture; dimensions are illustrative, not a building design",
+          "classification": "assumed",
+          "insert": [
+            20,
+            83
+          ],
+          "text": "DETAIL / ARC / DIMENSION",
+          "height": 3,
+          "rotation": 0
+        },
+        {
+          "id": "detail-arc",
+          "kind": "arc",
+          "layer": "GEOMETRY",
+          "source": "Explicit synthetic drawing acceptance fixture; dimensions are illustrative, not a building design",
+          "classification": "assumed",
+          "center": [
+            45,
+            48
+          ],
+          "radius": 18,
+          "start_angle": 0,
+          "end_angle": 90
+        },
+        {
+          "id": "detail-leg",
+          "kind": "line",
+          "layer": "GEOMETRY",
+          "source": "Explicit synthetic drawing acceptance fixture; dimensions are illustrative, not a building design",
+          "classification": "assumed",
+          "start": [
+            45,
+            66
+          ],
+          "end": [
+            75,
+            66
+          ]
+        },
+        {
+          "id": "detail-dimension",
+          "kind": "dimension",
+          "layer": "ANNOTATION",
+          "source": "Explicit synthetic drawing acceptance fixture; dimensions are illustrative, not a building design",
+          "classification": "assumed",
+          "p1": [
+            45,
+            66
+          ],
+          "p2": [
+            75,
+            66
+          ],
+          "distance": 8,
+          "text_height": 2.5
+        }
+      ]
+    }
+  ]
+}

@@ -64,5 +64,36 @@ and2native dimensions; read-only inspection returns the same result. Its rendere
 pixels exactly match the previously visually inspected material-section drawing.
 This tests an independently started MCP process; it does not assert the desktop's
 already-running connection has reloaded the new tools. Unified workflow task
-registration and automatic layout remain open. See
+registration and within-view label placement remain open. See
 evidence/mcp-drawing-document.json.
+
+## Automatic view packing
+
+The same MCP author/inspect tools also accept `bsa.drawing-layout/1`; example:
+`examples/drawing-layout.json`. Define named views containing ordinary drawing
+entities, a content window and a paper-space gap in millimetres. The adapter uses
+ezdxf bounding boxes including dimension graphics/text, then pinned rectpack0.2.2
+MaxRects packing. Views translate only: no rotation, geometry scaling, changed
+dimension distance or modified symbol definitions. Reserved title/frame/reference
+regions are excluded. Upstream ceiling-rounded rectangle extents and floor-rounded
+bin sizes avoid underestimating view sizes. An independent region check rejects
+overlap/outside placements. Failure to place every view reports heuristic failure,
+not proof that no arrangement exists. Inspection reconstructs the layout and
+resolved document from the source before checking native outputs.
+
+Install the optional `drawing-layout` extra. Upstream is Apache-2.0, fixed tag
+0.2.2/commit123d57e0ef22adb5ae5f09b435c69f0589f521d1; the PyPI source archive hash
+and all nine installed runtime file hashes are recorded in
+`third_party/rectpack-0.2.2.json`. The exact-tag license is preserved. No rectangle
+packing algorithm is reimplemented. The first no-build-isolation install attempt
+failed because this environment lacks setuptools; ordinary isolated wheel build
+succeeded from the already hash-verified source archive.
+
+Three new tests pass for deterministic/nonoverlapping placement, retained model
+dimensions and input immutability, reserved/too-small windows and altered resolved
+documents. Existing five drawing and two MCP tests pass. Actual BSE3227 MCP
+author/inspect executes on plan/side/notes views,132native entities/two dimensions;
+the actual PDF is rendered and visually inspected without observed view overlap
+or clipping. Printed550/381.07mm dimensions and1:10 scale stay unchanged. This is
+inter-view approximate bounding-box layout; font substitution and intra-view text
+collisions still require separate review. See evidence/automatic-drawing-layout.json.

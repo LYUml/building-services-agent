@@ -1,0 +1,21 @@
+{
+  "name": "rectpack",
+  "version": "0.2.2",
+  "upstream": "https://github.com/secnot/rectpack",
+  "tag": "0.2.2",
+  "commit": "123d57e0ef22adb5ae5f09b435c69f0589f521d1",
+  "sdist_sha256": "15e383505fdfbaeb55ec640a5825d9ca2ce89019a6cdd552d6e57ec36c68ba2a",
+  "license": "Apache-2.0",
+  "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+  "runtime_files": {
+    "enclose.py": "7cc2a12002acd7f97d82779fe279e4b9dfec996ef2ed00e6c6f9c34e64fbe827",
+    "geometry.py": "3c04b199eea570ea7d9866570ce35892bffbaf47df50dd087470e341174318e0",
+    "guillotine.py": "1bc0d4ce24d05eb1f83a1dca7b3f4485f9e192795ab7eefa787403f5d655f8a1",
+    "maxrects.py": "4d11a7a7a80cb7fea23b056dd0a027f18830985b0c09d9c2e40510fe02757487",
+    "packer.py": "b26ab4cb5667a461b9926fd95600d826c59871cffa0471366a46e63bc16bf0b5",
+    "pack_algo.py": "5127e6410bb7945471bf64ac99ad13f3df11be20a5aa9b5c2ad54e5c19d02224",
+    "skyline.py": "66b592e114a810a6f25162e5c950ae9a657be79af9669edb8369135fad4532ba",
+    "waste.py": "7f503917bd1e76f1f72cab611b787ee1a596a5c1138f6b50aa1ed1ca2d0bdd46",
+    "__init__.py": "c8c8dacb4b8c642176f23bd14244f61fd8a8ca855068ad99a6831da0b294a3c0"
+  }
+}

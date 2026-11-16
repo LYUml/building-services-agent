@@ -1,0 +1,167 @@
+{
+  "scope": "Executed automatic inter-view layout via pinned upstream; not arbitrary drawing/design acceptance",
+  "upstream": {
+    "name": "rectpack",
+    "version": "0.2.2",
+    "upstream": "https://github.com/secnot/rectpack",
+    "commit": "123d57e0ef22adb5ae5f09b435c69f0589f521d1",
+    "sdist_sha256": "15e383505fdfbaeb55ec640a5825d9ca2ce89019a6cdd552d6e57ec36c68ba2a",
+    "license": "Apache-2.0"
+  },
+  "implementation_sha256": "58a33b3bf9c0e13c0303556c9c616070f9b28087309d3c57b3151b9040a36ad8",
+  "actual_course_protocol": {
+    "result": {
+      "integrity_pass": true,
+      "native_reopen_pass": true,
+      "editable_entities": {
+        "model_entities": 132,
+        "entity_types": {
+          "LINE": 121,
+          "TEXT": 8,
+          "DIMENSION": 2,
+          "LWPOLYLINE": 1
+        },
+        "editable_entity_correspondence": true,
+        "dimension_rendering_visual_review": "pending"
+      },
+      "artifacts": [
+        {
+          "path": "drawing/Drawing.dxf",
+          "sha256": "ca145bf2d7b45af17cf51b5540852746c6325acb13bf85c8c6c4401f6bb02d02",
+          "bytes": 105069
+        },
+        {
+          "path": "drawing/Drawing.dwg",
+          "sha256": "be63241b72eacae63dcd93310508a8a98689defe8db074aab81afd3273c26716",
+          "bytes": 28562
+        },
+        {
+          "path": "drawing/Drawing.pdf",
+          "sha256": "830be628f50a7657819e97d1e6ef02a258aed63248d8ffc1a9c0309bb76527de",
+          "bytes": 11377
+        }
+      ],
+      "visual_review": "pending",
+      "design_accepted": false,
+      "layout": {
+        "placements": {
+          "plan": {
+            "translation": [
+              -44.021145975443375,
+              -716.7045048711651
+            ],
+            "source_bounds": [
+              164.02114597544337,
+              1016.7045048711651,
+              1110.649394347241,
+              1674.6298788694482
+            ],
+            "placed_bounds": [
+              120.0,
+              300.0,
+              1066.6282483717976,
+              957.9253739982831
+            ],
+            "padded_region": [
+              80.0,
+              260.0,
+              1106.628249,
+              997.925374
+            ]
+          },
+          "side": {
+            "translation": [
+              -171.7045048711651,
+              620.4253739999999
+            ],
+            "source_bounds": [
+              291.7045048711651,
+              417.5,
+              1102.3889636608346,
+              974.6298788694481
+            ],
+            "placed_bounds": [
+              120.0,
+              1037.925374,
+              930.6844587896695,
+              1595.055252869448
+            ],
+            "padded_region": [
+              80.0,
+              997.925374,
+              970.684459,
+              1635.055253
+            ]
+          },
+          "notes": {
+            "translation": [
+              -89.31554100000005,
+              -194.6573985437417
+            ],
+            "source_bounds": [
+              1100.0,
+              1232.5827725437416,
+              2049.9528936742936,
+              1424.6298788694482
+            ],
+            "placed_bounds": [
+              1010.684459,
+              1037.925374,
+              1960.6373526742937,
+              1229.9724803257066
+            ],
+            "padded_region": [
+              970.684459,
+              997.925374,
+              2000.637353,
+              1269.972481
+            ]
+          }
+        },
+        "rotation": false,
+        "scaling": false,
+        "gap_mm": 8,
+        "rectpack_version": "0.2.2",
+        "rectpack_commit": "123d57e0ef22adb5ae5f09b435c69f0589f521d1",
+        "scope": "Inter-view approximate font/geometry bounding boxes; intra-view labels and actual native plots require separate review"
+      },
+      "scope": "Packed declared views and native drawing correspondence; visual/engineering acceptance separate"
+    },
+    "escape_rejected": true,
+    "listed_tools": true,
+    "same_inspection_result": true,
+    "desktop_existing_connection_reloaded": false
+  },
+  "plot": {
+    "pdf_sha256": "830be628f50a7657819e97d1e6ef02a258aed63248d8ffc1a9c0309bb76527de",
+    "dwg_unchanged": true,
+    "paper_mm": [
+      297.03888888888883,
+      209.90277777777777
+    ],
+    "scale_denominator": 10,
+    "reference_handle": "12E",
+    "reference_expected_mm": 50.0,
+    "reference_measured_mm": 50.03799999999999,
+    "pdf_reference_pass": true,
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "actual_visual_review": {
+    "rendered_and_inspected": true,
+    "printed_dimensions_mm": [
+      550,
+      381.07
+    ],
+    "observed_overlap_or_clipping": false,
+    "scope": "Three views/notes regions; no full engineering acceptance"
+  },
+  "tests": {
+    "layout_tests_passed": 3,
+    "existing_drawing_tests_passed": 5,
+    "existing_mcp_tests_passed": 2,
+    "skipped": 0
+  },
+  "design_adopted": false,
+  "design_accepted": false
+}

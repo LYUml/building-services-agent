@@ -4,7 +4,8 @@ Current priority follows the user's explicit addition-first direction: general
 AutoCAD2D drawing, before later convergence. Shared source-classified drawing
 documents now have native editable dimensions/symbols, guarded DWG/PDF execution
 and actual MCP stdio author/inspect evidence, including BSE3227 geometry.
-Automatic layout, source-DWG editing and unified workflow registration remain
+Automatic inter-view packing now reuses pinned rectpack with actual BSE3227
+MCP/native/plot evidence. Within-view label placement, source-DWG editing and unified workflow registration remain
 unfinished; the desktop connection was not restarted. See [drawing document](DRAWING_DOCUMENT.md).
 
 One actual plenum first-order case now passes the complete200sample numerical window. Mesh, higher-order and physical acceptance remain open; no design pressure adopted. See [native study](OPENFOAM_IMPORT_PRECISION.md).
