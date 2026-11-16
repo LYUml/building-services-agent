@@ -250,3 +250,26 @@ legend and annotation overlap; identical clean figure bytes are copied to the
 course calculation figures. [Figure source hashes](evidence/openfoam-startup-figure.json).
 
 ![Unaccepted plenum numerical startup](figures/openfoam-plenum-startup.png)
+
+
+## Later complete numerical window
+
+The next bounded run finishes650normally with a saved650field. The native CLI
+requires and assesses exactly451..650. Flow and mass pass, all four differences
+remain positive, but relative pressure ranges are0.776%,2.627%,1.521%,1.971%:
+still above the unchanged0.5%target. This remains a FAILED numerical window.
+
+All six saved fields contain813620finite cell values; k,omega,nut are nonnegative.
+Native p and Pt dimensions are respectively kinematic pressure and Pa. Global
+speed maximum6.714m/s and no negative-k bounding events confirm the earlier
+high-speed startup anomaly has decayed in the saved fields. Initial residuals
+are retained separately, including all pressure nonorthogonal correctors;
+this receipt does not assign a new residual acceptance threshold. First-order
+accuracy, three mesh-quality checks and physical/model/station applicability
+remain open. No pressure is transferred into the design ledger.
+
+Because pressure variation fell from39--60% to0.78--2.63% and residuals continue
+to fall, an explicitly bounded source-identical continuation resumes saved650
+(index660) to1050, with expected fields785/1050 and required window851..1050.
+No numerical or physical parameters or acceptance thresholds change in this
+continuation. [Executed later window](evidence/openfoam-plenum-window-650.json).

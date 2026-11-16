@@ -1,0 +1,162 @@
+{
+  "window_iterations": [
+    451,
+    650
+  ],
+  "maximum_relative_flow_errors": {
+    "inlet": 3.0535505050292667e-15,
+    "outlet_0": 1.0326964462787767e-14,
+    "outlet_1": 1.251753268216699e-14,
+    "outlet_2": 1.2246429128607205e-14,
+    "outlet_3": 1.204812520658574e-14
+  },
+  "maximum_relative_mass_imbalance": 7.874946039286003e-15,
+  "pressures": {
+    "outlet_0": {
+      "mean_Pa": 5.852658155832122,
+      "range_Pa": 0.045429328667918156,
+      "relative_range": 0.007762170189736475,
+      "positive": true,
+      "stable": false
+    },
+    "outlet_1": {
+      "mean_Pa": 6.022081141530179,
+      "range_Pa": 0.15817552179934324,
+      "relative_range": 0.02626592337132669,
+      "positive": true,
+      "stable": false
+    },
+    "outlet_2": {
+      "mean_Pa": 3.2649197252545337,
+      "range_Pa": 0.04967433641943231,
+      "relative_range": 0.015214565931038225,
+      "positive": true,
+      "stable": false
+    },
+    "outlet_3": {
+      "mean_Pa": 3.731173138606672,
+      "range_Pa": 0.07354627259050162,
+      "relative_range": 0.01971129986692762,
+      "positive": true,
+      "stable": false
+    }
+  },
+  "numerical_targets": {
+    "flow": 0.001,
+    "mass": 0.001,
+    "pressure_range": 0.005
+  },
+  "flow_pass": true,
+  "mass_pass": true,
+  "pressure_stability_pass": false,
+  "numerical_window_pass": false,
+  "engineering_accepted": false,
+  "scope": "First-order actual first-family native451..650 numerical window; failed pressure stability, no engineering acceptance",
+  "complete_200_step_window": true,
+  "declared_native_units": {
+    "phi": "m3/s",
+    "Pt": "Pa"
+  },
+  "provenance": {
+    "manifest_sha256": "754383e5d8a5cd5f26f322ae9601d6d3cda327ca2256e71873eec3f9639846c7",
+    "native_input_sha256": {
+      "inlet/flux": "f0d44ea8059dd45e671e9554fff6d76e1508c2543cdd959577a5b0bbde308d7c",
+      "inlet/total_pressure": "b7d8e858d7ba5780be6059f49aa59aede138b50812c73515a0a4d33bbcca8614",
+      "outlet_0/flux": "4da6d8aee79c9f7585c58030853e51a28f41bcec6593ec652dd3eebaf72974ce",
+      "outlet_0/total_pressure": "0b86a73d7c07543d212869b0a93e5d2200199e165fedc21f16ad953f67e49ee1",
+      "outlet_1/flux": "713bb06b48bcf6b0e673abadd52f90d01532ead582ba13e9c5bcf1f050239002",
+      "outlet_1/total_pressure": "39a33b7d92ee824d22739dfcc0a9b0d0c955ca83bfc4ec0633d79ae3ffc8cf4b",
+      "outlet_2/flux": "6bb1beb294b7de0a6c89e3e19a1bdd64bb8d7fc542ae1d9246fada92159e53e6",
+      "outlet_2/total_pressure": "0a1624ab783649ec52e09acee5cb2d2f150ccd97c0193bec5e277d6c545e2a33",
+      "outlet_3/flux": "c37a3573e1606a41b61691d8c833726d758077f9b4551d5a6157758b4689317a",
+      "outlet_3/total_pressure": "de6a2fd7e8f1070c586cb712fa27355fa65fe6ebd4183b6a220893605bcfcc1b"
+    },
+    "basis_file_sha256": {
+      "source_flow": "455fb85366fc5496510b3c954cf2d28fd2eecf68e01cc8f72ab1c0e06fbaf2dd",
+      "native_pressure_observer": "816266fe0aaca98f623cd88447045a2c7c5cc6191f597d665b7ab04ceab19686",
+      "phase_numerics": "f1dd95b5833cec85413842e53315fc46c424a07163d0391f484ad1e37ea2399f",
+      "phase_control": "aacdfd63529fc6d3031613be937ef54d6b952c6612543dd86f2001bccc986229"
+    },
+    "adapter_sha256": "201a0e0069f19604f9000e1388015f7cac202916a99930ed90e494b0a469ae0e",
+    "assessor_sha256": "256877f3486b8c681fd255293b6834761fec91bb130c1690cd62332a60283092"
+  },
+  "saved_field_review": {
+    "scope": "Saved650 first-order native fields and residual diagnostics only",
+    "field_time": 650,
+    "engineering_accepted": false,
+    "fields": {
+      "U": {
+        "native_cell_values": 813620,
+        "minimum": 7.192380041735095e-05,
+        "maximum": 6.714441968491267,
+        "sha256": "4a684a8ab7c99b549d119540f2dc6e12ccfa252de0a1d8744d303b47b0364b43"
+      },
+      "p": {
+        "native_cell_values": 813620,
+        "minimum": -26.88712456956276,
+        "maximum": 28.901323695456398,
+        "sha256": "a5ce010f75c691755283237c5662ed9521bf8276337956c0f0c5776a3ee5d6e9"
+      },
+      "Pt": {
+        "native_cell_values": 813620,
+        "minimum": -32.26009814478014,
+        "maximum": 47.572109518330535,
+        "sha256": "39b7a3881157e16fafbbe1238da388f41448373456e680d66cedf990e5b16612"
+      },
+      "k": {
+        "native_cell_values": 813620,
+        "minimum": 3.3324078129165867e-06,
+        "maximum": 1.455102523719382,
+        "sha256": "17bbf4838ff5ce51ecb670c3df27bed7b084a354438e3ead8deb0f3f0ea74281"
+      },
+      "omega": {
+        "native_cell_values": 813620,
+        "minimum": 49.983358887435585,
+        "maximum": 81117186.45605958,
+        "sha256": "ce10d80c95baf486db6a7348536938845cc8533dc72315a5aa52c93c7a1eaf73"
+      },
+      "nut": {
+        "native_cell_values": 813620,
+        "minimum": 4.344074335797175e-11,
+        "maximum": 0.002976799680053652,
+        "sha256": "9cf68895c84d30a5a9e28b025f867ab14f7c3c6ba5b77b3b6a9e868b68559bb3"
+      }
+    },
+    "initial_residual_ranges_last200": {
+      "Ux": {
+        "minimum": 2.1627585630888488e-05,
+        "maximum": 0.00012894367078765154,
+        "terminal": 2.1627585630888488e-05
+      },
+      "Uy": {
+        "minimum": 1.9077402035674643e-05,
+        "maximum": 0.00011280327228391719,
+        "terminal": 1.9077402035674643e-05
+      },
+      "Uz": {
+        "minimum": 9.520165345355906e-05,
+        "maximum": 0.0006033335649115286,
+        "terminal": 9.520165345355906e-05
+      },
+      "p": {
+        "minimum": 9.896605888206654e-06,
+        "maximum": 0.0005751685031742385,
+        "terminal": 9.896605888206654e-06
+      },
+      "omega": {
+        "minimum": 2.255477968109836e-09,
+        "maximum": 1.2891636810443255e-08,
+        "terminal": 4.510997722980842e-09
+      },
+      "k": {
+        "minimum": 1.6972526742278335e-05,
+        "maximum": 8.035542671579387e-05,
+        "terminal": 1.6972526742278335e-05
+      }
+    },
+    "negative_k_bounding_events": 0,
+    "residual_acceptance_target_not_defined_by_this_review": true,
+    "pressure_residual_statistics_include_all_nonorthogonal_corrections": true
+  },
+  "native_control_snapshot_preserved": true
+}
