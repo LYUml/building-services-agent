@@ -1,6 +1,6 @@
 """Independently replay a catalogue recovery receipt and its original failure."""
 from pathlib import Path
-from . import catalogue_iteration as iteration,circular_fan_selection as selection
+from . import catalogue_iteration as iteration
 from . import delivery,modules,workflow,workflow_status
 from .cli import digest
 from .engine import ProjectError
@@ -35,6 +35,7 @@ def verify(folder):
         # pump.run separately reruns the selected network with the same engine.
         replay['selected_rerun_pass']=bool(operating is not None and iteration.pump.calculate(operating)['calculated_checks_pass'])
     else:
+        from . import circular_fan_selection as selection
         project,_,inputs,_,options,mechanical=selection.context(pressure,old_catalogue)
     def evaluate(row,name):
         try:

@@ -1,3 +1,15 @@
+## Remote CI diagnosis and lighter pump recovery
+
+Actual predecessor core CI passes on Windows/Ubuntu; other jobs exposed missing
+owned runs and eager fan/geometry imports. Six legacy jobs now initialize test
+workspace; recovery imports geometry only at the relevant domain boundary.
+Pure network MCP runs without IFC/Manifold, while coupled QA explicitly declares
+clash dependencies.57core and5network-profile tests pass; corrected remote jobs
+still need verification. Pump-import median peak101.23->28.56MiB across3fresh
+processes; this is import overhead, not whole-solver memory. See
+[failures, fixes and evidence](CI_RECOVERY_DEPENDENCIES.md). Goal remains active;
+no release or BSE3227 change.
+
 ## Core CI and self-contained PDF checks
 
 New core Windows/Ubuntu and SDK integration jobs declare their own dependency

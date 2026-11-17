@@ -20,7 +20,8 @@ def memory():
  if not psapi.GetProcessMemoryInfo(kernel.GetCurrentProcess(),ctypes.byref(c),c.cb):raise ctypes.WinError()
  return dict(peak_bytes=c.PeakWorkingSetSize,current_bytes=c.WorkingSetSize)
 probe=sys.argv[1];before=memory();start=time.perf_counter()
-if probe=='cli_import':import bsa.cli
+if probe=='pump_import':import bsa.pump_catalogue_iteration
+elif probe=='cli_import':import bsa.cli
 elif probe=='workflow_import':import bsa.workflow
 else:
  from bsa.mcp_server import create_server
@@ -44,7 +45,7 @@ if not 1<=args.trials<=10:parser.error('trials must be between 1 and 10')
 out=args.out.resolve()
 if not out.is_relative_to(ROOT/'runs') or out.exists():parser.error('Fresh repository runs directory required')
 out.mkdir(parents=True);rows=[]
-for probe in ['cli_import','workflow_import','mcp_create','transport_quiet','transport_32mib']:
+for probe in ['cli_import','workflow_import','pump_import','mcp_create','transport_quiet','transport_32mib']:
  for trial in range(args.trials):
   env=dict(os.environ);env.pop('BSA_PROJECT_ROOT',None)
   p=subprocess.run([sys.executable,'-X','utf8','-c',CODE,probe],cwd=ROOT,env=env,stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,text=True,encoding='utf-8');assert p.returncode==0,(probe,p.stdout)

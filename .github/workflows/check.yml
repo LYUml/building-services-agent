@@ -8,6 +8,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Initialize repository test workspace
+        run: python -c "from pathlib import Path; Path('runs').mkdir(exist_ok=True)"
       - uses: actions/cache@v4
         with:
           path: tools/downloads/energyplus.zip
@@ -57,6 +59,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Initialize repository test workspace
+        run: python -c "from pathlib import Path; Path('runs').mkdir(exist_ok=True)"
       - run: python -m pip install -e ".[dev,water,bim]"
       - run: python -m unittest discover -s tests -p test_epanet.py -v
       - run: python -m unittest discover -s tests -p test_water_binding.py -v
@@ -71,6 +75,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Initialize repository test workspace
+        run: python -c "from pathlib import Path; Path('runs').mkdir(exist_ok=True)"
       - run: python -m pip install -e ".[dev]"
       - run: python -m unittest discover -s tests -v
       - run: bsa run examples/office-electrical/project.json --out runs/office
@@ -86,6 +92,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Initialize repository test workspace
+        run: python -c "from pathlib import Path; Path('runs').mkdir(exist_ok=True)"
       - run: python -m pip install -e ".[dev,bim,clash]"
       - run: python -m unittest discover -s tests -p test_bim.py -v
       - run: python -m unittest discover -s tests -p test_circular_geometry.py -v
@@ -106,6 +114,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Initialize repository test workspace
+        run: python -c "from pathlib import Path; Path('runs').mkdir(exist_ok=True)"
       - run: python -m pip install -e ".[dev,network,bim,clash]"
       - run: python -m unittest discover -s tests -p test_network.py -v
       - run: python -m unittest discover -s tests -p test_network_binding.py -v
@@ -139,6 +149,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Initialize repository test workspace
+        run: python -c "from pathlib import Path; Path('runs').mkdir(exist_ok=True)"
       - run: python -m pip install -e ".[dev,bim]"
       - run: python scripts/setup_radiance.py
       - run: python -m unittest discover -s tests -p test_lighting.py -v

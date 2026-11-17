@@ -8,8 +8,9 @@ their existing coverage/dependency issues. No failing domain was disabled.
 
 | Job | Environment | Checks |
 |---|---|---|
-| core | Windows and Ubuntu, Python3.12; drawing/MCP/setup extras | Setup, explicit profile doctor, pip check and48core tests |
-| mcp-integration | Ubuntu, Python3.12; same extras plus IFC/network; host Poppler | Actual SDK source/handoff, PDF rendering, recovery and rejection tests |
+| core | Windows and Ubuntu, Python3.12; drawing/MCP/setup extras | Setup, explicit profile doctor, pip check and57core tests |
+| pump-network | Ubuntu, Python3.12; core plus network, explicitly no IFC/Manifold | Pure numerical recovery, actual MCP iteration and import isolation |
+| mcp-integration | Ubuntu, Python3.12; core plus IFC/network/clash; host Poppler | Actual SDK source/handoff, PDF rendering, coupled model QA/recovery and rejection tests |
 
 The new workflow pins the existing checkout v4 and setup-python v5 actions to
 their official source commit IDs, resolved before writing the workflow. It
@@ -45,9 +46,14 @@ group runs5tests with zero skips, including the formerly skipped PDF case.
 No CFD, AutoCAD or whole-repository regression is inferred from these counts.
 See [local evidence](evidence/self-contained-core-ci.json).
 
-Remote Windows/Linux Actions results are not inferred from these local passes.
-The available classic commit-status response was empty; that does not establish
-the state of GitHub Actions check runs. Until actual workflow results are
-inspected, the remote matrix remains unverified. The legacy all-test electrical
-job and remaining domain coverage still need explicit dependency/coverage review
-before candidate acceptance. There is no claim that the repository CI is green.
+The predecessor commit ad3552b's actual remote core jobs both passed on Windows
+and Ubuntu with the earlier48-test command. Its SDK integration job passed the
+self-contained PDF case but failed on recovery's unneeded eager geometry import.
+The classic status endpoint was empty, so actual Actions jobs/logs were inspected
+instead. The current57-test and newly split network/clash matrix still require
+remote verification after the corrective commit. See
+[bootstrap/dependency diagnosis](CI_RECOVERY_DEPENDENCIES.md).
+
+The legacy all-test electrical job and remaining domain coverage still need
+explicit dependency/coverage review before candidate acceptance. There is no
+claim that the repository CI is green.

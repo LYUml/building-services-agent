@@ -50,9 +50,11 @@ matrix. See [measured evidence](evidence/worker-transport-memory.json).
 ## Remaining candidate gates
 
 - Core CI now has explicit minimal and SDK integration profiles, and the PDF
-  test generates its own recorded fixture.48minimal-profile and5actual SDK/native
-  tests pass locally without skips. Remote results and legacy domain jobs remain
-  unverified/unreconciled; see [CI profile evidence](CI_PROFILES.md).
+  test generates its own recorded fixture. Earlier48-test core jobs passed on
+  actual Windows/Ubuntu runners. The current57-test core, network-only MCP and
+  coupled clash profiles fix diagnosed bootstrap/import gaps; corrected remote
+  results and remaining legacy jobs still need inspection. See
+  [dependency isolation and measured import cost](CI_RECOVERY_DEPENDENCIES.md).
 
 - Freeze supported platform/runtime/profile contracts and map promised project
   operations to actual MCP calls; identify explicit host/manual preparation.

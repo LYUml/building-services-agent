@@ -1,0 +1,171 @@
+{
+  "date": "2026-11-17",
+  "remote_predecessor_commit": "ad3552b5c48d2f9c808c0131a1135a4dff487fe1",
+  "remote_core_jobs": {
+    "windows": "success",
+    "ubuntu": "success",
+    "tests_per_job": 48
+  },
+  "remote_sdk_predecessor": "failed: eager optional geometry import; controlled PDF case passed",
+  "confirmed_remote_missing_runs_jobs": [
+    "ifc",
+    "lighting"
+  ],
+  "all_six_legacy_jobs_bootstrapped": true,
+  "local_core": {
+    "run": 57,
+    "passed": 57,
+    "skipped": 0
+  },
+  "local_network_profile": {
+    "run": 5,
+    "passed": 5,
+    "skipped": 0,
+    "ifcopenshell_installed": false,
+    "manifold_installed": false
+  },
+  "local_coupled_fixed": {
+    "run": 1,
+    "passed": 1
+  },
+  "local_domain_bootstrap": {
+    "run": 26,
+    "passed": 25,
+    "skipped": 1,
+    "native_flags_unset": true
+  },
+  "other_local_groups": {
+    "pump_import_controller": 15,
+    "fan_recovery": 14,
+    "groups_overlap": true
+  },
+  "benchmark": {
+    "rows": [
+      {
+        "probe": "pump_import",
+        "seconds": 0.5701686999964295,
+        "before": {
+          "peak_bytes": 24473600,
+          "current_bytes": 24473600
+        },
+        "after": {
+          "peak_bytes": 108679168,
+          "current_bytes": 108679168
+        },
+        "phase": "before",
+        "trial": 1
+      },
+      {
+        "probe": "pump_import",
+        "seconds": 0.5129292000056012,
+        "before": {
+          "peak_bytes": 24629248,
+          "current_bytes": 24629248
+        },
+        "after": {
+          "peak_bytes": 106143744,
+          "current_bytes": 106143744
+        },
+        "phase": "before",
+        "trial": 2
+      },
+      {
+        "probe": "pump_import",
+        "seconds": 0.4935486000031233,
+        "before": {
+          "peak_bytes": 24494080,
+          "current_bytes": 24494080
+        },
+        "after": {
+          "peak_bytes": 105897984,
+          "current_bytes": 105897984
+        },
+        "phase": "before",
+        "trial": 3
+      },
+      {
+        "probe": "pump_import",
+        "seconds": 0.0421935000049416,
+        "before": {
+          "peak_bytes": 24637440,
+          "current_bytes": 24637440
+        },
+        "after": {
+          "peak_bytes": 29949952,
+          "current_bytes": 29949952
+        },
+        "phase": "after",
+        "trial": 1
+      },
+      {
+        "probe": "pump_import",
+        "seconds": 0.04208469999139197,
+        "before": {
+          "peak_bytes": 24666112,
+          "current_bytes": 24666112
+        },
+        "after": {
+          "peak_bytes": 30121984,
+          "current_bytes": 30121984
+        },
+        "phase": "after",
+        "trial": 2
+      },
+      {
+        "probe": "pump_import",
+        "seconds": 0.03832950000651181,
+        "before": {
+          "peak_bytes": 24399872,
+          "current_bytes": 24399872
+        },
+        "after": {
+          "peak_bytes": 29896704,
+          "current_bytes": 29896704
+        },
+        "phase": "after",
+        "trial": 3
+      }
+    ],
+    "summary": {
+      "before": {
+        "median_seconds": 0.5129292000056012,
+        "median_peak_bytes": 106143744
+      },
+      "after": {
+        "median_seconds": 0.04208469999139197,
+        "median_peak_bytes": 29949952
+      }
+    },
+    "only_changed_product_files": [
+      "src/bsa/catalogue_iteration.py",
+      "src/bsa/catalogue_iteration_verify.py",
+      "src/bsa/rectangular_fan_selection.py"
+    ],
+    "scope": "Windows fresh process import only, identical installed optional libraries available; not solver runtime or project design memory"
+  },
+  "source_sha256": {
+    "src/bsa/catalogue_iteration.py": "e0985f8fdf5803c720c7ff48b800db8f31f5b87b1edf6778902b45f5666177dc",
+    "src/bsa/catalogue_iteration_verify.py": "04b861cda0c3be2293c4c1656fe1a748fe233befdad2856c0290e6c39a0ee873",
+    "src/bsa/rectangular_fan_selection.py": "8002b6dd9a1f3eb49cd5f76b2ecf671c6aac243109112ca523569e5486d5b5d5",
+    ".github/workflows/core.yml": "e6aab90653d2b9341110a29adba599543aa6271391674360f0efe7e431d26d85",
+    ".github/workflows/check.yml": "aab35bba3f85fcc7891761318d6bfa1f4e577137fe9462283436aca8e8317a52"
+  },
+  "local_evidence_sha256": {
+    "runs/ci-domain-bootstrap/receipt.json": "16f51c4b0ef24ad494dc2f71d130284a12269b4012807a826669713d4b8fb189",
+    "runs/ci-domain-bootstrap/tests.log": "d98ec046f474b70eccf09b30bc1d1d530de7152b479b609fb9ed5e7017823672",
+    "runs/release-core-profile-checks-after-lazy/tests.log": "ceef55ff8f4cbb92f9964a8aa51c4525160243d9a940b8e6af910a6d84ec7130",
+    "runs/network-only-pump-mcp/profile-proof.json": "eb9aea8161aa89bf2d5548ea04bafaa70d3733be6acf8159cb971deb6c7ca1df",
+    "runs/network-only-mcp-tests.log": "114b963de6e66cae2716616f98a3d1c806488cac864b5ade5719dfde872f7cb2",
+    "runs/coupled-mcp-profile-fixed.log": "0c41dde26e65994ba2fd52ad44124a3dffca6bbbc86fdde003de4c6c12d247b9",
+    "runs/recovery-import-isolation-tests.log": "69d18adabf5b937c35ef5923c69b16be538392049ac833329fb1b6b09b7ba64c",
+    "runs/lazy-recovery-fan-regression.log": "c63b33714639e233081f2f7cfb0d24d41577520281fb97fca62fbf92a1a3192f",
+    "runs/pump-import-before-after.json": "e81b1e21bd711987f4297ac909ab1a592468b203432c46d54e059d1df400cc2f",
+    "runs/remote-ifc-ci-failure.json": "d62244ac985fa7dbc45e04bdcfbc5bab2cbcc0246feb9da9a2cbbf778fd9cbaa",
+    "runs/remote-lighting-ci-failure.json": "2e55d1242b1c5efc0bc2a231614457ecfb11c67e084653d3e55e83fd5ca68e9b",
+    "runs/remote-mcp-ci-failure.json": "3332db3f5f1057e5e395990437817e2a8e1c2c33a0a93956d9f940fc58fc7245",
+    "runs/remote-core-ci-predecessor-jobs.json": "69c5c5611ba01485895c40a50e5b9bb90605008e8200f6654e0ea932136853e6"
+  },
+  "corrected_remote_ci_verified": false,
+  "release_ready": false,
+  "design_accepted": false
+}

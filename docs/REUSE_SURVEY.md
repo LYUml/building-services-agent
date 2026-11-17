@@ -1,3 +1,13 @@
+## Lazy recovery and explicit model QA profiles
+
+Retained existing finite ranking, pump/fan solvers and native geometry validators.
+The actual remote failure identified optional-domain import coupling; conditional
+imports now reuse each engine only at its domain boundary. Existing source/method
+pins, ranking and validation remain intact. Pure numerical MCP excludes IFC/
+Manifold; coupled model QA still uses the existing declared clash extra. No new
+engine/dependency or weakened checks. See
+[executed dependency/import evidence](CI_RECOVERY_DEPENDENCIES.md).
+
 ## Self-contained rendering and core CI
 
 Reused pinned pypdf7.0.0 public page/content APIs, actual Poppler rendering and

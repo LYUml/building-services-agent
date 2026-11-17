@@ -280,7 +280,8 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                         checked=await call('bsa_verify_pump_recovery',dict(out='coupled/selection'))
                         self.assertTrue(checked['integrity_pass']);self.assertTrue(checked['full_plan_executed']);self.assertFalse(checked['design_accepted'])
                         diagnosis=await call('bsa_diagnose_workflow',dict(plan='coupled/selected-plan.json',out='coupled/selection/replay/workflow'))
-                        self.assertTrue(all(t['status']=='pass' for t in diagnosis['tasks']))
+                        self.assertTrue(all(t['status']=='pass' for t in diagnosis['tasks']),
+                            json.dumps(diagnosis['tasks'],default=str))
                         catalogue['candidates']=rows[:1]
                         await call('bsa_save_json',dict(path='coupled/no-eligible-catalogue.json',data=catalogue))
                         stopped=await call('bsa_recover_pump_catalogue',dict(plan='coupled/coupled-plan.json',original_run='coupled/original-run',task=pump_task,catalogue='coupled/no-eligible-catalogue.json',target='coupled/no-selected-plan.json',out='coupled/selection-none',electrical_task='coupled'))

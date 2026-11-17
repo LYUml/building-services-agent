@@ -46,14 +46,14 @@ class CatalogueIterationTests(unittest.TestCase):
         self.assertFalse(self.out.exists())
 
     def test_stale_original_cannot_start_recovery(self):
-        with patch('bsa.catalogue_iteration.delivery.context',return_value=({}, {}, {'integrity_pass':False})),patch('bsa.catalogue_iteration.circular_fan_selection.run') as solve:
+        with patch('bsa.catalogue_iteration.delivery.context',return_value=({}, {}, {'integrity_pass':False})),patch('bsa.catalogue_iteration.selection_run') as solve:
             with self.assertRaisesRegex(ValueError,'stale'):self.invoke()
         solve.assert_not_called();self.assertFalse(self.out.exists());self.assertFalse(self.target.exists())
 
     def test_blocked_selection_cannot_skip_upstream_recovery(self):
         source={'tasks':[{'id':'selection','kind':'circular_fan_selection'}]}
         report={'tasks':{'selection':{'status':'fail'}}}
-        with patch('bsa.catalogue_iteration.delivery.context',return_value=(source,report,{'integrity_pass':True})),patch('bsa.catalogue_iteration.workflow_status.diagnose',return_value={'recovery_schedule':{'ready_tasks':['pressure']}}),patch('bsa.catalogue_iteration.circular_fan_selection.run') as solve:
+        with patch('bsa.catalogue_iteration.delivery.context',return_value=(source,report,{'integrity_pass':True})),patch('bsa.catalogue_iteration.workflow_status.diagnose',return_value={'recovery_schedule':{'ready_tasks':['pressure']}}),patch('bsa.catalogue_iteration.selection_run') as solve:
             with self.assertRaisesRegex(ValueError,'Ready failed'):self.invoke()
         solve.assert_not_called();self.assertFalse(self.out.exists())
 
@@ -76,7 +76,7 @@ class CatalogueIterationTests(unittest.TestCase):
         source={'tasks':[{'id':'selection','kind':'circular_fan_selection','depends_on':'pressure','catalogue':'old-catalogue.json'}], 'requirements':[{'id':'R1'}]}
         report={'tasks':{'selection':{'status':'fail'}},'inputs':{},'artifact_hashes':{'selection/fan-selection.json':digest(saved)}}
         changed=copy.deepcopy(baseline);changed['candidates'][0]['operating_point']['flow_m3_s']=.07
-        with patch('bsa.catalogue_iteration.delivery.context',return_value=(source,report,{'integrity_pass':True})),patch('bsa.catalogue_iteration.workflow_status.diagnose',return_value={'recovery_schedule':{'ready_tasks':['selection']}}),patch('bsa.catalogue_iteration.circular_fan_selection.context',return_value=(None,None,{},None,None,None)),patch('bsa.catalogue_iteration.circular_fan_selection.run',return_value=changed),patch('bsa.catalogue_iteration.workflow.execute') as execute:
+        with patch('bsa.catalogue_iteration.delivery.context',return_value=(source,report,{'integrity_pass':True})),patch('bsa.catalogue_iteration.workflow_status.diagnose',return_value={'recovery_schedule':{'ready_tasks':['selection']}}),patch('bsa.catalogue_iteration.selection_context',return_value=(self.original/'pressure',{})),patch('bsa.catalogue_iteration.selection_modules',return_value=()),patch('bsa.catalogue_iteration.selection_run',return_value=changed),patch('bsa.catalogue_iteration.workflow.execute') as execute:
             result=self.invoke()
         self.assertEqual(result['status'],'failed');self.assertIn('baseline',result['stage_errors'])
         self.assertFalse(self.target.exists());execute.assert_not_called()

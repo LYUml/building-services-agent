@@ -5,10 +5,23 @@ import math
 from pathlib import Path
 from .cli import digest
 from .engine import ProjectError
-from .rectangular_binding import verified_study
-from .rectangular_fan import validate_curve,run as trial
 # Same explicit preference contract as circulation_pump_design; no EPANET dependency.
 OBJECTIVE='lowest declared preference among passing candidates'
+
+
+def validate_curve(curve):
+    from .rectangular_fan import validate_curve as validate
+    return validate(curve)
+
+
+def trial(*args,**kwargs):
+    from .rectangular_fan import run
+    return run(*args,**kwargs)
+
+
+def verified_study(*args,**kwargs):
+    from .rectangular_binding import verified_study as verify
+    return verify(*args,**kwargs)
 
 
 def candidates(catalogue,*,curve_validator=validate_curve):

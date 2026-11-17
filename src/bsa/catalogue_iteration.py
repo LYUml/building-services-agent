@@ -5,7 +5,7 @@ import json
 import os
 from pathlib import Path
 
-from . import circular_fan_selection, pump, delivery, modules, workflow, workflow_status
+from . import pump, delivery, modules, workflow, workflow_status
 from .cli import digest
 from .module_contract import read_json
 from .workspace import allowed
@@ -22,6 +22,7 @@ def revision_field(task):
 
 def selection_context(task,source,plan,original,replacement):
     if task['kind']=='circular_fan_selection':
+        from . import circular_fan_selection
         pressure=original/task['depends_on']
         _,_,inputs,_,_,_=circular_fan_selection.context(pressure,replacement)
         return pressure,inputs
@@ -34,7 +35,9 @@ def selection_context(task,source,plan,original,replacement):
 
 
 def selection_run(task,context,replacement,out):
-    return (pump.run if task['kind']=='pump_operating_point' else circular_fan_selection.run)(context,replacement,out)
+    if task['kind']=='pump_operating_point':return pump.run(context,replacement,out)
+    from . import circular_fan_selection
+    return circular_fan_selection.run(context,replacement,out)
 
 
 def selection_report(task):
@@ -45,6 +48,7 @@ def selection_modules(task):
     if task['kind']=='pump_operating_point':
         from . import network,pump_electrical
         return (pump,network,pump_electrical)
+    from . import circular_fan_selection
     return (circular_fan_selection,)
 
 
