@@ -9,7 +9,7 @@ from . import circular_fan_selection, pump, delivery, modules, workflow, workflo
 from .cli import digest
 from .module_contract import read_json
 from .workspace import allowed
-from .terminal_iteration import OPTIONS
+from .host_runtime import OPTIONS
 
 SCOPE='Explicit host fan catalogue or pump curve revision with unchanged original requirements and targets; not autonomous product approval or full engineering acceptance'
 
@@ -95,6 +95,7 @@ def run(plan,original_run,task,catalogue,target,out,*,execute_options=None):
     for module in (delivery,modules,workflow,workflow_status,*selection_modules(selected)):
         pins[str(Path(module.__file__).resolve())]=digest(Path(module.__file__))
     pins[str(Path(__file__).resolve())]=digest(Path(__file__))
+    runtime_method=Path(__file__).with_name('host_runtime.py').resolve();pins[str(runtime_method)]=digest(runtime_method)
     out.mkdir(parents=True)
     result=dict(schema='bsa.catalogue-iteration/1',plan=str(plan),original_run=str(original_run),
         task=task,catalogue=str(catalogue),target_plan=str(target),inputs=pins,

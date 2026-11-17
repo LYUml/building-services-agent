@@ -1,3 +1,9 @@
+## Active agent usability work
+
+User reopened the agent goal after the coursework handoff. CLI drawing/doctor,
+clean-install native drawing and lazy MCP startup now execute; full agent goal
+remains active. BSE3227 stays unchanged pending review. See [usability](AGENT_USABILITY.md).
+
 ## Current coursework handoff - retained course basis
 
 The user explicitly retained the coursework main solution; alternative methods

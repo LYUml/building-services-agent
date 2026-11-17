@@ -1,5 +1,11 @@
 # Shared project command entry
 
+The installed entry also offers `bsa doctor --extra drawing --extra mcp` and
+`bsa drawing run/inspect`. These reuse the existing dependency declarations and
+MCP drawing dispatch. See [current installation and execution](AGENT_USABILITY.md)
+and the root README for runnable commands. Missing native drawing prerequisites
+reject before output creation. Doctor is a direct-dependency/path check only.
+
 The installed `bsa` command now exposes the existing source intake and reviewed
 engineering handoff alongside the original electrical and workflow commands.
 No new interpretation service, numerical engine or external dependency is added.

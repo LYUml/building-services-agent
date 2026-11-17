@@ -1,0 +1,166 @@
+{
+  "scope": "Clean local editable installation and scoped AutoCAD/MCP usability; synthetic capability fixture, not completed engineering design",
+  "installed_profile": [
+    "drawing",
+    "mcp"
+  ],
+  "direct_requirements": {
+    "status": "direct_requirements_ready",
+    "python_supported": true,
+    "extras": [
+      "drawing",
+      "mcp"
+    ],
+    "packages": [
+      {
+        "package": "ezdxf",
+        "expected": "1.4.5",
+        "installed": "1.4.5",
+        "matches": true
+      },
+      {
+        "package": "fonttools",
+        "expected": "4.68.0",
+        "installed": "4.68.0",
+        "matches": true
+      },
+      {
+        "package": "mcp",
+        "expected": "1.30.0",
+        "installed": "1.30.0",
+        "matches": true
+      },
+      {
+        "package": "numpy",
+        "expected": "2.5.4",
+        "installed": "2.5.4",
+        "matches": true
+      },
+      {
+        "package": "Pillow",
+        "expected": "13.0.0",
+        "installed": "13.0.0",
+        "matches": true
+      },
+      {
+        "package": "pyparsing",
+        "expected": "3.3.3",
+        "installed": "3.3.3",
+        "matches": true
+      },
+      {
+        "package": "pypdf",
+        "expected": "7.0.0",
+        "installed": "7.0.0",
+        "matches": true
+      },
+      {
+        "package": "typing_extensions",
+        "expected": "4.16.0",
+        "installed": "4.16.0",
+        "matches": true
+      }
+    ],
+    "autocad": {
+      "is_file": true,
+      "execution_verified": false
+    },
+    "scope": "Direct pinned distributions and optional host executable presence only; no native import, runtime execution, MCP connection or engineering acceptance",
+    "design_accepted": false
+  },
+  "developer_native": {
+    "integrity_pass": true,
+    "native_reopen_pass": true,
+    "editable_entities": {
+      "model_entities": 18,
+      "entity_types": {
+        "LWPOLYLINE": 2,
+        "TEXT": 6,
+        "DIMENSION": 3,
+        "LINE": 4,
+        "INSERT": 1,
+        "CIRCLE": 1,
+        "ARC": 1
+      },
+      "editable_entity_correspondence": true,
+      "dimension_rendering_visual_review": "pending"
+    },
+    "artifacts": [
+      {
+        "path": "Drawing.dxf",
+        "sha256": "9dc12873460fdc2ee8fd6a990a4ca37499cf6e2c3002f6a43e44f0c06a3656c9",
+        "bytes": 78275
+      },
+      {
+        "path": "Drawing.dwg",
+        "sha256": "56834600bb071e53caf8f42da91337c8da723d420cf749d98e23c07aa6d79843",
+        "bytes": 23726
+      },
+      {
+        "path": "Drawing.pdf",
+        "sha256": "0a3b6abcb60188e258581cc0239952d79881e1490f515eb59531a555c9b37a04",
+        "bytes": 6740
+      }
+    ],
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "clean_install_native": {
+    "integrity_pass": true,
+    "native_reopen_pass": true,
+    "editable_entities": {
+      "model_entities": 18,
+      "entity_types": {
+        "LWPOLYLINE": 2,
+        "TEXT": 6,
+        "DIMENSION": 3,
+        "LINE": 4,
+        "INSERT": 1,
+        "CIRCLE": 1,
+        "ARC": 1
+      },
+      "editable_entity_correspondence": true,
+      "dimension_rendering_visual_review": "pending"
+    },
+    "artifacts": [
+      {
+        "path": "Drawing.dxf",
+        "sha256": "41acc1904a58eaf77bc9e8cc6403af8d146bd1e20e77ae7cf3a2d7f70f9ee3e7",
+        "bytes": 78273
+      },
+      {
+        "path": "Drawing.dwg",
+        "sha256": "ec69c5b009d370b8e078c105b2f728139ff5d8eb806821a60a7ba566532a4cbf",
+        "bytes": 23724
+      },
+      {
+        "path": "Drawing.pdf",
+        "sha256": "fee5db33090b75dbcc849c2d08dc15e819535e69c607f25135b161aca68a98ad",
+        "bytes": 6740
+      }
+    ],
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "clean_plot_pixel_identical_to_visually_inspected_developer_plot": true,
+  "visual_observation": "Actual A4 plot inspected:105/55/30 native dimensions,plan/system/detail,symbol and scale reference legible; no observed clipping",
+  "clean_MCP_protocol_tests": "2passed:inspection/host-boundary/tamper controls and actual native draw,readback,TEXT and LINE/CIRCLE/ARC revision",
+  "original_fixed_worker_operations": 39,
+  "current_fixed_worker_operations": 39,
+  "current_MCP_tools": 40,
+  "no_new_engine": true,
+  "unrelated_optional_engines_required_for_startup": false,
+  "source_authority_and_engineering_acceptance_unchanged": true,
+  "coursework_workspace_modified": false,
+  "whole_agent_complete": false,
+  "design_accepted": false,
+  "targeted_regression_tests": 36,
+  "targeted_regression_passed": 36,
+  "existing_MCP_server_tests": {
+    "passed": 3,
+    "skipped": 1,
+    "skip_reason": "explicit public PDF workflow/preview fixture not supplied"
+  },
+  "clean_environment_tests": 9,
+  "clean_environment_tests_passed": 9
+}

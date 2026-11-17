@@ -9,7 +9,7 @@ from . import modules,workflow,workflow_status
 from .cli import digest
 from .module_contract import read_json
 from .workspace import allowed
-from .terminal_iteration import OPTIONS
+from .host_runtime import OPTIONS
 
 GENERIC='Source meaning, design inputs and acceptance criteria have not been interpreted.'
 SCOPE='Host-reviewed source-to-adapter handoff; source coverage is checked, semantic completeness and full engineering acceptance are not established'
@@ -110,6 +110,7 @@ def run(plan,record,output,out,*,execute_options=None):
         raise ValueError('Fresh run separate from source plans and review required')
     handoff=apply(plan,record,output);out.mkdir(parents=True)
     pins={**handoff['bound_inputs'],str(Path(__file__).resolve()):digest(Path(__file__)),str(output):digest(output),str(plan):digest(plan),str(record):digest(record)}
+    runtime_method=Path(__file__).with_name('host_runtime.py').resolve();pins[str(runtime_method)]=digest(runtime_method)
     result=dict(handoff=handoff,inputs=pins,stages={'plan':'materialized_verified'},stage_errors={},status='failed',design_accepted=False,scope=SCOPE)
     stage='requirements'
     try:
@@ -151,6 +152,7 @@ def verify(out):
     handoff=result['handoff'];plan,record,target=[Path(handoff[k]).resolve() for k in ('source_plan','review','plan')]
     if not all(allowed(p) for p in (plan,record,target)) or not(plan.parent==record.parent==target.parent):raise ValueError('Handoff plan/review source identity changed')
     required={str(p):digest(p) for p in (plan,record,target,Path(__file__).resolve())}
+    runtime_method=Path(__file__).with_name('host_runtime.py').resolve();required[str(runtime_method)]=digest(runtime_method)
     if any(result['inputs'].get(p)!=sha for p,sha in required.items()):raise ValueError('Handoff omitted source or method pins')
     source,_=workflow.validate_plan(plan);review=read_json(record)
     if review.get('source_plan_sha256')!=digest(plan):raise ValueError('Host review source plan changed')

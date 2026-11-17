@@ -1,5 +1,11 @@
 # General AutoCAD 2D drawing document
 
+Installed shared entry: `bsa drawing run examples/drawing-document.json --out
+runs/fresh-drawing --autocad HOST_EXE`, then `bsa drawing inspect
+examples/drawing-document.json --out runs/fresh-drawing`. Install `.[drawing]`
+first. The same existing dispatch handles all seven documented drawing schemas.
+See [clean-install execution evidence](AGENT_USABILITY.md).
+
 The first shared authoring entry is `bsa.drawing_document`. It accepts a declarative
 document instead of a duct, electrical or IFC-specific task. It reuses pinned
 ezdxf1.4.5 (MIT), existing guarded isolated AutoCAD execution, DWG export and

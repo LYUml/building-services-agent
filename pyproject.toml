@@ -10,6 +10,7 @@ requires-python = ">=3.11"
 dependencies = ["ezdxf==1.4.5"]
 
 [project.optional-dependencies]
+drawing = ["pypdf==7.0.0", "numpy==2.5.4", "fonttools==4.68.0", "pyparsing==3.3.3", "typing_extensions==4.16.0"]
 raster = ["numpy==2.5.4", "Pillow==13.0.0"]
 drawing-layout = ["rectpack==0.2.2"]
 drawing-labels = ["textalloc==1.2.4", "numpy==2.5.4", "matplotlib==3.11.2", "tqdm==4.70.1", "packaging==26.3"]

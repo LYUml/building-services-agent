@@ -9,7 +9,7 @@ from . import delivery,spatial_terminal_search as search,spatial_terminal_candid
 from . import workflow,workflow_status,modules
 from .workflow_modules import host_selection,parse_provider_options
 
-OPTIONS={'energyplus','autocad','radiance_bin','ifcmcp_python','three_phase_python','graphviz','pdf2plot_python','honeybee_python','module_providers','module_runtime','disabled_module_providers'}
+from .host_runtime import OPTIONS
 SCOPE='One bounded terminal candidate iteration from an existing source-bound workflow; not semantic raw-brief design, automatic physical repair or complete engineering acceptance'
 
 
@@ -46,6 +46,7 @@ def input_pins(plan,original_run,policy,geometry_policy,report,original):
         if str(p) in pins and pins[str(p)]!=sha:raise ValueError('Original method changed before iteration')
         pins[str(p)]=sha
     pins[str(Path(__file__).resolve())]=digest(Path(__file__))
+    runtime_method=Path(__file__).with_name('host_runtime.py').resolve();pins[str(runtime_method)]=digest(runtime_method)
     return pins
 
 

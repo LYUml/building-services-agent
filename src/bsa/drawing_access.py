@@ -1,6 +1,7 @@
 """Shared CLI and MCP boundary for general drawing authoring and inspection."""
 import argparse
 import json
+import importlib.metadata as metadata
 from pathlib import Path
 
 
@@ -34,6 +35,10 @@ def engine(project):
 
 def run(project,out,*,autocad,graphviz=None):
     if autocad is None:raise ValueError('Explicit host AutoCAD startup configuration required')
+    if not Path(autocad).is_file():raise ValueError('Explicit existing AutoCAD executable required')
+    try:pdf_version=metadata.version('pypdf')
+    except metadata.PackageNotFoundError:pdf_version=None
+    if pdf_version!='7.0.0':raise ValueError('Native drawing needs pypdf==7.0.0; install the drawing extra before running')
     selected=engine(project)
     options={'autocad':autocad}
     if selected.__name__ in ('bsa.drawing_graph','bsa.drawing_ifc_graph'):options['graphviz']=graphviz

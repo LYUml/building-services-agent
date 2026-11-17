@@ -4,7 +4,7 @@ from pathlib import Path
 from . import delivery,workflow,workflow_status,pump_catalogue_iteration as pump,catalogue_iteration as fan,catalogue_iteration_verify as fan_verify,rectangular_fan_selection as fan_catalogue
 from .cli import digest
 from .module_contract import read_json
-from .terminal_iteration import OPTIONS
+from .host_runtime import OPTIONS
 from .workspace import allowed
 
 
@@ -65,6 +65,7 @@ def run(plan,original,policy_path,out,*,execute_options=None):
     source,report,integrity=delivery.context(plan,original)
     if not integrity['integrity_pass']:raise ValueError('Fresh source-bound workflow required')
     pins={str(plan):digest(plan),str(policy_path):digest(policy_path),str(original/'workflow.json'):digest(original/'workflow.json'),str(Path(__file__).resolve()):digest(Path(__file__))}
+    runtime_method=Path(__file__).with_name('host_runtime.py').resolve();pins[str(runtime_method)]=digest(runtime_method)
     for row in data['actions']:
         path=workflow.local_path(plan.parent,row['catalogue']);pins[str(path)]=digest(path)
         if next(t for t in source['tasks'] if t['id']==row['task'])['kind']=='circular_fan_selection':
@@ -102,6 +103,7 @@ def verify(out):
     if not all(allowed(p) for p in (plan,original,path)) or not out.is_relative_to(plan.parent) or out.is_relative_to(original) or any(out==p or out in p.parents for p in (plan,original,path)):raise ValueError('Controller source/output boundary changed')
     data=policy(plan,path)
     expected={str(plan):digest(plan),str(path):digest(path),str(original/'workflow.json'):digest(original/'workflow.json'),str(Path(__file__).resolve()):digest(Path(__file__))}
+    runtime_method=Path(__file__).with_name('host_runtime.py').resolve();expected[str(runtime_method)]=digest(runtime_method)
     for row in data['actions']:
         p=workflow.local_path(plan.parent,row['catalogue']);expected[str(p)]=digest(p)
         if next(t for t in read_json(plan)['tasks'] if t['id']==row['task'])['kind']=='circular_fan_selection':

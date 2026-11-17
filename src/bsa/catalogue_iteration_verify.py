@@ -51,6 +51,7 @@ def verify(folder):
     _,replacement_inputs=iteration.selection_context(selected,source,plan,original,catalogue);required.update(replacement_inputs)
     for module in (iteration,delivery,modules,workflow,workflow_status,*iteration.selection_modules(selected)):
         required[str(Path(module.__file__).resolve())]=digest(Path(module.__file__))
+    runtime_method=Path(iteration.__file__).with_name('host_runtime.py').resolve();required[str(runtime_method)]=digest(runtime_method)
     if any(result['inputs'].get(p)!=sha for p,sha in required.items()):raise ValueError('Recovery omitted original source or method pins')
     if digest(target)!=result.get('target_plan_sha256') or read_json(target)!=iteration.revised_plan(source,task,catalogue,target):raise ValueError('Recovery changed more than the declared catalogue')
     if result.get('stages')!=dict(baseline='failure_reproduced',plan='materialized_verified',requirements='completed',workflow='executed',diagnosis='source_verified') or result.get('stage_errors'):

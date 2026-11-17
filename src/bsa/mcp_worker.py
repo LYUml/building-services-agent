@@ -1,37 +1,43 @@
 """Fixed JSON-only worker for MCP calls; no protocol threads/native imports mix."""
 import contextlib
+import importlib
 import json
 from pathlib import Path
 import sys
-from . import engineering_handoff,project_start,workflow,workflow_status,source_page,visual_transcription,source_review,reference_library,pump_catalogue_iteration,artifact_access,delivery,recovery_controller,hvac_package_access
 from .cli import digest
-from . import network_analysis_access
-from . import tag_delivery_access
-from . import pressure_ledger_access
-from . import drawing_access
 from .module_contract import read_json
 
 
 def read_source_plan(plan):
+    from . import workflow
     path=Path(plan).resolve();source=read_json(path);before=digest(path)
     documents=workflow.plan_documents(path.parent,source)
     if digest(path)!=before:raise ValueError('Plan changed during source reading')
     return dict(plan=source,plan_sha256=before,documents=documents,semantic_completeness='not_assessed',design_accepted=False)
 
 
-OPERATIONS={function.__module__+'.'+function.__name__:function for function in
-    (project_start.start,engineering_handoff.template,engineering_handoff.run,engineering_handoff.verify,
-     workflow.execute,workflow_status.diagnose,source_page.run,visual_transcription.prepare,source_review.run,reference_library.catalogue,reference_library.read,
-     pump_catalogue_iteration.run,pump_catalogue_iteration.verify,artifact_access.index,artifact_access.read,artifact_access.render_page,delivery.template,delivery.assess,recovery_controller.run,recovery_controller.verify,hvac_package_access.prepare,hvac_package_access.run,hvac_package_access.inspect)}
-OPERATIONS['bsa.mcp_worker.read_source_plan']=read_source_plan
-for function in (network_analysis_access.run_network,network_analysis_access.run_fittings,network_analysis_access.inspect,network_analysis_access.list_requests,network_analysis_access.read_request,network_analysis_access.run_delivery,network_analysis_access.inspect_delivery):
-    OPERATIONS[function.__module__+'.'+function.__name__]=function
-for function in (tag_delivery_access.run,tag_delivery_access.inspect):
-    OPERATIONS[function.__module__+'.'+function.__name__]=function
-for function in (pressure_ledger_access.run,pressure_ledger_access.inspect,pressure_ledger_access.list_gaps,pressure_ledger_access.read_outlet):
-    OPERATIONS[function.__module__+'.'+function.__name__]=function
-for function in (drawing_access.run,drawing_access.inspect):
-    OPERATIONS[function.__module__+'.'+function.__name__]=function
+# Same fixed 39 operations as the original function registry. Resolve only the
+# selected module inside the worker, never import every optional native engine
+# to initialize the protocol or perform an unrelated read.
+OPERATIONS=frozenset('bsa.'+module+'.'+name for module,names in {
+    'project_start':'start', 'engineering_handoff':'template run verify',
+    'workflow':'execute', 'workflow_status':'diagnose', 'source_page':'run',
+    'visual_transcription':'prepare', 'source_review':'run',
+    'reference_library':'catalogue read', 'pump_catalogue_iteration':'run verify',
+    'artifact_access':'index read render_page', 'delivery':'template assess',
+    'recovery_controller':'run verify', 'hvac_package_access':'prepare run inspect',
+    'mcp_worker':'read_source_plan',
+    'network_analysis_access':'run_network run_fittings inspect list_requests read_request run_delivery inspect_delivery',
+    'tag_delivery_access':'run inspect',
+    'pressure_ledger_access':'run inspect list_gaps read_outlet',
+    'drawing_access':'run inspect',
+}.items() for name in names.split())
+
+
+def resolve(operation):
+    if operation not in OPERATIONS:raise ValueError('Fixed registered engineering call required')
+    module,name=operation.rsplit('.',1)
+    return getattr(importlib.import_module(module),name)
 
 
 def main():
@@ -43,7 +49,7 @@ def main():
         options=request['kwargs'].get('execute_options',request['kwargs'])
         for key in ('energyplus','autocad','radiance_bin','ifcmcp_python','three_phase_python','graphviz','pdf2plot_python','honeybee_python'):
             if options.get(key) is not None:options[key]=Path(options[key])
-        with contextlib.redirect_stdout(sys.stderr):value=OPERATIONS[request['operation']](*request['args'],**request['kwargs'])
+        with contextlib.redirect_stdout(sys.stderr):value=resolve(request['operation'])(*request['args'],**request['kwargs'])
         result=dict(ok=True,value=value)
     except Exception as exc:result=dict(ok=False,error=type(exc).__name__+': '+str(exc))
     print(json.dumps(result,ensure_ascii=False,allow_nan=False))

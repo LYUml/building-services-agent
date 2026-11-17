@@ -1,3 +1,13 @@
+## Agent startup and drawing usability
+
+Reuses the existing ezdxf1.4.5(MIT), pypdf7.0.0(BSD-3-Clause), MCP1.30.0(MIT)
+and guarded native drawing adapters. The drawing extra pins the previously
+executed NumPy2.5.4(BSD-3-Clause), FontTools4.68.0(MIT), pyparsing3.3.3(MIT)
+and typing_extensions4.16.0(PSF-2.0). No new solver, geometry engine or dependency
+is introduced. The fixed worker whitelist is unchanged; imports are deferred
+to the requested operation. Clean CLI/MCP native execution is recorded in
+[usability evidence](evidence/agent-usability.json).
+
 ## Retained-coursework appendix milestone
 
 No new solver or CAD engine added. The actual alternative reuses the pinned
