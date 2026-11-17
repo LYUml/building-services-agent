@@ -17,20 +17,27 @@ def entity_id(project_id, kind, source_id):
     return 'bsa:'+hashlib.sha256(key).hexdigest()[:32]
 
 
-def validate(data):
+def validate_schema(data, path, label='Engineering data contract'):
     import jsonschema
     if importlib.metadata.version('jsonschema') != '4.26.0':
         raise ValueError('Pinned jsonschema4.26.0 required')
-    schema = read_json(SCHEMA_PATH)
+    schema = read_json(path)
     jsonschema.Draft202012Validator.check_schema(schema)
     errors = list(jsonschema.Draft202012Validator(schema).iter_errors(data))
     if errors:
-        raise ValueError('Engineering data contract: '+errors[0].message)
-    reference = data['source_result']
+        raise ValueError(label+': '+errors[0].message)
+
+
+def validate_reference(reference):
     name = reference['path']
     if '\\' in name or ':' in name or PurePosixPath(name).is_absolute() or any(
             part in ('', '.', '..') for part in name.split('/')):
         raise ValueError('Normalized workspace-relative source reference required')
+
+
+def validate(data):
+    validate_schema(data, SCHEMA_PATH)
+    validate_reference(data['source_result'])
     ids, identities = set(), set()
     for entity in data['entities']:
         key = (entity['kind'], entity['source_id'])

@@ -1,0 +1,38 @@
+{
+  "schema": "bsa.engineering-input-catalogue-evidence/1",
+  "scope": "Existing isolated HVAC project input replay, not a course design revision or second-real-project acceptance",
+  "parameters": 167,
+  "primary_project_numeric_leaves": 167,
+  "unmapped_numeric_leaves": 0,
+  "classification_counts": {
+    "given": 4,
+    "assumed": 2,
+    "declared": 161
+  },
+  "source_assertions_authenticated": false,
+  "source_review_required": true,
+  "original_source_files_unchanged": 3,
+  "mcp_calls": 6,
+  "mcp_tools": 40,
+  "cli_export_verify_pass": true,
+  "local_regression": {
+    "tests_run": 74,
+    "passed": 74,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "regression_source_unchanged": true,
+  "regression_receipt_verified": true,
+  "regression_receipt_sha256": "aa8593767afe2024dcb753b97eed2f3c78b7ee376f2a6d1349e271296e5b27e4",
+  "minimal_profile_tests_passed": 36,
+  "visual_scope": "Verbatim source-input table HTML section extracted from actual report, rendered and first viewport viewed; full report not visually reviewed",
+  "failed_preview_scope": "Two full-report text-fragment screenshot attempts returned blank; not counted as visual proof",
+  "limits": [
+    "Read-only source input ownership; not automatic parameter editing or authenticated source statements",
+    "Primary project JSON coverage only; referenced geometry/documents remain in original producer evidence",
+    "No new native CAD acceptance in this milestone; knowledge, impact/safe reuse and second real project remain unfinished"
+  ],
+  "design_accepted": false,
+  "common_view_quantities_unchanged": 244
+}

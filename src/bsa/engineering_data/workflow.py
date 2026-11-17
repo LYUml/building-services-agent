@@ -23,8 +23,10 @@ def parent_task(task, tasks):
 
 def inputs(root, plan, task, earlier):
     from ..workflow import local_path
-    if set(task)-{'id', 'kind', 'depends_on', 'requires_pass', 'description'}:
+    if set(task)-{'id', 'kind', 'depends_on', 'requires_pass', 'description', 'include_inputs'}:
         raise ValueError('Common data inherits its exact producer; replacement inputs forbidden')
+    if 'include_inputs' in task and type(task['include_inputs']) is not bool:
+        raise ValueError('Input catalogue selection must be boolean')
     parent = parent_task(task, earlier)
     declared = context(root, plan)
     request = read_json(local_path(root, parent['request']))
@@ -49,7 +51,7 @@ def run(root, plan, task, run_directory):
     model = project_result(source)
     if any(model[k] != declared[k] for k in ('project_id', 'scenario_id')):
         raise ValueError('Completed producer context differs from original plan')
-    return export(source, Path(run_directory)/task['id'])
+    return export(source, Path(run_directory)/task['id'], include_inputs=task.get('include_inputs', False))
 
 
 def verify_parent_identity(root, plan, task, source):
@@ -79,6 +81,9 @@ def verify_outputs(root, plan, run_directory, states, input_hashes=None):
         if status != 'pass' or states[task['depends_on']]['status'] != 'pass':
             raise ValueError('Common-data output contradicts workflow/producer status')
         checked = verify(folder)
+        expected_version = 'bsa.engineering-data-export/2' if task.get('include_inputs', False) else 'bsa.engineering-data-export/1'
+        if read_json(folder/'receipt.json')['schema'] != expected_version:
+            raise ValueError('Common-data input catalogue selection differs from original task')
         source = source_path(run_directory, task, plan['tasks']).resolve()
         verify_parent_identity(root, plan, task, source)
         from .module_bridge import reference

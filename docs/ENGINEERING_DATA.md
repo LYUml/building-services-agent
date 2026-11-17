@@ -1,5 +1,18 @@
 # Common engineering data: first executed slice
 
+## Source input ownership now executes
+
+The optional source parameter catalogue now binds raw inputs to common owners,
+explicit units, original classifications and exact source pointers. Existing
+bundle1 remains supported; opt-in bundle2 adds inputs.json without changing the
+calculated model schema. Shared CLI and existing MCP workflow/artifact routes
+execute it. See ENGINEERING_INPUTS.md for74current regression cases,36minimal
+cases and actual167input HVAC replay, with scope/limitations retained.
+
+This is a read-only ownership boundary, not general automatic parameter editing
+or source authentication. Broader domain mappings and the remaining ordered
+goal phases stay explicit below; previous counts are historical checkpoints.
+
 ## Current project-context/workflow milestone
 
 The new data view now runs through existing workflow and MCP routes. An explicit

@@ -1,3 +1,17 @@
+## Source parameter ownership (2026-11-18)
+
+Actual gap: common computed quantities must not be treated as editable inputs.
+Reuse existing module-request/source hashing, provider-specific project schemas,
+air_load unit/classification records, electrical field semantics, common entity
+IDs, explicit unit conversion, pinned JSON Schema and report/workflow/MCP routes.
+Existing HVAC refresh and CAD/layout revision helpers remain authoritative for
+their own bounded modifications; a second generic JSON edit engine is not added.
+No new dependency/solver/upstream source. Original THIRD_PARTY notices retained.
+Source parameter IDs and RFC6901-style pointers are thin binding glue; unknown
+numeric coverage remains visible.74local regression/36minimal controls and an
+actual six-call historical HVAC data replay execute; see ENGINEERING_INPUTS.md.
+Knowledge applicability/authenticated citations and impact/reuse remain separate.
+
 ## Project identity and common-data workflow integration (2026-11-18)
 
 Reuse stdlib UUID4 for persisted project identity, the existing module request,

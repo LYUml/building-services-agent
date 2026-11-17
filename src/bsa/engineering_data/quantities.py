@@ -13,6 +13,11 @@ UNITS = {
     'VA': ('apparent_power', 'VA', 1), 'kVA': ('apparent_power', 'VA', 1000),
     'A': ('current', 'A', 1), 'V': ('voltage', 'V', 1),
     'Pa': ('pressure', 'Pa', 1),
+    'W thermal/m2': ('thermal_load_density', 'W thermal/m2', 1),
+    'kg/m3': ('mass_density', 'kg/m3', 1),
+    'J/(kg K)': ('specific_heat_capacity', 'J/(kg K)', 1),
+    'K': ('temperature', 'K', 1),
+    'mV/(A m)': ('voltage_drop_coefficient', 'V/(A m)', .001),
     '1': ('ratio', '1', 1), '%': ('ratio', '1', .01),
 }
 

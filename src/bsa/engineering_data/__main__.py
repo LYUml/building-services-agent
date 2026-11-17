@@ -14,6 +14,7 @@ def main():
     command = commands.add_parser('export')
     command.add_argument('source_result')
     command.add_argument('--out', required=True)
+    command.add_argument('--include-inputs', action='store_true')
     command = commands.add_parser('verify')
     command.add_argument('out')
     args = parser.parse_args()
@@ -21,7 +22,7 @@ def main():
         from .context import create
         print(json.dumps(create(args.name, args.scenario, args.out), indent=2))
         return
-    result = export(args.source_result, args.out) if args.command == 'export' else verify(args.out)
+    result = export(args.source_result, args.out, include_inputs=args.include_inputs) if args.command == 'export' else verify(args.out)
     print(json.dumps(result, indent=2))
 
 

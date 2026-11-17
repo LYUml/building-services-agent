@@ -105,25 +105,38 @@ def project_result(path):
 
 def methods():
     files = [*Path(__file__).parent.glob('*.py'), SCHEMA_PATH,
+             ROOT/'contracts/engineering-inputs-v1.json',
              ROOT/'src/bsa/workspace.py', ROOT/'src/bsa/module_contract.py',
              ROOT/'src/bsa/modules.py', ROOT/'src/bsa/cli.py']
     return {p.relative_to(ROOT).as_posix(): digest(p) for p in sorted(files)}
 
 
-def export(source, out):
+def export(source, out, *, include_inputs=False):
     source, out = Path(source).resolve(), Path(out).resolve()
     if not intake_output(out) or out.exists() or out == source or out in source.parents:
         raise ValueError('Fresh output in project or tool runs, separate from source required')
+    if type(include_inputs) is not bool:
+        raise ValueError('Explicit boolean input-catalogue selection required')
     pins = methods()
     data = project_result(source)
-    summary = render(data)
+    catalogue = None
+    if include_inputs:
+        from .inputs import build
+        catalogue = build(source)
+        if catalogue['source_result'] != data['source_result']:
+            raise ValueError('Input catalogue and derived model have different sources')
+    summary = render(data, catalogue)
     if pins != methods() or digest(source) != data['source_result']['sha256']:
         raise ValueError('Source or methods changed during projection')
     out.mkdir(parents=True)
     (out/'model.json').write_text(json.dumps(data, indent=2, ensure_ascii=False)+'\n', encoding='utf-8')
     (out/'summary.html').write_text(summary, encoding='utf-8')
-    receipt = dict(schema='bsa.engineering-data-export/1', source_result=data['source_result'],
-                   methods=pins, artifacts={n: digest(out/n) for n in ('model.json', 'summary.html')},
+    names = ['model.json', 'summary.html']
+    if catalogue is not None:
+        (out/'inputs.json').write_text(json.dumps(catalogue, indent=2, ensure_ascii=False)+'\n', encoding='utf-8')
+        names.append('inputs.json')
+    receipt = dict(schema='bsa.engineering-data-export/2' if include_inputs else 'bsa.engineering-data-export/1', source_result=data['source_result'],
+                   methods=pins, artifacts={n: digest(out/n) for n in names},
                    scope=SCOPE, design_accepted=False)
     (out/'receipt.json').write_text(json.dumps(receipt, indent=2)+'\n', encoding='utf-8')
     verify(out)
@@ -134,19 +147,35 @@ def verify(out):
     out = Path(out).resolve()
     if not intake_output(out):
         raise ValueError('Engineering data output outside selected workspace')
-    if {p.name for p in out.iterdir()} != {'receipt.json', 'model.json', 'summary.html'} or any(p.is_symlink() or not p.is_file() for p in out.iterdir()):
+    inventory = {p.name for p in out.iterdir()}
+    base = {'receipt.json', 'model.json', 'summary.html'}
+    if inventory not in (base, base|{'inputs.json'}) or any(p.is_symlink() or not p.is_file() for p in out.iterdir()):
         raise ValueError('Exact regular-file engineering data inventory required')
     receipt = read_json(out/'receipt.json')
-    if set(receipt) != {'schema', 'source_result', 'methods', 'artifacts', 'scope', 'design_accepted'} or receipt['schema'] != 'bsa.engineering-data-export/1' or receipt['scope'] != SCOPE or receipt['design_accepted'] is not False:
+    if set(receipt) != {'schema', 'source_result', 'methods', 'artifacts', 'scope', 'design_accepted'} or receipt['schema'] not in ('bsa.engineering-data-export/1', 'bsa.engineering-data-export/2') or receipt['scope'] != SCOPE or receipt['design_accepted'] is not False:
         raise ValueError('Exact unaccepted common-data receipt required')
-    if receipt['methods'] != methods() or receipt['artifacts'] != {n: digest(out/n) for n in ('model.json', 'summary.html')}:
+    includes_inputs = receipt['schema'] == 'bsa.engineering-data-export/2'
+    names = base|{'inputs.json'} if includes_inputs else base
+    if inventory != names:
+        raise ValueError('Versioned data bundle inventory differs')
+    if receipt['methods'] != methods() or receipt['artifacts'] != {n: digest(out/n) for n in sorted(names-{'receipt.json'})}:
         raise ValueError('Common-data artifacts or methods changed')
     source = resolve_reference(receipt['source_result'])
     data = validate(read_json(out/'model.json'))
     if data != project_result(source):
         raise ValueError('Common data differs from independently verified producer')
-    if (out/'summary.html').read_text(encoding='utf-8') != render(data):
+    catalogue = None
+    if includes_inputs:
+        from .inputs import build, validate as validate_inputs
+        catalogue = validate_inputs(read_json(out/'inputs.json'))
+        if catalogue != build(source):
+            raise ValueError('Input parameters differ from verified original project')
+    if (out/'summary.html').read_text(encoding='utf-8') != render(data, catalogue):
         raise ValueError('Common report differs from shared data')
-    return dict(integrity_pass=True, entity_count=len(data['entities']),
+    checked = dict(integrity_pass=True, entity_count=len(data['entities']),
                 quantity_count=sum(len(e['quantities']) for e in data['entities']),
                 source_result=data['source_result'], scope=SCOPE, design_accepted=False)
+    if catalogue is not None:
+        checked['input_parameter_count'] = len(catalogue['parameters'])
+        checked['unmapped_numeric_input_count'] = len(catalogue['coverage']['unmapped_numeric_pointers'])
+    return checked

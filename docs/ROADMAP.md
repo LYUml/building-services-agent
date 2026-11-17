@@ -1,3 +1,17 @@
+## Source parameter ownership executed; knowledge is next
+
+Optional bundle2 binds source inputs to common entity IDs, raw JSON pointers,
+original/semantic units, classifications and source notes. Bundle1 remains
+supported.74durable current regression cases pass with zero skips;36overlapping
+minimal-profile cases pass. Six real MCP calls expose167primary-source inputs
+in the existing isolated HVAC study;244common-view quantities and3original
+source files remain unchanged. See ENGINEERING_INPUTS.md and its evidence.
+No automatic parameter editing/source authentication or new native CAD acceptance
+is claimed. Next: source/version/page/applicability-aware knowledge retrieval,
+then impact/invalidation/safe reuse and different-real-project acceptance.
+Existing typed domain contracts remain intact; broader common mappings remain
+explicit. Whole goal active, no release/coursework adoption/user acceptance.
+
 ## Project-scoped common data now executes through workflow/MCP
 
 Explicit UUID4 project/scenario context and exact producer request/result binding
