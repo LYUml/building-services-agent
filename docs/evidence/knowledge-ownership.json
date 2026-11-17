@@ -1,0 +1,157 @@
+{
+  "schema": "bsa.knowledge-ownership-real/1",
+  "calls": [
+    {
+      "tool": "bsa_execute_workflow",
+      "seconds": 65.2619159000169
+    },
+    {
+      "tool": "bsa_diagnose_workflow",
+      "seconds": 21.68842330001644
+    },
+    {
+      "tool": "bsa_checkpoint_workflow",
+      "seconds": 35.85142089999863
+    },
+    {
+      "tool": "bsa_inspect_changes",
+      "seconds": 6.110143400001107
+    },
+    {
+      "tool": "bsa_execute_workflow",
+      "seconds": 63.80818839999847
+    },
+    {
+      "tool": "bsa_diagnose_workflow",
+      "seconds": 19.42513419999159
+    },
+    {
+      "tool": "bsa_artifact_index",
+      "seconds": 19.0026345999795
+    },
+    {
+      "tool": "bsa_read_artifact",
+      "seconds": 18.8847738999757
+    },
+    {
+      "tool": "bsa_delivery_template",
+      "seconds": 20.32270730001619
+    }
+  ],
+  "tool_count": 42,
+  "owned_knowledge_tasks": 8,
+  "knowledge_source_kinds": [
+    "document",
+    "project_inputs"
+  ],
+  "source_roles": [
+    "course_source",
+    "normative_source",
+    "manufacturer_source",
+    "project_input"
+  ],
+  "only_course_page_selection_changed": true,
+  "before_pages": [
+    4,
+    5
+  ],
+  "after_pages": [
+    4
+  ],
+  "unchanged_tasks": [
+    "wiring_library",
+    "wiring_lookup",
+    "manufacturer_library",
+    "manufacturer_lookup",
+    "inputs_library",
+    "inputs_lookup",
+    "analysis"
+  ],
+  "task_impact": {
+    "course_library": {
+      "invalidated": true,
+      "input_ownership": "verified_knowledge_closure",
+      "reuse_eligible": false
+    },
+    "course_lookup": {
+      "invalidated": true,
+      "input_ownership": "verified_knowledge_closure",
+      "reuse_eligible": false
+    },
+    "wiring_library": {
+      "invalidated": false,
+      "input_ownership": "verified_knowledge_closure",
+      "reuse_eligible": false
+    },
+    "wiring_lookup": {
+      "invalidated": false,
+      "input_ownership": "verified_knowledge_closure",
+      "reuse_eligible": false
+    },
+    "manufacturer_library": {
+      "invalidated": false,
+      "input_ownership": "verified_knowledge_closure",
+      "reuse_eligible": false
+    },
+    "manufacturer_lookup": {
+      "invalidated": false,
+      "input_ownership": "verified_knowledge_closure",
+      "reuse_eligible": false
+    },
+    "inputs_library": {
+      "invalidated": false,
+      "input_ownership": "verified_knowledge_closure",
+      "reuse_eligible": false
+    },
+    "inputs_lookup": {
+      "invalidated": false,
+      "input_ownership": "verified_knowledge_closure",
+      "reuse_eligible": false
+    },
+    "analysis": {
+      "invalidated": false,
+      "input_ownership": "verified_module_inputs",
+      "reuse_eligible": false
+    },
+    "data": {
+      "invalidated": true,
+      "input_ownership": "conservative_workflow_inputs",
+      "reuse_eligible": false
+    },
+    "review": {
+      "invalidated": true,
+      "input_ownership": "conservative_workflow_inputs",
+      "reuse_eligible": false
+    }
+  },
+  "independent_calculation_bytes_equal": true,
+  "common_report_bytes_equal": true,
+  "original_sources_unchanged": true,
+  "requirements": 11,
+  "pending_requirements": 11,
+  "source_assertions_authenticated": false,
+  "design_accepted": false,
+  "scope": "Actual selected source snapshots and recorded lighting calculation/report; no new photometry, geometry, current code applicability or engineering acceptance",
+  "selected_regression": {
+    "tests": 197,
+    "passed": 197,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "independently_verified": true
+  },
+  "ownership_serialized_bytes": 21298,
+  "owned_path_counts": {
+    "document_task": 17,
+    "nested_input_task": 52
+  },
+  "compatibility": {
+    "tests": 48,
+    "passed": 48,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "independently_verified": true
+  },
+  "total_selected_tests": 245
+}

@@ -13,6 +13,37 @@ KINDS = {'knowledge_index', 'knowledge_query'}
 SCOPE = 'Source-bound knowledge lookup only; matching is not applicability or engineering acceptance'
 
 
+def input_ownership(root,plan,input_hashes):
+    """Capture the existing validated task closure, not an independently maintained source list."""
+    tasks={}
+    for position,task in enumerate(plan['tasks']):
+        if task['kind'] not in KINDS:continue
+        files=inputs(root,plan,task,plan['tasks'][:position])
+        names=sorted(str(Path(p).resolve()) for p in files)
+        if any(input_hashes.get(name)!=file_hash(name) for name in names):
+            raise ValueError('Knowledge ownership differs from original workflow input pins')
+        tasks[task['id']]=names
+    return dict(schema='bsa.knowledge-input-ownership/1',tasks=tasks,runtime=index.runtime())
+
+
+def saved_ownership(report,plan):
+    """Read a hash-bound historical workflow without requiring changed sources to replay."""
+    data=report.get('knowledge_input_ownership')
+    if data is None:return {}
+    expected={t['id'] for t in plan['tasks'] if t['kind'] in KINDS}
+    if not isinstance(data,dict) or set(data)!={'schema','tasks','runtime'} or data['schema']!='bsa.knowledge-input-ownership/1' or not isinstance(data['tasks'],dict) or set(data['tasks'])!=expected:
+        raise ValueError('Exact knowledge task ownership coverage required')
+    if not isinstance(data['runtime'],dict) or set(data['runtime'])!={'sqlite','python','binary_sha256'}:
+        raise ValueError('Recorded knowledge runtime required')
+    for names in data['tasks'].values():
+        if not isinstance(names,list) or not names or any(not isinstance(p,str) for p in names) or names!=sorted(set(names)):
+            raise ValueError('Unique sorted knowledge input paths required')
+        for name in names:
+            if not Path(name).is_absolute() or str(Path(name).resolve())!=name or name not in report['inputs']:
+                raise ValueError('Knowledge ownership must refer to original workflow input pins')
+    return {name:set(paths) for name,paths in data['tasks'].items()}
+
+
 def manifest_inputs(path):
     manifest = load(path)
     files = {Path(path).resolve(), *[ROOT/p for p in index.methods()]}

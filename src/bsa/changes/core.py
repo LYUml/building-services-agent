@@ -136,6 +136,9 @@ def load(folder):
         raise ValueError('Exact regular-file checkpoint inventory required')
     if any(file_hash(folder/name)!=sha for name,sha in receipt['artifacts'].items()):
         raise ValueError('Checkpoint archive changed')
+    if report.get('knowledge_input_ownership') is not None:
+        from ..knowledge.workflow import saved_ownership
+        saved_ownership(report,plan)
     return receipt, plan, report, modules, original_plan, original.parent
 
 
@@ -161,6 +164,17 @@ def impact(folder, *, plan=None,parameter_offset=0,parameter_limit=50):
         if all(old_inputs.get(p)==sha for p,sha in result['inputs'].items()):
             ownership[task_id]=own
             global_paths-=own
+    knowledge_ownership={};knowledge_runtime_changed=False
+    if report.get('knowledge_input_ownership') is not None:
+        from ..knowledge.workflow import saved_ownership
+        from ..knowledge.index import runtime as knowledge_runtime
+        knowledge_ownership=saved_ownership(report,old_plan)
+        knowledge_runtime_changed=report['knowledge_input_ownership']['runtime']!=knowledge_runtime()
+        ownership.update(knowledge_ownership)
+        for own in knowledge_ownership.values():
+            # Shared framework/contracts keep their previous global gates.
+            local={p for p in own if category(p)!='method_or_contract' or Path(p).is_relative_to(ROOT/'src/bsa/knowledge')}
+            global_paths-=local
     if old_plan.get('project_context'):
         global_paths.add(str((original_plan.parent/old_plan['project_context']).resolve()))
     changes=[]
@@ -203,6 +217,7 @@ def impact(folder, *, plan=None,parameter_offset=0,parameter_limit=50):
         if metadata_changed:reasons.append('brief_context_or_requirements_changed')
         if detector_changed:reasons.append('change_detector_method_changed')
         if runtime_changed:reasons.append('upstream_environment_changed')
+        if knowledge_runtime_changed and name in knowledge_ownership:reasons.append('knowledge_runtime_changed')
         if error:reasons.append('current_plan_invalid')
         if name in recipe_changes:reasons.append('task_recipe_changed')
         if name not in ownership and recipe_changes:reasons.append('conservative_unknown_task_recipe_impact')
@@ -220,10 +235,11 @@ def impact(folder, *, plan=None,parameter_offset=0,parameter_limit=50):
             if actual!=expected:artifacts.append(name+'/(inventory changed)')
         if artifacts:reasons.append('artifact_changed')
         result=modules.get(name)
-        reusable=bool(not reasons and name in ownership and report['tasks'][name]['status']=='pass' and result['execution']['status']=='completed' and result['provider']['id']==task.get('provider') and result['provider']['id'] in REUSABLE_PROVIDERS)
+        reusable=bool(result is not None and not reasons and name in ownership and report['tasks'][name]['status']=='pass' and result['execution']['status']=='completed' and result['provider']['id']==task.get('provider') and result['provider']['id'] in REUSABLE_PROVIDERS)
         rows[name]=dict(kind=task['kind'],invalidated=bool(reasons),reasons=reasons,changed_inputs=touched,
             upstream_invalidated=upstream,changed_artifacts=artifacts,reuse_eligible=reusable,
             reuse_scope='Independent numerical module; original provider verification still required' if reusable else 'Full original execution required or reference-only unchanged artifact',
+            input_ownership='verified_knowledge_closure' if name in knowledge_ownership else 'verified_module_inputs' if name in ownership else 'conservative_workflow_inputs',
             design_accepted=False)
         if result is not None:
             from .parameters import PROVIDERS,compare

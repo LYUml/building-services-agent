@@ -21,7 +21,7 @@ jobs:
       - run: python -c "from pathlib import Path; Path('runs').mkdir(exist_ok=True)"
       - run: python -m pip check
       - run: python -c "import importlib.util; assert all(importlib.util.find_spec(n) is None for n in ['fluids','ifcopenshell','manifold3d'])"
-      - run: python -m unittest tests.test_knowledge tests.test_knowledge_workflow -v
+      - run: python -m unittest tests.test_knowledge tests.test_knowledge_workflow tests.test_knowledge_ownership -v
   engineering-data:
     strategy:
       fail-fast: false

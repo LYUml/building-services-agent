@@ -1,3 +1,17 @@
+## Knowledge source ownership now executes
+
+New knowledge workflows capture exact task input sets through the existing
+validator and retain original hashes/runtime. Checkpoints bind that original
+workflow; changed sources need not replay to inspect impact. Existing old records
+retain conservative fallback. Actual4source-role/8knowledge-task study changes
+onlycourse pages4/5→4: courseindex/query invalidated;6otherknowledge tasks and
+independent actual lighting calculation unchanged. AuditJSON/commonHTML identical,
+all11study requirements pending. Generic report/review remain conservative.
+245selected cases pass (197architecture +48existing module/MCP), both receipts
+independently verified; see
+KNOWLEDGE_OWNERSHIP.md and aggregate evidence. Full goal remains active pending
+final generality/readiness audit and head-specific checks; no release/acceptance.
+
 ## Repeated source replay reduced with unchanged engineering checks
 
 Operation-scoped bounded parsed-source reuse now preserves the first independent

@@ -11,8 +11,8 @@ identity and producer binding. [Source input ownership](docs/ENGINEERING_INPUTS.
 now executes as a read-only catalogue. [Local knowledge retrieval](docs/KNOWLEDGE.md)
 now executes through the existing workflow/MCP routes. [Change impact and numerical
 reuse](docs/CHANGE_IMPACT.md) now executes through CLI and MCP selective replay;
-typed source differences now execute; knowledge ownership, performance and
-different-real-project acceptance remain in progress. The earlier candidate
+typed source differences and [knowledge input ownership](docs/KNOWLEDGE_OWNERSHIP.md)
+now execute. Final generality/readiness review remains in progress. The earlier candidate
 checkpoint below is preserved and does not establish readiness of new features.
 
 The [real lighting source audit](docs/LIGHTING_SOURCE_AUDIT.md) now verifies

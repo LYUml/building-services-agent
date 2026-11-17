@@ -1,5 +1,10 @@
 # Change impact and verified numerical reuse
 
+[Knowledge input ownership](KNOWLEDGE_OWNERSHIP.md) now records exact task
+source sets in verified workflows/checkpoints and localizes supported knowledge
+changes. Legacy/unknown tasks keep conservative fallback; cache eligibility
+and manual engineering review are unchanged.
+
 The new real recorded-lighting source-power adapter also executes this path;
 see [lighting audit](LIGHTING_SOURCE_AUDIT.md) for188entities,4owned inputs,
 actual typed10W change/report propagation and bounded project-knowledge proof.

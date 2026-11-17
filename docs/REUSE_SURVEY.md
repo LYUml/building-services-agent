@@ -1,3 +1,15 @@
+## Knowledge task ownership from existing validated inputs (2026-11-18)
+
+Reuse knowledge.workflow.inputs for document, Git, saved-index and nested project
+input closures. Capture path membership against the existing workflow hash map;
+reuse the original checkpoint's workflow snapshot instead of creating a second
+set of manifests/archives or a new dependency engine. Saved verification rebuilds
+ownership; impact consumes the bound original set after sources change. Existing
+SQLite runtime, shared/global gates and numerical reuse whitelist remain. Actual
+four-role source study preserves independent lighting math/report bytes and all
+review requirements. See KNOWLEDGE_OWNERSHIP.md for evidence and remaining
+conservative consumers; no new engine/dependency, vendored source or license.
+
 ## Repeated-source verification optimization (2026-11-18)
 
 Keep the pinned external DIALux reader and original module verifier. Reuse the

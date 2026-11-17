@@ -1259,6 +1259,10 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
         runtime_inputs[str(Path(graphviz).resolve())]=digest(Path(graphviz).resolve())
     if any(out==f or out in f.parents for f in inputs):raise ProjectError("run output must not contain inputs")
     before={str(f):digest(f) for f in inputs}
+    knowledge_ownership=None
+    if any(t['kind'] in ('knowledge_index','knowledge_query') for t in p['tasks']):
+        from .knowledge.workflow import input_ownership
+        knowledge_ownership=input_ownership(plan.parent,p,before)
     out.mkdir(parents=True,exist_ok=False)
     evidence={};tasks={};drainage_connection_pins={};three_phase_pins={};three_phase_rule_pins={};rectangular_pins={};concept_pins={};allocation_pins={};duct_schedule_pins={};duct_sheet_pins={}
     root=plan.parent
@@ -2438,6 +2442,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
         from .requirements_binding import verify_report as verify_requirements
         verify_requirements(result,plan)
     from .workflow_report import render
+    if knowledge_ownership is not None:result['knowledge_input_ownership']=knowledge_ownership
     (out/"index.html").write_text(render(result),encoding="utf-8")
     result['artifact_hashes']['index.html']=digest(out/'index.html')
     (out/"workflow.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
@@ -2468,6 +2473,11 @@ def verify(run_directory):
             if report['inputs'].get(str(plan_path))!=source_plan['sha256'] or digest(plan_path)!=source_plan['sha256']:
                 raise ValueError('Source plan identity differs')
             original_plan=read_json(plan_path)
+            if report.get('knowledge_input_ownership') is not None:
+                from .knowledge.workflow import input_ownership,saved_ownership
+                saved_ownership(report,original_plan)
+                if report['knowledge_input_ownership']!=input_ownership(plan_path.parent,original_plan,report['inputs']):
+                    raise ValueError('Knowledge input ownership differs from original task source closure')
             declared={t['id']:t for t in original_plan['tasks']}
             if set(declared)!=set(report['tasks']):raise ValueError('Recorded task coverage differs from source plan')
             for task_id,original in declared.items():
