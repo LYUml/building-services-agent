@@ -10,6 +10,11 @@ DESCRIPTION=dict(id='fluids.native-stub-friction',version='1.3.1',license='MIT')
 ACCEPTANCE_SCOPE='Native-source fully-developed straight-friction component only;short-duct development,joints,air state,whole pressure,fan and complete engineering acceptance remain pending'
 
 
+def external_inputs():
+    from ..runtime_evidence import fluids_method_paths
+    return fluids_method_paths()
+
+
 def validate_request(request):
     if request['capability']!=CAPABILITY or set(request['sources'])!={'stubs','basis'}:raise ValueError('Native friction requires exact verified stub report and property basis')
 

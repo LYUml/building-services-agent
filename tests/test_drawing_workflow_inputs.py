@@ -5,7 +5,6 @@ import unittest
 from bsa import drawing_access
 from bsa.cli import digest
 from bsa.workflow import execute,verify
-from bsa.native_cad import DEFAULT_EXE
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -30,7 +29,9 @@ class DrawingWorkflowInputTests(unittest.TestCase):
         self.assertIn(note,drawing_access.workflow_inputs(project));self.assertTrue(drawing_access.needs_graphviz(project))
         plan=json.loads((ROOT/'examples/drawing-workflow-plan.json').read_text());plan['tasks'][0]['project']=project.name;plan['brief']='brief.md'
         (self.root/'brief.md').write_bytes((ROOT/'examples/drawing-workflow/brief.md').read_bytes());p=self.root/'plan.json';p.write_text(json.dumps(plan))
-        result=execute(p,self.root/'missing-graphviz',autocad=DEFAULT_EXE)
+        # Graphviz absence must stop before any native CAD runtime is needed.
+        # Use this existing inert file as a host-path sentinel; never execute it.
+        result=execute(p,self.root/'missing-graphviz',autocad=Path(__file__))
         self.assertEqual(result['tasks']['sheet']['status'],'pending');self.assertIn('Graphviz',result['tasks']['sheet']['scope'])
         self.assertFalse((self.root/'missing-graphviz/sheet').exists());self.assertTrue(verify(self.root/'missing-graphviz')['integrity_pass'])
         note.write_text('Changed')

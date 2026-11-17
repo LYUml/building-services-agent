@@ -20,6 +20,7 @@ from .engine import ProjectError
 from .module_contract import read_json
 from .solid_clash import from_mesh
 from .workspace import allowed
+from .runtime_evidence import inherited_inputs_current
 
 
 def validate(policy):
@@ -88,10 +89,8 @@ def run(producer,basis,out):
         raise ProjectError('Passing unaccepted source-bound join required')
     model_path=producer/'joined.ifc';snapshot_path=producer/'source-snapshot.json'
     inputs={**report['inputs'],**report['method_inputs'],str(report_path):digest(report_path),str(basis):digest(basis),str(model_path):report['ifc_sha256'],str(snapshot_path):report['snapshot_sha256']}
-    for path,sha in inputs.items():
-        if not allowed(Path(path)) or digest(Path(path))!=sha:
-            raise ProjectError('Joined source, method or saved artifact changed')
-    methods={str(Path(p).resolve()):digest(Path(p)) for p in (__file__,route_join.__file__,circular.__file__,elbow.__file__,from_mesh.__code__.co_filename)}
+    if not inherited_inputs_current(inputs):raise ProjectError('Joined source, method or saved artifact changed')
+    methods={str(Path(p).resolve()):digest(Path(p)) for p in (__file__,inherited_inputs_current.__code__.co_filename,route_join.__file__,circular.__file__,elbow.__file__,from_mesh.__code__.co_filename)}
     snapshot=read_json(snapshot_path);route_join.inspect(model_path,snapshot)
     model=ifcopenshell.open(str(model_path));owners=set(snapshot['local_chain_owners'])
     canonical=[Path(p) for p in inputs if Path(p).name=='model-input.json']

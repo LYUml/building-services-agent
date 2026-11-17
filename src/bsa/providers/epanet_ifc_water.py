@@ -19,6 +19,9 @@ METHODS=(*epanet_water.METHODS,'water_binding.py','ifc_drawing.py','circular_geo
 def methods():return [ROOT/'scripts/water_saved_graph.py',Path(epanet_water.__file__),*[ROOT/'src/bsa'/n for n in METHODS]]
 
 
+def external_inputs():return epanet_water.external_inputs()
+
+
 def validate_request(request):
     if request['capability']!=CAPABILITY or set(request['sources'])!={'project','ifc','binding'}:raise ValueError('Bound water requires exact project/ifc/binding sources')
 
@@ -68,7 +71,7 @@ def execute(request,paths,runtime,out):
             return outcome('failed',code,'Water worker produced no verified hydraulic payload;inspect bound/analysis/worker.log')
         payload,raw=evidence(request,paths,folder)
         if process.returncode!=(0 if payload['status']=='pass' else 2):raise ValueError('Bound water process/status differs')
-        library=Path(importlib.metadata.distribution('wntr').locate_file('wntr/epanet/libepanet/windows-x64/epanet22.dll')).resolve()
+        library=epanet_water.native_library()
         if Path(raw['library']).resolve()!=library or digest(library)!=raw['library_sha256']:raise ValueError('Bound native EPANET library differs')
         pins[str(library)]=raw['library_sha256']
     except (OSError,ValueError,KeyError,TypeError) as exc:return outcome('failed','provider_evidence_invalid',str(exc))
@@ -83,7 +86,7 @@ def verify_evidence(result,result_path):
         request_path=Path(result['request']['path']);request=read_json(request_path)
         paths={k:(request_path.parent/r['path']).resolve() for k,r in request['sources'].items()}
         folder=Path(result_path).parent;payload,raw=evidence(request,paths,folder/'bound')
-        library=Path(importlib.metadata.distribution('wntr').locate_file('wntr/epanet/libepanet/windows-x64/epanet22.dll')).resolve()
+        library=epanet_water.native_library()
         if Path(raw['library']).resolve()!=library or result['inputs'].get(str(library))!=raw['library_sha256']:raise ValueError('Bound native library pin differs')
         if payload!=result['payload'] or read_json(folder/'process.json')['returncode']!=(0 if payload['status']=='pass' else 2):raise ValueError('Common bound water evidence differs')
     except (OSError,ValueError,KeyError,TypeError) as exc:raise ValueError('Invalid retained bound-water evidence: '+str(exc)) from exc

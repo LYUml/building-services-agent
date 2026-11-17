@@ -17,6 +17,7 @@ from .engine import ProjectError
 from .module_contract import read_json
 from .network import GRAVITY
 from .workspace import allowed
+from .runtime_evidence import inherited_inputs_current
 
 BODY='BSA_CalculatedAirflowScenario'
 PORT='BSA_CalculatedPortAirflowScenario'
@@ -56,8 +57,7 @@ def read_operation(producer):
         artifact=(producer/name).resolve()
         if not artifact.is_relative_to(producer):raise ProjectError('Operating artifact escapes producer')
         pins[str(artifact)]=sha
-    for p,sha in pins.items():
-        if not allowed(Path(p)) or digest(Path(p))!=sha:raise ProjectError('Operating source, method or artifact changed')
+    if not inherited_inputs_current(pins):raise ProjectError('Operating source, method or artifact changed')
     pressure=Path(roles['pressure_producer']);curve_path=Path(roles['curve'])
     project,baseline,inputs,versions=circular_fan.source_project(pressure)
     if report.get('runtime_versions')!=versions or any(report['inputs'].get(p)!=sha for p,sha in inputs.items()) or report['inputs'].get(str(curve_path))!=digest(curve_path):raise ProjectError('Operating role/source identity differs')
@@ -163,7 +163,7 @@ def run(producer,out):
     protected=[source.parent]
     if 'selection' in report:protected.append(Path(report['selection']['producer']).resolve())
     if any(out==p or p in out.parents or out in p.parents for p in protected):raise ProjectError('Metadata output must remain outside immutable native/selection source folders')
-    methods={str(Path(p).resolve()):digest(Path(p)) for p in (__file__,route_join.__file__,circular_fan.__file__,circular_fan_selection.__file__,properties.__code__.co_filename)}
+    methods={str(Path(p).resolve()):digest(Path(p)) for p in (__file__,inherited_inputs_current.__code__.co_filename,route_join.__file__,circular_fan.__file__,circular_fan_selection.__file__,properties.__code__.co_filename)}
     records=scenario_records(report,fresh,baseline,project,digest(source),digest(producer/'fan.json'),digest(Path(report['input_roles']['curve'])))
     out.mkdir(parents=True);target=out/'Operating Airflow Study.ifc';checks,expected=annotate(source,target,records)
     if any(digest(Path(p))!=sha for p,sha in {**pins,**methods}.items()):raise ProjectError('Operating scenario source or method changed during metadata writing')

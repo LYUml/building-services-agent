@@ -9,6 +9,13 @@ DESCRIPTION=dict(id='bsa.hvac-water-rules',version='1',license='NOASSERTION')
 ACCEPTANCE_SCOPE='Selected HVAC water-piping rules only;scope,edition,products and whole engineering/regulatory acceptance remain separate'
 
 
+def external_inputs():
+    # Only the selected upstream water engine binary may be inherited as an
+    # external method pin; producer/source validity is independently replayed.
+    from .epanet_water import external_inputs as upstream
+    return upstream()
+
+
 def validate_request(request):
     if request['capability']!=CAPABILITY or set(request['sources'])!={'producer','basis','pack'}:
         raise ValueError('Water rule provider requires exact producer/basis/pack sources')

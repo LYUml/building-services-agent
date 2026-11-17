@@ -1,6 +1,7 @@
 """Typed boundary around the existing WNTR/EPANET worker; no new solver."""
 import importlib.metadata
 import json
+import platform
 from pathlib import Path
 import subprocess
 import sys
@@ -13,6 +14,19 @@ PAYLOAD='bsa.water-graph/1'
 DESCRIPTION=dict(id='wntr.epanet-steady',version='1.5.0',license='BSD-3-Clause')
 ACCEPTANCE_SCOPE='Declared steady water/circulation graph only;native routing,fluid/demand/curve applicability,products,power,controls and jurisdiction/full design acceptance remain separate'
 METHODS=('epanet.py','epanet_energy.py','engine.py','cli.py')
+
+
+def native_library():
+    # Match the installed WNTR 1.5.0 toolkit's platform selection, without
+    # importing native engines into the orchestration process.
+    if sys.platform=='win32':relative='windows-x64/epanet22.dll'
+    elif sys.platform=='darwin':relative='darwin-arm/libepanet2.dylib' if 'arm' in platform.platform().lower() else 'darwin-x64/libepanet22.dylib'
+    elif sys.platform.startswith('linux'):relative='linux-x64/libepanet22.so'
+    else:raise ValueError('Unsupported WNTR native platform')
+    return Path(importlib.metadata.distribution('wntr').locate_file('wntr/epanet/libepanet/'+relative)).resolve()
+
+
+def external_inputs():return {native_library()}
 
 
 def validate_request(request):
@@ -68,7 +82,7 @@ def execute(request,paths,runtime,out):
             return outcome('failed',code,'Water worker did not produce verified hydraulic results;inspect analysis/worker.log')
         report,raw=checked_report(paths['project'],native)
         if process.returncode!=(0 if report['calculated_checks_pass'] else 2):raise ValueError('Water process/result status differs')
-        library=Path(importlib.metadata.distribution('wntr').locate_file('wntr/epanet/libepanet/windows-x64/epanet22.dll')).resolve()
+        library=native_library()
         if Path(raw['library']).resolve()!=library or digest(library)!=raw['library_sha256']:raise ValueError('Selected native EPANET library differs')
         pins[str(library)]=raw['library_sha256']
         payload=common(request,report,native)
@@ -85,7 +99,7 @@ def verify_evidence(result,result_path):
         request_path=Path(result['request']['path']);request=read_json(request_path)
         source=(request_path.parent/request['sources']['project']['path']).resolve()
         folder=Path(result_path).parent/'analysis';report,raw=checked_report(source,folder)
-        library=Path(importlib.metadata.distribution('wntr').locate_file('wntr/epanet/libepanet/windows-x64/epanet22.dll')).resolve()
+        library=native_library()
         if Path(raw['library']).resolve()!=library or result['inputs'].get(str(library))!=raw['library_sha256']:raise ValueError('Water native library pin differs')
         if result['payload']!=common(request,report,folder):raise ValueError('Common water graph differs from retained engine result')
         process=read_json(Path(result_path).parent/'process.json')

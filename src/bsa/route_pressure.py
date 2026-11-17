@@ -17,6 +17,7 @@ from .cli import digest
 from .engine import ProjectError
 from .module_contract import read_json
 from .workspace import allowed
+from .runtime_evidence import inherited_inputs_current
 from .circular_native import straight_wall
 from .product_alignment import aligned_placement
 import numpy as np
@@ -142,13 +143,12 @@ def run(producer,basis,out):
     receipt=producer/'route-material.json';material=read_json(receipt)
     if material.get('calculated_checks_pass') is not True or material.get('design_accepted') is not False:raise ProjectError('Passing local material QA required before extended pressure')
     inputs={**material['inputs'],**material['method_inputs'],str(receipt):digest(receipt),str(basis):digest(basis)}
-    for path,sha in inputs.items():
-        if not allowed(Path(path)) or digest(Path(path))!=sha:raise ProjectError('Inherited material/source/method changed')
+    if not inherited_inputs_current(inputs):raise ProjectError('Inherited material/source/method changed')
     canonical=[Path(p) for p in inputs if Path(p).name=='model-input.json'];joined=[Path(p) for p in inputs if Path(p).name=='joined.ifc']
     if len(canonical)!=1 or len(joined)!=1:raise ProjectError('Exact canonical route and saved joined IFC required')
     skeleton=canonical[0].parent/'network-source.json'
     if str(skeleton) not in inputs:raise ProjectError('Original geometry-free network skeleton must be inherited')
-    methods={str(Path(p).resolve()):digest(Path(p)) for p in (__file__,network.__file__,circular.__file__,elbow.__file__,straight_wall.__code__.co_filename,aligned_placement.__code__.co_filename,fluid_core.__file__,fluid_friction.__file__)}
+    methods={str(Path(p).resolve()):digest(Path(p)) for p in (__file__,inherited_inputs_current.__code__.co_filename,network.__file__,circular.__file__,elbow.__file__,straight_wall.__code__.co_filename,aligned_placement.__code__.co_filename,fluid_core.__file__,fluid_friction.__file__)}
     policy=validate(read_json(basis));derived,ledger=derive(joined[0],material['local_chain_owners'],read_json(canonical[0]),read_json(skeleton),policy)
     out.mkdir(parents=True);generated=out/'network-input.json';generated.write_text(json.dumps(derived,indent=2),encoding='utf-8')
     calculation=network.run(generated,out/'analysis');segment=calculation['segments'][0];gradient=segment['friction_pa']/derived['segments'][0]['length_m'];dynamic=derived['fluid']['density_kg_m3']*segment['velocity_m_s']**2/2

@@ -12,7 +12,7 @@ ROOT=Path(__file__).resolve().parents[2]
 
 def method_paths(provider):
     schemas=[ROOT/'contracts/modules'/module_contract.SCHEMAS[id] for id in ('bsa.module-request/1','bsa.module-result/1',provider.PAYLOAD)]
-    return [Path(__file__),Path(module_contract.__file__),ROOT/'src/bsa/workspace.py',Path(provider.__file__),ROOT/'src/bsa/providers/__init__.py',*schemas]
+    return [Path(__file__),Path(module_contract.__file__),ROOT/'src/bsa/workspace.py',ROOT/'src/bsa/runtime_evidence.py',Path(provider.__file__),ROOT/'src/bsa/providers/__init__.py',*schemas]
 
 
 def run(request_path,provider_id,out,*,runtime=None,disabled=False):
@@ -53,18 +53,23 @@ def run(request_path,provider_id,out,*,runtime=None,disabled=False):
 
 def verify_result(path):
     path=Path(path).resolve();result=module_contract.validate(module_contract.read_json(path),'bsa.module-result/1')
+    provider=get_provider(result['provider']['id'])
+    outside={Path(name).resolve() for name in result['inputs'] if not allowed(Path(name))}
+    trusted={Path(p).resolve() for p in provider.external_inputs()} if outside and hasattr(provider,'external_inputs') else set()
     for name,sha in result['inputs'].items():
         p=Path(name).resolve()
-        if not allowed(p) or digest(p)!=sha:raise ValueError('Module input evidence changed')
+        if not (allowed(p) or p in trusted) or digest(p)!=sha:raise ValueError('Module input evidence changed: '+str(p))
     for name,sha in result['artifacts'].items():
         p=(path.parent/name).resolve()
         if not p.is_relative_to(path.parent) or digest(p)!=sha:raise ValueError('Module artifact evidence changed')
     source=Path(result['request']['path']).resolve()
+    if not allowed(source):raise ValueError('Module request outside selected workspace')
     if result['inputs'].get(str(source))!=result['request']['sha256']:raise ValueError('Module request identity differs')
     request=module_contract.validate(module_contract.read_json(source),'bsa.module-request/1')
-    provider=get_provider(result['provider']['id']);provider.validate_request(request)
+    provider.validate_request(request)
     for row in request['sources'].values():
         p=(source.parent/row['path']).resolve()
+        if Path(row['path']).is_absolute() or not allowed(p):raise ValueError('Module source outside selected workspace')
         if result['inputs'].get(str(p))!=row['sha256']:raise ValueError('Module omitted a declared request source')
     for p in method_paths(provider):
         if result['inputs'].get(str(p.resolve()))!=digest(p):raise ValueError('Module omitted current method/schema evidence')

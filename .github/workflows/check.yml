@@ -63,11 +63,13 @@ jobs:
           python-version: '3.12'
       - name: Initialize repository test workspace
         run: python -c "from pathlib import Path; Path('runs').mkdir(exist_ok=True)"
-      - run: python -m pip install -e ".[dev,water,bim]"
+      - run: python -m pip install -e ".[dev,water,bim,network,modules,clash,spatial]"
       - name: Native water runtime smoke with retained diagnostics
         run: python -m bsa.epanet examples/water-loop/project.json --out runs/water-runtime-smoke
       - run: python -m unittest discover -s tests -p test_epanet.py -v
       - run: python -m unittest discover -s tests -p test_water_binding.py -v
+      - name: Verify registered water providers and external runtime boundaries
+        run: python -m unittest tests.test_modular_water tests.test_modular_bound_water tests.test_module_water_rules tests.test_module_water_rules_workflow tests.test_water_rule_drawing_gate tests.test_provider_runtime_boundaries -v
       - run: python -m bsa.workflow execute examples/water-loop/plan.json --out runs/water-loop
       - run: python -m bsa.workflow verify runs/water-loop
       - run: python -m bsa.workflow execute examples/water-loop-ifc/plan.json --out runs/water-loop-ifc
@@ -163,7 +165,8 @@ jobs:
           python-version: '3.12'
       - name: Initialize repository test workspace
         run: python -c "from pathlib import Path; Path('runs').mkdir(exist_ok=True)"
-      - run: python -m pip install -e ".[dev,network,bim,clash]"
+      - run: python -m pip install -e ".[dev,network,bim,clash,modules,spatial]"
+      - run: python -m unittest tests.test_native_friction_provider tests.test_mixed_recovery_controller -v
       - run: python -m unittest discover -s tests -p test_network.py -v
       - run: python -m unittest discover -s tests -p test_network_binding.py -v
       - run: python -m unittest discover -s tests -p test_circular_elbow.py -v

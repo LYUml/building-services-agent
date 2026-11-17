@@ -10,6 +10,7 @@ from .cli import digest
 from .engine import ProjectError
 from .module_contract import read_json
 from .workspace import allowed
+from .runtime_evidence import inherited_inputs_current
 
 
 def prepare(project,curve):
@@ -56,8 +57,7 @@ def source_project(producer):
         path=(producer/name).resolve()
         if not path.is_relative_to(producer):raise ProjectError('Pressure artifact escapes original producer')
         inputs[str(path)]=sha
-    for path,sha in inputs.items():
-        if not allowed(Path(path)) or digest(Path(path))!=sha:raise ProjectError('Fan upstream source, method or pressure artifact changed')
+    if not inherited_inputs_current(inputs):raise ProjectError('Fan upstream source, method or pressure artifact changed')
     project_path=producer/'network-input.json'
     if str(project_path) not in inputs:raise ProjectError('Exact saved derived pressure input required')
     project=read_json(project_path)
@@ -85,7 +85,7 @@ def run(producer,curve_path,out):
     project,baseline,inputs,versions=source_project(producer)
     inputs[str(curve_path)]=digest(curve_path);curve=read_json(curve_path)
     original=network.calculate(project);receipt=producer/'route-pressure.json'
-    methods={str(Path(p).resolve()):digest(Path(p)) for p in (__file__,network.__file__,pump.__file__,rectangular_fan.__file__,route_pressure.__file__)}
+    methods={str(Path(p).resolve()):digest(Path(p)) for p in (__file__,inherited_inputs_current.__code__.co_filename,network.__file__,pump.__file__,rectangular_fan.__file__,route_pressure.__file__)}
     result,selected=solve(project,curve)
     out.mkdir(parents=True)
     if selected is not None:

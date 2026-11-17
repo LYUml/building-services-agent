@@ -20,6 +20,7 @@ from .engine import ProjectError
 from .module_contract import read_json
 from .route_model import endpoint_frames
 from .workspace import allowed
+from .runtime_evidence import inherited_inputs_current
 
 
 def snapshot(model):
@@ -160,10 +161,10 @@ def run(producer, out):
     sources = [Path(p) for p in report['inputs'] if Path(p).suffix.lower() == '.ifc']
     if len(sources) != 1:
         raise ProjectError('One exact original source IFC required')
-    for path, sha in inputs.items():
-        if not allowed(Path(path)) or digest(Path(path)) != sha:
-            raise ProjectError('Source route input, method or artifact changed')
-    methods = {str(Path(p).resolve()): digest(Path(p)) for p in (__file__, shape_hash.__code__.co_filename, endpoint_frames.__code__.co_filename)}
+    for sources in (report['inputs'],native['inputs'],bound['inputs']):
+        if any(not allowed(Path(name)) for name in sources):raise ProjectError('Source route dataset outside selected workspace')
+    if not inherited_inputs_current(inputs):raise ProjectError('Source route input, method or artifact changed')
+    methods = {str(Path(p).resolve()): digest(Path(p)) for p in (__file__, inherited_inputs_current.__code__.co_filename, shape_hash.__code__.co_filename, endpoint_frames.__code__.co_filename)}
     source = sources[0]; route = selected/'bound/bim/model.ifc'
     settings_paths = [Path(p) for p in native['inputs'] if isinstance(read_json(Path(p)), dict) and 'plane_frame' in read_json(Path(p))]
     if len(settings_paths) != 1:
