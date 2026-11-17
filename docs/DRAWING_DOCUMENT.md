@@ -6,6 +6,11 @@ examples/drawing-document.json --out runs/fresh-drawing`. Install `.[drawing]`
 first. The same existing dispatch handles all seven documented drawing schemas.
 See [clean-install execution evidence](AGENT_USABILITY.md).
 
+The plain document schema is now registered as project task `drawing_document`,
+with independent native readback and source-bound delivery review. Other six
+schemas keep their existing standalone/MCP entry. See
+[workflow contract](GENERAL_DRAWING_WORKFLOW.md).
+
 The first shared authoring entry is `bsa.drawing_document`. It accepts a declarative
 document instead of a duct, electrical or IFC-specific task. It reuses pinned
 ezdxf1.4.5 (MIT), existing guarded isolated AutoCAD execution, DWG export and

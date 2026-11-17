@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "brief": "drawing-workflow/brief.md",
+  "brief_sha256": "4d7183942e801e562745a586c0afeec1c1be2c97c1e786ea22a9b92af1e2b6c9",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "sheet",
+      "kind": "drawing_document",
+      "project": "drawing-document.json"
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "requires_pass": [
+        "sheet"
+      ],
+      "description": "Inspect actual PDF; do not infer design acceptance from native execution."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Produce the explicitly declared plan, system and detail sheet as an editable native AutoCAD drawing with saved reopening and physical PDF scale checks.",
+      "task": "sheet",
+      "acceptance": "Produce the explicitly declared plan, system and detail sheet as an editable native AutoCAD drawing with saved reopening and physical PDF scale checks."
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Inspect the actual plotted sheet and retain visual, engineering and complete requirement acceptance as a separate review.",
+      "task": "review",
+      "acceptance": "Inspect the actual plotted sheet and retain visual, engineering and complete requirement acceptance as a separate review."
+    }
+  ]
+}

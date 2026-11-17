@@ -305,7 +305,16 @@ def validate_plan(path):
         gates=t.get('requires_pass',[])
         if not isinstance(gates,list) or any(not isinstance(g,str) or g not in ids for g in gates) or len(gates)!=len(set(gates)):
             raise ProjectError('requires_pass must list unique earlier task ids')
-        if kind not in ("module_electrical_native","module_electrical_rules","module_water_rules","module_analysis","module_authoring","spatial_terminal_stubs","spatial_terminal_inlets","spatial_terminal_ifc","spatial_terminal_coordination","spatial_terminal_native","spatial_terminal_drawing","spatial_terminal_performance","spatial_air_allocation","spatial_air_balance","spatial_lighting_rules","module_thermal_project","module_exchange","duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","circular_fan_metadata","circular_fan_selection","circular_fan_operating_point","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","route_ports","route_join","route_material","route_pressure","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind=='drawing_document':
+            if set(t)-{'id','kind','project','requires_pass','description'}:
+                raise ProjectError('General drawing task accepts a declared document and prior gates only; runtimes are host arguments')
+            from . import drawing_document,drawing_access
+            project=local_path(root,t.get('project'))
+            drawing_document.validate(read_json(project))
+            inputs.add(project)
+            inputs.update(Path(drawing_document.__file__).with_name(name).resolve() for name in drawing_document.methods())
+            inputs.add(Path(drawing_access.__file__).resolve())
+        if kind not in ("drawing_document","module_electrical_native","module_electrical_rules","module_water_rules","module_analysis","module_authoring","spatial_terminal_stubs","spatial_terminal_inlets","spatial_terminal_ifc","spatial_terminal_coordination","spatial_terminal_native","spatial_terminal_drawing","spatial_terminal_performance","spatial_air_allocation","spatial_air_balance","spatial_lighting_rules","module_thermal_project","module_exchange","duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","circular_fan_metadata","circular_fan_selection","circular_fan_operating_point","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","route_ports","route_join","route_material","route_pressure","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind=='module_electrical_native':
             if set(t)-{'id','kind','depends_on','requires_pass','description'}:raise ProjectError('Native electrical task inherits rule producer only;replacement inputs forbidden')
@@ -1231,7 +1240,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
     module_selection=host_selection(p['tasks'],module_providers,disabled_module_providers)
     inputs.update(selection_inputs(p['tasks'],plan.parent,module_selection))
     runtime_inputs={str(Path(honeybee_python).resolve()):digest(Path(honeybee_python).resolve())} if honeybee_python else {}
-    if autocad and any(t['kind'] in ('concept_section','duct_sheet_native','ifc_views_native','spatial_terminal_native') for t in p['tasks']):runtime_inputs[str(Path(autocad).resolve())]=digest(Path(autocad).resolve())
+    if autocad and any(t['kind'] in ('drawing_document','concept_section','duct_sheet_native','ifc_views_native','spatial_terminal_native') for t in p['tasks']):runtime_inputs[str(Path(autocad).resolve())]=digest(Path(autocad).resolve())
     if any(out==f or out in f.parents for f in inputs):raise ProjectError("run output must not contain inputs")
     before={str(f):digest(f) for f in inputs}
     out.mkdir(parents=True,exist_ok=False)
@@ -2033,6 +2042,16 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     payload=run(local_path(root,t['project']),drawing,local_path(root,t['selection']),local_path(root,t['settings']),folder,autocad,
                                 local_path(root,t['sheet']) if t.get('sheet') else None)
                     status='pass';reason='supported base entities preserved and electrical devices placed; native/physical PDF checks recorded when requested; full design and visual acceptance pending'
+            elif t['kind']=='drawing_document':
+                if not autocad:reason='AutoCAD executable not supplied for general drawing authoring; no native drawing produced'
+                else:
+                    from .drawing_access import run as draw,inspect as inspect_drawing
+                    project=local_path(root,t['project'])
+                    payload=draw(project,folder,autocad=autocad)
+                    checked=inspect_drawing(project,folder)
+                    if checked!=payload or not checked.get('integrity_pass') or not checked.get('native_reopen_pass'):
+                        raise ProjectError('General drawing native correspondence is incomplete')
+                    status='pass';reason='Declared editable document saved/reopened and actual PDF scale checked; source interpretation, visual and engineering acceptance remain pending'
             elif t['kind']=='drawing_intake':
                 drawing=local_path(root,t['drawing'])
                 if drawing.suffix.lower()=='.dwg' and not autocad:reason='AutoCAD executable not supplied for source DWG extraction'
@@ -2413,6 +2432,15 @@ def verify(run_directory):
     elif any(t.get('writer')=='uc4n' for t in report['tasks'].values()) or any((root/name/'workflow-binding.json').is_file() for name in report['tasks']):
         issues.append('upstream writer requires explicit workflow source plan identity')
     for name,task in report['tasks'].items():
+        if task['kind']=='drawing_document' and (task['status']=='pass' or (root/name/'drawing-result.json').is_file()):
+            try:
+                from .drawing_access import inspect as inspect_drawing
+                original=declared.get(name)
+                if original is None:raise ValueError('General drawing requires exact source plan identity')
+                checked=inspect_drawing(local_path(Path(source_plan['path']).resolve().parent,original['project']),root/name)
+                if not checked['native_reopen_pass'] or not checked['integrity_pass'] or task['status']!='pass':
+                    raise ValueError('General drawing status contradicts native result')
+            except (OSError,ValueError,KeyError,TypeError) as exc:issues.append('general drawing evidence invalid: '+name+': '+str(exc))
         if declared.get(name,task).get('kind')=='duct_sheet' and declared.get(name,task).get('writer')=='uc4n' and (task['status']=='pass' or (root/name/'workflow-binding.json').is_file()):
             try:
                 from .duct_sheet_provider import verify as verify_duct_provider

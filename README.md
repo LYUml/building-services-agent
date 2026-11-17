@@ -52,6 +52,12 @@ an untouched template cannot run. `needs_interpretation` with exit2 is a valid
 pending result. See [project commands](docs/PROJECT_CLI.md) and
 [engineering handoff](docs/ENGINEERING_HANDOFF.md).
 
+An already interpreted general drawing can also run through this project
+workflow, retaining original requirements, native checks, diagnosis and a
+separate pending review. See the runnable
+[general drawing workflow](docs/GENERAL_DRAWING_WORKFLOW.md). This route was
+executed through both the clean installed CLI and the current desktop MCP.
+
 For chat use, configure the existing stdio server with explicit host paths using
 the [project-scoped MCP setup](docs/CODEX_LOCAL_SETUP.md). Its40tools include
 drawing, intake, source reads, workflow execution, artifact checks and bounded

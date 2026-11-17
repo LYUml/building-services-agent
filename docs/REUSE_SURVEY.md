@@ -1,5 +1,11 @@
 ## Agent startup and drawing usability
 
+The same existing document/native/plot adapters now compose through project
+task `drawing_document`. Fixed-field validation, method/runtime pins and native
+reconstruction are workflow glue. No new drawing or geometry engine was added.
+Actual clean CLI, clean MCP and current desktop MCP execution are recorded in
+[general drawing workflow evidence](evidence/general-drawing-workflow.json).
+
 Reuses the existing ezdxf1.4.5(MIT), pypdf7.0.0(BSD-3-Clause), MCP1.30.0(MIT)
 and guarded native drawing adapters. The drawing extra pins the previously
 executed NumPy2.5.4(BSD-3-Clause), FontTools4.68.0(MIT), pyparsing3.3.3(MIT)

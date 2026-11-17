@@ -1,3 +1,12 @@
+## General drawing project workflow executed
+
+The plain document author now participates in source-bound workflow execution,
+independent native verification, diagnosis and separate pending delivery review.
+Clean CLI, clean MCP and this actual desktop chat execute the chain.45existing
+delivery/professional workflow tests plus5new drawing and1MCP workflow tests
+pass. Basic use is available; full agent goal remains active. See
+[workflow contract](GENERAL_DRAWING_WORKFLOW.md).
+
 ## Active agent usability work
 
 User reopened the agent goal after the coursework handoff. CLI drawing/doctor,

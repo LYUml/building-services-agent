@@ -38,30 +38,45 @@ def context(plan,root):
     for id,task in report['tasks'].items():
         if task.get('kind')!=tasks[id]['kind'] or task.get('status') not in ('pass','fail','pending'):
             raise ProjectError('run task metadata differs from plan or has unknown status')
-    from .module_water_rules import verify_workflow
-    verify_workflow(source['tasks'],root,plan.parent,report['tasks'])
-    from .module_electrical_rules import verify_workflow as verify_electrical_workflow
-    verify_electrical_workflow(source['tasks'],root,plan.parent,report['tasks'])
-    from .module_electrical_native import verify_workflow as verify_electrical_native_workflow
-    verify_electrical_native_workflow(source['tasks'],root,report['tasks'])
-    from .spatial_terminal_stubs import verify_workflow as verify_terminal_stub_workflow
-    verify_terminal_stub_workflow(source['tasks'],root,plan.parent,report['tasks'])
-    from .spatial_terminal_inlets import verify_workflow as verify_terminal_inlet_workflow
-    verify_terminal_inlet_workflow(source['tasks'],root,plan.parent,report['tasks'])
-    from .spatial_terminal_ifc import verify_workflow as verify_terminal_ifc_workflow
-    verify_terminal_ifc_workflow(source['tasks'],root,plan.parent,report['tasks'])
-    from .spatial_terminal_coordination import verify_workflow as verify_terminal_coordination_workflow
-    verify_terminal_coordination_workflow(source['tasks'],root,plan.parent,report['tasks'])
-    from .spatial_terminal_native import verify_workflow as verify_spatial_native_workflow
-    verify_spatial_native_workflow(source['tasks'],root,plan.parent,report['tasks'])
-    from .spatial_terminal_drawing import verify_workflow as verify_terminal_drawing_workflow
-    verify_terminal_drawing_workflow(source['tasks'],root,plan.parent,report['tasks'])
-    from .spatial_terminal_performance import verify_workflow as verify_terminal_performance_workflow
-    verify_terminal_performance_workflow(source['tasks'],root,plan.parent,report['tasks'])
-    from .spatial_air_allocation import verify_workflow as verify_air_allocation_workflow
-    verify_air_allocation_workflow(source['tasks'],root,plan.parent,report['tasks'])
-    from .spatial_air_balance import verify_workflow as verify_air_balance_workflow
-    verify_air_balance_workflow(source['tasks'],root,plan.parent,report['tasks'])
+    kinds={task['kind'] for task in source['tasks']}
+    # These verifiers examine only their corresponding task kind. Import them
+    # only when that kind exists, preserving every check for relevant projects.
+    if 'module_water_rules' in kinds:
+        from .module_water_rules import verify_workflow
+        verify_workflow(source['tasks'],root,plan.parent,report['tasks'])
+    if 'module_electrical_rules' in kinds:
+        from .module_electrical_rules import verify_workflow as verify_electrical_workflow
+        verify_electrical_workflow(source['tasks'],root,plan.parent,report['tasks'])
+    if 'module_electrical_native' in kinds:
+        from .module_electrical_native import verify_workflow as verify_electrical_native_workflow
+        verify_electrical_native_workflow(source['tasks'],root,report['tasks'])
+    if 'spatial_terminal_stubs' in kinds:
+        from .spatial_terminal_stubs import verify_workflow as verify_terminal_stub_workflow
+        verify_terminal_stub_workflow(source['tasks'],root,plan.parent,report['tasks'])
+    if 'spatial_terminal_inlets' in kinds:
+        from .spatial_terminal_inlets import verify_workflow as verify_terminal_inlet_workflow
+        verify_terminal_inlet_workflow(source['tasks'],root,plan.parent,report['tasks'])
+    if 'spatial_terminal_ifc' in kinds:
+        from .spatial_terminal_ifc import verify_workflow as verify_terminal_ifc_workflow
+        verify_terminal_ifc_workflow(source['tasks'],root,plan.parent,report['tasks'])
+    if 'spatial_terminal_coordination' in kinds:
+        from .spatial_terminal_coordination import verify_workflow as verify_terminal_coordination_workflow
+        verify_terminal_coordination_workflow(source['tasks'],root,plan.parent,report['tasks'])
+    if 'spatial_terminal_native' in kinds:
+        from .spatial_terminal_native import verify_workflow as verify_spatial_native_workflow
+        verify_spatial_native_workflow(source['tasks'],root,plan.parent,report['tasks'])
+    if 'spatial_terminal_drawing' in kinds:
+        from .spatial_terminal_drawing import verify_workflow as verify_terminal_drawing_workflow
+        verify_terminal_drawing_workflow(source['tasks'],root,plan.parent,report['tasks'])
+    if 'spatial_terminal_performance' in kinds:
+        from .spatial_terminal_performance import verify_workflow as verify_terminal_performance_workflow
+        verify_terminal_performance_workflow(source['tasks'],root,plan.parent,report['tasks'])
+    if 'spatial_air_allocation' in kinds:
+        from .spatial_air_allocation import verify_workflow as verify_air_allocation_workflow
+        verify_air_allocation_workflow(source['tasks'],root,plan.parent,report['tasks'])
+    if 'spatial_air_balance' in kinds:
+        from .spatial_air_balance import verify_workflow as verify_air_balance_workflow
+        verify_air_balance_workflow(source['tasks'],root,plan.parent,report['tasks'])
     for name,task in tasks.items():
         if task['kind']=='rectangular_fan_operating_point' and task.get('depends_on') in tasks and tasks[task['depends_on']]['kind']=='module_analysis':
             if (root/name/'fan.json').is_file() or report['tasks'][name]['status']=='pass':

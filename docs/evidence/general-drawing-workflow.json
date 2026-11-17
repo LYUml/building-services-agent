@@ -1,0 +1,128 @@
+{
+  "scope": "Synthetic source-linked general drawing workflow capability; not a completed engineering project",
+  "plan_sha256": "fca434e3f8693ebcdba6901329b16330b2e040e04f743d2dee96298d885aaf17",
+  "brief_sha256": "4d7183942e801e562745a586c0afeec1c1be2c97c1e786ea22a9b92af1e2b6c9",
+  "task_statuses": {
+    "sheet": {
+      "kind": "drawing_document",
+      "status": "pass",
+      "scope": "Declared editable document saved/reopened and actual PDF scale checked; source interpretation, visual and engineering acceptance remain pending"
+    },
+    "review": {
+      "kind": "manual",
+      "status": "pending",
+      "scope": "Inspect actual PDF; do not infer design acceptance from native execution."
+    }
+  },
+  "requirements_preserved": 2,
+  "clean_CLI_returncode": 2,
+  "clean_CLI_integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "native": {
+    "integrity_pass": true,
+    "native_reopen_pass": true,
+    "editable_entities": {
+      "model_entities": 18,
+      "entity_types": {
+        "LWPOLYLINE": 2,
+        "TEXT": 6,
+        "DIMENSION": 3,
+        "LINE": 4,
+        "INSERT": 1,
+        "CIRCLE": 1,
+        "ARC": 1
+      },
+      "editable_entity_correspondence": true,
+      "dimension_rendering_visual_review": "pending"
+    },
+    "artifacts": [
+      {
+        "path": "Drawing.dxf",
+        "sha256": "8f9b9cdaa27a1d0aa6dc8731c811222d426e6a4112934f7c5187feaf470999dc",
+        "bytes": 78275
+      },
+      {
+        "path": "Drawing.dwg",
+        "sha256": "96b8410a1a67e1805c12f67bbc911b2c1de060779707f3be7f831494a69d4996",
+        "bytes": 23724
+      },
+      {
+        "path": "Drawing.pdf",
+        "sha256": "323547a5d45e612c4ada575cdba39f79912e16b84beb97c93902ea94946f2ce6",
+        "bytes": 6740
+      }
+    ],
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "clean_workflow_tests_passed": 5,
+  "clean_MCP_workflow_test_passed": true,
+  "live_desktop_MCP_executed": true,
+  "live_desktop_integrity": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "live_native": {
+    "integrity_pass": true,
+    "native_reopen_pass": true,
+    "editable_entities": {
+      "model_entities": 18,
+      "entity_types": {
+        "LWPOLYLINE": 2,
+        "TEXT": 6,
+        "DIMENSION": 3,
+        "LINE": 4,
+        "INSERT": 1,
+        "CIRCLE": 1,
+        "ARC": 1
+      },
+      "editable_entity_correspondence": true,
+      "dimension_rendering_visual_review": "pending"
+    },
+    "artifacts": [
+      {
+        "path": "Drawing.dxf",
+        "sha256": "ef30e261d90a1f52180f013b3b18bbb01c2be5730ccb977dc499cb878ff7248d",
+        "bytes": 78273
+      },
+      {
+        "path": "Drawing.dwg",
+        "sha256": "4242f84f97ad9fb372a4a92d16f4bbcb482303578944ecbeac0f77f716913443",
+        "bytes": 23795
+      },
+      {
+        "path": "Drawing.pdf",
+        "sha256": "b207dfe5101a010b7574d4001207959b0cc039a65a7d151661e7b53cfbe35589",
+        "bytes": 6740
+      }
+    ],
+    "visual_review": "pending",
+    "design_accepted": false
+  },
+  "live_pending_review_requirements": [
+    {
+      "id": "R1",
+      "status": "pending"
+    },
+    {
+      "id": "R2",
+      "status": "pending"
+    }
+  ],
+  "all_actual_plot_pixels_match_visually_inspected_standalone": true,
+  "rewritten_hash_geometry_forgery_rejected": true,
+  "unrelated_optional_IFC_required_for_delivery": false,
+  "full_agent_goal_complete": false,
+  "design_accepted": false,
+  "existing_delivery_and_professional_workflow_regressions": {
+    "tests": 45,
+    "passed": 45,
+    "seconds": 315.703
+  }
+}
