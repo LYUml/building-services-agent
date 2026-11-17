@@ -170,10 +170,33 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                 page_preview=preview,visual_transcription=transcription,references=references,engineering_verification=checked,uninterpreted_execution_pass=blocked['execution_pass'],design_accepted=False),indent=2),encoding='utf-8')
 
 
-    @unittest.skipUnless(os.environ.get('BSA_MCP_ARTIFACT_PLAN') and os.environ.get('BSA_MCP_ARTIFACT_RUN') and os.environ.get('BSA_MCP_ARTIFACT_PREVIEW'),'requires explicit executed public PDF workflow and fresh preview')
+    @unittest.skipUnless(shutil.which('pdftoppm'),'requires host Poppler')
     async def test_real_generated_pdf_page_matches_recorded_workflow(self):
-        root=ROOT/'runs'
-        plan=os.environ['BSA_MCP_ARTIFACT_PLAN'];out=os.environ['BSA_MCP_ARTIFACT_RUN'];target=os.environ['BSA_MCP_ARTIFACT_PREVIEW']
+        from unittest.mock import patch
+        from pypdf import PdfWriter
+        from pypdf.generic import DecodedStreamObject
+        from bsa.cli import run as electrical_run
+        from bsa.workflow import execute
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+            root=Path(folder)
+            for name in ['delivery-plan.json','delivery-brief.md','office-electrical/project.json']:
+                target=root/name;target.parent.mkdir(parents=True,exist_ok=True)
+                shutil.copyfile(ROOT/'examples'/name,target)
+            def controlled_producer(project,out):
+                # Generate a rendering fixture before the workflow inventories
+                # outputs. No recorded hashes are rewritten; no native CAD or
+                # engineering-report generation is implied by this test PDF.
+                result=electrical_run(project,out)
+                writer=PdfWriter();page=writer.add_blank_page(width=200,height=100)
+                content=DecodedStreamObject();content.set_data(b'0 0 0 rg 10 10 50 30 re f\n')
+                page.replace_contents(content)
+                with (out/'controlled-rendering-fixture.pdf').open('wb') as stream:writer.write(stream)
+                return result
+            with patch('bsa.cli.run',side_effect=controlled_producer):
+                execute(root/'delivery-plan.json',root/'execution')
+            await self.check_recorded_pdf(root,'delivery-plan.json','execution','preview')
+
+    async def check_recorded_pdf(self,root,plan,out,target):
         renderer=shutil.which('pdftoppm')
         self.assertIsNotNone(renderer)
         params=StdioServerParameters(command=sys.executable,args=['-X','utf8','-m','bsa.mcp_server','--pdftoppm',renderer],cwd=str(ROOT),env={**os.environ,'BSA_PROJECT_ROOT':str(root),'PYTHONUTF8':'1'})
@@ -188,6 +211,10 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                 self.assertFalse(result.isError,str(result.content));meta=result.structuredContent
                 image=next(c for c in result.content if c.type=='image');raw=base64.b64decode(image.data)
                 self.assertEqual(raw,(root/target/'page.png').read_bytes())
+                from PIL import Image,ImageStat
+                with Image.open(root/target/'page.png') as rendered:
+                    self.assertAlmostEqual(rendered.width/rendered.height,2,delta=.01)
+                    self.assertGreater(max(ImageStat.Stat(rendered).stddev),0)
                 self.assertEqual(hashlib.sha256(raw).hexdigest(),meta['image_sha256'])
                 self.assertEqual(meta['artifact_sha256'],pdf['sha256'])
                 self.assertFalse(meta['design_accepted']);self.assertEqual(meta['visual_review'],'not_performed_by_renderer')

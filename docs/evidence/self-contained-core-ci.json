@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-17",
+  "core_environment": {
+    "clean_dependency_environment": true,
+    "ci_core_command_matches": true,
+    "setup_isolated_from_existing_config": true,
+    "all_commands_pass": true,
+    "scope": "Current Windows checkout with minimal profile; remote/Linux CI not inferred"
+  },
+  "local_windows_core_tests": {
+    "run": 48,
+    "passed": 48,
+    "skipped": 0
+  },
+  "local_actual_sdk_native_tests": {
+    "run": 5,
+    "passed": 5,
+    "skipped": 0
+  },
+  "old_pdf_local_fixture_dependency_removed": true,
+  "controlled_pdf_fixture_not_native_cad": true,
+  "workflow_receipts_rehashed_after_execution": false,
+  "legacy_workflow_retained": true,
+  "remote_actions_verified": false,
+  "classic_commit_statuses_empty": true,
+  "action_pins": {
+    "actions/checkout": "11d5960a326750d5838078e36cf38b85af677262",
+    "actions/setup-python": "a26af69be951a213d495a4c3e4e4022e16d87065"
+  },
+  "evidence_sha256": {
+    "runs/release-core-profile-checks/receipt.json": "b39b005948ac46aa8c214fd528dffb89f75f14978748d7bb19de9978c759dc90",
+    "runs/release-core-profile-checks/tests.log": "ebf0173b0f60bbab54aafec97178c62084587741c168d6c5eabb634b7096ca63",
+    "runs/self-contained-mcp-regression.log": "f0687950f825ba6fdda1c2680baa7075f0b630c62025ba9b7a341d1448866d7e",
+    "tests/test_mcp_server.py": "191bbc0e7a11d48dde201abe366cbcfc2f1ec4bcf88db17cdfbb151bae292c27",
+    ".github/workflows/core.yml": "d349046d0afdb4fa89a3437c3e08268a0d8cb818b0ffce5472b4622682e875f9"
+  },
+  "release_ready": false,
+  "design_accepted": false
+}

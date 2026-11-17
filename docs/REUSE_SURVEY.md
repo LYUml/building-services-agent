@@ -1,3 +1,12 @@
+## Self-contained rendering and core CI
+
+Reused pinned pypdf7.0.0 public page/content APIs, actual Poppler rendering and
+existing workflow inventory/SDK validators. The synthetic rectangular PDF is a
+controlled producer fixture recorded before inventory, not an engineering or
+native-CAD result. No new dependency/solver was added. New CI reuses existing
+actions/checkout v4 and setup-python v5, pinned to resolved official source SHAs.
+Existing notices remain applicable. See [actual local profile evidence](CI_PROFILES.md).
+
 ## Bounded-memory worker transport
 
 Reused MCP1.30.0 and the existing fixed engineering worker/response contract.

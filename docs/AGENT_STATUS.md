@@ -1,3 +1,13 @@
+## Core CI and self-contained PDF checks
+
+New core Windows/Ubuntu and SDK integration jobs declare their own dependency
+profiles. The PDF transport test now creates a controlled recorded fixture,
+instead of requiring an ignored local workflow. A clean core dependency env
+passes48tests, and actual SDK/native annual group passes5tests with no skips.
+Remote Actions and old domain jobs are NOTclaimed green; legacy checks remain
+intact. See [coverage and pending scope](CI_PROFILES.md). Candidate goal remains
+active; no release or coursework change.
+
 ## Release candidate hardening active
 
 User requested release readiness, modularity, lightweight dependencies, memory
