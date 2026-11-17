@@ -1,3 +1,11 @@
+## Extended host runtime setup verified
+
+The project installer now shares all12existing server path flags and preserves
+other controls.18tests and actual Codex/new-connection graph execution pass.
+Rootlocal config changes onlyGraphviz;current chat still has old startup args,
+so hot reload is NOTclaimed. CLI/newconnections work. See
+[runtime setup](CODEX_LOCAL_SETUP.md). Full agent goal remains active.
+
 ## Seven drawing schemas integrated
 
 All7existing drawing schemas now execute through one source-bound task. One

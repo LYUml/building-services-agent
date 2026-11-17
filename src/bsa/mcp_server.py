@@ -12,7 +12,7 @@ from typing import Any,Annotated
 
 from . import workspace,mcp_worker
 from .cli import digest
-from .host_runtime import OPTIONS
+from .host_runtime import OPTIONS,PATH_ARGUMENTS
 
 SDK_VERSION='1.30.0'
 
@@ -328,11 +328,9 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    for name in ('energyplus','autocad','radiance-bin','ifcmcp-python','three-phase-python','graphviz','pdf2plot-python','honeybee-python','moosas-upstream','moosas-deps'):
+    for name in PATH_ARGUMENTS:
         p.add_argument('--'+name,type=Path)
     p.add_argument('--disable-module-provider',action='append',default=[])
-    p.add_argument('--pdftoppm',type=Path)
-    p.add_argument('--report-font',type=Path)
     a=p.parse_args();names=('energyplus','autocad','radiance_bin','ifcmcp_python','three_phase_python','graphviz','pdf2plot_python','honeybee_python')
     options={key:getattr(a,key).resolve() for key in names if getattr(a,key) is not None}
     options.update(disabled_module_providers=a.disable_module_provider,module_runtime={key:value.resolve() for key,value in dict(upstream=a.moosas_upstream,deps=a.moosas_deps).items() if value is not None})

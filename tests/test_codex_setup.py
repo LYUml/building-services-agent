@@ -7,6 +7,32 @@ from bsa import codex_setup as setup
 
 
 class LocalSetupTests(unittest.TestCase):
+    def test_all_declared_runtime_paths_and_directory_kinds(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root,python=self.fixture(folder);directory=root/'runtime-dir';directory.mkdir()
+            options={name.replace('-','_'):directory if kind=='directory' else python for name,kind in setup.PATH_ARGUMENTS.items()}
+            with patch.object(setup.workspace,'ROOT',root),patch.object(setup.workspace,'project_root',return_value=None):
+                setup.install(python,**options);config=tomllib.loads((root/'.codex/config.toml').read_text())['mcp_servers'][setup.SERVER]
+                for name,kind in setup.PATH_ARGUMENTS.items():
+                    self.assertEqual(config['args'][config['args'].index('--'+name)+1],(directory if kind=='directory' else python).as_posix())
+                before=(root/'.codex/config.toml').read_bytes()
+                with self.assertRaises(ValueError):setup.install(python,radiance_bin=python,refresh=True)
+                with self.assertRaises(ValueError):setup.install(python,graphviz=directory,refresh=True)
+                with self.assertRaises(ValueError):setup.install(python,approval_policy='never',refresh=True)
+                self.assertEqual((root/'.codex/config.toml').read_bytes(),before)
+
+    def test_graphviz_refresh_preserves_other_explicit_runtimes(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root,python=self.fixture(folder);other=root/'new-dot.exe';other.write_text('Never executed')
+            with patch.object(setup.workspace,'ROOT',root),patch.object(setup.workspace,'project_root',return_value=None):
+                setup.install(python,autocad=python,graphviz=python,honeybee_python=python)
+                self.assertTrue(setup.install(python,graphviz=other,refresh=True)['changed'])
+                target=root/'.codex/config.toml';config=tomllib.loads(target.read_text())['mcp_servers'][setup.SERVER]
+                self.assertEqual(config['args'][config['args'].index('--graphviz')+1],other.as_posix())
+                for flag in ['--autocad','--honeybee-python']:
+                    self.assertEqual(config['args'][config['args'].index(flag)+1],python.as_posix())
+                self.assertFalse(setup.install(python,graphviz=other,refresh=True)['changed'])
+
     def test_ambiguous_updated_flag_and_normalizing_writer_preserve_original(self):
         import tomlkit
         with tempfile.TemporaryDirectory() as folder:

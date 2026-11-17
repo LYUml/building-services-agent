@@ -10,11 +10,12 @@ import tempfile
 import tomllib
 from . import workspace
 from .cli import digest
+from .host_runtime import PATH_ARGUMENTS
 
 SERVER='building_services'
 
 
-def settings(python,autocad=None,pdftoppm=None):
+def settings(python,autocad=None,pdftoppm=None,**runtimes):
     root=workspace.ROOT.resolve();project=workspace.project_root() or root
     project=project.resolve()
     if project==root.parent/'polyu_bse3124':raise ValueError('Completed historical project is read-only')
@@ -23,10 +24,14 @@ def settings(python,autocad=None,pdftoppm=None):
     python=Path(python).resolve()
     if not python.is_file():raise ValueError('Explicit existing engineering Python required')
     args=['-X','utf8','-m','bsa.mcp_server']
-    for name,value in (('autocad',autocad),('pdftoppm',pdftoppm)):
+    requested={key.replace('_','-'):value for key,value in runtimes.items()}
+    if set(requested)-set(PATH_ARGUMENTS):raise ValueError('Supported explicit host runtime paths required')
+    requested.update(autocad=autocad,pdftoppm=pdftoppm)
+    for name,kind in PATH_ARGUMENTS.items():
+        value=requested.get(name)
         if value is not None:
             value=Path(value).resolve()
-            if not value.is_file():raise ValueError('Explicit existing host runtime required: '+name)
+            if not (value.is_file() if kind=='file' else value.is_dir()):raise ValueError('Explicit existing host runtime '+kind+' required: '+name)
             args.extend(['--'+name,value.as_posix()])
     return project,dict(command=python.as_posix(),args=args,cwd=root.as_posix(),startup_timeout_sec=120,tool_timeout_sec=1200,enabled=True,env=dict(BSA_PROJECT_ROOT=data.as_posix()))
 
@@ -44,7 +49,7 @@ def refreshed(original,data,config):
     existing=data['mcp_servers'][SERVER];desired=copy.deepcopy(existing)
     args=list(existing.get('args',[]));prefix=['-X','utf8','-m','bsa.mcp_server']
     if args[:4]!=prefix or not all(isinstance(v,str) for v in args):raise ValueError('Only the known BSA module launcher can be refreshed')
-    for flag in ('--autocad','--pdftoppm'):
+    for flag in ('--'+name for name in PATH_ARGUMENTS):
         if flag not in config['args']:continue
         value=config['args'][config['args'].index(flag)+1]
         if args.count(flag)>1 or (flag in args and (args.index(flag)+1>=len(args) or args[args.index(flag)+1].startswith('--'))):raise ValueError('Ambiguous existing runtime arguments')
@@ -88,8 +93,8 @@ def write_config(target,original,payload):
         if temporary is not None:temporary.unlink(missing_ok=True)
 
 
-def install(python,autocad=None,pdftoppm=None,refresh=False):
-    project,config=settings(python,autocad,pdftoppm);target=(project/'.codex/config.toml').resolve()
+def install(python,autocad=None,pdftoppm=None,refresh=False,**runtimes):
+    project,config=settings(python,autocad,pdftoppm,**runtimes);target=(project/'.codex/config.toml').resolve()
     if not target.is_relative_to(project):raise ValueError('Local config path escapes selected workspace')
     original=target.read_bytes() if target.exists() else b''
     data=tomllib.loads(original.decode('utf-8'));existing=data.get('mcp_servers',{}).get(SERVER)
@@ -109,4 +114,6 @@ def install(python,autocad=None,pdftoppm=None,refresh=False):
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--python',default=sys.executable);p.add_argument('--autocad');p.add_argument('--pdftoppm');p.add_argument('--refresh',action='store_true');a=p.parse_args();print(json.dumps(install(a.python,a.autocad,a.pdftoppm,refresh=a.refresh),indent=2))
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--python',default=sys.executable)
+    for name in PATH_ARGUMENTS:p.add_argument('--'+name)
+    p.add_argument('--refresh',action='store_true');a=vars(p.parse_args());print(json.dumps(install(**a),indent=2))

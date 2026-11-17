@@ -1,5 +1,31 @@
 # Project-scoped Codex startup
 
+The installer now accepts every existing server path flag, using the same
+lightweight host-only registry as the MCP launcher. In addition to AutoCAD and
+Poppler, file flags are `--energyplus`, `--ifcmcp-python`, `--three-phase-python`,
+`--graphviz`, `--pdf2plot-python`, `--honeybee-python` and `--report-font`.
+`--radiance-bin`, `--moosas-upstream` and `--moosas-deps` require directories.
+Paths are explicit host settings; file/directory presence is not engine acceptance.
+
+```powershell
+python -m bsa.codex_setup --graphviz HOST_EVALUATED_DOT_EXE --refresh
+```
+
+Refresh changes only explicitly provided runtime flags and preserves unrelated
+settings/unspecified runtimes. New tests cover all12path flags, wrong path kinds,
+unknown policy arguments, idempotency and selective Graphviz refresh. A real
+isolated profile and the development profile are recognized by Codex; the current
+40tool names match the actual local server declarations and a reference call
+executes. A connection launched from the new profile actually authors/reopens a
+graph DWG. The current desktop chat was separately observed to retain its old
+startup parameters: its graph task stays pending without Graphviz. Do not claim
+hot reload or restart user applications to conceal that distinction. CLI and
+new connections can use the saved profile. No global trust/approval settings
+were changed. See [runtime evidence](evidence/extended-runtime-setup.json).
+
+The probe now compares exact current tool names, replacing its stale hardcoded
+38-tool assertion. Earlier paragraphs below retain their historical scope.
+
 The existing BSA stdio MCP server now has a reusable local startup installer:
 
 ```

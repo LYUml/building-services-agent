@@ -1,0 +1,89 @@
+{
+  "scope": "Explicit local runtime setup and new-connection graph execution, not complete agent or engineering acceptance",
+  "shared_path_flags": 12,
+  "tests_passed": 18,
+  "isolated_backend": {
+    "codex_sha256": "c54db6755e710c39703f7c37512f9e35ed41042d8080558d2b84b8d2694323c3",
+    "local_config_sha256": "1c6768afac92262bfebfe0defb61f6165c5dcf034029f9d8aa177253bbe51724",
+    "effective_config_matches_local": true,
+    "readonly_reference_count": 1,
+    "project_ledger_numeric_gap_count": null,
+    "actual_codex_backend_catalogue_count": 40,
+    "actual_codex_readonly_tool_call_pass": true,
+    "ephemeral_context": true,
+    "model_turns_sent": 0,
+    "current_desktop_chat_hot_reload_verified": false,
+    "design_accepted": false
+  },
+  "root_backend": {
+    "codex_sha256": "c54db6755e710c39703f7c37512f9e35ed41042d8080558d2b84b8d2694323c3",
+    "local_config_sha256": "b58e76e876e92f2f346b3a3c521ab9915977b7852826032b15aff45e424162cb",
+    "effective_config_matches_local": true,
+    "readonly_reference_count": 1,
+    "project_ledger_numeric_gap_count": null,
+    "actual_codex_backend_catalogue_count": 40,
+    "actual_codex_readonly_tool_call_pass": true,
+    "ephemeral_context": true,
+    "model_turns_sent": 0,
+    "current_desktop_chat_hot_reload_verified": false,
+    "design_accepted": false
+  },
+  "root_refresh": {
+    "changed": true,
+    "only_graphviz_argument_changed": true,
+    "previous_config_sha256": "1bab02cc1c529cf6f5657f517dba270c45178c44cfac02649da9d3daedda6956",
+    "new_config_sha256": "b58e76e876e92f2f346b3a3c521ab9915977b7852826032b15aff45e424162cb",
+    "global_config_changed": false,
+    "trust_or_approval_settings_changed": false,
+    "user_application_restarted": false
+  },
+  "configured_graph": {
+    "integrity_pass": true,
+    "native_reopen_pass": true,
+    "editable_entities": {
+      "model_entities": 26,
+      "entity_types": {
+        "LWPOLYLINE": 4,
+        "TEXT": 5,
+        "LINE": 17
+      },
+      "editable_entity_correspondence": true,
+      "dimension_rendering_visual_review": "pending"
+    },
+    "artifacts": [
+      {
+        "path": "drawing/Drawing.dxf",
+        "sha256": "c80daea740ebadc7d237afa0b7f49826e4e70a579f5970d8d6e1e8ff47f6ca3c",
+        "bytes": 73445
+      },
+      {
+        "path": "drawing/Drawing.dwg",
+        "sha256": "2afd6605f13671e0e04c32ec1d22c57a45577d62686054c17ffec3ade9016a9b",
+        "bytes": 22286
+      },
+      {
+        "path": "drawing/Drawing.pdf",
+        "sha256": "12ce30797eb150b5c0a817ddd3a6983a28e4f58b1951ff732b844f07fa9b0be9",
+        "bytes": 4642
+      }
+    ],
+    "visual_review": "pending",
+    "design_accepted": false,
+    "graph": {
+      "nodes": 2,
+      "edges": 1,
+      "source_files": [],
+      "graphviz_sha256": "ff1ce5f13caf4ed7dddb7327b94781e751e4a7e693b4655287b6647d959c879a",
+      "layout_reexecuted_during_inspection": false,
+      "scope": "Declared topology; stored Graphviz layout replay, not independent source interpretation or authenticated provenance"
+    }
+  },
+  "setup_CLI_idempotent": true,
+  "graph_plot_pixel_identical_to_inspected_graph": true,
+  "current_desktop_chat_graphviz_loaded": false,
+  "current_desktop_graph_task_status": "pending",
+  "current_desktop_pending_reason": "Graphviz executable not supplied for graph drawing; no native drawing produced",
+  "application_restarted": false,
+  "design_accepted": false,
+  "whole_agent_complete": false
+}

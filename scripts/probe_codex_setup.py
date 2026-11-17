@@ -2,7 +2,7 @@
 
 No model turn is sent. This does not establish current desktop-chat hot reload.
 """
-import argparse,json,os,queue,shutil,subprocess,threading,time
+import argparse,json,os,queue,shutil,subprocess,threading,time,asyncio
 from pathlib import Path
 from bsa import workspace
 from bsa.cli import digest
@@ -37,8 +37,12 @@ def call(method,params):
 try:
  call('initialize',dict(clientInfo=dict(name='bsa_local_setup_probe',version='1')));process.stdin.write(json.dumps(dict(method='initialized'))+'\n');process.stdin.flush()
  started=call('thread/start',dict(cwd=str(project),ephemeral=True));thread_id=started['thread']['id'];print('Ephemeral diagnostic context initialized',flush=True)
- status=call('mcpServerStatus/list',dict(serverName='building_services',threadId=thread_id));server=next(x for x in status['data'] if x['name']=='building_services');assert not server.get('toolsError'),server.get('toolsError');assert len(server['tools'])==38
- print('Actual Codex backend discovered all 38 BSA tools',flush=True)
+ status=call('mcpServerStatus/list',dict(serverName='building_services',threadId=thread_id));server=next(x for x in status['data'] if x['name']=='building_services');assert not server.get('toolsError'),server.get('toolsError')
+ from bsa.mcp_server import create_server
+ expected={tool.name for tool in asyncio.run(create_server().list_tools())}
+ actual=set(server['tools']) if isinstance(server['tools'],dict) else {tool['name'] for tool in server['tools']}
+ assert actual==expected,dict(missing=sorted(expected-actual),unexpected=sorted(actual-expected))
+ print('Actual Codex backend discovered all '+str(len(actual))+' current BSA tools',flush=True)
  result=call('mcpServer/tool/call',dict(threadId=thread_id,server='building_services',tool='bsa_reference_catalogue',arguments=dict(limit=1)));assert not result.get('isError');assert result.get('structuredContent') is not None
  catalogue=result['structuredContent'];assert catalogue['total']>0 and len(catalogue['references'])==1 and catalogue['design_accepted'] is False
  ledger_count=None
