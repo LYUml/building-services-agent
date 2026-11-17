@@ -37,3 +37,21 @@ Local checks for this change:
 
 No release, course design change or user acceptance is asserted. Next remote
 results must resolve water diagnostics and establish the full-profile baseline.
+
+## Follow-up: diagnosed missing water dependency
+
+At commit `5f9deae`, water job 133968878210 now exposes the actual startup
+trace: WNTR 1.5.0 imports `six` in `wntr/epanet/io.py`, but does not declare it
+in installed Requires-Dist metadata. The clean Ubuntu environment therefore
+raises `ModuleNotFoundError: No module named 'six'` before hydraulic execution.
+The water extra now explicitly pins `six==1.17.0`, matching the existing
+successful Windows runtime. This repairs dependency declaration; corrected
+Linux hydraulic execution still requires remote evidence. Electrical job
+133968878643 passed its full selected workflow at the same commit.
+
+An isolated setuptools wheel build succeeded: 1,024,095 bytes, 351 entries.
+It contains Python package files and metadata, without repository resource
+trees. It is an audit artifact, not an accepted standalone distribution:
+resource resolution and clean wheel execution still require work. An initial
+non-isolated attempt failed because the development environment has no
+setuptools backend; the isolated build supplied its declared build dependency.
