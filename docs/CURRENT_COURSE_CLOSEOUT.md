@@ -3,8 +3,10 @@
 The user-authorized refinement is now delivered for review, not user-accepted.
 The current report has16pages including two source-coordinate illustrations,
 diffuser and duct worked examples, six external IEEE-style references and the
-actual native A1 plan. Private group identities remain excluded from public Git;
-the other15pages match pixel-for-pixel. BSE3125 was read-only.
+actual native A1 plan. The user subsequently authorized publishing the formal
+report with group members; it is now tracked alongside the anonymous counterpart.
+Their other15pages match pixel-for-pixel. Raw group lists and runtime sources
+remain excluded. BSE3125 was read-only.
 
 A bounded 150 mm southward relocation
 of twelve diffusers within their unchanged explicit service cells preserves all
