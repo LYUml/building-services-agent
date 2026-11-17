@@ -1232,7 +1232,7 @@ def requirement_support(requirement,tasks,artifacts):
         for name in requirement.get('supporting_tasks',[])}
 
 
-def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_python=None,three_phase_python=None,graphviz=None,pdf2plot_python=None,honeybee_python=None,module_providers=None,module_runtime=None,disabled_module_providers=(),requirements_result=None):
+def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_python=None,three_phase_python=None,graphviz=None,pdf2plot_python=None,honeybee_python=None,module_providers=None,module_runtime=None,disabled_module_providers=(),requirements_result=None,reuse_checkpoint=None):
     plan,out=plan.resolve(),out.resolve()
     from . import workspace
     if not workspace.allowed(plan) or not workspace.intake_output(out):raise ProjectError('Explicit selected workflow input and output workspace required')
@@ -1246,6 +1246,12 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
     from .workflow_modules import host_selection,selection_inputs
     module_selection=host_selection(p['tasks'],module_providers,disabled_module_providers)
     inputs.update(selection_inputs(p['tasks'],plan.parent,module_selection))
+    reuse_record=None
+    if reuse_checkpoint is not None:
+        from .changes.workflow import prepare as prepare_reuse,pins as reuse_pins
+        if any(t['id']=='_reuse' for t in p['tasks']):raise ProjectError('Selective replay reserves the _reuse task namespace')
+        reuse_record=prepare_reuse(Path(reuse_checkpoint),plan)
+        inputs.update(reuse_pins(Path(reuse_checkpoint)))
     runtime_inputs={str(Path(honeybee_python).resolve()):digest(Path(honeybee_python).resolve())} if honeybee_python else {}
     if autocad and any(t['kind'] in ('drawing_document','concept_section','duct_sheet_native','ifc_views_native','spatial_terminal_native') for t in p['tasks']):runtime_inputs[str(Path(autocad).resolve())]=digest(Path(autocad).resolve())
     from .drawing_access import needs_graphviz
@@ -1432,13 +1438,19 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 else:
                     from .workflow_modules import materialize,result_path
                     request=materialize(t,p['tasks'],root,out) if parent else local_path(root,t['request'])
-                    payload=run_module(request,provider_id,folder/'exchange' if parent else folder,runtime=module_runtime,disabled=provider_id in disabled_module_providers)
+                    reused=False
+                    if reuse_record is not None:
+                        from .changes.workflow import eligible as reuse_eligible,copy as copy_reused
+                        reused=reuse_eligible(reuse_record,t,provider_id,module_selection['disabled_providers'],module_runtime)
+                    if reused:payload=copy_reused(reuse_record,t,plan,out)
+                    else:payload=run_module(request,provider_id,folder/'exchange' if parent else folder,runtime=module_runtime,disabled=provider_id in disabled_module_providers)
                     path=result_path(out,t);verify_module(path);module_results.append(path)
                     runtime_inputs.update(payload['inputs'])
                     from .workflow_modules import execution_status
                     status=execution_status(payload,t['kind'])
                     reason='Module execution '+payload['execution']['status']+';'+payload['acceptance']['scope']
                     if t['kind']=='module_analysis' and payload['execution']['status']=='completed':reason+=';numerical checks '+status
+                    if reused:reason+=';verified numerical reuse, no acceptance transferred'
             elif t['kind']=='three_phase':
                 if not three_phase_python:reason='Three-phase isolated Python runtime not supplied; adapter not executed'
                 else:
@@ -2402,6 +2414,9 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
     verify_electrical_native_workflow(p['tasks'],out,tasks)
     unchanged=all(f.is_file() and digest(f)==before[str(f)] for f in inputs)
     source_rows={x["id"]:x for x in plan_documents(root,p)['passages']}
+    if reuse_record is not None:
+        from .changes.workflow import verify as verify_reuse_workflow
+        verify_reuse_workflow(reuse_record,plan,out,tasks)
     matrix=[]
     for r in p["requirements"]:
         task=tasks[r["task"]]
@@ -2418,6 +2433,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
         artifact_hashes={f.relative_to(out).as_posix():digest(f) for f in out.rglob("*") if f.is_file()},
         execution_pass=unchanged and all(x["status"]=="pass" for x in tasks.values()),
         design_accepted=False,acceptance_note="Host agent must compare each artifact to the complete acceptance text; execution is not engineering acceptance")
+    if reuse_record is not None:result['reuse']=reuse_record
     if requirements_inventory is not None:
         from .requirements_binding import verify_report as verify_requirements
         verify_requirements(result,plan)
@@ -2464,6 +2480,9 @@ def verify(run_directory):
                 row=rows[requirement['id']]
                 if row.get('supporting_tasks',[])!=requirement.get('supporting_tasks',[]) or row.get('supporting_evidence',{})!=requirement_support(requirement,report['tasks'],report['artifact_hashes']):
                     raise ValueError('Supporting requirement evidence differs from source: '+requirement['id'])
+            if report.get('reuse') is not None or (root/'_reuse').exists():
+                from .changes.workflow import verify as verify_reuse_workflow
+                verify_reuse_workflow(report.get('reuse'),plan_path,root,report['tasks'],report['inputs'])
             if any(t['kind'] in ('knowledge_index','knowledge_query') for t in original_plan['tasks']):
                 from .knowledge.workflow import verify_outputs as verify_knowledge_outputs
                 verify_knowledge_outputs(plan_path.parent,original_plan,root,report['tasks'],report['inputs'])
@@ -2473,6 +2492,7 @@ def verify(run_directory):
         except (OSError,ValueError,KeyError,TypeError) as exc:issues.append('workflow source identity invalid: '+str(exc))
     elif any(t.get('writer')=='uc4n' for t in report['tasks'].values()) or any((root/name/'workflow-binding.json').is_file() for name in report['tasks']):
         issues.append('upstream writer requires explicit workflow source plan identity')
+    if report.get('reuse') is not None and not source_plan:issues.append('Workflow reuse requires exact original source plan')
     for name,task in report['tasks'].items():
         if task['kind'] in ('knowledge_index','knowledge_query') and not source_plan:
             issues.append('knowledge output requires exact original workflow source identity: '+name)
@@ -2607,6 +2627,7 @@ def main():
     e.add_argument('--three-phase-python',type=Path)
     e.add_argument('--graphviz',type=Path)
     e.add_argument('--requirements-result',type=Path)
+    e.add_argument('--reuse-checkpoint',type=Path)
     e.add_argument('--module-provider',action='append',default=[],metavar='TASK=PROVIDER')
     e.add_argument('--disable-module-provider',action='append',default=[])
     e.add_argument('--moosas-upstream',type=Path);e.add_argument('--moosas-deps',type=Path)
@@ -2627,7 +2648,7 @@ def main():
                 task,sep,provider=item.partition('=')
                 if not sep or not task or not provider or task in overrides:raise ProjectError('Unique TASK=PROVIDER module overrides required')
                 overrides[task]=provider
-            r=execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python,a.three_phase_python,a.graphviz,a.pdf2plot_python,a.honeybee_python,module_providers=overrides,module_runtime=dict(upstream=a.moosas_upstream,deps=a.moosas_deps),disabled_module_providers=a.disable_module_provider,requirements_result=a.requirements_result)
+            r=execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python,a.three_phase_python,a.graphviz,a.pdf2plot_python,a.honeybee_python,module_providers=overrides,module_runtime=dict(upstream=a.moosas_upstream,deps=a.moosas_deps),disabled_module_providers=a.disable_module_provider,requirements_result=a.requirements_result,reuse_checkpoint=a.reuse_checkpoint)
             print(json.dumps({"tasks":r["tasks"],"design_accepted":False},indent=2))
             if not r["execution_pass"]:return 2
     except (ProjectError,OSError,ValueError) as exc:p.exit(2,str(exc)+"\n")

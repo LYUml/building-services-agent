@@ -224,7 +224,7 @@ def impact(folder, *, plan=None):
         scope=SCOPE,limits='Unknown task input ownership uses conservative whole-workflow pins; no automatic plan/source edits or acceptance transfer',design_accepted=False)
 
 
-def reuse(folder, task_id, out, *, plan=None):
+def reuse(folder, task_id, out, *, plan=None, module_out=None):
     assessed=impact(folder,plan=plan)
     if not assessed['tasks'].get(task_id,{}).get('reuse_eligible'):
         raise ValueError('Task is invalidated, incomplete or lacks a verified numerical reuse path')
@@ -237,16 +237,22 @@ def reuse(folder, task_id, out, *, plan=None):
     out=Path(out).resolve()
     if not intake_output(out) or out.exists() or out.is_relative_to(run) or run.is_relative_to(out) or out.is_relative_to(Path(folder).resolve()):
         raise ValueError('Fresh reuse output separate from baseline and checkpoint required')
+    detached=module_out is not None
+    module=Path(module_out).resolve() if detached else out/'module'
+    if detached and (not intake_output(module) or module.exists() or module.is_relative_to(run) or run.is_relative_to(module) or module.is_relative_to(Path(folder).resolve()) or module.is_relative_to(out) or out.is_relative_to(module)):
+        raise ValueError('Fresh separate canonical module directory required')
     # Re-check the exact requested provider/source before copying, and verify after.
     pins={str(source):file_hash(source),**verified['inputs']}
     out.mkdir(parents=True)
-    shutil.copytree(source.parent,out/'module')
-    verify_result(out/'module/result.json')
+    shutil.copytree(source.parent,module)
+    verify_result(module/'result.json')
     if any(not Path(p).is_file() or file_hash(p)!=sha for p,sha in pins.items()) or impact(folder,plan=plan)!=assessed:
         raise ValueError('Reuse dependencies changed during copying')
-    artifacts={p.relative_to(out).as_posix():file_hash(p) for p in (out/'module').rglob('*') if p.is_file()}
-    receipt=dict(schema='bsa.module-reuse/1',impact=assessed,source_result=reference(source),artifacts=artifacts,
+    base=module if detached else out
+    artifacts={p.relative_to(base).as_posix():file_hash(p) for p in module.rglob('*') if p.is_file()}
+    receipt=dict(schema='bsa.module-reuse/2' if detached else 'bsa.module-reuse/1',impact=assessed,source_result=reference(source),artifacts=artifacts,
         verification=VERIFICATION,scope=SCOPE,design_accepted=False)
+    if detached:receipt['module_result']=reference(module/'result.json')
     write(out/'receipt.json',receipt)
     verify_reuse(out)
     return receipt
@@ -254,13 +260,24 @@ def reuse(folder, task_id, out, *, plan=None):
 
 def verify_reuse(out):
     out=Path(out).resolve()
-    if not intake_output(out) or {p.name for p in out.iterdir()}!={'module','receipt.json'}:
-        raise ValueError('Exact reuse bundle required')
-    if any(p.is_symlink() or getattr(p,'is_junction',lambda:False)() for p in [out/'module',out/'receipt.json',*(out/'module').rglob('*')]):
-        raise ValueError('Exact regular-file reuse bundle required')
+    if not intake_output(out):raise ValueError('Selected reuse workspace required')
     data=read_json(out/'receipt.json')
-    if set(data)!={'schema','impact','source_result','artifacts','verification','scope','design_accepted'} or data['schema']!='bsa.module-reuse/1' or data['scope']!=SCOPE or data['verification']!=VERIFICATION or data['design_accepted'] is not False:
+    detached=data.get('schema')=='bsa.module-reuse/2'
+    fields={'schema','impact','source_result','artifacts','verification','scope','design_accepted'}|({'module_result'} if detached else set())
+    if set(data)!=fields or data['schema'] not in ('bsa.module-reuse/1','bsa.module-reuse/2') or data['scope']!=SCOPE or data['verification']!=VERIFICATION or data['design_accepted'] is not False:
         raise ValueError('Versioned unaccepted module reuse receipt required')
+    inventory={'receipt.json'} if detached else {'module','receipt.json'}
+    if {p.name for p in out.iterdir()}!=inventory:raise ValueError('Exact reuse bundle required')
+    module=resolve_reference(data['module_result']).parent if detached else out/'module'
+    if detached:
+        from ..workspace import project_root
+        root=ROOT if data['module_result']['workspace']=='tool' else project_root()
+        declared=root/data['module_result']['path']
+        if declared!=declared.resolve():raise ValueError('Reused module reference traverses a link or junction')
+    if detached and (Path(data['module_result']['path']).name!='result.json' or module.is_relative_to(out) or out.is_relative_to(module)):
+        raise ValueError('Separate canonical module result required')
+    if any(p.is_symlink() or getattr(p,'is_junction',lambda:False)() for p in [module,out/'receipt.json',*module.rglob('*')]):
+        raise ValueError('Exact regular-file reuse bundle required')
     assessed=data['impact']
     folder=resolve_reference(assessed['checkpoint']).parent
     plan=resolve_reference(assessed['current_plan'])
@@ -272,10 +289,11 @@ def verify_reuse(out):
     if source!=run/task_id/'result.json' or not assessed['tasks'].get(task_id,{}).get('reuse_eligible'):
         raise ValueError('Reuse source differs from eligible checkpoint task')
     from ..modules import verify_result
-    verify_result(source);verify_result(out/'module/result.json')
-    expected={p.relative_to(out).as_posix():file_hash(p) for p in (out/'module').rglob('*') if p.is_file()}
+    verify_result(source);verify_result(module/'result.json')
+    base=module if detached else out
+    expected={p.relative_to(base).as_posix():file_hash(p) for p in module.rglob('*') if p.is_file()}
     if expected!=data['artifacts']:
         raise ValueError('Reused module artifacts changed')
-    if any(file_hash(out/name)!=file_hash(source.parent/Path(name).relative_to('module')) for name in expected):
+    if any(file_hash(base/name)!=file_hash(source.parent/(Path(name) if detached else Path(name).relative_to('module'))) for name in expected):
         raise ValueError('Reused bytes differ from original source module')
     return dict(integrity_pass=True,files=len(expected),scope=SCOPE,design_accepted=False)

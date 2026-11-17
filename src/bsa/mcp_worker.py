@@ -16,7 +16,7 @@ def read_source_plan(plan):
     return dict(plan=source,plan_sha256=before,documents=documents,semantic_completeness='not_assessed',design_accepted=False)
 
 
-# Same fixed 39 operations as the original function registry. Resolve only the
+# Fixed allowlist of trusted operations. Resolve only the
 # selected module inside the worker, never import every optional native engine
 # to initialize the protocol or perform an unrelated read.
 OPERATIONS=frozenset('bsa.'+module+'.'+name for module,names in {
@@ -31,6 +31,7 @@ OPERATIONS=frozenset('bsa.'+module+'.'+name for module,names in {
     'tag_delivery_access':'run inspect',
     'pressure_ledger_access':'run inspect list_gaps read_outlet',
     'drawing_access':'run inspect',
+    'changes.access':'checkpoint inspect',
 }.items() for name in names.split())
 
 

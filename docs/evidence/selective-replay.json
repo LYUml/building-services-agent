@@ -1,0 +1,89 @@
+{
+  "schema": "bsa.selective-replay-evidence/1",
+  "scope": "Actual existing-project MCP selective replay; not a second project or whole-goal acceptance",
+  "catalogue": {
+    "tools": 42,
+    "new_operations": [
+      "bsa_checkpoint_workflow",
+      "bsa_inspect_changes"
+    ],
+    "previous_tools_preserved": true
+  },
+  "regression": {
+    "tests_run": 134,
+    "passed": 133,
+    "skipped": 1,
+    "failures": 0,
+    "errors": 0,
+    "source_unchanged": true,
+    "all_tests_pass": false,
+    "receipt_sha256": "5f2fb907a33bc1ca021bb2322ff5ba2d660b38aa2e97ae6f8e50a13900020539"
+  },
+  "minimal_cases_passed": 18,
+  "real_study": {
+    "tools": 42,
+    "successful_tool_calls": 9,
+    "list_tools_calls": 1,
+    "physical_terminals": 80,
+    "reused_tasks": [
+      "control"
+    ],
+    "control_result_bytes_preserved": true,
+    "flow_ratio": 0.996039603960396,
+    "every_terminal_maximum_and_minimum_scaled": true,
+    "model_matches_new_calculation": true,
+    "cp_source_classification": "assumed",
+    "source_parameters": 167,
+    "unchanged_original_sources": 3,
+    "all_four_requirements_pending": true,
+    "current_workflow_integrity_pass": true,
+    "call_seconds": [
+      {
+        "tool": "bsa_execute_workflow",
+        "seconds": 3.4224325999966823
+      },
+      {
+        "tool": "bsa_checkpoint_workflow",
+        "seconds": 1.7064874999923632
+      },
+      {
+        "tool": "bsa_inspect_changes",
+        "seconds": 0.24833980001858436
+      },
+      {
+        "tool": "bsa_execute_workflow",
+        "seconds": 4.4411104999890085
+      },
+      {
+        "tool": "bsa_diagnose_workflow",
+        "seconds": 1.289799000020139
+      },
+      {
+        "tool": "bsa_artifact_index",
+        "seconds": 0.9723231999960262
+      },
+      {
+        "tool": "bsa_read_artifact",
+        "seconds": 1.0682102999999188
+      },
+      {
+        "tool": "bsa_read_artifact",
+        "seconds": 1.1228770000161603
+      },
+      {
+        "tool": "bsa_delivery_template",
+        "seconds": 1.2241833000152837
+      }
+    ]
+  },
+  "summary_sha256": "dd78c8559d013e33be593aa9e4f7015eb76a8a0d142c9530fe661be01e015ed3",
+  "workflow_sha256": "574e78c593d3f35fee7bc2e7c1420ed08baaf1f2f05fc8a2afad5cdc212d0933",
+  "limitations": [
+    "Only tested independent air/electrical numerical reuse paths",
+    "Small-case selective execution slower; no acceleration claim",
+    "Original verifiers may reconstruct arithmetic",
+    "Long-running old MCP connection must refresh tool discovery",
+    "Typed parameter diffs, knowledge ownership and different-real-project acceptance pending"
+  ],
+  "design_accepted": false
+}

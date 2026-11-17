@@ -38,14 +38,14 @@ jobs:
       - run: python -m pip check
       - name: Verify the common-data profile without optional solvers
         run: python -c "import importlib.util; assert all(importlib.util.find_spec(name) is None for name in ['fluids','ifcopenshell','manifold3d'])"
-      - run: python -m unittest tests.test_engineering_data tests.test_engineering_data_workflow tests.test_engineering_inputs tests.test_modular_electrical tests.test_changes -v
+      - run: python -m unittest tests.test_engineering_data tests.test_engineering_data_workflow tests.test_engineering_inputs tests.test_modular_electrical tests.test_changes tests.test_changes_workflow -v
       - name: Add the existing full-HVAC fixture requirements for compatibility
         run: python -m pip install -e ".[network]"
       - run: python -m unittest tests.test_air_allocation_provider -v
       - name: Verify existing MCP workflow and artifact routes with common data
         run: |
           python -m pip install -e ".[mcp]"
-          python -m unittest tests.test_engineering_data_mcp -v
+          python -m unittest tests.test_engineering_data_mcp tests.test_changes_mcp -v
   core:
     strategy:
       fail-fast: false

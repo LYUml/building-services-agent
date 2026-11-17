@@ -1,6 +1,6 @@
 # Change impact and verified numerical reuse
 
-The CLI reuses existing workflow receipts, module contracts/provider verification,
+The CLI and MCP adapters reuse existing workflow receipts, module contracts/provider verification,
 common-data/report adapters and `doctor` dependency inspection. There is no new
 solver, dependency or cache service. Existing HVAC refresh and native drawing
 revision controllers remain authoritative for their supported operations.
@@ -51,7 +51,7 @@ content. Links/junctions are not traversed. The existing common-data exporter ca
 consume the copied result and generate a fresh report. Original verifiers may
 reconstruct arithmetic; avoiding the production entry is not avoiding all maths.
 
-## Executed evidence and boundaries
+## First CLI slice evidence (historical)
 
 Twelve controls cover independent branch reuse after another source changes,
 downstream invalidation, real calculation/report propagation, context isolation,
@@ -85,8 +85,69 @@ skip, no failures/errors; all_tests_pass=false. Its receipt is independently
 verified. The minimal numerical profile passes12change controls. CI now includes
 these controls on Windows/Ubuntu; configuration is not completed execution proof.
 
-This first slice is CLI-only. Typed parameter-value diffs, knowledge-specific
-ownership, integrated MCP/workflow selective replay and a different real-project
-calculation/CAD-or-report acceptance remain open. There is no generic native-DWG
+The following selective replay now integrates this slice with MCP/workflow.
+Typed parameter-value diffs, knowledge-specific ownership, broader tested reuse
+paths and a different real-project calculation/CAD-or-report acceptance remain open. There is no generic native-DWG
 cache acceptance: reopening and visual plot review remain necessary. No release
 or user acceptance is inferred; the complete ordered goal remains active.
+
+## Selective replay through MCP and the original workflow
+
+Start a new MCP connection with this source to discover42tools (the previous
+candidate/catalogue of40remains historical). The two additive tools are:
+
+- `bsa_checkpoint_workflow(plan, out, checkpoint)` audits the selected original
+  plan/run before creating a fresh checkpoint.
+- `bsa_inspect_changes(checkpoint, plan)` returns impact and numerical eligibility.
+
+Call the existing `bsa_execute_workflow` with its optional `reuse_checkpoint`
+argument for a fresh run. CLI equivalent: `python -m bsa.workflow execute PLAN
+--out FRESH_RUN --reuse-checkpoint CHECKPOINT`. No AutoCAD or user application
+restart is required by these operations. A long-running old MCP session will
+need a fresh connection to discover changed tool definitions.
+
+All original tasks and requirements remain in the plan. Changed numerical tasks
+execute normally; eligible independent tasks copy into the canonical task folder.
+The normal downstream calculations/common-data/reports then consume that result.
+Native/inherited/unsupported tasks keep original execution. Provider disable,
+non-default provider and explicit runtime choices are respected. Empty CLI
+runtime defaults do not accidentally disable reuse. No previous manual review
+or engineering acceptance is transferred.
+
+Standalone reuse bundle1 remains supported. Workflow reuse uses bundle2: the
+receipt lives at `_reuse/TASK/receipt.json`, while `module_result` binds the exact
+canonical TASK/result.json. This avoids a duplicate module copy. The normal
+workflow input pins now include checkpoint archives and reuse/audit methods;
+delivery audit reconstructs the same complete input set. Saved assessment,
+canonical output binding, source/current-plan correspondence, byte identity and
+regular-file/junction guards are independently verified. `_reuse` is reserved
+only for runs explicitly requesting this feature; ordinary older plans retain
+their previous task namespace behavior.
+
+Six workflow controls and a real SDK control pass, including changed-branch
+single production invocation, downstream report/delivery, disabled providers,
+explicit/empty runtimes, missing provenance/pins, foreign output substitution
+and actual link/junction replacement. Three existing startup/allowlist controls
+also pass with42tools. The durable expanded group has134cases:133pass,1existing
+offline-OCR fixture skip, no failures/errors; receipt independently verified.
+The minimal profile passes18core/workflow cases without optional solver engines.
+
+The existing actual80terminal source also runs through9successful MCP tool
+calls and one catalogue call. Only the modified branch is recalculated; an
+explicit unchanged control of the same project is reused byte-for-byte. The
+common model matches the new calculation, all80maximum/minimum flows propagate,
+and167source inputs retain the changed value as assumed. All4requirements stay
+pending review; all3original sources remain unchanged. This control is not a
+second physical system or different real project.
+
+Observed tool elapsed times were3.42s for the baseline execution and4.44s for
+selective execution with verification in this small case. There is no measured
+speedup claim: added audit work currently costs more than the avoided production
+entry, and original verifiers still reconstruct arithmetic. Subsequent profiling
+must remove duplicate audit work without weakening correspondence checks.
+See evidence/selective-replay.json; private numeric/source artifacts remain ignored.
+
+The complete ordered goal is still active. Typed parameter diffs, knowledge
+ownership, performance refinement and a different real-project acceptance remain.
+No formal release, native CAD acceptance, course adoption or user acceptance is
+inferred from these checks.

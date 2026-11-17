@@ -1,3 +1,17 @@
+## MCP selective replay composition (2026-11-18)
+
+Reuse the original workflow runner/provider selection, existing module result
+paths/verifiers, artifact API and delivery review. Add2thin MCP worker operations
+and optional execution checkpoint, keeping every previous tool (42total now).
+Use bundle2 provenance outside canonical module folders rather than duplicate
+cache data or a new execution engine. Extend delivery input reconstruction to
+include checkpoint/method pins; retain disabled providers, explicit runtimes,
+all original requirements and pending review. Actual foreign-output and Windows
+link/junction checks guard the canonical target. ExistingMCP1.30.0/stdlib pins and
+licenses remain; no new package installed or source vendored. Actual80source
+control succeeds; observed small-case verification overhead exceeds saved work,
+so report no acceleration. See CHANGE_IMPACT.md and selective-replay.json.
+
 ## Change impact and numerical reuse adapter (2026-11-18)
 
 Actual gap: source/method changes must invalidate consumers while allowing a

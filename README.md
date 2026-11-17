@@ -10,7 +10,8 @@ now has project-scoped air/electrical views through workflow/MCP, with explicit
 identity and producer binding. [Source input ownership](docs/ENGINEERING_INPUTS.md)
 now executes as a read-only catalogue. [Local knowledge retrieval](docs/KNOWLEDGE.md)
 now executes through the existing workflow/MCP routes. [Change impact and numerical
-reuse](docs/CHANGE_IMPACT.md) has an executed CLI slice; integration and
+reuse](docs/CHANGE_IMPACT.md) now executes through CLI and MCP selective replay;
+broader impact, performance and
 different-real-project acceptance remain in progress. The earlier candidate
 checkpoint below is preserved and does not establish readiness of new features.
 

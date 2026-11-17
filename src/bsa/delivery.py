@@ -31,6 +31,10 @@ def context(plan,root):
     if selection is not None:
         inputs.update(selection_inputs(source['tasks'],plan.parent,selection))
         verify_selection(source['tasks'],root,selection,plan.parent,report.get('tasks',{}))
+    if report.get('reuse') is not None:
+        from .source_refs import resolve_reference
+        from .changes.workflow import pins as reuse_pins
+        inputs.update(reuse_pins(resolve_reference(report['reuse']['checkpoint']).parent))
     if not isinstance(report,dict) or report.get('inputs')!={str(p):digest(p) for p in inputs}:
         raise ProjectError('run input set/hashes differ from the current source-linked plan')
     tasks={t['id']:t for t in source['tasks']}

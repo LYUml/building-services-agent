@@ -1,3 +1,20 @@
+## Selective replay now executes through MCP; broader acceptance remains open
+
+Two additive tools bring the development catalogue to42. Existing execution
+accepts an optional checkpoint: changed branches run normally, verified air/
+electrical branches can reuse canonical outputs, downstream reports and all
+requirements remain intact. Hostdisable/override/runtime controls and delivery
+input correspondence are preserved. Actual80terminal MCP replay passes9tool
+calls+catalogue,167inputs and4pending requirements;3originals unchanged. This is
+an unchanged control of the same project, NOTdifferent-real-project acceptance.
+Current durable134cases:133pass,1existing offlineOCR skip; receipt independently
+verified, all_tests_pass=false. Minimal18core/workflow controls pass. See
+CHANGE_IMPACT.md and selective-replay.json. Actual small-case selective elapsed
+4.44s versus3.42s baseline: no speedup claim; redundant audit profiling remains.
+Next typed parameter diffs/knowledgeownership and distinct real lighting project
+validation using already available sources, preserving source workspaces read-only.
+Goal active; no release, coursework change, nativeCAD or user acceptance.
+
 ## Change impact and safe numerical reuse executed; integration remains open
 
 Existing receipts/provider verifiers and doctor now support CLI checkpoints,

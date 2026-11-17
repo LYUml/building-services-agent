@@ -196,14 +196,26 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None):
         return invoke('bsa.hvac_package_access.inspect',local(configuration),local(out))
 
     @server.tool(annotations=write)
-    def bsa_execute_workflow(plan:str,out:str)->dict[str,Any]:
+    def bsa_execute_workflow(plan:str,out:str,reuse_checkpoint:str|None=None)->dict[str,Any]:
         """Execute an already interpreted plan using fixed host runtimes; preserve failed/pending tasks and diagnosis."""
         path,folder=local(plan),local(out)
         with lock:
-            invoke('bsa.workflow.execute',path,folder,**options)
+            extra={} if reuse_checkpoint is None else dict(reuse_checkpoint=local(reuse_checkpoint))
+            invoke('bsa.workflow.execute',path,folder,**options,**extra)
             diagnosis=invoke('bsa.workflow_status.diagnose',path,folder)
             with (folder/'diagnosis.json').open('x',encoding='utf-8') as stream:json.dump(diagnosis,stream,indent=2)
         return dict(output=str(folder),execution_pass=diagnosis['execution_pass'],recovery_schedule=diagnosis['recovery_schedule'],design_accepted=False)
+
+    @server.tool(annotations=write)
+    def bsa_checkpoint_workflow(plan:str,out:str,checkpoint:str)->dict[str,Any]:
+        """Save a verified source-bound change checkpoint; never change the original plan or acceptance."""
+        with lock:
+            return invoke('bsa.changes.access.checkpoint',local(plan),local(out),local(checkpoint))
+
+    @server.tool(annotations=read)
+    def bsa_inspect_changes(checkpoint:str,plan:str)->dict[str,Any]:
+        """Inspect source/method/profile impact and eligible numerical reuse; no automatic editing or approval."""
+        return invoke('bsa.changes.access.inspect',local(checkpoint),local(plan))
 
     @server.tool(annotations=read)
     def bsa_diagnose_workflow(plan:str,out:str)->dict[str,Any]:
