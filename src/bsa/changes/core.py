@@ -9,7 +9,7 @@ from ..module_contract import read_json
 from ..source_refs import file_hash, reference, resolve_reference
 from ..workspace import ROOT, allowed, intake_output
 
-SCHEMA = 'bsa.change-checkpoint/1'
+SCHEMA = 'bsa.change-checkpoint/2'
 SCOPE = 'Declared source/method/artifact correspondence and conservative dependencies; no engineering acceptance or authenticated provenance'
 VERIFICATION = 'Original module verifier passed before and after byte-preserving copy'
 REUSABLE_PROVIDERS={'bsa.single-phase-circuits','bsa.classified-air-allocation'}
@@ -21,6 +21,7 @@ def write(path, data):
 
 def methods():
     files=[*Path(__file__).parent.glob('*.py'),ROOT/'src/bsa/source_refs.py',ROOT/'src/bsa/workspace.py',ROOT/'src/bsa/doctor.py']
+    files.extend(ROOT/'src/bsa/engineering_data'/name for name in ('inputs.py','quantities.py','model.py'))
     return {p.relative_to(ROOT).as_posix():file_hash(p) for p in sorted(files)}
 
 
@@ -76,6 +77,9 @@ def checkpoint(run, out):
     (out/'workflow.json').write_bytes(report_path.read_bytes())
     for task,name in selected:
         (out/('module-'+task['id']+'.json')).write_bytes((run/name).read_bytes())
+        from .parameters import PROVIDERS,capture
+        result=read_json(run/name)
+        if result['provider']['id'] in PROVIDERS:capture(result,task['id'],out)
     files = {p.name:file_hash(p) for p in out.iterdir()}
     receipt = dict(schema=SCHEMA, workflow=reference(report_path), source_plan=reference(plan),
         artifacts=files, methods=methods(), runtime=runtime, scope=SCOPE, design_accepted=False)
@@ -89,7 +93,7 @@ def load(folder):
     if not intake_output(folder):
         raise ValueError('Checkpoint outside selected workspace')
     receipt = read_json(folder/'receipt.json')
-    if set(receipt)!={'schema','workflow','source_plan','artifacts','methods','runtime','scope','design_accepted'} or receipt['schema']!=SCHEMA or receipt['scope']!=SCOPE or receipt['design_accepted'] is not False:
+    if set(receipt)!={'schema','workflow','source_plan','artifacts','methods','runtime','scope','design_accepted'} or receipt['schema'] not in ('bsa.change-checkpoint/1',SCHEMA) or receipt['scope']!=SCOPE or receipt['design_accepted'] is not False:
         raise ValueError('Exact unaccepted change checkpoint required')
     # The old plan may change; the original workflow record must remain intact.
     original = resolve_reference(receipt['workflow'])
@@ -125,6 +129,9 @@ def load(folder):
             if file_hash(folder/archive) != report['artifact_hashes'][key]:
                 raise ValueError('Module archive differs from original workflow artifact')
             modules[name]=read_json(folder/archive)
+            from .parameters import PROVIDERS,paths,archived
+            if receipt['schema']==SCHEMA and modules[name]['provider']['id'] in PROVIDERS:
+                expected.update(paths(name));archived(folder,name,modules[name])
     if set(receipt['artifacts'])!=expected or {p.name for p in folder.iterdir()}!=expected|{'receipt.json'} or any(p.is_symlink() or not p.is_file() for p in folder.iterdir()):
         raise ValueError('Exact regular-file checkpoint inventory required')
     if any(file_hash(folder/name)!=sha for name,sha in receipt['artifacts'].items()):
@@ -139,7 +146,9 @@ def category(path):
     return 'source_or_runtime'
 
 
-def impact(folder, *, plan=None):
+def impact(folder, *, plan=None,parameter_offset=0,parameter_limit=50):
+    if type(parameter_offset) is not int or parameter_offset<0 or type(parameter_limit) is not int or not 1<=parameter_limit<=100:
+        raise ValueError('Bounded parameter pagination required')
     receipt, old_plan, report, modules, original_plan, run = load(folder)
     current_plan = original_plan if plan is None else Path(plan).resolve()
     if not allowed(current_plan) or current_plan.parent!=original_plan.parent:
@@ -216,6 +225,11 @@ def impact(folder, *, plan=None):
             upstream_invalidated=upstream,changed_artifacts=artifacts,reuse_eligible=reusable,
             reuse_scope='Independent numerical module; original provider verification still required' if reusable else 'Full original execution required or reference-only unchanged artifact',
             design_accepted=False)
+        if result is not None:
+            from .parameters import PROVIDERS,compare
+            if receipt['schema']==SCHEMA and result['provider']['id'] in PROVIDERS and name in current_tasks:
+                rows[name]['parameter_changes']=compare(folder,name,result,current_tasks[name],current_plan.parent,offset=parameter_offset,limit=parameter_limit)
+            else:rows[name]['parameter_changes']=dict(status='not_recorded',scope='Legacy checkpoint or unsupported primary-input adapter')
     for name in set(current_tasks)-set(previous):
         rows[name]=dict(kind=current_tasks[name]['kind'],invalidated=True,reasons=['new_task'],changed_inputs=[],upstream_invalidated=[],changed_artifacts=[],reuse_eligible=False,design_accepted=False)
     return dict(schema='bsa.change-impact/1',checkpoint=reference(Path(folder)/'receipt.json'),current_plan=reference(current_plan),

@@ -9,6 +9,6 @@ def checkpoint(plan,out,target):
     return create(Path(out),Path(target))
 
 
-def inspect(checkpoint,plan):
+def inspect(checkpoint,plan,parameter_offset=0,parameter_limit=50):
     from .core import impact
-    return impact(Path(checkpoint),plan=Path(plan))
+    return impact(Path(checkpoint),plan=Path(plan),parameter_offset=parameter_offset,parameter_limit=parameter_limit)

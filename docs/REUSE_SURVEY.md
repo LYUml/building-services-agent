@@ -1,3 +1,22 @@
+## Typed parameter ownership reuse and lighting source survey (2026-11-18)
+
+Reuse engineering_data.inputs mapping, stable IDs, quantity dimensions and
+existing source validators for typed differences. Extract the read-only mapper
+without a new parameter/units engine. Archive primary JSON/request bytes tied to
+original module evidence; paginate explicit changes rather than enlarging every
+MCP response. Common input-bundle schema/behaviour stays compatible.
+
+The existing sibling DIALux Agent Toolkit is clean at
+ade128b7ae446c6ea253776a5ead866280d6bf4a. Root license is NOASSERTION (no root
+LICENSE found); treat it as an external user-provisioned CLI, no source vendored.
+Actual report-read succeeds on a copied two-page native Summary with original
+physical-page/hash mapping retained. Source workspace stays read-only. Existing
+single-product and arrangement coordinate readers reject this sparse native
+field case; keep both failed diagnostics, do not weaken upstream guards or call
+unexecuted geometry correspondence verified. Source bindings, native PDF and
+power/area basis are available for a scoped adapter; source listing alone is not
+completed lighting integration. Private source data remains outside snapshots.
+
 ## MCP selective replay composition (2026-11-18)
 
 Reuse the original workflow runner/provider selection, existing module result

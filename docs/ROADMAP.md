@@ -1,3 +1,21 @@
+## Parameter-level source differences executed; real lighting integration next
+
+Checkpoint2 archives original primary inputs/request, bound to original module
+hashes. Existing mapper supplies stable ownership/units; values, source notes,
+classification and source-location changes are distinct. Different project/unit
+scopes reject numeric comparison; legacy checkpoint1 does not invent history.
+Actual80terminal MCP sees only assumedCP1006->1010, delta4J/(kg K), unchanged
+control0changes;167inputs/4pending requirements retained.8newcontrols, minimal26
+pass. Durable214cases213pass1existingofflineOCRskip; receipt verified and
+all_tests_pass=false. SDK actual42tools/41operations audit passes. Corrected the
+missed40->42 workspace test assertion that failed both previous core CI jobs.
+See CHANGE_IMPACT.md and parameter-diff.json. Remote recovery awaits currenthead.
+Real lighting source bindings/PDF hashes and externalCLI summary read are checked;
+array-coordinate reader rejects active/nominal field mismatch, guards unchanged.
+No different-real-project acceptance yet. Next proper bounded lighting adapter/
+calculation/report, knowledge ownership and audit performance refinement. Full
+goal active; no source workspace edits, coursework adoption, release or acceptance.
+
 ## Selective replay now executes through MCP; broader acceptance remains open
 
 Two additive tools bring the development catalogue to42. Existing execution

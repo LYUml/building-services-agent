@@ -1,0 +1,62 @@
+{
+  "schema": "bsa.parameter-diff-evidence/1",
+  "scope": "Current typed comparison and existing-project propagation; not new native simulation or different-project acceptance",
+  "regression": {
+    "tests_run": 214,
+    "passed": 213,
+    "skipped": 1,
+    "failures": 0,
+    "errors": 0,
+    "source_unchanged": true,
+    "all_tests_pass": false,
+    "receipt_sha256": "3ed05e121751295a6ffc7cbe826d2a60c035912cce169a35b4589be5f5163f03"
+  },
+  "new_controls": 8,
+  "minimal_passed": 26,
+  "mcp_contract": {
+    "tool_count": 42,
+    "worker_operation_count": 41,
+    "exact_route_coverage": true,
+    "unknown_fields_rejected": true,
+    "host_runtime_fields_excluded": true
+  },
+  "real_existing_case": {
+    "terminals": 80,
+    "parameter_name": "load.specific_heat",
+    "before": 1006,
+    "after": 1010,
+    "delta_si": 4,
+    "unit": "J/(kg K)",
+    "classification": "assumed",
+    "parameter_change_count": 1,
+    "source_parameters": 167,
+    "pending_requirements": 4,
+    "unchanged_original_sources": 3,
+    "checkpoint_files": 9,
+    "checkpoint_bytes": 84559,
+    "parameter_evidence_sha256": "b9cffdcad23704404767718d00775652a299f69401983cb1025a1243e33796f5",
+    "summary_sha256": "88094ad0e07bb396eee9b456ffeed678bb030d3b827f5f16999202803d4d7fae"
+  },
+  "prior_ci_failure": {
+    "source": "f08e5ad1ae4fb271ff034cbdf1dbf45029e32782",
+    "run": 44156537996,
+    "jobs": [
+      134298665254,
+      134298665935
+    ],
+    "cause": "Stale 40-tool expectation in workspace guard test; actual catalogue42",
+    "expectation_corrected": true,
+    "remote_recovery": "Not asserted until current-source CI completes"
+  },
+  "lighting_survey": {
+    "upstream_commit": "ade128b7ae446c6ea253776a5ead866280d6bf4a",
+    "root_license": "NOASSERTION; external CLI only",
+    "five_current_source_bindings_match": true,
+    "native_source_pdf_hash_matches": true,
+    "actual_summary_read_succeeded": true,
+    "coordinate_cli_guards_rejected_sparse_case": true,
+    "original_workspace_read_only": true,
+    "completed_agent_integration": false
+  },
+  "design_accepted": false
+}

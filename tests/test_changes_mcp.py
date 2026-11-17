@@ -34,6 +34,11 @@ class SelectiveMCPTests(unittest.IsolatedAsyncioTestCase):
                 impact=await call('bsa_inspect_changes',dict(checkpoint='mcp-checkpoint',plan='plan.json'))
                 self.assertTrue(impact['tasks']['analysis']['invalidated'])
                 self.assertTrue(impact['tasks']['independent']['reuse_eligible'])
+                parameters=impact['tasks']['analysis']['parameter_changes']
+                self.assertEqual(parameters['total_changes'],3)
+                page=await call('bsa_inspect_changes',dict(checkpoint='mcp-checkpoint',plan='plan.json',parameter_limit=1))
+                self.assertEqual(len(page['tasks']['analysis']['parameter_changes']['changes']),1)
+                self.assertTrue(page['tasks']['analysis']['parameter_changes']['has_more'])
                 await call('bsa_execute_workflow',dict(plan='plan.json',out='selective',reuse_checkpoint='mcp-checkpoint'))
                 diagnosis=await call('bsa_diagnose_workflow',dict(plan='plan.json',out='selective'))
                 self.assertTrue(diagnosis['integrity_pass'])

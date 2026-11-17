@@ -213,9 +213,9 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None):
             return invoke('bsa.changes.access.checkpoint',local(plan),local(out),local(checkpoint))
 
     @server.tool(annotations=read)
-    def bsa_inspect_changes(checkpoint:str,plan:str)->dict[str,Any]:
+    def bsa_inspect_changes(checkpoint:str,plan:str,parameter_offset:Annotated[int,Field(strict=True,ge=0)]=0,parameter_limit:Annotated[int,Field(strict=True,ge=1,le=100)]=50)->dict[str,Any]:
         """Inspect source/method/profile impact and eligible numerical reuse; no automatic editing or approval."""
-        return invoke('bsa.changes.access.inspect',local(checkpoint),local(plan))
+        return invoke('bsa.changes.access.inspect',local(checkpoint),local(plan),parameter_offset,parameter_limit)
 
     @server.tool(annotations=read)
     def bsa_diagnose_workflow(plan:str,out:str)->dict[str,Any]:

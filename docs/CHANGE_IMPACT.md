@@ -151,3 +151,57 @@ The complete ordered goal is still active. Typed parameter diffs, knowledge
 ownership, performance refinement and a different real-project acceptance remain.
 No formal release, native CAD acceptance, course adoption or user acceptance is
 inferred from these checks.
+
+## Typed source parameter differences
+
+Checkpoint2 additionally copies the exact primary project and request JSON for
+the supported air/electrical providers. The snapshots are tied to original module
+input hashes and request identity, not merely their editable outer receipt.
+Checkpoint1 remains readable; missing parameter history is reported as
+`not_recorded`, never synthesized from already changed sources.
+
+The input catalogue's existing ownership/unit mapper is shared rather than
+reimplemented. Full verified input-bundle exports retain their previous schema
+and values. Comparing new inputs does not invoke a production calculation:
+`current_producer_executed=false` describes this comparison operation; actual
+execution status remains in fresh workflow tasks. Source assertions remain
+unauthenticated. Wrong units or another project identity do not produce numeric
+deltas. Unmapped numeric changes retain raw pointers without invented units.
+
+The typed catalogue covers numeric parameters and their annotations. Non-numeric
+fields such as circuit phase remain protected by file-level invalidation; zero
+parameter changes does not mean the whole JSON is unchanged.
+
+Each task's parameter_changes distinguishes added/removed identities, values,
+units/classifications, source-note and source-location changes. Array reordering
+preserves owner IDs and reports location changes instead of invented value
+changes. Deltas use matching semantic SI dimensions, preserving thermal versus
+electrical power. Before values refer to an immutable before_snapshot as well as
+the historical source location; after values bind the current source/request.
+
+`bsa_inspect_changes` now accepts parameter_offset and parameter_limit; CLI
+`changes analyze` has corresponding flags. Defaults are0/50, maximum limit100.
+Total counts and has_more are explicit for mapped and unmapped lists. Long source
+notes over2000characters are omitted explicitly with length/hash, not clipped
+into misleading partial citations; full notes remain in source snapshots. A
+parameter page over1MB reports page_too_large instead of silently dropping rows.
+
+Eight additional controls cover SI deltas, pagination, identity/reordering,
+add/remove, long notes, coherently rehashed snapshot forgery, legacy checkpoint
+and project/unit isolation. The expanded durable group includes the full core CI
+selectors:214cases,213pass,1existing offlineOCR skip, no failures/errors; receipt
+independently verified. Minimal26core/workflow/parameter cases pass. The actual
+SDK audit confirms42tools/41worker operations, exact routes, unknown-field
+rejection and excluded executable overrides.
+
+Actual80terminal MCP comparison identifies only load.specific_heat changing
+1006to1010J/(kg K), delta4 in the same unit, both labelled assumed. The unchanged
+control reports zero parameter changes; calculation/common-report propagation,
+167inputs and4pending requirements remain intact. Its checkpoint has9files/
+84559bytes on this host. This is verification of the same existing project;
+different-real-project acceptance remains open. See evidence/parameter-diff.json.
+
+A previously missed hard-coded40-tool assertion caused both core CI jobs at
+f08e5ad to fail after the catalogue grew to42. The expectation is corrected while
+all workspace protections remain. Local complete-core checks and actual SDK
+contract audit pass; only new head-specific CI can establish remote recovery.
