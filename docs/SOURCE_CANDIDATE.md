@@ -1,0 +1,38 @@
+# Reproducible source candidate
+
+The current runtime resolves adapters, contracts, regulation packs and scripts
+relative to the source checkout. Preserve that source layout in a candidate.
+The wheel audit found only Python package files and metadata; it is not yet a
+complete standalone installation and must not be presented as one.
+
+Build a committed snapshot without publishing:
+
+```powershell
+python scripts/build_candidate.py --out runs/source-candidate
+```
+
+The builder uses the existing Git archive implementation. It never copies the
+working tree, native engines, generated environments, ignored project runs or
+Git history. It rejects excluded runtime paths, checks required source entries
+and ZIP CRCs, and writes the commit, hash, size and Git version in a receipt.
+Uncommitted changes are intentionally absent. This is a local candidate build,
+not a GitHub release. Extract to a dedicated directory and follow START_USING.md
+there, installing the extras needed for the chosen domain. Native engines and
+MCP host setup remain explicit.
+
+Executed baseline at commit `4e5e02803346af93592441e974040096ae1fdebe`:
+
+- Two separate source builds are byte-identical: SHA-256
+  `2d975fa5d15b7f7dfc491ec968d19fd49f1d88bfc8da02c3160e3b912745183a`.
+- ZIP: 28,252,074 bytes; unpacked tracked content: 63,766,973 bytes;
+  3,669 entries. This measures source compression, not solver memory reduction.
+- Extracted source installed into a fresh Windows virtual environment with
+  only the default profile. Doctor and pip check passed.
+- That environment executed the office-electrical example through its own
+  installed bsa entry point; calculated checks passed and engineering acceptance
+  remained false. This is an example execution, not real-project acceptance or
+  proof of optional MCP/native engine operation from this snapshot.
+
+The builder itself was added after this baseline commit. The next committed
+snapshot must include it and receive its own receipt. Historical receipts stay
+associated with their actual source revision.

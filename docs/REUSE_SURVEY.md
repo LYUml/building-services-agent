@@ -1,3 +1,14 @@
+## Candidate packaging and water import compatibility
+
+Reuse existing Git archive to preserve source-relative adapters and resource
+trees without shipping environments/history. No new archive engine or package
+dependency. Two same-commit builds have identical hashes; extracted default
+profile executes the electrical example. See SOURCE_CANDIDATE.md for limits.
+WNTR1.5.0's actual clean Linux trace imports undeclared six; water now pins
+six1.17.0 (MIT, Benjamin Peterson, https://github.com/benjaminp/six).
+Corrected remote water job133969615769 passes its native smoke, tests and
+workflows. Existing WNTR/EPANET engines and physical checks remain unchanged.
+
 ## Lazy recovery and explicit model QA profiles
 
 Retained existing finite ranking, pump/fan solvers and native geometry validators.

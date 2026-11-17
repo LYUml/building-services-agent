@@ -6,5 +6,7 @@ runs/
 .env
 /.codex/
 tools/
+/build/
+/dist/
 adapters/revit/bin/
 adapters/revit/obj/
