@@ -2,8 +2,12 @@
 
 `bsa.air_allocation.prepare` accepts optional keyword arguments `service_cells`
 (terminal ID to planar-metre GeoJSON polygon) and `service_basis` (required design
-basis). The default nearest-centre behavior is unchanged. CLI/MCP project schemas
-are unchanged; this is a Python composition API.
+basis). The default nearest-centre behavior is unchanged. Source-bound allocation
+project JSON also accepts these two fields together; the existing
+`python -m bsa.air_allocation project.json --out fresh-output` command executes
+them and binds the complete project, boundary and optional reference hashes.
+Missing either optional field is rejected before output is created. No new MCP
+tool or independently verified desktop MCP capability is claimed.
 
 The thin adapter reuses pinned Shapely2.2.0 clipping and union, preserving source
 column voids. It rejects gaps, overlaps, duplicate/missing identities, invalid
@@ -17,4 +21,6 @@ Actual separate BSE3227 manufacturer candidate: 64 geometric cells and192 area/
 maximum/minimum-flow values match the previous independent strip calculation.
 Eleven targeted tests pass, including column exclusion, ID ordering, unequal
 service areas and rejection of gaps/overlaps. See
-[executed receipt](evidence/explicit-service-partition.json).
+[executed receipt](evidence/explicit-service-partition.json). The subsequent actual
+64-terminal CLI execution preserves all64 geometries and192 area/flow values,
+binds three input files, and passes14 related tests.

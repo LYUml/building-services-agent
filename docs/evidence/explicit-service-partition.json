@@ -7,6 +7,14 @@
   "tests_passed": 11,
   "reuse": "Existing Shapely2.2.0 BSD-3-Clause clipping/union and existing classified air-load calculation; no partition engine or new dependency",
   "basis": "Design-assumed service strips, not measured spatial load or air coverage",
-  "integration": "Python prepare keyword API only; CLI/MCP schema unchanged",
-  "design_accepted": false
+  "integration": "Python prepare and source-bound air_allocation project/CLI; optional service_cells and service_basis must be supplied together",
+  "design_accepted": false,
+  "cli_followup": {
+    "actual_terminal_count": 64,
+    "source_bound_inputs": 3,
+    "output_sha256": "98466165455a350cf7d4118e4b6b4d7afb613c47c20d8937fee152d2e8e2f6af",
+    "geometry_and_192_area_flow_values_match": true,
+    "targeted_tests_passed": 14,
+    "partial_contract_rejected_before_output": true
+  }
 }

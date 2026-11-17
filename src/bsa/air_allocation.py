@@ -11,8 +11,12 @@ def run(project_path, output):
     project_path, output = Path(project_path).resolve(), Path(output).resolve()
     raw = project_path.read_bytes()
     project = json.loads(raw.decode('utf-8-sig'))
-    if set(project)-{'references'} != {'boundary', 'boundary_sha256', 'geometry_basis', 'terminals', 'load_inputs', 'turndown'}:
+    required = {'boundary', 'boundary_sha256', 'geometry_basis', 'terminals', 'load_inputs', 'turndown'}
+    fields = set(project)-{'references'}
+    if fields not in (required, required | {'service_cells', 'service_basis'}):
         raise ValueError('Exact allocation project fields required')
+    if 'service_cells' in project and not isinstance(project['service_cells'], dict):
+        raise ValueError('Explicit ID-bound service cells required')
     references=reference_files(project_path,project)
     relative = project['boundary']
     if not isinstance(relative, str) or Path(relative).is_absolute():
@@ -25,8 +29,10 @@ def run(project_path, output):
         raise ValueError('Geometry units and interpretation basis required')
     if output.exists() or any(output == p or output in p.parents for p in (project_path,boundary,*references)):
         raise ValueError('New output separate from inputs required')
+    options = ({'service_cells': project['service_cells'], 'service_basis': project['service_basis']}
+               if 'service_cells' in project else {})
     result = prepare(json.loads(data.decode('utf-8-sig')), project['terminals'],
-                     project['load_inputs'], project['turndown'])
+                     project['load_inputs'], project['turndown'], **options)
     if project_path.read_bytes() != raw or boundary.read_bytes() != data:
         raise ValueError('Inputs changed during allocation')
     if reference_files(project_path,project)!=references:raise ValueError('References changed during allocation')

@@ -40,3 +40,30 @@ class ExplicitServiceTests(unittest.TestCase):
         self.assertIn('explicit', result['scope'])
         with self.assertRaises(ValueError):
             prepare(mapping(self.boundary), self.terminals, inputs, .4, service_basis='Orphan basis')
+
+    def test_project_execution_binds_explicit_cells_and_rejects_partial_contract(self):
+        import json
+        import hashlib
+        import tempfile
+        from pathlib import Path
+        from bsa.air_allocation import run
+        values = dict(area=78, cooling_allowance=200, sensible_fraction=.8,
+                      density=1.25, specific_heat=1000, temperature_difference=10)
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            boundary = root/'boundary.json'
+            boundary.write_text(json.dumps(mapping(self.boundary)))
+            project = dict(boundary='boundary.json', boundary_sha256=hashlib.sha256(boundary.read_bytes()).hexdigest(),
+                           geometry_basis='Synthetic planar metres', terminals=self.terminals,
+                           load_inputs={k: dict(value=v, unit=UNITS[k], source='Synthetic', classification='assumed') for k, v in values.items()},
+                           turndown=.4, service_cells=self.cells, service_basis='Six-metre split')
+            path = root/'project.json'
+            path.write_text(json.dumps(project))
+            result = run(path, root/'output')
+            self.assertEqual(result['allocation']['basis'], 'Six-metre split')
+            self.assertIn(hashlib.sha256(path.read_bytes()).hexdigest(), result['inputs'].values())
+            del project['service_basis']
+            path.write_text(json.dumps(project))
+            with self.assertRaisesRegex(ValueError, 'Exact allocation'):
+                run(path, root/'invalid')
+            self.assertFalse((root/'invalid').exists())
