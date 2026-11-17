@@ -2,6 +2,7 @@
 import contextlib
 import importlib
 import json
+import os
 from pathlib import Path
 import sys
 from .cli import digest
@@ -50,7 +51,9 @@ def main(response_file=None):
         options=request['kwargs'].get('execute_options',request['kwargs'])
         for key in ('energyplus','autocad','radiance_bin','ifcmcp_python','three_phase_python','graphviz','pdf2plot_python','honeybee_python'):
             if options.get(key) is not None:options[key]=Path(options[key])
-        with contextlib.redirect_stdout(sys.stderr):value=resolve(request['operation'])(*request['args'],**request['kwargs'])
+        from .verification_scope import operation_scope
+        with contextlib.redirect_stdout(sys.stderr),operation_scope(enabled=os.environ.get('BSA_DISABLE_AUDIT_MEMO')!='1'):
+            value=resolve(request['operation'])(*request['args'],**request['kwargs'])
         result=dict(ok=True,value=value)
     except ModuleNotFoundError as exc:
         from .cli_errors import missing_dependency

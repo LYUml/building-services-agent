@@ -1,3 +1,14 @@
+## Repeated-source verification optimization (2026-11-18)
+
+Keep the pinned external DIALux reader and original module verifier. Reuse the
+fixed worker operation boundary, standard-library ContextVar/JSON and existing
+method/source pins for a small bounded parsed-source memo. No new cache service,
+solver or third-party engine is needed for this gap. First verifier extraction
+remains independent of production, all facts/artifacts/math compared everytime;
+no lighting result-cache eligibility. Actual off/on samples retain byte-identical
+calculation/report and allreview gates. See AUDIT_REPLAY.md for measured scope,
+limits, opt-out and evidence; upstream license/attribution stays unchanged.
+
 ## Executed thin lighting-source adapter (2026-11-18)
 
 Reuse the surveyed clean pinned external DIALux toolkit summary reader; no code

@@ -17,7 +17,9 @@ checkpoint below is preserved and does not establish readiness of new features.
 
 The [real lighting source audit](docs/LIGHTING_SOURCE_AUDIT.md) now verifies
 second-discipline calculation/common-report/input-impact propagation with existing
-upstream tooling. It does not establish new photometric or geometry acceptance.
+upstream tooling. [Operation-scoped source replay](docs/AUDIT_REPLAY.md) now
+reduces repeated reader work with unchanged checked outputs. These integrations
+do not establish new photometric or geometry acceptance.
 
 The scoped candidate is ready for user review; this is not a
 stable release or engineering design acceptance. See [candidate status and measured optimization](docs/RELEASE_CANDIDATE.md).

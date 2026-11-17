@@ -2,7 +2,10 @@
 
 Final implementation: `7632371a6e1288af4f150357586e2116704e7da7`.
 Ready for scoped user review. No stable release, engineering design acceptance
-or user acceptance is asserted. Later commits change documentation/evidence only.
+or user acceptance is asserted. This is the historical candidate audit, not
+acceptance of subsequent architecture source changes. See ROADMAP.md,
+LIGHTING_SOURCE_AUDIT.md and AUDIT_REPLAY.md for the later implementation,
+head-specific verification and remaining goal gates.
 
 | Requirement | Authoritative inspected evidence | Result |
 |---|---|---|

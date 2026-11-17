@@ -1,3 +1,17 @@
+## Repeated source replay reduced with unchanged engineering checks
+
+Operation-scoped bounded parsed-source reuse now preserves the first independent
+source re-read and all per-call source/method/runtime/artifact/math comparisons.
+Existing fixed worker lifecycle clears it; host can disable. Actual recorded
+lighting two samples/mode: execute48.279→19.442s, diagnose12.754→5.458s medians;
+calculation/common report byte-identical,188entities/4ownedinputs/3pending reviews
+preserved. No new lighting result-cache/native geometry/photometry acceptance.
+235selected regressions pass (187architecture +48existing module/MCP), both
+receipts independently verified;
+see AUDIT_REPLAY.md and aggregate evidence. ab3a8d5 coreCI all9jobs nowpass, which
+is previous source, not this change's CI. Full goal remains active; next explicit
+knowledge dependency ownership and final acceptance audit, no release.
+
 ## Real lighting source audit executed; full goal remains active
 
 The second real discipline now follows the existing module → common data/input

@@ -1,0 +1,126 @@
+{
+  "schema": "bsa.audit-scope-real/1",
+  "samples": [
+    {
+      "mode": "off",
+      "sample": 0,
+      "operation": "bsa_execute_workflow",
+      "seconds": 50.37900599997374
+    },
+    {
+      "mode": "off",
+      "sample": 0,
+      "operation": "bsa_diagnose_workflow",
+      "seconds": 13.13872079999419
+    },
+    {
+      "mode": "on",
+      "sample": 0,
+      "operation": "bsa_execute_workflow",
+      "seconds": 20.440213499998208
+    },
+    {
+      "mode": "on",
+      "sample": 0,
+      "operation": "bsa_diagnose_workflow",
+      "seconds": 5.538773700012825
+    },
+    {
+      "mode": "on",
+      "sample": 1,
+      "operation": "bsa_execute_workflow",
+      "seconds": 18.44371739999042
+    },
+    {
+      "mode": "on",
+      "sample": 1,
+      "operation": "bsa_diagnose_workflow",
+      "seconds": 5.3777418000099715
+    },
+    {
+      "mode": "on",
+      "sample": 1,
+      "operation": "bsa_delivery_template",
+      "seconds": 4.729951699991943
+    },
+    {
+      "mode": "off",
+      "sample": 1,
+      "operation": "bsa_execute_workflow",
+      "seconds": 46.17893009999534
+    },
+    {
+      "mode": "off",
+      "sample": 1,
+      "operation": "bsa_diagnose_workflow",
+      "seconds": 12.369995199987898
+    }
+  ],
+  "medians": {
+    "on": {
+      "bsa_execute_workflow": 19.441965449994314,
+      "bsa_diagnose_workflow": 5.4582577500113985
+    },
+    "off": {
+      "bsa_execute_workflow": 48.27896804998454,
+      "bsa_diagnose_workflow": 12.754357999991043
+    }
+  },
+  "identical_calculation_bytes": true,
+  "identical_common_report_bytes": true,
+  "identical_common_entities": true,
+  "identical_owned_inputs": true,
+  "source_files_unchanged": true,
+  "entity_count": 188,
+  "input_count": 4,
+  "requirements": 3,
+  "review_pending": true,
+  "native_geometry_verified": false,
+  "new_photometric_calculation": false,
+  "design_accepted": false,
+  "scope": "Two alternating fresh process samples per mode on one recorded real lighting source; wall time only, not general solver speed or RSS",
+  "regression": {
+    "selected_tests": 187,
+    "passed": 187,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "independently_verified": true
+  },
+  "import_profile": {
+    "samples": [
+      {
+        "seconds": 0.15020699999877252,
+        "python_traced_peak_bytes": 6043007,
+        "loaded_optional": []
+      },
+      {
+        "seconds": 0.16131290001794696,
+        "python_traced_peak_bytes": 6043444,
+        "loaded_optional": []
+      },
+      {
+        "seconds": 0.16308250001748092,
+        "python_traced_peak_bytes": 6043654,
+        "loaded_optional": []
+      }
+    ],
+    "scope": "Fresh provider import only; Python tracemalloc allocations, not total RSS or native reader memory",
+    "design_accepted": false
+  },
+  "limits": {
+    "entries": 4,
+    "encoded_key_value_bytes": 131072,
+    "scope": "one fixed host worker operation; no cross-call reuse"
+  },
+  "change_designation": "Source replay optimization only; lighting numerical result cache remains disabled",
+  "compatibility": {
+    "tests": 48,
+    "passed": 48,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "independently_verified": true
+  },
+  "total_selected_tests": 235
+}

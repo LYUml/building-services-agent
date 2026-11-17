@@ -153,3 +153,31 @@ class LightingSourceTests(unittest.TestCase):
             self.assertEqual(current['tasks']['analysis']['status'],'pass')
             updated=json.loads((root/'current/analysis/analysis/audit.json').read_text())
             self.assertEqual(updated['totals']['budget_input_W'],55)
+
+    def test_scoped_replay_is_independent_and_still_checks_pins_and_artifacts(self):
+        from bsa.verification_scope import operation_scope
+        from bsa.providers import lighting_source
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as tmp,patch.object(runtime,'configuration',return_value=(None,None,{})),patch.object(runtime,'read_summary',return_value=(summary(),{})) as reader:
+            root=Path(tmp);self.fixture(root)
+            run(root/'request.json','bsa.lighting-source-power',root/'analysis')
+            self.assertEqual(reader.call_count,1)
+            with operation_scope():
+                verify_result(root/'analysis/result.json')
+                verify_result(root/'analysis/result.json')
+                self.assertEqual(reader.call_count,2)  # Production plus one independent replay.
+                native=root/'native.pdf';original_bytes=native.read_bytes()
+                native.write_bytes(original_bytes+b' changed')
+                with self.assertRaisesRegex(ValueError,'input evidence changed'):verify_result(root/'analysis/result.json')
+                native.write_bytes(original_bytes)
+                with patch.object(runtime,'configuration',return_value=(None,None,{'changed-runtime':'a'*64})):
+                    with self.assertRaisesRegex(ValueError,'pin missing or changed'):verify_result(root/'analysis/result.json')
+                original=lighting_source.methods()
+                with patch.object(lighting_source,'methods',return_value={**original,'changed-method':'b'*64}):
+                    with self.assertRaisesRegex(ValueError,'pin missing or changed'):verify_result(root/'analysis/result.json')
+                audit=root/'analysis/analysis/audit.json';d=json.loads(audit.read_text());d['totals']['budget_input_W']=0
+                audit.write_text(json.dumps(d),encoding='utf-8')
+                r=json.loads((root/'analysis/result.json').read_text());r['artifacts']['analysis/audit.json']=digest(audit)
+                r['payload']['report']['sha256']=digest(audit)
+                (root/'analysis/result.json').write_text(json.dumps(r),encoding='utf-8')
+                with self.assertRaisesRegex(ValueError,'differs from bound source inputs'):verify_result(root/'analysis/result.json')
+            self.assertEqual(reader.call_count,2)

@@ -90,8 +90,9 @@ needs editing. Public aggregate evidence omits source documents and identities.
 Fresh provider imports load none of pypdf/IFC/NumPy/SciPy/Fluids/MCP. Three local
 tracemalloc samples take0.150–0.174s and peak about6.04MB Python allocation.
 This is import scope only, not native runtime RSS or a measured speedup. Actual
-MCP execution takes about44s per run; evidence replay also costs time. Redundant
-verification profiling remains an optimization target; no checks were removed.
+MCP execution takes about44s per run; evidence replay also costs time. A later [operation-scoped optimization](AUDIT_REPLAY.md) measures reduced replay
+work with unchanged outputs and retained checks. These earlier timings describe
+the initial integration only.
 
 ## Remaining boundaries
 
