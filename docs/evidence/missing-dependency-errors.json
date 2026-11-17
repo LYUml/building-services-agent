@@ -1,0 +1,16 @@
+{
+  "scope": "Known optional import diagnostics; not dependency installation or engineering execution",
+  "reproduced_missing_module": "rectpack",
+  "before_exit_code": 1,
+  "before_traceback": true,
+  "after_exit_code": 2,
+  "after_traceback": false,
+  "after_message": "Required Python module is unavailable: rectpack. Install the drawing-layout extra in the same environment: python -m pip install -e \".[drawing-layout]\". Then run bsa doctor --extra drawing-layout.",
+  "output_directory_created": false,
+  "actual_minimal_MCP_is_error": true,
+  "MCP_error_contains_profile": true,
+  "tests_passed": 15,
+  "unknown_nested_profiles_not_inferred": true,
+  "automatic_installation": false,
+  "design_accepted": false
+}

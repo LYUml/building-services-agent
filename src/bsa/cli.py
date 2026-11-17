@@ -214,6 +214,9 @@ def main():
             result=run(a.project,a.out)
             print(json.dumps({"output":str(a.out),"calculated_checks_pass":result["calculated_checks_pass"],"design_accepted":False}))
             if not result["calculated_checks_pass"]: return 2
+    except ModuleNotFoundError as e:
+        from .cli_errors import missing_dependency
+        parser.exit(2,missing_dependency(e)['message']+'\n')
     except (ProjectError, OSError, ValueError) as e:
         parser.exit(2,str(e)+"\n")
     return 0

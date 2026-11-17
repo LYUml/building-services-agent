@@ -51,6 +51,10 @@ def main():
             if options.get(key) is not None:options[key]=Path(options[key])
         with contextlib.redirect_stdout(sys.stderr):value=resolve(request['operation'])(*request['args'],**request['kwargs'])
         result=dict(ok=True,value=value)
+    except ModuleNotFoundError as exc:
+        from .cli_errors import missing_dependency
+        detail=missing_dependency(exc)
+        result=dict(ok=False,error='ModuleNotFoundError: '+detail['message'],error_kind='missing_dependency',missing_module=detail['missing_module'],suggested_extra=detail['suggested_extra'])
     except Exception as exc:result=dict(ok=False,error=type(exc).__name__+': '+str(exc))
     print(json.dumps(result,ensure_ascii=False,allow_nan=False))
     return 0 if result['ok'] else 2

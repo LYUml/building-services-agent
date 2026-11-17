@@ -1,5 +1,14 @@
 # Agent usability milestone
 
+Missing known optional imports now produce an actionable exit2/profile hint in
+the installed CLI and a structured worker failure for MCP. No package is
+installed automatically. Unknown/nested imports do not get guessed profiles;
+native DLL/policy import failures keep their adapter-specific diagnostics.
+An actual minimal drawing/MCP profile without rectpack reproduces the former
+traceback and now reports `drawing-layout` with no drawing directory created.
+15related CLI/worker/startup tests pass. See
+[missing-profile evidence](evidence/missing-dependency-errors.json).
+
 The installed `bsa drawing run/inspect` commands now use the same existing
 seven-schema boundary as the MCP tools. No second drawing engine or new CAD
 dependency is introduced. `bsa doctor --extra drawing --extra mcp` reads the
