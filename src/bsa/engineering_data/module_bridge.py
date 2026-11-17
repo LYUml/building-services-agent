@@ -43,6 +43,8 @@ def project_result(path):
     path = Path(path).resolve()
     ref = reference(path)
     result = verify_result(path)
+    if result['project_id'] == 'workflow-allocation':
+        raise ValueError('Legacy placeholder identity cannot be a common project; use an explicit source-bound project request')
     if result['execution']['status'] != 'completed' or result['payload'] is None:
         raise ValueError('Completed verified producer required; unavailable is not empty engineering data')
     payload = result['payload']

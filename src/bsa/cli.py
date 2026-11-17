@@ -77,6 +77,7 @@ def main():
     sub=parser.add_subparsers(dest="command",required=True)
     group=sub.add_parser('engineering-data',help='Export or verify a source-bound common data view')
     commands=group.add_subparsers(dest='data_command',required=True)
+    task=commands.add_parser('context');task.add_argument('--name',required=True);task.add_argument('--scenario',required=True);task.add_argument('--out',type=Path,required=True)
     task=commands.add_parser('export');task.add_argument('source_result',type=Path);task.add_argument('--out',type=Path,required=True)
     task=commands.add_parser('verify');task.add_argument('out',type=Path)
     check=sub.add_parser('doctor',help='Read-only checks of selected pinned dependencies and host paths')
@@ -145,6 +146,9 @@ def main():
     a=parser.parse_args()
     try:
         if a.command=='engineering-data':
+            if a.data_command=='context':
+                from .engineering_data.context import create
+                print(json.dumps(create(a.name,a.scenario,a.out),indent=2));return 0
             from .engineering_data.module_bridge import export,verify
             result=export(a.source_result,a.out) if a.data_command=='export' else verify(a.out)
             print(json.dumps(result,indent=2));return 0

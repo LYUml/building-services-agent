@@ -1,3 +1,15 @@
+## Project-scoped common data now executes through workflow/MCP
+
+Explicit UUID4 project/scenario context and exact producer request/result binding
+now protect the common air/electrical view. Existing40MCPtools execute/diagnose/
+read the new task and prepare pending review.64durable local regression cases
+pass without skips, receipt independently verified;27minimal-profile cases pass.
+Actual existing80terminal data replay preserves81entities/244quantities and
+original sources. See ENGINEERING_DATA.md and its workflow/context evidence.
+Source design-input ownership and broader mappings remain open before knowledge,
+impact/safe reuse and second-real-project acceptance. New goal remains active;
+no release, coursework replacement or user acceptance. Earlier status below is historical.
+
 ## Modular data and knowledge goal active (2026-11-18)
 
 Proceed in order: existing module boundaries/common engineering data, traceable

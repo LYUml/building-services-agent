@@ -1,3 +1,17 @@
+## Project identity and common-data workflow integration (2026-11-18)
+
+Reuse stdlib UUID4 for persisted project identity, the existing module request,
+source-plan/dependency machinery, classified allocation/electrical providers,
+independent producer replay, common-data exporter and all40existing MCP tools.
+No new native engine, orchestration framework, dependency or vendored upstream.
+The workflow remains a thin fixed-kind adapter; documents still cannot choose
+runtime commands. Identity is not derived from mutable engineering values or
+folder names. Exact declared request/result and context/method pins are checked;
+the known legacy allocation placeholder cannot masquerade as a common project.
+Actual SDK five-call historical HVAC replay,64local regression controls and
+27minimal-profile cases pass. Attribution/licenses remain in existing notices.
+See ENGINEERING_DATA.md. Source-input editing and later phases remain unfinished.
+
 ## Common engineering data foundation (2026-11-18)
 
 Actual gap: existing versioned domain payloads have no single shared identity,

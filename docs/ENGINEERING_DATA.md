@@ -1,5 +1,62 @@
 # Common engineering data: first executed slice
 
+## Current project-context/workflow milestone
+
+The new data view now runs through existing workflow and MCP routes. An explicit
+persisted UUID4 project context replaces ambiguous project naming for this new
+path. Existing legacy plans still execute; the old `workflow-allocation`
+placeholder cannot be exported as a common project identity. A new explicit
+module request is required instead of relabelling historical results.
+
+```powershell
+bsa engineering-data context --name "My project" --scenario baseline --out runs/MY_PROJECT/context.json
+```
+
+Create a context once for a new project, not once per execution. Keep its
+project_id when preparing a fresh scenario file/request for the same project;
+use a new UUID for another building/project. Do not edit old context files to
+make historical receipts pass. Context is a declared project identity, not proof
+that physical assets have been surveyed or manufacturer identities authenticated.
+
+A source-bound plan may declare `project_context: "context.json"` and append:
+
+```json
+{"id":"common","kind":"engineering_data","depends_on":"analysis"}
+```
+
+Its earlier analysis must be a supported module_analysis task using the
+classified-air-allocation or single-phase-circuits provider. Request project_id
+and scenario_id must exactly match context before any task executes. The new
+classified-air module-analysis route reuses the same validated allocation
+provider; a completed allocation does not establish room-load or ADPI acceptance.
+Older direct allocation workflows are not silently rewritten.
+
+Execution and saved-result inspection both reconstruct the data and bind the
+exact declared producer request, producer result location, context/method pins
+and original requirements. A valid export from another task cannot substitute
+for the declared one, even after coherent outer hash rewrites. Disabled/failed
+producers block export while independent branches can continue. Manual review
+and original pending numerical/engineering facts remain separate.
+
+The existing40tool server requires no new operation/tool: execute_workflow,
+diagnose_workflow, artifact_index, read_artifact and delivery_template execute
+the new chain through the real SDK. Five actual calls on the historical HVAC
+data preserve81entities/244quantities and all original source files. This is a
+new integration plan around existing data, not a replacement coursework plan.
+
+Current local evidence:64durably recorded regression cases pass, zero skips,
+unchanged source and independently verified receipt;27minimal-profile cases
+pass without Fluids/IFC/Manifold;11new context/workflow controls cover project
+isolation, request/result substitution, omitted pins and failures. See
+[workflow/context evidence](evidence/engineering-data-workflow-context.json).
+Remote results for this later source revision remain to be observed; older
+7841fae Windows/Ubuntu results below apply to the earlier first slice only.
+
+General editable source-parameter ownership, broader entity/model mappings,
+knowledge, change impact and different-real-project acceptance remain open.
+
+## Earlier first-slice scope and evidence
+
 This is the first additive slice of the2026-11-18 modular/data goal. Existing
 module request/result contracts and domain engines remain authoritative. It is
 not yet a complete editable cross-discipline project model.
@@ -86,8 +143,8 @@ separate.
 
 ## Next steps, in the authorized order
 
-1. Extend actual workflow/MCP consumption and explicit source design-input
-   bindings/identity ownership. General spatial/system/port contracts remain to
+1. Continue explicit source design-input bindings/identity ownership after the
+   executed workflow/MCP boundary above. General spatial/system/port contracts remain to
    be integrated; no universal data editing or provider replacement is claimed.
 2. Build source/version/page/applicability-aware knowledge retrieval, reusing
    existing source readers, reference library and rule packs.

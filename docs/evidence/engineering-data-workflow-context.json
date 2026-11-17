@@ -1,0 +1,33 @@
+{
+  "schema": "bsa.common-data-workflow-context/1",
+  "scope": "Actual existing isolated HVAC data replay through new project-context integration plan; does not replace original course plan or establish second-project acceptance",
+  "project_context": "Persisted UUID4 and explicit scenario; exact module request and current context/method pins enforced",
+  "mcp_calls": 5,
+  "mcp_tool_count": 40,
+  "integrity_pass": true,
+  "entities": 81,
+  "quantities": 244,
+  "values_equal_to_previous_actual_hvac_view": true,
+  "original_source_files_unchanged": 3,
+  "synthetic_controls": {
+    "workflow_cases": 11,
+    "minimal_profile_cases": 27
+  },
+  "regression": {
+    "tests_run": 64,
+    "passed": 64,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "regression_source_unchanged": true,
+  "regression_receipt_verified": true,
+  "regression_receipt_sha256": "f5a13ce19f6b5aae05ff987f9c07497463421bd4dda3f5bacad14b93cb3a5f9b",
+  "manual_engineering_review_pending": true,
+  "design_accepted": false,
+  "limitations": [
+    "Read-only derived common data and explicit requests; general editable design-input ownership still pending",
+    "No new CAD authoring or native reopening in this milestone",
+    "Knowledge, impact/cache and different-real-project acceptance unfinished"
+  ]
+}

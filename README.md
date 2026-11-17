@@ -6,7 +6,8 @@ The host interprets sources and engineering assumptions; successful execution
 does not establish professional or statutory design acceptance.
 
 Architecture expansion is active: [common engineering data](docs/ENGINEERING_DATA.md)
-now has its first executed air/electrical view. Knowledge, change-impact and
+now has project-scoped air/electrical views through workflow/MCP, with explicit
+identity and producer binding. Source-input ownership, knowledge, change-impact and
 different-real-project acceptance remain in progress. The earlier candidate
 checkpoint below is preserved and does not establish readiness of new features.
 
