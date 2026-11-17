@@ -172,6 +172,16 @@ class KnowledgeTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'bounded size'):
                 query(out, 'airflow')
 
+    def test_metadata_terms_do_not_masquerade_as_passage_citations(self):
+        self.data['sources'][0]['conditions']='ADPI applicability remains unassessed'
+        self.data['sources'][0]['title']='ADPI catalogue with unknown applicability'
+        self.save(self.manifest,self.data)
+        out=self.index()
+        self.assertEqual(query(out,'ADPI')['hits'],[])
+        actual=query(out,'airflow')['hits']
+        self.assertEqual(len(actual),1)
+        self.assertEqual(actual[0]['metadata']['conditions'],'ADPI applicability remains unassessed')
+
     def test_shared_cli_build_query_and_invalid_query_exit(self):
         command = [sys.executable, '-X', 'utf8', '-m', 'bsa.cli', 'knowledge']
         out = self.root/'cli-index'

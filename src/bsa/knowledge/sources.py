@@ -105,5 +105,6 @@ def records(manifest, summaries=None):
 
 
 def search_text(row):
-    meta = row['metadata']
-    return '\n'.join(str(meta[k] or '') for k in ('title', 'discipline', 'jurisdiction', 'conditions'))+'\n'+row['text']
+    # A source-wide condition/title must not make every page look like a citation
+    # for that term. Declared metadata remains available through explicit filters.
+    return row['text']

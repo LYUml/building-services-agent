@@ -4,8 +4,10 @@ Current ordered goal (2026-11-18): consolidate existing boundaries/common data,
 then traceable knowledge, then change-impact/safe reuse, then different-real-
 project acceptance. The first common air/electrical data/report slice executes
 per ENGINEERING_DATA.md. Existing request/result/provider boundaries are reused;
-they are not replaced by a second solver framework. Workflow/MCP consumption,
-source-input ownership and broader model mappings remain to be completed.
+they are not replaced by a second solver framework. Workflow/MCP consumption and read-only source-input ownership execute for
+the supported air/electrical view. Knowledge also runs through the existing
+workflow/MCP routes per KNOWLEDGE.md. Broader model mappings, explicit change
+impact/safe reuse and different-real-project acceptance remain open.
 
 Saved-native stub straight-friction components now have a registered common
 analysis boundary with exact workflow inheritance and explicit disable controls.

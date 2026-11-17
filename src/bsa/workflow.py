@@ -303,6 +303,9 @@ def validate_plan(path):
         if not isinstance(t,dict) or not isinstance(t.get("id"),str) or not re.fullmatch(r"[A-Za-z0-9_-]+",t["id"]) or t["id"] in ids:
             raise ProjectError("task ids must be unique path-safe strings")
         kind=t.get("kind")
+        if kind in ('knowledge_index','knowledge_query'):
+            from .knowledge.workflow import inputs as knowledge_inputs
+            inputs.update(knowledge_inputs(root,p,t,[previous for previous in tasks if previous['id'] in ids]))
         if kind=='engineering_data':
             from .engineering_data.workflow import inputs as data_inputs
             inputs.update(data_inputs(root,p,t,[previous for previous in tasks if previous['id'] in ids]))
@@ -316,7 +319,7 @@ def validate_plan(path):
             from . import drawing_access
             project=local_path(root,t.get('project'))
             inputs.update(drawing_access.workflow_inputs(project))
-        if kind not in ("engineering_data","drawing_document","module_electrical_native","module_electrical_rules","module_water_rules","module_analysis","module_authoring","spatial_terminal_stubs","spatial_terminal_inlets","spatial_terminal_ifc","spatial_terminal_coordination","spatial_terminal_native","spatial_terminal_drawing","spatial_terminal_performance","spatial_air_allocation","spatial_air_balance","spatial_lighting_rules","module_thermal_project","module_exchange","duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","circular_fan_metadata","circular_fan_selection","circular_fan_operating_point","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","route_ports","route_join","route_material","route_pressure","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("knowledge_index","knowledge_query","engineering_data","drawing_document","module_electrical_native","module_electrical_rules","module_water_rules","module_analysis","module_authoring","spatial_terminal_stubs","spatial_terminal_inlets","spatial_terminal_ifc","spatial_terminal_coordination","spatial_terminal_native","spatial_terminal_drawing","spatial_terminal_performance","spatial_air_allocation","spatial_air_balance","spatial_lighting_rules","module_thermal_project","module_exchange","duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","circular_fan_metadata","circular_fan_selection","circular_fan_operating_point","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","route_ports","route_join","route_material","route_pressure","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind=='module_electrical_native':
             if set(t)-{'id','kind','depends_on','requires_pass','description'}:raise ProjectError('Native electrical task inherits rule producer only;replacement inputs forbidden')
@@ -1262,6 +1265,9 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
         try:
             from .modules import verify_result as verify_module
             for module_result in module_results:verify_module(module_result)
+            if any(task['kind'] in ('knowledge_index','knowledge_query') for task in p['tasks']):
+                from .knowledge.workflow import verify_outputs as verify_knowledge_outputs
+                verify_knowledge_outputs(root,p,out,tasks)
             if any(task['kind']=='engineering_data' for task in p['tasks']):
                 from .engineering_data.workflow import verify_outputs as verify_data_outputs
                 verify_data_outputs(root,p,out,tasks)
@@ -1288,6 +1294,13 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 reason='unresolved design inputs: '+', '.join(i['id']+' ('+i['kind']+'): '+i['description'] for i in missing_inputs)+'; adapter not executed'
             elif blocked:
                 reason='required checks unresolved: '+', '.join(g+' ('+tasks[g]['status']+')' for g in blocked)+'; adapter not executed'
+            elif t['kind'] in ('knowledge_index','knowledge_query'):
+                if t.get('depends_on') and tasks[t['depends_on']]['status']!='pass':
+                    reason='upstream knowledge index did not pass; lookup not executed'
+                else:
+                    from .knowledge.workflow import run as run_knowledge
+                    payload=run_knowledge(root,p,t,out)
+                    status='pass';reason=payload['scope']
             elif t['kind']=='engineering_data':
                 if tasks[t['depends_on']]['status']!='pass':reason='upstream module did not pass;common data not exported'
                 else:
@@ -2375,6 +2388,9 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
         if status=='pass' and any(child['kind']=='module_exchange' and child.get('depends_on')==t['id'] for child in p['tasks']):
             runtime_inputs.update({str(f):digest(f) for f in folder.rglob('*') if f.is_file()})
     for module_result in module_results:verify_module(module_result)
+    if any(task['kind'] in ('knowledge_index','knowledge_query') for task in p['tasks']):
+        from .knowledge.workflow import verify_outputs as verify_knowledge_outputs
+        verify_knowledge_outputs(root,p,out,tasks)
     if any(task['kind']=='engineering_data' for task in p['tasks']):
         from .engineering_data.workflow import verify_outputs as verify_data_outputs
         verify_data_outputs(root,p,out,tasks)
@@ -2448,6 +2464,9 @@ def verify(run_directory):
                 row=rows[requirement['id']]
                 if row.get('supporting_tasks',[])!=requirement.get('supporting_tasks',[]) or row.get('supporting_evidence',{})!=requirement_support(requirement,report['tasks'],report['artifact_hashes']):
                     raise ValueError('Supporting requirement evidence differs from source: '+requirement['id'])
+            if any(t['kind'] in ('knowledge_index','knowledge_query') for t in original_plan['tasks']):
+                from .knowledge.workflow import verify_outputs as verify_knowledge_outputs
+                verify_knowledge_outputs(plan_path.parent,original_plan,root,report['tasks'],report['inputs'])
             if any(t['kind']=='engineering_data' for t in original_plan['tasks']):
                 from .engineering_data.workflow import verify_outputs as verify_data_outputs
                 verify_data_outputs(plan_path.parent,original_plan,root,report['tasks'],report['inputs'])
@@ -2455,6 +2474,8 @@ def verify(run_directory):
     elif any(t.get('writer')=='uc4n' for t in report['tasks'].values()) or any((root/name/'workflow-binding.json').is_file() for name in report['tasks']):
         issues.append('upstream writer requires explicit workflow source plan identity')
     for name,task in report['tasks'].items():
+        if task['kind'] in ('knowledge_index','knowledge_query') and not source_plan:
+            issues.append('knowledge output requires exact original workflow source identity: '+name)
         if task['kind']=='engineering_data' and not source_plan:
             issues.append('common data requires explicit original workflow/project context: '+name)
         from .drawing_access import RECEIPTS

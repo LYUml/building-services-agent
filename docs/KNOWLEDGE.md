@@ -33,8 +33,9 @@ Each hit carries source hash, declared edition/publisher/URL, applicability
 conditions, extraction issues, and an original locator. PDF locators mean
 physical PDF pages; text spans refer to extracted text, not printed coordinates.
 Unresolved metadata and applicability stay explicit. Lexical score is not
-engineering confidence. Search includes declared title/conditions as well as
-passage text. English uses literal FTS5 terms; CJK uses literal substring
+engineering confidence. Search matches passage text; metadata remains attached and available through
+explicit role/discipline/jurisdiction filters. Source-wide titles or conditions
+do not turn unrelated pages into citations. English uses literal FTS5 terms; CJK uses literal substring
 matching, without translation, semantic retrieval or character conversion.
 
 The saved bundle contains request.json, index.sqlite and receipt.json. Verification
@@ -50,7 +51,34 @@ Bounds include 100 MiB per source file, 8 million extracted characters per sourc
 discarding citations. Documents still require their existing extraction profile;
 scanned/ambiguous pages retain review gaps. No implicit OCR is added.
 
-## Executed local evidence
+## Workflow and existing MCP routes
+
+```json
+{ "id": "library", "kind": "knowledge_index", "manifest": "manifest.json" }
+{ "id": "lookup", "kind": "knowledge_query", "depends_on": "library",
+  "query": { "text": "ADPI", "role": "course_source", "limit": 5 } }
+```
+
+These are task objects inside the existing complete source-bound plan, not a
+standalone plan. Use existing bsa_execute_workflow, bsa_diagnose_workflow,
+bsa_artifact_index, bsa_read_artifact and bsa_delivery_template. The tool catalogue
+stays at40. The index and query outputs are ordinary auditable artifacts.
+For a saved verified index, replace depends_on with an explicit plan-local
+index_receipt path to receipt.json. This avoids rebuilding; verification still
+checks sources and methods. An inherited query cannot override the manifest or
+substitute a different index. A scoped corpus must match plan project_context;
+project facts still require explicit opt-in.
+
+Workflow input pins include selected sources/context, methods and nested verified
+project-input provider evidence. Saved queries are regenerated and compared,
+ignoring only observed SQL elapsed time. Rewriting outer artifact hashes cannot
+hide dropped hits or invented citations. Failed index evidence remains visible,
+dependent lookup stays pending and independent branches can still execute.
+A zero-hit lookup passes execution only; applicability/design review remains
+pending. New manifests currently refer to existing input catalogues; they do not
+address not-yet-created same-run numerical outputs.
+
+## Executed local evidence (first CLI slice, historical)
 
 `runs/knowledge-milestone/index-current` indexes four existing sources: the course
 air-distribution PDF, selected physical page116 from the pinned EMSD wiring2025
@@ -73,7 +101,36 @@ rehashed record/metadata/FTS tampering, schema edits, role promotion, project
 isolation, response bounds and root CLI. Cross-platform CI is configured;
 configured checks are not executed evidence until their jobs complete.
 
-This slice is CLI-only. Knowledge workflow/MCP integration, modification impact,
-safe reuse and a different real-project acceptance remain open. Existing MCP
-common-data capabilities are unchanged. No coursework, native DWG acceptance,
-formal release or user acceptance is changed by this milestone.
+## Executed workflow evidence
+
+The same actual four-source corpus now runs through the real MCP SDK in
+runs/knowledge-workflow-milestone/executed-body-text. Five saved queries retrieve
+course ADPI (physical pages4/5), wiring (physical116), manufacturer (physical1)
+and an explicitly opted-in project parameter; default reference lookup returns
+no project facts. Every ADPI hit contains the term in its own passage. The
+manufacturer publisher/edition are transcribed from the actual selected cover;
+its download URL remains unknown. All extraction/applicability gaps remain.
+
+Source-only indexing keeps246records in360448bytes, compared with434176bytes in
+the historical metadata-plus-text index (storage reduction, not a RAM claim).
+The old index/queries remain historical evidence and fail current method pins;
+receipts are never patched. The real SDK executes the workflow and reads its results through40listed tools.
+A final old-review-file guard required a fresh template name;8successful
+recovery/audit tool calls and one catalogue call reused the saved workflow
+without recalculation, with final review pending. No new server operation or
+computer use is needed. Full deep workflow audits repeat source reconstruction;
+this is slower than a raw FTS lookup and still needs profiling before performance
+acceptance. The earlier0.406–0.694second CLI observations do not describe whole
+MCP workflow latency.
+
+Current knowledge13 + workflow8 + realMCP1 controls pass. A minimal documents/
+modules/spatial profile passes the first21 without Fluids/IFC/Manifold. The durable
+compatibility group runs105cases:104pass,1existing offline-OCR fixture skip,
+zero failures/errors; all_tests_pass=false remains explicit. Receipt independently
+verified. Prior CLI commit df48b26 passed all9core-profile CI jobs, including
+knowledge on Windows/Ubuntu; it is not CI evidence for the later workflow implementation.
+See evidence/knowledge-workflow.json for source-bound aggregate evidence.
+
+Modification impact/safe reuse and a different real-project acceptance remain
+open. No coursework, native DWG acceptance, formal release or user acceptance
+is changed by this milestone.

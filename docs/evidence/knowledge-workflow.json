@@ -1,0 +1,76 @@
+{
+  "schema": "bsa.knowledge-workflow-evidence/1",
+  "scope": "Actual saved corpus execution and audited MCP retrieval; not applicability/design acceptance",
+  "corpus": {
+    "sources": 4,
+    "records": 246,
+    "index_bytes": 360448,
+    "receipt_sha256": "acd5da1fa1270f38e61945535ae10689fda29603f6a98287d14ee0e09d12d361"
+  },
+  "sdk": {
+    "summary": {
+      "tools": 40,
+      "tool_calls": 8,
+      "list_tools_calls": 1,
+      "hits": {
+        "adpi": 5,
+        "wiring": 2,
+        "manufacturer": 1,
+        "default": 0,
+        "facts": 1
+      },
+      "integrity_pass": true,
+      "tasks": {
+        "library": "pass",
+        "adpi": "pass",
+        "wiring": "pass",
+        "manufacturer": "pass",
+        "default": "pass",
+        "facts": "pass",
+        "review": "pending"
+      },
+      "design_accepted": false
+    },
+    "execution_observation": "Existing saved workflow from prior real SDK execution; no recalculation during recovery",
+    "saved_calls_sha256": "c41a496c82cf3b74f2678a52387a468cbaa071bf0c3df08efee5bdb088cd71c8",
+    "review_requirement_count": 7,
+    "all_review_pending": true,
+    "adpi_all_hits_contain_term": true,
+    "adpi_physical_pages": [
+      4,
+      5
+    ]
+  },
+  "regression": {
+    "tests_run": 105,
+    "passed": 104,
+    "skipped": 1,
+    "failures": 0,
+    "errors": 0,
+    "source_unchanged": true,
+    "all_tests_pass": false,
+    "receipt_sha256": "ea0907e1ccf2ddbc0c0256704ce3a982875f6da3ffc419522baf1c51793461c1"
+  },
+  "minimal_profile": {
+    "tests_passed": 21,
+    "excluded": [
+      "fluids",
+      "ifcopenshell",
+      "manifold3d"
+    ]
+  },
+  "prior_cli_ci": {
+    "source_commit": "df48b26b82e186972dfa7de6058f0800ade3a423",
+    "core_run": 44144091366,
+    "all_nine_jobs_success": true,
+    "current_workflow_source_ci": "Not asserted by this local receipt; inspect head-specific CI"
+  },
+  "limitations": [
+    "Publication metadata not authenticated",
+    "All extraction/applicability gaps retained",
+    "Whole MCP audit latency not raw FTS timing",
+    "Future same-run project-input catalogue references not supported",
+    "Modification impact/safe reuse and different real-project validation pending"
+  ],
+  "design_accepted": false
+}

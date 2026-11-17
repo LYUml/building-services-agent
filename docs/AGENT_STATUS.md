@@ -1,3 +1,19 @@
+## Knowledge now executes through existing MCP; impact is next
+
+The real SDK builds a source-bound index and retrieves five saved query results
+through existing40tools. The actual4source corpus has246records in360448bytes.
+Search now matches passage text only, avoiding false page citations caused by
+source-wide conditions. Metadata/filter/review gaps remain attached. Project
+facts stay opt-in and context-bound; all7actual requirements remain pending review.
+13knowledge+8workflow+1realMCP controls pass; minimal profile passes21. Durable
+compatibility:105cases,104pass,1existing offlineOCR skip, no failures/errors;
+receipt independently verified, all_tests_pass=false. See KNOWLEDGE.md and
+knowledge-workflow.json evidence. Source-change rejection, rehashed-query tamper,
+foreign-index substitution and independent branches after failure are checked.
+Next: explicit input/method/upstream impact, invalidation and safe reuse, then a
+different real-project calculation/CAD-or-report validation. Goal remains active;
+no course change, release, native CAD acceptance or user acceptance is inferred.
+
 ## Local knowledge retrieval executed; integration and impact remain open
 
 The source-backed CLI corpus now reuses existing extractors, immutable references

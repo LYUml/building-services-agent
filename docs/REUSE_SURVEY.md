@@ -1,3 +1,17 @@
+## Knowledge workflow and citation-quality correction (2026-11-18)
+
+Reuse the existing40MCPtools, workflow task/gate validation, artifact audit and
+delivery review. Add thin knowledge_index/knowledge_query task adapters around
+the existing local index, not another service or engine. Reuse nested common-data
+and provider verification for project-fact dependencies. Actual SDK corpus
+execution exposed metadata-wide ADPI false matches: index passage text only,
+retain metadata/conditions as attached information and explicit filters. A new
+control prevents metadata terms from masquerading as page citations. Existing
+indexes/failed probe logs are preserved; rebuild fresh rather than rehash. The
+old-review-file guard also held during the actual probe; recovery reads the saved
+workflow and writes a fresh review without repeating numerical/index execution.
+See KNOWLEDGE.md and evidence/knowledge-workflow.json for actual controls/results.
+
 ## Local knowledge adapter executed (2026-11-18)
 
 Actual gap: searchable cited passages must preserve publication version,
