@@ -1,6 +1,6 @@
 # Current BSE3227 coursework review package
 
-The coursework delivery now contains a14-page report, editable80-terminal DWG and matching A1 plot. Typography and numbered structure follow the user's BSE3125 reference; no lighting data or student identities are transferred. The47-section/20VAV/80diffuser scenario,640classroom checks and49native K-Select conditions remain unchanged. Earlier published copies are archived privately.
+The coursework delivery now contains a14-page report, editable80-terminal DWG and matching A1 plot. Typography and numbered structure follow the user's BSE3125 reference; no lighting engineering data is transferred. Authorized group names and IDs are now included only in the local report; the Git snapshot is anonymous. The47-section/20VAV/80diffuser scenario,640classroom checks and49native K-Select conditions remain unchanged. Earlier published copies are archived privately.
 
 The existing guarded drawing-revision adapter, pinned ezdxf1.4.5 and AutoCAD execute four text revisions. Native saving/reopening and4,885record preservation checks pass. All80line lengths remain unchanged. The actual plot and enlarged notes were viewed; the appended report plan matches its pixels.
 
@@ -9,3 +9,5 @@ The FSD2/2023paragraph7.2 ordinary flexible-connection design cap is4m. With the
 This package is ready for user coursework review. Full pressure, physical installation, complete statutory compliance and the full agent goal remain unfinished. Manufacturer contact was declined and is not a coursework gate. See [executed evidence](evidence/coursework-closeout-package.json).
 
 Final native schedule/identity audit independently reconciles47rows/235fields,80unique diffuser labels,20unique VAV labels and all report appendix identities. All47 sections satisfy their source-selected limits. The user requested handover followed by no automatic research expansion while awaiting review. User acceptance remains false. See [final audit](evidence/final-coursework-consistency.json).
+
+The local report now includes the five lighting-group members at user request. Its bibliography has six external sources in IEEE numbered style, with matching first-use citations, access dates and clickable links; university course materials are excluded from the bibliography. The identified local report is excluded from public Git; an anonymous report is stored under `04_Final_Report/Public_Snapshot`.
