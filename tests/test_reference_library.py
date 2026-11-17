@@ -47,6 +47,13 @@ class ReferenceLibraryTests(unittest.TestCase):
         second=library.catalogue('example');self.assertNotEqual(first['revision'],second['revision'])
         self.assertNotEqual(library.read(first['revision'],row['id'])['sha256'],library.read(second['revision'],row['id'])['sha256'])
 
+    def test_source_copy_cannot_inherit_parent_repository_references(self):
+        nested=self.root/'copied-source';nested.mkdir()
+        (nested/'docs').mkdir();(nested/'docs/guide.md').write_text('Different source copy')
+        with patch.object(library,'ROOT',nested):
+            with self.assertRaisesRegex(ValueError,'own source Git checkout'):
+                library.catalogue()
+
     def test_filters_pagination_and_unlisted_identifiers(self):
         self.assertEqual(library.catalogue('schema')['total'],1)
         first=library.catalogue(limit=1);self.assertEqual(len(first['references']),1);self.assertEqual(first['next_offset'],1)

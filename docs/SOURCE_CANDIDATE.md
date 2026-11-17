@@ -20,6 +20,14 @@ not a GitHub release. Extract to a dedicated directory and follow START_USING.md
 there, installing the extras needed for the chosen domain. Native engines and
 MCP host setup remain explicit.
 
+The committed-reference library additionally requires an actual Git checkout
+at the tool source root. For that complete capability, clone the configured
+origin and check out the receipt's exact commit, then install there. A ZIP has
+no Git object database and cannot serve immutable Git references. The library
+must reject it, including copies nested under another repository, rather than
+silently reading the parent's unrelated revision. Other archive capabilities
+remain subject to their executed evidence.
+
 Executed baseline at commit `4e5e02803346af93592441e974040096ae1fdebe`:
 
 - Two separate source builds are byte-identical: SHA-256

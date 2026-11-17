@@ -16,6 +16,9 @@ def git(*args):
     if not executable:raise ValueError('Host Git runtime required for committed reference library')
     environment={key:value for key,value in os.environ.items() if key.upper() not in
         {'GIT_DIR','GIT_WORK_TREE','GIT_INDEX_FILE','GIT_COMMON_DIR','GIT_OBJECT_DIRECTORY','GIT_ALTERNATE_OBJECT_DIRECTORIES','GIT_NAMESPACE'}}
+    repository=subprocess.run([executable,'-C',str(ROOT),'rev-parse','--show-toplevel'],capture_output=True,env=environment)
+    if repository.returncode or Path(os.fsdecode(repository.stdout).strip()).resolve()!=ROOT.resolve():
+        raise ValueError('Committed reference library requires its own source Git checkout; parent repository is not a reference source')
     result=subprocess.run([executable,'-C',str(ROOT),*args],capture_output=True,check=True,env=environment)
     return result.stdout
 
