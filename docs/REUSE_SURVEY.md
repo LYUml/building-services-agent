@@ -1,3 +1,17 @@
+## Knowledge retrieval runtime preflight (2026-11-18)
+
+Prefer the existing immutable reference library, document extraction/review and
+source-pinned rule packs, with Python's existing SQLite engine for a first local
+text index. The [official FTS5 documentation](https://www.sqlite.org/fts5.html)
+was consulted. This host's sqlite3 reports3.53.1; an actual in-memory FTS5 table
+creation, parameterized insert and literal MATCH query succeeds. No dependency
+or external service installed. See evidence/knowledge-runtime-probe.json.
+This proves runtime availability only, not an implemented knowledge base,
+source/citation completeness, Chinese query quality or engineering applicability.
+Keep reference knowledge, executable rules and project facts distinct; preserve
+version/page/condition/review metadata and host workspace boundaries. Broader
+source/license review and actual integration/control cases remain next work.
+
 ## Source parameter ownership (2026-11-18)
 
 Actual gap: common computed quantities must not be treated as editable inputs.

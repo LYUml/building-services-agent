@@ -1,0 +1,16 @@
+{
+  "schema": "bsa.knowledge-runtime-probe/1",
+  "runtime": "Python standard-library sqlite3",
+  "sqlite_version": "3.53.1",
+  "fts5_create_insert_match_pass": true,
+  "probe_scope": "In-memory literal full-text lookup only; not a built or validated professional knowledge base",
+  "existing_components_to_reuse": [
+    "documents.extract",
+    "reference_library.read/catalogue",
+    "regulations source packs",
+    "engineering_data source input ownership"
+  ],
+  "new_dependency_installed": false,
+  "primary_documentation": "https://www.sqlite.org/fts5.html",
+  "design_accepted": false
+}

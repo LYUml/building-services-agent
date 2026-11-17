@@ -1,0 +1,26 @@
+{
+  "schema": "bsa.engineering-inputs-ci/1",
+  "implementation_commit": "2e33930ad42714a4b0ae0f3bb8a167f5c5f76799",
+  "run_id": 44135219952,
+  "core_profile_jobs_succeeded": 7,
+  "jobs": [
+    {
+      "id": 134222776892,
+      "platform": "windows-latest",
+      "conclusion": "success",
+      "minimal_tests": 36,
+      "full_hvac_fixture_compatibility_tests": 8,
+      "actual_mcp_tests": 2
+    },
+    {
+      "id": 134222777231,
+      "platform": "ubuntu-latest",
+      "conclusion": "success",
+      "minimal_tests": 36,
+      "full_hvac_fixture_compatibility_tests": 8,
+      "actual_mcp_tests": 2
+    }
+  ],
+  "scope": "Actual terminal jobs and logs inspected; narrower profile success, not whole-repository suite or whole-goal completion",
+  "design_accepted": false
+}

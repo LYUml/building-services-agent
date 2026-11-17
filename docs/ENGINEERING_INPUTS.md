@@ -71,7 +71,10 @@ retain original constraints, plans and engineering review.
   and are not counted as proof.
 
 See [aggregate evidence](evidence/engineering-inputs.json). This new source
-revision's remote CI results remain to be observed. Knowledge retrieval,
+revision's Windows/Ubuntu data profiles pass at2e33930:36minimal tests,8retained
+full-HVAC compatibility tests and2actual MCP cases per platform; all seven core
+profile jobs succeed. See [CI evidence](evidence/engineering-inputs-ci.json).
+Whole-repository regression and later goal phases remain separate. Knowledge retrieval,
 change-impact/safe reuse and different-real-project acceptance are unfinished.
 Existing water/spatial/etc. typed contracts and capabilities are preserved;
 their broader common-view mappings are not implied by these two input adapters.
