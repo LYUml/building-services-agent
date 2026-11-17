@@ -1,5 +1,11 @@
 # Runtime diagnostics and full regression recovery
 
+Current follow-up: all six domain jobs at 4e5e028 completed successfully,
+including the corrected native water smoke/workflows and IFC coordination.
+Five core/profile jobs at a6236c3 also passed. Full-regression job 133969615693
+is still executing at this checkpoint; no full-suite pass is asserted. The
+diagnosis and local results below retain their original historical scope.
+
 Observed remote commit: `68d59697ac27eb892768566e3fe5c0cca5c7f3e6`.
 Core run 44057101878 passed all four jobs: Windows core, Ubuntu core,
 pure pump-network and coupled MCP integration. Domain run 44057101944 passed

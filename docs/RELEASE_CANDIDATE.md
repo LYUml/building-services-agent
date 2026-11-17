@@ -6,6 +6,12 @@ candidate for user acceptance before any formal release. The earlier
 release maturity. No release/tag is authorized by this hardening work alone.
 BSE3227 and read-only history remain outside these implementation changes.
 
+The [current requirement-by-requirement audit](CANDIDATE_GATE_AUDIT.md) records
+executed support, clean native MCP installation, actual project revision and
+quantified optimization evidence. Full-regression completion/skip review and
+final candidate handoff remain pending. Earlier checkpoints below are historical;
+they must not be read as the current list of unresolved failures.
+
 ## First measured improvement: worker diagnostics
 
 MCP previously used `capture_output=True` for each engineering worker, then
