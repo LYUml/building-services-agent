@@ -1,3 +1,15 @@
+## Architecture acceptance and native IFC performance repair
+
+Fresh0922528 checkout/environment passed74selected checks and real native HVAC
+SDK save/reopen/report plus separate lighting evidence; live chat now exposes42
+tools with an actual read-only call. All34HVAC study requirements remain pending.
+092core9jobs/network/domain CI pass, but full regression watchdog expires in the
+first mixed recovery test. Guarded pinned IFC native-kernel reuse passed
+targeted/compatibility checks without relaxed tolerances or timeout;
+matching full remote CI is pending. See
+ARCHITECTURE_ACCEPTANCE.md; full goal remains active and earlier evidence stays
+bound to its source version. No release, course changes or user acceptance.
+
 ## Knowledge source ownership now executes
 
 New knowledge workflows capture exact task input sets through the existing

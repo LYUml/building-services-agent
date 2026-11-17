@@ -11,6 +11,33 @@ BOUNDS_TOLERANCE_M=2e-5
 VOLUME_RELATIVE_TOLERANCE=.001
 
 
+def native_shape(settings,obj):
+    """Reuse pinned CGAL for direct closed triangle meshes; retain OCC otherwise.
+
+    Every caller still checks native bounds, source parameters, volume/topology
+    and identity. No result cache, coarser tessellation or tolerance change.
+    """
+    import ifcopenshell.geom
+    representation=getattr(obj,'Representation',None)
+    bodies=[r for r in representation.Representations if r.RepresentationIdentifier=='Body'] if representation else []
+    eligible=False
+    if len(bodies)==1 and bodies[0].RepresentationType=='Tessellation' and len(bodies[0].Items)==1 and not getattr(obj,'HasOpenings',()):
+        item=bodies[0].Items[0]
+        if getattr(item,'Closed',None) is True:
+            if item.is_a('IfcTriangulatedFaceSet'):
+                eligible=bool(item.CoordIndex) and all(len(face)==3 for face in item.CoordIndex)
+            elif item.is_a('IfcPolygonalFaceSet'):
+                eligible=bool(item.Faces) and all(face.is_a()=='IfcIndexedPolygonalFace' and len(face.CoordIndex)==3 for face in item.Faces)
+    if eligible:
+        try:return ifcopenshell.geom.create_shape(settings,obj,geometry_library='cgal-simple')
+        except RuntimeError as exc:
+            # An unsupported conversion/kernel retains the original native path.
+            # Validation errors after conversion are never retried or cleared.
+            import logging
+            logging.getLogger(__name__).warning('CGAL conversion unavailable; retaining original OpenCascade path: %s',exc)
+    return ifcopenshell.geom.create_shape(settings,obj)
+
+
 def specification(device):
     if device.get('ifc_class') not in ('IfcPipeSegment','IfcDuctSegment'):
         raise ProjectError('circular walls require explicit pipe or duct segments')

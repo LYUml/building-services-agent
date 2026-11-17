@@ -1,5 +1,17 @@
 # Modular architecture and next implementation sequence
 
+## Current ordered-goal audit
+
+Common source-linked air/electrical/lighting views, bounded knowledge retrieval,
+source ownership and typed change impact now execute through existing workflow
+and MCP boundaries. Safe numerical reuse remains restricted to the verified
+air/electrical whitelist. Real HVAC native delivery and lighting calculation/
+report propagation, clean installation and42tool host execution are recorded in
+ARCHITECTURE_ACCEPTANCE.md. Full-suite readiness remains open after the native
+IFC conversion timeout; scoped pinned-kernel repair passed local targeted and
+compatibility checks, with matching full CI pending. Earlier
+progress entries below are historical and do not supersede this audit.
+
 ## Real lighting source audit executed; full goal remains active
 
 The second real discipline now follows the existing module → common data/input
@@ -21,8 +33,10 @@ project acceptance. The first common air/electrical data/report slice executes
 per ENGINEERING_DATA.md. Existing request/result/provider boundaries are reused;
 they are not replaced by a second solver framework. Workflow/MCP consumption and read-only source-input ownership execute for
 the supported air/electrical view. Knowledge also runs through the existing
-workflow/MCP routes per KNOWLEDGE.md. Broader model mappings, explicit change
-impact/safe reuse and different-real-project acceptance remain open.
+workflow/MCP routes per KNOWLEDGE.md. Broader model mappings remain incremental;
+explicit change impact/safe reuse now execute per CHANGE_IMPACT.md. Different
+real-project evidence is recorded, while final generality/readiness acceptance
+remains open.
 
 Saved-native stub straight-friction components now have a registered common
 analysis boundary with exact workflow inheritance and explicit disable controls.

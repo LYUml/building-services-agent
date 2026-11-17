@@ -231,7 +231,7 @@ def run(project,out):
         if len(matches)!=1:raise ProjectError('IFC device identity mismatch')
         obj=matches[0]
         if namespace and obj.GlobalId!=stable_guid(d['ifc_class'],d['id']):raise ProjectError('IFC stable device identity mismatch')
-        shape=ifcopenshell.geom.create_shape(settings,obj)
+        shape=circular.native_shape(settings,obj)
         verts=np.array(shape.geometry.verts).reshape(-1,3)
         bounds=np.array([verts.min(axis=0),verts.max(axis=0)])
         expected=np.array([d['origin_m'],np.array(d['origin_m'])+np.array(d['size_m'])])

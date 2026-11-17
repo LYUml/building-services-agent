@@ -125,7 +125,7 @@ def run(producer,basis,out):
     settings=ifcopenshell.geom.settings();settings.set(settings.USE_WORLD_COORDS,True);circular.configure(settings)
     solids={};triangles=0
     for guid,obj in objects.items():
-        shape=ifcopenshell.geom.create_shape(settings,obj);vertices=np.asarray(shape.geometry.verts).reshape(-1,3)-reference;faces=np.asarray(shape.geometry.faces).reshape(-1,3)
+        shape=circular.native_shape(settings,obj);vertices=np.asarray(shape.geometry.verts).reshape(-1,3)-reference;faces=np.asarray(shape.geometry.faces).reshape(-1,3)
         triangles+=len(faces)
         if triangles>policy['maximum_triangles']:raise ProjectError('Local material QA exceeds explicit triangle budget')
         solids[guid]=from_mesh((vertices,faces))

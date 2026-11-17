@@ -65,7 +65,7 @@ def extract(ifc, source_model, settings, obstacle_guids=()):
         if container is None or container.Name != d['space'] or {s.Name for s in system.get_element_systems(obj)} != {d['system']}:
             raise ProjectError('saved route space/system membership differs from source')
         spec = module.specification(d)
-        shape = ifcopenshell.geom.create_shape(geom_settings, obj)
+        shape = circular.native_shape(geom_settings, obj)
         vertices = np.asarray(shape.geometry.verts).reshape(-1,3)
         expected_bounds = np.asarray([d['origin_m'],np.asarray(d['origin_m'])+d['size_m']])
         if not len(vertices) or not np.isfinite(vertices).all() or not np.allclose([vertices.min(axis=0),vertices.max(axis=0)],expected_bounds,atol=circular.BOUNDS_TOLERANCE_M,rtol=0):

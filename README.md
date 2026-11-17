@@ -5,6 +5,14 @@ calculations, editable CAD/BIM, iteration and delivery checks across MEP.
 The host interprets sources and engineering assumptions; successful execution
 does not establish professional or statutory design acceptance.
 
+The [architecture acceptance audit](docs/ARCHITECTURE_ACCEPTANCE.md) records the
+ordered modular-data/knowledge/change-impact work, fresh installation, real HVAC
+and lighting evidence and remaining gates. The live host now exposes42tools and
+executes a read-only reference call. Full regression exposed a native IFC mesh
+conversion timeout; guarded reuse of the existing kernel passed local checks,
+with matching full remote CI still pending.
+Earlier candidate proofs remain version-scoped; no stable release is declared.
+
 Architecture expansion is active: [common engineering data](docs/ENGINEERING_DATA.md)
 now has project-scoped air/electrical views through workflow/MCP, with explicit
 identity and producer binding. [Source input ownership](docs/ENGINEERING_INPUTS.md)

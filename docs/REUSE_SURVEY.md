@@ -1,3 +1,25 @@
+## Scoped native IFC triangle conversion (2026-11-18, local checks verified)
+
+Reuse the already pinned IfcOpenShell0.8.5 CGAL kernel only for one direct closed
+Body tessellation consisting entirely of triangles, without openings; keep the
+original OpenCascade path for swept/boolean/mapped/other geometry and conversion
+RuntimeError fallback. No dependency, tessellation precision, bounds/volume
+tolerance or source/topology check changes. A batch iterator retained the same
+conversion cost; global hybrid-kernel conversion failed existing curved-profile
+volume checks and was rejected. The guarded native three-piece fixture retained
+checks and measured23.179→5.670seconds in the exploratory probe. The previously
+timed-out first mixed-recovery test passed locally in173.59seconds under the
+unchanged600second budget before the final regression additions. These timings
+are Windows studies, not proof of Linux/full-suite acceptance. Final targeted
+and head-specific CI results must be recorded separately. Final local checks:
+35of36targeted cases pass, one native case skipped in that group then executed
+separately with actual AutoCAD and passed;245architecture/module cases pass.
+All three receipts independently verified. First mixed case183.301s in this
+group. Retained synthetic native sheet21entities/19GUIDlinks,60mm reference
+measured59.9863mm; actual PDF inspected separately, producer pending unchanged.
+Matching full remote CI remains open. No new vendoring or
+license terms. Existing IfcOpenShell attribution remains in THIRD_PARTY.md.
+
 ## Knowledge task ownership from existing validated inputs (2026-11-18)
 
 Reuse knowledge.workflow.inputs for document, Git, saved-index and nested project

@@ -1,5 +1,14 @@
 # Attribution and upstream integration register
 
+The scoped native triangle-mesh conversion reuses the already installed pinned
+IfcOpenShell0.8.5 `geom.create_shape(..., geometry_library='cgal-simple')` API.
+The installed signature and actual native execution were checked; the original
+OpenCascade path remains for other representations and conversion fallback.
+No library implementation or native binary is copied or distributed here, and
+no new dependency is introduced. Existing upstream notices still apply to a
+separately installed runtime; the wheel metadata below is not an audit of every
+bundled native component. See docs/REUSE_SURVEY.md for scope and rejected trials.
+
 The optional recorded-lighting source adapter invokes the user's existing
 DIALux Agent Toolkit checkout at ade128b7ae446c6ea253776a5ead866280d6bf4a
 through its fixed report-read CLI. No upstream source is vendored. No root
