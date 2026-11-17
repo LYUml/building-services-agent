@@ -1,0 +1,41 @@
+{
+  "scope": "Executed separate64-terminal BOOT manufacturer comparison, not accepted design or replacement coursework",
+  "performance_source": {
+    "url": "https://www.krueger-hvac.com/file/9762/1900_Boot_PublishedPerformanceData.pdf",
+    "sha256": "41b16f67394a93f01f2ae9536f07e24cbf1383cf37bcf8886e351d006dff4913",
+    "independent_scalar_checks": 720,
+    "passed": true
+  },
+  "dimensions_source": {
+    "url": "https://www.krueger-hvac.com/file/3272/1900BOOT_DimensionalData.pdf",
+    "sha256": "cb837c3b04953b186537a26fd1a16357e7cd13e31f7544de5328bd1c2c834f2a"
+  },
+  "published_combinations": 24,
+  "published_rows": 120,
+  "terminals": 64,
+  "both_operating_flows_covered_by_at_least_one_option": 64,
+  "source_clipped_service_area_and_flow_conserved": true,
+  "conservative_plan_envelope_inside": 64,
+  "conservative_plan_envelope_intersections": 0,
+  "minimum_plan_envelope_gap_m": 0.010000000000005116,
+  "unconfirmed_pattern_hypothesis": {
+    "paired_curve_pass": 59,
+    "failed": 5,
+    "direction_and_baffle_not_established": true
+  },
+  "inlet_pressure_reference": {
+    "rows": 120,
+    "rho_assumed_kg_m3": 1.2,
+    "display_interval_compatible": 118,
+    "incompatible": 2,
+    "diagnostic_only": true
+  },
+  "limitations": [
+    "Direction and optional performance-baffle test settings unresolved",
+    "Complete assembly pressure not adopted or added to bare diffuser pressure",
+    "Vertical placement and actual ceiling space unknown",
+    "10mm envelope gap is a design assumption, not a maintenance clearance criterion",
+    "Existing63-terminal native drawing remains separate"
+  ],
+  "design_accepted": false
+}
