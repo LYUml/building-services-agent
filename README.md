@@ -9,6 +9,8 @@ Release-candidate hardening is in progress; the usability checkpoint is not a
 stable-release claim. See [candidate status and measured optimization](docs/RELEASE_CANDIDATE.md).
 The [candidate support contract](docs/CANDIDATE_SUPPORT.md) distinguishes MCP
 coverage, verified platforms, host preparation and remaining acceptance gates.
+The [Chinese candidate review entry](docs/CANDIDATE_REVIEW.md) brings together
+installation, measured improvements, executed evidence and remaining limits.
 
 ## Start here
 
