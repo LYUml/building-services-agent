@@ -5,6 +5,11 @@ calculations, editable CAD/BIM, iteration and delivery checks across MEP.
 The host interprets sources and engineering assumptions; successful execution
 does not establish professional or statutory design acceptance.
 
+Architecture expansion is active: [common engineering data](docs/ENGINEERING_DATA.md)
+now has its first executed air/electrical view. Knowledge, change-impact and
+different-real-project acceptance remain in progress. The earlier candidate
+checkpoint below is preserved and does not establish readiness of new features.
+
 The scoped candidate is ready for user review; this is not a
 stable release or engineering design acceptance. See [candidate status and measured optimization](docs/RELEASE_CANDIDATE.md).
 The [candidate support contract](docs/CANDIDATE_SUPPORT.md) distinguishes MCP

@@ -1,0 +1,45 @@
+{
+  "scope": "Three fresh Windows processes, new modules/spatial-only environment; existing Win32 profiler harness; import only, not solver or total host memory",
+  "profiler_sha256": "859ca96cc2268030a82df981e830aa11629e08cf7815191f7c72ca74c4b94a3c",
+  "rows": [
+    {
+      "probe": "common_data_import",
+      "seconds": 0.024592400004621595,
+      "before": {
+        "peak_bytes": 24436736,
+        "current_bytes": 24436736
+      },
+      "after": {
+        "peak_bytes": 28360704,
+        "current_bytes": 28360704
+      }
+    },
+    {
+      "probe": "common_data_import",
+      "seconds": 0.023082500003511086,
+      "before": {
+        "peak_bytes": 24289280,
+        "current_bytes": 24289280
+      },
+      "after": {
+        "peak_bytes": 28499968,
+        "current_bytes": 28499968
+      }
+    },
+    {
+      "probe": "common_data_import",
+      "seconds": 0.02595629999996163,
+      "before": {
+        "peak_bytes": 24526848,
+        "current_bytes": 24526848
+      },
+      "after": {
+        "peak_bytes": 28463104,
+        "current_bytes": 28463104
+      }
+    }
+  ],
+  "median_import_seconds": 0.024592400004621595,
+  "median_peak_bytes": 28463104,
+  "no_optional_solver_imports_test_pass": true
+}

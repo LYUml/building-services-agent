@@ -1,3 +1,14 @@
+## Modular data and knowledge goal active (2026-11-18)
+
+Proceed in order: existing module boundaries/common engineering data, traceable
+knowledge, change impact/safe reuse, then different-real-project acceptance.
+First executable common air/electrical view and report are implemented;10new
+controls,31compatibility cases and16fresh minimal-profile cases pass. Actual
+historical HVAC input replay preserves80terminal rows/load and original sources.
+See ENGINEERING_DATA.md. Workflow/MCP/source-input integration and later phases
+remain incomplete; no new all-goal acceptance or formal release is claimed.
+The previous candidate and evidence below remain historical, not discarded.
+
 ## Candidate prepared for user review
 
 Implementation7632371 passes five core/profile, six domain and full-regression

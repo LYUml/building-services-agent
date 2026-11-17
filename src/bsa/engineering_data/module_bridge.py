@@ -1,0 +1,150 @@
+"""Project existing independently verified module results into common data."""
+import json
+from pathlib import Path, PurePosixPath
+
+from ..cli import digest
+from ..module_contract import read_json
+from ..workspace import ROOT, allowed, intake_output, project_root
+from .model import SCHEMA_PATH, entity_id, validate
+from .quantities import quantity
+from .report import render
+
+SCOPE = 'Verified derived data view only; original sources, numerical failures and engineering review remain authoritative'
+
+
+def reference(path):
+    path = Path(path).resolve()
+    if not allowed(path) or not path.is_file():
+        raise ValueError('Existing source in the selected workspace required')
+    project = project_root()
+    if project is not None and path.is_relative_to(project):
+        return dict(workspace='project', path=path.relative_to(project).as_posix(), sha256=digest(path))
+    return dict(workspace='tool', path=path.relative_to(ROOT).as_posix(), sha256=digest(path))
+
+
+def resolve_reference(row):
+    if not isinstance(row, dict) or set(row) != {'workspace', 'path', 'sha256'}:
+        raise ValueError('Exact engineering source reference required')
+    name = row['path']
+    if not isinstance(name, str) or not name or '\\' in name or ':' in name or PurePosixPath(name).is_absolute() or any(p in ('', '.', '..') for p in name.split('/')):
+        raise ValueError('Normalized workspace-relative source reference required')
+    root = ROOT if row['workspace'] == 'tool' else project_root() if row['workspace'] == 'project' else None
+    if root is None:
+        raise ValueError('Selected source workspace is unavailable')
+    path = (root/name).resolve()
+    if not path.is_relative_to(root) or not allowed(path) or not path.is_file() or digest(path) != row['sha256']:
+        raise ValueError('Engineering source missing, changed or outside workspace')
+    return path
+
+
+def project_result(path):
+    # Lazy boundary: importing the common model loads no domain solver.
+    from ..modules import verify_result
+    path = Path(path).resolve()
+    ref = reference(path)
+    result = verify_result(path)
+    if result['execution']['status'] != 'completed' or result['payload'] is None:
+        raise ValueError('Completed verified producer required; unavailable is not empty engineering data')
+    payload = result['payload']
+    if payload['schema'] not in ('bsa.air-allocation/1', 'bsa.electrical-circuits/1'):
+        raise ValueError('No executed common-data mapping for this producer payload')
+    entities, edges = [], []
+
+    def entity(kind, source_id, quantities=None, attributes=None):
+        item = dict(id=entity_id(result['project_id'], kind, source_id), kind=kind,
+                    source_id=source_id, quantities=quantities or {}, attributes=attributes or {})
+        entities.append(item)
+        return item['id']
+
+    def q(data, key, unit, pointer, classification='calculated'):
+        return quantity(data[key], unit, pointer+'/'+key, classification)
+
+    if payload['schema'] == 'bsa.air-allocation/1':
+        system = entity('air_system', 'allocation', {
+            'total_cooling': q(payload, 'total_cooling_kW_thermal', 'kW thermal', '/payload'),
+            'sensible_trial': q(payload, 'sensible_trial_kW_thermal', 'kW thermal', '/payload'),
+            'supply_flow': q(payload, 'supply_flow_L_s', 'L/s', '/payload'),
+            'turndown': q(payload, 'turndown', '1', '/payload', 'declared')})
+        for index, row in enumerate(payload['terminals']):
+            pointer = '/payload/terminals/'+str(index)
+            terminal = entity('air_terminal', row['id'], {
+                'maximum_flow': q(row, 'maximum_flow_L_s', 'L/s', pointer),
+                'minimum_flow': q(row, 'minimum_flow_L_s', 'L/s', pointer),
+                'allocated_load_area': q(row, 'allocated_load_area_m2', 'm2', pointer)})
+            edges.append(dict(kind='serves', **{'from': system, 'to': terminal}))
+    else:
+        quantities = {'supply_voltage': q(payload, 'supply_voltage_v', 'V', '/payload', 'declared')}
+        for phase, value in payload['phase_demand_va'].items():
+            quantities['phase_'+phase+'_demand'] = quantity(value, 'VA', '/payload/phase_demand_va/'+phase)
+        system = entity('electrical_system', 'supply', quantities)
+        mapping = {'connected_electrical_kw': 'kW electrical', 'connected_va': 'VA',
+                   'demand_va': 'VA', 'design_current_a': 'A', 'effective_ampacity_a': 'A',
+                   'voltage_drop_v': 'V', 'voltage_drop_percent': '%'}
+        for index, row in enumerate(payload['circuits']):
+            pointer = '/payload/circuits/'+str(index)
+            quantities = {name: q(row, name, unit, pointer) for name, unit in mapping.items()}
+            circuit = entity('electrical_circuit', row['id'], quantities,
+                             dict(phase=row['phase'], source=row['source']))
+            edges.append(dict(kind='supplies', **{'from': system, 'to': circuit}))
+            for name in row['device_ids']:
+                device = entity('electrical_device', name)
+                edges.append(dict(kind='supplies', **{'from': circuit, 'to': device}))
+    data = dict(schema='bsa.engineering-data/1', project_id=result['project_id'],
+                scenario_id=result['scenario_id'], coordinate_frame=payload['coordinate_frame'],
+                source_result=ref, provider=result['provider'], payload_schema=result['payload_schema'],
+                source_acceptance=result['acceptance'],
+                source_flags={k: payload[k] for k in ('status', 'checks', 'pending', 'geometry_bound',
+                              'room_sensible_load_verified', 'design_accepted') if k in payload},
+                entities=entities, relationships=edges, design_accepted=False)
+    if digest(path) != ref['sha256']:
+        raise ValueError('Source result changed during projection')
+    return validate(data)
+
+
+def methods():
+    files = [*Path(__file__).parent.glob('*.py'), SCHEMA_PATH,
+             ROOT/'src/bsa/workspace.py', ROOT/'src/bsa/module_contract.py',
+             ROOT/'src/bsa/modules.py', ROOT/'src/bsa/cli.py']
+    return {p.relative_to(ROOT).as_posix(): digest(p) for p in sorted(files)}
+
+
+def export(source, out):
+    source, out = Path(source).resolve(), Path(out).resolve()
+    if not intake_output(out) or out.exists() or out == source or out in source.parents:
+        raise ValueError('Fresh output in project or tool runs, separate from source required')
+    pins = methods()
+    data = project_result(source)
+    summary = render(data)
+    if pins != methods() or digest(source) != data['source_result']['sha256']:
+        raise ValueError('Source or methods changed during projection')
+    out.mkdir(parents=True)
+    (out/'model.json').write_text(json.dumps(data, indent=2, ensure_ascii=False)+'\n', encoding='utf-8')
+    (out/'summary.html').write_text(summary, encoding='utf-8')
+    receipt = dict(schema='bsa.engineering-data-export/1', source_result=data['source_result'],
+                   methods=pins, artifacts={n: digest(out/n) for n in ('model.json', 'summary.html')},
+                   scope=SCOPE, design_accepted=False)
+    (out/'receipt.json').write_text(json.dumps(receipt, indent=2)+'\n', encoding='utf-8')
+    verify(out)
+    return receipt
+
+
+def verify(out):
+    out = Path(out).resolve()
+    if not intake_output(out):
+        raise ValueError('Engineering data output outside selected workspace')
+    if {p.name for p in out.iterdir()} != {'receipt.json', 'model.json', 'summary.html'} or any(p.is_symlink() or not p.is_file() for p in out.iterdir()):
+        raise ValueError('Exact regular-file engineering data inventory required')
+    receipt = read_json(out/'receipt.json')
+    if set(receipt) != {'schema', 'source_result', 'methods', 'artifacts', 'scope', 'design_accepted'} or receipt['schema'] != 'bsa.engineering-data-export/1' or receipt['scope'] != SCOPE or receipt['design_accepted'] is not False:
+        raise ValueError('Exact unaccepted common-data receipt required')
+    if receipt['methods'] != methods() or receipt['artifacts'] != {n: digest(out/n) for n in ('model.json', 'summary.html')}:
+        raise ValueError('Common-data artifacts or methods changed')
+    source = resolve_reference(receipt['source_result'])
+    data = validate(read_json(out/'model.json'))
+    if data != project_result(source):
+        raise ValueError('Common data differs from independently verified producer')
+    if (out/'summary.html').read_text(encoding='utf-8') != render(data):
+        raise ValueError('Common report differs from shared data')
+    return dict(integrity_pass=True, entity_count=len(data['entities']),
+                quantity_count=sum(len(e['quantities']) for e in data['entities']),
+                source_result=data['source_result'], scope=SCOPE, design_accepted=False)

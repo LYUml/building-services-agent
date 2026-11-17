@@ -1,3 +1,16 @@
+# Current ordered architecture expansion (2026-11-18)
+
+Active goal: first modularity/shared source-linked engineering data, then a
+versioned/citable knowledge base, then modification impact/invalidation/safe
+reuse, and finally a different real project with actual output propagation.
+Reuse existing providers and preserve all capabilities, original requirements,
+units, source identities and historical evidence. Deliver a verifiable candidate
+for user acceptance, periodically push permitted verified milestones, and ask
+only for major decisions. BSE3227 submissions remain unchanged; BSE3124 read-only.
+First executed slice: ENGINEERING_DATA.md. Full goal remains incomplete.
+
+## Preserved long-term scope and earlier milestones
+
 # Active goal and user-authorized scope
 
 Status: active;full completion remains unproven.

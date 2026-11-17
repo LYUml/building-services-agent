@@ -75,6 +75,10 @@ def run(project, out):
 def main():
     parser=argparse.ArgumentParser(description="Building Services Agent engineering tools")
     sub=parser.add_subparsers(dest="command",required=True)
+    group=sub.add_parser('engineering-data',help='Export or verify a source-bound common data view')
+    commands=group.add_subparsers(dest='data_command',required=True)
+    task=commands.add_parser('export');task.add_argument('source_result',type=Path);task.add_argument('--out',type=Path,required=True)
+    task=commands.add_parser('verify');task.add_argument('out',type=Path)
     check=sub.add_parser('doctor',help='Read-only checks of selected pinned dependencies and host paths')
     check.add_argument('--extra',action='append',default=[])
     check.add_argument('--autocad',type=Path)
@@ -140,6 +144,10 @@ def main():
     s.add_argument('--moosas-deps',type=Path)
     a=parser.parse_args()
     try:
+        if a.command=='engineering-data':
+            from .engineering_data.module_bridge import export,verify
+            result=export(a.source_result,a.out) if a.data_command=='export' else verify(a.out)
+            print(json.dumps(result,indent=2));return 0
         if a.command=='doctor':
             from .doctor import check
             result=check(extras=a.extra,autocad=a.autocad,mcp_config=a.mcp_config)

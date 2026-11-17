@@ -1,5 +1,12 @@
 # Modular architecture and next implementation sequence
 
+Current ordered goal (2026-11-18): consolidate existing boundaries/common data,
+then traceable knowledge, then change-impact/safe reuse, then different-real-
+project acceptance. The first common air/electrical data/report slice executes
+per ENGINEERING_DATA.md. Existing request/result/provider boundaries are reused;
+they are not replaced by a second solver framework. Workflow/MCP consumption,
+source-input ownership and broader model mappings remain to be completed.
+
 Saved-native stub straight-friction components now have a registered common
 analysis boundary with exact workflow inheritance and explicit disable controls.
 This extends the existing engine; full-network and engineering acceptance remain

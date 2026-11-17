@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "project_id", "scenario_id", "coordinate_frame", "source_result", "provider", "payload_schema", "source_acceptance", "source_flags", "entities", "relationships", "design_accepted"],
+  "properties": {
+    "schema": {"const": "bsa.engineering-data/1"},
+    "project_id": {"type": "string", "minLength": 1},
+    "scenario_id": {"type": "string", "minLength": 1},
+    "coordinate_frame": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "kind", "length_unit", "georeferenced"],
+      "properties": {"id": {"type": "string", "minLength": 1}, "kind": {"const": "source-world-si"}, "length_unit": {"const": "m"}, "georeferenced": {"const": false}}
+    },
+    "source_result": {
+      "type": "object", "additionalProperties": false, "required": ["workspace", "path", "sha256"],
+      "properties": {"workspace": {"enum": ["tool", "project"]}, "path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/hash"}}
+    },
+    "provider": {"type": "object"},
+    "payload_schema": {"enum": ["bsa.air-allocation/1", "bsa.electrical-circuits/1"]},
+    "source_acceptance": {"type": "object"},
+    "source_flags": {"type": "object"},
+    "entities": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/entity"}},
+    "relationships": {"type": "array", "items": {
+      "type": "object", "additionalProperties": false, "required": ["kind", "from", "to"],
+      "properties": {"kind": {"enum": ["serves", "supplies"]}, "from": {"$ref": "#/$defs/id"}, "to": {"$ref": "#/$defs/id"}}
+    }},
+    "design_accepted": {"const": false}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "id": {"type": "string", "pattern": "^bsa:[0-9a-f]{32}$"},
+    "quantity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["value", "unit", "dimension", "si_value", "si_unit", "classification", "source_pointer"],
+      "properties": {
+        "value": {"type": "number"}, "si_value": {"type": "number"},
+        "unit": {"type": "string"}, "dimension": {"type": "string"}, "si_unit": {"type": "string"},
+        "classification": {"enum": ["calculated", "declared", "geometry-derived", "measured", "given", "manufacturer", "assumed", "design_target"]},
+        "source_pointer": {"type": "string", "pattern": "^/payload/"}
+      }
+    },
+    "entity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "source_id", "kind", "quantities", "attributes"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "source_id": {"type": "string", "minLength": 1},
+        "kind": {"enum": ["air_system", "air_terminal", "electrical_system", "electrical_circuit", "electrical_device"]},
+        "quantities": {"type": "object", "additionalProperties": {"$ref": "#/$defs/quantity"}},
+        "attributes": {"type": "object", "additionalProperties": {"type": "string"}}
+      }
+    }
+  }
+}

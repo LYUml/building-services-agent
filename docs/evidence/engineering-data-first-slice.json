@@ -1,0 +1,25 @@
+{
+  "schema": "bsa.common-data-first-slice/1",
+  "source_kind": "Existing isolated actual HVAC project inputs; no coursework adoption",
+  "provider": "bsa.classified-air-allocation",
+  "entities": 81,
+  "quantities": 244,
+  "terminal_rows_equal_to_previous_native_project": 80,
+  "load_equal_to_previous_native_project": true,
+  "original_source_files_unchanged": 3,
+  "integrity_pass": true,
+  "design_accepted": false,
+  "limits": "First read-only common-data view: air allocation and single-phase electrical mappings; not unified design editing, knowledge retrieval, incremental replay or second real-project acceptance",
+  "current_cli_export_verified": true,
+  "new_tests_passed": 10,
+  "compatibility_group_passed": 31,
+  "minimal_environment_tests_passed": 16,
+  "minimal_environment_optional_solvers_absent": [
+    "fluids",
+    "ifcopenshell",
+    "manifold3d"
+  ],
+  "initial_minimal_fixture_failure": "9 errors: reused full HVAC test fixture required Fluids; minimal new control now stages only the allocation inputs; original full-HVAC provider tests retained in broader compatibility profile",
+  "report_visual_review": "Actual HTML rendered using isolated headless Edge; first viewport viewed, not entire244row report",
+  "mcp_integration": "Not yet implemented for this new data export; existing40tool server unchanged"
+}

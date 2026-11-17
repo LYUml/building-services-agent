@@ -1,3 +1,17 @@
+## Common engineering data foundation (2026-11-18)
+
+Actual gap: existing versioned domain payloads have no single shared identity,
+semantic-unit view and report consumer. Reuse their trusted module runner and
+independent provider verification, existing jsonschema4.26.0 pin, source reader,
+workspace guards and stdlib hashing/HTML escaping. The reference library remains
+the future knowledge-source boundary; do not replace it with an unverified RAG
+framework. No new solver, dependency or upstream code is vendored. The small
+explicit unit table is scoped conversion glue, not a general unit parser.
+Existing THIRD_PARTY notices remain unchanged. Actual air/electrical controls,
+fresh minimal environment and historical real HVAC input replay execute;
+see ENGINEERING_DATA.md and its aggregate evidence. General data authoring,
+workflow/MCP integration, knowledge and impact analysis remain unfinished.
+
 ## Lightweight planar HVAC profile
 
 Reuse existing Shapely 2.2.0 / NumPy 2.5.4 pins in a spatial-only extra instead

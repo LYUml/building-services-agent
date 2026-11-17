@@ -6,6 +6,26 @@ permissions:
   contents: read
 
 jobs:
+  engineering-data:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -e ".[modules,spatial]"
+      - run: python -c "from pathlib import Path; Path('runs').mkdir(exist_ok=True)"
+      - run: python -m pip check
+      - name: Verify the common-data profile without optional solvers
+        run: python -c "import importlib.util; assert all(importlib.util.find_spec(name) is None for name in ['fluids','ifcopenshell','manifold3d'])"
+      - run: python -m unittest tests.test_engineering_data tests.test_modular_electrical -v
+      - name: Add the existing full-HVAC fixture requirements for compatibility
+        run: python -m pip install -e ".[network]"
+      - run: python -m unittest tests.test_air_allocation_provider -v
   core:
     strategy:
       fail-fast: false
