@@ -28,6 +28,9 @@ applicability and human design acceptance remain separate from software checks.
 The [lighter HVAC profile](HVAC_LIGHT_PROFILE.md) uses reports/network/spatial;
 its actual native project replay works without Matplotlib or IFC. Add the mcp
 extra for protocol access; a CLI profile is not itself a connected MCP session.
+The [clean Git checkout verification](CLEAN_CANDIDATE_INSTALL.md) now executes
+the native project through real stdio MCP and repeats dependency installation
+with platform-specific constraints. Its exact scope and limits remain explicit.
 
 ## MCP coverage
 
