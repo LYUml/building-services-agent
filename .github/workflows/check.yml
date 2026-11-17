@@ -102,7 +102,7 @@ jobs:
       - run: python -m bsa.codex_setup
       - run: python -m pip check
       - name: Full repository tests with loading preflight and durable records
-        run: python -m bsa.check_runner run --all --out runs/full-regression
+        run: python -m bsa.check_runner run --all --test-timeout 600 --out runs/full-regression
       - name: Expose bounded failure diagnostics
         if: failure()
         run: |
@@ -114,6 +114,11 @@ jobs:
               print(inspect_log(p)['tail'])
           else:
               print('Tests did not start; inspect dependency/setup step')
+          progress=Path('runs/full-regression/progress.jsonl')
+          if progress.exists():
+              from bsa.runtime_logs import inspect_log
+              print('Last test progress events:')
+              print(inspect_log(progress)['tail'])
           PY
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
@@ -126,6 +131,7 @@ jobs:
             runs/full-regression/tests.json
             runs/full-regression/receipt.json
             runs/full-regression/execution.log
+            runs/full-regression/progress.jsonl
   ifc:
     runs-on: ubuntu-latest
     steps:

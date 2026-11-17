@@ -1,4 +1,6 @@
 import json
+import subprocess
+import sys
 from pathlib import Path
 import tempfile
 import unittest
@@ -9,6 +11,28 @@ from bsa import check_runner as runner
 ROOT=Path(__file__).resolve().parents[1]
 
 class CheckRunnerTests(unittest.TestCase):
+    def test_watchdog_retains_started_test_and_real_trace_without_result(self):
+        self.out.mkdir();runner.write(self.out/'request.json',dict(tests=['tests.test_engine'],test_timeout=1))
+        code="""import sys,time,unittest
+from unittest.mock import patch
+from bsa import check_runner
+suite=unittest.TestSuite([unittest.FunctionTestCase(lambda:time.sleep(5))])
+with patch.object(unittest.TestLoader,'loadTestsFromNames',return_value=suite):
+    sys.exit(check_runner.worker(sys.argv[1]))
+"""
+        process=subprocess.run([sys.executable,'-X','utf8','-c',code,str(self.out)],cwd=ROOT,capture_output=True,timeout=10)
+        self.assertNotEqual(process.returncode,0)
+        self.assertIn(b'Timeout',process.stderr);self.assertIn(b'<lambda>',process.stderr)
+        self.assertFalse((self.out/'tests.json').exists())
+        events=[json.loads(x) for x in (self.out/'progress.jsonl').read_text().splitlines()]
+        self.assertEqual([x['event'] for x in events],['loading','started'])
+        self.assertTrue(events[-1]['test'])
+
+    def test_invalid_timeout_does_not_create_output(self):
+        for value in [0,-1,True,1.5,86401]:
+            with self.subTest(value=value),self.assertRaises(ValueError):runner.run(['tests.test_engine'],self.out,test_timeout=value)
+        self.assertFalse(self.out.exists())
+
     def test_whole_repository_mode_uses_fixed_discovery_and_actual_counts(self):
         self.out.mkdir();runner.write(self.out/'request.json',dict(tests=['tests']))
         observed=[];suite=unittest.TestSuite([unittest.FunctionTestCase(lambda:observed.append(True))])
@@ -17,6 +41,8 @@ class CheckRunnerTests(unittest.TestCase):
         discover.assert_called_once_with(str(ROOT/'tests'))
         self.assertEqual(observed,[True])
         self.assertEqual(json.loads((self.out/'tests.json').read_text())['tests_run'],1)
+        events=[json.loads(x)['event'] for x in (self.out/'progress.jsonl').read_text().splitlines()]
+        self.assertEqual(events,['loading','started','finished','completed'])
         for names in [['tests','tests.test_engine'],['other'],['../tests']]:
             with self.subTest(names=names),self.assertRaises(ValueError):runner.selectors(names)
 

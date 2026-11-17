@@ -1,5 +1,6 @@
 """Durable host-side unittest execution records; never engineering acceptance."""
 import argparse
+import faulthandler
 from datetime import datetime,timezone
 import json
 import os
@@ -56,14 +57,28 @@ def worker(folder):
     folder=Path(folder).resolve()
     if not folder.is_relative_to(ROOT/'runs') or (folder/'tests.json').exists():raise ValueError('Fresh repository worker record required')
     request=json.loads((folder/'request.json').read_text());names=selectors(request['tests'])
+    timeout=request.get('test_timeout')
+    if timeout is not None and (type(timeout) is not int or not 1<=timeout<=86400):raise ValueError('Test timeout must be 1..86400 seconds')
+    progress=folder/'progress.jsonl'
+    with progress.open('x',encoding='utf-8'):pass
+    def event(kind,test=None):
+        with progress.open('a',encoding='utf-8') as stream:
+            stream.write(json.dumps(dict(event=kind,test=test,utc=stamp()))+'\n');stream.flush()
+    def arm():
+        if timeout is not None:faulthandler.dump_traceback_later(timeout,repeat=False,exit=True)
+    event('loading');arm()
     class Observed(unittest.TextTestResult):
         def startTest(self,test):
+            event('started',test.id());arm()
             self.executed.append(test.id());super().startTest(test)
+        def stopTest(self,test):
+            event('finished',test.id());super().stopTest(test)
         def addSuccess(self,test):
             self.passed.append(test.id());super().addSuccess(test)
     loader=unittest.TestLoader()
     suite=loader.discover(str(ROOT/'tests')) if names==['tests'] else loader.loadTestsFromNames(names)
     if loader.errors:
+        if timeout is not None:faulthandler.cancel_dump_traceback_later()
         for error in loader.errors:print(error,file=sys.stderr,flush=True)
         data=dict(tests_run=0,failures=0,errors=0,skipped=0,expected_failures=0,
             unexpected_successes=0,successful=False,executed_tests=[],passed_tests=[],
@@ -74,17 +89,22 @@ def worker(folder):
     def create(*args,**kwargs):
         result=Observed(*args,**kwargs);result.executed=[];result.passed=[];return result
     runner.resultclass=create
-    result=runner.run(suite)
+    try:result=runner.run(suite)
+    finally:
+        if timeout is not None:faulthandler.cancel_dump_traceback_later()
+    event('completed')
     data=dict(tests_run=result.testsRun,failures=len(result.failures),errors=len(result.errors),skipped=len(result.skipped),expected_failures=len(result.expectedFailures),unexpected_successes=len(result.unexpectedSuccesses),successful=result.wasSuccessful(),executed_tests=result.executed,passed_tests=result.passed,loading_errors=[],finished_utc=stamp())
     data.update(outcome(data));write(folder/'tests.json',data)
     return 0 if data['suite_pass'] else 1
 
 
-def run(names,out):
+def run(names,out,*,test_timeout=None):
     selectors(names);out=Path(out).resolve()
+    if test_timeout is not None and (type(test_timeout) is not int or not 1<=test_timeout<=86400):raise ValueError('Test timeout must be 1..86400 seconds')
     if not out.is_relative_to(ROOT/'runs') or out.exists():raise ValueError('Fresh repository runs output required')
     before=snapshot();out.mkdir(parents=True)
     request=dict(schema='bsa.check-request/1',tests=names,source_sha256=before,python=str(Path(sys.executable).resolve()),python_sha256=digest(Path(sys.executable)),python_version=sys.version)
+    if test_timeout is not None:request['test_timeout']=test_timeout
     write(out/'request.json',request);started=stamp();clock=time.monotonic()
     with (out/'execution.log').open('xb') as log:
         process=subprocess.Popen([sys.executable,'-X','utf8','-m','bsa.check_runner','worker',str(out)],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT)
@@ -94,7 +114,7 @@ def run(names,out):
     except (OSError,ValueError):after=None;same=False
     path=out/'tests.json';tests=json.loads(path.read_text()) if path.is_file() else None
     valid=tests is not None and code==(0 if outcome(tests)['suite_pass'] else 1)
-    result=dict(schema='bsa.check-receipt/1',returncode=code,finished_utc=stamp(),elapsed_seconds=time.monotonic()-clock,source_unchanged=same,source_after=after,result=tests,suite_pass=bool(valid and same and tests['suite_pass']),all_tests_pass=bool(valid and same and tests['all_tests_pass']),design_accepted=False,status='source_changed' if not same else 'completed' if valid else 'worker_incomplete',artifacts={p.name:digest(p) for p in (out/'request.json',out/'started.json',out/'execution.log',path) if p.is_file()})
+    result=dict(schema='bsa.check-receipt/1',returncode=code,finished_utc=stamp(),elapsed_seconds=time.monotonic()-clock,source_unchanged=same,source_after=after,result=tests,suite_pass=bool(valid and same and tests['suite_pass']),all_tests_pass=bool(valid and same and tests['all_tests_pass']),design_accepted=False,status='source_changed' if not same else 'completed' if valid else 'worker_incomplete',artifacts={p.name:digest(p) for p in (out/'request.json',out/'started.json',out/'execution.log',out/'progress.jsonl',path) if p.is_file()})
     write(out/'receipt.json',result);return result
 
 
@@ -105,7 +125,7 @@ def verify(out):
     selectors(request['tests'])
     if receipt.get('schema')!='bsa.check-receipt/1' or receipt.get('design_accepted') is not False or receipt.get('status')!='completed':raise ValueError('Completed unaccepted check receipt required')
     required={'request.json','started.json','execution.log','tests.json'}
-    if set(receipt['artifacts'])!=required or any(digest(out/name)!=sha for name,sha in receipt['artifacts'].items()):raise ValueError('Check evidence changed or missing')
+    if set(receipt['artifacts']) not in (required,required|{'progress.jsonl'}) or any(digest(out/name)!=sha for name,sha in receipt['artifacts'].items()):raise ValueError('Check evidence changed or missing')
     if request['schema']!='bsa.check-request/1' or request['python']!=str(Path(sys.executable).resolve()) or request['python_sha256']!=digest(Path(sys.executable)) or request['python_version']!=sys.version:raise ValueError('Check interpreter differs')
     if receipt['source_unchanged'] is not True or receipt['source_after']!=request['source_sha256'] or snapshot()!=request['source_sha256']:raise ValueError('Check source changed; historical receipt is not current verification')
     tests=json.loads((out/'tests.json').read_text());expected=outcome(tests)
@@ -117,13 +137,14 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__);sub=parser.add_subparsers(dest='command',required=True)
     command=sub.add_parser('run');command.add_argument('tests',nargs='*');command.add_argument('--out',required=True)
     command.add_argument('--all',action='store_true',help='Discover repository tests with loading preflight')
+    command.add_argument('--test-timeout',type=int,help='Host watchdog seconds per test/loading phase; timeout exits incomplete with traceback')
     for name in ['verify','worker']:sub.add_parser(name).add_argument('out')
     args=parser.parse_args()
     if args.command=='worker':return worker(Path(args.out))
     if args.command=='run':
         if args.all and args.tests:parser.error('--all cannot be combined with named selectors')
         if not args.all and not args.tests:parser.error('Named selectors or --all required')
-        result=run(['tests'] if args.all else args.tests,args.out)
+        result=run(['tests'] if args.all else args.tests,args.out,test_timeout=args.test_timeout)
     else:result=verify(args.out)
     print(json.dumps(result if args.command=='verify' else {k:result[k] for k in ['status','returncode','suite_pass','all_tests_pass','design_accepted']},indent=2))
     return 0 if result['suite_pass'] else 1
