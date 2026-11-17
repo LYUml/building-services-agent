@@ -12,7 +12,8 @@ OBJECTIVE='lowest declared preference among passing candidates'
 
 
 def candidates(catalogue,*,curve_validator=validate_curve):
-    if not isinstance(catalogue,dict) or not {'objective','source','candidates'}<=set(catalogue) or set(catalogue)-{'objective','source','candidates','mechanical'} or catalogue['objective']!=OBJECTIVE or not isinstance(catalogue['source'],str) or not catalogue['source'].strip():raise ProjectError('explicit sourced finite fan preference catalogue required')
+    if not isinstance(catalogue,dict) or not {'objective','source','candidates'}<=set(catalogue) or set(catalogue)-{'objective','source','candidates','mechanical'} or not isinstance(catalogue['source'],str) or not catalogue['source'].strip():raise ProjectError('explicit sourced finite preference catalogue required')
+    if catalogue['objective']!=OBJECTIVE:raise ProjectError(f'Catalogue objective must be exactly {OBJECTIVE!r}')
     rows=catalogue['candidates']
     if not isinstance(rows,list) or not 1<=len(rows)<=100:raise ProjectError('fan catalogue requires 1..100 candidates')
     seen=set()

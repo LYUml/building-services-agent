@@ -1,0 +1,46 @@
+{
+  "name": "Synthetic viscous laminar line",
+  "model": "steady incompressible circular tree",
+  "sources": {
+    "test": "Synthetic independent analytic fixture; no product or regulation data"
+  },
+  "fluid": {
+    "density_kg_m3": 1000,
+    "dynamic_viscosity_pa_s": 1,
+    "source": "test"
+  },
+  "supply": {
+    "node": "IN",
+    "total_pressure_pa": 100000,
+    "source": "test"
+  },
+  "nodes": [
+    {
+      "id": "IN",
+      "elevation_m": 0,
+      "demand_m3_s": 0,
+      "required_total_pressure_pa": 0,
+      "source": "test"
+    },
+    {
+      "id": "OUT",
+      "elevation_m": 0,
+      "demand_m3_s": 1.5e-06,
+      "required_total_pressure_pa": 100,
+      "source": "test"
+    }
+  ],
+  "segments": [
+    {
+      "id": "PIPE",
+      "diameter_m": 0.01,
+      "length_m": 2,
+      "roughness_m": 0,
+      "minor_k": 0,
+      "max_velocity_m_s": 1,
+      "source": "test",
+      "from": "IN",
+      "to": "OUT"
+    }
+  ]
+}

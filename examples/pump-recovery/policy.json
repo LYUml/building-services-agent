@@ -1,0 +1,10 @@
+{
+  "schema": "bsa.recovery-policy/1",
+  "max_steps": 1,
+  "actions": [
+    {
+      "task": "pump",
+      "catalogue": "catalogue.json"
+    }
+  ]
+}

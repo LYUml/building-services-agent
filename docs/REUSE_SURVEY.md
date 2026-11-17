@@ -1,3 +1,13 @@
+## Public recovery usability
+
+Reuse the existing pinned fluids1.3.1(MIT), laminar pump solver, catalogue
+controller and MCP1.30.0(MIT) SDK runner. The public case derives from the
+existing original analytic test fixture and adds no engine/dependency. A shared
+catalogue input diagnostic now states the exact supported ranking objective;
+ranking and candidate eligibility are unchanged. Actual CLI/MCP execution and
+independent numerical comparisons are in
+[public recovery evidence](evidence/public-pump-recovery.json).
+
 ## Supporting evidence handoff integration
 
 Reused existing source interpretation binding, workflow supporting-evidence

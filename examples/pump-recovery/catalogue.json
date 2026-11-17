@@ -1,0 +1,44 @@
+{
+  "objective": "lowest declared preference among passing candidates",
+  "source": "Explicit synthetic analytic curves; no manufacturer or product approval",
+  "candidates": [
+    {
+      "id": "adequate-analytic-curve",
+      "source": "Synthetic curve with independent analytic root 0.000002 m3/s",
+      "preference": 1,
+      "curve": {
+        "model": "fixed-speed liquid pump; single fixed-total-pressure terminal; free flow",
+        "sources": {
+          "test": "Synthetic descending total-pressure and combined wire-to-water efficiency fixture"
+        },
+        "source": "test",
+        "speed_rpm": 1000,
+        "fluid": {
+          "density_kg_m3": 1000,
+          "dynamic_viscosity_pa_s": 1
+        },
+        "inlet_total_pressure_pa": 0,
+        "efficiency_basis": "wire to water",
+        "points": [
+          {
+            "flow_m3_s": 1e-06,
+            "total_pressure_rise_pa": 17397.466172610082,
+            "wire_to_water_efficiency": 0.5
+          },
+          {
+            "flow_m3_s": 3e-06,
+            "total_pressure_rise_pa": 15397.466172610082,
+            "wire_to_water_efficiency": 0.5
+          }
+        ],
+        "flow_bracket_m3_s": [
+          1e-06,
+          3e-06
+        ],
+        "flow_tolerance_m3_s": 1e-13,
+        "pressure_tolerance_pa": 0.001,
+        "max_iterations": 100
+      }
+    }
+  ]
+}

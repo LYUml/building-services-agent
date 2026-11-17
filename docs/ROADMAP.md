@@ -1,3 +1,14 @@
+## Public supplied-curve iteration is runnable
+
+Self-contained pump example now executes installed CLI baseline failure and
+actual MCP catalogue recovery without importing test fixtures. Original target
+1.5mL/s is preserved:1.2mL/s baseline fails,2.0mL/s selected point passes with
+independent laminar pressure/power checks. Original requirements and failed
+results survive; manual review remains pending.14pump/recovery and one fan
+input regression pass. The long mixed native suite was stopped and is NOT
+claimed passed. See [runnable example](../examples/pump-recovery/README.md).
+Full agent goal remains active; BSE3227 is unchanged.
+
 ## Supporting evidence survives engineering handoff
 
 A valid source supporting-task relation previously kept old interpretation IDs

@@ -1,0 +1,58 @@
+{
+  "installed_cli_baseline": true,
+  "actual_mcp_recovery": true,
+  "verification": {
+    "integrity_pass": true,
+    "steps": 1,
+    "status": "needs_action_or_review",
+    "execution_pass": false,
+    "design_accepted": false
+  },
+  "original_requirements_preserved": true,
+  "baseline_checks_pass": false,
+  "selected_checks_pass": true,
+  "baseline": {
+    "flow_m3_s": 1.1999999880790709e-06,
+    "pump_total_pressure_rise_pa": 9878.47971548698,
+    "system_required_rise_pa": 9878.479606425579,
+    "residual_pa": 0.00010906140050792601,
+    "supply_total_pressure_pa": 9878.47971548698,
+    "hydraulic_power_kw": 1.1854175540823719e-05,
+    "wire_to_water_efficiency": 0.5,
+    "estimated_electrical_kw": 2.3708351081647438e-05
+  },
+  "selected": {
+    "flow_m3_s": 2e-06,
+    "pump_total_pressure_rise_pa": 16397.466172610082,
+    "system_required_rise_pa": 16397.466172610082,
+    "residual_pa": 0.0,
+    "supply_total_pressure_pa": 16397.466172610082,
+    "hydraulic_power_kw": 3.2794932345220164e-05,
+    "wire_to_water_efficiency": 0.5,
+    "estimated_electrical_kw": 6.558986469044033e-05
+  },
+  "ready_tasks": [
+    "review"
+  ],
+  "scope": "Explicit synthetic laminar validation; not manufacturer selection or real project design",
+  "design_accepted": false,
+  "date": "2026-11-17",
+  "test_counts": {
+    "pump_recovery": 14,
+    "skipped": 0,
+    "separate_fan_input": 1
+  },
+  "mixed_replay_suite": "Cancelled intentionally; partial outputs retained, no passing suite claimed",
+  "source_example_sha256": {
+    "catalogue.json": "dfb261c63864fc3007f6dbb81c2766e8b6f345862ea559bdb1e8cb9b25f44743",
+    "network.json": "0bad88bc2bdea094f627babee09a56c53709f85ef12baa9f16557420bb543d50",
+    "plan.json": "bc580812187bfbd0ea425d1e7c8158e1f584f307999bfaa4cfb69dda55edd535",
+    "policy.json": "3dee19ffb2af779c3a9c0c6b8579ae02b4653b7568979f3c042f1b37304ea0be",
+    "weak-curve.json": "11306656dccccb66c532c66a4925e03709f9e891ba069e8b2abd28f5503187f6"
+  },
+  "local_evidence_sha256": {
+    "runs/public-pump-recovery-entry/current-mcp-receipt.json": "9714094e83f2793fbe51314d6c32b36ad324631138f78ab3f13603f26b5277ee",
+    "runs/public-pump-recovery-entry/current-performance.json": "eb561dbece95f7729996ebeb8de2bfa2401d2f6dbea5a8107267fbc34eea92c5",
+    "runs/current-pump-recovery-final-tests.log": "61c2d0f06d79efb99e812b8d801f56c4f2dbf70b0b76e1765fec3ee04eef939f"
+  }
+}

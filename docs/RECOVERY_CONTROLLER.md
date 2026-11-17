@@ -1,5 +1,13 @@
 # Bounded automatic recovery controller
 
+Start with the [self-contained public pump example](../examples/pump-recovery/README.md)
+for a quick installed CLI plus MCP trial without native geometry replays. Its
+explicit synthetic laminar inputs, independent pressure/power checks and retained
+baseline demonstrate numerical recovery only. Actual flow improves from1.2to2.0
+mL/s against the unchanged1.5mL/s minimum; manual design review stays pending.
+The shared catalogue contract now reports the exact accepted objective when
+another value is supplied. Existing ranking and eligibility rules are unchanged.
+
 The controller selects ready failed pump or circular-fan selection tasks from fresh source-bound workflow
 diagnosis, uses explicitly declared supplied catalogues, independently verifies
 each screening/full-plan replay, then diagnoses the resulting whole graph before

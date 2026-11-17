@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "42357daa0fa0f8db3583898680bf07eb1b2edce7f03d76553a5341c626f14b66",
+  "passage_dispositions": {
+    "P001": "requirement",
+    "P002": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "pump",
+      "kind": "pump_operating_point",
+      "project": "network.json",
+      "curve": "weak-curve.json"
+    },
+    {
+      "id": "review",
+      "kind": "manual",
+      "requires_pass": [
+        "pump"
+      ],
+      "description": "Retain product, fluid applicability, electrical and installation review"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P001",
+      "quote": "Using the explicitly synthetic network.json and weak-curve.json, calculate the pump/network operating point. Retain the original minimum outlet flow of 0.0000015 m3/s and the 100 Pa outlet total-pressure target. If the weak curve fails, use only the explicitly supplied catalogue and preserve baseline inputs and failed results.",
+      "task": "pump",
+      "acceptance": "Using the explicitly synthetic network.json and weak-curve.json, calculate the pump/network operating point. Retain the original minimum outlet flow of 0.0000015 m3/s and the 100 Pa outlet total-pressure target. If the weak curve fails, use only the explicitly supplied catalogue and preserve baseline inputs and failed results."
+    },
+    {
+      "id": "R2",
+      "passage": "P002",
+      "quote": "Review equipment, viscosity applicability, curve validity, electrical protection and installation before accepting a design. These analytic laminar scenarios are not real products or a completed water-system design; keep this manual review pending.",
+      "task": "review",
+      "acceptance": "Review equipment, viscosity applicability, curve validity, electrical protection and installation before accepting a design. These analytic laminar scenarios are not real products or a completed water-system design; keep this manual review pending."
+    }
+  ]
+}

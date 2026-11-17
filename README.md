@@ -62,6 +62,11 @@ Inspect saved results with `bsa workflow-verify RUN` and
 [installed review commands](docs/PROJECT_CLI.md#check-and-review-saved-results-through-the-installed-entry).
 Integrity, execution and engineering review remain separate states.
 
+For an executable failed-design iteration, use the
+[supplied-curve recovery example](examples/pump-recovery/README.md). It runs the
+existing MCP controller, preserves the failed baseline and independently checks
+the selected analytic operating point; product and installation review stay pending.
+
 An already interpreted general drawing can also run through this project
 workflow, retaining original requirements, native checks, diagnosis and a
 separate pending review. See the runnable
