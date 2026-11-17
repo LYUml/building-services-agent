@@ -1,0 +1,65 @@
+{
+  "schema": "bsa.knowledge-milestone-evidence/1",
+  "scope": "Executed local CLI slice; not source authentication, applicability acceptance or MCP integration",
+  "corpus": {
+    "sources": 4,
+    "records": 246,
+    "database_bytes": 434176,
+    "runtime": {
+      "sqlite": "3.53.1",
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "binary_sha256": "281cc023205d93bf82f639099971e9c60ab4fe066be118b5c64117cf55e16b02"
+    },
+    "receipt_sha256": "b0877aac7d22049611af037ed60e0c92a07b6128e105e4dcdef89f988ec914df"
+  },
+  "regression": {
+    "tests_run": 95,
+    "passed": 94,
+    "skipped": 1,
+    "failures": 0,
+    "errors": 0,
+    "all_tests_pass": false,
+    "source_unchanged": true,
+    "receipt_sha256": "0ba36b18c5b10272c59072b335bbc1946c88814d2f8594f0865acbffaa8ffff1"
+  },
+  "minimal_knowledge_tests": 12,
+  "queries": [
+    {
+      "query": "ADPI",
+      "hits": 5,
+      "includes_project_facts": false,
+      "observed_total_seconds": 0.6939706999983173
+    },
+    {
+      "query": "voltage",
+      "hits": 2,
+      "includes_project_facts": false,
+      "observed_total_seconds": 0.4058948000019882
+    },
+    {
+      "query": "M300",
+      "hits": 1,
+      "includes_project_facts": false,
+      "observed_total_seconds": 0.4119026999978814
+    },
+    {
+      "query": "cooling allowance",
+      "hits": 0,
+      "includes_project_facts": false,
+      "observed_total_seconds": 0.41039820000878535
+    },
+    {
+      "query": "cooling allowance",
+      "hits": 1,
+      "includes_project_facts": true,
+      "observed_total_seconds": 0.4234308000013698
+    }
+  ],
+  "limitations": [
+    "Extraction review remains pending",
+    "Publication metadata declared, not authenticated",
+    "Knowledge MCP/workflow integration pending",
+    "Impact and different real-project acceptance pending"
+  ],
+  "design_accepted": false
+}

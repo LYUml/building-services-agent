@@ -75,6 +75,8 @@ def run(project, out):
 def main():
     parser=argparse.ArgumentParser(description="Building Services Agent engineering tools")
     sub=parser.add_subparsers(dest="command",required=True)
+    from .knowledge.cli import configure as configure_knowledge
+    configure_knowledge(sub)
     group=sub.add_parser('engineering-data',help='Export or verify a source-bound common data view')
     commands=group.add_subparsers(dest='data_command',required=True)
     task=commands.add_parser('context');task.add_argument('--name',required=True);task.add_argument('--scenario',required=True);task.add_argument('--out',type=Path,required=True)
@@ -145,6 +147,9 @@ def main():
     s.add_argument('--moosas-deps',type=Path)
     a=parser.parse_args()
     try:
+        if a.command=='knowledge':
+            from .knowledge.cli import dispatch
+            print(json.dumps(dispatch(a),indent=2));return 0
         if a.command=='engineering-data':
             if a.data_command=='context':
                 from .engineering_data.context import create

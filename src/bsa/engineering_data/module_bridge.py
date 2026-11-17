@@ -1,40 +1,16 @@
 """Project existing independently verified module results into common data."""
 import json
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 
 from ..cli import digest
 from ..module_contract import read_json
-from ..workspace import ROOT, allowed, intake_output, project_root
+from ..workspace import ROOT, intake_output
+from ..source_refs import reference, resolve_reference
 from .model import SCHEMA_PATH, entity_id, validate
 from .quantities import quantity
 from .report import render
 
 SCOPE = 'Verified derived data view only; original sources, numerical failures and engineering review remain authoritative'
-
-
-def reference(path):
-    path = Path(path).resolve()
-    if not allowed(path) or not path.is_file():
-        raise ValueError('Existing source in the selected workspace required')
-    project = project_root()
-    if project is not None and path.is_relative_to(project):
-        return dict(workspace='project', path=path.relative_to(project).as_posix(), sha256=digest(path))
-    return dict(workspace='tool', path=path.relative_to(ROOT).as_posix(), sha256=digest(path))
-
-
-def resolve_reference(row):
-    if not isinstance(row, dict) or set(row) != {'workspace', 'path', 'sha256'}:
-        raise ValueError('Exact engineering source reference required')
-    name = row['path']
-    if not isinstance(name, str) or not name or '\\' in name or ':' in name or PurePosixPath(name).is_absolute() or any(p in ('', '.', '..') for p in name.split('/')):
-        raise ValueError('Normalized workspace-relative source reference required')
-    root = ROOT if row['workspace'] == 'tool' else project_root() if row['workspace'] == 'project' else None
-    if root is None:
-        raise ValueError('Selected source workspace is unavailable')
-    path = (root/name).resolve()
-    if not path.is_relative_to(root) or not allowed(path) or not path.is_file() or digest(path) != row['sha256']:
-        raise ValueError('Engineering source missing, changed or outside workspace')
-    return path
 
 
 def project_result(path):
@@ -105,6 +81,7 @@ def project_result(path):
 
 def methods():
     files = [*Path(__file__).parent.glob('*.py'), SCHEMA_PATH,
+             ROOT/'src/bsa/source_refs.py',
              ROOT/'contracts/engineering-inputs-v1.json',
              ROOT/'src/bsa/workspace.py', ROOT/'src/bsa/module_contract.py',
              ROOT/'src/bsa/modules.py', ROOT/'src/bsa/cli.py']

@@ -8,7 +8,8 @@ does not establish professional or statutory design acceptance.
 Architecture expansion is active: [common engineering data](docs/ENGINEERING_DATA.md)
 now has project-scoped air/electrical views through workflow/MCP, with explicit
 identity and producer binding. [Source input ownership](docs/ENGINEERING_INPUTS.md)
-now executes as a read-only catalogue. Knowledge, change-impact and
+now executes as a read-only catalogue. [Local knowledge retrieval](docs/KNOWLEDGE.md)
+has an executed CLI slice; its MCP integration, change-impact and
 different-real-project acceptance remain in progress. The earlier candidate
 checkpoint below is preserved and does not establish readiness of new features.
 

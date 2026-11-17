@@ -357,3 +357,15 @@ this repository supplies a thin isolated API worker. Exact tested installed
 versions are in adapters/cadquery/requirements.lock. Existing IfcOpenShell,
 Manifold,fluids and trimesh notices continue to apply to downstream project
 composition. See docs/VAV_INLET_CONNECTIONS.md for actual scope/evidence.
+
+# Local knowledge retrieval
+
+SQLite FTS5 is used through Python's existing sqlite3 module; no SQLite source
+or binary is vendored. SQLite code and documentation are public domain:
+https://www.sqlite.org/copyright.html . FTS5 API reference:
+https://www.sqlite.org/fts5.html . Each index pins the actual SQLite version,
+Python version and trusted runtime binary hash; this host reports SQLite3.53.1.
+Existing pypdf7.0.0 and document-reader notices/pins continue to apply.
+Course, regulatory and manufacturer originals remain separate source material;
+indexing does not grant redistribution rights. Private source/index artifacts
+are excluded from public snapshots. See docs/KNOWLEDGE.md.

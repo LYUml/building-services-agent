@@ -21,9 +21,11 @@ def text_rows(text, extra=None):
     return rows
 
 
-def extract(path, ocr_path=None):
+def extract(path, ocr_path=None, *, pages=None):
     path = Path(path)
     suffix = path.suffix.lower()
+    if pages is not None and (suffix != '.pdf' or ocr_path is not None):
+        raise ProjectError('Explicit page selection supports PDF text extraction only; no implicit OCR')
     rows, issues = [], []
 
     def issue(code, message, severity="review", **locator):
@@ -40,7 +42,11 @@ def extract(path, ocr_path=None):
         reader = PdfReader(path)
         if reader.is_encrypted:
             raise ProjectError("encrypted PDF: supply an authorized decrypted working copy")
-        for page_no, page in enumerate(reader.pages, 1):
+        selected = list(range(1, len(reader.pages)+1)) if pages is None else pages
+        if not isinstance(selected, list) or pages is not None and not selected or any(type(p) is not int or not 1<=p<=len(reader.pages) for p in selected) or len(set(selected))!=len(selected) or pages is not None and len(selected)>50:
+            raise ProjectError('Unique physical PDF pages in range required; at most50when selecting')
+        for page_no in selected:
+            page = reader.pages[page_no-1]
             value = page.extract_text() or ""
             if not value.strip():
                 content=page.get_contents()
@@ -131,6 +137,8 @@ def extract(path, ocr_path=None):
                 issues=issues, coverage_status="blocked" if any(i["severity"] == "blocking" for i in issues)
                 else "needs review" if issues else "text extracted")
     if suffix == '.pdf':result['page_count'] = len(reader.pages)
+    if pages is not None:
+        result.update(selected_pages=list(pages), coverage_scope='Explicit physical PDF pages only; other pages not assessed')
     return apply_ocr(result, path, ocr_path) if ocr_path else result
 
 

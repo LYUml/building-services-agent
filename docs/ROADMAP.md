@@ -1,3 +1,17 @@
+## Local knowledge retrieval executed; integration and impact remain open
+
+The source-backed CLI corpus now reuses existing extractors, immutable references
+and verified project inputs with SQLite FTS5. Four actual sources produce246
+records in434176bytes; citations preserve physical pages, source hashes,
+publication gaps and applicability/review conditions. Project facts require
+explicit matching context.12knowledge controls pass in both full/minimal profiles.
+The durable compatibility group runs95cases:94pass,1existing offline-OCR fixture
+skip, no failures/errors; all_tests_pass=false remains explicit. Receipt independently
+verified. See KNOWLEDGE.md and evidence/knowledge-first-slice.json.
+No new dependency/service, coursework change, native CAD acceptance or release.
+Knowledge MCP/workflow integration is next, then impact/safe reuse and a different
+real-project acceptance. Earlier checkpoints below are historical; goal active.
+
 ## Source parameter ownership executed; knowledge is next
 
 Optional bundle2 binds source inputs to common entity IDs, raw JSON pointers,

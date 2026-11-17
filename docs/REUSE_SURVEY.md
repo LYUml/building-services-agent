@@ -1,3 +1,17 @@
+## Local knowledge adapter executed (2026-11-18)
+
+Actual gap: searchable cited passages must preserve publication version,
+physical page, applicability/review gaps and separation from project facts.
+Reuse documents.extract (pypdf7.0.0), immutable reference_library, source-pinned
+rule caches, verified bundle2 inputs and existing host workspace/context controls.
+Use stdlib SQLite FTS5 through a bounded thin adapter, not a new vector framework.
+Official FTS5 and SQLite public-domain notices reviewed; no engine source/binary
+vendored and no new package/service installed. Runtime fingerprint pins actual
+SQLite/Python/binary per index. Shared file hashing now streams bytes while
+preserving the old module_bridge reference API. Existing provider engines remain.
+See KNOWLEDGE.md for actual corpus/query/control results and retained boundaries.
+Cross-platform CI configuration is not yet a completed verification claim.
+
 ## Knowledge retrieval runtime preflight (2026-11-18)
 
 Prefer the existing immutable reference library, document extraction/review and
