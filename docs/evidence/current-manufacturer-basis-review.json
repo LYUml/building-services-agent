@@ -1,0 +1,28 @@
+{
+  "scope": "Current-coursework manufacturer applicability recheck; material product/basis decision pending,not accepted design",
+  "current_1400_panel_neck_options": 8,
+  "current_terminal_option_comparisons": 640,
+  "current_source_curve_checks": 7704,
+  "current_terminals_with_any_passing_option": 0,
+  "all320_current_lengths_reconciled": true,
+  "separate_1900_terminals": 63,
+  "separate_1900_curve_checks": 1624,
+  "separate_1900_source_curve_lower_reading": 80.08167416430112,
+  "separate_1900_no_downward_length_added": true,
+  "ASHRAE_2023_Table5_reviewed": true,
+  "actual_170_1_load_interpolation_verified": false,
+  "ADPI_measured": false,
+  "global_infeasibility_proved": false,
+  "original_16page_coursework_unchanged": true,
+  "assessment_pdf_pages": 2,
+  "assessment_pdf_sha256": "c06f92b5b37af0878ebd69782f245c78e997d178af8353f9b1678c3dd40b9d17",
+  "actual_assessment_pages_visually_reviewed": true,
+  "user_decision": "Keep specified1400with explicit course approximation and separate1900comparison,or permit different main product despite brief",
+  "coursework_user_accepted": false,
+  "upstream_reuse": [
+    "Existing manufacturer_adpi paired-curve screen and finite geometry",
+    "Pinned MIT pdf2plot99a8ee1d1e24a0859fea1cd06011280734ab82cb source curves reused",
+    "Shapely2.2.0; fluids1.3.1; pypdf7.0.0",
+    "Existing63-outlet actual native model and source performance reused; no new CAD generator execution"
+  ]
+}

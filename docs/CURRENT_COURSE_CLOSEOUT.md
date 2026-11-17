@@ -1,5 +1,14 @@
 # Current BSE3227 coursework review package
 
+The user has reopened the ADPI-basis goal. A new two-page ADPI Design Assessment
+now accompanies the unchanged16-page formal report. Fresh checks cover all8
+original1400panel/neck options and find no fully passing current-layout option
+under the paired manufacturer-curve diagnostic. Existing separate1900comparison
+passes1624source event/load checks using planar lengths, but differs from the
+specified coursework family. Neither graph readings nor paired-load passes prove
+exact actual-load ADPI. A material product/basis decision is pending; do not call
+the ADPI goal complete. See [basis evidence](evidence/current-manufacturer-basis-review.json).
+
 The user-authorized refinement is now delivered for review, not user-accepted.
 The current report has16pages including two source-coordinate illustrations,
 diffuser and duct worked examples, six external IEEE-style references and the
