@@ -113,6 +113,17 @@ def main():
     s.add_argument('out',type=Path)
     s=sub.add_parser('handoff-template',help='Prepare the exact blocked engineering interpretation contract')
     s.add_argument('plan',type=Path);s.add_argument('--out',type=Path,required=True)
+    s=sub.add_parser('workflow-verify',help='Check saved workflow integrity without executing engines')
+    s.add_argument('run',type=Path)
+    s=sub.add_parser('workflow-status',help='Inspect source-bound execution blockers without rerunning')
+    s.add_argument('plan',type=Path);s.add_argument('run',type=Path)
+    group=sub.add_parser('delivery',help='Prepare or audit separate source-bound delivery reviews')
+    commands=group.add_subparsers(dest='delivery_command',required=True)
+    for action in ('template','audit'):
+        task=commands.add_parser(action)
+        task.add_argument('plan',type=Path);task.add_argument('run',type=Path)
+        task.add_argument('--out',type=Path,required=True)
+        if action=='audit':task.add_argument('--review',type=Path,required=True)
     for command in ("validate","run"):
         s=sub.add_parser(command);s.add_argument("project",type=Path)
         if command=="run": s.add_argument("--out",type=Path,required=True)
@@ -180,6 +191,27 @@ def main():
         elif a.command=='handoff-verify':
             from .engineering_handoff import verify
             print(json.dumps(verify(a.out),indent=2));return 0
+        elif a.command=='workflow-verify':
+            from .workflow import verify
+            result=verify(a.run)
+            print(json.dumps(result,ensure_ascii=False,indent=2))
+            return 0 if result['integrity_pass'] else 2
+        elif a.command=='workflow-status':
+            from .workflow_status import diagnose
+            result=diagnose(a.plan,a.run)
+            print(json.dumps(result,ensure_ascii=False,indent=2))
+            return 0 if result['execution_pass'] else 2
+        elif a.command=='delivery':
+            from . import delivery
+            if a.delivery_command=='template':
+                result=delivery.template(a.plan,a.run,a.out)
+                print(json.dumps(dict(review=str(a.out.resolve()),requirement_count=len(result['requirements']),
+                    status='needs_review',design_accepted=False),indent=2))
+                return 0
+            result=delivery.run(a.plan,a.run,a.review,a.out)
+            print(json.dumps(dict(output=str(a.out.resolve()),report=str((a.out/'report.html').resolve()),
+                **{key:result[key] for key in ('status','review_checks_pass','design_accepted')}),indent=2))
+            return 0 if result['review_checks_pass'] else 2
         elif a.command=="workflow":
             from .workflow import execute
             from .workflow_status import diagnose
@@ -217,6 +249,9 @@ def main():
     except ModuleNotFoundError as e:
         from .cli_errors import missing_dependency
         parser.exit(2,missing_dependency(e)['message']+'\n')
+    except (KeyError,TypeError) as e:
+        if a.command not in ('workflow-verify','workflow-status','delivery'):raise
+        parser.exit(2,'Invalid saved workflow/review structure: '+str(e)+'\n')
     except (ProjectError, OSError, ValueError) as e:
         parser.exit(2,str(e)+"\n")
     return 0

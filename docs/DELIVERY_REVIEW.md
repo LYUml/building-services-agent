@@ -1,5 +1,12 @@
 # Source-bound delivery review
 
+The installed entry exposes the same template/audit implementations as
+`bsa delivery template PLAN RUN --out REVIEW` and
+`bsa delivery audit PLAN RUN --review REVIEW --out AUDIT`.
+Use `bsa workflow-verify RUN` for saved integrity and
+`bsa workflow-status PLAN RUN` for execution blockers. See
+[exit codes and executed CLI evidence](PROJECT_CLI.md#check-and-review-saved-results-through-the-installed-entry).
+
 Audits now include `review_agenda`: source-bound effective passes are listed by
 requirement ID, while every remaining requirement is grouped once by its original
 task. Groups retain full quote, acceptance target, source locator, review evidence,

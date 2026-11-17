@@ -1,5 +1,39 @@
 # Shared project command entry
 
+## Check and review saved results through the installed entry
+
+```powershell
+bsa workflow-verify runs/my-project/workflow
+bsa workflow-status runs/my-project/engineering-plan.json runs/my-project/workflow
+bsa delivery template runs/my-project/engineering-plan.json runs/my-project/workflow --out runs/my-project/review.json
+# Inspect actual source requirements and artifacts before recording observations.
+bsa delivery audit runs/my-project/engineering-plan.json runs/my-project/workflow --review runs/my-project/review.json --out runs/my-project/audit
+```
+
+Use the actual interpreted plan and workflow directory returned by execution;
+the paths above illustrate their roles. A handoff execution stores its workflow
+inside the handoff output. Reviews and audits require fresh paths outside the
+workflow directory in the host-selected workspace. These commands reuse the
+existing validators and never rerun calculations or native CAD.
+
+`workflow-verify` exits0 for intact evidence, even when manual tasks remain
+pending. `workflow-status` exits0 only when all execution tasks pass; exit2
+also covers intact but incomplete execution. Delivery template exits0 for
+successful pending-template creation, not acceptance. Audit exits2 for pending
+or failed review and0 for complete scoped review records. JSON always preserves
+`design_accepted: false`. Malformed records fail without a Python traceback.
+The original workflow and task statuses are unchanged by these commands.
+
+An actual installed-entry run retained five source requirements, executed four
+independent synthetic disciplines and left the final manual task pending.
+All26workflow files were preserved through inspection/review. Forty related
+tests passed, including artifact drift, malformed records, output exclusion
+and overwrite rejection. Method changes correctly invalidate old evidence;
+the final actual execution used fresh paths rather than editing old receipts.
+See [execution receipt](evidence/review-cli.json) and
+[review semantics](DELIVERY_REVIEW.md). This is a host-authored public example,
+not automatic semantic interpretation or a physically integrated installation.
+
 Electrical `run`, workflow intake/execution and delivery review outputs enforce
 the shared host workspace selection. An unselected `--review` is rejected before
 project execution. Known read-only history remains excluded even under a broad

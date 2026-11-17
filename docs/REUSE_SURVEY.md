@@ -1,3 +1,12 @@
+## Installed review entry reuse
+
+The actual gap was CLI discoverability of existing workflow verification,
+dependency diagnosis and source-bound delivery review. Thin command dispatch
+now reuses those unchanged implementations; existing electrical/fluids/IFC
+adapters execute the public cross-domain trial. No upstream package, solver,
+review engine or dependency was added. Existing pins and THIRD_PARTY notices
+remain applicable. See [commands and actual evidence](PROJECT_CLI.md).
+
 ## Native energy reuse and MCP transport
 
 Existing pinned OpenStudio3.11.0, EnergyPlus25.2.0 and IfcOpenShell0.8.5

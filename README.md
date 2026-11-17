@@ -56,6 +56,12 @@ an untouched template cannot run. `needs_interpretation` with exit2 is a valid
 pending result. See [project commands](docs/PROJECT_CLI.md) and
 [engineering handoff](docs/ENGINEERING_HANDOFF.md).
 
+Inspect saved results with `bsa workflow-verify RUN` and
+`bsa workflow-status PLAN RUN`. Prepare and audit separate review records with
+`bsa delivery template` / `bsa delivery audit`; see the
+[installed review commands](docs/PROJECT_CLI.md#check-and-review-saved-results-through-the-installed-entry).
+Integrity, execution and engineering review remain separate states.
+
 An already interpreted general drawing can also run through this project
 workflow, retaining original requirements, native checks, diagnosis and a
 separate pending review. See the runnable

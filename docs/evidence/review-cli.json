@@ -1,0 +1,32 @@
+{
+  "installed_cli": true,
+  "explicit_selected_workspace": true,
+  "original_run_preserved": true,
+  "previous_run_correctly_detected_changed_cli_method": true,
+  "workflow_files_preserved": 26,
+  "task_statuses": {
+    "electrical": "pass",
+    "air": "pass",
+    "water": "pass",
+    "envelopes": "pass",
+    "review": "pending"
+  },
+  "requirements": 5,
+  "handoff_integrity": true,
+  "workflow_integrity": true,
+  "audit_status": "needs_review",
+  "design_accepted": false,
+  "date": "2026-11-17",
+  "scope": "Explicit host-authored public synthetic brief; no automatic interpretation or physical system integration",
+  "tests": {
+    "run": 40,
+    "passed": 40,
+    "skipped": 0
+  },
+  "upstream": "Existing project intake, engineering handoff, electrical/fluids/IFC adapters and delivery validators; no new dependency or engine",
+  "local_artifact_sha256": {
+    "runs/installed-review-entry/current-receipt.json": "41bd5f59368b914a593b0eef7a3aab997ab29653016d6e6ef86c324f0f7d38f9",
+    "runs/installed-review-entry/current-audit/audit.json": "01503a6be1db7dd7c87a89b81c29c9f3f7fda09e39d0d54b1b01407f94c85de0",
+    "runs/review-cli-regression.log": "9d21326364985ce9034626a78b829861754a81e3dd0393ae66df0c639e7ace54"
+  }
+}

@@ -1,3 +1,13 @@
+## Installed inspection and delivery loop executed
+
+The installed entry now exposes workflow-verify, workflow-status and delivery
+template/audit through existing validators. Actual source intake, explicit
+host interpretation, four independent domain executions, integrity checks and
+pending audit preserve all5requirements and26workflow files.40related tests
+pass. Corrupt/stale records and unsafe outputs reject; execution/manual review
+remain distinct. See [commands and evidence](PROJECT_CLI.md). Full agent goal
+remains active; BSE3227 is unchanged.
+
 ## Native energy CLI/MCP restored
 
 Actual OpenStudio3.11/EnergyPlus25.2 annual, saved-IFC and fixed-PTAC workflows
