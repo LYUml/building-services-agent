@@ -1,13 +1,20 @@
 # Candidate gate audit
 
-Follow-up: the older full run is now terminal and failed: 1,827 tests,
+Latest executed implementation checkpoint: 7632371. Corrected local recovery
+passes eight of eight cases, zero skips, verified source/receipt integrity.
+A new exact Git checkout and constrained environment complete six real stdio
+calls, native DWG reopening and report inspection. All six domain jobs and five
+core/profile jobs pass. The full-suite outcome/skip review and final candidate
+handoff remain open; narrower successes do not replace that last result.
+
+Historical follow-up: the older full run is terminal and failed: 1,827 tests,
 12 failures, eight errors, 258 skips. Its receipt/source hashes verified.
 Platform-specific native library paths and external installed method-file
 boundaries are being repaired, without removing checks. See
 [diagnosis and current recovery scope](FULL_REGRESSION_RECOVERY.md).
-Corrected targeted/full CI and final candidate handoff remain pending.
+The corrected targeted gates now pass; full CI and final handoff remain pending.
 
-Checkpoint: implementation `9390a92`. This audit keeps the complete requested
+Historical checkpoint table: implementation `9390a92`. This audit keeps the complete requested
 candidate objective; it does not substitute a smaller successful workflow.
 Candidate completion is not yet proven. No release/tag or user acceptance.
 

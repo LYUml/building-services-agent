@@ -1,3 +1,14 @@
+## Current release candidate checkpoint
+
+Implementation 7632371 passes all five core/profile and six domain CI jobs.
+The fixed-source external-runtime recovery group passes8/8with zero skips and
+independently verified receipts. A fresh Git checkout/constrained environment
+executes the real native HVAC MCP package, DWG reopening and23-page report.
+Whole-repository regression is still running; final acceptance handoff remains
+pending. See CANDIDATE_GATE_AUDIT.md, FULL_REGRESSION_RECOVERY.md and
+CLEAN_CANDIDATE_INSTALL.md. Earlier checkpoint entries below are historical.
+No release/user acceptance or coursework change is asserted.
+
 ## Bounded diagnostics and full regression recovery
 
 Remote core profiles and energy/lighting/network passed at 68d5969. Water remains

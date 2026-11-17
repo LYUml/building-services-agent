@@ -1,0 +1,19 @@
+{
+  "schema": "bsa.source-candidate/1",
+  "commit": "7632371a6e1288af4f150357586e2116704e7da7",
+  "archive": "building-services-agent-source.zip",
+  "sha256": "b9789071458eb244b02802d8edf21724039f8a5ac3cbbbc8daf87f5a70de3a1b",
+  "bytes": 28259139,
+  "uncompressed_bytes": 63712198,
+  "entries": 3687,
+  "git_version": "git version 2.56.1",
+  "format": "git archive zip",
+  "release_published": false,
+  "design_accepted": false,
+  "artifact_id": 14328150516,
+  "workflow_run": 44081506722,
+  "outer_archive_sha256": "6ddb30e57c089fa5d47da4082f809595ea2f06e45e939bdb13a56ad7def6241f",
+  "receipt_hash_verified": true,
+  "crc_and_inventory_verified": true,
+  "excluded_paths_absent": true
+}

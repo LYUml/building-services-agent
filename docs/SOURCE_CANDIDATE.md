@@ -1,5 +1,14 @@
 # Reproducible source candidate
 
+Current implementation snapshot `7632371` was built twice identically by the
+successful Ubuntu core job in run 44081506722. Its retained artifact 14328150516
+was downloaded and its outer digest, inner receipt/hash, ZIP CRC, entry count,
+size and excluded-path inventory independently verified. Source ZIP: 28,259,139
+bytes, 3,687 entries; SHA-256
+`b9789071458eb244b02802d8edf21724039f8a5ac3cbbbc8daf87f5a70de3a1b`.
+See [current source receipt](evidence/current-candidate-source.json).
+Full-regression completion and final candidate handoff are still pending.
+
 The current runtime resolves adapters, contracts, regulation packs and scripts
 relative to the source checkout. Preserve that source layout in a candidate.
 The wheel audit found only Python package files and metadata; it is not yet a
@@ -50,4 +59,4 @@ their hashes. After its checks pass, the source ZIP and receipt are retained for
 seven days as `building-services-agent-source-candidate` in that Actions run.
 This is a review artifact, not a release. Inspect the receipt's commit and job
 result; the presence of an artifact alone proves no native engineering result.
-Remote execution of this new artifact step remains to be observed.
+Remote execution is now observed at the current checkpoint above.

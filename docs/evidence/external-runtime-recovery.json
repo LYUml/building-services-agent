@@ -1,0 +1,30 @@
+{
+  "schema": "bsa.external-runtime-recovery/1",
+  "implementation_commit": "7632371a6e1288af4f150357586e2116704e7da7",
+  "layout": "Copied source with interpreter/dependencies physically outside source root",
+  "counts": {
+    "tests_run": 8,
+    "passed": 8,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "source_unchanged": true,
+  "receipt_verified": true,
+  "elapsed_seconds": 1282.3589999999967,
+  "actions": [
+    {
+      "task": "selection",
+      "selected": "supported"
+    },
+    {
+      "task": "pump",
+      "selected": "adequate-pump"
+    }
+  ],
+  "requirements_preserved": true,
+  "failed_baseline_preserved": true,
+  "manual_review_pending": true,
+  "receipt_sha256": "22cdf2f94b1f9af9cfcc83fe0c0926aed2999c26ce2eee0fc0a3d92cd9c9ba4b",
+  "design_accepted": false
+}

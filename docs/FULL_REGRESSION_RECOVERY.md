@@ -1,5 +1,13 @@
 # Full-regression portability recovery
 
+Current follow-up at implementation 7632371: the fixed-source external-runtime
+recovery group passes all eight cases with zero skips, independently verified
+receipts and unchanged source snapshots. This includes complete fan/pump recovery,
+forgery rejection and no-feasible-candidate controls. All six domain jobs and five
+core/profile jobs at that commit have now passed. Whole-repository regression
+is still executing; no full-suite pass or user acceptance is asserted.
+See [recovery evidence](evidence/external-runtime-recovery.json).
+
 The all-extras run at 4e5e028 completed 1,827 tests in 3,726.788 seconds:
 12 failures, eight errors and 258 skips. Its actual passed inventory is 1,551;
 unittest subtest/class-level outcomes do not form a simple disjoint sum.

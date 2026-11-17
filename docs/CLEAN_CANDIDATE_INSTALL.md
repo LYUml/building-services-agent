@@ -1,5 +1,14 @@
 # Clean-checkout native MCP verification
 
+A new checkout/environment at implementation 7632371 now repeats the six actual
+stdio calls after the portability repairs, with the same constrained installation.
+Independent inspection passes, native DWG reopening reconciles 718 entities, and
+the 23-page report checks 388 numeric rows. The actual returned A1/report17 PNGs
+were viewed. Pip check and the selected-profile doctor pass. This does not approve
+the isolated scenario as coursework. See
+[current native MCP evidence](evidence/current-candidate-native-mcp.json).
+The a6236c3 evidence below remains historical and has not been relabelled.
+
 The current native HVAC/MCP path was executed from a new GitHub clone at
 `a6236c3b88dcb660263f1a55ac71cecf9ab35e90`, installed into a new Windows
 CPython 3.12 environment with drawing, mcp, codex-setup, reports, network and

@@ -1,0 +1,33 @@
+{
+  "schema": "bsa.current-candidate-native-mcp/1",
+  "source_commit": "7632371a6e1288af4f150357586e2116704e7da7",
+  "new_github_checkout": true,
+  "new_environment": true,
+  "constraints": "locks/hvac-mcp-windows-py312.txt",
+  "profile": "drawing,mcp,codex-setup,reports,network,spatial",
+  "tool_count": 40,
+  "successful_calls": [
+    "bsa_prepare_hvac_project",
+    "bsa_run_hvac_project",
+    "bsa_inspect_hvac_project",
+    "bsa_render_source_page",
+    "bsa_render_source_page",
+    "bsa_reference_catalogue"
+  ],
+  "package_integrity_pass": true,
+  "stage_errors": {},
+  "native_reopen_pass": true,
+  "native_entities": 718,
+  "native_correspondence": true,
+  "pdf_reference_mm": 99.99133333333334,
+  "report_pages": 23,
+  "numeric_rows_checked": 388,
+  "plot_sha256": "28d2c9aff7e78e3a4aecfcac1d470036c25ed8f18457a04c98bb90b662d5edf4",
+  "report_sha256": "a41101f36700536cfd8554547c709665cec2928773a0e997cd6a108d48412003",
+  "visual_review": "Actual returned A1 and report17 PNGs viewed; other report pages not visually re-reviewed",
+  "reference_commit_verified": true,
+  "pip_check_pass": true,
+  "doctor_pass": true,
+  "status": "review_required",
+  "design_accepted": false
+}
