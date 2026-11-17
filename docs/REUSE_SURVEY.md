@@ -1,3 +1,14 @@
+## Lightweight planar HVAC profile
+
+Reuse existing Shapely 2.2.0 / NumPy 2.5.4 pins in a spatial-only extra instead
+of installing Matplotlib or IFC for planar allocation. No geometry engine
+reimplementation or new upstream version; retain existing notices/licenses.
+Fresh old/new profiles share identical common distribution versions. Actual
+seven-stage native project replay passes in the smaller profile with equal
+calculation rows/report text and identical viewed-page pixels. Measured installed
+dependency reduction is 25,558,050 bytes; no runtime-memory claim follows.
+See HVAC_LIGHT_PROFILE.md and its evidence. Full GIS/section extras remain intact.
+
 ## MCP candidate contract gate
 
 Reuse the existing pinned MCP Python SDK 1.30.0 public list_tools/call_tool

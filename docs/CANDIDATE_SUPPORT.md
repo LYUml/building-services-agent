@@ -25,6 +25,9 @@ it intentionally does not install every optional solver. Use START_USING.md and
 doctor for the selected profile. Doctor inspects direct pins/path presence and
 does not certify native runtime behavior. Engineering assumptions, jurisdiction
 applicability and human design acceptance remain separate from software checks.
+The [lighter HVAC profile](HVAC_LIGHT_PROFILE.md) uses reports/network/spatial;
+its actual native project replay works without Matplotlib or IFC. Add the mcp
+extra for protocol access; a CLI profile is not itself a connected MCP session.
 
 ## MCP coverage
 

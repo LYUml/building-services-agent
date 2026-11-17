@@ -1,0 +1,46 @@
+{
+  "schema": "bsa.hvac-light-profile/1",
+  "profiles": [
+    "reports,network,gis",
+    "reports,network,spatial"
+  ],
+  "bytes_before": 239198010,
+  "bytes_after": 213639960,
+  "reduction_bytes": 25558050,
+  "excluded": "Bytecode caches; native engines and source checkout outside site-packages",
+  "common_distribution_versions_identical": true,
+  "absent_packages": [
+    "contourpy",
+    "cycler",
+    "kiwisolver",
+    "matplotlib",
+    "packaging",
+    "python-dateutil",
+    "tzdata"
+  ],
+  "optional_domains_preserved": true,
+  "profile_scope": "CLI HVAC package; MCP requires the separate mcp extra",
+  "section_rows_identical": 47,
+  "allocation_identical": true,
+  "all_report_extracted_text_identical": true,
+  "rendered_drawing_and_report17_identical": true,
+  "native_reopen_pass": true,
+  "native_entities": 718,
+  "stage_errors": {},
+  "report_pages": 23,
+  "report_numeric_rows_checked": 388,
+  "package_integrity_pass": true,
+  "pip_check_pass": true,
+  "status": "review_required",
+  "design_accepted": false,
+  "method_hashes": {
+    "pyproject.toml": "3e89228f18b1d56f20e8546815536b3f3b1bc2297950dc962ad1a75d46f74f06",
+    "src/bsa/cli_errors.py": "d245589b1d6d49f36e5698c9797ce791be8b936dce0f2cc51fc4d764c7f7a26e"
+  },
+  "local_profile_tests": {
+    "run": 26,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  }
+}

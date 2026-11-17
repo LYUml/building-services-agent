@@ -68,7 +68,7 @@ checked before/after packaging; errors stay visible as stage errors.
 Run a reviewed, source-linked HVAC plan through the existing workflow, dependency diagnosis, pending delivery review, numerical HTML report and PDF renderer in one invocation:
 
 ```powershell
-.venv/Scripts/python -m pip install -e '.[reports,network,gis]'
+.venv/Scripts/python -m pip install -e '.[reports,network,spatial]'
 .venv/Scripts/python -m bsa.hvac_package runs/project/plan.json --out runs/project-package --font C:/Windows/Fonts/arial.ttf --autocad 'C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe'
 ```
 

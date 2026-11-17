@@ -7,7 +7,7 @@ It demonstrates reusable tool execution, not a completed engineering design.
 From the repository root:
 
 ```powershell
-.venv/Scripts/python -m pip install -e '.[reports,network,gis]'
+.venv/Scripts/python -m pip install -e '.[reports,network,spatial]'
 .venv/Scripts/python examples/hvac-package/build_inputs.py --out runs/demo-hvac-inputs
 .venv/Scripts/python -m bsa.hvac_package runs/demo-hvac-inputs/plan.json --out runs/demo-hvac-package --font C:/Windows/Fonts/arial.ttf --autocad 'C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe' --terminal-review runs/demo-hvac-inputs/review.json
 ```

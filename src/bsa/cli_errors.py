@@ -2,7 +2,7 @@
 EXTRAS={
     'rectpack':'drawing-layout','textalloc':'drawing-labels',
     'ifcopenshell':'bim','openstudio':'energy','fluids':'network',
-    'shapely':'section','trimesh':'section','mcp':'mcp','PIL':'mcp',
+    'shapely':'spatial','trimesh':'section','mcp':'mcp','PIL':'mcp',
     'reportlab':'reports','pypdf':'drawing','jsonschema':'modules',
     'tomlkit':'codex-setup',
 }
