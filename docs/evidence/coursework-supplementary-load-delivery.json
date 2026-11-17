@@ -1,0 +1,52 @@
+{
+  "scope": "Main189W/m2 coursework preserved; unadopted150W/m2 alternative only in Appendix E under explicit user instruction",
+  "inputs": {
+    "baseline": "0492f0fe98e926f75bc84973cbd956daadc6c2e0f7e21533f2af1c5c33aad09a",
+    "allocation": "ca7655a849e999ea644d59292703143ee386edaef0f17bb30ae66afa0ef29b16",
+    "native": "22fd693bf67439a35f1ffee7d29dfbd70e8a3ad3cbf630e376c61f4280806d25",
+    "online": "cc132066f9583ec8463d26e68304bafd54468e7b968fe78b402161e0ee06d196",
+    "ducts": "f7549dcb7b7b76dc6547d23e74bab2e5d59158a6706a6598577021f3c68b1633",
+    "source": "ed833d4808a0ad0df67f4d15d555481d98887bb51f068dc4bcbf98cee3d47225"
+  },
+  "main_pages_preserved": 16,
+  "appendix_pages": 2,
+  "total_pages": 18,
+  "report_sha256": "256ef6ea9fc3a2a0c4d3504d84c25e0195f13d4ecb5edfdb11a29787f22a69af",
+  "main_design_changed": false,
+  "alternative_adopted": false,
+  "manufacturer_ADPI_accepted": false,
+  "physical_ADPI_verified": false,
+  "user_accepted": false,
+  "visual_review": "Actual pages17/18 rendered and inspected; typography, diagram and references legible without clipping",
+  "all16_main_pages_pixel_identical": true,
+  "candidate_native_duct_fields": 235,
+  "candidate_native_vav_fields": 140,
+  "candidate_decimal_ratio_checks": 1280,
+  "main_appendix_identities_preserved": true,
+  "main_engineering_files_sha256": {
+    "03_Design_Drawings\\Connection_Layout\\Supply Air Distribution.dwg": "02d7911d791bb94f47c39981f6663c088a29a1c1273bc2a92f32a7165fe4bc60",
+    "03_Design_Drawings\\Connection_Layout\\Supply Air Distribution.pdf": "f203b9879ee83a5b054312eada9818104a94203b67966cac95c72b71ab450731",
+    "05_Calculations\\Connection Layout Duct Sizing.csv": "7db3280370d77b274717fefa3be223636682c3d27c31c56d93f9e156e465dc21",
+    "05_Calculations\\Connection_Layout\\VAV Connection Schedule.csv": "8873a332a2be3b120a6602e3633abeb8b7f98b42d18743225f3ea440d40eae6e",
+    "05_Calculations\\Connection_Layout\\Diffuser Course Ratio Check.csv": "6afed2b072786714cb415de93453349cafaa5e3c96c5328484e215cafe9e6209"
+  },
+  "main_engineering_files_unchanged": true,
+  "coursework_ready_for_user_review": true,
+  "anonymous_report_sha256": "e5cf68564fa8be78ddb463e619def80495aee6acae0d94a59b9755b14ab01fa0",
+  "formal_report_path": "04_Final_Report/Connection_Layout/BSE3227 HVAC Mini-Design.pdf",
+  "alternative_drawings_location": "05_Calculations/Supplementary_Load_Study",
+  "user_direction": "Keep coursework main design; own-method alternatives only in appendix",
+  "regulatory_limits": "Ordinary flex design budget3.373m<4m conditional on0.5m allowance; installed/fire-boundary/whole-system compliance not certified",
+  "anonymous_first16_pages_pixel_identical": true,
+  "appendix_IEEE_references_verified": true,
+  "main_coursework_selection": "189W/m2 total,0.9sensible,80outlets,20VAV,47sections,600mm/8inch1400family",
+  "supplementary_native_conditions": 48,
+  "supplementary_independent_scalar_checks": 2352,
+  "supplementary_native_ratio_range": [
+    1.0770514854263322,
+    2.6972680154821953
+  ],
+  "supplementary_native_reopen_and_plot_visual_review": true,
+  "goal_stage": "Ready for user review under explicit retained-coursework/appendix-only direction; no automatic expansion",
+  "agent_full_goal_complete": false
+}

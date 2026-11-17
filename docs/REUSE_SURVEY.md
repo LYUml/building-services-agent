@@ -1,3 +1,15 @@
+## Retained-coursework appendix milestone
+
+No new solver or CAD engine added. The actual alternative reuses the pinned
+K-Select toolkit0.1.1/Apache-2.0 commit3eecd3710e976927c4b7c639900e833d12150453,
+ezdxf1.4.5(MIT), Shapely2.2.0(BSD-3-Clause), fluids1.3.1(MIT), existing guarded
+native revision/VAV/duct adapters and ReportLab4.4.9(BSD-3-Clause). PyMuPDF1.26.7
+(AGPL-3.0 runtime) independently reads/render-checks reports; no runtime bundled.
+OnlineDuctulator V1.0.8 is checked as a website, not imported/copied code.
+48native exports,2352independent scalars,375native schedule fields and1280ratio
+recomputations execute. Main engineering is preserved under user instruction.
+See [executed evidence](evidence/coursework-supplementary-load-delivery.json).
+
 # Reuse survey â€” 2026-11-09
 
 The current coursework refinement reuses existing air_layout_study geometry,

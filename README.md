@@ -1,3 +1,19 @@
+## Current coursework handoff - retained course basis
+
+The user explicitly retained the coursework main solution; alternative methods
+belong in an appendix. The18-page report retains all16main pages unchanged and
+adds two reviewed pages: external HKIE load benchmark, declared margin, actual
+48-condition K-Select/2352scalar/640ratio checks, recalculated47section sizes and
+actual36-query Online Ductulator results. The alternative150W/m2/6inch selection
+is unadopted; main189W/m2/8inch drawings and schedules are unchanged.
+189 is an optional preliminary classroom reference, not a fixed value in the
+original assignment brief. Keep source authority distinct from design assumptions.
+Main170.1>160W/m2 applicability remains explicit; neither source-curve prediction
+nor successful ratio arithmetic establishes physical ADPI/manufacturer Type3 pass.
+The finite coursework package is ready for user review, not user-accepted.
+Full agent/pressure/CFD goals remain in the roadmap; stop automatic expansion.
+See [new delivery evidence](evidence/coursework-supplementary-load-delivery.json).
+
 Current ADPI goal is active. Fresh manufacturer-basis review checks all8original1400panel/neck options against the adopted geometry: no current-layout option clears the paired-curve diagnostic. A separate existing63-outlet1900comparison passes1624source checks, but differs from the prescribed coursework product and does not give exact actual-load ADPI. A2-page assessment is published; the16-page coursework package is preserved pending the product/basis decision. See [basis evidence](docs/evidence/current-manufacturer-basis-review.json) and [coursework package](docs/CURRENT_COURSE_CLOSEOUT.md). Earlier milestone entries below are historical scopes.
 
 Current coursework diffuser verification covers 49 native K-Select conditions and 640 classroom ratio checks. A separate 160-row terminal-pressure comparison now has publisher-backed total-pressure identification; 84 component gaps and ADPI load applicability remain unresolved. See [native performance](docs/CURRENT_COURSE_KSELECT.md) and [pressure comparison](docs/CURRENT_NATIVE_TERMINAL_PRESSURE.md).

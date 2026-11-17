@@ -1,13 +1,22 @@
 # Current BSE3227 coursework review package
 
-The user has reopened the ADPI-basis goal. A new two-page ADPI Design Assessment
-now accompanies the unchanged16-page formal report. Fresh checks cover all8
-original1400panel/neck options and find no fully passing current-layout option
-under the paired manufacturer-curve diagnostic. Existing separate1900comparison
-passes1624source event/load checks using planar lengths, but differs from the
-specified coursework family. Neither graph readings nor paired-load passes prove
-exact actual-load ADPI. A material product/basis decision is pending; do not call
-the ADPI goal complete. See [basis evidence](evidence/current-manufacturer-basis-review.json).
+## Current coursework handoff - retained course basis
+
+The user explicitly retained the coursework main solution; alternative methods
+belong in an appendix. The18-page report retains all16main pages unchanged and
+adds two reviewed pages: external HKIE load benchmark, declared margin, actual
+48-condition K-Select/2352scalar/640ratio checks, recalculated47section sizes and
+actual36-query Online Ductulator results. The alternative150W/m2/6inch selection
+is unadopted; main189W/m2/8inch drawings and schedules are unchanged.
+189 is an optional preliminary classroom reference, not a fixed value in the
+original assignment brief. Keep source authority distinct from design assumptions.
+Main170.1>160W/m2 applicability remains explicit; neither source-curve prediction
+nor successful ratio arithmetic establishes physical ADPI/manufacturer Type3 pass.
+The finite coursework package is ready for user review, not user-accepted.
+Full agent/pressure/CFD goals remain in the roadmap; stop automatic expansion.
+See [new delivery evidence](evidence/coursework-supplementary-load-delivery.json).
+
+## Previous16-page refinement (retained main pages)
 
 The user-authorized refinement is now delivered for review, not user-accepted.
 The current report has16pages including two source-coordinate illustrations,

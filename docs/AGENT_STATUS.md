@@ -1,3 +1,19 @@
+## Current coursework handoff - retained course basis
+
+The user explicitly retained the coursework main solution; alternative methods
+belong in an appendix. The18-page report retains all16main pages unchanged and
+adds two reviewed pages: external HKIE load benchmark, declared margin, actual
+48-condition K-Select/2352scalar/640ratio checks, recalculated47section sizes and
+actual36-query Online Ductulator results. The alternative150W/m2/6inch selection
+is unadopted; main189W/m2/8inch drawings and schedules are unchanged.
+189 is an optional preliminary classroom reference, not a fixed value in the
+original assignment brief. Keep source authority distinct from design assumptions.
+Main170.1>160W/m2 applicability remains explicit; neither source-curve prediction
+nor successful ratio arithmetic establishes physical ADPI/manufacturer Type3 pass.
+The finite coursework package is ready for user review, not user-accepted.
+Full agent/pressure/CFD goals remain in the roadmap; stop automatic expansion.
+See [new delivery evidence](evidence/coursework-supplementary-load-delivery.json).
+
 The user reopened the ADPI-basis goal. Actual current-layout comparison covers8original1400panel/neck options,640terminal/spec pairs and7704curve checks,with no fully passing terminal option. Existing separate63-outlet1900comparison passes1624source checks using planar L; minimum stroke-adjusted source reading80.08is not actual-load ADPI. The specified-product versus manufacturer-alternative decision is pending; the formal16-page package is preserved. See [current evidence](evidence/current-manufacturer-basis-review.json). Do not repeat old unsuccessful searches or silently replace the prescribed product.
 
 A separate source-informed 20-step physical-time k-epsilon startup now executes on the preserved quality-passed 142480-cell mesh. Native fields and five-port flux checks pass; duration is only 2.05% of one reference residence time, so no pressure or wall-treatment acceptance. Course baseline unchanged. See [transient startup](OPENFOAM_IMPORT_PRECISION.md#separate-physical-time-k-epsilon-startup).
