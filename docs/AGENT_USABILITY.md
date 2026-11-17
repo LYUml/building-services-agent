@@ -1,3 +1,12 @@
+## Current complete usability audit
+
+The current supported-workflow checkpoint has an independent fresh installation,
+actual native CLI/new MCP execution and a requirement-by-requirement audit.
+Use [START_USING.md](START_USING.md) for the normal entry and
+[USABILITY_ACCEPTANCE.md](USABILITY_ACCEPTANCE.md) for evidence and limits.
+Historical repairs and receipts below remain preserved; the full engineering
+roadmap and coursework acceptance are separate.
+
 # Agent usability milestone
 
 Missing known optional imports now produce an actionable exit2/profile hint in

@@ -7,6 +7,10 @@ does not establish professional or statutory design acceptance.
 
 ## Start here
 
+Use the [single workflow guide](docs/START_USING.md) for project input,
+execution and review. The [current usability audit](docs/USABILITY_ACCEPTANCE.md)
+records a fresh installation and actual native/MCP checks, with limits retained.
+
 Use a Python virtual environment (tested on Windows with Python3.12). From this
 checkout, install the basic AutoCAD/MCP profile:
 

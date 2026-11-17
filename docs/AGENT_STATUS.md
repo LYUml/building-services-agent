@@ -1,3 +1,17 @@
+## Supported-workflow usability audited
+
+The explicit current usability checkpoint is verified: independent fresh source
+installation, native CLI execution, actual fresh MCP inspection/rendering, source
+handoff, scoped calculations/IFC, failed-baseline recovery and pending delivery
+review. All344product Python files match the installed copy;32current targeted
+tests pass without skips. Six retained execution groups independently re-verify,
+including all7drawing schemas and native annual/IFC/PTAC/lighting evidence.
+See [start using](START_USING.md) and [full usability audit](USABILITY_ACCEPTANCE.md).
+This closes the supported-workflow usability checkpoint, not the full engineering
+roadmap or user design acceptance. Broader roadmap items remain preserved below.
+BSE3227 is unchanged awaiting feedback; BSE3124 remains read-only. Earlier active
+status paragraphs below are historical milestones, not a newer runtime diagnosis.
+
 ## Saved runtime paths are diagnosed before startup
 
 Installed doctor now accepts an explicit --mcp-config profile and reuses all

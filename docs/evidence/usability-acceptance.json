@@ -1,0 +1,122 @@
+{
+  "date": "2026-11-17",
+  "objective_scope": "Normal use of existing supported source-bound workflows; preserve full roadmap and incomplete engineering checks",
+  "implementation_commit": "759cb74a1a99a006dfe3c5b5436ccf008b09defb",
+  "fresh_install": {
+    "fresh_public_source_copy": true,
+    "no_preexisting_runs_or_local_config": true,
+    "independent_new_environment": true,
+    "installed_source_identity_confirmed": true,
+    "setup_initialized_owned_runs": true,
+    "actual_installed_native_workflow_pass": true,
+    "original_requirements_retained": 2,
+    "manual_review_pending": true,
+    "environment_dependency_check_pass": true,
+    "source_staging_probe_error_corrected_without_reinstall": true,
+    "design_accepted": false,
+    "product_python_files_identical": 344,
+    "actual_fresh_mcp_connection": true,
+    "actual_plot_visual_review": {
+      "page": 1,
+      "observation": "Complete border/title; separate plan/system/detail regions; legible dimensions 105,55,30 and 50 mm reference; no visible clipping/overlap. Synthetic capability sheet, not an engineering design.",
+      "image_sha256": "36f51bcefde1d2cbecbafafe0b477905a00836985429bbaec7ee9968859e0bb5",
+      "design_accepted": false
+    }
+  },
+  "fresh_mcp": {
+    "tools": 40,
+    "names_match_source_declarations": true,
+    "native_inspection_pass": true,
+    "recorded_pdf_rendered_and_viewed": true,
+    "outside_root_rejected": true
+  },
+  "product_python_count": 344,
+  "product_source_manifest_sha256": "99513ab35969293d5f1214363c83bd339f6f1ff54619ac58376cdd487863ca71",
+  "current_independent_verifications": {
+    "fresh_native": {
+      "integrity_pass": true,
+      "issues": [],
+      "design_accepted": false,
+      "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+    },
+    "seven_schemas": {
+      "integrity_pass": true,
+      "issues": [],
+      "design_accepted": false,
+      "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+    },
+    "annual": {
+      "integrity_pass": true,
+      "issues": [],
+      "design_accepted": false,
+      "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+    },
+    "ifc_annual": {
+      "integrity_pass": true,
+      "issues": [],
+      "design_accepted": false,
+      "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+    },
+    "ptac_annual": {
+      "integrity_pass": true,
+      "issues": [],
+      "design_accepted": false,
+      "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+    },
+    "shared_lighting": {
+      "integrity_pass": true,
+      "issues": [],
+      "design_accepted": false,
+      "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+    }
+  },
+  "handoff": {
+    "integrity_pass": true,
+    "requirements": 5,
+    "tasks": {
+      "electrical": "pass",
+      "air": "pass",
+      "water": "pass",
+      "envelopes": "pass",
+      "review": "pending"
+    }
+  },
+  "actual_mcp_iteration": {
+    "integrity_pass": true,
+    "steps": 1,
+    "status": "needs_action_or_review",
+    "execution_pass": false,
+    "design_accepted": false
+  },
+  "regression": {
+    "run": 32,
+    "passed": 32,
+    "skipped": 0,
+    "actual_native_annual_enabled": true
+  },
+  "local_evidence_sha256": {
+    "runs/usability-acceptance-install/final-receipt.json": "c78e51358f43493c3cebfee80ce8b9d1ae53441520c91035603a79c70cce046e",
+    "runs/usability-acceptance-install/mcp-receipt.json": "f89940fe6adc18bdb157c74d23f29e51e4ec6e598f88bf93bca33d5ce7b14ae8",
+    "runs/usability-acceptance-domain/receipt.json": "422a84409f0f84cca747f53f9440c4a6ac78b6649142532dfa5d683fe4c6ce71",
+    "runs/public-pump-recovery-entry/acceptance-mcp-receipt.json": "1d230f40114d791bf6507b91319e43cc5bcd8e2da0bd7a93043bb845cbf36771",
+    "runs/usability-acceptance-regression.log": "6d9e9d3c0ecade2e18f668fbac6ae3e2bbec174cf192f47787b4dfacaf663dfe"
+  },
+  "repository_sync_before_audit_commit": {
+    "agent": {
+      "head": "759cb74a1a99a006dfe3c5b5436ccf008b09defb",
+      "remote_head": "759cb74a1a99a006dfe3c5b5436ccf008b09defb",
+      "synchronized": true
+    },
+    "coursework": {
+      "head": "2d908767e79200410fc6da3320bfb38d7812b268",
+      "remote_head": "2d908767e79200410fc6da3320bfb38d7812b268",
+      "synchronized": true
+    }
+  },
+  "coursework_unchanged": true,
+  "history_read_only": true,
+  "full_engineering_roadmap_complete": false,
+  "design_accepted": false,
+  "usable_supported_workflows_verified": true,
+  "scope": "Software workflow usability audit; not arbitrary autonomous design, statutory compliance, construction certification or user coursework acceptance"
+}
