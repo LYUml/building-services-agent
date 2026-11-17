@@ -1,3 +1,12 @@
+## MCP candidate contract gate
+
+Reuse the existing pinned MCP Python SDK 1.30.0 public list_tools/call_tool
+interfaces, current fixed worker registry and stdlib AST inspection. No new
+protocol engine, native implementation or dependency. Actual catalogue has
+40 tools, all39 fixed operations have source routes, and40 unknown-field calls
+reject before dispatch locally. This is a contract gate, not native acceptance.
+See CANDIDATE_SUPPORT.md; existing SDK attribution/license remain unchanged.
+
 ## Candidate packaging and water import compatibility
 
 Reuse existing Git archive to preserve source-relative adapters and resource

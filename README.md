@@ -7,6 +7,8 @@ does not establish professional or statutory design acceptance.
 
 Release-candidate hardening is in progress; the usability checkpoint is not a
 stable-release claim. See [candidate status and measured optimization](docs/RELEASE_CANDIDATE.md).
+The [candidate support contract](docs/CANDIDATE_SUPPORT.md) distinguishes MCP
+coverage, verified platforms, host preparation and remaining acceptance gates.
 
 ## Start here
 
