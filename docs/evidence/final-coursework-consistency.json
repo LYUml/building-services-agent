@@ -1,0 +1,16 @@
+{
+  "scope": "Final coursework identity and native schedule consistency audit, not physicalADPI/statutory approval",
+  "native_schedule_rows": 47,
+  "native_schedule_fields_checked": 235,
+  "unique_diffuser_labels": 80,
+  "unique_vav_labels": 20,
+  "reported_diffuser_schedule_rows": 80,
+  "reported_characteristic_length_rows": 80,
+  "reported_vav_rows": 20,
+  "reported_duct_rows": 47,
+  "sections_meeting_source_selected_limits": 47,
+  "independent_velocity_oracle": "Retained source-selected numerical limits and full-precision section results, not inference from A/D labels",
+  "all_checks_pass": true,
+  "full_agent_goal_complete": false,
+  "coursework_user_accepted": false
+}
