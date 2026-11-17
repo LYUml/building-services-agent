@@ -526,5 +526,27 @@
     "scope": "Executed Windows developer probes and version-bound verification records only; original implementation full CI remains required",
     "duplicate_ci_trigger_skipped": true,
     "github_skip_reference": "https://docs.github.com/en/actions/how-tos/manage-workflow-runs/skip-workflow-runs"
+  },
+  "operational_documentation_audit": {
+    "exact_live_host_and_sdk_and_support_table_match": true,
+    "tool_count": 42,
+    "worker_operation_count": 41,
+    "source_sha256": {
+      "docs/START_USING.md": "91361ae964bce73bcd90d72b0aedc3597f95f651dba27f923ba6454d862ceb84",
+      "docs/CANDIDATE_SUPPORT.md": "0455adc12549fbb56837c6ea918fda735353f4f91ecfb5253fcecc04b8a411f7",
+      "docs/CODEX_LOCAL_SETUP.md": "d909a9188aab4172af541cc57608a2417396e28b27d6ea27e184d4ea2721bc54"
+    },
+    "scope": "Current operational references and exact declared tool-name coverage; actual execution is recorded separately"
+  },
+  "preservation_inventory": {
+    "baseline_commit": "7632371a6e1288af4f150357586e2116704e7da7",
+    "historical_mcp_handler_count": 40,
+    "all_historical_handlers_retained": true,
+    "new_handlers": [
+      "bsa_checkpoint_workflow",
+      "bsa_inspect_changes"
+    ],
+    "deleted_source_test_skill_contract_files": [],
+    "scope": "Git file-deletion inventory and AST handler-name comparison against actual current SDK; functional verification remains separate"
   }
 }

@@ -1,4 +1,15 @@
-## Current native lighting/plot host repair
+## Current architecture host observations
+
+The current chat and fresh SDK connection both expose42tools, including change
+checkpoints and impact inspection; an actual read-only catalogue call executes.
+The saved local profile includes the tested Arial report font and explicit
+host-owned external lighting-reader root. See ARCHITECTURE_ACCEPTANCE.md for
+source versions and separate fresh-connection/native evidence. Saving a profile
+alone does not prove a live connection changed; check the actual catalogue and
+effective paths. No global trust or approval settings were modified. Earlier
+host repair paragraphs below retain their historical observations/counts.
+
+## Historical native lighting/plot host repair
 
 Use `bsa doctor --mcp-config .codex/config.toml` before reusing the saved profile.
 It reads only the explicitly selected `building_services` entry, checks absolute
@@ -48,8 +59,8 @@ python -m bsa.codex_setup --graphviz HOST_EVALUATED_DOT_EXE --refresh
 Refresh changes only explicitly provided runtime flags and preserves unrelated
 settings/unspecified runtimes. New tests cover all12path flags, wrong path kinds,
 unknown policy arguments, idempotency and selective Graphviz refresh. A real
-isolated profile and the development profile are recognized by Codex; the current
-40tool names match the actual local server declarations and a reference call
+isolated profile and the development profile were recognized by Codex; the then
+40tool names matched the actual local server declarations and a reference call
 executes. A connection launched from the new profile actually authors/reopens a
 graph DWG. The current desktop chat was separately observed to retain its old
 startup parameters: its graph task stays pending without Graphviz. Do not claim

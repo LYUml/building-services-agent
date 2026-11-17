@@ -1,6 +1,12 @@
 # Candidate support and control boundaries
 
-Current implementation checkpoint: 7632371. All five core/profile jobs and all
+Current production implementation: a524418; the9fae41f follow-up adds executed
+developer probes and evidence with identical production sources/contracts/tests.
+All nine core/profile and six domain jobs pass. Fresh-source actual native MCP
+execution passes. Full regression is still in progress; see
+ARCHITECTURE_ACCEPTANCE.md. User acceptance remains pending.
+
+Historical pre-architecture checkpoint: 7632371. All five core/profile jobs and all
 six domain jobs pass, including the remote SDK contract and lightweight profile
 gates. Fresh-source actual native MCP execution also passes. Whole-repository
 regression succeeds with1840tests, zero failures/errors and258skip outcomes.
@@ -41,8 +47,8 @@ with platform-specific constraints. Its exact scope and limits remain explicit.
 
 ## MCP coverage
 
-The current actual SDK catalogue has 40 tools. The following groups cover all
-40; numerical engines remain shared with CLI/workflow adapters rather than
+The current actual SDK catalogue has42tools. The following groups cover all
+42; numerical engines remain shared with CLI/workflow adapters rather than
 duplicated for MCP. Tool schemas and full descriptions are available through
 the SDK catalogue. The committed reference read is also an MCP resource.
 
@@ -55,6 +61,7 @@ the SDK catalogue. The committed reference read is also an MCP resource.
 | Project intake and interpreted handoff | bsa_project_start, bsa_read_source_plan, bsa_handoff_template, bsa_save_json, bsa_execute_handoff, bsa_verify_handoff |
 | HVAC packages | bsa_prepare_hvac_project, bsa_run_hvac_project, bsa_inspect_hvac_project |
 | Multi-service workflows | bsa_execute_workflow, bsa_diagnose_workflow |
+| Change checkpoints and impact | bsa_checkpoint_workflow, bsa_inspect_changes |
 | Source review and references | bsa_render_source_page, bsa_prepare_visual_transcription, bsa_review_source_plan, bsa_reference_catalogue |
 | Iteration and recovery | bsa_recover_pump_catalogue, bsa_verify_pump_recovery, bsa_run_recovery, bsa_verify_recovery |
 | Artifact access and delivery review | bsa_artifact_index, bsa_read_artifact, bsa_render_artifact_page, bsa_delivery_template, bsa_assess_delivery |
@@ -65,11 +72,16 @@ every CLI module has a separate MCP tool, or that arbitrary incomplete briefs
 can execute without interpretation. Source recipes, supported schemas and
 domain evidence still govern which tasks can run.
 
+Common engineering data, source input ownership and knowledge retrieval also
+use the existing workflow adapters. See ENGINEERING_DATA.md, KNOWLEDGE.md and
+CHANGE_IMPACT.md. Numerical reuse is restricted to the verified air/electrical
+whitelist; other capabilities retain their original execution paths.
+
 No computer-use mechanism is needed by these MCP adapter execution paths.
 AutoCAD work uses explicit host native processes and saved-data adapters.
 Software installation/licensing, file access, startup executable paths, font and
 plotting configuration are host preparation. External tools such as K-Select
-retain their own integration scope; the 40-tool catalogue does not imply their
+retain their own integration scope; the42-tool catalogue does not imply their
 GUI or API is controlled by this server. Source interpretation, visual inspection,
 missing manufacturer facts and engineering decisions still require the host AI
 or a reviewer; they are not silently approved by tool success.
@@ -78,7 +90,7 @@ or a reviewer; they are not silently approved by tool success.
 
 `python scripts/check_mcp_contract.py --out runs/mcp-contract.json` reuses SDK
 1.30.0 and Python AST inspection. It compares the actual tool catalogue with
-source declarations and all 39 fixed worker operations, checks top-level schema
+source declarations and all41fixed worker operations, checks top-level schema
 and known host-runtime exclusions, and actually submits an unknown-field call
 to each tool to confirm rejection before dispatch. The single direct tool,
 bsa_save_json, only saves fresh declarative JSON; domain validation is downstream.
@@ -86,6 +98,7 @@ The gate executes no valid engineering call or native engine and proves no UI
 connection. It passed locally in the existing core-plus-network profile and is
 part of core CI; remote execution is observed at the current checkpoint above.
 
-Full engineering executions keep their separate evidence: USABILITY_ACCEPTANCE.md,
-REAL_PROJECT_REVISION.md and domain guides. Whole-repository regression succeeds
-with258skip outcomes retained; no all-tests-executed claim is made.
+Full engineering executions keep their separate version-bound evidence:
+ARCHITECTURE_ACCEPTANCE.md, USABILITY_ACCEPTANCE.md, REAL_PROJECT_REVISION.md and
+domain guides. Historical258skip outcomes stay unexecuted; current full-suite
+results remain pending and no all-tests-executed claim is made.

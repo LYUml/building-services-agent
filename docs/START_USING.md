@@ -1,8 +1,10 @@
 # Use the supported agent workflows
 
 The supported source-bound workflows are usable through the installed CLI and
-project-scoped MCP. The [current acceptance audit](USABILITY_ACCEPTANCE.md)
-records actual execution. The long-term engineering roadmap remains open.
+project-scoped MCP. The [architecture acceptance audit](ARCHITECTURE_ACCEPTANCE.md)
+records current execution and remaining gates; the earlier
+[usability audit](USABILITY_ACCEPTANCE.md) retains its own source-version scope.
+The long-term engineering roadmap remains open.
 
 ## Start in this checkout
 
@@ -16,7 +18,8 @@ bsa doctor --extra drawing --extra mcp --mcp-config .codex/config.toml
 Use the intended virtual environment's Python and `bsa`. Optional domains need
 their own pinned extras and host engines. Doctor checks distributions/path
 presence, not native execution. Follow [MCP setup](CODEX_LOCAL_SETUP.md) to
-configure a new connection. Saved settings do not hot-reload an existing chat.
+configure a new connection. Saved settings alone do not prove that an existing
+chat loaded them; verify its actual tools and effective host paths.
 The current project profile has actual AutoCAD, Graphviz, EnergyPlus, Radiance
 and Poppler paths; it does not automatically configure every optional engine.
 
@@ -55,6 +58,9 @@ interpretation contract. An untouched template cannot execute. See
 | Annual/IFC/PTAC energy | [Native energy](NATIVE_ENERGY_USABILITY.md) | Explicit weather/model/equipment basis; synthetic cases are not project designs |
 | Shared lighting and native CAD | [Shared lighting](SHARED_LIGHTING_USABILITY.md) | IES/source geometry applicability, glare and full code review remain separate |
 | Failed operating-point iteration | [Pump recovery example](../examples/pump-recovery/README.md) | Supplied catalogue only; retain product/installation review |
+| Common identities, units and source inputs | [Engineering data](ENGINEERING_DATA.md), [input ownership](ENGINEERING_INPUTS.md) | Air/electrical/lighting views; other capabilities retain their typed contracts |
+| Source-linked knowledge | [Knowledge workflow](KNOWLEDGE.md) | Explicit selected sources/pages/conditions; retrieval does not establish applicability |
+| Changes and safe numerical reuse | [Change impact](CHANGE_IMPACT.md) | Verified checkpoint required; numerical reuse whitelist is air/electrical only |
 
 Inspect saved output without recomputing:
 
