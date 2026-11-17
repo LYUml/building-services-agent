@@ -1,3 +1,5 @@
+Current BSE3227 coursework package has a reviewed14-page report and reopened80-terminal DWG with4m design notes. It is ready for user review under explicit classroom assumptions; full agent/engineering acceptance remains open. See [coursework closeout](docs/CURRENT_COURSE_CLOSEOUT.md).
+
 Current coursework diffuser verification covers 49 native K-Select conditions and 640 classroom ratio checks. A separate 160-row terminal-pressure comparison now has publisher-backed total-pressure identification; 84 component gaps and ADPI load applicability remain unresolved. See [native performance](docs/CURRENT_COURSE_KSELECT.md) and [pressure comparison](docs/CURRENT_NATIVE_TERMINAL_PRESSURE.md).
 
 Three same-source A1 system drawings now have saved/reopened native DWGs, reviewed plots and independent 598-label/80-flow checks. Full pressure and ADPI remain open. See [system drawings](docs/CURRENT_SYSTEM_DRAWINGS.md).

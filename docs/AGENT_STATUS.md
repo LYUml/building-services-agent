@@ -1,3 +1,5 @@
+Current BSE3227 coursework package has a reviewed14-page report and reopened80-terminal DWG with4m design notes. It is ready for user review under explicit classroom assumptions; full agent/engineering acceptance remains open. See [coursework closeout](CURRENT_COURSE_CLOSEOUT.md).
+
 A separate source-informed 20-step physical-time k-epsilon startup now executes on the preserved quality-passed 142480-cell mesh. Native fields and five-port flux checks pass; duration is only 2.05% of one reference residence time, so no pressure or wall-treatment acceptance. Course baseline unchanged. See [transient startup](OPENFOAM_IMPORT_PRECISION.md#separate-physical-time-k-epsilon-startup).
 
 Current coursework diffuser verification covers 49 native K-Select conditions and 640 classroom ratio checks. A separate 160-row terminal-pressure comparison now has publisher-backed total-pressure identification; 84 component gaps and ADPI load applicability remain unresolved. See [native performance](CURRENT_COURSE_KSELECT.md) and [pressure comparison](CURRENT_NATIVE_TERMINAL_PRESSURE.md).
