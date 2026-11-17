@@ -16,5 +16,13 @@
     "geometry_and_192_area_flow_values_match": true,
     "targeted_tests_passed": 14,
     "partial_contract_rejected_before_output": true
+  },
+  "provider_followup": {
+    "actual_terminal_count": 64,
+    "execution": "completed",
+    "independent_source_replay_passed": true,
+    "result_sha256": "aa135311892490286cb45001686e277acf08b54a9ffc06fd18df4f5ec32a9548",
+    "targeted_tests_passed": 22,
+    "desktop_mcp_execution_claimed": false
   }
 }

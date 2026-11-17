@@ -24,3 +24,10 @@ service areas and rejection of gaps/overlaps. See
 [executed receipt](evidence/explicit-service-partition.json). The subsequent actual
 64-terminal CLI execution preserves all64 geometries and192 area/flow values,
 binds three input files, and passes14 related tests.
+
+The existing `bsa.classified-air-allocation` provider now also replays explicit
+cells and their basis during independent evidence verification. Its earlier
+nearest-centre-only replay was corrected, and its acceptance scope now describes
+declared service areas. Actual64-terminal provider execution and source replay
+pass;22 combined targeted tests pass. This does not claim that a desktop MCP
+session has reloaded or executed the change, or that downstream design is accepted.

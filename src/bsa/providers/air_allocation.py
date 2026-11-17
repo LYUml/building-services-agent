@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[3]
 CAPABILITY = 'analysis.air.classified-allocation'
 PAYLOAD = 'bsa.air-allocation/1'
 DESCRIPTION = dict(id='bsa.classified-air-allocation', version='1', license='NOASSERTION')
-ACCEPTANCE_SCOPE = 'Conditional thermal balance and nearest-centre allocation only; room loads, ADPI, routing, native geometry and regulatory acceptance remain pending'
+ACCEPTANCE_SCOPE = 'Conditional thermal balance and declared service-area allocation only; room loads, ADPI, routing, native geometry and regulatory acceptance remain pending'
 
 
 def validate_request(request):
@@ -80,7 +80,9 @@ def verify_evidence(result, result_path):
     pins[str(project_path)] = digest(project_path)
     if any(result['inputs'].get(p) != sha for p, sha in pins.items()):
         raise ValueError('Allocation source/method evidence differs')
-    expected = prepare(read_json(boundary), project['terminals'], project['load_inputs'], project['turndown'])
+    options = ({'service_cells': project['service_cells'], 'service_basis': project['service_basis']}
+               if 'service_cells' in project else {})
+    expected = prepare(read_json(boundary), project['terminals'], project['load_inputs'], project['turndown'], **options)
     expected.update(inputs={str(project_path): digest(project_path), str(boundary): digest(boundary)}, geometry_basis=project['geometry_basis'])
     expected['inputs'].update({p: sha for p, sha in pins.items() if p not in methods() and p != str(project_path)})
     folder = Path(result_path).parent/'analysis'

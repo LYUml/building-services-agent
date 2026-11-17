@@ -14,6 +14,22 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 class AirAllocationProviderTests(unittest.TestCase):
+    def test_explicit_partition_executes_and_replays_through_provider(self):
+        from shapely.geometry import box, mapping
+        project = json.loads(self.project.read_text())
+        project.update(service_basis='Synthetic unequal row/column service cells', service_cells={
+            'T1': mapping(box(-8, -3, -3, 0)), 'T2': mapping(box(-3, -3, 0, 0)),
+            'T3': mapping(box(-8, 0, -3, 3)), 'T4': mapping(box(-3, 0, 0, 3))})
+        self.project.write_text(json.dumps(project))
+        request = json.loads(self.request.read_text())
+        request['sources']['project']['sha256'] = digest(self.project)
+        self.request.write_text(json.dumps(request))
+        result = run(self.request, 'bsa.classified-air-allocation', self.root/'explicit')
+        self.assertEqual(result['execution']['status'], 'completed')
+        report = json.loads((self.root/'explicit/analysis/allocation.json').read_text())
+        self.assertEqual([t['allocated_load_area_m2'] for t in report['terminals']], [15, 9, 15, 9])
+        self.assertEqual(verify_result(self.root/'explicit/result.json')['execution']['status'], 'completed')
+
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory(dir=ROOT/'runs');self.addCleanup(self.temp.cleanup)
         self.root=Path(self.temp.name)
