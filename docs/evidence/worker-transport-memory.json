@@ -1,0 +1,505 @@
+{
+  "date": "2026-11-17",
+  "baseline_commit": "21d0c90b2a4bdfe8f770e169f4b1f2d011815cd4",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "measurement": "Windows GetProcessMemoryInfo peak working set of the MCP parent; three fresh processes per probe",
+  "before": {
+    "rows": [
+      {
+        "probe": "cli_import",
+        "seconds": 0.009955200002877973,
+        "before": {
+          "peak_bytes": 24489984,
+          "current_bytes": 24489984
+        },
+        "after": {
+          "peak_bytes": 27500544,
+          "current_bytes": 27500544
+        },
+        "trial": 1
+      },
+      {
+        "probe": "cli_import",
+        "seconds": 0.00954089999140706,
+        "before": {
+          "peak_bytes": 24596480,
+          "current_bytes": 24596480
+        },
+        "after": {
+          "peak_bytes": 27435008,
+          "current_bytes": 27435008
+        },
+        "trial": 2
+      },
+      {
+        "probe": "cli_import",
+        "seconds": 0.009949400002369657,
+        "before": {
+          "peak_bytes": 24576000,
+          "current_bytes": 24576000
+        },
+        "after": {
+          "peak_bytes": 27463680,
+          "current_bytes": 27463680
+        },
+        "trial": 3
+      },
+      {
+        "probe": "workflow_import",
+        "seconds": 0.011125799996079877,
+        "before": {
+          "peak_bytes": 24485888,
+          "current_bytes": 24485888
+        },
+        "after": {
+          "peak_bytes": 27615232,
+          "current_bytes": 27615232
+        },
+        "trial": 1
+      },
+      {
+        "probe": "workflow_import",
+        "seconds": 0.011122199997771531,
+        "before": {
+          "peak_bytes": 24465408,
+          "current_bytes": 24465408
+        },
+        "after": {
+          "peak_bytes": 27586560,
+          "current_bytes": 27586560
+        },
+        "trial": 2
+      },
+      {
+        "probe": "workflow_import",
+        "seconds": 0.010544200005824678,
+        "before": {
+          "peak_bytes": 24498176,
+          "current_bytes": 24498176
+        },
+        "after": {
+          "peak_bytes": 27643904,
+          "current_bytes": 27643904
+        },
+        "trial": 3
+      },
+      {
+        "probe": "mcp_create",
+        "seconds": 0.547214599995641,
+        "before": {
+          "peak_bytes": 24506368,
+          "current_bytes": 24506368
+        },
+        "after": {
+          "peak_bytes": 62050304,
+          "current_bytes": 62050304
+        },
+        "trial": 1
+      },
+      {
+        "probe": "mcp_create",
+        "seconds": 0.46535439998842776,
+        "before": {
+          "peak_bytes": 24502272,
+          "current_bytes": 24502272
+        },
+        "after": {
+          "peak_bytes": 62402560,
+          "current_bytes": 62402560
+        },
+        "trial": 2
+      },
+      {
+        "probe": "mcp_create",
+        "seconds": 0.5075775000004796,
+        "before": {
+          "peak_bytes": 24530944,
+          "current_bytes": 24530944
+        },
+        "after": {
+          "peak_bytes": 61890560,
+          "current_bytes": 61890560
+        },
+        "trial": 3
+      },
+      {
+        "probe": "transport_quiet",
+        "seconds": 0.7355360000074143,
+        "before": {
+          "peak_bytes": 24625152,
+          "current_bytes": 24625152
+        },
+        "after": {
+          "peak_bytes": 63094784,
+          "current_bytes": 63094784
+        },
+        "trial": 1
+      },
+      {
+        "probe": "transport_quiet",
+        "seconds": 0.755222000007052,
+        "before": {
+          "peak_bytes": 24461312,
+          "current_bytes": 24461312
+        },
+        "after": {
+          "peak_bytes": 63406080,
+          "current_bytes": 63406080
+        },
+        "trial": 2
+      },
+      {
+        "probe": "transport_quiet",
+        "seconds": 0.7150684000080219,
+        "before": {
+          "peak_bytes": 24391680,
+          "current_bytes": 24391680
+        },
+        "after": {
+          "peak_bytes": 63078400,
+          "current_bytes": 63078400
+        },
+        "trial": 3
+      },
+      {
+        "probe": "transport_32mib",
+        "seconds": 0.8495221000048332,
+        "before": {
+          "peak_bytes": 24662016,
+          "current_bytes": 24662016
+        },
+        "after": {
+          "peak_bytes": 163901440,
+          "current_bytes": 63365120
+        },
+        "trial": 1
+      },
+      {
+        "probe": "transport_32mib",
+        "seconds": 0.8171436999982689,
+        "before": {
+          "peak_bytes": 24547328,
+          "current_bytes": 24547328
+        },
+        "after": {
+          "peak_bytes": 165814272,
+          "current_bytes": 65269760
+        },
+        "trial": 2
+      },
+      {
+        "probe": "transport_32mib",
+        "seconds": 0.8130871000030311,
+        "before": {
+          "peak_bytes": 24584192,
+          "current_bytes": 24584192
+        },
+        "after": {
+          "peak_bytes": 163803136,
+          "current_bytes": 63258624
+        },
+        "trial": 3
+      }
+    ],
+    "summary": {
+      "mcp_create": {
+        "median_seconds": 0.5075775000004796,
+        "median_peak_bytes": 62050304
+      },
+      "workflow_import": {
+        "median_seconds": 0.011122199997771531,
+        "median_peak_bytes": 27615232
+      },
+      "cli_import": {
+        "median_seconds": 0.009949400002369657,
+        "median_peak_bytes": 27463680
+      },
+      "transport_quiet": {
+        "median_seconds": 0.7355360000074143,
+        "median_peak_bytes": 63094784
+      },
+      "transport_32mib": {
+        "median_seconds": 0.8171436999982689,
+        "median_peak_bytes": 163901440
+      }
+    },
+    "scope": "Fresh process Windows working-set probes; 32MiB diagnostic stress is synthetic transport load, not engineering simulation performance"
+  },
+  "after": {
+    "rows": [
+      {
+        "probe": "cli_import",
+        "seconds": 0.011703900003340095,
+        "before": {
+          "peak_bytes": 24469504,
+          "current_bytes": 24469504
+        },
+        "after": {
+          "peak_bytes": 27357184,
+          "current_bytes": 27357184
+        },
+        "trial": 1
+      },
+      {
+        "probe": "cli_import",
+        "seconds": 0.011851599992951378,
+        "before": {
+          "peak_bytes": 24571904,
+          "current_bytes": 24571904
+        },
+        "after": {
+          "peak_bytes": 27402240,
+          "current_bytes": 27402240
+        },
+        "trial": 2
+      },
+      {
+        "probe": "cli_import",
+        "seconds": 0.011502000008476898,
+        "before": {
+          "peak_bytes": 24330240,
+          "current_bytes": 24330240
+        },
+        "after": {
+          "peak_bytes": 27140096,
+          "current_bytes": 27140096
+        },
+        "trial": 3
+      },
+      {
+        "probe": "workflow_import",
+        "seconds": 0.011921900004381314,
+        "before": {
+          "peak_bytes": 24535040,
+          "current_bytes": 24535040
+        },
+        "after": {
+          "peak_bytes": 27627520,
+          "current_bytes": 27627520
+        },
+        "trial": 1
+      },
+      {
+        "probe": "workflow_import",
+        "seconds": 0.010540000002947636,
+        "before": {
+          "peak_bytes": 24576000,
+          "current_bytes": 24576000
+        },
+        "after": {
+          "peak_bytes": 27668480,
+          "current_bytes": 27668480
+        },
+        "trial": 2
+      },
+      {
+        "probe": "workflow_import",
+        "seconds": 0.011017099997843616,
+        "before": {
+          "peak_bytes": 24334336,
+          "current_bytes": 24334336
+        },
+        "after": {
+          "peak_bytes": 27303936,
+          "current_bytes": 27303936
+        },
+        "trial": 3
+      },
+      {
+        "probe": "mcp_create",
+        "seconds": 0.5069101000117371,
+        "before": {
+          "peak_bytes": 24604672,
+          "current_bytes": 24604672
+        },
+        "after": {
+          "peak_bytes": 61947904,
+          "current_bytes": 61947904
+        },
+        "trial": 1
+      },
+      {
+        "probe": "mcp_create",
+        "seconds": 0.5011359999916749,
+        "before": {
+          "peak_bytes": 24625152,
+          "current_bytes": 24625152
+        },
+        "after": {
+          "peak_bytes": 62128128,
+          "current_bytes": 62128128
+        },
+        "trial": 2
+      },
+      {
+        "probe": "mcp_create",
+        "seconds": 0.5035648999910336,
+        "before": {
+          "peak_bytes": 24367104,
+          "current_bytes": 24367104
+        },
+        "after": {
+          "peak_bytes": 62083072,
+          "current_bytes": 62083072
+        },
+        "trial": 3
+      },
+      {
+        "probe": "transport_quiet",
+        "seconds": 0.7334871000057319,
+        "before": {
+          "peak_bytes": 24518656,
+          "current_bytes": 24518656
+        },
+        "after": {
+          "peak_bytes": 63291392,
+          "current_bytes": 63291392
+        },
+        "trial": 1
+      },
+      {
+        "probe": "transport_quiet",
+        "seconds": 0.734848600011901,
+        "before": {
+          "peak_bytes": 24440832,
+          "current_bytes": 24440832
+        },
+        "after": {
+          "peak_bytes": 63365120,
+          "current_bytes": 63365120
+        },
+        "trial": 2
+      },
+      {
+        "probe": "transport_quiet",
+        "seconds": 0.7245125000044936,
+        "before": {
+          "peak_bytes": 24444928,
+          "current_bytes": 24444928
+        },
+        "after": {
+          "peak_bytes": 63164416,
+          "current_bytes": 63164416
+        },
+        "trial": 3
+      },
+      {
+        "probe": "transport_32mib",
+        "seconds": 0.7294362999964505,
+        "before": {
+          "peak_bytes": 24674304,
+          "current_bytes": 24674304
+        },
+        "after": {
+          "peak_bytes": 63299584,
+          "current_bytes": 63299584
+        },
+        "trial": 1
+      },
+      {
+        "probe": "transport_32mib",
+        "seconds": 0.7317486999963876,
+        "before": {
+          "peak_bytes": 24584192,
+          "current_bytes": 24584192
+        },
+        "after": {
+          "peak_bytes": 63102976,
+          "current_bytes": 63102976
+        },
+        "trial": 2
+      },
+      {
+        "probe": "transport_32mib",
+        "seconds": 0.7286192000028677,
+        "before": {
+          "peak_bytes": 24625152,
+          "current_bytes": 24625152
+        },
+        "after": {
+          "peak_bytes": 62996480,
+          "current_bytes": 62996480
+        },
+        "trial": 3
+      }
+    ],
+    "summary": {
+      "mcp_create": {
+        "median_seconds": 0.5035648999910336,
+        "median_peak_bytes": 62083072
+      },
+      "transport_quiet": {
+        "median_seconds": 0.7334871000057319,
+        "median_peak_bytes": 63291392
+      },
+      "cli_import": {
+        "median_seconds": 0.011703900003340095,
+        "median_peak_bytes": 27357184
+      },
+      "transport_32mib": {
+        "median_seconds": 0.7294362999964505,
+        "median_peak_bytes": 63102976
+      },
+      "workflow_import": {
+        "median_seconds": 0.011017099997843616,
+        "median_peak_bytes": 27627520
+      }
+    },
+    "scope": "Fresh process Windows working-set probes; 32MiB diagnostic stress is synthetic transport load, not engineering simulation performance"
+  },
+  "noisy_peak_reduction_fraction": 0.6149943771085843,
+  "footprint_baseline": {
+    "tracked_repository_bytes": 63639492,
+    "tracked_groups_bytes": {
+      ".agents": 235597,
+      ".gitattributes": 2427,
+      ".github": 9852,
+      ".gitignore": 124,
+      "AGENTS.md": 2766,
+      "MILESTONES.md": 64364,
+      "README.md": 6399,
+      "THIRD_PARTY.md": 56074,
+      "adapters": 458265,
+      "benchmarks": 58020,
+      "contracts": 50089,
+      "docs": 55882458,
+      "examples": 1219158,
+      "pyproject.toml": 1934,
+      "regulations": 57774,
+      "scripts": 364084,
+      "sources": 16921,
+      "src": 2981197,
+      "tests": 1879477,
+      "third_party": 292512
+    },
+    "full_development_site_packages": {
+      "bytes": 1079412251,
+      "files": 25697
+    },
+    "clean_drawing_mcp_site_packages": {
+      "bytes": 180399767,
+      "files": 6796
+    },
+    "scope": "Read-only disk inventory; installed profiles differ intentionally; not a claim that all modules can be removed"
+  },
+  "checks": {
+    "targeted_run": 13,
+    "targeted_passed": 13,
+    "native_sdk_run": 5,
+    "native_sdk_passed": 4,
+    "native_sdk_skipped": 1,
+    "skip": "Existing explicit missing generated PDF fixture"
+  },
+  "method_sha256": {
+    "src/bsa/worker_transport.py": "ee129c368ffdfd90cc0587fc31aafb726f6a98b7d6418d7f97798c95513297bb",
+    "src/bsa/mcp_server.py": "15474c611eab3ec497918d289fcd912e40e0bab1524edea367427a34505dbc49",
+    "scripts/profile_worker_transport.py": "d7b7581e069cefce5990357f0ddba42d80a9ac3c49be0f9f56b3f143f7033c26"
+  },
+  "local_log_sha256": {
+    "runs/worker-transport-targeted.log": "6acc698529e2f7e742afa9215659a6f1b2af89b5ea690c09842af156d2468773",
+    "runs/worker-transport-native-regression.log": "4473bb84d20656aa027e11a9e31ee51fa0245903a837766c03f25c3ff17fed72"
+  },
+  "design_accepted": false,
+  "release_ready": false,
+  "scope": "Measured transport memory improvement only; release candidate hardening remains active"
+}

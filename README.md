@@ -5,6 +5,9 @@ calculations, editable CAD/BIM, iteration and delivery checks across MEP.
 The host interprets sources and engineering assumptions; successful execution
 does not establish professional or statutory design acceptance.
 
+Release-candidate hardening is in progress; the usability checkpoint is not a
+stable-release claim. See [candidate status and measured optimization](docs/RELEASE_CANDIDATE.md).
+
 ## Start here
 
 Use the [single workflow guide](docs/START_USING.md) for project input,

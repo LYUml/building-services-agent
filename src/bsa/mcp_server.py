@@ -5,13 +5,10 @@ import importlib.metadata
 import json
 from pathlib import Path
 import re
-import sys
-import subprocess
 import threading
-import tempfile
 from typing import Any,Annotated
 
-from . import workspace,mcp_worker
+from . import workspace,worker_transport
 from .cli import digest
 from .host_runtime import OPTIONS,PATH_ARGUMENTS
 
@@ -56,21 +53,8 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None):
 
     def invoke(operation,*args,**kwargs):
         # Keep native imports outside the threaded/async protocol process.
-        if operation not in mcp_worker.OPERATIONS:raise ValueError('Fixed engineering operation required')
-        request=json.dumps(dict(operation=operation,args=args,kwargs=kwargs),default=str,allow_nan=False)
         with lock:
-            with tempfile.TemporaryDirectory(prefix='bsa-mcp-response-') as directory:
-                response=Path(directory)/'response.json'
-                completed=subprocess.run([sys.executable,'-X','utf8','-m','bsa.mcp_worker','--response-file',str(response)],input=request.encode('utf-8'),capture_output=True,cwd=workspace.ROOT)
-                # Both native and Python diagnostics stay off the MCP stdout pipe.
-                for log in (completed.stdout,completed.stderr):
-                    if log:sys.stderr.write(log.decode('utf-8',errors='replace'))
-                try:result=json.loads(response.read_text(encoding='utf-8'))
-                except (OSError,ValueError) as exc:raise ValueError(f'Engineering worker produced no valid response (exit {completed.returncode}); inspect server stderr') from exc
-            if not isinstance(result,dict) or type(result.get('ok')) is not bool or (result['ok'] and 'value' not in result):
-                raise ValueError('Engineering worker response envelope is invalid')
-            if completed.returncode or result.get('ok') is not True:raise ValueError(result.get('error','Engineering worker failed'))
-            return result['value']
+            return worker_transport.invoke(operation,args,kwargs,cwd=workspace.ROOT)
 
     read=ToolAnnotations(readOnlyHint=True,destructiveHint=False,idempotentHint=True,openWorldHint=False)
     write=ToolAnnotations(readOnlyHint=False,destructiveHint=False,idempotentHint=False,openWorldHint=False)

@@ -1,3 +1,12 @@
+## Bounded-memory worker transport
+
+Reused MCP1.30.0 and the existing fixed engineering worker/response contract.
+The actual measured gap was native diagnostic buffering, not a numerical engine.
+Python standard-library TemporaryFile/codecs now bound log reads and preserve
+UTF-8 boundaries; a thin transport module separates IPC from MCP declarations.
+No upstream solver, dependency or supported function was replaced or removed.
+See [executed before/after measurements](RELEASE_CANDIDATE.md).
+
 ## Saved host path diagnosis
 
 Reused the existing lightweight host_runtime.PATH_ARGUMENTS registry and Python

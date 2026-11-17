@@ -38,9 +38,12 @@ class ServerResponseChannel(unittest.IsolatedAsyncioTestCase):
             path=Path(args[args.index('--response-file')+1]);paths.append(path)
             self.assertEqual(json.loads(kwargs['input'])['operation'],'bsa.reference_library.catalogue')
             path.write_text(json.dumps(dict(ok=True,value={'synthetic_transport_probe':True,'design_accepted':False})))
-            return subprocess.CompletedProcess(args,0,stdout=b'\xffnative stdout\n',stderr=b'python diagnostics\n')
+            self.assertNotIn('capture_output',kwargs)
+            kwargs['stdout'].write(b'\xffnative stdout\npython diagnostics\n')
+            self.assertEqual(kwargs['stderr'],subprocess.STDOUT)
+            return subprocess.CompletedProcess(args,0)
         stderr=io.StringIO()
-        with patch('bsa.mcp_server.subprocess.run',side_effect=worker),contextlib.redirect_stderr(stderr):
+        with patch('bsa.worker_transport.subprocess.run',side_effect=worker),contextlib.redirect_stderr(stderr):
             await server.call_tool('bsa_reference_catalogue',{})
         self.assertIn('native stdout',stderr.getvalue());self.assertIn('python diagnostics',stderr.getvalue())
         self.assertIn('\ufffd',stderr.getvalue())
@@ -52,8 +55,9 @@ class ServerResponseChannel(unittest.IsolatedAsyncioTestCase):
         for content in [None,'[]','{"ok":true}']:
             def worker(args,**kwargs):
                 if content is not None:Path(args[args.index('--response-file')+1]).write_text(content)
-                return subprocess.CompletedProcess(args,0,stdout=b'log only',stderr=b'')
-            with patch('bsa.mcp_server.subprocess.run',side_effect=worker),contextlib.redirect_stderr(io.StringIO()):
+                kwargs['stdout'].write(b'log only')
+                return subprocess.CompletedProcess(args,0)
+            with patch('bsa.worker_transport.subprocess.run',side_effect=worker),contextlib.redirect_stderr(io.StringIO()):
                 with self.assertRaisesRegex(Exception,'response'):
                     await server.call_tool('bsa_reference_catalogue',{})
 

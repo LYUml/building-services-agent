@@ -1,3 +1,16 @@
+## Release candidate hardening active
+
+User requested release readiness, modularity, lightweight dependencies, memory
+optimization and general debugging before acceptance. The new goal is active;
+the earlier scoped usability checkpoint is not a release approval. First measured
+change extracts worker transport and bounds diagnostic memory:32MiB native-log
+stress parent peak falls156.31to60.18MiB (three fresh-process medians).13targeted
+checks pass; actual SDK/native regression has4passes and1explicit fixture skip.
+No solver/dependency/function was removed. Installation/CI, distribution sizing,
+real-project revision propagation and full MCP/support contracts remain pending.
+See [candidate work and evidence](RELEASE_CANDIDATE.md). No release is published.
+BSE3227 remains unchanged.
+
 ## Supported-workflow usability audited
 
 The explicit current usability checkpoint is verified: independent fresh source
