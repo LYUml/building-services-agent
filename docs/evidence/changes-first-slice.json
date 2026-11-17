@@ -1,0 +1,60 @@
+{
+  "schema": "bsa.change-impact-evidence/1",
+  "scope": "Current CLI slice; not full-goal completion, course adoption or authenticated design acceptance",
+  "controls": {
+    "tests_passed": 12,
+    "minimal_passed": 12
+  },
+  "regression": {
+    "tests_run": 117,
+    "passed": 116,
+    "skipped": 1,
+    "failures": 0,
+    "errors": 0,
+    "all_tests_pass": false,
+    "source_unchanged": true,
+    "receipt_sha256": "b03d7790af8471deb4b66a6fa8f177ec13ba5be337b725ef304b8f0437675c53"
+  },
+  "real_study": {
+    "terminals": 80,
+    "original_sources_unchanged": 3,
+    "reuse_integrity_pass": true,
+    "copied_files": 2,
+    "payload_preserved": true,
+    "controlled_assumption": {
+      "parameter": "specific_heat",
+      "classification": "assumed",
+      "unit": "J/(kg K)",
+      "before": 1006,
+      "after": 1010,
+      "flow_ratio": 0.996039603960396,
+      "all_terminal_minimum_and_maximum_scaled": true,
+      "total_cooling_unchanged": true
+    },
+    "reuse_copy_and_verification_seconds": 0.2628514000098221,
+    "summary_sha256": "8ecb6d226f540ffb88c9d3d785b13411af3db09ff9d246e95bd8f45ca6bb6899",
+    "checkpoint_sha256": "80b266d8895033983c6a6b9418e656334ac19408ee036ac15ed7a39d3b5d6f0e",
+    "reuse_receipt_sha256": "a2a4f7eadc0d491f7d7d29c8ad21fea30ead1aff5f27dcd57185cec8568b1109",
+    "copied_module_bytes": 168262
+  },
+  "limitations": [
+    "Only tested independent air/electrical numerical reuse paths",
+    "Unknown task ownership conservatively uses whole-workflow pins",
+    "Selected upstream profile versions; transitive in-place package edits not authenticated",
+    "Typed parameter diffs and integrated MCP selective replay pending",
+    "Native reopening/plot review and different real-project acceptance not completed here"
+  ],
+  "design_accepted": false,
+  "adapter_import_probe": {
+    "scope": "Cold import of changes CLI adapter only; Python allocations, not whole-process RAM or execution profile",
+    "elapsed_seconds": 0.01149129998520948,
+    "python_peak_bytes": 779567,
+    "engines_not_imported": [
+      "shapely",
+      "fluids",
+      "ifcopenshell",
+      "manifold3d",
+      "sqlite3"
+    ]
+  }
+}

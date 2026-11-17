@@ -1,3 +1,18 @@
+## Change impact and safe numerical reuse executed; integration remains open
+
+Existing receipts/provider verifiers and doctor now support CLI checkpoints,
+input/method/profile/artifact impact and byte-preserving numerical reuse.
+12controls pass in full/minimal profiles. Current durable group117cases:
+116pass,1existing offlineOCR skip, no failures/errors; receipt verified,
+all_tests_pass=false. An actual80terminal study preserves the baseline payload
+and propagates an explicitly assumed-property scenario through calculation and
+common report, without changing3original source files. See CHANGE_IMPACT.md and
+changes-first-slice.json. Reuse scope currently tested air/electrical only;
+other capabilities keep original execution. No acceptance/review is transferred.
+Next: typed parameter diffs, knowledge ownership, MCP/workflow selective replay,
+then differentREALproject validation. Full goal active; no release/course change,
+native CAD acceptance or user acceptance. Earlier checkpoints below historical.
+
 ## Knowledge now executes through existing MCP; impact is next
 
 The real SDK builds a source-bound index and retrieves five saved query results

@@ -1,3 +1,17 @@
+## Change impact and numerical reuse adapter (2026-11-18)
+
+Actual gap: source/method changes must invalidate consumers while allowing a
+verified independent numerical result to be reused. Reuse module result inputs,
+provider verify_evidence, workflow artifacts/task gates/context, doctor exact
+profile checks and common-data/report export. Existing HVAC refresh, drawing
+revision and bounded recovery controllers remain; do not replace their native
+or domain acceptance. Use a thin read-only checkpoint/impact layer plus stdlib
+byte-preserving copy and original verifiers, not a new solver/build framework.
+Actual air/electrical cases run; native/inherited/other-provider cache adoption
+remains unsupported and original execution is preserved. No new dependency or
+vendored engine. Record only existing upstream pin scope, not authentication of
+all transitive installed code. See CHANGE_IMPACT.md and its executed evidence.
+
 ## Knowledge workflow and citation-quality correction (2026-11-18)
 
 Reuse the existing40MCPtools, workflow task/gate validation, artifact audit and
