@@ -10,7 +10,7 @@ def fluids_method_paths():
         distribution=importlib.metadata.distribution('fluids')
     except importlib.metadata.PackageNotFoundError:return set()
     if distribution.version!='1.3.1':return set()
-    return {Path(distribution.locate_file('fluids/'+name)).resolve() for name in ('core.py','friction.py')}
+    return {Path(distribution.locate_file('fluids/'+name)).resolve() for name in ('core.py','friction.py','numerics/__init__.py')}
 
 
 def inherited_inputs_current(pins):

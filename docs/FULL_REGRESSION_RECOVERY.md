@@ -19,7 +19,8 @@ environment being inside the repository:
   checkout on Linux and in many normal installations. Registered providers now
   name their exact external runtime files; they cannot authorize arbitrary files.
   The inherited air-route chain shares a small method-evidence validator for
-  pinned Fluids 1.3.1 core.py/friction.py. The helper itself is source-pinned.
+  pinned Fluids 1.3.1 core.py, friction.py and numerics/__init__.py. The helper
+  itself is source-pinned; no package-directory wildcard is allowed.
   Project requests, declared sources and output locations still use the strict
   workspace checks. Source route data are checked separately from method files.
 - A missing-Graphviz test supplied a Windows AutoCAD path even on Linux, causing
@@ -39,6 +40,18 @@ Three controls pass. A source copy with its runtime physically outside the copie
 checkout is used for native regression. Exploratory runs exposed inherited rule
 and route consumers; their partial outcomes are not labelled acceptance. The final
 fixed-source targeted regression and corrected Linux CI remain to be inspected.
+
+Follow-up: corrected Linux water job 134019552918 passed its 11 direct EPANET,
+seven binding and 29 registered-provider/rule/boundary checks. A 37-case local
+external-runtime regression completed with unchanged sources: 33 passed, two
+failed, two errored, zero skipped. The remaining friction error identified the
+inherited interpolation method file, now included in the exact three-file list.
+The mixed path also exposed a variable-shadowing mistake in the new source-data
+loop; the loop variable is corrected. A direct replay of the already saved
+route now passes source geometry/property/frame preservation, seven local bodies,
+six connections and IFC schema checks. No upstream model was regenerated for that
+diagnostic replay. The focused eight-case current regression remains pending;
+these stage checks are not a whole-suite pass.
 
 The 258 skips are retained explicitly. They request host engines, official source
 caches, isolated adapters or explicit native fixtures. Dedicated engine jobs and

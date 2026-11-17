@@ -161,8 +161,8 @@ def run(producer, out):
     sources = [Path(p) for p in report['inputs'] if Path(p).suffix.lower() == '.ifc']
     if len(sources) != 1:
         raise ProjectError('One exact original source IFC required')
-    for sources in (report['inputs'],native['inputs'],bound['inputs']):
-        if any(not allowed(Path(name)) for name in sources):raise ProjectError('Source route dataset outside selected workspace')
+    for dataset in (report['inputs'],native['inputs'],bound['inputs']):
+        if any(not allowed(Path(name)) for name in dataset):raise ProjectError('Source route dataset outside selected workspace')
     if not inherited_inputs_current(inputs):raise ProjectError('Source route input, method or artifact changed')
     methods = {str(Path(p).resolve()): digest(Path(p)) for p in (__file__, inherited_inputs_current.__code__.co_filename, shape_hash.__code__.co_filename, endpoint_frames.__code__.co_filename)}
     source = sources[0]; route = selected/'bound/bim/model.ifc'

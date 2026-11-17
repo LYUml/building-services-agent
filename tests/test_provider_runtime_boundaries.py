@@ -15,12 +15,13 @@ from tests import test_modular_water as fixtures
 class RuntimeBoundaryTests(unittest.TestCase):
     def test_inherited_runtime_permission_is_exact_and_hash_bound(self):
         from bsa import runtime_evidence
-        trusted=runtime_evidence.fluids_method_paths();self.assertEqual(len(trusted),2)
+        trusted=runtime_evidence.fluids_method_paths();self.assertEqual(len(trusted),3)
         with patch.object(runtime_evidence,'allowed',return_value=False):
             self.assertTrue(runtime_evidence.inherited_inputs_current({str(p):digest(p) for p in trusted}))
             p=next(iter(trusted))
             self.assertFalse(runtime_evidence.inherited_inputs_current({str(p):'0'*64}))
-            unrelated=p.parent/'__init__.py'
+            import importlib.metadata
+            unrelated=Path(importlib.metadata.distribution('fluids').locate_file('fluids/__init__.py'))
             self.assertFalse(runtime_evidence.inherited_inputs_current({str(unrelated):digest(unrelated)}))
 
     def test_platform_selection_uses_installed_wntr_layout(self):
