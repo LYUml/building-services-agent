@@ -1,5 +1,10 @@
 # Candidate support and control boundaries
 
+Current implementation checkpoint: 7632371. All five core/profile jobs and all
+six domain jobs pass, including the remote SDK contract and lightweight profile
+gates. Fresh-source actual native MCP execution also passes. Whole-repository
+regression and final acceptance handoff remain pending.
+
 This contract describes the current candidate, not a stable release or user
 acceptance. Preserve the full multi-service roadmap. Existing experimental
 adapters do not become accepted simply because their module exists.
@@ -77,7 +82,7 @@ to each tool to confirm rejection before dispatch. The single direct tool,
 bsa_save_json, only saves fresh declarative JSON; domain validation is downstream.
 The gate executes no valid engineering call or native engine and proves no UI
 connection. It passed locally in the existing core-plus-network profile and is
-now part of core CI; its new remote execution remains to be observed.
+part of core CI; remote execution is observed at the current checkpoint above.
 
 Full engineering executions keep their separate evidence: USABILITY_ACCEPTANCE.md,
 REAL_PROJECT_REVISION.md and domain guides. Whole-repository regression is still

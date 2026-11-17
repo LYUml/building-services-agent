@@ -4,7 +4,9 @@ A new checkout/environment at implementation 7632371 now repeats the six actual
 stdio calls after the portability repairs, with the same constrained installation.
 Independent inspection passes, native DWG reopening reconciles 718 entities, and
 the 23-page report checks 388 numeric rows. The actual returned A1/report17 PNGs
-were viewed. Pip check and the selected-profile doctor pass. This does not approve
+were viewed; all 23 report pages were additionally rendered and viewed as six
+contact sheets, with no gross clipping, blank pages or table overflow observed.
+This overview does not authenticate every source fact. Pip check and the selected-profile doctor pass. This does not approve
 the isolated scenario as coursework. See
 [current native MCP evidence](evidence/current-candidate-native-mcp.json).
 The a6236c3 evidence below remains historical and has not been relabelled.

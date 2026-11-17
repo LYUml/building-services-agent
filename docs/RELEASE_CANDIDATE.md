@@ -12,6 +12,19 @@ quantified optimization evidence. Full-regression completion/skip review and
 final candidate handoff remain pending. Earlier checkpoints below are historical;
 they must not be read as the current list of unresolved failures.
 
+At implementation 7632371, all five core/profile and six domain jobs pass.
+External-runtime recovery passes eight of eight cases without skips. A fresh
+Git installation completes six actual native MCP calls, independent package
+inspection, DWG reopening and rendered-page review. The source candidate archive
+is downloaded and hash/inventory verified. Whole-repository regression remains
+the final running gate; no stable release or user acceptance is claimed.
+
+Measured optimizations now include 25,558,050 bytes less installed HVAC dependency
+content (10.68%), pump import peak 101.23 to 28.56 MiB and median import time
+0.513 to 0.042 seconds, plus the diagnostic transport figures below. These are
+different benchmark scopes; they are not total host/solver memory or speed claims.
+See CANDIDATE_GATE_AUDIT.md and the linked evidence for current results.
+
 ## First measured improvement: worker diagnostics
 
 MCP previously used `capture_output=True` for each engineering worker, then
@@ -53,7 +66,7 @@ coupled-pump and native annual analysis regression runs five tests: four pass,
 one explicit missing-PDF-fixture skip remains. These are not a complete release
 matrix. See [measured evidence](evidence/worker-transport-memory.json).
 
-## Remaining candidate gates
+## Historical candidate gate inventory
 
 Actual-project input revision propagation now has executed evidence: a copied
 47-section historical layout adopts a declared 0.8 Pa/m target, changes 44 sizes,

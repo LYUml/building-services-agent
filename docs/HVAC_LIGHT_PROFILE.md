@@ -31,6 +31,7 @@ review_required. This profile does not add manufacturer equipment acceptance.
 
 The fresh environment also passes pip check and 26 allocation, duct, terminal
 and missing-dependency controls, with no skips. CI now checks the same lightweight
-profile and verifies that Matplotlib/IFC/Manifold are not present; its new remote
-result is pending. Local native execution remains separate from Ubuntu CI.
+profile and verifies that Matplotlib/IFC/Manifold are not present; that remote
+job passes at implementation 7632371. Local native execution remains separate
+from Ubuntu CI.
 See [aggregate measured evidence](evidence/hvac-light-profile.json).

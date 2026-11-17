@@ -24,10 +24,12 @@
   "numeric_rows_checked": 388,
   "plot_sha256": "28d2c9aff7e78e3a4aecfcac1d470036c25ed8f18457a04c98bb90b662d5edf4",
   "report_sha256": "a41101f36700536cfd8554547c709665cec2928773a0e997cd6a108d48412003",
-  "visual_review": "Actual returned A1 and report17 PNGs viewed; other report pages not visually re-reviewed",
+  "visual_review": "Actual MCP-returned A1 and report17 PNGs viewed; all 23 report pages additionally rendered and viewed as six contact sheets for gross clipping, blank pages and table overflow. This overview does not authenticate every source fact or engineering criterion.",
   "reference_commit_verified": true,
   "pip_check_pass": true,
   "doctor_pass": true,
   "status": "review_required",
-  "design_accepted": false
+  "design_accepted": false,
+  "visual_overview_pages": 23,
+  "visual_overview_pass": true
 }
