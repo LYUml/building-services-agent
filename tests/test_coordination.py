@@ -39,7 +39,7 @@ class CoordinationTests(unittest.TestCase):
         import ifcopenshell
         import ifcopenshell.api
         p=json.loads(PROJECT.read_text())
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
             out=Path(folder)/'run';result=run(PROJECT,GEOMETRY,out)
             self.assertTrue(result['calculated_checks_pass'])
             self.assertEqual(len(result['devices']),3)
@@ -62,7 +62,7 @@ class CoordinationTests(unittest.TestCase):
         p['devices'][0].update(id='L1.1',x_m=3,electrical_kw=0.06,power_factor=0.95)
         g['devices'][0]['id']='L1.1'
         p['circuits'][0].update(phase='L2',breaker_a=3)
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
             root=Path(folder);project=root/'project.json';geometry=root/'geometry.json'
             project.write_text(json.dumps(p));geometry.write_text(json.dumps(g))
             result=run(project,geometry,root/'run')

@@ -3,11 +3,33 @@ from pathlib import Path
 import tempfile
 import unittest
 import uuid
+from unittest.mock import patch
 from bsa import check_runner as runner
 
 ROOT=Path(__file__).resolve().parents[1]
 
 class CheckRunnerTests(unittest.TestCase):
+    def test_whole_repository_mode_uses_fixed_discovery_and_actual_counts(self):
+        self.out.mkdir();runner.write(self.out/'request.json',dict(tests=['tests']))
+        observed=[];suite=unittest.TestSuite([unittest.FunctionTestCase(lambda:observed.append(True))])
+        with patch.object(unittest.TestLoader,'discover',return_value=suite) as discover:
+            self.assertEqual(runner.worker(self.out),0)
+        discover.assert_called_once_with(str(ROOT/'tests'))
+        self.assertEqual(observed,[True])
+        self.assertEqual(json.loads((self.out/'tests.json').read_text())['tests_run'],1)
+        for names in [['tests','tests.test_engine'],['other'],['../tests']]:
+            with self.subTest(names=names),self.assertRaises(ValueError):runner.selectors(names)
+
+    def test_discovery_loading_error_precedes_test_bodies(self):
+        self.out.mkdir();runner.write(self.out/'request.json',dict(tests=['tests']))
+        loader=unittest.TestLoader();loader.errors.append('Controlled discovery import failure')
+        observed=[];suite=unittest.TestSuite([unittest.FunctionTestCase(lambda:observed.append(True))])
+        with patch('bsa.check_runner.unittest.TestLoader',return_value=loader),patch.object(loader,'discover',return_value=suite):
+            self.assertEqual(runner.worker(self.out),1)
+        result=json.loads((self.out/'tests.json').read_text())
+        self.assertEqual(observed,[]);self.assertEqual(result['tests_run'],0)
+        self.assertEqual(result['loading_errors'],['Controlled discovery import failure'])
+
     def setUp(self):
         self.temporary=tempfile.TemporaryDirectory(dir=ROOT/'runs');self.addCleanup(self.temporary.cleanup)
         self.out=Path(self.temporary.name)/'checks'

@@ -1,3 +1,13 @@
+## Bounded diagnostics and full regression recovery
+
+Remote core profiles and energy/lighting/network passed at 68d5969. Water remains
+unresolved; bounded real worker diagnostics and a CI smoke now expose its cause.
+IFC fixture workspace correction passes locally. Electrical tests keep their
+minimal profile; whole-repository discovery moves to an all-extras job with load
+preflight and durable receipts. Local core command passes71; full collection1841
+is not a full-suite pass. See [evidence and limits](CI_RUNTIME_DIAGNOSTICS.md).
+No release or coursework change; candidate goal stays active.
+
 ## Remote CI diagnosis and lighter pump recovery
 
 Actual predecessor core CI passes on Windows/Ubuntu; other jobs exposed missing

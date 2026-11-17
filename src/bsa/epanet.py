@@ -230,8 +230,10 @@ def run(project,out):
             result['engine_failure']=dict(kind='timeout' if isinstance(exc,subprocess.TimeoutExpired) else 'worker_or_result_error',
                                           evidence='worker.log',hydraulic_result_available=False)
     if 'engine_failure' in result:
-        worker_text=(out/'worker.log').read_text(encoding='utf-8',errors='replace')
-        if 'application control policy' in worker_text.lower():
+        from .runtime_logs import inspect_log
+        diagnostics=inspect_log(out/'worker.log')
+        result['engine_failure']['diagnostics']=diagnostics
+        if diagnostics['application_control_policy']:
             result['engine_failure'].update(kind='application_control_block',
                 recovery='Use an approved runtime/deployment environment; changing pipe sizes cannot fix this startup failure')
     result.update(input_sha256=before,input_unchanged=digest(project)==before,source_data=p)
@@ -244,7 +246,10 @@ def run(project,out):
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('project');parser.add_argument('worker_project',nargs='?');parser.add_argument('--out',required=True,type=Path);args=parser.parse_args()
     if args.project=='_worker':worker(args.worker_project,args.out);return 0
-    result=run(args.project,args.out);print(json.dumps({k:result.get(k) for k in ('checks','engine_error','calculated_checks_pass','design_accepted')},indent=2));return 0 if result['calculated_checks_pass'] else 2
+    result=run(args.project,args.out)
+    keys=('checks','engine_error','calculated_checks_pass','design_accepted')
+    if 'engine_failure' in result:keys+=('engine_failure',)
+    print(json.dumps({k:result.get(k) for k in keys},indent=2));return 0 if result['calculated_checks_pass'] else 2
 
 
 if __name__=='__main__':raise SystemExit(main())

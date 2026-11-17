@@ -40,7 +40,8 @@ def water_runtime_failures(run, report, task_id):
         log=(Path(relative).parent/'worker.log').as_posix()
         if failure.get('evidence')!='worker.log' or log not in artifacts:
             raise ProjectError('water runtime failure lacks recorded worker log')
-        if 'application control policy' not in (run/log).read_text(encoding='utf-8',errors='replace').lower():
+        from .runtime_logs import inspect_log
+        if not inspect_log(run/log)['application_control_policy']:
             raise ProjectError('water policy failure classification differs from worker log')
         failures.append(dict(kind='application_control_block',report=relative,
                              report_sha256=artifacts[relative],evidence=log,evidence_sha256=artifacts[log]))

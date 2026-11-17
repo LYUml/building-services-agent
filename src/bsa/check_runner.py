@@ -33,6 +33,7 @@ def snapshot():
 
 
 def selectors(names):
+    if names==['tests']:return names  # Fixed whole-repository discovery, never a document path.
     if not isinstance(names,list) or not 1<=len(names)<=100 or len(set(names))!=len(names) or any(not isinstance(n,str) or not re.fullmatch(r'tests\.test_[A-Za-z0-9_]+(?:\.[A-Za-z_][A-Za-z0-9_]*){0,2}',n) for n in names):raise ValueError('Explicit unique repository unittest selectors required')
     return names
 
@@ -60,7 +61,8 @@ def worker(folder):
             self.executed.append(test.id());super().startTest(test)
         def addSuccess(self,test):
             self.passed.append(test.id());super().addSuccess(test)
-    loader=unittest.TestLoader();suite=loader.loadTestsFromNames(names)
+    loader=unittest.TestLoader()
+    suite=loader.discover(str(ROOT/'tests')) if names==['tests'] else loader.loadTestsFromNames(names)
     if loader.errors:
         for error in loader.errors:print(error,file=sys.stderr,flush=True)
         data=dict(tests_run=0,failures=0,errors=0,skipped=0,expected_failures=0,
@@ -113,11 +115,16 @@ def verify(out):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__);sub=parser.add_subparsers(dest='command',required=True)
-    command=sub.add_parser('run');command.add_argument('tests',nargs='+');command.add_argument('--out',required=True)
+    command=sub.add_parser('run');command.add_argument('tests',nargs='*');command.add_argument('--out',required=True)
+    command.add_argument('--all',action='store_true',help='Discover repository tests with loading preflight')
     for name in ['verify','worker']:sub.add_parser(name).add_argument('out')
     args=parser.parse_args()
     if args.command=='worker':return worker(Path(args.out))
-    result=run(args.tests,args.out) if args.command=='run' else verify(args.out)
+    if args.command=='run':
+        if args.all and args.tests:parser.error('--all cannot be combined with named selectors')
+        if not args.all and not args.tests:parser.error('Named selectors or --all required')
+        result=run(['tests'] if args.all else args.tests,args.out)
+    else:result=verify(args.out)
     print(json.dumps(result if args.command=='verify' else {k:result[k] for k in ['status','returncode','suite_pass','all_tests_pass','design_accepted']},indent=2))
     return 0 if result['suite_pass'] else 1
 

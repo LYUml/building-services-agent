@@ -27,7 +27,8 @@ jobs:
           tests.test_worker_transport tests.test_mcp_response_channel
           tests.test_mcp_startup tests.test_missing_dependency_errors
           tests.test_workspace_write_guards tests.test_project_workspace
-          tests.test_review_cli tests.test_recovery_imports tests.test_catalogue_iteration -v
+          tests.test_review_cli tests.test_recovery_imports tests.test_catalogue_iteration
+          tests.test_runtime_logs tests.test_check_runner -v
 
   pump-network:
     runs-on: ubuntu-latest
