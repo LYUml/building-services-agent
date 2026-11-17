@@ -49,6 +49,20 @@ matrix. See [measured evidence](evidence/worker-transport-memory.json).
 
 ## Remaining candidate gates
 
+Actual-project input revision propagation now has executed evidence: a copied
+47-section historical layout adopts a declared 0.8 Pa/m target, changes 44 sizes,
+updates 235 drawing cells, saves/reopens native DWG and produces a 23-page report
+with 388 numeric rows checked. Original sources and 20 VAV group table remain
+unchanged. Only A1 overview/report 17 were visually inspected in this scenario;
+manufacturer equipment selection and full acceptance remain separate. See
+[scope and measured evidence](REAL_PROJECT_REVISION.md).
+
+Source packaging CI at f16be23 also executed: Ubuntu core 76 tests pass, two source
+archives match SHA-256 `258a6c4316bc0f6291f3c422ff64b4e299c49a2f41d6ca64f90528dfb876e954`,
+and review artifact 14319616954 uploaded successfully. This is same-run/platform
+reproducibility; Windows/Git source conversion can produce a different archive.
+No cross-platform byte-identity or complete native-profile acceptance is claimed.
+
 - Core CI now has explicit minimal and SDK integration profiles, and the PDF
   test generates its own recorded fixture. Earlier48-test core jobs passed on
   actual Windows/Ubuntu runners. The current57-test core, network-only MCP and
