@@ -26,7 +26,7 @@ class SavedIFCDrawingTests(unittest.TestCase):
     def test_workflow_direct_ifc_sources_preserve_requirement_passage_mapping(self):
         from bsa.workflow import execute,verify
         from bsa.cli import digest
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);(root/'source.ifc').write_bytes(SOURCE.read_bytes())
             (root/'settings.json').write_text(json.dumps(dict(projection_axes=['X','Z'],annotation_height_m=.12,source='synthetic direct IFC test')))
             brief=root/'brief.md';brief.write_text('Read the existing saved IFC and retain source-linked evidence.\n')
@@ -42,7 +42,7 @@ class SavedIFCDrawingTests(unittest.TestCase):
     def test_saved_profiles_drive_schedule_and_reopened_dxf(self):
         import ezdxf
         before=SOURCE.read_bytes()
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);settings=root/'settings.json'
             settings.write_text(json.dumps(dict(projection_axes=['X','Z'],annotation_height_m=.12,source='synthetic test')))
             result=run(SOURCE,settings,root/'drawing')
@@ -75,7 +75,7 @@ class SavedIFCDrawingTests(unittest.TestCase):
 
     def test_native_millimetres_and_unsupported_or_inconsistent_geometry(self):
         import ifcopenshell
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);model=ifcopenshell.open(str(SOURCE))
             for point in model.by_type('IfcCartesianPoint'):
                 point.Coordinates=tuple(v*1000 for v in point.Coordinates)
@@ -102,7 +102,7 @@ class SavedIFCDrawingTests(unittest.TestCase):
     def test_workflow_dependency_and_drawing_artifact_integrity(self):
         from bsa.workflow import execute, verify, validate_plan
         from bsa.cli import digest
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);(root/'brief.md').write_text('Draw saved IFC segments from explicit profiles and ports.\n')
             (root/'model.json').write_bytes((ROOT/'examples/water-riser/model.json').read_bytes())
             (root/'settings.json').write_text(json.dumps(dict(projection_axes=['X','Z'],annotation_height_m=.12,source='synthetic test')))
@@ -118,7 +118,7 @@ class SavedIFCDrawingTests(unittest.TestCase):
 
     def test_rotated_product_placement_preserves_true_length_and_port_world_points(self):
         import ifcopenshell
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             model=ifcopenshell.open(str(SOURCE));pipe=model.by_type('IfcPipeSegment')[0]
             relative=pipe.ObjectPlacement.RelativePlacement
             relative.Axis.DirectionRatios=(.6,0.,.8)
@@ -135,7 +135,7 @@ class SavedIFCDrawingTests(unittest.TestCase):
         import ifcopenshell
         import ifcopenshell.api
         from bsa.cli import digest
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             model=ifcopenshell.open(str(SOURCE))
             for pipe in model.by_type('IfcPipeSegment'):
                 for relation in list(pipe.IsDefinedBy):

@@ -10,7 +10,7 @@ from bsa.workflow import execute, verify
 
 class DrainageWorkflowTests(unittest.TestCase):
     def test_execution_blocking_and_integrity(self):
-        with tempfile.TemporaryDirectory() as tmp:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as tmp:
             root = Path(tmp)
             def save(name, value):
                 path = root / name
@@ -58,7 +58,7 @@ class DrainageWorkflowTests(unittest.TestCase):
 
     def test_source_pin_is_not_optional(self):
         from bsa.drainage_connections import run
-        with tempfile.TemporaryDirectory() as tmp:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as tmp:
             root = Path(tmp)
             source = root / 'fake.txt'
             source.write_text('Not official')

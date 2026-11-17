@@ -1,3 +1,11 @@
+## Workspace and clean-source verification
+
+CLI/workflow/review and MCP paths now enforce selected workspaces and protected
+history.202legacy-regression tests:190pass/12skip;67targeted checks pass and
+20final setup/history checks pass. Independent publicsource/newvenv executes
+real native CLI+MCP inspection,with343product Python files matching. Fullagent
+goal remains active. See [scope and evidence](WORKSPACE_ISOLATION.md).
+
 ## Extended host runtime setup verified
 
 The project installer now shares all12existing server path flags and preserves

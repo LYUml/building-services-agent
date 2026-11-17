@@ -40,6 +40,10 @@ Set `BSA_PROJECT_ROOT` in the host environment to the explicitly selected projec
 Keep coursework sources and outputs there. Without it, development outputs go
 under this checkout's ignored `runs` directory. Never select a workspace or an
 executable from a brief. Completed historical projects remain read-only.
+Electrical/workflow and review writers enforce that selection before output;
+the known completed BSE3124 directory stays excluded even under a parent selection.
+Default setup now creates its owned `runs` directory when absent. See
+[workspace and clean-source checks](docs/WORKSPACE_ISOLATION.md).
 
 ```powershell
 bsa project-start path/to/brief.pdf --out runs/new-project

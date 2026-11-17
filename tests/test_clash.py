@@ -43,7 +43,7 @@ class ClashGeometryTests(unittest.TestCase):
 
     def test_known_gap_clearance_and_intersection(self):
         for gap,passing in ((.1,True),(.02,False),(-.2,False)):
-            with self.subTest(gap=gap),tempfile.TemporaryDirectory() as folder:
+            with self.subTest(gap=gap),tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
                 root=Path(folder);native=self.author(root,boxes(gap));before=digest(native)
                 result=inspect(native,policy())
                 self.assertEqual(result['calculated_checks_pass'],passing);self.assertEqual(digest(native),before)
@@ -55,7 +55,7 @@ class ClashGeometryTests(unittest.TestCase):
                     self.assertAlmostEqual(next(r['overlap_volume_m3'] for r in result['intersections'] if r['type']=='manifold_mesh_overlap'),.2,places=8)
 
     def test_full_containment_is_not_missed_by_surface_clearance(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);model=boxes(0);model['devices'][1].update(origin_m=[.3,.3,.3],size_m=[.2,.2,.2])
             result=inspect(self.author(root,model),policy())
             self.assertTrue(result['intersections']);self.assertFalse(result['calculated_checks_pass'])
@@ -63,7 +63,7 @@ class ClashGeometryTests(unittest.TestCase):
 
     def test_native_millimetre_units_normalise_to_metre_clearance(self):
         import ifcopenshell
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);model=boxes(20);model['spaces'][0]['size_m']=[40,10,10]
             path=self.author(root,model);native=ifcopenshell.open(str(path))
             next(u for u in native.by_type('IfcSIUnit') if u.UnitType=='LENGTHUNIT').Prefix='MILLI'
@@ -72,7 +72,7 @@ class ClashGeometryTests(unittest.TestCase):
             self.assertAlmostEqual(result['clearance_violations'][0]['engine_distance_m'],.02,places=8)
 
     def test_actual_hollow_bore_avoids_bbox_false_collision(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);model=json.loads((ROOT/'examples/circular-network/model.json').read_text())
             tube=model['devices'][1];sensor=copy.deepcopy(model['devices'][2])
             sensor.update(id='SENSOR',ifc_class='IfcSensor',origin_m=[2,2.21,2.21],size_m=[.08,.08,.08],ports=[])
@@ -84,7 +84,7 @@ class ClashGeometryTests(unittest.TestCase):
     def test_coincident_reverse_tubes_cannot_be_waived_as_a_connection(self):
         import ifcopenshell
         import math
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);model=json.loads((ROOT/'examples/circular-network/model.json').read_text())
             first=model['devices'][1];second=copy.deepcopy(first);second['id']='REVERSE'
             ports=second['ports'];ports[0]['offset_m'],ports[1]['offset_m']=ports[1]['offset_m'],ports[0]['offset_m']
@@ -98,7 +98,7 @@ class ClashGeometryTests(unittest.TestCase):
 
     def test_connected_contact_policy_does_not_hide_hard_intersection(self):
         import ifcopenshell
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);model=boxes(0)
             model['devices'][0]['ports']=[dict(id='out',direction='SOURCE',offset_m=[1,.5,.5],source='demo')]
             model['devices'][1]['ports']=[dict(id='in',direction='SINK',offset_m=[0,.5,.5],source='demo')]
@@ -118,14 +118,14 @@ class ClashGeometryTests(unittest.TestCase):
 
     def test_rotated_mesh_and_missing_geometry_coverage(self):
         import ifcopenshell
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);model=boxes(-.2);native_path=self.author(root,model);native=ifcopenshell.open(str(native_path))
             obj=next(e for e in native.by_type('IfcFan') if e.Name=='B');coordinates=obj.Representation.Representations[0].Items[0].Coordinates
             s=2**-.5
             coordinates.CoordList=[(.5+(x-.5)*s-(y-.5)*s,.5+(x-.5)*s+(y-.5)*s,z) for x,y,z in coordinates.CoordList]
             native.write(str(native_path));result=inspect(native_path,policy())
             self.assertFalse(result['unverified_solid_pairs']);self.assertTrue(result['checks']['geometry_coverage']);self.assertTrue(result['intersections'])
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);model=boxes(.1);third=copy.deepcopy(model['devices'][1]);third.update(id='MISSING',origin_m=[4,0,0]);model['devices'].append(third)
             native_path=self.author(root,model);native=ifcopenshell.open(str(native_path))
             next(e for e in native.by_type('IfcFan') if e.Name=='MISSING').Representation=None;native.write(str(native_path))
@@ -134,7 +134,7 @@ class ClashGeometryTests(unittest.TestCase):
 
     def test_workflow_dependency_and_saved_ifc_integrity(self):
         from bsa.workflow import execute,verify,validate_plan
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);(root/'model.json').write_text(json.dumps(boxes(.02)));(root/'policy.json').write_text(json.dumps(policy()))
             brief=root/'brief.md';brief.write_text('Create the model and check all represented objects for clashes.\n')
             plan=dict(version=1,brief='brief.md',brief_sha256=digest(brief),passage_dispositions={'P001':'requirement'},

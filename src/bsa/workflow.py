@@ -31,6 +31,8 @@ def passages(brief,ocr=None):
 
 def intake(brief,out,ocr=None,supplements=None):
     brief,out=brief.resolve(),out.resolve()
+    from . import workspace
+    if not workspace.allowed(brief) or not workspace.intake_output(out):raise ProjectError('Explicit selected intake input and output workspace required')
     if out==brief:raise ProjectError("cannot overwrite brief")
     if out.exists():raise ProjectError("refusing to overwrite intake")
     spec=dict(brief=brief.name,brief_sha256=digest(brief))
@@ -1226,6 +1228,8 @@ def requirement_support(requirement,tasks,artifacts):
 
 def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_python=None,three_phase_python=None,graphviz=None,pdf2plot_python=None,honeybee_python=None,module_providers=None,module_runtime=None,disabled_module_providers=(),requirements_result=None):
     plan,out=plan.resolve(),out.resolve()
+    from . import workspace
+    if not workspace.allowed(plan) or not workspace.intake_output(out):raise ProjectError('Explicit selected workflow input and output workspace required')
     p,inputs=validate_plan(plan);inputs.add(plan)
     from .requirements_binding import bind as bind_requirements
     requirements_inventory=None

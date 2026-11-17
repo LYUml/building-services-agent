@@ -20,7 +20,7 @@ class SupportingEvidenceTests(unittest.TestCase):
         path=root/'plan.json';path.write_text(json.dumps(plan));return path
 
     def test_actual_calculation_supports_pending_requirement_without_acceptance(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);plan=self.fixture(root);out=root/'run';result=execute(plan,out)
             row=result['requirements'][1];support=row['supporting_evidence']['calculation']
             self.assertEqual(row['execution_status'],'pending');self.assertEqual(row['evidence'],[])
@@ -41,20 +41,20 @@ class SupportingEvidenceTests(unittest.TestCase):
             self.assertTrue(verify(out)['integrity_pass']);context(plan,out)
 
     def test_failed_support_retains_failed_status_and_pending_primary(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);plan=self.fixture(root);project=root/'project.json';d=json.loads(project.read_text());d['circuits'][0]['breaker_a']=.1;project.write_text(json.dumps(d))
             result=execute(plan,root/'run');row=result['requirements'][1]
             self.assertEqual(row['supporting_evidence']['calculation']['status'],'fail');self.assertEqual(row['execution_status'],'pending')
 
     def test_invalid_unknown_duplicate_and_primary_support_reject(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);path=self.fixture(root);original=json.loads(path.read_text())
             for value in [['missing'],['calculation','calculation'],['review'],'calculation']:
                 data=json.loads(json.dumps(original));data['requirements'][1]['supporting_tasks']=value;path.write_text(json.dumps(data))
                 with self.assertRaises(ValueError):validate_plan(path)
 
     def test_forged_support_or_omitted_binding_rejects_source_and_delivery_audit(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);plan=self.fixture(root);out=root/'run';execute(plan,out);path=out/'workflow.json';original=path.read_bytes()
             for action in ['status','files','omit','tasks']:
                 report=json.loads(original);row=report['requirements'][1]

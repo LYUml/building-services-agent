@@ -32,7 +32,7 @@ def fixture(root):
 
 class CADIntakeTests(unittest.TestCase):
     def test_mm_l_shaped_area_inventory_and_source_hash(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);path,selection=fixture(root);before=digest(path)
             data=inventory(path);result=measure(data,selection)
             self.assertEqual(result['areas'][0]['area_m2'],18)
@@ -48,7 +48,7 @@ class CADIntakeTests(unittest.TestCase):
             self.assertEqual(digest(path),before);self.assertFalse(report['design_accepted'])
 
     def test_unit_mismatch_unitless_and_curved_or_open_boundary_rejected(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);path,s=fixture(root);data=inventory(path)
             for update in ({'metres_per_unit':None},{'metres_per_unit':1}):
                 candidate=copy.deepcopy(data);candidate.update(update)
@@ -69,7 +69,7 @@ class CADIntakeTests(unittest.TestCase):
         self.assertEqual(polygon_area(points),6)
 
     def test_missing_engine_and_output_source_overlap_rejected(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);path,_=fixture(root)
             with self.assertRaises(ProjectError):run(path,root)
             dwg=root/'fake.dwg';dwg.write_bytes(b'not DWG')
@@ -78,7 +78,7 @@ class CADIntakeTests(unittest.TestCase):
 
     def test_workflow_tracks_selection_and_missing_dwg_engine_stays_pending(self):
         from bsa.workflow import execute as workflow,verify
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);drawing,selection=fixture(root)
             selected=root/'selection.json';selected.write_text(json.dumps(selection))
             brief=root/'brief.md';brief.write_text('Extract the selected room boundary after the known dimension check.\n')

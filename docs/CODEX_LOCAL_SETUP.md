@@ -1,5 +1,11 @@
 # Project-scoped Codex startup
 
+Fresh-source setup now initializes its owned default `runs` directory and reports
+`data_root_created`. Default MCP startup can initialize the same directory;
+external projects must already exist, and protected resolved data paths reject.
+An actual independent source copy/new environment executes native CLI and MCP
+checks; see [clean-source evidence](WORKSPACE_ISOLATION.md).
+
 The installer now accepts every existing server path flag, using the same
 lightweight host-only registry as the MCP launcher. In addition to AutoCAD and
 Poppler, file flags are `--energyplus`, `--ifcmcp-python`, `--three-phase-python`,

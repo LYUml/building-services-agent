@@ -100,7 +100,7 @@ class PumpOperatingTests(unittest.TestCase):
         result,selected=solve(network,curve)
         self.assertEqual(result['status'],'not_bracketed');self.assertIsNone(selected);self.assertEqual(len(result['trace']),2)
         network,curve,_=case(2.17e-6);curve['max_iterations']=1
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);p=root/'network.json';c=root/'curve.json'
             p.write_text(json.dumps(network));c.write_text(json.dumps(curve))
             result=run(p,c,root/'run');self.assertEqual(result['status'],'not_converged')
@@ -111,7 +111,7 @@ class PumpOperatingTests(unittest.TestCase):
         from bsa.workflow import execute,verify
         from bsa.cli import digest
         network,curve,_=case()
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);(root/'network.json').write_text(json.dumps(network));(root/'curve.json').write_text(json.dumps(curve))
             brief=root/'brief.md';brief.write_text('Calculate the sourced pump operating state and retain failures.\n')
             tasks=[dict(id='pump',kind='pump_operating_point',project='network.json',curve='curve.json')]
@@ -132,7 +132,7 @@ class PumpOperatingTests(unittest.TestCase):
     @unittest.skipUnless(importlib.util.find_spec('ifcopenshell') and importlib.util.find_spec('manifold3d'),'requires model/clash runtimes')
     def test_model_derived_workflow_and_pump_artifact_integrity(self):
         from bsa.workflow import execute,verify
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             out=Path(folder)/'run';result=execute(ROOT/'examples/water-riser/pump-plan.json',out)
             self.assertTrue(result['execution_pass']);self.assertTrue(verify(out)['integrity_pass'])
             pump=json.loads((out/'pump/pump.json').read_text())

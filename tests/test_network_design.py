@@ -71,7 +71,7 @@ class NetworkDesignTests(unittest.TestCase):
 
     @unittest.skipUnless(importlib.util.find_spec('fluids'),'requires network runtime')
     def test_actual_baseline_failure_selected_rerun_and_source_preservation(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);project,catalogue=inputs();paths=[]
             for name,data in (('project',project),('catalogue',catalogue)):
                 path=root/(name+'.json');path.write_text(json.dumps(data));paths.append(path)
@@ -101,7 +101,7 @@ class NetworkDesignTests(unittest.TestCase):
     @unittest.skipUnless(importlib.util.find_spec('fluids'),'requires network runtime')
     def test_workflow_success_failure_and_integrity(self):
         from bsa.workflow import execute,verify
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);project,catalogue=inputs()
             (root/'project.json').write_text(json.dumps(project));(root/'catalogue.json').write_text(json.dumps(catalogue))
             brief=root/'brief.md';brief.write_text('Compare all supplied pipe choices and retain failures.\n')

@@ -1,5 +1,10 @@
 # Shared project command entry
 
+Electrical `run`, workflow intake/execution and delivery review outputs enforce
+the shared host workspace selection. An unselected `--review` is rejected before
+project execution. Known read-only history remains excluded even under a broad
+parent workspace. See [isolation checks](WORKSPACE_ISOLATION.md).
+
 The installed entry also offers `bsa doctor --extra drawing --extra mcp` and
 `bsa drawing run/inspect`. These reuse the existing dependency declarations and
 MCP drawing dispatch. See [current installation and execution](AGENT_USABILITY.md)

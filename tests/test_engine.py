@@ -40,7 +40,7 @@ class ElectricalTests(unittest.TestCase):
 
     def test_artifacts_and_source_preservation(self):
         before=EXAMPLE.read_bytes()
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             out=Path(folder)/"run"
             run(EXAMPLE,out)
             m=json.loads((out/"manifest.json").read_text())

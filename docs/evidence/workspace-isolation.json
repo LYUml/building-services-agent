@@ -1,0 +1,105 @@
+{
+  "scope": "Host entry-point workspace/history guards and independent clean-source usability; not OS security or engineering acceptance",
+  "regression_groups": [
+    {
+      "group": "core",
+      "modules": [
+        "test_air_allocation",
+        "test_allocation_lookup",
+        "test_delivery",
+        "test_demand_workflow",
+        "test_documents",
+        "test_drainage_connection_workflow",
+        "test_drainage_stack_workflow",
+        "test_duct_schedule",
+        "test_duct_sheet",
+        "test_electrical_fault",
+        "test_engine",
+        "test_network",
+        "test_network_design",
+        "test_pump",
+        "test_supporting_evidence",
+        "test_terminal_throw",
+        "test_workflow"
+      ],
+      "returncode": 0,
+      "tests": 108,
+      "seconds": 14.35899999999674
+    },
+    {
+      "group": "native",
+      "modules": [
+        "test_bim",
+        "test_cad_intake",
+        "test_cad_overlay",
+        "test_clash",
+        "test_ifc_drawing",
+        "test_ifc_native",
+        "test_ifc_views",
+        "test_network_model_design",
+        "test_pump_electrical",
+        "test_water_binding",
+        "test_water_riser"
+      ],
+      "returncode": 0,
+      "tests": 66,
+      "seconds": 78.625
+    },
+    {
+      "group": "runtimes",
+      "modules": [
+        "test_annual_energy",
+        "test_epanet",
+        "test_lighting",
+        "test_lighting_binding"
+      ],
+      "returncode": 0,
+      "tests": 28,
+      "seconds": 20.235000000000582
+    }
+  ],
+  "regression_tests": 202,
+  "regression_passed": 190,
+  "regression_skipped": 12,
+  "targeted_final_tests_passed": 67,
+  "final_history_setup_project_tests_passed": 20,
+  "legacy_fixture_modules_scoped": 32,
+  "source_formulas_changed": false,
+  "unselected_writes_reject_before_output": true,
+  "unselected_review_rejects_before_execution": true,
+  "explicit_external_electrical_DXF_and_intake_pass": true,
+  "synthetic_MCP_history_writer_rejected": true,
+  "actual_history_only_path_queried_no_test_writes": true,
+  "history_guard_survives_source_relocation": true,
+  "bootstrap_only_owned_data_root": true,
+  "fresh_source": {
+    "fresh_public_source_copy": true,
+    "no_preexisting_runs_or_local_config": true,
+    "independent_new_environment": true,
+    "installed_source_identity_confirmed": true,
+    "setup_initialized_owned_runs": true,
+    "actual_installed_native_workflow_pass": true,
+    "original_requirements_retained": 2,
+    "manual_review_pending": true,
+    "environment_dependency_check_pass": true,
+    "design_accepted": false,
+    "fresh_MCP_tool_count": 40,
+    "fresh_MCP_native_inspection_pass": true,
+    "fresh_MCP_outside_data_root_rejected": true,
+    "all_current_product_Python_files_match_fresh_source": true,
+    "product_python_file_count": 343,
+    "final_setup_idempotent": true
+  },
+  "fresh_native_plot_matches_inspected_fixture": true,
+  "product_source_sha256": {
+    "workspace.py": "433967044e58c84f237fb655ac14be8380b2b7f922a1cebc828bbbbd1f734e23",
+    "cli.py": "de236897b4ca07a24feb87e29b7e73e16c75b4ca29ba94d9e5b5c867fd511a00",
+    "workflow.py": "f66699c19aa2a867b6dc8160dc72c34b0eb22359cbd1ce38dbac119ab3c9dcbf",
+    "delivery.py": "950a91d11e6f94ca33aa1ae1ff28cbf89cd283d72e432f48595a94845ed710d7",
+    "mcp_server.py": "e341cd7012d4ff5e07d69168dd4b1a93a5df08cf2b54098c86909b9ebeef7132",
+    "codex_setup.py": "3a55c1a591f83ecbba3d5f6acae1af940b9b9d72ae9e9056404615ae7ecec0b2"
+  },
+  "coursework_modified": false,
+  "design_accepted": false,
+  "whole_agent_complete": false
+}

@@ -11,7 +11,7 @@ from bsa.engine import ProjectError
 
 class AllocationLookupTests(unittest.TestCase):
     def setUp(self):
-        self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
+        self.temp=tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs');self.addCleanup(self.temp.cleanup)
         self.root=Path(self.temp.name).resolve()
         boundary=self.root/'boundary.json';boundary.write_text(json.dumps(mapping(box(0,0,10,4))))
         brief=self.root/'brief.md';brief.write_text('Allocate and look up terminal throws.\n')

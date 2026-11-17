@@ -34,7 +34,7 @@ class SavedWaterBindingTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         from bsa.bim import run as author
-        cls.temp=tempfile.TemporaryDirectory();cls.root=Path(cls.temp.name)
+        cls.temp=tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs');cls.root=Path(cls.temp.name)
         cls.authored=author(EXAMPLE/'model.json',cls.root/'model')
         cls.ifc=cls.root/'model/model.ifc'
 
@@ -43,7 +43,7 @@ class SavedWaterBindingTests(unittest.TestCase):
 
     def mutated(self,change):
         import ifcopenshell
-        folder=tempfile.TemporaryDirectory();self.addCleanup(folder.cleanup)
+        folder=tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs');self.addCleanup(folder.cleanup)
         model=ifcopenshell.open(str(self.ifc));change(model)
         path=Path(folder.name)/'changed.ifc';model.write(str(path));return path
 
@@ -59,7 +59,7 @@ class SavedWaterBindingTests(unittest.TestCase):
         self.assertTrue(drawing['calculated_checks_pass']);self.assertEqual(drawing['segment_count'],6)
         self.assertTrue(all(r['sink_port_guid'] is None and r['source_port_guid'] is None for r in drawing['segments']))
         before=digest(self.ifc)
-        with tempfile.TemporaryDirectory() as f:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as f:
             out=Path(f)/'run';r=run(EXAMPLE/'project.json',self.ifc,EXAMPLE/'binding.json',out)
             self.assertTrue(r['calculated_checks_pass'],r);self.assertTrue(r['ifc_copy_unchanged'])
             self.assertFalse(r['design_accepted']);self.assertEqual(digest(out/'model.ifc'),before)
@@ -87,7 +87,7 @@ class SavedWaterBindingTests(unittest.TestCase):
         import ifcopenshell
         import ifcopenshell.util.unit as unit
         p,b=inputs()
-        with tempfile.TemporaryDirectory() as f:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as f:
             mm=unit.convert_file_length_units(ifcopenshell.open(str(self.ifc)),'MILLIMETER')
             path=Path(f)/'mm.ifc';mm.write(str(path));derived,e=derive(path,p,b)
             self.assertEqual(e['length_unit_to_m'],.001)
@@ -123,7 +123,7 @@ class SavedWaterBindingTests(unittest.TestCase):
 
     def test_actual_workflow_and_direct_saved_ifc_input_keep_integrity(self):
         from bsa.workflow import execute,verify
-        with tempfile.TemporaryDirectory() as f:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as f:
             root=Path(f);r=execute(EXAMPLE/'plan.json',root/'workflow')
             self.assertTrue(r['execution_pass']);self.assertTrue(verify(root/'workflow')['integrity_pass'])
             for name in ('project.json','binding.json','brief.md'):(root/name).write_bytes((EXAMPLE/name).read_bytes())

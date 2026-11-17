@@ -66,7 +66,7 @@ class NetworkTests(unittest.TestCase):
         p=json.loads(WATER.read_text());r=calculate(p);s=r['segments'][0]
         self.assertAlmostEqual(s['elevation_pressure_pa'],998*9.80665*5)
         self.assertAlmostEqual(r['required_source_total_pressure_pa'],100000+s['dissipative_loss_pa']+998*9.80665*5)
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             out=Path(folder)/'run';run(WATER,out)
             self.assertTrue(json.loads((out/'manifest.json').read_text())['input_unchanged'])
             self.assertTrue((out/'segments.csv').is_file())
@@ -76,7 +76,7 @@ class NetworkTests(unittest.TestCase):
     def test_failed_pressure_budget_marks_workflow_failed(self):
         from bsa.workflow import execute
         from bsa.cli import digest
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);brief=root/'brief.md';brief.write_text('Check this pressure budget.\n')
             p=json.loads(WATER.read_text());p['supply']['total_pressure_pa']=1
             (root/'project.json').write_text(json.dumps(p))

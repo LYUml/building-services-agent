@@ -6,7 +6,7 @@ from bsa.duct_sheet import run
 
 class DuctSheetTests(unittest.TestCase):
  def test_saved_update_and_invalid_binding_controls(self):
-  with tempfile.TemporaryDirectory() as folder:
+  with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
    root=Path(folder);d=ezdxf.new();d.units=6;m=d.modelspace();line=m.add_line((0,0),(2,0));base=m.add_circle((4,4),1)
    cells=[m.add_text(v,dxfattribs={'insert':(i,3)}) for i,v in enumerate(['S','old q','old size','old v','old f'])]
    source=root/'source.dxf';d.saveas(source)
@@ -28,7 +28,7 @@ class DuctSheetTests(unittest.TestCase):
   from bsa.workflow import execute,verify,validate_plan
   from bsa.engine import ProjectError
   from unittest.mock import patch
-  with tempfile.TemporaryDirectory() as folder:
+  with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
    root=Path(folder).resolve();d=ezdxf.new();d.units=6;m=d.modelspace();line=m.add_line((0,0),(2,0))
    cells=[m.add_text(v,dxfattribs={'insert':(i,3)}) for i,v in enumerate(['S','q','size','v','f'])]
    source=root/'source.dxf';d.saveas(source)
@@ -73,7 +73,7 @@ class DuctSheetTests(unittest.TestCase):
    with self.assertRaisesRegex(ProjectError,'override'):validate_plan(path)
 
  def test_tree_node_identity_and_geometric_continuity(self):
-  with tempfile.TemporaryDirectory() as folder:
+  with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
    root=Path(folder);d=ezdxf.new();d.units=6;m=d.modelspace();bindings={};rows=[]
    for index,(sid,start,end,first,last) in enumerate([('A',(0,0),(2,0),'R','J'),('B',(2,0),(4,0),'J','L')]):
     line=m.add_line(start,end)

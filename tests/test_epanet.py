@@ -45,7 +45,7 @@ class WaterInputTests(unittest.TestCase):
 @unittest.skipUnless(importlib.util.find_spec('wntr'),'requires optional water runtime')
 class WaterEngineTests(unittest.TestCase):
     def execute(self,p):
-        folder=tempfile.TemporaryDirectory();self.addCleanup(folder.cleanup)
+        folder=tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs');self.addCleanup(folder.cleanup)
         source=Path(folder.name)/'project.json';source.write_text(json.dumps(p))
         original=digest(source);out=Path(folder.name)/'run'
         result=run(source,out)
@@ -167,7 +167,7 @@ class WaterEngineTests(unittest.TestCase):
 
     def test_workflow_runs_and_integrity_detects_native_input_tamper(self):
         from bsa.workflow import execute,verify
-        with tempfile.TemporaryDirectory() as f:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as f:
             out=Path(f)/'workflow';r=execute(ROOT/'examples/water-loop/plan.json',out)
             self.assertTrue(r['execution_pass'],r);self.assertFalse(r['design_accepted'])
             self.assertTrue(verify(out)['integrity_pass'])

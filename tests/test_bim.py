@@ -28,7 +28,7 @@ class BIMTests(unittest.TestCase):
 
     @unittest.skipUnless(importlib.util.find_spec('ifcopenshell'),'optional IFC dependency')
     def test_real_ifc_schema_geometry_and_connectivity(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             r=run(PROJECT,Path(folder)/'ifc')
             self.assertTrue(all(r['checks'].values()))
             self.assertFalse(r['design_accepted'])
@@ -38,7 +38,7 @@ class BIMTests(unittest.TestCase):
 
     @unittest.skipUnless(importlib.util.find_spec('ifcopenshell'),'optional IFC dependency')
     def test_bim_adapter_in_source_linked_workflow(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);brief=root/'brief.md'
             brief.write_text('Create the synthetic IFC envelope model.\n',encoding='utf-8')
             (root/'project.json').write_bytes(PROJECT.read_bytes())

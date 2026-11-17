@@ -74,7 +74,7 @@ class NetworkModelDesignTests(unittest.TestCase):
 
     @unittest.skipUnless(importlib.util.find_spec('ifcopenshell') and importlib.util.find_spec('fluids'),'requires BIM/network runtimes')
     def test_actual_selected_ifc_pressure_and_tamper_detection(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);data=inputs();paths=[]
             for name,item in zip(('network','model','binding','catalogue','geometry'),data):
                 p=root/(name+'.json');p.write_text(json.dumps(item));paths.append(p)
@@ -109,7 +109,7 @@ class NetworkModelDesignTests(unittest.TestCase):
 
     @unittest.skipUnless(importlib.util.find_spec('ifcopenshell') and importlib.util.find_spec('fluids'),'requires BIM/network runtimes')
     def test_no_contained_geometry_keeps_baseline_and_no_selected_model(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);data=inputs();paths=[]
             for row in data[4]['options'].values():row['outside_diameter_m']=2
             for name,item in zip(('network','model','binding','catalogue','geometry'),data):
@@ -124,7 +124,7 @@ class NetworkModelDesignTests(unittest.TestCase):
     @unittest.skipUnless(importlib.util.find_spec('ifcopenshell') and importlib.util.find_spec('fluids'),'requires BIM/network runtimes')
     def test_workflow_sources_and_changed_selected_ifc_detected(self):
         from bsa.workflow import execute,verify
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder)
             for name,item in zip(('network','model','binding','catalogue','geometry'),inputs()):(root/(name+'.json')).write_text(json.dumps(item))
             brief=root/'brief.md';brief.write_text('Resize the selected route and reconcile its saved model.\n')

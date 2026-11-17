@@ -43,7 +43,7 @@ def pdf_fixture(path, texts):
 class DocumentTests(unittest.TestCase):
     def test_true_trailing_blank_still_needs_visual_review(self):
         from pypdf import PdfReader,PdfWriter
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             source=Path(folder)/'text.pdf';pdf_fixture(source,['Source requirement'])
             writer=PdfWriter();writer.append(PdfReader(source));writer.add_blank_page(width=600,height=800)
             path=Path(folder)/'trailing.pdf';writer.write(path)
@@ -56,7 +56,7 @@ class DocumentTests(unittest.TestCase):
             self.assertEqual(extract(empty)['coverage_status'],'blocked')
 
     def test_nested_textbox_requirements_keep_independent_locators(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             path=Path(folder)/'brief.docx'
             word_fixture(path,
                 '<w:p><w:r><w:t>Outer requirement.</w:t></w:r>'
@@ -101,7 +101,7 @@ class DocumentTests(unittest.TestCase):
             self.assertEqual(result['requirements'][1]['source_locator']['xml_path'],rows[1]['xml_path'])
 
     def test_word_table_header_and_note_locators(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             path=Path(folder)/'brief.docx'
             word_fixture(path,'<w:p><w:r><w:t>机电要求</w:t></w:r></w:p><w:tbl><w:tr><w:tc><w:p><w:r><w:t>MCB 6 A</w:t></w:r></w:p></w:tc></w:tr></w:tbl>',
                 {'word/header1.xml':f'<w:hdr xmlns:w="{NS}"><w:p><w:r><w:t>Header note</w:t></w:r></w:p></w:hdr>',
@@ -115,7 +115,7 @@ class DocumentTests(unittest.TestCase):
             with self.assertRaises(ProjectError):check_review(r,{})
 
     def test_word_tracked_changes_block_planning(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             path=Path(folder)/'brief.docx'
             word_fixture(path,'<w:p><w:del><w:r><w:delText>Old 10 A</w:delText></w:r></w:del><w:ins><w:r><w:t>New 6 A</w:t></w:r></w:ins></w:p>')
             r=extract(path)
@@ -123,7 +123,7 @@ class DocumentTests(unittest.TestCase):
             with self.assertRaises(ProjectError):check_review(r,{i['id']:'reviewed' for i in r['issues']})
 
     def test_word_requirement_can_drive_electrical_with_review_note(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);brief=root/'brief.docx'
             word_fixture(brief,'<w:p><w:r><w:t>Calculate and draw the three-light circuit.</w:t></w:r></w:p>')
             doc=extract(brief)
@@ -140,7 +140,7 @@ class DocumentTests(unittest.TestCase):
 
     @unittest.skipUnless(importlib.util.find_spec('pypdf'),'optional PDF dependency')
     def test_pdf_page_locator_and_missing_text_gate(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);path=root/'brief.pdf'
             pdf_fixture(path,['Check circuit 6 A','Use 230 V supply'])
             r=intake(path,root/'intake.json')
@@ -155,14 +155,14 @@ class DocumentTests(unittest.TestCase):
             with self.assertRaises(ProjectError):check_review(s,{i['id']:'acknowledged' for i in s['issues']})
 
     def test_empty_text_is_not_a_valid_covered_brief(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             path=Path(folder)/'empty.txt';path.write_text('  \n')
             r=extract(path)
             self.assertEqual(r['coverage_status'],'blocked')
 
     @unittest.skipUnless(importlib.util.find_spec('pypdf'),'optional PDF dependency')
     def test_ocr_source_and_image_hashes_and_review_gate(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);source=root/'scan.pdf';pdf_fixture(source,[''])
             image=root/'page.png';image.write_bytes(b'unit fixture raster bytes')
             data=dict(version=1,source_sha256=digest(source),pages=[dict(page=1,image='page.png',

@@ -80,7 +80,7 @@ class FaultVerificationTests(unittest.TestCase):
     def test_source_hashes_and_pending_workflow_cannot_be_cleared_by_review(self):
         from bsa.workflow import execute,verify
         from bsa.delivery import template,assess
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);project,data=inputs();data['circuits'][0]['device']=None
             p=root/'project.json';f=root/'faults.json';p.write_text(json.dumps(project));f.write_text(json.dumps(data))
             result=run(p,f,root/'direct');self.assertEqual(result['status'],'pending');self.assertTrue(result['inputs_unchanged'])
@@ -95,7 +95,7 @@ class FaultVerificationTests(unittest.TestCase):
 
     def test_versioned_workflow_and_artifact_tampering(self):
         from bsa.workflow import execute,verify
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             out=Path(folder)/'run';result=execute(ROOT/'examples/fault-plan.json',out)
             self.assertTrue(result['execution_pass']);self.assertTrue(verify(out)['integrity_pass'])
             artifact=out/'faults/faults.json';artifact.write_bytes(artifact.read_bytes()+b'\n')

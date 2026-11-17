@@ -73,7 +73,7 @@ class IFCViewsTests(unittest.TestCase):
 
     def test_end_on_print_reference_and_clipped_window_rejected(self):
         p=json.loads(SETTINGS.read_text());p['views'][0]['sheet']['reference_ifc_guid']=next(g for g,label in p['labels'].items() if label=='AC0')
-        with tempfile.TemporaryDirectory() as f:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as f:
             root=Path(f);settings=root/'settings.json';settings.write_text(json.dumps(p))
             with self.assertRaisesRegex(ProjectError,'nonzero projected axis'):run(SOURCE,settings,root/'end-on-reference')
             p=json.loads(SETTINGS.read_text());p['views'][0]['sheet']['window_drawing_units']=[0,0,1,1];settings.write_text(json.dumps(p))
@@ -81,7 +81,7 @@ class IFCViewsTests(unittest.TestCase):
 
     def test_workflow_preserves_missing_native_engine_as_pending(self):
         from bsa.workflow import execute,verify
-        with tempfile.TemporaryDirectory() as f:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as f:
             root=Path(f);shutil.copyfile(SOURCE,root/'model.ifc');shutil.copyfile(SETTINGS,root/'settings.json')
             brief=root/'brief.md';brief.write_text('Create complete multiview pipe diagrams and native plotted sheets.\n')
             tasks=[dict(id='views',kind='ifc_views',ifc='model.ifc',settings='settings.json'),dict(id='native',kind='ifc_views_native',depends_on='views')]

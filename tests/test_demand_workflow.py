@@ -8,7 +8,7 @@ from bsa.cli import digest
 
 class DemandWorkflowTests(unittest.TestCase):
     def test_calculated_unknown_rejected_and_stale(self):
-        with tempfile.TemporaryDirectory() as tmp:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as tmp:
             root=Path(tmp)
             def save(name,value):
                 p=root/name;p.write_text(json.dumps(value),encoding='utf-8');return p

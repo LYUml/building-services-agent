@@ -30,8 +30,11 @@ def dxf(p):
 
 
 def run(project, out):
-    project = project.resolve()
-    out = out.resolve()
+    from . import workspace
+    project = Path(project).resolve()
+    out = Path(out).resolve()
+    if not workspace.allowed(project) or not workspace.intake_output(out):
+        raise ProjectError('Explicit selected project input and output workspace required')
     if project == out or out in project.parents:
         raise ProjectError("output directory must not contain the input project")
     before = digest(project)
@@ -184,6 +187,8 @@ def main():
             providers=parse_provider_options(a.module_provider)
             if a.review is not None:
                 review=a.review.resolve()
+                from . import workspace
+                if not workspace.intake_output(review):raise ProjectError('Explicit selected delivery review output workspace required')
                 if review.exists() or review==a.plan.resolve() or review.is_relative_to(a.out.resolve()):
                     raise ProjectError("review must be a new file outside the plan/run artifacts")
             execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python,a.three_phase_python,a.graphviz,a.pdf2plot_python,a.honeybee_python,requirements_result=a.requirements_result,

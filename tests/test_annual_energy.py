@@ -42,7 +42,7 @@ class AnnualInputTests(unittest.TestCase):
             elif change=='missing_dry_bulb':values=rows[8].split(',');values[6]='99.9';rows[8]=','.join(values)
             elif change=='wrong_station':config['station_id']='unknown'
             raw=('\n'.join(rows)+'\n').encode();config['sha256']=hashlib.sha256(raw).hexdigest() if change!='wrong_hash' else '0'*64
-            with tempfile.TemporaryDirectory() as f:
+            with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as f:
                 path=Path(f)/'weather.epw';path.write_bytes(raw)
                 with self.subTest(change=change),self.assertRaises(ProjectError):read_weather(path,config,2025)
 
@@ -52,7 +52,7 @@ class AnnualInputTests(unittest.TestCase):
             values=line.split(',')
             if values[1:3]==['2','28']:values[0]='2024';values[2]='29';extra.append(','.join(values))
         index=next(i for i,line in enumerate(data) if line.split(',')[1:3]==['3','1']);data[index:index]=extra
-        with tempfile.TemporaryDirectory() as f:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as f:
             path=Path(f)/'leap.epw';raw=('\n'.join(headers+data)+'\n').encode();path.write_bytes(raw);config=dict(p['weather'],sha256=hashlib.sha256(raw).hexdigest())
             with self.assertRaisesRegex(ProjectError,'allows leap'):read_weather(path,config,2024)
             headers[4]=headers[4].replace(',No,',',Yes,',1);raw=('\n'.join(headers+data)+'\n').encode();path.write_bytes(raw);config['sha256']=hashlib.sha256(raw).hexdigest()
@@ -91,21 +91,21 @@ class AnnualEngineTests(unittest.TestCase):
 
     def test_truncated_wrong_interval_and_wrong_environment_sql_rejected(self):
         p=project();source=self.root/'annual/baseline/eplusout.sql';before=digest(source)
-        with tempfile.TemporaryDirectory() as f:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as f:
             folder=Path(f)/'annual # source';folder.mkdir();path=folder/'copied.sql';shutil.copyfile(source,path)
             summary,_=extract(path,2025,12,40,p['solver'],p['targets'])
             self.assertTrue(summary['calculated_checks_pass']);self.assertEqual(list(Path(f).iterdir()),[folder])
         for command in ('DELETE FROM ReportData WHERE ReportDataIndex=(SELECT MIN(ReportDataIndex) FROM ReportData)',
                         'UPDATE Time SET Interval=30 WHERE TimeIndex=(SELECT MIN(TimeIndex) FROM Time)',
                         'UPDATE EnvironmentPeriods SET EnvironmentType=1'):
-            with tempfile.TemporaryDirectory() as f:
+            with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as f:
                 path=Path(f)/'changed.sql';shutil.copyfile(source,path);c=sqlite3.connect(path);c.execute(command);c.commit();c.close()
                 with self.assertRaises(ProjectError):extract(path,2025,12,40,p['solver'],p['targets'])
         self.assertEqual(digest(source),before)
 
     def test_explicit_failed_unmet_target_is_not_turned_into_a_pass(self):
         p=project();source=self.root/'annual/baseline/eplusout.sql'
-        with tempfile.TemporaryDirectory() as f:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as f:
             path=Path(f)/'changed.sql';shutil.copyfile(source,path);c=sqlite3.connect(path)
             c.execute('''UPDATE ReportData SET Value=1 WHERE ReportDataIndex=(SELECT MIN(r.ReportDataIndex) FROM ReportData r JOIN ReportDataDictionary d ON r.ReportDataDictionaryIndex=d.ReportDataDictionaryIndex WHERE d.Name=?)''',(UNMET[0],));c.commit();c.close()
             summary,_=extract(path,2025,12,40,p['solver'],dict(p['targets'],maximum_zone_unmet_hours=0))

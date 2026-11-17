@@ -17,7 +17,7 @@ EXAMPLE=ROOT/'examples/lighting/project.json'
 
 class LightingTests(unittest.TestCase):
     def test_launch_failure_is_recorded_without_success_report(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);p,path=self.fixture(root)
             binaries=root/'bin';binaries.mkdir()
             suffix='.exe' if os.name=='nt' else ''
@@ -35,7 +35,7 @@ class LightingTests(unittest.TestCase):
         meta=ies_metadata(EXAMPLE.parent/'synthetic-1000cd.ies')
         self.assertEqual(meta['input_watts'],40)
         self.assertEqual(meta['photometric_type'],'C')
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             path=Path(folder)/'bad.ies'
             text=(EXAMPLE.parent/'synthetic-1000cd.ies').read_text()
             path.write_text(text.replace('TILT=NONE','TILT=INCLUDE'))
@@ -61,7 +61,7 @@ class LightingTests(unittest.TestCase):
         return p,path
 
     def test_workflow_hashes_ies_and_marks_missing_engine_pending(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);p,path=self.fixture(root)
             brief=root/'brief.md';brief.write_text('Compute the supplied IES sensor illuminance.\n')
             plan=dict(version=1,brief='brief.md',brief_sha256=digest(brief),passage_dispositions={'P001':'requirement'},

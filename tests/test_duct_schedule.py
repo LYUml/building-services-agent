@@ -7,7 +7,7 @@ from bsa.duct_schedule import run
 
 class DuctScheduleTests(unittest.TestCase):
     def setUp(self):
-        self.temp = tempfile.TemporaryDirectory()
+        self.temp = tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs')
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
         self.project = self.root/'project.json'

@@ -19,7 +19,7 @@ SETTINGS=ROOT/'examples/water-riser/native-sheet.json'
 
 class NativeDiagramTests(unittest.TestCase):
     def test_closed_contours_validate_and_native_reconciliation_rejects_mutations(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);doc=ezdxf.new('R2018');doc.units=6;doc.appids.new('BSA_IFC')
             poly=doc.modelspace().add_lwpolyline([(0,0),(2,0),(2,1),(0,1)],close=True)
             poly.set_xdata('BSA_IFC',[(1000,'fictional-contour')]);validate_contours(doc)
@@ -47,7 +47,7 @@ class NativeDiagramTests(unittest.TestCase):
             with self.assertRaises(ProjectError):validate_settings(settings)
 
     def test_reconciliation_detects_lost_ifc_identity_extra_entities_and_geometry_changes(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             path=Path(folder)/'export.dxf';shutil.copyfile(SOURCE,path)
             self.assertTrue(verify_dxf(SOURCE,path)['model_entities_and_ifc_xdata_match'])
             for action in ('xdata','extra','geometry'):
@@ -60,7 +60,7 @@ class NativeDiagramTests(unittest.TestCase):
 
     def test_workflow_missing_engine_pending_and_source_integrity(self):
         from bsa.workflow import execute,verify,validate_plan
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);shutil.copyfile(SOURCE,root/'segments.dxf');shutil.copyfile(SETTINGS,root/'sheet.json')
             brief=root/'brief.md';brief.write_text('Save native diagram with explicit sheet and IFC identity checks.\n')
             task=dict(id='native',kind='ifc_native',dxf='segments.dxf',settings='sheet.json')
@@ -77,7 +77,7 @@ class NativeDiagramTests(unittest.TestCase):
 
     def test_failed_drawing_producer_leaves_native_pending_without_starting_engine(self):
         from bsa.workflow import execute
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);(root/'broken.ifc').write_text('not an IFC file')
             (root/'projection.json').write_text(json.dumps(dict(projection_axes=['X','Z'],annotation_height_m=.12,source='negative test')))
             shutil.copyfile(SETTINGS,root/'sheet.json')
@@ -94,7 +94,7 @@ class NativeDiagramTests(unittest.TestCase):
 
     def test_workflow_pins_used_engine_and_native_methods_without_starting_mock_engine(self):
         from bsa.workflow import execute,verify,validate_plan
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);shutil.copyfile(SOURCE,root/'segments.dxf');shutil.copyfile(SETTINGS,root/'sheet.json')
             engine=root/'controlled-engine.exe';engine.write_bytes(b'controlled runtime identity, never executed')
             brief=root/'brief.md';brief.write_text('Create a native schematic with an explicit runtime.\n')

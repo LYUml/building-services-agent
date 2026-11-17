@@ -18,7 +18,7 @@ class IndependentWaterRiserTests(unittest.TestCase):
         import ifcopenshell
         import ifcopenshell.geom
         import ifcopenshell.util.shape
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             out = Path(folder)/'run'
             result = execute(ROOT/'examples/water-riser/plan.json', out)
             self.assertTrue(result['execution_pass'])
@@ -66,7 +66,7 @@ class IndependentWaterRiserTests(unittest.TestCase):
 
     def test_inadequate_supply_retains_failed_model_and_blocks_dependent_qa(self):
         from bsa.workflow import execute, verify
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root = Path(folder)
             shutil.copytree(ROOT/'examples/water-riser', root/'inputs')
             path = root/'inputs/network.json'

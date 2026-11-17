@@ -53,7 +53,7 @@ class TerminalProjectTests(unittest.TestCase):
         plan=self.workflow_plan();r=execute(plan,self.root/'run')
         self.assertIn(str(original.resolve()),r['inputs']);original.write_bytes(b'Changed source')
         self.assertFalse(verify(self.root/'run')['integrity_pass'])
-        with tempfile.TemporaryDirectory() as other:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as other:
             outside=Path(other)/'source.pdf';outside.write_bytes(b'External source control')
             import os
             catalogue.update(source_document=os.path.relpath(outside,self.root),source_sha256=hashlib.sha256(outside.read_bytes()).hexdigest())
@@ -61,7 +61,7 @@ class TerminalProjectTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'plan-local'):validate_plan(plan)
 
     def setUp(self):
-        self.temp = tempfile.TemporaryDirectory()
+        self.temp = tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs')
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
         self.catalogue = self.root / 'catalogue.json'

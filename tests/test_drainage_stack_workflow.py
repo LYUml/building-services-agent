@@ -12,7 +12,7 @@ from tests import test_drainage_stack_demand as demand_fixture
 
 class StackWorkflowTests(unittest.TestCase):
     def test_inherited_identity_gates_unknowns_and_tampering(self):
-        with tempfile.TemporaryDirectory() as tmp:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as tmp:
             root = Path(tmp)
             def save(name, value):
                 path = root/name

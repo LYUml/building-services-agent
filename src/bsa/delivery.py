@@ -106,6 +106,8 @@ def context(plan,root):
 
 def template(plan,root,out):
     plan,root,out=Path(plan).resolve(),Path(root).resolve(),Path(out).resolve()
+    from . import workspace
+    if not workspace.intake_output(out):raise ProjectError('Explicit selected delivery review output workspace required')
     if out==plan or out.is_relative_to(root):raise ProjectError('store review separately from plan/run artifacts')
     source,_,integrity=context(plan,root)
     if not integrity['integrity_pass']:raise ProjectError('repair or rerun stale evidence before creating a review')
@@ -280,6 +282,8 @@ def render(result):
 
 def run(plan,root,review,out):
     plan,root,review,out=[Path(p).resolve() for p in (plan,root,review,out)]
+    from . import workspace
+    if not workspace.intake_output(out):raise ProjectError('Explicit selected delivery output workspace required')
     if out.is_relative_to(root) or any(out==p or out in p.parents for p in (plan,review,root/'workflow.json')):
         raise ProjectError('store audit separately; output must not contain source/run/review')
     result=assess(plan,root,review);out.mkdir(parents=True,exist_ok=False)

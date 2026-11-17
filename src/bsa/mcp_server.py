@@ -26,6 +26,8 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None):
     if set(options)-OPTIONS:raise ValueError('Supported explicit host runtime options required')
     selected=workspace.project_root();root=selected or workspace.ROOT/'runs'
     root=root.resolve()
+    if workspace.protected(root):raise ValueError('Read-only history cannot contain server data')
+    if selected is None:root.mkdir(parents=True,exist_ok=True)
     if not root.is_dir():raise ValueError('Existing project root or repository runs directory required')
     lock=threading.RLock()
     class StrictHostMCP(FastMCP):
@@ -48,6 +50,7 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None):
         if not isinstance(value,str) or not value.strip() or Path(value).is_absolute():raise ValueError('Project-relative path required')
         path=(root/value).resolve()
         if path==root or not path.is_relative_to(root):raise ValueError('Path escapes selected project')
+        if not workspace.allowed(path):raise ValueError('Path is outside permitted workspace or in read-only history')
         return path
 
     def invoke(operation,*args,**kwargs):

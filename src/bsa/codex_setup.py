@@ -20,7 +20,8 @@ def settings(python,autocad=None,pdftoppm=None,**runtimes):
     project=project.resolve()
     if project==root.parent/'polyu_bse3124':raise ValueError('Completed historical project is read-only')
     data=project if project!=root else root/'runs'
-    if not data.is_dir():raise ValueError('Existing host-selected project/test root required')
+    if workspace.protected(data):raise ValueError('Completed historical data directory is read-only')
+    if not data.is_dir() and (data.exists() or data!=root/'runs'):raise ValueError('Existing host-selected project/test root required')
     python=Path(python).resolve()
     if not python.is_file():raise ValueError('Explicit existing engineering Python required')
     args=['-X','utf8','-m','bsa.mcp_server']
@@ -102,15 +103,18 @@ def install(python,autocad=None,pdftoppm=None,refresh=False,**runtimes):
         if refresh:payload=refreshed(original,data,config)
         elif existing!=config:raise ValueError('Existing local BSA config differs; preserve it for explicit reconciliation')
         else:payload=original
-        if payload==original:return dict(configured=True,changed=False,config_path=str(target),config_sha256=digest(target),project_root=str(project))
+        if payload==original:
+            data=Path(config['env']['BSA_PROJECT_ROOT']);created=not data.exists();data.mkdir(parents=True,exist_ok=True)
+            return dict(configured=True,changed=False,data_root_created=created,config_path=str(target),config_sha256=digest(target),project_root=str(project))
     else:
         suffix=render(config).encode('utf-8');payload=original+(b'\n\n' if original else b'')+suffix
     parsed=tomllib.loads(payload.decode('utf-8'))
     if existing is None and parsed['mcp_servers'][SERVER]!=config:raise ValueError('Rendered startup config differs')
+    data=Path(config['env']['BSA_PROJECT_ROOT']);created=not data.exists();data.mkdir(parents=True,exist_ok=True)
     # Preserve every unrelated setting byte. Do not alter global config, trust,
     # credentials, policy, model settings or user application processes.
     write_config(target,original,payload)
-    return dict(configured=True,changed=True,config_path=str(target),config_sha256=digest(target),project_root=str(project))
+    return dict(configured=True,changed=True,data_root_created=created,config_path=str(target),config_sha256=digest(target),project_root=str(project))
 
 
 if __name__=='__main__':

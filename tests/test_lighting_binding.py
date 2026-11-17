@@ -47,7 +47,7 @@ class BoundLightingTests(unittest.TestCase):
 
     def test_bound_workflow_keeps_all_original_sources_and_missing_engine_pending(self):
         e,g,o=self.inputs()
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder).resolve();(root/'lighting').mkdir()
             shutil.copyfile(ROOT/'examples/lighting/synthetic-1000cd.ies',root/'lighting/synthetic-1000cd.ies')
             for name,data in (('electrical.json',e),('geometry.json',g),('optical.json',o)):

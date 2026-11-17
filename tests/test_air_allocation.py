@@ -25,7 +25,7 @@ class AirAllocationTests(unittest.TestCase):
         import tempfile,json,hashlib
         from pathlib import Path
         from bsa.air_allocation import run
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);boundary=root/'boundary.json'
             boundary.write_text(json.dumps(mapping(box(0,0,10,4))),encoding='utf-8')
             values=dict(area=100,cooling_allowance=200,sensible_fraction=.8,density=1.25,specific_heat=1000,temperature_difference=10)
@@ -44,7 +44,7 @@ class AirAllocationTests(unittest.TestCase):
         from bsa.workflow import execute,verify,validate_plan
         from bsa.engine import ProjectError
         from bsa.cli import digest
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder)
             boundary=root/'boundary.json';boundary.write_text(json.dumps(mapping(box(0,0,10,4))))
             brief=root/'brief.md';brief.write_text('Allocate flow and review design.\n')

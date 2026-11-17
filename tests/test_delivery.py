@@ -14,7 +14,7 @@ ROOT=Path(__file__).resolve().parents[1]
 
 class DeliveryReviewTests(unittest.TestCase):
     def test_remaining_review_agenda_preserves_manual_execution_and_source(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             plan,root,path,review=self.fixture(Path(folder));self.fill(root,review)
             review['requirements'][0]['status']='pending'
             path.write_text(json.dumps(review));before=digest(root/'workflow.json')
@@ -31,7 +31,7 @@ class DeliveryReviewTests(unittest.TestCase):
             self.assertFalse(result['design_accepted'])
 
     def test_invalid_review_has_no_remaining_agenda(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             plan,root,path,review=self.fixture(Path(folder));self.fill(root,review)
             review['plan_sha256']='0'*64;path.write_text(json.dumps(review))
             result=assess(plan,root,path)
@@ -39,7 +39,7 @@ class DeliveryReviewTests(unittest.TestCase):
             self.assertIsNone(result['review_agenda'])
 
     def test_manual_scoped_pass_does_not_unblock_dependent_review(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             outer=Path(folder);plan,root,path,review=self.fixture(outer)
             data=json.loads(plan.read_text())
             data['tasks'].append(dict(id='downstream',kind='manual',description='Requires original manual execution gate',requires_pass=['review']))
@@ -54,7 +54,7 @@ class DeliveryReviewTests(unittest.TestCase):
             self.assertEqual(group['requirements'][0]['effective_review_status'],'pending')
 
     def test_multiple_remaining_requirements_share_one_task_without_losing_quotes(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             outer=Path(folder);plan,root,path,review=self.fixture(outer)
             data=json.loads(plan.read_text())
             data['requirements'].append(dict(data['requirements'][0],id='R2',acceptance='Separate full source obligation'))
@@ -68,7 +68,7 @@ class DeliveryReviewTests(unittest.TestCase):
             self.assertEqual(group['requirements'][1]['acceptance'],'Separate full source obligation')
 
     def test_pending_automated_execution_stays_in_review_agenda(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             plan,root,path,review=self.fixture(Path(folder),native=True);self.fill(root,review)
             path.write_text(json.dumps(review));result=assess(plan,root,path)
             agenda=result['review_agenda']
@@ -78,7 +78,7 @@ class DeliveryReviewTests(unittest.TestCase):
             self.assertEqual(agenda['remaining_tasks'][0]['execution_status'],'pending')
 
     def test_readable_review_keeps_effective_counts_source_and_escaped_observations(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             plan,root,path,review=self.fixture(Path(folder));self.fill(root,review)
             review['requirements'][1]['status']='pending'
             review['requirements'][0]['notes']='Scoped observation <script>untrusted()</script> & source text'
@@ -98,7 +98,7 @@ class DeliveryReviewTests(unittest.TestCase):
 
     def test_retained_engineering_requests_survive_scoped_review_and_escape_html(self):
         from unittest.mock import patch
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             plan,root,path,review=self.fixture(Path(folder));self.fill(root,review);path.write_text(json.dumps(review))
             from bsa.workflow_status import diagnose
             diagnosis=diagnose(plan,root)
@@ -117,7 +117,7 @@ class DeliveryReviewTests(unittest.TestCase):
             self.assertIn('&lt;script&gt;untrusted()&lt;/script&gt; &amp; source',text);self.assertNotIn('<script>',text)
 
     def test_manual_review_cannot_clear_its_required_pending_parent(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             outer=Path(folder);plan,root,path,review=self.fixture(outer)
             data=json.loads(plan.read_text())
             data['tasks'][0]={'id':'electrical','kind':'manual','description':'Required upstream inspection'}
@@ -138,7 +138,7 @@ class DeliveryReviewTests(unittest.TestCase):
             self.assertFalse(result['review_checks_pass'])
 
     def test_forged_passing_child_is_rejected_by_delivery_audit(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             outer=Path(folder);plan=ROOT/'examples/shared-lighting-plan.json'
             root=outer/'run';execute(plan,root)
             report_path=root/'workflow.json';report=json.loads(report_path.read_text())
@@ -152,7 +152,7 @@ class DeliveryReviewTests(unittest.TestCase):
             self.assertTrue(any('nonpassing dependencies' in x for x in result['issues']))
 
     def test_versioned_example_keeps_missing_engineering_evidence_pending(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);plan=ROOT/'examples/delivery-plan.json';execute(plan,root/'run')
             review_path=root/'review.json';template(plan,root/'run',review_path)
             result=assess(plan,root/'run',review_path)
@@ -181,7 +181,7 @@ class DeliveryReviewTests(unittest.TestCase):
                        checks=[dict(artifact=artifact,pointer='/calculated_checks_pass',expected=True,basis='Conditional adapter checks requested by source requirement')])
 
     def test_template_pending_and_complete_scoped_assertions_never_certify_design(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             plan,root,path,review=self.fixture(Path(folder))
             result=assess(plan,root,path);self.assertEqual(result['status'],'needs_review')
             self.assertTrue(all(r['effective_review_status']=='pending' for r in result['requirements']))
@@ -192,7 +192,7 @@ class DeliveryReviewTests(unittest.TestCase):
             self.assertTrue(verify(root)['integrity_pass'])
 
     def test_failed_boolean_fact_overrides_recorded_pass(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             plan,root,path,review=self.fixture(Path(folder));self.fill(root,review)
             review['requirements'][0]['checks'][0]['pointer']='/design_accepted';path.write_text(json.dumps(review))
             result=assess(plan,root,path)
@@ -201,7 +201,7 @@ class DeliveryReviewTests(unittest.TestCase):
 
     def test_missing_review_source_text_change_and_edited_run_matrix_fail(self):
         for action in ('missing','source','matrix','fingerprint','duplicate','locator'):
-            with self.subTest(action=action),tempfile.TemporaryDirectory() as folder:
+            with self.subTest(action=action),tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
                 plan,root,path,review=self.fixture(Path(folder));self.fill(root,review)
                 if action=='missing':review['requirements'].pop()
                 elif action=='fingerprint':review['requirements'][0]['requirement_sha256']='0'*64
@@ -217,7 +217,7 @@ class DeliveryReviewTests(unittest.TestCase):
 
     def test_artifact_and_attachment_changes_are_not_hidden(self):
         for action in ('artifact','attachment','escape'):
-            with self.subTest(action=action),tempfile.TemporaryDirectory() as folder:
+            with self.subTest(action=action),tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
                 plan,root,path,review=self.fixture(Path(folder));self.fill(root,review)
                 image=root/'supplemental.txt';image.write_text('Synthetic supplemental test evidence, not an actual rendered drawing')
                 attachment=dict(path=image.name,sha256=digest(image),source_artifact='electrical/calculations.json',source_sha256=digest(root/'electrical/calculations.json'))
@@ -230,14 +230,14 @@ class DeliveryReviewTests(unittest.TestCase):
                 self.assertEqual(result['status'],'failed');self.assertFalse(result['review_checks_pass'])
 
     def test_missing_engine_cannot_be_cleared_by_review_assertion(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             plan,root,path,review=self.fixture(Path(folder),native=True);self.fill(root,review);path.write_text(json.dumps(review))
             result=assess(plan,root,path)
             self.assertEqual(result['status'],'needs_review')
             self.assertEqual(result['requirements'][1]['effective_review_status'],'pending')
 
     def test_failed_task_cannot_be_cleared_and_outputs_do_not_overwrite_inputs(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             outer=Path(folder);plan,root,path,review=self.fixture(outer)
             with self.assertRaises(ProjectError):template(plan,root,root/'review.json')
             with self.assertRaises(ProjectError):run(plan,root,path,root/'audit')

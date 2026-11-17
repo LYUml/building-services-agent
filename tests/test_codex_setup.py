@@ -7,6 +7,21 @@ from bsa import codex_setup as setup
 
 
 class LocalSetupTests(unittest.TestCase):
+    def test_protected_resolved_data_directory_cannot_be_configured(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root,python=self.fixture(folder)
+            with patch.object(setup.workspace,'ROOT',root),patch.object(setup.workspace,'project_root',return_value=None),patch.object(setup.workspace,'protected',return_value=True):
+                with self.assertRaisesRegex(ValueError,'read-only'):setup.install(python)
+                self.assertFalse((root/'.codex').exists())
+
+    def test_fresh_checkout_initializes_owned_default_data_directory(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder).resolve()/'agent';root.mkdir();python=root/'python.txt';python.write_text('Configuration fixture only')
+            with patch.object(setup.workspace,'ROOT',root),patch.object(setup.workspace,'project_root',return_value=None):
+                result=setup.install(python)
+                self.assertTrue(result['data_root_created']);self.assertTrue((root/'runs').is_dir())
+                self.assertFalse(setup.install(python)['data_root_created'])
+
     def test_all_declared_runtime_paths_and_directory_kinds(self):
         with tempfile.TemporaryDirectory() as folder:
             root,python=self.fixture(folder);directory=root/'runtime-dir';directory.mkdir()

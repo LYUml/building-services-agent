@@ -29,7 +29,7 @@ def inputs(root):
 
 class CADOverlayTests(unittest.TestCase):
     def test_mm_base_preserved_three_devices_and_tamper_detected(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);args=inputs(root);original=snapshot(ezdxf.readfile(args[1]));before=digest(args[1])
             result=run(*args,root/'run')
             self.assertTrue(result['base_entities_preserved']);self.assertEqual(result['device_count'],3)
@@ -42,7 +42,7 @@ class CADOverlayTests(unittest.TestCase):
             with self.assertRaises(ProjectError):reconcile(original,output)
 
     def test_explicit_rotation_and_annotation_scale(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);args=inputs(root);config=json.loads(args[3].read_text())
             config.update(rotation_deg=90,translation_m=[10,20]);args[3].write_text(json.dumps(config))
             result=run(*args,root/'run');pt=result['placements'][0]['centre_drawing_units']
@@ -52,7 +52,7 @@ class CADOverlayTests(unittest.TestCase):
             self.assertEqual(doc.modelspace().query('TEXT[layer=="BSA_LABELS"]')[0].dxf.height,120)
 
     def test_bad_settings_and_unsupported_base_rejected(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);args=inputs(root);settings=json.loads(args[3].read_text())
             for mutate in (lambda p:p.update(rotation_deg=float('nan')),lambda p:p.update(symbol_radius_m=0),lambda p:p.update(translation_m=[0])):
                 candidate=copy.deepcopy(settings);mutate(candidate)
@@ -62,7 +62,7 @@ class CADOverlayTests(unittest.TestCase):
 
     def test_workflow_input_tracking_and_missing_sheet_engine_pending(self):
         from bsa.workflow import execute,verify
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);inputs(root)
             brief=root/'brief.md';brief.write_text('Preserve the base and add the selected devices.\n')
             task=dict(id='overlay',kind='base_overlay',project='project.json',drawing='base.dxf',selection='selection.json',settings='settings.json')

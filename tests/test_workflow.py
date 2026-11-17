@@ -56,7 +56,7 @@ class WorkflowTests(unittest.TestCase):
 
     def test_network_coordination_tracks_network_source_and_detects_later_edit(self):
         from unittest.mock import patch
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder)
             example=ROOT/'examples/network-binding'
             for name in ('plan.json','brief.md','network.json','model.json','binding.json'):
@@ -86,7 +86,7 @@ class WorkflowTests(unittest.TestCase):
         return brief,plan,p
 
     def test_intake_preserves_line_evidence(self):
-        with tempfile.TemporaryDirectory() as f:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as f:
             brief,plan,p=self.fixture(f)
             r=intake(brief,Path(f)/"intake.json")
             self.assertEqual(r["passages"][1]["start_line"],3)
@@ -94,7 +94,7 @@ class WorkflowTests(unittest.TestCase):
             self.assertEqual(r["requirements"],[])
 
     def test_execution_does_not_claim_acceptance(self):
-        with tempfile.TemporaryDirectory() as f:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as f:
             brief,plan,p=self.fixture(f)
             r=execute(plan,Path(f)/"run")
             self.assertTrue(r["inputs_unchanged"])
@@ -114,13 +114,13 @@ class WorkflowTests(unittest.TestCase):
                        lambda p:p["requirements"][0].update(quote="Invented requirement"),
                        lambda p:p["tasks"][0].update(project="../elsewhere.json"),
                        lambda p:p["tasks"][0].update(id="../escape")):
-            with tempfile.TemporaryDirectory() as f:
+            with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as f:
                 brief,plan,p=self.fixture(f);change(p)
                 plan.write_text(json.dumps(p),encoding="utf-8")
                 with self.assertRaises(ProjectError):validate_plan(plan)
 
     def test_missing_native_tool_stays_pending(self):
-        with tempfile.TemporaryDirectory() as f:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as f:
             brief,plan,p=self.fixture(f)
             p["tasks"].append(dict(id="cad",kind="native_cad",depends_on="electrical"))
             p["requirements"].append(dict(id="R2",passage="P002",quote="draw",task="cad",acceptance="native verification"))

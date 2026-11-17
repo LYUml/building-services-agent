@@ -37,7 +37,7 @@ class PumpElectricalTests(unittest.TestCase):
     def test_operating_scenario_and_saved_ifc_preserve_baseline_hardware_and_other_devices(self):
         import ifcopenshell
         import ifcopenshell.util.element as util
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);args=self.fixture(root);before={p:digest(p) for p in args}
             result=run(*args,root/'coupled')
             self.assertTrue(result['calculated_checks_pass']);self.assertTrue(result['existing_ifc_entities_unchanged'])
@@ -69,7 +69,7 @@ class PumpElectricalTests(unittest.TestCase):
     def test_saved_unit_prefix_missing_unit_and_datatype_controls_reject(self):
         import ifcopenshell
         from bsa import ifc_property_units as units
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);args=self.fixture(root);result=run(*args,root/'coupled')
             path=root/'coupled/model.ifc';model=ifcopenshell.open(str(path));obj=model.by_guid(result['record']['pump_guid'])
             pset=next(r.RelatingPropertyDefinition for r in obj.IsDefinedBy if r.RelatingPropertyDefinition.Name=='BSA_PumpElectrical')
@@ -92,7 +92,7 @@ class PumpElectricalTests(unittest.TestCase):
 
     def test_report_scalar_and_artifact_tampering_are_rejected(self):
         for action in ('scalar','artifact','source','curve-metadata'):
-            with self.subTest(action=action),tempfile.TemporaryDirectory() as folder:
+            with self.subTest(action=action),tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
                 root=Path(folder);args=self.fixture(root)
                 if action=='scalar':
                     report=json.loads(args[1].read_text());report['operating_point']['estimated_electrical_kw']=9.99;args[1].write_text(json.dumps(report))
@@ -108,7 +108,7 @@ class PumpElectricalTests(unittest.TestCase):
     def test_wrong_identity_disconnected_pump_and_wrong_xy_are_rejected(self):
         import ifcopenshell
         for action in ('identity','connection','position'):
-            with self.subTest(action=action),tempfile.TemporaryDirectory() as folder:
+            with self.subTest(action=action),tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
                 root=Path(folder);args=self.fixture(root)
                 if action=='identity':
                     link=json.loads(args[4].read_text());link['pump_guid']=ifcopenshell.open(str(args[2])).by_type('IfcSanitaryTerminal')[0].GlobalId;args[4].write_text(json.dumps(link))
@@ -125,13 +125,13 @@ class PumpElectricalTests(unittest.TestCase):
         def no_efficiency(curve):
             curve['efficiency_basis']='not supplied'
             for point in curve['points']:point.pop('wire_to_water_efficiency')
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);args=self.fixture(root,no_efficiency)
             with self.assertRaisesRegex(ProjectError,'combined wire-to-water'):run(*args,root/'rejected')
             self.assertFalse((root/'rejected').exists())
 
     def test_small_operating_current_does_not_approve_failed_baseline_design_check(self):
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             root=Path(folder);args=self.fixture(root);project=json.loads(args[0].read_text())
             project['circuits'][0]['breaker_a']=3;args[0].write_text(json.dumps(project))
             result=run(*args,root/'coupled')
@@ -143,7 +143,7 @@ class PumpElectricalTests(unittest.TestCase):
     @unittest.skipUnless(importlib.util.find_spec('manifold3d'),'requires clash runtime')
     def test_full_workflow_revised_ifc_consumers_and_integrity(self):
         from bsa.workflow import execute,verify
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]/'runs') as folder:
             out=Path(folder)/'run';result=execute(ROOT/'examples/water-riser/coupled-plan.json',out)
             self.assertTrue(result['execution_pass']);self.assertTrue(verify(out)['integrity_pass'])
             self.assertEqual(result['tasks']['coupled-qa']['status'],'pass');self.assertEqual(result['tasks']['coupled-drawing']['status'],'pass')
