@@ -20,6 +20,16 @@ loading native engines, changing configuration or running AutoCAD. It reports
 missing/mismatched packages with exit2. Presence is not runtime verification.
 Other optional engines require their own extras and explicit host paths.
 
+After project-scoped MCP setup, check its saved runtime paths before use:
+
+```powershell
+bsa doctor --extra drawing --extra mcp --mcp-config .codex/config.toml
+```
+
+This optional check reads the selected profile without starting its command.
+It detects removed executables and wrong path kinds; it does not verify engine
+execution or packages in a different configured Python environment.
+
 ## Draw and check an editable sheet
 
 ```powershell

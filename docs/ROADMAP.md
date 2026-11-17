@@ -1,3 +1,13 @@
+## Saved runtime paths are diagnosed before startup
+
+Installed doctor now accepts an explicit --mcp-config profile and reuses all
+existing host path flags. Removed/wrong-kind paths and malformed/duplicate flags
+are detected without native imports, execution or config writes. Actual old
+profile fails specifically at Poppler; repaired profile passes, both unchanged.
+31related tests pass and the existing native lighting workflow re-verifies
+without rerunning engines. See [scope and evidence](CODEX_LOCAL_SETUP.md).
+Full agent goal remains active; BSE3227 is unchanged.
+
 ## Shared lighting and native delivery restored
 
 An actual host gap was repaired: saved Poppler path no longer existed and

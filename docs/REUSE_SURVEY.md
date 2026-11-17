@@ -1,3 +1,12 @@
+## Saved host path diagnosis
+
+Reused the existing lightweight host_runtime.PATH_ARGUMENTS registry and Python
+standard-library TOML/hash/path checks. No new config engine, subprocess, native
+loader or dependency was added. The actual gap was a saved removed Poppler path
+that package-only doctor could not see. Explicit read-only profile diagnosis now
+finds it; no generic MCP validity or execution is inferred from file presence.
+See [actual before/after evidence](evidence/profile-path-doctor.json).
+
 ## Shared optical/native usability
 
 Reused existing pinned Radiance6.0.2 build c1700d56cc, shared electrical/IFC

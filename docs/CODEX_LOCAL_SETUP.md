@@ -1,5 +1,24 @@
 ## Current native lighting/plot host repair
 
+Use `bsa doctor --mcp-config .codex/config.toml` before reusing the saved profile.
+It reads only the explicitly selected `building_services` entry, checks absolute
+command/cwd and the existing host runtime registry's file/directory flags, and
+reports each path's `present` and `execution_verified: false`. Both separated
+and `--flag=value` forms are recognized; ambiguous duplicates/missing values
+reject. Missing paths produce `needs_setup` with exit2. No command, native import,
+configuration write or automatic refresh occurs. Dependency checks apply to
+the doctor process's interpreter, not another configured Python environment.
+This is path inspection, not generic Codex config validation, environment
+health or a successful connection/engine claim. No unspecified optional engine
+is inferred to be available.
+
+The actual installed command reports the preserved old profile's missing
+`--pdftoppm` and exits2, while the repaired current profile's paths pass with
+exit0. Both profile files are byte-preserved. Thirty-one related diagnostics,
+setup, dependency, project and review tests pass. The existing shared-lighting
+native workflow also independently re-verifies without rerunning engines.
+See [profile diagnostic evidence](evidence/profile-path-doctor.json).
+
 The previously saved bundled Poppler path had disappeared after the runtime
 changed. Selective refresh now points to the actual current executable and adds
 the existing Radiance bin directory, preserving every other control. Actual

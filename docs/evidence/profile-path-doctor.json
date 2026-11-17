@@ -1,0 +1,38 @@
+{
+  "installed_cli": true,
+  "profiles_preserved": true,
+  "native_processes_started": false,
+  "results": {
+    "stale": {
+      "exit_code": 2,
+      "status": "needs_setup",
+      "paths_ready": false,
+      "missing_flags": [
+        "--pdftoppm"
+      ],
+      "execution_verified": false,
+      "config_sha256": "0ef5418d08e7e5fa6fcb7f33cac280d130031ffc8cd5fbae0b52a371e4991539"
+    },
+    "current": {
+      "exit_code": 0,
+      "status": "direct_requirements_ready",
+      "paths_ready": true,
+      "missing_flags": [],
+      "execution_verified": false,
+      "config_sha256": "17e17697754bd72b5e06cdc96144f745cb6335e75c8dd28ce96e8c1167389ab4"
+    }
+  },
+  "design_accepted": false,
+  "date": "2026-11-17",
+  "tests": {
+    "run": 31,
+    "passed": 31,
+    "skipped": 0
+  },
+  "local_evidence_sha256": {
+    "runs/profile-doctor-current/receipt.json": "529e7eb6239acd19e3eb4b2304e4b045ba74b863df9baab0a5a2d5bc6b11e6a0",
+    "runs/profile-doctor-regression.log": "4e0de93b28a7dd30cf2e9e4640a3611e43b7b7b63996efc6b8f754268e6d92cb"
+  },
+  "scope": "Explicit profile path presence and current-interpreter direct dependency diagnostics; no engine or alternate interpreter acceptance",
+  "existing_native_workflow_reverified_without_execution": true
+}

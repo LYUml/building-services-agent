@@ -44,6 +44,8 @@ The installed entry also offers `bsa doctor --extra drawing --extra mcp` and
 MCP drawing dispatch. See [current installation and execution](AGENT_USABILITY.md)
 and the root README for runnable commands. Missing native drawing prerequisites
 reject before output creation. Doctor is a direct-dependency/path check only.
+Optional `--mcp-config PATH` also checks explicitly saved BSA command/cwd/runtime
+paths without executing them; see [profile checks](CODEX_LOCAL_SETUP.md).
 
 The installed `bsa` command now exposes the existing source intake and reviewed
 engineering handoff alongside the original electrical and workflow commands.
