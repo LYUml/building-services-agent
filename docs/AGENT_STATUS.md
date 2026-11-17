@@ -1,3 +1,14 @@
+## Native energy CLI/MCP restored
+
+Actual OpenStudio3.11/EnergyPlus25.2 annual, saved-IFC and fixed-PTAC workflows
+now execute. Native stdout exposed and prompted a real MCP response-channel
+repair: private JSON results are separate from C++ diagnostics. Existing46files
+were preserved during recovery; fresh MCP annual execution and pending review
+also pass.44native-enabled regression tests pass with no skips; five final
+response/native tests pass. Synthetic scope, raw SQL flag exception and runtime
+warnings remain explicit. See [native usability](NATIVE_ENERGY_USABILITY.md).
+Full agent goal remains active; BSE3227 stays unchanged awaiting feedback.
+
 ## Workspace and clean-source verification
 
 CLI/workflow/review and MCP paths now enforce selected workspaces and protected
@@ -19,8 +30,8 @@ so hot reload is NOTclaimed. CLI/newconnections work. See
 All7existing drawing schemas now execute through one source-bound task. One
 actual workflow saves/reopens7DWGs,checks actual plots and retains8requirements
 with separate pending review.24adapter and25integration regressions pass.
-Full agent goal remains active; next setup gap is host Graphviz/runtime flags
-not exposed by the current project-scoped installer. See
+At that milestone, host runtime flag setup was still pending; it is resolved
+in the later extended host runtime milestone above. See
 [seven-schema evidence](evidence/seven-schema-drawing-workflow.json).
 
 ## General drawing project workflow executed

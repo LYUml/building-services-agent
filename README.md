@@ -79,7 +79,9 @@ execute. See [usability evidence](docs/AGENT_USABILITY.md).
 This is usable scoped tooling, not an autonomous solution to arbitrary building
 projects. Source interpretation, physical model applicability, installed routing,
 product selection and complete regulatory review remain task-specific.
-Optional EnergyPlus, Radiance, IFC, pressure and CFD capabilities retain their
+Native OpenStudio/EnergyPlus annual and IFC/PTAC workflows also execute
+through CLI and fresh MCP connections; see [actual scope and results](docs/NATIVE_ENERGY_USABILITY.md).
+Optional Radiance, IFC, pressure and CFD capabilities retain their
 individual evidence and gaps in the [roadmap](docs/ROADMAP.md).
 
 BSE3227's18-page coursework handoff is preserved pending user feedback; it is

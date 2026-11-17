@@ -1,5 +1,10 @@
 # Annual hourly weather analysis
 
+Current host: actual annual/IFC/PTAC runs and MCP result delivery were restored
+on 2026-11-17. See [executed scope and limits](NATIVE_ENERGY_USABILITY.md).
+The following startup-failure handling remains available for environments
+where the import fails; it is not the current host execution status.
+
 Initial OpenStudio ImportError now writes runtime-failure.json and the exact
 runtime-import.log before returning an execution failure. The report identifies
 openstudio_import,source/weather/engine hashes and simulation_executed:false.
@@ -11,8 +16,8 @@ Workflow dependency diagnosis verifies the retained report/log association and
 source bytes,then exposes a compatible approved-environment recovery action.
 It does not propose changing design quantities to fix a dependency startup.
 Eleven related tests and a real inherited MOOSAS-chain failure verify this path.
-Other version/build/solver failures retain their existing handling. Host policy
-and missing annual simulation acceptance remain unchanged. Evidence:
+Other version/build/solver failures retain their existing handling. No host policy change was made. This historical failure receipt does not
+supersede the newer successful execution evidence. Evidence:
 evidence/annual-runtime-diagnostics.json.
 
 `annual_energy` extends the existing synthetic two-zone design-day adapter with actual complete-calendar EPW simulation. It keeps ideal supplied heating/cooling **thermal** kWh separate from lighting **electricity** kWh. It does not infer plant electricity, COP, whole-building EUI or a finished HVAC system from ideal loads.

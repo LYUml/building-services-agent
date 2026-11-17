@@ -40,7 +40,7 @@ def resolve(operation):
     return getattr(importlib.import_module(module),name)
 
 
-def main():
+def main(response_file=None):
     try:
         request=json.load(sys.stdin)
         if not isinstance(request,dict) or set(request)!={'operation','args','kwargs'} or request['operation'] not in OPERATIONS or not isinstance(request['args'],list) or not isinstance(request['kwargs'],dict):
@@ -56,8 +56,17 @@ def main():
         detail=missing_dependency(exc)
         result=dict(ok=False,error='ModuleNotFoundError: '+detail['message'],error_kind='missing_dependency',missing_module=detail['missing_module'],suggested_extra=detail['suggested_extra'])
     except Exception as exc:result=dict(ok=False,error=type(exc).__name__+': '+str(exc))
-    print(json.dumps(result,ensure_ascii=False,allow_nan=False))
+    encoded=json.dumps(result,ensure_ascii=False,allow_nan=False)
+    if response_file is None:print(encoded)
+    else:
+        # This fresh private path is supplied by the parent, never by a document.
+        # Native C/C++ stdout bypasses contextlib.redirect_stdout; keep results
+        # on a dedicated channel instead of trying to parse mixed native logs.
+        with Path(response_file).open('x',encoding='utf-8') as stream:stream.write(encoded)
     return 0 if result['ok'] else 2
 
 
-if __name__=='__main__':raise SystemExit(main())
+if __name__=='__main__':
+    import argparse
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--response-file',type=Path)
+    raise SystemExit(main(parser.parse_args().response_file))

@@ -1,0 +1,59 @@
+{
+  "date": "2026-11-17",
+  "scope": "Synthetic native annual/IFC/PTAC usability; not BSE3227 or engineering acceptance",
+  "upstream": {
+    "openstudio": "3.11.0",
+    "energyplus": "25.2.0",
+    "energyplus_commit": "cf7368216c73c43181e057fa33b479c4e0c86df0",
+    "engine_sha256": "51715987663666eaff1c8d3bd6ac2d7fe0486d8bc93673eea87c6912a79103f0"
+  },
+  "local_artifact_sha256": {
+    "runs/annual-engine-recovery/annual/annual.json": "078e6a55689e207f6b3fc3438f0a70681a19c869b88299ace2aa8f191fed72c4",
+    "runs/recovered-ifc-annual/thermal/annual/annual.json": "018d4536d9fa45b32566000aa86285a8c509eac13078d3b203863d637ce79957",
+    "runs/recovered-ptac-annual/thermal/annual/annual.json": "5b69e51ffc9d464eb8cfeddcc10ff5f39e4526f77918fa1aa21fee54b39a9dc4",
+    "runs/recovered-energy-tests/tests.log": "2b1fedef9177bb5c0d6f5243026bc3f03db8d6ac8f17aab100e4b2474255b7d6",
+    "runs/mcp-response-regression.log": "d36f819d0c1e160cecbf76222b515a382034490e7c5c9e97f95d6139d2a9358f",
+    "runs/mcp-drawing-transport-regression.log": "a26d080bdb5a9bd2e8ee5f74a67a7672e550cc1ec7965c3c60060078fe2c8de9",
+    "runs/native-response-final-tests.log": "4361a6b692e90efe5c3109b7364739ee70c431d1309cc5f56488d145e8de55fc",
+    "runs/energy-profile-activation/receipt.json": "990da1005ebf74284f2e7d6c941468832faa9d78fe6fdb4d1e7fe34756640626"
+  },
+  "native_energy_tests": {
+    "run": 44,
+    "skipped": 0,
+    "passed": 44
+  },
+  "mcp_regressions": {
+    "run": 14,
+    "passed": 13,
+    "skipped": 1,
+    "skip_reason": "explicit missing PDF fixture"
+  },
+  "drawing_regressions": {
+    "run": 4,
+    "passed": 4
+  },
+  "final_response_native_tests": {
+    "run": 5,
+    "passed": 5
+  },
+  "groups_overlap": true,
+  "transport": {
+    "only_energyplus_flag_changed": true,
+    "profile_sha256": "0ef5418d08e7e5fa6fcb7f33cac280d130031ffc8cd5fbae0b52a371e4991539",
+    "previous_native_run_recovered_without_recalculation": true,
+    "previous_files_preserved": 46,
+    "new_connection_actual_annual_workflow_pass": true,
+    "source_requirements_preserved": 1,
+    "separate_review_pending": true,
+    "native_stdout_transport_fixed": true,
+    "application_restarted": false,
+    "current_chat_hot_reload_claimed": false,
+    "design_accepted": false
+  },
+  "native_flags_preserved": [
+    "FALSE",
+    "FALSE"
+  ],
+  "completion": "verified_with_known_unwritten_sql_flags",
+  "design_accepted": false
+}

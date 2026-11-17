@@ -1,3 +1,13 @@
+## Native energy reuse and MCP transport
+
+Existing pinned OpenStudio3.11.0, EnergyPlus25.2.0 and IfcOpenShell0.8.5
+adapters were reused under their retained notices in THIRD_PARTY.md
+without a replacement solver or new dependency. The gap was mixed native
+stdout/JSON transport, repaired with Python standard-library private result
+files. Existing upstream notices/licenses remain retained. Actual annual,
+saved-IFC, PTAC and MCP execution evidence, exact engine pin and remaining
+synthetic scope are in [native usability](NATIVE_ENERGY_USABILITY.md).
+
 ## Agent startup and drawing usability
 
 All seven existing drawing schemas now compose into the same workflow task,
