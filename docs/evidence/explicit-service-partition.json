@@ -1,0 +1,12 @@
+{
+  "scope": "Executed shared explicit-cell allocation on actual separate64-terminal manufacturer candidate",
+  "source_boundary_sha256": "c64f5b2df5be607b7aebc978a51d3a168b45ca9e057135f0df6540e651a4a617",
+  "terminal_geometry_checks": 64,
+  "area_and_max_min_flow_scalar_checks": 192,
+  "all_match_prior_independent_strip_calculation": true,
+  "tests_passed": 11,
+  "reuse": "Existing Shapely2.2.0 BSD-3-Clause clipping/union and existing classified air-load calculation; no partition engine or new dependency",
+  "basis": "Design-assumed service strips, not measured spatial load or air coverage",
+  "integration": "Python prepare keyword API only; CLI/MCP schema unchanged",
+  "design_accepted": false
+}

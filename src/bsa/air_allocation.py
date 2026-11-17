@@ -4,7 +4,7 @@ import json
 import hashlib
 from pathlib import Path
 from .air_load import calculate
-from .service_areas import allocate
+from .service_areas import allocate, allocate_explicit
 
 
 def run(project_path, output):
@@ -53,11 +53,16 @@ def reference_files(project_path,project):
     return result
 
 
-def prepare(boundary, terminals, load_inputs, turndown):
+def prepare(boundary, terminals, load_inputs, turndown, *, service_cells=None, service_basis=None):
     if type(turndown) not in (int, float) or not math.isfinite(turndown) or not 0 < turndown <= 1:
         raise ValueError('Explicit turndown in (0,1] required')
     load = calculate(load_inputs)
-    allocation = allocate(boundary, terminals, load_inputs['area']['value'])
+    if service_cells is None:
+        if service_basis is not None:
+            raise ValueError('Service basis requires explicit cells')
+        allocation = allocate(boundary, terminals, load_inputs['area']['value'])
+    else:
+        allocation = allocate_explicit(boundary, terminals, load_inputs['area']['value'], service_cells, service_basis)
     rows = []
     for cell in allocation['terminals']:
         fraction = cell['allocated_load_area_m2']/allocation['given_load_area_m2']
@@ -70,7 +75,8 @@ def prepare(boundary, terminals, load_inputs, turndown):
     return dict(load=load, allocation=allocation, terminals=rows, turndown=turndown,
                 checks=dict(allocated_area_m2=area, allocated_flow_L_s=flow,
                             area_conserved=True, flow_conserved=True),
-                scope='Uniform allowance allocated by nearest-centre area; not spatial load simulation, duct routing, air coverage or ADPI acceptance',
+                scope=('Uniform allowance allocated by nearest-centre area; not spatial load simulation, duct routing, air coverage or ADPI acceptance' if service_cells is None else
+                       'Uniform allowance allocated by explicit clipped service cells; not spatial load simulation, duct routing, air coverage or ADPI acceptance'),
                 design_accepted=False)
 
 
