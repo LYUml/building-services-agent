@@ -1,4 +1,11 @@
-## Scoped native IFC triangle conversion (2026-11-18, local checks verified)
+## Scoped native IFC triangle conversion (2026-11-18, remote recovery verified)
+
+The public scripts/profile_native_ifc.py reuses the existing synthetic saved IFC
+and shared Win32 counter snippet from profile_worker_transport.py. No new
+measurement dependency/service. Three samples/path retain exact source hashes
+and equivalent checked output; original six import/transport probes also pass
+the shared-counter smoke. See NATIVE_IFC_RESOURCES.md for reproducible commands
+and bounded Windows results. Measurement scripts do not expand design support.
 
 Reuse the already pinned IfcOpenShell0.8.5 CGAL kernel only for one direct closed
 Body tessellation consisting entirely of triangles, without openings; keep the

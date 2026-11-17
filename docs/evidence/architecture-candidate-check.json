@@ -64,7 +64,7 @@
   "current_chat_readonly_reference_call_pass": true,
   "current_chat_reference_revision": "0922528f60d6f74fe25647caadab97702529d167",
   "full_regression_complete": false,
-  "goal_audit_status": "incomplete_pending_native_kernel_fix_and_matching_full_ci",
+  "goal_audit_status": "incomplete_pending_full_regression",
   "source_ci": {
     "run_id": 44179400543,
     "network": "success",
@@ -177,5 +177,354 @@
       "producer_visual_pending_preserved": true,
       "design_accepted": false
     }
+  },
+  "final_source_verification": {
+    "schema": "bsa.final-architecture-source-check/1",
+    "source_commit": "a5244188c9142d8ac45bcbc45da03c4073dce15c",
+    "fresh_git_checkout": true,
+    "fresh_environment": true,
+    "pinned_extras": [
+      "drawing",
+      "mcp",
+      "codex-setup",
+      "documents",
+      "modules",
+      "spatial",
+      "reports",
+      "network"
+    ],
+    "pip_check_pass": true,
+    "product_python_files": 376,
+    "product_files_equal_after_newline_normalization": true,
+    "source_archive_repeated_sha256": "43f61b3435897a20d421ebd7a76595b76893278579b61c2851c30961afc4617b",
+    "source_archive_bytes": 28454242,
+    "clean_checks": {
+      "integrity_pass": true,
+      "tests_run": 74,
+      "passed": 74,
+      "suite_pass": true,
+      "all_tests_pass": true,
+      "design_accepted": false,
+      "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance"
+    },
+    "tool_count": 42,
+    "worker_operations": 41,
+    "native_mcp_calls": 6,
+    "delivery_mcp_calls": 2,
+    "stage_errors": {},
+    "native_reopen_pass": true,
+    "native_entities": 718,
+    "pdf_reference_mm": 99.99133333333334,
+    "plot_sha256": "7c25569ae10d6b81245b4ec1104b7ac0984e5ca03e3846c0791a8af4ca27db62",
+    "report_pages": 23,
+    "numerical_rows_checked": 388,
+    "report_sha256": "27dcf4d6a76e33c604f794eb48d346d2aaad7b74f425ba849b937253e3006578",
+    "visual_evidence": {
+      "rendered_pages": 23,
+      "all_page_images_equal_to_previously_viewed_092": true,
+      "current_a1_and_report17_images_equal_to_previously_viewed_092": true,
+      "earlier_observation_sha256": "a84e9f746a50b9c971ff386bcd71f5a26c896c7051d2fe2032d691e0a77e7552",
+      "current_render_manifest_sha256": "2c7680aa7c9fb78cc42cf3a87e3e17e319569eab33838abc39559c83f8aa9b6b",
+      "scope": "Pixel-identical actual output pages retain the previous bounded visual observations; no new engineering approval"
+    },
+    "delivery_requirements_pending": 34,
+    "current_chat_readonly_catalogue_revision": "a5244188c9142d8ac45bcbc45da03c4073dce15c",
+    "full_matching_ci_verified": false,
+    "status": "pending_matching_full_ci",
+    "release_published": false,
+    "design_accepted": false
+  },
+  "native_kernel_memory": {
+    "source_commit": "a5244188c9142d8ac45bcbc45da03c4073dce15c",
+    "source_sha256": {
+      "runs\\ifc-kernel-native-visual\\model.ifc": "a7e163bd806465d780aaee9c0a2fa23b4e678547ba766c40f0972972bef86c5b",
+      "examples\\circular-elbow\\project.json": "440852dec5cd4e4fe51271f9fccea763ab9e0ae11007e65e60de9c14694e3cf9",
+      "examples\\circular-elbow\\drawing-settings.json": "98491a1d667b44cef355375ee59594429a13e9d9af0e6a2d38a07668f0873c78",
+      "src\\bsa\\circular_geometry.py": "ac50404b987429a2524c574049b2a897a0c1987d9281779524e5db51d498e9a3"
+    },
+    "samples": [
+      {
+        "mode": "original",
+        "trial": 1,
+        "seconds": 22.884894799994072,
+        "before": {
+          "peak_bytes": 25272320,
+          "current_bytes": 25272320
+        },
+        "after": {
+          "peak_bytes": 1952796672,
+          "current_bytes": 105615360
+        },
+        "ifcopenshell": "0.8.5"
+      },
+      {
+        "mode": "guarded",
+        "trial": 1,
+        "seconds": 5.941425700002583,
+        "before": {
+          "peak_bytes": 25169920,
+          "current_bytes": 25169920
+        },
+        "after": {
+          "peak_bytes": 574373888,
+          "current_bytes": 105074688
+        },
+        "ifcopenshell": "0.8.5"
+      },
+      {
+        "mode": "original",
+        "trial": 2,
+        "seconds": 22.365953200001968,
+        "before": {
+          "peak_bytes": 25038848,
+          "current_bytes": 25038848
+        },
+        "after": {
+          "peak_bytes": 1952813056,
+          "current_bytes": 104873984
+        },
+        "ifcopenshell": "0.8.5"
+      },
+      {
+        "mode": "guarded",
+        "trial": 2,
+        "seconds": 5.973527099995408,
+        "before": {
+          "peak_bytes": 25190400,
+          "current_bytes": 25190400
+        },
+        "after": {
+          "peak_bytes": 573255680,
+          "current_bytes": 103432192
+        },
+        "ifcopenshell": "0.8.5"
+      },
+      {
+        "mode": "original",
+        "trial": 3,
+        "seconds": 22.598538600024767,
+        "before": {
+          "peak_bytes": 25280512,
+          "current_bytes": 25280512
+        },
+        "after": {
+          "peak_bytes": 1953533952,
+          "current_bytes": 105836544
+        },
+        "ifcopenshell": "0.8.5"
+      },
+      {
+        "mode": "guarded",
+        "trial": 3,
+        "seconds": 5.97560129998601,
+        "before": {
+          "peak_bytes": 25153536,
+          "current_bytes": 25153536
+        },
+        "after": {
+          "peak_bytes": 573612032,
+          "current_bytes": 103096320
+        },
+        "ifcopenshell": "0.8.5"
+      }
+    ],
+    "summary": {
+      "original": {
+        "median_seconds": 22.598538600024767,
+        "median_peak_bytes": 1952813056
+      },
+      "guarded": {
+        "median_seconds": 5.973527099995408,
+        "median_peak_bytes": 573612032
+      }
+    },
+    "pieces_equal_within_1e_12": true,
+    "source_unchanged": true,
+    "counter_implementation": "Existing scripts/profile_worker_transport.py Win32 memory() counters",
+    "control": "Original default native factory, patched only inside each isolated control process",
+    "scope": "Windows fresh Python process working-set peak and import/read/extract time for the existing synthetic three-piece route fixture; not total host, AutoCAD, real project, Linux or general-engine memory/speed",
+    "design_accepted": false
+  },
+  "remote_network_recovery": {
+    "artifact_id": 14378275883,
+    "run_id": 44190212463,
+    "job_id": 134417286017,
+    "artifact_url": "https://github.com/LYUml/building-services-agent/actions/runs/44190212463/artifacts/14378275883",
+    "commit": "a5244188c9142d8ac45bcbc45da03c4073dce15c",
+    "archive_sha256": "a531ef73cad5414036e8c43931b4166e5c9d38ae93f43ce7b687ca170b895f58",
+    "artifact_hashes_match": true,
+    "recorded_source_files": 862,
+    "recorded_sources_equal_to_committed_git_blobs": true,
+    "test_counts_consistent": true,
+    "tests_run": 9,
+    "passed": 9,
+    "suite_pass": true,
+    "all_tests_pass": true,
+    "skipped": 0,
+    "failures": 0,
+    "errors": 0,
+    "test_timeout": 600,
+    "elapsed_seconds": 940.067541991,
+    "durations_seconds": {
+      "tests.test_native_friction_provider.NativeFrictionProviderTests.test_native_projection_disable_and_engineering_acceptance_guard": 73.643188,
+      "tests.test_native_ifc_geometry.NativeKernelTests.test_actual_native_route_matches_original_kernel_under_same_checks": 35.791224,
+      "tests.test_native_ifc_geometry.NativeKernelTests.test_only_direct_closed_triangle_sets_use_fast_kernel": 0.000713,
+      "tests.test_native_ifc_geometry.NativeKernelTests.test_other_representations_openings_and_polygon_voids_keep_original_kernel": 0.000979,
+      "tests.test_native_ifc_geometry.NativeKernelTests.test_unavailable_conversion_falls_back_without_accepting_failure": 0.000844,
+      "tests.test_mixed_recovery_controller.MixedRecoveryTests.test_air_and_water_recover_in_one_preserved_source_graph": 301.33853,
+      "tests.test_mixed_recovery_controller.MixedRecoveryTests.test_fan_cannot_claim_pump_electrical_eligibility": 73.925914,
+      "tests.test_mixed_recovery_controller.MixedRecoveryTests.test_forged_cross_discipline_handoff_rejected": 302.765475,
+      "tests.test_mixed_recovery_controller.MixedRecoveryTests.test_unselected_fan_retains_failed_replay_and_stops_before_pump": 151.491102
+    },
+    "scope": "Downloaded GitHub records, artifact integrity, recorded counters and committed source-byte correspondence; remote interpreter is not locally re-executed or authenticated by this verifier",
+    "design_accepted": false
+  },
+  "public_native_resource_probe": {
+    "schema": "bsa.native-ifc-resource-probe/1",
+    "recorded_git_head": "a5244188c9142d8ac45bcbc45da03c4073dce15c",
+    "source_sha256": {
+      "docs/evidence/circular-elbow/workflow.zip": "612687d3b02628e000ba3fa948e0d56c301a7098eac1d1a76bc94e6e09e1f529",
+      "examples/circular-elbow/project.json": "440852dec5cd4e4fe51271f9fccea763ab9e0ae11007e65e60de9c14694e3cf9",
+      "examples/circular-elbow/drawing-settings.json": "98491a1d667b44cef355375ee59594429a13e9d9af0e6a2d38a07668f0873c78",
+      "src/bsa/circular_geometry.py": "ac50404b987429a2524c574049b2a897a0c1987d9281779524e5db51d498e9a3",
+      "src/bsa/circular_elbow.py": "920368433c1af18b4a7ac0c43b8578929aae683a0eaab8c9eeabdf011f9d103f",
+      "src/bsa/ifc_route_drawing.py": "9b0ffbbc3cbfcad54d97c15607e394c300186d32b0f5ea12235f6334d63430c3",
+      "scripts/profile_native_ifc.py": "20d39ecdd6e15fea2881312a3c8ed91723e48581d82832396ee954dbe722cd5a",
+      "scripts/windows_memory_probe.py": "600c50f5d384770c7dc8b525b3d01d3b1049637eb5e38ea8fb128fd8243fef67"
+    },
+    "fixture_sha256": "a7e163bd806465d780aaee9c0a2fa23b4e678547ba766c40f0972972bef86c5b",
+    "summary": {
+      "original": {
+        "median_seconds": 23.134160499990685,
+        "median_peak_bytes": 1953005568
+      },
+      "guarded": {
+        "median_seconds": 6.038635900011286,
+        "median_peak_bytes": 572792832
+      }
+    },
+    "source_unchanged": true,
+    "pieces_equal_within_1e_12": true,
+    "scope": "Windows fresh Python process peak working set and import/read/extract time for a synthetic three-piece route; not total host, AutoCAD, real project, Linux or general-engine performance",
+    "design_accepted": false,
+    "samples": [
+      {
+        "mode": "original",
+        "trial": 1,
+        "seconds": 22.972727299988037,
+        "before": {
+          "peak_bytes": 25210880,
+          "current_bytes": 25210880
+        },
+        "after": {
+          "peak_bytes": 1953005568,
+          "current_bytes": 104796160
+        },
+        "ifcopenshell": "0.8.5"
+      },
+      {
+        "mode": "guarded",
+        "trial": 1,
+        "seconds": 6.038635900011286,
+        "before": {
+          "peak_bytes": 25231360,
+          "current_bytes": 25231360
+        },
+        "after": {
+          "peak_bytes": 571940864,
+          "current_bytes": 104787968
+        },
+        "ifcopenshell": "0.8.5"
+      },
+      {
+        "mode": "original",
+        "trial": 2,
+        "seconds": 23.139038000022992,
+        "before": {
+          "peak_bytes": 25210880,
+          "current_bytes": 25210880
+        },
+        "after": {
+          "peak_bytes": 1952722944,
+          "current_bytes": 104546304
+        },
+        "ifcopenshell": "0.8.5"
+      },
+      {
+        "mode": "guarded",
+        "trial": 2,
+        "seconds": 6.003377099987119,
+        "before": {
+          "peak_bytes": 25083904,
+          "current_bytes": 25083904
+        },
+        "after": {
+          "peak_bytes": 572792832,
+          "current_bytes": 104824832
+        },
+        "ifcopenshell": "0.8.5"
+      },
+      {
+        "mode": "original",
+        "trial": 3,
+        "seconds": 23.134160499990685,
+        "before": {
+          "peak_bytes": 25169920,
+          "current_bytes": 25169920
+        },
+        "after": {
+          "peak_bytes": 1954136064,
+          "current_bytes": 104878080
+        },
+        "ifcopenshell": "0.8.5"
+      },
+      {
+        "mode": "guarded",
+        "trial": 3,
+        "seconds": 6.129380800004583,
+        "before": {
+          "peak_bytes": 25153536,
+          "current_bytes": 25153536
+        },
+        "after": {
+          "peak_bytes": 574930944,
+          "current_bytes": 103419904
+        },
+        "ifcopenshell": "0.8.5"
+      }
+    ]
+  },
+  "shared_memory_counter_verification": {
+    "counter_class_and_function_ast_equal_to_original": true,
+    "smoke_samples": 6,
+    "smoke_probes": [
+      "cli_import",
+      "mcp_create",
+      "pump_import",
+      "transport_32mib",
+      "transport_quiet",
+      "workflow_import"
+    ],
+    "trials_per_probe": 1,
+    "scope": "Shared counter/import/transport compatibility smoke, not a statistical optimization comparison",
+    "source_sha256": {
+      "scripts/profile_worker_transport.py": "00df3aef5c283613a2a533080f5da3f59819069d1d891a219617f2d20f2a541a",
+      "scripts/windows_memory_probe.py": "600c50f5d384770c7dc8b525b3d01d3b1049637eb5e38ea8fb128fd8243fef67"
+    }
+  },
+  "current_implementation_ci": {
+    "source_commit": "a5244188c9142d8ac45bcbc45da03c4073dce15c",
+    "core_run": 44190212344,
+    "core_jobs_success": 9,
+    "domain_run": 44190212463,
+    "domain_jobs_success": 6,
+    "full_regression_job": 134417290338,
+    "full_regression_status": "in_progress"
+  },
+  "followup_scope": {
+    "production_source_tests_contracts_regulations_locks_workflows_unchanged": true,
+    "scope": "Executed Windows developer probes and version-bound verification records only; original implementation full CI remains required",
+    "duplicate_ci_trigger_skipped": true,
+    "github_skip_reference": "https://docs.github.com/en/actions/how-tos/manage-workflow-runs/skip-workflow-runs"
   }
 }

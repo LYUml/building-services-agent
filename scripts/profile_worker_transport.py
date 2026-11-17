@@ -6,19 +6,12 @@ no dependency or engineering benchmark claim. Output stays in repository runs.
 from pathlib import Path
 import argparse
 import subprocess,sys,os,json,statistics,time
+from windows_memory_probe import MEMORY_CODE
 ROOT=Path(__file__).resolve().parents[1]
 CODE=r"""
 import sys,os,time,json,ctypes,asyncio,subprocess
-from ctypes import wintypes
 from unittest.mock import patch
-class Counters(ctypes.Structure):
- _fields_=[('cb',wintypes.DWORD),('PageFaultCount',wintypes.DWORD)]+[(name,ctypes.c_size_t) for name in ['PeakWorkingSetSize','WorkingSetSize','QuotaPeakPagedPoolUsage','QuotaPagedPoolUsage','QuotaPeakNonPagedPoolUsage','QuotaNonPagedPoolUsage','PagefileUsage','PeakPagefileUsage']]
-def memory():
- kernel=ctypes.WinDLL('kernel32');kernel.GetCurrentProcess.restype=ctypes.c_void_p
- psapi=ctypes.WinDLL('psapi');psapi.GetProcessMemoryInfo.argtypes=[ctypes.c_void_p,ctypes.c_void_p,wintypes.DWORD]
- c=Counters();c.cb=ctypes.sizeof(c)
- if not psapi.GetProcessMemoryInfo(kernel.GetCurrentProcess(),ctypes.byref(c),c.cb):raise ctypes.WinError()
- return dict(peak_bytes=c.PeakWorkingSetSize,current_bytes=c.WorkingSetSize)
+"""+MEMORY_CODE+r"""
 probe=sys.argv[1];before=memory();start=time.perf_counter()
 if probe=='pump_import':import bsa.pump_catalogue_iteration
 elif probe=='cli_import':import bsa.cli
