@@ -1,0 +1,48 @@
+{
+  "installed_cli": true,
+  "source_plan_preserved": true,
+  "source_requirement_count": 2,
+  "source_supporting_tasks": [
+    "interpret-001"
+  ],
+  "mapped_supporting_tasks": [
+    "electrical"
+  ],
+  "original_supporting_tasks": [
+    "interpret-001"
+  ],
+  "task_statuses": {
+    "electrical": "pass",
+    "review": "pending"
+  },
+  "supporting_evidence": {
+    "status": "pass",
+    "scope": "conditional electrical checks only; remaining design checks are in calculations.json",
+    "evidence": [
+      "electrical/calculations.json",
+      "electrical/devices.dxf",
+      "electrical/manifest.json",
+      "electrical/preview.svg",
+      "electrical/report.html"
+    ]
+  },
+  "workflow_files_preserved": 7,
+  "handoff_integrity": true,
+  "audit_status": "needs_review",
+  "design_accepted": false,
+  "scope": "Synthetic source-backed handoff/evidence identity; not design acceptance",
+  "date": "2026-11-17",
+  "prior_failure": "Valid supporting relation retained obsolete interpretation task ID and failed interpreted-plan validation",
+  "local_artifact_sha256": {
+    "runs/handoff-support-entry/receipt.json": "6ca4022f1085c868c1c6c964fbdfab460f09f5eab716ac9232ab8d773947eb93",
+    "runs/handoff-support-regression.log": "2a96b4a62b77e602381b47c726b11ccf33a10932a14df8fe9fd5aeae0f29497b",
+    "runs/handoff-support-related.log": "d712b8a5e28653ac393ba731925ed217bbbaa6673116ad034977b03f0de128f7"
+  },
+  "tests": {
+    "handoff_cli_delivery": 35,
+    "supporting_intake": 11,
+    "skipped": 0
+  },
+  "native_warning": "Existing IfcOpenShell EXPRESS ResourceWarning retained; no test failure",
+  "reuse": "Existing handoff mapping, workflow supporting evidence and delivery validators; no new dependency"
+}

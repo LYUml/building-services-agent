@@ -48,6 +48,59 @@ class EngineeringHandoffTests(unittest.TestCase):
         source,record=self.sample();source['tasks'][0]['kind']='electrical'
         with self.assertRaisesRegex(ValueError,'cannot be replaced'):materialize(source,record)
 
+    def test_supporting_task_identity_survives_split_and_collapsed_bindings(self):
+        source,record=self.sample()
+        source['tasks'][1].pop('requires_pass')
+        source['requirements'][1]['supporting_tasks']=['interpret-1']
+        record['tasks'].append(dict(id='electrical-review',kind='manual'))
+        record['requirement_bindings']['R1']['tasks'].append('electrical-review')
+        before=copy.deepcopy(source)
+        result=materialize(source,record)
+        review=result['requirements'][-1]
+        self.assertEqual(review['supporting_tasks'],['electrical','electrical-review'])
+        self.assertEqual(review['original_supporting_tasks'],['interpret-1'])
+        self.assertNotIn('requires_pass',result['tasks'][1])
+        self.assertEqual(source,before)
+        # Evidence already mapped to the primary task must not become self-support.
+        record['requirement_bindings']['R2']['tasks']=['electrical','review']
+        rows=materialize(source,record)['requirements'][-2:]
+        self.assertEqual(rows[0]['supporting_tasks'],['electrical-review'])
+        self.assertEqual(rows[1]['supporting_tasks'],['electrical','electrical-review'])
+
+    def test_actual_supporting_evidence_reaches_workflow_and_delivery(self):
+        from bsa.project_start import start
+        from bsa.cli import digest
+        from bsa.delivery import template,assess
+        import shutil
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+            root=Path(folder);brief=root/'brief.md'
+            brief.write_text('Calculate explicitly synthetic circuit inputs.\n\nReview their calculation evidence; full engineering acceptance remains pending.')
+            project=root/'project';start(brief,project)
+            plan=project/'plan.json';source=json.loads(plan.read_text())
+            first,second=source['requirements']
+            second['supporting_tasks']=[first['task']]
+            plan.write_text(json.dumps(source),encoding='utf-8');before=plan.read_bytes()
+            shutil.copyfile(ROOT/'examples/office-electrical/project.json',project/'electrical.json')
+            record=dict(schema='bsa.engineering-handoff/1',source_plan_sha256=digest(plan),
+                tasks=[dict(id='electrical',kind='electrical',project='electrical.json'),dict(id='review',kind='manual')],
+                requirement_bindings={first['id']:dict(tasks=['electrical'],acceptance=first['quote']),
+                    second['id']:dict(tasks=['review'],acceptance=second['quote'])},
+                interpretation_notes={i['id']:'Explicit host mapping of public synthetic inputs; no engineering acceptance.' for i in source['unresolved_inputs']},extra_unresolved_inputs=[])
+            record_path=project/'interpretation.json';record_path.write_text(json.dumps(record),encoding='utf-8')
+            target=project/'engineering-plan.json';out=root/'execution'
+            result=run(plan,record_path,target,out)
+            self.assertEqual(result['stage_errors'],{})
+            self.assertTrue(verify(out)['integrity_pass'])
+            workflow=json.loads((out/'workflow/workflow.json').read_text())
+            row=workflow['requirements'][-1]
+            self.assertEqual(row['supporting_tasks'],['electrical'])
+            self.assertEqual(row['supporting_evidence']['electrical']['status'],'pass')
+            review=root/'review.json';template(target,out/'workflow',review)
+            audit=assess(target,out/'workflow',review)
+            self.assertEqual(audit['status'],'needs_review');self.assertFalse(audit['design_accepted'])
+            self.assertEqual(audit['requirements'][-1]['execution_status'],'pending')
+            self.assertEqual(plan.read_bytes(),before)
+
     def actual(self,missing):
         temp=tempfile.TemporaryDirectory(dir=ROOT/'runs');self.addCleanup(temp.cleanup)
         root=Path(temp.name)/'project'

@@ -16,6 +16,12 @@ or clear missing inputs. Use existing requires_pass for actual dependency gates.
 No keyword matching chooses supports automatically; the host inspects the full
 source and explicitly declares related existing tasks.
 
+The engineering handoff also remaps source interpretation-task support links
+to their concrete tasks, including one-to-many bindings. Original IDs remain
+in `original_supporting_tasks` and the pinned original plan. A task already
+serving as primary is omitted from its own supporting list. See the
+[handoff contract and actual CLI evidence](ENGINEERING_HANDOFF.md).
+
 Workflow JSON adds supporting_evidence only when declared, with each task's actual
 status, scope and original artifact paths. The existing local HTML links these
 files beside the primary requirement. Failed/pending tasks retain those states;

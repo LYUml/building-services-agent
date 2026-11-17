@@ -1,3 +1,13 @@
+## Supporting evidence survives engineering handoff
+
+A valid source supporting-task relation previously kept old interpretation IDs
+and failed concrete-plan validation. Handoff now remaps split/overlapping links,
+retains original IDs and excludes self-support without adding dependencies.
+Actual installed CLI executes calculation, source-preserving verification and
+pending delivery review; all2requirements and7workflow files survive.35handoff/
+CLI/delivery and11support/intake tests pass. See
+[contract and evidence](ENGINEERING_HANDOFF.md). Full goal remains active.
+
 ## Installed inspection and delivery loop executed
 
 The installed entry now exposes workflow-verify, workflow-status and delivery

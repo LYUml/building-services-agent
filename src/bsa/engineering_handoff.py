@@ -56,6 +56,15 @@ def materialize(source,record):
             mapped.append(dict(original,id=original['id']+'-bound-'+str(index),task=target,
                 original_requirement_id=original['id'],original_acceptance=original['acceptance'],acceptance=acceptance))
     if used!=known:raise ValueError('Every adapter task needs original requirement coverage')
+    # Resolve evidence links only after every original task's split mapping is
+    # known. These links expose evidence; they do not authorize execution.
+    for requirement in mapped:
+        if 'supporting_tasks' not in requirement:continue
+        original=list(requirement['supporting_tasks'])
+        requirement['original_supporting_tasks']=original
+        requirement['supporting_tasks']=list(dict.fromkeys(
+            task['id'] for old in original for task in tasks
+            if task['id'] in old_targets[old] and task['id']!=requirement['task']))
     for old in source['tasks']:
         parents=list(old.get('requires_pass',[]))+[old[k] for k in ('depends_on','ifc_from','junction_from','connector_from') if old.get(k)]
         inherited={p for parent in parents for p in old_targets[parent]}

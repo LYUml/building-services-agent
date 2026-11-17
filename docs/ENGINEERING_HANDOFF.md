@@ -31,6 +31,22 @@ are inherited, including when obligations split; collapsing dependent obligation
 into one task rejects. The existing workflow validator checks adapter contracts,
 source paths, units, prerequisites and declared input citations.
 
+Original `supporting_tasks` evidence links are remapped after all task bindings
+are known. When a source task splits, every mapped engineering task is retained
+in declared task order, with duplicate links removed. A mapped primary task is
+excluded from its own supporting list because its evidence is already primary.
+`original_supporting_tasks` preserves the original IDs in the interpreted plan;
+the unchanged source plan is also retained and hash-bound. Supporting links
+never introduce execution dependencies or approve the primary requirement.
+
+An actual installed CLI trial reproduced the old unknown-task rejection, then
+executed the corrected handoff, independent verification and pending delivery
+audit. The manual requirement exposes all five electrical artifacts while its
+execution stays pending. Both original requirements and seven workflow files
+are preserved. Split/overlap controls, 35 handoff/CLI/delivery regressions and
+11 supporting-evidence/intake tests pass. See
+[support-link evidence](evidence/handoff-support-links.json).
+
 Generic "not interpreted" gaps may be replaced by explicit interpretation notes.
 Every other original gap retains its ID, description, kind and source citations,
 with affected task IDs remapped. Additional actual gaps remain blocking. A review

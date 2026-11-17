@@ -1,3 +1,12 @@
+## Supporting evidence handoff integration
+
+Reused existing source interpretation binding, workflow supporting-evidence
+inventory and delivery validation. The gap was stale task IDs across adapters;
+original thin mapping now retains split/overlapping relationships and source
+provenance. No graph/review/engineering engine or dependency was added. Existing
+upstream pins/notices remain unchanged. Actual installed execution and failure
+controls are in [handoff evidence](evidence/handoff-support-links.json).
+
 ## Installed review entry reuse
 
 The actual gap was CLI discoverability of existing workflow verification,
