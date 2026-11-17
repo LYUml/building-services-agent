@@ -1,0 +1,67 @@
+{
+  "date": "2026-11-17",
+  "configuration": {
+    "only_poppler_and_radiance_paths_changed": true,
+    "prior_poppler_exists": false,
+    "new_poppler_exists": true,
+    "radiance_exists": true,
+    "global_config_changed": false,
+    "user_app_restarted": false,
+    "current_chat_hot_reload_claimed": false
+  },
+  "tasks": {
+    "shared": "pass",
+    "native": "pass",
+    "review": "pending"
+  },
+  "sensor_count": 15,
+  "lighting": {
+    "average_lux": 282.4183144533334,
+    "minimum_lux": 170.0776376,
+    "maximum_lux": 556.1936330000001,
+    "minimum_over_average": 0.6022188678847297,
+    "numerical_stability": {
+      "maximum_relative_change": 0.03643549612174286,
+      "tolerance": 0.15,
+      "denominator_floor_lux": 1,
+      "initial_bounces": 2,
+      "verification_bounces": 3,
+      "initial_divisions": 512,
+      "verification_divisions": 1024
+    },
+    "checks": {
+      "average": true,
+      "minimum": true,
+      "uniformity": true,
+      "numerical_stability": true
+    },
+    "calculated_checks_pass": true,
+    "engine_version": "RADIANCE 6.0.2 2026-02-02 LBNL (6.0.c1700d56cc)\r\n"
+  },
+  "native_checks": {
+    "circles_match": true,
+    "labels_match": true,
+    "metre_units": true,
+    "source_unchanged": true
+  },
+  "native_reopen_pass": true,
+  "plot_scale": "fit-to-page schematic",
+  "actual_plot_review": "Three complete separate symbols and labels; no clipping/overlap; schematic only",
+  "workflow_files_preserved": 47,
+  "audit_status": "needs_review",
+  "design_accepted": false,
+  "effective_reviews": {
+    "R1": "pending",
+    "R2": "pass",
+    "R3": "pending"
+  },
+  "local_artifact_sha256": {
+    "runs/shared-lighting-mcp-current/usability-receipt.json": "63a6157fc764e195494293a00cf2ab17e732d29023f1f30ce8495bfee95b1591",
+    "runs/shared-lighting-mcp-current/execution/native/devices.dwg": "fd5241b13fc21fe17d46905bdca6bbe5f59fb6ae43f51f749311b507bb1d4a35",
+    "runs/shared-lighting-mcp-current/execution/native/devices.pdf": "61b621626a4f99fdb2336cbed6936898e4b1ae3fcc1807c1db48d01509debfa4",
+    "runs/shared-lighting-mcp-current/execution/shared/lighting/lighting.json": "4da313c6db74e58cf540be31f5a5cfc57b16388c4366495ba7689d6c3a4cb056",
+    "runs/shared-lighting-mcp-current/plot-review/page.png": "5f808ddb135693bb318a7e7ccc13337c7e54d77db3064a17cfec8e2c5eccf09a",
+    "runs/shared-lighting-mcp-current/observed-audit/audit.json": "0b168bf35fa6f81b30de664daa000f97022091a1933caad549ec4b994e717ebc"
+  },
+  "scope": "Synthetic shared fixture/electrical/IFC/Radiance workflow and actual native schematic review; no manufacturer or full design approval"
+}

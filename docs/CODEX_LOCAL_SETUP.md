@@ -1,3 +1,12 @@
+## Current native lighting/plot host repair
+
+The previously saved bundled Poppler path had disappeared after the runtime
+changed. Selective refresh now points to the actual current executable and adds
+the existing Radiance bin directory, preserving every other control. Actual
+fresh MCP shared-lighting execution, DWG reopening and recorded-PDF rendering
+succeed; the existing chat was not restarted. See
+[executed host repair](SHARED_LIGHTING_USABILITY.md).
+
 # Project-scoped Codex startup
 
 Fresh-source setup now initializes its owned default `runs` directory and reports

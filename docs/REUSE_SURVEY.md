@@ -1,3 +1,12 @@
+## Shared optical/native usability
+
+Reused existing pinned Radiance6.0.2 build c1700d56cc, shared electrical/IFC
+binding, native AutoCAD writer, artifact-page renderer and separate delivery
+review. The actual gap was an obsolete Poppler host path and missing Radiance
+startup flag; existing selective configuration refresh repaired it. No solver,
+source model or dependency was changed. Existing Radiance/IFC/MCP notices and
+pins remain retained. See [executed scope](SHARED_LIGHTING_USABILITY.md).
+
 ## Public recovery usability
 
 Reuse the existing pinned fluids1.3.1(MIT), laminar pump solver, catalogue

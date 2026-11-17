@@ -95,6 +95,10 @@ through CLI and fresh MCP connections; see [actual scope and results](docs/NATIV
 Optional Radiance, IFC, pressure and CFD capabilities retain their
 individual evidence and gaps in the [roadmap](docs/ROADMAP.md).
 
+The shared electrical/IFC/Radiance workflow also executes through a fresh MCP
+connection, including native DWG reopening and actual schematic PDF inspection.
+See [host repair and scoped results](docs/SHARED_LIGHTING_USABILITY.md).
+
 BSE3227's18-page coursework handoff is preserved pending user feedback; it is
 not the agent's general acceptance test. See [course status](docs/CURRENT_COURSE_CLOSEOUT.md).
 Upstream pins/licenses and actual integration decisions are in

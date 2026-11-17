@@ -1,3 +1,14 @@
+## Shared lighting and native delivery restored
+
+An actual host gap was repaired: saved Poppler path no longer existed and
+installed Radiance was absent from startup. Only those runtime paths changed.
+Fresh MCP execution passes shared electrical/IFC/Radiance and native AutoCAD
+steps; recorded PDF rendering and actual schematic visual review succeed.
+Separate R2 review passes while R1/R3 stay pending;47workflow files remain
+unchanged. See [scope and actual results](SHARED_LIGHTING_USABILITY.md).
+No current-chat hot reload, manufacturer or complete design acceptance is
+claimed. Full agent goal remains active; BSE3227 is unchanged.
+
 ## Public supplied-curve iteration is runnable
 
 Self-contained pump example now executes installed CLI baseline failure and
