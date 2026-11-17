@@ -9,15 +9,17 @@ BSE3227 and read-only history remain outside these implementation changes.
 The [current requirement-by-requirement audit](CANDIDATE_GATE_AUDIT.md) records
 executed support, clean native MCP installation, actual project revision and
 quantified optimization evidence. Full-regression completion/skip review and
-final candidate handoff remain pending. Earlier checkpoints below are historical;
+final candidate handoff are complete. User acceptance is pending.
+Earlier checkpoints below are historical;
 they must not be read as the current list of unresolved failures.
 
 At implementation 7632371, all five core/profile and six domain jobs pass.
 External-runtime recovery passes eight of eight cases without skips. A fresh
 Git installation completes six actual native MCP calls, independent package
 inspection, DWG reopening and rendered-page review. The source candidate archive
-is downloaded and hash/inventory verified. Whole-repository regression remains
-the final running gate; no stable release or user acceptance is claimed.
+is downloaded and hash/inventory verified. Whole-repository regression passes:
+1840tests, zero failures/errors,258skip outcomes; all_tests_pass=false retained.
+See CANDIDATE_REVIEW.md. No stable release or user acceptance is claimed.
 
 Measured optimizations now include 25,558,050 bytes less installed HVAC dependency
 content (10.68%), pump import peak 101.23 to 28.56 MiB and median import time

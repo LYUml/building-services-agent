@@ -5,8 +5,8 @@ calculations, editable CAD/BIM, iteration and delivery checks across MEP.
 The host interprets sources and engineering assumptions; successful execution
 does not establish professional or statutory design acceptance.
 
-Release-candidate hardening is in progress; the usability checkpoint is not a
-stable-release claim. See [candidate status and measured optimization](docs/RELEASE_CANDIDATE.md).
+The scoped candidate is ready for user review; this is not a
+stable release or engineering design acceptance. See [candidate status and measured optimization](docs/RELEASE_CANDIDATE.md).
 The [candidate support contract](docs/CANDIDATE_SUPPORT.md) distinguishes MCP
 coverage, verified platforms, host preparation and remaining acceptance gates.
 The [Chinese candidate review entry](docs/CANDIDATE_REVIEW.md) brings together

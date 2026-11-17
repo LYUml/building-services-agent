@@ -7,7 +7,8 @@ size and excluded-path inventory independently verified. Source ZIP: 28,259,139
 bytes, 3,687 entries; SHA-256
 `b9789071458eb244b02802d8edf21724039f8a5ac3cbbbc8daf87f5a70de3a1b`.
 See [current source receipt](evidence/current-candidate-source.json).
-Full-regression completion and final candidate handoff are still pending.
+Full regression and receipt review are complete; see CANDIDATE_REVIEW.md
+for candidate entry and explicit limitations. User acceptance is pending.
 
 The current runtime resolves adapters, contracts, regulation packs and scripts
 relative to the source checkout. Preserve that source layout in a candidate.

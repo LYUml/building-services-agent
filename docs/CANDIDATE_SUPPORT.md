@@ -3,7 +3,9 @@
 Current implementation checkpoint: 7632371. All five core/profile jobs and all
 six domain jobs pass, including the remote SDK contract and lightweight profile
 gates. Fresh-source actual native MCP execution also passes. Whole-repository
-regression and final acceptance handoff remain pending.
+regression succeeds with1840tests, zero failures/errors and258skip outcomes.
+All skips remain unexecuted in that run; see final full-suite evidence and
+CANDIDATE_REVIEW.md. User acceptance remains pending.
 
 This contract describes the current candidate, not a stable release or user
 acceptance. Preserve the full multi-service roadmap. Existing experimental
@@ -85,5 +87,5 @@ connection. It passed locally in the existing core-plus-network profile and is
 part of core CI; remote execution is observed at the current checkpoint above.
 
 Full engineering executions keep their separate evidence: USABILITY_ACCEPTANCE.md,
-REAL_PROJECT_REVISION.md and domain guides. Whole-repository regression is still
-running at this checkpoint; no all-tests-passed claim is made.
+REAL_PROJECT_REVISION.md and domain guides. Whole-repository regression succeeds
+with258skip outcomes retained; no all-tests-executed claim is made.

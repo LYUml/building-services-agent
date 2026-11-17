@@ -1,11 +1,37 @@
 # Candidate gate audit
 
-Latest executed implementation checkpoint: 7632371. Corrected local recovery
-passes eight of eight cases, zero skips, verified source/receipt integrity.
-A new exact Git checkout and constrained environment complete six real stdio
-calls, native DWG reopening and report inspection. All six domain jobs and five
-core/profile jobs pass. The full-suite outcome/skip review and final candidate
-handoff remain open; narrower successes do not replace that last result.
+Final implementation: `7632371a6e1288af4f150357586e2116704e7da7`.
+Ready for scoped user review. No stable release, engineering design acceptance
+or user acceptance is asserted. Later commits change documentation/evidence only.
+
+| Requirement | Authoritative inspected evidence | Result |
+|---|---|---|
+| Full multi-service goal and support boundaries | README, ROADMAP, CANDIDATE_SUPPORT, domain guides | Roadmap retained; supported profiles distinguished from experimental/host-dependent adapters |
+| Reproducible clean install | CLEAN_CANDIDATE_INSTALL,42dependency constraints, current-candidate-native-mcp.json | New exact Git checkout/new environment passes pip check, doctor and actual native SDK execution; native engines remain explicit |
+| Matching CI and final full regression | Core run44081506722; domain/full run44081506762; current-candidate-full-regression.json | Five core/profile, six domain and full-regression jobs succeed;1840tests, zero failures/errors,258skip outcomes; all_tests_pass=false retained |
+| Independent final receipt checks | Artifact14333076238; source artifact14328150516 | ZIP digest, receipt file hashes, unchanged source and814source files match exact committed archive bytes; Linux interpreter not re-executed/authenticated locally |
+| Real-project revision propagation | REAL_PROJECT_REVISION; fresh exact763native package | Isolated historical47section case changes44sizes/235drawing cells, preserves flows/20VAVtable/original sources; DWG reopened718entities;23report pages/388numeric rows inspected |
+| MCP coverage and manual boundaries | Actual40tool SDK contract; six-call fresh native session; core SDK integration CI | All declared tools have routes/strict unknown-field rejection evidence; scoped valid execution passes. Not exhaustive valid-input testing; host setup/licensing/interpretation/review explicit |
+| Module, memory, startup and disk improvements | worker_transport, runtime_evidence, lazy geometry imports; three benchmark evidence files | Log-stress parent156.31 to60.18MiB; pump import101.23 to28.56MiB/.513 to.042s; HVAC dependency content minus25,558,050bytes. Separate scopes, not total host/solver claims |
+| Debug without weaker guards | FULL_REGRESSION_RECOVERY; external-runtime-recovery.json; exact-method/binary controls | Platform DSO/external-runtime boundaries fixed;8/8recovery cases pass without skips; original requirements, failed baselines, hash/workspace guards retained |
+| Upstream reuse and attribution | REUSE_SURVEY, THIRD_PARTY, existing licenses, pyproject pins | Existing engines retained behind thin adapters; no new solver or invented ratings/clauses/route lengths |
+| Reproducible permitted distribution | SOURCE_CANDIDATE, current-candidate-source.json | Same-run archives identical; downloaded hashes/CRC/3687entries/exclusions verified;28,259,139byte ZIP contains no environments/private project runs/Git history; full use requires Git checkout |
+| Separate repositories and periodic push | Separate origin/status checks, final docs/evidence commit | Agent changes pushed; course separately clean/synced6adb275; no course edits by this goal; BSE3124 untouched |
+| Actual candidate and review handoff | CANDIDATE_REVIEW, START_USING, downloaded source ZIP/receipt, native outputs | Candidate, entry, quantitative comparison and limits supplied; user acceptance pending; no release/tag |
+
+All258skip records and exact reasons remain in the full-suite evidence.
+Dedicated Windows EnergyPlus/Radiance jobs and local AutoCAD/MCP checks cover
+specific native paths separately; they do not verify every skipped optional or
+cache-dependent integration. Scope follows CANDIDATE_SUPPORT and domain evidence,
+not module presence. Unittest subtest outcomes are not disjoint case counts:
+passed inventory1583 and258skip outcomes must not be summed into a new total.
+
+The candidate-preparation objective is met within these explicit boundaries.
+ADPI applicability, complete pressure, physical installation, manufacturer
+selection and statutory design acceptance remain engineering/project reviews.
+No course requirement or test was deleted to obtain the final software result.
+
+## Historical checkpoints (superseded status)
 
 Historical follow-up: the older full run is terminal and failed: 1,827 tests,
 12 failures, eight errors, 258 skips. Its receipt/source hashes verified.

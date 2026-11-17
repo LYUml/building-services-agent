@@ -5,7 +5,10 @@ recovery group passes all eight cases with zero skips, independently verified
 receipts and unchanged source snapshots. This includes complete fan/pump recovery,
 forgery rejection and no-feasible-candidate controls. All six domain jobs and five
 core/profile jobs at that commit have now passed. Whole-repository regression
-is still executing; no full-suite pass or user acceptance is asserted.
+completed successfully:1840tests, zero failures/errors,258skip outcomes.
+Final downloaded receipt/hash/source-byte checks pass; all_tests_pass=false
+remains explicit and user acceptance is pending. See
+[final full result and all skips](evidence/current-candidate-full-regression.json).
 See [recovery evidence](evidence/external-runtime-recovery.json).
 
 The all-extras run at 4e5e028 completed 1,827 tests in 3,726.788 seconds:

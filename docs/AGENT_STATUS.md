@@ -1,3 +1,16 @@
+## Candidate prepared for user review
+
+Implementation7632371 passes five core/profile, six domain and full-regression
+CI jobs. Final full receipt:1840tests, zero failures/errors,258skip outcomes;
+all_tests_pass=false remains explicit. Downloaded hashes and814source files match
+the exact candidate archive. Fresh nativeMCP execution, external-runtime8/8,
+actual DWG reopening and all23report-page overview are complete.
+See CANDIDATE_REVIEW.md and CANDIDATE_GATE_AUDIT.md for entry, measurements,
+evidence and limits. User acceptance pending; no release/tag or coursework change.
+The full long-term multi-service roadmap remains intact below.
+
+## Historical checkpoints (superseded status)
+
 ## Current release candidate checkpoint
 
 Implementation 7632371 passes all five core/profile and six domain CI jobs.
