@@ -1,0 +1,23 @@
+{
+  "schema": "bsa.engineering-data-ci/1",
+  "implementation_commit": "7841fae3844634d9a3c5b1f6b20eb82c1fdf8992",
+  "run_id": 44125814107,
+  "jobs": [
+    {
+      "id": 134189154301,
+      "platform": "ubuntu-latest",
+      "conclusion": "success",
+      "minimal_tests": 16,
+      "full_hvac_fixture_compatibility_tests": 8
+    },
+    {
+      "id": 134189154522,
+      "platform": "windows-latest",
+      "conclusion": "success",
+      "minimal_tests": 16,
+      "full_hvac_fixture_compatibility_tests": 8
+    }
+  ],
+  "scope": "Actual job logs inspected: minimal profile asserts no Fluids/IFC/Manifold before16tests, then explicit network extra and retained8full-HVAC compatibility cases; not full-suite or whole-goal acceptance",
+  "design_accepted": false
+}

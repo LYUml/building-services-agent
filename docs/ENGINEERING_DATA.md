@@ -79,7 +79,10 @@ items or a forged report. Original input/result bytes are not modified.
   scope; no whole-host memory or improvement over a different workload claimed.
 
 See evidence/engineering-data-first-slice.json and engineering-data-import.json.
-The new Windows/Ubuntu CI profile is configured; its remote outcome is pending.
+The new Windows/Ubuntu CI profile passes at7841fae. Actual logs show16minimal
+controls followed by8retained full-HVAC compatibility cases per platform.
+See evidence/engineering-data-ci.json. Whole-suite and later goal phases remain
+separate.
 
 ## Next steps, in the authorized order
 
