@@ -1,0 +1,631 @@
+{
+  "scope": "Actual synthetic seven-schema workflow capability, not an engineering project acceptance",
+  "source_plan_sha256": "cac38bfc1536cff0bbddb0b006181725c0ea21c89a3c3bc5f6f0eabd05bc6e94",
+  "source_brief_sha256": "48eb6ceef9573a31fb8a7aa42e9578bf46c54cc71d0e0eb7696fa080fa74c20d",
+  "tasks": {
+    "document": {
+      "kind": "drawing_document",
+      "status": "pass",
+      "scope": "Declared editable document saved/reopened and actual PDF scale checked; source interpretation, visual and engineering acceptance remain pending"
+    },
+    "layout": {
+      "kind": "drawing_document",
+      "status": "pass",
+      "scope": "Declared editable document saved/reopened and actual PDF scale checked; source interpretation, visual and engineering acceptance remain pending"
+    },
+    "labels": {
+      "kind": "drawing_document",
+      "status": "pass",
+      "scope": "Declared editable document saved/reopened and actual PDF scale checked; source interpretation, visual and engineering acceptance remain pending"
+    },
+    "graph": {
+      "kind": "drawing_document",
+      "status": "pass",
+      "scope": "Declared editable document saved/reopened and actual PDF scale checked; source interpretation, visual and engineering acceptance remain pending"
+    },
+    "revision": {
+      "kind": "drawing_document",
+      "status": "pass",
+      "scope": "Declared editable document saved/reopened and actual PDF scale checked; source interpretation, visual and engineering acceptance remain pending"
+    },
+    "ifc-sections": {
+      "kind": "drawing_document",
+      "status": "pass",
+      "scope": "Declared editable document saved/reopened and actual PDF scale checked; source interpretation, visual and engineering acceptance remain pending"
+    },
+    "ifc-graph": {
+      "kind": "drawing_document",
+      "status": "pass",
+      "scope": "Declared editable document saved/reopened and actual PDF scale checked; source interpretation, visual and engineering acceptance remain pending"
+    },
+    "review": {
+      "kind": "manual",
+      "status": "pending",
+      "scope": "Inspect the actual plots and retain engineering acceptance as a separate pending review."
+    }
+  },
+  "requirements_preserved": 8,
+  "independent_workflow_verification": {
+    "integrity_pass": true,
+    "issues": [],
+    "design_accepted": false,
+    "scope": "Recorded inputs and task artifact bytes only; no semantic or engineering acceptance"
+  },
+  "native_records": {
+    "document": {
+      "integrity_pass": true,
+      "native_reopen_pass": true,
+      "editable_entities": {
+        "model_entities": 18,
+        "entity_types": {
+          "LWPOLYLINE": 2,
+          "TEXT": 6,
+          "DIMENSION": 3,
+          "LINE": 4,
+          "INSERT": 1,
+          "CIRCLE": 1,
+          "ARC": 1
+        },
+        "editable_entity_correspondence": true,
+        "dimension_rendering_visual_review": "pending"
+      },
+      "artifacts": [
+        {
+          "path": "Drawing.dxf",
+          "sha256": "b029b84ff9f28ca20b09cad9d70da25e65029ec97655d23b513da599b5b03458",
+          "bytes": 78273
+        },
+        {
+          "path": "Drawing.dwg",
+          "sha256": "644ce448d746eef3ae7b55a733816dd3ec35e899f176a38fe8cfad08224fdbf1",
+          "bytes": 23724
+        },
+        {
+          "path": "Drawing.pdf",
+          "sha256": "e62ec6bdb7f80750d59a4d03f8853d518beccdbba884b4cf2220471327cf132f",
+          "bytes": 6740
+        }
+      ],
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "layout": {
+      "integrity_pass": true,
+      "native_reopen_pass": true,
+      "editable_entities": {
+        "model_entities": 18,
+        "entity_types": {
+          "LWPOLYLINE": 2,
+          "TEXT": 6,
+          "DIMENSION": 3,
+          "LINE": 4,
+          "INSERT": 1,
+          "CIRCLE": 1,
+          "ARC": 1
+        },
+        "editable_entity_correspondence": true,
+        "dimension_rendering_visual_review": "pending"
+      },
+      "artifacts": [
+        {
+          "path": "drawing/Drawing.dxf",
+          "sha256": "d3f481ac7b21badf3f4f5ce4a823cfc3cc5151a8643096549231ad2e1d617d1c",
+          "bytes": 79100
+        },
+        {
+          "path": "drawing/Drawing.dwg",
+          "sha256": "0c7e2255ce69ccf066c95065b0bc268bf2ecfad7b4fad024a84e4b82f2789d22",
+          "bytes": 23856
+        },
+        {
+          "path": "drawing/Drawing.pdf",
+          "sha256": "74e88310fa5614ba3fce5b5eea0cc7be364a3b30c4c2f842aa953122f81894f1",
+          "bytes": 6491
+        }
+      ],
+      "visual_review": "pending",
+      "design_accepted": false,
+      "layout": {
+        "placements": {
+          "plan": {
+            "translation": [
+              -7.170450487116515,
+              -66.75
+            ],
+            "source_bounds": [
+              19.170450487116515,
+              98.75,
+              136.25,
+              176.95558546433378
+            ],
+            "placed_bounds": [
+              12.0,
+              32.0,
+              129.0795495128835,
+              110.20558546433378
+            ],
+            "padded_region": [
+              8.0,
+              28.0,
+              133.07954999999998,
+              114.205586
+            ]
+          },
+          "system": {
+            "translation": [
+              -27.920450000000017,
+              -77.0
+            ],
+            "source_bounds": [
+              165.0,
+              109.0,
+              260.0,
+              176.95558546433378
+            ],
+            "placed_bounds": [
+              137.07954999999998,
+              32.0,
+              232.07954999999998,
+              99.95558546433378
+            ],
+            "padded_region": [
+              133.07954999999998,
+              28.0,
+              236.07954999999998,
+              103.955586
+            ]
+          },
+          "detail": {
+            "translation": [
+              -8.0,
+              70.205586
+            ],
+            "source_bounds": [
+              20.0,
+              48.0,
+              88.49327052489906,
+              85.95558546433378
+            ],
+            "placed_bounds": [
+              12.0,
+              118.205586,
+              80.49327052489906,
+              156.1611714643338
+            ],
+            "padded_region": [
+              8.0,
+              114.205586,
+              84.493271,
+              160.161172
+            ]
+          }
+        },
+        "rotation": false,
+        "scaling": false,
+        "gap_mm": 8,
+        "rectpack_version": "0.2.2",
+        "rectpack_commit": "123d57e0ef22adb5ae5f09b435c69f0589f521d1",
+        "scope": "Inter-view approximate font/geometry bounding boxes; intra-view labels and actual native plots require separate review"
+      },
+      "scope": "Packed declared views and native drawing correspondence; visual/engineering acceptance separate"
+    },
+    "labels": {
+      "integrity_pass": true,
+      "native_reopen_pass": true,
+      "editable_entities": {
+        "model_entities": 17,
+        "entity_types": {
+          "LINE": 6,
+          "DIMENSION": 1,
+          "CIRCLE": 3,
+          "TEXT": 6,
+          "LWPOLYLINE": 1
+        },
+        "editable_entity_correspondence": true,
+        "dimension_rendering_visual_review": "pending"
+      },
+      "artifacts": [
+        {
+          "path": "drawing/Drawing.dxf",
+          "sha256": "6b4a64228d28dff24b326fb2f2ac0e82d52d34555d1bfc794eb04017e97744d6",
+          "bytes": 73321
+        },
+        {
+          "path": "drawing/Drawing.dwg",
+          "sha256": "393096fa6d9e06e667f4097d93db122a95f7d739acef6d8ff9b0aec57fff8d51",
+          "bytes": 22510
+        },
+        {
+          "path": "drawing/Drawing.pdf",
+          "sha256": "567201edb681c79132b3a9a1901f5aa8f696efea07801b790b92465a6af098b3",
+          "bytes": 5501
+        }
+      ],
+      "visual_review": "pending",
+      "design_accepted": false,
+      "label_placement": {
+        "placements": [
+          {
+            "id": "label3",
+            "target": "node3",
+            "anchor": [
+              80,
+              110
+            ],
+            "before_insert": [
+              70,
+              110
+            ],
+            "after_insert": [
+              73.6347167103501,
+              113.18737897570743
+            ],
+            "box": [
+              73.6347167103501,
+              112.17593886803583,
+              88.02906395126531,
+              116.14296444004121
+            ],
+            "leader_vertices": [
+              [
+                80.0,
+                110.0
+              ],
+              [
+                80.0,
+                112.17593886803583
+              ]
+            ]
+          },
+          {
+            "id": "label2",
+            "target": "node2",
+            "anchor": [
+              70,
+              110
+            ],
+            "before_insert": [
+              70,
+              110
+            ],
+            "after_insert": [
+              56.97959406388847,
+              113.18737897570743
+            ],
+            "box": [
+              56.97959406388847,
+              112.17593886803583,
+              71.37394130480368,
+              116.14296444004121
+            ],
+            "leader_vertices": [
+              [
+                70.0,
+                110.0
+              ],
+              [
+                70.0,
+                112.17593886803583
+              ]
+            ]
+          },
+          {
+            "id": "label1",
+            "target": "node1",
+            "anchor": [
+              60,
+              110
+            ],
+            "before_insert": [
+              70,
+              110
+            ],
+            "after_insert": [
+              39.156316596995836,
+              113.18737897570743
+            ],
+            "box": [
+              39.156316596995836,
+              112.17593886803583,
+              52.55941215554226,
+              116.14296444004121
+            ],
+            "leader_vertices": [
+              [
+                60.0,
+                110.0
+              ],
+              [
+                52.55941215554226,
+                110.0
+              ],
+              [
+                52.55941215554226,
+                112.17593886803583
+              ]
+            ]
+          }
+        ],
+        "labels": 3,
+        "leaders": 3,
+        "leader_segments": 4,
+        "protected_source_text_boxes": 1,
+        "textalloc_version": "1.2.4",
+        "all_source_geometry_unchanged": true,
+        "source_entities_reconciled": 8,
+        "scope": "Declared geometry anchors and obstacles; approximate CAD font boxes and straight leaders; native visual/engineering approval separate"
+      }
+    },
+    "graph": {
+      "integrity_pass": true,
+      "native_reopen_pass": true,
+      "editable_entities": {
+        "model_entities": 26,
+        "entity_types": {
+          "LWPOLYLINE": 4,
+          "TEXT": 5,
+          "LINE": 17
+        },
+        "editable_entity_correspondence": true,
+        "dimension_rendering_visual_review": "pending"
+      },
+      "artifacts": [
+        {
+          "path": "drawing/Drawing.dxf",
+          "sha256": "78e8d9dd269f8274949b0bd7efaf85d7d95e8b0fb47740ae6f3dbc06d308ccd4",
+          "bytes": 73447
+        },
+        {
+          "path": "drawing/Drawing.dwg",
+          "sha256": "b1c80598ee2a79467acaa4e66f17e0193760d04595176316b26710a17637cbaf",
+          "bytes": 22317
+        },
+        {
+          "path": "drawing/Drawing.pdf",
+          "sha256": "60b44dba8b0dfa7571710dce7b1f97f154c945a427c0c879d977e2273cced28b",
+          "bytes": 4642
+        }
+      ],
+      "visual_review": "pending",
+      "design_accepted": false,
+      "graph": {
+        "nodes": 2,
+        "edges": 1,
+        "source_files": [],
+        "graphviz_sha256": "ff1ce5f13caf4ed7dddb7327b94781e751e4a7e693b4655287b6647d959c879a",
+        "layout_reexecuted_during_inspection": false,
+        "scope": "Declared topology; stored Graphviz layout replay, not independent source interpretation or authenticated provenance"
+      }
+    },
+    "revision": {
+      "integrity_pass": true,
+      "native_reopen_pass": true,
+      "preservation": {
+        "preserved_records": 117,
+        "edited_texts": 1,
+        "edited_entities": 1,
+        "edited_kinds": {
+          "text": 1
+        },
+        "blocks_and_paper_entities_preserved": true,
+        "numeric_absolute_tolerance_drawing_units": 1e-07,
+        "maximum_numeric_difference_drawing_units": 8.881784197001252e-16,
+        "scope": "Saved entity/block/paper and layer/style tags, exact strings/integers and 1e-7 drawing-unit float bound; unexamined dictionaries/product semantics and visual acceptance remain separate"
+      },
+      "artifacts": [
+        {
+          "path": "Revised Drawing.dwg",
+          "sha256": "732ac1ced76d93fe4979d4f166586796bde14ceae035e9d0467b6b117af1fdd5"
+        },
+        {
+          "path": "Revised Drawing.pdf",
+          "sha256": "fc7b9d9b07fffcfe5b8228de6e7d6bb1be4ac6c410bcf56196f634a73c849840"
+        }
+      ],
+      "visual_review": "pending",
+      "design_accepted": false
+    },
+    "ifc-sections": {
+      "integrity_pass": true,
+      "native_reopen_pass": true,
+      "editable_entities": {
+        "model_entities": 38,
+        "entity_types": {
+          "LINE": 33,
+          "DIMENSION": 1,
+          "LWPOLYLINE": 1,
+          "TEXT": 3
+        },
+        "editable_entity_correspondence": true,
+        "dimension_rendering_visual_review": "pending"
+      },
+      "artifacts": [
+        {
+          "path": "layout/drawing/Drawing.dxf",
+          "sha256": "c103e5d77ef2c9404d45a642531b447027592ff870baa4dc3057c01aa8aff10d",
+          "bytes": 79978
+        },
+        {
+          "path": "layout/drawing/Drawing.dwg",
+          "sha256": "93fa3ee29527103ea1a0c2e902f23ed78b5b811950d805f541d8b3703087671e",
+          "bytes": 23567
+        },
+        {
+          "path": "layout/drawing/Drawing.pdf",
+          "sha256": "6d261770a2d8b1256aad4a0b2cef4cd2d57d42501316f28a0eba6ad0571454bd",
+          "bytes": 4331
+        }
+      ],
+      "visual_review": "pending",
+      "design_accepted": false,
+      "layout": {
+        "placements": {
+          "side": {
+            "translation": [
+              0.1482954951288349,
+              0.6525
+            ],
+            "source_bounds": [
+              -0.008295495128834866,
+              -0.3125,
+              0.5815005758857226,
+              0.155
+            ],
+            "placed_bounds": [
+              0.14,
+              0.33999999999999997,
+              0.7297960710145575,
+              0.8075
+            ],
+            "padded_region": [
+              0.1,
+              0.3,
+              0.769797,
+              0.8474999999999999
+            ]
+          }
+        },
+        "rotation": false,
+        "scaling": false,
+        "gap_mm": 8,
+        "rectpack_version": "0.2.2",
+        "rectpack_commit": "123d57e0ef22adb5ae5f09b435c69f0589f521d1",
+        "scope": "Inter-view approximate font/geometry bounding boxes; intra-view labels and actual native plots require separate review"
+      },
+      "scope": "Packed declared views and native drawing correspondence; visual/engineering acceptance separate",
+      "ifc_sections": {
+        "ifc_sha256": "536ee0193a5f5cd8b30310bd4fe1585af8f102ae57b7c2c0f946993ac303d833",
+        "coverage": {
+          "side": {
+            "2PO8naPPvPqwv9WZuZS6ZT": 32
+          }
+        },
+        "mesh_quality": null,
+        "native_mesh_builds": 1,
+        "native_projection_builds": 0,
+        "raw_projection_products": [],
+        "projection_review_records": [],
+        "view_kinds": {
+          "side": "section"
+        },
+        "runtimes": {
+          "ifcopenshell": "0.8.5",
+          "trimesh": "5.2.0",
+          "numpy": "2.5.4"
+        },
+        "methods": {
+          "drawing_ifc_sections.py": "3f22c45c75e6abbb01951d5756068286e4dc43e8a2712c8bbc84ed7e7cd358a3",
+          "circular_geometry.py": "b907345bd2904bf313b017cc1c7e1a07e403ff726bbb8a85e476ae538ea25cb9",
+          "drawing_layout.py": "58a33b3bf9c0e13c0303556c9c616070f9b28087309d3c57b3151b9040a36ad8",
+          "source_network_drawing.py": "3ffbc699e15861b7ce6394419192abc81e602ffa2f02004cf9af4ad8100cb03b",
+          "duct_fitting_chain.py": "b842765beaac0469908cc0f989ba9fac4062dd08e948abfd20134607f022143b"
+        },
+        "design_accepted": false
+      }
+    },
+    "ifc-graph": {
+      "integrity_pass": true,
+      "native_reopen_pass": true,
+      "editable_entities": {
+        "model_entities": 16,
+        "entity_types": {
+          "LWPOLYLINE": 4,
+          "TEXT": 5,
+          "LINE": 7
+        },
+        "editable_entity_correspondence": true,
+        "dimension_rendering_visual_review": "pending"
+      },
+      "artifacts": [
+        {
+          "path": "graph/drawing/Drawing.dxf",
+          "sha256": "7511f07d08ba3817a34909f6bbcc2c3f7e9418c887ff2145ea955d7870b00fea",
+          "bytes": 71354
+        },
+        {
+          "path": "graph/drawing/Drawing.dwg",
+          "sha256": "629dd7d9e8e4c7035fd033f26bb2283c5a987526cb9466cd20f952056b97f9a1",
+          "bytes": 21997
+        },
+        {
+          "path": "graph/drawing/Drawing.pdf",
+          "sha256": "d76b63f73bdb01d6725ab5286eb5b235ea059adb57596b45634737405b8db2e0",
+          "bytes": 4495
+        },
+        {
+          "path": "Component Key.csv",
+          "sha256": "e7d7f1d675bfb22caa50ae462b039d22267354ecdb858866bce4166a386da0a7",
+          "bytes": 133
+        }
+      ],
+      "visual_review": "pending",
+      "design_accepted": false,
+      "graph": {
+        "nodes": 2,
+        "edges": 1,
+        "source_files": [
+          {
+            "path": "..\\..\\ifc-graph.ifc",
+            "sha256": "938fb40c654d021619a74a1b9fd50c418315d571aae5b96b0baeab8cf3d78b6b"
+          }
+        ],
+        "graphviz_sha256": "ff1ce5f13caf4ed7dddb7327b94781e751e4a7e693b4655287b6647d959c879a",
+        "layout_reexecuted_during_inspection": false,
+        "scope": "Declared topology; stored Graphviz layout replay, not independent source interpretation or authenticated provenance"
+      },
+      "ifc_topology": {
+        "ifc_sha256": "938fb40c654d021619a74a1b9fd50c418315d571aae5b96b0baeab8cf3d78b6b",
+        "ifcopenshell_version": "0.8.5",
+        "generator_sha256": "55a7647a3721a994c6e28335f8a9b579a1d14494d43423bb987e7789c67cb93c",
+        "products": 2,
+        "ports": 4,
+        "interfaces": [
+          {
+            "from_guid": "1rtWEL5SfAGw8MIPXczENc",
+            "to_guid": "2Zk_GTNzz2ZQvTbfECDmkk",
+            "source_port": "07VCS8qNr98v1k2Ir2DpLb",
+            "sink_port": "16LL6eIUnB8R_PXwVCi_CM"
+          }
+        ],
+        "open_boundary_ports": [
+          {
+            "port_guid": "1u$Ev8DmnDDfQ110mExRse",
+            "product_guid": "1rtWEL5SfAGw8MIPXczENc",
+            "direction": "SINK"
+          },
+          {
+            "port_guid": "3w80PkVlj2zerROc9Y_zOL",
+            "product_guid": "2Zk_GTNzz2ZQvTbfECDmkk",
+            "direction": "SOURCE"
+          }
+        ],
+        "external_selected_connections": [],
+        "marked_products": [
+          "2Zk_GTNzz2ZQvTbfECDmkk"
+        ],
+        "scope": "Directed native port relations only; no coordinate/contact/material/pressure verification",
+        "design_accepted": false
+      }
+    }
+  },
+  "all7_native_reopened": true,
+  "all7_actual_plots_rendered_and_visually_reviewed": true,
+  "source_DWG_unchanged": true,
+  "source_IFC_unchanged": true,
+  "upstream_source_files_pinned": 13,
+  "host_executables": [
+    {
+      "name": "accoreconsole.exe",
+      "sha256": "44d10af0c32fb54c52b3a34751a8e9b7c860448d02089a0f09af68649f72b3e2"
+    },
+    {
+      "name": "dot.exe",
+      "sha256": "ff1ce5f13caf4ed7dddb7327b94781e751e4a7e693b4655287b6647d959c879a"
+    }
+  ],
+  "existing_adapter_tests_passed": 24,
+  "CLI_workflow_diagnosis_MCP_regressions_passed": 25,
+  "minimal_profile_missing_graphviz_test_passed": true,
+  "design_accepted": false,
+  "whole_agent_complete": false
+}

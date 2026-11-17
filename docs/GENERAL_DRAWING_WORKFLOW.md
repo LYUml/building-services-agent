@@ -3,14 +3,19 @@
 The existing document author now participates in the source-bound project
 executor. Task kind `drawing_document` takes only `id`, `kind`, `project`, optional
 `requires_pass` and `description`. Its project must be a
-`bsa.drawing-document/1` document; the other standalone drawing schemas are not
-silently accepted here. This bounded task adds orchestration, not a CAD engine.
+supported drawing recipe. All seven existing schemas now use the same task:
+plain document, packed layout, allocated labels, existing DWG revision,
+declared graph, IFC sections/projections and directed IFC graph.
+This adds orchestration and source binding, not a CAD engine.
 
 ```powershell
 bsa workflow examples/drawing-workflow-plan.json --out runs/my-project-drawing --autocad "C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe" --review runs/my-project-drawing-review.json
 ```
 
 Install `.[drawing]` for this CLI workflow, or `.[drawing,mcp]` for chat tools.
+Packed layouts require `drawing-layout`; label allocation requires
+`drawing-labels`; IFC views/topology retain their existing IFC/section runtimes.
+Graph recipes also need explicit host `--graphviz EVALUATED_DOT_EXE`.
 Use your actual AutoCAD path and fresh output/review names. The public example
 contains source-linked synthetic requirements and the existing plan/system/
 detail sheet. It is not a real building design. File references stay inside the
@@ -23,6 +28,13 @@ The workflow verifier invokes the same drawing inspection again; changing DXF
 geometry cannot pass merely by rewriting file hashes in the receipts.
 Missing runtime remains pending without a drawing folder. Failed source/guard
 checks do not release later `requires_pass` tasks.
+
+Recipe-relative DWG/IFC and declared supplementary graph sources are hash-bound
+using the existing workspace rules. Packed and labelled recipes also pin the
+existing upstream source manifests and runtime files. IFC preflight binds input
+bytes only; actual geometry/topology validation remains the existing compositor's
+job during execution and independent inspection. A graph without its host
+Graphviz runtime remains pending before creating a drawing directory.
 
 The example intentionally includes a separate manual review task. A normal
 successful native execution therefore returns exit2, with the sheet passed,
@@ -56,3 +68,14 @@ Current source/native evidence is in [the receipt](evidence/general-drawing-work
 This does not infer geometry or engineering decisions from an arbitrary brief,
 accept installed construction, or certify regulatory conformity. Actual visual
 observations remain separate from the workflow's numerical/native status.
+
+## Seven-schema execution milestone
+
+One actual source-bound workflow now produces seven saved/reopened native DWGs
+and their PDFs, retains all eight original requirements and a separate pending
+review. The actual seven plots were rendered and inspected; the original DWG,
+IFC sources, upstream implementations and both executables remain bound.
+24existing adapter tests and25CLI/diagnosis/workflow/MCP regressions pass,
+including the new binding controls. A minimal drawing/MCP installation also
+preserves missing-Graphviz pending behavior without requiring IFC.
+See [seven-schema evidence](evidence/seven-schema-drawing-workflow.json).

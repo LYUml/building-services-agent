@@ -1,5 +1,13 @@
 ## Agent startup and drawing usability
 
+All seven existing drawing schemas now compose into the same workflow task,
+reusing existing configuration readers/compositors and native verification.
+The new input collector binds DWG/IFC/supplementary sources and the already pinned
+rectpack0.2.2(Apache-2.0)/textalloc1.2.4(MIT) runtime files. Host Graphviz remains
+explicit and hash-bound; no graph, packing, label or IFC engine was rewritten.
+One actual seven-native-sheet workflow and49related checks are recorded in
+[seven-schema evidence](evidence/seven-schema-drawing-workflow.json).
+
 The same existing document/native/plot adapters now compose through project
 task `drawing_document`. Fixed-field validation, method/runtime pins and native
 reconstruction are workflow glue. No new drawing or geometry engine was added.

@@ -1,3 +1,12 @@
+## Seven drawing schemas integrated
+
+All7existing drawing schemas now execute through one source-bound task. One
+actual workflow saves/reopens7DWGs,checks actual plots and retains8requirements
+with separate pending review.24adapter and25integration regressions pass.
+Full agent goal remains active; next setup gap is host Graphviz/runtime flags
+not exposed by the current project-scoped installer. See
+[seven-schema evidence](evidence/seven-schema-drawing-workflow.json).
+
 ## General drawing project workflow executed
 
 The plain document author now participates in source-bound workflow execution,
