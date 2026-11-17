@@ -1,5 +1,16 @@
 # Current BSE3227 coursework review package
 
+New user-authorized refinement is active. A bounded 150 mm southward relocation
+of twelve diffusers within their unchanged explicit service cells preserves all
+flows, twenty groups and forty-seven rigid sizes. Reusing the same forty-nine
+native K-Select conditions, the 640 ratios improve from 1.2066–3.2797 to
+1.2117–3.1122. Actual guarded native editing/reopening preserves 4,885 records
+with exactly thirty-six intended entity changes; the plotted sheet was viewed.
+Total planar flex increases by 1.130 m (about 0.57%); its maximum conditional
+length remains 3.373 m. This is a tradeoff, not an ADPI percentage improvement.
+The candidate is not yet adopted: figures, schedules and final package review
+remain. See [candidate evidence](evidence/diffuser-position-candidate.json).
+
 The coursework delivery now contains a14-page report, editable80-terminal DWG and matching A1 plot. Typography and numbered structure follow the user's BSE3125 reference; no lighting engineering data is transferred. Authorized group names and IDs are now included only in the local report; the Git snapshot is anonymous. The47-section/20VAV/80diffuser scenario,640classroom checks and49native K-Select conditions remain unchanged. Earlier published copies are archived privately.
 
 The existing guarded drawing-revision adapter, pinned ezdxf1.4.5 and AutoCAD execute four text revisions. Native saving/reopening and4,885record preservation checks pass. All80line lengths remain unchanged. The actual plot and enlarged notes were viewed; the appended report plan matches its pixels.

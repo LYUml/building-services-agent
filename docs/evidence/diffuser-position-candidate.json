@@ -1,0 +1,37 @@
+{
+  "scope": "Verified local diffuser-position candidate; not yet adopted into formal coursework report",
+  "moved_terminals": 12,
+  "displacement_m": [
+    0,
+    -0.15
+  ],
+  "same80_terminal_flows": true,
+  "same20_groups": true,
+  "same47_duct_sizes": true,
+  "ratio_cases": 640,
+  "native_conditions_reused": 49,
+  "previous_native_ratio_range": [
+    1.206556494494195,
+    3.2796716311273206
+  ],
+  "candidate_native_ratio_range": [
+    1.2116829211046238,
+    3.1122323255563793
+  ],
+  "all640_within_adopted_course_interval": true,
+  "preserved_native_records": 4885,
+  "changed_entities": 36,
+  "native_reopen_pass": true,
+  "plot_scale_check_pass": true,
+  "actual_plot_visually_reviewed": true,
+  "maximum_conditional_flex_m": 3.37286911748179,
+  "total_plan_flex_before_m": 197.8940419203969,
+  "total_plan_flex_after_m": 199.0239261784462,
+  "ADPI_verified": false,
+  "coursework_user_accepted": false,
+  "formal_package_updated": false,
+  "pending": [
+    "Report illustrations and worked example",
+    "Revised schedules and final package consistency"
+  ]
+}
