@@ -16,7 +16,7 @@
       "properties": {"workspace": {"enum": ["tool", "project"]}, "path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/hash"}}
     },
     "provider": {"type": "object"},
-    "payload_schema": {"enum": ["bsa.air-allocation/1", "bsa.electrical-circuits/1"]},
+    "payload_schema": {"enum": ["bsa.air-allocation/1", "bsa.electrical-circuits/1", "bsa.lighting-source-audit/1"]},
     "source_acceptance": {"type": "object"},
     "source_flags": {"type": "object"},
     "entities": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/entity"}},
@@ -44,7 +44,7 @@
       "required": ["id", "source_id", "kind", "quantities", "attributes"],
       "properties": {
         "id": {"$ref": "#/$defs/id"}, "source_id": {"type": "string", "minLength": 1},
-        "kind": {"enum": ["air_system", "air_terminal", "electrical_system", "electrical_circuit", "electrical_device"]},
+        "kind": {"enum": ["air_system", "air_terminal", "electrical_system", "electrical_circuit", "electrical_device", "lighting_system", "lighting_product", "lighting_fixture"]},
         "quantities": {"type": "object", "additionalProperties": {"$ref": "#/$defs/quantity"}},
         "attributes": {"type": "object", "additionalProperties": {"type": "string"}}
       }

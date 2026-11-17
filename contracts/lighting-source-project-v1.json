@@ -1,0 +1,334 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "title",
+    "room_id",
+    "expected_header",
+    "summary_pages",
+    "density_display_decimals",
+    "fixture_count",
+    "auxiliary_allowance",
+    "annotation_area",
+    "products",
+    "fixtures"
+  ],
+  "properties": {
+    "schema": {
+      "const": "bsa.lighting-source-project/1"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300
+    },
+    "room_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "expected_header": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000
+    },
+    "summary_pages": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "integer",
+        "minimum": 1
+      }
+    },
+    "density_display_decimals": {
+      "const": 2
+    },
+    "fixture_count": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "unit",
+        "classification",
+        "source",
+        "basis"
+      ],
+      "properties": {
+        "value": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "unit": {
+          "const": "count"
+        },
+        "classification": {
+          "enum": [
+            "declared",
+            "given",
+            "assumed"
+          ]
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "role",
+            "pointer"
+          ],
+          "properties": {
+            "role": {
+              "enum": [
+                "design",
+                "layout",
+                "area_evidence",
+                "native_metrics"
+              ]
+            },
+            "pointer": {
+              "type": "string",
+              "pattern": "^/"
+            }
+          }
+        },
+        "basis": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      }
+    },
+    "auxiliary_allowance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "unit",
+        "classification",
+        "source",
+        "basis"
+      ],
+      "properties": {
+        "value": {
+          "type": "number",
+          "minimum": 0
+        },
+        "unit": {
+          "const": "W electrical"
+        },
+        "classification": {
+          "enum": [
+            "declared",
+            "given",
+            "assumed"
+          ]
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "role",
+            "pointer"
+          ],
+          "properties": {
+            "role": {
+              "enum": [
+                "design",
+                "layout",
+                "area_evidence",
+                "native_metrics"
+              ]
+            },
+            "pointer": {
+              "type": "string",
+              "pattern": "^/"
+            }
+          }
+        },
+        "basis": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      }
+    },
+    "annotation_area": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "unit",
+        "classification",
+        "source",
+        "basis"
+      ],
+      "properties": {
+        "value": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "unit": {
+          "const": "m2"
+        },
+        "classification": {
+          "enum": [
+            "declared",
+            "given",
+            "assumed"
+          ]
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "role",
+            "pointer"
+          ],
+          "properties": {
+            "role": {
+              "enum": [
+                "design",
+                "layout",
+                "area_evidence",
+                "native_metrics"
+              ]
+            },
+            "pointer": {
+              "type": "string",
+              "pattern": "^/"
+            }
+          }
+        },
+        "basis": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      }
+    },
+    "products": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "input_power",
+          "source_product"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "input_power": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "value",
+              "unit",
+              "classification",
+              "source",
+              "basis"
+            ],
+            "properties": {
+              "value": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "unit": {
+                "const": "W electrical"
+              },
+              "classification": {
+                "enum": [
+                  "declared",
+                  "given",
+                  "assumed"
+                ]
+              },
+              "source": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "role",
+                  "pointer"
+                ],
+                "properties": {
+                  "role": {
+                    "enum": [
+                      "design",
+                      "layout",
+                      "area_evidence",
+                      "native_metrics"
+                    ]
+                  },
+                  "pointer": {
+                    "type": "string",
+                    "pattern": "^/"
+                  }
+                }
+              },
+              "basis": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              }
+            }
+          },
+          "source_product": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "role",
+              "pointer"
+            ],
+            "properties": {
+              "role": {
+                "enum": [
+                  "design",
+                  "layout",
+                  "area_evidence",
+                  "native_metrics"
+                ]
+              },
+              "pointer": {
+                "type": "string",
+                "pattern": "^/"
+              }
+            }
+          }
+        }
+      }
+    },
+    "fixtures": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 2000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "product_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "product_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          }
+        }
+      }
+    }
+  }
+}

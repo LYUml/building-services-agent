@@ -1,0 +1,127 @@
+{
+  "real_recorded_project": true,
+  "source_files_unchanged": true,
+  "upstream_commit": "ade128b7ae446c6ea253776a5ead866280d6bf4a",
+  "tool_count": 42,
+  "baseline": {
+    "fixture_count": 186,
+    "luminaire_input_W": 4278.0,
+    "auxiliary_allowance_W": 50,
+    "budget_input_W": 4328.0,
+    "reported_floor_area_m2": 1042.1,
+    "annotation_area_m2": 1022,
+    "calculated_lpd_W_m2": 4.105172248344689,
+    "budget_density_W_m2": 4.153152288647923,
+    "annotation_budget_density_W_m2": 4.234833659491194,
+    "native_reported_lpd_W_m2": 4.11
+  },
+  "scenario": {
+    "fixture_count": 186,
+    "luminaire_input_W": 4278.0,
+    "auxiliary_allowance_W": 60,
+    "budget_input_W": 4338.0,
+    "reported_floor_area_m2": 1042.1,
+    "annotation_area_m2": 1022,
+    "calculated_lpd_W_m2": 4.105172248344689,
+    "budget_density_W_m2": 4.162748296708569,
+    "annotation_budget_density_W_m2": 4.244618395303327,
+    "native_reported_lpd_W_m2": 4.11
+  },
+  "entity_count": 188,
+  "quantity_count": 197,
+  "input_count": 4,
+  "pending_requirements": 3,
+  "fresh_native_simulation": false,
+  "geometry_verified": false,
+  "design_accepted": false,
+  "schema": "bsa.lighting-source-milestone/1",
+  "tool_calls": [
+    {
+      "tool": "bsa_execute_workflow",
+      "seconds": 43.79193259999738
+    },
+    {
+      "tool": "bsa_diagnose_workflow",
+      "seconds": 12.080625000002328
+    },
+    {
+      "tool": "bsa_checkpoint_workflow",
+      "seconds": 19.948458400001982
+    },
+    {
+      "tool": "bsa_inspect_changes",
+      "seconds": 0.3807537999819033
+    },
+    {
+      "tool": "bsa_execute_workflow",
+      "seconds": 44.815646100003505
+    },
+    {
+      "tool": "bsa_diagnose_workflow",
+      "seconds": 11.427622700022766
+    },
+    {
+      "tool": "bsa_artifact_index",
+      "seconds": 10.2474028999859
+    },
+    {
+      "tool": "bsa_read_artifact",
+      "seconds": 10.242779199994402
+    },
+    {
+      "tool": "bsa_delivery_template",
+      "seconds": 9.476114999997662
+    }
+  ],
+  "typed_change": {
+    "name": "auxiliary_allowance",
+    "delta_si": 10,
+    "delta_si_unit": "W electrical"
+  },
+  "knowledge": {
+    "index_bytes": 40960,
+    "records": 4,
+    "default_hits": 0,
+    "explicit_hits": 1,
+    "ownership_and_original_pointer_preserved": true
+  },
+  "import_profile": {
+    "samples": [
+      {
+        "seconds": 0.15020120001281612,
+        "python_traced_peak_bytes": 6040707,
+        "loaded_optional": []
+      },
+      {
+        "seconds": 0.1662198999838438,
+        "python_traced_peak_bytes": 6040755,
+        "loaded_optional": []
+      },
+      {
+        "seconds": 0.17374339999514632,
+        "python_traced_peak_bytes": 6040462,
+        "loaded_optional": []
+      }
+    ],
+    "scope": "Fresh Python provider import only; tracemalloc Python allocation, not total RSS or native reader execution memory",
+    "design_accepted": false
+  },
+  "selected_regression": {
+    "tests": 182,
+    "passed": 182,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "independently_verified": true
+  },
+  "scope": "Recorded-source power/area consistency and copied-input report propagation only; no new photometry, native geometry, regulatory or user acceptance",
+  "module_compatibility": {
+    "tests": 48,
+    "passed": 48,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "independently_verified": true
+  },
+  "total_selected_tests": 230
+}

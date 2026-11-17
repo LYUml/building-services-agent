@@ -430,7 +430,7 @@ def validate_plan(path):
             if kind=='module_analysis':
                 from .module_contract import read_json as read_module
                 capability=read_module(local_path(root,t.get('request')))['capability']
-                if capability not in ('analysis.air.classified-allocation','analysis.air.native-stub-friction','analysis.electrical.single-phase-circuits','analysis.air.rectangular-tree','analysis.air.rectangular-ifc-tree','analysis.water.steady-graph','analysis.water.ifc-steady-graph'):raise ProjectError('Supported numerical analysis capability required')
+                if capability not in ('analysis.lighting.source-power-audit','analysis.air.classified-allocation','analysis.air.native-stub-friction','analysis.electrical.single-phase-circuits','analysis.air.rectangular-tree','analysis.air.rectangular-ifc-tree','analysis.water.steady-graph','analysis.water.ifc-steady-graph'):raise ProjectError('Supported numerical analysis capability required')
                 if parent and capability=='analysis.air.native-stub-friction':
                     if parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='spatial_terminal_stubs':raise ProjectError('Native friction must inherit earlier short-stub producer')
                 elif parent and (capability not in ('analysis.air.rectangular-ifc-tree','analysis.water.ifc-steady-graph') or parent not in ids or next(x for x in tasks if x['id']==parent)['kind']!='module_authoring'):raise ProjectError('Bound budget requires earlier canonical module authoring producer')

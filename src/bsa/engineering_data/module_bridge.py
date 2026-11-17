@@ -24,7 +24,7 @@ def project_result(path):
     if result['execution']['status'] != 'completed' or result['payload'] is None:
         raise ValueError('Completed verified producer required; unavailable is not empty engineering data')
     payload = result['payload']
-    if payload['schema'] not in ('bsa.air-allocation/1', 'bsa.electrical-circuits/1'):
+    if payload['schema'] not in ('bsa.air-allocation/1', 'bsa.electrical-circuits/1', 'bsa.lighting-source-audit/1'):
         raise ValueError('No executed common-data mapping for this producer payload')
     entities, edges = [], []
 
@@ -50,6 +50,23 @@ def project_result(path):
                 'minimum_flow': q(row, 'minimum_flow_L_s', 'L/s', pointer),
                 'allocated_load_area': q(row, 'allocated_load_area_m2', 'm2', pointer)})
             edges.append(dict(kind='serves', **{'from': system, 'to': terminal}))
+    elif payload['schema'] == 'bsa.lighting-source-audit/1':
+        totals=payload['totals']
+        units={'fixture_count':'count','luminaire_input_W':'W electrical',
+               'auxiliary_allowance_W':'W electrical','budget_input_W':'W electrical',
+               'reported_floor_area_m2':'m2','annotation_area_m2':'m2',
+               'calculated_lpd_W_m2':'W electrical/m2','budget_density_W_m2':'W electrical/m2',
+               'annotation_budget_density_W_m2':'W electrical/m2','native_reported_lpd_W_m2':'W electrical/m2'}
+        declared={'auxiliary_allowance_W','annotation_area_m2','reported_floor_area_m2','native_reported_lpd_W_m2'}
+        system=entity('lighting_system',payload['room_id'],{k:q(totals,k,u,'/payload/totals',
+                      'declared' if k in declared else 'calculated') for k,u in units.items()})
+        for i,row in enumerate(payload['products']):
+            entity('lighting_product',row['id'],{'input_power':q(row,'input_power_W','W electrical',
+                '/payload/products/'+str(i),row['classification'])})
+        for i,row in enumerate(payload['fixtures']):
+            fixture=entity('lighting_fixture',row['id'],{'input_power':q(row,'input_power_W',
+                'W electrical','/payload/fixtures/'+str(i))},dict(product_id=row['product_id']))
+            edges.append(dict(kind='supplies',**{'from':system,'to':fixture}))
     else:
         quantities = {'supply_voltage': q(payload, 'supply_voltage_v', 'V', '/payload', 'declared')}
         for phase, value in payload['phase_demand_va'].items():
@@ -72,7 +89,8 @@ def project_result(path):
                 source_result=ref, provider=result['provider'], payload_schema=result['payload_schema'],
                 source_acceptance=result['acceptance'],
                 source_flags={k: payload[k] for k in ('status', 'checks', 'pending', 'geometry_bound',
-                              'room_sensible_load_verified', 'design_accepted') if k in payload},
+                              'room_sensible_load_verified', 'native_calculation_executed', 'source_assertions_authenticated',
+                              'regulatory_compliance', 'design_accepted') if k in payload},
                 entities=entities, relationships=edges, design_accepted=False)
     if digest(path) != ref['sha256']:
         raise ValueError('Source result changed during projection')

@@ -9,7 +9,7 @@ from ..module_contract import read_json,validate
 from ..source_refs import file_hash,reference
 from ..workspace import ROOT,allowed,project_root
 
-PROVIDERS={'bsa.classified-air-allocation','bsa.single-phase-circuits'}
+PROVIDERS={'bsa.lighting-source-power','bsa.classified-air-allocation','bsa.single-phase-circuits'}
 
 
 def view(row,notes):

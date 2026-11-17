@@ -1,5 +1,11 @@
 # Source parameter ownership
 
+The new real recorded-lighting source-power adapter also executes this path;
+see [lighting audit](LIGHTING_SOURCE_AUDIT.md) for188entities,4owned inputs,
+actual typed10W change/report propagation and bounded project-knowledge proof.
+Lighting has no result-cache eligibility or new photometric/geometry acceptance.
+Earlier counts and domains below describe their historical checkpoints.
+
 The common view now optionally includes a read-only `bsa.engineering-inputs/1`
 catalogue beside calculated data. Existing calculators and their primary project
 JSON remain authoritative; this does not grant permission to edit any parameter

@@ -6,7 +6,7 @@ from ..module_contract import read_json
 from .context import load
 from .module_bridge import export, methods, project_result, verify
 
-CAPABILITIES = {'analysis.air.classified-allocation', 'analysis.electrical.single-phase-circuits'}
+CAPABILITIES = {'analysis.lighting.source-power-audit', 'analysis.air.classified-allocation', 'analysis.electrical.single-phase-circuits'}
 
 
 def context(root, plan):

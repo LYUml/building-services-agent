@@ -2,6 +2,9 @@
 
 
 def get_provider(id):
+    if id=='bsa.lighting-source-power':
+        from . import lighting_source
+        return lighting_source
     if id=='fluids.native-stub-friction':
         from . import stub_friction
         return stub_friction

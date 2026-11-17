@@ -12,12 +12,14 @@ SCHEMAS={'bsa.module-request/1':'request-v1.json','bsa.module-result/1':'result-
 SCHEMAS['bsa.requirements-inventory/1']='requirements-inventory-v1.json'
 SCHEMAS[RULE_SCHEMA]='rule-assessment-v1.json'
 SCHEMAS['bsa.electrical-circuits/1']='electrical-circuits-v1.json'
+SCHEMAS['bsa.lighting-source-audit/1']='lighting-source-audit-v1.json'
 SCHEMAS['bsa.air-allocation/1']='air-allocation-v1.json'
 SCHEMAS['bsa.spatial-polygons/1']='spatial-polygons-v1.json'
 SCHEMAS['bsa.straight-friction-components/1']='straight-friction-components-v1.json'
 
 
 def artifact_references(schema,data):
+    if schema=='bsa.lighting-source-audit/1':return ('report','native_summary')
     if schema in ('bsa.air-allocation/1','bsa.straight-friction-components/1'):return ('report',)
     if schema=='bsa.electrical-circuits/1':return ('report','schematic_dxf')
     if schema=='bsa.model-artifact/1':return ('model','verification')
@@ -64,6 +66,11 @@ def validate(data,schema=None):
     spec=read_json(ROOT/'contracts/modules'/SCHEMAS[schema]);jsonschema.Draft202012Validator.check_schema(spec)
     errors=list(jsonschema.Draft202012Validator(spec).iter_errors(data))
     if errors:raise ValueError('Contract violation: '+errors[0].message)
+    if schema=='bsa.lighting-source-audit/1':
+        if (data['status']=='pass')!=all(data['checks'].values()):raise ValueError('Lighting numerical status differs')
+        for key in ('fixtures','products'):
+            ids=[r['id'] for r in data[key]]
+            if len(ids)!=len(set(ids)):raise ValueError('Duplicate lighting identity')
     if schema=='bsa.straight-friction-components/1':
         components=data['components'];cases=[case for row in components.values() for case in row['cases'].values()]
         complete=all(case['status']=='calculated' for case in cases)
@@ -134,12 +141,12 @@ def validate(data,schema=None):
         states=[r['status'] for r in data['checks']]
         expected='fail' if 'fail' in states else 'pending' if 'pending' in states else 'pass'
         if data['status']!=expected:raise ValueError('Rule assessment status contradicts checks')
-    if schema in ('bsa.spatial-boxes/1','bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
+    if schema in ('bsa.lighting-source-audit/1','bsa.spatial-boxes/1','bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
         frame=data['coordinate_frame'];request_schema=read_json(ROOT/'contracts/modules/request-v1.json')
         if list(jsonschema.Draft202012Validator(request_schema['properties']['coordinate_frame']).iter_errors(frame)):raise ValueError('Invalid common coordinate frame')
     if schema in ('bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
         if (data['status']=='pass')!=all(data['checks'].values()):raise ValueError('Analysis status differs from numerical checks')
-    if schema in ('bsa.straight-friction-components/1','bsa.air-allocation/1','bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
+    if schema in ('bsa.lighting-source-audit/1','bsa.straight-friction-components/1','bsa.air-allocation/1','bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
         for key in artifact_references(schema,data):
             name=data[key]['path']
             if '\\' in name or PurePosixPath(name).is_absolute() or '..' in PurePosixPath(name).parts or ':' in name:raise ValueError('Model artifact references must be local relative paths')
@@ -166,7 +173,7 @@ def validate(data,schema=None):
                 for key in artifact_references(data['payload_schema'],data['payload']):
                     row=data['payload'][key]
                     if data['artifacts'].get(row['path'])!=row['sha256']:raise ValueError('Electrical artifact differs from module inventory')
-            if data['payload_schema'] in ('bsa.straight-friction-components/1','bsa.air-allocation/1','bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
+            if data['payload_schema'] in ('bsa.lighting-source-audit/1','bsa.straight-friction-components/1','bsa.air-allocation/1','bsa.model-artifact/1','bsa.air-budget/1','bsa.bound-air-budget/1','bsa.water-graph/1','bsa.bound-water-graph/1'):
                 for key in artifact_references(data['payload_schema'],data['payload']):
                     row=data['payload'][key]
                     if data['artifacts'].get(row['path'])!=row['sha256']:raise ValueError('Model artifact payload differs from complete artifact inventory')

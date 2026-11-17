@@ -1,3 +1,16 @@
+## Executed thin lighting-source adapter (2026-11-18)
+
+Reuse the surveyed clean pinned external DIALux toolkit summary reader; no code
+vendoring, no new photometric engine or upstream guard changes. The new adapter
+uses its fixed CLI through a host-owned toolkit root, existing pypdf7.0 page-copy
+support, original-page/hash mapping and source replay. Reuse common identities,
+quantity/input catalogue, workflow/MCP, checkpoint and knowledge adapters.
+Actual186fixture source audit and10W allowance propagation now execute through
+9SDKcalls,188commonentities,4ownedinputs and a40,960byte project index. Original
+source workspaces stay read-only. Sparse-coordinate extraction remains rejected,
+not silently replaced. See LIGHTING_SOURCE_AUDIT.md for executed scope and limits.
+NOASSERTION upstream licensing remains; external user-provisioned runtime only.
+
 ## Typed parameter ownership reuse and lighting source survey (2026-11-18)
 
 Reuse engineering_data.inputs mapping, stable IDs, quantity dimensions and

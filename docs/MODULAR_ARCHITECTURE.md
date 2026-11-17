@@ -1,5 +1,20 @@
 # Modular architecture and next implementation sequence
 
+## Real lighting source audit executed; full goal remains active
+
+The second real discipline now follows the existing module → common data/input
+catalogue → report → typed impact chain. Pinned external DIALux CLI reads the
+recorded native summary;186actual fixtures produce4278W body input. A copied
+allowance revision50→60W propagates budget4328→4338W without changing original
+coursework. Common188entities/197quantities/4inputs,9actualSDKcalls on42tools,
+all3requirements stillpending. Knowledge retains owned input/original pointer;
+project facts excluded by default.230selected regressions pass (182architecture +48existing module/MCP), both
+durable receipts independently verified. No fresh photometry, sparse-field coordinates, nativeCAD,
+statutory or user acceptance. See LIGHTING_SOURCE_AUDIT.md and aggregate evidence.
+Full goal continues with knowledge ownership refinement and repeated-audit
+performance; no release. Earlier checkpoints below are historical.
+
+
 Current ordered goal (2026-11-18): consolidate existing boundaries/common data,
 then traceable knowledge, then change-impact/safe reuse, then different-real-
 project acceptance. The first common air/electrical data/report slice executes

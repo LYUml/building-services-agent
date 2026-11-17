@@ -45,6 +45,9 @@ def project_parameters(project, project_id, payload_schema):
     elif payload_schema == 'bsa.electrical-circuits/1':
         from ..providers.electrical_circuits import validate_project
         validate_project(project)
+    elif payload_schema == 'bsa.lighting-source-audit/1':
+        from ..lighting_audit.calculate import validate_project
+        validate_project(project)
     else:
         raise ValueError('Supported primary source parameter mapping required')
     rows = []
@@ -74,6 +77,15 @@ def project_parameters(project, project_id, payload_schema):
                 add('air_terminal', terminal['id'], 'center_'+axis, value, 'm',
                     '/terminals/'+str(i)+'/center_m/'+str(('x', 'y').index(axis)),
                     note=project['geometry_basis'], note_pointer='/geometry_basis')
+    elif payload_schema == 'bsa.lighting-source-audit/1':
+        facts=[('lighting_system',project['room_id'],key,project[key],'/'+key)
+               for key in ('fixture_count','auxiliary_allowance','annotation_area')]
+        facts += [('lighting_product',p['id'],'input_power',p['input_power'],'/products/'+str(i)+'/input_power')
+                  for i,p in enumerate(project['products'])]
+        for kind,owner,name,fact,path in facts:
+            note=fact['basis']+'; original role '+fact['source']['role']+' pointer '+fact['source']['pointer']
+            add(kind,owner,name,fact['value'],fact['unit'],path+'/value',
+                classification=fact['classification'],note=note,note_pointer=path+'/basis')
     else:
         add('electrical_system', 'supply', 'supply_voltage', project['supply_voltage_v'], 'V', '/supply_voltage_v')
         fields = {'demand_factor': '1', 'breaker_a': 'A', 'tabulated_ampacity_a': 'A',

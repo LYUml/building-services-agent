@@ -5,6 +5,8 @@ import math
 UNITS = {
     'm': ('length', 'm', 1), 'mm': ('length', 'm', .001),
     'm2': ('area', 'm2', 1),
+    'count': ('count', 'count', 1), 'lx': ('illuminance', 'lx', 1),
+    'W electrical/m2': ('electrical_power_density', 'W electrical/m2', 1),
     'L/s': ('volume_flow', 'm3/s', .001), 'm3/s': ('volume_flow', 'm3/s', 1),
     'kW thermal': ('thermal_power', 'W thermal', 1000),
     'W thermal': ('thermal_power', 'W thermal', 1),

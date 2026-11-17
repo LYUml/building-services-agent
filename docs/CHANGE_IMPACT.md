@@ -1,5 +1,11 @@
 # Change impact and verified numerical reuse
 
+The new real recorded-lighting source-power adapter also executes this path;
+see [lighting audit](LIGHTING_SOURCE_AUDIT.md) for188entities,4owned inputs,
+actual typed10W change/report propagation and bounded project-knowledge proof.
+Lighting has no result-cache eligibility or new photometric/geometry acceptance.
+Earlier counts and domains below describe their historical checkpoints.
+
 The CLI and MCP adapters reuse existing workflow receipts, module contracts/provider verification,
 common-data/report adapters and `doctor` dependency inspection. There is no new
 solver, dependency or cache service. Existing HVAC refresh and native drawing

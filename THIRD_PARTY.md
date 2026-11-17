@@ -1,5 +1,14 @@
 # Attribution and upstream integration register
 
+The optional recorded-lighting source adapter invokes the user's existing
+DIALux Agent Toolkit checkout at ade128b7ae446c6ea253776a5ead866280d6bf4a
+through its fixed report-read CLI. No upstream source is vendored. No root
+license was identified (NOASSERTION), so this integration does not grant
+redistribution rights. The checkout, interpreter and environment are supplied
+separately by the user. See docs/LIGHTING_SOURCE_AUDIT.md for executed scope,
+source/page binding and limitations. Existing pypdf7.0.0 retains its upstream
+license and pinned documents profile.
+
 Reduced-branch revision authoring uses the already pinned IfcOpenShell0.8.5
 ShapeBuilder/extrusion/Boolean APIs, Manifold3D3.5.4 checks and existing ezdxf/
 AutoCAD adapters. Source binding, unequal-section declarations and independent

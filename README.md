@@ -15,6 +15,10 @@ typed source differences now execute; knowledge ownership, performance and
 different-real-project acceptance remain in progress. The earlier candidate
 checkpoint below is preserved and does not establish readiness of new features.
 
+The [real lighting source audit](docs/LIGHTING_SOURCE_AUDIT.md) now verifies
+second-discipline calculation/common-report/input-impact propagation with existing
+upstream tooling. It does not establish new photometric or geometry acceptance.
+
 The scoped candidate is ready for user review; this is not a
 stable release or engineering design acceptance. See [candidate status and measured optimization](docs/RELEASE_CANDIDATE.md).
 The [candidate support contract](docs/CANDIDATE_SUPPORT.md) distinguishes MCP

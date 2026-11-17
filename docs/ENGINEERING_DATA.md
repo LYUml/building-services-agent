@@ -1,5 +1,11 @@
 # Common engineering data: first executed slice
 
+The new real recorded-lighting source-power adapter also executes this path;
+see [lighting audit](LIGHTING_SOURCE_AUDIT.md) for188entities,4owned inputs,
+actual typed10W change/report propagation and bounded project-knowledge proof.
+Lighting has no result-cache eligibility or new photometric/geometry acceptance.
+Earlier counts and domains below describe their historical checkpoints.
+
 ## Source input ownership now executes
 
 The optional source parameter catalogue now binds raw inputs to common owners,

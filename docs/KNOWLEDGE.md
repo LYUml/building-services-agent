@@ -1,5 +1,11 @@
 # Source-backed local knowledge retrieval
 
+The new real recorded-lighting source-power adapter also executes this path;
+see [lighting audit](LIGHTING_SOURCE_AUDIT.md) for188entities,4owned inputs,
+actual typed10W change/report propagation and bounded project-knowledge proof.
+Lighting has no result-cache eligibility or new photometric/geometry acceptance.
+Earlier counts and domains below describe their historical checkpoints.
+
 This first slice indexes explicitly selected existing documents, immutable Git
 references and verified common-data input catalogues. It reuses document
 extraction, reference_library, workspace guards and provider verification. No
