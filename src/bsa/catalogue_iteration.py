@@ -100,6 +100,7 @@ def run(plan,original_run,task,catalogue,target,out,*,execute_options=None):
         pins[str(Path(module.__file__).resolve())]=digest(Path(module.__file__))
     pins[str(Path(__file__).resolve())]=digest(Path(__file__))
     runtime_method=Path(__file__).with_name('host_runtime.py').resolve();pins[str(runtime_method)]=digest(runtime_method)
+    evidence_method=Path(__file__).with_name('runtime_evidence.py').resolve();pins[str(evidence_method)]=digest(evidence_method)
     out.mkdir(parents=True)
     result=dict(schema='bsa.catalogue-iteration/1',plan=str(plan),original_run=str(original_run),
         task=task,catalogue=str(catalogue),target_plan=str(target),inputs=pins,

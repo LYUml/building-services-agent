@@ -6,6 +6,7 @@ from .cli import digest
 from .engine import ProjectError
 from .module_contract import read_json
 from .workspace import allowed
+from .runtime_evidence import inherited_inputs_current
 
 
 def verify(folder):
@@ -14,7 +15,7 @@ def verify(folder):
     result=read_json(folder/'iteration.json')
     if result.get('schema')!='bsa.catalogue-iteration/1' or result.get('scope')!=iteration.SCOPE or result.get('design_accepted') is not False or result.get('original_inputs_unchanged') is not True:
         raise ValueError('Unaccepted unchanged recovery receipt required')
-    if not result.get('inputs') or any(not allowed(Path(p)) or not Path(p).is_file() or digest(Path(p))!=sha for p,sha in result['inputs'].items()):
+    if not result.get('inputs') or any(not Path(p).is_file() for p in result['inputs']) or not inherited_inputs_current(result['inputs']):
         raise ValueError('Recovery source or method changed')
     artifacts={p.relative_to(folder).as_posix():digest(p) for p in folder.rglob('*') if p.is_file() and p!=folder/'iteration.json'}
     if result.get('artifacts')!=artifacts:raise ValueError('Recovery artifact inventory changed')
@@ -53,6 +54,7 @@ def verify(folder):
     for module in (iteration,delivery,modules,workflow,workflow_status,*iteration.selection_modules(selected)):
         required[str(Path(module.__file__).resolve())]=digest(Path(module.__file__))
     runtime_method=Path(iteration.__file__).with_name('host_runtime.py').resolve();required[str(runtime_method)]=digest(runtime_method)
+    evidence_method=Path(iteration.__file__).with_name('runtime_evidence.py').resolve();required[str(evidence_method)]=digest(evidence_method)
     if any(result['inputs'].get(p)!=sha for p,sha in required.items()):raise ValueError('Recovery omitted original source or method pins')
     if digest(target)!=result.get('target_plan_sha256') or read_json(target)!=iteration.revised_plan(source,task,catalogue,target):raise ValueError('Recovery changed more than the declared catalogue')
     if result.get('stages')!=dict(baseline='failure_reproduced',plan='materialized_verified',requirements='completed',workflow='executed',diagnosis='source_verified') or result.get('stage_errors'):

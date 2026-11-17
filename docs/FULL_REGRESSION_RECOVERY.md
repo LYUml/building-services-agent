@@ -53,6 +53,15 @@ six connections and IFC schema checks. No upstream model was regenerated for tha
 diagnostic replay. The focused eight-case current regression remains pending;
 these stage checks are not a whole-suite pass.
 
+The next focused replay reached calculated airflow metadata, then stopped in the
+catalogue recovery receipt verifier: that consumer still required inherited method
+files to be repository-local. It now uses the same exact Fluids method whitelist,
+while explicitly checking plan/original-run/catalogue/target workspace paths and
+all hashes. New recovery receipts pin the shared evidence helper, including the
+pure pump route. Nine catalogue/import-isolation controls pass locally. Complete
+mixed recovery and corrected full CI are still pending; source identity and
+artifact checks have not been bypassed to reinterpret old receipts.
+
 The 258 skips are retained explicitly. They request host engines, official source
 caches, isolated adapters or explicit native fixtures. Dedicated engine jobs and
 local native evidence have their own scopes; they do not turn these skipped calls
