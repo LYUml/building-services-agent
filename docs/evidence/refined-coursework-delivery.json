@@ -1,0 +1,50 @@
+{
+  "scope": "Final refined coursework numerical/native/PDF identity audit; not measured ADPI or statutory certification",
+  "pages": 16,
+  "terminals": 80,
+  "vav_groups": 20,
+  "rigid_sections": 47,
+  "course_ratio_checks": 640,
+  "native_ratio_checks": 640,
+  "independent_decimal_ratio_checks": 1280,
+  "native_duct_fields": 235,
+  "native_vav_fields": 140,
+  "all80_panels_and_flex_lines_inside_interpreted_boundary": true,
+  "all_report_appendix_identities_match": true,
+  "group_flows_and_membership_preserved": true,
+  "private_members_present_public_members_absent": true,
+  "six_external_IEEE_references_verified": true,
+  "report_sha256": "0492f0fe98e926f75bc84973cbd956daadc6c2e0f7e21533f2af1c5c33aad09a",
+  "public_report_sha256": "fd6fa695af797bd51cb666b8902eb9a8930c02d09c096a271201573bcc4b0365",
+  "dwg_sha256": "02d7911d791bb94f47c39981f6663c088a29a1c1273bc2a92f32a7165fe4bc60",
+  "plot_sha256": "f203b9879ee83a5b054312eada9818104a94203b67966cac95c72b71ab450731",
+  "maximum_plan_flex_m": 2.8728691174817858,
+  "maximum_conditional_flex_m": 3.3728691174817858,
+  "total_plan_flex_m": 199.02392617844598,
+  "native_reopen_pass": true,
+  "all_checks_pass": true,
+  "ADPI_verified": false,
+  "full_HK_statutory_compliance_established": false,
+  "coursework_user_accepted": false,
+  "actual_changed_report_pages_visually_reviewed": true,
+  "all16_pages_rendered_and_reviewed": true,
+  "all15_nonidentity_pages_pixel_identical_private_public": true,
+  "actual_VAV_table_plot_visually_reviewed": true,
+  "formal_package_updated": true,
+  "native_ratio_range": [
+    1.2116829211046238,
+    3.1122323255563793
+  ],
+  "previous_native_ratio_range": [
+    1.206556494494195,
+    3.2796716311273206
+  ],
+  "source_assumption": "170.1W/m2 exceeds classroom160W/m2; no physical ADPI percentage claimed",
+  "upstream_reuse": [
+    "Existing air_layout_study geometry with Shapely2.2.0",
+    "Unchanged49 native K-Select conditions; toolkit Apache-2.0 commit3eecd3710e976927c4b7c639900e833d12150453",
+    "ezdxf1.4.5 MIT; existing native export/plot/preservation adapters",
+    "Existing vav_schedule author and native readback",
+    "ReportLab4.4.9 vector illustrations; original BSE3125 style read-only"
+  ]
+}

@@ -1,4 +1,4 @@
-Current BSE3227 coursework package has a reviewed14-page report and reopened80-terminal DWG with4m design notes. It is ready for user review under explicit classroom assumptions; full agent/engineering acceptance remains open. See [coursework closeout](CURRENT_COURSE_CLOSEOUT.md).
+Current BSE3227 coursework refinement has a reviewed16-page illustrated report, improved conditional ratio margin and matching actual reopened DWG/VAV schedule. All eighty flows, twenty groups and forty-seven rigid sizes are preserved; coursework user acceptance remains pending. See [coursework closeout](CURRENT_COURSE_CLOSEOUT.md). Earlier entries below are historical milestones, not a demand to restart CFD or manufacturer research.
 
 A separate source-informed 20-step physical-time k-epsilon startup now executes on the preserved quality-passed 142480-cell mesh. Native fields and five-port flux checks pass; duration is only 2.05% of one reference residence time, so no pressure or wall-treatment acceptance. Course baseline unchanged. See [transient startup](OPENFOAM_IMPORT_PRECISION.md#separate-physical-time-k-epsilon-startup).
 

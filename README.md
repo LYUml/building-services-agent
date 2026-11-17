@@ -1,4 +1,4 @@
-Current BSE3227 coursework package has a reviewed14-page report and reopened80-terminal DWG with4m design notes. It is ready for user review under explicit classroom assumptions; full agent/engineering acceptance remains open. See [coursework closeout](docs/CURRENT_COURSE_CLOSEOUT.md).
+Current BSE3227 coursework package has a reviewed16-page illustrated report and actual reopened80-terminal DWG. A150mm local row adjustment improves the adopted native-throw ratio range to1.2117–3.1122 with unchanged flows/groups/rigid sizes. Explicit ADPI applicability assumptions remain; user acceptance is pending. See [coursework closeout](docs/CURRENT_COURSE_CLOSEOUT.md). Earlier milestone entries below are historical scopes.
 
 Current coursework diffuser verification covers 49 native K-Select conditions and 640 classroom ratio checks. A separate 160-row terminal-pressure comparison now has publisher-backed total-pressure identification; 84 component gaps and ADPI load applicability remain unresolved. See [native performance](docs/CURRENT_COURSE_KSELECT.md) and [pressure comparison](docs/CURRENT_NATIVE_TERMINAL_PRESSURE.md).
 

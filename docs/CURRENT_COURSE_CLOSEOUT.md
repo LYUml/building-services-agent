@@ -1,6 +1,12 @@
 # Current BSE3227 coursework review package
 
-New user-authorized refinement is active. A bounded 150 mm southward relocation
+The user-authorized refinement is now delivered for review, not user-accepted.
+The current report has16pages including two source-coordinate illustrations,
+diffuser and duct worked examples, six external IEEE-style references and the
+actual native A1 plan. Private group identities remain excluded from public Git;
+the other15pages match pixel-for-pixel. BSE3125 was read-only.
+
+A bounded 150 mm southward relocation
 of twelve diffusers within their unchanged explicit service cells preserves all
 flows, twenty groups and forty-seven rigid sizes. Reusing the same forty-nine
 native K-Select conditions, the 640 ratios improve from 1.2066–3.2797 to
@@ -8,8 +14,15 @@ native K-Select conditions, the 640 ratios improve from 1.2066–3.2797 to
 with exactly thirty-six intended entity changes; the plotted sheet was viewed.
 Total planar flex increases by 1.130 m (about 0.57%); its maximum conditional
 length remains 3.373 m. This is a tradeoff, not an ADPI percentage improvement.
-The candidate is not yet adopted: figures, schedules and final package review
-remain. See [candidate evidence](evidence/diffuser-position-candidate.json).
+The refinement is adopted into the report, native drawing, companion VAV table
+and schedules. Independent checks reconcile1280Decimal ratios,235native duct
+fields,140native VAV cells and all report identities. All80panels/flex lines pass
+the interpreted boundary/column check. Both actual native plots and all report
+pages were reviewed. See [final evidence](evidence/refined-coursework-delivery.json).
+ADPI applicability, actual installation and complete statutory conformity remain
+unestablished. Await user review; do not expand research automatically.
+
+## Previous baseline and preserved engineering limitations
 
 The coursework delivery now contains a14-page report, editable80-terminal DWG and matching A1 plot. Typography and numbered structure follow the user's BSE3125 reference; no lighting engineering data is transferred. Authorized group names and IDs are now included only in the local report; the Git snapshot is anonymous. The47-section/20VAV/80diffuser scenario,640classroom checks and49native K-Select conditions remain unchanged. Earlier published copies are archived privately.
 

@@ -1,5 +1,12 @@
 # Reuse survey â€” 2026-11-09
 
+The current coursework refinement reuses existing air_layout_study geometry,
+Shapely2.2.0, explicit fixed service cells, all49unchanged K-Select conditions
+(Apache-2.0 toolkit commit3eecd3710e976927c4b7c639900e833d12150453),
+ezdxf1.4.5(MIT), guarded native export/plot/preservation and VAV schedule adapters,
+and ReportLab4.4.9 vector figures. No new solver or ADPI engine is added. Actual
+native and numeric evidence: [refined delivery](evidence/refined-coursework-delivery.json).
+
 A thin pinned node-order adapter now passes tests and all265741actual main-cell correspondence checks. No solver or pressure acceptance. See [node ordering](CFD_NODE_ORDER.md).
 
 An executed 30/60-layer axial bend comparison passes numerical checks, with pressure change about0.061% but unresolved conditional velocity discrepancy. No full grid independence. See [axial follow-up](DEVELOPED_BEND_CHECK.md#axial-grid-follow-up).
