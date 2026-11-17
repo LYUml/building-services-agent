@@ -28,7 +28,23 @@ jobs:
           tests.test_mcp_startup tests.test_missing_dependency_errors
           tests.test_workspace_write_guards tests.test_project_workspace
           tests.test_review_cli tests.test_recovery_imports tests.test_catalogue_iteration
-          tests.test_runtime_logs tests.test_check_runner -v
+          tests.test_runtime_logs tests.test_check_runner tests.test_reference_library -v
+      - name: Reproduce committed source candidate
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          python scripts/build_candidate.py --out runs/source-candidate
+          python scripts/build_candidate.py --out runs/source-candidate-repeated
+          python -c "import json; from pathlib import Path; a=json.loads(Path('runs/source-candidate/receipt.json').read_text()); b=json.loads(Path('runs/source-candidate-repeated/receipt.json').read_text()); assert a['sha256']==b['sha256'], 'Source candidate is not reproducible'"
+      - name: Retain source candidate for review
+        if: matrix.os == 'ubuntu-latest' && success()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: building-services-agent-source-candidate
+          retention-days: 7
+          if-no-files-found: error
+          path: |
+            runs/source-candidate/building-services-agent-source.zip
+            runs/source-candidate/receipt.json
 
   pump-network:
     runs-on: ubuntu-latest

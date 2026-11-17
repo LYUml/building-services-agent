@@ -44,3 +44,10 @@ Executed baseline at commit `4e5e02803346af93592441e974040096ae1fdebe`:
 The builder itself was added after this baseline commit. The next committed
 snapshot must include it and receive its own receipt. Historical receipts stay
 associated with their actual source revision.
+
+The Ubuntu core CI job now builds the same committed candidate twice and compares
+their hashes. After its checks pass, the source ZIP and receipt are retained for
+seven days as `building-services-agent-source-candidate` in that Actions run.
+This is a review artifact, not a release. Inspect the receipt's commit and job
+result; the presence of an artifact alone proves no native engineering result.
+Remote execution of this new artifact step remains to be observed.
