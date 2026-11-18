@@ -107,6 +107,12 @@ false. The current DLL passed local bundle verification with a Revit 2027
 sample for inventory and a hash-bound synthetic fixture for pipe creation.
 Both verifications were offline.
 
+The integrated regression at `b73a9e5` passed all 42 Revit-selected tests
+and 47 subtests. The matching Automation assembly also passed staging
+and independent stage verification against the saved Revit 2027 sample,
+with no upgrade required. The native host and saved reopening remain
+unverified.
+
 Add `--model runs/<test-fixture>.rvt` to generate the hash-bound
 `inventory-request.json` beside the AppBundle. The selected fixture stays
 at its original path and outside the ZIP. Use those same RVT bytes as the
