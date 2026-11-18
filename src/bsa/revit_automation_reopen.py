@@ -14,9 +14,10 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
         Path(path).resolve() for path in (write_stage, creation, authored, inventory, reopen_preparation))
     request = stage / 'pipe-request.json'
     preparation = stage / 'preparation.json'
-    if not all(workspace.allowed(path) for path in (request, preparation, creation, authored, inventory, reopen_preparation)):
+    reopen_request = reopen_preparation.with_name('inventory-request.json')
+    paths = (request, preparation, creation, authored, inventory, reopen_preparation, reopen_request)
+    if not all(workspace.allowed(path) for path in paths):
         raise ValueError('Use files from the selected project workspace')
-    paths = (request, preparation, creation, authored, inventory, reopen_preparation)
     pins = {path: file_hash(path) for path in paths}
     prepared, created, requested, reopened = (
         json.loads(path.read_bytes()) for path in (preparation, creation, request, inventory))
@@ -29,7 +30,16 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
             or created['saved_rvt_sha256'] != pins[authored]):
         raise ValueError('Creation evidence does not match the prepared request and saved RVT')
 
+    reopen_stage = json.loads(reopen_preparation.read_bytes())
+    if (reopen_stage.get('operation') != 'inventory'
+            or reopen_stage.get('request_sha256') != pins[reopen_request]
+            or json.loads(reopen_request.read_bytes()).get('SavedRvtSha256') != pins[authored]):
+        raise ValueError('Reopen evidence does not match the staged inventory request and saved RVT')
     checked = reconstruct(inventory, authored, tolerance_m, automation_receipt=reopen_preparation)
+    if (checked['inventory_sha256'] != pins[inventory]
+            or checked['saved_rvt_sha256'] != pins[authored]
+            or checked['automation_receipt_sha256'] != pins[reopen_preparation]):
+        raise ValueError('Revit evidence changed during verification')
     identifier = created['transaction_result']['unique_id']
     pipes = [pipe for pipe in reopened['pipes'] if pipe['unique_id'] == identifier]
     revisions = [row for row in checked['revision_checks'] if row['owner'] == identifier]
@@ -61,6 +71,7 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
         'authored_rvt_sha256': pins[authored],
         'creation_sha256': pins[creation],
         'inventory_sha256': pins[inventory],
+        'reopen_request_sha256': pins[reopen_request],
         'pipe_matches_capture': True,
         'connector_endpoint_error_m': connector_error,
         'native_execution_authenticated': False,

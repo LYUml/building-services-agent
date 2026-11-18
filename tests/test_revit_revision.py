@@ -44,7 +44,7 @@ class RevitRevisionTests(unittest.TestCase):
                 path.write_text(json.dumps(data), encoding='utf-8')
                 return path
 
-            source_hash, adapter_hash, reopen_hash = 'a'*64, 'b'*64, 'c'*64
+            source_hash, adapter_hash = 'a'*64, 'b'*64
             authored = root / 'authored.rvt'
             authored.write_bytes(b'synthetic saved file')
             authored_hash = file_hash(authored)
@@ -57,8 +57,10 @@ class RevitRevisionTests(unittest.TestCase):
             created = save('creation.json', dict(input_rvt_sha256=source_hash, request_sha256=request_hash,
                 adapter_sha256=adapter_hash, saved_rvt_sha256=authored_hash,
                 transaction_result={'unique_id': self.pipe['unique_id'], 'connector_count': 2}))
-            reopen = save('reopen.json', dict(saved_rvt_sha256=authored_hash, request_sha256=reopen_hash,
-                                            assembly_sha256=adapter_hash))
+            reopen_request = save('inventory-request.json', dict(SavedRvtSha256=authored_hash))
+            reopen_hash = file_hash(reopen_request)
+            reopen = save('reopen.json', dict(operation='inventory', saved_rvt_sha256=authored_hash,
+                                            request_sha256=reopen_hash, assembly_sha256=adapter_hash))
             self.pipe['connectors'] = [dict(id=index, origin_m=point, domain='DomainPiping',
                                             connector_type='End', physically_connected=False, references=[])
                                        for index, point in enumerate(self.pipe['endpoints_m'], start=1)]
@@ -70,6 +72,7 @@ class RevitRevisionTests(unittest.TestCase):
             self.assertTrue(result['pipe_matches_capture'])
             self.assertFalse(result['native_execution_authenticated'])
             self.assertEqual(result['connector_endpoint_error_m'], 0)
+            self.assertEqual(result['reopen_request_sha256'], reopen_hash)
             arguments = dict(write_stage=root.name, creation=f'{root.name}/{created.name}',
                              authored=f'{root.name}/{authored.name}', inventory=f'{root.name}/{observed.name}',
                              reopen_preparation=f'{root.name}/{reopen.name}', tolerance_m=0.001)
@@ -99,6 +102,11 @@ class RevitRevisionTests(unittest.TestCase):
                             self.assertIn('does not match', mismatch.content[0].text)
 
                 asyncio.run(check_stdio())
+            original_request = reopen_request.read_bytes()
+            reopen_request.write_bytes(original_request + b'\n')
+            with self.assertRaisesRegex(ValueError, 'staged inventory request'):
+                verify(root, created, authored, observed, reopen, 0.001)
+            reopen_request.write_bytes(original_request)
             self.pipe['connectors'][1]['origin_m'] = self.pipe['connectors'][0]['origin_m']
             save('inventory.json', inventory)
             with self.assertRaisesRegex(ValueError, 'distinct curve endpoints'):

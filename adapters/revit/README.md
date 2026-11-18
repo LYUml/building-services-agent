@@ -82,7 +82,9 @@ bsa revit-verify-automation-reopen --write-stage <stage-directory> --creation <c
 MCP `bsa_verify_revit_automation_reopen` takes the corresponding
 `write_stage`, `creation`, `authored`, `inventory`, `reopen_preparation`
 and `tolerance_m` arguments. Use paths relative to the selected project root.
-Both entry points only read saved evidence.
+Both entry points only read saved evidence. Keep `inventory-request.json`
+beside the reopen preparation receipt so its exact bytes can be matched to
+the separate inventory capture and the authored model hash.
 
 This checks the file hashes, compares the pipe identity and geometry with the
 staged request, and matches the two piping connector origins to separate curve
