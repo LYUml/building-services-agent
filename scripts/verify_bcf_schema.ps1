@@ -39,11 +39,12 @@ foreach ($name in $pins.Keys | Where-Object { $_ -ne 'shared-types.xsd' }) {
 
 $before = (Get-FileHash -LiteralPath $archivePath -Algorithm SHA256).Hash.ToLowerInvariant()
 $zip = [System.IO.Compression.ZipFile]::OpenRead($archivePath)
-$checked = [System.Collections.Generic.List[string]]::new()
+$documents = [System.Collections.Generic.Dictionary[string,System.Xml.XmlDocument]]::new(
+    [StringComparer]::Ordinal)
 try {
     foreach ($entry in $zip.Entries) {
         if (-not $entry.Name) { continue }
-        $schemaName = switch -Regex ($entry.FullName) {
+        $schemaName = switch -CaseSensitive -Regex ($entry.FullName) {
             '^bcf\.version$' { 'version.xsd'; break }
             '^project\.bcfp$' { 'project.xsd'; break }
             '^extensions\.xml$' { 'extensions.xsd'; break }
@@ -51,12 +52,14 @@ try {
             '^[^/]+/[^/]+\.bcfv$' { 'visinfo.xsd'; break }
             default { throw "Archive member outside the generated IFC review format: $($entry.FullName)" }
         }
-        if ($checked.Contains($entry.FullName)) { throw "Repeated archive member: $($entry.FullName)" }
+        if ($documents.ContainsKey($entry.FullName)) { throw "Repeated archive member: $($entry.FullName)" }
         $stream = $entry.Open()
         try {
             $reader = [System.Xml.XmlReader]::Create($stream, $settings[$schemaName])
             try {
-                while ($reader.Read()) {}
+                $document = [System.Xml.XmlDocument]::new()
+                $document.XmlResolver = $null
+                $document.Load($reader)
             } finally {
                 $reader.Dispose()
             }
@@ -65,13 +68,37 @@ try {
         } finally {
             $stream.Dispose()
         }
-        $checked.Add($entry.FullName)
+        $documents.Add($entry.FullName, $document)
     }
 } finally {
     $zip.Dispose()
 }
 foreach ($required in 'bcf.version', 'project.bcfp', 'extensions.xml') {
-    if (-not $checked.Contains($required)) { throw "Missing generated BCF archive member: $required" }
+    if (-not $documents.ContainsKey($required)) { throw "Missing generated BCF archive member: $required" }
+}
+$referenced = [System.Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
+foreach ($entry in $documents.Keys | Where-Object { $_ -clike '*/markup.bcf' }) {
+    $folder = $entry.Split('/')[0]
+    $topic = $documents[$entry].SelectSingleNode('/Markup/Topic')
+    if ($topic.GetAttribute('Guid') -cne $folder) {
+        throw "BCF topic GUID differs from its archive folder: $entry"
+    }
+    foreach ($view in $topic.SelectNodes('Viewpoints/ViewPoint')) {
+        $targetName = $view.SelectSingleNode('Viewpoint').InnerText
+        if ($targetName -notmatch '^[^/\\:]+\.bcfv$') {
+            throw "Invalid BCF viewpoint reference in $entry"
+        }
+        $target = "$folder/$targetName"
+        if (-not $documents.ContainsKey($target) -or -not $referenced.Add($target)) {
+            throw "Missing or repeated BCF viewpoint reference: $target"
+        }
+        if ($documents[$target].DocumentElement.GetAttribute('Guid') -cne $view.GetAttribute('Guid')) {
+            throw "BCF viewpoint GUID differs from its markup reference: $target"
+        }
+    }
+}
+foreach ($entry in $documents.Keys | Where-Object { $_ -clike '*.bcfv' }) {
+    if (-not $referenced.Contains($entry)) { throw "Unreferenced BCF viewpoint: $entry" }
 }
 if ((Get-FileHash -LiteralPath $archivePath -Algorithm SHA256).Hash -ne $before) {
     throw 'BCF archive changed during schema validation'
@@ -79,6 +106,7 @@ if ((Get-FileHash -LiteralPath $archivePath -Algorithm SHA256).Hash -ne $before)
 [ordered]@{
     archive_sha256 = $before
     schema_commit = '5834466b2477ac700d7a61990b4e67ec1005cc68'
-    validated_xml_members = $checked.Count
+    validated_xml_members = $documents.Count
+    resolved_viewpoint_references = $referenced.Count
     schema_validation_pass = $true
 } | ConvertTo-Json

@@ -153,7 +153,12 @@ directory. Keep them together and run
 The script validates the schema hashes and every XML member of the generated
 package. Five actual exports passed, covering empty, unplaced conflict,
 measured gap, missing pair and shifted ports. A control with the required
-topic title deleted failed. This checks XML structure for these archives.
+topic title deleted failed. The validator also resolves topic folders and
+viewpoint references, checks their GUIDs, and rejects unreferenced viewpoint
+files. All five archives passed this independent check. Controls with a
+missing viewpoint, substituted viewpoint GUID and unreferenced viewpoint
+all failed. This checks the XML structure and internal BCF references
+for these archives.
 Client-specific import and rendering remain untested.
 [buildingSMART BCF XML 3.0 schemas](https://github.com/buildingSMART/BCF-XML/tree/5834466b2477ac700d7a61990b4e67ec1005cc68/Schemas)
 
