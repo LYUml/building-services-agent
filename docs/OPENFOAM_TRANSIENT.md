@@ -10,6 +10,11 @@ For a saved steady segment, use `bsa openfoam-history-review --manifest <file>
 `output` and optional `window`. Both use host-selected project-relative paths.
 The CLI retains the review and exits 2 when its numerical window fails.
 See [the steady manifest contract](OPENFOAM_IMPORT_PRECISION.md#project-command).
+Both interfaces replayed the retained 51–250 step segment from byte-identical
+local input copies. All 10 history files, four basis files and numerical
+results matched the old receipt. Flow and mass passed while pressure stability
+failed. The interfaces produced identical new reports. No solver rerun or
+engineering pressure acceptance was inferred.
 
 ```python
 from bsa.openfoam_transient import read_samples, difference, window_statistics
