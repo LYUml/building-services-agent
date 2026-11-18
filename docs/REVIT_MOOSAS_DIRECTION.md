@@ -67,6 +67,18 @@ pending.
 [Engine catalogue contract](https://aps.autodesk.com/en/docs/design-automation/v3/reference/http/engines-GET) ·
 [Autodesk local debugging workflow](https://aps.autodesk.com/blog/debugging-revit-plugins-cursor-modern-developer-workflow)
 
+On 2026-11-18 the public Autodesk material confirmed cloud Revit work items
+and documented the September upgrade of the Revit 2026 engine to 2026.5 and
+.NET 10. The exact Revit 2027 engine ID for this adapter still needs
+confirmation through the authenticated catalogue. Desktop Revit 27.3 and
+.NET 10 alone provide no evidence of the cloud engine's API release.
+`APS_ACCESS_TOKEN` was absent in this shell. A future engine lookup needs
+an authorized token with `code:all`; a subsequent work-item submission also
+needs a registered Activity and authorized fixture transfer.
+[Autodesk engine update](https://aps.autodesk.com/blog/revit-automation-engine-upgrading-revit-20265-and-net-10-september-21-2026) ·
+[Autodesk OAuth scope](https://aps.autodesk.com/blog/automation-api-enforcing-oauth-scope) ·
+[Autodesk work-item API](https://aps.autodesk.com/en/docs/design-automation/v3/reference/http/workitems-POST/)
+
 Official [setup documentation](https://help.autodesk.com/cloudhelp/ENU/ADSKMCP-RevitMcp/files/ADSKMCP_RevitMcp_setting_up_revit_mcp_server_html.html) specifies a separate add-on and a running model. It names 2027.2, while an Autodesk forum response says 2027.2 and later; compatibility with installed 27.3 remains to be verified. Obtain the entitled installer through [Autodesk Account Extensions](https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/How-to-download-the-Revit-MCP-server.html), not an assumed bundled executable. No account access or installation was performed.
 
 The reviewed [official tool table](https://help.autodesk.com/cloudhelp/ENU/ADSKMCP-RevitMcp/files/revitmcp_tools.html) covers active context, queries, element data, parameter edits and experimental views/sheets/schedules/IFC export. It does not list native duct/pipe/connector creation. Therefore MCP installation alone cannot satisfy our MEP-authoring milestone. Evaluate a narrowly scoped API bridge for that gap. Its room-boundary tool simplifies nonlinear segments, so those outputs must not silently replace curved geometry in analysis.
