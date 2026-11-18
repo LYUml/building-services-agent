@@ -96,6 +96,33 @@ class RevitRevisionTests(unittest.TestCase):
             save('creation.json', wrong_peer)
             with self.assertRaisesRegex(ValueError, 'connector 1 physical peers differ'):
                 verify(root, created, authored, observed, reopen, 0.001)
+            def physical_ref(owner):
+                return dict(owner_unique_id=owner, connector_id=1, connector_type='End',
+                            domain='DomainPiping', origin_m=[0, 0, 0], api_connected_to=True,
+                            reciprocal_reference=True, separation_m=0)
+
+            connected_receipt = copy.deepcopy(receipt)
+            connected_receipt['transaction_result']['connectors'][0].update(
+                physically_connected=True,
+                physical_references=[dict(owner_unique_id='fitting-a', connector_id=1)],
+            )
+            save('creation.json', connected_receipt)
+            for peer in ('fitting-a', 'fitting-b'):
+                connected_inventory = copy.deepcopy(inventory)
+                connector = connected_inventory['pipes'][0]['connectors'][0]
+                connector.update(physically_connected=True, references=[physical_ref(peer)])
+                connected_inventory['fittings'] = [dict(id='1043', unique_id=peer, connectors=[
+                    {**connector, 'references': [physical_ref(self.pipe['unique_id'])]},
+                ])]
+                save('inventory.json', connected_inventory)
+                if peer == 'fitting-a':
+                    outcome = verify(root, created, authored, observed, reopen, 0.001)
+                    self.assertTrue(outcome['creation_connector_matches'])
+                    self.assertFalse(outcome['connected_system_verified'])
+                else:
+                    with self.assertRaisesRegex(ValueError, 'connector 1 physical peers differ'):
+                        verify(root, created, authored, observed, reopen, 0.001)
+            save('inventory.json', inventory)
             save('creation.json', receipt)
             different_flag = copy.deepcopy(receipt)
             different_flag['transaction_result']['connectors'][0]['physically_connected'] = True
