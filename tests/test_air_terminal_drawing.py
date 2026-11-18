@@ -45,6 +45,27 @@ class TerminalDrawingTests(unittest.TestCase):
         self.assertAlmostEqual(r['maximum_plan_length_m'],1)
         self.assertFalse(r['design_accepted'])
 
+    def test_equal_length_translation_is_visible_in_saved_section_coordinates(self):
+        from ezdxf.math import Matrix44
+
+        baseline = self.check()
+        shift = 0.25
+        for entity in self.doc.modelspace():
+            entity.transform(Matrix44.translate(shift, 0, 0))
+        for section in self.binding['sections'].values():
+            section['from_m'][0] += shift
+            section['to_m'][0] += shift
+        for terminal in self.allocation['terminals']:
+            terminal['center_m'][0] += shift
+        revised = self.check()
+
+        for old, new in zip(baseline['rigid_sections'], revised['rigid_sections'], strict=True):
+            self.assertEqual(old['section'], new['section'])
+            self.assertEqual(old['saved_plan_length_m'], new['saved_plan_length_m'])
+            for key in ('saved_from_m', 'saved_to_m'):
+                self.assertEqual(new[key][0] - old[key][0], shift)
+                self.assertEqual(new[key][1:], old[key][1:])
+
     def test_disconnected_rigid_node_reports_both_sections_and_gap(self):
         first, second = self.doc.modelspace().query('LINE[layer=="duct"]')
         second.dxf.start = (0.25, 0, 0)
