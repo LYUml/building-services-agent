@@ -98,8 +98,13 @@ reported handles to locate the conflict and inspect the corresponding PDF
 region after correction.
 For a saved DWG revision with the optional ACadSharp worker configured,
 use `bsa drawing inspect --independent-report` or MCP
-`bsa_crosscheck_drawing_revision`. Check the comparison result and geometry
-coverage. The source-bound report identifies differing handles and fields.
+`bsa_crosscheck_drawing_revision`. Check `correspondence_pass`,
+`geometry_compared_count` and `identity_only_counts_by_type`. Retain the
+DWG, reopened DXF, worker and reader hashes with the report. A matched
+handle in an identity-only count has type and layer evidence. For regression
+of a recurring placement error, move the known object in a separate DXF
+control copy and confirm that `bsa dwg-readback` reports the expected handle
+and changed field. Keep the generated native revision and export intact.
 The AutoCAD reopen receipt and actual PDF review are still required for
 native delivery. See docs/DRAWING_DOCUMENT.md for setup and scope.
 
