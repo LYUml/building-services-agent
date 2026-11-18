@@ -59,10 +59,33 @@ def source_files(project):
 
 def value(item):
     """Forward native geometry attributes, with no STEP entity identifiers."""
-    if isinstance(item, ifcopenshell.entity_instance):
-        return [item.is_a(), [(item.attribute_name(i), value(v)) for i, v in enumerate(item) if item.attribute_name(i) != 'ContextOfItems']]
-    if isinstance(item, (tuple, list)): return [value(v) for v in item]
-    return item
+    if isinstance(item, (tuple, list)):
+        return [value(child) for child in item]
+    cache = {}
+
+    def forward(node):
+        if isinstance(node, ifcopenshell.entity_instance):
+            # Keep cache keys local to this traversal. IDs never enter the encoding.
+            key = node.id()
+            if key and key in cache:
+                return cache[key]
+            attributes = []
+            for index in range(len(node)):
+                name = node.attribute_name(index)
+                if name != 'ContextOfItems':
+                    attributes.append((name, forward(node[index])))
+            result = [node.is_a(), attributes]
+            if key:
+                cache[key] = result
+            return result
+        if isinstance(node, (tuple, list)):
+            return [forward(child) for child in node]
+        return node
+
+    try:
+        return forward(item)
+    finally:
+        cache.clear()
 
 
 def shape_hash(obj):
