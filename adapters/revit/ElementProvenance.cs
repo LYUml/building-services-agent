@@ -69,7 +69,7 @@ public static class ElementProvenance
     public static void RejectExistingRequest(Document document, PipeRequest request)
     {
         if (Schema.Lookup(SchemaId) == null) return;
-        string candidate = JsonSerializer.Serialize(request);
+        string candidate = JsonSerializer.Serialize(request with { SavedRvtSha256 = null });
         using var filter = new ExtensibleStorageFilter(SchemaId);
         using var collector = new FilteredElementCollector(document);
         foreach (var element in collector.WherePasses(filter))
@@ -78,7 +78,7 @@ public static class ElementProvenance
             if (payload == null) continue;
             var previous = JsonSerializer.Deserialize<PipeRequest>(payload.RequestJson)
                 ?? throw new InvalidOperationException("Missing stored creation request");
-            if (JsonSerializer.Serialize(previous) == candidate)
+            if (JsonSerializer.Serialize(previous with { SavedRvtSha256 = null }) == candidate)
                 throw new InvalidOperationException($"Creation request already recorded on element {element.UniqueId}; inspect current geometry and provenance before retrying");
         }
     }

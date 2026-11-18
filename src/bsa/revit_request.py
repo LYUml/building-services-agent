@@ -50,7 +50,7 @@ def prepare(inventory, model, basis, out):
         raise ProjectError('Output may not contain source inputs')
     source_text=json.dumps(dict(path=str(source_path),sha256=source_hash,locator=source['locator'],
                                basis_sha256=before[str(basis)]),sort_keys=True)
-    request=dict(DocumentPath=str(model),Source=source_text,**pipe)
+    request=dict(DocumentPath=str(model),Source=source_text,SavedRvtSha256=before[str(model)],**pipe)
     if any(digest(Path(p))!=h for p,h in before.items()):raise ProjectError('Input changed during preparation')
     out.mkdir(parents=True)
     (out/'pipe-request.json').write_text(json.dumps(request,indent=2),encoding='utf-8')

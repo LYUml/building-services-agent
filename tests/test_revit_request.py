@@ -28,6 +28,7 @@ class RevitRequestTests(unittest.TestCase):
             request=json.loads((root/'out/pipe-request.json').read_text())
             self.assertEqual(json.loads(request['Source'])['sha256'],digest(source))
             self.assertEqual(json.loads(request['Source'])['basis_sha256'],digest(basis))
+            self.assertEqual(request['SavedRvtSha256'],digest(model))
             self.assertEqual(request['EndMetres'],[2,0,0])
             self.assertFalse(result['native_executed'])
             with self.assertRaises(ProjectError):prepare(inv,model,basis,root/'out')

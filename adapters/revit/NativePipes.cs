@@ -2,12 +2,13 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Plumbing;
 using Autodesk.Revit.UI;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace Bsa.Revit;
 
 public sealed record PipeRequest(string DocumentPath, string Source,
     string PipeTypeUniqueId, string SystemTypeUniqueId, string LevelUniqueId,
-    double[] StartMetres, double[] EndMetres, double DiameterMetres);
+    double[] StartMetres, double[] EndMetres, double DiameterMetres, string? SavedRvtSha256 = null);
 
 /// <summary>Invoke only in a valid Revit API context. No default engineering inputs.</summary>
 public static class NativePipes
@@ -36,6 +37,11 @@ public static class NativePipes
         if (start.DistanceTo(end) <= Math.Max(doc.Application.ShortCurveTolerance, 1.0 / 120.0))
             throw new ArgumentException("Pipe is below Revit's minimum curve length");
         ElementProvenance.RejectExistingRequest(doc, request);
+        string currentHash;
+        using (var savedModel = File.OpenRead(doc.PathName))
+            currentHash = Convert.ToHexString(SHA256.HashData(savedModel));
+        if (!string.Equals(currentHash, request.SavedRvtSha256, StringComparison.OrdinalIgnoreCase))
+            throw new InvalidOperationException("Saved RVT hash mismatch; prepare a fresh request from a matching inventory");
         using var transaction = new Transaction(doc, "BSA: sourced native pipe");
         if (transaction.Start() != TransactionStatus.Started)
             throw new InvalidOperationException("Transaction did not start");
