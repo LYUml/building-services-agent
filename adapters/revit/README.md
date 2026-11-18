@@ -55,6 +55,11 @@ The local preparation receipt pins the Activity bytes. Engine and alias
 availability must be checked with authenticated APS before deployment.
 Actual work-item execution remains pending.
 
+Add `--model runs/<test-fixture>.rvt` to generate the hash-bound
+`inventory-request.json` beside the AppBundle. The selected fixture stays
+at its original path and outside the ZIP. Use those same RVT bytes as the
+Activity's model input. The receipt records both the request and RVT hashes.
+
 Final observed build: zero warnings/errors. The initial build had desktop-reference conflicts; explicit WPF/WindowsForms framework references resolved them. The intermediate missing System.IO import was corrected. Evidence and source/binary hashes: ../../docs/evidence/moosas-review/revit-native-build.json.
 
 `NativePipes.Create(UIApplication, PipeRequest)` must be called from a valid Revit API context on an explicitly selected test model. It checks active saved document identity, rejects existing edits/transactions, uses supplied type/system/level UniqueIds and metre-valued coordinates/diameter, creates a native Pipe and verifies dimensions/endpoints/two connectors. Any Revit failure message rolls back the transaction rather than being waived. No save/export or add-in registration is performed. The returned object explicitly leaves saved, system-connectivity and design acceptance false.

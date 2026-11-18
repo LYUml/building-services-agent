@@ -32,7 +32,16 @@ def inventory_activity(engine, bundle_id):
     }
 
 
-def prepare(assembly, output, *, engine=None, bundle_id=None):
+def inventory_request(model, runs):
+    model = Path(model).resolve()
+    if not model.is_relative_to(runs) or model.suffix.lower() != '.rvt' or not model.is_file():
+        raise ValueError('Select a local RVT test fixture under repository runs')
+    with model.open('rb') as stream:
+        sha256 = hashlib.file_digest(stream, 'sha256').hexdigest()
+    return {'SavedRvtSha256': sha256}
+
+
+def prepare(assembly, output, *, engine=None, bundle_id=None, model=None):
     if (engine is None) != (bundle_id is None):
         raise ValueError('Supply engine and qualified bundle ID together to stage an Activity')
     activity = inventory_activity(engine, bundle_id) if engine is not None else None
@@ -42,6 +51,7 @@ def prepare(assembly, output, *, engine=None, bundle_id=None):
         raise ValueError('Select the Automation DLL from a repository runs build')
     if not output.is_relative_to(runs) or output == runs or output.exists():
         raise ValueError('Select a fresh output directory under repository runs')
+    request = inventory_request(model, runs) if model is not None else None
 
     prefix = 'Bsa.Revit.Automation.bundle'
     package = b'''<ApplicationPackage Name="Bsa.Revit.Automation" AppVersion="0.1.0">
@@ -86,6 +96,13 @@ def prepare(assembly, output, *, engine=None, bundle_id=None):
         activity_bytes = json.dumps(activity, indent=2).encode('utf-8')
         (output / 'activity.json').write_bytes(activity_bytes)
         receipt['activity_sha256'] = hashlib.sha256(activity_bytes).hexdigest()
+    if request is not None:
+        if inventory_request(model, runs) != request:
+            raise ValueError('RVT changed during preparation')
+        request_bytes = json.dumps(request, indent=2).encode('utf-8')
+        (output / 'inventory-request.json').write_bytes(request_bytes)
+        receipt['request_sha256'] = hashlib.sha256(request_bytes).hexdigest()
+        receipt['saved_rvt_sha256'] = request['SavedRvtSha256']
     (output / 'preparation.json').write_text(json.dumps(receipt, indent=2), encoding='utf-8')
     return archive
 
@@ -96,5 +113,6 @@ if __name__ == '__main__':
     parser.add_argument('--out', required=True)
     parser.add_argument('--engine')
     parser.add_argument('--bundle-id')
+    parser.add_argument('--model', help='Local RVT fixture to hash for the inventory request')
     args = parser.parse_args()
-    print(prepare(args.assembly, args.out, engine=args.engine, bundle_id=args.bundle_id))
+    print(prepare(args.assembly, args.out, engine=args.engine, bundle_id=args.bundle_id, model=args.model))
