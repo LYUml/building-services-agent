@@ -63,6 +63,15 @@ artifacts and suppresses the design-report HTML/PDF. `not_configured` leaves
 terminal assignment unverified by this gate. `passed` covers scoped planar
 correspondence. Independently review the plot and remaining delivery requirements.
 
+For a three-phase calculation schematic, read `drawing.json` and compare
+`dxf_bus_contacts` with `native.bus_contacts` when a native DWG is required.
+Match each circuit ID and declared pair to the saved drawing, then inspect
+the measured gaps in drawing millimetres. Investigate a disconnected circuit,
+ambiguous pair or contact with an undeclared bus before supplying the sheet.
+Use the reported line and bus handles to locate a contact with an undeclared
+bus. Review the native PDF for readable phase rows and clear connections.
+The schematic geometry and paper scale cover drawing verification only.
+
 For supported physical IFC joints use
 docs/INTERFACE_CONTACTS.md. For system sheets spanning multiple pages see
 docs/CURRENT_SYSTEM_DRAWINGS.md for source-pair and cross-sheet reconciliation.
