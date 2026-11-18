@@ -80,6 +80,8 @@ static object? Geometry(Entity entity) => entity switch
     {
         start = new[] { line.StartPoint.X, line.StartPoint.Y, line.StartPoint.Z },
         end = new[] { line.EndPoint.X, line.EndPoint.Y, line.EndPoint.Z },
+        normal = new[] { line.Normal.X, line.Normal.Y, line.Normal.Z },
+        thickness = line.Thickness,
     },
     Point point => new
     {

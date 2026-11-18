@@ -14,7 +14,7 @@ def dxf_geometry(entity):
     dxf = entity.dxf
     kind = entity.dxftype()
     if kind == 'LINE':
-        return dict(start=list(dxf.start), end=list(dxf.end))
+        return dict(start=list(dxf.start), end=list(dxf.end), normal=list(dxf.extrusion), thickness=dxf.thickness)
     if kind == 'POINT':
         return dict(location=list(dxf.location))
     if kind == 'TEXT':

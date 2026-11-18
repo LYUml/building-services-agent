@@ -168,8 +168,9 @@ the loaded ACadSharp library. The report
 compares insertion units, modelspace identity, supported geometry, block
 reference placement and text display properties. Block definitions, nested
 geometry, plot styles and PDF glyph placement require other evidence. For
-`POINT` entities, geometry comparison covers the saved XYZ location. Rebuild
-earlier workers to include this field in their inventory.
+`POINT` entities, geometry comparison covers the saved XYZ location. For
+`LINE`, it covers the endpoints, normal and thickness. Rebuild earlier workers
+to include these fields in their inventory.
 The CLI and MCP summaries report `geometry_compared_count` and
 `identity_only_counts_by_type`. The latter counts matched modelspace entities
 whose type and layer were checked and whose geometry is outside the comparison.

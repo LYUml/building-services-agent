@@ -40,7 +40,7 @@ def test_duplicate_reference_handle_cannot_hide_entity(tmp_path):
     reference = tmp_path / 'duplicate.dxf'
     document.saveas(reference)
     row = dict(handle=expected.dxf.handle, type='LINE', layer='0',
-               geometry=dict(start=[0, 0, 0], end=[1, 1, 0]))
+               geometry=dict(start=[0, 0, 0], end=[1, 1, 0], normal=[0, 0, 1], thickness=0))
     comparison = compare_reference([row], document.units, reference)
     assert not comparison['correspondence_pass']
     assert comparison['geometry_compared_count'] == 0
@@ -108,7 +108,8 @@ class DwgReadbackTests(unittest.TestCase):
             for handle, entity in expected.items():
                 geometry = actual[handle]['geometry']
                 if entity.dxftype() == 'LINE':
-                    self.assertEqual(geometry, dict(start=list(entity.dxf.start), end=list(entity.dxf.end)))
+                    self.assertEqual(geometry, dict(start=list(entity.dxf.start), end=list(entity.dxf.end),
+                                                    normal=list(entity.dxf.extrusion), thickness=entity.dxf.thickness))
                 elif entity.dxftype() == 'POINT':
                     self.assertEqual(geometry, dict(location=list(entity.dxf.location)))
                 elif entity.dxftype() == 'TEXT':
@@ -130,6 +131,8 @@ class DwgReadbackTests(unittest.TestCase):
             changed = ezdxf.readfile(reference)
             line = changed.modelspace().query('LINE')[0]
             line.dxf.end += (1, 0, 0)
+            line.dxf.extrusion = (0, 1, 0)
+            line.dxf.thickness = 2
             point = changed.modelspace().query('POINT')[0]
             point.dxf.location += (0, 0, 1)
             insert = changed.modelspace().query('INSERT')[0]
@@ -144,7 +147,7 @@ class DwgReadbackTests(unittest.TestCase):
                                       cwd=ROOT, env=env, capture_output=True, check=False)
             self.assertEqual(mismatch.returncode, 2, mismatch.stderr)
             comparison = json.loads(difference_report.read_bytes())['comparison']
-            affected_fields = {line.dxf.handle: ['end'], insert.dxf.handle: ['rotation_angle_rad'],
+            affected_fields = {line.dxf.handle: ['end', 'normal', 'thickness'], insert.dxf.handle: ['rotation_angle_rad'],
                                label.dxf.handle: ['rotation_angle_rad'], point.dxf.handle: ['location']}
             self.assertEqual(comparison['differences'], [dict(reason='drawing_units_differ', dwg_insunits=4, dxf_insunits=6)] + [
                 dict(handle=handle, reason='geometry_differs', fields=affected_fields[handle])
