@@ -161,6 +161,7 @@ class EngineeringDataTests(unittest.TestCase):
         self.assertEqual(failed['source_flags']['status'], 'fail')
         self.assertFalse(failed['design_accepted'])
 
+    @patch.dict(os.environ, {'BSA_PROJECT_ROOT': ''})
     def test_explicit_external_workspace_and_fresh_output_guards(self):
         source = self.producer()
         out = self.root/'valid'
