@@ -11,6 +11,24 @@ from scripts.prepare_revit_automation_bundle import confirm_engine, prepare, ver
 
 
 class RevitAutomationBundleTests(unittest.TestCase):
+    def test_optional_metadata_binds_model_and_rejects_newer_release(self):
+        runs = Path(__file__).resolve().parents[1] / 'runs'
+        with TemporaryDirectory(dir=runs) as temporary:
+            root = Path(temporary)
+            assembly = root / 'Bsa.Revit.Automation.dll'
+            assembly.write_bytes(b'synthetic assembly')
+            model = root / 'model.rvt'
+            model.write_bytes(b'synthetic model')
+            metadata = dict(source_sha256=hashlib.sha256(model.read_bytes()).hexdigest(), revit_version=2027,
+                            workshared=False, single_user_cloud_model=False)
+            with patch('bsa.revit_file_metadata.inspect', return_value=metadata):
+                prepare(assembly, root/'stage', model=model, inspect_model=True)
+                self.assertEqual(verify_stage(root/'stage', model)['model_metadata'], metadata)
+            with patch('bsa.revit_file_metadata.inspect', return_value=dict(metadata, revit_version=2028)):
+                with self.assertRaisesRegex(ValueError, 'newer than the Revit 2027'):
+                    prepare(assembly, root/'rejected', model=model, inspect_model=True)
+            self.assertFalse((root/'rejected').exists())
+
     def test_windows_publish_retries_sharing_failure_without_replacing_output(self):
         runs = Path(__file__).resolve().parents[1] / 'runs'
         with TemporaryDirectory(dir=runs) as temporary:
@@ -105,6 +123,12 @@ class RevitAutomationBundleTests(unittest.TestCase):
             })
             self.assertEqual(archive.with_name('pipe-request.json').read_bytes(), request.read_bytes())
             self.assertTrue(verify_stage(archive.parent, model)['stage_verified'])
+            workshared = dict(source_sha256=digest, revit_version=2027, workshared=True,
+                              single_user_cloud_model=False)
+            with patch('bsa.revit_file_metadata.inspect', return_value=workshared):
+                with self.assertRaisesRegex(ValueError, 'standalone non-workshared'):
+                    prepare(assembly, directory / 'workshared', inspect_model=True, **args)
+            self.assertFalse((directory / 'workshared').exists())
             request.write_text(json.dumps(dict(fields, DiameterMetres=True)), encoding='utf-8')
             with self.assertRaisesRegex(ValueError, 'Positive diameter'):
                 prepare(assembly, directory / 'invalid-geometry', **args)

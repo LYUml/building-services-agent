@@ -69,6 +69,23 @@ def confirm_engine(engine, access_token):
     return {key: data[key] for key in ('id', 'productVersion', 'version')}
 
 
+def check_model_metadata(model, expected_sha256, operation):
+    from bsa.revit_file_metadata import inspect
+
+    try:
+        info = inspect(model)
+    except ModuleNotFoundError as error:
+        from bsa.cli_errors import missing_dependency
+        raise ValueError(missing_dependency(error)['message']) from error
+    if info['source_sha256'] != expected_sha256:
+        raise ValueError('RVT changed between request preparation and metadata inspection')
+    if info['revit_version'] > 2027:
+        raise ValueError('Saved RVT release is newer than the Revit 2027 Automation target')
+    if operation == 'create-pipe' and (info['workshared'] is True or info['single_user_cloud_model'] is True):
+        raise ValueError('Pipe creation requires a standalone non-workshared RVT')
+    return info
+
+
 def verify_stage(directory, model=None):
     runs = Path(__file__).resolve().parents[1] / 'runs'
     stage = Path(directory).resolve()
@@ -137,12 +154,20 @@ def verify_stage(directory, model=None):
         if operation == 'create-pipe':
             from bsa.revit_request import validate_automation_request
             validate_automation_request(declared, expected_model_hash)
-    return {'operation': operation, 'stage_verified': True, 'model_checked': model is not None,
-            'native_executed': False}
+    result = {'operation': operation, 'stage_verified': True, 'model_checked': model is not None,
+              'native_executed': False}
+    if 'model_metadata' in receipt:
+        if model is None:
+            raise ValueError('Supply the original test RVT to verify staged metadata')
+        observed = check_model_metadata(model, expected_model_hash, operation)
+        if observed != receipt['model_metadata']:
+            raise ValueError('Staged RVT metadata differs from the selected model')
+        result['model_metadata'] = observed
+    return result
 
 
 def prepare(assembly, output, *, engine=None, bundle_id=None, model=None,
-            operation='inventory', pipe_request=None, check_engine=False):
+            operation='inventory', pipe_request=None, check_engine=False, inspect_model=False):
     if operation not in ('inventory', 'create-pipe'):
         raise ValueError('Unsupported Automation operation')
     writing = operation == 'create-pipe'
@@ -159,6 +184,9 @@ def prepare(assembly, output, *, engine=None, bundle_id=None, model=None,
     if not output.is_relative_to(runs) or output == runs or output.exists():
         raise ValueError('Select a fresh output directory under repository runs')
     request = inventory_request(model, runs) if model is not None else None
+    if inspect_model and request is None:
+        raise ValueError('Model metadata inspection requires the test RVT')
+    metadata = check_model_metadata(model, request['SavedRvtSha256'], operation) if inspect_model else None
     if pipe_request is not None:
         pipe_request = Path(pipe_request).resolve()
         if not pipe_request.is_relative_to(runs) or pipe_request.suffix.lower() != '.json':
@@ -231,6 +259,8 @@ def prepare(assembly, output, *, engine=None, bundle_id=None, model=None,
             receipt['activity_sha256'] = hashlib.sha256(activity_bytes).hexdigest()
         if confirmed is not None:
             receipt['confirmed_engine'] = confirmed
+        if metadata is not None:
+            receipt['model_metadata'] = metadata
         if request is not None:
             if inventory_request(model, runs) != request:
                 raise ValueError('RVT changed during preparation')
@@ -266,13 +296,15 @@ if __name__ == '__main__':
     parser.add_argument('--model', help='Local RVT fixture to hash for the inventory request')
     parser.add_argument('--pipe-request', help='Prepared pipe request for the selected RVT fixture')
     parser.add_argument('--check-engine', action='store_true', help='Confirm engine availability with a read-only APS call')
+    parser.add_argument('--inspect-model', action='store_true', help='Check the saved RVT version and worksharing locally before staging')
     args = parser.parse_args()
     try:
         if args.verify_stage:
             print(json.dumps(verify_stage(args.verify_stage, args.model), indent=2))
         elif args.assembly and args.out:
             print(prepare(args.assembly, args.out, engine=args.engine, bundle_id=args.bundle_id, model=args.model,
-                          operation=args.operation, pipe_request=args.pipe_request, check_engine=args.check_engine))
+                          operation=args.operation, pipe_request=args.pipe_request, check_engine=args.check_engine,
+                          inspect_model=args.inspect_model))
         else:
             parser.error('Supply --assembly and --out, or use --verify-stage')
     except (OSError, ValueError, TypeError, KeyError, IndexError, BadZipFile, ElementTree.ParseError) as error:

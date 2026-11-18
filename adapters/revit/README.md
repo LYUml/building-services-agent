@@ -53,6 +53,11 @@ the inventory Activity JSON. The command line and three required transfer
 parameters follow the [Autodesk Activity tutorial](https://get-started.aps.autodesk.com/tutorials/design-automation/define-activity/).
 The local preparation receipt pins the Activity bytes. Engine and alias
 availability must be checked with authenticated APS before deployment.
+With the optional `revit-metadata` extra, pass `--inspect-model` together with
+`--model` to pin the saved release and worksharing flags before staging.
+This preflight rejects a newer release and rejects known workshared or
+single-user cloud inputs for pipe creation. `--verify-stage` rechecks the
+same metadata when present. Unknown flags and native opening remain unresolved.
 Add `--check-engine` to check the selected engine in the US East catalogue
 before writing the staging directory. The command reads the application
 token from `APS_ACCESS_TOKEN` and records the returned engine ID and build
