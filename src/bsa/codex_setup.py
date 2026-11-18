@@ -15,7 +15,7 @@ from .host_runtime import PATH_ARGUMENTS
 SERVER='building_services'
 
 
-def settings(python,autocad=None,pdftoppm=None,**runtimes):
+def settings(python,autocad=None,pdftoppm=None,*,dwg_dotnet=None,dwg_worker=None,**runtimes):
     root=workspace.ROOT.resolve();project=workspace.project_root() or root
     project=project.resolve()
     if project==root.parent/'polyu_bse3124':raise ValueError('Completed historical project is read-only')
@@ -34,7 +34,15 @@ def settings(python,autocad=None,pdftoppm=None,**runtimes):
             value=Path(value).resolve()
             if not (value.is_file() if kind=='file' else value.is_dir()):raise ValueError('Explicit existing host runtime '+kind+' required: '+name)
             args.extend(['--'+name,value.as_posix()])
-    return project,dict(command=python.as_posix(),args=args,cwd=root.as_posix(),startup_timeout_sec=120,tool_timeout_sec=1200,enabled=True,env=dict(BSA_PROJECT_ROOT=data.as_posix()))
+    environment = dict(BSA_PROJECT_ROOT=data.as_posix())
+    if dwg_dotnet is not None or dwg_worker is not None:
+        if dwg_dotnet is None or dwg_worker is None:
+            raise ValueError('Supply both --dwg-dotnet and --dwg-worker')
+        from .dwg_readback import host_runtime_files
+
+        dotnet, worker, _ = host_runtime_files(dwg_dotnet, dwg_worker)
+        environment.update(BSA_ACADSHARP_DOTNET=dotnet.as_posix(), BSA_ACADSHARP_WORKER=worker.as_posix())
+    return project,dict(command=python.as_posix(),args=args,cwd=root.as_posix(),startup_timeout_sec=120,tool_timeout_sec=1200,enabled=True,env=environment)
 
 
 def render(config):
@@ -42,7 +50,8 @@ def render(config):
     lines=['[mcp_servers.'+SERVER+']']
     for key in ('command','args','cwd','startup_timeout_sec','tool_timeout_sec','enabled'):
         value=config[key];lines.append(key+' = '+('true' if value is True else quote(value)))
-    lines.extend(['','[mcp_servers.'+SERVER+'.env]','BSA_PROJECT_ROOT = '+quote(config['env']['BSA_PROJECT_ROOT'])])
+    lines.extend(['','[mcp_servers.'+SERVER+'.env]'])
+    lines.extend(key+' = '+quote(value) for key,value in config['env'].items())
     return '\n'.join(lines)+'\n'
 
 
@@ -57,7 +66,7 @@ def refreshed(original,data,config):
         if flag in args:args[args.index(flag)+1]=value
         else:args.extend([flag,value])
     desired.update(command=config['command'],cwd=config['cwd'],args=args)
-    desired['env']=dict(existing.get('env',{}));desired['env']['BSA_PROJECT_ROOT']=config['env']['BSA_PROJECT_ROOT']
+    desired['env']=dict(existing.get('env',{}));desired['env'].update(config['env'])
     if desired==existing:return original
     import tomlkit
     if importlib.metadata.version('tomlkit')!='0.15.1':raise ValueError('Pinned tomlkit==0.15.1 required for refresh')
@@ -66,7 +75,7 @@ def refreshed(original,data,config):
     table=document['mcp_servers'][SERVER]
     for key in ('command','cwd','args'):table[key]=desired[key]
     if 'env' not in table:table['env']=tomlkit.table()
-    table['env']['BSA_PROJECT_ROOT']=desired['env']['BSA_PROJECT_ROOT']
+    for key,value in config['env'].items():table['env'][key]=value
     payload=tomlkit.dumps(document).encode('utf-8');expected=copy.deepcopy(data);expected['mcp_servers'][SERVER]=desired
     if tomllib.loads(payload.decode('utf-8'))!=expected:raise ValueError('Unmanaged settings changed during refresh')
     return payload
@@ -120,4 +129,5 @@ def install(python,autocad=None,pdftoppm=None,refresh=False,**runtimes):
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--python',default=sys.executable)
     for name in PATH_ARGUMENTS:p.add_argument('--'+name)
+    p.add_argument('--dwg-dotnet');p.add_argument('--dwg-worker')
     p.add_argument('--refresh',action='store_true');a=vars(p.parse_args());print(json.dumps(install(**a),indent=2))

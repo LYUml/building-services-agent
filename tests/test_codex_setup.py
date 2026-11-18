@@ -7,6 +7,21 @@ from bsa import codex_setup as setup
 
 
 class LocalSetupTests(unittest.TestCase):
+    def test_dwg_runtime_pair_survives_unrelated_profile_refresh(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root, python = self.fixture(folder)
+            worker = root / 'worker.dll'
+            worker.touch()
+            (root / 'ACadSharp.dll').touch()
+            with patch.object(setup.workspace, 'ROOT', root), patch.object(setup.workspace, 'project_root', return_value=None):
+                with self.assertRaisesRegex(ValueError, 'Supply both'):
+                    setup.install(python, dwg_worker=worker)
+                setup.install(python, dwg_dotnet=python, dwg_worker=worker)
+                setup.install(python, autocad=python, refresh=True)
+            profile = tomllib.loads((root / '.codex/config.toml').read_text())['mcp_servers'][setup.SERVER]
+            self.assertEqual(profile['env']['BSA_ACADSHARP_DOTNET'], python.as_posix())
+            self.assertEqual(profile['env']['BSA_ACADSHARP_WORKER'], worker.as_posix())
+
     def test_protected_resolved_data_directory_cannot_be_configured(self):
         with tempfile.TemporaryDirectory() as folder:
             root,python=self.fixture(folder)

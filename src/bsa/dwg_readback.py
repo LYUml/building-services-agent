@@ -104,16 +104,16 @@ def compare_reference(entities, insunits, reference):
                 numeric_absolute_tolerance_drawing_units=1e-7, angle_tolerance_rad=1e-9)
 
 
-def host_file(name):
-    path = Path(os.environ.get(name, ''))
+def host_file(name, value=None):
+    path = Path(os.environ.get(name, '') if value is None else value)
     if not path.is_absolute() or not path.is_file():
         raise ValueError(f'Set {name} to an absolute host runtime file')
     return path.resolve()
 
 
-def host_runtime_files():
-    dotnet = host_file('BSA_ACADSHARP_DOTNET')
-    worker = host_file('BSA_ACADSHARP_WORKER')
+def host_runtime_files(dotnet=None, worker=None):
+    dotnet = host_file('BSA_ACADSHARP_DOTNET', dotnet)
+    worker = host_file('BSA_ACADSHARP_WORKER', worker)
     reader = worker.with_name('ACadSharp.dll')
     if not reader.is_file():
         raise ValueError('Build the DWG worker with its locked adjacent ACadSharp.dll')

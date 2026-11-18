@@ -161,6 +161,10 @@ $env:BSA_ACADSHARP_WORKER = (Resolve-Path (Join-Path $workerOutput 'Bsa.DwgReadb
 ```
 
 Pass these variables in the environment that launches the CLI or MCP server.
+For project-local Codex MCP setup, use `python -m bsa.codex_setup --dwg-dotnet
+<absolute-dotnet-path> --dwg-worker <absolute-worker-path>`. Add `--refresh`
+to update an existing BSA profile. The setup writes both paths to the MCP
+server's environment table.
 Run `bsa doctor --dwg-readback` to check that both host paths and the adjacent
 reader library exist. Use `bsa dwg-readback` on a known fixture to verify
 worker schema compatibility and actual execution.
