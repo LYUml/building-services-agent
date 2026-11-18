@@ -112,7 +112,20 @@ def inspect(doc, allocation, tree, binding, layers):
             if near(start,end):raise ValueError('Zero-length terminal connection')
             routes.append(dict(terminal=tid,terminal_handle=terminals[tid],flex_handle=line.dxf.handle,plan_length_m=math.dist(start,end)))
         groups.append(dict(id=leaf,vav_handle=circle.dxf.handle,outlet_count=len(members),maximum_flow_L_s=aggregation['leaf_flow_L_s'][leaf],routes=routes))
-    if any(pools.values()):raise ValueError('Unbound entities remain on scoped layers')
+    if any(pools.values()):
+        details = []
+        for role, entities in pools.items():
+            if not entities:
+                continue
+            handles = []
+            for entity in entities[:10]:
+                handle = entity.dxf.handle
+                if role == 'flex':
+                    start, end = flex_ends[handle]
+                    handle = f'{handle} from {start} to {end} m'
+                handles.append(handle)
+            details.append(f"{layers[role]} ({len(entities)}): {', '.join(handles)}")
+        raise ValueError(f"Unbound entities remain on scoped layers: {'; '.join(details)}")
     return dict(groups=groups,terminal_count=len(centers),rigid_section_count=len(tree['sections']),correspondence_pass=True,
                 maximum_plan_length_m=max(r['plan_length_m'] for g in groups for r in g['routes']),design_accepted=False,
                 scope='Declared group membership matches saved planar symbols and straight centre-to-centre lines. Not physical ports, installed flex length, labels, 3D coordination or regulation acceptance.')
