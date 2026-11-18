@@ -70,6 +70,7 @@ def main(argv=None):
     # Validate the selected project before creating anything or installing dependencies.
     sys.path.insert(0, str(ROOT / 'src'))
     from bsa import workspace
+    from bsa import project_skills
     if args.project_root:
         os.environ['BSA_PROJECT_ROOT'] = str(args.project_root.resolve())
     selected = workspace.project_root()  # includes protected-path checks
@@ -77,6 +78,8 @@ def main(argv=None):
         raise ValueError('Completed historical project is read-only')
     if args.autocad and not args.autocad.resolve().is_file():
         raise ValueError('Existing AutoCAD Core Console executable required')
+    expected_python = owned / 'venv' / ('Scripts/python.exe' if os.name == 'nt' else 'bin/python')
+    project_skills.install(selected or ROOT, expected_python, check_only=True)
     restore_source_git()
     owned.mkdir(exist_ok=True)
     marker = owned / 'setup-owner.json'
@@ -106,6 +109,9 @@ def main(argv=None):
         command += ['--autocad', autocad.resolve()]
     run(command)
     audit = owned / 'mcp-check.json'
+    skills_result = json.loads(run([python, '-m', 'bsa.project_skills', '--project', selected or ROOT,
+                                   '--python', python], capture_output=True, text=True).stdout)
+    print(json.dumps(skills_result, indent=2))
     # Existing SDK contract audit creates a fresh receipt under source runs.
     import uuid
     target = ROOT / 'runs' / ('setup-' + uuid.uuid4().hex + '.json')
@@ -115,6 +121,8 @@ def main(argv=None):
     run([python, ROOT / 'scripts/probe_setup_transport.py', '--config', config,
          '--out', owned / 'transport-check.json'])
     receipt = dict(schema='bsa.setup/1', profile=args.profile, python=str(python),
+                   skills_installed=True,
+                   skill_count=skills_result['skill_count'],
                    project=str(selected or ROOT), mcp_contract_verified=True, stdio_transport_verified=True,
                    autocad_path_present=bool(autocad), native_execution_verified=False,
                    host_connection_verified=False, design_accepted=False)

@@ -20,5 +20,7 @@ jobs:
         run: |
           P=.bsa/venv/bin/python
           if [ "$RUNNER_OS" = "Windows" ]; then P=.bsa/venv/Scripts/python.exe; fi
-          "$P" -m unittest tests.test_bootstrap tests.test_codex_setup -v
+          "$P" -m unittest tests.test_bootstrap tests.test_codex_setup tests.test_project_skills -v
           python scripts/bootstrap.py
+      - name: Verify external project skills and MCP together
+        run: python -c "from pathlib import Path; import subprocess,sys; p=Path('runs/external project').resolve(); p.mkdir(); subprocess.run([sys.executable,'scripts/bootstrap.py','--project-root',str(p)],check=True); assert len(list((p/'.agents/skills').glob('*/SKILL.md')))==11"

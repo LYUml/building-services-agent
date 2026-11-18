@@ -27,6 +27,14 @@ Setup creates `.bsa/venv`, verifies pinned direct dependencies, runs the existin
 It writes receipts in `.bsa`, then installs/refreshes only the known BSA entry in
 the selected project's `.codex/config.toml`, preserving unrelated settings and
 making backups. An unfamiliar launcher is rejected for manual reconciliation.
+It also installs all 11 bundled skills into the selected project's
+`.agents/skills`. Each receives the actual source/Python/project context so its
+documentation and commands remain usable outside the source repository.
+`.agents/bsa-skills.json` records managed hashes: unchanged managed skills can
+be updated; edited or unrelated conflicting skills cause an early error before
+dependency installation or configuration changes. Unrelated skills are retained.
+In the source repository itself the original skills are used without rewriting.
+Generated skills and their ownership file contain local paths; keep them local.
 Open that project in Codex and review normal project trust; other MCP hosts can
 reuse the saved command, args, cwd and environment. Host UI connection is a
 separate check. Never select the completed BSE3124 workspace.
