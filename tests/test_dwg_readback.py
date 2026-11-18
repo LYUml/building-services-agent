@@ -3,10 +3,12 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import patch
 
 import ezdxf
 
@@ -87,6 +89,31 @@ class DxfReferenceTests(unittest.TestCase):
 @unittest.skipUnless(all(os.environ.get(key) for key in RUNTIME) and importlib.util.find_spec('mcp'),
                      'requires the configured ACadSharp worker and MCP SDK')
 class DwgReadbackTests(unittest.TestCase):
+    def test_changed_runtime_manifest_leaves_no_readback_report(self):
+        original_worker = Path(os.environ['BSA_ACADSHARP_WORKER'])
+        runs = ROOT / 'runs'
+        runs.mkdir(exist_ok=True)
+        with TemporaryDirectory(dir=runs) as temporary:
+            directory = Path(temporary)
+            for path in original_worker.parent.iterdir():
+                if path.is_file():
+                    shutil.copyfile(path, directory / path.name)
+            worker = directory / original_worker.name
+            runtime_config = worker.with_suffix('.runtimeconfig.json')
+            report = directory / 'unexpected.json'
+            launch = subprocess.run
+
+            def change_after_readback(*args, **kwargs):
+                result = launch(*args, **kwargs)
+                runtime_config.write_bytes(runtime_config.read_bytes() + b'\n')
+                return result
+
+            with patch.dict(os.environ, BSA_ACADSHARP_WORKER=str(worker)), \
+                    patch('bsa.dwg_readback.subprocess.run', side_effect=change_after_readback):
+                with self.assertRaisesRegex(ValueError, 'runtime configuration changed'):
+                    run(FIXTURE / 'synthetic-base.dwg', report)
+            self.assertFalse(report.exists())
+
     def test_reads_embedded_multiline_text_from_saved_dwg(self):
         source = FIXTURE / 'synthetic-multiline-attribute.dwg'
         before = file_hash(source)
