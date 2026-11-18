@@ -11,12 +11,24 @@ import unittest
 import ezdxf
 
 from bsa.source_refs import file_hash
-from bsa.dwg_readback import run
+from bsa.dwg_readback import compare_reference, run
 
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / 'docs/evidence/drawing-intake'
 RUNTIME = ('BSA_ACADSHARP_DOTNET', 'BSA_ACADSHARP_WORKER')
+
+
+def test_reports_types_without_geometry_coverage(tmp_path):
+    document = ezdxf.new()
+    point = document.modelspace().add_point((4, 5, 6))
+    reference = tmp_path / 'identity-only.dxf'
+    document.saveas(reference)
+    row = dict(handle=point.dxf.handle, type='POINT', layer='0', geometry=None)
+    comparison = compare_reference([row], document.units, reference)
+    assert comparison['correspondence_pass']
+    assert comparison['geometry_compared_count'] == 0
+    assert comparison['identity_only_counts_by_type'] == {'POINT': 1}
 
 
 @unittest.skipUnless(all(os.environ.get(key) for key in RUNTIME) and importlib.util.find_spec('mcp'),
@@ -51,6 +63,8 @@ class DwgReadbackTests(unittest.TestCase):
                         result = await session.call_tool('bsa_read_dwg_inventory', args)
                         self.assertFalse(result.isError, result.content)
                         self.assertEqual(result.structuredContent['report_sha256'], summary['report_sha256'])
+                        for field in ('geometry_compared_count', 'identity_only_counts_by_type'):
+                            self.assertEqual(result.structuredContent[field], summary[field])
                         repeated = await session.call_tool('bsa_read_dwg_inventory', args)
                         self.assertTrue(repeated.isError)
 
@@ -60,6 +74,8 @@ class DwgReadbackTests(unittest.TestCase):
             self.assertTrue(summary['correspondence_pass'])
             self.assertEqual(summary['insunits'], 4)
             self.assertEqual(report['comparison']['geometry_compared_count'], 4)
+            self.assertEqual(summary['geometry_compared_count'], 4)
+            self.assertEqual(summary['identity_only_counts_by_type'], {'POINT': 1})
             self.assertEqual(report['source_sha256'], original)
             reader = Path(os.environ['BSA_ACADSHARP_WORKER']).with_name('ACadSharp.dll')
             self.assertEqual(report['reader_sha256'], file_hash(reader))

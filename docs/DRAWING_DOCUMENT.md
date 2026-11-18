@@ -167,6 +167,9 @@ regression run keeps its configured binaries. Save `worker_sha256` and
 compares insertion units, modelspace identity, supported geometry, block
 reference placement and text display properties. Block definitions, nested
 geometry, plot styles and PDF glyph placement require other evidence.
+The CLI and MCP summaries report `geometry_compared_count` and
+`identity_only_counts_by_type`. The latter counts matched modelspace entities
+whose type and layer were checked and whose geometry is outside the comparison.
 
 MTEXT, block-attribute editing, arbitrary geometry revisions, external-reference
 packaging, Unicode/font review and general within-view label placement remain open.

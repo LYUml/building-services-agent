@@ -65,6 +65,7 @@ def compare_reference(entities, insunits, reference):
     if document.units != insunits:
         differences.append(dict(reason='drawing_units_differ', dwg_insunits=insunits, dxf_insunits=document.units))
     geometry_count = 0
+    identity_only_counts = Counter()
     for handle in sorted(actual.keys() & expected.keys()):
         row, entity = actual[handle], expected[handle]
         identity = dict(type=entity.dxftype(), layer=entity.dxf.layer)
@@ -75,6 +76,8 @@ def compare_reference(entities, insunits, reference):
         geometry = dxf_geometry(entity)
         if geometry is not None:
             geometry_count += 1
+        else:
+            identity_only_counts[identity['type']] += 1
         observed = row['geometry']
         if not equal_geometry(observed, geometry):
             fields = ['geometry']
@@ -84,7 +87,8 @@ def compare_reference(entities, insunits, reference):
                           or not equal_geometry(observed[key], geometry[key], key)]
             differences.append(dict(handle=handle, reason='geometry_differs', fields=fields))
     return dict(correspondence_pass=not differences, matched_handle_count=len(actual.keys() & expected.keys()),
-                geometry_compared_count=geometry_count, differences=differences,
+                geometry_compared_count=geometry_count,
+                identity_only_counts_by_type=dict(sorted(identity_only_counts.items())), differences=differences,
                 numeric_absolute_tolerance_drawing_units=1e-7, angle_tolerance_rad=1e-9)
 
 
@@ -138,7 +142,9 @@ def run(source, out, reference_dxf=None, *, expected_hashes=None):
         comparison = compare_reference(entities, result['insunits'], reference)
         result['comparison'] = dict(reference_sha256=reference_hash, **comparison)
         summary = dict(correspondence_pass=comparison['correspondence_pass'],
-                       difference_count=len(comparison['differences']))
+                       difference_count=len(comparison['differences']),
+                       geometry_compared_count=comparison['geometry_compared_count'],
+                       identity_only_counts_by_type=comparison['identity_only_counts_by_type'])
     report = json.dumps(result, indent=2, allow_nan=False)
     if file_hash(source) != source_hash or file_hash(worker) != worker_hash or file_hash(reader) != reader_hash:
         raise ValueError('DWG, worker or ACadSharp library changed during inventory')
