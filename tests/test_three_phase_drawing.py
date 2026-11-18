@@ -149,6 +149,24 @@ class ThreePhaseDrawingTests(unittest.TestCase):
         with self.assertRaisesRegex(ProjectError,'passing numerical'):run(self.project,failed,self.root/'bad-target',Path(DOT))
         self.assertFalse((self.root/'bad-target').exists())
 
+    def test_study_replaced_after_read_cannot_receive_a_contact_report(self):
+        output = self.root/'study-replacement-control'
+        run(self.project, self.study, output, Path(DOT))
+        copied_study = self.root/'replaceable-study'
+        shutil.copytree(self.study, copied_study)
+        study_result = copied_study/'native/study.json'
+        original_read = Path.read_bytes
+
+        def replace_after_read(path):
+            data = original_read(path)
+            if path == study_result:
+                path.write_bytes(data + b'\n')
+            return data
+
+        with patch.object(Path, 'read_bytes', replace_after_read):
+            with self.assertRaisesRegex(ProjectError, 'Schematic or study changed during contact verification'):
+                verify_contacts(self.project, copied_study, output/'schematic.dxf')
+
     def test_layout_endpoint_swap_is_rejected(self):
         original=subprocess.run
         def swapped(*args,**kwargs):
