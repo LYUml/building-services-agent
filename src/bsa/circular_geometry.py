@@ -149,7 +149,10 @@ def verify_closed_wall(verts,faces,expected_volume):
     euler=len(adjacency)-len(edges)+len(faces)
     if euler!=0:raise ProjectError('wall mesh lost the through-bore topology')
     local=verts-(verts.min(axis=0)+verts.max(axis=0))/2
-    mesh_volume=abs(math.fsum(float(np.dot(local[a],np.cross(local[b],local[c])))/6 for a,b,c in faces))
+    first, second, third = (local[faces[:, index]] for index in range(3))
+    cross_products = np.cross(second, third)
+    mesh_volume = abs(math.fsum(float(np.dot(vertex, cross_product)) / 6
+                               for vertex, cross_product in zip(first, cross_products)))
     relative=abs(mesh_volume-expected_volume)/expected_volume
     if relative>VOLUME_RELATIVE_TOLERANCE:raise ProjectError('native wall mesh volume differs from independent wall volume')
     return mesh_volume,relative,euler
