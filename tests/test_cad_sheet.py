@@ -5,6 +5,8 @@ import unittest
 from unittest.mock import patch
 import ezdxf
 from bsa.cad_sheet import check_window_entities,pdf_lines,plot
+from bsa.cli import digest
+from bsa.duct_sheet_native import run as publish_native
 from bsa.engine import ProjectError
 from tests.test_cad_overlay import inputs
 
@@ -28,6 +30,16 @@ class CADSheetTests(unittest.TestCase):
                     plot(root/'model.dwg', source, sheet, root/'out.pdf', root/'acad.exe')
                 execute.assert_not_called()
             self.assertFalse((root/'out.pdf').exists())
+            engine = root/'acad.exe'
+            engine.touch()
+            settings = root/'native.json'
+            settings.write_text(json.dumps(dict(source_sha256=digest(source), layers=['0'], sheet=sheet)),
+                                encoding='utf-8')
+            with patch('bsa.duct_sheet_native.execute') as execute:
+                with self.assertRaisesRegex(ProjectError, f'TEXT handle {handle} exceed the plot window'):
+                    publish_native(source, settings, root/'native', engine)
+                execute.assert_not_called()
+            self.assertFalse((root/'native').exists())
             check_window_entities(doc, [handle.lower()], [-1, -1, 5, 1])
             with self.assertRaisesRegex(ProjectError, 'distinct modelspace entity handles'):
                 check_window_entities(doc, [handle, handle.lower()], [-1, -1, 5, 1])

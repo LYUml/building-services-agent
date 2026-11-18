@@ -7,7 +7,7 @@ import ezdxf
 from .cli import digest
 from .native_cad import execute,lisp_string
 from .cad_intake import export_dwg
-from .cad_sheet import plot
+from .cad_sheet import check_window_entities,plot
 
 
 def compare(source, reopened, layers):
@@ -52,6 +52,9 @@ def run(source,settings,output,exe,*,inherited_source_sha256=None):
         spec['source_sha256']=inherited_source_sha256
     if set(spec)!={'source_sha256','layers','sheet'} or spec['source_sha256']!=pins[str(source)]:
         raise ValueError('Exact source hash, layers and sheet settings required')
+    sheet = spec['sheet']
+    if isinstance(sheet, dict) and 'required_window_handles' in sheet:
+        check_window_entities(ezdxf.readfile(source), sheet['required_window_handles'], sheet.get('window_drawing_units'))
     compare(source,source,spec['layers'])
     output.mkdir(parents=True);copied=output/'Supply Air Distribution.dxf';shutil.copyfile(source,copied)
     dwg=output/'Supply Air Distribution.dwg';script=output/'save.scr'
@@ -61,7 +64,7 @@ def run(source,settings,output,exe,*,inherited_source_sha256=None):
     if not dwg.is_file():raise ValueError('Native DWG missing')
     exported=export_dwg(dwg,output/'reopened',exe)
     checked=compare(copied,exported,spec['layers'])
-    plotted=plot(dwg,copied,spec['sheet'],output/'Supply Air Distribution.pdf',exe)
+    plotted=plot(dwg,copied,sheet,output/'Supply Air Distribution.pdf',exe)
     if any(digest(Path(p))!=sha for p,sha in pins.items()) or digest(copied)!=pins[str(source)]:
         raise ValueError('Source, settings, runtime or copied DXF changed')
     result=dict(inputs=pins,native_reopen_pass=True,generated_geometry=checked,plot=plotted,

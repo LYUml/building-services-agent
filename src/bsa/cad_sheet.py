@@ -58,6 +58,10 @@ def reference_points(doc,settings):
 def check_window_entities(doc, handles, window):
     from ezdxf import bbox
 
+    if (not isinstance(window, list) or len(window) != 4
+            or any(type(value) not in (int, float) or not math.isfinite(value) for value in window)
+            or window[0] >= window[2] or window[1] >= window[3]):
+        raise ProjectError('Required plot entities need a finite, ordered plot window')
     if (not isinstance(handles, list) or not handles
             or any(not isinstance(handle, str) or not handle for handle in handles)
             or len({handle.upper() for handle in handles}) != len(handles)):
@@ -68,8 +72,9 @@ def check_window_entities(doc, handles, window):
         if entity is None or entity.dxftype() not in ('LINE', 'CIRCLE', 'LWPOLYLINE', 'TEXT'):
             raise ProjectError(f'Plot window handle {handle} requires a supported modelspace entity')
         bounds = bbox.extents([entity])
-        if (not bounds.has_data or bounds.extmin.x < window[0] or bounds.extmin.y < window[1]
-                or bounds.extmax.x > window[2] or bounds.extmax.y > window[3]):
+        if (not bounds.has_data
+                or not (window[0] <= bounds.extmin.x <= bounds.extmax.x <= window[2]
+                        and window[1] <= bounds.extmin.y <= bounds.extmax.y <= window[3])):
             raise ProjectError(f'Estimated bounds of {entity.dxftype()} handle {handle} exceed the plot window')
 
 
