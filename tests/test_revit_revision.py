@@ -87,10 +87,17 @@ class RevitRevisionTests(unittest.TestCase):
             self.assertFalse(result['native_execution_authenticated'])
             self.assertEqual(result['connector_endpoint_error_m'], 0)
             self.assertTrue(result['creation_connector_matches'])
+            self.assertEqual([row['deviation_m'] for row in result['creation_connector_readback']], [0, 0])
+            older = copy.deepcopy(receipt)
+            del older['transaction_result']['connectors']
+            save('creation.json', older)
+            older_result = verify(root, created, authored, observed, reopen, 0.001)
+            self.assertFalse(older_result['creation_connector_matches'])
+            self.assertEqual(older_result['creation_connector_readback'], [])
             moved_connector = copy.deepcopy(receipt)
             moved_connector['transaction_result']['connectors'][0]['origin_m'] = [0, 0.02, 0]
             save('creation.json', moved_connector)
-            with self.assertRaisesRegex(ValueError, 'Reopened connector 1 differs from the creation readback'):
+            with self.assertRaisesRegex(ValueError, r'Reopened connector 1 differs from the creation readback \(deviation 0\.02 m\)'):
                 verify(root, created, authored, observed, reopen, 0.001)
             save('creation.json', receipt)
             self.assertEqual(result['connector_endpoint_matches'], [

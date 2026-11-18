@@ -96,6 +96,7 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
     if all(max(row['error_m'] for row in pairing) <= tolerance_m for pairing in pairings):
         raise ValueError('Reopened pipe connector-to-endpoint pairing is ambiguous at the declared tolerance')
     transaction_connectors = transaction.get('connectors')
+    connector_readback = []
     if 'connectors' in transaction:
         if not isinstance(transaction_connectors, list) or len(transaction_connectors) != 2:
             raise ValueError('Creation readback requires two connector records')
@@ -107,9 +108,15 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
             connector_id, origin = connector.get('id'), connector.get('origin_m')
             if (type(connector_id) is not int or connector_id not in reopened_origins or connector_id in seen
                     or not isinstance(origin, list) or len(origin) != 3
-                    or any(type(value) not in (int, float) or not math.isfinite(value) for value in origin)
-                    or math.dist(origin, reopened_origins[connector_id]) > tolerance_m):
+                    or any(type(value) not in (int, float) or not math.isfinite(value) for value in origin)):
                 raise ValueError(f'Reopened connector {connector_id} differs from the creation readback')
+            reopened_origin = reopened_origins[connector_id]
+            deviation = math.dist(origin, reopened_origin)
+            if deviation > tolerance_m:
+                raise ValueError(f'Reopened connector {connector_id} differs from the creation readback '
+                                 f'(deviation {deviation:.6g} m)')
+            connector_readback.append(dict(connector_id=connector_id, creation_origin_m=origin,
+                                           reopened_origin_m=reopened_origin, deviation_m=deviation))
             seen.add(connector_id)
     captured_request = pipe['creation_provenance']['creation_request']
     # APS binds the prepared request to the engine-local input model path.
@@ -134,6 +141,7 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
         'connector_endpoint_error_m': connector_error,
         'connector_endpoint_matches': endpoint_matches,
         'creation_connector_matches': transaction_connectors is not None,
+        'creation_connector_readback': sorted(connector_readback, key=lambda row: row['connector_id']),
         'native_execution_authenticated': False,
         'connected_system_verified': False,
         'design_accepted': False,
