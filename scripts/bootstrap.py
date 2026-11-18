@@ -53,9 +53,18 @@ def restore_source_git():
     run(['git', 'update-ref', 'HEAD', commit])
     run(['git', 'read-tree', commit])
     # A modified extracted source is preserved, but must be reconciled explicitly.
-    changed = run(['git', 'diff', '--name-only', 'HEAD'], capture_output=True, text=True).stdout
-    if changed.strip():
-        raise ValueError('Extracted tracked sources differ from the release; no files overwritten')
+    changed = run(['git', 'diff', '--name-status', '--no-renames', '-z', 'HEAD'], capture_output=True).stdout
+    if not changed:
+        return
+    fields = changed.rstrip(b'\0').split(b'\0')
+    if len(fields) % 2 == 0 and all(status == b'D' for status in fields[::2]):
+        paths = fields[1::2]
+        attributes = run(['git', 'check-attr', '--source=' + commit, '-z', '--stdin', 'export-ignore'],
+                         capture_output=True, input=b'\0'.join(paths) + b'\0').stdout
+        expected = b''.join(path + b'\0export-ignore\0set\0' for path in paths)
+        if attributes == expected:
+            return
+    raise ValueError('Extracted tracked sources differ from the release; no files overwritten')
 
 
 def main(argv=None):
