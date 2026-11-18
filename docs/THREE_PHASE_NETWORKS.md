@@ -57,3 +57,11 @@ The status is pass only when independent checks and every declared voltage/curre
 Full regulatory applicability, actual source impedance/cable data, neutral/harmonic/protection/motor-starting studies, manufacturer selection, native electrical topology, drawing schedules and physical installation acceptance remain unresolved. Link these results to the complete requirement matrix and other tools before treating them as assignment evidence.
 
 Lines may optionally declare length_source referencing an existing source record, separately from source (sequence impedance and other baseline data) and current_limit_source. Unknown length-source IDs fail validation. The saved-IFC derivation adapter in THREE_PHASE_IFC.md uses this field and preserves original source kinds; it never treats numerical geometry as certified site measurement.
+
+On the Windows regression host, the solver tests skipped in the general
+environment ran in the locked `tools/pandapower-runtime` environment.
+`pip check` and all eight `test_three_phase.py` tests passed. With
+`BSA_TEST_THREE_PHASE_PYTHON` pointing to that interpreter, the workflow
+solver, IFC and topology suites (the three matching
+`test_workflow_three_phase*.py` modules without jurisdiction or drawing
+requirements) passed 19 tests and five subtests with no skips.
