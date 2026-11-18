@@ -59,6 +59,11 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None,fds_rele
     read=ToolAnnotations(readOnlyHint=True,destructiveHint=False,idempotentHint=True,openWorldHint=False)
     write=ToolAnnotations(readOnlyHint=False,destructiveHint=False,idempotentHint=False,openWorldHint=False)
 
+    @server.tool(annotations=read)
+    def bsa_verify_fds_temperature_probe(out:str)->dict[str,Any]:
+        """Reconcile saved FDS evidence without executing the engine."""
+        return invoke('bsa.fds_temperature.verify',local(out))
+
     @server.tool(annotations=write)
     def bsa_run_fds_temperature_probe(source:str,out:str)->dict[str,Any]:
         """Run the pinned NIST temperature case using the host-configured Windows release."""

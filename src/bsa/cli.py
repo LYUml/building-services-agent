@@ -79,6 +79,7 @@ def main():
     from . import fds_temperature
     fds_temperature.add_arguments(sub.add_parser(
         'fds-temperature-probe', help='Run the pinned NIST Windows FDS temperature case'))
+    sub.add_parser('fds-temperature-verify', help='Reconcile a saved FDS probe report').add_argument('out',type=Path)
     revit_connectivity.add_arguments(sub.add_parser(
         'revit-inventory-check', help='Diagnose a saved Revit pipe and fitting inventory'))
     revit_request.add_arguments(sub.add_parser(
@@ -155,6 +156,8 @@ def main():
     try:
         if a.command=='fds-temperature-probe':
             print(json.dumps(fds_temperature.run(a.release,a.source,a.out),indent=2));return 0
+        if a.command=='fds-temperature-verify':
+            print(json.dumps(fds_temperature.verify(a.out),indent=2));return 0
         if a.command=='revit-prepare-pipe':
             from .workspace import project_root
             result=revit_request.prepare(a.inventory,a.model,a.basis,a.out,scope=project_root())

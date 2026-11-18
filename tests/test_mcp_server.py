@@ -153,7 +153,7 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                     async with ClientSession(read,write) as session:
                         initialized=(await session.initialize()).model_dump(mode='json')
                         tools=(await session.list_tools()).tools
-                        self.assertEqual(len(tools),45)
+                        self.assertEqual(len(tools),46)
                         self.assertIn('bsa_check_revit_inventory', {tool.name for tool in tools})
                         self.assertTrue({'bsa_draw_document','bsa_inspect_drawing_document'} <= {tool.name for tool in tools})
                         for tool in tools:

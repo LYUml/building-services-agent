@@ -17,6 +17,15 @@ runner. MCP `bsa_run_fds_temperature_probe` accepts project-relative
 Both interfaces ran the actual bundled engine and reproduced the same
 line-table SHA-256 and numerical deviations. The stdio test also exercises
 missing host configuration and rejects tool-supplied runtime overrides.
+
+Recheck an existing run with `bsa fds-temperature-verify <run>` or
+`bsa_verify_fds_temperature_probe` with a project-relative `out`. The
+read-only check uses the saved case, pinned engine and launch identities,
+console, native log and CSV files to reconstruct the report. It also
+rechecks runs produced before the time-step summary was added. Two actual
+saved runs passed, and a copy with the reported center-line error edited
+to zero was rejected through stdio. Integrity checks do not authenticate
+the origin of a complete set of self-consistent artifacts.
 Both inputs must match the probe pins. It retains native outputs and their
 hashes. Console and native completion markers, the release identity, and the
 final simulation time are checked before the line table is read.
