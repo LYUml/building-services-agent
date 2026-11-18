@@ -47,9 +47,9 @@ The positive case writes a report and the negative case exits 2 without one.
 Use `--displaced-endpoint-control` with the same workflow to reproduce the
 placement check. The AutoCAD 2027 Core Console run saved and reopened the DWG.
 The review exited 2 and located the VA-side flex at handle `57`, with its saved
-end at `(-5.75, -1.5, 0)` m, 0.25 m from T1. It also listed another unmatched
-VA line 4 m from T1. Treat the listed lines as repair candidates and verify
-the intended peer before editing.
+end at `(-5.75, -1.5, 0)` m, 0.25 m from T1. The diagnostic omits lines
+whose other endpoint already matches another declared terminal on that VAV.
+Verify the intended peer before editing a candidate.
 When the HVAC package explicitly enables the terminal review, a failed review
 also blocks the package's design-report HTML and PDF. The incomplete package
 retains the connection error and native artifacts for diagnosis.

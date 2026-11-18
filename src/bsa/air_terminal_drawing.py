@@ -97,11 +97,12 @@ def inspect(doc, allocation, tree, binding, layers):
                 details = '; '.join(observed) or 'none'
                 vav_candidates = []
                 if not observed:
+                    other_terminals = [centers[peer] for peer in members if peer != tid]
                     for candidate in pools['flex']:
                         handle = candidate.dxf.handle
                         a, b = flex_ends[handle]
                         for vav_side, far_side in ((a, b), (b, a)):
-                            if near(vav_side, start):
+                            if near(vav_side, start) and not any(near(far_side, peer) for peer in other_terminals):
                                 offset = math.dist(far_side, end)
                                 vav_candidates.append(f'{handle} to {far_side} m ({offset:.6g} m from {tid})')
                 hint = ''
