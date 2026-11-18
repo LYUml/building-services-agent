@@ -1,5 +1,6 @@
 """Source-bound numerical HVAC report from an executed workflow, not approval."""
 import argparse
+import hashlib
 import html
 import json
 import math
@@ -146,12 +147,19 @@ def run(directory,output,*,terminal_review=None,adpi_review=None):
     if output.exists() or output==directory or output in directory.parents or directory in output.parents:
         raise ValueError('New report directory outside immutable workflow required')
     if not verify(directory)['integrity_pass']:raise ValueError('Workflow evidence is stale or changed')
-    workflow=json.loads((directory/'workflow.json').read_text(encoding='utf-8'))
+    pins = {}
+
+    def read_input(path):
+        raw = path.read_bytes()
+        pins[str(path)] = hashlib.sha256(raw).hexdigest()
+        return json.loads(raw)
+
+    workflow=read_input(directory/'workflow.json')
     paths=[];data=[]
     for kind,filename in [('air_allocation','allocation.json'),('terminal_throw','terminal-results.json'),('duct_schedule','results.json')]:
         names=[name for name,t in workflow['tasks'].items() if t['kind']==kind]
         if len(names)!=1 or workflow['tasks'][names[0]]['status']!='pass':raise ValueError('One passing '+kind+' task required')
-        p=directory/names[0]/filename;paths.append(p);data.append(json.loads(p.read_text(encoding='utf-8')))
+        p=directory/names[0]/filename;paths.append(p);data.append(read_input(p))
     content,counts=compose(workflow,*data)
     review_paragraphs=[];review_pins={}
     if adpi_review is not None:
@@ -168,11 +176,12 @@ def run(directory,output,*,terminal_review=None,adpi_review=None):
         if digest(review)!=review_hash:raise ValueError('Terminal review changed during reporting')
         content=content.replace('<h2>Complete source requirement matrix</h2>',
             '<h2>Saved terminal connections</h2><p>'+html.escape(summary)+'</p><h2>Complete source requirement matrix</h2>')
-        paths.append(review)
-    pins={str(p):digest(p) for p in [directory/'workflow.json',*paths]}
+        pins[str(review)] = review_hash
+    if any(p in pins and pins[p] != sha for p, sha in review_pins.items()):
+        raise ValueError('Report review evidence differs from the inputs used to compose the report')
     pins.update(review_pins)
-    if any(digest(Path(p))!=sha for p,sha in pins.items()):raise ValueError('Report review evidence changed during preparation')
     if not verify(directory)['integrity_pass']:raise ValueError('Workflow changed during report preparation')
+    if any(digest(Path(p))!=sha for p,sha in pins.items()):raise ValueError('Report review evidence changed during preparation')
     output.mkdir(parents=True);target=output/'HVAC System Design.html';target.write_text(content,encoding='utf-8')
     result=dict(inputs=pins,html_sha256=digest(target),counts=counts,scope='Single allocation/lookup/tree study; complete requirement states retained. No PDF or full design acceptance.',design_accepted=False)
     result['adpi_review_summary']=review_paragraphs
