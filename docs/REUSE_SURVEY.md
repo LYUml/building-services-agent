@@ -1,3 +1,29 @@
+## NIST FDS command-line temperature probe
+
+The Windows FDS 6.11.1 / Smokeview 6.11.2 upstream package is pinned by SHA-256
+in `scripts/probe_fds_temperature.py`. The probe extracts only the bundled
+FDS runtime directory using Python's ZIP reader and invokes the bundled Intel
+MPI launcher locally with one process. It does not execute the installer.
+NIST is the source of FDS and the case. Engine files and case bytes stay in
+ignored local runs. [Release](https://github.com/firemodels/fds/releases/tag/FDS-6.11.1)
+[NIST software notice](https://github.com/firemodels/fds/blob/FDS-6.11.1/LICENSE.md)
+
+Download the published Windows package and the unchanged
+[temperature case](https://github.com/firemodels/fds/blob/FDS-6.11.1/Verification/Miscellaneous/devc_interpolation_temperature.fds).
+Run `python scripts/probe_fds_temperature.py --release <package.exe> --source <case.fds> --out <new-run>`.
+Both inputs must match the probe pins. It retains native outputs and their
+hashes. Console and native completion markers, the release identity, and the
+final simulation time are checked before the line table is read.
+
+The direct OpenMP launch with only the OpenMP DLL exited with Windows
+0xC0000135. The bundled MPI run exited zero and reached 200 s. Independent
+comparison to the linear 20–25 °C reference observed maximum absolute errors
+of 0.9999545 °C on each outer line and 25 °C on the center line, whose column
+contained zeros. Preserve this result for diagnosis. It does not establish
+numeric acceptance or the behavior of other FDS cases. No generalized CFD,
+experimental validation, or code compliance is claimed by the probe.
+[Upstream reference table](https://github.com/firemodels/fds/blob/FDS-6.11.1/Verification/Miscellaneous/devc_interpolation.csv)
+
 ## Offline Revit inventory access
 
 The main CLI and MCP tool reuse the existing saved-inventory diagnostic and
