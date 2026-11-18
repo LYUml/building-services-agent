@@ -51,6 +51,12 @@ public sealed class InventoryCommand : IExternalCommand
         var expected = LocalPath(request.DocumentPath);
         var report = LocalPath(request.ReportPath);
         var doc = app.ActiveUIDocument?.Document ?? throw new InvalidOperationException("No active document");
+        CollectFromDocument(doc, expected, report, requestPath, requestBytes);
+    }
+
+    internal static void CollectFromDocument(Document doc, string expected, string report,
+        string requestPath, byte[] requestBytes)
+    {
         if (doc.IsFamilyDocument || doc.IsModified || string.IsNullOrEmpty(doc.PathName)
             || !string.Equals(Path.GetFullPath(doc.PathName), expected, StringComparison.OrdinalIgnoreCase))
             throw new InvalidOperationException("Expected saved test project is not active, or has unsaved changes");

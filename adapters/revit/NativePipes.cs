@@ -17,6 +17,11 @@ public static class NativePipes
     {
         Document doc = app.ActiveUIDocument?.Document
             ?? throw new InvalidOperationException("No active project");
+        return CreateInDocument(doc, request);
+    }
+
+    internal static object CreateInDocument(Document doc, PipeRequest request)
+    {
         if (doc.IsFamilyDocument || doc.IsReadOnly || doc.IsModified || doc.IsModifiable)
             throw new InvalidOperationException("Use a saved, writable project without pending edits or transactions");
         if (!Path.IsPathFullyQualified(request.DocumentPath) || string.IsNullOrEmpty(doc.PathName)

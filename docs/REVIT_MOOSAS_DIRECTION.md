@@ -39,10 +39,15 @@ Autodesk's Revit Automation service runs the Revit DB API without a desktop
 session. Its documented entry point receives a `Document` through
 `DesignAutomationReadyEvent` in an `IExternalDBApplication`. The current
 inventory and pipe creation entry points receive `UIApplication` and read
-`ActiveUIDocument`. Reusing their DB logic would require extracting that
-logic behind wrappers that each bind a different host document.
+`ActiveUIDocument`. An Automation wrapper would bind the document supplied
+by the cloud host.
 [Autodesk Revit Automation](https://aps.autodesk.com/automation-apis) ·
 [Autodesk plugin tutorial](https://get-started.aps.autodesk.com/tutorials/design-automation/prepare-plugin/)
+
+The desktop wrappers now delegate to internal methods that take an explicit
+Revit DB `Document`. Model identity and saved-file checks still run inside
+those methods. The split builds against Revit 2027.3. An Automation wrapper
+and a build against its selected engine remain separate work.
 
 The unauthenticated engine catalogue returned HTTP 401 in the command-line
 probe. An authenticated catalogue is required to pin a compatible Revit
