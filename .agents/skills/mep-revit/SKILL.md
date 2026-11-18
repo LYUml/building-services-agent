@@ -25,8 +25,12 @@ The remaining product goal includes connected systems, analysis, schedules, draw
 
 For a saved RVT, use `bsa revit-file-metadata <file.rvt>` or MCP
 `bsa_read_revit_file_metadata` with the optional `revit-metadata` dependency.
-Use the file SHA-256 and saved Revit release to identify the exact model and
-choose a compatible engine. Keep unavailable worksharing and cloud flags
+Use the file SHA-256 and saved Revit release to identify the exact model.
+For a comparison, pass `--engine-release <year>` on the CLI or
+`engine_release` to MCP. A newer model requires a newer engine. An older
+model requires an upgrade trial on a separate copy before relying on its
+geometry or connectors. Equal releases establish a version match.
+Keep unavailable worksharing and cloud flags
 unknown. Offline metadata does not verify model geometry, connector topology,
 or native reopening.
 
