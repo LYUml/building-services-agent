@@ -13,6 +13,13 @@ from .ifc_port_inventory import inventory
 from .source_refs import file_hash
 
 
+PROJECT_NAME = 'IFC port coordination review'
+
+
+def project_name(tolerance_m):
+    return f'{PROJECT_NAME} (port gap tolerance {float(tolerance_m)!r} m)'
+
+
 def project_id(report):
     source_hash = report['source_sha256']
     return uuid5(NAMESPACE_URL, f'https://github.com/LYUml/building-services-agent/ifc/{source_hash}')
@@ -74,6 +81,7 @@ def verify(report, archive):
         raise ValueError('Pinned bcf-client 0.9.0 required')
     expected = Counter()
     project_guid = project_id(report)
+    tolerance_m = report['connection_gaps']['tolerance_m']
     before = file_hash(archive)
     for title, description, selected, point in issue_records(report):
         view_selection = tuple(selected) if point is not None else ()
@@ -86,6 +94,9 @@ def verify(report, archive):
         with BcfXml.load(archive) as restored:
             if UUID(restored.project.project_id) != project_guid:
                 raise ValueError('Saved BCF project identity differs from the source IFC')
+            tolerance_bound = restored.project.name == project_name(tolerance_m)
+            if not tolerance_bound and restored.project.name != PROJECT_NAME:
+                raise ValueError('Saved BCF project name does not match the supplied port gap tolerance')
             actual = Counter()
             for directory_guid, topic in restored.topics.items():
                 if directory_guid != topic.topic.guid:
@@ -105,6 +116,7 @@ def verify(report, archive):
     if actual != expected or file_hash(archive) != before:
         raise ValueError('Saved BCF topics or cameras differ from the IFC coordination issues')
     return dict(source_sha256=report['source_sha256'], bcf_sha256=before,
+                tolerance_m=tolerance_m, archive_tolerance_bound=tolerance_bound,
                 topics=sum(actual.values()),
                 unavailable_relationships=len(report['connection_gaps']['unavailable_relationships']),
                 bcf_reopen_verified=True, design_accepted=False)
@@ -121,7 +133,7 @@ def write(report, source, out):
         raise ValueError('Use a fresh BCF archive path in the permitted output workspace')
     if importlib.metadata.version('bcf-client') != '0.9.0':
         raise ValueError('Pinned bcf-client 0.9.0 required')
-    project = BcfXml.create_new('IFC port coordination review')
+    project = BcfXml.create_new(project_name(report['connection_gaps']['tolerance_m']))
     project_guid = project_id(report)
     project.project.project_id = str(project_guid)
     for title, description, selected, point in issue_records(report):

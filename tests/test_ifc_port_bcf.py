@@ -20,11 +20,18 @@ class IfcPortBcfTests(unittest.TestCase):
             report = {
                 'source_sha256': file_hash(source),
                 'ports': [{'guid': 'port', 'origin_m': None, 'owner_evidence': []}],
-                'connection_gaps': {'separated_relationships': [], 'unavailable_relationships': []},
+                'connection_gaps': {'tolerance_m': 0.001, 'separated_relationships': [],
+                                    'unavailable_relationships': []},
                 'connection_ownership': {'conflicting_ports': ['port']},
             }
             original = root / 'original.bcf'
-            self.assertEqual(write(report, source, original)['topics'], 1)
+            result = write(report, source, original)
+            self.assertEqual(result['topics'], 1)
+            self.assertTrue(result['archive_tolerance_bound'])
+            report['connection_gaps']['tolerance_m'] = 0.002
+            with self.assertRaisesRegex(ValueError, 'does not match the supplied port gap tolerance'):
+                verify(report, original)
+            report['connection_gaps']['tolerance_m'] = 0.001
             changed = root / 'changed.bcf'
             different_guid = str(uuid4())
             with ZipFile(original) as saved, ZipFile(changed, 'x') as modified:

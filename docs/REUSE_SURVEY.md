@@ -124,6 +124,10 @@ To recheck a received standalone export against its exact source IFC and
 original tolerance, use `bsa ifc-port-bcf-verify <file.ifc> <file.bcf> --tolerance-m <m>`
 or the read-only MCP tool `bsa_verify_ifc_port_bcf`. For packages produced
 with a baseline comparison, use verification of the originating workflow.
+New exports record the port gap tolerance in the BCF project name, including
+packages with zero issues. Verification returns the checked `tolerance_m` and
+`archive_tolerance_bound`. A legacy project name can still be replayed, but
+its receipt reports `archive_tolerance_bound: false`.
 The optional `bcf` extra reuses pinned IfcOpenShell BCF-XML tooling. It
 writes open topics with source and port IDs, the measured gap and tolerance,
 and a viewpoint selecting the exported owner products when available.
