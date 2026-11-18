@@ -33,6 +33,28 @@ Release adapter when present. Host policy acceptance stays unverified.
 The Revit 2027.3 (27.3.0.28) command-line rerun built the adapter with zero
 warnings and errors and reported `NotSigned` for the resulting DLL.
 
+### Autodesk cloud automation
+
+Autodesk's Revit Automation service runs the Revit DB API without a desktop
+session. Its documented entry point receives a `Document` through
+`DesignAutomationReadyEvent` in an `IExternalDBApplication`. The current
+inventory and pipe creation entry points receive `UIApplication` and read
+`ActiveUIDocument`. Reusing their DB logic would require extracting that
+logic behind wrappers that each bind a different host document.
+[Autodesk Revit Automation](https://aps.autodesk.com/automation-apis) ·
+[Autodesk plugin tutorial](https://get-started.aps.autodesk.com/tutorials/design-automation/prepare-plugin/)
+
+The unauthenticated engine catalogue returned HTTP 401 in the command-line
+probe. An authenticated catalogue is required to pin a compatible Revit
+engine before building an AppBundle. Autodesk's published local debugging
+workflow still loads the plugin inside desktop Revit, so it has the same
+local signing dependency. Cloud verification would require an authorized
+APS application and synthetic RVT inputs for distinct create, save, and
+fresh reopen operations. Cloud execution and saved-model evidence remain
+pending.
+[Engine catalogue contract](https://aps.autodesk.com/en/docs/design-automation/v3/reference/http/engines-GET) ·
+[Autodesk local debugging workflow](https://aps.autodesk.com/blog/debugging-revit-plugins-cursor-modern-developer-workflow)
+
 Official [setup documentation](https://help.autodesk.com/cloudhelp/ENU/ADSKMCP-RevitMcp/files/ADSKMCP_RevitMcp_setting_up_revit_mcp_server_html.html) specifies a separate add-on and a running model. It names 2027.2, while an Autodesk forum response says 2027.2 and later; compatibility with installed 27.3 remains to be verified. Obtain the entitled installer through [Autodesk Account Extensions](https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/How-to-download-the-Revit-MCP-server.html), not an assumed bundled executable. No account access or installation was performed.
 
 The reviewed [official tool table](https://help.autodesk.com/cloudhelp/ENU/ADSKMCP-RevitMcp/files/revitmcp_tools.html) covers active context, queries, element data, parameter edits and experimental views/sheets/schedules/IFC export. It does not list native duct/pipe/connector creation. Therefore MCP installation alone cannot satisfy our MEP-authoring milestone. Evaluate a narrowly scoped API bridge for that gap. Its room-boundary tool simplifies nonlinear segments, so those outputs must not silently replace curved geometry in analysis.
