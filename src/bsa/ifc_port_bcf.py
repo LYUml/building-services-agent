@@ -87,7 +87,9 @@ def verify(report, archive):
             if UUID(restored.project.project_id) != project_guid:
                 raise ValueError('Saved BCF project identity differs from the source IFC')
             actual = Counter()
-            for topic in restored.topics.values():
+            for directory_guid, topic in restored.topics.items():
+                if directory_guid != topic.topic.guid:
+                    raise ValueError('Saved BCF topic directory differs from its markup GUID')
                 views = [handler.visualization_info for handler in topic.viewpoints.values()]
                 selections = [component.ifc_guid for view in views
                               for component in view.components.selection.component]
