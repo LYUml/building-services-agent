@@ -16,6 +16,7 @@ Copy-Item -LiteralPath examples/pump-recovery -Destination runs/my-pump-recovery
 bsa workflow runs/my-pump-recovery/plan.json --out runs/my-pump-recovery/baseline
 # Exit2 above is expected: pump checks fail and manual review remains pending.
 python scripts/run_recovery_mcp_demo.py --project-root runs/my-pump-recovery --plan plan.json --original-run baseline --policy policy.json --out recovery --receipt mcp-receipt.json
+bsa delivery verify-recovery runs/my-pump-recovery/recovery
 ```
 
 If using another project workspace, select its explicit `BSA_PROJECT_ROOT` and
