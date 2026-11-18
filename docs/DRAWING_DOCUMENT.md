@@ -153,13 +153,17 @@ geometry and leaves the original receipt and plot review status intact.
 Build the optional worker with the host .NET 10 SDK. On Windows, for example:
 
 ```powershell
-dotnet build adapters/acadsharp/Bsa.DwgReadback.csproj -p:RestoreLockedMode=true -o runs/dwg-worker
+$workerOutput = Join-Path runs "dwg-worker-$([guid]::NewGuid().ToString('N'))"
+dotnet build adapters/acadsharp/Bsa.DwgReadback.csproj -p:RestoreLockedMode=true -o $workerOutput
+if ($LASTEXITCODE -ne 0) { throw 'DWG worker build failed' }
 $env:BSA_ACADSHARP_DOTNET = (Get-Command dotnet).Source
-$env:BSA_ACADSHARP_WORKER = (Resolve-Path runs/dwg-worker/Bsa.DwgReadback.dll).Path
+$env:BSA_ACADSHARP_WORKER = (Resolve-Path (Join-Path $workerOutput 'Bsa.DwgReadback.dll')).Path
 ```
 
 Pass these variables in the environment that launches the CLI or MCP server.
-Rebuild the worker after changing the inventory schema or fields. The report
+Use a fresh build directory for each rebuild so an in-flight CLI, MCP or
+regression run keeps its configured binaries. Save `worker_sha256` and
+`reader_sha256` from the report when recording regression evidence. The report
 compares insertion units, modelspace identity, supported geometry, block
 reference placement and text display properties. Block definitions, nested
 geometry, plot styles and PDF glyph placement require other evidence.
