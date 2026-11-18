@@ -63,7 +63,11 @@ jobs:
       - run: python -m pip check
       - name: Audit actual SDK tool and worker contract
         run: python scripts/check_mcp_contract.py --out runs/mcp-contract-audit.json
-      - run: python -m unittest tests.test_revit_automation_bundle -v
+      - name: Verify offline Revit preparation and diagnosis
+        run: >-
+          python -m unittest
+          tests.test_revit_automation_bundle tests.test_revit_connectivity
+          tests.test_revit_revision tests.test_revit_workflow -v
       - run: >-
           python -m unittest
           tests.test_engine tests.test_doctor tests.test_codex_setup
