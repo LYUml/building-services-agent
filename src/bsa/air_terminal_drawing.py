@@ -199,11 +199,15 @@ def inspect(doc, allocation, tree, binding, layers):
 
 
 def _inspect_files(paths, layers):
+    generator = Path(__file__)
+    generator_hash = digest(generator)
     pins={str(p):digest(p) for p in paths}
     data=[json.loads(p.read_text(encoding='utf-8')) for p in paths[1:]]
     result=inspect(ezdxf.readfile(paths[0]),data[0],data[1]['tree'],data[2],layers)
     if any(digest(Path(p))!=sha for p,sha in pins.items()):raise ValueError('Source changed during inspection')
-    result.update(inputs=pins,layers=layers)
+    if digest(generator) != generator_hash:
+        raise ValueError('Terminal drawing verifier changed during inspection')
+    result.update(inputs=pins,layers=layers,generator_sha256=generator_hash)
     return result
 
 
@@ -277,8 +281,7 @@ def from_workflow(plan,directory,native_task,output,*,layers):
             or digest(plan)!=plan_sha256 or digest(schedule_file)!=schedule_sha256):
         raise ValueError('Workflow changed during terminal review')
     result.update(workflow_sha256=before,plan_sha256=plan_sha256,schedule_sha256=schedule_sha256,
-                  lineage=[name for name,_ in lineage],workflow_integrity_pass=True,
-                  generator_sha256=digest(Path(__file__)))
+                  lineage=[name for name,_ in lineage],workflow_integrity_pass=True)
     _save(output, result)
     return result
 
