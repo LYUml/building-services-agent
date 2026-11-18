@@ -48,7 +48,12 @@ The ZIP contains the adapter DLL and its two XML manifests. The receipt
 pins the ZIP and DLL hashes. The local trial also checked the entry-point
 type and absence of a `RevitAPIUI` assembly reference. [Autodesk AppBundle layout](https://get-started.aps.autodesk.com/tutorials/design-automation/prepare-plugin/)
 
-Authenticated engine selection and actual work-item execution remain pending.
+Add `--engine <catalogue-id> --bundle-id <owner.bundle+alias>` to stage
+the inventory Activity JSON. The command line and three required transfer
+parameters follow the [Autodesk Activity tutorial](https://get-started.aps.autodesk.com/tutorials/design-automation/define-activity/).
+The local preparation receipt pins the Activity bytes. Engine and alias
+availability must be checked with authenticated APS before deployment.
+Actual work-item execution remains pending.
 
 Final observed build: zero warnings/errors. The initial build had desktop-reference conflicts; explicit WPF/WindowsForms framework references resolved them. The intermediate missing System.IO import was corrected. Evidence and source/binary hashes: ../../docs/evidence/moosas-review/revit-native-build.json.
 
