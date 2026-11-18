@@ -45,6 +45,9 @@ class TerminalDrawingTests(unittest.TestCase):
         self.assertAlmostEqual(r['maximum_plan_length_m'],1)
         self.assertEqual([route['saved_plan_length_m'] for group in r['groups'] for route in group['routes']],
                          [1.0, 1.0])
+        routes = [route for group in r['groups'] for route in group['routes']]
+        self.assertEqual([route['saved_vav_endpoint_m'] for route in routes], [[1, 1, 0], [1, -1, 0]])
+        self.assertEqual([route['saved_terminal_endpoint_m'] for route in routes], [[2, 1, 0], [2, -1, 0]])
         self.assertFalse(r['design_accepted'])
 
     def test_equal_length_translation_is_visible_in_saved_section_coordinates(self):

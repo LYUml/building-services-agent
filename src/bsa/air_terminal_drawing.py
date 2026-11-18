@@ -160,6 +160,8 @@ def inspect(doc, allocation, tree, binding, layers):
                                plan_length_m=math.dist(start,end),
                                saved_plan_length_m=math.dist(saved_start,saved_end),
                                saved_terminal_center_m=list(symbol_centers[terminals[tid]]),
+                               saved_vav_endpoint_m=list(saved_start),
+                               saved_terminal_endpoint_m=list(saved_end),
                                vav_endpoint_gap_m=math.dist(saved_start,saved_vav),
                                terminal_endpoint_gap_m=math.dist(saved_end,symbol_centers[terminals[tid]])))
         groups.append(dict(id=leaf,vav_handle=circle.dxf.handle,saved_vav_center_m=list(saved_vav),

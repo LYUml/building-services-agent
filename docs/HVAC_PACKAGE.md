@@ -88,6 +88,13 @@ Add `--terminal-review <settings.json>` to automatically inspect the fresh nativ
 
 Passing evidence appears in `terminal-review.json` and the package index. Missing or failed native ancestry or geometric mismatch is retained in `stage_errors`, makes package status `incomplete`, and blocks the design-report HTML and PDF. The package retains the native artifacts and upstream workflow evidence. An AutoCAD 2027 Core Console run using the synthetic `--displaced-endpoint-control` reported `terminal_review_gate: blocked` with the saved line handle and 0.25 m offset, and produced neither design report. Omitting the option records a null configuration and the inspector returns `not_configured`. Full acceptance requires independent engineering review.
 
+Each verified flex route records the coordinates of both actual line endpoints
+in metres in `saved_vav_endpoint_m` and `saved_terminal_endpoint_m`.
+The fields follow the verified VAV-to-terminal assignment even when the
+underlying CAD line was drawn in reverse. To compare releases, match by terminal
+ID and use a common drawing coordinate frame. Compare the endpoint coordinates,
+symbol centres and saved planar length separately.
+
 Actual private package replay checks 80 terminals and retains nine unresolved engineering tasks. Its 22 PDF report pages and drawing match inspected renders. A second run without AutoCAD retains the missing-native review error and incomplete package status. Six focused report/package/geometry tests pass. No new dependency or solver was introduced.
 
 ## ADPI scope review

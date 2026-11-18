@@ -104,7 +104,8 @@ def connection_summary(directory,workflow,paths,review):
             for row in fresh['rigid_sections']
         ]
     omitted_route_fields = set()
-    for field in ('saved_plan_length_m', 'saved_terminal_center_m'):
+    for field in ('saved_plan_length_m', 'saved_terminal_center_m',
+                  'saved_vav_endpoint_m', 'saved_terminal_endpoint_m'):
         if all(field not in route for group in record['groups'] for route in group['routes']):
             omitted_route_fields.add(field)
     omitted_group_fields = {'saved_vav_center_m'} if all(
