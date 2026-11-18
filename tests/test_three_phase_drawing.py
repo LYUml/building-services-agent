@@ -32,6 +32,10 @@ class NativeTextAnchorTests(unittest.TestCase):
         with self.assertRaisesRegex(ProjectError, 'line feeder touches undeclared bus C') as error:
             bus_contacts(doc, [{'id': 'feeder', 'from': 'A', 'to': 'B'}])
         self.assertIn(f'line handle {feeder.dxf.handle}, bus handle {entity.dxf.handle}', str(error.exception))
+        entity.dxf.start += (0, 0, 1)
+        entity.dxf.end += (0, 0, 1)
+        with self.assertRaisesRegex(ProjectError, f'bus C has invalid planar geometry on handle {entity.dxf.handle}'):
+            bus_contacts(doc, [{'id': 'feeder', 'from': 'A', 'to': 'B'}])
 
     def test_overlapping_bus_geometry_makes_contact_assignment_ambiguous(self):
         doc = ezdxf.new()

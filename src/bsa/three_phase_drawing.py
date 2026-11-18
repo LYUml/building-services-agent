@@ -67,7 +67,12 @@ def bus_contacts(doc, circuits):
     for entity in doc.modelspace().query('LINE'):
         if entity.has_xdata(APP):
             kind, name = (tag.value for tag in entity.get_xdata(APP)[:2])
-            geometry[kind, name].append((entity.dxf.start, entity.dxf.end, entity.dxf.handle))
+            if kind in ('bus', 'line'):
+                start, end = entity.dxf.start, entity.dxf.end
+                if any(not all(math.isfinite(v) for v in point) or abs(point.z) > 1e-6
+                       for point in (start, end)) or start == end:
+                    raise ProjectError(f'Saved {kind} {name} has invalid planar geometry on handle {entity.dxf.handle}')
+                geometry[kind, name].append((start, end, entity.dxf.handle))
     checks = []
     bus_geometry = {name: segments for (kind, name), segments in geometry.items() if kind == 'bus'}
     for circuit in circuits:
