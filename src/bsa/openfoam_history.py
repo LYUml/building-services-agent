@@ -76,21 +76,23 @@ def review_project(manifest_name, output_name, *, window=200):
     import hashlib
     import json
     from pathlib import Path
-    from .workspace import project_root
+    from . import workspace
     from .source_refs import file_hash as digest_file
     from . import cfd_convergence
 
-    root = project_root()
+    root = workspace.project_root()
     if root is None:
         raise ValueError('Explicit host BSA_PROJECT_ROOT required')
     inputs = {}
 
     def path(name):
-        if not isinstance(name, str) or Path(name).is_absolute():
+        if not isinstance(name, str) or not name.strip() or Path(name).is_absolute():
             raise ValueError('Project-relative path required')
         resolved = (root / name).resolve()
-        if not resolved.is_relative_to(root):
+        if resolved == root or not resolved.is_relative_to(root):
             raise ValueError('Files must remain inside the host project')
+        if workspace.protected(resolved):
+            raise ValueError('Completed historical project is read-only; select another workspace')
         return resolved
 
     def read(name):
@@ -153,6 +155,8 @@ def review_project(manifest_name, output_name, *, window=200):
     for name, (file, fingerprint) in inputs.items():
         if path(name) != file or not file.is_file() or digest_file(file) != fingerprint:
             raise ValueError(f'OpenFOAM review input changed: {name}')
+    if path(output_name) != output:
+        raise ValueError('OpenFOAM review output path changed')
     with output.open('x', encoding='utf-8') as stream:
         json.dump(result, stream, indent=2, allow_nan=False)
         stream.write('\n')

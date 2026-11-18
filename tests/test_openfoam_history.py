@@ -120,6 +120,21 @@ class ProjectReviewTests(unittest.TestCase):
             review_project('manifest.json', 'review.json', window=2)
         self.assertFalse((self.root/'review.json').exists())
 
+    def test_selected_parent_cannot_include_protected_history(self):
+        historical = (self.root/'historical').resolve()
+        historical.mkdir()
+        (historical/'basis.txt').write_text('protected synthetic history', encoding='utf-8')
+        self.write_manifest()
+        with patch('bsa.workspace.protected', side_effect=lambda path: Path(path).is_relative_to(historical)):
+            with self.assertRaisesRegex(ValueError, 'read-only'):
+                review_project('manifest.json', 'historical/report.json', window=2)
+            self.manifest['basis_files'] = {'fixture': 'historical/basis.txt'}
+            self.write_manifest()
+            with self.assertRaisesRegex(ValueError, 'read-only'):
+                review_project('manifest.json', 'review.json', window=2)
+        self.assertFalse((historical/'report.json').exists())
+        self.assertFalse((self.root/'review.json').exists())
+
     def test_native_history_changed_during_assessment_is_rejected(self):
         from bsa import cfd_convergence
         self.write_manifest()
