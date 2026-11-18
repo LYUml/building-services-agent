@@ -92,6 +92,13 @@ class ThreePhaseDrawingTests(unittest.TestCase):
         with self.assertRaisesRegex(ProjectError, 'Saved bus .* labels differ from the study'):
             verify_contacts(self.project, self.study, wrong_label)
         label.dxf.text = label_text
+        alignment, anchor, _ = label.get_placement()
+        label.set_placement(anchor + (100, 0, 0), align=alignment)
+        moved_label = out/'moved-voltage-label.dxf'
+        doc.saveas(moved_label)
+        with self.assertRaisesRegex(ProjectError, f'label anchor lies outside its box on handle {label.dxf.handle}'):
+            verify_contacts(self.project, self.study, moved_label)
+        label.set_placement(anchor, align=alignment)
         incomplete = ezdxf.readfile(out/'schematic.dxf')
         edge = next(entity for entity in incomplete.modelspace().query('LINE[layer=="BSA_ELEC_BUS"]')
                     if entity.dxf.start.y == entity.dxf.end.y)

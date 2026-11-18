@@ -194,14 +194,14 @@ def verify_contacts(project, study, drawing):
             tags = [tag.value for tag in entity.get_xdata(APP)] if entity.has_xdata(APP) else []
             if entity.dxftype() != 'TEXT' or len(tags) != 3 or tags[2] != study_hash or tuple(tags[:2]) not in expected:
                 raise ProjectError(f'Drawing label study identity differs on handle {entity.dxf.handle}')
-            labels[tuple(tags[:2])].append(entity.dxf.text)
+            labels[tuple(tags[:2])].append(entity)
         elif entity.dxftype() == 'LINE' and entity.has_xdata(APP):
             if entity.get_xdata(APP)[0].value in kinds.values():
                 raise ProjectError(f'Electrical geometry outside scoped layers on handle {entity.dxf.handle}')
     if observed != expected:
         raise ProjectError('Saved schematic circuit or bus inventory differs from the study')
     for key, expected_text in schematic_labels(prepared, study_result).items():
-        if sorted(labels[key]) != sorted(expected_text):
+        if sorted(entity.dxf.text for entity in labels[key]) != sorted(expected_text):
             raise ProjectError(f'Saved {key[0]} {key[1]} labels differ from the study')
     contacts = bus_contacts(doc, prepared['lines'])
     for bus, edges in bus_edges.items():
@@ -213,6 +213,12 @@ def verify_contacts(project, study, drawing):
                  if a != b and (a[0] == b[0] or a[1] == b[1])}
         if len(x_values) != 2 or len(y_values) != 2 or len(corners) != 4 or set(edges) != sides:
             raise ProjectError(f'Saved bus {bus} does not have a closed rectangular outline')
+        for label in labels['bus', bus]:
+            _, anchor, _ = label.get_placement()
+            if (tuple(label.dxf.extrusion) != (0, 0, 1) or not abs(anchor.z) <= 1e-6
+                    or not min(x_values) < anchor.x < max(x_values)
+                    or not min(y_values) < anchor.y < max(y_values)):
+                raise ProjectError(f'Saved bus {bus} label anchor lies outside its box on handle {label.dxf.handle}')
     if digest(drawing) != source_hash or any(digest(Path(path)) != sha for path, sha in pins.items()):
         raise ProjectError('Schematic or study changed during contact verification')
     return dict(drawing_sha256=source_hash, study_sha256=study_hash, bus_contacts=contacts,
