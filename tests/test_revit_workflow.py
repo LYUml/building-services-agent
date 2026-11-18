@@ -4,6 +4,9 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
+from bsa.engine import ProjectError
+from bsa import revit_connectivity
 from bsa.workflow import execute, verify
 from bsa.workflow_status import diagnose
 
@@ -76,6 +79,23 @@ class RevitWorkflowTests(unittest.TestCase):
             result=execute(plan,root/'out')
             self.assertEqual(result['tasks']['check']['status'],'fail')
             self.assertFalse((root/'out/check/diagnosis.json').exists())
+
+    def test_model_changed_during_diagnosis_is_rejected_before_output(self):
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+            root=Path(folder)
+            _, model=self.fixture(root)
+            original=revit_connectivity.diagnose
+
+            def change_after_diagnosis(*args, **kwargs):
+                result=original(*args, **kwargs)
+                model.write_bytes(b'edited during diagnosis')
+                return result
+
+            output=root/'diagnosis.json'
+            with patch.object(revit_connectivity,'diagnose',side_effect=change_after_diagnosis):
+                with self.assertRaisesRegex(ProjectError,'Input changed during diagnosis'):
+                    revit_connectivity.run(root/'inventory.json',model,output,0.0001)
+            self.assertFalse(output.exists())
 
 
 if __name__=='__main__':unittest.main()

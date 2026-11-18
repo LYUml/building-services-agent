@@ -12,6 +12,13 @@ swaps and missing links, retain unavailable endpoints as pending, and detect
 changes to the source schedule during workflow verification. The CLI and stdio
 test agree on a displaced pair that is observed but cannot be confirmed.
 
+Offline diagnosis and creation-request preparation reuse the shared streaming
+SHA-256 reader for RVT identity checks. On the local 40,624,128-byte Autodesk
+plumbing sample, both readers produced the same hash. Python tracemalloc peak
+for a single hash fell from 40,633,039 to 272,004 bytes. This measures file
+hashing only. A mutation control confirms diagnosis still rejects a model
+changed before report publication.
+
 Autodesk documents that desktop Revit has no standalone Core Console. APS
 Automation for Revit is the supported headless service and requires a separate
 verified cloud setup. Native add-in loading and saved RVT execution remain

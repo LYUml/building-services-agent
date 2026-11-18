@@ -7,6 +7,7 @@ from pathlib import Path
 
 from .engine import ProjectError
 from .revit_revision import audit_pipe
+from .source_refs import file_hash
 from . import workspace
 
 
@@ -198,20 +199,21 @@ def run(inventory, model, out, tolerance_m, *, expected_connections=None):
     paths = (inventory_path, model_path, output_path, basis)
     if not all(workspace.allowed(p) for p in paths if p is not None) or output_path.exists():
         raise ProjectError('Use permitted workspace artifacts and a new output path')
-    raw, model = inventory_path.read_bytes(), model_path.read_bytes()
+    raw = inventory_path.read_bytes()
     data = json.loads(raw)
     digest = lambda b: hashlib.sha256(b).hexdigest()
-    if not isinstance(data.get('document_path'), str) or Path(data['document_path']).resolve() != model_path or digest(model) != data.get('saved_rvt_sha256'):
+    model_hash = file_hash(model_path)
+    if not isinstance(data.get('document_path'), str) or Path(data['document_path']).resolve() != model_path or model_hash != data.get('saved_rvt_sha256'):
         raise ProjectError('Inventory does not match the selected saved model')
     basis_raw = basis.read_bytes() if basis is not None else None
     intent = json.loads(basis_raw) if basis_raw is not None else None
     if basis is not None and intent is None:
         raise ProjectError('Expected connection evidence must be an object')
     result = diagnose(data, tolerance_m, expected_connections=intent)
-    result.update(inventory_sha256=digest(raw), saved_rvt_sha256=digest(model))
+    result.update(inventory_sha256=digest(raw), saved_rvt_sha256=model_hash)
     if basis_raw is not None:
         result['expected_connections_sha256'] = digest(basis_raw)
-    if (inventory_path.read_bytes() != raw or model_path.read_bytes() != model
+    if (inventory_path.read_bytes() != raw or file_hash(model_path) != model_hash
             or (basis is not None and basis.read_bytes() != basis_raw)):
         raise ProjectError('Input changed during diagnosis')
     output_path.parent.mkdir(parents=True, exist_ok=True)

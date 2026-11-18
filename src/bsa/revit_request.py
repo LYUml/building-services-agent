@@ -3,7 +3,7 @@ import argparse
 import json
 import math
 from pathlib import Path
-from .cli import digest
+from .source_refs import file_hash as digest
 from .engine import ProjectError
 
 
