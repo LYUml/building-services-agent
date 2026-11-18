@@ -57,15 +57,20 @@ class NativeTerminalDeliveryTests(unittest.TestCase):
                 self.assertLessEqual(route[field], review['correspondence_tolerance_m'])
         report = json.loads((output/'report/report.json').read_bytes())
         self.assertIn('maximum drawn flex-to-symbol endpoint gap', report['terminal_connection_summary'])
+        self.assertIn('maximum drawn rigid duct junction gap', report['terminal_connection_summary'])
         self.assertIn('report_pdf', result['stages'])
 
         from bsa.hvac_report import run as render_report
         endpoint_fields = ('saved_vav_endpoint_m', 'saved_terminal_endpoint_m')
-        for field in ('terminal_endpoint_gap_m', *endpoint_fields):
+        for field in ('terminal_endpoint_gap_m', *endpoint_fields, 'rigid_node_maximum_gaps_m'):
             with self.subTest(altered_field=field):
                 altered = deepcopy(review)
                 route = altered['groups'][0]['routes'][0]
-                if field in endpoint_fields:
+                if field == 'rigid_node_maximum_gaps_m':
+                    gaps = altered[field]
+                    node = next(iter(gaps))
+                    gaps[node] += 0.25
+                elif field in endpoint_fields:
                     route[field][0] += 0.25
                 else:
                     route[field] = review['correspondence_tolerance_m'] / 2
@@ -78,6 +83,7 @@ class NativeTerminalDeliveryTests(unittest.TestCase):
         for route in routes:
             for field in endpoint_fields:
                 del route[field]
+        del review['rigid_node_maximum_gaps_m']
         legacy_review = output.parent/'legacy-terminal-review.json'
         legacy_review.write_text(json.dumps(review), encoding='utf-8')
         legacy_output = output.parent/'legacy-report'

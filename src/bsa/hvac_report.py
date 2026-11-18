@@ -127,11 +127,17 @@ def connection_summary(directory,workflow,paths,review):
     if any(record.get(k)!=v for k,v in compared.items()):raise ValueError('Terminal review differs from saved geometry')
     max_gap = max(max(route['vav_endpoint_gap_m'], route['terminal_endpoint_gap_m'])
                   for group in fresh['groups'] for route in group['routes'])
+    rigid_gaps = fresh['rigid_node_maximum_gaps_m']
+    rigid_summary = ''
+    if rigid_gaps:
+        node = max(sorted(rigid_gaps), key=rigid_gaps.__getitem__)
+        rigid_summary = f"The maximum drawn rigid duct junction gap is {rigid_gaps[node]:.3g} m at node {node}. "
     return (f"Saved native drawing correspondence covers {fresh['terminal_count']} terminals, "
         f"{len(fresh['groups'])} groups and {fresh['rigid_section_count']} rigid sections. "
         f"The longest straight centre-to-centre planar flexible connection is {fresh['maximum_plan_length_m']:.3f} m. "
         f"The maximum drawn flex-to-symbol endpoint gap is {max_gap:.3g} m "
         f"at a correspondence tolerance of {fresh['correspondence_tolerance_m']:.3g} m. "
+        f"{rigid_summary}"
         'This does not verify physical ports, installed flexible lengths, labels, three-dimensional coordination or regulatory compliance.')
 
 
