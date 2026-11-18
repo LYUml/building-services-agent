@@ -11,7 +11,7 @@ import unittest
 import ezdxf
 
 from bsa.source_refs import file_hash
-from bsa.dwg_readback import compare_reference, run
+from bsa.dwg_readback import compare_reference, dxf_geometry, run
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -45,6 +45,20 @@ def test_duplicate_reference_handle_cannot_hide_entity(tmp_path):
     assert not comparison['correspondence_pass']
     assert comparison['geometry_compared_count'] == 0
     assert comparison['differences'] == [dict(handle=expected.dxf.handle, reason='duplicate_handle_in_dxf')]
+
+
+def test_changed_equipment_attribute_is_a_block_difference(tmp_path):
+    document = ezdxf.new()
+    block = document.blocks.new('EQUIPMENT_TAG')
+    block.add_attdef('EQUIPMENT_ID', (0, 0))
+    insert = document.modelspace().add_blockref(block.name, (5, 5))
+    insert.add_auto_attribs({'EQUIPMENT_ID': 'VAV-001'})
+    row = dict(handle=insert.dxf.handle, type='INSERT', layer='0', geometry=dxf_geometry(insert))
+    insert.get_attrib('EQUIPMENT_ID').dxf.text = 'VAV-002'
+    reference = tmp_path / 'changed-attribute.dxf'
+    document.saveas(reference)
+    assert compare_reference([row], document.units, reference)['differences'] == [
+        dict(handle=insert.dxf.handle, reason='geometry_differs', fields=['attributes'])]
 
 
 @unittest.skipUnless(all(os.environ.get(key) for key in RUNTIME) and importlib.util.find_spec('mcp'),
@@ -88,7 +102,7 @@ class DwgReadbackTests(unittest.TestCase):
             asyncio.run(read_mcp())
             self.assertEqual(cli_report.read_bytes(), mcp_report.read_bytes())
             report = json.loads(cli_report.read_bytes())
-            self.assertEqual(report['schema'], 'bsa.acadsharp-modelspace/2')
+            self.assertEqual(report['schema'], 'bsa.acadsharp-modelspace/3')
             self.assertTrue(summary['correspondence_pass'])
             self.assertEqual(summary['insunits'], 4)
             self.assertEqual(report['comparison']['geometry_compared_count'], 5)

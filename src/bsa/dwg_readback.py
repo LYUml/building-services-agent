@@ -26,7 +26,10 @@ def dxf_geometry(entity):
         return dict(block_name=dxf.name, insert=list(dxf.insert), normal=list(dxf.extrusion),
                     scale=[dxf.xscale, dxf.yscale, dxf.zscale], rotation_angle_rad=math.radians(dxf.rotation),
                     row_count=dxf.row_count, column_count=dxf.column_count,
-                    row_spacing=dxf.row_spacing, column_spacing=dxf.column_spacing)
+                    row_spacing=dxf.row_spacing, column_spacing=dxf.column_spacing,
+                    attributes=sorted((dict(handle=attribute.dxf.handle, tag=attribute.dxf.tag,
+                                            text=None if attribute.has_embedded_mtext_entity else attribute.dxf.text)
+                                       for attribute in entity.attribs), key=lambda attribute: attribute['handle']))
     if kind in ('ARC', 'CIRCLE'):
         result = dict(center=list(dxf.center), normal=list(dxf.extrusion), radius=dxf.radius)
         if kind == 'ARC':
@@ -132,9 +135,9 @@ def run(source, out, reference_dxf=None, *, expected_hashes=None):
     if completed.returncode:
         raise ValueError(f'ACadSharp DWG reader failed (exit {completed.returncode}): {completed.stderr[:1000].strip()}')
     result = json.loads(completed.stdout)
-    if isinstance(result, dict) and result.get('schema') == 'bsa.acadsharp-modelspace/1':
-        raise ValueError('Rebuild the ACadSharp DWG worker from the current checkout (inventory schema v2 required)')
-    if (not isinstance(result, dict) or result.get('schema') != 'bsa.acadsharp-modelspace/2'
+    if isinstance(result, dict) and result.get('schema') in ('bsa.acadsharp-modelspace/1', 'bsa.acadsharp-modelspace/2'):
+        raise ValueError('Rebuild the ACadSharp DWG worker from the current checkout (inventory schema v3 required)')
+    if (not isinstance(result, dict) or result.get('schema') != 'bsa.acadsharp-modelspace/3'
             or result.get('source_sha256') != source_hash or result.get('reader_version') != '3.8.35'
             or result.get('reader_sha256') != reader_hash
             or result.get('native_autocad_executed') is not False or result.get('design_accepted') is not False
