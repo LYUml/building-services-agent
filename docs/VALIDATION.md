@@ -21,6 +21,17 @@ and batched wall volume calculation (`afa91ca`). These are individual runs
 with concurrent regression activity. Fixture checks include saved arc length,
 source-linked loss values and invalid geometry or binding rejection.
 
+## Optional Windows runtime checks
+
+The following checks ran separately from the default full suite at `77c2bc3`.
+
+| Configured runtime | Executed coverage | Result |
+| --- | --- | --- |
+| AutoCAD Core Console, ACadSharp worker schema v2 and rvt 0.25.0 | Saved DWG reopening and plot, layout revision, DWG CLI/MCP readback, RVT metadata, Revit Automation staging and connectivity evidence | 40 passed, 22 subtests |
+| Pinned MOOSAS with `BSA_TEST_MOOSAS_TRANSFORM=1` | Transform probe, space recognition provider and recognition workflow | 11 passed, 3 subtests |
+| Pinned MOOSAS and EnergyPlus 25.2 | IFC space workflow, external workspace, provider replacement and annual-energy MCP response | 10 passed |
+| Isolated pandapower runtime | Balanced analytic check, unbalanced currents, overload target and altered result rejection | 2 passed |
+
 2026-11-08 foundation milestone, Windows / Python 3.12.
 
 - Editable package installation succeeded in this repository's .venv.
