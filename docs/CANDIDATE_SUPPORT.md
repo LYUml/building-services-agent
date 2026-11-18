@@ -48,7 +48,7 @@ with platform-specific constraints. Its exact scope and limits remain explicit.
 
 ## MCP coverage
 
-The current SDK catalogue has 48 tools. The following groups cover all
+The current SDK catalogue has 49 tools. The following groups cover all
 48. Numerical engines remain shared with CLI/workflow adapters rather than
 duplicated for MCP. Tool schemas and full descriptions are available through
 the SDK catalogue. The committed reference read is also an MCP resource.

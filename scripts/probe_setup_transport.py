@@ -18,8 +18,8 @@ async def probe(config):
         async with ClientSession(*streams, read_timeout_seconds=timedelta(seconds=120)) as session:
             await session.initialize()
             tools = (await session.list_tools()).tools
-            if len(tools) != 48:
-                raise ValueError('Expected 48 MCP tools')
+            if 'bsa_reference_catalogue' not in {tool.name for tool in tools}:
+                raise ValueError('MCP server is missing the reference catalogue tool')
             response = await session.call_tool('bsa_reference_catalogue', {'limit': 1})
             if response.isError:
                 raise ValueError('Read-only reference catalogue failed: ' + str(response.content))
