@@ -51,5 +51,17 @@ class RevitRequestTests(unittest.TestCase):
                 with self.assertRaises(ProjectError):prepare(inv,model,basis,root/'out')
                 self.assertFalse((root/'out').exists())
 
+    def test_empty_malformed_and_duplicate_selection_rows_are_rejected(self):
+        for rows in ([], [None], [{'unique_id': ' '}], [{'unique_id': 's'}, {'unique_id': 's'}]):
+            with self.subTest(rows=rows), tempfile.TemporaryDirectory(dir=ROOT/'runs') as directory:
+                root = Path(directory)
+                inventory, model, basis, _ = self.fixture(root)
+                data = json.loads(inventory.read_text())
+                data['system_types'] = rows
+                inventory.write_text(json.dumps(data))
+                with self.assertRaisesRegex(ProjectError, 'selection.*system_types'):
+                    prepare(inventory, model, basis, root/'out')
+                self.assertFalse((root/'out').exists())
+
 
 if __name__=='__main__':unittest.main()

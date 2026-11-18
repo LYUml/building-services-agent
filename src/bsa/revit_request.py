@@ -62,10 +62,13 @@ def prepare(inventory, model, basis, out, *, scope=None):
     if set(pipe)!=PIPE_FIELDS:raise ProjectError('Explicit type/system/level/endpoints/diameter required; no defaults')
     for field,collection in (('PipeTypeUniqueId','pipe_types'),('SystemTypeUniqueId','system_types'),('LevelUniqueId','levels')):
         rows=data.get(collection)
-        if not isinstance(rows,list):raise ProjectError('Missing native selection inventory')
+        if not isinstance(rows,list) or not rows:
+            raise ProjectError(f'Missing native selection inventory: {collection}')
+        if any(not isinstance(row, dict) for row in rows):
+            raise ProjectError(f'Invalid native selection record: {collection}')
         ids=[row.get('unique_id') for row in rows]
-        if any(not isinstance(uid,str) or not uid for uid in ids) or len(ids)!=len(set(ids)):
-            raise ProjectError('Invalid or duplicate native selection identities')
+        if any(not isinstance(uid,str) or not uid.strip() for uid in ids) or len(ids)!=len(set(ids)):
+            raise ProjectError(f'Invalid or duplicate native selection identities: {collection}')
         if pipe[field] not in ids:raise ProjectError('Requested selection not in model: '+field)
     validate_geometry(pipe)
     if any(out==Path(p) or out in Path(p).parents for p in before):
