@@ -1,4 +1,4 @@
-"""Replay the pinned NIST FDS temperature-interpolation case on Windows."""
+"""Run or verify pinned FDS temperature checks on Windows."""
 import argparse
 import csv
 import hashlib
@@ -18,6 +18,9 @@ from .engine import ProjectError
 RELEASE_SHA256 = '302ec837caaea8cb990cece085bee2284a0338d64fac0b77d46749a92ab12dfc'
 INPUT_SHA256 = '7262f82edadd529d74150760f61ee7b9b1dd238f6a796d70640439707b9e089f'
 CASE = 'devc_interpolation_temperature'
+UNIFORM_CASE = 'uniform_temperature'
+UNIFORM_SHA256 = 'd49229d3ba17066b026c5a15d00bb10cd7567275ed0b6ce8755626a5b33f3fe1'
+INPUTS = {CASE: INPUT_SHA256, UNIFORM_CASE: UNIFORM_SHA256}
 VERSION = 'FDS-6.11.1-0-gff928db-release'
 SUCCESS = f'STOP: FDS completed successfully (CHID: {CASE})'
 CONSOLE_STEP = re.compile(r'^\s*Time Step:\s*(\d+), Simulation Time:\s*([\d.]+) s\s*$', re.M)
@@ -44,7 +47,22 @@ def temperature_errors(path):
     return maxima
 
 
-def inspect_steps(path, console):
+def point_temperature_errors(path):
+    with path.open(newline='', encoding='ascii') as stream:
+        units, columns, *rows = csv.reader(stream)
+    if units != ['s', 'C', 'C'] or columns != ['Time', 'center', 'off_center'] or len(rows) != 6:
+        raise ValueError('Unexpected FDS point temperature table layout')
+    maxima = dict.fromkeys(columns[1:], 0.0)
+    for row, expected_time in zip(rows, (0, 0.2, 0.45, 0.65, 0.8, 1), strict=True):
+        time, center, off_center = map(float, row)
+        if time != expected_time or not all(map(math.isfinite, (center, off_center))):
+            raise ValueError('Invalid FDS point temperature sample')
+        for column, value in zip(columns[1:], (center, off_center), strict=True):
+            maxima[column] = max(maxima[column], abs(value - 22.5))
+    return maxima
+
+
+def inspect_steps(path, console, *, final_time=200):
     with path.open(newline='', encoding='ascii') as stream:
         reader = csv.reader(stream)
         if (next(reader, None) != ['', '', 's', 's', 's']
@@ -63,7 +81,7 @@ def inspect_steps(path, console):
             samples.append((index, time))
             previous_index, previous_time = index, time
     logged = [(int(index), float(time)) for index, time in CONSOLE_STEP.findall(console)]
-    if len(samples) < 2 or samples[0][0] != 1 or samples[-1][1] != 200 or samples != logged:
+    if len(samples) < 2 or samples[0][0] != 1 or samples[-1][1] != final_time or samples != logged:
         raise ValueError('FDS time-step table and console progression do not reconcile')
     return dict(report_samples=len(samples), final_step=samples[-1][0], final_simulation_s=samples[-1][1])
 
@@ -74,7 +92,9 @@ def run(release, source, out):
     release, source, out = (Path(path).resolve() for path in (release, source, out))
     if not workspace.allowed(source) or not workspace.intake_output(out):
         raise ValueError('Use a permitted FDS input and output workspace')
-    if digest(source) != INPUT_SHA256:
+    source_hash = digest(source)
+    case = next((name for name, sha in INPUTS.items() if sha == source_hash), None)
+    if case is None:
         raise ValueError('Unexpected FDS input SHA-256')
     with release.open('rb') as stream:
         if hashlib.file_digest(stream, 'sha256').hexdigest() != RELEASE_SHA256:
@@ -86,9 +106,9 @@ def run(release, source, out):
                     archive.extract(entry, out)
     work = out/'case'
     work.mkdir()
-    case_file = work/f'{CASE}.fds'
+    case_file = work/f'{case}.fds'
     shutil.copyfile(source, case_file)
-    if digest(case_file) != INPUT_SHA256:
+    if digest(case_file) != source_hash:
         raise ValueError('Case changed while copying')
     binaries = out/'firemodels/FDS6/bin'
     mpi = binaries/'mpi'
@@ -104,39 +124,46 @@ def run(release, source, out):
         raise ProjectError('FDS probe timed out; see the retained console log') from exc
     if result.returncode != 0:
         raise ProjectError('FDS launcher failed; see the retained console log')
-    report = inspect_outputs(out)
+    report = inspect_outputs(out, case)
     (out/'report.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
     return report
 
 
-def inspect_outputs(out):
+def inspect_outputs(out, case=CASE):
+    if not isinstance(case, str) or case not in INPUTS:
+        raise ProjectError('Unsupported saved FDS probe case')
+    uniform = case == UNIFORM_CASE
     log = 'case/console.log'
-    native = f'case/{CASE}.out'
-    version = f'case/{CASE}_git.txt'
-    steps = f'case/{CASE}_steps.csv'
-    line = f'case/{CASE}_line.csv'
-    source = f'case/{CASE}.fds'
-    artifacts = (LAUNCHER, ENGINE, log, native, version, steps, line)
+    native = f'case/{case}.out'
+    version = f'case/{case}_git.txt'
+    steps = f'case/{case}_steps.csv'
+    table = f"case/{case}_{'devc' if uniform else 'line'}.csv"
+    source = f'case/{case}.fds'
+    artifacts = (LAUNCHER, ENGINE, log, native, version, steps, table)
     paths = {name: (out/name).resolve() for name in (*artifacts, source)}
     if any(not path.is_relative_to(out) or not path.is_file() for path in paths.values()):
         raise ProjectError('Missing FDS evidence or artifact path escapes the run')
     before = {name: digest(path) for name, path in paths.items()}
-    if before[source] != INPUT_SHA256 or any(before[name] != sha for name, sha in RUNTIME_HASHES.items()):
+    if before[source] != INPUTS[case] or any(before[name] != sha for name, sha in RUNTIME_HASHES.items()):
         raise ProjectError('FDS saved input or runtime differs from the pinned release')
-    log, native, version, steps, line = (paths[name] for name in (log, native, version, steps, line))
+    log, native, version, steps, table = (paths[name] for name in (log, native, version, steps, table))
     console = log.read_text(errors='replace')
-    if (SUCCESS not in console.splitlines()
-            or SUCCESS not in native.read_text(errors='replace').splitlines()
+    success = f'STOP: FDS completed successfully (CHID: {case})'
+    if (success not in console.splitlines()
+            or success not in native.read_text(errors='replace').splitlines()
             or version.read_text().strip() != VERSION):
         raise ProjectError('FDS did not report successful completion with the pinned engine')
-    progression = inspect_steps(steps, console)
-    errors = temperature_errors(line)
+    progression = inspect_steps(steps, console, final_time=1 if uniform else 200)
+    errors = point_temperature_errors(table) if uniform else temperature_errors(table)
     if any(digest(path) != before[name] for name, path in paths.items()):
         raise ProjectError('FDS evidence changed during inspection')
-    return dict(engine=VERSION, native_completed=True, final_simulation_s=progression['final_simulation_s'],
-                time_step_progression=progression, release_sha256=RELEASE_SHA256, input_sha256=INPUT_SHA256,
-                max_abs_error_c=errors, numerical_acceptance='not_established',
-                artifacts_sha256={name: before[name] for name in artifacts})
+    report = dict(engine=VERSION, native_completed=True, final_simulation_s=progression['final_simulation_s'],
+                  time_step_progression=progression, release_sha256=RELEASE_SHA256, input_sha256=INPUTS[case],
+                  max_abs_error_c=errors, numerical_acceptance='not_established',
+                  artifacts_sha256={name: before[name] for name in artifacts})
+    if uniform:
+        report.update(case=case, expected_temperature_c=22.5, point_temperature_check_pass=not any(errors.values()))
+    return report
 
 
 def verify(out):
@@ -146,9 +173,11 @@ def verify(out):
         raise ProjectError('Use a saved FDS run in the permitted workspace')
     raw = report_path.read_bytes()
     saved = json.loads(raw)
-    reconstructed = inspect_outputs(out)
+    if not isinstance(saved, dict):
+        raise ProjectError('Invalid saved FDS report')
+    reconstructed = inspect_outputs(out, saved.get('case', CASE))
     expected = reconstructed.copy()
-    if isinstance(saved, dict) and 'time_step_progression' not in saved:
+    if 'case' not in saved and 'time_step_progression' not in saved:
         del expected['time_step_progression']
     if expected != saved or report_path.read_bytes() != raw:
         raise ProjectError('Saved FDS report differs from reconstructed evidence')

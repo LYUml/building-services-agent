@@ -2,10 +2,23 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from bsa.fds_temperature import inspect_steps
+from bsa.fds_temperature import inspect_steps, point_temperature_errors
 
 
 class FdsTemperatureTests(unittest.TestCase):
+    def test_point_temperature_preserves_deviation_and_rejects_wrong_units(self):
+        rows = ''.join(f'{time},22.5,22.5\n' for time in (0, 0.2, 0.45, 0.65, 0.8, 1))
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder)/'points.csv'
+            path.write_text(f's,C,C\nTime,center,off_center\n{rows}', encoding='ascii')
+            self.assertEqual(point_temperature_errors(path), dict(center=0, off_center=0))
+            path.write_text(f's,C,C\nTime,center,off_center\n{rows.replace("1,22.5,22.5", "1,22.5,23.5")}',
+                            encoding='ascii')
+            self.assertEqual(point_temperature_errors(path), dict(center=0, off_center=1))
+            path.write_text(f's,K,C\nTime,center,off_center\n{rows}', encoding='ascii')
+            with self.assertRaisesRegex(ValueError, 'table layout'):
+                point_temperature_errors(path)
+
     def test_matching_progression_and_forged_final_row(self):
         header = ',,s,s,s\nTime Step,Wall Time,Step Size,Simulation Time,CPU Time\n'
         rows = '1,recorded,0.01,0.01,0\n100,recorded,0.01,1,0.5\n20000,recorded,0.01,200,10\n'

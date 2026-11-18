@@ -78,7 +78,7 @@ def main():
     from . import revit_connectivity, revit_request
     from . import fds_temperature
     fds_temperature.add_arguments(sub.add_parser(
-        'fds-temperature-probe', help='Run the pinned NIST Windows FDS temperature case'))
+        'fds-temperature-probe', help='Run a pinned Windows FDS temperature case'))
     sub.add_parser('fds-temperature-verify', help='Reconcile a saved FDS probe report').add_argument('out',type=Path)
     revit_connectivity.add_arguments(sub.add_parser(
         'revit-inventory-check', help='Diagnose a saved Revit pipe and fitting inventory'))

@@ -66,7 +66,7 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None,fds_rele
 
     @server.tool(annotations=write)
     def bsa_run_fds_temperature_probe(source:str,out:str)->dict[str,Any]:
-        """Run the pinned NIST temperature case using the host-configured Windows release."""
+        """Run a pinned temperature case using the host-configured Windows FDS release."""
         if fds_release is None:
             raise ValueError('Explicit host FDS release configuration required')
         return invoke('bsa.fds_temperature.run',fds_release,local(source),local(out))

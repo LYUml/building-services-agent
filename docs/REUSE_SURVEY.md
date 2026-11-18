@@ -52,6 +52,15 @@ deviation. Both outer profiles retained their prior maximum deviations.
 This is evidence of sensitivity to sampling position in the tested build.
 The cause in the solver and numerical acceptance remain unresolved.
 
+The repository-authored `examples/fds/uniform_temperature.fds` provides a
+second pinned input to the same CLI and MCP tools. Its closed uniform
+22.5 °C field gives a point-temperature check with an independent constant
+reference. Native output contains six samples at each of two devices.
+Both match to the exported precision. The checker uses the saved sample
+times, including 0.45 and 0.65 s in this release's output, and retains errors
+for each device. This limited check establishes point-output behavior for one
+case. The upstream interpolation deviations remain separate.
+
 ## Offline Revit inventory access
 
 The main CLI and MCP tool reuse the existing saved-inventory diagnostic and
