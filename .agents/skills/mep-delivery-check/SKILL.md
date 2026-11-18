@@ -85,6 +85,11 @@ selected governing and failed rows against the bound calculation or native
 exports. Keep supplementary cases clearly identified so their values do not
 replace the adopted values in the report, schedules, or drawings.
 
+When a release has several review receipts, make one index for the exact
+submitted revision. Rehash the current sources, artifacts and receipts,
+then cross-check the hashes each receipt claims. Carry unresolved checks
+and observed exceptions into the index alongside the checks completed.
+
 For every released DWG, compare the exact file hash with the native
 reopen and plot receipt. A matching schedule or PDF can confirm that
 artifact's identity while the DWG itself still needs its own check.
