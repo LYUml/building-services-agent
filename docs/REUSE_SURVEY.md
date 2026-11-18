@@ -167,6 +167,14 @@ A control translated both peers 20 mm in the same model frame, resolving
 each local frame separately. The connection gap check passed, while
 the 5 mm movement check failed and the workflow replay verified that failure.
 Missing aligned positions remain pending when the shift limit is requested.
+When the origins differ by a known translation, the optional `alignment`
+JSON records a source locator, `baseline_sha256`, `current_sha256`, and
+`current_to_baseline_m` as three metre offsets added to current coordinates.
+Pass it as `--alignment` in the CLI or `alignment` in MCP or the workflow.
+No offset is inferred from the model. A controlled 100 m origin change
+reconciled successfully, while a separate 20 mm movement still failed.
+The workflow pins the alignment document. Rotation and georeferencing
+reconciliation remain outside this translation check.
 
 The Revit 2013 IFC2X3 community Duplex Plumbing export at commit
 `31eb1dd0a0406fb9ebf0ebd823b48e1ec95afc08`, SHA-256

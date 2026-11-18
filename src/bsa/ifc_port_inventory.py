@@ -104,7 +104,7 @@ def compare(baseline, current):
     )
 
 
-def compare_positions(previous, current, tolerance):
+def compare_positions(previous, current, tolerance, *, alignment=None):
     before = {row['guid']: row['origin_m'] for row in previous['ports']}
     after = {row['guid']: row['origin_m'] for row in current['ports']}
     moved, unavailable = [], []
@@ -114,14 +114,20 @@ def compare_positions(previous, current, tolerance):
         if a is None or b is None:
             unavailable.append(guid)
             continue
-        displacement = math.dist(a, b)
+        aligned = b if alignment is None else [value+offset for value, offset in
+                                                zip(b, alignment['current_to_baseline_m'], strict=True)]
+        displacement = math.dist(a, aligned)
         if not math.isfinite(displacement):
             raise ValueError('Nonfinite IFC port displacement')
         if displacement > tolerance:
-            moved.append(dict(guid=guid, before_m=a, after_m=b, displacement_m=displacement))
+            record = dict(guid=guid, before_m=a, after_m=b, displacement_m=displacement)
+            if alignment is not None:
+                record['aligned_after_m'] = aligned
+            moved.append(record)
     return dict(tolerance_m=tolerance, comparable_ports=len(shared)-len(unavailable),
                 unavailable_ports=unavailable, moved_ports=moved,
-                coordinate_basis='Assumed common IFC model frame; georeferencing not reconciled')
+                coordinate_basis=('Declared translation into baseline frame' if alignment is not None
+                                  else 'Assumed common IFC model frame; georeferencing not reconciled'))
 
 
 def inspect_pair_gaps(inventory, tolerance):
@@ -145,7 +151,29 @@ def inspect_pair_gaps(inventory, tolerance):
                 scope='Distances between exported port origins only; physical joint and profile unresolved')
 
 
-def inventory(source, position_tolerance_m=None, *, baseline=None, max_port_shift_m=None):
+def read_alignment(path, previous, current):
+    path = Path(path).resolve()
+    if not workspace.allowed(path):
+        raise ValueError('IFC alignment must be in the permitted workspace')
+    before = file_hash(path)
+    spec = json.loads(path.read_text(encoding='utf-8-sig'))
+    if (not isinstance(spec, dict)
+            or set(spec) != {'source', 'baseline_sha256', 'current_sha256', 'current_to_baseline_m'}
+            or not isinstance(spec['source'], str) or not spec['source'].strip()
+            or spec['baseline_sha256'] != previous['source_sha256']
+            or spec['current_sha256'] != current['source_sha256']):
+        raise ValueError('Alignment requires a source locator and hashes of both IFC exports')
+    translation = spec['current_to_baseline_m']
+    if not isinstance(translation, list) or len(translation) != 3 or any(
+        type(value) not in (int, float) or not math.isfinite(value) for value in translation
+    ):
+        raise ValueError('Alignment requires three finite metre offsets')
+    if file_hash(path) != before:
+        raise ValueError('IFC alignment changed during reading')
+    return dict(**spec, sha256=before)
+
+
+def inventory(source, position_tolerance_m=None, *, baseline=None, max_port_shift_m=None, alignment=None):
     positions = position_tolerance_m is not None
     if positions and (type(position_tolerance_m) not in (int, float)
                       or not math.isfinite(position_tolerance_m) or position_tolerance_m <= 0):
@@ -155,6 +183,8 @@ def inventory(source, position_tolerance_m=None, *, baseline=None, max_port_shif
         or not math.isfinite(max_port_shift_m) or max_port_shift_m <= 0
     ):
         raise ValueError('Port shift limit requires a baseline and positive finite metre tolerances')
+    if alignment is not None and (baseline is None or not positions):
+        raise ValueError('IFC coordinate alignment requires a baseline and position checks')
     result = inspect(source, positions=positions)
     if positions:
         result['connection_gaps'] = inspect_pair_gaps(result, position_tolerance_m)
@@ -162,7 +192,13 @@ def inventory(source, position_tolerance_m=None, *, baseline=None, max_port_shif
         previous = inspect(baseline, positions=positions)
         result['comparison'] = comparison = compare(previous, result)
         if positions:
-            comparison['positions'] = compare_positions(previous, result, max_port_shift_m or position_tolerance_m)
+            transform = read_alignment(alignment, previous, result) if alignment is not None else None
+            comparison['positions'] = compare_positions(previous, result, max_port_shift_m or position_tolerance_m,
+                                                       alignment=transform)
+            if transform is not None:
+                comparison['alignment'] = transform
+                if file_hash(alignment) != transform['sha256']:
+                    raise ValueError('IFC alignment changed during comparison')
         if max_port_shift_m is not None:
             comparison['max_port_shift_m'] = max_port_shift_m
         if file_hash(baseline) != previous['source_sha256'] or file_hash(source) != result['source_sha256']:
@@ -196,12 +232,13 @@ def review_status(report):
     return status, reason
 
 
-def run(source, out, *, baseline=None, position_tolerance_m=None, max_port_shift_m=None):
+def run(source, out, *, baseline=None, position_tolerance_m=None, max_port_shift_m=None, alignment=None):
     source, out = (Path(p).resolve() for p in (source, out))
     if not workspace.intake_output(out) or out.exists():
         raise ValueError('Fresh IFC report in the permitted output workspace required')
     positions = position_tolerance_m is not None
-    result = inventory(source, position_tolerance_m, baseline=baseline, max_port_shift_m=max_port_shift_m)
+    result = inventory(source, position_tolerance_m, baseline=baseline, max_port_shift_m=max_port_shift_m,
+                       alignment=alignment)
     summary = {key: result[key] for key in ('source_sha256', 'schema', 'preprocessor', 'counts', 'design_accepted')}
     if positions:
         gaps = result['connection_gaps']
