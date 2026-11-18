@@ -51,7 +51,7 @@ class RevitRevisionTests(unittest.TestCase):
                  request_sha256=request_hash, assembly_sha256=adapter_hash))
             created = save('creation.json', dict(input_rvt_sha256=source_hash, request_sha256=request_hash,
                 adapter_sha256=adapter_hash, saved_rvt_sha256=authored_hash,
-                transaction_result={'unique_id': self.pipe['unique_id']}))
+                transaction_result={'unique_id': self.pipe['unique_id'], 'connector_count': 2}))
             reopen = save('reopen.json', dict(saved_rvt_sha256=authored_hash, request_sha256=reopen_hash,
                                             assembly_sha256=adapter_hash))
             self.pipe['connectors'] = [dict(id=index, origin_m=point, domain='DomainPiping',
@@ -64,6 +64,12 @@ class RevitRevisionTests(unittest.TestCase):
             result = verify(root, created, authored, observed, reopen, 0.001)
             self.assertTrue(result['pipe_matches_capture'])
             self.assertFalse(result['native_execution_authenticated'])
+            self.assertEqual(result['connector_endpoint_error_m'], 0)
+            self.pipe['connectors'][1]['origin_m'] = self.pipe['connectors'][0]['origin_m']
+            save('inventory.json', inventory)
+            with self.assertRaisesRegex(ValueError, 'distinct curve endpoints'):
+                verify(root, created, authored, observed, reopen, 0.001)
+            self.pipe['connectors'][1]['origin_m'] = self.pipe['endpoints_m'][1]
             self.pipe['endpoints_m'] = [[0, 1, 0], [2, 1, 0]]
             save('inventory.json', inventory)
             with self.assertRaisesRegex(ValueError, 'identity or geometry'):

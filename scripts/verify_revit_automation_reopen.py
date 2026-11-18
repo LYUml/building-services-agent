@@ -1,6 +1,7 @@
 """Reconcile a Revit creation receipt with a separately collected saved inventory."""
 import argparse
 import json
+import math
 from pathlib import Path, PureWindowsPath
 
 from bsa import workspace
@@ -34,7 +35,20 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
     revisions = [row for row in checked['revision_checks'] if row['owner'] == identifier]
     if len(pipes) != 1 or len(revisions) != 1 or revisions[0]['status'] != 'consistent':
         raise ValueError('Reopened pipe identity or geometry does not match the transaction')
-    captured_request = pipes[0]['creation_provenance']['creation_request']
+    pipe = pipes[0]
+    connectors = pipe['connectors']
+    if (created['transaction_result'].get('connector_count') != 2 or len(connectors) != 2
+            or any(c['domain'] != 'DomainPiping' or c['connector_type'] != 'End' for c in connectors)):
+        raise ValueError('Reopened pipe must retain two piping end connectors')
+    origins = [connector['origin_m'] for connector in connectors]
+    endpoints = pipe['endpoints_m']
+    connector_error = min(
+        max(math.dist(origin, endpoint) for origin, endpoint in zip(order, endpoints, strict=True))
+        for order in (origins, origins[::-1])
+    )
+    if origins[0] == origins[1] or connector_error > tolerance_m:
+        raise ValueError('Reopened pipe connector origins do not match distinct curve endpoints')
+    captured_request = pipe['creation_provenance']['creation_request']
     # APS binds the prepared request to the engine-local input model path.
     if (PureWindowsPath(captured_request['DocumentPath']).name.lower() != 'input.rvt'
             or {k: v for k, v in captured_request.items() if k != 'DocumentPath'}
@@ -48,6 +62,7 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
         'creation_sha256': pins[creation],
         'inventory_sha256': pins[inventory],
         'pipe_matches_capture': True,
+        'connector_endpoint_error_m': connector_error,
         'native_execution_authenticated': False,
         'connected_system_verified': False,
         'design_accepted': False,

@@ -75,8 +75,9 @@ read-only inventory Activity. Then reconcile both sets of local evidence:
 python scripts/verify_revit_automation_reopen.py --write-stage <stage-directory> --creation <creation.json> --authored <authored.rvt> --inventory <inventory.json> --reopen-preparation <preparation.json> --tolerance-m <metres>
 ```
 
-This checks the file hashes and compares the created pipe's identity and
-observed geometry with the staged request. It does not authenticate APS
+This checks the file hashes, compares the pipe identity and geometry with the
+staged request, and matches the two piping connector origins to separate curve
+ends within the declared tolerance. It does not authenticate APS
 execution, establish system connectivity or accept the design.
 
 Add `--model runs/<test-fixture>.rvt` to generate the hash-bound
