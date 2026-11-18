@@ -162,8 +162,9 @@ $env:BSA_ACADSHARP_WORKER = (Resolve-Path (Join-Path $workerOutput 'Bsa.DwgReadb
 
 Pass these variables in the environment that launches the CLI or MCP server.
 Use a fresh build directory for each rebuild so an in-flight CLI, MCP or
-regression run keeps its configured binaries. Save `worker_sha256` and
-`reader_sha256` from the report when recording regression evidence. The report
+regression run keeps its configured binaries. The summary and report include
+SHA-256 values for the DWG, the comparison DXF when supplied, the worker and
+the loaded ACadSharp library. The report
 compares insertion units, modelspace identity, supported geometry, block
 reference placement and text display properties. Block definitions, nested
 geometry, plot styles and PDF glyph placement require other evidence. For

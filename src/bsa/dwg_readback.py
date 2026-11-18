@@ -143,7 +143,7 @@ def run(source, out, reference_dxf=None, *, expected_hashes=None):
     if reference is not None:
         comparison = compare_reference(entities, result['insunits'], reference)
         result['comparison'] = dict(reference_sha256=reference_hash, **comparison)
-        summary = dict(correspondence_pass=comparison['correspondence_pass'],
+        summary = dict(reference_sha256=reference_hash, correspondence_pass=comparison['correspondence_pass'],
                        difference_count=len(comparison['differences']),
                        geometry_compared_count=comparison['geometry_compared_count'],
                        identity_only_counts_by_type=comparison['identity_only_counts_by_type'])
@@ -156,6 +156,7 @@ def run(source, out, reference_dxf=None, *, expected_hashes=None):
     with out.open('x', encoding='utf-8') as stream:
         stream.write(report)
     return dict(report=str(out), report_sha256=file_hash(out), source_sha256=source_hash,
+                worker_sha256=worker_hash, reader_sha256=reader_hash,
                 entity_count=len(entities), insunits=result['insunits'],
                 counts=dict(sorted(Counter(row['type'] for row in entities).items())),
                 native_autocad_executed=False, design_accepted=False, **summary)

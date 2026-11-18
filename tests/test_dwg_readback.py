@@ -63,7 +63,8 @@ class DwgReadbackTests(unittest.TestCase):
                         result = await session.call_tool('bsa_read_dwg_inventory', args)
                         self.assertFalse(result.isError, result.content)
                         self.assertEqual(result.structuredContent['report_sha256'], summary['report_sha256'])
-                        for field in ('geometry_compared_count', 'identity_only_counts_by_type'):
+                        for field in ('geometry_compared_count', 'identity_only_counts_by_type',
+                                      'source_sha256', 'reference_sha256', 'worker_sha256', 'reader_sha256'):
                             self.assertEqual(result.structuredContent[field], summary[field])
                         repeated = await session.call_tool('bsa_read_dwg_inventory', args)
                         self.assertTrue(repeated.isError)
@@ -77,8 +78,13 @@ class DwgReadbackTests(unittest.TestCase):
             self.assertEqual(summary['geometry_compared_count'], 5)
             self.assertEqual(summary['identity_only_counts_by_type'], {})
             self.assertEqual(report['source_sha256'], original)
-            reader = Path(os.environ['BSA_ACADSHARP_WORKER']).with_name('ACadSharp.dll')
+            worker = Path(os.environ['BSA_ACADSHARP_WORKER'])
+            reader = worker.with_name('ACadSharp.dll')
             self.assertEqual(report['reader_sha256'], file_hash(reader))
+            self.assertEqual(summary['reader_sha256'], report['reader_sha256'])
+            self.assertEqual(summary['worker_sha256'], file_hash(worker))
+            self.assertEqual(summary['reference_sha256'], file_hash(reference))
+            self.assertEqual(report['comparison']['reference_sha256'], summary['reference_sha256'])
             expected = {e.dxf.handle: e for e in ezdxf.readfile(FIXTURE / 'source-export.dxf').modelspace()}
             actual = {row['handle']: row for row in report['entities']}
             self.assertEqual({h: (r['type'], r['layer']) for h, r in actual.items()},
