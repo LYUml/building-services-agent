@@ -51,6 +51,9 @@ public static partial class NativePipes
             if (diameter is null || diameter.IsReadOnly || !diameter.Set(Feet(request.DiameterMetres)))
                 throw new InvalidOperationException("Native diameter could not be set");
             doc.Regenerate();
+            var actualSystemTypeId = pipe.get_Parameter(BuiltInParameter.RBS_PIPING_SYSTEM_TYPE_PARAM)?.AsElementId();
+            if (pipe.GetTypeId() != pipeType.Id || actualSystemTypeId != systemType.Id || pipe.ReferenceLevel?.Id != level.Id)
+                throw new InvalidOperationException("Native pipe type, system type or reference level differs from request");
             var curve = ((LocationCurve)pipe.Location).Curve;
             if (Math.Abs(Metres(pipe.Diameter) - request.DiameterMetres) > 1e-8
                 || curve.GetEndPoint(0).DistanceTo(start) > 1e-7
