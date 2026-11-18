@@ -1,5 +1,7 @@
 import importlib.util
+import json
 from pathlib import Path
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -10,6 +12,37 @@ SPEC.loader.exec_module(setup)
 
 
 class BootstrapTests(unittest.TestCase):
+    def test_release_restore_allows_only_committed_export_exclusions(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder).resolve()
+
+            def git(*args):
+                return subprocess.check_output(['git', *args], cwd=root, text=True).strip()
+
+            git('init', '-q')
+            (root / '.gitattributes').write_text('historical.dxf export-ignore\n', encoding='utf-8')
+            historical = root / 'historical.dxf'
+            historical.write_bytes(b'historical fixture')
+            required = root / 'required.py'
+            required.write_bytes(b'print(1)\n')
+            git('add', '.')
+            git('-c', 'user.name=BSA fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-qm', 'fixture')
+            commit = git('rev-parse', 'HEAD')
+            git('remote', 'add', 'origin', str(root))
+            (root / '.bsa-release.json').write_text(json.dumps({'commit': commit}), encoding='utf-8')
+            historical.unlink()
+            with patch.object(setup, 'ROOT', root):
+                setup.restore_source_git()
+                self.assertFalse(historical.exists())
+                required.unlink()
+                with self.assertRaisesRegex(ValueError, 'differ from the release'):
+                    setup.restore_source_git()
+                self.assertFalse(required.exists())
+                required.write_bytes(b'print(2)\n')
+                with self.assertRaisesRegex(ValueError, 'differ from the release'):
+                    setup.restore_source_git()
+                self.assertEqual(required.read_bytes(), b'print(2)\n')
+
     def test_protected_root_rejected_without_writes(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder) / 'polyu_bse3124'
