@@ -28,3 +28,20 @@ class RevitFileMetadataTests(unittest.TestCase):
             self.assertNotIn('username', result)
             self.assertNotIn('central_model_path', result)
             self.assertFalse(result['native_revit_executed'])
+
+    def test_report_rejects_a_model_changed_during_inspection(self):
+        with TemporaryDirectory() as directory:
+            source = Path(directory).resolve() / 'fixture.rvt'
+            source.write_bytes(b'original model')
+
+            def read_metadata(*, redact):
+                source.write_bytes(b'replaced model')
+                return dict(revit_version=2027, workshared=False)
+
+            reader = SimpleNamespace(
+                __version__='0.25.0',
+                RevitFile=Mock(return_value=SimpleNamespace(metadata=read_metadata)),
+            )
+            with patch.dict('os.environ', BSA_PROJECT_ROOT=str(source.parent)), patch.dict(sys.modules, rvt=reader):
+                with self.assertRaisesRegex(ValueError, 'changed during metadata inspection'):
+                    inspect(source)
