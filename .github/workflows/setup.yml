@@ -22,6 +22,12 @@ jobs:
           if [ "$RUNNER_OS" = "Windows" ]; then P=.bsa/venv/Scripts/python.exe; fi
           "$P" -m unittest tests.test_bootstrap tests.test_codex_setup tests.test_project_skills -v
           python scripts/bootstrap.py
+      - name: Check offline Revit contracts
+        shell: bash
+        run: |
+          P=.bsa/venv/bin/python
+          if [ "$RUNNER_OS" = "Windows" ]; then P=.bsa/venv/Scripts/python.exe; fi
+          "$P" -m unittest tests.test_revit_file_metadata tests.test_revit_request tests.test_revit_connectivity tests.test_revit_automation_bundle tests.test_revit_revision -v
       - name: Verify external project skills and MCP together
         run: python -c "from pathlib import Path; import subprocess,sys; p=Path('runs/external project').resolve(); p.mkdir(); subprocess.run([sys.executable,'scripts/bootstrap.py','--project-root',str(p)],check=True); assert len(list((p/'.agents/skills').glob('*/SKILL.md')))==11"
       - name: Install the extracted source candidate and exercise CLI and MCP
