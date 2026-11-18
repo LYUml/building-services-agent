@@ -2910,3 +2910,14 @@ the reversible group, including a forced mismatch and rollback. The upstream
 implementation and its numerical tolerances were not imported or run.
 [Native route source](https://github.com/HorizunGroup/horizun-revit-mcp/blob/d1c94a0f7bbf5875199f2ebd1bfcc618d3049b6f/src/Horizun.Revit/Commands/MepRoutingRoute.cs) ·
 [Transaction wrapper](https://github.com/HorizunGroup/horizun-revit-mcp/blob/d1c94a0f7bbf5875199f2ebd1bfcc618d3049b6f/src/Horizun.Revit/Commands/MepRoutingCommand.cs)
+
+The pinned Geberit Revit.TestRunner source built locally for `Release2027`
+with `SkipAddinInstall=true` (17 warnings, zero errors). The unfiltered
+offline suite returned 21 passes and four deliberate failure demonstrations.
+Excluding the two `TryOutTest` demonstration fixtures gave 19 passes.
+The console client produces NUnit XML but runs native tests through an
+installed add-in in a licensed desktop Revit session. It may start and close
+its own Revit process. No add-in was installed and no session was launched.
+The useful target is a dedicated authorized Revit host for create, rollback,
+save and fresh reopen tests. Local signing and native execution remain open.
+[Pinned TestRunner usage](https://github.com/geberit/Revit.TestRunner/blob/6cd268d32e56f309d2a4c02a21ad452273827843/documentation/Documentation.md)
