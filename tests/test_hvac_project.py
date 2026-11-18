@@ -48,6 +48,12 @@ class NativeTerminalDeliveryTests(unittest.TestCase):
         self.assertFalse(result['design_accepted'])
         for name in ('report/HVAC System Design.html', 'report-pdf/HVAC System Design.pdf', 'terminal-review.json'):
             self.assertTrue((output/name).is_file(), name)
+        review = json.loads((output/'terminal-review.json').read_bytes())
+        routes = [route for group in review['groups'] for route in group['routes']]
+        self.assertEqual(len(routes), 4)
+        for route in routes:
+            for field in ('vav_endpoint_gap_m', 'terminal_endpoint_gap_m'):
+                self.assertLessEqual(route[field], review['correspondence_tolerance_m'])
 
 
 class HVACProjectTests(unittest.TestCase):

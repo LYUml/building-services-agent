@@ -135,7 +135,10 @@ def inspect(doc, allocation, tree, binding, layers):
                 if not near(actual, symbol):
                     raise ValueError(f"Flex handle {line.dxf.handle} endpoint {actual} m is separated from "
                                      f"{peer} (handle {handle}) at {symbol} m by {math.dist(actual, symbol):.6g} m")
-            routes.append(dict(terminal=tid,terminal_handle=terminals[tid],flex_handle=line.dxf.handle,plan_length_m=math.dist(start,end)))
+            routes.append(dict(terminal=tid,terminal_handle=terminals[tid],flex_handle=line.dxf.handle,
+                               plan_length_m=math.dist(start,end),
+                               vav_endpoint_gap_m=math.dist(saved_start,saved_vav),
+                               terminal_endpoint_gap_m=math.dist(saved_end,symbol_centers[terminals[tid]])))
         groups.append(dict(id=leaf,vav_handle=circle.dxf.handle,outlet_count=len(members),maximum_flow_L_s=aggregation['leaf_flow_L_s'][leaf],routes=routes))
     if any(pools.values()):
         details = []
@@ -151,7 +154,8 @@ def inspect(doc, allocation, tree, binding, layers):
                 handles.append(handle)
             details.append(f"{layers[role]} ({len(entities)}): {', '.join(handles)}")
         raise ValueError(f"Unbound entities remain on scoped layers: {'; '.join(details)}")
-    return dict(groups=groups,terminal_count=len(centers),rigid_section_count=len(tree['sections']),correspondence_pass=True,
+    return dict(groups=groups,terminal_count=len(centers),rigid_section_count=len(tree['sections']),
+                correspondence_tolerance_m=1e-8,correspondence_pass=True,
                 maximum_plan_length_m=max(r['plan_length_m'] for g in groups for r in g['routes']),design_accepted=False,
                 scope='Declared group membership matches saved planar symbols and straight centre-to-centre lines. Not physical ports, installed flex length, labels, 3D coordination or regulation acceptance.')
 
