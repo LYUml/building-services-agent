@@ -10,7 +10,13 @@ ignored local runs. [Release](https://github.com/firemodels/fds/releases/tag/FDS
 
 Download the published Windows package and the unchanged
 [temperature case](https://github.com/firemodels/fds/blob/FDS-6.11.1/Verification/Miscellaneous/devc_interpolation_temperature.fds).
-Run `python scripts/probe_fds_temperature.py --release <package.exe> --source <case.fds> --out <new-run>`.
+Run `bsa fds-temperature-probe --release <package.exe> --source <case.fds> --out <new-run>`.
+The installed Python module and the original script delegate to the same
+runner. MCP `bsa_run_fds_temperature_probe` accepts project-relative
+`source` and `out`. Supply `--fds-release <package.exe>` at host startup.
+Both interfaces ran the actual bundled engine and reproduced the same
+line-table SHA-256 and numerical deviations. The stdio test also exercises
+missing host configuration and rejects tool-supplied runtime overrides.
 Both inputs must match the probe pins. It retains native outputs and their
 hashes. Console and native completion markers, the release identity, and the
 final simulation time are checked before the line table is read.

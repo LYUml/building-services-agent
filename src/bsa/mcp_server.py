@@ -15,7 +15,7 @@ from .host_runtime import OPTIONS,PATH_ARGUMENTS
 SDK_VERSION='1.30.0'
 
 
-def create_server(*,execute_options=None,pdftoppm=None,report_font=None):
+def create_server(*,execute_options=None,pdftoppm=None,report_font=None,fds_release=None):
     from mcp.server.fastmcp import FastMCP
     from mcp.types import ToolAnnotations,CallToolResult,ImageContent,TextContent
     from pydantic import Field
@@ -58,6 +58,13 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None):
 
     read=ToolAnnotations(readOnlyHint=True,destructiveHint=False,idempotentHint=True,openWorldHint=False)
     write=ToolAnnotations(readOnlyHint=False,destructiveHint=False,idempotentHint=False,openWorldHint=False)
+
+    @server.tool(annotations=write)
+    def bsa_run_fds_temperature_probe(source:str,out:str)->dict[str,Any]:
+        """Run the pinned NIST temperature case using the host-configured Windows release."""
+        if fds_release is None:
+            raise ValueError('Explicit host FDS release configuration required')
+        return invoke('bsa.fds_temperature.run',fds_release,local(source),local(out))
 
     @server.tool(annotations=write)
     def bsa_prepare_revit_pipe(inventory:str,model:str,basis:str,out:str)->dict[str,Any]:
@@ -356,7 +363,9 @@ def main():
     a=p.parse_args();names=('energyplus','autocad','radiance_bin','ifcmcp_python','three_phase_python','graphviz','pdf2plot_python','honeybee_python')
     options={key:getattr(a,key).resolve() for key in names if getattr(a,key) is not None}
     options.update(disabled_module_providers=a.disable_module_provider,module_runtime={key:value.resolve() for key,value in dict(upstream=a.moosas_upstream,deps=a.moosas_deps).items() if value is not None})
-    create_server(execute_options=options,pdftoppm=a.pdftoppm.resolve() if a.pdftoppm else None,report_font=a.report_font.resolve() if a.report_font else None).run(transport='stdio')
+    create_server(execute_options=options,pdftoppm=a.pdftoppm.resolve() if a.pdftoppm else None,
+                  report_font=a.report_font.resolve() if a.report_font else None,
+                  fds_release=a.fds_release.resolve() if a.fds_release else None).run(transport='stdio')
 
 
 if __name__=='__main__':main()

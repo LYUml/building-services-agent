@@ -76,6 +76,9 @@ def main():
     from .changes.cli import configure as configure_changes
     configure_changes(sub)
     from . import revit_connectivity, revit_request
+    from . import fds_temperature
+    fds_temperature.add_arguments(sub.add_parser(
+        'fds-temperature-probe', help='Run the pinned NIST Windows FDS temperature case'))
     revit_connectivity.add_arguments(sub.add_parser(
         'revit-inventory-check', help='Diagnose a saved Revit pipe and fitting inventory'))
     revit_request.add_arguments(sub.add_parser(
@@ -150,6 +153,8 @@ def main():
     s.add_argument('--moosas-deps',type=Path)
     a=parser.parse_args()
     try:
+        if a.command=='fds-temperature-probe':
+            print(json.dumps(fds_temperature.run(a.release,a.source,a.out),indent=2));return 0
         if a.command=='revit-prepare-pipe':
             from .workspace import project_root
             result=revit_request.prepare(a.inventory,a.model,a.basis,a.out,scope=project_root())

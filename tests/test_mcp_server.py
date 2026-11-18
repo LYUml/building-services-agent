@@ -23,6 +23,23 @@ ROOT=Path(__file__).resolve().parents[1]
 
 @unittest.skipUnless(importlib.util.find_spec('mcp'),'requires optional pinned MCP SDK')
 class MCPServerTests(unittest.IsolatedAsyncioTestCase):
+    async def test_fds_probe_requires_host_release_and_rejects_runtime_override(self):
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+            root=Path(folder)
+            params=StdioServerParameters(command=sys.executable,args=['-m','bsa.mcp_server'],
+                cwd=str(ROOT),env={**os.environ,'BSA_PROJECT_ROOT':str(root)})
+            async with stdio_client(params) as streams:
+                async with ClientSession(*streams) as session:
+                    await session.initialize()
+                    args=dict(source='case.fds',out='case-output')
+                    tool='bsa_run_fds_temperature_probe'
+                    missing=await session.call_tool(tool,args)
+                    self.assertTrue(missing.isError)
+                    self.assertIn('host FDS release',missing.content[0].text)
+                    override=await session.call_tool(tool,{**args,'release':'arbitrary.exe'})
+                    self.assertTrue(override.isError)
+                    self.assertFalse((root/'case-output').exists())
+
     async def test_revit_pipe_preparation_cli_and_stdio(self):
         from bsa.source_refs import file_hash
         with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
@@ -136,7 +153,7 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                     async with ClientSession(read,write) as session:
                         initialized=(await session.initialize()).model_dump(mode='json')
                         tools=(await session.list_tools()).tools
-                        self.assertEqual(len(tools),44)
+                        self.assertEqual(len(tools),45)
                         self.assertIn('bsa_check_revit_inventory', {tool.name for tool in tools})
                         self.assertTrue({'bsa_draw_document','bsa_inspect_drawing_document'} <= {tool.name for tool in tools})
                         for tool in tools:

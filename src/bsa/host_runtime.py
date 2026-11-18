@@ -6,5 +6,6 @@ PATH_ARGUMENTS={
     'autocad':'file','pdftoppm':'file','energyplus':'file',
     'ifcmcp-python':'file','three-phase-python':'file','graphviz':'file',
     'pdf2plot-python':'file','honeybee-python':'file','report-font':'file',
+    'fds-release':'file',
     'radiance-bin':'directory','moosas-upstream':'directory','moosas-deps':'directory',
 }

@@ -57,7 +57,7 @@ python -m bsa.codex_setup --graphviz HOST_EVALUATED_DOT_EXE --refresh
 ```
 
 Refresh changes only explicitly provided runtime flags and preserves unrelated
-settings/unspecified runtimes. New tests cover all12path flags, wrong path kinds,
+settings/unspecified runtimes. Tests cover the supported runtime path flags, wrong path kinds,
 unknown policy arguments, idempotency and selective Graphviz refresh. A real
 isolated profile and the development profile were recognized by Codex; the then
 40tool names matched the actual local server declarations and a reference call
