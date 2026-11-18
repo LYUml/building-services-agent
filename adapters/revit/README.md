@@ -70,7 +70,14 @@ Actual work-item execution remains pending.
 
 `adapters/revit-tests/Bsa.Revit.NativeTests.csproj` builds an NUnit fixture
 against the desktop adapter using .NET 10 and a locked NUnit dependency.
-Build with `-p:RestoreLockedMode=true`. On a dedicated, authorized Revit 2027
+From the repository root, build into an ignored run directory:
+
+```powershell
+dotnet build adapters/revit-tests/Bsa.Revit.NativeTests.csproj -c Release -warnaserror -p:RestoreLockedMode=true --artifacts-path runs/revit-native-test-build
+```
+
+Pass `runs/revit-native-test-build/bin/Bsa.Revit.NativeTests/release/Bsa.Revit.NativeTests.dll`
+to Revit.TestRunner. On a dedicated, authorized Revit 2027
 test host, run `CapturesSyntheticPipeInventory` first with the absolute
 test RVT in `BSA_REVIT_TEST_RVT`. It reports the copied model path and
 native inventory. Run `bsa revit-file-metadata <fixture.rvt> --engine-release 2027`
@@ -108,7 +115,7 @@ elbow. Choose endpoints in an empty part of the model with enough leg length
 for the fitting. The test creates a perpendicular second leg and a native
 elbow in a separate copy. It checks the two reciprocal physical connector
 pairs, coincident origins and stable connector IDs before and after saving.
-The test records the pre-save pairs and pipe-end coordinates in
+The test records the pre-save pairs and all four pipe and fitting connector coordinates in
 `expected-connections.json`. Pass that
 file as `--expected-connections` to `bsa revit-inventory-check` alongside the
 authored RVT and reopened inventory to check the same pairs offline.
