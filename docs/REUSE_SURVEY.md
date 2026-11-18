@@ -61,6 +61,14 @@ times, including 0.45 and 0.65 s in this release's output, and retains errors
 for each device. This limited check establishes point-output behavior for one
 case. The upstream interpolation deviations remain separate.
 
+A workflow can consume saved probe evidence using kind
+`fds_temperature_review` with a plan-relative `report` path ending in
+`report.json`. The task pins the input deck, binaries, report and relevant
+native outputs, then writes `probe-review.json`. Its engineering status
+remains pending, including after the uniform point check passes. Actual
+CLI and MCP workflows both reproduced the saved uniform check, blocked a
+dependent manual task, and detected a changed upstream CSV during verification.
+
 ## Offline Revit inventory access
 
 The main CLI and MCP tool reuse the existing saved-inventory diagnostic and

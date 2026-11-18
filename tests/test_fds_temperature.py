@@ -1,11 +1,44 @@
 import tempfile
 import unittest
+import json
 from pathlib import Path
+from unittest.mock import patch
 
 from bsa.fds_temperature import inspect_steps, point_temperature_errors
+from bsa.source_refs import file_hash
+from bsa.workflow import execute, verify
 
 
 class FdsTemperatureTests(unittest.TestCase):
+    def test_workflow_retains_pending_gate_and_pins_reviewed_artifacts(self):
+        runs = Path(__file__).resolve().parents[1]/'runs'
+        runs.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=runs) as folder:
+            root = Path(folder)
+            brief = root/'brief.md'
+            statement = 'Review saved temperature evidence.'
+            brief.write_text(statement, encoding='utf-8')
+            report = root/'report.json'
+            report.write_text('{}', encoding='utf-8')
+            table = root/'table.csv'
+            table.write_text('synthetic evidence', encoding='utf-8')
+            plan = root/'plan.json'
+            plan.write_text(json.dumps(dict(version=1, brief=brief.name, brief_sha256=file_hash(brief),
+                passage_dispositions={'P001':'requirement'},
+                tasks=[dict(id='review', kind='fds_temperature_review', report=report.name)],
+                requirements=[dict(id='R1', passage='P001', quote=statement, task='review',
+                                   acceptance=statement)])), encoding='utf-8')
+            out = root/'out'
+            with patch('bsa.fds_temperature.evidence_paths', return_value=(report, table)), patch(
+                'bsa.fds_temperature.verify', return_value={'integrity_pass': True},
+            ):
+                result = execute(plan, out)
+            self.assertEqual(result['tasks']['review']['status'], 'pending')
+            self.assertTrue((out/'review/probe-review.json').is_file())
+            self.assertTrue(verify(out)['integrity_pass'])
+            table.write_text('changed evidence', encoding='utf-8')
+            self.assertFalse(verify(out)['integrity_pass'])
+
     def test_point_temperature_preserves_deviation_and_rejects_wrong_units(self):
         rows = ''.join(f'{time},22.5,22.5\n' for time in (0, 0.2, 0.45, 0.65, 0.8, 1))
         with tempfile.TemporaryDirectory() as folder:

@@ -129,20 +129,22 @@ def run(release, source, out):
     return report
 
 
-def inspect_outputs(out, case=CASE):
+def output_paths(out, case):
     if not isinstance(case, str) or case not in INPUTS:
         raise ProjectError('Unsupported saved FDS probe case')
-    uniform = case == UNIFORM_CASE
-    log = 'case/console.log'
-    native = f'case/{case}.out'
-    version = f'case/{case}_git.txt'
-    steps = f'case/{case}_steps.csv'
-    table = f"case/{case}_{'devc' if uniform else 'line'}.csv"
-    source = f'case/{case}.fds'
-    artifacts = (LAUNCHER, ENGINE, log, native, version, steps, table)
-    paths = {name: (out/name).resolve() for name in (*artifacts, source)}
+    names = (LAUNCHER, ENGINE, 'case/console.log', f'case/{case}.out',
+             f'case/{case}_git.txt', f'case/{case}_steps.csv',
+             f"case/{case}_{'devc' if case == UNIFORM_CASE else 'line'}.csv", f'case/{case}.fds')
+    paths = {name: (out/name).resolve() for name in names}
     if any(not path.is_relative_to(out) or not path.is_file() for path in paths.values()):
         raise ProjectError('Missing FDS evidence or artifact path escapes the run')
+    return paths
+
+
+def inspect_outputs(out, case=CASE):
+    paths = output_paths(out, case)
+    _, _, log, native, version, steps, table, source = paths
+    uniform = case == UNIFORM_CASE
     before = {name: digest(path) for name, path in paths.items()}
     if before[source] != INPUTS[case] or any(before[name] != sha for name, sha in RUNTIME_HASHES.items()):
         raise ProjectError('FDS saved input or runtime differs from the pinned release')
@@ -160,13 +162,13 @@ def inspect_outputs(out, case=CASE):
     report = dict(engine=VERSION, native_completed=True, final_simulation_s=progression['final_simulation_s'],
                   time_step_progression=progression, release_sha256=RELEASE_SHA256, input_sha256=INPUTS[case],
                   max_abs_error_c=errors, numerical_acceptance='not_established',
-                  artifacts_sha256={name: before[name] for name in artifacts})
+                  artifacts_sha256={name: sha for name, sha in before.items() if name != source})
     if uniform:
         report.update(case=case, expected_temperature_c=22.5, point_temperature_check_pass=not any(errors.values()))
     return report
 
 
-def verify(out):
+def saved_report(out):
     out = Path(out).resolve()
     report_path = (out/'report.json').resolve()
     if not workspace.allowed(out) or not report_path.is_relative_to(out):
@@ -175,6 +177,16 @@ def verify(out):
     saved = json.loads(raw)
     if not isinstance(saved, dict):
         raise ProjectError('Invalid saved FDS report')
+    return out, report_path, raw, saved
+
+
+def evidence_paths(out):
+    out, report_path, _, saved = saved_report(out)
+    return (report_path, *output_paths(out, saved.get('case', CASE)).values())
+
+
+def verify(out):
+    out, report_path, raw, saved = saved_report(out)
     reconstructed = inspect_outputs(out, saved.get('case', CASE))
     expected = reconstructed.copy()
     if 'case' not in saved and 'time_step_progression' not in saved:
