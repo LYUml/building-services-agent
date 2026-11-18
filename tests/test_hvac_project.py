@@ -68,6 +68,20 @@ class NativeTerminalDeliveryTests(unittest.TestCase):
 
 
 class HVACProjectTests(unittest.TestCase):
+    def test_review_layer_alias_rejects_before_workflow(self):
+        from bsa.hvac_package import run as build_package
+
+        review = self.plan.parent/'review.json'
+        settings = json.loads(review.read_bytes())
+        settings['layers']['vav'] = settings['layers']['flex'].lower()
+        review.write_text(json.dumps(settings), encoding='utf-8')
+        output = self.root/'aliased-review'
+        with patch('bsa.hvac_package.execute') as execute:
+            with self.assertRaisesRegex(ValueError, 'Four distinct nonempty review layers'):
+                build_package(self.plan, output, font='unused', terminal_review=review)
+        execute.assert_not_called()
+        self.assertFalse(output.exists())
+
     def test_stale_project_reports_existing_drift_recovery_without_writing(self):
         self.create()
         data=json.loads(self.configuration.read_text())

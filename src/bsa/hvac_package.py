@@ -73,7 +73,9 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
         if kinds.get(review_settings['native_task'])!='duct_sheet_native':
             raise ValueError('Terminal review must select a declared native sheet task')
         layers=review_settings['layers']
-        if not isinstance(layers,dict) or set(layers)!={'supply','vav','terminal','flex'} or any(not isinstance(v,str) or not v.strip() for v in layers.values()) or len(set(layers.values()))!=4:
+        if (not isinstance(layers,dict) or set(layers)!={'supply','vav','terminal','flex'}
+                or any(not isinstance(v,str) or not v.strip() for v in layers.values())
+                or len({layer.casefold() for layer in layers.values()})!=4):
             raise ValueError('Four distinct nonempty review layers required')
     if autocad:protected.add(Path(autocad).resolve())
     if output.exists() or any(output==p or output in p.parents for p in protected):
