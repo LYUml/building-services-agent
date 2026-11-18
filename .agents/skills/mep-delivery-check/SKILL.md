@@ -5,6 +5,13 @@ description: Audit building services models, drawings, calculations, CFD evidenc
 
 # mep-delivery-check
 
+When reusing a report or drawing from another assignment as a style reference,
+check the current brief independently for deliverables and acceptance criteria.
+Carry over layout, typography and section structure where applicable. Bind
+every engineering value and claim in the new deliverable to its own sources.
+If the user has retained a main solution, keep comparison cases in the
+agreed appendix and identify whether each case was adopted.
+
 ## Verify connections and placement after a layout change
 
 Use this review for suspected gaps, wrong connections, misplaced equipment or
