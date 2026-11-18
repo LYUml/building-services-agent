@@ -100,9 +100,11 @@ class DwgReadbackTests(unittest.TestCase):
                                       cwd=ROOT, env=env, capture_output=True, check=False)
             self.assertEqual(mismatch.returncode, 2, mismatch.stderr)
             comparison = json.loads(difference_report.read_bytes())['comparison']
+            affected_fields = {line.dxf.handle: ['end'], insert.dxf.handle: ['rotation_angle_rad'],
+                               label.dxf.handle: ['rotation_angle_rad']}
             self.assertEqual(comparison['differences'], [dict(reason='drawing_units_differ', dwg_insunits=4, dxf_insunits=6)] + [
-                dict(handle=handle, reason='geometry_differs')
-                for handle in sorted((line.dxf.handle, insert.dxf.handle, label.dxf.handle))
+                dict(handle=handle, reason='geometry_differs', fields=affected_fields[handle])
+                for handle in sorted(affected_fields)
             ])
             stale_report = output / 'stale.json'
             with self.assertRaisesRegex(ValueError, 'differs from the verified revision artifact hashes'):

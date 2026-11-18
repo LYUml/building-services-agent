@@ -67,14 +67,22 @@ def compare_reference(entities, insunits, reference):
     geometry_count = 0
     for handle in sorted(actual.keys() & expected.keys()):
         row, entity = actual[handle], expected[handle]
-        if row['type'] != entity.dxftype() or row['layer'] != entity.dxf.layer:
-            differences.append(dict(handle=handle, reason='type_or_layer_differs'))
+        identity = dict(type=entity.dxftype(), layer=entity.dxf.layer)
+        fields = [key for key, value in identity.items() if row[key] != value]
+        if fields:
+            differences.append(dict(handle=handle, reason='type_or_layer_differs', fields=fields))
             continue
         geometry = dxf_geometry(entity)
         if geometry is not None:
             geometry_count += 1
-        if not equal_geometry(row['geometry'], geometry):
-            differences.append(dict(handle=handle, reason='geometry_differs'))
+        observed = row['geometry']
+        if not equal_geometry(observed, geometry):
+            fields = ['geometry']
+            if isinstance(observed, dict) and isinstance(geometry, dict):
+                fields = [key for key in sorted(observed.keys() | geometry.keys())
+                          if key not in observed or key not in geometry
+                          or not equal_geometry(observed[key], geometry[key], key)]
+            differences.append(dict(handle=handle, reason='geometry_differs', fields=fields))
     return dict(correspondence_pass=not differences, matched_handle_count=len(actual.keys() & expected.keys()),
                 geometry_compared_count=geometry_count, differences=differences,
                 numeric_absolute_tolerance_drawing_units=1e-7, angle_tolerance_rad=1e-9)
