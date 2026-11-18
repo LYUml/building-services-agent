@@ -58,9 +58,15 @@ def issue_records(report):
         yield f"IFC port ownership conflict {guid}", description, selected, port['origin_m']
 
     comparison = report.get('comparison')
-    if not comparison or comparison['status'] != 'shared_port_guids':
+    if comparison is None:
         return
     basis = f"{source}\nBaseline IFC SHA-256 {comparison['baseline_sha256']}"
+    if comparison['status'] == 'no_shared_port_guids':
+        description = (f'{basis}\nThe current and baseline exports share no port GUIDs.'
+                       '\nPeer changes and port movement remain unresolved.'
+                       '\nReview exported identities before comparing the two models.')
+        yield 'IFC baseline port identities unavailable', description, [], None
+        return
     for guid in comparison.get('added_ports', []):
         port = ports[guid]
         yield (f'IFC port added {guid}', f'{basis}\nPort {guid} appears only in the current export.',

@@ -138,6 +138,10 @@ ports' owner or flow direction when the exports share port identities.
 An offline trial changed one flow direction and replay confirmed one
 attribute topic. A second trial swapped two peers while retaining the
 relationship count and replay recovered four changed-pair topics.
+When two revisions share no port GUIDs, the BCF includes a baseline identity
+review topic without a viewpoint. A CLI round trip after regenerating all
+port GUIDs retained the pending baseline review, even though both current
+relationships were measurable and within the trial gap tolerance.
 New exports record the port gap tolerance in the BCF project name, including
 packages with zero issues. Verification returns the checked `tolerance_m` and
 `archive_tolerance_bound`. A legacy project name can still be replayed, but
