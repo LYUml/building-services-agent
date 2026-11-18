@@ -83,6 +83,14 @@ public static class ElementProvenance
         }
     }
 
+    internal static void VerifyCommittedRequest(Element element, PipeRequest request)
+    {
+        var payload = ReadPayload(element);
+        if (payload is null || payload.ElementUniqueId != element.UniqueId
+            || payload.RequestJson != JsonSerializer.Serialize(request))
+            throw new InvalidOperationException("Committed pipe creation provenance differs from the active request");
+    }
+
     public static object? Read(Element element)
     {
         var payload = ReadPayload(element);

@@ -64,8 +64,11 @@ public static partial class NativePipes
             var actualSystemTypeId = pipe.get_Parameter(BuiltInParameter.RBS_PIPING_SYSTEM_TYPE_PARAM)?.AsElementId();
             if (pipe.GetTypeId() != pipeType.Id || actualSystemTypeId != systemType.Id || pipe.ReferenceLevel?.Id != level.Id)
                 throw new InvalidOperationException("Native pipe type, system type or reference level differs from request");
-            var curve = ((LocationCurve)pipe.Location).Curve;
-            if (Math.Abs(Metres(pipe.Diameter) - request.DiameterMetres) > 1e-8
+            if (pipe.Location is not LocationCurve location || location.Curve is not Line curve || !curve.IsBound)
+                throw new InvalidOperationException("Committed pipe does not have a bounded straight centreline");
+            if (!double.IsFinite(pipe.Diameter) || !double.IsFinite(curve.Length)
+                || Math.Abs(curve.Length - start.DistanceTo(end)) > 1e-7
+                || Math.Abs(Metres(pipe.Diameter) - request.DiameterMetres) > 1e-8
                 || curve.GetEndPoint(0).DistanceTo(start) > 1e-7
                 || curve.GetEndPoint(1).DistanceTo(end) > 1e-7)
                 throw new InvalidOperationException("Native pipe readback differs from request");
@@ -75,8 +78,7 @@ public static partial class NativePipes
                 || connectors.Count(connector => connector.Origin.DistanceTo(start) <= 1e-7) != 1
                 || connectors.Count(connector => connector.Origin.DistanceTo(end) <= 1e-7) != 1)
                 throw new InvalidOperationException("Native piping end connectors differ from requested endpoints");
-            if (ElementProvenance.Read(pipe) is null)
-                throw new InvalidOperationException("Committed pipe has no readable creation provenance");
+            ElementProvenance.VerifyCommittedRequest(pipe, request);
             var result = new { unique_id = pipe.UniqueId, element_id = pipe.Id.Value.ToString(),
                 type_unique_id = pipeType.UniqueId, system_type_unique_id = systemType.UniqueId,
                 level_unique_id = level.UniqueId,
