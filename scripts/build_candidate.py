@@ -14,10 +14,11 @@ def build(out):
     if not out.is_relative_to(ROOT/'runs') or out.exists():
         raise ValueError('Fresh repository runs output required')
     commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
-    # Git archives the committed tree, never ignored runtimes or working changes.
+    # Archive the committed tree without checkout-dependent newline conversion.
     out.mkdir(parents=True)
     archive=out/'building-services-agent-source.zip'
-    subprocess.run(['git','archive','--format=zip','--output',str(archive),commit],cwd=ROOT,check=True)
+    subprocess.run(['git','-c','core.autocrlf=false','-c','core.eol=lf',
+                    'archive','--format=zip','--output',str(archive),commit],cwd=ROOT,check=True)
     with zipfile.ZipFile(archive) as saved:
         entries=saved.infolist()
         forbidden={'runs','tools','.git','.codex','.venv','.bsa','build','dist','__pycache__'}
