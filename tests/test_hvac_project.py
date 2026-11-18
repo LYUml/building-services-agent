@@ -56,6 +56,15 @@ class NativeTerminalDeliveryTests(unittest.TestCase):
                 self.assertLessEqual(route[field], review['correspondence_tolerance_m'])
         report = json.loads((output/'report/report.json').read_bytes())
         self.assertIn('maximum drawn flex-to-symbol endpoint gap', report['terminal_connection_summary'])
+        self.assertIn('report_pdf', result['stages'])
+
+        from bsa.hvac_report import run as render_report
+        routes[0]['terminal_endpoint_gap_m'] = review['correspondence_tolerance_m'] / 2
+        altered_review = output.parent/'altered-terminal-review.json'
+        altered_review.write_text(json.dumps(review), encoding='utf-8')
+        with self.assertRaisesRegex(ValueError, 'Terminal review differs from saved geometry'):
+            render_report(output/'workflow', output.parent/'altered-report', terminal_review=altered_review)
+        self.assertFalse((output.parent/'altered-report').exists())
 
 
 class HVACProjectTests(unittest.TestCase):
