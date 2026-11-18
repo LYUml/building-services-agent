@@ -23,7 +23,13 @@ class RevitAutomationBundleTests(unittest.TestCase):
                             workshared=False, single_user_cloud_model=False)
             with patch('bsa.revit_file_metadata.inspect', return_value=metadata):
                 prepare(assembly, root/'stage', model=model, inspect_model=True)
-                self.assertEqual(verify_stage(root/'stage', model)['model_metadata'], metadata)
+                checked = verify_stage(root/'stage', model)
+                self.assertEqual(checked['model_metadata'], metadata)
+                self.assertEqual(checked['engine_release'], 2027)
+                self.assertFalse(checked['model_upgrade_required'])
+            with patch('bsa.revit_file_metadata.inspect', return_value=dict(metadata, revit_version=2024)):
+                prepare(assembly, root/'older', model=model, inspect_model=True)
+                self.assertTrue(verify_stage(root/'older', model)['model_upgrade_required'])
             with patch('bsa.revit_file_metadata.inspect', return_value=dict(metadata, revit_version=2028)):
                 with self.assertRaisesRegex(ValueError, 'newer than the Revit 2027'):
                     prepare(assembly, root/'rejected', model=model, inspect_model=True)
