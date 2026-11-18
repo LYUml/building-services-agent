@@ -6,7 +6,7 @@ permissions:
   contents: read
 
 jobs:
-  dxf-schedule:
+  dxf-source-and-schedule:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
@@ -21,8 +21,9 @@ jobs:
           persist-credentials: false
       - run: python -c "from pathlib import Path; Path('runs').mkdir(exist_ok=True)"
       - run: python -m venv .venv
-      - run: .venv/Scripts/python -m pip install -e ".[autocad-source,modules,network,spatial]" fastmcp==3.4.11
-      - run: .venv/Scripts/python -m unittest tests.test_autocad_schedule -v
+      - run: .venv/Scripts/python -m pip install -e ".[autocad-source,modules,network,spatial]"
+      - run: .venv/Scripts/python -m pip check
+      - run: .venv/Scripts/python -m unittest tests.test_autocad_source tests.test_autocad_schedule -v
   three-phase-solver:
     runs-on: windows-latest
     steps:

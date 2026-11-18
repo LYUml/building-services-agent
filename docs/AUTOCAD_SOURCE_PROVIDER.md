@@ -14,7 +14,7 @@ is retained under third_party/licenses/uc4n-autocad-mcp-6f6a5382.txt.
 
 From this editable tool checkout, obtain the upstream source under
 tools/autocad-uc4n-review and checkout the exact commit above. Install the optional
-`autocad-source` extra and `fastmcp==3.4.11`. The DXF schedule workflow also
+`autocad-source` extra, which pins `fastmcp==3.4.11`. The DXF schedule workflow also
 uses the `modules`, `network` and `spatial` extras. Real coursework paths
 are selected only by explicit host BSA_PROJECT_ROOT, never by document content.
 
