@@ -81,6 +81,20 @@ def test_detects_changed_second_line_of_block_attribute(tmp_path):
 @unittest.skipUnless(all(os.environ.get(key) for key in RUNTIME) and importlib.util.find_spec('mcp'),
                      'requires the configured ACadSharp worker and MCP SDK')
 class DwgReadbackTests(unittest.TestCase):
+    def test_reads_embedded_multiline_text_from_saved_dwg(self):
+        source = FIXTURE / 'synthetic-multiline-attribute.dwg'
+        before = file_hash(source)
+        runs = ROOT / 'runs'
+        runs.mkdir(exist_ok=True)
+        with TemporaryDirectory(dir=runs) as temporary:
+            report = Path(temporary) / 'multiline.json'
+            run(source, report)
+            rows = json.loads(report.read_bytes())['entities']
+            self.assertEqual([row['type'] for row in rows], ['INSERT'])
+            self.assertEqual(rows[0]['geometry']['attributes'], [
+                dict(handle='36', tag='EQUIPMENT_ID', multiline=True, text='VAV-001\\PTEST NOTE')])
+        self.assertEqual(file_hash(source), before)
+
     def test_cli_and_mcp_match_native_export_and_preserve_source(self):
         from mcp import ClientSession, StdioServerParameters
         from mcp.client.stdio import stdio_client
