@@ -34,6 +34,10 @@ source, leave that check unresolved.
    Recheck the connection at the new centre or specified port. Keep clearance
    findings separate. Record the comparison tolerance and
    its basis. A numeric matching tolerance is not a construction allowance.
+   For a planar obstruction review, bind each obstacle to its saved source
+   outline. Recheck the final nominal duct footprints, flex centrelines and
+   moved device symbols against that inventory. Record the tested pair counts
+   and keep open outlines, missing obstacles and unknown elevations unresolved.
 3. **Check the revision as delivered.** Re-read the saved IFC and the DXF
    exported from the actual reopened DWG. Use the supported independent checks
    below, then inspect the actual plot for ambiguous crossings, gaps and
