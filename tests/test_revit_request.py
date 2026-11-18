@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from bsa.cli import digest
 from bsa.engine import ProjectError
-from bsa.revit_request import prepare
+from bsa.revit_request import prepare, validate_automation_request
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -62,6 +62,22 @@ class RevitRequestTests(unittest.TestCase):
                 with self.assertRaisesRegex(ProjectError, 'selection.*system_types'):
                     prepare(inventory, model, basis, root/'out')
                 self.assertFalse((root/'out').exists())
+
+    def test_finite_coordinates_with_overflowing_segment_rejected(self):
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as directory:
+            root = Path(directory)
+            inventory, model, basis, _ = self.fixture(root)
+            data = json.loads(basis.read_text())
+            data['pipe'].update(StartMetres=[-1e308, 0, 0], EndMetres=[1e308, 0, 0])
+            basis.write_text(json.dumps(data))
+            with self.assertRaisesRegex(ProjectError, 'finite nonzero segment'):
+                prepare(inventory, model, basis, root/'out')
+            self.assertFalse((root/'out').exists())
+            model_hash = digest(model)
+            request = dict(data['pipe'], DocumentPath=str(model), Source='Synthetic overflow control',
+                           SavedRvtSha256=model_hash)
+            with self.assertRaisesRegex(ProjectError, 'finite nonzero segment'):
+                validate_automation_request(request, model_hash)
 
 
 if __name__=='__main__':unittest.main()

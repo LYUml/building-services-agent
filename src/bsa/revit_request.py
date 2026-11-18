@@ -19,9 +19,10 @@ def validate_geometry(pipe):
                 type(x) not in (int, float) or not math.isfinite(x) for x in value):
             raise ProjectError('Three finite metre coordinates required')
     diameter = pipe['DiameterMetres']
+    length = math.dist(pipe['StartMetres'], pipe['EndMetres'])
     if (type(diameter) not in (int, float) or not math.isfinite(diameter) or diameter <= 0
-            or math.dist(pipe['StartMetres'], pipe['EndMetres']) <= 0):
-        raise ProjectError('Positive diameter and nonzero segment required')
+            or not math.isfinite(length) or length <= 0):
+        raise ProjectError('Positive diameter and finite nonzero segment required')
 
 
 def validate_automation_request(request, model_sha256):
