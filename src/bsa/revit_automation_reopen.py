@@ -6,6 +6,7 @@ from pathlib import Path, PureWindowsPath
 
 from bsa import workspace
 from bsa.revit_connectivity import reconstruct
+from bsa.revit_request import validate_automation_request
 from bsa.source_refs import file_hash
 
 
@@ -25,10 +26,12 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
             or pins[request] != prepared['request_sha256']
             or created['request_sha256'] != pins[request]
             or created['input_rvt_sha256'] != prepared['saved_rvt_sha256']
-            or requested['SavedRvtSha256'] != prepared['saved_rvt_sha256']
             or created['adapter_sha256'] != prepared['assembly_sha256']
             or created['saved_rvt_sha256'] != pins[authored]):
         raise ValueError('Creation evidence does not match the prepared request and saved RVT')
+    validate_automation_request(requested, prepared['saved_rvt_sha256'])
+    if pins[authored] == prepared['saved_rvt_sha256']:
+        raise ValueError('Authored RVT must differ from the creation input')
 
     reopen_stage = json.loads(reopen_preparation.read_bytes())
     if (reopen_stage.get('operation') != 'inventory'

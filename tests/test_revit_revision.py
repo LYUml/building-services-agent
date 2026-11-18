@@ -52,8 +52,9 @@ class RevitRevisionTests(unittest.TestCase):
             stored.update(DocumentPath='X:/creation/input.rvt', SavedRvtSha256=source_hash)
             request = save('pipe-request.json', dict(stored, DocumentPath='X:/local/test.rvt'))
             request_hash = file_hash(request)
-            save('preparation.json', dict(operation='create-pipe', saved_rvt_sha256=source_hash,
-                 request_sha256=request_hash, assembly_sha256=adapter_hash))
+            write_preparation = dict(operation='create-pipe', saved_rvt_sha256=source_hash,
+                                     request_sha256=request_hash, assembly_sha256=adapter_hash)
+            save('preparation.json', write_preparation)
             receipt = dict(input_rvt_sha256=source_hash, request_sha256=request_hash,
                 adapter_sha256=adapter_hash, saved_rvt_sha256=authored_hash,
                 transaction_result=dict(unique_id=self.pipe['unique_id'], connector_count=2,
@@ -75,6 +76,18 @@ class RevitRevisionTests(unittest.TestCase):
             self.assertFalse(result['native_execution_authenticated'])
             self.assertEqual(result['connector_endpoint_error_m'], 0)
             self.assertEqual(result['reopen_request_sha256'], reopen_hash)
+            original_request = request.read_bytes()
+            same_model = dict(json.loads(original_request), SavedRvtSha256=authored_hash)
+            save('pipe-request.json', same_model)
+            revised_hash = file_hash(request)
+            save('preparation.json', dict(write_preparation, saved_rvt_sha256=authored_hash,
+                                          request_sha256=revised_hash))
+            save('creation.json', dict(receipt, input_rvt_sha256=authored_hash, request_sha256=revised_hash))
+            with self.assertRaisesRegex(ValueError, 'Authored RVT must differ'):
+                verify(root, created, authored, observed, reopen, 0.001)
+            request.write_bytes(original_request)
+            save('preparation.json', write_preparation)
+            save('creation.json', receipt)
             arguments = dict(write_stage=root.name, creation=f'{root.name}/{created.name}',
                              authored=f'{root.name}/{authored.name}', inventory=f'{root.name}/{observed.name}',
                              reopen_preparation=f'{root.name}/{reopen.name}', tolerance_m=0.001)
