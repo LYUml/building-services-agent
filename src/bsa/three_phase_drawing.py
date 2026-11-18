@@ -79,8 +79,9 @@ def run(project,study_root,out,dot,autocad=None):
     from ezdxf.math import Bezier4P,Vec2
     project,study_root,out,dot=[Path(v).resolve() for v in (project,study_root,out,dot)]
     p,study,before=context(project,study_root)
-    if digest(dot)!=DOT_SHA256:raise ProjectError('requires evaluated Graphviz 13.1.2 executable hash')
-    before[str(dot)]=digest(dot)
+    graphviz_sha256 = digest(dot)
+    if graphviz_sha256!=DOT_SHA256:raise ProjectError('requires evaluated Graphviz 13.1.2 executable hash')
+    before[str(dot)]=graphviz_sha256
     before[str(Path(__file__).resolve())]=digest(Path(__file__))
     for plugin in sorted(dot.parent.glob('gvplugin_*.dll')):before[str(plugin.resolve())]=digest(plugin)
     if (dot.parent/'config6').is_file():before[str((dot.parent/'config6').resolve())]=digest(dot.parent/'config6')
@@ -178,7 +179,7 @@ def run(project,study_root,out,dot,autocad=None):
     native_result=native(source,out/'native',reference.dxf.handle,Path(autocad).resolve()) if autocad else None
     if any(digest(Path(f))!=h for f,h in generated_before.items()):raise ProjectError('generated source artifacts changed during native delivery')
     if any(not Path(f).is_file() or digest(Path(f))!=h for f,h in before.items()):raise ProjectError('inputs changed during drawing')
-    result=dict(inputs=before,study_sha256=study_hash,graphviz_sha256=digest(dot),bus_count=len(p['buses']),line_count=len(p['lines']),
+    result=dict(inputs=before,study_sha256=study_hash,graphviz_sha256=graphviz_sha256,bus_count=len(p['buses']),line_count=len(p['lines']),
         load_phase_rows=3*len(p['loads']),line_phase_rows=3*len(p['lines']),dxf_identity_pass=True,native=native_result,
         design_accepted=False,scope='Source-linked calculation schematic and schedules only; full installation, protection and Hong Kong acceptance pending')
     result['artifacts']={f.relative_to(out).as_posix():digest(f) for f in out.rglob('*') if f.is_file()}
