@@ -177,6 +177,10 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
         'connector_endpoint_error_m': connector_error,
         'connector_endpoint_matches': endpoint_matches,
         'creation_connector_matches': transaction_connectors is not None,
+        'creation_physical_flags_verified': len(connector_readback) == 2 and all(
+            row['creation_physically_connected'] is not None for row in connector_readback),
+        'creation_physical_peers_verified': len(connector_readback) == 2 and all(
+            row['creation_physical_references'] is not None for row in connector_readback),
         'creation_connector_readback': sorted(connector_readback, key=lambda row: row['connector_id']),
         'native_execution_authenticated': False,
         'connected_system_verified': False,

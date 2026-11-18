@@ -89,6 +89,8 @@ class RevitRevisionTests(unittest.TestCase):
             self.assertFalse(result['native_execution_authenticated'])
             self.assertEqual(result['connector_endpoint_error_m'], 0)
             self.assertTrue(result['creation_connector_matches'])
+            self.assertFalse(result['creation_physical_flags_verified'])
+            self.assertFalse(result['creation_physical_peers_verified'])
             wrong_peer = copy.deepcopy(receipt)
             wrong_peer['transaction_result']['connectors'][0]['physical_references'] = [
                 dict(owner_unique_id='other-pipe', connector_id=9),
@@ -106,6 +108,9 @@ class RevitRevisionTests(unittest.TestCase):
                 physically_connected=True,
                 physical_references=[dict(owner_unique_id='fitting-a', connector_id=1)],
             )
+            connected_receipt['transaction_result']['connectors'][1].update(
+                physically_connected=False, physical_references=[],
+            )
             save('creation.json', connected_receipt)
             for peer in ('fitting-a', 'fitting-b'):
                 connected_inventory = copy.deepcopy(inventory)
@@ -118,6 +123,8 @@ class RevitRevisionTests(unittest.TestCase):
                 if peer == 'fitting-a':
                     outcome = verify(root, created, authored, observed, reopen, 0.001)
                     self.assertTrue(outcome['creation_connector_matches'])
+                    self.assertTrue(outcome['creation_physical_flags_verified'])
+                    self.assertTrue(outcome['creation_physical_peers_verified'])
                     self.assertFalse(outcome['connected_system_verified'])
                 else:
                     with self.assertRaisesRegex(ValueError, 'connector 1 physical peers differ') as mismatch:
