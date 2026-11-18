@@ -150,6 +150,20 @@ with `project`, `out` and `report`. The report must be outside the revision
 directory. The comparison checks drawing units and supported modelspace
 geometry and leaves the original receipt and plot review status intact.
 
+Build the optional worker with the host .NET 10 SDK. On Windows, for example:
+
+```powershell
+dotnet build adapters/acadsharp/Bsa.DwgReadback.csproj -p:RestoreLockedMode=true -o runs/dwg-worker
+$env:BSA_ACADSHARP_DOTNET = (Get-Command dotnet).Source
+$env:BSA_ACADSHARP_WORKER = (Resolve-Path runs/dwg-worker/Bsa.DwgReadback.dll).Path
+```
+
+Pass these variables in the environment that launches the CLI or MCP server.
+Rebuild the worker after changing the inventory schema or fields. The report
+compares insertion units, modelspace identity, supported geometry, block
+reference placement and text display properties. Block definitions, nested
+geometry, plot styles and PDF glyph placement require other evidence.
+
 MTEXT, block-attribute editing, arbitrary geometry revisions, external-reference
 packaging, Unicode/font review and general within-view label placement remain open.
 See evidence/existing-dwg-text-revision.json.

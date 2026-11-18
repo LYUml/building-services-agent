@@ -91,6 +91,12 @@ their modelspace handles in `sheet.required_window_handles` for the native
 duct sheet. A retained PDF scale reference can pass while other items are
 clipped. Inspect the rendered page for annotation overlap and cropping, and
 record the page and exact DWG, PDF and render hashes in a separate review.
+For a saved DWG revision with the optional ACadSharp worker configured,
+use `bsa drawing inspect --independent-report` or MCP
+`bsa_crosscheck_drawing_revision`. Check the comparison result and geometry
+coverage. The source-bound report identifies differing handles and fields.
+The AutoCAD reopen receipt and actual PDF review are still required for
+native delivery. See docs/DRAWING_DOCUMENT.md for setup and scope.
 
 For a three-phase calculation schematic, read `drawing.json` and compare
 `dxf_bus_contacts` with `native.bus_contacts` when a native DWG is required.
