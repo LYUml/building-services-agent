@@ -554,8 +554,10 @@ def validate_plan(path):
             inputs.update(basis_files|official|{pack,Path(three_phase_regulations.__file__).resolve(),Path(three_phase_drawing.__file__).resolve()})
         if kind=='fds_temperature_review':
             from . import fds_temperature
-            if set(t)-{'id','kind','report','requires_pass','description'}:
+            if set(t)-{'id','kind','report','requires_pass','description','check'}:
                 raise ProjectError('FDS review requires an explicit saved probe report')
+            if 'check' in t and t['check']!='uniform_point_temperature':
+                raise ProjectError('Unsupported FDS probe acceptance check')
             report=local_path(root,t.get('report'))
             if report.name!='report.json':
                 raise ProjectError('FDS review requires the probe report.json')
@@ -1566,9 +1568,16 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
             elif t['kind']=='fds_temperature_review':
                 from .fds_temperature import verify as verify_fds
                 payload=verify_fds(local_path(root,t['report']).parent)
+                if t.get('check')=='uniform_point_temperature':
+                    from .fds_temperature import UNIFORM_CASE
+                    if payload.get('case')!=UNIFORM_CASE:
+                        raise ProjectError('Uniform-point acceptance requires the pinned uniform FDS case')
+                    status='pass' if payload['point_temperature_check_pass'] else 'fail'
+                    reason='Uniform FDS point temperature check against 22.5 °C at exported precision'
+                else:
+                    status='pending';reason='Saved FDS probe evidence reconciles; project CFD acceptance remains pending'
                 folder.mkdir()
                 (folder/'probe-review.json').write_text(json.dumps(payload,indent=2),encoding='utf-8')
-                status='pending';reason='Saved FDS probe evidence reconciles; project CFD acceptance remains pending'
             elif t['kind']=='revit_inventory_check':
                 from .revit_connectivity import run
                 basis=local_path(root,t['expected_connections']) if 'expected_connections' in t else None

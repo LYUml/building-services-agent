@@ -64,10 +64,14 @@ case. The upstream interpolation deviations remain separate.
 A workflow can consume saved probe evidence using kind
 `fds_temperature_review` with a plan-relative `report` path ending in
 `report.json`. The task pins the input deck, binaries, report and relevant
-native outputs, then writes `probe-review.json`. Its engineering status
-remains pending, including after the uniform point check passes. Actual
-CLI and MCP workflows both reproduced the saved uniform check, blocked a
-dependent manual task, and detected a changed upstream CSV during verification.
+native outputs, then writes `probe-review.json`. Use the default pending
+review for project CFD evidence. An explicit
+`"check":"uniform_point_temperature"` lets the task pass a narrowly stated
+benchmark requirement when the pinned uniform case reports zero discrepancy
+at exported precision. An interpolation run cannot satisfy this check.
+Actual saved outputs exercised both outcomes through MCP. The project-level
+design status remained unaccepted and the separate manual review remained
+pending. A changed upstream CSV invalidated the workflow's integrity check.
 
 ## Offline Revit inventory access
 

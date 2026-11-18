@@ -36,6 +36,22 @@ class FdsTemperatureTests(unittest.TestCase):
             self.assertEqual(result['tasks']['review']['status'], 'pending')
             self.assertTrue((out/'review/probe-review.json').is_file())
             self.assertTrue(verify(out)['integrity_pass'])
+            spec = json.loads(plan.read_bytes())
+            spec['tasks'][0]['check'] = 'uniform_point_temperature'
+            plan.write_text(json.dumps(spec), encoding='utf-8')
+            for index, (evidence, status) in enumerate((
+                ({'case': 'uniform_temperature', 'point_temperature_check_pass': True}, 'pass'),
+                ({'case': 'uniform_temperature', 'point_temperature_check_pass': False}, 'fail'),
+                ({}, 'fail'),
+            )):
+                with self.subTest(status=status, evidence=evidence), patch(
+                    'bsa.fds_temperature.evidence_paths', return_value=(report, table),
+                ), patch('bsa.fds_temperature.verify', return_value=evidence):
+                    checked = execute(plan, root/f'checked-{index}')
+                    self.assertEqual(checked['tasks']['review']['status'], status)
+            del spec['tasks'][0]['check']
+            plan.write_text(json.dumps(spec), encoding='utf-8')
+            self.assertTrue(verify(out)['integrity_pass'])
             table.write_text('changed evidence', encoding='utf-8')
             self.assertFalse(verify(out)['integrity_pass'])
 
