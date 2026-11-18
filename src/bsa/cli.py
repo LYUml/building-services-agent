@@ -182,6 +182,9 @@ def main():
     hvac_package = commands.add_parser('inspect-hvac-package', help='Inspect a saved HVAC project package')
     hvac_package.add_argument('configuration', type=Path)
     hvac_package.add_argument('package', type=Path)
+    contacts = commands.add_parser('verify-three-phase-contacts', help='Check bus contacts in a saved schematic DXF')
+    for argument in ('project', 'study', 'drawing'):
+        contacts.add_argument(argument, type=Path)
     recovery = commands.add_parser('verify-recovery', help='Verify a saved fan or pump recovery controller receipt')
     recovery.add_argument('directory', type=Path)
     for command in ("validate","run"):
@@ -206,6 +209,9 @@ def main():
             args=vars(a).copy()
             del args['command'], args['delivery_command']
             print(json.dumps(air_terminal_review.review(**args),indent=2));return 0
+        if a.command=='delivery' and a.delivery_command=='verify-three-phase-contacts':
+            from .three_phase_drawing import verify_contacts
+            print(json.dumps(verify_contacts(a.project, a.study, a.drawing), indent=2));return 0
         if a.command=='delivery' and a.delivery_command=='inspect-hvac-package':
             from .hvac_package_access import inspect
             result = inspect(a.configuration, a.package)

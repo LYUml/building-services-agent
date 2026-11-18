@@ -64,6 +64,11 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None,fds_rele
         """Verify exact ZIP member paths and SHA-256 hashes without extracting files."""
         return invoke('bsa.delivery_archive.verify_archive',local(archive),local(manifest))
 
+    @server.tool(annotations=read)
+    def bsa_verify_three_phase_contacts(project:str,study:str,drawing:str)->dict[str,Any]:
+        """Check bus contacts in a saved electrical schematic DXF against its study."""
+        return invoke('bsa.three_phase_drawing.verify_contacts',local(project),local(study),local(drawing))
+
     @server.tool(annotations=write)
     def bsa_verify_terminal_connections(plan:str,workflow:str,native_task:str,out:str,
                                         supply_layer:str,vav_layer:str,terminal_layer:str,flex_layer:str)->dict[str,Any]:

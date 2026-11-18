@@ -140,6 +140,44 @@ def native(source,out,reference,exe,circuits):
                 bus_contacts=contacts,plot=result,visual_review='pending')
 
 
+def verify_contacts(project, study, drawing):
+    import ezdxf
+    from . import workspace
+
+    project, study, drawing = (Path(path).resolve() for path in (project, study, drawing))
+    if not all(workspace.allowed(path) for path in (project, study, drawing)) or drawing.suffix.lower() != '.dxf':
+        raise ProjectError('Select a saved DXF, project and study in the permitted workspace')
+    prepared, _, pins = context(project, study)
+    source_hash = digest(drawing)
+    study_hash = pins[str(study/'native/study.json')]
+    doc = ezdxf.readfile(drawing)
+    if doc.units != 4:
+        raise ProjectError('Three-phase schematic requires drawing millimetres')
+    expected = {('bus', row['id']) for row in prepared['buses']}
+    expected.update(('line', row['id']) for row in prepared['lines'])
+    observed = set()
+    kinds = {'BSA_ELEC_LINE': 'line', 'BSA_ELEC_BUS': 'bus'}
+    for entity in doc.modelspace():
+        kind = kinds.get(entity.dxf.layer)
+        if kind:
+            if entity.dxftype() != 'LINE' or not entity.has_xdata(APP):
+                raise ProjectError(f'Missing electrical identity on handle {entity.dxf.handle}')
+            tags = [tag.value for tag in entity.get_xdata(APP)]
+            if len(tags) != 3 or tags[0] != kind or tags[2] != study_hash:
+                raise ProjectError(f'Drawing study identity differs on handle {entity.dxf.handle}')
+            observed.add(tuple(tags[:2]))
+        elif entity.dxftype() == 'LINE' and entity.has_xdata(APP):
+            if entity.get_xdata(APP)[0].value in kinds.values():
+                raise ProjectError(f'Electrical geometry outside scoped layers on handle {entity.dxf.handle}')
+    if observed != expected:
+        raise ProjectError('Saved schematic circuit or bus inventory differs from the study')
+    contacts = bus_contacts(doc, prepared['lines'])
+    if digest(drawing) != source_hash or any(digest(Path(path)) != sha for path, sha in pins.items()):
+        raise ProjectError('Schematic or study changed during contact verification')
+    return dict(drawing_sha256=source_hash, study_sha256=study_hash, bus_contacts=contacts,
+                design_accepted=False)
+
+
 def run(project,study_root,out,dot,autocad=None):
     import ezdxf
     from ezdxf.enums import TextEntityAlignment
