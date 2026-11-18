@@ -1,13 +1,9 @@
 import argparse
-import hashlib
 import html
 import json
 from pathlib import Path
 from .engine import ProjectError, calculate, validate
-
-
-def digest(path):
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+from .source_refs import file_hash as digest
 
 
 def dxf(p):

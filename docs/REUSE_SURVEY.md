@@ -19,6 +19,14 @@ for a single hash fell from 40,633,039 to 272,004 bytes. This measures file
 hashing only. A mutation control confirms diagnosis still rejects a model
 changed before report publication.
 
+The shared CLI digest now uses the same streaming reader for workflow input
+and artifact manifests and verification. The public digest remains SHA-256 of
+all file bytes. A local hash-only check on the same RVT again matched the
+whole-file digest, with a Python allocation peak of 271,626 bytes. In a
+small cached timing comparison, the RVT took about 14 ms per streaming hash
+versus 20 ms previously, while the small project metadata file took about
+0.11 ms versus 0.03 ms. These timings do not measure end-to-end workflows.
+
 Autodesk documents that desktop Revit has no standalone Core Console. APS
 Automation for Revit is the supported headless service and requires a separate
 verified cloud setup. Native add-in loading and saved RVT execution remain
