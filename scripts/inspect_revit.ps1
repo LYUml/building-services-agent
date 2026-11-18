@@ -31,6 +31,15 @@ if (Test-Path -LiteralPath $runtimePath -PathType Leaf) {
     $runtimeConfig = Get-Content -LiteralPath $runtimePath -Raw | ConvertFrom-Json
     $runtime = [ordered]@{tfm=$runtimeConfig.runtimeOptions.tfm;frameworks=@($runtimeConfig.runtimeOptions.frameworks);sha256=(Get-FileHash -LiteralPath $runtimePath -Algorithm SHA256).Hash.ToLowerInvariant()}
 }
+$assemblyPath = Join-Path $repoRoot 'adapters/revit/bin/Release/net10.0-windows/Bsa.Revit.dll'
+$assembly = $null
+if (Test-Path -LiteralPath $assemblyPath -PathType Leaf) {
+    $assembly = [ordered]@{
+        sha256=(Get-FileHash -LiteralPath $assemblyPath -Algorithm SHA256).Hash.ToLowerInvariant()
+        authenticode_status=(Get-AuthenticodeSignature -LiteralPath $assemblyPath).Status.ToString()
+        host_policy_acceptance_verified=$false
+    }
+}
 $result = [ordered]@{
     scope='Read-only installation inventory; no application launch, licence check, MCP connection or model access'
     inspected_at_utc=[DateTime]::UtcNow.ToString('o')
@@ -38,6 +47,7 @@ $result = [ordered]@{
     api_runtime=$runtime
     public_mcp_documented_locations=@($servers)
     dynamo_mcp=$dynamo
+    local_release_adapter=$assembly
     revit_process_ids=@(Get-Process -Name Revit -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Id)
     connection_verified=$false
     document_access_verified=$false
