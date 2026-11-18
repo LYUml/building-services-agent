@@ -112,8 +112,11 @@ to independently diagnose its saved geometry and connector evidence.
 control. It uses the same hash-bound synthetic request, with a horizontal
 first leg and a pipe type whose routing preferences include a compatible
 elbow. Choose endpoints in an empty part of the model with enough leg length
-for the fitting. The test creates a perpendicular second leg and a native
-elbow in a separate copy. It checks the two reciprocal physical connector
+for the fitting. The test saves and reopens two pipes whose ends coincide
+but remain open. Pass `missing-pair-control.json` as `--expected-connections`
+with `unjoined.rvt` and `unjoined-inventory.json`. This synthetic negative
+control must report one missing pair and exit 2. The test then creates a native
+elbow and saves the result separately. It checks the two reciprocal physical connector
 pairs, coincident origins and stable connector IDs before and after saving.
 The test records the pre-save pairs and all four pipe and fitting connector coordinates in
 `expected-connections.json`. Pass that

@@ -151,6 +151,7 @@ public sealed class NativePipeRoundTrip
             owned = application.OpenDocumentFile(unjoined);
             string unjoinedHash = Hash(unjoined);
             string unjoinedReport = Path.Combine(folder, "unjoined-inventory.json");
+            string missingPairControl = Path.Combine(folder, "missing-pair-control.json");
             using (var transaction = new Transaction(owned, "BSA synthetic elbow control"))
             {
                 var first = (Pipe)owned.GetElement(firstId);
@@ -161,6 +162,12 @@ public sealed class NativePipeRoundTrip
                 Assert.That(firstEnd.IsConnected || secondEnd.IsConnected, Is.False,
                     "Reopened coincident pipe ends must be physically open before fitting creation");
                 CaptureInventory(owned, unjoined, unjoinedReport, unjoinedHash);
+                NativeEvidence.WriteJson(missingPairControl, new {
+                    source = "Synthetic negative control: intentionally require a missing pair between the two open ends",
+                    required_pairs = new[] {
+                        new[] { new object[] { firstId, firstEnd.Id }, new object[] { secondId, secondEnd.Id } }
+                    }
+                });
                 Assert.That(transaction.Start(), Is.EqualTo(TransactionStatus.Started));
                 transaction.SetFailureHandlingOptions(transaction.GetFailureHandlingOptions()
                     .SetFailuresPreprocessor(new NativePipes.RejectFailures()).SetClearAfterRollback(true));
@@ -199,6 +206,7 @@ public sealed class NativePipeRoundTrip
             Assert.That(Hash(unjoined), Is.EqualTo(unjoinedHash));
             Console.WriteLine($"Reopened unjoined RVT: {unjoined} ({unjoinedHash})");
             Console.WriteLine($"Reopened unjoined inventory: {unjoinedReport} ({Hash(unjoinedReport)})");
+            Console.WriteLine($"Missing-pair control: {missingPairControl} ({Hash(missingPairControl)})");
             Console.WriteLine($"Reopened elbow RVT: {authored} ({authoredHash})");
             var pairs = connected.Select((pair, index) => new {
                 pipe_unique_id = index == 0 ? firstId : secondId, pipe_connector_id = pair.Pipe,
