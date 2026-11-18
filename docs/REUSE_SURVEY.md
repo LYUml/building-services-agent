@@ -163,6 +163,9 @@ Multiple relationships declaring the same unordered port pair fail the
 IFC review and appear together in a BCF topic. A saved IFC trial added a
 reversed relationship and replay detected the duplicate even though all
 three recorded relationship distances were within tolerance.
+A relationship whose endpoints have the same port GUID fails the IFC
+review. CLI export and replay reproduced a dedicated self-connection
+topic with a current-model viewpoint in a saved IFC trial.
 The optional `bcf` extra reuses pinned IfcOpenShell BCF-XML tooling. It
 writes open topics with source and port IDs, the measured gap and tolerance,
 and a viewpoint selecting the exported owner products when available.

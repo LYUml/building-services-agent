@@ -157,11 +157,14 @@ def compare_positions(previous, current, tolerance, *, alignment=None):
 def inspect_pair_gaps(inventory, tolerance):
     positions = {row['guid']: row['origin_m'] for row in inventory['ports']}
     measured, unavailable, separated = 0, [], []
+    self_connections = []
     relationships_by_pair = {}
     for connection in inventory['connections']:
         pair = connection['port_guids']
         relationships_by_pair.setdefault(tuple(sorted(pair)), []).append(connection['guid'])
         a, b = (positions.get(guid) for guid in pair)
+        if pair[0] == pair[1]:
+            self_connections.append(connection['guid'])
         if a is None or b is None or pair[0] == pair[1]:
             unavailable.append(connection['guid'])
             continue
@@ -175,6 +178,7 @@ def inspect_pair_gaps(inventory, tolerance):
     duplicates = [dict(port_guids=list(pair), relationship_guids=sorted(guids))
                   for pair, guids in sorted(relationships_by_pair.items()) if len(guids) > 1]
     return dict(tolerance_m=tolerance, measured_relationships=measured, duplicate_pairs=duplicates,
+                self_connections=sorted(self_connections),
                 unavailable_relationships=unavailable, separated_relationships=separated,
                 scope='Distances between exported port origins only; physical joint and profile unresolved')
 
@@ -260,6 +264,8 @@ def review_status(report):
     status, reason = gap_status(gaps)
     if gaps.get('duplicate_pairs'):
         return 'fail', 'Multiple IFC relationships connect the same port pair'
+    if gaps.get('self_connections'):
+        return 'fail', 'IFC relationships connect a port to itself'
     ownership = report.get('connection_ownership', {})
     if ownership.get('conflicting_ports'):
         return 'fail', 'Connected IFC ports have conflicting owner declarations'
@@ -294,7 +300,8 @@ def run(source, out, *, baseline=None, position_tolerance_m=None, max_port_shift
         summary['connection_gaps'] = dict(measured_relationships=gaps['measured_relationships'],
             unavailable_relationships=len(gaps['unavailable_relationships']),
             separated_relationships=len(gaps['separated_relationships']),
-            duplicate_pairs=len(gaps['duplicate_pairs']), status=gap_status(gaps)[0])
+            duplicate_pairs=len(gaps['duplicate_pairs']), self_connections=len(gaps['self_connections']),
+            status=gap_status(gaps)[0])
         summary['review_status'] = review_status(result)[0]
     if baseline is not None:
         comparison = result['comparison']

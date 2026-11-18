@@ -64,10 +64,12 @@ def issue_records(report):
                    if port in ports and ports[port]['origin_m'] is not None]
         selected = sorted({owner for port in located for owner in port['owner_guids']})
         point = located[0]['origin_m'] if located else None
-        reason = ('The relationship points to the same port at both ends.'
-                  if a == b else 'One or both port origins are unavailable.')
-        description = f'{source}\n{a} to {b}. {reason}\nPort separation remains unresolved.'
-        yield f'IFC port separation unavailable {guid}', description, selected, point
+        if a == b:
+            description = f'{source}\nThe relationship connects port {a} to itself.'
+            yield f'IFC port self-connection {guid}', description, selected, point
+        else:
+            description = f'{source}\n{a} to {b}. One or both port origins are unavailable.'
+            yield f'IFC port separation unavailable {guid}', description, selected, point
     for guid in report['connection_ownership']['conflicting_ports']:
         port = ports[guid]
         claims = [f"{row['relation_type']} {row['relation_guid']} claims {row['owner_guid']}"
