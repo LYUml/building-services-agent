@@ -18,6 +18,13 @@ Before a signing integration is selected, the repository owner must choose a dis
 
 After supported signing, verify Authenticode and certificate chain on the exact DLL, record the signed hash, regenerate preparation evidence, and invoke the command on the saved test copy. A valid signature alone does not prove acceptance by the machine's recorded policy. Native inventory, creation/rollback, connectivity, save/reopen, schedules, drawings and full engineering acceptance still require actual host evidence. Do not change loaders or disable application control to clear this gate.
 
+`scripts/inspect_revit.ps1 -Adapter <repo-local-dll> -Out <new-report.json>`
+records Authenticode status and signer and timestamp certificate thumbprints
+for the inspected hash. It rejects a DLL that changes during inspection.
+The current unsigned adapter produced empty thumbprints. A signed .NET
+runtime DLL used as a control produced both thumbprints with status `Valid`.
+Both reports retained `host_policy_acceptance_verified=false`.
+
 A local review-bundle preparer is now available at scripts/prepare_revit_handoff.py.
 Actual 2026-11-10 build and byte-checked ZIP preparation include only the original
 adapter DLL, dependency manifest and review metadata; no Autodesk binaries or models

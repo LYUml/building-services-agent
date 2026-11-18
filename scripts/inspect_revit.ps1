@@ -45,10 +45,19 @@ if ($Adapter) {
 }
 $assembly = $null
 if (Test-Path -LiteralPath $assemblyPath -PathType Leaf) {
+    $assemblyHash = (Get-FileHash -LiteralPath $assemblyPath -Algorithm SHA256).Hash.ToLowerInvariant()
+    $signature = Get-AuthenticodeSignature -LiteralPath $assemblyPath
+    $signer = $signature.SignerCertificate
+    $timestampSigner = $signature.TimeStamperCertificate
+    if ((Get-FileHash -LiteralPath $assemblyPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $assemblyHash) {
+        throw 'Adapter DLL changed during signature inspection.'
+    }
     $assembly = [ordered]@{
         path=$assemblyPath
-        sha256=(Get-FileHash -LiteralPath $assemblyPath -Algorithm SHA256).Hash.ToLowerInvariant()
-        authenticode_status=(Get-AuthenticodeSignature -LiteralPath $assemblyPath).Status.ToString()
+        sha256=$assemblyHash
+        authenticode_status=$signature.Status.ToString()
+        signer_thumbprint=$signer.Thumbprint
+        timestamp_signer_thumbprint=$timestampSigner.Thumbprint
         host_policy_acceptance_verified=$false
     }
 }
