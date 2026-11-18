@@ -9,6 +9,31 @@ import zipfile
 ROOT=Path(__file__).resolve().parents[1]
 
 
+def verify_committed_bytes(saved, commit):
+    tree = subprocess.check_output(['git', 'ls-tree', '-rz', commit], cwd=ROOT)
+    expected = {}
+    for row in tree.split(b'\0'):
+        if not row:
+            continue
+        metadata, name = row.split(b'\t', 1)
+        mode, kind, oid = metadata.split()
+        if kind != b'blob' or mode not in (b'100644', b'100755'):
+            raise ValueError('Candidate requires regular files in the committed source tree')
+        expected[name.decode('utf-8')] = oid.decode('ascii')
+    files = [item for item in saved.infolist() if not item.is_dir()]
+    if len(files) != len(expected) or {item.filename for item in files} != expected.keys():
+        raise ValueError('Candidate file inventory differs from the committed tree')
+    algorithm = subprocess.check_output(['git', 'rev-parse', '--show-object-format'], cwd=ROOT, text=True).strip()
+    for item in files:
+        digest = hashlib.new(algorithm, f'blob {item.file_size}\0'.encode('ascii'))
+        with saved.open(item) as stream:
+            for chunk in iter(lambda: stream.read(1024 * 1024), b''):
+                digest.update(chunk)
+        if digest.hexdigest() != expected[item.filename]:
+            raise ValueError('Candidate member differs from the committed blob: ' + item.filename)
+    return len(files)
+
+
 def build(out):
     out=Path(out).resolve()
     if not out.is_relative_to(ROOT/'runs') or out.exists():
@@ -26,7 +51,7 @@ def build(out):
             p=Path(item.filename)
             if p.is_absolute() or '..' in p.parts or forbidden.intersection(p.parts) or p.name=='.env':
                 raise ValueError('Candidate contains excluded runtime/private path: '+item.filename)
-        if saved.testzip() is not None:raise ValueError('Candidate CRC validation failed')
+        verified_members=verify_committed_bytes(saved,commit)
         required={'pyproject.toml','src/bsa/workspace.py','scripts/setup_radiance.py',
                   'docs/START_USING.md','examples/office-electrical/project.json'}
         if not required.issubset(saved.namelist()):raise ValueError('Candidate source resources missing')
@@ -36,6 +61,7 @@ def build(out):
     receipt=dict(schema='bsa.source-candidate/1',commit=commit,
         archive=archive.name,sha256=archive_hash,
         bytes=archive.stat().st_size,uncompressed_bytes=uncompressed,entries=len(entries),
+        verified_committed_members=verified_members,
         git_version=subprocess.check_output(['git','--version'],text=True).strip(),
         format='git archive zip',release_published=False,design_accepted=False)
     (out/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf-8')
