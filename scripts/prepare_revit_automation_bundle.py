@@ -8,7 +8,8 @@ from pathlib import Path
 import re
 from tempfile import TemporaryDirectory
 from urllib.parse import quote
-from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
+from xml.etree import ElementTree
+from zipfile import BadZipFile, ZIP_DEFLATED, ZipFile, ZipInfo
 
 
 def automation_activity(engine, bundle_id, operation):
@@ -65,6 +66,56 @@ def confirm_engine(engine, access_token):
             or not isinstance(data.get('productVersion'), str) or type(data.get('version')) is not int):
         raise ValueError('APS engine response did not identify the selected engine and version')
     return {key: data[key] for key in ('id', 'productVersion', 'version')}
+
+
+def verify_stage(directory, model=None):
+    runs = Path(__file__).resolve().parents[1] / 'runs'
+    stage = Path(directory).resolve()
+    if stage == runs or not stage.is_relative_to(runs):
+        raise ValueError('Select a staging directory under repository runs')
+    if any(not path.resolve().is_relative_to(stage) for path in stage.iterdir()):
+        raise ValueError('Staged files must remain under the selected directory')
+    receipt = json.loads((stage / 'preparation.json').read_bytes())
+    operation = receipt.get('operation', 'inventory')
+    if operation not in ('inventory', 'create-pipe'):
+        raise ValueError('Invalid staged Automation operation')
+    archive = stage / 'Bsa.Revit.Automation.zip'
+    if hashlib.sha256(archive.read_bytes()).hexdigest() != receipt['archive_sha256']:
+        raise ValueError('Staged AppBundle hash mismatch')
+    with ZipFile(archive) as bundle:
+        root = 'Bsa.Revit.Automation.bundle'
+        binary = f'{root}/Contents/Bsa.Revit.Automation.dll'
+        expected = {f'{root}/PackageContents.xml', f'{root}/Contents/Bsa.Revit.Automation.addin', binary}
+        if set(bundle.namelist()) != expected or len(bundle.namelist()) != len(expected):
+            raise ValueError('Unexpected staged AppBundle members')
+        if hashlib.sha256(bundle.read(binary)).hexdigest() != receipt['assembly_sha256']:
+            raise ValueError('Staged adapter hash mismatch')
+        addin = ElementTree.fromstring(bundle.read(f'{root}/Contents/Bsa.Revit.Automation.addin'))
+        entries = addin.findall('AddIn')
+        class_name = 'Bsa.Revit.AutomationCreatePipe' if operation == 'create-pipe' else 'Bsa.Revit.AutomationInventory'
+        if (len(entries) != 1 or entries[0].get('Type') != 'DBApplication'
+                or entries[0].findtext('FullClassName') != class_name):
+            raise ValueError('AppBundle entry point differs from the selected operation')
+    activity = stage / 'activity.json'
+    if activity.exists() or 'activity_sha256' in receipt:
+        data = activity.read_bytes()
+        if hashlib.sha256(data).hexdigest() != receipt.get('activity_sha256'):
+            raise ValueError('Staged Activity hash mismatch')
+        spec = json.loads(data)
+        if spec != automation_activity(spec['engine'], spec['appbundles'][0], operation):
+            raise ValueError('Activity differs from the selected operation')
+    request = stage / ('pipe-request.json' if operation == 'create-pipe' else 'inventory-request.json')
+    if request.exists() or 'request_sha256' in receipt or model is not None:
+        if model is None:
+            raise ValueError('Supply the original test RVT to verify a staged request')
+        data = request.read_bytes()
+        if hashlib.sha256(data).hexdigest() != receipt.get('request_sha256'):
+            raise ValueError('Staged request hash mismatch')
+        expected_model_hash = inventory_request(model, runs)['SavedRvtSha256']
+        if json.loads(data).get('SavedRvtSha256') != expected_model_hash or receipt.get('saved_rvt_sha256') != expected_model_hash:
+            raise ValueError('Staged request model hash mismatch')
+    return {'operation': operation, 'stage_verified': True, 'model_checked': model is not None,
+            'native_executed': False}
 
 
 def prepare(assembly, output, *, engine=None, bundle_id=None, model=None,
@@ -177,8 +228,9 @@ def prepare(assembly, output, *, engine=None, bundle_id=None, model=None,
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--assembly', required=True)
-    parser.add_argument('--out', required=True)
+    parser.add_argument('--assembly')
+    parser.add_argument('--out')
+    parser.add_argument('--verify-stage', help='Verify a previously staged bundle and optional model')
     parser.add_argument('--engine')
     parser.add_argument('--bundle-id')
     parser.add_argument('--operation', choices=('inventory', 'create-pipe'), default='inventory')
@@ -187,7 +239,12 @@ if __name__ == '__main__':
     parser.add_argument('--check-engine', action='store_true', help='Confirm engine availability with a read-only APS call')
     args = parser.parse_args()
     try:
-        print(prepare(args.assembly, args.out, engine=args.engine, bundle_id=args.bundle_id, model=args.model,
-                      operation=args.operation, pipe_request=args.pipe_request, check_engine=args.check_engine))
-    except (OSError, ValueError) as error:
+        if args.verify_stage:
+            print(json.dumps(verify_stage(args.verify_stage, args.model), indent=2))
+        elif args.assembly and args.out:
+            print(prepare(args.assembly, args.out, engine=args.engine, bundle_id=args.bundle_id, model=args.model,
+                          operation=args.operation, pipe_request=args.pipe_request, check_engine=args.check_engine))
+        else:
+            parser.error('Supply --assembly and --out, or use --verify-stage')
+    except (OSError, ValueError, TypeError, KeyError, IndexError, BadZipFile, ElementTree.ParseError) as error:
         parser.exit(2, f'{error}\n')

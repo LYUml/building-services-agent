@@ -7,7 +7,7 @@ from unittest.mock import patch
 from xml.etree import ElementTree
 from zipfile import ZipFile
 
-from scripts.prepare_revit_automation_bundle import confirm_engine, prepare
+from scripts.prepare_revit_automation_bundle import confirm_engine, prepare, verify_stage
 
 
 class RevitAutomationBundleTests(unittest.TestCase):
@@ -86,6 +86,7 @@ class RevitAutomationBundleTests(unittest.TestCase):
             first = prepare(assembly, directory / 'first', **arguments)
             second = prepare(assembly, directory / 'second', **arguments)
             self.assertEqual(first.read_bytes(), second.read_bytes())
+            self.assertTrue(verify_stage(first.parent, model)['stage_verified'])
 
             with ZipFile(first) as archive:
                 package, = [name for name in archive.namelist() if name.endswith('/PackageContents.xml')]
@@ -112,3 +113,11 @@ class RevitAutomationBundleTests(unittest.TestCase):
             self.assertEqual({key: row['localName'] for key, row in parameters.items()}, {
                 'model': 'input.rvt', 'request': 'inventory-request.json', 'inventory': 'inventory.json',
             })
+            modified = json.loads(activity)
+            modified['parameters']['inventory']['localName'] = 'different.json'
+            altered_activity = json.dumps(modified).encode()
+            first.with_name('activity.json').write_bytes(altered_activity)
+            receipt['activity_sha256'] = hashlib.sha256(altered_activity).hexdigest()
+            first.with_name('preparation.json').write_text(json.dumps(receipt), encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'Activity differs'):
+                verify_stage(first.parent, model)
