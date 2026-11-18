@@ -134,8 +134,11 @@ def run(plan,original_run,task,catalogue,target,out,*,execute_options=None):
             result['stages']['diagnosis']='source_verified'
             result['status']='needs_engineering_review' if fresh['execution_pass'] else 'execution_incomplete'
     except Exception as exc:result['stage_errors'][stage]=type(exc).__name__+': '+str(exc)
-    result['original_inputs_unchanged']=all(Path(p).is_file() and digest(Path(p))==sha for p,sha in pins.items())
-    if not result['original_inputs_unchanged']:result['status']='source_changed'
+    changed = [name for name, sha in pins.items() if not Path(name).is_file() or digest(Path(name)) != sha]
+    result['original_inputs_unchanged'] = not changed
+    if changed:
+        result['status'] = 'source_changed'
+        result['stage_errors']['source_integrity'] = 'Changed or missing recovery sources: ' + ', '.join(changed)
     result['artifacts']={p.relative_to(out).as_posix():digest(p) for p in out.rglob('*') if p.is_file()}
     (out/'iteration.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
     return result

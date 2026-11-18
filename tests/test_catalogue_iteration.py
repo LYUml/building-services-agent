@@ -80,6 +80,19 @@ class CatalogueIterationTests(unittest.TestCase):
             result=self.invoke()
         self.assertEqual(result['status'],'failed');self.assertIn('baseline',result['stage_errors'])
         self.assertFalse(self.target.exists());execute.assert_not_called()
+        self.out = self.root / 'changed-source'
+        def changed_source(*args, **kwargs):
+            saved.write_text('{"changed_during_recovery":true}')
+            return changed
+        with patch('bsa.catalogue_iteration.delivery.context',return_value=(source,report,{'integrity_pass':True})),patch('bsa.catalogue_iteration.workflow_status.diagnose',return_value={'recovery_schedule':{'ready_tasks':['selection']}}),patch('bsa.catalogue_iteration.selection_context',return_value=(self.original/'pressure',{})),patch('bsa.catalogue_iteration.selection_modules',return_value=()),patch('bsa.catalogue_iteration.selection_run',side_effect=changed_source),patch('bsa.catalogue_iteration.workflow.execute') as execute:
+            result=self.invoke()
+        self.assertEqual(result['status'],'source_changed')
+        self.assertFalse(result['original_inputs_unchanged'])
+        self.assertIn(str(saved), result['stage_errors']['source_integrity'])
+        with self.assertRaisesRegex(ValueError, 'Changed or missing recovery sources') as error:
+            verify(self.out)
+        self.assertIn(str(saved), str(error.exception))
+        self.assertFalse(self.target.exists());execute.assert_not_called()
 
     def test_verifier_rejects_changed_sources_and_unlisted_artifacts(self):
         self.out.mkdir()

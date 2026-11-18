@@ -13,7 +13,13 @@ def verify(folder):
     folder=Path(folder).resolve()
     if not allowed(folder):raise ValueError('Selected recovery workspace required')
     result=read_json(folder/'iteration.json')
-    if result.get('schema')!='bsa.catalogue-iteration/1' or result.get('scope')!=iteration.SCOPE or result.get('design_accepted') is not False or result.get('original_inputs_unchanged') is not True:
+    if result.get('schema')!='bsa.catalogue-iteration/1' or result.get('scope')!=iteration.SCOPE or result.get('design_accepted') is not False:
+        raise ValueError('Unaccepted unchanged recovery receipt required')
+    if result.get('original_inputs_unchanged') is not True:
+        errors = result.get('stage_errors')
+        detail = errors.get('source_integrity') if isinstance(errors, dict) else None
+        if isinstance(detail, str) and detail:
+            raise ValueError('Unaccepted unchanged recovery receipt required. ' + detail)
         raise ValueError('Unaccepted unchanged recovery receipt required')
     if not result.get('inputs') or any(not Path(p).is_file() for p in result['inputs']) or not inherited_inputs_current(result['inputs']):
         raise ValueError('Recovery source or method changed')
