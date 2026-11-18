@@ -65,3 +65,12 @@ environment ran in the locked `tools/pandapower-runtime` environment.
 solver, IFC and topology suites (the three matching
 `test_workflow_three_phase*.py` modules without jurisdiction or drawing
 requirements) passed 19 tests and five subtests with no skips.
+
+A fresh Windows run of the synthetic `drawing-plan.json` used the locked
+pandapower interpreter, the bundled Graphviz executable and AutoCAD 2027
+Core Console. Both the power-flow and native drawing tasks passed. The
+manual review task remained pending. The two three-phase drawing suites
+also passed nine tests and two subtests with no skips when the solver and
+Graphviz were supplied explicitly. The native plot emitted a duplicate
+`/PageMode` metadata warning and still completed. Visual acceptance was
+not part of this run.
