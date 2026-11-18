@@ -68,6 +68,12 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
         raise ValueError('Reopened pipe element_id differs from the creation readback')
     if sum(item.get('id') == element_id for group in ('pipes', 'fittings') for item in reopened[group]) != 1:
         raise ValueError(f'Reopened element_id {element_id} is shared by multiple pipe or fitting records')
+    identity_fields = ('type_unique_id', 'system_type_unique_id', 'level_unique_id')
+    attribute_matches = any(field in transaction for field in identity_fields)
+    if attribute_matches:
+        for field in identity_fields:
+            if not isinstance(transaction.get(field), str) or transaction[field] != pipe[field]:
+                raise ValueError(f'Reopened pipe {field} differs from the creation readback')
     for field in ('diameter_m', 'length_m'):
         recorded = transaction.get(field)
         if (type(recorded) not in (int, float) or not math.isfinite(recorded)
@@ -138,6 +144,7 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
         'reopen_request_sha256': pins[reopen_request],
         'tolerance_m': tolerance_m,
         'pipe_matches_capture': True,
+        'creation_attribute_matches': attribute_matches,
         'connector_endpoint_error_m': connector_error,
         'connector_endpoint_matches': endpoint_matches,
         'creation_connector_matches': transaction_connectors is not None,

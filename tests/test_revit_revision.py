@@ -60,6 +60,7 @@ class RevitRevisionTests(unittest.TestCase):
                 adapter_sha256=adapter_hash, saved_rvt_sha256=authored_hash,
                 saved_reopen_verified=False, design_accepted=False,
                 transaction_result=dict(unique_id=self.pipe['unique_id'], element_id=self.pipe['id'], connector_count=2,
+                                        type_unique_id='type-a', system_type_unique_id='system-a', level_unique_id='level-a',
                                         connectors=[dict(id=1, origin_m=[0, 0, 0]), dict(id=2, origin_m=[2, 0, 0])],
                                         saved=False, connected_system_verified=False, design_accepted=False,
                                         source=stored['Source'], diameter_m=0.05, length_m=2))
@@ -77,6 +78,7 @@ class RevitRevisionTests(unittest.TestCase):
             observed = save('inventory.json', inventory)
             result = verify(root, created, authored, observed, reopen, 0.001)
             self.assertTrue(result['pipe_matches_capture'])
+            self.assertTrue(result['creation_attribute_matches'])
             self.assertEqual(result['pipe_element_id'], '1042')
             duplicate = dict(id='1042', unique_id='duplicate-fitting',
                              connector_manager_available=False, connectors=None)
@@ -187,7 +189,8 @@ class RevitRevisionTests(unittest.TestCase):
                                     request_sha256=reopen_hash, assembly_sha256=adapter_hash))
             save('inventory.json', inventory)
             for field, value in [('diameter_m', 0.07), ('length_m', True), ('source', 'different basis'),
-                                 ('element_id', '1043'), ('element_id', 1042)]:
+                                 ('element_id', '1043'), ('element_id', 1042),
+                                 ('type_unique_id', 'wrong'), ('system_type_unique_id', None), ('level_unique_id', 'wrong')]:
                 with self.subTest(field=field):
                     altered = dict(receipt, transaction_result={**receipt['transaction_result'], field: value})
                     save('creation.json', altered)

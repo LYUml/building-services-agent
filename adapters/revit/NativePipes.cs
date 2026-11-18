@@ -67,6 +67,8 @@ public static partial class NativePipes
                 throw new InvalidOperationException("Native piping end connectors differ from requested endpoints");
             ElementProvenance.Attach(pipe, request);
             var result = new { unique_id = pipe.UniqueId, element_id = pipe.Id.Value.ToString(),
+                type_unique_id = pipeType.UniqueId, system_type_unique_id = systemType.UniqueId,
+                level_unique_id = level.UniqueId,
                 source = request.Source, diameter_m = Metres(pipe.Diameter), length_m = Metres(curve.Length),
                 connector_count = connectors.Length,
                 connectors = connectors.Select(connector => new {
