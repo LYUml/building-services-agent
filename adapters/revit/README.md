@@ -69,7 +69,14 @@ Actual work-item execution remains pending.
 `adapters/revit-tests/Bsa.Revit.NativeTests.csproj` builds an NUnit fixture
 against the desktop adapter using .NET 10 and a locked NUnit dependency.
 Build with `-p:RestoreLockedMode=true`. On a dedicated, authorized Revit 2027
-test host, set `BSA_REVIT_TEST_REQUEST` for the Revit process to the absolute
+test host, run `CapturesSyntheticPipeInventory` first with the absolute
+test RVT in `BSA_REVIT_TEST_RVT`. It reports the copied model path and
+native inventory. Select their temporary directory as `BSA_PROJECT_ROOT`
+when preparing the request with `bsa revit-prepare-pipe`. Use explicit
+endpoints, diameter and source basis and select type, system and level IDs
+from that inventory.
+
+For `CreatesAndReopensOnePipe`, set `BSA_REVIT_TEST_REQUEST` for the Revit process to the absolute
 path of a prepared synthetic pipe request beside its source RVT. The test
 copies the RVT into a fresh temporary directory. A rollback control creates
 a pipe in an outer transaction group and checks that its identity and

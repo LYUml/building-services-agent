@@ -11,12 +11,42 @@ namespace Bsa.Revit.NativeTests;
 public sealed class NativePipeRoundTrip
 {
     [Test]
+    public void CapturesSyntheticPipeInventory(Application application)
+    {
+        string source = SelectInput("BSA_REVIT_TEST_RVT", ".rvt");
+        string sourceHash = Hash(source);
+        string folder = Directory.CreateTempSubdirectory("bsa-revit-inventory-").FullName;
+        string input = Path.Combine(folder, "input.rvt");
+        string report = Path.Combine(folder, "inventory.json");
+        string request = Path.Combine(folder, "inventory-request.json");
+        File.Copy(source, input);
+        byte[] requestBytes = JsonSerializer.SerializeToUtf8Bytes(new { SavedRvtSha256 = sourceHash });
+        File.WriteAllBytes(request, requestBytes);
+        var owned = application.OpenDocumentFile(input);
+        try
+        {
+            Assert.That(owned.IsWorkshared || owned.IsLinked, Is.False);
+            NativeInventory.CollectFromDocument(owned, input, report, request, requestBytes, sourceHash);
+            using var inventory = JsonDocument.Parse(File.ReadAllBytes(report));
+            var captured = inventory.RootElement;
+            foreach (string field in new[] { "pipe_types", "system_types", "levels" })
+                Assert.That(captured.GetProperty(field).GetArrayLength(), Is.GreaterThan(0), field);
+            Assert.That(captured.GetProperty("saved_rvt_sha256").GetString(), Is.EqualTo(sourceHash));
+            TestContext.WriteLine($"Copied RVT for request preparation: {input}");
+            TestContext.WriteLine($"Native inventory: {report}");
+        }
+        finally
+        {
+            Assert.That(owned.Close(false), Is.True);
+            Assert.That(Hash(source), Is.EqualTo(sourceHash));
+            Assert.That(Hash(input), Is.EqualTo(sourceHash));
+        }
+    }
+
+    [Test]
     public void CreatesAndReopensOnePipe(Application application)
     {
-        string? selected = Environment.GetEnvironmentVariable("BSA_REVIT_TEST_REQUEST");
-        if (string.IsNullOrWhiteSpace(selected) || !Path.IsPathFullyQualified(selected))
-            throw new InvalidOperationException("Select an absolute prepared synthetic request in BSA_REVIT_TEST_REQUEST");
-        string requestPath = Path.GetFullPath(selected);
+        string requestPath = SelectInput("BSA_REVIT_TEST_REQUEST", ".json");
         var request = JsonSerializer.Deserialize<PipeRequest>(File.ReadAllBytes(requestPath))
             ?? throw new InvalidOperationException("Missing pipe request");
         string source = Path.GetFullPath(request.DocumentPath);
@@ -62,6 +92,16 @@ public sealed class NativePipeRoundTrip
                 Assert.That(owned.Close(false), Is.True);
             Assert.That(Hash(source), Is.EqualTo(sourceHash));
         }
+    }
+
+    private static string SelectInput(string variable, string extension)
+    {
+        string? path = Environment.GetEnvironmentVariable(variable);
+        if (string.IsNullOrWhiteSpace(path) || !Path.IsPathFullyQualified(path)
+            || !Path.GetExtension(path).Equals(extension, StringComparison.OrdinalIgnoreCase)
+            || !File.Exists(path))
+            throw new InvalidOperationException($"Select an absolute existing synthetic {extension} fixture in {variable}");
+        return Path.GetFullPath(path);
     }
 
     private static HashSet<ElementId> PipeIds(Document document)
