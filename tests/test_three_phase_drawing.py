@@ -82,5 +82,23 @@ class ThreePhaseDrawingTests(unittest.TestCase):
             with self.assertRaisesRegex(ProjectError,'endpoint identity'):run(self.project,self.study,self.root/'wrong-layout',Path(DOT))
         self.assertFalse((self.root/'wrong-layout/schematic.dxf').exists())
 
+    def test_bus_label_relocated_outside_its_box_is_rejected(self):
+        original = subprocess.run
+
+        def displaced(*args, **kwargs):
+            result = original(*args, **kwargs)
+            layout = json.loads(result.stdout)
+            bus, other_bus = layout['objects'][:2]
+            label = next(op for op in bus['_ldraw_'] if op['op'] == 'T')
+            label['pt'] = next(op['pt'] for op in other_bus['_ldraw_'] if op['op'] == 'T')
+            result.stdout = json.dumps(layout).encode()
+            return result
+
+        output = self.root/'displaced-label'
+        with patch('bsa.three_phase_drawing.subprocess.run', side_effect=displaced):
+            with self.assertRaisesRegex(ProjectError, 'label anchor lies outside its box'):
+                run(self.project, self.study, output, Path(DOT))
+        self.assertFalse((output/'schematic.dxf').exists())
+
 
 if __name__=='__main__':unittest.main()

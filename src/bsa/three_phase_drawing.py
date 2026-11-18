@@ -123,9 +123,12 @@ def run(project,study_root,out,dot,autocad=None):
         if math.dist(a,b)>1e-9:tag(msp.add_line(a,b,dxfattribs={'layer':'BSA_ELEC_BUS' if kind=='bus' else 'BSA_ELEC_LINE'}),kind,id)
     seen_text={}
     def draw(row,kind,id):
+        bus_outline = []
         for op in row.get('_draw_',[]):
             if op['op'] in ('p','P'):
                 pts=[point(v) for v in op['points']]
+                if kind == 'bus':
+                    bus_outline.extend(pts)
                 for a,b in zip(pts,pts[1:]+pts[:1]):line(a,b,kind,id)
             elif op['op'] in ('b','B'):
                 pts=[point(v) for v in op['points']]
@@ -139,7 +142,13 @@ def run(project,study_root,out,dot,autocad=None):
             if op['op']=='F':size=float(op['size'])
             elif op['op']=='T':
                 align={'c':TextEntityAlignment.CENTER,'l':TextEntityAlignment.LEFT,'r':TextEntityAlignment.RIGHT}[op['align']]
-                tag(msp.add_text(op['text'],dxfattribs={'layer':'BSA_ELEC_TEXT','height':size*factor*0.75}).set_placement(point(op['pt']),align=align),kind,id)
+                anchor = point(op['pt'])
+                if kind == 'bus' and (not bus_outline or any(
+                    not min(axis) < value < max(axis)
+                    for axis, value in zip(zip(*bus_outline), anchor)
+                )):
+                    raise ProjectError(f'Bus {id} label anchor lies outside its box')
+                tag(msp.add_text(op['text'],dxfattribs={'layer':'BSA_ELEC_TEXT','height':size*factor*0.75}).set_placement(anchor,align=align),kind,id)
                 seen_text.setdefault((kind,id),[]).append(op['text'])
     objects=layout.get('objects',[]);edges=layout.get('edges',[])
     if len(objects)!=len(p['buses']) or len(edges)!=len(p['lines']):raise ProjectError('layout node/edge coverage differs')
