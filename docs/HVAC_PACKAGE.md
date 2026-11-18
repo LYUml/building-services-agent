@@ -94,6 +94,8 @@ The fields follow the verified VAV-to-terminal assignment even when the
 underlying CAD line was drawn in reverse. To compare releases, match by terminal
 ID and use a common drawing coordinate frame. Compare the endpoint coordinates,
 symbol centres and saved planar length separately.
+For rigid duct nodes shared by multiple sections, `rigid_node_maximum_gaps_m`
+records the largest separation among the saved incident endpoints at each node.
 
 Actual private package replay checks 80 terminals and retains nine unresolved engineering tasks. Its 22 PDF report pages and drawing match inspected renders. A second run without AutoCAD retains the missing-native review error and incomplete package status. Six focused report/package/geometry tests pass. No new dependency or solver was introduced.
 

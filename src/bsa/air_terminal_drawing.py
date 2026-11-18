@@ -9,6 +9,9 @@ from .cad_intake import METRES_PER_UNIT
 from .cli import digest
 
 
+CORRESPONDENCE_TOLERANCE_M = 1e-8
+
+
 def inspect(doc, allocation, tree, binding, layers):
     if (set(layers) != {'supply', 'vav', 'terminal', 'flex'}
             or any(not isinstance(layer, str) or not layer for layer in layers.values())
@@ -23,7 +26,7 @@ def inspect(doc, allocation, tree, binding, layers):
             raise ValueError('Finite world-XY planar geometry required')
         return q
     def near(a,b):
-        return math.dist(a,b) <= 1e-8
+        return math.dist(a,b) <= CORRESPONDENCE_TOLERANCE_M
     def take(pool, predicate, expected, *, center_of=None, target=None):
         matches = [e for e in pool if predicate(e)]
         if len(matches) != 1:
@@ -50,6 +53,7 @@ def inspect(doc, allocation, tree, binding, layers):
         raise ValueError('Complete rigid section binding required')
     nodes = {}
     node_sections = {}
+    rigid_node_gaps = {}
     rigid_sections = []
     for section in tree['sections']:
         b = binding['sections'][section['id']]
@@ -73,10 +77,12 @@ def inspect(doc, allocation, tree, binding, layers):
         for node,p in zip(pair,(saved_start,saved_end)):
             incident = node_sections.setdefault(node, [])
             for prior_section, prior_handle, prior_point in incident:
-                if not near(prior_point, p):
+                gap = math.dist(prior_point, p)
+                if gap > CORRESPONDENCE_TOLERANCE_M:
                     raise ValueError(f"Disconnected rigid node {node}: section {prior_section} "
                                      f"(handle {prior_handle}) at {prior_point} m and section {section['id']} "
-                                     f"(handle {line.dxf.handle}) at {p} m, gap {math.dist(prior_point, p):.6g} m")
+                                     f"(handle {line.dxf.handle}) at {p} m, gap {gap:.6g} m")
+                rigid_node_gaps[node] = max(rigid_node_gaps.get(node, 0.0), gap)
             incident.append((section['id'], line.dxf.handle, p))
         for node, expected in zip(pair, (a, z)):
             nodes.setdefault(node, expected)
@@ -186,8 +192,8 @@ def inspect(doc, allocation, tree, binding, layers):
             details.append(f"{layers[role]} ({len(entities)}): {', '.join(handles)}")
         raise ValueError(f"Unbound entities remain on scoped layers: {'; '.join(details)}")
     return dict(groups=groups,terminal_count=len(centers),rigid_section_count=len(tree['sections']),
-                rigid_sections=rigid_sections,
-                correspondence_tolerance_m=1e-8,correspondence_pass=True,
+                rigid_sections=rigid_sections, rigid_node_maximum_gaps_m=rigid_node_gaps,
+                correspondence_tolerance_m=CORRESPONDENCE_TOLERANCE_M,correspondence_pass=True,
                 maximum_plan_length_m=max(r['plan_length_m'] for g in groups for r in g['routes']),design_accepted=False,
                 scope='Declared group membership matches saved planar symbols and straight centre-to-centre lines. Not physical ports, installed flex length, labels, 3D coordination or regulation acceptance.')
 

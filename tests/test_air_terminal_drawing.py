@@ -103,6 +103,11 @@ class TerminalDrawingTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, r'handle .* by 1\.2e-08 m'):
             self.check()
 
+    def test_rigid_joint_retains_the_measured_subtolerance_gap(self):
+        second = self.doc.modelspace().query('LINE[layer=="duct"]')[1]
+        second.dxf.start = (5e-9, 0, 0)
+        self.assertEqual(self.check()['rigid_node_maximum_gaps_m'], {'R': 5e-9})
+
     def test_disconnected_rigid_node_reports_both_sections_and_gap(self):
         first, second = self.doc.modelspace().query('LINE[layer=="duct"]')
         second.dxf.start = (0.25, 0, 0)

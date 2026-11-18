@@ -96,6 +96,8 @@ def connection_summary(directory,workflow,paths,review):
     fresh=inspect(ezdxf.readfile(drawing),json.loads(paths[0].read_text(encoding='utf-8')),
         json.loads(project.read_text(encoding='utf-8'))['tree'],json.loads(binding.read_text(encoding='utf-8')),record['layers'])
     compared = dict(fresh)
+    if 'rigid_node_maximum_gaps_m' not in record:
+        del compared['rigid_node_maximum_gaps_m']
     if 'rigid_sections' not in record:
         del compared['rigid_sections']
     elif all('saved_from_m' not in row and 'saved_to_m' not in row for row in record['rigid_sections']):
