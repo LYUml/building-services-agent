@@ -109,6 +109,30 @@ A modified native case receipt remained invalid after refreshing its
 recorded artifact hash. Recovery diagnosis distinguishes missing
 `--fds-release` from a case whose bytes do not match a supported input.
 
+## Saved IFC port inventory
+
+The CLI `bsa ifc-port-inventory <file.ifc> --out <fresh-report.json>` and MCP
+`bsa_ifc_port_inventory` share pinned IfcOpenShell 0.8.5 and its upstream port
+ownership helper. They preserve IFC2X3 and IFC4 relationship endpoints and
+directions, class counts and candidate owners. Only explicitly opposing
+SOURCE/SINK declarations are reported as directed. There is no geometry,
+internal fitting path or hydraulic proof.
+
+The Revit 2013 IFC2X3 community Duplex Plumbing export at commit
+`31eb1dd0a0406fb9ebf0ebd823b48e1ec95afc08`, SHA-256
+`abfaf5c0979b6b4b05182aec7ada8945374bdb414db76c763724d549b41b212b`,
+had 498 products, 970 ports and 485 relations. Of these, 190 had explicit
+opposing source and sink labels. Actual CLI and stdio reports matched.
+[Community source](https://github.com/buildingsmart-community/Community-Sample-Test-Files/blob/31eb1dd0a0406fb9ebf0ebd823b48e1ec95afc08/IFC%202.3.0.1%20%28IFC%202x3%29/Duplex%20Apartment/Duplex_Plumbing_20121113.ifc)
+
+The SketchUp IFC4 Infra-Plumbing sample at commit
+`80d976a9b193a26a8e928c3e79bff67af1de68a8`, SHA-256
+`f44c401de3bbc1b08d7717807b5add12a1c319f98b42a6c633a69fbcf61d83d1`,
+had 26 distribution products and no exported ports. These are upstream
+sample imports. They do not establish live Revit export or RVT authoring.
+The source IFCs remain in ignored local runs and are not redistributed.
+[Certification sample](https://github.com/buildingSMART/Certification-datasets/blob/80d976a9b193a26a8e928c3e79bff67af1de68a8/IFC%204.0.2.1%20%28IFC%204%20ADD2%20TC1%29/Simple-Scene/Infra-Plumbing.ifc)
+
 ## Offline Revit inventory access
 
 The main CLI and MCP tool reuse the existing saved-inventory diagnostic and

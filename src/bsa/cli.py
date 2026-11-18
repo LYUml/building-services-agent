@@ -80,6 +80,9 @@ def main():
     fds_temperature.add_arguments(sub.add_parser(
         'fds-temperature-probe', help='Run a pinned Windows FDS temperature case'))
     sub.add_parser('fds-temperature-verify', help='Reconcile a saved FDS probe report').add_argument('out',type=Path)
+    ports=sub.add_parser('ifc-port-inventory',help='Read a saved IFC2X3 or IFC4 port inventory')
+    ports.add_argument('source',type=Path)
+    ports.add_argument('--out',type=Path,required=True)
     revit_connectivity.add_arguments(sub.add_parser(
         'revit-inventory-check', help='Diagnose a saved Revit pipe and fitting inventory'))
     revit_request.add_arguments(sub.add_parser(
@@ -154,6 +157,9 @@ def main():
     s.add_argument('--moosas-deps',type=Path)
     a=parser.parse_args()
     try:
+        if a.command=='ifc-port-inventory':
+            from .ifc_port_inventory import run as inventory_ports
+            print(json.dumps(inventory_ports(a.source,a.out),indent=2));return 0
         if a.command=='fds-temperature-probe':
             print(json.dumps(fds_temperature.run(a.release,a.source,a.out),indent=2));return 0
         if a.command=='fds-temperature-verify':

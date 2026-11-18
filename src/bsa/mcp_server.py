@@ -59,6 +59,11 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None,fds_rele
     read=ToolAnnotations(readOnlyHint=True,destructiveHint=False,idempotentHint=True,openWorldHint=False)
     write=ToolAnnotations(readOnlyHint=False,destructiveHint=False,idempotentHint=False,openWorldHint=False)
 
+    @server.tool(annotations=write)
+    def bsa_ifc_port_inventory(source:str,out:str)->dict[str,Any]:
+        """Read saved IFC2X3/IFC4 port ownership and relationships and write a fresh report."""
+        return invoke('bsa.ifc_port_inventory.run',local(source),local(out))
+
     @server.tool(annotations=read)
     def bsa_verify_fds_temperature_probe(out:str)->dict[str,Any]:
         """Reconcile saved FDS evidence without executing the engine."""

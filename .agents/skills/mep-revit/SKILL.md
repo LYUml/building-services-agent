@@ -23,6 +23,12 @@ The remaining product goal includes connected systems, analysis, schedules, draw
 
 ## Read and diagnose
 
+For an existing Revit IFC export, use `bsa ifc-port-inventory <file.ifc> --out
+<fresh-report.json>` or MCP `bsa_ifc_port_inventory`. It retains IFC2X3 and
+IFC4 port identities, owner candidates and declared directions. Explicitly
+distinguish zero exported ports, ambiguous directions and actual RVT evidence.
+See docs/REUSE_SURVEY.md for the pinned public export trials.
+
 `scripts/inspect_revit.ps1` checks installation metadata. `scripts/prepare_revit_addin.ps1` prepares a local manifest/request; it does not install or execute it. The C# `InventoryCommand` requires the matching saved repository-local RVT without unsaved changes, and creates a new JSON report. Use its current output schema: the older Python/Dynamo inventory lacks newer fitting, provenance and revision fields.
 
 ```powershell

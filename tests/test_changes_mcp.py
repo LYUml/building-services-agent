@@ -22,7 +22,7 @@ class SelectiveMCPTests(unittest.IsolatedAsyncioTestCase):
             async with ClientSession(*streams) as session:
                 await session.initialize()
                 tools={t.name for t in (await session.list_tools()).tools}
-                self.assertEqual(len(tools),46)
+                self.assertEqual(len(tools),47)
                 self.assertTrue({'bsa_checkpoint_workflow','bsa_inspect_changes'}<=tools)
                 async def call(name,args):
                     response=await session.call_tool(name,args,read_timeout_seconds=timedelta(seconds=120))
