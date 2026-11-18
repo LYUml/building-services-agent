@@ -88,7 +88,12 @@ def run(plan,original_run,task,catalogue,target,out,*,execute_options=None):
     selected=tasks[task]
     old_catalogue=workflow.local_path(plan.parent,selected[revision_field(selected)])
     if digest(old_catalogue)==digest(catalogue):raise ValueError('Explicit revised catalogue must differ from failed source')
-    old=read_json(original_run/task/selection_report(selected))
+    baseline = original_run / task / selection_report(selected)
+    baseline_key = baseline.relative_to(original_run).as_posix()
+    baseline_hash = report['artifact_hashes'].get(baseline_key)
+    if baseline_hash is None or not baseline.is_file() or digest(baseline) != baseline_hash:
+        raise ValueError(f'Failed selection lacks a verified result at {baseline_key}; diagnose the original execution before revising its catalogue')
+    old=read_json(baseline)
     if old.get('selected') is not None or old.get('calculated_checks_pass') is not False:
         raise ValueError('Failed no-selection baseline required')
     # Validate the replacement against the exact inherited pressure/native source.

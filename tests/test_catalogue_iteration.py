@@ -75,6 +75,12 @@ class CatalogueIterationTests(unittest.TestCase):
         saved.write_text(json.dumps(baseline));(self.original/'workflow.json').write_text('{}')
         source={'tasks':[{'id':'selection','kind':'circular_fan_selection','depends_on':'pressure','catalogue':'old-catalogue.json'}], 'requirements':[{'id':'R1'}]}
         report={'tasks':{'selection':{'status':'fail'}},'inputs':{},'artifact_hashes':{'selection/fan-selection.json':digest(saved)}}
+        unlisted = dict(report, artifact_hashes={})
+        with patch('bsa.catalogue_iteration.delivery.context', return_value=(source, unlisted, {'integrity_pass': True})), \
+                patch('bsa.catalogue_iteration.workflow_status.diagnose', return_value={'recovery_schedule': {'ready_tasks': ['selection']}}):
+            with self.assertRaisesRegex(ValueError, 'lacks a verified result at selection/fan-selection.json'):
+                self.invoke()
+        self.assertFalse(self.out.exists())
         changed=copy.deepcopy(baseline);changed['candidates'][0]['operating_point']['flow_m3_s']=.07
         with patch('bsa.catalogue_iteration.delivery.context',return_value=(source,report,{'integrity_pass':True})),patch('bsa.catalogue_iteration.workflow_status.diagnose',return_value={'recovery_schedule':{'ready_tasks':['selection']}}),patch('bsa.catalogue_iteration.selection_context',return_value=(self.original/'pressure',{})),patch('bsa.catalogue_iteration.selection_modules',return_value=()),patch('bsa.catalogue_iteration.selection_run',return_value=changed),patch('bsa.catalogue_iteration.workflow.execute') as execute:
             result=self.invoke()
