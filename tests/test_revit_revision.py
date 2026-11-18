@@ -1,8 +1,13 @@
 """Synthetic model-revision controls, independent of native host execution."""
 import copy
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
 import unittest
 from bsa.engine import ProjectError
 from bsa.revit_revision import audit_pipe
+from bsa.source_refs import file_hash
+from scripts.verify_revit_automation_reopen import verify
 
 
 class RevitRevisionTests(unittest.TestCase):
@@ -23,6 +28,46 @@ class RevitRevisionTests(unittest.TestCase):
             self.assertEqual(result['status'], 'consistent')
             self.assertFalse(result['source_verified'])
             self.assertFalse(result['design_accepted'])
+
+    def test_automation_reopen_reconciles_saved_pipe_and_rejects_displacement(self):
+        runs = Path(__file__).resolve().parents[1] / 'runs'
+        with TemporaryDirectory(dir=runs) as temporary:
+            root = Path(temporary)
+
+            def save(name, data):
+                path = root / name
+                path.write_text(json.dumps(data), encoding='utf-8')
+                return path
+
+            source_hash, adapter_hash, reopen_hash = 'a'*64, 'b'*64, 'c'*64
+            authored = root / 'authored.rvt'
+            authored.write_bytes(b'synthetic saved file')
+            authored_hash = file_hash(authored)
+            stored = self.pipe['creation_provenance']['creation_request']
+            stored.update(DocumentPath='X:/creation/input.rvt', SavedRvtSha256=source_hash)
+            request = save('pipe-request.json', dict(stored, DocumentPath='X:/local/test.rvt'))
+            request_hash = file_hash(request)
+            save('preparation.json', dict(operation='create-pipe', saved_rvt_sha256=source_hash,
+                 request_sha256=request_hash, assembly_sha256=adapter_hash))
+            created = save('creation.json', dict(input_rvt_sha256=source_hash, request_sha256=request_hash,
+                adapter_sha256=adapter_hash, saved_rvt_sha256=authored_hash,
+                transaction_result={'unique_id': self.pipe['unique_id']}))
+            reopen = save('reopen.json', dict(saved_rvt_sha256=authored_hash, request_sha256=reopen_hash,
+                                            assembly_sha256=adapter_hash))
+            self.pipe['connectors'] = [dict(id=index, origin_m=point, domain='DomainPiping',
+                                            connector_type='End', physically_connected=False, references=[])
+                                       for index, point in enumerate(self.pipe['endpoints_m'], start=1)]
+            inventory = dict(document_path='X:/reopen/input.rvt', saved_rvt_sha256=authored_hash,
+                             request_sha256=reopen_hash, adapter_sha256=adapter_hash, units='metres',
+                             pipes=[self.pipe], fittings=[])
+            observed = save('inventory.json', inventory)
+            result = verify(root, created, authored, observed, reopen, 0.001)
+            self.assertTrue(result['pipe_matches_capture'])
+            self.assertFalse(result['native_execution_authenticated'])
+            self.pipe['endpoints_m'] = [[0, 1, 0], [2, 1, 0]]
+            save('inventory.json', inventory)
+            with self.assertRaisesRegex(ValueError, 'identity or geometry'):
+                verify(root, created, authored, observed, reopen, 0.001)
 
     def test_translation_with_same_length_and_diameter_is_detected(self):
         self.pipe['endpoints_m']=[[0,1,0],[2,1,0]]

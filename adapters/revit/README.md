@@ -68,6 +68,17 @@ The write bundle was packaged locally from the compiled adapter. Work-item
 execution and independent reopen remain pending.
 [Autodesk Document.SaveAs](https://help.autodesk.com/cloudhelp/2026/ENU/Revit-API-MainReference/files/html/df74c7e1-a98a-7751-676a-e9b074566f62.htm)
 
+For a separate reopen trial, stage the returned `authored.rvt` with the
+read-only inventory Activity. Then reconcile both sets of local evidence:
+
+```powershell
+python scripts/verify_revit_automation_reopen.py --write-stage <stage-directory> --creation <creation.json> --authored <authored.rvt> --inventory <inventory.json> --reopen-preparation <preparation.json> --tolerance-m <metres>
+```
+
+This checks the file hashes and compares the created pipe's identity and
+observed geometry with the staged request. It does not authenticate APS
+execution, establish system connectivity or accept the design.
+
 Add `--model runs/<test-fixture>.rvt` to generate the hash-bound
 `inventory-request.json` beside the AppBundle. The selected fixture stays
 at its original path and outside the ZIP. Use those same RVT bytes as the
