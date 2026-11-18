@@ -151,7 +151,8 @@ connection count is unchanged. For a documented coordinate translation,
 also pass the same `--alignment` file tied to both model hashes. Check for
 residual movement in aligned coordinates and locate findings in the current
 model coordinates. Read the IFC review status and measured relationship
-count even when the BCF is empty.
+count even when the BCF is empty. For a CLI gate, add `--require-pass` so
+both failed and pending reviews return exit code 2 with the evidence retained.
 See docs/REUSE_SURVEY.md for the supported comparison and replay evidence.
 
 For an existing verified native HVAC workflow, use bsa.vav_schedule run/verify

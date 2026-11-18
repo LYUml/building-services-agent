@@ -2,6 +2,7 @@ from datetime import timedelta
 from importlib.util import find_spec
 import os
 from pathlib import Path
+import subprocess
 import sys
 from tempfile import TemporaryDirectory
 import unittest
@@ -75,6 +76,15 @@ class IfcPortBcfMcpTests(unittest.IsolatedAsyncioTestCase):
                     rejected = await session.call_tool('bsa_verify_ifc_port_bcf', dict(args, tolerance_m=0.002))
                     self.assertTrue(rejected.isError)
                     self.assertIn('does not match the supplied port gap tolerance', str(rejected.content))
+
+            command = [sys.executable, '-m', 'bsa.cli', 'ifc-port-bcf-verify',
+                       str(root / 'source.ifc'), str(root / 'review.bcf'), '--tolerance-m', '0.001']
+            default = subprocess.run(command, cwd=repository, capture_output=True, text=True, check=False)
+            gated = subprocess.run([*command, '--require-pass'], cwd=repository,
+                                   capture_output=True, text=True, check=False)
+            self.assertEqual(default.returncode, 0, default.stderr)
+            self.assertEqual(gated.returncode, 2, gated.stderr)
+            self.assertEqual(default.stdout, gated.stdout)
 
 
 @unittest.skipUnless(find_spec('bcf'), 'requires the optional BCF runtime')
