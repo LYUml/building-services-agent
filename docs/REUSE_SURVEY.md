@@ -332,6 +332,24 @@ Node 26.13.0 and npm 11.20.0, `npm ci --ignore-scripts` and
 the trial. No APS credentials were available in the host environment and
 no WorkItem was submitted. Native Revit persistence remains unverified.
 
+## Offline RVT metadata candidate
+
+[rvt-rs v0.25.0](https://github.com/DrunkOnJava/rvt-rs/tree/e3a94048a851bf35deffeb5c6b99d54534910b55)
+is Apache-2.0 licensed. The Windows x64 `rvt-0.25.0-cp38-abi3-win_amd64.whl`
+matched the published [PyPI digest](https://pypi.org/project/rvt/0.25.0/#files)
+`3de8f94129219b7456427fcaa2dad694da6e5f009ce55683aaa66fdd86e69126`.
+It was installed to an ignored local trial directory with its bundled licence.
+`RevitFile.version`, `metadata()` and `basic_file_info_json_strict()` executed
+against two byte-identical copies of a Revit 2027 test sample. The reader
+reported release 2027 and worksharing `Not enabled`. A synthetic text file
+with an `.rvt` extension raised `OSError`. Pre/post hashes of all checked files
+matched. No personal metadata was emitted or copied into evidence documents.
+
+Use this candidate for scoped metadata preflight. Treat missing or unfamiliar
+worksharing values as unresolved. A metadata read leaves native open, link
+resolution, writable state, physical connectors and authored persistence
+unverified. The converter, geometry reader and upstream MCP were not exercised.
+
 ## Offline Revit inventory access
 
 The main CLI and MCP tool reuse the existing saved-inventory diagnostic and
