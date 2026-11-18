@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 import ezdxf
-from bsa.cad_sheet import check_window_entities,pdf_lines,plot
+from bsa.cad_sheet import check_text_line_clearance,check_window_entities,pdf_lines,plot
 from bsa.cli import digest
 from bsa.duct_sheet_native import run as publish_native
 from bsa.engine import ProjectError
@@ -12,6 +12,21 @@ from tests.test_cad_overlay import inputs
 
 
 class CADSheetTests(unittest.TestCase):
+    def test_selected_line_crossing_reports_handles(self):
+        from bsa.cad_text_layout import text_box
+
+        drawing = ezdxf.new()
+        model = drawing.modelspace()
+        label = model.add_text('VAV-11')
+        x0, y0, x1, y1 = text_box(label)
+        y = (y0 + y1) / 2
+        line = model.add_line((x0 - 1, y), (x1 + 1, y), dxfattribs={'layer': 'FLEX'})
+        selection = dict(text_handles=[label.dxf.handle], line_layers=['flex'])
+        with self.assertRaisesRegex(ProjectError, f'TEXT {label.dxf.handle}.*LINE {line.dxf.handle}'):
+            check_text_line_clearance(drawing, selection)
+        label.translate(0, y1 - y0 + 1, 0)
+        self.assertEqual(check_text_line_clearance(drawing, selection), dict(text_count=1, obstacle_line_count=1))
+
     def test_required_entity_bounds_reject_clipping_before_plot(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)

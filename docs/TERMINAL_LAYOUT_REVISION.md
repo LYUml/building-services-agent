@@ -49,6 +49,12 @@ The sheet settings can specify `required_window_handles` for modelspace
 LINE, CIRCLE, LWPOLYLINE or TEXT that must fit inside the plot window.
 The preflight checks estimated DXF bounds and identifies any offending handle.
 Font rendering and label overlap still require review of the actual PDF.
+To screen line crossings, set `sheet.text_line_clearance` with
+`text_handles` and `line_layers`. The check reports the modelspace TEXT
+and LINE handles when a projected line enters an estimated text box.
+The original course drawing flagged three VAV labels. After their explicit
+relocation in a separate copy, the reopened export passed the screen for
+20 labels against 80 flex lines and AutoCAD generated the scaled PDF.
 When recording this review, bind the exact DWG, PDF and rendered page by
 SHA-256 and identify the page and renderer. Save the observations beside the
 native receipt in a new file. Preserve the native receipt's pending visual
