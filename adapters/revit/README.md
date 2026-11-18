@@ -113,6 +113,12 @@ and independent stage verification against the saved Revit 2027 sample,
 with no upgrade required. The native host and saved reopening remain
 unverified.
 
+The Windows source candidate at `703bb72` was extracted and installed in
+a fresh directory. Adding the optional `revit-metadata` extra there enabled
+both installed interfaces. The CLI and MCP reports agreed on the saved
+2024 release of the public Core Interior sample and its upgrade requirement
+for a 2027 target.
+
 Add `--model runs/<test-fixture>.rvt` to generate the hash-bound
 `inventory-request.json` beside the AppBundle. The selected fixture stays
 at its original path and outside the ZIP. Use those same RVT bytes as the
