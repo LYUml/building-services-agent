@@ -91,6 +91,11 @@ their modelspace handles in `sheet.required_window_handles` for the native
 duct sheet. A retained PDF scale reference can pass while other items are
 clipped. Inspect the rendered page for annotation overlap and cropping, and
 record the page and exact DWG, PDF and render hashes in a separate review.
+After a route changes, also check stationary VAV and equipment labels against
+the new lines. Set `sheet.text_line_clearance` with explicit `text_handles`
+and `line_layers` to screen crossings of estimated text boxes. Use the
+reported handles to locate the conflict and inspect the corresponding PDF
+region after correction.
 For a saved DWG revision with the optional ACadSharp worker configured,
 use `bsa drawing inspect --independent-report` or MCP
 `bsa_crosscheck_drawing_revision`. Check the comparison result and geometry
