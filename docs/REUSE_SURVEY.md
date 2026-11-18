@@ -144,6 +144,12 @@ explicit shift limit. A viewpoint uses current IFC positions. The movement
 topic retains the baseline, raw current and aligned position when available.
 Actual CLI and MCP workflow trials reopened one missing-pair topic and two
 shift topics. Other baseline discrepancies remain in the JSON report.
+Repeated CLI and MCP exports from the same IFC bytes preserve the BCF project
+GUID and the GUID of each issue with the same title. Verification reconstructs
+both identifiers from the IFC hash and issue titles. This stability is scoped
+to one IFC snapshot. The test reopened both archives with pinned `bcf-client`
+and compared the project and topic GUIDs.
+
 Workflow verification also reconstructs the perspective camera from the
 current IFC issue location and the pinned BCF library. It compares the
 saved camera origin, direction, up vector, field of view and aspect ratio.

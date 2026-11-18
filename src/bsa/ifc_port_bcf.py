@@ -5,11 +5,17 @@ import importlib.metadata
 from pathlib import Path
 import shutil
 from tempfile import TemporaryDirectory
+from uuid import NAMESPACE_URL, UUID, uuid5
 from zipfile import BadZipFile
 
 from . import workspace
 from .ifc_port_inventory import inventory
 from .source_refs import file_hash
+
+
+def project_id(report):
+    source_hash = report['source_sha256']
+    return uuid5(NAMESPACE_URL, f'https://github.com/LYUml/building-services-agent/ifc/{source_hash}')
 
 
 def issue_records(report):
@@ -67,6 +73,7 @@ def verify(report, archive):
     if importlib.metadata.version('bcf-client') != '0.9.0':
         raise ValueError('Pinned bcf-client 0.9.0 required')
     expected = Counter()
+    project_guid = project_id(report)
     before = file_hash(archive)
     for title, description, selected, point in issue_records(report):
         view_selection = tuple(selected) if point is not None else ()
@@ -74,9 +81,11 @@ def verify(report, archive):
         if view_selection:
             view = VisualizationInfoHandler.create_from_point_and_guids(np.asarray(point), *view_selection)
             cameras = ((astuple(view.visualization_info.perspective_camera), None),)
-        expected[title, description, view_selection, cameras, 'Open'] += 1
+        expected[str(uuid5(project_guid, title)), title, description, view_selection, cameras, 'Open'] += 1
     try:
         with BcfXml.load(archive) as restored:
+            if UUID(restored.project.project_id) != project_guid:
+                raise ValueError('Saved BCF project identity differs from the source IFC')
             actual = Counter()
             for topic in restored.topics.values():
                 views = [handler.visualization_info for handler in topic.viewpoints.values()]
@@ -87,7 +96,7 @@ def verify(report, archive):
                      astuple(view.orthogonal_camera) if view.orthogonal_camera is not None else None)
                     for view in views
                 )
-                actual[topic.topic.title, topic.topic.description, tuple(sorted(selections)),
+                actual[topic.topic.guid, topic.topic.title, topic.topic.description, tuple(sorted(selections)),
                        cameras, topic.topic.topic_status] += 1
     except (AttributeError, BadZipFile) as exc:
         raise ValueError('Invalid IFC port coordination BCF archive') from exc
@@ -101,6 +110,7 @@ def verify(report, archive):
 
 def write(report, source, out):
     from bcf.v3.bcfxml import BcfXml
+    from bcf.v3.topic import TopicHandler
     from bcf.v3.visinfo import VisualizationInfoHandler
     import numpy as np
 
@@ -110,8 +120,17 @@ def write(report, source, out):
     if importlib.metadata.version('bcf-client') != '0.9.0':
         raise ValueError('Pinned bcf-client 0.9.0 required')
     project = BcfXml.create_new('IFC port coordination review')
+    project_guid = project_id(report)
+    project.project.project_id = str(project_guid)
     for title, description, selected, point in issue_records(report):
-        topic = project.add_topic(title, description, 'Building Services Agent', 'Issue', 'Open')
+        guid = str(uuid5(project_guid, title))
+        if guid in project.topics:
+            raise ValueError('Duplicate IFC coordination issue identity')
+        provisional = TopicHandler.create_new(title, description, 'Building Services Agent', 'Issue', 'Open')
+        provisional.topic.guid = guid
+        topic = TopicHandler(topic_dir=Path(guid))
+        topic.markup = provisional.markup
+        project.topics[guid] = topic
         if selected and point is not None:
             viewpoint = VisualizationInfoHandler.create_from_point_and_guids(np.asarray(point), *selected)
             topic.add_visinfo_handler(viewpoint)
