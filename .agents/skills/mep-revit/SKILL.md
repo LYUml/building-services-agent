@@ -38,6 +38,16 @@ MCP `bsa_check_revit_inventory` takes `inventory`, `model`, `out` and positive
 `diagnostic_status` even when the tool returns successfully. The CLI exits 2
 for a pending or failing diagnosis. Both entry points work offline.
 
+To check for omitted or wrong peers, pass an independently prepared design
+connection schedule as `--expected-connections` in the CLI or
+`expected_connections` in MCP and workflow. The JSON contract is
+`{"source":"drawing sheet and schedule row locator","required_pairs":[[["pipe-unique-id",1],["fitting-unique-id",2]]]}`.
+Use Revit owner UniqueId strings and connector IDs from the intended mapping.
+Each declared endpoint has one peer. The report pins the schedule hash and
+distinguishes missing, unconfirmed, unavailable and unexpected pairs for the
+declared endpoints. An unavailable port remains pending unless other findings
+fail the check. A matching schedule does not resolve the wider system review.
+
 Workflow kind `revit_inventory_check` takes `inventory`, `model` and `tolerance_m`. Put its ID in downstream `requires_pass`. Its status is fail or pending until broader acceptance exists; exit code 2 is expected for unresolved checks. Use `bsa.workflow_status` to diagnose dependencies, not to overwrite outcomes. Preserving unresolved requirements is essential, but do not make every future Revit task depend on this deliberately incomplete prototype when a different verified adapter can meet the requirement.
 
 ## Author and revise

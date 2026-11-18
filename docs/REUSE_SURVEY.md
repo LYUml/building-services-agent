@@ -6,6 +6,12 @@ through the actual CLI and stdio worker. It detects a 20 mm connector
 displacement, compares the reports byte-for-byte, and rejects output reuse,
 path escape and stale model bytes. No new dependency is required.
 
+An optional expected-connection schedule uses the same extracted connector
+references and confirmed pairs. Executed controls reject coincident wrong-peer
+swaps and missing links, retain unavailable endpoints as pending, and detect
+changes to the source schedule during workflow verification. The CLI and stdio
+test agree on a displaced pair that is observed but cannot be confirmed.
+
 Autodesk documents that desktop Revit has no standalone Core Console. APS
 Automation for Revit is the supported headless service and requires a separate
 verified cloud setup. Native add-in loading and saved RVT execution remain

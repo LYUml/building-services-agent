@@ -153,7 +153,8 @@ def main():
     a=parser.parse_args()
     try:
         if a.command=='revit-inventory-check':
-            result=revit_connectivity.run(a.inventory,a.model,a.out,a.tolerance_m)
+            result=revit_connectivity.run(a.inventory,a.model,a.out,a.tolerance_m,
+                                          expected_connections=a.expected_connections)
             print(json.dumps(result,indent=2));return 2
         if a.command=='changes':
             from .changes.cli import dispatch

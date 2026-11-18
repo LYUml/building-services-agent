@@ -27,6 +27,34 @@ class RevitConnectivityTests(unittest.TestCase):
         self.assertEqual(result['diagnostic_status'], 'pending')
         self.assertFalse(result['connected_system_verified'])
 
+    def test_expected_pairs_detect_coincident_wrong_peers_and_missing_link(self):
+        intent = dict(source='Synthetic design schedule, rows 1–2', required_pairs=[
+            [['pipe', 1], ['fitting', 1]], [['pipe-2', 1], ['fitting-2', 1]],
+        ])
+        for kind in ('pipes', 'fittings'):
+            second = copy.deepcopy(self.data[kind][0])
+            second['unique_id'] += '-2'
+            second['connectors'][0]['references'][0]['owner_unique_id'] += '-2'
+            self.data[kind].append(second)
+        matched = diagnose(self.data, 0.0001, expected_connections=intent)
+        self.assertEqual(matched['expected_connections']['status'], 'pass')
+        self.assertEqual(matched['diagnostic_status'], 'pending')
+        for kind in ('pipes', 'fittings'):
+            first, second = self.data[kind]
+            a, b = first['connectors'][0], second['connectors'][0]
+            a['references'], b['references'] = b['references'], a['references']
+        swapped = diagnose(self.data, 0.0001, expected_connections=intent)
+        self.assertEqual(len(swapped['consistent_reference_pairs']), 2)
+        self.assertEqual(swapped['diagnostic_status'], 'fail')
+        self.assertEqual(len(swapped['expected_connections']['missing_pairs']), 2)
+        self.assertEqual(len(swapped['expected_connections']['unexpected_pairs']), 2)
+        for kind in ('pipes', 'fittings'):
+            for item in self.data[kind]:
+                item['connectors'][0].update(references=[], physically_connected=False)
+        disconnected = diagnose(self.data, 0.0001, expected_connections=intent)
+        self.assertEqual(len(disconnected['expected_connections']['missing_pairs']), 2)
+        self.assertEqual(disconnected['expected_connections']['unexpected_pairs'], [])
+
     def test_fake_reciprocity_detected_from_opposite_inventory(self):
         self.data['fittings'][0]['connectors'][0]['references'] = []
         self.check_reason('missing_reciprocal_reference')

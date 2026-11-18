@@ -52,6 +52,23 @@ class RevitWorkflowTests(unittest.TestCase):
             self.assertEqual(result['tasks']['check']['status'],'fail')
             self.assertFalse((root/'out/delivery').exists())
 
+    def test_expected_connections_are_pinned_and_uncovered_port_stays_pending(self):
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+            root=Path(folder);plan,_=self.fixture(root)
+            basis=root/'expected.json'
+            basis.write_text(json.dumps(dict(source='Synthetic plan row 1',
+                required_pairs=[[['p',1],['uncovered',1]]])))
+            spec=json.loads(plan.read_text())
+            spec['tasks'][0]['expected_connections']=basis.name
+            plan.write_text(json.dumps(spec))
+            result=execute(plan,root/'out')
+            self.assertEqual(result['tasks']['check']['status'],'pending')
+            diagnosis=json.loads((root/'out/check/diagnosis.json').read_text())
+            self.assertEqual(diagnosis['expected_connections']['unavailable_pairs'],[[['p',1],['uncovered',1]]])
+            self.assertTrue(verify(root/'out')['integrity_pass'])
+            basis.write_text('{}')
+            self.assertFalse(verify(root/'out')['integrity_pass'])
+
     def test_stale_inventory_is_rejected_before_diagnosis_output(self):
         with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
             root=Path(folder);plan,model=self.fixture(root)
