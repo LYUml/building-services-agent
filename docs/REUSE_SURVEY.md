@@ -2922,6 +2922,26 @@ The useful target is a dedicated authorized Revit host for create, rollback,
 save and fresh reopen tests. Local signing and native execution remain open.
 [Pinned TestRunner usage](https://github.com/geberit/Revit.TestRunner/blob/6cd268d32e56f309d2a4c02a21ad452273827843/documentation/Documentation.md)
 
+### Signed Horizun Revit bridge trial candidate
+
+The [v4.0.1 release](https://github.com/HorizunGroup/horizun-revit-mcp/releases/tag/v4.0.1)
+reports source commit `f0384484ea994c93e16dddf9e023dc18b76cbc67` in its
+Revit 2027 live report. The downloaded Windows installer matched both the
+release asset digest and `SHA256SUMS.txt`
+(`4ea0677a0997d511f67870afe73cd41197ce09ede02e92da0e5cb69ff3848edc`).
+Windows `Get-AuthenticodeSignature` returned `Valid` for the installer
+with publisher `HORIZUN GROUP S.A.S.`. The installer was not executed.
+
+The publisher's Revit 2027 report records 612 passing probes, including
+coincident unjoined pipes remaining separate, a joined elbow with both
+connections read back, and rejection of an elbow across distant endpoints.
+On an authorized host, use the bridge as an optional native Revit backend.
+Start with `horizun_health` and an isolated fixture. Bind the expected
+document and connector peers to the BSA test, then check both connector
+identity and coordinate drift after saving and reopening. The local signature
+check covers the installer. Local add-in admission, tool execution, and saved
+RVT round-trip remain unverified.
+
 ## LibreDWG and QCAD command-line evaluation
 
 - [GNU LibreDWG 0.14](https://github.com/LibreDWG/libredwg/releases/tag/0.14)
