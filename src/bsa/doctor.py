@@ -9,6 +9,17 @@ from . import workspace
 from .host_runtime import PATH_ARGUMENTS
 
 
+def dwg_runtime_paths(dotnet=None, worker=None):
+    from .dwg_readback import host_runtime_files
+
+    try:
+        dotnet_path, worker_path, reader = host_runtime_files(dotnet, worker)
+    except ValueError as error:
+        return dict(paths_ready=False, execution_verified=False, problem=str(error))
+    return dict(paths_ready=True, execution_verified=False,
+                dotnet=str(dotnet_path), worker=str(worker_path), reader=str(reader))
+
+
 def profile_paths(config):
     """Inspect an explicitly selected BSA startup profile without executing it."""
     config=Path(config).resolve();data=config.read_bytes()
@@ -31,12 +42,24 @@ def profile_paths(config):
         if flag in runtimes or (not separator and (index+1==len(args) or args[index+1].startswith('--'))):
             raise ValueError('Unique MCP runtime flag with explicit path required: '+flag)
         runtimes[flag]=presence(value if separator else args[index+1],PATH_ARGUMENTS[name]);index+=1 if separator else 2
+    environment = server.get('env', {})
+    if not isinstance(environment, dict):
+        raise ValueError('MCP environment must be a table')
+    dwg_keys = ('BSA_ACADSHARP_DOTNET', 'BSA_ACADSHARP_WORKER')
+    optional = {}
+    if any(key in environment for key in dwg_keys):
+        values = [environment.get(key, '') for key in dwg_keys]
+        if any(not isinstance(value, str) for value in values):
+            raise ValueError('DWG readback environment paths must be strings')
+        optional['dwg_readback'] = dwg_runtime_paths(*values)
     if config.read_bytes()!=data:raise ValueError('MCP profile changed during inspection')
     return dict(config_path=str(config),config_sha256=hashlib.sha256(data).hexdigest(),
         command=command,cwd=cwd,runtimes=runtimes,
-        paths_ready=all(item['present'] for item in [command,cwd,*runtimes.values()]),
+        paths_ready=(all(item['present'] for item in [command,cwd,*runtimes.values()])
+                     and all(item['paths_ready'] for item in optional.values())),
         execution_verified=False,
-        scope='Supported absolute BSA startup path presence only; not generic MCP configuration validation or engine execution')
+        scope='Supported absolute BSA startup path presence only; not generic MCP configuration validation or engine execution',
+        **optional)
 
 
 def check(*,extras=(),autocad=None,mcp_config=None,dwg_readback=False):
@@ -60,14 +83,8 @@ def check(*,extras=(),autocad=None,mcp_config=None,dwg_readback=False):
     ready=sys.version_info>=(3,11) and all(p['matches'] for p in packages) and (runtime is None or runtime['is_file']) and (profile is None or profile['paths_ready'])
     optional_runtime = {}
     if dwg_readback:
-        from .dwg_readback import host_runtime_files
-
-        try:
-            dotnet, worker, reader = host_runtime_files()
-            dwg = dict(paths_ready=True, dotnet=str(dotnet), worker=str(worker), reader=str(reader))
-        except ValueError as error:
-            dwg = dict(paths_ready=False, problem=str(error))
-        optional_runtime['dwg_readback'] = dict(**dwg, execution_verified=False)
+        dwg = dwg_runtime_paths()
+        optional_runtime['dwg_readback'] = dwg
         ready = ready and dwg['paths_ready']
     return dict(status='direct_requirements_ready' if ready else 'needs_setup',
                 python=sys.executable,python_supported=sys.version_info>=(3,11),extras=extras,

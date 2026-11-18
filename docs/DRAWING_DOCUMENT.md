@@ -165,6 +165,8 @@ For project-local Codex MCP setup, use `python -m bsa.codex_setup --dwg-dotnet
 <absolute-dotnet-path> --dwg-worker <absolute-worker-path>`. Add `--refresh`
 to update an existing BSA profile. The setup writes both paths to the MCP
 server's environment table.
+`bsa doctor --mcp-config <profile.toml>` checks the paths stored in the profile
+independently of the caller's environment.
 Run `bsa doctor --dwg-readback` to check that both host paths and the adjacent
 reader library exist. Use `bsa dwg-readback` on a known fixture to verify
 worker schema compatibility and actual execution.

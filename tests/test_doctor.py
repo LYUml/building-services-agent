@@ -10,6 +10,24 @@ from unittest.mock import patch
 from bsa import doctor,workspace,drawing_access
 
 class DoctorTests(unittest.TestCase):
+    def test_profile_dwg_paths_do_not_fall_back_to_shell_environment(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            worker, dotnet = root / 'worker.dll', root / 'dotnet.exe'
+            for path in (worker, dotnet, root / 'ACadSharp.dll'):
+                path.touch()
+            profile = self.profile(root, [])
+            with profile.open('a', encoding='utf-8') as stream:
+                stream.write('[mcp_servers.building_services.env]\n')
+                stream.write(f'BSA_ACADSHARP_DOTNET = {json.dumps(dotnet.as_posix())}\n')
+            with patch.dict(os.environ, BSA_ACADSHARP_WORKER=str(worker)):
+                self.assertFalse(doctor.profile_paths(profile)['paths_ready'])
+            with profile.open('a', encoding='utf-8') as stream:
+                stream.write(f'BSA_ACADSHARP_WORKER = {json.dumps(worker.as_posix())}\n')
+            result = doctor.profile_paths(profile)
+            self.assertTrue(result['paths_ready'])
+            self.assertFalse(result['dwg_readback']['execution_verified'])
+
     def test_dwg_runtime_needs_adjacent_reader_without_executing_binaries(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
