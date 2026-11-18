@@ -159,9 +159,11 @@ def inspect(doc, allocation, tree, binding, layers):
             routes.append(dict(terminal=tid,terminal_handle=terminals[tid],flex_handle=line.dxf.handle,
                                plan_length_m=math.dist(start,end),
                                saved_plan_length_m=math.dist(saved_start,saved_end),
+                               saved_terminal_center_m=list(symbol_centers[terminals[tid]]),
                                vav_endpoint_gap_m=math.dist(saved_start,saved_vav),
                                terminal_endpoint_gap_m=math.dist(saved_end,symbol_centers[terminals[tid]])))
-        groups.append(dict(id=leaf,vav_handle=circle.dxf.handle,outlet_count=len(members),maximum_flow_L_s=aggregation['leaf_flow_L_s'][leaf],routes=routes))
+        groups.append(dict(id=leaf,vav_handle=circle.dxf.handle,saved_vav_center_m=list(saved_vav),
+                           outlet_count=len(members),maximum_flow_L_s=aggregation['leaf_flow_L_s'][leaf],routes=routes))
     if any(pools.values()):
         details = []
         for role, entities in pools.items():

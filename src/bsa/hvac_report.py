@@ -104,16 +104,19 @@ def connection_summary(directory,workflow,paths,review):
             for row in fresh['rigid_sections']
         ]
     omitted_route_fields = set()
-    if all('saved_plan_length_m' not in route for group in record['groups'] for route in group['routes']):
-        omitted_route_fields.add('saved_plan_length_m')
+    for field in ('saved_plan_length_m', 'saved_terminal_center_m'):
+        if all(field not in route for group in record['groups'] for route in group['routes']):
+            omitted_route_fields.add(field)
+    omitted_group_fields = {'saved_vav_center_m'} if all(
+        'saved_vav_center_m' not in group for group in record['groups']) else set()
     if 'correspondence_tolerance_m' not in record:
         del compared['correspondence_tolerance_m']
         omitted_route_fields.update(('vav_endpoint_gap_m', 'terminal_endpoint_gap_m'))
-    if omitted_route_fields:
+    if omitted_route_fields or omitted_group_fields:
         # Earlier receipts omit some measured fields. Recompute the geometry
         # above and compare the fields available in the original receipt.
         compared['groups'] = [
-            {**group, 'routes': [
+            {**{key: value for key, value in group.items() if key not in omitted_group_fields}, 'routes': [
                 {key: value for key, value in route.items() if key not in omitted_route_fields}
                 for route in group['routes']
             ]} for group in fresh['groups']

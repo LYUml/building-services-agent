@@ -60,6 +60,10 @@ class TerminalDrawingTests(unittest.TestCase):
         for terminal in self.allocation['terminals']:
             terminal['center_m'][0] += shift
         revised = self.check()
+        for old, new in zip(baseline['groups'], revised['groups'], strict=True):
+            self.assertEqual(new['saved_vav_center_m'][0] - old['saved_vav_center_m'][0], shift)
+            self.assertEqual(new['routes'][0]['saved_terminal_center_m'][0]
+                             - old['routes'][0]['saved_terminal_center_m'][0], shift)
 
         for old, new in zip(baseline['rigid_sections'], revised['rigid_sections'], strict=True):
             self.assertEqual(old['section'], new['section'])
