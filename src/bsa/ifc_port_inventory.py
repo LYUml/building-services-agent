@@ -145,11 +145,16 @@ def inspect_pair_gaps(inventory, tolerance):
                 scope='Distances between exported port origins only; physical joint and profile unresolved')
 
 
-def inventory(source, position_tolerance_m=None, *, baseline=None):
+def inventory(source, position_tolerance_m=None, *, baseline=None, max_port_shift_m=None):
     positions = position_tolerance_m is not None
     if positions and (type(position_tolerance_m) not in (int, float)
                       or not math.isfinite(position_tolerance_m) or position_tolerance_m <= 0):
         raise ValueError('Position checks require a finite positive tolerance in metres')
+    if max_port_shift_m is not None and (
+        baseline is None or not positions or type(max_port_shift_m) not in (int, float)
+        or not math.isfinite(max_port_shift_m) or max_port_shift_m <= 0
+    ):
+        raise ValueError('Port shift limit requires a baseline and positive finite metre tolerances')
     result = inspect(source, positions=positions)
     if positions:
         result['connection_gaps'] = inspect_pair_gaps(result, position_tolerance_m)
@@ -157,7 +162,9 @@ def inventory(source, position_tolerance_m=None, *, baseline=None):
         previous = inspect(baseline, positions=positions)
         result['comparison'] = comparison = compare(previous, result)
         if positions:
-            comparison['positions'] = compare_positions(previous, result, position_tolerance_m)
+            comparison['positions'] = compare_positions(previous, result, max_port_shift_m or position_tolerance_m)
+        if max_port_shift_m is not None:
+            comparison['max_port_shift_m'] = max_port_shift_m
         if file_hash(baseline) != previous['source_sha256'] or file_hash(source) != result['source_sha256']:
             raise ValueError('IFC input changed during comparison')
     return result
@@ -180,15 +187,21 @@ def review_status(report):
         return 'pending', 'Baseline comparison lacks shared exported port identities'
     if any(comparison[key] for key in ('added_ports', 'removed_ports', 'changed_ports', 'changed_pairs')):
         return 'fail', 'Exported port identities, owners, directions or peer pairs differ from the declared baseline'
+    if 'max_port_shift_m' in comparison:
+        positions = comparison['positions']
+        if positions['moved_ports']:
+            return 'fail', 'Exported port movement exceeds the declared baseline limit'
+        if positions['unavailable_ports']:
+            return 'pending', 'Baseline port positions do not cover all shared port identities'
     return status, reason
 
 
-def run(source, out, *, baseline=None, position_tolerance_m=None):
+def run(source, out, *, baseline=None, position_tolerance_m=None, max_port_shift_m=None):
     source, out = (Path(p).resolve() for p in (source, out))
     if not workspace.intake_output(out) or out.exists():
         raise ValueError('Fresh IFC report in the permitted output workspace required')
     positions = position_tolerance_m is not None
-    result = inventory(source, position_tolerance_m, baseline=baseline)
+    result = inventory(source, position_tolerance_m, baseline=baseline, max_port_shift_m=max_port_shift_m)
     summary = {key: result[key] for key in ('source_sha256', 'schema', 'preprocessor', 'counts', 'design_accepted')}
     if positions:
         gaps = result['connection_gaps']

@@ -29,6 +29,15 @@ class IfcPortComparisonTests(unittest.TestCase):
         self.assertEqual(checked['unavailable_ports'], ['b'])
         self.assertEqual(checked['moved_ports'][0]['displacement_m'], 0.02)
         self.assertEqual(compare_positions(previous, current, 0.03)['moved_ports'], [])
+        scope = dict(measured_relationships=1, separated_relationships=[], unavailable_relationships=[], scope='test')
+        comparison = dict(status='shared_port_guids', added_ports=[], removed_ports=[], changed_ports=[],
+                          changed_pairs=[], positions=checked)
+        report = dict(connection_gaps=scope, comparison=comparison)
+        self.assertEqual(review_status(report)[0], 'pass')
+        comparison['max_port_shift_m'] = 0.001
+        self.assertEqual(review_status(report)[0], 'fail')
+        comparison['positions'] = compare_positions(previous, current, 0.03)
+        self.assertEqual(review_status(report)[0], 'pending')
 
     def test_pair_removal_owner_change_and_empty_export(self):
         a = dict(guid='a', owner_guids=['p1'], flow_direction='SOURCE')

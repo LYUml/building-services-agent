@@ -84,6 +84,7 @@ def main():
     ports.add_argument('source',type=Path)
     ports.add_argument('--baseline',type=Path)
     ports.add_argument('--position-tolerance-m',type=float)
+    ports.add_argument('--max-port-shift-m',type=float)
     ports.add_argument('--out',type=Path,required=True)
     revit_connectivity.add_arguments(sub.add_parser(
         'revit-inventory-check', help='Diagnose a saved Revit pipe and fitting inventory'))
@@ -161,7 +162,8 @@ def main():
     try:
         if a.command=='ifc-port-inventory':
             from .ifc_port_inventory import run as inventory_ports
-            result=inventory_ports(a.source,a.out,baseline=a.baseline,position_tolerance_m=a.position_tolerance_m)
+            result=inventory_ports(a.source,a.out,baseline=a.baseline,position_tolerance_m=a.position_tolerance_m,
+                                   max_port_shift_m=a.max_port_shift_m)
             print(json.dumps(result,indent=2));return 0
         if a.command=='fds-temperature-probe':
             print(json.dumps(fds_temperature.run(a.release,a.source,a.out),indent=2));return 0

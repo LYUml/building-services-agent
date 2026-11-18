@@ -569,7 +569,7 @@ def validate_plan(path):
             inputs.add(Path(fds_temperature.__file__).resolve())
         if kind=='ifc_port_gap_review':
             import math
-            if set(t)-{'id','kind','source','baseline','tolerance_m','requires_pass','description'}:
+            if set(t)-{'id','kind','source','baseline','tolerance_m','max_port_shift_m','requires_pass','description'}:
                 raise ProjectError('IFC port gap review requires a saved IFC and a declared tolerance')
             tolerance=t.get('tolerance_m')
             if type(tolerance) not in (int,float) or not math.isfinite(tolerance) or tolerance<=0:
@@ -577,6 +577,10 @@ def validate_plan(path):
             inputs.add(local_path(root,t.get('source')))
             if 'baseline' in t:
                 inputs.add(local_path(root,t['baseline']))
+            if 'max_port_shift_m' in t:
+                shift=t['max_port_shift_m']
+                if 'baseline' not in t or type(shift) not in (int,float) or not math.isfinite(shift) or shift<=0:
+                    raise ProjectError('IFC port shift limit requires a baseline and a positive finite value in metres')
             inputs.add(Path(__file__).with_name('ifc_port_inventory.py'))
         if kind=='revit_inventory_check':
             if set(t)-{'id','kind','inventory','model','tolerance_m','requires_pass','description','expected_connections'}:
@@ -1599,7 +1603,8 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
             elif t['kind']=='ifc_port_gap_review':
                 from .ifc_port_inventory import inventory as ifc_port_inventory, review_status as ifc_review_status
                 baseline=local_path(root,t['baseline']) if 'baseline' in t else None
-                payload=ifc_port_inventory(local_path(root,t['source']),t['tolerance_m'],baseline=baseline)
+                payload=ifc_port_inventory(local_path(root,t['source']),t['tolerance_m'],baseline=baseline,
+                                           max_port_shift_m=t.get('max_port_shift_m'))
                 folder.mkdir()
                 (folder/'port-review.json').write_text(json.dumps(payload,indent=2),encoding='utf-8')
                 status,reason=ifc_review_status(payload)
@@ -2574,7 +2579,8 @@ def verify(run_directory):
                             or (baseline is not None and str(baseline) not in report['inputs'])
                             or receipt.relative_to(root).as_posix() not in report['artifact_hashes']):
                         raise ProjectError('IFC port review lacks source or artifact pins')
-                    checked=ifc_port_inventory(source,original['tolerance_m'],baseline=baseline)
+                    checked=ifc_port_inventory(source,original['tolerance_m'],baseline=baseline,
+                                               max_port_shift_m=original.get('max_port_shift_m'))
                     expected,_=ifc_review_status(checked)
                     if checked!=read_json(receipt) or expected!=task['status']:
                         raise ProjectError('IFC port review differs from reconstructed evidence')
