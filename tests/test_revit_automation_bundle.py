@@ -33,6 +33,10 @@ class RevitAutomationBundleTests(unittest.TestCase):
             with patch('bsa.revit_file_metadata.inspect', return_value=dict(metadata, revit_version=2028)):
                 with self.assertRaisesRegex(ValueError, 'newer than the Revit 2027'):
                     prepare(assembly, root/'rejected', model=model, inspect_model=True)
+                prepare(assembly, root/'legacy', model=model)
+                self.assertTrue(verify_stage(root/'legacy', model)['stage_verified'])
+                with self.assertRaisesRegex(ValueError, 'newer than the Revit 2027'):
+                    verify_stage(root/'legacy', model, inspect_model=True)
             self.assertFalse((root/'rejected').exists())
 
     def test_windows_publish_retries_sharing_failure_without_replacing_output(self):

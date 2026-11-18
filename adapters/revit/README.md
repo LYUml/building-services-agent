@@ -126,6 +126,8 @@ Activity's model input. The receipt records both the request and RVT hashes.
 Run the same script with `--verify-stage <stage-directory> --model <original.rvt>`
 to recheck the local files before a transfer. It checks file hashes and the
 selected operation's XML entry point and Activity transfer names.
+Add `--inspect-model` to check release compatibility and standalone model
+requirements even when the staged receipt predates metadata collection.
 To diagnose a returned Automation inventory, pass the original local RVT and
 `--automation-receipt <preparation.json>` to `bsa revit-inventory-check`.
 The corresponding MCP field is `automation_receipt`. The same field on a

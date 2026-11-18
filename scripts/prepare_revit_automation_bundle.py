@@ -90,7 +90,7 @@ def check_model_metadata(model, expected_sha256, operation):
     return info
 
 
-def verify_stage(directory, model=None):
+def verify_stage(directory, model=None, *, inspect_model=False):
     runs = Path(__file__).resolve().parents[1] / 'runs'
     stage = Path(directory).resolve()
     if stage == runs or not stage.is_relative_to(runs):
@@ -168,11 +168,11 @@ def verify_stage(directory, model=None):
             raise ValueError('Staged inventory request differs from the expected request')
     result = {'operation': operation, 'stage_verified': True, 'model_checked': model is not None,
               'native_executed': False}
-    if 'model_metadata' in receipt:
+    if inspect_model or 'model_metadata' in receipt:
         if model is None:
             raise ValueError('Supply the original test RVT to verify staged metadata')
         observed = check_model_metadata(model, expected_model_hash, operation)
-        if observed != receipt['model_metadata']:
+        if 'model_metadata' in receipt and observed != receipt['model_metadata']:
             raise ValueError('Staged RVT metadata differs from the selected model')
         result['model_metadata'] = observed
         from bsa.revit_file_metadata import compare_release
@@ -314,7 +314,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     try:
         if args.verify_stage:
-            print(json.dumps(verify_stage(args.verify_stage, args.model), indent=2))
+            print(json.dumps(verify_stage(args.verify_stage, args.model, inspect_model=args.inspect_model), indent=2))
         elif args.assembly and args.out:
             print(prepare(args.assembly, args.out, engine=args.engine, bundle_id=args.bundle_id, model=args.model,
                           operation=args.operation, pipe_request=args.pipe_request, check_engine=args.check_engine,
