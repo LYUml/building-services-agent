@@ -124,16 +124,43 @@ def compare_positions(previous, current, tolerance):
                 coordinate_basis='Assumed common IFC model frame; georeferencing not reconciled')
 
 
+def inspect_pair_gaps(inventory, tolerance):
+    positions = {row['guid']: row['origin_m'] for row in inventory['ports']}
+    measured, unavailable, separated = 0, [], []
+    for connection in inventory['connections']:
+        pair = connection['port_guids']
+        a, b = (positions.get(guid) for guid in pair)
+        if a is None or b is None or pair[0] == pair[1]:
+            unavailable.append(connection['guid'])
+            continue
+        measured += 1
+        separation = math.dist(a, b)
+        if not math.isfinite(separation):
+            raise ValueError('Nonfinite IFC port separation')
+        if separation > tolerance:
+            separated.append(dict(guid=connection['guid'], port_guids=pair,
+                                  origins_m=[a, b], separation_m=separation))
+    return dict(tolerance_m=tolerance, measured_relationships=measured,
+                unavailable_relationships=unavailable, separated_relationships=separated,
+                scope='Distances between exported port origins only; physical joint and profile unresolved')
+
+
 def run(source, out, *, baseline=None, position_tolerance_m=None):
     source, out = (Path(p).resolve() for p in (source, out))
     if not workspace.intake_output(out) or out.exists():
         raise ValueError('Fresh IFC report in the permitted output workspace required')
     positions = position_tolerance_m is not None
-    if positions and (baseline is None or type(position_tolerance_m) not in (int, float)
+    if positions and (type(position_tolerance_m) not in (int, float)
                       or not math.isfinite(position_tolerance_m) or position_tolerance_m <= 0):
-        raise ValueError('Position comparison requires a baseline and a finite positive tolerance in metres')
+        raise ValueError('Position checks require a finite positive tolerance in metres')
     result = inspect(source, positions=positions)
     summary = {key: result[key] for key in ('source_sha256', 'schema', 'preprocessor', 'counts', 'design_accepted')}
+    if positions:
+        gaps = inspect_pair_gaps(result, position_tolerance_m)
+        result['connection_gaps'] = gaps
+        summary['connection_gaps'] = dict(measured_relationships=gaps['measured_relationships'],
+            unavailable_relationships=len(gaps['unavailable_relationships']),
+            separated_relationships=len(gaps['separated_relationships']))
     if baseline is not None:
         previous = inspect(baseline, positions=positions)
         comparison = compare(previous, result)

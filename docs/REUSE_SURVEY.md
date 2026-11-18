@@ -138,6 +138,14 @@ MCP. The public Revit IFC2X3 export had no local placements on its 970 ports,
 so none could be position-compared. This does not reconcile georeferencing
 or prove material contact.
 
+The same tolerance also checks origin separation for existing connections in
+one saved IFC, without requiring a baseline. The report lists separated
+relationships with endpoint IDs, the two origins and measured distance.
+Relationships missing either position are listed as unavailable. A saved
+IFC4 control with one peer translated 20 mm retained its relationship and
+both CLI and MCP found the gap. All 485 relationships in the public Revit
+IFC2X3 export were unavailable for this check.
+
 The Revit 2013 IFC2X3 community Duplex Plumbing export at commit
 `31eb1dd0a0406fb9ebf0ebd823b48e1ec95afc08`, SHA-256
 `abfaf5c0979b6b4b05182aec7ada8945374bdb414db76c763724d549b41b212b`,
