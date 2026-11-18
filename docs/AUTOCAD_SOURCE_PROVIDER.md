@@ -40,8 +40,11 @@ three layouts. Header INSUNITS=4 reports millimetres; it does not independently
 prove actual building dimensions or physical scale. Blocks/attributes, layout
 and other raw metadata are available for interpretation; nested block/proxy/
 xref geometry and paper-space contents/plot scale are not fully accepted.
-Four actual upstream-backed tests exercise the same library on a public DXF,
-block/layout coverage, source/result tampering and project confinement.
+Five tests use the pinned backend with a synthetic DXF to exercise block and
+layout coverage, source and result tampering, the CLI and project confinement.
+With `BSA_TEST_AUTOCAD=1`, a sixth uses AutoCAD Core Console to export the
+repository's synthetic DWG, verifies the independently read inventory and
+compares the original drawing and export copies byte for byte.
 
 ## Other candidate's actual failure
 

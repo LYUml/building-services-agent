@@ -2,10 +2,12 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import shutil
 import tempfile
 import unittest
 from unittest.mock import patch
 from bsa import autocad_source as adapter
+from bsa.native_cad import DEFAULT_EXE
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -31,6 +33,23 @@ class AutoCADSourceTests(unittest.TestCase):
         raw=json.loads((self.out/'upstream/inventory.json').read_text())
         self.assertIn('Declared Sheet',raw['layouts']['layouts'])
         self.assertTrue(any(r['name']=='DECLARED_BLOCK' for r in raw['blocks']))
+
+    @unittest.skipUnless(os.environ.get('BSA_TEST_AUTOCAD') == '1' and DEFAULT_EXE.is_file(),
+                         'requires explicit AutoCAD host')
+    def test_native_dwg_export_is_independently_read_without_changing_source(self):
+        source = self.root / 'synthetic-base.dwg'
+        shutil.copyfile(ROOT / 'docs/evidence/drawing-intake/synthetic-base.dwg', source)
+        before = source.read_bytes()
+        result = adapter.run(source, self.out, autocad=DEFAULT_EXE)
+        self.assertEqual(result['status'], 'inspected', result.get('error'))
+        checked = adapter.verify(self.out)
+        self.assertTrue(checked['integrity_pass'])
+        self.assertEqual(checked['insunits'], 4)
+        self.assertGreater(checked['entities'], 0)
+        self.assertFalse(checked['design_accepted'])
+        self.assertEqual(source.read_bytes(), before)
+        export = self.out / 'native-intake/native/source-export.dxf'
+        self.assertEqual(export.read_bytes(), (self.out / 'upstream-input.dxf').read_bytes())
 
     def test_shared_cli_executes_and_verifies_actual_upstream(self):
         import contextlib, io
