@@ -11,6 +11,24 @@ from scripts.prepare_revit_automation_bundle import confirm_engine, prepare, ver
 
 
 class RevitAutomationBundleTests(unittest.TestCase):
+    def test_prepare_receipt_cannot_claim_upload_or_execution(self):
+        runs = Path(__file__).resolve().parents[1] / 'runs'
+        with TemporaryDirectory(dir=runs) as temporary:
+            root = Path(temporary)
+            assembly = root / 'Bsa.Revit.Automation.dll'
+            assembly.write_bytes(b'synthetic assembly')
+            stage = root / 'stage'
+            prepare(assembly, stage)
+            receipt_path = stage / 'preparation.json'
+            receipt = json.loads(receipt_path.read_bytes())
+            checked = verify_stage(stage)
+            for field in ('uploaded', 'native_executed'):
+                self.assertIs(checked[field], False)
+                with self.subTest(field=field):
+                    receipt_path.write_text(json.dumps({**receipt, field: True}), encoding='utf-8')
+                    with self.assertRaisesRegex(ValueError, 'Expected an offline preparation receipt'):
+                        verify_stage(stage)
+
     def test_optional_metadata_binds_model_and_rejects_newer_release(self):
         runs = Path(__file__).resolve().parents[1] / 'runs'
         with TemporaryDirectory(dir=runs) as temporary:

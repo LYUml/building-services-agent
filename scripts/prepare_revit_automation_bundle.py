@@ -98,6 +98,9 @@ def verify_stage(directory, model=None, *, inspect_model=False):
     if any(not path.resolve().is_relative_to(stage) for path in stage.iterdir()):
         raise ValueError('Staged files must remain under the selected directory')
     receipt = json.loads((stage / 'preparation.json').read_bytes())
+    if (not isinstance(receipt, dict) or receipt.get('uploaded') is not False
+            or receipt.get('native_executed') is not False):
+        raise ValueError('Expected an offline preparation receipt without upload or native execution claims')
     operation = receipt.get('operation', 'inventory')
     if operation not in ('inventory', 'create-pipe'):
         raise ValueError('Invalid staged Automation operation')
@@ -167,7 +170,7 @@ def verify_stage(directory, model=None, *, inspect_model=False):
         elif declared != expected_request:
             raise ValueError('Staged inventory request differs from the expected request')
     result = {'operation': operation, 'stage_verified': True, 'model_checked': model is not None,
-              'native_executed': False}
+              'uploaded': False, 'native_executed': False}
     if inspect_model or 'model_metadata' in receipt:
         if model is None:
             raise ValueError('Supply the original test RVT to verify staged metadata')
