@@ -175,8 +175,8 @@ def verify_stage(directory, model=None):
         if observed != receipt['model_metadata']:
             raise ValueError('Staged RVT metadata differs from the selected model')
         result['model_metadata'] = observed
-        result['engine_release'] = 2027
-        result['model_upgrade_required'] = observed['revit_version'] < result['engine_release']
+        from bsa.revit_file_metadata import compare_release
+        result.update(compare_release(observed['revit_version'], 2027))
     return result
 
 

@@ -164,9 +164,9 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None,fds_rele
         return invoke('bsa.revit_request.prepare',local(inventory),local(model),local(basis),local(out),scope=root)
 
     @server.tool(annotations=read)
-    def bsa_read_revit_file_metadata(source:str)->dict[str,Any]:
+    def bsa_read_revit_file_metadata(source:str,engine_release:Annotated[int,Field(strict=True,gt=0)]|None=None)->dict[str,Any]:
         """Read the release and worksharing flags from saved RVT bytes without opening Revit."""
-        return invoke('bsa.revit_file_metadata.inspect',local(source))
+        return invoke('bsa.revit_file_metadata.inspect',local(source),engine_release)
 
     @server.tool(annotations=write)
     def bsa_check_revit_inventory(

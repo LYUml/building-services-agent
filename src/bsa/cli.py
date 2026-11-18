@@ -116,7 +116,9 @@ def main():
         'revit-inventory-check', help='Diagnose a saved Revit pipe and fitting inventory'))
     revit_request.add_arguments(sub.add_parser(
         'revit-prepare-pipe', help='Prepare a source-bound native Revit pipe request offline'))
-    sub.add_parser('revit-file-metadata', help='Read selected metadata from a saved RVT offline').add_argument('source',type=Path)
+    revit_metadata = sub.add_parser('revit-file-metadata', help='Read selected metadata from a saved RVT offline')
+    revit_metadata.add_argument('source', type=Path)
+    revit_metadata.add_argument('--engine-release', type=int)
     revit_automation_reopen.add_arguments(sub.add_parser(
         'revit-verify-automation-reopen', help='Reconcile saved Revit Automation creation and reopen evidence'))
     group=sub.add_parser('engineering-data',help='Export or verify a source-bound common data view')
@@ -256,7 +258,7 @@ def main():
             print(json.dumps(result,indent=2));return 0
         if a.command=='revit-file-metadata':
             from .revit_file_metadata import inspect
-            print(json.dumps(inspect(a.source),indent=2));return 0
+            print(json.dumps(inspect(a.source, a.engine_release),indent=2));return 0
         if a.command=='revit-inventory-check':
             result=revit_connectivity.run(a.inventory,a.model,a.out,a.tolerance_m,
                                           expected_connections=a.expected_connections,
