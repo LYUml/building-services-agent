@@ -23,6 +23,17 @@ when rerun with `BSA_TEST_AUTOCAD=1` and the installed AutoCAD 2027 Core
 Console. That case reopens the generated DWG, checks the expected 9 mm PDF
 reference and rejects a sheet window that clips annotation extents.
 
+At `f60e862`, setting `BSA_TEST_THREE_PHASE_PYTHON` to an isolated
+pandapower 3.5.6 interpreter enabled 31 passing tests and 7 passing subtests
+across `test_three_phase_ifc_project.py` and `test_workflow_three_phase.py`,
+`test_workflow_three_phase_drawing.py`, `test_workflow_three_phase_ifc.py`
+and `test_workflow_three_phase_topology.py`. A separate run with the same
+interpreter and `BSA_TEST_HK_SOURCES` pointing to the official source cache
+passed all 18 tests in `test_three_phase_regulations.py`,
+`test_workflow_three_phase_rules.py` and `test_workflow_three_phase_ifc_project.py`.
+The runs overlap in the IFC project module. The cached `emsd-bec-2024.pdf`
+had SHA-256 `9fae5eb2134caa7f5645735d618d82da0cf3f284e576a9f6402de9b8357f95b7`.
+
 The isolated `ebedd93` source snapshot completed with 1,833 passed, 220
 skipped, 871 subtests passed and one failure. The sole failure was the
 IfcMCP property smoke test in the general Python runtime. The current test
