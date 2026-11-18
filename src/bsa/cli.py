@@ -75,7 +75,7 @@ def main():
     configure_knowledge(sub)
     from .changes.cli import configure as configure_changes
     configure_changes(sub)
-    from . import revit_automation_reopen, revit_connectivity, revit_request
+    from . import air_terminal_review, revit_automation_reopen, revit_connectivity, revit_request
     from . import fds_temperature
     fds_temperature.add_arguments(sub.add_parser(
         'fds-temperature-probe', help='Run a pinned Windows FDS temperature case'))
@@ -163,6 +163,8 @@ def main():
     archive=commands.add_parser('verify-archive',help='Verify ZIP members against a SHA-256 manifest')
     archive.add_argument('archive',type=Path)
     archive.add_argument('manifest',type=Path)
+    air_terminal_review.add_arguments(commands.add_parser(
+        'verify-terminal-connections', help='Check saved terminal connections from a verified native workflow'))
     for command in ("validate","run"):
         s=sub.add_parser(command);s.add_argument("project",type=Path)
         if command=="run": s.add_argument("--out",type=Path,required=True)
@@ -181,6 +183,10 @@ def main():
         if a.command=='delivery' and a.delivery_command=='verify-archive':
             from .delivery_archive import verify_archive
             print(json.dumps(verify_archive(a.archive,a.manifest),indent=2));return 0
+        if a.command=='delivery' and a.delivery_command=='verify-terminal-connections':
+            args=vars(a).copy()
+            del args['command'], args['delivery_command']
+            print(json.dumps(air_terminal_review.review(**args),indent=2));return 0
         if a.command=='ifc-port-bcf':
             from .ifc_port_bcf import run as export_bcf
             result=export_bcf(a.source,a.out,a.tolerance_m,baseline=a.baseline,

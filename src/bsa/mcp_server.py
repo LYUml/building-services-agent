@@ -65,6 +65,13 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None,fds_rele
         return invoke('bsa.delivery_archive.verify_archive',local(archive),local(manifest))
 
     @server.tool(annotations=write)
+    def bsa_verify_terminal_connections(plan:str,workflow:str,native_task:str,out:str,
+                                        supply_layer:str,vav_layer:str,terminal_layer:str,flex_layer:str)->dict[str,Any]:
+        """Check saved terminal connections from verified workflow ancestry and write a fresh report."""
+        return invoke('bsa.air_terminal_review.review',local(plan),local(workflow),native_task,local(out),
+                      supply_layer=supply_layer,vav_layer=vav_layer,terminal_layer=terminal_layer,flex_layer=flex_layer)
+
+    @server.tool(annotations=write)
     def bsa_export_ifc_port_bcf(source:str,out:str,
         tolerance_m:Annotated[float,Field(strict=True,gt=0,allow_inf_nan=False)],
         baseline:str|None=None,

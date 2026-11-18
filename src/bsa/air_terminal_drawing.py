@@ -135,14 +135,25 @@ def from_workflow(plan,directory,native_task,output,*,layers):
         lineage.append((name,task));name=task.get('depends_on')
     native,sheet,schedule,allocation=lineage
     project=local_path(plan.parent,schedule[1]['project'])
-    schedule_file=directory/schedule[0]/'results.json'
+    schedule_file=(directory/schedule[0]/'results.json').resolve()
+    if not schedule_file.is_relative_to(directory):
+        raise ValueError('Inherited artifacts must stay inside the verified workflow')
     schedule_sha256=digest(schedule_file)
     saved=json.loads(schedule_file.read_text(encoding='utf-8'))
     if saved['input_sha256']!=digest(project):
         raise ValueError('Schedule project correspondence changed')
     paths=(directory/native[0]/'reopened/source-export.dxf',directory/allocation[0]/'allocation.json',
            project,local_path(plan.parent,sheet[1]['binding']))
-    result=_inspect_files([path.resolve() for path in paths], layers)
+    drawing, allocation_file, project, binding = (path.resolve() for path in paths)
+    if not all(path.is_relative_to(directory) for path in (drawing, allocation_file)):
+        raise ValueError('Inherited artifacts must stay inside the verified workflow')
+    result=_inspect_files([drawing, allocation_file, project, binding], layers)
+    artifacts = workflow['artifact_hashes']
+    if (any(artifacts.get(path.relative_to(directory).as_posix()) != result['inputs'][str(path)]
+            for path in (drawing, allocation_file))
+            or artifacts.get(schedule_file.relative_to(directory).as_posix()) != schedule_sha256
+            or any(workflow['inputs'].get(str(path)) != result['inputs'][str(path)] for path in (project, binding))):
+        raise ValueError('Terminal review sources are missing from the verified workflow evidence')
     if (not verify(directory)['integrity_pass'] or digest(manifest)!=before
             or digest(plan)!=plan_sha256 or digest(schedule_file)!=schedule_sha256):
         raise ValueError('Workflow changed during terminal review')

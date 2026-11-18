@@ -39,6 +39,7 @@ OPERATIONS=frozenset('bsa.'+module+'.'+name for module,names in {
     'ifc_port_inventory':'run',
     'ifc_port_bcf':'run verify_export',
     'delivery_archive':'verify_archive',
+    'air_terminal_review':'review',
     'changes.access':'checkpoint inspect',
 }.items() for name in names.split())
 

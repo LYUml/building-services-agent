@@ -48,14 +48,14 @@ with platform-specific constraints. Its exact scope and limits remain explicit.
 
 ## MCP coverage
 
-The current SDK catalogue has 50 tools. The following groups cover all
-48. Numerical engines remain shared with CLI/workflow adapters rather than
+The following groups summarize the SDK catalogue. Numerical engines are shared with CLI/workflow adapters rather than
 duplicated for MCP. Tool schemas and full descriptions are available through
 the SDK catalogue. The committed reference read is also an MCP resource.
 
 | Area | MCP tools |
 |---|---|
 | General drawing | bsa_draw_document, bsa_inspect_drawing_document |
+| Saved terminal connections | bsa_verify_terminal_connections |
 | Revit offline | bsa_check_revit_inventory, bsa_prepare_revit_pipe, bsa_verify_revit_automation_reopen |
 | IFC port inventory | bsa_ifc_port_inventory, bsa_export_ifc_port_bcf, bsa_verify_ifc_port_bcf |
 | FDS upstream probe | bsa_run_fds_temperature_probe, bsa_verify_fds_temperature_probe |

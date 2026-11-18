@@ -74,7 +74,7 @@ jobs:
           tests.test_worker_transport tests.test_verification_scope tests.test_mcp_response_channel
           tests.test_mcp_startup tests.test_missing_dependency_errors
           tests.test_workspace_write_guards tests.test_project_workspace
-          tests.test_review_cli tests.test_delivery_archive tests.test_recovery_imports tests.test_catalogue_iteration
+          tests.test_review_cli tests.test_delivery_archive tests.test_air_terminal_drawing tests.test_recovery_imports tests.test_catalogue_iteration
           tests.test_runtime_logs tests.test_check_runner tests.test_reference_library -v
       - name: Reproduce committed source candidate
         run: |
