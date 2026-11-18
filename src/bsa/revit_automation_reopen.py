@@ -128,10 +128,27 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
                 type(creation_connected) is not bool or creation_connected is not reopened_connected
             ):
                 raise ValueError(f'Reopened connector {connector_id} physical connection flag differs from creation')
+            creation_peers = connector.get('physical_references')
+            reopened_peers = [
+                dict(owner_unique_id=peer['owner_unique_id'], connector_id=peer['connector_id'])
+                for peer in reopened_connector['references'] if peer['connector_type'] != 'Logical'
+            ]
+            if 'physical_references' in connector:
+                if (not isinstance(creation_peers, list)
+                        or any(not isinstance(peer, dict) or set(peer) != {'owner_unique_id', 'connector_id'}
+                               or not isinstance(peer['owner_unique_id'], str) or type(peer['connector_id']) is not int
+                               for peer in creation_peers)):
+                    raise ValueError(f'Invalid creation peer references on connector {connector_id}')
+                def peer_key(peer):
+                    return peer['owner_unique_id'], peer['connector_id']
+                if sorted(creation_peers, key=peer_key) != sorted(reopened_peers, key=peer_key):
+                    raise ValueError(f'Reopened connector {connector_id} physical peers differ from creation')
             connector_readback.append(dict(connector_id=connector_id, creation_origin_m=origin,
                                            reopened_origin_m=reopened_origin, deviation_m=deviation,
                                            creation_physically_connected=creation_connected,
-                                           reopened_physically_connected=reopened_connected))
+                                           reopened_physically_connected=reopened_connected,
+                                           creation_physical_references=creation_peers,
+                                           reopened_physical_references=reopened_peers))
             seen.add(connector_id)
     captured_request = pipe['creation_provenance']['creation_request']
     # APS binds the prepared request to the engine-local input model path.

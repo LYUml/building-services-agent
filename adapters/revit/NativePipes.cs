@@ -75,6 +75,10 @@ public static partial class NativePipes
                 connectors = connectors.Select(connector => new {
                     id = connector.Id,
                     physically_connected = connector.IsConnected,
+                    physical_references = connector.AllRefs.Cast<Connector>()
+                        .Where(peer => peer.Owner.Id != pipe.Id && peer.ConnectorType != ConnectorType.Logical)
+                        .Select(peer => new { owner_unique_id = peer.Owner.UniqueId, connector_id = peer.Id })
+                        .ToArray(),
                     origin_m = new[] { Metres(connector.Origin.X), Metres(connector.Origin.Y), Metres(connector.Origin.Z) },
                 }).ToArray(),
                 saved = false, connected_system_verified = false, design_accepted = false };

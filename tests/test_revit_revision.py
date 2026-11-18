@@ -89,6 +89,14 @@ class RevitRevisionTests(unittest.TestCase):
             self.assertFalse(result['native_execution_authenticated'])
             self.assertEqual(result['connector_endpoint_error_m'], 0)
             self.assertTrue(result['creation_connector_matches'])
+            wrong_peer = copy.deepcopy(receipt)
+            wrong_peer['transaction_result']['connectors'][0]['physical_references'] = [
+                dict(owner_unique_id='other-pipe', connector_id=9),
+            ]
+            save('creation.json', wrong_peer)
+            with self.assertRaisesRegex(ValueError, 'connector 1 physical peers differ'):
+                verify(root, created, authored, observed, reopen, 0.001)
+            save('creation.json', receipt)
             different_flag = copy.deepcopy(receipt)
             different_flag['transaction_result']['connectors'][0]['physically_connected'] = True
             save('creation.json', different_flag)
