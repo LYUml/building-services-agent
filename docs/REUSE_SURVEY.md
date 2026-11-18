@@ -127,6 +127,12 @@ use `--baseline <previous.ifc>` on both CLI commands (MCP field `baseline`).
 Supply the same optional `--max-port-shift-m` and `--alignment` settings
 on export and verification. Baseline packages record the baseline hash,
 shift limit and any alignment hash in the BCF project name.
+The CLI export and MCP replay were tested on a saved IFC translated by
+100 m and a second revision retaining local port displacement after
+alignment. With a 5 mm shift limit, the pure translation produced zero
+topics and the residual revision produced two movement topics. Replaying
+either package with a whitespace edit to the alignment file was rejected,
+confirming that replay checks the file bytes as well as the computed issues.
 New exports record the port gap tolerance in the BCF project name, including
 packages with zero issues. Verification returns the checked `tolerance_m` and
 `archive_tolerance_bound`. A legacy project name can still be replayed, but
