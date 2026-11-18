@@ -2861,6 +2861,15 @@ arcs and polylines, remained within the existing `1e-7` drawing-unit
 tolerance. Some coordinates differed at floating-point serialization
 precision. Layout content and writing with ACadSharp remain unverified.
 
+The optional read-only worker in `adapters/acadsharp` reproduces these
+inventories. Build with .NET 10 and locked NuGet restore, then invoke its DLL
+with one saved DWG path. Standard output contains JSON only on success.
+Unsupported modelspace types retain identity with null geometry. The reader
+does not start AutoCAD, write a drawing or accept a design. Its output matched
+the saved DXF inventories for all three inputs, and a missing source returned
+exit code 2 without a JSON receipt. The upstream MIT notice is retained
+at `third_party/licenses/acadsharp-3.8.35.txt`.
+
 Horizun Revit MCP (Apache-2.0, inspected repository head
 `d1c94a0f7bbf5875199f2ebd1bfcc618d3049b6f`) is a candidate reference for typed
 MEP operations and connector readback. Revit.TestRunner (MIT, head
