@@ -304,6 +304,34 @@ sample imports. They do not establish live Revit export or RVT authoring.
 The source IFCs remain in ignored local runs and are not redistributed.
 [Certification sample](https://github.com/buildingSMART/Certification-datasets/blob/80d976a9b193a26a8e928c3e79bff67af1de68a8/IFC%204.0.2.1%20%28IFC%204%20ADD2%20TC1%29/Simple-Scene/Infra-Plumbing.ifc)
 
+## Autodesk Automation command-line candidates
+
+The [APS Revit Automation CLI](https://github.com/autodesk-platform-services/aps-revit-automation-cli/tree/dcfdf26e4c2540e2d4f45dd6d2117b979795e0f6)
+is MIT licensed (Autodesk Platform Services). In the inspected commit,
+`YamlConfigService` requires `cloudWorksharedModel` and a folder URL.
+`DesignAutomationService` fixes the Activity transfer filenames to
+`revitmodel.json`, `toolinputs.json` and `result.json`. Our standalone fixture
+Activity starts with `input.rvt` and a staged request and can return both a
+saved RVT and a receipt. Direct use would change the model and evidence
+contract. Retain this upstream as an option for a separate cloud-model workflow.
+
+The [APS DA CLI](https://github.com/autodesk-platform-services/aps-da-cli/tree/438f18ee667f77c28f998b13cb71d3c797349fa3)
+is MIT licensed (Autodesk). Its JSON configuration accommodates custom
+Activity parameters and WorkItem arguments. The pinned `index.js` reads
+credentials from that configuration and logs the submitted body, which can
+contain signed transfer URLs. Its polling loop has no deadline and downloads
+the APS report separately from the model output. These are integration gaps
+for automated handling of private artifacts. Do not use it as an unattended
+runner for those artifacts. The local staging and read-only evidence checks
+remain applicable to separately authorized APS test runs.
+
+Both source trees were checked out at the revisions linked above. With
+Node 26.13.0 and npm 11.20.0, `npm ci --ignore-scripts` and
+`node index.js --help` succeeded for the DA CLI. The install audit reported
+10 dependency advisories (two critical) for that lockfile at the time of
+the trial. No APS credentials were available in the host environment and
+no WorkItem was submitted. Native Revit persistence remains unverified.
+
 ## Offline Revit inventory access
 
 The main CLI and MCP tool reuse the existing saved-inventory diagnostic and
