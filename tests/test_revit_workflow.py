@@ -98,6 +98,21 @@ class RevitWorkflowTests(unittest.TestCase):
             result = execute(plan, root/'out')
             self.assertEqual(result['tasks']['check']['status'], 'pending')
             self.assertTrue(verify(root/'out')['integrity_pass'])
+            diagnosis_path = root/'out/check/diagnosis.json'
+            original_diagnosis = diagnosis_path.read_bytes()
+            workflow_path = root/'out/workflow.json'
+            original_workflow = workflow_path.read_bytes()
+            altered = json.loads(original_diagnosis)
+            altered['connected_system_verified'] = True
+            diagnosis_path.write_text(json.dumps(altered), encoding='utf-8')
+            snapshot = json.loads(original_workflow)
+            snapshot['artifact_hashes']['check/diagnosis.json'] = hashlib.sha256(diagnosis_path.read_bytes()).hexdigest()
+            workflow_path.write_text(json.dumps(snapshot), encoding='utf-8')
+            verified = verify(root/'out')
+            self.assertIn('Revit inventory evidence invalid: check: Revit diagnosis differs from reconstructed evidence',
+                          verified['issues'])
+            diagnosis_path.write_bytes(original_diagnosis)
+            workflow_path.write_bytes(original_workflow)
             receipt.write_text('{}', encoding='utf-8')
             self.assertFalse(verify(root/'out')['integrity_pass'])
             mismatched = execute(plan, root/'mismatched')

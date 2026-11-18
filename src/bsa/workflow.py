@@ -2582,6 +2582,24 @@ def verify(run_directory):
             issues.append('knowledge output requires exact original workflow source identity: '+name)
         if task['kind']=='engineering_data' and not source_plan:
             issues.append('common data requires explicit original workflow/project context: '+name)
+        if task['kind']=='revit_inventory_check':
+            diagnosis=root/name/'diagnosis.json'
+            if diagnosis.is_file():
+                try:
+                    from .revit_connectivity import reconstruct
+                    original=declared[name]
+                    plan_root=Path(source_plan['path']).resolve().parent
+                    inputs={key:local_path(plan_root,original[key]) for key in
+                            ('inventory','model','expected_connections','automation_receipt') if key in original}
+                    if (not diagnosis.resolve().is_relative_to(root)
+                            or diagnosis.relative_to(root).as_posix() not in report['artifact_hashes']
+                            or any(str(path) not in report['inputs'] for path in inputs.values())):
+                        raise ProjectError('Revit diagnosis lacks source or artifact pins')
+                    checked=reconstruct(**inputs,tolerance_m=original['tolerance_m'])
+                    if json.loads(json.dumps(checked))!=read_json(diagnosis) or checked['diagnostic_status']!=task['status']:
+                        raise ProjectError('Revit diagnosis differs from reconstructed evidence')
+                except (OSError,ValueError,KeyError,TypeError) as exc:
+                    issues.append('Revit inventory evidence invalid: '+name+': '+str(exc))
         if task['kind']=='ifc_port_gap_review':
             receipt=root/name/'port-review.json'
             if task['status']=='pass' or receipt.is_file():

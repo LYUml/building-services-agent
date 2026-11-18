@@ -194,13 +194,13 @@ def diagnose(inventory, tolerance_m, *, expected_connections=None):
     return result
 
 
-def run(inventory, model, out, tolerance_m, *, expected_connections=None, automation_receipt=None):
-    inventory_path, model_path, output_path = (Path(p).resolve() for p in (inventory, model, out))
+def reconstruct(inventory, model, tolerance_m, *, expected_connections=None, automation_receipt=None):
+    inventory_path, model_path = (Path(p).resolve() for p in (inventory, model))
     basis = Path(expected_connections).resolve() if expected_connections is not None else None
     receipt = Path(automation_receipt).resolve() if automation_receipt is not None else None
-    paths = (inventory_path, model_path, output_path, basis, receipt)
-    if not all(workspace.allowed(p) for p in paths if p is not None) or output_path.exists():
-        raise ProjectError('Use permitted workspace artifacts and a new output path')
+    paths = (inventory_path, model_path, basis, receipt)
+    if not all(workspace.allowed(p) for p in paths if p is not None):
+        raise ProjectError('Use permitted workspace artifacts')
     raw = inventory_path.read_bytes()
     data = json.loads(raw)
     digest = lambda b: hashlib.sha256(b).hexdigest()
@@ -234,6 +234,15 @@ def run(inventory, model, out, tolerance_m, *, expected_connections=None, automa
             or (receipt is not None and receipt.read_bytes() != receipt_raw)
             or (basis is not None and basis.read_bytes() != basis_raw)):
         raise ProjectError('Input changed during diagnosis')
+    return result
+
+
+def run(inventory, model, out, tolerance_m, *, expected_connections=None, automation_receipt=None):
+    output_path = Path(out).resolve()
+    if not workspace.allowed(output_path) or output_path.exists():
+        raise ProjectError('Use a new output path in the permitted workspace')
+    result = reconstruct(inventory, model, tolerance_m, expected_connections=expected_connections,
+                         automation_receipt=automation_receipt)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open('x', encoding='utf-8') as stream:
         json.dump(result, stream, indent=2)
