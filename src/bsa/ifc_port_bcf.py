@@ -71,6 +71,13 @@ def issue_records(report):
         description = '\n'.join([source, f"Port {guid} has conflicting owners.", *claims])
         yield f"IFC port ownership conflict {guid}", description, selected, port['origin_m']
 
+    for guid in report['connection_ownership'].get('unavailable_ports', []):
+        port = ports[guid]
+        description = f'{source}\nConnected port {guid} has no supported owner evidence.'
+        if port['origin_m'] is not None:
+            description += f"\nCurrent port origin in metres: {port['origin_m']}."
+        yield f'IFC port ownership unavailable {guid}', description, [], None
+
     comparison = report.get('comparison')
     if comparison is None:
         return
