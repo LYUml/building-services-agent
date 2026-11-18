@@ -48,7 +48,10 @@ def inspect(doc, allocation, tree, binding, layers):
             raise ValueError('Finite planar binding required')
         line = take(pools['supply'],lambda e:(near(point(e.dxf.start),a) and near(point(e.dxf.end),z)) or (near(point(e.dxf.start),z) and near(point(e.dxf.end),a)),
              f"section {section['id']} from {a} to {z} m on {layers['supply']}")
-        for node,p in zip(pair,(a,z)):
+        saved_start, saved_end = point(line.dxf.start), point(line.dxf.end)
+        if not (near(saved_start, a) and near(saved_end, z)):
+            saved_start, saved_end = saved_end, saved_start
+        for node,p in zip(pair,(saved_start,saved_end)):
             incident = node_sections.setdefault(node, [])
             for prior_section, prior_handle, prior_point in incident:
                 if not near(prior_point, p):
@@ -56,7 +59,8 @@ def inspect(doc, allocation, tree, binding, layers):
                                      f"(handle {prior_handle}) at {prior_point} m and section {section['id']} "
                                      f"(handle {line.dxf.handle}) at {p} m, gap {math.dist(prior_point, p):.6g} m")
             incident.append((section['id'], line.dxf.handle, p))
-            nodes.setdefault(node, p)
+        for node, expected in zip(pair, (a, z)):
+            nodes.setdefault(node, expected)
     centers = {}
     for terminal in allocation['terminals']:
         p = tuple(terminal['center_m'])+(0.,)
