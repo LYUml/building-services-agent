@@ -18,6 +18,19 @@ The locally installed Microsoft .NET SDK 10.0.403 archive was SHA512-checked aga
 ../../tools/dotnet-sdk-10.0.403/dotnet.exe build Bsa.Revit.csproj --configuration Release --nologo
 ```
 
+To compile just the DB operations against the installed Revit API, use a
+separate artifacts directory from the desktop build:
+
+```powershell
+../../tools/dotnet-sdk-10.0.403/dotnet.exe build Bsa.Revit.csproj -c Release -warnaserror -p:DatabaseOnly=true --artifacts-path ../../runs/revit-db-build
+```
+
+The resulting `Bsa.Revit.Database.dll` was built against Revit 2027.3.
+Its assembly metadata references `RevitAPI` and has no `RevitAPIUI`
+reference. The .NET Windows Desktop build references resolve dependencies
+of the installed Autodesk API. An Automation entry point and runtime
+execution are still pending.
+
 Final observed build: zero warnings/errors. The initial build had desktop-reference conflicts; explicit WPF/WindowsForms framework references resolved them. The intermediate missing System.IO import was corrected. Evidence and source/binary hashes: ../../docs/evidence/moosas-review/revit-native-build.json.
 
 `NativePipes.Create(UIApplication, PipeRequest)` must be called from a valid Revit API context on an explicitly selected test model. It checks active saved document identity, rejects existing edits/transactions, uses supplied type/system/level UniqueIds and metre-valued coordinates/diameter, creates a native Pipe and verifies dimensions/endpoints/two connectors. Any Revit failure message rolls back the transaction rather than being waived. No save/export or add-in registration is performed. The returned object explicitly leaves saved, system-connectivity and design acceptance false.

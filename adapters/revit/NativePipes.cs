@@ -1,6 +1,5 @@
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Plumbing;
-using Autodesk.Revit.UI;
 using System.IO;
 using System.Security.Cryptography;
 
@@ -11,15 +10,8 @@ public sealed record PipeRequest(string DocumentPath, string Source,
     double[] StartMetres, double[] EndMetres, double DiameterMetres, string? SavedRvtSha256 = null);
 
 /// <summary>Invoke only in a valid Revit API context. No default engineering inputs.</summary>
-public static class NativePipes
+public static partial class NativePipes
 {
-    public static object Create(UIApplication app, PipeRequest request)
-    {
-        Document doc = app.ActiveUIDocument?.Document
-            ?? throw new InvalidOperationException("No active project");
-        return CreateInDocument(doc, request);
-    }
-
     internal static object CreateInDocument(Document doc, PipeRequest request)
     {
         if (doc.IsFamilyDocument || doc.IsReadOnly || doc.IsModified || doc.IsModifiable)
