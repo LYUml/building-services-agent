@@ -100,6 +100,10 @@ For saved Automation evidence, use `bsa revit-verify-automation-reopen`
 or MCP `bsa_verify_revit_automation_reopen` as documented in the native
 adapter guide. The read-only check reconciles the staged write request,
 creation receipt, exact authored RVT and separately captured inventory.
+Retain the returned request and preparation hashes with the tolerance in
+metres. Inspect each connector ID, saved origin, matched curve endpoint
+and deviation. Resolve an ambiguous pairing using a justified tolerance
+and better placement evidence before accepting the scoped comparison.
 
 ## Engineering and delivery
 
