@@ -52,6 +52,8 @@ def inspect(doc, allocation, tree, binding, layers):
         line = take(pools['supply'],lambda e:(near(point(e.dxf.start),a) and near(point(e.dxf.end),z)) or (near(point(e.dxf.start),z) and near(point(e.dxf.end),a)),
              f"section {section['id']} from {a} to {z} m on {layers['supply']}")
         saved_start, saved_end = point(line.dxf.start), point(line.dxf.end)
+        if near(a, z) or near(saved_start, saved_end):
+            raise ValueError(f"Rigid section {section['id']} (handle {line.dxf.handle}) has no distinct planar endpoints")
         if not (near(saved_start, a) and near(saved_end, z)):
             saved_start, saved_end = saved_end, saved_start
         for node,p in zip(pair,(saved_start,saved_end)):

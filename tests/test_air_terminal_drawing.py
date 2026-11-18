@@ -49,6 +49,13 @@ class TerminalDrawingTests(unittest.TestCase):
         self.assertIn(f'section A (handle {first.dxf.handle}) at (0.0, 0.0, 0.0) m', diagnostic)
         self.assertIn(f'section B (handle {second.dxf.handle}) at (0.25, 0.0, 0.0) m, gap 0.25 m', diagnostic)
 
+    def test_collapsed_rigid_section_cannot_match_a_collapsed_binding(self):
+        line = self.doc.modelspace().query('LINE[layer=="duct"]')[0]
+        line.dxf.end = line.dxf.start
+        self.binding['sections']['A']['to_m'] = [0, 0, 0]
+        with self.assertRaisesRegex(ValueError, f'Rigid section A .*{line.dxf.handle}.*no distinct planar endpoints'):
+            self.check()
+
     def test_saved_flex_and_symbol_must_agree_with_each_other(self):
         circle = self.doc.modelspace().query('CIRCLE')[0]
         flex = self.doc.modelspace().query('LINE[layer=="flex"]')[0]
