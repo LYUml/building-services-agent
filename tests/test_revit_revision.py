@@ -85,6 +85,10 @@ class RevitRevisionTests(unittest.TestCase):
             save('inventory.json', inventory)
             self.assertFalse(result['native_execution_authenticated'])
             self.assertEqual(result['connector_endpoint_error_m'], 0)
+            self.assertEqual(result['connector_endpoint_matches'], [
+                dict(connector_id=1, origin_m=[0, 0, 0], endpoint_m=[0, 0, 0], error_m=0),
+                dict(connector_id=2, origin_m=[2, 0, 0], endpoint_m=[2, 0, 0], error_m=0),
+            ])
             self.assertEqual(result['reopen_request_sha256'], reopen_hash)
             for field in ('saved_reopen_verified', 'design_accepted'):
                 with self.subTest(unsupported_claim=field):
@@ -182,6 +186,7 @@ class RevitRevisionTests(unittest.TestCase):
             failed = subprocess.run(command, cwd=runs, env=env, capture_output=True, text=True)
             self.assertEqual(failed.returncode, 2)
             self.assertIn('distinct curve endpoints', failed.stderr)
+            self.assertIn('connector 2, deviation 2 m', failed.stderr)
             self.pipe['connectors'][1]['origin_m'] = self.pipe['endpoints_m'][1]
             self.pipe['endpoints_m'] = [[0, 1, 0], [2, 1, 0]]
             save('inventory.json', inventory)

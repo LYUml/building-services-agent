@@ -80,14 +80,19 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
     if (type(connector_count) is not int or connector_count != 2 or len(connectors) != 2
             or any(c['domain'] != 'DomainPiping' or c['connector_type'] != 'End' for c in connectors)):
         raise ValueError('Reopened pipe must retain two piping end connectors')
-    origins = [connector['origin_m'] for connector in connectors]
     endpoints = pipe['endpoints_m']
-    connector_error = min(
-        max(math.dist(origin, endpoint) for origin, endpoint in zip(order, endpoints, strict=True))
-        for order in (origins, origins[::-1])
-    )
-    if origins[0] == origins[1] or connector_error > tolerance_m:
-        raise ValueError('Reopened pipe connector origins do not match distinct curve endpoints')
+    pairings = [
+        [dict(connector_id=connector['id'], origin_m=connector['origin_m'],
+              endpoint_m=endpoint, error_m=math.dist(connector['origin_m'], endpoint))
+         for connector, endpoint in zip(order, endpoints, strict=True)]
+        for order in (connectors, connectors[::-1])
+    ]
+    endpoint_matches = min(pairings, key=lambda rows: max(row['error_m'] for row in rows))
+    worst = max(endpoint_matches, key=lambda row: row['error_m'])
+    connector_error = worst['error_m']
+    if connectors[0]['origin_m'] == connectors[1]['origin_m'] or connector_error > tolerance_m:
+        raise ValueError('Reopened pipe connector origins do not match distinct curve endpoints '
+                         f"(connector {worst['connector_id']}, deviation {connector_error:.6g} m)")
     captured_request = pipe['creation_provenance']['creation_request']
     # APS binds the prepared request to the engine-local input model path.
     if (PureWindowsPath(captured_request['DocumentPath']).name.lower() != 'input.rvt'
@@ -105,6 +110,7 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
         'reopen_request_sha256': pins[reopen_request],
         'pipe_matches_capture': True,
         'connector_endpoint_error_m': connector_error,
+        'connector_endpoint_matches': endpoint_matches,
         'native_execution_authenticated': False,
         'connected_system_verified': False,
         'design_accepted': False,
