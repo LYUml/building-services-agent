@@ -67,13 +67,13 @@ def bus_contacts(doc, circuits):
     for entity in doc.modelspace().query('LINE'):
         if entity.has_xdata(APP):
             kind, name = (tag.value for tag in entity.get_xdata(APP)[:2])
-            geometry[kind, name].append((entity.dxf.start, entity.dxf.end))
+            geometry[kind, name].append((entity.dxf.start, entity.dxf.end, entity.dxf.handle))
     checks = []
     bus_geometry = {name: segments for (kind, name), segments in geometry.items() if kind == 'bus'}
     for circuit in circuits:
         name, tail, head = (circuit[key] for key in ('id', 'from', 'to'))
         neighbors = defaultdict(list)
-        for start, end in geometry['line', name]:
+        for start, end, _ in geometry['line', name]:
             neighbors[start].append(end)
             neighbors[end].append(start)
         ends = [point for point, adjacent in neighbors.items() if len(adjacent) == 1]
@@ -92,7 +92,7 @@ def bus_contacts(doc, circuits):
         if len(reached) != len(neighbors):
             raise ProjectError(f'Saved line {name} contains disconnected geometry')
         pairings = [
-            [min(segment_distance(point, a, b) for a, b in box)
+            [min(segment_distance(point, a, b) for a, b, _ in box)
              for point, box in zip(order, boxes)]
             for order in (ends, ends[::-1])
         ]
@@ -105,12 +105,13 @@ def bus_contacts(doc, circuits):
         for bus, segments in bus_geometry.items():
             if bus in (tail, head):
                 continue
-            for a, b in geometry['line', name]:
-                for c, d in segments:
+            for a, b, line_handle in geometry['line', name]:
+                for c, d, bus_handle in segments:
                     if (intersection_line_line_2d((Vec2(a), Vec2(b)), (Vec2(c), Vec2(d)), virtual=False)
                             is not None or min(segment_distance(a, c, d), segment_distance(b, c, d),
                                                segment_distance(c, a, b), segment_distance(d, a, b)) <= 1e-6):
-                        raise ProjectError(f'Saved line {name} touches undeclared bus {bus}')
+                        raise ProjectError(f'Saved line {name} touches undeclared bus {bus} '
+                                           f'(line handle {line_handle}, bus handle {bus_handle})')
         checks.append(dict(line=name, from_bus=tail, to_bus=head,
                            from_gap_mm=distances[0], to_gap_mm=distances[1]))
     return checks

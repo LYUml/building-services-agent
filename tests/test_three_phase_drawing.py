@@ -29,8 +29,9 @@ class NativeTextAnchorTests(unittest.TestCase):
             entity.set_xdata(APP, [(1000, 'bus'), (1000, name)])
         feeder = doc.modelspace().add_line((0, 0), (10, 0))
         feeder.set_xdata(APP, [(1000, 'line'), (1000, 'feeder')])
-        with self.assertRaisesRegex(ProjectError, 'line feeder touches undeclared bus C'):
+        with self.assertRaisesRegex(ProjectError, 'line feeder touches undeclared bus C') as error:
             bus_contacts(doc, [{'id': 'feeder', 'from': 'A', 'to': 'B'}])
+        self.assertIn(f'line handle {feeder.dxf.handle}, bus handle {entity.dxf.handle}', str(error.exception))
 
     def test_overlapping_bus_geometry_makes_contact_assignment_ambiguous(self):
         doc = ezdxf.new()
