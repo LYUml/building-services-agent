@@ -16,6 +16,25 @@ SHA="4136901f7e1708f6536d84278e26ad88b414c7efc905febf6d49c2539a36f3cd"
 COMMIT="9f8b6bd0b5a58fd4f97cfd8b9f7393f222a1bb43"
 
 
+def verify_installation(archive, target):
+    with zipfile.ZipFile(archive) as package:
+        for member in package.infolist():
+            if not (target / member.filename).resolve().is_relative_to(target.resolve()):
+                raise RuntimeError("archive path escapes target")
+        if not target.exists():
+            target.mkdir()
+            package.extractall(target)
+        for member in package.infolist():
+            if member.is_dir():
+                continue
+            installed = target / member.filename
+            if not installed.is_file() or installed.stat().st_size != member.file_size:
+                raise RuntimeError(f"installed EnergyPlus file differs from verified archive: {member.filename}")
+            with installed.open("rb") as disk_file, package.open(member) as archive_file:
+                if hashlib.file_digest(disk_file, "sha256").digest() != hashlib.file_digest(archive_file, "sha256").digest():
+                    raise RuntimeError(f"installed EnergyPlus file differs from verified archive: {member.filename}")
+
+
 def main():
     if sys.prefix==sys.base_prefix:
         raise RuntimeError("activate/create this repository's .venv first")
@@ -27,17 +46,12 @@ def main():
     downloads=ROOT/"tools/downloads";downloads.mkdir(parents=True,exist_ok=True)
     archive=downloads/"energyplus.zip"
     if not archive.exists():urllib.request.urlretrieve(URL,archive)
-    actual=hashlib.sha256(archive.read_bytes()).hexdigest()
+    with archive.open("rb") as archive_file:
+        actual=hashlib.file_digest(archive_file,"sha256").hexdigest()
     if actual!=SHA:raise RuntimeError("EnergyPlus archive checksum mismatch; refusing extraction")
     target=ROOT/"tools/energyplus-25.2"
     exe=target/"EnergyPlus-25.2.0-cf7368216c-Windows-x86_64/energyplus.exe"
-    if not exe.exists():
-        target.mkdir(exist_ok=False)
-        with zipfile.ZipFile(archive) as z:
-            for item in z.infolist():
-                if not (target/item.filename).resolve().is_relative_to(target):
-                    raise RuntimeError("archive path escapes target")
-            z.extractall(target)
+    verify_installation(archive, target)
     repo=ROOT/"tools/openstudio-mcp"
     if not repo.exists():
         subprocess.run(["git","clone","https://github.com/NatLabRockies/openstudio-mcp.git",str(repo)],check=True)
