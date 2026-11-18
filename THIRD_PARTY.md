@@ -387,3 +387,10 @@ Existing pypdf7.0.0 and document-reader notices/pins continue to apply.
 Course, regulatory and manufacturer originals remain separate source material;
 indexing does not grant redistribution rights. Private source/index artifacts
 are excluded from public snapshots. See docs/KNOWLEDGE.md.
+## BCF coordination archives
+
+The optional `bcf` extra pins IfcOpenShell's `bcf-client` 0.9.0
+(GPLv3 per distribution metadata), xsdata 26.10 (MIT), and the tested
+IfcOpenShell, NumPy and Requests versions. The adapter invokes the installed
+BCF XML library and does not vendor its source or binaries.
+[Upstream BCF documentation](https://docs.ifcopenshell.org/bcf.html)

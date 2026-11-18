@@ -26,6 +26,7 @@ reports = ["reportlab==4.4.9", "pypdf==7.0.0", "Pillow==13.0.0", "charset-normal
 ocr = ["pypdf==7.0.0", "rapidocr_onnxruntime==1.4.4", "onnxruntime==1.31.1", "opencv-python==5.0.0.93"]
 energy = ["openstudio==3.11.0"]
 bim = ["ifcopenshell==0.8.5", "pytest==9.2.0"]
+bcf = ["bcf-client==0.9.0", "ifcopenshell==0.8.5", "numpy==2.5.4", "xsdata==26.10", "requests==2.34.2"]
 clash = ["ifcopenshell==0.8.5", "pytest==9.2.0", "manifold3d==3.5.4"]
 network = ["fluids==1.3.1"]
 cfd-history = ["numpy==2.5.4"]

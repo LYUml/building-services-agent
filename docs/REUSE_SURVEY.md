@@ -118,6 +118,17 @@ directions, class counts and candidate owners. Only explicitly opposing
 SOURCE/SINK declarations are reported as directed. There is no geometry,
 internal fitting path or hydraulic proof.
 
+Use `bsa ifc-port-bcf <file.ifc> --tolerance-m <m> --out <new.bcf>` or
+`bsa_export_ifc_port_bcf` to hand measured gaps to a coordination reviewer.
+The optional `bcf` extra reuses pinned IfcOpenShell BCF-XML tooling. It
+writes open topics with source and port IDs, the measured gap and tolerance,
+and a viewpoint selecting the exported owner products when available.
+It reopens the archive and reconciles topic text and selections before
+publication. CLI and MCP trials on the saved 20 mm gap produced one topic
+and selected two products. The clean IFC produced an empty topic set.
+Unavailable relationships are counted separately. External viewer import
+and model repair remain untested.
+
 Each port now retains the exact attachment relationship's GUID, class and
 owner claim. When the coordinate review is requested, conflicting claims on
 linked ports fail the combined review. Missing supported owner evidence keeps

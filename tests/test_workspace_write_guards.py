@@ -69,7 +69,7 @@ class MCPHistoryGuardTests(unittest.IsolatedAsyncioTestCase):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory).resolve()/'agent';root.mkdir()
             with patch.object(workspace,'ROOT',root),patch.dict(os.environ,{'BSA_PROJECT_ROOT':''}):
-                server=create_server();self.assertEqual(len(await server.list_tools()),47)
+                server=create_server();self.assertEqual(len(await server.list_tools()),48)
                 self.assertTrue((root/'runs').is_dir());self.assertFalse((root/'.codex').exists())
 
     async def test_json_writer_rejects_synthetic_history_under_broad_root(self):

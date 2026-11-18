@@ -60,6 +60,13 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None,fds_rele
     write=ToolAnnotations(readOnlyHint=False,destructiveHint=False,idempotentHint=False,openWorldHint=False)
 
     @server.tool(annotations=write)
+    def bsa_export_ifc_port_bcf(source:str,out:str,
+        tolerance_m:Annotated[float,Field(strict=True,gt=0,allow_inf_nan=False)],
+    )->dict[str,Any]:
+        """Export measured saved-IFC origin gaps to a new BCF archive."""
+        return invoke('bsa.ifc_port_bcf.run',local(source),local(out),tolerance_m)
+
+    @server.tool(annotations=write)
     def bsa_ifc_port_inventory(source:str,out:str,baseline:str|None=None,
         position_tolerance_m:Annotated[float,Field(strict=True,gt=0,allow_inf_nan=False)]|None=None,
         max_port_shift_m:Annotated[float,Field(strict=True,gt=0,allow_inf_nan=False)]|None=None,

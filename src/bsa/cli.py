@@ -86,6 +86,10 @@ def main():
     ports.add_argument('--position-tolerance-m',type=float)
     ports.add_argument('--max-port-shift-m',type=float)
     ports.add_argument('--alignment',type=Path)
+    bcf=sub.add_parser('ifc-port-bcf',help='Export measured IFC port gaps as BCF coordination issues')
+    bcf.add_argument('source',type=Path)
+    bcf.add_argument('--out',type=Path,required=True)
+    bcf.add_argument('--tolerance-m',type=float,required=True)
     ports.add_argument('--out',type=Path,required=True)
     revit_connectivity.add_arguments(sub.add_parser(
         'revit-inventory-check', help='Diagnose a saved Revit pipe and fitting inventory'))
@@ -161,6 +165,9 @@ def main():
     s.add_argument('--moosas-deps',type=Path)
     a=parser.parse_args()
     try:
+        if a.command=='ifc-port-bcf':
+            from .ifc_port_bcf import run as export_bcf
+            print(json.dumps(export_bcf(a.source,a.out,a.tolerance_m),indent=2));return 0
         if a.command=='ifc-port-inventory':
             from .ifc_port_inventory import run as inventory_ports
             result=inventory_ports(a.source,a.out,baseline=a.baseline,position_tolerance_m=a.position_tolerance_m,
