@@ -86,6 +86,11 @@ def inspect(doc, allocation, tree, binding, layers):
         start = nodes[leaf]
         circle = take(pools['vav'],lambda e:tuple(e.dxf.extrusion)==(0.,0.,1.) and near(point(e.dxf.center),start),
                       f"VAV {leaf} at {start} m on {layers['vav']}")
+        saved_vav = point(circle.dxf.center)
+        for section_id, handle, saved_endpoint in node_sections[leaf]:
+            if not near(saved_endpoint, saved_vav):
+                raise ValueError(f"VAV {leaf} (handle {circle.dxf.handle}) is separated from section "
+                                 f"{section_id} (handle {handle}) by {math.dist(saved_endpoint, saved_vav):.6g} m")
         routes = []
         for tid in members:
             end = centers[tid]
@@ -120,6 +125,16 @@ def inspect(doc, allocation, tree, binding, layers):
                     hint = f"; unmatched lines at VAV {leaf}: {'; '.join(vav_candidates)}"
                 raise ValueError(f'{error}; saved lines at terminal {tid}: {details}{hint}') from error
             if near(start,end):raise ValueError('Zero-length terminal connection')
+            saved_start, saved_end = flex_ends[line.dxf.handle]
+            if not (near(saved_start, start) and near(saved_end, end)):
+                saved_start, saved_end = saved_end, saved_start
+            for peer, handle, actual, symbol in (
+                (leaf, circle.dxf.handle, saved_start, saved_vav),
+                (tid, terminals[tid], saved_end, symbol_centers[terminals[tid]]),
+            ):
+                if not near(actual, symbol):
+                    raise ValueError(f"Flex handle {line.dxf.handle} endpoint {actual} m is separated from "
+                                     f"{peer} (handle {handle}) at {symbol} m by {math.dist(actual, symbol):.6g} m")
             routes.append(dict(terminal=tid,terminal_handle=terminals[tid],flex_handle=line.dxf.handle,plan_length_m=math.dist(start,end)))
         groups.append(dict(id=leaf,vav_handle=circle.dxf.handle,outlet_count=len(members),maximum_flow_L_s=aggregation['leaf_flow_L_s'][leaf],routes=routes))
     if any(pools.values()):

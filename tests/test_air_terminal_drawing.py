@@ -49,6 +49,14 @@ class TerminalDrawingTests(unittest.TestCase):
         self.assertIn(f'section A (handle {first.dxf.handle}) at (0.0, 0.0, 0.0) m', diagnostic)
         self.assertIn(f'section B (handle {second.dxf.handle}) at (0.25, 0.0, 0.0) m, gap 0.25 m', diagnostic)
 
+    def test_saved_flex_and_symbol_must_agree_with_each_other(self):
+        circle = self.doc.modelspace().query('CIRCLE')[0]
+        flex = self.doc.modelspace().query('LINE[layer=="flex"]')[0]
+        circle.dxf.center = (1 + 8e-9, 1, 0)
+        flex.dxf.start = (1 - 8e-9, 1, 0)
+        with self.assertRaisesRegex(ValueError, f'Flex handle {flex.dxf.handle}.*VA.*1.6e-08 m'):
+            self.check()
+
     def test_shared_node_rejects_drift_across_individually_close_sections(self):
         first, _ = self.doc.modelspace().query('LINE[layer=="duct"]')
         first.dxf.start = (8e-9, 0, 0)
