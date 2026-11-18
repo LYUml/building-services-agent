@@ -72,7 +72,9 @@ def inspect_saved(path,model):
     if len(objects)!=len(expected) or {o.Name for o in objects}!=set(expected) or saved.by_type('IfcSpace'):raise ValueError('Exact final body coverage without temporary spaces required')
     settings=ifcopenshell.geom.settings();settings.set(settings.USE_WORLD_COORDS,True);circular_geometry.configure(settings);ports={}
     for obj in objects:
-        d=expected[obj.Name];module=elbow if d['body_shape']==elbow.WALL else straight;module.verify(obj,d,ifcopenshell.geom.create_shape(settings,obj))
+        d = expected[obj.Name]
+        module = elbow if d['body_shape'] == elbow.WALL else straight
+        module.verify(obj, d, circular_geometry.native_shape(settings, obj))
         if obj.is_a()!=d['ifc_class']:raise ValueError('Final source element class differs')
         props=element.get_psets(obj)['BSA_DesignInputs']
         if not math.isclose(props['DesignFlow_m3_s'],d['properties']['DesignFlow_m3_s'],rel_tol=1e-12,abs_tol=1e-12):raise ValueError('Final source flow differs')
