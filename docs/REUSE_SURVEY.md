@@ -2817,3 +2817,11 @@ With `BSA_TEST_AUTOCAD=1` on the same Windows host, the three suites passed
 The two native tests checked saved DWG reopening, IFC identity links, and
 50 mm or 60 mm plotted references within 0.2 mm. Visual plot review was
 still pending in the test receipts.
+
+A retained single-sheet plot regenerated from the repository circular-elbow
+fixture was visually reviewed after native reopening. The complete route,
+both straight legs, the elbow outlines, the three callouts and the scope
+note are visible within the page. The leaders and callouts do not overlap.
+The reviewed PDF SHA-256 is
+`9343b887ace1329ff8750b6eebbca10056e0e80f43317464adcc3eb18918195f`
+(without the space). This review applies to that synthetic sheet only.
