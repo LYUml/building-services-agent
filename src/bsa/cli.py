@@ -146,7 +146,7 @@ def main():
     s.add_argument("plan",type=Path)
     s.add_argument("--out",type=Path,required=True)
     s.add_argument("--review",type=Path,help="Create a pending delivery review outside the run directory")
-    for flag in ("energyplus","autocad","radiance-bin","ifcmcp-python","three-phase-python","graphviz","pdf2plot-python","honeybee-python","requirements-result"):
+    for flag in ("energyplus","autocad","radiance-bin","ifcmcp-python","three-phase-python","graphviz","pdf2plot-python","honeybee-python","requirements-result","fds-release"):
         s.add_argument("--"+flag,type=Path)
     s.add_argument('--module-provider',action='append',default=[])
     s.add_argument('--disable-module-provider',action='append',default=[])
@@ -263,7 +263,7 @@ def main():
                 if not workspace.intake_output(review):raise ProjectError('Explicit selected delivery review output workspace required')
                 if review.exists() or review==a.plan.resolve() or review.is_relative_to(a.out.resolve()):
                     raise ProjectError("review must be a new file outside the plan/run artifacts")
-            execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python,a.three_phase_python,a.graphviz,a.pdf2plot_python,a.honeybee_python,requirements_result=a.requirements_result,
+            execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python,a.three_phase_python,a.graphviz,a.pdf2plot_python,a.honeybee_python,requirements_result=a.requirements_result,fds_release=a.fds_release,
                 module_providers=providers,disabled_module_providers=a.disable_module_provider,
                 module_runtime={key:value for key,value in dict(upstream=a.moosas_upstream,deps=a.moosas_deps).items() if value is not None})
             diagnosis=diagnose(a.plan,a.out)

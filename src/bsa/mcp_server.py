@@ -229,6 +229,7 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None,fds_rele
         path,folder=local(plan),local(out)
         with lock:
             extra={} if reuse_checkpoint is None else dict(reuse_checkpoint=local(reuse_checkpoint))
+            if fds_release is not None:extra['fds_release']=fds_release
             invoke('bsa.workflow.execute',path,folder,**options,**extra)
             diagnosis=invoke('bsa.workflow_status.diagnose',path,folder)
             with (folder/'diagnosis.json').open('x',encoding='utf-8') as stream:json.dump(diagnosis,stream,indent=2)

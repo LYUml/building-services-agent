@@ -73,6 +73,15 @@ Actual saved outputs exercised both outcomes through MCP. The project-level
 design status remained unaccepted and the separate manual review remained
 pending. A changed upstream CSV invalidated the workflow's integrity check.
 
+To run a pinned case directly in an interpreted plan, use task kind
+`fds_temperature_probe` with a plan-relative `source` path. It accepts the
+same optional uniform check as the saved review. Supply the Windows package
+with `bsa workflow ... --fds-release <package.exe>` or the same flag on MCP
+server startup. Without that host configuration the task remains pending
+and produces no probe directory. The run pins the package in
+`runtime_inputs`. Actual CLI and MCP workflow runs on the uniform case
+passed the scoped check and retained a pending engineering review.
+
 ## Offline Revit inventory access
 
 The main CLI and MCP tool reuse the existing saved-inventory diagnostic and

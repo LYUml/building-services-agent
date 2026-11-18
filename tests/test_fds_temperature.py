@@ -54,6 +54,13 @@ class FdsTemperatureTests(unittest.TestCase):
             self.assertTrue(verify(out)['integrity_pass'])
             table.write_text('changed evidence', encoding='utf-8')
             self.assertFalse(verify(out)['integrity_pass'])
+            spec['tasks'][0] = dict(id='review', kind='fds_temperature_probe', source=table.name)
+            plan.write_text(json.dumps(spec), encoding='utf-8')
+            unconfigured = root/'unconfigured'
+            pending = execute(plan, unconfigured)['tasks']['review']
+            self.assertEqual(pending['status'], 'pending')
+            self.assertIn('Host FDS release', pending['scope'])
+            self.assertFalse((unconfigured/'review').exists())
 
     def test_point_temperature_preserves_deviation_and_rejects_wrong_units(self):
         rows = ''.join(f'{time},22.5,22.5\n' for time in (0, 0.2, 0.45, 0.65, 0.8, 1))

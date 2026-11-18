@@ -196,6 +196,15 @@ def verify(out):
     return dict(integrity_pass=True, **reconstructed)
 
 
+def review_status(report, check):
+    if check is None:
+        return 'pending', 'FDS probe evidence reconciles; project CFD acceptance remains pending'
+    if report.get('case') != UNIFORM_CASE:
+        raise ProjectError('Uniform-point acceptance requires the pinned uniform FDS case')
+    status = 'pass' if report['point_temperature_check_pass'] else 'fail'
+    return status, 'Uniform FDS point temperature check against 22.5 °C at exported precision'
+
+
 def add_arguments(parser):
     for name in ('release', 'source', 'out'):
         parser.add_argument('--'+name, type=Path, required=True)

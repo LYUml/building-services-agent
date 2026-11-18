@@ -319,7 +319,7 @@ def validate_plan(path):
             from . import drawing_access
             project=local_path(root,t.get('project'))
             inputs.update(drawing_access.workflow_inputs(project))
-        if kind not in ("knowledge_index","knowledge_query","engineering_data","drawing_document","module_electrical_native","module_electrical_rules","module_water_rules","module_analysis","module_authoring","spatial_terminal_stubs","spatial_terminal_inlets","spatial_terminal_ifc","spatial_terminal_coordination","spatial_terminal_native","spatial_terminal_drawing","spatial_terminal_performance","spatial_air_allocation","spatial_air_balance","spatial_lighting_rules","module_thermal_project","module_exchange","duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","circular_fan_metadata","circular_fan_selection","circular_fan_operating_point","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","fds_temperature_review","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","route_ports","route_join","route_material","route_pressure","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("knowledge_index","knowledge_query","engineering_data","drawing_document","module_electrical_native","module_electrical_rules","module_water_rules","module_analysis","module_authoring","spatial_terminal_stubs","spatial_terminal_inlets","spatial_terminal_ifc","spatial_terminal_coordination","spatial_terminal_native","spatial_terminal_drawing","spatial_terminal_performance","spatial_air_allocation","spatial_air_balance","spatial_lighting_rules","module_thermal_project","module_exchange","duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","circular_fan_metadata","circular_fan_selection","circular_fan_operating_point","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","fds_temperature_review","fds_temperature_probe","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","route_ports","route_join","route_material","route_pressure","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind=='module_electrical_native':
             if set(t)-{'id','kind','depends_on','requires_pass','description'}:raise ProjectError('Native electrical task inherits rule producer only;replacement inputs forbidden')
@@ -552,16 +552,20 @@ def validate_plan(path):
             official=source_paths(read_json(pack),(root/directory).resolve())
             if any(not f.is_file() for f in official):raise ProjectError('download required official sources before workflow execution')
             inputs.update(basis_files|official|{pack,Path(three_phase_regulations.__file__).resolve(),Path(three_phase_drawing.__file__).resolve()})
-        if kind=='fds_temperature_review':
+        if kind in ('fds_temperature_review','fds_temperature_probe'):
             from . import fds_temperature
-            if set(t)-{'id','kind','report','requires_pass','description','check'}:
-                raise ProjectError('FDS review requires an explicit saved probe report')
+            field='report' if kind=='fds_temperature_review' else 'source'
+            if set(t)-{'id','kind',field,'requires_pass','description','check'}:
+                raise ProjectError('FDS task requires a saved report or pinned source for the selected kind')
             if 'check' in t and t['check']!='uniform_point_temperature':
                 raise ProjectError('Unsupported FDS probe acceptance check')
-            report=local_path(root,t.get('report'))
-            if report.name!='report.json':
-                raise ProjectError('FDS review requires the probe report.json')
-            inputs.update(fds_temperature.evidence_paths(report.parent))
+            probe_path=local_path(root,t.get(field))
+            if kind=='fds_temperature_review':
+                if probe_path.name!='report.json':
+                    raise ProjectError('FDS review requires the probe report.json')
+                inputs.update(fds_temperature.evidence_paths(probe_path.parent))
+            else:
+                inputs.add(probe_path)
             inputs.add(Path(fds_temperature.__file__).resolve())
         if kind=='revit_inventory_check':
             if set(t)-{'id','kind','inventory','model','tolerance_m','requires_pass','description','expected_connections'}:
@@ -1245,7 +1249,7 @@ def requirement_support(requirement,tasks,artifacts):
         for name in requirement.get('supporting_tasks',[])}
 
 
-def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_python=None,three_phase_python=None,graphviz=None,pdf2plot_python=None,honeybee_python=None,module_providers=None,module_runtime=None,disabled_module_providers=(),requirements_result=None,reuse_checkpoint=None):
+def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_python=None,three_phase_python=None,graphviz=None,pdf2plot_python=None,honeybee_python=None,module_providers=None,module_runtime=None,disabled_module_providers=(),requirements_result=None,reuse_checkpoint=None,*,fds_release=None):
     plan,out=plan.resolve(),out.resolve()
     from . import workspace
     if not workspace.allowed(plan) or not workspace.intake_output(out):raise ProjectError('Explicit selected workflow input and output workspace required')
@@ -1565,19 +1569,22 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     payload=phase_rules(project,study_folder,local_path(root,t['basis']),local_path(root,t['pack']),root/t['sources'],folder)
                     status=payload['status'];reason=payload['scope']
                     three_phase_rule_pins[t['id']]={str(f):digest(f) for f in folder.rglob('*') if f.is_file()}
-            elif t['kind']=='fds_temperature_review':
-                from .fds_temperature import verify as verify_fds
-                payload=verify_fds(local_path(root,t['report']).parent)
-                if t.get('check')=='uniform_point_temperature':
-                    from .fds_temperature import UNIFORM_CASE
-                    if payload.get('case')!=UNIFORM_CASE:
-                        raise ProjectError('Uniform-point acceptance requires the pinned uniform FDS case')
-                    status='pass' if payload['point_temperature_check_pass'] else 'fail'
-                    reason='Uniform FDS point temperature check against 22.5 °C at exported precision'
+            elif t['kind'] in ('fds_temperature_review','fds_temperature_probe'):
+                from . import fds_temperature
+                if t['kind']=='fds_temperature_review':
+                    payload=fds_temperature.verify(local_path(root,t['report']).parent)
+                    status,reason=fds_temperature.review_status(payload,t.get('check'))
+                    folder.mkdir()
+                    (folder/'probe-review.json').write_text(json.dumps(payload,indent=2),encoding='utf-8')
+                elif fds_release is None:
+                    reason='Host FDS release not supplied; temperature probe not executed'
                 else:
-                    status='pending';reason='Saved FDS probe evidence reconciles; project CFD acceptance remains pending'
-                folder.mkdir()
-                (folder/'probe-review.json').write_text(json.dumps(payload,indent=2),encoding='utf-8')
+                    release=Path(fds_release).resolve()
+                    payload=fds_temperature.run(release,local_path(root,t['source']),folder)
+                    if digest(release)!=payload['release_sha256']:
+                        raise ProjectError('FDS host release changed during execution')
+                    runtime_inputs[str(release)]=payload['release_sha256']
+                    status,reason=fds_temperature.review_status(payload,t.get('check'))
             elif t['kind']=='revit_inventory_check':
                 from .revit_connectivity import run
                 basis=local_path(root,t['expected_connections']) if 'expected_connections' in t else None
@@ -2662,6 +2669,7 @@ def main():
     e.add_argument('--ifcmcp-python',type=Path)
     e.add_argument('--pdf2plot-python',type=Path)
     e.add_argument('--honeybee-python',type=Path)
+    e.add_argument('--fds-release',type=Path)
     e.add_argument('--three-phase-python',type=Path)
     e.add_argument('--graphviz',type=Path)
     e.add_argument('--requirements-result',type=Path)
@@ -2686,7 +2694,7 @@ def main():
                 task,sep,provider=item.partition('=')
                 if not sep or not task or not provider or task in overrides:raise ProjectError('Unique TASK=PROVIDER module overrides required')
                 overrides[task]=provider
-            r=execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python,a.three_phase_python,a.graphviz,a.pdf2plot_python,a.honeybee_python,module_providers=overrides,module_runtime=dict(upstream=a.moosas_upstream,deps=a.moosas_deps),disabled_module_providers=a.disable_module_provider,requirements_result=a.requirements_result,reuse_checkpoint=a.reuse_checkpoint)
+            r=execute(a.plan,a.out,a.energyplus,a.autocad,a.radiance_bin,a.ifcmcp_python,a.three_phase_python,a.graphviz,a.pdf2plot_python,a.honeybee_python,module_providers=overrides,module_runtime=dict(upstream=a.moosas_upstream,deps=a.moosas_deps),disabled_module_providers=a.disable_module_provider,requirements_result=a.requirements_result,reuse_checkpoint=a.reuse_checkpoint,fds_release=a.fds_release)
             print(json.dumps({"tasks":r["tasks"],"design_accepted":False},indent=2))
             if not r["execution_pass"]:return 2
     except (ProjectError,OSError,ValueError) as exc:p.exit(2,str(exc)+"\n")
