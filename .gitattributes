@@ -56,3 +56,38 @@ tests/test_cfd_flux_window.py text eol=lf
 
 src/bsa/openfoam_history.py text eol=lf
 tests/test_openfoam_history.py text eol=lf
+
+# Historical CAD originals with host metadata stay in Git for receipt provenance.
+docs/evidence/annotation-visibility/controls.zip export-ignore
+docs/evidence/base-overlay/coordinated.dwg export-ignore
+docs/evidence/branches-native/clipped.zip export-ignore
+docs/evidence/branches-native/corrected.zip export-ignore
+docs/evidence/elbow-riser/segments.dwg export-ignore
+docs/evidence/elbow-riser/workflow.zip export-ignore
+docs/evidence/hvac-drawing/equipment.dwg export-ignore
+docs/evidence/hvac-drawing/native-reopened.dxf export-ignore
+docs/evidence/ifc-native/reopened.dxf export-ignore
+docs/evidence/ifc-native/segments.dwg export-ignore
+docs/evidence/ifc-route-drawing/segments.dwg export-ignore
+docs/evidence/ifc-route-drawing/workflow.zip export-ignore
+docs/evidence/ifc-views/run/native/front/native-reopen/source-copy.dwg export-ignore
+docs/evidence/ifc-views/run/native/front/native-reopen/source-export.dxf export-ignore
+docs/evidence/ifc-views/run/native/front/segments.dwg export-ignore
+docs/evidence/ifc-views/run/native/plan/native-reopen/source-copy.dwg export-ignore
+docs/evidence/ifc-views/run/native/plan/native-reopen/source-export.dxf export-ignore
+docs/evidence/ifc-views/run/native/plan/segments.dwg export-ignore
+docs/evidence/ifc-views/run/native/side/native-reopen/source-copy.dwg export-ignore
+docs/evidence/ifc-views/run/native/side/native-reopen/source-export.dxf export-ignore
+docs/evidence/ifc-views/run/native/side/segments.dwg export-ignore
+docs/evidence/ifcmcp-analysis/native-trial.zip export-ignore
+docs/evidence/ifcmcp-native/native-trial.zip export-ignore
+docs/evidence/ifcmcp-regulated/native-trials.zip export-ignore
+docs/evidence/regulated-water-native/native-artifacts.zip export-ignore
+docs/evidence/route-coordination-drawing/native-export.dxf export-ignore
+docs/evidence/route-coordination-drawing/segments.dwg export-ignore
+docs/evidence/saved-route-audit/native-export.dxf export-ignore
+docs/evidence/tee-assembly/callouts-workflow.zip export-ignore
+docs/evidence/tee-assembly/dimensions-workflow.zip export-ignore
+docs/evidence/tee-assembly/drawing-native.zip export-ignore
+docs/evidence/tee-assembly/full-drawing-workflow.zip export-ignore
+docs/evidence/tee-assembly/selection-delivery.zip export-ignore

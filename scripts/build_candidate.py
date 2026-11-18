@@ -22,6 +22,17 @@ def verify_committed_bytes(saved, commit, release_manifest):
         if kind != b'blob' or mode not in (b'100644', b'100755'):
             raise ValueError('Candidate requires regular files in the committed source tree')
         expected[name.decode('utf-8')] = oid.decode('ascii')
+    paths = b''.join(name.encode('utf-8') + b'\0' for name in expected)
+    attributes = subprocess.check_output(
+        ['git', 'check-attr', '--source=' + commit, '-z', '--stdin', 'export-ignore'],
+        cwd=ROOT, input=paths).split(b'\0')[:-1]
+    if len(attributes) != 3 * len(expected):
+        raise ValueError('Candidate could not verify committed archive exclusions')
+    for name, attribute, value in zip(attributes[::3], attributes[1::3], attributes[2::3]):
+        if attribute != b'export-ignore':
+            raise ValueError('Unexpected candidate archive attribute')
+        if value == b'set':
+            del expected[name.decode('utf-8')]
     files = [item for item in saved.infolist() if not item.is_dir()]
     manifests = [item for item in files if item.filename == '.bsa-release.json']
     if ('.bsa-release.json' in expected or len(manifests) != 1
@@ -29,7 +40,7 @@ def verify_committed_bytes(saved, commit, release_manifest):
         raise ValueError('Candidate release manifest differs from the selected commit')
     files.remove(manifests[0])
     if len(files) != len(expected) or {item.filename for item in files} != expected.keys():
-        raise ValueError('Candidate file inventory differs from the committed tree')
+        raise ValueError('Candidate file inventory differs from the committed archive scope')
     algorithm = subprocess.check_output(['git', 'rev-parse', '--show-object-format'], cwd=ROOT, text=True).strip()
     for item in files:
         digest = hashlib.new(algorithm, f'blob {item.file_size}\0'.encode('ascii'))
