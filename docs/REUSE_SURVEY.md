@@ -2852,8 +2852,14 @@ was checked before and after. A further read compared 146 ARC records and
 angles and normals and polyline closure, elevation, constant width, vertices,
 widths and bulges matched. Maximum coordinate or width difference was
 `1.46e-11 mm`, maximum wrapped angle difference was `1.34e-15 rad`,
-and maximum bulge difference was `1.39e-17`. Layout content, DWG writing
-and lossless revision remain outside the reviewed scope.
+and maximum bulge difference was `1.39e-17`. As a revision control,
+the same independent reader compared the original DWG with a separate
+AutoCAD-saved three-label revision. All modelspace handles, types and
+layers matched. Text content remained identical. The three approved insert
+points matched the revision recipe. Supported geometry, including the
+arcs and polylines, remained within the existing `1e-7` drawing-unit
+tolerance. Some coordinates differed at floating-point serialization
+precision. Layout content and writing with ACadSharp remain unverified.
 
 Horizun Revit MCP (Apache-2.0, inspected repository head
 `d1c94a0f7bbf5875199f2ebd1bfcc618d3049b6f`) is a candidate reference for typed
