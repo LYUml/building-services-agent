@@ -4,7 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
-from zipfile import ZIP_DEFLATED, ZipFile
+from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
 
 def inventory_activity(engine, bundle_id):
@@ -82,7 +82,10 @@ def prepare(assembly, output, *, engine=None, bundle_id=None, model=None):
     archive = output / 'Bsa.Revit.Automation.zip'
     with ZipFile(archive, 'x', compression=ZIP_DEFLATED) as bundle:
         for name, content in payload.items():
-            bundle.writestr(name, content)
+            member = ZipInfo(name)
+            member.create_system = 3
+            member.external_attr = 0o100644 << 16
+            bundle.writestr(member, content, compress_type=ZIP_DEFLATED)
     with ZipFile(archive) as bundle:
         if bundle.namelist() != list(payload) or any(bundle.read(name) != data for name, data in payload.items()):
             raise ValueError('AppBundle differs from the selected files')
