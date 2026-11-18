@@ -35,6 +35,7 @@ class HVACReportTests(unittest.TestCase):
   pdf=render(root/'report',root/'pdf',font)
   self.assertEqual(pdf['numerical_rows_checked'],7)
   self.assertEqual(pdf['requirement_rows'],3)
+  self.assertFalse(pdf['terminal_connection_summary_checked'])
   self.assertFalse(pdf['design_accepted'])
   with self.assertRaises(ValueError):render(root/'report',root/'pdf',font)
   from bsa.hvac_package import run as package

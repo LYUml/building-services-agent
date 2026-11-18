@@ -43,6 +43,10 @@ def run(directory,output,font):
     review_paragraphs=report.get('adpi_review_summary',[])
     if not isinstance(review_paragraphs,list) or any(not isinstance(p,str) or ('p',p) not in parser.blocks for p in review_paragraphs):
         raise ValueError('ADPI review summary differs from report manifest')
+    terminal_summary = report.get('terminal_connection_summary')
+    if terminal_summary is not None and (not isinstance(terminal_summary, str)
+            or not terminal_summary.strip() or ('p', terminal_summary) not in parser.blocks):
+        raise ValueError('Terminal connection summary differs from report manifest')
     tables=[v for k,v in parser.blocks if k=='table'];counts=report['counts']
     expected=[counts[k] for k in ('terminal_direction_rows','leaf_groups','duct_sections','requirements')]
     if len(tables)!=6 or [len(t)-1 for t in tables[2:]]!=expected:
@@ -84,10 +88,13 @@ def run(directory,output,font):
     numeric=[row for table in tables[1:5] for row in table[1:]]
     if any(' '.join(' '.join(row).split()) not in flat for row in numeric):raise ValueError('PDF numerical row missing or changed')
     if any(' '.join(paragraph.split()) not in flat for paragraph in review_paragraphs):raise ValueError('PDF ADPI applicability/evidence paragraph missing or changed')
+    if terminal_summary is not None and ' '.join(terminal_summary.split()) not in flat:
+        raise ValueError('PDF terminal connection summary missing or changed')
     if any(digest(Path(p))!=sha for p,sha in pins.items()):raise ValueError('Report/font changed during rendering')
     verify_report_inputs(report)
     result=dict(inputs=pins,pdf_sha256=digest(target),reportlab_version=reportlab.Version,pages=len(pages),numerical_rows_checked=len(numeric),requirement_rows=counts['requirements'],visual_review='pending',design_accepted=False)
     result['adpi_review_paragraphs_checked']=len(review_paragraphs)
+    result['terminal_connection_summary_checked']=terminal_summary is not None
     (output/'render.json').write_text(json.dumps(result,indent=2),encoding='utf-8');return result
 
 

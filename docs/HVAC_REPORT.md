@@ -83,7 +83,9 @@ Use `--terminal-review <inherited-review.json>` to include a scoped connection
 summary. The report checks exact workflow/schedule/source identities and reruns the
 read-only saved-geometry matcher; altered counts or geometry results reject rather
 than being copied from a success flag. The review itself is pinned as a report input.
-The package supplies its successful connection review automatically. Full physical
+The package supplies its successful connection review automatically. The PDF
+renderer checks that the complete connection summary survives HTML-to-PDF export
+and records `terminal_connection_summary_checked` in its receipt. Full physical
 ports, installed length, labels, 3D and code acceptance remain explicitly excluded.
 
 Actual private report includes 80 terminals, 20 groups, 47 rigid sections and

@@ -172,14 +172,15 @@ def run(directory,output,*,terminal_review=None,adpi_review=None):
         if any(output==Path(p) or output in Path(p).parents for p in review_pins):raise ValueError('Report must not contain ADPI source evidence')
         section='<h2>ADPI applicability and evidence</h2>'+''.join('<p>'+html.escape(text)+'</p>' for text in review_paragraphs)
         content=content.replace('<h2>Maximum and minimum terminal lookup</h2>',section+'<h2>Maximum and minimum terminal lookup</h2>')
+    terminal_summary = None
     if terminal_review is not None:
         review=Path(terminal_review).resolve()
         if output==review or output in review.parents:raise ValueError('Report must not contain review input')
         review_hash=digest(review)
-        summary=connection_summary(directory,workflow,paths,review)
+        terminal_summary=connection_summary(directory,workflow,paths,review)
         if digest(review)!=review_hash:raise ValueError('Terminal review changed during reporting')
         content=content.replace('<h2>Complete source requirement matrix</h2>',
-            '<h2>Saved terminal connections</h2><p>'+html.escape(summary)+'</p><h2>Complete source requirement matrix</h2>')
+            '<h2>Saved terminal connections</h2><p>'+html.escape(terminal_summary)+'</p><h2>Complete source requirement matrix</h2>')
         pins[str(review)] = review_hash
     if any(p in pins and pins[p] != sha for p, sha in review_pins.items()):
         raise ValueError('Report review evidence differs from the inputs used to compose the report')
@@ -189,6 +190,7 @@ def run(directory,output,*,terminal_review=None,adpi_review=None):
     output.mkdir(parents=True);target=output/'HVAC System Design.html';target.write_text(content,encoding='utf-8')
     result=dict(inputs=pins,html_sha256=digest(target),counts=counts,scope='Single allocation/lookup/tree study; complete requirement states retained. No PDF or full design acceptance.',design_accepted=False)
     result['adpi_review_summary']=review_paragraphs
+    result['terminal_connection_summary']=terminal_summary
     (output/'report.json').write_text(json.dumps(result,indent=2),encoding='utf-8');return result
 
 
