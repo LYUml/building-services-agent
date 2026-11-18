@@ -70,8 +70,10 @@ class DwgReadbackTests(unittest.TestCase):
                 if entity.dxftype() == 'LINE':
                     self.assertEqual(geometry, dict(start=list(entity.dxf.start), end=list(entity.dxf.end)))
                 elif entity.dxftype() == 'TEXT':
-                    self.assertEqual(geometry, dict(text=entity.dxf.text, insert=list(entity.dxf.insert),
-                                                    height=entity.dxf.height))
+                    self.assertEqual(geometry['text'], entity.dxf.text)
+                    self.assertEqual(geometry['insert'], list(entity.dxf.insert))
+                    self.assertEqual(geometry['height'], entity.dxf.height)
+                    self.assertEqual(geometry['style'], entity.dxf.style)
                 elif entity.dxftype() == 'LWPOLYLINE':
                     self.assertEqual(geometry['vertices'], [list(v) for v in entity.get_points('xyseb')])
                     self.assertEqual(geometry['closed'], entity.closed)
@@ -88,6 +90,8 @@ class DwgReadbackTests(unittest.TestCase):
             line.dxf.end += (1, 0, 0)
             insert = changed.modelspace().query('INSERT')[0]
             insert.dxf.rotation += 15
+            label = changed.modelspace().query('TEXT')[0]
+            label.dxf.rotation += 10
             changed.units = 6
             changed_dxf, difference_report = output / 'changed.dxf', output / 'differences.json'
             changed.saveas(changed_dxf)
@@ -97,7 +101,8 @@ class DwgReadbackTests(unittest.TestCase):
             self.assertEqual(mismatch.returncode, 2, mismatch.stderr)
             comparison = json.loads(difference_report.read_bytes())['comparison']
             self.assertEqual(comparison['differences'], [dict(reason='drawing_units_differ', dwg_insunits=4, dxf_insunits=6)] + [
-                dict(handle=handle, reason='geometry_differs') for handle in sorted((line.dxf.handle, insert.dxf.handle))
+                dict(handle=handle, reason='geometry_differs')
+                for handle in sorted((line.dxf.handle, insert.dxf.handle, label.dxf.handle))
             ])
             stale_report = output / 'stale.json'
             with self.assertRaisesRegex(ValueError, 'differs from the verified revision artifact hashes'):

@@ -16,7 +16,10 @@ def dxf_geometry(entity):
     if kind == 'LINE':
         return dict(start=list(dxf.start), end=list(dxf.end))
     if kind == 'TEXT':
-        return dict(text=dxf.text, insert=list(dxf.insert), height=dxf.height)
+        return dict(text=dxf.text, insert=list(dxf.insert), height=dxf.height, width_factor=dxf.width,
+                    rotation_angle_rad=math.radians(dxf.rotation), oblique_angle_rad=math.radians(dxf.oblique),
+                    normal=list(dxf.extrusion), horizontal_alignment=dxf.halign, vertical_alignment=dxf.valign,
+                    alignment_point=list(dxf.align_point) if dxf.halign or dxf.valign else None, style=dxf.style)
     if kind == 'INSERT':
         return dict(block_name=dxf.name, insert=list(dxf.insert), normal=list(dxf.extrusion),
                     scale=[dxf.xscale, dxf.yscale, dxf.zscale], rotation_angle_rad=math.radians(dxf.rotation),

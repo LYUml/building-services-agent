@@ -93,6 +93,15 @@ static object? Geometry(Entity entity) => entity switch
         text = text.Value,
         insert = new[] { text.InsertPoint.X, text.InsertPoint.Y, text.InsertPoint.Z },
         height = text.Height,
+        width_factor = text.WidthFactor,
+        rotation_angle_rad = text.Rotation,
+        oblique_angle_rad = text.ObliqueAngle,
+        normal = new[] { text.Normal.X, text.Normal.Y, text.Normal.Z },
+        horizontal_alignment = (int)text.HorizontalAlignment,
+        vertical_alignment = (int)text.VerticalAlignment,
+        alignment_point = (int)text.HorizontalAlignment == 0 && (int)text.VerticalAlignment == 0
+            ? null : new[] { text.AlignmentPoint.X, text.AlignmentPoint.Y, text.AlignmentPoint.Z },
+        style = text.Style.Name,
     },
     LwPolyline polyline => new
     {
