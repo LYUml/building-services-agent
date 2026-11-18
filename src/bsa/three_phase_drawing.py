@@ -86,13 +86,17 @@ def bus_contacts(doc, circuits):
                 pending.extend(neighbors[point])
         if len(reached) != len(neighbors):
             raise ProjectError(f'Reopened line {name} contains disconnected geometry')
-        distances = min(
-            ([min(segment_distance(point, a, b) for a, b in box)
-              for point, box in zip(order, boxes)] for order in (ends, ends[::-1])),
-            key=max,
-        )
-        if max(distances) > 1e-6:
+        pairings = [
+            [min(segment_distance(point, a, b) for a, b in box)
+             for point, box in zip(order, boxes)]
+            for order in (ends, ends[::-1])
+        ]
+        matches = [distances for distances in pairings if max(distances) <= 1e-6]
+        if not matches:
             raise ProjectError(f'Reopened line {name} does not meet its declared buses {tail} and {head}')
+        if len(matches) != 1:
+            raise ProjectError(f'Reopened line {name} has ambiguous contacts at buses {tail} and {head}')
+        distances = matches[0]
         checks.append(dict(line=name, from_bus=tail, to_bus=head,
                            from_gap_mm=distances[0], to_gap_mm=distances[1]))
     return checks

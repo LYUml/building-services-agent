@@ -21,6 +21,16 @@ PYTHON=os.environ.get('BSA_TEST_THREE_PHASE_PYTHON')
 
 
 class NativeTextAnchorTests(unittest.TestCase):
+    def test_overlapping_bus_geometry_makes_contact_assignment_ambiguous(self):
+        doc = ezdxf.new()
+        doc.appids.new(APP)
+        for kind, name in [('bus', 'A'), ('bus', 'B'), ('line', 'feeder')]:
+            entity = doc.modelspace().add_line((0, 0), (1, 0))
+            entity.set_xdata(APP, [(1000, kind), (1000, name)])
+
+        with self.assertRaisesRegex(ProjectError, 'ambiguous contacts at buses A and B'):
+            bus_contacts(doc, [{'id': 'feeder', 'from': 'A', 'to': 'B'}])
+
     def test_only_derived_text_insert_is_normalized(self):
         a=ezdxf.new();text=a.modelspace().add_text('source').set_placement((10,20),align=TextEntityAlignment.CENTER)
         expected=native_records(a)
