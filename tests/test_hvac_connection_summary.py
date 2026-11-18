@@ -24,7 +24,10 @@ class ConnectionSummaryTests(unittest.TestCase):
         binding=save(self.root/'binding.json',fixture.binding)
         schedule=save(self.directory/'ducts/results.json',dict(input_sha256=digest(project)))
         self.paths=[allocation,self.directory/'lookup/terminal-results.json',schedule]
-        self.workflow=dict(inputs={str(p):digest(p) for p in (project,binding)},tasks={name:dict(kind=kind,status='pass') for name,kind in [('native','duct_sheet_native'),('sheet','duct_sheet'),('ducts','duct_schedule'),('allocation','air_allocation')]})
+        self.workflow=dict(inputs={str(p):digest(p) for p in (project,binding)},
+                           artifact_hashes={p.relative_to(self.directory).as_posix(): digest(p)
+                                            for p in (self.drawing, allocation, schedule)},
+                           tasks={name:dict(kind=kind,status='pass') for name,kind in [('native','duct_sheet_native'),('sheet','duct_sheet'),('ducts','duct_schedule'),('allocation','air_allocation')]})
         save(self.directory/'workflow.json',self.workflow)
         self.record=fixture.check()|dict(inputs={str(p):digest(p) for p in (self.drawing,allocation,project,binding)},layers=fixture.layers,
             workflow_sha256=digest(self.directory/'workflow.json'),schedule_sha256=digest(schedule),lineage=['native','sheet','ducts','allocation'])
@@ -48,7 +51,14 @@ class ConnectionSummaryTests(unittest.TestCase):
         line=next(e for e in self.fixture.doc.modelspace() if e.dxf.layer=='flex')
         line.dxf.end=(20,20,0);self.fixture.doc.saveas(self.drawing)
         self.record['inputs'][str(self.drawing)]=digest(self.drawing)
-        with self.assertRaisesRegex(ValueError,'correspondence'):self.summarize()
+        with self.assertRaisesRegex(ValueError,'missing from the verified workflow evidence'):self.summarize()
+
+    def test_coherent_review_cannot_use_an_unlisted_drawing(self):
+        del self.workflow['artifact_hashes'][self.drawing.relative_to(self.directory).as_posix()]
+        self.save(self.directory/'workflow.json', self.workflow)
+        self.record['workflow_sha256'] = digest(self.directory/'workflow.json')
+        with self.assertRaisesRegex(ValueError, 'missing from the verified workflow evidence'):
+            self.summarize()
 
     def test_other_workflow_and_failed_ancestry(self):
         self.record['workflow_sha256']='other'

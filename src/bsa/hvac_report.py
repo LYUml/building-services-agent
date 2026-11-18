@@ -67,6 +67,11 @@ def connection_summary(directory,workflow,paths,review):
     drawing=directory/lineage[0]/'reopened/source-export.dxf'
     if paths[0]!=directory/lineage[3]/'allocation.json' or paths[2]!=directory/lineage[2]/'results.json' or drawing not in inputs or paths[0] not in inputs:
         raise ValueError('Terminal review source identities differ')
+    artifacts = workflow.get('artifact_hashes', {})
+    if (any(artifacts.get(path.relative_to(directory).as_posix()) != inputs[path]
+            for path in (drawing, paths[0]))
+            or artifacts.get(paths[2].relative_to(directory).as_posix()) != record['schedule_sha256']):
+        raise ValueError('Terminal review artifacts are missing from the verified workflow evidence')
     sources=[p for p in inputs if p not in (drawing,paths[0])]
     if any(workflow['inputs'].get(str(p))!=inputs[p] for p in sources):
         raise ValueError('Terminal review uses sources outside workflow')
