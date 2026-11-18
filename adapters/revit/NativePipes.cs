@@ -109,7 +109,7 @@ public static partial class NativePipes
     }
 
     private static double Feet(double metres) => UnitUtils.ConvertToInternalUnits(metres, UnitTypeId.Meters);
-    private sealed class RejectFailures : IFailuresPreprocessor
+    internal sealed class RejectFailures : IFailuresPreprocessor
     {
         public FailureProcessingResult PreprocessFailures(FailuresAccessor accessor) =>
             accessor.GetFailureMessages().Count > 0

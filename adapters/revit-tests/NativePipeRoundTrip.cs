@@ -132,6 +132,8 @@ public sealed class NativePipeRoundTrip
             using (var transaction = new Transaction(owned, "BSA synthetic elbow control"))
             {
                 Assert.That(transaction.Start(), Is.EqualTo(TransactionStatus.Started));
+                transaction.SetFailureHandlingOptions(transaction.GetFailureHandlingOptions()
+                    .SetFailuresPreprocessor(new NativePipes.RejectFailures()).SetClearAfterRollback(true));
                 var first = Pipe.Create(owned, systemType!.Id, pipeType!.Id, level!.Id, start, corner);
                 var second = Pipe.Create(owned, systemType.Id, pipeType.Id, level.Id, corner, end);
                 double diameter = UnitUtils.ConvertToInternalUnits(request.DiameterMetres, UnitTypeId.Meters);
@@ -140,7 +142,8 @@ public sealed class NativePipeRoundTrip
                 owned.Regenerate();
                 var elbow = owned.Create.NewElbowFitting(EndAt(first, corner), EndAt(second, corner));
                 (firstId, secondId, fittingId) = (first.UniqueId, second.UniqueId, elbow.UniqueId);
-                Assert.That(transaction.Commit(), Is.EqualTo(TransactionStatus.Committed));
+                Assert.That(transaction.Commit(), Is.EqualTo(TransactionStatus.Committed),
+                    "Revit rejected the synthetic elbow transaction");
             }
             var connected = ElbowConnections(owned, firstId, secondId, fittingId);
             string expected = Path.Combine(folder, "expected-connections.json");
