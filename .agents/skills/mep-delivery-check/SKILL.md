@@ -144,12 +144,14 @@ and observed peer or coordinates, measured difference where applicable, and
 artifact evidence. Keep untested interfaces and failed checks open in the
 delivery review. A successful repair requires a fresh check of the saved result.
 
-For IFC revisions with a documented coordinate translation, pass the same
-baseline IFC, alignment file and metre limits to `ifc-port-bcf` and
-`ifc-port-bcf-verify`, or their MCP equivalents. Confirm that the alignment
-is tied to both model hashes. Check for residual port movement in aligned
-coordinates and locate findings in the current model coordinates. Read the
-IFC review status and measured relationship count even when the BCF is empty.
+For an IFC revision, pass the same reviewed `--baseline`, gap tolerance and
+port movement limit to `bsa ifc-port-bcf` and `bsa ifc-port-bcf-verify`, or
+their MCP equivalents. Compare peer pairs by port GUID even when the total
+connection count is unchanged. For a documented coordinate translation,
+also pass the same `--alignment` file tied to both model hashes. Check for
+residual movement in aligned coordinates and locate findings in the current
+model coordinates. Read the IFC review status and measured relationship
+count even when the BCF is empty.
 See docs/REUSE_SURVEY.md for the supported comparison and replay evidence.
 
 For an existing verified native HVAC workflow, use bsa.vav_schedule run/verify
