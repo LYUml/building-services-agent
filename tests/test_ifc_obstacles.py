@@ -46,9 +46,10 @@ class GeneralObstacleTests(unittest.TestCase):
             target=Path(folder)/'combined'
             source=ROOT/'examples/cable-coordination/obstacles.json'
             ifc=self.root/'cable/cables.ifc'
-            with patch.dict('os.environ',{},clear=True):
+            with patch.dict('os.environ',{'BSA_PROJECT_ROOT':''}):
                 with self.assertRaisesRegex(ProjectError,'host-selected workspace'):
                     run(ifc,source,target)
+                self.assertFalse(target.exists())
             with patch.dict('os.environ',{'BSA_PROJECT_ROOT':folder}):
                 r=run(ifc,source,target)
                 self.assertTrue(r['original_entities_unchanged'])
