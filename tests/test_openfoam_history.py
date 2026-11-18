@@ -85,6 +85,22 @@ class ProjectReviewTests(unittest.TestCase):
             review_project('manifest.json', 'review.json', window=2)
         self.assertFalse((self.root/'review.json').exists())
 
+    def test_native_history_changed_during_assessment_is_rejected(self):
+        from bsa import cfd_convergence
+        self.write_manifest()
+        assess = cfd_convergence.assess
+
+        def assess_then_change(*args, **kwargs):
+            result = assess(*args, **kwargs)
+            pressure = self.root/'in-p.dat'
+            pressure.write_text(pressure.read_text() + '3 -7\n')
+            return result
+
+        with patch('bsa.cfd_convergence.assess', side_effect=assess_then_change):
+            with self.assertRaisesRegex(ValueError, 'input changed: in-p.dat'):
+                review_project('manifest.json', 'review.json', window=2)
+        self.assertFalse((self.root/'review.json').exists())
+
 
 if __name__ == '__main__':
     unittest.main()

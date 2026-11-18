@@ -77,11 +77,13 @@ def review_project(manifest_name, output_name, *, window=200):
     import json
     from pathlib import Path
     from .workspace import project_root
+    from .source_refs import file_hash as digest_file
     from . import cfd_convergence
 
     root = project_root()
     if root is None:
         raise ValueError('Explicit host BSA_PROJECT_ROOT required')
+    inputs = {}
 
     def path(name):
         if not isinstance(name, str) or Path(name).is_absolute():
@@ -99,7 +101,10 @@ def review_project(manifest_name, output_name, *, window=200):
         if (before.st_size != after.st_size or len(data) != after.st_size
                 or before.st_mtime_ns != after.st_mtime_ns):
             raise ValueError('Native input changed; retry the same run')
-        return data, hashlib.sha256(data).hexdigest()
+        fingerprint = hashlib.sha256(data).hexdigest()
+        if inputs.setdefault(name, (file, fingerprint)) != (file, fingerprint):
+            raise ValueError(f'OpenFOAM review input changed: {name}')
+        return data, fingerprint
 
     output = path(output_name)
     if output.exists():
@@ -145,6 +150,9 @@ def review_project(manifest_name, output_name, *, window=200):
         'adapter_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         'assessor_sha256': hashlib.sha256(Path(cfd_convergence.__file__).read_bytes()).hexdigest(),
     }
+    for name, (file, fingerprint) in inputs.items():
+        if path(name) != file or not file.is_file() or digest_file(file) != fingerprint:
+            raise ValueError(f'OpenFOAM review input changed: {name}')
     with output.open('x', encoding='utf-8') as stream:
         json.dump(result, stream, indent=2, allow_nan=False)
         stream.write('\n')
