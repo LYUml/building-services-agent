@@ -37,6 +37,7 @@ def inspect(doc, allocation, tree, binding, layers):
     if set(binding['sections']) != {s['id'] for s in tree['sections']}:
         raise ValueError('Complete rigid section binding required')
     nodes = {}
+    node_sections = {}
     for section in tree['sections']:
         b = binding['sections'][section['id']]
         pair = (b['from_node'],b['to_node'])
@@ -45,12 +46,16 @@ def inspect(doc, allocation, tree, binding, layers):
         a,z = tuple(b['from_m']),tuple(b['to_m'])
         if any(len(p)!=3 or not all(type(v) in (int,float) and math.isfinite(v) for v in p) or abs(p[2])>1e-8 for p in (a,z)):
             raise ValueError('Finite planar binding required')
-        take(pools['supply'],lambda e:(near(point(e.dxf.start),a) and near(point(e.dxf.end),z)) or (near(point(e.dxf.start),z) and near(point(e.dxf.end),a)),
+        line = take(pools['supply'],lambda e:(near(point(e.dxf.start),a) and near(point(e.dxf.end),z)) or (near(point(e.dxf.start),z) and near(point(e.dxf.end),a)),
              f"section {section['id']} from {a} to {z} m on {layers['supply']}")
         for node,p in zip(pair,(a,z)):
             if node in nodes and not near(nodes[node],p):
-                raise ValueError('Disconnected rigid node')
+                prior_section, prior_handle = node_sections[node]
+                raise ValueError(f"Disconnected rigid node {node}: section {prior_section} "
+                                 f"(handle {prior_handle}) at {nodes[node]} m and section {section['id']} "
+                                 f"(handle {line.dxf.handle}) at {p} m, gap {math.dist(nodes[node], p):.6g} m")
             nodes[node] = p
+            node_sections[node] = (section['id'], line.dxf.handle)
     centers = {}
     for terminal in allocation['terminals']:
         p = tuple(terminal['center_m'])+(0.,)

@@ -39,6 +39,16 @@ class TerminalDrawingTests(unittest.TestCase):
         self.assertAlmostEqual(r['maximum_plan_length_m'],1)
         self.assertFalse(r['design_accepted'])
 
+    def test_disconnected_rigid_node_reports_both_sections_and_gap(self):
+        first, second = self.doc.modelspace().query('LINE[layer=="duct"]')
+        second.dxf.start = (0.25, 0, 0)
+        self.binding['sections']['B']['from_m'] = [0.25, 0, 0]
+        with self.assertRaisesRegex(ValueError, 'Disconnected rigid node R') as error:
+            self.check()
+        diagnostic = str(error.exception)
+        self.assertIn(f'section A (handle {first.dxf.handle}) at (0, 0, 0) m', diagnostic)
+        self.assertIn(f'section B (handle {second.dxf.handle}) at (0.25, 0, 0) m, gap 0.25 m', diagnostic)
+
     def test_displaced_terminal_endpoint_reports_vav_side_candidate(self):
         line = next(entity for entity in self.doc.modelspace().query('LINE')
                     if entity.dxf.layer == 'flex' and entity.dxf.end.y == 1)
