@@ -36,7 +36,7 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
     reopen_stage = json.loads(reopen_preparation.read_bytes())
     if (reopen_stage.get('operation') != 'inventory'
             or reopen_stage.get('request_sha256') != pins[reopen_request]
-            or json.loads(reopen_request.read_bytes()).get('SavedRvtSha256') != pins[authored]):
+            or json.loads(reopen_request.read_bytes()) != {'SavedRvtSha256': pins[authored]}):
         raise ValueError('Reopen evidence does not match the staged inventory request and saved RVT')
     checked = reconstruct(inventory, authored, tolerance_m, automation_receipt=reopen_preparation)
     if (checked['inventory_sha256'] != pins[inventory]

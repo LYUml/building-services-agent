@@ -121,7 +121,17 @@ class RevitRevisionTests(unittest.TestCase):
             reopen_request.write_bytes(original_request + b'\n')
             with self.assertRaisesRegex(ValueError, 'staged inventory request'):
                 verify(root, created, authored, observed, reopen, 0.001)
+            save('inventory-request.json', dict(SavedRvtSha256=authored_hash, UnexpectedField=True))
+            modified_hash = file_hash(reopen_request)
+            save('reopen.json', dict(operation='inventory', saved_rvt_sha256=authored_hash,
+                                    request_sha256=modified_hash, assembly_sha256=adapter_hash))
+            save('inventory.json', dict(inventory, request_sha256=modified_hash))
+            with self.assertRaisesRegex(ValueError, 'staged inventory request'):
+                verify(root, created, authored, observed, reopen, 0.001)
             reopen_request.write_bytes(original_request)
+            save('reopen.json', dict(operation='inventory', saved_rvt_sha256=authored_hash,
+                                    request_sha256=reopen_hash, assembly_sha256=adapter_hash))
+            save('inventory.json', inventory)
             for field, value in [('diameter_m', 0.07), ('length_m', True), ('source', 'different basis')]:
                 with self.subTest(field=field):
                     altered = dict(receipt, transaction_result={**receipt['transaction_result'], field: value})
