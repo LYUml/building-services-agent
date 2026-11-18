@@ -80,6 +80,14 @@ def verify_stage(directory, model=None):
     operation = receipt.get('operation', 'inventory')
     if operation not in ('inventory', 'create-pipe'):
         raise ValueError('Invalid staged Automation operation')
+    request_name = 'pipe-request.json' if operation == 'create-pipe' else 'inventory-request.json'
+    expected_files = {'preparation.json', 'Bsa.Revit.Automation.zip'}
+    if 'activity_sha256' in receipt:
+        expected_files.add('activity.json')
+    if 'request_sha256' in receipt:
+        expected_files.add(request_name)
+    if {path.name for path in stage.iterdir()} != expected_files:
+        raise ValueError('Unexpected staged Automation files for the selected operation')
     archive = stage / 'Bsa.Revit.Automation.zip'
     if hashlib.sha256(archive.read_bytes()).hexdigest() != receipt['archive_sha256']:
         raise ValueError('Staged AppBundle hash mismatch')
@@ -91,10 +99,19 @@ def verify_stage(directory, model=None):
             raise ValueError('Unexpected staged AppBundle members')
         if hashlib.sha256(bundle.read(binary)).hexdigest() != receipt['assembly_sha256']:
             raise ValueError('Staged adapter hash mismatch')
+        package = ElementTree.fromstring(bundle.read(f'{root}/PackageContents.xml'))
+        runtime = package.findall('./Components/RuntimeRequirements')
+        components = package.findall('./Components/ComponentEntry')
+        if (package.tag != 'ApplicationPackage' or len(runtime) != 1 or len(components) != 1
+                or runtime[0].attrib != dict(SeriesMin='R2027', SeriesMax='R2027', Platform='Revit', OS='Win64')
+                or components[0].attrib != dict(LoadOnRevitStartup='True', LoadOnCommandInvocation='False',
+                                                ModuleName='./Contents/Bsa.Revit.Automation.addin')):
+            raise ValueError('AppBundle loader manifest differs from the Revit 2027 adapter')
         addin = ElementTree.fromstring(bundle.read(f'{root}/Contents/Bsa.Revit.Automation.addin'))
         entries = addin.findall('AddIn')
         class_name = 'Bsa.Revit.AutomationCreatePipe' if operation == 'create-pipe' else 'Bsa.Revit.AutomationInventory'
         if (len(entries) != 1 or entries[0].get('Type') != 'DBApplication'
+                or entries[0].findtext('Assembly') != r'.\Bsa.Revit.Automation.dll'
                 or entries[0].findtext('FullClassName') != class_name):
             raise ValueError('AppBundle entry point differs from the selected operation')
     activity = stage / 'activity.json'
@@ -105,7 +122,7 @@ def verify_stage(directory, model=None):
         spec = json.loads(data)
         if spec != automation_activity(spec['engine'], spec['appbundles'][0], operation):
             raise ValueError('Activity differs from the selected operation')
-    request = stage / ('pipe-request.json' if operation == 'create-pipe' else 'inventory-request.json')
+    request = stage / request_name
     if request.exists() or 'request_sha256' in receipt or model is not None:
         if model is None:
             raise ValueError('Supply the original test RVT to verify a staged request')

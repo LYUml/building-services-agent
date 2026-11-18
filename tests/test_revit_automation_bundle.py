@@ -120,6 +120,11 @@ class RevitAutomationBundleTests(unittest.TestCase):
             second = prepare(assembly, directory / 'second', **arguments)
             self.assertEqual(first.read_bytes(), second.read_bytes())
             self.assertTrue(verify_stage(first.parent, model)['stage_verified'])
+            extra_request = first.with_name('pipe-request.json')
+            extra_request.write_text('{}', encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'Unexpected staged Automation files'):
+                verify_stage(first.parent, model)
+            extra_request.unlink()
 
             with ZipFile(first) as archive:
                 package, = [name for name in archive.namelist() if name.endswith('/PackageContents.xml')]
@@ -133,6 +138,19 @@ class RevitAutomationBundleTests(unittest.TestCase):
                 binary = module_path.parent / addin.findtext('Assembly').split('\\')[-1]
                 self.assertCountEqual(archive.namelist(), [package, str(module_path), str(binary)])
                 self.assertEqual(archive.read(str(binary)), assembly.read_bytes())
+
+            with ZipFile(second) as archive:
+                members = {name: archive.read(name) for name in archive.namelist()}
+            members[package] = members[package].replace(b'R2027', b'R2026')
+            with ZipFile(second, 'w') as archive:
+                for name, data in members.items():
+                    archive.writestr(name, data)
+            second_receipt = second.with_name('preparation.json')
+            forged = json.loads(second_receipt.read_bytes())
+            forged['archive_sha256'] = hashlib.sha256(second.read_bytes()).hexdigest()
+            second_receipt.write_text(json.dumps(forged), encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'loader manifest differs'):
+                verify_stage(second.parent, model)
 
             request = first.with_name('inventory-request.json').read_bytes()
             activity = first.with_name('activity.json').read_bytes()
