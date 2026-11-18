@@ -38,8 +38,17 @@ compilation and leaves its runtime assembly to the host.
 The entry point takes the engine-opened `input.rvt` and an
 `inventory-request.json` containing `SavedRvtSha256`. It checks the model
 hash and writes a fresh `inventory.json`. A local build against Revit 2027.3
-passed. Packaging, authenticated engine selection and actual work-item
-execution remain pending.
+passed. From the repository root, package the built DLL locally:
+
+```powershell
+python scripts/prepare_revit_automation_bundle.py --assembly runs/<build>/bin/Bsa.Revit/release/Bsa.Revit.Automation.dll --out runs/<new-bundle>
+```
+
+The ZIP contains the adapter DLL and its two XML manifests. The receipt
+pins the ZIP and DLL hashes. The local trial also checked the entry-point
+type and absence of a `RevitAPIUI` assembly reference. [Autodesk AppBundle layout](https://get-started.aps.autodesk.com/tutorials/design-automation/prepare-plugin/)
+
+Authenticated engine selection and actual work-item execution remain pending.
 
 Final observed build: zero warnings/errors. The initial build had desktop-reference conflicts; explicit WPF/WindowsForms framework references resolved them. The intermediate missing System.IO import was corrected. Evidence and source/binary hashes: ../../docs/evidence/moosas-review/revit-native-build.json.
 
