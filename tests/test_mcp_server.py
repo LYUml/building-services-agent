@@ -115,6 +115,15 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(expected['expected_connections']['unconfirmed_pairs'],[[['elbow',1],['pipe',1]]])
             self.assertAlmostEqual(expected['expected_connections']['port_position_checks'][0]['displacement_m'],0.02)
             self.assertEqual(expected['expected_connections_sha256'],hashlib.sha256(basis.read_bytes()).hexdigest())
+            other_model = root / 'other.rvt'
+            other_model.write_bytes(model.read_bytes())
+            wrong_model_cmd = cmd.copy()
+            wrong_model_cmd[cmd.index('--model') + 1] = str(other_model)
+            wrong_model_cmd[cmd.index('--out') + 1] = str(root / 'wrong-cli.json')
+            wrong_model = subprocess.run(wrong_model_cmd, cwd=ROOT, env=env, capture_output=True, text=True)
+            self.assertEqual(wrong_model.returncode, 2)
+            self.assertIn('does not match the selected saved model', wrong_model.stderr)
+            self.assertFalse((root / 'wrong-cli.json').exists())
             params=StdioServerParameters(command=sys.executable,args=['-m','bsa.mcp_server'],cwd=str(ROOT),env=env)
             async with stdio_client(params) as streams:
                 async with ClientSession(*streams) as session:
@@ -129,6 +138,10 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                     self.assertTrue((await session.call_tool(tool,args)).isError)
                     bad=await session.call_tool(tool,{**args,'out':'../escape.json'})
                     self.assertTrue(bad.isError)
+                    wrong = await session.call_tool(tool, {**args, 'model': other_model.name, 'out': 'wrong-mcp.json'})
+                    self.assertTrue(wrong.isError)
+                    self.assertIn('does not match the selected saved model', wrong.content[0].text)
+                    self.assertFalse((root / 'wrong-mcp.json').exists())
                     model.write_bytes(b'Changed synthetic identity')
                     stale=await session.call_tool(tool,{**args,'out':'stale.json'})
                     self.assertTrue(stale.isError)
