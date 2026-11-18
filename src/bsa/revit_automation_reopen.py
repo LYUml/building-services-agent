@@ -33,6 +33,9 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
     if created.get('saved_reopen_verified') is not False or created.get('design_accepted') is not False:
         raise ValueError('Creation receipt must leave saved reopening and design acceptance unverified')
     transaction = created['transaction_result']
+    readback_stage = transaction.get('readback_stage')
+    if 'readback_stage' in transaction and readback_stage != 'post_transaction_commit':
+        raise ValueError('Unsupported creation transaction readback stage')
     if any(transaction.get(field) is not False for field in ('saved', 'connected_system_verified', 'design_accepted')):
         raise ValueError('Pipe transaction readback must leave saving, system verification and design acceptance unverified')
     validate_automation_request(requested, prepared['saved_rvt_sha256'])
@@ -178,6 +181,7 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
         'connector_endpoint_error_m': connector_error,
         'connector_endpoint_matches': endpoint_matches,
         'creation_connector_matches': transaction_connectors is not None,
+        'creation_readback_stage': readback_stage,
         'creation_physical_flags_verified': len(connector_readback) == 2 and all(
             row['creation_physically_connected'] is not None for row in connector_readback),
         'creation_physical_peers_verified': len(connector_readback) == 2 and all(

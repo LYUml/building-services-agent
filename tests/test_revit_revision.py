@@ -160,6 +160,18 @@ class RevitRevisionTests(unittest.TestCase):
             self.assertEqual(result['write_preparation_sha256'], file_hash(root/'preparation.json'))
             self.assertEqual(result['reopen_preparation_sha256'], file_hash(reopen))
             self.assertEqual(result['tolerance_m'], 0.001)
+            self.assertIsNone(result['creation_readback_stage'])
+            for stage in ('post_transaction_commit', 'before_commit'):
+                with self.subTest(readback_stage=stage):
+                    transaction = {**receipt['transaction_result'], 'readback_stage': stage}
+                    save('creation.json', {**receipt, 'transaction_result': transaction})
+                    if stage == 'post_transaction_commit':
+                        checked = verify(root, created, authored, observed, reopen, 0.001)
+                        self.assertEqual(checked['creation_readback_stage'], stage)
+                    else:
+                        with self.assertRaisesRegex(ValueError, 'Unsupported creation transaction readback stage'):
+                            verify(root, created, authored, observed, reopen, 0.001)
+            save('creation.json', receipt)
             for field in ('uploaded', 'native_executed'):
                 with self.subTest(write_preparation_claim=field):
                     save('preparation.json', {**write_preparation, field: True})
