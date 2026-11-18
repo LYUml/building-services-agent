@@ -217,7 +217,10 @@ class TerminalDrawingTests(unittest.TestCase):
     def test_shifted_group_and_duplicate_symbol(self):
         e=next(e for e in self.doc.modelspace() if e.dxf.layer=='vav')
         before=e.dxf.center;e.dxf.center=(1.1,1,0)
-        with self.assertRaisesRegex(ValueError,'correspondence'):self.check()
+        with self.assertRaisesRegex(ValueError,'correspondence') as error:
+            self.check()
+        self.assertIn(f'candidate handle {e.dxf.handle} at (1.1, 1.0, 0.0) m, deviation 0.1 m',
+                      str(error.exception))
         e.dxf.center=before
         e=next(e for e in self.doc.modelspace() if e.dxf.layer=='terminal')
         self.doc.modelspace().add_entity(e.copy())

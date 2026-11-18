@@ -94,8 +94,20 @@ def inspect(doc, allocation, tree, binding, layers):
     groups = []
     for leaf,members in tree['leaf_terminals'].items():
         start = nodes[leaf]
-        circle = take(pools['vav'],lambda e:tuple(e.dxf.extrusion)==(0.,0.,1.) and near(point(e.dxf.center),start),
-                      f"VAV {leaf} at {start} m on {layers['vav']}")
+        try:
+            circle = take(pools['vav'],lambda e:tuple(e.dxf.extrusion)==(0.,0.,1.) and near(point(e.dxf.center),start),
+                          f"VAV {leaf} at {start} m on {layers['vav']}")
+        except ValueError as error:
+            candidates = sorted(
+                (math.dist(center, start), entity.dxf.handle, center)
+                for entity in pools['vav'] if tuple(entity.dxf.extrusion) == (0., 0., 1.)
+                for center in (point(entity.dxf.center),)
+            )
+            if not candidates:
+                raise
+            gap, handle, center = candidates[0]
+            raise ValueError(f'{error}; nearest saved VAV candidate handle {handle} '
+                             f'at {center} m, deviation {gap:.6g} m') from error
         saved_vav = point(circle.dxf.center)
         for section_id, handle, saved_endpoint in node_sections[leaf]:
             if not near(saved_endpoint, saved_vav):
