@@ -144,6 +144,11 @@ explicit shift limit. A viewpoint uses current IFC positions. The movement
 topic retains the baseline, raw current and aligned position when available.
 Actual CLI and MCP workflow trials reopened one missing-pair topic and two
 shift topics. Other baseline discrepancies remain in the JSON report.
+Workflow verification also reconstructs the perspective camera from the
+current IFC issue location and the pinned BCF library. It compares the
+saved camera origin, direction, up vector, field of view and aspect ratio.
+A one-metre edit to the camera origin was rejected through MCP after
+refreshing the archive and receipt hashes.
 
 Independent XML validation uses PowerShell 7 and .NET's XML Schema validator.
 Download `extensions.xsd`, `markup.xsd`, `project.xsd`, `shared-types.xsd`,

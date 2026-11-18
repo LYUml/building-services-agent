@@ -1,5 +1,6 @@
 """Write an offline BCF issue package for IFC port coordination findings."""
 from collections import Counter
+from dataclasses import astuple
 import importlib.metadata
 from pathlib import Path
 import shutil
@@ -61,25 +62,37 @@ def issue_records(report):
 
 def verify(report, archive):
     from bcf.v3.bcfxml import BcfXml
+    from bcf.v3.visinfo import VisualizationInfoHandler
+    import numpy as np
     if importlib.metadata.version('bcf-client') != '0.9.0':
         raise ValueError('Pinned bcf-client 0.9.0 required')
     expected = Counter()
     before = file_hash(archive)
     for title, description, selected, point in issue_records(report):
         view_selection = tuple(selected) if point is not None else ()
-        expected[title, description, view_selection, int(bool(view_selection)), 'Open'] += 1
+        cameras = ()
+        if view_selection:
+            view = VisualizationInfoHandler.create_from_point_and_guids(np.asarray(point), *view_selection)
+            cameras = ((astuple(view.visualization_info.perspective_camera), None),)
+        expected[title, description, view_selection, cameras, 'Open'] += 1
     try:
         with BcfXml.load(archive) as restored:
             actual = Counter()
             for topic in restored.topics.values():
-                selections = [component.ifc_guid for handler in topic.viewpoints.values()
-                              for component in handler.visualization_info.components.selection.component]
+                views = [handler.visualization_info for handler in topic.viewpoints.values()]
+                selections = [component.ifc_guid for view in views
+                              for component in view.components.selection.component]
+                cameras = tuple(
+                    (astuple(view.perspective_camera) if view.perspective_camera is not None else None,
+                     astuple(view.orthogonal_camera) if view.orthogonal_camera is not None else None)
+                    for view in views
+                )
                 actual[topic.topic.title, topic.topic.description, tuple(sorted(selections)),
-                       len(topic.viewpoints), topic.topic.topic_status] += 1
+                       cameras, topic.topic.topic_status] += 1
     except (AttributeError, BadZipFile) as exc:
         raise ValueError('Invalid IFC port coordination BCF archive') from exc
     if actual != expected or file_hash(archive) != before:
-        raise ValueError('Saved BCF topics differ from the IFC coordination issues')
+        raise ValueError('Saved BCF topics or cameras differ from the IFC coordination issues')
     return dict(source_sha256=report['source_sha256'], bcf_sha256=before,
                 topics=sum(actual.values()),
                 unavailable_relationships=len(report['connection_gaps']['unavailable_relationships']),
