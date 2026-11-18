@@ -13,7 +13,7 @@ import numpy as np
 from bsa import rectangular_tee_transitions as composition
 from bsa import rectangular_transition as transition
 from bsa import duct_fitting_span as span_tool
-from bsa.duct_fitting_chain import merge, inspect, snapshot, solve_frames
+from bsa.duct_fitting_chain import merge, inspect, snapshot, solve_frames, value
 from bsa.tee_geometry import stable_guid
 from bsa.cli import digest
 
@@ -21,6 +21,26 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class DuctFittingChainTests(unittest.TestCase):
+    def test_native_shared_geometry_encoding_is_stable_after_reopen(self):
+        model = ifcopenshell.file(schema='IFC4')
+        start = model.create_entity('IfcCartesianPoint', (0., 1.))
+        end = model.create_entity('IfcCartesianPoint', (2., 3.))
+        forward = model.create_entity('IfcPolyline', [start, end])
+        reverse = model.create_entity('IfcPolyline', [end, start])
+        shape = model.create_entity('IfcGeometricCurveSet', [forward, reverse])
+        a = ['IfcCartesianPoint', [('Coordinates', [0., 1.])]]
+        b = ['IfcCartesianPoint', [('Coordinates', [2., 3.])]]
+        expected = ['IfcGeometricCurveSet', [('Elements', [
+            ['IfcPolyline', [('Points', [a, b])]],
+            ['IfcPolyline', [('Points', [b, a])]],
+        ])]]
+        reopened = ifcopenshell.file.from_string(model.to_string())
+        self.assertEqual(value(reopened.by_id(shape.id())), expected)
+        self.assertEqual(value(shape), expected)
+        start.Coordinates = (4., 5.)
+        self.assertNotEqual(value(shape), expected)
+        self.assertEqual(value(reopened.by_id(shape.id())), expected)
+
     def sources(self, root, oblique):
         root.mkdir(); angle = math.radians(15); a = np.eye(4)
         if oblique:
