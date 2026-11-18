@@ -1,5 +1,23 @@
 # Verification record
 
+## Saved IFC port and BCF fault controls
+
+An isolated BSE3227 assembly had two measurable declared connections and
+zero BCF topics at a 1 mm diagnostic tolerance. Moving one port origin by
+20 mm while keeping both declared connections produced one gap topic.
+Removing one relationship with both port origins preserved produced one
+missing-pair topic against the reviewed baseline. Swapping the peer ports
+kept two relationships and produced two removed-pair topics, two added-pair
+topics and two gap topics. Each issue package reopened and reproduced its
+findings. The unmodified IFC hash was verified after every trial.
+
+At `3702c16`, a synthetic saved IFC test also swapped two pairs with all
+four ports at the same coordinates. The distance-only check passed and the
+baseline replay failed with the four expected pair topics. All four tests in
+`tests/test_ifc_port_bcf.py` passed. The measured origins and peer pairs are
+exported-model evidence. Physical joint geometry and engineering acceptance
+require their own checks.
+
 ## IFC information delivery gate
 
 At `fe71483`, a real MCP stdio call to `bsa_execute_workflow` ran IfcTester
