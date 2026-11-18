@@ -1,5 +1,13 @@
 # Verification record
 
+## IFC information delivery gate
+
+At `fe71483`, a real MCP stdio call to `bsa_execute_workflow` ran IfcTester
+0.8.5 against a synthetic empty IFC4 model with the tracked pump IDS contract.
+The information task failed, its dependent task remained pending and the
+dependent output directory was absent. The tool returned workflow evidence
+successfully. Inspect task status to determine whether the information gate passed.
+
 ## Source candidate installation
 
 Two builds of the committed source at `755564e` produced the same ZIP
