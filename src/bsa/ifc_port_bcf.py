@@ -49,6 +49,20 @@ def issue_records(report):
                        f"tolerance {gaps['tolerance_m']:.9g} m.\n"
                        "Review the exported port origins and joint geometry.")
         yield f"IFC port gap {gap['guid']}", description, selected, midpoint
+    unavailable = set(gaps['unavailable_relationships'])
+    for relation in report.get('connections', []):
+        guid = relation['guid']
+        if guid not in unavailable:
+            continue
+        a, b = relation['port_guids']
+        located = [ports[port] for port in (a, b)
+                   if port in ports and ports[port]['origin_m'] is not None]
+        selected = sorted({owner for port in located for owner in port['owner_guids']})
+        point = located[0]['origin_m'] if located else None
+        reason = ('The relationship points to the same port at both ends.'
+                  if a == b else 'One or both port origins are unavailable.')
+        description = f'{source}\n{a} to {b}. {reason}\nPort separation remains unresolved.'
+        yield f'IFC port separation unavailable {guid}', description, selected, point
     for guid in report['connection_ownership']['conflicting_ports']:
         port = ports[guid]
         claims = [f"{row['relation_type']} {row['relation_guid']} claims {row['owner_guid']}"

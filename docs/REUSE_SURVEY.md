@@ -149,6 +149,9 @@ its receipt reports `archive_tolerance_bound: false`.
 The receipt includes measured and unavailable relationship counts and the
 scoped `ifc_review_status` with its reason. An archive with zero topics can
 still have a pending IFC review when there are no measurable relationships.
+Declared relationships with an unmeasurable gap receive individual topics.
+A saved IFC trial with one missing port placement reproduced a pending
+topic on export and replay, with a viewpoint at the surviving endpoint.
 The optional `bcf` extra reuses pinned IfcOpenShell BCF-XML tooling. It
 writes open topics with source and port IDs, the measured gap and tolerance,
 and a viewpoint selecting the exported owner products when available.
