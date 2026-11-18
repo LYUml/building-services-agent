@@ -32,6 +32,10 @@ class IfcPortBcfMcpTests(unittest.IsolatedAsyncioTestCase):
             millimetre = model.create_entity('IfcSIUnit', UnitType='LENGTHUNIT', Name='METRE', Prefix='MILLI')
             units.Units = [unit, millimetre]
             model.write(str(root / 'ambiguous-units.ifc'))
+            dimensions = model.create_entity('IfcDimensionalExponents', 1, 0, 0, 0, 0, 0, 0)
+            custom = model.create_entity('IfcContextDependentUnit', dimensions, 'LENGTHUNIT', 'unscaled')
+            units.Units = [custom]
+            model.write(str(root / 'undefined-scale.ifc'))
             params = StdioServerParameters(
                 command=sys.executable, args=['-m', 'bsa.mcp_server'], cwd=str(repository),
                 env={**os.environ, 'BSA_PROJECT_ROOT': str(root)},
@@ -51,6 +55,12 @@ class IfcPortBcfMcpTests(unittest.IsolatedAsyncioTestCase):
                     self.assertTrue(ambiguous.isError)
                     self.assertIn('Multiple IFC project length units', str(ambiguous.content))
                     self.assertFalse((root / 'ambiguous.bcf').exists())
+                    undefined = await session.call_tool('bsa_export_ifc_port_bcf', {
+                        'source': 'undefined-scale.ifc', 'out': 'undefined.bcf', 'tolerance_m': 0.001,
+                    })
+                    self.assertTrue(undefined.isError)
+                    self.assertIn('must resolve to an SI metre unit', str(undefined.content))
+                    self.assertFalse((root / 'undefined.bcf').exists())
                     export = await session.call_tool('bsa_export_ifc_port_bcf', {
                         'source': 'source.ifc', 'out': 'review.bcf', 'tolerance_m': 0.001,
                     })

@@ -9,6 +9,23 @@ from . import workspace
 from .source_refs import file_hash
 
 
+def validate_length_unit(unit):
+    seen = set()
+    while unit is not None and unit.is_a('IfcConversionBasedUnit'):
+        if unit.id() in seen:
+            raise ValueError('Cyclic IFC length-unit conversion')
+        if unit.UnitType != 'LENGTHUNIT' or unit.is_a('IfcConversionBasedUnitWithOffset'):
+            raise ValueError('Unsupported IFC length-unit conversion')
+        seen.add(unit.id())
+        factor = unit.ConversionFactor
+        value = getattr(factor.ValueComponent, 'wrappedValue', None) if factor else None
+        if type(value) not in (int, float) or not math.isfinite(value) or value <= 0:
+            raise ValueError('Invalid IFC length-unit conversion factor')
+        unit = factor.UnitComponent
+    if unit is None or not unit.is_a('IfcSIUnit') or unit.UnitType != 'LENGTHUNIT' or unit.Name != 'METRE':
+        raise ValueError('IFC length unit must resolve to an SI metre unit')
+
+
 def inspect(source, *, positions=False):
     from ifcopenshell import open as open_ifc
     from ifcopenshell.util.system import get_ports
@@ -82,6 +99,8 @@ def inspect(source, *, positions=False):
         length_units = [unit for unit in units if getattr(unit, 'UnitType', None) == 'LENGTHUNIT']
         if len(length_units) > 1:
             raise ValueError('Multiple IFC project length units make port positions ambiguous')
+        if length_units:
+            validate_length_unit(length_units[0])
         scale = calculate_unit_scale(model) if length_units else None
         if scale is not None and (not math.isfinite(scale) or scale <= 0):
             raise ValueError('Invalid IFC length-unit scale')
