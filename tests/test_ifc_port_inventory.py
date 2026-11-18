@@ -1,9 +1,24 @@
 import unittest
 
 from bsa.ifc_port_inventory import compare, compare_positions, gap_status, inspect_pair_gaps, review_status
+from bsa.ifc_port_bcf import issue_records
 
 
 class IfcPortComparisonTests(unittest.TestCase):
+    def test_bcf_baseline_findings_use_only_current_view_coordinates(self):
+        report = dict(source_sha256='current', ports=[dict(guid='a', owner_guids=['product'], origin_m=[100.02, 0, 0])],
+                      connection_gaps={'separated_relationships': []},
+                      connection_ownership={'conflicting_ports': []},
+                      comparison=dict(status='shared_port_guids', baseline_sha256='previous', max_port_shift_m=0.005,
+                          changed_pairs=[dict(port_guids=['a', 'b'], before=1, after=0)],
+                          positions={'moved_ports': [dict(guid='a', before_m=[0, 0, 0],
+                              after_m=[100.02, 0, 0], aligned_after_m=[0.02, 0, 0], displacement_m=0.02)]}))
+        pair, movement = issue_records(report)
+        self.assertIn('1 baseline relation(s), 0 current relation(s)', pair[1])
+        self.assertIn('Aligned current origin: [0.02, 0, 0]', movement[1])
+        for issue in (pair, movement):
+            self.assertEqual(issue[2:], (['product'], [100.02, 0, 0]))
+
     def test_pair_gap_and_unavailable_coordinates_remain_distinct(self):
         inventory = dict(ports=[dict(guid='a', origin_m=[0, 0, 0]),
                                 dict(guid='b', origin_m=[0.02, 0, 0]),

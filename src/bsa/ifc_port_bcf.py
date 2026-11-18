@@ -31,6 +31,33 @@ def issue_records(report):
         description = '\n'.join([source, f"Port {guid} has conflicting owners.", *claims])
         yield f"IFC port ownership conflict {guid}", description, selected, port['origin_m']
 
+    comparison = report.get('comparison')
+    if not comparison or comparison['status'] != 'shared_port_guids':
+        return
+    basis = f"{source}\nBaseline IFC SHA-256 {comparison['baseline_sha256']}"
+    for pair in comparison['changed_pairs']:
+        a, b = pair['port_guids']
+        current_ports = [ports[guid] for guid in (a, b) if guid in ports]
+        selected = sorted({owner for port in current_ports for owner in port['owner_guids']})
+        points = [port['origin_m'] for port in current_ports if port['origin_m'] is not None]
+        point = points[0] if points else None
+        if len(points) == 2:
+            point = [x/2 + y/2 for x, y in zip(*points, strict=True)]
+        description = (f"{basis}\n{a} to {b}: {pair['before']} baseline relation(s), "
+                       f"{pair['after']} current relation(s).")
+        yield f'IFC peer pair changed {a} / {b}', description, selected, point
+    if 'max_port_shift_m' in comparison:
+        limit = comparison['max_port_shift_m']
+        for movement in comparison['positions']['moved_ports']:
+            guid = movement['guid']
+            description = (f"{basis}\nPort {guid} moved {movement['displacement_m']:.9g} m, "
+                           f"limit {limit:.9g} m.\n"
+                           f"Baseline origin: {movement['before_m']} m.\n"
+                           f"Current origin: {movement['after_m']} m.")
+            if 'aligned_after_m' in movement:
+                description += f"\nAligned current origin: {movement['aligned_after_m']} m."
+            yield f'IFC port movement {guid}', description, ports[guid]['owner_guids'], movement['after_m']
+
 
 def verify(report, archive):
     from bcf.v3.bcfxml import BcfXml

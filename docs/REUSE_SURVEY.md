@@ -138,8 +138,12 @@ Set `export_bcf: true` on an `ifc_port_gap_review` task to retain
 reconstructs the expected topics and selections from the saved IFC. CLI and
 MCP workflow runs recorded the 20 mm gap as a failed check with a readable
 BCF handoff. Replacing it with an unrelated empty archive and refreshing
-its hashes still failed verification. This export covers origin gaps and
-owner conflicts, so a baseline comparison failure can have zero BCF topics.
+its hashes still failed verification. With a baseline and shared port GUIDs,
+the archive also includes changed peer pairs and movements exceeding an
+explicit shift limit. A viewpoint uses current IFC positions. The movement
+topic retains the baseline, raw current and aligned position when available.
+Actual CLI and MCP workflow trials reopened one missing-pair topic and two
+shift topics. Other baseline discrepancies remain in the JSON report.
 
 Each port now retains the exact attachment relationship's GUID, class and
 owner claim. When the coordinate review is requested, conflicting claims on
