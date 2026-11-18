@@ -111,6 +111,8 @@ def main():
         command.add_argument('--baseline',type=Path)
         command.add_argument('--max-port-shift-m',type=float)
         command.add_argument('--alignment',type=Path)
+        command.add_argument('--require-pass', action='store_true',
+                             help='Exit 2 unless the scoped IFC port review passes')
     ports.add_argument('--out',type=Path,required=True)
     revit_connectivity.add_arguments(sub.add_parser(
         'revit-inventory-check', help='Diagnose a saved Revit pipe and fitting inventory'))
@@ -237,12 +239,14 @@ def main():
             from .ifc_port_bcf import run as export_bcf
             result=export_bcf(a.source,a.out,a.tolerance_m,baseline=a.baseline,
                               max_port_shift_m=a.max_port_shift_m,alignment=a.alignment)
-            print(json.dumps(result,indent=2));return 0
+            print(json.dumps(result, indent=2))
+            return 2 if a.require_pass and result['ifc_review_status'] != 'pass' else 0
         if a.command=='ifc-port-bcf-verify':
             from .ifc_port_bcf import verify_export
             result=verify_export(a.source,a.archive,a.tolerance_m,baseline=a.baseline,
                                  max_port_shift_m=a.max_port_shift_m,alignment=a.alignment)
-            print(json.dumps(result,indent=2));return 0
+            print(json.dumps(result, indent=2))
+            return 2 if a.require_pass and result['ifc_review_status'] != 'pass' else 0
         if a.command=='ifc-port-inventory':
             from .ifc_port_inventory import run as inventory_ports
             result=inventory_ports(a.source,a.out,baseline=a.baseline,position_tolerance_m=a.position_tolerance_m,
