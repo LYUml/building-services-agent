@@ -1,6 +1,6 @@
 """Calculation-bound Graphviz/ezdxf schematic, not an installation design."""
 import argparse
-from collections import Counter, defaultdict
+from collections import defaultdict
 import csv
 import json
 import math
@@ -54,8 +54,6 @@ def native_records(doc):
 
 
 def bus_contacts(doc, circuits):
-    from ezdxf.math import Vec3
-
     def segment_distance(point, a, b):
         axis = b - a
         t = min(1, max(0, (point - a).dot(axis) / axis.magnitude_square))
@@ -69,11 +67,25 @@ def bus_contacts(doc, circuits):
     checks = []
     for circuit in circuits:
         name, tail, head = (circuit[key] for key in ('id', 'from', 'to'))
-        counts = Counter(tuple(point) for segment in geometry['line', name] for point in segment)
-        ends = [Vec3(point) for point, count in counts.items() if count == 1]
+        neighbors = defaultdict(list)
+        for start, end in geometry['line', name]:
+            neighbors[start].append(end)
+            neighbors[end].append(start)
+        ends = [point for point, adjacent in neighbors.items() if len(adjacent) == 1]
         boxes = [geometry['bus', bus] for bus in (tail, head)]
         if len(ends) != 2 or any(not box for box in boxes):
             raise ProjectError(f'Cannot establish both reopened bus contacts for line {name}')
+        if any(len(adjacent) > 2 for adjacent in neighbors.values()):
+            raise ProjectError(f'Reopened line {name} branches within the circuit')
+        reached = set()
+        pending = [ends[0]]
+        while pending:
+            point = pending.pop()
+            if point not in reached:
+                reached.add(point)
+                pending.extend(neighbors[point])
+        if len(reached) != len(neighbors):
+            raise ProjectError(f'Reopened line {name} contains disconnected geometry')
         distances = min(
             ([min(segment_distance(point, a, b) for a, b in box)
               for point, box in zip(order, boxes)] for order in (ends, ends[::-1])),

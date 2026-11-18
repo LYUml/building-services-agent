@@ -55,6 +55,15 @@ class ThreePhaseDrawingTests(unittest.TestCase):
         feeder.dxf.start += (1, 0, 0)
         with self.assertRaisesRegex(ProjectError, 'Reopened line feeder does not meet'):
             bus_contacts(doc, circuits)
+        feeder.dxf.start -= (1, 0, 0)
+        loop = [(5, 5), (6, 5), (6, 6)]
+        for start, end in zip(loop, loop[1:] + loop[:1]):
+            extra = doc.modelspace().add_line(start, end)
+            extra.set_xdata(APP, feeder.get_xdata(APP))
+        with self.assertRaisesRegex(ProjectError, 'Reopened line feeder contains disconnected geometry'):
+            bus_contacts(doc, circuits)
+        for extra in list(doc.modelspace().query('LINE[layer=="0"]')):
+            doc.modelspace().delete_entity(extra)
         identities=[[(t.code,t.value) for t in e.get_xdata(APP)] for e in doc.modelspace()]
         self.assertTrue(any((1000,'feeder') in tags for tags in identities))
         text=[e.dxf.text for e in doc.modelspace().query('TEXT')]
