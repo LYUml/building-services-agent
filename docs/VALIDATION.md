@@ -1,5 +1,15 @@
 # Verification record
 
+## Repository-wide Windows snapshot
+
+The isolated `ebedd93` source snapshot completed with 1,833 passed, 220
+skipped, 871 subtests passed and one failure. The sole failure was the
+IfcMCP property smoke test in the general Python runtime. The current test
+skips there and passed in its dedicated runtime. The full run exited 1.
+The ACadSharp worker in the full run's configured directory was rebuilt
+during that run. The newer focused CAD checks below used an isolated worker
+build and passed independently.
+
 ## DWG and Revit adapter regression
 
 At `73be936`, the focused Windows regression for DWG readback, drawing
