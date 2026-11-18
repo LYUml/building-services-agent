@@ -79,6 +79,11 @@ Creation provenance is written inside the same transaction using Extensible Stor
 
 Before presenting native creation as verified, execute positive and invalid-input cases in a new test RVT, verify rollback, save/reopen, read native objects and provenance again, and inspect the actual required sheets/exports. Add joined/unjoined controls for a connected system. Existing unit tests use synthetic observations and cannot prove any of these host behaviors.
 
+For saved Automation evidence, use `bsa revit-verify-automation-reopen`
+or MCP `bsa_verify_revit_automation_reopen` as documented in the native
+adapter guide. The read-only check reconciles the staged write request,
+creation receipt, exact authored RVT and separately captured inventory.
+
 ## Engineering and delivery
 
 Bind measured geometry and stable native IDs to the appropriate existing calculation adapter, retaining missing boundary conditions, equipment curves and source parameters. Revit's nominal diameter is not automatically the hydraulic internal diameter; family/type identity alone is not a product rating. Preserve thermal versus electrical quantities and actual route lengths.

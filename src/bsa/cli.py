@@ -75,7 +75,7 @@ def main():
     configure_knowledge(sub)
     from .changes.cli import configure as configure_changes
     configure_changes(sub)
-    from . import revit_connectivity, revit_request
+    from . import revit_automation_reopen, revit_connectivity, revit_request
     from . import fds_temperature
     fds_temperature.add_arguments(sub.add_parser(
         'fds-temperature-probe', help='Run a pinned Windows FDS temperature case'))
@@ -103,6 +103,8 @@ def main():
         'revit-inventory-check', help='Diagnose a saved Revit pipe and fitting inventory'))
     revit_request.add_arguments(sub.add_parser(
         'revit-prepare-pipe', help='Prepare a source-bound native Revit pipe request offline'))
+    revit_automation_reopen.add_arguments(sub.add_parser(
+        'revit-verify-automation-reopen', help='Reconcile saved Revit Automation creation and reopen evidence'))
     group=sub.add_parser('engineering-data',help='Export or verify a source-bound common data view')
     commands=group.add_subparsers(dest='data_command',required=True)
     task=commands.add_parser('context');task.add_argument('--name',required=True);task.add_argument('--scenario',required=True);task.add_argument('--out',type=Path,required=True)
@@ -207,6 +209,10 @@ def main():
                                           expected_connections=a.expected_connections,
                                           automation_receipt=a.automation_receipt)
             print(json.dumps(result,indent=2));return 2
+        if a.command=='revit-verify-automation-reopen':
+            result=revit_automation_reopen.verify(a.write_stage,a.creation,a.authored,a.inventory,
+                                                  a.reopen_preparation,a.tolerance_m)
+            print(json.dumps(result,indent=2));return 0
         if a.command=='changes':
             from .changes.cli import dispatch
             print(json.dumps(dispatch(a),indent=2));return 0
@@ -331,6 +337,8 @@ def main():
         from .cli_errors import missing_dependency
         parser.exit(2,missing_dependency(e)['message']+'\n')
     except (KeyError,TypeError) as e:
+        if a.command=='revit-verify-automation-reopen':
+            parser.exit(2,'Invalid saved Revit evidence structure: '+str(e)+'\n')
         if a.command not in ('workflow-verify','workflow-status','delivery'):raise
         parser.exit(2,'Invalid saved workflow/review structure: '+str(e)+'\n')
     except (ProjectError, OSError, ValueError) as e:

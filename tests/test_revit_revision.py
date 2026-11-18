@@ -1,7 +1,12 @@
 """Synthetic model-revision controls, independent of native host execution."""
 import copy
+import asyncio
+import importlib.util
 import json
+import os
 from pathlib import Path
+import subprocess
+import sys
 from tempfile import TemporaryDirectory
 import unittest
 from bsa.engine import ProjectError
@@ -65,10 +70,42 @@ class RevitRevisionTests(unittest.TestCase):
             self.assertTrue(result['pipe_matches_capture'])
             self.assertFalse(result['native_execution_authenticated'])
             self.assertEqual(result['connector_endpoint_error_m'], 0)
+            arguments = dict(write_stage=root.name, creation=f'{root.name}/{created.name}',
+                             authored=f'{root.name}/{authored.name}', inventory=f'{root.name}/{observed.name}',
+                             reopen_preparation=f'{root.name}/{reopen.name}', tolerance_m=0.001)
+            env = {**os.environ, 'BSA_PROJECT_ROOT': str(runs)}
+            command = [sys.executable, '-m', 'bsa.cli', 'revit-verify-automation-reopen']
+            for key, value in arguments.items():
+                command.extend(('--' + key.replace('_', '-'), str(value)))
+            completed = subprocess.run(command, cwd=runs, env=env, capture_output=True, text=True, check=True)
+            self.assertEqual(json.loads(completed.stdout), result)
+
+            if importlib.util.find_spec('mcp'):
+                from mcp import ClientSession, StdioServerParameters
+                from mcp.client.stdio import stdio_client
+
+                async def check_stdio():
+                    params = StdioServerParameters(command=sys.executable, args=['-m', 'bsa.mcp_server'],
+                                                   cwd=str(runs), env=env)
+                    async with stdio_client(params) as streams:
+                        async with ClientSession(*streams) as session:
+                            await session.initialize()
+                            response = await session.call_tool('bsa_verify_revit_automation_reopen', arguments)
+                            self.assertFalse(response.isError, response.content)
+                            self.assertEqual(response.structuredContent, result)
+                            mismatch = await session.call_tool('bsa_verify_revit_automation_reopen',
+                                                               {**arguments, 'authored': arguments['creation']})
+                            self.assertTrue(mismatch.isError)
+                            self.assertIn('does not match', mismatch.content[0].text)
+
+                asyncio.run(check_stdio())
             self.pipe['connectors'][1]['origin_m'] = self.pipe['connectors'][0]['origin_m']
             save('inventory.json', inventory)
             with self.assertRaisesRegex(ValueError, 'distinct curve endpoints'):
                 verify(root, created, authored, observed, reopen, 0.001)
+            failed = subprocess.run(command, cwd=runs, env=env, capture_output=True, text=True)
+            self.assertEqual(failed.returncode, 2)
+            self.assertIn('distinct curve endpoints', failed.stderr)
             self.pipe['connectors'][1]['origin_m'] = self.pipe['endpoints_m'][1]
             self.pipe['endpoints_m'] = [[0, 1, 0], [2, 1, 0]]
             save('inventory.json', inventory)

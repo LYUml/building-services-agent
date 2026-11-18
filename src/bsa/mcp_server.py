@@ -130,6 +130,15 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None,fds_rele
                       expected_connections=basis,
                       automation_receipt=local(automation_receipt) if automation_receipt is not None else None)
 
+    @server.tool(annotations=read)
+    def bsa_verify_revit_automation_reopen(
+        write_stage:str,creation:str,authored:str,inventory:str,reopen_preparation:str,
+        tolerance_m:Annotated[float,Field(strict=True,gt=0,allow_inf_nan=False)],
+    )->dict[str,Any]:
+        """Reconcile saved Automation creation and reopen evidence without starting Revit."""
+        return invoke('bsa.revit_automation_reopen.verify',local(write_stage),local(creation),
+                      local(authored),local(inventory),local(reopen_preparation),tolerance_m)
+
     @server.tool(annotations=write)
     def bsa_draw_document(project:str,out:str)->dict[str,Any]:
         """Author a declared general 2D document with host AutoCAD; save/reopen DWG and plot PDF. Layout/visual/engineering approval remain separate."""

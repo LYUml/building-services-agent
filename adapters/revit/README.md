@@ -76,8 +76,13 @@ For a separate reopen trial, stage the returned `authored.rvt` with the
 read-only inventory Activity. Then reconcile both sets of local evidence:
 
 ```powershell
-python scripts/verify_revit_automation_reopen.py --write-stage <stage-directory> --creation <creation.json> --authored <authored.rvt> --inventory <inventory.json> --reopen-preparation <preparation.json> --tolerance-m <metres>
+bsa revit-verify-automation-reopen --write-stage <stage-directory> --creation <creation.json> --authored <authored.rvt> --inventory <inventory.json> --reopen-preparation <preparation.json> --tolerance-m <metres>
 ```
+
+MCP `bsa_verify_revit_automation_reopen` takes the corresponding
+`write_stage`, `creation`, `authored`, `inventory`, `reopen_preparation`
+and `tolerance_m` arguments. Use paths relative to the selected project root.
+Both entry points only read saved evidence.
 
 This checks the file hashes, compares the pipe identity and geometry with the
 staged request, and matches the two piping connector origins to separate curve
