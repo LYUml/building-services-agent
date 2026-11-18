@@ -6,6 +6,7 @@ import json
 import math
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 from zipfile import ZipFile
@@ -19,6 +20,7 @@ INPUT_SHA256 = '7262f82edadd529d74150760f61ee7b9b1dd238f6a796d70640439707b9e089f
 CASE = 'devc_interpolation_temperature'
 VERSION = 'FDS-6.11.1-0-gff928db-release'
 SUCCESS = f'STOP: FDS completed successfully (CHID: {CASE})'
+CONSOLE_STEP = re.compile(r'^\s*Time Step:\s*(\d+), Simulation Time:\s*([\d.]+) s\s*$', re.M)
 
 
 def temperature_errors(path):
@@ -34,6 +36,30 @@ def temperature_errors(path):
         for column, value in zip(columns[1:], values, strict=True):
             maxima[column] = max(maxima[column], abs(value - (20 + 5*z)))
     return maxima
+
+
+def inspect_steps(path, console):
+    with path.open(newline='', encoding='ascii') as stream:
+        reader = csv.reader(stream)
+        if (next(reader, None) != ['', '', 's', 's', 's']
+                or next(reader, None) != ['Time Step', 'Wall Time', 'Step Size', 'Simulation Time', 'CPU Time']):
+            raise ValueError('Unexpected FDS time-step table layout')
+        previous_index, previous_time = 0, 0.0
+        samples = []
+        for row in reader:
+            if len(row) != 5:
+                raise ValueError('Incomplete FDS time-step record')
+            index = int(row[0])
+            step, time, cpu = map(float, row[2:])
+            if (index <= previous_index or time <= previous_time or step <= 0 or cpu < 0
+                    or not all(map(math.isfinite, (step, time, cpu)))):
+                raise ValueError('Invalid FDS time-step progression')
+            samples.append((index, time))
+            previous_index, previous_time = index, time
+    logged = [(int(index), float(time)) for index, time in CONSOLE_STEP.findall(console)]
+    if len(samples) < 2 or samples[0][0] != 1 or samples[-1][1] != 200 or samples != logged:
+        raise ValueError('FDS time-step table and console progression do not reconcile')
+    return dict(report_samples=len(samples), final_step=samples[-1][0], final_simulation_s=samples[-1][1])
 
 
 def run(release, source, out):
@@ -72,18 +98,17 @@ def run(release, source, out):
         raise ProjectError('FDS probe timed out; see the retained console log') from exc
     native = work/f'{CASE}.out'
     version = work/f'{CASE}_git.txt'
-    if (result.returncode != 0 or SUCCESS not in log.read_text(errors='replace').splitlines()
+    console = log.read_text(errors='replace')
+    if (result.returncode != 0 or SUCCESS not in console.splitlines()
             or SUCCESS not in native.read_text(errors='replace').splitlines()
             or version.read_text().strip() != VERSION):
         raise ProjectError('FDS did not report successful completion with the pinned engine')
     steps = work/f'{CASE}_steps.csv'
-    with steps.open(newline='', encoding='ascii') as stream:
-        units, labels, *rows = csv.reader(stream)
-    if labels[3] != 'Simulation Time' or units[3] != 's' or float(rows[-1][3]) != 200:
-        raise ValueError('FDS output does not establish the expected final simulation time')
+    progression = inspect_steps(steps, console)
     line = work/f'{CASE}_line.csv'
     errors = temperature_errors(line)
-    report = dict(engine=VERSION, native_completed=True, final_simulation_s=200,
+    report = dict(engine=VERSION, native_completed=True, final_simulation_s=progression['final_simulation_s'],
+                  time_step_progression=progression,
                   release_sha256=RELEASE_SHA256, input_sha256=INPUT_SHA256,
                   max_abs_error_c=errors, numerical_acceptance='not_established',
                   artifacts_sha256={path.relative_to(out).as_posix(): digest(path)

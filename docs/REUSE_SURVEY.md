@@ -20,6 +20,10 @@ missing host configuration and rejects tool-supplied runtime overrides.
 Both inputs must match the probe pins. It retains native outputs and their
 hashes. Console and native completion markers, the release identity, and the
 final simulation time are checked before the line table is read.
+The verifier now reconciles all reported step/time pairs between the native
+console and steps CSV. The baseline has 392 reporting samples and ends at
+solver step 37,368. The CSV is a sampled record. Tests reject omitted
+samples, a changed terminal step, reversed time and nonfinite step size.
 
 The direct OpenMP launch with only the OpenMP DLL exited with Windows
 0xC0000135. The bundled MPI run exited zero and reached 200 s. Independent
@@ -29,6 +33,15 @@ contained zeros. Preserve this result for diagnosis. It does not establish
 numeric acceptance or the behavior of other FDS cases. No generalized CFD,
 experimental validation, or code compliance is claimed by the probe.
 [Upstream reference table](https://github.com/firemodels/fds/blob/FDS-6.11.1/Verification/Miscellaneous/devc_interpolation.csv)
+
+Two native controls used the pinned package and local one-rank launcher.
+The bundled OpenMP binary with one thread and the unchanged input produced
+the same line-table SHA-256 as the baseline. In a separate diagnostic copy,
+only the center device's X coordinate changed from 0.50 to 0.49 m. Its
+zero column changed to a profile with a 0.9999545 °C maximum absolute
+deviation. Both outer profiles retained their prior maximum deviations.
+This is evidence of sensitivity to sampling position in the tested build.
+The cause in the solver and numerical acceptance remain unresolved.
 
 ## Offline Revit inventory access
 
