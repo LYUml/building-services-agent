@@ -72,10 +72,13 @@ public sealed class NativePipeRoundTrip
             owned = null;
             Assert.That(Hash(input), Is.EqualTo(sourceHash));
             owned = application.OpenDocumentFile(input);
-            NativePipes.CreateInDocument(owned, request with { DocumentPath = input });
+            var activeRequest = request with { DocumentPath = input };
+            NativePipes.CreateInDocument(owned, activeRequest);
             var created = NewPipe(owned, before);
             string uniqueId = created.UniqueId;
-            VerifyPipe(owned, created, request);
+            var expectedIds = before.Append(created.Id).ToHashSet();
+            Assert.That(PipeIds(owned).SetEquals(expectedIds), Is.True);
+            int[] connectorIds = VerifyPipe(owned, created, request);
             using (var options = new SaveAsOptions { OverwriteExistingFile = false })
                 owned.SaveAs(authored, options);
             Assert.That(owned.Close(false), Is.True);
@@ -84,7 +87,9 @@ public sealed class NativePipeRoundTrip
             owned = application.OpenDocumentFile(authored);
             var reopened = owned.GetElement(uniqueId) as Pipe
                 ?? throw new InvalidOperationException("Created pipe was missing after reopening the saved model");
-            VerifyPipe(owned, reopened, request);
+            Assert.That(PipeIds(owned).SetEquals(expectedIds), Is.True);
+            Assert.That(VerifyPipe(owned, reopened, request), Is.EqualTo(connectorIds));
+            ElementProvenance.VerifyCommittedRequest(reopened, activeRequest);
             Console.WriteLine($"Saved and reopened synthetic RVT: {authored}");
             Console.WriteLine($"Saved RVT SHA-256: {Hash(authored)}");
             Console.WriteLine($"Reopened pipe UniqueId: {reopened.UniqueId}");
@@ -140,7 +145,7 @@ public sealed class NativePipeRoundTrip
         ElementProvenance.RejectExistingRequest(document, request);
     }
 
-    private static void VerifyPipe(Document document, Pipe pipe, PipeRequest request)
+    private static int[] VerifyPipe(Document document, Pipe pipe, PipeRequest request)
     {
         Assert.That(document.GetElement(pipe.GetTypeId()).UniqueId, Is.EqualTo(request.PipeTypeUniqueId));
         var system = pipe.get_Parameter(BuiltInParameter.RBS_PIPING_SYSTEM_TYPE_PARAM).AsElementId();
@@ -150,13 +155,15 @@ public sealed class NativePipeRoundTrip
             Is.EqualTo(request.DiameterMetres).Within(1e-8));
         var connectors = pipe.ConnectorManager.Connectors.Cast<Connector>().ToArray();
         Assert.That(connectors.Length, Is.EqualTo(2));
-        foreach (var coordinates in new[] { request.StartMetres, request.EndMetres })
+        return new[] { request.StartMetres, request.EndMetres }.Select(coordinates =>
         {
             var feet = coordinates.Select(value => UnitUtils.ConvertToInternalUnits(value, UnitTypeId.Meters)).ToArray();
             var point = new XYZ(feet[0], feet[1], feet[2]);
-            Assert.That(connectors.Count(port => port.Domain == Domain.DomainPiping
-                && port.ConnectorType == ConnectorType.End && port.Origin.DistanceTo(point) <= 1e-7), Is.EqualTo(1));
-        }
+            var matches = connectors.Where(port => port.Domain == Domain.DomainPiping
+                && port.ConnectorType == ConnectorType.End && port.Origin.DistanceTo(point) <= 1e-7).ToArray();
+            Assert.That(matches.Length, Is.EqualTo(1));
+            return matches[0].Id;
+        }).ToArray();
     }
 
     private static string Hash(string path)
