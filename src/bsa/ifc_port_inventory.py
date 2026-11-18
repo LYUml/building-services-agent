@@ -22,8 +22,6 @@ def inspect(source, *, positions=False):
     model = open_ifc(str(source))
     if model.schema not in ('IFC2X3', 'IFC4'):
         raise ValueError('IFC2X3 or IFC4 required for this inventory')
-    if positions and len(model.by_type('IfcProject')) != 1:
-        raise ValueError('Exactly one IfcProject is required to resolve port position units')
 
     products = [item for item in model.by_type('IfcDistributionElement') if not item.is_a('IfcPort')]
     ports = sorted(model.by_type('IfcDistributionPort'), key=lambda port: port.GlobalId)
@@ -74,9 +72,17 @@ def inspect(source, *, positions=False):
                   design_accepted=False)
     if positions:
         from ifcopenshell.util.placement import get_local_placement
-        from ifcopenshell.util.unit import calculate_unit_scale, get_project_unit
+        from ifcopenshell.util.unit import calculate_unit_scale
 
-        scale = calculate_unit_scale(model) if get_project_unit(model, 'LENGTHUNIT') else None
+        projects = model.by_type('IfcProject')
+        if len(projects) != 1:
+            raise ValueError('Exactly one IfcProject is required to resolve port position units')
+        assignment = projects[0].UnitsInContext
+        units = assignment.Units if assignment else ()
+        length_units = [unit for unit in units if getattr(unit, 'UnitType', None) == 'LENGTHUNIT']
+        if len(length_units) > 1:
+            raise ValueError('Multiple IFC project length units make port positions ambiguous')
+        scale = calculate_unit_scale(model) if length_units else None
         if scale is not None and (not math.isfinite(scale) or scale <= 0):
             raise ValueError('Invalid IFC length-unit scale')
         for port, row in zip(ports, result['ports'], strict=True):
