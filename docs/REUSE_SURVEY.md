@@ -2921,3 +2921,21 @@ its own Revit process. No add-in was installed and no session was launched.
 The useful target is a dedicated authorized Revit host for create, rollback,
 save and fresh reopen tests. Local signing and native execution remain open.
 [Pinned TestRunner usage](https://github.com/geberit/Revit.TestRunner/blob/6cd268d32e56f309d2a4c02a21ad452273827843/documentation/Documentation.md)
+
+## LibreDWG and QCAD command-line evaluation
+
+- [GNU LibreDWG 0.14](https://github.com/LibreDWG/libredwg/releases/tag/0.14)
+  (GPL-3.0-or-later) was run as an external Windows CLI. The official x64 ZIP
+  matched the release SHA-256 `1ad7e15344d20b3426c3435b078d82fb84b35062815946b2cca9c5fc9810fea8`.
+  `dwgread -O JSON` produced valid JSON for the tracked synthetic DWG but
+  emitted invalid JSON for an isolated real revision while returning exit 0.
+  `dwg2dxf` also returned exit 0 despite diagnostics on associative objects.
+  Its DXF matched 4,609 modelspace handles and all supported geometry fields
+  against the AutoCAD reopened export. This evidence supports optional external
+  cross-checking. Retain ACadSharp for the existing CLI/MCP integration since
+  it produced a structured report on the same input. LibreDWG outputs and
+  binaries remain in ignored directories.
+- [QCAD Professional command-line tools](https://www.qcad.org/en/products/qcad-command-line-tools)
+  include DWG-to-PDF and DWG-to-SVG export. This is a candidate for a separate
+  rendering comparison with explicit font substitutions and a licensed host.
+  Local execution and native plot equivalence remain unverified.
