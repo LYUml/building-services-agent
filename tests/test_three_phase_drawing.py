@@ -84,6 +84,15 @@ class ThreePhaseDrawingTests(unittest.TestCase):
         with self.assertRaisesRegex(ProjectError, 'Drawing study identity differs on handle'):
             verify_contacts(self.project, self.study, wrong_study)
         tagged_line.set_xdata(APP, original_tags)
+        incomplete = ezdxf.readfile(out/'schematic.dxf')
+        edge = next(entity for entity in incomplete.modelspace().query('LINE[layer=="BSA_ELEC_BUS"]')
+                    if entity.dxf.start.y == entity.dxf.end.y)
+        bus = edge.get_xdata(APP)[1].value
+        incomplete.modelspace().delete_entity(edge)
+        missing_edge = out/'missing-bus-edge.dxf'
+        incomplete.saveas(missing_edge)
+        with self.assertRaisesRegex(ProjectError, f'Saved bus {bus} does not have a closed rectangular outline'):
+            verify_contacts(self.project, self.study, missing_edge)
         circuits = json.loads(self.project.read_text(encoding='utf-8-sig'))['lines']
         self.assertEqual(len(bus_contacts(doc, circuits)), 2)
         self.assertEqual(result['dxf_bus_contacts'], bus_contacts(doc, circuits))

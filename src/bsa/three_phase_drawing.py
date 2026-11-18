@@ -161,6 +161,7 @@ def verify_contacts(project, study, drawing):
     expected = {('bus', row['id']) for row in prepared['buses']}
     expected.update(('line', row['id']) for row in prepared['lines'])
     observed = set()
+    bus_edges = defaultdict(list)
     kinds = {'BSA_ELEC_LINE': 'line', 'BSA_ELEC_BUS': 'bus'}
     for entity in doc.modelspace():
         kind = kinds.get(entity.dxf.layer)
@@ -171,12 +172,24 @@ def verify_contacts(project, study, drawing):
             if len(tags) != 3 or tags[0] != kind or tags[2] != study_hash:
                 raise ProjectError(f'Drawing study identity differs on handle {entity.dxf.handle}')
             observed.add(tuple(tags[:2]))
+            if kind == 'bus':
+                a, b = entity.dxf.start, entity.dxf.end
+                bus_edges[tags[1]].append(frozenset(((a.x, a.y), (b.x, b.y))))
         elif entity.dxftype() == 'LINE' and entity.has_xdata(APP):
             if entity.get_xdata(APP)[0].value in kinds.values():
                 raise ProjectError(f'Electrical geometry outside scoped layers on handle {entity.dxf.handle}')
     if observed != expected:
         raise ProjectError('Saved schematic circuit or bus inventory differs from the study')
     contacts = bus_contacts(doc, prepared['lines'])
+    for bus, edges in bus_edges.items():
+        if len(edges) != 4:
+            raise ProjectError(f'Saved bus {bus} does not have a closed rectangular outline')
+        corners = set().union(*edges)
+        x_values, y_values = ({point[axis] for point in corners} for axis in (0, 1))
+        sides = {frozenset((a, b)) for a in corners for b in corners
+                 if a != b and (a[0] == b[0] or a[1] == b[1])}
+        if len(x_values) != 2 or len(y_values) != 2 or len(corners) != 4 or set(edges) != sides:
+            raise ProjectError(f'Saved bus {bus} does not have a closed rectangular outline')
     if digest(drawing) != source_hash or any(digest(Path(path)) != sha for path, sha in pins.items()):
         raise ProjectError('Schematic or study changed during contact verification')
     return dict(drawing_sha256=source_hash, study_sha256=study_hash, bus_contacts=contacts,
