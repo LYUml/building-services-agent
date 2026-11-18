@@ -13,11 +13,11 @@ def dwg_runtime_paths(dotnet=None, worker=None):
     from .dwg_readback import host_runtime_files
 
     try:
-        dotnet_path, worker_path, reader = host_runtime_files(dotnet, worker)
+        dotnet_path, worker_path, reader, runtime_config = host_runtime_files(dotnet, worker)
     except ValueError as error:
         return dict(paths_ready=False, execution_verified=False, problem=str(error))
     return dict(paths_ready=True, execution_verified=False,
-                dotnet=str(dotnet_path), worker=str(worker_path), reader=str(reader))
+                dotnet=str(dotnet_path), worker=str(worker_path), reader=str(reader), runtimeconfig=str(runtime_config))
 
 
 def profile_paths(config):

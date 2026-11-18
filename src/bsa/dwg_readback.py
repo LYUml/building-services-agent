@@ -120,7 +120,7 @@ def host_runtime_files(dotnet=None, worker=None):
     runtime_config = worker.with_suffix('.runtimeconfig.json')
     if not runtime_config.is_file():
         raise ValueError(f'Keep {runtime_config.name} beside the DWG worker; .NET needs it to launch the DLL')
-    return dotnet, worker, reader
+    return dotnet, worker, reader, runtime_config
 
 
 def run(source, out, reference_dxf=None, *, expected_hashes=None):
@@ -137,9 +137,10 @@ def run(source, out, reference_dxf=None, *, expected_hashes=None):
     source_hash = file_hash(source)
     if expected_hashes is not None and (source_hash, reference_hash) != expected_hashes:
         raise ValueError('DWG or DXF differs from the verified revision artifact hashes')
-    dotnet, worker, reader = host_runtime_files()
+    dotnet, worker, reader, runtime_config = host_runtime_files()
     worker_hash = file_hash(worker)
     reader_hash = file_hash(reader)
+    runtime_config_hash = file_hash(runtime_config)
     completed = subprocess.run([str(dotnet), str(worker), str(source)], cwd=worker.parent,
                                capture_output=True, encoding='utf-8', timeout=120)
     if completed.returncode:
@@ -160,6 +161,7 @@ def run(source, out, reference_dxf=None, *, expected_hashes=None):
            for row in entities) or len({row['handle'] for row in entities}) != len(entities):
         raise ValueError('ACadSharp entity inventory has invalid or duplicate identities')
     result['worker_sha256'] = worker_hash
+    result['runtimeconfig_sha256'] = runtime_config_hash
     summary = {}
     if reference is not None:
         comparison = compare_reference(entities, result['insunits'], reference)
@@ -171,13 +173,15 @@ def run(source, out, reference_dxf=None, *, expected_hashes=None):
     report = json.dumps(result, indent=2, allow_nan=False)
     if file_hash(source) != source_hash or file_hash(worker) != worker_hash or file_hash(reader) != reader_hash:
         raise ValueError('DWG, worker or ACadSharp library changed during inventory')
+    if file_hash(runtime_config) != runtime_config_hash:
+        raise ValueError('DWG worker runtime configuration changed during inventory')
     if reference is not None and file_hash(reference) != reference_hash:
         raise ValueError('DXF reference changed during inventory')
     out.parent.mkdir(parents=True, exist_ok=True)
     with out.open('x', encoding='utf-8') as stream:
         stream.write(report)
     return dict(report=str(out), report_sha256=file_hash(out), source_sha256=source_hash,
-                worker_sha256=worker_hash, reader_sha256=reader_hash,
+                worker_sha256=worker_hash, reader_sha256=reader_hash, runtimeconfig_sha256=runtime_config_hash,
                 entity_count=len(entities), insunits=result['insunits'],
                 counts=dict(sorted(Counter(row['type'] for row in entities).items())),
                 native_autocad_executed=False, design_accepted=False, **summary)

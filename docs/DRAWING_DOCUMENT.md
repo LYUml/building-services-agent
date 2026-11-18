@@ -172,8 +172,8 @@ library and the worker's `.runtimeconfig.json`. Use `bsa dwg-readback` on a know
 worker schema compatibility and actual execution.
 Use a fresh build directory for each rebuild so an in-flight CLI, MCP or
 regression run keeps its configured binaries. The summary and report include
-SHA-256 values for the DWG, the comparison DXF when supplied, the worker and
-the loaded ACadSharp library. The report
+SHA-256 values for the DWG, the comparison DXF when supplied, the worker,
+its `.runtimeconfig.json` and the loaded ACadSharp library. The report
 compares insertion units, modelspace identity, supported geometry, block
 reference placement and text display properties. Block definitions, nested
 geometry, plot styles and PDF glyph placement require other evidence. For

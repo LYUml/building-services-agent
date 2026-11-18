@@ -95,7 +95,7 @@ def main(argv=None):
             raise ValueError('Supply both --dwg-dotnet and --dwg-worker')
         from bsa.dwg_readback import host_runtime_files
 
-        dotnet, worker, _ = host_runtime_files(args.dwg_dotnet, args.dwg_worker)
+        dotnet, worker, _, _ = host_runtime_files(args.dwg_dotnet, args.dwg_worker)
         dwg_options = ['--dwg-dotnet', dotnet, '--dwg-worker', worker]
     expected_python = owned / 'venv' / ('Scripts/python.exe' if os.name == 'nt' else 'bin/python')
     project_skills.install(selected or ROOT, expected_python, check_only=True)

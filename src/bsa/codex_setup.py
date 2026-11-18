@@ -40,7 +40,7 @@ def settings(python,autocad=None,pdftoppm=None,*,dwg_dotnet=None,dwg_worker=None
             raise ValueError('Supply both --dwg-dotnet and --dwg-worker')
         from .dwg_readback import host_runtime_files
 
-        dotnet, worker, _ = host_runtime_files(dwg_dotnet, dwg_worker)
+        dotnet, worker, _, _ = host_runtime_files(dwg_dotnet, dwg_worker)
         environment.update(BSA_ACADSHARP_DOTNET=dotnet.as_posix(), BSA_ACADSHARP_WORKER=worker.as_posix())
     return project,dict(command=python.as_posix(),args=args,cwd=root.as_posix(),startup_timeout_sec=120,tool_timeout_sec=1200,enabled=True,env=environment)
 

@@ -131,7 +131,8 @@ class DwgReadbackTests(unittest.TestCase):
                         self.assertFalse(result.isError, result.content)
                         self.assertEqual(result.structuredContent['report_sha256'], summary['report_sha256'])
                         for field in ('geometry_compared_count', 'identity_only_counts_by_type',
-                                      'source_sha256', 'reference_sha256', 'worker_sha256', 'reader_sha256'):
+                                      'source_sha256', 'reference_sha256', 'worker_sha256', 'reader_sha256',
+                                      'runtimeconfig_sha256'):
                             self.assertEqual(result.structuredContent[field], summary[field])
                         repeated = await session.call_tool('bsa_read_dwg_inventory', args)
                         self.assertTrue(repeated.isError)
@@ -151,6 +152,8 @@ class DwgReadbackTests(unittest.TestCase):
             self.assertEqual(report['reader_sha256'], file_hash(reader))
             self.assertEqual(summary['reader_sha256'], report['reader_sha256'])
             self.assertEqual(summary['worker_sha256'], file_hash(worker))
+            self.assertEqual(summary['runtimeconfig_sha256'], file_hash(worker.with_suffix('.runtimeconfig.json')))
+            self.assertEqual(report['runtimeconfig_sha256'], summary['runtimeconfig_sha256'])
             self.assertEqual(summary['reference_sha256'], file_hash(reference))
             self.assertEqual(report['comparison']['reference_sha256'], summary['reference_sha256'])
             expected = {e.dxf.handle: e for e in ezdxf.readfile(FIXTURE / 'source-export.dxf').modelspace()}
