@@ -57,8 +57,7 @@ public sealed class AutomationCreatePipe : IExternalDBApplication
             saved_reopen_verified = false,
             design_accepted = false,
         };
-        using (var stream = new FileStream(receipt, FileMode.CreateNew, FileAccess.Write, FileShare.None))
-            JsonSerializer.Serialize(stream, evidence);
+        NativeEvidence.WriteJson(receipt, evidence);
         args.Succeeded = true;
     }
 

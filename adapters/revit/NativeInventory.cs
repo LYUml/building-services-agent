@@ -88,12 +88,8 @@ internal static class NativeInventory
             { unique_id = l.UniqueId, name = l.Name, elevation_m = Metres(l.Elevation) }).ToArray(),
             design_accepted = false
         };
-        var json = JsonSerializer.Serialize(result, new JsonSerializerOptions { WriteIndented = true });
         if (doc.IsModified || Hash(expected) != before || !File.ReadAllBytes(requestPath).SequenceEqual(requestBytes))
             throw new InvalidOperationException("Model or request changed during collection");
-        // Existing reports are never overwritten; missing parent directories are not silently created.
-        using var output = new FileStream(report, FileMode.CreateNew, FileAccess.Write, FileShare.None);
-        using var writer = new StreamWriter(output);
-        writer.Write(json);
+        NativeEvidence.WriteJson(report, result, new JsonSerializerOptions { WriteIndented = true });
     }
 }
