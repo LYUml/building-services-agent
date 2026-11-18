@@ -49,6 +49,18 @@ class TerminalDrawingTests(unittest.TestCase):
         self.assertIn(f'section A (handle {first.dxf.handle}) at (0, 0, 0) m', diagnostic)
         self.assertIn(f'section B (handle {second.dxf.handle}) at (0.25, 0, 0) m, gap 0.25 m', diagnostic)
 
+    def test_shared_node_rejects_drift_across_individually_close_sections(self):
+        first, _ = self.doc.modelspace().query('LINE[layer=="duct"]')
+        first.dxf.start = (8e-9, 0, 0)
+        self.binding['sections']['A']['from_m'] = [8e-9, 0, 0]
+        self.tree['sections'].append({'id': 'C', 'from': 'R', 'to': 'VC'})
+        self.tree['leaf_terminals']['VC'] = ['TC']
+        self.allocation['terminals'].append(dict(id='TC', center_m=[-2, 1], maximum_flow_L_s=100))
+        self.binding['sections']['C'] = dict(from_node='R', to_node='VC', from_m=[-8e-9, 0, 0], to_m=[-1, 1, 0])
+        self.doc.modelspace().add_line((-8e-9, 0), (-1, 1), dxfattribs=dict(layer='duct'))
+        with self.assertRaisesRegex(ValueError, 'gap 1.6e-08 m'):
+            self.check()
+
     def test_displaced_terminal_endpoint_reports_vav_side_candidate(self):
         line = next(entity for entity in self.doc.modelspace().query('LINE')
                     if entity.dxf.layer == 'flex' and entity.dxf.end.y == 1)

@@ -49,13 +49,14 @@ def inspect(doc, allocation, tree, binding, layers):
         line = take(pools['supply'],lambda e:(near(point(e.dxf.start),a) and near(point(e.dxf.end),z)) or (near(point(e.dxf.start),z) and near(point(e.dxf.end),a)),
              f"section {section['id']} from {a} to {z} m on {layers['supply']}")
         for node,p in zip(pair,(a,z)):
-            if node in nodes and not near(nodes[node],p):
-                prior_section, prior_handle = node_sections[node]
-                raise ValueError(f"Disconnected rigid node {node}: section {prior_section} "
-                                 f"(handle {prior_handle}) at {nodes[node]} m and section {section['id']} "
-                                 f"(handle {line.dxf.handle}) at {p} m, gap {math.dist(nodes[node], p):.6g} m")
-            nodes[node] = p
-            node_sections[node] = (section['id'], line.dxf.handle)
+            incident = node_sections.setdefault(node, [])
+            for prior_section, prior_handle, prior_point in incident:
+                if not near(prior_point, p):
+                    raise ValueError(f"Disconnected rigid node {node}: section {prior_section} "
+                                     f"(handle {prior_handle}) at {prior_point} m and section {section['id']} "
+                                     f"(handle {line.dxf.handle}) at {p} m, gap {math.dist(prior_point, p):.6g} m")
+            incident.append((section['id'], line.dxf.handle, p))
+            nodes.setdefault(node, p)
     centers = {}
     for terminal in allocation['terminals']:
         p = tuple(terminal['center_m'])+(0.,)
