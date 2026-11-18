@@ -214,6 +214,16 @@ class TerminalDrawingTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Four distinct scoped layers'):
             self.check()
 
+    def test_displaced_terminal_symbol_reports_candidate(self):
+        from ezdxf.math import Matrix44
+
+        symbol = self.doc.modelspace().query('LWPOLYLINE')[0]
+        symbol.transform(Matrix44.translate(0.25, 0, 0))
+        with self.assertRaisesRegex(ValueError, 'terminal TA') as error:
+            self.check()
+        self.assertIn(f'candidate handle {symbol.dxf.handle} at (2.25, 1.0, 0.0) m, deviation 0.25 m',
+                      str(error.exception))
+
     def test_shifted_group_and_duplicate_symbol(self):
         e=next(e for e in self.doc.modelspace() if e.dxf.layer=='vav')
         before=e.dxf.center;e.dxf.center=(1.1,1,0)

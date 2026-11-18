@@ -24,11 +24,20 @@ def inspect(doc, allocation, tree, binding, layers):
         return q
     def near(a,b):
         return math.dist(a,b) <= 1e-8
-    def take(pool, predicate, expected):
+    def take(pool, predicate, expected, *, center_of=None, target=None):
         matches = [e for e in pool if predicate(e)]
         if len(matches) != 1:
-            raise ValueError(f'Missing or ambiguous saved geometry correspondence for {expected}; '
-                             f'found {len(matches)} matches')
+            message = f'Missing or ambiguous saved geometry correspondence for {expected}; found {len(matches)} matches'
+            if center_of is not None:
+                candidates = (
+                    (math.dist(center, target), entity.dxf.handle, center)
+                    for entity in pool if (center := center_of(entity)) is not None
+                )
+                nearest = min(candidates, default=None)
+                if nearest is not None:
+                    gap, handle, center = nearest
+                    message += f'; nearest saved candidate handle {handle} at {center} m, deviation {gap:.6g} m'
+            raise ValueError(message)
         pool.remove(matches[0])
         return matches[0]
     pools = {k:[e for e in doc.modelspace() if e.dxf.layer.casefold() == layer.casefold()]
@@ -89,25 +98,15 @@ def inspect(doc, allocation, tree, binding, layers):
     # Read every candidate before matching, including otherwise-unused symbols.
     symbol_centers = {e.dxf.handle:symbol_center(e) for e in pools['terminal']}
     terminals = {tid:take(pools['terminal'],lambda e:near(symbol_centers[e.dxf.handle],p),
-                          f"terminal {tid} at {p} m on {layers['terminal']}").dxf.handle for tid,p in centers.items()}
+                          f"terminal {tid} at {p} m on {layers['terminal']}",
+                          center_of=lambda e:symbol_centers[e.dxf.handle],target=p).dxf.handle for tid,p in centers.items()}
     flex_ends = {line.dxf.handle: (point(line.dxf.start), point(line.dxf.end)) for line in pools['flex']}
     groups = []
     for leaf,members in tree['leaf_terminals'].items():
         start = nodes[leaf]
-        try:
-            circle = take(pools['vav'],lambda e:tuple(e.dxf.extrusion)==(0.,0.,1.) and near(point(e.dxf.center),start),
-                          f"VAV {leaf} at {start} m on {layers['vav']}")
-        except ValueError as error:
-            candidates = sorted(
-                (math.dist(center, start), entity.dxf.handle, center)
-                for entity in pools['vav'] if tuple(entity.dxf.extrusion) == (0., 0., 1.)
-                for center in (point(entity.dxf.center),)
-            )
-            if not candidates:
-                raise
-            gap, handle, center = candidates[0]
-            raise ValueError(f'{error}; nearest saved VAV candidate handle {handle} '
-                             f'at {center} m, deviation {gap:.6g} m') from error
+        circle = take(pools['vav'],lambda e:tuple(e.dxf.extrusion)==(0.,0.,1.) and near(point(e.dxf.center),start),
+                      f"VAV {leaf} at {start} m on {layers['vav']}", target=start,
+                      center_of=lambda e:point(e.dxf.center) if tuple(e.dxf.extrusion)==(0.,0.,1.) else None)
         saved_vav = point(circle.dxf.center)
         for section_id, handle, saved_endpoint in node_sections[leaf]:
             if not near(saved_endpoint, saved_vav):
