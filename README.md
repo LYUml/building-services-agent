@@ -4,6 +4,9 @@ Source-backed tools for a host AI: requirements, engineering calculations,
 editable CAD/BIM, iteration and checked deliverables across building services.
 The host interprets sources and assumptions; tool success is not design approval.
 
+Windows source prerelease: [v0.1.0-beta.1](https://github.com/LYUml/building-services-agent/releases/tag/v0.1.0-beta.1).
+Extract the source ZIP and run `Setup.cmd`; see the installation guide below.
+
 ## Start here
 
 - [Use the agent](docs/START_USING.md): project setup, execution and review.

@@ -1,0 +1,41 @@
+{
+  "schema": "bsa.prerelease-setup-evidence/1",
+  "implementation_commit": "c87a71613ad642e604cb802dbb8205c76bcd93b4",
+  "local_setup_and_config_tests": {"passed": 16, "failed": 0},
+  "setup_ci_run": 44215565167,
+  "setup_ci_jobs": {"windows-latest": "success", "ubuntu-latest": "success"},
+  "ci_scope": "Fresh CAD setup, actual stdio catalogue, setup/config tests and repeat setup on each host",
+  "windows_source_zip_install": {
+    "source_zip_sha256": "2e1708087bfb3061dca0b085d0e968081c0c4850e67baa5e82c12f4f9a17ae5a",
+    "path_contains_spaces": true,
+    "git_objects_restored": true,
+    "cad_profile": "pass",
+    "hvac_profile_upgrade": "pass",
+    "hvac_profile_rerun": "pass",
+    "mcp_tools": 42,
+    "worker_operations": 41,
+    "stdio_catalogue_call": "pass"
+  },
+  "fresh_environment_native_demo": {
+    "scope": "Synthetic general drawing example, not a real engineering project",
+    "autocad": "2027 Core Console",
+    "native_reopen_pass": true,
+    "editable_entities": 18,
+    "reference_expected_mm": 50.0,
+    "reference_measured_mm": 50.03799999999999,
+    "pdf_sha256": "a9410849831519d144c1a8dde8c748a70c7d6d9026198a649700cea2b179ce90",
+    "actual_render_visual_review": "pass: plan, system symbol, detail, dimensions, frame and reference visible without clipping"
+  },
+  "previous_full_regression": {
+    "implementation": "a5244188c9142d8ac45bcbc45da03c4073dce15c",
+    "outcomes": 1949,
+    "failures": 0,
+    "errors": 0,
+    "skip_outcomes": 258,
+    "scope": "Historical engine regression, not a new full suite run of this installer"
+  },
+  "native_revit_authoring_verified": false,
+  "host_ui_connection_verified_by_setup": false,
+  "design_accepted": false,
+  "user_acceptance": "pending"
+}

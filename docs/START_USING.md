@@ -8,6 +8,10 @@ The long-term engineering roadmap remains open.
 
 ## Start in this checkout
 
+For the Windows prerelease, use [one-click setup](INSTALL.md). It creates its own
+environment and project MCP profile, then verifies an actual stdio connection.
+The manual commands below remain available for development environments.
+
 ```powershell
 python -m pip install -e ".[drawing,mcp,codex-setup]"
 bsa doctor --extra drawing --extra mcp
