@@ -6,6 +6,23 @@ permissions:
   contents: read
 
 jobs:
+  dxf-schedule:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: U-C4N/Autocad-MCP
+          ref: 6f6a538255ca9f885232e845ac32f10b4433fe3e
+          path: tools/autocad-uc4n-review
+          persist-credentials: false
+      - run: python -c "from pathlib import Path; Path('runs').mkdir(exist_ok=True)"
+      - run: python -m venv .venv
+      - run: .venv/Scripts/python -m pip install -e ".[autocad-source,modules,network,spatial]" fastmcp==3.4.11
+      - run: .venv/Scripts/python -m unittest tests.test_autocad_schedule -v
   three-phase-solver:
     runs-on: windows-latest
     steps:

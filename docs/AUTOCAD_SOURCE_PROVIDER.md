@@ -3,8 +3,9 @@
 The current thin adapter combines existing trusted AutoCAD Core Console DWG export
 with U-C4N/Autocad-MCP's independent EzdxfBackend at commit
 6f6a538255ca9f885232e845ac32f10b4433fe3e (MIT). It imports the backend in a fresh
-worker with CAD_LAUNCH=never, without installing its complete FastMCP3 server,
-instantiating live COM, or altering host application policy. Existing ezdxf 1.4.5,
+worker with CAD_LAUNCH=never. The upstream package imports FastMCP exceptions
+while loading its configuration. The worker does not start the server or
+instantiate live COM. Existing ezdxf 1.4.5,
 pydantic 2.14.3 and numpy 2.5.4 are pinned; upstream source must be clean/exact.
 No drawing engine or numerical solver is reimplemented. The original MIT notice
 is retained under third_party/licenses/uc4n-autocad-mcp-6f6a5382.txt.
@@ -13,7 +14,8 @@ is retained under third_party/licenses/uc4n-autocad-mcp-6f6a5382.txt.
 
 From this editable tool checkout, obtain the upstream source under
 tools/autocad-uc4n-review and checkout the exact commit above. Install the optional
-`autocad-source` extra; ezdxf is already a base dependency. Real coursework paths
+`autocad-source` extra and `fastmcp==3.4.11`. The DXF schedule workflow also
+uses the `modules`, `network` and `spatial` extras. Real coursework paths
 are selected only by explicit host BSA_PROJECT_ROOT, never by document content.
 
 ```powershell
