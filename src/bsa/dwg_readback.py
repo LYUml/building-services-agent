@@ -60,15 +60,20 @@ def compare_reference(entities, insunits, reference):
     import ezdxf
 
     document = ezdxf.readfile(reference)
-    expected = {entity.dxf.handle: entity for entity in document.modelspace()}
+    modelspace = document.modelspace()
+    expected = {entity.dxf.handle: entity for entity in modelspace}
+    duplicated = {handle for handle, count in Counter(entity.dxf.handle for entity in modelspace).items()
+                  if count > 1}
     actual = {row['handle']: row for row in entities}
-    differences = [dict(handle=handle, reason='missing_in_dwg') for handle in sorted(expected.keys() - actual.keys())]
+    differences = [dict(handle=handle, reason='duplicate_handle_in_dxf') for handle in sorted(duplicated)]
+    differences.extend(dict(handle=handle, reason='missing_in_dwg') for handle in sorted(expected.keys() - actual.keys()))
     differences.extend(dict(handle=handle, reason='missing_in_dxf') for handle in sorted(actual.keys() - expected.keys()))
     if document.units != insunits:
         differences.append(dict(reason='drawing_units_differ', dwg_insunits=insunits, dxf_insunits=document.units))
     geometry_count = 0
     identity_only_counts = Counter()
-    for handle in sorted(actual.keys() & expected.keys()):
+    matched = (actual.keys() & expected.keys()) - duplicated
+    for handle in sorted(matched):
         row, entity = actual[handle], expected[handle]
         identity = dict(type=entity.dxftype(), layer=entity.dxf.layer)
         fields = [key for key, value in identity.items() if row[key] != value]
@@ -88,7 +93,7 @@ def compare_reference(entities, insunits, reference):
                           if key not in observed or key not in geometry
                           or not equal_geometry(observed[key], geometry[key], key)]
             differences.append(dict(handle=handle, reason='geometry_differs', fields=fields))
-    return dict(correspondence_pass=not differences, matched_handle_count=len(actual.keys() & expected.keys()),
+    return dict(correspondence_pass=not differences, matched_handle_count=len(matched),
                 geometry_compared_count=geometry_count,
                 identity_only_counts_by_type=dict(sorted(identity_only_counts.items())), differences=differences,
                 numeric_absolute_tolerance_drawing_units=1e-7, angle_tolerance_rad=1e-9)

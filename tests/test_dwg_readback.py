@@ -31,6 +31,22 @@ def test_reports_types_without_geometry_coverage(tmp_path):
     assert comparison['identity_only_counts_by_type'] == {'SOLID': 1}
 
 
+def test_duplicate_reference_handle_cannot_hide_entity(tmp_path):
+    document = ezdxf.new()
+    modelspace = document.modelspace()
+    displaced = modelspace.add_line((2, 2), (3, 3))
+    expected = modelspace.add_line((0, 0), (1, 1))
+    expected.dxf.handle = displaced.dxf.handle
+    reference = tmp_path / 'duplicate.dxf'
+    document.saveas(reference)
+    row = dict(handle=expected.dxf.handle, type='LINE', layer='0',
+               geometry=dict(start=[0, 0, 0], end=[1, 1, 0]))
+    comparison = compare_reference([row], document.units, reference)
+    assert not comparison['correspondence_pass']
+    assert comparison['geometry_compared_count'] == 0
+    assert comparison['differences'] == [dict(handle=expected.dxf.handle, reason='duplicate_handle_in_dxf')]
+
+
 @unittest.skipUnless(all(os.environ.get(key) for key in RUNTIME) and importlib.util.find_spec('mcp'),
                      'requires the configured ACadSharp worker and MCP SDK')
 class DwgReadbackTests(unittest.TestCase):
