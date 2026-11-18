@@ -20,11 +20,11 @@ class SavedRouteAuditTests(unittest.TestCase):
     def setUpClass(cls):
         (ROOT/'runs').mkdir(exist_ok=True)
         cls.folder=tempfile.TemporaryDirectory(dir=ROOT/'runs');cls.root=Path(cls.folder.name)
-        with zipfile.ZipFile(ROOT/'docs/evidence/elbow-riser/workflow.zip') as z:
-            cls.data=json.loads(z.read('drawing/drawing.json'))
-            cls.layout=json.loads(z.read('drawing/annotation-layout.json'))
-            cls.ifc=cls.root/'model.ifc';cls.ifc.write_bytes(z.read('model/bim/model.ifc'))
-            cls.dxf=cls.root/'native.dxf';cls.dxf.write_bytes(z.read('native/native-reopen/source-export.dxf'))
+        with zipfile.ZipFile(ROOT/'docs/evidence/saved-route-audit/regression-fixture.zip') as z:
+            cls.data=json.loads(z.read('drawing.json'))
+            cls.layout=json.loads(z.read('annotation-layout.json'))
+            cls.ifc=cls.root/'model.ifc';cls.ifc.write_bytes(z.read('model.ifc'))
+            cls.dxf=cls.root/'native.dxf';cls.dxf.write_bytes(z.read('native.dxf'))
         cls.rows=cls.data['pieces']
 
     @classmethod
