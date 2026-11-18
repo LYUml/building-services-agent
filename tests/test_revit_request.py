@@ -79,5 +79,20 @@ class RevitRequestTests(unittest.TestCase):
             with self.assertRaisesRegex(ProjectError, 'finite nonzero segment'):
                 validate_automation_request(request, model_hash)
 
+    def test_pipe_segment_must_exceed_native_adapter_floor(self):
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as directory:
+            root = Path(directory)
+            inventory, model, basis, _ = self.fixture(root)
+            data = json.loads(basis.read_text())
+            for length in (0.002, 0.00254):
+                data['pipe']['EndMetres'] = [length, 0, 0]
+                basis.write_text(json.dumps(data))
+                with self.assertRaisesRegex(ProjectError, 'adapter floor of 2.54 mm'):
+                    prepare(inventory, model, basis, root/'out')
+                self.assertFalse((root/'out').exists())
+            data['pipe']['EndMetres'] = [0.00255, 0, 0]
+            basis.write_text(json.dumps(data))
+            self.assertFalse(prepare(inventory, model, basis, root/'out')['native_executed'])
+
 
 if __name__=='__main__':unittest.main()

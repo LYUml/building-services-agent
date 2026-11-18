@@ -10,6 +10,8 @@ from .workspace import ROOT
 
 IDENTITIES = {'PipeTypeUniqueId', 'SystemTypeUniqueId', 'LevelUniqueId'}
 PIPE_FIELDS = IDENTITIES | {'StartMetres', 'EndMetres', 'DiameterMetres'}
+# NativePipes.cs checks the greater of this floor and the host curve tolerance.
+PIPE_LENGTH_FLOOR_M = 0.3048 / 120
 
 
 def validate_geometry(pipe):
@@ -23,6 +25,8 @@ def validate_geometry(pipe):
     if (type(diameter) not in (int, float) or not math.isfinite(diameter) or diameter <= 0
             or not math.isfinite(length) or length <= 0):
         raise ProjectError('Positive diameter and finite nonzero segment required')
+    if length <= PIPE_LENGTH_FLOOR_M:
+        raise ProjectError('Pipe segment must exceed the adapter floor of 2.54 mm')
 
 
 def validate_automation_request(request, model_sha256):
