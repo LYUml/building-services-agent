@@ -5,6 +5,17 @@ from bsa.ifc_port_bcf import issue_records
 
 
 class IfcPortComparisonTests(unittest.TestCase):
+    def test_reversed_duplicate_pair_fails_review_with_coincident_origins(self):
+        inventory = dict(ports=[dict(guid='a', origin_m=[0, 0, 0]),
+                                dict(guid='b', origin_m=[0, 0, 0])],
+                         connections=[dict(guid='first', port_guids=['a', 'b']),
+                                      dict(guid='second', port_guids=['b', 'a'])])
+        gaps = inspect_pair_gaps(inventory, 0.001)
+        self.assertEqual(gap_status(gaps)[0], 'pass')
+        self.assertEqual(review_status({'connection_gaps': gaps})[0], 'fail')
+        self.assertEqual(gaps['duplicate_pairs'], [
+            {'port_guids': ['a', 'b'], 'relationship_guids': ['first', 'second']}])
+
     def test_bcf_baseline_findings_use_only_current_view_coordinates(self):
         report = dict(source_sha256='current', ports=[dict(guid='a', owner_guids=['product'], origin_m=[100.02, 0, 0])],
                       connection_gaps={'separated_relationships': [], 'unavailable_relationships': []},

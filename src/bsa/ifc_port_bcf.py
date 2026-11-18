@@ -41,6 +41,11 @@ def issue_records(report):
     ports = {row['guid']: row for row in report['ports']}
     gaps = report['connection_gaps']
     source = f"Saved IFC SHA-256 {report['source_sha256']}"
+    for duplicate in gaps.get('duplicate_pairs', []):
+        a, b = duplicate['port_guids']
+        related = ', '.join(duplicate['relationship_guids'])
+        description = f'{source}\nPorts {a} and {b} share multiple relationships: {related}.'
+        yield f'IFC duplicate port pair {a} / {b}', description, [], None
     for gap in gaps['separated_relationships']:
         a, b = gap['port_guids']
         selected = sorted(set(ports[a]['owner_guids'] + ports[b]['owner_guids']))

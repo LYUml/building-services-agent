@@ -159,6 +159,10 @@ Connected ports without supported owner evidence get an individual topic
 with the port GUID and its current origin when available. A saved IFC
 trial removed an owner attachment while retaining the port placement and
 connection, and CLI replay recovered the pending ownership finding.
+Multiple relationships declaring the same unordered port pair fail the
+IFC review and appear together in a BCF topic. A saved IFC trial added a
+reversed relationship and replay detected the duplicate even though all
+three recorded relationship distances were within tolerance.
 The optional `bcf` extra reuses pinned IfcOpenShell BCF-XML tooling. It
 writes open topics with source and port IDs, the measured gap and tolerance,
 and a viewpoint selecting the exported owner products when available.
