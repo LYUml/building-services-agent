@@ -122,6 +122,14 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None,fds_rele
                       local(output).relative_to(root).as_posix(),window=window)
 
     @server.tool(annotations=write)
+    def bsa_review_openfoam_pressure(manifest:str,output:str)->dict[str,Any]:
+        """Review saved pressure differences over declared physical-time windows without running OpenFOAM."""
+        if selected is None:
+            raise ValueError('Explicit host BSA_PROJECT_ROOT required')
+        return invoke('bsa.openfoam_transient.review_pressure_project',local(manifest).relative_to(root).as_posix(),
+                      local(output).relative_to(root).as_posix())
+
+    @server.tool(annotations=write)
     def bsa_run_fds_temperature_probe(source:str,out:str)->dict[str,Any]:
         """Run a pinned temperature case using the host-configured Windows FDS release."""
         if fds_release is None:

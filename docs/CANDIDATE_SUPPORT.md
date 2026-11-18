@@ -59,7 +59,7 @@ the SDK catalogue. The committed reference read is also an MCP resource.
 | Revit offline | bsa_check_revit_inventory, bsa_prepare_revit_pipe, bsa_verify_revit_automation_reopen |
 | IFC port inventory | bsa_ifc_port_inventory, bsa_export_ifc_port_bcf, bsa_verify_ifc_port_bcf |
 | FDS upstream probe | bsa_run_fds_temperature_probe, bsa_verify_fds_temperature_probe |
-| Saved OpenFOAM steady history | bsa_review_openfoam_history |
+| Saved OpenFOAM histories | bsa_review_openfoam_history, bsa_review_openfoam_pressure |
 | Native network and fittings | bsa_run_native_network_analysis, bsa_run_native_fitting_analysis, bsa_inspect_native_network_analysis, bsa_inspect_native_fitting_analysis, bsa_list_native_fitting_requests, bsa_read_native_fitting_request |
 | Native network delivery | bsa_run_native_network_delivery, bsa_inspect_native_network_delivery, bsa_run_tagged_network_delivery, bsa_inspect_tagged_network_delivery |
 | Pressure evidence | bsa_run_pressure_evidence_ledger, bsa_inspect_pressure_evidence_ledger, bsa_list_pressure_evidence_gaps, bsa_read_outlet_pressure_evidence |

@@ -1,10 +1,41 @@
 from decimal import Decimal
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+from tempfile import TemporaryDirectory
 import unittest
 
 from bsa.openfoam_transient import read_samples, difference, window_statistics
 
 
 class PhysicalTimeHistoryTests(unittest.TestCase):
+    def test_project_pressure_review_preserves_time_and_rejects_unmatched_history(self):
+        with TemporaryDirectory() as folder:
+            root = Path(folder).resolve()
+            (root/'basis.txt').write_text('Synthetic observer and pressure basis', encoding='utf-8')
+            (root/'in.dat').write_text('# Time average(Pt)\n0 -2\n0.25 0\n0.5 2\n', encoding='utf-8')
+            (root/'out.dat').write_text('# Time average(Ptf)\n0 -3\n0.25 -1\n0.5 1\n', encoding='utf-8')
+            manifest = dict(schema='bsa.openfoam-pressure-history.v1', units='Pa', delta_t_s='0.25',
+                            inlet=dict(file='in.dat', column='average(Pt)'), outlet=dict(file='out.dat', column='average(Ptf)'),
+                            windows={'comparison': ['0', '0.5']}, basis_files={'observer': 'basis.txt'})
+            (root/'pressure.json').write_text(json.dumps(manifest), encoding='utf-8')
+            command = [sys.executable, '-m', 'bsa.cli', 'openfoam-pressure-review', '--manifest',
+                       'pressure.json', '--output']
+            env = {**os.environ, 'BSA_PROJECT_ROOT': str(root)}
+            cli = subprocess.run(command+['checked.json'], env=env, capture_output=True, text=True)
+            self.assertEqual(cli.returncode, 0, cli.stderr)
+            review = json.loads(cli.stdout)
+            self.assertEqual(review['windows']['comparison']['time_weighted_mean'], 1)
+            self.assertFalse(review['engineering_accepted'])
+            self.assertEqual(json.loads((root/'checked.json').read_bytes()), review)
+            (root/'out.dat').write_text('# Time average(Ptf)\n0.25 -3\n0.5 -1\n0.75 1\n', encoding='utf-8')
+            cli = subprocess.run(command+['rejected.json'], env=env, capture_output=True, text=True)
+            self.assertEqual(cli.returncode, 2)
+            self.assertIn('Exactly matching physical times required', cli.stderr)
+            self.assertFalse((root/'rejected.json').exists())
+
     def read(self, rows):
         return read_samples('# Time average(Pt)\n'+rows,
                             'average(Pt)', delta_t_s='0.25')

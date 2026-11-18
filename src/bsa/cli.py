@@ -83,6 +83,9 @@ def main():
     from . import openfoam_history
     openfoam_history.add_arguments(sub.add_parser(
         'openfoam-history-review', help='Review a saved OpenFOAM steady history segment'))
+    transient = sub.add_parser('openfoam-pressure-review', help='Review saved OpenFOAM physical-time pressure differences')
+    transient.add_argument('--manifest', required=True)
+    transient.add_argument('--output', required=True)
     ports=sub.add_parser('ifc-port-inventory',help='Read a saved IFC2X3 or IFC4 port inventory')
     ports.add_argument('source',type=Path)
     ports.add_argument('--baseline',type=Path)
@@ -225,6 +228,9 @@ def main():
         if a.command=='openfoam-history-review':
             result = openfoam_history.review_project(a.manifest, a.output, window=a.window)
             print(json.dumps(result, indent=2));return 0 if result['numerical_window_pass'] else 2
+        if a.command=='openfoam-pressure-review':
+            from .openfoam_transient import review_pressure_project
+            print(json.dumps(review_pressure_project(a.manifest, a.output), indent=2));return 0
         if a.command=='revit-prepare-pipe':
             from .workspace import project_root
             result=revit_request.prepare(a.inventory,a.model,a.basis,a.out,scope=project_root())

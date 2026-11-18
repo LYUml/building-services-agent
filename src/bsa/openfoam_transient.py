@@ -4,9 +4,14 @@ Uses pinned NumPy quadrature; does not infer stationarity, ADPI or design accept
 Callers bind the native fields, pressure definition, units and selected run segment.
 """
 from decimal import Decimal, InvalidOperation
+import json
 import math
+from pathlib import Path
 
 import numpy as np
+
+from . import openfoam_history
+from .source_refs import file_hash
 
 
 def _seconds(value):
@@ -107,3 +112,40 @@ def window_statistics(samples, start_s, end_s):
             'time_weighted_mean': mean, 'time_weighted_rms': rms, 'range': span,
             'diagnostic_only': True, 'stationarity_accepted': False,
             'pressure_adopted': False}
+
+
+def review_pressure_project(manifest, output):
+    """Review signed total-pressure differences over declared physical windows."""
+    evidence = openfoam_history.ProjectEvidence(output)
+    raw, manifest_hash = evidence.read(manifest)
+    spec = json.loads(raw)
+    if (not isinstance(spec, dict) or set(spec) != {'schema', 'units', 'delta_t_s', 'inlet', 'outlet', 'windows', 'basis_files'}
+            or spec['schema'] != 'bsa.openfoam-pressure-history.v1' or spec['units'] != 'Pa'):
+        raise ValueError('Explicit transient total-pressure manifest in Pa required')
+    if not isinstance(spec['basis_files'], dict) or not spec['basis_files']:
+        raise ValueError('Source and observer basis files required')
+    basis = {label: evidence.read(name)[1] for label, name in spec['basis_files'].items()}
+    histories, hashes = {}, {}
+    for station in ('inlet', 'outlet'):
+        row = spec[station]
+        if (not isinstance(row, dict) or set(row) != {'file', 'column'}
+                or row['column'] not in ('average(Pt)', 'average(Ptf)')):
+            raise ValueError('Explicit inlet and outlet pressure histories required')
+        raw, hashes[station] = evidence.read(row['file'])
+        histories[station] = read_samples(raw.decode('utf-8-sig'), row['column'], delta_t_s=spec['delta_t_s'])
+    if evidence.path(spec['inlet']['file']) == evidence.path(spec['outlet']['file']):
+        raise ValueError('Inlet and outlet must be distinct saved pressure histories')
+    pressure = difference(histories['inlet'], histories['outlet'])
+    windows = spec['windows']
+    if (not isinstance(windows, dict) or not windows or any(
+            not isinstance(bounds, list) or len(bounds) != 2 for bounds in windows.values())):
+        raise ValueError('Named physical windows with exact sampled endpoints required')
+    result = dict(units='Pa', time_basis='fixed_step_physical_seconds', delta_t_s=spec['delta_t_s'],
+                  windows={name: window_statistics(pressure, *bounds) for name, bounds in windows.items()},
+                  provenance=dict(manifest_sha256=manifest_hash, native_input_sha256=hashes, basis_file_sha256=basis,
+                                  adapter_sha256=file_hash(Path(__file__)),
+                                  evidence_reader_sha256=file_hash(Path(openfoam_history.__file__)),
+                                  numpy_version=np.__version__),
+                  diagnostic_only=True, engineering_accepted=False)
+    evidence.save(result)
+    return result

@@ -5,7 +5,10 @@ Caller binds fields, density, weighting and one explicitly selected run segment.
 Never merge restart directories or silently trim misaligned observations here.
 """
 from decimal import Decimal, InvalidOperation
+import hashlib
+import json
 import math
+from pathlib import Path
 
 
 def read_samples(text, column):
@@ -71,32 +74,35 @@ def to_convergence_rows(flux, total_pressure, density_kg_m3):
     return rows
 
 
-def review_project(manifest_name, output_name, *, window=200):
-    """Review one explicit segment inside the host BSA_PROJECT_ROOT."""
-    import hashlib
-    import json
-    from pathlib import Path
-    from . import workspace
-    from .source_refs import file_hash as digest_file
-    from . import cfd_convergence
+class ProjectEvidence:
+    """Read and reconcile one project-local set of saved CFD files."""
 
-    root = workspace.project_root()
-    if root is None:
-        raise ValueError('Explicit host BSA_PROJECT_ROOT required')
-    inputs = {}
+    def __init__(self, output_name):
+        from .workspace import project_root
 
-    def path(name):
+        self.root = project_root()
+        if self.root is None:
+            raise ValueError('Explicit host BSA_PROJECT_ROOT required')
+        self.inputs = {}
+        self.output_name = output_name
+        self.output = self.path(output_name)
+        if self.output.exists():
+            raise ValueError('Preserve existing evidence: select a new output')
+
+    def path(self, name):
+        from .workspace import protected
+
         if not isinstance(name, str) or not name.strip() or Path(name).is_absolute():
             raise ValueError('Project-relative path required')
-        resolved = (root / name).resolve()
-        if resolved == root or not resolved.is_relative_to(root):
+        resolved = (self.root / name).resolve()
+        if resolved == self.root or not resolved.is_relative_to(self.root):
             raise ValueError('Files must remain inside the host project')
-        if workspace.protected(resolved):
+        if protected(resolved):
             raise ValueError('Completed historical project is read-only; select another workspace')
         return resolved
 
-    def read(name):
-        file = path(name)
+    def read(self, name):
+        file = self.path(name)
         before = file.stat()
         data = file.read_bytes()
         after = file.stat()
@@ -104,13 +110,29 @@ def review_project(manifest_name, output_name, *, window=200):
                 or before.st_mtime_ns != after.st_mtime_ns):
             raise ValueError('Native input changed; retry the same run')
         fingerprint = hashlib.sha256(data).hexdigest()
-        if inputs.setdefault(name, (file, fingerprint)) != (file, fingerprint):
+        if self.inputs.setdefault(name, (file, fingerprint)) != (file, fingerprint):
             raise ValueError(f'OpenFOAM review input changed: {name}')
         return data, fingerprint
 
-    output = path(output_name)
-    if output.exists():
-        raise ValueError('Preserve existing evidence: select a new output')
+    def save(self, result):
+        from .source_refs import file_hash
+
+        for name, (file, fingerprint) in self.inputs.items():
+            if self.path(name) != file or not file.is_file() or file_hash(file) != fingerprint:
+                raise ValueError(f'OpenFOAM review input changed: {name}')
+        if self.path(self.output_name) != self.output:
+            raise ValueError('OpenFOAM review output path changed')
+        with self.output.open('x', encoding='utf-8') as stream:
+            json.dump(result, stream, indent=2, allow_nan=False)
+            stream.write('\n')
+
+
+def review_project(manifest_name, output_name, *, window=200):
+    """Review one explicit segment inside the host BSA_PROJECT_ROOT."""
+    from . import cfd_convergence
+
+    evidence = ProjectEvidence(output_name)
+    read = evidence.read
     data, digest = read(manifest_name)
     manifest = json.loads(data)
     if (manifest['schema'] != 'bsa.openfoam-history.v1'
@@ -152,14 +174,7 @@ def review_project(manifest_name, output_name, *, window=200):
         'adapter_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         'assessor_sha256': hashlib.sha256(Path(cfd_convergence.__file__).read_bytes()).hexdigest(),
     }
-    for name, (file, fingerprint) in inputs.items():
-        if path(name) != file or not file.is_file() or digest_file(file) != fingerprint:
-            raise ValueError(f'OpenFOAM review input changed: {name}')
-    if path(output_name) != output:
-        raise ValueError('OpenFOAM review output path changed')
-    with output.open('x', encoding='utf-8') as stream:
-        json.dump(result, stream, indent=2, allow_nan=False)
-        stream.write('\n')
+    evidence.save(result)
     return result
 
 
@@ -171,7 +186,6 @@ def add_arguments(parser):
 
 def main():
     import argparse
-    import json
     parser = argparse.ArgumentParser(description=__doc__)
     add_arguments(parser)
     args = parser.parse_args()

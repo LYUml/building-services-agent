@@ -20,6 +20,29 @@ Two additional saved steady windows, steps 851–1050 in the late run and
 passes through both interfaces. Window stability is scoped to each saved run;
 mesh, domain and experimental comparisons require separate evidence.
 
+For a source-bound transient pressure-difference review, use
+`bsa openfoam-pressure-review --manifest <file> --output <new-file>` or MCP
+`bsa_review_openfoam_pressure` with the same two project-relative fields. Install
+the `cfd-history` extra. A manifest identifies the two synchronous pressure
+histories, named windows and the associated observer and source basis files.
+
+```json
+{
+  "schema": "bsa.openfoam-pressure-history.v1",
+  "units": "Pa",
+  "delta_t_s": "0.00025",
+  "inlet": {"file": "inlet.dat", "column": "average(Pt)"},
+  "outlet": {"file": "outlet.dat", "column": "average(Ptf)"},
+  "windows": {"comparison": ["0.20", "0.25"]},
+  "basis_files": {"observers": "functions", "case": "controlDict"}
+}
+```
+
+The output pins both histories and the basis files. Each window reports signed
+inlet-minus-outlet pressure statistics and leaves stationarity and adoption open.
+Both interfaces reproduced the recorded statistics for four outlet paths over
+the 0.15–0.20 s and 0.20–0.25 s windows using the five retained native files.
+
 ```python
 from bsa.openfoam_transient import read_samples, difference, window_statistics
 inlet = read_samples(inlet_text, "average(Pt)", delta_t_s="0.00025")
