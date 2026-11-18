@@ -15,6 +15,10 @@ local input copies. All 10 history files, four basis files and numerical
 results matched the old receipt. Flow and mass passed while pressure stability
 failed. The interfaces produced identical new reports. No solver rerun or
 engineering pressure acceptance was inferred.
+Two additional saved steady windows, steps 851–1050 in the late run and
+221–420 in the refined first-order run, reproduced their historical numerical
+passes through both interfaces. Window stability is scoped to each saved run;
+mesh, domain and experimental comparisons require separate evidence.
 
 ```python
 from bsa.openfoam_transient import read_samples, difference, window_statistics
