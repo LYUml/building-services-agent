@@ -234,8 +234,13 @@ def from_workflow(plan,directory,native_task,output,*,layers):
     manifest=directory/'workflow.json'
     before=digest(manifest)
     plan_sha256=digest(plan)
-    if not verify(directory)['integrity_pass']:
-        raise ValueError('Workflow source or artifact evidence changed')
+    integrity = verify(directory)
+    if not integrity['integrity_pass']:
+        issues = integrity['issues']
+        details = '; '.join(issues[:5])
+        if len(issues) > 5:
+            details += f'; {len(issues) - 5} more findings'
+        raise ValueError(f'Workflow source or artifact evidence changed: {details}')
     workflow=json.loads(manifest.read_text(encoding='utf-8'))
     if workflow['inputs'].get(str(plan))!=plan_sha256:
         raise ValueError('Plan does not belong to this workflow')

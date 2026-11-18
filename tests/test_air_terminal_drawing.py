@@ -184,6 +184,12 @@ class TerminalDrawingTests(unittest.TestCase):
                           tasks={task['id']: dict(kind=task['kind'], status='pass') for task in tasks})
             save(workflow / 'workflow.json', report)
             output = root / 'review.json'
+            with patch('bsa.workflow.verify', return_value={
+                'integrity_pass': False, 'issues': ['artifact changed: native/reopened/source-export.dxf']
+            }):
+                with self.assertRaisesRegex(ValueError, 'artifact changed: native/reopened/source-export.dxf'):
+                    from_workflow(plan, workflow, 'native', output, layers=self.layers)
+            self.assertFalse(output.exists())
             with patch('bsa.workflow.verify', side_effect=[{'integrity_pass': True}, {'integrity_pass': False}]):
                 with self.assertRaisesRegex(ValueError, 'Workflow changed during terminal review'):
                     from_workflow(plan, workflow, 'native', output, layers=self.layers)
