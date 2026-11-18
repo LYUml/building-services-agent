@@ -12,8 +12,14 @@ from .engine import ProjectError
 def run(ids,ifc,out):
     paths=[Path(p).resolve() for p in (ids,ifc)];out=Path(out).resolve()
     if any(out==p or out in p.parents for p in paths):raise ProjectError('output must not contain inputs')
-    version=importlib.metadata.version('ifctester')
-    if version!='0.8.5':raise ProjectError('pinned IfcTester 0.8.5 required')
+    try:
+        version = importlib.metadata.version('ifctester')
+        ifc_version = importlib.metadata.version('ifcopenshell')
+    except importlib.metadata.PackageNotFoundError as error:
+        raise ProjectError('IDS checks require the ids extra: python -m pip install -e ".[ids]"') from error
+    if (version, ifc_version) != ('0.8.5', '0.8.5'):
+        raise ProjectError('IDS checks require IfcTester 0.8.5 and IfcOpenShell 0.8.5. '
+                           'Install the ids extra: python -m pip install -e ".[ids]"')
     before={str(p):digest(p) for p in paths};out.mkdir(parents=True,exist_ok=False)
     with (out/'engine.log').open('wb') as log:
         process=subprocess.run([sys.executable,'-m','ifctester',str(paths[0]),str(paths[1]),'-r','Json','-o',str(out/'ids-report.json')],stdout=log,stderr=subprocess.STDOUT,timeout=120)

@@ -1,5 +1,6 @@
 """Real upstream IDS execution and workflow release gates on synthetic IFC."""
 import json
+from importlib.metadata import PackageNotFoundError
 from pathlib import Path
 import shutil
 import tempfile
@@ -17,6 +18,16 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class IDSWorkflowTests(unittest.TestCase):
+    def test_missing_runtime_reports_install_hint_before_creating_output(self):
+        from bsa.ids_check import run
+
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as tmp:
+            output = Path(tmp) / 'check'
+            with patch('bsa.ids_check.importlib.metadata.version', side_effect=PackageNotFoundError('ifctester')):
+                with self.assertRaisesRegex(ProjectError, 'install -e.*ids'):
+                    run('requirements.ids', 'model.ifc', output)
+            self.assertFalse(output.exists())
+
     def test_native_pass_failure_gate_and_source_integrity(self):
         with tempfile.TemporaryDirectory(dir=ROOT/'runs') as tmp:
             root = Path(tmp)
