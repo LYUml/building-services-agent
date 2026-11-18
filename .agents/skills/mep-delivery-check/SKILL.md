@@ -47,8 +47,23 @@ source, leave that check unresolved.
    Compare expected edits and affected neighbors with the previous verified
    revision to detect unintended moves or lost links.
 
-For supported planar VAV layouts, prefer the inherited native-export check in
-docs/AIR_TERMINAL_DRAWING.md. For supported physical IFC joints use
+For a supported planar VAV layout with workflow evidence, use
+`bsa delivery verify-terminal-connections` or MCP `bsa_verify_terminal_connections`
+with the exact plan, run, native task and four scoped layers. Follow
+docs/AIR_TERMINAL_DRAWING.md. The review inherits the reopened drawing and the
+matching allocation, sizing and rigid binding. A native save/reopen pass only
+confirms the declared drawing round trip. Read the terminal correspondence result
+before relying on group membership. Use the reported terminal/VAV IDs, DXF handle
+and endpoint coordinates to locate a failed line in the saved export.
+
+For a configured HVAC package, enable the terminal review when that inherited
+scope applies. Inspect the saved package using `bsa delivery inspect-hvac-package`
+or MCP `bsa_inspect_hvac_project`. A `blocked` terminal review retains diagnostic
+artifacts and suppresses the design-report HTML/PDF. `not_configured` leaves
+terminal assignment unverified by this gate. `passed` covers scoped planar
+correspondence. Independently review the plot and remaining delivery requirements.
+
+For supported physical IFC joints use
 docs/INTERFACE_CONTACTS.md. For system sheets spanning multiple pages see
 docs/CURRENT_SYSTEM_DRAWINGS.md for source-pair and cross-sheet reconciliation.
 These routes cover different aspects of the review. For unsupported geometry,
