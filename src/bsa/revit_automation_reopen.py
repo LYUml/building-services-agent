@@ -58,6 +58,10 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
         if any(port[0] == identifier for port in endpoints):
             raise ValueError(f"Reopened pipe has inconsistent connector evidence: {', '.join(issue['reasons'])}")
     pipe = pipes[0]
+    element_id = transaction.get('element_id')
+    if (not isinstance(element_id, str) or not element_id.isascii() or not element_id.isdecimal()
+            or int(element_id) <= 0 or pipe.get('id') != element_id):
+        raise ValueError('Reopened pipe element_id differs from the creation readback')
     for field in ('diameter_m', 'length_m'):
         recorded = transaction.get(field)
         if (type(recorded) not in (int, float) or not math.isfinite(recorded)
@@ -88,6 +92,7 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
         raise ValueError('Revit evidence changed during verification')
     return {
         'pipe_unique_id': identifier,
+        'pipe_element_id': element_id,
         'authored_rvt_sha256': pins[authored],
         'creation_sha256': pins[creation],
         'inventory_sha256': pins[inventory],

@@ -55,10 +55,11 @@ class RevitRevisionTests(unittest.TestCase):
             write_preparation = dict(operation='create-pipe', saved_rvt_sha256=source_hash,
                                      request_sha256=request_hash, assembly_sha256=adapter_hash)
             save('preparation.json', write_preparation)
+            self.pipe['id'] = '1042'
             receipt = dict(input_rvt_sha256=source_hash, request_sha256=request_hash,
                 adapter_sha256=adapter_hash, saved_rvt_sha256=authored_hash,
                 saved_reopen_verified=False, design_accepted=False,
-                transaction_result=dict(unique_id=self.pipe['unique_id'], connector_count=2,
+                transaction_result=dict(unique_id=self.pipe['unique_id'], element_id=self.pipe['id'], connector_count=2,
                                         saved=False, connected_system_verified=False, design_accepted=False,
                                         source=stored['Source'], diameter_m=0.05, length_m=2))
             created = save('creation.json', receipt)
@@ -75,6 +76,7 @@ class RevitRevisionTests(unittest.TestCase):
             observed = save('inventory.json', inventory)
             result = verify(root, created, authored, observed, reopen, 0.001)
             self.assertTrue(result['pipe_matches_capture'])
+            self.assertEqual(result['pipe_element_id'], '1042')
             self.assertFalse(result['native_execution_authenticated'])
             self.assertEqual(result['connector_endpoint_error_m'], 0)
             self.assertEqual(result['reopen_request_sha256'], reopen_hash)
@@ -147,7 +149,8 @@ class RevitRevisionTests(unittest.TestCase):
             save('reopen.json', dict(operation='inventory', saved_rvt_sha256=authored_hash,
                                     request_sha256=reopen_hash, assembly_sha256=adapter_hash))
             save('inventory.json', inventory)
-            for field, value in [('diameter_m', 0.07), ('length_m', True), ('source', 'different basis')]:
+            for field, value in [('diameter_m', 0.07), ('length_m', True), ('source', 'different basis'),
+                                 ('element_id', '1043'), ('element_id', 1042)]:
                 with self.subTest(field=field):
                     altered = dict(receipt, transaction_result={**receipt['transaction_result'], field: value})
                     save('creation.json', altered)
