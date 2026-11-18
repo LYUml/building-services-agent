@@ -35,9 +35,10 @@ public sealed class CreatePipeCommand : IExternalCommand
         while (root != null && !(File.Exists(Path.Combine(root.FullName, "pyproject.toml"))
             && File.Exists(Path.Combine(root.FullName, "adapters/revit/Bsa.Revit.csproj")))) root = root.Parent;
         if (root == null) throw new ArgumentException("Request must be inside the BSA repository");
-        byte[] bytes = File.ReadAllBytes(requestPath);
+        using var requestFile = new FileStream(requestPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+        using var reader = new StreamReader(requestFile, System.Text.Encoding.UTF8, detectEncodingFromByteOrderMarks: true);
         // PowerShell-authored UTF-8 JSON may include a BOM.
-        var text = System.Text.Encoding.UTF8.GetString(bytes).TrimStart('\uFEFF');
+        var text = reader.ReadToEnd();
         var request = JsonSerializer.Deserialize<PipeRequest>(text)
             ?? throw new ArgumentException("Missing pipe request");
         if (!Path.IsPathFullyQualified(request.DocumentPath)
@@ -45,9 +46,8 @@ public sealed class CreatePipeCommand : IExternalCommand
                 StringComparison.OrdinalIgnoreCase)
             || !string.Equals(Path.GetExtension(request.DocumentPath), ".rvt", StringComparison.OrdinalIgnoreCase))
             throw new ArgumentException("Expected an explicit repository-local test RVT");
-        if (!File.ReadAllBytes(requestPath).SequenceEqual(bytes))
-            throw new InvalidOperationException("Request changed before execution");
-        // NativePipes revalidates active document immediately before its transaction.
+        // Hold the request read-only through the transaction. NativePipes
+        // revalidates the active document immediately before starting it.
         return NativePipes.Create(app, request);
     }
 }
