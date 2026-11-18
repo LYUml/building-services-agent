@@ -61,6 +61,21 @@ def issue_records(report):
     if not comparison or comparison['status'] != 'shared_port_guids':
         return
     basis = f"{source}\nBaseline IFC SHA-256 {comparison['baseline_sha256']}"
+    for guid in comparison.get('added_ports', []):
+        port = ports[guid]
+        yield (f'IFC port added {guid}', f'{basis}\nPort {guid} appears only in the current export.',
+               port['owner_guids'], port['origin_m'])
+    for guid in comparison.get('removed_ports', []):
+        yield (f'IFC port removed {guid}', f'{basis}\nPort {guid} appears only in the baseline export.',
+               [], None)
+    for change in comparison.get('changed_ports', []):
+        guid = change['guid']
+        before, after = change['before'], change['after']
+        description = (f"{basis}\nPort {guid} differs from the baseline."
+                       f"\nOwners: {before['owner_guids']} -> {after['owner_guids']}."
+                       f"\nFlow direction: {before['flow_direction']} -> {after['flow_direction']}.")
+        yield (f'IFC port attributes changed {guid}', description,
+               after['owner_guids'], after['origin_m'])
     for pair in comparison['changed_pairs']:
         a, b = pair['port_guids']
         current_ports = [ports[guid] for guid in (a, b) if guid in ports]

@@ -133,6 +133,11 @@ alignment. With a 5 mm shift limit, the pure translation produced zero
 topics and the residual revision produced two movement topics. Replaying
 either package with a whitespace edit to the alignment file was rejected,
 confirming that replay checks the file bytes as well as the computed issues.
+Revision exports include added and removed port GUIDs and changes to current
+ports' owner or flow direction when the exports share port identities.
+An offline trial changed one flow direction and replay confirmed one
+attribute topic. A second trial swapped two peers while retaining the
+relationship count and replay recovered four changed-pair topics.
 New exports record the port gap tolerance in the BCF project name, including
 packages with zero issues. Verification returns the checked `tolerance_m` and
 `archive_tolerance_bound`. A legacy project name can still be replayed, but
