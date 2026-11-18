@@ -118,6 +118,16 @@ directions, class counts and candidate owners. Only explicitly opposing
 SOURCE/SINK declarations are reported as directed. There is no geometry,
 internal fitting path or hydraulic proof.
 
+Add `--baseline <previous.ifc>` in the CLI or `baseline` in MCP to compare
+saved exports by port GUID. The report lists added and removed ports,
+ownership or flow-label changes, and changes in endpoint-pair multiplicity.
+Changing a relationship's own GUID or order does not create a lost
+connection. With no shared port GUIDs, the report explicitly records the
+identity coverage gap. A controlled copy of the public Revit export had one
+port relation removed, another relation GUID replaced and one port reassigned.
+The CLI and MCP reports matched and identified exactly the removed pair and
+the changed owner. Physical continuity and remapping remain unresolved.
+
 The Revit 2013 IFC2X3 community Duplex Plumbing export at commit
 `31eb1dd0a0406fb9ebf0ebd823b48e1ec95afc08`, SHA-256
 `abfaf5c0979b6b4b05182aec7ada8945374bdb414db76c763724d549b41b212b`,
