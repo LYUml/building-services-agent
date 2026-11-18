@@ -66,6 +66,13 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None,fds_rele
         """Export saved-IFC origin gaps and owner conflicts to a new BCF archive."""
         return invoke('bsa.ifc_port_bcf.run',local(source),local(out),tolerance_m)
 
+    @server.tool(annotations=read)
+    def bsa_verify_ifc_port_bcf(source:str,archive:str,
+        tolerance_m:Annotated[float,Field(strict=True,gt=0,allow_inf_nan=False)],
+    )->dict[str,Any]:
+        """Reconstruct IFC port issues and verify an existing BCF without writing files."""
+        return invoke('bsa.ifc_port_bcf.verify_export',local(source),local(archive),tolerance_m)
+
     @server.tool(annotations=write)
     def bsa_ifc_port_inventory(source:str,out:str,baseline:str|None=None,
         position_tolerance_m:Annotated[float,Field(strict=True,gt=0,allow_inf_nan=False)]|None=None,

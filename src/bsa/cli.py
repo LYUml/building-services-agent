@@ -90,6 +90,10 @@ def main():
     bcf.add_argument('source',type=Path)
     bcf.add_argument('--out',type=Path,required=True)
     bcf.add_argument('--tolerance-m',type=float,required=True)
+    bcf_verify=sub.add_parser('ifc-port-bcf-verify',help='Verify an existing IFC port coordination BCF')
+    bcf_verify.add_argument('source',type=Path)
+    bcf_verify.add_argument('archive',type=Path)
+    bcf_verify.add_argument('--tolerance-m',type=float,required=True)
     ports.add_argument('--out',type=Path,required=True)
     revit_connectivity.add_arguments(sub.add_parser(
         'revit-inventory-check', help='Diagnose a saved Revit pipe and fitting inventory'))
@@ -168,6 +172,9 @@ def main():
         if a.command=='ifc-port-bcf':
             from .ifc_port_bcf import run as export_bcf
             print(json.dumps(export_bcf(a.source,a.out,a.tolerance_m),indent=2));return 0
+        if a.command=='ifc-port-bcf-verify':
+            from .ifc_port_bcf import verify_export
+            print(json.dumps(verify_export(a.source,a.archive,a.tolerance_m),indent=2));return 0
         if a.command=='ifc-port-inventory':
             from .ifc_port_inventory import run as inventory_ports
             result=inventory_ports(a.source,a.out,baseline=a.baseline,position_tolerance_m=a.position_tolerance_m,

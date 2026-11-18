@@ -20,12 +20,12 @@ sys.meta_path.insert(0,Deny())
 from bsa.mcp_server import create_server
 server=create_server()
 tools=asyncio.run(server.list_tools())
-assert len(tools)==48 and 'bsa_draw_document' in {t.name for t in tools}
-print('42 tools available without optional native engines')
+assert len(tools)==49 and {'bsa_draw_document','bsa_verify_ifc_port_bcf'} <= {t.name for t in tools}
+print('49 tools available without optional native engines')
 '''
         result=subprocess.run([sys.executable,'-c',code],cwd=ROOT,capture_output=True,text=True,timeout=30)
         self.assertEqual(result.returncode,0,result.stderr)
-        self.assertIn('42 tools',result.stdout)
+        self.assertIn('49 tools',result.stdout)
 
     def test_unregistered_operation_cannot_import_anything(self):
         with patch('bsa.mcp_worker.importlib.import_module') as load:

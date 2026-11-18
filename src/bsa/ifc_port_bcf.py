@@ -156,3 +156,16 @@ def run(source, out, tolerance_m):
     if tolerance_m is None:
         raise ValueError('Explicit metre tolerance required for IFC port gap issues')
     return write(inventory(source, tolerance_m), source, out)
+
+
+def verify_export(source, archive, tolerance_m):
+    if tolerance_m is None:
+        raise ValueError('Explicit metre tolerance required for IFC port gap issues')
+    archive = Path(archive).resolve()
+    if not workspace.allowed(archive) or archive.suffix.lower() not in ('.bcf', '.bcfzip'):
+        raise ValueError('BCF archive in the permitted workspace required')
+    report = inventory(source, tolerance_m)
+    result = verify(report, archive)
+    if file_hash(Path(source)) != report['source_sha256']:
+        raise ValueError('IFC changed during BCF verification')
+    return result

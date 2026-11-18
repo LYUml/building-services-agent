@@ -57,7 +57,7 @@ the SDK catalogue. The committed reference read is also an MCP resource.
 |---|---|
 | General drawing | bsa_draw_document, bsa_inspect_drawing_document |
 | Revit offline | bsa_check_revit_inventory, bsa_prepare_revit_pipe |
-| IFC port inventory | bsa_ifc_port_inventory, bsa_export_ifc_port_bcf |
+| IFC port inventory | bsa_ifc_port_inventory, bsa_export_ifc_port_bcf, bsa_verify_ifc_port_bcf |
 | FDS upstream probe | bsa_run_fds_temperature_probe, bsa_verify_fds_temperature_probe |
 | Native network and fittings | bsa_run_native_network_analysis, bsa_run_native_fitting_analysis, bsa_inspect_native_network_analysis, bsa_inspect_native_fitting_analysis, bsa_list_native_fitting_requests, bsa_read_native_fitting_request |
 | Native network delivery | bsa_run_native_network_delivery, bsa_inspect_native_network_delivery, bsa_run_tagged_network_delivery, bsa_inspect_tagged_network_delivery |

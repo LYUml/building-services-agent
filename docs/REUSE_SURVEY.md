@@ -120,6 +120,10 @@ internal fitting path or hydraulic proof.
 
 Use `bsa ifc-port-bcf <file.ifc> --tolerance-m <m> --out <new.bcf>` or
 `bsa_export_ifc_port_bcf` to hand measured gaps to a coordination reviewer.
+To recheck a received standalone export against its exact source IFC and
+original tolerance, use `bsa ifc-port-bcf-verify <file.ifc> <file.bcf> --tolerance-m <m>`
+or the read-only MCP tool `bsa_verify_ifc_port_bcf`. For packages produced
+with a baseline comparison, use verification of the originating workflow.
 The optional `bcf` extra reuses pinned IfcOpenShell BCF-XML tooling. It
 writes open topics with source and port IDs, the measured gap and tolerance,
 and a viewpoint selecting the exported owner products when available.
