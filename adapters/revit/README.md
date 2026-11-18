@@ -55,6 +55,16 @@ The local preparation receipt pins the Activity bytes. Engine and alias
 availability must be checked with authenticated APS before deployment.
 Actual work-item execution remains pending.
 
+The Automation build also contains the separate `AutomationCreatePipe` entry
+point for a standalone, non-workshared test model. It uses `input.rvt` and
+`pipe-request.json`, creates a single pipe using the existing transaction,
+and saves to a fresh `authored.rvt` after the transaction commits. The
+`creation.json` receipt records request, input, output and adapter hashes.
+The inventory AppBundle still registers only the read-only entry point.
+The write entry point has compiled locally. Its Activity, work-item
+execution and independent reopen remain pending.
+[Autodesk Document.SaveAs](https://help.autodesk.com/cloudhelp/2026/ENU/Revit-API-MainReference/files/html/df74c7e1-a98a-7751-676a-e9b074566f62.htm)
+
 Add `--model runs/<test-fixture>.rvt` to generate the hash-bound
 `inventory-request.json` beside the AppBundle. The selected fixture stays
 at its original path and outside the ZIP. Use those same RVT bytes as the

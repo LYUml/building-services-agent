@@ -19,7 +19,7 @@
     <Reference Include="RevitAPI"><HintPath>$(RevitPath)\RevitAPI.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="RevitAPIUI" Condition="'$(DatabaseOnly)' != 'true'"><HintPath>$(RevitPath)\RevitAPIUI.dll</HintPath><Private>false</Private></Reference>
     <Compile Remove="CreatePipeCommand.cs;InventoryCommand.cs;DesktopNativePipes.cs" Condition="'$(DatabaseOnly)' == 'true'" />
-    <Compile Remove="AutomationInventory.cs" Condition="'$(Automation)' != 'true'" />
+    <Compile Remove="AutomationInventory.cs;AutomationCreatePipe.cs" Condition="'$(Automation)' != 'true'" />
     <PackageReference Include="Autodesk.Forge.DesignAutomation.Revit" Version="[2027.0.0]"
                       ExcludeAssets="runtime" Condition="'$(Automation)' == 'true'" />
   </ItemGroup>
