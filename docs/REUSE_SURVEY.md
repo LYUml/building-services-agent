@@ -2784,3 +2784,22 @@ Native OpenFOAM12 extrudeMesh (GPL-3.0-or-later) now executes retained-core four
 
 Fixed-step physical-time history diagnostics now reuse existing pinned NumPy2.5.4 trapezoidal quadrature through a small strict native reader. Actual five981-row project histories match24prior statistics; no new CFD engine or acceptance gate. See [scope](OPENFOAM_TRANSIENT.md).
 Explicit service partitions reuse pinned Shapely2.2.0/BSD-3-Clause clipping+union and existing air_load composition, adding ID/basis/partition validation rather than a new allocation engine. Python API only; unchanged CLI/MCP. Actual64candidate geometry+192area/flow values match independent strip calculation;11targeted tests pass. See EXPLICIT_SERVICE_PARTITION.md.
+
+### IfcOpenShell invalid-file cleanup
+
+The isolated suite at `21bc26f` finished with 1,760 passed, 246 skipped,
+835 passing subtests and two warnings. Both warnings reproduced with
+IfcOpenShell 0.8.5 on Windows in the original failed-producer controls.
+The malformed text fixtures fail the IFC parser as expected, and the native
+drawing tasks remain pending. The wheel's Python file constructor assigns
+`wrapped_data` before checking the parser status, then raises before
+registering the file pointer. Its finalizer subsequently tries to remove
+the absent registry entry and emits a `KeyError`.
+
+Reproduce with `python -m pytest tests/test_ifc_native.py
+tests/test_ifc_route_drawing.py -q -W error::pytest.PytestUnraisableExceptionWarning`.
+This diagnostic run reported two warning-as-error failures, 11 passes and
+two native-host skips. Retain the invalid-input controls and the pinned
+reader while evaluating any upstream fix. Similar upstream cleanup context
+is recorded in [IfcOpenShell issue 5457](https://github.com/IfcOpenShell/IfcOpenShell/issues/5457),
+which covers a different streaming failure.
