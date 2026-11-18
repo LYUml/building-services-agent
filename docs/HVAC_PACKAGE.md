@@ -116,3 +116,9 @@ and no success link is added. The index links the separate pressure/NC HTML;
 the existing report PDF is unchanged. Source conditions,static/total separation,
 uninterpolated NC and full fan/acoustic limitations remain in
 [TERMINAL_PERFORMANCE.md](TERMINAL_PERFORMANCE.md).
+Inspect a saved configured package with
+`bsa delivery inspect-hvac-package <configuration.json> <package-directory>`
+or MCP `bsa_inspect_hvac_project`. Both read the same saved evidence and report
+`terminal_review_gate`. The CLI prints verified package JSON and exits 2 for
+an incomplete package. A zero exit confirms inspection of a package awaiting
+review; `design_accepted` remains false.

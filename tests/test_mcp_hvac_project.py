@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import runpy
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -40,6 +41,12 @@ class MCPHVACProjectTests(unittest.IsolatedAsyncioTestCase):
                     self.assertEqual(result['stage_errors'],{});self.assertTrue(result['unresolved_tasks'])
                     inspected=await call('bsa_inspect_hvac_project',dict(configuration='project.json',out='package'))
                     self.assertEqual(result,inspected)
+                    cli = subprocess.run([sys.executable, '-m', 'bsa.cli', 'delivery', 'inspect-hvac-package',
+                                          'project.json', 'package'], cwd=root,
+                                         env={**os.environ, 'BSA_PROJECT_ROOT': str(root)},
+                                         capture_output=True, text=True)
+                    self.assertEqual(cli.returncode, 0, cli.stderr)
+                    self.assertEqual(json.loads(cli.stdout), inspected)
                     report=next(a for a in result['artifacts'] if a['path']=='report-pdf/HVAC System Design.pdf')
                     rendered=await session.call_tool('bsa_render_source_page',dict(source='package/'+report['path'],page=1,out='report-page'))
                     self.assertFalse(rendered.isError,str(rendered));self.assertEqual(rendered.structuredContent['source_sha256'],report['sha256'])

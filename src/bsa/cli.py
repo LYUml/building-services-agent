@@ -165,6 +165,9 @@ def main():
     archive.add_argument('manifest',type=Path)
     air_terminal_review.add_arguments(commands.add_parser(
         'verify-terminal-connections', help='Check saved terminal connections from a verified native workflow'))
+    hvac_package = commands.add_parser('inspect-hvac-package', help='Inspect a saved HVAC project package')
+    hvac_package.add_argument('configuration', type=Path)
+    hvac_package.add_argument('package', type=Path)
     for command in ("validate","run"):
         s=sub.add_parser(command);s.add_argument("project",type=Path)
         if command=="run": s.add_argument("--out",type=Path,required=True)
@@ -187,6 +190,11 @@ def main():
             args=vars(a).copy()
             del args['command'], args['delivery_command']
             print(json.dumps(air_terminal_review.review(**args),indent=2));return 0
+        if a.command=='delivery' and a.delivery_command=='inspect-hvac-package':
+            from .hvac_package_access import inspect
+            result = inspect(a.configuration, a.package)
+            print(json.dumps(result, indent=2))
+            return 2 if result['status'] == 'incomplete' else 0
         if a.command=='ifc-port-bcf':
             from .ifc_port_bcf import run as export_bcf
             result=export_bcf(a.source,a.out,a.tolerance_m,baseline=a.baseline,
