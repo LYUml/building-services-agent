@@ -92,6 +92,11 @@ Record the matching distance and reject ambiguous matches. Recompute the
 group minimum and maximum straight lengths before comparing the displayed
 schedule. Keep the label-association distance separate from the endpoint
 matching tolerance.
+For a released drawing table, recover rows by the saved cell positions
+and require a unique row ID. Compare every cell to its source CSV when
+the table is small enough to exhaustively check. Reconcile corresponding
+report rows using the display precision of each artifact. Record coverage
+as row and cell counts so a sample check remains identifiable.
 
 When workspace reorganization changes artifact paths, retain the original
 receipt and use an explicit relocation index to find the current file.
