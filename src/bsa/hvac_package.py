@@ -116,12 +116,13 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
             stages['terminal_review']=from_workflow(plan,output/'workflow',review_settings['native_task'],
                 output/'terminal-review.json',layers=review_settings['layers'])
         except (ValueError,OSError,KeyError) as exc:errors['terminal_review']=str(exc)
-    try:
-        from .hvac_report import run as report
-        stages['report']=report(output/'workflow',output/'report',
-            terminal_review=output/'terminal-review.json' if 'terminal_review' in stages else None,
-            adpi_review=output/'adpi-review.json' if 'adpi_review' in stages else None)
-    except (ValueError,OSError,KeyError) as exc:errors['report']=str(exc)
+    if 'terminal_review' not in errors:
+        try:
+            from .hvac_report import run as report
+            stages['report']=report(output/'workflow',output/'report',
+                terminal_review=output/'terminal-review.json' if 'terminal_review' in stages else None,
+                adpi_review=output/'adpi-review.json' if 'adpi_review' in stages else None)
+        except (ValueError,OSError,KeyError) as exc:errors['report']=str(exc)
     if 'report' in stages:
         try:
             from .hvac_report_pdf import run as render
@@ -165,6 +166,8 @@ def run(plan,output,*,font,autocad=None,terminal_review=None,adpi_settings=None,
             links.extend([(name+' DWG',f'workflow/{name}/Supply Air Distribution.dwg'),(name+' PDF',f'workflow/{name}/Supply Air Distribution.pdf')])
     page='<!doctype html><html lang="en"><meta charset="utf-8"><title>HVAC Project Review</title><style>body{font:16px/1.5 Arial;max-width:1000px;margin:35px auto}td,th{padding:8px;border:1px solid #ccd}table{border-collapse:collapse}li{margin:8px}</style><h1>HVAC Project Review</h1><p>Design study. Full requirement acceptance is pending.</p><ul>'
     page+=''.join('<li><a href="'+html.escape(path,quote=True)+'">'+html.escape(label)+'</a></li>' for label,path in links)+'</ul>'
+    if 'terminal_review' in errors:
+        page+='<p>Report generation blocked by the saved terminal connection review.</p>'
     page+='<h2>Post-run review actions</h2><p>These supplement unresolved workflow tasks and the full requirement review.</p><ul>'
     page+=''.join('<li>'+html.escape(item['stage']+' / '+item['code']+': '+item['action'])+'</li>' for item in result['review_actions'])+'</ul>'
     if 'adpi_review' in stages:

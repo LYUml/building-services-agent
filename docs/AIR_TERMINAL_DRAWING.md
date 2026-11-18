@@ -44,3 +44,6 @@ The workflow exits 2 while its manual engineering task is pending. Check that
 the `native` task passed, then run the terminal review for `native` with layers
 `DEMO_DUCT`, `DEMO_VAV`, `DEMO_TERMINAL` and `DEMO_FLEX`, in that order.
 The positive case writes a report and the negative case exits 2 without one.
+When the HVAC package explicitly enables the terminal review, a failed review
+also blocks the package's design-report HTML and PDF. The incomplete package
+retains the connection error and native artifacts for diagnosis.

@@ -26,11 +26,12 @@ class PackageSystemPathTests(unittest.TestCase):
         r=dict(inputs={str(self.source):digest(self.source)},section_count=1,outlet_path_count=1,status='pending',design_accepted=False)
         (out/'system-paths.json').write_text(json.dumps(r));return r
 
-    def controlled(self,out,*,stage=None,report=None,native='native',adpi=None):
+    def controlled(self,out,*,stage=None,report=None,native='native',adpi=None,terminal_review=None):
         # Stage plumbing only;no native CAD/PDF or engineering evidence is mocked as real.
         with patch('bsa.hvac_package.validate_plan',return_value=(dict(tasks=[dict(id='native',kind='duct_sheet_native')]),{self.plan})),patch('bsa.hvac_package.execute',side_effect=self.execute),patch('bsa.hvac_package.diagnose',return_value={}),patch('bsa.hvac_package.template'),patch('bsa.hvac_package.verify',return_value=dict(integrity_pass=True)),patch('bsa.duct_system_paths.run',side_effect=stage or self.study) as study,patch('bsa.hvac_report.run',side_effect=report or (lambda *a,**kw:dict(scope='Unit report control'))),patch('bsa.hvac_report_pdf.run',return_value=dict(scope='Unit PDF control;no PDF authored')):
             with patch('bsa.adpi_review.run',return_value=dict(applicability='pending',missing_facts=['installation_verified'])):
-                result=run(self.plan,out,font=self.font,system_paths_native_task=native,adpi_settings=adpi)
+                result=run(self.plan,out,font=self.font,system_paths_native_task=native,adpi_settings=adpi,
+                           terminal_review=terminal_review)
             return result,study.call_args_list
 
     def test_fact_evidence_mutation_during_later_package_stage_rejects(self):
@@ -67,3 +68,16 @@ class PackageSystemPathTests(unittest.TestCase):
         out=self.root/'mutated'
         with self.assertRaisesRegex(ValueError,'System path source or method changed'):self.controlled(out,report=changed)
         self.assertFalse((out/'package.json').exists())
+
+    def test_configured_terminal_failure_blocks_report_and_pdf(self):
+        settings = self.root / 'terminal-review.json'
+        settings.write_text(json.dumps(dict(native_task='native',
+                                 layers=dict(supply='duct', vav='vav', terminal='terminal', flex='flex'))))
+        out = self.root / 'terminal-failure'
+        with patch('bsa.air_terminal_drawing.from_workflow', side_effect=ValueError('Expected VA–T1 connection missing')):
+            result, _ = self.controlled(out, terminal_review=settings)
+        self.assertEqual(result['status'], 'incomplete')
+        self.assertIn('VA–T1', result['stage_errors']['terminal_review'])
+        self.assertNotIn('report', result['stages'])
+        self.assertNotIn('report_pdf', result['stages'])
+        self.assertIn('Report generation blocked', (out / 'index.html').read_text(encoding='utf-8'))
