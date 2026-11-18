@@ -24,6 +24,18 @@ class CADSheetTests(unittest.TestCase):
         selection = dict(text_handles=[label.dxf.handle], line_layers=['flex'])
         with self.assertRaisesRegex(ProjectError, f'TEXT {label.dxf.handle}.*LINE {line.dxf.handle}'):
             check_text_line_clearance(drawing, selection)
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            source, settings, engine = root/'source.dxf', root/'native.json', root/'acad.exe'
+            drawing.saveas(source)
+            engine.touch()
+            settings.write_text(json.dumps(dict(source_sha256=digest(source), layers=['FLEX'],
+                                                sheet=dict(text_line_clearance=selection))), encoding='utf-8')
+            with patch('bsa.duct_sheet_native.execute') as execute:
+                with self.assertRaisesRegex(ProjectError, 'Estimated text-line overlap'):
+                    publish_native(source, settings, root/'native', engine)
+                execute.assert_not_called()
+            self.assertFalse((root/'native').exists())
         label.translate(0, y1 - y0 + 1, 0)
         self.assertEqual(check_text_line_clearance(drawing, selection), dict(text_count=1, obstacle_line_count=1))
 

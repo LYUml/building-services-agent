@@ -80,7 +80,10 @@ class TerminalLayoutRevisionTests(unittest.TestCase):
             source_sha256=revision['dxf_sha256'], layers=[*self.layers.values(), '0'],
             sheet=dict(source='Synthetic terminal layout fixture', window_drawing_units=[-1, -2, 7, 5],
                        scale_denominator=50, reference_handle=reference, pdf_tolerance_mm=.2,
-                       required_window_handles=[self.unrelated]),
+                       required_window_handles=[self.unrelated],
+                       text_line_clearance=dict(
+                           text_handles=[row['handle'] for row in self.settings['labels'].values()],
+                           line_layers=[self.layers['flex']])),
         )), encoding='utf-8')
         output = self.root / 'native'
         with patch('bsa.duct_sheet_native.plot', wraps=plot) as plotter:
@@ -88,6 +91,7 @@ class TerminalLayoutRevisionTests(unittest.TestCase):
         self.assertEqual(plotter.call_args.args[1], (output/'reopened/source-export.dxf').resolve())
         self.assertTrue(result['native_reopen_pass'])
         self.assertEqual(result['plot']['estimated_window_bounds_checked_handles'], [self.unrelated])
+        self.assertEqual(result['plot']['estimated_text_line_clearance'], dict(text_count=2, obstacle_line_count=2))
         self.assertEqual(result['plot_visual_review'], 'pending')
         project = json.loads((self.root / 'ducts.json').read_bytes())
         binding = json.loads((self.root / 'binding.json').read_bytes())
