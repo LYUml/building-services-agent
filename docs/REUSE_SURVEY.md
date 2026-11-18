@@ -128,6 +128,16 @@ port relation removed, another relation GUID replaced and one port reassigned.
 The CLI and MCP reports matched and identified exactly the removed pair and
 the changed owner. Physical continuity and remapping remain unresolved.
 
+For two exports known to use a common model coordinate frame, supply
+`--position-tolerance-m` in the CLI or `position_tolerance_m` in MCP.
+IfcOpenShell resolves local placement chains and explicit length units.
+The report flags shifts above the supplied tolerance and lists shared ports
+with unavailable coordinates. An IFC4 saved fixture with both peers moved
+20 mm retained the original pair and both movements were found by CLI and
+MCP. The public Revit IFC2X3 export had no local placements on its 970 ports,
+so none could be position-compared. This does not reconcile georeferencing
+or prove material contact.
+
 The Revit 2013 IFC2X3 community Duplex Plumbing export at commit
 `31eb1dd0a0406fb9ebf0ebd823b48e1ec95afc08`, SHA-256
 `abfaf5c0979b6b4b05182aec7ada8945374bdb414db76c763724d549b41b212b`,

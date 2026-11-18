@@ -2,13 +2,14 @@
 from collections import Counter
 import importlib.metadata
 import json
+import math
 from pathlib import Path
 
 from . import workspace
 from .source_refs import file_hash
 
 
-def inspect(source):
+def inspect(source, *, positions=False):
     from ifcopenshell import open as open_ifc
     from ifcopenshell.util.system import get_ports
 
@@ -53,6 +54,31 @@ def inspect(source):
                               owner_guids=sorted(owners[port.GlobalId])) for port in ports],
                   connections=sorted(connections, key=lambda row: row['guid']),
                   design_accepted=False)
+    if positions:
+        from ifcopenshell.util.placement import get_local_placement
+        from ifcopenshell.util.unit import calculate_unit_scale, get_project_unit
+
+        scale = calculate_unit_scale(model) if get_project_unit(model, 'LENGTHUNIT') else None
+        if scale is not None and (not math.isfinite(scale) or scale <= 0):
+            raise ValueError('Invalid IFC length-unit scale')
+        for port, row in zip(ports, result['ports'], strict=True):
+            row['origin_m'] = None
+            placement = port.ObjectPlacement
+            if placement is None or scale is None:
+                continue
+            ancestor = placement
+            seen = set()
+            while ancestor is not None and ancestor.is_a('IfcLocalPlacement'):
+                if ancestor.id() in seen:
+                    raise ValueError('Cyclic IFC port placement')
+                seen.add(ancestor.id())
+                ancestor = ancestor.PlacementRelTo
+            if ancestor is not None:
+                continue
+            origin = [float(value)*scale for value in get_local_placement(placement)[:3, 3]]
+            if not all(map(math.isfinite, origin)):
+                raise ValueError('Nonfinite IFC port position')
+            row['origin_m'] = origin
     if file_hash(source) != before:
         raise ValueError('IFC changed during port inventory')
     return result
@@ -70,26 +96,56 @@ def compare(baseline, current):
         shared_ports=len(shared),
         added_ports=sorted(after.keys()-before.keys()), removed_ports=sorted(before.keys()-after.keys()),
         changed_ports=[dict(guid=guid, before=before[guid], after=after[guid])
-                       for guid in sorted(shared) if before[guid] != after[guid]],
+                       for guid in sorted(shared)
+                       if any(before[guid][key] != after[guid][key] for key in ('owner_guids', 'flow_direction'))],
         changed_pairs=[dict(port_guids=pair, before=old_pairs[pair], after=new_pairs[pair])
                        for pair in sorted(old_pairs.keys() | new_pairs.keys()) if old_pairs[pair] != new_pairs[pair]],
         scope='Saved export differences by exact port GUID; physical continuity and GUID remapping unresolved',
     )
 
 
-def run(source, out, *, baseline=None):
+def compare_positions(previous, current, tolerance):
+    before = {row['guid']: row['origin_m'] for row in previous['ports']}
+    after = {row['guid']: row['origin_m'] for row in current['ports']}
+    moved, unavailable = [], []
+    shared = sorted(before.keys() & after.keys())
+    for guid in shared:
+        a, b = before[guid], after[guid]
+        if a is None or b is None:
+            unavailable.append(guid)
+            continue
+        displacement = math.dist(a, b)
+        if not math.isfinite(displacement):
+            raise ValueError('Nonfinite IFC port displacement')
+        if displacement > tolerance:
+            moved.append(dict(guid=guid, before_m=a, after_m=b, displacement_m=displacement))
+    return dict(tolerance_m=tolerance, comparable_ports=len(shared)-len(unavailable),
+                unavailable_ports=unavailable, moved_ports=moved,
+                coordinate_basis='Assumed common IFC model frame; georeferencing not reconciled')
+
+
+def run(source, out, *, baseline=None, position_tolerance_m=None):
     source, out = (Path(p).resolve() for p in (source, out))
     if not workspace.intake_output(out) or out.exists():
         raise ValueError('Fresh IFC report in the permitted output workspace required')
-    result = inspect(source)
+    positions = position_tolerance_m is not None
+    if positions and (baseline is None or type(position_tolerance_m) not in (int, float)
+                      or not math.isfinite(position_tolerance_m) or position_tolerance_m <= 0):
+        raise ValueError('Position comparison requires a baseline and a finite positive tolerance in metres')
+    result = inspect(source, positions=positions)
     summary = {key: result[key] for key in ('source_sha256', 'schema', 'preprocessor', 'counts', 'design_accepted')}
     if baseline is not None:
-        previous = inspect(baseline)
+        previous = inspect(baseline, positions=positions)
         comparison = compare(previous, result)
         result['comparison'] = comparison
         summary['comparison'] = {key: comparison[key] for key in ('baseline_sha256', 'status', 'shared_ports')}
         for key in ('added_ports', 'removed_ports', 'changed_ports', 'changed_pairs'):
             summary['comparison'][key] = len(comparison[key])
+        if positions:
+            position = compare_positions(previous, result, position_tolerance_m)
+            comparison['positions'] = position
+            summary['comparison']['positions'] = dict(comparable_ports=position['comparable_ports'],
+                unavailable_ports=len(position['unavailable_ports']), moved_ports=len(position['moved_ports']))
         if file_hash(baseline) != previous['source_sha256']:
             raise ValueError('Baseline IFC changed during comparison')
     if file_hash(source) != result['source_sha256']:

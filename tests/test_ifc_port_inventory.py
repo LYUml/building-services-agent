@@ -1,9 +1,18 @@
 import unittest
 
-from bsa.ifc_port_inventory import compare
+from bsa.ifc_port_inventory import compare, compare_positions
 
 
 class IfcPortComparisonTests(unittest.TestCase):
+    def test_position_tolerance_and_missing_placements(self):
+        previous = {'ports': [dict(guid='a', origin_m=[0, 0, 0]), dict(guid='b', origin_m=None)]}
+        current = {'ports': [dict(guid='a', origin_m=[0.02, 0, 0]), dict(guid='b', origin_m=[0, 0, 0])]}
+        checked = compare_positions(previous, current, 0.001)
+        self.assertEqual(checked['comparable_ports'], 1)
+        self.assertEqual(checked['unavailable_ports'], ['b'])
+        self.assertEqual(checked['moved_ports'][0]['displacement_m'], 0.02)
+        self.assertEqual(compare_positions(previous, current, 0.03)['moved_ports'], [])
+
     def test_pair_removal_owner_change_and_empty_export(self):
         a = dict(guid='a', owner_guids=['p1'], flow_direction='SOURCE')
         b = dict(guid='b', owner_guids=['p2'], flow_direction='SINK')

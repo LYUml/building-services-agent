@@ -60,10 +60,13 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None,fds_rele
     write=ToolAnnotations(readOnlyHint=False,destructiveHint=False,idempotentHint=False,openWorldHint=False)
 
     @server.tool(annotations=write)
-    def bsa_ifc_port_inventory(source:str,out:str,baseline:str|None=None)->dict[str,Any]:
+    def bsa_ifc_port_inventory(source:str,out:str,baseline:str|None=None,
+        position_tolerance_m:Annotated[float,Field(strict=True,gt=0,allow_inf_nan=False)]|None=None,
+    )->dict[str,Any]:
         """Read saved IFC2X3/IFC4 port relationships, optionally comparing a baseline IFC."""
         previous=local(baseline) if baseline is not None else None
-        return invoke('bsa.ifc_port_inventory.run',local(source),local(out),baseline=previous)
+        return invoke('bsa.ifc_port_inventory.run',local(source),local(out),baseline=previous,
+                      position_tolerance_m=position_tolerance_m)
 
     @server.tool(annotations=read)
     def bsa_verify_fds_temperature_probe(out:str)->dict[str,Any]:
