@@ -1,7 +1,8 @@
 # Current agent status
 
-The architecture candidate is ready for user review. User acceptance and formal
-release have not occurred; software checks do not approve engineering designs.
+The architecture candidate is ready for user review. The source-layout beta adds
+project-local setup; see [installation](INSTALL.md). User acceptance is pending;
+software publication and checks do not approve engineering designs.
 
 | Item | Verified state |
 | --- | --- |

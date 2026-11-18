@@ -20,7 +20,7 @@ def build(out):
     subprocess.run(['git','archive','--format=zip','--output',str(archive),commit],cwd=ROOT,check=True)
     with zipfile.ZipFile(archive) as saved:
         entries=saved.infolist()
-        forbidden={'runs','tools','.git','.codex','.venv','build','dist','__pycache__'}
+        forbidden={'runs','tools','.git','.codex','.venv','.bsa','build','dist','__pycache__'}
         for item in entries:
             p=Path(item.filename)
             if p.is_absolute() or '..' in p.parts or forbidden.intersection(p.parts) or p.name=='.env':

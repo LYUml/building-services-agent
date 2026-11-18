@@ -7,6 +7,7 @@ The host interprets sources and assumptions; tool success is not design approval
 ## Start here
 
 - [Use the agent](docs/START_USING.md): project setup, execution and review.
+- [One-click installation](docs/INSTALL.md): Windows prerelease setup and profiles.
 - [Supported capabilities](docs/CANDIDATE_SUPPORT.md):42MCP tools and host requirements.
 - [Acceptance evidence](docs/ARCHITECTURE_ACCEPTANCE.md): actual results and limits.
 - [Documentation index](docs/README.md): choose a focused guide.

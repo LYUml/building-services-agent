@@ -4,7 +4,8 @@
 
 The ordered architecture stage is complete for scoped user review: module
 boundaries, common source-linked data, knowledge retrieval, change impact and
-real HVAC/lighting verification. User acceptance is pending; no formal release.
+real HVAC/lighting verification. User acceptance is pending. The first source-layout
+prerelease adds isolated one-click setup; it does not expand engineering claims.
 See [current status](AGENT_STATUS.md) and [acceptance evidence](ARCHITECTURE_ACCEPTANCE.md).
 
 ## Full goal
