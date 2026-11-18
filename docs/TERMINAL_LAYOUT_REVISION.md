@@ -45,6 +45,11 @@ found a clipped note and labels overlapping the symbols in the initial fixture.
 The revised fixture uses a wider plot window and explicit label offsets.
 Review of the regenerated PDF confirmed both branches, both labels and the
 unchanged source note are visible without clipping or label overlap.
+When recording this review, bind the exact DWG, PDF and rendered page by
+SHA-256 and identify the page and renderer. Save the observations beside the
+native receipt in a new file. Preserve the native receipt's pending visual
+status because it records the earlier automated run. The visual review also
+records the PDF reader's duplicate `/PageMode` warning for this fixture.
 AutoCAD independent reopening and actual plot inspection remain mandatory.
 
 Changed straight plan distances are not installed flex lengths. This tool does
