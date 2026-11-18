@@ -43,6 +43,11 @@ inlet-minus-outlet pressure statistics and leaves stationarity and adoption open
 Both interfaces reproduced the recorded statistics for four outlet paths over
 the 0.15–0.20 s and 0.20–0.25 s windows using the five retained native files.
 
+Use `bsa openfoam-pressure-verify --manifest <file> --report <saved-file>` or
+MCP `bsa_verify_openfoam_pressure` to reconstruct and compare a saved review
+without writing files. The report binds the reviewing method and NumPy version;
+use the original source snapshot to replay historical method hashes.
+
 ```python
 from bsa.openfoam_transient import read_samples, difference, window_statistics
 inlet = read_samples(inlet_text, "average(Pt)", delta_t_s="0.00025")

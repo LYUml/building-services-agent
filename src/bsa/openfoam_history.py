@@ -77,7 +77,7 @@ def to_convergence_rows(flux, total_pressure, density_kg_m3):
 class ProjectEvidence:
     """Read and reconcile one project-local set of saved CFD files."""
 
-    def __init__(self, output_name):
+    def __init__(self, output_name=None):
         from .workspace import project_root
 
         self.root = project_root()
@@ -85,8 +85,8 @@ class ProjectEvidence:
             raise ValueError('Explicit host BSA_PROJECT_ROOT required')
         self.inputs = {}
         self.output_name = output_name
-        self.output = self.path(output_name)
-        if self.output.exists():
+        self.output = self.path(output_name) if output_name is not None else None
+        if self.output is not None and self.output.exists():
             raise ValueError('Preserve existing evidence: select a new output')
 
     def path(self, name):
@@ -114,12 +114,15 @@ class ProjectEvidence:
             raise ValueError(f'OpenFOAM review input changed: {name}')
         return data, fingerprint
 
-    def save(self, result):
+    def check(self):
         from .source_refs import file_hash
 
         for name, (file, fingerprint) in self.inputs.items():
             if self.path(name) != file or not file.is_file() or file_hash(file) != fingerprint:
                 raise ValueError(f'OpenFOAM review input changed: {name}')
+
+    def save(self, result):
+        self.check()
         if self.path(self.output_name) != self.output:
             raise ValueError('OpenFOAM review output path changed')
         with self.output.open('x', encoding='utf-8') as stream:

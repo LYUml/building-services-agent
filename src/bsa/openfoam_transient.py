@@ -117,6 +117,24 @@ def window_statistics(samples, start_s, end_s):
 def review_pressure_project(manifest, output):
     """Review signed total-pressure differences over declared physical windows."""
     evidence = openfoam_history.ProjectEvidence(output)
+    result = _pressure_review(manifest, evidence)
+    evidence.save(result)
+    return result
+
+
+def verify_pressure_project(manifest, report):
+    """Reconstruct the saved review from the same project-local evidence."""
+    evidence = openfoam_history.ProjectEvidence()
+    raw, report_hash = evidence.read(report)
+    expected = _pressure_review(manifest, evidence)
+    evidence.check()
+    if json.dumps(json.loads(raw), sort_keys=True, allow_nan=False) != json.dumps(expected, sort_keys=True, allow_nan=False):
+        raise ValueError('Saved OpenFOAM pressure review differs from the reconstructed evidence')
+    return dict(integrity_pass=True, report_sha256=report_hash, window_count=len(expected['windows']),
+                diagnostic_only=True, engineering_accepted=False)
+
+
+def _pressure_review(manifest, evidence):
     raw, manifest_hash = evidence.read(manifest)
     spec = json.loads(raw)
     if (not isinstance(spec, dict) or set(spec) != {'schema', 'units', 'delta_t_s', 'inlet', 'outlet', 'windows', 'basis_files'}
@@ -147,5 +165,4 @@ def review_pressure_project(manifest, output):
                                   evidence_reader_sha256=file_hash(Path(openfoam_history.__file__)),
                                   numpy_version=np.__version__),
                   diagnostic_only=True, engineering_accepted=False)
-    evidence.save(result)
     return result

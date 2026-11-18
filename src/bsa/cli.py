@@ -86,6 +86,9 @@ def main():
     transient = sub.add_parser('openfoam-pressure-review', help='Review saved OpenFOAM physical-time pressure differences')
     transient.add_argument('--manifest', required=True)
     transient.add_argument('--output', required=True)
+    transient_verify = sub.add_parser('openfoam-pressure-verify', help='Verify a saved OpenFOAM physical-time pressure report')
+    transient_verify.add_argument('--manifest', required=True)
+    transient_verify.add_argument('--report', required=True)
     ports=sub.add_parser('ifc-port-inventory',help='Read a saved IFC2X3 or IFC4 port inventory')
     ports.add_argument('source',type=Path)
     ports.add_argument('--baseline',type=Path)
@@ -231,6 +234,9 @@ def main():
         if a.command=='openfoam-pressure-review':
             from .openfoam_transient import review_pressure_project
             print(json.dumps(review_pressure_project(a.manifest, a.output), indent=2));return 0
+        if a.command=='openfoam-pressure-verify':
+            from .openfoam_transient import verify_pressure_project
+            print(json.dumps(verify_pressure_project(a.manifest, a.report), indent=2));return 0
         if a.command=='revit-prepare-pipe':
             from .workspace import project_root
             result=revit_request.prepare(a.inventory,a.model,a.basis,a.out,scope=project_root())

@@ -32,6 +32,11 @@ class PhysicalTimeHistoryTests(unittest.TestCase):
             self.assertEqual(review['windows']['comparison']['time_weighted_mean'], 1)
             self.assertFalse(review['engineering_accepted'])
             self.assertEqual(json.loads((root/'checked.json').read_bytes()), review)
+            verify = [sys.executable, '-m', 'bsa.cli', 'openfoam-pressure-verify', '--manifest',
+                      'pressure.json', '--report']
+            checked = subprocess.run(verify+['checked.json'], env=env, capture_output=True, text=True)
+            self.assertEqual(checked.returncode, 0, checked.stderr)
+            self.assertTrue(json.loads(checked.stdout)['integrity_pass'])
             if importlib.util.find_spec('mcp'):
                 from mcp import ClientSession, StdioServerParameters
                 from mcp.client.stdio import stdio_client
@@ -46,9 +51,18 @@ class PhysicalTimeHistoryTests(unittest.TestCase):
                                                             {'manifest': 'pressure.json', 'output': 'mcp.json'})
                             self.assertFalse(reply.isError, reply.content)
                             self.assertEqual(reply.structuredContent, review)
+                            replay = await session.call_tool('bsa_verify_openfoam_pressure',
+                                                              {'manifest': 'pressure.json', 'report': 'checked.json'})
+                            self.assertFalse(replay.isError, replay.content)
+                            self.assertEqual(replay.structuredContent, json.loads(checked.stdout))
 
                 asyncio.run(check_mcp())
                 self.assertEqual((root/'mcp.json').read_bytes(), (root/'checked.json').read_bytes())
+            review['windows']['comparison']['time_weighted_mean'] = 1.01
+            (root/'altered.json').write_text(json.dumps(review), encoding='utf-8')
+            rejected = subprocess.run(verify+['altered.json'], env=env, capture_output=True, text=True)
+            self.assertEqual(rejected.returncode, 2, rejected.stderr)
+            self.assertIn('differs from the reconstructed evidence', rejected.stderr)
             (root/'out.dat').write_text('# Time average(Ptf)\n0.25 -3\n0.5 -1\n0.75 1\n', encoding='utf-8')
             cli = subprocess.run(command+['rejected.json'], env=env, capture_output=True, text=True)
             self.assertEqual(cli.returncode, 2)
