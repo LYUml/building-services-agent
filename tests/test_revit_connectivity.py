@@ -1,9 +1,13 @@
 """Synthetic fault injection only; does not substitute for running Revit."""
 import copy
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
 import unittest
 
 from bsa.engine import ProjectError
-from bsa.revit_connectivity import diagnose
+from bsa.revit_connectivity import diagnose, run
+from bsa.source_refs import file_hash
 
 
 class RevitConnectivityTests(unittest.TestCase):
@@ -20,6 +24,31 @@ class RevitConnectivityTests(unittest.TestCase):
         result = diagnose(self.data, 0.0001)
         self.assertEqual(result['diagnostic_status'], 'fail')
         self.assertTrue(any(reason in row['reasons'] for row in result['issues']))
+
+    def test_automation_inventory_binds_remote_copy_to_local_preparation(self):
+        runs = Path(__file__).resolve().parents[1] / 'runs'
+        with TemporaryDirectory(dir=runs) as temporary:
+            root = Path(temporary)
+            model, inventory = root / 'fixture.rvt', root / 'inventory.json'
+            receipt, out = root / 'preparation.json', root / 'diagnosis.json'
+            model.write_bytes(b'synthetic fixture bytes')
+            pins = dict(saved_rvt_sha256=file_hash(model), request_sha256='a'*64, assembly_sha256='b'*64)
+            receipt.write_text(json.dumps(pins), encoding='utf-8')
+            captured = dict(self.data, document_path='X:/work/input.rvt', adapter_sha256=pins['assembly_sha256'],
+                            request_sha256=pins['request_sha256'], saved_rvt_sha256=pins['saved_rvt_sha256'])
+            inventory.write_text(json.dumps(captured), encoding='utf-8')
+            result = run(inventory, model, out, 0.001, automation_receipt=receipt)
+            self.assertEqual(result['automation_receipt_sha256'], file_hash(receipt))
+            self.assertEqual(result['diagnostic_status'], 'pending')
+            rejected = root / 'rejected.json'
+            with self.assertRaisesRegex(ProjectError, 'selected saved model'):
+                run(inventory, model, rejected, 0.001)
+            for field in ('adapter_sha256', 'request_sha256', 'saved_rvt_sha256'):
+                with self.subTest(field=field):
+                    inventory.write_text(json.dumps(dict(captured, **{field: 'c'*64})), encoding='utf-8')
+                    with self.assertRaises(ProjectError):
+                        run(inventory, model, rejected, 0.001, automation_receipt=receipt)
+                    self.assertFalse(rejected.exists())
 
     def test_consistent_pairs_never_certify_system(self):
         result = diagnose(self.data, 0.0001)

@@ -117,11 +117,13 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None,fds_rele
         inventory:str,model:str,out:str,
         tolerance_m:Annotated[float,Field(strict=True,gt=0,allow_inf_nan=False)],
         expected_connections:str|None=None,
+        automation_receipt:str|None=None,
     )->dict[str,Any]:
         """Diagnose saved pipe/fitting connector evidence bound to exact RVT bytes. Writes a fresh JSON report without starting Revit."""
         basis=local(expected_connections) if expected_connections is not None else None
         return invoke('bsa.revit_connectivity.run',local(inventory),local(model),local(out),tolerance_m,
-                      expected_connections=basis)
+                      expected_connections=basis,
+                      automation_receipt=local(automation_receipt) if automation_receipt is not None else None)
 
     @server.tool(annotations=write)
     def bsa_draw_document(project:str,out:str)->dict[str,Any]:

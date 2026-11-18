@@ -198,7 +198,8 @@ def main():
             print(json.dumps(result,indent=2));return 0
         if a.command=='revit-inventory-check':
             result=revit_connectivity.run(a.inventory,a.model,a.out,a.tolerance_m,
-                                          expected_connections=a.expected_connections)
+                                          expected_connections=a.expected_connections,
+                                          automation_receipt=a.automation_receipt)
             print(json.dumps(result,indent=2));return 2
         if a.command=='changes':
             from .changes.cli import dispatch

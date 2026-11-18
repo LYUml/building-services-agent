@@ -59,6 +59,13 @@ Add `--model runs/<test-fixture>.rvt` to generate the hash-bound
 `inventory-request.json` beside the AppBundle. The selected fixture stays
 at its original path and outside the ZIP. Use those same RVT bytes as the
 Activity's model input. The receipt records both the request and RVT hashes.
+To diagnose a returned Automation inventory, pass the original local RVT and
+`--automation-receipt <preparation.json>` to `bsa revit-inventory-check`.
+The corresponding MCP field is `automation_receipt`. This compares the
+inventory's model, request and adapter hashes with the local preparation
+record and permits the engine's separate `input.rvt` path. These checks
+establish consistency with that record. Job execution and engineering
+acceptance still require independent evidence.
 
 Final observed build: zero warnings/errors. The initial build had desktop-reference conflicts; explicit WPF/WindowsForms framework references resolved them. The intermediate missing System.IO import was corrected. Evidence and source/binary hashes: ../../docs/evidence/moosas-review/revit-native-build.json.
 
