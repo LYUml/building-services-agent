@@ -85,6 +85,13 @@ hash differs from the verified revision. In a grouped outlet schedule,
 check each terminal ID appears exactly once and reconcile maximum and
 minimum group flows against the same released coordinate table, allowing
 only its documented display rounding.
+When rechecking the released supply drawing, independently match terminal
+symbol centres to the coordinate table, VAV symbols to unique labels, and
+each native flex line's two endpoints to the resulting symbol identities.
+Record the matching distance and reject ambiguous matches. Recompute the
+group minimum and maximum straight lengths before comparing the displayed
+schedule. Keep the label-association distance separate from the endpoint
+matching tolerance.
 
 When workspace reorganization changes artifact paths, retain the original
 receipt and use an explicit relocation index to find the current file.
