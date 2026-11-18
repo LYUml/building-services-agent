@@ -1,5 +1,10 @@
 import unittest
+import asyncio
+import importlib.util
 import json
+import os
+import subprocess
+import sys
 import tempfile
 from pathlib import Path
 from unittest.mock import patch
@@ -77,6 +82,36 @@ class ProjectReviewTests(unittest.TestCase):
         self.write_manifest()
         with self.assertRaises(ValueError):
             review_project('manifest.json', 'review.json', window=2)
+
+    def test_cli_and_stdio_review_same_saved_segment(self):
+        self.write_manifest()
+        args = [sys.executable, '-m', 'bsa.cli', 'openfoam-history-review', '--manifest',
+                'manifest.json', '--window', '2', '--output']
+        cli = subprocess.run(args + ['cli.json'], capture_output=True, text=True)
+        self.assertEqual(cli.returncode, 0, cli.stderr)
+        expected = json.loads(cli.stdout)
+        denied = subprocess.run(args + ['../escaped.json'], capture_output=True, text=True)
+        self.assertEqual(denied.returncode, 2, denied.stderr)
+        self.assertIn('remain inside the host project', denied.stderr)
+        if importlib.util.find_spec('mcp'):
+            from mcp import ClientSession, StdioServerParameters
+            from mcp.client.stdio import stdio_client
+
+            async def compare():
+                params = StdioServerParameters(command=sys.executable, args=['-m', 'bsa.mcp_server'],
+                                               cwd=str(self.root), env=dict(os.environ))
+                arguments = dict(manifest='manifest.json', output='mcp.json', window=2)
+                async with stdio_client(params) as streams:
+                    async with ClientSession(*streams) as session:
+                        await session.initialize()
+                        result = await session.call_tool('bsa_review_openfoam_history', arguments)
+                        self.assertFalse(result.isError, result.content)
+                        self.assertEqual(result.structuredContent, expected)
+                        escaped = await session.call_tool('bsa_review_openfoam_history',
+                                                          {**arguments, 'output': '../escaped.json'})
+                        self.assertTrue(escaped.isError)
+
+            asyncio.run(compare())
 
     def test_wrong_observation_window_cannot_be_accepted(self):
         self.manifest['expected_window'] = [2, 3]

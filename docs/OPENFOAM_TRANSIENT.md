@@ -5,6 +5,12 @@ segment with Decimal seconds. It remains separate from `openfoam_history`'s
 steady integer-step convergence gate. Install the pinned existing NumPy dependency
 with the `cfd-history` extra. No new CFD or quadrature engine is implemented.
 
+For a saved steady segment, use `bsa openfoam-history-review --manifest <file>
+--output <new-file>` or MCP `bsa_review_openfoam_history` with `manifest`,
+`output` and optional `window`. Both use host-selected project-relative paths.
+The CLI retains the review and exits 2 when its numerical window fails.
+See [the steady manifest contract](OPENFOAM_IMPORT_PRECISION.md#project-command).
+
 ```python
 from bsa.openfoam_transient import read_samples, difference, window_statistics
 inlet = read_samples(inlet_text, "average(Pt)", delta_t_s="0.00025")

@@ -159,13 +159,17 @@ def review_project(manifest_name, output_name, *, window=200):
     return result
 
 
+def add_arguments(parser):
+    parser.add_argument('--manifest', required=True)
+    parser.add_argument('--output', required=True)
+    parser.add_argument('--window', type=int, default=200)
+
+
 def main():
     import argparse
     import json
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--manifest', required=True)
-    parser.add_argument('--output', required=True)
-    parser.add_argument('--window', type=int, default=200)
+    add_arguments(parser)
     args = parser.parse_args()
     result = review_project(args.manifest, args.output, window=args.window)
     print(json.dumps({k: result[k] for k in (

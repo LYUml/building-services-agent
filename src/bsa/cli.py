@@ -80,6 +80,9 @@ def main():
     fds_temperature.add_arguments(sub.add_parser(
         'fds-temperature-probe', help='Run a pinned Windows FDS temperature case'))
     sub.add_parser('fds-temperature-verify', help='Reconcile a saved FDS probe report').add_argument('out',type=Path)
+    from . import openfoam_history
+    openfoam_history.add_arguments(sub.add_parser(
+        'openfoam-history-review', help='Review a saved OpenFOAM steady history segment'))
     ports=sub.add_parser('ifc-port-inventory',help='Read a saved IFC2X3 or IFC4 port inventory')
     ports.add_argument('source',type=Path)
     ports.add_argument('--baseline',type=Path)
@@ -219,6 +222,9 @@ def main():
             print(json.dumps(fds_temperature.run(a.release,a.source,a.out),indent=2));return 0
         if a.command=='fds-temperature-verify':
             print(json.dumps(fds_temperature.verify(a.out),indent=2));return 0
+        if a.command=='openfoam-history-review':
+            result = openfoam_history.review_project(a.manifest, a.output, window=a.window)
+            print(json.dumps(result, indent=2));return 0 if result['numerical_window_pass'] else 2
         if a.command=='revit-prepare-pipe':
             from .workspace import project_root
             result=revit_request.prepare(a.inventory,a.model,a.basis,a.out,scope=project_root())
@@ -356,6 +362,8 @@ def main():
         from .cli_errors import missing_dependency
         parser.exit(2,missing_dependency(e)['message']+'\n')
     except (KeyError,TypeError) as e:
+        if a.command=='openfoam-history-review':
+            parser.exit(2,'Invalid OpenFOAM history evidence structure: '+str(e)+'\n')
         if a.command=='revit-verify-automation-reopen':
             parser.exit(2,'Invalid saved Revit evidence structure: '+str(e)+'\n')
         if a.command not in ('workflow-verify','workflow-status','delivery'):raise
