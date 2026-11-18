@@ -39,4 +39,4 @@ jobs:
           Set-Location runs/extracted-candidate
           .\Setup.cmd --profile cad
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          .\.bsa\venv\Scripts\python.exe -m unittest tests.test_revit_revision -v
+          .\.bsa\venv\Scripts\python.exe -m unittest tests.test_air_terminal_drawing tests.test_revit_revision -v
