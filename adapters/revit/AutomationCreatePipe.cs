@@ -34,22 +34,23 @@ public sealed class AutomationCreatePipe : IExternalDBApplication
         string receipt = Path.GetFullPath("creation.json");
         if (File.Exists(output) || File.Exists(receipt))
             throw new IOException("Automation requires fresh output paths");
-        byte[] requestBytes = File.ReadAllBytes(requestPath);
-        var request = JsonSerializer.Deserialize<PipeRequest>(requestBytes)
+        using var requestFile = new FileStream(requestPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+        var request = JsonSerializer.Deserialize<PipeRequest>(requestFile)
             ?? throw new ArgumentException("Missing pipe creation request");
+        requestFile.Position = 0;
+        var requestHash = Convert.ToHexString(SHA256.HashData(requestFile)).ToLowerInvariant();
         var created = NativePipes.CreateInDocument(document, request with { DocumentPath = model });
         using var options = new SaveAsOptions { OverwriteExistingFile = false };
         document.SaveAs(output, options);
         if (document.IsModified || !string.Equals(Path.GetFullPath(document.PathName), output, StringComparison.OrdinalIgnoreCase))
             throw new InvalidOperationException("Revit did not report the expected saved document");
         var inputHash = HashFile(model);
-        if (!string.Equals(inputHash, request.SavedRvtSha256, StringComparison.OrdinalIgnoreCase)
-            || !File.ReadAllBytes(requestPath).SequenceEqual(requestBytes))
-            throw new InvalidOperationException("Automation inputs changed during creation");
+        if (!string.Equals(inputHash, request.SavedRvtSha256, StringComparison.OrdinalIgnoreCase))
+            throw new InvalidOperationException("Automation input RVT changed during creation");
         var evidence = new
         {
             input_rvt_sha256 = inputHash,
-            request_sha256 = Convert.ToHexString(SHA256.HashData(requestBytes)).ToLowerInvariant(),
+            request_sha256 = requestHash,
             adapter_sha256 = HashFile(typeof(AutomationCreatePipe).Assembly.Location),
             saved_rvt_sha256 = HashFile(output),
             transaction_result = created,
