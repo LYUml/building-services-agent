@@ -429,3 +429,9 @@ When electrical geometry must coordinate with building/MEP obstacles, use docs/C
 For concept daylight input conversion use docs/HONEYBEE_SCENE.md and bsa.honeybee_scene with an explicit isolated Honeybee runtime. It rechecks native facade/source and creates saved HBJSON, upward grids and punched Radiance polygons. This is not annual simulation; keep solver_ready=false while site/ground/weather/detailing and validated runtime/recipe are missing. Do not substitute electric-light illuminance or generated sensor files for sDA/ASE/DGP.
 
 Honeybee input conversion is now unified workflow kind honeybee_scene: inherit an earlier concept_facade, supply only basis and explicit CLI --honeybee-python. Reject source/runtime overrides from plan content. Missing runtime stays pending without outputs. Retain original engineering work packages, native producer/source pins and full scene/annual acceptance gaps; conversion pass is not a performance result.
+
+For the pinned Windows FDS benchmark, start with examples/fds/plan.json and
+the FDS section of docs/REUSE_SURVEY.md. Use a host-configured --fds-release
+with the workflow CLI or MCP. The uniform probe may satisfy the stated point
+temperature check at exported precision. Keep project CFD applicability and
+design review linked to their own requirements and evidence.

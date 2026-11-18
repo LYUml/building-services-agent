@@ -97,6 +97,13 @@ server startup. Without that host configuration the task remains pending
 and produces no probe directory. The run pins the package in
 `runtime_inputs`. Actual CLI and MCP workflow runs on the uniform case
 passed the scoped check and retained a pending engineering review.
+The ready-to-run [benchmark plan](../examples/fds/plan.json) includes the
+brief and input deck in the same directory. Copy all three files to a new
+selected workspace, then run `bsa workflow plan.json --out probe-run
+--fds-release <package.exe>`. An exit status of 2 is expected while the
+manual engineering review is pending. Inspect the task-level result and run
+`bsa workflow-verify probe-run`. The same plan executed through MCP from
+a fresh external workspace with only those inputs and the pinned release.
 Workflow verification also reconstructs the FDS report and task status.
 A modified native case receipt remained invalid after refreshing its
 recorded artifact hash. Recovery diagnosis distinguishes missing

@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "brief": "brief.md",
+  "brief_sha256": "950fd773f45ae2682d83f435330b72ea5d23837dade8cab1e62140a15270ec2a",
+  "passage_dispositions": {
+    "P001": "context",
+    "P002": "requirement",
+    "P003": "requirement"
+  },
+  "tasks": [
+    {
+      "id": "probe",
+      "kind": "fds_temperature_probe",
+      "source": "uniform_temperature.fds",
+      "check": "uniform_point_temperature"
+    },
+    {
+      "id": "engineering-review",
+      "kind": "manual",
+      "requires_pass": ["probe"],
+      "description": "Review project-specific applicability before accepting an engineering design."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "passage": "P002",
+      "quote": "Run the uniform-temperature case and verify both point devices against 22.5 °C at exported precision.",
+      "task": "probe",
+      "acceptance": "The pinned FDS case completes and all exported temperatures at both points equal 22.5 °C."
+    },
+    {
+      "id": "R2",
+      "passage": "P003",
+      "quote": "Review project-specific CFD applicability separately before accepting an engineering design.",
+      "task": "engineering-review",
+      "acceptance": "Review the actual project inputs and evidence separately before recording project CFD acceptance."
+    }
+  ]
+}
