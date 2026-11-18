@@ -129,6 +129,11 @@ class RevitRevisionTests(unittest.TestCase):
                     with self.assertRaisesRegex(ValueError, field):
                         verify(root, created, authored, observed, reopen, 0.001)
             save('creation.json', receipt)
+            self.pipe['connectors'][0]['physically_connected'] = True
+            save('inventory.json', inventory)
+            with self.assertRaisesRegex(ValueError, 'physical_flag_without_physical_reference'):
+                verify(root, created, authored, observed, reopen, 0.001)
+            self.pipe['connectors'][0]['physically_connected'] = False
             self.pipe['connectors'][1]['origin_m'] = self.pipe['connectors'][0]['origin_m']
             save('inventory.json', inventory)
             with self.assertRaisesRegex(ValueError, 'distinct curve endpoints'):

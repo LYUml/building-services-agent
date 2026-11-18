@@ -49,6 +49,10 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
     revisions = [row for row in checked['revision_checks'] if row['owner'] == identifier]
     if len(pipes) != 1 or len(revisions) != 1 or revisions[0]['status'] != 'consistent':
         raise ValueError('Reopened pipe identity or geometry does not match the transaction')
+    for issue in checked['issues']:
+        endpoints = (issue.get('port', (None,)), issue.get('target', (None,)))
+        if any(port[0] == identifier for port in endpoints):
+            raise ValueError(f"Reopened pipe has inconsistent connector evidence: {', '.join(issue['reasons'])}")
     pipe = pipes[0]
     for field in ('diameter_m', 'length_m'):
         recorded = transaction.get(field)
