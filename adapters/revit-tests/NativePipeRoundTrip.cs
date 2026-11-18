@@ -46,14 +46,7 @@ public sealed class NativePipeRoundTrip
     [Test]
     public void CreatesAndReopensOnePipe(Application application)
     {
-        string requestPath = SelectInput("BSA_REVIT_TEST_REQUEST", ".json");
-        var request = JsonSerializer.Deserialize<PipeRequest>(File.ReadAllBytes(requestPath))
-            ?? throw new InvalidOperationException("Missing pipe request");
-        string source = Path.GetFullPath(request.DocumentPath);
-        Assert.That(Path.GetDirectoryName(source), Is.EqualTo(Path.GetDirectoryName(requestPath)).IgnoreCase);
-        Assert.That(Path.GetExtension(source), Is.EqualTo(".rvt").IgnoreCase);
-        string sourceHash = Hash(source);
-        Assert.That(sourceHash, Is.EqualTo(request.SavedRvtSha256).IgnoreCase);
+        var (request, source, sourceHash) = ReadFixtureRequest();
 
         string folder = Directory.CreateTempSubdirectory("bsa-revit-native-").FullName;
         string input = Path.Combine(folder, "input.rvt");
@@ -105,6 +98,117 @@ public sealed class NativePipeRoundTrip
                 Assert.That(owned.Close(false), Is.True);
             Assert.That(Hash(source), Is.EqualTo(sourceHash));
         }
+    }
+
+    [Test]
+    public void CapturesConnectedElbowAfterSavedReopen(Application application)
+    {
+        var (request, source, sourceHash) = ReadFixtureRequest();
+        string folder = Directory.CreateTempSubdirectory("bsa-revit-elbow-").FullName;
+        string input = Path.Combine(folder, "input.rvt");
+        string authored = Path.Combine(folder, "elbow.rvt");
+        File.Copy(source, input);
+        VerifyFixtureBeforeOpen(input, sourceHash);
+        Document? owned = null;
+        try
+        {
+            owned = application.OpenDocumentFile(input);
+            Assert.That(owned.IsWorkshared || owned.IsLinked, Is.False);
+            var start = MetrePoint(request.StartMetres);
+            var corner = MetrePoint(request.EndMetres);
+            var leg = corner - start;
+            Assert.That(Math.Abs(leg.Z), Is.LessThan(1e-7), "Use a horizontal synthetic first leg");
+            var end = corner + new XYZ(-leg.Y, leg.X, 0);
+            var pipeType = owned.GetElement(request.PipeTypeUniqueId) as PipeType;
+            var systemType = owned.GetElement(request.SystemTypeUniqueId) as PipingSystemType;
+            var level = owned.GetElement(request.LevelUniqueId) as Level;
+            Assert.That(pipeType, Is.Not.Null);
+            Assert.That(systemType, Is.Not.Null);
+            Assert.That(level, Is.Not.Null);
+
+            string firstId, secondId, fittingId;
+            using (var transaction = new Transaction(owned, "BSA synthetic elbow control"))
+            {
+                Assert.That(transaction.Start(), Is.EqualTo(TransactionStatus.Started));
+                var first = Pipe.Create(owned, systemType!.Id, pipeType!.Id, level!.Id, start, corner);
+                var second = Pipe.Create(owned, systemType.Id, pipeType.Id, level.Id, corner, end);
+                double diameter = UnitUtils.ConvertToInternalUnits(request.DiameterMetres, UnitTypeId.Meters);
+                foreach (var pipe in new[] { first, second })
+                    Assert.That(pipe.get_Parameter(BuiltInParameter.RBS_PIPE_DIAMETER_PARAM).Set(diameter), Is.True);
+                owned.Regenerate();
+                var elbow = owned.Create.NewElbowFitting(EndAt(first, corner), EndAt(second, corner));
+                (firstId, secondId, fittingId) = (first.UniqueId, second.UniqueId, elbow.UniqueId);
+                Assert.That(transaction.Commit(), Is.EqualTo(TransactionStatus.Committed));
+            }
+            var connected = ElbowConnections(owned, firstId, secondId, fittingId);
+            using (var options = new SaveAsOptions { OverwriteExistingFile = false })
+                owned.SaveAs(authored, options);
+            Assert.That(owned.Close(false), Is.True);
+            owned = null;
+            owned = application.OpenDocumentFile(authored);
+            Assert.That(ElbowConnections(owned, firstId, secondId, fittingId), Is.EqualTo(connected));
+            string authoredHash = Hash(authored);
+            string report = Path.Combine(folder, "reopened-inventory.json");
+            CaptureInventory(owned, authored, report, authoredHash);
+            Console.WriteLine($"Reopened elbow RVT: {authored} ({authoredHash})");
+            var pairs = connected.Select((pair, index) => new {
+                pipe_unique_id = index == 0 ? firstId : secondId, pipe_connector_id = pair.Pipe,
+                fitting_unique_id = fittingId, fitting_connector_id = pair.Fitting });
+            Console.WriteLine($"Saved pipe/fitting pairs: {JsonSerializer.Serialize(pairs)}");
+            Console.WriteLine($"Reopened inventory: {report} ({Hash(report)})");
+        }
+        finally
+        {
+            if (owned is { IsValidObject: true })
+                Assert.That(owned.Close(false), Is.True);
+            Assert.That(Hash(input), Is.EqualTo(sourceHash));
+            Assert.That(Hash(source), Is.EqualTo(sourceHash));
+        }
+    }
+
+    private static Connector EndAt(Pipe pipe, XYZ point) => pipe.ConnectorManager.Connectors.Cast<Connector>()
+        .Single(port => port.ConnectorType == ConnectorType.End && port.Origin.DistanceTo(point) <= 1e-7);
+
+    private static (int Pipe, int Fitting)[] ElbowConnections(Document document, string firstId, string secondId, string fittingId)
+    {
+        var fitting = document.GetElement(fittingId) as FamilyInstance
+            ?? throw new InvalidOperationException("Native elbow missing");
+        Assert.That(fitting.Category.Id.Value, Is.EqualTo((long)BuiltInCategory.OST_PipeFitting));
+        var result = new[] { firstId, secondId }.Select(id =>
+        {
+            var pipe = document.GetElement(id) as Pipe ?? throw new InvalidOperationException("Native pipe missing");
+            var ends = pipe.ConnectorManager.Connectors.Cast<Connector>().ToArray();
+            Assert.That(ends.Count(port => !port.IsConnected), Is.EqualTo(1));
+            var end = ends.Single(port => port.IsConnected);
+            var peer = end.AllRefs.Cast<Connector>().Single(port => port.Owner.Id != pipe.Id
+                && port.ConnectorType != ConnectorType.Logical);
+            Assert.That(peer.Owner.UniqueId, Is.EqualTo(fittingId));
+            Assert.That(end.Domain, Is.EqualTo(Domain.DomainPiping));
+            Assert.That(peer.Domain, Is.EqualTo(Domain.DomainPiping));
+            Assert.That(peer.IsConnectedTo(end) && end.IsConnectedTo(peer), Is.True);
+            Assert.That(peer.Origin.DistanceTo(end.Origin), Is.LessThanOrEqualTo(1e-7));
+            return (Pipe: end.Id, Fitting: peer.Id);
+        }).ToArray();
+        Assert.That(result[0].Fitting, Is.Not.EqualTo(result[1].Fitting));
+        return result;
+    }
+
+    private static XYZ MetrePoint(double[] metres) => new(
+        UnitUtils.ConvertToInternalUnits(metres[0], UnitTypeId.Meters),
+        UnitUtils.ConvertToInternalUnits(metres[1], UnitTypeId.Meters),
+        UnitUtils.ConvertToInternalUnits(metres[2], UnitTypeId.Meters));
+
+    private static (PipeRequest Request, string Source, string SourceHash) ReadFixtureRequest()
+    {
+        string requestPath = SelectInput("BSA_REVIT_TEST_REQUEST", ".json");
+        var request = JsonSerializer.Deserialize<PipeRequest>(File.ReadAllBytes(requestPath))
+            ?? throw new InvalidOperationException("Missing pipe request");
+        string source = Path.GetFullPath(request.DocumentPath);
+        Assert.That(Path.GetDirectoryName(source), Is.EqualTo(Path.GetDirectoryName(requestPath)).IgnoreCase);
+        Assert.That(Path.GetExtension(source), Is.EqualTo(".rvt").IgnoreCase);
+        string sourceHash = Hash(source);
+        Assert.That(sourceHash, Is.EqualTo(request.SavedRvtSha256).IgnoreCase);
+        return (request, source, sourceHash);
     }
 
     private static void VerifyFixtureBeforeOpen(string input, string sourceHash)

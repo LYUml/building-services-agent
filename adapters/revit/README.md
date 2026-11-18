@@ -101,6 +101,16 @@ The reopened model also gets a separate `reopened-inventory.json`. Use
 the exact authored RVT and that inventory with `bsa revit-inventory-check`
 to independently diagnose its saved geometry and connector evidence.
 
+`CapturesConnectedElbowAfterSavedReopen` is a separate native inventory
+control. It uses the same hash-bound synthetic request, with a horizontal
+first leg and a pipe type whose routing preferences include a compatible
+elbow. Choose endpoints in an empty part of the model with enough leg length
+for the fitting. The test creates a perpendicular second leg and a native
+elbow in a separate copy. It checks the two reciprocal physical connector
+pairs, coincident origins and stable connector IDs before and after saving.
+The console records the exact pipe and fitting IDs for saved diagnosis.
+The test compiles against Revit 2027 and still requires authorized host execution.
+
 The Automation build also contains the separate `AutomationCreatePipe` entry
 point for a standalone, non-workshared test model. It uses `input.rvt` and
 `pipe-request.json`, creates a single pipe using the existing transaction,
