@@ -13,6 +13,16 @@ The local `runs/full-git-b027e85-9444ea01` directory contains the commit,
 exit code, pytest log and JUnit report. Optional skipped integrations and
 native Revit execution require separate evidence.
 
+At `d65a9b9`, an EnergyPlus 25.2.0 follow-up passed 51 tests and 65 subtests.
+Set `BSA_TEST_ENERGYPLUS` to the installed executable and run pytest for
+`test_annual_energy.py`, `test_energy_completion.py`, `test_hvac_devices.py`,
+`test_ifc_equipment.py`, `test_thermal_hvac.py`, `test_thermal_binding.py`,
+`test_thermal_materials.py`, `test_thermal_operation.py` and
+`test_thermal_windows.py` under `tests/`. The only skipped case also passed
+when rerun with `BSA_TEST_AUTOCAD=1` and the installed AutoCAD 2027 Core
+Console. That case reopens the generated DWG, checks the expected 9 mm PDF
+reference and rejects a sheet window that clips annotation extents.
+
 The isolated `ebedd93` source snapshot completed with 1,833 passed, 220
 skipped, 871 subtests passed and one failure. The sole failure was the
 IfcMCP property smoke test in the general Python runtime. The current test
