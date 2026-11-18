@@ -1,5 +1,8 @@
+from datetime import timedelta
 from importlib.util import find_spec
+import os
 from pathlib import Path
+import sys
 from tempfile import TemporaryDirectory
 import unittest
 from uuid import uuid4
@@ -7,6 +10,52 @@ from zipfile import ZipFile
 
 from bsa.ifc_port_bcf import run, verify, verify_export, write
 from bsa.source_refs import file_hash
+
+
+@unittest.skipUnless(find_spec('mcp') and find_spec('bcf'), 'requires MCP and BCF runtimes')
+class IfcPortBcfMcpTests(unittest.IsolatedAsyncioTestCase):
+    async def test_round_trip_binds_tolerance_with_no_topics(self):
+        import ifcopenshell
+        from ifcopenshell.guid import new
+        from mcp import ClientSession, StdioServerParameters
+        from mcp.client.stdio import stdio_client
+
+        repository = Path(__file__).resolve().parents[1]
+        with TemporaryDirectory(dir=repository / 'runs') as temporary:
+            root = Path(temporary)
+            model = ifcopenshell.file(schema='IFC4')
+            model.write(str(root / 'missing-project.ifc'))
+            unit = model.create_entity('IfcSIUnit', UnitType='LENGTHUNIT', Name='METRE')
+            units = model.create_entity('IfcUnitAssignment', Units=[unit])
+            model.create_entity('IfcProject', GlobalId=new(), UnitsInContext=units)
+            model.write(str(root / 'source.ifc'))
+            params = StdioServerParameters(
+                command=sys.executable, args=['-m', 'bsa.mcp_server'], cwd=str(repository),
+                env={**os.environ, 'BSA_PROJECT_ROOT': str(root)},
+            )
+            async with stdio_client(params) as streams:
+                async with ClientSession(*streams, read_timeout_seconds=timedelta(seconds=60)) as session:
+                    await session.initialize()
+                    malformed = await session.call_tool('bsa_export_ifc_port_bcf', {
+                        'source': 'missing-project.ifc', 'out': 'rejected.bcf', 'tolerance_m': 0.001,
+                    })
+                    self.assertTrue(malformed.isError)
+                    self.assertIn('Exactly one IfcProject', str(malformed.content))
+                    self.assertFalse((root / 'rejected.bcf').exists())
+                    export = await session.call_tool('bsa_export_ifc_port_bcf', {
+                        'source': 'source.ifc', 'out': 'review.bcf', 'tolerance_m': 0.001,
+                    })
+                    self.assertFalse(export.isError, export.content)
+                    args = {'source': 'source.ifc', 'archive': 'review.bcf', 'tolerance_m': 0.001}
+                    verified = await session.call_tool('bsa_verify_ifc_port_bcf', args)
+                    self.assertFalse(verified.isError, verified.content)
+                    self.assertEqual(verified.structuredContent, export.structuredContent)
+                    self.assertEqual(verified.structuredContent['topics'], 0)
+                    self.assertEqual(verified.structuredContent['ifc_review_status'], 'pending')
+                    self.assertTrue(verified.structuredContent['archive_tolerance_bound'])
+                    rejected = await session.call_tool('bsa_verify_ifc_port_bcf', dict(args, tolerance_m=0.002))
+                    self.assertTrue(rejected.isError)
+                    self.assertIn('does not match the supplied port gap tolerance', str(rejected.content))
 
 
 @unittest.skipUnless(find_spec('bcf'), 'requires the optional BCF runtime')

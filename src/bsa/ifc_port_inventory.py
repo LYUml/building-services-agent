@@ -22,6 +22,8 @@ def inspect(source, *, positions=False):
     model = open_ifc(str(source))
     if model.schema not in ('IFC2X3', 'IFC4'):
         raise ValueError('IFC2X3 or IFC4 required for this inventory')
+    if positions and len(model.by_type('IfcProject')) != 1:
+        raise ValueError('Exactly one IfcProject is required to resolve port position units')
 
     products = [item for item in model.by_type('IfcDistributionElement') if not item.is_a('IfcPort')]
     ports = sorted(model.by_type('IfcDistributionPort'), key=lambda port: port.GlobalId)
