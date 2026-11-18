@@ -60,6 +60,7 @@ class RevitRevisionTests(unittest.TestCase):
                 adapter_sha256=adapter_hash, saved_rvt_sha256=authored_hash,
                 saved_reopen_verified=False, design_accepted=False,
                 transaction_result=dict(unique_id=self.pipe['unique_id'], element_id=self.pipe['id'], connector_count=2,
+                                        connectors=[dict(id=1, origin_m=[0, 0, 0]), dict(id=2, origin_m=[2, 0, 0])],
                                         saved=False, connected_system_verified=False, design_accepted=False,
                                         source=stored['Source'], diameter_m=0.05, length_m=2))
             created = save('creation.json', receipt)
@@ -85,6 +86,13 @@ class RevitRevisionTests(unittest.TestCase):
             save('inventory.json', inventory)
             self.assertFalse(result['native_execution_authenticated'])
             self.assertEqual(result['connector_endpoint_error_m'], 0)
+            self.assertTrue(result['creation_connector_matches'])
+            moved_connector = copy.deepcopy(receipt)
+            moved_connector['transaction_result']['connectors'][0]['origin_m'] = [0, 0.02, 0]
+            save('creation.json', moved_connector)
+            with self.assertRaisesRegex(ValueError, 'Reopened connector 1 differs from the creation readback'):
+                verify(root, created, authored, observed, reopen, 0.001)
+            save('creation.json', receipt)
             self.assertEqual(result['connector_endpoint_matches'], [
                 dict(connector_id=1, origin_m=[0, 0, 0], endpoint_m=[0, 0, 0], error_m=0),
                 dict(connector_id=2, origin_m=[2, 0, 0], endpoint_m=[2, 0, 0], error_m=0),

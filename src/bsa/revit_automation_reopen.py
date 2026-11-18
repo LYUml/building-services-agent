@@ -95,6 +95,22 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
                          f"(connector {worst['connector_id']}, deviation {connector_error:.6g} m)")
     if all(max(row['error_m'] for row in pairing) <= tolerance_m for pairing in pairings):
         raise ValueError('Reopened pipe connector-to-endpoint pairing is ambiguous at the declared tolerance')
+    transaction_connectors = transaction.get('connectors')
+    if 'connectors' in transaction:
+        if not isinstance(transaction_connectors, list) or len(transaction_connectors) != 2:
+            raise ValueError('Creation readback requires two connector records')
+        reopened_origins = {connector['id']: connector['origin_m'] for connector in connectors}
+        seen = set()
+        for connector in transaction_connectors:
+            if not isinstance(connector, dict):
+                raise ValueError('Invalid creation connector record')
+            connector_id, origin = connector.get('id'), connector.get('origin_m')
+            if (type(connector_id) is not int or connector_id not in reopened_origins or connector_id in seen
+                    or not isinstance(origin, list) or len(origin) != 3
+                    or any(type(value) not in (int, float) or not math.isfinite(value) for value in origin)
+                    or math.dist(origin, reopened_origins[connector_id]) > tolerance_m):
+                raise ValueError(f'Reopened connector {connector_id} differs from the creation readback')
+            seen.add(connector_id)
     captured_request = pipe['creation_provenance']['creation_request']
     # APS binds the prepared request to the engine-local input model path.
     if (PureWindowsPath(captured_request['DocumentPath']).name.lower() != 'input.rvt'
@@ -117,6 +133,7 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
         'pipe_matches_capture': True,
         'connector_endpoint_error_m': connector_error,
         'connector_endpoint_matches': endpoint_matches,
+        'creation_connector_matches': transaction_connectors is not None,
         'native_execution_authenticated': False,
         'connected_system_verified': False,
         'design_accepted': False,

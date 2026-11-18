@@ -65,7 +65,12 @@ public static partial class NativePipes
             ElementProvenance.Attach(pipe, request);
             var result = new { unique_id = pipe.UniqueId, element_id = pipe.Id.Value.ToString(),
                 source = request.Source, diameter_m = Metres(pipe.Diameter), length_m = Metres(curve.Length),
-                connector_count = connectors.Length, saved = false, connected_system_verified = false, design_accepted = false };
+                connector_count = connectors.Length,
+                connectors = connectors.Select(connector => new {
+                    id = connector.Id,
+                    origin_m = new[] { Metres(connector.Origin.X), Metres(connector.Origin.Y), Metres(connector.Origin.Z) },
+                }).ToArray(),
+                saved = false, connected_system_verified = false, design_accepted = false };
             if (transaction.Commit() != TransactionStatus.Committed)
                 throw new InvalidOperationException("Native transaction did not commit");
             return result;
