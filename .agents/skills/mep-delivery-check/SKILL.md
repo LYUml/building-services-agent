@@ -55,6 +55,12 @@ matching allocation, sizing and rigid binding. A native save/reopen pass only
 confirms the declared drawing round trip. Read the terminal correspondence result
 before relying on group membership. Use the reported terminal/VAV IDs, DXF handle
 and endpoint coordinates to locate a failed line in the saved export.
+For revision review, compare `rigid_sections` by section ID and match the
+coordinates by node ID in a common drawing frame. Check `saved_from_m`,
+`saved_to_m` and `saved_plan_length_m` to detect both translation and
+length change. Recheck affected branches and use each flex route's two
+reported gaps against `correspondence_tolerance_m`. Carry a changed
+plan length into a calculation only when its source and scope support it.
 
 For a configured HVAC package, enable the terminal review when that inherited
 scope applies. Inspect the saved package using `bsa delivery inspect-hvac-package`
