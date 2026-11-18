@@ -1,10 +1,54 @@
+from importlib.util import find_spec
+from pathlib import Path
+from tempfile import TemporaryDirectory
 import unittest
 
-from bsa.ifc_port_inventory import compare, compare_positions, gap_status, inspect_pair_gaps, review_status
+from bsa.ifc_port_inventory import compare, compare_positions, gap_status, inspect_pair_gaps, inventory, review_status
 from bsa.ifc_port_bcf import issue_records
 
 
 class IfcPortComparisonTests(unittest.TestCase):
+    @unittest.skipUnless(find_spec('ifcopenshell'), 'requires the optional IFC runtime')
+    def test_saved_revisions_compare_positions_across_length_units(self):
+        import ifcopenshell
+        from ifcopenshell.api.unit import add_conversion_based_unit
+        from ifcopenshell.guid import new
+
+        runs = Path(__file__).resolve().parents[1] / 'runs'
+        with TemporaryDirectory(dir=runs) as temporary:
+            root = Path(temporary)
+            model = ifcopenshell.file(schema='IFC4')
+            metre = model.create_entity('IfcSIUnit', UnitType='LENGTHUNIT', Name='METRE')
+            millimetre = model.create_entity('IfcSIUnit', UnitType='LENGTHUNIT', Name='METRE', Prefix='MILLI')
+            foot = add_conversion_based_unit(model, name='foot')
+            units = model.create_entity('IfcUnitAssignment', Units=[metre])
+            model.create_entity('IfcProject', GlobalId=new(), UnitsInContext=units)
+            origin = model.create_entity('IfcCartesianPoint', Coordinates=(0.3048, 0.0, 0.0))
+            axis = model.create_entity('IfcAxis2Placement3D', Location=origin)
+            placement = model.create_entity('IfcLocalPlacement', RelativePlacement=axis)
+            port = model.create_entity('IfcDistributionPort', GlobalId=new(), ObjectPlacement=placement)
+            baseline = root / 'metre.ifc'
+            model.write(str(baseline))
+
+            for label, unit, distance, expected_shift in (
+                    ('millimetre', millimetre, 304.8, None),
+                    ('foot', foot, 1.0, None),
+                    ('moved', millimetre, 314.8, 0.01)):
+                with self.subTest(label=label):
+                    units.Units = [unit]
+                    origin.Coordinates = (distance, 0.0, 0.0)
+                    current = root / f'{label}.ifc'
+                    model.write(str(current))
+                    report = inventory(current, 0.001, baseline=baseline, max_port_shift_m=0.005)
+                    positions = report['comparison']['positions']
+                    self.assertEqual(positions['comparable_ports'], 1)
+                    if expected_shift is None:
+                        self.assertEqual(positions['moved_ports'], [])
+                    else:
+                        movement, = positions['moved_ports']
+                        self.assertEqual(movement['guid'], port.GlobalId)
+                        self.assertAlmostEqual(movement['displacement_m'], expected_shift)
+
     def test_reversed_duplicate_pair_fails_review_with_coincident_origins(self):
         inventory = dict(ports=[dict(guid='a', origin_m=[0, 0, 0]),
                                 dict(guid='b', origin_m=[0, 0, 0])],
