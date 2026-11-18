@@ -79,7 +79,7 @@ class RevitAutomationBundleTests(unittest.TestCase):
                         raise failure
                     return rename(stage, target)
 
-                with patch.object(Path, 'rename', publish), patch('scripts.prepare_revit_automation_bundle.sleep'):
+                with patch.object(Path, 'rename', publish):
                     if destination_appears:
                         with self.assertRaisesRegex(FileExistsError, 'output appeared'):
                             prepare(assembly, output)
@@ -87,7 +87,8 @@ class RevitAutomationBundleTests(unittest.TestCase):
                         self.assertEqual(list(output.iterdir()), [output / 'original.txt'])
                     else:
                         prepare(assembly, output)
-                        self.assertEqual(len(attempts), 2)
+                        # Windows may briefly lock the real rename after the injected failure.
+                        self.assertGreaterEqual(len(attempts), 2)
                         self.assertTrue(verify_stage(output)['stage_verified'])
 
     def test_changed_input_does_not_publish_partial_bundle(self):
