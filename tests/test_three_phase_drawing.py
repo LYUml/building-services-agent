@@ -12,7 +12,7 @@ from ezdxf.enums import TextEntityAlignment
 from bsa.cli import digest
 from bsa.engine import ProjectError
 from bsa.three_phase_bridge import run as study_run
-from bsa.three_phase_drawing import run,native_records,APP
+from bsa.three_phase_drawing import run,native_records,bus_contacts,APP
 from bsa.cad_overlay import equivalent
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -48,6 +48,13 @@ class ThreePhaseDrawingTests(unittest.TestCase):
         out=self.root/'drawing';result=run(self.project,self.study,out,Path(DOT))
         self.assertTrue(result['dxf_identity_pass']);self.assertFalse(result['design_accepted'])
         doc=ezdxf.readfile(out/'schematic.dxf')
+        circuits = json.loads(self.project.read_text(encoding='utf-8-sig'))['lines']
+        self.assertEqual(len(bus_contacts(doc, circuits)), 2)
+        feeder = next(entity for entity in doc.modelspace().query('LINE')
+                      if [tag.value for tag in entity.get_xdata(APP)[:2]] == ['line', 'feeder'])
+        feeder.dxf.start += (1, 0, 0)
+        with self.assertRaisesRegex(ProjectError, 'Reopened line feeder does not meet'):
+            bus_contacts(doc, circuits)
         identities=[[(t.code,t.value) for t in e.get_xdata(APP)] for e in doc.modelspace()]
         self.assertTrue(any((1000,'feeder') in tags for tags in identities))
         text=[e.dxf.text for e in doc.modelspace().query('TEXT')]

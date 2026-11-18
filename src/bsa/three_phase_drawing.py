@@ -1,5 +1,6 @@
 """Calculation-bound Graphviz/ezdxf schematic, not an installation design."""
 import argparse
+from collections import Counter, defaultdict
 import csv
 import json
 import math
@@ -52,7 +53,40 @@ def native_records(doc):
     return records
 
 
-def native(source,out,reference,exe):
+def bus_contacts(doc, circuits):
+    from ezdxf.math import Vec3
+
+    def segment_distance(point, a, b):
+        axis = b - a
+        t = min(1, max(0, (point - a).dot(axis) / axis.magnitude_square))
+        return point.distance(a + t * axis)
+
+    geometry = defaultdict(list)
+    for entity in doc.modelspace().query('LINE'):
+        if entity.has_xdata(APP):
+            kind, name = (tag.value for tag in entity.get_xdata(APP)[:2])
+            geometry[kind, name].append((entity.dxf.start, entity.dxf.end))
+    checks = []
+    for circuit in circuits:
+        name, tail, head = (circuit[key] for key in ('id', 'from', 'to'))
+        counts = Counter(tuple(point) for segment in geometry['line', name] for point in segment)
+        ends = [Vec3(point) for point, count in counts.items() if count == 1]
+        boxes = [geometry['bus', bus] for bus in (tail, head)]
+        if len(ends) != 2 or any(not box for box in boxes):
+            raise ProjectError(f'Cannot establish both reopened bus contacts for line {name}')
+        distances = min(
+            ([min(segment_distance(point, a, b) for a, b in box)
+              for point, box in zip(order, boxes)] for order in (ends, ends[::-1])),
+            key=max,
+        )
+        if max(distances) > 1e-6:
+            raise ProjectError(f'Reopened line {name} does not meet its declared buses {tail} and {head}')
+        checks.append(dict(line=name, from_bus=tail, to_bus=head,
+                           from_gap_mm=distances[0], to_gap_mm=distances[1]))
+    return checks
+
+
+def native(source,out,reference,exe,circuits):
     import ezdxf
     from .native_cad import execute,lisp_string
     from .cad_intake import export_dwg
@@ -67,10 +101,12 @@ def native(source,out,reference,exe):
     reopened=export_dwg(dwg,out/'reopened',exe)
     expected=ezdxf.readfile(source);actual=ezdxf.readfile(reopened)
     if not equivalent(native_records(expected),native_records(actual)) or identities(expected)!=identities(actual):raise ProjectError('native diagram geometry, attributes or identities changed')
+    contacts = bus_contacts(actual, circuits)
     settings=dict(source='Schematic paper layout in millimetres, not installation scale',window_drawing_units=[0,0,270,180],
         scale_denominator=1,reference_handle=reference,pdf_tolerance_mm=0.5)
     result=plot(dwg,source,settings,out/'sheet.pdf',exe)
-    return dict(native_reopen_pass=True,dwg_sha256=digest(dwg),engine_sha256=digest(exe),plot=result,visual_review='pending')
+    return dict(native_reopen_pass=True,dwg_sha256=digest(dwg),engine_sha256=digest(exe),
+                bus_contacts=contacts,plot=result,visual_review='pending')
 
 
 def run(project,study_root,out,dot,autocad=None):
@@ -206,7 +242,7 @@ def run(project,study_root,out,dot,autocad=None):
         for line_row,result in zip(p['lines'],study['lines']):
             for ph,amps in zip('ABC',result['phase_current_a']):writer.writerow([line_row['id'],line_row['from'],line_row['to'],line_row['length_m'],ph,amps,line_row['max_current_a'],line_row['source'],line_row['current_limit_source']])
     generated_before={str(f):digest(f) for f in (source,out/'loads.csv',out/'lines.csv',out/'layout.dot',out/'layout.json')}
-    native_result=native(source,out/'native',reference.dxf.handle,Path(autocad).resolve()) if autocad else None
+    native_result=native(source,out/'native',reference.dxf.handle,Path(autocad).resolve(),p['lines']) if autocad else None
     if any(digest(Path(f))!=h for f,h in generated_before.items()):raise ProjectError('generated source artifacts changed during native delivery')
     if any(not Path(f).is_file() or digest(Path(f))!=h for f,h in before.items()):raise ProjectError('inputs changed during drawing')
     result=dict(inputs=before,study_sha256=study_hash,graphviz_sha256=graphviz_sha256,bus_count=len(p['buses']),line_count=len(p['lines']),
