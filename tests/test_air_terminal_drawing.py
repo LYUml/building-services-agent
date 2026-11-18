@@ -39,6 +39,15 @@ class TerminalDrawingTests(unittest.TestCase):
         self.assertAlmostEqual(r['maximum_plan_length_m'],1)
         self.assertFalse(r['design_accepted'])
 
+    def test_displaced_terminal_endpoint_reports_vav_side_candidate(self):
+        line = next(entity for entity in self.doc.modelspace().query('LINE')
+                    if entity.dxf.layer == 'flex' and entity.dxf.end.y == 1)
+        line.dxf.end = (2.25, 1, 0)
+        with self.assertRaisesRegex(ValueError, 'saved lines at terminal TA: none') as error:
+            self.check()
+        self.assertIn(f'unmatched lines at VAV VA: {line.dxf.handle} to (2.25, 1.0, 0.0) m (0.25 m from TA)',
+                      str(error.exception))
+
     def test_inherited_report_requires_final_integrity_before_write(self):
         runs = Path(__file__).resolve().parents[1] / 'runs'
         runs.mkdir(exist_ok=True)

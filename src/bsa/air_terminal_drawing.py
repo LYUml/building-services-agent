@@ -95,7 +95,19 @@ def inspect(doc, allocation, tree, binding, layers):
                             peers = ', '.join(groups_at_end) or 'none'
                             observed.append(f'{handle} to {far_side} m (declared VAV centres: {peers})')
                 details = '; '.join(observed) or 'none'
-                raise ValueError(f'{error}; saved lines at terminal {tid}: {details}') from error
+                vav_candidates = []
+                if not observed:
+                    for candidate in pools['flex']:
+                        handle = candidate.dxf.handle
+                        a, b = flex_ends[handle]
+                        for vav_side, far_side in ((a, b), (b, a)):
+                            if near(vav_side, start):
+                                offset = math.dist(far_side, end)
+                                vav_candidates.append(f'{handle} to {far_side} m ({offset:.6g} m from {tid})')
+                hint = ''
+                if vav_candidates:
+                    hint = f"; unmatched lines at VAV {leaf}: {'; '.join(vav_candidates)}"
+                raise ValueError(f'{error}; saved lines at terminal {tid}: {details}{hint}') from error
             if near(start,end):raise ValueError('Zero-length terminal connection')
             routes.append(dict(terminal=tid,terminal_handle=terminals[tid],flex_handle=line.dxf.handle,plan_length_m=math.dist(start,end)))
         groups.append(dict(id=leaf,vav_handle=circle.dxf.handle,outlet_count=len(members),maximum_flow_L_s=aggregation['leaf_flow_L_s'][leaf],routes=routes))
