@@ -59,6 +59,7 @@ class RevitRevisionTests(unittest.TestCase):
                 adapter_sha256=adapter_hash, saved_rvt_sha256=authored_hash,
                 saved_reopen_verified=False, design_accepted=False,
                 transaction_result=dict(unique_id=self.pipe['unique_id'], connector_count=2,
+                                        saved=False, connected_system_verified=False, design_accepted=False,
                                         source=stored['Source'], diameter_m=0.05, length_m=2))
             created = save('creation.json', receipt)
             reopen_request = save('inventory-request.json', dict(SavedRvtSha256=authored_hash))
@@ -81,6 +82,13 @@ class RevitRevisionTests(unittest.TestCase):
                 with self.subTest(unsupported_claim=field):
                     save('creation.json', {**receipt, field: True})
                     with self.assertRaisesRegex(ValueError, 'must leave saved reopening and design acceptance unverified'):
+                        verify(root, created, authored, observed, reopen, 0.001)
+            save('creation.json', receipt)
+            for field in ('saved', 'connected_system_verified', 'design_accepted'):
+                with self.subTest(unsupported_transaction_claim=field):
+                    altered = dict(receipt, transaction_result={**receipt['transaction_result'], field: True})
+                    save('creation.json', altered)
+                    with self.assertRaisesRegex(ValueError, 'Pipe transaction readback must leave'):
                         verify(root, created, authored, observed, reopen, 0.001)
             save('creation.json', receipt)
             original_request = request.read_bytes()

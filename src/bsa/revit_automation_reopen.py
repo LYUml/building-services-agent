@@ -31,6 +31,9 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
         raise ValueError('Creation evidence does not match the prepared request and saved RVT')
     if created.get('saved_reopen_verified') is not False or created.get('design_accepted') is not False:
         raise ValueError('Creation receipt must leave saved reopening and design acceptance unverified')
+    transaction = created['transaction_result']
+    if any(transaction.get(field) is not False for field in ('saved', 'connected_system_verified', 'design_accepted')):
+        raise ValueError('Pipe transaction readback must leave saving, system verification and design acceptance unverified')
     validate_automation_request(requested, prepared['saved_rvt_sha256'])
     if pins[authored] == prepared['saved_rvt_sha256']:
         raise ValueError('Authored RVT must differ from the creation input')
@@ -45,7 +48,6 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
             or checked['saved_rvt_sha256'] != pins[authored]
             or checked['automation_receipt_sha256'] != pins[reopen_preparation]):
         raise ValueError('Revit evidence changed during verification')
-    transaction = created['transaction_result']
     identifier = transaction['unique_id']
     pipes = [pipe for pipe in reopened['pipes'] if pipe['unique_id'] == identifier]
     revisions = [row for row in checked['revision_checks'] if row['owner'] == identifier]
@@ -64,7 +66,8 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
     if transaction.get('source') != requested['Source']:
         raise ValueError('Creation readback source differs from the staged request')
     connectors = pipe['connectors']
-    if (transaction.get('connector_count') != 2 or len(connectors) != 2
+    connector_count = transaction.get('connector_count')
+    if (type(connector_count) is not int or connector_count != 2 or len(connectors) != 2
             or any(c['domain'] != 'DomainPiping' or c['connector_type'] != 'End' for c in connectors)):
         raise ValueError('Reopened pipe must retain two piping end connectors')
     origins = [connector['origin_m'] for connector in connectors]
