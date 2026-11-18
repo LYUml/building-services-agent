@@ -85,12 +85,13 @@ def derive(ifc,project,binding):
     if set(fitting_sources)!=fittings:raise ProjectError('exact source geometry coverage for every finite fitting required')
     if fittings:
         import ifcopenshell.geom
+        from .circular_geometry import native_shape
         if factor!=1:raise ProjectError('source-parametric fitting binding currently requires metre IFC units')
         settings=ifcopenshell.geom.settings();settings.set(settings.USE_WORLD_COORDS,True)
         for g in fittings:
             source=fitting_sources[g]
             if not isinstance(source,dict) or not isinstance(source.get('source'),str) or not source['source'].strip():raise ProjectError('sourced finite fitting geometry required')
-            shape=ifcopenshell.geom.create_shape(settings,scope[g]);elbow.verify(scope[g],source,shape)
+            shape=native_shape(settings,scope[g]);elbow.verify(scope[g],source,shape)
             length,ends,radius=elbow.saved_arc_length(scope[g]);spec=elbow.specification(source)
             profiles[g]=dict(length_m=length,inner_diameter_m=spec['inner_m'],ends=ends)
     loss_pieces={piece['element_guid'] for rows in binding['pipes'].values() if any(piece['element_guid'] in fittings for piece in rows) for piece in rows}
