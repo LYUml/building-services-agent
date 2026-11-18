@@ -57,6 +57,7 @@ class RevitRevisionTests(unittest.TestCase):
             save('preparation.json', write_preparation)
             receipt = dict(input_rvt_sha256=source_hash, request_sha256=request_hash,
                 adapter_sha256=adapter_hash, saved_rvt_sha256=authored_hash,
+                saved_reopen_verified=False, design_accepted=False,
                 transaction_result=dict(unique_id=self.pipe['unique_id'], connector_count=2,
                                         source=stored['Source'], diameter_m=0.05, length_m=2))
             created = save('creation.json', receipt)
@@ -76,6 +77,12 @@ class RevitRevisionTests(unittest.TestCase):
             self.assertFalse(result['native_execution_authenticated'])
             self.assertEqual(result['connector_endpoint_error_m'], 0)
             self.assertEqual(result['reopen_request_sha256'], reopen_hash)
+            for field in ('saved_reopen_verified', 'design_accepted'):
+                with self.subTest(unsupported_claim=field):
+                    save('creation.json', {**receipt, field: True})
+                    with self.assertRaisesRegex(ValueError, 'must leave saved reopening and design acceptance unverified'):
+                        verify(root, created, authored, observed, reopen, 0.001)
+            save('creation.json', receipt)
             original_request = request.read_bytes()
             same_model = dict(json.loads(original_request), SavedRvtSha256=authored_hash)
             save('pipe-request.json', same_model)

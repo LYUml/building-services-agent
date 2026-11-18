@@ -29,6 +29,8 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
             or created['adapter_sha256'] != prepared['assembly_sha256']
             or created['saved_rvt_sha256'] != pins[authored]):
         raise ValueError('Creation evidence does not match the prepared request and saved RVT')
+    if created.get('saved_reopen_verified') is not False or created.get('design_accepted') is not False:
+        raise ValueError('Creation receipt must leave saved reopening and design acceptance unverified')
     validate_automation_request(requested, prepared['saved_rvt_sha256'])
     if pins[authored] == prepared['saved_rvt_sha256']:
         raise ValueError('Authored RVT must differ from the creation input')
