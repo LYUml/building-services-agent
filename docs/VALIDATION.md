@@ -1,5 +1,17 @@
 # Verification record
 
+## DWG and Revit adapter regression
+
+At `73be936`, the focused Windows regression for DWG readback, drawing
+revisions, RVT metadata and Revit request, connectivity, workflow and
+Automation handling ran with ACadSharp 3.8.35 and rvt 0.25.0 configured.
+It passed 50 tests and 56 subtests. The IfcMCP property test was skipped in
+the general Python environment and passed separately in the dedicated IfcMCP
+runtime. The DWG test compares CLI and MCP output and detects an altered point
+position. The Revit test assembly builds against the installed 2027 API.
+Revit execution, native model creation and saved reopening remain pending
+in an authorized host.
+
 2026-11-08 foundation milestone, Windows / Python 3.12.
 
 - Editable package installation succeeded in this repository's .venv.
