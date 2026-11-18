@@ -10,7 +10,9 @@ from .cli import digest
 
 
 def inspect(doc, allocation, tree, binding, layers):
-    if set(layers) != {'supply', 'vav', 'terminal', 'flex'} or len(set(layers.values())) != 4:
+    if (set(layers) != {'supply', 'vav', 'terminal', 'flex'}
+            or any(not isinstance(layer, str) or not layer for layer in layers.values())
+            or len({layer.casefold() for layer in layers.values()}) != 4):
         raise ValueError('Four distinct scoped layers required')
     if doc.units not in METRES_PER_UNIT:
         raise ValueError('Known drawing units required')
@@ -29,7 +31,8 @@ def inspect(doc, allocation, tree, binding, layers):
                              f'found {len(matches)} matches')
         pool.remove(matches[0])
         return matches[0]
-    pools = {k:[e for e in doc.modelspace() if e.dxf.layer == layer] for k,layer in layers.items()}
+    pools = {k:[e for e in doc.modelspace() if e.dxf.layer.casefold() == layer.casefold()]
+             for k,layer in layers.items()}
     kinds = dict(supply='LINE',vav='CIRCLE',terminal='LWPOLYLINE',flex='LINE')
     if any(e.dxftype() != kinds[k] for k,es in pools.items() for e in es):
         raise ValueError('Unsupported entity on scoped layer')

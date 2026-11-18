@@ -165,7 +165,7 @@ class TerminalDrawingTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'correspondence'):self.check()
 
     def test_extra_geometry_and_nonplanar_symbol(self):
-        e=self.doc.modelspace().add_line((9,9),(10,10),dxfattribs=dict(layer='flex'))
+        e=self.doc.modelspace().add_line((9,9),(10,10),dxfattribs=dict(layer='FLEX'))
         with self.assertRaisesRegex(ValueError,'Unbound') as error:
             self.check()
         self.assertIn(f'flex (1): {e.dxf.handle} from (9.0, 9.0, 0.0) to (10.0, 10.0, 0.0) m',
@@ -174,6 +174,11 @@ class TerminalDrawingTests(unittest.TestCase):
         e=next(e for e in self.doc.modelspace() if e.dxf.layer=='terminal')
         e.dxf.elevation=.1
         with self.assertRaisesRegex(ValueError,'planar'):self.check()
+
+    def test_scoped_layers_cannot_alias_by_case(self):
+        self.layers['vav'] = 'FLEX'
+        with self.assertRaisesRegex(ValueError, 'Four distinct scoped layers'):
+            self.check()
 
     def test_shifted_group_and_duplicate_symbol(self):
         e=next(e for e in self.doc.modelspace() if e.dxf.layer=='vav')
