@@ -40,7 +40,11 @@ The opt-in test `tests.test_terminal_layout_revision` with
 `BSA_TEST_AUTOCAD=1` runs a synthetic revision through AutoCAD Core Console.
 It saves and independently reopens the DWG, checks the scaled PDF reference
 and measures both flex endpoints from the reopened export. The moved terminal
-has a zero flex-to-symbol gap in this fixture. Visual plot review remains pending.
+has a zero flex-to-symbol gap in this fixture. A separate rendered-page review
+found a clipped note and labels overlapping the symbols in the initial fixture.
+The revised fixture uses a wider plot window and explicit label offsets.
+Review of the regenerated PDF confirmed both branches, both labels and the
+unchanged source note are visible without clipping or label overlap.
 AutoCAD independent reopening and actual plot inspection remain mandatory.
 
 Changed straight plan distances are not installed flex lengths. This tool does

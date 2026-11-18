@@ -22,7 +22,8 @@ class TerminalLayoutRevisionTests(unittest.TestCase):
         self.new['terminals'][0]['maximum_flow_L_s']=110;self.new['terminals'][1]['maximum_flow_L_s']=90
         labels={}
         for t in self.old['terminals']:
-            e=f.doc.modelspace().add_text(t['id'],dxfattribs=dict(insert=[*t['center_m'],0],height=.1))
+            x, y = t['center_m']
+            e=f.doc.modelspace().add_text(t['id'],dxfattribs=dict(insert=[x+.18,y+.16,0],height=.1))
             labels[t['id']]=dict(handle=e.dxf.handle,expected_text=t['id'])
         self.unrelated=f.doc.modelspace().add_text('Unrelated source note',dxfattribs=dict(insert=[4,4,0],height=.1)).dxf.handle
         f.doc.saveas(self.root/'source.dxf')
@@ -73,7 +74,7 @@ class TerminalLayoutRevisionTests(unittest.TestCase):
         settings = self.root / 'native.json'
         settings.write_text(json.dumps(dict(
             source_sha256=revision['dxf_sha256'], layers=[*self.layers.values(), '0'],
-            sheet=dict(source='Synthetic terminal layout fixture', window_drawing_units=[-1, -2, 5, 5],
+            sheet=dict(source='Synthetic terminal layout fixture', window_drawing_units=[-1, -2, 7, 5],
                        scale_denominator=50, reference_handle=reference, pdf_tolerance_mm=.2),
         )), encoding='utf-8')
         output = self.root / 'native'
