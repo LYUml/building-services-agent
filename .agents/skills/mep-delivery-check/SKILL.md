@@ -107,6 +107,15 @@ to the same measurements is dependent evidence. For mesh, SGS or model constant
 comparisons, record the intended change, hold the other relevant inputs fixed
 and compare the same observations and averaging windows across runs.
 
+For a saved OpenFOAM fixed-step steady segment, use
+`bsa openfoam-history-review` or MCP `bsa_review_openfoam_history` with the
+explicit project, matching patch histories, and declared source and observer
+basis. Read flow, mass balance and pressure stability separately. For physical
+time histories, use the separate transient reader in `docs/OPENFOAM_TRANSIENT.md`
+and retain the selected restart segment and exact time window. Treat steady
+window stability, grid/domain sensitivity and experimental agreement as distinct
+evidence when assessing a pressure claim.
+
 For smoke-layer acceptance, record the adopted interface definition, evaluation
 locations and time window, and treatment of weak stratification or temporary
 excursions. Keep cases with missing criteria pending. Tie figures and metrics
