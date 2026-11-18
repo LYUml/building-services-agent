@@ -121,8 +121,10 @@ jobs:
         with:
           python-version: '3.12'
       - run: sudo apt-get update && sudo apt-get install -y poppler-utils
-      - run: python -m pip install -e ".[drawing,mcp,codex-setup,bim,network,clash]"
+      - run: python -m pip install -e ".[drawing,mcp,codex-setup,bim,bcf,network,clash]"
       - run: python -m bsa.codex_setup --pdftoppm "$(command -v pdftoppm)"
       - run: pdftoppm -v
       - run: python -m pip check
       - run: python -m unittest tests.test_mcp_server tests.test_knowledge_mcp -v
+      - name: Verify IFC connection review and BCF archive replay
+        run: python -m unittest tests.test_ifc_port_inventory tests.test_ifc_port_bcf -v
