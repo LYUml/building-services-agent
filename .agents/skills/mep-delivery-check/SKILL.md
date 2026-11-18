@@ -68,6 +68,10 @@ coordinates by node ID in a common drawing frame. Check `saved_from_m`,
 length change. Recheck affected branches and use each flex route's two
 reported gaps against `correspondence_tolerance_m`. Carry a changed
 plan length into a calculation only when its source and scope support it.
+For each terminal ID, compare its assigned VAV, `saved_terminal_center_m`
+and `saved_plan_length_m` in the flex route. Compare
+`saved_vav_center_m` by VAV ID. An unchanged assignment can still have
+a changed route length after a terminal moves.
 
 For a configured HVAC package, enable the terminal review when that inherited
 scope applies. Inspect the saved package using `bsa delivery inspect-hvac-package`
