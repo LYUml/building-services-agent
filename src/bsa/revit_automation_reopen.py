@@ -57,6 +57,10 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
         endpoints = (issue.get('port', (None,)), issue.get('target', (None,)))
         if any(port[0] == identifier for port in endpoints):
             raise ValueError(f"Reopened pipe has inconsistent connector evidence: {', '.join(issue['reasons'])}")
+    for finding in checked['pending']:
+        endpoints = (finding.get('port', (None,)), finding.get('target', (None,)))
+        if finding.get('owner') == identifier or any(port[0] == identifier for port in endpoints):
+            raise ValueError(f"Reopened pipe has unresolved connector evidence: {finding['reason']}")
     pipe = pipes[0]
     element_id = transaction.get('element_id')
     if (not isinstance(element_id, str) or not element_id.isascii() or not element_id.isdecimal()

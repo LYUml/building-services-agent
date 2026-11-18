@@ -161,6 +161,13 @@ class RevitRevisionTests(unittest.TestCase):
             save('inventory.json', inventory)
             with self.assertRaisesRegex(ValueError, 'physical_flag_without_physical_reference'):
                 verify(root, created, authored, observed, reopen, 0.001)
+            self.pipe['connectors'][0]['references'] = [
+                dict(owner_unique_id='unlisted-equipment', connector_id=1, connector_type='End'),
+            ]
+            save('inventory.json', inventory)
+            with self.assertRaisesRegex(ValueError, 'unresolved connector evidence: target_outside_inventory'):
+                verify(root, created, authored, observed, reopen, 0.001)
+            self.pipe['connectors'][0]['references'] = []
             self.pipe['connectors'][0]['physically_connected'] = False
             self.pipe['connectors'][1]['origin_m'] = self.pipe['connectors'][0]['origin_m']
             save('inventory.json', inventory)
