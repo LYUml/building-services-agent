@@ -8,6 +8,7 @@ if (-not $target.StartsWith($repoRoot + [IO.Path]::DirectorySeparatorChar, [Stri
 if (Test-Path -LiteralPath $target) { throw 'Choose a new output file.' }
 $autodesk = Join-Path $env:ProgramFiles 'Autodesk'
 $revit = Join-Path $autodesk 'Revit 2027'
+$consolePath = Join-Path $revit 'RevitCoreConsole.exe'
 $files = @('Revit.exe','RevitAPI.dll','RevitAPIUI.dll') | ForEach-Object {
     $path = Join-Path $revit $_
     if (Test-Path -LiteralPath $path -PathType Leaf) {
@@ -45,6 +46,11 @@ $result = [ordered]@{
     inspected_at_utc=[DateTime]::UtcNow.ToString('o')
     revit_files=@($files)
     api_runtime=$runtime
+    desktop_core_console=[ordered]@{
+        checked_path=$consolePath
+        exists=(Test-Path -LiteralPath $consolePath -PathType Leaf)
+        execution_verified=$false
+    }
     public_mcp_documented_locations=@($servers)
     dynamo_mcp=$dynamo
     local_release_adapter=$assembly

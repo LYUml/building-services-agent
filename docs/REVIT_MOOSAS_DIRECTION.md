@@ -33,6 +33,13 @@ Release adapter when present. Host policy acceptance stays unverified.
 The Revit 2027.3 (27.3.0.28) command-line rerun built the adapter with zero
 warnings and errors and reported `NotSigned` for the resulting DLL.
 
+The same installation probe checks for `RevitCoreConsole.exe` at the
+desktop installation root. The file was absent on the local Revit 2027.3
+installation. Autodesk's separate Public MCP Technical Preview setup
+currently specifies Revit 2027.2 and a running model. The probe found none
+of its three documented executable paths on this host.
+[Autodesk Public MCP setup](https://help.autodesk.com/view/ADSKMCP/ENU/?guid=ADSKMCP_RevitMcp_setting_up_revit_mcp_server_html)
+
 ### Autodesk cloud automation
 
 Autodesk's Revit Automation service runs the Revit DB API without a desktop
