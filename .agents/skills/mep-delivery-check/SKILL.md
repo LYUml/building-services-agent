@@ -1,6 +1,6 @@
 ---
 name: mep-delivery-check
-description: Audit building services models, drawings, calculations and reports before delivery, including missing, incorrect or displaced connections after layout changes.
+description: Audit building services models, drawings, calculations, CFD evidence and reports before delivery, including missing, incorrect or displaced connections after layout changes.
 ---
 
 # mep-delivery-check
@@ -72,6 +72,30 @@ per docs/VAV_SCHEDULE.md to deliver a bounded group connection table. Reconstruc
 native membership/endpoints and inherited maximum/minimum flows; require actual
 DWG reopen and actual PDF inspection. Straight XY lengths remain lower bounds,
 not installed flex length or product/ADPI/regulatory acceptance.
+
+## Review CFD evidence
+
+Resolve case inputs against their purpose and source. Use the experiment's
+geometry, openings, fire and sensor locations for experimental comparison.
+Record conflicts with teaching examples and bind each accepted interpretation
+to the case. Keep experimental cases and design scenarios identifiable in the
+run matrix, with sensitivity runs linked to their paired baseline. Leave
+ambiguous case counts unresolved.
+
+Track native solver completion, comparison with experimental measurements,
+mesh and model sensitivity, and design criteria as separate checks. The FDS
+probe in `docs/REUSE_SURVEY.md` checks saved output for its pinned case. For an
+experimental comparison, reconcile saved device IDs, coordinates, units and
+sampling windows with the source measurement locations and time basis before
+calculating errors. Identify digitized quantities and their precision. A fit
+to the same measurements is dependent evidence. For mesh, SGS or model constant
+comparisons, record the intended change, hold the other relevant inputs fixed
+and compare the same observations and averaging windows across runs.
+
+For smoke-layer acceptance, record the adopted interface definition, evaluation
+locations and time window, and treatment of weak stratification or temporary
+excursions. Keep cases with missing criteria pending. Tie figures and metrics
+to the saved input deck, solver version and native result files.
 
 ## Reconcile the released package
 
