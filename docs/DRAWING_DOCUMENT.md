@@ -175,9 +175,11 @@ rejected before a comparison report is written.
 For `INSERT`, the comparison also checks attached attribute handles and tags,
 and raw text values of single-line and embedded multiline attributes. Attribute
 placement, rendered appearance and block definition geometry require other evidence.
-The tracked `synthetic-multiline-attribute.dwg` regression fixture was saved
-with AutoCAD Core Console from a generated millimetre DXF containing one block
-with an embedded two-line `EQUIPMENT_ID` attribute.
+For the optional native fixture test, set `BSA_TEST_MULTILINE_DWG` to a local
+permitted DWG with one block and the embedded `EQUIPMENT_ID` value
+`VAV-001\PTEST NOTE` at attribute handle `36`. Keep AutoCAD-generated fixtures
+with host metadata in an ignored run directory. The DXF fault controls run
+without this optional native fixture.
 The CLI and MCP summaries report `geometry_compared_count` and
 `identity_only_counts_by_type`. The latter counts matched modelspace entities
 whose type and layer were checked and whose geometry is outside the comparison.
