@@ -66,20 +66,26 @@ class TerminalLayoutRevisionTests(unittest.TestCase):
                          'requires explicit AutoCAD host')
     def test_native_reopen_verifies_moved_terminal_connection(self):
         from bsa.air_terminal_drawing import inspect
+        from bsa.cad_sheet import check_window_entities
         from bsa.duct_sheet_native import run as publish_native
+        from bsa.engine import ProjectError
 
         revision = self.execute()
         dxf = self.root / 'output/Supply Air Distribution.dxf'
         reference = revision['new_correspondence']['rigid_sections'][0]['handle']
+        with self.assertRaisesRegex(ProjectError, 'TEXT handle .* exceed the plot window'):
+            check_window_entities(ezdxf.readfile(dxf), [self.unrelated], [-1, -2, 5, 5])
         settings = self.root / 'native.json'
         settings.write_text(json.dumps(dict(
             source_sha256=revision['dxf_sha256'], layers=[*self.layers.values(), '0'],
             sheet=dict(source='Synthetic terminal layout fixture', window_drawing_units=[-1, -2, 7, 5],
-                       scale_denominator=50, reference_handle=reference, pdf_tolerance_mm=.2),
+                       scale_denominator=50, reference_handle=reference, pdf_tolerance_mm=.2,
+                       required_window_handles=[self.unrelated]),
         )), encoding='utf-8')
         output = self.root / 'native'
         result = publish_native(dxf, settings, output, DEFAULT_EXE)
         self.assertTrue(result['native_reopen_pass'])
+        self.assertEqual(result['plot']['estimated_window_bounds_checked_handles'], [self.unrelated])
         self.assertEqual(result['plot_visual_review'], 'pending')
         project = json.loads((self.root / 'ducts.json').read_bytes())
         binding = json.loads((self.root / 'binding.json').read_bytes())

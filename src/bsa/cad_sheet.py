@@ -55,11 +55,29 @@ def reference_points(doc,settings):
     return points[index],points[(index+1)%len(points)]
 
 
+def check_window_entities(doc, handles, window):
+    from ezdxf import bbox
+
+    if (not isinstance(handles, list) or not handles
+            or any(not isinstance(handle, str) or not handle for handle in handles)
+            or len({handle.upper() for handle in handles}) != len(handles)):
+        raise ProjectError('required_window_handles must contain distinct modelspace entity handles')
+    entities = {entity.dxf.handle: entity for entity in doc.modelspace()}
+    for handle in handles:
+        entity = entities.get(handle.upper())
+        if entity is None or entity.dxftype() not in ('LINE', 'CIRCLE', 'LWPOLYLINE', 'TEXT'):
+            raise ProjectError(f'Plot window handle {handle} requires a supported modelspace entity')
+        bounds = bbox.extents([entity])
+        if (not bounds.has_data or bounds.extmin.x < window[0] or bounds.extmin.y < window[1]
+                or bounds.extmax.x > window[2] or bounds.extmax.y > window[3]):
+            raise ProjectError(f'Estimated bounds of {entity.dxftype()} handle {handle} exceed the plot window')
+
+
 def plot(dwg,dxf,settings,output,exe):
     import ezdxf
     dwg,dxf,output=[Path(p).resolve() for p in (dwg,dxf,output)]
     if output.exists():raise ProjectError('refusing to overwrite PDF')
-    if not isinstance(settings,dict) or set(settings)-{'paper','source','window_drawing_units','scale_denominator','reference_handle','pdf_tolerance_mm','reference_segment_index'} or not {'source','window_drawing_units','scale_denominator','reference_handle','pdf_tolerance_mm'}<=set(settings):
+    if not isinstance(settings,dict) or set(settings)-{'paper','source','window_drawing_units','scale_denominator','reference_handle','pdf_tolerance_mm','reference_segment_index','required_window_handles'} or not {'source','window_drawing_units','scale_denominator','reference_handle','pdf_tolerance_mm'}<=set(settings):
         raise ProjectError('explicit sourced window, scale and PDF reference required')
     if not isinstance(settings['source'],str) or not settings['source'].strip():raise ProjectError('sheet source required')
     paper_name=settings.get('paper','A4')
@@ -80,6 +98,8 @@ def plot(dwg,dxf,settings,output,exe):
     if math.dist(ref_start,ref_end)<=1e-9:raise ProjectError('Nonzero reference length required')
     for pt in (ref_start,ref_end):
         if not window[0]<=pt.x<=window[2] or not window[1]<=pt.y<=window[3]:raise ProjectError('reference lies outside plot window')
+    if 'required_window_handles' in settings:
+        check_window_entities(doc, settings['required_window_handles'], window)
     condition=f'(= (strcase (vl-string-translate (chr 92) "/" (strcat (getvar "DWGPREFIX") (getvar "DWGNAME")))) (strcase {lisp_string(dwg)}))'
     args=['_.-PLOT','_Y','Model','DWG To PDF.pc3',media,'_M','_L','_N','_W',
           f'{window[0]},{window[1]}',f'{window[2]},{window[3]}',f'1={den*.001/unit:.12g}','_C','_Y','monochrome.ctb','_Y','_A',str(output),'_N','_Y']
@@ -99,5 +119,7 @@ def plot(dwg,dxf,settings,output,exe):
     result=dict(pdf_sha256=digest(output),dwg_unchanged=True,paper_mm=paper,scale_denominator=den,
                 reference_handle=settings['reference_handle'],reference_expected_mm=expected_length,reference_measured_mm=length,
                 pdf_reference_pass=True,visual_review='pending',design_accepted=False)
+    if 'required_window_handles' in settings:
+        result['estimated_window_bounds_checked_handles'] = settings['required_window_handles']
     output.with_suffix('.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
     return result

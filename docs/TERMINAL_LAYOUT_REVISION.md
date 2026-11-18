@@ -45,6 +45,10 @@ found a clipped note and labels overlapping the symbols in the initial fixture.
 The revised fixture uses a wider plot window and explicit label offsets.
 Review of the regenerated PDF confirmed both branches, both labels and the
 unchanged source note are visible without clipping or label overlap.
+The sheet settings can specify `required_window_handles` for modelspace
+LINE, CIRCLE, LWPOLYLINE or TEXT that must fit inside the plot window.
+The preflight checks estimated DXF bounds and identifies any offending handle.
+Font rendering and label overlap still require review of the actual PDF.
 When recording this review, bind the exact DWG, PDF and rendered page by
 SHA-256 and identify the page and renderer. Save the observations beside the
 native receipt in a new file. Preserve the native receipt's pending visual
