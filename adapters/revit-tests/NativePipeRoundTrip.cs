@@ -34,10 +34,14 @@ public sealed class NativePipeRoundTrip
         {
             owned = application.OpenDocumentFile(input);
             Assert.That(owned.IsWorkshared || owned.IsLinked, Is.False);
-            var before = new FilteredElementCollector(owned).OfClass(typeof(Pipe)).ToElementIds().ToHashSet();
+            var before = PipeIds(owned);
+            VerifyRollback(owned, request with { DocumentPath = input }, before);
+            Assert.That(owned.Close(false), Is.True);
+            owned = null;
+            Assert.That(Hash(input), Is.EqualTo(sourceHash));
+            owned = application.OpenDocumentFile(input);
             NativePipes.CreateInDocument(owned, request with { DocumentPath = input });
-            var created = new FilteredElementCollector(owned).OfClass(typeof(Pipe)).Cast<Pipe>()
-                .Where(pipe => !before.Contains(pipe.Id)).Single();
+            var created = NewPipe(owned, before);
             string uniqueId = created.UniqueId;
             VerifyPipe(owned, created, request);
             using (var options = new SaveAsOptions { OverwriteExistingFile = false })
@@ -58,6 +62,39 @@ public sealed class NativePipeRoundTrip
                 Assert.That(owned.Close(false), Is.True);
             Assert.That(Hash(source), Is.EqualTo(sourceHash));
         }
+    }
+
+    private static HashSet<ElementId> PipeIds(Document document)
+    {
+        using var collector = new FilteredElementCollector(document);
+        return collector.OfClass(typeof(Pipe)).ToElementIds().ToHashSet();
+    }
+
+    private static Pipe NewPipe(Document document, HashSet<ElementId> before)
+    {
+        using var collector = new FilteredElementCollector(document);
+        return collector.OfClass(typeof(Pipe)).Cast<Pipe>().Single(pipe => !before.Contains(pipe.Id));
+    }
+
+    private static void VerifyRollback(Document document, PipeRequest request, HashSet<ElementId> before)
+    {
+        using var group = new TransactionGroup(document, "BSA native smoke test rollback control");
+        Assert.That(group.Start(), Is.EqualTo(TransactionStatus.Started));
+        string uniqueId;
+        try
+        {
+            NativePipes.CreateInDocument(document, request);
+            var created = NewPipe(document, before);
+            uniqueId = created.UniqueId;
+            ElementProvenance.VerifyCommittedRequest(created, request);
+        }
+        finally
+        {
+            Assert.That(group.RollBack(), Is.EqualTo(TransactionStatus.RolledBack));
+        }
+        Assert.That(document.GetElement(uniqueId), Is.Null);
+        Assert.That(PipeIds(document).SetEquals(before), Is.True);
+        ElementProvenance.RejectExistingRequest(document, request);
     }
 
     private static void VerifyPipe(Document document, Pipe pipe, PipeRequest request)

@@ -71,8 +71,10 @@ against the desktop adapter using .NET 10 and a locked NUnit dependency.
 Build with `-p:RestoreLockedMode=true`. On a dedicated, authorized Revit 2027
 test host, set `BSA_REVIT_TEST_REQUEST` for the Revit process to the absolute
 path of a prepared synthetic pipe request beside its source RVT. The test
-copies the RVT into a fresh temporary directory, creates one pipe there,
-saves a separate model, closes the copy and reopens the saved result. It
+copies the RVT into a fresh temporary directory. A rollback control creates
+a pipe in an outer transaction group and checks that its identity and
+duplicate-request provenance disappear after rollback. The test then reopens
+the untouched copy, creates a pipe, saves a separate model and reopens it. It
 checks the same pipe identity, type, system, level, diameter and endpoint
 connectors, and verifies the original RVT hash.
 
