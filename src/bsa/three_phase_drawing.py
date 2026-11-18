@@ -2,6 +2,7 @@
 import argparse
 from collections import defaultdict
 import csv
+from hashlib import sha256
 import json
 import math
 from pathlib import Path
@@ -17,16 +18,24 @@ APP='BSA_ELECTRICAL'
 
 
 def context(project,study_root,require_targets=True):
+    project = Path(project).resolve()
+    project_hash = digest(project)
     p,files=prepare(project);study_root=Path(study_root).resolve()
-    bridge=json.loads((study_root/'three-phase.json').read_text(encoding='utf-8'))
+    bridge_path = study_root/'three-phase.json'
+    bridge_bytes = bridge_path.read_bytes()
+    bridge = json.loads(bridge_bytes)
     expected=study_inputs(project)
     recorded=bridge['inputs']
     if not expected.issubset({Path(f) for f in recorded}) or len(recorded)!=len(expected)+1:
         raise ProjectError('study source inventory differs')
-    if any(not Path(f).is_file() or digest(Path(f))!=h for f,h in recorded.items()):raise ProjectError('study inputs changed')
+    if recorded.get(str(project)) != project_hash or any(
+        not Path(f).is_file() or digest(Path(f)) != h for f, h in recorded.items()
+    ):raise ProjectError('study inputs changed')
     study_path=study_root/'native/study.json';network=study_root/'native/network.json'
-    study=json.loads(study_path.read_text(encoding='utf-8'))
-    if digest(study_path)!=bridge['study_sha256'] or digest(network)!=bridge['network_sha256'] or study['network_sha256']!=digest(network):raise ProjectError('study artifacts changed')
+    study_bytes = study_path.read_bytes()
+    study = json.loads(study_bytes)
+    study_hash, network_hash = sha256(study_bytes).hexdigest(), digest(network)
+    if study_hash!=bridge['study_sha256'] or network_hash!=bridge['network_sha256'] or study['network_sha256']!=network_hash:raise ProjectError('study artifacts changed')
     if study['inputs']!={str(f):digest(f) for f in files} or study['source_records']!=p['sources'] or study['versions']!=VERSIONS:raise ProjectError('study/project correspondence differs')
     if study['verification_pass'] is not True or bridge['status']!=study['status'] or type(study['study_targets_pass']) is not bool or study['status']!=('pass' if study['study_targets_pass'] else 'fail'):
         raise ProjectError('a verified numerical study is required')
@@ -34,7 +43,8 @@ def context(project,study_root,require_targets=True):
         raise ProjectError('a passing numerical and target study is required before drawing')
     if bridge['design_accepted'] is not False or study['design_accepted'] is not False:raise ProjectError('invalid study acceptance claim')
     before={f:h for f,h in recorded.items()}
-    before.update({str(f):digest(f) for f in (study_root/'three-phase.json',study_path,network)})
+    before.update({str(bridge_path): sha256(bridge_bytes).hexdigest(),
+                   str(study_path): study_hash, str(network): network_hash})
     return p,study,before
 
 
@@ -267,7 +277,7 @@ def run(project,study_root,out,dot,autocad=None):
         raise ProjectError('layout exceeds supported sheet; larger-sheet/pagination work remains required')
     doc=ezdxf.new('R2010');doc.units=4;doc.appids.new(APP)
     for name in ('BSA_ELEC_BUS','BSA_ELEC_LINE','BSA_ELEC_TEXT','BSA_ELEC_META'):doc.layers.new(name)
-    msp=doc.modelspace();study_hash=digest(study_root/'native/study.json')
+    msp=doc.modelspace();study_hash=before[str(study_root/'native/study.json')]
     def tag(entity,kind,id):
         entity.set_xdata(APP,[(1000,kind),(1000,id),(1000,study_hash)]);return entity
     def point(pt):
