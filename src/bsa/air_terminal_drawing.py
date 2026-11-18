@@ -158,6 +158,7 @@ def inspect(doc, allocation, tree, binding, layers):
                                      f"{peer} (handle {handle}) at {symbol} m by {math.dist(actual, symbol):.6g} m")
             routes.append(dict(terminal=tid,terminal_handle=terminals[tid],flex_handle=line.dxf.handle,
                                plan_length_m=math.dist(start,end),
+                               saved_plan_length_m=math.dist(saved_start,saved_end),
                                vav_endpoint_gap_m=math.dist(saved_start,saved_vav),
                                terminal_endpoint_gap_m=math.dist(saved_end,symbol_centers[terminals[tid]])))
         groups.append(dict(id=leaf,vav_handle=circle.dxf.handle,outlet_count=len(members),maximum_flow_L_s=aggregation['leaf_flow_L_s'][leaf],routes=routes))

@@ -43,6 +43,8 @@ class TerminalDrawingTests(unittest.TestCase):
         for row in r['rigid_sections']:
             self.assertAlmostEqual(row['saved_plan_length_m'], 2**0.5)
         self.assertAlmostEqual(r['maximum_plan_length_m'],1)
+        self.assertEqual([route['saved_plan_length_m'] for group in r['groups'] for route in group['routes']],
+                         [1.0, 1.0])
         self.assertFalse(r['design_accepted'])
 
     def test_equal_length_translation_is_visible_in_saved_section_coordinates(self):

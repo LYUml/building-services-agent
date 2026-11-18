@@ -103,14 +103,18 @@ def connection_summary(directory,workflow,paths,review):
             {key: value for key, value in row.items() if key not in ('saved_from_m', 'saved_to_m')}
             for row in fresh['rigid_sections']
         ]
+    omitted_route_fields = set()
+    if all('saved_plan_length_m' not in route for group in record['groups'] for route in group['routes']):
+        omitted_route_fields.add('saved_plan_length_m')
     if 'correspondence_tolerance_m' not in record:
-        # Earlier receipts predate explicit gaps. Recompute the checks above
-        # and compare the original receipt fields against the same drawing.
         del compared['correspondence_tolerance_m']
+        omitted_route_fields.update(('vav_endpoint_gap_m', 'terminal_endpoint_gap_m'))
+    if omitted_route_fields:
+        # Earlier receipts omit some measured fields. Recompute the geometry
+        # above and compare the fields available in the original receipt.
         compared['groups'] = [
             {**group, 'routes': [
-                {key: value for key, value in route.items()
-                 if key not in ('vav_endpoint_gap_m', 'terminal_endpoint_gap_m')}
+                {key: value for key, value in route.items() if key not in omitted_route_fields}
                 for route in group['routes']
             ]} for group in fresh['groups']
         ]
