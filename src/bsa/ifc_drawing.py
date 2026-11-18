@@ -11,6 +11,21 @@ from .engine import ProjectError
 AXES = {'X': 0, 'Y': 1, 'Z': 2}
 
 
+def open_drawing_model(path):
+    import ifcopenshell
+
+    path = Path(path)
+    if ifcopenshell.version != '0.8.5' or path.suffix.lower() != '.ifc' or not path.is_file():
+        return ifcopenshell.open(path)
+    # Check the native parse result before constructing 0.8.5's Python file
+    # object, whose finalizer assumes that construction registered a pointer.
+    parsed = ifcopenshell.ifcopenshell_wrapper.open(str(path.absolute()))
+    status = parsed.good()
+    if not status:
+        raise ProjectError(f'IfcOpenShell rejected the IFC file (parser status {status.value()}): {path}')
+    return ifcopenshell.file(parsed)
+
+
 def validate_settings(settings):
     if not isinstance(settings, dict) or set(settings) != {'projection_axes', 'annotation_height_m', 'source'}:
         raise ProjectError('explicit projection axes, annotation height and source required')
@@ -33,7 +48,7 @@ def extract(path):
     import ifcopenshell.util.system as system
     import ifcopenshell.util.unit as unit
     source_hash = digest(Path(path))
-    model = ifcopenshell.open(str(path))
+    model = open_drawing_model(path)
     projects = model.by_type('IfcProject')
     if len(projects) != 1 or not projects[0].UnitsInContext:
         raise ProjectError('one project with explicit length units required')

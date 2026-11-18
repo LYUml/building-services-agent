@@ -11,7 +11,7 @@ from .cli import digest
 from .engine import ProjectError
 from . import circular_geometry as circular
 from . import circular_elbow as elbow
-from .ifc_drawing import validate_settings
+from .ifc_drawing import open_drawing_model, validate_settings
 
 
 def extract(ifc, source_model, settings, obstacle_guids=()):
@@ -25,7 +25,7 @@ def extract(ifc, source_model, settings, obstacle_guids=()):
     from .bim import validate
     validate(source_model)
     validate_settings(settings)
-    model = ifcopenshell.open(str(ifc))
+    model = open_drawing_model(ifc)
     projects = model.by_type('IfcProject')
     if len(projects) != 1 or not projects[0].UnitsInContext:
         raise ProjectError('one route project with explicit metre units required')

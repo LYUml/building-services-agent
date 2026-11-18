@@ -2803,3 +2803,11 @@ two native-host skips. Retain the invalid-input controls and the pinned
 reader while evaluating any upstream fix. Similar upstream cleanup context
 is recorded in [IfcOpenShell issue 5457](https://github.com/IfcOpenShell/IfcOpenShell/issues/5457),
 which covers a different streaming failure.
+
+The drawing and route-drawing paths now check the pinned 0.8.5 native
+parser status before wrapping a saved SPF file. The native parser still
+runs once and successful results use the normal Python file interface.
+Other formats and versions retain their normal open path. A repeat with
+both drawing suites and `tests/test_ifc_drawing.py`, with cleanup warnings
+treated as errors, passed 20 tests and 16 subtests with two native-host
+skips. This mitigation covers these drawing readers.

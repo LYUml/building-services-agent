@@ -991,6 +991,7 @@ def validate_plan(path):
                 policy=local_path(root,t.get('policy'));inputs.add(policy);validate_policy(read_json(policy))
             elif kind in ('ifc_drawing','ifc_route_drawing'):
                 from .ifc_drawing import validate_settings
+                inputs.add(Path(__file__).with_name('ifc_drawing.py'))
                 settings=local_path(root,t.get('settings'));inputs.add(settings);validate_settings(read_json(settings))
                 if kind=='ifc_route_drawing':
                     from .bim import validate as validate_bim
