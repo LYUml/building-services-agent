@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import re
 from tempfile import TemporaryDirectory
+from time import sleep
 from urllib.parse import quote
 from xml.etree import ElementTree
 from zipfile import BadZipFile, ZIP_DEFLATED, ZipFile, ZipInfo
@@ -220,9 +221,16 @@ def prepare(assembly, output, *, engine=None, bundle_id=None, model=None,
         (stage / 'preparation.json').write_text(json.dumps(receipt, indent=2), encoding='utf-8')
         if assembly.read_bytes() != payload[f'{prefix}/Contents/{assembly.name}']:
             raise ValueError('Automation assembly changed during preparation')
-        if output.exists():
-            raise FileExistsError('Automation output appeared during preparation')
-        stage.rename(output)
+        for delay in (0.05, 0.15, 0.4, None):
+            if output.exists():
+                raise FileExistsError('Automation output appeared during preparation')
+            try:
+                stage.rename(output)
+                break
+            except PermissionError as error:
+                if delay is None or getattr(error, 'winerror', None) not in (5, 32):
+                    raise
+                sleep(delay)
     return output / archive.name
 
 

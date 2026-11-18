@@ -11,6 +11,39 @@ from scripts.prepare_revit_automation_bundle import confirm_engine, prepare, ver
 
 
 class RevitAutomationBundleTests(unittest.TestCase):
+    def test_windows_publish_retries_sharing_failure_without_replacing_output(self):
+        runs = Path(__file__).resolve().parents[1] / 'runs'
+        with TemporaryDirectory(dir=runs) as temporary:
+            directory = Path(temporary)
+            assembly = directory / 'Bsa.Revit.Automation.dll'
+            assembly.write_bytes(b'synthetic assembly')
+            rename = Path.rename
+            for destination_appears in (False, True):
+                output = directory / str(destination_appears)
+                failure = PermissionError('simulated Windows sharing failure')
+                failure.winerror = 32
+                attempts = []
+
+                def publish(stage, target):
+                    attempts.append(target)
+                    if len(attempts) == 1:
+                        if destination_appears:
+                            target.mkdir()
+                            (target / 'original.txt').write_text('preserve', encoding='utf-8')
+                        raise failure
+                    return rename(stage, target)
+
+                with patch.object(Path, 'rename', publish), patch('scripts.prepare_revit_automation_bundle.sleep'):
+                    if destination_appears:
+                        with self.assertRaisesRegex(FileExistsError, 'output appeared'):
+                            prepare(assembly, output)
+                        self.assertEqual(len(attempts), 1)
+                        self.assertEqual(list(output.iterdir()), [output / 'original.txt'])
+                    else:
+                        prepare(assembly, output)
+                        self.assertEqual(len(attempts), 2)
+                        self.assertTrue(verify_stage(output)['stage_verified'])
+
     def test_changed_input_does_not_publish_partial_bundle(self):
         runs = Path(__file__).resolve().parents[1] / 'runs'
         with TemporaryDirectory(dir=runs) as temporary:
