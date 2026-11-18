@@ -47,7 +47,17 @@ def checked_action(plan,action,folder):
 def decision(diagnosis,data,attempted):
     ready=set(diagnosis['recovery_schedule']['ready_tasks'])
     states={t['id']:t for t in diagnosis['tasks']}
-    return next((row for row in data['actions'] if row['task'] in ready and states[row['task']]['status']=='fail' and not states[row['task']]['input_blockers'] and row['task'] not in attempted),None)
+    for row in data['actions']:
+        task = row['task']
+        if task not in ready or task in attempted:
+            continue
+        state = states[task]
+        if state['status'] != 'fail' or state['input_blockers']:
+            continue
+        if state['kind'] == 'circular_fan_selection' and f'{task}/{fan.selection_report(state)}' not in state['evidence']:
+            continue
+        return row
+    return None
 
 
 def final_status(diagnosis,data,attempted,steps):

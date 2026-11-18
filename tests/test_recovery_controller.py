@@ -10,6 +10,19 @@ from tests.test_pump import case
 
 ROOT=Path(__file__).resolve().parents[1]
 
+
+class RecoveryDecisionTests(unittest.TestCase):
+    def test_failed_fan_without_selection_evidence_is_not_replayed(self):
+        action = {'task': 'fan', 'catalogue': 'replacement.json'}
+        state = dict(id='fan', kind='circular_fan_selection', status='fail', input_blockers=[], evidence=[])
+        diagnosis = dict(tasks=[state], recovery_schedule={'ready_tasks': ['fan']}, execution_pass=False)
+        policy = dict(actions=[action], max_steps=2)
+        self.assertIsNone(controller.decision(diagnosis, policy, set()))
+        self.assertEqual(controller.final_status(diagnosis, policy, set(), []), 'needs_action_or_review')
+        state['evidence'] = ['fan/fan-selection.json']
+        self.assertEqual(controller.decision(diagnosis, policy, set()), action)
+
+
 class RecoveryControllerTests(unittest.TestCase):
     def setUp(self):
         saved=os.environ.get('BSA_RECOVERY_TRIAL_OUT') if self._testMethodName=='test_two_ready_failures_are_repaired_with_fresh_diagnosis' else None
