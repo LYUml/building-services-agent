@@ -1,5 +1,20 @@
 # Source-backed local knowledge retrieval
 
+## Database scope
+
+The database is implemented: each selected source bundle has a local SQLite
+`index.sqlite` with FTS5 search, source metadata and original locators. It needs
+no separate database server. It is a knowledge index, not a warehouse of old
+development logs or a replacement for typed engineering JSON, DWG/IFC and reports.
+
+The verified local acceptance corpus has4indexes,15records and160KiB total:
+course8, code2, manufacturer1 and project-input4records. These are selected
+source snapshots, not a comprehensive professional standards/equipment library.
+Private source text/databases are not shipped in Git; a new project builds its
+own explicitly selected corpus using the commands below. Historical development
+notes are not automatically ingested. Publication version, applicability and
+source review remain separate from database availability.
+
 [Knowledge input ownership](KNOWLEDGE_OWNERSHIP.md) now records exact task
 source sets in verified workflows/checkpoints and localizes supported knowledge
 changes. Legacy/unknown tasks keep conservative fallback; cache eligibility

@@ -1,0 +1,72 @@
+{
+  "schema": "bsa.documentation-and-database-check/1",
+  "history_commit": "19e29fb41a7c3dd80e59813d28c6a79310075a24",
+  "old_history_retained_in_git": true,
+  "historical_runs_untouched": true,
+  "private_databases_not_published": true,
+  "production_and_test_changes": false,
+  "primary_entry_lines_before": 3537,
+  "primary_entry_lines_after": 136,
+  "removed_root_milestone_lines": 942,
+  "duplicate_archive_copies_created": 0,
+  "local_markdown_links_checked": 46,
+  "database": {
+    "engine": "SQLite/FTS5",
+    "sqlite_version": "3.53.1",
+    "indexes": [
+      {
+        "index": "course_library",
+        "bytes": 40960,
+        "records": 8,
+        "sources": 1,
+        "roles": [
+          "course_source"
+        ],
+        "sqlite_integrity": "ok"
+      },
+      {
+        "index": "inputs_library",
+        "bytes": 40960,
+        "records": 4,
+        "sources": 1,
+        "roles": [
+          "project_input"
+        ],
+        "sqlite_integrity": "ok"
+      },
+      {
+        "index": "manufacturer_library",
+        "bytes": 40960,
+        "records": 1,
+        "sources": 1,
+        "roles": [
+          "manufacturer_source"
+        ],
+        "sqlite_integrity": "ok"
+      },
+      {
+        "index": "wiring_library",
+        "bytes": 40960,
+        "records": 2,
+        "sources": 1,
+        "roles": [
+          "normative_source"
+        ],
+        "sqlite_integrity": "ok"
+      }
+    ],
+    "total_records": 15,
+    "total_bytes": 163840,
+    "selected_query": {
+      "text": "ADPI",
+      "role": "course_source",
+      "hits": 4,
+      "pages": [
+        4
+      ],
+      "source_reconstruction_pass": true
+    },
+    "scope": "Existing local selected-source acceptance corpus, not a complete professional library or central engineering model database"
+  },
+  "engineering_acceptance": false
+}

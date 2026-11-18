@@ -1,157 +1,57 @@
 # Building Services Agent
 
-Source-backed building services tools for a host AI agent: requirements intake,
-calculations, editable CAD/BIM, iteration and delivery checks across MEP.
-The host interprets sources and engineering assumptions; successful execution
-does not establish professional or statutory design acceptance.
-
-The [architecture acceptance audit](docs/ARCHITECTURE_ACCEPTANCE.md) records the
-ordered modular-data/knowledge/change-impact work, fresh installation, real HVAC
-and lighting evidence and explicit limits. The live host now exposes42tools and
-executes a read-only reference call. Full regression exposed a native IFC mesh
-conversion timeout; guarded reuse of the existing kernel passed local and remote recovery checks,
-with matching full remote CI passing:1949cases, zero failures/errors and258skip
-outcomes retained. This architecture stage is ready for scoped user review.
-Earlier candidate proofs remain version-scoped; no stable release is declared.
-
-The [Windows native IFC resource probe](docs/NATIVE_IFC_RESOURCES.md) reproduces
-the scoped memory/time comparison with shared counters and unchanged geometry
-checks. Its synthetic fixture is not a real building design benchmark.
-
-The ordered architecture stage now executes: [common engineering data](docs/ENGINEERING_DATA.md)
-has project-scoped air/electrical/lighting views through workflow/MCP, with explicit
-identity and producer binding. [Source input ownership](docs/ENGINEERING_INPUTS.md)
-now executes as a read-only catalogue. [Local knowledge retrieval](docs/KNOWLEDGE.md)
-now executes through the existing workflow/MCP routes. [Change impact and numerical
-reuse](docs/CHANGE_IMPACT.md) now executes through CLI and MCP selective replay;
-typed source differences and [knowledge input ownership](docs/KNOWLEDGE_OWNERSHIP.md)
-now execute. Final source, real-case and skip-coverage review is recorded in the
-architecture acceptance audit. Earlier candidate checkpoints retain their own
-source-version scope. User acceptance is pending; no automatic research extension.
-
-The [real lighting source audit](docs/LIGHTING_SOURCE_AUDIT.md) now verifies
-second-discipline calculation/common-report/input-impact propagation with existing
-upstream tooling. [Operation-scoped source replay](docs/AUDIT_REPLAY.md) now
-reduces repeated reader work with unchanged checked outputs. These integrations
-do not establish new photometric or geometry acceptance.
-
-The scoped candidate is ready for user review; this is not a
-stable release or engineering design acceptance. See [candidate status and measured optimization](docs/RELEASE_CANDIDATE.md).
-The [candidate support contract](docs/CANDIDATE_SUPPORT.md) distinguishes MCP
-coverage, verified platforms, host preparation and remaining acceptance gates.
-The [Chinese candidate review entry](docs/CANDIDATE_REVIEW.md) brings together
-installation, measured improvements, executed evidence and remaining limits.
+Source-backed tools for a host AI: requirements, engineering calculations,
+editable CAD/BIM, iteration and checked deliverables across building services.
+The host interprets sources and assumptions; tool success is not design approval.
 
 ## Start here
 
-Use the [single workflow guide](docs/START_USING.md) for project input,
-execution and review. The [current usability audit](docs/USABILITY_ACCEPTANCE.md)
-records a fresh installation and actual native/MCP checks, with limits retained.
+- [Use the agent](docs/START_USING.md): project setup, execution and review.
+- [Supported capabilities](docs/CANDIDATE_SUPPORT.md):42MCP tools and host requirements.
+- [Acceptance evidence](docs/ARCHITECTURE_ACCEPTANCE.md): actual results and limits.
+- [Documentation index](docs/README.md): choose a focused guide.
 
-Use a Python virtual environment (tested on Windows with Python3.12). From this
-checkout, install the basic AutoCAD/MCP profile:
+Use a Git checkout and a dedicated Python environment (verified on Python3.12):
 
 ```powershell
-python -m pip install -e ".[drawing,mcp]"
+python -m pip install -e ".[drawing,mcp,codex-setup]"
 bsa doctor --extra drawing --extra mcp
 ```
 
-`doctor` checks direct dependency pins and optional executable presence without
-loading native engines, changing configuration or running AutoCAD. It reports
-missing/mismatched packages with exit2. Presence is not runtime verification.
-Other optional engines require their own extras and explicit host paths.
-
-After project-scoped MCP setup, check its saved runtime paths before use:
-
-```powershell
-bsa doctor --extra drawing --extra mcp --mcp-config .codex/config.toml
-```
-
-This optional check reads the selected profile without starting its command.
-It detects removed executables and wrong path kinds; it does not verify engine
-execution or packages in a different configured Python environment.
+Add only the domain extras and host engines needed by the project. Configure
+[project-scoped MCP](docs/CODEX_LOCAL_SETUP.md) with actual host paths; inspect
+its saved profile with `bsa doctor --mcp-config .codex/config.toml`.
 
 ## Draw and check an editable sheet
 
-```powershell
-bsa drawing run examples/drawing-document.json --out runs/my-drawing --autocad "C:/Program Files/Autodesk/AutoCAD 2027/accoreconsole.exe"
-bsa drawing inspect examples/drawing-document.json --out runs/my-drawing
-```
-
-Choose a fresh output directory and your actual AutoCAD path. This example is a
-synthetic capability sheet, not a building design. The command uses the same
-seven-schema adapter as MCP, saves/reopens DWG, compares editable entities and
-checks PDF paper/scale. Open the returned PDF for visual review; inspection
-deliberately leaves visual/engineering acceptance pending. The original source
-is preserved. See [drawing contracts](docs/DRAWING_DOCUMENT.md).
+Use the [general drawing workflow](docs/GENERAL_DRAWING_WORKFLOW.md) or
+[drawing contracts](docs/DRAWING_DOCUMENT.md). Native DWG acceptance requires
+actual AutoCAD reopening and visual plot review. Synthetic examples demonstrate
+capabilities; they are not completed building designs.
 
 ## Work on a project
 
-Set `BSA_PROJECT_ROOT` in the host environment to the explicitly selected project.
-Keep coursework sources and outputs there. Without it, development outputs go
-under this checkout's ignored `runs` directory. Never select a workspace or an
-executable from a brief. Completed historical projects remain read-only.
-Electrical/workflow and review writers enforce that selection before output;
-the known completed BSE3124 directory stays excluded even under a parent selection.
-Default setup now creates its owned `runs` directory when absent. See
-[workspace and clean-source checks](docs/WORKSPACE_ISOLATION.md).
+Select the existing project through host `BSA_PROJECT_ROOT`; keep its sources
+and outputs there. Documents cannot select workspaces or executables. Without
+a project selection, development outputs use ignored `runs`. Completed BSE3124
+is read-only; BSE3227's existing submission is not changed automatically.
 
-```powershell
-bsa project-start path/to/brief.pdf --out runs/new-project
-bsa handoff-template runs/new-project/plan.json --out runs/new-project/interpretation.json
-```
-
-Use the `effective_plan` returned by intake if it differs from `plan.json`.
-Interpret the original sources and fill the explicit handoff before execution;
-an untouched template cannot run. `needs_interpretation` with exit2 is a valid
-pending result. See [project commands](docs/PROJECT_CLI.md) and
-[engineering handoff](docs/ENGINEERING_HANDOFF.md).
-
-Inspect saved results with `bsa workflow-verify RUN` and
-`bsa workflow-status PLAN RUN`. Prepare and audit separate review records with
-`bsa delivery template` / `bsa delivery audit`; see the
-[installed review commands](docs/PROJECT_CLI.md#check-and-review-saved-results-through-the-installed-entry).
-Integrity, execution and engineering review remain separate states.
-
-For an executable failed-design iteration, use the
-[supplied-curve recovery example](examples/pump-recovery/README.md). It runs the
-existing MCP controller, preserves the failed baseline and independently checks
-the selected analytic operating point; product and installation review stay pending.
-
-An already interpreted general drawing can also run through this project
-workflow, retaining original requirements, native checks, diagnosis and a
-separate pending review. See the runnable
-[general drawing workflow](docs/GENERAL_DRAWING_WORKFLOW.md). This route was
-executed through both the clean installed CLI and the current desktop MCP.
-
-For chat use, configure the existing stdio server with explicit host paths using
-the [project-scoped MCP setup](docs/CODEX_LOCAL_SETUP.md). Its40tools include
-drawing, intake, source reads, workflow execution, artifact checks and bounded
-recovery. Startup no longer imports unrelated IFC/spatial/pressure engines.
-Tools needing absent optional libraries return scoped errors when called.
-No global trust or approval settings need changing.
+The [workflow guide](docs/START_USING.md) covers source interpretation, execution,
+saved-result inspection and separate engineering review. Shared
+[engineering data](docs/ENGINEERING_DATA.md), [knowledge retrieval](docs/KNOWLEDGE.md)
+and [change impact](docs/CHANGE_IMPACT.md) reuse existing calculation engines.
+Knowledge is a source-linked SQLite index; engineering models/results remain
+typed files, not a single all-purpose database.
 
 ## Current verification and limits
 
-A clean editable installation of the drawing/MCP profile executes native
-AutoCAD authoring/reopening and inspection. Actual MCP read/write, source
-preservation, path/runtime-override rejection and artifact-tampering controls
-execute. See [usability evidence](docs/AGENT_USABILITY.md).
+The architecture candidate is ready for user review; no stable release or user
+acceptance is asserted. Full regression records1949cases, zero failures/errors
+and258retained skip outcomes. Actual HVAC and lighting workflows are checked;
+scope and original evidence are in the [acceptance audit](docs/ARCHITECTURE_ACCEPTANCE.md).
 
-This is usable scoped tooling, not an autonomous solution to arbitrary building
-projects. Source interpretation, physical model applicability, installed routing,
-product selection and complete regulatory review remain task-specific.
-Native OpenStudio/EnergyPlus annual and IFC/PTAC workflows also execute
-through CLI and fresh MCP connections; see [actual scope and results](docs/NATIVE_ENERGY_USABILITY.md).
-Optional Radiance, IFC, pressure and CFD capabilities retain their
-individual evidence and gaps in the [roadmap](docs/ROADMAP.md).
-
-The shared electrical/IFC/Radiance workflow also executes through a fresh MCP
-connection, including native DWG reopening and actual schematic PDF inspection.
-See [host repair and scoped results](docs/SHARED_LIGHTING_USABILITY.md).
-
-BSE3227's18-page coursework handoff is preserved pending user feedback; it is
-not the agent's general acceptance test. See [course status](docs/CURRENT_COURSE_CLOSEOUT.md).
-Upstream pins/licenses and actual integration decisions are in
-[reuse survey](docs/REUSE_SURVEY.md). Earlier execution notes are preserved in
-[milestone history](MILESTONES.md).
+Arbitrary automatic design, complete pressure/CFD, Revit native creation and
+whole-project statutory certification remain outside this acceptance claim.
+See the [roadmap](docs/ROADMAP.md). Upstream pins/licenses remain in
+[THIRD_PARTY.md](THIRD_PARTY.md) and the [reuse survey](docs/REUSE_SURVEY.md).
+Development and historical references are separated in [development notes](docs/DEVELOPMENT.md).
