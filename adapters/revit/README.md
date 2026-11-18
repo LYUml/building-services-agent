@@ -88,6 +88,9 @@ connectors, and verifies the original RVT hash.
 The assembly compiled locally with zero warnings and errors. Running it
 requires an installed and authorized Revit.TestRunner add-in and compatible
 adapter assemblies. The fixture has not run inside Revit.
+The fixture writes output paths, hashes and the reopened pipe UniqueId to
+the console stream captured by the pinned TestRunner. Keep that output
+with the NUnit XML and saved test artifacts when recording a native run.
 
 The Automation build also contains the separate `AutomationCreatePipe` entry
 point for a standalone, non-workshared test model. It uses `input.rvt` and

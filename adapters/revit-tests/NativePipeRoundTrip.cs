@@ -32,8 +32,10 @@ public sealed class NativePipeRoundTrip
             foreach (string field in new[] { "pipe_types", "system_types", "levels" })
                 Assert.That(captured.GetProperty(field).GetArrayLength(), Is.GreaterThan(0), field);
             Assert.That(captured.GetProperty("saved_rvt_sha256").GetString(), Is.EqualTo(sourceHash));
-            TestContext.WriteLine($"Copied RVT for request preparation: {input}");
-            TestContext.WriteLine($"Native inventory: {report}");
+            Console.WriteLine($"Copied RVT for request preparation: {input}");
+            Console.WriteLine($"Copied RVT SHA-256: {sourceHash}");
+            Console.WriteLine($"Native inventory: {report}");
+            Console.WriteLine($"Native inventory SHA-256: {Hash(report)}");
         }
         finally
         {
@@ -83,8 +85,9 @@ public sealed class NativePipeRoundTrip
             var reopened = owned.GetElement(uniqueId) as Pipe
                 ?? throw new InvalidOperationException("Created pipe was missing after reopening the saved model");
             VerifyPipe(owned, reopened, request);
-            TestContext.WriteLine($"Saved and reopened synthetic RVT: {authored}");
-            TestContext.WriteLine($"Saved RVT SHA-256: {Hash(authored)}");
+            Console.WriteLine($"Saved and reopened synthetic RVT: {authored}");
+            Console.WriteLine($"Saved RVT SHA-256: {Hash(authored)}");
+            Console.WriteLine($"Reopened pipe UniqueId: {reopened.UniqueId}");
         }
         finally
         {
