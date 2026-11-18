@@ -108,6 +108,7 @@ public sealed class NativePipeRoundTrip
         var (request, source, sourceHash) = ReadFixtureRequest();
         string folder = Directory.CreateTempSubdirectory("bsa-revit-elbow-").FullName;
         string input = Path.Combine(folder, "input.rvt");
+        string unjoined = Path.Combine(folder, "unjoined.rvt");
         string authored = Path.Combine(folder, "elbow.rvt");
         File.Copy(source, input);
         VerifyFixtureBeforeOpen(input, sourceHash);
@@ -129,7 +130,7 @@ public sealed class NativePipeRoundTrip
             Assert.That(level, Is.Not.Null);
 
             string firstId, secondId, fittingId;
-            using (var transaction = new Transaction(owned, "BSA synthetic elbow control"))
+            using (var transaction = new Transaction(owned, "BSA synthetic unjoined pipes"))
             {
                 Assert.That(transaction.Start(), Is.EqualTo(TransactionStatus.Started));
                 transaction.SetFailureHandlingOptions(transaction.GetFailureHandlingOptions()
@@ -139,14 +140,32 @@ public sealed class NativePipeRoundTrip
                 double diameter = UnitUtils.ConvertToInternalUnits(request.DiameterMetres, UnitTypeId.Meters);
                 foreach (var pipe in new[] { first, second })
                     Assert.That(pipe.get_Parameter(BuiltInParameter.RBS_PIPE_DIAMETER_PARAM).Set(diameter), Is.True);
-                owned.Regenerate();
+                (firstId, secondId) = (first.UniqueId, second.UniqueId);
+                Assert.That(transaction.Commit(), Is.EqualTo(TransactionStatus.Committed),
+                    "Revit rejected the unjoined pipe control");
+            }
+            using (var options = new SaveAsOptions { OverwriteExistingFile = false })
+                owned.SaveAs(unjoined, options);
+            Assert.That(owned.Close(false), Is.True);
+            owned = null;
+            owned = application.OpenDocumentFile(unjoined);
+            string unjoinedHash = Hash(unjoined);
+            string unjoinedReport = Path.Combine(folder, "unjoined-inventory.json");
+            using (var transaction = new Transaction(owned, "BSA synthetic elbow control"))
+            {
+                var first = (Pipe)owned.GetElement(firstId);
+                var second = (Pipe)owned.GetElement(secondId);
                 var firstEnd = EndAt(first, corner);
                 var secondEnd = EndAt(second, corner);
                 Assert.That(firstEnd.Origin.DistanceTo(secondEnd.Origin), Is.LessThanOrEqualTo(1e-7));
                 Assert.That(firstEnd.IsConnected || secondEnd.IsConnected, Is.False,
-                    "Coincident pipe ends must be physically open before fitting creation");
+                    "Reopened coincident pipe ends must be physically open before fitting creation");
+                CaptureInventory(owned, unjoined, unjoinedReport, unjoinedHash);
+                Assert.That(transaction.Start(), Is.EqualTo(TransactionStatus.Started));
+                transaction.SetFailureHandlingOptions(transaction.GetFailureHandlingOptions()
+                    .SetFailuresPreprocessor(new NativePipes.RejectFailures()).SetClearAfterRollback(true));
                 var elbow = owned.Create.NewElbowFitting(firstEnd, secondEnd);
-                (firstId, secondId, fittingId) = (first.UniqueId, second.UniqueId, elbow.UniqueId);
+                fittingId = elbow.UniqueId;
                 Assert.That(transaction.Commit(), Is.EqualTo(TransactionStatus.Committed),
                     "Revit rejected the synthetic elbow transaction");
             }
@@ -177,6 +196,9 @@ public sealed class NativePipeRoundTrip
             string authoredHash = Hash(authored);
             string report = Path.Combine(folder, "reopened-inventory.json");
             CaptureInventory(owned, authored, report, authoredHash);
+            Assert.That(Hash(unjoined), Is.EqualTo(unjoinedHash));
+            Console.WriteLine($"Reopened unjoined RVT: {unjoined} ({unjoinedHash})");
+            Console.WriteLine($"Reopened unjoined inventory: {unjoinedReport} ({Hash(unjoinedReport)})");
             Console.WriteLine($"Reopened elbow RVT: {authored} ({authoredHash})");
             var pairs = connected.Select((pair, index) => new {
                 pipe_unique_id = index == 0 ? firstId : secondId, pipe_connector_id = pair.Pipe,
