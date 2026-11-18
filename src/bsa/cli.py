@@ -94,6 +94,10 @@ def main():
     bcf_verify.add_argument('source',type=Path)
     bcf_verify.add_argument('archive',type=Path)
     bcf_verify.add_argument('--tolerance-m',type=float,required=True)
+    for command in (bcf,bcf_verify):
+        command.add_argument('--baseline',type=Path)
+        command.add_argument('--max-port-shift-m',type=float)
+        command.add_argument('--alignment',type=Path)
     ports.add_argument('--out',type=Path,required=True)
     revit_connectivity.add_arguments(sub.add_parser(
         'revit-inventory-check', help='Diagnose a saved Revit pipe and fitting inventory'))
@@ -171,10 +175,14 @@ def main():
     try:
         if a.command=='ifc-port-bcf':
             from .ifc_port_bcf import run as export_bcf
-            print(json.dumps(export_bcf(a.source,a.out,a.tolerance_m),indent=2));return 0
+            result=export_bcf(a.source,a.out,a.tolerance_m,baseline=a.baseline,
+                              max_port_shift_m=a.max_port_shift_m,alignment=a.alignment)
+            print(json.dumps(result,indent=2));return 0
         if a.command=='ifc-port-bcf-verify':
             from .ifc_port_bcf import verify_export
-            print(json.dumps(verify_export(a.source,a.archive,a.tolerance_m),indent=2));return 0
+            result=verify_export(a.source,a.archive,a.tolerance_m,baseline=a.baseline,
+                                 max_port_shift_m=a.max_port_shift_m,alignment=a.alignment)
+            print(json.dumps(result,indent=2));return 0
         if a.command=='ifc-port-inventory':
             from .ifc_port_inventory import run as inventory_ports
             result=inventory_ports(a.source,a.out,baseline=a.baseline,position_tolerance_m=a.position_tolerance_m,

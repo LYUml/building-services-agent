@@ -20,6 +20,18 @@ def project_name(tolerance_m):
     return f'{PROJECT_NAME} (port gap tolerance {float(tolerance_m)!r} m)'
 
 
+def review_project_name(report):
+    name = project_name(report['connection_gaps']['tolerance_m'])
+    comparison = report.get('comparison')
+    if comparison is None:
+        return name
+    shift = comparison.get('max_port_shift_m')
+    alignment = comparison.get('alignment', {}).get('sha256', 'none')
+    return (f"{name} | baseline SHA-256 {comparison['baseline_sha256']}"
+            f" | maximum shift in metres {float(shift) if shift is not None else 'unset'}"
+            f" | alignment SHA-256 {alignment}")
+
+
 def project_id(report):
     source_hash = report['source_sha256']
     return uuid5(NAMESPACE_URL, f'https://github.com/LYUml/building-services-agent/ifc/{source_hash}')
@@ -95,9 +107,9 @@ def verify(report, archive):
         with BcfXml.load(archive) as restored:
             if UUID(restored.project.project_id) != project_guid:
                 raise ValueError('Saved BCF project identity differs from the source IFC')
-            tolerance_bound = restored.project.name == project_name(tolerance_m)
-            if not tolerance_bound and restored.project.name != PROJECT_NAME:
-                raise ValueError('Saved BCF project name does not match the supplied port gap tolerance')
+            tolerance_bound = restored.project.name == review_project_name(report)
+            if not tolerance_bound and (report.get('comparison') or restored.project.name != PROJECT_NAME):
+                raise ValueError('Saved BCF project name does not match the supplied port gap tolerance or baseline settings')
             actual = Counter()
             for directory_guid, topic in restored.topics.items():
                 if directory_guid != topic.topic.guid:
@@ -126,7 +138,17 @@ def verify(report, archive):
                 bcf_reopen_verified=True, design_accepted=False)
 
 
-def write(report, source, out):
+def check_inputs(report, source, baseline, alignment):
+    expected = [(source, report['source_sha256'])]
+    if baseline is not None:
+        expected.append((baseline, report['comparison']['baseline_sha256']))
+    if alignment is not None:
+        expected.append((alignment, report['comparison']['alignment']['sha256']))
+    if any(file_hash(Path(path)) != sha256 for path, sha256 in expected):
+        raise ValueError('IFC or alignment input changed during BCF processing')
+
+
+def write(report, source, out, *, baseline=None, alignment=None):
     from bcf.v3.bcfxml import BcfXml
     from bcf.v3.topic import TopicHandler
     from bcf.v3.visinfo import VisualizationInfoHandler
@@ -137,7 +159,7 @@ def write(report, source, out):
         raise ValueError('Use a fresh BCF archive path in the permitted output workspace')
     if importlib.metadata.version('bcf-client') != '0.9.0':
         raise ValueError('Pinned bcf-client 0.9.0 required')
-    project = BcfXml.create_new(project_name(report['connection_gaps']['tolerance_m']))
+    project = BcfXml.create_new(review_project_name(report))
     project_guid = project_id(report)
     project.project.project_id = str(project_guid)
     for title, description, selected, point in issue_records(report):
@@ -158,8 +180,7 @@ def write(report, source, out):
         archive = Path(temporary)/'review.bcf'
         project.save(archive)
         checked = verify(report, archive)
-        if file_hash(source) != report['source_sha256']:
-            raise ValueError('IFC changed before BCF publication')
+        check_inputs(report, source, baseline, alignment)
         with archive.open('rb') as stream, out.open('xb') as target:
             shutil.copyfileobj(stream, target)
 
@@ -168,20 +189,22 @@ def write(report, source, out):
     return checked
 
 
-def run(source, out, tolerance_m):
+def run(source, out, tolerance_m, *, baseline=None, max_port_shift_m=None, alignment=None):
     if tolerance_m is None:
         raise ValueError('Explicit metre tolerance required for IFC port gap issues')
-    return write(inventory(source, tolerance_m), source, out)
+    report = inventory(source, tolerance_m, baseline=baseline, max_port_shift_m=max_port_shift_m,
+                       alignment=alignment)
+    return write(report, source, out, baseline=baseline, alignment=alignment)
 
 
-def verify_export(source, archive, tolerance_m):
+def verify_export(source, archive, tolerance_m, *, baseline=None, max_port_shift_m=None, alignment=None):
     if tolerance_m is None:
         raise ValueError('Explicit metre tolerance required for IFC port gap issues')
     archive = Path(archive).resolve()
     if not workspace.allowed(archive) or archive.suffix.lower() not in ('.bcf', '.bcfzip'):
         raise ValueError('BCF archive in the permitted workspace required')
-    report = inventory(source, tolerance_m)
+    report = inventory(source, tolerance_m, baseline=baseline, max_port_shift_m=max_port_shift_m,
+                       alignment=alignment)
     result = verify(report, archive)
-    if file_hash(Path(source)) != report['source_sha256']:
-        raise ValueError('IFC changed during BCF verification')
+    check_inputs(report, source, baseline, alignment)
     return result

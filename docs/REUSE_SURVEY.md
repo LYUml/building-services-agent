@@ -122,8 +122,11 @@ Use `bsa ifc-port-bcf <file.ifc> --tolerance-m <m> --out <new.bcf>` or
 `bsa_export_ifc_port_bcf` to hand measured gaps to a coordination reviewer.
 To recheck a received standalone export against its exact source IFC and
 original tolerance, use `bsa ifc-port-bcf-verify <file.ifc> <file.bcf> --tolerance-m <m>`
-or the read-only MCP tool `bsa_verify_ifc_port_bcf`. For packages produced
-with a baseline comparison, use verification of the originating workflow.
+or the read-only MCP tool `bsa_verify_ifc_port_bcf`. To check a revision,
+use `--baseline <previous.ifc>` on both CLI commands (MCP field `baseline`).
+Supply the same optional `--max-port-shift-m` and `--alignment` settings
+on export and verification. Baseline packages record the baseline hash,
+shift limit and any alignment hash in the BCF project name.
 New exports record the port gap tolerance in the BCF project name, including
 packages with zero issues. Verification returns the checked `tolerance_m` and
 `archive_tolerance_bound`. A legacy project name can still be replayed, but

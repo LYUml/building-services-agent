@@ -1618,7 +1618,8 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 folder.mkdir()
                 if t.get('export_bcf'):
                     from .ifc_port_bcf import write as write_port_bcf
-                    payload['bcf']=write_port_bcf(payload,ifc_path,folder/'port-issues.bcf')
+                    payload['bcf']=write_port_bcf(payload,ifc_path,folder/'port-issues.bcf',
+                                                  baseline=baseline,alignment=alignment)
                 (folder/'port-review.json').write_text(json.dumps(payload,indent=2),encoding='utf-8')
                 status,reason=ifc_review_status(payload)
             elif t['kind']=='revit_inventory_check':
