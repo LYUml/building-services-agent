@@ -14,42 +14,39 @@ from bsa.native_cad import DEFAULT_EXE
 @unittest.skipUnless(os.environ.get('BSA_TEST_AUTOCAD') == '1' and DEFAULT_EXE.is_file()
                      and Path('C:/Windows/Fonts/arial.ttf').is_file(), 'requires local AutoCAD and report font')
 class NativeTerminalDeliveryTests(unittest.TestCase):
-    def test_native_displaced_terminal_blocks_design_reports(self):
+    def run_fixture(self, **control):
         from bsa.hvac_package_access import run as run_package
 
-        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as directory:
-            root = Path(directory)
-            build = runpy.run_path(str(ROOT/'examples/hvac-package/build_inputs.py'))['build']
-            plan = build(root/'inputs', displaced_endpoint_control=True)
-            config, output = root/'project.json', root/'package'
-            create(plan, config, terminal_review=plan.parent/'review.json')
-            result = run_package(config, output, font='C:/Windows/Fonts/arial.ttf', autocad=DEFAULT_EXE)
-            workflow = json.loads((output/'workflow/workflow.json').read_bytes())
-            self.assertEqual(workflow['tasks']['native']['status'], 'pass')
-            self.assertTrue(result['integrity_pass'])
-            self.assertEqual(result['terminal_review_gate'], 'blocked')
-            self.assertIn('0.25 m from T1', result['stage_errors']['terminal_review'])
-            for name in ('report', 'report-pdf', 'terminal-review.json'):
-                self.assertFalse((output/name).exists())
+        directory = tempfile.TemporaryDirectory(dir=ROOT/'runs')
+        self.addCleanup(directory.cleanup)
+        root = Path(directory.name)
+        build = runpy.run_path(str(ROOT/'examples/hvac-package/build_inputs.py'))['build']
+        plan = build(root/'inputs', **control)
+        config, output = root/'project.json', root/'package'
+        create(plan, config, terminal_review=plan.parent/'review.json')
+        result = run_package(config, output, font='C:/Windows/Fonts/arial.ttf', autocad=DEFAULT_EXE)
+        workflow = json.loads((output/'workflow/workflow.json').read_bytes())
+        self.assertEqual(workflow['tasks']['native']['status'], 'pass')
+        self.assertTrue(result['integrity_pass'])
+        return output, result
+
+    def test_native_displaced_or_wrong_peer_terminal_blocks_design_reports(self):
+        for control, diagnostic in [('displaced_endpoint_control', '0.25 m from T1'),
+                                    ('wrong_peer_control', 'declared VAV centres: VB')]:
+            with self.subTest(control=control):
+                output, result = self.run_fixture(**{control: True})
+                self.assertEqual(result['terminal_review_gate'], 'blocked')
+                self.assertIn(diagnostic, result['stage_errors']['terminal_review'])
+                for name in ('report', 'report-pdf', 'terminal-review.json'):
+                    self.assertFalse((output/name).exists())
 
     def test_native_aligned_terminal_allows_design_reports(self):
-        from bsa.hvac_package_access import run as run_package
-
-        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as directory:
-            root = Path(directory)
-            build = runpy.run_path(str(ROOT/'examples/hvac-package/build_inputs.py'))['build']
-            plan = build(root/'inputs')
-            config, output = root/'project.json', root/'package'
-            create(plan, config, terminal_review=plan.parent/'review.json')
-            result = run_package(config, output, font='C:/Windows/Fonts/arial.ttf', autocad=DEFAULT_EXE)
-            workflow = json.loads((output/'workflow/workflow.json').read_bytes())
-            self.assertEqual(workflow['tasks']['native']['status'], 'pass')
-            self.assertTrue(result['integrity_pass'])
-            self.assertEqual(result['terminal_review_gate'], 'passed')
-            self.assertEqual(result['status'], 'review_required')
-            self.assertFalse(result['design_accepted'])
-            for name in ('report/HVAC System Design.html', 'report-pdf/HVAC System Design.pdf', 'terminal-review.json'):
-                self.assertTrue((output/name).is_file(), name)
+        output, result = self.run_fixture()
+        self.assertEqual(result['terminal_review_gate'], 'passed')
+        self.assertEqual(result['status'], 'review_required')
+        self.assertFalse(result['design_accepted'])
+        for name in ('report/HVAC System Design.html', 'report-pdf/HVAC System Design.pdf', 'terminal-review.json'):
+            self.assertTrue((output/name).is_file(), name)
 
 
 class HVACProjectTests(unittest.TestCase):
