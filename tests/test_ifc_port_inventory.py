@@ -49,6 +49,16 @@ class IfcPortComparisonTests(unittest.TestCase):
         self.assertAlmostEqual(moved['aligned_after_m'][0], 0.02)
         self.assertAlmostEqual(moved['displacement_m'], 0.02)
 
+    def test_alignment_rotates_before_translating(self):
+        before = {'ports': [dict(guid='p', origin_m=[1, 2, 3])]}
+        after = {'ports': [dict(guid='p', origin_m=[98, 21.02, 3])]}
+        result = compare_positions(before, after, 0.005, alignment=dict(
+            current_to_baseline_yaw_deg=-90, current_to_baseline_m=[-20, 100, 0]))
+        moved, = result['moved_ports']
+        self.assertAlmostEqual(moved['aligned_after_m'][0], 1.02)
+        self.assertAlmostEqual(moved['aligned_after_m'][1], 2)
+        self.assertAlmostEqual(moved['displacement_m'], 0.02)
+
     def test_pair_removal_owner_change_and_empty_export(self):
         a = dict(guid='a', owner_guids=['p1'], flow_direction='SOURCE')
         b = dict(guid='b', owner_guids=['p2'], flow_direction='SINK')

@@ -109,13 +109,19 @@ def compare_positions(previous, current, tolerance, *, alignment=None):
     after = {row['guid']: row['origin_m'] for row in current['ports']}
     moved, unavailable = [], []
     shared = sorted(before.keys() & after.keys())
+    if alignment is not None:
+        angle = math.radians(alignment.get('current_to_baseline_yaw_deg', 0))
+        cosine, sine = math.cos(angle), math.sin(angle)
+        tx, ty, tz = alignment['current_to_baseline_m']
     for guid in shared:
         a, b = before[guid], after[guid]
         if a is None or b is None:
             unavailable.append(guid)
             continue
-        aligned = b if alignment is None else [value+offset for value, offset in
-                                                zip(b, alignment['current_to_baseline_m'], strict=True)]
+        aligned = b
+        if alignment is not None:
+            x, y, z = b
+            aligned = [cosine*x-sine*y+tx, sine*x+cosine*y+ty, z+tz]
         displacement = math.dist(a, aligned)
         if not math.isfinite(displacement):
             raise ValueError('Nonfinite IFC port displacement')
@@ -124,10 +130,12 @@ def compare_positions(previous, current, tolerance, *, alignment=None):
             if alignment is not None:
                 record['aligned_after_m'] = aligned
             moved.append(record)
+    basis = 'Assumed common IFC model frame; georeferencing not reconciled'
+    if alignment is not None:
+        basis = ('Declared Z rotation and translation into baseline frame'
+                 if 'current_to_baseline_yaw_deg' in alignment else 'Declared translation into baseline frame')
     return dict(tolerance_m=tolerance, comparable_ports=len(shared)-len(unavailable),
-                unavailable_ports=unavailable, moved_ports=moved,
-                coordinate_basis=('Declared translation into baseline frame' if alignment is not None
-                                  else 'Assumed common IFC model frame; georeferencing not reconciled'))
+                unavailable_ports=unavailable, moved_ports=moved, coordinate_basis=basis)
 
 
 def inspect_pair_gaps(inventory, tolerance):
@@ -158,7 +166,8 @@ def read_alignment(path, previous, current):
     before = file_hash(path)
     spec = json.loads(path.read_text(encoding='utf-8-sig'))
     if (not isinstance(spec, dict)
-            or set(spec) != {'source', 'baseline_sha256', 'current_sha256', 'current_to_baseline_m'}
+            or set(spec)-{'current_to_baseline_yaw_deg'} != {
+                'source', 'baseline_sha256', 'current_sha256', 'current_to_baseline_m'}
             or not isinstance(spec['source'], str) or not spec['source'].strip()
             or spec['baseline_sha256'] != previous['source_sha256']
             or spec['current_sha256'] != current['source_sha256']):
@@ -168,6 +177,9 @@ def read_alignment(path, previous, current):
         type(value) not in (int, float) or not math.isfinite(value) for value in translation
     ):
         raise ValueError('Alignment requires three finite metre offsets')
+    yaw = spec.get('current_to_baseline_yaw_deg', 0)
+    if type(yaw) not in (int, float) or not math.isfinite(yaw):
+        raise ValueError('Alignment Z rotation must be a finite angle in degrees')
     if file_hash(path) != before:
         raise ValueError('IFC alignment changed during reading')
     return dict(**spec, sha256=before)

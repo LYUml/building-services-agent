@@ -173,8 +173,13 @@ JSON records a source locator, `baseline_sha256`, `current_sha256`, and
 Pass it as `--alignment` in the CLI or `alignment` in MCP or the workflow.
 No offset is inferred from the model. A controlled 100 m origin change
 reconciled successfully, while a separate 20 mm movement still failed.
-The workflow pins the alignment document. Rotation and georeferencing
-reconciliation remain outside this translation check.
+The workflow pins the alignment document. For a known horizontal rotation,
+optionally declare `current_to_baseline_yaw_deg`. The checker applies the
+right-handed rotation around model Z first and adds the translation second.
+Translation-only files remain compatible. A native saved-IFC control with
+a 90-degree frame change and translation reconciled through CLI and MCP.
+An additional 20 mm movement still exceeded the 5 mm limit. Tilt, scaling,
+reflection and georeferencing reconciliation remain outside this scope.
 
 The Revit 2013 IFC2X3 community Duplex Plumbing export at commit
 `31eb1dd0a0406fb9ebf0ebd823b48e1ec95afc08`, SHA-256
