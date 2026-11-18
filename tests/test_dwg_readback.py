@@ -34,7 +34,9 @@ class DwgReadbackTests(unittest.TestCase):
             cli_report = output / 'cli.json'
             mcp_report = output / 'mcp.json'
             env = {**os.environ, 'BSA_PROJECT_ROOT': str(ROOT)}
-            command = [sys.executable, '-m', 'bsa.cli', 'dwg-readback', str(source), '--out', str(cli_report)]
+            reference = FIXTURE / 'source-export.dxf'
+            command = [sys.executable, '-m', 'bsa.cli', 'dwg-readback', str(source), '--out', str(cli_report),
+                       '--reference-dxf', str(reference)]
             summary = json.loads(subprocess.check_output(command, cwd=ROOT, env=env))
 
             async def read_mcp():
@@ -44,6 +46,7 @@ class DwgReadbackTests(unittest.TestCase):
                     async with ClientSession(receive, send) as session:
                         await session.initialize()
                         args = dict(source=source.relative_to(ROOT).as_posix(), out=mcp_report.relative_to(ROOT).as_posix())
+                        args['reference_dxf'] = reference.relative_to(ROOT).as_posix()
                         result = await session.call_tool('bsa_read_dwg_inventory', args)
                         self.assertFalse(result.isError, result.content)
                         self.assertEqual(result.structuredContent['report_sha256'], summary['report_sha256'])
@@ -53,6 +56,8 @@ class DwgReadbackTests(unittest.TestCase):
             asyncio.run(read_mcp())
             self.assertEqual(cli_report.read_bytes(), mcp_report.read_bytes())
             report = json.loads(cli_report.read_bytes())
+            self.assertTrue(summary['correspondence_pass'])
+            self.assertEqual(report['comparison']['geometry_compared_count'], 3)
             self.assertEqual(report['source_sha256'], original)
             expected = {e.dxf.handle: e for e in ezdxf.readfile(FIXTURE / 'source-export.dxf').modelspace()}
             actual = {row['handle']: row for row in report['entities']}
@@ -72,3 +77,15 @@ class DwgReadbackTests(unittest.TestCase):
                     self.assertIsNone(geometry)
             self.assertFalse(report['native_autocad_executed'])
             self.assertEqual(file_hash(source), original)
+
+            changed = ezdxf.readfile(reference)
+            line = changed.modelspace().query('LINE')[0]
+            line.dxf.end += (1, 0, 0)
+            changed_dxf, difference_report = output / 'changed.dxf', output / 'differences.json'
+            changed.saveas(changed_dxf)
+            mismatch = subprocess.run(command[:-4] + ['--out', str(difference_report),
+                                                       '--reference-dxf', str(changed_dxf)],
+                                      cwd=ROOT, env=env, capture_output=True, check=False)
+            self.assertEqual(mismatch.returncode, 2, mismatch.stderr)
+            comparison = json.loads(difference_report.read_bytes())['comparison']
+            self.assertEqual(comparison['differences'], [dict(handle=line.dxf.handle, reason='geometry_differs')])

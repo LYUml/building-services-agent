@@ -2877,6 +2877,12 @@ Use `bsa dwg-readback <input.dwg> --out <fresh.json>` or MCP
 Both return a compact summary and write the full inventory to a fresh file.
 The installed CLI and stdio MCP emitted byte-identical reports for the
 synthetic DWG. A second call to the same output path was refused.
+For cross-checking, pass `--reference-dxf` on the CLI or `reference_dxf`
+to MCP with a saved reference export. The report pins both files, checks
+handle/type/layer correspondence and compares supported geometry. A mismatch
+retains the report and returns CLI exit code 2. An actual displaced-endpoint
+control identified the changed LINE by handle. The isolated native revision
+matched its reference on all 4,609 handles, including 4,608 geometry records.
 
 Horizun Revit MCP (Apache-2.0, inspected repository head
 `d1c94a0f7bbf5875199f2ebd1bfcc618d3049b6f`) is a candidate reference for typed

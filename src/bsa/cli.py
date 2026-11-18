@@ -122,6 +122,7 @@ def main():
     dwg_readback = sub.add_parser('dwg-readback', help='Read a saved DWG with the optional independent reader')
     dwg_readback.add_argument('source', type=Path)
     dwg_readback.add_argument('--out', type=Path, required=True)
+    dwg_readback.add_argument('--reference-dxf', type=Path)
     revit_automation_reopen.add_arguments(sub.add_parser(
         'revit-verify-automation-reopen', help='Reconcile saved Revit Automation creation and reopen evidence'))
     group=sub.add_parser('engineering-data',help='Export or verify a source-bound common data view')
@@ -264,7 +265,8 @@ def main():
             print(json.dumps(inspect(a.source, a.engine_release),indent=2));return 0
         if a.command=='dwg-readback':
             from .dwg_readback import run as read_dwg
-            print(json.dumps(read_dwg(a.source, a.out), indent=2));return 0
+            result = read_dwg(a.source, a.out, a.reference_dxf)
+            print(json.dumps(result, indent=2));return 2 if result.get('correspondence_pass') is False else 0
         if a.command=='revit-inventory-check':
             result=revit_connectivity.run(a.inventory,a.model,a.out,a.tolerance_m,
                                           expected_connections=a.expected_connections,

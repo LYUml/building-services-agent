@@ -169,9 +169,10 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None,fds_rele
         return invoke('bsa.revit_file_metadata.inspect',local(source),engine_release)
 
     @server.tool(annotations=write)
-    def bsa_read_dwg_inventory(source:str,out:str)->dict[str,Any]:
-        """Read a saved DWG with the optional host-configured ACadSharp worker; write a fresh inventory JSON."""
-        return invoke('bsa.dwg_readback.run',local(source),local(out))
+    def bsa_read_dwg_inventory(source:str,out:str,reference_dxf:str|None=None)->dict[str,Any]:
+        """Read a saved DWG, optionally compare a saved DXF reference, and write a fresh inventory JSON."""
+        reference=local(reference_dxf) if reference_dxf is not None else None
+        return invoke('bsa.dwg_readback.run',local(source),local(out),reference)
 
     @server.tool(annotations=write)
     def bsa_check_revit_inventory(
