@@ -31,7 +31,9 @@ A second native control swapped the VAV ends of two flex lines in the source
 DXF while preserving counts, allocation and sizing inputs. AutoCAD saved and
 reopened the altered geometry successfully. Both review interfaces refused a
 report and located the missing expected VA–T1 line by group and terminal ID,
-layer and endpoint coordinates. Native geometric round-trip preservation and
+layer and endpoint coordinates. The diagnostic also lists saved flex handles
+at the terminal, their opposite endpoints and any declared VAV centres at
+those endpoints. Native geometric round-trip preservation and
 correct terminal assignment are separately checked in this trial.
 
 To reproduce the negative control, generate the fixture with

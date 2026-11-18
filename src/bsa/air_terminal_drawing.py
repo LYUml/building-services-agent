@@ -70,6 +70,7 @@ def inspect(doc, allocation, tree, binding, layers):
     symbol_centers = {e.dxf.handle:symbol_center(e) for e in pools['terminal']}
     terminals = {tid:take(pools['terminal'],lambda e:near(symbol_centers[e.dxf.handle],p),
                           f"terminal {tid} at {p} m on {layers['terminal']}").dxf.handle for tid,p in centers.items()}
+    flex_ends = {line.dxf.handle: (point(line.dxf.start), point(line.dxf.end)) for line in pools['flex']}
     groups = []
     for leaf,members in tree['leaf_terminals'].items():
         start = nodes[leaf]
@@ -78,8 +79,23 @@ def inspect(doc, allocation, tree, binding, layers):
         routes = []
         for tid in members:
             end = centers[tid]
-            line = take(pools['flex'],lambda e:(near(point(e.dxf.start),start) and near(point(e.dxf.end),end)) or (near(point(e.dxf.start),end) and near(point(e.dxf.end),start)),
-                        f"VAV {leaf} to terminal {tid} from {start} to {end} m on {layers['flex']}")
+            def matches(line):
+                a, b = flex_ends[line.dxf.handle]
+                return (near(a, start) and near(b, end)) or (near(a, end) and near(b, start))
+
+            expected = f"VAV {leaf} to terminal {tid} from {start} to {end} m on {layers['flex']}"
+            try:
+                line = take(pools['flex'], matches, expected)
+            except ValueError as error:
+                observed = []
+                for handle, (a, b) in flex_ends.items():
+                    for terminal_side, far_side in ((a, b), (b, a)):
+                        if near(terminal_side, end):
+                            groups_at_end = [group for group in tree['leaf_terminals'] if near(nodes[group], far_side)]
+                            peers = ', '.join(groups_at_end) or 'none'
+                            observed.append(f'{handle} to {far_side} m (declared VAV centres: {peers})')
+                details = '; '.join(observed) or 'none'
+                raise ValueError(f'{error}; saved lines at terminal {tid}: {details}') from error
             if near(start,end):raise ValueError('Zero-length terminal connection')
             routes.append(dict(terminal=tid,terminal_handle=terminals[tid],flex_handle=line.dxf.handle,plan_length_m=math.dist(start,end)))
         groups.append(dict(id=leaf,vav_handle=circle.dxf.handle,outlet_count=len(members),maximum_flow_L_s=aggregation['leaf_flow_L_s'][leaf],routes=routes))
