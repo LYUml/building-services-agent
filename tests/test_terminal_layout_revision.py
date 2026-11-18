@@ -59,6 +59,26 @@ class TerminalLayoutRevisionTests(unittest.TestCase):
         doc.saveas(self.root/'source.dxf');p=self.root/'binding.json';b=json.loads(p.read_text());b['source_sha256']=digest(self.root/'source.dxf');p.write_text(json.dumps(b))
         self.assertTrue(self.execute()['saved_dxf_correspondence'])
 
+    def test_terminal_move_preserves_saved_flex_elevation_and_vav_endpoint(self):
+        source = self.root / 'source.dxf'
+        doc = ezdxf.readfile(source)
+        symbol = doc.modelspace().query('LWPOLYLINE')[0]
+        symbol.dxf.elevation = 6e-9
+        flex = doc.modelspace().query('LINE[layer=="flex"]')[0]
+        flex.dxf.end = (2 + 3e-9, 1, 6e-9)
+        doc.saveas(source)
+        path = self.root / 'binding.json'
+        binding = json.loads(path.read_text())
+        binding['source_sha256'] = digest(source)
+        path.write_text(json.dumps(binding))
+
+        checked = self.execute()
+        before = checked['old_correspondence']['groups'][0]['routes'][0]
+        after = checked['new_correspondence']['groups'][0]['routes'][0]
+        self.assertEqual(after['saved_vav_endpoint_m'], before['saved_vav_endpoint_m'])
+        self.assertEqual(after['saved_terminal_endpoint_m'], [3 + 3e-9, 1, 6e-9])
+        self.assertEqual(after['saved_terminal_center_m'][2], 6e-9)
+
     def test_source_mutation_before_save_rejects(self):
         from bsa.air_terminal_drawing import inspect
         def mutate(*args):

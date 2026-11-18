@@ -44,10 +44,14 @@ def run(drawing,old_allocation,new_allocation,duct_project,binding,settings,outp
         dx,dy=[(v-u)/scale for u,v in zip(point,new_point)]
         if dx==0 and dy==0:continue
         route=routes[tid];panel=doc.entitydb[route['terminal_handle']];flex=doc.entitydb[route['flex_handle']]
-        old_xyz=tuple(point)+(0.,);new_xyz=tuple(v/scale for v in new_point)+(0.,)
-        if math.dist([v*scale for v in flex.dxf.start],old_xyz)<=1e-8:flex.dxf.start=new_xyz
-        elif math.dist([v*scale for v in flex.dxf.end],old_xyz)<=1e-8:flex.dxf.end=new_xyz
-        else:raise ValueError('Flex endpoint does not match original terminal')
+        saved_endpoint = tuple(route['saved_terminal_endpoint_m'])
+        for attribute in ('start', 'end'):
+            endpoint = flex.dxf.get(attribute)
+            if tuple(v * scale for v in endpoint) == saved_endpoint:
+                flex.dxf.set(attribute, endpoint + (dx, dy, 0))
+                break
+        else:
+            raise ValueError('Flex endpoint does not match original terminal')
         # Explicit XY vertices avoid introducing default elevation/extrusion
         # attributes that ezdxf legitimately omits again during serialization.
         panel.set_points([(x+dx,y+dy,start_width,end_width,bulge) for x,y,start_width,end_width,bulge in panel.get_points()])
