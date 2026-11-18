@@ -77,7 +77,6 @@ jobs:
           tests.test_review_cli tests.test_delivery_archive tests.test_recovery_imports tests.test_catalogue_iteration
           tests.test_runtime_logs tests.test_check_runner tests.test_reference_library -v
       - name: Reproduce committed source candidate
-        if: matrix.os == 'ubuntu-latest'
         run: |
           python scripts/build_candidate.py --out runs/source-candidate
           python scripts/build_candidate.py --out runs/source-candidate-repeated
