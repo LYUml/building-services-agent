@@ -89,6 +89,12 @@ class RevitRevisionTests(unittest.TestCase):
             self.assertFalse(result['native_execution_authenticated'])
             self.assertEqual(result['connector_endpoint_error_m'], 0)
             self.assertTrue(result['creation_connector_matches'])
+            different_flag = copy.deepcopy(receipt)
+            different_flag['transaction_result']['connectors'][0]['physically_connected'] = True
+            save('creation.json', different_flag)
+            with self.assertRaisesRegex(ValueError, 'connector 1 physical connection flag differs'):
+                verify(root, created, authored, observed, reopen, 0.001)
+            save('creation.json', receipt)
             self.assertEqual([row['deviation_m'] for row in result['creation_connector_readback']], [0, 0])
             older = copy.deepcopy(receipt)
             del older['transaction_result']['connectors']

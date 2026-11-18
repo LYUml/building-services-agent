@@ -74,6 +74,7 @@ public static partial class NativePipes
                 connector_count = connectors.Length,
                 connectors = connectors.Select(connector => new {
                     id = connector.Id,
+                    physically_connected = connector.IsConnected,
                     origin_m = new[] { Metres(connector.Origin.X), Metres(connector.Origin.Y), Metres(connector.Origin.Z) },
                 }).ToArray(),
                 saved = false, connected_system_verified = false, design_accepted = false };

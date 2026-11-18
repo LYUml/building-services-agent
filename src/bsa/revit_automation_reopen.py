@@ -106,23 +106,32 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
     if 'connectors' in transaction:
         if not isinstance(transaction_connectors, list) or len(transaction_connectors) != 2:
             raise ValueError('Creation readback requires two connector records')
-        reopened_origins = {connector['id']: connector['origin_m'] for connector in connectors}
+        reopened_connectors = {connector['id']: connector for connector in connectors}
         seen = set()
         for connector in transaction_connectors:
             if not isinstance(connector, dict):
                 raise ValueError('Invalid creation connector record')
             connector_id, origin = connector.get('id'), connector.get('origin_m')
-            if (type(connector_id) is not int or connector_id not in reopened_origins or connector_id in seen
+            if (type(connector_id) is not int or connector_id not in reopened_connectors or connector_id in seen
                     or not isinstance(origin, list) or len(origin) != 3
                     or any(type(value) not in (int, float) or not math.isfinite(value) for value in origin)):
                 raise ValueError(f'Reopened connector {connector_id} differs from the creation readback')
-            reopened_origin = reopened_origins[connector_id]
+            reopened_connector = reopened_connectors[connector_id]
+            reopened_origin = reopened_connector['origin_m']
             deviation = math.dist(origin, reopened_origin)
             if deviation > tolerance_m:
                 raise ValueError(f'Reopened connector {connector_id} differs from the creation readback '
                                  f'(deviation {deviation:.6g} m)')
+            creation_connected = connector.get('physically_connected')
+            reopened_connected = reopened_connector.get('physically_connected')
+            if 'physically_connected' in connector and (
+                type(creation_connected) is not bool or creation_connected is not reopened_connected
+            ):
+                raise ValueError(f'Reopened connector {connector_id} physical connection flag differs from creation')
             connector_readback.append(dict(connector_id=connector_id, creation_origin_m=origin,
-                                           reopened_origin_m=reopened_origin, deviation_m=deviation))
+                                           reopened_origin_m=reopened_origin, deviation_m=deviation,
+                                           creation_physically_connected=creation_connected,
+                                           reopened_physically_connected=reopened_connected))
             seen.add(connector_id)
     captured_request = pipe['creation_provenance']['creation_request']
     # APS binds the prepared request to the engine-local input model path.
