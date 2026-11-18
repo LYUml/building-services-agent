@@ -104,6 +104,10 @@ Retain the returned request and preparation hashes with the tolerance in
 metres. Inspect each connector ID, saved origin, matched curve endpoint
 and deviation. Resolve an ambiguous pairing using a justified tolerance
 and better placement evidence before accepting the scoped comparison.
+Compare external physical peer IDs when the creation receipt includes them.
+If a peer changes, use both the owner UniqueId and connector ID to locate
+the old and reopened references. Coincident ports can belong to different
+fittings. Older receipts can lack the creation peer inventory.
 
 ## Engineering and delivery
 

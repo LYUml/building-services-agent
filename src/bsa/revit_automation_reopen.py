@@ -142,7 +142,10 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
                 def peer_key(peer):
                     return peer['owner_unique_id'], peer['connector_id']
                 if sorted(creation_peers, key=peer_key) != sorted(reopened_peers, key=peer_key):
-                    raise ValueError(f'Reopened connector {connector_id} physical peers differ from creation')
+                    before = sorted(map(peer_key, creation_peers))
+                    after = sorted(map(peer_key, reopened_peers))
+                    raise ValueError(f'Reopened connector {connector_id} physical peers differ from creation '
+                                     f'(creation {before}, reopened {after})')
             connector_readback.append(dict(connector_id=connector_id, creation_origin_m=origin,
                                            reopened_origin_m=reopened_origin, deviation_m=deviation,
                                            creation_physically_connected=creation_connected,

@@ -120,8 +120,9 @@ class RevitRevisionTests(unittest.TestCase):
                     self.assertTrue(outcome['creation_connector_matches'])
                     self.assertFalse(outcome['connected_system_verified'])
                 else:
-                    with self.assertRaisesRegex(ValueError, 'connector 1 physical peers differ'):
+                    with self.assertRaisesRegex(ValueError, 'connector 1 physical peers differ') as mismatch:
                         verify(root, created, authored, observed, reopen, 0.001)
+                    self.assertIn("creation [('fitting-a', 1)], reopened [('fitting-b', 1)]", str(mismatch.exception))
             save('inventory.json', inventory)
             save('creation.json', receipt)
             different_flag = copy.deepcopy(receipt)
