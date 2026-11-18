@@ -1,5 +1,6 @@
 import importlib.metadata as metadata
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -9,6 +10,23 @@ from unittest.mock import patch
 from bsa import doctor,workspace,drawing_access
 
 class DoctorTests(unittest.TestCase):
+    def test_dwg_runtime_needs_adjacent_reader_without_executing_binaries(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            worker, dotnet = root / 'worker.dll', root / 'dotnet.exe'
+            worker.touch()
+            dotnet.touch()
+            with patch.dict(os.environ, BSA_ACADSHARP_DOTNET=str(dotnet), BSA_ACADSHARP_WORKER=str(worker)):
+                missing = doctor.check(dwg_readback=True)
+                self.assertEqual(missing['status'], 'needs_setup')
+                self.assertIn('adjacent ACadSharp.dll', missing['dwg_readback']['problem'])
+                reader = root / 'ACadSharp.dll'
+                reader.touch()
+                checked = doctor.check(dwg_readback=True)['dwg_readback']
+                self.assertTrue(checked['paths_ready'])
+                self.assertEqual(checked['reader'], str(reader.resolve()))
+                self.assertFalse(checked['execution_verified'])
+
     def profile(self,root,args):
         path=root/'profile.toml'
         path.write_text('[mcp_servers.building_services]\ncommand='+json.dumps(sys.executable.replace('\\','/'))+

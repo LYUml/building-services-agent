@@ -111,6 +111,15 @@ def host_file(name):
     return path.resolve()
 
 
+def host_runtime_files():
+    dotnet = host_file('BSA_ACADSHARP_DOTNET')
+    worker = host_file('BSA_ACADSHARP_WORKER')
+    reader = worker.with_name('ACadSharp.dll')
+    if not reader.is_file():
+        raise ValueError('Build the DWG worker with its locked adjacent ACadSharp.dll')
+    return dotnet, worker, reader
+
+
 def run(source, out, reference_dxf=None, *, expected_hashes=None):
     source, out = (Path(path).resolve() for path in (source, out))
     if not workspace.allowed(source) or not source.is_file() or source.suffix.lower() != '.dwg':
@@ -125,12 +134,8 @@ def run(source, out, reference_dxf=None, *, expected_hashes=None):
     source_hash = file_hash(source)
     if expected_hashes is not None and (source_hash, reference_hash) != expected_hashes:
         raise ValueError('DWG or DXF differs from the verified revision artifact hashes')
-    dotnet = host_file('BSA_ACADSHARP_DOTNET')
-    worker = host_file('BSA_ACADSHARP_WORKER')
+    dotnet, worker, reader = host_runtime_files()
     worker_hash = file_hash(worker)
-    reader = worker.with_name('ACadSharp.dll')
-    if not reader.is_file():
-        raise ValueError('Build the DWG worker with its locked adjacent ACadSharp.dll')
     reader_hash = file_hash(reader)
     completed = subprocess.run([str(dotnet), str(worker), str(source)], cwd=worker.parent,
                                capture_output=True, encoding='utf-8', timeout=120)

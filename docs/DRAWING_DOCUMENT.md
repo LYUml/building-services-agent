@@ -161,6 +161,9 @@ $env:BSA_ACADSHARP_WORKER = (Resolve-Path (Join-Path $workerOutput 'Bsa.DwgReadb
 ```
 
 Pass these variables in the environment that launches the CLI or MCP server.
+Run `bsa doctor --dwg-readback` to check that both host paths and the adjacent
+reader library exist. Use `bsa dwg-readback` on a known fixture to verify
+worker schema compatibility and actual execution.
 Use a fresh build directory for each rebuild so an in-flight CLI, MCP or
 regression run keeps its configured binaries. The summary and report include
 SHA-256 values for the DWG, the comparison DXF when supplied, the worker and

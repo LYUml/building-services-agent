@@ -133,6 +133,7 @@ def main():
     check=sub.add_parser('doctor',help='Read-only checks of selected pinned dependencies and host paths')
     check.add_argument('--extra',action='append',default=[])
     check.add_argument('--autocad',type=Path)
+    check.add_argument('--dwg-readback',action='store_true',help='Check configured ACadSharp runtime files without launching them')
     check.add_argument('--mcp-config',type=Path,help='Read-only path checks of an explicit project MCP profile')
     group=sub.add_parser('drawing',help='Author or inspect general 2D drawings using the shared MCP adapters')
     commands=group.add_subparsers(dest='drawing_command',required=True)
@@ -293,7 +294,7 @@ def main():
             print(json.dumps(result,indent=2));return 0
         if a.command=='doctor':
             from .doctor import check
-            result=check(extras=a.extra,autocad=a.autocad,mcp_config=a.mcp_config)
+            result=check(extras=a.extra,autocad=a.autocad,mcp_config=a.mcp_config,dwg_readback=a.dwg_readback)
             print(json.dumps(result,indent=2));return 0 if result['status']=='direct_requirements_ready' else 2
         if a.command=='drawing':
             from . import drawing_access

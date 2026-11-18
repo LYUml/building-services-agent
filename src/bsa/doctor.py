@@ -39,7 +39,7 @@ def profile_paths(config):
         scope='Supported absolute BSA startup path presence only; not generic MCP configuration validation or engine execution')
 
 
-def check(*,extras=(),autocad=None,mcp_config=None):
+def check(*,extras=(),autocad=None,mcp_config=None,dwg_readback=False):
     project=tomllib.loads((workspace.ROOT/'pyproject.toml').read_text(encoding='utf-8'))['project']
     optional=project['optional-dependencies'];extras=sorted(set(extras))
     if set(extras)-set(optional):raise ValueError('Unknown extras: '+', '.join(sorted(set(extras)-set(optional))))
@@ -58,9 +58,20 @@ def check(*,extras=(),autocad=None,mcp_config=None):
         path=Path(autocad).resolve();runtime=dict(path=str(path),is_file=path.is_file(),execution_verified=False)
     profile=profile_paths(mcp_config) if mcp_config is not None else None
     ready=sys.version_info>=(3,11) and all(p['matches'] for p in packages) and (runtime is None or runtime['is_file']) and (profile is None or profile['paths_ready'])
+    optional_runtime = {}
+    if dwg_readback:
+        from .dwg_readback import host_runtime_files
+
+        try:
+            dotnet, worker, reader = host_runtime_files()
+            dwg = dict(paths_ready=True, dotnet=str(dotnet), worker=str(worker), reader=str(reader))
+        except ValueError as error:
+            dwg = dict(paths_ready=False, problem=str(error))
+        optional_runtime['dwg_readback'] = dict(**dwg, execution_verified=False)
+        ready = ready and dwg['paths_ready']
     return dict(status='direct_requirements_ready' if ready else 'needs_setup',
                 python=sys.executable,python_supported=sys.version_info>=(3,11),extras=extras,
                 project_root=str(selected or workspace.ROOT/'runs'),packages=packages,autocad=runtime,
                 mcp_profile=profile,
                 scope='Direct pinned distributions and optional host executable presence only; no native import, runtime execution, MCP connection or engineering acceptance',
-                design_accepted=False)
+                design_accepted=False,**optional_runtime)
