@@ -159,7 +159,11 @@ def run(directory,output,*,terminal_review=None,adpi_review=None):
     for kind,filename in [('air_allocation','allocation.json'),('terminal_throw','terminal-results.json'),('duct_schedule','results.json')]:
         names=[name for name,t in workflow['tasks'].items() if t['kind']==kind]
         if len(names)!=1 or workflow['tasks'][names[0]]['status']!='pass':raise ValueError('One passing '+kind+' task required')
-        p=directory/names[0]/filename;paths.append(p);data.append(read_input(p))
+        p=directory/names[0]/filename
+        paths.append(p)
+        data.append(read_input(p))
+        if workflow['artifact_hashes'].get(p.relative_to(directory).as_posix()) != pins[str(p)]:
+            raise ValueError(f'Report input differs from the verified workflow artifact: {kind}')
     content,counts=compose(workflow,*data)
     review_paragraphs=[];review_pins={}
     if adpi_review is not None:

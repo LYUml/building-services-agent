@@ -20,6 +20,13 @@ class HVACReportTests(unittest.TestCase):
    with self.assertRaisesRegex(ValueError,'changed during preparation'):run(directory,root/'changed-during-report')
   self.assertFalse((root/'changed-during-report').exists())
   manifest.write_bytes(original_manifest)
+  missing_pin=json.loads(original_manifest)
+  del missing_pin['artifact_hashes']['ducts/results.json']
+  manifest.write_text(json.dumps(missing_pin),encoding='utf-8')
+  with self.assertRaisesRegex(ValueError,'verified workflow artifact: duct_schedule'):
+   run(directory,root/'missing-schedule-pin')
+  self.assertFalse((root/'missing-schedule-pin').exists())
+  manifest.write_bytes(original_manifest)
   self.assertEqual(r['counts'],dict(terminal_direction_rows=2,leaf_groups=2,duct_sections=2,requirements=3));self.assertFalse(r['design_accepted'])
   text=(root/'report/HVAC System Design.html').read_text();self.assertIn('&lt;design&gt; &amp; assumptions',text);self.assertIn('pending review',text)
   import reportlab
