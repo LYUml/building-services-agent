@@ -185,7 +185,11 @@ public sealed class NativePipeRoundTrip
             var matches = connectors.Where(port => port.Domain == Domain.DomainPiping
                 && port.ConnectorType == ConnectorType.End && port.Origin.DistanceTo(point) <= 1e-7).ToArray();
             Assert.That(matches.Length, Is.EqualTo(1));
-            return matches[0].Id;
+            var connector = matches[0];
+            Assert.That(connector.IsConnected, Is.False, "The single-pipe fixture expects an open physical end");
+            Assert.That(connector.AllRefs.Cast<Connector>().Where(peer => peer.Owner.Id != pipe.Id
+                && peer.ConnectorType != ConnectorType.Logical), Is.Empty, "Unexpected external physical peer");
+            return connector.Id;
         }).ToArray();
     }
 

@@ -88,7 +88,8 @@ a pipe in an outer transaction group and checks that its identity and
 duplicate-request provenance disappear after rollback. The test then reopens
 the untouched copy, creates a pipe, saves a separate model and reopens it. It
 checks the same pipe identity, type, system, level, diameter and endpoint
-connectors, and verifies the original RVT hash.
+connectors, both expected to remain physically open, and verifies the original
+RVT hash. Choose synthetic endpoints away from existing model connections.
 
 The assembly compiled locally with zero warnings and errors. Running it
 requires an installed and authorized Revit.TestRunner add-in and compatible
