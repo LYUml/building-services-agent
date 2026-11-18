@@ -1,4 +1,7 @@
-param([Parameter(Mandatory=$true)][string]$Out)
+param(
+    [Parameter(Mandatory=$true)][string]$Out,
+    [string]$Adapter
+)
 $ErrorActionPreference = 'Stop'
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $target = [IO.Path]::GetFullPath((Join-Path (Get-Location) $Out))
@@ -33,9 +36,17 @@ if (Test-Path -LiteralPath $runtimePath -PathType Leaf) {
     $runtime = [ordered]@{tfm=$runtimeConfig.runtimeOptions.tfm;frameworks=@($runtimeConfig.runtimeOptions.frameworks);sha256=(Get-FileHash -LiteralPath $runtimePath -Algorithm SHA256).Hash.ToLowerInvariant()}
 }
 $assemblyPath = Join-Path $repoRoot 'adapters/revit/bin/Release/net10.0-windows/Bsa.Revit.dll'
+if ($Adapter) {
+    $assemblyPath = (Resolve-Path -LiteralPath $Adapter).ProviderPath
+    if (-not $assemblyPath.StartsWith($repoRoot + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase) -or
+        [IO.Path]::GetExtension($assemblyPath) -ne '.dll' -or -not (Test-Path -LiteralPath $assemblyPath -PathType Leaf)) {
+        throw 'Select a repository-local adapter DLL.'
+    }
+}
 $assembly = $null
 if (Test-Path -LiteralPath $assemblyPath -PathType Leaf) {
     $assembly = [ordered]@{
+        path=$assemblyPath
         sha256=(Get-FileHash -LiteralPath $assemblyPath -Algorithm SHA256).Hash.ToLowerInvariant()
         authenticode_status=(Get-AuthenticodeSignature -LiteralPath $assemblyPath).Status.ToString()
         host_policy_acceptance_verified=$false
