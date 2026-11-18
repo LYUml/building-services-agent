@@ -24,13 +24,17 @@ class ConnectionSummaryTests(unittest.TestCase):
         binding=save(self.root/'binding.json',fixture.binding)
         schedule=save(self.directory/'ducts/results.json',dict(input_sha256=digest(project)))
         self.paths=[allocation,self.directory/'lookup/terminal-results.json',schedule]
-        self.workflow=dict(inputs={str(p):digest(p) for p in (project,binding)},
+        self.plan=save(self.root/'plan.json', dict(tasks=[
+            dict(id='allocation'), dict(id='ducts', depends_on='allocation', project='ducts.json'),
+            dict(id='sheet', depends_on='ducts', binding='binding.json'), dict(id='native', depends_on='sheet')]))
+        self.workflow=dict(inputs={str(p):digest(p) for p in (project,binding,self.plan)},
                            artifact_hashes={p.relative_to(self.directory).as_posix(): digest(p)
                                             for p in (self.drawing, allocation, schedule)},
                            tasks={name:dict(kind=kind,status='pass') for name,kind in [('native','duct_sheet_native'),('sheet','duct_sheet'),('ducts','duct_schedule'),('allocation','air_allocation')]})
         save(self.directory/'workflow.json',self.workflow)
         self.record=fixture.check()|dict(inputs={str(p):digest(p) for p in (self.drawing,allocation,project,binding)},layers=fixture.layers,
-            workflow_sha256=digest(self.directory/'workflow.json'),schedule_sha256=digest(schedule),lineage=['native','sheet','ducts','allocation'])
+            workflow_sha256=digest(self.directory/'workflow.json'),schedule_sha256=digest(schedule),
+            plan_sha256=digest(self.plan),lineage=['native','sheet','ducts','allocation'])
         self.review=self.root/'review.json'
 
     def summarize(self):
@@ -71,3 +75,13 @@ class ConnectionSummaryTests(unittest.TestCase):
         binding=next(p for p in self.workflow['inputs'] if p.endswith('binding.json'))
         self.workflow['inputs'][binding]='other'
         with self.assertRaisesRegex(ValueError,'outside workflow'):self.summarize()
+
+    def test_other_pinned_binding_cannot_replace_declared_binding(self):
+        alternate = self.save(self.root/'alternate.json', dict(self.fixture.binding, basis='Other sheet'))
+        self.workflow['inputs'][str(alternate)] = digest(alternate)
+        self.save(self.directory/'workflow.json', self.workflow)
+        self.record['workflow_sha256'] = digest(self.directory/'workflow.json')
+        self.record['inputs'].pop(str(self.root/'binding.json'))
+        self.record['inputs'][str(alternate)] = digest(alternate)
+        with self.assertRaisesRegex(ValueError, 'native task ancestry in the plan'):
+            self.summarize()

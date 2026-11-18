@@ -5,7 +5,7 @@ import json
 import math
 from pathlib import Path
 from .cli import digest
-from .workflow import verify
+from .workflow import local_path, verify
 
 
 def table(headers,rows):
@@ -79,6 +79,19 @@ def connection_summary(directory,workflow,paths,review):
     projects=[p for p in sources if inputs[p]==schedule['input_sha256']]
     if len(projects)!=1:raise ValueError('Unique calculated duct project required')
     project=projects[0];binding=next(p for p in sources if p!=project)
+    plan_hash = record.get('plan_sha256')
+    declared_plan = workflow.get('source_plan')
+    plans = [Path(name).resolve() for name, sha in workflow['inputs'].items() if sha == plan_hash]
+    if declared_plan:
+        plans = [path for path in plans if path == Path(declared_plan['path']).resolve()]
+    if len(plans) != 1 or digest(plans[0]) != plan_hash:
+        raise ValueError('Terminal review requires the exact workflow plan')
+    plan = plans[0]
+    declared = {task['id']: task for task in json.loads(plan.read_bytes())['tasks']}
+    if (any(declared.get(name, {}).get('depends_on') != parent for name, parent in zip(lineage, lineage[1:]))
+            or local_path(plan.parent, declared[lineage[2]].get('project')) != project
+            or local_path(plan.parent, declared[lineage[1]].get('binding')) != binding):
+        raise ValueError('Terminal review sources differ from the native task ancestry in the plan')
     fresh=inspect(ezdxf.readfile(drawing),json.loads(paths[0].read_text(encoding='utf-8')),
         json.loads(project.read_text(encoding='utf-8'))['tree'],json.loads(binding.read_text(encoding='utf-8')),record['layers'])
     if any(record.get(k)!=v for k,v in fresh.items()):raise ValueError('Terminal review differs from saved geometry')
