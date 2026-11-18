@@ -17,3 +17,12 @@ Five tests exercise reversed lines, same-flow swapped membership, disconnected f
 Use `bsa delivery verify-terminal-connections <plan.json> <workflow-directory> <native-task-id> --out <review.json>` with the same four layer flags. MCP `bsa_verify_terminal_connections` takes project-relative `plan`, `workflow`, `out`, the `native_task` ID, and `supply_layer`, `vav_layer`, `terminal_layer`, `flex_layer`. It verifies the workflow, requires its exact source plan and follows passing native-sheet, prepared-sheet, duct-schedule and allocation dependencies. The drawing, allocation, duct project and rigid binding must match hashes recorded in that workflow. Store the fresh report outside the immutable run. This post-run review is also available as an automatic package stage through HVAC_PACKAGE.md.
 
 Actual private inherited review again matches 80 terminals. Wrong-plan, wrong-task-kind and output-inside-run controls reject; the five geometry tests still pass. This replaces manual file selection while retaining the same limited geometric scope.
+
+The repository's `examples/hvac-package/build_inputs.py` also provides an
+independent four-terminal fixture. A fresh run at `ee91947` used AutoCAD 2027
+Core Console to save, reopen and plot the DWG. CLI and MCP produced byte-identical
+review reports covering four terminal connections and three rigid sections.
+MCP rejected the prepared-sheet task ID without writing a report. The rendered
+PDF showed both VAV groups, all four labels, the three sizing rows and the
+scale reference legibly within the page. The native task passed and the manual
+engineering task remained pending. The receipt and drawings stay in local runs.
