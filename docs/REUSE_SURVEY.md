@@ -355,6 +355,13 @@ The tools return the model hash, saved release and optional worksharing and
 single-user-cloud flags. The reader uses upstream redaction and emits only
 these selected metadata fields.
 
+The CLI and MCP also returned identical metadata for the two public projects in
+the [pinned magnetar corpus](https://github.com/magnetar-io/revit-test-datasets/tree/fd755e18cec40ed016d06b082f420d796571fef1).
+The downloaded bytes matched their Git LFS SHA-256 identities. Core Interior
+reported Revit 2024 and Einhoven reported Revit 2023. Both reported worksharing
+disabled. Three upstream tier-one metadata fixtures returned unknown sharing
+flags. A real workshared project has yet to be exercised. Models remain local.
+
 ## Offline Revit inventory access
 
 The main CLI and MCP tool reuse the existing saved-inventory diagnostic and
