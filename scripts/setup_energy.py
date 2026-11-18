@@ -7,6 +7,7 @@ from pathlib import Path
 import platform
 import subprocess
 import sys
+from tempfile import TemporaryDirectory
 import urllib.request
 import zipfile
 
@@ -22,8 +23,10 @@ def verify_installation(archive, target):
             if not (target / member.filename).resolve().is_relative_to(target.resolve()):
                 raise RuntimeError("archive path escapes target")
         if not target.exists():
-            target.mkdir()
-            package.extractall(target)
+            with TemporaryDirectory(dir=target.parent) as staging:
+                payload = Path(staging) / "energyplus"
+                package.extractall(payload)
+                payload.rename(target)
         for member in package.infolist():
             if member.is_dir():
                 continue
