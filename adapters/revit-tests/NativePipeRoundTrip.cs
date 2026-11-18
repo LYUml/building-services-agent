@@ -18,15 +18,12 @@ public sealed class NativePipeRoundTrip
         string folder = Directory.CreateTempSubdirectory("bsa-revit-inventory-").FullName;
         string input = Path.Combine(folder, "input.rvt");
         string report = Path.Combine(folder, "inventory.json");
-        string request = Path.Combine(folder, "inventory-request.json");
         File.Copy(source, input);
-        byte[] requestBytes = JsonSerializer.SerializeToUtf8Bytes(new { SavedRvtSha256 = sourceHash });
-        File.WriteAllBytes(request, requestBytes);
         var owned = application.OpenDocumentFile(input);
         try
         {
             Assert.That(owned.IsWorkshared || owned.IsLinked, Is.False);
-            NativeInventory.CollectFromDocument(owned, input, report, request, requestBytes, sourceHash);
+            CaptureInventory(owned, input, report, sourceHash);
             using var inventory = JsonDocument.Parse(File.ReadAllBytes(report));
             var captured = inventory.RootElement;
             foreach (string field in new[] { "pipe_types", "system_types", "levels" })
@@ -90,9 +87,15 @@ public sealed class NativePipeRoundTrip
             Assert.That(PipeIds(owned).SetEquals(expectedIds), Is.True);
             Assert.That(VerifyPipe(owned, reopened, request), Is.EqualTo(connectorIds));
             ElementProvenance.VerifyCommittedRequest(reopened, activeRequest);
+            string authoredHash = Hash(authored);
+            Assert.That(authoredHash, Is.Not.EqualTo(sourceHash));
+            string reopenedReport = Path.Combine(folder, "reopened-inventory.json");
+            CaptureInventory(owned, authored, reopenedReport, authoredHash);
             Console.WriteLine($"Saved and reopened synthetic RVT: {authored}");
-            Console.WriteLine($"Saved RVT SHA-256: {Hash(authored)}");
+            Console.WriteLine($"Saved RVT SHA-256: {authoredHash}");
             Console.WriteLine($"Reopened pipe UniqueId: {reopened.UniqueId}");
+            Console.WriteLine($"Reopened inventory: {reopenedReport}");
+            Console.WriteLine($"Reopened inventory SHA-256: {Hash(reopenedReport)}");
         }
         finally
         {
@@ -100,6 +103,15 @@ public sealed class NativePipeRoundTrip
                 Assert.That(owned.Close(false), Is.True);
             Assert.That(Hash(source), Is.EqualTo(sourceHash));
         }
+    }
+
+    private static void CaptureInventory(Document document, string model, string report, string modelHash)
+    {
+        string request = Path.ChangeExtension(report, "request.json");
+        byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(new { SavedRvtSha256 = modelHash });
+        using (var stream = new FileStream(request, FileMode.CreateNew))
+            stream.Write(bytes);
+        NativeInventory.CollectFromDocument(document, model, report, request, bytes, modelHash);
     }
 
     private static string SelectInput(string variable, string extension)

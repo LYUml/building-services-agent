@@ -91,6 +91,9 @@ adapter assemblies. The fixture has not run inside Revit.
 The fixture writes output paths, hashes and the reopened pipe UniqueId to
 the console stream captured by the pinned TestRunner. Keep that output
 with the NUnit XML and saved test artifacts when recording a native run.
+The reopened model also gets a separate `reopened-inventory.json`. Use
+the exact authored RVT and that inventory with `bsa revit-inventory-check`
+to independently diagnose its saved geometry and connector evidence.
 
 The Automation build also contains the separate `AutomationCreatePipe` entry
 point for a standalone, non-workshared test model. It uses `input.rvt` and
