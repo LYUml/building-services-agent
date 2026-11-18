@@ -8,6 +8,32 @@ from .engine import ProjectError
 from .workspace import ROOT
 
 
+IDENTITIES = {'PipeTypeUniqueId', 'SystemTypeUniqueId', 'LevelUniqueId'}
+PIPE_FIELDS = IDENTITIES | {'StartMetres', 'EndMetres', 'DiameterMetres'}
+
+
+def validate_geometry(pipe):
+    for field in ('StartMetres', 'EndMetres'):
+        value = pipe[field]
+        if not isinstance(value, list) or len(value) != 3 or any(
+                type(x) not in (int, float) or not math.isfinite(x) for x in value):
+            raise ProjectError('Three finite metre coordinates required')
+    diameter = pipe['DiameterMetres']
+    if (type(diameter) not in (int, float) or not math.isfinite(diameter) or diameter <= 0
+            or math.dist(pipe['StartMetres'], pipe['EndMetres']) <= 0):
+        raise ProjectError('Positive diameter and nonzero segment required')
+
+
+def validate_automation_request(request, model_sha256):
+    if not isinstance(request, dict) or request.get('SavedRvtSha256') != model_sha256:
+        raise ProjectError('Pipe request does not match the selected saved RVT')
+    identity_fields = IDENTITIES | {'DocumentPath', 'Source'}
+    if (set(request) != PIPE_FIELDS | identity_fields | {'SavedRvtSha256'}
+            or any(not isinstance(request[field], str) or not request[field].strip() for field in identity_fields)):
+        raise ProjectError('Complete prepared pipe request with explicit source and native identities required')
+    validate_geometry(request)
+
+
 def prepare(inventory, model, basis, out, *, scope=None):
     root=Path(scope).resolve() if scope is not None else ROOT
     if not root.is_relative_to(ROOT):
@@ -33,8 +59,7 @@ def prepare(inventory, model, basis, out, *, scope=None):
     source_hash=digest(source_path)
     if source_hash!=source['sha256']:raise ProjectError('Source document changed')
     before[str(source_path)]=source_hash
-    fields={'PipeTypeUniqueId','SystemTypeUniqueId','LevelUniqueId','StartMetres','EndMetres','DiameterMetres'}
-    if set(pipe)!=fields:raise ProjectError('Explicit type/system/level/endpoints/diameter required; no defaults')
+    if set(pipe)!=PIPE_FIELDS:raise ProjectError('Explicit type/system/level/endpoints/diameter required; no defaults')
     for field,collection in (('PipeTypeUniqueId','pipe_types'),('SystemTypeUniqueId','system_types'),('LevelUniqueId','levels')):
         rows=data.get(collection)
         if not isinstance(rows,list):raise ProjectError('Missing native selection inventory')
@@ -42,13 +67,7 @@ def prepare(inventory, model, basis, out, *, scope=None):
         if any(not isinstance(uid,str) or not uid for uid in ids) or len(ids)!=len(set(ids)):
             raise ProjectError('Invalid or duplicate native selection identities')
         if pipe[field] not in ids:raise ProjectError('Requested selection not in model: '+field)
-    for field in ('StartMetres','EndMetres'):
-        value=pipe[field]
-        if not isinstance(value,list) or len(value)!=3 or any(type(x) not in (int,float) or not math.isfinite(x) for x in value):
-            raise ProjectError('Three finite metre coordinates required')
-    d=pipe['DiameterMetres']
-    if type(d) not in (int,float) or not math.isfinite(d) or d<=0 or math.dist(pipe['StartMetres'],pipe['EndMetres'])<=0:
-        raise ProjectError('Positive diameter and nonzero segment required')
+    validate_geometry(pipe)
     if any(out==Path(p) or out in Path(p).parents for p in before):
         raise ProjectError('Output may not contain source inputs')
     source_text=json.dumps(dict(path=str(source_path),sha256=source_hash,locator=source['locator'],

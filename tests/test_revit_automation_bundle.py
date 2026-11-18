@@ -87,7 +87,10 @@ class RevitAutomationBundleTests(unittest.TestCase):
             model.write_bytes(b'synthetic RVT')
             digest = hashlib.sha256(model.read_bytes()).hexdigest()
             request = directory / 'draft.json'
-            request.write_text(json.dumps({'SavedRvtSha256': digest}), encoding='utf-8')
+            fields = dict(SavedRvtSha256=digest, DocumentPath=str(model), Source='Synthetic pipe basis',
+                          PipeTypeUniqueId='type', SystemTypeUniqueId='system', LevelUniqueId='level',
+                          StartMetres=[0, 0, 0], EndMetres=[1, 0, 0], DiameterMetres=0.05)
+            request.write_text(json.dumps(fields), encoding='utf-8')
             args = dict(engine='Autodesk.Revit+2027', bundle_id='example.CreatePipe+review',
                         operation='create-pipe', model=model, pipe_request=request)
             archive = prepare(assembly, directory / 'published', **args)
@@ -101,6 +104,11 @@ class RevitAutomationBundleTests(unittest.TestCase):
                 'input.rvt': 'get', 'pipe-request.json': 'get', 'authored.rvt': 'put', 'creation.json': 'put',
             })
             self.assertEqual(archive.with_name('pipe-request.json').read_bytes(), request.read_bytes())
+            self.assertTrue(verify_stage(archive.parent, model)['stage_verified'])
+            request.write_text(json.dumps(dict(fields, DiameterMetres=True)), encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'Positive diameter'):
+                prepare(assembly, directory / 'invalid-geometry', **args)
+            self.assertFalse((directory / 'invalid-geometry').exists())
             model.write_bytes(b'different RVT')
             rejected = directory / 'rejected'
             with self.assertRaisesRegex(ValueError, 'does not match'):

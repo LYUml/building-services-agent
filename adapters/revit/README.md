@@ -68,6 +68,8 @@ The inventory AppBundle still registers only the read-only entry point.
 Select `--operation create-pipe` to stage its separate AppBundle and Activity.
 With `--model` and `--pipe-request`, preparation checks the request's saved
 RVT hash and copies the exact request bytes into the staging directory.
+Preparation and stage verification also check the explicit identities, source,
+finite endpoint coordinates and positive diameter before any host submission.
 The write bundle was packaged locally from the compiled adapter. Work-item
 execution and independent reopen remain pending.
 [Autodesk Document.SaveAs](https://help.autodesk.com/cloudhelp/2026/ENU/Revit-API-MainReference/files/html/df74c7e1-a98a-7751-676a-e9b074566f62.htm)

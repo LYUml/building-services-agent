@@ -130,8 +130,13 @@ def verify_stage(directory, model=None):
         if hashlib.sha256(data).hexdigest() != receipt.get('request_sha256'):
             raise ValueError('Staged request hash mismatch')
         expected_model_hash = inventory_request(model, runs)['SavedRvtSha256']
-        if json.loads(data).get('SavedRvtSha256') != expected_model_hash or receipt.get('saved_rvt_sha256') != expected_model_hash:
+        declared = json.loads(data)
+        if (not isinstance(declared, dict) or declared.get('SavedRvtSha256') != expected_model_hash
+                or receipt.get('saved_rvt_sha256') != expected_model_hash):
             raise ValueError('Staged request model hash mismatch')
+        if operation == 'create-pipe':
+            from bsa.revit_request import validate_automation_request
+            validate_automation_request(declared, expected_model_hash)
     return {'operation': operation, 'stage_verified': True, 'model_checked': model is not None,
             'native_executed': False}
 
@@ -159,9 +164,8 @@ def prepare(assembly, output, *, engine=None, bundle_id=None, model=None,
         if not pipe_request.is_relative_to(runs) or pipe_request.suffix.lower() != '.json':
             raise ValueError('Select a prepared pipe request under repository runs')
         request_bytes = pipe_request.read_bytes()
-        declared = json.loads(request_bytes)
-        if not isinstance(declared, dict) or declared.get('SavedRvtSha256') != request['SavedRvtSha256']:
-            raise ValueError('Pipe request does not match the selected saved RVT')
+        from bsa.revit_request import validate_automation_request
+        validate_automation_request(json.loads(request_bytes), request['SavedRvtSha256'])
     elif request is not None:
         request_bytes = json.dumps(request, indent=2).encode('utf-8')
     confirmed = None
