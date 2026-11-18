@@ -5,12 +5,50 @@ import unittest
 from uuid import uuid4
 from zipfile import ZipFile
 
-from bsa.ifc_port_bcf import verify, write
+from bsa.ifc_port_bcf import run, verify, verify_export, write
 from bsa.source_refs import file_hash
 
 
 @unittest.skipUnless(find_spec('bcf'), 'requires the optional BCF runtime')
 class IfcPortBcfTests(unittest.TestCase):
+    def test_saved_ifc_reversed_duplicate_survives_export_and_replay(self):
+        import ifcopenshell
+        from ifcopenshell.guid import new
+        from bcf.v3.bcfxml import BcfXml
+
+        runs = Path(__file__).resolve().parents[1] / 'runs'
+        with TemporaryDirectory(dir=runs) as temporary:
+            root = Path(temporary)
+            source, archive = root / 'source.ifc', root / 'review.bcf'
+            model = ifcopenshell.file(schema='IFC4')
+            unit = model.create_entity('IfcSIUnit', UnitType='LENGTHUNIT', Name='METRE')
+            units = model.create_entity('IfcUnitAssignment', Units=[unit])
+            model.create_entity('IfcProject', GlobalId=new(), UnitsInContext=units)
+            origin = model.create_entity('IfcCartesianPoint', Coordinates=(0.0, 0.0, 0.0))
+            axes = model.create_entity('IfcAxis2Placement3D', Location=origin)
+            placement = model.create_entity('IfcLocalPlacement', RelativePlacement=axes)
+            ports = []
+            for _ in range(2):
+                port = model.create_entity('IfcDistributionPort', GlobalId=new(), ObjectPlacement=placement)
+                owner = model.create_entity('IfcPipeSegment', GlobalId=new())
+                model.create_entity('IfcRelNests', GlobalId=new(), RelatingObject=owner, RelatedObjects=[port])
+                ports.append(port)
+            relationships = []
+            for first, second in (ports, ports[::-1]):
+                relationship = model.create_entity('IfcRelConnectsPorts', GlobalId=new(),
+                                                   RelatingPort=first, RelatedPort=second)
+                relationships.append(relationship.GlobalId)
+            model.write(str(source))
+
+            exported = run(source, archive, 0.001)
+            self.assertEqual(verify_export(source, archive, 0.001), exported)
+            self.assertEqual((exported['ifc_review_status'], exported['measured_relationships']), ('fail', 2))
+            with BcfXml.load(archive) as bcf:
+                topic, = bcf.topics.values()
+                self.assertTrue(topic.topic.title.startswith('IFC duplicate port pair'))
+                for guid in relationships:
+                    self.assertIn(guid, topic.topic.description)
+
     def test_rejects_topic_folder_with_different_guid(self):
         runs = Path(__file__).resolve().parents[1] / 'runs'
         with TemporaryDirectory(dir=runs) as temporary:
