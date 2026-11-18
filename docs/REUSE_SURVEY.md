@@ -2942,6 +2942,15 @@ identity and coordinate drift after saving and reopening. The local signature
 check covers the installer. Local add-in admission, tool execution, and saved
 RVT round-trip remain unverified.
 
+The pinned upstream MCP server built in isolation with locked packages using
+.NET SDK 10.0.403. On the installed .NET 8.0.33 runtime, a real stdio client
+initialized version 4.0.1 and enumerated 113 default tools, including
+`horizun_health` and `horizun_connect_mep`. The default catalogue did not
+expose `horizun_open_document` or `horizun_save_document`. The health call
+returned an error reporting no reachable Revit add-in. This verifies the
+server transport only. Check the tool catalogue on the authorized test host
+before relying on it for document lifecycle operations.
+
 ## LibreDWG and QCAD command-line evaluation
 
 - [GNU LibreDWG 0.14](https://github.com/LibreDWG/libredwg/releases/tag/0.14)
