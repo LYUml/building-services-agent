@@ -28,8 +28,18 @@ separate artifacts directory from the desktop build:
 The resulting `Bsa.Revit.Database.dll` was built against Revit 2027.3.
 Its assembly metadata references `RevitAPI` and has no `RevitAPIUI`
 reference. The .NET Windows Desktop build references resolve dependencies
-of the installed Autodesk API. An Automation entry point and runtime
-execution are still pending.
+of the installed Autodesk API.
+
+Use `-p:Automation=true` in place of `-p:DatabaseOnly=true` to compile
+the read-only Automation inventory entry point. It uses Autodesk's pinned
+[Design Automation Bridge 2027.0.0](https://www.nuget.org/packages/Autodesk.Forge.DesignAutomation.Revit/2027.0.0).
+NuGet retains the package's Autodesk licence. The build uses the package for
+compilation and leaves its runtime assembly to the host.
+The entry point takes the engine-opened `input.rvt` and an
+`inventory-request.json` containing `SavedRvtSha256`. It checks the model
+hash and writes a fresh `inventory.json`. A local build against Revit 2027.3
+passed. Packaging, authenticated engine selection and actual work-item
+execution remain pending.
 
 Final observed build: zero warnings/errors. The initial build had desktop-reference conflicts; explicit WPF/WindowsForms framework references resolved them. The intermediate missing System.IO import was corrected. Evidence and source/binary hashes: ../../docs/evidence/moosas-review/revit-native-build.json.
 

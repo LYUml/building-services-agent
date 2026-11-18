@@ -9,7 +9,7 @@ namespace Bsa.Revit;
 internal static class NativeInventory
 {
     internal static void CollectFromDocument(Document doc, string expected, string report,
-        string requestPath, byte[] requestBytes)
+        string requestPath, byte[] requestBytes, string? expectedModelHash = null)
     {
         if (doc.IsFamilyDocument || doc.IsModified || string.IsNullOrEmpty(doc.PathName)
             || !string.Equals(Path.GetFullPath(doc.PathName), expected, StringComparison.OrdinalIgnoreCase))
@@ -23,6 +23,8 @@ internal static class NativeInventory
             return Convert.ToHexString(SHA256.HashData(stream)).ToLowerInvariant();
         }
         var before = Hash(expected);
+        if (expectedModelHash is not null && !string.Equals(before, expectedModelHash, StringComparison.OrdinalIgnoreCase))
+            throw new InvalidOperationException("Saved RVT hash mismatch");
         static double Metres(double value) => UnitUtils.ConvertFromInternalUnits(value, UnitTypeId.Meters);
         static double[] Point(XYZ p) => [Metres(p.X), Metres(p.Y), Metres(p.Z)];
         static object Named(Element e) => new { id = e.Id.Value.ToString(), unique_id = e.UniqueId, name = e.Name };
