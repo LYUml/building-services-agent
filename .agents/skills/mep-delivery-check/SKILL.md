@@ -86,6 +86,11 @@ or MCP `bsa_inspect_hvac_project`. A `blocked` terminal review retains diagnosti
 artifacts and suppresses the design-report HTML/PDF. `not_configured` leaves
 terminal assignment unverified by this gate. `passed` covers scoped planar
 correspondence. Independently review the plot and remaining delivery requirements.
+When the issued window must include specified labels or source notes, pass
+their modelspace handles in `sheet.required_window_handles` for the native
+duct sheet. A retained PDF scale reference can pass while other items are
+clipped. Inspect the rendered page for annotation overlap and cropping, and
+record the page and exact DWG, PDF and render hashes in a separate review.
 
 For a three-phase calculation schematic, read `drawing.json` and compare
 `dxf_bus_contacts` with `native.bus_contacts` when a native DWG is required.
