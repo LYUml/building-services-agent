@@ -116,7 +116,18 @@ def issue_records(report):
         yield f'IFC peer pair changed {a} / {b}', description, selected, point
     if 'max_port_shift_m' in comparison:
         limit = comparison['max_port_shift_m']
-        for movement in comparison['positions']['moved_ports']:
+        positions = comparison['positions']
+        for guid in positions['unavailable_ports']:
+            port = ports[guid]
+            point = port['origin_m']
+            description = (f'{basis}\nPort {guid} is present in both IFC revisions.'
+                           f'\nPort movement remains unresolved at the {limit:.9g} m limit.')
+            if point is None:
+                description += '\nThe current port origin is unavailable.'
+            else:
+                description += f'\nThe baseline origin is unavailable. Current origin: {point} m.'
+            yield f'IFC port movement unavailable {guid}', description, port['owner_guids'], point
+        for movement in positions['moved_ports']:
             guid = movement['guid']
             description = (f"{basis}\nPort {guid} moved {movement['displacement_m']:.9g} m, "
                            f"limit {limit:.9g} m.\n"

@@ -11,7 +11,7 @@ class IfcPortComparisonTests(unittest.TestCase):
                       connection_ownership={'conflicting_ports': []},
                       comparison=dict(status='shared_port_guids', baseline_sha256='previous', max_port_shift_m=0.005,
                           changed_pairs=[dict(port_guids=['a', 'b'], before=1, after=0)],
-                          positions={'moved_ports': [dict(guid='a', before_m=[0, 0, 0],
+                          positions={'unavailable_ports': [], 'moved_ports': [dict(guid='a', before_m=[0, 0, 0],
                               after_m=[100.02, 0, 0], aligned_after_m=[0.02, 0, 0], displacement_m=0.02)]}))
         pair, movement = issue_records(report)
         self.assertIn('1 baseline relation(s), 0 current relation(s)', pair[1])

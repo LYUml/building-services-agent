@@ -142,6 +142,9 @@ When two revisions share no port GUIDs, the BCF includes a baseline identity
 review topic without a viewpoint. A CLI round trip after regenerating all
 port GUIDs retained the pending baseline review, even though both current
 relationships were measurable and within the trial gap tolerance.
+With an explicit shift limit, a shared port whose origin is missing from
+either revision gets a movement-coverage topic. A CLI round trip with one
+missing baseline placement retained that topic and a current-model viewpoint.
 New exports record the port gap tolerance in the BCF project name, including
 packages with zero issues. Verification returns the checked `tolerance_m` and
 `archive_tolerance_bound`. A legacy project name can still be replayed, but
