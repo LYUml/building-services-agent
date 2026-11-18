@@ -19,7 +19,14 @@ class NativeRectRoundControls(unittest.TestCase):
 
     def setUp(self):
         self.model=ifcopenshell.open(str(self.path))
-        self.obj=self.model.by_type('IfcDuctFitting')[0]
+        fittings = self.model.by_type('IfcDuctFitting')
+        self.assertTrue(fittings, 'BSA_RECT_ROUND_FIXTURE must contain a rectangular-to-round duct fitting')
+        self.obj = fittings[0]
+        representation = self.obj.Representation
+        bodies = [rep for rep in representation.Representations if rep.RepresentationIdentifier == 'Body'] if representation else []
+        self.assertTrue(len(bodies) == 1 and len(bodies[0].Items) == 1
+                        and bodies[0].Items[0].is_a('IfcMappedItem'),
+                        'BSA_RECT_ROUND_FIXTURE requires the mapped analytic loft used by these native controls')
         self.air=dict(density_kg_m3=1.2,viscosity_Pa_s=1.81e-5)
 
     def test_rigid_placement_does_not_change_local_parameters(self):
