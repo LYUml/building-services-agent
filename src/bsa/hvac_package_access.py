@@ -33,8 +33,34 @@ def inspect(configuration,out):
     if package['workflow_sha256']!=digest(out/'workflow/workflow.json'):raise ValueError('HVAC workflow changed')
     checked=workflow.verify(out/'workflow')
     if not checked['integrity_pass']:raise ValueError('HVAC workflow source verification failed: '+str(checked['issues']))
+    terminal_gate = 'not_configured'
+    if 'terminal_review' in files:
+        settings_path = files['terminal_review']
+        settings = json.loads(settings_path.read_bytes())
+        expected = dict(path=str(settings_path), sha256=pins[settings_path], settings=settings)
+        if package.get('terminal_review_configuration') != expected:
+            raise ValueError('HVAC terminal review configuration differs from the package')
+        stages, errors = package['stages'], package['stage_errors']
+        if 'terminal_review' in errors:
+            if (package['status'] != 'incomplete' or 'terminal_review' in stages
+                    or {'report', 'report_pdf'}.intersection(stages)
+                    or any((out/name).exists() for name in ('report', 'report-pdf', 'terminal-review.json'))):
+                raise ValueError('HVAC package contains report output despite failed terminal review')
+            terminal_gate = 'blocked'
+        else:
+            evidence = stages.get('terminal_review', {})
+            if ('terminal-review.json' not in package['artifact_hashes']
+                    or json.loads((out/'terminal-review.json').read_bytes()) != evidence
+                    or evidence.get('workflow_sha256') != package['workflow_sha256']
+                    or evidence.get('plan_sha256') != package['plan_sha256']
+                    or evidence.get('lineage', [])[:1] != [settings['native_task']]
+                    or evidence.get('layers') != settings['layers']
+                    or evidence.get('correspondence_pass') is not True):
+                raise ValueError('HVAC package lacks matching terminal review evidence')
+            terminal_gate = 'passed'
     return dict(configuration_sha256=digest(configuration),package_sha256=digest(out/'package.json'),
         status=package['status'],stage_errors=package['stage_errors'],stages=list(package['stages']),
+        terminal_review_gate=terminal_gate,
         unresolved_tasks=package['unresolved_tasks'],artifacts=artifacts,
         plan=str(files['plan']),workflow=str(out/'workflow'),output=str(out),
         integrity_pass=True,design_accepted=False,

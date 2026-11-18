@@ -36,6 +36,7 @@ class MCPHVACProjectTests(unittest.IsolatedAsyncioTestCase):
                     self.assertFalse(prepared['design_accepted'])
                     result=await call('bsa_run_hvac_project',dict(configuration='project.json',out='package'))
                     self.assertTrue(result['integrity_pass']);self.assertFalse(result['design_accepted'])
+                    self.assertEqual(result['terminal_review_gate'], 'not_configured')
                     self.assertEqual(result['stage_errors'],{});self.assertTrue(result['unresolved_tasks'])
                     inspected=await call('bsa_inspect_hvac_project',dict(configuration='project.json',out='package'))
                     self.assertEqual(result,inspected)
