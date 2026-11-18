@@ -169,6 +169,11 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None,fds_rele
         return invoke('bsa.revit_file_metadata.inspect',local(source),engine_release)
 
     @server.tool(annotations=write)
+    def bsa_read_dwg_inventory(source:str,out:str)->dict[str,Any]:
+        """Read a saved DWG with the optional host-configured ACadSharp worker; write a fresh inventory JSON."""
+        return invoke('bsa.dwg_readback.run',local(source),local(out))
+
+    @server.tool(annotations=write)
     def bsa_check_revit_inventory(
         inventory:str,model:str,out:str,
         tolerance_m:Annotated[float,Field(strict=True,gt=0,allow_inf_nan=False)],

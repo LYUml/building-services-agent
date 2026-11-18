@@ -2870,6 +2870,14 @@ the saved DXF inventories for all three inputs, and a missing source returned
 exit code 2 without a JSON receipt. The upstream MIT notice is retained
 at `third_party/licenses/acadsharp-3.8.35.txt`.
 
+Set `BSA_ACADSHARP_DOTNET` and `BSA_ACADSHARP_WORKER` to the absolute
+paths of the host .NET executable and the built `Bsa.DwgReadback.dll`.
+Use `bsa dwg-readback <input.dwg> --out <fresh.json>` or MCP
+`bsa_read_dwg_inventory` with project-relative `source` and `out`.
+Both return a compact summary and write the full inventory to a fresh file.
+The installed CLI and stdio MCP emitted byte-identical reports for the
+synthetic DWG. A second call to the same output path was refused.
+
 Horizun Revit MCP (Apache-2.0, inspected repository head
 `d1c94a0f7bbf5875199f2ebd1bfcc618d3049b6f`) is a candidate reference for typed
 MEP operations and connector readback. Revit.TestRunner (MIT, head

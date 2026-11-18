@@ -119,6 +119,9 @@ def main():
     revit_metadata = sub.add_parser('revit-file-metadata', help='Read selected metadata from a saved RVT offline')
     revit_metadata.add_argument('source', type=Path)
     revit_metadata.add_argument('--engine-release', type=int)
+    dwg_readback = sub.add_parser('dwg-readback', help='Read a saved DWG with the optional independent reader')
+    dwg_readback.add_argument('source', type=Path)
+    dwg_readback.add_argument('--out', type=Path, required=True)
     revit_automation_reopen.add_arguments(sub.add_parser(
         'revit-verify-automation-reopen', help='Reconcile saved Revit Automation creation and reopen evidence'))
     group=sub.add_parser('engineering-data',help='Export or verify a source-bound common data view')
@@ -259,6 +262,9 @@ def main():
         if a.command=='revit-file-metadata':
             from .revit_file_metadata import inspect
             print(json.dumps(inspect(a.source, a.engine_release),indent=2));return 0
+        if a.command=='dwg-readback':
+            from .dwg_readback import run as read_dwg
+            print(json.dumps(read_dwg(a.source, a.out), indent=2));return 0
         if a.command=='revit-inventory-check':
             result=revit_connectivity.run(a.inventory,a.model,a.out,a.tolerance_m,
                                           expected_connections=a.expected_connections,

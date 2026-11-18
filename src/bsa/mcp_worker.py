@@ -36,6 +36,7 @@ OPERATIONS=frozenset('bsa.'+module+'.'+name for module,names in {
     'revit_automation_reopen':'verify',
     'revit_request':'prepare',
     'revit_file_metadata':'inspect',
+    'dwg_readback':'run',
     'fds_temperature':'run verify',
     'openfoam_history':'review_project verify_project',
     'openfoam_transient':'review_pressure_project verify_pressure_project',
