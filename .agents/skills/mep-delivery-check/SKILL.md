@@ -27,6 +27,10 @@ source, leave that check unresolved.
    them. For grid-aligned equipment, use the adopted ceiling grid and compare
    each saved symbol centre with its assigned eligible tile centre. Check tile
    eligibility and footprint against the layout requirements where specified.
+   When the source includes allocation areas, also check each centre lies
+   in its assigned area. Match to actual closed tiles of the declared size
+   inside the adopted boundary, reject ambiguous tile matches and verify
+   exclusive use when one device per tile is required.
    Recheck the connection at the new centre or specified port. Keep clearance
    findings separate. Record the comparison tolerance and
    its basis. A numeric matching tolerance is not a construction allowance.
