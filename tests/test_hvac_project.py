@@ -30,9 +30,10 @@ class NativeTerminalDeliveryTests(unittest.TestCase):
         self.assertTrue(result['integrity_pass'])
         return output, result
 
-    def test_native_displaced_or_wrong_peer_terminal_blocks_design_reports(self):
+    def test_native_terminal_connection_faults_block_design_reports(self):
         for control, diagnostic in [('displaced_endpoint_control', '0.25 m from T1'),
-                                    ('wrong_peer_control', 'declared VAV centres: VB')]:
+                                    ('wrong_peer_control', 'declared VAV centres: VB'),
+                                    ('missing_connection_control', 'saved lines at terminal T1: none')]:
             with self.subTest(control=control):
                 output, result = self.run_fixture(**{control: True})
                 self.assertEqual(result['terminal_review_gate'], 'blocked')
