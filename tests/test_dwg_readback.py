@@ -19,63 +19,69 @@ FIXTURE = ROOT / 'docs/evidence/drawing-intake'
 RUNTIME = ('BSA_ACADSHARP_DOTNET', 'BSA_ACADSHARP_WORKER')
 
 
-def test_reports_types_without_geometry_coverage(tmp_path):
-    document = ezdxf.new()
-    solid = document.modelspace().add_solid([(0, 0), (1, 0), (0, 1)])
-    reference = tmp_path / 'identity-only.dxf'
-    document.saveas(reference)
-    row = dict(handle=solid.dxf.handle, type='SOLID', layer='0', geometry=None)
-    comparison = compare_reference([row], document.units, reference)
-    assert comparison['correspondence_pass']
-    assert comparison['geometry_compared_count'] == 0
-    assert comparison['identity_only_counts_by_type'] == {'SOLID': 1}
+class DxfReferenceTests(unittest.TestCase):
+    def setUp(self):
+        temporary = TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        self.directory = Path(temporary.name)
+
+    def test_reports_types_without_geometry_coverage(self):
+        document = ezdxf.new()
+        solid = document.modelspace().add_solid([(0, 0), (1, 0), (0, 1)])
+        reference = self.directory / 'identity-only.dxf'
+        document.saveas(reference)
+        row = dict(handle=solid.dxf.handle, type='SOLID', layer='0', geometry=None)
+        comparison = compare_reference([row], document.units, reference)
+        assert comparison['correspondence_pass']
+        assert comparison['geometry_compared_count'] == 0
+        assert comparison['identity_only_counts_by_type'] == {'SOLID': 1}
 
 
-def test_duplicate_reference_handle_cannot_hide_entity(tmp_path):
-    document = ezdxf.new()
-    modelspace = document.modelspace()
-    displaced = modelspace.add_line((2, 2), (3, 3))
-    expected = modelspace.add_line((0, 0), (1, 1))
-    expected.dxf.handle = displaced.dxf.handle
-    reference = tmp_path / 'duplicate.dxf'
-    document.saveas(reference)
-    row = dict(handle=expected.dxf.handle, type='LINE', layer='0',
-               geometry=dict(start=[0, 0, 0], end=[1, 1, 0], normal=[0, 0, 1], thickness=0))
-    comparison = compare_reference([row], document.units, reference)
-    assert not comparison['correspondence_pass']
-    assert comparison['geometry_compared_count'] == 0
-    assert comparison['differences'] == [dict(handle=expected.dxf.handle, reason='duplicate_handle_in_dxf')]
+    def test_duplicate_reference_handle_cannot_hide_entity(self):
+        document = ezdxf.new()
+        modelspace = document.modelspace()
+        displaced = modelspace.add_line((2, 2), (3, 3))
+        expected = modelspace.add_line((0, 0), (1, 1))
+        expected.dxf.handle = displaced.dxf.handle
+        reference = self.directory / 'duplicate.dxf'
+        document.saveas(reference)
+        row = dict(handle=expected.dxf.handle, type='LINE', layer='0',
+                   geometry=dict(start=[0, 0, 0], end=[1, 1, 0], normal=[0, 0, 1], thickness=0))
+        comparison = compare_reference([row], document.units, reference)
+        assert not comparison['correspondence_pass']
+        assert comparison['geometry_compared_count'] == 0
+        assert comparison['differences'] == [dict(handle=expected.dxf.handle, reason='duplicate_handle_in_dxf')]
 
 
-def test_changed_equipment_attribute_is_a_block_difference(tmp_path):
-    document = ezdxf.new()
-    block = document.blocks.new('EQUIPMENT_TAG')
-    block.add_attdef('EQUIPMENT_ID', (0, 0))
-    insert = document.modelspace().add_blockref(block.name, (5, 5))
-    insert.add_auto_attribs({'EQUIPMENT_ID': 'VAV-001'})
-    row = dict(handle=insert.dxf.handle, type='INSERT', layer='0', geometry=dxf_geometry(insert))
-    insert.get_attrib('EQUIPMENT_ID').dxf.text = 'VAV-002'
-    reference = tmp_path / 'changed-attribute.dxf'
-    document.saveas(reference)
-    assert compare_reference([row], document.units, reference)['differences'] == [
-        dict(handle=insert.dxf.handle, reason='geometry_differs', fields=['attributes'])]
+    def test_changed_equipment_attribute_is_a_block_difference(self):
+        document = ezdxf.new()
+        block = document.blocks.new('EQUIPMENT_TAG')
+        block.add_attdef('EQUIPMENT_ID', (0, 0))
+        insert = document.modelspace().add_blockref(block.name, (5, 5))
+        insert.add_auto_attribs({'EQUIPMENT_ID': 'VAV-001'})
+        row = dict(handle=insert.dxf.handle, type='INSERT', layer='0', geometry=dxf_geometry(insert))
+        insert.get_attrib('EQUIPMENT_ID').dxf.text = 'VAV-002'
+        reference = self.directory / 'changed-attribute.dxf'
+        document.saveas(reference)
+        assert compare_reference([row], document.units, reference)['differences'] == [
+            dict(handle=insert.dxf.handle, reason='geometry_differs', fields=['attributes'])]
 
 
-def test_detects_changed_second_line_of_block_attribute(tmp_path):
-    from ezdxf.entities import MText
+    def test_detects_changed_second_line_of_block_attribute(self):
+        from ezdxf.entities import MText
 
-    document = ezdxf.new('R2018')
-    block = document.blocks.new('EQUIPMENT_TAG')
-    insert = document.modelspace().add_blockref(block.name, (5, 5))
-    attribute = insert.add_attrib('NOTE', 'First line')
-    attribute.embed_mtext(MText.new(dxfattribs={'text': 'First line\\PSecond line'}))
-    reference = tmp_path / 'multiline.dxf'
-    row = dict(handle=insert.dxf.handle, type='INSERT', layer='0', geometry=dxf_geometry(insert))
-    attribute.embed_mtext(MText.new(dxfattribs={'text': 'First line\\PRevised note'}))
-    document.saveas(reference)
-    comparison = compare_reference([row], document.units, reference)
-    assert not comparison['correspondence_pass']
-    assert comparison['differences'] == [dict(handle=insert.dxf.handle, reason='geometry_differs', fields=['attributes'])]
+        document = ezdxf.new('R2018')
+        block = document.blocks.new('EQUIPMENT_TAG')
+        insert = document.modelspace().add_blockref(block.name, (5, 5))
+        attribute = insert.add_attrib('NOTE', 'First line')
+        attribute.embed_mtext(MText.new(dxfattribs={'text': 'First line\\PSecond line'}))
+        reference = self.directory / 'multiline.dxf'
+        row = dict(handle=insert.dxf.handle, type='INSERT', layer='0', geometry=dxf_geometry(insert))
+        attribute.embed_mtext(MText.new(dxfattribs={'text': 'First line\\PRevised note'}))
+        document.saveas(reference)
+        comparison = compare_reference([row], document.units, reference)
+        assert not comparison['correspondence_pass']
+        assert comparison['differences'] == [dict(handle=insert.dxf.handle, reason='geometry_differs', fields=['attributes'])]
 
 
 @unittest.skipUnless(all(os.environ.get(key) for key in RUNTIME) and importlib.util.find_spec('mcp'),
