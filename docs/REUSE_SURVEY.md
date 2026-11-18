@@ -349,6 +349,11 @@ Use this candidate for scoped metadata preflight. Treat missing or unfamiliar
 worksharing values as unresolved. A metadata read leaves native open, link
 resolution, writable state, physical connectors and authored persistence
 unverified. The converter, geometry reader and upstream MCP were not exercised.
+Install the optional `revit-metadata` extra and use `bsa revit-file-metadata
+<file.rvt>` or MCP `bsa_read_revit_file_metadata` with a project-relative `source`.
+The tools return the model hash, saved release and optional worksharing and
+single-user-cloud flags. The reader uses upstream redaction and emits only
+these selected metadata fields.
 
 ## Offline Revit inventory access
 

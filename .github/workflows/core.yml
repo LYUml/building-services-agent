@@ -68,6 +68,8 @@ jobs:
           python -m unittest
           tests.test_revit_automation_bundle tests.test_revit_connectivity
           tests.test_revit_revision tests.test_revit_workflow -v
+      - name: Verify the RVT metadata report field allowlist
+        run: python -m unittest tests.test_revit_file_metadata -v
       - name: Verify terminal connection evidence and HVAC report gating
         run: >-
           python -m unittest

@@ -158,6 +158,11 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None,fds_rele
         """Prepare a source-bound pipe request in a repository-local project. Writes JSON without starting Revit."""
         return invoke('bsa.revit_request.prepare',local(inventory),local(model),local(basis),local(out),scope=root)
 
+    @server.tool(annotations=read)
+    def bsa_read_revit_file_metadata(source:str)->dict[str,Any]:
+        """Read the release and worksharing flags from saved RVT bytes without opening Revit."""
+        return invoke('bsa.revit_file_metadata.inspect',local(source))
+
     @server.tool(annotations=write)
     def bsa_check_revit_inventory(
         inventory:str,model:str,out:str,

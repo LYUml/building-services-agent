@@ -5,6 +5,7 @@ EXTRAS={
     'shapely':'spatial','trimesh':'section','mcp':'mcp','PIL':'mcp',
     'reportlab':'reports','pypdf':'drawing','jsonschema':'modules',
     'tomlkit':'codex-setup','bcf':'bcf','xsdata':'bcf',
+    'rvt':'revit-metadata',
 }
 
 
