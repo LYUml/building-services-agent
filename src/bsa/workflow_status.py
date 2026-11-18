@@ -94,7 +94,8 @@ def recovery_schedule(rows):
         wave=[]
         for row in ready:
             if row['input_blockers']:category='source_inputs'
-            elif row['runtime_failures']:category='runtime_environment'
+            elif row['runtime_failures'] or row.get('fds_issue')=='missing_host_release':category='runtime_environment'
+            elif row.get('fds_issue')=='unpinned_input':category='source_inputs'
             elif row['kind']=='manual':category='manual_review'
             elif row['module_state'].get('execution',{}).get('status') in ('unavailable','disabled'):
                 category='provider_configuration'
@@ -157,10 +158,21 @@ def diagnose(plan, run):
             engineering_data_requests=recover(run,report,name)
         module=module_state(run,report,task)
         module_codes={r['code'] for r in module.get('execution',{}).get('diagnostics',[])}
+        fds_issue=None
+        if task['kind']=='fds_temperature_probe':
+            from .fds_temperature import MISSING_RELEASE, UNPINNED_INPUT
+            if state['status']=='pending' and state['scope']==MISSING_RELEASE:
+                fds_issue='missing_host_release'
+            elif state['status']=='fail' and state['scope']==f'ValueError: {UNPINNED_INPUT}':
+                fds_issue='unpinned_input'
         if input_blockers:
             action = 'resolve the cited missing/conflicting design inputs before a new run'
         elif blocked:
             action = 'resolve upstream tasks before rerunning dependent task'
+        elif fds_issue=='missing_host_release':
+            action = 'supply the pinned Windows FDS package with --fds-release in the CLI or MCP host startup configuration'
+        elif fds_issue=='unpinned_input':
+            action = 'check the plan source against the supported FDS probe inputs and use the original case bytes'
         elif runtime_failures:
             action = 'resolve the recorded runtime startup failure through a compatible approved environment before a new run;design quantities cannot fix this startup failure'
         elif 'provider_disabled' in module_codes:
@@ -197,6 +209,8 @@ def diagnose(plan, run):
                          next_action=action,
                          requirement_ids=[r['id'] for r in source['requirements'] if r['task'] == name],
                          evidence=sorted(p for p in report['artifact_hashes'] if p.startswith(name + '/'))))
+        if fds_issue:
+            rows[-1]['fds_issue']=fds_issue
     # Group declared recovery roots once, retaining every affected requirement.
     # This is scheduling evidence, never a diagnosis of an engineering cause.
     actions=[]

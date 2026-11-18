@@ -30,6 +30,8 @@ RUNTIME_HASHES = {
     ENGINE: '1dd7468130e403f18b9a45ec5134662fe9738ea6a12b0f600c5f91c16428312f',
     LAUNCHER: '3af7741d27090c13a150ff575dc216c268b06a174d0770fc07d9e6756db0dc92',
 }
+MISSING_RELEASE = 'Host FDS release not supplied; temperature probe not executed'
+UNPINNED_INPUT = 'Unexpected FDS input SHA-256'
 
 
 def temperature_errors(path):
@@ -95,7 +97,7 @@ def run(release, source, out):
     source_hash = digest(source)
     case = next((name for name, sha in INPUTS.items() if sha == source_hash), None)
     if case is None:
-        raise ValueError('Unexpected FDS input SHA-256')
+        raise ValueError(UNPINNED_INPUT)
     with release.open('rb') as stream:
         if hashlib.file_digest(stream, 'sha256').hexdigest() != RELEASE_SHA256:
             raise ValueError('Unexpected FDS release SHA-256')
@@ -200,7 +202,7 @@ def review_status(report, check):
     if check is None:
         return 'pending', 'FDS probe evidence reconciles; project CFD acceptance remains pending'
     if report.get('case') != UNIFORM_CASE:
-        raise ProjectError('Uniform-point acceptance requires the pinned uniform FDS case')
+        return 'fail', 'Uniform-point acceptance requires the pinned uniform FDS case'
     status = 'pass' if report['point_temperature_check_pass'] else 'fail'
     return status, 'Uniform FDS point temperature check against 22.5 °C at exported precision'
 

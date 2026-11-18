@@ -1577,7 +1577,7 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     folder.mkdir()
                     (folder/'probe-review.json').write_text(json.dumps(payload,indent=2),encoding='utf-8')
                 elif fds_release is None:
-                    reason='Host FDS release not supplied; temperature probe not executed'
+                    reason=fds_temperature.MISSING_RELEASE
                 else:
                     release=Path(fds_release).resolve()
                     payload=fds_temperature.run(release,local_path(root,t['source']),folder)
@@ -2543,6 +2543,30 @@ def verify(run_directory):
             issues.append('knowledge output requires exact original workflow source identity: '+name)
         if task['kind']=='engineering_data' and not source_plan:
             issues.append('common data requires explicit original workflow/project context: '+name)
+        if task['kind'] in ('fds_temperature_probe','fds_temperature_review'):
+            receipt=root/name/('report.json' if task['kind']=='fds_temperature_probe' else 'probe-review.json')
+            if task['status']=='pass' or receipt.is_file():
+                try:
+                    from . import fds_temperature
+                    original=declared[name]
+                    if not receipt.resolve().is_relative_to(root):
+                        raise ProjectError('FDS receipt escapes the workflow run')
+                    source_root=Path(source_plan['path']).resolve().parent
+                    if task['kind']=='fds_temperature_probe':
+                        checked=fds_temperature.verify(receipt.parent)
+                        if digest(local_path(source_root,original['source']))!=checked['input_sha256']:
+                            raise ProjectError('FDS result differs from the plan input')
+                        if checked['release_sha256'] not in report.get('runtime_inputs',{}).values():
+                            raise ProjectError('FDS execution lacks the pinned host release')
+                    else:
+                        checked=fds_temperature.verify(local_path(source_root,original['report']).parent)
+                        if checked!=read_json(receipt):
+                            raise ProjectError('FDS review receipt differs from its source evidence')
+                    expected_status,_=fds_temperature.review_status(checked,original.get('check'))
+                    if task['status']!=expected_status:
+                        raise ProjectError('FDS task status differs from reconstructed evidence')
+                except (OSError,ValueError,KeyError,TypeError) as exc:
+                    issues.append('FDS evidence invalid: '+name+': '+str(exc))
         from .drawing_access import RECEIPTS
         if task['kind']=='drawing_document' and (task['status']=='pass' or any((root/name/r).is_file() for r in RECEIPTS)):
             try:

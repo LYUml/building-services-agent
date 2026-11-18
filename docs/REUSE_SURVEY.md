@@ -81,6 +81,10 @@ server startup. Without that host configuration the task remains pending
 and produces no probe directory. The run pins the package in
 `runtime_inputs`. Actual CLI and MCP workflow runs on the uniform case
 passed the scoped check and retained a pending engineering review.
+Workflow verification also reconstructs the FDS report and task status.
+A modified native case receipt remained invalid after refreshing its
+recorded artifact hash. Recovery diagnosis distinguishes missing
+`--fds-release` from a case whose bytes do not match a supported input.
 
 ## Offline Revit inventory access
 

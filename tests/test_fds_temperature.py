@@ -7,6 +7,7 @@ from unittest.mock import patch
 from bsa.fds_temperature import inspect_steps, point_temperature_errors
 from bsa.source_refs import file_hash
 from bsa.workflow import execute, verify
+from bsa.workflow_status import diagnose
 
 
 class FdsTemperatureTests(unittest.TestCase):
@@ -35,7 +36,18 @@ class FdsTemperatureTests(unittest.TestCase):
                 result = execute(plan, out)
             self.assertEqual(result['tasks']['review']['status'], 'pending')
             self.assertTrue((out/'review/probe-review.json').is_file())
-            self.assertTrue(verify(out)['integrity_pass'])
+            with patch('bsa.fds_temperature.verify', return_value={'integrity_pass': True}):
+                self.assertTrue(verify(out)['integrity_pass'])
+                receipt = out/'review/probe-review.json'
+                receipt.write_text('{"integrity_pass":false}', encoding='utf-8')
+                workflow = out/'workflow.json'
+                original = workflow.read_bytes()
+                edited = json.loads(original)
+                edited['artifact_hashes']['review/probe-review.json'] = file_hash(receipt)
+                workflow.write_text(json.dumps(edited), encoding='utf-8')
+                self.assertTrue(any('FDS evidence invalid' in issue for issue in verify(out)['issues']))
+                receipt.write_text(json.dumps({'integrity_pass': True}, indent=2), encoding='utf-8')
+                workflow.write_bytes(original)
             spec = json.loads(plan.read_bytes())
             spec['tasks'][0]['check'] = 'uniform_point_temperature'
             plan.write_text(json.dumps(spec), encoding='utf-8')
@@ -51,7 +63,8 @@ class FdsTemperatureTests(unittest.TestCase):
                     self.assertEqual(checked['tasks']['review']['status'], status)
             del spec['tasks'][0]['check']
             plan.write_text(json.dumps(spec), encoding='utf-8')
-            self.assertTrue(verify(out)['integrity_pass'])
+            with patch('bsa.fds_temperature.verify', return_value={'integrity_pass': True}):
+                self.assertTrue(verify(out)['integrity_pass'])
             table.write_text('changed evidence', encoding='utf-8')
             self.assertFalse(verify(out)['integrity_pass'])
             spec['tasks'][0] = dict(id='review', kind='fds_temperature_probe', source=table.name)
@@ -61,6 +74,7 @@ class FdsTemperatureTests(unittest.TestCase):
             self.assertEqual(pending['status'], 'pending')
             self.assertIn('Host FDS release', pending['scope'])
             self.assertFalse((unconfigured/'review').exists())
+            self.assertEqual(diagnose(plan, unconfigured)['tasks'][0]['fds_issue'], 'missing_host_release')
 
     def test_point_temperature_preserves_deviation_and_rejects_wrong_units(self):
         rows = ''.join(f'{time},22.5,22.5\n' for time in (0, 0.2, 0.45, 0.65, 0.8, 1))
