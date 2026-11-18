@@ -81,7 +81,10 @@ When workspace reorganization changes artifact paths, retain the original
 receipt and use an explicit relocation index to find the current file.
 Verify the current bytes against the original receipt before reusing a
 saved reopen, native calculation or plot result. Treat a path that cannot
-be resolved or a hash mismatch as unresolved. For adopted and comparison
+be resolved or a hash mismatch as unresolved. Follow each documented move
+through subsequent archive renames before marking a path missing. Report
+current delivery copies and historical migration records separately, with
+matched, missing and changed counts for each audited set. For adopted and comparison
 models, bind each approved scenario to its own saved native model, raw
 calculation output and report claims.
 
