@@ -90,6 +90,14 @@ class RevitRevisionTests(unittest.TestCase):
                 dict(connector_id=2, origin_m=[2, 0, 0], endpoint_m=[2, 0, 0], error_m=0),
             ])
             self.assertEqual(result['reopen_request_sha256'], reopen_hash)
+            with self.assertRaisesRegex(ValueError, 'connector-to-endpoint pairing is ambiguous'):
+                verify(root, created, authored, observed, reopen, 2.0)
+            self.pipe['connectors'].reverse()
+            save('inventory.json', inventory)
+            reversed_result = verify(root, created, authored, observed, reopen, 0.001)
+            self.assertEqual(reversed_result['connector_endpoint_matches'], result['connector_endpoint_matches'])
+            self.pipe['connectors'].reverse()
+            save('inventory.json', inventory)
             for field in ('saved_reopen_verified', 'design_accepted'):
                 with self.subTest(unsupported_claim=field):
                     save('creation.json', {**receipt, field: True})

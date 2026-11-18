@@ -93,6 +93,8 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
     if connectors[0]['origin_m'] == connectors[1]['origin_m'] or connector_error > tolerance_m:
         raise ValueError('Reopened pipe connector origins do not match distinct curve endpoints '
                          f"(connector {worst['connector_id']}, deviation {connector_error:.6g} m)")
+    if all(max(row['error_m'] for row in pairing) <= tolerance_m for pairing in pairings):
+        raise ValueError('Reopened pipe connector-to-endpoint pairing is ambiguous at the declared tolerance')
     captured_request = pipe['creation_provenance']['creation_request']
     # APS binds the prepared request to the engine-local input model path.
     if (PureWindowsPath(captured_request['DocumentPath']).name.lower() != 'input.rvt'
