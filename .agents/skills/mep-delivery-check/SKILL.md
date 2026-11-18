@@ -77,6 +77,15 @@ selected governing and failed rows against the bound calculation or native
 exports. Keep supplementary cases clearly identified so their values do not
 replace the adopted values in the report, schedules, or drawings.
 
+For every released DWG, compare the exact file hash with the native
+reopen and plot receipt. A matching schedule or PDF can confirm that
+artifact's identity while the DWG itself still needs its own check.
+Require a fresh saved-DWG reopen and plot review if the released DWG
+hash differs from the verified revision. In a grouped outlet schedule,
+check each terminal ID appears exactly once and reconcile maximum and
+minimum group flows against the same released coordinate table, allowing
+only its documented display rounding.
+
 When workspace reorganization changes artifact paths, retain the original
 receipt and use an explicit relocation index to find the current file.
 Verify the current bytes against the original receipt before reusing a
