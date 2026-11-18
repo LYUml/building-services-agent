@@ -18,6 +18,21 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class IDSWorkflowTests(unittest.TestCase):
+    def test_runtime_timeout_retains_log_without_audit_summary(self):
+        from subprocess import TimeoutExpired
+        from bsa.ids_check import run
+
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as tmp:
+            root = Path(tmp)
+            ids, model, output = root/'requirements.ids', root/'model.ifc', root/'check'
+            ids.touch()
+            model.touch()
+            with patch('bsa.ids_check.subprocess.run', side_effect=TimeoutExpired('ifctester', 120)):
+                with self.assertRaisesRegex(ProjectError, 'timed out.*engine.log'):
+                    run(ids, model, output)
+            self.assertTrue((output/'engine.log').is_file())
+            self.assertFalse((output/'ids-check.json').exists())
+
     def test_missing_runtime_reports_install_hint_before_creating_output(self):
         from bsa.ids_check import run
 

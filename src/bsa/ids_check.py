@@ -21,15 +21,30 @@ def run(ids,ifc,out):
         raise ProjectError('IDS checks require IfcTester 0.8.5 and IfcOpenShell 0.8.5. '
                            'Install the ids extra: python -m pip install -e ".[ids]"')
     before={str(p):digest(p) for p in paths};out.mkdir(parents=True,exist_ok=False)
-    with (out/'engine.log').open('wb') as log:
-        process=subprocess.run([sys.executable,'-m','ifctester',str(paths[0]),str(paths[1]),'-r','Json','-o',str(out/'ids-report.json')],stdout=log,stderr=subprocess.STDOUT,timeout=120)
-    if process.returncode or not (out/'ids-report.json').is_file():raise ProjectError('IfcTester engine failed; inspect engine.log')
-    audit=json.loads((out/'ids-report.json').read_text(encoding='utf-8-sig'))
+    report = out / 'ids-report.json'
+    log_path = out / 'engine.log'
+    command = [sys.executable, '-m', 'ifctester', str(paths[0]), str(paths[1]), '-r', 'Json', '-o', str(report)]
+    with log_path.open('wb') as log:
+        try:
+            process = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, timeout=120)
+        except subprocess.TimeoutExpired as error:
+            raise ProjectError(f'IfcTester timed out after 120 seconds. Inspect {log_path}') from error
+    if process.returncode or not report.is_file():
+        raise ProjectError(f'IfcTester engine failed. Inspect {log_path}')
+    try:
+        audit = json.loads(report.read_text(encoding='utf-8-sig'))
+    except ValueError as error:
+        raise ProjectError(f'IfcTester returned invalid JSON. Inspect {report} and {log_path}') from error
+    if not isinstance(audit, dict) or any(
+        type(audit.get(field)) is not int or audit[field] < 0
+        for field in ('total_specifications', 'total_checks', 'total_checks_fail')
+    ):
+        raise ProjectError(f'IfcTester returned invalid audit totals. Inspect {report} and {log_path}')
     if any(digest(Path(p))!=h for p,h in before.items()):raise ProjectError('IDS/IFC inputs changed')
     result=dict(inputs=before,ifctester_version=version,engine_exit_code=process.returncode,
-                calculated_checks_pass=audit.get('status') is True and audit.get('total_specifications',0)>0 and audit.get('total_checks',0)>0,
-                requirements_checked=audit.get('total_checks',0),requirements_failed=audit.get('total_checks_fail'),
-                audit_sha256=digest(out/'ids-report.json'),design_accepted=False,regulatory_compliance='not_established',
+                calculated_checks_pass=audit.get('status') is True and audit['total_specifications']>0 and audit['total_checks']>0 and audit['total_checks_fail']==0,
+                requirements_checked=audit['total_checks'],requirements_failed=audit['total_checks_fail'],
+                audit_sha256=digest(report),design_accepted=False,regulatory_compliance='not_established',
                 scope='Upstream IDS information requirements only; geometry, engineering physics and regulatory applicability remain separate')
     (out/'ids-check.json').write_text(json.dumps(result,indent=2),encoding='utf-8');return result
 
