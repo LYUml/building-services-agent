@@ -84,6 +84,14 @@ class ThreePhaseDrawingTests(unittest.TestCase):
         with self.assertRaisesRegex(ProjectError, 'Drawing study identity differs on handle'):
             verify_contacts(self.project, self.study, wrong_study)
         tagged_line.set_xdata(APP, original_tags)
+        label = next(entity for entity in doc.modelspace().query('TEXT') if entity.dxf.text.startswith('VA='))
+        label_text = label.dxf.text
+        label.dxf.text = 'VA=999.00 V'
+        wrong_label = out/'wrong-voltage-label.dxf'
+        doc.saveas(wrong_label)
+        with self.assertRaisesRegex(ProjectError, 'Saved bus .* labels differ from the study'):
+            verify_contacts(self.project, self.study, wrong_label)
+        label.dxf.text = label_text
         incomplete = ezdxf.readfile(out/'schematic.dxf')
         edge = next(entity for entity in incomplete.modelspace().query('LINE[layer=="BSA_ELEC_BUS"]')
                     if entity.dxf.start.y == entity.dxf.end.y)

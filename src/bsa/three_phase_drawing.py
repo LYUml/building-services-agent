@@ -145,6 +145,20 @@ def native(source,out,reference,exe,circuits):
                 bus_contacts=contacts,plot=result,visual_review='pending')
 
 
+def schematic_labels(project, study):
+    labels = {
+        ('bus', row['id']): [row['id'], *(f'V{phase}={value:.2f} V'
+                                        for phase, value in zip('ABC', row['phase_voltage_v']))]
+        for row in study['nodes']
+    }
+    for line, row in zip(project['lines'], study['lines']):
+        labels['line', line['id']] = [
+            line['id'], f"L={line['length_m']:.2f} m",
+            *(f'I{phase}={value:.2f} A' for phase, value in zip('ABC', row['phase_current_a'])),
+        ]
+    return labels
+
+
 def verify_contacts(project, study, drawing):
     import ezdxf
     from . import workspace
@@ -152,7 +166,7 @@ def verify_contacts(project, study, drawing):
     project, study, drawing = (Path(path).resolve() for path in (project, study, drawing))
     if not all(workspace.allowed(path) for path in (project, study, drawing)) or drawing.suffix.lower() != '.dxf':
         raise ProjectError('Select a saved DXF, project and study in the permitted workspace')
-    prepared, _, pins = context(project, study)
+    prepared, study_result, pins = context(project, study)
     source_hash = digest(drawing)
     study_hash = pins[str(study/'native/study.json')]
     doc = ezdxf.readfile(drawing)
@@ -161,6 +175,7 @@ def verify_contacts(project, study, drawing):
     expected = {('bus', row['id']) for row in prepared['buses']}
     expected.update(('line', row['id']) for row in prepared['lines'])
     observed = set()
+    labels = defaultdict(list)
     bus_edges = defaultdict(list)
     kinds = {'BSA_ELEC_LINE': 'line', 'BSA_ELEC_BUS': 'bus'}
     for entity in doc.modelspace():
@@ -175,11 +190,19 @@ def verify_contacts(project, study, drawing):
             if kind == 'bus':
                 a, b = entity.dxf.start, entity.dxf.end
                 bus_edges[tags[1]].append(frozenset(((a.x, a.y), (b.x, b.y))))
+        elif entity.dxf.layer == 'BSA_ELEC_TEXT':
+            tags = [tag.value for tag in entity.get_xdata(APP)] if entity.has_xdata(APP) else []
+            if entity.dxftype() != 'TEXT' or len(tags) != 3 or tags[2] != study_hash or tuple(tags[:2]) not in expected:
+                raise ProjectError(f'Drawing label study identity differs on handle {entity.dxf.handle}')
+            labels[tuple(tags[:2])].append(entity.dxf.text)
         elif entity.dxftype() == 'LINE' and entity.has_xdata(APP):
             if entity.get_xdata(APP)[0].value in kinds.values():
                 raise ProjectError(f'Electrical geometry outside scoped layers on handle {entity.dxf.handle}')
     if observed != expected:
         raise ProjectError('Saved schematic circuit or bus inventory differs from the study')
+    for key, expected_text in schematic_labels(prepared, study_result).items():
+        if sorted(labels[key]) != sorted(expected_text):
+            raise ProjectError(f'Saved {key[0]} {key[1]} labels differ from the study')
     contacts = bus_contacts(doc, prepared['lines'])
     for bus, edges in bus_edges.items():
         if len(edges) != 4:
@@ -216,14 +239,12 @@ def run(project,study_root,out,dot,autocad=None):
     node_names={r['id']:'n'+str(i) for i,r in enumerate(p['buses'])}
     text=['digraph G {','graph [rankdir=LR,nodesep=0.6,ranksep=0.8,pad=0];',
           'node [shape=box,fontname=Courier,fontsize=10];','edge [dir=none,fontname=Courier,fontsize=9];']
-    labels={}
+    labels=schematic_labels(p, study)
     for row in study['nodes']:
-        label=row['id']+'\n'+'\n'.join(f'V{ph}={v:.2f} V' for ph,v in zip('ABC',row['phase_voltage_v']))
-        labels[('bus',row['id'])]=label.splitlines()
+        label='\n'.join(labels['bus', row['id']])
         text.append(node_names[row['id']]+' [label='+json.dumps(label)+'];')
-    for i,(line,row) in enumerate(zip(p['lines'],study['lines'])):
-        label=line['id']+'\nL='+f"{line['length_m']:.2f}"+' m\n'+'\n'.join(f'I{ph}={v:.2f} A' for ph,v in zip('ABC',row['phase_current_a']))
-        labels[('line',line['id'])]=label.splitlines()
+    for i,line in enumerate(p['lines']):
+        label='\n'.join(labels['line', line['id']])
         text.append(node_names[line['from']]+' -> '+node_names[line['to']]+' [id="e'+str(i)+'",label='+json.dumps(label)+'];')
     text.append('}');out.mkdir(parents=True)
     (out/'layout.dot').write_text('\n'.join(text),encoding='ascii')
