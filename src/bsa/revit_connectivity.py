@@ -138,6 +138,7 @@ def diagnose(inventory, tolerance_m, *, expected_connections=None):
                 continue
             other = nodes[target]
             reasons = []
+            measurements = {}
             if other['connector_type'] == 'Logical' or ref.get('connector_type') != other['connector_type']:
                 reasons.append('reference_type_mismatch')
             if other['domain'] != c['domain'] or ref.get('domain') != other['domain']:
@@ -154,6 +155,8 @@ def diagnose(inventory, tolerance_m, *, expected_connections=None):
                 distance = math.dist(c['origin_m'], other['origin_m'])
                 if distance > tolerance_m:
                     reasons.append('endpoint_separation')
+                    measurements.update(port_origin_m=c['origin_m'], target_origin_m=other['origin_m'],
+                                        endpoint_separation_m=distance)
                 if math.dist(point(ref.get('origin_m')), other['origin_m']) > tolerance_m:
                     reasons.append('reference_position_mismatch')
                 recorded = ref.get('separation_m')
@@ -162,7 +165,7 @@ def diagnose(inventory, tolerance_m, *, expected_connections=None):
                 if abs(recorded - distance) > tolerance_m:
                     reasons.append('recorded_separation_mismatch')
             if reasons:
-                issues.append(dict(port=ident, target=target, reasons=reasons))
+                issues.append(dict(port=ident, target=target, reasons=reasons, **measurements))
             else:
                 directed_checks.add((ident, target))
         if not physical_refs:

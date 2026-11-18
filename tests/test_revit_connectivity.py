@@ -119,6 +119,12 @@ class RevitConnectivityTests(unittest.TestCase):
         self.check_reason('endpoint_separation')
         self.check_reason('reference_position_mismatch')
         self.check_reason('recorded_separation_mismatch')
+        result = diagnose(self.data, 0.0001)
+        pipe_issue = next(issue for issue in result['issues'] if issue['port'] == ('pipe', 1))
+        self.assertEqual(pipe_issue['target'], ('fitting', 1))
+        self.assertEqual(pipe_issue['port_origin_m'], [1, 0, 0])
+        self.assertEqual(pipe_issue['target_origin_m'], [1.02, 0, 0])
+        self.assertAlmostEqual(pipe_issue['endpoint_separation_m'], 0.02)
 
     def test_logical_reference_does_not_count_as_physical(self):
         c = self.data['pipes'][0]['connectors'][0]
