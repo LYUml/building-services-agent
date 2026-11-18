@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 from bsa.cli import digest
 from bsa.engine import ProjectError
 from bsa.revit_request import prepare, validate_automation_request
@@ -40,6 +41,23 @@ class RevitRequestTests(unittest.TestCase):
                 (source if target=='source' else model).write_bytes(b'changed')
                 with self.assertRaises(ProjectError):prepare(inv,model,basis,root/'out')
                 self.assertFalse((root/'out').exists())
+
+    def test_saved_model_replaced_during_request_preparation_leaves_no_output(self):
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as directory:
+            root = Path(directory)
+            inventory, model, basis, _ = self.fixture(root)
+            original_read = Path.read_text
+
+            def replace_after_read(path, *args, **kwargs):
+                content = original_read(path, *args, **kwargs)
+                if path == basis:
+                    model.write_bytes(b'changed while loading the design basis')
+                return content
+
+            with patch.object(Path, 'read_text', replace_after_read):
+                with self.assertRaisesRegex(ProjectError, 'Input changed during preparation'):
+                    prepare(inventory, model, basis, root/'out')
+            self.assertFalse((root/'out').exists())
 
     def test_unknown_selection_and_invalid_geometry_rejected(self):
         for field,value in (('PipeTypeUniqueId','invented'),('SystemTypeUniqueId','invented'),
