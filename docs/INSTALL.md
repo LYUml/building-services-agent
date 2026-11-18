@@ -21,6 +21,10 @@ Other optional solvers remain opt-in; see [capabilities](CANDIDATE_SUPPORT.md).
 Only one detected AutoCAD installation is selected automatically. With multiple
 installations, pass `--autocad` explicitly. No detected AutoCAD means native DWG
 execution remains unavailable; a successful MCP setup does not claim otherwise.
+For independent DWG readback, build the optional worker as described in
+[Drawing document](DRAWING_DOCUMENT.md), then pass both `--dwg-dotnet`
+and `--dwg-worker` with absolute paths to `Setup.cmd`. Setup checks the paths
+and writes them into the selected project's MCP profile.
 
 Setup creates `.bsa/venv`, verifies pinned direct dependencies, runs the existing
 MCP contract audit and a real stdio handshake plus read-only catalogue call.
@@ -51,7 +55,7 @@ bundled AutoCAD. Native save/reopen, visual plots and engineering applicability
 still need project-specific review. Revit native authoring and whole-project
 statutory certification are not release claims. Software prerelease publication
 does not mean the user has accepted an engineering deliverable.
-# Historical CAD evidence in source archives
+## Historical CAD evidence in source archives
 
 Source archives omit the historical CAD artifacts marked `export-ignore` in
 `.gitattributes`. The Git checkout preserves those artifacts and their original

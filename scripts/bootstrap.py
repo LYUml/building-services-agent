@@ -63,6 +63,8 @@ def main(argv=None):
     parser.add_argument('--profile', choices=PROFILES, default='cad')
     parser.add_argument('--project-root', type=Path, help='Existing user project; defaults to this source checkout')
     parser.add_argument('--autocad', type=Path, help='Existing accoreconsole.exe; no native software is installed')
+    parser.add_argument('--dwg-dotnet', type=Path, help='Absolute .NET host path for an existing DWG worker')
+    parser.add_argument('--dwg-worker', type=Path, help='Absolute path to an existing ACadSharp worker DLL')
     args = parser.parse_args(argv)
     if sys.version_info[:2] != (3, 12):
         raise ValueError('This prerelease installer requires tested CPython 3.12')
@@ -78,6 +80,14 @@ def main(argv=None):
         raise ValueError('Completed historical project is read-only')
     if args.autocad and not args.autocad.resolve().is_file():
         raise ValueError('Existing AutoCAD Core Console executable required')
+    dwg_options = []
+    if args.dwg_dotnet is not None or args.dwg_worker is not None:
+        if args.dwg_dotnet is None or args.dwg_worker is None:
+            raise ValueError('Supply both --dwg-dotnet and --dwg-worker')
+        from bsa.dwg_readback import host_runtime_files
+
+        dotnet, worker, _ = host_runtime_files(args.dwg_dotnet, args.dwg_worker)
+        dwg_options = ['--dwg-dotnet', dotnet, '--dwg-worker', worker]
     expected_python = owned / 'venv' / ('Scripts/python.exe' if os.name == 'nt' else 'bin/python')
     project_skills.install(selected or ROOT, expected_python, check_only=True)
     restore_source_git()
@@ -107,7 +117,7 @@ def main(argv=None):
     command = [python, '-m', 'bsa.codex_setup', '--python', python, '--refresh']
     if autocad:
         command += ['--autocad', autocad.resolve()]
-    run(command)
+    run(command + dwg_options)
     audit = owned / 'mcp-check.json'
     skills_result = json.loads(run([python, '-m', 'bsa.project_skills', '--project', selected or ROOT,
                                    '--python', python], capture_output=True, text=True).stdout)
@@ -124,7 +134,8 @@ def main(argv=None):
                    skills_installed=True,
                    skill_count=skills_result['skill_count'],
                    project=str(selected or ROOT), mcp_contract_verified=True, stdio_transport_verified=True,
-                   autocad_path_present=bool(autocad), native_execution_verified=False,
+                   autocad_path_present=bool(autocad), dwg_readback_paths_supplied=bool(dwg_options),
+                   native_execution_verified=False,
                    host_connection_verified=False, design_accepted=False)
     (owned / 'setup-result.json').write_text(json.dumps(receipt, indent=2), encoding='utf-8')
     print(json.dumps(receipt, indent=2))
