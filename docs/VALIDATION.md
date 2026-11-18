@@ -29,6 +29,14 @@ passed in its dedicated runtime. The four mixed air/water recovery tests
 passed separately at `baf74c2`, including forged handoff rejection and early
 stopping when no fan candidate meets the declared criteria.
 
+At `c066c61`, 46 focused tests and 19 subtests passed for DWG readback,
+project MCP setup, path diagnostics and offline Revit checks. The agent's
+project-local MCP profile separately ran the native 4,609-entity revision
+comparison with zero differences. The Revit elbow test assembly compiled
+against Revit 2027 and is ready for an authorized host run. Its pre-save
+schedule records the two expected physical connector pairs and their
+pipe-end positions for comparison with the reopened inventory.
+
 ## IFC water fitting binding
 
 On the same Windows host and Python environment, the saved finite elbow
