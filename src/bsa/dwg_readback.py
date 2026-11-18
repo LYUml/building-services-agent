@@ -112,6 +112,10 @@ def run(source, out, reference_dxf=None, *, expected_hashes=None):
     dotnet = host_file('BSA_ACADSHARP_DOTNET')
     worker = host_file('BSA_ACADSHARP_WORKER')
     worker_hash = file_hash(worker)
+    reader = worker.with_name('ACadSharp.dll')
+    if not reader.is_file():
+        raise ValueError('Build the DWG worker with its locked adjacent ACadSharp.dll')
+    reader_hash = file_hash(reader)
     completed = subprocess.run([str(dotnet), str(worker), str(source)], cwd=worker.parent,
                                capture_output=True, encoding='utf-8', timeout=120)
     if completed.returncode:
@@ -119,6 +123,7 @@ def run(source, out, reference_dxf=None, *, expected_hashes=None):
     result = json.loads(completed.stdout)
     if (not isinstance(result, dict) or result.get('schema') != 'bsa.acadsharp-modelspace/1'
             or result.get('source_sha256') != source_hash or result.get('reader_version') != '3.8.35'
+            or result.get('reader_sha256') != reader_hash
             or result.get('native_autocad_executed') is not False or result.get('design_accepted') is not False
             or type(result.get('insunits')) is not int or not isinstance(result.get('entities'), list)):
         raise ValueError('ACadSharp report identity or scope differs from the selected input')
@@ -135,8 +140,8 @@ def run(source, out, reference_dxf=None, *, expected_hashes=None):
         summary = dict(correspondence_pass=comparison['correspondence_pass'],
                        difference_count=len(comparison['differences']))
     report = json.dumps(result, indent=2, allow_nan=False)
-    if file_hash(source) != source_hash or file_hash(worker) != worker_hash:
-        raise ValueError('DWG or ACadSharp worker changed during inventory')
+    if file_hash(source) != source_hash or file_hash(worker) != worker_hash or file_hash(reader) != reader_hash:
+        raise ValueError('DWG, worker or ACadSharp library changed during inventory')
     if reference is not None and file_hash(reference) != reference_hash:
         raise ValueError('DXF reference changed during inventory')
     out.parent.mkdir(parents=True, exist_ok=True)

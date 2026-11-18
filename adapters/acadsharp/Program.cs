@@ -12,6 +12,8 @@ if (args.Length != 1 || !Path.GetExtension(args[0]).Equals(".dwg", StringCompari
 try
 {
     string path = Path.GetFullPath(args[0]);
+    string readerPath = typeof(DwgReader).Assembly.Location;
+    string readerHash = HashPath(readerPath);
     using var input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
     string before = Hash(input);
     var document = DwgReader.Read(path);
@@ -27,6 +29,7 @@ try
         schema = "bsa.acadsharp-modelspace/1",
         source_sha256 = before,
         reader_version = "3.8.35",
+        reader_sha256 = readerHash,
         insunits = (int)document.Header.InsUnits,
         entities,
         native_autocad_executed = false,
@@ -34,6 +37,8 @@ try
     });
     if (Hash(input) != before || HashPath(path) != before)
         throw new IOException("DWG changed during readback");
+    if (HashPath(readerPath) != readerHash)
+        throw new IOException("ACadSharp library changed during readback");
     Console.WriteLine(output);
     return 0;
 }

@@ -61,6 +61,8 @@ class DwgReadbackTests(unittest.TestCase):
             self.assertEqual(summary['insunits'], 4)
             self.assertEqual(report['comparison']['geometry_compared_count'], 4)
             self.assertEqual(report['source_sha256'], original)
+            reader = Path(os.environ['BSA_ACADSHARP_WORKER']).with_name('ACadSharp.dll')
+            self.assertEqual(report['reader_sha256'], file_hash(reader))
             expected = {e.dxf.handle: e for e in ezdxf.readfile(FIXTURE / 'source-export.dxf').modelspace()}
             actual = {row['handle']: row for row in report['entities']}
             self.assertEqual({h: (r['type'], r['layer']) for h, r in actual.items()},
