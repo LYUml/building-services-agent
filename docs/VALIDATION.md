@@ -32,6 +32,16 @@ The following checks ran separately from the default full suite at `77c2bc3`.
 | Pinned MOOSAS and EnergyPlus 25.2 | IFC space workflow, external workspace, provider replacement and annual-energy MCP response | 10 passed |
 | Isolated pandapower runtime | Balanced analytic check, unbalanced currents, overload target and altered result rejection | 2 passed |
 
+At `f73b5df`, `scripts/run_rectangular_hk_fan_delivery.py --elbow` ran against
+local AutoCAD 2027 Core Console and the cached official sources. The scoped
+passing case saved and reopened the DWG. ACadSharp matched all 18 modelspace
+entities against the reopened export. The 150 dpi raster showed the curved
+route and all three labels with no observed overlap or clipping. The 1:20
+reference measured 49.996 mm against 50 mm. The plot verifier reported a
+duplicate `/PageMode` entry, and Poppler rendered the page successfully.
+The over-limit and unknown-input cases were gated before drawing. Workflow,
+DWG, PDF and raster evidence were checked against the saved hashes.
+
 2026-11-08 foundation milestone, Windows / Python 3.12.
 
 - Editable package installation succeeded in this repository's .venv.
