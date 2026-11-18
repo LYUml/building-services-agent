@@ -11,6 +11,19 @@ from scripts.prepare_revit_automation_bundle import confirm_engine, prepare
 
 
 class RevitAutomationBundleTests(unittest.TestCase):
+    def test_changed_input_does_not_publish_partial_bundle(self):
+        runs = Path(__file__).resolve().parents[1] / 'runs'
+        with TemporaryDirectory(dir=runs) as temporary:
+            directory = Path(temporary)
+            assembly = directory / 'Bsa.Revit.Automation.dll'
+            assembly.write_bytes(b'synthetic assembly')
+            output = directory / 'published'
+            with patch('scripts.prepare_revit_automation_bundle.inventory_request',
+                       side_effect=[{'SavedRvtSha256': 'a'*64}, {'SavedRvtSha256': 'b'*64}]):
+                with self.assertRaisesRegex(ValueError, 'RVT changed during preparation'):
+                    prepare(assembly, output, model=directory / 'fixture.rvt')
+            self.assertEqual(list(directory.iterdir()), [assembly])
+
     def test_engine_confirmation_requires_exact_engine_identity(self):
         with patch('scripts.prepare_revit_automation_bundle.HTTPSConnection') as factory:
             connection = factory.return_value

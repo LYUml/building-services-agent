@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import re
+from tempfile import TemporaryDirectory
 from urllib.parse import quote
 from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
@@ -130,40 +131,48 @@ def prepare(assembly, output, *, engine=None, bundle_id=None, model=None,
         f'{prefix}/Contents/Bsa.Revit.Automation.addin': addin,
         f'{prefix}/Contents/{assembly.name}': assembly.read_bytes(),
     }
-    output.mkdir(parents=True)
-    archive = output / 'Bsa.Revit.Automation.zip'
-    with ZipFile(archive, 'x', compression=ZIP_DEFLATED) as bundle:
-        for name, content in payload.items():
-            member = ZipInfo(name)
-            member.create_system = 3
-            member.external_attr = 0o100644 << 16
-            bundle.writestr(member, content, compress_type=ZIP_DEFLATED)
-    with ZipFile(archive) as bundle:
-        if bundle.namelist() != list(payload) or any(bundle.read(name) != data for name, data in payload.items()):
-            raise ValueError('AppBundle differs from the selected files')
-    receipt = {
-        'operation': operation,
-        'archive_sha256': hashlib.sha256(archive.read_bytes()).hexdigest(),
-        'assembly_sha256': hashlib.sha256(payload[f'{prefix}/Contents/{assembly.name}']).hexdigest(),
-        'uploaded': False,
-        'native_executed': False,
-    }
-    if activity is not None:
-        activity_bytes = json.dumps(activity, indent=2).encode('utf-8')
-        (output / 'activity.json').write_bytes(activity_bytes)
-        receipt['activity_sha256'] = hashlib.sha256(activity_bytes).hexdigest()
-    if confirmed is not None:
-        receipt['confirmed_engine'] = confirmed
-    if request is not None:
-        if inventory_request(model, runs) != request:
-            raise ValueError('RVT changed during preparation')
-        if pipe_request is not None and pipe_request.read_bytes() != request_bytes:
-            raise ValueError('Pipe request changed during preparation')
-        (output / ('pipe-request.json' if writing else 'inventory-request.json')).write_bytes(request_bytes)
-        receipt['request_sha256'] = hashlib.sha256(request_bytes).hexdigest()
-        receipt['saved_rvt_sha256'] = request['SavedRvtSha256']
-    (output / 'preparation.json').write_text(json.dumps(receipt, indent=2), encoding='utf-8')
-    return archive
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with TemporaryDirectory(prefix='.revit-stage-', dir=output.parent) as temporary:
+        stage = Path(temporary) / 'payload'
+        stage.mkdir()
+        archive = stage / 'Bsa.Revit.Automation.zip'
+        with ZipFile(archive, 'x', compression=ZIP_DEFLATED) as bundle:
+            for name, content in payload.items():
+                member = ZipInfo(name)
+                member.create_system = 3
+                member.external_attr = 0o100644 << 16
+                bundle.writestr(member, content, compress_type=ZIP_DEFLATED)
+        with ZipFile(archive) as bundle:
+            if bundle.namelist() != list(payload) or any(bundle.read(name) != data for name, data in payload.items()):
+                raise ValueError('AppBundle differs from the selected files')
+        receipt = {
+            'operation': operation,
+            'archive_sha256': hashlib.sha256(archive.read_bytes()).hexdigest(),
+            'assembly_sha256': hashlib.sha256(payload[f'{prefix}/Contents/{assembly.name}']).hexdigest(),
+            'uploaded': False,
+            'native_executed': False,
+        }
+        if activity is not None:
+            activity_bytes = json.dumps(activity, indent=2).encode('utf-8')
+            (stage / 'activity.json').write_bytes(activity_bytes)
+            receipt['activity_sha256'] = hashlib.sha256(activity_bytes).hexdigest()
+        if confirmed is not None:
+            receipt['confirmed_engine'] = confirmed
+        if request is not None:
+            if inventory_request(model, runs) != request:
+                raise ValueError('RVT changed during preparation')
+            if pipe_request is not None and pipe_request.read_bytes() != request_bytes:
+                raise ValueError('Pipe request changed during preparation')
+            (stage / ('pipe-request.json' if writing else 'inventory-request.json')).write_bytes(request_bytes)
+            receipt['request_sha256'] = hashlib.sha256(request_bytes).hexdigest()
+            receipt['saved_rvt_sha256'] = request['SavedRvtSha256']
+        (stage / 'preparation.json').write_text(json.dumps(receipt, indent=2), encoding='utf-8')
+        if assembly.read_bytes() != payload[f'{prefix}/Contents/{assembly.name}']:
+            raise ValueError('Automation assembly changed during preparation')
+        if output.exists():
+            raise FileExistsError('Automation output appeared during preparation')
+        stage.rename(output)
+    return output / archive.name
 
 
 if __name__ == '__main__':
