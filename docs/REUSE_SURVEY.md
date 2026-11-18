@@ -2897,3 +2897,16 @@ saved RVT evidence.
 [Horizun Revit MCP](https://github.com/HorizunGroup/horizun-revit-mcp) ·
 [Revit.TestRunner](https://github.com/geberit/Revit.TestRunner) ·
 [RevitLookup](https://github.com/lookup-foundation/RevitLookup)
+
+The pinned Horizun source was also checked locally. Its single-element
+command calls native `Pipe.Create` and `Duct.Create`. The routing command
+creates native runs and elbow fittings, regenerates, and checks actual
+connector relationships with `IsConnectedTo`. Its transaction wrapper can
+roll back a committed child transaction while the enclosing group is
+still open. This is a useful pattern for our adapter, which currently
+measures the pipe before transaction commit and separately verifies saved
+reopening. A future native trial should test post-commit readback inside
+the reversible group, including a forced mismatch and rollback. The upstream
+implementation and its numerical tolerances were not imported or run.
+[Native route source](https://github.com/HorizunGroup/horizun-revit-mcp/blob/d1c94a0f7bbf5875199f2ebd1bfcc618d3049b6f/src/Horizun.Revit/Commands/MepRoutingRoute.cs) ·
+[Transaction wrapper](https://github.com/HorizunGroup/horizun-revit-mcp/blob/d1c94a0f7bbf5875199f2ebd1bfcc618d3049b6f/src/Horizun.Revit/Commands/MepRoutingCommand.cs)
