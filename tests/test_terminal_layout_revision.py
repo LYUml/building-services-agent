@@ -1,5 +1,6 @@
 import copy
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -8,6 +9,7 @@ import ezdxf
 from bsa.cli import digest
 from bsa.terminal_layout_revision import run
 from bsa.duct_sheet import snapshot
+from bsa.native_cad import DEFAULT_EXE
 from tests import test_air_terminal_drawing as fixtures
 
 
@@ -58,6 +60,34 @@ class TerminalLayoutRevisionTests(unittest.TestCase):
             if e.dxf.layer==self.layers['flex']:e.dxf.start,e.dxf.end=e.dxf.end,e.dxf.start
         doc.saveas(self.root/'source.dxf');p=self.root/'binding.json';b=json.loads(p.read_text());b['source_sha256']=digest(self.root/'source.dxf');p.write_text(json.dumps(b))
         self.assertTrue(self.execute()['saved_dxf_correspondence'])
+
+    @unittest.skipUnless(os.environ.get('BSA_TEST_AUTOCAD') == '1' and DEFAULT_EXE.is_file(),
+                         'requires explicit AutoCAD host')
+    def test_native_reopen_verifies_moved_terminal_connection(self):
+        from bsa.air_terminal_drawing import inspect
+        from bsa.duct_sheet_native import run as publish_native
+
+        revision = self.execute()
+        dxf = self.root / 'output/Supply Air Distribution.dxf'
+        reference = revision['new_correspondence']['rigid_sections'][0]['handle']
+        settings = self.root / 'native.json'
+        settings.write_text(json.dumps(dict(
+            source_sha256=revision['dxf_sha256'], layers=[*self.layers.values(), '0'],
+            sheet=dict(source='Synthetic terminal layout fixture', window_drawing_units=[-1, -2, 5, 5],
+                       scale_denominator=50, reference_handle=reference, pdf_tolerance_mm=.2),
+        )), encoding='utf-8')
+        output = self.root / 'native'
+        result = publish_native(dxf, settings, output, DEFAULT_EXE)
+        self.assertTrue(result['native_reopen_pass'])
+        self.assertEqual(result['plot_visual_review'], 'pending')
+        project = json.loads((self.root / 'ducts.json').read_bytes())
+        binding = json.loads((self.root / 'binding.json').read_bytes())
+        reopened = ezdxf.readfile(output / 'reopened/source-export.dxf')
+        checked = inspect(reopened, self.new, project['tree'], binding, self.layers)
+        route = checked['groups'][0]['routes'][0]
+        self.assertEqual(route['saved_vav_endpoint_m'], [1, 1, 0])
+        self.assertEqual(route['saved_terminal_endpoint_m'], [3, 1, 0])
+        self.assertEqual(route['terminal_endpoint_gap_m'], 0)
 
     def test_terminal_move_preserves_saved_flex_elevation_and_vav_endpoint(self):
         source = self.root / 'source.dxf'

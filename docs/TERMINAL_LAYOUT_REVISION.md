@@ -35,6 +35,12 @@ Outputs are Supply Air Distribution.dxf and revision.json in a new directory.
 Record the new drawing hash in a separate sheet binding,retain the original
 schedule cell text/handles,and execute fresh allocation,lookup,sizing,sheet and
 native stages. A DXF pass leaves native_reopen_pass=false and plot review pending.
+
+The opt-in test `tests.test_terminal_layout_revision` with
+`BSA_TEST_AUTOCAD=1` runs a synthetic revision through AutoCAD Core Console.
+It saves and independently reopens the DWG, checks the scaled PDF reference
+and measures both flex endpoints from the reopened export. The moved terminal
+has a zero flex-to-symbol gap in this fixture. Visual plot review remains pending.
 AutoCAD independent reopening and actual plot inspection remain mandatory.
 
 Changed straight plan distances are not installed flex lengths. This tool does
