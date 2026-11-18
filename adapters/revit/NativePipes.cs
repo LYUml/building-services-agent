@@ -40,18 +40,27 @@ public static partial class NativePipes
             currentHash = Convert.ToHexString(SHA256.HashData(savedModel));
         if (!string.Equals(currentHash, request.SavedRvtSha256, StringComparison.OrdinalIgnoreCase))
             throw new InvalidOperationException("Saved RVT hash mismatch; prepare a fresh request from a matching inventory");
+        using var group = new TransactionGroup(doc, "BSA: create and verify native pipe");
+        if (group.Start() != TransactionStatus.Started)
+            throw new InvalidOperationException("Native pipe transaction group did not start");
         using var transaction = new Transaction(doc, "BSA: sourced native pipe");
-        if (transaction.Start() != TransactionStatus.Started)
-            throw new InvalidOperationException("Transaction did not start");
-        transaction.SetFailureHandlingOptions(transaction.GetFailureHandlingOptions()
-            .SetFailuresPreprocessor(new RejectFailures()).SetClearAfterRollback(true));
         try
         {
-            var pipe = Pipe.Create(doc, systemType.Id, pipeType.Id, level.Id, start, end);
-            var diameter = pipe.get_Parameter(BuiltInParameter.RBS_PIPE_DIAMETER_PARAM);
+            if (transaction.Start() != TransactionStatus.Started)
+                throw new InvalidOperationException("Transaction did not start");
+            transaction.SetFailureHandlingOptions(transaction.GetFailureHandlingOptions()
+                .SetFailuresPreprocessor(new RejectFailures()).SetClearAfterRollback(true));
+            var created = Pipe.Create(doc, systemType.Id, pipeType.Id, level.Id, start, end);
+            var diameter = created.get_Parameter(BuiltInParameter.RBS_PIPE_DIAMETER_PARAM);
             if (diameter is null || diameter.IsReadOnly || !diameter.Set(diameterFeet))
                 throw new InvalidOperationException("Native diameter could not be set");
-            doc.Regenerate();
+            ElementProvenance.Attach(created, request);
+            string uniqueId = created.UniqueId;
+            if (transaction.Commit() != TransactionStatus.Committed)
+                throw new InvalidOperationException("Native transaction did not commit");
+
+            var pipe = doc.GetElement(uniqueId) as Pipe
+                ?? throw new InvalidOperationException("Committed pipe could not be read back");
             var actualSystemTypeId = pipe.get_Parameter(BuiltInParameter.RBS_PIPING_SYSTEM_TYPE_PARAM)?.AsElementId();
             if (pipe.GetTypeId() != pipeType.Id || actualSystemTypeId != systemType.Id || pipe.ReferenceLevel?.Id != level.Id)
                 throw new InvalidOperationException("Native pipe type, system type or reference level differs from request");
@@ -66,7 +75,8 @@ public static partial class NativePipes
                 || connectors.Count(connector => connector.Origin.DistanceTo(start) <= 1e-7) != 1
                 || connectors.Count(connector => connector.Origin.DistanceTo(end) <= 1e-7) != 1)
                 throw new InvalidOperationException("Native piping end connectors differ from requested endpoints");
-            ElementProvenance.Attach(pipe, request);
+            if (ElementProvenance.Read(pipe) is null)
+                throw new InvalidOperationException("Committed pipe has no readable creation provenance");
             var result = new { unique_id = pipe.UniqueId, element_id = pipe.Id.Value.ToString(),
                 type_unique_id = pipeType.UniqueId, system_type_unique_id = systemType.UniqueId,
                 level_unique_id = level.UniqueId,
@@ -82,13 +92,15 @@ public static partial class NativePipes
                     origin_m = new[] { Metres(connector.Origin.X), Metres(connector.Origin.Y), Metres(connector.Origin.Z) },
                 }).ToArray(),
                 saved = false, connected_system_verified = false, design_accepted = false };
-            if (transaction.Commit() != TransactionStatus.Committed)
-                throw new InvalidOperationException("Native transaction did not commit");
+            if (group.Assimilate() != TransactionStatus.Committed)
+                throw new InvalidOperationException("Verified pipe transaction group did not commit");
             return result;
         }
-        catch
+        catch (Exception error)
         {
             if (transaction.GetStatus() == TransactionStatus.Started) transaction.RollBack();
+            if (group.GetStatus() == TransactionStatus.Started && group.RollBack() != TransactionStatus.RolledBack)
+                throw new InvalidOperationException("Native pipe transaction group rollback could not be confirmed", error);
             throw;
         }
     }
