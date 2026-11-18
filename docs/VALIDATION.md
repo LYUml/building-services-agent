@@ -40,6 +40,14 @@ the test process, the installed virtual environment passed all seven
 
 ## Repository-wide Windows snapshot
 
+The `3fff35b` detached checkout started without `runs/`. The first 23
+fixture failures occurred before a later test created that shared scratch
+directory. At `607ad8e`, pytest creates it before collection. A pristine
+detached checkout of that commit confirmed `runs/` was absent before
+launch and passed the exact 23 previously failing cases and 7 subtests.
+The full run at `3fff35b` and the focused replay at `607ad8e` are separate
+test results.
+
 The detached Git checkout of `b027e8540a0f6c0571ede9e2f09844d918fe7ab0`
 completed in 3,606.07 seconds with exit code 0. Pytest reported 1,806 passed,
 254 skipped and 864 subtests passed. The run used an isolated ACadSharp
