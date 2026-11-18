@@ -59,6 +59,7 @@ def inspect(doc, allocation, tree, binding, layers):
             saved_start, saved_end = saved_end, saved_start
         rigid_sections.append(dict(section=section['id'], handle=line.dxf.handle,
                                    from_node=pair[0], to_node=pair[1],
+                                   saved_from_m=list(saved_start), saved_to_m=list(saved_end),
                                    saved_plan_length_m=math.dist(saved_start, saved_end)))
         for node,p in zip(pair,(saved_start,saved_end)):
             incident = node_sections.setdefault(node, [])

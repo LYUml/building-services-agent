@@ -98,6 +98,11 @@ def connection_summary(directory,workflow,paths,review):
     compared = dict(fresh)
     if 'rigid_sections' not in record:
         del compared['rigid_sections']
+    elif all('saved_from_m' not in row and 'saved_to_m' not in row for row in record['rigid_sections']):
+        compared['rigid_sections'] = [
+            {key: value for key, value in row.items() if key not in ('saved_from_m', 'saved_to_m')}
+            for row in fresh['rigid_sections']
+        ]
     if 'correspondence_tolerance_m' not in record:
         # Earlier receipts predate explicit gaps. Recompute the checks above
         # and compare the original receipt fields against the same drawing.
