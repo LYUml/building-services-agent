@@ -91,6 +91,18 @@ class TerminalDrawingTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'VAV VA .*invalid symbol radius'):
             self.check()
 
+    def test_flex_gap_uses_the_saved_terminal_elevation(self):
+        terminal = self.doc.modelspace().query('LWPOLYLINE')[0]
+        terminal.dxf.elevation = 6e-9
+        route = self.check()['groups'][0]['routes'][0]
+        self.assertEqual(route['saved_terminal_center_m'], [2, 1, 6e-9])
+        self.assertEqual(route['terminal_endpoint_gap_m'], 6e-9)
+
+        flex = self.doc.modelspace().query('LINE[layer=="flex"]')[0]
+        flex.dxf.end = (2, 1, -6e-9)
+        with self.assertRaisesRegex(ValueError, r'handle .* by 1\.2e-08 m'):
+            self.check()
+
     def test_disconnected_rigid_node_reports_both_sections_and_gap(self):
         first, second = self.doc.modelspace().query('LINE[layer=="duct"]')
         second.dxf.start = (0.25, 0, 0)

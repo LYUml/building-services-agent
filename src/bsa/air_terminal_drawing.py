@@ -94,7 +94,7 @@ def inspect(doc, allocation, tree, binding, layers):
         xs,ys = {p[0] for p in xyz},{p[1] for p in xyz}
         if len(xs)!=2 or len(ys)!=2 or len(set(xyz))!=4 or any(a[0]!=b[0] and a[1]!=b[1] for a,b in zip(xyz,xyz[1:]+xyz[:1])):
             raise ValueError('Rectangular terminal symbol required')
-        return ((min(xs)+max(xs))/2,(min(ys)+max(ys))/2,0.)
+        return ((min(xs)+max(xs))/2,(min(ys)+max(ys))/2,xyz[0][2])
     # Read every candidate before matching, including otherwise-unused symbols.
     symbol_centers = {e.dxf.handle:symbol_center(e) for e in pools['terminal']}
     terminals = {tid:take(pools['terminal'],lambda e:near(symbol_centers[e.dxf.handle],p),
