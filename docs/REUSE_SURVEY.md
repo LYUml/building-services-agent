@@ -118,6 +118,13 @@ directions, class counts and candidate owners. Only explicitly opposing
 SOURCE/SINK declarations are reported as directed. There is no geometry,
 internal fitting path or hydraulic proof.
 
+Each port now retains the exact attachment relationship's GUID, class and
+owner claim. When the coordinate review is requested, conflicting claims on
+linked ports fail the combined review. Missing supported owner evidence keeps
+it pending. On a saved IFC4 control, an injected legacy attachment claimed
+a different owner than the existing nesting relationship. The CLI and MCP
+workflow found the conflict although the exported port origins coincided.
+
 Add `--baseline <previous.ifc>` in the CLI or `baseline` in MCP to compare
 saved exports by port GUID. The report lists added and removed ports,
 ownership or flow-label changes, and changes in endpoint-pair multiplicity.

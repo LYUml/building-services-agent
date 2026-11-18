@@ -18,6 +18,11 @@ class IfcPortComparisonTests(unittest.TestCase):
         self.assertEqual(gap_status(inspect_pair_gaps(inventory, 0.02))[0], 'pending')
         inventory['connections'].pop()
         self.assertEqual(gap_status(inspect_pair_gaps(inventory, 0.02))[0], 'pass')
+        report = dict(connection_gaps=inspect_pair_gaps(inventory, 0.02))
+        report['connection_ownership'] = dict(conflicting_ports=['a'], unavailable_ports=[])
+        self.assertEqual(review_status(report)[0], 'fail')
+        report['connection_ownership'] = dict(conflicting_ports=[], unavailable_ports=['a'])
+        self.assertEqual(review_status(report)[0], 'pending')
         inventory['connections'].clear()
         self.assertEqual(gap_status(inspect_pair_gaps(inventory, 0.02))[0], 'pending')
 

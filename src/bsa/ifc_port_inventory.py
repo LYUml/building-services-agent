@@ -28,6 +28,20 @@ def inspect(source, *, positions=False):
     if len({port.GlobalId for port in ports}) != len(ports):
         raise ValueError('Duplicate IFC distribution port GlobalId')
     owners = {port.GlobalId: set() for port in ports}
+    owner_evidence = {port.GlobalId: [] for port in ports}
+    product_ids = {product.id() for product in products}
+    for kind in ('IfcRelNests', 'IfcRelConnectsPortToElement'):
+        for attachment in model.by_type(kind):
+            if kind == 'IfcRelNests':
+                owner, candidates = attachment.RelatingObject, attachment.RelatedObjects
+            else:
+                owner, candidates = attachment.RelatedElement, [attachment.RelatingPort]
+            for candidate in candidates:
+                if candidate is not None and candidate.is_a('IfcDistributionPort'):
+                    owner_evidence[candidate.GlobalId].append(dict(
+                        relation_guid=attachment.GlobalId, relation_type=kind,
+                        owner_guid=owner.GlobalId if owner is not None else None,
+                        scoped_owner=owner is not None and owner.id() in product_ids))
     for product in products:
         for port in get_ports(product):
             if port.GlobalId in owners:
@@ -51,7 +65,9 @@ def inspect(source, *, positions=False):
                   preprocessor=model.header.file_name.preprocessor_version, counts=counts,
                   product_classes=dict(sorted(Counter(item.is_a() for item in products).items())),
                   ports=[dict(guid=port.GlobalId, flow_direction=port.FlowDirection,
-                              owner_guids=sorted(owners[port.GlobalId])) for port in ports],
+                              owner_guids=sorted(owners[port.GlobalId]),
+                              owner_evidence=sorted(owner_evidence[port.GlobalId],
+                                                    key=lambda row: row['relation_guid'])) for port in ports],
                   connections=sorted(connections, key=lambda row: row['guid']),
                   design_accepted=False)
     if positions:
@@ -200,6 +216,15 @@ def inventory(source, position_tolerance_m=None, *, baseline=None, max_port_shif
     result = inspect(source, positions=positions)
     if positions:
         result['connection_gaps'] = inspect_pair_gaps(result, position_tolerance_m)
+        linked = {guid for row in result['connections'] for guid in row['port_guids']}
+        claims = {row['guid']: {item['owner_guid'] for item in row['owner_evidence']
+                               if item['owner_guid'] is not None}
+                  for row in result['ports'] if row['guid'] in linked}
+        result['connection_ownership'] = dict(
+            conflicting_ports=sorted(guid for guid, values in claims.items() if len(values) > 1),
+            unavailable_ports=sorted(row['guid'] for row in result['ports'] if row['guid'] in linked
+                                     and not row['owner_guids']),
+        )
     if baseline is not None:
         previous = inspect(baseline, positions=positions)
         result['comparison'] = comparison = compare(previous, result)
@@ -228,6 +253,11 @@ def gap_status(gaps):
 
 def review_status(report):
     status, reason = gap_status(report['connection_gaps'])
+    ownership = report.get('connection_ownership', {})
+    if ownership.get('conflicting_ports'):
+        return 'fail', 'Connected IFC ports have conflicting owner declarations'
+    if status == 'pass' and ownership.get('unavailable_ports'):
+        status, reason = 'pending', 'Connected IFC ports lack supported owner evidence'
     comparison = report.get('comparison')
     if status == 'fail' or comparison is None:
         return status, reason
@@ -257,6 +287,7 @@ def run(source, out, *, baseline=None, position_tolerance_m=None, max_port_shift
         summary['connection_gaps'] = dict(measured_relationships=gaps['measured_relationships'],
             unavailable_relationships=len(gaps['unavailable_relationships']),
             separated_relationships=len(gaps['separated_relationships']), status=gap_status(gaps)[0])
+        summary['review_status'] = review_status(result)[0]
     if baseline is not None:
         comparison = result['comparison']
         summary['comparison'] = {key: comparison[key] for key in ('baseline_sha256', 'status', 'shared_ports')}
@@ -266,7 +297,6 @@ def run(source, out, *, baseline=None, position_tolerance_m=None, max_port_shift
             position = comparison['positions']
             summary['comparison']['positions'] = dict(comparable_ports=position['comparable_ports'],
                 unavailable_ports=len(position['unavailable_ports']), moved_ports=len(position['moved_ports']))
-            summary['review_status'] = review_status(result)[0]
     if file_hash(source) != result['source_sha256']:
         raise ValueError('Current IFC changed during comparison')
     out.parent.mkdir(parents=True, exist_ok=True)
