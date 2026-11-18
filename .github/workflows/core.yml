@@ -18,7 +18,7 @@ jobs:
       - run: tools/pandapower-runtime/Scripts/python -m pip install --require-hashes -r docs/evidence/pandapower/requirements-win-py312.lock.txt
       - run: tools/pandapower-runtime/Scripts/python -m pip check
       - run: tools/pandapower-runtime/Scripts/python -m unittest tests.test_pandapower_trial tests.test_three_phase -v
-      - run: python -m pip install -e ".[bim]"
+      - run: python -m pip install -e ".[clash]"
       - run: python -m unittest tests.test_three_phase_ifc_project -v
         env:
           BSA_TEST_THREE_PHASE_PYTHON: ${{ github.workspace }}/tools/pandapower-runtime/Scripts/python.exe
