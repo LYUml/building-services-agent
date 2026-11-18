@@ -21,6 +21,17 @@ PYTHON=os.environ.get('BSA_TEST_THREE_PHASE_PYTHON')
 
 
 class NativeTextAnchorTests(unittest.TestCase):
+    def test_circuit_crossing_an_undeclared_bus_is_rejected(self):
+        doc = ezdxf.new()
+        doc.appids.new(APP)
+        for name, x in [('A', 0), ('B', 10), ('C', 5)]:
+            entity = doc.modelspace().add_line((x, -1), (x, 1))
+            entity.set_xdata(APP, [(1000, 'bus'), (1000, name)])
+        feeder = doc.modelspace().add_line((0, 0), (10, 0))
+        feeder.set_xdata(APP, [(1000, 'line'), (1000, 'feeder')])
+        with self.assertRaisesRegex(ProjectError, 'line feeder touches undeclared bus C'):
+            bus_contacts(doc, [{'id': 'feeder', 'from': 'A', 'to': 'B'}])
+
     def test_overlapping_bus_geometry_makes_contact_assignment_ambiguous(self):
         doc = ezdxf.new()
         doc.appids.new(APP)
