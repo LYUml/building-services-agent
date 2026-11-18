@@ -75,6 +75,7 @@ def compare_reference(entities, insunits, reference):
         differences.append(dict(reason='drawing_units_differ', dwg_insunits=insunits, dxf_insunits=document.units))
     geometry_count = 0
     identity_only_counts = Counter()
+    unchecked_attribute_text = []
     matched = (actual.keys() & expected.keys()) - duplicated
     for handle in sorted(matched):
         row, entity = actual[handle], expected[handle]
@@ -84,6 +85,10 @@ def compare_reference(entities, insunits, reference):
             differences.append(dict(handle=handle, reason='type_or_layer_differs', fields=fields))
             continue
         geometry = dxf_geometry(entity)
+        if identity['type'] == 'INSERT':
+            unchecked_attribute_text.extend(dict(insert_handle=handle, attribute_handle=attribute['handle'],
+                                                 tag=attribute['tag'])
+                                            for attribute in geometry['attributes'] if attribute['text'] is None)
         if geometry is not None:
             geometry_count += 1
         else:
@@ -98,6 +103,7 @@ def compare_reference(entities, insunits, reference):
             differences.append(dict(handle=handle, reason='geometry_differs', fields=fields))
     return dict(correspondence_pass=not differences, matched_handle_count=len(matched),
                 geometry_compared_count=geometry_count,
+                unchecked_multiline_attribute_text=unchecked_attribute_text,
                 identity_only_counts_by_type=dict(sorted(identity_only_counts.items())), differences=differences,
                 numeric_absolute_tolerance_drawing_units=1e-7, angle_tolerance_rad=1e-9)
 
@@ -156,7 +162,8 @@ def run(source, out, reference_dxf=None, *, expected_hashes=None):
         summary = dict(reference_sha256=reference_hash, correspondence_pass=comparison['correspondence_pass'],
                        difference_count=len(comparison['differences']),
                        geometry_compared_count=comparison['geometry_compared_count'],
-                       identity_only_counts_by_type=comparison['identity_only_counts_by_type'])
+                       identity_only_counts_by_type=comparison['identity_only_counts_by_type'],
+                       unchecked_multiline_attribute_text_count=len(comparison['unchecked_multiline_attribute_text']))
     report = json.dumps(result, indent=2, allow_nan=False)
     if file_hash(source) != source_hash or file_hash(worker) != worker_hash or file_hash(reader) != reader_hash:
         raise ValueError('DWG, worker or ACadSharp library changed during inventory')

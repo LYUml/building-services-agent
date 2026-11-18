@@ -175,6 +175,8 @@ rejected before a comparison report is written.
 For `INSERT`, the comparison also checks attached attribute handles and tags,
 and text values of single-line attributes. Embedded multiline attribute text,
 attribute placement and block definition geometry remain outside this check.
+The comparison lists matched blocks with unchecked multiline attribute text
+by owning handle, attribute handle and tag. CLI and MCP summaries give its count.
 The CLI and MCP summaries report `geometry_compared_count` and
 `identity_only_counts_by_type`. The latter counts matched modelspace entities
 whose type and layer were checked and whose geometry is outside the comparison.

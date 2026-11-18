@@ -61,6 +61,23 @@ def test_changed_equipment_attribute_is_a_block_difference(tmp_path):
         dict(handle=insert.dxf.handle, reason='geometry_differs', fields=['attributes'])]
 
 
+def test_lists_multiline_attributes_whose_text_was_not_checked(tmp_path):
+    from ezdxf.entities import MText
+
+    document = ezdxf.new('R2018')
+    block = document.blocks.new('EQUIPMENT_TAG')
+    insert = document.modelspace().add_blockref(block.name, (5, 5))
+    attribute = insert.add_attrib('NOTE', 'First line')
+    attribute.embed_mtext(MText.new(dxfattribs={'text': 'First line\\PSecond line'}))
+    reference = tmp_path / 'multiline.dxf'
+    document.saveas(reference)
+    row = dict(handle=insert.dxf.handle, type='INSERT', layer='0', geometry=dxf_geometry(insert))
+    comparison = compare_reference([row], document.units, reference)
+    assert comparison['correspondence_pass']
+    assert comparison['unchecked_multiline_attribute_text'] == [
+        dict(insert_handle=insert.dxf.handle, attribute_handle=attribute.dxf.handle, tag='NOTE')]
+
+
 @unittest.skipUnless(all(os.environ.get(key) for key in RUNTIME) and importlib.util.find_spec('mcp'),
                      'requires the configured ACadSharp worker and MCP SDK')
 class DwgReadbackTests(unittest.TestCase):
