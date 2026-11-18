@@ -19,6 +19,7 @@ public sealed class NativePipeRoundTrip
         string input = Path.Combine(folder, "input.rvt");
         string report = Path.Combine(folder, "inventory.json");
         File.Copy(source, input);
+        VerifyFixtureBeforeOpen(input, sourceHash);
         var owned = application.OpenDocumentFile(input);
         try
         {
@@ -58,6 +59,7 @@ public sealed class NativePipeRoundTrip
         string input = Path.Combine(folder, "input.rvt");
         string authored = Path.Combine(folder, "authored.rvt");
         File.Copy(source, input);
+        VerifyFixtureBeforeOpen(input, sourceHash);
         Document? owned = null;
         try
         {
@@ -103,6 +105,15 @@ public sealed class NativePipeRoundTrip
                 Assert.That(owned.Close(false), Is.True);
             Assert.That(Hash(source), Is.EqualTo(sourceHash));
         }
+    }
+
+    private static void VerifyFixtureBeforeOpen(string input, string sourceHash)
+    {
+        Assert.That(Hash(input), Is.EqualTo(sourceHash), "Copied RVT differs from the selected fixture");
+        using var info = BasicFileInfo.Extract(input);
+        Assert.That(info.IsSavedInCurrentVersion, Is.True,
+            $"Fixture was saved in Revit {info.Format}; use a fixture saved in the test host release");
+        Assert.That(info.IsWorkshared, Is.False, "Use a standalone fixture for native regression");
     }
 
     private static void CaptureInventory(Document document, string model, string report, string modelHash)

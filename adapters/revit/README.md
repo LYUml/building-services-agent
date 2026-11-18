@@ -71,7 +71,10 @@ against the desktop adapter using .NET 10 and a locked NUnit dependency.
 Build with `-p:RestoreLockedMode=true`. On a dedicated, authorized Revit 2027
 test host, run `CapturesSyntheticPipeInventory` first with the absolute
 test RVT in `BSA_REVIT_TEST_RVT`. It reports the copied model path and
-native inventory. Select their temporary directory as `BSA_PROJECT_ROOT`
+native inventory. Run `bsa revit-file-metadata <fixture.rvt> --engine-release 2027`
+before scheduling the host run. Both fixtures verify the copied bytes and use
+Revit BasicFileInfo to require a standalone model saved in the host release
+before opening it. Select their temporary directory as `BSA_PROJECT_ROOT`
 when preparing the request with `bsa revit-prepare-pipe`. Use explicit
 endpoints, diameter and source basis and select type, system and level IDs
 from that inventory.
