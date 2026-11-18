@@ -8,6 +8,29 @@ from unittest.mock import patch
 
 from bsa.cli import digest
 from bsa.hvac_project import ROOT, create, load, run
+from bsa.native_cad import DEFAULT_EXE
+
+
+@unittest.skipUnless(os.environ.get('BSA_TEST_AUTOCAD') == '1' and DEFAULT_EXE.is_file()
+                     and Path('C:/Windows/Fonts/arial.ttf').is_file(), 'requires local AutoCAD and report font')
+class NativeTerminalDeliveryTests(unittest.TestCase):
+    def test_native_displaced_terminal_blocks_design_reports(self):
+        from bsa.hvac_package_access import run as run_package
+
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as directory:
+            root = Path(directory)
+            build = runpy.run_path(str(ROOT/'examples/hvac-package/build_inputs.py'))['build']
+            plan = build(root/'inputs', displaced_endpoint_control=True)
+            config, output = root/'project.json', root/'package'
+            create(plan, config, terminal_review=plan.parent/'review.json')
+            result = run_package(config, output, font='C:/Windows/Fonts/arial.ttf', autocad=DEFAULT_EXE)
+            workflow = json.loads((output/'workflow/workflow.json').read_bytes())
+            self.assertEqual(workflow['tasks']['native']['status'], 'pass')
+            self.assertTrue(result['integrity_pass'])
+            self.assertEqual(result['terminal_review_gate'], 'blocked')
+            self.assertIn('0.25 m from T1', result['stage_errors']['terminal_review'])
+            for name in ('report', 'report-pdf', 'terminal-review.json'):
+                self.assertFalse((output/name).exists())
 
 
 class HVACProjectTests(unittest.TestCase):
