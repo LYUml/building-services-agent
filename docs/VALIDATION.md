@@ -44,6 +44,14 @@ build and passed independently.
 
 ## DWG and Revit adapter regression
 
+At `339072d`, the AutoCAD 2027 Core Console follow-up passed 41 tests and
+21 subtests without skips. With `BSA_TEST_AUTOCAD=1`, run pytest on
+`test_cad_intake.py`, `test_cad_overlay.py`, `test_ifc_native.py`,
+`test_ifc_route_drawing.py`, `test_ifc_views.py`, `test_native_cad.py` and
+`test_terminal_layout_revision.py` under `tests/`. These fixtures cover
+intake, overlays, IFC view and route outputs, DWG save/reopen and terminal
+layout revisions. This run used repository fixtures.
+
 At `73be936`, the focused Windows regression for DWG readback, drawing
 revisions, RVT metadata and Revit request, connectivity, workflow and
 Automation handling ran with ACadSharp 3.8.35 and rvt 0.25.0 configured.
