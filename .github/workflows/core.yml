@@ -73,6 +73,8 @@ jobs:
           python -m unittest
           tests.test_air_terminal_drawing tests.test_hvac_connection_summary
           tests.test_hvac_package_paths -v
+      - name: Verify saved OpenFOAM history review through CLI and MCP
+        run: python -m unittest tests.test_openfoam_history tests.test_cfd_convergence -v
       - run: >-
           python -m unittest
           tests.test_engine tests.test_doctor tests.test_codex_setup
