@@ -76,10 +76,16 @@ class IDSWorkflowTests(unittest.TestCase):
             self.assertFalse(verify(root/'negative')['integrity_pass'])
 
     def test_no_applicable_pump_cannot_pass(self):
-        from bsa.ids_check import run
+        import subprocess
+        import sys
         with tempfile.TemporaryDirectory(dir=ROOT/'runs') as tmp:
             root = Path(tmp)
             empty = ifcopenshell.file(schema='IFC4')
             empty.write(str(root/'empty.ifc'))
-            result = run(ROOT/'examples/ids/pump-selection.ids', root/'empty.ifc', root/'check')
+            process = subprocess.run([sys.executable, '-m', 'bsa.cli', 'ids-check',
+                                      str(ROOT/'examples/ids/pump-selection.ids'),
+                                      str(root/'empty.ifc'), '--out', str(root/'check')],
+                                     cwd=ROOT, capture_output=True, text=True, check=False)
+            self.assertEqual(process.returncode, 2, process.stderr)
+            result = json.loads(process.stdout)
             self.assertFalse(result['calculated_checks_pass'])

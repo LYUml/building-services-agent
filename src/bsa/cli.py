@@ -123,6 +123,10 @@ def main():
     dwg_readback.add_argument('source', type=Path)
     dwg_readback.add_argument('--out', type=Path, required=True)
     dwg_readback.add_argument('--reference-dxf', type=Path)
+    ids_check = sub.add_parser('ids-check', help='Check saved IFC information requirements with IfcTester')
+    ids_check.add_argument('ids', type=Path)
+    ids_check.add_argument('ifc', type=Path)
+    ids_check.add_argument('--out', type=Path, required=True)
     revit_automation_reopen.add_arguments(sub.add_parser(
         'revit-verify-automation-reopen', help='Reconcile saved Revit Automation creation and reopen evidence'))
     group=sub.add_parser('engineering-data',help='Export or verify a source-bound common data view')
@@ -270,6 +274,11 @@ def main():
             from .dwg_readback import run as read_dwg
             result = read_dwg(a.source, a.out, a.reference_dxf)
             print(json.dumps(result, indent=2));return 2 if result.get('correspondence_pass') is False else 0
+        if a.command == 'ids-check':
+            from .ids_check import run as check_ids
+            result = check_ids(a.ids, a.ifc, a.out)
+            print(json.dumps(result, indent=2))
+            return 0 if result['calculated_checks_pass'] else 2
         if a.command=='revit-inventory-check':
             result=revit_connectivity.run(a.inventory,a.model,a.out,a.tolerance_m,
                                           expected_connections=a.expected_connections,
