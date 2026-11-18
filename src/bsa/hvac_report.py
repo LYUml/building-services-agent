@@ -95,11 +95,13 @@ def connection_summary(directory,workflow,paths,review):
         raise ValueError('Terminal review sources differ from the native task ancestry in the plan')
     fresh=inspect(ezdxf.readfile(drawing),json.loads(paths[0].read_text(encoding='utf-8')),
         json.loads(project.read_text(encoding='utf-8'))['tree'],json.loads(binding.read_text(encoding='utf-8')),record['layers'])
-    compared = fresh
+    compared = dict(fresh)
+    if 'rigid_sections' not in record:
+        del compared['rigid_sections']
     if 'correspondence_tolerance_m' not in record:
         # Earlier receipts predate explicit gaps. Recompute the checks above
         # and compare the original receipt fields against the same drawing.
-        compared = {key: value for key, value in fresh.items() if key != 'correspondence_tolerance_m'}
+        del compared['correspondence_tolerance_m']
         compared['groups'] = [
             {**group, 'routes': [
                 {key: value for key, value in route.items()

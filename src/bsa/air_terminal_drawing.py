@@ -41,6 +41,7 @@ def inspect(doc, allocation, tree, binding, layers):
         raise ValueError('Complete rigid section binding required')
     nodes = {}
     node_sections = {}
+    rigid_sections = []
     for section in tree['sections']:
         b = binding['sections'][section['id']]
         pair = (b['from_node'],b['to_node'])
@@ -56,6 +57,9 @@ def inspect(doc, allocation, tree, binding, layers):
             raise ValueError(f"Rigid section {section['id']} (handle {line.dxf.handle}) has no distinct planar endpoints")
         if not (near(saved_start, a) and near(saved_end, z)):
             saved_start, saved_end = saved_end, saved_start
+        rigid_sections.append(dict(section=section['id'], handle=line.dxf.handle,
+                                   from_node=pair[0], to_node=pair[1],
+                                   saved_plan_length_m=math.dist(saved_start, saved_end)))
         for node,p in zip(pair,(saved_start,saved_end)):
             incident = node_sections.setdefault(node, [])
             for prior_section, prior_handle, prior_point in incident:
@@ -160,6 +164,7 @@ def inspect(doc, allocation, tree, binding, layers):
             details.append(f"{layers[role]} ({len(entities)}): {', '.join(handles)}")
         raise ValueError(f"Unbound entities remain on scoped layers: {'; '.join(details)}")
     return dict(groups=groups,terminal_count=len(centers),rigid_section_count=len(tree['sections']),
+                rigid_sections=rigid_sections,
                 correspondence_tolerance_m=1e-8,correspondence_pass=True,
                 maximum_plan_length_m=max(r['plan_length_m'] for g in groups for r in g['routes']),design_accepted=False,
                 scope='Declared group membership matches saved planar symbols and straight centre-to-centre lines. Not physical ports, installed flex length, labels, 3D coordination or regulation acceptance.')

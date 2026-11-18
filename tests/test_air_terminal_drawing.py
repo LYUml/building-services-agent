@@ -36,6 +36,10 @@ class TerminalDrawingTests(unittest.TestCase):
             e.dxf.start,e.dxf.end=e.dxf.end,e.dxf.start
         r=self.check()
         self.assertEqual(r['terminal_count'],2)
+        self.assertEqual([row['section'] for row in r['rigid_sections']], ['A', 'B'])
+        self.assertEqual([row['from_node'] for row in r['rigid_sections']], ['R', 'R'])
+        for row in r['rigid_sections']:
+            self.assertAlmostEqual(row['saved_plan_length_m'], 2**0.5)
         self.assertAlmostEqual(r['maximum_plan_length_m'],1)
         self.assertFalse(r['design_accepted'])
 
