@@ -140,7 +140,12 @@ public sealed class NativePipeRoundTrip
                 foreach (var pipe in new[] { first, second })
                     Assert.That(pipe.get_Parameter(BuiltInParameter.RBS_PIPE_DIAMETER_PARAM).Set(diameter), Is.True);
                 owned.Regenerate();
-                var elbow = owned.Create.NewElbowFitting(EndAt(first, corner), EndAt(second, corner));
+                var firstEnd = EndAt(first, corner);
+                var secondEnd = EndAt(second, corner);
+                Assert.That(firstEnd.Origin.DistanceTo(secondEnd.Origin), Is.LessThanOrEqualTo(1e-7));
+                Assert.That(firstEnd.IsConnected || secondEnd.IsConnected, Is.False,
+                    "Coincident pipe ends must be physically open before fitting creation");
+                var elbow = owned.Create.NewElbowFitting(firstEnd, secondEnd);
                 (firstId, secondId, fittingId) = (first.UniqueId, second.UniqueId, elbow.UniqueId);
                 Assert.That(transaction.Commit(), Is.EqualTo(TransactionStatus.Committed),
                     "Revit rejected the synthetic elbow transaction");
