@@ -1,9 +1,20 @@
 ---
 name: mep-lighting-analysis
-description: Run IES-backed Radiance direct and reflected sensor illuminance calculations with numerical-stability checks for supported rectangular rooms and downlights. Use for electric-light photometric analysis.
+description: Run scoped IES-backed Radiance illuminance calculations and reconcile saved native lighting results with reported task-area, uniformity and glare claims.
 ---
 
 # Lighting analysis
+
+For a saved native lighting study, reconcile report claims to named evaluation
+surfaces, their geometry and exclusion rules, and the actual exported tables.
+Retain whole-room, task, surrounding and background results with their own
+scope. Check average, minimum and uniformity for each applicable surface and
+directional glare for the specified observer positions and view directions.
+Trace reported extrema to the point or observer ID and native report locator.
+An aggregate glare result does not establish individual luminaire contributions.
+If separate native projects supply different criteria, verify common luminaire,
+room and adopted layout inputs. Label sensitivity runs by the changed inputs
+and keep the adopted case explicit.
 
 Read docs/LIGHTING.md. Use `python -m bsa.lighting <project.json> --out <new-run> --radiance-bin <bin>` or the lighting workflow adapter. Install the pinned engine with scripts/setup_radiance.py on Windows. Discover actual engine/tool availability; missing binaries are pending, not simulated success.
 

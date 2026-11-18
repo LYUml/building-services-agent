@@ -57,6 +57,25 @@ native membership/endpoints and inherited maximum/minimum flows; require actual
 DWG reopen and actual PDF inspection. Straight XY lengths remain lower bounds,
 not installed flex length or product/ADPI/regulatory acceptance.
 
+## Reconcile the released package
+
+When a submission folder contains copies, use its handover record and adopted
+scenario to identify the canonical report, drawings, native models and
+schedules. Rehash the actual copies and compare hashes where copies are intended
+to be byte-identical. Check the expected inventory, including required template
+pages and appendices; inspect the assembled PDF for crops, readable content and
+correct figure/table references. For report numbers and drawing callouts, check
+selected governing and failed rows against the bound calculation or native
+exports. Keep supplementary cases clearly identified so their values do not
+replace the adopted values in the report, schedules, or drawings.
+
+When an audit flags a conditional engineering result, trace the controlling
+assumption or manufacturer quantity to its source. For electrical protection,
+for example, verify that a device operating characteristic came from the
+applicable protection basis. A calculated conductor or ring-leg current cannot
+stand in for that characteristic. Preserve a conditional sizing result and
+state any unresolved device or installation evidence in the released report.
+
 After recording actual scoped observations, run a fresh delivery audit and use
 its `review_agenda` to select remaining source requirement reviews. Null means
 the audit is invalid, not that work is finished. Keep every returned dependency
