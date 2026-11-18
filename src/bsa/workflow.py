@@ -2584,18 +2584,32 @@ def verify(run_directory):
             issues.append('common data requires explicit original workflow/project context: '+name)
         if task['kind']=='revit_inventory_check':
             diagnosis=root/name/'diagnosis.json'
-            if diagnosis.is_file():
+            original=declared.get(name)
+            if diagnosis.is_file() or original is not None:
                 try:
+                    from .input_issues import blockers
                     from .revit_connectivity import reconstruct
                     original=declared[name]
+                    blocked=(blockers(original_plan,name)
+                             or any(report['tasks'][gate]['status']!='pass' for gate in original.get('requires_pass',[])))
+                    if blocked:
+                        if diagnosis.exists():
+                            raise ProjectError('Blocked Revit task has a diagnosis')
+                        continue
                     plan_root=Path(source_plan['path']).resolve().parent
                     inputs={key:local_path(plan_root,original[key]) for key in
                             ('inventory','model','expected_connections','automation_receipt') if key in original}
-                    if (not diagnosis.resolve().is_relative_to(root)
-                            or diagnosis.relative_to(root).as_posix() not in report['artifact_hashes']
-                            or any(str(path) not in report['inputs'] for path in inputs.values())):
-                        raise ProjectError('Revit diagnosis lacks source or artifact pins')
-                    checked=reconstruct(**inputs,tolerance_m=original['tolerance_m'])
+                    if any(str(path) not in report['inputs'] for path in inputs.values()):
+                        raise ProjectError('Revit diagnosis lacks input pins')
+                    try:
+                        checked=reconstruct(**inputs,tolerance_m=original['tolerance_m'])
+                    except (OSError,ValueError,KeyError,TypeError):
+                        if task['status']=='fail' and not diagnosis.exists():
+                            continue
+                        raise
+                    if (not diagnosis.resolve().is_relative_to(root) or not diagnosis.is_file()
+                            or diagnosis.relative_to(root).as_posix() not in report['artifact_hashes']):
+                        raise ProjectError('Revit diagnosis is missing or lacks an artifact pin')
                     if json.loads(json.dumps(checked))!=read_json(diagnosis) or checked['diagnostic_status']!=task['status']:
                         raise ProjectError('Revit diagnosis differs from reconstructed evidence')
                 except (OSError,ValueError,KeyError,TypeError) as exc:

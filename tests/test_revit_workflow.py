@@ -113,11 +113,33 @@ class RevitWorkflowTests(unittest.TestCase):
                           verified['issues'])
             diagnosis_path.write_bytes(original_diagnosis)
             workflow_path.write_bytes(original_workflow)
+            diagnosis_path.unlink()
+            snapshot['artifact_hashes'].pop('check/diagnosis.json')
+            workflow_path.write_text(json.dumps(snapshot), encoding='utf-8')
+            self.assertIn('Revit inventory evidence invalid: check: Revit diagnosis is missing or lacks an artifact pin',
+                          verify(root/'out')['issues'])
+            diagnosis_path.write_bytes(original_diagnosis)
+            workflow_path.write_bytes(original_workflow)
             receipt.write_text('{}', encoding='utf-8')
             self.assertFalse(verify(root/'out')['integrity_pass'])
             mismatched = execute(plan, root/'mismatched')
             self.assertEqual(mismatched['tasks']['check']['status'], 'fail')
             self.assertFalse((root/'mismatched/check/diagnosis.json').exists())
+
+    def test_blocked_diagnosis_does_not_require_an_artifact(self):
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+            root = Path(folder)
+            plan, _ = self.fixture(root)
+            spec = json.loads(plan.read_text())
+            check, review = spec['tasks']
+            review.pop('requires_pass')
+            check['requires_pass'] = [review['id']]
+            spec['tasks'] = [review, check]
+            plan.write_text(json.dumps(spec), encoding='utf-8')
+            result = execute(plan, root/'out')
+            self.assertEqual(result['tasks']['check']['status'], 'pending')
+            self.assertFalse((root/'out/check/diagnosis.json').exists())
+            self.assertTrue(verify(root/'out')['integrity_pass'])
 
     def test_model_changed_during_diagnosis_is_rejected_before_output(self):
         with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
