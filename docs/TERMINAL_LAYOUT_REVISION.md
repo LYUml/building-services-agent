@@ -52,6 +52,8 @@ Font rendering and label overlap still require review of the actual PDF.
 To screen line crossings, set `sheet.text_line_clearance` with
 `text_handles` and `line_layers`. The check reports the modelspace TEXT
 and LINE handles when a projected line enters an estimated text box.
+When either scoped check is enabled for a native duct sheet, it runs
+before DWG creation and again on the reopened export before plotting.
 The original course drawing flagged three VAV labels. After their explicit
 relocation in a separate copy, the reopened export passed the screen for
 20 labels against 80 flex lines and AutoCAD generated the scaled PDF.

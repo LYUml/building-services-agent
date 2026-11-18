@@ -53,7 +53,9 @@ def run(source,settings,output,exe,*,inherited_source_sha256=None):
     if set(spec)!={'source_sha256','layers','sheet'} or spec['source_sha256']!=pins[str(source)]:
         raise ValueError('Exact source hash, layers and sheet settings required')
     sheet = spec['sheet']
-    if isinstance(sheet, dict) and {'required_window_handles', 'text_line_clearance'} & sheet.keys():
+    scoped_plot_checks = isinstance(sheet, dict) and bool(
+        {'required_window_handles', 'text_line_clearance'} & sheet.keys())
+    if scoped_plot_checks:
         document = ezdxf.readfile(source)
         if 'required_window_handles' in sheet:
             check_window_entities(document, sheet['required_window_handles'], sheet.get('window_drawing_units'))
@@ -68,7 +70,8 @@ def run(source,settings,output,exe,*,inherited_source_sha256=None):
     if not dwg.is_file():raise ValueError('Native DWG missing')
     exported=export_dwg(dwg,output/'reopened',exe)
     checked=compare(copied,exported,spec['layers'])
-    plotted=plot(dwg,copied,sheet,output/'Supply Air Distribution.pdf',exe)
+    plot_reference = exported if scoped_plot_checks else copied
+    plotted=plot(dwg,plot_reference,sheet,output/'Supply Air Distribution.pdf',exe)
     if any(digest(Path(p))!=sha for p,sha in pins.items()) or digest(copied)!=pins[str(source)]:
         raise ValueError('Source, settings, runtime or copied DXF changed')
     result=dict(inputs=pins,native_reopen_pass=True,generated_geometry=checked,plot=plotted,

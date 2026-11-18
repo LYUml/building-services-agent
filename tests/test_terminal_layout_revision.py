@@ -66,7 +66,7 @@ class TerminalLayoutRevisionTests(unittest.TestCase):
                          'requires explicit AutoCAD host')
     def test_native_reopen_verifies_moved_terminal_connection(self):
         from bsa.air_terminal_drawing import inspect
-        from bsa.cad_sheet import check_window_entities
+        from bsa.cad_sheet import check_window_entities, plot
         from bsa.duct_sheet_native import run as publish_native
         from bsa.engine import ProjectError
 
@@ -83,7 +83,9 @@ class TerminalLayoutRevisionTests(unittest.TestCase):
                        required_window_handles=[self.unrelated]),
         )), encoding='utf-8')
         output = self.root / 'native'
-        result = publish_native(dxf, settings, output, DEFAULT_EXE)
+        with patch('bsa.duct_sheet_native.plot', wraps=plot) as plotter:
+            result = publish_native(dxf, settings, output, DEFAULT_EXE)
+        self.assertEqual(plotter.call_args.args[1], (output/'reopened/source-export.dxf').resolve())
         self.assertTrue(result['native_reopen_pass'])
         self.assertEqual(result['plot']['estimated_window_bounds_checked_handles'], [self.unrelated])
         self.assertEqual(result['plot_visual_review'], 'pending')
