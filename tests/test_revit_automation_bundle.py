@@ -10,6 +10,36 @@ from scripts.prepare_revit_automation_bundle import prepare
 
 
 class RevitAutomationBundleTests(unittest.TestCase):
+    def test_write_bundle_has_distinct_entrypoint_and_transfers(self):
+        runs = Path(__file__).resolve().parents[1] / 'runs'
+        with TemporaryDirectory(dir=runs) as temporary:
+            directory = Path(temporary)
+            assembly = directory / 'Bsa.Revit.Automation.dll'
+            assembly.write_bytes(b'synthetic assembly')
+            model = directory / 'fixture.rvt'
+            model.write_bytes(b'synthetic RVT')
+            digest = hashlib.sha256(model.read_bytes()).hexdigest()
+            request = directory / 'draft.json'
+            request.write_text(json.dumps({'SavedRvtSha256': digest}), encoding='utf-8')
+            args = dict(engine='Autodesk.Revit+2027', bundle_id='example.CreatePipe+review',
+                        operation='create-pipe', model=model, pipe_request=request)
+            archive = prepare(assembly, directory / 'published', **args)
+            with ZipFile(archive) as bundle:
+                manifest, = [name for name in bundle.namelist() if name.endswith('.addin')]
+                addin = ElementTree.fromstring(bundle.read(manifest)).find('AddIn')
+                self.assertEqual(addin.findtext('FullClassName'), 'Bsa.Revit.AutomationCreatePipe')
+            activity = json.loads(archive.with_name('activity.json').read_bytes())
+            self.assertEqual(activity['id'], 'BsaRevitCreatePipe')
+            self.assertEqual({row['localName']: row['verb'] for row in activity['parameters'].values()}, {
+                'input.rvt': 'get', 'pipe-request.json': 'get', 'authored.rvt': 'put', 'creation.json': 'put',
+            })
+            self.assertEqual(archive.with_name('pipe-request.json').read_bytes(), request.read_bytes())
+            model.write_bytes(b'different RVT')
+            rejected = directory / 'rejected'
+            with self.assertRaisesRegex(ValueError, 'does not match'):
+                prepare(assembly, rejected, **args)
+            self.assertFalse(rejected.exists())
+
     def test_repeatable_bundle_and_hash_bound_request(self):
         runs = Path(__file__).resolve().parents[1] / 'runs'
         with TemporaryDirectory(dir=runs) as temporary:

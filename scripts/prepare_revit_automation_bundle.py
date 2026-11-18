@@ -1,4 +1,4 @@
-"""Package the local Revit Automation inventory build for offline review."""
+"""Package the local Revit Automation build for offline review."""
 import argparse
 import hashlib
 import json
@@ -7,7 +7,7 @@ import re
 from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
 
-def inventory_activity(engine, bundle_id):
+def automation_activity(engine, bundle_id, operation):
     if not re.fullmatch(r'Autodesk\.Revit\+2027(?:_[A-Za-z0-9]+)?', engine):
         raise ValueError('Select an explicit Revit 2027 engine from the authenticated APS catalogue')
     match = re.fullmatch(r'[A-Za-z0-9_]+\.([A-Za-z0-9_]+)\+[A-Za-z0-9_]+', bundle_id)
@@ -16,18 +16,23 @@ def inventory_activity(engine, bundle_id):
     name = match.group(1)
     command = (r'$(engine.path)\revitcoreconsole.exe /i "$(args[model].path)" '
                f'/al "$(appbundles[{name}].path)"')
+    writing = operation == 'create-pipe'
+    transfers = (
+        ('request', 'pipe-request.json', 'get'),
+        ('authored', 'authored.rvt', 'put'),
+        ('creation', 'creation.json', 'put'),
+    ) if writing else (
+        ('request', 'inventory-request.json', 'get'),
+        ('inventory', 'inventory.json', 'put'),
+    )
     return {
-        'id': 'BsaRevitInventory',
+        'id': 'BsaRevitCreatePipe' if writing else 'BsaRevitInventory',
         'engine': engine,
         'appbundles': [bundle_id],
         'commandLine': [command],
         'parameters': {
             name: {'localName': filename, 'verb': verb, 'required': True}
-            for name, filename, verb in (
-                ('model', 'input.rvt', 'get'),
-                ('request', 'inventory-request.json', 'get'),
-                ('inventory', 'inventory.json', 'put'),
-            )
+            for name, filename, verb in (('model', 'input.rvt', 'get'), *transfers)
         },
     }
 
@@ -41,10 +46,17 @@ def inventory_request(model, runs):
     return {'SavedRvtSha256': sha256}
 
 
-def prepare(assembly, output, *, engine=None, bundle_id=None, model=None):
+def prepare(assembly, output, *, engine=None, bundle_id=None, model=None,
+            operation='inventory', pipe_request=None):
+    if operation not in ('inventory', 'create-pipe'):
+        raise ValueError('Unsupported Automation operation')
+    writing = operation == 'create-pipe'
+    if (pipe_request is not None and (not writing or model is None)
+            or writing and model is not None and pipe_request is None):
+        raise ValueError('Supply the test model and its prepared pipe request together for creation')
     if (engine is None) != (bundle_id is None):
         raise ValueError('Supply engine and qualified bundle ID together to stage an Activity')
-    activity = inventory_activity(engine, bundle_id) if engine is not None else None
+    activity = automation_activity(engine, bundle_id, operation) if engine is not None else None
     runs = Path(__file__).resolve().parents[1] / 'runs'
     assembly, output = (Path(path).resolve() for path in (assembly, output))
     if not assembly.is_relative_to(runs) or assembly.name != 'Bsa.Revit.Automation.dll':
@@ -52,6 +64,16 @@ def prepare(assembly, output, *, engine=None, bundle_id=None, model=None):
     if not output.is_relative_to(runs) or output == runs or output.exists():
         raise ValueError('Select a fresh output directory under repository runs')
     request = inventory_request(model, runs) if model is not None else None
+    if pipe_request is not None:
+        pipe_request = Path(pipe_request).resolve()
+        if not pipe_request.is_relative_to(runs) or pipe_request.suffix.lower() != '.json':
+            raise ValueError('Select a prepared pipe request under repository runs')
+        request_bytes = pipe_request.read_bytes()
+        declared = json.loads(request_bytes)
+        if not isinstance(declared, dict) or declared.get('SavedRvtSha256') != request['SavedRvtSha256']:
+            raise ValueError('Pipe request does not match the selected saved RVT')
+    elif request is not None:
+        request_bytes = json.dumps(request, indent=2).encode('utf-8')
 
     prefix = 'Bsa.Revit.Automation.bundle'
     package = b'''<ApplicationPackage Name="Bsa.Revit.Automation" AppVersion="0.1.0">
@@ -73,6 +95,10 @@ def prepare(assembly, output, *, engine=None, bundle_id=None, model=None):
   </AddIn>
 </RevitAddIns>
 '''
+    if writing:
+        addin = (addin.replace(b'BSA Revit Inventory', b'BSA Revit Create Pipe')
+                 .replace(b'Bsa.Revit.AutomationInventory', b'Bsa.Revit.AutomationCreatePipe')
+                 .replace(b'dc18527a-ebbc-4fcb-9cb0-6df138047769', b'dd8dab45-f930-46c6-9679-32b5df58b77b'))
     payload = {
         f'{prefix}/PackageContents.xml': package,
         f'{prefix}/Contents/Bsa.Revit.Automation.addin': addin,
@@ -90,6 +116,7 @@ def prepare(assembly, output, *, engine=None, bundle_id=None, model=None):
         if bundle.namelist() != list(payload) or any(bundle.read(name) != data for name, data in payload.items()):
             raise ValueError('AppBundle differs from the selected files')
     receipt = {
+        'operation': operation,
         'archive_sha256': hashlib.sha256(archive.read_bytes()).hexdigest(),
         'assembly_sha256': hashlib.sha256(payload[f'{prefix}/Contents/{assembly.name}']).hexdigest(),
         'uploaded': False,
@@ -102,8 +129,9 @@ def prepare(assembly, output, *, engine=None, bundle_id=None, model=None):
     if request is not None:
         if inventory_request(model, runs) != request:
             raise ValueError('RVT changed during preparation')
-        request_bytes = json.dumps(request, indent=2).encode('utf-8')
-        (output / 'inventory-request.json').write_bytes(request_bytes)
+        if pipe_request is not None and pipe_request.read_bytes() != request_bytes:
+            raise ValueError('Pipe request changed during preparation')
+        (output / ('pipe-request.json' if writing else 'inventory-request.json')).write_bytes(request_bytes)
         receipt['request_sha256'] = hashlib.sha256(request_bytes).hexdigest()
         receipt['saved_rvt_sha256'] = request['SavedRvtSha256']
     (output / 'preparation.json').write_text(json.dumps(receipt, indent=2), encoding='utf-8')
@@ -116,6 +144,9 @@ if __name__ == '__main__':
     parser.add_argument('--out', required=True)
     parser.add_argument('--engine')
     parser.add_argument('--bundle-id')
+    parser.add_argument('--operation', choices=('inventory', 'create-pipe'), default='inventory')
     parser.add_argument('--model', help='Local RVT fixture to hash for the inventory request')
+    parser.add_argument('--pipe-request', help='Prepared pipe request for the selected RVT fixture')
     args = parser.parse_args()
-    print(prepare(args.assembly, args.out, engine=args.engine, bundle_id=args.bundle_id, model=args.model))
+    print(prepare(args.assembly, args.out, engine=args.engine, bundle_id=args.bundle_id, model=args.model,
+                  operation=args.operation, pipe_request=args.pipe_request))
