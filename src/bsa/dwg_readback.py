@@ -17,6 +17,11 @@ def dxf_geometry(entity):
         return dict(start=list(dxf.start), end=list(dxf.end))
     if kind == 'TEXT':
         return dict(text=dxf.text, insert=list(dxf.insert), height=dxf.height)
+    if kind == 'INSERT':
+        return dict(block_name=dxf.name, insert=list(dxf.insert), normal=list(dxf.extrusion),
+                    scale=[dxf.xscale, dxf.yscale, dxf.zscale], rotation_angle_rad=math.radians(dxf.rotation),
+                    row_count=dxf.row_count, column_count=dxf.column_count,
+                    row_spacing=dxf.row_spacing, column_spacing=dxf.column_spacing)
     if kind in ('ARC', 'CIRCLE'):
         result = dict(center=list(dxf.center), normal=list(dxf.extrusion), radius=dxf.radius)
         if kind == 'ARC':
@@ -66,7 +71,7 @@ def compare_reference(entities, reference):
             differences.append(dict(handle=handle, reason='geometry_differs'))
     return dict(correspondence_pass=not differences, matched_handle_count=len(actual.keys() & expected.keys()),
                 geometry_compared_count=geometry_count, differences=differences,
-                numeric_absolute_tolerance_drawing_units=1e-7, arc_angle_tolerance_rad=1e-9)
+                numeric_absolute_tolerance_drawing_units=1e-7, angle_tolerance_rad=1e-9)
 
 
 def host_file(name):

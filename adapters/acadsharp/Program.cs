@@ -75,6 +75,18 @@ static object? Geometry(Entity entity) => entity switch
         start = new[] { line.StartPoint.X, line.StartPoint.Y, line.StartPoint.Z },
         end = new[] { line.EndPoint.X, line.EndPoint.Y, line.EndPoint.Z },
     },
+    Insert insert => new
+    {
+        block_name = insert.Block.Name,
+        insert = new[] { insert.InsertPoint.X, insert.InsertPoint.Y, insert.InsertPoint.Z },
+        normal = new[] { insert.Normal.X, insert.Normal.Y, insert.Normal.Z },
+        scale = new[] { insert.XScale, insert.YScale, insert.ZScale },
+        rotation_angle_rad = insert.Rotation,
+        row_count = insert.RowCount,
+        column_count = insert.ColumnCount,
+        row_spacing = insert.RowSpacing,
+        column_spacing = insert.ColumnSpacing,
+    },
     TextEntity text => new
     {
         text = text.Value,

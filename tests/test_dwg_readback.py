@@ -57,7 +57,7 @@ class DwgReadbackTests(unittest.TestCase):
             self.assertEqual(cli_report.read_bytes(), mcp_report.read_bytes())
             report = json.loads(cli_report.read_bytes())
             self.assertTrue(summary['correspondence_pass'])
-            self.assertEqual(report['comparison']['geometry_compared_count'], 3)
+            self.assertEqual(report['comparison']['geometry_compared_count'], 4)
             self.assertEqual(report['source_sha256'], original)
             expected = {e.dxf.handle: e for e in ezdxf.readfile(FIXTURE / 'source-export.dxf').modelspace()}
             actual = {row['handle']: row for row in report['entities']}
@@ -73,6 +73,9 @@ class DwgReadbackTests(unittest.TestCase):
                 elif entity.dxftype() == 'LWPOLYLINE':
                     self.assertEqual(geometry['vertices'], [list(v) for v in entity.get_points('xyseb')])
                     self.assertEqual(geometry['closed'], entity.closed)
+                elif entity.dxftype() == 'INSERT':
+                    self.assertEqual(geometry['block_name'], entity.dxf.name)
+                    self.assertEqual(geometry['insert'], list(entity.dxf.insert))
                 else:
                     self.assertIsNone(geometry)
             self.assertFalse(report['native_autocad_executed'])
@@ -81,6 +84,8 @@ class DwgReadbackTests(unittest.TestCase):
             changed = ezdxf.readfile(reference)
             line = changed.modelspace().query('LINE')[0]
             line.dxf.end += (1, 0, 0)
+            insert = changed.modelspace().query('INSERT')[0]
+            insert.dxf.rotation += 15
             changed_dxf, difference_report = output / 'changed.dxf', output / 'differences.json'
             changed.saveas(changed_dxf)
             mismatch = subprocess.run(command[:-4] + ['--out', str(difference_report),
@@ -88,4 +93,6 @@ class DwgReadbackTests(unittest.TestCase):
                                       cwd=ROOT, env=env, capture_output=True, check=False)
             self.assertEqual(mismatch.returncode, 2, mismatch.stderr)
             comparison = json.loads(difference_report.read_bytes())['comparison']
-            self.assertEqual(comparison['differences'], [dict(handle=line.dxf.handle, reason='geometry_differs')])
+            self.assertEqual(comparison['differences'], [
+                dict(handle=handle, reason='geometry_differs') for handle in sorted((line.dxf.handle, insert.dxf.handle))
+            ])
