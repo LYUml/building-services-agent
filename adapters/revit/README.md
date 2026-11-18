@@ -61,7 +61,9 @@ at its original path and outside the ZIP. Use those same RVT bytes as the
 Activity's model input. The receipt records both the request and RVT hashes.
 To diagnose a returned Automation inventory, pass the original local RVT and
 `--automation-receipt <preparation.json>` to `bsa revit-inventory-check`.
-The corresponding MCP field is `automation_receipt`. This compares the
+The corresponding MCP field is `automation_receipt`. The same field on a
+`revit_inventory_check` workflow task takes a plan-relative path, whose
+bytes are pinned for workflow integrity verification. This compares the
 inventory's model, request and adapter hashes with the local preparation
 record and permits the engine's separate `input.rvt` path. These checks
 establish consistency with that record. Job execution and engineering

@@ -591,15 +591,15 @@ def validate_plan(path):
             if t.get('export_bcf'):
                 inputs.add(Path(__file__).with_name('ifc_port_bcf.py'))
         if kind=='revit_inventory_check':
-            if set(t)-{'id','kind','inventory','model','tolerance_m','requires_pass','description','expected_connections'}:
+            if set(t)-{'id','kind','inventory','model','tolerance_m','requires_pass','description',
+                       'expected_connections','automation_receipt'}:
                 raise ProjectError('Revit check requires explicit saved inventory/model and tolerance')
             import math
             tolerance=t.get('tolerance_m')
             if type(tolerance) not in (int,float) or not math.isfinite(tolerance) or tolerance<=0:
                 raise ProjectError('Revit check requires a positive finite tolerance in metres')
             inputs.update(local_path(root,t.get(k)) for k in ('inventory','model'))
-            if 'expected_connections' in t:
-                inputs.add(local_path(root,t['expected_connections']))
+            inputs.update(local_path(root,t[key]) for key in ('expected_connections','automation_receipt') if key in t)
         if kind=='drainage_stack_demand':
             from . import drainage_stack_demand,plumbing_demand,plumbing_demand_study
             if set(t)-{'id','kind','depends_on','basis','requires_pass','description'}:
@@ -1625,8 +1625,10 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
             elif t['kind']=='revit_inventory_check':
                 from .revit_connectivity import run
                 basis=local_path(root,t['expected_connections']) if 'expected_connections' in t else None
+                receipt=local_path(root,t['automation_receipt']) if 'automation_receipt' in t else None
                 payload=run(local_path(root,t['inventory']),local_path(root,t['model']),
-                            folder/'diagnosis.json',t['tolerance_m'],expected_connections=basis)
+                            folder/'diagnosis.json',t['tolerance_m'],expected_connections=basis,
+                            automation_receipt=receipt)
                 status=payload['diagnostic_status'];reason=payload['scope']+'; native host and complete-system acceptance remain pending'
             elif t['kind']=='drainage_connections':
                 from .drainage_connections import run

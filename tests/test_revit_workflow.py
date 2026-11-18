@@ -80,6 +80,30 @@ class RevitWorkflowTests(unittest.TestCase):
             self.assertEqual(result['tasks']['check']['status'],'fail')
             self.assertFalse((root/'out/check/diagnosis.json').exists())
 
+    def test_automation_receipt_is_pinned_and_checked(self):
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+            root = Path(folder)
+            plan, model = self.fixture(root)
+            receipt = root/'preparation.json'
+            inventory_path = root/'inventory.json'
+            inventory = json.loads(inventory_path.read_text())
+            inventory.update(document_path='X:/work/input.rvt', adapter_sha256='a'*64, request_sha256='b'*64)
+            inventory_path.write_text(json.dumps(inventory), encoding='utf-8')
+            receipt.write_text(json.dumps(dict(saved_rvt_sha256=inventory['saved_rvt_sha256'],
+                assembly_sha256=inventory['adapter_sha256'], request_sha256=inventory['request_sha256'])),
+                encoding='utf-8')
+            spec = json.loads(plan.read_text())
+            spec['tasks'][0]['automation_receipt'] = receipt.name
+            plan.write_text(json.dumps(spec), encoding='utf-8')
+            result = execute(plan, root/'out')
+            self.assertEqual(result['tasks']['check']['status'], 'pending')
+            self.assertTrue(verify(root/'out')['integrity_pass'])
+            receipt.write_text('{}', encoding='utf-8')
+            self.assertFalse(verify(root/'out')['integrity_pass'])
+            mismatched = execute(plan, root/'mismatched')
+            self.assertEqual(mismatched['tasks']['check']['status'], 'fail')
+            self.assertFalse((root/'mismatched/check/diagnosis.json').exists())
+
     def test_model_changed_during_diagnosis_is_rejected_before_output(self):
         with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
             root=Path(folder)
