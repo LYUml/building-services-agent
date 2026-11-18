@@ -50,6 +50,18 @@ The review exited 2 and located the VA-side flex at handle `57`, with its saved
 end at `(-5.75, -1.5, 0)` m, 0.25 m from T1. The diagnostic omits lines
 whose other endpoint already matches another declared terminal on that VAV.
 Verify the intended peer before editing a candidate.
+Use `--missing-connection-control` to omit the T1 flex line entirely.
+Run all four package controls on a Windows host with the supported AutoCAD
+Core Console and report font:
+
+```powershell
+$env:BSA_TEST_AUTOCAD = '1'
+.venv/Scripts/python.exe -m unittest tests.test_hvac_project.NativeTerminalDeliveryTests -v
+```
+
+The tests require the native drawing task to pass in each case. They verify
+the design reports are produced with the aligned layout and withheld for
+displacement, wrong VAV membership and a missing connection.
 When the HVAC package explicitly enables the terminal review, a failed review
 also blocks the package's design-report HTML and PDF. The incomplete package
 retains the connection error and native artifacts for diagnosis.
