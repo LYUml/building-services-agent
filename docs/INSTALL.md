@@ -23,7 +23,7 @@ installations, pass `--autocad` explicitly. No detected AutoCAD means native DWG
 execution remains unavailable; a successful MCP setup does not claim otherwise.
 
 Setup creates `.bsa/venv`, verifies pinned direct dependencies, runs the existing
-42-tool contract audit and a real stdio handshake plus read-only catalogue call.
+MCP contract audit and a real stdio handshake plus read-only catalogue call.
 It writes receipts in `.bsa`, then installs/refreshes only the known BSA entry in
 the selected project's `.codex/config.toml`, preserving unrelated settings and
 making backups. An unfamiliar launcher is rejected for manual reconciliation.

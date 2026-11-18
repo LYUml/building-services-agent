@@ -13,14 +13,14 @@ python scripts/package_prerelease.py --out runs/prerelease-assets
 ```
 
 Both builders use Git archive and reject runtime/private output directories.
-The prerelease builder adds a deterministic commit/version manifest, updates
-its receipt and produces SHA256SUMS. Neither builder uploads or publishes.
+Both include a deterministic commit/version manifest. The prerelease builder
+uses a versioned filename and produces SHA256SUMS. Neither builder publishes.
 Uncommitted files, environments, credentials, coursework and historical runs
 are absent. Existing local historical runs remain preserved.
 
 The runtime needs adapters, contracts, regulation packs and scripts in their
 source layout. A wheel containing only Python modules is insufficient.
-The raw candidate ZIP has no Git object database. The prerelease ZIP's setup
+The source ZIPs have no Git object database. Their setup
 restores its pinned Git objects for immutable reference retrieval, without
 checking out or overwriting working source files. This requires Git and internet.
 

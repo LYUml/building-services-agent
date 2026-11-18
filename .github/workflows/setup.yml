@@ -24,3 +24,13 @@ jobs:
           python scripts/bootstrap.py
       - name: Verify external project skills and MCP together
         run: python -c "from pathlib import Path; import subprocess,sys; p=Path('runs/external project').resolve(); p.mkdir(); subprocess.run([sys.executable,'scripts/bootstrap.py','--project-root',str(p)],check=True); assert len(list((p/'.agents/skills').glob('*/SKILL.md')))==11"
+      - name: Install the extracted source candidate
+        if: matrix.os == 'windows-latest' && github.event_name == 'push' && github.repository == 'LYUml/building-services-agent'
+        shell: pwsh
+        run: |
+          python scripts/build_candidate.py --out runs/install-candidate
+          python -m zipfile -e runs/install-candidate/building-services-agent-source.zip runs/extracted-candidate
+          Set-Location runs/extracted-candidate
+          .\Setup.cmd --profile cad
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          .\.bsa\venv\Scripts\bsa.exe revit-verify-automation-reopen --help

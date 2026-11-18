@@ -4,12 +4,14 @@ import hashlib
 import json
 from pathlib import Path
 import subprocess
+from tempfile import TemporaryDirectory
+import tomllib
 import zipfile
 
 ROOT=Path(__file__).resolve().parents[1]
 
 
-def verify_committed_bytes(saved, commit):
+def verify_committed_bytes(saved, commit, release_manifest):
     tree = subprocess.check_output(['git', 'ls-tree', '-rz', commit], cwd=ROOT)
     expected = {}
     for row in tree.split(b'\0'):
@@ -21,6 +23,11 @@ def verify_committed_bytes(saved, commit):
             raise ValueError('Candidate requires regular files in the committed source tree')
         expected[name.decode('utf-8')] = oid.decode('ascii')
     files = [item for item in saved.infolist() if not item.is_dir()]
+    manifests = [item for item in files if item.filename == '.bsa-release.json']
+    if ('.bsa-release.json' in expected or len(manifests) != 1
+            or saved.read(manifests[0]) != release_manifest):
+        raise ValueError('Candidate release manifest differs from the selected commit')
+    files.remove(manifests[0])
     if len(files) != len(expected) or {item.filename for item in files} != expected.keys():
         raise ValueError('Candidate file inventory differs from the committed tree')
     algorithm = subprocess.check_output(['git', 'rev-parse', '--show-object-format'], cwd=ROOT, text=True).strip()
@@ -42,8 +49,16 @@ def build(out):
     # Archive the committed tree without checkout-dependent newline conversion.
     out.mkdir(parents=True)
     archive=out/'building-services-agent-source.zip'
-    subprocess.run(['git','-c','core.autocrlf=false','-c','core.eol=lf',
-                    'archive','--format=zip','--output',str(archive),commit],cwd=ROOT,check=True)
+    project = subprocess.check_output(['git','show',commit+':pyproject.toml'],cwd=ROOT,text=True)
+    version = tomllib.loads(project)['project']['version']
+    release_manifest = (json.dumps(dict(schema='bsa.release-source/1', commit=commit, version=version),
+                                   sort_keys=True) + '\n').encode('ascii')
+    with TemporaryDirectory(dir=out) as temporary:
+        manifest = Path(temporary) / '.bsa-release.json'
+        manifest.write_bytes(release_manifest)
+        subprocess.run(['git','-c','core.autocrlf=false','-c','core.eol=lf',
+                        'archive','--format=zip','--output',str(archive),
+                        '--add-file='+str(manifest),commit],cwd=ROOT,check=True)
     with zipfile.ZipFile(archive) as saved:
         entries=saved.infolist()
         forbidden={'runs','tools','.git','.codex','.venv','.bsa','build','dist','__pycache__'}
@@ -51,14 +66,14 @@ def build(out):
             p=Path(item.filename)
             if p.is_absolute() or '..' in p.parts or forbidden.intersection(p.parts) or p.name=='.env':
                 raise ValueError('Candidate contains excluded runtime/private path: '+item.filename)
-        verified_members=verify_committed_bytes(saved,commit)
+        verified_members=verify_committed_bytes(saved,commit,release_manifest)
         required={'pyproject.toml','src/bsa/workspace.py','scripts/setup_radiance.py',
                   'docs/START_USING.md','examples/office-electrical/project.json'}
         if not required.issubset(saved.namelist()):raise ValueError('Candidate source resources missing')
         uncompressed=sum(x.file_size for x in entries)
     with archive.open('rb') as stream:
         archive_hash=hashlib.file_digest(stream,'sha256').hexdigest()
-    receipt=dict(schema='bsa.source-candidate/1',commit=commit,
+    receipt=dict(schema='bsa.source-candidate/1',commit=commit,version=version,
         archive=archive.name,sha256=archive_hash,
         bytes=archive.stat().st_size,uncompressed_bytes=uncompressed,entries=len(entries),
         verified_committed_members=verified_members,
