@@ -10,10 +10,18 @@ from .revit_revision import audit_pipe
 from . import workspace
 
 
-def compare_expected(intent, physical_ports, observed, confirmed):
-    if (not isinstance(intent, dict) or set(intent) != {'source', 'required_pairs'}
-            or not isinstance(intent['source'], str) or not intent['source'].strip()
-            or not isinstance(intent['required_pairs'], list) or not intent['required_pairs']):
+def point(value):
+    if not isinstance(value, list) or len(value) != 3 or any(
+        type(x) not in (int, float) or not math.isfinite(x) for x in value
+    ):
+        raise ProjectError('Invalid physical connector coordinates')
+    return value
+
+
+def compare_expected(intent, positions, observed, confirmed, tolerance_m):
+    if (not isinstance(intent, dict) or set(intent) - {'source', 'required_pairs', 'port_positions_m'}
+            or not isinstance(intent.get('source'), str) or not intent['source'].strip()
+            or not isinstance(intent.get('required_pairs'), list) or not intent['required_pairs']):
         raise ProjectError('Expected connections require a source locator and nonempty required_pairs')
     required, scoped_ports = set(), set()
     for pair in intent['required_pairs']:
@@ -30,17 +38,40 @@ def compare_expected(intent, physical_ports, observed, confirmed):
         required.add(tuple(sorted((a, b))))
     missing, unconfirmed, unavailable = [], [], []
     for pair in sorted(required - confirmed):
-        if set(pair) - physical_ports:
+        if any(port not in positions for port in pair):
             unavailable.append(pair)
         elif pair in observed:
             unconfirmed.append(pair)
         else:
             missing.append(pair)
     unexpected = sorted(pair for pair in observed - required if scoped_ports.intersection(pair))
-    return dict(source=intent['source'], expected_pair_count=len(required),
+    result = dict(source=intent['source'], expected_pair_count=len(required),
                 matched_pairs=sorted(required & confirmed), missing_pairs=missing,
                 unconfirmed_pairs=unconfirmed, unavailable_pairs=unavailable, unexpected_pairs=unexpected,
                 status='fail' if missing or unconfirmed or unexpected else 'pending' if unavailable else 'pass')
+    if 'port_positions_m' in intent:
+        declared = intent['port_positions_m']
+        if not isinstance(declared, list) or not declared:
+            raise ProjectError('port_positions_m must be a nonempty list')
+        checks, seen = [], set()
+        for row in declared:
+            if (not isinstance(row, dict) or set(row) != {'port', 'origin_m'}
+                    or not isinstance(row['port'], list) or len(row['port']) != 2
+                    or not isinstance(row['port'][0], str) or type(row['port'][1]) is not int):
+                raise ProjectError('Expected position requires a port identity and origin_m')
+            port = tuple(row['port'])
+            if port not in scoped_ports or port in seen:
+                raise ProjectError('Expected position must identify a unique endpoint from required_pairs')
+            seen.add(port)
+            expected, actual = point(row['origin_m']), positions.get(port)
+            distance = math.dist(expected, actual) if actual is not None else None
+            status = 'pending' if distance is None else 'fail' if distance > tolerance_m else 'pass'
+            checks.append(dict(port=port, expected_origin_m=expected, observed_origin_m=actual,
+                               displacement_m=distance, status=status))
+        result['port_position_checks'] = checks
+        if any(row['status'] == 'fail' for row in checks):
+            result['status'] = 'fail'
+    return result
 
 
 def diagnose(inventory, tolerance_m, *, expected_connections=None):
@@ -49,13 +80,6 @@ def diagnose(inventory, tolerance_m, *, expected_connections=None):
     if inventory.get('units') != 'metres':
         raise ProjectError('Inventory must explicitly use metres')
     nodes, owners, issues, pending, open_ports = {}, set(), [], [], []
-
-    def point(value):
-        if not isinstance(value, list) or len(value) != 3 or any(
-            type(x) not in (int, float) or not math.isfinite(x) for x in value
-        ):
-            raise ProjectError('Invalid physical connector coordinates')
-        return value
 
     def key(owner, connector):
         if not isinstance(owner, str) or not owner.strip() or type(connector) is not int:
@@ -160,8 +184,8 @@ def diagnose(inventory, tolerance_m, *, expected_connections=None):
                 unresolved=['Host execution and saved reopening', 'Declared terminals and complete equipment/accessory coverage',
                             'Internal fitting connectivity, system traversal and engineering acceptance'])
     if expected_connections is not None:
-        physical_ports = {ident for ident, c in nodes.items() if c['connector_type'] != 'Logical'}
-        comparison = compare_expected(expected_connections, physical_ports, observed, edges)
+        positions = {ident: c['origin_m'] for ident, c in nodes.items() if c['connector_type'] != 'Logical'}
+        comparison = compare_expected(expected_connections, positions, observed, edges, tolerance_m)
         result['expected_connections'] = comparison
         if comparison['status'] == 'fail':
             result['diagnostic_status'] = 'fail'

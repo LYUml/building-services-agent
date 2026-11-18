@@ -40,7 +40,8 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
             (root/'inventory.json').write_text(json.dumps(inventory),encoding='utf-8')
             basis=root/'expected.json'
             basis.write_text(json.dumps(dict(source='Synthetic schedule row 1',
-                required_pairs=[[['pipe',1],['elbow',1]]])),encoding='utf-8')
+                required_pairs=[[['pipe',1],['elbow',1]]],
+                port_positions_m=[dict(port=['elbow',1],origin_m=[0,0,0])])),encoding='utf-8')
             env={**os.environ,'BSA_PROJECT_ROOT':str(root)}
             cmd=[sys.executable,'-m','bsa.cli','revit-inventory-check','--inventory',str(root/'inventory.json'),
                 '--model',str(model),'--out',str(root/'cli.json'),'--tolerance-m','0.001',
@@ -52,6 +53,7 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
             self.assertTrue(all('endpoint_separation' in row['reasons'] for row in expected['issues']))
             self.assertFalse(expected['design_accepted'])
             self.assertEqual(expected['expected_connections']['unconfirmed_pairs'],[[['elbow',1],['pipe',1]]])
+            self.assertAlmostEqual(expected['expected_connections']['port_position_checks'][0]['displacement_m'],0.02)
             self.assertEqual(expected['expected_connections_sha256'],hashlib.sha256(basis.read_bytes()).hexdigest())
             params=StdioServerParameters(command=sys.executable,args=['-m','bsa.mcp_server'],cwd=str(ROOT),env=env)
             async with stdio_client(params) as streams:

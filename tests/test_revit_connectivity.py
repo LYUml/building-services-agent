@@ -55,6 +55,22 @@ class RevitConnectivityTests(unittest.TestCase):
         self.assertEqual(len(disconnected['expected_connections']['missing_pairs']), 2)
         self.assertEqual(disconnected['expected_connections']['unexpected_pairs'], [])
 
+    def test_connected_pair_moved_together_fails_declared_position(self):
+        for item in (self.data['pipes'][0], self.data['fittings'][0]):
+            connector = item['connectors'][0]
+            connector['origin_m'] = [1.02, 0, 0]
+            connector['references'][0]['origin_m'] = [1.02, 0, 0]
+        intent = dict(source='Synthetic coordinate schedule row 1',
+                      required_pairs=[[['pipe', 1], ['fitting', 1]]],
+                      port_positions_m=[dict(port=['pipe', 1], origin_m=[1, 0, 0])])
+        result = diagnose(self.data, 0.001, expected_connections=intent)
+        self.assertEqual(len(result['expected_connections']['matched_pairs']), 1)
+        self.assertEqual(result['diagnostic_status'], 'fail')
+        check, = result['expected_connections']['port_position_checks']
+        self.assertEqual(check['observed_origin_m'], [1.02, 0, 0])
+        self.assertAlmostEqual(check['displacement_m'], 0.02)
+        self.assertEqual(check['status'], 'fail')
+
     def test_fake_reciprocity_detected_from_opposite_inventory(self):
         self.data['fittings'][0]['connectors'][0]['references'] = []
         self.check_reason('missing_reciprocal_reference')

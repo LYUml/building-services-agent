@@ -47,6 +47,12 @@ Each declared endpoint has one peer. The report pins the schedule hash and
 distinguishes missing, unconfirmed, unavailable and unexpected pairs for the
 declared endpoints. An unavailable port remains pending unless other findings
 fail the check. A matching schedule does not resolve the wider system review.
+To catch a connected pair that moved together, add optional
+`"port_positions_m":[{"port":["pipe-unique-id",1],"origin_m":[1,2,3]}]` to the
+schedule. Supply positions for the selected declared endpoints in the same
+coordinate frame and metre units as the inventory. The report records both
+positions and their displacement using the diagnostic tolerance. Endpoints
+without a declared position receive the connectivity checks only.
 
 Workflow kind `revit_inventory_check` takes `inventory`, `model` and `tolerance_m`. Put its ID in downstream `requires_pass`. Its status is fail or pending until broader acceptance exists; exit code 2 is expected for unresolved checks. Use `bsa.workflow_status` to diagnose dependencies, not to overwrite outcomes. Preserving unresolved requirements is essential, but do not make every future Revit task depend on this deliberately incomplete prototype when a different verified adapter can meet the requirement.
 
