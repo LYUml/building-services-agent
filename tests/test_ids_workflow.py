@@ -3,6 +3,8 @@ import json
 from importlib.metadata import PackageNotFoundError
 from pathlib import Path
 import shutil
+import subprocess
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -73,6 +75,13 @@ class IDSWorkflowTests(unittest.TestCase):
             check = json.loads((root/'positive/information/ids-check.json').read_text())
             self.assertEqual(check['requirements_checked'], 4)
             self.assertEqual(check['inputs'][str(root/'present.ifc')], digest(root/'present.ifc'))
+            command = [sys.executable, '-m', 'bsa.cli', 'ids-check', str(root/'requirements.ids'),
+                       str(root/'present.ifc'), '--out', str(root/'cli-positive')]
+            process = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, check=False)
+            self.assertEqual(process.returncode, 0, process.stderr)
+            cli_check = json.loads(process.stdout)
+            for field in ('inputs', 'calculated_checks_pass', 'requirements_checked', 'requirements_failed'):
+                self.assertEqual(cli_check[field], check[field])
             # Inherited model has none of the required properties. Engine still exits 0.
             tasks.insert(0, dict(id='author', kind='bim', project='model.json'))
             plan['requirements'].append(dict(id='author', passage=row['id'], quote=row['text'], task='author', acceptance=row['text']))
@@ -102,8 +111,6 @@ class IDSWorkflowTests(unittest.TestCase):
             self.assertFalse(verify(root/'negative')['integrity_pass'])
 
     def test_no_applicable_pump_cannot_pass(self):
-        import subprocess
-        import sys
         with tempfile.TemporaryDirectory(dir=ROOT/'runs') as tmp:
             root = Path(tmp)
             empty = ifcopenshell.file(schema='IFC4')
