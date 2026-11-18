@@ -154,6 +154,15 @@ Inspect retained candidates and `unresolved_preference`: a preferred unresolved
 mechanical identity blocks selection. Preferences are declared choices; do not
 infer cost, motor power or product suitability from numerical eligibility.
 
+For a failed circular fan selection, check the diagnosed task scope and the
+workflow-pinned `fan-selection.json`. When screening evidence is absent, resolve
+the original execution failure before revising the catalogue. A completed
+screening with no eligible candidate can enter declared catalogue recovery.
+Independent actions can proceed; reconsider the fan after a fresh replay produces
+its screening evidence. Verify the saved chain using
+`bsa delivery verify-recovery` or MCP `bsa_verify_recovery`.
+See docs/RECOVERY_CONTROLLER.md.
+
 For standalone common-interface airflow allocation, reuse provider
 bsa.classified-air-allocation with analysis.air.classified-allocation and an
 existing source-backed allocation project. See docs/MODULAR_AIR_ALLOCATION.md.
