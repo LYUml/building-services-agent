@@ -86,3 +86,23 @@ class TerminalLayoutRevisionTests(unittest.TestCase):
         with patch('bsa.terminal_layout_revision.inspect',side_effect=mutate),self.assertRaisesRegex(ValueError,'changed during'):
             self.execute()
         self.assertFalse((self.root/'output').exists())
+
+    def test_source_mutation_during_saved_verification_publishes_nothing(self):
+        from bsa.terminal_layout_revision import inspect
+
+        checks = 0
+
+        def mutate(*args):
+            nonlocal checks
+            checks += 1
+            result = inspect(*args)
+            if checks == 3:
+                settings = self.root / 'settings.json'
+                settings.write_text(settings.read_text() + ' ')
+            return result
+
+        with patch('bsa.terminal_layout_revision.inspect', side_effect=mutate):
+            with self.assertRaisesRegex(ValueError, 'changed during saved verification'):
+                self.execute()
+        self.assertFalse((self.root / 'output').exists())
+        self.assertEqual(list(self.root.glob('.terminal-revision-*')), [])

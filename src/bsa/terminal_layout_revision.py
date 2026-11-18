@@ -3,6 +3,7 @@ import argparse
 import json
 import math
 from pathlib import Path
+from tempfile import TemporaryDirectory
 import ezdxf
 from .air_terminal_drawing import inspect
 from .cad_intake import METRES_PER_UNIT
@@ -63,16 +64,27 @@ def run(drawing,old_allocation,new_allocation,duct_project,binding,settings,outp
     if set(before)!=set(after) or any(tags!=after[h] for h,tags in before.items() if h not in allowed):raise ValueError('Unbound source entity changed during terminal revision')
     revised=inspect(doc,new,project['tree'],spec,config['layers'])
     if any(digest(Path(p))!=sha for p,sha in pins.items()):raise ValueError('Terminal revision source changed during preparation')
-    output.mkdir(parents=True);target=output/'Supply Air Distribution.dxf';doc.saveas(target)
-    reopened=ezdxf.readfile(target)
-    if snapshot(reopened)!=after:raise ValueError('Saved terminal revision differs from expected entities')
-    saved=inspect(reopened,new,project['tree'],spec,config['layers'])
-    if saved!=revised:raise ValueError('Saved terminal/group/route correspondence differs')
-    result=dict(inputs=pins,dxf_sha256=digest(target),changes=changes,changed_entity_count=len(allowed),unchanged_unbound_modelspace=True,
-        old_correspondence=prior,new_correspondence=saved,basis=config['basis'],saved_dxf_correspondence=True,
-        native_reopen_pass=False,plot_visual_review='pending',design_accepted=False,
-        scope='Explicit planar terminal symbol and ID-label translation;straight flex centreline endpoint revision only. Original rigid/VAV geometry and other entities preserved. New airflow sizing,native drawing,physical flex/products,elevations,obstacles and full engineering review remain separate.')
-    (output/'revision.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with TemporaryDirectory(prefix='.terminal-revision-', dir=output.parent) as temporary:
+        stage = Path(temporary) / 'revision'
+        stage.mkdir()
+        target = stage / 'Supply Air Distribution.dxf'
+        doc.saveas(target)
+        drawing_hash = digest(target)
+        reopened = ezdxf.readfile(target)
+        if snapshot(reopened)!=after:raise ValueError('Saved terminal revision differs from expected entities')
+        saved=inspect(reopened,new,project['tree'],spec,config['layers'])
+        if saved!=revised:raise ValueError('Saved terminal/group/route correspondence differs')
+        result=dict(inputs=pins,dxf_sha256=drawing_hash,changes=changes,changed_entity_count=len(allowed),unchanged_unbound_modelspace=True,
+            old_correspondence=prior,new_correspondence=saved,basis=config['basis'],saved_dxf_correspondence=True,
+            native_reopen_pass=False,plot_visual_review='pending',design_accepted=False,
+            scope='Explicit planar terminal symbol and ID-label translation;straight flex centreline endpoint revision only. Original rigid/VAV geometry and other entities preserved. New airflow sizing,native drawing,physical flex/products,elevations,obstacles and full engineering review remain separate.')
+        (stage/'revision.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
+        if digest(target) != drawing_hash or any(digest(Path(p)) != sha for p,sha in pins.items()):
+            raise ValueError('Terminal revision source or output changed during saved verification')
+        if output.exists():
+            raise FileExistsError('Terminal revision output appeared during verification')
+        stage.rename(output)
     return result
 
 
