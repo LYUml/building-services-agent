@@ -6,7 +6,7 @@ software publication and checks do not approve engineering designs.
 
 | Item | Verified state |
 | --- | --- |
-| Interfaces |48 MCP tools and 47 fixed worker operations |
+| Interfaces |49 MCP tools and 48 fixed worker operations |
 | Common data | Project/scenario identities, source pointers, units and air/electrical/lighting views; other typed domain contracts retained |
 | Knowledge | SQLite/FTS5 source indexes with selected pages, editions, conditions and bounded retrieval; not a complete professional library |
 | Changes | Source/method/runtime impact and checkpoints; numerical reuse whitelist restricted to air/electrical |
