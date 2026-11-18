@@ -47,6 +47,13 @@ class MCPHVACProjectTests(unittest.IsolatedAsyncioTestCase):
                                          capture_output=True, text=True)
                     self.assertEqual(cli.returncode, 0, cli.stderr)
                     self.assertEqual(json.loads(cli.stdout), inspected)
+                    review = root/'package'/'terminal-review.json'
+                    review.write_text('{}', encoding='utf-8')
+                    denied = await session.call_tool('bsa_inspect_hvac_project',
+                                                     dict(configuration='project.json', out='package'))
+                    self.assertTrue(denied.isError)
+                    self.assertIn('requires a configured review', denied.content[0].text)
+                    review.unlink()
                     report=next(a for a in result['artifacts'] if a['path']=='report-pdf/HVAC System Design.pdf')
                     rendered=await session.call_tool('bsa_render_source_page',dict(source='package/'+report['path'],page=1,out='report-page'))
                     self.assertFalse(rendered.isError,str(rendered));self.assertEqual(rendered.structuredContent['source_sha256'],report['sha256'])
