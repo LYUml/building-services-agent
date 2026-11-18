@@ -122,7 +122,7 @@ def bus_contacts(doc, circuits):
     return checks
 
 
-def native(source,out,reference,exe,circuits):
+def native(source,out,reference,exe,project,study,study_hash):
     import ezdxf
     from .native_cad import execute,lisp_string
     from .cad_intake import export_dwg
@@ -137,7 +137,7 @@ def native(source,out,reference,exe,circuits):
     reopened=export_dwg(dwg,out/'reopened',exe)
     expected=ezdxf.readfile(source);actual=ezdxf.readfile(reopened)
     if not equivalent(native_records(expected),native_records(actual)) or identities(expected)!=identities(actual):raise ProjectError('native diagram geometry, attributes or identities changed')
-    contacts = bus_contacts(actual, circuits)
+    contacts = check_saved_schematic(actual, project, study, study_hash)
     settings=dict(source='Schematic paper layout in millimetres, not installation scale',window_drawing_units=[0,0,270,180],
         scale_denominator=1,reference_handle=reference,pdf_tolerance_mm=0.5)
     result=plot(dwg,source,settings,out/'sheet.pdf',exe)
@@ -169,7 +169,14 @@ def verify_contacts(project, study, drawing):
     prepared, study_result, pins = context(project, study)
     source_hash = digest(drawing)
     study_hash = pins[str(study/'native/study.json')]
-    doc = ezdxf.readfile(drawing)
+    contacts = check_saved_schematic(ezdxf.readfile(drawing), prepared, study_result, study_hash)
+    if digest(drawing) != source_hash or any(digest(Path(path)) != sha for path, sha in pins.items()):
+        raise ProjectError('Schematic or study changed during contact verification')
+    return dict(drawing_sha256=source_hash, study_sha256=study_hash, bus_contacts=contacts,
+                design_accepted=False)
+
+
+def check_saved_schematic(doc, prepared, study_result, study_hash):
     if doc.units != 4:
         raise ProjectError('Three-phase schematic requires drawing millimetres')
     expected = {('bus', row['id']) for row in prepared['buses']}
@@ -219,10 +226,7 @@ def verify_contacts(project, study, drawing):
                     or not min(x_values) < anchor.x < max(x_values)
                     or not min(y_values) < anchor.y < max(y_values)):
                 raise ProjectError(f'Saved bus {bus} label anchor lies outside its box on handle {label.dxf.handle}')
-    if digest(drawing) != source_hash or any(digest(Path(path)) != sha for path, sha in pins.items()):
-        raise ProjectError('Schematic or study changed during contact verification')
-    return dict(drawing_sha256=source_hash, study_sha256=study_hash, bus_contacts=contacts,
-                design_accepted=False)
+    return contacts
 
 
 def run(project,study_root,out,dot,autocad=None):
@@ -348,7 +352,7 @@ def run(project,study_root,out,dot,autocad=None):
     reconcile(snapshot(doc),source)
     saved = ezdxf.readfile(source)
     if identities(doc)!=identities(saved):raise ProjectError('saved DXF electrical identities changed')
-    dxf_contacts = bus_contacts(saved, p['lines'])
+    dxf_contacts = check_saved_schematic(saved, p, study, study_hash)
     with (out/'loads.csv').open('x',newline='',encoding='utf-8') as f:
         writer=csv.writer(f);writer.writerow(['load_id','bus','phase','electrical_kw','reactive_kvar','source_id'])
         for load in p['loads']:
@@ -358,7 +362,7 @@ def run(project,study_root,out,dot,autocad=None):
         for line_row,result in zip(p['lines'],study['lines']):
             for ph,amps in zip('ABC',result['phase_current_a']):writer.writerow([line_row['id'],line_row['from'],line_row['to'],line_row['length_m'],ph,amps,line_row['max_current_a'],line_row['source'],line_row['current_limit_source']])
     generated_before={str(f):digest(f) for f in (source,out/'loads.csv',out/'lines.csv',out/'layout.dot',out/'layout.json')}
-    native_result=native(source,out/'native',reference.dxf.handle,Path(autocad).resolve(),p['lines']) if autocad else None
+    native_result=native(source,out/'native',reference.dxf.handle,Path(autocad).resolve(),p,study,study_hash) if autocad else None
     if any(digest(Path(f))!=h for f,h in generated_before.items()):raise ProjectError('generated source artifacts changed during native delivery')
     if any(not Path(f).is_file() or digest(Path(f))!=h for f,h in before.items()):raise ProjectError('inputs changed during drawing')
     result=dict(inputs=before,study_sha256=study_hash,graphviz_sha256=graphviz_sha256,bus_count=len(p['buses']),line_count=len(p['lines']),
