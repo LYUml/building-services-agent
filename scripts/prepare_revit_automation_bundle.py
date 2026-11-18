@@ -146,7 +146,8 @@ def verify_stage(directory, model=None):
         data = request.read_bytes()
         if hashlib.sha256(data).hexdigest() != receipt.get('request_sha256'):
             raise ValueError('Staged request hash mismatch')
-        expected_model_hash = inventory_request(model, runs)['SavedRvtSha256']
+        expected_request = inventory_request(model, runs)
+        expected_model_hash = expected_request['SavedRvtSha256']
         declared = json.loads(data)
         if (not isinstance(declared, dict) or declared.get('SavedRvtSha256') != expected_model_hash
                 or receipt.get('saved_rvt_sha256') != expected_model_hash):
@@ -154,6 +155,8 @@ def verify_stage(directory, model=None):
         if operation == 'create-pipe':
             from bsa.revit_request import validate_automation_request
             validate_automation_request(declared, expected_model_hash)
+        elif declared != expected_request:
+            raise ValueError('Staged inventory request differs from the expected request')
     result = {'operation': operation, 'stage_verified': True, 'model_checked': model is not None,
               'native_executed': False}
     if 'model_metadata' in receipt:

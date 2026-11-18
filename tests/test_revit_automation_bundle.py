@@ -192,6 +192,15 @@ class RevitAutomationBundleTests(unittest.TestCase):
             self.assertEqual(receipt['request_sha256'], hashlib.sha256(request).hexdigest())
             self.assertEqual(receipt['activity_sha256'], hashlib.sha256(activity).hexdigest())
             self.assertEqual(receipt['saved_rvt_sha256'], expected_model_hash)
+            altered_request = json.dumps(dict(json.loads(request), UnexpectedField=True)).encode()
+            request_path = first.with_name('inventory-request.json')
+            receipt_path = first.with_name('preparation.json')
+            request_path.write_bytes(altered_request)
+            altered_receipt = dict(receipt, request_sha256=hashlib.sha256(altered_request).hexdigest())
+            receipt_path.write_text(json.dumps(altered_receipt), encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'inventory request differs'):
+                verify_stage(first.parent, model)
+            request_path.write_bytes(request)
             parameters = json.loads(activity)['parameters']
             self.assertEqual({key: row['localName'] for key, row in parameters.items()}, {
                 'model': 'input.rvt', 'request': 'inventory-request.json', 'inventory': 'inventory.json',
