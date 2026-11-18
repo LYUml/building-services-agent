@@ -77,6 +77,12 @@ class RevitRevisionTests(unittest.TestCase):
             result = verify(root, created, authored, observed, reopen, 0.001)
             self.assertTrue(result['pipe_matches_capture'])
             self.assertEqual(result['pipe_element_id'], '1042')
+            duplicate = dict(id='1042', unique_id='duplicate-fitting',
+                             connector_manager_available=False, connectors=None)
+            save('inventory.json', dict(inventory, fittings=[duplicate]))
+            with self.assertRaisesRegex(ValueError, 'element_id 1042 is shared'):
+                verify(root, created, authored, observed, reopen, 0.001)
+            save('inventory.json', inventory)
             self.assertFalse(result['native_execution_authenticated'])
             self.assertEqual(result['connector_endpoint_error_m'], 0)
             self.assertEqual(result['reopen_request_sha256'], reopen_hash)

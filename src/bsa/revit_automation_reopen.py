@@ -66,6 +66,8 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
     if (not isinstance(element_id, str) or not element_id.isascii() or not element_id.isdecimal()
             or int(element_id) <= 0 or pipe.get('id') != element_id):
         raise ValueError('Reopened pipe element_id differs from the creation readback')
+    if sum(item.get('id') == element_id for group in ('pipes', 'fittings') for item in reopened[group]) != 1:
+        raise ValueError(f'Reopened element_id {element_id} is shared by multiple pipe or fitting records')
     for field in ('diameter_m', 'length_m'):
         recorded = transaction.get(field)
         if (type(recorded) not in (int, float) or not math.isfinite(recorded)
