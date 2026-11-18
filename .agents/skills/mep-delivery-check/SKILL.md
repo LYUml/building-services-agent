@@ -72,6 +72,13 @@ For each terminal ID, compare its assigned VAV, `saved_terminal_center_m`
 and `saved_plan_length_m` in the flex route. Compare
 `saved_vav_center_m` by VAV ID. An unchanged assignment can still have
 a changed route length after a terminal moves.
+If a historical run fails workflow integrity after an agent update, read the
+individual findings. To recheck the saved geometry, independently match the
+reopened DXF and each calculation or binding input to the historical manifest
+and review receipt, then run the direct verifier in
+docs/AIR_TERMINAL_DRAWING.md with a fresh output. Report the geometry result
+with its exact inputs and keep the historical workflow integrity finding open.
+Preserve the original manifest and receipts.
 
 For a configured HVAC package, enable the terminal review when that inherited
 scope applies. Inspect the saved package using `bsa delivery inspect-hvac-package`

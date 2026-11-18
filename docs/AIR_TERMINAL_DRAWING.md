@@ -8,7 +8,17 @@
 
 Layer names are explicit scope selectors, not automatic discovery. The output pins the exact four source files and records matched handles, per-group outlet counts/flows and individual centre-to-centre plan lengths. The source files are read only and existing outputs are not overwritten. Reuse the native adapter's independently reopened DXF for native evidence; merely inspecting an authored DXF does not establish native DWG acceptance.
 
-The standalone command checks declared inputs, not their association with a completed numerical workflow. Before using its result in delivery, verify that workflow and match the duct project's SHA to the schedule's input_sha256 and allocation to the same executed run. Workflow registration and inherited producer binding are still pending. Do not mistake geometric matching for label/ID annotation verification; identities come from the supplied coordinates and tree, and no symbol size or physical equipment interface is accepted.
+The standalone command checks geometry against declared inputs. Use the
+inherited review below to establish full workflow provenance. For a historical
+run that fails integrity after an agent update, inspect the findings first.
+Before rerunning the standalone check, match the reopened DXF and allocation
+hashes to the historical workflow artifacts, and the duct project and binding
+hashes to the historical workflow inputs. Cross-check all four against the
+original terminal review receipt. Keep the old files and record the new
+geometric result and the unresolved workflow integrity finding.
+Terminal identities come from the supplied coordinates and tree. Label
+placement, symbol dimensions and physical equipment interfaces remain outside
+this geometry check.
 
 Five tests exercise reversed lines, same-flow swapped membership, disconnected flex, extra geometry, nonplanar symbols, shifted VAV and duplicate terminal symbols. Actual private native-export inspection passes for 80 terminals, 20 four-outlet groups and 47 rigid sections. A separate source/hash check confirms the supplied duct project is the one used by the verified schedule. The result does not establish physical inlet/outlet ports, installed flexible length, bend losses, full route coordination, product suitability, ADPI, regulatory conformity or design acceptance.
 
