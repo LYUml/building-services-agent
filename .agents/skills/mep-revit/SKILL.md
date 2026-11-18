@@ -23,6 +23,19 @@ The remaining product goal includes connected systems, analysis, schedules, draw
 
 ## Read and diagnose
 
+For a saved RVT, use `bsa revit-file-metadata <file.rvt>` or MCP
+`bsa_read_revit_file_metadata` with the optional `revit-metadata` dependency.
+Use the file SHA-256 and saved Revit release to identify the exact model and
+choose a compatible engine. Keep unavailable worksharing and cloud flags
+unknown. Offline metadata does not verify model geometry, connector topology,
+or native reopening.
+
+When staging an Automation bundle with a saved RVT, use
+`scripts/prepare_revit_automation_bundle.py --inspect-model` with the normal
+bundle arguments to capture this evidence. The preflight rejects a file newer
+than the selected engine and rejects known workshared or single-user cloud
+models for pipe creation. Use `--verify-stage` to recheck a staged receipt.
+
 For an existing Revit IFC export, use `bsa ifc-port-inventory <file.ifc> --out
 <fresh-report.json>` or MCP `bsa_ifc_port_inventory`. It retains IFC2X3 and
 IFC4 port identities, owner candidates and declared directions. Explicitly
