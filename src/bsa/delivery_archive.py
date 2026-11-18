@@ -42,6 +42,9 @@ def verify(archive_path, manifest_path):
         if any(count > 1 for count in Counter(names).values()):
             raise ValueError('Duplicate ZIP member path')
         files = {info.filename: info for info in entries if not info.is_dir()}
+        file_paths = {PurePosixPath(name.casefold()) for name in files}
+        if any(parent in file_paths for name in names for parent in PurePosixPath(name).parents):
+            raise ValueError('ZIP member is both a file and a parent directory')
         if any(S_IFMT(info.external_attr >> 16) == S_IFLNK for info in entries):
             raise ValueError('ZIP links are unsupported')
         if files.keys() != expected.keys():

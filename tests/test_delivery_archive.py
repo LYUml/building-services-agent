@@ -18,6 +18,19 @@ DATA = b'synthetic drawing bytes'
 
 
 class DeliveryArchiveTests(unittest.TestCase):
+    def test_file_cannot_be_a_parent_even_with_matching_hashes(self):
+        with TemporaryDirectory(dir=RUNS) as temporary:
+            root = Path(temporary)
+            archive, manifest = root / 'release.zip', root / 'pins.json'
+            names = ('drawings', MEMBER)
+            with ZipFile(archive, 'x') as bundle:
+                for name in names:
+                    bundle.writestr(name, DATA)
+            manifest.write_text(json.dumps({name: hashlib.sha256(DATA).hexdigest() for name in names}),
+                                encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'both a file and a parent directory'):
+                verify_archive(archive, manifest)
+
     def test_archive_checks_inventory_paths_and_content(self):
         with TemporaryDirectory(dir=RUNS) as temporary:
             root = Path(temporary)
