@@ -54,6 +54,8 @@ class NativeTerminalDeliveryTests(unittest.TestCase):
         for route in routes:
             for field in ('vav_endpoint_gap_m', 'terminal_endpoint_gap_m'):
                 self.assertLessEqual(route[field], review['correspondence_tolerance_m'])
+        report = json.loads((output/'report/report.json').read_bytes())
+        self.assertIn('maximum drawn flex-to-symbol endpoint gap', report['terminal_connection_summary'])
 
 
 class HVACProjectTests(unittest.TestCase):

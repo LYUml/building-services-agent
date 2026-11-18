@@ -95,10 +95,26 @@ def connection_summary(directory,workflow,paths,review):
         raise ValueError('Terminal review sources differ from the native task ancestry in the plan')
     fresh=inspect(ezdxf.readfile(drawing),json.loads(paths[0].read_text(encoding='utf-8')),
         json.loads(project.read_text(encoding='utf-8'))['tree'],json.loads(binding.read_text(encoding='utf-8')),record['layers'])
-    if any(record.get(k)!=v for k,v in fresh.items()):raise ValueError('Terminal review differs from saved geometry')
+    compared = fresh
+    if 'correspondence_tolerance_m' not in record:
+        # Earlier receipts predate explicit gaps. Recompute the checks above
+        # and compare the original receipt fields against the same drawing.
+        compared = {key: value for key, value in fresh.items() if key != 'correspondence_tolerance_m'}
+        compared['groups'] = [
+            {**group, 'routes': [
+                {key: value for key, value in route.items()
+                 if key not in ('vav_endpoint_gap_m', 'terminal_endpoint_gap_m')}
+                for route in group['routes']
+            ]} for group in fresh['groups']
+        ]
+    if any(record.get(k)!=v for k,v in compared.items()):raise ValueError('Terminal review differs from saved geometry')
+    max_gap = max(max(route['vav_endpoint_gap_m'], route['terminal_endpoint_gap_m'])
+                  for group in fresh['groups'] for route in group['routes'])
     return (f"Saved native drawing correspondence covers {fresh['terminal_count']} terminals, "
         f"{len(fresh['groups'])} groups and {fresh['rigid_section_count']} rigid sections. "
         f"The longest straight centre-to-centre planar flexible connection is {fresh['maximum_plan_length_m']:.3f} m. "
+        f"The maximum drawn flex-to-symbol endpoint gap is {max_gap:.3g} m "
+        f"at a correspondence tolerance of {fresh['correspondence_tolerance_m']:.3g} m. "
         'This does not verify physical ports, installed flexible lengths, labels, three-dimensional coordination or regulatory compliance.')
 
 
