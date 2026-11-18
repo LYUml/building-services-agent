@@ -319,7 +319,7 @@ def validate_plan(path):
             from . import drawing_access
             project=local_path(root,t.get('project'))
             inputs.update(drawing_access.workflow_inputs(project))
-        if kind not in ("knowledge_index","knowledge_query","engineering_data","drawing_document","module_electrical_native","module_electrical_rules","module_water_rules","module_analysis","module_authoring","spatial_terminal_stubs","spatial_terminal_inlets","spatial_terminal_ifc","spatial_terminal_coordination","spatial_terminal_native","spatial_terminal_drawing","spatial_terminal_performance","spatial_air_allocation","spatial_air_balance","spatial_lighting_rules","module_thermal_project","module_exchange","duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","circular_fan_metadata","circular_fan_selection","circular_fan_operating_point","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","fds_temperature_review","fds_temperature_probe","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","route_ports","route_join","route_material","route_pressure","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
+        if kind not in ("knowledge_index","knowledge_query","engineering_data","drawing_document","module_electrical_native","module_electrical_rules","module_water_rules","module_analysis","module_authoring","spatial_terminal_stubs","spatial_terminal_inlets","spatial_terminal_ifc","spatial_terminal_coordination","spatial_terminal_native","spatial_terminal_drawing","spatial_terminal_performance","spatial_air_allocation","spatial_air_balance","spatial_lighting_rules","module_thermal_project","module_exchange","duct_fitting_data","duct_chain_analysis","duct_fitting_chain","rectangular_tee_transitions","rectangular_transition","rectangular_tee_assembly","rectangular_tee","drainage_stack_demand","drainage_connections","plumbing_demand","discharge_demand","duct_sheet_native","duct_sheet","air_allocation","duct_schedule","terminal_throw","concept_section","climate_context","honeybee_scene","concept_facade","tcf_fan_research","fan_mechanical_limits","rectangular_fan_selection","circular_fan_metadata","circular_fan_selection","circular_fan_operating_point","rectangular_fan_operating_point","rectangular_fan_regulations","rectangular_drawing","rectangular_model_design","rectangular_network_binding","rectangular_network_design","rectangular_network","three_phase_cable_regulations","cable_route_drawing","three_phase","three_phase_ifc_project","three_phase_ifc","three_phase_topology","three_phase_bend_limits","three_phase_coordination","three_phase_regulations","three_phase_drawing","revit_inventory_check","fds_temperature_review","fds_temperature_probe","ifc_port_gap_review","drainage_input","product_alignment","alignment_native","connector_ports","ifc_preview","cad_ifc","product_ports","tee_selection","tee_assembly","tee_drawing","tee_split","tee_pressure","tee_losses","ifc_network","ifc_metadata","ifc_query","plumbing_pump_set","plumbing_pump_regulations","selected_pump_ifc","ids_check","circulation_pump_design","ifc_circulation_checks","epanet_pipe_regulations","circulation_duty","regulated_water_model","water_pipe_regulations","hvac_regulations","lighting_regulations","electrical_regulations","regulations","route_model","route_optimize","route_ports","route_join","route_material","route_pressure","electrical","electrical_fault","electrical_coordination","electrical_lighting","energy","annual_energy","annual_energy_ifc","bim","network","water_network","water_coordination","network_coordination","network_design","network_model_design","pump_operating_point","pump_electrical","lighting","drawing_intake","base_overlay","ifc_clash","ifc_drawing","ifc_route_drawing","ifc_equipment","ifc_native","ifc_views","ifc_views_native","native_cad","manual"):
             raise ProjectError("unknown task adapter")
         if kind=='module_electrical_native':
             if set(t)-{'id','kind','depends_on','requires_pass','description'}:raise ProjectError('Native electrical task inherits rule producer only;replacement inputs forbidden')
@@ -567,6 +567,15 @@ def validate_plan(path):
             else:
                 inputs.add(probe_path)
             inputs.add(Path(fds_temperature.__file__).resolve())
+        if kind=='ifc_port_gap_review':
+            import math
+            if set(t)-{'id','kind','source','tolerance_m','requires_pass','description'}:
+                raise ProjectError('IFC port gap review requires a saved IFC and a declared tolerance')
+            tolerance=t.get('tolerance_m')
+            if type(tolerance) not in (int,float) or not math.isfinite(tolerance) or tolerance<=0:
+                raise ProjectError('IFC port gap review requires a positive finite tolerance in metres')
+            inputs.add(local_path(root,t.get('source')))
+            inputs.add(Path(__file__).with_name('ifc_port_inventory.py'))
         if kind=='revit_inventory_check':
             if set(t)-{'id','kind','inventory','model','tolerance_m','requires_pass','description','expected_connections'}:
                 raise ProjectError('Revit check requires explicit saved inventory/model and tolerance')
@@ -1585,6 +1594,12 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                         raise ProjectError('FDS host release changed during execution')
                     runtime_inputs[str(release)]=payload['release_sha256']
                     status,reason=fds_temperature.review_status(payload,t.get('check'))
+            elif t['kind']=='ifc_port_gap_review':
+                from .ifc_port_inventory import inventory as ifc_port_inventory, gap_status
+                payload=ifc_port_inventory(local_path(root,t['source']),t['tolerance_m'])
+                folder.mkdir()
+                (folder/'port-review.json').write_text(json.dumps(payload,indent=2),encoding='utf-8')
+                status,reason=gap_status(payload['connection_gaps'])
             elif t['kind']=='revit_inventory_check':
                 from .revit_connectivity import run
                 basis=local_path(root,t['expected_connections']) if 'expected_connections' in t else None
@@ -2543,6 +2558,22 @@ def verify(run_directory):
             issues.append('knowledge output requires exact original workflow source identity: '+name)
         if task['kind']=='engineering_data' and not source_plan:
             issues.append('common data requires explicit original workflow/project context: '+name)
+        if task['kind']=='ifc_port_gap_review':
+            receipt=root/name/'port-review.json'
+            if task['status']=='pass' or receipt.is_file():
+                try:
+                    from .ifc_port_inventory import inventory as ifc_port_inventory, gap_status
+                    original=declared[name]
+                    source=local_path(Path(source_plan['path']).resolve().parent,original['source'])
+                    if (str(source) not in report['inputs'] or not receipt.resolve().is_relative_to(root)
+                            or receipt.relative_to(root).as_posix() not in report['artifact_hashes']):
+                        raise ProjectError('IFC port review lacks source or artifact pins')
+                    checked=ifc_port_inventory(source,original['tolerance_m'])
+                    expected,_=gap_status(checked['connection_gaps'])
+                    if checked!=read_json(receipt) or expected!=task['status']:
+                        raise ProjectError('IFC port review differs from reconstructed evidence')
+                except (OSError,ValueError,KeyError,TypeError) as exc:
+                    issues.append('IFC port gap evidence invalid: '+name+': '+str(exc))
         if task['kind'] in ('fds_temperature_probe','fds_temperature_review'):
             receipt=root/name/('report.json' if task['kind']=='fds_temperature_probe' else 'probe-review.json')
             if task['status']=='pass' or receipt.is_file():

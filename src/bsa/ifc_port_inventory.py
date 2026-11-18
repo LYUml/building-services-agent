@@ -145,22 +145,37 @@ def inspect_pair_gaps(inventory, tolerance):
                 scope='Distances between exported port origins only; physical joint and profile unresolved')
 
 
-def run(source, out, *, baseline=None, position_tolerance_m=None):
-    source, out = (Path(p).resolve() for p in (source, out))
-    if not workspace.intake_output(out) or out.exists():
-        raise ValueError('Fresh IFC report in the permitted output workspace required')
+def inventory(source, position_tolerance_m=None):
     positions = position_tolerance_m is not None
     if positions and (type(position_tolerance_m) not in (int, float)
                       or not math.isfinite(position_tolerance_m) or position_tolerance_m <= 0):
         raise ValueError('Position checks require a finite positive tolerance in metres')
     result = inspect(source, positions=positions)
+    if positions:
+        result['connection_gaps'] = inspect_pair_gaps(result, position_tolerance_m)
+    return result
+
+
+def gap_status(gaps):
+    if gaps['separated_relationships']:
+        return 'fail', 'Exported IFC port origins exceed the declared separation tolerance'
+    if not gaps['measured_relationships'] or gaps['unavailable_relationships']:
+        return 'pending', 'Exported IFC port positions do not cover all declared relationships'
+    return 'pass', gaps['scope']
+
+
+def run(source, out, *, baseline=None, position_tolerance_m=None):
+    source, out = (Path(p).resolve() for p in (source, out))
+    if not workspace.intake_output(out) or out.exists():
+        raise ValueError('Fresh IFC report in the permitted output workspace required')
+    positions = position_tolerance_m is not None
+    result = inventory(source, position_tolerance_m)
     summary = {key: result[key] for key in ('source_sha256', 'schema', 'preprocessor', 'counts', 'design_accepted')}
     if positions:
-        gaps = inspect_pair_gaps(result, position_tolerance_m)
-        result['connection_gaps'] = gaps
+        gaps = result['connection_gaps']
         summary['connection_gaps'] = dict(measured_relationships=gaps['measured_relationships'],
             unavailable_relationships=len(gaps['unavailable_relationships']),
-            separated_relationships=len(gaps['separated_relationships']))
+            separated_relationships=len(gaps['separated_relationships']), status=gap_status(gaps)[0])
     if baseline is not None:
         previous = inspect(baseline, positions=positions)
         comparison = compare(previous, result)

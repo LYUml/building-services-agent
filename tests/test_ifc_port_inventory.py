@@ -1,6 +1,6 @@
 import unittest
 
-from bsa.ifc_port_inventory import compare, compare_positions, inspect_pair_gaps
+from bsa.ifc_port_inventory import compare, compare_positions, gap_status, inspect_pair_gaps
 
 
 class IfcPortComparisonTests(unittest.TestCase):
@@ -14,7 +14,12 @@ class IfcPortComparisonTests(unittest.TestCase):
         self.assertEqual(checked['measured_relationships'], 1)
         self.assertEqual(checked['unavailable_relationships'], ['unknown'])
         self.assertEqual(checked['separated_relationships'][0]['separation_m'], 0.02)
-        self.assertEqual(inspect_pair_gaps(inventory, 0.02)['separated_relationships'], [])
+        self.assertEqual(gap_status(checked)[0], 'fail')
+        self.assertEqual(gap_status(inspect_pair_gaps(inventory, 0.02))[0], 'pending')
+        inventory['connections'].pop()
+        self.assertEqual(gap_status(inspect_pair_gaps(inventory, 0.02))[0], 'pass')
+        inventory['connections'].clear()
+        self.assertEqual(gap_status(inspect_pair_gaps(inventory, 0.02))[0], 'pending')
 
     def test_position_tolerance_and_missing_placements(self):
         previous = {'ports': [dict(guid='a', origin_m=[0, 0, 0]), dict(guid='b', origin_m=None)]}

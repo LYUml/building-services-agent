@@ -146,6 +146,15 @@ IFC4 control with one peer translated 20 mm retained its relationship and
 both CLI and MCP found the gap. All 485 relationships in the public Revit
 IFC2X3 export were unavailable for this check.
 
+Workflow kind `ifc_port_gap_review` takes plan-relative `source` and positive
+`tolerance_m`. It records a scoped pass when all exported relationships are
+measurable and within tolerance, a fail when any measured separation exceeds
+it, or pending when coverage is incomplete or the relationship set is empty.
+Use `requires_pass` for work that needs this particular check. Verification
+reconstructs the report from the source IFC. Actual CLI and MCP trials
+exercised the three states and rejected a changed report with a refreshed
+artifact hash. This gate covers the exported origins and relations.
+
 The Revit 2013 IFC2X3 community Duplex Plumbing export at commit
 `31eb1dd0a0406fb9ebf0ebd823b48e1ec95afc08`, SHA-256
 `abfaf5c0979b6b4b05182aec7ada8945374bdb414db76c763724d549b41b212b`,
