@@ -79,6 +79,46 @@ class IfcPortBcfMcpTests(unittest.IsolatedAsyncioTestCase):
 
 @unittest.skipUnless(find_spec('bcf'), 'requires the optional BCF runtime')
 class IfcPortBcfTests(unittest.TestCase):
+    def test_coincident_ports_report_swapped_peers_against_saved_baseline(self):
+        import ifcopenshell
+        from ifcopenshell.guid import new
+        from bcf.v3.bcfxml import BcfXml
+
+        runs = Path(__file__).resolve().parents[1] / 'runs'
+        with TemporaryDirectory(dir=runs) as temporary:
+            root = Path(temporary)
+            baseline, current = root / 'baseline.ifc', root / 'current.ifc'
+            archive = root / 'review.bcf'
+            model = ifcopenshell.file(schema='IFC4')
+            unit = model.create_entity('IfcSIUnit', UnitType='LENGTHUNIT', Name='METRE')
+            units = model.create_entity('IfcUnitAssignment', Units=[unit])
+            model.create_entity('IfcProject', GlobalId=new(), UnitsInContext=units)
+            origin = model.create_entity('IfcCartesianPoint', Coordinates=(0.0, 0.0, 0.0))
+            axes = model.create_entity('IfcAxis2Placement3D', Location=origin)
+            placement = model.create_entity('IfcLocalPlacement', RelativePlacement=axes)
+            ports = []
+            for _ in range(4):
+                port = model.create_entity('IfcDistributionPort', GlobalId=new(), ObjectPlacement=placement)
+                owner = model.create_entity('IfcPipeSegment', GlobalId=new())
+                model.create_entity('IfcRelNests', GlobalId=new(), RelatingObject=owner, RelatedObjects=[port])
+                ports.append(port)
+            first, second = [model.create_entity('IfcRelConnectsPorts', GlobalId=new(),
+                                                 RelatingPort=a, RelatedPort=b)
+                             for a, b in zip(ports[::2], ports[1::2])]
+            model.write(str(baseline))
+            first.RelatedPort, second.RelatedPort = second.RelatedPort, first.RelatedPort
+            model.write(str(current))
+
+            self.assertEqual(run(current, root / 'distance-only.bcf', 0.001)['ifc_review_status'], 'pass')
+            result = run(current, archive, 0.001, baseline=baseline, max_port_shift_m=0.001)
+            self.assertEqual((result['ifc_review_status'], result['measured_relationships']), ('fail', 2))
+            self.assertEqual(verify_export(current, archive, 0.001, baseline=baseline, max_port_shift_m=0.001), result)
+            with BcfXml.load(archive) as bcf:
+                descriptions = [item.topic.description for item in bcf.topics.values()]
+                self.assertEqual(len(descriptions), 4)
+                self.assertEqual(sum('1 baseline relation(s), 0 current' in text for text in descriptions), 2)
+                self.assertEqual(sum('0 baseline relation(s), 1 current' in text for text in descriptions), 2)
+
     def test_saved_ifc_reversed_duplicate_survives_export_and_replay(self):
         import ifcopenshell
         from ifcopenshell.guid import new
