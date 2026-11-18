@@ -126,8 +126,12 @@ and a viewpoint selecting the exported owner products when available.
 It reopens the archive and reconciles topic text and selections before
 publication. CLI and MCP trials on the saved 20 mm gap produced one topic
 and selected two products. The clean IFC produced an empty topic set.
-Unavailable relationships are counted separately. External viewer import
-and model repair remain untested.
+Connected ports with conflicting owner claims also generate topics. The topic
+records both attachment relationship IDs and owner claims. The saved IFC4
+conflict produced one topic despite coincident origins. With the port placement
+removed, the topic and its evidence still reopened without a viewpoint.
+Unavailable relationships are counted separately. External viewer import and
+model repair remain untested.
 
 Each port now retains the exact attachment relationship's GUID, class and
 owner claim. When the coordinate review is requested, conflicting claims on

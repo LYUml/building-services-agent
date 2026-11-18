@@ -86,7 +86,7 @@ def main():
     ports.add_argument('--position-tolerance-m',type=float)
     ports.add_argument('--max-port-shift-m',type=float)
     ports.add_argument('--alignment',type=Path)
-    bcf=sub.add_parser('ifc-port-bcf',help='Export measured IFC port gaps as BCF coordination issues')
+    bcf=sub.add_parser('ifc-port-bcf',help='Export IFC port gaps and owner conflicts as BCF issues')
     bcf.add_argument('source',type=Path)
     bcf.add_argument('--out',type=Path,required=True)
     bcf.add_argument('--tolerance-m',type=float,required=True)

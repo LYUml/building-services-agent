@@ -1,4 +1,4 @@
-"""Write an offline BCF issue package for measured IFC port gaps."""
+"""Write an offline BCF issue package for IFC port coordination findings."""
 import importlib.metadata
 from pathlib import Path
 import shutil
@@ -7,6 +7,27 @@ from tempfile import TemporaryDirectory
 from . import workspace
 from .ifc_port_inventory import inventory
 from .source_refs import file_hash
+
+
+def issue_records(report):
+    ports = {row['guid']: row for row in report['ports']}
+    gaps = report['connection_gaps']
+    source = f"Saved IFC SHA-256 {report['source_sha256']}"
+    for gap in gaps['separated_relationships']:
+        a, b = gap['port_guids']
+        selected = sorted(set(ports[a]['owner_guids'] + ports[b]['owner_guids']))
+        midpoint = [x/2 + y/2 for x, y in zip(*gap['origins_m'], strict=True)]
+        description = (f"{source}\n{a} to {b}: {gap['separation_m']:.9g} m, "
+                       f"tolerance {gaps['tolerance_m']:.9g} m.\n"
+                       "Review the exported port origins and joint geometry.")
+        yield f"IFC port gap {gap['guid']}", description, selected, midpoint
+    for guid in report['connection_ownership']['conflicting_ports']:
+        port = ports[guid]
+        claims = [f"{row['relation_type']} {row['relation_guid']} claims {row['owner_guid']}"
+                  for row in port['owner_evidence']]
+        selected = sorted({row['owner_guid'] for row in port['owner_evidence'] if row['scoped_owner']})
+        description = '\n'.join([source, f"Port {guid} has conflicting owners.", *claims])
+        yield f"IFC port ownership conflict {guid}", description, selected, port['origin_m']
 
 
 def run(source, out, tolerance_m):
@@ -24,22 +45,14 @@ def run(source, out, tolerance_m):
 
     report = inventory(source, tolerance_m)
     gaps = report['connection_gaps']
-    ports = {row['guid']: row for row in report['ports']}
-    project = BcfXml.create_new('IFC port gap review')
+    project = BcfXml.create_new('IFC port coordination review')
     expected = {}
-    for gap in gaps['separated_relationships']:
-        a, b = gap['port_guids']
-        title = f"IFC port gap {gap['guid']}"
-        description = (f"Saved IFC SHA-256 {report['source_sha256']}\n"
-                       f"{a} to {b}: {gap['separation_m']:.9g} m, tolerance {tolerance_m:.9g} m.\n"
-                       "Review the exported port origins and joint geometry.")
+    for title, description, selected, point in issue_records(report):
         topic = project.add_topic(title, description, 'Building Services Agent', 'Issue', 'Open')
-        selected = sorted(set(ports[a]['owner_guids'] + ports[b]['owner_guids']))
-        if selected:
-            midpoint = np.mean(np.asarray(gap['origins_m']), axis=0)
-            viewpoint = VisualizationInfoHandler.create_from_point_and_guids(midpoint, *selected)
+        if selected and point is not None:
+            viewpoint = VisualizationInfoHandler.create_from_point_and_guids(np.asarray(point), *selected)
             topic.add_visinfo_handler(viewpoint)
-        expected[topic.topic.guid] = (title, description, selected)
+        expected[topic.topic.guid] = (title, description, selected if point is not None else [])
 
     out.parent.mkdir(parents=True, exist_ok=True)
     with TemporaryDirectory(dir=out.parent) as temporary:
