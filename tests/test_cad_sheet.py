@@ -2,12 +2,38 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
-from bsa.cad_sheet import pdf_lines,plot
+from unittest.mock import patch
+import ezdxf
+from bsa.cad_sheet import check_window_entities,pdf_lines,plot
 from bsa.engine import ProjectError
 from tests.test_cad_overlay import inputs
 
 
 class CADSheetTests(unittest.TestCase):
+    def test_required_entity_bounds_reject_clipping_before_plot(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            source = root / 'source.dxf'
+            doc = ezdxf.new(units=6)
+            reference = doc.modelspace().add_line((0, 0), (1, 0))
+            annotation = doc.modelspace().add_text('Required source note', dxfattribs={'insert': (1.9, 0.5), 'height': 0.1})
+            handle = annotation.dxf.handle
+            paper_entity = doc.layout().add_line((0, 0), (1, 0))
+            doc.saveas(source)
+            sheet = dict(source='Synthetic window coverage', window_drawing_units=[-1, -1, 2, 1],
+                         scale_denominator=50, reference_handle=reference.dxf.handle,
+                         pdf_tolerance_mm=.2, required_window_handles=[handle])
+            with patch('bsa.cad_sheet.execute') as execute:
+                with self.assertRaisesRegex(ProjectError, f'TEXT handle {handle} exceed the plot window'):
+                    plot(root/'model.dwg', source, sheet, root/'out.pdf', root/'acad.exe')
+                execute.assert_not_called()
+            self.assertFalse((root/'out.pdf').exists())
+            check_window_entities(doc, [handle.lower()], [-1, -1, 5, 1])
+            with self.assertRaisesRegex(ProjectError, 'distinct modelspace entity handles'):
+                check_window_entities(doc, [handle, handle.lower()], [-1, -1, 5, 1])
+            with self.assertRaisesRegex(ProjectError, 'supported modelspace entity'):
+                check_window_entities(doc, [paper_entity.dxf.handle], [-1, -1, 5, 1])
+
     def test_pdf_ctm_stack_and_nonpainted_clip_path(self):
         from pypdf import PdfWriter
         from pypdf.generic import DecodedStreamObject,NameObject
