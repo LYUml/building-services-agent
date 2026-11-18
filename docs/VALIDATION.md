@@ -2,6 +2,17 @@
 
 ## Repository-wide Windows snapshot
 
+The detached Git checkout of `b027e8540a0f6c0571ede9e2f09844d918fe7ab0`
+completed in 3,606.07 seconds with exit code 0. Pytest reported 1,806 passed,
+254 skipped and 864 subtests passed. The run used an isolated ACadSharp
+worker and the default project-root selection. The six workspace, knowledge
+and MCP cases that failed in the older archive run passed in this checkout,
+as did the Windows Automation bundle sharing-retry test. The archive run
+and its environment should be kept distinct from this Git-checkout result.
+The local `runs/full-git-b027e85-9444ea01` directory contains the commit,
+exit code, pytest log and JUnit report. Optional skipped integrations and
+native Revit execution require separate evidence.
+
 The isolated `ebedd93` source snapshot completed with 1,833 passed, 220
 skipped, 871 subtests passed and one failure. The sole failure was the
 IfcMCP property smoke test in the general Python runtime. The current test
