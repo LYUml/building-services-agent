@@ -65,6 +65,10 @@ correspondence. Independently review the plot and remaining delivery requirement
 
 For a three-phase calculation schematic, read `drawing.json` and compare
 `dxf_bus_contacts` with `native.bus_contacts` when a native DWG is required.
+For a read-only recheck, use `bsa delivery verify-three-phase-contacts
+<project.json> <study-directory> <saved.dxf>` or MCP
+`bsa_verify_three_phase_contacts` with the same three inputs. For native
+evidence, select the DXF exported from the reopened DWG and retain its hash.
 Match each circuit ID and declared pair to the saved drawing, then inspect
 the measured gaps in drawing millimetres. Investigate a disconnected circuit,
 ambiguous pair or contact with an undeclared bus before supplying the sheet.

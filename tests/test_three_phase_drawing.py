@@ -12,7 +12,7 @@ from ezdxf.enums import TextEntityAlignment
 from bsa.cli import digest
 from bsa.engine import ProjectError
 from bsa.three_phase_bridge import run as study_run
-from bsa.three_phase_drawing import run,native_records,bus_contacts,APP
+from bsa.three_phase_drawing import run,native_records,bus_contacts,verify_contacts,APP
 from bsa.cad_overlay import equivalent
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -70,6 +70,16 @@ class ThreePhaseDrawingTests(unittest.TestCase):
         out=self.root/'drawing';result=run(self.project,self.study,out,Path(DOT))
         self.assertTrue(result['dxf_identity_pass']);self.assertFalse(result['design_accepted'])
         doc=ezdxf.readfile(out/'schematic.dxf')
+        self.assertEqual(verify_contacts(self.project, self.study, out/'schematic.dxf')['bus_contacts'],
+                         result['dxf_bus_contacts'])
+        tagged_line = next(iter(doc.modelspace().query('LINE[layer=="BSA_ELEC_LINE"]')))
+        original_tags = list(tagged_line.get_xdata(APP))
+        tagged_line.set_xdata(APP, [*original_tags[:2], (1000, '0' * 64)])
+        wrong_study = out/'wrong-study.dxf'
+        doc.saveas(wrong_study)
+        with self.assertRaisesRegex(ProjectError, 'Drawing study identity differs on handle'):
+            verify_contacts(self.project, self.study, wrong_study)
+        tagged_line.set_xdata(APP, original_tags)
         circuits = json.loads(self.project.read_text(encoding='utf-8-sig'))['lines']
         self.assertEqual(len(bus_contacts(doc, circuits)), 2)
         self.assertEqual(result['dxf_bus_contacts'], bus_contacts(doc, circuits))
