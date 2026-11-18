@@ -2825,3 +2825,32 @@ note are visible within the page. The leaders and callouts do not overlap.
 The reviewed PDF SHA-256 is
 `9343b887ace1329ff8750b6eebbca10056e0e80f43317464adcc3eb18918195f`
 (without the space). This review applies to that synthetic sheet only.
+## CAD readback and Revit integration shortlist
+
+ACadSharp 3.8.35 (MIT) was executed as an isolated .NET 10 read-only
+probe using the NuGet package with SHA-256
+`020013744e7415e6d7e244d1b2376be25614b83c2596a0ec3a9056237db759d4`.
+The release tag resolves to `90c6f871ff6f37a66170316ebd7a736c1b1ca828`.
+Using `DwgReader.Read(path).Entities` and grouping by concrete entity type,
+the probe matched modelspace counts from archived AutoCAD DXF exports for the
+5-entity drawing-intake fixture, the 75-entity HVAC drawing and a private
+synthetic/coursework-derived review input. Source DWG hashes remained unchanged.
+Counts alone leave coordinates, annotation visibility and preservation during
+writing unverified. The next candidate role is an isolated independent DWG
+reader of explicit handles and geometry alongside native reopening and plot
+review. Production dependencies are unchanged.
+[ACadSharp release](https://github.com/DomCR/ACadSharp/releases/tag/v3.8.35)
+
+Horizun Revit MCP (Apache-2.0, inspected repository head
+`d1c94a0f7bbf5875199f2ebd1bfcc618d3049b6f`) is a candidate reference for typed
+MEP operations and connector readback. Revit.TestRunner (MIT, head
+`6cd268d32e56f309d2a4c02a21ad452273827843`) is a reference for running regression
+assertions in Revit's API context. RevitLookup (MIT, head
+`766aa41a3821b64befc0b81e3c6b164725b26e87`) is a reference for inspecting Revit
+database objects. These candidates were surveyed via their upstream repositories.
+Their local execution and compatibility with the host deployment policy remain
+unverified. Continue with the existing typed adapter and separately verified
+saved RVT evidence.
+[Horizun Revit MCP](https://github.com/HorizunGroup/horizun-revit-mcp) ·
+[Revit.TestRunner](https://github.com/geberit/Revit.TestRunner) ·
+[RevitLookup](https://github.com/lookup-foundation/RevitLookup)
