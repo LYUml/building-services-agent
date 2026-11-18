@@ -145,6 +145,18 @@ topic retains the baseline, raw current and aligned position when available.
 Actual CLI and MCP workflow trials reopened one missing-pair topic and two
 shift topics. Other baseline discrepancies remain in the JSON report.
 
+Independent XML validation uses PowerShell 7 and .NET's XML Schema validator.
+Download `extensions.xsd`, `markup.xsd`, `project.xsd`, `shared-types.xsd`,
+`version.xsd` and `visinfo.xsd` from buildingSMART's pinned BCF 3.0 schema
+directory. Keep them together and run
+`./scripts/verify_bcf_schema.ps1 -Archive <generated.bcf> -SchemaDirectory <schemas>`.
+The script validates the schema hashes and every XML member of the generated
+package. Five actual exports passed, covering empty, unplaced conflict,
+measured gap, missing pair and shifted ports. A control with the required
+topic title deleted failed. This checks XML structure for these archives.
+Client-specific import and rendering remain untested.
+[buildingSMART BCF XML 3.0 schemas](https://github.com/buildingSMART/BCF-XML/tree/5834466b2477ac700d7a61990b4e67ec1005cc68/Schemas)
+
 Each port now retains the exact attachment relationship's GUID, class and
 owner claim. When the coordinate review is requested, conflicting claims on
 linked ports fail the combined review. Missing supported owner evidence keeps
