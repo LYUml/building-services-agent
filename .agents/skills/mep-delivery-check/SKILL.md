@@ -110,9 +110,11 @@ and compare the same observations and averaging windows across runs.
 For a saved OpenFOAM fixed-step steady segment, use
 `bsa openfoam-history-review` or MCP `bsa_review_openfoam_history` with the
 explicit project, matching patch histories, and declared source and observer
-basis. Read flow, mass balance and pressure stability separately. For physical
-time histories, use the separate transient reader in `docs/OPENFOAM_TRANSIENT.md`
-and retain the selected restart segment and exact time window. Treat steady
+basis. Read flow, mass balance and pressure stability separately. For saved
+physical-time pressure histories, use `bsa openfoam-pressure-review` or MCP
+`bsa_review_openfoam_pressure`. Bind the pressure definitions and keep the
+selected restart segment and exact time window from `docs/OPENFOAM_TRANSIENT.md`.
+Treat steady
 window stability, grid/domain sensitivity and experimental agreement as distinct
 evidence when assessing a pressure claim.
 

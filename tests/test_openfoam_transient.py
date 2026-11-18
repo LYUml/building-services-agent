@@ -1,4 +1,6 @@
+import asyncio
 from decimal import Decimal
+import importlib.util
 import json
 import os
 from pathlib import Path
@@ -30,6 +32,23 @@ class PhysicalTimeHistoryTests(unittest.TestCase):
             self.assertEqual(review['windows']['comparison']['time_weighted_mean'], 1)
             self.assertFalse(review['engineering_accepted'])
             self.assertEqual(json.loads((root/'checked.json').read_bytes()), review)
+            if importlib.util.find_spec('mcp'):
+                from mcp import ClientSession, StdioServerParameters
+                from mcp.client.stdio import stdio_client
+
+                async def check_mcp():
+                    params = StdioServerParameters(command=sys.executable, args=['-m', 'bsa.mcp_server'],
+                                                   cwd=str(root), env=env)
+                    async with stdio_client(params) as streams:
+                        async with ClientSession(*streams) as session:
+                            await session.initialize()
+                            reply = await session.call_tool('bsa_review_openfoam_pressure',
+                                                            {'manifest': 'pressure.json', 'output': 'mcp.json'})
+                            self.assertFalse(reply.isError, reply.content)
+                            self.assertEqual(reply.structuredContent, review)
+
+                asyncio.run(check_mcp())
+                self.assertEqual((root/'mcp.json').read_bytes(), (root/'checked.json').read_bytes())
             (root/'out.dat').write_text('# Time average(Ptf)\n0.25 -3\n0.5 -1\n0.75 1\n', encoding='utf-8')
             cli = subprocess.run(command+['rejected.json'], env=env, capture_output=True, text=True)
             self.assertEqual(cli.returncode, 2)
