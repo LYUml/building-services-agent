@@ -2,6 +2,8 @@ import copy
 import json
 import os
 from pathlib import Path
+import subprocess
+import sys
 import tempfile
 import unittest
 from bsa import recovery_controller as controller,workflow
@@ -57,6 +59,10 @@ class RecoveryControllerTests(unittest.TestCase):
         self.assertEqual(result['diagnosis']['recovery_schedule']['ready_tasks'],['review'])
         self.assertEqual([r['status'] for r in result['diagnosis']['tasks']],['pass','pass','pending'])
         self.assertFalse(checked['design_accepted']);self.assertFalse(checked['execution_pass'])
+        result_cli = subprocess.run([sys.executable, '-m', 'bsa.cli', 'delivery', 'verify-recovery', str(self.out)],
+                                    cwd=ROOT, capture_output=True, text=True)
+        self.assertEqual(result_cli.returncode, 0, result_cli.stderr)
+        self.assertEqual(json.loads(result_cli.stdout), checked)
         self.assertEqual(self.plan.read_bytes(),before);self.assertEqual((self.original/'workflow.json').read_bytes(),failure)
         self.assertEqual(json.loads(Path(result['final_plan']).read_text())['requirements'],json.loads(before)['requirements'])
 

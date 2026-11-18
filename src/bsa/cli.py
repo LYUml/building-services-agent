@@ -168,6 +168,8 @@ def main():
     hvac_package = commands.add_parser('inspect-hvac-package', help='Inspect a saved HVAC project package')
     hvac_package.add_argument('configuration', type=Path)
     hvac_package.add_argument('package', type=Path)
+    recovery = commands.add_parser('verify-recovery', help='Verify a saved fan or pump recovery controller receipt')
+    recovery.add_argument('directory', type=Path)
     for command in ("validate","run"):
         s=sub.add_parser(command);s.add_argument("project",type=Path)
         if command=="run": s.add_argument("--out",type=Path,required=True)
@@ -195,6 +197,9 @@ def main():
             result = inspect(a.configuration, a.package)
             print(json.dumps(result, indent=2))
             return 2 if result['status'] == 'incomplete' else 0
+        if a.command=='delivery' and a.delivery_command=='verify-recovery':
+            from .recovery_controller import verify
+            print(json.dumps(verify(a.directory), indent=2));return 0
         if a.command=='ifc-port-bcf':
             from .ifc_port_bcf import run as export_bcf
             result=export_bcf(a.source,a.out,a.tolerance_m,baseline=a.baseline,

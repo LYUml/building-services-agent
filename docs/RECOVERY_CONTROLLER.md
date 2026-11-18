@@ -61,11 +61,14 @@ and full semantic design remain open.
 
 ## Independent verification
 
-bsa_verify_recovery(out) checks controller source/policy/catalogue pins, reconstructs
+`bsa delivery verify-recovery <directory>` and MCP `bsa_verify_recovery(out)`
+check controller source/policy/catalogue pins, reconstruct
 each ready decision, verifies every existing pump/fan recovery receipt and links each
 next plan/run to the prior replay. It rejects an omitted eligible action, changed
 policy, forged final diagnosis or continuation after inconclusive screening.
-It returns scoped integrity/execution status and always design_accepted=false.
+Both return scoped integrity/execution status and `design_accepted=false`.
+CLI exit 0 confirms receipt integrity, including a correctly recorded failed
+selection or unresolved review.
 
 The public analytic test has two independent hypothetical pump scenarios, not
 an installed two-pump system. Both original failures are retained; two fresh
