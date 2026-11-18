@@ -2847,8 +2847,13 @@ entity types and layers agreed. Detailed checks covered 1,111 LINE endpoint
 pairs, 422 TEXT values, insertion points and heights, and 20 CIRCLE centres
 and radii. The maximum coordinate or dimension difference was
 `2.92e-11 mm`, below the probe threshold of `1e-6 mm`. The source DWG hash
-was checked before and after. This trial leaves polyline vertex and arc
-geometry, layout content and DWG writing outside the reviewed scope.
+was checked before and after. A further read compared 146 ARC records and
+2,909 LWPOLYLINE records with 11,729 vertices by handle. Arc centres, radii,
+angles and normals and polyline closure, elevation, constant width, vertices,
+widths and bulges matched. Maximum coordinate or width difference was
+`1.46e-11 mm`, maximum wrapped angle difference was `1.34e-15 rad`,
+and maximum bulge difference was `1.39e-17`. Layout content, DWG writing
+and lossless revision remain outside the reviewed scope.
 
 Horizun Revit MCP (Apache-2.0, inspected repository head
 `d1c94a0f7bbf5875199f2ebd1bfcc618d3049b6f`) is a candidate reference for typed
