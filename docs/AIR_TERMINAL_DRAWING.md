@@ -26,3 +26,10 @@ MCP rejected the prepared-sheet task ID without writing a report. The rendered
 PDF showed both VAV groups, all four labels, the three sizing rows and the
 scale reference legibly within the page. The native task passed and the manual
 engineering task remained pending. The receipt and drawings stay in local runs.
+
+A second native control swapped the VAV ends of two flex lines in the source
+DXF while preserving counts, allocation and sizing inputs. AutoCAD saved and
+reopened the altered geometry successfully. Both review interfaces refused a
+report and located the missing expected VA–T1 line by group and terminal ID,
+layer and endpoint coordinates. Native geometric round-trip preservation and
+correct terminal assignment are separately checked in this trial.

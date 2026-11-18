@@ -114,7 +114,7 @@ class TerminalDrawingTests(unittest.TestCase):
 
     def test_same_counts_and_flows_wrong_membership(self):
         self.tree['leaf_terminals']=dict(VA=['TB'],VB=['TA'])
-        with self.assertRaisesRegex(ValueError,'correspondence'):self.check()
+        with self.assertRaisesRegex(ValueError,'correspondence for VAV VA to terminal TB'):self.check()
 
     def test_disconnected_flex(self):
         e=next(e for e in self.doc.modelspace() if e.dxf.layer=='flex')

@@ -22,10 +22,11 @@ def inspect(doc, allocation, tree, binding, layers):
         return q
     def near(a,b):
         return math.dist(a,b) <= 1e-8
-    def take(pool, predicate):
+    def take(pool, predicate, expected):
         matches = [e for e in pool if predicate(e)]
         if len(matches) != 1:
-            raise ValueError('Missing or ambiguous saved geometry correspondence')
+            raise ValueError(f'Missing or ambiguous saved geometry correspondence for {expected}; '
+                             f'found {len(matches)} matches')
         pool.remove(matches[0])
         return matches[0]
     pools = {k:[e for e in doc.modelspace() if e.dxf.layer == layer] for k,layer in layers.items()}
@@ -44,7 +45,8 @@ def inspect(doc, allocation, tree, binding, layers):
         a,z = tuple(b['from_m']),tuple(b['to_m'])
         if any(len(p)!=3 or not all(type(v) in (int,float) and math.isfinite(v) for v in p) or abs(p[2])>1e-8 for p in (a,z)):
             raise ValueError('Finite planar binding required')
-        take(pools['supply'],lambda e:(near(point(e.dxf.start),a) and near(point(e.dxf.end),z)) or (near(point(e.dxf.start),z) and near(point(e.dxf.end),a)))
+        take(pools['supply'],lambda e:(near(point(e.dxf.start),a) and near(point(e.dxf.end),z)) or (near(point(e.dxf.start),z) and near(point(e.dxf.end),a)),
+             f"section {section['id']} from {a} to {z} m on {layers['supply']}")
         for node,p in zip(pair,(a,z)):
             if node in nodes and not near(nodes[node],p):
                 raise ValueError('Disconnected rigid node')
@@ -66,15 +68,18 @@ def inspect(doc, allocation, tree, binding, layers):
         return ((min(xs)+max(xs))/2,(min(ys)+max(ys))/2,0.)
     # Read every candidate before matching, including otherwise-unused symbols.
     symbol_centers = {e.dxf.handle:symbol_center(e) for e in pools['terminal']}
-    terminals = {tid:take(pools['terminal'],lambda e:near(symbol_centers[e.dxf.handle],p)).dxf.handle for tid,p in centers.items()}
+    terminals = {tid:take(pools['terminal'],lambda e:near(symbol_centers[e.dxf.handle],p),
+                          f"terminal {tid} at {p} m on {layers['terminal']}").dxf.handle for tid,p in centers.items()}
     groups = []
     for leaf,members in tree['leaf_terminals'].items():
         start = nodes[leaf]
-        circle = take(pools['vav'],lambda e:tuple(e.dxf.extrusion)==(0.,0.,1.) and near(point(e.dxf.center),start))
+        circle = take(pools['vav'],lambda e:tuple(e.dxf.extrusion)==(0.,0.,1.) and near(point(e.dxf.center),start),
+                      f"VAV {leaf} at {start} m on {layers['vav']}")
         routes = []
         for tid in members:
             end = centers[tid]
-            line = take(pools['flex'],lambda e:(near(point(e.dxf.start),start) and near(point(e.dxf.end),end)) or (near(point(e.dxf.start),end) and near(point(e.dxf.end),start)))
+            line = take(pools['flex'],lambda e:(near(point(e.dxf.start),start) and near(point(e.dxf.end),end)) or (near(point(e.dxf.start),end) and near(point(e.dxf.end),start)),
+                        f"VAV {leaf} to terminal {tid} from {start} to {end} m on {layers['flex']}")
             if near(start,end):raise ValueError('Zero-length terminal connection')
             routes.append(dict(terminal=tid,terminal_handle=terminals[tid],flex_handle=line.dxf.handle,plan_length_m=math.dist(start,end)))
         groups.append(dict(id=leaf,vav_handle=circle.dxf.handle,outlet_count=len(members),maximum_flow_L_s=aggregation['leaf_flow_L_s'][leaf],routes=routes))
