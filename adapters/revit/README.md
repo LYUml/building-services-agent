@@ -87,7 +87,8 @@ beside the reopen preparation receipt so its exact bytes can be matched to
 the separate inventory capture and the authored model hash.
 
 This checks the file hashes, compares the pipe identity and geometry with the
-staged request, and matches the two piping connector origins to separate curve
+staged request, checks the creation readback's source, length and diameter,
+and matches the two piping connector origins to separate curve
 ends within the declared tolerance. It does not authenticate APS
 execution, establish system connectivity or accept the design.
 

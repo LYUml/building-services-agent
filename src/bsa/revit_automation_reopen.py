@@ -40,14 +40,22 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
             or checked['saved_rvt_sha256'] != pins[authored]
             or checked['automation_receipt_sha256'] != pins[reopen_preparation]):
         raise ValueError('Revit evidence changed during verification')
-    identifier = created['transaction_result']['unique_id']
+    transaction = created['transaction_result']
+    identifier = transaction['unique_id']
     pipes = [pipe for pipe in reopened['pipes'] if pipe['unique_id'] == identifier]
     revisions = [row for row in checked['revision_checks'] if row['owner'] == identifier]
     if len(pipes) != 1 or len(revisions) != 1 or revisions[0]['status'] != 'consistent':
         raise ValueError('Reopened pipe identity or geometry does not match the transaction')
     pipe = pipes[0]
+    for field in ('diameter_m', 'length_m'):
+        recorded = transaction.get(field)
+        if (type(recorded) not in (int, float) or not math.isfinite(recorded)
+                or recorded <= 0 or abs(recorded - pipe[field]) > tolerance_m):
+            raise ValueError(f'Reopened pipe {field} differs from the creation readback')
+    if transaction.get('source') != requested['Source']:
+        raise ValueError('Creation readback source differs from the staged request')
     connectors = pipe['connectors']
-    if (created['transaction_result'].get('connector_count') != 2 or len(connectors) != 2
+    if (transaction.get('connector_count') != 2 or len(connectors) != 2
             or any(c['domain'] != 'DomainPiping' or c['connector_type'] != 'End' for c in connectors)):
         raise ValueError('Reopened pipe must retain two piping end connectors')
     origins = [connector['origin_m'] for connector in connectors]

@@ -54,9 +54,11 @@ class RevitRevisionTests(unittest.TestCase):
             request_hash = file_hash(request)
             save('preparation.json', dict(operation='create-pipe', saved_rvt_sha256=source_hash,
                  request_sha256=request_hash, assembly_sha256=adapter_hash))
-            created = save('creation.json', dict(input_rvt_sha256=source_hash, request_sha256=request_hash,
+            receipt = dict(input_rvt_sha256=source_hash, request_sha256=request_hash,
                 adapter_sha256=adapter_hash, saved_rvt_sha256=authored_hash,
-                transaction_result={'unique_id': self.pipe['unique_id'], 'connector_count': 2}))
+                transaction_result=dict(unique_id=self.pipe['unique_id'], connector_count=2,
+                                        source=stored['Source'], diameter_m=0.05, length_m=2))
+            created = save('creation.json', receipt)
             reopen_request = save('inventory-request.json', dict(SavedRvtSha256=authored_hash))
             reopen_hash = file_hash(reopen_request)
             reopen = save('reopen.json', dict(operation='inventory', saved_rvt_sha256=authored_hash,
@@ -107,6 +109,13 @@ class RevitRevisionTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'staged inventory request'):
                 verify(root, created, authored, observed, reopen, 0.001)
             reopen_request.write_bytes(original_request)
+            for field, value in [('diameter_m', 0.07), ('length_m', True), ('source', 'different basis')]:
+                with self.subTest(field=field):
+                    altered = dict(receipt, transaction_result={**receipt['transaction_result'], field: value})
+                    save('creation.json', altered)
+                    with self.assertRaisesRegex(ValueError, field):
+                        verify(root, created, authored, observed, reopen, 0.001)
+            save('creation.json', receipt)
             self.pipe['connectors'][1]['origin_m'] = self.pipe['connectors'][0]['origin_m']
             save('inventory.json', inventory)
             with self.assertRaisesRegex(ValueError, 'distinct curve endpoints'):
