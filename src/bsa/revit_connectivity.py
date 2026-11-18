@@ -220,6 +220,8 @@ def reconstruct(inventory, model, tolerance_m, *, expected_connections=None, aut
         fields = {'request_sha256': 'request_sha256', 'assembly_sha256': 'adapter_sha256',
                   'saved_rvt_sha256': 'saved_rvt_sha256'}
         if (not isinstance(preparation, dict) or PureWindowsPath(data['document_path']).name.lower() != 'input.rvt'
+                or preparation.get('operation', 'inventory') != 'inventory'
+                or any(preparation.get(key, False) is not False for key in ('uploaded', 'native_executed'))
                 or any(not re.fullmatch(r'[0-9a-f]{64}', str(preparation.get(key)))
                        or preparation.get(key) != data.get(field) for key, field in fields.items())):
             raise ProjectError('Automation inventory does not match the prepared RVT, request and adapter')

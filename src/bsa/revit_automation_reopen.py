@@ -23,6 +23,7 @@ def verify(write_stage, creation, authored, inventory, reopen_preparation, toler
     prepared, created, requested, reopened = (
         json.loads(path.read_bytes()) for path in (preparation, creation, request, inventory))
     if (prepared['operation'] != 'create-pipe'
+            or any(prepared.get(field, False) is not False for field in ('uploaded', 'native_executed'))
             or pins[request] != prepared['request_sha256']
             or created['request_sha256'] != pins[request]
             or created['input_rvt_sha256'] != prepared['saved_rvt_sha256']

@@ -160,6 +160,12 @@ class RevitRevisionTests(unittest.TestCase):
             self.assertEqual(result['write_preparation_sha256'], file_hash(root/'preparation.json'))
             self.assertEqual(result['reopen_preparation_sha256'], file_hash(reopen))
             self.assertEqual(result['tolerance_m'], 0.001)
+            for field in ('uploaded', 'native_executed'):
+                with self.subTest(write_preparation_claim=field):
+                    save('preparation.json', {**write_preparation, field: True})
+                    with self.assertRaisesRegex(ValueError, 'Creation evidence does not match'):
+                        verify(root, created, authored, observed, reopen, 0.001)
+            save('preparation.json', write_preparation)
             with self.assertRaisesRegex(ValueError, 'connector-to-endpoint pairing is ambiguous'):
                 verify(root, created, authored, observed, reopen, 2.0)
             self.pipe['connectors'].reverse()

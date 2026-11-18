@@ -49,6 +49,13 @@ class RevitConnectivityTests(unittest.TestCase):
                     with self.assertRaises(ProjectError):
                         run(inventory, model, rejected, 0.001, automation_receipt=receipt)
                     self.assertFalse(rejected.exists())
+            inventory.write_text(json.dumps(captured), encoding='utf-8')
+            for invalid in ({'operation': 'create-pipe'}, {'uploaded': True}, {'native_executed': True}):
+                with self.subTest(invalid=invalid):
+                    receipt.write_text(json.dumps({**pins, **invalid}), encoding='utf-8')
+                    with self.assertRaisesRegex(ProjectError, 'does not match the prepared RVT'):
+                        run(inventory, model, rejected, 0.001, automation_receipt=receipt)
+                    self.assertFalse(rejected.exists())
 
     def test_consistent_pairs_never_certify_system(self):
         result = diagnose(self.data, 0.0001)
