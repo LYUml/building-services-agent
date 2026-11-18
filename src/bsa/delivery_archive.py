@@ -67,14 +67,21 @@ def unique_object(pairs):
     return result
 
 
+def verify_archive(archive, manifest):
+    try:
+        return verify(archive, manifest)
+    except (BadZipFile, RuntimeError, NotImplementedError) as error:
+        raise ValueError(f'Cannot read delivery ZIP: {error}') from error
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('archive', type=Path)
     parser.add_argument('manifest', type=Path)
     args = parser.parse_args()
     try:
-        print(json.dumps(verify(args.archive, args.manifest), indent=2))
-    except (OSError, ValueError, BadZipFile, RuntimeError, NotImplementedError) as error:
+        print(json.dumps(verify_archive(args.archive, args.manifest), indent=2))
+    except (OSError, ValueError) as error:
         parser.exit(2, f'{error}\n')
 
 

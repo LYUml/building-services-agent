@@ -48,7 +48,7 @@ with platform-specific constraints. Its exact scope and limits remain explicit.
 
 ## MCP coverage
 
-The current SDK catalogue has 49 tools. The following groups cover all
+The current SDK catalogue has 50 tools. The following groups cover all
 48. Numerical engines remain shared with CLI/workflow adapters rather than
 duplicated for MCP. Tool schemas and full descriptions are available through
 the SDK catalogue. The committed reference read is also an MCP resource.
@@ -68,7 +68,7 @@ the SDK catalogue. The committed reference read is also an MCP resource.
 | Change checkpoints and impact | bsa_checkpoint_workflow, bsa_inspect_changes |
 | Source review and references | bsa_render_source_page, bsa_prepare_visual_transcription, bsa_review_source_plan, bsa_reference_catalogue |
 | Iteration and recovery | bsa_recover_pump_catalogue, bsa_verify_pump_recovery, bsa_run_recovery, bsa_verify_recovery |
-| Artifact access and delivery review | bsa_artifact_index, bsa_read_artifact, bsa_render_artifact_page, bsa_delivery_template, bsa_assess_delivery |
+| Artifact access and delivery review | bsa_artifact_index, bsa_read_artifact, bsa_render_artifact_page, bsa_delivery_template, bsa_assess_delivery, bsa_verify_delivery_archive |
 
 Energy, lighting, electrical, water, IFC and regulation task kinds use the
 existing interpreted workflow/handoff entry points. This is not a claim that

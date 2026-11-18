@@ -158,6 +158,9 @@ def main():
         task.add_argument('plan',type=Path);task.add_argument('run',type=Path)
         task.add_argument('--out',type=Path,required=True)
         if action=='audit':task.add_argument('--review',type=Path,required=True)
+    archive=commands.add_parser('verify-archive',help='Verify ZIP members against a SHA-256 manifest')
+    archive.add_argument('archive',type=Path)
+    archive.add_argument('manifest',type=Path)
     for command in ("validate","run"):
         s=sub.add_parser(command);s.add_argument("project",type=Path)
         if command=="run": s.add_argument("--out",type=Path,required=True)
@@ -173,6 +176,9 @@ def main():
     s.add_argument('--moosas-deps',type=Path)
     a=parser.parse_args()
     try:
+        if a.command=='delivery' and a.delivery_command=='verify-archive':
+            from .delivery_archive import verify_archive
+            print(json.dumps(verify_archive(a.archive,a.manifest),indent=2));return 0
         if a.command=='ifc-port-bcf':
             from .ifc_port_bcf import run as export_bcf
             result=export_bcf(a.source,a.out,a.tolerance_m,baseline=a.baseline,

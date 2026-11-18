@@ -59,6 +59,11 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None,fds_rele
     read=ToolAnnotations(readOnlyHint=True,destructiveHint=False,idempotentHint=True,openWorldHint=False)
     write=ToolAnnotations(readOnlyHint=False,destructiveHint=False,idempotentHint=False,openWorldHint=False)
 
+    @server.tool(annotations=read)
+    def bsa_verify_delivery_archive(archive:str,manifest:str)->dict[str,Any]:
+        """Verify exact ZIP member paths and SHA-256 hashes without extracting files."""
+        return invoke('bsa.delivery_archive.verify_archive',local(archive),local(manifest))
+
     @server.tool(annotations=write)
     def bsa_export_ifc_port_bcf(source:str,out:str,
         tolerance_m:Annotated[float,Field(strict=True,gt=0,allow_inf_nan=False)],

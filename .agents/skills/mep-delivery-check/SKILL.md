@@ -92,7 +92,8 @@ and observed exceptions into the index alongside the checks completed.
 If the submission is a ZIP, test the archive and rehash its actual
 members against the verified loose files. Check the expected member list
 and flag duplicate or unexpected members before relying on the archive.
-Use `python -m bsa.delivery_archive <archive.zip> <sha256-manifest.json>`
+Use `bsa delivery verify-archive <archive.zip> <sha256-manifest.json>`
+or the read-only MCP tool `bsa_verify_delivery_archive`
 for a flat JSON mapping of exact in-archive file paths to independently
 recorded lowercase SHA-256 values. The verifier reads member bytes in
 place and does not extract the archive.
