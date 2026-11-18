@@ -63,6 +63,10 @@ def confirm_engine(engine, access_token):
         data = json.loads(response.read(65536))
     finally:
         connection.close()
+    return engine_identity(data, engine)
+
+
+def engine_identity(data, engine):
     if (not isinstance(data, dict) or data.get('id') != engine
             or not isinstance(data.get('productVersion'), str) or type(data.get('version')) is not int):
         raise ValueError('APS engine response did not identify the selected engine and version')
@@ -132,6 +136,9 @@ def verify_stage(directory, model=None):
                 or entries[0].findtext('FullClassName') != class_name):
             raise ValueError('AppBundle entry point differs from the selected operation')
     activity = stage / 'activity.json'
+    confirmed = receipt.get('confirmed_engine')
+    if 'confirmed_engine' in receipt and not activity.is_file():
+        raise ValueError('Staged engine confirmation requires an Activity')
     if activity.exists() or 'activity_sha256' in receipt:
         data = activity.read_bytes()
         if hashlib.sha256(data).hexdigest() != receipt.get('activity_sha256'):
@@ -139,6 +146,8 @@ def verify_stage(directory, model=None):
         spec = json.loads(data)
         if spec != automation_activity(spec['engine'], spec['appbundles'][0], operation):
             raise ValueError('Activity differs from the selected operation')
+        if 'confirmed_engine' in receipt and confirmed != engine_identity(confirmed, spec['engine']):
+            raise ValueError('Unexpected staged engine confirmation fields')
     request = stage / request_name
     if request.exists() or 'request_sha256' in receipt or model is not None:
         if model is None:

@@ -152,6 +152,17 @@ class RevitAutomationBundleTests(unittest.TestCase):
             second = prepare(assembly, directory / 'second', **arguments)
             self.assertEqual(first.read_bytes(), second.read_bytes())
             self.assertTrue(verify_stage(first.parent, model)['stage_verified'])
+            confirmation = dict(id=arguments['engine'], productVersion='2027', version=1)
+            receipt_path = first.with_name('preparation.json')
+            unconfirmed_receipt = receipt_path.read_bytes()
+            confirmed_receipt = dict(json.loads(unconfirmed_receipt), confirmed_engine=confirmation)
+            receipt_path.write_text(json.dumps(confirmed_receipt), encoding='utf-8')
+            self.assertTrue(verify_stage(first.parent, model)['stage_verified'])
+            confirmation['id'] = 'Autodesk.Revit+2027_other'
+            receipt_path.write_text(json.dumps(confirmed_receipt), encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'did not identify the selected engine'):
+                verify_stage(first.parent, model)
+            receipt_path.write_bytes(unconfirmed_receipt)
             extra_request = first.with_name('pipe-request.json')
             extra_request.write_text('{}', encoding='utf-8')
             with self.assertRaisesRegex(ValueError, 'Unexpected staged Automation files'):
