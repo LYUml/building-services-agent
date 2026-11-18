@@ -12,6 +12,15 @@ position. The Revit test assembly builds against the installed 2027 API.
 Revit execution, native model creation and saved reopening remain pending
 in an authorized host.
 
+## IFC water fitting binding
+
+On the same Windows host and Python environment, the saved finite elbow
+binding test passed with four subtests in 144.85 seconds on the default
+geometry path and in 30.03 seconds with the shared IfcOpenShell mesh conversion
+and batched wall volume calculation (`afa91ca`). These are individual runs
+with concurrent regression activity. Fixture checks include saved arc length,
+source-linked loss values and invalid geometry or binding rejection.
+
 2026-11-08 foundation milestone, Windows / Python 3.12.
 
 - Editable package installation succeeded in this repository's .venv.
