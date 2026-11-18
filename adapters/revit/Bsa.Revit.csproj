@@ -16,6 +16,7 @@
     <RevitPath Condition="'$(RevitPath)' == ''">C:\Program Files\Autodesk\Revit 2027</RevitPath>
   </PropertyGroup>
   <ItemGroup>
+    <InternalsVisibleTo Include="Bsa.Revit.NativeTests" />
     <Reference Include="RevitAPI"><HintPath>$(RevitPath)\RevitAPI.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="RevitAPIUI" Condition="'$(DatabaseOnly)' != 'true'"><HintPath>$(RevitPath)\RevitAPIUI.dll</HintPath><Private>false</Private></Reference>
     <Compile Remove="CreatePipeCommand.cs;InventoryCommand.cs;DesktopNativePipes.cs" Condition="'$(DatabaseOnly)' == 'true'" />

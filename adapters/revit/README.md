@@ -64,6 +64,22 @@ token from `APS_ACCESS_TOKEN` and records the returned engine ID and build
 version. [Autodesk engine lookup](https://aps.autodesk.com/en/docs/design-automation/v3/reference/http/engines-id-GET)
 Actual work-item execution remains pending.
 
+## Desktop smoke test with Revit.TestRunner
+
+`adapters/revit-tests/Bsa.Revit.NativeTests.csproj` builds an NUnit fixture
+against the desktop adapter using .NET 10 and a locked NUnit dependency.
+Build with `-p:RestoreLockedMode=true`. On a dedicated, authorized Revit 2027
+test host, set `BSA_REVIT_TEST_REQUEST` for the Revit process to the absolute
+path of a prepared synthetic pipe request beside its source RVT. The test
+copies the RVT into a fresh temporary directory, creates one pipe there,
+saves a separate model, closes the copy and reopens the saved result. It
+checks the same pipe identity, type, system, level, diameter and endpoint
+connectors, and verifies the original RVT hash.
+
+The assembly compiled locally with zero warnings and errors. Running it
+requires an installed and authorized Revit.TestRunner add-in and compatible
+adapter assemblies. The fixture has not run inside Revit.
+
 The Automation build also contains the separate `AutomationCreatePipe` entry
 point for a standalone, non-workshared test model. It uses `input.rvt` and
 `pipe-request.json`, creates a single pipe using the existing transaction,
