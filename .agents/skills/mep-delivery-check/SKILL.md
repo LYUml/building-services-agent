@@ -106,6 +106,12 @@ sections share the declared node, every section is used once, and all
 terminal groups are reachable from the root. Sum the unrounded released
 terminal flows upstream and compare each section with the sizing CSV.
 Identify this as a topology and flow-accounting check for the declared case.
+When an outlet move changes a directional throw check, reconstruct the
+directional distance from the released centres and adopted boundaries.
+Track which boundary or eligible facing outlet governs each direction and
+recompute the throw at every declared flow case from the adopted curve.
+Keep the individual out-of-interval rows visible in the report and tie
+their review to the declared classroom or project criterion.
 For a released drawing table, recover rows by the saved cell positions
 and require a unique row ID. Compare every cell to its source CSV when
 the table is small enough to exhaustively check. Reconcile corresponding
