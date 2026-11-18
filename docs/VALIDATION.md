@@ -1,5 +1,17 @@
 # Verification record
 
+## Source candidate installation
+
+Two builds of the committed source at `755564e` produced the same ZIP
+SHA-256 `697b207e6c66ef984f22760bf83693550d336d40f0362d2309016ad16de107b2`.
+The builder verified 3,443 committed file entries. After a fresh isolated
+`Setup.cmd` run with both DWG readback paths, the only tracked differences
+in the extracted checkout were the 33 files declared `export-ignore`.
+Setup found 11 source skills, checked all 60 MCP tools and completed the
+stdio catalogue call. With the configured ACadSharp paths exported into
+the test process, the installed virtual environment passed all seven
+`test_dwg_readback.py` tests, including CLI and MCP readback.
+
 ## Repository-wide Windows snapshot
 
 The detached Git checkout of `b027e8540a0f6c0571ede9e2f09844d918fe7ab0`
