@@ -43,13 +43,13 @@ class MixedRecoveryTests(unittest.TestCase):
         (self.root/'replacement-fans.json').write_text(json.dumps(self.good))
         self.data=dict(schema='bsa.recovery-policy/1',max_steps=4,actions=[dict(task='selection',catalogue='replacement-fans.json'),dict(task='pump',catalogue='pump-catalogue.json')])
         self.policy=self.root/'policy.json';self.out=self.root/'controller';self.original=self.root/'original'
-        workflow.execute(self.plan,self.original)
 
     def run_controller(self):
         self.policy.write_text(json.dumps(self.data))
         return controller.run(self.plan,self.original,self.policy,self.out)
 
     def test_air_and_water_recover_in_one_preserved_source_graph(self):
+        workflow.execute(self.plan,self.original)
         before=self.plan.read_bytes();baseline=(self.original/'workflow.json').read_bytes()
         result=self.run_controller();checked=controller.verify(self.out)
         self.assertEqual([r['task'] for r in result['steps']],['selection','pump'])
@@ -64,6 +64,7 @@ class MixedRecoveryTests(unittest.TestCase):
         self.assertEqual(first['tasks']['pump']['status'],'fail');self.assertEqual(first['tasks']['selection']['status'],'pass')
 
     def test_unselected_fan_retains_failed_replay_and_stops_before_pump(self):
+        workflow.execute(self.plan,self.original)
         weak=copy.deepcopy(self.good);weak['candidates']=weak['candidates'][:2];weak['source']='Explicit revised synthetic no-feasible control'
         (self.root/'replacement-fans.json').write_text(json.dumps(weak))
         result=self.run_controller();self.assertEqual(result['status'],'no_feasible_candidate')
@@ -76,8 +77,10 @@ class MixedRecoveryTests(unittest.TestCase):
         self.data['actions'][0]['electrical_task']='anything';self.policy.write_text(json.dumps(self.data))
         with self.assertRaisesRegex(ValueError,'Fan action'):controller.run(self.plan,self.original,self.policy,self.out)
         self.assertFalse(self.out.exists())
+        self.assertFalse(self.original.exists())
 
     def test_forged_cross_discipline_handoff_rejected(self):
+        workflow.execute(self.plan,self.original)
         result=self.run_controller();path=self.out/'recovery.json'
         result['steps'][1]['input_run']=str(self.original);path.write_text(json.dumps(result))
         with self.assertRaisesRegex(ValueError,'declared recovery action'):controller.verify(self.out)
