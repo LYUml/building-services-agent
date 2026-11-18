@@ -87,9 +87,8 @@ class DxfReferenceTests(unittest.TestCase):
 @unittest.skipUnless(all(os.environ.get(key) for key in RUNTIME) and importlib.util.find_spec('mcp'),
                      'requires the configured ACadSharp worker and MCP SDK')
 class DwgReadbackTests(unittest.TestCase):
-    @unittest.skipUnless(os.environ.get('BSA_TEST_MULTILINE_DWG'), 'requires a local saved multiline DWG fixture')
     def test_reads_embedded_multiline_text_from_saved_dwg(self):
-        source = Path(os.environ['BSA_TEST_MULTILINE_DWG']).resolve()
+        source = FIXTURE / 'synthetic-multiline-attribute.dwg'
         before = file_hash(source)
         runs = ROOT / 'runs'
         runs.mkdir(exist_ok=True)
