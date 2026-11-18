@@ -74,3 +74,10 @@ also passed nine tests and two subtests with no skips when the solver and
 Graphviz were supplied explicitly. The native plot emitted a duplicate
 `/PageMode` metadata warning and still completed. Visual acceptance was
 not part of this run.
+
+The corresponding raster review of the saved one-page PDF confirmed three
+bus boxes, two branch annotations, visible A/B/C voltage and current rows,
+and the separate 50 mm paper reference. The schematic and scope note are
+within the page with no visible clipping or overlap. The reviewed PDF
+SHA-256 is `a2f427e32f0143c0eb4eb35dad5419e8b9d4fbd0951f102d0007cf06b0c0688c`.
+This review covers the synthetic sheet only.
