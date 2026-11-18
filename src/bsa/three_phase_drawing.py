@@ -122,7 +122,20 @@ def run(project,study_root,out,dot,autocad=None):
     def line(a,b,kind,id):
         if math.dist(a,b)>1e-9:tag(msp.add_line(a,b,dxfattribs={'layer':'BSA_ELEC_BUS' if kind=='bus' else 'BSA_ELEC_LINE'}),kind,id)
     seen_text={}
-    def draw(row,kind,id):
+    bus_boxes = {}
+    def join_bus(anchor, bus, circuit):
+        (left, right), (bottom, top) = bus_boxes[bus]
+        x, y = anchor
+        on_box_x = min(max(x, left), right)
+        on_box_y = min(max(y, bottom), top)
+        sides = [(left, on_box_y), (right, on_box_y), (on_box_x, bottom), (on_box_x, top)]
+        nearest = min(sides, key=lambda candidate: math.dist(anchor, candidate))
+        # Graphviz rounds and clips spline endpoints just outside node boxes.
+        if math.dist(anchor, nearest) > factor:
+            raise ProjectError(f'Line {circuit} does not meet bus {bus} in the layout')
+        return nearest
+
+    def draw(row,kind,id,peers=None):
         bus_outline = []
         for op in row.get('_draw_',[]):
             if op['op'] in ('p','P'):
@@ -132,21 +145,27 @@ def run(project,study_root,out,dot,autocad=None):
                 for a,b in zip(pts,pts[1:]+pts[:1]):line(a,b,kind,id)
             elif op['op'] in ('b','B'):
                 pts=[point(v) for v in op['points']]
-                if (len(pts)-1)%3:raise ProjectError('invalid upstream Bezier points')
+                if len(pts)<4 or (len(pts)-1)%3:raise ProjectError('invalid upstream Bezier points')
+                if peers:
+                    pts[0] = join_bus(pts[0], peers[0], id)
+                    pts[-1] = join_bus(pts[-1], peers[1], id)
                 for start in range(0,len(pts)-1,3):
                     flattened=list(Bezier4P([Vec2(v) for v in pts[start:start+4]]).flattening(0.01))
                     for a,b in zip(flattened,flattened[1:]):line(a,b,kind,id)
             elif op['op'] not in ('c','C','S'):raise ProjectError('unsupported upstream diagram primitive')
+        if kind == 'bus':
+            if not bus_outline:
+                raise ProjectError(f'Bus {id} has no layout box')
+            bus_boxes[id] = [(min(axis), max(axis)) for axis in zip(*bus_outline)]
         size=10
         for op in row.get('_ldraw_',[]):
             if op['op']=='F':size=float(op['size'])
             elif op['op']=='T':
                 align={'c':TextEntityAlignment.CENTER,'l':TextEntityAlignment.LEFT,'r':TextEntityAlignment.RIGHT}[op['align']]
                 anchor = point(op['pt'])
-                if kind == 'bus' and (not bus_outline or any(
-                    not min(axis) < value < max(axis)
-                    for axis, value in zip(zip(*bus_outline), anchor)
-                )):
+                if kind == 'bus' and any(
+                    not low < value < high for (low, high), value in zip(bus_boxes[id], anchor)
+                ):
                     raise ProjectError(f'Bus {id} label anchor lies outside its box')
                 tag(msp.add_text(op['text'],dxfattribs={'layer':'BSA_ELEC_TEXT','height':size*factor*0.75}).set_placement(anchor,align=align),kind,id)
                 seen_text.setdefault((kind,id),[]).append(op['text'])
@@ -159,7 +178,9 @@ def run(project,study_root,out,dot,autocad=None):
     for edge in edges:
         index=int(edge['id'][1:]);original=p['lines'][index]
         if bus_by_gvid[edge['tail']]!=original['from'] or bus_by_gvid[edge['head']]!=original['to']:raise ProjectError('layout line endpoint identity differs')
-        draw(edge,'line',original['id'])
+        if sum(op['op'] in ('b','B') for op in edge.get('_draw_', [])) != 1:
+            raise ProjectError(f"Line {original['id']} requires one layout spline")
+        draw(edge,'line',original['id'],(original['from'],original['to']))
     if seen_text!=labels:raise ProjectError('layout text does not match source-bound diagram labels')
     notes=['THREE-PHASE NETWORK STUDY - SCHEMATIC ONLY',
         'Schematic positions / paper scale. Labelled L values are source route lengths.',

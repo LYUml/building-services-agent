@@ -100,5 +100,22 @@ class ThreePhaseDrawingTests(unittest.TestCase):
                 run(self.project, self.study, output, Path(DOT))
         self.assertFalse((output/'schematic.dxf').exists())
 
+    def test_line_with_correct_ids_but_displaced_endpoint_is_rejected(self):
+        original = subprocess.run
+
+        def displaced(*args, **kwargs):
+            result = original(*args, **kwargs)
+            layout = json.loads(result.stdout)
+            spline = next(op for op in layout['edges'][0]['_draw_'] if op['op'] == 'b')
+            spline['points'][0][0] += 5
+            result.stdout = json.dumps(layout).encode()
+            return result
+
+        output = self.root/'displaced-end'
+        with patch('bsa.three_phase_drawing.subprocess.run', side_effect=displaced):
+            with self.assertRaisesRegex(ProjectError, 'Line feeder does not meet bus source'):
+                run(self.project, self.study, output, Path(DOT))
+        self.assertFalse((output/'schematic.dxf').exists())
+
 
 if __name__=='__main__':unittest.main()
