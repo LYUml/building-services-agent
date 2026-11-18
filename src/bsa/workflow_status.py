@@ -150,6 +150,7 @@ def diagnose(plan, run):
         if state['status'] != 'pass' and not blocked:
             roots = [name]
         ancestors[name] = roots
+        evidence = sorted(path for path in report['artifact_hashes'] if path.startswith(name + '/'))
         runtime_failures=water_runtime_failures(run,report,name) if state['status']=='fail' else []
         if state['status']=='fail' and task['kind'] in ('annual_energy','annual_energy_ifc'):runtime_failures+=annual_runtime_failures(run,report,name)
         engineering_data_requests=fitting_data_recovery(run,report,name) if task['kind']=='duct_fitting_data' else {}
@@ -175,6 +176,9 @@ def diagnose(plan, run):
             action = 'check the plan source against the supported FDS probe inputs and use the original case bytes'
         elif runtime_failures:
             action = 'resolve the recorded runtime startup failure through a compatible approved environment before a new run;design quantities cannot fix this startup failure'
+        elif (task['kind'] == 'circular_fan_selection' and state['status'] == 'fail'
+              and f'{name}/fan-selection.json' not in evidence):
+            action = 'inspect the recorded fan execution failure and rerun the original selection to obtain a verified screening result before revising the catalogue'
         elif 'provider_disabled' in module_codes:
             action = 'enable the selected provider or explicitly select a compatible trusted replacement in host configuration before a new run'
         elif 'runtime_missing' in module_codes:
@@ -208,7 +212,7 @@ def diagnose(plan, run):
                          module_state=module,
                          next_action=action,
                          requirement_ids=[r['id'] for r in source['requirements'] if r['task'] == name],
-                         evidence=sorted(p for p in report['artifact_hashes'] if p.startswith(name + '/'))))
+                         evidence=evidence))
         if fds_issue:
             rows[-1]['fds_issue']=fds_issue
     # Group declared recovery roots once, retaining every affected requirement.

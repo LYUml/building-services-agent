@@ -48,6 +48,16 @@ class RecoveryScheduleTests(unittest.TestCase):
 
 
 class WorkflowStatusTests(unittest.TestCase):
+    def test_failed_fan_without_screening_points_to_original_execution(self):
+        from unittest.mock import patch
+        source = dict(tasks=[dict(id='fan', kind='circular_fan_selection')], requirements=[])
+        report = dict(tasks={'fan': dict(status='fail', scope='OSError: engine output missing')}, artifact_hashes={})
+        with patch('bsa.workflow_status.context', return_value=(source, report, {'integrity_pass': True})):
+            result = diagnose(self.plan, self.run)
+        task, = result['tasks']
+        self.assertEqual(task['recorded_scope'], 'OSError: engine output missing')
+        self.assertIn('rerun the original selection', task['next_action'])
+
     def test_product_alignment_reports_both_upstream_sources(self):
         from unittest.mock import patch
         source={'tasks':[
