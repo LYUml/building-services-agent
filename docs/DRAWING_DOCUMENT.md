@@ -154,7 +154,7 @@ Build the optional worker with the host .NET 10 SDK. On Windows, for example:
 
 ```powershell
 $workerOutput = Join-Path runs "dwg-worker-$([guid]::NewGuid().ToString('N'))"
-dotnet build adapters/acadsharp/Bsa.DwgReadback.csproj -p:RestoreLockedMode=true -o $workerOutput
+dotnet build adapters/acadsharp/Bsa.DwgReadback.csproj -p:RestoreLockedMode=true --artifacts-path (Join-Path $workerOutput 'artifacts') -o $workerOutput
 if ($LASTEXITCODE -ne 0) { throw 'DWG worker build failed' }
 $env:BSA_ACADSHARP_DOTNET = (Get-Command dotnet).Source
 $env:BSA_ACADSHARP_WORKER = (Resolve-Path (Join-Path $workerOutput 'Bsa.DwgReadback.dll')).Path
