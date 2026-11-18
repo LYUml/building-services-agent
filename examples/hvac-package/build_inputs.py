@@ -8,7 +8,7 @@ from bsa.air_load import UNITS
 from bsa.workflow import validate_plan
 
 
-def build(output, *, wrong_peer_control=False):
+def build(output, *, wrong_peer_control=False, displaced_endpoint_control=False):
     root=Path(output).resolve()
     if root.exists():raise ValueError('New example input directory required')
     root.mkdir(parents=True)
@@ -39,6 +39,8 @@ def build(output, *, wrong_peer_control=False):
     text('Centreline diagram. Physical ports and installation remain unverified.',-8,6.6)
     if wrong_peer_control:
         text('NEGATIVE CONTROL: two flex connections deliberately swapped.',-8,6)
+    if displaced_endpoint_control:
+        text('NEGATIVE CONTROL: T1 flex endpoint displaced by 0.25 m.',-8,6)
     bindings={};columns=[1,3.2,5.5,9.5,12.4]
     for x,value in zip(columns,['Section','L/s','Size mm','m/s','Pa/m']):text(value,x,5,'DEMO_TABLE')
     for i,e in enumerate(edges):
@@ -53,7 +55,8 @@ def build(output, *, wrong_peer_control=False):
         a=nodes[leaf];m.add_circle(a,.12,dxfattribs=dict(layer=layers['vav']));text(leaf,a[0]+.2,a[1]+.3)
         for tid in members:
             x,y=centers[tid]
-            m.add_line(swapped.get(tid, a),(x,y,0),dxfattribs=dict(layer=layers['flex']))
+            flex_end = (x + .25, y, 0) if displaced_endpoint_control and tid == 'T1' else (x, y, 0)
+            m.add_line(swapped.get(tid, a),flex_end,dxfattribs=dict(layer=layers['flex']))
             m.add_lwpolyline([(x-.2,y-.2),(x+.2,y-.2),(x+.2,y+.2),(x-.2,y+.2)],close=True,dxfattribs=dict(layer=layers['terminal']))
             text(tid,x-.2,y+.35)
     ref=m.add_line((-8,-4),(2,-4),dxfattribs=dict(layer='DEMO_TABLE'))
@@ -70,6 +73,9 @@ def build(output, *, wrong_peer_control=False):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--out',required=True)
-    p.add_argument('--wrong-peer-control', action='store_true', help='Deliberately swap two flex lines between VAV groups')
+    controls = p.add_mutually_exclusive_group()
+    controls.add_argument('--wrong-peer-control', action='store_true', help='Deliberately swap two flex lines between VAV groups')
+    controls.add_argument('--displaced-endpoint-control', action='store_true', help='Displace the T1 flex endpoint by 0.25 m')
     args = p.parse_args()
-    print(build(args.out, wrong_peer_control=args.wrong_peer_control))
+    print(build(args.out, wrong_peer_control=args.wrong_peer_control,
+                displaced_endpoint_control=args.displaced_endpoint_control))
