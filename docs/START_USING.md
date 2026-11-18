@@ -28,6 +28,21 @@ For a real project, select its existing directory in the host environment as
 development outputs use this checkout's ignored `runs` directory. Completed
 BSE3124 stays read-only. BSE3227's existing delivery remains awaiting user review.
 
+For recorded-lighting source audits, a standalone terminal needs the same
+explicit toolkit root as its MCP profile. Profile environment settings apply to
+that server, not automatically to a separate terminal:
+
+```powershell
+$env:BSA_PROJECT_ROOT = 'ABSOLUTE_EXISTING_PROJECT_DIRECTORY'
+$env:BSA_DIALUX_TOOLKIT_ROOT = 'ABSOLUTE_CLEAN_PINNED_TOOLKIT_CHECKOUT'
+bsa engineering-data verify PATH_TO_SAVED_DATA
+```
+
+See [lighting source setup](LIGHTING_SOURCE_AUDIT.md) for the required pinned
+checkout. An external input rejected under incomplete host configuration is not
+proof its bytes changed. Check host roots and actual digests before diagnosing
+source drift; never repair this by rewriting a saved result's hashes.
+
 ## Give the host AI a project
 
 An appropriate starting request is:

@@ -1,91 +1,11 @@
 {
-  "schema": "bsa.architecture-candidate-check/1",
-  "source_commit": "0922528f60d6f74fe25647caadab97702529d167",
-  "fresh_git_checkout": true,
-  "fresh_environment": true,
-  "product_python_files": 376,
-  "product_python_files_equal_after_newline_normalization": true,
-  "source_archive_repeated_sha256": "663ba4461be5ab3695e1499fe31af1bd3d8fc9da30d953f7a2922e1921d5de30",
-  "source_archive_bytes": 28442030,
-  "clean_architecture_tests": {
-    "tests": 74,
-    "passed": 74,
-    "skips": 0,
-    "independently_verified": true
-  },
+  "schema": "bsa.architecture-candidate-check/2",
+  "production_implementation_commit": "a5244188c9142d8ac45bcbc45da03c4073dce15c",
+  "goal_audit_status": "ready_for_user_review",
+  "full_regression_complete": true,
+  "full_regression_evidence": "architecture-full-regression.json",
   "mcp_tool_count": 42,
-  "native_mcp_calls": [
-    "bsa_prepare_hvac_project",
-    "bsa_run_hvac_project",
-    "bsa_inspect_hvac_project",
-    "bsa_render_source_page",
-    "bsa_render_source_page",
-    "bsa_reference_catalogue"
-  ],
-  "delivery_mcp_calls": [
-    "bsa_delivery_template",
-    "bsa_assess_delivery"
-  ],
-  "native_reopen_pass": true,
-  "native_entities": 718,
-  "native_correspondence": true,
-  "pdf_reference_mm": 99.99133333333334,
-  "report_pages": 23,
-  "numerical_rows_checked": 388,
-  "report_requirement_rows": 34,
-  "adpi_paragraphs_checked": 11,
-  "visual_overview_pages": 23,
-  "visual_overview_pass": true,
-  "visual_scope": [
-    "Viewed actual MCP-rendered native A1 and full-size report page17; no gross clipping or missing table columns observed",
-    "Viewed six contact sheets covering all23actualreportpages; page order, repeated table headers and pending requirement matrix remain visible, no blank/missing pages or gross table overflow observed",
-    "Overview only; not verification of every physical route, product fact, font print minimum or regulatory criterion"
-  ],
-  "plot_sha256": "3373e12406d8efe1fcebbaf9b3af28d094f9132cf7d9895f03feb6acac2421a2",
-  "report_sha256": "770ada41b71b0c12f390dfbdb5033362b09deacee21b7cf126515db3f672e3f3",
-  "delivery_requirements_pending": 34,
-  "study_status": "review_required",
-  "design_accepted": false,
-  "release_published": false,
-  "actual_codex_backend": {
-    "codex_sha256": "c54db6755e710c39703f7c37512f9e35ed41042d8080558d2b84b8d2694323c3",
-    "effective_config_matches_local": true,
-    "readonly_reference_count": 1,
-    "project_ledger_numeric_gap_count": null,
-    "actual_codex_backend_catalogue_count": 42,
-    "actual_codex_readonly_tool_call_pass": true,
-    "ephemeral_context": true,
-    "model_turns_sent": 0,
-    "current_desktop_chat_hot_reload_verified": false,
-    "design_accepted": false
-  },
-  "current_chat_tool_count": 42,
-  "current_chat_refresh_verified": true,
-  "current_chat_readonly_reference_call_pass": true,
-  "current_chat_reference_revision": "0922528f60d6f74fe25647caadab97702529d167",
-  "full_regression_complete": false,
-  "goal_audit_status": "incomplete_pending_full_regression",
-  "source_ci": {
-    "run_id": 44179400543,
-    "network": "success",
-    "full_regression": "failure",
-    "failed_job_id": 134379346150,
-    "failure": "600-second watchdog in first mixed recovery test during native geometry conversion",
-    "artifact_id": 14374852080,
-    "artifact_zip_sha256": "ca669c7ffe09007ef0cffa33283be951b53efd3c51b12a23da26c7d7faee08ad"
-  },
-  "skills_used": [
-    "mep-delivery-check",
-    "pdf (read-only visual inspection)",
-    "openai-docs (host connection diagnosis)"
-  ],
-  "host_profile_prepared": {
-    "report_font": true,
-    "external_lighting_reader": true,
-    "unrelated_settings_preserved": true,
-    "global_trust_edited": false,
-    "user_applications_restarted": false
-  },
+  "worker_operation_count": 41,
   "native_kernel_repair": {
     "base_commit": "0922528f60d6f74fe25647caadab97702529d167",
     "tested_source_sha256": {
@@ -155,7 +75,7 @@
     "per_test_watchdog_seconds": 600,
     "new_dependency": false,
     "new_native_engine": false,
-    "full_matching_ci_verified": false,
+    "full_matching_ci_verified": true,
     "design_accepted": false,
     "retained_native_visual": {
       "schema": "bsa.native-kernel-visual-observation/1",
@@ -229,8 +149,8 @@
     },
     "delivery_requirements_pending": 34,
     "current_chat_readonly_catalogue_revision": "a5244188c9142d8ac45bcbc45da03c4073dce15c",
-    "full_matching_ci_verified": false,
-    "status": "pending_matching_full_ci",
+    "full_matching_ci_verified": true,
+    "status": "ready_for_user_review",
     "release_published": false,
     "design_accepted": false
   },
@@ -379,6 +299,16 @@
     "scope": "Downloaded GitHub records, artifact integrity, recorded counters and committed source-byte correspondence; remote interpreter is not locally re-executed or authenticated by this verifier",
     "design_accepted": false
   },
+  "current_implementation_ci": {
+    "source_commit": "a5244188c9142d8ac45bcbc45da03c4073dce15c",
+    "core_run": 44190212344,
+    "core_jobs_success": 9,
+    "domain_run": 44190212463,
+    "domain_jobs_success": 6,
+    "full_regression_job": 134417290338,
+    "full_regression_status": "success",
+    "full_regression_evidence": "architecture-full-regression.json"
+  },
   "public_native_resource_probe": {
     "schema": "bsa.native-ifc-resource-probe/1",
     "recorded_git_head": "a5244188c9142d8ac45bcbc45da03c4073dce15c",
@@ -512,28 +442,13 @@
       "scripts/windows_memory_probe.py": "600c50f5d384770c7dc8b525b3d01d3b1049637eb5e38ea8fb128fd8243fef67"
     }
   },
-  "current_implementation_ci": {
-    "source_commit": "a5244188c9142d8ac45bcbc45da03c4073dce15c",
-    "core_run": 44190212344,
-    "core_jobs_success": 9,
-    "domain_run": 44190212463,
-    "domain_jobs_success": 6,
-    "full_regression_job": 134417290338,
-    "full_regression_status": "in_progress"
-  },
-  "followup_scope": {
-    "production_source_tests_contracts_regulations_locks_workflows_unchanged": true,
-    "scope": "Executed Windows developer probes and version-bound verification records only; original implementation full CI remains required",
-    "duplicate_ci_trigger_skipped": true,
-    "github_skip_reference": "https://docs.github.com/en/actions/how-tos/manage-workflow-runs/skip-workflow-runs"
-  },
   "operational_documentation_audit": {
     "exact_live_host_and_sdk_and_support_table_match": true,
     "tool_count": 42,
     "worker_operation_count": 41,
     "source_sha256": {
-      "docs/START_USING.md": "91361ae964bce73bcd90d72b0aedc3597f95f651dba27f923ba6454d862ceb84",
-      "docs/CANDIDATE_SUPPORT.md": "0455adc12549fbb56837c6ea918fda735353f4f91ecfb5253fcecc04b8a411f7",
+      "docs/START_USING.md": "4ba47471b8de094aa6d95f0b00d454fcc8c747c57daa9b11557ab29475ec4cee",
+      "docs/CANDIDATE_SUPPORT.md": "961b24ceddebce6d814393e6b99eb5b900985abebe70e5d41c5a41e5f795e41c",
       "docs/CODEX_LOCAL_SETUP.md": "d909a9188aab4172af541cc57608a2417396e28b27d6ea27e184d4ea2721bc54"
     },
     "scope": "Current operational references and exact declared tool-name coverage; actual execution is recorded separately"
@@ -548,5 +463,431 @@
     ],
     "deleted_source_test_skill_contract_files": [],
     "scope": "Git file-deletion inventory and AST handler-name comparison against actual current SDK; functional verification remains separate"
-  }
+  },
+  "host_scope_verification": {
+    "doctor_direct_requirements_ready": true,
+    "saved_profile_paths_ready": true,
+    "native_hvac_readonly_integrity_pass": true,
+    "current_lighting_data_integrity_pass": true,
+    "earlier_lighting_data_integrity_pass_with_correct_host_roots": true,
+    "external_python_bytes_unchanged": true,
+    "external_python_sha256": "5a1af5b10cfadc20c47068aad393ef26d4f592ec0eee4057a2c108c23a65d41f",
+    "earlier_cli_rejection_cause": "Missing explicit BSA_DIALUX_TOOLKIT_ROOT in that terminal; external input not trusted, not a changed binary",
+    "saved_mcp_profile_environment_is_not_terminal_environment": true,
+    "old_result_hashes_rewritten": false,
+    "scope": "Saved host path presence plus separately executed native SDK/data checks; no claim that saving settings hot-reloads every live chat"
+  },
+  "final_real_case_verification": {
+    "execution_checkout": "0a7315b5d25284247632b42bb42b355de40ee45b",
+    "production_implementation": "a5244188c9142d8ac45bcbc45da03c4073dce15c",
+    "lighting": {
+      "real_recorded_project": true,
+      "source_files_unchanged": true,
+      "upstream_commit": "ade128b7ae446c6ea253776a5ead866280d6bf4a",
+      "tool_count": 42,
+      "calls": [
+        {
+          "tool": "bsa_execute_workflow",
+          "seconds": 17.390335300005972
+        },
+        {
+          "tool": "bsa_diagnose_workflow",
+          "seconds": 5.125180200004252
+        },
+        {
+          "tool": "bsa_checkpoint_workflow",
+          "seconds": 7.141868599981535
+        },
+        {
+          "tool": "bsa_inspect_changes",
+          "seconds": 0.3398731999914162
+        },
+        {
+          "tool": "bsa_execute_workflow",
+          "seconds": 17.593742700002622
+        },
+        {
+          "tool": "bsa_diagnose_workflow",
+          "seconds": 4.904748800006928
+        },
+        {
+          "tool": "bsa_artifact_index",
+          "seconds": 4.476115099998424
+        },
+        {
+          "tool": "bsa_read_artifact",
+          "seconds": 4.624433499993756
+        },
+        {
+          "tool": "bsa_delivery_template",
+          "seconds": 4.684932300006039
+        }
+      ],
+      "baseline": {
+        "fixture_count": 186,
+        "luminaire_input_W": 4278.0,
+        "auxiliary_allowance_W": 50,
+        "budget_input_W": 4328.0,
+        "reported_floor_area_m2": 1042.1,
+        "annotation_area_m2": 1022,
+        "calculated_lpd_W_m2": 4.105172248344689,
+        "budget_density_W_m2": 4.153152288647923,
+        "annotation_budget_density_W_m2": 4.234833659491194,
+        "native_reported_lpd_W_m2": 4.11
+      },
+      "scenario": {
+        "fixture_count": 186,
+        "luminaire_input_W": 4278.0,
+        "auxiliary_allowance_W": 60,
+        "budget_input_W": 4338.0,
+        "reported_floor_area_m2": 1042.1,
+        "annotation_area_m2": 1022,
+        "calculated_lpd_W_m2": 4.105172248344689,
+        "budget_density_W_m2": 4.162748296708569,
+        "annotation_budget_density_W_m2": 4.244618395303327,
+        "native_reported_lpd_W_m2": 4.11
+      },
+      "entity_count": 188,
+      "quantity_count": 197,
+      "input_count": 4,
+      "pending_requirements": 3,
+      "fresh_native_simulation": false,
+      "geometry_verified": false,
+      "design_accepted": false
+    },
+    "source_document_hashes_equal_to_earlier_study": true,
+    "original_project_context_preserved": true,
+    "knowledge": {
+      "schema": "bsa.knowledge-ownership-real/1",
+      "calls": [
+        {
+          "tool": "bsa_execute_workflow",
+          "seconds": 65.59286370000336
+        },
+        {
+          "tool": "bsa_diagnose_workflow",
+          "seconds": 19.843785000004573
+        },
+        {
+          "tool": "bsa_checkpoint_workflow",
+          "seconds": 33.28787430000375
+        },
+        {
+          "tool": "bsa_inspect_changes",
+          "seconds": 5.467108599987114
+        },
+        {
+          "tool": "bsa_execute_workflow",
+          "seconds": 57.71987279999303
+        },
+        {
+          "tool": "bsa_diagnose_workflow",
+          "seconds": 19.5809847000055
+        },
+        {
+          "tool": "bsa_artifact_index",
+          "seconds": 19.350685900019016
+        },
+        {
+          "tool": "bsa_read_artifact",
+          "seconds": 19.227500199980568
+        },
+        {
+          "tool": "bsa_delivery_template",
+          "seconds": 19.574939400015865
+        }
+      ],
+      "tool_count": 42,
+      "owned_knowledge_tasks": 8,
+      "knowledge_source_kinds": [
+        "document",
+        "project_inputs"
+      ],
+      "source_roles": [
+        "course_source",
+        "normative_source",
+        "manufacturer_source",
+        "project_input"
+      ],
+      "only_course_page_selection_changed": true,
+      "before_pages": [
+        4,
+        5
+      ],
+      "after_pages": [
+        4
+      ],
+      "unchanged_tasks": [
+        "wiring_library",
+        "wiring_lookup",
+        "manufacturer_library",
+        "manufacturer_lookup",
+        "inputs_library",
+        "inputs_lookup",
+        "analysis"
+      ],
+      "task_impact": {
+        "course_library": {
+          "invalidated": true,
+          "input_ownership": "verified_knowledge_closure",
+          "reuse_eligible": false
+        },
+        "course_lookup": {
+          "invalidated": true,
+          "input_ownership": "verified_knowledge_closure",
+          "reuse_eligible": false
+        },
+        "wiring_library": {
+          "invalidated": false,
+          "input_ownership": "verified_knowledge_closure",
+          "reuse_eligible": false
+        },
+        "wiring_lookup": {
+          "invalidated": false,
+          "input_ownership": "verified_knowledge_closure",
+          "reuse_eligible": false
+        },
+        "manufacturer_library": {
+          "invalidated": false,
+          "input_ownership": "verified_knowledge_closure",
+          "reuse_eligible": false
+        },
+        "manufacturer_lookup": {
+          "invalidated": false,
+          "input_ownership": "verified_knowledge_closure",
+          "reuse_eligible": false
+        },
+        "inputs_library": {
+          "invalidated": false,
+          "input_ownership": "verified_knowledge_closure",
+          "reuse_eligible": false
+        },
+        "inputs_lookup": {
+          "invalidated": false,
+          "input_ownership": "verified_knowledge_closure",
+          "reuse_eligible": false
+        },
+        "analysis": {
+          "invalidated": false,
+          "input_ownership": "verified_module_inputs",
+          "reuse_eligible": false
+        },
+        "data": {
+          "invalidated": true,
+          "input_ownership": "conservative_workflow_inputs",
+          "reuse_eligible": false
+        },
+        "review": {
+          "invalidated": true,
+          "input_ownership": "conservative_workflow_inputs",
+          "reuse_eligible": false
+        }
+      },
+      "independent_calculation_bytes_equal": true,
+      "common_report_bytes_equal": true,
+      "original_sources_unchanged": true,
+      "requirements": 11,
+      "pending_requirements": 11,
+      "source_assertions_authenticated": false,
+      "design_accepted": false,
+      "scope": "Actual selected source snapshots and recorded lighting calculation/report; no new photometry, geometry, current code applicability or engineering acceptance"
+    },
+    "scope": "Current implementation with the same real recorded source snapshots; source-linked power/report and knowledge/impact checks only, no fresh photometry or engineering approval",
+    "common_entity_ids_preserved_from_earlier_study": true,
+    "source_parameter_ids_preserved_from_earlier_study": true
+  },
+  "followup_scope": {
+    "production_source_tests_contracts_regulations_locks_workflows_unchanged": true,
+    "scope": "Executed Windows developer probes and version-bound verification records only; original implementation full CI remains required",
+    "duplicate_ci_trigger_skipped": true,
+    "github_skip_reference": "https://docs.github.com/en/actions/how-tos/manage-workflow-runs/skip-workflow-runs"
+  },
+  "historical_installation_and_local_fix_proof": {
+    "published_at_commit": "a5244188c9142d8ac45bcbc45da03c4073dce15c",
+    "scope": "Unmodified previously published proof; its0922528installation/CI observations are historical, not relabelled as the later full-suite result",
+    "proof": {
+      "schema": "bsa.architecture-candidate-check/1",
+      "source_commit": "0922528f60d6f74fe25647caadab97702529d167",
+      "fresh_git_checkout": true,
+      "fresh_environment": true,
+      "product_python_files": 376,
+      "product_python_files_equal_after_newline_normalization": true,
+      "source_archive_repeated_sha256": "663ba4461be5ab3695e1499fe31af1bd3d8fc9da30d953f7a2922e1921d5de30",
+      "source_archive_bytes": 28442030,
+      "clean_architecture_tests": {
+        "tests": 74,
+        "passed": 74,
+        "skips": 0,
+        "independently_verified": true
+      },
+      "mcp_tool_count": 42,
+      "native_mcp_calls": [
+        "bsa_prepare_hvac_project",
+        "bsa_run_hvac_project",
+        "bsa_inspect_hvac_project",
+        "bsa_render_source_page",
+        "bsa_render_source_page",
+        "bsa_reference_catalogue"
+      ],
+      "delivery_mcp_calls": [
+        "bsa_delivery_template",
+        "bsa_assess_delivery"
+      ],
+      "native_reopen_pass": true,
+      "native_entities": 718,
+      "native_correspondence": true,
+      "pdf_reference_mm": 99.99133333333334,
+      "report_pages": 23,
+      "numerical_rows_checked": 388,
+      "report_requirement_rows": 34,
+      "adpi_paragraphs_checked": 11,
+      "visual_overview_pages": 23,
+      "visual_overview_pass": true,
+      "visual_scope": [
+        "Viewed actual MCP-rendered native A1 and full-size report page17; no gross clipping or missing table columns observed",
+        "Viewed six contact sheets covering all23actualreportpages; page order, repeated table headers and pending requirement matrix remain visible, no blank/missing pages or gross table overflow observed",
+        "Overview only; not verification of every physical route, product fact, font print minimum or regulatory criterion"
+      ],
+      "plot_sha256": "3373e12406d8efe1fcebbaf9b3af28d094f9132cf7d9895f03feb6acac2421a2",
+      "report_sha256": "770ada41b71b0c12f390dfbdb5033362b09deacee21b7cf126515db3f672e3f3",
+      "delivery_requirements_pending": 34,
+      "study_status": "review_required",
+      "design_accepted": false,
+      "release_published": false,
+      "actual_codex_backend": {
+        "codex_sha256": "c54db6755e710c39703f7c37512f9e35ed41042d8080558d2b84b8d2694323c3",
+        "effective_config_matches_local": true,
+        "readonly_reference_count": 1,
+        "project_ledger_numeric_gap_count": null,
+        "actual_codex_backend_catalogue_count": 42,
+        "actual_codex_readonly_tool_call_pass": true,
+        "ephemeral_context": true,
+        "model_turns_sent": 0,
+        "current_desktop_chat_hot_reload_verified": false,
+        "design_accepted": false
+      },
+      "current_chat_tool_count": 42,
+      "current_chat_refresh_verified": true,
+      "current_chat_readonly_reference_call_pass": true,
+      "current_chat_reference_revision": "0922528f60d6f74fe25647caadab97702529d167",
+      "full_regression_complete": false,
+      "goal_audit_status": "incomplete_pending_native_kernel_fix_and_matching_full_ci",
+      "source_ci": {
+        "run_id": 44179400543,
+        "network": "success",
+        "full_regression": "failure",
+        "failed_job_id": 134379346150,
+        "failure": "600-second watchdog in first mixed recovery test during native geometry conversion",
+        "artifact_id": 14374852080,
+        "artifact_zip_sha256": "ca669c7ffe09007ef0cffa33283be951b53efd3c51b12a23da26c7d7faee08ad"
+      },
+      "skills_used": [
+        "mep-delivery-check",
+        "pdf (read-only visual inspection)",
+        "openai-docs (host connection diagnosis)"
+      ],
+      "host_profile_prepared": {
+        "report_font": true,
+        "external_lighting_reader": true,
+        "unrelated_settings_preserved": true,
+        "global_trust_edited": false,
+        "user_applications_restarted": false
+      },
+      "native_kernel_repair": {
+        "base_commit": "0922528f60d6f74fe25647caadab97702529d167",
+        "tested_source_sha256": {
+          "src/bsa/circular_geometry.py": "ac50404b987429a2524c574049b2a897a0c1987d9281779524e5db51d498e9a3",
+          "src/bsa/bim.py": "1d575fd18e4399fd9abc3e34811627b8927f481973a976c9be4ed58cebc5a067",
+          "src/bsa/ifc_route_drawing.py": "9b0ffbbc3cbfcad54d97c15607e394c300186d32b0f5ea12235f6334d63430c3",
+          "src/bsa/route_material.py": "ca6edaf33c3d4fa53a2c003f57e93d39815fc06b6246befa984c9c9cbd8860e6",
+          "tests/test_native_ifc_geometry.py": "79649dbb44a1b3460c14c07d7999678e039f708b2bb1a7b4164699af3af7ee02"
+        },
+        "regression": [
+          {
+            "run_name": "ifc-kernel-final-regression",
+            "integrity_pass": true,
+            "tests_run": 36,
+            "passed": 35,
+            "suite_pass": true,
+            "all_tests_pass": false,
+            "design_accepted": false,
+            "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+            "skipped": 1,
+            "failures": 0,
+            "errors": 0,
+            "elapsed_seconds": 717.2809999999881,
+            "receipt_sha256": "ae75084c1151f9f50b1c4427ea2d138c196889caf721cb797cc5a56713b9842e",
+            "request_sha256": "b3f61e885230540c7f4d66ac98387dd19d178dca7ddbeba9fcbd4f5d17873f99",
+            "tests_sha256": "f915643f6129b45c2cd947e3ddaca475abccdc6c2fbdae21664ff2bf085201c2"
+          },
+          {
+            "run_name": "architecture-kernel-compatibility",
+            "integrity_pass": true,
+            "tests_run": 245,
+            "passed": 245,
+            "suite_pass": true,
+            "all_tests_pass": true,
+            "design_accepted": false,
+            "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+            "skipped": 0,
+            "failures": 0,
+            "errors": 0,
+            "elapsed_seconds": 335.625,
+            "receipt_sha256": "ae9fbc5b782ef8a982ec857de98e764fb1c5dc30c2e4aba1163a5297951d231d",
+            "request_sha256": "1bf8bf4dd78b348a0a95ee9a97420c824ada8a9955642ae7812ce198993fbce6",
+            "tests_sha256": "1527abe56003341d0638c8f7f8d23ae8d5fc2ad7e51333e57fb6d643630dea17"
+          },
+          {
+            "run_name": "ifc-kernel-native-autocad",
+            "integrity_pass": true,
+            "tests_run": 1,
+            "passed": 1,
+            "suite_pass": true,
+            "all_tests_pass": true,
+            "design_accepted": false,
+            "scope": "Local process/test counts and selected source-byte correspondence; not engineering acceptance or authenticated provenance",
+            "skipped": 0,
+            "failures": 0,
+            "errors": 0,
+            "elapsed_seconds": 20.094000000011874,
+            "receipt_sha256": "f840bc00d818b34b1259dbc626ab47bde748f5208c49da6bb4bef5654cb4cc46",
+            "request_sha256": "b68874e5d9bcc3ca0af1d3681e87c2ae57b0b469e5285910144f61db24f898cf",
+            "tests_sha256": "68a1a597f9c6734f4b615f5889c45997c82523cd1133930cef2b1724796d0010"
+          }
+        ],
+        "mixed_first_test_seconds": 183.301224,
+        "native_fixture_scope": "Synthetic three-piece fixture; actual AutoCAD save/reopen and measured 60mm PDF reference; producer visual flag remains pending, separate inspected-sheet observation recorded",
+        "native_fixture_is_real_project": false,
+        "engineering_tolerances_changed": false,
+        "per_test_watchdog_seconds": 600,
+        "new_dependency": false,
+        "new_native_engine": false,
+        "full_matching_ci_verified": false,
+        "design_accepted": false,
+        "retained_native_visual": {
+          "schema": "bsa.native-kernel-visual-observation/1",
+          "pdf_sha256": "6336374a045215b404d7855caa91a18900d54c398b38620edfd0f8b6a36cbaf5",
+          "image_sha256": "2e1863c7e7b40b8b8e27907848773d57767b2cd3da3b524319e26381d3638629",
+          "page": 1,
+          "page_count": 1,
+          "actually_viewed": true,
+          "observations": [
+            "Three source-linked axis/OD pieces, finite arc, three labels and scope legend visible",
+            "No observed clipping, missing label or leader crossing outside its source anchor"
+          ],
+          "native_reopen_pass": true,
+          "model_entities": 21,
+          "linked_entities": 19,
+          "reference_expected_mm": 60.0,
+          "reference_measured_mm": 59.98633333333331,
+          "scope": "Synthetic three-piece route regression; not product, installation or coursework acceptance",
+          "producer_visual_pending_preserved": true,
+          "design_accepted": false
+        }
+      }
+    }
+  },
+  "user_accepted": false,
+  "design_accepted": false,
+  "release_published": false
 }

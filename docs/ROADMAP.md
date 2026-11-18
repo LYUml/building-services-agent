@@ -1,4 +1,17 @@
-## Architecture acceptance and native IFC performance repair
+## Architecture stage ready for user review
+
+Ordered modular data, source-linked knowledge, change impact and real HVAC/
+lighting verification are complete for this review stage. Productiona524418 and
+source-equivalent follow-ups pass9core/profile,6domain and full CI:1949cases,
+zero failures/errors,258unchanged skip outcomes retained.862recorded source files
+match committed bytes;108selected architecture/native module cases all pass.
+Fresh installation/native save-reopen/plots and current real lighting/knowledge
+MCP studies are recorded in ARCHITECTURE_ACCEPTANCE.md. All engineering reviews
+and user acceptance remain separate. Long-term multi-service roadmap retained;
+no stable release and no automatic research expansion pending user feedback.
+Earlier checkpoint entries below are historical and do not supersede this audit.
+
+## Historical architecture acceptance and native IFC performance repair
 
 Fresh0922528 checkout/environment passed74selected checks and real native HVAC
 SDK save/reopen/report plus separate lighting evidence; live chat now exposes42

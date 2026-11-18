@@ -26,8 +26,9 @@ All258skip records and exact reasons remain in the full-suite evidence.
 Dedicated Windows EnergyPlus/Radiance jobs and local AutoCAD/MCP checks cover
 specific native paths separately; they do not verify every skipped optional or
 cache-dependent integration. Scope follows CANDIDATE_SUPPORT and domain evidence,
-not module presence. Unittest subtest outcomes are not disjoint case counts:
-passed inventory1583 and258skip outcomes must not be summed into a new total.
+not module presence. The258skip inventory includes one skipped class setup,
+which is not a tests_run item:1583passes plus257skipped tests make1840cases.
+Do not add the class-setup skip to produce a new case total or count it as passed.
 
 The candidate-preparation objective is met within these explicit boundaries.
 ADPI applicability, complete pressure, physical installation, manufacturer

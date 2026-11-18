@@ -7,25 +7,27 @@ does not establish professional or statutory design acceptance.
 
 The [architecture acceptance audit](docs/ARCHITECTURE_ACCEPTANCE.md) records the
 ordered modular-data/knowledge/change-impact work, fresh installation, real HVAC
-and lighting evidence and remaining gates. The live host now exposes42tools and
+and lighting evidence and explicit limits. The live host now exposes42tools and
 executes a read-only reference call. Full regression exposed a native IFC mesh
 conversion timeout; guarded reuse of the existing kernel passed local and remote recovery checks,
-with matching full remote CI still pending.
+with matching full remote CI passing:1949cases, zero failures/errors and258skip
+outcomes retained. This architecture stage is ready for scoped user review.
 Earlier candidate proofs remain version-scoped; no stable release is declared.
 
 The [Windows native IFC resource probe](docs/NATIVE_IFC_RESOURCES.md) reproduces
 the scoped memory/time comparison with shared counters and unchanged geometry
 checks. Its synthetic fixture is not a real building design benchmark.
 
-Architecture expansion is active: [common engineering data](docs/ENGINEERING_DATA.md)
-now has project-scoped air/electrical views through workflow/MCP, with explicit
+The ordered architecture stage now executes: [common engineering data](docs/ENGINEERING_DATA.md)
+has project-scoped air/electrical/lighting views through workflow/MCP, with explicit
 identity and producer binding. [Source input ownership](docs/ENGINEERING_INPUTS.md)
 now executes as a read-only catalogue. [Local knowledge retrieval](docs/KNOWLEDGE.md)
 now executes through the existing workflow/MCP routes. [Change impact and numerical
 reuse](docs/CHANGE_IMPACT.md) now executes through CLI and MCP selective replay;
 typed source differences and [knowledge input ownership](docs/KNOWLEDGE_OWNERSHIP.md)
-now execute. Final generality/readiness review remains in progress. The earlier candidate
-checkpoint below is preserved and does not establish readiness of new features.
+now execute. Final source, real-case and skip-coverage review is recorded in the
+architecture acceptance audit. Earlier candidate checkpoints retain their own
+source-version scope. User acceptance is pending; no automatic research extension.
 
 The [real lighting source audit](docs/LIGHTING_SOURCE_AUDIT.md) now verifies
 second-discipline calculation/common-report/input-impact propagation with existing

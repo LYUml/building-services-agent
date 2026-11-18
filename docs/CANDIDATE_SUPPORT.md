@@ -3,8 +3,9 @@
 Current production implementation: a524418; the9fae41f follow-up adds executed
 developer probes and evidence with identical production sources/contracts/tests.
 All nine core/profile and six domain jobs pass. Fresh-source actual native MCP
-execution passes. Full regression is still in progress; see
-ARCHITECTURE_ACCEPTANCE.md. User acceptance remains pending.
+execution passes. Full regression passes with1949cases, zero failures/errors
+and258skip outcomes retained;862recorded source files match the tested commit.
+See ARCHITECTURE_ACCEPTANCE.md. User acceptance remains pending.
 
 Historical pre-architecture checkpoint: 7632371. All five core/profile jobs and all
 six domain jobs pass, including the remote SDK contract and lightweight profile
@@ -100,5 +101,7 @@ part of core CI; remote execution is observed at the current checkpoint above.
 
 Full engineering executions keep their separate version-bound evidence:
 ARCHITECTURE_ACCEPTANCE.md, USABILITY_ACCEPTANCE.md, REAL_PROJECT_REVISION.md and
-domain guides. Historical258skip outcomes stay unexecuted; current full-suite
-results remain pending and no all-tests-executed claim is made.
+domain guides. Current258skip outcomes exactly match the historical inventory.
+Dedicated checks separately pass27matching energy cases,2lighting cases and
+1local native route case; other optional cases remain unexecuted in that run.
+No all-tests-executed claim is made. See evidence/architecture-full-regression.json.

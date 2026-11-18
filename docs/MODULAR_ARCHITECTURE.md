@@ -7,10 +7,12 @@ source ownership and typed change impact now execute through existing workflow
 and MCP boundaries. Safe numerical reuse remains restricted to the verified
 air/electrical whitelist. Real HVAC native delivery and lighting calculation/
 report propagation, clean installation and42tool host execution are recorded in
-ARCHITECTURE_ACCEPTANCE.md. Full-suite readiness remains open after the native
-IFC conversion timeout; scoped pinned-kernel repair passed local targeted and
-compatibility checks, with matching full CI pending. Earlier
-progress entries below are historical and do not supersede this audit.
+ARCHITECTURE_ACCEPTANCE.md. Scoped pinned-kernel repair passes local, remote and
+full regression with original checks/budget preserved.1949cases, zero failures/
+errors,258unchanged skip outcomes; all_tests_pass=false retained. Current real
+lighting/knowledge MCP studies pass with original identities and sources.
+The ordered stage is ready for user review; long-term engineering work remains.
+Earlier progress entries below are historical and do not supersede this audit.
 
 ## Real lighting source audit executed; full goal remains active
 
