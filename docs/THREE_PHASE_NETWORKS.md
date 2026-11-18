@@ -81,3 +81,11 @@ and the separate 50 mm paper reference. The schematic and scope note are
 within the page with no visible clipping or overlap. The reviewed PDF
 SHA-256 is `a2f427e32f0143c0eb4eb35dad5419e8b9d4fbd0951f102d0007cf06b0c0688c`.
 This review covers the synthetic sheet only.
+
+The bus-connection check in `f0e3ea3` was replayed with the same native
+workflow. Reading the reopened DXF showed coincident endpoints at all
+four intended bus-box contacts for `feeder` and `branch`. The rasterized
+sheet showed continuous lines at those contacts and legible phase rows.
+The reviewed PDF SHA-256 is
+`a7cb5ec76471660cd398518a905c0e8da0ded6739026abc2a19784209eb3de34`.
+The one-point layout limit is a paper-space geometry allowance only.
