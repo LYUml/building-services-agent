@@ -1,9 +1,13 @@
 ## NIST FDS command-line temperature probe
 
 The Windows FDS 6.11.1 / Smokeview 6.11.2 upstream package is pinned by SHA-256
-in `scripts/probe_fds_temperature.py`. The probe extracts only the bundled
-FDS runtime directory using Python's ZIP reader and invokes the bundled Intel
-MPI launcher locally with one process. It does not execute the installer.
+in the probe. It uses Python's ZIP reader to extract the selected FDS binary,
+the bundled OpenMP library and the Intel MPI directory, then invokes the
+bundled Intel MPI launcher locally with one process. It does not execute the
+installer. Avoiding the alternate solver and development utilities reduced
+the extracted runtime from 260,703,504 to 134,639,216 bytes per new run.
+The native uniform and interpolation reruns reproduced their prior
+temperature table hashes. Existing runs remain readable by the verifier.
 NIST is the source of FDS and the case. Engine files and case bytes stay in
 ignored local runs. [Release](https://github.com/firemodels/fds/releases/tag/FDS-6.11.1)
 [NIST software notice](https://github.com/firemodels/fds/blob/FDS-6.11.1/LICENSE.md)

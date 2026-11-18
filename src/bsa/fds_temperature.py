@@ -26,6 +26,8 @@ SUCCESS = f'STOP: FDS completed successfully (CHID: {CASE})'
 CONSOLE_STEP = re.compile(r'^\s*Time Step:\s*(\d+), Simulation Time:\s*([\d.]+) s\s*$', re.M)
 ENGINE = 'firemodels/FDS6/bin/fds.exe'
 LAUNCHER = 'firemodels/FDS6/bin/mpi/mpiexec.exe'
+OPENMP_LIBRARY = 'firemodels/FDS6/bin/libiomp5md.dll'
+MPI_DIRECTORY = 'firemodels/FDS6/bin/mpi/'
 RUNTIME_HASHES = {
     ENGINE: '1dd7468130e403f18b9a45ec5134662fe9738ea6a12b0f600c5f91c16428312f',
     LAUNCHER: '3af7741d27090c13a150ff575dc216c268b06a174d0770fc07d9e6756db0dc92',
@@ -104,7 +106,7 @@ def run(release, source, out):
         out.mkdir(parents=True)
         with ZipFile(stream) as archive:
             for entry in archive.namelist():
-                if entry.startswith('firemodels/FDS6/bin/'):
+                if entry in (ENGINE, OPENMP_LIBRARY) or entry.startswith(MPI_DIRECTORY):
                     archive.extract(entry, out)
     work = out/'case'
     work.mkdir()
