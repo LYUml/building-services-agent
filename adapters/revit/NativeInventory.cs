@@ -57,7 +57,8 @@ internal static class NativeInventory
         {
             id = p.Id.Value.ToString(), unique_id = p.UniqueId, type_id = p.GetTypeId().Value.ToString(),
             type_unique_id = doc.GetElement(p.GetTypeId())?.UniqueId,
-            system_type_unique_id = doc.GetElement(p.get_Parameter(BuiltInParameter.RBS_PIPING_SYSTEM_TYPE_PARAM).AsElementId())?.UniqueId,
+            system_type_unique_id = p.get_Parameter(BuiltInParameter.RBS_PIPING_SYSTEM_TYPE_PARAM)?.AsElementId() is ElementId systemTypeId
+                && systemTypeId != ElementId.InvalidElementId ? doc.GetElement(systemTypeId)?.UniqueId : null,
             level_unique_id = p.ReferenceLevel?.UniqueId,
             curve_kind = ((LocationCurve)p.Location).Curve.GetType().Name,
             endpoints_m = new[] { Point(((LocationCurve)p.Location).Curve.GetEndPoint(0)), Point(((LocationCurve)p.Location).Curve.GetEndPoint(1)) },
