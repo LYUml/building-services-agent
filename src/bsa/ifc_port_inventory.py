@@ -98,7 +98,7 @@ def compare(baseline, current):
         changed_ports=[dict(guid=guid, before=before[guid], after=after[guid])
                        for guid in sorted(shared)
                        if any(before[guid][key] != after[guid][key] for key in ('owner_guids', 'flow_direction'))],
-        changed_pairs=[dict(port_guids=pair, before=old_pairs[pair], after=new_pairs[pair])
+        changed_pairs=[dict(port_guids=list(pair), before=old_pairs[pair], after=new_pairs[pair])
                        for pair in sorted(old_pairs.keys() | new_pairs.keys()) if old_pairs[pair] != new_pairs[pair]],
         scope='Saved export differences by exact port GUID; physical continuity and GUID remapping unresolved',
     )
@@ -145,7 +145,7 @@ def inspect_pair_gaps(inventory, tolerance):
                 scope='Distances between exported port origins only; physical joint and profile unresolved')
 
 
-def inventory(source, position_tolerance_m=None):
+def inventory(source, position_tolerance_m=None, *, baseline=None):
     positions = position_tolerance_m is not None
     if positions and (type(position_tolerance_m) not in (int, float)
                       or not math.isfinite(position_tolerance_m) or position_tolerance_m <= 0):
@@ -153,6 +153,13 @@ def inventory(source, position_tolerance_m=None):
     result = inspect(source, positions=positions)
     if positions:
         result['connection_gaps'] = inspect_pair_gaps(result, position_tolerance_m)
+    if baseline is not None:
+        previous = inspect(baseline, positions=positions)
+        result['comparison'] = comparison = compare(previous, result)
+        if positions:
+            comparison['positions'] = compare_positions(previous, result, position_tolerance_m)
+        if file_hash(baseline) != previous['source_sha256'] or file_hash(source) != result['source_sha256']:
+            raise ValueError('IFC input changed during comparison')
     return result
 
 
@@ -164,12 +171,24 @@ def gap_status(gaps):
     return 'pass', gaps['scope']
 
 
+def review_status(report):
+    status, reason = gap_status(report['connection_gaps'])
+    comparison = report.get('comparison')
+    if status == 'fail' or comparison is None:
+        return status, reason
+    if comparison['status'] == 'no_shared_port_guids':
+        return 'pending', 'Baseline comparison lacks shared exported port identities'
+    if any(comparison[key] for key in ('added_ports', 'removed_ports', 'changed_ports', 'changed_pairs')):
+        return 'fail', 'Exported port identities, owners, directions or peer pairs differ from the declared baseline'
+    return status, reason
+
+
 def run(source, out, *, baseline=None, position_tolerance_m=None):
     source, out = (Path(p).resolve() for p in (source, out))
     if not workspace.intake_output(out) or out.exists():
         raise ValueError('Fresh IFC report in the permitted output workspace required')
     positions = position_tolerance_m is not None
-    result = inventory(source, position_tolerance_m)
+    result = inventory(source, position_tolerance_m, baseline=baseline)
     summary = {key: result[key] for key in ('source_sha256', 'schema', 'preprocessor', 'counts', 'design_accepted')}
     if positions:
         gaps = result['connection_gaps']
@@ -177,19 +196,15 @@ def run(source, out, *, baseline=None, position_tolerance_m=None):
             unavailable_relationships=len(gaps['unavailable_relationships']),
             separated_relationships=len(gaps['separated_relationships']), status=gap_status(gaps)[0])
     if baseline is not None:
-        previous = inspect(baseline, positions=positions)
-        comparison = compare(previous, result)
-        result['comparison'] = comparison
+        comparison = result['comparison']
         summary['comparison'] = {key: comparison[key] for key in ('baseline_sha256', 'status', 'shared_ports')}
         for key in ('added_ports', 'removed_ports', 'changed_ports', 'changed_pairs'):
             summary['comparison'][key] = len(comparison[key])
         if positions:
-            position = compare_positions(previous, result, position_tolerance_m)
-            comparison['positions'] = position
+            position = comparison['positions']
             summary['comparison']['positions'] = dict(comparable_ports=position['comparable_ports'],
                 unavailable_ports=len(position['unavailable_ports']), moved_ports=len(position['moved_ports']))
-        if file_hash(baseline) != previous['source_sha256']:
-            raise ValueError('Baseline IFC changed during comparison')
+            summary['review_status'] = review_status(result)[0]
     if file_hash(source) != result['source_sha256']:
         raise ValueError('Current IFC changed during comparison')
     out.parent.mkdir(parents=True, exist_ok=True)

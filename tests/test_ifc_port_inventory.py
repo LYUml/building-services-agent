@@ -1,6 +1,6 @@
 import unittest
 
-from bsa.ifc_port_inventory import compare, compare_positions, gap_status, inspect_pair_gaps
+from bsa.ifc_port_inventory import compare, compare_positions, gap_status, inspect_pair_gaps, review_status
 
 
 class IfcPortComparisonTests(unittest.TestCase):
@@ -44,5 +44,9 @@ class IfcPortComparisonTests(unittest.TestCase):
         self.assertEqual(result['changed_ports'][0]['guid'], 'a')
         revised['connections'] = []
         result = compare(old, revised)
-        self.assertEqual(result['changed_pairs'], [dict(port_guids=('a', 'b'), before=1, after=0)])
-        self.assertEqual(compare(old, dict(ports=[], connections=[]))['status'], 'no_shared_port_guids')
+        self.assertEqual(result['changed_pairs'], [dict(port_guids=['a', 'b'], before=1, after=0)])
+        gaps = dict(measured_relationships=1, separated_relationships=[], unavailable_relationships=[], scope='test')
+        self.assertEqual(review_status(dict(connection_gaps=gaps, comparison=result))[0], 'fail')
+        no_overlap = compare(old, dict(ports=[], connections=[]))
+        self.assertEqual(no_overlap['status'], 'no_shared_port_guids')
+        self.assertEqual(review_status(dict(connection_gaps=gaps, comparison=no_overlap))[0], 'pending')

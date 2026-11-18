@@ -569,12 +569,14 @@ def validate_plan(path):
             inputs.add(Path(fds_temperature.__file__).resolve())
         if kind=='ifc_port_gap_review':
             import math
-            if set(t)-{'id','kind','source','tolerance_m','requires_pass','description'}:
+            if set(t)-{'id','kind','source','baseline','tolerance_m','requires_pass','description'}:
                 raise ProjectError('IFC port gap review requires a saved IFC and a declared tolerance')
             tolerance=t.get('tolerance_m')
             if type(tolerance) not in (int,float) or not math.isfinite(tolerance) or tolerance<=0:
                 raise ProjectError('IFC port gap review requires a positive finite tolerance in metres')
             inputs.add(local_path(root,t.get('source')))
+            if 'baseline' in t:
+                inputs.add(local_path(root,t['baseline']))
             inputs.add(Path(__file__).with_name('ifc_port_inventory.py'))
         if kind=='revit_inventory_check':
             if set(t)-{'id','kind','inventory','model','tolerance_m','requires_pass','description','expected_connections'}:
@@ -1595,11 +1597,12 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                     runtime_inputs[str(release)]=payload['release_sha256']
                     status,reason=fds_temperature.review_status(payload,t.get('check'))
             elif t['kind']=='ifc_port_gap_review':
-                from .ifc_port_inventory import inventory as ifc_port_inventory, gap_status
-                payload=ifc_port_inventory(local_path(root,t['source']),t['tolerance_m'])
+                from .ifc_port_inventory import inventory as ifc_port_inventory, review_status as ifc_review_status
+                baseline=local_path(root,t['baseline']) if 'baseline' in t else None
+                payload=ifc_port_inventory(local_path(root,t['source']),t['tolerance_m'],baseline=baseline)
                 folder.mkdir()
                 (folder/'port-review.json').write_text(json.dumps(payload,indent=2),encoding='utf-8')
-                status,reason=gap_status(payload['connection_gaps'])
+                status,reason=ifc_review_status(payload)
             elif t['kind']=='revit_inventory_check':
                 from .revit_connectivity import run
                 basis=local_path(root,t['expected_connections']) if 'expected_connections' in t else None
@@ -2562,14 +2565,17 @@ def verify(run_directory):
             receipt=root/name/'port-review.json'
             if task['status']=='pass' or receipt.is_file():
                 try:
-                    from .ifc_port_inventory import inventory as ifc_port_inventory, gap_status
+                    from .ifc_port_inventory import inventory as ifc_port_inventory, review_status as ifc_review_status
                     original=declared[name]
-                    source=local_path(Path(source_plan['path']).resolve().parent,original['source'])
+                    plan_root=Path(source_plan['path']).resolve().parent
+                    source=local_path(plan_root,original['source'])
+                    baseline=local_path(plan_root,original['baseline']) if 'baseline' in original else None
                     if (str(source) not in report['inputs'] or not receipt.resolve().is_relative_to(root)
+                            or (baseline is not None and str(baseline) not in report['inputs'])
                             or receipt.relative_to(root).as_posix() not in report['artifact_hashes']):
                         raise ProjectError('IFC port review lacks source or artifact pins')
-                    checked=ifc_port_inventory(source,original['tolerance_m'])
-                    expected,_=gap_status(checked['connection_gaps'])
+                    checked=ifc_port_inventory(source,original['tolerance_m'],baseline=baseline)
+                    expected,_=ifc_review_status(checked)
                     if checked!=read_json(receipt) or expected!=task['status']:
                         raise ProjectError('IFC port review differs from reconstructed evidence')
                 except (OSError,ValueError,KeyError,TypeError) as exc:

@@ -154,6 +154,12 @@ Use `requires_pass` for work that needs this particular check. Verification
 reconstructs the report from the source IFC. Actual CLI and MCP trials
 exercised the three states and rejected a changed report with a refreshed
 artifact hash. This gate covers the exported origins and relations.
+An optional plan-relative `baseline` also requires matching exported port
+identities, owners, direction labels and endpoint pairs. Use this when both
+exports are expected to preserve the same topology. No shared port identity
+keeps the comparison pending. In a saved IFC trial, the surviving pair
+passed its gap check after another pair was removed, but the combined review
+failed and the MCP workflow verifier confirmed the recorded failure.
 
 The Revit 2013 IFC2X3 community Duplex Plumbing export at commit
 `31eb1dd0a0406fb9ebf0ebd823b48e1ec95afc08`, SHA-256
