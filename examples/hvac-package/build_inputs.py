@@ -8,7 +8,7 @@ from bsa.air_load import UNITS
 from bsa.workflow import validate_plan
 
 
-def build(output):
+def build(output, *, wrong_peer_control=False):
     root=Path(output).resolve()
     if root.exists():raise ValueError('New example input directory required')
     root.mkdir(parents=True)
@@ -37,6 +37,8 @@ def build(output):
     text('SYNTHETIC HVAC WORKFLOW DEMONSTRATION',-8,8,height=.4)
     text('Fictional inputs and catalogue. Not an engineering design.',-8,7.2)
     text('Centreline diagram. Physical ports and installation remain unverified.',-8,6.6)
+    if wrong_peer_control:
+        text('NEGATIVE CONTROL: two flex connections deliberately swapped.',-8,6)
     bindings={};columns=[1,3.2,5.5,9.5,12.4]
     for x,value in zip(columns,['Section','L/s','Size mm','m/s','Pa/m']):text(value,x,5,'DEMO_TABLE')
     for i,e in enumerate(edges):
@@ -46,11 +48,12 @@ def build(output):
         bindings[e['id']]=dict(line_handle=line.dxf.handle,from_m=a,to_m=b,from_node=e['from'],to_node=e['to'],cells=[dict(handle=c.dxf.handle,expected_text=c.dxf.text) for c in cells])
         text(e['id'],(a[0]+b[0])/2+.15,(a[1]+b[1])/2+.15)
     centers={t['id']:t['center_m'] for t in terminals}
+    swapped = {'T1': nodes['VB'], 'T3': nodes['VA']} if wrong_peer_control else {}
     for leaf,members in tree['leaf_terminals'].items():
         a=nodes[leaf];m.add_circle(a,.12,dxfattribs=dict(layer=layers['vav']));text(leaf,a[0]+.2,a[1]+.3)
         for tid in members:
             x,y=centers[tid]
-            m.add_line(a,(x,y,0),dxfattribs=dict(layer=layers['flex']))
+            m.add_line(swapped.get(tid, a),(x,y,0),dxfattribs=dict(layer=layers['flex']))
             m.add_lwpolyline([(x-.2,y-.2),(x+.2,y-.2),(x+.2,y+.2),(x-.2,y+.2)],close=True,dxfattribs=dict(layer=layers['terminal']))
             text(tid,x-.2,y+.35)
     ref=m.add_line((-8,-4),(2,-4),dxfattribs=dict(layer='DEMO_TABLE'))
@@ -67,4 +70,6 @@ def build(output):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--out',required=True)
-    print(build(p.parse_args().out))
+    p.add_argument('--wrong-peer-control', action='store_true', help='Deliberately swap two flex lines between VAV groups')
+    args = p.parse_args()
+    print(build(args.out, wrong_peer_control=args.wrong_peer_control))

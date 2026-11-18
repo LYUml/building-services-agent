@@ -33,3 +33,12 @@ reopened the altered geometry successfully. Both review interfaces refused a
 report and located the missing expected VA–T1 line by group and terminal ID,
 layer and endpoint coordinates. Native geometric round-trip preservation and
 correct terminal assignment are separately checked in this trial.
+
+To reproduce the negative control, generate the fixture with
+`python examples/hvac-package/build_inputs.py --out <inputs> --wrong-peer-control`.
+Omit `--wrong-peer-control` for the matching positive case. Run
+`bsa workflow <inputs>/plan.json --out <run> --autocad <accoreconsole.exe>`.
+The workflow exits 2 while its manual engineering task is pending. Check that
+the `native` task passed, then run the terminal review for `native` with layers
+`DEMO_DUCT`, `DEMO_VAV`, `DEMO_TERMINAL` and `DEMO_FLEX`, in that order.
+The positive case writes a report and the negative case exits 2 without one.
